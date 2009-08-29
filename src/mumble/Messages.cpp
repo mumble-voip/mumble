@@ -111,7 +111,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 
 	g.sh->getConnectionInfo(host, port, uname, pw);
 
-	QList<Shortcut> sc = Database::getShortcuts(host, port);
+	QList<Shortcut> sc = Database::getShortcuts(g.sh->qbaDigest);
 	if (! sc.isEmpty()) {
 		for (int i=0;i<sc.count(); ++i) {
 			Shortcut &s = sc[i];

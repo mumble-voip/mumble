@@ -75,6 +75,7 @@ class ServerItem : public QTreeWidgetItem {
 
 		QString qsUrl;
 
+		QString qsBonjourHost;
 		BonjourRecord brRecord;
 
 		QList<QHostAddress> qlAddresses;

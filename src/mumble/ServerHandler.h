@@ -79,6 +79,7 @@ class ServerHandler : public QThread {
 		QList<QSslCertificate> qscCert;
 		QSslCipher qscCipher;
 		ConnectionPtr cConnection;
+		QByteArray qbaDigest;
 
 		unsigned int uiVersion;
 		QString qsRelease;

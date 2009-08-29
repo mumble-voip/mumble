@@ -51,22 +51,28 @@ class Database : public QObject {
 		Database();
 		static QList<FavoriteServer> getFavorites();
 		static void setFavorites(const QList<FavoriteServer> &servers);
-		static QStringList getTokens(const QString &hostname, unsigned short port);
+		static void setPassword(const QString &host, unsigned short port, const QString &user, const QString &pw);
+		static bool fuzzyMatch(QString &user, QString &pw, QString &host, unsigned short port);
+
 		static bool seenComment(const QString &hash, const QString &comment);
 		static void setSeenComment(const QString &hash, const QString &comment);
-		static void setTokens(const QString &hostname, unsigned short port, QStringList &tokens);
-		static QList<Shortcut> getShortcuts(const QString &hostname, unsigned short port);
-		static bool setShortcuts(const QString &hostname, unsigned short port, QList<Shortcut> &shortcuts);
+
+		static QStringList getTokens(const QByteArray &digest);
+		static void setTokens(const QByteArray &digest, QStringList &tokens);
+
+		static QList<Shortcut> getShortcuts(const QByteArray &digest);
+		static bool setShortcuts(const QByteArray &digest, QList<Shortcut> &shortcuts);
+
 		static void addFriend(const QString &name, const QString &hash);
 		static void removeFriend(const QString &hash);
 		static const QString getFriend(const QString &hash);
 		static const QMap<QString, QString> getFriends();
+
 		static const QString getDigest(const QString &hostname, unsigned short port);
 		static void setDigest(const QString &hostname, unsigned short port, const QString &digest);
-		static void setPassword(const QString &hostname, unsigned short port, const QString &user, const QString &pw);
-		static bool getUdp(const QString &hostname, unsigned short port);
-		static void setUdp(const QString &hostname, unsigned short port, bool udp);
-		static bool fuzzyMatch(QString &user, QString &pw, QString &hostname, unsigned short port);
+
+		static bool getUdp(const QByteArray &digest);
+		static void setUdp(const QByteArray &digest, bool udp);
 };
 
 #else

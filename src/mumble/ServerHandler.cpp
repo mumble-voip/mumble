@@ -223,6 +223,7 @@ void ServerHandler::sendProtoMessage(const ::google::protobuf::Message &msg, uns
 }
 
 void ServerHandler::run() {
+	qbaDigest = QByteArray();
 	QSslSocket *qtsSock = new QSslSocket(this);
 
 	if (! g.s.bSuppressIdentity && CertWizard::validateCert(g.s.kpCertificate)) {
@@ -243,7 +244,7 @@ void ServerHandler::run() {
 	connect(cConnection.get(), SIGNAL(message(unsigned int, const QByteArray &)), this, SLOT(message(unsigned int, const QByteArray &)));
 	connect(cConnection.get(), SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(setSslErrors(const QList<QSslError> &)));
 
-	bUdp = Database::getUdp(qsHostName, usPort);
+	bUdp = false;
 
 	qtsSock->connectToHostEncrypted(qsHostName, usPort);
 
@@ -360,14 +361,14 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 					else
 						g.mw->msgBox(tr("UDP packets can not be received from the server. Switching to TCP mode."));
 
-					Database::setUdp(qsHostName, usPort, false);
+					Database::setUdp(qbaDigest, false);
 				}
 			} else if (!bUdp && (cs.uiRemoteGood > 3) && (cs.uiGood > 3)) {
 				bUdp = true;
 				if (! NetworkConfig::TcpModeEnabled()) {
 					g.mw->msgBox(tr("UDP packets can be sent to and received from the server. Switching back to UDP mode."));
 
-					Database::setUdp(qsHostName, usPort, true);
+					Database::setUdp(qbaDigest, true);
 				}
 			}
 		}
@@ -398,6 +399,14 @@ void ServerHandler::serverConnectionConnected() {
 	qscCert = cConnection->peerCertificateChain();
 	qscCipher = cConnection->sessionCipher();
 
+	if (! qscCert.isEmpty()) {
+		const QSslCertificate &qsc = qscCert.last();
+		qbaDigest = QCryptographicHash::hash(qsc.publicKey().toDer(), QCryptographicHash::Sha1);
+		bUdp = Database::getUdp(qbaDigest);
+	} else {
+		bUdp = true;
+	}
+
 	MumbleProto::Version mpv;
 	mpv.set_release(u8(QLatin1String(MUMBLE_RELEASE)));
 
@@ -416,7 +425,7 @@ void ServerHandler::serverConnectionConnected() {
 	mpa.set_username(u8(qsUserName));
 	mpa.set_password(u8(qsPassword));
 
-	QStringList tokens = Database::getTokens(qsHostName, usPort);
+	QStringList tokens = Database::getTokens(qbaDigest);
 	foreach(const QString &qs, tokens)
 		mpa.add_tokens(u8(qs));
 

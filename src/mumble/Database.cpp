@@ -88,17 +88,23 @@ Database::Database() {
 
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `servers` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hostname` TEXT, `port` INTEGER DEFAULT 64738, `username` TEXT, `password` TEXT)"));
 	query.exec(QLatin1String("ALTER TABLE `servers` ADD COLUMN `url` TEXT"));
+
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `comments` (`who` TEXT, `comment` BLOB, `seen` DATE)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `comments_comment` ON `comments`(`who`, `comment`)"));
 	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `comments_seen` ON `comments`(`seen`)"));
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `tokens` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `token` TEXT)"));
-	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `tokens_host_port` ON `tokens`(`hostname`,`port`)"));
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `shortcut` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `shortcut` BLOB, `target` BLOB, `suppress` INTEGER)"));
-	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `shortcut_host_port` ON `shortcut`(`hostname`,`port`)"));
+
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `tokens` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `digest` BLOB, `token` TEXT)"));
+	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `tokens_host_port` ON `tokens`(`digest`)"));
+
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `shortcut` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `digest` BLOB, `shortcut` BLOB, `target` BLOB, `suppress` INTEGER)"));
+	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `shortcut_host_port` ON `shortcut`(`digest`)"));
+
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `udp` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `digest` BLOB)"));
+	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `udp_host_port` ON `udp`(`digest`)"));
+
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `cert` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `digest` TEXT)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `cert_host_port` ON `cert`(`hostname`,`port`)"));
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `udp` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER)"));
-	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `udp_host_port` ON `udp`(`hostname`,`port`)"));
+
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `friends` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hash` TEXT)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_name` ON `friends`(`name`)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_hash` ON `friends`(`hash`)"));
@@ -176,13 +182,12 @@ void Database::setSeenComment(const QString &hash, const QString &comment) {
 	query.exec();
 }
 
-QStringList Database::getTokens(const QString &hostname, unsigned short port) {
+QStringList Database::getTokens(const QByteArray &digest) {
 	QList<QString> qsl;
 	QSqlQuery query;
 
-	query.prepare(QLatin1String("SELECT `token` FROM `tokens` WHERE `hostname` = ? AND `port` = ?"));
-	query.addBindValue(hostname);
-	query.addBindValue(port);
+	query.prepare(QLatin1String("SELECT `token` FROM `tokens` WHERE `digest` = ?"));
+	query.addBindValue(digest);
 	query.exec();
 	while (query.next()) {
 		qsl << query.value(0).toString();
@@ -190,30 +195,27 @@ QStringList Database::getTokens(const QString &hostname, unsigned short port) {
 	return qsl;
 }
 
-void Database::setTokens(const QString &hostname, unsigned short port, QStringList &tokens) {
+void Database::setTokens(const QByteArray &digest, QStringList &tokens) {
 	QSqlQuery query;
 
-	query.prepare(QLatin1String("DELETE FROM `tokens` WHERE `hostname` = ? AND `port` = ?"));
-	query.addBindValue(hostname);
-	query.addBindValue(port);
+	query.prepare(QLatin1String("DELETE FROM `tokens` WHERE `digest` = ?"));
+	query.addBindValue(digest);
 	query.exec();
 
-	query.prepare(QLatin1String("INSERT INTO `tokens` (`hostname`, `port`, `token`) VALUES (?,?,?)"));
+	query.prepare(QLatin1String("INSERT INTO `tokens` (`digest`, `token`) VALUES (?,?)"));
 	foreach(const QString &qs, tokens) {
-		query.addBindValue(hostname);
-		query.addBindValue(port);
+		query.addBindValue(digest);
 		query.addBindValue(qs);
 		query.exec();
 	}
 }
 
-QList<Shortcut> Database::getShortcuts(const QString &hostname, unsigned short port) {
+QList<Shortcut> Database::getShortcuts(const QByteArray &digest) {
 	QList<Shortcut> ql;
 	QSqlQuery query;
 
-	query.prepare(QLatin1String("SELECT `shortcut`,`target`,`suppress` FROM `shortcut` WHERE `hostname` = ? AND `port` = ?"));
-	query.addBindValue(hostname);
-	query.addBindValue(port);
+	query.prepare(QLatin1String("SELECT `shortcut`,`target`,`suppress` FROM `shortcut` WHERE `digest` = ?"));
+	query.addBindValue(digest);
 	query.exec();
 	while (query.next()) {
 		Shortcut sc;
@@ -240,25 +242,23 @@ QList<Shortcut> Database::getShortcuts(const QString &hostname, unsigned short p
 	return ql;
 }
 
-bool Database::setShortcuts(const QString &hostname, unsigned short port, QList<Shortcut> &shortcuts) {
+bool Database::setShortcuts(const QByteArray &digest, QList<Shortcut> &shortcuts) {
 	QSqlQuery query;
 	bool updated = false;
 
-	query.prepare(QLatin1String("DELETE FROM `shortcut` WHERE `hostname` = ? AND `port` = ?"));
-	query.addBindValue(hostname);
-	query.addBindValue(port);
+	query.prepare(QLatin1String("DELETE FROM `shortcut` WHERE `digest` = ?"));
+	query.addBindValue(digest);
 	query.exec();
 
 	const QList<Shortcut> scs = shortcuts;
 
-	query.prepare(QLatin1String("INSERT INTO `shortcut` (`hostname`, `port`, `shortcut`, `target`, `suppress`) VALUES (?,?,?,?,?)"));
+	query.prepare(QLatin1String("INSERT INTO `shortcut` (`digest`, `shortcut`, `target`, `suppress`) VALUES (?,?,?,?)"));
 	foreach(const Shortcut &sc, scs) {
 		if (sc.isServerSpecific()) {
 			shortcuts.removeAll(sc);
 			updated = true;
 
-			query.addBindValue(hostname);
-			query.addBindValue(port);
+			query.addBindValue(digest);
 
 			QByteArray a;
 			{
@@ -354,11 +354,10 @@ void Database::setPassword(const QString &hostname, unsigned short port, const Q
 	query.exec();
 }
 
-bool Database::getUdp(const QString &hostname, unsigned short port) {
+bool Database::getUdp(const QByteArray &digest) {
 	QSqlQuery query;
-	query.prepare(QLatin1String("SELECT COUNT(*) FROM `udp` WHERE `hostname` = ? AND `port` = ?"));
-	query.addBindValue(hostname);
-	query.addBindValue(port);
+	query.prepare(QLatin1String("SELECT COUNT(*) FROM `udp` WHERE `digest` = ? "));
+	query.addBindValue(digest);
 	query.exec();
 	if (query.next()) {
 		return (query.value(0).toInt() == 0);
@@ -366,14 +365,13 @@ bool Database::getUdp(const QString &hostname, unsigned short port) {
 	return true;
 }
 
-void Database::setUdp(const QString &hostname, unsigned short port, bool udp) {
+void Database::setUdp(const QByteArray &digest, bool udp) {
 	QSqlQuery query;
 	if (! udp)
-		query.prepare(QLatin1String("REPLACE INTO `udp` (`hostname`,`port`) VALUES (?,?)"));
+		query.prepare(QLatin1String("REPLACE INTO `udp` (`digest`) VALUES (?)"));
 	else
-		query.prepare(QLatin1String("DELETE FROM `udp` WHERE `hostname` = ? AND `port` = ?"));
-	query.addBindValue(hostname);
-	query.addBindValue(port);
+		query.prepare(QLatin1String("DELETE FROM `udp` WHERE `digest` = ?"));
+	query.addBindValue(digest);
 	query.exec();
 }
 

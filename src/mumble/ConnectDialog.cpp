@@ -327,9 +327,9 @@ void ConnectDialog::accept() {
 	qsPassword = si->qsPassword;
 	qsServer = si->qsHostname;
 	if (qsServer.startsWith(QLatin1Char('@'))) {
-		if (si->qlAddresses.isEmpty())
+		qsServer = si->qsBonjourHost;
+		if (qsServer.isEmpty())
 			return;
-		qsServer = si->qlAddresses.at(0).toString();
 	}
 	usPort = si->usPort;
 
@@ -472,6 +472,7 @@ void ConnectDialog::onResolved(BonjourRecord record, QString host, int port) {
 		ServerItem *si = static_cast<ServerItem *>(qtwi);
 		if (si->brRecord == record) {
 			si->usPort = static_cast<unsigned short>(port);
+			si->qsBonjourHost = host;
 			qmLookups.insert(QHostInfo::lookupHost(host, this, SLOT(lookedUp(QHostInfo))), si);
 			return;
 		}

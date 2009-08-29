@@ -1616,7 +1616,7 @@ void MainWindow::serverDisconnected(QString reason) {
 	unsigned short port;
 	g.sh->getConnectionInfo(host, port, uname, pw);
 
-	if (Database::setShortcuts(host, port, g.s.qlShortcuts))
+	if (Database::setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts))
 		GlobalShortcutEngine::engine->bNeedRemap = true;
 
 	if (aclEdit) {

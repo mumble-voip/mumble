@@ -39,8 +39,7 @@ class Tokens : public QDialog, public Ui::Tokens {
 		Q_OBJECT;
 		Q_DISABLE_COPY(Tokens)
 	protected:
-		QString qsHostname;
-		unsigned short usPort;
+		QByteArray qbaDigest;
 	public:
 		Tokens(QWidget *p = NULL);
 	public slots:

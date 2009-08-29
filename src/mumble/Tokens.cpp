@@ -36,9 +36,8 @@
 Tokens::Tokens(QWidget *p) : QDialog(p) {
 	setupUi(this);
 
-	QString uname, pw;
-	g.sh->getConnectionInfo(qsHostname, usPort, uname, pw);
-	QStringList tokens = Database::getTokens(qsHostname, usPort);
+	qbaDigest = g.sh->qbaDigest;
+	QStringList tokens = Database::getTokens(qbaDigest);
 	tokens.sort();
 	foreach(const QString &qs, tokens) {
 		QListWidgetItem *qlwi = new QListWidgetItem(qs);
@@ -56,7 +55,7 @@ void Tokens::accept() {
 		if (! text.isEmpty())
 			qsl << text;
 	}
-	Database::setTokens(qsHostname, usPort, qsl);
+	Database::setTokens(qbaDigest, qsl);
 
 	MumbleProto::Authenticate msg;
 	foreach(const QString &qs, qsl)
