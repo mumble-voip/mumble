@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>505</width>
-    <height>296</height>
+    <width>574</width>
+    <height>366</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -93,6 +93,34 @@
   <action name="qaUrl">
    <property name="text">
     <string>Open Webpage</string>
+   </property>
+  </action>
+  <action name="qaHideUnreachable">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hide unreachable</string>
+   </property>
+   <property name="toolTip">
+    <string>Hide servers that don't reply to ping</string>
+   </property>
+  </action>
+  <action name="qaHideEmpty">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hide empty</string>
+   </property>
+   <property name="toolTip">
+    <string>Hide servers with no users</string>
    </property>
   </action>
  </widget>

@@ -135,6 +135,13 @@ QVariant ServerItem::data(int column, int role) const {
 		QStringList qsl;
 		foreach(const QHostAddress &qha, qlAddresses)
 			qsl << qha.toString();
+
+		double ploss = 100.0;
+		quint32 uiRecv = boost::accumulators::count(* asRight);
+
+		if (uiSent > 0)
+			ploss = (uiSent - uiRecv) * 100. / uiSent;
+
 		return QLatin1String("<table>") +
 			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Name"), qsName) +
 			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Hostname"), qsHostname) +
@@ -142,11 +149,13 @@ QVariant ServerItem::data(int column, int role) const {
 			  	QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bonjour name"), qsBonjourHost)) +
 			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Port")).arg(usPort) +
 			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Addresses"),qsl.join(QLatin1String(", ")) +
-			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping packets"), QString::fromLatin1("%1/%2").arg(boost::accumulators::count(* asRight)).arg(uiSent)) +
-			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (80%)"), ConnectDialog::tr("%1 ms").
-				arg(boost::accumulators::non_coherent_tail_mean(* asRight, boost::accumulators::quantile_probability = 0.80) / 1000., 0, 'f', 2)) +
-			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (95%)"), ConnectDialog::tr("%1 ms").
-				arg(boost::accumulators::non_coherent_tail_mean(* asRight, boost::accumulators::quantile_probability = 0.95) / 1000., 0, 'f', 2)) +
+			((uiSent == 0) ? QString() : (
+				QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Packet loss"), QString::fromLatin1("%1% (%2/%3)").arg(ploss, 0, 'f', 1).arg(uiRecv).arg(uiSent)) +
+				QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (80%)"), ConnectDialog::tr("%1 ms").
+					arg(boost::accumulators::non_coherent_tail_mean(* asRight, boost::accumulators::quantile_probability = 0.80) / 1000., 0, 'f', 2)) +
+				QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (95%)"), ConnectDialog::tr("%1 ms").
+					arg(boost::accumulators::non_coherent_tail_mean(* asRight, boost::accumulators::quantile_probability = 0.95) / 1000., 0, 'f', 2))
+			)) +
 			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bandwidth"), ConnectDialog::tr("%1 kbit/s").arg(uiBandwidth / 1000))) +
 			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Users"), QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers)) +
 			QLatin1String("</table>");
@@ -154,8 +163,24 @@ QVariant ServerItem::data(int column, int role) const {
 	return QTreeWidgetItem::data(column, role);
 }
 
+void ServerItem::hideCheck() {
+	bool hide = false;
+	if (itType == PublicType) {
+		if (g.s.bHideEmpty && ! uiUsers)
+			hide = true;
+		else if (g.s.bHideUnreachable && ! uiPing)
+			hide = true;
+	}
+	if (hide != isHidden()) {
+		if (! hide)
+			emitDataChanged();
+		setHidden(hide);
+	}
+}
+
 void ServerItem::setDatas() {
-	emitDataChanged();
+	if (! isHidden())
+		emitDataChanged();
 }
 
 FavoriteServer ServerItem::toFavoriteServer() const {
@@ -308,7 +333,13 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	connect(qusSocket4, SIGNAL(readyRead()), this, SLOT(udpReply()));
 	connect(qusSocket6, SIGNAL(readyRead()), this, SLOT(udpReply()));
 
+	qaHideUnreachable->setChecked(g.s.bHideUnreachable);
+	qaHideEmpty->setChecked(g.s.bHideEmpty);
+
 	qmPopup = new QMenu(this);
+	qmFilters = new QMenu(tr("Filters"), this);
+	qmFilters->addAction(qaHideUnreachable);
+	qmFilters->addAction(qaHideEmpty);
 
 	initList();
 	fillList();
@@ -429,6 +460,20 @@ void ConnectDialog::on_qaUrl_triggered() {
 	QDesktopServices::openUrl(QUrl(si->qsUrl));
 }
 
+void ConnectDialog::on_qaHideUnreachable_triggered() {
+	g.s.bHideUnreachable = qaHideUnreachable->isChecked();
+
+	foreach(QTreeWidgetItem *qtwi, qtwServers->findItems(QString(), Qt::MatchStartsWith))
+		static_cast<ServerItem *>(qtwi)->hideCheck();
+}
+
+void ConnectDialog::on_qaHideEmpty_triggered() {
+	g.s.bHideEmpty = qaHideEmpty->isChecked();
+
+	foreach(QTreeWidgetItem *qtwi, qtwServers->findItems(QString(), Qt::MatchStartsWith))
+		static_cast<ServerItem *>(qtwi)->hideCheck();
+}
+
 void ConnectDialog::on_qtwServers_customContextMenuRequested (const QPoint &mpos) {
 	ServerItem *si = static_cast<ServerItem *>(qtwServers->itemAt(mpos));
 
@@ -446,6 +491,9 @@ void ConnectDialog::on_qtwServers_customContextMenuRequested (const QPoint &mpos
 	}
 	if (si && ! si->qsUrl.isEmpty())
 		qmPopup->addAction(qaUrl);
+
+	qmPopup->addSeparator();
+	qmPopup->addMenu(qmFilters);
 
 	qmPopup->popup(qtwServers->viewport()->mapToGlobal(mpos), NULL);
 }
@@ -545,6 +593,8 @@ void ConnectDialog::fillList() {
 	}
 
 	qtwServers->addTopLevelItems(ql);
+	foreach(QTreeWidgetItem *qtwi, ql)
+		static_cast<ServerItem *>(qtwi)->hideCheck();
 }
 
 void ConnectDialog::pingList() {
@@ -661,6 +711,7 @@ void ConnectDialog::udpReply() {
 				si->uiPing = lroundf(si->dPing / 1000.);
 
 				si->setDatas();
+				si->hideCheck();
 			}
 		}
 	}

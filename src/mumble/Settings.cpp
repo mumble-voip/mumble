@@ -164,6 +164,9 @@ Settings::Settings() {
 	bAdvancedACLCfg = false;
 	iWindowLayout = LayoutClassic;
 
+	bHideUnreachable = true;
+	bHideEmpty = false;
+
 	iOutputDelay = 5;
 
 	qsALSAInput=QLatin1String("default");
@@ -385,6 +388,8 @@ void Settings::load() {
 	SAVELOAD(qbaHeaderState, "ui/header");
 	SAVELOAD(qsUsername, "ui/username");
 	SAVELOAD(qsLastServer, "ui/server");
+	SAVELOAD(bHideUnreachable, "ui/hideunreachable");
+	SAVELOAD(bHideEmpty, "ui/hideempty");
 #ifndef NO_UPDATE_CHECK
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 	SAVELOAD(bPluginCheck, "ui/plugincheck");
@@ -552,6 +557,8 @@ void Settings::save() {
 	SAVELOAD(qbaHeaderState, "ui/header");
 	SAVELOAD(qsUsername, "ui/username");
 	SAVELOAD(qsLastServer, "ui/server");
+	SAVELOAD(bHideUnreachable, "ui/hideunreachable");
+	SAVELOAD(bHideEmpty, "ui/hideempty");
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 	SAVELOAD(bPluginCheck, "ui/plugincheck");
 	SAVELOAD(bHideTray, "ui/hidetray");

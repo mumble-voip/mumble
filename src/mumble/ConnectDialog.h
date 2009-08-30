@@ -105,6 +105,8 @@ class ServerItem : public QTreeWidgetItem {
 		bool operator< (const QTreeWidgetItem &) const;
 
 		QVariant data(int column, int role) const;
+
+		void hideCheck();
 };
 
 class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
@@ -131,7 +133,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		static Timer tPublicServers;
 		static int iPingIndex;
 
-		QMenu *qmPopup;
+		QMenu *qmPopup, *qmFilters;
 
 		bool bPublicInit;
 
@@ -173,6 +175,8 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void on_qaFavoriteAddNew_triggered();
 		void on_qaFavoriteEdit_triggered();
 		void on_qaFavoriteRemove_triggered();
+		void on_qaHideUnreachable_triggered();
+		void on_qaHideEmpty_triggered();
 		void on_qaUrl_triggered();
 		void on_qtwServers_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
 		void on_qtwServers_itemDoubleClicked(QTreeWidgetItem *, int);

@@ -168,6 +168,8 @@ struct Settings {
 
 	QString qsUsername;
 	QString qsLastServer;
+	bool bHideUnreachable;
+	bool bHideEmpty;
 
 	bool bUpdateCheck;
 	bool bPluginCheck;
