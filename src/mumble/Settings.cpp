@@ -289,7 +289,7 @@ void Settings::load() {
 	SAVELOAD(uiDoublePush, "audio/doublepush");
 	SAVELOAD(bPushClick, "audio/pushclick");
 	SAVELOAD(qsPushClickOn, "audio/pushclickon");
-	SAVELOAD(qsPushClickOff, "audi/pushclickoff");
+	SAVELOAD(qsPushClickOff, "audio/pushclickoff");
 	SAVELOAD(iQuality, "audio/quality");
 	SAVELOAD(iMinLoudness, "audio/loudness");
 	SAVELOAD(fVolume, "audio/volume");
@@ -461,7 +461,7 @@ void Settings::save() {
 	SAVELOAD(uiDoublePush, "audio/doublepush");
 	SAVELOAD(bPushClick, "audio/pushclick");
 	SAVELOAD(qsPushClickOn, "audio/pushclickon");
-	SAVELOAD(qsPushClickOff, "audi/pushclickoff");
+	SAVELOAD(qsPushClickOff, "audio/pushclickoff");
 	SAVELOAD(iQuality, "audio/quality");
 	SAVELOAD(iMinLoudness, "audio/loudness");
 	SAVELOAD(fVolume, "audio/volume");
