@@ -288,11 +288,42 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setText(tr("Connect"));
 
+	QPushButton *qpb = new QPushButton(tr("Add New..."), this);
+	qpb->setDefault(false);
+	qpb->setAutoDefault(false);
+	connect(qpb, SIGNAL(clicked()), qaFavoriteAddNew, SIGNAL(triggered()));
+	qdbbButtonBox->addButton(qpb, QDialogButtonBox::ActionRole);
+
 	qtwServers->sortItems(2, Qt::AscendingOrder);
 	qtwServers->header()->setResizeMode(0, QHeaderView::Stretch);
 	qtwServers->header()->setResizeMode(1, QHeaderView::ResizeToContents);
 	qtwServers->header()->setResizeMode(2, QHeaderView::ResizeToContents);
 	qtwServers->header()->setResizeMode(3, QHeaderView::ResizeToContents);
+
+	qaShowAll->setChecked(false);
+	qaShowReachable->setChecked(false);
+	qaShowPopulated->setChecked(false);
+
+	qagFilters = new QActionGroup(this);
+	qagFilters->addAction(qaShowAll);
+	qagFilters->addAction(qaShowReachable);
+	qagFilters->addAction(qaShowPopulated);
+
+	connect(qagFilters, SIGNAL(triggered(QAction *)), this, SLOT(onFiltersTriggered(QAction *)));
+
+	if (! g.s.bHideUnreachable && ! g.s.bHideEmpty)
+		qaShowAll->setChecked(true);
+	else if (! g.s.bHideEmpty)
+		qaShowReachable->setChecked(true);
+	else
+		qaShowPopulated->setChecked(true);
+
+	qmPopup = new QMenu(this);
+	qmFilters = new QMenu(tr("Filters"), this);
+	qmFilters->addAction(qaShowAll);
+	qmFilters->addAction(qaShowReachable);
+	qmFilters->addAction(qaShowPopulated);
+
 
 	QList<QTreeWidgetItem *> ql;
 	QList<FavoriteServer> favorites = Database::getFavorites();
@@ -332,14 +363,6 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	bIPv6 = qusSocket6->bind(QHostAddress(QHostAddress::AnyIPv6), 0);
 	connect(qusSocket4, SIGNAL(readyRead()), this, SLOT(udpReply()));
 	connect(qusSocket6, SIGNAL(readyRead()), this, SLOT(udpReply()));
-
-	qaHideUnreachable->setChecked(g.s.bHideUnreachable);
-	qaHideEmpty->setChecked(g.s.bHideEmpty);
-
-	qmPopup = new QMenu(this);
-	qmFilters = new QMenu(tr("Filters"), this);
-	qmFilters->addAction(qaHideUnreachable);
-	qmFilters->addAction(qaHideEmpty);
 
 	initList();
 	fillList();
@@ -460,15 +483,17 @@ void ConnectDialog::on_qaUrl_triggered() {
 	QDesktopServices::openUrl(QUrl(si->qsUrl));
 }
 
-void ConnectDialog::on_qaHideUnreachable_triggered() {
-	g.s.bHideUnreachable = qaHideUnreachable->isChecked();
-
-	foreach(QTreeWidgetItem *qtwi, qtwServers->findItems(QString(), Qt::MatchStartsWith))
-		static_cast<ServerItem *>(qtwi)->hideCheck();
-}
-
-void ConnectDialog::on_qaHideEmpty_triggered() {
-	g.s.bHideEmpty = qaHideEmpty->isChecked();
+void ConnectDialog::onFiltersTriggered(QAction *act) {
+	if (act == qaShowAll) {
+		g.s.bHideEmpty = false;
+		g.s.bHideUnreachable = false;
+	} else if (act == qaShowReachable) {
+		g.s.bHideEmpty = false;
+		g.s.bHideUnreachable = true;
+	} else {
+		g.s.bHideEmpty = true;
+		g.s.bHideUnreachable = true;
+	}
 
 	foreach(QTreeWidgetItem *qtwi, qtwServers->findItems(QString(), Qt::MatchStartsWith))
 		static_cast<ServerItem *>(qtwi)->hideCheck();

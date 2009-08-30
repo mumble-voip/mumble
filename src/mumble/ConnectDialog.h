@@ -134,6 +134,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		static int iPingIndex;
 
 		QMenu *qmPopup, *qmFilters;
+		QActionGroup *qagFilters;
 
 		bool bPublicInit;
 
@@ -175,9 +176,8 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void on_qaFavoriteAddNew_triggered();
 		void on_qaFavoriteEdit_triggered();
 		void on_qaFavoriteRemove_triggered();
-		void on_qaHideUnreachable_triggered();
-		void on_qaHideEmpty_triggered();
 		void on_qaUrl_triggered();
+		void onFiltersTriggered(QAction *);
 		void on_qtwServers_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
 		void on_qtwServers_itemDoubleClicked(QTreeWidgetItem *, int);
 		void on_qtwServers_customContextMenuRequested (const QPoint &);

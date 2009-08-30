@@ -95,7 +95,7 @@
     <string>Open Webpage</string>
    </property>
   </action>
-  <action name="qaHideUnreachable">
+  <action name="qaShowReachable">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -103,13 +103,13 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Hide unreachable</string>
+    <string>Show Reachable</string>
    </property>
    <property name="toolTip">
-    <string>Hide servers that don't reply to ping</string>
+    <string>Show all servers that respond to ping</string>
    </property>
   </action>
-  <action name="qaHideEmpty">
+  <action name="qaShowPopulated">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -117,10 +117,21 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Hide empty</string>
+    <string>Show Populated</string>
    </property>
    <property name="toolTip">
-    <string>Hide servers with no users</string>
+    <string>Show all servers with users</string>
+   </property>
+  </action>
+  <action name="qaShowAll">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show All</string>
+   </property>
+   <property name="toolTip">
+    <string>Show all servers</string>
    </property>
   </action>
  </widget>
