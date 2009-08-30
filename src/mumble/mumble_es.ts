@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="es">
-<defaultcodec></defaultcodec>
+<!DOCTYPE TS>
+<TS version="2.0" language="es">
 <context>
     <name>ACLEditor</name>
     <message>
@@ -2398,7 +2398,7 @@
     <message>
         <location filename="AudioWizard.cpp" line="502"/>
         <source>If you position the microphone so it can pick up the speakers or headset, Mumble will measure the total audio path delay in your system; this means the delay from a sample is placed in an outbound buffer until it&apos;s found in a matching incoming buffer.</source>
-        <translation>Si coloca su micrófono de forma que recoja el sonido de sus altavoces o auriculares, Mumble medirá el retraso total de la ruta de audio en su sistema; esto quiere decir el retraso desde que una muestra se colocada en un búfer de salida hasta que vuelve a ser encuentrada en un búfer entrante.</translation>
+        <translation>Si coloca su micrófono de forma que recoja el sonido de sus altavoces o auriculares, Mumble medirá el retraso total de la ruta de audio en su sistema; esto quiere decir el retraso desde que una muestra se colocada en un búfer de salida hasta que vuelve a ser encontrada en un búfer de entrada.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="793"/>
@@ -2453,7 +2453,7 @@
     <message>
         <location filename="AudioWizard.cpp" line="283"/>
         <source>Mumble supports positional audio for some games, and will position the voice of other players relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other player is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here.</source>
-        <translation>Mumble soporta audio posicional para algunos juegos, y posicionará la voz de otros jugadores en relación a su posición en el juego. Dependiendo de su posición, el volúmen de la voz cambiará entre los altavoces para simular la dirección y la distancia a la que están los otros jugadores. Tal posicionamiento depende de que la configuración de los altavoces sea correcta en su sistema operativo, por tanto se hará una prueba aquí.</translation>
+        <translation>Mumble soporta audio posicional para algunos juegos, y posicionará la voz de otros jugadores en relación a su posición en el juego. Dependiendo de su posición, el volúmen de la voz cambiará entre los altavoces para simular la dirección y la distancia a la que están los otros jugadores. Tal posicionamiento depende de que la configuración de los altavoces sea correcta en su sistema operativo, así que se hará una prueba aquí.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="288"/>
