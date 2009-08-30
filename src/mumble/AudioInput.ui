@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>340</width>
-    <height>555</height>
+    <width>436</width>
+    <height>512</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -161,10 +161,55 @@
         </property>
        </widget>
       </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="qliIdle">
+        <property name="text">
+         <string>Idle AutoMute</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QSlider" name="qsIdle">
+        <property name="toolTip">
+         <string>How long to remain idle before auto-mute.</string>
+        </property>
+        <property name="whatsThis">
+         <string>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted.</string>
+        </property>
+        <property name="maximum">
+         <number>1800</number>
+        </property>
+        <property name="singleStep">
+         <number>60</number>
+        </property>
+        <property name="pageStep">
+         <number>300</number>
+        </property>
+        <property name="value">
+         <number>1800</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="qlIdle">
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="0" colspan="3">
        <widget class="QStackedWidget" name="qswTransmit">
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="qwPTT">
          <layout class="QGridLayout">
@@ -178,7 +223,7 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
+          <item row="0" column="1" colspan="2">
            <widget class="QSlider" name="qsDoublePush">
             <property name="maximum">
              <number>1000</number>
@@ -194,14 +239,94 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="2">
+          <item row="0" column="3">
            <widget class="QLabel" name="qlDoublePush">
             <property name="text">
              <string>TextLabel</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
+          <item row="3" column="1" colspan="2">
+           <widget class="QLineEdit" name="qlePushClickPathOn">
+            <property name="toolTip">
+             <string>Gets played when the PTT button is pressed</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1" colspan="2">
+           <widget class="QLineEdit" name="qlePushClickPathOff">
+            <property name="toolTip">
+             <string>Gets played when the PTT button is released</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3">
+           <widget class="QPushButton" name="qpbPushClickReset">
+            <property name="toolTip">
+             <string>Reset audio cue to default</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for for the files to their default.</string>
+            </property>
+            <property name="text">
+             <string>Reset</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="3">
+           <widget class="QPushButton" name="qpbPushClickBrowseOn">
+            <property name="toolTip">
+             <string>Browse for on audio file</string>
+            </property>
+            <property name="text">
+             <string>Browse</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="3">
+           <widget class="QPushButton" name="qpbPushClickBrowseOff">
+            <property name="toolTip">
+             <string>Browse for off audio file</string>
+            </property>
+            <property name="text">
+             <string>Browse</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="qlPushClickOff">
+            <property name="text">
+             <string>Off</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="qlPushClickOn">
+            <property name="text">
+             <string>On</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QPushButton" name="qpbPushClickPreview">
+            <property name="toolTip">
+             <string>Preview the audio cues</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; soundfile followed by the current &lt;i&gt;off&lt;/i&gt; soundfile.</string>
+            </property>
+            <property name="text">
+             <string>Preview</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
            <widget class="QCheckBox" name="qcbPushClick">
             <property name="toolTip">
              <string>Audible audio cue when push-to-talk is activated or deactivated</string>
@@ -373,51 +498,6 @@
          </layout>
         </widget>
         <widget class="QWidget" name="qwContinuous"/>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="qliIdle">
-        <property name="text">
-         <string>Idle AutoMute</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QSlider" name="qsIdle">
-        <property name="toolTip">
-         <string>How long to remain idle before auto-mute.</string>
-        </property>
-        <property name="whatsThis">
-         <string>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted.</string>
-        </property>
-        <property name="maximum">
-         <number>1800</number>
-        </property>
-        <property name="singleStep">
-         <number>60</number>
-        </property>
-        <property name="pageStep">
-         <number>300</number>
-        </property>
-        <property name="value">
-         <number>1800</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QLabel" name="qlIdle">
-        <property name="minimumSize">
-         <size>
-          <width>30</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
        </widget>
       </item>
      </layout>
@@ -676,7 +756,6 @@
   <tabstop>qcbDevice</tabstop>
   <tabstop>qcbTransmit</tabstop>
   <tabstop>qsDoublePush</tabstop>
-  <tabstop>qcbPushClick</tabstop>
   <tabstop>qrbSNR</tabstop>
   <tabstop>qrbAmplitude</tabstop>
   <tabstop>qsTransmitHold</tabstop>

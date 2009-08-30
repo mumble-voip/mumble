@@ -745,9 +745,9 @@ void AudioInput::encodeAudioFrame() {
 	if (g.s.bPushClick && (g.s.atTransmit == Settings::PushToTalk)) {
 		AudioOutputPtr ao = g.ao;
 		if (iIsSpeech && ! bPreviousVoice && ao)
-			ao->playSample(QLatin1String(":/on.ogg"));
+			ao->playSample(g.s.qsPushClickOn);
 		else if (ao && !iIsSpeech && bPreviousVoice && ao)
-			ao->playSample(QLatin1String(":/off.ogg"));
+			ao->playSample(g.s.qsPushClickOff);
 	}
 	if (! iIsSpeech && ! bPreviousVoice) {
 		iBitrate = 0;

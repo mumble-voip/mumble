@@ -110,6 +110,8 @@ QDataStream &operator>>(QDataStream &qds, ShortcutTarget &st) {
 		return qds >> st.iChannel >> st.qsGroup >> st.bLinks >> st.bChildren;
 }
 
+const QString Settings::cqsDefaultPushClickOn = QLatin1String(":/on.ogg");
+const QString Settings::cqsDefaultPushClickOff = QLatin1String(":/off.ogg");
 
 Settings::Settings() {
 	qRegisterMetaType<ShortcutTarget>("ShortcutTarget");
@@ -134,7 +136,10 @@ Settings::Settings() {
 	vsVAD = SignalToNoise;
 	fVADmin = 0.80f;
 	fVADmax = 0.98f;
+
 	bPushClick = false;
+	qsPushClickOn = cqsDefaultPushClickOn;
+	qsPushClickOff = cqsDefaultPushClickOff;
 
 	bUserTop = false;
 
@@ -283,6 +288,8 @@ void Settings::load() {
 	LOADENUM(atTransmit, "audio/transmit");
 	SAVELOAD(uiDoublePush, "audio/doublepush");
 	SAVELOAD(bPushClick, "audio/pushclick");
+	SAVELOAD(qsPushClickOn, "audio/pushclickon");
+	SAVELOAD(qsPushClickOff, "audi/pushclickoff");
 	SAVELOAD(iQuality, "audio/quality");
 	SAVELOAD(iMinLoudness, "audio/loudness");
 	SAVELOAD(fVolume, "audio/volume");
@@ -453,6 +460,8 @@ void Settings::save() {
 	SAVELOAD(atTransmit, "audio/transmit");
 	SAVELOAD(uiDoublePush, "audio/doublepush");
 	SAVELOAD(bPushClick, "audio/pushclick");
+	SAVELOAD(qsPushClickOn, "audio/pushclickon");
+	SAVELOAD(qsPushClickOff, "audi/pushclickoff");
 	SAVELOAD(iQuality, "audio/quality");
 	SAVELOAD(iMinLoudness, "audio/loudness");
 	SAVELOAD(fVolume, "audio/volume");

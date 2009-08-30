@@ -44,15 +44,26 @@ class AudioInputDialog : public ConfigWidget, public Ui::AudioInput {
 		QTimer *qtTick;
 		void hideEvent(QHideEvent *event);
 		void showEvent(QShowEvent *event);
+
+		QString browseForAudioFile();
 	public:
 		AudioInputDialog(Settings &st);
 		virtual QString title() const;
 		virtual QIcon icon() const;
+
 	public slots:
 		void save() const;
 		void load(const Settings &r);
 		bool expert(bool);
 		void updateBitrate();
+		void continuePlayback();
+
+		void on_qcbPushClick_clicked(bool);
+		void on_qpbPushClickBrowseOn_clicked();
+		void on_qpbPushClickBrowseOff_clicked();
+		void on_qpbPushClickPreview_clicked();
+		void on_qpbPushClickReset_clicked();
+
 		void on_qsTransmitHold_valueChanged(int v);
 		void on_qsFrames_valueChanged(int v);
 		void on_qsQuality_valueChanged(int v);

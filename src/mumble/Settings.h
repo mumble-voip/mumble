@@ -86,8 +86,13 @@ struct Settings {
 
 	bool bExpert;
 
-	bool bTransmitPosition;
 	bool bPushClick;
+	static const QString cqsDefaultPushClickOn;
+	static const QString cqsDefaultPushClickOff;
+	QString qsPushClickOn;
+	QString qsPushClickOff;
+
+	bool bTransmitPosition;
 	bool bMute, bDeaf;
 	bool bTTS;
 	bool bUserTop;

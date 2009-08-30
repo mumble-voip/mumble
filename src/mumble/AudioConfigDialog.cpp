@@ -81,6 +81,7 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 
 	qcbDevice->view()->setTextElideMode(Qt::ElideRight);
 
+	on_qcbPushClick_clicked(g.s.bPushClick);
 	on_Tick_timeout();
 }
 
@@ -103,6 +104,9 @@ void AudioInputDialog::load(const Settings &r) {
 	i=keys.indexOf(AudioInputRegistrar::current);
 	if (i >= 0)
 		loadComboBox(qcbSystem, i);
+
+	qlePushClickPathOn->setText(r.qsPushClickOn);
+	qlePushClickPathOff->setText(r.qsPushClickOff);
 
 	loadComboBox(qcbTransmit, r.atTransmit);
 	loadSlider(qsTransmitHold, r.iVoiceHold);
@@ -144,9 +148,12 @@ void AudioInputDialog::save() const {
 	s.iFramesPerPacket = qsFrames->value();
 	s.iFramesPerPacket = (s.iFramesPerPacket == 1) ? 1 : ((s.iFramesPerPacket-1) * 2);
 	s.uiDoublePush = qsDoublePush->value() * 1000;
-	s.bPushClick = qcbPushClick->isChecked();
 	s.atTransmit = static_cast<Settings::AudioTransmit>(qcbTransmit->currentIndex());
 	s.iIdleTime = qsIdle->value();
+
+	s.bPushClick = qcbPushClick->isChecked();
+	s.qsPushClickOn = qlePushClickPathOn->text();
+	s.qsPushClickOff = qlePushClickPathOff->text();
 
 	s.qsAudioInput = qcbSystem->currentText();
 	s.bEcho = qcbEcho->currentIndex() > 0;
@@ -267,6 +274,68 @@ void AudioInputDialog::updateBitrate() {
 	} else {
 		qsQuality->setMinimum(8000);
 	}
+}
+
+void AudioInputDialog::on_qcbPushClick_clicked(bool b) {
+	qpbPushClickBrowseOn->setEnabled(b);
+	qpbPushClickBrowseOff->setEnabled(b);
+	qpbPushClickPreview->setEnabled(b);
+	qpbPushClickReset->setEnabled(b);
+	qlePushClickPathOn->setEnabled(b);
+	qlePushClickPathOff->setEnabled(b);
+	qlPushClickOn->setEnabled(b);
+	qlPushClickOff->setEnabled(b);
+}
+
+QString AudioInputDialog::browseForAudioFile() {
+	SoundFile *sf = NULL;
+	QString file = QFileDialog::getOpenFileName(this, tr("Choose sound file"), QString(), QLatin1String("*.wav *.ogg *.ogv *.oga *.flac"));
+	if (! file.isEmpty()) {
+		if ((sf = AudioOutputSample::loadSndfile(file)) == NULL) {
+			QMessageBox::critical(this,
+					      tr("Invalid sound file"),
+					      tr("The file '%1' does not exist or is not a valid file.").arg(file));
+			return QString();
+		}
+		delete sf;
+	}
+	return file;
+}
+
+void AudioInputDialog::on_qpbPushClickBrowseOn_clicked() {
+	QString qsnew = browseForAudioFile();
+	if (!qsnew.isEmpty())
+		qlePushClickPathOn->setText(qsnew);
+}
+
+void AudioInputDialog::on_qpbPushClickBrowseOff_clicked() {
+	QString qsnew = browseForAudioFile();
+	if (!qsnew.isEmpty())
+		qlePushClickPathOff->setText(qsnew);
+}
+
+void AudioInputDialog::on_qpbPushClickPreview_clicked() {
+	AudioOutputPtr ao = g.ao;
+	if (ao) {
+		AudioOutputSample *s = ao->playSample(qlePushClickPathOn->text());
+		if (s)
+			connect(s, SIGNAL(playbackFinished()), this, SLOT(continuePlayback()));
+		else // If we fail to playback the first play on play at least off
+			ao->playSample(qlePushClickPathOff->text());
+
+	}
+}
+
+void AudioInputDialog::continuePlayback() {
+	AudioOutputPtr ao = g.ao;
+	if (ao) {
+		ao->playSample(qlePushClickPathOff->text());
+	}
+}
+
+void AudioInputDialog::on_qpbPushClickReset_clicked() {
+	qlePushClickPathOn->setText(Settings::cqsDefaultPushClickOn);
+	qlePushClickPathOff->setText(Settings::cqsDefaultPushClickOff);
 }
 
 void AudioInputDialog::on_qcbTransmit_currentIndexChanged(int v) {

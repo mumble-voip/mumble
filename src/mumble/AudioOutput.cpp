@@ -250,6 +250,7 @@ AudioOutputSample::AudioOutputSample(const QString &name, SoundFile *psndfile, b
 
 	iLastConsume = iBufferFilled = 0;
 	bLoop = loop;
+	bEof = false;
 }
 
 AudioOutputSample::~AudioOutputSample() {
@@ -342,6 +343,12 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 
 		iBufferFilled += outlen;
 	} while (iBufferFilled < snum);
+
+	if (eof && !bEof) {
+		emit playbackFinished();
+		bEof = true;
+	}
+
 	return !eof;
 }
 

@@ -192,6 +192,9 @@ class AudioOutputSample : public AudioOutputUser {
 
 		bool bLastAlive;
 		bool bLoop;
+		bool bEof;
+	signals:
+		void playbackFinished();
 	public:
 		static SoundFile* loadSndfile(const QString &filename);
 		virtual bool needSamples(unsigned int snum);
