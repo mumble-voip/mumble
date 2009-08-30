@@ -76,7 +76,6 @@ void BonjourServiceResolver::resolveBonjourRecord(const BonjourRecord &record) {
 }
 
 void BonjourServiceResolver::bonjourSocketReadyRead(int sockfd) {
-	qWarning("Got on %d", sockfd);
 	ResolveRecord *rr = qmResolvers.value(sockfd);
 	qmResolvers.remove(sockfd);
 

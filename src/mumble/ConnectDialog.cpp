@@ -38,10 +38,12 @@ QMap<QString, QIcon> ServerItem::qmIcons;
 
 void ServerItem::initAccumulator() {
 	asRight = new asRightType(boost::accumulators::right_tail_cache_size = 100);
+	dPing = 0.0;
 	uiPing = 0;
 	uiUsers = 0;
 	uiMaxUsers = 0;
 	uiBandwidth = 0;
+	uiSent = 0;
 
 	// Without this, columncount is wrong.
 	setData(0, Qt::DisplayRole, QVariant());
@@ -136,9 +138,15 @@ QVariant ServerItem::data(int column, int role) const {
 		return QLatin1String("<table>") +
 			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Name"), qsName) +
 			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Hostname"), qsHostname) +
+			(qsBonjourHost.isEmpty() ? QString() :
+			  	QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bonjour name"), qsBonjourHost)) +
 			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Port")).arg(usPort) +
 			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Addresses"),qsl.join(QLatin1String(", ")) +
-			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping")).arg(uiPing) +
+			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping packets"), QString::fromLatin1("%1/%2").arg(boost::accumulators::count(* asRight)).arg(uiSent)) +
+			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (80%)"), ConnectDialog::tr("%1 ms").
+				arg(boost::accumulators::non_coherent_tail_mean(* asRight, boost::accumulators::quantile_probability = 0.80) / 1000., 0, 'f', 2)) +
+			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (95%)"), ConnectDialog::tr("%1 ms").
+				arg(boost::accumulators::non_coherent_tail_mean(* asRight, boost::accumulators::quantile_probability = 0.95) / 1000., 0, 'f', 2)) +
 			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bandwidth"), ConnectDialog::tr("%1 kbit/s").arg(uiBandwidth / 1000))) +
 			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Users"), QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers)) +
 			QLatin1String("</table>");
@@ -180,8 +188,8 @@ bool ServerItem::operator <(const QTreeWidgetItem &o) const {
 	}
 
 	if (column == 2) {
-		quint32 a = uiPing ? uiPing : UINT_MAX;
-		quint32 b = other.uiPing ? other.uiPing : UINT_MAX;
+		double a = dPing ? dPing : UINT_MAX;
+		double b = other.dPing ? other.dPing : UINT_MAX;
 		return a < b;
 	}
 	if (column == 3)
@@ -614,10 +622,14 @@ void ConnectDialog::sendPing(ServerItem *si, const QHostAddress &host, unsigned 
 
 	qmActivePings.insert(qpAddress(host, port), si);
 
+	++ si->uiSent;
+
 	if (bIPv4 && host.protocol() == QAbstractSocket::IPv4Protocol)
 		qusSocket4->writeDatagram(blob+4, 12, host, port);
 	else if (bIPv6 && host.protocol() == QAbstractSocket::IPv6Protocol)
 		qusSocket6->writeDatagram(blob+4, 12, host, port);
+	else
+		-- si->uiSent;
 }
 
 
@@ -645,7 +657,8 @@ void ConnectDialog::udpReply() {
 				si->uiBandwidth = qFromBigEndian(ping[5]);
 
 				(* si->asRight)(elapsed);
-				si->uiPing = iroundf(boost::accumulators::non_coherent_tail_mean(* si->asRight, boost::accumulators::quantile_probability = 0.75) / 1000.);
+				si->dPing = boost::accumulators::non_coherent_tail_mean(* si->asRight, boost::accumulators::quantile_probability = 0.75);
+				si->uiPing = lroundf(si->dPing / 1000.);
 
 				si->setDatas();
 			}
