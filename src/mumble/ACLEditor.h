@@ -120,6 +120,8 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		void ACLPermissions_clicked();
 
 		void on_qcbGroupList_activated(const QString &text);
+		void on_qcbGroupList_editTextChanged(const QString & text );
+		void on_qpbGroupAdd_clicked();
 		void on_qpbGroupRemove_clicked();
 		void on_qcbGroupInherit_clicked(bool checked);
 		void on_qcbGroupInheritable_clicked(bool checked);

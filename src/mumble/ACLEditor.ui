@@ -115,6 +115,24 @@ When checked the channel created will be marked as temporary. This means when th
          <layout class="QHBoxLayout">
           <item>
            <widget class="QComboBox" name="qcbGroupList">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>300</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="sizeIncrement">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="toolTip">
              <string>List of groups</string>
             </property>
@@ -124,6 +142,20 @@ This is all the groups currently defined for the channel. To create a new group,
             </property>
             <property name="editable">
              <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="qpbGroupAdd">
+            <property name="toolTip">
+             <string>Add new group</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
+Add a new group.</string>
+            </property>
+            <property name="text">
+             <string>Add</string>
             </property>
            </widget>
           </item>

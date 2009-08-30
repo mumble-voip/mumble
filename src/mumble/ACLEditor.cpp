@@ -845,6 +845,15 @@ void ACLEditor::on_qcbGroupList_activated(const QString &text) {
 	refillGroupRemove();
 	refillGroupInherit();
 	groupEnableCheck();
+	qpbGroupAdd->setEnabled(false);
+}
+
+void ACLEditor::on_qcbGroupList_editTextChanged(const QString & text ) {
+	qpbGroupAdd->setEnabled(!text.isEmpty());
+}
+
+void ACLEditor::on_qpbGroupAdd_clicked() {
+	on_qcbGroupList_activated(qcbGroupList->currentText());
 }
 
 void ACLEditor::on_qpbGroupRemove_clicked() {
