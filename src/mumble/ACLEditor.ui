@@ -86,7 +86,7 @@ This field allows you to easily set and change the password of a channel. In the
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="4" column="1">
         <widget class="QCheckBox" name="qcbChannelTemporary">
          <property name="toolTip">
           <string>Check to create a temporary channel.</string>
@@ -97,6 +97,33 @@ When checked the channel created will be marked as temporary. This means when th
          </property>
          <property name="text">
           <string>Temporary</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QSpinBox" name="qsbChannelPosition">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Channel positioning facility value</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
+This value enables you to interfere in the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</string>
+         </property>
+         <property name="maximum">
+          <number>99</number>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="qlChannelPosition">
+         <property name="text">
+          <string>Position</string>
          </property>
         </widget>
        </item>

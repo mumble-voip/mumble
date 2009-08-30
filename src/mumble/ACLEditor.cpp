@@ -48,9 +48,16 @@ ACLEditor::ACLEditor(int channelparentid, QWidget *p) : QDialog(p) {
 
 	setupUi(this);
 
+	qsbChannelPosition->setRange(INT_MIN, INT_MAX);
+
 	setWindowTitle(tr("Mumble - Add channel"));
 	qtwTab->removeTab(2);
 	qtwTab->removeTab(1);
+
+	if (!g.s.bAdvancedACLCfg) {
+		qsbChannelPosition->hide();
+		qlChannelPosition->hide();
+	}
 
 	// Until I come around implementing it hide the password fields
 	qleChannelPassword->hide();
@@ -82,6 +89,8 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
         if (!g.s.bAdvancedACLCfg) {
 		qtwTab->removeTab(2);
 		qtwTab->removeTab(1);
+		qsbChannelPosition->hide();
+		qlChannelPosition->hide();
 	}
 	qcbChannelTemporary->hide();
 
@@ -92,6 +101,9 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 	if (channelid == 0) qleChannelName->setEnabled(false);
 
 	qteChannelDescription->setPlainText(pChannel->qsDesc);
+
+	qsbChannelPosition->setRange(INT_MIN, INT_MAX);
+	qsbChannelPosition->setValue(pChannel->iPosition);
 
 	QGridLayout *grid = new QGridLayout(qgbACLpermissions);
 
@@ -243,6 +255,7 @@ void ACLEditor::accept() {
 		mpcs.set_name(u8(qleChannelName->text()));
 		mpcs.set_description(u8(qteChannelDescription->toPlainText()));
 		mpcs.set_parent(iChannel);
+		mpcs.set_position(qsbChannelPosition->value());
 		mpcs.set_temporary(qcbChannelTemporary->isChecked());
 		g.sh->sendMessage(mpcs);
 	} else {
@@ -258,6 +271,10 @@ void ACLEditor::accept() {
 		}
 		if (pChannel->qsDesc != qteChannelDescription->toPlainText()) {
 			mpcs.set_description(u8(qteChannelDescription->toPlainText()));
+			b = true;
+		}
+		if (pChannel->iPosition != qsbChannelPosition->value()) {
+			mpcs.set_position(qsbChannelPosition->value());
 			b = true;
 		}
 		if (b) g.sh->sendMessage(mpcs);
