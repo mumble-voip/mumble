@@ -506,18 +506,15 @@ void ConnectDialog::on_qtwServers_customContextMenuRequested (const QPoint &mpos
 
 	if (si && (si->itType == ServerItem::FavoriteType)) {
 		qmPopup->addAction(qaFavoriteEdit);
-		qmPopup->addAction(qaFavoriteAddNew);
 		qmPopup->addAction(qaFavoriteRemove);
 	} else if (si) {
 		qmPopup->addAction(qaFavoriteAdd);
-		qmPopup->addAction(qaFavoriteAddNew);
-	} else {
-		qmPopup->addAction(qaFavoriteAddNew);
 	}
 	if (si && ! si->qsUrl.isEmpty())
 		qmPopup->addAction(qaUrl);
 
-	qmPopup->addSeparator();
+	if (! qmPopup->isEmpty())
+		qmPopup->addSeparator();
 	qmPopup->addMenu(qmFilters);
 
 	qmPopup->popup(qtwServers->viewport()->mapToGlobal(mpos), NULL);
