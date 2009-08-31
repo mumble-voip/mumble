@@ -95,11 +95,6 @@ macx {
 
 	!CONFIG(no-universal) {
 		CONFIG += x86 ppc
-
-		# Precompiled headers are broken when using Makefiles.
-		!macx-xcode {
-			CONFIG += no-pch
-		}
 	}
 
 	INCLUDEPATH *= /opt/mumble-1.2/boost-1_40_0/include
@@ -109,9 +104,11 @@ macx {
 	QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
 	XCODE_PATH=$$system(xcode-select -print-path)
 	QMAKE_MAC_SDK = $${XCODE_PATH}/SDKs/MacOSX10.5.sdk
+
 	QMAKE_CC = $${XCODE_PATH}/usr/bin/gcc-4.2
 	QMAKE_CXX = $${XCODE_PATH}/usr/bin/g++-4.2
 	QMAKE_LINK = $${XCODE_PATH}/usr/bin/g++-4.2
+
 	QMAKE_CFLAGS += -mmacosx-version-min=10.5 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
 	QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
 }

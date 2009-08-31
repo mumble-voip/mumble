@@ -11,6 +11,9 @@ import sys, os, string, re, shutil, plistlib, tempfile, exceptions, datetime
 from subprocess import Popen, PIPE
 from optparse import OptionParser
 
+def gitrev():
+	return os.popen('git show HEAD | grep commit | sed \'s,commit\ ,,\' | head -c6').read()
+
 def codesign(id, path):
 	'''Call the codesign executable.'''
 
@@ -29,49 +32,38 @@ def codesign(id, path):
 
 class AppBundle(object):
 
-	class UniversalBinaryException(exceptions.Exception):
-		pass
-
-	def is_universal_binary(self, bin):
-		'''
-			Determine whether a binary is universal or not.
-		'''
-		families = (('i386'), ('ppc', 'ppc7400'))
-		out = Popen(['lipo', '-info', bin], stdout=PIPE, stderr=PIPE).communicate()[0]
-		if out[:29] == 'Architectures in the fat file':
-			archs = out.replace('\n', '').split('are: ')[1].strip().split(' ')
-			nmatches = 0
-			for arch in archs:
-				for family in families:
-					if arch in family:
-						nmatches += 1
-			return len(families) == nmatches
-		return False
-
-	def change_lib_reference(self, bin, old, new):
-		'''
-			Do some Mach-O voodoo.
-		'''
-		# Change identification
-		if os.path.basename(bin) == new:
-			p = Popen(['install_name_tool', '-id', '@executable_path/../Frameworks/'+new, bin])
-		# Change dependancy
-		else:
-			p = Popen(['install_name_tool', '-change', old, '@executable_path/../Frameworks/'+new, bin])
-		return p.wait()
-
 	def is_system_lib(self, lib):
 		'''
 			Is the library a system library, meaning that we should not include it in our bundle?
 		'''
-		system_libs = (
-			re.compile('^/System/Library/.*$'),
-			re.compile('^/usr/lib/.*$'),
-		)
-		for l in system_libs:
-			if l.match(lib) is not None:
-				return True
+		if lib.startswith('/System/Library/'):
+			return True
+		if lib.startswith('/usr/lib/'):
+			return True
+
 		return False
+
+	def is_dylib(self, lib):
+		'''
+			Is the library a dylib?
+		'''
+		return lib.endswith('.dylib')
+
+	def get_framework_base(self, fw):
+		'''
+			Extracts the base .framework bundle path from a library in an abitrary place in a framework.
+		'''
+		paths = fw.split('/')
+		for i, str in enumerate(paths):
+			if str.endswith('.framework'):
+				return '/'.join(paths[:i+1])
+		return None
+
+	def is_framework(self, lib):
+		'''
+			Is the library a framework?
+		'''
+		return bool(self.get_framework_base(lib))
 
 	def get_binary_libs(self, path):
 		'''
@@ -100,45 +92,78 @@ class AppBundle(object):
 			os.mkdir(fwpath)
 
 		self.handle_binary_libs()
-		self.handle_binary_libs(os.path.join(os.path.abspath(self.bundle), 'Contents', 'MacOS', 'murmurd'))
+
+		# hack: we don't have murmurd in the 11x compat bundle
+		murmurd = os.path.join(os.path.abspath(self.bundle), 'Contents', 'MacOS', 'murmurd')
+		if os.path.exists(murmurd):
+			self.handle_binary_libs(murmurd)
 
 	def handle_binary_libs(self, macho=None):
 		'''
 			Fix up dylib depends for a specific binary.
 		'''
 
-		# Does our fwpath exist?
-		fwpath = os.path.join(os.path.abspath(self.bundle), 'Contents', 'Frameworks')
-		if not os.path.exists(fwpath):
-			os.mkdir(fwpath)
+		# Does our fwpath exist already? If not, create it.
+		if not self.framework_path:
+			self.framework_path = self.bundle + '/Contents/Frameworks'
+			if not os.path.exists(self.framework_path):
+				os.mkdir(self.framework_path)
+			else:
+				shutil.rmtree(self.framework_path)
+				os.mkdir(self.framework_path)
 
+		# If we weren't explicitly told which binary to operate on, pick the
+		# bundle's default executable from its property list.
 		if macho is None:
 			macho = os.path.abspath(self.binary)
 		else:
 			macho = os.path.abspath(macho)
 
+		print macho
+
 		libs = self.get_binary_libs(macho)
+
 		for lib in libs:
 
-			if os.path.isfile(lib) and self.universal and not self.is_universal_binary(lib):
-				raise self.UniversalBinaryException("Library '%s' is not an Universal Binary. Aborting." % lib)
-
+			# Skip system libraries
 			if self.is_system_lib(lib):
 				continue
 
-			# At the moment, the only real framework Mumble uses, that isn't already distributed with Mac OS
-			# X, is Qt. And simply copying the Qt dylibs work just fine. This allows us to get rid of all of
-			# that framework madness in this script (for now, at least... hopefully forever! :-))
-			else:
-				baselib = os.path.basename(lib)
-				dst = os.path.join(fwpath, baselib)
-				self.change_lib_reference(macho, lib, baselib)
+			# Frameworks are 'special'.
+			if self.is_framework(lib):
+				fw_path = self.get_framework_base(lib)
+				basename = os.path.basename(fw_path)
+				name = basename.split('.framework')[0]
+				rel = basename + '/' + name
+				abs = self.framework_path + '/' + rel
 
-				if os.path.basename(macho) == os.path.basename(lib):
-					continue
-				if not os.path.exists(dst):
-					shutil.copy(lib, dst)
-				self.handle_binary_libs(dst)
+				if not basename in self.handled_libs:
+					dst = self.framework_path + '/' + basename
+					shutil.copytree(fw_path, dst, symlinks=True)
+					if name.startswith('Qt'):
+						os.remove(dst + '/Headers')
+						os.remove(dst + '/' + name + '.prl')
+						os.remove(dst + '/' + name + '_debug')
+						os.remove(dst + '/' + name + '_debug.prl')
+						shutil.rmtree(dst + '/Versions/4/Headers')
+						os.remove(dst + '/Versions/4/' + name + '_debug')
+						os.system('install_name_tool -id @executable_path/../Frameworks/%s %s' % (rel, abs))
+						self.handled_libs[basename] = True
+						self.handle_binary_libs(abs)
+				os.system('install_name_tool -change %s @executable_path/../Frameworks/%s %s' % (lib, rel, macho))
+
+			# Regular dylibs
+			else:
+				basename = os.path.basename(lib)
+				rel = basename
+
+				if not basename in self.handled_libs:
+					shutil.copy(lib, self.framework_path  + '/' + basename)
+					abs = self.framework_path + '/' + rel
+					os.system('install_name_tool -id @executable_path/../Frameworks/%s %s' % (rel, abs))
+					self.handled_libs[basename] = True
+					self.handle_binary_libs(abs)
+				os.system('install_name_tool -change %s @executable_path/../Frameworks/%s %s' % (lib, rel, macho))
 
 	def copy_murmur(self):
 		'''
@@ -147,11 +172,6 @@ class AppBundle(object):
 		print ' * Copying murmurd binary'
 		src = os.path.join(self.bundle, '..', 'murmurd')
 		dst = os.path.join(self.bundle, 'Contents', 'MacOS', 'murmurd')
-
-		# Is it universal?
-		if self.universal and not self.is_universal_binary(src):
-			raise self.UniversalBinaryException("Murmur executable is not an Universal Binary. Aborting.")
-
 		shutil.copy(src, dst)
 
 		print ' * Copying murmurd configuration'
@@ -162,7 +182,6 @@ class AppBundle(object):
 		'''
 			Copy the Mumble G15 helper daemon into our Mumble app bundle.
 		'''
-		# Note: the OSX g15helper is i386 only. Don't check for universal binary.
 		print ' * Copying G15 helper'
 		src = os.path.join(self.bundle, '..', 'mumble-g15-helper')
 		dst = os.path.join(self.bundle, 'Contents', 'MacOS', 'mumble-g15-helper')
@@ -217,15 +236,14 @@ class AppBundle(object):
 		print ''
 
 	def __init__(self, bundle, version=None):
+		self.framework_path = ''
+		self.handled_libs = {}
 		self.bundle = bundle
 		self.version = version
 		self.infopath = os.path.join(os.path.abspath(bundle), 'Contents', 'Info.plist')
 		self.infoplist = plistlib.readPlist(self.infopath)
 		self.binary = os.path.join(os.path.abspath(bundle), 'Contents', 'MacOS', self.infoplist['CFBundleExecutable'])
-		self.universal = self.is_universal_binary(self.binary)
 		print ' * Preparing AppBundle'
-		if not self.universal:
-			print ' * Main executable not universal. Disabling universal binary checks.'
 
 
 class FolderObject(object):
@@ -318,7 +336,10 @@ class PackageMaker(FolderObject):
 		'''
 		print ' * Creating installer. Please wait...'
 		if os.path.exists(self.filename):
-			shutil.rmtree(self.filename)
+			if os.path.isdir(self.filename):
+				shutil.rmtree(self.filename)
+			else:
+				os.remove(self.filename)
 		p = Popen(['/Developer/usr/bin/packagemaker',
 		           '--root',     self.tmp,
 		           '--id',       self.id,
@@ -338,6 +359,7 @@ if __name__ == '__main__':
 	parser = OptionParser()
 	parser.add_option('', '--release', dest='release', help='Build a release. This determines the version number of the release.')
 	parser.add_option('', '--snapshot', dest='snapshot', help='Build a snapshot release. This determines the \'snapshot version\'.')
+	parser.add_option('', '--git', help='Build a snapshot release. Use the git revision number as the \'snapshot version\'.')
 	parser.add_option('', '--only-appbundle', dest='only_appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
 	parser.add_option('', '--codesign', dest='codesign', help='Create a codesigned build.')
 
@@ -349,12 +371,15 @@ if __name__ == '__main__':
 		fn = 'release/Mumble-%s.dmg' % ver
 		title = 'Mumble %s' % ver
 	# Snapshot
-	elif options.snapshot:
+	elif options.snapshot or options.git:
 		n = datetime.datetime.now()
 		d = n.strftime('%F-%H%M')
-		ver = options.snapshot
+		if not options.git:
+			ver = options.snapshot
+		else:
+			ver = gitrev()	
 		fn = 'release/Mumble-Snapshot-%s-%s.dmg' % (d, ver)
-		title = 'Mumble Snapshot %s (%s)' % (ver, d)
+		title = 'Mumble Snapshot %s (%s)' % (ver, d)		
 	else:
 		print 'Neither snapshot or release selected. Bailing.'
 		sys.exit(1)
@@ -371,11 +396,21 @@ if __name__ == '__main__':
 	a.copy_murmur()
 	a.copy_g15helper()
 	a.handle_libs()
-	a.copy_resources(['icons/mumble.icns','/opt/mumble-1.2/qt-framework-4.5.2/lib/QtGui.framework/Versions/4/Resources/qt_menu.nib'])
+	a.copy_resources(['icons/mumble.icns'])
 	a.copy_plugins()
 	a.copy_qt_plugins()
 	a.update_plist()
 	a.done()
+
+	# Fix Mumble11x
+	c = AppBundle('release/Mumble11x.app', ver)
+	c.copy_g15helper()
+	c.handle_libs()
+	c.copy_resources(['icons/mumble.icns'])
+	c.copy_plugins()
+	c.copy_qt_plugins()
+	c.update_plist()
+	c.done()
 
 	# Sign our binaries, etc.
 	if options.codesign:
@@ -385,6 +420,9 @@ if __name__ == '__main__':
 			'release/Mumble.app/Contents/MacOS/murmurd',
 			'release/Mumble.app/Contents/MacOS/mumble-g15-helper',
 			'release/Mumble.app/Contents/Plugins/liblink.dylib',
+			'release/Mumble11x.app/',
+			'release/Mumble11x.app/Contents/MacOS/mumble-g15-helper',
+			'release/Mumble11x.app/Contents/Plugins/liblink.dylib',
 			'release/MumbleOverlayContextMenu.plugin',
 			'release/Overlay.bundle',
 			'release/Stub.bundle',
@@ -401,14 +439,7 @@ if __name__ == '__main__':
 	f = PackageMaker('release/Mumble-Base.pkg', 'net.sourceforge.mumble.base', 'Mumble Base', ver)
 	f.mkdir('/Applications/')
 	f.copy('release/Mumble.app', '/Applications/Mumble.app')
-	f.mkdir('/Library/')
-	f.mkdir('/Library/MumbleOverlay/')
-	f.mkdir('/Library/MumbleOverlay/Bundles/')
-	f.copy('release/mumble-overlay-injector', '/Library/MumbleOverlay/')
-	f.copy('release/mumble-overlay', '/Library/MumbleOverlay/')
-	f.copy('release/Stub.bundle', '/Library/MumbleOverlay/Bundles/')
-	f.copy('release/Overlay.bundle', '/Library/MumbleOverlay/Bundles/')
-	f.copy('release/MumbleOverlayContextMenu.plugin', '/Library/Contextual Menu Items/')
+	f.copy('release/Mumble11x.app', '/Applications/Mumble11x.app')
 	f.create()
 
 	# Combine the base installer with our pretty installer wrapper
@@ -419,10 +450,12 @@ if __name__ == '__main__':
 	if p.wait() != 0:
 		print 'Creating master installer failed.'
 		sys.exit(1)
+
 	# A bug in PackageMaker? It doesn't copy over the script itself.
 	shutil.copy('installer_macx/scripts/postflight', 'release/Install Mumble.mpkg/Contents/Packages/Mumble-Base.pkg/Contents/Resources/postflight')
+
 	# Sign package (10.5 ONLY!)
-	# if options.codesign:
+	#if options.codesign:
 	#	p = Popen(('/Developer/usr/bin/packagemaker',
 	#	           '--sign', 'release/Install Mumble.mpkg',
 	#	           '--certificate', options.codesign))

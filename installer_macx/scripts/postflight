@@ -7,11 +7,4 @@ INSTALL_ROOT=$4
 
 # Change owner/group of app bundle
 chown -R root:admin ${INSTALL_DEST}/Applications/Mumble.app/
-
-# Overlay permissions
-chown -R root:wheel ${INSTALL_DEST}/Library/MumbleOverlay/
-chmod 755 ${INSTALL_DEST}/Library/MumbleOverlay/mumble-overlay-injector
-chmod 755 ${INSTALL_DEST}/Library/MumbleOverlay/mumble-overlay
-
-# Context menu plugin
-chown -R root:wheel ${INSTALL_DEST}/Library/Contextual\ Menu\ Items/MumbleOverlayContextMenu.framework/
+chown -R root:admin ${INSTALL_DEST}/Applications/Mumble11x.app/

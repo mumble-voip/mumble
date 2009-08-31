@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleExecutable</key>
-	<string>Mumble</string>
+	<string>Mumble11x</string>
 	<key>CFBundleGetInfoString</key>
 	<string>An open source, low-latency, high quality voice chat software primarily intended for use while gaming.</string>
 	<key>CFBundleIconFile</key>
