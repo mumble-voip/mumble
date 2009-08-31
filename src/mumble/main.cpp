@@ -92,6 +92,8 @@ int main(int argc, char **argv) {
 
 	Global::g_global_struct = new Global();
 
+	qsrand(QDateTime::currentDateTime().toTime_t());
+
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
 	os_init();
 #endif

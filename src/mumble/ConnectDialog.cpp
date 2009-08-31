@@ -45,6 +45,8 @@ void ServerItem::initAccumulator() {
 	uiBandwidth = 0;
 	uiSent = 0;
 
+	uiRand = ( static_cast<quint64>(qrand()) << 32) | static_cast<quint64>(qrand());
+
 	// Without this, columncount is wrong.
 	setData(0, Qt::DisplayRole, QVariant());
 	setData(1, Qt::DisplayRole, QVariant());
@@ -609,12 +611,20 @@ void ConnectDialog::fillList() {
 			if ((pi.qsIp == si->qsHostname) && (pi.usPort == si->usPort)) {
 				found = true;
 
+				si->qsCountry = pi.qsCountry;
+				si->qsCountryCode = pi.qsCountryCode;
 				si->qsUrl = pi.quUrl.toString();
 				si->setDatas();
 			}
 		}
 		if (! found)
 			ql << new ServerItem(pi);
+	}
+
+	qlOld = ql;
+	ql.clear();
+	while (! qlOld.isEmpty()) {
+		ql << qlOld.takeAt(qrand() % qlOld.count());
 	}
 
 	qtwServers->addTopLevelItems(ql);
@@ -636,9 +646,16 @@ void ConnectDialog::timeTick() {
 			qtwServers->setCurrentItem(items.at(0));
 		}
 	}
-	ServerItem *si = static_cast<ServerItem *>(qtwServers->currentItem());
 
-	if (!si || (tCurrent.elapsed() < 1000000ULL)) {
+	ServerItem *current = static_cast<ServerItem *>(qtwServers->currentItem());
+	ServerItem *hover = static_cast<ServerItem *>(qtwServers->itemAt(qtwServers->viewport()->mapFromGlobal(QCursor::pos())));
+
+	ServerItem *si = NULL;
+	if (tCurrent.elapsed() >= 10000ULL)
+		si = current;
+	if (! si && (tHover.elapsed() >= 1000000ULL))
+		si = hover;
+	if (!si) {
 		QList<QTreeWidgetItem *> ql = qtwServers->findItems(QString(), Qt::MatchStartsWith);
 
 		if (ql.isEmpty())
@@ -651,8 +668,6 @@ void ConnectDialog::timeTick() {
 
 		if (! si)
 			return;
-	} else {
-		tCurrent.restart();
 	}
 
 	if (si->qlAddresses.isEmpty()) {
@@ -668,6 +683,11 @@ void ConnectDialog::timeTick() {
 
 	foreach(const QHostAddress &host, si->qlAddresses)
 		sendPing(si, host, si->usPort);
+
+	if (si == current)
+		tCurrent.restart();
+	if (si == hover)
+		tHover.restart();
 }
 
 void ConnectDialog::lookedUp(QHostInfo info) {
@@ -693,7 +713,7 @@ void ConnectDialog::sendPing(ServerItem *si, const QHostAddress &host, unsigned 
 	char blob[16];
 
 	memset(blob, 0, sizeof(blob));
-	* reinterpret_cast<quint64 *>(blob+8) = tPing.elapsed();
+	* reinterpret_cast<quint64 *>(blob+8) = tPing.elapsed() ^ si->uiRand;
 
 	qmActivePings.insert(qpAddress(host, port), si);
 
@@ -726,14 +746,16 @@ void ConnectDialog::udpReply() {
 				quint32 *ping = reinterpret_cast<quint32 *>(blob+4);
 				quint64 *ts = reinterpret_cast<quint64 *>(blob+8);
 
-				quint64 elapsed = tPing.elapsed() - *ts;
+				quint64 elapsed = tPing.elapsed() - (*ts ^ si->uiRand);
 				si->uiUsers = qFromBigEndian(ping[3]);
 				si->uiMaxUsers = qFromBigEndian(ping[4]);
 				si->uiBandwidth = qFromBigEndian(ping[5]);
 
-				(* si->asRight)(elapsed);
+				(* si->asRight)(static_cast<double>(elapsed));
 				si->dPing = boost::accumulators::non_coherent_tail_mean(* si->asRight, boost::accumulators::quantile_probability = 0.75);
 				si->uiPing = lroundf(si->dPing / 1000.);
+
+//				qWarning("%10lld %s: %llx %llx: %f %d %d", elapsed, qPrintable(si->qsName), tPing.elapsed(), (*ts ^ si->uiRand), si->dPing, si->uiPing, si->uiSent);
 
 				si->setDatas();
 				si->hideCheck();

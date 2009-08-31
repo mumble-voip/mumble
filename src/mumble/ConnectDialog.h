@@ -90,6 +90,8 @@ class ServerItem : public QTreeWidgetItem {
 		quint32 uiBandwidth;
 		quint32 uiSent;
 
+		quint64 uiRand;
+
 		double dPing;
 
 		ServerItem(const FavoriteServer &fs);
@@ -139,7 +141,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		bool bPublicInit;
 
 		Timer tPing;
-		Timer tCurrent;
+		Timer tCurrent, tHover;
 		QUdpSocket *qusSocket4;
 		QUdpSocket *qusSocket6;
 		QTimer *qtPingTick;
