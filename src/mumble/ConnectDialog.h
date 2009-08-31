@@ -90,8 +90,6 @@ class ServerItem : public QTreeWidgetItem {
 		quint32 uiBandwidth;
 		quint32 uiSent;
 
-		quint64 uiRand;
-
 		double dPing;
 
 		ServerItem(const FavoriteServer &fs);
@@ -145,7 +143,8 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QUdpSocket *qusSocket4;
 		QUdpSocket *qusSocket6;
 		QTimer *qtPingTick;
-		QHash<qpAddress, ServerItem *> qmActivePings;
+		QHash<qpAddress, quint64> qhPingRand;
+		QHash<qpAddress, QSet<ServerItem *> > qhPings;
 		QMap<int, ServerItem *> qmLookups;
 		bool bIPv4;
 		bool bIPv6;

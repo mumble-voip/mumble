@@ -45,8 +45,6 @@ void ServerItem::initAccumulator() {
 	uiBandwidth = 0;
 	uiSent = 0;
 
-	uiRand = ( static_cast<quint64>(qrand()) << 32) | static_cast<quint64>(qrand());
-
 	// Without this, columncount is wrong.
 	setData(0, Qt::DisplayRole, QVariant());
 	setData(1, Qt::DisplayRole, QVariant());
@@ -651,7 +649,7 @@ void ConnectDialog::timeTick() {
 	ServerItem *hover = static_cast<ServerItem *>(qtwServers->itemAt(qtwServers->viewport()->mapFromGlobal(QCursor::pos())));
 
 	ServerItem *si = NULL;
-	if (tCurrent.elapsed() >= 10000ULL)
+	if (tCurrent.elapsed() >= 1000000ULL)
 		si = current;
 	if (! si && (tHover.elapsed() >= 1000000ULL))
 		si = hover;
@@ -712,21 +710,33 @@ void ConnectDialog::lookedUp(QHostInfo info) {
 void ConnectDialog::sendPing(ServerItem *si, const QHostAddress &host, unsigned short port) {
 	char blob[16];
 
+	qpAddress addr(host, port);
+
+	quint64 uiRand;
+	if (qhPingRand.contains(addr)) {
+		uiRand = qhPingRand.value(addr);
+	} else {
+		uiRand = ( static_cast<quint64>(qrand()) << 32) | static_cast<quint64>(qrand());
+		qhPingRand.insert(addr, uiRand);
+	}
+
 	memset(blob, 0, sizeof(blob));
-	* reinterpret_cast<quint64 *>(blob+8) = tPing.elapsed() ^ si->uiRand;
-
-	qmActivePings.insert(qpAddress(host, port), si);
-
-	++ si->uiSent;
+	* reinterpret_cast<quint64 *>(blob+8) = tPing.elapsed() ^ uiRand;
 
 	if (bIPv4 && host.protocol() == QAbstractSocket::IPv4Protocol)
 		qusSocket4->writeDatagram(blob+4, 12, host, port);
 	else if (bIPv6 && host.protocol() == QAbstractSocket::IPv6Protocol)
 		qusSocket6->writeDatagram(blob+4, 12, host, port);
 	else
-		-- si->uiSent;
-}
+		return;
 
+	QSet<ServerItem *> &qs = qhPings[addr];
+
+	qs.insert(si);
+
+	foreach(si, qs)
+		++ si->uiSent;
+}
 
 void ConnectDialog::udpReply() {
 	QUdpSocket *sock = qobject_cast<QUdpSocket *>(sender());
@@ -739,26 +749,24 @@ void ConnectDialog::udpReply() {
 		int len = sock->readDatagram(blob+4, 24, &host, &port);
 		if (len == 24) {
 			qpAddress address(host, port);
-			if (qmActivePings.contains(address)) {
-				ServerItem *si = qmActivePings.value(address);
-				qmActivePings.remove(address);
-
+			if (qhPings.contains(address)) {
 				quint32 *ping = reinterpret_cast<quint32 *>(blob+4);
 				quint64 *ts = reinterpret_cast<quint64 *>(blob+8);
 
-				quint64 elapsed = tPing.elapsed() - (*ts ^ si->uiRand);
-				si->uiUsers = qFromBigEndian(ping[3]);
-				si->uiMaxUsers = qFromBigEndian(ping[4]);
-				si->uiBandwidth = qFromBigEndian(ping[5]);
+				quint64 elapsed = tPing.elapsed() - (*ts ^ qhPingRand.value(address));
 
-				(* si->asRight)(static_cast<double>(elapsed));
-				si->dPing = boost::accumulators::non_coherent_tail_mean(* si->asRight, boost::accumulators::quantile_probability = 0.75);
-				si->uiPing = lroundf(si->dPing / 1000.);
+				foreach(ServerItem *si, qhPings.value(address)) {
+					si->uiUsers = qFromBigEndian(ping[3]);
+					si->uiMaxUsers = qFromBigEndian(ping[4]);
+					si->uiBandwidth = qFromBigEndian(ping[5]);
 
-//				qWarning("%10lld %s: %llx %llx: %f %d %d", elapsed, qPrintable(si->qsName), tPing.elapsed(), (*ts ^ si->uiRand), si->dPing, si->uiPing, si->uiSent);
+					(* si->asRight)(static_cast<double>(elapsed));
+					si->dPing = boost::accumulators::non_coherent_tail_mean(* si->asRight, boost::accumulators::quantile_probability = 0.75);
+					si->uiPing = lroundf(si->dPing / 1000.);
 
-				si->setDatas();
-				si->hideCheck();
+					si->setDatas();
+					si->hideCheck();
+				}
 			}
 		}
 	}
@@ -775,8 +783,6 @@ void ConnectDialog::finished() {
 	doc.setContent(rep->readAll());
 
 	qlPublicServers.clear();
-	qmLookups.clear();
-	qmActivePings.clear();
 
 	QDomElement root=doc.documentElement();
 	QDomNode n = root.firstChild();
