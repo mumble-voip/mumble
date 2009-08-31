@@ -93,6 +93,10 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	on_qcbInput_activated(qcbInput->currentIndex());
 	on_qcbOutput_activated(qcbOutput->currentIndex());
 
+	abAmplify->qcBelow = Qt::blue;
+	abAmplify->qcInside = Qt::green;
+	abAmplify->qcAbove = Qt::red;
+
 	// Trigger
 	foreach(const Shortcut &s, g.s.qlShortcuts) {
 		if (s.iIndex == g.mw->gsPushTalk->idx) {
