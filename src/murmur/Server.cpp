@@ -1250,6 +1250,8 @@ bool Server::unregisterUser(int id) {
 			mpus.set_session(u->uiSession);
 			mpus.set_user_id(-1);
 			sendAll(mpus);
+
+			u->iId = -1;
 			break;
 		}
 	}

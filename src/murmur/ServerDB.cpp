@@ -635,6 +635,11 @@ bool Server::unregisterUserDB(int id) {
 	query.addBindValue(id);
 	SQLEXEC();
 
+	SQLPREP("DELETE FROM `%1user_info` WHERE `server_id` = ? AND `user_id` = ?");
+	query.addBindValue(iServerNum);
+	query.addBindValue(id);
+	SQLEXEC();
+
 	return true;
 }
 
