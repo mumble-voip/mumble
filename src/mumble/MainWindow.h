@@ -129,6 +129,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void customEvent(QEvent *evt);
 		void findDesiredChannel();
 		void setupView(bool toggle_minimize = true);
+		void setupIconMenu(bool top = false);
 		bool bNoHide;
 		virtual void closeEvent(QCloseEvent *e);
 		virtual void hideEvent(QHideEvent *e);

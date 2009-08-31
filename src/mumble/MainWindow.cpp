@@ -279,12 +279,9 @@ void MainWindow::setupGui()  {
 	setupView(false);
 
 	qmTray = new QMenu(this);
-	qmTray->addAction(qaAudioMute);
-	qmTray->addAction(qaAudioDeaf);
-	qmTray->addSeparator();
-	qmTray->addAction(qaHelpAbout);
-	qmTray->addAction(qaQuit);
+	setupIconMenu(false);
 	qstiIcon->setContextMenu(qmTray);
+
 	updateTrayIcon();
 }
 
@@ -1741,7 +1738,44 @@ void MainWindow::serverDisconnected(QString reason) {
 	AudioInput::setMaxBandwidth(-1);
 }
 
+void MainWindow::setupIconMenu(bool top) {
+	qmTray->clear();
+	if (top) {
+		qmTray->addAction(qaQuit);
+		qmTray->addSeparator();
+		qmTray->addAction(qaAudioDeaf);
+		qmTray->addAction(qaAudioMute);
+		qmTray->addSeparator();
+		qmTray->addAction(qaHelpAbout);
+	} else {
+		qmTray->addAction(qaHelpAbout);
+		qmTray->addSeparator();
+		qmTray->addAction(qaAudioMute);
+		qmTray->addAction(qaAudioDeaf);
+		qmTray->addSeparator();
+		qmTray->addAction(qaQuit);
+	}
+}
+
 void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
+	if (reason == QSystemTrayIcon::Context) {
+		bool top = false;
+
+		QPoint p = qstiIcon->geometry().center();
+		if (p.isNull()) {
+			p = QCursor::pos();
+		}
+
+		QDesktopWidget dw;
+
+		QRect qr = dw.screenGeometry(p);
+
+		if (p.y() < (qr.height() / 2))
+			top = true;
+
+		setupIconMenu(top);
+	}
+
 	if (reason == QSystemTrayIcon::Trigger) {
 		if (! isVisible()) {
 			show();
