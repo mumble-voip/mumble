@@ -74,7 +74,7 @@ class QAppMumble:public QApplication {
 void QAppMumble::commitData(QSessionManager &) {
 	// Make sure the config is saved and supress the ask on quite message
 	g.s.save();
-	g.mw->bSupressAskOnQuit = true;
+	g.mw->bSuppressAskOnQuit = true;
 }
 
 int main(int argc, char **argv) {

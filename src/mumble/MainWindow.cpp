@@ -128,7 +128,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 #ifdef Q_OS_WIN
 	uiNewHardware = 1;
 #endif
-	bSupressAskOnQuit = false;
+	bSuppressAskOnQuit = false;
 
 	Channel::add(0, tr("Root"));
 
@@ -307,7 +307,7 @@ bool MainWindow::winEvent(MSG *msg, long *) {
 
 void MainWindow::closeEvent(QCloseEvent *e) {
 #ifndef Q_OS_MAC
-	if (g.sh && g.sh->isRunning() && g.s.bAskOnQuit && !bSupressAskOnQuit) {
+	if (g.sh && g.sh->isRunning() && g.s.bAskOnQuit && !bSuppressAskOnQuit) {
 		QMessageBox mb(QMessageBox::Warning, tr("Mumble"), tr("Mumble is currently connected to a server. Do you want to Close or Minimize it?"), QMessageBox::NoButton, this);
 		QPushButton *qpbClose = mb.addButton(tr("Close"), QMessageBox::YesRole);
 		QPushButton *qpbMinimize = mb.addButton(tr("Minimize"), QMessageBox::NoRole);
@@ -997,6 +997,7 @@ void MainWindow::on_qaUserComment_triggered() {
 
 
 void MainWindow::on_qaQuit_triggered() {
+	bSuppressAskOnQuit = true;
 	this->close();
 }
 
