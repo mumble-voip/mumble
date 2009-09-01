@@ -2,4 +2,8 @@ TEMPLATE = subdirs
 
 CONFIG += debug_and_release
 
-SUBDIRS = enabler overlay
+!CONFIG(no-input-manager) {
+	SUBDIRS = enabler overlay
+} else {
+	SUBDIRS = overlay
+}

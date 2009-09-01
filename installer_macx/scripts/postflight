@@ -8,3 +8,13 @@ INSTALL_ROOT=$4
 # Change owner/group of app bundle
 chown -R root:admin ${INSTALL_DEST}/Applications/Mumble.app/
 chown -R root:admin ${INSTALL_DEST}/Applications/Mumble11x.app/
+
+# If we installed with an input manager, change the perms accordingly.
+OVERLAY_PATH=${INSTALL_DEST}/Library/InputManagers/MumbleOverlayEnabler/
+if [ -d $OVERLAY_PATH ]; then
+	chown -vR root:admin ${OVERLAY_PATH}
+	chmod -vR 755 ${OVERLAY_PATH}
+	chmod 444 ${OVERLAY_PATH}/Info
+	chmod 444 ${OVERLAY_PATH}/MumbleOverlayEnabler.bundle/Contents/Info.plist
+	chmod 444 ${OVERLAY_PATH}/MumbleOverlay.bundle/Contents/Info.plist
+fi
