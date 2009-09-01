@@ -7,7 +7,7 @@
     <key>CFBundleSignature</key>
     <string>OLAY</string>
     <key>CFBundleExecutable</key>
-    <string>Overlay</string>
+    <string>MumbleOverlay</string>
 </dict>
 </plist>
 

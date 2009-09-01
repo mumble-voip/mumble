@@ -321,7 +321,7 @@ class FolderObject(object):
 		'''
 		print ' * Creating directory %s' % os.path.basename(name)
 		adst = self.tmp + '/'  + name
-		os.mkdir(adst)
+		os.makedirs(adst)
 
 
 class DiskImage(FolderObject):
@@ -389,7 +389,7 @@ if __name__ == '__main__':
 	parser = OptionParser()
 	parser.add_option('', '--release', dest='release', help='Build a release. This determines the version number of the release.')
 	parser.add_option('', '--snapshot', dest='snapshot', help='Build a snapshot release. This determines the \'snapshot version\'.')
-	parser.add_option('', '--git', help='Build a snapshot release. Use the git revision number as the \'snapshot version\'.')
+	parser.add_option('', '--git', dest='git', help='Build a snapshot release. Use the git revision number as the \'snapshot version\'.', action='store_true', default=False)
 	parser.add_option('', '--only-appbundle', dest='only_appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
 	parser.add_option('', '--codesign', dest='codesign', help='Create a codesigned build.')
 
@@ -447,13 +447,18 @@ if __name__ == '__main__':
 	if options.codesign:
 		print ' * Signing binaries with identity `%s\'' % options.codesign
 		binaries = (
+			# 1.2.x
 			'release/Mumble.app',
 			'release/Mumble.app/Contents/MacOS/murmurd',
 			'release/Mumble.app/Contents/MacOS/mumble-g15-helper',
 			'release/Mumble.app/Contents/Plugins/liblink.dylib',
+			# 1.1.x
 			'release/Mumble11x.app/',
 			'release/Mumble11x.app/Contents/MacOS/mumble-g15-helper',
 			'release/Mumble11x.app/Contents/Plugins/liblink.dylib',
+			# overlay
+			'release/MumbleOverlayEnabler/MumbleOverlayEnabler.bundle',
+			'release/MumbleOverlayEnabler/MumbleOverlay.bundle',
 		)
 		codesign(options.codesign, binaries)
 		print ''
@@ -466,6 +471,8 @@ if __name__ == '__main__':
 	f.mkdir('/Applications/')
 	f.copy('release/Mumble.app', '/Applications/Mumble.app')
 	f.copy('release/Mumble11x.app', '/Applications/Mumble11x.app')
+	f.mkdir('/Library/InputManagers/')
+	f.copy('release/MumbleOverlayEnabler', '/Library/InputManagers/MumbleOverlayEnabler')
 	f.create()
 
 	# Combine the base installer with our pretty installer wrapper

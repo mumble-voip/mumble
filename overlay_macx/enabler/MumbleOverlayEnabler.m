@@ -61,8 +61,7 @@
 
 - (id)init {
 
-	/* fixme(mkrautz): Do some permission checks, etc. before loading the bundle. Perhaps validate code signature? */
-	NSBundle *bundle = [[NSBundle alloc] initWithPath:@"/Library/MumbleOverlay/Bundles/Overlay.bundle"];
+	NSBundle *bundle = [[NSBundle alloc] initWithPath:@"/Library/InputManagers/MumbleOverlayEnabler/MumbleOverlay.bundle"];
 
 	if (bundle == nil) {
 		NSLog(@"MumbleOverlayEnabler: Unable to initialize NSBundle object.");
