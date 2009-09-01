@@ -12,6 +12,7 @@ from subprocess import Popen, PIPE
 from optparse import OptionParser
 
 def gitrev():
+	'''Get git revision of the current Mumble build.'''
 	return os.popen('git show HEAD | grep commit | sed \'s,commit\ ,,\' | head -c6').read()
 
 def codesign(id, path):
@@ -76,7 +77,10 @@ class AppBundle(object):
 		for line in libs:
 			g = m.match(line)
 			if g is not None:
-				ret.append(g.groups()[0])
+				lib = g.groups()[0]
+				bn = os.path.basename(path)
+				if not bn in lib:
+					ret.append(lib)
 		return ret
 
 	def handle_libs(self):
@@ -119,8 +123,6 @@ class AppBundle(object):
 		else:
 			macho = os.path.abspath(macho)
 
-		print macho
-
 		libs = self.get_binary_libs(macho)
 
 		for lib in libs:
@@ -135,6 +137,7 @@ class AppBundle(object):
 				basename = os.path.basename(fw_path)
 				name = basename.split('.framework')[0]
 				rel = basename + '/' + name
+
 				abs = self.framework_path + '/' + rel
 
 				if not basename in self.handled_libs:
@@ -216,10 +219,37 @@ class AppBundle(object):
 		'''
 			Copy over any needed Qt plugins.
 		'''
-		print ' * Copying Qt plugins'
-		qtplugindir = os.path.join(self.bundle, 'Contents', 'QtPlugins')
-		if not os.path.exists(qtplugindir):
-			os.mkdir(qtplugindir)
+
+		print ' * Copying Qt and preparing plugins'
+
+		src = os.popen('qmake -query QT_INSTALL_PREFIX').read().strip() + '/plugins'
+		dst = os.path.join(self.bundle, 'Contents', 'QtPlugins')
+		shutil.copytree(src, dst, symlinks=False)
+
+		top = dst
+		files = {}
+
+		def cb(arg, dirname, fnames):
+			if dirname == top:
+				return
+			files[os.path.basename(dirname)] = fnames
+
+		os.path.walk(top, cb, None)
+
+		exclude = ( 'phonon_backend', 'designer', 'script' )
+
+		for dir, files in files.items():
+			absdir = dst + '/' + dir
+			if dir in exclude:
+				shutil.rmtree(absdir)
+				continue
+			for file in files:
+				abs = absdir + '/' + file
+				if file.endswith('_debug.dylib'):
+					os.remove(abs)
+				else:
+					os.system('install_name_tool -id %s %s' % (file, abs))
+					self.handle_binary_libs(abs)
 
 	def update_plist(self):
 		'''
@@ -396,9 +426,10 @@ if __name__ == '__main__':
 	a.copy_murmur()
 	a.copy_g15helper()
 	a.handle_libs()
-	a.copy_resources(['icons/mumble.icns'])
 	a.copy_plugins()
 	a.copy_qt_plugins()
+	a.handle_libs()
+	a.copy_resources(['icons/mumble.icns', 'scripts/qt.conf'])
 	a.update_plist()
 	a.done()
 
@@ -406,9 +437,9 @@ if __name__ == '__main__':
 	c = AppBundle('release/Mumble11x.app', ver)
 	c.copy_g15helper()
 	c.handle_libs()
-	c.copy_resources(['icons/mumble.icns'])
 	c.copy_plugins()
 	c.copy_qt_plugins()
+	c.copy_resources(['icons/mumble.icns', 'scripts/qt.conf'])
 	c.update_plist()
 	c.done()
 
@@ -423,11 +454,6 @@ if __name__ == '__main__':
 			'release/Mumble11x.app/',
 			'release/Mumble11x.app/Contents/MacOS/mumble-g15-helper',
 			'release/Mumble11x.app/Contents/Plugins/liblink.dylib',
-			'release/MumbleOverlayContextMenu.plugin',
-			'release/Overlay.bundle',
-			'release/Stub.bundle',
-			'release/mumble-overlay-injector',
-			'release/mumble-overlay'
 		)
 		codesign(options.codesign, binaries)
 		print ''
