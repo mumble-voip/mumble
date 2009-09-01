@@ -101,6 +101,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QString qsDesiredChannel;
 
 		bool bSuppressAskOnQuit;
+		bool bAutoUnmute;
 
 		void recheckTTS();
 		void msgBox(QString msg);

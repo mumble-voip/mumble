@@ -129,6 +129,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	uiNewHardware = 1;
 #endif
 	bSuppressAskOnQuit = false;
+	bAutoUnmute = false;
 
 	Channel::add(0, tr("Root"));
 
@@ -1281,12 +1282,19 @@ void MainWindow::on_qaAudioMute_triggered() {
 }
 
 void MainWindow::on_qaAudioDeaf_triggered() {
+	if (! qaAudioDeaf->isChecked() && bAutoUnmute) {
+		qaAudioDeaf->setChecked(true);
+		qaAudioMute->setChecked(false);
+		on_qaAudioMute_triggered();
+		return;
+	}
 	AudioInputPtr ai = g.ai;
 	if (ai)
 		ai->tIdle.restart();
 
 	g.s.bDeaf = qaAudioDeaf->isChecked();
 	if (g.s.bDeaf && ! g.s.bMute) {
+		bAutoUnmute = true;
 		g.s.bMute = true;
 		qaAudioMute->setChecked(true);
 		g.l->log(Log::SelfMute, tr("Muted and deafened."));
