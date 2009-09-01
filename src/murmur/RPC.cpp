@@ -33,6 +33,7 @@
 #include "Channel.h"
 #include "Group.h"
 #include "Meta.h"
+#include "ServerDB.h"
 #include "Version.h"
 
 void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, bool suppressed, const QString &comment) {
