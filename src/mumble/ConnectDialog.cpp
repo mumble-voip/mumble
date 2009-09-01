@@ -212,6 +212,20 @@ bool ServerItem::operator <(const QTreeWidgetItem &o) const {
 			return less ^ inverse;
 	}
 
+	if (column == 0) {
+		QString a = text(column).toLower();
+		QString b = other.text(column).toLower();
+
+		QRegExp re(QLatin1String("[^0-9a-z]"));
+		a.remove(re);
+		b.remove(re);
+		return a < b;
+	}
+
+	if (column == 1) {
+		return qsCountry < other.qsCountry;
+	}
+
 	if (column == 2) {
 		double a = dPing ? dPing : UINT_MAX;
 		double b = other.dPing ? other.dPing : UINT_MAX;
@@ -219,14 +233,7 @@ bool ServerItem::operator <(const QTreeWidgetItem &o) const {
 	}
 	if (column == 3)
 		return uiUsers < other.uiUsers;
-
-	QString a = text(column).toLower();
-	QString b = other.text(column).toLower();
-
-	QRegExp re(QLatin1String("[^0-9a-z]"));
-	a.remove(re);
-	b.remove(re);
-	return a < b;
+	return false;
 }
 
 QIcon ServerItem::loadIcon(const QString &name) {
