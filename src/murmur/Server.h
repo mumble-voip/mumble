@@ -169,7 +169,7 @@ class Server : public QThread {
 		Q_DISABLE_COPY(Server);
 	protected:
 		bool bRunning;
-		
+
 #ifdef USE_BONJOUR
 		BonjourServer *bsRegistration;
 #endif

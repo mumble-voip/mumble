@@ -182,7 +182,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void onFiltersTriggered(QAction *);
 		void on_qtwServers_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
 		void on_qtwServers_itemDoubleClicked(QTreeWidgetItem *, int);
-		void on_qtwServers_customContextMenuRequested (const QPoint &);
+		void on_qtwServers_customContextMenuRequested(const QPoint &);
 	public:
 		QString qsServer, qsUsername, qsPassword;
 		unsigned short usPort;

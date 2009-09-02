@@ -378,8 +378,7 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		else if (!bBonjour && bsRegistration)
 			removeBonjour();
 #endif
-	}
-	else if (key == "allowping")
+	} else if (key == "allowping")
 		bAllowPing = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bAllowPing;
 	else if (key == "username")
 		qrUserName=!v.isNull() ? QRegExp(v) : Meta::mp.qrUserName;
@@ -393,7 +392,7 @@ void Server::initBonjour() {
 	if (bsRegistration->bsrRegister) {
 		log("Announcing server via bonjour");
 		bsRegistration->bsrRegister->registerService(BonjourRecord(qsRegName, "_mumble._tcp", ""),
-							     usPort);
+		        usPort);
 	}
 }
 

@@ -1,5 +1,158 @@
-2009-08-22
+2009-09-02
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    e7aacbc  cache hostname lookups
+    38a8581  Don't retry already running DNS lookups. QT will never send us
+	     any reply if we do.
+    730e7d0  Restart timers earlier so we don't block pinging other servers
+	     while waiting for DNS response
+
   Thorvald Natvig <slicer@users.sourceforge.net>
+    d9d7f36  use .value and .insert, and use toLower() for hostnames
+
+2009-09-01
+  Mikkel Krautz <mikkel@krautz.dk>
+    4ed8d8f  Remove superfluous welcome text from the welcome screen of the
+	     OSX installer.
+    ca68ce2  Fix installer_macx to properly install IM-based overlay. Allow
+	     building both an InputManager and a pure .dylib overlay (for
+	     manual injection, for example).
+    9b3ab4b  Working InputManager-based OSX overlay.
+    63c9e94  Add proper Qt plugin support to OSX dist script.
+    4315a94  License scripts for OSX.
+    fdb578a  Update OSX installer for 11x and prepare for new overlay. Make
+	     macx build with pch on by default.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    6e8e547  Auto-unmute on un-deafen
+    8f0b374  Clean up sorting
+    a73d60c  Update includes in RPC so it works under feature-less compiles
+
+2009-08-31
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    475c9c5  Fix unregistation of users
+    b534867  Fix color for amplify audiobar
+    c6fdcc5  Remove "Add New..." from context menu, it's a button
+    b16e765  Share pings for multiple entries for same host/port
+    558f787  Ping randomimzation
+    8194a21  Make Quit from menu always quit, without asking
+    d9a2d47  Order tray menu according to screen position
+
+2009-08-30
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    cafe559  Fix typo in SAVELOAD for audio/pushclickoff.
+    076f6fb  Customizable sound for PTT Audio Cue.
+    6742f2b  Add Channel position QSpinBox to advanced ACL editor.
+    4393235  Add group "Add" button to ACL dialog.
+
+  Hengqing Hu <esrms@users.sourceforge.net>
+    acbb44f  Add BOM and s/LANG_SIMPCHINESE/LANG_TRADCHINESE/
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    31c8de9  Make Filters a group, and add a "Add New..." button
+    4b66e47  Filters
+    46f3f23  Show slightly more pingstats
+
+2009-08-29
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    7800978  Focus name field in channel add/edit.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    ea311ff  Boost 1.40.0 for OSX.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    279ca01  Fix crypto on FreeBSD amd64
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    440f16e  Default sort by ascending ping
+    23275df  Allow up to 1024 byte UDP packets, to contain up to 6*127bytes
+	     audio
+    8911fdc  Update .ini text for pidfile
+    d9cea2c  Digest-based shortcut/token storage
+
+2009-08-28
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    00e8be8  Clean output buffer when skipping frame to avoid crackling.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    80e82e3  Fix MumbleSSL for no-pch.
+    62cf549  Fix Bonjour build for no-pch.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    61391cf  Modify whatsThis in overlay to not mention D3D9 specifically
+    c183557  Boost 1.40 on Win32
+    9ba05ce  Add data() fetcher for ServerItem and tooltips
+    e5c38f4  Show single-value ping again, and show max users
+    ed45391  Accumulator-based ping stats
+    66c0433  Send maxusers in ping
+    383f394  Send maxbandwidth in ping query
+    6e2b006  Validate ConnectDialogEdit
+    093f98f  Always include bonjourrecord.
+    46da19c  Add icon for LAN servers
+    522c27a  Grand Unified Connect
+
+2009-08-27
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    0f5a49d  Make virtual server specific bonjour switch work.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    a2a687d  Remove qt.conf reference in scripts.pro.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    7fe654a  Set default value for bBonjour
+    3a8c8b3  #ifndef MUMBLE_VERSION for release script
+    f3c3546  Make Glacier2 example actually use the proxy
+    491108f  Glacier2 example
+    3a941fd  Show ping and usercount in public server list
+    b13d7f0  Add iSampleRate for 1.1.x
+    c38e741  Drain UDP socket even when thread is not running, and answer
+	     ping requests
+
+2009-08-25
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    baad944  Forward/backward password update in add/edit dialog.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    f1c4138  Fix DirectSound 32khz mode
+    c663db3  Remove ods() for addref/release, impossible to run real apps
+	     with it on
+    8e0cbc8  Release heuristic
+    cafb24c  Include fxo binary in overlay
+    93b6c57  Proof-of-concept DX10 overlay
+
+2009-08-24
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    7057604  Actually impose restrictions on users without password.
+    0dd931c  Add password edit capability to Channel edit dialog.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    9c620aa  Don't try to look-up Avahi packages on the Mac.
+    c2a92d9  Rename 1.1.x plist file to mumble11x.plist.
+    c3a21f8  Do not copy in our own qt.conf for Mac builds. We will move to
+	     using the macdeployqt utility for preparing our app bundle
+	     instead.
+    82a4373  Don't pass incompatible parameters to the Darwin linker.
+    9e9b032  Build fix for g15helper utility.
+    23aff3c  Add InputManager for automatic overlay injection on Mac OS X.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    ad845f5  Fix typo in debug mode for d3d9ex
+    d2a64ee  Start of DXGI Hook
+
+2009-08-23
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    849aa9c  Improve ACL editor layout.
+
+2009-08-22
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    8b7f1d6  Added checkbox to disable image download
+    bbba5fc  Move advanced channel editor switch to options menu.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    865cdab  Precache support for d3d9ex
+    d7b53b0  History-based jitter buffer initialization, and power-based
+	     activity detector.
+    d2b467a  Revert "Fix indenting in changelog script"
+    dc658e2  Fix indenting in changelog script
     040f16d  Make sure audio bandwidth never falls below 8kbit/s
     449cc31  Remove a bunch of compiler warnings
     2e87ec0  Update config dialog to have minimum 24kbit/s for 10ms mode

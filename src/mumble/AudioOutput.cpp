@@ -556,7 +556,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 					float &fPowerMin = p->fPowerMin;
 
 					float pow = 0.0f;
-					for(unsigned int i=0;i<iFrameSize;++i)
+					for (unsigned int i=0;i<iFrameSize;++i)
 						pow += pOut[i] * pOut[i];
 					pow = sqrtf(pow / static_cast<float>(iFrameSize));
 
@@ -574,7 +574,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 					update = (pow < (fPowerMin + 0.01f * (fPowerMax - fPowerMin)));
 				}
 				if (qlFrames.isEmpty() && update)
-						jitter_buffer_update_delay(jbJitter, NULL, NULL);
+					jitter_buffer_update_delay(jbJitter, NULL, NULL);
 
 				if (qlFrames.isEmpty() && bHasTerminator)
 					nextalive = false;

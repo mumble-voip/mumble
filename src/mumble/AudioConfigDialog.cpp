@@ -293,8 +293,8 @@ QString AudioInputDialog::browseForAudioFile() {
 	if (! file.isEmpty()) {
 		if ((sf = AudioOutputSample::loadSndfile(file)) == NULL) {
 			QMessageBox::critical(this,
-					      tr("Invalid sound file"),
-					      tr("The file '%1' does not exist or is not a valid file.").arg(file));
+			                      tr("Invalid sound file"),
+			                      tr("The file '%1' does not exist or is not a valid file.").arg(file));
 			return QString();
 		}
 		delete sf;

@@ -86,7 +86,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 
 	setupUi(this);
 
-        if (!g.s.bAdvancedACLCfg) {
+	if (!g.s.bAdvancedACLCfg) {
 		qtwTab->removeTab(2);
 		qtwTab->removeTab(1);
 		qsbChannelPosition->hide();
@@ -638,11 +638,11 @@ void ACLEditor::updatePasswordField() {
 		// Check for sth that applies to '#<something>' AND grants 'Enter' AND may grant 'Speak', 'Whisper',
 		// 'TextMessage', 'Link' but NOTHING else AND does not deny anything, then '<something>' is the password.
 		if ((*i)->qsGroup.startsWith(QLatin1Char('#')) &&
-		    (*i)->bApplyHere &&
-		    !(*i)->bInherited &&
-		    ((*i)->pAllow & ChanACL::Enter) &&
-		    0 == ((*i)->pAllow & (~(ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel))) &&
-		    (*i)->pDeny == ChanACL::None) {
+		        (*i)->bApplyHere &&
+		        !(*i)->bInherited &&
+		        ((*i)->pAllow & ChanACL::Enter) &&
+		        0 == ((*i)->pAllow & (~(ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel))) &&
+		        (*i)->pDeny == ChanACL::None) {
 			qleChannelPassword->setText((*i)->qsGroup.mid(1));
 			pcaPassword = (*i);
 			break;
@@ -661,19 +661,18 @@ void ACLEditor::updatePasswordACL() {
 			while (i != qlACLs.begin()) {
 				i--;
 				if ((*i)->qsGroup == QLatin1String("all") &&
-				    (*i)->bInherited == false &&
-				    (*i)->bApplyHere == true &&
-				    (*i)->bApplySubs == true &&
-				    (*i)->pAllow == ChanACL::None &&
-				    (*i)->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel)) {
+				        (*i)->bInherited == false &&
+				        (*i)->bApplyHere == true &&
+				        (*i)->bApplySubs == true &&
+				        (*i)->pAllow == ChanACL::None &&
+				        (*i)->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel)) {
 					qlACLs.removeOne(*i);
-					delete (*i);
+					delete(*i);
 					break;
 				}
 			}
 		}
-	}
-	else {
+	} else {
 		// Add or Update
 		if (pcaPassword == NULL || !qlACLs.contains(pcaPassword)) {
 			pcaPassword = new ChanACL(NULL);
@@ -693,8 +692,7 @@ void ACLEditor::updatePasswordACL() {
 			pcaPassword->pDeny = ChanACL::None;
 			pcaPassword->qsGroup = QString(QLatin1String("#%1")).arg(qleChannelPassword->text());
 			qlACLs << pcaPassword;
-		}
-		else {
+		} else {
 			pcaPassword->qsGroup = QString(QLatin1String("#%1")).arg(qleChannelPassword->text());
 		}
 	}
@@ -865,7 +863,7 @@ void ACLEditor::on_qcbGroupList_activated(const QString &text) {
 	qpbGroupAdd->setEnabled(false);
 }
 
-void ACLEditor::on_qcbGroupList_editTextChanged(const QString & text ) {
+void ACLEditor::on_qcbGroupList_editTextChanged(const QString & text) {
 	qpbGroupAdd->setEnabled(!text.isEmpty());
 }
 

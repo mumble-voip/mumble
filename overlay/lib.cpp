@@ -601,8 +601,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					CloseHandle(hHookMutex);
 			}
 			break;
-		case DLL_THREAD_ATTACH:
-			{
+		case DLL_THREAD_ATTACH: {
 				static bool bTriedHook = false;
 				if (! bTriedHook && ! bMumble) {
 					bTriedHook = true;

@@ -124,12 +124,12 @@ QVariant ServerItem::data(int column, int role) const {
 		}
 	} else if (role == Qt::DecorationRole) {
 		if (column == 1) {
-				if (itType == FavoriteType)
-					return loadIcon(QLatin1String(":/emblems/emblem-favorite.svg"));
-				else if (itType == LANType)
-					return loadIcon(QLatin1String(":/places/network-workgroup.svg"));
-				else if (! qsCountryCode.isEmpty())
-					return loadIcon(QString::fromLatin1(":/flags/%1.png").arg(qsCountryCode));
+			if (itType == FavoriteType)
+				return loadIcon(QLatin1String(":/emblems/emblem-favorite.svg"));
+			else if (itType == LANType)
+				return loadIcon(QLatin1String(":/places/network-workgroup.svg"));
+			else if (! qsCountryCode.isEmpty())
+				return loadIcon(QString::fromLatin1(":/flags/%1.png").arg(qsCountryCode));
 		}
 	} else if (role == Qt::ToolTipRole) {
 		QStringList qsl;
@@ -143,22 +143,22 @@ QVariant ServerItem::data(int column, int role) const {
 			ploss = (uiSent - uiRecv) * 100. / uiSent;
 
 		return QLatin1String("<table>") +
-			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Name"), qsName) +
-			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Hostname"), qsHostname) +
-			(qsBonjourHost.isEmpty() ? QString() :
-			  	QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bonjour name"), qsBonjourHost)) +
-			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Port")).arg(usPort) +
-			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Addresses"),qsl.join(QLatin1String(", ")) +
-			((uiSent == 0) ? QString() : (
-				QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Packet loss"), QString::fromLatin1("%1% (%2/%3)").arg(ploss, 0, 'f', 1).arg(uiRecv).arg(uiSent)) +
-				QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (80%)"), ConnectDialog::tr("%1 ms").
-					arg(boost::accumulators::non_coherent_tail_mean(* asRight, boost::accumulators::quantile_probability = 0.80) / 1000., 0, 'f', 2)) +
-				QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (95%)"), ConnectDialog::tr("%1 ms").
-					arg(boost::accumulators::non_coherent_tail_mean(* asRight, boost::accumulators::quantile_probability = 0.95) / 1000., 0, 'f', 2))
-			)) +
-			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bandwidth"), ConnectDialog::tr("%1 kbit/s").arg(uiBandwidth / 1000))) +
-			QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Users"), QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers)) +
-			QLatin1String("</table>");
+		       QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Name"), qsName) +
+		       QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Hostname"), qsHostname) +
+		       (qsBonjourHost.isEmpty() ? QString() :
+		        QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bonjour name"), qsBonjourHost)) +
+		       QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Port")).arg(usPort) +
+		       QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Addresses"),qsl.join(QLatin1String(", ")) +
+		               ((uiSent == 0) ? QString() : (
+		                    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Packet loss"), QString::fromLatin1("%1% (%2/%3)").arg(ploss, 0, 'f', 1).arg(uiRecv).arg(uiSent)) +
+		                    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (80%)"), ConnectDialog::tr("%1 ms").
+		                            arg(boost::accumulators::non_coherent_tail_mean(* asRight, boost::accumulators::quantile_probability = 0.80) / 1000., 0, 'f', 2)) +
+		                    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (95%)"), ConnectDialog::tr("%1 ms").
+		                            arg(boost::accumulators::non_coherent_tail_mean(* asRight, boost::accumulators::quantile_probability = 0.95) / 1000., 0, 'f', 2))
+		                )) +
+		               QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bandwidth"), ConnectDialog::tr("%1 kbit/s").arg(uiBandwidth / 1000))) +
+		       QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Users"), QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers)) +
+		       QLatin1String("</table>");
 	}
 	return QTreeWidgetItem::data(column, role);
 }
@@ -209,7 +209,7 @@ bool ServerItem::operator <(const QTreeWidgetItem &o) const {
 			less = true;
 		else
 			less = false;
-			return less ^ inverse;
+		return less ^ inverse;
 	}
 
 	if (column == 0) {
@@ -506,7 +506,7 @@ void ConnectDialog::onFiltersTriggered(QAction *act) {
 		static_cast<ServerItem *>(qtwi)->hideCheck();
 }
 
-void ConnectDialog::on_qtwServers_customContextMenuRequested (const QPoint &mpos) {
+void ConnectDialog::on_qtwServers_customContextMenuRequested(const QPoint &mpos) {
 	ServerItem *si = static_cast<ServerItem *>(qtwServers->itemAt(mpos));
 
 	qmPopup->clear();
@@ -731,7 +731,7 @@ void ConnectDialog::sendPing(ServerItem *si, const QHostAddress &host, unsigned 
 	if (qhPingRand.contains(addr)) {
 		uiRand = qhPingRand.value(addr);
 	} else {
-		uiRand = ( static_cast<quint64>(qrand()) << 32) | static_cast<quint64>(qrand());
+		uiRand = (static_cast<quint64>(qrand()) << 32) | static_cast<quint64>(qrand());
 		qhPingRand.insert(addr, uiRand);
 	}
 

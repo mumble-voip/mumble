@@ -56,9 +56,8 @@ typedef ULONG(__stdcall *ReleaseType)(ID3D10Device *);
 
 #define HMODREF(mod, func) func##Type p##func = (func##Type) GetProcAddress(mod, #func)
 
-struct SimpleVertex
-{
-    D3DXVECTOR3 Pos;
+struct SimpleVertex {
+	D3DXVECTOR3 Pos;
 };
 
 struct D10State {
@@ -120,12 +119,12 @@ void D10State::init() {
 	pOrigStateBlock->Capture();
 
 	ID3D10Texture2D* pBackBuffer = NULL;
-	hr = pSwapChain->GetBuffer( 0, __uuidof( *pBackBuffer ), ( LPVOID* )&pBackBuffer );
+	hr = pSwapChain->GetBuffer(0, __uuidof(*pBackBuffer), (LPVOID*)&pBackBuffer);
 
 	pDevice->ClearState();
 
 	D3D10_TEXTURE2D_DESC backBufferSurfaceDesc;
-	pBackBuffer->GetDesc( &backBufferSurfaceDesc );
+	pBackBuffer->GetDesc(&backBufferSurfaceDesc);
 
 	D3D10_VIEWPORT vp;
 	vp.Width = backBufferSurfaceDesc.Width;
@@ -134,11 +133,11 @@ void D10State::init() {
 	vp.MaxDepth = 1;
 	vp.TopLeftX = 0;
 	vp.TopLeftY = 0;
-	pDevice->RSSetViewports( 1, &vp );
+	pDevice->RSSetViewports(1, &vp);
 
-	hr = pDevice->CreateRenderTargetView( pBackBuffer, NULL, &pRTV );
+	hr = pDevice->CreateRenderTargetView(pBackBuffer, NULL, &pRTV);
 
-	pDevice->OMSetRenderTargets( 1, &pRTV, NULL );
+	pDevice->OMSetRenderTargets(1, &pRTV, NULL);
 
 	D3D10_BLEND_DESC blend;
 	ZeroMemory(&blend, sizeof(blend));
@@ -157,45 +156,43 @@ void D10State::init() {
 
 	pD3D10CreateEffectFromMemory((void *) g_main, sizeof(g_main), 0, pDevice, NULL, &pEffect);
 
-	pTechnique = pEffect->GetTechniqueByName( "Render" );
+	pTechnique = pEffect->GetTechniqueByName("Render");
 
 	// Define the input layout
-	D3D10_INPUT_ELEMENT_DESC layout[] =
-	{
+	D3D10_INPUT_ELEMENT_DESC layout[] = {
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D10_INPUT_PER_VERTEX_DATA, 0 },
 	};
-	UINT numElements = sizeof( layout ) / sizeof( layout[0] );
+	UINT numElements = sizeof(layout) / sizeof(layout[0]);
 
 	// Create the input layout
 	D3D10_PASS_DESC PassDesc;
-	pTechnique->GetPassByIndex( 0 )->GetDesc( &PassDesc );
-	hr = pDevice->CreateInputLayout( layout, numElements, PassDesc.pIAInputSignature, PassDesc.IAInputSignatureSize, &pVertexLayout );
-	pDevice->IASetInputLayout( pVertexLayout );
+	pTechnique->GetPassByIndex(0)->GetDesc(&PassDesc);
+	hr = pDevice->CreateInputLayout(layout, numElements, PassDesc.pIAInputSignature, PassDesc.IAInputSignatureSize, &pVertexLayout);
+	pDevice->IASetInputLayout(pVertexLayout);
 
 	// Create vertex buffer
-	SimpleVertex vertices[] =
-	{
-		D3DXVECTOR3( 0.0f, 0.9f, 0.5f ),
-		D3DXVECTOR3( 0.9f, -0.9f, 0.5f ),
-		D3DXVECTOR3( -0.9f, -0.9f, 0.5f ),
+	SimpleVertex vertices[] = {
+		D3DXVECTOR3(0.0f, 0.9f, 0.5f),
+		D3DXVECTOR3(0.9f, -0.9f, 0.5f),
+		D3DXVECTOR3(-0.9f, -0.9f, 0.5f),
 	};
 	D3D10_BUFFER_DESC bd;
 	bd.Usage = D3D10_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof( SimpleVertex ) * 3;
+	bd.ByteWidth = sizeof(SimpleVertex) * 3;
 	bd.BindFlags = D3D10_BIND_VERTEX_BUFFER;
 	bd.CPUAccessFlags = 0;
 	bd.MiscFlags = 0;
 	D3D10_SUBRESOURCE_DATA InitData;
 	InitData.pSysMem = vertices;
-	hr = pDevice->CreateBuffer( &bd, &InitData, &pVertexBuffer );
+	hr = pDevice->CreateBuffer(&bd, &InitData, &pVertexBuffer);
 
 	// Set vertex buffer
-	UINT stride = sizeof( SimpleVertex );
+	UINT stride = sizeof(SimpleVertex);
 	UINT offset = 0;
-	pDevice->IASetVertexBuffers( 0, 1, &pVertexBuffer, &stride, &offset );
+	pDevice->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
 
 	// Set primitive topology
-	pDevice->IASetPrimitiveTopology( D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
+	pDevice->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	pMyStateBlock->Capture();
 	pOrigStateBlock->Apply();
@@ -227,12 +224,11 @@ void D10State::draw() {
 
 	// Render a triangle
 	D3D10_TECHNIQUE_DESC techDesc;
-	pTechnique->GetDesc( &techDesc );
-	for( UINT p = 0; p < techDesc.Passes; ++p )
-	{
+	pTechnique->GetDesc(&techDesc);
+	for (UINT p = 0; p < techDesc.Passes; ++p) {
 //		ods("Pass %d", p);
-		pTechnique->GetPassByIndex( p )->Apply( 0 );
-		pDevice->Draw( 3, 0 );
+		pTechnique->GetPassByIndex(p)->Apply(0);
+		pDevice->Draw(3, 0);
 	}
 	pOrigStateBlock->Apply();
 
@@ -410,11 +406,11 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 		ods("Got %p", pCreateDXGIFactory);
 		if (pCreateDXGIFactory) {
 			IDXGIFactory * pFactory;
-			hr = pCreateDXGIFactory(__uuidof(IDXGIFactory), (void**)(&pFactory) );
+			hr = pCreateDXGIFactory(__uuidof(IDXGIFactory), (void**)(&pFactory));
 			if (pFactory) {
-				HWND hwnd = CreateWindowW( L"STATIC", L"Mumble DXGI Window", WS_OVERLAPPEDWINDOW,
-										  CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
-										  NULL, NULL, 0 );
+				HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI Window", WS_OVERLAPPEDWINDOW,
+				                          CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
+				                          NULL, NULL, 0);
 
 				IDXGIAdapter *pAdapter = NULL;
 				pFactory->EnumAdapters(0, &pAdapter);
@@ -427,8 +423,8 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 				DXGI_SWAP_CHAIN_DESC desc;
 				ZeroMemory(&desc, sizeof(desc));
 
-		        RECT rcWnd;
-				GetClientRect(hwnd, &rcWnd );
+				RECT rcWnd;
+				GetClientRect(hwnd, &rcWnd);
 				desc.BufferDesc.Width = rcWnd.right - rcWnd.left;
 				desc.BufferDesc.Height = rcWnd.bottom - rcWnd.top;
 
@@ -456,59 +452,59 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 				hr = pD3D10CreateDeviceAndSwapChain(pAdapter, D3D10_DRIVER_TYPE_HARDWARE, NULL, 0, D3D10_SDK_VERSION, &desc, &pSwapChain, &pDevice);
 
 				if (pDevice && pSwapChain) {
-						HMODULE hRef;
-						void ***vtbl = (void ***) pSwapChain;
-						void *pPresent = (*vtbl)[8];
-						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pPresent, &hRef)) {
-							ods("DXGI: Failed to get module for Present");
-						} else {
-							GetModuleFileNameW(hRef, dxgi->wcDXGIFileName, 2048);
-							unsigned char *b = (unsigned char *) pPresent;
+					HMODULE hRef;
+					void ***vtbl = (void ***) pSwapChain;
+					void *pPresent = (*vtbl)[8];
+					if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pPresent, &hRef)) {
+						ods("DXGI: Failed to get module for Present");
+					} else {
+						GetModuleFileNameW(hRef, dxgi->wcDXGIFileName, 2048);
+						unsigned char *b = (unsigned char *) pPresent;
+						unsigned char *a = (unsigned char *) hRef;
+						dxgi->iOffsetPresent = b-a;
+						ods("DXGI: Successfully found Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
+					}
+
+					void *pResize = (*vtbl)[13];
+					if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pResize, &hRef)) {
+						ods("DXGI: Failed to get module for ResizeBuffers");
+					} else {
+						wchar_t buff[2048];
+						GetModuleFileNameW(hRef, buff, 2048);
+						if (wcscmp(buff, dxgi->wcDXGIFileName) == 0) {
+							unsigned char *b = (unsigned char *) pResize;
 							unsigned char *a = (unsigned char *) hRef;
-							dxgi->iOffsetPresent = b-a;
-							ods("DXGI: Successfully found Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
+							dxgi->iOffsetResize = b-a;
+							ods("DXGI: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
 						}
+					}
 
-						void *pResize = (*vtbl)[13];
-						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pResize, &hRef)) {
-							ods("DXGI: Failed to get module for ResizeBuffers");
-						} else {
-							wchar_t buff[2048];
-							GetModuleFileNameW(hRef, buff, 2048);
-							if (wcscmp(buff, dxgi->wcDXGIFileName) == 0) {
-								unsigned char *b = (unsigned char *) pResize;
-								unsigned char *a = (unsigned char *) hRef;
-								dxgi->iOffsetResize = b-a;
-								ods("DXGI: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
-							}
-						}
+					vtbl = (void ***) pDevice;
 
-						vtbl = (void ***) pDevice;
+					void *pAddRef = (*vtbl)[1];
+					if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pAddRef, &hRef)) {
+						ods("D3D10: Failed to get module for AddRef");
+					} else {
+						GetModuleFileNameW(hRef, dxgi->wcD3D10FileName, 2048);
+						unsigned char *b = (unsigned char *) pAddRef;
+						unsigned char *a = (unsigned char *) hRef;
+						dxgi->iOffsetAddRef = b-a;
+						ods("D3D10: Successfully found AddRef offset: %ls: %d", dxgi->wcD3D10FileName, dxgi->iOffsetAddRef);
+					}
 
-						void *pAddRef = (*vtbl)[1];
-						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pAddRef, &hRef)) {
-							ods("D3D10: Failed to get module for AddRef");
-						} else {
-							GetModuleFileNameW(hRef, dxgi->wcD3D10FileName, 2048);
-							unsigned char *b = (unsigned char *) pAddRef;
+					void *pRelease = (*vtbl)[2];
+					if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pRelease, &hRef)) {
+						ods("D3D10: Failed to get module for Release");
+					} else {
+						wchar_t buff[2048];
+						GetModuleFileNameW(hRef, buff, 2048);
+						if (wcscmp(buff, dxgi->wcD3D10FileName) == 0) {
+							unsigned char *b = (unsigned char *) pRelease;
 							unsigned char *a = (unsigned char *) hRef;
-							dxgi->iOffsetAddRef = b-a;
-							ods("D3D10: Successfully found AddRef offset: %ls: %d", dxgi->wcD3D10FileName, dxgi->iOffsetAddRef);
+							dxgi->iOffsetRelease = b-a;
+							ods("D3D10: Successfully found Release offset: %ls: %d", dxgi->wcD3D10FileName, dxgi->iOffsetRelease);
 						}
-
-						void *pRelease = (*vtbl)[2];
-						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pRelease, &hRef)) {
-							ods("D3D10: Failed to get module for Release");
-						} else {
-							wchar_t buff[2048];
-							GetModuleFileNameW(hRef, buff, 2048);
-							if (wcscmp(buff, dxgi->wcD3D10FileName) == 0) {
-								unsigned char *b = (unsigned char *) pRelease;
-								unsigned char *a = (unsigned char *) hRef;
-								dxgi->iOffsetRelease = b-a;
-								ods("D3D10: Successfully found Release offset: %ls: %d", dxgi->wcD3D10FileName, dxgi->iOffsetRelease);
-							}
-						}
+					}
 				}
 				if (pDevice)
 					pDevice->Release();

@@ -94,8 +94,7 @@ void NetworkConfig::save() const {
 
 	if (qcbImageDownload->isChecked()) {
 		s.iMaxImageSize = 0;
-	}
-	else if (s.iMaxImageSize <= 0) {
+	} else if (s.iMaxImageSize <= 0) {
 		s.iMaxImageSize = s.ciDefaultMaxImageSize;
 	}
 
