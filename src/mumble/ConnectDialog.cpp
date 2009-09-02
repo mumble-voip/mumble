@@ -680,16 +680,19 @@ void ConnectDialog::timeTick() {
 
 	if (si->qlAddresses.isEmpty()) {
 		QHostAddress qha(si->qsHostname);
-		if (qhDNSCache.contains(si->qsHostname)) {
-			si->qlAddresses << qhDNSCache[si->qsHostname];
-		} else if (qha.isNull()) {
-			if (!qmLookups.contains(si->qsHostname)) {
-				QHostInfo::lookupHost(si->qsHostname, this, SLOT(lookedUp(QHostInfo)));
-				qmLookups.insert(si->qsHostname, si);
+		if (qha.isNull()) {
+			if (qhDNSCache.contains(si->qsHostname.toLower())) {
+				si->qlAddresses << qhDNSCache.value(si->qsHostname.toLower());
+			} else {
+				if (!qmLookups.contains(si->qsHostname)) {
+					QHostInfo::lookupHost(si->qsHostname, this, SLOT(lookedUp(QHostInfo)));
+					qmLookups.insert(si->qsHostname, si);
+				}
+				return;
 			}
-			return;
-		} else
+		} else {
 			si->qlAddresses << qha;
+		}
 
 		if (si == qtwServers->currentItem())
 			on_qtwServers_currentItemChanged(si, si);
@@ -700,10 +703,9 @@ void ConnectDialog::timeTick() {
 }
 
 void ConnectDialog::lookedUp(QHostInfo info) {
-	if (! qmLookups.contains(info.hostName())) {
-		qWarning() << "BAD! pending lookup not found, should never happen";
+	if (! qmLookups.contains(info.hostName()))
 		return;
-	}
+
 	ServerItem *si = qmLookups.value(info.hostName());
 	qmLookups.remove(info.hostName());
 
@@ -711,7 +713,7 @@ void ConnectDialog::lookedUp(QHostInfo info) {
 		return;
 
 	si->qlAddresses = info.addresses();
-	qhDNSCache[info.hostName()] = info.addresses();
+	qhDNSCache.insert(info.hostName().toLower(), info.addresses());
 
 	if (si == qtwServers->currentItem())
 		on_qtwServers_currentItemChanged(si, si);
