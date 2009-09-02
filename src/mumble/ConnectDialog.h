@@ -146,6 +146,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QHash<qpAddress, quint64> qhPingRand;
 		QHash<qpAddress, QSet<ServerItem *> > qhPings;
 		QMap<QString, ServerItem *> qmLookups;
+		QHash<QString, QList<QHostAddress> > qhDNSCache;
 		bool bIPv4;
 		bool bIPv6;
 

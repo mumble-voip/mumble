@@ -680,14 +680,17 @@ void ConnectDialog::timeTick() {
 
 	if (si->qlAddresses.isEmpty()) {
 		QHostAddress qha(si->qsHostname);
-		if (qha.isNull()) {
+		if (qhDNSCache.contains(si->qsHostname)) {
+			si->qlAddresses << qhDNSCache[si->qsHostname];
+		} else if (qha.isNull()) {
 			if (!qmLookups.contains(si->qsHostname)) {
 				QHostInfo::lookupHost(si->qsHostname, this, SLOT(lookedUp(QHostInfo)));
 				qmLookups.insert(si->qsHostname, si);
 			}
 			return;
-		}
-		si->qlAddresses << qha;
+		} else
+			si->qlAddresses << qha;
+
 		if (si == qtwServers->currentItem())
 			on_qtwServers_currentItemChanged(si, si);
 	}
@@ -708,6 +711,7 @@ void ConnectDialog::lookedUp(QHostInfo info) {
 		return;
 
 	si->qlAddresses = info.addresses();
+	qhDNSCache[info.hostName()] = info.addresses();
 
 	if (si == qtwServers->currentItem())
 		on_qtwServers_currentItemChanged(si, si);
