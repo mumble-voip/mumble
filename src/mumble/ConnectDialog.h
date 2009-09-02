@@ -145,7 +145,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QTimer *qtPingTick;
 		QHash<qpAddress, quint64> qhPingRand;
 		QHash<qpAddress, QSet<ServerItem *> > qhPings;
-		QMap<int, ServerItem *> qmLookups;
+		QMap<QString, ServerItem *> qmLookups;
 		bool bIPv4;
 		bool bIPv6;
 

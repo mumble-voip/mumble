@@ -564,7 +564,8 @@ void ConnectDialog::onResolved(BonjourRecord record, QString host, int port) {
 		if (si->brRecord == record) {
 			si->usPort = static_cast<unsigned short>(port);
 			si->qsBonjourHost = host;
-			qmLookups.insert(QHostInfo::lookupHost(host, this, SLOT(lookedUp(QHostInfo))), si);
+			QHostInfo::lookupHost(host, this, SLOT(lookedUp(QHostInfo)));
+			qmLookups.insert(host, si);
 			return;
 		}
 	}
@@ -680,7 +681,10 @@ void ConnectDialog::timeTick() {
 	if (si->qlAddresses.isEmpty()) {
 		QHostAddress qha(si->qsHostname);
 		if (qha.isNull()) {
-			qmLookups.insert(QHostInfo::lookupHost(si->qsHostname, this, SLOT(lookedUp(QHostInfo))), si);
+			if (!qmLookups.contains(si->qsHostname)) {
+				QHostInfo::lookupHost(si->qsHostname, this, SLOT(lookedUp(QHostInfo)));
+				qmLookups.insert(si->qsHostname, si);
+			}
 			return;
 		}
 		si->qlAddresses << qha;
@@ -693,11 +697,12 @@ void ConnectDialog::timeTick() {
 }
 
 void ConnectDialog::lookedUp(QHostInfo info) {
-	int id = info.lookupId();
-	if (! qmLookups.contains(id))
+	if (! qmLookups.contains(info.hostName())) {
+		qWarning() << "BAD! pending lookup not found, should never happen";
 		return;
-	ServerItem *si = qmLookups.value(id);
-	qmLookups.remove(id);
+	}
+	ServerItem *si = qmLookups.value(info.hostName());
+	qmLookups.remove(info.hostName());
 
 	if (info.error() != QHostInfo::NoError)
 		return;
