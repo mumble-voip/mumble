@@ -672,6 +672,11 @@ void ConnectDialog::timeTick() {
 			return;
 	}
 
+	if (si == current)
+		tCurrent.restart();
+	if (si == hover)
+		tHover.restart();
+
 	if (si->qlAddresses.isEmpty()) {
 		QHostAddress qha(si->qsHostname);
 		if (qha.isNull()) {
@@ -685,11 +690,6 @@ void ConnectDialog::timeTick() {
 
 	foreach(const QHostAddress &host, si->qlAddresses)
 		sendPing(si, host, si->usPort);
-
-	if (si == current)
-		tCurrent.restart();
-	if (si == hover)
-		tHover.restart();
 }
 
 void ConnectDialog::lookedUp(QHostInfo info) {
