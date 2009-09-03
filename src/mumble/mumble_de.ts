@@ -141,7 +141,7 @@
     </message>
     <message>
         <source>This button will accept current groups/ACLs and send them to the server. Note that if you mistakenly remove write permission from yourself, the server will add it.</source>
-        <translation type="obsolete">Dieser Button will aktuelle Gruppen/ACLs akzeptieren und sie zum Server schicken. Falls man sich versehentlich Schreibrechte entzogen hat, wird der Server sie hinzufügen.</translation>
+        <translation type="obsolete">Dieser Button wird aktuelle Gruppen/ACLs akzeptieren und sie zum Server schicken. Falls man sich versehentlich Schreibrechte entzogen hat, wird der Server sie hinzufügen.</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -163,7 +163,7 @@
     <message>
         <location filename="ACLEditor.ui" line="228"/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be show in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation>Dies zeigt alle aktive Einträge in diesem Kanal an. Von Elternkanälen geerbte Einträge werden kursiv angezeigt.&lt;br /&gt;ACLs werden von oben nach unten ausgewertet. Das bedeutet, dass sich die Priorität nach unten hin erhöht.</translation>
+        <translation>Dies zeigt alle aktiven Einträge in diesem Kanal an. Von Elternkanälen geerbte Einträge werden kursiv angezeigt.&lt;br /&gt;ACLs werden von oben nach unten ausgewertet. Das bedeutet, dass sich die Priorität nach unten hin erhöht.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="235"/>
@@ -430,7 +430,7 @@
     </message>
     <message>
         <source>This sets the amount of data to prebuffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="obsolete">Dies liegt die Menge an daten fest, die im Ausgabepuffer vorgepuffert werden sollen. Experimentiere mit verschiedenen Werten und setze es auf den niedrigsten Wert, der noch kein schnelles Jitter im Sound verursacht.</translation>
+        <translation type="obsolete">Dies liegt die Menge an Daten fest, die im Ausgabepuffer vorgepuffert werden sollen. Experimentiere mit verschiedenen Werten und setze es auf den niedrigsten Wert, der noch kein schnelles Jitter im Sound verursacht.</translation>
     </message>
     <message>
         <source>ALSA</source>
@@ -719,7 +719,7 @@
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation type="obsolete">Inputmethode für Audio</translation>
+        <translation type="obsolete">Eingabemethode für Audio</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
@@ -1289,12 +1289,8 @@
     </message>
     <message>
         <location filename="AudioInput.ui" line="526"/>
-        <source>Noise Suppression</source>
-        <translation>Rauschunterdrückung</translation>
-    </message>
-    <message>
         <location filename="AudioInput.ui" line="536"/>
-        <source>Noise suppression</source>
+        <source>Noise Suppression</source>
         <translation>Rauschunterdrückung</translation>
     </message>
     <message>
@@ -1339,7 +1335,7 @@
     <message>
         <location filename="AudioInput.ui" line="355"/>
         <source>Idle AutoMute</source>
-        <translation>AutoStumm bei nicht-Verwendung</translation>
+        <translation>AutoStumm bei Untätigkeit</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="362"/>
@@ -1856,12 +1852,12 @@
     <message>
         <location filename="AudioStats.ui" line="249"/>
         <source>Power spectrum of input signal and noise estimate</source>
-        <translation>Powerspektrum des Eingangssignals und Rauschabschätzung</translation>
+        <translation>Leistungsspektrum des Eingangssignals und Rauschabschätzung</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="252"/>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
-        <translation>Dies zeigt das Powerspektrum des Eingangssignals (rote Linie) und die Rauschabschätzung (blau gefüllt) an.&lt;br /&gt;Alle Amplituden werden mit 30 multipliziert um anzuzeigen wie viel mehr Signal als Rauschen im Wellenband vorhanden ist.&lt;br /&gt;Dies ist vermutlich nur von Interesse, wenn man die Rauschbedingungen des Mikrofones präzise einstellt. Unter guten Voraussetzungen sollte nur eine winzige blaue Stelle unten zu sehen sein. Ist mehr als die Hälfte des Graphen blau, hat man eine ungünstige Geräuschkulisse.</translation>
+        <translation>Dies zeigt das Leistungsspektrum des Eingangssignals (rote Linie) und die Rauschabschätzung (blau gefüllt) an.&lt;br /&gt;Alle Amplituden werden mit 30 multipliziert um anzuzeigen wie viel mehr Signal als Rauschen im Wellenband vorhanden ist.&lt;br /&gt;Dies ist vermutlich nur von Interesse, wenn man die Rauschbedingungen des Mikrofones präzise einstellt. Unter guten Voraussetzungen sollte nur eine winzige blaue Stelle unten zu sehen sein. Ist mehr als die Hälfte des Graphen blau, hat man eine ungünstige Geräuschkulisse.</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="280"/>
@@ -2055,7 +2051,7 @@
     <message>
         <location filename="AudioWizard.cpp" line="166"/>
         <source>This is the device your microphone is connected to.</source>
-        <translation>Dies ist das Gerät was mit ihrem Mikrofon verbunden ist.</translation>
+        <translation>Dies ist das Gerät, mit dem ihr Mikrofon verbunden ist.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="180"/>
@@ -2470,12 +2466,12 @@
     <message>
         <location filename="../ACL.cpp" line="179"/>
         <source>Make channel</source>
-        <translation>Channel erstellen</translation>
+        <translation>Kanal erstellen</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="181"/>
         <source>Link channel</source>
-        <translation>Channel verbinden</translation>
+        <translation>Kanal verbinden</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="191"/>
@@ -2485,22 +2481,22 @@
     <message>
         <location filename="../ACL.cpp" line="193"/>
         <source>This represents total access to the channel, including the ability to change group and ACL information. This privilege implies all other privileges.</source>
-        <translation>Dies repräsentiert vollen Zugriff zum Kanal, einschließlich Fähigkeiten Gruppen und ACL-Informationen zu ändern. Dieses Privileg impliziert alle anderen Privilegien.</translation>
+        <translation>Dies repräsentiert vollen Zugriff zum Kanal, einschließlich den Fähigkeiten Gruppen- und ACL-Informationen zu ändern. Dieses Privileg impliziert alle anderen Privilegien.</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="196"/>
         <source>This represents the permission to traverse the channel. If a user is denied this privilege, he will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</source>
-        <translation>Dies repräsentiert das Recht um mit dem Kanal zu durchqueren. Wenn ein Benutzer dieses Privileg nicht hat, kann er auf keinen Kanal oder Unterkanal zugreifen, egal welche Rechte er in den Unterkanälen hat.</translation>
+        <translation>Dies repräsentiert das Recht den Kanal zu durchqueren. Wenn ein Benutzer dieses Privileg nicht hat, kann er nicht aus diesen Kanal oder einen der Unterkanäle zugreifen, egal welche Rechte er in den Unterkanälen hat.</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="200"/>
         <source>This represents the permission to join the channel. If you have a hierarchical channel structure, you might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.</source>
-        <translation>Dies repräsentiert Rechte um den Kanal zu betreten. Hat man eine hierarchische Kanalstruktur, sollte man jedem Traverse geben aber Betreten in der Wurzel der Hierarchie einschränken.</translation>
+        <translation>Dies repräsentiert das Recht den Kanal zu betreten. Hat man eine hierarchische Kanalstruktur, sollte man jedem Durchqueren geben aber Betreten in der Wurzel der Hierarchie einschränken.</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="203"/>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation>Dies repräsentiert das Recht in einem Kanal zu sprechen. Benutzer ohne dieses Privileg werden vom Server unterdrückt (gekennzeichnet als stumm) und können in diesem Channel so lange nicht sprechen, bis sie von jemandem mit den entsprechenden Rechten ent-stummgestellt werden.</translation>
+        <translation>Dies repräsentiert das Recht in einem Kanal zu sprechen. Benutzer ohne dieses Privileg werden vom Server unterdrückt (gekennzeichnet als stumm) und können in diesem Kanal erst sprechen, wenn sie von jemandem mit den entsprechenden Rechten ent-stummgestellt werden.</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="207"/>
@@ -2510,7 +2506,7 @@
     <message>
         <location filename="../ACL.cpp" line="211"/>
         <source>This represents the permission to mute and deafen other players. Once muted, a player will stay muted until he is unmuted by another privileged player or reconnects to the server.</source>
-        <translation>Dies repräsentiert das Recht andere Benutzer stumm oder taub zu stellen. Einmal stummgestellt bleibt ein Benutzer stumm bis ein anderer Benutzer mit entsprechenden Privilegien dies ändert oder sich neu zum Server verbunden wird.</translation>
+        <translation>Dies repräsentiert das Recht andere Benutzer stumm oder taub zu stellen. Einmal stummgestellt bleibt ein Benutzer stumm bis ein anderer Benutzer mit entsprechenden Privilegien dies ändert oder der Benutzer sich neu zum Server verbindet.</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="214"/>
@@ -3034,7 +3030,7 @@
         <location filename="Database.cpp" line="99"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
-        <translation>Mumble konnte keine Datenbank in einer
+        <translation>Mumble konnte keine Datenbank in einem
 der möglichen Orte initialisieren.</translation>
     </message>
 </context>
@@ -3909,7 +3905,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="168"/>
         <source>Edit ban lists on server</source>
-        <translation>Bannlisten des Server editieren</translation>
+        <translation>Bannlisten des Servers editieren</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="171"/>
@@ -3924,12 +3920,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="193"/>
         <source>Kick player (with reason)</source>
-        <translation>Benutzer Kicken (mit Grund)</translation>
+        <translation>Benutzer kicken (mit Grund)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="196"/>
         <source>Kick selected player off server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Den ausgewählten Benutzer vom Server schmeissen. Sie werden aufgefordert, einen Grund anzugeben.</translation>
+        <translation>Den ausgewählten Benutzer vom Server werfen. Sie werden aufgefordert, einen Grund anzugeben.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="215"/>
@@ -3939,12 +3935,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="218"/>
         <source>Kick and ban player (with reason)</source>
-        <translation>Benutzer vom Server Kicken und Verbannen (mit Grund)</translation>
+        <translation>Benutzer vom Server kicken und bannen (mit Grund)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="221"/>
         <source>Kick and ban selected player from server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Den ausgewählten Benutzer vom Server schmeissen und bannen. Man wird aufgefordert, einen Grund anzugeben.</translation>
+        <translation>Den ausgewählten Benutzer vom Server werfen und bannen. Man wird aufgefordert, einen Grund anzugeben.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="204"/>
@@ -3983,7 +3979,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Mute or unmute player locally.</source>
-        <translation type="obsolete">Spieler lokal stumm oder nicht stummstellen.</translation>
+        <translation type="obsolete">Benutzer lokal stumm stellen oder entstummen.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="265"/>
@@ -4058,7 +4054,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="323"/>
         <source>Link your channel to another channel</source>
-        <translation>Verknüpft Ihren aktuellen Kanal mit einem anderen</translation>
+        <translation>Verknüpft ihren aktuellen Kanal mit einem anderen</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="326"/>
