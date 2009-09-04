@@ -166,21 +166,19 @@ QVariant ServerItem::data(int column, int role) const {
 void ServerItem::hideCheck() {
 	bool hide = false;
 	if (itType == PublicType) {
-		if (g.s.bHideEmpty && ! uiUsers)
+		if (g.s.ssFilter == Settings::ShowFavorite)
 			hide = true;
-		else if (g.s.bHideUnreachable && ! uiPing)
-			hide = true;
+		else if (g.s.ssFilter == Settings::ShowReachable)
+			hide = (uiPing == 0);
+		else if (g.s.ssFilter == Settings::ShowPopulated)
+			hide = (uiUsers == 0);
 	}
-	if (hide != isHidden()) {
-		if (! hide)
-			emitDataChanged();
+	if (hide != isHidden())
 		setHidden(hide);
-	}
 }
 
 void ServerItem::setDatas() {
-	if (! isHidden())
-		emitDataChanged();
+	emitDataChanged();
 }
 
 FavoriteServer ServerItem::toFavoriteServer() const {
@@ -310,27 +308,37 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	qaShowAll->setChecked(false);
 	qaShowReachable->setChecked(false);
 	qaShowPopulated->setChecked(false);
+	qaShowFavorite->setChecked(false);
+
+	switch (g.s.ssFilter) {
+		case Settings::ShowFavorite:
+			qaShowFavorite->setChecked(true);
+			break;
+		case Settings::ShowPopulated:
+			qaShowPopulated->setChecked(true);
+			break;
+		case Settings::ShowReachable:
+			qaShowReachable->setChecked(true);
+			break;
+		default:
+			qaShowAll->setChecked(true);
+			break;
+	}
 
 	qagFilters = new QActionGroup(this);
 	qagFilters->addAction(qaShowAll);
 	qagFilters->addAction(qaShowReachable);
 	qagFilters->addAction(qaShowPopulated);
+	qagFilters->addAction(qaShowFavorite);
 
 	connect(qagFilters, SIGNAL(triggered(QAction *)), this, SLOT(onFiltersTriggered(QAction *)));
-
-	if (! g.s.bHideUnreachable && ! g.s.bHideEmpty)
-		qaShowAll->setChecked(true);
-	else if (! g.s.bHideEmpty)
-		qaShowReachable->setChecked(true);
-	else
-		qaShowPopulated->setChecked(true);
 
 	qmPopup = new QMenu(this);
 	qmFilters = new QMenu(tr("Filters"), this);
 	qmFilters->addAction(qaShowAll);
 	qmFilters->addAction(qaShowReachable);
 	qmFilters->addAction(qaShowPopulated);
-
+	qmFilters->addAction(qaShowFavorite);
 
 	QList<QTreeWidgetItem *> ql;
 	QList<FavoriteServer> favorites = Database::getFavorites();
@@ -371,7 +379,8 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	connect(qusSocket4, SIGNAL(readyRead()), this, SLOT(udpReply()));
 	connect(qusSocket6, SIGNAL(readyRead()), this, SLOT(udpReply()));
 
-	initList();
+	if (g.s.ssFilter != Settings::ShowFavorite)
+		initList();
 	fillList();
 	pingList();
 
@@ -491,16 +500,17 @@ void ConnectDialog::on_qaUrl_triggered() {
 }
 
 void ConnectDialog::onFiltersTriggered(QAction *act) {
-	if (act == qaShowAll) {
-		g.s.bHideEmpty = false;
-		g.s.bHideUnreachable = false;
-	} else if (act == qaShowReachable) {
-		g.s.bHideEmpty = false;
-		g.s.bHideUnreachable = true;
-	} else {
-		g.s.bHideEmpty = true;
-		g.s.bHideUnreachable = true;
-	}
+	if (act == qaShowAll)
+		g.s.ssFilter = Settings::ShowAll;
+	else if (act == qaShowReachable)
+		g.s.ssFilter = Settings::ShowReachable;
+	else if (act == qaShowPopulated)
+		g.s.ssFilter = Settings::ShowPopulated;
+	else
+		g.s.ssFilter = Settings::ShowFavorite;
+
+	if (g.s.ssFilter != Settings::ShowFavorite)
+		initList();
 
 	foreach(QTreeWidgetItem *qtwi, qtwServers->findItems(QString(), Qt::MatchStartsWith))
 		static_cast<ServerItem *>(qtwi)->hideCheck();

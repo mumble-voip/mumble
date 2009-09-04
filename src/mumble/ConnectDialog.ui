@@ -134,6 +134,17 @@
     <string>Show all servers</string>
    </property>
   </action>
+  <action name="qaShowFavorite">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show only Favorites</string>
+   </property>
+   <property name="toolTip">
+    <string>Show only Favorite and LAN servers</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>

@@ -169,8 +169,7 @@ Settings::Settings() {
 	bAdvancedACLCfg = false;
 	iWindowLayout = LayoutClassic;
 
-	bHideUnreachable = true;
-	bHideEmpty = false;
+	ssFilter = ShowReachable;
 
 	iOutputDelay = 5;
 
@@ -395,8 +394,7 @@ void Settings::load() {
 	SAVELOAD(qbaHeaderState, "ui/header");
 	SAVELOAD(qsUsername, "ui/username");
 	SAVELOAD(qsLastServer, "ui/server");
-	SAVELOAD(bHideUnreachable, "ui/hideunreachable");
-	SAVELOAD(bHideEmpty, "ui/hideempty");
+	LOADENUM(ssFilter, "ui/serverfilter");
 #ifndef NO_UPDATE_CHECK
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 	SAVELOAD(bPluginCheck, "ui/plugincheck");
@@ -566,8 +564,7 @@ void Settings::save() {
 	SAVELOAD(qbaHeaderState, "ui/header");
 	SAVELOAD(qsUsername, "ui/username");
 	SAVELOAD(qsLastServer, "ui/server");
-	SAVELOAD(bHideUnreachable, "ui/hideunreachable");
-	SAVELOAD(bHideEmpty, "ui/hideempty");
+	SAVELOAD(ssFilter, "ui/serverfilter");
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 	SAVELOAD(bPluginCheck, "ui/plugincheck");
 	SAVELOAD(bHideTray, "ui/hidetray");
