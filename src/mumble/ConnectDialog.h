@@ -142,6 +142,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QUdpSocket *qusSocket4;
 		QUdpSocket *qusSocket6;
 		QTimer *qtPingTick;
+		QList<ServerItem *> qlItems;
 		QHash<qpAddress, quint64> qhPingRand;
 		QHash<qpAddress, QSet<ServerItem *> > qhPings;
 		QMap<QString, ServerItem *> qmLookups;

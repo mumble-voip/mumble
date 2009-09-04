@@ -345,6 +345,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	foreach(const FavoriteServer &fs, favorites) {
 		ServerItem *si = new ServerItem(fs);
 		ql << si;
+		qlItems << si;
 #ifdef USE_BONJOUR
 		if (! si->brRecord.serviceName.isEmpty())
 			g.bc->bsrResolver->resolveBonjourRecord(si->brRecord);
@@ -390,11 +391,9 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 ConnectDialog::~ConnectDialog() {
 	ServerItem::qmIcons.clear();
 
-	QList<QTreeWidgetItem *> qlOld = qtwServers->findItems(QString(), Qt::MatchStartsWith);
 	QList<FavoriteServer> ql;
 
-	foreach(QTreeWidgetItem *qtwi, qlOld) {
-		ServerItem *si = static_cast<ServerItem *>(qtwi);
+	foreach(ServerItem *si, qlItems) {
 		if (si->itType != ServerItem::FavoriteType)
 			continue;
 		ql << si->toFavoriteServer();
@@ -459,6 +458,7 @@ void ConnectDialog::on_qaFavoriteAddNew_triggered() {
 
 	if (cde->exec() == QDialog::Accepted) {
 		ServerItem *si = new ServerItem(cde->qsName, cde->qsHostname, cde->usPort, cde->qsUsername);
+		qlItems << si;
 		qtwServers->addTopLevelItem(si);
 	}
 	delete cde;
@@ -511,8 +511,8 @@ void ConnectDialog::onFiltersTriggered(QAction *act) {
 	if (g.s.ssFilter != Settings::ShowFavorite)
 		initList();
 
-	foreach(QTreeWidgetItem *qtwi, qtwServers->findItems(QString(), Qt::MatchStartsWith))
-		static_cast<ServerItem *>(qtwi)->hideCheck();
+	foreach(ServerItem *si, qlItems)
+		si->hideCheck();
 }
 
 void ConnectDialog::on_qtwServers_customContextMenuRequested(const QPoint &mpos) {
@@ -566,10 +566,7 @@ void ConnectDialog::initList() {
 
 #ifdef USE_BONJOUR
 void ConnectDialog::onResolved(BonjourRecord record, QString host, int port) {
-	QList<QTreeWidgetItem *> qlOld = qtwServers->findItems(QString(), Qt::MatchStartsWith);
-
-	foreach(QTreeWidgetItem *qtwi, qlOld) {
-		ServerItem *si = static_cast<ServerItem *>(qtwi);
+	foreach(ServerItem *si, qlItems) {
 		if (si->brRecord == record) {
 			si->usPort = static_cast<unsigned short>(port);
 			si->qsBonjourHost = host;
@@ -581,21 +578,20 @@ void ConnectDialog::onResolved(BonjourRecord record, QString host, int port) {
 }
 
 void ConnectDialog::onUpdateLanList(const QList<BonjourRecord> &list) {
-	QList<QTreeWidgetItem *> qlOld = qtwServers->findItems(QString(), Qt::MatchStartsWith);
 	QList<QTreeWidgetItem *> ql;
 
 	foreach(const BonjourRecord &record, list) {
 		bool found = false;
-		foreach(QTreeWidgetItem *qtwi, qlOld) {
-			ServerItem *si = static_cast<ServerItem *>(qtwi);
-
+		foreach(ServerItem *si, qlItems) {
 			if (si->brRecord == record) {
 				found = true;
 				break;
 			}
 		}
 		if (! found) {
-			ql << new ServerItem(record);
+			ServerItem *si = new ServerItem(record);
+			qlItems << si;
+			ql << si;
 			g.bc->bsrResolver->resolveBonjourRecord(record);
 		}
 	}
@@ -613,13 +609,12 @@ void ConnectDialog::onLanResolveError(BonjourRecord, DNSServiceErrorType err) {
 #endif
 
 void ConnectDialog::fillList() {
-	QList<QTreeWidgetItem *> qlOld = qtwServers->findItems(QString(), Qt::MatchStartsWith);
 	QList<QTreeWidgetItem *> ql;
+	QList<QTreeWidgetItem *> qlNew;
 
 	foreach(const PublicInfo &pi, qlPublicServers) {
 		bool found = false;
-		foreach(QTreeWidgetItem *qtwi, qlOld) {
-			ServerItem *si = static_cast<ServerItem *>(qtwi);
+		foreach(ServerItem *si, qlItems) {
 			if ((pi.qsIp == si->qsHostname) && (pi.usPort == si->usPort)) {
 				found = true;
 
@@ -633,14 +628,14 @@ void ConnectDialog::fillList() {
 			ql << new ServerItem(pi);
 	}
 
-	qlOld = ql;
-	ql.clear();
-	while (! qlOld.isEmpty()) {
-		ql << qlOld.takeAt(qrand() % qlOld.count());
+	while (! ql.isEmpty()) {
+		ServerItem *si = static_cast<ServerItem *>(ql.takeAt(qrand() % ql.count()));
+		qlNew << si;
+		qlItems << si;
 	}
 
-	qtwServers->addTopLevelItems(ql);
-	foreach(QTreeWidgetItem *qtwi, ql)
+	qtwServers->addTopLevelItems(qlNew);
+	foreach(QTreeWidgetItem *qtwi, qlNew)
 		static_cast<ServerItem *>(qtwi)->hideCheck();
 }
 
@@ -668,19 +663,17 @@ void ConnectDialog::timeTick() {
 	if (! si && (tHover.elapsed() >= 1000000ULL))
 		si = hover;
 	if (!si) {
-		QList<QTreeWidgetItem *> ql = qtwServers->findItems(QString(), Qt::MatchStartsWith);
-
-		if (ql.isEmpty())
+		if (qlItems.isEmpty())
 			return;
 
-		if (++iPingIndex >= ql.count()) {
+		if (++iPingIndex >= qlItems.count()) {
 			if (tRestart.isElapsed(1000000ULL))
 				iPingIndex = 0;
 			else
 				return;
 		}
 
-		si = static_cast<ServerItem *>(ql.at(iPingIndex));
+		si = qlItems.at(iPingIndex);
 
 		if (! si)
 			return;
