@@ -278,7 +278,6 @@ void ConnectDialogEdit::accept() {
 
 QList<PublicInfo> ConnectDialog::qlPublicServers;
 Timer ConnectDialog::tPublicServers;
-int ConnectDialog::iPingIndex = -1;
 
 ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	setupUi(this);
@@ -646,7 +645,7 @@ void ConnectDialog::fillList() {
 }
 
 void ConnectDialog::pingList() {
-	iPingIndex = 0;
+	iPingIndex = -1;
 	qtPingTick->start(50);
 	timeTick();
 }
@@ -674,8 +673,12 @@ void ConnectDialog::timeTick() {
 		if (ql.isEmpty())
 			return;
 
-		if (++iPingIndex >= ql.count())
-			iPingIndex = 0;
+		if (++iPingIndex >= ql.count()) {
+			if (tRestart.isElapsed(1000000ULL))
+				iPingIndex = 0;
+			else
+				return;
+		}
 
 		si = static_cast<ServerItem *>(ql.at(iPingIndex));
 

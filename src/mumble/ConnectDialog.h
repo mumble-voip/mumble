@@ -131,7 +131,6 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 	protected:
 		static QList<PublicInfo> qlPublicServers;
 		static Timer tPublicServers;
-		static int iPingIndex;
 
 		QMenu *qmPopup, *qmFilters;
 		QActionGroup *qagFilters;
@@ -139,7 +138,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		bool bPublicInit;
 
 		Timer tPing;
-		Timer tCurrent, tHover;
+		Timer tCurrent, tHover, tRestart;
 		QUdpSocket *qusSocket4;
 		QUdpSocket *qusSocket6;
 		QTimer *qtPingTick;
@@ -149,6 +148,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QHash<QString, QList<QHostAddress> > qhDNSCache;
 		bool bIPv4;
 		bool bIPv6;
+		int iPingIndex;
 
 		bool bLastFound;
 
