@@ -486,63 +486,37 @@ if __name__ == '__main__':
 	if options.only_appbundle:
 		sys.exit(0)
 
-	# Prepare the base installer .pkg
-	f = PackageMaker('release/Mumble-Base.pkg', 'net.sourceforge.mumble.base', 'Mumble Base', ver)
-	f.mkdir('/Applications/')
-	f.copy('release/Mumble.app', '/Applications/Mumble.app')
-	f.copy('release/Mumble11x.app', '/Applications/Mumble11x.app')
-	f.mkdir('/Library/InputManagers/')
-	f.copy('release/MumbleOverlayEnabler', '/Library/InputManagers/MumbleOverlayEnabler')
-	f.create()
-
-	# Combine the base installer with our pretty installer wrapper
-	p = Popen(('/Developer/usr/bin/packagemaker',
-	           '--doc',    'installer_macx/MumbleInstaller.pmdoc',
-	           '--id',     'net.sourceforge.mumble',
-	           '--out',    'release/Install Mumble.mpkg'))
-	if p.wait() != 0:
-		print 'Creating master installer failed.'
-		sys.exit(1)
-
-	# A bug in PackageMaker? It doesn't copy over the script itself.
-	shutil.copy('installer_macx/scripts/postflight', 'release/Install Mumble.mpkg/Contents/Packages/Mumble-Base.pkg/Contents/Resources/postflight')
-
-	# Sign package (10.5 ONLY!)
-	#if options.codesign:
-	#	p = Popen(('/Developer/usr/bin/packagemaker',
-	#	           '--sign', 'release/Install Mumble.mpkg',
-	#	           '--certificate', options.codesign))
-	#	if p.wait() != 0:
-	#		print 'Unable to sign package.'
-	#		sys.exit(1)
-
 	# Create diskimage
 	d = DiskImage(fn, title)
-	d.copy('release/Install Mumble.mpkg')
+	#d.copy('installer_macx/DS_Store', '/.DS_Store')
+	#d.mkdir('.extras')
+	#d.copy('icons/mumble.osx.installer.png', '/.extras/')
+	d.symlink('/Applications', '/Applications')
+	d.copy('release/Mumble.app')
+	d.copy('release/Mumble11x.app')
 	d.copy('README', '/ReadMe.txt')
 	d.copy('CHANGES', '/Changes.txt')
-	d.copy('installer_macx/DS_Store', '/.DS_Store')
 	d.mkdir('Licenses')
 	d.copy('LICENSE', '/Licenses/Mumble.txt')
 	d.copy('installer/lgpl.txt', '/Licenses/Qt.txt')
 	d.copy('installer/speex.txt', '/Licenses/Speex.txt')
 	d.copy('installer/portaudio.txt', '/Licenses/PortAudio.txt')
 	d.copy('installer/gpl.txt', '/Licenses/ZeroC-Ice.txt')
-	d.mkdir('Murmur')
-	d.copy('scripts/murmur.ini.osx', '/Murmur/murmur.ini')
-	d.copy('scripts/murmur.conf', '/Murmur/')
-	d.copy('scripts/dbusauth.pl', '/Murmur/')
-	d.copy('scripts/murmur.pl', '/Murmur/')
-	d.copy('scripts/weblist.pl', '/Murmur/')
-	d.copy('scripts/weblist.php', '/Murmur/')
-	d.copy('scripts/icedemo.php', '/Murmur/')
-	d.copy('scripts/ListUsers.cs', '/Murmur/')
-	d.copy('scripts/mumble-auth.py', '/Murmur/')
-	d.copy('scripts/rubytest.rb', '/Murmur')
-	d.copy('scripts/simpleregister.php', '/Murmur/')
-	d.copy('scripts/testcallback.py', '/Murmur/')
-	d.copy('scripts/testauth.py', '/Murmur/')
-	d.copy('scripts/addban.php', '/Murmur/')
-	d.copy('scripts/php.ini', '/Murmur/')
-	d.copy('src/murmur/Murmur.ice', '/Murmur/')
+	d.mkdir('Murmur Extras')
+	d.copy('scripts/murmur.ini.osx', '/Murmur Extras/murmur.ini')
+	d.copy('scripts/murmur.conf', '/Murmur Extras/')
+	d.copy('scripts/dbusauth.pl', '/Murmur Extras/')
+	d.copy('scripts/murmur.pl', '/Murmur Extras/')
+	d.copy('scripts/weblist.pl', '/Murmur Extras/')
+	d.copy('scripts/weblist.php', '/Murmur Extras/')
+	d.copy('scripts/icedemo.php', '/Murmur Extras/')
+	d.copy('scripts/ListUsers.cs', '/Murmur Extras/')
+	d.copy('scripts/mumble-auth.py', '/Murmur Extras/')
+	d.copy('scripts/rubytest.rb', '/Murmur Extras')
+	d.copy('scripts/simpleregister.php', '/Murmur Extras/')
+	d.copy('scripts/testcallback.py', '/Murmur Extras/')
+	d.copy('scripts/testauth.py', '/Murmur Extras/')
+	d.copy('scripts/addban.php', '/Murmur Extras/')
+	d.copy('scripts/php.ini', '/Murmur Extras/')
+	d.copy('src/murmur/Murmur.ice', '/Murmur Extras/')
 	d.create()
