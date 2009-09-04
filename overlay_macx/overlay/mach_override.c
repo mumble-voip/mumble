@@ -55,8 +55,26 @@ char kIslandTemplate[] = {
 
 #define kInstructions	0
 #define kJumpAddress    kInstructions + kOriginalInstructionsSize + 1
-#endif
+#elif defined(__x86_64__)
 
+#define kOriginalInstructionsSize 32
+
+#define kJumpAddress    kOriginalInstructionsSize + 6
+
+char kIslandTemplate[] = {
+	// kOriginalInstructionsSize nop instructions so that we 
+	// should have enough space to host original instructions 
+	0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 
+	0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90,
+	0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 
+	0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90,
+	// Now the real jump instruction
+	0xFF, 0x25, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00
+};
+
+#endif
 
 #define	kAllocateHigh		1
 #define	kAllocateNormal		0
@@ -85,7 +103,8 @@ typedef	struct	{
 	mach_error_t
 allocateBranchIsland(
 		BranchIsland	**island,
-		int				allocateHigh );
+		int				allocateHigh,
+		void *originalFunctionAddress);
 
 	mach_error_t
 freeBranchIsland(
@@ -99,7 +118,7 @@ setBranchIslandTarget(
 		long			instruction );
 #endif 
 
-#if defined(__i386__)
+#if defined(__i386__) || defined(__x86_64__)
 mach_error_t
 setBranchIslandTarget_i386(
 						   BranchIsland	*island,
@@ -151,9 +170,26 @@ mach_override(
 			(void*) &originalFunctionPtr,
 			NULL );
 	
+	//printf ("In mach_override\n");
 	return mach_override_ptr( originalFunctionPtr, overrideFunctionAddress,
 		originalFunctionReentryIsland );
 }
+
+#if defined(__x86_64__)
+mach_error_t makeIslandExecutable(void *address) {
+	mach_error_t err = err_none;
+    vm_size_t pageSize;
+    host_page_size( mach_host_self(), &pageSize );
+    uint64_t page = (uint64_t)address & ~(uint64_t)(pageSize-1);
+    int e = err_none;
+    e |= mprotect((void *)page, pageSize, PROT_EXEC | PROT_READ | PROT_WRITE);
+    e |= msync((void *)page, pageSize, MS_INVALIDATE );
+    if (e) {
+        err = err_cannot_override;
+    }
+    return err;
+}
+#endif
 
     mach_error_t
 mach_override_ptr(
@@ -175,7 +211,7 @@ mach_override_ptr(
 	long	originalInstruction = *originalFunctionPtr;
 	if( !err && ((originalInstruction & kMFCTRMask) == kMFCTRInstruction) )
 		err = err_cannot_override;
-#elif defined (__i386__)
+#elif defined(__i386__) || defined(__x86_64__)
 	int eatenCount = 0;
 	char originalInstructions[kOriginalInstructionsSize];
 	uint64_t jumpRelativeInstruction = 0; // JMP
@@ -187,6 +223,7 @@ mach_override_ptr(
 		overridePossible = false;
 	}
 	if (!overridePossible) err = err_cannot_override;
+	if (err) printf("err = %x %d\n", err, __LINE__);
 #endif
 	
 	//	Make the original function implementation writable.
@@ -199,11 +236,14 @@ mach_override_ptr(
 					(vm_address_t) originalFunctionPtr, sizeof(long), false,
 					(VM_PROT_DEFAULT | VM_PROT_COPY) );
 	}
+	if (err) printf("err = %x %d\n", err, __LINE__);
 	
 	//	Allocate and target the escape island to the overriding function.
 	BranchIsland	*escapeIsland = NULL;
 	if( !err )	
-		err = allocateBranchIsland( &escapeIsland, kAllocateHigh );
+		err = allocateBranchIsland( &escapeIsland, kAllocateHigh, originalFunctionAddress );
+		if (err) printf("err = %x %d\n", err, __LINE__);
+
 	
 #if defined(__ppc__) || defined(__POWERPC__)
 	if( !err )
@@ -215,13 +255,20 @@ mach_override_ptr(
 		long escapeIslandAddress = ((long) escapeIsland) & 0x3FFFFFF;
 		branchAbsoluteInstruction = 0x48000002 | escapeIslandAddress;
 	}
-#elif defined (__i386__)
+#elif defined(__i386__) || defined(__x86_64__)
+        if (err) printf("err = %x %d\n", err, __LINE__);
+
 	if( !err )
 		err = setBranchIslandTarget_i386( escapeIsland, overrideFunctionAddress, 0 );
  
+	if (err) printf("err = %x %d\n", err, __LINE__);
 	// Build the jump relative instruction to the escape island
+#endif
+
+
+#if defined(__i386__) || defined(__x86_64__)
 	if (!err) {
-		int32_t addressOffset = ((int32_t)escapeIsland - (int32_t)originalFunctionPtr - 5);
+		uint32_t addressOffset = ((void*)escapeIsland - (void*)originalFunctionPtr - 5);
 		addressOffset = OSSwapInt32(addressOffset);
 		
 		jumpRelativeInstruction |= 0xE900000000000000LL; 
@@ -233,7 +280,7 @@ mach_override_ptr(
 	//	Optionally allocate & return the reentry island.
 	BranchIsland	*reentryIsland = NULL;
 	if( !err && originalFunctionReentryIsland ) {
-		err = allocateBranchIsland( &reentryIsland, kAllocateNormal );
+		err = allocateBranchIsland( &reentryIsland, kAllocateNormal, NULL);
 		if( !err )
 			*originalFunctionReentryIsland = reentryIsland;
 	}
@@ -266,7 +313,7 @@ mach_override_ptr(
 			}
 		} while( !err && !escapeIslandEngaged );
 	}
-#elif defined (__i386__)
+#elif defined(__i386__) || defined(__x86_64__)
 	// Atomically:
 	//	o If the reentry island was allocated:
 	//		o Insert the original instructions into the reentry island.
@@ -291,6 +338,11 @@ mach_override_ptr(
 		if( escapeIsland )
 			freeBranchIsland( escapeIsland );
 	}
+
+#if defined(__x86_64__)
+        err = makeIslandExecutable(escapeIsland);
+        err = makeIslandExecutable(reentryIsland);
+#endif
 	
 	return err;
 }
@@ -317,7 +369,8 @@ mach_override_ptr(
 	mach_error_t
 allocateBranchIsland(
 		BranchIsland	**island,
-		int				allocateHigh )
+		int				allocateHigh,
+		void *originalFunctionAddress)
 {
 	assert( island );
 	
@@ -328,18 +381,29 @@ allocateBranchIsland(
 		err = host_page_size( mach_host_self(), &pageSize );
 		if( !err ) {
 			assert( sizeof( BranchIsland ) <= pageSize );
+#if defined(__x86_64__)
+			vm_address_t first = (uint64_t)originalFunctionAddress & ~(uint64_t)(((uint64_t)1 << 31) - 1) | ((uint64_t)1 << 31); // start in the middle of the page?
+			vm_address_t last = 0x0;
+#else
 			vm_address_t first = 0xfeffffff;
 			vm_address_t last = 0xfe000000 + pageSize;
+#endif
+
 			vm_address_t page = first;
 			int allocated = 0;
 			vm_map_t task_self = mach_task_self();
 			
 			while( !err && !allocated && page != last ) {
+
 				err = vm_allocate( task_self, &page, pageSize, 0 );
 				if( err == err_none )
 					allocated = 1;
 				else if( err == KERN_NO_SPACE ) {
+#if defined(__x86_64__)
+					page -= pageSize;
+#else
 					page += pageSize;
+#endif
 					err = err_none;
 				}
 			}
@@ -446,25 +510,45 @@ setBranchIslandTarget_i386(
 
 	//	Copy over the template code.
     bcopy( kIslandTemplate, island->instructions, sizeof( kIslandTemplate ) );
-    
+
 	// copy original instructions
 	if (instructions) {
 		bcopy (instructions, island->instructions + kInstructions, kOriginalInstructionsSize);
 	}
 	
+    // Fill in the address.
+    int32_t addressOffset = (char *)branchTo - (island->instructions + kJumpAddress + 4);
+    *((int32_t *)(island->instructions + kJumpAddress)) = addressOffset; 
+
+    msync( island->instructions, sizeof( kIslandTemplate ), MS_INVALIDATE );
+    return err_none;
+}
+
+#elif defined(__x86_64__)
+mach_error_t
+setBranchIslandTarget_i386(
+        BranchIsland	*island,
+        const void		*branchTo,
+        char*			instructions )
+{
+    // Copy over the template code.
+    bcopy( kIslandTemplate, island->instructions, sizeof( kIslandTemplate ) );
+
+    // Copy original instructions.
+    if (instructions) {
+        bcopy (instructions, island->instructions, kOriginalInstructionsSize);
+    }
+
     //	Fill in the address.
-	int32_t addressOffset = (char *)branchTo - (island->instructions + kJumpAddress + 4);
-	*((int32_t *)(island->instructions + kJumpAddress)) = addressOffset; 
-	
-    //MakeDataExecutable( island->instructions, sizeof( kIslandTemplate ) );
-	msync( island->instructions, sizeof( kIslandTemplate ), MS_INVALIDATE );
+    *((uint64_t *)(island->instructions + kJumpAddress)) = (uint64_t)branchTo; 
+    msync( island->instructions, sizeof( kIslandTemplate ), MS_INVALIDATE );
 
     return err_none;
 }
 #endif
 
 
-#if defined (__i386__)
+#if defined(__i386__) || defined(__x86_64__)
 // simplistic instruction matching
 typedef struct {
 	unsigned int length; // max 15
@@ -472,13 +556,29 @@ typedef struct {
 	unsigned char constraint[15]; // sequence of bytes in memory order
 }	AsmInstructionMatch;
 
+#if defined(__i386__)
 static AsmInstructionMatch possibleInstructions[] = {
 	{ 0x1, {0xFF}, {0x90} },							// nop
-	{ 0x1, {0xF8}, {0x50} },							// push %eax | %ebx | %ecx | %edx | %ebp | %esp | %esi | %edi
-	{ 0x2, {0xFF, 0xFF}, {0x89, 0xE5} },				// mov %esp,%ebp
-	{ 0x3, {0xFF, 0xFF, 0x00}, {0x83, 0xEC, 0x00} },	// sub 0x??, %esp
+	{ 0x1, {0xFF}, {0x55} },							// push %esp
+	{ 0x2, {0xFF, 0xFF}, {0x89, 0xE5} },				                // mov %esp,%ebp
+	{ 0x1, {0xFF}, {0x53} },							// push %ebx
+	{ 0x3, {0xFF, 0xFF, 0x00}, {0x83, 0xEC, 0x00} },	                        // sub 0x??, %esp
+	{ 0x1, {0xFF}, {0x57} },							// push %edi
+	{ 0x1, {0xFF}, {0x56} },							// push %esi
 	{ 0x0 }
 };
+#elif defined(__x86_64__)
+static AsmInstructionMatch possibleInstructions[] = {
+	{ 0x1, {0xFF}, {0x90} },							// nop
+	{ 0x1, {0xF8}, {0x50} },							// push %rX
+	{ 0x3, {0xFF, 0xFF, 0xFF}, {0x48, 0x89, 0xE5} },				// mov %rsp,%rbp
+	{ 0x4, {0xFF, 0xFF, 0xFF, 0x00}, {0x48, 0x83, 0xEC, 0x00} },	                // sub 0x??, %rsp
+	{ 0x4, {0xFB, 0xFF, 0x00, 0x00}, {0x48, 0x89, 0x00, 0x00} },	                // move onto rbp
+	{ 0x2, {0xFF, 0x00}, {0x41, 0x00} },						// push %rXX
+	{ 0x2, {0xFF, 0x00}, {0x85, 0x00} },						// test %rX,%rX
+	{ 0x0 }
+};
+#endif
 
 static Boolean codeMatchesInstruction(unsigned char *code, AsmInstructionMatch* instruction) 
 {
@@ -489,7 +589,7 @@ static Boolean codeMatchesInstruction(unsigned char *code, AsmInstructionMatch* 
 		unsigned char mask = instruction->mask[i];
 		unsigned char constraint = instruction->constraint[i];
 		unsigned char codeValue = code[i];
-		
+				
 		match = ((codeValue & mask) == constraint);
 		if (!match) break;
 	}
@@ -497,6 +597,7 @@ static Boolean codeMatchesInstruction(unsigned char *code, AsmInstructionMatch* 
 	return match;
 }
 
+#if defined(__i386__) || defined(__x86_64__)
 	static Boolean 
 eatKnownInstructions( 
 	unsigned char *code, 
@@ -561,7 +662,9 @@ eatKnownInstructions(
 
 	return allInstructionsKnown;
 }
+#endif
 
+#if defined(__i386__)
 asm(		
 			".text;"
 			".align 2, 0x90;"
@@ -597,5 +700,12 @@ asm(
 			"	popl %ebp;"
 			"	ret"
 );
-
+#elif defined(__x86_64__)
+void atomic_mov64(
+		uint64_t *targetAddress,
+		uint64_t value )
+{
+    *targetAddress = value;
+}
+#endif
 #endif

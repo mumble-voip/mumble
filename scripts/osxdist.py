@@ -97,10 +97,17 @@ class AppBundle(object):
 
 		self.handle_binary_libs()
 
-		# hack: we don't have murmurd in the 11x compat bundle
 		murmurd = os.path.join(os.path.abspath(self.bundle), 'Contents', 'MacOS', 'murmurd')
 		if os.path.exists(murmurd):
 			self.handle_binary_libs(murmurd)
+
+		ol = os.path.join(os.path.abspath(self.bundle), 'Contents', 'MacOS', 'mumble-overlay')
+		if os.path.exists(ol):
+			self.handle_binary_libs(ol)
+
+		g15 = os.path.join(os.path.abspath(self.bundle), 'Contents', 'MacOS', 'mumble-g15-helper')
+		if os.path.exists(g15):
+			self.handle_binary_libs(g15)
 
 	def handle_binary_libs(self, macho=None):
 		'''
@@ -209,12 +216,14 @@ class AppBundle(object):
 		'''
 			Copy overlay resources.
 		'''
-		ol = 'release/libmumbleoverlay.dylib'
-		if os.path.exists(ol):
-			print ' * Copying overlay resources into bundle.'
-			dst = os.path.join(self.bundle, 'Contents', 'Overlay')
-			os.makedirs(dst)
-			shutil.copy(ol, dst)
+		print ' * Copying overlay resources into bundle.'
+
+		dst = os.path.join(self.bundle, 'Contents', 'Overlay')
+		os.makedirs(dst)
+		shutil.copy('release/libmumbleoverlay.dylib', dst)
+
+		dst = os.path.join(self.bundle, 'Contents', 'MacOS')
+		shutil.copy('release/mumble-overlay', dst)
 
 	def copy_plugins(self):
 		'''
@@ -436,11 +445,10 @@ if __name__ == '__main__':
 	a = AppBundle('release/Mumble.app', ver)
 	a.copy_murmur()
 	a.copy_g15helper()
-	a.handle_libs()
 	a.copy_overlay()
+	a.handle_libs()
 	a.copy_plugins()
 	a.copy_qt_plugins()
-	a.handle_libs()
 	a.copy_resources(['icons/mumble.icns', 'scripts/qt.conf'])
 	a.update_plist()
 	a.done()
@@ -458,24 +466,19 @@ if __name__ == '__main__':
 	# Sign our binaries, etc.
 	if options.codesign:
 		print ' * Signing binaries with identity `%s\'' % options.codesign
-		binaries = [
+		binaries = (
 			# 1.2.x
 			'release/Mumble.app',
 			'release/Mumble.app/Contents/MacOS/murmurd',
 			'release/Mumble.app/Contents/MacOS/mumble-g15-helper',
+			'release/Mumble.app/Contents/MacOS/mumble-overlay',
 			'release/Mumble.app/Contents/Plugins/liblink.dylib',
+			'release/Mumble.app/Contents/Overlay/libmumbleoverlay.dylib',
 			# 1.1.x
 			'release/Mumble11x.app/',
 			'release/Mumble11x.app/Contents/MacOS/mumble-g15-helper',
 			'release/Mumble11x.app/Contents/Plugins/liblink.dylib'
-		]
-
-		ol = 'release/libmumbleoverlay.dylib'
-		if os.path.exists(ol):
-			binaries.append(ol)
-		else:
-			binaries.append('release/MumbleOverlayEnabler/MumbleOverlayEnabler.bundle')
-			binaries.append('release/MumbleOverlayEnabler/MumbleOverlay.bundle')
+		)
 
 		codesign(options.codesign, binaries)
 		print ''
