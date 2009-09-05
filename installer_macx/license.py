@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # update license.html from the template
 
-license = open('../LICENSE').read()
+l = open('../LICENSE').read()
+l = l.replace('<', '&lt;').replace('>', '&gt;')
 tmpl = open('license.tmpl').read()
-s = tmpl.replace('{{LICENSE}}', license)
+s = tmpl.replace('{{LICENSE}}', l)
 out = open('license.html', 'w').write(s)
