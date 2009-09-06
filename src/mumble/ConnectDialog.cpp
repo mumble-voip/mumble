@@ -556,7 +556,10 @@ void ConnectDialog::initList() {
 
 	bPublicInit = true;
 
-	QUrl url(QLatin1String("http://mumble.hive.no/list2.cgi"));
+	QUrl url;
+	url.setScheme(QLatin1String("http"));
+	url.setHost(g.qsRegionalHost);
+	url.setPath(QLatin1String("/list2.cgi"));
 	url.addQueryItem(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
 
 	QNetworkRequest req(url);
@@ -796,6 +799,17 @@ void ConnectDialog::udpReply() {
 void ConnectDialog::finished() {
 	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
 	if (rep->error() != QNetworkReply::NoError) {
+		QUrl url = rep->request().url();
+		if (url.host() == g.qsRegionalHost) {
+			url.setHost(QLatin1String("mumble.info"));
+			QNetworkRequest req(url);
+			QNetworkReply *nrep = g.nam->get(req);
+			connect(nrep, SIGNAL(finished()), this, SLOT(finished()));
+
+			rep->deleteLater();
+			return;
+		}
+
 		QMessageBox::warning(this, tr("Mumble"), tr("Failed to fetch server list"), QMessageBox::Ok);
 		return;
 	}

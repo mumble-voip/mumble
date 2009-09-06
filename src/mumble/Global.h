@@ -81,6 +81,7 @@ public:
 	int iMaxBandwidth;
 	int iAudioBandwidth;
 	QDir qdBasePath;
+	QString qsRegionalHost;
 	Global();
 	~Global();
 };

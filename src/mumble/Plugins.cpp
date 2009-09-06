@@ -338,7 +338,7 @@ void Plugins::on_Timer_timeout() {
 }
 
 void Plugins::checkUpdates() {
-	QUrl url(QLatin1String("http://mumble.hive.no/plugins.php"));
+	QUrl url(QLatin1String("http://mumble.info/plugins.php"));
 
 	url.addQueryItem(QLatin1String("ver"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
 #if defined(Q_OS_WIN)
@@ -437,7 +437,7 @@ void Plugins::finished() {
 			QMap<QString, QString>::const_iterator i;
 			for (i = qmPluginHash.constBegin(); i != qmPluginHash.constEnd(); ++i) {
 				if (! i.value().isEmpty()) {
-					QUrl url(QLatin1String("http://mumble.hive.no/"));
+					QUrl url(QLatin1String("http://mumble.info/"));
 					url.setPath(QString::fromLatin1("plugins/%1").arg(i.key()));
 
 					QNetworkRequest req(url);

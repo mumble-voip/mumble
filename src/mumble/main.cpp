@@ -205,6 +205,11 @@ int main(int argc, char **argv) {
 	else if (qttranslator.load(QLatin1String("translation:qt_") + locale))
 		a.installTranslator(&qttranslator);
 
+	g.qsRegionalHost = qsSystemLocale;
+	g.qsRegionalHost = g.qsRegionalHost.remove(QRegExp(QLatin1String("^.+_"))).toLower() + QLatin1String(".mumble.info");
+
+	qWarning() << g.qsRegionalHost;
+
 	// Initialize proxy settings
 	NetworkConfig::SetupProxy();
 

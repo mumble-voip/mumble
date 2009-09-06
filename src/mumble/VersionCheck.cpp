@@ -35,7 +35,10 @@
 VersionCheck::VersionCheck(bool autocheck, QObject *p) : QObject(p) {
 	bSilent = autocheck;
 
-	QUrl url(QLatin1String("http://mumble.hive.no/ver.php"));
+	QUrl url;
+	url.setScheme(QLatin1String("http"));
+	url.setHost(g.qsRegionalHost);
+	url.setPath(QLatin1String("/ver.php"));
 
 	url.addQueryItem(QLatin1String("ver"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
 	url.addQueryItem(QLatin1String("date"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__DATE__))));
@@ -80,8 +83,19 @@ void VersionCheck::finished() {
 		const QByteArray &a=rep->readAll();
 		if (! a.isEmpty())
 			g.mw->msgBox(QString::fromUtf8(a));
-	} else if (bSilent) {
-		g.mw->msgBox(tr("Mumble failed to retrieve version information from the SourceForge server."));
+	} else {
+		QUrl url = rep->request().url();
+		if (url.host() == g.qsRegionalHost) {
+			url.setHost(QLatin1String("mumble.info"));
+			QNetworkRequest req(url);
+			QNetworkReply *nrep = g.nam->get(req);
+			connect(nrep, SIGNAL(finished()), this, SLOT(finished()));
+
+			rep->deleteLater();
+			return;
+		} else if (bSilent) {
+			g.mw->msgBox(tr("Mumble failed to retrieve version information from the SourceForge server."));
+		}
 	}
 
 	rep->deleteLater();
