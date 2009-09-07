@@ -1133,13 +1133,11 @@ void Server::tcpTransmitData(QByteArray a, unsigned int id) {
 		QByteArray qba;
 		int len = a.size();
 
-		qba.resize(len + 4);
+		qba.resize(len + 6);
 		unsigned char *uc = reinterpret_cast<unsigned char *>(qba.data());
-		uc[0] = MessageHandler::UDPTunnel;
-		uc[1] = static_cast<unsigned char>((len >> 16) & 0xFF);
-		uc[2] = static_cast<unsigned char>((len >> 8) & 0xFF);
-		uc[3] = static_cast<unsigned char>(len & 0xFF);
-		memcpy(uc + 4, a.constData(), len);
+		* reinterpret_cast<quint16 *>(& uc[0]) = qToBigEndian(static_cast<quint16>(MessageHandler::UDPTunnel));
+		* reinterpret_cast<quint32 *>(& uc[2]) = qToBigEndian(static_cast<quint32>(len));
+		memcpy(uc + 6, a.constData(), len);
 
 		c->sendMessage(qba);
 		c->forceFlush();
