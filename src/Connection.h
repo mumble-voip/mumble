@@ -43,9 +43,7 @@ class Connection : public QObject {
 		QSslSocket *qtsSocket;
 		QTime qtLastPacket;
 		unsigned int uiType;
-		unsigned int uiPacketLength;
-		unsigned int uiLengthShift;
-		bool bLengthComplete;
+		int iPacketLength;
 		bool bDisconnectedEmitted;
 #ifdef Q_OS_WIN
 		static HANDLE hQoS;

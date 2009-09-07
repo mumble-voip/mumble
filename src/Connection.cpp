@@ -45,11 +45,7 @@ HANDLE Connection::hQoS = NULL;
 Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	qtsSocket = qtsSock;
 	qtsSocket->setParent(this);
-	uiPacketLength = 0;
-	uiType = UINT_MAX;
-	uiLengthShift = 0;
-	bLengthComplete = false;
-	
+	iPacketLength = -1;
 	bDisconnectedEmitted = false;
 
 	connect(qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
@@ -97,55 +93,27 @@ int Connection::activityTime() const {
 void Connection::socketRead() {
 	while (true) {
 		qint64 iAvailable = qtsSocket->bytesAvailable();
-		if (! bLengthComplete) {
-			int mlen = 1;
-			if (uiType == UINT_MAX)
-				++mlen;
-			
-			if (iAvailable < mlen) 
+		if (iPacketLength == -1) {
+			if (iAvailable < 6)
 				return;
-				
-			unsigned char header[2];
-			unsigned char val;
-			qtsSocket->read(reinterpret_cast<char *>(header), mlen);
-			if (uiType == UINT_MAX) {
-				uiType = header[0];
-				val = header[1];
-			} else {
-				val = header[0];
-			}
-			
-			iAvailable -= mlen;
 
-			do {
-				if (val & 0x80) {
-					uiPacketLength |= ((val & 0x7f) << uiLengthShift);
-					uiLengthShift += 7;
-					if (iAvailable <= 0)
-						return;
-					qtsSocket->read(reinterpret_cast<char *>(&val), 1);
-					--iAvailable;
-				} else {
-					uiPacketLength |= (val << uiLengthShift);
-					bLengthComplete = true;
-				}
-			} while (! bLengthComplete);
+			unsigned char a_ucBuffer[6];
+
+			qtsSocket->read(reinterpret_cast<char *>(a_ucBuffer), 6);
+			uiType = qFromBigEndian(* reinterpret_cast<quint16 *>(& a_ucBuffer[0]));
+			iPacketLength = qFromBigEndian(* reinterpret_cast<quint32 *>(& a_ucBuffer[2]));
+			iAvailable -= 6;
 		}
-		if (! bLengthComplete || (iAvailable < uiPacketLength)) 
+
+		if ((iPacketLength == -1) || (iAvailable < iPacketLength))
 			return;
 
-		QByteArray qbaBuffer = qtsSocket->read(uiPacketLength);
-		iAvailable -= uiPacketLength;
-		
-		unsigned int type = uiType;
-
-		uiPacketLength = 0;
-		uiLengthShift = 0;
-		uiType = UINT_MAX;
-		bLengthComplete = false;
+		QByteArray qbaBuffer = qtsSocket->read(iPacketLength);
+		iPacketLength = -1;
 		qtLastPacket.restart();
+		iAvailable -= iPacketLength;
 
-		emit message(type, qbaBuffer);
+		emit message(uiType, qbaBuffer);
 	}
 }
 
@@ -172,28 +140,15 @@ void Connection::socketDisconnected() {
 }
 
 void Connection::messageToNetwork(const ::google::protobuf::Message &msg, unsigned int msgType, QByteArray &cache) {
-	const unsigned int len = msg.ByteSize();
-	unsigned int enclen = len;
-	unsigned int idx = 1;
+	int len = msg.ByteSize();
 	if (len > 0x7fffff)
 		return;
-		
-	unsigned char header[16];
-	header[0] = static_cast<unsigned char>(msgType);
-	do {
-		unsigned char val = (enclen & 0x7f);
-		enclen = enclen >> 7;
-		if (enclen > 0)
-			header[idx] = (val | 0x80);
-		else
-			header[idx] = val;
-		++idx;
-	} while (enclen > 0);
-
-	cache.resize(len + idx);
+	cache.resize(len + 6);
 	unsigned char *uc = reinterpret_cast<unsigned char *>(cache.data());
-	memcpy(uc, header, idx);
-	msg.SerializeToArray(uc + idx, len);
+	* reinterpret_cast<quint16 *>(& uc[0]) = qToBigEndian(static_cast<quint16>(msgType));
+	* reinterpret_cast<quint32 *>(& uc[2]) = qToBigEndian(static_cast<quint32>(len));
+
+	msg.SerializeToArray(uc + 6, len);
 }
 
 void Connection::sendMessage(const ::google::protobuf::Message &msg, unsigned int msgType, QByteArray &cache) {
