@@ -1,3 +1,37 @@
+2009-09-07
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    7710c86  Update 11x to have new global var
+    75356e1  4 byte packet length, 2 byte type, and use SSL compression to
+	     encode it
+    96ae2b2  Variable length packet length encoding
+
+2009-09-06
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    62b83d8  Support for regional servers for server list
+
+2009-09-05
+  Mikkel Krautz <mikkel@krautz.dk>
+    fa95e61  Update OSX license script.
+
+  Natenom <natenom@googlemail.com>
+    6c90415  Updated German translations.
+
+2009-09-04
+  Mikkel Krautz <mikkel@krautz.dk>
+    a078791  Don't use the installer on OSX. Go back to 'Copy to
+	     Applications folder to install!'-method. Disable .DS_Store for
+	     disk image (for now).
+    345852e  Switch to new manual overlay injector on OSX.
+
+  Natenom <natenom@googlemail.com>
+    a74e859  Changed translations and fixed errors.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    5d0e14c  Show you muted X messages properly.
+    40e8431  Maintain stable ServerItem list
+    2c3f8f8  Only one pingsweep per second
+    a87e113  Filter to show only favorites
+
 2009-09-02
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     e7aacbc  cache hostname lookups
@@ -46,6 +80,9 @@
 
   Hengqing Hu <esrms@users.sourceforge.net>
     acbb44f  Add BOM and s/LANG_SIMPCHINESE/LANG_TRADCHINESE/
+
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    37d26c8  Corrected Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
     31c8de9  Make Filters a group, and add a "Add New..." button
