@@ -285,8 +285,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	if (uSource->iId == 0) {
 		mpss.set_permissions(ChanACL::All);
 	} else {
-		hasPermission(uSource, root, ChanACL::Enter);
 		QMutexLocker qml(&qmCache);
+		ChanACL::hasPermission(uSource, root, ChanACL::Enter, acCache);
 		mpss.set_permissions(acCache.value(uSource)->value(root));
 	}
 
