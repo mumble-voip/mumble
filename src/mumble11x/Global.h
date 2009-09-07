@@ -78,6 +78,7 @@ public:
 	int iMaxBandwidth;
 	int iAudioBandwidth;
 	int iAudioQuality;
+	QString qsRegionalHost;
 	Global();
 };
 

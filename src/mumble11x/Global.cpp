@@ -47,6 +47,7 @@ Global::Global() {
 	bEchoTest = false;
 	bPosTest = false;
 	iAudioPathTime = 0;
+	qsRegionalHost = QLatin1String("mumble.info");
 }
 
 QMultiMap<int, DeferInit *> *DeferInit::qmDeferers = NULL;
