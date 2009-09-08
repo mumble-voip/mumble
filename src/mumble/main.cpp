@@ -150,16 +150,6 @@ int main(int argc, char **argv) {
 
 	DeferInit::run_initializers();
 
-#ifdef QT_NO_DEBUG
-	// Remove the hardcoded dev-path to plugins. We don't want those.
-	QStringList np;
-	foreach(const QString &qs, a.libraryPaths()) {
-		if (! qs.startsWith(QLatin1String("C:/dev/Qt")))
-			np << qs;
-	}
-	a.setLibraryPaths(np);
-#endif
-
 	if (! g.s.qsStyle.isEmpty()) {
 		a.setStyle(g.s.qsStyle);
 	}
@@ -207,8 +197,6 @@ int main(int argc, char **argv) {
 
 	g.qsRegionalHost = qsSystemLocale;
 	g.qsRegionalHost = g.qsRegionalHost.remove(QRegExp(QLatin1String("^.+_"))).toLower() + QLatin1String(".mumble.info");
-
-	qWarning() << g.qsRegionalHost;
 
 	// Initialize proxy settings
 	NetworkConfig::SetupProxy();

@@ -131,6 +131,7 @@ Section "" SectionCommon
   File "speex.txt"
   File "qt.txt"
 
+  File "..\scripts\qt.conf"
   File "\dev\Qt4.5.2\lib\QtCore4.dll"
   File "\dev\Qt4.5.2\lib\QtGui4.dll"
   File "\dev\Qt4.5.2\lib\QtNetwork4.dll"
@@ -156,13 +157,13 @@ Section "" SectionCommon
 
   File "\Program Files (x86)\Intel\Compiler\11.0\075\cpp\Bin\ia32\libmmd.dll"
 
-  SetOutPath "$INSTDIR\iconengines"
+  SetOutPath "$INSTDIR\QtPlugins\iconengines"
   File /x q*d4.dll "\dev\Qt4.5.2\plugins\iconengines\q*4.dll"
   
-  SetOutPath "$INSTDIR\imageformats"
+  SetOutPath "$INSTDIR\QtPlugins\imageformats"
   File /x q*d4.dll "\dev\Qt4.5.2\plugins\imageformats\q*4.dll"
 
-  SetOutPath "$INSTDIR\codecs"
+  SetOutPath "$INSTDIR\QtPlugins\codecs"
   File /x q*d4.dll "\dev\Qt4.5.2\plugins\codecs\q*4.dll"
 
   ;Store installation folder
@@ -400,26 +401,9 @@ end:
   Delete "$INSTDIR\qos.reg"
   Delete "$INSTDIR\murmur.ini"
 
-  Delete "$INSTDIR\plugins\aoc.dll"
-  Delete "$INSTDIR\plugins\bf2.dll"
-  Delete "$INSTDIR\plugins\bf2142.dll"
-  Delete "$INSTDIR\plugins\cod2.dll"
-  Delete "$INSTDIR\plugins\cod4.dll"
-  Delete "$INSTDIR\plugins\cod5.dll"
-  Delete "$INSTDIR\plugins\css.dll"
-  Delete "$INSTDIR\plugins\dods.dll"
-  Delete "$INSTDIR\plugins\dys.dll"
-  Delete "$INSTDIR\plugins\gmod.dll"
-  Delete "$INSTDIR\plugins\hl2dm.dll"
-  Delete "$INSTDIR\plugins\insurgency.dll"
-  Delete "$INSTDIR\plugins\link.dll"
-  Delete "$INSTDIR\plugins\l4d.dll"
-  Delete "$INSTDIR\plugins\tf2.dll"
-  Delete "$INSTDIR\plugins\wolfet.dll"  
-  ;Delete "$INSTDIR\plugins\wow.dll"
-  
   Delete "$INSTDIR\Murmur.ice"
 
+  Delete "$INSTDIR\qt.conf"
   Delete "$INSTDIR\QtCore4.dll"
   Delete "$INSTDIR\QtGui4.dll"
   Delete "$INSTDIR\QtNetwork4.dll"
@@ -429,9 +413,7 @@ end:
   Delete "$INSTDIR\QtXml4.dll"
   Delete "$INSTDIR\QtSvg4.dll"
   
-  RMDir /r "$INSTDIR\iconengines"
-  RMDir /r "$INSTDIR\imageformats"
-  RMDir /r "$INSTDIR\codecs"
+  RMDir /r "$INSTDIR\QtPlugins"
 
   Delete "$INSTDIR\libmySQL.dll"
 
@@ -463,7 +445,7 @@ end:
 
   RMDir "$INSTDIR\bin"
   RMDir "$INSTDIR\etc"
-  RMDir "$INSTDIR\plugins"
+  RMDir /r "$INSTDIR\plugins"
   RMDir "$INSTDIR"
 
   Delete "$DESKTOP\Mumble.lnk"
@@ -581,8 +563,6 @@ reinst_done:
 FunctionEnd
 
 Function .onInit
-  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 "This is an experimental release of the 1.2 series of Mumble and Murmur, and is not compatible with clients and servers from the 1.1.x series or other 1.2 snapshots. Do you still wish to install?" IDYES +2
-  Abort
   Push $R0
   CPUFeatures::hasSSE
   Pop $0
@@ -615,6 +595,10 @@ Function Desktop_Shortcut
   ${If} ${SectionIsSelected} ${SectionMumble}
     SetOutPath "$INSTDIR"
     CreateShortCut "$DESKTOP\Mumble.lnk" "$INSTDIR\mumble.exe"
+  ${EndIf}
+  ${If} ${SectionIsSelected} ${SectionMumble11X}
+    SetOutPath "$INSTDIR"
+    CreateShortCut "$DESKTOP\$(MUMBLE_COMPAT_LNK).lnk" "$INSTDIR\mumble11x.exe"
   ${EndIf}
 FunctionEnd
 
