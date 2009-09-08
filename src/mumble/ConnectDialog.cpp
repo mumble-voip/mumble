@@ -37,7 +37,9 @@
 QMap<QString, QIcon> ServerItem::qmIcons;
 
 void ServerItem::initAccumulator() {
-	asRight = new asRightType(boost::accumulators::right_tail_cache_size = 100);
+	boost::array<double, 3> probs = {0.75, 0.80, 0.95 };
+
+	asQuantile = new asQuantileType(boost::accumulators::tag::extended_p_square::probabilities = probs);
 	dPing = 0.0;
 	uiPing = 0;
 	uiUsers = 0;
@@ -118,7 +120,7 @@ QVariant ServerItem::data(int column, int role) const {
 				else
 					return qsCountry;
 			case 2:
-				return uiPing ? QString::number(uiPing) : QVariant();
+				return (dPing > 0.0) ? QString::number(uiPing) : QVariant();
 			case 3:
 				return uiUsers ? QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers) : QVariant();
 		}
@@ -137,7 +139,7 @@ QVariant ServerItem::data(int column, int role) const {
 			qsl << qha.toString();
 
 		double ploss = 100.0;
-		quint32 uiRecv = boost::accumulators::count(* asRight);
+		quint32 uiRecv = boost::accumulators::count(* asQuantile);
 
 		if (uiSent > 0)
 			ploss = (uiSent - uiRecv) * 100. / uiSent;
@@ -152,9 +154,9 @@ QVariant ServerItem::data(int column, int role) const {
 		               ((uiSent == 0) ? QString() : (
 		                    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Packet loss"), QString::fromLatin1("%1% (%2/%3)").arg(ploss, 0, 'f', 1).arg(uiRecv).arg(uiSent)) +
 		                    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (80%)"), ConnectDialog::tr("%1 ms").
-		                            arg(boost::accumulators::non_coherent_tail_mean(* asRight, boost::accumulators::quantile_probability = 0.80) / 1000., 0, 'f', 2)) +
+		                            arg(boost::accumulators::extended_p_square(* asQuantile)[1] / 1000., 0, 'f', 2)) +
 		                    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (95%)"), ConnectDialog::tr("%1 ms").
-		                            arg(boost::accumulators::non_coherent_tail_mean(* asRight, boost::accumulators::quantile_probability = 0.95) / 1000., 0, 'f', 2))
+		                            arg(boost::accumulators::extended_p_square(* asQuantile)[2] / 1000., 0, 'f', 2))
 		                )) +
 		               QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bandwidth"), ConnectDialog::tr("%1 kbit/s").arg(uiBandwidth / 1000))) +
 		       QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Users"), QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers)) +
@@ -784,8 +786,8 @@ void ConnectDialog::udpReply() {
 					si->uiMaxUsers = qFromBigEndian(ping[4]);
 					si->uiBandwidth = qFromBigEndian(ping[5]);
 
-					(* si->asRight)(static_cast<double>(elapsed));
-					si->dPing = boost::accumulators::non_coherent_tail_mean(* si->asRight, boost::accumulators::quantile_probability = 0.75);
+					(* si->asQuantile)(static_cast<double>(elapsed));
+					si->dPing = boost::accumulators::extended_p_square(* si->asQuantile)[0];
 					si->uiPing = lroundf(si->dPing / 1000.);
 
 					si->setDatas();

@@ -80,8 +80,8 @@ class ServerItem : public QTreeWidgetItem {
 
 		QList<QHostAddress> qlAddresses;
 
-		typedef boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::count, boost::accumulators::tag::non_coherent_tail_mean<boost::accumulators::right> > > asRightType;
-		asRightType *asRight;
+		typedef boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::count, boost::accumulators::tag::extended_p_square> > asQuantileType;
+		asQuantileType *asQuantile;
 
 		ItemType itType;
 		quint32 uiPing;
