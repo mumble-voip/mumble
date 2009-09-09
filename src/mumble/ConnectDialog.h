@@ -98,6 +98,7 @@ class ServerItem : public QTreeWidgetItem {
 		asQuantileType *asQuantile;
 
 		ItemType itType;
+		quint32 uiVersion;
 		quint32 uiPing;
 		quint32 uiUsers;
 		quint32 uiMaxUsers;
