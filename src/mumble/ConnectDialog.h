@@ -111,8 +111,10 @@ class ServerItem : public QTreeWidgetItem {
 		ServerItem(const PublicInfo &pi);
 		ServerItem(const QString &name, const QString &host, unsigned short port, const QString &uname);
 		ServerItem(const BonjourRecord &br);
+		static ServerItem *fromMimeData(const QMimeData *mime, QWidget *p = NULL);
 
 		FavoriteServer toFavoriteServer() const;
+		QMimeData *toMimeData() const;
 
 		static QIcon loadIcon(const QString &name);
 
@@ -195,6 +197,8 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void on_qaFavoriteAddNew_triggered();
 		void on_qaFavoriteEdit_triggered();
 		void on_qaFavoriteRemove_triggered();
+		void on_qaFavoriteCopy_triggered();
+		void on_qaFavoritePaste_triggered();
 		void on_qaUrl_triggered();
 		void onFiltersTriggered(QAction *);
 		void on_qtwServers_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);

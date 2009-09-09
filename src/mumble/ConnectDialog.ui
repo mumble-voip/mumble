@@ -151,6 +151,22 @@
     <string>Show only Favorite and LAN servers</string>
    </property>
   </action>
+  <action name="qaFavoriteCopy">
+   <property name="text">
+    <string>&amp;Copy</string>
+   </property>
+   <property name="toolTip">
+    <string>Copy favorite link to clipboard</string>
+   </property>
+  </action>
+  <action name="qaFavoritePaste">
+   <property name="text">
+    <string>&amp;Paste</string>
+   </property>
+   <property name="toolTip">
+    <string>Paste favorite from clipboard</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

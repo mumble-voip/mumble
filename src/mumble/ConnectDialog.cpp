@@ -40,69 +40,11 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 }
 
 QMimeData *ServerView::mimeData(const QList<QTreeWidgetItem *> items) const {
-	qWarning() << "mimeData" << items.count();
 	if (items.isEmpty())
 		return NULL;
 
 	ServerItem *si = static_cast<ServerItem *>(items.first());
-
-	QUrl url;
-	url.setScheme(QLatin1String("mumble"));
-	url.setHost(si->qsHostname);
-	url.setPort(si->usPort);
-	url.addQueryItem(QLatin1String("title"), si->qsName);
-	if (! si->qsUrl.isEmpty())
-		url.addQueryItem(QLatin1String("url"), si->qsUrl);
-
-	QString qs = QLatin1String(url.toEncoded());
-
-	QList<QUrl> urls;
-	urls << url;
-
-	QMimeData *mime = new QMimeData;
-
-#ifdef Q_OS_WIN
-	// FIXME: Even with all this, it still won't drop on the desktop.
-
-	QString contents = QString::fromLatin1("[InternetShortcut]\r\nURL=%1\r\n").arg(qs);
-	QString urlname = QString::fromLatin1("%1.url").arg(si->qsName);
-
-	FILEGROUPDESCRIPTORA fgda;
-	ZeroMemory(&fgda, sizeof(fgda));
-	fgda.cItems = 1;
-	fgda.fgd[0].dwFlags = FD_LINKUI | FD_FILESIZE;
-	fgda.fgd[0].nFileSizeLow=contents.length();
-	strcpy_s(fgda.fgd[0].cFileName, MAX_PATH, urlname.toLocal8Bit().constData());
-	mime->setData(QLatin1String("FileGroupDescriptor"), QByteArray(reinterpret_cast<const char *>(&fgda), sizeof(fgda)));
-
-	FILEGROUPDESCRIPTORW fgdw;
-	ZeroMemory(&fgdw, sizeof(fgdw));
-	fgdw.cItems = 1;
-	fgdw.fgd[0].dwFlags = FD_LINKUI | FD_FILESIZE;
-	fgdw.fgd[0].nFileSizeLow=contents.length();
-	wcscpy_s(fgdw.fgd[0].cFileName, MAX_PATH, urlname.utf16());
-	mime->setData(QLatin1String("FileGroupDescriptorW"), QByteArray(reinterpret_cast<const char *>(&fgdw), sizeof(fgdw)));
-
-	mime->setData(QString::fromUtf16(CFSTR_FILECONTENTS), contents.toLocal8Bit());
-
-	DWORD context[4];
-	context[0] = 0;
-	context[1] = 1;
-	context[2] = 0;
-	context[3] = 0;
-	mime->setData(QLatin1String("DragContext"), QByteArray(reinterpret_cast<const char *>(&context[0]), sizeof(context)));
-
-	DWORD dropaction;
-	dropaction = DROPEFFECT_LINK;
-	mime->setData(QString::fromUtf16(CFSTR_PREFERREDDROPEFFECT), QByteArray(reinterpret_cast<const char *>(&dropaction), sizeof(dropaction)));
-#endif
-	mime->setUrls(urls);
-	mime->setText(qs);
-	mime->setHtml(QString::fromLatin1("<a href=\"%1\">%2</a>").arg(qs).arg(si->qsName));
-
-	mime->setData(QLatin1String("OriginatedInMumble"), QByteArray());
-
-	return mime;
+	return si->toMimeData();
 }
 
 QStringList ServerView::mimeTypes() const {
@@ -117,41 +59,9 @@ Qt::DropActions ServerView::supportedDropActions() const {
 }
 
 bool ServerView::dropMimeData(QTreeWidgetItem *, int, const QMimeData *mime, Qt::DropAction) {
-	QUrl url;
-
-	if (mime->hasFormat(QLatin1String("OriginatedInMumble")))
+	ServerItem *si = ServerItem::fromMimeData(mime);
+	if (! si)
 		return false;
-
-	if (mime->hasUrls() && ! mime->urls().isEmpty())
-		url = mime->urls().at(0);
-	else if (mime->hasText())
-		url = QUrl::fromEncoded(mime->text().toUtf8());
-
-	if (! url.isValid() || (url.scheme() != QLatin1String("mumble")))
-		return false;
-
-	if (url.userName().isEmpty()) {
-		if (g.s.qsUsername.isEmpty()) {
-			bool ok;
-			QString defUserName = QInputDialog::getText(this, tr("Adding host %1").arg(url.host()), tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok).trimmed();
-			if (! ok)
-				return false;
-			if (defUserName.isEmpty())
-				return false;
-			g.s.qsUsername = defUserName;
-		}
-		url.setUserName(g.s.qsUsername);
-	}
-
-	if (! url.hasQueryItem(QLatin1String("title")))
-		url.addQueryItem(QLatin1String("title"), url.host());
-
-	ServerItem *si = new ServerItem(url.queryItemValue(QLatin1String("title")), url.host(), url.port(), url.userName());
-	if (! url.password().isEmpty())
-		si->qsPassword = url.password();
-
-	if (url.hasQueryItem(QLatin1String("url")))
-		si->qsUrl = url.queryItemValue(QLatin1String("url"));
 
 	qobject_cast<ConnectDialog *>(parent())->qlItems << si;
 	addTopLevelItem(si);
@@ -229,6 +139,62 @@ ServerItem::ServerItem(const BonjourRecord &br) : QTreeWidgetItem(QTreeWidgetIte
 
 	initAccumulator();
 	setDatas();
+}
+
+ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
+	if (mime->hasFormat(QLatin1String("OriginatedInMumble")))
+		return NULL;
+
+	QUrl url;
+	if (mime->hasUrls() && ! mime->urls().isEmpty())
+		url = mime->urls().at(0);
+	else if (mime->hasText())
+		url = QUrl::fromEncoded(mime->text().toUtf8());
+
+	QString qsFile = url.toLocalFile();
+	if (! qsFile.isEmpty()) {
+		QFile f(qsFile);
+		if (f.open(QIODevice::ReadOnly)) {
+			QByteArray qba = f.readAll();
+			f.close();
+
+			url = QUrl::fromEncoded(qba, QUrl::StrictMode);
+			if (! url.isValid()) {
+				QSettings qs(qsFile, QSettings::IniFormat);
+				url = QUrl::fromEncoded(qs.value(QLatin1String("InternetShortcut/URL")).toByteArray(), QUrl::StrictMode);
+			}
+		}
+	}
+
+	qWarning() << url.toString();
+
+	if (! url.isValid() || (url.scheme() != QLatin1String("mumble")))
+		return NULL;
+
+	if (url.userName().isEmpty()) {
+		if (g.s.qsUsername.isEmpty()) {
+			bool ok;
+			QString defUserName = QInputDialog::getText(p, ConnectDialog::tr("Adding host %1").arg(url.host()), ConnectDialog::tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok).trimmed();
+			if (! ok)
+				return NULL;
+			if (defUserName.isEmpty())
+				return NULL;
+			g.s.qsUsername = defUserName;
+		}
+		url.setUserName(g.s.qsUsername);
+	}
+
+	if (! url.hasQueryItem(QLatin1String("title")))
+		url.addQueryItem(QLatin1String("title"), url.host());
+
+	ServerItem *si = new ServerItem(url.queryItemValue(QLatin1String("title")), url.host(), url.port(), url.userName());
+	if (! url.password().isEmpty())
+		si->qsPassword = url.password();
+
+	if (url.hasQueryItem(QLatin1String("url")))
+		si->qsUrl = url.queryItemValue(QLatin1String("url"));
+
+	return si;
 }
 
 QVariant ServerItem::data(int column, int role) const {
@@ -330,6 +296,66 @@ FavoriteServer ServerItem::toFavoriteServer() const {
 	fs.qsPassword = qsPassword;
 	fs.qsUrl = qsUrl;
 	return fs;
+}
+
+QMimeData *ServerItem::toMimeData() const {
+	QUrl url;
+	url.setScheme(QLatin1String("mumble"));
+	url.setHost(qsHostname);
+	url.setPort(usPort);
+	url.addQueryItem(QLatin1String("title"), qsName);
+	if (! qsUrl.isEmpty())
+		url.addQueryItem(QLatin1String("url"), qsUrl);
+
+	QString qs = QLatin1String(url.toEncoded());
+
+	QMimeData *mime = new QMimeData;
+
+#ifdef Q_OS_WIN
+	// FIXME: Even with all this, it still won't drop on the desktop.
+
+	QString contents = QString::fromLatin1("[InternetShortcut]\r\nURL=%1\r\n").arg(qs);
+	QString urlname = QString::fromLatin1("%1.url").arg(qsName);
+
+	FILEGROUPDESCRIPTORA fgda;
+	ZeroMemory(&fgda, sizeof(fgda));
+	fgda.cItems = 1;
+	fgda.fgd[0].dwFlags = FD_LINKUI | FD_FILESIZE;
+	fgda.fgd[0].nFileSizeLow=contents.length();
+	strcpy_s(fgda.fgd[0].cFileName, MAX_PATH, urlname.toLocal8Bit().constData());
+	mime->setData(QLatin1String("FileGroupDescriptor"), QByteArray(reinterpret_cast<const char *>(&fgda), sizeof(fgda)));
+
+	FILEGROUPDESCRIPTORW fgdw;
+	ZeroMemory(&fgdw, sizeof(fgdw));
+	fgdw.cItems = 1;
+	fgdw.fgd[0].dwFlags = FD_LINKUI | FD_FILESIZE;
+	fgdw.fgd[0].nFileSizeLow=contents.length();
+	wcscpy_s(fgdw.fgd[0].cFileName, MAX_PATH, urlname.utf16());
+	mime->setData(QLatin1String("FileGroupDescriptorW"), QByteArray(reinterpret_cast<const char *>(&fgdw), sizeof(fgdw)));
+
+	mime->setData(QString::fromUtf16(CFSTR_FILECONTENTS), contents.toLocal8Bit());
+
+	DWORD context[4];
+	context[0] = 0;
+	context[1] = 1;
+	context[2] = 0;
+	context[3] = 0;
+	mime->setData(QLatin1String("DragContext"), QByteArray(reinterpret_cast<const char *>(&context[0]), sizeof(context)));
+
+	DWORD dropaction;
+	dropaction = DROPEFFECT_LINK;
+	mime->setData(QString::fromUtf16(CFSTR_PREFERREDDROPEFFECT), QByteArray(reinterpret_cast<const char *>(&dropaction), sizeof(dropaction)));
+#endif
+	QList<QUrl> urls;
+	urls << url;
+	mime->setUrls(urls);
+
+	mime->setText(qs);
+	mime->setHtml(QString::fromLatin1("<a href=\"%1\">%2</a>").arg(qs).arg(qsName));
+
+	mime->setData(QLatin1String("OriginatedInMumble"), QByteArray());
+
+	return mime;
 }
 
 bool ServerItem::operator <(const QTreeWidgetItem &o) const {
@@ -524,6 +550,9 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	fillList();
 	pingList();
 
+	new QShortcut(QKeySequence(QKeySequence::Copy), this, SLOT(on_qaFavoriteCopy_triggered()));
+	new QShortcut(QKeySequence(QKeySequence::Paste), this, SLOT(on_qaFavoritePaste_triggered()));
+
 	qtwServers->setCurrentItem(NULL);
 	bLastFound = false;
 }
@@ -628,6 +657,23 @@ void ConnectDialog::on_qaFavoriteRemove_triggered() {
 
 	si->itType = si->brRecord.serviceName.isEmpty() ? ServerItem::PublicType : ServerItem::LANType;
 	si->setDatas();
+}
+
+void ConnectDialog::on_qaFavoriteCopy_triggered() {
+	ServerItem *si = static_cast<ServerItem *>(qtwServers->currentItem());
+	if (! si)
+		return;
+
+	QApplication::clipboard()->setMimeData(si->toMimeData());
+}
+
+void ConnectDialog::on_qaFavoritePaste_triggered() {
+	ServerItem *si = ServerItem::fromMimeData(QApplication::clipboard()->mimeData());
+	if (! si)
+		return;
+
+	qlItems << si;
+	qtwServers->addTopLevelItem(si);
 }
 
 void ConnectDialog::on_qaUrl_triggered() {
