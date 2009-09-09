@@ -173,6 +173,8 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUse
 		m = true;
 	else if (name == QLatin1String("auth"))
 		m = (pl->iId >= 0);
+	else if (name == QLatin1String("strong"))
+		m = pl->bVerified;
 	else if (name == QLatin1String("in"))
 		m = (pl->cChannel == c);
 	else if (name == QLatin1String("out"))
