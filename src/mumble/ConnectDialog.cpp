@@ -36,6 +36,129 @@
 
 QMap<QString, QIcon> ServerItem::qmIcons;
 
+ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
+}
+
+QMimeData *ServerView::mimeData(const QList<QTreeWidgetItem *> items) const {
+	qWarning() << "mimeData" << items.count();
+	if (items.isEmpty())
+		return NULL;
+
+	ServerItem *si = static_cast<ServerItem *>(items.first());
+
+	QUrl url;
+	url.setScheme(QLatin1String("mumble"));
+	url.setHost(si->qsHostname);
+	url.setPort(si->usPort);
+	url.addQueryItem(QLatin1String("title"), si->qsName);
+	if (! si->qsUrl.isEmpty())
+		url.addQueryItem(QLatin1String("url"), si->qsUrl);
+
+	QString qs = QLatin1String(url.toEncoded());
+
+	QList<QUrl> urls;
+	urls << url;
+
+	QMimeData *mime = new QMimeData;
+
+#ifdef Q_OS_WIN
+	// FIXME: Even with all this, it still won't drop on the desktop.
+
+	QString contents = QString::fromLatin1("[InternetShortcut]\r\nURL=%1\r\n").arg(qs);
+	QString urlname = QString::fromLatin1("%1.url").arg(si->qsName);
+
+	FILEGROUPDESCRIPTORA fgda;
+	ZeroMemory(&fgda, sizeof(fgda));
+	fgda.cItems = 1;
+	fgda.fgd[0].dwFlags = FD_LINKUI | FD_FILESIZE;
+	fgda.fgd[0].nFileSizeLow=contents.length();
+	strcpy_s(fgda.fgd[0].cFileName, MAX_PATH, urlname.toLocal8Bit().constData());
+	mime->setData(QLatin1String("FileGroupDescriptor"), QByteArray(reinterpret_cast<const char *>(&fgda), sizeof(fgda)));
+
+	FILEGROUPDESCRIPTORW fgdw;
+	ZeroMemory(&fgdw, sizeof(fgdw));
+	fgdw.cItems = 1;
+	fgdw.fgd[0].dwFlags = FD_LINKUI | FD_FILESIZE;
+	fgdw.fgd[0].nFileSizeLow=contents.length();
+	wcscpy_s(fgdw.fgd[0].cFileName, MAX_PATH, urlname.utf16());
+	mime->setData(QLatin1String("FileGroupDescriptorW"), QByteArray(reinterpret_cast<const char *>(&fgdw), sizeof(fgdw)));
+
+	mime->setData(QString::fromUtf16(CFSTR_FILECONTENTS), contents.toLocal8Bit());
+
+	DWORD context[4];
+	context[0] = 0;
+	context[1] = 1;
+	context[2] = 0;
+	context[3] = 0;
+	mime->setData(QLatin1String("DragContext"), QByteArray(reinterpret_cast<const char *>(&context[0]), sizeof(context)));
+
+	DWORD dropaction;
+	dropaction = DROPEFFECT_LINK;
+	mime->setData(QString::fromUtf16(CFSTR_PREFERREDDROPEFFECT), QByteArray(reinterpret_cast<const char *>(&dropaction), sizeof(dropaction)));
+#endif
+	mime->setUrls(urls);
+	mime->setText(qs);
+	mime->setHtml(QString::fromLatin1("<a href=\"%1\">%2</a>").arg(qs).arg(si->qsName));
+
+	mime->setData(QLatin1String("OriginatedInMumble"), QByteArray());
+
+	return mime;
+}
+
+QStringList ServerView::mimeTypes() const {
+	QStringList qsl;
+	qsl << QStringList(QLatin1String("text/uri-list"));
+	qsl << QStringList(QLatin1String("text/plain"));
+	return qsl;
+}
+
+Qt::DropActions ServerView::supportedDropActions() const {
+	return Qt::CopyAction | Qt::LinkAction;
+}
+
+bool ServerView::dropMimeData(QTreeWidgetItem *, int, const QMimeData *mime, Qt::DropAction action) {
+	QUrl url;
+
+	if (mime->hasFormat(QLatin1String("OriginatedInMumble")))
+		return false;
+
+	if (mime->hasUrls() && ! mime->urls().isEmpty())
+		url = mime->urls().at(0);
+	else if (mime->hasText())
+		url = QUrl::fromEncoded(mime->text().toUtf8());
+
+	if (! url.isValid() || (url.scheme() != QLatin1String("mumble")))
+		return false;
+
+	if (url.userName().isEmpty()) {
+		if (g.s.qsUsername.isEmpty()) {
+			bool ok;
+			QString defUserName = QInputDialog::getText(this, tr("Adding host %1").arg(url.host()), tr("Enter username"), QLineEdit::Normal, g.s.qsUsername, &ok).trimmed();
+			if (! ok)
+				return false;
+			if (defUserName.isEmpty())
+				return false;
+			g.s.qsUsername = defUserName;
+		}
+		url.setUserName(g.s.qsUsername);
+	}
+
+	if (! url.hasQueryItem(QLatin1String("title")))
+		url.addQueryItem(QLatin1String("title"), url.host());
+
+	ServerItem *si = new ServerItem(url.queryItemValue(QLatin1String("title")), url.host(), url.port(), url.userName());
+	if (! url.password().isEmpty())
+		si->qsPassword = url.password();
+
+	if (url.hasQueryItem(QLatin1String("url")))
+		si->qsUrl = url.queryItemValue(QLatin1String("url"));
+
+	qobject_cast<ConnectDialog *>(parent())->qlItems << si;
+	addTopLevelItem(si);
+
+	return true;
+}
+
 void ServerItem::initAccumulator() {
 	boost::array<double, 3> probs = {0.75, 0.80, 0.95 };
 

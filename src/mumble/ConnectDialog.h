@@ -32,8 +32,6 @@
 #define _CONNECTDIALOG_H
 
 #include "mumble_pch.hpp"
-#include "ui_ConnectDialog.h"
-#include "ui_ConnectDialogEdit.h"
 #include "Timer.h"
 #include "Database.h"
 
@@ -54,7 +52,23 @@ struct PublicInfo {
 	unsigned short usPort;
 };
 
+class ServerView : public QTreeWidget {
+	Q_OBJECT;
+	Q_DISABLE_COPY(ServerView);
+	public:
+		ServerView(QWidget *);
+	protected:
+		virtual QMimeData *mimeData(const QList<QTreeWidgetItem *>) const;
+		virtual QStringList mimeTypes() const;
+		virtual Qt::DropActions supportedDropActions() const;
+		virtual bool dropMimeData(QTreeWidgetItem *, int, const QMimeData *, Qt::DropAction);
+};
+
+#include "ui_ConnectDialog.h"
+#include "ui_ConnectDialogEdit.h"
+
 class ServerItem : public QTreeWidgetItem {
+		Q_DISABLE_COPY(ServerItem);
 	protected:
 		void initAccumulator();
 	public:
@@ -125,6 +139,7 @@ class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
 };
 
 class ConnectDialog : public QDialog, public Ui::ConnectDialog {
+		friend class ServerView;
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(ConnectDialog)

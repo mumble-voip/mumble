@@ -15,9 +15,15 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QTreeWidget" name="qtwServers">
+    <widget class="ServerView" name="qtwServers">
      <property name="contextMenuPolicy">
       <enum>Qt::CustomContextMenu</enum>
+     </property>
+     <property name="dragEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="dragDropMode">
+      <enum>QAbstractItemView::DragDrop</enum>
      </property>
      <property name="alternatingRowColors">
       <bool>true</bool>
@@ -146,6 +152,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ServerView</class>
+   <extends>QTreeWidget</extends>
+   <header>ConnectDialog.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
