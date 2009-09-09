@@ -44,7 +44,7 @@ MetaParams::MetaParams() {
 	qsPassword = QString();
 	usPort = 64738;
 	iTimeout = 30;
-	iMaxBandwidth = 80000;
+	iMaxBandwidth = 72000;
 	iMaxUsers = 1000;
 	iDefaultChan = 0;
 	qsWelcomeText = QString("Welcome to this server");
