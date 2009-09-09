@@ -166,8 +166,6 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
 		}
 	}
 
-	qWarning() << url.toString();
-
 	if (! url.isValid() || (url.scheme() != QLatin1String("mumble")))
 		return NULL;
 
