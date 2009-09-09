@@ -53,8 +53,8 @@ struct PublicInfo {
 };
 
 class ServerView : public QTreeWidget {
-	Q_OBJECT;
-	Q_DISABLE_COPY(ServerView);
+		Q_OBJECT;
+		Q_DISABLE_COPY(ServerView);
 	public:
 		ServerView(QWidget *);
 	protected:

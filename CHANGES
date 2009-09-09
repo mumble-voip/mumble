@@ -1,5 +1,25 @@
-2009-09-07
+2009-09-09
   Thorvald Natvig <slicer@users.sourceforge.net>
+    db919c0  @strong group for strong certificates
+    75062d4  Remove leftover debug output
+    eb34fad  Support copy/paste from ConnectDialog
+    d9e706c  Make default bandwidth on server be 72 kbit/s
+    a022487  Show date rollover in log window
+    6b5daa5  Clear comment on connect to new server
+    96b99d5  Show website and version on tooltip
+    8293a5d  Drag and drop URLs to connect dialog
+
+2009-09-08
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    cf0192a  Switch to P^2 estimator for ping
+    63fc19e  Update installer to use qt.conf
+
+2009-09-07
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    18e9f17  New prefix broke UDPTunnel messages.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    9e65ae8  Add ServerShow as boost type
     7710c86  Update 11x to have new global var
     75356e1  4 byte packet length, 2 byte type, and use SSL compression to
 	     encode it
