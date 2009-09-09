@@ -198,6 +198,7 @@ Log::Log(QObject *p) : QObject(p) {
 	tts=new TextToSpeech(this);
 	tts->setVolume(g.s.iTTSVolume);
 	uiLastId = 0;
+	qdDate = QDate::currentDate();
 
 #ifdef Q_OS_MAC
 	QStringList qslAllEvents;
@@ -278,7 +279,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 }
 
 void Log::log(MsgType mt, const QString &console, const QString &terse) {
-	QTime now = QTime::currentTime();
+	QDateTime dt = QDateTime::currentDateTime();
 
 	int ignore = qmIgnore.value(mt);
 	if (ignore) {
@@ -295,6 +296,14 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 	if ((flags & Settings::LogConsole)) {
 		QTextCursor tc=g.mw->qteLog->textCursor();
 		tc.movePosition(QTextCursor::End);
+
+		if (qdDate != dt.date()) {
+			qdDate = dt.date();
+			tc.insertBlock();
+			tc.insertHtml(tr("[Date changed to %1]\n").arg(qdDate.toString(Qt::DefaultLocaleShortDate)));
+			tc.movePosition(QTextCursor::End);
+		}
+
 		if (plain.contains(QRegExp(QLatin1String("[\\r\\n]")))) {
 			QTextFrameFormat qttf;
 			qttf.setBorder(1);
@@ -304,7 +313,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		} else if (! g.mw->qteLog->document()->isEmpty()) {
 			tc.insertBlock();
 		}
-		tc.insertHtml(QString::fromLatin1("[%2] %1\n").arg(validHtml(console, true), now.toString(Qt::LocalDate)));
+		tc.insertHtml(QString::fromLatin1("[%2] %1\n").arg(validHtml(console, true), dt.time().toString(Qt::DefaultLocaleShortDate)));
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);
 		g.mw->qteLog->ensureCursorVisible();

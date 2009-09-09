@@ -73,6 +73,7 @@ class Log : public QObject {
 		static const char *msgNames[];
 		TextToSpeech *tts;
 		unsigned int uiLastId;
+		QDate qdDate;
 	public:
 		Log(QObject *p = NULL);
 		QString msgName(MsgType t) const;
