@@ -1600,6 +1600,7 @@ void MainWindow::serverConnected() {
 	qaServerBanList->setEnabled(true);
 
 	pmModel->renameChannel(Channel::get(0), tr("Root"));
+	pmModel->setComment(Channel::get(0), QString());
 	qtvUsers->setRowHidden(0, QModelIndex(), false);
 
 	if (g.s.bMute || g.s.bDeaf) {
