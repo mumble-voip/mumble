@@ -109,19 +109,19 @@ static int trylock() {
 
 	// Check if we really have Gmod running
 	/*
-		position tuple:		client.dll+0x47ba48  (x,y,z, float)
-		orientation tuple:	client.dll+0x47ba08  (v,h float)
-		ID string:			client.dll+0x610650 = "garrysmod" (9 characters, text)
-		spawn state:        client.dll+0x462a4c  (0 when at main menu, 2 or 14 when not spawned, 15 when spawned, byte)
+		position tuple:		client.dll+0x621940  (x,y,z, float)
+		orientation tuple:	client.dll+0x4713bc  (v,h float)
+		ID string:			client.dll+0x5ea170 = "garrysmod" (9 characters, text)
+		spawn state:        client.dll+0x5fbd99  (0 when at main menu, 5, 9 when spawned, byte)
 	*/
 	char sMagic[9];
-	if (!peekProc(mod + 0x610650, sMagic, 9) || strncmp("garrysmod", sMagic, 9)!=0)
+	if (!peekProc(mod + 0x5ea170, sMagic, 9) || strncmp("garrysmod", sMagic, 9)!=0)
 		return false;
 
 	// Remember addresses for later
-	posptr = mod + 0x47ba48;
-	rotptr = mod + 0x47ba08;
-	stateptr = mod + 0x462a4c;
+	posptr = mod + 0x621940;
+	rotptr = mod + 0x4713bc;
+	stateptr = mod + 0x5fbd99;
 
 	float pos[3];
 	float rot[3];

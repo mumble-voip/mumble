@@ -62,7 +62,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Counter-Strike: Source (Build 3846)", L"Mumble CSS Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Counter-Strike: Source (Build 3945)", L"Mumble CSS Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -109,19 +109,19 @@ static int trylock() {
 
 	// Check if we really have CSS running
 	/*
-		position tuple:		client.dll+0x39b504  (x,y,z, float)
-		orientation tuple:	client.dll+0x3ec684  (v,h float)
-		ID string:			client.dll+0x39cde9 = "CSSpectatorGUI@@" (16 characters, text)
-		spawn state:		client.dll+0x38e050  (0 in main menu, 3 when at team selection menu, 5 when spawned as CT, 6 when spawns as T)
+		position tuple:		client.dll+0x3ee0c4  (x,y,z, float)
+		orientation tuple:	client.dll+0x39d504  (v,h float)
+		ID string:			client.dll+0x39ee41 = "CSSpectatorGUI@@" (16 characters, text)
+		spawn state:		client.dll+0x3c067d  (0 in main menu, 3 when at team selection menu, 5 when spawned as CT, 6 when spawns as T)
 	*/
 	char sMagic[16];
-	if (!peekProc(mod + 0x39cde9, sMagic, 16) || strncmp("CSSpectatorGUI@@", sMagic, 16)!=0)
+	if (!peekProc(mod + 0x39ee41, sMagic, 16) || strncmp("CSSpectatorGUI@@", sMagic, 16)!=0)
 		return false;
 
 	// Remember addresses for later
-	posptr = mod + 0x39b504;
-	rotptr = mod + 0x3ec684;
-	stateptr = mod + 0x38e050;
+	posptr = mod + 0x3ee0c4;
+	rotptr = mod + 0x39d504;
+	stateptr = mod + 0x3c067d;
 
 	float pos[3];
 	float rot[3];
@@ -180,10 +180,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports CSS build 3846. No identity or context support yet.");
+	return std::wstring(L"Supports CSS build 3945. No identity or context support yet.");
 }
 
-static std::wstring description(L"Counter-Strike: Source (Build 3846)");
+static std::wstring description(L"Counter-Strike: Source (Build 3945)");
 static std::wstring shortname(L"Counter-Strike: Source");
 
 static MumblePlugin cssplug = {
