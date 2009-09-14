@@ -304,6 +304,7 @@ QMimeData *ServerItem::toMimeData() const {
 	url.addQueryItem(QLatin1String("title"), qsName);
 	if (! qsUrl.isEmpty())
 		url.addQueryItem(QLatin1String("url"), qsUrl);
+	url.addQueryItem(QLatin1String("version"), QLatin1String("1.2.0"));
 
 	QString qs = QLatin1String(url.toEncoded());
 

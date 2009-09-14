@@ -101,7 +101,7 @@ int main(int argc, char **argv) {
 	}
 #endif
 
-	QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
+	QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble11x"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
 	QDBusMessage reply=qdbi.call(QLatin1String("focus"));
 	if (reply.type() == QDBusMessage::ReplyMessage) {
 		if (url.isValid())
@@ -217,7 +217,7 @@ int main(int argc, char **argv) {
 #ifdef USE_DBUS
 	new MumbleDBus(g.mw);
 	QDBusConnection::sessionBus().registerObject(QLatin1String("/"), g.mw);
-	QDBusConnection::sessionBus().registerService(QLatin1String("net.sourceforge.mumble.mumble"));
+	QDBusConnection::sessionBus().registerService(QLatin1String("net.sourceforge.mumble.mumble11x"));
 #endif
 
 	g.l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));

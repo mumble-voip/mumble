@@ -57,6 +57,10 @@ CONFIG(no-bundled-speex) {
   QMAKE_CXXFLAGS	*= -Wall -Wextra
 }
 
+!CONFIG(no-dbus) {
+  CONFIG		*= dbus
+}
+
 win32 {
   RC_FILE	= mumble.rc
   HEADERS	*= GlobalShortcut_win.h

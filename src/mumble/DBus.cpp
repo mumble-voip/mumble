@@ -64,6 +64,7 @@ void MumbleDBus::getCurrentUrl(const QDBusMessage &msg) {
 	u.setHost(host);
 	u.setPort(port);
 	u.setUserName(user);
+	u.addQueryItem(QLatin1String("version"), QLatin1String("1.2.0"));
 	QStringList path;
 	Channel *c = ClientUser::get(g.uiSession)->cChannel;
 	while (c->cParent) {

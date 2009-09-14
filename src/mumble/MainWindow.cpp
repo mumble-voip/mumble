@@ -398,6 +398,26 @@ void MainWindow::openUrl(const QUrl &url) {
 		g.l->log(Log::Warning, tr("URL scheme is not 'mumble'"));
 		return;
 	}
+
+	int major, minor, patch;
+	major = 1;
+	minor = 1;
+	patch = 0;
+
+	QString version = url.queryItemValue(QLatin1String("version"));
+
+	QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)"));
+	if (rx.exactMatch(version)) {
+		major = rx.cap(1).toInt();
+		minor = rx.cap(2).toInt();
+		patch = rx.cap(3).toInt();
+	}
+
+	if ((major != 1) || (minor != 2)) {
+		g.l->log(Log::Warning, tr("This version of Mumble can't handle URLs for Mumble version %1.%2.%3").arg(major).arg(minor).arg(patch));
+		return;
+	}
+
 	QString host = url.host();
 	unsigned short port = static_cast<unsigned short>(url.port(64738));
 	QString user = url.userName();

@@ -130,20 +130,53 @@ int main(int argc, char **argv) {
 	}
 #endif
 
-#ifdef QT_NO_DEBUG
-	QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
 	if (url.isValid()) {
-		QDBusMessage reply=qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
-		if (reply.type() == QDBusMessage::ReplyMessage) {
-			return 0;
+		int major, minor, patch;
+		major = 1;
+		minor = 1;
+		patch = 0;
+
+		QString version = url.queryItemValue(QLatin1String("version"));
+
+		QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)"));
+		if (rx.exactMatch(version)) {
+			major = rx.cap(1).toInt();
+			minor = rx.cap(2).toInt();
+			patch = rx.cap(3).toInt();
+		}
+
+		if ((major == 1) && (minor == 1)) {
+			QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble11x"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
+
+			QDBusMessage reply=qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
+			if (reply.type() == QDBusMessage::ReplyMessage) {
+				return 0;
+			} else {
+				QString executable = a.applicationFilePath();
+				int idx = executable.lastIndexOf(QLatin1String("mumble"));
+				if (idx >= 0) {
+					QStringList args;
+					args << url.toString();
+
+					executable.replace(idx, 6, QLatin1String("mumble11x"));
+					if (QProcess::startDetached(executable, args))
+						return 0;
+				}
+			}
+		} else {
+			QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
+
+			QDBusMessage reply=qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
+			if (reply.type() == QDBusMessage::ReplyMessage)
+				return 0;
 		}
 	} else {
+		QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
+
 		QDBusMessage reply=qdbi.call(QLatin1String("focus"));
-		if (reply.type() == QDBusMessage::ReplyMessage) {
+		if (reply.type() == QDBusMessage::ReplyMessage)
 			return 0;
-		}
 	}
-#endif
 #endif
 	// Load preferences
 	g.s.load();
