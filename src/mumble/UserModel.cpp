@@ -1174,7 +1174,7 @@ QMimeData *UserModel::mimeData(const QModelIndexList &idxs) const {
 	return md;
 }
 
-bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, const QModelIndex &p) {
+bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int column, const QModelIndex &p) {
 	if (! md->hasFormat(mimeTypes().at(0)))
 		return false;
 
@@ -1196,6 +1196,8 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, cons
 		c = Channel::get(0);
 	} else {
 		c = getChannel(p);
+		// Sort the user list so we can work with it
+		qSort(c->qlChannels.begin(), c->qlChannels.end(), Channel::lessThan);
 	}
 
 	if (! c)
@@ -1204,11 +1206,13 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, cons
 	expandAll(c);
 
 	if (! isChannel) {
+		// User dropped somewhere
 		MumbleProto::UserState mpus;
 		mpus.set_session(uiSession);
 		mpus.set_channel_id(c->iId);
 		g.sh->sendMessage(mpus);
 	} else if (c->iId != iId) {
+		// Channel dropped somewhere (not on itself)
 		int ret;
 		switch (g.s.ceChannelDrag) {
 			case Settings::Ask:
@@ -1227,9 +1231,99 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, cons
 				g.l->log(Log::CriticalError, MainWindow::tr("Unknown Channel Drag mode in UserModel::dropMimeData."));
 				break;
 		}
+
+		int inewpos = 0;
+
+		// Lock channel structure
+		QWriteLocker lock(&c->c_qrwlChannels);
+		Channel *d = Channel::c_qhChannels.value(iId);
+
+		if (row == -1 && column == -1) {
+			// Dropped on item
+			if (getUser(p)) {
+				// Dropped on player
+				if (!c->qlChannels.isEmpty()) {
+					if (g.s.bUserTop) {
+						// Move to the top
+						if (c->qlChannels.first() == d) return true;
+						inewpos = c->qlChannels.first()->iPosition - 20;
+					} else {
+						// Move to the bottom
+						if (c->qlChannels.last() == d) return true;
+						inewpos = c->qlChannels.last()->iPosition + 20;
+					}
+				}
+			}
+			else {
+				// Dropped on channel, insert as subchannel
+			}
+		}
+		else {
+			// Dropped between items
+			if (getUser(index(row, column, p))) {
+				// Dropped between user and X
+				if (g.s.bUserTop) {
+					// Move to the top
+					if (c->qlChannels.first() == d) return true;
+					inewpos = c->qlChannels.first()->iPosition - 20;
+				} else {
+					// Move to the bottom
+					if (c->qlChannels.last() == d) return true;
+					inewpos = c->qlChannels.last()->iPosition + 20;
+				}
+			}
+			else {
+				Channel *lower = getChannel(index(row, column, p));
+				if (lower)
+
+				if (c->qlChannels.isEmpty()) {
+					// Dropped between players in an empty channel, simple insert
+				}
+				else if (lower == NULL) {
+					// Dropped on bottom
+					inewpos = c->qlChannels.last()->iPosition + 20;
+				}
+				else if (c->qlChannels.first() == lower) {
+					// Dropped on top
+					inewpos = lower->iPosition - 20;
+
+				}
+				else {
+					// Dropped between channels
+					Channel *upper = getChannel(index(row - 1, column, p));
+					if (lower == d || upper == d) {
+						// No need to do anything position is good
+						return true;
+					}
+
+					if (abs(lower->iPosition) - abs(upper->iPosition) > 1) {
+						// Enough space, trivial
+					}
+					else {
+						// Not enough space, other channels have to be moved
+						// Shift into the + direction
+						for ( int i = c->qlChannels.indexOf(lower); i < c->qlChannels.length(); i++) {
+							Channel *tmp = c->qlChannels[i];
+							if (tmp != d) {
+								MumbleProto::ChannelState mpcs;
+								mpcs.set_channel_id(tmp->iId);
+								mpcs.set_position(tmp->iPosition + 20);
+								g.sh->sendMessage(mpcs);
+
+							}
+						}
+					}
+					inewpos = upper->iPosition + (abs(lower->iPosition) - abs(upper->iPosition))/2;
+				}
+			}
+		}
+
+		// Trivial position update for the dropped channel
 		MumbleProto::ChannelState mpcs;
 		mpcs.set_channel_id(iId);
-		mpcs.set_parent(c->iId);
+		if (d->parent() != c)
+			mpcs.set_parent(c->iId);
+		mpcs.set_position(inewpos);
 		g.sh->sendMessage(mpcs);
 	}
 
