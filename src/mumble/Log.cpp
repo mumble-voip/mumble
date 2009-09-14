@@ -403,8 +403,11 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 #endif
 	}
 
-	// Message notification with static sounds
+	// Don't make any noise if we are self deafened
+	if (g.s.bDeaf)
+		return;
 
+	// Message notification with static sounds
 	if ((flags & Settings::LogSoundfile)) {
 		QString sSound = g.s.qmMessageSounds.value(mt);
 		AudioOutputPtr ao = g.ao;
