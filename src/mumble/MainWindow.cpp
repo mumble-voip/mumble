@@ -1787,7 +1787,19 @@ void MainWindow::setupIconMenu(bool top) {
 	}
 }
 
+
 void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
+	// FIXME: Workaround for activated sending both doubleclick and trigger
+	static Timer tDoubleClick;
+	static bool bDoubleClick = false;
+
+	if (reason == QSystemTrayIcon::DoubleClick) {
+		bDoubleClick = true;
+		tDoubleClick.restart();
+	} else if (bDoubleClick && (reason == QSystemTrayIcon::Trigger) && ! (tDoubleClick.elapsed() > 100000UL)) {
+		return;
+	}
+
 	if (reason == QSystemTrayIcon::Context) {
 		bool top = false;
 
