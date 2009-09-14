@@ -94,7 +94,7 @@ bool Channel::lessThan(const Channel *first, const Channel *second) {
 	if (first->iPosition != second->iPosition)
 		return first->iPosition < second->iPosition;
 	else
-		return first->qsName < second->qsName;
+		return QString::localeAwareCompare(first->qsName, second->qsName) < 0;
 }
 
 bool Channel::isLinked(Channel *l) const {
