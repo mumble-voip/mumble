@@ -1196,8 +1196,6 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 		c = Channel::get(0);
 	} else {
 		c = getChannel(p);
-		// Sort the user list so we can work with it
-		qSort(c->qlChannels.begin(), c->qlChannels.end(), Channel::lessThan);
 	}
 
 	if (! c)
@@ -1237,6 +1235,8 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 		// Lock channel structure
 		QWriteLocker lock(&c->c_qrwlChannels);
 		Channel *d = Channel::c_qhChannels.value(iId);
+		// Sort the user list so we can work with it
+		qSort(c->qlChannels.begin(), c->qlChannels.end(), Channel::lessThan);
 
 		if (row == -1 && column == -1) {
 			// Dropped on item
@@ -1274,7 +1274,6 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 			}
 			else {
 				Channel *lower = getChannel(index(row, column, p));
-				if (lower)
 
 				if (c->qlChannels.isEmpty()) {
 					// Dropped between players in an empty channel, simple insert
@@ -1298,22 +1297,23 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 
 					if (abs(lower->iPosition) - abs(upper->iPosition) > 1) {
 						// Enough space, trivial
+						inewpos = upper->iPosition + (abs(lower->iPosition) - abs(upper->iPosition))/2;
 					}
 					else {
 						// Not enough space, other channels have to be moved
-						// Shift into the + direction
+						// Shift +40
 						for ( int i = c->qlChannels.indexOf(lower); i < c->qlChannels.length(); i++) {
 							Channel *tmp = c->qlChannels[i];
 							if (tmp != d) {
 								MumbleProto::ChannelState mpcs;
 								mpcs.set_channel_id(tmp->iId);
-								mpcs.set_position(tmp->iPosition + 20);
+								mpcs.set_position(tmp->iPosition + 40);
 								g.sh->sendMessage(mpcs);
 
 							}
 						}
+						inewpos = upper->iPosition + 20;
 					}
-					inewpos = upper->iPosition + (abs(lower->iPosition) - abs(upper->iPosition))/2;
 				}
 			}
 		}
