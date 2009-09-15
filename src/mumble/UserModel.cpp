@@ -1231,65 +1231,59 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 		}
 
 		int inewpos = 0;
-
-		// Lock channel structure
-		QWriteLocker lock(&c->c_qrwlChannels);
 		Channel *d = Channel::c_qhChannels.value(iId);
-		// Sort the user list so we can work with it
-		qSort(c->qlChannels.begin(), c->qlChannels.end(), Channel::lessThan);
 
-		if (row == -1 && column == -1) {
-			// Dropped on item
-			if (getUser(p)) {
-				// Dropped on player
-				if (!c->qlChannels.isEmpty()) {
-					if (g.s.bUserTop) {
-						// Move to the top
-						if (c->qlChannels.first() == d) return true;
-						inewpos = c->qlChannels.first()->iPosition - 20;
-					} else {
-						// Move to the bottom
-						if (c->qlChannels.last() == d) return true;
-						inewpos = c->qlChannels.last()->iPosition + 20;
+		if (p.isValid()) {
+			// Dropped in a valid position in the tree
+			ModelItem *pi = static_cast<ModelItem *>(p.internalPointer());
+			if (pi->pUser) // Make sure we are looking at a channel
+				pi = pi->parent;
+
+			int ifirst = 0;
+			int ilast = pi->rows() - 1;
+
+			if (ilast > 0) {
+				while (pi->userAt(ifirst) && ifirst < ilast) ifirst++;
+				while (pi->userAt(ilast) && ilast > 0) ilast--;
+			}
+
+			if (row == -1 && column == -1) {
+				// Dropped on item
+				if (getUser(p)) {
+					// Dropped on player
+					if (ilast > 0) {
+						if (pi->bUsersTop) {
+							// Move to the top
+							if (pi->channelAt(ifirst) == d) return true;
+							inewpos = pi->channelAt(ifirst)->iPosition - 20;
+						} else {
+							// Move to the bottom
+							if (pi->channelAt(ilast) == d) return true;
+							inewpos = pi->channelAt(ilast)->iPosition + 20;
+						}
 					}
 				}
-			}
-			else {
-				// Dropped on channel, insert as subchannel
-			}
-		}
-		else {
-			// Dropped between items
-			if (getUser(index(row, column, p))) {
-				// Dropped between user and X
-				if (g.s.bUserTop) {
-					// Move to the top
-					if (c->qlChannels.first() == d) return true;
-					inewpos = c->qlChannels.first()->iPosition - 20;
-				} else {
-					// Move to the bottom
-					if (c->qlChannels.last() == d) return true;
-					inewpos = c->qlChannels.last()->iPosition + 20;
+				else {
+					// Dropped on channel, insert as subchannel
 				}
 			}
 			else {
-				Channel *lower = getChannel(index(row, column, p));
+				// Dropped between items
 
-				if (c->qlChannels.isEmpty()) {
-					// Dropped between players in an empty channel, simple insert
+				if (row <= ifirst) {
+					// Dropped above first channel
+					if (pi->channelAt(ifirst) == d) return true;
+					inewpos = pi->channelAt(ifirst)->iPosition - 20;
 				}
-				else if (lower == NULL) {
-					// Dropped on bottom
-					inewpos = c->qlChannels.last()->iPosition + 20;
-				}
-				else if (c->qlChannels.first() == lower) {
-					// Dropped on top
-					inewpos = lower->iPosition - 20;
-
+				else if (row > ilast) {
+					// Dropped below last channel
+					if (pi->channelAt(ilast) == d) return true;
+					inewpos = pi->channelAt(ilast)->iPosition + 20;
 				}
 				else {
 					// Dropped between channels
-					Channel *upper = getChannel(index(row - 1, column, p));
+					Channel *lower = pi->channelAt(row);
+					Channel *upper = pi->channelAt(row - 1);
 					if (lower == d || upper == d) {
 						// No need to do anything position is good
 						return true;
@@ -1302,8 +1296,8 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 					else {
 						// Not enough space, other channels have to be moved
 						// Shift +40
-						for ( int i = c->qlChannels.indexOf(lower); i < c->qlChannels.length(); i++) {
-							Channel *tmp = c->qlChannels[i];
+						for ( int i = row; i <= ilast; i++) {
+							Channel *tmp = pi->channelAt(i);
 							if (tmp != d) {
 								MumbleProto::ChannelState mpcs;
 								mpcs.set_channel_id(tmp->iId);
@@ -1317,7 +1311,9 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 				}
 			}
 		}
-
+		else {
+			// Dropped to root level
+		}
 		// Trivial position update for the dropped channel
 		MumbleProto::ChannelState mpcs;
 		mpcs.set_channel_id(iId);
