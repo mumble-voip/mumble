@@ -1175,6 +1175,8 @@ QMimeData *UserModel::mimeData(const QModelIndexList &idxs) const {
 }
 
 bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int column, const QModelIndex &p) {
+	#define NAMECMPCHANNEL(first, second) (QString::localeAwareCompare(first->qsName, second->qsName) > 0)
+
 	if (! md->hasFormat(mimeTypes().at(0)))
 		return false;
 
@@ -1230,13 +1232,12 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 				break;
 		}
 
-		int inewpos = 0;
-		Channel *d = Channel::c_qhChannels.value(iId);
+		long long inewpos = 0;
+		Channel *dropped = Channel::c_qhChannels.value(iId);
 
 		if (p.isValid()) {
-			// Dropped in a valid position in the tree
 			ModelItem *pi = static_cast<ModelItem *>(p.internalPointer());
-			if (pi->pUser) // Make sure we are looking at a channel
+			if (pi->pUser)
 				pi = pi->parent;
 
 			int ifirst = 0;
@@ -1253,52 +1254,62 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 					// Dropped on player
 					if (ilast > 0) {
 						if (pi->bUsersTop) {
-							// Move to the top
-							if (pi->channelAt(ifirst) == d) return true;
-							inewpos = pi->channelAt(ifirst)->iPosition - 20;
+							if (pi->channelAt(ifirst) == dropped || NAMECMPCHANNEL(pi->channelAt(ifirst), dropped)) {
+								if (dropped->iPosition ==  pi->channelAt(ifirst)->iPosition) return true;
+								inewpos = pi->channelAt(ifirst)->iPosition;
+							} else {
+								inewpos = static_cast<long long>(pi->channelAt(ifirst)->iPosition) - 20;
+							}
 						} else {
-							// Move to the bottom
-							if (pi->channelAt(ilast) == d) return true;
-							inewpos = pi->channelAt(ilast)->iPosition + 20;
+							if (dropped == pi->channelAt(ilast) || NAMECMPCHANNEL(dropped, pi->channelAt(ilast))) {
+								if (pi->channelAt(ilast)->iPosition == dropped->iPosition) return true;
+								inewpos = pi->channelAt(ilast)->iPosition;
+							} else {
+								inewpos = static_cast<long long>(pi->channelAt(ilast)->iPosition) + 20;
+							}
 						}
 					}
 				}
-				else {
-					// Dropped on channel, insert as subchannel
-				}
-			}
-			else {
+			} else {
 				// Dropped between items
-
 				if (row <= ifirst) {
-					// Dropped above first channel
-					if (pi->channelAt(ifirst) == d) return true;
-					inewpos = pi->channelAt(ifirst)->iPosition - 20;
-				}
-				else if (row > ilast) {
-					// Dropped below last channel
-					if (pi->channelAt(ilast) == d) return true;
-					inewpos = pi->channelAt(ilast)->iPosition + 20;
-				}
-				else {
+					if (pi->channelAt(ifirst) == dropped || NAMECMPCHANNEL(pi->channelAt(ifirst), dropped)) {
+						if (dropped->iPosition ==  pi->channelAt(ifirst)->iPosition) return true;
+						inewpos = pi->channelAt(ifirst)->iPosition;
+					} else {
+						inewpos = static_cast<long long>(pi->channelAt(ifirst)->iPosition) - 20;
+					}
+				} else if (row > ilast) {
+					if (dropped == pi->channelAt(ilast) || NAMECMPCHANNEL(dropped, pi->channelAt(ilast))) {
+						if (pi->channelAt(ilast)->iPosition == dropped->iPosition) return true;
+						inewpos = pi->channelAt(ilast)->iPosition;
+					} else {
+						inewpos = static_cast<long long>(pi->channelAt(ilast)->iPosition) + 20;
+					}
+				} else {
 					// Dropped between channels
 					Channel *lower = pi->channelAt(row);
 					Channel *upper = pi->channelAt(row - 1);
-					if (lower == d || upper == d) {
-						// No need to do anything position is good
-						return true;
-					}
 
-					if (abs(lower->iPosition) - abs(upper->iPosition) > 1) {
-						// Enough space, trivial
+					if (lower->iPosition == upper->iPosition && NAMECMPCHANNEL(lower, dropped) && NAMECMPCHANNEL(dropped, upper)) {
+						inewpos = upper->iPosition;
+					} else if (lower->iPosition > upper->iPosition && NAMECMPCHANNEL(lower, dropped)) {
+						inewpos = lower->iPosition;
+					} else if (lower->iPosition > upper->iPosition && NAMECMPCHANNEL(dropped, upper)) {
+						inewpos = upper->iPosition;
+					} else if (lower == dropped || upper == dropped) {
+						return true;
+					} else if (abs(lower->iPosition) - abs(upper->iPosition) > 1) {
 						inewpos = upper->iPosition + (abs(lower->iPosition) - abs(upper->iPosition))/2;
-					}
-					else {
+					} else {
 						// Not enough space, other channels have to be moved
-						// Shift +40
+						if (static_cast<long long>(pi->channelAt(ilast)->iPosition) + 40 > INT_MAX) {
+							QMessageBox::critical(g.mw, tr("Mumble"), tr("Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually."));
+							return false;
+						}
 						for ( int i = row; i <= ilast; i++) {
 							Channel *tmp = pi->channelAt(i);
-							if (tmp != d) {
+							if (tmp != dropped) {
 								MumbleProto::ChannelState mpcs;
 								mpcs.set_channel_id(tmp->iId);
 								mpcs.set_position(tmp->iPosition + 40);
@@ -1311,15 +1322,17 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 				}
 			}
 		}
-		else {
-			// Dropped to root level
+
+		if (inewpos > INT_MAX || inewpos < INT_MIN) {
+			QMessageBox::critical(g.mw, tr("Mumble"), tr("Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually."));
+			return false;
 		}
-		// Trivial position update for the dropped channel
+
 		MumbleProto::ChannelState mpcs;
 		mpcs.set_channel_id(iId);
-		if (d->parent() != c)
+		if (dropped->parent() != c)
 			mpcs.set_parent(c->iId);
-		mpcs.set_position(inewpos);
+		mpcs.set_position(static_cast<int>(inewpos));
 		g.sh->sendMessage(mpcs);
 	}
 
