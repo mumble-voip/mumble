@@ -456,6 +456,7 @@ if __name__ == '__main__':
 	# Fix Mumble11x
 	c = AppBundle('release/Mumble11x.app', ver)
 	c.copy_g15helper()
+	c.copy_overlay()
 	c.handle_libs()
 	c.copy_plugins()
 	c.copy_qt_plugins()
@@ -477,7 +478,9 @@ if __name__ == '__main__':
 			# 1.1.x
 			'release/Mumble11x.app/',
 			'release/Mumble11x.app/Contents/MacOS/mumble-g15-helper',
-			'release/Mumble11x.app/Contents/Plugins/liblink.dylib'
+			'release/Mumble11x.app/Contents/MacOS/mumble-overlay',
+			'release/Mumble11x.app/Contents/Plugins/liblink.dylib',
+			'release/Mumble11x.app/Contents/Overlay/libmumbleoverlay.dylib',
 		)
 
 		codesign(options.codesign, binaries)
