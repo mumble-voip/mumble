@@ -477,7 +477,7 @@ ChanACL *ACLEditor::currentACL() {
 	if (idx < 0)
 		return NULL;
 
-	if (! bInheritACL)
+	if (idx && ! bInheritACL)
 		idx += numInheritACL;
 	return qlACLs[idx];
 }
@@ -790,9 +790,6 @@ void ACLEditor::on_qcbACLGroup_activated(const QString &text) {
 
 void ACLEditor::on_qcbACLUser_activated() {
 	QString text = qcbACLUser->currentText();
-
-	qWarning("ACLUSER INDEXED!");
-	qWarning() << text;
 
 	ChanACL *as = currentACL();
 	if (! as || as->bInherited)
