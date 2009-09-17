@@ -100,7 +100,6 @@ void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 	if ((ms.width() > w) || (ms.height() > h)) {
 		QScrollArea *qsa=new QScrollArea();
 		qsa->setFrameShape(QFrame::NoFrame);
-		qsa->viewport()->setBackgroundRole(QPalette::Base);
 		qsa->setWidgetResizable(true);
 		qsa->setWidget(cw);
 		qhPages.insert(cw, qsa);
