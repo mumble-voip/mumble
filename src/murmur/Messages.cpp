@@ -60,6 +60,18 @@
 		sendMessage(uSource, mppd); \
 		log(uSource, QString("%1 not allowed to %2 in %3").arg(who->qsName).arg(ChanACL::permName(what)).arg(where->qsName)); \
 	}
+
+#define PERM_DENIED_BECAUSE(who, what, why) \
+	{ \
+		MumbleProto::PermissionDenied mppd; \
+		mppd.set_permission(static_cast<int>(what)); \
+		mppd.set_session(who->uiSession); \
+		mppd.set_type(MumbleProto::PermissionDenied_DenyType_Permission); \
+		mppd.set_reason(why); \
+		sendMessage(uSource, mppd); \
+		log(uSource, QString("%1 not allowed to %2 because: %3").arg(who->qsName).arg(ChanACL::permName(what)).arg(why)); \
+	}
+
 #define PERM_DENIED_TYPE(type) \
 	{ \
 		MumbleProto::PermissionDenied mppd; \
@@ -803,8 +815,12 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	QSet<ServerUser *> users;
 	QQueue<Channel *> q;
 
-	msg.set_actor(uSource->uiSession);
+	if (iMaxTextMessageLength < 0 || (msg.has_message() && msg.message().length() > iMaxTextMessageLength)) {
+		PERM_DENIED_BECAUSE(uSource, ChanACL::TextMessage, "Max message length exceeded");
+		return;
+	}
 
+	msg.set_actor(uSource->uiSession);
 	for (int i=0;i<msg.channel_id_size(); ++i) {
 		unsigned int id = msg.channel_id(i);
 

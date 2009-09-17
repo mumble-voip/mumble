@@ -289,6 +289,7 @@ void Server::readParams() {
 	iTimeout = Meta::mp.iTimeout;
 	iMaxBandwidth = Meta::mp.iMaxBandwidth;
 	iMaxUsers = Meta::mp.iMaxUsers;
+	iMaxTextMessageLength = Meta::mp.iMaxTextMessageLength;
 	iDefaultChan = Meta::mp.iDefaultChan;
 	qsWelcomeText = Meta::mp.qsWelcomeText;
 	qlBind = Meta::mp.qlBind;
@@ -333,6 +334,7 @@ void Server::readParams() {
 	iTimeout = getConf("timeout", iTimeout).toInt();
 	iMaxBandwidth = getConf("bandwidth", iMaxBandwidth).toInt();
 	iMaxUsers = getConf("users", iMaxUsers).toInt();
+	iMaxTextMessageLength = getConf("textmessagelength", iMaxTextMessageLength).toInt();
 	iDefaultChan = getConf("defaultchannel", iDefaultChan).toInt();
 	qsWelcomeText = getConf("welcometext", qsWelcomeText).toString();
 
@@ -358,6 +360,8 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		iMaxBandwidth = i ? i : Meta::mp.iMaxBandwidth;
 	else if (key == "users")
 		iMaxUsers = i ? i : Meta::mp.iMaxUsers;
+	else if (key == "textmessagelength")
+		iMaxTextMessageLength = i ? i : Meta::mp.iMaxTextMessageLength;
 	else if (key == "defaultchannel")
 		iDefaultChan = i ? i : Meta::mp.iDefaultChan;
 	else if (key == "welcometext")

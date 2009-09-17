@@ -45,6 +45,7 @@ struct MetaParams {
 	int iMaxBandwidth;
 	int iMaxUsers;
 	int iDefaultChan;
+	int iMaxTextMessageLength;
 	QString qsPassword;
 	QString qsWelcomeText;
 
