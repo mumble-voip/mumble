@@ -261,7 +261,7 @@
          <string>Prevent log from downloading images</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Disable image download&lt;b&gt;&lt;br/&gt;
+         <string>&lt;b&gt;Disable image download&lt;/b&gt;&lt;br/&gt;
 Prevents the client from downloading images embedded into chat messages with the img tag.</string>
         </property>
         <property name="text">
