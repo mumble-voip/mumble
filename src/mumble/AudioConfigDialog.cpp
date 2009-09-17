@@ -287,29 +287,14 @@ void AudioInputDialog::on_qcbPushClick_clicked(bool b) {
 	qlPushClickOff->setEnabled(b);
 }
 
-QString AudioInputDialog::browseForAudioFile() {
-	SoundFile *sf = NULL;
-	QString file = QFileDialog::getOpenFileName(this, tr("Choose sound file"), QString(), QLatin1String("*.wav *.ogg *.ogv *.oga *.flac"));
-	if (! file.isEmpty()) {
-		if ((sf = AudioOutputSample::loadSndfile(file)) == NULL) {
-			QMessageBox::critical(this,
-			                      tr("Invalid sound file"),
-			                      tr("The file '%1' does not exist or is not a valid file.").arg(file));
-			return QString();
-		}
-		delete sf;
-	}
-	return file;
-}
-
 void AudioInputDialog::on_qpbPushClickBrowseOn_clicked() {
-	QString qsnew = browseForAudioFile();
+	QString qsnew = AudioOutputSample::browseForSndfile();
 	if (!qsnew.isEmpty())
 		qlePushClickPathOn->setText(qsnew);
 }
 
 void AudioInputDialog::on_qpbPushClickBrowseOff_clicked() {
-	QString qsnew = browseForAudioFile();
+	QString qsnew = AudioOutputSample::browseForSndfile();
 	if (!qsnew.isEmpty())
 		qlePushClickPathOff->setText(qsnew);
 }

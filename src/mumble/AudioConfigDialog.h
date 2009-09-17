@@ -45,7 +45,6 @@ class AudioInputDialog : public ConfigWidget, public Ui::AudioInput {
 		void hideEvent(QHideEvent *event);
 		void showEvent(QShowEvent *event);
 
-		QString browseForAudioFile();
 	public:
 		AudioInputDialog(Settings &st);
 		virtual QString title() const;
