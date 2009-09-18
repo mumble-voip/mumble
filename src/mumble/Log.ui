@@ -163,6 +163,9 @@
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QCheckBox" name="qcbWhisperFriends">
+        <property name="toolTip">
+         <string>If checked you will only hear whispers from users you added to your friendlist.</string>
+        </property>
         <property name="text">
          <string>Only accept whispers from friends</string>
         </property>
@@ -173,8 +176,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="mumble.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

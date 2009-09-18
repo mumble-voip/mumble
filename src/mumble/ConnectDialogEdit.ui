@@ -25,7 +25,15 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QLineEdit" name="qleName"/>
+    <widget class="QLineEdit" name="qleName">
+     <property name="toolTip">
+      <string>Name of the server</string>
+     </property>
+     <property name="whatsThis">
+      <string>&lt;b&gt;Name&lt;/b&gt;&lt;br/&gt;
+Name of the server. This is what the server will be named like in your serverlist and can be chosen freely.</string>
+     </property>
+    </widget>
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="qliServer">
@@ -38,7 +46,15 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QLineEdit" name="qleServer"/>
+    <widget class="QLineEdit" name="qleServer">
+     <property name="toolTip">
+      <string>Internet address of the server. </string>
+     </property>
+     <property name="whatsThis">
+      <string>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
+Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with an @ to be recognized by Mumble.</string>
+     </property>
+    </widget>
    </item>
    <item row="2" column="0">
     <widget class="QLabel" name="qliPort">
@@ -51,7 +67,15 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QLineEdit" name="qlePort"/>
+    <widget class="QLineEdit" name="qlePort">
+     <property name="toolTip">
+      <string>Port on which the server is listening</string>
+     </property>
+     <property name="whatsThis">
+      <string>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
+Port on which the server is listening. If the server is identified by a Bonjour service identifier this field will be ignored.</string>
+     </property>
+    </widget>
    </item>
    <item row="3" column="0">
     <widget class="QLabel" name="qliUsername">
@@ -64,7 +88,15 @@
     </widget>
    </item>
    <item row="3" column="1">
-    <widget class="QLineEdit" name="qleUsername"/>
+    <widget class="QLineEdit" name="qleUsername">
+     <property name="toolTip">
+      <string>Username to send to the server</string>
+     </property>
+     <property name="whatsThis">
+      <string>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
+Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</string>
+     </property>
+    </widget>
    </item>
    <item row="4" column="1">
     <widget class="QDialogButtonBox" name="qdbbButtonBox">
