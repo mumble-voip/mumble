@@ -1,3 +1,59 @@
+2009-09-18
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    c2b8f3b  Disable port field if address is bonjour identifier.
+    224be19  What's this + tooltips in Log.ui and ConnectDialogEdit.ui
+    5a79945  Tooltips for GlobalShortcutTarget.ui dialog.
+    d75ee9c  TextMessage.ui What's this + slight change in looks
+    88a10c0  Introduce permission denied type TextTooLong.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    03516cc  Send full cert details to external authenticator
+
+2009-09-17
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    8466232  Server side limit on text message length.
+    d44ff93  Unify browsing for sound files.
+    60fb1cb  Fix What's this for image dl switch
+    5962a14  What's this + tooltip for DoublePush time
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c1db2c8  QScrollArea's background seems to be bugged in a QTabWidget,
+	     so stick our head in the sand and ignore it.
+
+2009-09-16
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    537fe05  Fix display of default permissions when not inheriting ACLs
+    8528a23  Fix background on scrolled config widgets
+
+2009-09-15
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    b4d2491  int boundary handling and more intelligent insertion for
+	     Channel DnD
+    948d772  Make Channel DnD MVC compliant.
+    ff34f7f  Fix obvious faults in channel DnD
+    4cc09d9  Drag and drop placement for channels.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    c0a490c  Enable 11x overlay for OSX.
+
+2009-09-14
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    3a0cf23  Prevent TTS/Sounds from being triggered when user deafened
+	     himself.
+    155bb16  Use localeAwareCompare for channel sorting
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c3421d7  Workaround for qsystemtrayicon::activated
+    2051568  Check patchlevel in URLs
+    d212243  Add version queryitem to URLs
+
+2009-09-10
+  Mikkel Krautz <mikkel@krautz.dk>
+    4026950  Programatically generate .DS_Store file for OSX disk images.
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    2f0821c  Source games build updates
+
 2009-09-09
   Thorvald Natvig <slicer@users.sourceforge.net>
     db919c0  @strong group for strong certificates

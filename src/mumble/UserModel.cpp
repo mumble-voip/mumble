@@ -1175,7 +1175,7 @@ QMimeData *UserModel::mimeData(const QModelIndexList &idxs) const {
 }
 
 bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int column, const QModelIndex &p) {
-	#define NAMECMPCHANNEL(first, second) (QString::localeAwareCompare(first->qsName, second->qsName) > 0)
+#define NAMECMPCHANNEL(first, second) (QString::localeAwareCompare(first->qsName, second->qsName) > 0)
 
 	if (! md->hasFormat(mimeTypes().at(0)))
 		return false;
@@ -1307,7 +1307,7 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 							QMessageBox::critical(g.mw, tr("Mumble"), tr("Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually."));
 							return false;
 						}
-						for ( int i = row; i <= ilast; i++) {
+						for (int i = row; i <= ilast; i++) {
 							Channel *tmp = pi->channelAt(i);
 							if (tmp != dropped) {
 								MumbleProto::ChannelState mpcs;

@@ -474,18 +474,18 @@ void MurmurIce::authenticateSlot(int &res, QString &uname, const QList<QSslCerti
 	::std::string newname;
 	::Murmur::GroupNameList groups;
 	::Murmur::CertificateList certs;
-	
+
 	certs.resize(certlist.size());
-	for(int i=0;i<certlist.size();++i) {
+	for (int i=0;i<certlist.size();++i) {
 		::Murmur::CertificateDer der;
 		QByteArray qba = certlist.at(i).toDer();
 		der.resize(qba.size());
 		const char *ptr = qba.constData();
-		for(int j=0;j<qba.size();++j)
+		for (int j=0;j<qba.size();++j)
 			der[j] = ptr[j];
 		certs[i] = der;
 	}
-	
+
 	try {
 		res = prx->authenticate(u8(uname), u8(pw), certs, u8(certhash), certstrong, newname, groups);
 	} catch (...) {
