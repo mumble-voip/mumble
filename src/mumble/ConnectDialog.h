@@ -135,6 +135,8 @@ class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
 	public slots:
 		void validate();
 		void accept();
+
+		void on_qleServer_textChanged(const QString&);
 	public:
 		QString qsName, qsHostname, qsUsername;
 		unsigned short usPort;

@@ -441,6 +441,10 @@ void ConnectDialogEdit::accept() {
 		QDialog::accept();
 }
 
+void ConnectDialogEdit::on_qleServer_textChanged(const QString &text) {
+	qlePort->setDisabled(!text.isEmpty() && text.startsWith(QLatin1Char('@')));
+}
+
 QList<PublicInfo> ConnectDialog::qlPublicServers;
 Timer ConnectDialog::tPublicServers;
 
