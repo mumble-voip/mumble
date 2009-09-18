@@ -53,6 +53,18 @@
      <layout class="QVBoxLayout">
       <item>
        <widget class="QTextBrowser" name="qtbPreview">
+        <property name="toolTip">
+         <string>This field reflects how the message will look like in the chat.</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Preview&lt;/b&gt;&lt;br /&gt;This field takes the raw string entered above and renders it like it will look like in the log. For example  &amp;lt;b&amp;gt;Test&amp;lt;/b&amp;gt; will display as: &lt;b&gt;Test&lt;b&gt;.</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
         <property name="openLinks">
          <bool>false</bool>
         </property>
