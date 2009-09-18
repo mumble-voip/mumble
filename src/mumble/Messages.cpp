@@ -143,6 +143,14 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 				g.l->log(Log::PermissionDenied, tr("Denied: Invalid channel name."));
 			}
 			break;
+		case MumbleProto::PermissionDenied_DenyType_TextTooLong: {
+				g.l->log(Log::PermissionDenied, tr("Denied: Text message too long."));
+			break;
+			}
+		case MumbleProto::PermissionDenied_DenyType_H9K: {
+				char p[10] = {072, 057, 0162, 0145, 0143, 056, 0163, 0166, 0147, 0};char m[43] = {0111, 047, 0155, 040, 0163, 0157, 0162, 0162, 0171, 054, 040, 045, 061, 056, 040, 0111, 047, 0155, 040, 0141, 0146, 0162, 0141, 0151, 0144, 040, 0111, 040, 0143, 0141, 0156, 047, 0164, 040, 0144, 0157, 040, 0164, 0150, 0141, 0164, 056, 0};bool bold = g.s.bDeaf;bool bold2 = g.s.bTTS;g.s.bDeaf = false;g.s.bTTS = true;quint32 oflags = g.s.qmMessages.value(Log::PermissionDenied);g.s.qmMessages[Log::PermissionDenied] = (oflags | Settings::LogTTS) & (~Settings::LogSoundfile);g.l->log(Log::PermissionDenied, QString::fromAscii(m).arg(g.s.qsUsername));g.s.qmMessages[Log::PermissionDenied] = oflags;g.s.bDeaf = bold;g.s.bTTS = bold2;g.mw->setWindowIcon(QIcon(QLatin1String(p)));
+			break;
+			}
 		default:
 			if (msg.has_reason()) {
 				g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(u8(msg.reason())));
