@@ -65,7 +65,11 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="qleGroup"/>
+             <widget class="QLineEdit" name="qleGroup">
+              <property name="toolTip">
+               <string>If given only members of this group will receive the whisper.</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -73,6 +77,9 @@
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
              <widget class="QCheckBox" name="qcbLinks">
+              <property name="toolTip">
+               <string>If checked the whisper will also be transmitted to linked channels.</string>
+              </property>
               <property name="text">
                <string>Whisper to Linked channels</string>
               </property>
@@ -80,6 +87,9 @@
             </item>
             <item>
              <widget class="QCheckBox" name="qcbChildren">
+              <property name="toolTip">
+               <string>If checked this whisper will also be sent to the subchannels of the channel target.</string>
+              </property>
               <property name="text">
                <string>Whisper to subchannels</string>
               </property>
@@ -165,6 +175,9 @@
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
        <widget class="QCheckBox" name="qcbForceCenter">
+        <property name="toolTip">
+         <string>Do not send positional audio information when using this whisper shortcut.</string>
+        </property>
         <property name="text">
          <string>Ignore positional audio</string>
         </property>
