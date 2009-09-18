@@ -284,7 +284,7 @@ void MurmurDBus::setTextureSlot(int &res, int id, const QByteArray &texture) {
 		res = reply.value();
 }
 
-void MurmurDBus::authenticateSlot(int &res, QString &uname, const QString &pw) {
+void MurmurDBus::authenticateSlot(int &res, QString &uname, const QList<QSslCertificate> &, const QString &, bool, const QString &pw) {
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
 	QDBusMessage msg = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "authenticate",uname,pw);
 	QDBusError err = msg;

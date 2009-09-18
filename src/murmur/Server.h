@@ -319,7 +319,7 @@ class Server : public QThread {
 		void unregisterUserSig(int &, int);
 		void getRegisteredUsersSig(const QString &, QMap<int, QString > &);
 		void getRegistrationSig(int &, int, QMap<int, QString> &);
-		void authenticateSig(int &, QString &, const QString &);
+		void authenticateSig(int &, QString &, const QList<QSslCertificate> &, const QString &, bool, const QString &);
 		void setInfoSig(int &, int, const QMap<int, QString> &);
 		void setTextureSig(int &, int, const QByteArray &);
 		void idToNameSig(QString &, int);
@@ -341,7 +341,7 @@ class Server : public QThread {
 
 		// Database / DBus functions. Implementation in ServerDB.cpp
 		void initialize();
-		int authenticate(QString &name, const QString &pw, const QStringList &emails = QStringList(), const QString &certhash = QString(), bool bStrongCert = false);
+		int authenticate(QString &name, const QString &pw, const QStringList &emails = QStringList(), const QString &certhash = QString(), bool bStrongCert = false, const QList<QSslCertificate> & = QList<QSslCertificate>());
 		Channel *addChannel(Channel *c, const QString &name, bool temporary = false, int position = 0);
 		void removeChannelDB(const Channel *c);
 		void readChannels(Channel *p = NULL);

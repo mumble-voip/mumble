@@ -467,14 +467,27 @@ void MurmurIce::nameToIdSlot(int &id, const QString &name) {
 	}
 }
 
-void MurmurIce::authenticateSlot(int &res, QString &uname, const QString &pw) {
+void MurmurIce::authenticateSlot(int &res, QString &uname, const QList<QSslCertificate> &certlist, const QString &certhash, bool certstrong, const QString &pw) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
 	ServerAuthenticatorPrx prx = mi->qmServerAuthenticator.value(server->iServerNum);
 	::std::string newname;
 	::Murmur::GroupNameList groups;
+	::Murmur::CertificateList certs;
+	
+	certs.resize(certlist.size());
+	for(int i=0;i<certlist.size();++i) {
+		::Murmur::CertificateDer der;
+		QByteArray qba = certlist.at(i).toDer();
+		der.resize(qba.size());
+		const char *ptr = qba.constData();
+		for(int j=0;j<qba.size();++j)
+			der[j] = ptr[j];
+		certs[i] = der;
+	}
+	
 	try {
-		res = prx->authenticate(u8(uname), u8(pw), newname, groups);
+		res = prx->authenticate(u8(uname), u8(pw), certs, u8(certhash), certstrong, newname, groups);
 	} catch (...) {
 		badAuthenticator(server);
 	}

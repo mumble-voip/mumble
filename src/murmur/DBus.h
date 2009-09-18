@@ -143,7 +143,7 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		static void registerTypes();
 	public slots:
 		// These have the result ref as the first parameter, so won't be converted to DBus
-		void authenticateSlot(int &res, QString &uname, const QString &pw);
+		void authenticateSlot(int &res, QString &uname, const QList<QSslCertificate> &certs, const QString &certhash, bool strong, const QString &pw);
 		void registerUserSlot(int &res, const QMap<int, QString> &);
 		void unregisterUserSlot(int &res, int id);
 		void getRegisteredPlayersSlot(const QString &filter, QMap<int, QString> &res);

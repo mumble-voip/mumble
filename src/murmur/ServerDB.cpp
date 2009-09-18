@@ -720,10 +720,10 @@ QMap<int, QString> Server::getRegistration(int id) {
 // -1 Wrong PW
 // -2 Anonymous
 
-int Server::authenticate(QString &name, const QString &pw, const QStringList &emails, const QString &certhash, bool bStrongCert) {
+int Server::authenticate(QString &name, const QString &pw, const QStringList &emails, const QString &certhash, bool bStrongCert, const QList<QSslCertificate> &certs) {
 	int res = -2;
 
-	emit authenticateSig(res, name, pw);
+	emit authenticateSig(res, name, certs, certhash, bStrongCert, pw);
 
 	if (res != -2) {
 		// External authentication handled it. Ignore certificate completely.

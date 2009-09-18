@@ -1,7 +1,7 @@
 ﻿#!/usr/bin/env python
 # -*- coding: utf-8
 import Ice, sys
-
+from M2Crypto import X509;
 Ice.loadSlice('Murmur.ice')
 import Murmur
 
@@ -9,7 +9,11 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
     def __init__(self, server, adapter):
       self.server = server
 
-    def authenticate(self, name, pw, current=None):
+    def authenticate(self, name, pw, certlist, certhash, strong, current=None):
+      print certhash, strong
+      for cert in certlist:
+        cert = X509.load_cert_der_string(cert)
+        print cert.get_subject(), "issued by", cert.get_issuer()
       if (name == "One"):
         if (pw == "Magic"):
           return (1, "One", None)

@@ -201,6 +201,8 @@ module Murmur
 	sequence<byte> Texture;
 	dictionary<string, string> ConfigMap;
 	sequence<string> GroupNameList;
+	sequence<byte> CertificateDer;
+	sequence<CertificateDer> CertificateList;
 
 	/** User and subchannel state. Read-only.
          **/
@@ -303,14 +305,19 @@ module Murmur
 		 *  method to fall through to normal database authentication.
 		 *  Note that if authentication succeeds, murmur will create a record of the user in it's database, reserving
 		 *  the username and id so it cannot be used for normal database authentication.
+		 *  The data in the certificate (name, email addresses etc), as well as the list of signing certificates,
+		 *  should only be trusted if certstrong is true.
 		 *
 		 *  @param name Username to authenticate.
 		 *  @param pw Password to authenticate with.
+		 *  @param certificates List of der encoded certificates the user connected with.
+		 *  @param certhash Hash of user certificate, as used by murmur internally when matching.
+		 *  @param certstrong True if certificate was valid and signed by a trusted CA.
 		 *  @param newname Set this to change the username from the supplied one.
 		 *  @param groups List of groups on the root channel that the user will be added to for the duration of the connection.
 		 *  @return UserID of authenticated user, -1 for authentication failures and -2 for unknown user (fallthrough).
 		 */
-		idempotent int authenticate(string name, string pw, out string newname, out GroupNameList groups);
+		idempotent int authenticate(string name, string pw, CertificateList certificates, string certhash, bool certstrong, out string newname, out GroupNameList groups);
 
 		/** Fetch information about a user. This is used to retrieve information like email address, keyhash etc. If you
 		 *  want murmur to take care of this information itself, simply return false to fall through.
