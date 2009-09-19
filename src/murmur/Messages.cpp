@@ -68,6 +68,28 @@
 		sendMessage(uSource, mppd); \
 	}
 
+static QString toPlainText(const QString &text) {
+	if (! text.contains(QLatin1Char('<')))
+		return text.simplified();
+
+	QXmlStreamReader qxsr(QString::fromLatin1("<document>%1</document>").arg(text));
+	QString qs;
+	while (! qxsr.atEnd()) {
+		switch (qxsr.readNext()) {
+			case QXmlStreamReader::Characters:
+				qs += qxsr.text();
+				break;
+			case QXmlStreamReader::EndElement:
+				if ((qxsr.name() == QLatin1String("br")) || (qxsr.name() == QLatin1String("p")))
+					qs += "\n";
+				break;
+			default:
+				break;
+		}
+	}
+	return qs.simplified();
+}
+
 void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg) {
 	if ((msg.tokens_size() > 0) || (uSource->sState == ServerUser::Authenticated)) {
 		QStringList qsl;
@@ -460,6 +482,11 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	if (msg.has_comment()) {
 		pDstServerUser->qsComment = u8(msg.comment());
 
+		if (! bAllowHTML) {
+			pDstServerUser->qsComment = toPlainText(pDstServerUser->qsComment);
+			msg.set_comment(u8(pDstServerUser->qsComment));
+		}
+
 		if (pDstServerUser->iId >= 0) {
 			QMap<int, QString> info;
 			info.insert(ServerDB::User_Comment, pDstServerUser->qsComment);
@@ -580,8 +607,14 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 
 	QString qsName;
 	QString qsDesc;
-	if (msg.has_description())
+	if (msg.has_description()) {
 		qsDesc = u8(msg.description());
+		if (! bAllowHTML) {
+			qsDesc = toPlainText(qsDesc);
+			msg.set_description(u8(qsDesc));
+		}
+	}
+
 	if (msg.has_name()) {
 		// If we are sent a channel name this means we want to create this channel so
 		// check if the name is valid and not already in use.
@@ -804,9 +837,16 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	QSet<ServerUser *> users;
 	QQueue<Channel *> q;
 
-	if (iMaxTextMessageLength < 0 || (msg.has_message() && msg.message().length() > iMaxTextMessageLength)) {
+	if (iMaxTextMessageLength > 0 && (msg.message().length() > iMaxTextMessageLength)) {
 		PERM_DENIED_TYPE(TextTooLong);
 		return;
+	}
+	
+	if (! bAllowHTML) {
+		QString plain = toPlainText(u8(msg.message()));
+		if (plain.isEmpty())
+			return;
+		msg.set_message(u8(plain));
 	}
 
 	{

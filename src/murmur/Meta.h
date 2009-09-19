@@ -46,6 +46,7 @@ struct MetaParams {
 	int iMaxUsers;
 	int iDefaultChan;
 	int iMaxTextMessageLength;
+	bool bAllowHTML;
 	QString qsPassword;
 	QString qsWelcomeText;
 

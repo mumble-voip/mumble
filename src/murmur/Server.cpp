@@ -290,6 +290,7 @@ void Server::readParams() {
 	iMaxBandwidth = Meta::mp.iMaxBandwidth;
 	iMaxUsers = Meta::mp.iMaxUsers;
 	iMaxTextMessageLength = Meta::mp.iMaxTextMessageLength;
+	bAllowHTML = Meta::mp.bAllowHTML;
 	iDefaultChan = Meta::mp.iDefaultChan;
 	qsWelcomeText = Meta::mp.qsWelcomeText;
 	qlBind = Meta::mp.qlBind;
@@ -335,6 +336,7 @@ void Server::readParams() {
 	iMaxBandwidth = getConf("bandwidth", iMaxBandwidth).toInt();
 	iMaxUsers = getConf("users", iMaxUsers).toInt();
 	iMaxTextMessageLength = getConf("textmessagelength", iMaxTextMessageLength).toInt();
+	bAllowHTML = getConf("allowhtml", bAllowHTML).toBool();
 	iDefaultChan = getConf("defaultchannel", iDefaultChan).toInt();
 	qsWelcomeText = getConf("welcometext", qsWelcomeText).toString();
 
@@ -362,6 +364,8 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		iMaxUsers = i ? i : Meta::mp.iMaxUsers;
 	else if (key == "textmessagelength")
 		iMaxTextMessageLength = i ? i : Meta::mp.iMaxTextMessageLength;
+	else if (key == "allowhtml")
+		bAllowHTML = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bAllowHTML;
 	else if (key == "defaultchannel")
 		iDefaultChan = i ? i : Meta::mp.iDefaultChan;
 	else if (key == "welcometext")

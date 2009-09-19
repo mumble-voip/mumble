@@ -47,6 +47,7 @@ MetaParams::MetaParams() {
 	iMaxBandwidth = 72000;
 	iMaxUsers = 1000;
 	iMaxTextMessageLength = 5000;
+	bAllowHTML = true;
 	iDefaultChan = 0;
 	qsWelcomeText = QString("Welcome to this server");
 	qsDatabase = QString();
@@ -193,6 +194,7 @@ void MetaParams::read(QString fname) {
 	usPort = static_cast<unsigned short>(qs.value("port", usPort).toUInt());
 	iTimeout = qs.value("timeout", iTimeout).toInt();
 	iMaxTextMessageLength = qs.value("textmessagelength", iMaxTextMessageLength).toInt();
+	bAllowHTML = qs.value("allowhtml", bAllowHTML).toBool();
 	iMaxBandwidth = qs.value("bandwidth", iMaxBandwidth).toInt();
 	iDefaultChan = qs.value("defaultchannel", iDefaultChan).toInt();
 	iMaxUsers = qs.value("users", iMaxUsers).toInt();
@@ -355,6 +357,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("port"),QString::number(usPort));
 	qmConfig.insert(QLatin1String("timeout"),QString::number(iTimeout));
 	qmConfig.insert(QLatin1String("textmessagelength"), QString::number(iMaxTextMessageLength));
+	qmConfig.insert(QLatin1String("allowhtml"), bAllowHTML ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("bandwidth"),QString::number(iMaxBandwidth));
 	qmConfig.insert(QLatin1String("users"),QString::number(iMaxUsers));
 	qmConfig.insert(QLatin1String("defaultchannel"),QString::number(iDefaultChan));

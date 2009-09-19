@@ -186,6 +186,7 @@ class Server : public QThread {
 		int iMaxUsers;
 		int iDefaultChan;
 		int iMaxTextMessageLength;
+		bool bAllowHTML;
 		QString qsPassword;
 		QString qsWelcomeText;
 
