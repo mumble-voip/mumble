@@ -280,8 +280,6 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 		}
 	}
 
-	qWarning() << qtd.toHtml();
-
 	qtd.adjustSize();
 	QSizeF s = qtd.size();
 
