@@ -249,11 +249,39 @@ void Log::clearIgnore() {
 QString Log::validHtml(const QString &html, bool allowReplacement) {
 	QDesktopWidget dw;
 	QTextDocument qtd;
+	bool bChanged = false;
+
+	QStringList qslValid;
+	qslValid << QLatin1String("mumble");
+	qslValid << QLatin1String("http");
+	qslValid << QLatin1String("https");
 
 	QRectF qr = dw.availableGeometry(dw.screenNumber(g.mw));
 	qtd.setTextWidth(qr.width());
 
 	qtd.setHtml(html);
+
+	for(QTextBlock qtb = qtd.begin(); qtb != qtd.end(); qtb = qtb.next()) {
+		for(QTextBlock::iterator qtbi = qtb.begin(); qtbi != qtb.end(); ++qtbi) {
+			const QTextFragment &qtf = qtbi.fragment();
+			QTextCharFormat qcf = qtf.charFormat();
+			if (! qcf.anchorHref().isEmpty()) {
+				QUrl url(qcf.anchorHref());
+				if (! url.isValid() || ! qslValid.contains(url.scheme())) {
+					qcf.setAnchorHref(QString());
+					QTextCursor qtc(&qtd);
+					qtc.setPosition(qtf.position(), QTextCursor::MoveAnchor);
+					qtc.setPosition(qtf.position()+qtf.length(), QTextCursor::KeepAnchor);
+					qtc.setCharFormat(qcf);
+
+					bChanged = true;
+				}
+			}
+		}
+	}
+
+	qWarning() << qtd.toHtml();
+
 	qtd.adjustSize();
 	QSizeF s = qtd.size();
 
@@ -266,7 +294,11 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 			return tr("[[ Text object too large to display ]]");
 		return qtd.toHtml();
 	}
-	return html;
+
+	if (bChanged)
+		return qtd.toHtml();
+	else
+		return html;
 }
 
 void Log::log(MsgType mt, const QString &console, const QString &terse) {
