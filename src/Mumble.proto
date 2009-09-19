@@ -52,6 +52,7 @@ message ServerSync {
 	optional uint32 max_bandwidth = 2;
 	optional string welcome_text = 3;
 	optional uint64 permissions = 4;
+	optional bool allow_html = 5 [default = true];
 }
 
 message ChannelRemove {
