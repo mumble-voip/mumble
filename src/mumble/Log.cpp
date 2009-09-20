@@ -184,7 +184,6 @@ void LogConfig::browseForAudioFile() {
 	}
 }
 
-
 Log::Log(QObject *p) : QObject(p) {
 	tts=new TextToSpeech(this);
 	tts->setVolume(g.s.iTTSVolume);
@@ -248,8 +247,8 @@ void Log::clearIgnore() {
 
 QString Log::validHtml(const QString &html, bool allowReplacement) {
 	QDesktopWidget dw;
-	QTextDocument qtd;
-	bool bChanged = false;
+	ValidDocument qtd(allowReplacement);
+	bool valid = false;
 
 	QStringList qslValid;
 	qslValid << QLatin1String("mumble");
@@ -260,22 +259,22 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 	qtd.setTextWidth(qr.width());
 
 	qtd.setHtml(html);
-
+	valid = qtd.isValid();
+	
 	for(QTextBlock qtb = qtd.begin(); qtb != qtd.end(); qtb = qtb.next()) {
 		for(QTextBlock::iterator qtbi = qtb.begin(); qtbi != qtb.end(); ++qtbi) {
 			const QTextFragment &qtf = qtbi.fragment();
 			QTextCharFormat qcf = qtf.charFormat();
 			if (! qcf.anchorHref().isEmpty()) {
 				QUrl url(qcf.anchorHref());
-				if (! url.isValid() || ! qslValid.contains(url.scheme())) {
-					qcf.setAnchorHref(QString());
-					QTextCursor qtc(&qtd);
-					qtc.setPosition(qtf.position(), QTextCursor::MoveAnchor);
-					qtc.setPosition(qtf.position()+qtf.length(), QTextCursor::KeepAnchor);
-					qtc.setCharFormat(qcf);
-
-					bChanged = true;
-				}
+				if (! url.isValid() || ! qslValid.contains(url.scheme()))
+					valid = false;
+			}
+			if (qcf.isImageFormat()) {
+				QTextImageFormat qtif = qcf.toImageFormat();
+				QUrl url(qtif.name());
+				if (! url.isValid())
+					valid = false;
 			}
 		}
 	}
@@ -283,7 +282,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 	qtd.adjustSize();
 	QSizeF s = qtd.size();
 
-	if ((!allowReplacement && ! qtd.find(QString(QChar::ObjectReplacementCharacter)).isNull()) || (s.width() > qr.width()) || (s.height() > qr.height())) {
+	if (!valid || (s.width() > qr.width()) || (s.height() > qr.height())) {
 		qtd.setPlainText(html);
 		qtd.adjustSize();
 		s = qtd.size();
@@ -292,11 +291,8 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 			return tr("[[ Text object too large to display ]]");
 		return qtd.toHtml();
 	}
-
-	if (bChanged)
-		return qtd.toHtml();
-	else
-		return html;
+	
+	return html;
 }
 
 void Log::log(MsgType mt, const QString &console, const QString &terse) {
@@ -449,26 +445,51 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		tts->say(terse);
 }
 
+ValidDocument::ValidDocument(bool allowhttp, QObject *p) : QTextDocument(p) {
+	qslValidImage << QLatin1String("data");
+	if (allowhttp) {
+		qslValidImage << QLatin1String("http");
+		qslValidImage << QLatin1String("https");
+	}
+}
+
+QVariant ValidDocument::loadResource(int type, const QUrl &url) {
+	QVariant v = QLatin1String("PlaceHolder");
+	if ((type == QTextDocument::ImageResource) && qslValidImage.contains(url.scheme()))
+		return v;
+	bValid = false;
+	return v;
+}
+
+bool ValidDocument::isValid() const {
+	return bValid;
+}
+
 LogDocument::LogDocument(QObject *p) : QTextDocument(p) {
 }
 
 QVariant LogDocument::loadResource(int type, const QUrl &url) {
-	if ((type != QTextDocument::ImageResource))
+	if (type != QTextDocument::ImageResource)
 		return QLatin1String("No external resources allowed.");
 	if (g.s.iMaxImageSize <= 0)
 		return QLatin1String("Image download disabled.");
 
-	QImage qi(1, 1, QImage::Format_Mono);
+	if (url.scheme() == QLatin1String("data")) {
+		QVariant v = QTextDocument::loadResource(type, url);
+		addResource(type, url, v);
+		return v;
+	}
 
+	qWarning() << "LogDocument::loadResource " << type << url.toString();
+
+	QImage qi(1, 1, QImage::Format_Mono);
 	addResource(type, url, qi);
 
 	if (! url.isValid() || url.isRelative())
 		return qi;
-
+		
 	if ((url.scheme() != QLatin1String("http")) && (url.scheme() != QLatin1String("https")))
 		return qi;
-
-	qWarning() << "LogDocument::loadResource " << url.toString();
 
 	QNetworkRequest req(url);
 	QNetworkReply *rep = g.nam->get(req);

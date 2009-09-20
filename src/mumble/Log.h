@@ -84,15 +84,25 @@ class Log : public QObject {
 		void log(MsgType t, const QString &console, const QString &terse=QString());
 };
 
+class ValidDocument : public QTextDocument {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(ValidDocument)
+	protected:
+		QStringList qslValidImage;
+		bool bValid;
+		QVariant loadResource(int, const QUrl &);
+	public:
+		ValidDocument(bool httpimages, QObject *p = NULL);
+		bool isValid() const;
+};
+
 class LogDocument : public QTextDocument {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(LogDocument)
 	public:
-		QVariant qvVariant;
-		int iType;
-		QUrl quUrl;
-		LogDocument(QObject *p);
+		LogDocument(QObject *p = NULL);
 		QVariant loadResource(int, const QUrl &);
 	public slots:
 		void receivedHead();

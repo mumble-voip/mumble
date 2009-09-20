@@ -37,7 +37,7 @@ macx {
 
 DIST = config.h
 
-SOURCES *= bands.c celt.c cwrs.c ecintrin.h entcode.c entdec.c entenc.c header.c kiss_fft.c kiss_fftr.c laplace.c mdct.c modes.c pitch.c psy.c quant_bands.c rangedec.c rangeenc.c rate.c vq.c
+SOURCES *= bands.c celt.c cwrs.c entcode.c entdec.c entenc.c header.c kiss_fft.c kiss_fftr.c laplace.c mdct.c modes.c pitch.c psy.c quant_bands.c rangedec.c rangeenc.c rate.c vq.c
 
 CONFIG(debug, debug|release) {
   CONFIG += console
