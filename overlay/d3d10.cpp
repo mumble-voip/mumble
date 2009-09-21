@@ -58,6 +58,7 @@ typedef ULONG(__stdcall *ReleaseType)(ID3D10Device *);
 
 struct SimpleVertex {
 	D3DXVECTOR3 Pos;
+	D3DXVECTOR2 Tex;
 };
 
 struct D10State {
@@ -76,9 +77,13 @@ struct D10State {
 	ID3D10RenderTargetView *pRTV;
 	ID3D10Effect *pEffect;
 	ID3D10EffectTechnique *pTechnique;
+	ID3D10EffectShaderResourceVariable * pDiffuseTexture;
 	ID3D10InputLayout *pVertexLayout;
 	ID3D10Buffer *pVertexBuffer;
+	ID3D10Buffer *pIndexBuffer;
 	ID3D10BlendState *pBlendState;
+	ID3D10Texture2D *pTexture;
+	ID3D10ShaderResourceView *pSRView;
 
 	D10State(IDXGISwapChain *, ID3D10Device *);
 	~D10State();
@@ -90,6 +95,8 @@ map<IDXGISwapChain *, D10State *> chains;
 map<ID3D10Device *, D10State *> devices;
 
 D10State::D10State(IDXGISwapChain *pSwapChain, ID3D10Device *pDevice) {
+	memset(this, 0, sizeof(*this));
+
 	this->pSwapChain = pSwapChain;
 	this->pDevice = pDevice;
 
@@ -127,6 +134,7 @@ void D10State::init() {
 	pBackBuffer->GetDesc(&backBufferSurfaceDesc);
 
 	D3D10_VIEWPORT vp;
+	ZeroMemory(&vp, sizeof(vp));
 	vp.Width = backBufferSurfaceDesc.Width;
 	vp.Height = backBufferSurfaceDesc.Height;
 	vp.MinDepth = 0;
@@ -157,10 +165,112 @@ void D10State::init() {
 	pD3D10CreateEffectFromMemory((void *) g_main, sizeof(g_main), 0, pDevice, NULL, &pEffect);
 
 	pTechnique = pEffect->GetTechniqueByName("Render");
+    pDiffuseTexture = pEffect->GetVariableByName( "txDiffuse" )->AsShaderResource();
+
+	D3D10_TEXTURE2D_DESC desc;
+	ZeroMemory(&desc, sizeof(desc));
+
+	desc.Width = vp.Width;
+	desc.Height = vp.Height;
+	desc.MipLevels = desc.ArraySize = 1;
+	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	desc.SampleDesc.Count = 1;
+	desc.Usage = D3D10_USAGE_DYNAMIC;
+	desc.BindFlags = D3D10_BIND_SHADER_RESOURCE;
+	desc.CPUAccessFlags = D3D10_CPU_ACCESS_WRITE;
+	hr = pDevice->CreateTexture2D( &desc, NULL, &pTexture );
+	ods("%lx %p", hr, pTexture);
+	
+	D3D10_MAPPED_TEXTURE2D mappedTex;
+	hr = pTexture->Map( D3D10CalcSubresource(0, 0, 1), D3D10_MAP_WRITE_DISCARD, 0, &mappedTex );
+	
+	UCHAR* pTexels = (UCHAR*)mappedTex.pData;
+
+	ods("Map %lp %d", pTexels, mappedTex.RowPitch);
+
+	for( UINT row = 0; row < desc.Height; row++ )
+	{
+		UINT rowStart = row * mappedTex.RowPitch;
+		bool black = (row & 1);
+		for( UINT col = 0; col < desc.Width; col++ )
+		{
+			UINT colStart = col * 4;
+			UCHAR c = (black) ? 0 : 255;
+			black = ! black;
+			pTexels[rowStart + colStart + 0] = c; // Red
+			pTexels[rowStart + colStart + 1] = c; // Green
+			pTexels[rowStart + colStart + 2] = c;  // Blue
+			pTexels[rowStart + colStart + 3] = 64;  // Alpha
+		}
+	}
+	
+	{
+		UINT rowStart = 0;
+		for( UINT col = 0; col < desc.Width; col++ )
+		{
+			UINT colStart = col * 4;
+			pTexels[rowStart + colStart + 0] = 255; // Red
+			pTexels[rowStart + colStart + 1] = 64; // Green
+			pTexels[rowStart + colStart + 2] = 64;  // Blue
+			pTexels[rowStart + colStart + 3] = 255;  // Alpha
+		}
+	}
+
+	{
+		UINT rowStart = (desc.Height-1) * mappedTex.RowPitch;
+		for( UINT col = 0; col < desc.Width; col++ )
+		{
+			UINT colStart = col * 4;
+			pTexels[rowStart + colStart + 0] = 64; // Red
+			pTexels[rowStart + colStart + 1] = 255; // Green
+			pTexels[rowStart + colStart + 2] = 64;  // Blue
+			pTexels[rowStart + colStart + 3] = 255;  // Alpha
+		}
+	}
+
+	for( UINT row = 0; row < desc.Height; row++ )
+	{
+		UINT rowStart = row * mappedTex.RowPitch;
+		UINT col = 0;
+		{
+			UINT colStart = col * 4;
+			pTexels[rowStart + colStart + 0] = 64; // Red
+			pTexels[rowStart + colStart + 1] = 255; // Green
+			pTexels[rowStart + colStart + 2] = 255;  // Blue
+			pTexels[rowStart + colStart + 3] = 255;  // Alpha
+		}
+	}
+
+	for( UINT row = 0; row < desc.Height; row++ )
+	{
+		UINT rowStart = row * mappedTex.RowPitch;
+		UINT col = desc.Width-1;
+		{
+			UINT colStart = col * 4;
+			pTexels[rowStart + colStart + 0] = 255; // Red
+			pTexels[rowStart + colStart + 1] = 64; // Green
+			pTexels[rowStart + colStart + 2] = 255;  // Blue
+			pTexels[rowStart + colStart + 3] = 255;  // Alpha
+		}
+	}
+
+	pTexture->Unmap( D3D10CalcSubresource(0, 0, 1) );
+
+	D3D10_SHADER_RESOURCE_VIEW_DESC srvDesc;
+	ZeroMemory(&srvDesc, sizeof(srvDesc));
+	srvDesc.Format = desc.Format;
+	srvDesc.ViewDimension = D3D10_SRV_DIMENSION_TEXTURE2D;
+	srvDesc.Texture2D.MostDetailedMip = 0;
+	srvDesc.Texture2D.MipLevels = desc.MipLevels;
+	pDevice->CreateShaderResourceView( pTexture, &srvDesc, &pSRView );
+
+    hr = pDiffuseTexture->SetResource( pSRView );
+    ods("%lx %p", hr, pSRView);
 
 	// Define the input layout
 	D3D10_INPUT_ELEMENT_DESC layout[] = {
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D10_INPUT_PER_VERTEX_DATA, 0 },
+        { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D10_INPUT_PER_VERTEX_DATA, 0 },
+        { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D10_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	UINT numElements = sizeof(layout) / sizeof(layout[0]);
 
@@ -172,17 +282,20 @@ void D10State::init() {
 
 	// Create vertex buffer
 	SimpleVertex vertices[] = {
-		D3DXVECTOR3(0.0f, 0.9f, 0.5f),
-		D3DXVECTOR3(0.9f, -0.9f, 0.5f),
-		D3DXVECTOR3(-0.9f, -0.9f, 0.5f),
+		{ D3DXVECTOR3(-1.0f, 1.0f, 0.5f), D3DXVECTOR2(0.0f, 0.0f) },
+		{ D3DXVECTOR3(1.0f, 1.0f, 0.5f), D3DXVECTOR2(1.0f, 0.0f) },
+		{ D3DXVECTOR3(1.0f, -1.0f, 0.5f), D3DXVECTOR2(1.0f, 1.0f) },
+		{ D3DXVECTOR3(-1.0f, -1.0f, 0.5f), D3DXVECTOR2(0.0f, 1.0f) },
 	};
 	D3D10_BUFFER_DESC bd;
+	ZeroMemory(&bd, sizeof(bd));
 	bd.Usage = D3D10_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof(SimpleVertex) * 3;
+	bd.ByteWidth = sizeof(SimpleVertex) * 4;
 	bd.BindFlags = D3D10_BIND_VERTEX_BUFFER;
 	bd.CPUAccessFlags = 0;
 	bd.MiscFlags = 0;
 	D3D10_SUBRESOURCE_DATA InitData;
+	ZeroMemory(&InitData, sizeof(InitData));
 	InitData.pSysMem = vertices;
 	hr = pDevice->CreateBuffer(&bd, &InitData, &pVertexBuffer);
 
@@ -190,6 +303,24 @@ void D10State::init() {
 	UINT stride = sizeof(SimpleVertex);
 	UINT offset = 0;
 	pDevice->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
+
+
+    DWORD indices[] =
+    {
+        0,1,3,
+        1,2,3,
+	};
+
+    bd.Usage = D3D10_USAGE_DEFAULT;
+    bd.ByteWidth = sizeof( DWORD ) * 6;
+    bd.BindFlags = D3D10_BIND_INDEX_BUFFER;
+    bd.CPUAccessFlags = 0;
+    bd.MiscFlags = 0;
+    InitData.pSysMem = indices;
+    hr = pDevice->CreateBuffer( &bd, &InitData, &pIndexBuffer );
+
+    // Set index buffer
+    pDevice->IASetIndexBuffer( pIndexBuffer, DXGI_FORMAT_R32_UINT, 0 );
 
 	// Set primitive topology
 	pDevice->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -205,9 +336,12 @@ void D10State::init() {
 D10State::~D10State() {
 	pBlendState->Release();
 	pVertexBuffer->Release();
+	pIndexBuffer->Release();
 	pVertexLayout->Release();
 	pEffect->Release();
 	pRTV->Release();
+	pTexture->Release();
+	pSRView->Release();
 
 	pMyStateBlock->ReleaseAllDeviceObjects();
 	pMyStateBlock->Release();
@@ -228,7 +362,7 @@ void D10State::draw() {
 	for (UINT p = 0; p < techDesc.Passes; ++p) {
 //		ods("Pass %d", p);
 		pTechnique->GetPassByIndex(p)->Apply(0);
-		pDevice->Draw(3, 0);
+		pDevice->DrawIndexed(6, 0, 0);
 	}
 	pOrigStateBlock->Apply();
 
