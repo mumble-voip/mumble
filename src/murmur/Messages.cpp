@@ -842,7 +842,7 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		PERM_DENIED_TYPE(TextTooLong);
 		return;
 	}
-	
+
 	if (! bAllowHTML) {
 		QString plain = toPlainText(u8(msg.message()));
 		if (plain.isEmpty())

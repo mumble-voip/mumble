@@ -165,7 +165,7 @@ void D10State::init() {
 	pD3D10CreateEffectFromMemory((void *) g_main, sizeof(g_main), 0, pDevice, NULL, &pEffect);
 
 	pTechnique = pEffect->GetTechniqueByName("Render");
-    pDiffuseTexture = pEffect->GetVariableByName( "txDiffuse" )->AsShaderResource();
+	pDiffuseTexture = pEffect->GetVariableByName("txDiffuse")->AsShaderResource();
 
 	D3D10_TEXTURE2D_DESC desc;
 	ZeroMemory(&desc, sizeof(desc));
@@ -178,22 +178,20 @@ void D10State::init() {
 	desc.Usage = D3D10_USAGE_DYNAMIC;
 	desc.BindFlags = D3D10_BIND_SHADER_RESOURCE;
 	desc.CPUAccessFlags = D3D10_CPU_ACCESS_WRITE;
-	hr = pDevice->CreateTexture2D( &desc, NULL, &pTexture );
+	hr = pDevice->CreateTexture2D(&desc, NULL, &pTexture);
 	ods("%lx %p", hr, pTexture);
-	
+
 	D3D10_MAPPED_TEXTURE2D mappedTex;
-	hr = pTexture->Map( D3D10CalcSubresource(0, 0, 1), D3D10_MAP_WRITE_DISCARD, 0, &mappedTex );
-	
+	hr = pTexture->Map(D3D10CalcSubresource(0, 0, 1), D3D10_MAP_WRITE_DISCARD, 0, &mappedTex);
+
 	UCHAR* pTexels = (UCHAR*)mappedTex.pData;
 
 	ods("Map %lp %d", pTexels, mappedTex.RowPitch);
 
-	for( UINT row = 0; row < desc.Height; row++ )
-	{
+	for (UINT row = 0; row < desc.Height; row++) {
 		UINT rowStart = row * mappedTex.RowPitch;
 		bool black = (row & 1);
-		for( UINT col = 0; col < desc.Width; col++ )
-		{
+		for (UINT col = 0; col < desc.Width; col++) {
 			UINT colStart = col * 4;
 			UCHAR c = (black) ? 0 : 255;
 			black = ! black;
@@ -203,11 +201,10 @@ void D10State::init() {
 			pTexels[rowStart + colStart + 3] = 64;  // Alpha
 		}
 	}
-	
+
 	{
 		UINT rowStart = 0;
-		for( UINT col = 0; col < desc.Width; col++ )
-		{
+		for (UINT col = 0; col < desc.Width; col++) {
 			UINT colStart = col * 4;
 			pTexels[rowStart + colStart + 0] = 255; // Red
 			pTexels[rowStart + colStart + 1] = 64; // Green
@@ -218,8 +215,7 @@ void D10State::init() {
 
 	{
 		UINT rowStart = (desc.Height-1) * mappedTex.RowPitch;
-		for( UINT col = 0; col < desc.Width; col++ )
-		{
+		for (UINT col = 0; col < desc.Width; col++) {
 			UINT colStart = col * 4;
 			pTexels[rowStart + colStart + 0] = 64; // Red
 			pTexels[rowStart + colStart + 1] = 255; // Green
@@ -228,8 +224,7 @@ void D10State::init() {
 		}
 	}
 
-	for( UINT row = 0; row < desc.Height; row++ )
-	{
+	for (UINT row = 0; row < desc.Height; row++) {
 		UINT rowStart = row * mappedTex.RowPitch;
 		UINT col = 0;
 		{
@@ -241,8 +236,7 @@ void D10State::init() {
 		}
 	}
 
-	for( UINT row = 0; row < desc.Height; row++ )
-	{
+	for (UINT row = 0; row < desc.Height; row++) {
 		UINT rowStart = row * mappedTex.RowPitch;
 		UINT col = desc.Width-1;
 		{
@@ -254,7 +248,7 @@ void D10State::init() {
 		}
 	}
 
-	pTexture->Unmap( D3D10CalcSubresource(0, 0, 1) );
+	pTexture->Unmap(D3D10CalcSubresource(0, 0, 1));
 
 	D3D10_SHADER_RESOURCE_VIEW_DESC srvDesc;
 	ZeroMemory(&srvDesc, sizeof(srvDesc));
@@ -262,15 +256,15 @@ void D10State::init() {
 	srvDesc.ViewDimension = D3D10_SRV_DIMENSION_TEXTURE2D;
 	srvDesc.Texture2D.MostDetailedMip = 0;
 	srvDesc.Texture2D.MipLevels = desc.MipLevels;
-	pDevice->CreateShaderResourceView( pTexture, &srvDesc, &pSRView );
+	pDevice->CreateShaderResourceView(pTexture, &srvDesc, &pSRView);
 
-    hr = pDiffuseTexture->SetResource( pSRView );
-    ods("%lx %p", hr, pSRView);
+	hr = pDiffuseTexture->SetResource(pSRView);
+	ods("%lx %p", hr, pSRView);
 
 	// Define the input layout
 	D3D10_INPUT_ELEMENT_DESC layout[] = {
-        { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D10_INPUT_PER_VERTEX_DATA, 0 },
-        { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D10_INPUT_PER_VERTEX_DATA, 0 },
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D10_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D10_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	UINT numElements = sizeof(layout) / sizeof(layout[0]);
 
@@ -305,22 +299,21 @@ void D10State::init() {
 	pDevice->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
 
 
-    DWORD indices[] =
-    {
-        0,1,3,
-        1,2,3,
+	DWORD indices[] = {
+		0,1,3,
+		1,2,3,
 	};
 
-    bd.Usage = D3D10_USAGE_DEFAULT;
-    bd.ByteWidth = sizeof( DWORD ) * 6;
-    bd.BindFlags = D3D10_BIND_INDEX_BUFFER;
-    bd.CPUAccessFlags = 0;
-    bd.MiscFlags = 0;
-    InitData.pSysMem = indices;
-    hr = pDevice->CreateBuffer( &bd, &InitData, &pIndexBuffer );
+	bd.Usage = D3D10_USAGE_DEFAULT;
+	bd.ByteWidth = sizeof(DWORD) * 6;
+	bd.BindFlags = D3D10_BIND_INDEX_BUFFER;
+	bd.CPUAccessFlags = 0;
+	bd.MiscFlags = 0;
+	InitData.pSysMem = indices;
+	hr = pDevice->CreateBuffer(&bd, &InitData, &pIndexBuffer);
 
-    // Set index buffer
-    pDevice->IASetIndexBuffer( pIndexBuffer, DXGI_FORMAT_R32_UINT, 0 );
+	// Set index buffer
+	pDevice->IASetIndexBuffer(pIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 	// Set primitive topology
 	pDevice->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);

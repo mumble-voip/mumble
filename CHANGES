@@ -1,3 +1,18 @@
+2009-09-21
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    511773d  DX10 fullscreen texture test
+
+2009-09-20
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    79a9abd  data: handling support, and proper washing of harmfull links
+	     in all contexts
+
+2009-09-19
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    90cb11c  Wash URLs if not http, https or mumble
+    e43d963  Send allowhtml state to client
+    8e79eae  Allow stripping of HTML serverside
+
 2009-09-18
   Stefan Hacker <dd0t@users.sourceforge.net>
     c2b8f3b  Disable port field if address is bonjour identifier.

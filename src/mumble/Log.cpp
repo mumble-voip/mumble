@@ -260,9 +260,9 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 
 	qtd.setHtml(html);
 	valid = qtd.isValid();
-	
-	for(QTextBlock qtb = qtd.begin(); qtb != qtd.end(); qtb = qtb.next()) {
-		for(QTextBlock::iterator qtbi = qtb.begin(); qtbi != qtb.end(); ++qtbi) {
+
+	for (QTextBlock qtb = qtd.begin(); qtb != qtd.end(); qtb = qtb.next()) {
+		for (QTextBlock::iterator qtbi = qtb.begin(); qtbi != qtb.end(); ++qtbi) {
 			const QTextFragment &qtf = qtbi.fragment();
 			QTextCharFormat qcf = qtf.charFormat();
 			if (! qcf.anchorHref().isEmpty()) {
@@ -291,7 +291,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 			return tr("[[ Text object too large to display ]]");
 		return qtd.toHtml();
 	}
-	
+
 	return html;
 }
 
@@ -487,7 +487,7 @@ QVariant LogDocument::loadResource(int type, const QUrl &url) {
 
 	if (! url.isValid() || url.isRelative())
 		return qi;
-		
+
 	if ((url.scheme() != QLatin1String("http")) && (url.scheme() != QLatin1String("https")))
 		return qi;
 
