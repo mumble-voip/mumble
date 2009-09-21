@@ -248,6 +248,10 @@ int main(int argc, char **argv) {
 	if (g.s.bUpdateCheck)
 		new VersionCheck(true, g.mw);
 
+#ifdef SNAPSHOT_BUILD
+	new VersionCheck(false, g.mw, true);
+#endif
+
 	if (url.isValid()) {
 		g.mw->openUrl(url);
 #ifdef Q_OS_MAC

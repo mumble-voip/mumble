@@ -311,6 +311,10 @@ int main(int argc, char **argv) {
 	if (g.s.bUpdateCheck)
 		new VersionCheck(true, g.mw);
 
+#ifdef SNAPSHOT_BUILD
+	new VersionCheck(false, g.mw, true);
+#endif
+
 	if (g.s.bPluginCheck)
 		g.p->checkUpdates();
 

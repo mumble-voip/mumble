@@ -32,13 +32,13 @@
 #include "Global.h"
 #include "MainWindow.h"
 
-VersionCheck::VersionCheck(bool autocheck, QObject *p) : QObject(p) {
+VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) {
 	bSilent = autocheck;
 
 	QUrl url;
 	url.setScheme(QLatin1String("http"));
 	url.setHost(g.qsRegionalHost);
-	url.setPath(QLatin1String("/ver.php"));
+	url.setPath(focus ? QLatin1String("/focus.php") : QLatin1String("/ver.php"));
 
 	url.addQueryItem(QLatin1String("ver"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
 	url.addQueryItem(QLatin1String("date"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__DATE__))));

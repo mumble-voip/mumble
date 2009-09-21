@@ -42,7 +42,7 @@ class VersionCheck : public QObject {
 	public slots:
 		void finished();
 	public:
-		VersionCheck(bool autocheck, QObject *parent = NULL);
+		VersionCheck(bool autocheck, QObject *parent = NULL, bool focus = false);
 };
 
 #else
