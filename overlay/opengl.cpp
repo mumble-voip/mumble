@@ -373,6 +373,9 @@ void checkOpenGLHook() {
 			fods("OpenGL: Unhooked OpenGL App %s", procname);
 			bHooked = true;
 
+			// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
+			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&checkOpenGLHook), &hSelf);
+
 			INJECT(wglSwapBuffers);
 			// INJECT(wglSwapLayerBuffers);
 
