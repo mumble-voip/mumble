@@ -290,7 +290,7 @@ ServerDB::ServerDB() {
 			SQLDO("ALTER TABLE `%1channels` ADD CONSTRAINT `%1channels_parent_del` FOREIGN KEY (`server_id`, `parent_id`) REFERENCES `%1channels`(`server_id`,`channel_id`) ON DELETE CASCADE");
 			SQLDO("ALTER TABLE `%1channels` ADD CONSTRAINT `%1channels_server_del` FOREIGN KEY (`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE `%1channel_info` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `key` INTEGER, `value` varchar(255))");
+			SQLDO("CREATE TABLE `%1channel_info` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `key` INTEGER, `value` LONGTEXT)");
 			SQLDO("CREATE UNIQUE INDEX `%1channel_info_id` ON `%1channel_info`(`server_id`, `channel_id`, `key`)");
 			SQLDO("ALTER TABLE `%1channel_info` ADD CONSTRAINT `%1channel_info_del_channel` FOREIGN KEY (`server_id`, `channel_id`) REFERENCES `%1channels`(`server_id`,`channel_id`) ON DELETE CASCADE");
 
@@ -300,7 +300,7 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE UNIQUE INDEX `%1users_id` ON `%1users` (`server_id`, `user_id`)");
 			SQLDO("ALTER TABLE `%1users` ADD CONSTRAINT `%1users_server_del` FOREIGN KEY (`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE `%1user_info` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `key` INTEGER, `value` varchar(255))");
+			SQLDO("CREATE TABLE `%1user_info` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `key` INTEGER, `value` LONGTEXT)");
 			SQLDO("CREATE UNIQUE INDEX `%1user_info_id` ON `%1user_info`(`server_id`, `user_id`, `key`)");
 			SQLDO("ALTER TABLE `%1user_info` ADD CONSTRAINT `%1user_info_del_user` FOREIGN KEY (`server_id`, `user_id`) REFERENCES `%1users`(`server_id`,`user_id`) ON DELETE CASCADE");
 
