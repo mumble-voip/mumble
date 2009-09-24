@@ -100,7 +100,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 	qleChannelName->setText(pChannel->qsName);
 	if (channelid == 0) qleChannelName->setEnabled(false);
 
-	qteChannelDescription->setPlainText(pChannel->qsDesc);
+	rteChannelDescription->setText(pChannel->qsDesc);
 
 	qsbChannelPosition->setRange(INT_MIN, INT_MAX);
 	qsbChannelPosition->setValue(pChannel->iPosition);
@@ -253,7 +253,7 @@ void ACLEditor::accept() {
 	if (bAddChannelMode) {
 		MumbleProto::ChannelState mpcs;
 		mpcs.set_name(u8(qleChannelName->text()));
-		mpcs.set_description(u8(qteChannelDescription->toPlainText()));
+		mpcs.set_description(u8(rteChannelDescription->text()));
 		mpcs.set_parent(iChannel);
 		mpcs.set_position(qsbChannelPosition->value());
 		mpcs.set_temporary(qcbChannelTemporary->isChecked());
@@ -269,8 +269,8 @@ void ACLEditor::accept() {
 			mpcs.set_name(u8(qleChannelName->text()));
 			b = true;
 		}
-		if (pChannel->qsDesc != qteChannelDescription->toPlainText()) {
-			mpcs.set_description(u8(qteChannelDescription->toPlainText()));
+		if (rteChannelDescription->isModified() && (pChannel->qsDesc != rteChannelDescription->text())) {
+			mpcs.set_description(u8(rteChannelDescription->text()));
 			b = true;
 		}
 		if (pChannel->iPosition != qsbChannelPosition->value()) {

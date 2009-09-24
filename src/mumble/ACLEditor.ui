@@ -51,23 +51,6 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="QTextEdit" name="qteChannelDescription">
-         <property name="toolTip">
-          <string>Enter the channel description here.</string>
-         </property>
-         <property name="whatsThis">
-          <string>&lt;b&gt;Description&lt;/b&gt;&lt;br&gt;
-Use this field to set and update channel descriptions. This field supports a restricted set of html tags for formatting, e.g.
-&lt;ul&gt;
-&lt;li&gt;&amp;lt;b&amp;gt;text&amp;lt;/b&amp;gt; for &lt;b&gt;bold&lt;/b&gt; text&lt;/li&gt;
-&lt;li&gt;&amp;lt;i&amp;gt;text&amp;lt;/i&amp;gt; for &lt;i&gt;italic&lt;/i&gt; text&lt;/li&gt;
-&lt;li&gt;&amp;lt;u&amp;gt;text&amp;lt;/u&amp;gt; for &lt;u&gt;underlined&lt;/u&gt; text&lt;/li&gt;
-&lt;/ul&gt;
-and so on. Visit &lt;a href=&quot;http://doc.trolltech.com/richtext-html-subset.html&quot;&gt;http://doc.trolltech.com/richtext-html-subset.html&lt;/a&gt; for a full list.</string>
-         </property>
-        </widget>
-       </item>
        <item row="2" column="0">
         <widget class="QLabel" name="qlChannelPassword">
          <property name="text">
@@ -126,6 +109,9 @@ This value enables you to interfere in the way mumble arranges the channels in t
           <string>Position</string>
          </property>
         </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="RichTextEditor" name="rteChannelDescription" native="true"/>
        </item>
       </layout>
      </widget>
@@ -651,6 +637,14 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RichTextEditor</class>
+   <extends>QWidget</extends>
+   <header>RichTextEditor.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>qtwTab</tabstop>
   <tabstop>qcbGroupList</tabstop>

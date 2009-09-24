@@ -50,6 +50,10 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="mumble_tango.qrc">
+     <normaloff>:/actions/format-text-bold.svg</normaloff>:/actions/format-text-bold.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Bold</string>
    </property>
@@ -60,6 +64,10 @@
   <action name="qaItalic">
    <property name="checkable">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="mumble_tango.qrc">
+     <normaloff>:/actions/format-text-italic.svg</normaloff>:/actions/format-text-italic.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Italic</string>
@@ -75,6 +83,10 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="mumble_tango.qrc">
+     <normaloff>:/actions/format-text-underline.svg</normaloff>:/actions/format-text-underline.svg</iconset>
+   </property>
    <property name="text">
     <string>Underline</string>
    </property>
@@ -82,7 +94,35 @@
     <string>Ctrl+U</string>
    </property>
   </action>
+  <action name="qaColor">
+   <property name="text">
+    <string>Color</string>
+   </property>
+  </action>
+  <action name="qaLink">
+   <property name="icon">
+    <iconset resource="mumble_tango.qrc">
+     <normaloff>:/mimetypes/text-html.svg</normaloff>:/mimetypes/text-html.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Insert Link</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="qaImage">
+   <property name="icon">
+    <iconset resource="mumble_tango.qrc">
+     <normaloff>:/mimetypes/image-x-generic.svg</normaloff>:/mimetypes/image-x-generic.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Insert Image</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="mumble_tango.qrc"/>
+ </resources>
  <connections/>
 </ui>

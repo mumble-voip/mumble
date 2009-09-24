@@ -32,13 +32,8 @@
 
 TextMessage::TextMessage(QWidget *p) : QDialog(p) {
 	setupUi(this);
-	qtbPreview->document()->setDefaultStyleSheet(qApp->styleSheet());
-	qteEdit->installEventFilter(this);
-	qteEdit->setFocus();
-}
-
-void TextMessage::on_qcbRawMessage_stateChanged(int) {
-	on_qteEdit_textChanged();
+	rteMessage->installEventFilter(this);
+//	rteMessage->setFocus();
 }
 
 QString TextMessage::autoFormat(QString qsPlain) {
@@ -77,26 +72,13 @@ QString TextMessage::autoFormat(QString qsPlain) {
 	} while (idx >= 0);
 	return qsPlain;
 }
-void TextMessage::on_qteEdit_textChanged() {
-	qsRep = qteEdit->toPlainText();
-
-	if (qcbRawMessage->isChecked()) {
-		qsRep = Qt::convertFromPlainText(qsRep);
-	}
-
-	if (! Qt::mightBeRichText(qsRep) && !qcbRawMessage->isChecked())  {
-		qsRep = autoFormat(qsRep);
-	}
-
-	qtbPreview->setHtml(qsRep);
-}
 
 QString TextMessage::message() {
-	return qsRep;
+	return rteMessage->text();
 }
 
 bool TextMessage::eventFilter(QObject *obj, QEvent *evt) {
-	if (obj != qteEdit)
+	if (obj != rteMessage)
 		return false;
 	if (evt->type() == QEvent::KeyPress) {
 		QKeyEvent *keyEvent = static_cast<QKeyEvent *>(evt);

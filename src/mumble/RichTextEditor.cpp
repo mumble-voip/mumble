@@ -29,17 +29,50 @@
 */
 
 #include "RichTextEditor.h"
+#include "Global.h"
+#include "MainWindow.h"
+
+RichTextEditorLink::RichTextEditorLink(const QString &txt, QWidget *p) : QDialog(p) {
+	setupUi(this);
+	
+	if (! txt.isEmpty()) {
+		qleText->setText(txt);
+	}
+}
+
+QString RichTextEditorLink::text() const {
+	QUrl url(qleUrl->text(), QUrl::StrictMode);
+	QString text = qleText->text();
+	
+	if (url.isValid() && ! url.isRelative() && ! text.isEmpty()) {
+		return QString::fromLatin1("<a href=\"%1\">%2</a>").arg(QLatin1String(url.toEncoded()), Qt::escape(text));
+	}
+	
+	return QString();
+}
 
 RichTextEditor::RichTextEditor(QWidget *p) : QTabWidget(p) {
 	bChanged = false;
+	bModified = false;
 
 	setupUi(this);
 	
 	qtbToolBar->addAction(qaBold);
 	qtbToolBar->addAction(qaItalic);
 	qtbToolBar->addAction(qaUnderline);
+	qtbToolBar->addAction(qaColor);
+	qtbToolBar->addSeparator();
+	qtbToolBar->addAction(qaLink);
+	qtbToolBar->addAction(qaImage);
 	
 	connect(this, SIGNAL(currentChanged(int)), this, SLOT(onCurrentChanged(int)));
+	updateActions();
+	
+	qteRichText->setFocus();
+}
+
+bool RichTextEditor::isModified() const {
+	return bModified;
 }
 
 void RichTextEditor::on_qaBold_triggered(bool on) {
@@ -52,6 +85,64 @@ void RichTextEditor::on_qaItalic_triggered(bool on) {
 
 void RichTextEditor::on_qaUnderline_triggered(bool on) {
 	qteRichText->setFontUnderline(on);
+}
+
+void RichTextEditor::on_qaColor_triggered() {
+	QColor c = QColorDialog::getColor();
+	if (c.isValid())
+		qteRichText->setTextColor(c);
+}
+
+void RichTextEditor::on_qaLink_triggered() {
+	QTextCursor qtc = qteRichText->textCursor();
+	RichTextEditorLink *rtel = new RichTextEditorLink(qtc.selectedText(), this);
+	if (rtel->exec() == QDialog::Accepted) {
+		QString html = rtel->text();
+		if (! html.isEmpty())
+			qteRichText->insertHtml(html);
+	}
+	delete rtel;
+}
+
+void RichTextEditor::on_qaImage_triggered() {
+	QPair<QByteArray, QImage> choice = g.mw->openImageFile();
+	
+	QByteArray &qba = choice.first;
+	
+	if (qba.isEmpty())
+		return;
+		
+	if (qba.length() > 65536) {
+		QMessageBox::warning(this, tr("Failed to load image"), tr("Image file to large to embed in document. Please use images smaller than %1 kB.").arg(65536/1024));
+		return;
+	}
+	
+	QBuffer qb(&qba);
+	qb.open(QIODevice::ReadOnly);
+	
+	QString format = QLatin1String(QImageReader::imageFormat(&qb));
+	qb.close();
+	
+	if (format.isEmpty())
+		format = QLatin1String("qt");
+		
+	QByteArray rawbase = qba.toBase64();
+	QByteArray encoded;
+	int i = 0;
+	int begin = 0, end = 0;
+	do {
+		begin = i*72;
+		end = begin+72;
+
+		encoded.append(QUrl::toPercentEncoding(QLatin1String(rawbase.mid(begin,72))));
+		if (end < rawbase.length())
+			encoded.append('\n');
+
+		++i;
+	} while (end < rawbase.length());
+
+	QString link = QString::fromLatin1("<img src=\"data:image/%1;base64,%2\" />").arg(format).arg(QLatin1String(encoded));
+	qteRichText->insertHtml(link);
 }
 
 void RichTextEditor::onCurrentChanged(int index) {
@@ -67,11 +158,45 @@ void RichTextEditor::onCurrentChanged(int index) {
 }
 
 void RichTextEditor::on_qptePlainText_textChanged() {
+	bModified = true;
 	bChanged = true;
 }
 
 void RichTextEditor::on_qteRichText_textChanged() {
+	bModified = true;
 	bChanged = true;
+	updateActions();
+}
+
+void RichTextEditor::on_qteRichText_cursorPositionChanged() {
+	updateActions();
+}
+
+void RichTextEditor::on_qteRichText_currentCharFormatChanged() {
+	updateActions();
+}
+
+void RichTextEditor::updateColor(const QColor &col) {
+	if (col == qcColor)
+		return;
+	qcColor = col;
+	
+	QRect r(0,0,24,24);
+
+	QPixmap qpm(r.size());
+	QPainter qp(&qpm);
+	qp.fillRect(r, col);
+	qp.setPen(col.darker());
+	qp.drawRect(r.adjusted(0, 0, -1, -1));
+
+	qaColor->setIcon(qpm);
+}
+
+void RichTextEditor::updateActions() {
+    qaBold->setChecked(qteRichText->fontWeight() == QFont::Bold);
+    qaItalic->setChecked(qteRichText->fontItalic());
+    qaUnderline->setChecked(qteRichText->fontUnderline());
+    updateColor(qteRichText->textColor());
 }
 
 /* Recursively parse and output XHTML.
@@ -79,7 +204,7 @@ void RichTextEditor::on_qteRichText_textChanged() {
  * It will also change <span style=""> into matching <b>, <i> or <u>.
  */
 
-static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int &paragraphs, const QMap<QString, QString> &opstyle = QMap<QString, QString>(), int close = 0, bool ignore = true) {
+static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int &paragraphs, const QMap<QString, QString> &opstyle = QMap<QString, QString>(), const int close = 0, bool ignore = true) {
 	while(! reader.atEnd()) {
 		QXmlStreamReader::TokenType tt = reader.readNext();
 
@@ -107,28 +232,31 @@ static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int
 			case QXmlStreamReader::StartElement:
 				{
 					QString name = reader.name().toString();
+					int rclose = 1;
 					if (name == QLatin1String("body")) {
-						close = 0;
+						rclose = 0;
 						ignore = false;
 					} else if (name == QLatin1String("span")) {
-						close = 0;
+						// Substitute style with <b>, <i> and <u>
+						
+						rclose = 0;
 						if (style.value(QLatin1String("font-weight")) == QLatin1String("600")) {
 							writer.writeStartElement(QLatin1String("b"));
-							close++;
+							rclose++;
 							style.remove(QLatin1String("font-weight"));
 						}
 						if (style.value(QLatin1String("font-style")) == QLatin1String("italic")) {
 							writer.writeStartElement(QLatin1String("i"));
-							close++;
+							rclose++;
 							style.remove(QLatin1String("font-style"));
 						}
 						if (style.value(QLatin1String("text-decoration")) == QLatin1String("underline")) {
 							writer.writeStartElement(QLatin1String("u"));
-							close++;
+							rclose++;
 							style.remove(QLatin1String("text-decoration"));
 						}
 						if (! style.isEmpty()) {
-							close++;
+							rclose++;
 							writer.writeStartElement(name);
 							
 							QStringList qsl;
@@ -143,9 +271,11 @@ static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int
 							writer.writeAttribute(QLatin1String("style"), qsl.join(QLatin1String("; ")));
 						}
 					} else if (name == QLatin1String("p")) {
+						// Ignore first paragraph.
+
 						paragraphs++;
 						if (paragraphs > 1) {
-							close = 1;
+							rclose = 1;
 							writer.writeStartElement(name);
 
 							if (! style.isEmpty()) {
@@ -161,16 +291,20 @@ static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int
 								writer.writeAttribute(QLatin1String("style"), qsl.join(QLatin1String("; ")));
 							}
 						} else {
-							close = 0;
+							rclose = 0;
 						}
+					} else if (name == QLatin1String("a")) {
+						// Set pstyle to include implicit blue underline.
+						rclose = 1;
+						writer.writeCurrentToken(reader);
+						pstyle.insert(QLatin1String("text-decoration"), QLatin1String("underline"));
+						pstyle.insert(QLatin1String("color"), QLatin1String("#0000ff"));
 					} else if (! ignore) {
-						close = 1;
-						writer.writeStartElement(name);
-						writer.writeAttributes(reader.attributes());
+						rclose = 1;
+						writer.writeCurrentToken(reader);
 					}
-					qWarning() << reader.name();
 
-					recurseParse(reader, writer, paragraphs, pstyle, close, ignore);
+					recurseParse(reader, writer, paragraphs, pstyle, rclose, ignore);
 					break;
 				}
 			case QXmlStreamReader::EndElement:
@@ -186,9 +320,82 @@ static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int
 	}
 }
 
-void RichTextEditor::richToPlain() {
-	qWarning() << qteRichText->toHtml();
+/* Iterate XML and remove close-followed-by-open.
+ * For example, make "<b>bold with </b><b><i>italic</i></b>" into
+ * "<b>bold with <i>italic</i></b>"
+ */
+
+static bool unduplicateTags(QXmlStreamReader &reader, QXmlStreamWriter &writer) {
+	bool changed = false;
+	bool needclose = false;
 	
+	QStringList qslConcat;
+	qslConcat << QLatin1String("b");
+	qslConcat << QLatin1String("i");
+	qslConcat << QLatin1String("u");
+	qslConcat << QLatin1String("a");
+	
+	QList<QString> qlNames;
+	QList<QXmlStreamAttributes> qlAttributes;
+
+	while(! reader.atEnd()) {
+		QXmlStreamReader::TokenType tt = reader.readNext();
+		QString name = reader.name().toString();
+		switch (tt) {
+			case QXmlStreamReader::StartDocument:
+			case QXmlStreamReader::EndDocument:
+				break;
+			case QXmlStreamReader::StartElement:
+				{
+					QXmlStreamAttributes a = reader.attributes();
+					
+					if (name == QLatin1String("unduplicate"))
+						break;
+
+					if (needclose) {
+						needclose = false;
+
+						if ((a == qlAttributes.last()) && (name == qlNames.last()) && (qslConcat.contains(name))) {
+							changed = true;
+							break;
+						}
+						qlNames.takeLast();
+						qlAttributes.takeLast();
+						writer.writeEndElement();
+					}
+					writer.writeCurrentToken(reader);
+					qlNames.append(name);
+					qlAttributes.append(a);
+				}
+				break;
+			case QXmlStreamReader::EndElement:
+				{
+					if (name == QLatin1String("unduplicate"))
+						break;
+					if (needclose) {
+						qlNames.takeLast();
+						qlAttributes.takeLast();
+						writer.writeCurrentToken(reader);
+					} else {
+						needclose = true;
+					}
+					needclose = true;
+				}
+				break;
+			default:
+				if (needclose) {
+					writer.writeEndElement();
+					needclose = false;
+				}
+				writer.writeCurrentToken(reader);
+		}
+	}
+	if (needclose) 
+		writer.writeEndElement();
+	return changed;
+}
+
+void RichTextEditor::richToPlain() {
 	QXmlStreamReader reader(qteRichText->toHtml());
 	
 	QString qsOutput;
@@ -209,8 +416,17 @@ void RichTextEditor::richToPlain() {
 	
 	qsOutput = qsOutput.trimmed();
 	
-	qWarning() << qsOutput;
+	bool changed;
+	do {
+		qsOutput = QString::fromLatin1("<unduplicate>%1</unduplicate>").arg(qsOutput);
 
+		QXmlStreamReader r(qsOutput);
+		qsOutput = QString();
+		QXmlStreamWriter w(&qsOutput);
+		changed = unduplicateTags(r, w);
+		qsOutput = qsOutput.trimmed();
+	} while (changed);
+	
 	qptePlainText->setPlainText(qsOutput);
 }
 
@@ -223,6 +439,7 @@ void RichTextEditor::setText(const QString &txt) {
 		qteRichText->setPlainText(txt);
 		
 	bChanged = false;
+	bModified = false;
 }
 
 QString RichTextEditor::text() {

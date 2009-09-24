@@ -726,31 +726,28 @@ void MainWindow::on_qaServerInformation_triggered() {
 }
 
 void MainWindow::on_qaServerTexture_triggered() {
-	QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file to use as texture"), QString(), tr("Images (*.png *.jpg)"));
-	if (! fname.isEmpty()) {
-		QImage img(fname);
-		if (! img.isNull()) {
-			img = img.convertToFormat(QImage::Format_ARGB32);
-			if ((img.height() != 60) || (img.width() != 600)) {
-				QImage final(600, 60, QImage::Format_ARGB32);
-				img = img.scaled(600, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-				qWarning() << img.width() << img.height();
-				final.fill(0);
-				{
-					QPainter p(&final);
-					p.drawImage(0, 0, img);
-				}
-				img = final;
-			}
-			QByteArray qba(reinterpret_cast<const char *>(img.bits()), img.numBytes());
-			qba = qCompress(qba);
-			MumbleProto::UserState mpus;
-			mpus.set_texture(qba.constData(), qba.length());
-			g.sh->sendMessage(mpus);
-		} else {
-			QMessageBox::warning(this, tr("Could not open file."), tr("Failed to open image file."));
+	QPair<QByteArray, QImage> choice = openImageFile();
+	if (choice.first.isEmpty())
+		return;
+
+	QImage &img = choice.second;
+	img = img.convertToFormat(QImage::Format_ARGB32);
+	if ((img.height() != 60) || (img.width() != 600)) {
+		QImage final(600, 60, QImage::Format_ARGB32);
+		img = img.scaled(600, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+		qWarning() << img.width() << img.height();
+		final.fill(0);
+		{
+			QPainter p(&final);
+			p.drawImage(0, 0, img);
 		}
+		img = final;
 	}
+	QByteArray qba(reinterpret_cast<const char *>(img.bits()), img.numBytes());
+	qba = qCompress(qba);
+	MumbleProto::UserState mpus;
+	mpus.set_texture(qba.constData(), qba.length());
+	g.sh->sendMessage(mpus);
 }
 
 void MainWindow::on_qaServerTokens_triggered() {
@@ -980,11 +977,15 @@ void MainWindow::on_qaUserTextMessage_triggered() {
 	p = ClientUser::get(session);
 
 	if (p && (res==QDialog::Accepted)) {
-		MumbleProto::TextMessage mptm;
-		mptm.add_session(p->uiSession);
-		mptm.set_message(u8(texm->message()));
-		g.sh->sendMessage(mptm);
-		g.l->log(Log::TextMessage, tr("To %1: %2").arg(p->qsName).arg(texm->message()), tr("Message to %1").arg(p->qsName));
+		QString msg = texm->message();
+		
+		if (! msg.isEmpty()) {
+			MumbleProto::TextMessage mptm;
+			mptm.add_session(p->uiSession);
+			mptm.set_message(u8(msg));
+			g.sh->sendMessage(mptm);
+			g.l->log(Log::TextMessage, tr("To %1: %2").arg(p->qsName).arg(texm->message()), tr("Message to %1").arg(p->qsName));
+		}
 	}
 	delete texm;
 }
@@ -1000,9 +1001,7 @@ void MainWindow::on_qaUserComment_triggered() {
 	::TextMessage *texm = new ::TextMessage(this);
 	texm->setWindowTitle(tr("Change comment on user %1").arg(p->qsName));
 
-	const QString html = QTextDocumentFragment::fromPlainText(p->qsComment).toHtml();
-
-	texm->qteEdit->setText(html);
+	texm->rteMessage->setText(p->qsComment);
 	int res = texm->exec();
 
 	p = ClientUser::get(session);
@@ -1015,7 +1014,6 @@ void MainWindow::on_qaUserComment_triggered() {
 	}
 	delete texm;
 }
-
 
 void MainWindow::on_qaQuit_triggered() {
 	bSuppressAskOnQuit = true;
@@ -1893,4 +1891,36 @@ void MainWindow::context_triggered() {
 	if (c)
 		mpca.set_channel_id(c->iId);
 	g.sh->sendMessage(mpca);
+}
+
+QPair<QByteArray, QImage> MainWindow::openImageFile() {
+	QPair<QByteArray, QImage> retval;
+
+	QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file"), g.s.qsImagePath, tr("Images (*.png *.jpg)"));
+
+	if (fname.isNull())
+		return retval;
+		
+	QFile f(fname);
+	if (! f.open(QIODevice::ReadOnly)) {
+			QMessageBox::warning(this, tr("Failed to load image"), tr("Could not open file for reading."));
+			return retval;
+	}
+
+	QFileInfo fi(f);
+	g.s.qsImagePath = fi.absolutePath();
+
+	QByteArray qba = f.readAll();
+	f.close();
+
+	QImage img;
+	if (! img.loadFromData(qba)) {
+		QMessageBox::warning(this, tr("Failed to load image"), tr("Image format not recognized."));
+		return retval;
+	}
+	
+	retval.first = qba;
+	retval.second = img;
+	
+	return retval;
 }

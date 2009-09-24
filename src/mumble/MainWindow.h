@@ -107,6 +107,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void msgBox(QString msg);
 		void setOnTop(bool top);
 		void updateTrayIcon();
+		QPair<QByteArray, QImage> openImageFile();
 #ifdef Q_OS_WIN
 		bool winEvent(MSG *, long *);
 		unsigned int uiNewHardware;

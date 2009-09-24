@@ -156,6 +156,8 @@ Settings::Settings() {
 	bPluginCheck = true;
 #endif
 
+	qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
+
 	bFirstTime = true;
 	ceExpand = ChannelsWithUsers;
 	ceChannelDrag = Ask;
@@ -403,6 +405,7 @@ void Settings::load() {
 	SAVELOAD(bHideTray, "ui/hidetray");
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bAdvancedACLCfg, "ui/advancedaclcfg");
+	SAVELOAD(qsImagePath, "ui/imagepath");
 
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
@@ -571,6 +574,7 @@ void Settings::save() {
 	SAVELOAD(bHideTray, "ui/hidetray");
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bAdvancedACLCfg, "ui/advancedaclcfg");
+	SAVELOAD(qsImagePath, "ui/imagepath");
 
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");

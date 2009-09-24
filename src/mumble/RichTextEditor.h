@@ -33,26 +33,46 @@
 
 #include "mumble_pch.hpp"
 #include "ui_RichTextEditor.h"
+#include "ui_RichTextEditorLink.h"
+
+class RichTextEditorLink : public QDialog, Ui::RichTextEditorLink {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(RichTextEditorLink)
+	public:
+		RichTextEditorLink(const QString &text = QString(), QWidget *p = NULL);
+		QString text() const;
+};
 
 class RichTextEditor : public QTabWidget, Ui::RichTextEditor {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(RichTextEditor)
 	protected:
+		bool bModified;
 		bool bChanged;
 		void richToPlain();
+		QColor qcColor;
 	public:
 		RichTextEditor(QWidget *p = NULL);
 		QString text();
+		bool isModified() const;
 	public slots:
 		void setText(const QString &text);
+		void updateColor(const QColor &);
+		void updateActions();
 	protected slots:
 		void on_qaBold_triggered(bool);
 		void on_qaItalic_triggered(bool);
 		void on_qaUnderline_triggered(bool);
+		void on_qaColor_triggered();
+		void on_qaLink_triggered();
+		void on_qaImage_triggered();
 		
 		void on_qptePlainText_textChanged();
 		void on_qteRichText_textChanged();
+		void on_qteRichText_cursorPositionChanged();
+		void on_qteRichText_currentCharFormatChanged();
 		void onCurrentChanged(int);
 };
 
