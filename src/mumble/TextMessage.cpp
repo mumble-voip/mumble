@@ -33,7 +33,6 @@
 TextMessage::TextMessage(QWidget *p) : QDialog(p) {
 	setupUi(this);
 	rteMessage->installEventFilter(this);
-//	rteMessage->setFocus();
 }
 
 QString TextMessage::autoFormat(QString qsPlain) {
