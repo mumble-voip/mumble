@@ -27,13 +27,100 @@
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 #include "GlobalShortcut.h"
 #include "MainWindow.h"
 #include "Global.h"
 #include "Database.h"
 #include "ClientUser.h"
 #include "Channel.h"
+
+/*!
+  \class ShortcutKeyWidget
+  Widget used to define and key combination for a shortcut. Once it gains
+  focus it will listen for a button combination until it looses focus.
+*/
+
+/*!
+  \class ShortcutActionWidget
+  Combo box widget used to define the kind of action a shortcut triggers. Then
+  entries get auto-generated from the GlobalShortcutEngine::qmShortcuts store.
+
+  \see GlobalShortcutEngine
+*/
+
+/*!
+  \class ShortcutTargetDialog
+  Dialog which is used to select the targets of a targeted shortcut like Whisper.
+*/
+
+/*!
+  \class ShortcutTargetWidget
+  Widget used to display and change a ShortcutTarget. The widget displays a textual representation
+  of a ShortcutTarget and enable its editing with a ShortCutTargetDialog.
+*/
+
+/*!
+  \fn QString ShortcutTargetWidget::targetString(const ShortcutTarget &st)
+  This function returns a textual representation of the given shortcut target \a st.
+*/
+
+/*!
+  \class ShortcutDelegate
+  Used to get custom display and edit behaviour for the model used in GlobalShortcutConfig::qtwShortcuts.
+  It registers custom handlers which link specific types to custom ShortcutXWidget editors and also
+  provides a basic textual representation for them when they are not edited.
+
+  \see GlobalShortcutConfig
+  \see ShortcutKeyWidget
+  \see ShortcutActionWidget
+  \see ShortcutTargetWidget
+*/
+
+/*!
+  \fn QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc)
+  Provides textual representations for the mappings done for the edit behaviour.
+*/
+
+/*!
+  \class GlobalShortcutConfig
+  Contains the \a Shortcut tab from the settings.  This ConfigWidget provides
+  the user with the interface to add/edit/delete global shortcuts in Mumble.
+*/
+
+/*!
+  \class GlobalShortcutEngine
+  Creates a background thread which handles global shortcut behaviour. This class inherits
+  a system unspecific interface and basic functionality to the actually used native backend
+  classes (GlobalShortcutPlatform).
+
+  \see GlobalShortcutX
+  \see GlobalShortcutMac
+  \see GlobalShortcutWin
+*/
+
+/*!
+  \fn static GlobalShortcutEngine *GlobalShortcutEngine::platformInit()
+  Returns a platform specific GlobalShortcutEngine object.
+
+  \see GlobalShortcutX
+  \see GlobalShortcutMac
+  \see GlobalShortcutWin
+*/
+
+/*!
+  \var static GlobalShortcutEngine *GlobalShortcutEngine::engine
+  Used to save the global, unique, platform specific GlobalShortcutEngine.
+*/
+
+/*!
+  \fn bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down)
+
+  This function gets called internally to update the state
+  of a \a button.
+
+  \return True if button is suppressed, otherwise false
+*/
+
 
 GlobalShortcutEngine *GlobalShortcutEngine::engine = NULL;
 
@@ -130,6 +217,7 @@ ShortcutActionWidget::ShortcutActionWidget(QWidget *p) : QComboBox(p) {
 	idx++;
 
 	bool expert = true;
+	// Try to traverse to GlobalShortcutConfig to get expert state (default: true)
 	while (p) {
 		GlobalShortcutConfig *gsc = qobject_cast<GlobalShortcutConfig *>(p);
 		if (gsc) {
@@ -139,6 +227,7 @@ ShortcutActionWidget::ShortcutActionWidget(QWidget *p) : QComboBox(p) {
 		p = p->parentWidget();
 	}
 	foreach(GlobalShortcut *gs, GlobalShortcutEngine::engine->qmShortcuts) {
+		// Hide all expert actions if we are not in expert mode
 		if (expert || ! gs->bExpert) {
 			insertItem(idx, gs->name);
 			setItemData(idx, gs->idx);
@@ -196,6 +285,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 	stTarget = st;
 	setupUi(this);
 
+	// Load current shortcut configuration
 	qcbForceCenter->setChecked(st.bForceCenter);
 	qgbModifiers->setVisible(g.s.bExpert);
 
@@ -210,6 +300,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 	qcbLinks->setChecked(st.bLinks);
 	qcbChildren->setChecked(st.bChildren);
 
+	// Insert all known friends into the possible targets list
 	const QMap<QString, QString> &friends = Database::getFriends();
 	if (! friends.isEmpty()) {
 		QMap<QString, QString>::const_iterator i;
@@ -220,6 +311,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 		qcbUser->insertSeparator(qcbUser->count());
 	}
 
+	// If we are connected to a server also add all connected players with certificates to the list
 	if (g.uiSession) {
 		QMap<QString, QString> others;
 		QMap<QString, QString>::const_iterator i;
@@ -255,6 +347,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 		}
 	}
 
+	// Now generate the tree of possible channel targets, first add the default ones
 	QMap<int, QTreeWidgetItem *> qmTree;
 
 	QTreeWidgetItem *root = new QTreeWidgetItem(qtwChannels, QStringList(tr("Root")));
@@ -277,6 +370,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 		qmTree.insert(-4-i, sub);
 	}
 
+	// And if we are connected add the channels on the current server
 	if (g.uiSession) {
 		Channel *c = Channel::get(0);
 		QTreeWidgetItem *sroot = new QTreeWidgetItem(qtwChannels, QStringList(c->qsName));
