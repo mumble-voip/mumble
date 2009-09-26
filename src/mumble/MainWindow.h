@@ -85,7 +85,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		UserModel *pmModel;
 		QSystemTrayIcon *qstiIcon;
 		QMenu *qmTray;
-		QIcon qiIcon, qiIconMute, qiIconDeaf;
+		QIcon qiIcon, qiIconMuteSelf, qiIconMuteServer, qiIconDeafSelf, qiIconDeafServer, qiIconMuteSuppressed;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;

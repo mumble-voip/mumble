@@ -112,8 +112,12 @@ void DockTitleBar::tick() {
 }
 
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
-	qiIconMute.addFile(QLatin1String("skin:muted_self.svg"));
-	qiIconDeaf.addFile(QLatin1String("skin:deafened_self.svg"));
+	qiIconMuteSelf.addFile(QLatin1String("skin:muted_self.svg"));
+	qiIconMuteServer.addFile(QLatin1String("skin:muted_server.svg"));
+	qiIconMuteSuppressed.addFile(QLatin1String("skin:muted_suppressed.svg"));
+	qiIconDeafSelf.addFile(QLatin1String("skin:deafened_self.svg"));
+	qiIconDeafServer.addFile(QLatin1String("skin:deafened_server.svg"));
+
 	qiIcon.addFile(QLatin1String("skin:mumble.svg"));
 #ifdef Q_OS_MAC
 	qiIcon.addFile(QLatin1String("skin:mumble.osx.png"));
@@ -349,10 +353,16 @@ void MainWindow::hideEvent(QHideEvent *e) {
 void MainWindow::updateTrayIcon() {
 	ClientUser *p=ClientUser::get(g.uiSession);
 
-	if (g.s.bDeaf || (p && p->bDeaf)) {
-		qstiIcon->setIcon(qiIconDeaf);
-	} else if (g.s.bMute || (p && p->bMute)) {
-		qstiIcon->setIcon(qiIconMute);
+	if (g.s.bDeaf) {
+		qstiIcon->setIcon(qiIconDeafSelf);
+	} else if (p && p->bDeaf) {
+		qstiIcon->setIcon(qiIconDeafServer);
+	} else if (g.s.bMute) {
+		qstiIcon->setIcon(qiIconMuteSelf);
+	} else if (p && p->bMute) {
+		qstiIcon->setIcon(qiIconMuteServer);
+	} else if (p && p->bSuppress) {
+		qstiIcon->setIcon(qiIconMuteSuppressed);
 	} else {
 		qstiIcon->setIcon(qiIcon);
 	}
