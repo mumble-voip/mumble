@@ -1273,7 +1273,10 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 				}
 			} else {
 				// Dropped between items
-				if (row <= ifirst) {
+				if (ilast == 0) {
+					// No channels in there yet
+				}
+				else if (row <= ifirst) {
 					if (pi->channelAt(ifirst) == dropped || NAMECMPCHANNEL(pi->channelAt(ifirst), dropped)) {
 						if (dropped->iPosition ==  pi->channelAt(ifirst)->iPosition) return true;
 						inewpos = pi->channelAt(ifirst)->iPosition;
