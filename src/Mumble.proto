@@ -126,6 +126,7 @@ message PermissionDenied {
 		ChannelName = 3;
 		TextTooLong = 4;
 		H9K = 5;
+		TemporaryChannel = 6;
 	}
 	optional uint32 permission = 1;
 	optional uint32 channel_id = 2;

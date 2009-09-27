@@ -656,13 +656,9 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			return;
 		}
 
-		Channel *tmp = p;
-		while (tmp) {
-			if (tmp->bTemporary) {
-				PERM_DENIED(uSource, tmp, perm);
-				return;
-			}
-			tmp = tmp->cParent;
+		if (p->bTemporary) {
+			PERM_DENIED_TYPE(TemporaryChannel);
+			return;
 		}
 
 		c = addChannel(p, qsName, msg.temporary(), msg.position());
@@ -720,7 +716,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			// If we received a parent channel check if it differs from the old one and is not
 			// Temporary. If that is the case check if the user has enough rights and if the
 			// channel name is not used in the target location. Abort otherwise.
-			if (p == c->cParent || p->bTemporary)
+			if (p == c->cParent)
 				return;
 
 			Channel *ip = p;
@@ -728,6 +724,11 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 				if (ip == c)
 					return;
 				ip = ip->cParent;
+			}
+
+			if (p->bTemporary) {
+				PERM_DENIED_TYPE(TemporaryChannel);
+				return;
 			}
 
 			if (! hasPermission(uSource, c, ChanACL::Write)) {
