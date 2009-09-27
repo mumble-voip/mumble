@@ -51,29 +51,12 @@ struct ShortcutTarget;
 #include "Message.h"
 #include "Usage.h"
 #include "ui_MainWindow.h"
+#include "CustomElements.h"
 
 class MessageBoxEvent : public QEvent {
 	public:
 		QString msg;
 		MessageBoxEvent(QString msg);
-};
-
-class DockTitleBar : public QWidget {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(DockTitleBar)
-	protected:
-		QTimer *qtTick;
-		int size;
-		int newsize;
-	public:
-		DockTitleBar();
-		QSize sizeHint() const;
-		QSize minimumSizeHint() const;
-	public slots:
-		void tick();
-	protected:
-		bool eventFilter(QObject *, QEvent *);
 };
 
 class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWindow {

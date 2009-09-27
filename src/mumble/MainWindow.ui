@@ -45,7 +45,7 @@
      <x>0</x>
      <y>0</y>
      <width>671</width>
-     <height>19</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="qmServer">
@@ -146,7 +146,7 @@
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="QLineEdit" name="qleChat">
+   <widget class="ChatbarLineEdit" name="qleChat">
     <property name="sizePolicy">
      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
       <horstretch>0</horstretch>
@@ -682,6 +682,11 @@
    <class>UserView</class>
    <extends>QTreeView</extends>
    <header>UserView.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ChatbarLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>CustomElements.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
