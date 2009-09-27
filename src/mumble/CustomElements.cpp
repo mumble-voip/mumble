@@ -38,7 +38,7 @@ void ChatbarLineEdit::focusInEvent(QFocusEvent *) {
 }
 
 void ChatbarLineEdit::focusOutEvent( QFocusEvent *) {
-	if (text().isEmpty()) {
+	if (text().trimmed().isEmpty()) {
 		setAlignment(Qt::AlignCenter);
 		setText(qsDefaultText);
 	}
