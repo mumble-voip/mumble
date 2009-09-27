@@ -717,10 +717,10 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			}
 		}
 		if (p) {
-			// If we received a parent channel check if it differs from the old one. If yes
-			// check if the user has enough rights and if the channel name is not used in the
-			// target location. Abort otherwise.
-			if (p == c->cParent)
+			// If we received a parent channel check if it differs from the old one and is not
+			// Temporary. If that is the case check if the user has enough rights and if the
+			// channel name is not used in the target location. Abort otherwise.
+			if (p == c->cParent || p->bTemporary)
 				return;
 
 			Channel *ip = p;
