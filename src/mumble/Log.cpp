@@ -1,4 +1,5 @@
 /* Copyright (C) 2005-2009, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2009, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
