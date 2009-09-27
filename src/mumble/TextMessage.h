@@ -40,11 +40,14 @@ class TextMessage : public QDialog, public Ui::TextMessage {
 		Q_DISABLE_COPY(TextMessage)
 	protected:
 		QString qsRep;
+	public slots:
+		void on_qcbTreeMessage_stateChanged(int);
 	public:
-		TextMessage(QWidget *parent = NULL);
+		TextMessage(QWidget *parent = NULL, QString title = tr("Enter text"), bool bChannel = false);
 		QString message();
 		bool eventFilter(QObject *obj, QEvent *event);
 		static QString autoFormat(QString qsPlain);
+		bool bTreeMessage;
 };
 
 #endif

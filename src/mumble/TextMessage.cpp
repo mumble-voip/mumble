@@ -30,9 +30,17 @@
 
 #include "TextMessage.h"
 
-TextMessage::TextMessage(QWidget *p) : QDialog(p) {
+TextMessage::TextMessage(QWidget *p, QString title, bool bChannel) : QDialog(p) {
 	setupUi(this);
+	if (!bChannel)
+		qcbTreeMessage->setHidden(true);
+	setWindowTitle(title);
 	rteMessage->installEventFilter(this);
+	bTreeMessage = false;
+}
+
+void TextMessage::on_qcbTreeMessage_stateChanged(int s) {
+	bTreeMessage = s == Qt::Checked ? true : false;
 }
 
 QString TextMessage::autoFormat(QString qsPlain) {

@@ -12,7 +12,21 @@
   </property>
   <layout class="QVBoxLayout">
    <item>
-    <widget class="RichTextEditor" name="rteMessage" native="true"/>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="RichTextEditor" name="rteMessage" native="true"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="qcbTreeMessage">
+     <property name="toolTip">
+      <string>If checked the message is recursively sent to all subchannels</string>
+     </property>
+     <property name="text">
+      <string>Send recursively to subchannels</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="qbbButtons">

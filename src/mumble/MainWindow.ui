@@ -544,17 +544,6 @@
     <string>Sends a text message to all users in a channel.</string>
    </property>
   </action>
-  <action name="qaChannelSendTreeMessage">
-   <property name="text">
-    <string>Send &amp;Tree Message</string>
-   </property>
-   <property name="toolTip">
-    <string>Send message to channel tree.</string>
-   </property>
-   <property name="whatsThis">
-    <string>This sends a text message to a channel and its subchannels.</string>
-   </property>
-  </action>
   <action name="qaConfigMinimal">
    <property name="checkable">
     <bool>true</bool>

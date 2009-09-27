@@ -929,8 +929,7 @@ void MainWindow::on_qaUserTextMessage_triggered() {
 
 	unsigned int session = p->uiSession;
 
-	::TextMessage *texm = new ::TextMessage(this);
-	texm->setWindowTitle(tr("Sending message to %1").arg(p->qsName));
+	::TextMessage *texm = new ::TextMessage(this, tr("Sending message to %1").arg(p->qsName));
 	int res = texm->exec();
 
 	p = ClientUser::get(session);
@@ -957,8 +956,7 @@ void MainWindow::on_qaUserComment_triggered() {
 
 	unsigned int session = p->uiSession;
 
-	::TextMessage *texm = new ::TextMessage(this);
-	texm->setWindowTitle(tr("Change comment on user %1").arg(p->qsName));
+	::TextMessage *texm = new ::TextMessage(this, tr("Change comment on user %1").arg(p->qsName));
 
 	texm->rteMessage->setText(p->qsComment);
 	int res = texm->exec();
@@ -1038,7 +1036,6 @@ void MainWindow::on_qmChannel_aboutToShow() {
 	qmChannel->addAction(qaChannelUnlinkAll);
 	qmChannel->addSeparator();
 	qmChannel->addAction(qaChannelSendMessage);
-	qmChannel->addAction(qaChannelSendTreeMessage);
 
 	if (g.s.bMinimalView) {
 		qmChannel->addSeparator();
@@ -1092,7 +1089,6 @@ void MainWindow::on_qmChannel_aboutToShow() {
 	qaChannelUnlink->setEnabled(unlink);
 	qaChannelUnlinkAll->setEnabled(unlinkall);
 	qaChannelSendMessage->setEnabled(msg);
-	qaChannelSendTreeMessage->setEnabled(msg);
 }
 
 void MainWindow::on_qaChannelAdd_triggered() {
@@ -1187,42 +1183,24 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 
 	int id = c->iId;
 
-	::TextMessage *texm = new ::TextMessage(this);
-	texm->setWindowTitle(tr("Sending message to channel %1").arg(c->qsName));
+	::TextMessage *texm = new ::TextMessage(this, tr("Sending message to channel %1").arg(c->qsName), true);
 	int res = texm->exec();
 
 	c = Channel::get(id);
 
 	if (c && (res==QDialog::Accepted)) {
 		MumbleProto::TextMessage mptm;
-		mptm.add_channel_id(id);
+		if (texm->bTreeMessage)
+			mptm.add_tree_id(id);
+		else
+			mptm.add_channel_id(id);
 		mptm.set_message(u8(texm->message()));
 		g.sh->sendMessage(mptm);
-		g.l->log(Log::TextMessage, tr("To channel %1: %2").arg(c->qsName).arg(texm->message()), tr("Message to channel %1").arg(c->qsName));
-	}
-	delete texm;
-}
 
-void MainWindow::on_qaChannelSendTreeMessage_triggered() {
-	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
-
-	if (!c)
-		return;
-
-	int id = c->iId;
-
-	::TextMessage *texm = new ::TextMessage(this);
-	texm->setWindowTitle(tr("Sending message to channel tree %1").arg(c->qsName));
-	int res = texm->exec();
-
-	c = Channel::get(id);
-
-	if (c && (res==QDialog::Accepted)) {
-		MumbleProto::TextMessage mptm;
-		mptm.add_tree_id(id);
-		mptm.set_message(u8(texm->message()));
-		g.sh->sendMessage(mptm);
-		g.l->log(Log::TextMessage, tr("To tree %1: %2").arg(c->qsName).arg(texm->message()), tr("Message to tree %1").arg(c->qsName));
+		if (texm->bTreeMessage)
+			g.l->log(Log::TextMessage, tr("To tree %1: %2").arg(c->qsName).arg(texm->message()), tr("Message to tree %1").arg(c->qsName));
+		else
+			g.l->log(Log::TextMessage, tr("To channel %1: %2").arg(c->qsName).arg(texm->message()), tr("Message to channel %1").arg(c->qsName));
 	}
 	delete texm;
 }
