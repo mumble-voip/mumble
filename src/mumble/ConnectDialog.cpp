@@ -36,6 +36,20 @@
 
 QMap<QString, QIcon> ServerItem::qmIcons;
 
+PingStats::PingStats() {
+	boost::array<double, 3> probs = {0.75, 0.80, 0.95 };
+
+	asQuantile = new asQuantileType(boost::accumulators::tag::extended_p_square::probabilities = probs);
+	dPing = 0.0;
+	uiPing = 0;
+	uiPingSort = 0;
+	uiUsers = 0;
+	uiMaxUsers = 0;
+	uiBandwidth = 0;
+	uiSent = 0;
+	uiVersion = 0;
+}
+
 ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 }
 
@@ -65,33 +79,23 @@ bool ServerView::dropMimeData(QTreeWidgetItem *, int, const QMimeData *mime, Qt:
 
 	qobject_cast<ConnectDialog *>(parent())->qlItems << si;
 	addTopLevelItem(si);
+	qobject_cast<ConnectDialog *>(parent())->restartDns();
 
 	return true;
 }
 
-void ServerItem::initAccumulator() {
-	boost::array<double, 3> probs = {0.75, 0.80, 0.95 };
-
-	asQuantile = new asQuantileType(boost::accumulators::tag::extended_p_square::probabilities = probs);
-	dPing = 0.0;
-	uiPing = 0;
-	uiUsers = 0;
-	uiMaxUsers = 0;
-	uiBandwidth = 0;
-	uiSent = 0;
-	uiVersion = 0;
-
+void ServerItem::init() {
 	// Without this, columncount is wrong.
 	setData(0, Qt::DisplayRole, QVariant());
 	setData(1, Qt::DisplayRole, QVariant());
 	setData(2, Qt::DisplayRole, QVariant());
 	setData(3, Qt::DisplayRole, QVariant());
+	emitDataChanged();
 }
 
 ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
 	itType = FavoriteType;
 	qsName = fs.qsName;
-	qsHostname = fs.qsHostname;
 	usPort = fs.usPort;
 
 	qsUsername = fs.qsUsername;
@@ -99,11 +103,14 @@ ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetIt
 
 	qsUrl = fs.qsUrl;
 
-	if (qsHostname.startsWith(QLatin1Char('@')))
-		brRecord = BonjourRecord(qsHostname.mid(1), QLatin1String("_mumble._tcp."), QLatin1String("local."));
+	if (fs.qsHostname.startsWith(QLatin1Char('@'))) {
+		qsBonjourHost = fs.qsHostname.mid(1);
+		brRecord = BonjourRecord(qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
+	} else {
+		qsHostname = fs.qsHostname;
+	}
 
-	initAccumulator();
-	setDatas();
+	init();
 }
 
 ServerItem::ServerItem(const PublicInfo &pi) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
@@ -115,30 +122,33 @@ ServerItem::ServerItem(const PublicInfo &pi) : QTreeWidgetItem(QTreeWidgetItem::
 	qsCountry = pi.qsCountry;
 	qsCountryCode = pi.qsCountryCode;
 
-	initAccumulator();
-	setDatas();
+	init();
 }
 
 ServerItem::ServerItem(const QString &name, const QString &host, unsigned short port, const QString &username) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
 	itType = FavoriteType;
 	qsName = name;
-	qsHostname = host;
 	usPort = port;
 	qsUsername = username;
 
-	initAccumulator();
-	setDatas();
+	if (host.startsWith(QLatin1Char('@'))) {
+		qsBonjourHost = host.mid(1);
+		brRecord = BonjourRecord(qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
+	} else {
+		qsHostname = host;
+	}
+
+	init();
 }
 
 ServerItem::ServerItem(const BonjourRecord &br) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
 	itType = LANType;
 	qsName = br.serviceName;
-	qsHostname = QLatin1Char('@') + qsName;
+	qsBonjourHost = qsName;
 	brRecord = br;
 	usPort = 0;
 
-	initAccumulator();
-	setDatas();
+	init();
 }
 
 ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
@@ -230,7 +240,7 @@ QVariant ServerItem::data(int column, int role) const {
 		quint32 uiRecv = boost::accumulators::count(* asQuantile);
 
 		if (uiSent > 0)
-			ploss = (uiSent - uiRecv) * 100. / uiSent;
+			ploss = (uiSent - qMin(uiRecv, uiSent)) * 100. / uiSent;
 
 		QString qs;
 		qs +=
@@ -281,8 +291,30 @@ void ServerItem::hideCheck() {
 		setHidden(hide);
 }
 
-void ServerItem::setDatas() {
-	emitDataChanged();
+void ServerItem::setDatas(double elapsed, quint32 users, quint32 maxusers) {
+	if (elapsed == 0.0) {
+		emitDataChanged();
+		return;
+	}
+	
+	(*asQuantile)(static_cast<double>(elapsed));
+	dPing = boost::accumulators::extended_p_square(*asQuantile)[0];
+	if (dPing == 0.0)
+		dPing = elapsed;
+
+	quint32 ping = lroundf(dPing / 1000.);
+		
+	bool changed = (ping != uiPing) || (users != uiUsers) || (maxusers != uiMaxUsers);
+
+	uiUsers = users;
+	uiMaxUsers = maxusers;
+	uiPing = ping;
+	
+	if ((uiPingSort == 0) || (dPing < (950. * uiPingSort)) || (dPing > (1050. * uiPingSort))) 
+		uiPingSort = ping;
+
+	if (changed)
+		emitDataChanged();
 }
 
 FavoriteServer ServerItem::toFavoriteServer() const {
@@ -311,8 +343,6 @@ QMimeData *ServerItem::toMimeData() const {
 	QMimeData *mime = new QMimeData;
 
 #ifdef Q_OS_WIN
-	// FIXME: Even with all this, it still won't drop on the desktop.
-
 	QString contents = QString::fromLatin1("[InternetShortcut]\r\nURL=%1\r\n").arg(qs);
 	QString urlname = QString::fromLatin1("%1.url").arg(qsName);
 
@@ -361,11 +391,12 @@ bool ServerItem::operator <(const QTreeWidgetItem &o) const {
 	const ServerItem &other = static_cast<const ServerItem &>(o);
 	const QTreeWidget *w = treeWidget();
 
-	int column = w ? w->sortColumn() : 0;
-	bool inverse = w ? (w->header()->sortIndicatorOrder() == Qt::DescendingOrder) : false;
-	bool less;
+	const int column = w ? w->sortColumn() : 0;
 
 	if (itType != other.itType) {
+		const bool inverse = w ? (w->header()->sortIndicatorOrder() == Qt::DescendingOrder) : false;
+		bool less;
+
 		if (itType == FavoriteType)
 			less = true;
 		else if ((itType == LANType) && (other.itType == PublicType))
@@ -383,19 +414,15 @@ bool ServerItem::operator <(const QTreeWidgetItem &o) const {
 		a.remove(re);
 		b.remove(re);
 		return a < b;
-	}
-
-	if (column == 1) {
+	} else if (column == 1) {
 		return qsCountry < other.qsCountry;
-	}
-
-	if (column == 2) {
-		double a = dPing ? dPing : UINT_MAX;
-		double b = other.dPing ? other.dPing : UINT_MAX;
+	} else if (column == 2) {
+		quint32 a = uiPingSort ? uiPingSort : UINT_MAX;
+		quint32 b = other.uiPingSort ? other.uiPingSort : UINT_MAX;
 		return a < b;
-	}
-	if (column == 3)
+	} else if (column == 3) {
 		return uiUsers < other.uiUsers;
+	}
 	return false;
 }
 
@@ -458,7 +485,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	if (tPublicServers.elapsed() >= 60 * 24 * 1000000ULL) {
 		qlPublicServers.clear();
 	}
-
+	
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setText(tr("Connect"));
 
 	QPushButton *qpb = new QPushButton(tr("Add New..."), this);
@@ -472,6 +499,8 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	qtwServers->header()->setResizeMode(1, QHeaderView::ResizeToContents);
 	qtwServers->header()->setResizeMode(2, QHeaderView::ResizeToContents);
 	qtwServers->header()->setResizeMode(3, QHeaderView::ResizeToContents);
+
+	connect(qtwServers->header(), SIGNAL(sortIndicatorChanged(int, Qt::SortOrder)), this, SLOT(OnSortChanged(int, Qt::SortOrder)));
 
 	qaShowAll->setChecked(false);
 	qaShowReachable->setChecked(false);
@@ -515,10 +544,6 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 		ServerItem *si = new ServerItem(fs);
 		ql << si;
 		qlItems << si;
-#ifdef USE_BONJOUR
-		if (! si->brRecord.serviceName.isEmpty())
-			g.bc->bsrResolver->resolveBonjourRecord(si->brRecord);
-#endif
 	}
 
 	qtwServers->addTopLevelItems(ql);
@@ -558,6 +583,8 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 
 	qtwServers->setCurrentItem(NULL);
 	bLastFound = false;
+
+	restartDns();
 }
 
 ConnectDialog::~ConnectDialog() {
@@ -575,16 +602,11 @@ ConnectDialog::~ConnectDialog() {
 
 void ConnectDialog::accept() {
 	ServerItem *si = static_cast<ServerItem *>(qtwServers->currentItem());
-	if (! si || si->qlAddresses.isEmpty())
+	if (! si || si->qlAddresses.isEmpty() || si->qsHostname.isEmpty())
 		return;
 
 	qsPassword = si->qsPassword;
 	qsServer = si->qsHostname;
-	if (qsServer.startsWith(QLatin1Char('@'))) {
-		qsServer = si->qsBonjourHost;
-		if (qsServer.isEmpty())
-			return;
-	}
 	usPort = si->usPort;
 
 	if (si->qsUsername.isEmpty()) {
@@ -600,6 +622,15 @@ void ConnectDialog::accept() {
 	g.s.qsLastServer = si->qsName;
 
 	QDialog::accept();
+}
+
+void ConnectDialog::OnSortChanged(int logicalIndex, Qt::SortOrder) {
+	if (logicalIndex == 2)
+		foreach(ServerItem *si, qlItems)
+			if (si->uiPing && (si->uiPing != si->uiPingSort)) {
+					si->uiPingSort = si->uiPing;
+					si->setDatas();
+			}
 }
 
 void ConnectDialog::on_qaFavoriteAdd_triggered() {
@@ -632,6 +663,7 @@ void ConnectDialog::on_qaFavoriteAddNew_triggered() {
 		ServerItem *si = new ServerItem(cde->qsName, cde->qsHostname, cde->usPort, cde->qsUsername);
 		qlItems << si;
 		qtwServers->addTopLevelItem(si);
+		restartDns();
 	}
 	delete cde;
 }
@@ -640,15 +672,30 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 	ServerItem *si = static_cast<ServerItem *>(qtwServers->currentItem());
 	if (! si || (si->itType != ServerItem::FavoriteType))
 		return;
+		
+	QString host;
+	if (! si->qsBonjourHost.isEmpty())
+		host = QLatin1Char('@') + si->qsBonjourHost;
+	else
+		host = si->qsHostname;
 
-	ConnectDialogEdit *cde = new ConnectDialogEdit(this, si->qsName, si->qsHostname, si->qsUsername, si->usPort);
+	ConnectDialogEdit *cde = new ConnectDialogEdit(this, si->qsName, host, si->qsUsername, si->usPort);
 
 	if (cde->exec() == QDialog::Accepted) {
 		si->qsName = cde->qsName;
-		si->qsHostname = cde->qsHostname;
+		if (cde->qsHostname.startsWith(QLatin1Char('@'))) {
+			si->qsHostname = QString();
+			si->qsBonjourHost = cde->qsHostname.mid(1);
+			si->brRecord = BonjourRecord(si->qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
+		} else {
+			si->qsHostname = cde->qsHostname;
+			si->qsBonjourHost = QString();
+			si->brRecord = BonjourRecord();
+		}
 		si->qsUsername = cde->qsUsername;
 		si->usPort = cde->usPort;
 		si->setDatas();
+		restartDns();
 	}
 	delete cde;
 }
@@ -677,6 +724,7 @@ void ConnectDialog::on_qaFavoritePaste_triggered() {
 
 	qlItems << si;
 	qtwServers->addTopLevelItem(si);
+	restartDns();
 }
 
 void ConnectDialog::on_qaUrl_triggered() {
@@ -761,9 +809,8 @@ void ConnectDialog::onResolved(BonjourRecord record, QString host, int port) {
 	foreach(ServerItem *si, qlItems) {
 		if (si->brRecord == record) {
 			si->usPort = static_cast<unsigned short>(port);
-			si->qsBonjourHost = host;
-			QHostInfo::lookupHost(host, this, SLOT(lookedUp(QHostInfo)));
-			qmLookups.insert(host, si);
+			si->qsHostname = host;
+			restartDns();
 			return;
 		}
 	}
@@ -789,6 +836,7 @@ void ConnectDialog::onUpdateLanList(const QList<BonjourRecord> &list) {
 	}
 
 	qtwServers->addTopLevelItems(ql);
+	restartDns();
 }
 
 void ConnectDialog::onLanBrowseError(DNSServiceErrorType err) {
@@ -829,6 +877,7 @@ void ConnectDialog::fillList() {
 	qtwServers->addTopLevelItems(qlNew);
 	foreach(QTreeWidgetItem *qtwi, qlNew)
 		static_cast<ServerItem *>(qtwi)->hideCheck();
+	restartDns();
 }
 
 void ConnectDialog::pingList() {
@@ -845,30 +894,58 @@ void ConnectDialog::timeTick() {
 			qtwServers->setCurrentItem(items.at(0));
 		}
 	}
+	
+	// Start DNS Lookup of first unknown hostname
+	foreach(const QString &host, qlDNSLookup) {
+		if (qsDNSActive.contains(host))
+			continue;
+			
+		qWarning() << "Requesting DNS of " << host;
+
+		qlDNSLookup.removeAll(host);
+		qlDNSLookup.append(host);
+		
+		qsDNSActive.insert(host);
+		QHostInfo::lookupHost(host, this, SLOT(lookedUp(QHostInfo)));		
+		break;
+	}
 
 	ServerItem *current = static_cast<ServerItem *>(qtwServers->currentItem());
 	ServerItem *hover = static_cast<ServerItem *>(qtwServers->itemAt(qtwServers->viewport()->mapFromGlobal(QCursor::pos())));
 
 	ServerItem *si = NULL;
-	if (tCurrent.elapsed() >= 1000000ULL)
+
+	if (tCurrent.elapsed() >= 1000000ULL) 
 		si = current;
 	if (! si && (tHover.elapsed() >= 1000000ULL))
 		si = hover;
+
+	if(si) {
+		QString host = si->qsHostname.toLower();
+		
+		if (si->qlAddresses.isEmpty()) {
+			if (! host.isEmpty()) {
+				qlDNSLookup.removeAll(host);
+				qlDNSLookup.prepend(host);
+			}
+			si = NULL;
+		}
+	}
+
 	if (!si) {
 		if (qlItems.isEmpty())
 			return;
 
-		if (++iPingIndex >= qlItems.count()) {
-			if (tRestart.isElapsed(1000000ULL))
-				iPingIndex = 0;
-			else
-				return;
-		}
-
-		si = qlItems.at(iPingIndex);
-
-		if (! si)
-			return;
+		do {
+			++iPingIndex;
+			if (iPingIndex >= qlItems.count()) {
+				if (tRestart.isElapsed(1000000ULL))
+					iPingIndex = 0;
+				else
+					return;
+			}
+			si = qlItems.at(iPingIndex);
+		} while (si->qlAddresses.isEmpty());
 	}
 
 	if (si == current)
@@ -876,53 +953,81 @@ void ConnectDialog::timeTick() {
 	if (si == hover)
 		tHover.restart();
 
-	if (si->qlAddresses.isEmpty()) {
-		QHostAddress qha(si->qsHostname);
-		if (qha.isNull()) {
-			if (qhDNSCache.contains(si->qsHostname.toLower())) {
-				si->qlAddresses << qhDNSCache.value(si->qsHostname.toLower());
-			} else {
-				if (!qmLookups.contains(si->qsHostname)) {
-					QHostInfo::lookupHost(si->qsHostname, this, SLOT(lookedUp(QHostInfo)));
-					qmLookups.insert(si->qsHostname, si);
-				}
-				return;
+	foreach(const QHostAddress &host, si->qlAddresses)
+		sendPing(host, si->usPort);
+}
+
+
+void ConnectDialog::restartDns() {
+	qlDNSLookup.clear();
+	qhDNSWait.clear();
+	qhPings.clear();
+
+	foreach(ServerItem *si, qlItems) {
+		QString host = si->qsHostname.toLower();
+
+		if (si->qlAddresses.isEmpty()) {
+			QHostAddress qha(si->qsHostname);
+			if (! qha.isNull())
+				si->qlAddresses.append(qha);
+			else
+				si->qlAddresses = qhDNSCache.value(host);
+		}
+
+		if (! si->qlAddresses.isEmpty()) {
+			foreach(const QHostAddress &qha, si->qlAddresses) {
+				qhPings[qpAddress(qha, si->usPort)].insert(si);
 			}
-		} else {
-			si->qlAddresses << qha;
+			continue;
+		}
+
+#ifdef USE_BONJOUR
+		if (! si->brRecord.serviceName.isEmpty()) {
+			g.bc->bsrResolver->resolveBonjourRecord(si->brRecord);
+			continue;
+		}
+#endif
+
+		if (! qhDNSWait.contains(host))
+			qlDNSLookup.append(host);
+		qhDNSWait[host].insert(si);
+	}
+}
+
+void ConnectDialog::lookedUp(QHostInfo info) {
+	QString host = info.hostName().toLower();
+	qsDNSActive.remove(host);
+	
+	if (info.error() != QHostInfo::NoError) 
+		return;
+	
+	qlDNSLookup.removeAll(host);
+	qhDNSCache.insert(host, info.addresses());
+	
+	QSet<qpAddress> qs;
+	
+	foreach(ServerItem *si, qhDNSWait[host]) {
+		si->qlAddresses = info.addresses();
+		foreach(const QHostAddress &qha, info.addresses()) {
+			qpAddress addr(qha, si->usPort);
+			qs.insert(addr);
+			qhPings[addr].insert(si);
 		}
 
 		if (si == qtwServers->currentItem())
 			on_qtwServers_currentItemChanged(si, si);
 	}
 
-	foreach(const QHostAddress &host, si->qlAddresses)
-		sendPing(si, host, si->usPort);
+	qhDNSWait.remove(host);
+
+	foreach(const qpAddress &addr, qs) {
+		sendPing(addr.first, addr.second);
+	}
 }
 
-void ConnectDialog::lookedUp(QHostInfo info) {
-	if (! qmLookups.contains(info.hostName()))
-		return;
-
-	ServerItem *si = qmLookups.value(info.hostName());
-	qmLookups.remove(info.hostName());
-
-	if (info.error() != QHostInfo::NoError)
-		return;
-
-	si->qlAddresses = info.addresses();
-	qhDNSCache.insert(info.hostName().toLower(), info.addresses());
-
-	if (si == qtwServers->currentItem())
-		on_qtwServers_currentItemChanged(si, si);
-
-	foreach(const QHostAddress &host, si->qlAddresses)
-		sendPing(si, host, si->usPort);
-}
-
-void ConnectDialog::sendPing(ServerItem *si, const QHostAddress &host, unsigned short port) {
+void ConnectDialog::sendPing(const QHostAddress &host, unsigned short port) {
 	char blob[16];
-
+	
 	qpAddress addr(host, port);
 
 	quint64 uiRand;
@@ -943,11 +1048,9 @@ void ConnectDialog::sendPing(ServerItem *si, const QHostAddress &host, unsigned 
 	else
 		return;
 
-	QSet<ServerItem *> &qs = qhPings[addr];
+	const QSet<ServerItem *> &qs = qhPings.value(addr);
 
-	qs.insert(si);
-
-	foreach(si, qs)
+	foreach(ServerItem *si, qs)
 		++ si->uiSent;
 }
 
@@ -970,15 +1073,11 @@ void ConnectDialog::udpReply() {
 
 				foreach(ServerItem *si, qhPings.value(address)) {
 					si->uiVersion = qFromBigEndian(ping[0]);
-					si->uiUsers = qFromBigEndian(ping[3]);
-					si->uiMaxUsers = qFromBigEndian(ping[4]);
+					quint32 users = qFromBigEndian(ping[3]);
+					quint32 maxusers = qFromBigEndian(ping[4]);
 					si->uiBandwidth = qFromBigEndian(ping[5]);
 
-					(* si->asQuantile)(static_cast<double>(elapsed));
-					si->dPing = boost::accumulators::extended_p_square(* si->asQuantile)[0];
-					si->uiPing = lroundf(si->dPing / 1000.);
-
-					si->setDatas();
+					si->setDatas(elapsed, users, maxusers);
 					si->hideCheck();
 				}
 			}

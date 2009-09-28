@@ -52,6 +52,23 @@ struct PublicInfo {
 	unsigned short usPort;
 };
 
+struct PingStats {
+		quint32 uiVersion;
+		quint32 uiPing;
+		quint32 uiPingSort;
+		quint32 uiUsers;
+		quint32 uiMaxUsers;
+		quint32 uiBandwidth;
+		quint32 uiSent;
+
+		double dPing;
+
+		typedef boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::count, boost::accumulators::tag::extended_p_square> > asQuantileType;
+		asQuantileType *asQuantile;
+
+		PingStats();
+};
+
 class ServerView : public QTreeWidget {
 		Q_OBJECT;
 		Q_DISABLE_COPY(ServerView);
@@ -67,10 +84,10 @@ class ServerView : public QTreeWidget {
 #include "ui_ConnectDialog.h"
 #include "ui_ConnectDialogEdit.h"
 
-class ServerItem : public QTreeWidgetItem {
+class ServerItem : public QTreeWidgetItem, public PingStats {
 		Q_DISABLE_COPY(ServerItem);
 	protected:
-		void initAccumulator();
+		void init();
 	public:
 		enum ItemType { FavoriteType, LANType, PublicType };
 
@@ -94,18 +111,7 @@ class ServerItem : public QTreeWidgetItem {
 
 		QList<QHostAddress> qlAddresses;
 
-		typedef boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::count, boost::accumulators::tag::extended_p_square> > asQuantileType;
-		asQuantileType *asQuantile;
-
 		ItemType itType;
-		quint32 uiVersion;
-		quint32 uiPing;
-		quint32 uiUsers;
-		quint32 uiMaxUsers;
-		quint32 uiBandwidth;
-		quint32 uiSent;
-
-		double dPing;
 
 		ServerItem(const FavoriteServer &fs);
 		ServerItem(const PublicInfo &pi);
@@ -118,7 +124,7 @@ class ServerItem : public QTreeWidgetItem {
 
 		static QIcon loadIcon(const QString &name);
 
-		void setDatas();
+		void setDatas(double ping = 0.0, quint32 users = 0, quint32 maxusers = 0);
 		bool operator< (const QTreeWidgetItem &) const;
 
 		QVariant data(int column, int role) const;
@@ -163,10 +169,16 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QUdpSocket *qusSocket6;
 		QTimer *qtPingTick;
 		QList<ServerItem *> qlItems;
+		
+		QList<QString> qlDNSLookup;
+		QSet<QString> qsDNSActive;
+		QHash<QString, QSet<ServerItem *> > qhDNSWait;
+		QHash<QString, QList<QHostAddress> > qhDNSCache;
+
+		QList<qpAddress> qlAddresses;
 		QHash<qpAddress, quint64> qhPingRand;
 		QHash<qpAddress, QSet<ServerItem *> > qhPings;
-		QMap<QString, ServerItem *> qmLookups;
-		QHash<QString, QList<QHostAddress> > qhDNSCache;
+
 		bool bIPv4;
 		bool bIPv6;
 		int iPingIndex;
@@ -176,10 +188,12 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QMap<QString, QIcon> qmIcons;
 
 		void pingList();
-		void sendPing(ServerItem *, const QHostAddress &, unsigned short port);
+		void sendPing(const QHostAddress &, unsigned short port);
 
 		void initList();
 		void fillList();
+		
+		void restartDns();
 	public slots:
 		void accept();
 		void finished();
@@ -187,7 +201,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void udpReply();
 		void lookedUp(QHostInfo);
 		void timeTick();
-
+		
 #ifdef USE_BONJOUR
 		void onUpdateLanList(const QList<BonjourRecord> &);
 		void onLanBrowseError(DNSServiceErrorType);
@@ -206,6 +220,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void on_qtwServers_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
 		void on_qtwServers_itemDoubleClicked(QTreeWidgetItem *, int);
 		void on_qtwServers_customContextMenuRequested(const QPoint &);
+		void OnSortChanged(int, Qt::SortOrder);
 	public:
 		QString qsServer, qsUsername, qsPassword;
 		unsigned short usPort;
