@@ -245,7 +245,7 @@ QVariant ServerItem::data(int column, int role) const {
 		QString qs;
 		qs +=
 		    QLatin1String("<table>") +
-		    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Name"), qsName) +
+		    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Servername"), qsName) +
 		    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Hostname"), qsHostname);
 
 		if (! qsBonjourHost.isEmpty())

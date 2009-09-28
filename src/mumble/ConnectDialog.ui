@@ -45,7 +45,7 @@
      </attribute>
      <column>
       <property name="text">
-       <string>Name</string>
+       <string>Servername</string>
       </property>
      </column>
      <column>

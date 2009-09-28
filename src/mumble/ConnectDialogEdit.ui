@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QLabel" name="qliName">
      <property name="text">
-      <string>&amp;Name</string>
+      <string>&amp;Servername</string>
      </property>
      <property name="buddy">
       <cstring>qleName</cstring>
