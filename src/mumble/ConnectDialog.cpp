@@ -320,7 +320,10 @@ void ServerItem::setDatas(double elapsed, quint32 users, quint32 maxusers) {
 FavoriteServer ServerItem::toFavoriteServer() const {
 	FavoriteServer fs;
 	fs.qsName = qsName;
-	fs.qsHostname = qsHostname;
+	if (! qsBonjourHost.isEmpty())
+		fs.qsHostname = QLatin1Char('@') + qsBonjourHost;
+	else
+		fs.qsHostname = qsHostname;
 	fs.usPort = usPort;
 	fs.qsUsername = qsUsername;
 	fs.qsPassword = qsPassword;
@@ -806,11 +809,14 @@ void ConnectDialog::initList() {
 
 #ifdef USE_BONJOUR
 void ConnectDialog::onResolved(BonjourRecord record, QString host, int port) {
+	qlBonjourActive.removeAll(record);
 	foreach(ServerItem *si, qlItems) {
 		if (si->brRecord == record) {
 			si->usPort = static_cast<unsigned short>(port);
-			si->qsHostname = host;
-			restartDns();
+			if (host != si->qsHostname) {
+				si->qsHostname = host;
+				restartDns();
+			}
 			return;
 		}
 	}
@@ -843,7 +849,8 @@ void ConnectDialog::onLanBrowseError(DNSServiceErrorType err) {
 	qWarning()<<"Bonjour reported browser error "<< err;
 }
 
-void ConnectDialog::onLanResolveError(BonjourRecord, DNSServiceErrorType err) {
+void ConnectDialog::onLanResolveError(BonjourRecord br, DNSServiceErrorType err) {
+	qlBonjourActive.removeAll(br);
 	qWarning()<<"Bonjour reported resolver error "<< err;
 }
 #endif
@@ -900,8 +907,6 @@ void ConnectDialog::timeTick() {
 		if (qsDNSActive.contains(host))
 			continue;
 			
-		qWarning() << "Requesting DNS of " << host;
-
 		qlDNSLookup.removeAll(host);
 		qlDNSLookup.append(host);
 		
@@ -982,14 +987,21 @@ void ConnectDialog::restartDns() {
 		}
 
 #ifdef USE_BONJOUR
-		if (! si->brRecord.serviceName.isEmpty()) {
-			g.bc->bsrResolver->resolveBonjourRecord(si->brRecord);
+		if (si->qsHostname.isEmpty() && ! si->brRecord.serviceName.isEmpty()) {
+			if (! qlBonjourActive.contains(si->brRecord)) {
+				g.bc->bsrResolver->resolveBonjourRecord(si->brRecord);
+				qlBonjourActive.append(si->brRecord);
+			}
 			continue;
 		}
 #endif
 
-		if (! qhDNSWait.contains(host))
-			qlDNSLookup.append(host);
+		if (! qhDNSWait.contains(host)) {
+			if (si->itType == ServerItem::PublicType)
+				qlDNSLookup.append(host);
+			else
+				qlDNSLookup.prepend(host);
+		}
 		qhDNSWait[host].insert(si);
 	}
 }

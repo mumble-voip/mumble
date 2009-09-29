@@ -201,14 +201,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void udpReply();
 		void lookedUp(QHostInfo);
 		void timeTick();
-		
-#ifdef USE_BONJOUR
-		void onUpdateLanList(const QList<BonjourRecord> &);
-		void onLanBrowseError(DNSServiceErrorType);
 
-		void onResolved(BonjourRecord, QString, int);
-		void onLanResolveError(BonjourRecord, DNSServiceErrorType);
-#endif
 		void on_qaFavoriteAdd_triggered();
 		void on_qaFavoriteAddNew_triggered();
 		void on_qaFavoriteEdit_triggered();
@@ -226,6 +219,17 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		unsigned short usPort;
 		ConnectDialog(QWidget *parent);
 		~ConnectDialog();
+		
+#ifdef USE_BONJOUR
+	protected:
+		QList<BonjourRecord> qlBonjourActive;
+	public slots:
+		void onUpdateLanList(const QList<BonjourRecord> &);
+		void onLanBrowseError(DNSServiceErrorType);
+
+		void onResolved(BonjourRecord, QString, int);
+		void onLanResolveError(BonjourRecord, DNSServiceErrorType);
+#endif
 };
 
 #else
