@@ -71,7 +71,6 @@ our $object = $service->get_object("/1");
 our $rservice = $bus->export_service("net.sourceforge.mumble.phpbb");
 our $robject = Mumble::Auth->new($rservice);
 
-my $response = $object->setAuthenticator("/authority", 0);
 
 package Mumble::Auth;
 
@@ -288,6 +287,8 @@ sub getUserTexture {
 
 
 package main;
+
+my $response = $object->setAuthenticator("/authority", 0);
 
 print "Entering main DBus loop...\n";
 $r->run();

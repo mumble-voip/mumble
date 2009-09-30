@@ -245,7 +245,7 @@ void MurmurDBus::getRegistrationSlot(int &res, int id, QMap<int, QString> &info)
 	}
 }
 
-void  MurmurDBus::getRegisteredPlayersSlot(const QString &filter, QMap<int, QString > &m) {
+void  MurmurDBus::getRegisteredUsersSlot(const QString &filter, QMap<int, QString > &m) {
 	QDBusInterface remoteApp(qsAuthService,qsAuthPath,QString(),qdbc);
 	QDBusReply<QList<RegisteredPlayer> > reply = remoteApp.call(bReentrant ? QDBus::BlockWithGui : QDBus::Block, "getRegisteredPlayers", filter);
 	if (reply.isValid()) {
@@ -673,6 +673,19 @@ void MurmurDBus::setAuthenticator(const QDBusObjectPath &path, bool reentrant, c
 	server->connectAuthenticator(this);
 	qsAuthPath = path.path();
 	qsAuthService = msg.service();
+	
+	QDBusConnectionInterface *interface = qdbc.interface();
+	QDBusReply<QStringList> names = interface->registeredServiceNames();
+	if (names.isValid()) {
+		foreach(const QString &name, names.value()) {
+			QDBusReply<QString> owner = interface->serviceOwner(name);
+			if (owner.isValid() && (owner.value() != name) && (owner.value() == qsAuthService)) {
+				qsAuthService = name;
+				break;
+			}
+		}
+	}
+	
 	bReentrant = reentrant;
 	server->log(QString("DBus Authenticator set to %1 %2 (%3)").arg(qsAuthService, qsAuthPath, QString::number(reentrant)));
 }

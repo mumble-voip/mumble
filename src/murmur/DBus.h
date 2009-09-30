@@ -146,7 +146,7 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 		void authenticateSlot(int &res, QString &uname, const QList<QSslCertificate> &certs, const QString &certhash, bool strong, const QString &pw);
 		void registerUserSlot(int &res, const QMap<int, QString> &);
 		void unregisterUserSlot(int &res, int id);
-		void getRegisteredPlayersSlot(const QString &filter, QMap<int, QString> &res);
+		void getRegisteredUsersSlot(const QString &filter, QMap<int, QString> &res);
 		void getRegistrationSlot(int &, int, QMap<int, QString> &);
 		void setInfoSlot(int &, int, const QMap<int, QString> &);
 		void setTextureSlot(int &res, int id, const QByteArray &texture);

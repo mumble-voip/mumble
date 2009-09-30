@@ -223,7 +223,6 @@ void Server::connectAuthenticator(QObject *obj) {
 	connect(this, SIGNAL(unregisterUserSig(int &, int)), obj, SLOT(unregisterUserSlot(int &, int)));
 	connect(this, SIGNAL(getRegisteredUsersSig(const QString &, QMap<int, QString> &)), obj, SLOT(getRegisteredUsersSlot(const QString &, QMap<int, QString> &)));
 	connect(this, SIGNAL(getRegistrationSig(int &, int, QMap<int, QString> &)), obj, SLOT(getRegistrationSlot(int &, int, QMap<int, QString> &)));
-	connect(this, SIGNAL(authenticateSig(int &, QString &, const QList<QSslCertificate> &, bool, const QString &)), obj, SLOT(authenticateSlot(int &, QString &, const QList<QSslCertificate> &, bool, const QString &)));
 	connect(this, SIGNAL(authenticateSig(int &, QString &, const QList<QSslCertificate> &, const QString &, bool, const QString &)), obj, SLOT(authenticateSlot(int &, QString &, const QList<QSslCertificate> &, const QString &, bool, const QString &)));
 	connect(this, SIGNAL(setInfoSig(int &, int, const QMap<int, QString> &)), obj, SLOT(setInfoSlot(int &, int, const QMap<int, QString> &)));
 	connect(this, SIGNAL(setTextureSig(int &, int, const QByteArray &)), obj, SLOT(setTextureSlot(int &, int, const QByteArray &)));
