@@ -30,8 +30,6 @@
 */
 #include "CustomElements.h"
 
-const QString ChatbarLineEdit::qsDefaultText = tr("Type chat message here");
-
 void ChatbarLineEdit::focusInEvent(QFocusEvent *) {
 	if (text() == qsDefaultText) {
 		setAlignment(Qt::AlignLeft);
@@ -47,6 +45,7 @@ void ChatbarLineEdit::focusOutEvent( QFocusEvent *) {
 }
 
 ChatbarLineEdit::ChatbarLineEdit(QWidget *p) : QLineEdit(p) {
+	qsDefaultText = tr("Type chat message here");
 	setText(qsDefaultText);
 	setAlignment(Qt::AlignCenter);
 };

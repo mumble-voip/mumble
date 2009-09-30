@@ -37,7 +37,7 @@ class ChatbarLineEdit : public QLineEdit {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(ChatbarLineEdit)
-		static const QString qsDefaultText;
+		QString qsDefaultText;
 	protected:
 		void focusInEvent(QFocusEvent *);
 		void focusOutEvent(QFocusEvent *);
