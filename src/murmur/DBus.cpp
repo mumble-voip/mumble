@@ -667,13 +667,17 @@ void MurmurDBus::verifyPassword(int id, const QString &pw, const QDBusMessage &m
 		ok = false;
 }
 
+#ifdef Q_OS_WIN
+#undef interface	
+#endif
+
 void MurmurDBus::setAuthenticator(const QDBusObjectPath &path, bool reentrant, const QDBusMessage &msg) {
 	if (! qsAuthPath.isNull() || ! qsAuthService.isNull())
 		removeAuthenticator();
 	server->connectAuthenticator(this);
 	qsAuthPath = path.path();
 	qsAuthService = msg.service();
-	
+
 	QDBusConnectionInterface *interface = qdbc.interface();
 	QDBusReply<QStringList> names = interface->registeredServiceNames();
 	if (names.isValid()) {
