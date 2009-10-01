@@ -33,6 +33,8 @@
 
 #include "mumble_pch.hpp"
 
+#include "Timer.h"
+
 class UserDelegate : public QStyledItemDelegate {
 	private:
 		Q_OBJECT
@@ -50,11 +52,18 @@ class UserView : public QTreeView {
 	protected:
 		void mouseReleaseEvent(QMouseEvent *);
 		bool event(QEvent *);
+		
+		QTimer *qtSearch;
+		QPersistentModelIndex qpmiSearch;
+		Timer tSearch;
+		QString qsSearch;
 	public:
 		UserView(QWidget *);
+		void keyboardSearch(const QString &search);
 	public slots:
 		void contextMenu(const QPoint &pos);
 		void doubleClick(const QModelIndex &idx);
+		void selectSearchResult();
 };
 
 #else

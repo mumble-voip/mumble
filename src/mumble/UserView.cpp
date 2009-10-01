@@ -75,9 +75,14 @@ void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option,
 
 UserView::UserView(QWidget *p) : QTreeView(p) {
 	setItemDelegate(new UserDelegate(this));
+	
+	qtSearch = new QTimer(this);
+	qtSearch->setInterval(QApplication::keyboardInputInterval());
+	qtSearch->setSingleShot(true);
 
 	connect(this, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(contextMenu(const QPoint &)));
 	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(doubleClick(const QModelIndex &)));
+	connect(qtSearch, SIGNAL(timeout()), this, SLOT(selectSearchResult()));
 }
 
 bool UserView::event(QEvent *evt) {
@@ -166,4 +171,69 @@ void UserView::doubleClick(const QModelIndex &idx) {
 		mpus.set_channel_id(c->iId);
 		g.sh->sendMessage(mpus);
 	}
+}
+
+void UserView::keyboardSearch(const QString &search) {
+
+	if (qtSearch->isActive()) {
+		qpmiSearch = QPersistentModelIndex();
+		qtSearch->stop();
+	}
+
+	bool forceSkip = false;
+	
+	if (tSearch.restart() > (QApplication::keyboardInputInterval() * 1000ULL)) {
+		qsSearch = QString();
+		forceSkip = true;
+	}
+
+	bool isBackspace = (search.length() == 1) && (search.at(0).row() == 0) && (search.at(0).cell() == 8);
+	if (isBackspace) {
+		if (! qsSearch.isEmpty())
+			qsSearch = qsSearch.left(qsSearch.length()-1);
+	} else {
+		qsSearch += search;
+	}
+
+	// Try default search (which doesn't recurse non-expanded items) and see if it returns something "valid"
+	QTreeView::keyboardSearch(search);
+	QModelIndex start = currentIndex();
+	if (start.isValid() && model()->data(start, Qt::DisplayRole).toString().startsWith(qsSearch, Qt::CaseInsensitive)) 
+		return;
+	
+	if (forceSkip && start.isValid())
+		start = indexBelow(start);
+
+	if (! start.isValid())
+		start = model()->index(0, 0, QModelIndex());
+		
+	QModelIndexList qmil = model()->match(start, Qt::DisplayRole, qsSearch, 1, Qt::MatchFlags( Qt::MatchStartsWith | Qt::MatchWrap | Qt::MatchRecursive ));
+	if (qmil.count() == 0)
+		qmil = model()->match(start, Qt::DisplayRole, qsSearch, 1, Qt::MatchFlags( Qt::MatchContains | Qt::MatchWrap | Qt::MatchRecursive ));
+	
+	if (qmil.isEmpty())
+		return;
+		
+	QModelIndex qmi = qmil.at(0);
+	
+	QModelIndex p = qmi.parent();
+	bool isVisible = true;
+	while (isVisible && p.isValid()) {
+		isVisible = isVisible && isExpanded(p);
+		p = p.parent();
+	}
+	
+	if (isVisible) 
+		selectionModel()->setCurrentIndex(qmi, QItemSelectionModel::ClearAndSelect);
+	else {
+		qpmiSearch = qmi;
+		qtSearch->start();
+	}
+}
+
+void UserView::selectSearchResult() {
+	if (qpmiSearch.isValid()) {
+		selectionModel()->setCurrentIndex(qpmiSearch, QItemSelectionModel::ClearAndSelect);
+	}
+	qpmiSearch = QPersistentModelIndex();
 }
