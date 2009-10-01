@@ -32,6 +32,9 @@
 
 void ChatbarLineEdit::focusInEvent(QFocusEvent *) {
 	if (text() == qsDefaultText) {
+		QFont f = font();
+		f.setItalic(false);
+		setFont(f);
 		setAlignment(Qt::AlignLeft);
 		setText(QString());
 	}
@@ -39,6 +42,9 @@ void ChatbarLineEdit::focusInEvent(QFocusEvent *) {
 
 void ChatbarLineEdit::focusOutEvent( QFocusEvent *) {
 	if (text().trimmed().isEmpty()) {
+		QFont f = font();
+		f.setItalic(true);
+		setFont(f);
 		setAlignment(Qt::AlignCenter);
 		setText(qsDefaultText);
 	}
@@ -46,8 +52,7 @@ void ChatbarLineEdit::focusOutEvent( QFocusEvent *) {
 
 ChatbarLineEdit::ChatbarLineEdit(QWidget *p) : QLineEdit(p) {
 	qsDefaultText = tr("Type chat message here");
-	setText(qsDefaultText);
-	setAlignment(Qt::AlignCenter);
+	focusOutEvent(NULL);
 };
 
 
