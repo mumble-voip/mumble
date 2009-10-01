@@ -246,6 +246,30 @@ void Log::clearIgnore() {
 	qmIgnore.clear();
 }
 
+QString Log::imageToImg(const QByteArray &format, const QByteArray &image) {
+	QString fmt = QLatin1String(format);
+
+	if (fmt.isEmpty())
+		fmt = QLatin1String("qt");
+		
+	QByteArray rawbase = image.toBase64();
+	QByteArray encoded;
+	int i = 0;
+	int begin = 0, end = 0;
+	do {
+		begin = i*72;
+		end = begin+72;
+
+		encoded.append(QUrl::toPercentEncoding(QLatin1String(rawbase.mid(begin,72))));
+		if (end < rawbase.length())
+			encoded.append('\n');
+
+		++i;
+	} while (end < rawbase.length());
+
+	return QString::fromLatin1("<img src=\"data:image/%1;base64,%2\" />").arg(fmt).arg(QLatin1String(encoded));
+}
+
 QString Log::validHtml(const QString &html, bool allowReplacement) {
 	QDesktopWidget dw;
 	ValidDocument qtd(allowReplacement);

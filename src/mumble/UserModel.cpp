@@ -469,11 +469,54 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 			switch (section) {
 				case 0: {
 						if (isUser) {
+							QString qsImage;
+							if (! p->qbaTexture.isEmpty() && (p->iTextureWidth > 0)) {
+								// On-the-fly generate a suitably sized compressed image and return its HTML
+
+								QImage img(p->iTextureWidth, 60, QImage::Format_ARGB32);
+								for(int i=0;i<60;++i) {
+									memcpy(img.scanLine(i), p->qbaTexture.constData() + i * 600 * 4, p->iTextureWidth * 4);
+								}
+								
+								int quality = 100;
+								QByteArray format = "PNG";
+								
+								QByteArray qba;
+								{
+									QBuffer qb(&qba);
+									qb.open(QIODevice::WriteOnly);
+
+									QImageWriter imgwrite(&qb, format);
+									imgwrite.write(img);
+								}
+								while ((qba.length() >= 65536) && (quality > 0)) {
+									qba.clear();
+									QBuffer qb(&qba);
+									qb.open(QIODevice::WriteOnly);
+									
+									format = "JPEG";
+
+									QImageWriter imgwrite(&qb, format);
+									imgwrite.setQuality(quality);
+									imgwrite.write(img);
+									quality -= 10;
+								}
+								if (qba.length() < 65536) {
+									qsImage = Log::imageToImg(format, qba);
+								}
+							}
+							
 							if (p->qsComment.isEmpty()) {
-								return p->qsName;
+								if (! qsImage.isEmpty())
+									return qsImage;
+								else
+									return p->qsName;
 							} else {
 								const_cast<UserModel *>(this)->seenComment(idx);
-								return Log::validHtml(p->qsComment);
+								QString base = Log::validHtml(p->qsComment);
+								if (! qsImage.isEmpty())
+									base += QLatin1String("<br />")+qsImage;
+								return base;
 							}
 						} else {
 							if (c->qsDesc.isEmpty()) {

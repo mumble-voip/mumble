@@ -31,6 +31,7 @@
 #include "RichTextEditor.h"
 #include "Global.h"
 #include "MainWindow.h"
+#include "Log.h"
 
 RichTextEditorLink::RichTextEditorLink(const QString &txt, QWidget *p) : QDialog(p) {
 	setupUi(this);
@@ -120,29 +121,10 @@ void RichTextEditor::on_qaImage_triggered() {
 	QBuffer qb(&qba);
 	qb.open(QIODevice::ReadOnly);
 	
-	QString format = QLatin1String(QImageReader::imageFormat(&qb));
+	QByteArray format = QImageReader::imageFormat(&qb);
 	qb.close();
 	
-	if (format.isEmpty())
-		format = QLatin1String("qt");
-		
-	QByteArray rawbase = qba.toBase64();
-	QByteArray encoded;
-	int i = 0;
-	int begin = 0, end = 0;
-	do {
-		begin = i*72;
-		end = begin+72;
-
-		encoded.append(QUrl::toPercentEncoding(QLatin1String(rawbase.mid(begin,72))));
-		if (end < rawbase.length())
-			encoded.append('\n');
-
-		++i;
-	} while (end < rawbase.length());
-
-	QString link = QString::fromLatin1("<img src=\"data:image/%1;base64,%2\" />").arg(format).arg(QLatin1String(encoded));
-	qteRichText->insertHtml(link);
+	qteRichText->insertHtml(Log::imageToImg(format, qba));
 }
 
 void RichTextEditor::onCurrentChanged(int index) {

@@ -81,6 +81,7 @@ class Log : public QObject {
 		void setIgnore(MsgType t, int ignore = 1 << 30);
 		void clearIgnore();
 		static QString validHtml(const QString &html, bool allowReplacement = false);
+		static QString imageToImg(const QByteArray &format, const QByteArray &image);
 	public slots:
 		void log(MsgType t, const QString &console, const QString &terse=QString());
 };
