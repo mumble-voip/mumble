@@ -149,7 +149,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 	// Allow reuse of name from same IP
 	if (ok && uOld && (uSource->iId == -1)) {
-		if (uOld->peerAddress() != uSource->peerAddress()) {
+		if ((uOld->peerAddress() != uSource->peerAddress()) && (uSource->qsHash.isEmpty() || (uSource->qsHash != uOld->qsHash))) {
 			reason = "Username already in use";
 			rtType = MumbleProto::Reject_RejectType_UsernameInUse;
 			ok = false;
