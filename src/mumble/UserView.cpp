@@ -75,7 +75,7 @@ void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option,
 
 UserView::UserView(QWidget *p) : QTreeView(p) {
 	setItemDelegate(new UserDelegate(this));
-	
+
 	qtSearch = new QTimer(this);
 	qtSearch->setInterval(QApplication::keyboardInputInterval());
 	qtSearch->setSingleShot(true);
@@ -181,7 +181,7 @@ void UserView::keyboardSearch(const QString &search) {
 	}
 
 	bool forceSkip = false;
-	
+
 	if (tSearch.restart() > (QApplication::keyboardInputInterval() * 1000ULL)) {
 		qsSearch = QString();
 		forceSkip = true;
@@ -198,32 +198,32 @@ void UserView::keyboardSearch(const QString &search) {
 	// Try default search (which doesn't recurse non-expanded items) and see if it returns something "valid"
 	QTreeView::keyboardSearch(search);
 	QModelIndex start = currentIndex();
-	if (start.isValid() && model()->data(start, Qt::DisplayRole).toString().startsWith(qsSearch, Qt::CaseInsensitive)) 
+	if (start.isValid() && model()->data(start, Qt::DisplayRole).toString().startsWith(qsSearch, Qt::CaseInsensitive))
 		return;
-	
+
 	if (forceSkip && start.isValid())
 		start = indexBelow(start);
 
 	if (! start.isValid())
 		start = model()->index(0, 0, QModelIndex());
-		
-	QModelIndexList qmil = model()->match(start, Qt::DisplayRole, qsSearch, 1, Qt::MatchFlags( Qt::MatchStartsWith | Qt::MatchWrap | Qt::MatchRecursive ));
+
+	QModelIndexList qmil = model()->match(start, Qt::DisplayRole, qsSearch, 1, Qt::MatchFlags(Qt::MatchStartsWith | Qt::MatchWrap | Qt::MatchRecursive));
 	if (qmil.count() == 0)
-		qmil = model()->match(start, Qt::DisplayRole, qsSearch, 1, Qt::MatchFlags( Qt::MatchContains | Qt::MatchWrap | Qt::MatchRecursive ));
-	
+		qmil = model()->match(start, Qt::DisplayRole, qsSearch, 1, Qt::MatchFlags(Qt::MatchContains | Qt::MatchWrap | Qt::MatchRecursive));
+
 	if (qmil.isEmpty())
 		return;
-		
+
 	QModelIndex qmi = qmil.at(0);
-	
+
 	QModelIndex p = qmi.parent();
 	bool isVisible = true;
 	while (isVisible && p.isValid()) {
 		isVisible = isVisible && isExpanded(p);
 		p = p.parent();
 	}
-	
-	if (isVisible) 
+
+	if (isVisible)
 		selectionModel()->setCurrentIndex(qmi, QItemSelectionModel::ClearAndSelect);
 	else {
 		qpmiSearch = qmi;

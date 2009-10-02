@@ -474,13 +474,13 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 								// On-the-fly generate a suitably sized compressed image and return its HTML
 
 								QImage img(p->iTextureWidth, 60, QImage::Format_ARGB32);
-								for(int i=0;i<60;++i) {
+								for (int i=0;i<60;++i) {
 									memcpy(img.scanLine(i), p->qbaTexture.constData() + i * 600 * 4, p->iTextureWidth * 4);
 								}
-								
+
 								int quality = 100;
 								QByteArray format = "PNG";
-								
+
 								QByteArray qba;
 								{
 									QBuffer qb(&qba);
@@ -493,7 +493,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 									qba.clear();
 									QBuffer qb(&qba);
 									qb.open(QIODevice::WriteOnly);
-									
+
 									format = "JPEG";
 
 									QImageWriter imgwrite(&qb, format);
@@ -505,7 +505,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 									qsImage = Log::imageToImg(format, qba);
 								}
 							}
-							
+
 							if (p->qsComment.isEmpty()) {
 								if (! qsImage.isEmpty())
 									return qsImage;
@@ -1318,8 +1318,7 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 				// Dropped between items
 				if (ilast == 0) {
 					// No channels in there yet
-				}
-				else if (row <= ifirst) {
+				} else if (row <= ifirst) {
 					if (pi->channelAt(ifirst) == dropped || NAMECMPCHANNEL(pi->channelAt(ifirst), dropped)) {
 						if (dropped->iPosition ==  pi->channelAt(ifirst)->iPosition) return true;
 						inewpos = pi->channelAt(ifirst)->iPosition;

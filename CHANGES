@@ -1,5 +1,69 @@
+2009-10-01
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    052d23f  Italitcs for the chatbar
+    ce46ab4  Make keyboard search on userview do recursive, delay-expanded
+	     search
+    8d0b279  Fix dbus compile on Win32
+    ba1ae14  Allow ghost from same hash
+    2e93363  Show texture images in tooltip
+
+2009-09-30
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    ddeb79f  Fix translatability of ChatbarLineEdit
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    da6e842  Use service.name instead of :x.y in DBus calls
+
+2009-09-29
+  Natenom <natenom@googlemail.com>
+    9a1ec81  Rename Name to Servername
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    85dbca3  Fix bonjour in new DNS resolver
+
+2009-09-28
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    4179db1  Separate dns loop and stabilize pingsort. Probably breaks
+	     bonjour
+
+2009-09-27
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    8c197b3  Remove deprecated WoW plugin.
+    5082c26  Add TemporaryChannel permission deny type.
+    b0384b6  Fix Channel DnD crash bug.
+    b6357cc  Do not allow channels to be dropped in temporary channels.
+    fb41646  Fix CustomElements.h/cpp license headers and update some
+	     others.
+    c30ac51  Slight chat bar behavior change + mumble.pro style revert
+    1fcfddb  Merged channel tree and normal messages.
+    080ab96  Make chat bar clearly indicate its purpose.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    e9b84b4  Don't do TextMessage symlinks in mklinks.sh
+
+2009-09-26
+  Natenom <natenom@googlemail.com>
+    c54a7ed  Dont use always muted_self icon in tray. Show wether muted
+	     self or by server or suppressed.
+
+2009-09-25
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    812e6b1  Comments for GlobalShortcut.cpp
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    cf662aa  Add initialization to ValidDocument
+    5d6637b  Add local TextMessage for 11x
+
+2009-09-24
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    4e675bc  Add selfreference for OpenGL
+    ae2984b  Use longtext instead of varchar for infos
+    0963a3a  Rich Text Editor
+    0419b34  Start of rich text editor
+
 2009-09-21
   Thorvald Natvig <slicer@users.sourceforge.net>
+    e41dbbe  Show focus message when running snapshots
     511773d  DX10 fullscreen texture test
 
 2009-09-20

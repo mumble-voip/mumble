@@ -176,7 +176,7 @@ struct Settings {
 	QString qsUsername;
 	QString qsLastServer;
 	ServerShow ssFilter;
-	
+
 	QString qsImagePath;
 
 	bool bUpdateCheck;

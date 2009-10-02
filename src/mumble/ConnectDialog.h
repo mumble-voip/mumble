@@ -53,20 +53,20 @@ struct PublicInfo {
 };
 
 struct PingStats {
-		quint32 uiVersion;
-		quint32 uiPing;
-		quint32 uiPingSort;
-		quint32 uiUsers;
-		quint32 uiMaxUsers;
-		quint32 uiBandwidth;
-		quint32 uiSent;
+	quint32 uiVersion;
+	quint32 uiPing;
+	quint32 uiPingSort;
+	quint32 uiUsers;
+	quint32 uiMaxUsers;
+	quint32 uiBandwidth;
+	quint32 uiSent;
 
-		double dPing;
+	double dPing;
 
-		typedef boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::count, boost::accumulators::tag::extended_p_square> > asQuantileType;
-		asQuantileType *asQuantile;
+	typedef boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::count, boost::accumulators::tag::extended_p_square> > asQuantileType;
+	asQuantileType *asQuantile;
 
-		PingStats();
+	PingStats();
 };
 
 class ServerView : public QTreeWidget {
@@ -169,7 +169,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QUdpSocket *qusSocket6;
 		QTimer *qtPingTick;
 		QList<ServerItem *> qlItems;
-		
+
 		QList<QString> qlDNSLookup;
 		QSet<QString> qsDNSActive;
 		QHash<QString, QSet<ServerItem *> > qhDNSWait;
@@ -192,7 +192,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 
 		void initList();
 		void fillList();
-		
+
 		void restartDns();
 	public slots:
 		void accept();
@@ -219,7 +219,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		unsigned short usPort;
 		ConnectDialog(QWidget *parent);
 		~ConnectDialog();
-		
+
 #ifdef USE_BONJOUR
 	protected:
 		QList<BonjourRecord> qlBonjourActive;

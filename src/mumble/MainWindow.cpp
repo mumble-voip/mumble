@@ -937,7 +937,7 @@ void MainWindow::on_qaUserTextMessage_triggered() {
 
 	if (p && (res==QDialog::Accepted)) {
 		QString msg = texm->message();
-		
+
 		if (! msg.isEmpty()) {
 			MumbleProto::TextMessage mptm;
 			mptm.add_session(p->uiSession);
@@ -1838,11 +1838,11 @@ QPair<QByteArray, QImage> MainWindow::openImageFile() {
 
 	if (fname.isNull())
 		return retval;
-		
+
 	QFile f(fname);
 	if (! f.open(QIODevice::ReadOnly)) {
-			QMessageBox::warning(this, tr("Failed to load image"), tr("Could not open file for reading."));
-			return retval;
+		QMessageBox::warning(this, tr("Failed to load image"), tr("Could not open file for reading."));
+		return retval;
 	}
 
 	QFileInfo fi(f);
@@ -1856,9 +1856,9 @@ QPair<QByteArray, QImage> MainWindow::openImageFile() {
 		QMessageBox::warning(this, tr("Failed to load image"), tr("Image format not recognized."));
 		return retval;
 	}
-	
+
 	retval.first = qba;
 	retval.second = img;
-	
+
 	return retval;
 }

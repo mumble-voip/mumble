@@ -35,7 +35,7 @@
 
 RichTextEditorLink::RichTextEditorLink(const QString &txt, QWidget *p) : QDialog(p) {
 	setupUi(this);
-	
+
 	if (! txt.isEmpty()) {
 		qleText->setText(txt);
 	}
@@ -44,11 +44,11 @@ RichTextEditorLink::RichTextEditorLink(const QString &txt, QWidget *p) : QDialog
 QString RichTextEditorLink::text() const {
 	QUrl url(qleUrl->text(), QUrl::StrictMode);
 	QString text = qleText->text();
-	
+
 	if (url.isValid() && ! url.isRelative() && ! text.isEmpty()) {
 		return QString::fromLatin1("<a href=\"%1\">%2</a>").arg(QLatin1String(url.toEncoded()), Qt::escape(text));
 	}
-	
+
 	return QString();
 }
 
@@ -57,7 +57,7 @@ RichTextEditor::RichTextEditor(QWidget *p) : QTabWidget(p) {
 	bModified = false;
 
 	setupUi(this);
-	
+
 	qtbToolBar->addAction(qaBold);
 	qtbToolBar->addAction(qaItalic);
 	qtbToolBar->addAction(qaUnderline);
@@ -65,10 +65,10 @@ RichTextEditor::RichTextEditor(QWidget *p) : QTabWidget(p) {
 	qtbToolBar->addSeparator();
 	qtbToolBar->addAction(qaLink);
 	qtbToolBar->addAction(qaImage);
-	
+
 	connect(this, SIGNAL(currentChanged(int)), this, SLOT(onCurrentChanged(int)));
 	updateActions();
-	
+
 	qteRichText->setFocus();
 }
 
@@ -107,23 +107,23 @@ void RichTextEditor::on_qaLink_triggered() {
 
 void RichTextEditor::on_qaImage_triggered() {
 	QPair<QByteArray, QImage> choice = g.mw->openImageFile();
-	
+
 	QByteArray &qba = choice.first;
-	
+
 	if (qba.isEmpty())
 		return;
-		
+
 	if (qba.length() > 65536) {
 		QMessageBox::warning(this, tr("Failed to load image"), tr("Image file to large to embed in document. Please use images smaller than %1 kB.").arg(65536/1024));
 		return;
 	}
-	
+
 	QBuffer qb(&qba);
 	qb.open(QIODevice::ReadOnly);
-	
+
 	QByteArray format = QImageReader::imageFormat(&qb);
 	qb.close();
-	
+
 	qteRichText->insertHtml(Log::imageToImg(format, qba));
 }
 
@@ -135,7 +135,7 @@ void RichTextEditor::onCurrentChanged(int index) {
 		richToPlain();
 	else
 		qteRichText->setHtml(qptePlainText->toPlainText());
-		
+
 	bChanged = false;
 }
 
@@ -162,7 +162,7 @@ void RichTextEditor::updateColor(const QColor &col) {
 	if (col == qcColor)
 		return;
 	qcColor = col;
-	
+
 	QRect r(0,0,24,24);
 
 	QPixmap qpm(r.size());
@@ -175,10 +175,10 @@ void RichTextEditor::updateColor(const QColor &col) {
 }
 
 void RichTextEditor::updateActions() {
-    qaBold->setChecked(qteRichText->fontWeight() == QFont::Bold);
-    qaItalic->setChecked(qteRichText->fontItalic());
-    qaUnderline->setChecked(qteRichText->fontUnderline());
-    updateColor(qteRichText->textColor());
+	qaBold->setChecked(qteRichText->fontWeight() == QFont::Bold);
+	qaItalic->setChecked(qteRichText->fontItalic());
+	qaUnderline->setChecked(qteRichText->fontUnderline());
+	updateColor(qteRichText->textColor());
 }
 
 /* Recursively parse and output XHTML.
@@ -187,7 +187,7 @@ void RichTextEditor::updateActions() {
  */
 
 static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int &paragraphs, const QMap<QString, QString> &opstyle = QMap<QString, QString>(), const int close = 0, bool ignore = true) {
-	while(! reader.atEnd()) {
+	while (! reader.atEnd()) {
 		QXmlStreamReader::TokenType tt = reader.readNext();
 
 		QXmlStreamAttributes a = reader.attributes();
@@ -202,7 +202,7 @@ static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int
 				int idx = s.indexOf(QLatin1Char(':'));
 				QString key = (idx > 0) ? s.left(idx).simplified() : s;
 				QString val = (idx > 0) ? s.mid(idx+1).simplified() : QString();
-				
+
 				if (! pstyle.contains(key) || (pstyle.value(key) != val)) {
 					style.insert(key,val);
 					pstyle.insert(key,val);
@@ -210,9 +210,8 @@ static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int
 			}
 		}
 
-		switch(tt) {
-			case QXmlStreamReader::StartElement:
-				{
+		switch (tt) {
+			case QXmlStreamReader::StartElement: {
 					QString name = reader.name().toString();
 					int rclose = 1;
 					if (name == QLatin1String("body")) {
@@ -220,7 +219,7 @@ static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int
 						ignore = false;
 					} else if (name == QLatin1String("span")) {
 						// Substitute style with <b>, <i> and <u>
-						
+
 						rclose = 0;
 						if (style.value(QLatin1String("font-weight")) == QLatin1String("600")) {
 							writer.writeStartElement(QLatin1String("b"));
@@ -240,16 +239,16 @@ static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int
 						if (! style.isEmpty()) {
 							rclose++;
 							writer.writeStartElement(name);
-							
+
 							QStringList qsl;
 							QMap<QString, QString>::const_iterator i;
-							for(i=style.constBegin(); i != style.constEnd(); ++i) {
+							for (i=style.constBegin(); i != style.constEnd(); ++i) {
 								if (! i.value().isEmpty())
 									qsl << QString::fromLatin1("%1:%2").arg(i.key(), i.value());
 								else
 									qsl << i.key();
 							}
-							
+
 							writer.writeAttribute(QLatin1String("style"), qsl.join(QLatin1String("; ")));
 						}
 					} else if (name == QLatin1String("p")) {
@@ -263,7 +262,7 @@ static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int
 							if (! style.isEmpty()) {
 								QStringList qsl;
 								QMap<QString, QString>::const_iterator i;
-								for(i=style.constBegin(); i != style.constEnd(); ++i) {
+								for (i=style.constBegin(); i != style.constEnd(); ++i) {
 									if (! i.value().isEmpty())
 										qsl << QString::fromLatin1("%1:%2").arg(i.key(), i.value());
 									else
@@ -291,7 +290,7 @@ static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int
 				}
 			case QXmlStreamReader::EndElement:
 				if (!ignore)
-					for(int i=0;i<close;++i)
+					for (int i=0;i<close;++i)
 						writer.writeEndElement();
 				return;
 			case QXmlStreamReader::Characters:
@@ -310,27 +309,26 @@ static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int
 static bool unduplicateTags(QXmlStreamReader &reader, QXmlStreamWriter &writer) {
 	bool changed = false;
 	bool needclose = false;
-	
+
 	QStringList qslConcat;
 	qslConcat << QLatin1String("b");
 	qslConcat << QLatin1String("i");
 	qslConcat << QLatin1String("u");
 	qslConcat << QLatin1String("a");
-	
+
 	QList<QString> qlNames;
 	QList<QXmlStreamAttributes> qlAttributes;
 
-	while(! reader.atEnd()) {
+	while (! reader.atEnd()) {
 		QXmlStreamReader::TokenType tt = reader.readNext();
 		QString name = reader.name().toString();
 		switch (tt) {
 			case QXmlStreamReader::StartDocument:
 			case QXmlStreamReader::EndDocument:
 				break;
-			case QXmlStreamReader::StartElement:
-				{
+			case QXmlStreamReader::StartElement: {
 					QXmlStreamAttributes a = reader.attributes();
-					
+
 					if (name == QLatin1String("unduplicate"))
 						break;
 
@@ -350,8 +348,7 @@ static bool unduplicateTags(QXmlStreamReader &reader, QXmlStreamWriter &writer) 
 					qlAttributes.append(a);
 				}
 				break;
-			case QXmlStreamReader::EndElement:
-				{
+			case QXmlStreamReader::EndElement: {
 					if (name == QLatin1String("unduplicate"))
 						break;
 					if (needclose) {
@@ -372,19 +369,19 @@ static bool unduplicateTags(QXmlStreamReader &reader, QXmlStreamWriter &writer) 
 				writer.writeCurrentToken(reader);
 		}
 	}
-	if (needclose) 
+	if (needclose)
 		writer.writeEndElement();
 	return changed;
 }
 
 void RichTextEditor::richToPlain() {
 	QXmlStreamReader reader(qteRichText->toHtml());
-	
+
 	QString qsOutput;
 	QXmlStreamWriter writer(&qsOutput);
-	
+
 	int paragraphs = 0;
-	
+
 	QMap<QString, QString> def;
 
 	def.insert(QLatin1String("margin-top"), QLatin1String("0px"));
@@ -393,11 +390,11 @@ void RichTextEditor::richToPlain() {
 	def.insert(QLatin1String("margin-right"), QLatin1String("0px"));
 	def.insert(QLatin1String("-qt-block-indent"), QLatin1String("0"));
 	def.insert(QLatin1String("text-indent"), QLatin1String("0px"));
-	
+
 	recurseParse(reader, writer, paragraphs, def);
-	
+
 	qsOutput = qsOutput.trimmed();
-	
+
 	bool changed;
 	do {
 		qsOutput = QString::fromLatin1("<unduplicate>%1</unduplicate>").arg(qsOutput);
@@ -408,7 +405,7 @@ void RichTextEditor::richToPlain() {
 		changed = unduplicateTags(r, w);
 		qsOutput = qsOutput.trimmed();
 	} while (changed);
-	
+
 	qptePlainText->setPlainText(qsOutput);
 }
 
@@ -419,7 +416,7 @@ void RichTextEditor::setText(const QString &txt) {
 		qteRichText->setHtml(txt);
 	else
 		qteRichText->setPlainText(txt);
-		
+
 	bChanged = false;
 	bModified = false;
 }

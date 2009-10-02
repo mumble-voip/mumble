@@ -52,7 +52,7 @@ class UserView : public QTreeView {
 	protected:
 		void mouseReleaseEvent(QMouseEvent *);
 		bool event(QEvent *);
-		
+
 		QTimer *qtSearch;
 		QPersistentModelIndex qpmiSearch;
 		Timer tSearch;

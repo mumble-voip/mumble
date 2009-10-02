@@ -251,7 +251,7 @@ QString Log::imageToImg(const QByteArray &format, const QByteArray &image) {
 
 	if (fmt.isEmpty())
 		fmt = QLatin1String("qt");
-		
+
 	QByteArray rawbase = image.toBase64();
 	QByteArray encoded;
 	int i = 0;
@@ -285,7 +285,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 
 	qtd.setHtml(html);
 	valid = qtd.isValid();
-	
+
 	for (QTextBlock qtb = qtd.begin(); qtb != qtd.end(); qtb = qtb.next()) {
 		for (QTextBlock::iterator qtbi = qtb.begin(); qtbi != qtb.end(); ++qtbi) {
 			const QTextFragment &qtf = qtbi.fragment();
@@ -306,7 +306,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 
 	qtd.adjustSize();
 	QSizeF s = qtd.size();
-	
+
 	if (!valid || (s.width() > qr.width()) || (s.height() > qr.height())) {
 		qtd.setPlainText(html);
 		qtd.adjustSize();

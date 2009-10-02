@@ -296,21 +296,21 @@ void ServerItem::setDatas(double elapsed, quint32 users, quint32 maxusers) {
 		emitDataChanged();
 		return;
 	}
-	
+
 	(*asQuantile)(static_cast<double>(elapsed));
 	dPing = boost::accumulators::extended_p_square(*asQuantile)[0];
 	if (dPing == 0.0)
 		dPing = elapsed;
 
 	quint32 ping = lroundf(dPing / 1000.);
-		
+
 	bool changed = (ping != uiPing) || (users != uiUsers) || (maxusers != uiMaxUsers);
 
 	uiUsers = users;
 	uiMaxUsers = maxusers;
 	uiPing = ping;
-	
-	if ((uiPingSort == 0) || (dPing < (950. * uiPingSort)) || (dPing > (1050. * uiPingSort))) 
+
+	if ((uiPingSort == 0) || (dPing < (950. * uiPingSort)) || (dPing > (1050. * uiPingSort)))
 		uiPingSort = ping;
 
 	if (changed)
@@ -488,7 +488,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	if (tPublicServers.elapsed() >= 60 * 24 * 1000000ULL) {
 		qlPublicServers.clear();
 	}
-	
+
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setText(tr("Connect"));
 
 	QPushButton *qpb = new QPushButton(tr("Add New..."), this);
@@ -631,8 +631,8 @@ void ConnectDialog::OnSortChanged(int logicalIndex, Qt::SortOrder) {
 	if (logicalIndex == 2)
 		foreach(ServerItem *si, qlItems)
 			if (si->uiPing && (si->uiPing != si->uiPingSort)) {
-					si->uiPingSort = si->uiPing;
-					si->setDatas();
+				si->uiPingSort = si->uiPing;
+				si->setDatas();
 			}
 }
 
@@ -675,7 +675,7 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 	ServerItem *si = static_cast<ServerItem *>(qtwServers->currentItem());
 	if (! si || (si->itType != ServerItem::FavoriteType))
 		return;
-		
+
 	QString host;
 	if (! si->qsBonjourHost.isEmpty())
 		host = QLatin1Char('@') + si->qsBonjourHost;
@@ -901,17 +901,17 @@ void ConnectDialog::timeTick() {
 			qtwServers->setCurrentItem(items.at(0));
 		}
 	}
-	
+
 	// Start DNS Lookup of first unknown hostname
 	foreach(const QString &host, qlDNSLookup) {
 		if (qsDNSActive.contains(host))
 			continue;
-			
+
 		qlDNSLookup.removeAll(host);
 		qlDNSLookup.append(host);
-		
+
 		qsDNSActive.insert(host);
-		QHostInfo::lookupHost(host, this, SLOT(lookedUp(QHostInfo)));		
+		QHostInfo::lookupHost(host, this, SLOT(lookedUp(QHostInfo)));
 		break;
 	}
 
@@ -920,14 +920,14 @@ void ConnectDialog::timeTick() {
 
 	ServerItem *si = NULL;
 
-	if (tCurrent.elapsed() >= 1000000ULL) 
+	if (tCurrent.elapsed() >= 1000000ULL)
 		si = current;
 	if (! si && (tHover.elapsed() >= 1000000ULL))
 		si = hover;
 
-	if(si) {
+	if (si) {
 		QString host = si->qsHostname.toLower();
-		
+
 		if (si->qlAddresses.isEmpty()) {
 			if (! host.isEmpty()) {
 				qlDNSLookup.removeAll(host);
@@ -1009,15 +1009,15 @@ void ConnectDialog::restartDns() {
 void ConnectDialog::lookedUp(QHostInfo info) {
 	QString host = info.hostName().toLower();
 	qsDNSActive.remove(host);
-	
-	if (info.error() != QHostInfo::NoError) 
+
+	if (info.error() != QHostInfo::NoError)
 		return;
-	
+
 	qlDNSLookup.removeAll(host);
 	qhDNSCache.insert(host, info.addresses());
-	
+
 	QSet<qpAddress> qs;
-	
+
 	foreach(ServerItem *si, qhDNSWait[host]) {
 		si->qlAddresses = info.addresses();
 		foreach(const QHostAddress &qha, info.addresses()) {
@@ -1039,7 +1039,7 @@ void ConnectDialog::lookedUp(QHostInfo info) {
 
 void ConnectDialog::sendPing(const QHostAddress &host, unsigned short port) {
 	char blob[16];
-	
+
 	qpAddress addr(host, port);
 
 	quint64 uiRand;

@@ -668,7 +668,7 @@ void MurmurDBus::verifyPassword(int id, const QString &pw, const QDBusMessage &m
 }
 
 #ifdef Q_OS_WIN
-#undef interface	
+#undef interface
 #endif
 
 void MurmurDBus::setAuthenticator(const QDBusObjectPath &path, bool reentrant, const QDBusMessage &msg) {
@@ -689,7 +689,7 @@ void MurmurDBus::setAuthenticator(const QDBusObjectPath &path, bool reentrant, c
 			}
 		}
 	}
-	
+
 	bReentrant = reentrant;
 	server->log(QString("DBus Authenticator set to %1 %2 (%3)").arg(qsAuthService, qsAuthPath, QString::number(reentrant)));
 }
