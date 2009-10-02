@@ -34,7 +34,7 @@ static HANDLE hMapObject = NULL;
 static HANDLE hHookMutex = NULL;
 static HHOOK hhookWnd = 0;
 
-SharedMem *sm;
+SharedMem *sm = NULL;
 HANDLE hSharedMutex = NULL;
 HMODULE hSelf = NULL;
 static BOOL bMumble = FALSE;
@@ -481,6 +481,10 @@ extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
 	}
 }
 
+extern "C" __declspec(dllexport) unsigned int __cdecl GetOverlayMagicVersion() {
+	return OVERLAY_MAGIC_NUMBER;
+}
+
 extern "C" __declspec(dllexport) SharedMem * __cdecl GetSharedMemory() {
 	return sm;
 }
@@ -548,19 +552,20 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 
 				bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
 
-				sm = (SharedMem *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, 0);
-
-				unsigned char *raw = (unsigned char *) sm;
-				d3dd = (Direct3D9Data *)(raw + sizeof(SharedMem));
-				dxgi = (DXGIData *)(raw + sizeof(SharedMem) + sizeof(Direct3D9Data));
-
+				sm = (SharedMem *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, sizeof(SharedMem) + sizeof(Direct3D9Data) + sizeof(DXGIData));
+				
 				if (sm == NULL) {
 					ods("MapViewOfFile Failed");
 					ReleaseMutex(hSharedMutex);
 					return TRUE;
 				}
+
+				unsigned char *raw = (unsigned char *) sm;
+				d3dd = (Direct3D9Data *)(raw + sizeof(SharedMem));
+				dxgi = (DXGIData *)(raw + sizeof(SharedMem) + sizeof(Direct3D9Data));
+
 				if (bInit) {
-					memset(sm, 0, sizeof(SharedMem) + sizeof(Direct3D9Data));
+					memset(sm, 0, sizeof(SharedMem) + sizeof(Direct3D9Data) + sizeof(DXGIData));
 					sm->lastAppAlive = 0;
 					sm->bHooked = false;
 					sm->bDebug = false;
@@ -603,7 +608,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 			break;
 		case DLL_THREAD_ATTACH: {
 				static bool bTriedHook = false;
-				if (! bTriedHook && ! bMumble) {
+				if (sm && ! bTriedHook && ! bMumble) {
 					bTriedHook = true;
 					checkD3D9Hook();
 					checkDXGIHook();

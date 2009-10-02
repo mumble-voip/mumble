@@ -170,8 +170,7 @@ Overlay::Overlay() : QObject() {
 	if (! qlOverlay->load()) {
 		QMessageBox::critical(NULL, tr("Mumble"), tr("Failed to load overlay library. This means either that:\n"
 		                      "- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from\n"
-		                      "- you're on an OS earlier than WinXP SP2\n"
-		                      "- you do not have the June 2007 updated version of DX9.0c"), QMessageBox::Ok, QMessageBox::NoButton);
+		                      "- you're on an OS earlier than WinXP SP2"), QMessageBox::Ok, QMessageBox::NoButton);
 		qWarning("Overlay failure");
 	} else {
 		sm.resolve(qlOverlay);
@@ -180,15 +179,15 @@ Overlay::Overlay() : QObject() {
 	sm.resolve(qlOverlay);
 #endif
 
+	if (! sm.sm) {
+		QMessageBox::warning(NULL, tr("Mumble"), tr("Failed to initialize overlay memory. This usually means that the shared memory is "
+							"locked by the OS, and you need to reboot to release it."), QMessageBox::Ok, QMessageBox::NoButton);
+	} else {
 #ifndef QT_NO_DEBUG
-	if (sm.sm)
 		sm.sm->bDebug = true;
 #else
-	if (sm.sm)
 		sm.sm->bDebug = false;
 #endif
-
-	if (sm.sm) {
 		sm.sm->version[0] = OVERLAY_VERSION_MAJ;
 		sm.sm->version[1] = OVERLAY_VERSION_MIN;
 		sm.sm->version[2] = OVERLAY_VERSION_PATCH;
