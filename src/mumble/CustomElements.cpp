@@ -31,12 +31,13 @@
 #include "CustomElements.h"
 
 void ChatbarLineEdit::focusInEvent(QFocusEvent *) {
-	if (text() == qsDefaultText) {
+	if (bDefaultVisible) {
 		QFont f = font();
 		f.setItalic(false);
 		setFont(f);
 		setAlignment(Qt::AlignLeft);
 		setText(QString());
+		bDefaultVisible = false;
 	}
 }
 
@@ -47,13 +48,30 @@ void ChatbarLineEdit::focusOutEvent(QFocusEvent *) {
 		setFont(f);
 		setAlignment(Qt::AlignCenter);
 		setText(qsDefaultText);
+		bDefaultVisible = true;
+	}
+	else {
+		bDefaultVisible = false;
 	}
 }
 
 ChatbarLineEdit::ChatbarLineEdit(QWidget *p) : QLineEdit(p) {
-	qsDefaultText = tr("Type chat message here");
-	focusOutEvent(NULL);
+	bDefaultVisible = true;
+	setDefaultText(tr("Type chat message here"));
 };
+
+void ChatbarLineEdit::setDefaultText(QString new_default) {
+	qsDefaultText = new_default;
+
+	if (!hasFocus()) {
+		QFont f = font();
+		f.setItalic(true);
+		setFont(f);
+		setAlignment(Qt::AlignCenter);
+		setText(qsDefaultText);
+		bDefaultVisible = true;
+	}
+}
 
 
 DockTitleBar::DockTitleBar() {

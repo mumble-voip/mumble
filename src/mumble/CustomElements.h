@@ -39,10 +39,12 @@ class ChatbarLineEdit : public QLineEdit {
 		Q_DISABLE_COPY(ChatbarLineEdit)
 	protected:
 		QString qsDefaultText;
+		bool bDefaultVisible;
 		void focusInEvent(QFocusEvent *);
 		void focusOutEvent(QFocusEvent *);
 	public:
 		ChatbarLineEdit(QWidget *p = NULL);
+		void setDefaultText(const QString new_default);
 };
 
 class DockTitleBar : public QWidget {

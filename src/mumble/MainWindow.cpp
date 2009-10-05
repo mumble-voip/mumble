@@ -57,6 +57,12 @@
 #include "NetworkConfig.h"
 #include "ACL.h"
 
+/*!
+  \fn void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)
+  This function updates the qleChatbar default text according to
+  the selected user/channel in the users treeview.
+*/
+
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(MB_QEVENT)) {
 	msg = m;
 }
@@ -230,6 +236,10 @@ void MainWindow::setupGui()  {
 
 	restoreState(g.s.qbaMainWindowState);
 	qtvUsers->header()->restoreState(g.s.qbaHeaderState);
+
+	connect(qtvUsers->selectionModel(),
+		SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
+		SLOT(qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)));
 
 	setupView(false);
 
@@ -1763,6 +1773,24 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 			hide();
 		}
 	}
+}
+
+void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &) {
+	User *p = pmModel->getUser(qtvUsers->currentIndex());
+	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
+
+	if (p == NULL || p->uiSession == g.uiSession) {
+		// Channel tree target
+		if (c == NULL) // If no channel selected fallback to current one
+			c = ClientUser::get(g.uiSession)->cChannel;
+
+		qleChat->setDefaultText(tr("Type message to channel '%1' here").arg(c->qsName));
+	} else {
+		// User target
+		qleChat->setDefaultText(tr("Type message to user '%1' here").arg(p->qsName));
+	}
+
+
 }
 
 void MainWindow::customEvent(QEvent *evt) {

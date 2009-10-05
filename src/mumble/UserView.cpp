@@ -37,6 +37,26 @@
 #include "Log.h"
 #include "Global.h"
 
+/*!
+  \fn bool UserView::event(QEvent *evt)
+  This implementation contains a special handler to display
+  custom what's this entries for items. All other events are
+  passed on.
+*/
+
+/*!
+  \fn void UserView::mouseReleaseEvent(QMouseEvent *evt)
+  This function is used to create custom behaviour when clicking
+  on user/channel flags (e.g. showing the comment)
+*/
+
+/*!
+  \fn void UserView::keyboardSearch(const QString &search)
+  This implementation provides a recursive realtime search over
+  the whole channel tree. It also features delayed selection
+  with with automatic expanding of folded channels.
+*/
+
 UserDelegate::UserDelegate(QObject *p) : QStyledItemDelegate(p) {
 }
 
@@ -109,6 +129,7 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 			int offset = 0;
 
 			if (cu) {
+				// Calculate pixel offset of comment flag
 				if (! cu->qsFriendName.isEmpty())
 					offset += 18;
 				if (cu->iId >= 0)
@@ -128,6 +149,7 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 			}
 
 			if ((qpos.x() >= offset) && (qpos.x() <= (offset+18))) {
+				// Clicked on comment flag
 				QModelIndex midx = idx.sibling(idx.row(), 0);
 				r = r.united(visualRect(midx));
 				r.setWidth(r.width() / 2);
@@ -166,6 +188,7 @@ void UserView::doubleClick(const QModelIndex &idx) {
 
 	Channel *c = um->getChannel(idx);
 	if (c) {
+		// if a channel is double clicked join it
 		MumbleProto::UserState mpus;
 		mpus.set_session(g.uiSession);
 		mpus.set_channel_id(c->iId);
