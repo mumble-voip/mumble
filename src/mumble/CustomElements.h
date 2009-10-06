@@ -44,7 +44,7 @@ class ChatbarLineEdit : public QLineEdit {
 		void focusOutEvent(QFocusEvent *);
 	public:
 		ChatbarLineEdit(QWidget *p = NULL);
-		void setDefaultText(const QString new_default);
+		void setDefaultText(const QString &);
 };
 
 class DockTitleBar : public QWidget {

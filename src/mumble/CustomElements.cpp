@@ -59,7 +59,7 @@ ChatbarLineEdit::ChatbarLineEdit(QWidget *p) : QLineEdit(p) {
 	setDefaultText(tr("Type chat message here"));
 };
 
-void ChatbarLineEdit::setDefaultText(QString new_default) {
+void ChatbarLineEdit::setDefaultText(const QString &new_default) {
 	qsDefaultText = new_default;
 
 	if (!hasFocus()) {
