@@ -317,7 +317,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 		return qtd.toHtml();
 	}
 
-	return html;
+	return Qt::mightBeRichText(html) ? html : (QLatin1String("<span></span>")+html);
 }
 
 void Log::log(MsgType mt, const QString &console, const QString &terse) {
