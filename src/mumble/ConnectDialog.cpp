@@ -35,6 +35,10 @@
 #include "Database.h"
 
 QMap<QString, QIcon> ServerItem::qmIcons;
+QList<PublicInfo> ConnectDialog::qlPublicServers;
+QString ConnectDialog::qsUserCountry, ConnectDialog::qsUserCountryCode, ConnectDialog::qsUserContinentCode;
+Timer ConnectDialog::tPublicServers;
+
 
 PingStats::PingStats() {
 	boost::array<double, 3> probs = {0.75, 0.80, 0.95 };
@@ -121,6 +125,7 @@ ServerItem::ServerItem(const PublicInfo &pi) : QTreeWidgetItem(QTreeWidgetItem::
 	qsUrl = pi.quUrl.toString();
 	qsCountry = pi.qsCountry;
 	qsCountryCode = pi.qsCountryCode;
+	qsContinentCode = pi.qsContinentCode;
 
 	init();
 }
@@ -474,9 +479,6 @@ void ConnectDialogEdit::accept() {
 void ConnectDialogEdit::on_qleServer_textChanged(const QString &text) {
 	qlePort->setDisabled(!text.isEmpty() && text.startsWith(QLatin1Char('@')));
 }
-
-QList<PublicInfo> ConnectDialog::qlPublicServers;
-Timer ConnectDialog::tPublicServers;
 
 ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	setupUi(this);
@@ -867,6 +869,7 @@ void ConnectDialog::fillList() {
 
 				si->qsCountry = pi.qsCountry;
 				si->qsCountryCode = pi.qsCountryCode;
+				si->qsContinentCode = pi.qsContinentCode;
 				si->qsUrl = pi.quUrl.toString();
 				si->setDatas();
 			}
@@ -1097,6 +1100,12 @@ void ConnectDialog::udpReply() {
 	}
 }
 
+static QString fromUtf8(const QByteArray &qba) {
+	if (qba.isEmpty())
+		return QString();
+	return QString::fromUtf8(qba.constData(), qba.length());
+}
+
 void ConnectDialog::finished() {
 	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
 	if (rep->error() != QNetworkReply::NoError) {
@@ -1114,11 +1123,14 @@ void ConnectDialog::finished() {
 		QMessageBox::warning(this, tr("Mumble"), tr("Failed to fetch server list"), QMessageBox::Ok);
 		return;
 	}
-
+	
 	QDomDocument doc;
 	doc.setContent(rep->readAll());
 
 	qlPublicServers.clear();
+	qsUserCountry = fromUtf8(rep->rawHeader("Geo-Country"));
+	qsUserCountryCode = fromUtf8(rep->rawHeader("Geo-Country-Code"));
+	qsUserContinentCode = fromUtf8(rep->rawHeader("Geo-Continent-Code"));
 
 	QDomElement root=doc.documentElement();
 	QDomNode n = root.firstChild();
@@ -1133,6 +1145,7 @@ void ConnectDialog::finished() {
 				pi.usPort = e.attribute(QLatin1String("port")).toUShort();
 				pi.qsCountry = e.attribute(QLatin1String("country"));
 				pi.qsCountryCode = e.attribute(QLatin1String("country_code")).toLower();
+				pi.qsContinentCode = e.attribute(QLatin1String("continent_code")).toLower();
 
 				qlPublicServers << pi;
 			}

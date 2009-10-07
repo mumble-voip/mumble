@@ -49,6 +49,7 @@ struct PublicInfo {
 	QString qsIp;
 	QString qsCountry;
 	QString qsCountryCode;
+	QString qsContinentCode;
 	unsigned short usPort;
 };
 
@@ -103,6 +104,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 
 		QString qsCountry;
 		QString qsCountryCode;
+		QString qsContinentCode;
 
 		QString qsUrl;
 
@@ -156,6 +158,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		Q_DISABLE_COPY(ConnectDialog)
 	protected:
 		static QList<PublicInfo> qlPublicServers;
+		static QString qsUserCountry, qsUserCountryCode, qsUserContinentCode;
 		static Timer tPublicServers;
 
 		QMenu *qmPopup, *qmFilters;
