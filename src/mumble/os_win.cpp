@@ -31,6 +31,7 @@
 #include <windows.h>
 #include <tlhelp32.h>
 #include <dbghelp.h>
+#include <emmintrin.h>
 
 #include "Global.h"
 #include "Version.h"
@@ -101,6 +102,9 @@ void os_init() {
 		::MessageBoxA(NULL, "Mumble requires a SSE capable processor (Pentium 3 / Ahtlon-XP)", "Mumble", MB_OK | MB_ICONERROR);
 		exit(0);
 	}
+
+	unsigned int currentControl = 0;
+	_controlfp_s(&currentControl, _DN_FLUSH, _MCW_DN);
 
 #ifdef QT_NO_DEBUG
 	QString console = g.qdBasePath.filePath(QLatin1String("Console.txt"));
