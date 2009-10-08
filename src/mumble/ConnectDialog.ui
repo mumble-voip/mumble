@@ -28,14 +28,14 @@
      <property name="alternatingRowColors">
       <bool>true</bool>
      </property>
+     <property name="autoExpandDelay">
+      <number>250</number>
+     </property>
      <property name="rootIsDecorated">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="uniformRowHeights">
       <bool>true</bool>
-     </property>
-     <property name="itemsExpandable">
-      <bool>false</bool>
      </property>
      <property name="sortingEnabled">
       <bool>true</bool>
@@ -46,11 +46,6 @@
      <column>
       <property name="text">
        <string>Servername</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Location</string>
       </property>
      </column>
      <column>
@@ -138,17 +133,6 @@
    </property>
    <property name="toolTip">
     <string>Show all servers</string>
-   </property>
-  </action>
-  <action name="qaShowFavorite">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Show only Favorites</string>
-   </property>
-   <property name="toolTip">
-    <string>Show only Favorite and LAN servers</string>
    </property>
   </action>
   <action name="qaFavoriteCopy">

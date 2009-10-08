@@ -80,7 +80,7 @@ struct Settings {
 	enum OverlayShow { Nothing, Talking, All };
 	enum ChannelExpand { NoChannels, ChannelsWithUsers, AllChannels };
 	enum ChannelDrag { Ask, DoNothing, Move };
-	enum ServerShow { ShowFavorite, ShowPopulated, ShowReachable, ShowAll };
+	enum ServerShow { ShowPopulated, ShowReachable, ShowAll };
 	typedef QPair<QList<QSslCertificate>, QSslKey> KeyPair;
 
 	AudioTransmit atTransmit;

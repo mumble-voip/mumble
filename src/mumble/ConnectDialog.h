@@ -68,13 +68,24 @@ struct PingStats {
 	asQuantileType *asQuantile;
 
 	PingStats();
+	~PingStats();
 };
+
+class ServerItem;
 
 class ServerView : public QTreeWidget {
 		Q_OBJECT;
 		Q_DISABLE_COPY(ServerView);
 	public:
+		ServerItem *siFavorite, *siLAN, *siPublic;
+		QMap<QString, QString> qmContinentNames;
+		QMap<QString, ServerItem *> qmCountry;
+		QMap<QString, ServerItem *> qmContinent;
+
 		ServerView(QWidget *);
+		~ServerView();
+		
+		ServerItem *getParent(const QString &continent, const QString &countrycode, const QString &countryname, const QString &usercontinentcode, const QString &usercountrycode);
 	protected:
 		virtual QMimeData *mimeData(const QList<QTreeWidgetItem *>) const;
 		virtual QStringList mimeTypes() const;
@@ -89,10 +100,15 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		Q_DISABLE_COPY(ServerItem);
 	protected:
 		void init();
+		bool bParent;
+
 	public:
 		enum ItemType { FavoriteType, LANType, PublicType };
-
+		
 		static QMap<QString, QIcon> qmIcons;
+
+		ServerItem *siParent;
+		QList<ServerItem *> qlChildren;
 
 		QString qsName;
 
@@ -107,6 +123,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		QString qsContinentCode;
 
 		QString qsUrl;
+		
 
 		QString qsBonjourHost;
 		BonjourRecord brRecord;
@@ -119,7 +136,12 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		ServerItem(const PublicInfo &pi);
 		ServerItem(const QString &name, const QString &host, unsigned short port, const QString &uname);
 		ServerItem(const BonjourRecord &br);
+		ServerItem(const QString &name, ItemType itype, const QString &continent = QString(), const QString &country = QString());
+		ServerItem(const ServerItem *si);
+		~ServerItem();
 		static ServerItem *fromMimeData(const QMimeData *mime, QWidget *p = NULL);
+		
+		void addServerItem(ServerItem *child);
 
 		FavoriteServer toFavoriteServer() const;
 		QMimeData *toMimeData() const;
@@ -172,13 +194,12 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QUdpSocket *qusSocket6;
 		QTimer *qtPingTick;
 		QList<ServerItem *> qlItems;
-
+		
 		QList<QString> qlDNSLookup;
 		QSet<QString> qsDNSActive;
 		QHash<QString, QSet<ServerItem *> > qhDNSWait;
 		QHash<QString, QList<QHostAddress> > qhDNSCache;
 
-		QList<qpAddress> qlAddresses;
 		QHash<qpAddress, quint64> qhPingRand;
 		QHash<qpAddress, QSet<ServerItem *> > qhPings;
 
@@ -190,13 +211,13 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 
 		QMap<QString, QIcon> qmIcons;
 
-		void pingList();
 		void sendPing(const QHostAddress &, unsigned short port);
 
 		void initList();
 		void fillList();
 
-		void restartDns();
+		void startDns(ServerItem *);
+		void stopDns(ServerItem *);
 	public slots:
 		void accept();
 		void finished();
@@ -216,6 +237,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void on_qtwServers_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
 		void on_qtwServers_itemDoubleClicked(QTreeWidgetItem *, int);
 		void on_qtwServers_customContextMenuRequested(const QPoint &);
+		void on_qtwServers_itemExpanded(QTreeWidgetItem *);
 		void OnSortChanged(int, Qt::SortOrder);
 	public:
 		QString qsServer, qsUsername, qsPassword;
