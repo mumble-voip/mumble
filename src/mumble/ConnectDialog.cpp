@@ -730,7 +730,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	connect(qusSocket4, SIGNAL(readyRead()), this, SLOT(udpReply()));
 	connect(qusSocket6, SIGNAL(readyRead()), this, SLOT(udpReply()));
 	
-	if (qtwServers->siFavorite->isHidden() && qtwServers->siLAN->isHidden())
+	if (qtwServers->siFavorite->isHidden() && (!qtwServers->siLAN || qtwServers->siLAN->isHidden()))
 		qtwServers->siPublic->setExpanded(true);
 
 	iPingIndex = -1;
