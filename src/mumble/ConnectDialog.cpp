@@ -914,9 +914,11 @@ void ConnectDialog::onFiltersTriggered(QAction *act) {
 
 void ConnectDialog::on_qtwServers_customContextMenuRequested(const QPoint &mpos) {
 	ServerItem *si = static_cast<ServerItem *>(qtwServers->itemAt(mpos));
-
 	qmPopup->clear();
-
+	
+	if (si && si->bParent)
+		si = NULL;
+	
 	if (si && (si->itType == ServerItem::FavoriteType)) {
 		qmPopup->addAction(qaFavoriteEdit);
 		qmPopup->addAction(qaFavoriteRemove);

@@ -100,13 +100,12 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		Q_DISABLE_COPY(ServerItem);
 	protected:
 		void init();
-		bool bParent;
-
 	public:
 		enum ItemType { FavoriteType, LANType, PublicType };
 		
 		static QMap<QString, QIcon> qmIcons;
 
+		bool bParent;
 		ServerItem *siParent;
 		QList<ServerItem *> qlChildren;
 
