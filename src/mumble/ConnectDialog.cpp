@@ -139,7 +139,7 @@ ServerItem *ServerView::getParent(const QString &continentcode, const QString &c
 
 		if (continentcode == usercontinent) {
 			continent->setExpanded(true);
-			scrollToItem(continent);
+			scrollToItem(continent, QAbstractItemView::PositionAtTop);
 		} else {
 			continent->setExpanded(false);
 		}
@@ -154,7 +154,7 @@ ServerItem *ServerView::getParent(const QString &continentcode, const QString &c
 
 		if (countrycode == usercountry) {
 			country->setExpanded(true);
-			scrollToItem(country);
+			scrollToItem(country, QAbstractItemView::PositionAtTop);
 		} else {
 			country->setExpanded(false);
 		}
