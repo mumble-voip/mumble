@@ -28,7 +28,7 @@
      <widget class="QToolBar" name="qtbToolBar"/>
     </item>
     <item>
-     <widget class="QTextEdit" name="qteRichText">
+     <widget class="RichTextHtmlEdit" name="qteRichText">
       <property name="autoFormatting">
        <set>QTextEdit::AutoAll</set>
       </property>
@@ -121,6 +121,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RichTextHtmlEdit</class>
+   <extends>QTextEdit</extends>
+   <header>RichTextEditor.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="mumble_tango.qrc"/>
  </resources>

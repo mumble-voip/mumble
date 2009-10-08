@@ -32,8 +32,20 @@
 #define _RICHTEXTEDITOR_H
 
 #include "mumble_pch.hpp"
+
+class RichTextHtmlEdit : public QTextEdit {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(RichTextHtmlEdit);
+	protected:
+		void insertFromMimeData(const QMimeData *source);
+	public:
+		RichTextHtmlEdit(QWidget *p);
+};
+
 #include "ui_RichTextEditor.h"
 #include "ui_RichTextEditorLink.h"
+
 
 class RichTextEditorLink : public QDialog, Ui::RichTextEditorLink {
 	private:

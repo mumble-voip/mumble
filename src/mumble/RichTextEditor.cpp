@@ -33,6 +33,124 @@
 #include "MainWindow.h"
 #include "Log.h"
 
+RichTextHtmlEdit::RichTextHtmlEdit(QWidget *p) : QTextEdit(p) {
+}
+
+/* On nix, some programs send utf8, some send wchar_t. Some zeroterminate once, some twice, some not at all.
+ */
+
+static QString decodeMimeString(const QByteArray &src) {
+	if (src.isEmpty())
+		return QString();
+		
+	if ((src.length() >= 4) && ((src.length() % sizeof(ushort)) == 0)) {
+		const ushort *ptr = reinterpret_cast<const ushort *>(src.constData());
+		int len = src.length() / sizeof(ushort);
+		if ((ptr[0] > 0) && (ptr[0] < 0x7f) && (ptr[1] > 0) && (ptr[1] < 0x7f)) {
+			while(len && (ptr[len - 1] == 0))
+				--len;
+			return QString::fromUtf16(ptr, len);
+		}
+	}
+
+	if ((sizeof(wchar_t) != sizeof(ushort)) && (src.length() >= sizeof(wchar_t)) && ((src.length() % sizeof(wchar_t)) == 0)) {
+		const wchar_t *ptr = reinterpret_cast<const wchar_t *>(src.constData());
+		int len = src.length() / sizeof(wchar_t);
+		if (*ptr < 0x7f) {
+			while(len && (ptr[len - 1] == 0))
+				--len;
+			return QString::fromWCharArray(ptr, len);
+		}
+	}
+	const char *ptr = src.constData();
+	int len = src.length();
+	while(len && (ptr[len - 1] == 0))
+		--len;
+	return QString::fromUtf8(ptr, len);
+}
+
+/* Try really hard to properly decode Mime into something sane.
+ */
+
+void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
+	QString uri;
+	QString title;
+	QRegExp newline(QLatin1String("[\\r\\n]"));
+
+#ifndef QT_NO_DEBUG
+	qWarning() << "RichTextHtmlEdit::insertFromMimeData" << source->formats();
+	foreach(const QString &format, source->formats()) 
+		qWarning() << format << decodeMimeString(source->data(format));
+#endif
+
+	if (source->hasImage()) {
+		QImage img = qvariant_cast<QImage>(source->imageData());
+		QString html = Log::imageToImg(img);
+		if (! html.isEmpty())
+			insertHtml(html);
+		return;
+	}
+	
+	QString mozurl = decodeMimeString(source->data(QLatin1String("text/x-moz-url")));
+	if (! mozurl.isEmpty()) {
+		QStringList lines = mozurl.split(newline);
+		qWarning() << mozurl << lines;
+		if (lines.count() >= 2) {
+			uri = lines.at(0);
+			title = lines.at(1);
+		}
+	}
+	
+	if (uri.isEmpty())
+		uri = decodeMimeString(source->data(QLatin1String("text/x-moz-url-data")));
+	if (title.isEmpty())
+		title = decodeMimeString(source->data(QLatin1String("text/x-moz-url-desc")));
+	
+	if (uri.isEmpty()) {
+		QStringList urls = decodeMimeString(source->data(QLatin1String("text/uri-list"))).split(newline);
+		if (! urls.isEmpty())
+			uri = urls.at(0);
+		uri = urls.at(0).trimmed();
+	}
+
+	if (uri.isEmpty()) {
+		QUrl url(source->text(), QUrl::StrictMode);
+		if (url.isValid() && ! url.isRelative()) {
+			uri = url.toString();
+		}
+	}
+
+#ifdef Q_OS_WIN
+	if (title.isEmpty() && source->hasFormat(QLatin1String("application/x-qt-windows-mime;value=\"FileGroupDescriptorW\""))) {
+		QByteArray qba = source->data(QLatin1String("application/x-qt-windows-mime;value=\"FileGroupDescriptorW\""));
+		if (qba.length() == sizeof(FILEGROUPDESCRIPTORW)) {
+			const FILEGROUPDESCRIPTORW *ptr = reinterpret_cast<const FILEGROUPDESCRIPTORW *>(qba.constData());
+			title = QString::fromUtf16(ptr->fgd[0].cFileName);
+			if (title.endsWith(QLatin1String(".url"), Qt::CaseInsensitive))
+				title = title.left(title.length() - 4);
+		}
+	}
+#endif
+
+	if (! uri.isEmpty()) {
+		if (title.isEmpty())
+			title = uri;
+		uri = Qt::escape(uri);
+		title = Qt::escape(title);
+		
+		insertHtml(QString::fromLatin1("<a href=\"%1\">%2</a>").arg(uri, title));
+		return;
+	}
+	
+	QString html = decodeMimeString(source->data(QLatin1String("text/html")));
+	if (! html.isEmpty()) {
+		insertHtml(html);
+		return;
+	}
+
+	QTextEdit::insertFromMimeData(source);
+}
+
 RichTextEditorLink::RichTextEditorLink(const QString &txt, QWidget *p) : QDialog(p) {
 	setupUi(this);
 

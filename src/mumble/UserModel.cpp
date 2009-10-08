@@ -477,33 +477,8 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 								for (int i=0;i<60;++i) {
 									memcpy(img.scanLine(i), p->qbaTexture.constData() + i * 600 * 4, p->iTextureWidth * 4);
 								}
-
-								int quality = 100;
-								QByteArray format = "PNG";
-
-								QByteArray qba;
-								{
-									QBuffer qb(&qba);
-									qb.open(QIODevice::WriteOnly);
-
-									QImageWriter imgwrite(&qb, format);
-									imgwrite.write(img);
-								}
-								while ((qba.length() >= 65536) && (quality > 0)) {
-									qba.clear();
-									QBuffer qb(&qba);
-									qb.open(QIODevice::WriteOnly);
-
-									format = "JPEG";
-
-									QImageWriter imgwrite(&qb, format);
-									imgwrite.setQuality(quality);
-									imgwrite.write(img);
-									quality -= 10;
-								}
-								if (qba.length() < 65536) {
-									qsImage = Log::imageToImg(format, qba);
-								}
+								
+								qsImage = Log::imageToImg(img);
 							}
 
 							if (p->qsComment.isEmpty()) {

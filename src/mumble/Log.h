@@ -82,6 +82,7 @@ class Log : public QObject {
 		void clearIgnore();
 		static QString validHtml(const QString &html, bool allowReplacement = false);
 		static QString imageToImg(const QByteArray &format, const QByteArray &image);
+		static QString imageToImg(QImage img);
 	public slots:
 		void log(MsgType t, const QString &console, const QString &terse=QString());
 };
