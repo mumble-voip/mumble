@@ -43,6 +43,7 @@ class ConfigDialog : public QDialog, public Ui::ConfigDialog {
 	protected:
 		QHash<ConfigWidget *, QWidget *> qhPages;
 		QMap<unsigned int, ConfigWidget *> qmWidgets;
+		QMap<QListWidgetItem *, ConfigWidget *> qmIconWidgets;
 		void addPage(ConfigWidget *aw, unsigned int idx);
 		Settings s;
 
@@ -64,7 +65,8 @@ class ConfigDialog : public QDialog, public Ui::ConfigDialog {
 	public slots:
 		void on_pageButtonBox_clicked(QAbstractButton *);
 		void on_dialogButtonBox_clicked(QAbstractButton *);
-		void updateExpert(bool);
+		void on_qlwIcons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+		void on_qcbExpert_clicked(bool);
 		void apply();
 		void accept();
 };

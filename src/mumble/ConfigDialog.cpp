@@ -38,17 +38,14 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 
 	s = g.s;
 
-	QWidget *w;
-	while ((w = qtwWidgets->widget(0)))
-		delete w;
-
 	unsigned int idx = 0;
 	ConfigWidgetNew cwn;
 	foreach(cwn, *ConfigRegistrar::c_qmNew) {
 		addPage(cwn(s), ++idx);
 	}
 
-	updateExpert(g.s.bExpert);
+	qcbExpert->setChecked(g.s.bExpert);
+	on_qcbExpert_clicked(g.s.bExpert);
 
 	QPushButton *okButton = dialogButtonBox->button(QDialogButtonBox::Ok);
 	okButton->setToolTip(tr("Accept changes"));
@@ -103,8 +100,10 @@ void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 		qsa->setWidgetResizable(true);
 		qsa->setWidget(cw);
 		qhPages.insert(cw, qsa);
+		qswPages->addWidget(qsa);
 	} else {
 		qhPages.insert(cw, cw);
+		qswPages->addWidget(cw);
 	}
 	qmWidgets.insert(idx, cw);
 	cw->load(g.s);
@@ -116,17 +115,22 @@ ConfigDialog::~ConfigDialog() {
 }
 
 void ConfigDialog::on_pageButtonBox_clicked(QAbstractButton *b) {
-	ConfigWidget *conf = qobject_cast<ConfigWidget *>(qtwWidgets->currentWidget());
+	ConfigWidget *conf = qobject_cast<ConfigWidget *>(qswPages->currentWidget());
+	if (! conf) {
+		QScrollArea *qsa = qobject_cast<QScrollArea *>(qswPages->currentWidget());
+		if (qsa)
+			conf = qobject_cast<ConfigWidget *>(qsa->widget());
+	}
+	if (! conf)
+		return;
 	switch (pageButtonBox->standardButton(b)) {
 		case QDialogButtonBox::RestoreDefaults: {
 				Settings def;
-				if (conf)
-					conf->load(def);
+				conf->load(def);
 				break;
 			}
 		case QDialogButtonBox::Reset: {
-				if (conf)
-					conf->load(g.s);
+				conf->load(g.s);
 				break;
 			}
 		default:
@@ -145,23 +149,41 @@ void ConfigDialog::on_dialogButtonBox_clicked(QAbstractButton *b) {
 	}
 }
 
-void ConfigDialog::updateExpert(bool b) {
-	QWidget *ccw = qtwWidgets->currentWidget();
+void ConfigDialog::on_qlwIcons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous) {
+	if (!current)
+		current = previous;
 
-	bool found = false;
-	qtwWidgets->clear();
+	if (current) {
+		QWidget *w = qhPages.value(qmIconWidgets.value(current));
+		if (w)
+			qswPages->setCurrentWidget(w);
+	}
+}
+
+void ConfigDialog::on_qcbExpert_clicked(bool b) {
+	QWidget *ccw = qmIconWidgets.value(qlwIcons->currentItem());
+	QListWidgetItem *sel = NULL;
+	
+	qmIconWidgets.clear();
+	qlwIcons->clear();
+	
 	foreach(ConfigWidget *cw, qmWidgets) {
 		bool showit = cw->expert(b);
 		if (showit || b)  {
-			QWidget *w = qhPages.value(cw);
-			qtwWidgets->addTab(w, cw->icon(), cw->title());
-
-			if (w == ccw)
-				found = true;
+			QListWidgetItem *i = new QListWidgetItem(qlwIcons);
+			i->setIcon(cw->icon());
+			i->setText(cw->title());
+			i->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+			
+			qmIconWidgets.insert(i, cw);
+			if (cw == ccw)
+				sel = i;
 		}
 	}
-	if (found)
-		qtwWidgets->setCurrentWidget(ccw);
+	if (sel)
+		qlwIcons->setCurrentItem(sel);
+	else
+		qlwIcons->setCurrentRow(0);
 }
 
 void ConfigDialog::apply() {
@@ -194,6 +216,8 @@ void ConfigDialog::apply() {
 
 	// They might have changed their keys.
 	g.iPushToTalk = 0;
+	
+	g.s.bExpert = qcbExpert->isChecked();
 }
 
 void ConfigDialog::accept() {
