@@ -169,7 +169,6 @@ Settings::Settings() {
 	bAskOnQuit = true;
 	bHideTray = true;
 	bUsage = true;
-	bAdvancedACLCfg = false;
 	iWindowLayout = LayoutClassic;
 
 	ssFilter = ShowReachable;
@@ -405,7 +404,6 @@ void Settings::load() {
 #endif
 	SAVELOAD(bHideTray, "ui/hidetray");
 	SAVELOAD(bUsage, "ui/usage");
-	SAVELOAD(bAdvancedACLCfg, "ui/advancedaclcfg");
 	SAVELOAD(qsImagePath, "ui/imagepath");
 
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
@@ -574,7 +572,6 @@ void Settings::save() {
 	SAVELOAD(bPluginCheck, "ui/plugincheck");
 	SAVELOAD(bHideTray, "ui/hidetray");
 	SAVELOAD(bUsage, "ui/usage");
-	SAVELOAD(bAdvancedACLCfg, "ui/advancedaclcfg");
 	SAVELOAD(qsImagePath, "ui/imagepath");
 
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");

@@ -55,7 +55,7 @@ ACLEditor::ACLEditor(int channelparentid, QWidget *p) : QDialog(p) {
 	qtwTab->removeTab(2);
 	qtwTab->removeTab(1);
 
-	if (!g.s.bAdvancedACLCfg) {
+	if (!g.s.bExpert) {
 		qsbChannelPosition->hide();
 		qlChannelPosition->hide();
 	}
@@ -87,7 +87,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 
 	setupUi(this);
 
-	if (!g.s.bAdvancedACLCfg) {
+	if (!g.s.bExpert) {
 		qtwTab->removeTab(2);
 		qtwTab->removeTab(1);
 		qsbChannelPosition->hide();
