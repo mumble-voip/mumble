@@ -84,7 +84,7 @@ class ServerView : public QTreeWidget {
 
 		ServerView(QWidget *);
 		~ServerView();
-		
+
 		ServerItem *getParent(const QString &continent, const QString &countrycode, const QString &countryname, const QString &usercontinentcode, const QString &usercountrycode);
 	protected:
 		virtual QMimeData *mimeData(const QList<QTreeWidgetItem *>) const;
@@ -102,7 +102,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		void init();
 	public:
 		enum ItemType { FavoriteType, LANType, PublicType };
-		
+
 		static QMap<QString, QIcon> qmIcons;
 
 		bool bParent;
@@ -122,7 +122,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		QString qsContinentCode;
 
 		QString qsUrl;
-		
+
 
 		QString qsBonjourHost;
 		BonjourRecord brRecord;
@@ -139,7 +139,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		ServerItem(const ServerItem *si);
 		~ServerItem();
 		static ServerItem *fromMimeData(const QMimeData *mime, QWidget *p = NULL);
-		
+
 		void addServerItem(ServerItem *child);
 
 		FavoriteServer toFavoriteServer() const;
@@ -193,7 +193,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QUdpSocket *qusSocket6;
 		QTimer *qtPingTick;
 		QList<ServerItem *> qlItems;
-		
+
 		QList<QString> qlDNSLookup;
 		QSet<QString> qsDNSActive;
 		QHash<QString, QSet<ServerItem *> > qhDNSWait;

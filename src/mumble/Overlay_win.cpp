@@ -60,10 +60,10 @@ void SharedMemory::resolve(QLibrary *lib) {
 	GetOverlayMagicVersionProc gompvp = (GetOverlayMagicVersionProc)lib->resolve("GetOverlayMagicVersion");
 	if (! gompvp)
 		return;
-		
+
 	if (gompvp() != OVERLAY_MAGIC_NUMBER)
 		return;
-	
+
 	GetSharedMemProc gsmp = (GetSharedMemProc)lib->resolve("GetSharedMemory");
 	if (gsmp)
 		sm=gsmp();

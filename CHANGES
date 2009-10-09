@@ -1,3 +1,33 @@
+2009-10-09
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    bfceb94  Merge expert config and advanced acl options
+    498a0db  Change a few expert/nonexpert settings
+    0ac3cde  Switch back to listbased config dialog
+    df8e907  Mime demangler for richtexteditor
+
+2009-10-08
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    f3a6e64  Don't crash without bonjour
+    f7dfa10  Scroll dd0t to the top
+    a7a7c04  Don't add context menu for parent items
+    6261bbc  Hierarchical connect dialog
+
+2009-10-07
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    f065c2b  Fetch continent of public servers and grab geoip of user
+    a9fdf25  Flush denormals on Win32
+    e6a49ff  Force text to be interpreted as basic html
+
+2009-10-06
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    42c9d8c  Make chatbar indicate target.
+
+2009-10-02
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c935e13  Make binrelease script use IPv4 too
+    1989a19  Add overlay magic number and check memory size
+    7ecfc7b  Make release script use IPv4
+
 2009-10-01
   Thorvald Natvig <slicer@users.sourceforge.net>
     052d23f  Italitcs for the chatbar

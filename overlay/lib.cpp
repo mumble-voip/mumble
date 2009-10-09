@@ -553,7 +553,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 				bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
 
 				sm = (SharedMem *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, sizeof(SharedMem) + sizeof(Direct3D9Data) + sizeof(DXGIData));
-				
+
 				if (sm == NULL) {
 					ods("MapViewOfFile Failed");
 					ReleaseMutex(hSharedMutex);

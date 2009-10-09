@@ -274,7 +274,7 @@ QString Log::imageToImg(QImage img) {
 	if ((img.width() > 480) || (img.height() > 270)) {
 		img = img.scaled(480, 270, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	}
-	
+
 	int quality = 100;
 	QByteArray format = "PNG";
 

@@ -49,8 +49,7 @@ void ChatbarLineEdit::focusOutEvent(QFocusEvent *) {
 		setAlignment(Qt::AlignCenter);
 		setText(qsDefaultText);
 		bDefaultVisible = true;
-	}
-	else {
+	} else {
 		bDefaultVisible = false;
 	}
 }

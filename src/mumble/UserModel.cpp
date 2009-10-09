@@ -477,7 +477,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 								for (int i=0;i<60;++i) {
 									memcpy(img.scanLine(i), p->qbaTexture.constData() + i * 600 * 4, p->iTextureWidth * 4);
 								}
-								
+
 								qsImage = Log::imageToImg(img);
 							}
 

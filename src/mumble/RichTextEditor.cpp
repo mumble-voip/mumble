@@ -42,12 +42,12 @@ RichTextHtmlEdit::RichTextHtmlEdit(QWidget *p) : QTextEdit(p) {
 static QString decodeMimeString(const QByteArray &src) {
 	if (src.isEmpty())
 		return QString();
-		
+
 	if ((src.length() >= 4) && ((src.length() % sizeof(ushort)) == 0)) {
 		const ushort *ptr = reinterpret_cast<const ushort *>(src.constData());
 		int len = src.length() / sizeof(ushort);
 		if ((ptr[0] > 0) && (ptr[0] < 0x7f) && (ptr[1] > 0) && (ptr[1] < 0x7f)) {
-			while(len && (ptr[len - 1] == 0))
+			while (len && (ptr[len - 1] == 0))
 				--len;
 			return QString::fromUtf16(ptr, len);
 		}
@@ -57,14 +57,14 @@ static QString decodeMimeString(const QByteArray &src) {
 		const wchar_t *ptr = reinterpret_cast<const wchar_t *>(src.constData());
 		int len = src.length() / sizeof(wchar_t);
 		if (*ptr < 0x7f) {
-			while(len && (ptr[len - 1] == 0))
+			while (len && (ptr[len - 1] == 0))
 				--len;
 			return QString::fromWCharArray(ptr, len);
 		}
 	}
 	const char *ptr = src.constData();
 	int len = src.length();
-	while(len && (ptr[len - 1] == 0))
+	while (len && (ptr[len - 1] == 0))
 		--len;
 	return QString::fromUtf8(ptr, len);
 }
@@ -79,7 +79,7 @@ void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
 
 #ifndef QT_NO_DEBUG
 	qWarning() << "RichTextHtmlEdit::insertFromMimeData" << source->formats();
-	foreach(const QString &format, source->formats()) 
+	foreach(const QString &format, source->formats())
 		qWarning() << format << decodeMimeString(source->data(format));
 #endif
 
@@ -90,7 +90,7 @@ void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
 			insertHtml(html);
 		return;
 	}
-	
+
 	QString mozurl = decodeMimeString(source->data(QLatin1String("text/x-moz-url")));
 	if (! mozurl.isEmpty()) {
 		QStringList lines = mozurl.split(newline);
@@ -100,12 +100,12 @@ void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
 			title = lines.at(1);
 		}
 	}
-	
+
 	if (uri.isEmpty())
 		uri = decodeMimeString(source->data(QLatin1String("text/x-moz-url-data")));
 	if (title.isEmpty())
 		title = decodeMimeString(source->data(QLatin1String("text/x-moz-url-desc")));
-	
+
 	if (uri.isEmpty()) {
 		QStringList urls = decodeMimeString(source->data(QLatin1String("text/uri-list"))).split(newline);
 		if (! urls.isEmpty())
@@ -137,11 +137,11 @@ void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
 			title = uri;
 		uri = Qt::escape(uri);
 		title = Qt::escape(title);
-		
+
 		insertHtml(QString::fromLatin1("<a href=\"%1\">%2</a>").arg(uri, title));
 		return;
 	}
-	
+
 	QString html = decodeMimeString(source->data(QLatin1String("text/html")));
 	if (! html.isEmpty()) {
 		insertHtml(html);

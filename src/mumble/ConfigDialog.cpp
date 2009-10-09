@@ -163,10 +163,10 @@ void ConfigDialog::on_qlwIcons_currentItemChanged(QListWidgetItem *current, QLis
 void ConfigDialog::on_qcbExpert_clicked(bool b) {
 	QWidget *ccw = qmIconWidgets.value(qlwIcons->currentItem());
 	QListWidgetItem *sel = NULL;
-	
+
 	qmIconWidgets.clear();
 	qlwIcons->clear();
-	
+
 	foreach(ConfigWidget *cw, qmWidgets) {
 		bool showit = cw->expert(b);
 		if (showit || b)  {
@@ -174,7 +174,7 @@ void ConfigDialog::on_qcbExpert_clicked(bool b) {
 			i->setIcon(cw->icon());
 			i->setText(cw->title());
 			i->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-			
+
 			qmIconWidgets.insert(i, cw);
 			if (cw == ccw)
 				sel = i;
@@ -216,7 +216,7 @@ void ConfigDialog::apply() {
 
 	// They might have changed their keys.
 	g.iPushToTalk = 0;
-	
+
 	g.s.bExpert = qcbExpert->isChecked();
 }
 

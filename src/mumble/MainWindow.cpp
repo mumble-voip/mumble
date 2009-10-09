@@ -238,8 +238,8 @@ void MainWindow::setupGui()  {
 	qtvUsers->header()->restoreState(g.s.qbaHeaderState);
 
 	connect(qtvUsers->selectionModel(),
-		SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
-		SLOT(qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)));
+	        SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
+	        SLOT(qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)));
 
 	setupView(false);
 

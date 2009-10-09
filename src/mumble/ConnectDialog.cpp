@@ -76,9 +76,9 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 	siPublic = new ServerItem(tr("Public Internet"), ServerItem::PublicType);
 	siPublic->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 	addTopLevelItem(siPublic);
-	
+
 	siPublic->setExpanded(false);
-	
+
 	qmContinentNames.insert(QLatin1String("as"), tr("Asia"));
 	qmContinentNames.insert(QLatin1String("na"), tr("North America"));
 	qmContinentNames.insert(QLatin1String("sa"), tr("South America"));
@@ -248,9 +248,9 @@ ServerItem::ServerItem(const QString &name, ItemType itype, const QString &conti
 		qsCountryCode = country;
 		qsContinentCode = continent;
 	}
-	
+
 	setFlags(flags() & (~ Qt::ItemIsSelectable));
-	
+
 	init();
 }
 
@@ -389,16 +389,16 @@ QVariant ServerItem::data(int column, int role) const {
 
 			QString qs;
 			qs +=
-				QLatin1String("<table>") +
-				QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Servername"), qsName) +
-				QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Hostname"), qsHostname);
+			    QLatin1String("<table>") +
+			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Servername"), qsName) +
+			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Hostname"), qsHostname);
 
 			if (! qsBonjourHost.isEmpty())
 				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bonjour name"), qsBonjourHost);
 
 			qs +=
-				QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Port")).arg(usPort) +
-				QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Addresses"), qsl.join(QLatin1String(", ")));
+			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Port")).arg(usPort) +
+			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Addresses"), qsl.join(QLatin1String(", ")));
 
 			if (! qsUrl.isEmpty())
 				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Website"), qsUrl);
@@ -407,13 +407,13 @@ QVariant ServerItem::data(int column, int role) const {
 				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Packet loss"), QString::fromLatin1("%1% (%2/%3)").arg(ploss, 0, 'f', 1).arg(uiRecv).arg(uiSent));
 				if (uiRecv > 0) {
 					qs +=
-						QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (80%)"), ConnectDialog::tr("%1 ms").
-								arg(boost::accumulators::extended_p_square(* asQuantile)[1] / 1000., 0, 'f', 2)) +
-						QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (95%)"), ConnectDialog::tr("%1 ms").
-								arg(boost::accumulators::extended_p_square(* asQuantile)[2] / 1000., 0, 'f', 2)) +
-						QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bandwidth"), ConnectDialog::tr("%1 kbit/s").arg(uiBandwidth / 1000)) +
-						QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Users"), QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers)) +
-						QString::fromLatin1("<tr><th align=left>%1</th><td>%2.%3.%4</td></tr>").arg(ConnectDialog::tr("Version")).arg(uiVersion >> 16).arg((uiVersion >> 8) & 0xFF).arg(uiVersion & 0xFF);
+					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (80%)"), ConnectDialog::tr("%1 ms").
+					            arg(boost::accumulators::extended_p_square(* asQuantile)[1] / 1000., 0, 'f', 2)) +
+					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Ping (95%)"), ConnectDialog::tr("%1 ms").
+					            arg(boost::accumulators::extended_p_square(* asQuantile)[2] / 1000., 0, 'f', 2)) +
+					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bandwidth"), ConnectDialog::tr("%1 kbit/s").arg(uiBandwidth / 1000)) +
+					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Users"), QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers)) +
+					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2.%3.%4</td></tr>").arg(ConnectDialog::tr("Version")).arg(uiVersion >> 16).arg((uiVersion >> 8) & 0xFF).arg(uiVersion & 0xFF);
 				}
 			}
 			qs += QLatin1String("</table>");
@@ -425,11 +425,11 @@ QVariant ServerItem::data(int column, int role) const {
 
 void ServerItem::addServerItem(ServerItem *child) {
 	Q_ASSERT(child->siParent == NULL);
-	
+
 	child->siParent = this;
 	qlChildren.append(child);
 	child->hideCheck();
-	
+
 	if (bParent && (itType != PublicType) && isHidden())
 		setHidden(false);
 }
@@ -465,7 +465,7 @@ void ServerItem::setDatas(double elapsed, quint32 users, quint32 maxusers) {
 		dPing = elapsed;
 
 	quint32 ping = lroundf(dPing / 1000.);
-	
+
 	bool changed = (ping != uiPing) || (users != uiUsers) || (maxusers != uiMaxUsers);
 
 	uiUsers = users;
@@ -570,7 +570,7 @@ bool ServerItem::operator <(const QTreeWidgetItem &o) const {
 			less = false;
 		return less ^ inverse;
 	}
-	
+
 	if (bParent) {
 		const bool inverse = w ? (w->header()->sortIndicatorOrder() == Qt::DescendingOrder) : false;
 		return (qsName < other.qsName) ^ inverse;
@@ -665,7 +665,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	qtwServers->header()->setResizeMode(2, QHeaderView::ResizeToContents);
 
 	connect(qtwServers->header(), SIGNAL(sortIndicatorChanged(int, Qt::SortOrder)), this, SLOT(OnSortChanged(int, Qt::SortOrder)));
-	
+
 	qaShowAll->setChecked(false);
 	qaShowReachable->setChecked(false);
 	qaShowPopulated->setChecked(false);
@@ -729,7 +729,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	bIPv6 = qusSocket6->bind(QHostAddress(QHostAddress::AnyIPv6), 0);
 	connect(qusSocket4, SIGNAL(readyRead()), this, SLOT(udpReply()));
 	connect(qusSocket6, SIGNAL(readyRead()), this, SLOT(udpReply()));
-	
+
 	if (qtwServers->siFavorite->isHidden() && (!qtwServers->siLAN || qtwServers->siLAN->isHidden()))
 		qtwServers->siPublic->setExpanded(true);
 
@@ -794,7 +794,7 @@ void ConnectDialog::on_qaFavoriteAdd_triggered() {
 	ServerItem *si = static_cast<ServerItem *>(qtwServers->currentItem());
 	if (! si || (si->itType == ServerItem::FavoriteType))
 		return;
-		
+
 	si = new ServerItem(si);
 	qlItems << si;
 	qtwServers->siFavorite->addServerItem(si);
@@ -839,7 +839,7 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 		host = QLatin1Char('@') + si->qsBonjourHost;
 	else
 		host = si->qsHostname;
-		
+
 	ConnectDialogEdit *cde = new ConnectDialogEdit(this, si->qsName, host, si->qsUsername, si->usPort);
 
 	if (cde->exec() == QDialog::Accepted) {
@@ -867,7 +867,7 @@ void ConnectDialog::on_qaFavoriteRemove_triggered() {
 	ServerItem *si = static_cast<ServerItem *>(qtwServers->currentItem());
 	if (! si || (si->itType != ServerItem::FavoriteType))
 		return;
-		
+
 	stopDns(si);
 	qlItems.removeAll(si);
 	delete si;
@@ -915,10 +915,10 @@ void ConnectDialog::onFiltersTriggered(QAction *act) {
 void ConnectDialog::on_qtwServers_customContextMenuRequested(const QPoint &mpos) {
 	ServerItem *si = static_cast<ServerItem *>(qtwServers->itemAt(mpos));
 	qmPopup->clear();
-	
+
 	if (si && si->bParent)
 		si = NULL;
-	
+
 	if (si && (si->itType == ServerItem::FavoriteType)) {
 		qmPopup->addAction(qaFavoriteEdit);
 		qmPopup->addAction(qaFavoriteRemove);
@@ -956,7 +956,7 @@ void ConnectDialog::on_qtwServers_itemExpanded(QTreeWidgetItem *item) {
 	}
 
 	ServerItem *p = static_cast<ServerItem *>(item);
-	
+
 	foreach(ServerItem *si, p->qlChildren)
 		startDns(si);
 }
@@ -964,7 +964,7 @@ void ConnectDialog::on_qtwServers_itemExpanded(QTreeWidgetItem *item) {
 void ConnectDialog::initList() {
 	if (bPublicInit || (qlPublicServers.count() > 0))
 		return;
-		
+
 	bPublicInit = true;
 
 	QUrl url;
@@ -1057,7 +1057,7 @@ void ConnectDialog::fillList() {
 		ServerItem *si = static_cast<ServerItem *>(qtwi);
 		ServerItem *p = qtwServers->getParent(si->qsContinentCode, si->qsCountryCode, si->qsCountry, qsUserContinentCode, qsUserCountryCode);
 		p->addServerItem(si);
-		
+
 		if (p->isExpanded() && p->parent()->isExpanded())
 			startDns(si);
 	}
@@ -1089,7 +1089,7 @@ void ConnectDialog::timeTick() {
 	ServerItem *hover = static_cast<ServerItem *>(qtwServers->itemAt(qtwServers->viewport()->mapFromGlobal(QCursor::pos())));
 
 	ServerItem *si = NULL;
-	
+
 	if (tCurrent.elapsed() >= 1000000ULL)
 		si = current;
 	if (! si && (tHover.elapsed() >= 1000000ULL))
@@ -1122,7 +1122,7 @@ void ConnectDialog::timeTick() {
 					return;
 			}
 			si = qlItems.at(iPingIndex);
-			
+
 			ServerItem *p = si->siParent;
 			expanded = true;
 			while (p && expanded) {
@@ -1190,9 +1190,9 @@ void ConnectDialog::stopDns(ServerItem *si) {
 			}
 		}
 	}
-	
+
 	QString host = si->qsHostname.toLower();
-	
+
 	if (qhDNSWait.contains(host)) {
 		qhDNSWait[host].remove(si);
 		if (qhDNSWait[host].isEmpty()) {
@@ -1316,7 +1316,7 @@ void ConnectDialog::finished() {
 		QMessageBox::warning(this, tr("Mumble"), tr("Failed to fetch server list"), QMessageBox::Ok);
 		return;
 	}
-	
+
 	QDomDocument doc;
 	doc.setContent(rep->readAll());
 

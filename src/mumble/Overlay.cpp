@@ -79,7 +79,7 @@ void OverlayConfig::load(const Settings &r) {
 
 bool OverlayConfig::expert(bool b) {
 	qcbUserTextures->setVisible(b);
-	
+
 	qcbLeft->setVisible(b);
 	qcbRight->setVisible(b);
 	qcbTop->setVisible(b);
@@ -189,7 +189,7 @@ Overlay::Overlay() : QObject() {
 
 	if (! sm.sm) {
 		QMessageBox::warning(NULL, tr("Mumble"), tr("Failed to initialize overlay memory. This usually means that the shared memory is "
-							"locked by the OS, and you need to reboot to release it."), QMessageBox::Ok, QMessageBox::NoButton);
+		                     "locked by the OS, and you need to reboot to release it."), QMessageBox::Ok, QMessageBox::NoButton);
 	} else {
 #ifndef QT_NO_DEBUG
 		sm.sm->bDebug = true;
