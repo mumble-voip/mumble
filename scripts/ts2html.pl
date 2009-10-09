@@ -28,7 +28,9 @@ foreach my $entry (@{$$ref{'context'}}) {
 
   my $msg = $entry->{'message'};
   foreach my $m (@{$msg}) {
-    my $text = encode_entities($m->{'source'}[0], '&%');
+    my $text = $m->{'source'}[0];
+    $text =~ s/\&(\S+)/$1/g;
+    $text = encode_entities($text, '&%');
     $text =~ s/^<\-$/&lt;-/;
     if ($text =~ /\<p\>/) {
       print $text;
