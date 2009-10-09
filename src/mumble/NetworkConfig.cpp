@@ -157,6 +157,7 @@ bool NetworkConfig::expert(bool b) {
 
 	qgbMisc->setVisible(b); // For now Misc only contains elements visible in expert mode
 	qcbImageDownload->setVisible(b);
+	qcbSuppressIdentity->setVisible(b);
 
 	return true;
 }

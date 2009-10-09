@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>283</width>
-    <height>368</height>
+    <height>426</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
          <string>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</string>
         </property>
         <property name="text">
-         <string>Use TCP mode</string>
+         <string>Force TCP mode</string>
         </property>
        </widget>
       </item>

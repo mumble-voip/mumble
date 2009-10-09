@@ -77,8 +77,16 @@ void OverlayConfig::load(const Settings &r) {
 	setColorLabel(qlChannelTalking, qcChannelTalking);
 }
 
-bool OverlayConfig::expert(bool) {
-	return false;
+bool OverlayConfig::expert(bool b) {
+	qcbUserTextures->setVisible(b);
+	
+	qcbLeft->setVisible(b);
+	qcbRight->setVisible(b);
+	qcbTop->setVisible(b);
+	qcbBottom->setVisible(b);
+
+	qgbFont->setVisible(b);
+	return true;
 }
 
 void OverlayConfig::setColorLabel(QLabel *label, QColor col) {
