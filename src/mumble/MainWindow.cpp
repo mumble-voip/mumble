@@ -353,7 +353,7 @@ void MainWindow::openUrl(const QUrl &url) {
 		QSettings *qs = new QSettings(f.fileName(), QSettings::IniFormat);
 		qs->setIniCodec("UTF-8");
 		if (qs->status() != QSettings::NoError) {
-			g.l->log(Log::Warning, tr("File is not a config file."));
+			g.l->log(Log::Warning, tr("File is not a configuration file."));
 		} else {
 			qSwap(qs, g.qs);
 			g.s.load();

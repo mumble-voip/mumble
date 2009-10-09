@@ -204,7 +204,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Time between last two PushToTalk presses</string>
+         <string>Time between last two Push-To-Talk presses</string>
         </property>
         <property name="text">
          <string/>

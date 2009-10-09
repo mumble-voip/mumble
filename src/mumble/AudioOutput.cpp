@@ -294,7 +294,7 @@ QString AudioOutputSample::browseForSndfile() {
 		if ((sf = AudioOutputSample::loadSndfile(file)) == NULL) {
 			QMessageBox::critical(NULL,
 			                      tr("Invalid sound file"),
-			                      tr("The file '%1' can not be used by Mumble. Please select a file with a compatible format and encoding.").arg(file));
+			                      tr("The file '%1' cannot be used by Mumble. Please select a file with a compatible format and encoding.").arg(file));
 			return QString();
 		}
 		delete sf;

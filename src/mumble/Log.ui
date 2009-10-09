@@ -164,7 +164,7 @@
       <item>
        <widget class="QCheckBox" name="qcbWhisperFriends">
         <property name="toolTip">
-         <string>If checked you will only hear whispers from users you added to your friendlist.</string>
+         <string>If checked you will only hear whispers from users you added to your friend list.</string>
         </property>
         <property name="text">
          <string>Only accept whispers from friends</string>

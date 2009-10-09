@@ -26,7 +26,7 @@
          <string>Enable plugins and transmit positional information</string>
         </property>
         <property name="whatsThis">
-         <string>This enables plugins for supported games to fetch your in-game position and transmit that with each voice packet. This enables other users to hear your voice in-game from the direction your character is in relation to their own.</string>
+         <string>This allows plugins for supported games to fetch your in-game position and transmit it with each voice packet. This enables other users to hear your voice in-game from the direction your character is in relation to their own.</string>
         </property>
         <property name="text">
          <string>Link to Game and Transmit Position</string>

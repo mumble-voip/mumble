@@ -232,7 +232,7 @@ void RichTextEditor::on_qaImage_triggered() {
 		return;
 
 	if (qba.length() > 65536) {
-		QMessageBox::warning(this, tr("Failed to load image"), tr("Image file to large to embed in document. Please use images smaller than %1 kB.").arg(65536/1024));
+		QMessageBox::warning(this, tr("Failed to load image"), tr("Image file too large to embed in document. Please use images smaller than %1 kB.").arg(65536/1024));
 		return;
 	}
 

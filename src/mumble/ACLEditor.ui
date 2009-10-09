@@ -64,8 +64,7 @@
           <string>Enter the channel password here.</string>
          </property>
          <property name="whatsThis">
-          <string>&lt;b&gt;Password&lt;/b&gt;&lt;br&gt;
-This field allows you to easily set and change the password of a channel. In the background it uses Mumble's access tokens feature. To allow more fine grained and powerful access controll directly use ACLs and groups instead (&lt;i&gt;Advanced configuration&lt;/i&gt; has to be checked to be able to see these settings).</string>
+          <string>&lt;b&gt;Password&lt;/b&gt;&lt;br&gt;This field allows you to easily set and change the password of a channel. In the background it uses Mumble's access tokens feature. To allow more fine grained and powerful access control directly use ACLs and groups instead (&lt;i&gt;Advanced configuration&lt;/i&gt; has to be checked to be able to see these settings).</string>
          </property>
         </widget>
        </item>
@@ -96,7 +95,7 @@ When checked the channel created will be marked as temporary. This means when th
          </property>
          <property name="whatsThis">
           <string>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
-This value enables you to interfere in the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</string>
+This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</string>
          </property>
          <property name="maximum">
           <number>99</number>
@@ -273,11 +272,11 @@ This list contains all members that were added to the group by the current chann
           <item row="1" column="3" colspan="3">
            <widget class="QListWidget" name="qlwGroupRemove">
             <property name="toolTip">
-             <string>Contains a list of members whose group membership will not be inherited to subchannels.</string>
+             <string>Contains a list of members whose group membership will not be inherited from the parent channel.</string>
             </property>
             <property name="whatsThis">
              <string>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br&gt;
-Contains a list of members whose group membership will not be inherited to subchannels.</string>
+Contains a list of members whose group membership will not be inherited from the parent channel.</string>
             </property>
            </widget>
           </item>
@@ -570,7 +569,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
                <string>Group this entry applies to</string>
               </property>
               <property name="whatsThis">
-               <string>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn't belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with a '!', its membership is negated, and if it starts with a '~', it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with a  '#', it is interpreted as an access token. Users must have entered whatever follows the '#' in their list of access tokens to match. This can be used for very simple password access to channels for non-autenticated users.&lt;br /&gt;If a group name starts with a  '$', it will only match users whose certificate hash matches what follows the '$'.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for '&lt;i&gt;sub,0,0,0&lt;/i&gt;').&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for '&lt;i&gt;!sub,0,0,0&lt;/i&gt;').&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</string>
+               <string>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn't belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with a '!', its membership is negated, and if it starts with a '~', it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with a  '#', it is interpreted as an access token. Users must have entered whatever follows the '#' in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with a  '$', it will only match users whose certificate hash matches what follows the '$'.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for '&lt;i&gt;sub,0,0,0&lt;/i&gt;').&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for '&lt;i&gt;!sub,0,0,0&lt;/i&gt;').&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</string>
               </property>
               <property name="editable">
                <bool>true</bool>

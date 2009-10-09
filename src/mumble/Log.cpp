@@ -82,7 +82,7 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 		twi->setWhatsThis(ColNotification, tr("Click here to toggle pop-up notifications for %1 events.<br />If checked, a notification pop-up will be created by Mumble for every %1 event.").arg(messageName));
 		twi->setWhatsThis(ColTTS, tr("Click here to toggle Text-To-Speech for %1 events.<br />If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.").arg(messageName));
 		twi->setWhatsThis(ColStaticSound, tr("Click here to toggle sound notification for %1 events.<br />If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.").arg(messageName));
-		twi->setWhatsThis(ColStaticSoundPath, tr("Path to sound file used for sound notifications in the case of %1 events.<br />Single click to play<br />Double-click to change<br />Be sure that sound notifications for these events are enabled or this field will not have any effect.").arg(messageName));
+		twi->setWhatsThis(ColStaticSoundPath, tr("Path to sound file used for sound notifications in the case of %1 events.<br />Single click to play<br />Double-click to change<br />Ensure that sound notifications for these events are enabled or this field will not have any effect.").arg(messageName));
 	}
 }
 

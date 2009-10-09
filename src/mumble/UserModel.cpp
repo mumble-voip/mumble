@@ -558,7 +558,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 						                                          ).arg(
 						           tr("Deafened (by self)"),
 						           tr("Deafened (by admin)"),
-						           tr("User has a new comment set(click to show)"),
+						           tr("User has a new comment set (click to show)"),
 						           tr("User has a comment set, which you've already seen. (click to show)")
 						       );
 					else
@@ -567,7 +567,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 						                           "<tr><td><img src=\"skin:comment.svg\" width=64 /></td><td valign=\"middle\">%10</td></tr>"
 						                           "<tr><td><img src=\"skin:comment_seen.svg\" width=64 /></td><td valign=\"middle\">%11</td></tr>"
 						                           "</table>").arg(tr("This shows the flags the channel has, if any:"),
-						                                           tr("Channel has a new comment set(click to show)"),
+						                                           tr("Channel has a new comment set (click to show)"),
 						                                           tr("Channel has a comment set, which you've already seen. (click to show)")
 						                                          );
 

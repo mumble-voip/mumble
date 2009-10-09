@@ -229,7 +229,7 @@
              <string>If you press the PTT key twice in this time it will get locked.</string>
             </property>
             <property name="whatsThis">
-             <string>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push to talk key twice during the configured intervall of time it will get locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</string>
+             <string>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</string>
             </property>
             <property name="maximum">
              <number>1000</number>
@@ -272,7 +272,7 @@
              <string>Reset audio cue to default</string>
             </property>
             <property name="whatsThis">
-             <string>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for for the files to their default.</string>
+             <string>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</string>
             </property>
             <property name="text">
              <string>Reset</string>

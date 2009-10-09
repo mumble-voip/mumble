@@ -67,7 +67,7 @@
             <item>
              <widget class="QLineEdit" name="qleGroup">
               <property name="toolTip">
-               <string>If given only members of this group will receive the whisper.</string>
+               <string>If specified, only members of this group will receive the whisper.</string>
               </property>
              </widget>
             </item>

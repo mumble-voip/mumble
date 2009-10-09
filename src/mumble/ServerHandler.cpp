@@ -353,11 +353,11 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 				bUdp = false;
 				if (! NetworkConfig::TcpModeEnabled()) {
 					if ((cs.uiRemoteGood == 0) && (cs.uiRemoteGood == 0))
-						g.mw->msgBox(tr("UDP packets can not be sent to or received from the server. Switching to TCP mode."));
+						g.mw->msgBox(tr("UDP packets cannot be sent to or received from the server. Switching to TCP mode."));
 					else if (cs.uiRemoteGood == 0)
-						g.mw->msgBox(tr("UDP packets can not be sent to the server. Switching to TCP mode."));
+						g.mw->msgBox(tr("UDP packets cannot be sent to the server. Switching to TCP mode."));
 					else
-						g.mw->msgBox(tr("UDP packets can not be received from the server. Switching to TCP mode."));
+						g.mw->msgBox(tr("UDP packets cannot be received from the server. Switching to TCP mode."));
 
 					Database::setUdp(qbaDigest, false);
 				}
