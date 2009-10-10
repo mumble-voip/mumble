@@ -203,10 +203,10 @@ Overlay::Overlay() : QObject() {
 	}
 
 	QImage img;
-	img = QIcon(QLatin1String("skin:muted_self.svg")).pixmap(64,64).toImage();
+	img = QIcon(QLatin1String("skin:muted_self.svg")).pixmap(60,60).toImage();
 	qbaMuted = QByteArray(reinterpret_cast<const char *>(img.bits()), img.numBytes());
 
-	img = QIcon(QLatin1String("skin:deafened_self.svg")).pixmap(64,64).toImage();
+	img = QIcon(QLatin1String("skin:deafened_self.svg")).pixmap(60,60).toImage();
 	qbaDeafened = QByteArray(reinterpret_cast<const char *>(img.bits()), img.numBytes());
 
 	qtTimer=new QTimer(this);
