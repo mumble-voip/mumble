@@ -709,14 +709,18 @@ void WASAPIOutput::run() {
 	}
 
 	hr = pAudioClient->GetMixFormat(&pwfx);
+	if (FAILED(hr)) {
+		qWarning("WASAPIOutput: GetMixFormat failed: %llx", hr);
+		goto cleanup;
+	}
 	pwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(pwfx);
-
-	iMixerFreq = pwfx->nSamplesPerSec;
 
 	if (FAILED(hr) || (pwfx->wBitsPerSample != (sizeof(float) * 8)) || (pwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)) {
 		qWarning("WASAPIOutput: Subformat is not IEEE Float");
 		goto cleanup;
 	}
+
+	iMixerFreq = pwfx->nSamplesPerSec;
 
 	hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, bufferDuration, 0, pwfx, NULL);
 	if (FAILED(hr)) {
