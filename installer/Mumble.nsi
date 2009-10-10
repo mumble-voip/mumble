@@ -132,14 +132,14 @@ Section "" SectionCommon
   File "qt.txt"
 
   File "..\scripts\qt.conf"
-  File "\dev\Qt4.5.2\lib\QtCore4.dll"
-  File "\dev\Qt4.5.2\lib\QtGui4.dll"
-  File "\dev\Qt4.5.2\lib\QtNetwork4.dll"
-  File "\dev\Qt4.5.2\lib\QtSql4.dll"
-  File "\dev\Qt4.5.2\lib\QtOpenGL4.dll"
-  File "\dev\Qt4.5.2\lib\QtXml4.dll"
-  File "\dev\Qt4.5.2\lib\QtDBus4.dll"
-  File "\dev\Qt4.5.2\lib\QtSvg4.dll"
+  File "\dev\Qt4.5\lib\QtCore4.dll"
+  File "\dev\Qt4.5\lib\QtGui4.dll"
+  File "\dev\Qt4.5\lib\QtNetwork4.dll"
+  File "\dev\Qt4.5\lib\QtSql4.dll"
+  File "\dev\Qt4.5\lib\QtOpenGL4.dll"
+  File "\dev\Qt4.5\lib\QtXml4.dll"
+  File "\dev\Qt4.5\lib\QtDBus4.dll"
+  File "\dev\Qt4.5\lib\QtSvg4.dll"
 
   File "\dev\OpenSSL\bin\libeay32.dll"
   File "\dev\OpenSSL\bin\ssleay32.dll"
@@ -158,13 +158,13 @@ Section "" SectionCommon
   File "\Program Files (x86)\Intel\Compiler\11.0\075\cpp\Bin\ia32\libmmd.dll"
 
   SetOutPath "$INSTDIR\QtPlugins\iconengines"
-  File /x q*d4.dll "\dev\Qt4.5.2\plugins\iconengines\q*4.dll"
+  File /x q*d4.dll "\dev\Qt4.5\plugins\iconengines\q*4.dll"
   
   SetOutPath "$INSTDIR\QtPlugins\imageformats"
-  File /x q*d4.dll "\dev\Qt4.5.2\plugins\imageformats\q*4.dll"
+  File /x q*d4.dll "\dev\Qt4.5\plugins\imageformats\q*4.dll"
 
   SetOutPath "$INSTDIR\QtPlugins\codecs"
-  File /x q*d4.dll "\dev\Qt4.5.2\plugins\codecs\q*4.dll"
+  File /x q*d4.dll "\dev\Qt4.5\plugins\codecs\q*4.dll"
 
   ;Store installation folder
   WriteRegStr HKLM "Software\Mumble" "" $INSTDIR
