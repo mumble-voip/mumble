@@ -249,8 +249,6 @@ ServerItem::ServerItem(const QString &name, ItemType itype, const QString &conti
 		qsContinentCode = continent;
 	}
 
-	setFlags(flags() & (~ Qt::ItemIsSelectable));
-
 	init();
 }
 
