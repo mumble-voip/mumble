@@ -997,23 +997,26 @@ void ConnectDialog::onResolved(BonjourRecord record, QString host, int port) {
 	qlBonjourActive.removeAll(record);
 	foreach(ServerItem *si, qlItems) {
 		if (si->brRecord == record) {
-			si->usPort = static_cast<unsigned short>(port);
-			if (host != si->qsHostname) {
+			unsigned short usport = static_cast<unsigned short>(port);
+			if ((host != si->qsHostname) || (usport != si->usPort)) {
+				stopDns(si);
+				si->usPort = static_cast<unsigned short>(port);
 				si->qsHostname = host;
 				startDns(si);
 			}
-			return;
 		}
 	}
 }
 
 void ConnectDialog::onUpdateLanList(const QList<BonjourRecord> &list) {
-	QList<QTreeWidgetItem *> ql;
-
+	QSet<ServerItem *> items;
+	QSet<ServerItem *> old = qtwServers->siLAN->qlChildren.toSet();
+	
 	foreach(const BonjourRecord &record, list) {
 		bool found = false;
-		foreach(ServerItem *si, qlItems) {
+		foreach(ServerItem *si, old) {
 			if (si->brRecord == record) {
+				items.insert(si);
 				found = true;
 				break;
 			}
@@ -1021,11 +1024,16 @@ void ConnectDialog::onUpdateLanList(const QList<BonjourRecord> &list) {
 		if (! found) {
 			ServerItem *si = new ServerItem(record);
 			qlItems << si;
-			ql << si;
 			g.bc->bsrResolver->resolveBonjourRecord(record);
 			startDns(si);
 			qtwServers->siLAN->addServerItem(si);
 		}
+	}
+	QSet<ServerItem *> remove = old.subtract(items);
+	foreach(ServerItem *si, remove) {
+		stopDns(si);
+		qlItems.removeAll(si);
+		delete si;
 	}
 }
 
