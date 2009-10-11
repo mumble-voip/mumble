@@ -41,6 +41,14 @@ Timer ConnectDialog::tPublicServers;
 
 
 PingStats::PingStats() {
+	init();
+}
+
+PingStats::~PingStats() {
+	delete asQuantile;
+}
+
+void PingStats::init() {
 	boost::array<double, 3> probs = {0.75, 0.80, 0.95 };
 
 	asQuantile = new asQuantileType(boost::accumulators::tag::extended_p_square::probabilities = probs);
@@ -54,8 +62,9 @@ PingStats::PingStats() {
 	uiVersion = 0;
 }
 
-PingStats::~PingStats() {
+void PingStats::reset() {
 	delete asQuantile;
+	init();
 }
 
 ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
@@ -841,22 +850,29 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 	ConnectDialogEdit *cde = new ConnectDialogEdit(this, si->qsName, host, si->qsUsername, si->usPort);
 
 	if (cde->exec() == QDialog::Accepted) {
-		stopDns(si);
 
 		si->qsName = cde->qsName;
-		if (cde->qsHostname.startsWith(QLatin1Char('@'))) {
-			si->qsHostname = QString();
-			si->qsBonjourHost = cde->qsHostname.mid(1);
-			si->brRecord = BonjourRecord(si->qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
-		} else {
-			si->qsHostname = cde->qsHostname;
-			si->qsBonjourHost = QString();
-			si->brRecord = BonjourRecord();
-		}
 		si->qsUsername = cde->qsUsername;
-		si->usPort = cde->usPort;
+		if ((cde->qsHostname != host) || (cde->usPort != si->usPort)) {
+			stopDns(si);
+
+			si->qlAddresses.clear();
+			si->reset();
+
+			si->usPort = cde->usPort;
+			
+			if (cde->qsHostname.startsWith(QLatin1Char('@'))) {
+				si->qsHostname = QString();
+				si->qsBonjourHost = cde->qsHostname.mid(1);
+				si->brRecord = BonjourRecord(si->qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
+			} else {
+				si->qsHostname = cde->qsHostname;
+				si->qsBonjourHost = QString();
+				si->brRecord = BonjourRecord();
+			}
+			startDns(si);
+		}
 		si->setDatas();
-		startDns(si);
 	}
 	delete cde;
 }

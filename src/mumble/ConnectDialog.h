@@ -54,21 +54,28 @@ struct PublicInfo {
 };
 
 struct PingStats {
-	quint32 uiVersion;
-	quint32 uiPing;
-	quint32 uiPingSort;
-	quint32 uiUsers;
-	quint32 uiMaxUsers;
-	quint32 uiBandwidth;
-	quint32 uiSent;
+	private:
+		Q_DISABLE_COPY(PingStats);
+	protected:
+		void init();
+	public:
+		quint32 uiVersion;
+		quint32 uiPing;
+		quint32 uiPingSort;
+		quint32 uiUsers;
+		quint32 uiMaxUsers;
+		quint32 uiBandwidth;
+		quint32 uiSent;
 
-	double dPing;
+		double dPing;
 
-	typedef boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::count, boost::accumulators::tag::extended_p_square> > asQuantileType;
-	asQuantileType *asQuantile;
+		typedef boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::count, boost::accumulators::tag::extended_p_square> > asQuantileType;
+		asQuantileType *asQuantile;
 
-	PingStats();
-	~PingStats();
+		void reset();
+
+		PingStats();
+		~PingStats();
 };
 
 class ServerItem;
