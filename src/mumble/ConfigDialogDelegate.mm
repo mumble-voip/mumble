@@ -51,6 +51,8 @@ static NSImage *ConfigDialogDelegate_QIcon_to_NSImage(const QIcon &icon) {
 	return nimg;
 }
 
+static NSMutableDictionary *toolbarItemCache = nil;
+
 @implementation ConfigDialogDelegate
 
 - (id)initWithConfigDialog: (ConfigDialog *)dialog andWidgetMap: (QMap<unsigned int, ConfigWidget *> *)map inExpertMode: (BOOL)flag
@@ -61,7 +63,7 @@ static NSImage *ConfigDialogDelegate_QIcon_to_NSImage(const QIcon &icon) {
 	widgetMap = map;
 	inExpertMode = flag;
 
-	NSUInteger numItems = widgetMap->count();
+	NSUInteger numItems = widgetMap->count() + 2;
 	nameWidgetMapping = [NSMutableDictionary dictionaryWithCapacity:numItems];
 	identifiers = [[NSMutableArray alloc] initWithCapacity:numItems];
 
@@ -74,6 +76,8 @@ static NSImage *ConfigDialogDelegate_QIcon_to_NSImage(const QIcon &icon) {
 			[str release];
 		}
 	}
+	[identifiers addObject:NSToolbarFlexibleSpaceItemIdentifier];
+	[identifiers addObject:@"expertModeCheckbox"];
 
 	[nameWidgetMapping retain];
 	[identifiers retain];
@@ -102,23 +106,61 @@ static NSImage *ConfigDialogDelegate_QIcon_to_NSImage(const QIcon &icon) {
 }
 
 - (NSToolbarItem *) toolbar: (NSToolbar *)toolbar itemForItemIdentifier: (NSString *)identifier willBeInsertedIntoToolbar: (BOOL)flag {
-	ConfigWidget *cw = reinterpret_cast<ConfigWidget *>([[nameWidgetMapping valueForKey: identifier] pointerValue]);
-
-	NSToolbarItem *item = [[NSToolbarItem alloc] initWithItemIdentifier:identifier];
-	NSImage *img = ConfigDialogDelegate_QIcon_to_NSImage(cw->icon());
-
-	[item setLabel: identifier];
-	[item setImage: img];
-	[item setTarget: self];
-	[item setAction: @selector(itemSelected:)];
+	NSToolbarItem *item = nil;
 
 	/* Cache our current toolbar if it isn't already. */
 	if (toolbarCache == nil) {
 		toolbarCache = toolbar;
 	}
 
-	[img release];
+	/* Do we have a toolbaritem cache? */
+	if (toolbarItemCache == nil) {
+		toolbarItemCache = [[NSMutableDictionary alloc] init];
+		[toolbarItemCache retain];
+	}
 
+	item = [toolbarItemCache valueForKey: identifier];
+
+	/* NSToolbarItem found in cache, don't create a new one. */
+	if (item) {
+		if ([identifier isEqualTo:@"expertModeCheckbox"])
+			[[item view] setState: inExpertMode ? NSOnState: NSOffState];
+		[item setTarget: self];
+		return item;
+	}
+
+	if ([identifier isEqualTo:@"expertModeCheckbox"]) {
+		item = [[NSToolbarItem alloc] initWithItemIdentifier:identifier];
+
+		NSString *advanced = ConfigDialogDelegate_QString_to_NSString(qApp->translate("ConfigDialog", "Advanced"));
+		[item setLabel: advanced];
+		[advanced release];
+
+		NSButton *button = [[NSButton alloc] init];
+		NSSize buttonSize = NSMakeSize(OSX_TOOLBAR_ICON_SIZE/2, OSX_TOOLBAR_ICON_SIZE);
+		[button setButtonType: NSSwitchButton];
+		[button setState: inExpertMode ? NSOnState : NSOffState];
+		[button setTitle: nil];
+		[item setView:button];
+		[item setMinSize: buttonSize];
+		[item setMaxSize: buttonSize];
+
+		[item setAction: @selector(expertSelected:)];
+	} else {
+		ConfigWidget *cw = reinterpret_cast<ConfigWidget *>([[nameWidgetMapping valueForKey: identifier] pointerValue]);
+
+		item = [[NSToolbarItem alloc] initWithItemIdentifier:identifier];
+		[item setLabel: identifier];
+
+		NSImage *img = ConfigDialogDelegate_QIcon_to_NSImage(cw->icon());
+		[item setImage: img];
+		[img release];
+
+		[item setAction: @selector(itemSelected:)];
+	}
+
+	[toolbarItemCache setObject:item forKey:identifier];
+	[item setTarget: self];
 	return item;
 }
 
@@ -144,16 +186,11 @@ static NSImage *ConfigDialogDelegate_QIcon_to_NSImage(const QIcon &icon) {
 	}
 }
 
+- (void) expertSelected: (NSButton *)button {
+	configDialog->updateExpert([button state] == NSOnState);
+}
+
 - (void) dealloc {
-
-	if (toolbarCache != nil) {
-		int nitems = [[toolbarCache items] count];
-		while (nitems > 0) {
-			[toolbarCache removeItemAtIndex: 0];
-			--nitems;
-		}
-	}
-
 	[nameWidgetMapping release];
 	[identifiers release];
 

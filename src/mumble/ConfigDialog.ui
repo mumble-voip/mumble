@@ -48,7 +48,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Advanced Configuration</string>
+      <string>Advanced</string>
      </property>
     </widget>
    </item>
@@ -97,7 +97,6 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <widget class="QWidget" name="page"/>
     </widget>
    </item>
   </layout>

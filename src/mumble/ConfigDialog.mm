@@ -49,17 +49,14 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 
 	s = g.s;
 
-	cwCurrentWidget = NULL;
-	setWindowTitle(tr("Preferences"));
-
-	/* Remove QTabWidget from the layout. We don't use it on OSX. */
-	qvblVertical->removeWidget(qtwWidgets);
-	delete qtwWidgets;
+	/* Hide widgets we don't use on the Cocoa config dialog. */
+	qcbExpert->hide();
+	qlwIcons->hide();
 
 	unsigned int idx = 0;
 	ConfigWidgetNew cwn;
 	foreach(cwn, *ConfigRegistrar::c_qmNew) {
-		addPage(cwn(s), ++idx);
+		addPage(cwn(s), idx++);
 	}
 
 	updateExpert(g.s.bExpert);
@@ -113,11 +110,14 @@ void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 	ms.rheight() += 192;
 	if ((ms.width() > w) || (ms.height() > h)) {
 		QScrollArea *qsa=new QScrollArea();
+		qsa->setFrameShape(QFrame::NoFrame);
 		qsa->setWidgetResizable(true);
 		qsa->setWidget(cw);
 		qhPages.insert(cw, qsa);
+		qswPages->addWidget(qsa);
 	} else {
 		qhPages.insert(cw, cw);
+		qswPages->addWidget(cw);
 	}
 	qmWidgets.insert(idx, cw);
 	cw->load(g.s);
@@ -131,18 +131,22 @@ ConfigDialog::~ConfigDialog() {
 }
 
 void ConfigDialog::on_pageButtonBox_clicked(QAbstractButton *b) {
-	ConfigWidget *conf = currentWidget();
-
+	ConfigWidget *conf = qobject_cast<ConfigWidget *>(qswPages->currentWidget());
+	if (! conf) {
+		QScrollArea *qsa = qobject_cast<QScrollArea *>(qswPages->currentWidget());
+		if (qsa)
+			conf = qobject_cast<ConfigWidget *>(qsa->widget());
+	}
+	if (! conf)
+		return;
 	switch (pageButtonBox->standardButton(b)) {
 		case QDialogButtonBox::RestoreDefaults: {
 				Settings def;
-				if (conf)
-					conf->load(def);
+				conf->load(def);
 				break;
 			}
 		case QDialogButtonBox::Reset: {
-				if (conf)
-					conf->load(g.s);
+				conf->load(g.s);
 				break;
 			}
 		default:
@@ -180,7 +184,6 @@ void ConfigDialog::setupMacToolbar(bool expert) {
 	                                                               andWidgetMap:&qmWidgets
 	                                                               inExpertMode:expert];
 	[toolbar setDelegate: delegate];
-
 	[window setToolbar: toolbar];
 }
 
@@ -195,61 +198,35 @@ void ConfigDialog::removeMacToolbar() {
 	}
 }
 
-void ConfigDialog::setCurrentWidget(ConfigWidget *cw) {
-
-	QWidget *w = qhPages[cw];
-	QVBoxLayout *layout = qvblVertical;
-
-	/*
-	 * For flicker-free widget switching we do the following:
-	 *  - Get the currently shown widget.
-	 *  - Insert the new widget (it's hidden until we show() it).
-	 *  - Hide the currently shown widget, then show the new one.
-	 *  - Delete the QItemLayout for the old widget.
-	 */
-
-	QWidget *ccw = NULL;
-	if (layout->count() > 1) {
-		ccw = layout->itemAt(0)->widget();
-	}
-
-	if (w) {
-		qvblVertical->insertWidget(0, w);
-		if (ccw)
-			ccw->hide();
-		w->show();
-		cwCurrentWidget = cw;
-	}
-
-	if (layout->count() > 2) {
-		QLayoutItem *item = layout->takeAt(1);
-		delete item;
-	}
-
-	NSWindow *window = qt_mac_window_for(this);
-	ConfigDialogDelegate *delegate = [[window toolbar] delegate];
-	[delegate selectItem: cw];
-}
-
-ConfigWidget *ConfigDialog::currentWidget() {
-	return cwCurrentWidget;
-}
-
 void ConfigDialog::on_widgetSelected(ConfigWidget *cw) {
-	setCurrentWidget(cw);
+	QWidget *w = qhPages.value(cw);
+	if (w) {
+		setWindowTitle(cw->title());
+		qswPages->setCurrentWidget(w);
+	}
 }
 
 void ConfigDialog::updateExpert(bool b) {
 	removeMacToolbar();
 	setupMacToolbar(b);
 
-	ConfigWidget *cw = currentWidget();
-	/* If there's no 'current' widget (i.e. this is the first time the dialog is shown),
-	 * simply use the first available widget. */
-	if (cw == NULL)
-		cw = *(qmWidgets.begin());
+	ConfigWidget *cw = qobject_cast<ConfigWidget *>(qswPages->currentWidget());
+	if (! cw) {
+		QScrollArea *qsa = qobject_cast<QScrollArea *>(qswPages->currentWidget());
+		if (qsa)
+			cw = qobject_cast<ConfigWidget *>(qsa->widget());
+	}
 
-	setCurrentWidget(cw);
+	if (cw) {
+		// Did our current widget become invisible when we switched to expert mode?
+		if (! cw->expert(b))
+			cw = qmWidgets.value(0);
+
+		on_widgetSelected(cw);
+		NSWindow *window = qt_mac_window_for(this);
+		ConfigDialogDelegate *delegate = [[window toolbar] delegate];
+		[delegate selectItem: cw];
+	}
 }
 
 void ConfigDialog::apply() {
@@ -287,3 +264,10 @@ void ConfigDialog::accept() {
 	g.s.qbaConfigGeometry=saveGeometry();
 	QDialog::accept();
 }
+
+void ConfigDialog::on_qlwIcons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous) {
+}
+
+void ConfigDialog::on_qcbExpert_clicked(bool b) {
+}
+

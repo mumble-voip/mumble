@@ -52,14 +52,10 @@ class ConfigDialog : public QDialog, public Ui::ConfigDialog {
 		~ConfigDialog();
 #ifdef Q_OS_MAC
 	protected:
-		ConfigWidget *cwCurrentWidget;
-		void setCurrentWidget(ConfigWidget *);
-		ConfigWidget *currentWidget();
-
 		void setupMacToolbar(bool expert);
 		void removeMacToolbar();
-
 	public:
+		void updateExpert(bool expert);
 		void on_widgetSelected(ConfigWidget *);
 #endif
 	public slots:
