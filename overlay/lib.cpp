@@ -542,8 +542,10 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					ods("Lib: WaitForMutex failed");
 					return TRUE;
 				}
+				
+				DWORD dwSharedSize = sizeof(SharedMem) + sizeof(Direct3D9Data) + sizeof(DXGIData);
 
-				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(SharedMem) + sizeof(Direct3D9Data) + sizeof(DXGIData), "MumbleSharedMemory");
+				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, "MumbleSharedMemory");
 				if (hMapObject == NULL) {
 					ods("Lib: CreateFileMapping failed");
 					ReleaseMutex(hSharedMutex);
@@ -552,14 +554,14 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 
 				bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
 
-				sm = (SharedMem *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, sizeof(SharedMem) + sizeof(Direct3D9Data) + sizeof(DXGIData));
+				sm = (SharedMem *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize);
 
 				if (sm == NULL) {
 					ods("MapViewOfFile Failed");
 					ReleaseMutex(hSharedMutex);
 					return TRUE;
 				}
-
+				
 				unsigned char *raw = (unsigned char *) sm;
 				d3dd = (Direct3D9Data *)(raw + sizeof(SharedMem));
 				dxgi = (DXGIData *)(raw + sizeof(SharedMem) + sizeof(Direct3D9Data));

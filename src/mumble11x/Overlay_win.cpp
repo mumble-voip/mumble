@@ -35,7 +35,9 @@
 
 typedef void (__cdecl *HooksProc)();
 typedef SharedMem * (__cdecl *GetSharedMemProc)();
+typedef unsigned int (__cdecl *GetOverlayMagicVersionProc)();
 typedef void (__cdecl *PrepProc)();
+typedef void (__cdecl *PrepDXGIProc)();
 
 class SharedMemoryPrivate {
 	public:
@@ -54,14 +56,27 @@ SharedMemory::~SharedMemory() {
 }
 
 void SharedMemory::resolve(QLibrary *lib) {
+	GetOverlayMagicVersionProc gompvp = (GetOverlayMagicVersionProc)lib->resolve("GetOverlayMagicVersion");
+	if (! gompvp)
+		return;
+
+	if (gompvp() != OVERLAY_MAGIC_NUMBER)
+		return;
+
 	GetSharedMemProc gsmp = (GetSharedMemProc)lib->resolve("GetSharedMemory");
 	if (gsmp)
 		sm=gsmp();
 	d->hMutex = CreateMutex(NULL, false, L"MumbleSharedMutex");
 
-	PrepProc pp = (PrepProc) lib->resolve("PrepareD3D9");
-	if (pp)
-		pp();
+	if (sm) {
+		PrepProc pp = (PrepProc) lib->resolve("PrepareD3D9");
+		if (pp)
+			pp();
+
+		PrepDXGIProc pdxgi = (PrepDXGIProc) lib->resolve("PrepareDXGI");
+		if (pdxgi)
+			pdxgi();
+	}
 }
 
 bool SharedMemory::tryLock() {

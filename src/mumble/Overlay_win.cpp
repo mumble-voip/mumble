@@ -68,14 +68,16 @@ void SharedMemory::resolve(QLibrary *lib) {
 	if (gsmp)
 		sm=gsmp();
 	d->hMutex = CreateMutex(NULL, false, L"MumbleSharedMutex");
+	
+	if (sm) {
+		PrepProc pp = (PrepProc) lib->resolve("PrepareD3D9");
+		if (pp)
+			pp();
 
-	PrepProc pp = (PrepProc) lib->resolve("PrepareD3D9");
-	if (pp)
-		pp();
-
-	PrepDXGIProc pdxgi = (PrepDXGIProc) lib->resolve("PrepareDXGI");
-	if (pdxgi)
-		pdxgi();
+		PrepDXGIProc pdxgi = (PrepDXGIProc) lib->resolve("PrepareDXGI");
+		if (pdxgi)
+			pdxgi();
+	}
 }
 
 bool SharedMemory::tryLock() {
