@@ -122,6 +122,12 @@ class ServerI : virtual public Server {
 		                          bool,
 		                          const Ice::Current&);
 
+		virtual void removeUserFromGroup_async(const ::Murmur::AMD_Server_removeUserFromGroupPtr&, ::Ice::Int, ::Ice::Int, const ::std::string&, const ::Ice::Current&);
+
+		virtual void addUserToGroup_async(const ::Murmur::AMD_Server_addUserToGroupPtr&, ::Ice::Int, ::Ice::Int, const ::std::string&, const ::Ice::Current&);
+
+		virtual void redirectWhisperGroup_async(const ::Murmur::AMD_Server_redirectWhisperGroupPtr&, ::Ice::Int, const ::std::string&, const ::std::string&, const ::Ice::Current&);
+
 		virtual void getUserNames_async(const ::Murmur::AMD_Server_getUserNamesPtr&,
 		                                const ::Murmur::IdList&,
 		                                const Ice::Current&);

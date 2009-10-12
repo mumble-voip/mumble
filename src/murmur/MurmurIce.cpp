@@ -1274,6 +1274,64 @@ static void impl_Server_setTexture(const ::Murmur::AMD_Server_setTexturePtr cb, 
 		cb->ice_response();
 }
 
+static void impl_Server_addUserToGroup(const ::Murmur::AMD_Server_addUserToGroupPtr cb, int server_id, ::Ice::Int channelid,  ::Ice::Int session,  const ::std::string& group) {
+	NEED_SERVER;
+	NEED_PLAYER;
+	NEED_CHANNEL;
+	
+	QString qsgroup = u8(group);
+	if (qsgroup.isEmpty()) {
+		cb->ice_exception(InvalidChannelException());
+		return;
+	}
+	
+	::Group *g = channel->qhGroups.value(qsgroup);
+	if (! g)
+		g = new ::Group(channel, qsgroup);
+		
+	g->qsTemporary.insert(- session);
+	server->clearACLCache(user);
+	
+	cb->ice_response();
+}
+
+static void impl_Server_removeUserFromGroup(const ::Murmur::AMD_Server_removeUserFromGroupPtr cb, int server_id,  ::Ice::Int channelid,  ::Ice::Int session,  const ::std::string& group) {
+	NEED_SERVER;
+	NEED_PLAYER;
+	NEED_CHANNEL;
+	
+	QString qsgroup = u8(group);
+	if (qsgroup.isEmpty()) {
+		cb->ice_exception(InvalidChannelException());
+		return;
+	}
+	
+	::Group *g = channel->qhGroups.value(qsgroup);
+	if (! g)
+		g = new ::Group(channel, qsgroup);
+		
+	g->qsTemporary.remove(- session);
+	server->clearACLCache(user);
+	
+	cb->ice_response();
+}
+
+static void impl_Server_redirectWhisperGroup(const ::Murmur::AMD_Server_redirectWhisperGroupPtr cb, int server_id,  ::Ice::Int session,  const ::std::string& source,  const ::std::string& target) {
+	NEED_SERVER;
+	NEED_PLAYER;
+	
+	QString qssource = u8(source);
+	QString qstarget = u8(target);
+	if (qstarget.isEmpty())
+		user->qmWhisperRedirect.remove(qssource);
+	else
+		user->qmWhisperRedirect.insert(qssource, qstarget);
+	
+	server->clearACLCache(user);
+	
+	cb->ice_response();
+}
+
 static void impl_Meta_getServer(const ::Murmur::AMD_Meta_getServerPtr cb, const Ice::ObjectAdapterPtr adapter, ::Ice::Int id) {
 	QList<int> server_list = ServerDB::getAllServers();
 	if (! server_list.contains(id))

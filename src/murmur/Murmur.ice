@@ -596,6 +596,28 @@ module Murmur
 		 */
 		idempotent void setACL(int channelid, ACLList acls, GroupList groups, bool inherit) throws ServerBootedException, InvalidChannelException;
 
+		/** Temporarily add a user to a group on a channel. This state is not saved, and is intended for temporary memberships.
+		 * @param channelid Channel ID of channel to add to. See [Channel::id].
+		 * @param session Connection ID of user. See [User::session].
+		 * @param group Group name to add to.
+		 */
+		idempotent void addUserToGroup(int channelid, int session, string group) throws ServerBootedException, InvalidChannelException, InvalidSessionException;
+
+		/** Remove a user from a temporary group membership on a channel. This state is not saved, and is intended for temporary memberships.
+		 * @param channelid Channel ID of channel to add to. See [Channel::id].
+		 * @param session Connection ID of user. See [User::session].
+		 * @param group Group name to remove from.
+		 */
+		idempotent void removeUserFromGroup(int channelid, int session, string group) throws ServerBootedException, InvalidChannelException, InvalidSessionException;
+
+		/** Redirect whisper targets for user. If set, whenever a user tries to whisper to group "source", the whisper will be redirected to group "target".
+                 * This is intended for context groups.
+		 * @param session Connection ID of user. See [User::session].
+		 * @param source Group name to redirect from.
+		 * @param target Group name to redirect to.
+                 */
+                idempotent void redirectWhisperGroup(int session, string source, string target) throws ServerBootedException, InvalidSessionException;
+
 		/** Map a list of [User::userid] to a matching name.
 		 * @param List of ids.
 		 * @return Matching list of names, with an empty string representing invalid or unknown ids.

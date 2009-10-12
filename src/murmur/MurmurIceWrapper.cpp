@@ -126,6 +126,18 @@ void ::Murmur::ServerI::setACL_async(const ::Murmur::AMD_Server_setACLPtr &cb,  
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setACL, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3, p4));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
+void ::Murmur::ServerI::addUserToGroup_async(const ::Murmur::AMD_Server_addUserToGroupPtr &cb,  ::Ice::Int p1,  ::Ice::Int p2,  const ::std::string& p3, const ::Ice::Current &current) {
+	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_addUserToGroup, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
+	QCoreApplication::instance()->postEvent(mi, ie);
+};
+void ::Murmur::ServerI::removeUserFromGroup_async(const ::Murmur::AMD_Server_removeUserFromGroupPtr &cb,  ::Ice::Int p1,  ::Ice::Int p2,  const ::std::string& p3, const ::Ice::Current &current) {
+	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_removeUserFromGroup, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
+	QCoreApplication::instance()->postEvent(mi, ie);
+};
+void ::Murmur::ServerI::redirectWhisperGroup_async(const ::Murmur::AMD_Server_redirectWhisperGroupPtr &cb,  ::Ice::Int p1,  const ::std::string& p2,  const ::std::string& p3, const ::Ice::Current &current) {
+	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_redirectWhisperGroup, cb, QString::fromStdString(current.id.name).toInt(), p1, p2, p3));
+	QCoreApplication::instance()->postEvent(mi, ie);
+};
 void ::Murmur::ServerI::getUserNames_async(const ::Murmur::AMD_Server_getUserNamesPtr &cb,  const ::Murmur::IdList& p1, const ::Ice::Current &current) {
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getUserNames, cb, QString::fromStdString(current.id.name).toInt(), p1));
 	QCoreApplication::instance()->postEvent(mi, ie);

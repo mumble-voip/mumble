@@ -152,6 +152,7 @@ class ServerUser : public Connection, public User {
 		QMap<int, WhisperTarget> qmTargets;
 		typedef QPair<QSet<ServerUser *>, QSet<ServerUser *> > TargetCache;
 		QMap<int, TargetCache> qmTargetCache;
+		QMap<QString, QString> qmWhisperRedirect;
 
 #ifdef Q_OS_UNIX
 		int sUdpSocket;

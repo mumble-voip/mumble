@@ -827,11 +827,13 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 								channels.insert(wc);
 							if (dochildren)
 								channels.unite(wc->allChildren());
+							const QString &redirect = u->qmWhisperRedirect.value(wtc.qsGroup);
+							const QString &qsg = redirect.isEmpty() ? wtc.qsGroup : redirect;
 							foreach(Channel *tc, channels) {
 								if (ChanACL::hasPermission(u, tc, ChanACL::Whisper, acCache)) {
 									foreach(p, tc->qlUsers) {
 										ServerUser *su = static_cast<ServerUser *>(p);
-										if (! group || Group::isMember(tc, tc, wtc.qsGroup, su)) {
+										if (! group || Group::isMember(tc, tc, qsg, su)) {
 											channel.insert(su);
 										}
 									}
