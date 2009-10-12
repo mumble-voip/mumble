@@ -170,8 +170,8 @@ void D10State::init() {
 	pTechnique = pEffect->GetTechniqueByName("Render");
 	pDiffuseTexture = pEffect->GetVariableByName("txDiffuse")->AsShaderResource();
 	pColor = pEffect->GetVariableByName("fColor")->AsVector();
-	
-	for(int i=0;i<NUM_TEXTS;++i) {
+
+	for (int i=0;i<NUM_TEXTS;++i) {
 		pTexture[i] = NULL;
 		pSRView[i] = NULL;
 		uiCounter[i] = 0;
@@ -235,7 +235,7 @@ D10State::~D10State() {
 	pVertexLayout->Release();
 	pEffect->Release();
 	pRTV->Release();
-	for(int i=0;i<NUM_TEXTS;++i) {
+	for (int i=0;i<NUM_TEXTS;++i) {
 		if (pTexture[i])
 			pTexture[i]->Release();
 		if (pSRView[i])
@@ -290,10 +290,10 @@ void D10State::draw() {
 						pTexture[i]->Release();
 					if (pSRView[i])
 						pSRView[i]->Release();
-						
+
 					pTexture[i] = NULL;
 					pSRView[i] = NULL;
-					
+
 					D3D10_TEXTURE2D_DESC desc;
 					ZeroMemory(&desc, sizeof(desc));
 
@@ -385,22 +385,22 @@ void D10State::draw() {
 //		D3DCOLOR color = colors[i];
 
 		float cols[] = {
-				((colors[i] >> 24) & 0xFF) / 255.0f,
-				((colors[i] >> 16) & 0xFF) / 255.0f,
-				((colors[i] >> 8) & 0xFF) / 255.0f,
-				((colors[i] >> 0) & 0xFF) / 255.0f,
+			((colors[i] >> 24) & 0xFF) / 255.0f,
+			((colors[i] >> 16) & 0xFF) / 255.0f,
+			((colors[i] >> 8) & 0xFF) / 255.0f,
+			((colors[i] >> 0) & 0xFF) / 255.0f,
 		};
 
 		float left   = static_cast<float>(x);
 		float top    = static_cast<float>(y + yofs[i]);
 		float right  = left + width;
 		float bottom = top + iHeight;
-		
+
 		left = 2.0f * (left / vp.Width) - 1.0f;
 		right = 2.0f * (right / vp.Width) - 1.0f;
 		top = -2.0f * (top / vp.Height) + 1.0f;
 		bottom = -2.0f * (bottom / vp.Height) + 1.0f;
-		
+
 		ods("Vertex (%f %f) (%f %f)", left, top, right, bottom);
 
 		// Create vertex buffer
@@ -410,9 +410,9 @@ void D10State::draw() {
 			{ D3DXVECTOR3(right, bottom, 0.5f), D3DXVECTOR2(1.0f, 1.0f) },
 			{ D3DXVECTOR3(left, bottom, 0.5f), D3DXVECTOR2(0.0f, 1.0f) },
 		};
-		
+
 		void *pData = NULL;
-		
+
 		hr = pVertexBuffer->Map(D3D10_MAP_WRITE_DISCARD, 0, &pData);
 		memcpy(pData, vertices, sizeof(vertices));
 		ods("Map: %lx %d", hr, sizeof(vertices));
@@ -428,11 +428,11 @@ void D10State::draw() {
 
 		hr = pColor->SetFloatVector(cols);
 		ods("setres %p %lx", pColor, hr);
-		
+
 		ods("%f %f %f %f", cols[0], cols[1], cols[2], cols[3]);
 
 		for (UINT p = 0; p < techDesc.Passes; ++p) {
-	//		ods("Pass %d", p);
+			//		ods("Pass %d", p);
 			pTechnique->GetPassByIndex(p)->Apply(0);
 			pDevice->DrawIndexed(6, 0, 0);
 		}
@@ -716,7 +716,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 						}
 					}
 				}
-				
+
 				if (pDevice)
 					pDevice->Release();
 				if (pSwapChain)

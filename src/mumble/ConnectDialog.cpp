@@ -124,16 +124,16 @@ Qt::DropActions ServerView::supportedDropActions() const {
 /* Extract and append (2), (3) etc to the end of a servers name if it is cloned. */
 void ServerView::fixupName(ServerItem *si) {
 	QString name = si->qsName;
-	
+
 	int tag = 1;
-	
+
 	QRegExp tmatch(QLatin1String("(.+)\\((\\d+)\\)"));
 	tmatch.setMinimal(true);
 	if (tmatch.exactMatch(name)) {
 		name = tmatch.capturedTexts().at(1).trimmed();
 		tag = tmatch.capturedTexts().at(2).toInt();
 	}
-	
+
 	bool found;
 	QString cmpname;
 	do {
@@ -142,14 +142,14 @@ void ServerView::fixupName(ServerItem *si) {
 			cmpname = name + QString::fromLatin1(" (%1)").arg(tag);
 		else
 			cmpname = name;
-		
+
 		foreach(ServerItem *f, siFavorite->qlChildren)
 			if (f->qsName == cmpname)
 				found = true;
-		
+
 		++tag;
 	} while (found);
-	
+
 	si->qsName = cmpname;
 }
 
@@ -157,7 +157,7 @@ bool ServerView::dropMimeData(QTreeWidgetItem *, int, const QMimeData *mime, Qt:
 	ServerItem *si = ServerItem::fromMimeData(mime);
 	if (! si)
 		return false;
-		
+
 	fixupName(si);
 
 	qobject_cast<ConnectDialog *>(parent())->qlItems << si;
@@ -896,7 +896,7 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 			si->reset();
 
 			si->usPort = cde->usPort;
-			
+
 			if (cde->qsHostname.startsWith(QLatin1Char('@'))) {
 				si->qsHostname = QString();
 				si->qsBonjourHost = cde->qsHostname.mid(1);
@@ -1047,7 +1047,7 @@ void ConnectDialog::onResolved(BonjourRecord record, QString host, int port) {
 void ConnectDialog::onUpdateLanList(const QList<BonjourRecord> &list) {
 	QSet<ServerItem *> items;
 	QSet<ServerItem *> old = qtwServers->siLAN->qlChildren.toSet();
-	
+
 	foreach(const BonjourRecord &record, list) {
 		bool found = false;
 		foreach(ServerItem *si, old) {

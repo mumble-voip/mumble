@@ -68,7 +68,7 @@ void SharedMemory::resolve(QLibrary *lib) {
 	if (gsmp)
 		sm=gsmp();
 	d->hMutex = CreateMutex(NULL, false, L"MumbleSharedMutex");
-	
+
 	if (sm) {
 		PrepProc pp = (PrepProc) lib->resolve("PrepareD3D9");
 		if (pp)

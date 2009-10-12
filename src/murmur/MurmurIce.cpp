@@ -1278,20 +1278,20 @@ static void impl_Server_addUserToGroup(const ::Murmur::AMD_Server_addUserToGroup
 	NEED_SERVER;
 	NEED_PLAYER;
 	NEED_CHANNEL;
-	
+
 	QString qsgroup = u8(group);
 	if (qsgroup.isEmpty()) {
 		cb->ice_exception(InvalidChannelException());
 		return;
 	}
-	
+
 	::Group *g = channel->qhGroups.value(qsgroup);
 	if (! g)
 		g = new ::Group(channel, qsgroup);
-		
+
 	g->qsTemporary.insert(- session);
 	server->clearACLCache(user);
-	
+
 	cb->ice_response();
 }
 
@@ -1299,36 +1299,36 @@ static void impl_Server_removeUserFromGroup(const ::Murmur::AMD_Server_removeUse
 	NEED_SERVER;
 	NEED_PLAYER;
 	NEED_CHANNEL;
-	
+
 	QString qsgroup = u8(group);
 	if (qsgroup.isEmpty()) {
 		cb->ice_exception(InvalidChannelException());
 		return;
 	}
-	
+
 	::Group *g = channel->qhGroups.value(qsgroup);
 	if (! g)
 		g = new ::Group(channel, qsgroup);
-		
+
 	g->qsTemporary.remove(- session);
 	server->clearACLCache(user);
-	
+
 	cb->ice_response();
 }
 
 static void impl_Server_redirectWhisperGroup(const ::Murmur::AMD_Server_redirectWhisperGroupPtr cb, int server_id,  ::Ice::Int session,  const ::std::string& source,  const ::std::string& target) {
 	NEED_SERVER;
 	NEED_PLAYER;
-	
+
 	QString qssource = u8(source);
 	QString qstarget = u8(target);
 	if (qstarget.isEmpty())
 		user->qmWhisperRedirect.remove(qssource);
 	else
 		user->qmWhisperRedirect.insert(qssource, qstarget);
-	
+
 	server->clearACLCache(user);
-	
+
 	cb->ice_response();
 }
 

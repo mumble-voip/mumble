@@ -1,5 +1,29 @@
+2009-10-12
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    4ddc686  Add (2), (3) etc to servernames when drag&dropped, and allow
+	     drag from public->favorite
+    e4bc4a2  Don't initialize D3D etc if sharedmem fails
+    0693714  Whisper target redirect and session-based tempgroups
+    6a30255  Inproc draw for d3d10
+    e8f46da  Delete bonjour servers from the list when they go away
+    36de491  Reset stats when editing hostname
+
+2009-10-11
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    fe9fee3  Make items in connectdialog selectable, eases keyboard
+	     navigation
+
+2009-10-10
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c780f4b  Fix overlay images
+    e7a37de  Fix crash if GetMixFormat fails.
+    67b12ee  Use Qt4.5 as path instead of 4.5.2
+
 2009-10-09
   Thorvald Natvig <slicer@users.sourceforge.net>
+    bad2c33  Fix 11x to work with new config
+    f1977b2  Update ts2html script
+    77570c4  Spelling fixes
     bfceb94  Merge expert config and advanced acl options
     498a0db  Change a few expert/nonexpert settings
     0ac3cde  Switch back to listbased config dialog

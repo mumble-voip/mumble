@@ -54,28 +54,28 @@ struct PublicInfo {
 };
 
 struct PingStats {
-	private:
-		Q_DISABLE_COPY(PingStats);
-	protected:
-		void init();
-	public:
-		quint32 uiVersion;
-		quint32 uiPing;
-		quint32 uiPingSort;
-		quint32 uiUsers;
-		quint32 uiMaxUsers;
-		quint32 uiBandwidth;
-		quint32 uiSent;
+private:
+	Q_DISABLE_COPY(PingStats);
+protected:
+	void init();
+public:
+	quint32 uiVersion;
+	quint32 uiPing;
+	quint32 uiPingSort;
+	quint32 uiUsers;
+	quint32 uiMaxUsers;
+	quint32 uiBandwidth;
+	quint32 uiSent;
 
-		double dPing;
+	double dPing;
 
-		typedef boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::count, boost::accumulators::tag::extended_p_square> > asQuantileType;
-		asQuantileType *asQuantile;
+	typedef boost::accumulators::accumulator_set<double, boost::accumulators::stats<boost::accumulators::tag::count, boost::accumulators::tag::extended_p_square> > asQuantileType;
+	asQuantileType *asQuantile;
 
-		void reset();
+	void reset();
 
-		PingStats();
-		~PingStats();
+	PingStats();
+	~PingStats();
 };
 
 class ServerItem;
@@ -91,7 +91,7 @@ class ServerView : public QTreeWidget {
 
 		ServerView(QWidget *);
 		~ServerView();
-		
+
 		void fixupName(ServerItem *si);
 
 		ServerItem *getParent(const QString &continent, const QString &countrycode, const QString &countryname, const QString &usercontinentcode, const QString &usercountrycode);
