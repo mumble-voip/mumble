@@ -91,6 +91,8 @@ class ServerView : public QTreeWidget {
 
 		ServerView(QWidget *);
 		~ServerView();
+		
+		void fixupName(ServerItem *si);
 
 		ServerItem *getParent(const QString &continent, const QString &countrycode, const QString &countryname, const QString &usercontinentcode, const QString &usercountrycode);
 	protected:

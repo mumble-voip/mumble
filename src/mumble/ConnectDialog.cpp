@@ -121,10 +121,44 @@ Qt::DropActions ServerView::supportedDropActions() const {
 	return Qt::CopyAction | Qt::LinkAction;
 }
 
+/* Extract and append (2), (3) etc to the end of a servers name if it is cloned. */
+void ServerView::fixupName(ServerItem *si) {
+	QString name = si->qsName;
+	
+	int tag = 1;
+	
+	QRegExp tmatch(QLatin1String("(.+)\\((\\d+)\\)"));
+	tmatch.setMinimal(true);
+	if (tmatch.exactMatch(name)) {
+		name = tmatch.capturedTexts().at(1).trimmed();
+		tag = tmatch.capturedTexts().at(2).toInt();
+	}
+	
+	bool found;
+	QString cmpname;
+	do {
+		found = false;
+		if (tag > 1)
+			cmpname = name + QString::fromLatin1(" (%1)").arg(tag);
+		else
+			cmpname = name;
+		
+		foreach(ServerItem *f, siFavorite->qlChildren)
+			if (f->qsName == cmpname)
+				found = true;
+		
+		++tag;
+	} while (found);
+	
+	si->qsName = cmpname;
+}
+
 bool ServerView::dropMimeData(QTreeWidgetItem *, int, const QMimeData *mime, Qt::DropAction) {
 	ServerItem *si = ServerItem::fromMimeData(mime);
 	if (! si)
 		return false;
+		
+	fixupName(si);
 
 	qobject_cast<ConnectDialog *>(parent())->qlItems << si;
 	siFavorite->addServerItem(si);
@@ -554,7 +588,8 @@ QMimeData *ServerItem::toMimeData() const {
 	mime->setText(qs);
 	mime->setHtml(QString::fromLatin1("<a href=\"%1\">%2</a>").arg(qs).arg(qsName));
 
-	mime->setData(QLatin1String("OriginatedInMumble"), QByteArray());
+	if (itType == FavoriteType)
+		mime->setData(QLatin1String("OriginatedInMumble"), QByteArray());
 
 	return mime;
 }
@@ -803,6 +838,7 @@ void ConnectDialog::on_qaFavoriteAdd_triggered() {
 		return;
 
 	si = new ServerItem(si);
+	qtwServers->fixupName(si);
 	qlItems << si;
 	qtwServers->siFavorite->addServerItem(si);
 	qtwServers->setCurrentItem(si);
