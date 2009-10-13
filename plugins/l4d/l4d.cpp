@@ -112,8 +112,8 @@ static int trylock() {
 	if (!h)
 		return false;
 
-	posptr = mod + 0x5844a0;
-	rotptr = mod + 0x500330;
+	posptr = mod + 0x580548;
+	rotptr = mod + 0x4FF024;
 
 	float pos[3];
 	float rot[3];
@@ -164,10 +164,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports L4D version 3922 only. Supports no fancy stuff.");
+	return std::wstring(L"Supports L4D version 3986 only. Supports no fancy stuff.");
 }
 
-static std::wstring description(L"Left 4 Dead (Build 3922)");
+static std::wstring description(L"Left 4 Dead (Build 3986)");
 static std::wstring shortname(L"Left 4 Dead");
 
 static MumblePlugin l4dplug = {
