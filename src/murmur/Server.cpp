@@ -1316,6 +1316,9 @@ bool Server::hasPermission(ServerUser *p, Channel *c, QFlags<ChanACL::Perm> perm
 
 void Server::sendClientPermission(ServerUser *u, Channel *c, bool forceupdate) {
 	unsigned int perm;
+	
+	if (u->iId == 0)
+		return;
 
 	{
 		QMutexLocker qml(&qmCache);
