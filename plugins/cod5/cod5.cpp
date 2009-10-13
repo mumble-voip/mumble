@@ -38,7 +38,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from COD5 Multiplayer(v1.5.1220)", L"Mumble COD5 MP Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from COD5 Multiplayer(v1.6.1252)", L"Mumble COD5 MP Plugin", MB_OK);
 }
 
 
@@ -56,15 +56,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 			Address			Type	Description
 			===================================
-			0x008DC1B4		float	Z-Coordinate
-			0x008DC1B8		float	X-Coordinate
-			0x008DC1BC		float	Y-Coordinate
-			0x008DC1C4		float	Horizontal view (degrees)
-			0x008DC1C0		float	Vertical view (degrees)
+			0x008DE23C		float	Z-Coordinate
+			0x008DE234		float	X-Coordinate
+			0x008DE238		float	Y-Coordinate
+			0x008DE244		float	Horizontal view (degrees)
+			0x008DE240		float	Vertical view (degrees)
 
-			0x0098DC94		byte	Magical state value
+			0x0098FD2C		byte	Magical state value
 	*/
-	ok = peekProc((BYTE *) 0x0098DC94, &state, 1); // Magical state value
+	ok = peekProc((BYTE *) 0x0098FD2C, &state, 1); // Magical state value
 	if (! ok)
 		return false;
 	/*
@@ -79,11 +79,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (state != 4)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
-	ok = peekProc((BYTE *) 0x008DC1B4, avatar_pos+2, 4) &&	//Z
-	     peekProc((BYTE *) 0x008DC1B8, avatar_pos, 4) &&	//X
-	     peekProc((BYTE *) 0x008DC1BC, avatar_pos+1, 4) && //Y
-	     peekProc((BYTE *) 0x008DC1C4, &viewHor, 4) && //Hor
-	     peekProc((BYTE *) 0x008DC1C0, &viewVer, 4); //Ver
+	ok = peekProc((BYTE *) 0x008DE23C, avatar_pos+2, 4) &&	//Z
+	     peekProc((BYTE *) 0x008DE234, avatar_pos, 4) &&	//X
+	     peekProc((BYTE *) 0x008DE238, avatar_pos+1, 4) && //Y
+	     peekProc((BYTE *) 0x008DE244, &viewHor, 4) && //Hor
+	     peekProc((BYTE *) 0x008DE240, &viewVer, 4); //Ver
 
 	if (! ok)
 		return false;
@@ -163,10 +163,10 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Call of Duty 5 MP v1.5.1220 only. No context or identity support yet.");
+	return std::wstring(L"Supports Call of Duty 5 MP v1.6.1252 only. No context or identity support yet.");
 }
 
-static std::wstring description(L"Call of Duty 5 MP v1.5.1220");
+static std::wstring description(L"Call of Duty 5 MP v1.6.1252");
 static std::wstring shortname(L"Call of Duty 5 MP");
 
 static MumblePlugin cod5plug = {
