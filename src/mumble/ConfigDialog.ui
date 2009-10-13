@@ -20,7 +20,7 @@
    <item row="0" column="0">
     <widget class="QListWidget" name="qlwIcons">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+      <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -36,6 +36,9 @@
      </property>
      <property name="layoutMode">
       <enum>QListView::Batched</enum>
+     </property>
+     <property name="uniformItemSizes">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
