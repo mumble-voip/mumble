@@ -208,3 +208,9 @@ message VoiceTarget {
 	optional uint32 id = 1;
 	repeated Target targets = 2;
 }
+
+message PermissionQuery {
+	optional uint32 channel_id = 1;
+	optional uint32 permissions = 2;
+	optional bool flush = 3 [default = false];
+}

@@ -1275,3 +1275,13 @@ void Server::msgVoiceTarget(ServerUser *uSource, MumbleProto::VoiceTarget &msg) 
 			uSource->qmTargets.insert(target, wt);
 	}
 }
+
+void Server::msgPermissionQuery(ServerUser *uSource, MumbleProto::PermissionQuery &msg) {
+	MSG_SETUP(ServerUser::Authenticated);
+	
+	Channel *c = qhChannels.value(msg.channel_id());
+	if (!c)
+		return;
+		
+	sendClientPermission(uSource, c, true);
+}

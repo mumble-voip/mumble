@@ -80,6 +80,7 @@ ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), U
 	bUdp = true;
 	uiVersion = 0;
 	bVerified = true;
+	iLastPermissionCheck = -1;
 }
 
 
@@ -1304,6 +1305,8 @@ void Server::userEnterChannel(User *p, Channel *c, bool quiet, bool ignoretemp) 
 	if (old && old->bTemporary && old->qlUsers.isEmpty() && ! ignoretemp) {
 		QCoreApplication::instance()->postEvent(this, new ExecEvent(boost::bind(&Server::removeChannel, this, old->iId)));
 	}
+	
+	sendClientPermission(static_cast<ServerUser *>(p), c);
 }
 
 bool Server::hasPermission(ServerUser *p, Channel *c, QFlags<ChanACL::Perm> perm) {
@@ -1311,7 +1314,78 @@ bool Server::hasPermission(ServerUser *p, Channel *c, QFlags<ChanACL::Perm> perm
 	return ChanACL::hasPermission(p, c, perm, acCache);
 }
 
+void Server::sendClientPermission(ServerUser *u, Channel *c, bool forceupdate) {
+	unsigned int perm;
+
+	{
+		QMutexLocker qml(&qmCache);
+		ChanACL::hasPermission(u, c, ChanACL::Enter, acCache);
+		perm = acCache.value(u)->value(c);
+	}
+
+	if (forceupdate)
+		u->iLastPermissionCheck = c->iId;
+
+	if (u->qmPermissionSent.value(c->iId) != perm) {
+		u->qmPermissionSent.insert(c->iId, perm);
+
+		MumbleProto::PermissionQuery mppq;
+		mppq.set_channel_id(c->iId);
+		mppq.set_permissions(perm);
+
+		sendMessage(u, mppq);
+	}
+}
+
+/* This function is a helper for clearACLCache and assumes qmCache is held.
+ * First, check if anything actually changed, or if the list is getting awfully large,
+ * because this function is potentially quite expensive.
+ * If all the items are still valid; great. If they aren't, send off the last channel
+ * the client expliticly asked for -- this may not be what it wants, but it's our best
+ * guess.
+ */
+
+void Server::flushClientPermissionCache(ServerUser *u, MumbleProto::PermissionQuery &mppq) {
+	QMap<int, unsigned int>::const_iterator i;
+	bool match = (u->qmPermissionSent.count() < 20);
+	for(i = u->qmPermissionSent.constBegin(); (match && (i != u->qmPermissionSent.constEnd())); ++i) {
+		Channel *c = qhChannels.value(i.key());
+		if (! c) {
+			match = false;
+		} else {
+			ChanACL::hasPermission(u, c, ChanACL::Enter, acCache);
+			unsigned int perm = acCache.value(u)->value(c);
+			if (perm != i.value())
+				match = false;
+		}
+	}
+	
+	if (match)
+		return;
+
+	u->qmPermissionSent.clear();
+		
+	Channel *c = qhChannels.value(u->iLastPermissionCheck);
+	if (! c) {
+		c = u->cChannel;
+		u->iLastPermissionCheck = c->iId;
+	}
+	
+	ChanACL::hasPermission(u, c, ChanACL::Enter, acCache);
+	unsigned int perm = acCache.value(u)->value(c);
+	u->qmPermissionSent.insert(c->iId, perm);
+		
+	mppq.Clear();
+	mppq.set_channel_id(c->iId);
+	mppq.set_permissions(perm);
+	mppq.set_flush(true);
+
+	sendMessage(u, mppq);
+}
+
 void Server::clearACLCache(User *p) {
+	MumbleProto::PermissionQuery mppq;
+
 	{
 		QMutexLocker qml(&qmCache);
 
@@ -1319,10 +1393,16 @@ void Server::clearACLCache(User *p) {
 			ChanACL::ChanCache *h = acCache.take(p);
 			if (h)
 				delete h;
+
+			flushClientPermissionCache(static_cast<ServerUser *>(p), mppq);
 		} else {
 			foreach(ChanACL::ChanCache *h, acCache)
 				delete h;
 			acCache.clear();
+
+			foreach(ServerUser *u, qhUsers)
+				if (u->sState == ServerUser::Authenticated)
+					flushClientPermissionCache(u, mppq);
 		}
 	}
 
