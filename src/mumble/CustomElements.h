@@ -42,9 +42,14 @@ class ChatbarLineEdit : public QLineEdit {
 		bool bDefaultVisible;
 		void focusInEvent(QFocusEvent *);
 		void focusOutEvent(QFocusEvent *);
+		bool event(QEvent *);
+	signals:
+		void tabPressed(void);
+		void ctrlSpacePressed(void);
 	public:
 		ChatbarLineEdit(QWidget *p = NULL);
 		void setDefaultText(const QString &);
+		unsigned int completeAtCursor();
 };
 
 class DockTitleBar : public QWidget {

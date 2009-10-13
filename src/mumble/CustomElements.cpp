@@ -29,6 +29,15 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include "CustomElements.h"
+#include "ClientUser.h"
+
+/*!
+  \fn int ChatbarLineEdit::completeAtCursor()
+  The bar will try to complete the username, if the nickname
+  is already complete it will try to find a longer match. If
+  there is none it will cycle the nicknames alphabetically.
+  Nothing is done on mismatch.
+*/
 
 void ChatbarLineEdit::focusInEvent(QFocusEvent *) {
 	if (bDefaultVisible) {
@@ -57,7 +66,7 @@ void ChatbarLineEdit::focusOutEvent(QFocusEvent *) {
 ChatbarLineEdit::ChatbarLineEdit(QWidget *p) : QLineEdit(p) {
 	bDefaultVisible = true;
 	setDefaultText(tr("Type chat message here"));
-};
+}
 
 void ChatbarLineEdit::setDefaultText(const QString &new_default) {
 	qsDefaultText = new_default;
@@ -72,6 +81,86 @@ void ChatbarLineEdit::setDefaultText(const QString &new_default) {
 	}
 }
 
+bool ChatbarLineEdit::event(QEvent *event) {
+	if (event->type() == QEvent::KeyPress) {
+		QKeyEvent *kev = static_cast<QKeyEvent*>(event);
+		if (kev->key() == Qt::Key_Tab) {
+			emit tabPressed();
+			return true;
+		}
+		else if (kev->key() == Qt::Key_Space && kev->modifiers() == Qt::ControlModifier) {
+			emit ctrlSpacePressed();
+			return true;
+		}
+	}
+	return QLineEdit::event(event);
+}
+
+unsigned int ChatbarLineEdit::completeAtCursor() {
+	// Get an alphabetically sorted list of usernames
+	unsigned int id = 0;
+	QList<QString> qlsUsernames;
+
+	if (ClientUser::c_qmUsers.empty()) return id;
+	foreach (ClientUser *usr, ClientUser::c_qmUsers) {
+		qlsUsernames.append(usr->qsName);
+	}
+	qSort(qlsUsernames);
+
+	QString newtext;
+	newtext = text();
+	QString target = QString();
+	if (newtext.isEmpty()) {
+		target = qlsUsernames.first();
+		newtext = target;
+	}
+	else {
+		// Get the word before the cursor
+		bool bBaseIsName = false;
+		int iend = cursorPosition();
+		int istart = newtext.lastIndexOf(QLatin1Char(' '), iend - 1) + 1;
+		QString base = newtext.mid(istart, iend - istart);
+
+		if (qlsUsernames.last() == base) {
+			bBaseIsName = true;
+			target = qlsUsernames.first();
+		}
+		else {
+			if (qlsUsernames.contains(base)) {
+				// Prevent to complete to what's already there
+				while (qlsUsernames.takeFirst() != base) {}
+				bBaseIsName = true;
+			}
+
+			foreach (QString name, qlsUsernames) {
+				if (name.startsWith(base, Qt::CaseInsensitive)) {
+					target = name;
+					break;
+				}
+			}
+		}
+
+		if (bBaseIsName && target.isEmpty() && !qlsUsernames.empty()) {
+			// If autocomplete failed and base was a name get the next one
+			target = qlsUsernames.first();
+		}
+
+		if (!target.isEmpty()) {
+			newtext.replace(istart, base.length(), target);
+		}
+	}
+
+	if (!target.isEmpty()) {
+		foreach (ClientUser *usr, ClientUser::c_qmUsers) {
+			if (usr->qsName == target) {
+				id = usr->uiSession;
+				break;
+			}
+		}
+		setText(newtext);
+	}
+	return id;
+}
 
 DockTitleBar::DockTitleBar() {
 	qtTick = new QTimer(this);

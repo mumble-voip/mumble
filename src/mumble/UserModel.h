@@ -92,10 +92,6 @@ class UserModel : public QAbstractItemModel {
 		QSet<Channel *> qsLinked;
 		QMap<QString, ClientUser *> qmHashes;
 
-		QModelIndex index(ClientUser *, int column = 0) const;
-		QModelIndex index(Channel *, int column = 0) const;
-		QModelIndex index(ModelItem *) const;
-
 		void recursiveClone(const ModelItem *old, ModelItem *item, QModelIndexList &from, QModelIndexList &to);
 		ModelItem *moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem *item);
 
@@ -103,6 +99,10 @@ class UserModel : public QAbstractItemModel {
 	public:
 		UserModel(QObject *parent = 0);
 		~UserModel();
+
+		QModelIndex index(ClientUser *, int column = 0) const;
+		QModelIndex index(Channel *, int column = 0) const;
+		QModelIndex index(ModelItem *) const;
 
 		QVariant data(const QModelIndex &index, int role) const;
 		Qt::ItemFlags flags(const QModelIndex &index) const;

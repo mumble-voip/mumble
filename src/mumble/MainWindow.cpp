@@ -58,6 +58,18 @@
 #include "ACL.h"
 
 /*!
+  \fn void MainWindow::on_qleChat_tabPressed()
+  Controlls tab username completion for the chatbar.
+  \see ChatbarLineEdit::completeAtCursor()
+*/
+
+/*!
+  \fn void MainWindow::on_qleChat_ctrlSpacePressed()
+  Controlls ctrl space username completion and selection for the chatbar.
+  \see ChatbarLineEdit::completeAtCursor()
+*/
+
+/*!
   \fn void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)
   This function updates the qleChatbar default text according to
   the selected user/channel in the users treeview.
@@ -1019,6 +1031,16 @@ void MainWindow::on_qleChat_returnPressed() {
 
 	g.sh->sendMessage(mptm);
 	qleChat->clear();
+}
+
+void MainWindow::on_qleChat_tabPressed() {
+	qleChat->completeAtCursor();
+}
+
+void MainWindow::on_qleChat_ctrlSpacePressed() {
+	unsigned int res = qleChat->completeAtCursor();
+	if (res == 0) return;
+	qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(res)));
 }
 
 void MainWindow::on_qmConfig_aboutToShow() {
