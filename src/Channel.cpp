@@ -47,6 +47,9 @@ Channel::Channel(int id, const QString &name, QObject *p) : QObject(p) {
 	cParent = qobject_cast<Channel *>(p);
 	if (cParent)
 		cParent->addChannel(this);
+#ifdef MUMBLE
+	uiPermissions = 0;
+#endif
 }
 
 Channel::~Channel() {

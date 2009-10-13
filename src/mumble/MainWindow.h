@@ -190,6 +190,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void openUrl(const QUrl &url);
 		void context_triggered();
 		void updateTarget();
+		void updateMenuPermissions();
 	public:
 		MainWindow(QWidget *parent);
 		~MainWindow();

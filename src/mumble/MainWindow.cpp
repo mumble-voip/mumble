@@ -814,6 +814,7 @@ void MainWindow::on_qmUser_aboutToShow() {
 		qaUserDeaf->setChecked(p->bDeaf);
 		qaUserLocalMute->setChecked(p->bLocalMute);
 	}
+	updateMenuPermissions();
 }
 
 void MainWindow::on_qaUserMute_triggered() {
@@ -1122,6 +1123,7 @@ void MainWindow::on_qmChannel_aboutToShow() {
 	qaChannelUnlink->setEnabled(unlink);
 	qaChannelUnlinkAll->setEnabled(unlinkall);
 	qaChannelSendMessage->setEnabled(msg);
+	updateMenuPermissions();
 }
 
 void MainWindow::on_qaChannelAdd_triggered() {
@@ -1133,6 +1135,9 @@ void MainWindow::on_qaChannelAdd_triggered() {
 	}
 
 	aclEdit = new ACLEditor(c ? c->iId : 0, this);
+	if (c && ! (c->uiPermissions & ChanACL::MakeChannel))
+		aclEdit->qcbChannelTemporary->setChecked(true);
+
 	aclEdit->show();
 }
 
@@ -1236,6 +1241,50 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 			g.l->log(Log::TextMessage, tr("To channel %1: %2").arg(c->qsName).arg(texm->message()), tr("Message to channel %1").arg(c->qsName));
 	}
 	delete texm;
+}
+
+void MainWindow::updateMenuPermissions() {
+	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
+	ChanACL::Permissions p = static_cast<ChanACL::Permissions>(c ? c->uiPermissions : ChanACL::Cached);
+
+	ClientUser *user = ClientUser::get(g.uiSession);
+	Channel *homec = user ? user->cChannel : NULL;
+	ChanACL::Permissions homep = static_cast<ChanACL::Permissions>(homec ? homec->uiPermissions : ChanACL::Cached);
+	
+	if (! (p & ChanACL::Cached)) {
+			MumbleProto::PermissionQuery mppq;
+			mppq.set_channel_id(c->iId);
+			g.sh->sendMessage(mppq);
+			if (c->iId == 0)
+				p = g.pPermissions;
+			else
+				p = ChanACL::All;
+	}
+
+	if (! (homep & ChanACL::Cached)) {
+			MumbleProto::PermissionQuery mppq;
+			mppq.set_channel_id(homec->iId);
+			g.sh->sendMessage(mppq);
+			if (homec->iId == 0)
+				homep = g.pPermissions;
+			else
+				homep = ChanACL::All;
+	}
+	
+	qaUserMute->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen));
+	qaUserDeaf->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen));
+	qaUserTextMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
+	
+	qaChannelAdd->setEnabled(p & (ChanACL::Write | ChanACL::MakeChannel | ChanACL::MakeTempChannel));
+	qaChannelRemove->setEnabled(p & ChanACL::Write);
+	qaChannelACL->setEnabled(p & ChanACL::Write);
+	
+	bool canlink = (p & (ChanACL::Write | ChanACL::LinkChannel)) && (homep & (ChanACL::Write | ChanACL::LinkChannel));
+	qaChannelLink->setEnabled(canlink);
+	qaChannelUnlink->setEnabled(canlink);
+	qaChannelUnlinkAll->setEnabled(canlink);
+	
+	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 }
 
 void MainWindow::on_qaAudioReset_triggered() {

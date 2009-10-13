@@ -512,5 +512,25 @@ void MainWindow::msgUserList(const MumbleProto::UserList &msg) {
 void MainWindow::msgVoiceTarget(const MumbleProto::VoiceTarget &) {
 }
 
-void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &) {
+void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
+	Channel *current = pmModel->getChannel(qtvUsers->currentIndex());
+
+	if (msg.flush()) {
+		foreach(Channel *c, Channel::c_qhChannels)
+			c->uiPermissions = 0;
+
+		// We always need the permissions of the current focus channel
+		if (current && current->iId != msg.channel_id()) {
+			MumbleProto::PermissionQuery mppq;
+			mppq.set_channel_id(current->iId);
+			g.sh->sendMessage(mppq);
+		}
+	}
+	Channel *c = Channel::get(msg.channel_id());
+	if (c) {
+		c->uiPermissions = msg.permissions();
+		if (c == current) {
+			updateMenuPermissions();
+		}
+	}
 }

@@ -66,6 +66,8 @@ class Channel : public QObject {
 		~Channel();
 
 #ifdef MUMBLE
+		unsigned int uiPermissions;
+		
 		static QHash<int, Channel *> c_qhChannels;
 		static QReadWriteLock c_qrwlChannels;
 
