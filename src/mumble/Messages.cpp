@@ -511,3 +511,6 @@ void MainWindow::msgUserList(const MumbleProto::UserList &msg) {
 
 void MainWindow::msgVoiceTarget(const MumbleProto::VoiceTarget &) {
 }
+
+void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &) {
+}
