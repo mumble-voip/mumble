@@ -429,9 +429,20 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		}
 	}
 
-	if (msg.has_comment() && (uSource != pDstServerUser)) {
-		if (! hasPermission(uSource, root, ChanACL::Move)) {
-			PERM_DENIED(uSource, root, ChanACL::Move);
+	if (msg.has_comment()) {
+		if (uSource != pDstServerUser) {
+			if (! hasPermission(uSource, root, ChanACL::Move)) {
+				PERM_DENIED(uSource, root, ChanACL::Move);
+				return;
+			}
+			if (msg.comment().length() > 0) {
+				PERM_DENIED_TYPE(TextTooLong);
+				return;
+			}
+		}
+
+		if (iMaxTextMessageLength > 0 && (msg.comment().length() > iMaxTextMessageLength)) {
+			PERM_DENIED_TYPE(TextTooLong);
 			return;
 		}
 	}
@@ -610,6 +621,10 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 	QString qsName;
 	QString qsDesc;
 	if (msg.has_description()) {
+		if (iMaxTextMessageLength > 0 && (msg.description().length() > iMaxTextMessageLength)) {
+			PERM_DENIED_TYPE(TextTooLong);
+			return;
+		}
 		qsDesc = u8(msg.description());
 		if (! bAllowHTML) {
 			qsDesc = toPlainText(qsDesc);
