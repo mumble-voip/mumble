@@ -71,8 +71,16 @@
 
 /*!
   \fn void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)
-  This function updates the qleChatbar default text according to
+  This function updates the qleChat bar default text according to
   the selected user/channel in the users treeview.
+*/
+
+/*!
+  \fn MainWindow::updateMenuPermissions()
+  This function updates the UI according to the permission of the user in the current channel.
+  If possible the permissions are fetched from a cache. Otherwise they are requested by the server
+  via a PermissionQuery call (whose reply updates the cache and calls this function again).
+  \see MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg)
 */
 
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(MB_QEVENT)) {
@@ -240,6 +248,7 @@ void MainWindow::setupGui()  {
 	dtbChatDockTitle = new DockTitleBar();
 	qdwChat->setTitleBarWidget(dtbChatDockTitle);
 	qdwChat->installEventFilter(dtbChatDockTitle);
+	qleChat->setEnabled(false);
 
 	if (g.s.bMinimalView && ! g.s.qbaMinimalViewGeometry.isNull())
 		restoreGeometry(g.s.qbaMinimalViewGeometry);
@@ -1295,6 +1304,7 @@ void MainWindow::updateMenuPermissions() {
 	qaChannelUnlinkAll->setEnabled(canlink);
 
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
+	qleChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 }
 
 void MainWindow::on_qaAudioReset_triggered() {
@@ -1649,6 +1659,7 @@ void MainWindow::serverConnected() {
 	pmModel->renameChannel(Channel::get(0), tr("Root"));
 	pmModel->setComment(Channel::get(0), QString());
 	qtvUsers->setRowHidden(0, QModelIndex(), false);
+	qtvUsers->setCurrentIndex(pmModel->index(Channel::get(0)));
 
 	if (g.s.bMute || g.s.bDeaf) {
 		MumbleProto::UserState mpus;
@@ -1664,12 +1675,12 @@ void MainWindow::serverDisconnected(QString reason) {
 	qaServerDisconnect->setEnabled(false);
 	qaServerInformation->setEnabled(false);
 	qaServerBanList->setEnabled(false);
+	qleChat->setEnabled(false);
 	updateTrayIcon();
 
 	QString uname, pw, host;
 	unsigned short port;
-	g.sh->getConnectionInfo(host, port, uname, pw);
-
+	g.sh->getConnectionInfo(host, port, uname, pw);	
 	if (Database::setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts))
 		GlobalShortcutEngine::engine->bNeedRemap = true;
 
@@ -1871,7 +1882,7 @@ void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)
 		qleChat->setDefaultText(tr("Type message to user '%1' here").arg(p->qsName));
 	}
 
-
+	updateMenuPermissions();
 }
 
 void MainWindow::customEvent(QEvent *evt) {
