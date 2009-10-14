@@ -39,7 +39,8 @@
   Nothing is done on mismatch.
 */
 
-void ChatbarLineEdit::focusInEvent(QFocusEvent *) {
+void ChatbarLineEdit::focusInEvent(QFocusEvent *qfe) {
+	QLineEdit::focusInEvent(qfe);
 	if (bDefaultVisible) {
 		QFont f = font();
 		f.setItalic(false);
@@ -50,7 +51,8 @@ void ChatbarLineEdit::focusInEvent(QFocusEvent *) {
 	}
 }
 
-void ChatbarLineEdit::focusOutEvent(QFocusEvent *) {
+void ChatbarLineEdit::focusOutEvent(QFocusEvent *qfe) {
+	QLineEdit::focusOutEvent(qfe);
 	if (text().trimmed().isEmpty()) {
 		QFont f = font();
 		f.setItalic(true);
