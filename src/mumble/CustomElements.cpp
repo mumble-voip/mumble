@@ -89,8 +89,7 @@ bool ChatbarLineEdit::event(QEvent *event) {
 		if (kev->key() == Qt::Key_Tab) {
 			emit tabPressed();
 			return true;
-		}
-		else if (kev->key() == Qt::Key_Space && kev->modifiers() == Qt::ControlModifier) {
+		} else if (kev->key() == Qt::Key_Space && kev->modifiers() == Qt::ControlModifier) {
 			emit ctrlSpacePressed();
 			return true;
 		}
@@ -104,7 +103,7 @@ unsigned int ChatbarLineEdit::completeAtCursor() {
 	QList<QString> qlsUsernames;
 
 	if (ClientUser::c_qmUsers.empty()) return id;
-	foreach (ClientUser *usr, ClientUser::c_qmUsers) {
+	foreach(ClientUser *usr, ClientUser::c_qmUsers) {
 		qlsUsernames.append(usr->qsName);
 	}
 	qSort(qlsUsernames);
@@ -115,8 +114,7 @@ unsigned int ChatbarLineEdit::completeAtCursor() {
 	if (newtext.isEmpty()) {
 		target = qlsUsernames.first();
 		newtext = target;
-	}
-	else {
+	} else {
 		// Get the word before the cursor
 		bool bBaseIsName = false;
 		int iend = cursorPosition();
@@ -126,15 +124,14 @@ unsigned int ChatbarLineEdit::completeAtCursor() {
 		if (qlsUsernames.last() == base) {
 			bBaseIsName = true;
 			target = qlsUsernames.first();
-		}
-		else {
+		} else {
 			if (qlsUsernames.contains(base)) {
 				// Prevent to complete to what's already there
 				while (qlsUsernames.takeFirst() != base) {}
 				bBaseIsName = true;
 			}
 
-			foreach (QString name, qlsUsernames) {
+			foreach(QString name, qlsUsernames) {
 				if (name.startsWith(base, Qt::CaseInsensitive)) {
 					target = name;
 					break;
@@ -153,7 +150,7 @@ unsigned int ChatbarLineEdit::completeAtCursor() {
 	}
 
 	if (!target.isEmpty()) {
-		foreach (ClientUser *usr, ClientUser::c_qmUsers) {
+		foreach(ClientUser *usr, ClientUser::c_qmUsers) {
 			if (usr->qsName == target) {
 				id = usr->uiSession;
 				break;

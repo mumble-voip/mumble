@@ -166,7 +166,7 @@ void ConfigDialog::on_qcbExpert_clicked(bool b) {
 
 	qmIconWidgets.clear();
 	qlwIcons->clear();
-	
+
 	QFontMetrics qfm(qlwIcons->font());
 	int width = 0;
 
@@ -178,20 +178,20 @@ void ConfigDialog::on_qcbExpert_clicked(bool b) {
 			i->setIcon(cw->icon());
 			i->setText(cw->title());
 			i->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-			
+
 
 			qmIconWidgets.insert(i, cw);
 			if (cw == ccw)
 				sel = i;
 		}
 	}
-	
+
 	// Add space for icon and some padding.
 	width += qlwIcons->iconSize().width() + 25;
-	
+
 	qlwIcons->setMinimumWidth(width);
 	qlwIcons->setMaximumWidth(width);
-	
+
 	if (sel)
 		qlwIcons->setCurrentItem(sel);
 	else

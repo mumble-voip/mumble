@@ -55,7 +55,7 @@
 	MUMBLE_MH_MSG(ContextAction) \
 	MUMBLE_MH_MSG(UserList) \
 	MUMBLE_MH_MSG(VoiceTarget) \
-	MUMBLE_MH_MSG(PermissionQuery) 
+	MUMBLE_MH_MSG(PermissionQuery)
 
 class MessageHandler {
 	public:

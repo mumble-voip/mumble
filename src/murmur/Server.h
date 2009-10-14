@@ -153,7 +153,7 @@ class ServerUser : public Connection, public User {
 		typedef QPair<QSet<ServerUser *>, QSet<ServerUser *> > TargetCache;
 		QMap<int, TargetCache> qmTargetCache;
 		QMap<QString, QString> qmWhisperRedirect;
-		
+
 		int iLastPermissionCheck;
 		QMap<int, unsigned int> qmPermissionSent;
 #ifdef Q_OS_UNIX

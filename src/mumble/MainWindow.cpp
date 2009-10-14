@@ -1135,7 +1135,7 @@ void MainWindow::on_qaChannelAdd_triggered() {
 	}
 
 	aclEdit = new ACLEditor(c ? c->iId : 0, this);
-	if (c && ! (c->uiPermissions & ChanACL::MakeChannel))
+	if (c && !(c->uiPermissions & ChanACL::MakeChannel))
 		aclEdit->qcbChannelTemporary->setChecked(true);
 
 	aclEdit->show();
@@ -1250,40 +1250,40 @@ void MainWindow::updateMenuPermissions() {
 	ClientUser *user = ClientUser::get(g.uiSession);
 	Channel *homec = user ? user->cChannel : NULL;
 	ChanACL::Permissions homep = static_cast<ChanACL::Permissions>(homec ? homec->uiPermissions : ChanACL::Cached);
-	
-	if (! (p & ChanACL::Cached)) {
-			MumbleProto::PermissionQuery mppq;
-			mppq.set_channel_id(c->iId);
-			g.sh->sendMessage(mppq);
-			if (c->iId == 0)
-				p = g.pPermissions;
-			else
-				p = ChanACL::All;
+
+	if (!(p & ChanACL::Cached)) {
+		MumbleProto::PermissionQuery mppq;
+		mppq.set_channel_id(c->iId);
+		g.sh->sendMessage(mppq);
+		if (c->iId == 0)
+			p = g.pPermissions;
+		else
+			p = ChanACL::All;
 	}
 
-	if (! (homep & ChanACL::Cached)) {
-			MumbleProto::PermissionQuery mppq;
-			mppq.set_channel_id(homec->iId);
-			g.sh->sendMessage(mppq);
-			if (homec->iId == 0)
-				homep = g.pPermissions;
-			else
-				homep = ChanACL::All;
+	if (!(homep & ChanACL::Cached)) {
+		MumbleProto::PermissionQuery mppq;
+		mppq.set_channel_id(homec->iId);
+		g.sh->sendMessage(mppq);
+		if (homec->iId == 0)
+			homep = g.pPermissions;
+		else
+			homep = ChanACL::All;
 	}
-	
+
 	qaUserMute->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen));
 	qaUserDeaf->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen));
 	qaUserTextMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
-	
+
 	qaChannelAdd->setEnabled(p & (ChanACL::Write | ChanACL::MakeChannel | ChanACL::MakeTempChannel));
 	qaChannelRemove->setEnabled(p & ChanACL::Write);
 	qaChannelACL->setEnabled(p & ChanACL::Write);
-	
+
 	bool canlink = (p & (ChanACL::Write | ChanACL::LinkChannel)) && (homep & (ChanACL::Write | ChanACL::LinkChannel));
 	qaChannelLink->setEnabled(canlink);
 	qaChannelUnlink->setEnabled(canlink);
 	qaChannelUnlinkAll->setEnabled(canlink);
-	
+
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 }
 

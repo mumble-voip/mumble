@@ -1,4 +1,32 @@
+2009-10-14
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    d0b371c  fix text cursor in chatbar
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    5ae7c8c  SuperUser can't query permissions
+    2c92c17  Clientside permission query
+
+2009-10-13
+  Chosi <chosi@choseh.de>
+    f75ae8b  L4D plugin update to rev 3986
+
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    56f5f97  Tab and Ctrl+Space completion for chatbar.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    ff70bc7  Clientside dummy for permission query
+    7439bc4  Permission query (serverside)
+    055c13f  Force config iconlist size
+    6076cc0  Restrict comments to message size limit, and only allow admins
+	     to clear (not set) other people's comments)
+
+  Timo K <timer@dbclan.de>
+    d0bd7b8  COD5 plugin update to rev 1.6.1252
+
 2009-10-12
+  Mikkel Krautz <mikkel@krautz.dk>
+    a974dc8  Fix Mac OS X ConfigDialog.
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     4ddc686  Add (2), (3) etc to servernames when drag&dropped, and allow
 	     drag from public->favorite
@@ -37,6 +65,9 @@
     6261bbc  Hierarchical connect dialog
 
 2009-10-07
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    0043285  Very small style fix ;-)
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     f065c2b  Fetch continent of public servers and grab geoip of user
     a9fdf25  Flush denormals on Win32

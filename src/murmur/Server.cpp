@@ -1305,7 +1305,7 @@ void Server::userEnterChannel(User *p, Channel *c, bool quiet, bool ignoretemp) 
 	if (old && old->bTemporary && old->qlUsers.isEmpty() && ! ignoretemp) {
 		QCoreApplication::instance()->postEvent(this, new ExecEvent(boost::bind(&Server::removeChannel, this, old->iId)));
 	}
-	
+
 	sendClientPermission(static_cast<ServerUser *>(p), c);
 }
 
@@ -1316,7 +1316,7 @@ bool Server::hasPermission(ServerUser *p, Channel *c, QFlags<ChanACL::Perm> perm
 
 void Server::sendClientPermission(ServerUser *u, Channel *c, bool forceupdate) {
 	unsigned int perm;
-	
+
 	if (u->iId == 0)
 		return;
 
@@ -1351,7 +1351,7 @@ void Server::sendClientPermission(ServerUser *u, Channel *c, bool forceupdate) {
 void Server::flushClientPermissionCache(ServerUser *u, MumbleProto::PermissionQuery &mppq) {
 	QMap<int, unsigned int>::const_iterator i;
 	bool match = (u->qmPermissionSent.count() < 20);
-	for(i = u->qmPermissionSent.constBegin(); (match && (i != u->qmPermissionSent.constEnd())); ++i) {
+	for (i = u->qmPermissionSent.constBegin(); (match && (i != u->qmPermissionSent.constEnd())); ++i) {
 		Channel *c = qhChannels.value(i.key());
 		if (! c) {
 			match = false;
@@ -1362,22 +1362,22 @@ void Server::flushClientPermissionCache(ServerUser *u, MumbleProto::PermissionQu
 				match = false;
 		}
 	}
-	
+
 	if (match)
 		return;
 
 	u->qmPermissionSent.clear();
-		
+
 	Channel *c = qhChannels.value(u->iLastPermissionCheck);
 	if (! c) {
 		c = u->cChannel;
 		u->iLastPermissionCheck = c->iId;
 	}
-	
+
 	ChanACL::hasPermission(u, c, ChanACL::Enter, acCache);
 	unsigned int perm = acCache.value(u)->value(c);
 	u->qmPermissionSent.insert(c->iId, perm);
-		
+
 	mppq.Clear();
 	mppq.set_channel_id(c->iId);
 	mppq.set_permissions(perm);
