@@ -63,7 +63,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Age of Chivalry (Build 3740)", L"Mumble AOC Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Age of Chivalry (Build 3943)", L"Mumble AOC Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -116,22 +116,22 @@ static int trylock() {
 
 	// Check if we really have AOC running
 	/*
-		position tuple:		client.dll+0xba54a8  (x,y,z, float)
-		orientation tuple:	client.dll+0xb98e84  (v,h float)
-		ID string:			client.dll+0xb60fc0 = "ageofchivalry" (13 characters, text)
-		spawn state:        client.dll+0xb33ae8  (0 when at main menu, 1 when at team selection, 2 when not spawned,
-		                                          6 when spawned on red team, 7 when spawned on blue team, byte)
+		position tuple:		client.dll+0x748e14  (x,y,z, float)
+		orientation tuple:	client.dll+0x73dc9c  (v,h float)
+		ID string:			client.dll+0x7071e8 = "ageofchivalry" (13 characters, text)
+		spawn state:        client.dll+0x6d4334  (0 when at main menu, 1 when at team selection, 2 when not spawned,
+		                                          5 when spawned on red team, 7 when spawned on blue team, byte)
 	    context offsets:    server.dll + 0x65e538 = team info
 							engine.dll + 0x5acd40 = ip:port
 	*/
 	char sMagic[13];
-	if (!peekProc(mod + 0xb60fc0, sMagic, 13) || strncmp("ageofchivalry", sMagic, 13)!=0)
+	if (!peekProc(mod + 0x7071e8, sMagic, 13) || strncmp("ageofchivalry", sMagic, 13)!=0)
 		return false;
 
 	// Remember addresses for later
-	posptr = mod + 0xba54a8;
-	rotptr = mod + 0xb98e84;
-	stateptr = mod + 0xb33ae8;
+	posptr = mod + 0x748e14;
+	rotptr = mod + 0x73dc9c;
+	stateptr = mod + 0x6d4334;
 	ccontextptr = mod2 + 0x65e538;
 	ccontextptr = mod3 + 0x5acd40;
 
@@ -194,10 +194,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports AOC Build 3740. Context support only.");
+	return std::wstring(L"Supports AOC Build 3943. Context support only.");
 }
 
-static std::wstring description(L"Age of Chivalry (Build 3740)");
+static std::wstring description(L"Age of Chivalry (Build 3943)");
 static std::wstring shortname(L"Age of Chivalry");
 
 static MumblePlugin aocplug = {

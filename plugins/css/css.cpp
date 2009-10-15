@@ -112,7 +112,7 @@ static int trylock() {
 		position tuple:		client.dll+0x3ee0c4  (x,y,z, float)
 		orientation tuple:	client.dll+0x39d504  (v,h float)
 		ID string:			client.dll+0x39ee41 = "CSSpectatorGUI@@" (16 characters, text)
-		spawn state:		client.dll+0x3c067d  (0 in main menu, 3 when at team selection menu, 5 when spawned as CT, 6 when spawns as T)
+		spawn state:		client.dll+0x390070  (0 in main menu, 3 when at team selection menu or when not spawned, between 5 and 6 when spawned)
 	*/
 	char sMagic[16];
 	if (!peekProc(mod + 0x39ee41, sMagic, 16) || strncmp("CSSpectatorGUI@@", sMagic, 16)!=0)
@@ -121,7 +121,7 @@ static int trylock() {
 	// Remember addresses for later
 	posptr = mod + 0x3ee0c4;
 	rotptr = mod + 0x39d504;
-	stateptr = mod + 0x3c067d;
+	stateptr = mod + 0x390070;
 
 	float pos[3];
 	float rot[3];

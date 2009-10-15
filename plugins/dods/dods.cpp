@@ -62,7 +62,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Day of Defeat: Source (Build 3930)", L"Mumble DODS Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Day of Defeat: Source (Build 3971)", L"Mumble DODS Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -180,10 +180,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports DODS build 3930. No identity or context support yet.");
+	return std::wstring(L"Supports DODS build 3971. No identity or context support yet.");
 }
 
-static std::wstring description(L"Day of Defeat: Source (Build 3930)");
+static std::wstring description(L"Day of Defeat: Source (Build 3971)");
 static std::wstring shortname(L"Day of Defeat: Source");
 
 static MumblePlugin dodsplug = {

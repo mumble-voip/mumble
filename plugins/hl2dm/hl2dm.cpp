@@ -62,7 +62,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Half-Life 2: Deathmatch (Build 3698)", L"Mumble HL2DM Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Half-Life 2: Deathmatch (Build 3945)", L"Mumble HL2DM Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -181,10 +181,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports HL2DM build 3698. No identity or context support yet.");
+	return std::wstring(L"Supports HL2DM build 3945. No identity or context support yet.");
 }
 
-static std::wstring description(L"Half-Life 2: Deathmatch (Build 3698)");
+static std::wstring description(L"Half-Life 2: Deathmatch (Build 3945)");
 static std::wstring shortname(L"Half-Life 2: Deathmatch");
 
 static MumblePlugin hl2dmplug = {
