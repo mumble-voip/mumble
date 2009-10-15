@@ -127,6 +127,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaServerUserList_triggered();
 		void on_qaServerInformation_triggered();
 		void on_qaServerTexture_triggered();
+		void on_qaServerTextureRemove_triggered();
 		void on_qaServerTokens_triggered();
 		void on_qmUser_aboutToShow();
 		void on_qaUserComment_triggered();

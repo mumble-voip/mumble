@@ -603,6 +603,7 @@ void MainWindow::on_qmServer_aboutToShow() {
 	qmServer->addAction(qaServerUserList);
 	qmServer->addAction(qaServerInformation);
 	qmServer->addAction(qaServerTexture);
+	qmServer->addAction(qaServerTextureRemove);
 	qmServer->addAction(qaServerTokens);
 	qmServer->addSeparator();
 	qmServer->addAction(qaQuit);
@@ -612,6 +613,9 @@ void MainWindow::on_qmServer_aboutToShow() {
 	qaServerInformation->setEnabled(g.uiSession != 0);
 	qaServerTexture->setEnabled(g.uiSession != 0);
 	qaServerTokens->setEnabled(g.uiSession != 0);
+	
+	ClientUser *user = ClientUser::get(g.uiSession);
+	qaServerTextureRemove->setEnabled(user && ! user->qbaTexture.isEmpty());
 
 	if (! qlServerActions.isEmpty()) {
 		qmServer->addSeparator();
@@ -729,6 +733,12 @@ void MainWindow::on_qaServerTexture_triggered() {
 	qba = qCompress(qba);
 	MumbleProto::UserState mpus;
 	mpus.set_texture(qba.constData(), qba.length());
+	g.sh->sendMessage(mpus);
+}
+
+void MainWindow::on_qaServerTextureRemove_triggered() {
+	MumbleProto::UserState mpus;
+	mpus.set_texture(NULL, 0);
 	g.sh->sendMessage(mpus);
 }
 
@@ -1135,7 +1145,7 @@ void MainWindow::on_qaChannelAdd_triggered() {
 	}
 
 	aclEdit = new ACLEditor(c ? c->iId : 0, this);
-	if (c && !(c->uiPermissions & ChanACL::MakeChannel))
+	if (c && !(c->uiPermissions & (ChanACL::Write | ChanACL::MakeChannel)))
 		aclEdit->qcbChannelTemporary->setChecked(true);
 
 	aclEdit->show();

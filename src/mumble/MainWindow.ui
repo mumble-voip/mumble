@@ -665,6 +665,14 @@
     <string>Add or remove text-based access tokens</string>
    </property>
   </action>
+  <action name="qaServerTextureRemove">
+   <property name="text">
+    <string>Remove Texture</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove currently defined user texture.</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
