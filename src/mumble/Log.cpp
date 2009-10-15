@@ -316,7 +316,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 	qslValid << QLatin1String("https");
 
 	QRectF qr = dw.availableGeometry(dw.screenNumber(g.mw));
-	qtd.setTextWidth(qr.width());
+	qtd.setTextWidth(qr.width() / 2);
 
 	qtd.setHtml(html);
 	valid = qtd.isValid();
@@ -341,7 +341,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 
 	qtd.adjustSize();
 	QSizeF s = qtd.size();
-
+	
 	if (!valid || (s.width() > qr.width()) || (s.height() > qr.height())) {
 		qtd.setPlainText(html);
 		qtd.adjustSize();
@@ -517,7 +517,7 @@ ValidDocument::ValidDocument(bool allowhttp, QObject *p) : QTextDocument(p) {
 QVariant ValidDocument::loadResource(int type, const QUrl &url) {
 	QVariant v = QLatin1String("PlaceHolder");
 	if ((type == QTextDocument::ImageResource) && qslValidImage.contains(url.scheme()))
-		return v;
+		return QTextDocument::loadResource(type, url);
 	bValid = false;
 	return v;
 }
