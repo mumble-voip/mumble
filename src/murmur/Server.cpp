@@ -1268,8 +1268,6 @@ bool Server::unregisterUser(int id) {
 }
 
 void Server::userEnterChannel(User *p, Channel *c, bool quiet, bool ignoretemp) {
-	clearACLCache(p);
-
 	if (quiet && (p->cChannel == c))
 		return;
 
@@ -1279,6 +1277,8 @@ void Server::userEnterChannel(User *p, Channel *c, bool quiet, bool ignoretemp) 
 		QWriteLocker wl(&qrwlUsers);
 		c->addUser(p);
 	}
+
+	clearACLCache(p);
 
 	if (quiet)
 		return;
