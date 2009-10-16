@@ -828,6 +828,7 @@ void MainWindow::on_qmUser_aboutToShow() {
 		qaUserDeaf->setEnabled(! self || p->bDeaf);
 		qaUserTextMessage->setEnabled(true);
 		qaUserLocalMute->setEnabled(! self);
+		qaUserComment->setEnabled(self || (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
 
 		qaUserMute->setChecked(p->bMute || p->bSuppress);
 		qaUserDeaf->setChecked(p->bDeaf);
@@ -1263,10 +1264,10 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 }
 
 void MainWindow::updateMenuPermissions() {
-	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
+	Channel *c = g.uiSession ? pmModel->getChannel(qtvUsers->currentIndex()) : NULL;
 	ChanACL::Permissions p = static_cast<ChanACL::Permissions>(c ? c->uiPermissions : ChanACL::Cached);
 
-	ClientUser *user = ClientUser::get(g.uiSession);
+	ClientUser *user = g.uiSession ? ClientUser::get(g.uiSession) : NULL;
 	Channel *homec = user ? user->cChannel : NULL;
 	ChanACL::Permissions homep = static_cast<ChanACL::Permissions>(homec ? homec->uiPermissions : ChanACL::Cached);
 
@@ -1298,10 +1299,9 @@ void MainWindow::updateMenuPermissions() {
 	qaChannelRemove->setEnabled(p & ChanACL::Write);
 	qaChannelACL->setEnabled(p & ChanACL::Write);
 
-	bool canlink = (p & (ChanACL::Write | ChanACL::LinkChannel)) && (homep & (ChanACL::Write | ChanACL::LinkChannel));
-	qaChannelLink->setEnabled(canlink);
-	qaChannelUnlink->setEnabled(canlink);
-	qaChannelUnlinkAll->setEnabled(canlink);
+	qaChannelLink->setEnabled((p & (ChanACL::Write | ChanACL::LinkChannel)) && (homep & (ChanACL::Write | ChanACL::LinkChannel)));
+	qaChannelUnlink->setEnabled((p & (ChanACL::Write | ChanACL::LinkChannel)) || (homep & (ChanACL::Write | ChanACL::LinkChannel)));
+	qaChannelUnlinkAll->setEnabled(p & (ChanACL::Write | ChanACL::LinkChannel));
 
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 	qleChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
