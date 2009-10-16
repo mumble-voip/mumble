@@ -1656,10 +1656,13 @@ void MainWindow::serverConnected() {
 	qaServerInformation->setEnabled(true);
 	qaServerBanList->setEnabled(true);
 
-	pmModel->renameChannel(Channel::get(0), tr("Root"));
-	pmModel->setComment(Channel::get(0), QString());
+	Channel *root = Channel::get(0);
+	pmModel->renameChannel(root, tr("Root"));
+	pmModel->setComment(root, QString());
+	root->uiPermissions = 0;
+
 	qtvUsers->setRowHidden(0, QModelIndex(), false);
-	qtvUsers->setCurrentIndex(pmModel->index(Channel::get(0)));
+	qtvUsers->setCurrentIndex(pmModel->index(root));
 
 	if (g.s.bMute || g.s.bDeaf) {
 		MumbleProto::UserState mpus;
