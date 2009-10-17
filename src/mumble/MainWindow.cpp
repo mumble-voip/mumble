@@ -58,6 +58,13 @@
 #include "ACL.h"
 
 /*!
+  \fn void MainWindow::findDesiredChannel()
+  This function tries to join a desired channel on connect. It gets called
+  directly after server syncronization is completed.
+  \see void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg)
+*/
+
+/*!
   \fn void MainWindow::on_qleChat_tabPressed()
   Controlls tab username completion for the chatbar.
   \see ChatbarLineEdit::completeAtCursor()
@@ -73,6 +80,12 @@
   \fn void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)
   This function updates the qleChat bar default text according to
   the selected user/channel in the users treeview.
+*/
+
+/*!
+  \fn void MainWindow::serverConnected()
+  This function prepares the UI for receiving server data. It gets called once the
+  connection to the server is established but before the server Sync is complete.
 */
 
 /*!
@@ -471,12 +484,19 @@ void MainWindow::findDesiredChannel() {
 			}
 		}
 	}
-	if (found && (chan != ClientUser::get(g.uiSession)->cChannel)) {
-		MumbleProto::UserState mpus;
-		mpus.set_session(g.uiSession);
-		mpus.set_channel_id(chan->iId);
-		g.sh->sendMessage(mpus);
+	if (found) {
+		if (chan != ClientUser::get(g.uiSession)->cChannel) {
+			MumbleProto::UserState mpus;
+			mpus.set_session(g.uiSession);
+			mpus.set_channel_id(chan->iId);
+			g.sh->sendMessage(mpus);
+		}
+		qtvUsers->setCurrentIndex(pmModel->index(chan));
 	}
+	else {
+		qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(g.uiSession)->cChannel));
+	}
+	updateMenuPermissions();
 }
 
 void MainWindow::setOnTop(bool top) {
