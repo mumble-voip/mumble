@@ -9,7 +9,7 @@ CONFIG *= ordered debug_and_release
     SUBDIRS *= speexbuild
   }
   !CONFIG(no-bundled-celt) {
-    SUBDIRS *= celtbuild
+    SUBDIRS *= celt-0.6.2-build
   }
   !CONFIG(no-11x) {
     SUBDIRS *= src/mumble11x

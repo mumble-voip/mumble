@@ -1,13 +1,18 @@
 include(../compiler.pri)
 
-!exists(../celt/COPYING) {
-	message("The celt/ directory was not found. You need to do one of the following:")
+BUILDDIR=$$basename(PWD)
+SOURCEDIR=$$replace(BUILDDIR,-build,-src)
+VERSION=$$replace(BUILDDIR,-build,)
+VERSION=$$replace(VERSION,celt-,)
+
+!exists(../$$SOURCEDIR/COPYING) {
+	message("The $$SOURCEDIR/ directory was not found. You need to do one of the following:")
 	message("")
 	message("Option 1: Use CELT Git:")
 	message("git submodule init")
 	message("git submodule update")
 	message("")
-	message("Option 2: Use system celt (only if it's a bleeding edge version):")
+	message("Option 2: Use system celt libraries (it's your job to ensure you have all of them):")
 	message("qmake CONFIG+=no-bundled-celt -recursive")
 	message("")
 	error("Aborting configuration")
@@ -15,20 +20,22 @@ include(../compiler.pri)
 
 TEMPLATE = lib
 CONFIG -= qt
-CONFIG += staticlib debug_and_release
+CONFIG += debug_and_release
 CONFIG -= warn_on
 CONFIG += warn_off
-VPATH	= ../celt/libcelt
+VPATH	= ../$$SOURCEDIR/libcelt
 TARGET = celt
 DEFINES += HAVE_CONFIG_H
+TARGET_VERSION_EXT = .$$VERSION
+
 
 win32 {
   DEFINES += WIN32 _WIN32
-  INCLUDEPATH += ../celtbuild/win32
+  INCLUDEPATH += ../$$BUILDDIR/win32
 }
 
 unix {
-	INCLUDEPATH += ../celtbuild
+	INCLUDEPATH += ../$$BUILDDIR
 }
 
 macx {

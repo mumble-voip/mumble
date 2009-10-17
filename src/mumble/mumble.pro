@@ -32,18 +32,16 @@ CONFIG(no-bundled-speex) {
   LIBS 		*= -lspeexdsp
 }
 
-unix:!CONFIG(bundled-celt):system(pkg-config --atleast-version=0.5.3 celt) {
+unix:!CONFIG(bundled-celt):system(pkg-config --atleast-version=0.7.0 celt) {
   CONFIG	*= no-bundled-celt
 }
 
 CONFIG(no-bundled-celt) {
-  PKGCONFIG	*= celt
   INCLUDEPATH	*= /usr/include/celt
 }
 
 !CONFIG(no-bundled-celt) {
-  INCLUDEPATH	*= ../../celt/libcelt
-  LIBS 		*= -lcelt
+  INCLUDEPATH	*= ../../celt-0.6.2-src/libcelt
 }
 
 !win32 {
