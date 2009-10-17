@@ -261,6 +261,7 @@ void MainWindow::setupGui()  {
 	dtbChatDockTitle = new DockTitleBar();
 	qdwChat->setTitleBarWidget(dtbChatDockTitle);
 	qdwChat->installEventFilter(dtbChatDockTitle);
+	qleChat->setDefaultText(tr("Not connected"));
 	qleChat->setEnabled(false);
 
 	if (g.s.bMinimalView && ! g.s.qbaMinimalViewGeometry.isNull())
@@ -1682,7 +1683,6 @@ void MainWindow::serverConnected() {
 	root->uiPermissions = 0;
 
 	qtvUsers->setRowHidden(0, QModelIndex(), false);
-	qtvUsers->setCurrentIndex(pmModel->index(root));
 
 	if (g.s.bMute || g.s.bDeaf) {
 		MumbleProto::UserState mpus;
@@ -1698,6 +1698,7 @@ void MainWindow::serverDisconnected(QString reason) {
 	qaServerDisconnect->setEnabled(false);
 	qaServerInformation->setEnabled(false);
 	qaServerBanList->setEnabled(false);
+	qtvUsers->setCurrentIndex(QModelIndex());
 	qleChat->setEnabled(false);
 	updateTrayIcon();
 
@@ -1894,7 +1895,10 @@ void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)
 	User *p = pmModel->getUser(qtvUsers->currentIndex());
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
-	if (p == NULL || p->uiSession == g.uiSession) {
+	if (g.uiSession == 0) {
+		qleChat->setDefaultText(tr("Not connected"));
+	}
+	else if (p == NULL || p->uiSession == g.uiSession) {
 		// Channel tree target
 		if (c == NULL) // If no channel selected fallback to current one
 			c = ClientUser::get(g.uiSession)->cChannel;
