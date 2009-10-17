@@ -529,6 +529,8 @@ void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
 	Channel *c = Channel::get(msg.channel_id());
 	if (c) {
 		c->uiPermissions = msg.permissions();
+		if (c->iId == 0)
+			g.pPermissions = static_cast<ChanACL::Permissions>(c->uiPermissions);
 		if (c == current) {
 			updateMenuPermissions();
 		}

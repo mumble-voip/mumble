@@ -1175,7 +1175,7 @@ void MainWindow::on_qaChannelAdd_triggered() {
 	}
 
 	aclEdit = new ACLEditor(c ? c->iId : 0, this);
-	if (c && !(c->uiPermissions & (ChanACL::Write | ChanACL::MakeChannel)))
+	if (c && c->uiPermissions && !(c->uiPermissions & (ChanACL::Write | ChanACL::MakeChannel)))
 		aclEdit->qcbChannelTemporary->setChecked(true);
 
 	aclEdit->show();
@@ -1285,13 +1285,13 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 
 void MainWindow::updateMenuPermissions() {
 	Channel *c = g.uiSession ? pmModel->getChannel(qtvUsers->currentIndex()) : NULL;
-	ChanACL::Permissions p = static_cast<ChanACL::Permissions>(c ? c->uiPermissions : ChanACL::Cached);
+	ChanACL::Permissions p = static_cast<ChanACL::Permissions>(c ? c->uiPermissions : ChanACL::None);
 
 	ClientUser *user = g.uiSession ? ClientUser::get(g.uiSession) : NULL;
 	Channel *homec = user ? user->cChannel : NULL;
-	ChanACL::Permissions homep = static_cast<ChanACL::Permissions>(homec ? homec->uiPermissions : ChanACL::Cached);
+	ChanACL::Permissions homep = static_cast<ChanACL::Permissions>(homec ? homec->uiPermissions : ChanACL::None);
 
-	if (!(p & ChanACL::Cached)) {
+	if (c && ! p) {
 		MumbleProto::PermissionQuery mppq;
 		mppq.set_channel_id(c->iId);
 		g.sh->sendMessage(mppq);
@@ -1299,11 +1299,9 @@ void MainWindow::updateMenuPermissions() {
 			p = g.pPermissions;
 		else
 			p = ChanACL::All;
-
-		c->uiPermissions = p;
 	}
 
-	if (!(homep & ChanACL::Cached)) {
+	if (homec && ! homep) {
 		MumbleProto::PermissionQuery mppq;
 		mppq.set_channel_id(homec->iId);
 		g.sh->sendMessage(mppq);
@@ -1311,8 +1309,6 @@ void MainWindow::updateMenuPermissions() {
 			homep = g.pPermissions;
 		else
 			homep = ChanACL::All;
-
-		homec->uiPermissions = homep;
 	}
 
 	qaUserMute->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen));
