@@ -1299,6 +1299,8 @@ void MainWindow::updateMenuPermissions() {
 			p = g.pPermissions;
 		else
 			p = ChanACL::All;
+
+		c->uiPermissions = p;
 	}
 
 	if (!(homep & ChanACL::Cached)) {
@@ -1309,6 +1311,8 @@ void MainWindow::updateMenuPermissions() {
 			homep = g.pPermissions;
 		else
 			homep = ChanACL::All;
+
+		homec->uiPermissions = homep;
 	}
 
 	qaUserMute->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen));
