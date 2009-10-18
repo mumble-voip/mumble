@@ -524,6 +524,8 @@ void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
 			MumbleProto::PermissionQuery mppq;
 			mppq.set_channel_id(current->iId);
 			g.sh->sendMessage(mppq);
+
+			current->uiPermissions = ChanACL::All;
 		}
 	}
 	Channel *c = Channel::get(msg.channel_id());
