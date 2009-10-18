@@ -88,29 +88,33 @@ CELTCodec::CELTCodec(const QString &version) {
 	cmMode = NULL;
 	qlCELT.setLoadHints(QLibrary::ResolveAllSymbolsHint);
 	
-	typedef QPair<QString, QString> alt;
-
-	QList<alt> alternatives;
-	alternatives << alt(QLatin1String("celt.") + version, QString());
-	alternatives << alt(QLatin1String("libcelt.") + version, QString());
-	alternatives << alt(QLatin1String("celt"), version);
-	alternatives << alt(QLatin1String("libcelt"), version);
-	foreach(alt a, alternatives) {
-		qlCELT.setFileNameAndVersion(QApplication::instance()->applicationDirPath() + QLatin1String("/") + a.first, a.second);
+	QStringList alternatives;
+#if defined(Q_OS_MAC)
+	alternatives << QString::fromLatin1("celt.%1.dylib").arg(version);
+	alternatives << QString::fromLatin1("libcelt.%1.dylib").arg(version);
+#elif defined(Q_OS_UNIX)
+	alternatives << QString::fromLatin1("celt.so.%1").arg(version);
+	alternatives << QString::fromLatin1("libcelt.so.%1").arg(version);
+#else
+	alternatives << QString::fromLatin1("celt.%1.dll").arg(version);
+	alternatives << QString::fromLatin1("libcelt.%1.dll").arg(version);
+#endif
+	foreach(const QString &lib, alternatives) {
+		qlCELT.setFileName(QApplication::instance()->applicationDirPath() + QLatin1String("/") + lib);
 		if (qlCELT.load()) {
 			bValid = true;
 			break;
 		}
 
 #ifdef PLUGIN_PATH
-		qlCELT.setFileNameAndVersion(QLatin1String(MUMTEXT(PLUGIN_PATH) "/") + a.first, a.second);
+		qlCELT.setFileName(QLatin1String(MUMTEXT(PLUGIN_PATH) "/") + lib);
 		if (qlCELT.load()) {
 			bValid = true;
 			break;
 		}
 #endif
 
-		qlCELT.setFileNameAndVersion(a.first, a.second);
+		qlCELT.setFileName(lib);
 		if (qlCELT.load()) {
 			bValid = true;
 			break;
