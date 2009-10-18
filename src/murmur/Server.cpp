@@ -1116,8 +1116,10 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 #define MUMBLE_MH_MSG(x) case MessageHandler:: x : { \
 		MumbleProto:: x msg; \
 		if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) { \
-			printf("== %s:\n", #x); \
-			msg.PrintDebugString(); \
+			if (uiType != MessageHandler::Ping) { \
+				printf("== %s:\n", #x); \
+				msg.PrintDebugString(); \
+			} \
 			msg.DiscardUnknownFields(); \
 			msg##x(u, msg); \
 		} \
@@ -1476,16 +1478,19 @@ void Server::recheckCodecVersions() {
 		return;
 	
 	MumbleProto::CodecVersion mpcv;
-	
-	bPreferAlpha = ! bPreferAlpha;
-	if (bPreferAlpha) {
-		iCodecAlpha = version;
-		mpcv.set_alpha(version);
-	} else {
-		iCodecBeta = version;
-		mpcv.set_beta(version);
-	}
 
+	if (version == 0x8000000a)
+		bPreferAlpha = true;
+	else
+		bPreferAlpha = ! bPreferAlpha;
+
+	if (bPreferAlpha) 
+		iCodecAlpha = version;
+	else
+		iCodecBeta = version;
+
+	mpcv.set_alpha(version);
+	mpcv.set_beta(version);
 	mpcv.set_prefer_alpha(bPreferAlpha);
 	sendAll(mpcv);
 	
