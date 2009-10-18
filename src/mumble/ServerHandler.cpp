@@ -426,6 +426,10 @@ void ServerHandler::serverConnectionConnected() {
 	QStringList tokens = Database::getTokens(qbaDigest);
 	foreach(const QString &qs, tokens)
 		mpa.add_tokens(u8(qs));
+	
+	QMap<unsigned int, CELTCodec *>::const_iterator i;
+	for(i=g.qmCodecs.constBegin(); i != g.qmCodecs.constEnd(); ++i)
+		mpa.add_celt_versions(i.key());
 
 	sendMessage(mpa);
 
