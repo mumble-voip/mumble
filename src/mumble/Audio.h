@@ -38,6 +38,61 @@
 
 typedef QPair<QString,QVariant> audioDevice;
 
+class CELTCodec {
+	private:
+		Q_DISABLE_COPY(CELTCodec);
+	protected:
+		const CELTMode *cmMode;
+		QLibrary qlCELT;
+		bool bValid;
+
+		void (*celt_mode_destroy)(CELTMode *mode);
+		int (__cdecl *celt_mode_info)(const CELTMode *mode, int request, celt_int32 *value);
+
+	public:
+		void (__cdecl *celt_encoder_destroy)(CELTEncoder *st);
+		int (__cdecl *celt_encode_float)(CELTEncoder *st, const float *pcm, float *optional_synthesis, unsigned char *compressed, int nbCompressedBytes);
+		int (__cdecl *celt_encode)(CELTEncoder *st, const celt_int16 *pcm, celt_int16 *optional_synthesis, unsigned char *compressed, int nbCompressedBytes);
+		int (__cdecl *celt_encoder_ctl)(CELTEncoder * st, int request, ...);
+
+		void (__cdecl *celt_decoder_destroy)(CELTDecoder *st);
+		int (__cdecl *celt_decode_float)(CELTDecoder *st, const unsigned char *data, int len, float *pcm);
+		int (__cdecl *celt_decode)(CELTDecoder *st, const unsigned char *data, int len, celt_int16 *pcm);
+		int (__cdecl *celt_decoder_ctl)(CELTDecoder * st, int request, ...);
+
+		CELTCodec(const QString &version);
+		virtual ~CELTCodec();
+		bool isValid() const;
+		unsigned int bitstreamVersion() const;
+		
+		virtual void report() const;
+		
+		virtual CELTEncoder *encoderCreate() = 0;
+		virtual CELTDecoder *decoderCreate() = 0;
+};
+
+class CELTCodec061 : public CELTCodec {
+	protected:
+		CELTMode *(*celt_mode_create)(celt_int32 Fs, int channels, int frame_size, int *error);
+		CELTEncoder *(__cdecl *celt_encoder_create)(const CELTMode *mode);
+		CELTDecoder *(__cdecl *celt_decoder_create)(const CELTMode *mode);
+	public:
+		CELTCodec061(const QString &version);
+		virtual CELTEncoder *encoderCreate();
+		virtual CELTDecoder *decoderCreate();
+};
+
+class CELTCodec070 : public CELTCodec {
+	protected:
+		CELTMode *(*celt_mode_create)(celt_int32 Fs, int frame_size, int *error);
+		CELTEncoder *(__cdecl *celt_encoder_create)(const CELTMode *mode, int channels, int *error);
+		CELTDecoder *(__cdecl *celt_decoder_create)(const CELTMode *mode, int channels, int *error);
+	public:
+		CELTCodec070(const QString &version);
+		virtual CELTEncoder *encoderCreate();
+		virtual CELTDecoder *decoderCreate();
+};
+
 class LoopUser : public ClientUser {
 	private:
 		Q_DISABLE_COPY(LoopUser)

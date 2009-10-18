@@ -131,7 +131,7 @@ class AudioOutputSpeech : public AudioOutputUser {
 		JitterBuffer *jbJitter;
 		int iMissCount;
 
-		CELTMode *cmMode;
+		CELTCodec *cCodec;
 		CELTDecoder *cdDecoder;
 
 		SpeexBits sbBits;

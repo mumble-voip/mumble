@@ -50,6 +50,7 @@ class QSettings;
 class Overlay;
 class LCD;
 class BonjourClient;
+class CELTCodec;
 
 struct Global {
 private:
@@ -83,6 +84,7 @@ public:
 	int iAudioBandwidth;
 	QDir qdBasePath;
 	QString qsRegionalHost;
+	QMap<unsigned int, CELTCodec *> qmCodecs;
 	Global();
 	~Global();
 };

@@ -41,7 +41,7 @@ CONFIG(no-bundled-celt) {
 }
 
 !CONFIG(no-bundled-celt) {
-  INCLUDEPATH	*= ../../celt-0.6.2-src/libcelt
+  INCLUDEPATH	*= ../../celt-0.6.3-src/libcelt
 }
 
 !win32 {

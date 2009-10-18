@@ -96,7 +96,7 @@ class AudioInput : public QThread {
 		SpeexPreprocessState *sppPreprocess;
 		SpeexEchoState *sesEcho;
 
-		CELTMode *cmMode;
+		CELTCodec *cCodec;
 		CELTEncoder *ceEncoder;
 
 		SpeexBits sbBits;

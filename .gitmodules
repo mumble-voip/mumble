@@ -4,3 +4,9 @@
 [submodule "celt-0.6.2-src"]
 	path = celt-0.6.2-src
 	url = git://git.xiph.org/celt.git/
+[submodule "celt-0.6.3-src"]
+	path = celt-0.6.3-src
+	url = git://git.xiph.org/celt.git/
+[submodule "celt-0.6.1-src"]
+	path = celt-0.6.1-src
+	url = git://git.xiph.org/celt.git/

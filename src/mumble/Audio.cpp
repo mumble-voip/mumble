@@ -35,9 +35,160 @@
 #include "Global.h"
 #include "PacketDataStream.h"
 
+class CodecInit : public DeferInit {
+	public:
+		void initialize();
+		void destroy();
+};
+
 #define DOUBLE_RAND (rand()/static_cast<double>(RAND_MAX))
 
 LoopUser LoopUser::lpLoopy;
+CodecInit ciInit;
+
+void CodecInit::initialize() {
+	CELTCodec *codec = NULL;
+
+	codec = new CELTCodec061(QLatin1String("0.6.1"));
+	if (codec->isValid()) {
+		codec->report();
+		g.qmCodecs.insert(codec->bitstreamVersion(), codec);
+	} else {
+		delete codec;
+	}
+	
+	codec = new CELTCodec061(QLatin1String("0.6.2"));
+	if (codec->isValid()) {
+		codec->report();
+		g.qmCodecs.insert(codec->bitstreamVersion(), codec);
+	} else {
+		delete codec;
+	}
+
+	codec = new CELTCodec070(QLatin1String("0.6.3"));
+	if (codec->isValid()) {
+		codec->report();
+		g.qmCodecs.insert(codec->bitstreamVersion(), codec);
+	} else {
+		delete codec;
+	}
+}
+
+void CodecInit::destroy() {
+	foreach(CELTCodec *codec, g.qmCodecs)
+		delete codec;
+	g.qmCodecs.clear();
+}
+
+
+#define RESOLVE(var) { var = static_cast<BOOST_TYPEOF(var)>(qlCELT.resolve(#var)); bValid = bValid && (var != NULL); }
+
+CELTCodec::CELTCodec(const QString &version) {
+	bValid = false;
+	cmMode = NULL;
+	qlCELT.setLoadHints(QLibrary::ResolveAllSymbolsHint);
+	
+	typedef QPair<QString, QString> alt;
+
+	QList<alt> alternatives;
+	alternatives << alt(QLatin1String("celt.") + version, QString());
+	alternatives << alt(QLatin1String("libcelt.") + version, QString());
+	alternatives << alt(QLatin1String("celt"), version);
+	alternatives << alt(QLatin1String("libcelt"), version);
+	foreach(alt a, alternatives) {
+		qlCELT.setFileNameAndVersion(QApplication::instance()->applicationDirPath() + QLatin1String("/") + a.first, a.second);
+		if (qlCELT.load()) {
+			bValid = true;
+			break;
+		}
+
+#ifdef PLUGIN_PATH
+		qlCELT.setFileNameAndVersion(QLatin1String(MUMTEXT(PLUGIN_PATH) "/") + a.first, a.second);
+		if (qlCELT.load()) {
+			bValid = true;
+			break;
+		}
+#endif
+
+		qlCELT.setFileNameAndVersion(a.first, a.second);
+		if (qlCELT.load()) {
+			bValid = true;
+			break;
+		}
+	}
+
+	RESOLVE(celt_mode_destroy);
+	RESOLVE(celt_mode_info);
+
+	RESOLVE(celt_encoder_destroy);
+	RESOLVE(celt_encode_float);
+	RESOLVE(celt_encode);
+	RESOLVE(celt_encoder_ctl);
+
+	RESOLVE(celt_decoder_destroy);
+	RESOLVE(celt_decode_float);
+	RESOLVE(celt_decode);
+	RESOLVE(celt_decoder_ctl);
+}
+
+CELTCodec::~CELTCodec() {
+	if (cmMode)
+		celt_mode_destroy(const_cast<CELTMode *>(cmMode));
+}
+
+bool CELTCodec::isValid() const {
+	return bValid;
+}
+
+unsigned int CELTCodec::bitstreamVersion() const {
+	unsigned int v = ~0;
+
+	if (cmMode)
+		celt_mode_info(cmMode, CELT_GET_BITSTREAM_VERSION, reinterpret_cast<celt_int32 *>(&v));
+	return v;
+}
+
+void CELTCodec::report() const {
+	qWarning("CELT bitstream %08x from %s", bitstreamVersion(), qPrintable(qlCELT.fileName()));
+}
+
+CELTCodec061::CELTCodec061(const QString &version) : CELTCodec(version) {
+	RESOLVE(celt_mode_create);
+
+	RESOLVE(celt_encoder_create);
+	
+	RESOLVE(celt_decoder_create);
+	
+	if (bValid) {
+		cmMode = celt_mode_create(SAMPLE_RATE, 1, SAMPLE_RATE / 100, NULL);
+	}
+}
+
+CELTEncoder *CELTCodec061::encoderCreate() {
+	return celt_encoder_create(cmMode);
+}
+
+CELTDecoder *CELTCodec061::decoderCreate() {
+	return celt_decoder_create(cmMode);
+}
+
+CELTCodec070::CELTCodec070(const QString &version) : CELTCodec(version) {
+	RESOLVE(celt_mode_create);
+	RESOLVE(celt_encoder_create);
+	RESOLVE(celt_decoder_create);
+	
+	if (bValid) {
+		cmMode = celt_mode_create(SAMPLE_RATE, SAMPLE_RATE / 100, NULL);
+	}
+}
+
+CELTEncoder *CELTCodec070::encoderCreate() {
+	return celt_encoder_create(cmMode, 1, NULL);
+}
+
+CELTDecoder *CELTCodec070::decoderCreate() {
+	return celt_decoder_create(cmMode, 1, NULL);
+}
 
 LoopUser::LoopUser() {
 	qsName = QLatin1String("Loopy");

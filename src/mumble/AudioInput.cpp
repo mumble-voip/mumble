@@ -96,13 +96,14 @@ AudioInput::AudioInput() {
 	if (umtType == MessageHandler::UDPVoiceCELT) {
 		iSampleRate = SAMPLE_RATE;
 		iFrameSize = SAMPLE_RATE / 100;
+		
+		cCodec = g.qmCodecs.value(0x8000000a);
+		ceEncoder = cCodec->encoderCreate();
 
-		cmMode = celt_mode_create(SAMPLE_RATE, 1, iFrameSize, NULL);
-		ceEncoder = celt_encoder_create(cmMode);
 		esSpeex = NULL;
 		qWarning("AudioInput: %d bits/s, %d hz, %d sample CELT", iAudioQuality, iSampleRate, iFrameSize);
 	} else {
-		cmMode = NULL;
+		cCodec = NULL;
 		ceEncoder = NULL;
 
 		iAudioFrames /= 2;
@@ -184,8 +185,7 @@ AudioInput::~AudioInput() {
 	wait();
 
 	if (umtType == MessageHandler::UDPVoiceCELT) {
-		celt_encoder_destroy(ceEncoder);
-		celt_mode_destroy(cmMode);
+		cCodec->celt_encoder_destroy(ceEncoder);
 	} else {
 		speex_bits_destroy(&sbBits);
 		speex_encoder_destroy(esSpeex);
@@ -769,8 +769,9 @@ void AudioInput::encodeAudioFrame() {
 	int len;
 
 	if (umtType == MessageHandler::UDPVoiceCELT) {
-		celt_encoder_ctl(ceEncoder,CELT_SET_VBR_RATE(iAudioQuality));
-		len = celt_encode(ceEncoder, psSource, NULL, buffer, qMin(iAudioQuality / 800, 127));
+		
+		cCodec->celt_encoder_ctl(ceEncoder,CELT_SET_VBR_RATE(iAudioQuality));
+		len = cCodec->celt_encode(ceEncoder, psSource, NULL, buffer, qMin(iAudioQuality / 800, 127));
 	} else {
 		int vbr = 0;
 		speex_encoder_ctl(esSpeex, SPEEX_GET_VBR_MAX_BITRATE, &vbr);
