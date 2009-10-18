@@ -84,7 +84,7 @@ public:
 	int iAudioBandwidth;
 	QDir qdBasePath;
 	QString qsRegionalHost;
-	QMap<unsigned int, CELTCodec *> qmCodecs;
+	QMap<int, CELTCodec *> qmCodecs;
 	Global();
 	~Global();
 };

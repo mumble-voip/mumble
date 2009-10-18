@@ -140,8 +140,8 @@ bool CELTCodec::isValid() const {
 	return bValid;
 }
 
-unsigned int CELTCodec::bitstreamVersion() const {
-	unsigned int v = ~0;
+int CELTCodec::bitstreamVersion() const {
+	int v = INT_MIN;
 
 	if (cmMode)
 		celt_mode_info(cmMode, CELT_GET_BITSTREAM_VERSION, reinterpret_cast<celt_int32 *>(&v));

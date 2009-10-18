@@ -63,7 +63,7 @@ class CELTCodec {
 		CELTCodec(const QString &version);
 		virtual ~CELTCodec();
 		bool isValid() const;
-		unsigned int bitstreamVersion() const;
+		int bitstreamVersion() const;
 		
 		virtual void report() const;
 		

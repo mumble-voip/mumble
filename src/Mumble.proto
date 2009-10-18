@@ -17,7 +17,7 @@ message Authenticate {
 	optional string username = 1;
 	optional string password = 2;
 	repeated string tokens = 3;
-	repeated uint32 celt_versions = 4;
+	repeated int32 celt_versions = 4;
 }
 
 message Ping {
