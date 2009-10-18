@@ -215,3 +215,9 @@ message PermissionQuery {
 	optional uint32 permissions = 2;
 	optional bool flush = 3 [default = false];
 }
+
+message CodecVersion {
+	required int32 alpha = 1;
+	required int32 beta = 2;
+	required bool prefer_alpha = 3 [default = true];
+}

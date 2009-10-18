@@ -89,11 +89,11 @@ AudioInput::AudioInput() {
 	g.iAudioBandwidth = getNetworkBandwidth(iAudioQuality, iAudioFrames);
 
 	if (preferCELT(iAudioQuality, iAudioFrames))
-		umtType = MessageHandler::UDPVoiceCELT;
+		umtType = MessageHandler::UDPVoiceCELTAlpha;
 	else
 		umtType = MessageHandler::UDPVoiceSpeex;
 
-	if (umtType == MessageHandler::UDPVoiceCELT) {
+	if (umtType == MessageHandler::UDPVoiceCELTAlpha) {
 		iSampleRate = SAMPLE_RATE;
 		iFrameSize = SAMPLE_RATE / 100;
 		
@@ -184,7 +184,7 @@ AudioInput::~AudioInput() {
 	bRunning = false;
 	wait();
 
-	if (umtType == MessageHandler::UDPVoiceCELT) {
+	if (umtType == MessageHandler::UDPVoiceCELTAlpha) {
 		cCodec->celt_encoder_destroy(ceEncoder);
 	} else {
 		speex_bits_destroy(&sbBits);
@@ -522,7 +522,7 @@ void AudioInput::setMaxBandwidth(int bitspersec) {
 	}
 
 	AudioInputPtr ai = g.ai;
-	if (ai && (preferCELT(bitrate, frames) == (ai->umtType == MessageHandler::UDPVoiceCELT))) {
+	if (ai && (preferCELT(bitrate, frames) == (ai->umtType == MessageHandler::UDPVoiceCELTAlpha))) {
 		g.iAudioBandwidth = getNetworkBandwidth(bitrate, frames);
 		ai->iAudioQuality = bitrate;
 		ai->iAudioFrames = frames;
@@ -768,7 +768,7 @@ void AudioInput::encodeAudioFrame() {
 	unsigned char buffer[512];
 	int len;
 
-	if (umtType == MessageHandler::UDPVoiceCELT) {
+	if (umtType == MessageHandler::UDPVoiceCELTAlpha) {
 		
 		cCodec->celt_encoder_ctl(ceEncoder,CELT_SET_VBR_RATE(iAudioQuality));
 		len = cCodec->celt_encode(ceEncoder, psSource, NULL, buffer, qMin(iAudioQuality / 800, 127));

@@ -101,6 +101,9 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	hNotify = NULL;
 #endif
 	qtTimeout = new QTimer(this);
+	
+	iCodecAlpha = iCodecBeta = 0;
+	bPreferAlpha = false;
 
 	readParams();
 	initialize();
@@ -655,7 +658,9 @@ void Server::run() {
 
 				switch (msgType) {
 					case MessageHandler::UDPVoiceSpeex:
-					case MessageHandler::UDPVoiceCELT: {
+					case MessageHandler::UDPVoiceCELTAlpha:
+					case MessageHandler::UDPVoiceCELTBeta:
+						{
 							u->bUdp = true;
 							processMsg(u, buffer, len);
 							break;
@@ -1086,7 +1091,8 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 		MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((buffer[0] >> 5) & 0x7);
 
 		switch (msgType) {
-			case MessageHandler::UDPVoiceCELT:
+			case MessageHandler::UDPVoiceCELTAlpha:
+			case MessageHandler::UDPVoiceCELTBeta:
 			case MessageHandler::UDPVoiceSpeex:
 				processMsg(u, buffer, l);
 				break;
@@ -1436,4 +1442,52 @@ bool Server::validateUserName(const QString &name) {
 
 bool Server::validateChannelName(const QString &name) {
 	return (qrChannelName.exactMatch(name) && (name.length() <= 512));
+}
+
+void Server::recheckCodecVersions() {
+	QMap<int, unsigned int> qm;
+	QMap<int, unsigned int>::const_iterator i;
+	int users = 0;
+	foreach(ServerUser *u, qhUsers) {
+		if (u->qlCodecs.isEmpty())
+			continue;
+			
+		++users;
+		foreach(int version, u->qlCodecs)
+			++ qm[version];
+	}
+	
+	if (! users)
+		return;
+	
+	int version = 0;
+	int maxu = 0;
+	i = qm.constEnd();
+	do {
+		--i;
+		if (i.value() > maxu) {
+			version = i.key();
+			maxu = i.value();
+		}
+	} while (i != qm.constBegin());
+	
+	int cversion = bPreferAlpha ? iCodecAlpha : iCodecBeta;
+	if (cversion == version)
+		return;
+	
+	MumbleProto::CodecVersion mpcv;
+	
+	bPreferAlpha = ! bPreferAlpha;
+	if (bPreferAlpha) {
+		iCodecAlpha = version;
+		mpcv.set_alpha(version);
+	} else {
+		iCodecBeta = version;
+		mpcv.set_beta(version);
+	}
+
+	mpcv.set_prefer_alpha(bPreferAlpha);
+	sendAll(mpcv);
+	
+	log(QString::fromLatin1("CELT codec switch %1 %2 (prefer %3)").arg(iCodecAlpha,0,16).arg(iCodecBeta,0,16).arg(bPreferAlpha ? iCodecAlpha : iCodecBeta,0,16));
 }

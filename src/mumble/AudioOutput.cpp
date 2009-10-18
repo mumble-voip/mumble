@@ -375,7 +375,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 
 	unsigned int srate = 0;
 
-	if (umtType == MessageHandler::UDPVoiceCELT) {
+	if (umtType == MessageHandler::UDPVoiceCELTAlpha) {
 		srate = SAMPLE_RATE;
 		iFrameSize = srate / 100;
 		cCodec = g.qmCodecs.value(0x8000000a);
@@ -421,7 +421,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 }
 
 AudioOutputSpeech::~AudioOutputSpeech() {
-	if (umtType == MessageHandler::UDPVoiceCELT) {
+	if (umtType == MessageHandler::UDPVoiceCELTAlpha) {
 		cCodec->celt_decoder_destroy(cdDecoder);
 	} else {
 		speex_bits_destroy(&sbBits);
@@ -556,7 +556,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 
 			if (! qlFrames.isEmpty()) {
 				QByteArray qba = qlFrames.takeFirst();
-				if (umtType == MessageHandler::UDPVoiceCELT)
+				if (umtType == MessageHandler::UDPVoiceCELTAlpha)
 					cCodec->celt_decode_float(cdDecoder, reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut);
 				else {
 					speex_bits_read_from(&sbBits, qba.data(), qba.size());
@@ -594,7 +594,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 				if (qlFrames.isEmpty() && bHasTerminator)
 					nextalive = false;
 			} else {
-				if (umtType == MessageHandler::UDPVoiceCELT)
+				if (umtType == MessageHandler::UDPVoiceCELTAlpha)
 					cCodec->celt_decode_float(cdDecoder, NULL, 0, pOut);
 				else {
 					speex_decode(dsSpeex, NULL, pOut);

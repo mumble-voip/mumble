@@ -157,7 +157,7 @@ void ServerHandler::udpReady() {
 			quint64 t;
 			pds >> t;
 			accUDP(static_cast<double>(tTimestamp.elapsed() - t) / 1000.0);
-		} else if (msgType == MessageHandler::UDPVoiceCELT) {
+		} else if (msgType == MessageHandler::UDPVoiceCELTAlpha) {
 			handleVoicePacket(msgFlags, pds, msgType);
 		} else if (msgType == MessageHandler::UDPVoiceSpeex) {
 			handleVoicePacket(msgFlags, pds, msgType);
@@ -335,7 +335,7 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 		unsigned int msgFlags = ptr[0] & 0x1f;
 		PacketDataStream pds(qbaMsg.constData() + 1, qbaMsg.size());
 
-		if (msgType == MessageHandler::UDPVoiceCELT)
+		if (msgType == MessageHandler::UDPVoiceCELTAlpha)
 			handleVoicePacket(msgFlags, pds, msgType);
 		else if (msgType == MessageHandler::UDPVoiceSpeex)
 			handleVoicePacket(msgFlags, pds, msgType);

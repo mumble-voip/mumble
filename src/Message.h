@@ -55,11 +55,12 @@
 	MUMBLE_MH_MSG(ContextAction) \
 	MUMBLE_MH_MSG(UserList) \
 	MUMBLE_MH_MSG(VoiceTarget) \
-	MUMBLE_MH_MSG(PermissionQuery)
+	MUMBLE_MH_MSG(PermissionQuery) \
+	MUMBLE_MH_MSG(CodecVersion)
 
 class MessageHandler {
 	public:
-		enum UDPMessageType { UDPVoiceCELT, UDPPing, UDPVoiceSpeex };
+		enum UDPMessageType { UDPVoiceCELTAlpha, UDPPing, UDPVoiceSpeex, UDPVoiceCELTBeta };
 
 #define MUMBLE_MH_MSG(x) x,
 		enum MessageType {

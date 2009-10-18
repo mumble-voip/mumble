@@ -538,3 +538,6 @@ void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
 		}
 	}
 }
+
+void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &) {
+}
