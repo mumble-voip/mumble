@@ -153,14 +153,21 @@ void ServerHandler::udpReady() {
 		MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((buffer[0] >> 5) & 0x7);
 		unsigned int msgFlags = buffer[0] & 0x1f;
 
-		if (msgType == MessageHandler::UDPPing) {
-			quint64 t;
-			pds >> t;
-			accUDP(static_cast<double>(tTimestamp.elapsed() - t) / 1000.0);
-		} else if (msgType == MessageHandler::UDPVoiceCELTAlpha) {
-			handleVoicePacket(msgFlags, pds, msgType);
-		} else if (msgType == MessageHandler::UDPVoiceSpeex) {
-			handleVoicePacket(msgFlags, pds, msgType);
+		switch(msgType) {
+			case MessageHandler::UDPPing:
+				{
+					quint64 t;
+					pds >> t;
+					accUDP(static_cast<double>(tTimestamp.elapsed() - t) / 1000.0);
+				}
+				break;
+			case MessageHandler::UDPVoiceCELTAlpha:
+			case MessageHandler::UDPVoiceCELTBeta:
+			case MessageHandler::UDPVoiceSpeex:
+				handleVoicePacket(msgFlags, pds, msgType);
+				break;
+			default:
+				break;
 		}
 	}
 }
@@ -334,11 +341,16 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 		MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((ptr[0] >> 5) & 0x7);
 		unsigned int msgFlags = ptr[0] & 0x1f;
 		PacketDataStream pds(qbaMsg.constData() + 1, qbaMsg.size());
-
-		if (msgType == MessageHandler::UDPVoiceCELTAlpha)
-			handleVoicePacket(msgFlags, pds, msgType);
-		else if (msgType == MessageHandler::UDPVoiceSpeex)
-			handleVoicePacket(msgFlags, pds, msgType);
+		
+		switch(msgType) {
+			case MessageHandler::UDPVoiceCELTAlpha:
+			case MessageHandler::UDPVoiceCELTBeta:
+			case MessageHandler::UDPVoiceSpeex:
+				handleVoicePacket(msgFlags, pds, msgType);
+				break;
+			default:
+				break;
+		}
 	} else if (msgType == MessageHandler::Ping) {
 		MumbleProto::Ping msg;
 		if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) {

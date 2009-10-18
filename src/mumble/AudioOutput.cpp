@@ -375,17 +375,15 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 
 	unsigned int srate = 0;
 
-	if (umtType == MessageHandler::UDPVoiceCELTAlpha) {
+	cCodec = NULL;
+	cdDecoder = NULL;
+
+	if (umtType != MessageHandler::UDPVoiceSpeex) {
 		srate = SAMPLE_RATE;
 		iFrameSize = srate / 100;
-		cCodec = g.qmCodecs.value(0x8000000a);
-		cdDecoder = cCodec->decoderCreate();
 
 		dsSpeex = NULL;
 	} else {
-		cCodec = NULL;
-		cdDecoder = NULL;
-
 		speex_bits_init(&sbBits);
 
 		dsSpeex = speex_decoder_init(&speex_uwb_mode);
@@ -421,9 +419,9 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 }
 
 AudioOutputSpeech::~AudioOutputSpeech() {
-	if (umtType == MessageHandler::UDPVoiceCELTAlpha) {
+	if (cdDecoder) {
 		cCodec->celt_decoder_destroy(cdDecoder);
-	} else {
+	} else if (dsSpeex) {
 		speex_bits_destroy(&sbBits);
 		speex_decoder_destroy(dsSpeex);
 	}
@@ -556,9 +554,29 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 
 			if (! qlFrames.isEmpty()) {
 				QByteArray qba = qlFrames.takeFirst();
-				if (umtType == MessageHandler::UDPVoiceCELTAlpha)
-					cCodec->celt_decode_float(cdDecoder, reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut);
-				else {
+
+				if (umtType != MessageHandler::UDPVoiceSpeex) {
+					int wantversion = (umtType == MessageHandler::UDPVoiceCELTAlpha) ? g.iCodecAlpha : g.iCodecBeta;
+					if ((p == &LoopUser::lpLoopy) && (! g.qmCodecs.isEmpty())) {
+						QMap<int, CELTCodec *>::const_iterator i = g.qmCodecs.constEnd();
+						--i;
+						wantversion = i.key();
+					}
+					if (cCodec && (cCodec->bitstreamVersion() != wantversion)) {
+						cCodec->celt_decoder_destroy(cdDecoder);
+						cdDecoder = NULL;
+					}
+					if (! cCodec) {
+						cCodec = g.qmCodecs.value(wantversion);
+						if (cCodec) {
+							cdDecoder = cCodec->decoderCreate();
+						}
+					}
+					if (cdDecoder)
+						cCodec->celt_decode_float(cdDecoder, reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut);
+					else
+						memset(pOut, 0, sizeof(float) * iFrameSize);
+				} else {
 					speex_bits_read_from(&sbBits, qba.data(), qba.size());
 					speex_decode(dsSpeex, &sbBits, pOut);
 					for (unsigned int i=0;i<iFrameSize;++i)
@@ -594,9 +612,12 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 				if (qlFrames.isEmpty() && bHasTerminator)
 					nextalive = false;
 			} else {
-				if (umtType == MessageHandler::UDPVoiceCELTAlpha)
-					cCodec->celt_decode_float(cdDecoder, NULL, 0, pOut);
-				else {
+				if (umtType != MessageHandler::UDPVoiceSpeex) {
+					if (cdDecoder)
+						cCodec->celt_decode_float(cdDecoder, NULL, 0, pOut);
+					else
+						memset(pOut, 0, sizeof(float) * iFrameSize);
+				} else {
 					speex_decode(dsSpeex, NULL, pOut);
 					for (unsigned int i=0;i<iFrameSize;++i)
 						pOut[i] *= (1.0f / 32767.f);

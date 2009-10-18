@@ -93,19 +93,16 @@ AudioInput::AudioInput() {
 	else
 		umtType = MessageHandler::UDPVoiceSpeex;
 
-	if (umtType == MessageHandler::UDPVoiceCELTAlpha) {
+	cCodec = NULL;
+	ceEncoder = NULL;
+
+	if (umtType != MessageHandler::UDPVoiceSpeex) {
 		iSampleRate = SAMPLE_RATE;
 		iFrameSize = SAMPLE_RATE / 100;
 		
-		cCodec = g.qmCodecs.value(0x8000000a);
-		ceEncoder = cCodec->encoderCreate();
-
 		esSpeex = NULL;
 		qWarning("AudioInput: %d bits/s, %d hz, %d sample CELT", iAudioQuality, iSampleRate, iFrameSize);
 	} else {
-		cCodec = NULL;
-		ceEncoder = NULL;
-
 		iAudioFrames /= 2;
 
 		speex_bits_init(&sbBits);
@@ -184,9 +181,9 @@ AudioInput::~AudioInput() {
 	bRunning = false;
 	wait();
 
-	if (umtType == MessageHandler::UDPVoiceCELTAlpha) {
+	if (ceEncoder) {
 		cCodec->celt_encoder_destroy(ceEncoder);
-	} else {
+	} else if (esSpeex) {
 		speex_bits_destroy(&sbBits);
 		speex_encoder_destroy(esSpeex);
 	}
@@ -522,7 +519,7 @@ void AudioInput::setMaxBandwidth(int bitspersec) {
 	}
 
 	AudioInputPtr ai = g.ai;
-	if (ai && (preferCELT(bitrate, frames) == (ai->umtType == MessageHandler::UDPVoiceCELTAlpha))) {
+	if (ai && (preferCELT(bitrate, frames) == (ai->umtType != MessageHandler::UDPVoiceSpeex))) {
 		g.iAudioBandwidth = getNetworkBandwidth(bitrate, frames);
 		ai->iAudioQuality = bitrate;
 		ai->iAudioFrames = frames;
@@ -768,8 +765,44 @@ void AudioInput::encodeAudioFrame() {
 	unsigned char buffer[512];
 	int len;
 
-	if (umtType == MessageHandler::UDPVoiceCELTAlpha) {
+	if (umtType != MessageHandler::UDPVoiceSpeex) {
+		CELTCodec *switchto = NULL;
+
+		if ((g.s.lmLoopMode == Settings::Local) && (! g.qmCodecs.isEmpty())) {
+			// Use latest for local loopback
+			QMap<int, CELTCodec *>::const_iterator i = g.qmCodecs.constEnd();
+			--i;
+			switchto = i.value();
+		} else {
+			if (cCodec && bPreviousVoice) {
+				// Currently talking, don't switch unless you must.
+				int v = cCodec->bitstreamVersion();
+				if ((v == g.iCodecAlpha) || (v == g.iCodecBeta))
+					switchto = cCodec;
+			}
+		}
+		if (! switchto) {
+			switchto = g.qmCodecs.value(g.bPreferAlpha ? g.iCodecAlpha : g.iCodecBeta);
+			umtType = g.bPreferAlpha ? MessageHandler::UDPVoiceCELTAlpha : MessageHandler::UDPVoiceCELTBeta;
+			if (! switchto) {
+				switchto = g.qmCodecs.value(g.bPreferAlpha ? g.iCodecBeta : g.iCodecAlpha);
+				umtType = g.bPreferAlpha ? MessageHandler::UDPVoiceCELTBeta : MessageHandler::UDPVoiceCELTAlpha;
+			}
+		}
+		if (switchto != cCodec) {
+			if (cCodec && ceEncoder) {
+				cCodec->celt_encoder_destroy(ceEncoder);
+				ceEncoder = NULL;
+			}
+			cCodec = switchto;
+			if (cCodec) {
+				ceEncoder = cCodec->encoderCreate();
+			}
+		}
 		
+		if (! cCodec)
+			return;
+			
 		cCodec->celt_encoder_ctl(ceEncoder,CELT_SET_VBR_RATE(iAudioQuality));
 		len = cCodec->celt_encode(ceEncoder, psSource, NULL, buffer, qMin(iAudioQuality / 800, 127));
 	} else {

@@ -48,7 +48,7 @@ CodecInit ciInit;
 
 void CodecInit::initialize() {
 	CELTCodec *codec = NULL;
-
+	
 	codec = new CELTCodec061(QLatin1String("0.6.1"));
 	if (codec->isValid()) {
 		codec->report();
