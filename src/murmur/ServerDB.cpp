@@ -830,6 +830,9 @@ bool Server::setInfo(int id, const QMap<int, QString> &setinfo) {
 	QMap<int, QString> info = setinfo;
 
 	if (info.contains(ServerDB::User_Name)) {
+		const QString &uname = info.value(ServerDB::User_Name);
+		if (uname.isEmpty() || (getUserID(uname) >= 0))
+			return false;
 		qhUserIDCache.remove(qhUserNameCache.value(id));
 		qhUserNameCache.remove(id);
 		qhUserIDCache.remove(info.value(ServerDB::User_Name));
