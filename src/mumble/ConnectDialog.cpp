@@ -49,7 +49,7 @@ PingStats::~PingStats() {
 }
 
 void PingStats::init() {
-	boost::array<double, 3> probs = {0.75, 0.80, 0.95 };
+	boost::array<double, 3> probs = {{0.75, 0.80, 0.95 }};
 
 	asQuantile = new asQuantileType(boost::accumulators::tag::extended_p_square::probabilities = probs);
 	dPing = 0.0;
@@ -102,11 +102,11 @@ ServerView::~ServerView() {
 	delete siPublic;
 }
 
-QMimeData *ServerView::mimeData(const QList<QTreeWidgetItem *> items) const {
-	if (items.isEmpty())
+QMimeData *ServerView::mimeData(const QList<QTreeWidgetItem *> mimeitems) const {
+	if (mimeitems.isEmpty())
 		return NULL;
 
-	ServerItem *si = static_cast<ServerItem *>(items.first());
+	ServerItem *si = static_cast<ServerItem *>(mimeitems.first());
 	return si->toMimeData();
 }
 
@@ -380,7 +380,7 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
 	if (! url.hasQueryItem(QLatin1String("title")))
 		url.addQueryItem(QLatin1String("title"), url.host());
 
-	ServerItem *si = new ServerItem(url.queryItemValue(QLatin1String("title")), url.host(), url.port(), url.userName());
+	ServerItem *si = new ServerItem(url.queryItemValue(QLatin1String("title")), url.host(), static_cast<unsigned short>(url.port()), url.userName());
 	if (! url.password().isEmpty())
 		si->qsPassword = url.password();
 
@@ -423,7 +423,7 @@ QVariant ServerItem::data(int column, int role) const {
 				qsl << qha.toString();
 
 			double ploss = 100.0;
-			quint32 uiRecv = boost::accumulators::count(* asQuantile);
+			quint32 uiRecv = static_cast<quint32>(boost::accumulators::count(* asQuantile));
 
 			if (uiSent > 0)
 				ploss = (uiSent - qMin(uiRecv, uiSent)) * 100. / uiSent;
@@ -464,12 +464,12 @@ QVariant ServerItem::data(int column, int role) const {
 	return QTreeWidgetItem::data(column, role);
 }
 
-void ServerItem::addServerItem(ServerItem *child) {
-	Q_ASSERT(child->siParent == NULL);
+void ServerItem::addServerItem(ServerItem *childitem) {
+	Q_ASSERT(childitem->siParent == NULL);
 
-	child->siParent = this;
-	qlChildren.append(child);
-	child->hideCheck();
+	childitem->siParent = this;
+	qlChildren.append(childitem);
+	childitem->hideCheck();
 
 	if (bParent && (itType != PublicType) && isHidden())
 		setHidden(false);
@@ -505,7 +505,7 @@ void ServerItem::setDatas(double elapsed, quint32 users, quint32 maxusers) {
 	if (dPing == 0.0)
 		dPing = elapsed;
 
-	quint32 ping = lroundf(dPing / 1000.);
+	quint32 ping = static_cast<quint32>(lround(dPing / 1000.));
 
 	bool changed = (ping != uiPing) || (users != uiUsers) || (maxusers != uiMaxUsers);
 
@@ -1328,7 +1328,7 @@ void ConnectDialog::udpReply() {
 		QHostAddress host;
 		unsigned short port;
 
-		int len = sock->readDatagram(blob+4, 24, &host, &port);
+		qint64 len = sock->readDatagram(blob+4, 24, &host, &port);
 		if (len == 24) {
 			qpAddress address(host, port);
 			if (qhPings.contains(address)) {
@@ -1343,7 +1343,7 @@ void ConnectDialog::udpReply() {
 					quint32 maxusers = qFromBigEndian(ping[4]);
 					si->uiBandwidth = qFromBigEndian(ping[5]);
 
-					si->setDatas(elapsed, users, maxusers);
+					si->setDatas(static_cast<double>(elapsed), users, maxusers);
 					si->hideCheck();
 				}
 			}

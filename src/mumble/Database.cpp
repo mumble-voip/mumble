@@ -122,7 +122,7 @@ QList<FavoriteServer> Database::getFavorites() {
 		FavoriteServer fs;
 		fs.qsName = query.value(0).toString();
 		fs.qsHostname = query.value(1).toString();
-		fs.usPort = query.value(2).toUInt();
+		fs.usPort = static_cast<unsigned short>(query.value(2).toUInt());
 		fs.qsUsername = query.value(3).toString();
 		fs.qsPassword = query.value(4).toString();
 		fs.qsUrl = query.value(5).toString();

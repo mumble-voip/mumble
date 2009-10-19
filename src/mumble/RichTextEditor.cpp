@@ -45,7 +45,7 @@ static QString decodeMimeString(const QByteArray &src) {
 
 	if ((src.length() >= 4) && ((src.length() % sizeof(ushort)) == 0)) {
 		const ushort *ptr = reinterpret_cast<const ushort *>(src.constData());
-		int len = src.length() / sizeof(ushort);
+		long unsigned int len = src.length() / sizeof(ushort);
 		if ((ptr[0] > 0) && (ptr[0] < 0x7f) && (ptr[1] > 0) && (ptr[1] < 0x7f)) {
 			while (len && (ptr[len - 1] == 0))
 				--len;

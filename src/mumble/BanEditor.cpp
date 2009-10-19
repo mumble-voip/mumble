@@ -81,13 +81,13 @@ void BanEditor::on_qlwBans_currentRowChanged() {
 		return;
 	const Ban &ban = qlBans.at(idx);
 
-	int mask = ban.iMask;
+	int maskbits = ban.iMask;
 
 	const QHostAddress &addr = ban.haAddress.toAddress();
 	qleIP->setText(addr.toString());
 	if (! ban.haAddress.isV6())
-		mask -= 96;
-	qsbMask->setValue(mask);
+		maskbits -= 96;
+	qsbMask->setValue(maskbits);
 	qlUser->setText(ban.qsUsername);
 	qlHash->setText(ban.qsHash);
 	qleReason->setText(ban.qsReason);
@@ -165,11 +165,11 @@ void BanEditor::refreshBanList() {
 	qSort(qlBans);
 
 	foreach(const Ban &ban, qlBans) {
-		int mask = ban.iMask;
+		int maskbits = ban.iMask;
 		const QHostAddress &addr=ban.haAddress.toAddress();
 		if (! ban.haAddress.isV6())
-			mask -= 96;
-		QString qs = QString::fromLatin1("%1/%2").arg(addr.toString()).arg(mask);
+			maskbits -= 96;
+		QString qs = QString::fromLatin1("%1/%2").arg(addr.toString()).arg(maskbits);
 		qlwBans->addItem(qs);
 	}
 }
