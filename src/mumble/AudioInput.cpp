@@ -798,6 +798,8 @@ void AudioInput::encodeAudioFrame() {
 			if (cCodec) {
 				ceEncoder = cCodec->encoderCreate();
 			}
+		} else if (cCodec && ! bPreviousVoice) {
+			cCodec->celt_encoder_ctl(ceEncoder, CELT_RESET_STATE);
 		}
 
 		if (! cCodec)
@@ -812,6 +814,9 @@ void AudioInput::encodeAudioFrame() {
 			vbr = iAudioQuality;
 			speex_encoder_ctl(esSpeex, SPEEX_SET_VBR_MAX_BITRATE, &vbr);
 		}
+		
+		if (! bPreviousVoice)
+			speex_encoder_ctl(esSpeex, SPEEX_RESET_STATE, NULL);
 
 		speex_encode_int(esSpeex, psSource, &sbBits);
 		len = speex_bits_write(&sbBits, reinterpret_cast<char *>(buffer), 127);
