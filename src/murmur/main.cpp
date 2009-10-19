@@ -187,9 +187,11 @@ int main(int argc, char **argv) {
 
 	QString inifile;
 	QString supw;
-	bool readPw = false;
 	bool wipeSsl = false;
 	int sunum = 1;
+#ifndef Q_OS_WIN
+	bool readPw = false;
+#endif
 
 	qInstallMsgHandler(murmurMessageOutput);
 

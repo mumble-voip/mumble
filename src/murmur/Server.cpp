@@ -1462,7 +1462,7 @@ void Server::recheckCodecVersions() {
 		return;
 
 	int version = 0;
-	int maxu = 0;
+	unsigned int maxu = 0;
 	i = qm.constEnd();
 	do {
 		--i;

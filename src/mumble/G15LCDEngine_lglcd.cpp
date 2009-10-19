@@ -47,7 +47,7 @@ G15LCDEngineLGLCD::G15LCDEngineLGLCD() : LCDEngine() {
 	bRunning = false;
 	bUnavailable = false;
 
-	qsHelperExecutable = QString::fromLatin1("\"%1/mumble-g15-helper%2\"").arg(qApp->applicationDirPath()).arg(G15_LGLCD_EXEC_SUFFIX);
+	qsHelperExecutable = QString::fromLatin1("\"%1/mumble-g15-helper%2\"").arg(qApp->applicationDirPath()).arg(QLatin1String(G15_LGLCD_EXEC_SUFFIX));
 
 	qpHelper = new QProcess(this);
 	qpHelper->setObjectName(QLatin1String("Helper"));

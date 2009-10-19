@@ -455,7 +455,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			}
 		}
 
-		if (iMaxTextMessageLength > 0 && (msg.comment().length() > iMaxTextMessageLength)) {
+		if (iMaxTextMessageLength > 0 && (msg.comment().length() > static_cast<unsigned int>(iMaxTextMessageLength))) {
 			PERM_DENIED_TYPE(TextTooLong);
 			return;
 		}
@@ -635,7 +635,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 	QString qsName;
 	QString qsDesc;
 	if (msg.has_description()) {
-		if (iMaxTextMessageLength > 0 && (msg.description().length() > iMaxTextMessageLength)) {
+		if (iMaxTextMessageLength > 0 && (msg.description().length() > static_cast<unsigned int>(iMaxTextMessageLength))) {
 			PERM_DENIED_TYPE(TextTooLong);
 			return;
 		}
@@ -869,7 +869,7 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	QSet<ServerUser *> users;
 	QQueue<Channel *> q;
 
-	if (iMaxTextMessageLength > 0 && (msg.message().length() > iMaxTextMessageLength)) {
+	if (iMaxTextMessageLength > 0 && (msg.message().length() > static_cast<unsigned int>(iMaxTextMessageLength))) {
 		PERM_DENIED_TYPE(TextTooLong);
 		return;
 	}

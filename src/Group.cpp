@@ -256,7 +256,7 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUse
 
 		while (! s.isEmpty()) {
 			g = s.pop();
-			if (g->qsAdd.contains(pl->iId) || g->qsTemporary.contains(pl->iId) || g->qsTemporary.contains(- (pl->uiSession)))
+			if (g->qsAdd.contains(pl->iId) || g->qsTemporary.contains(pl->iId) || g->qsTemporary.contains(- static_cast<int>(pl->uiSession)))
 				m = true;
 			if (g->qsRemove.contains(pl->iId))
 				m = false;
