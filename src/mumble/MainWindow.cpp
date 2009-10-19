@@ -1176,8 +1176,10 @@ void MainWindow::on_qaChannelAdd_triggered() {
 	}
 
 	aclEdit = new ACLEditor(c ? c->iId : 0, this);
-	if (c && (c->uiPermissions & ChanACL::Cached) && !(c->uiPermissions & (ChanACL::Write | ChanACL::MakeChannel)))
+	if (c && (c->uiPermissions & ChanACL::Cached) && !(c->uiPermissions & (ChanACL::Write | ChanACL::MakeChannel))) {
+		aclEdit->qcbChannelTemporary->setEnabled(false);
 		aclEdit->qcbChannelTemporary->setChecked(true);
+	}
 
 	aclEdit->show();
 }
