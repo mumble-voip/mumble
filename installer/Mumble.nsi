@@ -450,6 +450,7 @@ end:
   RMDir "$INSTDIR"
 
   Delete "$DESKTOP\Mumble.lnk"
+  Delete "$DESKTOP\$(MUMBLE_COMPAT_LNK).lnk"
   Delete "$DESKTOP\Murmur.lnk"
 
   !insertmacro MUI_STARTMENU_GETFOLDER Application $MUI_TEMP
