@@ -240,13 +240,13 @@ void UserView::keyboardSearch(const QString &search) {
 	QModelIndex qmi = qmil.at(0);
 
 	QModelIndex p = qmi.parent();
-	bool isVisible = true;
-	while (isVisible && p.isValid()) {
-		isVisible = isVisible && isExpanded(p);
+	bool visible = true;
+	while (visible && p.isValid()) {
+		visible = visible && isExpanded(p);
 		p = p.parent();
 	}
 
-	if (isVisible)
+	if (visible)
 		selectionModel()->setCurrentIndex(qmi, QItemSelectionModel::ClearAndSelect);
 	else {
 		qpmiSearch = qmi;

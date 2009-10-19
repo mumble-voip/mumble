@@ -476,7 +476,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 
 	if (msg.has_texture()) {
 		if (uSource->iId > 0) {
-			QByteArray qba = QByteArray(msg.texture().data(), msg.texture().size());
+			QByteArray qba = QByteArray(msg.texture().data(), static_cast<int>(msg.texture().size()));
 			if (! setTexture(uSource->iId, qba))
 				return;
 		}

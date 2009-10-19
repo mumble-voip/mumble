@@ -761,7 +761,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	pdi >> counter;
 
 	do {
-		counter = pdi.next();
+		counter = pdi.next8();
 		pdi.skip(counter & 0x7f);
 	} while ((counter & 0x80) && pdi.isValid());
 
@@ -773,11 +773,11 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	len = pds.size() + 1;
 
 	if (target == 0x1f) {
-		buffer[0] = type | 0;
+		buffer[0] = static_cast<char>(type | 0);
 		sendMessage(u, buffer, len, qba);
 		return;
 	} else if (target == 0) {
-		buffer[0] = type | 0;
+		buffer[0] = static_cast<char>(type | 0);
 		foreach(p, c->qlUsers) {
 			ServerUser *pDst = static_cast<ServerUser *>(p);
 			SENDTO;
@@ -867,7 +867,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 				return;
 		}
 		if (! channel.isEmpty()) {
-			buffer[0] = type | 1;
+			buffer[0] = static_cast<char>(type | 1);
 			foreach(ServerUser *pDst, channel) {
 				SENDTO;
 			}
@@ -877,7 +877,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 			}
 		}
 		if (! direct.isEmpty()) {
-			buffer[0] = type | 2;
+			buffer[0] = static_cast<char>(type | 2);
 			foreach(ServerUser *pDst, direct) {
 				SENDTO;
 			}
@@ -1478,7 +1478,7 @@ void Server::recheckCodecVersions() {
 
 	MumbleProto::CodecVersion mpcv;
 
-	if (version == 0x8000000a)
+	if (version == static_cast<qint32>(0x8000000a))
 		bPreferAlpha = true;
 	else
 		bPreferAlpha = ! bPreferAlpha;

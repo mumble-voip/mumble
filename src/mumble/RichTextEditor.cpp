@@ -45,7 +45,7 @@ static QString decodeMimeString(const QByteArray &src) {
 
 	if ((src.length() >= 4) && ((src.length() % sizeof(ushort)) == 0)) {
 		const ushort *ptr = reinterpret_cast<const ushort *>(src.constData());
-		long unsigned int len = src.length() / sizeof(ushort);
+		int len = static_cast<int>(src.length() / sizeof(ushort));
 		if ((ptr[0] > 0) && (ptr[0] < 0x7f) && (ptr[1] > 0) && (ptr[1] < 0x7f)) {
 			while (len && (ptr[len - 1] == 0))
 				--len;
@@ -53,9 +53,9 @@ static QString decodeMimeString(const QByteArray &src) {
 		}
 	}
 
-	if ((sizeof(wchar_t) != sizeof(ushort)) && (src.length() >= sizeof(wchar_t)) && ((src.length() % sizeof(wchar_t)) == 0)) {
+	if ((sizeof(wchar_t) != sizeof(ushort)) && (src.length() >= static_cast<int>(sizeof(wchar_t))) && ((src.length() % sizeof(wchar_t)) == 0)) {
 		const wchar_t *ptr = reinterpret_cast<const wchar_t *>(src.constData());
-		int len = src.length() / sizeof(wchar_t);
+		int len = static_cast<int>(src.length() / sizeof(wchar_t));
 		if (*ptr < 0x7f) {
 			while (len && (ptr[len - 1] == 0))
 				--len;
@@ -161,10 +161,10 @@ RichTextEditorLink::RichTextEditorLink(const QString &txt, QWidget *p) : QDialog
 
 QString RichTextEditorLink::text() const {
 	QUrl url(qleUrl->text(), QUrl::StrictMode);
-	QString text = qleText->text();
+	QString txt = qleText->text();
 
-	if (url.isValid() && ! url.isRelative() && ! text.isEmpty()) {
-		return QString::fromLatin1("<a href=\"%1\">%2</a>").arg(QLatin1String(url.toEncoded()), Qt::escape(text));
+	if (url.isValid() && ! url.isRelative() && ! txt.isEmpty()) {
+		return QString::fromLatin1("<a href=\"%1\">%2</a>").arg(QLatin1String(url.toEncoded()), Qt::escape(txt));
 	}
 
 	return QString();
@@ -414,6 +414,8 @@ static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int
 			case QXmlStreamReader::Characters:
 				if (! ignore)
 					writer.writeCharacters(reader.text().toString());
+				break;
+			default:
 				break;
 		}
 	}
