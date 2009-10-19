@@ -106,6 +106,14 @@ CELTCodec::CELTCodec(const QString &version) {
 			break;
 		}
 
+#ifdef Q_OS_MAC
+		qlCELT.setFileName(QApplication::instance()->applicationDirPath() + QLatin1String("/../Codecs/") + lib);
+		if (qlCELT.load()) {
+			bValid = true;
+			break;
+		}
+#endif
+
 #ifdef PLUGIN_PATH
 		qlCELT.setFileName(QLatin1String(MUMTEXT(PLUGIN_PATH) "/") + lib);
 		if (qlCELT.load()) {
