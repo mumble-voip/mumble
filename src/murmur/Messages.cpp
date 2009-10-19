@@ -201,13 +201,13 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	userEnterChannel(uSource, lc, true);
 
 	if (msg.celt_versions_size() > 0) {
-		for(int i=0;i < msg.celt_versions_size(); ++i)
+		for (int i=0;i < msg.celt_versions_size(); ++i)
 			uSource->qlCodecs.append(msg.celt_versions(i));
 	} else {
 		uSource->qlCodecs.append(static_cast<qint32>(0x8000000a));
 	}
 	recheckCodecVersions();
-	
+
 	MumbleProto::CodecVersion mpcv;
 	mpcv.set_alpha(iCodecAlpha);
 	mpcv.set_beta(iCodecBeta);
@@ -256,7 +256,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 	// Transmit user profile
 	MumbleProto::UserState mpus;
-	
+
 	uSource->sState = ServerUser::Authenticated;
 	mpus.set_session(uSource->uiSession);
 	mpus.set_name(u8(uSource->qsName));

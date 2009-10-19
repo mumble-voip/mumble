@@ -153,9 +153,8 @@ void ServerHandler::udpReady() {
 		MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((buffer[0] >> 5) & 0x7);
 		unsigned int msgFlags = buffer[0] & 0x1f;
 
-		switch(msgType) {
-			case MessageHandler::UDPPing:
-				{
+		switch (msgType) {
+			case MessageHandler::UDPPing: {
 					quint64 t;
 					pds >> t;
 					accUDP(static_cast<double>(tTimestamp.elapsed() - t) / 1000.0);
@@ -341,8 +340,8 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 		MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((ptr[0] >> 5) & 0x7);
 		unsigned int msgFlags = ptr[0] & 0x1f;
 		PacketDataStream pds(qbaMsg.constData() + 1, qbaMsg.size());
-		
-		switch(msgType) {
+
+		switch (msgType) {
 			case MessageHandler::UDPVoiceCELTAlpha:
 			case MessageHandler::UDPVoiceCELTBeta:
 			case MessageHandler::UDPVoiceSpeex:
@@ -438,9 +437,9 @@ void ServerHandler::serverConnectionConnected() {
 	QStringList tokens = Database::getTokens(qbaDigest);
 	foreach(const QString &qs, tokens)
 		mpa.add_tokens(u8(qs));
-	
+
 	QMap<int, CELTCodec *>::const_iterator i;
-	for(i=g.qmCodecs.constBegin(); i != g.qmCodecs.constEnd(); ++i)
+	for (i=g.qmCodecs.constBegin(); i != g.qmCodecs.constEnd(); ++i)
 		mpa.add_celt_versions(i.key());
 
 	sendMessage(mpa);

@@ -341,7 +341,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 
 	qtd.adjustSize();
 	QSizeF s = qtd.size();
-	
+
 	if (!valid || (s.width() > qr.width()) || (s.height() > qr.height())) {
 		qtd.setPlainText(html);
 		qtd.adjustSize();

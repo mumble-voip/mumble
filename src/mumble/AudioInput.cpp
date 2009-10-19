@@ -99,7 +99,7 @@ AudioInput::AudioInput() {
 	if (umtType != MessageHandler::UDPVoiceSpeex) {
 		iSampleRate = SAMPLE_RATE;
 		iFrameSize = SAMPLE_RATE / 100;
-		
+
 		esSpeex = NULL;
 		qWarning("AudioInput: %d bits/s, %d hz, %d sample CELT", iAudioQuality, iSampleRate, iFrameSize);
 	} else {
@@ -799,10 +799,10 @@ void AudioInput::encodeAudioFrame() {
 				ceEncoder = cCodec->encoderCreate();
 			}
 		}
-		
+
 		if (! cCodec)
 			return;
-			
+
 		cCodec->celt_encoder_ctl(ceEncoder,CELT_SET_VBR_RATE(iAudioQuality));
 		len = cCodec->celt_encode(ceEncoder, psSource, NULL, buffer, qMin(iAudioQuality / 800, 127));
 	} else {

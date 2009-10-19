@@ -493,8 +493,7 @@ void MainWindow::findDesiredChannel() {
 			g.sh->sendMessage(mpus);
 		}
 		qtvUsers->setCurrentIndex(pmModel->index(chan));
-	}
-	else {
+	} else {
 		qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(g.uiSession)->cChannel));
 	}
 	updateMenuPermissions();
@@ -643,7 +642,7 @@ void MainWindow::on_qmServer_aboutToShow() {
 	qaServerInformation->setEnabled(g.uiSession != 0);
 	qaServerTexture->setEnabled(g.uiSession != 0);
 	qaServerTokens->setEnabled(g.uiSession != 0);
-	
+
 	ClientUser *user = ClientUser::get(g.uiSession);
 	qaServerTextureRemove->setEnabled(user && ! user->qbaTexture.isEmpty());
 
@@ -1298,7 +1297,7 @@ void MainWindow::updateMenuPermissions() {
 			p = g.pPermissions;
 		else
 			p = ChanACL::All;
-		
+
 		c->uiPermissions = p;
 	}
 
@@ -1314,7 +1313,7 @@ void MainWindow::updateMenuPermissions() {
 			homep = g.pPermissions;
 		else
 			homep = ChanACL::All;
-			
+
 		homec->uiPermissions = homep;
 	}
 
@@ -1675,7 +1674,7 @@ void MainWindow::serverConnected() {
 	g.iCodecAlpha = 0x8000000a;
 	g.bPreferAlpha = true;
 	g.iCodecBeta = 0;
-	
+
 	g.l->clearIgnore();
 	g.l->setIgnore(Log::UserJoin);
 	g.l->setIgnore(Log::OtherSelfMute);
@@ -1714,7 +1713,7 @@ void MainWindow::serverDisconnected(QString reason) {
 
 	QString uname, pw, host;
 	unsigned short port;
-	g.sh->getConnectionInfo(host, port, uname, pw);	
+	g.sh->getConnectionInfo(host, port, uname, pw);
 	if (Database::setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts))
 		GlobalShortcutEngine::engine->bNeedRemap = true;
 
@@ -1907,8 +1906,7 @@ void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)
 
 	if (g.uiSession == 0) {
 		qleChat->setDefaultText(tr("Not connected"));
-	}
-	else if (p == NULL || p->uiSession == g.uiSession) {
+	} else if (p == NULL || p->uiSession == g.uiSession) {
 		// Channel tree target
 		if (c == NULL) // If no channel selected fallback to current one
 			c = ClientUser::get(g.uiSession)->cChannel;

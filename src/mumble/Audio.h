@@ -64,9 +64,9 @@ class CELTCodec {
 		virtual ~CELTCodec();
 		bool isValid() const;
 		int bitstreamVersion() const;
-		
+
 		virtual void report() const;
-		
+
 		virtual CELTEncoder *encoderCreate() = 0;
 		virtual CELTDecoder *decoderCreate() = 0;
 };

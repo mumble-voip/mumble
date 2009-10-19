@@ -146,7 +146,7 @@ class ServerUser : public Connection, public User {
 
 		HostAddress haAddress;
 		bool bUdp;
-		
+
 		QList<int> qlCodecs;
 
 		QStringList qslAccessTokens;
@@ -212,7 +212,7 @@ class Server : public QThread {
 		bool bValid;
 
 		void readParams();
-		
+
 		int iCodecAlpha;
 		int iCodecBeta;
 		bool bPreferAlpha;

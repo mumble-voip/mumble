@@ -542,7 +542,7 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 	int alpha = msg.has_alpha() ? msg.alpha() : -1;
 	int beta = msg.has_beta() ? msg.beta() : -1;
 	bool pref = msg.prefer_alpha();
-	
+
 	if ((alpha != -1) && (alpha != g.iCodecAlpha)) {
 		g.iCodecAlpha = alpha;
 		if (pref && ! g.qmCodecs.contains(alpha))
@@ -554,9 +554,9 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 			pref = ! pref;
 	}
 	g.bPreferAlpha = pref;
-	
+
 	int willuse = pref ? g.iCodecAlpha : g.iCodecBeta;
-	
+
 	static bool warned = false;
 
 	if (! g.qmCodecs.contains(willuse)) {

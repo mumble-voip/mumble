@@ -47,7 +47,7 @@ Global::Global() {
 	bPosTest = false;
 	iAudioPathTime = 0;
 	iMaxBandwidth = -1;
-	
+
 	iCodecAlpha = 0;
 	iCodecBeta = 0;
 	bPreferAlpha = true;

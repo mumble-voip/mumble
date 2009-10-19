@@ -48,7 +48,7 @@ CodecInit ciInit;
 
 void CodecInit::initialize() {
 	CELTCodec *codec = NULL;
-	
+
 	codec = new CELTCodec061(QLatin1String("0.6.1"));
 	if (codec->isValid()) {
 		codec->report();
@@ -56,7 +56,7 @@ void CodecInit::initialize() {
 	} else {
 		delete codec;
 	}
-	
+
 	codec = new CELTCodec061(QLatin1String("0.6.2"));
 	if (codec->isValid()) {
 		codec->report();
@@ -87,7 +87,7 @@ CELTCodec::CELTCodec(const QString &version) {
 	bValid = false;
 	cmMode = NULL;
 	qlCELT.setLoadHints(QLibrary::ResolveAllSymbolsHint);
-	
+
 	QStringList alternatives;
 #if defined(Q_OS_MAC)
 	alternatives << QString::fromLatin1("celt.%1.dylib").arg(version);
@@ -160,9 +160,9 @@ CELTCodec061::CELTCodec061(const QString &version) : CELTCodec(version) {
 	RESOLVE(celt_mode_create);
 
 	RESOLVE(celt_encoder_create);
-	
+
 	RESOLVE(celt_decoder_create);
-	
+
 	if (bValid) {
 		cmMode = celt_mode_create(SAMPLE_RATE, 1, SAMPLE_RATE / 100, NULL);
 	}
@@ -180,7 +180,7 @@ CELTCodec070::CELTCodec070(const QString &version) : CELTCodec(version) {
 	RESOLVE(celt_mode_create);
 	RESOLVE(celt_encoder_create);
 	RESOLVE(celt_decoder_create);
-	
+
 	if (bValid) {
 		cmMode = celt_mode_create(SAMPLE_RATE, SAMPLE_RATE / 100, NULL);
 	}

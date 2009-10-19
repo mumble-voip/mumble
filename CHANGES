@@ -1,10 +1,59 @@
+2009-10-19
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    5917312  Don't allow to disable the temporary checkbox
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    d655742  Default codec to 0x800000a on client
+    53bb306  Clientside celt codec juggling
+    73388f3  Force alpha-preference for bitstream 8000000a
+
+2009-10-18
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    7dbaf74  Use full version filenames for celt lib
+    925dd22  Serverside alpha/beta celt version choice
+    5f8c841  Use int instead of uint to represent version
+    f00341b  Set permission value to heuristic to avoid quadruple query
+    a3aea25  Send celt version on login
+    2abfacf  Multicelt build fixes on nix
+    5247bf7  Clientside celt juggling library load
+    b8813f3  Build CELT dynamic
+
+2009-10-17
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    a879bf8  Fix 2880700 : [8af721] wrong chat line text
+    fe8789c  Fix behavior if we don't get permission query replies.
+    aa88607  Fix permission poll on connect + docs for involved functions
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    465cbbd  Use 0 to express missing permissions
+    94035cf  Add CELT version vector to authenticate packet
+    d9335a5  Move user before clearing cache, not after
+
+2009-10-16
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    20ec12c  Don't query channel permissions when disconnected
+    1ba7c2d  Clear permission cache on root on connect
+
+2009-10-15
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    696bfed  Avoid overcopy for multichannel echo
+    d1e5d7f  English source strings
+    8fdfabe  Include image dimensions in document size
+    7a8ca97  Remove texture option and fix chantemp default
+
 2009-10-14
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    62c3531  Disable chatbar if it is not usable anyway.
+
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     d0b371c  fix text cursor in chatbar
 
   Thorvald Natvig <slicer@users.sourceforge.net>
     5ae7c8c  SuperUser can't query permissions
     2c92c17  Clientside permission query
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    7eee5f5  Source plugins update
 
 2009-10-13
   Chosi <chosi@choseh.de>
