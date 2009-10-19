@@ -359,7 +359,7 @@ void Server::readParams() {
 void Server::setLiveConf(const QString &key, const QString &value) {
 	QString v = value.trimmed().isEmpty() ? QString() : value;
 	int i = v.toInt();
-	if (key == "password")
+	if ((key == "password") || (key == "serverpassword"))
 		qsPassword = !v.isNull() ? v : Meta::mp.qsPassword;
 	else if (key == "timeout")
 		iTimeout = i ? i : Meta::mp.iTimeout;

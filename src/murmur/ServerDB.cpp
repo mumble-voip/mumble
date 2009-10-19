@@ -1540,8 +1540,10 @@ QList<QPair<unsigned int, QString> > ServerDB::getLog(int server_id, unsigned in
 	return ql;
 }
 
-void ServerDB::setConf(int server_id, const QString &key, const QVariant &value) {
+void ServerDB::setConf(int server_id, const QString &k, const QVariant &value) {
 	TransactionHolder th;
+	
+	const QString &key = (k == "serverpassword") ? "password" : k;
 
 	QSqlQuery &query = *th.qsqQuery;
 	if (value.isNull() || value.toString().trimmed().isEmpty()) {
