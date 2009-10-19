@@ -257,6 +257,10 @@ void ConfigDialog::apply() {
 
 	// They might have changed their keys.
 	g.iPushToTalk = 0;
+
+	NSWindow *window = qt_mac_window_for(this);
+	ConfigDialogDelegate *delegate = [[window toolbar] delegate];
+	g.s.bExpert = [delegate expertMode];
 }
 
 void ConfigDialog::accept() {

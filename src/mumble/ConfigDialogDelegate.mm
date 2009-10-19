@@ -190,6 +190,10 @@ static NSMutableDictionary *toolbarItemCache = nil;
 	configDialog->updateExpert([button state] == NSOnState);
 }
 
+- (BOOL) expertMode {
+	return inExpertMode;
+}
+
 - (void) dealloc {
 	[nameWidgetMapping release];
 	[identifiers release];
