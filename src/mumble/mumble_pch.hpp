@@ -1,3 +1,4 @@
+#ifndef Q_MOC_RUN
 #ifndef _MUMBLE_PCH_H
 #define _MUMBLE_PCH_H
 
@@ -119,4 +120,5 @@ typedef WId HWND;
  #define nil 0
 #endif
 
+#endif
 #endif

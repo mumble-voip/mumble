@@ -1,3 +1,4 @@
+#ifndef Q_MOC_RUN
 #ifndef _MURMUR_PCH_H
 #define _MURMUR_PCH_H
 
@@ -100,4 +101,5 @@ extern "C" {
 #include <dns_sd.h>
 #endif
 
+#endif
 #endif
