@@ -1542,7 +1542,7 @@ QList<QPair<unsigned int, QString> > ServerDB::getLog(int server_id, unsigned in
 
 void ServerDB::setConf(int server_id, const QString &k, const QVariant &value) {
 	TransactionHolder th;
-	
+
 	const QString &key = (k == "serverpassword") ? "password" : k;
 
 	QSqlQuery &query = *th.qsqQuery;

@@ -105,7 +105,7 @@ class PacketDataStream {
 				return 0;
 			}
 		};
-		
+
 		quint8 next8() {
 			if (offset < maxsize)
 				return data[offset++];

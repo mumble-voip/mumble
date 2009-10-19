@@ -1,8 +1,24 @@
 2009-10-19
+  Martin Skilnand <cybknight@users.sourceforge.net>
+    a2426bf  Test icons/muted_local.svg
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    3cf23bd  Properly save expert state in OSX ConfigDialog.
+    a484529  CELT dynload paths for OSX.
+
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     5917312  Don't allow to disable the temporary checkbox
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    59678e2  Delete 1.1.x shortcut from desktop on uninstall
+    8a7b17e  Allow serverpassword as alias for password in setConf
+    d97a49f  Check if name is already in use before allowing a rename
+    d71202b  Fix more compiler warnings
+    12a2644  Fix a few compiler warnings
+    9958660  Clean up compiler warnings on Win32
+    943f241  Moc turbo-mode
+    aed0eda  Update Win32 installer with celt dynlibs
+    a122549  Reset encoder when restarting sending
     d655742  Default codec to 0x800000a on client
     53bb306  Clientside celt codec juggling
     73388f3  Force alpha-preference for bitstream 8000000a

@@ -814,7 +814,7 @@ void AudioInput::encodeAudioFrame() {
 			vbr = iAudioQuality;
 			speex_encoder_ctl(esSpeex, SPEEX_SET_VBR_MAX_BITRATE, &vbr);
 		}
-		
+
 		if (! bPreviousVoice)
 			speex_encoder_ctl(esSpeex, SPEEX_RESET_STATE, NULL);
 
