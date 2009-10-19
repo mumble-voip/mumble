@@ -81,7 +81,7 @@ void CodecInit::destroy() {
 }
 
 
-#define RESOLVE(var) { var = reinterpret_cast<BOOST_TYPEOF(var)>(qlCELT.resolve(#var)); bValid = bValid && (var != NULL); }
+#define RESOLVE(var) { * reinterpret_cast<void **>(&var) = static_cast<void *>(qlCELT.resolve(#var)); bValid = bValid && (var != NULL); }
 
 CELTCodec::CELTCodec(const QString &version) {
 	bValid = false;
