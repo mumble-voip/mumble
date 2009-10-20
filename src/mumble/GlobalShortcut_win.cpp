@@ -176,6 +176,7 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	QString sname = QString::fromUtf16(reinterpret_cast<const ushort *>(pdidi->tszInstanceName));
 
 	InputDevice *id = new InputDevice;
+	id->pDID = NULL;
 	id->name = name;
 	id->guid = pdidi->guidInstance;
 	id->vguid = QVariant(QUuid(id->guid).toString());
