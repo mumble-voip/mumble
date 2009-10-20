@@ -54,7 +54,7 @@ void MumbleSSL::addSystemCA() {
 			QByteArray qba(reinterpret_cast<const char *>(pCertContext->pbCertEncoded), pCertContext->cbCertEncoded);
 
 			QList<QSslCertificate> ql = QSslCertificate::fromData(qba, QSsl::Pem);
-			ql.append(QSslCertificate::fromData(qba, QSsl::Der));
+			ql += QSslCertificate::fromData(qba, QSsl::Der);
 			if (! ql.isEmpty()) {
 				found = true;
 				QSslSocket::addDefaultCaCertificates(ql);
@@ -111,7 +111,7 @@ void MumbleSSL::addSystemCA() {
 		QFile f(filename);
 		if (f.exists() && f.open(QIODevice::ReadOnly)) {
 			QList<QSslCertificate> ql = QSslCertificate::fromDevice(&f, QSsl::Pem);
-			ql.append(QSslCertificate::fromDevice(&f, QSsl::Der));
+			ql += QSslCertificate::fromDevice(&f, QSsl::Der);
 			if (! ql.isEmpty()) {
 				qWarning("SSL: Added CA certificates from '%s'", qPrintable(filename));
 				QSslSocket::addDefaultCaCertificates(ql);
