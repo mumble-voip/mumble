@@ -880,7 +880,11 @@ void MainWindow::on_qaUserLocalMute_triggered() {
 	if (!p)
 		return;
 
-	p->setLocalMute(qaUserLocalMute->isChecked());
+	bool muted = qaUserLocalMute->isChecked();
+
+	p->setLocalMute(muted);
+	if (! p->qsHash.isEmpty())
+		Database::setLocalMuted(p->qsHash, muted);
 }
 
 void MainWindow::on_qaUserDeaf_triggered() {

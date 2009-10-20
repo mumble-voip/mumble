@@ -109,6 +109,9 @@ Database::Database() {
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_name` ON `friends`(`name`)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_hash` ON `friends`(`hash`)"));
 
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `muted` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
+	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `muted_hash` ON `muted`(`hash`)"));
+
 	query.exec(QLatin1String("DELETE FROM `comments` WHERE `seen` < datetime('now', '-1 years')"));
 }
 
@@ -150,6 +153,29 @@ void Database::setFavorites(const QList<FavoriteServer> &servers) {
 	}
 
 	QSqlDatabase::database().commit();
+}
+
+bool Database::isLocalMuted(const QString &hash) {
+	QSqlQuery query;
+
+	query.prepare(QLatin1String("SELECT `hash` FROM `muted` WHERE `hash` = ?"));
+	query.addBindValue(hash);
+	query.exec();
+	while (query.next()) {
+		return true;
+	}
+	return false;
+}
+
+void Database::setLocalMuted(const QString &hash, bool muted) {
+	QSqlQuery query;
+
+	if (muted)
+		query.prepare(QLatin1String("INSERT INTO `muted` (`hash`) VALUES (?)"));
+	else
+		query.prepare(QLatin1String("DELETE FROM `muted` WHERE `hash` = ?"));
+	query.addBindValue(hash);
+	query.exec();
 }
 
 bool Database::seenComment(const QString &hash, const QString &comment) {

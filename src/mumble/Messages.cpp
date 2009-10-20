@@ -205,6 +205,8 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		const QString &name = Database::getFriend(pDst->qsHash);
 		if (! name.isEmpty())
 			pmModel->setFriendName(pDst, name);
+		if (Database::isLocalMuted(pDst->qsHash))
+			pDst->setLocalMute(true);
 	}
 
 	if (msg.has_self_deaf() || msg.has_self_mute()) {
