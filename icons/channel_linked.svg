@@ -1103,7 +1103,7 @@
          offset="0"
          id="stop1624-4" />
       <stop
-         style="stop-color:#0064ff;stop-opacity:0.05882353;"
+         style="stop-color:#0064ff;stop-opacity:0.3951613;"
          offset="1"
          id="stop1626-0" />
     </linearGradient>
@@ -1162,14 +1162,14 @@
     </filter>
     <radialGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient1622-7"
+       xlink:href="#linearGradient3008"
        id="radialGradient3823"
        cx="57.883816"
        cy="45.643154"
        fx="57.883816"
        fy="45.643154"
        r="26.141081"
-       gradientTransform="matrix(0.93662159,-0.02819319,0.04478603,1.487861,1.6244055,-20.635584)"
+       gradientTransform="matrix(0.95023408,-0.02937881,0.04543694,1.5504307,1.8591751,-21.260894)"
        gradientUnits="userSpaceOnUse" />
     <radialGradient
        inkscape:collect="always"
@@ -1180,7 +1180,7 @@
        fx="56.366455"
        fy="47.834381"
        r="32.203327"
-       gradientTransform="matrix(0.66209188,0.01955536,-0.01662518,0.5725877,20.318237,18.376507)"
+       gradientTransform="matrix(0.82324555,0.0226486,-0.02067176,0.66315901,12.684945,13.658136)"
        gradientUnits="userSpaceOnUse" />
     <filter
        inkscape:collect="always"
@@ -1452,23 +1452,23 @@
      style="display:inline">
     <path
        sodipodi:type="arc"
-       style="fill:url(#radialGradient3825);fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline;filter:url(#filter3798)"
+       style="opacity:1;fill:url(#radialGradient3825);fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline;filter:url(#filter3798)"
        id="path398-7-5"
        sodipodi:cx="57.883816"
        sodipodi:cy="45.643154"
        sodipodi:rx="21.784233"
        sodipodi:ry="18.257261"
        d="m 79.668049,45.643154 a 21.784233,18.257261 0 1 1 -43.568466,0 a 21.784233,18.257261 0 1 1 43.568466,0 z"
-       transform="matrix(2.39143,0,0,2.3710795,-91.537122,-20.256743)" />
+       transform="matrix(1.9232979,0,0,2.047248,-67.344411,-4.6461766)" />
     <path
        sodipodi:type="arc"
-       style="opacity:0.80000000000000004;fill:url(#radialGradient3823);fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline;filter:url(#filter1630-2)"
+       style="opacity:0.8;fill:url(#radialGradient3823);fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline;filter:url(#filter1630-2)"
        id="path398-1"
        sodipodi:cx="57.883816"
        sodipodi:cy="45.643154"
        sodipodi:rx="21.784233"
        sodipodi:ry="18.257261"
        d="m 79.668049,45.643154 a 21.784233,18.257261 0 1 1 -43.568466,0 a 21.784233,18.257261 0 1 1 43.568466,0 z"
-       transform="translate(-15.145232,43.568458)" />
+       transform="matrix(0.98567456,0,0,0.95964371,-15.353367,43.335758)" />
   </g>
 </svg>
