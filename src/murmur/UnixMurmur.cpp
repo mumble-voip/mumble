@@ -178,7 +178,12 @@ void UnixMurmur::handleSigHup() {
 	::read(iHupFd[1], &tmp, sizeof(tmp));
 
 	if (! qfLog || ! qfLog->isOpen()) {
-		qWarning("Caught SIGHUP, but logfile not in use");
+		if (qfLog) {
+			qWarning("Caught SIGHUP, but logfile not in use -- interpreting as hint to quit");
+			QCoreApplication::instance()->quit();
+		} else {
+			qWarning("Caught SIGHUP, but logfile not in use");
+		}
 	} else {
 		qWarning("Caught SIGHUP, will reopen %s", qPrintable(Meta::mp.qsLogfile));
 		qfLog->close();
