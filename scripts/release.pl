@@ -60,13 +60,21 @@ while (my $pro = shift @pro) {
       my ($var,$value)=(lc $1,$2);
       switch ($var) {
         case "version" {
-          if ($basedir !~ /mumble11x/) {
-            croak "Versions don't match" if (defined($ver) && ($ver ne $value));
-            $ver=$value;
+          if ($value !~ /\$\$/) {
+            if ($basedir !~ /mumble11x/) {
+              croak "Versions don't match" if (defined($ver) && ($ver ne $value));
+              $ver=$value;
+            }
           }
         }
         case "vpath" {
-          push @vpath,map { "$basedir$_/"} split(/\s/, $value);
+          if ($value eq '../$$SOURCEDIR/libcelt') {
+            my $vdir = $basedir;
+            $vdir =~ s/-build/-src/;
+            push @vpath, $vdir.'libcelt/';
+          } else {
+            push @vpath,map { "$basedir$_/"} split(/\s/, $value);
+          }
         }
         case "subdirs" {
           push @pro,map { my ($b,$p) = ($_,$_); $p =~ s/^.+\///g; "$basedir$b/$p.pro" } split(/\s/, $value);
@@ -121,7 +129,13 @@ foreach my $resfile (@resources) {
   close(F);
 }
 
-foreach my $dir ('speex','speex/include/speex','speex/libspeex','man','celt','celt/libcelt') {
+my @fulldirs = ('speex','speex/include/speex','speex/libspeex','man');
+foreach my $cver ('0.6.1','0.6.2','0.6.3') {
+  push @fulldirs, "celt-$cver-src";
+  push @fulldirs, "celt-$cver-src/libcelt";
+}
+
+foreach my $dir (@fulldirs) {
   opendir(D, $dir) or croak "Could not open $dir";
   foreach my $f (grep(! /^\./,readdir(D))) {
     next if ($f =~ /\~$/);
