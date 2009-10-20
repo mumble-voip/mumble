@@ -618,8 +618,9 @@ void GlobalShortcutConfig::on_qpbRemove_clicked(bool) {
 	QTreeWidgetItem *qtwi = qtwShortcuts->currentItem();
 	if (! qtwi)
 		return;
-	qlShortcuts.removeAt(qtwShortcuts->indexOfTopLevelItem(qtwi));
+	int idx = qtwShortcuts->indexOfTopLevelItem(qtwi);
 	delete qtwi;
+	qlShortcuts.removeAt(idx);
 }
 
 void GlobalShortcutConfig::on_qtwShortcuts_currentItemChanged(QTreeWidgetItem *item, QTreeWidgetItem *) {
