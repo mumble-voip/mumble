@@ -66,6 +66,7 @@ public:
 	quint32 uiMaxUsers;
 	quint32 uiBandwidth;
 	quint32 uiSent;
+	quint32 uiRecv;
 
 	double dPing;
 
@@ -131,7 +132,6 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		QString qsContinentCode;
 
 		QString qsUrl;
-
 
 		QString qsBonjourHost;
 		BonjourRecord brRecord;
@@ -210,6 +210,8 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 
 		QHash<qpAddress, quint64> qhPingRand;
 		QHash<qpAddress, QSet<ServerItem *> > qhPings;
+		
+		QMap<QPair<QString, unsigned short>, unsigned int> qmPingCache;
 
 		bool bIPv4;
 		bool bIPv6;

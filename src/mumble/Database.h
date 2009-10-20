@@ -56,6 +56,9 @@ class Database : public QObject {
 		
 		static bool isLocalMuted(const QString &hash);
 		static void setLocalMuted(const QString &hash, bool muted);
+		
+		static QMap<QPair<QString, unsigned short>, unsigned int> getPingCache();
+		static void setPingCache(const QMap<QPair<QString, unsigned short>, unsigned int> &cache);
 
 		static bool seenComment(const QString &hash, const QString &comment);
 		static void setSeenComment(const QString &hash, const QString &comment);

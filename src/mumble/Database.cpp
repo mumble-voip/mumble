@@ -112,6 +112,9 @@ Database::Database() {
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `muted` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `muted_hash` ON `muted`(`hash`)"));
 
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `pingcache` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `ping` INTEGER)"));
+	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `pingcache_host_port` ON `pingcache`(`hostname`,`port`)"));
+
 	query.exec(QLatin1String("DELETE FROM `comments` WHERE `seen` < datetime('now', '-1 years')"));
 }
 
@@ -176,6 +179,38 @@ void Database::setLocalMuted(const QString &hash, bool muted) {
 		query.prepare(QLatin1String("DELETE FROM `muted` WHERE `hash` = ?"));
 	query.addBindValue(hash);
 	query.exec();
+}
+
+QMap<QPair<QString, unsigned short>, unsigned int> Database::getPingCache() {
+	QSqlQuery query;
+	QMap<QPair<QString, unsigned short>, unsigned int> map;
+
+	query.prepare(QLatin1String("SELECT `hostname`, `port`, `ping` FROM `pingcache`"));
+	query.exec();
+	while (query.next()) {
+		map.insert(QPair<QString, unsigned short>(query.value(0).toString(), query.value(1).toUInt()), query.value(2).toUInt());
+	}
+	return map;
+}
+
+void Database::setPingCache(const QMap<QPair<QString, unsigned short>, unsigned int> &map) {
+	QSqlQuery query;
+	QMap<QPair<QString, unsigned short>, unsigned int>::const_iterator i;
+
+	QSqlDatabase::database().transaction();
+
+	query.prepare(QLatin1String("DELETE FROM `pingcache`"));
+	query.exec();
+
+	query.prepare(QLatin1String("REPLACE INTO `pingcache` (`hostname`, `port`, `ping`) VALUES (?,?,?)"));
+	for(i = map.constBegin(); i != map.constEnd(); ++i) {
+		query.addBindValue(i.key().first);
+		query.addBindValue(i.key().second);
+		query.addBindValue(i.value());
+		query.exec();
+	}
+
+	QSqlDatabase::database().commit();
 }
 
 bool Database::seenComment(const QString &hash, const QString &comment) {

@@ -59,6 +59,7 @@ void PingStats::init() {
 	uiMaxUsers = 0;
 	uiBandwidth = 0;
 	uiSent = 0;
+	uiRecv = 0;
 	uiVersion = 0;
 }
 
@@ -423,7 +424,6 @@ QVariant ServerItem::data(int column, int role) const {
 				qsl << qha.toString();
 
 			double ploss = 100.0;
-			quint32 uiRecv = static_cast<quint32>(boost::accumulators::count(* asQuantile));
 
 			if (uiSent > 0)
 				ploss = (uiSent - qMin(uiRecv, uiSent)) * 100. / uiSent;
@@ -506,14 +506,18 @@ void ServerItem::setDatas(double elapsed, quint32 users, quint32 maxusers) {
 		dPing = elapsed;
 
 	quint32 ping = static_cast<quint32>(lround(dPing / 1000.));
+	uiRecv = static_cast<quint32>(boost::accumulators::count(* asQuantile));
 
 	bool changed = (ping != uiPing) || (users != uiUsers) || (maxusers != uiMaxUsers);
 
 	uiUsers = users;
 	uiMaxUsers = maxusers;
 	uiPing = ping;
-
-	if ((uiPingSort == 0) || (dPing < (950. * uiPingSort)) || (dPing > (1050. * uiPingSort)))
+	
+	double grace = qMax(5000., 50. * uiPingSort);
+	double diff = fabs(1000. * uiPingSort - dPing);
+	
+	if ((uiPingSort == 0) || ((uiSent >= 10) && (diff >= grace)))
 		uiPingSort = ping;
 
 	if (changed)
@@ -783,20 +787,26 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 
 	qtwServers->setCurrentItem(NULL);
 	bLastFound = false;
-
+	
+	qmPingCache = Database::getPingCache();
 }
 
 ConnectDialog::~ConnectDialog() {
 	ServerItem::qmIcons.clear();
 
 	QList<FavoriteServer> ql;
+	qmPingCache.clear();
 
 	foreach(ServerItem *si, qlItems) {
+		if (si->uiPing)
+			qmPingCache.insert(QPair<QString, unsigned short>(si->qsHostname, si->usPort), si->uiPing);
+		
 		if (si->itType != ServerItem::FavoriteType)
 			continue;
 		ql << si->toFavoriteServer();
 	}
 	Database::setFavorites(ql);
+	Database::setPingCache(qmPingCache);
 }
 
 void ConnectDialog::accept() {
@@ -1342,6 +1352,9 @@ void ConnectDialog::udpReply() {
 					quint32 users = qFromBigEndian(ping[3]);
 					quint32 maxusers = qFromBigEndian(ping[4]);
 					si->uiBandwidth = qFromBigEndian(ping[5]);
+					
+					if (! si->uiPingSort) 
+						si->uiPingSort = qmPingCache.value(QPair<QString, unsigned short>(si->qsHostname, si->usPort));
 
 					si->setDatas(static_cast<double>(elapsed), users, maxusers);
 					si->hideCheck();
