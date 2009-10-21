@@ -531,11 +531,7 @@ void RichTextEditor::richToPlain() {
 
 void RichTextEditor::setText(const QString &txt) {
 	qptePlainText->setPlainText(txt);
-
-	if (Qt::mightBeRichText(txt))
-		qteRichText->setHtml(txt);
-	else
-		qteRichText->setPlainText(txt);
+	qteRichText->setHtml(txt);
 
 	bChanged = false;
 	bModified = false;
