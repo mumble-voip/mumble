@@ -1262,6 +1262,7 @@ bool Server::unregisterUser(int id) {
 
 	foreach(ServerUser *u, qhUsers) {
 		if (u->iId == id) {
+			clearACLCache(u);
 			MumbleProto::UserState mpus;
 			mpus.set_session(u->uiSession);
 			mpus.set_user_id(-1);
