@@ -62,8 +62,10 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	if (AudioInputRegistrar::qmNew) {
 		foreach(AudioInputRegistrar *air, *AudioInputRegistrar::qmNew) {
 			qcbInput->addItem(air->name);
-			if (air->name == AudioInputRegistrar::current)
+			if (air->name == AudioInputRegistrar::current) {
 				qcbInput->setCurrentIndex(qcbInput->count() - 1);
+				qcbEcho->setEnabled(air->canEcho(qcbOutput->currentText()));
+			}
 			QList<audioDevice> ql= air->getDeviceChoices();
 		}
 	}
