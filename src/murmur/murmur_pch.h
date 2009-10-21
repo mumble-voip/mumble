@@ -80,16 +80,10 @@ extern "C" {
 #endif
 #if defined (Q_OS_WIN) && (defined (Q_CC_INTEL) || defined (Q_CC_MSVC))
 #define lroundf(x) ( static_cast<int>( (x) + ((x) >= 0 ? 0.5 : -0.5) ) )
-#define ALLOCA(x) _alloca(x)
 #define snprintf ::_snprintf
+#define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(_alloca(sizeof(type) * (count)))
 #else
-#include <alloca.h>
-#define ALLOCA(x) alloca(x)
-#endif
-#if defined (Q_CC_GNU) || (defined (Q_CC_INTEL) && !defined (Q_OS_WIN))
 #define STACKVAR(type, varname, count) type varname[count]
-#else
-#define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(ALLOCA(sizeof(type) * (count)))
 #endif
 
 #include <boost/function.hpp>
