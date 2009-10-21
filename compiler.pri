@@ -3,6 +3,7 @@ CONFIG *= warn_on
 win32 {
 	INCLUDEPATH *= /dev/Boost/include/boost-1_40
 	CONFIG(intelcpp) {
+		DEFINES *= USE_INTEL_IPP
 		DEFINES *= RESTRICT=restrict
 		DEFINES *= VAR_ARRAYS
 		QMAKE_CC = icl

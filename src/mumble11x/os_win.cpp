@@ -30,8 +30,11 @@
 
 #include <windows.h>
 #include <tlhelp32.h>
-
 #include <intrin.h>
+
+#ifdef USE_INTEL_IPP
+#include <ipp.h>
+#endif
 
 static FILE *fConsole;
 static void mumbleMessageOutput(QtMsgType type, const char *msg) {
@@ -135,6 +138,9 @@ void os_init() {
 		exit(0);
 	}
 
+#ifdef USE_INTEL_IPP
+	ippStaticInit();
+#endif
 
 #ifdef QT_NO_DEBUG
 	errno_t res = 0;

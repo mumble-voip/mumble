@@ -24,12 +24,13 @@ DEFINES += NDEBUG HAVE_CONFIG_H
 INCLUDEPATH = ../speex/include ../speex/libspeex
 
 win32 {
-  INCLUDEPATH += ../speex/win32
+  INCLUDEPATH += ../speexbuild/win32
   DEFINES+=WIN32 _WINDOWS _USE_SSE _USE_MATH_DEFINES
-}
-
-unix {
-	INCLUDEPATH += ../speexbuild
+  !CONFIG(intelcpp) {
+    DEFINES+=USE_SMALLFT
+  }
+} else {
+  INCLUDEPATH += ../speexbuild
 }
 
 macx {

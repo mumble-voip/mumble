@@ -68,6 +68,12 @@ win32 {
   LIBS		*= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -l"$$(DXSDK_DIR)Lib/x86/dinput8" -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32 -llibogg
   LIBS		*= -ldelayimp -lQwave -delayload:Qwave.DLL
 
+  CONFIG(intelcpp) {
+    LIBS	*= -l"\Program Files (x86)\Intel/Compiler\11.0\075\cpp\ipp\ia32\lib\ippsemerged"
+    LIBS	*= -l"\Program Files (x86)\Intel/Compiler\11.0\075\cpp\ipp\ia32\lib\ippsmerged"
+    LIBS	*= -l"\Program Files (x86)\Intel/Compiler\11.0\075\cpp\ipp\ia32\lib\ippcorel"
+  }
+
   LIBPATH	*= /dev/OpenSSL/lib /dev/libogg/lib
   DEFINES	*= WIN32
   INCLUDEPATH	*= /dev/OpenSSL/include /dev/libogg/include

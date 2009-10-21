@@ -33,6 +33,10 @@
 #include <dbghelp.h>
 #include <emmintrin.h>
 
+#ifdef USE_INTEL_IPP
+#include <ipp.h>
+#endif
+
 #include "Global.h"
 #include "Version.h"
 
@@ -105,6 +109,10 @@ void os_init() {
 
 	unsigned int currentControl = 0;
 	_controlfp_s(&currentControl, _DN_FLUSH, _MCW_DN);
+
+#ifdef USE_INTEL_IPP
+	ippStaticInit();
+#endif
 
 #ifdef QT_NO_DEBUG
 	QString console = g.qdBasePath.filePath(QLatin1String("Console.txt"));
