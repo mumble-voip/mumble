@@ -156,6 +156,7 @@ Section "" SectionCommon
   File "\dev\dbus\etc\session.conf"
 
   File "\Program Files (x86)\Intel\Compiler\11.0\075\cpp\Bin\ia32\libmmd.dll"
+  File "\Program Files (x86)\Debugging Tools for Windows (x86)\dbghelp.dll"
 
   SetOutPath "$INSTDIR\QtPlugins\iconengines"
   File /x q*d4.dll "\dev\Qt4.5\plugins\iconengines\q*4.dll"
@@ -429,6 +430,7 @@ end:
   Delete "$INSTDIR\libsndfile-1.dll"
 
   Delete "$INSTDIR\libmmd.dll"
+  Delete "$INSTDIR\dbghelp.dll"
 
   Delete "$INSTDIR\ice33.dll"
   Delete "$INSTDIR\iceutil33.dll"
