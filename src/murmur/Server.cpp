@@ -545,6 +545,8 @@ void Server::run() {
 #ifdef Q_OS_UNIX
 		int pret = poll(fds, nfds, -1);
 		if (pret <= 0) {
+			if (errno == EINTR)
+				continue;
 			qCritical("poll failure");
 			bRunning = false;
 			break;
