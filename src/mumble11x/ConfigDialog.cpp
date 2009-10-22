@@ -1,0 +1,1 @@
+../mumble/ConfigDialog.cpp
