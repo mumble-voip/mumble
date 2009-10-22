@@ -132,17 +132,14 @@ int main(int argc, char *argv[]) {
 	}
 
 	/* Create environment dict. */
-	NSArray *keys = [NSArray arrayWithObjects: @"DYLD_INSERT_LIBRARIES", @"MUMBLE_OVERLAY_DEBUG", nil];
-	NSArray *vals = [NSArray arrayWithObjects: overlayPath, @"1", nil];
-	NSDictionary *environment = [NSDictionary dictionaryWithObjects:vals forKeys:keys];
-
-	if (! environment) {
-		/* We were unable create an environment dict, and thus we are unable to inject the overlay into the process. */
-		fprintf(stderr, "mumble-overlay: Unable to create environment dictionary. Will launch process without overlay.\n"); 
+	NSMutableDictionary *environment = [NSMutableDictionary dictionaryWithCapacity: 2];
+	[environment setObject:overlayPath forKey:@"DYLD_INSERT_LIBRARIES"];
+	if (debug) {
+		[environment setObject:@"1" forKey:@"MUMBLE_OVERLAY_DEBUG"];
 	}
 
 	/* Create argv array. */
-	NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:argc];
+	NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:(NSUInteger)argc];
 	for (i = 0; i < argc; i++) {
 		[arguments insertObject: [NSString stringWithCString:argv[i] encoding:NSUTF8StringEncoding] atIndex:0];
 	}
