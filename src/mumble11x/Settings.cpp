@@ -219,6 +219,9 @@ void Settings::load() {
 	SAVELOAD(qsWASAPIInput, "wasapi/input");
 	SAVELOAD(qsWASAPIOutput, "wasapi/output");
 
+        SAVELOAD(qsCoreAudioInput, "coreaudio/input");
+        SAVELOAD(qsCoreAudioOutput, "coreaudio/output");
+
 	SAVELOAD(qsALSAInput, "alsa/input");
 	SAVELOAD(qsALSAOutput, "alsa/output");
 
@@ -369,6 +372,9 @@ void Settings::save() {
 
 	SAVELOAD(qsWASAPIInput, "wasapi/input");
 	SAVELOAD(qsWASAPIOutput, "wasapi/output");
+
+	SAVELOAD(qsCoreAudioInput, "coreaudio/input");
+	SAVELOAD(qsCoreAudioOutput, "coreaudio/output");
 
 	SAVELOAD(qsALSAInput, "alsa/input");
 	SAVELOAD(qsALSAOutput, "alsa/output");

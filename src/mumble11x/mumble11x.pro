@@ -143,6 +143,14 @@ unix {
 
     HEADERS *= GlobalShortcut_macx.h
     SOURCES *= TextToSpeech_macx.cpp Overlay_unix.cpp GlobalShortcut_macx.cpp os_macx.cpp
+
+    # CoreAudio
+    !isEmpty(HAVE_PORTAUDIO) {
+        CONFIG -= portaudio
+    }
+    LIBS += -framework CoreAudio -framework AudioUnit -framework AudioToolbox
+    SOURCES += CoreAudio.cpp
+    HEADERS += CoreAudio.h
   }
 }
 
