@@ -334,6 +334,9 @@ void Settings::load() {
 	SAVELOAD(qsOSSInput, "oss/input");
 	SAVELOAD(qsOSSOutput, "oss/output");
 
+	SAVELOAD(qsCoreAudioInput, "coreaudio/input");
+	SAVELOAD(qsCoreAudioOutput, "coreaudio/output");
+
 	SAVELOAD(iPortAudioInput, "portaudio/input");
 	SAVELOAD(iPortAudioOutput, "portaudio/output");
 
@@ -504,6 +507,9 @@ void Settings::save() {
 
 	SAVELOAD(qsOSSInput, "oss/input");
 	SAVELOAD(qsOSSOutput, "oss/output");
+
+	SAVELOAD(qsCoreAudioInput, "coreaudio/input");
+	SAVELOAD(qsCoreAudioOutput, "coreaudio/output");
 
 	SAVELOAD(iPortAudioInput, "portaudio/input");
 	SAVELOAD(iPortAudioOutput, "portaudio/output");

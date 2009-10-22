@@ -142,6 +142,10 @@ unix {
     SOURCES *= TextToSpeech_macx.cpp Overlay_unix.cpp GlobalShortcut_macx.cpp os_macx.cpp
     SOURCES -= ConfigDialog.cpp
     SOURCES += ConfigDialog.mm ConfigDialogDelegate.mm
+
+    # AudioQueue
+    SOURCES += CoreAudio.cpp
+    HEADERS += CoreAudio.h
   }
 }
 

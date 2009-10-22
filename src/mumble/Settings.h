@@ -118,9 +118,8 @@ struct Settings {
 	QString qsASIOclass;
 	QList<QVariant> qlASIOmic;
 	QList<QVariant> qlASIOspeaker;
-
+	QString qsCoreAudioInput, qsCoreAudioOutput;
 	QString qsWASAPIInput, qsWASAPIOutput;
-
 	QByteArray qbaDXInput, qbaDXOutput;
 
 	bool bEcho;
