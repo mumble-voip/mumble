@@ -143,18 +143,3 @@ void os_init() {
 	/* Install Apple Event handler for GURL events. This intercepts any URLs set in Mumble's Info.plist. */
 	AEInstallEventHandler(kInternetEventClass, kAEGetURL, NewAEEventHandlerUPP(urlCallback), 0, false);
 }
-
-/*
- * Error handlers for CELT and Speex.
- */
-extern "C" {
-
-	void mumble_macx_celt_fatal(const char *str, const char *file, int line) {
-		qFatal("Fatal (internal) libcelt error in %s, line %d: %s", file, line, str);
-	}
-
-	void mumble_macx_speex_fatal(const char *str, const char *file, int line) {
-		qFatal("Fatal (internal) libspeex error in %s, line %d: %s", file, line, str);
-	}
-
-} /* extern "C" */
