@@ -104,22 +104,62 @@ void CrashReporter::uploadProgress(qint64 sent, qint64 total) {
 }
 
 void CrashReporter::run() {
-
-
-	QFile qfMinidump(g.qdBasePath.filePath(QLatin1String("mumble.dmp")));
-	if (! qfMinidump.exists())
+	QByteArray qbaDumpContents;
+	QFile qfCrashDump(g.qdBasePath.filePath(QLatin1String("mumble.dmp")));
+	if (! qfCrashDump.exists())
 		return;
 
-	qfMinidump.open(QIODevice::ReadOnly);
+	qfCrashDump.open(QIODevice::ReadOnly);
 
-#ifdef Q_OS_WIN
+#if defined(Q_OS_WIN)
+	/* On Windows, the .dmp file is a real minidump. */
+
 	if (qfMinidump.peek(4) != "MDMP")
 		return;
+	qbaDumpContents = qfCrashDump.readAll();
+
+#elif defined(Q_OS_MAC)
+	/*
+	 * On OSX, the .dmp file is simply a dummy file that we
+	 * use to find the *real* crash dump, made by the OSX
+	 * built in crash reporter.
+	 */
+	QFileInfo qfiDump(qfCrashDump);
+	QDateTime qdtModification = qfiDump.lastModified();
+
+	/* Find the real crash report. */
+	QDir qdCrashReports = QDir::home().absolutePath() + QLatin1String("/Library/Logs/DiagnosticReports/");
+	if (! qdCrashReports.exists()) {
+		qdCrashReports = QDir::home().absolutePath() + QLatin1String("/Library/Logs/CrashReporter/");
+	}
+
+	QStringList qslFilters;
+	qslFilters << QString::fromLatin1("Mumble_*.crash");
+	qdCrashReports.setNameFilters(qslFilters);
+	qdCrashReports.setSorting(QDir::Time);
+	QFileInfoList qfilEntries = qdCrashReports.entryInfoList();
+
+	/*
+	 * Figure out if our delta is sufficiently close to the Apple crash dump, or
+	 * if something weird happened.
+	 */
+	foreach (QFileInfo fi, qfilEntries) {
+		int delta = abs(qdtModification.secsTo(fi.lastModified()));
+		if (delta < 8) {
+			QFile f(fi.absoluteFilePath());
+			f.open(QIODevice::ReadOnly);
+			qbaDumpContents = f.readAll();
+			break;
+		}
+	}
 #endif
 
-	if (exec() == QDialog::Accepted) {
-		QByteArray dump = qfMinidump.readAll();
+	if (qbaDumpContents.isEmpty()) {
+		qWarning("CrashReporter: Empty crash dump file, not reporting.");
+		return;
+	}
 
+	if (exec() == QDialog::Accepted) {
 		qpdProgress = new QProgressDialog(tr("Uploading crash report"), tr("Abort upload"), 0, 100, this);
 		qpdProgress->setMinimumDuration(500);
 		qpdProgress->setValue(0);
@@ -134,7 +174,7 @@ void CrashReporter::run() {
 		QString head = QString::fromLatin1("--%1\r\nContent-Disposition: form-data; name=\"dump\"; filename=\"mumble.dmp\"\r\nContent-Type: binary/octet-stream\r\n\r\n").arg(boundary);
 		QString end = QString::fromLatin1("\r\n--%1--\r\n").arg(boundary);
 
-		QByteArray post = os.toUtf8() + ver.toUtf8() + email.toUtf8() + descr.toUtf8() + head.toUtf8() + dump + end.toUtf8();
+		QByteArray post = os.toUtf8() + ver.toUtf8() + email.toUtf8() + descr.toUtf8() + head.toUtf8() + qbaDumpContents + end.toUtf8();
 
 		QUrl url(QLatin1String("https://mumble.hive.no/crashreport.php"));
 		QNetworkRequest req(url);
@@ -147,6 +187,6 @@ void CrashReporter::run() {
 		qelLoop->exec(QEventLoop::DialogExec);
 	}
 
-	if (! qfMinidump.remove())
-		qWarning("CrashReporeter: Unable to remove minidump.");
+	if (! qfCrashDump.remove())
+		qWarning("CrashReporeter: Unable to remove crash file.");
 }

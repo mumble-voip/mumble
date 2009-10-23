@@ -43,6 +43,12 @@ static FILE *fConsole = NULL;
 #define SCREWAPPLE  long
 #endif
 
+#define PATH_MAX 1024
+static char crashhandler_fn[PATH_MAX];
+
+static void crashhandler_signals_restore();
+static void crashhandler_handle_crash();
+
 static OSErr urlCallback(const AppleEvent *ae, AppleEvent *, SCREWAPPLE) {
 	OSErr err;
 	DescType type;
@@ -119,17 +125,68 @@ void query_language() {
 	os_lang = lang;
 }
 
-void os_init() {
-	const char *home = getenv("HOME");
-	const char *path = "/Library/Logs/Mumble.log";
+static void crashhandler_signal_handler(int signal) {
+	switch (signal) {
+		case SIGQUIT:
+		case SIGILL:
+		case SIGTRAP:
+		case SIGABRT:
+		case SIGEMT:
+		case SIGFPE:
+		case SIGBUS:
+		case SIGSEGV:
+		case SIGSYS:
+			crashhandler_signals_restore();
+			crashhandler_handle_crash();
+			break;
+		default:
+			break;
+	}
+}
 
-	/* Console.txt logging. */
+/* These are the signals that according to signal(3) produce a coredump by default. */
+int sigs[] = { SIGQUIT, SIGILL, SIGTRAP, SIGABRT, SIGEMT, SIGFPE, SIGBUS, SIGSEGV, SIGSYS };
+#define NSIGS sizeof(sigs)/sizeof(sigs[0])
+
+static void crashhandler_signals_setup() {
+	for (int i = 0; i < NSIGS; i++) {
+		signal(sigs[i], crashhandler_signal_handler);
+	}
+}
+
+static void crashhandler_signals_restore() {
+	for (int i = 0; i < NSIGS; i++) {
+		signal(sigs[i], NULL);
+	}
+}
+
+static void crashhandler_init() {
+	QString dump = g.qdBasePath.filePath(QLatin1String("mumble.dmp"));
+	if (strncpy(crashhandler_fn, dump.toUtf8().data(), PATH_MAX)) {
+		crashhandler_signals_setup();
+		/* todo: Change the behavior of the Apple crash dialog? Maybe? */
+	}
+}
+
+static void crashhandler_handle_crash() {
+	/* Abuse mtime for figuring out which crashdump we should send. */
+	FILE *f = fopen(crashhandler_fn, "w");
+	fflush(f);
+	fclose(f);
+}
+
+void os_init() {
+	crashhandler_init();
+
+	const char *home = getenv("HOME");
+	const char *logpath = "/Library/Logs/Mumble.log";
+
 	if (home) {
-		size_t len = strlen(home) + strlen(path) + 1;
+		size_t len = strlen(home) + strlen(logpath) + 1;
 		STACKVAR(char, buff, len);
 		memset(buff, 0, len);
 		strcat(buff, home);
-		strcat(buff, path);
+		strcat(buff, logpath);
 		fConsole = fopen(buff, "a+");
 		if (fConsole)
 			qInstallMsgHandler(mumbleMessageOutput);
