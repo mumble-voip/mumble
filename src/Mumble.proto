@@ -128,6 +128,7 @@ message PermissionDenied {
 		TextTooLong = 4;
 		H9K = 5;
 		TemporaryChannel = 6;
+		MissingCertificate = 7;
 	}
 	optional uint32 permission = 1;
 	optional uint32 channel_id = 2;

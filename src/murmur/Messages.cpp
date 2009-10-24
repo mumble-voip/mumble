@@ -69,6 +69,15 @@
 		sendMessage(uSource, mppd); \
 	}
 
+#define PERM_DENIED_HASH(user) \
+	{ \
+		MumbleProto::PermissionDenied mppd; \
+		mppd.set_type(MumbleProto::PermissionDenied_DenyType_MissingCertificate); \
+		if (user) \
+			mppd.set_session(user->uiSession); \
+		sendMessage(uSource, mppd); \
+	}
+
 static QString toPlainText(const QString &text) {
 	if (! text.contains(QLatin1Char('<')))
 		return text.simplified();
@@ -463,8 +472,12 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 
 	if (msg.has_user_id()) {
 		ChanACL::Perm p = (uSource == pDstServerUser) ? ChanACL::SelfRegister : ChanACL::Register;
-		if ((pDstServerUser->iId >= 0) || (pDstServerUser->qsHash.isEmpty()) || ! hasPermission(uSource, root, p)) {
+		if ((pDstServerUser->iId >= 0) || ! hasPermission(uSource, root, p)) {
 			PERM_DENIED(uSource, root, p);
+			return;
+		}
+		if (pDstServerUser->qsHash.isEmpty()) {
+			PERM_DENIED_HASH(pDstServerUser);
 			return;
 		}
 	}
@@ -680,8 +693,13 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			return;
 
 		ChanACL::Perm perm = msg.temporary() ? ChanACL::MakeTempChannel : ChanACL::MakeChannel;
-		if (! hasPermission(uSource, p, perm) || ((uSource->iId < 0) && uSource->qsHash.isEmpty())) {
+		if (! hasPermission(uSource, p, perm)) {
 			PERM_DENIED(uSource, p, perm);
+			return;
+		}
+
+		if ((uSource->iId < 0) && uSource->qsHash.isEmpty()) {
+			PERM_DENIED_HASH(uSource);
 			return;
 		}
 

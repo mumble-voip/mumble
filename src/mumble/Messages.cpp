@@ -168,6 +168,15 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 				g.l->log(Log::PermissionDenied, tr("Denied: Operation not permitted in temporary channel."));
 			}
 			break;
+		case MumbleProto::PermissionDenied_DenyType_MissingCertificate: {
+				VICTIM_INIT;
+				SELF_INIT;
+				if (pDst == pSelf)
+					g.l->log(Log::PermissionDenied, tr("You need a certificate to perform this operation."));
+				else
+					g.l->log(Log::PermissionDenied, tr("%1 does not have a certificate.").arg(pDst->qsName));
+			}
+			break;
 		default:
 			if (msg.has_reason()) {
 				g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(u8(msg.reason())));
