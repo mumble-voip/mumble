@@ -585,12 +585,9 @@ OSStatus CoreAudioOutput::outputCallback(void *udata, AudioUnitRenderActionFlags
 
 	bool done = o->mix(buf->mData, nframes);
 	if (! done) {
-               volatile bool ready = false;
-               do {
-                       QThread::msleep(2);
-                       ready = o->mix(buf->mData, nframes);
-               } while (! ready && o->bRunning);
-       }
+		buf->mDataByteSize = 0;
+		return -1;
+	}
 
 	return noErr;
 }
