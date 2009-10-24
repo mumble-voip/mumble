@@ -213,8 +213,6 @@ bool CoreAudioOutputRegistrar::canMuteOthers() const {
 }
 
 CoreAudioInput::CoreAudioInput() {
-	bRunning = true;
-
 	OSStatus err;
 	AudioStreamBasicDescription fmt;
 	AudioDeviceID devId = 0;
@@ -375,18 +373,18 @@ CoreAudioInput::CoreAudioInput() {
 		return;
 	}
 
-	bRunning = true;
 };
 
 CoreAudioInput::~CoreAudioInput() {
 	OSStatus err;
 
-	bRunning = false;
 	wait();
 
-	err = AudioOutputUnitStop(au);
-	if (err != noErr) {
-		qWarning("CoreAudioInput: Unable to stop AudioUnit.");
+	if (au) {
+		err = AudioOutputUnitStop(au);
+		if (err != noErr) {
+			qWarning("CoreAudioInput: Unable to stop AudioUnit.");
+		}
 	}
 
 	AudioBuffer *b = buflist.mBuffers;
@@ -558,19 +556,18 @@ CoreAudioOutput::CoreAudioOutput() {
 		qWarning("CoreAudioOutput: Unable to start AudioUnit");
 		return;
 	}
-
-	bRunning = true;
 }
 
 CoreAudioOutput::~CoreAudioOutput() {
 	OSStatus err;
 
-	bRunning = false;
 	wait();
 
-	err = AudioOutputUnitStop(au);
-	if (err != noErr) {
-		qWarning("CoreAudioOutput: Unable to stop AudioUnit.");
+	if (au) {
+		err = AudioOutputUnitStop(au);
+		if (err != noErr) {
+			qWarning("CoreAudioOutput: Unable to stop AudioUnit.");
+		}
 	}
 
 	qWarning("CoreAudioOutput: Shutting down.");
