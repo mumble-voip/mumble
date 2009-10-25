@@ -155,6 +155,8 @@ Section "" SectionCommon
   File "\dev\dbus\bin\dbus-daemon.exe"
   File "\dev\dbus\etc\session.conf"
 
+  File "\dev\protobuf-2.2.0\vsprojects\Release\libprotobuf.dll"
+
   File "\Program Files (x86)\Intel\Compiler\11.0\075\cpp\Bin\ia32\libmmd.dll"
   File "\Program Files (x86)\Debugging Tools for Windows (x86)\dbghelp.dll"
 
@@ -432,6 +434,7 @@ end:
 
   Delete "$INSTDIR\libsndfile-1.dll"
 
+  Delete "$INSTDIR\libprotobuf.dll"
   Delete "$INSTDIR\libmmd.dll"
   Delete "$INSTDIR\dbghelp.dll"
 

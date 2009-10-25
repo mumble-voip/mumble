@@ -13,10 +13,10 @@ win32 {
 		QMAKE_CFLAGS *= -Qstd=c99 -Qrestrict -Qvc9
 		QMAKE_CXXFLAGS *= -Qstd=c++0x -Qrestrict -Qvc9
 
-		QMAKE_CFLAGS_RELEASE *= -O3 -QxSSE -Qprec-div-
+		QMAKE_CFLAGS_RELEASE *= -O3 -Ot -QxSSE -Qprec-div-
 		QMAKE_CFLAGS_RELEASE -=-arch:SSE
 
-		QMAKE_CXXFLAGS_RELEASE *= -O3 -QxSSE -Qprec-div-
+		QMAKE_CXXFLAGS_RELEASE *= -O3 -Ot -QxSSE -Qprec-div-
 		QMAKE_CXXFLAGS_RELEASE -= -arch:SSE
 
 		QMAKE_CFLAGS_DEBUG *= -O2 -Ob0
