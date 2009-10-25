@@ -1305,6 +1305,21 @@ void MainWindow::updateMenuPermissions() {
 		c->uiPermissions = p;
 	}
 
+	Channel *cparent = c ? c->cParent : NULL;
+	ChanACL::Permissions pparent = static_cast<ChanACL::Permissions>(cparent ? cparent->uiPermissions : ChanACL::None);
+
+	if (cparent && ! pparent) {
+		MumbleProto::PermissionQuery mppq;
+		mppq.set_channel_id(cparent->iId);
+		g.sh->sendMessage(mppq);
+		if (cparent->iId == 0)
+			pparent = g.pPermissions;
+		else
+			pparent = ChanACL::All;
+
+		cparent->uiPermissions = pparent;
+	}
+
 	ClientUser *user = g.uiSession ? ClientUser::get(g.uiSession) : NULL;
 	Channel *homec = user ? user->cChannel : NULL;
 	ChanACL::Permissions homep = static_cast<ChanACL::Permissions>(homec ? homec->uiPermissions : ChanACL::None);
@@ -1327,7 +1342,7 @@ void MainWindow::updateMenuPermissions() {
 
 	qaChannelAdd->setEnabled(p & (ChanACL::Write | ChanACL::MakeChannel | ChanACL::MakeTempChannel));
 	qaChannelRemove->setEnabled(p & ChanACL::Write);
-	qaChannelACL->setEnabled(p & ChanACL::Write);
+	qaChannelACL->setEnabled((p & ChanACL::Write) || (pparent & ChanACL::Write));
 
 	qaChannelLink->setEnabled((p & (ChanACL::Write | ChanACL::LinkChannel)) && (homep & (ChanACL::Write | ChanACL::LinkChannel)));
 	qaChannelUnlink->setEnabled((p & (ChanACL::Write | ChanACL::LinkChannel)) || (homep & (ChanACL::Write | ChanACL::LinkChannel)));
