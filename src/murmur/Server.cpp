@@ -1317,6 +1317,8 @@ void Server::userEnterChannel(User *p, Channel *c, bool quiet, bool ignoretemp) 
 	}
 
 	sendClientPermission(static_cast<ServerUser *>(p), c);
+	if (c->cParent)
+		sendClientPermission(static_cast<ServerUser *>(p), c->cParent);
 }
 
 bool Server::hasPermission(ServerUser *p, Channel *c, QFlags<ChanACL::Perm> perm) {
