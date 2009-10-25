@@ -261,6 +261,7 @@ Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
   File "..\release\mumble-g15-helper.exe"
   !insertmacro InstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "..\release\mumble_ol.dll" "$INSTDIR\mumble_ol.dll" "$INSTDIR"
   File "..\release\celt.*.dll"
+  File "..\release\speex.dll"
 
   SetOutPath "$INSTDIR\plugins"
   File /oname=aoc.dll "..\release\plugins\aoc.dll"
@@ -303,6 +304,7 @@ Section "$(MUMBLE_SEC_MUMBLE11X)" SectionMumble11X
   SetOutPath "$INSTDIR"
 
   File "..\release\mumble11x.exe"
+  File "..\release\speex.dll"
 
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     ;Create shortcuts
@@ -399,6 +401,7 @@ end:
   Delete "$INSTDIR\murmur.exe"
   Delete "$INSTDIR\mumble-g15-helper.exe"
   Delete "$INSTDIR\celt.*.dll"
+  Delete "$INSTDIR\speexdsp.dll"
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\mumble_ol.dll"
   Delete "$INSTDIR\qos.reg"
   Delete "$INSTDIR\murmur.ini"

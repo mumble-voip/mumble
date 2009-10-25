@@ -50,7 +50,7 @@ CONFIG(no-bundled-speex) {
 
 !CONFIG(no-bundled-speex) {
   INCLUDEPATH	*= ../../speex/include ../../speex/libspeex ../../speexbuild
-  LIBS 		*= -lspeexdsp
+  LIBS 		*= -lspeex
 }
 
 !win32 {
@@ -67,12 +67,6 @@ win32 {
   SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp
   LIBS		*= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -l"$$(DXSDK_DIR)Lib/x86/dinput8" -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32 -llibogg
   LIBS		*= -ldelayimp -lQwave -delayload:Qwave.DLL
-
-  CONFIG(intelcpp) {
-    LIBS	*= -l"\Program Files (x86)\Intel/Compiler\11.0\075\cpp\ipp\ia32\lib\ippsemerged"
-    LIBS	*= -l"\Program Files (x86)\Intel/Compiler\11.0\075\cpp\ipp\ia32\lib\ippsmerged"
-    LIBS	*= -l"\Program Files (x86)\Intel/Compiler\11.0\075\cpp\ipp\ia32\lib\ippcorel"
-  }
 
   LIBPATH	*= /dev/OpenSSL/lib /dev/libogg/lib
   DEFINES	*= WIN32

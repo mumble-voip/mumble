@@ -114,7 +114,7 @@ void CrashReporter::run() {
 #if defined(Q_OS_WIN)
 	/* On Windows, the .dmp file is a real minidump. */
 
-	if (qfMinidump.peek(4) != "MDMP")
+	if (qfCrashDump.peek(4) != "MDMP")
 		return;
 	qbaDumpContents = qfCrashDump.readAll();
 

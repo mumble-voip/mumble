@@ -12,13 +12,13 @@ win32 {
 		QMAKE_LINK = xilink
 		QMAKE_CFLAGS *= -Qstd=c99 -Qrestrict -Qvc9
 		QMAKE_CXXFLAGS *= -Qstd=c++0x -Qrestrict -Qvc9
-		# Disable IPO and -GL due to bugs in Intel C++ 11.0 and 11.1
-		QMAKE_CFLAGS_LTCG =
-		QMAKE_LFLAGS_LTCG =
-		QMAKE_CFLAGS_RELEASE *= -O3 -Ob0
-		QMAKE_CFLAGS_RELEASE -= -GL
-		QMAKE_CXXFLAGS_RELEASE *= -O3 -Ob0
-		QMAKE_CXXFLAGS_RELEASE -= -GL
+
+		QMAKE_CFLAGS_RELEASE *= -O3 -QxSSE -Qprec-div-
+		QMAKE_CFLAGS_RELEASE -=-arch:SSE
+
+		QMAKE_CXXFLAGS_RELEASE *= -O3 -QxSSE -Qprec-div-
+		QMAKE_CXXFLAGS_RELEASE -= -arch:SSE
+
 		QMAKE_CFLAGS_DEBUG *= -O2 -Ob0
 		QMAKE_CXXFLAGS_DEBUG *= -O2 -Ob0
 
@@ -40,6 +40,7 @@ win32 {
 		QMAKE_CXXFLAGS_RELEASE *= -GR -Zi -Oy-
 		QMAKE_LFLAGS *= -fixed:no -debug
 	}
+
 	CONFIG(debug, debug|release) {
 		exists($$(VLD_DIR)) {
 			VLD_DIR = $$(VLD_DIR)

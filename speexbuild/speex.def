@@ -1,79 +1,133 @@
 ;
 ; speex.def
 ;
-LIBRARY
-NAME speex.dll
+LIBRARY speexdsp
 EXPORTS
 ;
-speex_bits_advance @1
-speex_bits_destroy @2
-speex_bits_init @3
-speex_bits_init_buffer @4
-speex_bits_insert_terminator @5
-speex_bits_nbytes @6
-speex_bits_pack @7
-speex_bits_peek @8
-speex_bits_peek_unsigned @9
-speex_bits_read_from @10
-speex_bits_read_whole_bytes @11
-speex_bits_remaining @12
-speex_bits_reset @13
-speex_bits_rewind @14
-speex_bits_unpack_signed @15
-speex_bits_unpack_unsigned @16
-speex_bits_write @17
-speex_bits_write_whole_bytes @18
-speex_decode @19
-speex_decode_stereo @20
-speex_decoder_ctl @21
-speex_decoder_destroy @22
-speex_decoder_init @23
-speex_default_user_handler @24
-speex_encode @25
-speex_encode_stereo @26
-speex_encoder_ctl @27
-speex_encoder_destroy @28
-speex_encoder_init @29
-speex_header_to_packet @30
-speex_inband_handler @31
-speex_init_header @32
-speex_lib_ctl @33
-speex_mode_query @34
-speex_packet_to_header @35
-speex_std_char_handler @36
-speex_std_enh_request_handler @37
-speex_std_high_mode_request_handler @38
-speex_std_low_mode_request_handler @39
-speex_std_mode_request_handler @40
-speex_std_stereo_request_handler @41
-speex_std_vbr_quality_request_handler @42
-speex_std_vbr_request_handler @43
-speex_decode_int @44
-speex_decode_stereo_int @45
-speex_echo_cancel @46
-speex_echo_state_destroy @47
-speex_echo_state_init @48
-speex_echo_state_reset @49
-speex_encode_int @50
-speex_encode_stereo_int @51
-speex_jitter_destroy @52
-speex_jitter_get @53
-speex_jitter_get_pointer_timestamp @54
-speex_jitter_init @55
-speex_jitter_put @56
-speex_lib_get_mode @57
-speex_preprocess @58
-speex_preprocess_ctl @59
-speex_preprocess_estimate_update @60
-speex_preprocess_state_destroy @61
-speex_preprocess_state_init @62
-speex_nb_mode @63 DATA
-speex_wb_mode @64 DATA
-speex_uwb_mode @65 DATA
-jitter_buffer_reset @66
-jitter_buffer_destroy @67
-jitter_buffer_put @68
-jitter_buffer_get @69
-jitter_buffer_get_pointer_timestamp @70
-jitter_buffer_tick @71
-speex_echo_ctl @72
+;
+;	speex.h
+;
+speex_encoder_init
+speex_encoder_destroy
+speex_encode
+speex_encode_int
+speex_encoder_ctl
+speex_decoder_init
+speex_decoder_destroy
+speex_decode
+speex_decode_int
+speex_decoder_ctl
+speex_mode_query
+speex_lib_ctl
+speex_lib_get_mode
+
+;
+;	speex_bits.h
+;
+speex_bits_init
+speex_bits_init_buffer
+speex_bits_set_bit_buffer
+speex_bits_destroy
+speex_bits_reset
+speex_bits_rewind
+speex_bits_read_from
+speex_bits_read_whole_bytes
+speex_bits_write
+speex_bits_write_whole_bytes
+speex_bits_pack
+speex_bits_unpack_signed
+speex_bits_unpack_unsigned
+speex_bits_nbytes
+speex_bits_peek_unsigned
+speex_bits_peek
+speex_bits_advance
+speex_bits_remaining
+speex_bits_insert_terminator
+
+;
+;	speex_callbacks.h
+;
+speex_inband_handler
+speex_std_mode_request_handler
+speex_std_high_mode_request_handler
+speex_std_char_handler
+speex_default_user_handler
+speex_std_low_mode_request_handler
+speex_std_vbr_request_handler
+speex_std_enh_request_handler
+speex_std_vbr_quality_request_handler
+
+;
+;	speex_header.h
+;
+speex_init_header
+speex_header_to_packet
+speex_packet_to_header
+
+;
+;	speex_echo.h
+;
+speex_echo_state_init
+speex_echo_state_init_mc
+speex_echo_state_destroy
+speex_echo_cancellation
+speex_echo_cancel
+speex_echo_capture
+speex_echo_playback
+speex_echo_state_reset
+speex_echo_ctl
+speex_decorrelate_new
+speex_decorrelate
+speex_decorrelate_destroy
+
+;
+;	speex_jitter.h
+;
+jitter_buffer_init
+jitter_buffer_reset
+jitter_buffer_destroy
+jitter_buffer_put
+jitter_buffer_get
+jitter_buffer_get_pointer_timestamp
+jitter_buffer_tick
+jitter_buffer_update_delay
+jitter_buffer_ctl
+
+;
+;	speex_preprocess.h
+;
+speex_preprocess_state_init
+speex_preprocess_state_destroy
+speex_preprocess_run
+speex_preprocess
+speex_preprocess_estimate_update
+speex_preprocess_ctl
+
+;
+;	speex_resampler.h
+;
+speex_resampler_init
+speex_resampler_init_frac
+speex_resampler_destroy
+speex_resampler_process_float
+speex_resampler_process_int
+speex_resampler_process_interleaved_float
+speex_resampler_process_interleaved_int
+speex_resampler_set_rate
+speex_resampler_get_rate
+speex_resampler_set_rate_frac
+speex_resampler_get_ratio
+speex_resampler_set_quality
+speex_resampler_get_quality
+speex_resampler_set_input_stride
+speex_resampler_get_input_stride
+speex_resampler_set_output_stride
+speex_resampler_get_output_stride
+speex_resampler_skip_zeros
+speex_resampler_reset_mem
+speex_resampler_strerror
+
+speex_wb_mode
+speex_uwb_mode
+
+mumble_speex_init

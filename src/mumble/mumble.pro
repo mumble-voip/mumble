@@ -29,7 +29,7 @@ CONFIG(no-bundled-speex) {
 
 !CONFIG(no-bundled-speex) {
   INCLUDEPATH	*= ../../speex/include ../../speex/libspeex ../../speexbuild
-  LIBS 		*= -lspeexdsp
+  LIBS 		*= -lspeex
 }
 
 unix:!CONFIG(bundled-celt):system(pkg-config --atleast-version=0.7.0 celt) {
@@ -65,11 +65,6 @@ win32 {
   HEADERS	*= GlobalShortcut_win.h
   SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp
   LIBS		*= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -l"$$(DXSDK_DIR)Lib/x86/dinput8" -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -llibsndfile-1
-  CONFIG(intelcpp) {
-    LIBS	*= -l"\Program Files (x86)\Intel/Compiler\11.0\075\cpp\ipp\ia32\lib\ippsemerged"
-    LIBS	*= -l"\Program Files (x86)\Intel/Compiler\11.0\075\cpp\ipp\ia32\lib\ippsmerged"
-    LIBS	*= -l"\Program Files (x86)\Intel/Compiler\11.0\075\cpp\ipp\ia32\lib\ippcorel"
-  }
 
   LIBPATH	*= /dev/OpenSSL/lib /dev/libsndfile
   DEFINES	*= WIN32

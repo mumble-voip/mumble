@@ -228,7 +228,7 @@ Settings::Settings() {
 	bSuppressIdentity = false;
 
 #if defined(AUDIO_TEST)
-	lmLoopMode = Local;
+	lmLoopMode = Server;
 #else
 	lmLoopMode = None;
 #endif

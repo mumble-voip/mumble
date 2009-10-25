@@ -32,9 +32,9 @@
 #include <tlhelp32.h>
 #include <intrin.h>
 
-#ifdef USE_INTEL_IPP
-#include <ipp.h>
-#endif
+extern "C" {
+	void mumble_speex_init();
+};
 
 static FILE *fConsole;
 static void mumbleMessageOutput(QtMsgType type, const char *msg) {
@@ -138,9 +138,7 @@ void os_init() {
 		exit(0);
 	}
 
-#ifdef USE_INTEL_IPP
-	ippStaticInit();
-#endif
+	mumble_speex_init();
 
 #ifdef QT_NO_DEBUG
 	errno_t res = 0;
