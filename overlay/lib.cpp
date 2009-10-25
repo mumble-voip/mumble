@@ -403,6 +403,7 @@ static const char *blacklist[] = {
 	"vlc.exe",
 	"dbgview.exe",
 	"opera.exe",
+	"explorer.exe",
 	NULL
 };
 
