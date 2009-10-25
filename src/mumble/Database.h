@@ -53,10 +53,10 @@ class Database : public QObject {
 		static void setFavorites(const QList<FavoriteServer> &servers);
 		static void setPassword(const QString &host, unsigned short port, const QString &user, const QString &pw);
 		static bool fuzzyMatch(QString &user, QString &pw, QString &host, unsigned short port);
-		
+
 		static bool isLocalMuted(const QString &hash);
 		static void setLocalMuted(const QString &hash, bool muted);
-		
+
 		static QMap<QPair<QString, unsigned short>, unsigned int> getPingCache();
 		static void setPingCache(const QMap<QPair<QString, unsigned short>, unsigned int> &cache);
 

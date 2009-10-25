@@ -170,7 +170,7 @@ const QHash<QString, QString> CoreAudioSystem::getDevices(bool input) {
 
 		qhReturn.insert(qsDeviceIdentifier, qsDeviceName);
 	}
-	
+
 	return qhReturn;
 }
 
@@ -395,7 +395,7 @@ CoreAudioInput::~CoreAudioInput() {
 }
 
 OSStatus CoreAudioInput::inputCallback(void *udata, AudioUnitRenderActionFlags *flags, const AudioTimeStamp *ts,
-                                         UInt32 busnum, UInt32 nframes, AudioBufferList *buflist) {
+                                       UInt32 busnum, UInt32 nframes, AudioBufferList *buflist) {
 	CoreAudioInput *i = reinterpret_cast<CoreAudioInput *>(udata);
 	OSStatus err;
 
@@ -575,7 +575,7 @@ CoreAudioOutput::~CoreAudioOutput() {
 }
 
 OSStatus CoreAudioOutput::outputCallback(void *udata, AudioUnitRenderActionFlags *flags, const AudioTimeStamp *ts,
-                                         UInt32 busnum, UInt32 nframes, AudioBufferList *buflist) {
+        UInt32 busnum, UInt32 nframes, AudioBufferList *buflist) {
 	CoreAudioOutput *o = reinterpret_cast<CoreAudioOutput *>(udata);
 	AudioBuffer *buf = buflist->mBuffers;
 	OSStatus err;

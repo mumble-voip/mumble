@@ -106,7 +106,7 @@ void os_init() {
 
 	unsigned int currentControl = 0;
 	_controlfp_s(&currentControl, _DN_FLUSH, _MCW_DN);
-	
+
 	mumble_speex_init();
 
 #ifdef QT_NO_DEBUG

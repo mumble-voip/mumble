@@ -203,7 +203,7 @@ void Database::setPingCache(const QMap<QPair<QString, unsigned short>, unsigned 
 	query.exec();
 
 	query.prepare(QLatin1String("REPLACE INTO `pingcache` (`hostname`, `port`, `ping`) VALUES (?,?,?)"));
-	for(i = map.constBegin(); i != map.constEnd(); ++i) {
+	for (i = map.constBegin(); i != map.constEnd(); ++i) {
 		query.addBindValue(i.key().first);
 		query.addBindValue(i.key().second);
 		query.addBindValue(i.value());

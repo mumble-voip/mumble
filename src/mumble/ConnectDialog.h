@@ -210,7 +210,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 
 		QHash<qpAddress, quint64> qhPingRand;
 		QHash<qpAddress, QSet<ServerItem *> > qhPings;
-		
+
 		QMap<QPair<QString, unsigned short>, unsigned int> qmPingCache;
 
 		bool bIPv4;

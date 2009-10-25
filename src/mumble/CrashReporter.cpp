@@ -143,7 +143,7 @@ void CrashReporter::run() {
 	 * Figure out if our delta is sufficiently close to the Apple crash dump, or
 	 * if something weird happened.
 	 */
-	foreach (QFileInfo fi, qfilEntries) {
+	foreach(QFileInfo fi, qfilEntries) {
 		int delta = abs(qdtModification.secsTo(fi.lastModified()));
 		if (delta < 8) {
 			QFile f(fi.absoluteFilePath());

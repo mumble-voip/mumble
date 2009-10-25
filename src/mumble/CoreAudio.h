@@ -55,7 +55,7 @@ class CoreAudioInput : public AudioInput {
 		AudioUnit au;
 		AudioBufferList buflist;
 		static OSStatus inputCallback(void *udata, AudioUnitRenderActionFlags *flags, const AudioTimeStamp *ts,
-                                         UInt32 busnum, UInt32 npackets, AudioBufferList *buflist);
+		                              UInt32 busnum, UInt32 npackets, AudioBufferList *buflist);
 	public:
 		CoreAudioInput();
 		~CoreAudioInput();
@@ -69,7 +69,7 @@ class CoreAudioOutput : public AudioOutput {
 	protected:
 		AudioUnit au;
 		static OSStatus outputCallback(void *udata, AudioUnitRenderActionFlags *flags, const AudioTimeStamp *ts,
-                                         UInt32 busnum, UInt32 npackets, AudioBufferList *buflist);
+		                               UInt32 busnum, UInt32 npackets, AudioBufferList *buflist);
 	public:
 		CoreAudioOutput();
 		~CoreAudioOutput();

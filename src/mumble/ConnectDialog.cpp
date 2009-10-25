@@ -513,10 +513,10 @@ void ServerItem::setDatas(double elapsed, quint32 users, quint32 maxusers) {
 	uiUsers = users;
 	uiMaxUsers = maxusers;
 	uiPing = ping;
-	
+
 	double grace = qMax(5000., 50. * uiPingSort);
 	double diff = fabs(1000. * uiPingSort - dPing);
-	
+
 	if ((uiPingSort == 0) || ((uiSent >= 10) && (diff >= grace)))
 		uiPingSort = ping;
 
@@ -787,7 +787,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 
 	qtwServers->setCurrentItem(NULL);
 	bLastFound = false;
-	
+
 	qmPingCache = Database::getPingCache();
 }
 
@@ -800,7 +800,7 @@ ConnectDialog::~ConnectDialog() {
 	foreach(ServerItem *si, qlItems) {
 		if (si->uiPing)
 			qmPingCache.insert(QPair<QString, unsigned short>(si->qsHostname, si->usPort), si->uiPing);
-		
+
 		if (si->itType != ServerItem::FavoriteType)
 			continue;
 		ql << si->toFavoriteServer();
@@ -1352,8 +1352,8 @@ void ConnectDialog::udpReply() {
 					quint32 users = qFromBigEndian(ping[3]);
 					quint32 maxusers = qFromBigEndian(ping[4]);
 					si->uiBandwidth = qFromBigEndian(ping[5]);
-					
-					if (! si->uiPingSort) 
+
+					if (! si->uiPingSort)
 						si->uiPingSort = qmPingCache.value(QPair<QString, unsigned short>(si->qsHostname, si->usPort));
 
 					si->setDatas(static_cast<double>(elapsed), users, maxusers);

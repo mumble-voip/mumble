@@ -1,3 +1,73 @@
+2009-10-25
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    62b1536  Enable edit menuentry if write on parent (sync with server
+	     permissions), and fix speex compile bug
+    6a4a2b6  Precache permission on parent channel
+    0c05ca0  Don't send superuser in msgUserList
+    9d3274b  Enable more SSE optimizations and compile Speex as dll
+
+2009-10-24
+  Mikkel Krautz <mikkel@krautz.dk>
+    aa5cdbc  Remove superfluous bRunning's from CoreAudio.
+    94ecb90  Don't sleep in CoreAudio thread when waiting for output data.
+	     Clashes with TextToSpeech.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    a517f5a  Permission denied for missing cert
+
+2009-10-23
+  Mikkel Krautz <mikkel@krautz.dk>
+    720b0e4  Crash Reporter implementation for OSX.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    874c03a  Source strings for 1.2.0 alpha
+    580655f  English source strings
+
+2009-10-22
+  Mikkel Krautz <mikkel@krautz.dk>
+    6cde32b  Remove custom speex fatal handler as well.
+    ae0d2db  OSX ConfigDialog for 11x.
+    470f6ed  Remove old unused OSX overlay code.
+    3bfe5b3  Proper debug handling for OSX overlay launcher.
+    94f4542  Add CoreAudio source files for 11x, as well.
+    4d08538  CoreAudio for 11x.
+    01a4770  Build OSX client without PortAudio.
+    9d78c54  CoreAudio audio backend for OSX.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    af09b09  CELT with proper VBR
+    1ca8016  Use proper symlinks for shared files
+
+2009-10-21
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    9a7e709  Allow EINTR during poll
+    572b530  Allow setInfo with name if it doesn't change
+    02ccd34  Clear ACL cache when removing users
+    0104375  Disable echobox on wizard init unless supported
+    e73c9b0  Compile released snapshots with IPP
+    6216f4a  Distribute dbghelp.dll on Win32 so it can work on older XP
+	     installations
+    99ba4f4  Clean up STACKVAR for murmur
+    79d7461  We don't really support plaintext anymore, so remove detection
+	     from the rich text editor
+    146cc63  Cache pingsort
+
+2009-10-20
+  Martin Skilnand <cybknight@users.sourceforge.net>
+    1813b2e  channel_linked.svg now with blue glow.
+    fa3f1e9  Different style edge for better rendering?
+    025138d  New test muted_local.svg
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    3b23451  Explicitly set DirectInput device pointer to NULL to ease
+	     debugging
+    866214d  Save localmute state
+    2a2417a  If sighup when not detached, interpret as quit
+    be58259  Allow murmurd to compile under Qt 4.4.3
+    e6037df  Update release script for multiple celt versions
+    488f252  Fix crash when removing last shortcut after editing it
+    a4c6556  Compile new celt juggling on Intel compiler
+
 2009-10-19
   Martin Skilnand <cybknight@users.sourceforge.net>
     a2426bf  Test icons/muted_local.svg
