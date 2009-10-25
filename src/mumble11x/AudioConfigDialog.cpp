@@ -213,7 +213,7 @@ void AudioInputDialog::updateBitrate() {
 	float f = static_cast<float>(q);
 	void *es;
 
-	es = speex_encoder_init(&speex_wb_mode);
+	es = speex_encoder_init(speex_lib_get_mode(SPEEX_MODEID_WB));
 	speex_encoder_ctl(es,SPEEX_SET_VBR_QUALITY, &f);
 	speex_encoder_ctl(es,SPEEX_GET_BITRATE,&audiorate);
 	speex_encoder_destroy(es);

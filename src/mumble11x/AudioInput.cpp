@@ -90,7 +90,7 @@ AudioInput::AudioInput() {
 
 	iSampleRate = SAMPLE_RATE;
 
-	esEncState=speex_encoder_init(&speex_wb_mode);
+	esEncState=speex_encoder_init(speex_lib_get_mode(SPEEX_MODEID_WB));
 	speex_encoder_ctl(esEncState,SPEEX_GET_FRAME_SIZE,&iFrameSize);
 
 	mumble_drft_init(&fftTable, iFrameSize);
@@ -433,7 +433,7 @@ int AudioInput::getMaxBandwidth() {
 
 	void *es;
 	float f = static_cast<float>(g.s.iQuality);
-	es = speex_encoder_init(&speex_wb_mode);
+	es = speex_encoder_init(speex_lib_get_mode(SPEEX_MODEID_WB));
 	speex_encoder_ctl(es,SPEEX_SET_VBR_QUALITY, &f);
 	speex_encoder_ctl(es,SPEEX_GET_BITRATE,&audiorate);
 	speex_encoder_destroy(es);
@@ -459,7 +459,7 @@ void AudioInput::setMaxBandwidth(int bytespersec) {
 	int baserate;
 
 	void *es;
-	es = speex_encoder_init(&speex_wb_mode);
+	es = speex_encoder_init(speex_lib_get_mode(SPEEX_MODEID_WB));
 
 	float f = static_cast<float>(g.s.iQuality);
 

@@ -386,7 +386,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	} else {
 		speex_bits_init(&sbBits);
 
-		dsSpeex = speex_decoder_init(&speex_uwb_mode);
+		dsSpeex = speex_decoder_init(speex_lib_get_mode(SPEEX_MODEID_UWB));
 		int iArg=1;
 		speex_decoder_ctl(dsSpeex, SPEEX_SET_ENH, &iArg);
 		speex_decoder_ctl(dsSpeex, SPEEX_GET_FRAME_SIZE, &iFrameSize);

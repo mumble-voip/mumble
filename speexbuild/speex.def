@@ -127,7 +127,4 @@ speex_resampler_skip_zeros
 speex_resampler_reset_mem
 speex_resampler_strerror
 
-speex_wb_mode
-speex_uwb_mode
-
 mumble_speex_init

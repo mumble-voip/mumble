@@ -114,7 +114,7 @@ void AudioOutputPlayer::resizeBuffer(unsigned int newsize) {
 }
 
 AudioOutputSample::AudioOutputSample(const QString &filename, const QList<QByteArray> &packets, bool loop, unsigned int freq) : AudioOutputPlayer(filename) {
-	dsDecState=speex_decoder_init(&speex_wb_mode);
+	dsDecState=speex_decoder_init(speex_lib_get_mode(SPEEX_MODEID_WB));
 
 	int iArg=1;
 	int err;
@@ -279,7 +279,7 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 AudioOutputSpeech::AudioOutputSpeech(ClientPlayer *player, unsigned int freq) : AudioOutputPlayer(player->qsName) {
 	p = player;
 
-	dsDecState=speex_decoder_init(&speex_wb_mode);
+	dsDecState=speex_decoder_init(speex_lib_get_mode(SPEEX_MODEID_WB));
 
 	int iArg=1;
 	int err;
@@ -436,7 +436,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 
 
 AudioOutput::AudioOutput() {
-	void *ds=speex_decoder_init(&speex_wb_mode);
+	void *ds=speex_decoder_init(speex_lib_get_mode(SPEEX_MODEID_WB));
 	speex_decoder_ctl(ds, SPEEX_GET_FRAME_SIZE, &iFrameSize);
 	speex_decoder_destroy(ds);
 	bRunning = false;
