@@ -1237,9 +1237,11 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 		QMap<int, QString> users = getRegisteredUsers();
 		QMap<int, QString>::const_iterator i;
 		for (i = users.constBegin(); i != users.constEnd(); ++i) {
-			::MumbleProto::UserList_User *u = msg.add_users();
-			u->set_user_id(i.key());
-			u->set_name(u8(i.value()));
+			if (i.key() > 0) {
+				::MumbleProto::UserList_User *u = msg.add_users();
+				u->set_user_id(i.key());
+				u->set_name(u8(i.value()));
+			}
 		}
 		sendMessage(uSource, msg);
 	} else {
