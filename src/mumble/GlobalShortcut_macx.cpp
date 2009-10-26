@@ -183,6 +183,7 @@ void GlobalShortcutMac::run() {
 	CFRunLoopSourceRef src = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, port, 0);
 	CFRunLoopAddSource(loop, src, kCFRunLoopCommonModes);
 	CFRunLoopRun();
+	qWarning("GlobalShortcutMac: Fell out of CFRunLoop()");
 }
 
 void GlobalShortcutMac::needRemap() {
