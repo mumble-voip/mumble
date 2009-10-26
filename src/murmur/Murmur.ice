@@ -197,12 +197,17 @@ module Murmur
 	sequence<string> NameList;
 	dictionary<int, string> NameMap;
 	dictionary<string, int> IdMap;
-	dictionary<UserInfo, string> UserInfoMap;
 	sequence<byte> Texture;
 	dictionary<string, string> ConfigMap;
 	sequence<string> GroupNameList;
 	sequence<byte> CertificateDer;
 	sequence<CertificateDer> CertificateList;
+
+	/** User information map.
+         * Older versions of ice-php can't handle enums as keys. If you are using one of these, replace 'UserInfo' with 'byte'.
+         */
+
+	dictionary<UserInfo, string> UserInfoMap;
 
 	/** User and subchannel state. Read-only.
          **/
