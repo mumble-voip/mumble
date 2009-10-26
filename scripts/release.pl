@@ -130,7 +130,7 @@ foreach my $resfile (@resources) {
 }
 
 my @fulldirs = ('speex','speex/include/speex','speex/libspeex','man');
-foreach my $cver ('0.6.1','0.6.2','0.6.3') {
+foreach my $cver ('0.6.1','0.6.2','0.7.0') {
   push @fulldirs, "celt-$cver-src";
   push @fulldirs, "celt-$cver-src/libcelt";
 }
