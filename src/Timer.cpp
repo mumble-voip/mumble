@@ -55,6 +55,8 @@ quint64 Timer::restart() {
 }
 
 #if defined(Q_OS_WIN)
+#include <windows.h>
+
 quint64 Timer::now() {
 	static quint64 f = 0LL;
 
