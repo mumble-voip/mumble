@@ -15,11 +15,9 @@ win32 {
 
 		QMAKE_CFLAGS_RELEASE *= -O3 -Ot -QxSSE -Qprec-div-
 		QMAKE_CFLAGS_RELEASE -=-arch:SSE
-		QMAKE_CFLAGS_RELEASE -= -Oy 
 		
 		QMAKE_CXXFLAGS_RELEASE *= -O3 -Ot -QxSSE -Qprec-div-
 		QMAKE_CXXFLAGS_RELEASE -=-arch:SSE
-		QMAKE_CXXFLAGS_RELEASE -= -Oy
 
 		QMAKE_CFLAGS_DEBUG *= -O2 -Ob0
 		QMAKE_CXXFLAGS_DEBUG *= -O2 -Ob0
@@ -34,12 +32,18 @@ win32 {
 			QMAKE_CXXFLAGS *= -Qprof-use
 		}
 	} else {
+		QMAKE_CFLAGS_RELEASE *= -Ox -Ot /fp:fast /Qfast_transcendentals -Ob2
+		QMAKE_CXXFLAGS_RELEASE *= -Ox -Ot /fp:fast /Qfast_transcendentals -Ob2
 		DEFINES *= RESTRICT=
 	}
 
 	CONFIG(symbols) {
 		QMAKE_CFLAGS_RELEASE *= -GR -Zi -Oy-
 		QMAKE_CXXFLAGS_RELEASE *= -GR -Zi -Oy-
+
+		QMAKE_CFLAGS_RELEASE -= -Oy 
+		QMAKE_CXXFLAGS_RELEASE -= -Oy
+
 		QMAKE_LFLAGS *= /debug
 		QMAKE_LFLAGS *= /OPT:REF /OPT:ICF
 	}
