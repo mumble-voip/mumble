@@ -373,11 +373,13 @@ CoreAudioInput::CoreAudioInput() {
 		return;
 	}
 
+	bRunning = true;
 };
 
 CoreAudioInput::~CoreAudioInput() {
 	OSStatus err;
 
+	bRunning = false;
 	wait();
 
 	if (au) {
@@ -556,11 +558,14 @@ CoreAudioOutput::CoreAudioOutput() {
 		qWarning("CoreAudioOutput: Unable to start AudioUnit");
 		return;
 	}
+
+	bRunning = true;
 }
 
 CoreAudioOutput::~CoreAudioOutput() {
 	OSStatus err;
 
+	bRunning = false;
 	wait();
 
 	if (au) {
