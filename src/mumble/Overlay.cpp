@@ -248,6 +248,9 @@ void Overlay::toggleShow() {
 			break;
 	}
 	g.s.osOverlay = ns;
+	
+	if (! sm.sm)
+		return;
 
 	if (sm.tryLock()) {
 		sm.sm->bShow = (g.s.osOverlay != Settings::Nothing);
@@ -459,7 +462,7 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 		}
 	}
 
-	if (! sm.tryLock())
+	if (! sm.sm || ! sm.tryLock())
 		return;
 
 	int i;
