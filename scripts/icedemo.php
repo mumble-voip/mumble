@@ -65,25 +65,28 @@ try {
   } else if (! is_null($_REQUEST['uedit'])) {
     $server = $meta->getServer($_REQUEST['uedit'] + 0);
     if (isset($_REQUEST['newplayer'])) {
-      $_REQUEST['uid'] = $server->registerPlayer($_REQUEST['newplayer']);
+      $reg = array();
+      $reg[Murmur_UserInfo::UserName] = $_REQUEST['newplayer'];
+      $_REQUEST['uid'] = $server->registerUser($reg);
     }
     if (! is_null($_REQUEST['deleteplayer'])) {
       $server->unregisterPlayer($_REQUEST['deleteplayer'] + 0);
     }
     if (! is_null($_REQUEST['uid'])) {
-      $user = $server->getRegistration($_REQUEST['uid'] + 0);
+      $uid = $_REQUEST['uid'] + 0;
+      $user = $server->getRegistration($uid);
       if (! is_null($_REQUEST['set'])) {
-        $user->email = $_REQUEST['email'];
-        $user->pw = $_REQUEST['pw'];
+        $user[Murmur_UserInfo::UserEmail] = $_REQUEST['email'];
+        $user[Murmur_UserInfo::Password] = $_REQUEST['pw'];
         $server->updateRegistration($user);
       } else {
         echo "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">\n";
         echo "<p>\n";
-        echo "<b>Name:</b> $user->name<br />\n";
+        echo "<b>Name:</b> ".$user[Murmur_UserInfo::UserName]."<br />\n";
         echo "<input type=\"hidden\" name=\"set\" value=\"1\" />\n";
         echo "<input type=\"hidden\" name=\"uedit\" value=\"".$server->id()."\" />\n";
-        echo "<input type=\"hidden\" name=\"uid\" value=\"$user->playerid\" />\n";
-        echo "<b>Email:</b> <input type=\"text\" name=\"email\" size=\"30\" maxlength=\"128\" value=\"".htmlspecialchars($user->email)."\" /><br />\n";
+        echo "<input type=\"hidden\" name=\"uid\" value=\"$uid\" />\n";
+        echo "<b>Email:</b> <input type=\"text\" name=\"email\" size=\"30\" maxlength=\"128\" value=\"".htmlspecialchars($user[Murmur_UserInfo::UserEmail])."\" /><br />\n";
         echo "<b>New password:</b> <input type=\"password\" name=\"pw\" size=\"30\" maxlength=\"128\" /><br />\n";
         echo "<input type=\"submit\" />\n";
         echo "</p>\n";
@@ -101,12 +104,12 @@ try {
     echo "</form>\n";
     echo "<table>\n";
     echo "<tr><th>UserName</th><th>Email</th><th></th></tr>\n";
-    $users = $server->getRegisteredPlayers("");
-    usort($users, "ucmp");
-    foreach($users as $u) {
-      echo "<tr><td>$u->name</td><td>".$u->email."</td><td>";
-      echo "<a href=\"?uedit=".$server->id()."&amp;uid=".$u->playerid."\">[Edit]</a> ";
-      echo "<a href=\"?uedit=".$server->id()."&amp;deleteplayer=".$u->playerid."\">[Unregister]</a> ";
+    $users = $server->getRegisteredUsers("");
+    foreach($users as $id=>$name) {
+      $u = $server->getRegistration($id);
+      echo "<tr><td>$name $id</td><td>".$u[Murmur_UserInfo::UserEmail]."</td><td>";
+      echo "<a href=\"?uedit=".$server->id()."&amp;uid=".$id."\">[Edit]</a> ";
+      echo "<a href=\"?uedit=".$server->id()."&amp;deleteplayer=".$id."\">[Unregister]</a> ";
       echo "</td></tr>\n";
     }
     echo "</table>\n";
@@ -174,7 +177,7 @@ try {
       echo "<table><tr><th>Name</th><th>Channel</th><th>Actions</th></tr>\n";
 
       $channels = $s->getChannels();
-      $players = $s->getPlayers();
+      $players = $s->getUsers();
 
       foreach($players as $pid => $state) {
         $chan = $channels[$state->channel];

@@ -11,21 +11,26 @@ try {
   $default = $meta->getDefaultConf();
 
   $server = $meta->getServer(1);
+  
 
   $bans = $server->getBans();
+
+  print_r($bans);
   foreach($bans as $ban) {
-    $a = ($ban->address >> 24) & 0xFF;
-    $b = ($ban->address >> 16) & 0xFF;
-    $c = ($ban->address >> 8) & 0xFF;
-    $d = ($ban->address >> 0) & 0xFF;
+    for($i=0;$i<16;$i+=2) {
+      echo sprintf("%02x%02x", $ban->address[$i], $ban->address[$i+1]);
+      if ($i != 14) {
+        echo ":";
+      }
+    }
     $mask = $ban->bits;
-    echo "$a.$b.$c.$d/$mask\n";
+    echo "/$mask\n";
   }
 
   $ban = new Murmur_Ban();
-  $ban->address = (127 << 24) | (0 << 16) | (0 << 8) | 1;
-  $ban->bits = 24;
-
+  $ban->address = array(0,0,0,0,0,0,0,0,0,0,255,255,127,0,0,1);
+  $ban->bits = 128;
+  
   array_push($bans, $ban);
 
   $server->setBans($bans);
