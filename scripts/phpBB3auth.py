@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 # -*- coding: utf-8
 
 #
@@ -51,9 +51,11 @@ class config(object):
                     self.__dict__[h].__dict__[name] = vdefault
 
 def x2bool(s):
-    if type(s) == bool: return s
-    if type(s) == str and (s.lower() == 'true' or s == '1'): return True
-    return False
+   if isinsatance(s, bool):
+       return s
+   elif isinstance(s, basestring):
+       return s.lower() in ['1', 'true']
+   return False
 
 cfgfile = 'phpBB3auth.ini'
 user_texture_resolution = (600,60)
@@ -104,20 +106,6 @@ try:
     cfg = config(option.ini, default)
 except Exception, e:
     print>>sys.stderr, 'Fatal error, could not load config file from "%s"' % cfgfile
-    sys.exit(1)
-
-if option.verbose:
-    level = cfg.log.level
-else:
-    level = logging.ERROR
-
-logging.basicConfig(level = level,
-                    format='%(asctime)s %(levelname)s %(message)s',
-                    filename = cfg.log.file if cfg.log.file else None,
-                    stream = None if cfg.log.file else logging.sys.stderr)
-
-if option.force_daemon and option.force_app:
-    parser.print_help()
     sys.exit(1)
     
 Ice.loadSlice(cfg.ice.slice)
@@ -593,16 +581,26 @@ def do_main_program():
     info('Starting phpBB3 mumble authenticator')
     initdata = Ice.InitializationData()
     initdata.logger = CustomLogger()
-    #initdata.properties = Ice.createProperties(None, initdata.properties)
-    #initdata.properties.setProperty("Ice.Trace.Network", "2")
-    #initdata.properties.setProperty("Ice.Warn.Connections", "1")
-    #initdata.properties.setProperty("Ice.Trace.Protocol", "1")
     
     app = phpBBauthenticatorApp()
     state = app.main(sys.argv[:1], initData = initdata)
     info('Shutdown complete')
     
-if __name__ == '__main__':    
+if __name__ == '__main__':
+    if option.verbose:
+        level = cfg.log.level
+    else:
+        level = logging.ERROR
+    
+    logging.basicConfig(level = level,
+                        format='%(asctime)s %(levelname)s %(message)s',
+                        filename = cfg.log.file if cfg.log.file else None,
+                        stream = None if cfg.log.file else logging.sys.stderr)
+    
+    if option.force_daemon and option.force_app:
+        parser.print_help()
+        sys.exit(1)
+        
     if cfg.user.avatar_enable:
         # If we use avatars we need PIL to manipulate it and some other stuff for working with them
         try:
