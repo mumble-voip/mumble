@@ -531,9 +531,23 @@ WASAPIOutput::~WASAPIOutput() {
 }
 
 void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
+	HRESULT hr;
+
+	if (! talking) {
+		QMap<ISimpleAudioVolume *, VolumePair>::const_iterator i;
+		for(i=qmVolumes.constBegin(); i != qmVolumes.constEnd(); ++i) {
+			float fVolume = 1.0f;
+			hr = i.key()->GetMasterVolume(&fVolume);
+			if (qFuzzyCompare(i.value().second, fVolume))
+				hr = i.key()->SetMasterVolume(i.value().first, NULL);
+			i.key()->Release();
+		}
+		qmVolumes.clear();
+		return;
+	}
+
 	IAudioSessionManager2 *pAudioSessionManager = NULL;
 	int max = 0;
-	HRESULT hr;
 	DWORD dwMumble = GetCurrentProcessId();
 
 	static int version = -1;
@@ -550,14 +564,11 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 			version = 1;
 	}
 
-	if (talking) {
-		qmVolumes.clear();
-		if (qFuzzyCompare(g.s.fOtherVolume, 1.0f))
-			return;
-	} else if (qmVolumes.isEmpty()) {
+	qmVolumes.clear();
+	if (qFuzzyCompare(g.s.fOtherVolume, 1.0f))
 		return;
-	}
 
+	// FIXME: Try to keep the session object around when returning volume.
 
 	if (SUCCEEDED(hr = pDevice->Activate(version ? __uuidof(IAudioSessionManager2) : __uuidof(IAudioSessionManager), CLSCTX_ALL, NULL, (void **) &pAudioSessionManager))) {
 		IAudioSessionEnumerator *pEnumerator = NULL;
@@ -569,6 +580,9 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 		} else {
 			hr = pAudioSessionManager->GetSessionEnumerator(&pEnumerator);
 		}
+		
+		QSet<QUuid> seen;
+		
 		if (SUCCEEDED(hr)) {
 			if (SUCCEEDED(hr = pEnumerator->GetCount(&max))) {
 				for (int i=0;i<max;++i) {
@@ -579,37 +593,29 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 							DWORD pid;
 							if (SUCCEEDED(hr = pControl2->GetProcessId(&pid)) && (pid != dwMumble)) {
 								AudioSessionState ass;
-								if (SUCCEEDED(hr = pControl2->GetState(&ass)) && (! talking || (ass != AudioSessionStateExpired))) {
+								if (SUCCEEDED(hr = pControl2->GetState(&ass)) && (ass != AudioSessionStateExpired)) {
 									GUID group;
 									if (SUCCEEDED(hr = pControl2->GetGroupingParam(&group))) {
 										QUuid quuid(group);
-										if (qmVolumes.contains(quuid) != talking) {
+										if (! seen.contains(quuid)) {
+											seen.insert(quuid);
 											ISimpleAudioVolume *pVolume = NULL;
 											if (SUCCEEDED(hr = pControl2->QueryInterface(__uuidof(ISimpleAudioVolume), (void **) &pVolume))) {
-												if (talking) {
-													BOOL bMute = TRUE;
-													if (SUCCEEDED(hr = pVolume->GetMute(&bMute)) && ! bMute) {
-														float fVolume = 1.0f;
-														if (!qmVolumes.contains(quuid) && SUCCEEDED(hr = pVolume->GetMasterVolume(&fVolume)) && ! qFuzzyCompare(fVolume,0.0f)) {
-															float fSetVolume = fVolume * g.s.fOtherVolume;
-															if (SUCCEEDED(hr = pVolume->SetMasterVolume(fSetVolume, NULL))) {
-																hr = pVolume->GetMasterVolume(&fSetVolume);
-																qmVolumes.insert(quuid, VolumePair(fVolume,fSetVolume));
-															}
+												BOOL bMute = TRUE;
+												bool keep = false;
+												if (SUCCEEDED(hr = pVolume->GetMute(&bMute)) && ! bMute) {
+													float fVolume = 1.0f;
+													if (SUCCEEDED(hr = pVolume->GetMasterVolume(&fVolume)) && ! qFuzzyCompare(fVolume,0.0f)) {
+														float fSetVolume = fVolume * g.s.fOtherVolume;
+														if (SUCCEEDED(hr = pVolume->SetMasterVolume(fSetVolume, NULL))) {
+															hr = pVolume->GetMasterVolume(&fSetVolume);
+															qmVolumes.insert(pVolume, VolumePair(fVolume,fSetVolume));
+															keep = true;
 														}
-													}
-												} else {
-													VolumePair vp = qmVolumes.value(quuid);
-													if (vp.first) {
-														float fVolume = 1.0f;
-														hr = pVolume->GetMasterVolume(&fVolume);
-														if (qFuzzyCompare(fVolume, vp.second)) {
-															pVolume->SetMasterVolume(vp.first, NULL);
-														}
-														qmVolumes.remove(quuid);
 													}
 												}
-												pVolume->Release();
+												if (! keep)
+													pVolume->Release();
 											}
 										}
 									}
