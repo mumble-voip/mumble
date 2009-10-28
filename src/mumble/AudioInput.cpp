@@ -143,13 +143,8 @@ AudioInput::AudioInput() {
 	sppPreprocess = NULL;
 	sesEcho = NULL;
 	srsMic = srsEcho = NULL;
-	jb = jitter_buffer_init(10);
-	iJitterSeq = 1;
-
-	int iArg = 90;
-	jitter_buffer_ctl(jb, JITTER_BUFFER_SET_MAX_LATE_RATE, &iArg);
-	iArg = 10;
-	jitter_buffer_ctl(jb, JITTER_BUFFER_SET_LATE_COST, &iArg);
+	iJitterSeq = 0;
+	iMinBuffered = 1000;
 
 	psMic = new short[iFrameSize];
 	psClean = new short[iFrameSize];
@@ -189,8 +184,10 @@ AudioInput::~AudioInput() {
 	}
 
 	mumble_drft_clear(&fftTable);
-	jitter_buffer_destroy(jb);
-
+	
+	foreach(short *buf, qlEchoFrames)
+		delete [] buf;
+	
 	if (sppPreprocess)
 		speex_preprocess_state_destroy(sppPreprocess);
 	if (sesEcho)
@@ -202,8 +199,9 @@ AudioInput::~AudioInput() {
 		speex_resampler_destroy(srsEcho);
 
 	delete [] psMic;
-	delete [] psSpeaker;
 	delete [] psClean;
+	if (psSpeaker)
+		delete [] psSpeaker;
 
 	if (pfMicInput)
 		delete [] pfMicInput;
@@ -349,7 +347,6 @@ void AudioInput::initializeMixer() {
 	pfOutput = new float[iFrameSize * qMax(1U,iEchoChannels)];
 
 	if (iEchoChannels > 0) {
-		psSpeaker = new short[iFrameSize * iEchoChannels];
 		bEchoMulti = g.s.bEchoMulti;
 		if (iEchoFreq != iSampleRate)
 			srsEcho = speex_resampler_init(bEchoMulti ? iEchoChannels : 1, iEchoFreq, iSampleRate, 3, &err);
@@ -403,18 +400,33 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 				psMic[j] = static_cast<short>(ptr[j] * mul);
 
 			if (iEchoChannels > 0) {
-				JitterBufferPacket jbp;
-				jbp.data = reinterpret_cast<char *>(psSpeaker);
-				jbp.len = static_cast<int>(iEchoFrameSize * sizeof(short));
-				jbp.timestamp = 0;
-				jbp.span = 0;
-				jbp.sequence = 0;
-				jbp.user_data = 0;
+				short *echo = NULL;
 
-				spx_int32_t offs;
+				{		
+					QMutexLocker l(&qmEcho);
+					
+					if (qlEchoFrames.isEmpty()) {
+						iJitterSeq = 0;
+						iMinBuffered = 1000;
+					} else {
+						iMinBuffered = qMin(iMinBuffered, qlEchoFrames.count());
+						
+						qWarning() << iJitterSeq << iMinBuffered;
 
-				jitter_buffer_get(jb, &jbp, 10, &offs);
-				jitter_buffer_tick(jb);
+						if ((iJitterSeq > 100) && (iMinBuffered > 1)) {
+							iJitterSeq = 0;
+							iMinBuffered = 1000;
+							delete [] qlEchoFrames.takeFirst();
+						}
+						echo = qlEchoFrames.takeFirst();
+					}
+				}
+				
+				if (echo) {
+					if (psSpeaker) 
+						delete [] psSpeaker;
+					psSpeaker = echo;
+				}
 			}
 			encodeAudioFrame();
 		}
@@ -449,27 +461,24 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 
 		if (iEchoFilled == iEchoLength) {
 			iEchoFilled = 0;
-
-			STACKVAR(short, outbuff, iEchoFrameSize);
+			
 			float *ptr = srsEcho ? pfOutput : pfEchoInput;
 			if (srsEcho) {
 				spx_uint32_t inlen = iEchoLength;
 				spx_uint32_t outlen = iFrameSize;
 				speex_resampler_process_interleaved_float(srsEcho, pfEchoInput, &inlen, pfOutput, &outlen);
 			}
+
+			short *outbuff = new short[iEchoFrameSize];
+
 			const float mul = 32768.f;
 			for (unsigned int j=0;j<iEchoFrameSize;++j)
 				outbuff[j] = static_cast<short>(ptr[j] * mul);
-
-			JitterBufferPacket jbp;
-			jbp.data = reinterpret_cast<char *>(outbuff);
-			jbp.len = static_cast<int>(iEchoFrameSize * sizeof(short));
-			jbp.timestamp = ++iJitterSeq * 10;
-			jbp.span = 10;
-			jbp.sequence = static_cast<unsigned short>(iJitterSeq);
-			jbp.user_data = 0;
-
-			jitter_buffer_put(jb, &jbp);
+				
+			iJitterSeq = qMin(iJitterSeq+1,10000U);
+				
+			QMutexLocker l(&qmEcho);
+			qlEchoFrames.append(outbuff);
 		}
 	}
 }
@@ -620,7 +629,7 @@ void AudioInput::encodeAudioFrame() {
 		max = static_cast<short>(abs(psMic[i]) > max ? abs(psMic[i]) : max);
 	dMaxMic = max;
 
-	if (iEchoChannels > 0) {
+	if (psSpeaker && (iEchoChannels > 0)) {
 		sum=1.0f;
 		for (i=0;i<iFrameSize;i++)
 			sum += static_cast<float>(psSpeaker[i] * psSpeaker[i]);
@@ -663,7 +672,6 @@ void AudioInput::encodeAudioFrame() {
 			speex_echo_ctl(sesEcho, SPEEX_ECHO_SET_SAMPLING_RATE, &iArg);
 			speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_ECHO_STATE, sesEcho);
 
-			jitter_buffer_reset(jb);
 			qWarning("AudioInput: ECHO CANCELLER ACTIVE");
 		} else {
 			sesEcho = NULL;
@@ -674,7 +682,7 @@ void AudioInput::encodeAudioFrame() {
 
 	int iIsSpeech;
 
-	if (sesEcho) {
+	if (sesEcho && psSpeaker) {
 		speex_echo_cancellation(sesEcho, psMic, psSpeaker, psClean);
 		iIsSpeech=speex_preprocess_run(sppPreprocess, psClean);
 		psSource = psClean;

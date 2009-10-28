@@ -73,8 +73,12 @@ class AudioInput : public QThread {
 		typedef void (*inMixerFunc)(float * RESTRICT, const void * RESTRICT, unsigned int, unsigned int);
 	private:
 		SpeexResamplerState *srsMic, *srsEcho;
-		JitterBuffer *jb;
+
+		QMutex qmEcho;
+		QList<short *> qlEchoFrames;
 		unsigned int iJitterSeq;
+		int iMinBuffered;
+
 		unsigned int iMicFilled, iEchoFilled;
 		inMixerFunc imfMic, imfEcho;
 		inMixerFunc chooseMixer(const unsigned int nchan, SampleFormat sf);
