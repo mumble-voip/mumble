@@ -411,8 +411,6 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 					} else {
 						iMinBuffered = qMin(iMinBuffered, qlEchoFrames.count());
 						
-						qWarning() << iJitterSeq << iMinBuffered;
-
 						if ((iJitterSeq > 100) && (iMinBuffered > 1)) {
 							iJitterSeq = 0;
 							iMinBuffered = 1000;
