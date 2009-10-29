@@ -390,7 +390,7 @@ void Settings::load() {
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bHideFrame, "ui/hideframe");
 	SAVELOAD(bUserTop, "ui/usertop");
-	SAVELOAD(bFirstTime, "ui/firsttime");
+	SAVELOAD(bFirstTime, "ui/firsttime120");
 	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");
 	SAVELOAD(qbaMainWindowState, "ui/state");
 	SAVELOAD(qbaMinimalViewGeometry, "ui/minimalviewgeometry");
@@ -563,7 +563,7 @@ void Settings::save() {
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bHideFrame, "ui/hideframe");
 	SAVELOAD(bUserTop, "ui/usertop");
-	SAVELOAD(bFirstTime, "ui/firsttime");
+	SAVELOAD(bFirstTime, "ui/firsttime120");
 	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");
 	SAVELOAD(qbaMainWindowState, "ui/state");
 	SAVELOAD(qbaMinimalViewGeometry, "ui/minimalviewgeometry");
