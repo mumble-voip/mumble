@@ -314,6 +314,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 	qslValid << QLatin1String("mumble");
 	qslValid << QLatin1String("http");
 	qslValid << QLatin1String("https");
+	qslValid << QLatin1String("ftp");
 
 	QRectF qr = dw.availableGeometry(dw.screenNumber(g.mw));
 	qtd.setTextWidth(qr.width() / 2);
