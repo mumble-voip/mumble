@@ -167,6 +167,15 @@ void OverlayConfig::accept() const {
 	g.o->setActive(s.bOverlayEnable);
 }
 
+bool Overlay::TextLine::operator <(const Overlay::TextLine &other) const {
+	if (iPriority < other.iPriority)
+		return true;
+	else if (iPriority > other.iPriority)
+		return false;
+		
+	return qsText < other.qsText;
+}
+
 Overlay::Overlay() : QObject() {
 	d = NULL;
 	qlOverlay = new QLibrary(this);
@@ -345,11 +354,11 @@ void Overlay::updateOverlay() {
 		if (g.s.bOverlayTop) {
 			foreach(qpChanCol cc, linkchans) {
 				if ((g.s.osOverlay == Settings::All) || (cc.second == colChannelTalking)) {
-					lines << TextLine(cc.first, cc.second);
+					lines << TextLine(cc.first, cc.second, 0);
 				}
 			}
 			if (linkchans.count() > 0) {
-				lines << TextLine(QString(), 0);
+				lines << TextLine(QString(), 0, 0);
 			}
 		}
 
@@ -374,23 +383,24 @@ void Overlay::updateOverlay() {
 						col = colWhisper;
 						break;
 				}
-				lines << TextLine(name, col, u->uiSession, dec);
+				lines << TextLine(name, col, 1, u->uiSession, dec);
 			}
 		}
 
 		if (! g.s.bOverlayTop) {
 			if (linkchans.count() > 0) {
-				lines << TextLine(QString(), 0);
+				lines << TextLine(QString(), 0, 2);
 			}
 			foreach(qpChanCol cc, linkchans) {
 				if ((g.s.osOverlay == Settings::All) || (cc.second == colChannelTalking)) {
-					lines << TextLine(cc.first, cc.second);
+					lines << TextLine(cc.first, cc.second, 2);
 				}
 			}
 		}
 	} else {
 		clearCache();
 	}
+	qSort(lines);
 	setTexts(lines);
 }
 
