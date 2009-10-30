@@ -206,10 +206,10 @@ bool Plugins::fetch() {
 		bValid = false;
 		return bValid;
 	}
-	float camera_pos[3], camera_front[3], camera_top[3];
-	std::string context;
-	std::wstring identity;
-	bool ok=locked->p->fetch(fPosition, fFront, fTop, camera_pos, camera_front, camera_top, context, identity);
+	float dummy_pos[3], dummy_front[3], dummy_top[3];
+	std::string dummy_context;
+	std::wstring dummy_identity;
+	bool ok=locked->p->fetch(fPosition, dummy_front, dummy_top, dummy_pos, fFront, fTop, dummy_context, dummy_identity);
 	if (! ok || bUnlink) {
 		locked->p->unlock();
 		locked->locked = false;
