@@ -352,7 +352,7 @@
       <item row="3" column="3">
        <widget class="QSlider" name="qsMaxDistance">
         <property name="toolTip">
-         <string>Maximum distance, beyond which speech volume won't decrease</string>
+         <string>Maximum distance, beyond which speech volume won't decrease.</string>
         </property>
         <property name="whatsThis">
          <string>This sets the maximum distance for sound calculations. When farther away than this, other users' speech volume will not decrease any further.</string>
@@ -487,7 +487,7 @@
          <string>Variance in packet latency</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</string>
+         <string>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</string>
         </property>
         <property name="maximum">
          <number>100</number>

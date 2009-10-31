@@ -344,7 +344,7 @@
     <string>Link your channel to another channel</string>
    </property>
    <property name="whatsThis">
-    <string>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</string>
+    <string>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</string>
    </property>
   </action>
   <action name="qaChannelUnlink">
@@ -602,7 +602,7 @@
     <string>Register user on server</string>
    </property>
    <property name="whatsThis">
-    <string>This will permanently register the user on the server. Note that you can't change the username later on, nor can you easily unregister a user, so make sure you really want to do this.</string>
+    <string>This will permanently register the user on the server.</string>
    </property>
   </action>
   <action name="qaUserFriendAdd">
