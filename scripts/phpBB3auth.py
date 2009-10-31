@@ -28,11 +28,11 @@ from optparse   import OptionParser
 
 def x2bool(s):
     """Helper function to convert strings from the config to bool"""
-    if isinsatance(s, bool):
+    if isinstance(s, bool):
         return s
     elif isinstance(s, basestring):
         return s.lower() in ['1', 'true']
-    return False
+    raise ValueError()
 
 #
 #--- Default configuration values
@@ -83,7 +83,7 @@ class config(object):
             for name, conv, vdefault in v:
                 try:
                     self.__dict__[h].__dict__[name] = conv(cfg.get(h, name))
-                except:
+                except ValueError:
                     self.__dict__[h].__dict__[name] = vdefault
                     
 class threadDbException(Exception): pass
