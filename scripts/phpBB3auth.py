@@ -136,7 +136,7 @@ class threadDB(object):
         tid = thread.get_ident()
         con = cls.db_connections.pop(tid, None)
         if con:
-            debug('Invalidate connection to database for thead %d', tid)
+            debug('Invalidate connection to database for thread %d', tid)
             con.close()
             
     invalidate_connection = classmethod(invalidate_connection)
@@ -215,7 +215,7 @@ def do_main_program():
                 return (FALL_THROUGH, None, None)
             
             try:
-                sql = 'SELECT user_id, user_password, user_type, username FROM %susers WHERE LOWER(username) = LOWER(%%s)' % cfg.database.prefix
+                sql = 'SELECT user_id, user_password, user_type, username FROM %susers WHERE (user_type = 0 OR user_type = 3) AND LOWER(username) = LOWER(%%s)' % cfg.database.prefix
                 cur = threadDB.execute(sql, name)
             except threadDbException:
                 return (FALL_THROUGH, None, None)
@@ -269,7 +269,7 @@ def do_main_program():
                 return FALL_THROUGH
             
             try:
-                sql = 'SELECT user_id FROM %susers WHERE LOWER(username) = LOWER(%%s)' % cfg.database.prefix
+                sql = 'SELECT user_id FROM %susers WHERE (user_type = 0 OR user_type = 3) AND LOWER(username) = LOWER(%%s)' % cfg.database.prefix
                 cur = threadDB.execute(sql, name)
             except threadDbException:
                 return FALL_THROUGH
@@ -297,7 +297,7 @@ def do_main_program():
             
             # Fetch the user from the database
             try:
-                sql = 'SELECT username FROM %susers WHERE user_id = %%s' % cfg.database.prefix
+                sql = 'SELECT username FROM %susers WHERE (user_type = 0 OR user_type = 3) AND user_id = %%s' % cfg.database.prefix
                 cur = threadDB.execute(sql, bbid)
             except threadDbException:
                 return FALL_THROUGH
@@ -320,9 +320,10 @@ def do_main_program():
             """
             Gets called to get the corresponding texture for a user
             """
-            
+
             FALL_THROUGH = ""
             
+            debug('idToTexture for %d', id)
             if id < cfg.user.id_offset or not cfg.user.avatar_enable:
                 debug('idToTexture %d -> fall through', id)
                 return FALL_THROUGH
@@ -330,7 +331,7 @@ def do_main_program():
             # Otherwise get the users texture from phpBB3
             bbid = id - cfg.user.id_offset
             try:
-                sql = 'SELECT user_avatar, user_avatar_type FROM %susers WHERE user_id = %%s' % cfg.database.prefix
+                sql = 'SELECT user_avatar, user_avatar_type FROM %susers WHERE (user_type = 0 OR user_type = 3) AND user_id = %%s' % cfg.database.prefix
                 cur = threadDB.execute(sql, bbid)
             except threadDbException:
                 return FALL_THROUGH
@@ -374,8 +375,7 @@ def do_main_program():
                 warning('Image manipulation for "%s" (%d) failed', url, id)
                 debug(e)
                 return FALL_THROUGH
-                
-            debug("Done")
+
             self.texture_cache[avatar_file] = res            
             return res
             
@@ -397,7 +397,7 @@ def do_main_program():
             
             FALL_THROUGH = -1
             # Return -1 to fall through to internal server database, we will not modify the phpbb3 database
-            # but we can make murmur delete all additional information he got this way.
+            # but we can make murmur delete all additional information it got this way.
             debug('unregisterUser %d -> fall through', id)
             return FALL_THROUGH
         
@@ -408,20 +408,22 @@ def do_main_program():
             filter as a substring.
             """
             
+            if not filter:
+                filter = '%'
+            
             try:
-                sql = 'SELECT username FROM %susers WHERE username LIKE %%s' % cfg.database.prefix
+                sql = 'SELECT user_id, username FROM %susers WHERE (user_type = 0 OR user_type = 3) AND username LIKE %%s' % cfg.database.prefix
                 cur = threadDB.execute(sql, filter)
             except threadDbException:
-                return []
+                return {}
     
             res = cur.fetchall()
             cur.close()
             if not res:
                 debug('getRegisteredUsers -> empty list for filter "%s"', filter)
-                return []
-            
+                return {}
             debug ('getRegisteredUsers -> %d results for filter "%s"', len(res), filter)
-            return res
+            return dict([(a + cfg.user.id_offset, b) for a,b in res])
         
         
         def setInfo(self, id, info, current = None):
