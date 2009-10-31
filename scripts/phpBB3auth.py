@@ -83,7 +83,7 @@ class config(object):
             for name, conv, vdefault in v:
                 try:
                     self.__dict__[h].__dict__[name] = conv(cfg.get(h, name))
-                except ValueError:
+                except (ValueError, ConfigParser.NoSectionError, ConfigParser.NoOptionError):
                     self.__dict__[h].__dict__[name] = vdefault
                     
 class threadDbException(Exception): pass
