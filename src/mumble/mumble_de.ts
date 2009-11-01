@@ -2147,7 +2147,7 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
     <message>
         <location filename="AudioOutput.cpp" line="297"/>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
-        <translation>Die Datei &apos;%1&apos; kann nicht in Mumble verwendet werden. Bitte wählen Sie eine Datei mit einem kompatiblen Format und Kodierung.</translation>
+        <translation>Die Datei &apos;%1&apos; kann nicht in Mumble verwendet werden. Bitte wählen Sie eine Datei mit kompatiblem Format und Kodierung.</translation>
     </message>
 </context>
 <context>
@@ -2155,17 +2155,17 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
     <message>
         <location filename="AudioStats.ui" line="28"/>
         <source>Peak microphone level</source>
-        <translation>Höchster Mikrofonpegel</translation>
+        <translation>Spitzen Mikrofonpegel</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="48"/>
         <source>Peak speaker level</source>
-        <translation>Höchster Lautsprecherpegel</translation>
+        <translation>Spitzen Lautsprecherpegel</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="68"/>
         <source>Peak clean level</source>
-        <translation>Höchster sauberer Pegel</translation>
+        <translation>Gesäuberter Spitzenpegel</translation>
     </message>
     <message>
         <source>Microphone loudness</source>
@@ -2189,7 +2189,7 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
         <location filename="AudioStats.ui" line="55"/>
         <location filename="AudioStats.ui" line="75"/>
         <source>Peak power in last frame</source>
-        <translation>Spitzenhöhe im letzten Paket</translation>
+        <translation>Spitzenpegel im letzten Paket</translation>
     </message>
     <message>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Loudness&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
@@ -2198,7 +2198,7 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
     <message>
         <location filename="AudioStats.ui" line="58"/>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
-        <translation>Dies zeigt den Spitzenpegel des Lautsprechers im letzten Paket (20ms) an. Solange keine Multikanal-Sampling-Methode (wie ASIO) genutzt wird, wird dieser Wert 0 sein. Hat man jedoch solch eine Einstellung konfiguriert und der Wert ist trotzdem 0 während man Klänge von anderen Programmen abspielt, arbeitet die Einstellung nicht korrekt.</translation>
+        <translation>Dies zeigt den Spitzenpegel des Lautsprechers im letzten Paket (20ms) an. Solange keine Multikanal-Sampling-Methode (wie ASIO) genutzt wird, wird dieser Wert 0 sein. Verwenden Sie jedoch eine solche Anordnung und der Wert ist beim abspielen von Audio in anderen Programmen trotzdem 0 so arbeitet die Einstellung nicht korrekt.</translation>
     </message>
     <message>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other players with echoes.</source>
@@ -2216,12 +2216,12 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
     <message>
         <location filename="AudioStats.ui" line="124"/>
         <source>Signal-To-Noise ratio from the microphone</source>
-        <translation>Signal-Rausch-Verhältnis vom Mikrofon</translation>
+        <translation>Signal-Rausch-Verhältnis des Mikrofons</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="127"/>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
-        <translation>Dies ist das Signal-Rausch-Verhältnis (SRV) des Mikrofons im letzten Paket (20ms). Es zeigt an, um wie viel klarer die Stimme im Vergleich zum (Hintergrund-)Rauschen ist.&lt;br /&gt;Ist der Wert unter 1.0 gibt es mehr Geräusche als Stimme im Signal, weshalb die Qualität reduziert ist.&lt;br /&gt;Es gibt keine Obergrenze, aber ein Wert über 40-50 kann ohne Tonstudio nicht erwartet werden.</translation>
+        <translation>Dies ist das Signal-Rausch-Verhältnis (SRV) des Mikrofons im letzten Paket (20ms). Es zeigt an, um wie viel stärker die Stimme im Vergleich zum Hintergrundrauschen ist.&lt;br /&gt;Ist der Wert unter 1.0 gibt es mehr Geräusche als Stimme im Signal, weshalb die Qualität reduziert ist.&lt;br /&gt;Es gibt keine Obergrenze, aber ein Wert über 40-50 kann ohne Tonstudio nicht erwartet werden.</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="144"/>
@@ -2231,7 +2231,7 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
     <message>
         <location filename="AudioStats.ui" line="147"/>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation>Dies ist die Wahrscheinlichkeit, dass das letzte Paket (20ms) Sprache und kein Umgebungsrauschen war.&lt;br /&gt;Die Stimmaktivierungserkennung hängt davon ab, wie sie eingestellt ist. Der Trick ist, dass die Mitte eines Satzes immer als Sprache erkannt wird; problematisch sind Pausen zwischen Wörtern und der Anfang des Satzes.&lt;br /&gt;Ist dies fett geschrieben, bedeutet dies, dass Mumble gerade übertragt (wenn man verbunden ist).</translation>
+        <translation>Dies ist die Wahrscheinlichkeit, dass das letzte Paket (20ms) Sprache und kein Umgebungsgeräusch war.&lt;br /&gt;Die Sprachaktivitätserkennung hängt von der Korrektheit dieses Wertes ab. Der Trick ist, dass die Mitte eines Satzes immer als Sprache erkannt wird; problematisch sind Pausen zwischen Wörtern und der Anfang des Satzes. Es ist schwierig ein Seufzen von einem mit &apos;h&apos; beginnenden Wort zu unterscheiden.&lt;br /&gt;Ist dieser Text fett geschrieben, bedeutet dies, dass Mumble gerade überträgt (falls Sie verbunden sind).</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="181"/>
@@ -2241,7 +2241,7 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
     <message>
         <location filename="AudioStats.ui" line="184"/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. To adjust the peak bitrate, adjust &lt;b&gt;Compression Complexity&lt;/b&gt; in the Settings dialog.</source>
-        <translation>Dies ist die Audiobitrate des letzten komprimierten Paketes (20ms). Deshalb wird sie auch hoch und runter springen, da VBR die Qualität anpasst. Um die Spitzenbitrate einzustellen muss &lt;b&gt;Kompressionsqualität&lt;/b&gt; im Einstellungsdialog angepasst werden.</translation>
+        <translation>Dies ist die Audiobitrate des letzten komprimierten Paketes (20ms). Aus diesem Grund springt sie auf und ab während die VBR die Qualität anpasst. Um die Spitzenbitrate einzustellen muss &lt;b&gt;Kompressionsqualität&lt;/b&gt; im Einstellungsdialog angepasst werden.</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="262"/>
@@ -2251,7 +2251,7 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
     <message>
         <location filename="AudioStats.ui" line="265"/>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
-        <translation>Dies zeigt das Leistungsspektrum des Eingangssignals (rote Linie) und die Rauschabschätzung (blau gefüllt) an.&lt;br /&gt;Alle Amplituden werden mit 30 multipliziert um anzuzeigen wie viel mehr Signal als Rauschen im Wellenband vorhanden ist.&lt;br /&gt;Dies ist vermutlich nur von Interesse, wenn man die Rauschbedingungen des Mikrofones präzise einstellt. Unter guten Voraussetzungen sollte nur eine winzige blaue Stelle unten zu sehen sein. Ist mehr als die Hälfte des Graphen blau, hat man eine ungünstige Geräuschkulisse.</translation>
+        <translation>Dieses Diagramm zeigt das Leistungsspektrum des Eingangssignals (rote Linie) und die aktuelle Rauschabschätzung (blau gefüllt) an.&lt;br /&gt;Alle Amplituden werden mit 30 multipliziert um anzuzeigen wie viel mehr Signal als Rauschen im Frequenzband vorhanden ist.&lt;br /&gt;Dies ist vermutlich nur von Interesse, wenn man die Rauschbedingungen des Mikrofones präzise einstellt. Unter guten Voraussetzungen sollte nur eine winzige blaue Stelle unten zu sehen sein. Ist mehr als die Hälfte des Graphen blau, hat man eine ungünstige Geräuschkulisse.</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="293"/>
@@ -2261,7 +2261,7 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
     <message>
         <location filename="AudioStats.ui" line="296"/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation>Dies zeigt die Gewichte des Echounterdrückers, mit der Zeit auf der Y- und der Frequenz auf der X-Achse.&lt;br /&gt;Idealerweise sollte dies schwarz sein, was kein Echo bedeutet. Normalerweise hat man einen oder mehrere horizontale Streifen von blauer Farbe, die das zeitverzögerte Echo darstellen. Man sollte sehen, wie die Gewichte in Echtzeit aktualisiert werden.&lt;br /&gt;So lange man keine Echoquelle hat, wird man keine nützlichen Daten hier sehen, weshalb man etwas Musik abspielen sollte.&lt;br /&gt;Man kann zwischen Real- und Imaginäranteilen des Frequenzdomänen-Gewischte oder alternativ den berechneten Modulus und Phase auswählen. Am nützlichsten ist hierbei Modulus, was die Amplitude des Echos angibt und anzeigt wieviel vom ausgehenden Signal bei diesem Zeitschritt entfernt wird. Die anderen Ansichten sind nützlich für diejenigen die den Echoauslöschungs-Algorithmus finetunen wollen.&lt;br /&gt;Achtung: Wenn das Gesamtbild im Modulus-Modus massiv fluktuiert, kann der Echoauslöscher keine Korrelation zwischen den beiden Eingangsquellen (Lautsprecher und Mikrofon) herstellen. Entweder hat man eine lange Verzögerung des Echos oder eine der Eingangsquellen sind falsch konfiguriert.</translation>
+        <translation>Dieses Diagramm zeigt die Gewichte des Echounterdrückers mit der Zeit nach unten und der Frequenz nach rechts wachsend.&lt;br /&gt;Idealerweise sollte das Diagramm schwarz sein, also kein Echo existieren. Normalerweise hat man einen oder mehrere horizontale Streifen von blauer Farbe, die das zeitverzögerte Echo darstellen. Sie sollten sehen können, wie die Gewichte in Echtzeit aktualisiert werden.&lt;br /&gt;Solange keine Echoquelle vorhanden ist werden Sie hier keine nützlichen Daten sehen. Spielen Sie deshalb z.B. Musik ab um das Diagramm zu stabilisieren.&lt;br /&gt;Sie können zwischen Real- und Imaginäranteilen der Frequenzdomänen-Gewichte, oder alternativ dem berechneten Modulus und der Phase auswählen. Am nützlichsten ist hierbei Modulus, dieser ist die Amplitude des Echos und zeigt an wieviel vom ausgehenden Signal bei diesem Zeitschritt entfernt wird. Die anderen Ansichten sind nützlich für diejenigen die den Echoauslöschungs-Algorithmus feinjustieren wollen.&lt;br /&gt;Achtung: Wenn das Gesamtbild im Modulus-Modus massiv fluktuiert, kann der Echoauslöscher keine Korrelation zwischen den beiden Eingangsquellen (Lautsprecher und Mikrofon) herstellen. Entweder Sie haben eine sehr lange Verzögerung des Echos oder eine der Eingangsquellen ist falsch konfiguriert.</translation>
     </message>
     <message>
         <source>Mumble</source>
@@ -2305,7 +2305,7 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
     <message>
         <location filename="AudioStats.ui" line="38"/>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
-        <translation>Dies zeigt den Spitzenpegel im letzten Paket (20ms) an und zeigt was üblicherweise wohl &quot;Eingangspegel&quot; genannt wird. Bitte ignorieren Sie dies und sehen sich stattdessen bitte &lt;b&gt;Mikrofonleistung&lt;/b&gt; an, was deutlich stabiler ist und Ausbrüche verwirft.</translation>
+        <translation>Dies zeigt den Spitzenpegel im letzten Paket (20ms) an und zeigt was üblicherweise auch &quot;Eingangspegel&quot; genannt wird. Bitte ignorieren Sie diesen Wert und sehen Sie sich stattdessen &lt;b&gt;Mikrofonpegel&lt;/b&gt; an, was deutlich stabiler ist und Ausreißer verwirft.</translation>
     </message>
     <message>
         <source>TextLabel</source>
@@ -2314,13 +2314,12 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
     <message>
         <location filename="AudioStats.ui" line="78"/>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation>Dies zeigt den höchsten Wert des letzten Frames (20 ms) nach der kompletten Berechnung. Idealerweise sollte dies -96 dB sein, wenn Sie nicht sprechen. In der Realität sollte ein Tonstudio -60 dB und Sie hoffentlich in etwa -20 dB sehen. Wenn Sie sprechen sollte dies etwa zwischen -5 und -10 dB steigen.&lt;br/&gt;
-Wenn Sie Echo-Unterdrückung verwenden und dies auf über -15 dB steigt wenn Sie nicht sprechen funktioniert Ihre Einstellung nicht und Sie werden andere Benutzer mit Echos nerven.</translation>
+        <translation>Dies zeigt den Spitzenwert des letzten Frames (20 ms) nach der kompletten Verarbeitung. Idealerweise sollte dies -96 dB sein, wenn Sie nicht sprechen. In der Realität sollte ein Tonstudio -60 dB und Sie hoffentlich in etwa -20 dB sehen. Wenn Sie sprechen sollte dieser Wert auf ungefähr -5 bis -10 dB steigen.&lt;br /&gt;Wenn Sie Echounterdrückung verwenden und der Wert auf über -15 dB steigt wenn Sie sind Einstellungen oder Hardware fehlerhaft und Sie werden andere Benutzer mit Echos stören.</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="91"/>
         <source>Signal Analysis</source>
-        <translation>Signal Analyse</translation>
+        <translation>Signalanalyse</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="97"/>
@@ -2330,7 +2329,7 @@ Wenn Sie Echo-Unterdrückung verwenden und dies auf über -15 dB steigt wenn Sie
     <message>
         <location filename="AudioStats.ui" line="107"/>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation>Dies zeigt an, wie nah die aktuelle Eingangslautstärke am Ideal ist. Um den Mikrofonpegel anzupassen, öffnen Sie das Programm mit dem Aufnahmelautstärken geändert werden und schauen Sie hier auf den Wert während Sie reden.&lt;br /&gt;&lt;b&gt;Sprechen Sie so laut, als wären Sie über etwas verärgert.&lt;/b&gt;&lt;br /&gt;Passen Sie die Lautstärke an, bis der Wert nahe der 100% ist, aber nicht darüber hinaus. Wenn es darüber hinaus geht, wird es vermutlich zum Clipping in ihrer Sprache kommen, was die Soundqualität stark beeinträchtigt.</translation>
+        <translation>Dieser Wert zeigt wie nah die aktuelle Eingangslautstärke am Ideal ist. Um den Mikrofonpegel anzupassen, öffnen Sie ein Programm mit welchem sie ihre Aufnahmelautstärken verändern können und schauen Sie hier auf den Wert während Sie reden.&lt;br /&gt;&lt;b&gt;Sprechen Sie so laut, als wären Sie über etwas verärgert.&lt;/b&gt;&lt;br /&gt;Passen Sie die Lautstärke an, bis der Wert nahe der 100% ist, aber nicht darüber hinaus. Sollte der Wert darüber steigen werden vermutlich Teile ihrer Sprache abgeschnitten, was die Soundqualität stark beeinträchtigt.</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="117"/>
@@ -2356,7 +2355,7 @@ Wenn Sie Echo-Unterdrückung verwenden und dies auf über -15 dB steigt wenn Sie
         <location filename="AudioStats.ui" line="207"/>
         <source>Time between last two Push-To-Talk presses</source>
         <oldsource>Time between last two PushToTalk presses</oldsource>
-        <translation>Zeit zwischen den beiden letzten Sprechtasten-Betätigungen</translation>
+        <translation>Zeit zwischen den beiden letzten Push-To-Talk-Betätigungen</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="217"/>
@@ -2371,12 +2370,12 @@ Wenn Sie Echo-Unterdrückung verwenden und dies auf über -15 dB steigt wenn Sie
     <message>
         <location filename="AudioStats.ui" line="227"/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation>&lt;b&gt;Dies zeigt die aktuellen Spracherkennungs-Einstellungen an.&lt;/b&gt;&lt;br /&gt;Die Einstellungen können im Einstellungsdialog oder dem Audio-Assistenten geändert werden.</translation>
+        <translation>&lt;b&gt;Dies zeigt die aktuellen Spracherkennungs-Einstellungen an.&lt;/b&gt;&lt;br /&gt;Diese Einstellungen können im Einstellungsdialog oder dem Audio-Assistenten geändert werden.</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="256"/>
         <source>Signal and noise power spectrum</source>
-        <translation>Signal und Rausch Leistungsspektrum</translation>
+        <translation>Signal- und Rauschleistungsspektrum</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="281"/>
@@ -7372,7 +7371,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location filename="NetworkConfig.ui" line="48"/>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation>&lt;b&gt;Neuverbinden nach Verbindungsabbruch&lt;/b&gt;.&lt;br /&gt;Dies führt eine automatische Neuverbindung nach 10 Sekunden durch, wenn die Serververbindung abbricht.</translation>
+        <translation>&lt;b&gt;Neuverbinden nach Verbindungsabbruch&lt;/b&gt;.&lt;br /&gt;Ist dieses Feld aktiviert führt Mumble beim Abbruch der Serververbindung eine automatische Neuverbindung nach 10 Sekunden durch.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="51"/>
@@ -7382,18 +7381,18 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location filename="NetworkConfig.ui" line="58"/>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
-        <translation>Schicke kein Zertifikat zum Server und speichere keine Passwörter.</translation>
+        <translation>Schicke kein Zertifikat zum Server und speichere keine Passwörter (Wird nicht gespeichert).</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="61"/>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
         <translation>&lt;b&gt;Dies verhindert das senden von Identitäts-Informationen vom Client.&lt;/b&gt;
-&lt;p&gt;Der Client wird sich nicht mit einem Zertifikat identifizieren, selbst wenn der Zugriff dann verweigert wird, und wird keine Passwörter für verbindungen zwischenspeichern. Dies ist hauptsächlich eine Test-Option und wird daher nicht gespeichert.&lt;/p&gt;</translation>
+&lt;p&gt;Der Client wird sich nicht mit einem Zertifikat identifizieren, selbst wenn der Zugriff dann verweigert wird, und wird keine Passwörter für Verbindungen zwischenspeichern. Dies ist hauptsächlich eine Test-Option und wird daher nicht gespeichert.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="64"/>
         <source>Suppress certificate and password storage</source>
-        <translation>Zertifikat- und Passwort-Speicherung unterdrücken</translation>
+        <translation>Zertifikats- und Passwort-Speicherung unterdrücken</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="80"/>
@@ -7414,7 +7413,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <location filename="NetworkConfig.ui" line="102"/>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
         <translation>&lt;b&gt;Proxytyp über den verbunden wird.&lt;/b&gt;&lt;br/&gt;
-Dies lässt Mumble für alle ausgehenden Verbindungen über einen Proxy verbinden. Beachten Sie: Proxy tunneling zwingt Mumble in den TCP Kompatibilitäts Modus was verursacht, dass alle Sprach-Daten über den Kontrollkanal gesandt werden.</translation>
+Dies lässt Mumble für alle ausgehenden Verbindungen über einen Proxy verbinden. Beachten Sie: Proxy tunneling zwingt Mumble in den TCP-Kompatibilitätsmodus was zur Folge hat, dass alle Sprach-Daten über den Kontrollkanal gesandt werden.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="143"/>
@@ -7425,7 +7424,7 @@ Dieses Feld legt den Hostnamen des Proxys, durch welchen Sie die Netzwerk Daten 
     <message>
         <location filename="NetworkConfig.ui" line="284"/>
         <source>Check for new releases of Mumble automatically.</source>
-        <translation>Überprüfe automatisch, ob neue Mumble-Releases verfügbar sind.</translation>
+        <translation>Überprüfe automatisch, ob eine neue Mumble Version verfügbar ist.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="287"/>
@@ -7450,13 +7449,13 @@ Dieses Feld legt den Hostnamen des Proxys, durch welchen Sie die Netzwerk Daten 
     <message>
         <location filename="NetworkConfig.ui" line="303"/>
         <source>Download plugin updates on startup</source>
-        <translation>Plugins beim Starten herunterladen</translation>
+        <translation>Plugin Updates beim Starten herunterladen</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="313"/>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
         <translation>&lt;b&gt;Anonyme Statistiken senden&lt;/b&gt;&lt;br/&gt;
-Mumble hat ein kleines Entwickler-Team. Deshalb muss die verfügbare Zeit auf die wichtigsten Dinge gelenkt werden. Indem Sie einige Statistiken senden helfen Sie beim Feststellen der wichtigsten Bereiche.</translation>
+Mumble hat ein kleines Entwickler-Team. Deshalb muss die verfügbare Zeit auf die wichtigsten Dinge konzentriert werden. Indem Sie einige anonymisierte Daten senden, helfen Sie beim festlegen der Entwicklungsprioritäten.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Type of proxy to connect through&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
@@ -7514,12 +7513,12 @@ Mumble hat ein kleines Entwickler-Team. Deshalb muss die verfügbare Zeit auf di
     <message>
         <location filename="NetworkConfig.ui" line="216"/>
         <source>Username for proxy authentication</source>
-        <translation>Benutzername für Proxy Authentisierung</translation>
+        <translation>Benutzername für Proxy-Authentisierung</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="219"/>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Benutzername für Proxy Authentisierung.&lt;/b&gt;&lt;br /&gt;Dies spezifiert den Benutzernamen um sich den Proxy zu authentifizieren. Falls der Proxy keine Authentisierung verwendet oder Sie sich anonym verbinden wollen, lassen Sie das Feld frei.</translation>
+        <translation>&lt;b&gt;Benutzername für Proxy-Authentisierung.&lt;/b&gt;&lt;br /&gt;Dieses Feld spezifiert den Benutzernamen mit dem Sie sich beim Proxy authentisieren. Falls der Proxy keine Authentisierung verwendet, oder Sie sich anonym verbinden wollen, lassen Sie das Feld frei.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="226"/>
@@ -7529,12 +7528,12 @@ Mumble hat ein kleines Entwickler-Team. Deshalb muss die verfügbare Zeit auf di
     <message>
         <location filename="NetworkConfig.ui" line="233"/>
         <source>Password for proxy authentication</source>
-        <translation>Passwort für Proxy Authentisierung</translation>
+        <translation>Passwort für Proxy-Authentisierung</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="236"/>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Passwort für Proxy Authentisierung.&lt;/b&gt;&lt;br /&gt;Dies spezifiert das Passwort um sich den Proxy zu authentifizieren. Falls der Proxy keine Authentisierung verwendet oder Sie sich anonym verbinden wollen, lassen Sie das Feld frei.</translation>
+        <translation>&lt;b&gt;Passwort für Proxy-Authentisierung.&lt;/b&gt;&lt;br /&gt;Dieses Feld spezifiert das Passwort welches zur Authentisierung mit dem Proxy verwendet wird. Falls der Proxy keine Authentisierung verwendet oder Sie sich anonym verbinden wollen, lassen Sie das Feld frei.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="255"/>
@@ -7552,8 +7551,8 @@ Mumble hat ein kleines Entwickler-Team. Deshalb muss die verfügbare Zeit auf di
 Prevents the client from downloading images embedded into chat messages with the img tag.</source>
         <oldsource>&lt;b&gt;Disable image download&lt;b&gt;&lt;br/&gt;
 Prevents the client from downloading images embedded into chat messages with the img tag.</oldsource>
-        <translation>&lt;b&gt;Herunterladen von Bilddateien deaktivieren&lt;b&gt;&lt;br/&gt;
-Verhindert das Herunterladen von in Nachrichten mit dem img Tag eingebetten Bilddateien.</translation>
+        <translation>&lt;b&gt;Herunterladen von Bilddateien deaktivieren&lt;/b&gt;&lt;br/&gt;
+Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten eingebunden sind.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="268"/>
@@ -8043,7 +8042,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="Plugins.ui" line="26"/>
         <source>Enable plugins and transmit positional information</source>
-        <translation>Plugin aktivieren und Positionsinformationen übertragen</translation>
+        <translation>Plugins aktivieren und Positionsinformationen übertragen</translation>
     </message>
     <message>
         <source>This enables plugins for supported games to fetch your in-game position and transmit that with each voice packet. This enables other players to hear your voice in-game from the direction your character is in relation to their own.</source>
@@ -8063,12 +8062,12 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <location filename="Plugins.ui" line="29"/>
         <source>This allows plugins for supported games to fetch your in-game position and transmit it with each voice packet. This enables other users to hear your voice in-game from the direction your character is in relation to their own.</source>
         <oldsource>This enables plugins for supported games to fetch your in-game position and transmit that with each voice packet. This enables other users to hear your voice in-game from the direction your character is in relation to their own.</oldsource>
-        <translation>Dies erlaubt es Plugins Ihre Position im Spiel zu bestimmen und diese mit jedem Sprach-Daten-Paket zu versenden. Dies erlaubt es anderen Benutzern Sie aus jener Richtung zu hören, in welcher Sie aus der Sicht der anderen Person stehen.</translation>
+        <translation>Dies erlaubt es Plugins Ihre Position im Spiel zu bestimmen und diese mit jedem Sprachpaket zu versenden. Dies erlaubt es anderen Benutzern Sie aus jener Richtung zu hören, in welcher Sie aus der Sicht der anderen Person stehen.</translation>
     </message>
     <message>
         <location filename="Plugins.ui" line="56"/>
         <source>This rescans and reloads plugins. Use this if you just added or changed a plugin to the plugins directory.</source>
-        <translation>Dies liest alle Plugins neu ein. Benutzen Sie dies, falls Sie dem Pluginverzeichnis ein Plugin hinzugefügt oder ein Plugin geändert haben.</translation>
+        <translation>Dies liest alle Plugins neu ein. Benutzen Sie dies, falls Sie dem Pluginverzeichnis ein Plugin hinzugefügt, oder ein Plugin geändert haben.</translation>
     </message>
     <message>
         <location filename="Plugins.ui" line="85"/>
@@ -8133,7 +8132,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="Plugins.cpp" line="507"/>
         <source>Failed to install new plugin to %1.</source>
-        <translation>Installation des neuen Plugins nach %1 fehlgeschlagen.</translation>
+        <translation>Installation eines neuen Plugins nach %1 fehlgeschlagen.</translation>
     </message>
     <message>
         <source>Plugin %1 lost link.</source>
@@ -8320,17 +8319,17 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="ServerHandler.cpp" line="367"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
-        <translation>UDP Pakete können nicht gesendet oder vom Server nicht empfangen werden. Wechsle zu TCP Modus.</translation>
+        <translation>UDP Pakete können nicht gesendet oder vom Server nicht empfangen werden. Wechsle zu TCP-Modus.</translation>
     </message>
     <message>
         <location filename="ServerHandler.cpp" line="371"/>
         <source>UDP packets cannot be received from the server. Switching to TCP mode.</source>
-        <translation>UDP Pakete können vom Server nicht empfangen werden. Wechsle in den TCP Modus.</translation>
+        <translation>UDP Pakete können vom Server nicht empfangen werden. Wechsle in den TCP-Modus.</translation>
     </message>
     <message>
         <location filename="ServerHandler.cpp" line="378"/>
         <source>UDP packets can be sent to and received from the server. Switching back to UDP mode.</source>
-        <translation>UDP Pakete können zum Server gesendet und vom Server empfangen werden. Wechsle in den UDP Modus.</translation>
+        <translation>UDP Pakete können zum Server gesendet und vom Server empfangen werden. Wechsle zurück in den UDP-Modus.</translation>
     </message>
 </context>
 <context>
@@ -8348,7 +8347,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="ConnectDialog.cpp" line="86"/>
         <source>Public Internet</source>
-        <translation>Öffentlich – Internet</translation>
+        <translation>Öffentlich - Internet</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="92"/>
@@ -8358,12 +8357,12 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="ConnectDialog.cpp" line="93"/>
         <source>North America</source>
-        <translation>Nord Amerika</translation>
+        <translation>Nordamerika</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="94"/>
         <source>South America</source>
-        <translation>Süd Amerika</translation>
+        <translation>Südamerika</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="95"/>
@@ -8412,7 +8411,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="GlobalShortcut.cpp" line="150"/>
         <source>Press Shortcut</source>
-        <translation>Kurzbefehl drücken</translation>
+        <translation>Tastenkürzel drücken</translation>
     </message>
 </context>
 <context>
@@ -8425,17 +8424,17 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="GlobalShortcut.cpp" line="358"/>
         <source>Parent</source>
-        <translation>Elternelement</translation>
+        <translation>Vaterkanal</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="363"/>
         <source>Current</source>
-        <translation>Aktuell</translation>
+        <translation>Aktueller Kanal</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="368"/>
         <source>Subchannel #%1</source>
-        <translation>Subchannel #%1</translation>
+        <translation>Unterkanal #%1</translation>
     </message>
 </context>
 <context>
@@ -8458,17 +8457,17 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="GlobalShortcut.cpp" line="499"/>
         <source>Parent</source>
-        <translation>Eltern</translation>
+        <translation>Vaterkanal</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="501"/>
         <source>Current</source>
-        <translation>Aktueller</translation>
+        <translation>Aktueller Kanal</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="503"/>
         <source>Subchannel #%1</source>
-        <translation>Subchannel #%1</translation>
+        <translation>Unterkanal #%1</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="510"/>
@@ -8622,7 +8621,7 @@ Ein Zugriffs-Code ist ein Text-Stück, welches als Passwort, für sehr simples Z
     <message>
         <location filename="UserModel.cpp" line="523"/>
         <source>Whispering directly to you.</source>
-        <translation>Flüstert direkt zu dir.</translation>
+        <translation>Flüstert direkt zu Ihnen.</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="524"/>
@@ -8637,22 +8636,22 @@ Ein Zugriffs-Code ist ein Text-Stück, welches als Passwort, für sehr simples Z
     <message>
         <location filename="UserModel.cpp" line="533"/>
         <source>Your current channel.</source>
-        <translation>Dein aktueller Kanal.</translation>
+        <translation>Ihr aktueller Kanal.</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="534"/>
         <source>A channel that is linked with your channel. Linked channels can talk to each other.</source>
-        <translation>Ein Kanal welcher mit Ihrem Kanal verbudnen ist. Benutzer in verbundenen Kanälen können miteinander sprechen.</translation>
+        <translation>Ein Kanal welcher mit Ihrem Kanal verknüpft ist. Benutzer in verknüpften Kanälen können miteinander sprechen.</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="535"/>
         <source>A channel on the server that you are not linked to.</source>
-        <translation>Ein Kanal auf dem Server, mit welchem Sie nicht verbunden sind.</translation>
+        <translation>Ein Kanal auf dem Server mit dem Sie nicht verknüpft sind.</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="551"/>
         <source>This shows the flags the user has on the server, if any:</source>
-        <translation>Dies zeigt die Zustände (Flags), welche der Benutzer auf dem Server hat (sofern er welche hat):</translation>
+        <translation>Dies zeigt die Attribute, welche der Benutzer auf dem Server hat (sofern er welche hat):</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="552"/>
@@ -8708,7 +8707,7 @@ Ein Zugriffs-Code ist ein Text-Stück, welches als Passwort, für sehr simples Z
         <location filename="UserModel.cpp" line="1328"/>
         <location filename="UserModel.cpp" line="1348"/>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
-        <translation>Kann dieses Verschieben nicht automatisiert ausführen. Bitte setzen Sie die numerischen Sortierzahlen zurück oder setzen Sie sie manuell.</translation>
+        <translation>Kann dieses Verschieben nicht automatisiert ausführen. Bitte setzen Sie die Kanalpositionswert zurück oder setzen Sie sie manuell.</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="562"/>
@@ -8718,7 +8717,7 @@ Ein Zugriffs-Code ist ein Text-Stück, welches als Passwort, für sehr simples Z
     <message>
         <location filename="UserModel.cpp" line="569"/>
         <source>This shows the flags the channel has, if any:</source>
-        <translation>Dies zeigt die Zustände (Flags), welche der Kanal hat (sofern er welche hat):</translation>
+        <translation>Dies zeigt die Attribute, welche der Kanal hat (sofern vorhanden):</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="571"/>
