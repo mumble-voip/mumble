@@ -1487,7 +1487,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <message>
         <location filename="AudioInput.ui" line="641"/>
         <source>Audio Processing</source>
-        <translation>Ton-Verarbeitung</translation>
+        <translation>Audioverarbeitung</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="647"/>
@@ -2398,7 +2398,7 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
     <message>
         <location filename="AudioWizard.ui" line="21"/>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation>Willkommen zum Mumble Audio Assistenten</translation>
+        <translation>Willkommen zum Mumble Audio-Assistenten</translation>
     </message>
     <message>
         <source>This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble.</source>
@@ -6792,7 +6792,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location filename="MainWindow.ui" line="463"/>
         <source>&amp;Audio Wizard</source>
-        <translation>&amp;Audio Assistent</translation>
+        <translation>&amp;Audio-Assistent</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="303"/>
