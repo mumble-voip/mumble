@@ -2480,7 +2480,7 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
     <message>
         <location filename="AudioWizard.ui" line="143"/>
         <source>This is the device your speakers or headphones are connected to.</source>
-        <translation>Dies ist das Gerät, an das ihre Lautsprecher oder Kopfhörer angeschlossen sind.</translation>
+        <translation>Dies ist das Gerät, an welches ihre Lautsprecher oder Kopfhörer angeschlossen sind.</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="163"/>
@@ -2510,7 +2510,7 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
     <message>
         <location filename="AudioWizard.ui" line="309"/>
         <source>Tuning microphone hardware volume to optimal settings.</source>
-        <translation>Mikrofonhardware-Lautstärke auf optimale Werte einstellen.</translation>
+        <translation>Mikrofonhardware-Lautstärke auf optimalen Wert einstellen.</translation>
     </message>
     <message>
         <source>Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.</source>
@@ -2523,12 +2523,12 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
     <message>
         <location filename="AudioWizard.ui" line="341"/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation>Sprechen Sie jetzt so ruhig, als würden sie spät nachts sprechen und niemanden stören wollen. Bewegen Sie den Schieber so, dass der Balken im Grünen ist während Sie sprechen, aber im Blauen bleibt wenn Sie nichts sagen.</translation>
+        <translation>Sprechen Sie jetzt so laut, als würden Sie spät nachts sprechen und niemanden stören wollen. Bewegen Sie den Schieber so, dass der Balken im Grünen ist während Sie sprechen, aber im Blauen bleibt wenn Sie nichts sagen.</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="381"/>
         <source>Voice Activity Detection</source>
-        <translation>Sprachaktivitäts-Erkennung</translation>
+        <translation>Sprachaktivitätserkennung</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="384"/>
@@ -2643,10 +2643,10 @@ This is the audio tuning wizard for Mumble. This will help you correctly set the
 Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.
 &lt;/p&gt;</source>
         <translation>&lt;p&gt;
-Dies ist Mumbles Assistent zum konfigurieren Ihrer Audio-Einstellungen. Er wird Ihnen helfen die korrekten Eingangs-Level Ihrer Soundkarte und die korrekten Parameter für die Tonverarbeitung in Mumble zu wählen.
+Dies ist Mumbles Assistent zum konfigurieren Ihrer Audio-Einstellungen. Er wird Ihnen helfen die korrekte Eingangslautstärke Ihrer Soundkarte und die korrekten Parameter für die Tonverarbeitung in Mumble zu wählen.
 &lt;/p&gt;
 &lt;p&gt;
-Bitte beachten Sie, dass, so lange dieser Assistent aktiv ist, Ton lokal wiederausgegeben wird damit Sie ihn hören können und kein Ton an den Server gesandt wird.
+Bitte beachten Sie, dass, so lange dieser Assistent aktiv ist, der Ton lokal ausgegeben wird damit Sie ihn hören können und kein Ton an den Server gesandt wird.
 &lt;/p&gt;</translation>
     </message>
     <message>
@@ -2667,7 +2667,7 @@ Bitte beachten Sie, dass, so lange dieser Assistent aktiv ist, Ton lokal wiedera
     <message>
         <location filename="AudioWizard.ui" line="196"/>
         <source>This allows Mumble to use positional audio to place voices.</source>
-        <translation>Dies erlaubt Mumble positionsabhängiges Audio zu verwenden um Stimmen zu platzieren.</translation>
+        <translation>Die Option erlaubt Mumble positionsabhängiges Audio zu verwenden um Stimmen zu platzieren.</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="232"/>
@@ -2680,10 +2680,10 @@ You should hear a voice sample. Change the slider below to the lowest value whic
 </source>
         <translation>&lt;p&gt;
 Um die Latenz (Übertragungsverzögerung) auf einem absoluten Minimum zu halten ist es wichtig so wenig Ton wie möglich auf der Soundkarte zwischenzuspeichern (auch “puffern” genannt).
-Leider geben viele Soundkarten an mit geringeren Puffern zu funktionieren, als Sie tatsächlich können. Deshabl ist die einzige Möglichkeit es selbst auszuprobieren und ggf. zu scheitern.
+Leider geben viele Soundkarten an mit geringeren Puffern zu funktionieren, als Sie tatsächlich unterstützen. Daher müssen Sie selbst den optimalen Wert durch ausprobieren finden.
 &lt;/p&gt;
 &lt;p&gt;
-Sie sollten eine Beispielaufnahme hören. Ändern Sie den Slider zum niedrigst möglichen Wert, welcher noch &lt;b&gt;keine&lt;/b&gt; Unterbrechungen oder Ton-Zittern verursacht.
+Sie sollten eine Beispielaufnahme hören. Ändern Sie den Schieberegler zum niedrigst möglichen Wert, welcher noch &lt;b&gt;keine&lt;/b&gt; Unterbrechungen oder Tonstörungen verursacht.
 Bitte beachten Sie, dass die lokale Wiedergabe Ihrer Aufnahmegeräte für diesen Test deaktiviert ist.
 &lt;/p&gt;</translation>
     </message>
@@ -2695,7 +2695,7 @@ Bitte beachten Sie, dass die lokale Wiedergabe Ihrer Aufnahmegeräte für diesen
     <message>
         <location filename="AudioWizard.ui" line="257"/>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Dies setzt die Menge an Daten, welche im Ausgabepuffer vorgepuffert werden. Experimentieren Sie mit verschiedenen Werten und setzen Sie ihn auf den niedrigsten, welcher kein Zittern im Ton verursacht.</translation>
+        <translation>Dies setzt die Menge an Daten, welche im Ausgabepuffer vorgepuffert werden. Experimentieren Sie mit verschiedenen Werten und setzen Sie ihn auf den niedrigsten, bei dem keine Tonstörungen auftreten.</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="315"/>
@@ -2707,12 +2707,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Öffnen Sie Ihre Ton-Einstellungen (des Betriebssystems oder Ihrer Soundkarte) und wechseln Sie zu den Aufnahme Einstellungen.
-Stellen Sie sicher, dass das Mikrofon als aktives Aufnahmegerät gewählt ist, und zwar mit maximaler Lautstärke.
-Sofern es eine Option für “Mikrofon-Boost” gibt stellen Sie sicher, dass diese ebenfalls gewählt ist (ggf. unter erweitert).
+Öffnen Sie Ihre Ton-Einstellungen (des Betriebssystems oder Ihrer Soundkarte) und wechseln Sie zu den Aufnahme-Einstellungen.
+Stellen Sie sicher, dass das Mikrofon als aktives Aufnahmegerät gewählt ist und mit maximaler Lautstärke aufnimmt.
+Sofern es eine Option für “Mikrofon-Boost” gibt stellen Sie sicher, dass diese ebenfalls gewählt ist (Diese Option finden Sie ggf. unter den erweiterten Einstellungen).
 &lt;/p&gt;
 &lt;p&gt;
-Sprechen Sie laut als wenn Sie genervt oder aufgeregt wären.
+Sprechen Sie so laut als wären Sie wütend oder aufgeregt.
 Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass der Balken unten so weit oben wie möglich im blauen und grünen, aber &lt;b&gt;nicht&lt;/b&gt; im roten Bereich ist, so lange Sie sprechen.
 &lt;/p&gt;</translation>
     </message>
@@ -2736,9 +2736,9 @@ The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Mumble unterstützt für manche Spiele positionsabhängigen Ton und kann die Stimmen der anderen Benutzer entsprechend Ihrer relativen Position (zu Ihnen) im Spiel positionieren.
+Mumble unterstützt für manche Spiele positionsabhängigen Ton und kann die Stimmen der anderen Benutzer entsprechend Ihrer relativen Position zu Ihnen im Spiel positionieren.
 Je nach ihrer Position wird die Lautstärke und die Position der Stimmen angepasst um die Richtung und Distanz von ihnen zu simulieren.
-Eine solche Positionierung ist abhängig von einer korrekten Lautsprecher-Einstellung in Ihrem Betriebssystem.
+Eine solche Positionierung benötigt eine korrekte Lautsprechereinstellung in Ihrem Betriebssystem.
 Deshalb wird dies hier getestet.
 &lt;/p&gt;
 &lt;p&gt;
@@ -2762,11 +2762,10 @@ Mumble is under continuous development, and the development team wants to focus 
 </source>
         <translation>&lt;p&gt;
 Herzlichen Glückwunsch.
-Sie sollten nun bereit sein eine reichere Erfahrung mit Mumble zu genießen.
+Sie sollten Mumble nun optimal benutzen können.
 &lt;/p&gt;
 &lt;p&gt;
-Mumble ist unter ständiger Entwicklung und das Entwicklungsteam möchte sich auf Funktionen konzentrieren, welche den meisten Benutzern von Vorteil sind.
-Deshalb kann Mumble anonyme Statistiken über Ihre Konfiguration an die Entwickler senden.
+Mumble wird ständig weiterentwickelt! Das Entwicklungsteam möchte sich auf Funktionen konzentrieren, welche den meisten Benutzern von Vorteil sind, deshalb kann Mumble anonyme Statistiken über Ihre Konfiguration an die Entwickler senden.
 Diese Statistiken sind grundlegend für die weitere Entwicklung und stellen sicher, dass jene Funktionen die Sie verwenden nicht wegfallen.
 &lt;/p&gt;</translation>
     </message>
@@ -4455,7 +4454,7 @@ Der Absturz-Bericht enthält eine Teilkopie von Mumbles Speicher zum Zeitpunkt d
         <location filename="Database.cpp" line="83"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
-        <translation>Mumble konnte keine Datenbank in einem
+        <translation>Mumble konnte keine Datenbank an einem
 der möglichen Orte initialisieren.</translation>
     </message>
 </context>
@@ -4506,7 +4505,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcut.ui" line="26"/>
         <source>This will add a new global shortcut</source>
-        <translation>Dies fügt ein neues Tastenkürzel hinzu</translation>
+        <translation>Dies fügt ein globales Tastenkürzel hinzu</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.ui" line="29"/>
@@ -4586,7 +4585,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcut_macx.cpp" line="60"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
-        <translation>Mumble hat festgestellt, dass es keine Globalen Tastenkürzel Ereignisse erhalten kann, wenn es im Hintergrund läuft.&lt;br /&gt;&lt;br /&gt;Dies wird durch die Deaktivierung des Universal Access Features &quot;Enable access for assitive devices&quot; verursacht.&lt;br /&gt;&lt;br /&gt;Bitte &lt;a href=&quot;&quot;&gt;aktivieren sie diese Einstellung&lt;/a&gt;.</translation>
+        <translation>Mumble hat festgestellt, dass es keine globalen Tastenkürzel Ereignisse erhalten kann, wenn es im Hintergrund läuft.&lt;br /&gt;&lt;br /&gt;Dies wird durch die Deaktivierung des Universal Access Features &quot;Enable access for assitive devices&quot; verursacht.&lt;br /&gt;&lt;br /&gt;Bitte &lt;a href=&quot;&quot;&gt;aktivieren sie diese Einstellung&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>
@@ -4664,7 +4663,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="179"/>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
-        <translation>Sende keine Positionsinformationen beim verwenden dieses Flüsterns.</translation>
+        <translation>Sende keine Positionsinformationen beim Flüstern.</translation>
     </message>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="182"/>
@@ -7664,12 +7663,12 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
 - you&apos;re on an OS earlier than WinXP SP2</source>
         <translation>Das Laden der Overlay-Bibliothek ist fehlgeschlagen. Das heißt entweder dass:
 - die Bibliothek (mumble_ol.dll) nicht in dem Verzeichnis gefunden wurde, aus welchem Sie Mumble gestartet haben
-- Sie auf einem Betriebssystem älter als WinXP SP2 sind</translation>
+- Sie ein Betriebssystem vor WinXP SP2 benutzen</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="191"/>
         <source>Failed to initialize overlay memory. This usually means that the shared memory is locked by the OS, and you need to reboot to release it.</source>
-        <translation>Das Initialisieren des Overlay-Speichers ist fehlgeschlagen. Das heißt meistens, dass der Gemeinsame Speicher (shared memory) vom Betriebssystem gesperrt ist und Sie neu starten müssen, um Ihn freizugeben.</translation>
+        <translation>Das Initialisieren des Overlay-Speichers ist fehlgeschlagen. Das heißt meistens, dass der Gemeinsame Speicher (shared memory) vom Betriebssystem gesperrt ist und Sie neu starten müssen um ihn freizugeben.</translation>
     </message>
 </context>
 <context>
@@ -7727,17 +7726,17 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location filename="Overlay.ui" line="42"/>
         <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>&lt;b&gt;Dies legt fest, wer im Overlay angezeigt werden soll.&lt;/b&gt;&lt;br /&gt;Falls viele Spieler im selben Kanal sind, könnte die Overlayliste sehr lang werden. Benutzen Sie dies um sie zu kürzen.&lt;br /&gt;&lt;i&gt;Niemand&lt;/i&gt; - Zeige niemanden  (aber lass das Overlay laufen).&lt;br /&gt;&lt;i&gt;Nur Sprechende&lt;/i&gt; - Nur sprechende Benutzer zeigen.&lt;br /&gt;&lt;i&gt;Jeder&lt;/i&gt; - Zeige alle (im Kanal).</translation>
+        <translation>&lt;b&gt;Dies legt fest, wer im Overlay angezeigt werden soll.&lt;/b&gt;&lt;br /&gt;Falls viele Spieler im selben Kanal sind, könnte die Overlayliste sehr lang werden. Benutzen Sie dies um sie zu kürzen.&lt;br /&gt;&lt;i&gt;Niemand&lt;/i&gt; - Zeige niemanden  (aber lass das Overlay laufen).&lt;br /&gt;&lt;i&gt;Nur Sprechende&lt;/i&gt; - Nur sprechende Benutzer zeigen.&lt;br /&gt;&lt;i&gt;Jeder&lt;/i&gt; - Zeige alle.</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="55"/>
         <source>Always Show Self</source>
-        <translation>Immer sich selbst anzeigen</translation>
+        <translation>Sich selbst immer anzeigen</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="49"/>
         <source>Always show yourself on overlay.</source>
-        <translation>Immer sich selbst auf dem Overlay anzeigen.</translation>
+        <translation>Sich selbst immer auf dem Overlay anzeigen.</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="52"/>
@@ -7757,7 +7756,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location filename="Overlay.ui" line="65"/>
         <source>This sets whether to download and use custom textures for registered users. If disabled, the regular outline text will be used instead.</source>
-        <translation>Dies legt fest ob Benutzertexturen von registrierten Benutzern heruntergeladen und benutz werden sollen. Wenn deaktiviert, wird normaler Text angezeigt.</translation>
+        <translation>Dies legt fest ob Benutzertexturen von registrierten Benutzern heruntergeladen und benutzt werden sollen. Wenn deaktiviert, wird normaler Text angezeigt.</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="119"/>
@@ -7772,7 +7771,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location filename="Overlay.ui" line="116"/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the left if needed.</source>
-        <translation>Das Overlay versucht so klein wie möglich und an der Position die sie gewählt haben zu bleiben. Dies erlaubt das Overlay notfalls nach links wachsen zu lassen.</translation>
+        <translation>Das Overlay versucht so klein wie möglich und an der Position die Sie gewählt haben zu bleiben. Dies erlaubt dem Overlay notfalls nach links zu wachsen.</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="132"/>
@@ -7817,7 +7816,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location filename="Overlay.ui" line="29"/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</source>
-        <translation>Dies legt fest ob das Overlay aktiv ist oder nicht. Diese Einstellung wird nur überprüft wenn Anwendungen gestartet werden, stellen Sie also sicher, dass Mumble läuft die Option aktiviert ist bevor Sie die andere Applikation, in welcher das Overlay erscheinen soll, starten.&lt;br/&gt;
+        <translation>Dies legt fest ob das Overlay aktiv ist oder nicht. Diese Einstellung wird nur überprüft wenn Anwendungen gestartet werden, stellen Sie also sicher, dass Mumble läuft und die Option aktiviert ist, bevor Sie die andere Applikation, in welcher das Overlay erscheinen soll, starten.&lt;br/&gt;
 Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das Overlay deaktivieren während die Applikation läuft gibt es keinen sicheren Weg das Overlay wieder zu starten ohne die Applikation neu zu starten.</translation>
     </message>
     <message>
@@ -7937,7 +7936,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="Overlay.ui" line="87"/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</source>
-        <translation>Das Overlay versucht so klein wie möglich und an der Position die sie gewählt haben zu bleiben. Dies erlaubt das Overlay notfalls nach oben wachsen zu lassen.</translation>
+        <translation>Das Overlay versucht so klein wie möglich und an der Position die Sie gewählt haben zu bleiben. Dies erlaubt dem Overlay notfalls nach oben zu wachsen.</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="126"/>
@@ -7947,12 +7946,12 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="Overlay.ui" line="129"/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the right if needed.</source>
-        <translation>Das Overlay versucht so klein wie möglich und an der Position die sie gewählt haben zu bleiben. Dies erlaubt das Overlay notfalls nach rechts wachsen zu lassen.</translation>
+        <translation>Das Overlay versucht so klein wie möglich und an der Position die Sie gewählt haben zu bleiben. Dies erlaubt dem Overlay notfalls nach rechts zu wachsen.</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="142"/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow downwards if needed.</source>
-        <translation>Das Overlay versucht so klein wie möglich und an der Position die sie gewählt haben zu bleiben. Dies erlaubt das Overlay notfalls nach unten wachsen zu lassen.</translation>
+        <translation>Das Overlay versucht so klein wie möglich und an der Position die Sie gewählt haben zu bleiben. Dies erlaubt dem Overlay notfalls nach unten zu wachsen.</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="224"/>
@@ -8236,7 +8235,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="RichTextEditor.ui" line="58"/>
         <source>&amp;Bold</source>
-        <translation>&amp;Dick</translation>
+        <translation>&amp;Fett</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui" line="61"/>
@@ -8246,12 +8245,12 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="RichTextEditor.ui" line="73"/>
         <source>&amp;Italic</source>
-        <translation>&amp;Italic</translation>
+        <translation>&amp;Kursiv</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui" line="76"/>
         <source>Italic</source>
-        <translation>Italic</translation>
+        <translation>Kursiv</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui" line="79"/>
@@ -8542,17 +8541,17 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="Tokens.cpp" line="69"/>
         <source>Empty Token</source>
-        <translation>Leeres Token</translation>
+        <translation>Leerer Zugriffscode</translation>
     </message>
     <message>
         <location filename="Tokens.ui" line="14"/>
         <source>Mumble - Access Tokens</source>
-        <translation>Mumble - Zugangs Tokens</translation>
+        <translation>Mumble - Zugriffscodes</translation>
     </message>
     <message>
         <location filename="Tokens.ui" line="20"/>
         <source>List of access tokens on current server</source>
-        <translation>Liste von Zugriffs-Codes auf dem aktuellen Server</translation>
+        <translation>Liste von Zugriffscodes auf dem aktuellen Server</translation>
     </message>
     <message>
         <location filename="Tokens.ui" line="23"/>
@@ -8560,13 +8559,13 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
 &lt;br /&gt;
 An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you&apos;ve used and resend them to the server next time you reconnect, so you don&apos;t have to enter these every time.
 </source>
-        <translation>&lt;b&gt;Dies ist eine editierbare Liste von Zugriffs-Codes auf dem verbundenen Server.&lt;/b&gt;&lt;br/&gt;
-Ein Zugriffs-Code ist ein Text-Stück, welches als Passwort, für sehr simples Zugriffsmanagement für Kanäle, verwendet werden kann. Mumble merkt sich die von Ihnen verwendeten Zugriffscodes und sendet diese das nächste mal automatisch an den Server, damit Sie sie nicht jedes mal eingeben müssen.</translation>
+        <translation>&lt;b&gt;Dies ist eine editierbare Liste von Zugriffscodes auf dem verbundenen Server.&lt;/b&gt;&lt;br/&gt;
+Ein Zugriffscode ist ein Textstück, welches als Passwort für sehr einfaches Zugriffsmanagement für Kanäle verwendet werden kann. Mumble merkt sich die von Ihnen verwendeten Zugriffscodes und sendet diese das nächste mal automatisch an den Server, damit Sie sie nicht jedes mal eingeben müssen.</translation>
     </message>
     <message>
         <location filename="Tokens.ui" line="47"/>
         <source>Add a token</source>
-        <translation>Ein Token hinzufügen</translation>
+        <translation>Einen Zugriffscode hinzufügen</translation>
     </message>
     <message>
         <location filename="Tokens.ui" line="50"/>
@@ -8576,7 +8575,7 @@ Ein Zugriffs-Code ist ein Text-Stück, welches als Passwort, für sehr simples Z
     <message>
         <location filename="Tokens.ui" line="57"/>
         <source>Remove a token</source>
-        <translation>Ein Token entfernen</translation>
+        <translation>Einen Zugriffscode entfernen</translation>
     </message>
     <message>
         <location filename="Tokens.ui" line="60"/>
@@ -8761,12 +8760,12 @@ Ein Zugriffs-Code ist ein Text-Stück, welches als Passwort, für sehr simples Z
     <message>
         <location filename="ViewCert.cpp" line="36"/>
         <source>Certificate Chain Details</source>
-        <translation>Zertifikat Kettendetails</translation>
+        <translation>Zertifikatsketten-Details</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="42"/>
         <source>Certificate chain</source>
-        <translation>Zertifikatkette</translation>
+        <translation>Zertifikatskette</translation>
     </message>
     <message>
         <location filename="ViewCert.cpp" line="51"/>
