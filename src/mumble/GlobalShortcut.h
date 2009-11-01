@@ -136,14 +136,14 @@ class ShortcutTargetWidget : public QFrame {
 	protected:
 		ShortcutTarget stTarget;
 		QLineEdit *qleTarget;
-		QPushButton *qpbEdit;
+		QToolButton *qtbEdit;
 	public:
 		ShortcutTargetWidget(QWidget *p = NULL);
 		ShortcutTarget target() const;
 		void setTarget(const ShortcutTarget &);
 		static QString targetString(const ShortcutTarget &);
 	public slots:
-		void on_qpbEdit_clicked();
+		void on_qtbEdit_clicked();
 };
 
 class ShortcutDelegate : public QStyledItemDelegate {

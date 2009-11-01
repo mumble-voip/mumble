@@ -451,13 +451,15 @@ ShortcutTargetWidget::ShortcutTargetWidget(QWidget *p) : QFrame(p) {
 	qleTarget = new QLineEdit();
 	qleTarget->setReadOnly(true);
 
-	qpbEdit = new QPushButton(tr("..."));
-	qpbEdit->setObjectName(QLatin1String("qpbEdit"));
+	qtbEdit = new QToolButton();
+	qtbEdit->setText(tr("..."));
+	qtbEdit->setFocusPolicy(Qt::ClickFocus);
+	qtbEdit->setObjectName(QLatin1String("qtbEdit"));
 
 	QHBoxLayout *l = new QHBoxLayout(this);
 	l->setContentsMargins(0,0,0,0);
 	l->addWidget(qleTarget, 1);
-	l->addWidget(qpbEdit);
+	l->addWidget(qtbEdit);
 
 	QMetaObject::connectSlotsByName(this);
 }
@@ -522,7 +524,7 @@ void ShortcutTargetWidget::setTarget(const ShortcutTarget &st) {
 	qleTarget->setText(ShortcutTargetWidget::targetString(st));
 }
 
-void ShortcutTargetWidget::on_qpbEdit_clicked() {
+void ShortcutTargetWidget::on_qtbEdit_clicked() {
 	ShortcutTargetDialog *std = new ShortcutTargetDialog(stTarget, this);
 	if (std->exec() == QDialog::Accepted) {
 		stTarget = std->target();
