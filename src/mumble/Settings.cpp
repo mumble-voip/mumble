@@ -201,8 +201,8 @@ Settings::Settings() {
 	bOverlayBottom = true;
 	bOverlayLeft = true;
 	bOverlayRight = false;
-#ifdef Q_OS_WIN
-	qfOverlayFont = QFont(QLatin1String("Comic Sans MS"), 20);
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+	qfOverlayFont = QFont(QLatin1String("Verdana"), 20);
 #else
 	qfOverlayFont = QFont(QLatin1String("Arial"), 20);
 #endif
