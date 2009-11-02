@@ -284,7 +284,7 @@ Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
   File /oname=l4d.dll "..\release\plugins\l4d.dll"
   File /oname=tf2.dll "..\release\plugins\tf2.dll"
   File /oname=wolfet.dll "..\release\plugins\wolfet.dll"  
-  ;File /oname=wow.dll "..\release\plugins\wow.dll"
+  File /oname=wow.dll "..\release\plugins\wow.dll"
 
   SetOutPath "$INSTDIR"
 

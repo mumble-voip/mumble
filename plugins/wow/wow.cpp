@@ -8,6 +8,10 @@ typedef long long uint64_t;
 #include <tlhelp32.h>
 #include <math.h>
 
+#if _DEBUG
+#include <iostream>
+#endif
+
 #include "../mumble_plugin.h"
 
 HANDLE h;
@@ -15,7 +19,6 @@ uint32_t p_playerBase;
 uint64_t g_playerGUID;
 
 #define STATIC_REALMNAME  0x0127046E
-
 
 static DWORD getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
@@ -83,22 +86,43 @@ float getFloat(uint32_t ptr) {
 
 int getCStringN(uint32_t ptr, char *buffer, size_t buffersize) {
 	SIZE_T r;
-	BOOL ok=ReadProcessMemory(h, (void *)ptr, buffer, buffersize, &r);
-	buffer[buffersize-1]='\0';
+	BOOL ok = ReadProcessMemory (h, (void *)ptr, buffer, buffersize, &r);
+
+	/* safety net, just in case we didn't get a string back at all */
+	buffer[buffersize-1] = '\0';
 
 	if (ok && (r == buffersize)) {
-		return strlen(buffer);
+		return strlen (buffer);
 	} else {
 		return 0;
 	}
 }
 
-int getString(uint32_t ptr, std::string &buffer) {
-	return getCStringN(ptr, (char *)buffer.data(), buffer.capacity());
-}
-int getWString(uint32_t ptr, std::wstring &buffer) {
+int getString (uint32_t ptr, std::string &buffer)
+{
 	char buf[1024];
-	return getCStringN(ptr, (char *)buffer.data(), buffer.capacity());
+	int bufLength;
+
+	bufLength = getCStringN (ptr, buf, sizeof(buf));
+	buffer = buf;
+
+	return bufLength;
+}
+
+int getWString (uint32_t ptr, std::wstring &buffer)
+{
+	char buf[1024];
+	int bufLength;
+	wchar_t wbuf[1024];
+	int wbufLength;
+
+	bufLength = getCStringN (ptr, buf, sizeof(buf));
+	wbufLength = MultiByteToWideChar (CP_UTF8, 0,
+		buf, bufLength,
+		wbuf, 1024);
+	buffer.assign (wbuf, wbufLength);
+
+	return 0;
 }
 
 
@@ -107,14 +131,14 @@ void getDebug16(uint32_t ptr) {
 	unsigned char buf[16];
 	SIZE_T r;
 	BOOL ok=ReadProcessMemory(h, (void *)ptr, &buf, sizeof(buf), &r);
-	if (ok && (r == sizeof(buf))) {
-		printf("%08x: %02x%02x%02x%02x %02x%02x%02x%02x %02x%02x%02x%02x %02x%02x%02x%02x\n",
-		       ptr,
-		       buf[0], buf[1], buf[2], buf[3],
-		       buf[4], buf[5], buf[6], buf[7],
-		       buf[8], buf[9], buf[10], buf[11],
-		       buf[12], buf[13], buf[14], buf[15]
-		      );
+	if (ok && (r == sizeof (buf))) {
+		printf ("%08x: %02x%02x%02x%02x %02x%02x%02x%02x %02x%02x%02x%02x %02x%02x%02x%02x\n",
+			ptr,
+			buf[0], buf[1], buf[2], buf[3],
+			buf[4], buf[5], buf[6], buf[7],
+			buf[8], buf[9], buf[10], buf[11],
+			buf[12], buf[13], buf[14], buf[15]
+		);
 	}
 #endif
 }
@@ -164,12 +188,8 @@ static const unsigned long nameStringOffset    = 0x020;  // Offset to the C stri
 void getPlayerName(std::wstring &identity) {
 	unsigned long mask, base, offset, current, shortGUID, testGUID;
 
-	if (identity.capacity() < 40) {
-		identity.resize(40);
-	}
-
-	mask = getInt32(nameStorePtr + nameMaskOffset);
-	base = getInt32(nameStorePtr + nameBaseOffset);
+	mask = getInt32 (nameStorePtr + nameMaskOffset);
+	base = getInt32 (nameStorePtr + nameBaseOffset);
 
 	shortGUID = g_playerGUID & 0xffffffff;  // Only half the guid is used to check for a hit
 	if (mask == 0xffffffff) {
@@ -196,11 +216,9 @@ void getPlayerName(std::wstring &identity) {
 	getWString(current + nameStringOffset, identity);
 }
 
-void getRealmName(std::string &context) {
-	if (context.capacity() < 40) {
-		context.resize(40);
-	}
-	getString(STATIC_REALMNAME, context);
+void getRealmName(std::string &context)
+{
+	getString (STATIC_REALMNAME, context);
 }
 
 void getCamera(float camera_pos[3], float camera_front[3], float camera_top[3]) {
@@ -236,11 +254,90 @@ void getCamera(float camera_pos[3], float camera_front[3], float camera_top[3]) 
 }
 
 
+typedef class WowData {
+	std::wstring nameAvatar;
+	bool nameAvatarValid;
+
+	std::string nameRealm;
+	bool nameRealmValid;
+
+	uint64_t playerGUID;
+	uint32_t pointerPlayerObject;
+
+public:
+	WowData::WowData () {
+		refresh ();
+	}
+
+	void WowData::updateAvatarName () {
+		getPlayerName (nameAvatar);
+		if (!nameAvatar.empty ()) {
+			int temp = nameAvatar.length();
+			nameAvatarValid = true;
+		} else {
+			nameAvatarValid = false;
+		}
+	}
+
+	void WowData::updateRealmName () {
+		getRealmName (nameRealm);
+		if (!nameRealm.empty ()) {
+			nameRealmValid = true;
+		} else {
+			nameRealmValid = false;
+		}
+	}
+
+	std::wstring getNameAvatar () {
+		if (!nameAvatarValid) {
+			updateAvatarName ();
+		}
+
+		return nameAvatar;
+	}
+
+	std::string getNameRealm () {
+		if (!nameRealmValid) {
+			updateRealmName ();
+		}
+
+		return nameRealm;
+	}
+
+	void refresh () {
+		nameAvatarValid = false;
+		nameRealmValid = false;
+	}
+} WowData_t;
+
+WowData_t wow;
+
+
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
-	static float lastpos[3]={0.0,0.0,0.0}, lastheading=0.0;
-	static int seenpos=0;
-	getRealmName(context);
-	getPlayerName(identity);
+	/* clear position */
+	for (int i=0; i<3; i++) {
+		avatar_pos[i]=avatar_front[i]=avatar_top[i]=camera_pos[i]=camera_front[i]=camera_top[i]=0.0;
+	}
+
+	/* are we still looking at the right object? */
+	uint64_t peekGUID, tempGUID;
+	peekGUID=getInt64(p_playerBase+0x30);
+	if (g_playerGUID != peekGUID) {
+		/* no? Try to resynch to the new address. Happens when walking through portals quickly (aka no or short loading screen) */
+		tempGUID = g_playerGUID;
+		p_playerBase=getPlayerBase();
+		if (tempGUID != g_playerGUID) {
+			/* GUID of actor changed, likely a character and/or realm change */
+			wow.refresh ();
+		}
+		peekGUID=getInt64(p_playerBase+0x30);
+		if (g_playerGUID != peekGUID) {
+			/* no? we are still getting the expected GUID for our avatar, but we don't have it's current position */
+			return true;
+		}
+	}
+	context = wow.getNameRealm ();
+	identity = wow.getNameAvatar ();
 
 	BOOL ok = true;
 
@@ -252,6 +349,18 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	float pos[3];
 	ok = ok && peekProc((BYTE *) p_playerBase + 0x798, pos, sizeof(float)*3);
+	if (! ok) {
+		if (g_playerGUID == 0xffffffffffffffff) {
+			return false;
+		} else if (g_playerGUID == 0) {
+			return true;
+		} else {
+			/* FIXME need a better way to mark PlayerBase invalid */
+			g_playerGUID=0;
+			return true; /* we got a good reference for an avatar, but no good position */
+		}
+	}
+
 	/* convert wow -> right hand coordinate system */
 	avatar_pos[0] = -pos[1];
 	avatar_pos[1] = pos[2];
@@ -259,21 +368,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	float heading=0.0;
 	ok = ok && peekProc((BYTE *) p_playerBase + 0x7A8, &heading, sizeof(heading));
+	if (! ok)
+		return false;
 
-	if ((lastpos[0] == pos[0]) &&
-	        (lastpos[1] == pos[1]) &&
-	        (lastpos[2] == pos[2]) &&
-	        (lastheading == heading)) {
-		seenpos++;
-	} else {
-		seenpos = 0;
-	}
+	float pitch=0.0;
+	ok = ok && peekProc((BYTE *) p_playerBase + 0x7AC, &pitch, sizeof(pitch));
+	if (! ok)
+		return false;
 
-	/* we have seen the exactly same position for n times, check if we're still on the right record */
-	if (seenpos > 100) {
-		p_playerBase=getPlayerBase();
-	}
-
+	/* TODO use yaw (heading) and pitch angles */
 	/* FIXME sin/cos (heading) is right from the numbers, but (-heading) is right from the sound position */
 	avatar_front[0]=-sin(heading);
 	avatar_front[1]=0.0;
@@ -303,10 +406,6 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return false;
 	}
 
-	lastpos[0] = pos[0];
-	lastpos[1] = pos[1];
-	lastpos[2] = pos[2];
-	lastheading = heading;
 	return true;
 }
 
@@ -319,13 +418,15 @@ static int trylock() {
 
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h) {
+#ifdef _DEBUG
 		DWORD dwError;
 		wchar_t errBuf[256];
 
 		dwError = GetLastError();
 		FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, dwError, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR)errBuf, sizeof(errBuf),NULL);
-		printf("Error in OpenProcess: %s\n", errBuf);
-
+		std::cout << "Error in OpenProcess: ";
+		std::wcout << errBuf << std::endl;
+#endif
 		return false;
 	}
 
@@ -335,8 +436,9 @@ static int trylock() {
 		std::string context;
 		std::wstring identity;
 
-		if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
+		if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
 			return true;
+		}
 	}
 
 	CloseHandle(h);
@@ -353,10 +455,11 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports World of Warcraft 3.2.2 (10505) (Release) (Euro). With context or identity support.");
+	return std::wstring(L"Supports World of Warcraft 3.2.2 (10505) (Release) (Euro). With context and identity support.");
 }
 
 static std::wstring description(L"World of Warcraft 3.2.2 (Euro)");
+
 static std::wstring shortname(L"World of Warcraft");
 
 static MumblePlugin wowplug = {
