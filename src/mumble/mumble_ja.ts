@@ -25,7 +25,8 @@
     <message>
         <location filename="ACLEditor.ui" line="572"/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with a &apos;!&apos;, its membership is negated, and if it starts with a &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with a  &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with a  &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">この項目がどのユーザのグループに適用されるかを制御します。グループはそのエントリが使用されるチャンネルのコンテキストそして評価されます。たとえば、Root チャンネル上のデフォルトのACL は &lt;i&gt;書き込み&lt;/i&gt;権限を&lt;i&gt;admin&lt;/i&gt;グループに与えています。このエントリは、もしチャンネルで継承済みでなければ、たとえそのACLに由来するチャンネルの&lt;i&gt;admin&lt;/i&gt;グループに属していなくても&lt;i&gt;admin&lt;/i&gt;グループがそのチャンネルに所属するならユーザに書き込み権限を与えます。グループの名前が ! で始まっていれば、そのメンバは否定されます。そして ~ で始まるなら　そのチャンネルで有効なACLよりもそのチャンネルのACLが定義された方が優先されます。グループの名前が # で始まる場合は、それはアクセストークンとして解釈されます。ユーザはアクセストークンのリストの中に # の後に続く文字列を持っている必要があります。これはとても非認証ユーザにたいして非常に単純なシンプルなパスワードアクセスの方法として使えます。グループの名前が $ で始まる場合、それは $ に続く文字列がユーザの証明書のハッシュにマッチする場合です。特別な定義済みグループは次のとおりです。&lt;br/&gt;&lt;b&gt;all&lt;/b&gt; - すべてにマッチ。&lt;br/&gt;&lt;b&gt;auth&lt;/b&gt; - 認証済みのすべてのユーザにマッチ。&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - サブチャンネル &lt;i&gt;a&lt;/i&gt; &lt;i&gt;b&lt;/i&gt;&lt;i&gt;c&lt;/i&gt;最小で&lt;i&gt;a&lt;/i&gt;個の共通の両親を持ち、チェーンの下側へ&lt;i&gt;b&lt;/i&gt;個から&lt;i&gt;c個&lt;/i&gt;の間のサブチャンネルのユーザにマッチします。この項目についてのより多くのドキュメントを見るには公式サイトを確認してください。&lt;b&gt;in&lt;/b&gt; - 現在のチャンネルにいるすべてのユーザにマッチ。（これは &lt;i&gt;sub,0,0,0&lt;/i&gt;の簡易的な表記です。）&lt;b&gt;out&lt;/b&gt; - 現在のチャンネルの外にいるすべてのユーザにマッチ。（これは &lt;i&gt;！sub,0,0,0&lt;/i&gt;の簡易的な表記です。）
+エントリはユーザかグループのどちらかに適用され、両方には適用されません。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="619"/>
@@ -208,27 +209,27 @@
     <message>
         <location filename="ACLEditor.ui" line="24"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">プロパティ</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="33"/>
         <source>Name</source>
-        <translation type="unfinished">名前</translation>
+        <translation type="unfinished">チャンネル名</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="40"/>
         <source>Enter the channel name here.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネル名をここに入力してください。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="43"/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;チャンネル名&lt;/b&gt;&lt;br&gt;このフィールドにチャンネル名を入力してください。チャンネル名は接続しているサーバの制限に従う必要があります。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="50"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">説明</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="57"/>
@@ -238,139 +239,146 @@
     <message>
         <location filename="ACLEditor.ui" line="64"/>
         <source>Enter the channel password here.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルに入るためのパスワードをここに入力してください。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="67"/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br&gt;This field allows you to easily set and change the password of a channel. In the background it uses Mumble&apos;s access tokens feature. To allow more fine grained and powerful access control directly use ACLs and groups instead (&lt;i&gt;Advanced configuration&lt;/i&gt; has to be checked to be able to see these settings).</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;パスワード&lt;/b&gt;&lt;br&gt;このフィールドで簡単にチャンネルのパスワードを設定・変更できます。 背景にはMumble のアクセストークンの機能の使用があります。より細やかで協力なアクセス制御をするには、ACLとおグループを直接に使用してください。（&lt;i&gt;高度な設定&lt;/i&gt;はこれらの設定を見るためにチェックする必要があります）。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="74"/>
         <source>Check to create a temporary channel.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">一時チャンネルを作る場合はチェックしてください。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="77"/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;一時&lt;/b&gt;&lt;br&gt;
+チェックしてチャンネルを作ると一時としてマークされます。最後に残っていたユーザがチャンネルから離れるとサーバによって自動的にそのチャンネルが削除されます。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="81"/>
         <source>Temporary</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">一時</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="94"/>
         <source>Channel positioning facility value</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルの位置を指定するための値</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="97"/>
         <source>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;ポジション&lt;/b&gt;&lt;br /&gt;
+この値を設定することで、このチャンネルがチャンネルツリー上で並ぶ順番を変更することができます。より高い&lt;i&gt;ポジション&lt;/i&gt;値を持つチャンネルは常により低い値を持つチャンネルよりも下に表示されます。また、２つのチャンネルの&lt;i&gt;ポジション&lt;/i&gt;値が等しいなら、それらのチャンネル名について辞書順で並べ替えられます。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="108"/>
         <source>Position</source>
-        <translation type="unfinished">位置</translation>
+        <translation type="unfinished">ポジション</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="152"/>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br&gt;
 This is all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;グループ&lt;/b&gt;&lt;br /&gt;
+このチャンネルで現在定義されている全てのグループです。新しいグループを作るには、グループ名を入力してEnterキーを押してください。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="163"/>
         <source>Add new group</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">新しいグループを追加</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="166"/>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;追加&lt;/b&gt;&lt;br /&gt;
+新しいグループを追加する。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="180"/>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;削除&lt;/b&gt;&lt;br /&gt;現在選択されているグループを削除します。もし、グループが継承されているなら、それはリストから削除されません。しかし、グループについての全ての局所情報はクリアされます。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="196"/>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;継承&lt;/b&gt;&lt;br /&gt;そのグループが親チャンネルで&lt;i&gt;継承可能&lt;/i&gt;と設定されているなら、そのグループの全てのメンバを継承します。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="209"/>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;継承可能&lt;/b&gt;&lt;br /&gt;このグループがサブチャンネルに継承可能であることを意味します。グループが継承不可能であれば、サブチャンネルは同じ名前の新しいグループを自由に作ることが可能です。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="225"/>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;継承済み&lt;/b&gt;これはグループが親チャンネルから継承されたことを意味します。このフラグはただの情報なので編集できません。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="254"/>
         <source>Inherited members</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">継承済みメンバ</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="264"/>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このチャンネルのグループに追加されたメンバのリスト。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="267"/>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;メンバ&lt;/b&gt;&lt;br /&gt;
+このリストは現在のチャンネルのグループに追加された全てのメンバーを含みます。より高い階層のチャンネルツリーから継承されたメンバは含まないことに注意してください。それらのメンバは&lt;i&gt;継承済みメンバー&lt;/i&gt;のリストで確認できます。より低い階層のチャンネルでこのリストを継承させたくない場合は&lt;i&gt;継承可能&lt;/i&gt;のチェックを外すか、手動で&lt;i&gt;除外メンバ&lt;/i&gt;のリストにメンバを追加してください。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="275"/>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">親チャンネルから継承されないグループのメンバーのリスト。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="278"/>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;除外メンバ&lt;/b&gt;&lt;br /&gt;
+親チャンネルに継承されないグループのメンバーのリストを含む。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="286"/>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">他のチャンネルから継承されたメンバのリストです。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="289"/>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;継承済みメンバ&lt;/b&gt;&lt;br /&gt;
+現在のチャンネルで継承済みのメンバのリストです。より高い階層のチャンネルからの継承を防ぐには&lt;i&gt;継承&lt;/i&gt;のチェックを外してください。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="306"/>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">グループに追加したいユーザ名をタイプして追加をクリックしてください。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="338"/>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">グループから削除したいユーザ名を入力して追加をクリックしてください。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="375"/>
         <source>Exclude</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">除外</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="382"/>
         <source>Excluded members</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">除外メンバ</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="436"/>
@@ -391,7 +399,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location filename="ACLEditor.ui" line="525"/>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation type="unfinished">このチャンネルに適用</translation>
+        <translation type="unfinished">このチャンネルに適用する。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="528"/>
@@ -440,18 +448,18 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ACLEditor.cpp" line="54"/>
         <source>Mumble - Add channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumble - チャンネル追加</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="81"/>
         <location filename="ACLEditor.cpp" line="249"/>
         <source>Failed: Invalid channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">失敗: 不適切なチャンネル</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="99"/>
         <source>Mumble - Edit %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumble - %1 の編集</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="136"/>
@@ -649,7 +657,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ASIOInput.ui" line="107"/>
         <source>Buffer size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">バッファサイズ</translation>
     </message>
     <message>
         <location filename="ASIOInput.ui" line="133"/>
@@ -766,7 +774,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ASIOInput.cpp" line="224"/>
         <source>%1 (version %2)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="ASIOInput.cpp" line="227"/>
@@ -861,7 +869,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="About.cpp" line="53"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -869,7 +877,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="About.cpp" line="78"/>
         <source>&lt;h3&gt;About Speex&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%1&quot;&gt;%1&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;This program uses SpeexDSP.&lt;/p&gt;&lt;p&gt;Speex is used for echo cancellation, noise&lt;br /&gt;filtering and voice activity detection.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>&lt;h3&gt;About Speex&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;http://www.speex.org/&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;This program uses Speex version %1&lt;/p&gt;&lt;p&gt;Speex is used for echo cancellation, noise&lt;br /&gt;filtering, voice activity detection and speech&lt;br /&gt;compression.&lt;/p&gt;</source>
@@ -1544,83 +1552,83 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.ui" line="100"/>
         <source>Cancel echo from speakers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">スピーカからのエコーをキャンセルします</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="103"/>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたのスピーカからのエコーをキャンセルすることができます。ミックスはCPU負荷が低いが、スピーカから一定の大きさの音を出していて、マイクから一定の距離を保っている場合にしかうまく働きません。マルチチャンネル エコーキャンセルはよりよいエコーキャンセルを提供するが、CPU負荷がミックスより高いです。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="107"/>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">無効</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="112"/>
         <source>Mixed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ミックス</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="117"/>
         <source>Multichannel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">マルチチャンネル</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="125"/>
         <source>Echo</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">エコー</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="229"/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PTTキーを2回押すとロックされます。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="232"/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;2度押し時間&lt;/b&gt;&lt;br /&gt;もしあなたがプッシュトークキーを2回、ここで設定した感覚の間に押したなら、キーはロックされます。Mumble は あなたがPTTをアンロックするために一回以上キーを押すまで転送状態のままです。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="258"/>
         <source>Gets played when the PTT button is pressed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PTT ボタンが押されたときに再生させる</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="265"/>
         <source>Gets played when the PTT button is released</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PTT ボタンが放されたときに再生させる</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="272"/>
         <source>Reset audio cue to default</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">オーディオキューをデフォルトにリセット</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="275"/>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;リセット&lt;/b&gt;&lt;br /&gt;デフォルトにファイルへのパスをリセットします。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="278"/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">リセット</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="285"/>
         <source>Browse for on audio file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">オン時の音声ファイルを参照</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="288"/>
         <location filename="AudioInput.ui" line="298"/>
         <source>Browse</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">参照</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="295"/>
         <source>Browse for off audio file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">オフ時の音声ファイルを参照</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="305"/>
@@ -1630,17 +1638,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.ui" line="315"/>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">オン</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="325"/>
         <source>Preview the audio cues</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">オーディオキューをプレビュー</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="328"/>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; soundfile followed by the current &lt;i&gt;off&lt;/i&gt; soundfile.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;プレビュー&lt;/b&gt;&lt;br /&gt;現在のオンのときのサウンドファイルを再生しそのあとにオフのときのサウンドファイルを再生する。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="331"/>
@@ -1650,7 +1658,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.ui" line="338"/>
         <source>Audible audio cue when push-to-talk is activated or deactivated</source>
-        <translation type="unfinished">&quot;キー押下で有効化&quot;設定の時、ショートカットキーが押される/離されるといったタイミングで音による通知を行います。</translation>
+        <translation type="unfinished">&quot;キー押下で有効化&quot;設定の時、ショートカットキーが押される/離されるといったタイミングで音による通知を行います</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="360"/>
@@ -1665,7 +1673,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.ui" line="660"/>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;この設定は多くのノイズを抑制します。&lt;/b&gt;&lt;br /&gt;より大きい値を設定すると、より多くのノイズが抑制されます。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="167"/>
@@ -1685,7 +1693,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.ui" line="450"/>
         <source>Signal values below this count as silence</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">発言していないと判定される信号値のしきい値</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="622"/>
@@ -1699,7 +1707,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.cpp" line="518"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバの最大ネットワーク帯域は %1 kbit/s しかありません。音質を自動的に %2 kbit/s (%3ms) に調整します</translation>
     </message>
 </context>
 <context>
@@ -1745,7 +1753,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioConfigDialog.cpp" line="203"/>
         <source>%1 kb/s</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="214"/>
@@ -1755,17 +1763,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioConfigDialog.cpp" line="269"/>
         <source>%1kbit/s (Audio %2 %5, Position %4, Overhead %3)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1kbit/s (音声 %2 %5, 位置 %4, オーバヘッド %3)</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="269"/>
         <source>CELT</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="269"/>
         <source>Speex</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>%1kbit/s (Audio %2, Position %4, Overhead %3)</source>
@@ -1819,7 +1827,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioOutput.ui" line="87"/>
         <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished">これは音声を出力するために使うデバイスです。</translation>
+        <translation type="unfinished">&lt;b&gt;これは音声を出力するために使うデバイスです。&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="100"/>
@@ -1850,22 +1858,22 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioOutput.ui" line="310"/>
         <source>Minimum distance to user before sound volume decreases</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">音が小さくなる前のユーザへの最小距離</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="316"/>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サウンドの計算に使う最小距離を設定します。少なくともこの距離だけ離れていれば、他のプレイヤーの音声は減衰しません。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="358"/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">音の計算のために最大距離の設定します。 これよりより遠くに離れているとき、他のプレーヤーのスピーチボリュームはこれ以上減少しないでしょう。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="574"/>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;ループバックテストモードの一つが有効になります。&lt;/b&gt;&lt;br /&gt;&lt;i&gt;なし&lt;/i&gt; - ループバックしない&lt;br /&gt;&lt;i&gt;ローカル&lt;/i&gt; - ローカルなサーバーをエミュレートします。&lt;br /&gt;&lt;i&gt;サーバー&lt;/i&gt; - サーバーにループバックを要求します。&lt;br /&gt;ループバックが有効になっている間、他のプレイヤーはあなたの声を聞くことが出来ないのでご注意ください。この設定はアプリケーション終了時に保存されません。</translation>
     </message>
     <message>
         <source>TextLabel</source>
@@ -1965,7 +1973,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location filename="AudioOutput.ui" line="490"/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</oldsource>
-        <translation type="unfinished">&lt;b&gt;ループバックテストの為のパケットレイテンシーの値を調整します。&lt;/b&gt;&lt;br /&gt;音声のネットワーク経路は、ほとんどの場合若干のレイテンシーを含んでいます。 この設定はループバックモードでのテスト時、レイテンシーの値を変更できるようにします。例えば、この値を15msにすると、20-35msのレイテンシーや80ms-95msのレイテンシーを持ったネットワークをエミュレートするでしょう。 国内のネット接続ではおよそ5msくらいのレイテンシーがあります。</translation>
+        <translation type="unfinished">&lt;b&gt;ループバックテストの為のパケットレイテンシーの値を調整します。&lt;/b&gt;&lt;br /&gt;音声のネットワーク経路は、ほとんどの場合若干のレイテンシーを含んでいます。 この設定はループバックモードでのテスト時、レイテンシーの値を変更できるようにします。例えば、この値を15msにすると、20-35msのレイテンシーや80ms-95msのレイテンシーを持ったネットワークをエミュレートするでしょう。 国内のネット接続ではおよそ5msくらいのレイテンシーがあります</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="516"/>
@@ -2066,7 +2074,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioOutput.ui" line="213"/>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">出力バッファにおけるプリバッファの量を設定します。いろいろな値で試してみて、急に不安定にならない一番小さな値に設定してください。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="256"/>
@@ -2147,7 +2155,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioOutput.cpp" line="297"/>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ファイル &apos;%1&apos; はMumble で使用できません。対応するフォーマットとエンコードのファイルを選択してください。</translation>
     </message>
 </context>
 <context>
@@ -2217,7 +2225,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioStats.ui" line="78"/>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">直近のフレーム(20 ms)における全ての処理後の最大音量を表示します。あなたが話していないとき、これは -96 dBであるのが理想です。しかし実際には音楽スタジオでも -60 dB、あなたの環境では -20 dB くらい出れば良い方でしょう。あなたが話している時は、-5 から -10 dB のあたりまで上がります。&lt;br /&gt;もしあなたがエコーキャンセルを使っていて、話してもいないのに -15 dB まで上がるようならセットアップは失敗しています。この場合、反響によってほかのプレイヤーを悩ますことになります。</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="124"/>
@@ -2252,7 +2260,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioStats.ui" line="207"/>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">直近2回のショートカットキー押下の間隔</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="262"/>
@@ -2638,7 +2646,12 @@ This is the audio tuning wizard for Mumble. This will help you correctly set the
 &lt;p&gt;
 Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.
 &lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;
+これはMumbleの音声を調整するためのウィザードです。サウンドカードの入力レベルとMumbleでの音声処理のパラメータを正しく設定するお手伝いをします。
+&lt;/p&gt;
+&lt;p&gt;
+ウィザードが動作中の間、音声はあなたが聞けるようPC上だけで完結し、サーバーには送信されませんのでご注意ください。
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="65"/>
@@ -2648,7 +2661,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
     <message>
         <location filename="AudioWizard.ui" line="121"/>
         <source>Cancel echo from headset or speakers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ヘッドセットやスピーカからのエコーをキャンセル</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="137"/>
@@ -2669,7 +2682,12 @@ To keep latency to an absolute minimum, it&apos;s important to buffer as little 
 You should hear a voice sample. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;
+遅延を最小限に保つためには、サウンドカード上で音声のバッファを出来るだけ小さくすることが重要です。しかし、多くのサウンドカードが要求してくるバッファは、実際に動作可能な大きさよりかなり小さなものです。結局、この値を設定するにはいろいろ試してみるほかありません。
+&lt;/p&gt;
+&lt;p&gt;
+周波数が変わる1つの音色が聞こえますでしょうか。音が途切れたり不安定に&lt;b&gt;ならない&lt;/b&gt;一番小さな値まで下のスライダーを動かしてください。なお、音声経路の認識率を向上するため、このテストの間ローカルエコーは使えなくなっている事をお忘れなく。
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="254"/>
@@ -2679,7 +2697,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
     <message>
         <location filename="AudioWizard.ui" line="257"/>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">出力バッファにおけるプリバッファの量を設定します。いろいろな値で試してみて、急に不安定にならない一番小さな値に設定してください。</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="315"/>
@@ -2690,7 +2708,12 @@ Open your sound control panel and go to the recording settings. Make sure the mi
 Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;
+ボリュームコントロールパネルを開き、録音設定画面に移動しましょう。そして、マイクが選択されていて、音量が最大になっている事を確認してください。もし&quot;マイクブースト&quot;を有効にするオプションがあるなら、それもチェックされているか確認してください。
+&lt;/p&gt;
+&lt;p&gt;
+イライラしていたり、興奮していたりする時のように大声で話してみてください。話している間、下にあるバーが青と緑の区域のなるべく赤に近い場所に留まるまでサウンドコントロールパネルの音量を下げてください。(赤い区域には&lt;b&gt;入らない&lt;/b&gt;ようにしましょう)
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="490"/>
@@ -2711,12 +2734,17 @@ Mumble supports positional audio for some games, and will position the voice of 
 The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/font&gt;, the &lt;font color=&quot;yellow&quot;&gt;speakers&lt;/font&gt; and a &lt;font color=&quot;green&quot;&gt;moving sound source&lt;/font&gt; as if seen from above. You should hear the audio move between the channels.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;
+Mumbleは、いくつかのゲームにおいてゲーム内での他プレイヤーの位置に対応した位置音響をサポートします。他プレイヤーの位置によって、方向と距離をシミュレートして音量が変化します。このシミュレーションはお使いのオペレーティング・システムでスピーカーが正しく設定されていることが前提となります。そのテストはここで行うことが出来ます。
+&lt;/p&gt;
+&lt;p&gt;
+このグラフはこれらの位置を表しています: &lt;font color=&quot;red&quot;&gt;あなた&lt;/font&gt;, the &lt;font color=&quot;yellow&quot;&gt;スピーカー&lt;/font&gt; and a &lt;font color=&quot;green&quot;&gt;移動する音の発生源&lt;/font&gt; 上からに見えるようなら、チャンネルの間に移動して聞くのがよいでしょう。
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="515"/>
         <source>Use headphones instead of speakers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">スピーカーの代わりにヘッドホンを使う</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="554"/>
@@ -2727,7 +2755,12 @@ Congratulations. You should now be ready to enjoy a richer sound experience with
 Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistics are essential for future development, and also make sure the features you use aren&apos;t deprecated.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;
+おめでとうございます！Mumbleでリッチなサウンド体験をする準備が整いました。
+&lt;/p&gt;
+&lt;p&gt;
+Mumbleは現在開発中であり、開発チームはより多くのユーザーの利益となる機能に注力したいと考えています。そのため、匿名で設定に関する統計を送信する機能を追加しました。これらの統計情報は主に将来の開発のために使用されるか、特定の機能が使用されていないかどうかを確認するために使用されます。
+&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Mumble supports positional audio for some games, and will position the voice of other players relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other player is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here.</source>
@@ -2776,27 +2809,27 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location filename="BanEditor.ui" line="72"/>
         <source>Reason</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">理由</translation>
     </message>
     <message>
         <location filename="BanEditor.ui" line="92"/>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">開始</translation>
     </message>
     <message>
         <location filename="BanEditor.ui" line="99"/>
         <source>End</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">終了</translation>
     </message>
     <message>
         <location filename="BanEditor.ui" line="113"/>
         <source>User</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザ</translation>
     </message>
     <message>
         <location filename="BanEditor.ui" line="127"/>
         <source>Hash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ハッシュ</translation>
     </message>
     <message>
         <location filename="BanEditor.ui" line="145"/>
@@ -2862,22 +2895,22 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location filename="Cert.cpp" line="57"/>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eメール</translation>
     </message>
     <message>
         <location filename="Cert.cpp" line="64"/>
         <source>Issuer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">発行者</translation>
     </message>
     <message>
         <location filename="Cert.cpp" line="93"/>
         <source>(none)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">（空欄）</translation>
     </message>
     <message>
         <location filename="Cert.cpp" line="99"/>
         <source>Self-signed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">自己署名</translation>
     </message>
 </context>
 <context>
@@ -2885,67 +2918,67 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location filename="Cert.cpp" line="184"/>
         <source>Resolving domain %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ドメイン名 %1 を解決しています。</translation>
     </message>
     <message>
         <location filename="Cert.cpp" line="190"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eメールアドレス を認証できません。&lt;br /&gt;継続するには有効なEメールアドレスを入力するか、空欄のままにしてください。</translation>
     </message>
     <message>
         <location filename="Cert.cpp" line="198"/>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書の生成でエラーが発生しました。&lt;br /&gt;もう一度、試してみてください。</translation>
     </message>
     <message>
         <location filename="Cert.cpp" line="206"/>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書とキーはPKCS#12 フォーマットでエクスポートできません。証明書にエラーがある可能性があります。</translation>
     </message>
     <message>
         <location filename="Cert.cpp" line="211"/>
         <source>The file could not be opened for writing. Please use another file.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">そのファイルを書き込みモードで開けませんでした。他のファイルを使用してください。</translation>
     </message>
     <message>
         <location filename="Cert.cpp" line="217"/>
         <source>The file could not be written successfully. Please use another file.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">そのファイルに正しく書き込めませんでした。他のファイルを使ってください。</translation>
     </message>
     <message>
         <location filename="Cert.cpp" line="224"/>
         <source>The file could not be opened for reading. Please use another file.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">そのファイルを読み込みモードで開けませんでした。他のファイルを使用してください。</translation>
     </message>
     <message>
         <location filename="Cert.cpp" line="230"/>
         <source>The file is empty or could not be read. Please use another file.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">そのファイルは空であるか読み込むことができません。他のファイルを使用してください。</translation>
     </message>
     <message>
         <location filename="Cert.cpp" line="235"/>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">そのファイルは正しい証明書とキーを含んでいません。他のファイルを使用してください。</translation>
     </message>
     <message>
         <location filename="Cert.cpp" line="257"/>
         <source>Select file to export certificate to</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書をエクスポートするためのファイルを選択してください</translation>
     </message>
     <message>
         <location filename="Cert.cpp" line="294"/>
         <source>Select file to import certificate from</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書をインポートするためのファイルを選択してください</translation>
     </message>
     <message>
         <location filename="Cert.cpp" line="347"/>
         <source>Unable to resolve domain.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ドメイン名を解決することができません。</translation>
     </message>
     <message>
         <location filename="Cert.cpp" line="390"/>
         <source>Mumble User</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumble ユーザ</translation>
     </message>
 </context>
 <context>
@@ -2953,132 +2986,132 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location filename="Cert.ui" line="14"/>
         <source>Certificate Management</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書 管理</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="17"/>
         <source>This opens a file selection dialog to choose a file to export the certificate to.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書をエクスポートするファイルを選択するためのダイアログを開きます。</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="21"/>
         <source>Certificate Authentication</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書による認証</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="24"/>
         <source>Authenticating to servers without using passwords</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">パスワードを使わないでサーバに対してユーザ認証を行う</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="33"/>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;Mumble は サーバと認証するために証明書を使えます。証明書の使用はパスワードを取り除きます。つまりパスワードを使用しないでリモートサイトにアクセスできます。このことでとても簡単にユーザ登録ができるようになります。&lt;/p&gt;&lt;p&gt;Mumble は証明書なしでも動きますが、多くのサーバの管理者はあなたが証明書を持っていることを望んでいます。&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="43"/>
         <location filename="Cert.ui" line="264"/>
         <location filename="Cert.ui" line="351"/>
         <source>Current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">現在の証明書</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="46"/>
         <source>This is the certificate Mumble currently uses.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumble が現在使用している証明書です。</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="49"/>
         <location filename="Cert.ui" line="270"/>
         <source>Current Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">現在の証明書</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="56"/>
         <location filename="Cert.ui" line="62"/>
         <source>Create a new certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">新しい証明書を作る</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="59"/>
         <source>This will create a new certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">新しい証明書を作ります。</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="82"/>
         <source>Import certificate from file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ファイルから証明書をインポートします</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="85"/>
         <source>This will import a certificate from file.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ファイルから証明書をインポートします。</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="88"/>
         <source>Import a certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書をインポート</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="108"/>
         <location filename="Cert.ui" line="297"/>
         <source>Export Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書をエクスポート</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="111"/>
         <source>This will export a certificate to file.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ファイルに証明書をエクスポートします。</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="114"/>
         <source>Export current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">現在の証明書をエクスポート</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="132"/>
         <source>Import Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書のインポート</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="135"/>
         <source>PKCS #12 Certificate import</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PKCS #12 証明書のインポート</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="144"/>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;Mumble は PKCS #12 形式で保存された証明書をインポートできます。 これは Mumble がキーをエクスポートする時に使われる形式です。これは FireFox や Internet Explorer 、 Opera などでも使われます。&lt;/p&gt;&lt;p&gt;そのファイルがパスワードで保護されていたら、証明書をインポートするためにパスワードが必要になります。&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="154"/>
         <source>Import from</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">インポート元</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="164"/>
         <source>Filename to import from</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">インポート元のファイル名</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="167"/>
         <source>This is the filename you wish to import a certificate from.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">これは証明書をインポートするファイル名です。</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="174"/>
         <source>Select file to import from</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">インポート元となるファイルを選択</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="177"/>
         <source>This opens a file selection dialog to choose a file to import a certificate from.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書のインポート元となるファイルを選択するためのダイアログを開きます。</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="180"/>
         <source>Open...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">開く....</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="191"/>
@@ -3088,38 +3121,38 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location filename="Cert.ui" line="201"/>
         <source>Password for PKCS#12 file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PKCS#12 ファイルのためのパスワード</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="204"/>
         <source>This is the password for the PKCS#12 file containing your certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書を含むPKCS#12ファイルのためのパスワードです。</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="211"/>
         <source>Certificate to import</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">インポートする証明書</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="214"/>
         <source>This is the certificate you are importing.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">これはあなたがインポートする証明書です。</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="217"/>
         <location filename="Cert.ui" line="357"/>
         <source>Certificate Details</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書の詳細</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="225"/>
         <source>Replace Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書の置き換え</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="228"/>
         <source>Replace existing certificate with new certificate?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">存在する証明書を新しい証明書に置き換えますか?</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="240"/>
@@ -3132,74 +3165,82 @@ Mumble is under continuous development, and the development team wants to focus 
 Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;あなたはすでに Mumbleに記憶された証明書を持っており、それを置き換えようとしています。&lt;/p&gt;
+&lt;p&gt;信頼されたCAによって発行された証明書にアップグレードしようとしていて、email アドレスがあなたの現在の証明書と一致しているならこれは完全に安全です。あなたが接続したサーバは あなｔのemailアドレスのための強力な証明書を自動的に判別するでしょう
+&lt;/p&gt;
+&lt;p&gt;そうでないなら、あなたはどのサーバでも以前にうけた認証を失います。あなたがまだ、どのサーバにも登録されていないなら、この心配は無用です。
+&lt;/p&gt;
+&lt;p&gt;
+本当に証明書を置き換えますか？
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="267"/>
         <source>This is the certificate Mumble currently uses. It will be replaced.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumbleが現在使用している証明書です。置き換えられます。</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="283"/>
         <source>New certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">新しい証明書</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="286"/>
         <source>This is the new certificate that will replace the old one.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">これは古い証明書と置き換えられる新しい証明書です。</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="289"/>
         <location filename="Cert.ui" line="365"/>
         <source>New Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あたらしい証明書</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="300"/>
         <source>Make a backup of your certificate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書のバックアップを作成</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="309"/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;現在の証明書を失ったなら、登録したサーバから認証を受けることが出来なくなります。（ハードウェアの故障やマシンの再インストールなどで）ゆえに、証明書のバックアップを作成することは&lt;b&gt;必須&lt;/b&gt;です。USBメモリのようなリムーバブルストレージにバックアップを保存することを強く推奨します。&lt;/p&gt;
+&lt;p&gt;このファイルは暗号化されておらず、もし、誰かがアクセスしたら、あなたに成りすます可能性があります。十分に気をつけてください。&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="320"/>
         <source>Export to</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">エクスポート先</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="330"/>
         <source>Filename to export to</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">エクスポート先のファイル名</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="333"/>
         <source>This is the filename you wish to export a certificate to.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書をエクスポートするファイル名です。</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="340"/>
         <source>Save As...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">名前をつけて保存...</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="354"/>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumbleが現在使用している証明書です。エクスポートされます。</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="368"/>
         <source>Generate a new certificate for strong authentication</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">強力な認証のための新しい証明書を生成</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="377"/>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;Mumble はサーバに対する認証のために強力な証明書を生成します。&lt;/p&gt;&lt;p&gt;証明書に追加情報を記録できます。それはサーバに接続する時にそのサーバに送信されます。正しいEメールアドレスを提供したなら、後でCAが発行したEメール証明書にアップグレードできます。&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="387"/>
@@ -3209,42 +3250,42 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="Cert.ui" line="397"/>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eメール</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="407"/>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたのEメールアドレス（例えば jhondoe@mumble.info)</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="410"/>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたのEメールアドレスです。正しいEメールアドレスを提供することが推奨されます。認証の問題なく強力な証明書にアップグレードできるからです。</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="424"/>
         <source>Your name (e.g. John Doe)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたの名前です（例えば山田太郎）</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="427"/>
         <source>This is your name, and will be filled out in the certificate. This field is entirely optional.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたの名前であり証明書に記入されれます。このフィールの入力は任意です。</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="435"/>
         <source>Finish</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">終了</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="438"/>
         <source>Certificate-based authentication is ready for use</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書ベースの認証が使えるようになりました</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="447"/>
         <source>Enjoy using Mumble with strong authentication.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">強力な認証とともに Mumble を楽しんでください。</translation>
     </message>
 </context>
 <context>
@@ -3297,12 +3338,12 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="../ACL.cpp" line="218"/>
         <source>Traverse</source>
-        <translation>チャンネルアクセス</translation>
+        <translation type="unfinished">チャンネルアクセス</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="220"/>
         <source>Enter</source>
-        <translation>参加</translation>
+        <translation type="unfinished">チャンネルへの参加</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="222"/>
@@ -3330,7 +3371,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="../ACL.cpp" line="232"/>
         <source>Make temporary</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">一時チャンネルの作成</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="234"/>
@@ -3365,92 +3406,92 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="../ACL.cpp" line="163"/>
         <source>This represents the permission to whisper to this channel from the outside. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with the Whisper key held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このチャンネルの外側から中へささやきを行う権限を表します。この権限は&lt;i&gt;発言&lt;/i&gt;の権限のように働きます。しかし、ささやきのキーが押されている発言パケットに適用されます。リンクしていないチャンネルの階層にブロードキャストするかもしれません。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="167"/>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">他のユーザを発言禁止にしたり、聴取禁止にしたりする権限を表します。一度発言禁止になると、他に権限を持ったユーザが発言禁止を解くか、サーバーに接続しなおすまで発言禁止のままになります。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="170"/>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">他の人を別のチャンネルに移動させたり、サーバーからキックしたりする権限を表します。実際にユーザを動かすには、実行する人が移動先のチャンネルの移動/キック権限を持っているか、ユーザが移動先チャンネルに入る権限を持っていなければなりません。この権限を持っている人は、対象のユーザが通常参加を許可されていないチャンネルに移動させることができます。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="175"/>
         <source>This represents the permission to make sub-channels. The user making the sub-channel will be added to the admin group of the sub-channel.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サブチャンネルを作成する権限を表します。サブチャンネルを作ったユーザは、そのチャンネルの管理者グループに追加されます。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="178"/>
         <source>This represents the permission to make a temporary subchannel. The user making the sub-channel will be added to the admin group of the sub-channel. Temporary channels are not stored and disappear when the last user leaves.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サブチャンネルとして一時チャンネルを作成する権限を表します。サブチャンネルを作ったユーザはそのチャンネルの admin グループに追加されます。一時チャンネルは、チャンネルからユーザがいなくなった場合に保持されずに消えます。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="181"/>
         <source>This represents the permission to link channels. Users in linked channels hear each other, as long as the speaking user has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルをリンクする権限を表します。話している人が聞き手のチャンネルに&lt;i&gt;発言&lt;/i&gt;の権限を持っている限り、リンクされたチャンネルのユーザは互いに聞く事ができます。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="185"/>
         <source>This represents the permission to write text messages to other users in this channel.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このチャンネルで他のユーザにテキストメッセージを送る権限を表します。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="187"/>
         <source>This represents the permission to forcibly remove users from the server.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバからユーザを追い出す権限を表します。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="189"/>
         <source>This represents the permission to permanently remove users from the server.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバからユーザを永久的に追放する権限を表します。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="191"/>
         <source>This represents the permission to register and unregister users on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバ上のユーザをユーザ登録したり登録を抹消する権利を表します。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="193"/>
         <source>This represents the permission to register oneself on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバ上でユーザ自身がユーザ登録を行う権限を表します。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="224"/>
         <source>Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ささやき</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="228"/>
         <source>Move</source>
-        <translation type="unfinished">移動する</translation>
+        <translation type="unfinished">ユーザの移動</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="236"/>
         <source>Text message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">テキストメッセージ</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="238"/>
         <source>Kick</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザのキック</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="240"/>
         <source>Ban</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザのバン</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="242"/>
         <source>Register User</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">他ユーザを登録</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="244"/>
         <source>Register Self</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">自分をユーザ登録</translation>
     </message>
     <message>
         <source>This represents the permission to speak in a channel with flagged speech. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with AltPushToTalk held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
@@ -3483,7 +3524,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="CustomElements.cpp" line="70"/>
         <source>Type chat message here</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ここにメッセージを入力</translation>
     </message>
 </context>
 <context>
@@ -3518,7 +3559,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="ClientUser.cpp" line="97"/>
         <source>Friend</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">フレンド</translation>
     </message>
     <message>
         <location filename="ClientUser.cpp" line="99"/>
@@ -3562,7 +3603,7 @@ Are you sure you wish to replace your certificate?
         <location filename="ConfigDialog.ui" line="54"/>
         <location filename="ConfigDialogDelegate.mm" line="135"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">高度な設定</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3634,7 +3675,7 @@ Are you sure you wish to replace your certificate?
         <location filename="ConfigDialog.cpp" line="70"/>
         <location filename="ConfigDialog.mm" line="84"/>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このボタンは現在のページの設定をデフォルトに戻します。他のページは変更されません。&lt;br /&gt;全ての設定をデフォルト戻すには、各ページでこのボタンを使わなければなりません。</translation>
     </message>
     <message>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will be not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
@@ -3737,13 +3778,13 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="ConnectDialog.cpp" line="371"/>
         <source>Adding host %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ホスト %1 を追加中</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="434"/>
         <location filename="ConnectDialog.ui" line="48"/>
         <source>Servername</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバ名</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="435"/>
@@ -3753,7 +3794,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="ConnectDialog.cpp" line="438"/>
         <source>Bonjour name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bonjour 名</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="441"/>
@@ -3763,70 +3804,70 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="ConnectDialog.cpp" line="442"/>
         <source>Addresses</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">アドレス</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="445"/>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">WEBサイト</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="448"/>
         <source>Packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">パケット損失</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="451"/>
         <source>Ping (80%)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="451"/>
         <location filename="ConnectDialog.cpp" line="453"/>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 ms</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="453"/>
         <source>Ping (95%)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="455"/>
         <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ネットワーク帯域</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="455"/>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="456"/>
         <location filename="ConnectDialog.ui" line="58"/>
         <source>Users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザ</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="457"/>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">バージョン</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="700"/>
         <source>Connect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">接続</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="702"/>
         <location filename="ConnectDialog.ui" line="83"/>
         <source>Add New...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">新しく追加 ...</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="739"/>
         <source>Filters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">フィルタ</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="1387"/>
@@ -3862,82 +3903,82 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="ConnectDialog.ui" line="53"/>
         <source>Ping</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="73"/>
         <source>Remove from Favorites</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">お気に入りから削除する</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="78"/>
         <source>Edit...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">編集...</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="86"/>
         <source>Add custom server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">カスタムサーバを追加</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="91"/>
         <source>Add to Favorites</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">お気に入りに追加</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="96"/>
         <source>Open Webpage</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Webページを開く</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="107"/>
         <source>Show Reachable</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">到達可能なものを表示する</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="110"/>
         <source>Show all servers that respond to ping</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ping に応答する全てのサーバを表示する</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="121"/>
         <source>Show Populated</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザのいるサーバを表示</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="124"/>
         <source>Show all servers with users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザがいる全てのサーバを表示</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="132"/>
         <source>Show All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">全て表示</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="135"/>
         <source>Show all servers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">全てのサーバを表示</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="140"/>
         <source>&amp;Copy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">コピー(&amp;C)</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="143"/>
         <source>Copy favorite link to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">クリップボードにお気に入りのリンクをコピー</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="148"/>
         <source>&amp;Paste</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ペースト(&amp;P)</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="151"/>
         <source>Paste favorite from clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">クリップボードからお気に入りへペースト</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -3961,23 +4002,24 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="ConnectDialogEdit.ui" line="14"/>
         <source>Edit Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバを編集</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui" line="20"/>
         <source>&amp;Servername</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバ名(&amp;S)</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui" line="30"/>
         <source>Name of the server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバの名前</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui" line="33"/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br/&gt;
 Name of the server. This is what the server will be named like in your serverlist and can be chosen freely.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;名前&lt;/b&gt;&lt;br/&gt;
+サーバの名前。これはサーバリスト上でサーバの名前であり、自由に変更が可能です。</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui" line="41"/>
@@ -3987,13 +4029,14 @@ Name of the server. This is what the server will be named like in your serverlis
     <message>
         <location filename="ConnectDialogEdit.ui" line="51"/>
         <source>Internet address of the server. </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバのインターネットアドレス。</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui" line="54"/>
         <source>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;アドレス&lt;/b&gt;&lt;br/&gt;
+サーバのインターネットアドレス。これは通常はホスト名・ip v4/6 アドレス、Bonjour サービス識別子です。Bonjourサービス識別子はMumbleに区別されるために &apos;@&apos; を接頭辞としてつける必要があります。</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui" line="62"/>
@@ -4003,13 +4046,14 @@ Internet address of the server. This can be a normal hostname, an ipv4/6 address
     <message>
         <location filename="ConnectDialogEdit.ui" line="72"/>
         <source>Port on which the server is listening</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバが待ち受けているポート</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui" line="75"/>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
 Port on which the server is listening. If the server is identified by a Bonjour service identifier this field will be ignored.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;ポート&lt;/b&gt;&lt;br /&gt;
+サーバが待ち受けるポート。サーバが Bonjour サービス識別子によって識別されるならこのフィールドは無視されます。</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui" line="83"/>
@@ -4019,13 +4063,14 @@ Port on which the server is listening. If the server is identified by a Bonjour 
     <message>
         <location filename="ConnectDialogEdit.ui" line="93"/>
         <source>Username to send to the server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバに送信するユーザ名</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui" line="96"/>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;ユーザ名&lt;/b&gt;&lt;br /&gt;
+サーバに送信するユーザ名。サーバのユーザ名に対する制約に気をつけてください。また、ユーザ名が既に他のユーザに使われているかもしれないことにも注意してください。</translation>
     </message>
 </context>
 <context>
@@ -4349,7 +4394,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.ui" line="104"/>
         <source>Data</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">データ</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.ui" line="109"/>
@@ -4384,7 +4429,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.ui" line="42"/>
         <source>This will permanently remove a selected shortcut.</source>
-        <translation type="unfinished">これにより選択されたショートカットを永久に削除します</translation>
+        <translation type="unfinished">これにより選択されたショートカットを永久に削除します。</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.ui" line="45"/>
@@ -4426,7 +4471,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.cpp" line="683"/>
         <source>Shortcut button combination.</source>
-        <translation type="unfinished">ショートカットボタンの組み合わせ</translation>
+        <translation type="unfinished">ショートカットボタンの組み合わせ。</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="684"/>
@@ -4457,52 +4502,52 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="14"/>
         <source>Whisper Target</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ささやきのターゲット</translation>
     </message>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="20"/>
         <source>Whisper to list of Users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザのリストにささやき</translation>
     </message>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="34"/>
         <source>Channel Target</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルターゲット</translation>
     </message>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="63"/>
         <source>Restrict to Group</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">グループの制限</translation>
     </message>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="70"/>
         <source>If specified, only members of this group will receive the whisper.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">設定すると、このグループのメンバーのみがささやきを受けとります。</translation>
     </message>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="81"/>
         <source>If checked the whisper will also be transmitted to linked channels.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チェックすると、ささやきがリンクしているチャンネルにも転送されます。</translation>
     </message>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="84"/>
         <source>Whisper to Linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">リンク済みのチャンネルにささやき</translation>
     </message>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="91"/>
         <source>If checked this whisper will also be sent to the subchannels of the channel target.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チェックすると対象チャンネルのサブチャンネルにもささやきが送信されます。</translation>
     </message>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="94"/>
         <source>Whisper to subchannels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サブチャンネルにささやき</translation>
     </message>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="110"/>
         <source>List of users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザのリスト</translation>
     </message>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="122"/>
@@ -4517,22 +4562,22 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="166"/>
         <source>Whisper to Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルにささやき</translation>
     </message>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="173"/>
         <source>Modifiers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">変更者</translation>
     </message>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="179"/>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このささやきのショートカットを使用して位置音声の情報を送信しません。</translation>
     </message>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="182"/>
         <source>Ignore positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">位置音響を無効にする</translation>
     </message>
 </context>
 <context>
@@ -4783,58 +4828,58 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Log.cpp" line="222"/>
         <source>User Joined Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザがサーバに参加</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="223"/>
         <source>User Left Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザがサーバーから退出</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="224"/>
         <source>User kicked (you or by you)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザがキックされた時(あなた自身、またはあなたによって)</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="225"/>
         <source>User kicked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザがキックされた時</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="228"/>
         <source>User muted (you)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">(あなたが)ユーザが発言禁止になった時</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="229"/>
         <source>User muted (by you)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">(あなたによって)ユーザが発言禁止になった時</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="230"/>
         <source>User muted (other)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">(他の人が)ユーザが発言禁止になった時</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="231"/>
         <source>User Joined Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザがチャンネルに参加</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="232"/>
         <source>User Left Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザがチャンネルから退出</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="351"/>
         <source>[[ Text object too large to display ]]</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">[[ テキストが表示するには大きすぎます ]]</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="380"/>
         <source>[Date changed to %1]
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">[ 日付が %1 に変更されます ]</translation>
     </message>
 </context>
 <context>
@@ -4860,15 +4905,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">イベント「%1」の音声通知を切り替えるためにはここをクリック</translation>
     </message>
     <message>
-        <location filename="Log.cpp" line="78"/>
-        <source>Click here to toggle sound notification for %1 events</source>
-        <oldsource>Path to soundfile used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change</oldsource>
-        <translation type="unfinished">イベント「%1」のときに音声通知のために使用するサウンドファイルのパス&lt;br /&gt;シングルクリックで再生&lt;br /&gt;ダブルクリックで変更</translation>
-    </message>
-    <message>
         <location filename="Log.cpp" line="79"/>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">イベント「%1」のときに音声通知のために使用するサウンドファイルのパス&lt;br /&gt;シングルクリックで再生&lt;br /&gt;ダブルクリックで変更</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="81"/>
@@ -4884,7 +4923,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Log.cpp" line="85"/>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">イベント「%1」のときに音声通知のために使用するサウンドファイルのパス&lt;br /&gt;シングルクリックで再生&lt;br /&gt;ダブルクリックで変更&lt;br /&gt;これらのイベントのための音声通知が有効であるか、またはこのフィールドが無効であることを確認してください。</translation>
     </message>
     <message>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for soundfiles. Text-To-Speech and soundfiles cannot be used at the same time.</source>
@@ -4901,7 +4940,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="Log.cpp" line="84"/>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
-        <translation type="unfinished">イベント「%1」のときに音声通知のために使用するサウンドファイルのパス&lt;br /&gt;シングルクリックで再生&lt;br /&gt;ダブルクリックで変更&lt;br /&gt;これらのイベントのための音声通知が有効であるか、またはこのフィールドが無効であることを確認してください。</translation>
+        <translation type="unfinished">イベント「%1」のときに音声通知を切り替えるにはここをクリックしてください。&lt;br /&gt; もしチェックしたなら、Mumble はイベント「%1」に設定された音声ファイルを再生します。音声ファイルとTTSは同時に使えません。</translation>
     </message>
     <message>
         <source>Choose sound file</source>
@@ -4975,17 +5014,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Log.ui" line="161"/>
         <source>Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ささやき</translation>
     </message>
     <message>
         <location filename="Log.ui" line="167"/>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チェックするとフレンドリストに追加されたユーザからのみささやきのみを聞くようになります。</translation>
     </message>
     <message>
         <location filename="Log.ui" line="170"/>
         <source>Only accept whispers from friends</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">フレンドからのささやきのみ受け付ける</translation>
     </message>
     <message>
         <location filename="Log.ui" line="36"/>
@@ -5055,37 +5094,37 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="LookConfig.ui" line="20"/>
         <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">レイアウト</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="32"/>
         <source>Classic</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">クラシック</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="51"/>
         <source>Stacked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">スタック</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="105"/>
         <source>Hybrid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ハイブリッド</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="124"/>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">カスタム</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="170"/>
         <source>This changes the behavior when moving channels.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルを移動したときの動作を変更します。</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="173"/>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルを動かすときの動作を変更します。これを設定すると誤ってチャンネルをドラッグしてしまうのを防ぐことができます。 &lt;i&gt;チャンネルを移動&lt;/i&gt; 確認なしにチャンネルを動かします。 &lt;i&gt;何もしない&lt;/i&gt; 何も行わず、エラーメッセージを表示します。 &lt;i&gt;確認する&lt;/i&gt; 確認メッセージボックスを出してから動かします。</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="187"/>
@@ -5110,17 +5149,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="LookConfig.ui" line="290"/>
         <source>Check to show chat bar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャットバーを表示するにはチェック</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="293"/>
         <source>&lt;b&gt;If checked the chat bar is shown&lt;/b&gt;&lt;br /&gt;Uncheck to hide it</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;チェックしたらチャットバーが現れます&lt;/b&gt;&lt;br /&gt;チェックをはずすと隠す</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="296"/>
         <source>Show chatbar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャットバーを表示</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="204"/>
@@ -5218,7 +5257,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="LookConfig.cpp" line="63"/>
         <source>Only with users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザが居るチャンネルのみ</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="66"/>
@@ -5285,27 +5324,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="LookConfig.ui" line="231"/>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">どのチャンネルを自動的に展開するかを決定します。 &lt;i&gt;なし&lt;/i&gt; と &lt;i&gt;全て&lt;/i&gt; は全てのチャンネルを展開する/しない設定にします。&lt;i&gt;人が居るチャンネルのみ&lt;/i&gt; はユーザの入室状況に応じて展開と折りたたみが変わります。</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="238"/>
         <source>List users above subchannels (requires restart).</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サブチャンネルの上にユーザを表示する（再起動が必要です）。</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="241"/>
         <source>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;これを設定していると、チャンネル表示の時にサブチャンネルより上にユーザが表示されるようになります。&lt;/b&gt;&lt;br /&gt;この設定を反映するにはMumbleの再起動が必要です。</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="244"/>
         <source>Users above Channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルの上にユーザを表示</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="254"/>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;これがセットされている場合、接続中に終了するかを確認します。&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="270"/>
@@ -5694,137 +5733,137 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui" line="577"/>
         <source>&amp;Change Comment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">コメントを変更(&amp;C)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="580"/>
         <source>Change the comment on the selected user.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">選択されたユーザのコメントを変更する。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="583"/>
         <source>This allows you to change the comment (shown as a tooltip) of a user. Unless you&apos;ve been given extra privileges on the server, you can only change your own comment.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ツールチップとして表示される、ユーザのコメントを変更することができます。サーバ上で追加の権限を与えられない限り、 自分自身のコメントしか変更することができません。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="588"/>
         <source>Certificate Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書発行ウィザード</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="591"/>
         <source>Configure certificates for strong authentication</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">強固な認証のための証明書を設定する</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="594"/>
         <source>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバに対する認証のための証明書を、作成・インポート・エクスポートするためのウィザードを開始します。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="599"/>
         <source>Register</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">登録</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="602"/>
         <source>Register user on server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバ上でユーザを登録</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="605"/>
         <source>This will permanently register the user on the server. Note that you can&apos;t change the username later on, nor can you easily unregister a user, so make sure you really want to do this.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバ上のユーザを永久的にユーザ登録します。登録後にユーザ名を変更できないことと、簡単にユーザ登録を取り消せることを覚えておいてください。あなたが本当にそうしたいときにしてください。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="610"/>
         <source>Add &amp;Friend</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">フレンドに追加(&amp;F)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="613"/>
         <source>Adds a user as your friend.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたのフレンドにユーザを追加する。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="616"/>
         <source>This will add the user as a friend, so you can recognize him on this and other servers.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザをフレンドとして追加します。他のサーバ上でもそのユーザを区別することができます。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="621"/>
         <source>&amp;Remove Friend</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">フレンドを削除する(&amp;R)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="624"/>
         <source>Removes a user from your friends.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">フレンドからユーザを削除します。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="627"/>
         <source>This will remove a user from your friends list.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">フレンドリストからユーザを削除します。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="632"/>
         <source>&amp;Update Friend</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">フレンドを更新(&amp;U)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="635"/>
         <source>Update name of your friend.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">フレンドの名前を更新します。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="638"/>
         <source>Your friend uses a different name than what is in your database. This will update the name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたのフレンドがデータベースに登録されているものと違う名前を使用しています。名前が更新されます。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="643"/>
         <source>Registered &amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">登録済みユーザ（&amp;U）</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="646"/>
         <source>Edit registered users list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">登録済みユーザのリストを編集</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="649"/>
         <source>This opens the editor for registered users, which allow you to change their name or unregister them.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">権限を管理するため、登録済みユーザの編集ダイアログを開きます。（ユーザの名前を変更したり、登録を削除したり出来ます）。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="654"/>
         <source>Change Texture</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">テクスチャを変更</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="657"/>
         <source>Change your overlay texture on this server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このサーバでのあなたのオーバレイテクスチャを変更する</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="662"/>
         <source>&amp;Access Tokens</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">アクセストークン(&amp;A)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="665"/>
         <source>Add or remove text-based access tokens</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">アクセストークンを追加または削除する</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="670"/>
         <source>Remove Texture</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">テクスチャを削除</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="673"/>
         <source>Remove currently defined user texture.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">現在定義されているユーザテクスチャを削除します。</translation>
     </message>
     <message>
         <source>&amp;About Qt</source>
@@ -5909,7 +5948,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="MainWindow.cpp" line="167"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">声を送るときに押し続けるボタン</translation>
+        <translation type="unfinished">声を送るときに押し続けるボタン。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="168"/>
@@ -6001,7 +6040,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="MainWindow.cpp" line="195"/>
         <source>Toggle state of in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">ゲーム中でのオーバーレイの状態を切り替える</translation>
+        <translation type="unfinished">ゲーム中でのオーバーレイの状態を切り替える。</translation>
     </message>
     <message>
         <source>This will switch the states of the ingame overlay between showing everybody, just the players who are talking, and nobody.</source>
@@ -6113,22 +6152,22 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="Messages.cpp" line="289"/>
         <location filename="Messages.cpp" line="329"/>
         <source>the server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバ</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="296"/>
         <source>%1 moved to %2.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 は %2 に移動されました。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="298"/>
         <source>%1 moved to %2 by %3.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 は %3 によって %2 に移動されました。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="308"/>
         <source>%1 moved in from %2 by %3.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 は %3 によって %2 から移動されました。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="343"/>
@@ -6143,37 +6182,37 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Messages.cpp" line="134"/>
         <source>You were denied %1 privileges in %2.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたは %2 で %1 の権限を拒否されました。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="136"/>
         <source>%3 was denied %1 privileges in %2.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%3 は %2 で %1 の権限がありません。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="140"/>
         <source>Denied: Cannot modify SuperUser.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">拒否: SuperUserを変更できません。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="144"/>
         <source>Denied: Invalid channel name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">拒否: 不正なユーザ名です。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="148"/>
         <source>Denied: Text message too long.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">拒否: テキストメッセージが長すぎます。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="168"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">拒否: 一時チャンネル上で操作が許可されていません。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="175"/>
         <source>Permission denied.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">権限がありません。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="223"/>
@@ -6197,12 +6236,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Messages.cpp" line="247"/>
         <source>You were suppressed by %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたは %1 によって発言禁止にされました。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="249"/>
         <source>You were unsuppressed by %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたは %1 によって発言禁止を解除されました。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="251"/>
@@ -6212,22 +6251,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Messages.cpp" line="256"/>
         <source>You deafened %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたは %1 を聴取禁止にしました。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="258"/>
         <source>You muted %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたは %1 を発言禁止にしました。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="260"/>
         <source>You unsuppressed %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたは %1 の発言禁止を解除しました。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="262"/>
         <source>You unmuted %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたは %1 の発言禁止を解除しました。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="268"/>
@@ -6237,7 +6276,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Messages.cpp" line="270"/>
         <source>%1 unsuppressed by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 が %2 によって発言禁止を解除されました。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="272"/>
@@ -6248,12 +6287,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="Messages.cpp" line="427"/>
         <source>the server</source>
         <comment>message from</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバ</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="566"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">他のクライアントとマッチするCELTコーデックが見つかりません。あなたは全てのユーザとは話せないでしょう。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="243"/>
@@ -6435,82 +6474,83 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui" line="58"/>
         <source>&amp;User</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザ(&amp;U)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="138"/>
         <source>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">これはチャットバーです。&lt;br /&gt;
+テキストをここに打ち込み ENTER を押せば、テキストは選択されたユーザかチャンネルに送られます。どこも選択しなければ、あなたが現在いるチャンネルに送信されます。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="144"/>
         <source>Chatbar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャットバー</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="186"/>
         <source>Shows a dialog of registered servers, and also allows quick-connect.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">登録済みのサーバのダイアログを表示し、高速に接続することを許可する。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="236"/>
         <source>Kick user (with reason)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">（理由付で）ユーザをキック</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="239"/>
         <source>Kick selected user off server. You&apos;ll be asked to specify a reason.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバから選択されたユーザを追放します。あなたは追放する理由を尋ねられます。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="250"/>
         <source>Mute user</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザを発言禁止</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="253"/>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバーにいるユーザを発言禁止にしたり、解除したりします。聴取禁止になっているユーザに対して発言禁止の解除を行うと、聴取禁止も解除されます。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="261"/>
         <source>Kick and ban user (with reason)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">（理由付きで）ユーザをキックした後にバン</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="264"/>
         <source>Kick and ban selected user from server. You&apos;ll be asked to specify a reason.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバから選択されたユーザのキックとバン。あなたは理由を尋ねられます。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="275"/>
         <source>Deafen user</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">発言禁止のユーザ</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="278"/>
         <source>Deafen or undeafen user on server. Deafening a user will also mute them.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバ上のユーザを発言禁止にしたり可能にしたりする。発言禁止のユーザもまたそれらをミュートにする。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="289"/>
         <source>Mute user locally</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ローカルでユーザを発言禁止にする</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="292"/>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ローカルでユーザを発言禁止にします。同じ部屋にいるプレイヤーに使ってください。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="330"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">編集(&amp;E)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="347"/>
         <source>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたのいるチャンネルを選択されたチャンネルとリンクします。他方のチャンネルで発言する権限を持っていたら、ユーザはお互いを聞くことができます。これは恒久的なリンクであり、手動でリンクを解除されるかサーバーがリスタートするまで続きます。push-to-linkのショートカットを見てください。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="466"/>
@@ -6560,17 +6600,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="383"/>
         <source>File does not exist</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ファイルが存在しません</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="391"/>
         <source>File is not a configuration file.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">設定ファイルが見つかりません。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="397"/>
         <source>Settings merged from file.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">設定をファイルからマージする。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="403"/>
@@ -6580,7 +6620,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="422"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このバージョンのMumble は Mumble %1.%2.%3 のための URL を扱えません</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="448"/>
@@ -6596,37 +6636,37 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="MainWindow.cpp" line="461"/>
         <location filename="MainWindow.cpp" line="613"/>
         <source>Connecting to server %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバ %1 に接続しています。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="698"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;h2&gt;バージョン&lt;/h2&gt;&lt;p&gt;プロトコル %1.%2.%3.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="703"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;ビルド情報がないか OS のバージョンが有効です。&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="705"/>
         <source>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="709"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;h2&gt;制御チャンネル&lt;/h2&gt;&lt;p&gt;%1 bit %2 で暗号化されています。&lt;br /&gt;平均 %3 ms の遅延 (平方偏差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="718"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;h2&gt;音声チャンネル&lt;/h2&gt;&lt;p&gt;128 bit OCB-AES128 で暗号化されています。&lt;br /&gt;平均 %1 ms の遅延 (平方偏差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="729"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;h2&gt;音声帯域幅&lt;/h2&gt;&lt;p&gt;最大値 %1 kbit/s&lt;br /&gt;現在値 %2 kbit/s&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="731"/>
@@ -6642,54 +6682,54 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="911"/>
         <source>Register yourself as %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 として自分をユーザ登録</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="911"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;サーバ上で自分自身をユーザ登録しようとしています。このアクションは取り消せません。あなたのユーザ名はこの操作の後に変更できません。あなたはこのサーバ上で &apos;%1&apos; として知られるようになります。&lt;/p&gt;&lt;p&gt;本当に自分自身を登録しますか？&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="913"/>
         <source>Register user %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザ %1 を登録</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="913"/>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;あなたはサーバ上で %1 をユーザ登録しようとしています。このアクションは取り消せませんし登録済みのユーザ名を変えることもできません。登録済みのユーザ &apos;%1&apos; は、サーバパスワードを変更したとしても、サーバにアクセスするでしょう。&lt;/p&gt;&lt;p&gt;この時点から、&apos;%1&apos; は 現在の証明書でユーザ認証されます。&lt;/p&gt;&lt;p&gt;本当に %1 を登録しますか？&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="956"/>
         <source>Kicking user %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザをキック : %1</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="978"/>
         <source>Banning user %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザ：%1 をバンする</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1027"/>
         <source>Change comment on user %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザ %1 のコメントを変更する</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1070"/>
         <location filename="MainWindow.cpp" line="1287"/>
         <source>To channel %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネル %1 宛: %2</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1070"/>
         <location filename="MainWindow.cpp" line="1287"/>
         <source>Message to channel %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネル %1 へのメッセージ</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1688"/>
         <source>Connected.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">接続完了。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1779"/>
@@ -6699,38 +6739,38 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="1918"/>
         <source>Type message to channel &apos;%1&apos; here</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネル &apos;%1&apos; へのメッセージをここに入力</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1921"/>
         <source>Type message to user &apos;%1&apos; here</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザ &apos;%1&apos; へのメッセージをここに入力</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1996"/>
         <source>Choose image file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">イメージファイルを選択</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1996"/>
         <source>Images (*.png *.jpg)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">イメージ (*.png *.jpg)</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="2003"/>
         <location filename="MainWindow.cpp" line="2015"/>
         <source>Failed to load image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">画像の読み込みに失敗</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="2003"/>
         <source>Could not open file for reading.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">読み込みモードでファイルを開けません。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="2015"/>
         <source>Image format not recognized.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">画像の形式を認識できません。</translation>
     </message>
     <message>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 variance)&lt;/p&gt;</source>
@@ -6903,48 +6943,48 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="MainWindow.cpp" line="174"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">自分を発言禁止</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="176"/>
         <source>Set self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">自分自身を発言禁止状態に設定。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="177"/>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">発言禁止の状態を設定するか切り替えます。オフになると、聴取禁止も無効になります。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="179"/>
         <source>Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">自身を聴取禁止にする</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="181"/>
         <source>Set self-deafen status.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">自分自身を聴取禁止状態に変更。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="182"/>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたの聴取禁止状態を設定するか切り替えます。オンになれば、発言禁止も有効になります。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="196"/>
         <source>This will switch the states of the in-game overlay between showing everybody, just the users who are talking, and nobody.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ゲーム中でのオーバーレイの状態を「全員」と「話している人だけ」、「なし」の間で切り替える。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="212"/>
         <source>Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ささやき</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="225"/>
@@ -7017,7 +7057,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="UserModel.cpp" line="1250"/>
         <source>Unknown Channel Drag mode in UserModel::dropMimeData.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">不明なチャンネルドラッグモード, UserModel::dropMimeData.</translation>
     </message>
     <message>
         <source>Unknown Channel Drag mode in PlayerModel::dropMimeData.</source>
@@ -7057,7 +7097,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui" line="572"/>
         <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
-        <translation type="unfinished">小さく表示したとき移動やサイズ変更のためにフレームを表示するかを切り替えます</translation>
+        <translation type="unfinished">小さく表示したとき移動やサイズ変更のためにフレームを表示するかを切り替えます。</translation>
     </message>
 </context>
 <context>
@@ -7081,7 +7121,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="NetworkConfig.ui" line="32"/>
         <source>Use TCP compatibility mode</source>
         <oldsource>Use TCP compatability mode</oldsource>
-        <translation type="unfinished">TCP互換モードを使用します</translation>
+        <translation type="unfinished">TCP 互換モードを使用</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="35"/>
@@ -7159,32 +7199,32 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="NetworkConfig.ui" line="38"/>
         <source>Force TCP mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">強制的にTCP使用</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="58"/>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバに証明書を送らず、パスワードも保存しない。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="61"/>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;これはクライアントから個人情報の送信を抑制します。&lt;/b&gt;&lt;p&gt;クライアントは証明書を使用しませんし、接続のためのパスワードを保存しません。これはテストオプションで保存もされません。&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="64"/>
         <source>Suppress certificate and password storage</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書とパスワードの保存を抑制</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="102"/>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;プロキシの接続タイプ。&lt;/b&gt;&lt;br /&gt;プロキシを通して外向きの接続を行うようにします。 注意: プロキシ接続をする場合、強制的にTCP互換モードに変更されます。 全ての音声データは管理チャンネルを通して送信されるようになります。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="143"/>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;プロキシのホスト名&lt;/b&gt;&lt;br /&gt;このフィールドにはネットワークトラフィックを通過させたいプロキシのホスト名を設定します。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="165"/>
@@ -7234,23 +7274,24 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="NetworkConfig.ui" line="255"/>
         <source>Misc</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="261"/>
         <source>Prevent log from downloading images</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ログ上で画像のダウンロードをしない</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="264"/>
         <source>&lt;b&gt;Disable image download&lt;/b&gt;&lt;br/&gt;
 Prevents the client from downloading images embedded into chat messages with the img tag.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;画像のダウンロードを無効化&lt;/b&gt;&lt;br /&gt;
+img タグでチャットメッセージに埋め込まれた画像のダウンロードを無効化します。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="268"/>
         <source>Disable image download</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">画像のダウンロードを無効にする</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="278"/>
@@ -7260,37 +7301,37 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="NetworkConfig.ui" line="284"/>
         <source>Check for new releases of Mumble automatically.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumbleの新しいリリースを自動的に確認する。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="287"/>
         <source>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">プログラムを起動する度に Mumble の新しいバージョンを確認し、存在すれば通知します。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="290"/>
         <source>Check for application updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">開始時に Mumble のアップデートをチェック</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="297"/>
         <source>Check for new releases of plugins automatically.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">プラグインの新しいリリースを自動的に確認する。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="300"/>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">プログラムが開始する度に新しいプラグインを確認し、存在すれば自動的にダウンロードする。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="303"/>
         <source>Download plugin updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">開始時にプラグインのアップデートをダウンロード</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="313"/>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;匿名で統計情報の送信&lt;/b&gt;Mumble の開発チームの規模は小さいので、必要なものに開発の焦点をしぼる必要があります。統計情報を送信することで、プロジェクトが開発の焦点をどこに定めるかを決定するため手助けとなります。</translation>
     </message>
     <message>
         <source>Check for updates on startup</source>
@@ -7399,12 +7440,14 @@ Prevents the client from downloading images embedded into chat messages with the
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">オーバレイライブラリの読み込みに失敗しました. 次の原因が考えられます:
+- ライブラリファイル（mumble_ol.dll)が Mumble の実行されているフォルダに存在しない
+- WinXP SP2 より古い OS を使用している</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="191"/>
         <source>Failed to initialize overlay memory. This usually means that the shared memory is locked by the OS, and you need to reboot to release it.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">オーバーレイメモリの初期化に失敗しました。共有メモリが OS によってロックされていることが原因であり、それを解放するためには OS を再起動する必要があります。</translation>
     </message>
 </context>
 <context>
@@ -7662,29 +7705,29 @@ Prevents the client from downloading images embedded into chat messages with the
         <location filename="Overlay.cpp" line="118"/>
         <location filename="Overlay.ui" line="231"/>
         <source>Color for users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザの色</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="122"/>
         <location filename="Overlay.ui" line="245"/>
         <source>Color for talking users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">しゃべっているユーザの色</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="126"/>
         <location filename="Overlay.ui" line="266"/>
         <source>Color for whispering users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ささやいているユーザの色</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="130"/>
         <source>Color for channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルの色</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="134"/>
         <source>Color for active channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">有効なチャンネルの色</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="14"/>
@@ -7694,7 +7737,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="Overlay.ui" line="29"/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">これはオーバレイを有功にするかそうでないかを設定します。この設定はアプリケーションが開始したときにのみチェックされます。Mumble が動作中であることと、アプリケーションが開始する前にこのオプションが有効になっていることを確認してください。&lt;br /&gt;Mumble が開始した後にアプリケーションを開始しても、起動中にオーバレイを無効にしても、アプリケーションを際スタートしないとオーバレイを再開する安全な方法ではありません。</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="87"/>
@@ -7828,7 +7871,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="Plugins.ui" line="29"/>
         <source>This allows plugins for supported games to fetch your in-game position and transmit it with each voice packet. This enables other users to hear your voice in-game from the direction your character is in relation to their own.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">この設定は、サポートされたゲームのプラグインが位置情報を取得して、音声パケットと共に送信することを可能にします。他のユーザから見て、ゲーム内であなたのキャラクタがいる方向から声が聞こえるようにすることができます。</translation>
     </message>
     <message>
         <location filename="Plugins.ui" line="56"/>
@@ -7893,12 +7936,12 @@ Prevents the client from downloading images embedded into chat messages with the
         <location filename="Plugins.cpp" line="499"/>
         <location filename="Plugins.cpp" line="505"/>
         <source>Downloaded new or updated plugin to %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">更新されたプラグインを %1 にダウンロードしました。</translation>
     </message>
     <message>
         <location filename="Plugins.cpp" line="507"/>
         <source>Failed to install new plugin to %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 に新しいプラグインをインストールできません。</translation>
     </message>
     <message>
         <source>Plugin %1 lost link.</source>
@@ -8016,82 +8059,82 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="RichTextEditor.cpp" line="235"/>
         <source>Failed to load image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">画像の読み込みに失敗</translation>
     </message>
     <message>
         <location filename="RichTextEditor.cpp" line="235"/>
         <source>Image file too large to embed in document. Please use images smaller than %1 kB.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ドキュメントに埋め込むには画像ファイルが大きすぎます。 %1 kB より小さい画像を使用してください。</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui" line="14"/>
         <source>TabWidget</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">タブウィジット</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui" line="24"/>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">表示</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui" line="41"/>
         <source>Source Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ソーステキスト</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui" line="58"/>
         <source>&amp;Bold</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">太字体(&amp;B)</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui" line="61"/>
         <source>Ctrl+B</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui" line="73"/>
         <source>&amp;Italic</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">イタリック体(&amp;I)</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui" line="76"/>
         <source>Italic</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">イタリック体</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui" line="79"/>
         <source>Ctrl+I</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui" line="91"/>
         <source>Underline</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">下線</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui" line="94"/>
         <source>Ctrl+U</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui" line="99"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">色</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui" line="108"/>
         <source>Insert Link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">リンクを挿入</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui" line="111"/>
         <source>Ctrl+L</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui" line="120"/>
         <source>Insert Image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">画像を挿入</translation>
     </message>
 </context>
 <context>
@@ -8099,17 +8142,17 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="RichTextEditorLink.ui" line="14"/>
         <source>Add Link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">リンクを追加</translation>
     </message>
     <message>
         <location filename="RichTextEditorLink.ui" line="20"/>
         <source>URL</source>
-        <translation type="unfinished">URL</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="RichTextEditorLink.ui" line="33"/>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">テキスト</translation>
     </message>
 </context>
 <context>
@@ -8117,22 +8160,22 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="ServerHandler.cpp" line="367"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>UDP パケットをサーバに送ることができないか、サーバから受けとることができません。TCPモードに切り替えます。</translation>
     </message>
     <message>
         <location filename="ServerHandler.cpp" line="369"/>
         <source>UDP packets cannot be sent to the server. Switching to TCP mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>UDPパケットをサーバに送ることができません。TCPモードに切り替えます。</translation>
     </message>
     <message>
         <location filename="ServerHandler.cpp" line="371"/>
         <source>UDP packets cannot be received from the server. Switching to TCP mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>UDPパケットをサーバから受けとることができません。TCPモードに切り替えます。</translation>
     </message>
     <message>
         <location filename="ServerHandler.cpp" line="378"/>
         <source>UDP packets can be sent to and received from the server. Switching back to UDP mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>UDPパケットをサーバに送ることも、サーバから受けとることもできません。UDPモードに切り替えます。</translation>
     </message>
 </context>
 <context>
@@ -8140,42 +8183,42 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="ConnectDialog.cpp" line="72"/>
         <source>Favorite</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">お気に入り</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="78"/>
         <source>LAN</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ローカル</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="86"/>
         <source>Public Internet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">インターネット</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="92"/>
         <source>Asia</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">アジア</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="93"/>
         <source>North America</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">北アメリカ</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="94"/>
         <source>South America</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">南アメリカ</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="95"/>
         <source>Europe</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ヨーロッパ</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="96"/>
         <source>Oceania</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">オセアニア</translation>
     </message>
 </context>
 <context>
@@ -8183,7 +8226,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="GlobalShortcut.cpp" line="214"/>
         <source>Unassigned</source>
-        <translation type="unfinished">未割り当て</translation>
+        <translation>未割り当て</translation>
     </message>
 </context>
 <context>
@@ -8191,22 +8234,22 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="GlobalShortcut.cpp" line="572"/>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation>オン</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="574"/>
         <source>Off</source>
-        <translation type="unfinished">オフ</translation>
+        <translation>オフ</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="576"/>
         <source>Toggle</source>
-        <translation type="unfinished"></translation>
+        <translation>切り替え</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="582"/>
         <source>Unassigned</source>
-        <translation type="unfinished">未割り当て</translation>
+        <translation>未割り当て</translation>
     </message>
 </context>
 <context>
@@ -8222,22 +8265,22 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="GlobalShortcut.cpp" line="353"/>
         <source>Root</source>
-        <translation type="unfinished">ルート</translation>
+        <translation>ルート</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="358"/>
         <source>Parent</source>
-        <translation type="unfinished"></translation>
+        <translation>親</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="363"/>
         <source>Current</source>
-        <translation type="unfinished"></translation>
+        <translation>現在</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="368"/>
         <source>Subchannel #%1</source>
-        <translation type="unfinished"></translation>
+        <translation>サブチャンネル #%1</translation>
     </message>
 </context>
 <context>
@@ -8245,42 +8288,42 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="GlobalShortcut.cpp" line="454"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="491"/>
         <source>, </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="497"/>
         <source>Root</source>
-        <translation type="unfinished">ルート</translation>
+        <translation>ルート</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="499"/>
         <source>Parent</source>
-        <translation type="unfinished"></translation>
+        <translation>親</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="501"/>
         <source>Current</source>
-        <translation type="unfinished"></translation>
+        <translation>現在</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="503"/>
         <source>Subchannel #%1</source>
-        <translation type="unfinished"></translation>
+        <translation>サブチャンネル #%1</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="510"/>
         <source>Invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>無効</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="513"/>
         <source>&lt;Empty&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;空欄&gt;</translation>
     </message>
 </context>
 <context>
@@ -8288,17 +8331,17 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="GlobalShortcut.cpp" line="254"/>
         <source>Off</source>
-        <translation type="unfinished">オフ</translation>
+        <translation>オフ</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="258"/>
         <source>Toggle</source>
-        <translation type="unfinished"></translation>
+        <translation>切り替え</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="262"/>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation>オン</translation>
     </message>
 </context>
 <context>
@@ -8322,17 +8365,17 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="TextMessage.h" line="46"/>
         <source>Enter text</source>
-        <translation type="unfinished"></translation>
+        <translation>テキストを入力</translation>
     </message>
     <message>
         <location filename="TextMessage.ui" line="24"/>
         <source>If checked the message is recursively sent to all subchannels</source>
-        <translation type="unfinished"></translation>
+        <translation>チェックすると全てのサブチャンネルに再帰的にメッセージが送信されます</translation>
     </message>
     <message>
         <location filename="TextMessage.ui" line="27"/>
         <source>Send recursively to subchannels</source>
-        <translation type="unfinished"></translation>
+        <translation>再帰的にサブチャンネルに送る</translation>
     </message>
 </context>
 <context>
@@ -8340,17 +8383,17 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="Tokens.cpp" line="69"/>
         <source>Empty Token</source>
-        <translation type="unfinished"></translation>
+        <translation>空のトークン</translation>
     </message>
     <message>
         <location filename="Tokens.ui" line="14"/>
         <source>Mumble - Access Tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble - アクセストークン</translation>
     </message>
     <message>
         <location filename="Tokens.ui" line="20"/>
         <source>List of access tokens on current server</source>
-        <translation type="unfinished"></translation>
+        <translation>現在のサーバのアクセストークンのリスト</translation>
     </message>
     <message>
         <location filename="Tokens.ui" line="23"/>
@@ -8358,27 +8401,29 @@ Prevents the client from downloading images embedded into chat messages with the
 &lt;br /&gt;
 An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you&apos;ve used and resend them to the server next time you reconnect, so you don&apos;t have to enter these every time.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;接続しているサーバのアクセストークンを編集することができます。&lt;/b&gt;
+&lt;br /&gt;
+アクセストークンはチャンネルへのアクセスをとても単純に管理するパスワードとして使うことが可能な文字列です。 Mumble はあなたが使ったトークンを記録して、次にサーバに接続した際に送り直します。つまり、毎回入力する必要は無いのです。</translation>
     </message>
     <message>
         <location filename="Tokens.ui" line="47"/>
         <source>Add a token</source>
-        <translation type="unfinished"></translation>
+        <translation>トークンを追加</translation>
     </message>
     <message>
         <location filename="Tokens.ui" line="50"/>
         <source>&amp;Add</source>
-        <translation type="unfinished">追加(&amp;A)</translation>
+        <translation>追加(&amp;A)</translation>
     </message>
     <message>
         <location filename="Tokens.ui" line="57"/>
         <source>Remove a token</source>
-        <translation type="unfinished"></translation>
+        <translation>トークンを削除</translation>
     </message>
     <message>
         <location filename="Tokens.ui" line="60"/>
         <source>&amp;Remove</source>
-        <translation type="unfinished">削除(&amp;R)</translation>
+        <translation>削除(&amp;R)</translation>
     </message>
 </context>
 <context>
@@ -8387,12 +8432,12 @@ An access token is a text string, which can be used as a password for very simpl
         <location filename="UserEdit.ui" line="14"/>
         <location filename="UserEdit.ui" line="20"/>
         <source>Registered Users</source>
-        <translation type="unfinished"></translation>
+        <translation>登録済みのユーザ</translation>
     </message>
     <message>
         <location filename="UserEdit.ui" line="26"/>
         <source>Remove</source>
-        <translation type="unfinished">削除</translation>
+        <translation>削除</translation>
     </message>
 </context>
 <context>
@@ -8400,117 +8445,117 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserModel.cpp" line="520"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバに接続しているユーザです。ユーザの左側のアイコンは彼らが話しているかどうかを意味します:</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="521"/>
         <source>Talking to your channel.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたのチャンネルに話しています。</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="522"/>
         <source>Whispering directly to your channel.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルに直接ささやいています。</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="523"/>
         <source>Whispering directly to you.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたに直接ささやいています。</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="524"/>
         <source>Not talking.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">話していません。</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="532"/>
         <source>This is a channel on the server. The icon indicates the state of the channel:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバ上のチャンネルです。アイコンはチャンネルの状態を意味します :</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="533"/>
         <source>Your current channel.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">現在のチャンネル。</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="534"/>
         <source>A channel that is linked with your channel. Linked channels can talk to each other.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたのチャンネルとリンクしているチャンネルです。リンクしているチャンネルは互いに話せます。</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="535"/>
         <source>A channel on the server that you are not linked to.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたがリンクしていないサーバ上のチャンネルです。</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="551"/>
         <source>This shows the flags the user has on the server, if any:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザがサーバ上で持っているフラグを表示します:</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="552"/>
         <source>On your friend list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">友人リスト上</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="553"/>
         <source>Authenticated user</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">認証されたユーザ</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="554"/>
         <source>Muted (manually muted by self)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">発言禁止（自身で発言を禁止に）</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="555"/>
         <source>Muted (manually muted by admin)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">発言禁止（管理者によって発言禁止に）</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="556"/>
         <source>Muted (not allowed to speak in current channel)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">発言禁止（このチャンネルで発言が許されていない）</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="557"/>
         <source>Muted (muted by you, only on your machine)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">発言禁止（自分で発言禁止にし、またあなたのマシンのみ）</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="559"/>
         <source>Deafened (by self)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">聴取禁止（自身により）</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="560"/>
         <source>Deafened (by admin)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">聴取禁止（管理者により）</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="561"/>
         <source>User has a new comment set (click to show)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザは新しいコメントを持っています（見るためにはクリックしてください）</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="562"/>
         <source>User has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザはあなたが既に見たコメントを持っています。（見るにはクリックしてください）</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="569"/>
         <source>This shows the flags the channel has, if any:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルが持っているフラグを表示します:</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="570"/>
         <source>Channel has a new comment set (click to show)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルは新しいコメントをもっています。（見るためにはクリックしてください）</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="571"/>
         <source>Channel has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルはあなたが既に見たコメントを持っています。（見るためにはクリックしてください）</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="589"/>
@@ -8527,12 +8572,12 @@ An access token is a text string, which can be used as a password for very simpl
         <location filename="UserModel.cpp" line="1328"/>
         <location filename="UserModel.cpp" line="1348"/>
         <source>Mumble</source>
-        <translation type="unfinished">Mumble</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="1238"/>
         <source>Are you sure you want to drag this channel?</source>
-        <translation type="unfinished">本当にこのチャンネルをドラッグしますか？</translation>
+        <translation type="unfinished">本当にこのチャンネルをドラッグしますか ?</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="1328"/>
