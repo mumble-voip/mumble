@@ -14,7 +14,7 @@ LangString MUMBLE_LICENSE_LNK ${LANG_JAPANESE} "Mumble License"
 LangString MUMBLE_QT_LNK ${LANG_JAPANESE} "Qt License"
 LangString MUMBLE_SPEEX_LNK ${LANG_JAPANESE} "Speex License"
 LangString MUMBLE_UNINSTALL_LNK ${LANG_JAPANESE} "Mumble のアンインストール"
-LangString MUMBLE_COMPAT_LNK ${LANG_JAPANESE} "Mumble (Backwards Compatible)"
+LangString MUMBLE_COMPAT_LNK ${LANG_JAPANESE} "Mumble (1.1.x 互換)"
 
 ; Install types
 LangString INSTALL_FULL ${LANG_JAPANESE} "すべて"
@@ -23,23 +23,23 @@ LangString INSTALL_SERVER ${LANG_JAPANESE} "サーバのみ"
 
 ; Install sections
 LangString MUMBLE_SEC_MUMBLE ${LANG_JAPANESE} "Mumble (クライアント)"
-LangString MUMBLE_SEC_MUMBLE11X ${LANG_JAPANESE} "Mumble (backwards compatible client)"
+LangString MUMBLE_SEC_MUMBLE11X ${LANG_JAPANESE} "Mumble (1.1.x 互換クライアント)"
 LangString MUMBLE_SEC_MURMUR ${LANG_JAPANESE} "Murmur (サーバ)"
 LangString MUMBLE_SEC_BONJOUR ${LANG_JAPANESE} "Bonjour for Windows"
-LangString DESC_SectionMumble ${LANG_JAPANESE} "サーバに接続するために必要な Mumble クライアント。"
-LangString DESC_SectionMumble11X ${LANG_JAPANESE} "The Mumble client for connecting to older servers."
-LangString DESC_SectionMurmur ${LANG_JAPANESE} "Mumbe のためのサーバ。サーバを実行するために必要なファイルを含む。"
-LangString DESC_SectionBonjour ${LANG_JAPANESE} "Bonjour enables announcement and discovery of Murmur servers on your LAN. This will download and run the Bonjour installer."
+LangString DESC_SectionMumble ${LANG_JAPANESE} "サーバに接続するために必要な Mumble クライアントです。"
+LangString DESC_SectionMumble11X ${LANG_JAPANESE} "古いサーバに接続するための Mumble クライアントです。"
+LangString DESC_SectionMurmur ${LANG_JAPANESE} "Mumbe のためのサーバ。サーバを実行するために必要なファイルを含みます。"
+LangString DESC_SectionBonjour ${LANG_JAPANESE} "Bonjour を使用すると LAN 上の Murmur サーバの通知と探索が可能です。これを選択すると Bonjour のインストーラがダウンロードされ実行されます。"
 
 ; Uninstall sections
 LangString MUMBLE_UNSEC_BASE ${LANG_JAPANESE} "Mumble と Murmur"
 LangString MUMBLE_UNSEC_ALL ${LANG_JAPANESE} "設定 と データベース"
 LangString DESC_SectionUninstBase ${LANG_JAPANESE} "Mumble と Murmur をアンイストールする"
-LangString DESC_SectionUninstAll ${LANG_JAPANESE} "設定 と データベースを含む Mumble と Murmur のすべての痕跡をアンインストールする"
+LangString DESC_SectionUninstAll ${LANG_JAPANESE} "設定 と データベースを含む Mumble と Murmur のすべての痕跡をアンインストールします。"
 
 ; Already installed
 LangString MUMBLE_ALREADY_INSTALLED ${LANG_JAPANESE} "Mumble はすでにインストールされています。インストールを行う前に古いバージョンを削除することが推奨されます。あなたが実行したい操作を選択し、次へをクリックしてください。"
-LangString MUMBLE_ALREADY_INSTALLED_HEAD ${LANG_JAPANESE} "すでにインストールされています"
-LangString MUMBLE_ALREADY_INSTALLED_SUBTEXT ${LANG_JAPANESE} "Mumble のインストール方法を選択してください"
+LangString MUMBLE_ALREADY_INSTALLED_HEAD ${LANG_JAPANESE} "すでにインストールされています。"
+LangString MUMBLE_ALREADY_INSTALLED_SUBTEXT ${LANG_JAPANESE} "Mumble のインストール方法を選択してください。"
 LangString MUMBLE_UNINSTALL ${LANG_JAPANESE} "インストール前に古いバージョンを削除する"
 LangString MUMBLE_NO_UNINSTALL ${LANG_JAPANESE} "古いバージョンを削除しない"
