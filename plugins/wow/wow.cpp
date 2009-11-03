@@ -48,44 +48,40 @@ static void about(HWND h) {
 	::MessageBox(h, L"Reads audio position information from World of Warcraft", L"Mumble WoW Plugin", MB_OK);
 }
 
-uint32_t getInt32(uint32_t ptr)
-{
+uint32_t getInt32(uint32_t ptr) {
 	uint32_t result;
 	SIZE_T r;
 	BOOL ok=ReadProcessMemory(h, (void *)ptr, &result, sizeof(uint32_t), &r);
-	if (ok && (r == sizeof (uint32_t))) {
+	if (ok && (r == sizeof(uint32_t))) {
 		return result;
 	} else {
 		return 0xffffffff;
 	}
 }
 
-uint64_t getInt64(uint32_t ptr)
-{
+uint64_t getInt64(uint32_t ptr) {
 	uint64_t result;
 	SIZE_T r;
 	BOOL ok=ReadProcessMemory(h, (void *)ptr, &result, sizeof(uint64_t), &r);
-	if (ok && (r == sizeof (uint64_t))) {
+	if (ok && (r == sizeof(uint64_t))) {
 		return result;
 	} else {
 		return 0xffffffffffffffff;
 	}
 }
 
-float getFloat (uint32_t ptr)
-{
+float getFloat(uint32_t ptr) {
 	float result;
 	SIZE_T r;
 	BOOL ok=ReadProcessMemory(h, (void *)ptr, &result, sizeof(float), &r);
-	if (ok && (r == sizeof (float))) {
+	if (ok && (r == sizeof(float))) {
 		return result;
 	} else {
 		return (float)0xffffffff;
 	}
 }
 
-int getCStringN (uint32_t ptr, char *buffer, size_t buffersize)
-{
+int getCStringN(uint32_t ptr, char *buffer, size_t buffersize) {
 	SIZE_T r;
 	BOOL ok=ReadProcessMemory(h, (void *)ptr, buffer, buffersize, &r);
 	buffer[buffersize-1]='\0';
@@ -97,14 +93,12 @@ int getCStringN (uint32_t ptr, char *buffer, size_t buffersize)
 	}
 }
 
-int getString (uint32_t ptr, std::string &buffer)
-{
-	return getCStringN (ptr, (char *)buffer.data(), buffer.capacity());
+int getString(uint32_t ptr, std::string &buffer) {
+	return getCStringN(ptr, (char *)buffer.data(), buffer.capacity());
 }
-int getWString (uint32_t ptr, std::wstring &buffer)
-{
+int getWString(uint32_t ptr, std::wstring &buffer) {
 	char buf[1024];
-	return getCStringN (ptr, (char *)buffer.data(), buffer.capacity());
+	return getCStringN(ptr, (char *)buffer.data(), buffer.capacity());
 }
 
 
@@ -113,20 +107,19 @@ void getDebug16(uint32_t ptr) {
 	unsigned char buf[16];
 	SIZE_T r;
 	BOOL ok=ReadProcessMemory(h, (void *)ptr, &buf, sizeof(buf), &r);
-	if (ok && (r == sizeof (buf))) {
-		printf ("%08x: %02x%02x%02x%02x %02x%02x%02x%02x %02x%02x%02x%02x %02x%02x%02x%02x\n",
-			ptr,
-			buf[0], buf[1], buf[2], buf[3],
-			buf[4], buf[5], buf[6], buf[7],
-			buf[8], buf[9], buf[10], buf[11],
-			buf[12], buf[13], buf[14], buf[15]
-			);
+	if (ok && (r == sizeof(buf))) {
+		printf("%08x: %02x%02x%02x%02x %02x%02x%02x%02x %02x%02x%02x%02x %02x%02x%02x%02x\n",
+		       ptr,
+		       buf[0], buf[1], buf[2], buf[3],
+		       buf[4], buf[5], buf[6], buf[7],
+		       buf[8], buf[9], buf[10], buf[11],
+		       buf[12], buf[13], buf[14], buf[15]
+		      );
 	}
 #endif
 }
 
-uint32_t getPlayerBase()
-{
+uint32_t getPlayerBase() {
 	uint32_t gClientConnection;
 	uint32_t sCurMgr;
 	uint32_t curObj;
@@ -168,21 +161,23 @@ static const unsigned long nameMaskOffset      = 0x024;  // Offset for the mask 
 static const unsigned long nameBaseOffset      = 0x01c;  // Offset for the start of the name linked list
 static const unsigned long nameStringOffset    = 0x020;  // Offset to the C string in a name structure
 
-void getPlayerName(std::wstring &identity)
-{
+void getPlayerName(std::wstring &identity) {
 	unsigned long mask, base, offset, current, shortGUID, testGUID;
 
 	if (identity.capacity() < 40) {
 		identity.resize(40);
 	}
 
-	mask = getInt32 (nameStorePtr + nameMaskOffset);
-	base = getInt32 (nameStorePtr + nameBaseOffset);
+	mask = getInt32(nameStorePtr + nameMaskOffset);
+	base = getInt32(nameStorePtr + nameBaseOffset);
 
 	shortGUID = g_playerGUID & 0xffffffff;  // Only half the guid is used to check for a hit
-	if (mask == 0xffffffff) {identity.clear(); return;}
+	if (mask == 0xffffffff) {
+		identity.clear();
+		return;
+	}
 	offset = 12 * (mask & shortGUID);  // select the appropriate linked list
-	current=getInt32 (base + offset + 8);  // ptr to lower half of GUID of first element
+	current=getInt32(base + offset + 8);   // ptr to lower half of GUID of first element
 	offset = getInt32(base + offset);  // this plus 4 is the offset for the next element
 	if ((current == 0) || (current & 0x1)) {
 		identity.clear();
@@ -190,8 +185,7 @@ void getPlayerName(std::wstring &identity)
 	}
 	testGUID=getInt32(current);
 
-	while (testGUID != shortGUID)
-	{
+	while (testGUID != shortGUID) {
 		current=getInt32(current + offset + 4);
 		if ((current == 0) || (current & 0x1)) {
 			identity.clear();
@@ -202,16 +196,14 @@ void getPlayerName(std::wstring &identity)
 	getWString(current + nameStringOffset, identity);
 }
 
-void getRealmName(std::string &context)
-{
+void getRealmName(std::string &context) {
 	if (context.capacity() < 40) {
 		context.resize(40);
 	}
-	getString (STATIC_REALMNAME, context);
+	getString(STATIC_REALMNAME, context);
 }
 
-void getCamera(float camera_pos[3], float camera_front[3], float camera_top[3])
-{
+void getCamera(float camera_pos[3], float camera_front[3], float camera_top[3]) {
 	uint32_t ptr1, ptr2;
 	float buf[4][3];
 
@@ -247,8 +239,8 @@ void getCamera(float camera_pos[3], float camera_front[3], float camera_top[3])
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	static float lastpos[3]={0.0,0.0,0.0}, lastheading=0.0;
 	static int seenpos=0;
-	getRealmName (context);
-	getPlayerName (identity);
+	getRealmName(context);
+	getPlayerName(identity);
 
 	BOOL ok = true;
 
@@ -269,10 +261,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ok = ok && peekProc((BYTE *) p_playerBase + 0x7A8, &heading, sizeof(heading));
 
 	if ((lastpos[0] == pos[0]) &&
-		(lastpos[1] == pos[1]) &&
-		(lastpos[2] == pos[2]) &&
-		(lastheading == heading)) {
-			seenpos++;
+	        (lastpos[1] == pos[1]) &&
+	        (lastpos[2] == pos[2]) &&
+	        (lastheading == heading)) {
+		seenpos++;
 	} else {
 		seenpos = 0;
 	}
@@ -292,7 +284,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_top[1]= 1.0;
 	avatar_top[2]= 0.0;
 
-	getCamera (camera_pos, camera_front, camera_top);
+	getCamera(camera_pos, camera_front, camera_top);
 
 	if (! ok)
 		return false;
@@ -332,7 +324,7 @@ static int trylock() {
 
 		dwError = GetLastError();
 		FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, dwError, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR)errBuf, sizeof(errBuf),NULL);
-		printf ("Error in OpenProcess: %s\n", errBuf);
+		printf("Error in OpenProcess: %s\n", errBuf);
 
 		return false;
 	}

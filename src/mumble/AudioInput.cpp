@@ -184,10 +184,10 @@ AudioInput::~AudioInput() {
 	}
 
 	mumble_drft_clear(&fftTable);
-	
+
 	foreach(short *buf, qlEchoFrames)
 		delete [] buf;
-	
+
 	if (sppPreprocess)
 		speex_preprocess_state_destroy(sppPreprocess);
 	if (sesEcho)
@@ -402,15 +402,15 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 			if (iEchoChannels > 0) {
 				short *echo = NULL;
 
-				{		
+				{
 					QMutexLocker l(&qmEcho);
-					
+
 					if (qlEchoFrames.isEmpty()) {
 						iJitterSeq = 0;
 						iMinBuffered = 1000;
 					} else {
 						iMinBuffered = qMin(iMinBuffered, qlEchoFrames.count());
-						
+
 						if ((iJitterSeq > 100) && (iMinBuffered > 1)) {
 							iJitterSeq = 0;
 							iMinBuffered = 1000;
@@ -419,9 +419,9 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 						echo = qlEchoFrames.takeFirst();
 					}
 				}
-				
+
 				if (echo) {
-					if (psSpeaker) 
+					if (psSpeaker)
 						delete [] psSpeaker;
 					psSpeaker = echo;
 				}
@@ -459,7 +459,7 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 
 		if (iEchoFilled == iEchoLength) {
 			iEchoFilled = 0;
-			
+
 			float *ptr = srsEcho ? pfOutput : pfEchoInput;
 			if (srsEcho) {
 				spx_uint32_t inlen = iEchoLength;
@@ -472,9 +472,9 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 			const float mul = 32768.f;
 			for (unsigned int j=0;j<iEchoFrameSize;++j)
 				outbuff[j] = static_cast<short>(ptr[j] * mul);
-				
+
 			iJitterSeq = qMin(iJitterSeq+1,10000U);
-				
+
 			QMutexLocker l(&qmEcho);
 			qlEchoFrames.append(outbuff);
 		}

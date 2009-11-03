@@ -535,7 +535,7 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 
 	if (! talking) {
 		QMap<ISimpleAudioVolume *, VolumePair>::const_iterator i;
-		for(i=qmVolumes.constBegin(); i != qmVolumes.constEnd(); ++i) {
+		for (i=qmVolumes.constBegin(); i != qmVolumes.constEnd(); ++i) {
 			float fVolume = 1.0f;
 			hr = i.key()->GetMasterVolume(&fVolume);
 			if (qFuzzyCompare(i.value().second, fVolume))
@@ -580,9 +580,9 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 		} else {
 			hr = pAudioSessionManager->GetSessionEnumerator(&pEnumerator);
 		}
-		
+
 		QSet<QUuid> seen;
-		
+
 		if (SUCCEEDED(hr)) {
 			if (SUCCEEDED(hr = pEnumerator->GetCount(&max))) {
 				for (int i=0;i<max;++i) {

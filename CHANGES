@@ -1,5 +1,103 @@
+2009-11-03
+  arcenciel <arcenciel@users.sourceforge.net>
+    26d77a2  Japanese Installer Translation
+    48d03a5  Japanese Translation
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    e3aae8c  If not connected, use highest codec version
+    c9117e1  Use SO_PRIORITY on nix to set packet queue priority
+    2ea8ede  Clientside QoS option
+
+2009-11-01
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    2308cf5  Minimal fixes in German translation.
+    68536c3  Switch default overlay font for Windows and OSX to Verdana.
+    cad983b  German Translation (1/3)
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    7acf3ff  Change QPushButton -> QToolButton in ShortcutTargetWidget.
+	     Fixes ShortcutTargetWidget glitch on OSX.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    aab13b4  German Translation (2/3)
+
+  Timo K <timer@dbclan.de>
+    7a66764  German Translation (3/3)
+
+2009-10-31
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    7cb7803  Fix regression in regression Fix (phpBB3auth.py)
+    122cfcb  Fix regression in boolean config value parsing in
+	     phpBB3auth.py
+    9f36caa  Fix getRegisteredUsers in phpBB3auth.py and restrict
+	     operations to normal and founder users.
+
+  Kissaki <kissaki@gmx.de>
+    c9112a2  German Translation
+
+  Spaccaossi <spaccaossi@users.sourceforge.net>
+    366110e  Italian installer translation
+
+2009-10-30
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    5207473  Daemon mode and py25 compat for phpBB3auth.py. Fixed line
+	     endings of phpBB3auth.ini + minimal changes.
+
+  Karl Dietz <dekarl@users.sourceforge.net>
+    d6de243  Transmit position from avatar and heading from camera.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    ccbe964  Sort overlay
+
+2009-10-29
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    d899cc2  Update bFirstTime to be unique to 1.2.0 -- get people through
+	     the audio wizard again
+    c1a4cb0  Allow ftp:// links through whitewash list
+
+2009-10-28
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    9c3351c  Fix phpBB3auth.py encoding/line endings + small style changes.
+    9dd0edc  phpBB3 authenticator written in python + ice
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    893f8c1  Keep references to volume objects around, should improve
+	     WASAPI volume ducking.
+    471b2df  Remove debugging output from addMic
+    b8192cf  Qipo still produces SSE2 opcodes in pure-float paths, even
+	     without QxSSE2.
+    351c1b3  Replace echo-jitterbuffer with a queue
+
+2009-10-27
+  Mikkel Krautz <mikkel@krautz.dk>
+    c1c0025  Re-add bRunning to CoreAudio. encodeAudioFrame() uses it to
+	     determine if AudioInput is running.
+    9e7e9f2  Add small warning message to help debug GlobalShortcutMac
+	     strangeness.
+    80a2baf  Change libcelt filename in osxdist.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    1260b95  Speed tests for resamplers
+    e7b4688  Fix crash if sharedmemory is missing
+    e3bfc2f  Clean up compiler flags on Win32
+    e24c809  Update scripts for 1.2, remove deprecated input policy
+    1b2bf32  Mention the s/UserInfo/byte/ hack in the .ice
+
+2009-10-26
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    0e6214f  Don't put unpushed speex reference in the tree.
+    dba7de2  Re-enable IPO now that we have a workaround, and add the
+	     missing speex file
+    2045012  Use correct includes for celt, and update packaging script
+    2de0060  Build CELT 0.7.0
+
 2009-10-25
   Thorvald Natvig <slicer@users.sourceforge.net>
+    9b9b5eb  Libspeex's resampler misbuilds with -Qipo, disable until
+	     analyzed
+    384c0df  Blacklist explroer.exe from the overlay
+    54adcf8  Make protobuf a dll
+    f05f8a1  Use speex_lib_get_mode instead of direct linking
     62b1536  Enable edit menuentry if write on parent (sync with server
 	     permissions), and fix speex compile bug
     6a4a2b6  Precache permission on parent channel
@@ -24,6 +122,9 @@
     580655f  English source strings
 
 2009-10-22
+  Karl Dietz <dekarl@users.sourceforge.net>
+    b5b4777  Update WoW plugin.
+
   Mikkel Krautz <mikkel@krautz.dk>
     6cde32b  Remove custom speex fatal handler as well.
     ae0d2db  OSX ConfigDialog for 11x.

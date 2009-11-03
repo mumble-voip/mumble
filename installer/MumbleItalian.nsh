@@ -31,8 +31,8 @@ LangString DESC_SectionMurmur ${LANG_ITALIAN} "Il server per Mumble. Include tut
 LangString DESC_SectionBonjour ${LANG_ITALIAN} "Bonjour enables announcement and discovery of Murmur servers on your LAN. This will download and run the Bonjour installer."
 
 ; Uninstall sections
-LangString MUMBLE_UNSEC_BASE ${LANG_ITALIAN} "Mumble e Murmur" 
-LangString MUMBLE_UNSEC_ALL ${LANG_ITALIAN} "Preferenze e Dati" 
+LangString MUMBLE_UNSEC_BASE ${LANG_ITALIAN} "Mumble e Murmur"
+LangString MUMBLE_UNSEC_ALL ${LANG_ITALIAN} "Preferenze e Dati"
 LangString DESC_SectionUninstBase ${LANG_ITALIAN} "Disinstalla Mumble e Murmur"
 LangString DESC_SectionUninstAll ${LANG_ITALIAN} "Disinstalla tutte le tracce di Mumble e Murmur, comprese le impostazioni e i dati."
 

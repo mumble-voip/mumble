@@ -172,7 +172,7 @@ bool Overlay::TextLine::operator <(const Overlay::TextLine &other) const {
 		return true;
 	else if (iPriority > other.iPriority)
 		return false;
-		
+
 	return qsText < other.qsText;
 }
 
@@ -257,7 +257,7 @@ void Overlay::toggleShow() {
 			break;
 	}
 	g.s.osOverlay = ns;
-	
+
 	if (! sm.sm)
 		return;
 
