@@ -107,7 +107,12 @@ void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
 		title = decodeMimeString(source->data(QLatin1String("text/x-moz-url-desc")));
 
 	if (uri.isEmpty()) {
-		QStringList urls = decodeMimeString(source->data(QLatin1String("text/uri-list"))).split(newline);
+		QStringList urls;
+#ifdef Q_OS_WIN
+		urls = decodeMimeString(source->data(QLatin1String("application/x-qt-windows-mime;value=\"UniformResourceLocatorW\""))).split(newline);
+		if (urls.isEmpty())
+#endif
+		urls = decodeMimeString(source->data(QLatin1String("text/uri-list"))).split(newline);
 		if (! urls.isEmpty())
 			uri = urls.at(0);
 		uri = urls.at(0).trimmed();
