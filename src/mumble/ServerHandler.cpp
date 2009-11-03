@@ -462,8 +462,20 @@ void ServerHandler::serverConnectionConnected() {
 
 #if defined(Q_OS_UNIX)
 			int val = 0xe0;
-			if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
-				qWarning("ServerHandler: Failed to set TOS for UDP Socket");
+			if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val))) {
+				val = 0x80;
+				if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
+					qWarning("ServerHandler: Failed to set TOS for UDP Socket");
+			}
+#if defined(SO_PRIORITY)
+			socklen_t optlen = sizeof(val);
+			if (getsockopt(qusUdp->socketDescriptor(), SOL_SOCKET, SO_PRIORITY, &val, &optlen) == 0) {
+				if (val == 0) {
+					val = 6;
+					setsockopt(qusUdp->socketDescriptor(), SOL_SOCKET, SO_PRIORITY, &val, sizeof(val));
+				}
+			}
+#endif
 #elif defined(Q_OS_WIN)
 			if (hQoS != NULL) {
 				struct sockaddr_in addr;

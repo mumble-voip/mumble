@@ -164,6 +164,15 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 					if (setsockopt(sock, IPPROTO_IP, IP_TOS, &val, sizeof(val)))
 						log("Server: Failed to set TOS for UDP Socket");
 				}
+#if defined(SO_PRIORITY)
+				socklen_t optlen = sizeof(val);
+				if (getsockopt(sock, SOL_SOCKET, SO_PRIORITY, &val, &optlen) == 0) {
+					if (val == 0) {
+						val = 6;
+						setsockopt(sock, SOL_SOCKET, SO_PRIORITY, &val, sizeof(val));
+					}
+				}
+#endif
 #endif
 			}
 			QSocketNotifier *qsn = new QSocketNotifier(sock, QSocketNotifier::Read, this);

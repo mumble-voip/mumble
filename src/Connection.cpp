@@ -83,6 +83,16 @@ void Connection::setToS() {
 		if (setsockopt(qtsSocket->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
 			qWarning("Connection: Failed to set TOS for TCP Socket");
 	}
+#if defined(SO_PRIORITY)
+	socklen_t optlen = sizeof(val);
+	if (getsockopt(qtsSocket->socketDescriptor(), SOL_SOCKET, SO_PRIORITY, &val, &optlen) == 0) {
+		if (val == 0) {
+			val = 6;
+			setsockopt(qtsSocket->socketDescriptor(), SOL_SOCKET, SO_PRIORITY, &val, sizeof(val));
+		}
+	}
+#endif
+
 #endif
 }
 
