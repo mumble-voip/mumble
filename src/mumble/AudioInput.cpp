@@ -774,7 +774,7 @@ void AudioInput::encodeAudioFrame() {
 	if (umtType != MessageHandler::UDPVoiceSpeex) {
 		CELTCodec *switchto = NULL;
 
-		if ((g.s.lmLoopMode == Settings::Local) && (! g.qmCodecs.isEmpty())) {
+		if ((! g.uiSession || (g.s.lmLoopMode == Settings::Local)) && (! g.qmCodecs.isEmpty())) {
 			// Use latest for local loopback
 			QMap<int, CELTCodec *>::const_iterator i = g.qmCodecs.constEnd();
 			--i;
