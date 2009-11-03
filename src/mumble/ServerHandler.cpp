@@ -403,7 +403,8 @@ void ServerHandler::serverConnectionClosed(const QString &reason) {
 }
 
 void ServerHandler::serverConnectionConnected() {
-	cConnection->setToS();
+	if (g.s.bQoS)
+		cConnection->setToS();
 
 	qscCert = cConnection->peerCertificateChain();
 	qscCipher = cConnection->sessionCipher();
@@ -457,24 +458,26 @@ void ServerHandler::serverConnectionConnected() {
 
 		connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));
 
+		if (g.s.bQoS) {
 
 #if defined(Q_OS_UNIX)
-		int val = 0xe0;
-		if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
-			qWarning("ServerHandler: Failed to set TOS for UDP Socket");
+			int val = 0xe0;
+			if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
+				qWarning("ServerHandler: Failed to set TOS for UDP Socket");
 #elif defined(Q_OS_WIN)
-		if (hQoS != NULL) {
-			struct sockaddr_in addr;
-			memset(&addr, 0, sizeof(addr));
-			addr.sin_family = AF_INET;
-			addr.sin_port = htons(usPort);
-			addr.sin_addr.s_addr = htonl(qhaRemote.toIPv4Address());
+			if (hQoS != NULL) {
+				struct sockaddr_in addr;
+				memset(&addr, 0, sizeof(addr));
+				addr.sin_family = AF_INET;
+				addr.sin_port = htons(usPort);
+				addr.sin_addr.s_addr = htonl(qhaRemote.toIPv4Address());
 
-			dwFlowUDP = 0;
-			if (! QOSAddSocketToFlow(hQoS, qusUdp->socketDescriptor(), reinterpret_cast<sockaddr *>(&addr), QOSTrafficTypeVoice, QOS_NON_ADAPTIVE_FLOW, &dwFlowUDP))
-				qWarning("ServerHandler: Failed to add UDP to QOS");
-		}
+				dwFlowUDP = 0;
+				if (! QOSAddSocketToFlow(hQoS, qusUdp->socketDescriptor(), reinterpret_cast<sockaddr *>(&addr), QOSTrafficTypeVoice, QOS_NON_ADAPTIVE_FLOW, &dwFlowUDP))
+					qWarning("ServerHandler: Failed to add UDP to QOS");
+			}
 #endif
+		}
 	}
 
 	emit connected();

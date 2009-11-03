@@ -40,6 +40,19 @@
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="qcbQoS">
+        <property name="toolTip">
+         <string>Enable QoS to prioritize packets</string>
+        </property>
+        <property name="whatsThis">
+         <string>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</string>
+        </property>
+        <property name="text">
+         <string>Use Quality of Service</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QCheckBox" name="qcbAutoReconnect">
         <property name="toolTip">
          <string>Reconnect when disconnected</string>

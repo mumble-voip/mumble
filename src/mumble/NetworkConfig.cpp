@@ -59,6 +59,7 @@ QIcon NetworkConfig::icon() const {
 void NetworkConfig::load(const Settings &r) {
 
 	loadCheckBox(qcbTcpMode, s.bTCPCompat);
+	loadCheckBox(qcbQoS, s.bQoS);
 	loadCheckBox(qcbAutoReconnect, s.bReconnect);
 	loadCheckBox(qcbSuppressIdentity, s.bSuppressIdentity);
 	loadComboBox(qcbType, s.ptProxyType);
@@ -84,6 +85,7 @@ void NetworkConfig::load(const Settings &r) {
 
 void NetworkConfig::save() const {
 	s.bTCPCompat = qcbTcpMode->isChecked();
+	s.bQoS = qcbQoS->isChecked();
 	s.bReconnect = qcbAutoReconnect->isChecked();
 	s.bSuppressIdentity = qcbSuppressIdentity->isChecked();
 
@@ -152,6 +154,7 @@ void NetworkConfig::accept() const {
 
 bool NetworkConfig::expert(bool b) {
 	qcbTcpMode->setVisible(b);
+	qcbQoS->setVisible(b);
 	qgbProxy->setVisible(b);
 	qcbUsage->setVisible(b);
 

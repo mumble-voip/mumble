@@ -182,7 +182,9 @@ struct Settings {
 
 	// Network settings
 	enum ProxyType { NoProxy, HttpProxy, Socks5Proxy };
-	bool bTCPCompat, bReconnect;
+	bool bTCPCompat;
+	bool bReconnect;
+	bool bQoS;
 	ProxyType ptProxyType;
 	QString qsProxyHost, qsProxyUsername, qsProxyPassword;
 	unsigned short usProxyPort;
