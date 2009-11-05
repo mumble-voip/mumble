@@ -3001,12 +3001,12 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
     <message>
         <location filename="Cert.ui" line="24"/>
         <source>Authenticating to servers without using passwords</source>
-        <translation type="unfinished">パスワードを使わないでサーバに対してユーザ認証を行う</translation>
+        <translation type="unfinished">パスワードを使わないサーバへのユーザ認証</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="33"/>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;Mumble は サーバと認証するために証明書を使えます。証明書の使用はパスワードを取り除きます。つまりパスワードを使用しないでリモートサイトにアクセスできます。このことでとても簡単にユーザ登録ができるようになります。&lt;/p&gt;&lt;p&gt;Mumble は証明書なしでも動きますが、多くのサーバの管理者はあなたが証明書を持っていることを望んでいます。&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p&gt;Mumble はサーバと認証するために証明書を使います。証明書の使用することでパスワードの入力が不要になります。つまりパスワードを使用しないでサーバにアクセスできます。このことでとても簡単にユーザ登録ができるようになります。&lt;/p&gt;&lt;p&gt;Mumble は証明書なしでも動きますが、多くのサーバの管理者はあなたが証明書を持っていることを望んでいます。&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="43"/>
@@ -3166,9 +3166,9 @@ Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
         <translation type="unfinished">&lt;p&gt;あなたはすでに Mumbleに記憶された証明書を持っており、それを置き換えようとしています。&lt;/p&gt;
-&lt;p&gt;信頼されたCAによって発行された証明書にアップグレードしようとしていて、email アドレスがあなたの現在の証明書と一致しているならこれは完全に安全です。あなたが接続したサーバは あなｔのemailアドレスのための強力な証明書を自動的に判別するでしょう
+&lt;p&gt;信頼されたCAによって発行された証明書にアップグレードしようとしていて、Eメールアドレスがあなたの現在の証明書と一致しているならこれは完全に安全です。接続したサーバは あなたのEメールアドレスアドレスを元に強力な証明書を自動的に判別するでしょう
 &lt;/p&gt;
-&lt;p&gt;そうでないなら、あなたはどのサーバでも以前にうけた認証を失います。あなたがまだ、どのサーバにも登録されていないなら、この心配は無用です。
+&lt;p&gt;そうでないなら、あなたはどのサーバでも以前に受けた認証を失います。あなたがまだ、どのサーバにも登録されていないなら、この心配は無用です。
 &lt;/p&gt;
 &lt;p&gt;
 本当に証明書を置き換えますか？
@@ -3193,7 +3193,7 @@ Are you sure you wish to replace your certificate?
         <location filename="Cert.ui" line="289"/>
         <location filename="Cert.ui" line="365"/>
         <source>New Certificate</source>
-        <translation type="unfinished">あたらしい証明書</translation>
+        <translation type="unfinished">新しい証明書</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="300"/>
@@ -3204,7 +3204,7 @@ Are you sure you wish to replace your certificate?
         <location filename="Cert.ui" line="309"/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;現在の証明書を失ったなら、登録したサーバから認証を受けることが出来なくなります。（ハードウェアの故障やマシンの再インストールなどで）ゆえに、証明書のバックアップを作成することは&lt;b&gt;必須&lt;/b&gt;です。USBメモリのようなリムーバブルストレージにバックアップを保存することを強く推奨します。&lt;/p&gt;
+        <translation type="unfinished">&lt;p&gt;現在の証明書をハードウェアの故障やマシンの再インストールなどで失ったなら、登録したサーバから認証を受けることが出来なくなります。そのため、証明書のバックアップを作成することは&lt;b&gt;必須&lt;/b&gt;です。USBメモリのようなリムーバブルストレージにバックアップを保存することを強く推奨します。&lt;/p&gt;
 &lt;p&gt;このファイルは暗号化されておらず、もし、誰かがアクセスしたら、あなたに成りすます可能性があります。十分に気をつけてください。&lt;/p&gt;</translation>
     </message>
     <message>
@@ -3240,7 +3240,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="Cert.ui" line="377"/>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;Mumble はサーバに対する認証のために強力な証明書を生成します。&lt;/p&gt;&lt;p&gt;証明書に追加情報を記録できます。それはサーバに接続する時にそのサーバに送信されます。正しいEメールアドレスを提供したなら、後でCAが発行したEメール証明書にアップグレードできます。&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p&gt;Mumble はサーバに対する認証のために強力な証明書を生成します。&lt;/p&gt;&lt;p&gt;証明書に追加情報を記録できます。これらの情報はサーバに接続する時にそのサーバに送信されます。正しいEメールアドレスを提供したなら、後でCAが発行したEメール証明書にアップグレードできます。&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="387"/>
@@ -3338,7 +3338,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="../ACL.cpp" line="218"/>
         <source>Traverse</source>
-        <translation type="unfinished">チャンネルアクセス</translation>
+        <translation type="unfinished">トラバース</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="220"/>
@@ -4567,12 +4567,12 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="173"/>
         <source>Modifiers</source>
-        <translation type="unfinished">変更者</translation>
+        <translation type="unfinished">変更</translation>
     </message>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="179"/>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
-        <translation type="unfinished">このささやきのショートカットを使用して位置音声の情報を送信しません。</translation>
+        <translation type="unfinished">このささやきのショートカットを使用して位置音響の情報を送信しません。</translation>
     </message>
     <message>
         <location filename="GlobalShortcutTarget.ui" line="182"/>
@@ -4848,17 +4848,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Log.cpp" line="228"/>
         <source>User muted (you)</source>
-        <translation type="unfinished">(あなたが)ユーザが発言禁止になった時</translation>
+        <translation type="unfinished">ユーザが発言禁止になった時（あなたが）</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="229"/>
         <source>User muted (by you)</source>
-        <translation type="unfinished">(あなたによって)ユーザが発言禁止になった時</translation>
+        <translation type="unfinished">ユーザが発言禁止になった時（</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="230"/>
         <source>User muted (other)</source>
-        <translation type="unfinished">(他の人が)ユーザが発言禁止になった時</translation>
+        <translation type="unfinished">ユーザが発言禁止になった時（その他）</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="231"/>
@@ -7199,7 +7199,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="NetworkConfig.ui" line="38"/>
         <source>Force TCP mode</source>
-        <translation type="unfinished">強制的にTCP使用</translation>
+        <translation type="unfinished">強制的にTCPモードを使用</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="58"/>
@@ -7291,7 +7291,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location filename="NetworkConfig.ui" line="268"/>
         <source>Disable image download</source>
-        <translation type="unfinished">画像のダウンロードを無効にする</translation>
+        <translation type="unfinished">画像のダウンロードを無効</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="278"/>
@@ -7340,7 +7340,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location filename="NetworkConfig.ui" line="310"/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation>Mumbleプロジェクトに匿名で統計を送信する</translation>
+        <translation type="unfinished">Mumbleプロジェクトに匿名で統計を送信</translation>
     </message>
     <message>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus it&apos;s development where it&apos;s needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
