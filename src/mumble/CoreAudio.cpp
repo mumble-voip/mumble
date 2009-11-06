@@ -82,7 +82,7 @@ const QList<audioDevice> CoreAudioSystem::getDeviceChoices(bool input) {
 	QList<audioDevice> qlReturn;
 	QStringList qlDevices;
 
-	qhDevices.insert(QString(), QLatin1String("Default Device"));
+	qhDevices.insert(QString(), tr("Default Device"));
 	qlDevices = qhDevices.keys();
 
 	const QString &qsDev = input ? g.s.qsCoreAudioInput : g.s.qsCoreAudioOutput;
