@@ -77,8 +77,8 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutMac();
 }
 
-CGEventRef EventTapCallback(CGEventTapProxy proxy, CGEventType type,
-                            CGEventRef event, void *udata) {
+CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
+                                       CGEventRef event, void *udata) {
 	GlobalShortcutMac *gs = reinterpret_cast<GlobalShortcutMac *>(udata);
 	unsigned int keycode;
 	bool suppress = false;
@@ -115,10 +115,23 @@ CGEventRef EventTapCallback(CGEventTapProxy proxy, CGEventType type,
 			break;
 
 		case kCGEventTapDisabledByTimeout:
-			qWarning("GlobalShortcutMac: EventTap disabled by timeout.");
+			qWarning("GlobalShortcutMac: EventTap disabled by timeout. Re-enabling.");
+			/*
+			 * On Snow Leopard, we get this event type quite often. It disables our event
+			 * tap completely. Possible Apple bug.
+			 *
+			 * For now, simply call CGEventTapEnable() to enable our event tap again.
+			 *
+			 * See: http://lists.apple.com/archives/quartz-dev/2009/Sep/msg00007.html
+			 */
+			CGEventTapEnable(gs->port, true);
 			break;
 		case kCGEventTapDisabledByUserInput:
 			qWarning("GlobalShortcutMac: EventTap disabled by user input.");
+			break;
+
+		default:
+			qWarning("GlobalShortcutMac: Unknown event intercepted.");
 			break;
 	}
 
@@ -145,7 +158,7 @@ GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
 
 	port = CGEventTapCreate(kCGSessionEventTap,
 	                        kCGHeadInsertEventTap,
-	                        0, evmask, EventTapCallback,
+	                        0, evmask, GlobalShortcutMac::callback,
 	                        this);
 
 	if (! port) {

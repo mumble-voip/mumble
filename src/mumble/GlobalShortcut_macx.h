@@ -66,6 +66,8 @@ class GlobalShortcutMac : public GlobalShortcutEngine {
 		UCKeyboardLayout *kbdLayout;
 
 		void run();
+
+		static CGEventRef callback(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *udata);
 		QString translateMouseButton(const unsigned int keycode) const;
 		QString translateModifierKey(const unsigned int keycode) const;
 		QString translateKeyName(const unsigned int keycode) const;
