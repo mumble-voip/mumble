@@ -113,6 +113,13 @@ CGEventRef EventTapCallback(CGEventTapProxy proxy, CGEventType type,
 		case kCGEventFlagsChanged:
 			suppress = gs->handleModButton(CGEventGetFlags(event));
 			break;
+
+		case kCGEventTapDisabledByTimeout:
+			qWarning("GlobalShortcutMac: EventTap disabled by timeout.");
+			break;
+		case kCGEventTapDisabledByUserInput:
+			qWarning("GlobalShortcutMac: EventTap disabled by user input.");
+			break;
 	}
 
 	return suppress ? NULL : event;
@@ -132,7 +139,9 @@ GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
 	                                  CGEventMaskBit(kCGEventOtherMouseUp) |
 	                                  CGEventMaskBit(kCGEventKeyDown) |
 	                                  CGEventMaskBit(kCGEventKeyUp) |
-	                                  CGEventMaskBit(kCGEventFlagsChanged);
+	                                  CGEventMaskBit(kCGEventFlagsChanged) |
+	                                  CGEventMaskBit(kCGEventTapDisabledByTimeout) |
+	                                  CGEventMaskBit(kCGEventTapDisabledByUserInput);
 
 	port = CGEventTapCreate(kCGSessionEventTap,
 	                        kCGHeadInsertEventTap,
@@ -183,7 +192,6 @@ void GlobalShortcutMac::run() {
 	CFRunLoopSourceRef src = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, port, 0);
 	CFRunLoopAddSource(loop, src, kCFRunLoopCommonModes);
 	CFRunLoopRun();
-	qWarning("GlobalShortcutMac: Fell out of CFRunLoop()");
 }
 
 void GlobalShortcutMac::needRemap() {
