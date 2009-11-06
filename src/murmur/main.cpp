@@ -124,7 +124,7 @@ static void murmurMessageOutput(QtMsgType type, const char *msg) {
 }
 
 #ifdef USE_ICE
-void IceStart();
+void IceStart(int argc, char *argv[]);
 void IceStop();
 #endif
 
@@ -254,6 +254,8 @@ int main(int argc, char **argv) {
 			unixhandler.finalcap();
 			LimitTest::testLimits(a);
 #endif
+		} else if (arg.startsWith("--ice.")) {
+			// allow all arguments starting with --ice.
 		} else {
 			detach = false;
 			qFatal("Unknown argument %s", argv[i]);
@@ -405,7 +407,7 @@ int main(int argc, char **argv) {
 #endif
 
 #ifdef USE_ICE
-	IceStart();
+	IceStart(argc, argv);
 #endif
 
 	meta->getOSInfo();

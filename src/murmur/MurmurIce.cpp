@@ -46,8 +46,8 @@ using namespace Murmur;
 static MurmurIce *mi = NULL;
 static Ice::ObjectPtr iopServer;
 
-void IceStart() {
-	mi = new MurmurIce();
+void IceStart(int argc, char *argv[]) {
+	mi = new MurmurIce(argc, argv);
 }
 
 void IceStop() {
@@ -175,14 +175,14 @@ class ServerLocator : public virtual Ice::ServantLocator {
 		virtual void deactivate(const std::string &) {};
 };
 
-MurmurIce::MurmurIce() {
+MurmurIce::MurmurIce(int argc, char *argv[]) {
 	count = 0;
 
 	if (meta->mp.qsIceEndpoint.isEmpty())
 		return;
 
 	try {
-		communicator = Ice::initialize();
+		communicator = Ice::initialize(argc, argv);
 		adapter = communicator->createObjectAdapterWithEndpoints("Murmur", qPrintable(meta->mp.qsIceEndpoint));
 		MetaPtr m = new MetaI;
 		MetaPrx mprx = MetaPrx::uncheckedCast(adapter->add(m, communicator->stringToIdentity("Meta")));
