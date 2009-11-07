@@ -162,11 +162,10 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		QVariant data(int column, int role) const;
 
 		void hideCheck();
-		// Compatibility with Qt 4.4 + make it public for >= Qt 4.5
-		// trick from KDE
+
+#if QT_VERSION < 0x040500
 		void emitDataChanged();
 	private:
-#if (QT_VERSION < QT_VERSION_CHECK(4, 5, 0))
 		bool m_emitDataChanged;
 #endif
 };
