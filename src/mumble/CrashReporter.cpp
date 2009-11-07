@@ -32,7 +32,6 @@
 #include "Global.h"
 #include "OSInfo.h"
 
-#ifndef NO_CRASHREPORT
 CrashReporter::CrashReporter(QWidget *p) : QDialog(p) {
 	setWindowTitle(tr("Mumble Crash Report"));
 
@@ -191,4 +190,3 @@ void CrashReporter::run() {
 	if (! qfCrashDump.remove())
 		qWarning("CrashReporeter: Unable to remove crash file.");
 }
-#endif

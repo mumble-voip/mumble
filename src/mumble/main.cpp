@@ -236,7 +236,7 @@ int main(int argc, char **argv) {
 
 	g.nam = new QNetworkAccessManager();
 
-#ifndef NO_CRASHREPORT
+#ifndef NO_CRASH_REPORT
 	CrashReporter *cr = new CrashReporter();
 	cr->run();
 	delete cr;

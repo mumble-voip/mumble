@@ -31,7 +31,6 @@
 #ifndef CRASHREPORTER_H
 #define CRASHREPORTER_H
 
-#ifndef NO_CRASHREPORT
 #include "mumble_pch.hpp"
 
 class CrashReporter : QDialog {
@@ -55,5 +54,4 @@ class CrashReporter : QDialog {
 
 #else
 class CrashReporter;
-#endif
 #endif
