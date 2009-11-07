@@ -255,6 +255,9 @@ AudioOutputSample::AudioOutputSample(const QString &name, SoundFile *psndfile, b
 }
 
 AudioOutputSample::~AudioOutputSample() {
+	if (srs)
+		speex_resampler_destroy(srs);
+
 	if (sfHandle) {
 		delete sfHandle;
 		sfHandle = NULL;
