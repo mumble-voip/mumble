@@ -33,6 +33,7 @@
 #include "Version.h"
 
 void MumbleSSL::addSystemCA() {
+#ifndef NO_SYSTEM_CA_OVERRIDE
 #if defined(Q_OS_WIN)
 	QStringList qsl;
 	qsl << QLatin1String("Ca");
@@ -100,6 +101,9 @@ void MumbleSSL::addSystemCA() {
 #elif defined(Q_OS_UNIX)
 	QStringList qsl;
 
+#ifdef SYSTEM_CA_DIR
+	QSslSocket::addDefaultCaCertificates(MUMTEXT(SYSTEM_CA_DIR));
+#else
 #ifdef SYSTEM_CA_BUNDLE
 	qsl << QLatin1String(MUMTEXT(SYSTEM_CA_BUNDLE));
 #else
@@ -118,7 +122,8 @@ void MumbleSSL::addSystemCA() {
 			}
 		}
 	}
-#endif
+#endif // SYSTEM_CA_DIR
+#endif // Q_OS_UNIX
 	QSet<QByteArray> digests;
 	QList<QSslCertificate> ql;
 	foreach(const QSslCertificate &crt, QSslSocket::defaultCaCertificates()) {
@@ -129,4 +134,5 @@ void MumbleSSL::addSystemCA() {
 		}
 	}
 	QSslSocket::setDefaultCaCertificates(ql);
+#endif // NO_SYSTEM_CA_OVERRIDE
 }
