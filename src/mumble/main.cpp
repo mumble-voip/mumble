@@ -81,7 +81,7 @@ int main(int argc, char **argv) {
 	int res;
 
 
-	QT_REQUIRE_VERSION(argc, argv, "4.5.0");
+	QT_REQUIRE_VERSION(argc, argv, "4.4.0");
 
 	// Initialize application object.
 	QAppMumble a(argc, argv);

@@ -162,6 +162,13 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		QVariant data(int column, int role) const;
 
 		void hideCheck();
+		// Compatibility with Qt 4.4 + make it public for >= Qt 4.5
+		// trick from KDE
+		void emitDataChanged();
+	private:
+#if (QT_VERSION < QT_VERSION_CHECK(4, 5, 0))
+		bool m_emitDataChanged;
+#endif
 };
 
 class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {

@@ -386,7 +386,9 @@ void MainWindow::openUrl(const QUrl &url) {
 		f.close();
 
 		QSettings *qs = new QSettings(f.fileName(), QSettings::IniFormat);
+#if QT_VERSION >= 0x040500
 		qs->setIniCodec("UTF-8");
+#endif
 		if (qs->status() != QSettings::NoError) {
 			g.l->log(Log::Warning, tr("File is not a configuration file."));
 		} else {

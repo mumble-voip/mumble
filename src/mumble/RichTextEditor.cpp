@@ -317,8 +317,9 @@ static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int
 		QMap<QString, QString> style;
 		QMap<QString, QString> pstyle = opstyle;
 
-		if (a.hasAttribute(QLatin1String("style"))) {
-			QString stylestring = a.value(QLatin1String("style")).toString();
+		QStringRef styleref = a.value(QLatin1String("style"));
+		if (!styleref.isNull()) {
+			QString stylestring = styleref.toString();
 			QStringList styles = stylestring.split(QLatin1String(";"), QString::SkipEmptyParts);
 			foreach(QString s, styles) {
 				s = s.simplified();

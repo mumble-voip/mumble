@@ -208,11 +208,29 @@ ServerItem *ServerView::getParent(const QString &continentcode, const QString &c
 
 
 void ServerItem::init() {
+#if (QT_VERSION < QT_VERSION_CHECK(4, 5, 0))
+	m_emitDataChanged = 0;
+#endif
 	// Without this, columncount is wrong.
 	setData(0, Qt::DisplayRole, QVariant());
 	setData(1, Qt::DisplayRole, QVariant());
 	setData(2, Qt::DisplayRole, QVariant());
 	emitDataChanged();
+}
+
+#if (QT_VERSION < QT_VERSION_CHECK(4, 5, 0))
+static QVariant emitDataChangedQVariants[] = { QVariant(0), QVariant(1) };
+#endif
+
+void ServerItem::emitDataChanged()
+{
+#if (QT_VERSION < QT_VERSION_CHECK(4, 5, 0))
+	m_emitDataChanged = !m_emitDataChanged;
+	int sortCol = treeWidget()->header()->sortIndicatorSection();
+	setData((sortCol > 0) ? sortCol : 0, Qt::UserRole, emitDataChangedQVariants[m_emitDataChanged]);
+#else
+	QTreeWidgetItem::emitDataChanged();
+#endif
 }
 
 ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetItem::UserType) {

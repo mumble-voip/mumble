@@ -112,7 +112,11 @@ void OverlayConfig::on_qsMaxHeight_valueChanged(int v) {
 	qfFont.setPointSize(v);
 }
 
+#if QT_VERSION >= 0x040500
 #define UPDCOLOR(var, text) { QColor col = QColorDialog::getColor(qc##var, this, text, QColorDialog::ShowAlphaChannel); if (col.isValid()) { qc##var = col; setColorLabel(ql##var, qc##var); } }
+#else
+#define UPDCOLOR(var, text) { QColor col = QColorDialog::getColor(qc##var, this); if (col.isValid()) { qc##var = col; setColorLabel(ql##var, qc##var); } }
+#endif
 
 void OverlayConfig::on_qpbUser_clicked() {
 	UPDCOLOR(User, tr("Color for users"));
