@@ -759,6 +759,12 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 				return;
 			}
 		}
+		if (msg.has_position()) {
+			if (! hasPermission(uSource, c, ChanACL::Write)) {
+				PERM_DENIED(uSource, c, ChanACL::Write);
+				return;
+			}
+		}
 		if (p) {
 			// If we received a parent channel check if it differs from the old one and is not
 			// Temporary. If that is the case check if the user has enough rights and if the
