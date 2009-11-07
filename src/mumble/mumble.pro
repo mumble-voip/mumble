@@ -72,6 +72,7 @@ win32 {
   HEADERS	*= GlobalShortcut_win.h
   SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp
   LIBS		*= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -l"$$(DXSDK_DIR)Lib/x86/dinput8" -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -llibsndfile-1
+  LIBS		*= -ldelayimp -delayload:speex.dll
 
   LIBPATH	*= /dev/OpenSSL/lib /dev/libsndfile
   DEFINES	*= WIN32
@@ -199,7 +200,7 @@ bonjour {
 	win32 {
 		INCLUDEPATH *= /dev/Bonjour/include
 		LIBPATH *= /dev/Bonjour/lib/win32
-		LIBS *= -ldelayimp -lDNSSD -delayload:DNSSD.DLL
+		LIBS *= -lDNSSD -delayload:DNSSD.DLL
 	}
 	unix:!macx {
 		PKGCONFIG *= avahi-compat-libdns_sd
@@ -229,7 +230,7 @@ wasapi {
 	DEFINES *= USE_WASAPI
 	HEADERS	*= WASAPI.h
 	SOURCES	*= WASAPI.cpp
-	LIBS	*= -ldelayimp -lAVRT -delayload:AVRT.DLL
+	LIBS	*= -lAVRT -delayload:AVRT.DLL
 }
 
 g15 {

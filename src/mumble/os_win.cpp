@@ -49,6 +49,8 @@ static FILE *fConsole = NULL;
 static wchar_t wcComment[PATH_MAX] = L"";
 static MINIDUMP_USER_STREAM musComment;
 
+static int cpuinfo[4];
+
 static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 	char c;
 	switch (type) {
@@ -94,8 +96,58 @@ static LONG WINAPI MumbleUnhandledExceptionFilter(struct _EXCEPTION_POINTERS* Ex
 	return EXCEPTION_CONTINUE_SEARCH;
 }
 
+FARPROC WINAPI delayHook(unsigned dliNotify, PDelayLoadInfo pdli) {
+	if (dliNotify != dliNotePreLoadLibrary)
+		return 0;
+
+
+	size_t length = strlen(pdli->szDll);
+	if (length < 5)
+		return 0;
+		
+	size_t buflen = length + 10;
+	
+	STACKVAR(char, filename, buflen);
+	strcpy_s(filename, buflen, pdli->szDll);
+	
+	size_t offset = 0;
+	
+	if (_stricmp(filename + length - 4, ".dll") == 0)
+		offset = length-4;
+	else
+		offset = length;
+	
+	HMODULE hmod = 0;
+
+	// SSE?
+	if (cpuinfo[3] & 0x02000000) {
+		// SSE2?	
+		if (cpuinfo[3] & 0x04000000) {
+			// And SSE3?
+			if (cpuinfo[2] & 0x00000001) {
+				strcpy_s(filename + offset, 10, ".sse3.dll");
+				hmod = LoadLibraryA(filename);
+				if (hmod)
+					return (FARPROC) hmod;
+			}
+
+			strcpy_s(filename + offset, 10, ".sse2.dll");
+			hmod = LoadLibraryA(filename);
+			if (hmod)
+				return (FARPROC) hmod;
+		}
+
+		strcpy_s(filename + offset, 10, ".sse.dll");
+		hmod = LoadLibraryA(filename);
+		if (hmod)
+			return (FARPROC) hmod;
+	}
+
+	return 0;
+}
+
 void os_init() {
-	int cpuinfo[4];
+	__pfnDliNotifyHook2 = delayHook;
 	__cpuid(cpuinfo, 1);
 
 #define MMXSSE 0x02800000
@@ -145,3 +197,4 @@ void os_init() {
 		qWarning("Application: Failed to set priority!");
 #endif
 }
+

@@ -83,6 +83,12 @@ void CodecInit::destroy() {
 
 #define RESOLVE(var) { * reinterpret_cast<void **>(&var) = static_cast<void *>(qlCELT.resolve(#var)); bValid = bValid && (var != NULL); }
 
+#ifdef Q_OS_WIN
+extern "C" {
+	void __cpuid(int a[4], int b);
+};
+#endif
+
 CELTCodec::CELTCodec(const QString &version) {
 	bValid = false;
 	cmMode = NULL;
@@ -96,8 +102,19 @@ CELTCodec::CELTCodec(const QString &version) {
 	alternatives << QString::fromLatin1("celt.so.%1").arg(version);
 	alternatives << QString::fromLatin1("libcelt.so.%1").arg(version);
 #else
+	int cpuinfo[4];
+	__cpuid(cpuinfo, 1);
+	if (cpuinfo[3] & 0x02000000) {
+		if (cpuinfo[3] & 0x04000000) {
+			if (cpuinfo[2] & 0x00000001) {
+				alternatives << QString::fromLatin1("celt.%1.sse3.dll").arg(version);
+			}
+			alternatives << QString::fromLatin1("celt.%1.sse2.dll").arg(version);
+		}
+		alternatives << QString::fromLatin1("celt.%1.sse.dll").arg(version);
+	}
+
 	alternatives << QString::fromLatin1("celt.%1.dll").arg(version);
-	alternatives << QString::fromLatin1("libcelt.%1.dll").arg(version);
 #endif
 	foreach(const QString &lib, alternatives) {
 		qlCELT.setFileName(QApplication::instance()->applicationDirPath() + QLatin1String("/") + lib);
