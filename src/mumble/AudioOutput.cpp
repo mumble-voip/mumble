@@ -429,6 +429,9 @@ AudioOutputSpeech::~AudioOutputSpeech() {
 		speex_decoder_destroy(dsSpeex);
 	}
 
+	if (srs)
+		speex_resampler_destroy(srs);
+
 	jitter_buffer_destroy(jbJitter);
 
 	delete [] fFadeIn;
