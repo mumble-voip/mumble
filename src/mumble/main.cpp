@@ -236,9 +236,11 @@ int main(int argc, char **argv) {
 
 	g.nam = new QNetworkAccessManager();
 
+#ifndef NO_CRASHREPORT
 	CrashReporter *cr = new CrashReporter();
 	cr->run();
 	delete cr;
+#endif
 
 	// Initialize logger
 	g.l = new Log();
