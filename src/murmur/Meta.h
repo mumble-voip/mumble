@@ -91,8 +91,11 @@ struct MetaParams {
 	QMap<QString, QString> qmConfig;
 
 	unsigned int uiUid, uiGid;
+	
+	QSettings *qsSettings;
 
 	MetaParams();
+	~MetaParams();
 	void read(QString fname = QString("murmur.ini"));
 };
 

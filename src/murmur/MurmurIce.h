@@ -58,7 +58,7 @@ class MurmurIce : public QObject {
 		QMap<int, QMap<int, QMap<QString, ::Murmur::ServerContextCallbackPrx> > > qmServerContextCallbacks;
 		QMap<int, ::Murmur::ServerAuthenticatorPrx> qmServerAuthenticator;
 		QMap<int, ::Murmur::ServerUpdatingAuthenticatorPrx> qmServerUpdatingAuthenticator;
-		MurmurIce(int argc, char *argv[]);
+		MurmurIce();
 		~MurmurIce();
 	public slots:
 		void started(Server *);

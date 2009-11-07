@@ -71,6 +71,13 @@ MetaParams::MetaParams() {
 
 	qrUserName = QRegExp(QLatin1String("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
 	qrChannelName = QRegExp(QLatin1String("[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
+	
+	qsSettings = NULL;
+}
+
+MetaParams::~MetaParams() {
+	if (qsSettings)
+		delete qsSettings;
 }
 
 void MetaParams::read(QString fname) {
@@ -124,13 +131,13 @@ void MetaParams::read(QString fname) {
 		f.close();
 	}
 	QDir::setCurrent(qdBasePath.absolutePath());
-	QSettings qs(fname, QSettings::IniFormat);
+	qsSettings = new QSettings(fname, QSettings::IniFormat);
 #if QT_VERSION >= 0x040500
-	qs.setIniCodec("UTF-8");
+	qsSettings->setIniCodec("UTF-8");
 #endif
-	qWarning("Initializing settings from %s (basepath %s)", qPrintable(qs.fileName()), qPrintable(qdBasePath.absolutePath()));
+	qWarning("Initializing settings from %s (basepath %s)", qPrintable(qsSettings->fileName()), qPrintable(qdBasePath.absolutePath()));
 
-	QString qsHost = qs.value("host", QString()).toString();
+	QString qsHost = qsSettings->value("host", QString()).toString();
 	if (! qsHost.isEmpty()) {
 		foreach(const QString &host, qsHost.split(QRegExp(QLatin1String("\\s+")), QString::SkipEmptyParts)) {
 			QHostAddress qhaddr;
@@ -190,47 +197,47 @@ void MetaParams::read(QString fname) {
 				qlBind << QHostAddress(QHostAddress::Any);
 	}
 
-	qsPassword = qs.value("serverpassword", qsPassword).toString();
-	usPort = static_cast<unsigned short>(qs.value("port", usPort).toUInt());
-	iTimeout = qs.value("timeout", iTimeout).toInt();
-	iMaxTextMessageLength = qs.value("textmessagelength", iMaxTextMessageLength).toInt();
-	bAllowHTML = qs.value("allowhtml", bAllowHTML).toBool();
-	iMaxBandwidth = qs.value("bandwidth", iMaxBandwidth).toInt();
-	iDefaultChan = qs.value("defaultchannel", iDefaultChan).toInt();
-	iMaxUsers = qs.value("users", iMaxUsers).toInt();
-	qsWelcomeText = qs.value("welcometext", qsWelcomeText).toString();
+	qsPassword = qsSettings->value("serverpassword", qsPassword).toString();
+	usPort = static_cast<unsigned short>(qsSettings->value("port", usPort).toUInt());
+	iTimeout = qsSettings->value("timeout", iTimeout).toInt();
+	iMaxTextMessageLength = qsSettings->value("textmessagelength", iMaxTextMessageLength).toInt();
+	bAllowHTML = qsSettings->value("allowhtml", bAllowHTML).toBool();
+	iMaxBandwidth = qsSettings->value("bandwidth", iMaxBandwidth).toInt();
+	iDefaultChan = qsSettings->value("defaultchannel", iDefaultChan).toInt();
+	iMaxUsers = qsSettings->value("users", iMaxUsers).toInt();
+	qsWelcomeText = qsSettings->value("welcometext", qsWelcomeText).toString();
 
-	qsDatabase = qs.value("database", qsDatabase).toString();
+	qsDatabase = qsSettings->value("database", qsDatabase).toString();
 
-	qsDBDriver = qs.value("dbDriver", qsDBDriver).toString();
-	qsDBUserName = qs.value("dbUsername", qsDBUserName).toString();
-	qsDBPassword = qs.value("dbPassword", qsDBPassword).toString();
-	qsDBHostName = qs.value("dbHost", qsDBHostName).toString();
-	qsDBPrefix = qs.value("dbPrefix", qsDBPrefix).toString();
-	qsDBOpts = qs.value("dbOpts", qsDBOpts).toString();
-	iDBPort = qs.value("dbPort", iDBPort).toInt();
+	qsDBDriver = qsSettings->value("dbDriver", qsDBDriver).toString();
+	qsDBUserName = qsSettings->value("dbUsername", qsDBUserName).toString();
+	qsDBPassword = qsSettings->value("dbPassword", qsDBPassword).toString();
+	qsDBHostName = qsSettings->value("dbHost", qsDBHostName).toString();
+	qsDBPrefix = qsSettings->value("dbPrefix", qsDBPrefix).toString();
+	qsDBOpts = qsSettings->value("dbOpts", qsDBOpts).toString();
+	iDBPort = qsSettings->value("dbPort", iDBPort).toInt();
 
-	qsIceEndpoint = qs.value("ice", qsIceEndpoint).toString();
+	qsIceEndpoint = qsSettings->value("ice", qsIceEndpoint).toString();
 
-	iLogDays = qs.value("logdays", iLogDays).toInt();
+	iLogDays = qsSettings->value("logdays", iLogDays).toInt();
 
-	qsDBus = qs.value("dbus", qsDBus).toString();
-	qsDBusService = qs.value("dbusservice", qsDBusService).toString();
-	qsLogfile = qs.value("logfile", qsLogfile).toString();
-	qsPid = qs.value("pidfile", qsPid).toString();
+	qsDBus = qsSettings->value("dbus", qsDBus).toString();
+	qsDBusService = qsSettings->value("dbusservice", qsDBusService).toString();
+	qsLogfile = qsSettings->value("logfile", qsLogfile).toString();
+	qsPid = qsSettings->value("pidfile", qsPid).toString();
 
-	qsRegName = qs.value("registerName", qsRegName).toString();
-	qsRegPassword = qs.value("registerPassword", qsRegPassword).toString();
-	qsRegHost = qs.value("registerHostname", qsRegHost).toString();
-	qurlRegWeb = QUrl(qs.value("registerUrl", qurlRegWeb.toString()).toString());
-	bBonjour = qs.value("bonjour", bBonjour).toBool();
+	qsRegName = qsSettings->value("registerName", qsRegName).toString();
+	qsRegPassword = qsSettings->value("registerPassword", qsRegPassword).toString();
+	qsRegHost = qsSettings->value("registerHostname", qsRegHost).toString();
+	qurlRegWeb = QUrl(qsSettings->value("registerUrl", qurlRegWeb.toString()).toString());
+	bBonjour = qsSettings->value("bonjour", bBonjour).toBool();
 
-	iBanTries = qs.value("autobanAttempts", iBanTries).toInt();
-	iBanTimeframe = qs.value("autobanTimeframe", iBanTimeframe).toInt();
-	iBanTime = qs.value("autobanTime", iBanTime).toInt();
+	iBanTries = qsSettings->value("autobanAttempts", iBanTries).toInt();
+	iBanTimeframe = qsSettings->value("autobanTimeframe", iBanTimeframe).toInt();
+	iBanTime = qsSettings->value("autobanTime", iBanTime).toInt();
 
 #ifdef Q_OS_UNIX
-	const QString uname = qs.value("uname").toString();
+	const QString uname = qsSettings->value("uname").toString();
 	if (! uname.isEmpty() && (geteuid() == 0)) {
 		struct passwd *pw = getpwnam(qPrintable(uname));
 		if (pw) {
@@ -244,22 +251,22 @@ void MetaParams::read(QString fname) {
 	}
 #endif
 
-	qrUserName = QRegExp(qs.value("username", qrUserName.pattern()).toString());
-	qrChannelName = QRegExp(qs.value("channelname", qrChannelName.pattern()).toString());
+	qrUserName = QRegExp(qsSettings->value("username", qrUserName.pattern()).toString());
+	qrChannelName = QRegExp(qsSettings->value("channelname", qrChannelName.pattern()).toString());
 
-	bool bObfuscate = qs.value("obfuscate", false).toBool();
+	bool bObfuscate = qsSettings->value("obfuscate", false).toBool();
 	if (bObfuscate) {
 		qWarning("IP address obfuscation enabled.");
 		iObfuscate = qrand();
 	}
-	bSendVersion = qs.value("sendversion", bSendVersion).toBool();
-	bAllowPing = qs.value("allowping", bAllowPing).toBool();
+	bSendVersion = qsSettings->value("sendversion", bSendVersion).toBool();
+	bAllowPing = qsSettings->value("allowping", bAllowPing).toBool();
 
-	QString qsSSLCert = qs.value("sslCert").toString();
-	QString qsSSLKey = qs.value("sslKey").toString();
-	QString qsSSLCA = qs.value("sslCA").toString();
+	QString qsSSLCert = qsSettings->value("sslCert").toString();
+	QString qsSSLKey = qsSettings->value("sslKey").toString();
+	QString qsSSLCA = qsSettings->value("sslCA").toString();
 
-	qbaPassPhrase = qs.value("sslPassPhrase").toByteArray();
+	qbaPassPhrase = qsSettings->value("sslPassPhrase").toByteArray();
 
 	if (! qsSSLCA.isEmpty()) {
 		QFile pem(qsSSLCA);

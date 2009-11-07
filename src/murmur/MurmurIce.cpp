@@ -45,9 +45,14 @@ using namespace Murmur;
 
 static MurmurIce *mi = NULL;
 static Ice::ObjectPtr iopServer;
+static Ice::PropertiesPtr ippProperties;
 
-void IceStart(int argc, char *argv[]) {
-	mi = new MurmurIce(argc, argv);
+void IceParse(int &argc, char *argv[]) {
+	ippProperties = Ice::createProperties(argc, argv);
+}
+
+void IceStart() {
+	mi = new MurmurIce();
 }
 
 void IceStop() {
@@ -175,14 +180,31 @@ class ServerLocator : public virtual Ice::ServantLocator {
 		virtual void deactivate(const std::string &) {};
 };
 
-MurmurIce::MurmurIce(int argc, char *argv[]) {
+MurmurIce::MurmurIce() {
 	count = 0;
 
 	if (meta->mp.qsIceEndpoint.isEmpty())
 		return;
 
+	Ice::PropertiesPtr ipp = Ice::createProperties();
+
+	::Meta::mp.qsSettings->beginGroup("Ice");
+	foreach(const QString &v, ::Meta::mp.qsSettings->childKeys()) {
+		ipp->setProperty(u8(v), u8(::Meta::mp.qsSettings->value(v).toString()));
+	}
+	::Meta::mp.qsSettings->endGroup();
+	
+	Ice::PropertyDict props = ippProperties->getPropertiesForPrefix("");
+	Ice::PropertyDict::iterator i;
+	for(i=props.begin(); i != props.end(); ++i) {
+		ipp->setProperty((*i).first, (*i).second);
+	}
+	
+	Ice::InitializationData idd;
+	idd.properties = ipp;
+
 	try {
-		communicator = Ice::initialize(argc, argv);
+		communicator = Ice::initialize(idd);
 		adapter = communicator->createObjectAdapterWithEndpoints("Murmur", qPrintable(meta->mp.qsIceEndpoint));
 		MetaPtr m = new MetaI;
 		MetaPrx mprx = MetaPrx::uncheckedCast(adapter->add(m, communicator->stringToIdentity("Meta")));
