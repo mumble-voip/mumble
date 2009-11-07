@@ -170,6 +170,7 @@ struct Settings {
 	bool bAskOnQuit;
 	bool bHideTray;
 	bool bUsage;
+	bool bShowUserCount;
 
 	QString qsUsername;
 	QString qsLastServer;

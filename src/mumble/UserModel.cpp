@@ -421,8 +421,12 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					return qiChannel;
 				}
 			case Qt::DisplayRole:
-				if (idx.column() == 0)
-					return c->qsName;
+				if (idx.column() == 0) {
+					if (! g.s.bShowUserCount || item->iUsers == 0)
+						return c->qsName;
+
+					return QString::fromLatin1("%1 (%2)").arg(c->qsName).arg(item->iUsers);
+				}
 				if (! c->qsDesc.isEmpty())
 					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
 				return l;

@@ -169,6 +169,7 @@ Settings::Settings() {
 	bAskOnQuit = true;
 	bHideTray = true;
 	bUsage = true;
+	bShowUserCount = false;
 	iWindowLayout = LayoutClassic;
 
 	ssFilter = ShowReachable;
@@ -409,6 +410,7 @@ void Settings::load() {
 #endif
 	SAVELOAD(bHideTray, "ui/hidetray");
 	SAVELOAD(bUsage, "ui/usage");
+	SAVELOAD(bShowUserCount, "ui/showusercount");
 	SAVELOAD(qsImagePath, "ui/imagepath");
 
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
@@ -581,6 +583,7 @@ void Settings::save() {
 	SAVELOAD(bPluginCheck, "ui/plugincheck");
 	SAVELOAD(bHideTray, "ui/hidetray");
 	SAVELOAD(bUsage, "ui/usage");
+	SAVELOAD(bShowUserCount, "ui/showusercount");
 	SAVELOAD(qsImagePath, "ui/imagepath");
 
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");

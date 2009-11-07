@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>312</width>
+    <width>351</width>
     <height>505</height>
    </rect>
   </property>
@@ -232,7 +232,7 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="1" colspan="2">
+      <item row="6" column="1" colspan="2">
        <widget class="QCheckBox" name="qcbUsersTop">
         <property name="toolTip">
          <string>List users above subchannels (requires restart).</string>
@@ -245,7 +245,7 @@
         </property>
        </widget>
       </item>
-      <item row="6" column="1" colspan="2">
+      <item row="8" column="1" colspan="2">
        <widget class="QCheckBox" name="qcbAskOnQuit">
         <property name="toolTip">
          <string>Ask whether to close or minimize when quitting Mumble.</string>
@@ -258,7 +258,7 @@
         </property>
        </widget>
       </item>
-      <item row="7" column="1" colspan="2">
+      <item row="9" column="1" colspan="2">
        <widget class="QCheckBox" name="qcbHideTray">
         <property name="toolTip">
          <string>Hide the main Mumble window in the tray when it is minimized.</string>
@@ -271,7 +271,7 @@
         </property>
        </widget>
       </item>
-      <item row="8" column="1" colspan="2">
+      <item row="10" column="1" colspan="2">
        <widget class="QCheckBox" name="qcbAlwaysOnTop">
         <property name="toolTip">
          <string>Make the Mumble window appear on top of other windows.</string>
@@ -294,6 +294,16 @@
         </property>
         <property name="text">
          <string>Show chatbar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1" colspan="2">
+       <widget class="QCheckBox" name="qcbShowUserCount">
+        <property name="toolTip">
+         <string>Show number of users in each channel</string>
+        </property>
+        <property name="text">
+         <string>Show channel user count</string>
         </property>
        </widget>
       </item>
