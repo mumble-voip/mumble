@@ -3,6 +3,7 @@
 XPStyle on
 SetCompressor /SOLID lzma
 SetPluginUnload alwaysoff
+RequestExecutionLevel user
 
 ;--------------------------------
 ;Include Modern UI
@@ -113,6 +114,7 @@ Page custom PageReinstall PageLeaveReinstall
   
   ReserveFile "${NSISDIR}\Plugins\FindProcUnicode.dll"
   ReserveFile "${NSISDIR}\Plugins\CPUFeatures.dll"
+  ReserveFile "${NSISDIR}\Plugins\UAC.dll"
 
 ;--------------------------------
 ;Installer Sections
@@ -578,6 +580,25 @@ reinst_done:
 FunctionEnd
 
 Function .onInit
+UAC_Elevate:
+    UAC::RunElevated 
+    StrCmp 1223 $0 UAC_ElevationAborted ; UAC dialog aborted by user?
+    StrCmp 0 $0 0 UAC_Err ; Error?
+    StrCmp 1 $1 0 UAC_Success ;Are we the real deal or just the wrapper?
+    Quit
+ 
+UAC_Err:
+    Abort
+ 
+UAC_ElevationAborted:
+    # elevation was aborted, run as normal?
+    Abort
+ 
+UAC_Success:
+    StrCmp 1 $3 +4 ;Admin?
+    StrCmp 3 $1 0 UAC_ElevationAborted ;Try again?
+    goto UAC_Elevate 
+
   Push $R0
   CPUFeatures::hasSSE
   Pop $0
@@ -602,6 +623,14 @@ Function .onInit
   ${EndIf}
 FunctionEnd
 
+Function .OnInstFailed
+    UAC::Unload
+FunctionEnd
+ 
+Function .OnInstSuccess
+    UAC::Unload
+FunctionEnd
+
 Function un.onInit
   !insertmacro MUI_UNGETLANGUAGE
 FunctionEnd
@@ -619,7 +648,7 @@ FunctionEnd
 
 Function Run_Mumble
   ${If} ${SectionIsSelected} ${SectionMumble}
-    Exec "$INSTDIR\mumble.exe"
+    UAC::Exec '' "$INSTDIR\mumble.exe" '' ''
   ${EndIf}
 FunctionEnd
 
