@@ -57,6 +57,10 @@
 #include "NetworkConfig.h"
 #include "ACL.h"
 
+#ifdef Q_OS_WIN
+#include "TaskList.h"
+#endif
+
 /*!
   \fn void MainWindow::findDesiredChannel()
   This function tries to join a desired channel on connect. It gets called
@@ -1900,6 +1904,10 @@ void MainWindow::serverConnected() {
 		mpus.set_self_deaf(g.s.bDeaf);
 		g.sh->sendMessage(mpus);
 	}
+
+#ifdef Q_OS_WIN
+	TaskList::addToRecentList(g.s.qsLastServer, host, port);
+#endif
 }
 
 static QString getPathToChannel(Channel *c) {

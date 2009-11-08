@@ -69,9 +69,9 @@ CONFIG(no-bundled-celt) {
 
 win32 {
   RC_FILE	= mumble.rc
-  HEADERS	*= GlobalShortcut_win.h
-  SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp
-  LIBS		*= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -l"$$(DXSDK_DIR)Lib/x86/dinput8" -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -llibsndfile-1
+  HEADERS	*= GlobalShortcut_win.h TaskList.h
+  SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp TaskList.cpp
+  LIBS		*= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -l"$$(DXSDK_DIR)Lib/x86/dinput8" -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -llibsndfile-1 -lshell32 -lshlwapi
   LIBS		*= -ldelayimp -delayload:speex.dll
 
   LIBPATH	*= /dev/OpenSSL/lib /dev/libsndfile
