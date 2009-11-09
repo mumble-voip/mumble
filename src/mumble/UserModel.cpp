@@ -827,7 +827,7 @@ void UserModel::removeUser(ClientUser *p) {
 	if (g.s.ceExpand == Settings::ChannelsWithUsers)
 		collapseEmpty(c);
 
-	if (g.uiSession && (p->cChannel == ClientUser::get(g.uiSession)->cChannel))
+	if (g.uiSession && (c == ClientUser::get(g.uiSession)->cChannel))
 		updateOverlay();
 
 	delete p;
