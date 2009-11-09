@@ -737,8 +737,8 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 }
 
 #define SENDTO \
-		if (! pDst->bDeaf && ! pDst->bSelfDeaf && (pDst != u)) { \
-			if (poslen && pDst->ssContext == u->ssContext) \
+		if ((!pDst->bDeaf) && (!pDst->bSelfDeaf) && (pDst != u)) { \
+			if ((poslen > 0) && (pDst->ssContext == u->ssContext)) \
 				sendMessage(pDst, buffer, len, qba); \
 			else \
 				sendMessage(pDst, buffer, len - poslen, qba_npos); \
