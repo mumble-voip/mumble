@@ -98,15 +98,14 @@ Client::~Client() {
 void Client::sendMessage(const ::google::protobuf::Message &msg, unsigned int msgType) {
 	unsigned char uc[4096];
 	int len = msg.ByteSize();
-	Q_ASSERT(len < 4092);
-	uc[0] = static_cast<unsigned char>(msgType);
-	uc[1] = static_cast<unsigned char>((len >> 16) & 0xFF);
-	uc[2] = static_cast<unsigned char>((len >> 8) & 0xFF);
-	uc[3] = static_cast<unsigned char>(len & 0xFF);
+	Q_ASSERT(len < 4090);
 
-	msg.SerializeToArray(uc + 4, len);
+        * reinterpret_cast<quint16 *>(& uc[0]) = qToBigEndian(static_cast<quint16>(msgType));
+        * reinterpret_cast<quint32 *>(& uc[2]) = qToBigEndian(static_cast<quint32>(len));
 
-	ssl->write(reinterpret_cast<const char *>(uc), len+4);
+	msg.SerializeToArray(uc + 6, len);
+
+	ssl->write(reinterpret_cast<const char *>(uc), len+6);
 }
 
 void Client::ping() {
@@ -171,19 +170,24 @@ void Client::readyRead() {
 	forever {
 		int avail = ssl->bytesAvailable();
 		if (numbytes == -1) {
-			if (avail < 4)
+			if (avail < 6)
 				break;
-			unsigned char b[4];
-			ssl->read(reinterpret_cast<char *>(b), 4);
-			numbytes = (b[1] << 16) + (b[2] << 8) + b[3];
-			ptype = b[0];
+			unsigned char b[6];
+			ssl->read(reinterpret_cast<char *>(b), 6);
+
+			ptype = qFromBigEndian(* reinterpret_cast<quint16 *>(& b[0]));
+			numbytes = qFromBigEndian(* reinterpret_cast<quint32 *>(& b[2]));
+
 			avail = ssl->bytesAvailable();
 		}
 		if ((numbytes >= 0) && (avail >= numbytes)) {
 			int want = numbytes;
 			numbytes = -1;
-			unsigned char buff[10000];
+			unsigned char buff[65536];
+			Q_ASSERT(want < 65536);
 			ssl->read(reinterpret_cast<char *>(buff), want);
+			
+
 			avail = ssl->bytesAvailable();
 
 			switch (ptype) {
@@ -212,7 +216,7 @@ void Client::readyRead() {
 					}
 				case MessageHandler::UDPTunnel: {
 						unsigned int msgUDPType = (buff[0] >> 5) & 0x7;
-						if (msgUDPType == MessageHandler::UDPVoice)
+						if (msgUDPType == MessageHandler::UDPVoiceCELTAlpha)
 							rcvd++;
 						break;
 					}
