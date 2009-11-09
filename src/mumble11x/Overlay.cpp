@@ -263,7 +263,7 @@ void Overlay::toggleShow() {
 	}
 	g.s.osOverlay = ns;
 
-	if (sm.tryLock()) {
+	if (sm.sm && sm.tryLock()) {
 		sm.sm->bShow = (g.s.osOverlay != Settings::Nothing);
 		sm.unlock();
 	}
@@ -327,6 +327,9 @@ void Overlay::updateOverlay() {
 	quint32 colChannelTalking = g.s.qcOverlayChannelTalking.rgba();
 	QString str;
 	QList<qpChanCol> linkchans;
+
+	if (! sm.sm)
+		return;
 
 	if (! isActive())
 		return;

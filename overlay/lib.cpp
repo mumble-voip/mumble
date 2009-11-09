@@ -502,7 +502,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 				char *p = strrchr(procname, '\\');
 
 				if (p) {
-					if (_stricmp(p+1, "mumble.exe")==0)
+					if ((_stricmp(p+1, "mumble.exe")==0) || (_stricmp(p+1, "mumble11x.exe")==0))
 						bMumble = TRUE;
 					int i =0;
 					while (blacklist[i]) {
