@@ -306,6 +306,7 @@ ServerItem::ServerItem(const QString &name, ItemType itype, const QString &conti
 		qsCountryCode = country;
 		qsContinentCode = continent;
 	}
+	setFlags(flags() & ~Qt::ItemIsDragEnabled);
 
 	init();
 }
