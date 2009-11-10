@@ -149,7 +149,7 @@ void ServerHandler::udpReady() {
 		}
 
 		PacketDataStream pds(buffer + 1, buflen-5);
-
+		
 		MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((buffer[0] >> 5) & 0x7);
 		unsigned int msgFlags = buffer[0] & 0x1f;
 
