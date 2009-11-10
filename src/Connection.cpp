@@ -48,6 +48,12 @@ Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	iPacketLength = -1;
 	bDisconnectedEmitted = false;
 
+	static bool bDeclared = false;
+	if (! bDeclared) {
+		bDeclared = true;
+		qRegisterMetaType<QAbstractSocket::SocketError>("QAbstractSocket::SocketError");
+	}
+
 	connect(qtsSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(socketError(QAbstractSocket::SocketError)));
 	connect(qtsSocket, SIGNAL(encrypted()), this, SIGNAL(encrypted()));
 	connect(qtsSocket, SIGNAL(readyRead()), this, SLOT(socketRead()));
@@ -57,6 +63,8 @@ Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 #ifdef Q_OS_WIN
 	dwFlow = 0;
 #endif
+
+
 }
 
 Connection::~Connection() {
@@ -127,10 +135,10 @@ void Connection::socketRead() {
 	}
 }
 
-void Connection::socketError(QAbstractSocket::SocketError) {
+void Connection::socketError(QAbstractSocket::SocketError err) {
 	if (! bDisconnectedEmitted) {
 		bDisconnectedEmitted = true;
-		emit connectionClosed(qtsSocket->errorString());
+		emit connectionClosed(err, qtsSocket->errorString());
 	}
 }
 
@@ -145,7 +153,7 @@ void Connection::proceedAnyway() {
 void Connection::socketDisconnected() {
 	if (! bDisconnectedEmitted) {
 		bDisconnectedEmitted = true;
-		emit connectionClosed(QString());
+		emit connectionClosed(QAbstractSocket::UnknownSocketError, QString());
 	}
 }
 

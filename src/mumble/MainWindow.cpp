@@ -142,7 +142,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	setupGui();
 
 	connect(g.sh, SIGNAL(connected()), this, SLOT(serverConnected()));
-	connect(g.sh, SIGNAL(disconnected(QString)), this, SLOT(serverDisconnected(QString)));
+	connect(g.sh, SIGNAL(disconnected(QAbstractSocket::SocketError, QString)), this, SLOT(serverDisconnected(QAbstractSocket::SocketError, QString)));
 
 	// Fix context of all actions.
 	QList<QAction *> qla = findChildren<QAction *>();
@@ -1722,7 +1722,7 @@ void MainWindow::serverConnected() {
 	}
 }
 
-void MainWindow::serverDisconnected(QString reason) {
+void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString reason) {
 	g.uiSession = 0;
 	g.pPermissions = ChanACL::None;
 	qaServerDisconnect->setEnabled(false);
@@ -1777,6 +1777,45 @@ void MainWindow::serverDisconnected(QString reason) {
 	pmModel->removeAll();
 	qtvUsers->setRowHidden(0, QModelIndex(), true);
 
+		
+#ifdef USE_DBUS
+	if (err == QAbstractSocket::SslHandshakeFailedError) {
+		if (QMessageBox::warning(this, tr("SSL Version mismatch"), tr("This server is using an older encryption standard. It might be an older 1.1 based Mumble server.<br />Would you like to launch the compatibility client to connect to it?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes) {
+
+			QString host, user, pw;
+			unsigned short port;
+			QUrl url;
+
+			g.sh->getConnectionInfo(host, port, user, pw);
+			url.setScheme(QLatin1String("mumble"));
+			url.setHost(host);
+			url.setPort(port);
+			url.setUserName(user);
+			url.addQueryItem(QLatin1String("version"), QLatin1String("1.1.8"));
+
+			QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble11x"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
+
+			QDBusMessage reply=qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
+			if (reply.type() == QDBusMessage::ReplyMessage) {
+				this->close();
+				return;
+			} else {
+				QString executable = QApplication::instance()->applicationFilePath();
+				int idx = executable.lastIndexOf(QLatin1String("mumble"));
+				if (idx >= 0) {
+					QStringList args;
+					args << url.toString();
+
+					executable.replace(idx, 6, QLatin1String("mumble11x"));
+					if (QProcess::startDetached(executable, args))
+						this->close();
+						return;
+				}
+			}
+			QMessageBox::critical(this, tr("Failed to launch compatibilty client"), tr("The compatibility client could not be found, or failed to start.<br />Note that the compatibility client is an optional component for most installations, and might not be installed."), QMessageBox::Ok, QMessageBox::Ok);
+		}
+	} else
+#endif
 	if (! g.sh->qlErrors.isEmpty()) {
 		foreach(QSslError e, g.sh->qlErrors)
 			g.l->log(Log::ServerDisconnected, tr("SSL Verification failed: %1").arg(e.errorString()));
@@ -1825,7 +1864,6 @@ void MainWindow::serverDisconnected(QString reason) {
 		}  else {
 			g.l->log(Log::ServerDisconnected, tr("Disconnected from server."));
 		}
-
 
 		Qt::WindowFlags wf = 0;
 #ifdef Q_OS_MAC

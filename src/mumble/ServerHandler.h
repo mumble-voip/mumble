@@ -104,12 +104,12 @@ class ServerHandler : public QThread {
 		void disconnect();
 		void run();
 	signals:
-		void disconnected(QString reason);
+		void disconnected(QAbstractSocket::SocketError, QString reason);
 		void connected();
 	protected slots:
 		void message(unsigned int, const QByteArray &);
 		void serverConnectionConnected();
-		void serverConnectionClosed(const QString &);
+		void serverConnectionClosed(QAbstractSocket::SocketError, const QString &);
 		void setSslErrors(const QList<QSslError> &);
 		void udpReady();
 		void sendPing();

@@ -58,7 +58,7 @@ class Connection : public QObject {
 		void proceedAnyway();
 	signals:
 		void encrypted();
-		void connectionClosed(const QString &reason);
+		void connectionClosed(QAbstractSocket::SocketError, const QString &reason);
 		void message(unsigned int type, const QByteArray &);
 		void handleSslErrors(const QList<QSslError> &);
 	public:
@@ -83,6 +83,8 @@ class Connection : public QObject {
 		static void setQoS(HANDLE hParentQoS);
 #endif
 };
+
+Q_DECLARE_METATYPE(QAbstractSocket::SocketError);
 
 #else
 class Connection;

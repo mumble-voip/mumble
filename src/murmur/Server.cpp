@@ -958,7 +958,7 @@ void Server::newClient() {
 			qhHostUsers[ha].insert(u);
 		}
 
-		connect(u, SIGNAL(connectionClosed(const QString &)), this, SLOT(connectionClosed(const QString &)));
+		connect(u, SIGNAL(connectionClosed(QAbstractSocket::SocketError, const QString &)), this, SLOT(connectionClosed(QAbstractSocket::SocketError, const QString &)));
 		connect(u, SIGNAL(message(unsigned int, const QByteArray &)), this, SLOT(message(unsigned int, const QByteArray &)));
 		connect(u, SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(sslError(const QList<QSslError> &)));
 		connect(u, SIGNAL(encrypted()), this, SLOT(encrypted()));
@@ -1036,13 +1036,13 @@ void Server::sslError(const QList<QSslError> &errors) {
 		u->disconnectSocket(true);
 }
 
-void Server::connectionClosed(const QString &reason) {
+void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &reason) {
 	Connection *c = qobject_cast<Connection *>(sender());
 	if (! c)
 		return;
 	ServerUser *u = static_cast<ServerUser *>(c);
 
-	log(u, QString("Connection closed: %1").arg(reason));
+	log(u, QString("Connection closed: %1 [%2]").arg(reason).arg(err));
 
 	if (u->sState == ServerUser::Authenticated) {
 		MumbleProto::UserRemove mpur;

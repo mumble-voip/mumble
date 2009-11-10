@@ -241,7 +241,7 @@ class Server : public QThread {
 
 	public slots:
 		void newClient();
-		void connectionClosed(const QString &);
+		void connectionClosed(QAbstractSocket::SocketError, const QString &);
 		void sslError(const QList<QSslError> &);
 		void message(unsigned int, const QByteArray &, ServerUser *cCon = NULL);
 		void checkTimeout();

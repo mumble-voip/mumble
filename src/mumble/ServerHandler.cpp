@@ -244,12 +244,14 @@ void ServerHandler::run() {
 	qscCert.clear();
 
 	connect(qtsSock, SIGNAL(encrypted()), this, SLOT(serverConnectionConnected()));
-	connect(cConnection.get(), SIGNAL(connectionClosed(const QString &)), this, SLOT(serverConnectionClosed(const QString &)));
+	connect(cConnection.get(), SIGNAL(connectionClosed(QAbstractSocket::SocketError, const QString &)), this, SLOT(serverConnectionClosed(QAbstractSocket::SocketError, const QString &)));
 	connect(cConnection.get(), SIGNAL(message(unsigned int, const QByteArray &)), this, SLOT(message(unsigned int, const QByteArray &)));
 	connect(cConnection.get(), SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(setSslErrors(const QList<QSslError> &)));
 
 	bUdp = false;
-
+	
+	
+	qtsSock->setProtocol(QSsl::TlsV1);
 	qtsSock->connectToHostEncrypted(qsHostName, usPort);
 
 	tTimestamp.restart();
@@ -394,11 +396,11 @@ void ServerHandler::disconnect() {
 	QApplication::postEvent(this, shme);
 }
 
-void ServerHandler::serverConnectionClosed(const QString &reason) {
+void ServerHandler::serverConnectionClosed(QAbstractSocket::SocketError err, const QString &reason) {
 	AudioOutputPtr ao = g.ao;
 	if (ao)
 		ao->wipe();
-	emit disconnected(reason);
+	emit disconnected(err, reason);
 	exit(0);
 }
 

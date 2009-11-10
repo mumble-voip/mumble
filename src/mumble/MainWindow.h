@@ -186,7 +186,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_Icon_activated(QSystemTrayIcon::ActivationReason);
 		void qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &);
 		void serverConnected();
-		void serverDisconnected(QString reason);
+		void serverDisconnected(QAbstractSocket::SocketError, QString reason);
 		void viewCertificate(bool);
 		void openUrl(const QUrl &url);
 		void context_triggered();
