@@ -131,7 +131,7 @@ Settings::Settings() {
 	iMinLoudness = 1000;
 	iVoiceHold = 50;
 	iJitterBufferSize = 1;
-	iFramesPerPacket = 1;
+	iFramesPerPacket = 2;
 	iNoiseSuppress = -30;
 	iIdleTime = 0;
 	vsVAD = SignalToNoise;

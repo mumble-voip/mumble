@@ -813,6 +813,7 @@ void AudioInput::encodeAudioFrame() {
 
 		cCodec->celt_encoder_ctl(ceEncoder,CELT_SET_VBR_RATE(iAudioQuality));
 		len = cCodec->celt_encode(ceEncoder, psSource, NULL, buffer, qMin(iAudioQuality / 800, 127));
+		iBitrate = len * 100 * 8;
 	} else {
 		int vbr = 0;
 		speex_encoder_ctl(esSpeex, SPEEX_GET_VBR_MAX_BITRATE, &vbr);
@@ -826,10 +827,10 @@ void AudioInput::encodeAudioFrame() {
 
 		speex_encode_int(esSpeex, psSource, &sbBits);
 		len = speex_bits_write(&sbBits, reinterpret_cast<char *>(buffer), 127);
+		iBitrate = len * 50 * 8;
 		speex_bits_reset(&sbBits);
 	}
 
-	iBitrate = len * 100 * 8;
 	flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len), ! iIsSpeech);
 
 	if (! iIsSpeech)
