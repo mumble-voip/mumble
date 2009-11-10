@@ -290,7 +290,7 @@
          <string>Check to show chat bar</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;If checked the chat bar is shown&lt;/b&gt;&lt;br /&gt;Uncheck to hide it</string>
+         <string>&lt;b&gt;If checked the chat bar is shown.&lt;/b&gt;&lt;br /&gt;Uncheck this to hide it.</string>
         </property>
         <property name="text">
          <string>Show chatbar</string>

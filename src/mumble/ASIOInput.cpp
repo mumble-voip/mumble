@@ -224,7 +224,7 @@ void ASIOConfig::on_qpbQuery_clicked() {
 			QString str = tr("%1 (version %2)").arg(QLatin1String(buff)).arg(ver);
 			qlName->setText(str);
 
-			str = tr("%1 -> %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz").arg(minSize).arg(maxSize).arg(granSize).arg(prefSize).arg(srate,0,'f',0);
+			str = tr("%1 -> %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz").arg(minSize).arg(maxSize).arg(granSize).arg(prefSize).arg(srate,0,'f',0);
 
 			qlBuffers->setText(str);
 

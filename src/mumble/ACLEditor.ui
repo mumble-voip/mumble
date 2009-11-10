@@ -95,7 +95,7 @@ When checked the channel created will be marked as temporary. This means when th
          </property>
          <property name="whatsThis">
           <string>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
-This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</string>
+This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</string>
          </property>
          <property name="maximum">
           <number>99</number>
@@ -150,7 +150,7 @@ This value enables you to change the way mumble arranges the channels in the tre
             </property>
             <property name="whatsThis">
              <string>&lt;b&gt;Group&lt;/b&gt;&lt;br&gt;
-This is all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</string>
+These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</string>
             </property>
             <property name="editable">
              <bool>true</bool>
