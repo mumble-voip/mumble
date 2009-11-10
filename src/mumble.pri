@@ -15,6 +15,13 @@ pb.commands = protoc --cpp_out=. -I. -I.. ${QMAKE_FILE_NAME}
 pb.input = PROTOBUF
 pb.CONFIG *= no_link
 
+CONFIG(packaged) {
+	MUMDEFVER = $$find(DEFINES, "MUMBLE_VERSION=")
+	count(MUMDEFVER, 0) {
+		DEFINES	*= MUMBLE_VERSION=$$VERSION
+	}
+}
+
 win32 {
 	INCLUDEPATH *= /dev/protobuf-2.2.0/vsprojects/include /dev/protobuf-2.2.0/src
 	CONFIG(debug, debug|release) {
