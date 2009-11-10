@@ -441,7 +441,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
        <item>
         <widget class="QLabel" name="qliVadTuningText">
          <property name="text">
-          <string>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you're not talking, everything should be in the red (definitively not speech).</string>
+          <string>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you're not talking, everything should be in the red (definitively not speech).</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
