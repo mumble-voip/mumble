@@ -37,8 +37,10 @@
     <message>
         <location filename="ACLEditor.ui" line="97"/>
         <source>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
-This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
-        <translation>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
+This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
+        <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
+This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
+        <translation type="unfinished">&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 Dieser Wert erlaubt es Ihnen die Reihenfolge der Kanäle innerhalb des Baumes festzulegen. Ein Kanal mit einem höheren &lt;i&gt;Positionswert&lt;/i&gt; wird immer unter einem Kanal mit einem niedrigeren &lt;i&gt;Positionswert&lt;/i&gt; platziert und umgekehrt. Wenn der &lt;i&gt;Positionswert&lt;/i&gt; zweier Kanäle gleich ist, dann werden diese ihrem Namen nach alphabetisch sortiert.</translation>
     </message>
     <message>
@@ -295,8 +297,10 @@ Dieses Feld markiert den Kanal als temporär. Das heißt, dass er automatisch ge
     <message>
         <location filename="ACLEditor.ui" line="152"/>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br&gt;
-This is all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation>&lt;b&gt;Gruppe&lt;/b&gt;&lt;br/&gt;
+These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
+        <oldsource>&lt;b&gt;Group&lt;/b&gt;&lt;br&gt;
+This is all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</oldsource>
+        <translation type="unfinished">&lt;b&gt;Gruppe&lt;/b&gt;&lt;br/&gt;
 Dies sind alle für diesen Kanal definierten Gruppen. Um eine neue Gruppe zu erstellen geben Sie einfach deren Namen ein und drücken Enter.</translation>
     </message>
     <message>
@@ -772,9 +776,10 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     </message>
     <message>
         <location filename="ASIOInput.cpp" line="227"/>
-        <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</source>
+        <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
+        <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
         <translatorcomment>sample = Abtastung/Abtastrate, sample geläufig genug/einzige richtige Wahl?</translatorcomment>
-        <translation>%1 -&gt; %2 Samples-Puffer mit %3 Sample-Auflösung (%4 bevorzugt) bei %5Hz</translation>
+        <translation type="unfinished">%1 -&gt; %2 Samples-Puffer mit %3 Sample-Auflösung (%4 bevorzugt) bei %5Hz</translation>
     </message>
     <message>
         <location filename="ASIOInput.cpp" line="269"/>
@@ -1683,7 +1688,7 @@ Setzt die Pfade zu den Dateien auf die Standardwerte zurück.</translation>
         <translation type="obsolete">&lt;b&gt;Dies legt die Menge an Rauschunterdrückung fest, die verwendet werden soll.&lt;/b&gt;&lt;br /&gt;Je höher dieser Wert, desto aggressiver wird stationäres Rauschen unterdrückt.</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="518"/>
+        <location filename="AudioInput.cpp" line="525"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)</source>
         <translation>Die maximal mögliche Bandbreite des Servers beträgt nur %1 kbit/s. Die Audio-Qualität wurde automatisch auf %2 kbit/s (%3ms) gesetzt</translation>
     </message>
@@ -1963,8 +1968,9 @@ Bitte beachten Sie, dass, so lange die Rückkopplung aktiv ist, Sie kein anderer
     </message>
     <message>
         <location filename="AudioOutput.ui" line="490"/>
-        <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</source>
-        <translation>&lt;b&gt;Dies legt die Varianz der Paketlatenz für den Rückkopplungs-Test fest.&lt;/b&gt;&lt;br /&gt;
+        <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
+        <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</oldsource>
+        <translation type="unfinished">&lt;b&gt;Dies legt die Varianz der Paketlatenz für den Rückkopplungs-Test fest.&lt;/b&gt;&lt;br /&gt;
 Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varianz für den Rückkopplungs-Test festlegen. Falls Sie dies zum Beispiel auf 15ms setzen, wird ein Netzwerk mit 20-35ms oder eines mit 80-95ms Latenz immitiert. Die meisten Netzverbindungen haben eine Varianz von etwa 5ms.</translation>
     </message>
     <message>
@@ -2003,8 +2009,9 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
     </message>
     <message>
         <location filename="AudioOutput.ui" line="287"/>
-        <source>The connected &quot;speakers&quot; are actually headphones.</source>
-        <translation>Die angeschlossenen Audioausgabe-Geräte sind Kopfhöhrer.</translation>
+        <source>The connected &quot;speakers&quot; are actually headphones</source>
+        <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
+        <translation type="unfinished">Die angeschlossenen Audioausgabe-Geräte sind Kopfhöhrer.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="300"/>
@@ -2135,17 +2142,17 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
 <context>
     <name>AudioOutputSample</name>
     <message>
-        <location filename="AudioOutput.cpp" line="292"/>
+        <location filename="AudioOutput.cpp" line="295"/>
         <source>Choose sound file</source>
         <translation>Wählen Sie eine Sounddatei</translation>
     </message>
     <message>
-        <location filename="AudioOutput.cpp" line="296"/>
+        <location filename="AudioOutput.cpp" line="299"/>
         <source>Invalid sound file</source>
         <translation>Ungültige Sounddatei</translation>
     </message>
     <message>
-        <location filename="AudioOutput.cpp" line="297"/>
+        <location filename="AudioOutput.cpp" line="300"/>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
         <translation>Die Datei &apos;%1&apos; kann nicht in Mumble verwendet werden. Bitte wählen Sie eine Datei mit kompatiblem Format und Kodierung.</translation>
     </message>
@@ -2552,8 +2559,9 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
     </message>
     <message>
         <location filename="AudioWizard.ui" line="444"/>
-        <source>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
-        <translation>Als nächstes müssen Sie die folgenden beiden Schieber einstellen. Die ersten paar Geräusche die Sie beim Sprechen machen sollten im grünen Bereich (definitv Sprache) landen. Während Sie sprechen sollten Sie im gelben Bereich (könnte Sprache sein) bleiben und wenn Sie nicht sprechen, sollte alles im roten Bereich (definitiv keine Sprache) bleiben.</translation>
+        <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
+        <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</oldsource>
+        <translation type="unfinished">Als nächstes müssen Sie die folgenden beiden Schieber einstellen. Die ersten paar Geräusche die Sie beim Sprechen machen sollten im grünen Bereich (definitv Sprache) landen. Während Sie sprechen sollten Sie im gelben Bereich (könnte Sprache sein) bleiben und wenn Sie nicht sprechen, sollte alles im roten Bereich (definitiv keine Sprache) bleiben.</translation>
     </message>
     <message>
         <source>Last, you need to adjust the grace time. Mumble may detect this much non-speech and still keep transmitting before it breaks off. This allows you to catch your breath while speaking.</source>
@@ -3102,8 +3110,9 @@ Auch wenn Mumble ohne Zertifikate funktioniert werden die meisten Server erwarte
     </message>
     <message>
         <location filename="Cert.ui" line="144"/>
-        <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;
+        <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
+        <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
+        <translation type="unfinished">&lt;p&gt;
 Mumble kann Zertifikate, welche im PKCS#12-Format gespeichert sind, importieren.
 Dieses Format wird beim exportieren eines Schlüssels aus Mumble verwendet, genauso wie beim exportieren von Schlüsseln aus Firefox, dem Internet Explorer, Opera usw.
 &lt;/p&gt;
@@ -3827,117 +3836,117 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
         <translation type="obsolete">LAN</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="435"/>
+        <location filename="ConnectDialog.cpp" line="450"/>
         <source>Hostname</source>
         <translation>Hostname</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="438"/>
+        <location filename="ConnectDialog.cpp" line="453"/>
         <source>Bonjour name</source>
         <translation>Bonjourname</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="441"/>
+        <location filename="ConnectDialog.cpp" line="456"/>
         <source>Port</source>
         <translation>Port</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="442"/>
+        <location filename="ConnectDialog.cpp" line="457"/>
         <source>Addresses</source>
         <translation>Adressen</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="445"/>
+        <location filename="ConnectDialog.cpp" line="460"/>
         <source>Website</source>
         <translation>Webseite</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="448"/>
+        <location filename="ConnectDialog.cpp" line="463"/>
         <source>Packet loss</source>
         <translation>Paketverlust</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="451"/>
+        <location filename="ConnectDialog.cpp" line="466"/>
         <source>Ping (80%)</source>
         <translation>Ping (80%)</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="451"/>
-        <location filename="ConnectDialog.cpp" line="453"/>
+        <location filename="ConnectDialog.cpp" line="466"/>
+        <location filename="ConnectDialog.cpp" line="468"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="453"/>
+        <location filename="ConnectDialog.cpp" line="468"/>
         <source>Ping (95%)</source>
         <translation>Ping (95%)</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="455"/>
+        <location filename="ConnectDialog.cpp" line="470"/>
         <source>Bandwidth</source>
         <translation>Bandbreite</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="455"/>
+        <location filename="ConnectDialog.cpp" line="470"/>
         <source>%1 kbit/s</source>
         <translation>%1 kbit/s</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="456"/>
+        <location filename="ConnectDialog.cpp" line="471"/>
         <location filename="ConnectDialog.ui" line="58"/>
         <source>Users</source>
         <translation>Benutzer</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="457"/>
+        <location filename="ConnectDialog.cpp" line="472"/>
         <source>Version</source>
         <translation>Version</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="700"/>
+        <location filename="ConnectDialog.cpp" line="715"/>
         <source>Connect</source>
         <translation>Verbinden</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="702"/>
+        <location filename="ConnectDialog.cpp" line="717"/>
         <location filename="ConnectDialog.ui" line="83"/>
         <source>Add New...</source>
         <translation>Server hinzufügen...</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="739"/>
+        <location filename="ConnectDialog.cpp" line="754"/>
         <source>Filters</source>
         <translation>Filter</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="823"/>
+        <location filename="ConnectDialog.cpp" line="838"/>
         <source>Connecting to %1</source>
         <translation>Verbinde zu %1</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="371"/>
-        <location filename="ConnectDialog.cpp" line="823"/>
+        <location filename="ConnectDialog.cpp" line="386"/>
+        <location filename="ConnectDialog.cpp" line="838"/>
         <source>Enter username</source>
         <translation>Benutzername eingeben</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="371"/>
+        <location filename="ConnectDialog.cpp" line="386"/>
         <source>Adding host %1</source>
         <translation>Host %1 hinzufügen</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="434"/>
+        <location filename="ConnectDialog.cpp" line="449"/>
         <location filename="ConnectDialog.ui" line="48"/>
         <source>Servername</source>
         <translation>Servername</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="1387"/>
+        <location filename="ConnectDialog.cpp" line="1402"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="1387"/>
+        <location filename="ConnectDialog.cpp" line="1402"/>
         <source>Failed to fetch server list</source>
         <translation>Serverliste konnte nicht geladen werden</translation>
     </message>
@@ -4103,15 +4112,18 @@ Name des Servers. Dies ist ein frei wählbarer Name der in der Serverliste anzei
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui" line="51"/>
-        <source>Internet address of the server. </source>
-        <translation>Internet-Adresse des Servers.</translation>
+        <source>Internet address of the server.</source>
+        <oldsource>Internet address of the server. </oldsource>
+        <translation type="unfinished">Internet-Adresse des Servers.</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui" line="54"/>
-        <source>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
-Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
+        <source>&lt;b&gt;Address&lt;/b&gt;&lt;br/&gt;
+Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
+        <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
+Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</oldsource>
         <translatorcomment>Bonjour Service Idenfitier</translatorcomment>
-        <translation>&lt;b&gt;Adresse&lt;/b&gt;&lt;br/&gt;
+        <translation type="unfinished">&lt;b&gt;Adresse&lt;/b&gt;&lt;br/&gt;
 Internet-Adresse des Servers. Dies kann ein normaler Hostname, eine IPv4/6 Adresse oder eine Bonjour-Service-Identifikation sein. Bonjour-Service-Identifikationen müssen mit einem &apos;@&apos; beginnen um von Mumble erkannt zu werden.</translation>
     </message>
     <message>
@@ -4147,6 +4159,14 @@ Port auf welchem der Server hört. Wenn eine Bonjour-Service-Identifikation verw
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
         <translation>&lt;b&gt;Benutzername&lt;/b&gt;&lt;br/&gt;
 Benutzername, welcher an den Server gesendet wird. Beachten Sie, dass jeder Serveradminstrator eigenen Einschränkungen für Benutzernamen festlegen kann. Ihr Benutzername kann außerdem bereits von einem anderen Benutzer belegt sein.</translation>
+    </message>
+</context>
+<context>
+    <name>CoreAudioSystem</name>
+    <message>
+        <location filename="CoreAudio.cpp" line="85"/>
+        <source>Default Device</source>
+        <translation type="unfinished">Standardgerät</translation>
     </message>
 </context>
 <context>
@@ -4531,7 +4551,7 @@ der möglichen Orte initialisieren.</translation>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="645"/>
+        <location filename="GlobalShortcut.cpp" line="647"/>
         <source>Shortcuts</source>
         <translation>Tastenkürzel</translation>
     </message>
@@ -4560,22 +4580,22 @@ der möglichen Orte initialisieren.</translation>
         <translation type="obsolete">Unterdrücken</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="683"/>
+        <location filename="GlobalShortcut.cpp" line="685"/>
         <source>Shortcut button combination.</source>
         <translation>Tastenkombination des Tastenkürzels.</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="684"/>
+        <location filename="GlobalShortcut.cpp" line="686"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</source>
         <translation>&lt;b&gt;Dies ist die globale Tastenkombination des Tastenkürzels.&lt;/b&gt;&lt;br /&gt;Doppelklicken Sie dieses Feld und dann die gewünschte Tastenkombination um sie neu zu setzen.</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="688"/>
+        <location filename="GlobalShortcut.cpp" line="690"/>
         <source>Suppress keys from other applications</source>
         <translation>Unterdrücke Tasten vor anderen Anwendungen</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="689"/>
+        <location filename="GlobalShortcut.cpp" line="691"/>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
         <translation>&lt;b&gt;Dies unterdrückt Tastendrücke von anderen Anwendungen.&lt;/b&gt;&lt;br /&gt;Durch Aktivierung wird der Tastendruck (oder die letzte Taste einer Mehrfachtasten-Kombination) vor anderen Anwendungen versteckt. Es können aber nicht alle Tasten unterdrückt werden.</translation>
     </message>
@@ -5022,12 +5042,12 @@ p, li { white-space: pre-wrap; }
         <translation>Benutzer verließ den Kanal</translation>
     </message>
     <message>
-        <location filename="Log.cpp" line="351"/>
+        <location filename="Log.cpp" line="352"/>
         <source>[[ Text object too large to display ]]</source>
         <translation>[[ Text zu gross um dargestellt zu werden ]]</translation>
     </message>
     <message>
-        <location filename="Log.cpp" line="380"/>
+        <location filename="Log.cpp" line="381"/>
         <source>[Date changed to %1]
 </source>
         <translation>[Datum geändert auf %1]
@@ -5217,8 +5237,8 @@ Stellen Sie sicher, dass die Sound-Hinweise für diesen Ereignistyp aktiviert si
 <context>
     <name>LookConfig</name>
     <message>
-        <location filename="LookConfig.ui" line="306"/>
-        <location filename="LookConfig.ui" line="312"/>
+        <location filename="LookConfig.ui" line="316"/>
+        <location filename="LookConfig.ui" line="322"/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
@@ -5234,12 +5254,12 @@ Stellen Sie sicher, dass die Sound-Hinweise für diesen Ereignistyp aktiviert si
         <translation>Systemstandard</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="322"/>
+        <location filename="LookConfig.ui" line="332"/>
         <source>Language to use (requires restart)</source>
         <translation>Sprachauswahl (benötigt Neustart)</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="325"/>
+        <location filename="LookConfig.ui" line="335"/>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
         <translation>&lt;b&gt;Dies legt die Sprache fest, die Mumble verwenden soll.&lt;/b&gt;&lt;br /&gt;Ein Neustart ist nötig um die neue Sprache zu nutzen.</translation>
     </message>
@@ -5310,13 +5330,24 @@ Stellen Sie sicher, dass die Sound-Hinweise für diesen Ereignistyp aktiviert si
     </message>
     <message>
         <location filename="LookConfig.ui" line="293"/>
-        <source>&lt;b&gt;If checked the chat bar is shown&lt;/b&gt;&lt;br /&gt;Uncheck to hide it</source>
-        <translation>&lt;b&gt;Wenn diese Option ausgewählt ist wird der Chat-Balken angezeigt&lt;/b&gt;</translation>
+        <source>&lt;b&gt;If checked the chat bar is shown.&lt;/b&gt;&lt;br /&gt;Uncheck this to hide it.</source>
+        <oldsource>&lt;b&gt;If checked the chat bar is shown&lt;/b&gt;&lt;br /&gt;Uncheck to hide it</oldsource>
+        <translation type="unfinished">&lt;b&gt;Wenn diese Option ausgewählt ist wird der Chat-Balken angezeigt&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="296"/>
         <source>Show chatbar</source>
         <translation>Zeige Chatbar</translation>
+    </message>
+    <message>
+        <location filename="LookConfig.ui" line="303"/>
+        <source>Show number of users in each channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LookConfig.ui" line="306"/>
+        <source>Show channel user count</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enabled advanced channel editor</source>
@@ -5349,7 +5380,7 @@ Stellen Sie sicher, dass die Sound-Hinweise für diesen Ereignistyp aktiviert si
         <translation>...</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="190"/>
+        <location filename="LookConfig.cpp" line="192"/>
         <source>Choose skin file</source>
         <translation>Wähle Skindatei</translation>
     </message>
@@ -5536,7 +5567,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="127"/>
-        <location filename="MainWindow.cpp" line="1694"/>
+        <location filename="MainWindow.cpp" line="1711"/>
         <source>Root</source>
         <translation>Wurzel</translation>
     </message>
@@ -5894,6 +5925,11 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Zeigt einen kleinen Dialog mit Informationen über Speex.</translation>
     </message>
     <message>
+        <location filename="MainWindow.ui" line="605"/>
+        <source>This will permanently register the user on the server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="MainWindow.ui" line="670"/>
         <source>Remove Texture</source>
         <translation>Textur entfernen</translation>
@@ -5948,9 +5984,8 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Registriert den Benutzer auf dem Server</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="605"/>
         <source>This will permanently register the user on the server. Note that you can&apos;t change the username later on, nor can you easily unregister a user, so make sure you really want to do this.</source>
-        <translation>Dies registriert den Benutzer permanent auf dem Server. Beachten Sie, dass Sie den Benutzernamen später nicht mehr ändern können und den Benutzer nicht einfach löschen können. Gehen Sie also sicher, dass Sie dies möchten.</translation>
+        <translation type="obsolete">Dies registriert den Benutzer permanent auf dem Server. Beachten Sie, dass Sie den Benutzernamen später nicht mehr ändern können und den Benutzer nicht einfach löschen können. Gehen Sie also sicher, dass Sie dies möchten.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="610"/>
@@ -6110,8 +6145,8 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Kicke Benutzer %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="956"/>
-        <location filename="MainWindow.cpp" line="978"/>
+        <location filename="MainWindow.cpp" line="958"/>
+        <location filename="MainWindow.cpp" line="980"/>
         <source>Enter reason</source>
         <translation>Grund eingeben</translation>
     </message>
@@ -6121,10 +6156,10 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     </message>
     <message>
         <location filename="MainWindow.cpp" line="311"/>
-        <location filename="MainWindow.cpp" line="1198"/>
-        <location filename="MainWindow.cpp" line="1778"/>
+        <location filename="MainWindow.cpp" line="1200"/>
+        <location filename="MainWindow.cpp" line="1834"/>
         <location filename="MainWindow.ui" line="14"/>
-        <location filename="main.cpp" line="297"/>
+        <location filename="main.cpp" line="299"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -6137,37 +6172,37 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Sind Sie sicher Kanal %1 und all seine Unterkanäle zu löschen?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1356"/>
+        <location filename="MainWindow.cpp" line="1373"/>
         <source>Unmuted and undeafened.</source>
         <translation>Stumm- und taubstellen ausgeschaltet.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1358"/>
+        <location filename="MainWindow.cpp" line="1375"/>
         <source>Unmuted.</source>
         <translation>Stummstellen aus.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1360"/>
+        <location filename="MainWindow.cpp" line="1377"/>
         <source>Muted.</source>
         <translation>Stumm.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1387"/>
+        <location filename="MainWindow.cpp" line="1404"/>
         <source>Muted and deafened.</source>
         <translation>Stumm- und taubgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1389"/>
+        <location filename="MainWindow.cpp" line="1406"/>
         <source>Deafened.</source>
         <translation>Taubgestellt.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1391"/>
+        <location filename="MainWindow.cpp" line="1408"/>
         <source>Undeafened.</source>
         <translation>Taubgestellt aus.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1459"/>
+        <location filename="MainWindow.cpp" line="1476"/>
         <source>About Qt</source>
         <translation>Über Qt</translation>
     </message>
@@ -6180,54 +6215,54 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Mit Server verbunden.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1807"/>
+        <location filename="MainWindow.cpp" line="1863"/>
         <source>Server connection failed: %1.</source>
         <translation>Serververbindung fehlgeschlagen: %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1809"/>
+        <location filename="MainWindow.cpp" line="1865"/>
         <source>Disconnected from server.</source>
         <translation>Verbindung zum Server unterbrochen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="623"/>
+        <location filename="MainWindow.cpp" line="625"/>
         <source>Reconnecting.</source>
         <translation>Neuverbindung.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="192"/>
+        <location filename="Messages.cpp" line="201"/>
         <source>Joined server: %1.</source>
         <translation>Server beigetreten: %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="239"/>
-        <location filename="Messages.cpp" line="289"/>
-        <location filename="Messages.cpp" line="329"/>
+        <location filename="Messages.cpp" line="248"/>
+        <location filename="Messages.cpp" line="298"/>
+        <location filename="Messages.cpp" line="338"/>
         <source>the server</source>
         <translation>der Server</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="296"/>
+        <location filename="Messages.cpp" line="305"/>
         <source>%1 moved to %2.</source>
         <translation>%1 verschoben nach %2.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="298"/>
+        <location filename="Messages.cpp" line="307"/>
         <source>%1 moved to %2 by %3.</source>
         <translation>%1 verschoben nach %2 von %3.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="308"/>
+        <location filename="Messages.cpp" line="317"/>
         <source>%1 moved in from %2 by %3.</source>
         <translation>%1 hinein verschoben von %2 von %3.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="343"/>
+        <location filename="Messages.cpp" line="352"/>
         <source>Left server: %1.</source>
         <translation>%1 hat den Server verlassen.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="221"/>
+        <location filename="Messages.cpp" line="230"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 ist jetzt stumm- und taubgestellt.</translation>
     </message>
@@ -6263,16 +6298,26 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     </message>
     <message>
         <location filename="Messages.cpp" line="175"/>
+        <source>You need a certificate to perform this operation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Messages.cpp" line="177"/>
+        <source>%1 does not have a certificate.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Messages.cpp" line="184"/>
         <source>Permission denied.</source>
         <translation>Zugriff verweigert.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="223"/>
+        <location filename="Messages.cpp" line="232"/>
         <source>%1 is now muted.</source>
         <translation>%1 ist jetzt stummgestellt.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="225"/>
+        <location filename="Messages.cpp" line="234"/>
         <source>%1 is now unmuted.</source>
         <translation>%1 ist jetzt nicht mehr stummgestellt.</translation>
     </message>
@@ -6281,73 +6326,73 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Server</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="245"/>
+        <location filename="Messages.cpp" line="254"/>
         <source>You were muted by %1.</source>
         <translation>Du wurdest von %1 stummgestellt.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="247"/>
+        <location filename="Messages.cpp" line="256"/>
         <source>You were suppressed by %1.</source>
         <translation>Sprachunterdrückung aktiv, durch %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="249"/>
+        <location filename="Messages.cpp" line="258"/>
         <source>You were unsuppressed by %1.</source>
         <translation>Ihre Sprachunterdrückung wurde %1 aufgehoben.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="251"/>
+        <location filename="Messages.cpp" line="260"/>
         <source>You were unmuted by %1.</source>
         <translation>Stummgestellt sein wurde von %1 deaktiviert.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="256"/>
+        <location filename="Messages.cpp" line="265"/>
         <source>You deafened %1.</source>
         <translation>Sie haben %1 stumm und taubgestellt.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="258"/>
+        <location filename="Messages.cpp" line="267"/>
         <source>You muted %1.</source>
         <translation>Sie haben %1 stummgestellt.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="260"/>
+        <location filename="Messages.cpp" line="269"/>
         <source>You unsuppressed %1.</source>
         <translation>Sie haben die Sprachunterdrückung von %1 aufgehoben.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="262"/>
+        <location filename="Messages.cpp" line="271"/>
         <source>You unmuted %1.</source>
         <translation>Sie haben %1 das Stumm-Flag entfernt.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="268"/>
+        <location filename="Messages.cpp" line="277"/>
         <source>%1 muted by %2.</source>
         <translation>%1 von %2 stummgestellt.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="270"/>
+        <location filename="Messages.cpp" line="279"/>
         <source>%1 unsuppressed by %2.</source>
         <translation>Die Sprachunterdrückung von %1 wurde von %2 aufgehoben.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="272"/>
+        <location filename="Messages.cpp" line="281"/>
         <source>%1 unmuted by %2.</source>
         <translation>Stummstellung von %1 durch %2 aufgehoben.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="427"/>
+        <location filename="Messages.cpp" line="436"/>
         <source>the server</source>
         <comment>message from</comment>
         <translation>Server</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="566"/>
+        <location filename="Messages.cpp" line="575"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Es wurde kein, für alle Benutzer, passender CELT-Codec gefunden. Sie werden nicht zu allen Benutzern sprechen können.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="243"/>
+        <location filename="Messages.cpp" line="252"/>
         <source>You were deafened by %1.</source>
         <translation>Du wurdest von %1 taubgestellt.</translation>
     </message>
@@ -6356,7 +6401,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Taubstellen von %1 deaktiviert.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="266"/>
+        <location filename="Messages.cpp" line="275"/>
         <source>%1 deafened by %2.</source>
         <translation>%1 wurde von %2 taubgestellt.</translation>
     </message>
@@ -6365,27 +6410,27 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Taubstellen von %1 durch %2 deaktiviert.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="336"/>
+        <location filename="Messages.cpp" line="345"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Du wurdest von %1 vom Server gekickt: %2.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="341"/>
+        <location filename="Messages.cpp" line="350"/>
         <source>%3 was kicked from the server by %1: %2.</source>
         <translation>%3 wurde von %1 vom Server gekickt: %2.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="334"/>
+        <location filename="Messages.cpp" line="343"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
         <translation>Du wurdest von %1 vom Server gekickt und gebannt: %2.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="339"/>
+        <location filename="Messages.cpp" line="348"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
         <translation>%3 wurde von %1 vom Server gekickt und gebannt: %2.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="293"/>
+        <location filename="Messages.cpp" line="302"/>
         <source>You were moved to %1 by %2.</source>
         <translation>Sie wurden von %2 nach %1 verschoben.</translation>
     </message>
@@ -6406,7 +6451,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">%1 wurde von %2 rausgeschoben.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="306"/>
+        <location filename="Messages.cpp" line="315"/>
         <source>%1 entered channel.</source>
         <translation>%1 betrat den Kanal.</translation>
     </message>
@@ -6420,12 +6465,12 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Serververbindung abgelehnt : %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="173"/>
+        <location filename="Messages.cpp" line="182"/>
         <source>Denied: %1.</source>
         <translation>Abgelehnt: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="280"/>
+        <location filename="main.cpp" line="282"/>
         <source>Welcome to Mumble.</source>
         <translation>Willkommen in Mumble.</translation>
     </message>
@@ -6544,53 +6589,53 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Plugin trennen</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="391"/>
+        <location filename="MainWindow.cpp" line="393"/>
         <source>File is not a configuration file.</source>
         <translation>Die Datei ist keine Konfigurationsdatei.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="422"/>
+        <location filename="MainWindow.cpp" line="424"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
         <translation>Diese Version von Mumble kann keine URLs von Mumble Version %1.%2.%3 verarbeiten</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="461"/>
-        <location filename="MainWindow.cpp" line="613"/>
+        <location filename="MainWindow.cpp" line="463"/>
+        <location filename="MainWindow.cpp" line="615"/>
         <source>Connecting to server %1.</source>
         <translation>Zu Server %1 verbinden.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="698"/>
+        <location filename="MainWindow.cpp" line="700"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protokoll %1.%2.%3.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="703"/>
+        <location filename="MainWindow.cpp" line="705"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Keine Build- oder Betriebssystem-Informationen verfügbar.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="705"/>
+        <location filename="MainWindow.cpp" line="707"/>
         <source>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="709"/>
+        <location filename="MainWindow.cpp" line="711"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Kontrollkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit %1 bit %2&lt;br /&gt;%3 ms Durchschnittslatenz (%4 Abweichung)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="718"/>
+        <location filename="MainWindow.cpp" line="720"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Sprachkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit 128 bit OCB-AES128&lt;br /&gt;%1 ms Durchschnittslatenz (%4 Abweichung)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="729"/>
+        <location filename="MainWindow.cpp" line="731"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Audio-Bandbreite&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Derzeit %2 kbit/s&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1996"/>
+        <location filename="MainWindow.cpp" line="2051"/>
         <source>Images (*.png *.jpg)</source>
         <translation>Bilddateien (*.png *.jpg)</translation>
     </message>
@@ -6603,92 +6648,112 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Öffnen der Bilddatei fehlgeschlagen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="911"/>
+        <location filename="MainWindow.cpp" line="913"/>
         <source>Register yourself as %1</source>
         <translation>Sich selbst als %1 registrieren</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="911"/>
+        <location filename="MainWindow.cpp" line="913"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Sie sind dabei sich auf dem Server zu registrieren. Diese Aktion kann nicht rückgängig gemacht werden und Ihr Benutzername &apos;%1&apos; auf diesem Server kann von Ihnen selbst nicht mehr geändert werden.&lt;/p&gt;&lt;p&gt;Sind Sie sicher, dass Sie sich selbst registrieren möchten?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="913"/>
+        <location filename="MainWindow.cpp" line="915"/>
         <source>Register user %1</source>
         <translation>Benutzer %1 registrieren</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="913"/>
+        <location filename="MainWindow.cpp" line="915"/>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Sie sind dabei %1 auf dem Server zu registrieren. Diese Aktion kann nicht rückgängig gemacht werden und %1 wird sich, auch wenn Sie Ihr Serverpasswort ändern, weiterhin mit dem Server verbinden können.&lt;/p&gt;
 &lt;p&gt;Von diesem Punkt an wird %1 mit dem Zertifikat welches er momentan verwendet, authentifiziert.&lt;/p&gt;
 &lt;p&gt;Sind Sie sicher, dass Sie %1 registrieren möchten?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="956"/>
+        <location filename="MainWindow.cpp" line="958"/>
         <source>Kicking user %1</source>
         <translation>Benutzer %1 kicken</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="978"/>
+        <location filename="MainWindow.cpp" line="980"/>
         <source>Banning user %1</source>
         <translation>Benutzer %1 bannen</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1027"/>
+        <location filename="MainWindow.cpp" line="1029"/>
         <source>Change comment on user %1</source>
         <translation>Ändert den Kommentar für Benutzer %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1070"/>
-        <location filename="MainWindow.cpp" line="1287"/>
+        <location filename="MainWindow.cpp" line="1072"/>
+        <location filename="MainWindow.cpp" line="1289"/>
         <source>To channel %1: %2</source>
         <translation>Zum Kanal %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1070"/>
-        <location filename="MainWindow.cpp" line="1287"/>
+        <location filename="MainWindow.cpp" line="1072"/>
+        <location filename="MainWindow.cpp" line="1289"/>
         <source>Message to channel %1</source>
         <translation>Nachricht an Kanal %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1198"/>
+        <location filename="MainWindow.cpp" line="1200"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Sind Sie sicher, dass Sie %1 und alle Unterkanäle löschen möchten?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1688"/>
+        <location filename="MainWindow.cpp" line="1705"/>
         <source>Connected.</source>
         <translation>Verbunden.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1918"/>
+        <location filename="MainWindow.cpp" line="1783"/>
+        <source>SSL Version mismatch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="1783"/>
+        <source>This server is using an older encryption standard. It might be an older 1.1 based Mumble server.&lt;br /&gt;Would you like to launch the compatibility client to connect to it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="1815"/>
+        <source>Failed to launch compatibilty client</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="1815"/>
+        <source>The compatibility client could not be found, or failed to start.&lt;br /&gt;Note that the compatibility client is an optional component for most installations, and might not be installed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="1973"/>
         <source>Type message to channel &apos;%1&apos; here</source>
         <translation>Geben Sie hier Ihre Nachricht an Kanal &apos;%1&apos; ein</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1921"/>
+        <location filename="MainWindow.cpp" line="1976"/>
         <source>Type message to user &apos;%1&apos; here</source>
         <translation>Geben Sie hier Ihre Nachricht an den Benutzer &apos;%1&apos; ein</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1996"/>
+        <location filename="MainWindow.cpp" line="2051"/>
         <source>Choose image file</source>
         <translation>Bilddatei wählen</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2003"/>
-        <location filename="MainWindow.cpp" line="2015"/>
+        <location filename="MainWindow.cpp" line="2058"/>
+        <location filename="MainWindow.cpp" line="2070"/>
         <source>Failed to load image</source>
         <translation>Fehler beim Laden des Bildes</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2003"/>
+        <location filename="MainWindow.cpp" line="2058"/>
         <source>Could not open file for reading.</source>
         <translation>Konnte Datei nicht zum Lesen öffnen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2015"/>
+        <location filename="MainWindow.cpp" line="2070"/>
         <source>Image format not recognized.</source>
         <translation>Bildformat wurde nicht erkannt.</translation>
     </message>
@@ -6729,19 +6794,19 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Sende eine Text-Nachricht an einen anderen Benutzer.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1000"/>
+        <location filename="MainWindow.cpp" line="1002"/>
         <source>Sending message to %1</source>
         <translation>Sende Nachricht an %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1013"/>
-        <location filename="MainWindow.cpp" line="1074"/>
+        <location filename="MainWindow.cpp" line="1015"/>
+        <location filename="MainWindow.cpp" line="1076"/>
         <source>To %1: %2</source>
         <translation>An %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1013"/>
-        <location filename="MainWindow.cpp" line="1074"/>
+        <location filename="MainWindow.cpp" line="1015"/>
+        <location filename="MainWindow.cpp" line="1076"/>
         <source>Message to %1</source>
         <translation>Nachricht an %1</translation>
     </message>
@@ -6750,42 +6815,42 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Ändere Beschreibung von Kanal %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1822"/>
+        <location filename="MainWindow.cpp" line="1877"/>
         <source>Invalid username</source>
         <translation>Ungültiger Benutzername</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1822"/>
+        <location filename="MainWindow.cpp" line="1877"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>Sie haben sich mit ungültigem Benutzernamen verbunden. Bitte benutzen Sie einen anderen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1822"/>
+        <location filename="MainWindow.cpp" line="1877"/>
         <source>That username is already in use, please try another username.</source>
         <translation>Dieser Benutzername ist bereits vergeben. Bitte benutzen Sie einen anderen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1827"/>
+        <location filename="MainWindow.cpp" line="1882"/>
         <source>Wrong password</source>
         <translation>Falsches Passwort</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1827"/>
+        <location filename="MainWindow.cpp" line="1882"/>
         <source>Wrong password for registered users, please try again.</source>
         <translation>Falsches Passwort für registrierte Benutzer. Bitte versuchen Sie es noch einmal.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1827"/>
+        <location filename="MainWindow.cpp" line="1882"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Falsches Serverpasswort für unregistrierte Benutzer. Bitte versuchen Sie es noch einmal.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="428"/>
+        <location filename="Messages.cpp" line="437"/>
         <source>From %1: %2</source>
         <translation>Von %1: %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="429"/>
+        <location filename="Messages.cpp" line="438"/>
         <source>Message from %1</source>
         <translation>Nachricht von %1</translation>
     </message>
@@ -6877,8 +6942,9 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     </message>
     <message>
         <location filename="MainWindow.ui" line="347"/>
-        <source>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
-        <translation>Dies verbindet den aktuellen Kanal mit dem Gewählten. Wenn Spieler Spracherlaubnis im anderen Kanal haben, so können sie sich jetzt gegenseitig hören. Dies ist eine permanente Verbindung die solange bestehen bleibt, bis die Verknüpfung manuell aufgehoben oder der Server neu gestartet wird.</translation>
+        <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
+        <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
+        <translation type="unfinished">Dies verbindet den aktuellen Kanal mit dem Gewählten. Wenn Spieler Spracherlaubnis im anderen Kanal haben, so können sie sich jetzt gegenseitig hören. Dies ist eine permanente Verbindung die solange bestehen bleibt, bis die Verknüpfung manuell aufgehoben oder der Server neu gestartet wird.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="466"/>
@@ -6891,17 +6957,17 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Dies leitet Sie durch den Hardware-Konfigurationsprozess.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1765"/>
+        <location filename="MainWindow.cpp" line="1821"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL-Überprüfung fehlgeschlagen: %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1770"/>
+        <location filename="MainWindow.cpp" line="1826"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;WARNUNG:&lt;/b&gt; Der Server hat ein Zertifikat gesendet, das sich vom für diesen Server gespeicherten Zertifikat unterscheidet.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1772"/>
+        <location filename="MainWindow.cpp" line="1828"/>
         <source>Sever presented a certificate which failed verification.</source>
         <translation>Der Server hat Zertifikat gesendet, dessen Überprüfung gescheitert ist.</translation>
     </message>
@@ -6930,7 +6996,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">&lt;li&gt;&lt;b&gt;Bundesstaat:&lt;/b&gt; %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1779"/>
+        <location filename="MainWindow.cpp" line="1835"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Die Fehler dieses Zertifikats sind: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Wollen Sie dieses Zertifikat trotzdem akzeptieren?&lt;br /&gt;(Es wird auch abgespeichert, weshalb Sie nicht wieder gefragt werden.)&lt;/p&gt;</translation>
     </message>
@@ -6950,7 +7016,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Dies zeigt erweitertete Informationen über die Verbindung zum Server an.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="731"/>
+        <location filename="MainWindow.cpp" line="733"/>
         <source>Mumble Server Information</source>
         <translation>Mumble - Server Informationen</translation>
     </message>
@@ -6959,8 +7025,8 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">Kontrollkanal: %1 ms Latenz. Verschlüsselt mit %3 bit %4&lt;br /&gt;Sprachkanal: %2 ms Latenz, verschlüsselt mit OCB-AES128</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="735"/>
-        <location filename="MainWindow.cpp" line="1786"/>
+        <location filename="MainWindow.cpp" line="737"/>
+        <location filename="MainWindow.cpp" line="1842"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Zertifikat zeigen</translation>
     </message>
@@ -7018,7 +7084,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     </message>
     <message>
         <location filename="MainWindow.cpp" line="264"/>
-        <location filename="MainWindow.cpp" line="1912"/>
+        <location filename="MainWindow.cpp" line="1967"/>
         <source>Not connected</source>
         <translation>Nicht verbunden</translation>
     </message>
@@ -7032,22 +7098,22 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">Diese Datei ist keine Konfigurationsdatei.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="397"/>
+        <location filename="MainWindow.cpp" line="399"/>
         <source>Settings merged from file.</source>
         <translation>Einstellungen aus Datei eingelesen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="403"/>
+        <location filename="MainWindow.cpp" line="405"/>
         <source>URL scheme is not &apos;mumble&apos;</source>
         <translation>URL-Schema ist nicht &apos;mumble&apos;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="448"/>
+        <location filename="MainWindow.cpp" line="450"/>
         <source>Connecting to %1</source>
         <translation>Verbinde zu %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="448"/>
+        <location filename="MainWindow.cpp" line="450"/>
         <source>Enter username</source>
         <translation>Benutzernamen eingeben</translation>
     </message>
@@ -7064,7 +7130,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">Dies benennt einen Kanal um.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="297"/>
+        <location filename="main.cpp" line="299"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>Dies ist das erste Mal, dass Sie Mumble starten.&lt;br /&gt;Wollen Sie den Audio-Assistenten starten, um Ihre Soundkarte zu konfigurieren?</translation>
     </message>
@@ -7073,7 +7139,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">&lt;h2&gt;Kontrollkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit %1 Bit %2&lt;br /&gt;%3 ms Durchschnittslatenz (%4 Varianz)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="716"/>
+        <location filename="MainWindow.cpp" line="718"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Sprachkanal wird über den Kontrollkanal gesendet.</translation>
     </message>
@@ -7082,37 +7148,37 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">&lt;h2&gt;Sprachkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit 128 Bit OCB-AES128&lt;br /&gt;%1 ms Durchschnittslatenz (%4 Varianz)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="725"/>
+        <location filename="MainWindow.cpp" line="727"/>
         <source>UDP Statistics</source>
         <translation>UDP-Statistiken</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="725"/>
+        <location filename="MainWindow.cpp" line="727"/>
         <source>To Server</source>
         <translation>Zum Server</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="725"/>
+        <location filename="MainWindow.cpp" line="727"/>
         <source>From Server</source>
         <translation>Vom Server</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="725"/>
+        <location filename="MainWindow.cpp" line="727"/>
         <source>Good</source>
         <translation>Gut</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="725"/>
+        <location filename="MainWindow.cpp" line="727"/>
         <source>Late</source>
         <translation>Spät</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="725"/>
+        <location filename="MainWindow.cpp" line="727"/>
         <source>Lost</source>
         <translation>Verloren</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="725"/>
+        <location filename="MainWindow.cpp" line="727"/>
         <source>Resync</source>
         <translation>Neu Synchronisieren</translation>
     </message>
@@ -7155,7 +7221,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Über &amp;Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1270"/>
+        <location filename="MainWindow.cpp" line="1272"/>
         <source>Sending message to channel %1</source>
         <translation>Sende Nachricht an Kanal %1</translation>
     </message>
@@ -7164,12 +7230,12 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">Sende Nachricht an Kanalbaum %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1285"/>
+        <location filename="MainWindow.cpp" line="1287"/>
         <source>To tree %1: %2</source>
         <translation>Von Baum %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1285"/>
+        <location filename="MainWindow.cpp" line="1287"/>
         <source>Message to tree %1</source>
         <translation>Nachricht an Baum %1</translation>
     </message>
@@ -7276,12 +7342,12 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="1244"/>
+        <location filename="UserModel.cpp" line="1248"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Die Kanal-Ziehen-Aktion wurde auf &quot;Nichts tun&quot; gesetzt. Der Kanal wird also nicht bewegt.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="1250"/>
+        <location filename="UserModel.cpp" line="1254"/>
         <source>Unknown Channel Drag mode in UserModel::dropMimeData.</source>
         <translation>Unbekannter Kanal-Verschiebe-Modus in UserModel::dropMimeData.</translation>
     </message>
@@ -7361,94 +7427,109 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="45"/>
+        <source>Enable QoS to prioritize packets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="48"/>
+        <source>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="51"/>
+        <source>Use Quality of Service</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="NetworkConfig.ui" line="58"/>
         <source>Reconnect when disconnected</source>
         <translation>Nach Verbindungsabbruch erneut verbinden</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="48"/>
+        <location filename="NetworkConfig.ui" line="61"/>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
         <translation>&lt;b&gt;Neuverbinden nach Verbindungsabbruch&lt;/b&gt;.&lt;br /&gt;Ist dieses Feld aktiviert führt Mumble beim Abbruch der Serververbindung eine automatische Neuverbindung nach 10 Sekunden durch.</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="51"/>
+        <location filename="NetworkConfig.ui" line="64"/>
         <source>Reconnect automatically</source>
         <translation>Automatisch Neuverbinden</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="58"/>
+        <location filename="NetworkConfig.ui" line="71"/>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
         <translation>Schicke kein Zertifikat zum Server und speichere keine Passwörter (Wird nicht gespeichert).</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="61"/>
+        <location filename="NetworkConfig.ui" line="74"/>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
         <translation>&lt;b&gt;Dies verhindert das senden von Identitäts-Informationen vom Client.&lt;/b&gt;
 &lt;p&gt;Der Client wird sich nicht mit einem Zertifikat identifizieren, selbst wenn der Zugriff dann verweigert wird, und wird keine Passwörter für Verbindungen zwischenspeichern. Dies ist hauptsächlich eine Test-Option und wird daher nicht gespeichert.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="64"/>
+        <location filename="NetworkConfig.ui" line="77"/>
         <source>Suppress certificate and password storage</source>
         <translation>Zertifikats- und Passwort-Speicherung unterdrücken</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="80"/>
+        <location filename="NetworkConfig.ui" line="93"/>
         <source>Proxy</source>
         <translation>Proxy</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="86"/>
+        <location filename="NetworkConfig.ui" line="99"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="99"/>
+        <location filename="NetworkConfig.ui" line="112"/>
         <source>Type of proxy to connect through</source>
         <translation>Art des Proxys durch den verbunden werden soll</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="102"/>
+        <location filename="NetworkConfig.ui" line="115"/>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
         <translation>&lt;b&gt;Proxytyp über den verbunden wird.&lt;/b&gt;&lt;br/&gt;
 Dies lässt Mumble für alle ausgehenden Verbindungen über einen Proxy verbinden. Beachten Sie: Proxy tunneling zwingt Mumble in den TCP-Kompatibilitätsmodus was zur Folge hat, dass alle Sprach-Daten über den Kontrollkanal gesandt werden.</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="143"/>
+        <location filename="NetworkConfig.ui" line="156"/>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
         <translation>&lt;b&gt;Hostname des Proxys.&lt;/b&gt;&lt;br/&gt;
 Dieses Feld legt den Hostnamen des Proxys, durch welchen Sie die Netzwerk Daten versenden möchten, fest.</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="284"/>
+        <location filename="NetworkConfig.ui" line="297"/>
         <source>Check for new releases of Mumble automatically.</source>
         <translation>Überprüfe automatisch, ob eine neue Mumble Version verfügbar ist.</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="287"/>
+        <location filename="NetworkConfig.ui" line="300"/>
         <source>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</source>
         <translation>Dies wird bei jedem Start des Programms auf neue Mumble Versionen prüfen und Sie, sofern es welche gibt, darüber informieren.</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="290"/>
+        <location filename="NetworkConfig.ui" line="303"/>
         <source>Check for application updates on startup</source>
         <translation>Überprüfe beim Start ob Updates verfügbar sind</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="297"/>
+        <location filename="NetworkConfig.ui" line="310"/>
         <source>Check for new releases of plugins automatically.</source>
         <translation>Überprüfe automatisch, ob aktualisierte Plugins verfügbar sind.</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="300"/>
+        <location filename="NetworkConfig.ui" line="313"/>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
         <translation>Dies veranlasst Mumble bei jedem Programmstart auf neue Plugin-Versionen zu prüfen und diese gegebenenfalls automatisch herunterzuladen.</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="303"/>
+        <location filename="NetworkConfig.ui" line="316"/>
         <source>Download plugin updates on startup</source>
         <translation>Plugin Updates beim Starten herunterladen</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="313"/>
+        <location filename="NetworkConfig.ui" line="326"/>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
         <translation>&lt;b&gt;Anonyme Statistiken senden&lt;/b&gt;&lt;br/&gt;
 Mumble hat ein kleines Entwickler-Team. Deshalb muss die verfügbare Zeit auf die wichtigsten Dinge konzentriert werden. Indem Sie einige anonymisierte Daten senden, helfen Sie beim festlegen der Entwicklungsprioritäten.</translation>
@@ -7458,27 +7539,27 @@ Mumble hat ein kleines Entwickler-Team. Deshalb muss die verfügbare Zeit auf di
         <translation type="obsolete">&lt;b&gt;Art des Proxys durch den verbunden werden soll&lt;/b&gt;&lt;br /&gt;Dies lässt Mumble alle ausgehenden Verbindungen durch einen Proxy gehen. Beachten Sie, dass Proxytunneling Mumble in den TCP Kompatibilitätsmodus zwingt, was alle Sprachdaten über den Kontrollkanal sendet.</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="106"/>
+        <location filename="NetworkConfig.ui" line="119"/>
         <source>Direct connection</source>
         <translation>Direkte Verbindung</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="111"/>
+        <location filename="NetworkConfig.ui" line="124"/>
         <source>HTTP(S) proxy</source>
         <translation>HTTP(S) Proxy</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="116"/>
+        <location filename="NetworkConfig.ui" line="129"/>
         <source>SOCKS5 proxy</source>
         <translation>SOCKS5 Proxy</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="124"/>
+        <location filename="NetworkConfig.ui" line="137"/>
         <source>Hostname</source>
         <translation>Hostname</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="140"/>
+        <location filename="NetworkConfig.ui" line="153"/>
         <source>Hostname of the proxy</source>
         <translation>Hostname des Proxys</translation>
     </message>
@@ -7487,62 +7568,62 @@ Mumble hat ein kleines Entwickler-Team. Deshalb muss die verfügbare Zeit auf di
         <translation type="obsolete">&lt;b&gt;Hostname des Proxys.&lt;/b&gt;&lt;br /&gt;Dieses Feld spezifiert den Hostnamen des Proxys durch den Netzwerkverkehr getunnelt werden soll.</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="165"/>
+        <location filename="NetworkConfig.ui" line="178"/>
         <source>Port</source>
         <translation>Port</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="190"/>
+        <location filename="NetworkConfig.ui" line="203"/>
         <source>Port number of the proxy</source>
         <translation>Portnummer des Proxys</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="193"/>
+        <location filename="NetworkConfig.ui" line="206"/>
         <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
         <translation>&lt;b&gt;Portnummer des Proxys.&lt;/b&gt;&lt;br /&gt;Dieses Feld spezifiert die Portnummer auf der der Proxy eine Verbindung erwartet.</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="209"/>
+        <location filename="NetworkConfig.ui" line="222"/>
         <source>Username</source>
         <translation>Benutzername</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="216"/>
+        <location filename="NetworkConfig.ui" line="229"/>
         <source>Username for proxy authentication</source>
         <translation>Benutzername für Proxy-Authentisierung</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="219"/>
+        <location filename="NetworkConfig.ui" line="232"/>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
         <translation>&lt;b&gt;Benutzername für Proxy-Authentisierung.&lt;/b&gt;&lt;br /&gt;Dieses Feld spezifiert den Benutzernamen mit dem Sie sich beim Proxy authentisieren. Falls der Proxy keine Authentisierung verwendet, oder Sie sich anonym verbinden wollen, lassen Sie das Feld frei.</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="226"/>
+        <location filename="NetworkConfig.ui" line="239"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="233"/>
+        <location filename="NetworkConfig.ui" line="246"/>
         <source>Password for proxy authentication</source>
         <translation>Passwort für Proxy-Authentisierung</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="236"/>
+        <location filename="NetworkConfig.ui" line="249"/>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
         <translation>&lt;b&gt;Passwort für Proxy-Authentisierung.&lt;/b&gt;&lt;br /&gt;Dieses Feld spezifiert das Passwort welches zur Authentisierung mit dem Proxy verwendet wird. Falls der Proxy keine Authentisierung verwendet oder Sie sich anonym verbinden wollen, lassen Sie das Feld frei.</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="255"/>
+        <location filename="NetworkConfig.ui" line="268"/>
         <source>Misc</source>
         <translation>Verschiedenes</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="261"/>
+        <location filename="NetworkConfig.ui" line="274"/>
         <source>Prevent log from downloading images</source>
         <translation>Eingebettete Bilddateien nicht herunterladen</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="264"/>
+        <location filename="NetworkConfig.ui" line="277"/>
         <source>&lt;b&gt;Disable image download&lt;/b&gt;&lt;br/&gt;
 Prevents the client from downloading images embedded into chat messages with the img tag.</source>
         <oldsource>&lt;b&gt;Disable image download&lt;b&gt;&lt;br/&gt;
@@ -7551,12 +7632,12 @@ Prevents the client from downloading images embedded into chat messages with the
 Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten eingebunden sind.</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="268"/>
+        <location filename="NetworkConfig.ui" line="281"/>
         <source>Disable image download</source>
         <translation>Eingebettete Bilddateien nicht herunterladen</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="278"/>
+        <location filename="NetworkConfig.ui" line="291"/>
         <source>Mumble services</source>
         <translation>Mumble Dienste</translation>
     </message>
@@ -7565,7 +7646,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation type="obsolete">Prüfe bei Start ob neue Updates verfügbar sind</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="310"/>
+        <location filename="NetworkConfig.ui" line="323"/>
         <source>Submit anonymous statistics to the Mumble project</source>
         <translation>Sende anonyme Statistiken an das Mumble Projekt</translation>
     </message>
@@ -7574,7 +7655,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation type="obsolete">&lt;b&gt;Sende anonyme Statistiken.&lt;/b&gt;&lt;br /&gt;Mumble hat ein kleines Entwicklungsteam und als solches muss es sich auf die Entwicklungen konzentrieren, die am meisten benötigt werden. Durch das Senden von Statistiken helfen Sie dem Projekt festzustellen, wohin die Entwicklung führen soll.</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="316"/>
+        <location filename="NetworkConfig.ui" line="329"/>
         <source>Submit anonymous statistics</source>
         <translation>Sende anonyme Statistiken</translation>
     </message>
@@ -7641,8 +7722,8 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="179"/>
-        <location filename="Overlay.cpp" line="191"/>
+        <location filename="Overlay.cpp" line="192"/>
+        <location filename="Overlay.cpp" line="204"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -7657,7 +7738,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
 - Sie nicht die Juni 2007 Version von DX9.0c installiert haben</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="179"/>
+        <location filename="Overlay.cpp" line="192"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
@@ -7666,7 +7747,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
 - Sie ein Betriebssystem vor WinXP SP2 benutzen</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="191"/>
+        <location filename="Overlay.cpp" line="204"/>
         <source>Failed to initialize overlay memory. This usually means that the shared memory is locked by the OS, and you need to reboot to release it.</source>
         <translation>Das Initialisieren des Overlay-Speichers ist fehlgeschlagen. Das heißt meistens, dass der Gemeinsame Speicher (shared memory) vom Betriebssystem gesperrt ist und Sie neu starten müssen um ihn freizugeben.</translation>
     </message>
@@ -7815,8 +7896,9 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     </message>
     <message>
         <location filename="Overlay.ui" line="29"/>
-        <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</source>
-        <translation>Dies legt fest ob das Overlay aktiv ist oder nicht. Diese Einstellung wird nur überprüft wenn Anwendungen gestartet werden, stellen Sie also sicher, dass Mumble läuft und die Option aktiviert ist, bevor Sie die andere Applikation, in welcher das Overlay erscheinen soll, starten.&lt;br/&gt;
+        <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
+        <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
+        <translation type="unfinished">Dies legt fest ob das Overlay aktiv ist oder nicht. Diese Einstellung wird nur überprüft wenn Anwendungen gestartet werden, stellen Sie also sicher, dass Mumble läuft und die Option aktiviert ist, bevor Sie die andere Applikation, in welcher das Overlay erscheinen soll, starten.&lt;br/&gt;
 Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das Overlay deaktivieren während die Applikation läuft gibt es keinen sicheren Weg das Overlay wieder zu starten ohne die Applikation neu zu starten.</translation>
     </message>
     <message>
@@ -7881,7 +7963,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation>Farbe für aktive Kanäle</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="138"/>
+        <location filename="Overlay.cpp" line="142"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
@@ -7901,30 +7983,30 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation>Zeigen Jeden</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="118"/>
+        <location filename="Overlay.cpp" line="122"/>
         <location filename="Overlay.ui" line="231"/>
         <source>Color for users</source>
         <translation>Farbe für Benutzer</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="122"/>
+        <location filename="Overlay.cpp" line="126"/>
         <location filename="Overlay.ui" line="245"/>
         <source>Color for talking users</source>
         <translation>Farbe für sprechende Benutzer</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="126"/>
+        <location filename="Overlay.cpp" line="130"/>
         <location filename="Overlay.ui" line="266"/>
         <source>Color for whispering users</source>
         <translation>Farbe für flüsternde Benutzer</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="130"/>
+        <location filename="Overlay.cpp" line="134"/>
         <source>Color for channels</source>
         <translation>Farbe für Kanäle</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="134"/>
+        <location filename="Overlay.cpp" line="138"/>
         <source>Color for active channels</source>
         <translation>Farbe für aktive Kanäle</translation>
     </message>
@@ -8208,12 +8290,12 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
 <context>
     <name>RichTextEditor</name>
     <message>
-        <location filename="RichTextEditor.cpp" line="235"/>
+        <location filename="RichTextEditor.cpp" line="240"/>
         <source>Failed to load image</source>
         <translation>Laden des Bildes fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="RichTextEditor.cpp" line="235"/>
+        <location filename="RichTextEditor.cpp" line="240"/>
         <source>Image file too large to embed in document. Please use images smaller than %1 kB.</source>
         <translation>Bilddatei zu groß um Sie im Dokument einzubetten. Bitte verwenden Sie Bilder kleiner als %1 kB.</translation>
     </message>
@@ -8313,17 +8395,17 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation type="obsolete">UDP Pakete konnten nicht vom Server empfangen werden. Wechsel zum TCP-Modus.</translation>
     </message>
     <message>
-        <location filename="ServerHandler.cpp" line="367"/>
+        <location filename="ServerHandler.cpp" line="369"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>UDP Pakete können nicht gesendet oder vom Server nicht empfangen werden. Wechsle zu TCP-Modus.</translation>
     </message>
     <message>
-        <location filename="ServerHandler.cpp" line="371"/>
+        <location filename="ServerHandler.cpp" line="373"/>
         <source>UDP packets cannot be received from the server. Switching to TCP mode.</source>
         <translation>UDP Pakete können vom Server nicht empfangen werden. Wechsle in den TCP-Modus.</translation>
     </message>
     <message>
-        <location filename="ServerHandler.cpp" line="378"/>
+        <location filename="ServerHandler.cpp" line="380"/>
         <source>UDP packets can be sent to and received from the server. Switching back to UDP mode.</source>
         <translation>UDP Pakete können zum Server gesendet und vom Server empfangen werden. Wechsle zurück in den UDP-Modus.</translation>
     </message>
@@ -8382,22 +8464,22 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="572"/>
+        <location filename="GlobalShortcut.cpp" line="574"/>
         <source>On</source>
         <translation>An</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="574"/>
+        <location filename="GlobalShortcut.cpp" line="576"/>
         <source>Off</source>
         <translation>Aus</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="576"/>
+        <location filename="GlobalShortcut.cpp" line="578"/>
         <source>Toggle</source>
         <translation>Wechseln</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="582"/>
+        <location filename="GlobalShortcut.cpp" line="584"/>
         <source>Unassigned</source>
         <translation>Nicht zugewiesen</translation>
     </message>
@@ -8436,42 +8518,42 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
 <context>
     <name>ShortcutTargetWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="454"/>
+        <location filename="GlobalShortcut.cpp" line="455"/>
         <source>...</source>
         <translation>…</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="491"/>
+        <location filename="GlobalShortcut.cpp" line="493"/>
         <source>, </source>
         <translation>, </translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="497"/>
+        <location filename="GlobalShortcut.cpp" line="499"/>
         <source>Root</source>
         <translation>Wurzel</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="499"/>
+        <location filename="GlobalShortcut.cpp" line="501"/>
         <source>Parent</source>
         <translation>Vaterkanal</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="501"/>
+        <location filename="GlobalShortcut.cpp" line="503"/>
         <source>Current</source>
         <translation>Aktueller Kanal</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="503"/>
+        <location filename="GlobalShortcut.cpp" line="505"/>
         <source>Subchannel #%1</source>
         <translation>Unterkanal #%1</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="510"/>
+        <location filename="GlobalShortcut.cpp" line="512"/>
         <source>Invalid</source>
         <translation>Ungültig</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="513"/>
+        <location filename="GlobalShortcut.cpp" line="515"/>
         <source>&lt;Empty&gt;</source>
         <translation>&lt;Leer&gt;</translation>
     </message>
@@ -8600,145 +8682,145 @@ Ein Zugriffscode ist ein Textstück, welches als Passwort für sehr einfaches Zu
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="520"/>
+        <location filename="UserModel.cpp" line="524"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Dies ist ein zum Server verbundener Benutzer. Das Icon links vom Benutzer zeigt, ob der Benutzer spricht oder nicht:</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="521"/>
+        <location filename="UserModel.cpp" line="525"/>
         <source>Talking to your channel.</source>
         <translation>Spricht zu Ihrem Kanal.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="522"/>
+        <location filename="UserModel.cpp" line="526"/>
         <source>Whispering directly to your channel.</source>
         <translation>Flüstert direkt zu Ihrem Kanal.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="523"/>
+        <location filename="UserModel.cpp" line="527"/>
         <source>Whispering directly to you.</source>
         <translation>Flüstert direkt zu Ihnen.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="524"/>
+        <location filename="UserModel.cpp" line="528"/>
         <source>Not talking.</source>
         <translation>Spricht nicht.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="532"/>
+        <location filename="UserModel.cpp" line="536"/>
         <source>This is a channel on the server. The icon indicates the state of the channel:</source>
         <translation>Dies ist ein Kanal auf dem Server. Das Icon zeigt den Zustand des Kanals:</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="533"/>
+        <location filename="UserModel.cpp" line="537"/>
         <source>Your current channel.</source>
         <translation>Ihr aktueller Kanal.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="534"/>
+        <location filename="UserModel.cpp" line="538"/>
         <source>A channel that is linked with your channel. Linked channels can talk to each other.</source>
         <translation>Ein Kanal welcher mit Ihrem Kanal verknüpft ist. Benutzer in verknüpften Kanälen können miteinander sprechen.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="535"/>
+        <location filename="UserModel.cpp" line="539"/>
         <source>A channel on the server that you are not linked to.</source>
         <translation>Ein Kanal auf dem Server mit dem Sie nicht verknüpft sind.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="551"/>
+        <location filename="UserModel.cpp" line="555"/>
         <source>This shows the flags the user has on the server, if any:</source>
         <translation>Dies zeigt die Attribute, welche der Benutzer auf dem Server hat (sofern er welche hat):</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="552"/>
+        <location filename="UserModel.cpp" line="556"/>
         <source>On your friend list</source>
         <translation>Auf deiner Freundesliste</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="553"/>
+        <location filename="UserModel.cpp" line="557"/>
         <source>Authenticated user</source>
         <translation>Authentifizierter Benutzer</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="554"/>
+        <location filename="UserModel.cpp" line="558"/>
         <source>Muted (manually muted by self)</source>
         <translation>Stumm gestellt (selbst)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="555"/>
+        <location filename="UserModel.cpp" line="559"/>
         <source>Muted (manually muted by admin)</source>
         <translation>Stumm gestellt (von Admin)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="556"/>
+        <location filename="UserModel.cpp" line="560"/>
         <source>Muted (not allowed to speak in current channel)</source>
         <translation>Stumm (darf im aktuellen Kanal nicht sprechen)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="557"/>
+        <location filename="UserModel.cpp" line="561"/>
         <source>Muted (muted by you, only on your machine)</source>
         <translation>Stumm gestellt (von Ihnen, nur für Sie)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="559"/>
+        <location filename="UserModel.cpp" line="563"/>
         <source>Deafened (by self)</source>
         <translation>Taub gestellt (selbst)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="560"/>
+        <location filename="UserModel.cpp" line="564"/>
         <source>Deafened (by admin)</source>
         <translation>Taub gestellt (von Admin)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="561"/>
+        <location filename="UserModel.cpp" line="565"/>
         <source>User has a new comment set (click to show)</source>
         <translation>Benutzer hat einen neuen Kommentar gesetzt (klicken um anzusehen)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="570"/>
+        <location filename="UserModel.cpp" line="574"/>
         <source>Channel has a new comment set (click to show)</source>
         <translation>Kanal hat einen neuen Kommentar (klicken um anzusehen)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="1328"/>
-        <location filename="UserModel.cpp" line="1348"/>
+        <location filename="UserModel.cpp" line="1332"/>
+        <location filename="UserModel.cpp" line="1352"/>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
         <translation>Kann dieses Verschieben nicht automatisiert ausführen. Bitte setzen Sie die Kanalpositionswert zurück oder setzen Sie sie manuell.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="562"/>
+        <location filename="UserModel.cpp" line="566"/>
         <source>User has a comment set, which you&apos;ve already seen. (click to show)</source>
         <translation>Benutzer hat einen Kommentar gesetzt, welchen Sie schon gesehen haben. (klicken um anzusehen)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="569"/>
+        <location filename="UserModel.cpp" line="573"/>
         <source>This shows the flags the channel has, if any:</source>
         <translation>Dies zeigt die Attribute, welche der Kanal hat (sofern vorhanden):</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="571"/>
+        <location filename="UserModel.cpp" line="575"/>
         <source>Channel has a comment set, which you&apos;ve already seen. (click to show)</source>
         <translation>Kanal hat einen Kommentar gesetzt, welchen Sie bereits gesehen haben. (klicken um anzusehen)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="589"/>
+        <location filename="UserModel.cpp" line="593"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="591"/>
+        <location filename="UserModel.cpp" line="595"/>
         <source>Flags</source>
         <translation>Attribute</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="1238"/>
-        <location filename="UserModel.cpp" line="1328"/>
-        <location filename="UserModel.cpp" line="1348"/>
+        <location filename="UserModel.cpp" line="1242"/>
+        <location filename="UserModel.cpp" line="1332"/>
+        <location filename="UserModel.cpp" line="1352"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="1238"/>
+        <location filename="UserModel.cpp" line="1242"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Sind Sie sicher, dass Sie den Kanal verschieben möchten?</translation>
     </message>
