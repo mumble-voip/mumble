@@ -91,7 +91,7 @@ struct MetaParams {
 	QMap<QString, QString> qmConfig;
 
 	unsigned int uiUid, uiGid;
-	
+
 	QSettings *qsSettings;
 
 	MetaParams();

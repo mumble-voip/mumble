@@ -219,8 +219,7 @@ void ServerItem::init() {
 }
 
 #if QT_VERSION < 0x040500
-void ServerItem::emitDataChanged()
-{
+void ServerItem::emitDataChanged() {
 	static QVariant emitDataChangedQVariants[] = { QVariant(0), QVariant(1) };
 
 	m_emitDataChanged = !m_emitDataChanged;

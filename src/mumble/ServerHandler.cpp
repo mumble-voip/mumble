@@ -149,7 +149,7 @@ void ServerHandler::udpReady() {
 		}
 
 		PacketDataStream pds(buffer + 1, buflen-5);
-		
+
 		MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((buffer[0] >> 5) & 0x7);
 		unsigned int msgFlags = buffer[0] & 0x1f;
 
@@ -249,8 +249,8 @@ void ServerHandler::run() {
 	connect(cConnection.get(), SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(setSslErrors(const QList<QSslError> &)));
 
 	bUdp = false;
-	
-	
+
+
 	qtsSock->setProtocol(QSsl::TlsV1);
 	qtsSock->connectToHostEncrypted(qsHostName, usPort);
 

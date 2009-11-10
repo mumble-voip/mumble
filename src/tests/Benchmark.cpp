@@ -100,8 +100,8 @@ void Client::sendMessage(const ::google::protobuf::Message &msg, unsigned int ms
 	int len = msg.ByteSize();
 	Q_ASSERT(len < 4090);
 
-        * reinterpret_cast<quint16 *>(& uc[0]) = qToBigEndian(static_cast<quint16>(msgType));
-        * reinterpret_cast<quint32 *>(& uc[2]) = qToBigEndian(static_cast<quint32>(len));
+	* reinterpret_cast<quint16 *>(& uc[0]) = qToBigEndian(static_cast<quint16>(msgType));
+	* reinterpret_cast<quint32 *>(& uc[2]) = qToBigEndian(static_cast<quint32>(len));
 
 	msg.SerializeToArray(uc + 6, len);
 
@@ -186,7 +186,7 @@ void Client::readyRead() {
 			unsigned char buff[65536];
 			Q_ASSERT(want < 65536);
 			ssl->read(reinterpret_cast<char *>(buff), want);
-			
+
 
 			avail = ssl->bytesAvailable();
 

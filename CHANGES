@@ -1,12 +1,104 @@
+2009-11-11
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    bd33712  .ts file update
+    a59ce15  Don't distribute older celt versions in tarball either
+    f765851  Initialize ucFlags properly
+    786ed67  First check SSL cert errors, THEN check the SSL version
+
+2009-11-10
+  Ludwig Nussel <ludwig.nussel@suse.de>
+    7dae3ed  silence integer/pointer cast warning
+    1b2647b  Qt 4.4 doesn't have emitDataChanged(), the function is the
+	     replacement
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    3efd3dd  Fix reference to two sliders in Audio Wizard VAD strings.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    0917b0a  Deny category dragging
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    7e4ce0e  Build only 0.7.0, 0.6.1 etc are deprecated for the beta
+    505e774  Source string fixes from naproxeno
+    9239379  Punctuation fixes for tooltips
+    2f7e430  Use TLSv1 on server
+    75b9256  Use CONFIG+=packaged when building official packages from git
+    6fdad28  TLSv1 by default -- fallback to 1.1.x for SSLv3
+    8b0549b  Display bitrate correctly for Speex, and default to 2x10ms
+	     packets
+    64d16b8  Remove input policy from dist list
+
+  Spaccaossi <spaccaossi@users.sourceforge.net>
+    aed4569  Italian translation for 1.2
+
+2009-11-09
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    0a0c83f  Add overlay safety checks for 11x too
+    51f4bf3  Update benchmark test
+    997c5f3  Fix player removing from overlay when they disconnect
+    52aead7  Use UAC NSIS plugin
+
+2009-11-08
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    0bfaea9  Updated Spanish translation.
+
+  meanracoon <racoon@meanclan.org>
+    6db9fb1  Dutch Installer Translation
+
+2009-11-07
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    4c5930b  Make channel moving require ChanACL::Write privileges.
+
+  Ludwig Nussel <ludwig.nussel@suse.de>
+    e2a8a20  allow to disable crash report dialog
+    c7f93ed  fix build with qt 4.4
+    317a2bf  add support for certificate directories
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    1ef709d  show user count on channels
+    966f34d  fix memory leak with ptt audio cue
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    72d78aa  Arch-dependant library load on Win32
+    e5dab47  Make celtbuilds symlinks
+    ede39c7  Ice options in murmur.ini
+    5e71c19  Use 0x040500 instead of QT_VERSION_CHECK()
+    cf437d9  Make no-crash-report a config option
+    b46694b  And fix the same leak in speech itself.
+    47f8d8f  Usr \r\n on Win32 for murmur.ini
+
+2009-11-06
+  Mikkel Krautz <mikkel@krautz.dk>
+    8dcb531  Catch and handle kCGEventTapDisabledByTimeout Snow Leopard
+	     behavior in GlobalShortcutMac.
+    af80da5  Catch 'disable' events in GlobalShortctMac.
+    13e7d21  Allow Default Device in CoreAudio to be translated.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    3a6e97a  pass commandline arguments to Ice
+
+2009-11-05
+  arcenciel <arcenciel@users.sourceforge.net>
+    cd3e90f  fixed japanese translation
+
+2009-11-04
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    bf23ffc  Show client versions in the log
+
 2009-11-03
   arcenciel <arcenciel@users.sourceforge.net>
     26d77a2  Japanese Installer Translation
     48d03a5  Japanese Translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    5f07255  Add workaround for Chrome cut&paste URL on Win32
     e3aae8c  If not connected, use highest codec version
     c9117e1  Use SO_PRIORITY on nix to set packet queue priority
     2ea8ede  Clientside QoS option
+
+2009-11-02
+  Karl Dietz <dekarl@users.sourceforge.net>
+    e0c0609  stabilty improvements
 
 2009-11-01
   Stefan Hacker <dd0t@users.sourceforge.net>
@@ -33,6 +125,7 @@
 	     operations to normal and founder users.
 
   Kissaki <kissaki@gmx.de>
+    91f536b  fix some obvious English text issues
     c9112a2  German Translation
 
   Spaccaossi <spaccaossi@users.sourceforge.net>

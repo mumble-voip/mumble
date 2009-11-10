@@ -408,7 +408,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 
 	iMissCount = 0;
 	iMissedFrames = 0;
-	
+
 	ucFlags = 0;
 
 	jbJitter = jitter_buffer_init(iFrameSize);

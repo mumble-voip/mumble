@@ -104,24 +104,24 @@ FARPROC WINAPI delayHook(unsigned dliNotify, PDelayLoadInfo pdli) {
 	size_t length = strlen(pdli->szDll);
 	if (length < 5)
 		return 0;
-		
+
 	size_t buflen = length + 10;
-	
+
 	STACKVAR(char, filename, buflen);
 	strcpy_s(filename, buflen, pdli->szDll);
-	
+
 	size_t offset = 0;
-	
+
 	if (_stricmp(filename + length - 4, ".dll") == 0)
 		offset = length-4;
 	else
 		offset = length;
-	
+
 	HMODULE hmod = 0;
 
 	// SSE?
 	if (cpuinfo[3] & 0x02000000) {
-		// SSE2?	
+		// SSE2?
 		if (cpuinfo[3] & 0x04000000) {
 			// And SSE3?
 			if (cpuinfo[2] & 0x00000001) {

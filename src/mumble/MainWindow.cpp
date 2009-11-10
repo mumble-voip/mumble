@@ -1777,7 +1777,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	pmModel->removeAll();
 	qtvUsers->setRowHidden(0, QModelIndex(), true);
 
-		
+
 	if (! g.sh->qlErrors.isEmpty()) {
 		foreach(QSslError e, g.sh->qlErrors)
 			g.l->log(Log::ServerDisconnected, tr("SSL Verification failed: %1").arg(e.errorString()));
@@ -1849,7 +1849,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 					executable.replace(idx, 6, QLatin1String("mumble11x"));
 					if (QProcess::startDetached(executable, args))
 						this->close();
-						return;
+					return;
 				}
 			}
 			QMessageBox::critical(this, tr("Failed to launch compatibilty client"), tr("The compatibility client could not be found, or failed to start.<br />Note that the compatibility client is an optional component for most installations, and might not be installed."), QMessageBox::Ok, QMessageBox::Ok);

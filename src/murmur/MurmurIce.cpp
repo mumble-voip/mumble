@@ -193,13 +193,13 @@ MurmurIce::MurmurIce() {
 		ipp->setProperty(u8(v), u8(::Meta::mp.qsSettings->value(v).toString()));
 	}
 	::Meta::mp.qsSettings->endGroup();
-	
+
 	Ice::PropertyDict props = ippProperties->getPropertiesForPrefix("");
 	Ice::PropertyDict::iterator i;
-	for(i=props.begin(); i != props.end(); ++i) {
+	for (i=props.begin(); i != props.end(); ++i) {
 		ipp->setProperty((*i).first, (*i).second);
 	}
-	
+
 	Ice::InitializationData idd;
 	idd.properties = ipp;
 

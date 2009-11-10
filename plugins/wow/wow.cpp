@@ -86,41 +86,39 @@ float getFloat(uint32_t ptr) {
 
 int getCStringN(uint32_t ptr, char *buffer, size_t buffersize) {
 	SIZE_T r;
-	BOOL ok = ReadProcessMemory (h, (void *)ptr, buffer, buffersize, &r);
+	BOOL ok = ReadProcessMemory(h, (void *)ptr, buffer, buffersize, &r);
 
 	/* safety net, just in case we didn't get a string back at all */
 	buffer[buffersize-1] = '\0';
 
 	if (ok && (r == buffersize)) {
-		return strlen (buffer);
+		return strlen(buffer);
 	} else {
 		return 0;
 	}
 }
 
-int getString (uint32_t ptr, std::string &buffer)
-{
+int getString(uint32_t ptr, std::string &buffer) {
 	char buf[1024];
 	int bufLength;
 
-	bufLength = getCStringN (ptr, buf, sizeof(buf));
+	bufLength = getCStringN(ptr, buf, sizeof(buf));
 	buffer = buf;
 
 	return bufLength;
 }
 
-int getWString (uint32_t ptr, std::wstring &buffer)
-{
+int getWString(uint32_t ptr, std::wstring &buffer) {
 	char buf[1024];
 	int bufLength;
 	wchar_t wbuf[1024];
 	int wbufLength;
 
-	bufLength = getCStringN (ptr, buf, sizeof(buf));
-	wbufLength = MultiByteToWideChar (CP_UTF8, 0,
-		buf, bufLength,
-		wbuf, 1024);
-	buffer.assign (wbuf, wbufLength);
+	bufLength = getCStringN(ptr, buf, sizeof(buf));
+	wbufLength = MultiByteToWideChar(CP_UTF8, 0,
+	                                 buf, bufLength,
+	                                 wbuf, 1024);
+	buffer.assign(wbuf, wbufLength);
 
 	return 0;
 }
@@ -131,14 +129,14 @@ void getDebug16(uint32_t ptr) {
 	unsigned char buf[16];
 	SIZE_T r;
 	BOOL ok=ReadProcessMemory(h, (void *)ptr, &buf, sizeof(buf), &r);
-	if (ok && (r == sizeof (buf))) {
-		printf ("%08x: %02x%02x%02x%02x %02x%02x%02x%02x %02x%02x%02x%02x %02x%02x%02x%02x\n",
-			ptr,
-			buf[0], buf[1], buf[2], buf[3],
-			buf[4], buf[5], buf[6], buf[7],
-			buf[8], buf[9], buf[10], buf[11],
-			buf[12], buf[13], buf[14], buf[15]
-		);
+	if (ok && (r == sizeof(buf))) {
+		printf("%08x: %02x%02x%02x%02x %02x%02x%02x%02x %02x%02x%02x%02x %02x%02x%02x%02x\n",
+		       ptr,
+		       buf[0], buf[1], buf[2], buf[3],
+		       buf[4], buf[5], buf[6], buf[7],
+		       buf[8], buf[9], buf[10], buf[11],
+		       buf[12], buf[13], buf[14], buf[15]
+		      );
 	}
 #endif
 }
@@ -188,8 +186,8 @@ static const unsigned long nameStringOffset    = 0x020;  // Offset to the C stri
 void getPlayerName(std::wstring &identity) {
 	unsigned long mask, base, offset, current, shortGUID, testGUID;
 
-	mask = getInt32 (nameStorePtr + nameMaskOffset);
-	base = getInt32 (nameStorePtr + nameBaseOffset);
+	mask = getInt32(nameStorePtr + nameMaskOffset);
+	base = getInt32(nameStorePtr + nameBaseOffset);
 
 	shortGUID = g_playerGUID & 0xffffffff;  // Only half the guid is used to check for a hit
 	if (mask == 0xffffffff) {
@@ -216,9 +214,8 @@ void getPlayerName(std::wstring &identity) {
 	getWString(current + nameStringOffset, identity);
 }
 
-void getRealmName(std::string &context)
-{
-	getString (STATIC_REALMNAME, context);
+void getRealmName(std::string &context) {
+	getString(STATIC_REALMNAME, context);
 }
 
 void getCamera(float camera_pos[3], float camera_front[3], float camera_top[3]) {
@@ -255,59 +252,59 @@ void getCamera(float camera_pos[3], float camera_front[3], float camera_top[3]) 
 
 
 typedef class WowData {
-	std::wstring nameAvatar;
-	bool nameAvatarValid;
+		std::wstring nameAvatar;
+		bool nameAvatarValid;
 
-	std::string nameRealm;
-	bool nameRealmValid;
+		std::string nameRealm;
+		bool nameRealmValid;
 
-	uint64_t playerGUID;
-	uint32_t pointerPlayerObject;
+		uint64_t playerGUID;
+		uint32_t pointerPlayerObject;
 
-public:
-	WowData::WowData () {
-		refresh ();
-	}
-
-	void WowData::updateAvatarName () {
-		getPlayerName (nameAvatar);
-		if (!nameAvatar.empty ()) {
-			int temp = nameAvatar.length();
-			nameAvatarValid = true;
-		} else {
-			nameAvatarValid = false;
+	public:
+		WowData::WowData() {
+			refresh();
 		}
-	}
 
-	void WowData::updateRealmName () {
-		getRealmName (nameRealm);
-		if (!nameRealm.empty ()) {
-			nameRealmValid = true;
-		} else {
+		void WowData::updateAvatarName() {
+			getPlayerName(nameAvatar);
+			if (!nameAvatar.empty()) {
+				int temp = nameAvatar.length();
+				nameAvatarValid = true;
+			} else {
+				nameAvatarValid = false;
+			}
+		}
+
+		void WowData::updateRealmName() {
+			getRealmName(nameRealm);
+			if (!nameRealm.empty()) {
+				nameRealmValid = true;
+			} else {
+				nameRealmValid = false;
+			}
+		}
+
+		std::wstring getNameAvatar() {
+			if (!nameAvatarValid) {
+				updateAvatarName();
+			}
+
+			return nameAvatar;
+		}
+
+		std::string getNameRealm() {
+			if (!nameRealmValid) {
+				updateRealmName();
+			}
+
+			return nameRealm;
+		}
+
+		void refresh() {
+			nameAvatarValid = false;
 			nameRealmValid = false;
 		}
-	}
-
-	std::wstring getNameAvatar () {
-		if (!nameAvatarValid) {
-			updateAvatarName ();
-		}
-
-		return nameAvatar;
-	}
-
-	std::string getNameRealm () {
-		if (!nameRealmValid) {
-			updateRealmName ();
-		}
-
-		return nameRealm;
-	}
-
-	void refresh () {
-		nameAvatarValid = false;
-		nameRealmValid = false;
-	}
 } WowData_t;
 
 WowData_t wow;
@@ -328,7 +325,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		p_playerBase=getPlayerBase();
 		if (tempGUID != g_playerGUID) {
 			/* GUID of actor changed, likely a character and/or realm change */
-			wow.refresh ();
+			wow.refresh();
 		}
 		peekGUID=getInt64(p_playerBase+0x30);
 		if (g_playerGUID != peekGUID) {
@@ -336,8 +333,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			return true;
 		}
 	}
-	context = wow.getNameRealm ();
-	identity = wow.getNameAvatar ();
+	context = wow.getNameRealm();
+	identity = wow.getNameAvatar();
 
 	BOOL ok = true;
 
