@@ -284,7 +284,7 @@
       <item row="0" column="3" colspan="3">
        <widget class="QCheckBox" name="qcbHeadphones">
         <property name="toolTip">
-         <string>The connected &quot;speakers&quot; are actually headphones.</string>
+         <string>The connected &quot;speakers&quot; are actually headphones</string>
         </property>
         <property name="whatsThis">
          <string>Checking this indicates that you don't have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</string>
@@ -352,7 +352,7 @@
       <item row="3" column="3">
        <widget class="QSlider" name="qsMaxDistance">
         <property name="toolTip">
-         <string>Maximum distance, beyond which speech volume won't decrease.</string>
+         <string>Maximum distance, beyond which speech volume won't decrease</string>
         </property>
         <property name="whatsThis">
          <string>This sets the maximum distance for sound calculations. When farther away than this, other users' speech volume will not decrease any further.</string>
