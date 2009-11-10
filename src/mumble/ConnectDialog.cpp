@@ -226,7 +226,6 @@ void ServerItem::emitDataChanged()
 	m_emitDataChanged = !m_emitDataChanged;
 	int sortCol = treeWidget()->header()->sortIndicatorSection();
 	setData((sortCol > 0) ? sortCol : 0, Qt::UserRole, emitDataChangedQVariants[m_emitDataChanged]);
-	QTreeWidgetItem::emitDataChanged();
 }
 #endif
 
