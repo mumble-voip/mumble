@@ -333,7 +333,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			return true;
 		}
 	}
+#ifdef _DEBUG
 	context = wow.getNameRealm();
+#else
+	context.clear();
+#endif
 	identity = wow.getNameAvatar();
 
 	BOOL ok = true;
