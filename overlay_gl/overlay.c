@@ -584,10 +584,11 @@ static void initializeLibrary() {
 		}
 		ods("Iterating dlsym table %p %p %d", symtab, strtab, nchains);
 		for (i=0;i<nchains;++i) {
+			// ELF32_ST_TYPE and ELF64_ST_TYPE are the same
 			if (ELF32_ST_TYPE(symtab[i].st_info) != STT_FUNC)
 				continue;
 			if (strcmp(strtab+symtab[i].st_name, "dlsym") == 0)
-				odlsym = lm->l_addr + symtab[i].st_value;
+				odlsym = (void*)lm->l_addr + symtab[i].st_value;
 		}
 		ods("Original dlsym at %p", odlsym);
 	}
