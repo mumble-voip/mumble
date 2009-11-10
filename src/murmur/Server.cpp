@@ -967,6 +967,7 @@ void Server::newClient() {
 
 		u->setToS();
 
+		sock->setProtocol(QSsl::TlsV1);
 		sock->startServerEncryption();
 	}
 }
