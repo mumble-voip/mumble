@@ -5,6 +5,9 @@ CONFIG *= ordered debug_and_release
   unix:!CONFIG(bundled-speex):system(pkg-config --atleast-version=1.2 speexdsp) {
 	CONFIG *= no-bundled-speex
   }
+  unix:!CONFIG(bundled-celt):system(pkg-config --atleast-version=0.7.0 celt) {
+	CONFIG *= no-bundled-celt
+  }
   !CONFIG(no-bundled-speex) {
     SUBDIRS *= speexbuild
   }
