@@ -233,8 +233,6 @@ class AppBundle(object):
 		dst = os.path.join(self.bundle, 'Contents', 'Codecs')
 		os.makedirs(dst)
 		shutil.copy('release/libcelt.0.7.0.dylib', dst)
-		shutil.copy('release/libcelt.0.6.2.dylib', dst)
-		shutil.copy('release/libcelt.0.6.1.dylib', dst)
 
 	def copy_plugins(self):
 		'''

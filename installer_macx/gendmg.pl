@@ -29,7 +29,7 @@ my $bwsp = $plist->write([dict => {
 	"ShowStatusBar" => [ false => 0 ],
 	"ShowToolbar" => [ false => 0 ],
 	"SidebarWidth" => [ integer => 192 ],
-	"WindowBounds" => [ string => "{{388, 166}, {520, 515}}" ],
+	"WindowBounds" => [ string => "{{388, 166}, {530, 525}}" ],
 }]);
 
 my $icvp = $plist->write([ dict => {
