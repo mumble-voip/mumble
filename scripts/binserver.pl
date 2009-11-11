@@ -30,7 +30,7 @@ foreach my $pro ("main.pro", "speexbuild/speexbuild.pro", "src/mumble/mumble.pro
   close(F);
 }
 
-if (($#ARGV < 0) || ($ARGV[0] ne "release")) {
+if ($#ARGV < 0) {
   open(F, "git rev-parse --short=6 origin|");
   $ver = "";
   while (<F>) {
@@ -39,6 +39,8 @@ if (($#ARGV < 0) || ($ARGV[0] ne "release")) {
   }
   close(F);
   print "REVISION $ver\n";
+} else {
+  $ver=$ARGV[0];
 }
 
 system("/usr/local/Trolltech/Qt-4.5.1/bin/qmake CONFIG+=static CONFIG+=no-client -recursive");
