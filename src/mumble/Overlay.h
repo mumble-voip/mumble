@@ -104,7 +104,7 @@ class Overlay : public QObject {
 			quint32 uiColor;
 			Decoration dDecor;
 			int iPriority;
-			TextLine(const QString &t, quint32 c, int priority = 0, unsigned int session = 0, Decoration d = None) : qsText(t), uiSession(session), iPriority(priority), uiColor(c), dDecor(d) { };
+			TextLine(const QString &t, quint32 c, int priority = 0, unsigned int session = 0, Decoration d = None) : qsText(t), uiSession(session), uiColor(c), dDecor(d), iPriority(priority) { };
 			bool operator <(const TextLine &o) const;
 		};
 
