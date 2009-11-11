@@ -149,7 +149,7 @@ foreach my $dir (@fulldirs) {
 
 delete($files{'LICENSE'});
 
-if (($#ARGV < 0) || ($ARGV[0] ne "release")) {
+if ($#ARGV < 0) {
   open(F, "git rev-parse --short=6 origin|"); 
   while (<F>) {
     chomp();   
@@ -157,6 +157,8 @@ if (($#ARGV < 0) || ($ARGV[0] ne "release")) {
   }
   close(F);
   print "REVISION $ver\n";
+} elsif ($#ARGV == 0) {
+  $ver = $ARGV[0];
 }
 
 my $tar = new Archive::Tar();
