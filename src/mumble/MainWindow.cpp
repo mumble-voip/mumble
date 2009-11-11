@@ -1852,7 +1852,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 					return;
 				}
 			}
-			QMessageBox::critical(this, tr("Failed to launch compatibilty client"), tr("The compatibility client could not be found, or failed to start.<br />Note that the compatibility client is an optional component for most installations, and might not be installed."), QMessageBox::Ok, QMessageBox::Ok);
+			QMessageBox::critical(this, tr("Failed to launch compatibility client"), tr("The compatibility client could not be found, or failed to start.<br />Note that the compatibility client is an optional component for most installations, and might not be installed."), QMessageBox::Ok, QMessageBox::Ok);
 		}
 	}
 #endif
