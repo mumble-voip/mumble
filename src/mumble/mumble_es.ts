@@ -230,8 +230,8 @@ Cuando se activa el canal que se cree se marcará como temporal. Ésto significa
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation type="unfinished">&lt;b&gt;Posición&lt;/b&gt;&lt;br/&gt;
-Este valor le permite cambiar la forma en que Mumble ordena los canales en el árbol. Un canal con un valor de &lt;i&gt;Posición&lt;/i&gt; mayor será colocado más abajo que uno con un valor de posición menor y viceversa. Si el valor de &lt;i&gt;Posición&lt;/i&gt; de dos canales es el mismo, se ordenarán alfabéticamente según su nombre.</translation>
+        <translation>&lt;b&gt;Posición&lt;/b&gt;&lt;br/&gt;
+Este valor le permite cambiar la forma en que Mumble ordena los canales en el árbol. Un canal con un valor de &lt;i&gt;Posición&lt;/i&gt; mayor será colocado debajo de aquellos con un valor de posición menor y viceversa. Si el valor de &lt;i&gt;Posición&lt;/i&gt; de dos canales es el mismo, se ordenarán alfabéticamente según su nombre.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="108"/>
@@ -244,8 +244,8 @@ Este valor le permite cambiar la forma en que Mumble ordena los canales en el á
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
         <oldsource>&lt;b&gt;Group&lt;/b&gt;&lt;br&gt;
 This is all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</oldsource>
-        <translation type="unfinished">&lt;b&gt;Grupo&lt;/b&gt;&lt;br&gt;
-Éstos son todos los grupos actualmente definidos para el canal. Para crear un nuevo grupo, tan sólo escriba el nombre y presione intro.</translation>
+        <translation>&lt;b&gt;Grupo&lt;/b&gt;&lt;br&gt;
+Éstos son todos los grupos definidos actualmente para el canal. Para crear un nuevo grupo, tan sólo escriba el nombre y presione intro.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="163"/>
@@ -776,7 +776,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
         <location filename="ASIOInput.cpp" line="227"/>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translation type="unfinished">Búfer de muestras %1 -&gt; %2, con resolución de muestras %3 (%4 preferida) a %5Hz</translation>
+        <translation>Búfer de %1 -&gt; %2 muestras, con resolución de %3 muestras (se prefieren %4) a %5Hz</translation>
     </message>
     <message>
         <location filename="ASIOInput.cpp" line="269"/>
@@ -1998,7 +1998,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
         <location filename="AudioOutput.ui" line="287"/>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
-        <translation type="unfinished">Los &quot;altavoces&quot; conectados son en realidad auriculares.</translation>
+        <translation>Los &quot;altavoces&quot; conectados son en realidad auriculares</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="300"/>
@@ -2047,7 +2047,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
         <location filename="AudioOutput.ui" line="490"/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</oldsource>
-        <translation type="unfinished">&lt;b&gt;Establece la varianza de la latencia de los paquetes para la prueba de bucle de retorno&lt;/b&gt;&lt;br /&gt;La mayoría de rutas de audio contienen algo de latencia variable. Esto le permite fijar esa varianza para la prueba de bucle de retorno. Por ejemplo, si fija esto a 15 ms, se emulará una red con 20-35 ms de latencia de ping u 80-95 ms de latencia. La mayoría de conexiones de red domésticas tienen una variancia de unos 5 ms</translation>
+        <translation>&lt;b&gt;Establece la varianza de la latencia de los paquetes para la prueba de bucle de retorno&lt;/b&gt;&lt;br /&gt;La mayoría de rutas de audio contienen algo de latencia variable. Esto le permite fijar esa varianza para la prueba de bucle de retorno. Por ejemplo, si fija esto a 15 ms, se emulará una red con 20-35 ms de latencia de ping u 80-95 ms de latencia. La mayoría de conexiones de red domésticas tienen una variancia de unos 5 ms.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="516"/>
@@ -2592,7 +2592,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
         <location filename="AudioWizard.ui" line="444"/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation type="unfinished">Ahora debe ajustar los siguientes dos controles deslizantes. Las primeras palabras que diga deberían terminar en el área verde (con certeza es habla). Mientras habla, debería permanecer en la amarilla (podria ser habla) y cuando no esté hablando, todo deberia estar en la roja (con certeza no es habla).</translation>
+        <translation>Ahora debe ajustar los siguientes dos controles deslizantes. Las primeras palabras que diga deberían terminar en el área verde (es habla con toda certeza). Mientras habla, debería permanecer en la amarilla (podria ser habla) y cuando no esté hablando, todo deberia estar en la roja (definitivamente no es habla).</translation>
     </message>
     <message>
         <source>Last, you need to adjust the grace time. Mumble may detect this much non-speech and still keep transmitting before it breaks off. This allows you to catch your breath while speaking.</source>
@@ -3121,7 +3121,7 @@ Mumble se encuentra en continuo desarrollo, y el equipo de desarrollo quiere cen
         <location filename="Cert.ui" line="144"/>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation type="unfinished">&lt;p&gt;Mumble puede importar certificados almacenados en el formato PKCS #12. Este es el formato que se usa al exportar una clave desde Mumble, y también cuando se importan claves desde FireFox, Internet Explorer, Opera, etc.&lt;/p&gt;&lt;p&gt;Si el archivo está protegido por contraseña, deberá introducir la contraseña para importar el certificado.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble puede importar certificados almacenados en el formato PKCS #12. Este es el formato que se usa al exportar una clave desde Mumble, y también cuando se importan claves desde Firefox, Internet Explorer, Opera, etc.&lt;/p&gt;&lt;p&gt;Si el archivo está protegido por contraseña, deberá introducir la contraseña para importar el certificado.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="154"/>
@@ -4075,7 +4075,7 @@ Nombre del servidor. Así es como se llamará su servidor en la lista de servido
         <location filename="ConnectDialogEdit.ui" line="51"/>
         <source>Internet address of the server.</source>
         <oldsource>Internet address of the server. </oldsource>
-        <translation type="unfinished">Dirección en Internet del servidor.</translation>
+        <translation>Dirección de Internet del servidor.</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui" line="54"/>
@@ -4083,8 +4083,8 @@ Nombre del servidor. Así es como se llamará su servidor en la lista de servido
 Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</oldsource>
-        <translation type="unfinished">&lt;b&gt;Dirección&lt;/b&gt;&lt;/br&gt;
-Dirección en Internet del servidor. Puede ser un nombre de anfitrión normal, una dirección ipv4/6 o un identificador de servicio Bonjour. Los identificadores de servicio Bonjour deben contener el prefijo &apos;@&apos; para que sean reconocidos por Mumble.</translation>
+        <translation>&lt;b&gt;Dirección&lt;/b&gt;&lt;/br&gt;
+Dirección de Internet del servidor. Puede ser un nombre de anfitrión normal, una dirección IPv4/IPv6 o un identificador de servicio Bonjour. Los identificadores de servicio Bonjour deben contener el prefijo &apos;@&apos; para que sean reconocidos por Mumble.</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui" line="62"/>
@@ -4126,7 +4126,7 @@ Nombre de usuario que se envia al servidor. Sea consciente de que el servidor pu
     <message>
         <location filename="CoreAudio.cpp" line="85"/>
         <source>Default Device</source>
-        <translation type="unfinished">Dispositivo por defecto</translation>
+        <translation>Dispositivo por defecto</translation>
     </message>
 </context>
 <context>
@@ -5504,7 +5504,7 @@ p, li { white-space: pre-wrap; }
         <location filename="LookConfig.ui" line="293"/>
         <source>&lt;b&gt;If checked the chat bar is shown.&lt;/b&gt;&lt;br /&gt;Uncheck this to hide it.</source>
         <oldsource>&lt;b&gt;If checked the chat bar is shown&lt;/b&gt;&lt;br /&gt;Uncheck to hide it</oldsource>
-        <translation type="unfinished">&lt;b&gt;Si se activa, se muestra la barra de charla&lt;/b&gt;&lt;br /&gt;Desactívelo para ocultarla</translation>
+        <translation>&lt;b&gt;Si se activa, se muestra la barra de charla&lt;/b&gt;&lt;br /&gt;Desactívelo para ocultarla.</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="296"/>
@@ -5514,12 +5514,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="LookConfig.ui" line="303"/>
         <source>Show number of users in each channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Muestra el número de usuarios en cada canal</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="306"/>
         <source>Show channel user count</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar el recuento de usuarios del canal</translation>
     </message>
     <message>
         <source>Show all configuration items</source>
@@ -5968,7 +5968,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="605"/>
         <source>This will permanently register the user on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ésto registrará al usuario permanentemente en el servidor.</translation>
     </message>
     <message>
         <source>This will permanently register the user on the server. Note that you can&apos;t change the username later on, nor can you easily unregister a user, so make sure you really want to do this.</source>
@@ -6262,12 +6262,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Messages.cpp" line="175"/>
         <source>You need a certificate to perform this operation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Necesita un certificado para realizar esta operación.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="177"/>
         <source>%1 does not have a certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 no posee un certificado.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="184"/>
@@ -6730,7 +6730,7 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.ui" line="347"/>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
-        <translation type="unfinished">Vincula su canal actual con el canal seleccionado. Si tienen permiso para hablar en el otro canal, los usuarios podrán oírse entre sí. Este vínculo es permanente, y durará hasta que se desvincule manualmente o se reinicie el servidor. Por favor, vea los método abreviados para pulsar-para-vincular.</translation>
+        <translation>Vincula su canal actual con el canal seleccionado. Si tienen permiso para hablar en el otro canal, los usuarios podrán oírse entre sí. Este vínculo es permanente, y durará hasta que se desvincule manualmente o se reinicie el servidor. Por favor, vea los método abreviados para pulsar-para-vincular.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="466"/>
@@ -6915,22 +6915,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="1783"/>
         <source>SSL Version mismatch</source>
-        <translation type="unfinished"></translation>
+        <translation>Las versiones de SSL no coinciden</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1783"/>
         <source>This server is using an older encryption standard. It might be an older 1.1 based Mumble server.&lt;br /&gt;Would you like to launch the compatibility client to connect to it?</source>
-        <translation type="unfinished"></translation>
+        <translation>Este servidor está usando un estándar de cifrado antiguo. Podría tratarse de un viejo servidor Mumble 1.1.&lt;br /&gt;¿Le gustaría iniciar el cliente de compatibilidad para conectarse a él?</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1815"/>
         <source>Failed to launch compatibilty client</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo iniciar el cliente de compatibilidad</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1815"/>
         <source>The compatibility client could not be found, or failed to start.&lt;br /&gt;Note that the compatibility client is an optional component for most installations, and might not be installed.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo encontrar el cliente de compatibilidad, o éste no se pudo iniciar.&lt;br /&gt;Fíjese en que el cliente de compatibilidad es un componente opcional para la mayoría de instalaciones, y podría no estar instalado.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1973"/>
@@ -7451,17 +7451,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="NetworkConfig.ui" line="45"/>
         <source>Enable QoS to prioritize packets</source>
-        <translation type="unfinished"></translation>
+        <translation>Activa QoS para dar prioridad a los paquetes</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="48"/>
         <source>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ésto activará QoS (&lt;i&gt;quality of service&lt;/i&gt;,calidad de servicio), lo que tratará de dar mayor prioridad a los paquetes de voz sobre el resto del tráfico.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="51"/>
         <source>Use Quality of Service</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar Calidad de Servicio (QoS)</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="71"/>
@@ -8023,7 +8023,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <location filename="Overlay.ui" line="29"/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation type="unfinished">Establece si la sobreimpresión está habilitada o no. Esta opción se comprueba sólo cuando se inician las aplicaciones, así que asegúrese de que Mumble está ejecutándose y esta opción está activada antes de que inicie la aplicación.&lt;br /&gt;Por favor, fíjese en que si inicia la aplicación después de iniciar Mumble, o si desactiva la sobreimpresión mientras se está ejecutando, no existe ninguna forma segura de reiniciar la sobreimpresión sin reiniciar también la aplicación.</translation>
+        <translation>Establece si la sobreimpresión está habilitada o no. Esta opción se comprueba sólo cuando se inician las aplicaciones, así que asegúrese de que Mumble está ejecutándose y esta opción está activada antes de que inicie la aplicación.&lt;br /&gt;Por favor, fíjese en que si inicia la aplicación después de iniciar Mumble, o si desactiva la sobreimpresión mientras se está ejecutando, no existe ninguna forma segura de reiniciar la sobreimpresión sin reiniciar también la aplicación.</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="87"/>
