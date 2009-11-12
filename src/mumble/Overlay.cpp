@@ -177,7 +177,7 @@ bool Overlay::TextLine::operator <(const Overlay::TextLine &other) const {
 	else if (iPriority > other.iPriority)
 		return false;
 
-	return qsText < other.qsText;
+	return QString::localeAwareCompare(qsText, other.qsText) < 0;
 }
 
 Overlay::Overlay() : QObject() {
