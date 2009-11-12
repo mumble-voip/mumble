@@ -127,9 +127,11 @@ unix {
 
     HEADERS *= GlobalShortcut_unix.h
     SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp
+    LIBS *= -lrt
   }
 
   !macx {
+    PKGCONFIG *= x11
     LIBS *= -lXi
   }
 

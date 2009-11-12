@@ -75,6 +75,7 @@ win32 {
 	CONFIG(debug, debug|release) {
 		QMAKE_CFLAGS *= -fstack-protector -fPIE -pie
 		QMAKE_CXXFLAGS *= -fstack-protector -fPIE -pie
+		QMAKE_LFLAGS = -Wl,--no-add-needed
 	}
 
 	QMAKE_CFLAGS *= -Wfatal-errors -Wshadow -Wconversion -Wsign-compare -fvisibility=hidden
