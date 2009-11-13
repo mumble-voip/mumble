@@ -276,7 +276,7 @@ CoreAudioInput::CoreAudioInput() {
 
 	err = AudioUnitInitialize(au);
 	if (err != noErr) {
-		qWarning("CoreAudioInput: Unable to initialize AudioUnit");
+		qWarning("CoreAudioInput: Unable to initialize AudioUnit.");
 		return;
 	}
 
@@ -358,23 +358,30 @@ CoreAudioInput::CoreAudioInput() {
 	len = sizeof(AudioValueRange);
 	err = AudioDeviceGetProperty(devId, 0, false, kAudioDevicePropertyBufferFrameSizeRange, &len, &range);
 	if (err != noErr) {
-		qWarning("CoreAudioInput. Unable to query for buffer sizes");
+		qWarning("CoreAudioInput: Unable to query for allow buffer size ranges.");
 		return;
 	}
 
 	qWarning("CoreAudioInput: BufferFrameSizeRange = (%.2f, %.2f)", range.mMinimum, range.mMaximum);
 
+	int iActualBufferLength = iMicLength;
 	val = iMicLength;
 	err = AudioDeviceSetProperty(devId, NULL, 0, false, kAudioDevicePropertyBufferFrameSize, sizeof(UInt32), &val);
 	if (err != noErr) {
-		qWarning("CoreAudioInput: Unable to set requested frame size for device.");
-		return;
+		len = sizeof(UInt32);
+		err = AudioDeviceGetProperty(devId, 0, false, kAudioDevicePropertyBufferFrameSize, &len, &val);
+		if (err != noErr) {
+			qWarning("CoreAudioInput: Unable to query device for buffer size.");
+			return;
+		}
+
+		iActualBufferLength = (int) val;
 	}
 
 	buflist.mNumberBuffers = 1;
 	AudioBuffer *b = buflist.mBuffers;
 	b->mNumberChannels = iMicChannels;
-	b->mDataByteSize = iMicSampleSize * iMicLength;
+	b->mDataByteSize = iMicSampleSize * iActualBufferLength;
 	b->mData = calloc(1, b->mDataByteSize);
 
 	err = AudioOutputUnitStart(au);
@@ -522,8 +529,6 @@ CoreAudioOutput::CoreAudioOutput() {
 	chanmasks[1] = SPEAKER_FRONT_RIGHT;
 	initializeMixer(chanmasks);
 
-	unsigned int iNumFrames = (iFrameSize * iMixerFreq) / SAMPLE_RATE;
-
 	if (eSampleFormat == SampleFloat) {
 		fmt.mFormatFlags = kAudioFormatFlagIsFloat | kAudioFormatFlagIsPacked;
 		fmt.mBitsPerChannel = sizeof(float) * 8;
@@ -560,17 +565,16 @@ CoreAudioOutput::CoreAudioOutput() {
 	len = sizeof(AudioValueRange);
 	err = AudioDeviceGetProperty(devId, 0, true, kAudioDevicePropertyBufferFrameSizeRange, &len, &range);
 	if (err != noErr) {
-		qWarning("CoreAudioOutput. Unable to query for buffer sizes");
+		qWarning("CoreAudioOutput: Unable to query for allowed buffer size ranges.");
 		return;
 	}
 
 	qWarning("CoreAudioOutput: BufferFrameSizeRange = (%.2f, %.2f)", range.mMinimum, range.mMaximum);
 
-	UInt32 val = iNumFrames;
+	UInt32 val = (iFrameSize * iMixerFreq) / SAMPLE_RATE;
 	err = AudioDeviceSetProperty(devId, NULL, 0, true, kAudioDevicePropertyBufferFrameSize, sizeof(UInt32), &val);
 	if (err != noErr) {
-		qWarning("CoreAudioOutput: Unable to set requested frame size for device.");
-		return;
+		qWarning("CoreAudioOutput: Could not set requested buffer size for device. Continuing with default.");
 	}
 
 	err = AudioOutputUnitStart(au);
