@@ -289,7 +289,7 @@ Agrega un nuevo grupo.</translation>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
         <translation>&lt;b&gt;Mienbros&lt;/b&gt;&lt;br&gt;
-Esta lista contiene todos los miembros que fueron agregados al grupo por el canal actual. Sea consciente de que ésto no incluye los miembros heredados por niveles superiores del árbol de canales. Éstos pueden encontrarse en la lista &lt;i&gt;miembros heredados&lt;/i&gt;. Para impedir que esta lista sea heredada por los canales de nivel inferior desmarque &lt;i&gt;Heredable&lt;/i&gt; o agregue manualmente los miembros a la lista &lt;i&gt;Miembros excluidos&lt;/i&gt;.</translation>
+Esta lista contiene todos los miembros que fueron agregados al grupo por el canal actual. Sepa que ésto no incluye los miembros heredados por niveles superiores del árbol de canales. Éstos pueden encontrarse en la lista &lt;i&gt;miembros heredados&lt;/i&gt;. Para impedir que esta lista sea heredada por los canales de nivel inferior desmarque &lt;i&gt;Heredable&lt;/i&gt; o agregue manualmente los miembros a la lista &lt;i&gt;Miembros excluidos&lt;/i&gt;.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="275"/>
@@ -707,7 +707,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     <message>
         <location filename="ASIOInput.ui" line="55"/>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Consulta el dispositivo seleccionado en busca de canales. Sea consciente de que muchos controladores ASIO son extremadamente poco fiables, y consultarlos podría bloquear la aplicación o el sistema.</translation>
+        <translation>Consulta el dispositivo seleccionado en busca de canales. Sepa que muchos controladores ASIO son extremadamente defectuosos, y consultarlos podría bloquear la aplicación o el sistema.</translation>
     </message>
     <message>
         <location filename="ASIOInput.ui" line="65"/>
@@ -717,7 +717,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     <message>
         <location filename="ASIOInput.ui" line="68"/>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Configura el dispositivo seleccionado. Sea consciente de que muchos controladores ASIO son extremadamente poco fiables, y consultarlos podría bloquear la aplicación o el sistema.</translation>
+        <translation>Configura el dispositivo seleccionado. Sepa que muchos controladores ASIO son extremadamente defectuosos, y consultarlos podría bloquear la aplicación o el sistema.</translation>
     </message>
     <message>
         <location filename="ASIOInput.ui" line="87"/>
@@ -2115,7 +2115,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     <message>
         <location filename="AudioOutput.ui" line="259"/>
         <source>&lt;b&gt;Decrease volume of other applications during speech.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming speech. This sets the relative volume of other applications when others are talking.</source>
-        <translation>&lt;b&gt;Baja el volumen de las otras aplicaciones durante el habla.&lt;/b&gt;&lt;br /&gt;Mumble admite la disminución del volumen de otras aplicaciones mientras hay habla entrante. Esto establece el volumen relativo de las otras aplicaciones cuando otros estan hablando.</translation>
+        <translation>&lt;b&gt;Baja el volumen de las otras aplicaciones durante el habla.&lt;/b&gt;&lt;br /&gt;Mumble puede disminuir el volumen de otras aplicaciones mientras hay habla entrante. Esto establece el volumen relativo de las otras aplicaciones cuando otros estan hablando.</translation>
     </message>
 </context>
 <context>
@@ -2426,7 +2426,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     <message>
         <location filename="AudioWizard.ui" line="14"/>
         <source>Audio Tuning Wizard</source>
-        <translation>Asistente para ajuste de audio</translation>
+        <translation>Asistente para el ajuste del audio</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="18"/>
@@ -2477,7 +2477,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     <message>
         <location filename="AudioWizard.ui" line="71"/>
         <source>This is the device your microphone is connected to.</source>
-        <translation>Este es el dispositivo al que esta conectado su micrófono.</translation>
+        <translation>Éste es el dispositivo al que esta conectado su micrófono.</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="81"/>
@@ -2576,7 +2576,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     <message>
         <location filename="AudioWizard.ui" line="390"/>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
-        <translation>Esto ayudará a Mumble averiguar cuándo está hablando. El primer paso es seleccionar qué valor de datos usar.</translation>
+        <translation>Ésto ayudará a Mumble averiguar cuándo está hablando. El primer paso es seleccionar qué valor de los datos usar.</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="421"/>
@@ -2661,7 +2661,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     <message>
         <location filename="AudioWizard.ui" line="124"/>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
-        <translation>Esto habilita la cancelación de eco del audio saliente, que beneficia a altavoces y auriculares.</translation>
+        <translation>Ésto habilita la cancelación de eco del audio saliente, que beneficia a altavoces y auriculares.</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="199"/>
@@ -2682,10 +2682,10 @@ This is the audio tuning wizard for Mumble. This will help you correctly set the
 Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.
 &lt;/p&gt;</source>
         <translation>&lt;p&gt;
-Este es el asistente para el ajuste del audio de Mumble. Le ayudará a establecer correctamente los niveles de entrada de su tarjeta de sonido, y también fijará los parámetros correctos para el procesamiento de sonido en Mumble.
+Éste es el asistente para el ajuste del audio de Mumble. Le ayudará a establecer correctamente los niveles de entrada de su tarjeta de sonido, y también fijará los parámetros correctos para el procesamiento de sonido en Mumble.
 &lt;/p&gt;
 &lt;p&gt;
-Por favor, sea consciente de que mientras este asistente esté activo, todo el audio será redirigido localmente para permitirle escucharlo, y no se enviará al servidor.
+Por favor, sepa que mientras este asistente esté activo, todo el audio será redirigido localmente para permitirle escucharlo, y no se enviará al servidor.
 &lt;/p&gt;</translation>
     </message>
     <message>
@@ -2794,7 +2794,7 @@ Mumble is under continuous development, and the development team wants to focus 
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Enhorabuena. Ahora debería estar listo para disfrutar una experiencia de sonido más rica con Mumble.
+Enhorabuena. Ya debería estar listo para disfrutar una experiencia de sonido más rica con Mumble.
 &lt;/p&gt;
 &lt;p&gt;
 Mumble se encuentra en continuo desarrollo, y el equipo de desarrollo quiere centrarse en las características que beneficien a la mayoría de usuarios. Para ello, Mumble admite el envío de estadísticas anónimas acerca de su configuración a los desarrolladores. Dichas estadísticas son esenciales para el desarrollo futuro, y para asegurar que las características que usa no queden obsoletas.
@@ -2821,7 +2821,7 @@ Mumble se encuentra en continuo desarrollo, y el equipo de desarrollo quiere cen
     <message>
         <location filename="AudioWizard.ui" line="518"/>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
-        <translation>Esto hace que se ignore la configuración de altavoces del SO y configura el posicionamiento para auriculares en su lugar.</translation>
+        <translation>Ésto hace que se ignore la configuración de altavoces del SO y configura el posicionamiento para auriculares en su lugar.</translation>
     </message>
     <message>
         <source>Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistcs are essential for future development, and also make sure the features you use aren&apos;t deprecated.</source>
@@ -4118,7 +4118,7 @@ Puerto en el que el servidor está escuchando. Si el servidor se identifica medi
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
         <translation>&lt;b&gt;Nombre de usuario&lt;/b&gt;&lt;br/&gt;
-Nombre de usuario que se envia al servidor. Sea consciente de que el servidor puede imponer restricciones acerca de que aspecto puede tener un nombre de usuario. Además, su nombre de usuario ya puede haber sido tomado por otro usuario.</translation>
+Nombre de usuario que se envia al servidor. Sepa que el servidor puede imponer restricciones acerca de que aspecto puede tener un nombre de usuario. Además, su nombre de usuario ya puede haber sido tomado por otro usuario.</translation>
     </message>
 </context>
 <context>
@@ -6430,7 +6430,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui" line="380"/>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
-        <translation>Reinicia el preprocesador de audio, incluyendo cancelación de ruido, ganancia automática y detección de actividad vocal. Si algo de pronto empeora el entorno de audio (como dejar caer el micrófono) y fue temporal, use esto para evitar tener que esperar a que se reajuste el preprocesador.</translation>
+        <translation>Reinicia el preprocesador de audio, incluyendo cancelación de ruido, ganancia automática y detección de actividad vocal. Si de pronto algo empeora el entorno de audio (como dejar caer el micrófono) y fue temporal, use esto para evitar tener que esperar a que se reajuste el preprocesador.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="120"/>
@@ -6865,7 +6865,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="711"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Canal de contro&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bit&lt;br /&gt;%3 ms de latencia media (desviación %4)&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bit&lt;br /&gt;%3 ms de latencia media (desviación %4)&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="720"/>
@@ -6935,12 +6935,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="1973"/>
         <source>Type message to channel &apos;%1&apos; here</source>
-        <translation>Escriba el mensaje al canal &apos;%1&apos; aquí</translation>
+        <translation>Escriba aquí el mensaje al canal &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1976"/>
         <source>Type message to user &apos;%1&apos; here</source>
-        <translation>Escriba el mensaje al usuario &apos;%1&apos; aquí</translation>
+        <translation>Escriba aquí el mensaje al usuario &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="2051"/>
@@ -7228,7 +7228,7 @@ p, li { white-space: pre-wrap; }
         <location filename="MainWindow.cpp" line="196"/>
         <source>This will switch the states of the in-game overlay between showing everybody, just the users who are talking, and nobody.</source>
         <comment>Global Shortcut</comment>
-        <translation>Esto conmutará el estado de la sobreimpresión durante el juego entre mostrar a todos, sólo mostrar los usuarios que están hablando, y no mostrar a nadie.</translation>
+        <translation>Esto conmutará el estado de la sobreimpresión durante el juego entre mostrar todos los usuarios, sólo mostrar los usuarios que están hablando, y no mostrar nadie.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="212"/>
@@ -7451,12 +7451,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="NetworkConfig.ui" line="45"/>
         <source>Enable QoS to prioritize packets</source>
-        <translation>Activa QoS para dar prioridad a los paquetes</translation>
+        <translation>Habilita QoS para dar prioridad a los paquetes</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="48"/>
         <source>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</source>
-        <translation>Ésto activará QoS (&lt;i&gt;quality of service&lt;/i&gt;,calidad de servicio), lo que tratará de dar mayor prioridad a los paquetes de voz sobre el resto del tráfico.</translation>
+        <translation>Ésto habilitará QoS (&lt;i&gt;quality of service&lt;/i&gt;,calidad de servicio), lo que tratará de dar mayor prioridad a los paquetes de voz sobre el resto del tráfico.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="51"/>
@@ -7930,12 +7930,12 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
     <message>
         <location filename="Overlay.ui" line="52"/>
         <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
-        <translation>Establece si mostrarse siempre a sí mismo o no. Esta opción es útil si no está mostrando a todos en la sobreimpresión, ya que entonces sólo vería su propio estado si usted está hablando, lo que no le permitiría ver si fue ensordecido o enmudecido.</translation>
+        <translation>Establece si mostrarse siempre a sí mismo o no. Esta opción es útil si no está mostrando a todos los usuarios en la sobreimpresión, ya que entonces sólo vería su propio estado si usted está hablando, lo que no le permitiría ver si fue ensordecido o enmudecido.</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="42"/>
         <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>&lt;b&gt;Establece a quién mostrar en la sobreimpresión durante el juego.&lt;/b&gt;&lt;br /&gt;Si muchas personas están conectadas al mismo canal, la lista sobreimpresionada podría ser muy larga. Use esto para acortarla.&lt;br /&gt;&lt;i&gt;Nadie&lt;/i&gt; - No mostrar a nadie (pero dejar funcionando la sobreimpresión).&lt;br /&gt;&lt;i&gt;Sólo a los que hablan&lt;/i&gt; - Sólo mostrar las personas que hablan.&lt;br /&gt;&lt;i&gt;Todos&lt;/i&gt; - Mostrar todos.</translation>
+        <translation>&lt;b&gt;Establece a quién mostrar en la sobreimpresión durante el juego.&lt;/b&gt;&lt;br /&gt;Si muchas personas están conectadas al mismo canal, la lista sobreimpresionada podría ser muy larga. Use esto para acortarla.&lt;br /&gt;&lt;i&gt;Nadie&lt;/i&gt; - No mostrar a nadie (pero dejar funcionando la sobreimpresión).&lt;br /&gt;&lt;i&gt;Sólo los que hablan&lt;/i&gt; - Sólo mostrar las personas que hablan.&lt;br /&gt;&lt;i&gt;Todos los usuarios&lt;/i&gt; - Mostrar todos los usuarios.</translation>
     </message>
     <message>
         <source>This sets the maximum width of names shown, relative to the height. If you set this to 100%, no line of text will be wider than it is high. At 500%, no line will be more than 5 times wider than its height, and so on.</source>
@@ -7979,12 +7979,12 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
     <message>
         <location filename="Overlay.cpp" line="48"/>
         <source>Show only talking</source>
-        <translation>Mostrar sólo a los que hablan</translation>
+        <translation>Mostrar sólo los que hablan</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="49"/>
         <source>Show everyone</source>
-        <translation>Mostrar a todos</translation>
+        <translation>Mostrar todos los usuarios</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="122"/>
@@ -8188,7 +8188,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
     <message>
         <location filename="Plugins.ui" line="32"/>
         <source>Link to Game and Transmit Position</source>
-        <translation>Vincularse al juego y transmitir la posición</translation>
+        <translation>Vincularse con el juego y transmitir la posición</translation>
     </message>
     <message>
         <location filename="Plugins.ui" line="59"/>
@@ -8689,7 +8689,7 @@ An access token is a text string, which can be used as a password for very simpl
 </source>
         <translation>&lt;b&gt;Ésta es una lista editable de credenciales de acceso en el servidor al que está conectado.&lt;/b&gt;
 &lt;br /&gt;
-Una credencial de acceso es una cadena de texto que puede ser usada como contraseña en los canales para una gestión de acceso muy simple. Mumble recordará las credenciales que ha usado y las volverá a enviar al servidor la próxima vez que se conecte, de manera que no tenga que introducirlas cada vez.
+Una credencial de acceso es una cadena de texto que puede ser usada como contraseña para una gestión de acceso a los canales muy simple. Mumble recordará las credenciales que ha usado y las volverá a enviar al servidor la próxima vez que se conecte, de manera que no tenga que introducirlas cada vez.
 </translation>
     </message>
     <message>
