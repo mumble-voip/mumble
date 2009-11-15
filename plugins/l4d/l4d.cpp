@@ -112,7 +112,7 @@ static int trylock() {
 	if (!h)
 		return false;
 
-	posptr = mod + 0x580548;
+	posptr = mod + 0x580588;
 	rotptr = mod + 0x4FF024;
 
 	float pos[3];

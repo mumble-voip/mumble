@@ -109,19 +109,19 @@ static int trylock() {
 
 	// Check if we really have Insurgency running
 	/*
-		position tuple:		client.dll+0x38a950  (x,y,z, float)
-		orientation tuple:	client.dll+0x38abc0  (v,h float)
+		position tuple:		client.dll+0x47171c  (x,y,z, float)
+		orientation tuple:	client.dll+0x4f1458  (v,h float)
 		ID string:			client.dll+0x31a80a = "CombatWeapon@@" (14 characters, text)
-		spawn state:        client.dll+0x3536a8  (0 when at main menu, 1 when not spawned, 4 when spawned)
+		spawn state:        client.dll+0x4aee58  (0 when at main menu, 1 when not spawned, 4 to 5 when spawned)
 	*/
 	char sMagic[14];
-	if (!peekProc(mod + 0x31a80a, sMagic, 14) || strncmp("CombatWeapon@@", sMagic, 14)!=0)
+	if (!peekProc(mod + 0x46a4b2, sMagic, 14) || strncmp("CombatWeapon@@", sMagic, 14)!=0)
 		return false;
 
 	// Remember addresses for later
-	posptr = mod + 0x38a950;
-	rotptr = mod + 0x38abc0;
-	stateptr = mod + 0x3536a8;
+	posptr = mod + 0x47171c;
+	rotptr = mod + 0x4f1458;
+	stateptr = mod + 0x4aee58;
 
 	float pos[3];
 	float rot[3];
