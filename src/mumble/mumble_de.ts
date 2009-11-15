@@ -40,7 +40,7 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation type="unfinished">&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
+        <translation>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 Dieser Wert erlaubt es Ihnen die Reihenfolge der Kanäle innerhalb des Baumes festzulegen. Ein Kanal mit einem höheren &lt;i&gt;Positionswert&lt;/i&gt; wird immer unter einem Kanal mit einem niedrigeren &lt;i&gt;Positionswert&lt;/i&gt; platziert und umgekehrt. Wenn der &lt;i&gt;Positionswert&lt;/i&gt; zweier Kanäle gleich ist, dann werden diese ihrem Namen nach alphabetisch sortiert.</translation>
     </message>
     <message>
@@ -300,7 +300,7 @@ Dieses Feld markiert den Kanal als temporär. Das heißt, dass er automatisch ge
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
         <oldsource>&lt;b&gt;Group&lt;/b&gt;&lt;br&gt;
 This is all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</oldsource>
-        <translation type="unfinished">&lt;b&gt;Gruppe&lt;/b&gt;&lt;br/&gt;
+        <translation>&lt;b&gt;Gruppe&lt;/b&gt;&lt;br/&gt;
 Dies sind alle für diesen Kanal definierten Gruppen. Um eine neue Gruppe zu erstellen geben Sie einfach deren Namen ein und drücken Enter.</translation>
     </message>
     <message>
@@ -779,7 +779,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
         <translatorcomment>sample = Abtastung/Abtastrate, sample geläufig genug/einzige richtige Wahl?</translatorcomment>
-        <translation type="unfinished">%1 -&gt; %2 Samples-Puffer mit %3 Sample-Auflösung (%4 bevorzugt) bei %5Hz</translation>
+        <translation>%1 -&gt; %2 Samples-Puffer mit %3 Sample-Auflösung (%4 bevorzugt) bei %5 Hz</translation>
     </message>
     <message>
         <location filename="ASIOInput.cpp" line="269"/>
@@ -1314,7 +1314,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <message>
         <location filename="AudioInput.ui" line="87"/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation>Dies ist das zu verwendende Audio-Eingabegerät.</translation>
+        <translation>&lt;b&gt;Dies ist das zu verwendende Audio-Eingabegerät.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Cancel Echo</source>
@@ -1970,8 +1970,8 @@ Bitte beachten Sie, dass, so lange die Rückkopplung aktiv ist, Sie kein anderer
         <location filename="AudioOutput.ui" line="490"/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</oldsource>
-        <translation type="unfinished">&lt;b&gt;Dies legt die Varianz der Paketlatenz für den Rückkopplungs-Test fest.&lt;/b&gt;&lt;br /&gt;
-Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varianz für den Rückkopplungs-Test festlegen. Falls Sie dies zum Beispiel auf 15ms setzen, wird ein Netzwerk mit 20-35ms oder eines mit 80-95ms Latenz immitiert. Die meisten Netzverbindungen haben eine Varianz von etwa 5ms.</translation>
+        <translation>&lt;b&gt;Dies legt die Varianz der Paketlatenz für den Rückkopplungs-Test fest.&lt;/b&gt;&lt;br/&gt;
+Die meisten Audiopfade haben eine variable, sich ständig Ändernde Latenz. Hiermit können Sie die Varianz für den Rückkopplungs-Test festlegen. Falls Sie dies zum Beispiel auf 15ms setzen, wird ein Netzwerk mit 20-35ms oder eines mit 80-95ms Latenz immitiert. Die meisten Netzverbindungen haben eine Varianz von etwa 5ms.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="516"/>
@@ -2011,7 +2011,7 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
         <location filename="AudioOutput.ui" line="287"/>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
-        <translation type="unfinished">Die angeschlossenen Audioausgabe-Geräte sind Kopfhöhrer.</translation>
+        <translation>Die angeschlossenen Audioausgabe-Geräte sind Kopfhöhrer</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="300"/>
@@ -2030,7 +2030,7 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
     <message>
         <location filename="AudioOutput.ui" line="355"/>
         <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>Maximale Distanz zum Benutzer, hinter der seine Lautstärke nicht mehr geringer wird.</translation>
+        <translation>Maximale Distanz zum Benutzer, hinter der seine Lautstärke nicht mehr geringer wird</translation>
     </message>
     <message>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other players&apos; speech volume will not decrease any further.</source>
@@ -2561,7 +2561,7 @@ Die meisten Audiopfade haben eine variable Latenz. Hiermit können Sie die Varia
         <location filename="AudioWizard.ui" line="444"/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation type="unfinished">Als nächstes müssen Sie die folgenden beiden Schieber einstellen. Die ersten paar Geräusche die Sie beim Sprechen machen sollten im grünen Bereich (definitv Sprache) landen. Während Sie sprechen sollten Sie im gelben Bereich (könnte Sprache sein) bleiben und wenn Sie nicht sprechen, sollte alles im roten Bereich (definitiv keine Sprache) bleiben.</translation>
+        <translation>Als nächstes müssen Sie den folgenden Schieber anpassen. Die ersten paar Geräusche die Sie beim Sprechen machen sollten im grünen Bereich (definitv Sprache) landen. Während Sie sprechen sollten Sie im gelben Bereich (könnte Sprache sein) bleiben und wenn Sie nicht sprechen, sollte alles im roten Bereich (definitiv keine Sprache) bleiben.</translation>
     </message>
     <message>
         <source>Last, you need to adjust the grace time. Mumble may detect this much non-speech and still keep transmitting before it breaks off. This allows you to catch your breath while speaking.</source>
@@ -3112,9 +3112,9 @@ Auch wenn Mumble ohne Zertifikate funktioniert werden die meisten Server erwarte
         <location filename="Cert.ui" line="144"/>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation type="unfinished">&lt;p&gt;
+        <translation>&lt;p&gt;
 Mumble kann Zertifikate, welche im PKCS#12-Format gespeichert sind, importieren.
-Dieses Format wird beim exportieren eines Schlüssels aus Mumble verwendet, genauso wie beim exportieren von Schlüsseln aus Firefox, dem Internet Explorer, Opera usw.
+Dieses Format wird beim exportieren eines Schlüssels aus Mumble verwendet, genauso wie beim exportieren von Schlüsseln aus FireFox, dem Internet Explorer, Opera usw.
 &lt;/p&gt;
 &lt;p&gt;
 Wenn die Datei passwortgeschützt ist benötigen Sie dieses, um das Zertifikat zu importieren.
@@ -4114,7 +4114,7 @@ Name des Servers. Dies ist ein frei wählbarer Name der in der Serverliste anzei
         <location filename="ConnectDialogEdit.ui" line="51"/>
         <source>Internet address of the server.</source>
         <oldsource>Internet address of the server. </oldsource>
-        <translation type="unfinished">Internet-Adresse des Servers.</translation>
+        <translation>Internet-Adresse des Servers.</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui" line="54"/>
@@ -4123,8 +4123,8 @@ Internet address of the server. This can be a normal hostname, an IPv4/IPv6 addr
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</oldsource>
         <translatorcomment>Bonjour Service Idenfitier</translatorcomment>
-        <translation type="unfinished">&lt;b&gt;Adresse&lt;/b&gt;&lt;br/&gt;
-Internet-Adresse des Servers. Dies kann ein normaler Hostname, eine IPv4/6 Adresse oder eine Bonjour-Service-Identifikation sein. Bonjour-Service-Identifikationen müssen mit einem &apos;@&apos; beginnen um von Mumble erkannt zu werden.</translation>
+        <translation>&lt;b&gt;Adresse&lt;/b&gt;&lt;br/&gt;
+Internet-Adresse des Servers. Dies kann ein normaler Hostname, eine IPv4/IPv6 Adresse oder eine Bonjour-Service-Identifikation sein. Bonjour-Service-Identifikationen müssen mit einem &apos;@&apos; beginnen um von Mumble erkannt zu werden.</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui" line="62"/>
@@ -4166,7 +4166,7 @@ Benutzername, welcher an den Server gesendet wird. Beachten Sie, dass jeder Serv
     <message>
         <location filename="CoreAudio.cpp" line="85"/>
         <source>Default Device</source>
-        <translation type="unfinished">Standardgerät</translation>
+        <translation>Standardgerät</translation>
     </message>
 </context>
 <context>
@@ -5332,7 +5332,8 @@ Stellen Sie sicher, dass die Sound-Hinweise für diesen Ereignistyp aktiviert si
         <location filename="LookConfig.ui" line="293"/>
         <source>&lt;b&gt;If checked the chat bar is shown.&lt;/b&gt;&lt;br /&gt;Uncheck this to hide it.</source>
         <oldsource>&lt;b&gt;If checked the chat bar is shown&lt;/b&gt;&lt;br /&gt;Uncheck to hide it</oldsource>
-        <translation type="unfinished">&lt;b&gt;Wenn diese Option ausgewählt ist wird der Chat-Balken angezeigt&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Wenn diese Option ausgewählt ist wird der Chat-Balken angezeigt.&lt;/b&gt;&lt;br/&gt;
+Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="296"/>
@@ -5342,12 +5343,12 @@ Stellen Sie sicher, dass die Sound-Hinweise für diesen Ereignistyp aktiviert si
     <message>
         <location filename="LookConfig.ui" line="303"/>
         <source>Show number of users in each channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige die Anzahl an Benutzern in jedem Kanal</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="306"/>
         <source>Show channel user count</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige Kanal-Benutzeranzahl</translation>
     </message>
     <message>
         <source>Enabled advanced channel editor</source>
@@ -5927,7 +5928,8 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location filename="MainWindow.ui" line="605"/>
         <source>This will permanently register the user on the server.</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>permanent auslassen?</translatorcomment>
+        <translation>Dies registriert den Benutzer permanent auf dem Server.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="670"/>
@@ -6299,12 +6301,12 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location filename="Messages.cpp" line="175"/>
         <source>You need a certificate to perform this operation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie benötigen ein Zertifikat um diese Operation auszuführen.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="177"/>
         <source>%1 does not have a certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 hat kein Zertifikat.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="184"/>
@@ -6709,22 +6711,25 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location filename="MainWindow.cpp" line="1783"/>
         <source>SSL Version mismatch</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>please improve… “mismatch”?</translatorcomment>
+        <translation>SSL Versions Diskrepanz</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1783"/>
         <source>This server is using an older encryption standard. It might be an older 1.1 based Mumble server.&lt;br /&gt;Would you like to launch the compatibility client to connect to it?</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Server verwendet einen älteren Verschlüsselungsstandard. Es könnte ein älterer 1.1 basierter Mumble Server sein.&lt;br/&gt;
+Möchten Sie die Kompatibilitätsversion starten und zu ihm verbinden?</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1815"/>
         <source>Failed to launch compatibilty client</source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte die Kompatibilitätsversion nicht starten</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1815"/>
         <source>The compatibility client could not be found, or failed to start.&lt;br /&gt;Note that the compatibility client is an optional component for most installations, and might not be installed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Kompatibilitätsversion konnte nicht gefunden oder nicht gestartet werden.&lt;br/&gt;
+Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den meisten Installationen ist und möglicherweise nicht mit installiert wurde.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1973"/>
@@ -6944,7 +6949,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <location filename="MainWindow.ui" line="347"/>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
-        <translation type="unfinished">Dies verbindet den aktuellen Kanal mit dem Gewählten. Wenn Spieler Spracherlaubnis im anderen Kanal haben, so können sie sich jetzt gegenseitig hören. Dies ist eine permanente Verbindung die solange bestehen bleibt, bis die Verknüpfung manuell aufgehoben oder der Server neu gestartet wird.</translation>
+        <translation>Dies verbindet den aktuellen Kanal mit dem Gewählten. Wenn Benutzer Spracherlaubnis auch im anderen Kanal haben, so können sie sich jetzt, mit jenen aus dem anderen Kanal, gegenseitig hören. Dies ist eine permanente Verbindung die so lange bestehen bleibt, bis die Verknüpfung manuell aufgehoben oder der Server neu gestartet wird.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="466"/>
@@ -7428,17 +7433,17 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location filename="NetworkConfig.ui" line="45"/>
         <source>Enable QoS to prioritize packets</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviere QoS um Pakete zu priorisieren</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="48"/>
         <source>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies aktiviert QoS, welches versucht Audio-Pakete höher zu priorisieren als anderen Netzwerkverkehr.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="51"/>
         <source>Use Quality of Service</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwende Quality of Service (QoS)</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="58"/>
@@ -7898,7 +7903,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <location filename="Overlay.ui" line="29"/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation type="unfinished">Dies legt fest ob das Overlay aktiv ist oder nicht. Diese Einstellung wird nur überprüft wenn Anwendungen gestartet werden, stellen Sie also sicher, dass Mumble läuft und die Option aktiviert ist, bevor Sie die andere Applikation, in welcher das Overlay erscheinen soll, starten.&lt;br/&gt;
+        <translation>Dies legt fest ob das Overlay aktiv ist oder nicht. Diese Einstellung wird nur überprüft wenn Anwendungen gestartet werden, stellen Sie also sicher, dass Mumble läuft und die Option aktiviert ist, bevor Sie die andere Applikation, in welcher das Overlay erscheinen soll, starten.&lt;br/&gt;
 Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das Overlay deaktivieren während die Applikation läuft gibt es keinen sicheren Weg das Overlay wieder zu starten ohne die Applikation neu zu starten.</translation>
     </message>
     <message>
