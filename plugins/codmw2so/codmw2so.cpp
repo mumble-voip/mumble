@@ -83,15 +83,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			0x00786A34		float	Horizontal view (degrees)
 			0x00786A30		float	Vertical view (degrees)
 
-			0x007588C4		byte	Magical state value
+			0x01597682		byte	Magical state value
 	*/
 	
-	so = peekProc((BYTE *) 0x00935207, &specops, 1); // Magical state value
+	so = peekProc((BYTE *) 0x01974920, &specops, 1); // Magical state value
 		if (! so)
 		return false;
 		
-	//	if (specops != 0)
-	//	return false; // 0 value indicates you are playing Special Ops
+		if (specops != 2)
+		return false; // 2 value indicates you are playing Special Ops
 		
 	ok = peekProc((BYTE *) 0x01597682, &state, 1); // Magical state value
 		if (! ok)
@@ -101,7 +101,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	//	state value is:
 	//	0		while not in game
 	//	4		while playing
-
+	
 	//	This value is used for disabling pa for spectators
 	//	or people not on a server.
 	// */
@@ -168,14 +168,6 @@ static int trylock() {
 	DWORD pid=getProcess(L"iw4sp.exe");
 	if (!pid)
 		return false;
-	
-	BYTE *mod=getModuleAddr(pid, L"iw4sp.exe");
-	if (!mod)
-		return false;
-
-	// char sMagic[11];
-	// if (!peekProc(mod + 0x01591E52, sMagic, 11) || strncmp("SPECIALOPS", sMagic, 11)!=0)
-	//	return false;
 
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
