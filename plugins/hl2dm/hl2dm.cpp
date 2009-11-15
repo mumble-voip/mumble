@@ -66,10 +66,6 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 	return (ok && (r == len));
 }
 
-static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Half-Life 2: Deathmatch (Build 3945)", L"Mumble HL2DM Plugin", MB_OK);
-}
-
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
 	float v = rot[1];
@@ -112,27 +108,24 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ok = peekProc(posptr, ipos, 12) &&
 	     peekProc(rotptr, rot, 12) &&
 	     peekProc(stateptr, &state, 1) &&
-	     peekProc(hostptr, chHostStr, 40) &&
-	     peekProc(teamptr, chTeamStr, 10);
+	     peekProc(hostptr, chHostStr, 40);
 	if (!ok)
 		return false;
 	chHostStr[39] = 0;
-	chTeamStr[9] = 0;
 
 	new_context << "<context>"
 			<< "<game>hl2dm</game>"
 			<< "<hostport>" << chHostStr << "</hostport>"
-			<< "<team>" << chTeamStr << "</team>"
 		    << "</context>";
 	context = new_context.str();
 
-	//TODO
+	/* TODO
 	new_identity << "<identity>"
 			<< "<name>" << "Gordon Freeman" << "</name>"
 		     << "</identity>";
-	identity = new_identity.str();
+	identity = new_identity.str(); */
 
-	// Check to see if you are spawned
+	// Check if the player is spawned
 	if (state == 0 || state == 2)
 		return true; // Deactivate plugin by leaving position as 0,0,0
 
@@ -171,18 +164,17 @@ static int trylock() {
 		orientation tuple:	client.dll+0x3dcae0  (v,h float)
 		ID string:		client.dll+0x3a5674 = "Dm/$" (4 characters, text)
 		spawn state:		client.dll+0x37e180  (0 when at main menu, 2 when not spawned, 7 when spawned, byte)
-		ip:port string		engine.dll+0x3909c4  (zero terminated ip:port string)
+		ip:port string		engine.dll+0x3909c4  (zero terminated ip:port, string)
 	*/
 	// Remember addresses for later
 	posptr = mod + 0x3dcad4;
 	rotptr = mod + 0x3dcae0;
 	stateptr = mod + 0x37e180;
 	hostptr = mod_engine + 0x3909c4;
-	teamptr = mod + 0x00;
 
 	// Check if we are really running hl2dm
 	char sMagic[4];
-	if (!peekProc(mod + 0x3a5674, sMagic, 4) || strncmp("Dm/$", sMagic, 4)!=0)
+	if (!peekProc(mod + 0x3a5674, sMagic, 4) || strncmp("Dm/$", sMagic, 4) !=0 )
 		return false;
 
 	// Check if we can get meaningfull data from it
@@ -206,6 +198,11 @@ static void unlock() {
 		h = NULL;
 	}
 	return;
+}
+
+
+static void about(HWND h) {
+	::MessageBox(h, L"Reads audio position information from Half-Life 2: Deathmatch (Build 3945)", L"Mumble HL2DM Plugin", MB_OK);
 }
 
 static const wstring longdesc() {
