@@ -1,5 +1,4 @@
 #define _USE_MATH_DEFINES
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
@@ -31,6 +30,26 @@ static DWORD getProcess(const wchar_t *exename) {
 	return pid;
 }
 
+static BYTE *getModuleAddr(DWORD pid, const wchar_t *modname) {
+	MODULEENTRY32 me;
+	BYTE *addr = NULL;
+	me.dwSize = sizeof(me);
+	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid);
+	if (hSnap != INVALID_HANDLE_VALUE) {
+		BOOL ok = Module32First(hSnap, &me);
+
+		while (ok) {
+			if (wcscmp(me.szModule, modname)==0) {
+				addr = me.modBaseAddr;
+				break;
+			}
+			ok = Module32Next(hSnap, &me);
+		}
+		CloseHandle(hSnap);
+	}
+	return addr;
+}
+
 static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 	SIZE_T r;
 	BOOL ok=ReadProcessMemory(h, base, dest, len, &r);
@@ -38,52 +57,63 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Call of Duty: Modern Warfare 2 Multiplayer(v1.0.165)", L"Mumble CoDMW2 MP Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Call of Duty: Modern Warfare 2 Special Ops(v1.0)", L"Mumble CoDMW2SO Plugin", MB_OK);
 }
 
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	float viewHor, viewVer;
 	char state;
+	char specops;
 
 	for (int i=0;i<3;i++)
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
 
 	bool ok;
+	bool so;
 
 	/*
 		This plugin uses the following Variables:
 
 			Address			Type	Description
 			===================================
-			0x008ED4E0		float	Z-Coordinate
-			0x008ED4E4		float	X-Coordinate
-			0x008ED4E8		float	Y-Coordinate
-			0x008ED4EC		float	Horizontal view (degrees)
-			0x008ED4F0		float	Vertical view (degrees)
+			0x00786A64		float	Z-Coordinate
+			0x00786A68		float	X-Coordinate
+			0x00786A6C		float	Y-Coordinate
+			0x00786A34		float	Horizontal view (degrees)
+			0x00786A30		float	Vertical view (degrees)
 
-			0x007F119D		byte	Magical state value
+			0x007588C4		byte	Magical state value
 	*/
-	ok = peekProc((BYTE *) 0x007F119D, &state, 1); // Magical state value
-	if (! ok)
+	
+	so = peekProc((BYTE *) 0x00935207, &specops, 1); // Magical state value
+		if (! so)
 		return false;
-	/*
-		state value is:
-		0		while not in game
-		4		while playing
-		0		while spectating
+		
+	//	if (specops != 0)
+	//	return false; // 0 value indicates you are playing Special Ops
+		
+	ok = peekProc((BYTE *) 0x01597682, &state, 1); // Magical state value
+		if (! ok)
+		return false;
 
-		This value is used for disabling pa for spectators
-		or people not on a server.
-	*/
-	if (state != 4)
+	// /*
+	//	state value is:
+	//	0		while not in game
+	//	4		while playing
+
+	//	This value is used for disabling pa for spectators
+	//	or people not on a server.
+	// */
+	
+		if (state != 4)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
-	ok = peekProc((BYTE *) 0x008ED4E0, avatar_pos+2, 4) &&	//Z
-	     peekProc((BYTE *) 0x008ED4E4, avatar_pos, 4) &&	//X
-	     peekProc((BYTE *) 0x008ED4E8, avatar_pos+1, 4) && //Y
-	     peekProc((BYTE *) 0x008ED4F0, &viewHor, 4) && //Hor
-	     peekProc((BYTE *) 0x008ED4EC, &viewVer, 4); //Ver
+	ok = peekProc((BYTE *) 0x00786A64, avatar_pos+2, 4) &&	//Z
+	     peekProc((BYTE *) 0x00786A68, avatar_pos, 4) &&	//X
+	     peekProc((BYTE *) 0x00786A6C, avatar_pos+1, 4) && //Y
+	     peekProc((BYTE *) 0x00786A34, &viewHor, 4) && //Hor
+	     peekProc((BYTE *) 0x00786A30, &viewVer, 4); //Ver
 
 	if (! ok)
 		return false;
@@ -135,9 +165,17 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 static int trylock() {
 	h = NULL;
-	DWORD pid=getProcess(L"iw4mp.exe");
+	DWORD pid=getProcess(L"iw4sp.exe");
 	if (!pid)
 		return false;
+	
+	BYTE *mod=getModuleAddr(pid, L"iw4sp.exe");
+	if (!mod)
+		return false;
+
+	// char sMagic[11];
+	// if (!peekProc(mod + 0x01591E52, sMagic, 11) || strncmp("SPECIALOPS", sMagic, 11)!=0)
+	//	return false;
 
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
@@ -163,13 +201,13 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 MP v1.0.165 only. No context or identity support yet.");
+	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 Special Ops v1.0 only. No context or identity support yet.");
 }
 
-static std::wstring description(L"Call of Duty: Modern Warfare 2 MP v1.0.165");
-static std::wstring shortname(L"Call of Duty: Modern Warfare 2 MP");
+static std::wstring description(L"Call of Duty: Modern Warfare 2 Special Ops v1.0");
+static std::wstring shortname(L"Call of Duty: Modern Warfare 2 Special Ops");
 
-static MumblePlugin codmw2plug = {
+static MumblePlugin codmw2soplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
@@ -182,5 +220,5 @@ static MumblePlugin codmw2plug = {
 };
 
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
-	return &codmw2plug;
+	return &codmw2soplug;
 }
