@@ -1461,38 +1461,44 @@ bool Server::validateChannelName(const QString &name) {
 }
 
 void Server::recheckCodecVersions() {
-	QMap<int, unsigned int> qm;
+	QMap<int, unsigned int> qmCodecUsercount;
 	QMap<int, unsigned int>::const_iterator i;
 	int users = 0;
+	// Count how many users use which codec
 	foreach(ServerUser *u, qhUsers) {
 		if (u->qlCodecs.isEmpty())
 			continue;
 
 		++users;
 		foreach(int version, u->qlCodecs)
-			++ qm[version];
+			++ qmCodecUsercount[version];
 	}
 
 	if (! users)
 		return;
 
+	// Find the best possible codec most users support
 	int version = 0;
-	unsigned int maxu = 0;
-	i = qm.constEnd();
+	int maximum_users = 0;
+	i = qmCodecUsercount.constEnd();
 	do {
 		--i;
-		if (i.value() > maxu) {
+		if (i.value() > maximum_users) {
 			version = i.key();
-			maxu = i.value();
+			maximum_users = i.value();
 		}
-	} while (i != qm.constBegin());
+	} while (i != qmCodecUsercount.constBegin());
 
-	int cversion = bPreferAlpha ? iCodecAlpha : iCodecBeta;
-	if (cversion == version)
+	int current_version = bPreferAlpha ? iCodecAlpha : iCodecBeta;
+	if (current_version == version)
 		return;
 
 	MumbleProto::CodecVersion mpcv;
 
+	// If we don't already use the compat bitstream version set
+	// it as alpha and announce it. If another codec now got the
+	// majority set it as the opposite of the currently valid bPreferAlpha
+	// and announce it.
 	if (version == static_cast<qint32>(0x8000000a))
 		bPreferAlpha = true;
 	else

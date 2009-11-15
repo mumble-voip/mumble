@@ -31,6 +31,19 @@
 #include "Message.h"
 #include "Connection.h"
 
+/*!
+  \fn void Connection::socketRead()
+  This function waits until a complete package is received and then emits it as a message.
+  It gets called everytime new data is available and interprets the message prefix header
+  to figure out the type and length. It then waits until the complete message is buffered
+  and emits it as a message so it can be handled by the corresponding message handler
+  routine.
+
+  \see QSslSocket::readyRead()
+  \see void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg)
+  \see void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *u)
+*/
+
 #ifdef Q_OS_UNIX
 #include <sys/socket.h>
 #include <sys/types.h>

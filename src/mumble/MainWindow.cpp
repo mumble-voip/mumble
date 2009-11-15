@@ -96,6 +96,12 @@
   \see MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg)
 */
 
+/*!
+  \fn QPair<QByteArray, QImage> MainWindow::openImageFile()
+  Presents a file open dialog, opens the selected picture and returns it.
+  \return Pair consisting of the raw file contents and the image. Unitialized on error or cancel.
+*/
+
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(MB_QEVENT)) {
 	msg = m;
 }
