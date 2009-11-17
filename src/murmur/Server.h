@@ -194,6 +194,7 @@ class Server : public QThread {
 		bool bAllowHTML;
 		QString qsPassword;
 		QString qsWelcomeText;
+		bool bCertRequired;
 
 		QString qsRegName;
 		QString qsRegPassword;

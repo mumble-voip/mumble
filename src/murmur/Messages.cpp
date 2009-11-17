@@ -171,6 +171,12 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		ok = false;
 	}
 
+	if ((id != 0) && (uSource->qsHash.isEmpty() && bCertRequired)) {
+		reason = QString::fromLatin1("A certificate is required to connect to this server");
+		rtType = MumbleProto::Reject_RejectType_NoCertificate;
+		ok = false;
+	}
+
 	if (! ok) {
 		log(uSource, QString("Rejected connection: %1").arg(reason));
 		MumbleProto::Reject mpr;

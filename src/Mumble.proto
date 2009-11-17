@@ -43,6 +43,7 @@ message Reject {
 		WrongServerPW = 4;
 		UsernameInUse = 5;
 		ServerFull = 6;
+		NoCertificate = 7;
 	}
 	optional RejectType type = 1;
 	optional string reason = 2;

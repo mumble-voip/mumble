@@ -49,6 +49,7 @@ struct MetaParams {
 	bool bAllowHTML;
 	QString qsPassword;
 	QString qsWelcomeText;
+	bool bCertRequired;
 
 	int iBanTries;
 	int iBanTimeframe;

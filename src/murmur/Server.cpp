@@ -360,6 +360,7 @@ void Server::readParams() {
 	qurlRegWeb = QUrl(getConf("registerurl", qurlRegWeb.toString()).toString());
 	bBonjour = getConf("bonjour", bBonjour).toBool();
 	bAllowPing = getConf("allowping", bAllowPing).toBool();
+	bCertRequired = getConf("certrequired", bCertRequired).toBool();
 
 	qrUserName=QRegExp(getConf("username", qrUserName.pattern()).toString());
 	qrChannelName=QRegExp(getConf("channelname", qrChannelName.pattern()).toString());
@@ -392,6 +393,8 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		qsRegHost = !v.isNull() ? v : Meta::mp.qsRegHost;
 	else if (key == "registerurl")
 		qurlRegWeb = !v.isNull() ? v : Meta::mp.qurlRegWeb;
+	else if (key == "certrequired")
+		bCertRequired = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bCertRequired;
 	else if (key == "bonjour") {
 		bBonjour = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bBonjour;
 #ifdef USE_BONJOUR
