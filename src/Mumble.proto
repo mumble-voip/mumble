@@ -44,7 +44,7 @@ message Reject {
 		UsernameInUse = 5;
 		ServerFull = 6;
 	}
-	required uint32 type = 1;
+	optional RejectType type = 1;
 	optional string reason = 2;
 }
 
