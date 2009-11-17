@@ -67,11 +67,13 @@ class Log : public QObject {
 		Q_DISABLE_COPY(Log)
 	public:
 		enum MsgType { DebugInfo, CriticalError, Warning, Information, ServerConnected, ServerDisconnected, UserJoin, UserLeave, YouKicked, UserKicked, SelfMute, OtherSelfMute, YouMuted, YouMutedOther, OtherMutedOther, ChannelJoin, ChannelLeave, PermissionDenied, TextMessage };
+		enum LogColorType { Time, Server, Channel, Source, Target, Privilege };
 		static const MsgType firstMsgType = DebugInfo;
 		static const MsgType lastMsgType = TextMessage;
 	protected:
 		QHash<MsgType, int> qmIgnore;
 		static const char *msgNames[];
+		static const char *colorClasses[];
 		TextToSpeech *tts;
 		unsigned int uiLastId;
 		QDate qdDate;
@@ -83,6 +85,7 @@ class Log : public QObject {
 		static QString validHtml(const QString &html, bool allowReplacement = false);
 		static QString imageToImg(const QByteArray &format, const QByteArray &image);
 		static QString imageToImg(QImage img);
+		static QString msgColor(const QString &text, LogColorType t);
 	public slots:
 		void log(MsgType t, const QString &console, const QString &terse=QString());
 };

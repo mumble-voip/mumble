@@ -238,6 +238,21 @@ QString Log::msgName(MsgType t) const {
 	return tr(msgNames[t]);
 }
 
+const char *Log::colorClasses[] = {
+	"time",
+	"server",
+	"channel",
+	"source",
+	"target",
+	"privilege"
+};
+
+QString Log::msgColor(const QString &text, LogColorType t) {
+	QString classname;
+
+	return QString::fromLatin1("<span class='log-%1'>%2</span>").arg(QString::fromLatin1(colorClasses[t])).arg(text);
+}
+
 void Log::setIgnore(MsgType t, int ignore) {
 	qmIgnore.insert(t, ignore);
 }
@@ -391,7 +406,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		} else if (! g.mw->qteLog->document()->isEmpty()) {
 			tc.insertBlock();
 		}
-		tc.insertHtml(QString::fromLatin1("[%2] %1\n").arg(validHtml(console, true), dt.time().toString(Qt::DefaultLocaleShortDate)));
+		tc.insertHtml(QString::fromLatin1("[%2] %1\n").arg(validHtml(console, true), Log::msgColor(dt.time().toString(Qt::DefaultLocaleShortDate), Log::Time)));
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);
 		g.mw->qteLog->ensureCursorVisible();

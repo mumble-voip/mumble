@@ -488,7 +488,7 @@ void MainWindow::openUrl(const QUrl &url) {
 
 	rtLast = MumbleProto::Reject_RejectType_None;
 	qaServerDisconnect->setEnabled(true);
-	g.l->log(Log::Information, tr("Connecting to server %1.").arg(host));
+	g.l->log(Log::Information, tr("Connecting to server %1.").arg(Log::msgColor(host, Log::Server)));
 	g.sh->setConnectionInfo(host, port, user, pw);
 	g.sh->start(QThread::TimeCriticalPriority);
 }
@@ -642,7 +642,7 @@ void MainWindow::on_qaServerConnect_triggered() {
 		qsDesiredChannel = QString();
 		rtLast = MumbleProto::Reject_RejectType_None;
 		qaServerDisconnect->setEnabled(true);
-		g.l->log(Log::Information, tr("Connecting to server %1.").arg(cd->qsServer));
+		g.l->log(Log::Information, tr("Connecting to server %1.").arg(Log::msgColor(cd->qsServer, Log::Server)));
 		g.sh->setConnectionInfo(cd->qsServer, cd->usPort, cd->qsUsername, cd->qsPassword);
 		g.sh->start(QThread::TimeCriticalPriority);
 	}
@@ -1042,7 +1042,7 @@ void MainWindow::on_qaUserTextMessage_triggered() {
 			mptm.add_session(p->uiSession);
 			mptm.set_message(u8(msg));
 			g.sh->sendMessage(mptm);
-			g.l->log(Log::TextMessage, tr("To %1: %2").arg(p->qsName).arg(texm->message()), tr("Message to %1").arg(p->qsName));
+			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::msgColor(p->qsName, Log::Target)).arg(texm->message()), tr("Message to %1").arg(p->qsName));
 		}
 	}
 	delete texm;
@@ -1099,11 +1099,11 @@ void MainWindow::on_qleChat_returnPressed() {
 			c = ClientUser::get(g.uiSession)->cChannel;
 
 		mptm.add_channel_id(c->iId);
-		g.l->log(Log::TextMessage, tr("To channel %1: %2").arg(c->qsName).arg(qsText), tr("Message to channel %1").arg(c->qsName));
+		g.l->log(Log::TextMessage, tr("To channel %1: %2").arg(Log::msgColor(c->qsName, Log::Channel)).arg(qsText), tr("Message to channel %1").arg(c->qsName));
 	} else {
 		// User message
 		mptm.add_session(p->uiSession);
-		g.l->log(Log::TextMessage, tr("To %1: %2").arg(p->qsName).arg(qsText), tr("Message to %1").arg(p->qsName));
+		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::msgColor(p->qsName, Log::Target)).arg(qsText), tr("Message to %1").arg(p->qsName));
 	}
 
 	g.sh->sendMessage(mptm);
@@ -1314,9 +1314,9 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 		g.sh->sendMessage(mptm);
 
 		if (texm->bTreeMessage)
-			g.l->log(Log::TextMessage, tr("To tree %1: %2").arg(c->qsName).arg(texm->message()), tr("Message to tree %1").arg(c->qsName));
+			g.l->log(Log::TextMessage, tr("To tree %1: %2").arg(Log::msgColor(c->qsName, Log::Channel)).arg(texm->message()), tr("Message to tree %1").arg(c->qsName));
 		else
-			g.l->log(Log::TextMessage, tr("To channel %1: %2").arg(c->qsName).arg(texm->message()), tr("Message to channel %1").arg(c->qsName));
+			g.l->log(Log::TextMessage, tr("To channel %1: %2").arg(Log::msgColor(c->qsName, Log::Channel)).arg(texm->message()), tr("Message to channel %1").arg(c->qsName));
 	}
 	delete texm;
 }
