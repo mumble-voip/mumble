@@ -84,6 +84,13 @@ Database::Database() {
 		qFatal("Database: Failed initialization");
 	}
 
+	QFileInfo fi(db.databaseName());
+
+	if (! fi.isWritable()) {
+		QMessageBox::critical(NULL, tr("Mumble"), tr("The database '%1' is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.").arg(fi.filePath()), QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton);
+		qWarning("Database: Database is read-only");
+	}
+
 	QSqlQuery query;
 
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `servers` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hostname` TEXT, `port` INTEGER DEFAULT 64738, `username` TEXT, `password` TEXT)"));
