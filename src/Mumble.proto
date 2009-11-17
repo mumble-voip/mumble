@@ -134,7 +134,7 @@ message PermissionDenied {
 	optional uint32 channel_id = 2;
 	optional uint32 session = 3;
 	optional string reason = 4;
-	optional uint32 type = 5;
+	optional DenyType type = 5;
 }
 
 message ACL {
