@@ -314,6 +314,7 @@ void Server::readParams() {
 	qurlRegWeb = Meta::mp.qurlRegWeb;
 	bBonjour = Meta::mp.bBonjour;
 	bAllowPing = Meta::mp.bAllowPing;
+	bCertRequired = Meta::mp.bCertRequired;
 	qrUserName = Meta::mp.qrUserName;
 	qrChannelName = Meta::mp.qrChannelName;
 
