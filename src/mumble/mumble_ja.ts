@@ -20,7 +20,7 @@
     <message>
         <location filename="ACLEditor.ui" line="547"/>
         <source>User/Group</source>
-        <translation>ユーザー/グループ</translation>
+        <translation>ユーザ/グループ</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="572"/>
@@ -83,7 +83,7 @@
     <message>
         <location filename="ACLEditor.ui" line="582"/>
         <source>User ID</source>
-        <translation>ユーザーID</translation>
+        <translation>ユーザID</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="111"/>
@@ -148,7 +148,7 @@
     </message>
     <message>
         <source>This button will accept current groups/ACLs and send them to the server. Note that if you mistakenly remove write permission from yourself, the server will add it.</source>
-        <translation type="obsolete">このボタンは現在の グループとACLを 適用しサーバーに送信します。もし誤ってあなた自身の書き込み権限を削除してしまうとサーバーに追加されてしまいますのでご注意ください。</translation>
+        <translation type="obsolete">このボタンは現在の グループとACLを 適用しサーバに送信します。もし誤ってあなた自身の書き込み権限を削除してしまうとサーバに追加されてしまいますのでご注意ください。</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -160,7 +160,7 @@
     </message>
     <message>
         <source>This button will cancel all changes and closes the dialog without updating the ACLs or groups on the server.</source>
-        <translation type="obsolete">このボタンは全ての変更をキャンセルし、サーバーのACLやグループを変更せずにダイアログを閉じます。</translation>
+        <translation type="obsolete">このボタンは全ての変更をキャンセルし、サーバのACLやグループを変更せずにダイアログを閉じます。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="410"/>
@@ -255,13 +255,13 @@
         <location filename="ACLEditor.ui" line="77"/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation type="unfinished">&lt;b&gt;一時&lt;/b&gt;&lt;br&gt;
+        <translation type="unfinished">&lt;b&gt;一時チャンネルとして設定する&lt;/b&gt;&lt;br&gt;
 チェックしてチャンネルを作ると一時としてマークされます。最後に残っていたユーザがチャンネルから離れるとサーバによって自動的にそのチャンネルが削除されます。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="81"/>
         <source>Temporary</source>
-        <translation type="unfinished">一時</translation>
+        <translation type="unfinished">一時チャンネルとして設定する</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="94"/>
@@ -387,7 +387,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ACLEditor.ui" line="436"/>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation>リスト内の項目を上に動かします。項目が適切に評価されると、ユーザーに影響する権限が変更される場合があります。継承した項目より上に動かすことは出来ません。もし本当に必要なら継承された項目を複製する必要があります。</translation>
+        <translation>リスト内の項目を上に動かします。項目が適切に評価されると、ユーザに影響する権限が変更される場合があります。継承した項目より上に動かすことは出来ません。もし本当に必要なら継承された項目を複製する必要があります。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="449"/>
@@ -397,7 +397,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ACLEditor.ui" line="452"/>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation>リスト内の項目を下に動かします。項目が適切に評価されると、ユーザーに影響する権限が変更される場合があります。</translation>
+        <translation>リスト内の項目を下に動かします。項目が適切に評価されると、ユーザに影響する権限が変更される場合があります。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="525"/>
@@ -427,17 +427,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with a !, its membership is negated, and if it starts with a ~, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in. Order is important; &lt;i&gt;!~in&lt;/i&gt; is valid, but &lt;i&gt;~!in&lt;/i&gt; is not.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &lt;i&gt;sub,0,0,0&lt;/i&gt;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &lt;i&gt;!sub,0,0,0&lt;/i&gt;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation type="obsolete">この項目がどのユーザーグループに適用されるかを制御します。</translation>
+        <translation type="obsolete">この項目がどのユーザグループに適用されるかを制御します。</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="598"/>
         <source>User this entry applies to</source>
-        <translation>この項目を適用するユーザー</translation>
+        <translation>この項目を適用するユーザ</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="601"/>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation>この項目がどのユーザーに適用されるかを制御します。検索するにはユーザー名を入力してEnterキーを押してください。</translation>
+        <translation>この項目がどのユーザに適用されるかを制御します。検索するにはユーザ名を入力してEnterキーを押してください。</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="135"/>
@@ -666,7 +666,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ASIOInput.ui" line="133"/>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ASIOのための入力チャンネルを設定します。少なくとも1つのチャンネルをマイクとスピーカーとして選んでください。&lt;i&gt;マイク&lt;/i&gt; はあなたのマイクが接続されているところで、&lt;i&gt;スピーカー&lt;/i&gt;は&quot;聞くもの&quot;を試してみるチャンネルです。Sound Blaster Audigy 2 ZS の例ではスピーカーが&quot;Mix L&quot; and &quot;Mix R&quot;の時、マイクを&quot;Mic L&quot;にするのが良い選択のひとつです。</translation>
     </message>
     <message>
         <location filename="ASIOInput.ui" line="136"/>
@@ -1003,7 +1003,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&lt;b&gt;Enable TCP Compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation type="obsolete">&lt;b&gt;TCP互換モードを有効にします。&lt;/b&gt;.&lt;br /&gt;この設定をするとMumbleがサーバーとの通信にTCPのみを使用するようになります。この設定は通信のオーバーヘッドを増大させ、通信時に音声が途切れる原因になるので、デフォルトの設定(音声:UDP 操作:TCP)が使用できない場合だけ使用するのが良いでしょう。</translation>
+        <translation type="obsolete">&lt;b&gt;TCP互換モードを有効にします。&lt;/b&gt;.&lt;br /&gt;この設定をするとMumbleがサーバとの通信にTCPのみを使用するようになります。この設定は通信のオーバーヘッドを増大させ、通信時に音声が途切れる原因になるので、デフォルトの設定(音声:UDP 操作:TCP)が使用できない場合だけ使用するのが良いでしょう。</translation>
     </message>
     <message>
         <source>Automatic Reconnect</source>
@@ -1015,7 +1015,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation type="obsolete">&lt;b&gt;切断時に再接続を試みます。&lt;/b&gt;&lt;br /&gt;この設定をすると、サーバーへの接続が失敗した際、10秒後に再接続を行います。</translation>
+        <translation type="obsolete">&lt;b&gt;切断時に再接続を試みます。&lt;/b&gt;&lt;br /&gt;この設定をすると、サーバへの接続が失敗した際、10秒後に再接続を行います。</translation>
     </message>
     <message>
         <source>Maximum bandwidth used for sent audio</source>
@@ -1119,7 +1119,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Server</source>
-        <translation type="obsolete">サーバー</translation>
+        <translation type="obsolete">サーバ</translation>
     </message>
     <message>
         <source>Desired loopback mode</source>
@@ -1127,7 +1127,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&lt;b&gt;This enables one of the loopback testmodes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other players will hear your voice. This setting is not saved on application exit.</source>
-        <translation type="obsolete">&lt;b&gt;ループバックテストモードの一つが有効になります。&lt;/b&gt;&lt;br /&gt;&lt;i&gt;なし&lt;/i&gt; - ループバックしない&lt;br /&gt;&lt;i&gt;ローカル&lt;/i&gt; - ローカルなサーバーをエミュレートします。&lt;br /&gt;&lt;i&gt;サーバー&lt;/i&gt; - サーバーにループバックを要求します。&lt;br /&gt;ループバックが有効になっている間、他のプレイヤーはあなたの声を聞くことが出来ないのでご注意ください。この設定はアプリケーション終了時に保存されません。</translation>
+        <translation type="obsolete">&lt;b&gt;ループバックテストモードの一つが有効になります。&lt;/b&gt;&lt;br /&gt;&lt;i&gt;なし&lt;/i&gt; - ループバックしない&lt;br /&gt;&lt;i&gt;ローカル&lt;/i&gt; - ローカルなサーバをエミュレートします。&lt;br /&gt;&lt;i&gt;サーバ&lt;/i&gt; - サーバにループバックを要求します。&lt;br /&gt;ループバックが有効になっている間、他のプレイヤーはあなたの声を聞くことが出来ないのでご注意ください。この設定はアプリケーション終了時に保存されません。</translation>
     </message>
     <message>
         <source>Delay Variance</source>
@@ -1693,7 +1693,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.ui" line="177"/>
         <source>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted.</source>
-        <translation>アイドリング時間を設定します。指定時間のあいだ、サーバーへ何の音声も送信されなかった場合、ミュートになります。</translation>
+        <translation>アイドリング時間を設定します。指定時間のあいだ、サーバへ何の音声も送信されなかった場合、ミュートになります。</translation>
     </message>
     <message>
         <location filename="AudioInput.ui" line="450"/>
@@ -1878,7 +1878,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioOutput.ui" line="574"/>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation type="unfinished">&lt;b&gt;ループバックテストモードの一つが有効になります。&lt;/b&gt;&lt;br /&gt;&lt;i&gt;なし&lt;/i&gt; - ループバックしない&lt;br /&gt;&lt;i&gt;ローカル&lt;/i&gt; - ローカルなサーバーをエミュレートします。&lt;br /&gt;&lt;i&gt;サーバー&lt;/i&gt; - サーバーにループバックを要求します。&lt;br /&gt;ループバックが有効になっている間、他のプレイヤーはあなたの声を聞くことが出来ないのでご注意ください。この設定はアプリケーション終了時に保存されません。</translation>
+        <translation type="unfinished">&lt;b&gt;ループバックテストモードの一つが有効になります。&lt;/b&gt;&lt;br /&gt;&lt;i&gt;なし&lt;/i&gt; - ループバックしない&lt;br /&gt;&lt;i&gt;ローカル&lt;/i&gt; - ローカルなサーバをエミュレートします。&lt;br /&gt;&lt;i&gt;サーバ&lt;/i&gt; - サーバにループバックを要求します。&lt;br /&gt;ループバックが有効になっている間、他のプレイヤーはあなたの声を聞くことが出来ないのでご注意ください。この設定はアプリケーション終了時に保存されません。</translation>
     </message>
     <message>
         <source>TextLabel</source>
@@ -2007,7 +2007,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&lt;b&gt;This enables one of the loopback testmodes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other players will hear your voice. This setting is not saved on application exit.</source>
-        <translation type="obsolete">&lt;b&gt;ループバックテストモードの一つが有効になります。&lt;/b&gt;&lt;br /&gt;&lt;i&gt;なし&lt;/i&gt; - ループバックしない&lt;br /&gt;&lt;i&gt;ローカル&lt;/i&gt; - ローカルなサーバーをエミュレートします。&lt;br /&gt;&lt;i&gt;サーバー&lt;/i&gt; - サーバーにループバックを要求します。&lt;br /&gt;ループバックが有効になっている間、他のプレイヤーはあなたの声を聞くことが出来ないのでご注意ください。この設定はアプリケーション終了時に保存されません。</translation>
+        <translation type="obsolete">&lt;b&gt;ループバックテストモードの一つが有効になります。&lt;/b&gt;&lt;br /&gt;&lt;i&gt;なし&lt;/i&gt; - ループバックしない&lt;br /&gt;&lt;i&gt;ローカル&lt;/i&gt; - ローカルなサーバをエミュレートします。&lt;br /&gt;&lt;i&gt;サーバ&lt;/i&gt; - サーバにループバックを要求します。&lt;br /&gt;ループバックが有効になっている間、他のプレイヤーはあなたの声を聞くことが出来ないのでご注意ください。この設定はアプリケーション終了時に保存されません。</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="449"/>
@@ -2108,7 +2108,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioConfigDialog.cpp" line="396"/>
         <source>Server</source>
-        <translation>サーバー</translation>
+        <translation>サーバ</translation>
     </message>
     <message>
         <location filename="AudioConfigDialog.cpp" line="402"/>
@@ -2420,7 +2420,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.</source>
-        <translation type="obsolete">ウィザードが動作中の間、音声はあなたが聞けるようPC上だけで完結し、サーバーには送信されませんのでご注意ください。</translation>
+        <translation type="obsolete">ウィザードが動作中の間、音声はあなたが聞けるようPC上だけで完結し、サーバには送信されませんのでご注意ください。</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="545"/>
@@ -2657,7 +2657,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
 これはMumbleの音声を調整するためのウィザードです。サウンドカードの入力レベルとMumbleでの音声処理のパラメータを正しく設定するお手伝いをします。
 &lt;/p&gt;
 &lt;p&gt;
-ウィザードが動作中の間、音声はあなたが聞けるようPC上だけで完結し、サーバーには送信されませんのでご注意ください。
+ウィザードが動作中の間、音声はあなたが聞けるようPC上だけで完結し、サーバには送信されませんのでご注意ください。
 &lt;/p&gt;</translation>
     </message>
     <message>
@@ -2766,7 +2766,7 @@ Mumble is under continuous development, and the development team wants to focus 
 おめでとうございます！Mumbleでリッチなサウンド体験をする準備が整いました。
 &lt;/p&gt;
 &lt;p&gt;
-Mumbleは現在開発中であり、開発チームはより多くのユーザーの利益となる機能に注力したいと考えています。そのため、匿名で設定に関する統計を送信する機能を追加しました。これらの統計情報は主に将来の開発のために使用されるか、特定の機能が使用されていないかどうかを確認するために使用されます。
+Mumbleは現在開発中であり、開発チームはより多くのユーザの利益となる機能に注力したいと考えています。そのため、匿名で設定に関する統計を送信する機能を追加しました。これらの統計情報は主に将来の開発のために使用されるか、特定の機能が使用されていないかどうかを確認するために使用されます。
 &lt;/p&gt;</translation>
     </message>
     <message>
@@ -2793,7 +2793,7 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
     </message>
     <message>
         <source>Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistcs are essential for future development, and also make sure the features you use aren&apos;t deprecated.</source>
-        <translation type="obsolete">Mumbleは現在開発中であり、開発チームはより多くのユーザーの利益となる機能に注力したいと考えています。そのため、匿名で設定に関する統計を送信する機能を追加しました。これらの統計情報は主に将来の開発のために使用されるか、特定の機能が使用されていないかどうかを確認するために使用されます。</translation>
+        <translation type="obsolete">Mumbleは現在開発中であり、開発チームはより多くのユーザの利益となる機能に注力したいと考えています。そのため、匿名で設定に関する統計を送信する機能を追加しました。これらの統計情報は主に将来の開発のために使用されるか、特定の機能が使用されていないかどうかを確認するために使用されます。</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="570"/>
@@ -2863,7 +2863,7 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
     </message>
     <message>
         <source>This button will accept current groups/ACLs and send them to the server. Note that if you mistakenly remove write permission from yourself, the server will add it.</source>
-        <translation type="obsolete">このボタンは現在の グループとACLを 適用しサーバーに送信します。もし誤ってあなた自身の書き込み権限を削除してしまうとサーバーに追加されてしまいますのでご注意ください。</translation>
+        <translation type="obsolete">このボタンは現在の グループとACLを 適用しサーバに送信します。もし誤ってあなた自身の書き込み権限を削除してしまうとサーバに追加されてしまいますのでご注意ください。</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -2875,7 +2875,7 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
     </message>
     <message>
         <source>This button will cancels all changes and closes the dialog without updating the ACLs or groups on the server.</source>
-        <translation type="obsolete">このボタンは全ての変更をキャンセルし、サーバーのACLやグループを変更せずにダイアログを閉じます。</translation>
+        <translation type="obsolete">このボタンは全ての変更をキャンセルし、サーバのACLやグループを変更せずにダイアログを閉じます。</translation>
     </message>
     <message>
         <source>0.0.0.0</source>
@@ -3057,13 +3057,13 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
     <message>
         <location filename="Cert.ui" line="88"/>
         <source>Import a certificate</source>
-        <translation type="unfinished">証明書をインポート</translation>
+        <translation type="unfinished">証明書をインポートする</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="108"/>
         <location filename="Cert.ui" line="297"/>
         <source>Export Certificate</source>
-        <translation type="unfinished">証明書をエクスポート</translation>
+        <translation type="unfinished">証明書をエクスポートする</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="111"/>
@@ -3073,12 +3073,12 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
     <message>
         <location filename="Cert.ui" line="114"/>
         <source>Export current certificate</source>
-        <translation type="unfinished">現在の証明書をエクスポート</translation>
+        <translation type="unfinished">現在の証明書をエクスポートする</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="132"/>
         <source>Import Certificate</source>
-        <translation type="unfinished">証明書のインポート</translation>
+        <translation type="unfinished">証明書のインポートする</translation>
     </message>
     <message>
         <location filename="Cert.ui" line="135"/>
@@ -3399,7 +3399,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="../ACL.cpp" line="152"/>
         <source>This represents the permission to traverse the channel. If a user is denied this privilege, he will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</source>
-        <translation>チャンネル間を移動する権限を表します。あるユーザーがこの権限を与えられない場合、サブチャンネルの権限に関わらず、どんな方法でもこのチャンネルおよびサブチャンネルにアクセス出来なくなります。</translation>
+        <translation>チャンネル間を移動する権限を表します。あるユーザがこの権限を与えられない場合、サブチャンネルの権限に関わらず、どんな方法でもこのチャンネルおよびサブチャンネルにアクセス出来なくなります。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="156"/>
@@ -3409,7 +3409,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="../ACL.cpp" line="159"/>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation>このチャンネル内で発言する権限を表します。この権限がないユーザーはサーバーによって発言を抑制され(発言禁止にされているように見えます)、適切な権限を持つ誰かが発言禁止を解くまで話すことができません。</translation>
+        <translation>このチャンネル内で発言する権限を表します。この権限がないユーザはサーバによって発言を抑制され(発言禁止にされているように見えます)、適切な権限を持つ誰かが発言禁止を解くまで話すことができません。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="163"/>
@@ -3419,12 +3419,12 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="../ACL.cpp" line="167"/>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation type="unfinished">他のユーザを発言禁止にしたり、聴取禁止にしたりする権限を表します。一度発言禁止になると、他に権限を持ったユーザが発言禁止を解くか、サーバーに接続しなおすまで発言禁止のままになります。</translation>
+        <translation type="unfinished">他のユーザを発言禁止にしたり、聴取禁止にしたりする権限を表します。一度発言禁止になると、他に権限を持ったユーザが発言禁止を解くか、サーバに接続しなおすまで発言禁止のままになります。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="170"/>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
-        <translation type="unfinished">他の人を別のチャンネルに移動させたり、サーバーからキックしたりする権限を表します。実際にユーザを動かすには、実行する人が移動先のチャンネルの移動/キック権限を持っているか、ユーザが移動先チャンネルに入る権限を持っていなければなりません。この権限を持っている人は、対象のユーザが通常参加を許可されていないチャンネルに移動させることができます。</translation>
+        <translation type="unfinished">他の人を別のチャンネルに移動させたり、サーバからキックしたりする権限を表します。実際にユーザを動かすには、実行する人が移動先のチャンネルの移動/キック権限を持っているか、ユーザが移動先チャンネルに入る権限を持っていなければなりません。この権限を持っている人は、対象のユーザが通常参加を許可されていないチャンネルに移動させることができます。</translation>
     </message>
     <message>
         <location filename="../ACL.cpp" line="175"/>
@@ -3507,11 +3507,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This represents the permission to mute and deafen other players. Once muted, a player will stay muted until he is unmuted by another privileged player or reconnects to the server.</source>
-        <translation type="obsolete">他の人を発言禁止にしたり、聴取禁止にしたりする権限を表します。一度発言禁止になると、他に権限を持った人が発言禁止を解くか、サーバーに接続しなおすまで発言禁止のままになります。</translation>
+        <translation type="obsolete">他の人を発言禁止にしたり、聴取禁止にしたりする権限を表します。一度発言禁止になると、他に権限を持った人が発言禁止を解くか、サーバに接続しなおすまで発言禁止のままになります。</translation>
     </message>
     <message>
         <source>This represents the permission to move a player to another channel or kick him from the server. To actually move the player, either the moving player must have Move/Kick privileges in the destination channel, or the player must normally be allowed to enter the channel. Players with this privilege can move players into channels the target player normally wouldn&apos;t have permission to enter.</source>
-        <translation type="obsolete">他の人を別のチャンネルに移動させたり、サーバーからキックしたりする権限を表します。実際にプレイヤーを動かすには、実行する人が移動先のチャンネルの移動/キック権限を持っているか、プレイヤーが移動先チャンネルに入る権限を持っていなければなりません。この権限を持っている人は、対象のプレイヤーが通常参加を許可されていないチャンネルに移動させることができます。</translation>
+        <translation type="obsolete">他の人を別のチャンネルに移動させたり、サーバからキックしたりする権限を表します。実際にプレイヤーを動かすには、実行する人が移動先のチャンネルの移動/キック権限を持っているか、プレイヤーが移動先チャンネルに入る権限を持っていなければなりません。この権限を持っている人は、対象のプレイヤーが通常参加を許可されていないチャンネルに移動させることができます。</translation>
     </message>
     <message>
         <source>This represents the permission to make sub-channels. The player making the sub-channel will be added to the admin group of the sub-channel.</source>
@@ -3582,7 +3582,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="ClientUser.cpp" line="103"/>
         <source>Deafened (server)</source>
-        <translation type="unfinished">聴取禁止 (server)</translation>
+        <translation type="unfinished">聴取禁止 (サーバ)</translation>
     </message>
     <message>
         <location filename="ClientUser.cpp" line="105"/>
@@ -3592,12 +3592,12 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="ClientUser.cpp" line="107"/>
         <source>Muted (self)</source>
-        <translation type="unfinished">発言禁止(セルフ)</translation>
+        <translation type="unfinished">発言禁止 (セルフ)</translation>
     </message>
     <message>
         <location filename="ClientUser.cpp" line="109"/>
         <source>Deafened (self)</source>
-        <translation type="unfinished">聴取禁止(セルフ)</translation>
+        <translation type="unfinished">聴取禁止 (セルフ)</translation>
     </message>
 </context>
 <context>
@@ -3611,7 +3611,7 @@ Are you sure you wish to replace your certificate?
         <location filename="ConfigDialog.ui" line="54"/>
         <location filename="ConfigDialogDelegate.mm" line="135"/>
         <source>Advanced</source>
-        <translation type="unfinished">高度な設定</translation>
+        <translation type="unfinished">高度な設定を表示する</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3695,7 +3695,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&lt;b&gt;This will show all configuration items.&lt;/b&gt;&lt;br /&gt;Mumble contains a lot of configuration items that most users won&apos;t need to change. Checking this will show all configurable items.</source>
-        <translation type="obsolete">&lt;b&gt;全ての設定項目を表示します。&lt;/b&gt;&lt;br /&gt;Mumbleは大部分のユーザーが変更する必要のない設定項目を多く含んでいます。ここにチェックを入れると全ての設定項目を表示します。</translation>
+        <translation type="obsolete">&lt;b&gt;全ての設定項目を表示します。&lt;/b&gt;&lt;br /&gt;Mumbleは大部分のユーザが変更する必要のない設定項目を多く含んでいます。ここにチェックを入れると全ての設定項目を表示します。</translation>
     </message>
     <message>
         <source>Expert Config</source>
@@ -3722,7 +3722,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&amp;Username</source>
-        <translation type="obsolete">ユーザー名(&amp;U)</translation>
+        <translation type="obsolete">ユーザ名(&amp;U)</translation>
     </message>
     <message>
         <source>&amp;Password</source>
@@ -3746,11 +3746,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&amp;Custom Servers</source>
-        <translation type="obsolete">お気に入りサーバー(&amp;C)</translation>
+        <translation type="obsolete">お気に入りサーバ(&amp;C)</translation>
     </message>
     <message>
         <source>Server &amp;Browser</source>
-        <translation type="obsolete">サーバーブラウザ(&amp;B)</translation>
+        <translation type="obsolete">サーバブラウザ(&amp;B)</translation>
     </message>
     <message>
         <source>Name</source>
@@ -3781,7 +3781,7 @@ Are you sure you wish to replace your certificate?
         <location filename="ConnectDialog.cpp" line="386"/>
         <location filename="ConnectDialog.cpp" line="838"/>
         <source>Enter username</source>
-        <translation>ユーザー名を入力してください</translation>
+        <translation>ユーザ名を入力してください</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="386"/>
@@ -3885,7 +3885,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="ConnectDialog.cpp" line="1402"/>
         <source>Failed to fetch server list</source>
-        <translation>サーバーリストを取得出来ませんでした</translation>
+        <translation>サーバリストを取得出来ませんでした</translation>
     </message>
     <message>
         <source>&amp;Label</source>
@@ -3906,7 +3906,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="ConnectDialog.ui" line="14"/>
         <source>Mumble Server Connect</source>
-        <translation>Mumbleサーバー接続</translation>
+        <translation>Mumbleサーバ接続</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="53"/>
@@ -4069,7 +4069,7 @@ Port on which the server is listening. If the server is identified by a Bonjour 
     <message>
         <location filename="ConnectDialogEdit.ui" line="83"/>
         <source>&amp;Username</source>
-        <translation type="unfinished">ユーザー名(&amp;U)</translation>
+        <translation type="unfinished">ユーザ名(&amp;U)</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui" line="93"/>
@@ -4777,20 +4777,20 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Log.cpp" line="220"/>
         <source>Server Connected</source>
-        <translation>サーバー接続</translation>
+        <translation type="unfinished">サーバに接続</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="221"/>
         <source>Server Disconnected</source>
-        <translation>サーバー切断</translation>
+        <translation type="unfinished">サーバから切断</translation>
     </message>
     <message>
         <source>Player Joined Server</source>
-        <translation type="obsolete">誰かがサーバーに参加</translation>
+        <translation type="obsolete">誰かがサーバに参加</translation>
     </message>
     <message>
         <source>Player Left Server</source>
-        <translation type="obsolete">誰かがサーバーから退出</translation>
+        <translation type="obsolete">誰かがサーバから退出</translation>
     </message>
     <message>
         <source>Player kicked (you or by you)</source>
@@ -4852,12 +4852,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Log.cpp" line="223"/>
         <source>User Left Server</source>
-        <translation type="unfinished">ユーザがサーバーから退出</translation>
+        <translation type="unfinished">ユーザがサーバから退出</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="224"/>
         <source>User kicked (you or by you)</source>
-        <translation type="unfinished">ユーザがキックされた時(あなた自身、またはあなたによって)</translation>
+        <translation type="unfinished">ユーザがキックされた時 (あなた自身、またはあなたによって)</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="225"/>
@@ -4867,17 +4867,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Log.cpp" line="228"/>
         <source>User muted (you)</source>
-        <translation type="unfinished">ユーザが発言禁止になった時（あなたが）</translation>
+        <translation type="unfinished">ユーザが発言禁止になった時 （あなたが）</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="229"/>
         <source>User muted (by you)</source>
-        <translation type="unfinished">ユーザが発言禁止になった時（</translation>
+        <translation type="unfinished">ユーザが発言禁止になった時 （あなたによって)</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="230"/>
         <source>User muted (other)</source>
-        <translation type="unfinished">ユーザが発言禁止になった時（その他）</translation>
+        <translation type="unfinished">ユーザが発言禁止になった時 （その他）</translation>
     </message>
     <message>
         <location filename="Log.cpp" line="231"/>
@@ -5174,22 +5174,22 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="LookConfig.ui" line="293"/>
         <source>&lt;b&gt;If checked the chat bar is shown.&lt;/b&gt;&lt;br /&gt;Uncheck this to hide it.</source>
         <oldsource>&lt;b&gt;If checked the chat bar is shown&lt;/b&gt;&lt;br /&gt;Uncheck to hide it</oldsource>
-        <translation type="unfinished">&lt;b&gt;チェックしたらチャットバーが現れます&lt;/b&gt;&lt;br /&gt;チェックをはずすと隠す</translation>
+        <translation type="unfinished">&lt;b&gt;チェックしたらチャットバーが現れます&lt;/b&gt;&lt;br /&gt;チェックをはずすと隠す。</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="296"/>
         <source>Show chatbar</source>
-        <translation type="unfinished">チャットバーを表示</translation>
+        <translation type="unfinished">チャットバーを表示する</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="303"/>
         <source>Show number of users in each channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">それぞれのチャンネルのユーザ数を表示</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="306"/>
         <source>Show channel user count</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルにいるユーザ数を表示する</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="204"/>
@@ -5344,7 +5344,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="LookConfig.ui" line="283"/>
         <source>Always On Top</source>
-        <translation>常に前面に表示</translation>
+        <translation type="unfinished">常に前面に表示する</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="267"/>
@@ -5369,7 +5369,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="LookConfig.ui" line="244"/>
         <source>Users above Channels</source>
-        <translation type="unfinished">チャンネルの上にユーザを表示</translation>
+        <translation type="unfinished">チャンネルの上にユーザを表示する</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="254"/>
@@ -5387,7 +5387,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>&lt;b&gt;This will show all configuration items.&lt;/b&gt;&lt;br /&gt;Mumble contains a lot of configuration items that most users won&apos;t need to change. Checking this will show all configurable items.</source>
-        <translation type="obsolete">&lt;b&gt;全ての設定項目を表示します。&lt;/b&gt;&lt;br /&gt;Mumbleは大部分のユーザーが変更する必要のない設定項目を多く含んでいます。ここにチェックを入れると全ての設定項目を表示します。</translation>
+        <translation type="obsolete">&lt;b&gt;全ての設定項目を表示します。&lt;/b&gt;&lt;br /&gt;Mumbleは大部分のユーザが変更する必要のない設定項目を多く含んでいます。ここにチェックを入れると全ての設定項目を表示します。</translation>
     </message>
     <message>
         <source>Expert Config</source>
@@ -5415,11 +5415,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui" line="183"/>
         <source>Open the server connection dialog</source>
-        <translation>サーバー接続ダイアログを開く</translation>
+        <translation>サーバ接続ダイアログを開く</translation>
     </message>
     <message>
         <source>Shows a dialog of registered servers, and also allows quick connect.</source>
-        <translation type="obsolete">登録されたサーバーのダイアログを開きます。クイック接続もできるようになります。</translation>
+        <translation type="obsolete">登録されたサーバのダイアログを開きます。クイック接続もできるようになります。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="194"/>
@@ -5429,12 +5429,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui" line="197"/>
         <source>Disconnect from server</source>
-        <translation>サーバーから切断</translation>
+        <translation>サーバから切断</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="200"/>
         <source>Disconnects you from the server.</source>
-        <translation>サーバーから切断します。</translation>
+        <translation>サーバから切断します。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="208"/>
@@ -5444,12 +5444,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui" line="211"/>
         <source>Edit ban lists on server</source>
-        <translation>サーバーのBAN一覧を編集</translation>
+        <translation>サーバのBAN一覧を編集</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="214"/>
         <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>サーバー側の禁止IPリストを編集します。</translation>
+        <translation>サーバ側の禁止IPリストを編集します。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="233"/>
@@ -5462,7 +5462,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Kick selected player off server. You&apos;ll be asked to specify a reason.</source>
-        <translation type="obsolete">選択されたプレイヤーをサーバーから追い出します。あなたは、理由を尋ねられるでしょう。</translation>
+        <translation type="obsolete">選択されたプレイヤーをサーバから追い出します。あなたは、理由を尋ねられるでしょう。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="258"/>
@@ -5475,7 +5475,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Kick and ban selected player from server. You&apos;ll be asked to specify a reason.</source>
-        <translation type="obsolete">選択されたプレイヤーをサーバーからキックしてBANします。あなたは、理由を尋ねられるでしょう。</translation>
+        <translation type="obsolete">選択されたプレイヤーをサーバからキックしてBANします。あなたは、理由を尋ねられるでしょう。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="247"/>
@@ -5488,7 +5488,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Mute or unmute player on server. Unmuting a deafened player will also undeafen them.</source>
-        <translation type="obsolete">サーバーにいるプレイヤーを発言禁止にしたり、解除したりします。聴取禁止になっているプレイヤーに対して発言禁止の解除を行うと、聴取禁止も解除されます。</translation>
+        <translation type="obsolete">サーバにいるプレイヤーを発言禁止にしたり、解除したりします。聴取禁止になっているプレイヤーに対して発言禁止の解除を行うと、聴取禁止も解除されます。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="272"/>
@@ -5501,7 +5501,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Deafen or undeafen player on server. Deafening a player will also mute them.</source>
-        <translation type="obsolete">サーバーにいるプレイヤーを聴取禁止にしたり、解除したりします。聴取禁止にすると発言も禁止にします。</translation>
+        <translation type="obsolete">サーバにいるプレイヤーを聴取禁止にしたり、解除したりします。聴取禁止にすると発言も禁止にします。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="286"/>
@@ -5584,7 +5584,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>This links your current channel to the selected channel. If they have permission to speak in the other channel, players can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
-        <translation type="obsolete">あなたのいるチャンネルを選択されたチャンネルとリンクします。他方のチャンネルで発言する権限を持っていたら、プレイヤーはお互いを聞くことができます。これは恒久的なリンクであり、手動でリンクを解除されるかサーバーがリスタートするまで続きます。push-to-linkのショートカットを見てください。</translation>
+        <translation type="obsolete">あなたのいるチャンネルを選択されたチャンネルとリンクします。他方のチャンネルで発言する権限を持っていたら、プレイヤーはお互いを聞くことができます。これは恒久的なリンクであり、手動でリンクを解除されるかサーバがリスタートするまで続きます。push-to-linkのショートカットを見てください。</translation>
     </message>
     <message>
         <source>&amp;Unlink</source>
@@ -5643,7 +5643,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui" line="394"/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>あなた自身を発言禁止にしたり、解除したりします。発言禁止のとき、サーバーに何もデータを送りません。聴取禁止の時に発言禁止の解除を行うと、聴取禁止も解除されます。</translation>
+        <translation>あなた自身を発言禁止にしたり、解除したりします。発言禁止のとき、サーバに何もデータを送りません。聴取禁止の時に発言禁止の解除を行うと、聴取禁止も解除されます。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="402"/>
@@ -5793,7 +5793,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui" line="599"/>
         <source>Register</source>
-        <translation type="unfinished">登録</translation>
+        <translation type="unfinished">ユーザ登録</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="602"/>
@@ -5803,7 +5803,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui" line="605"/>
         <source>This will permanently register the user on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">永久的にサーバにユーザ登録します。</translation>
     </message>
     <message>
         <source>This will permanently register the user on the server. Note that you can&apos;t change the username later on, nor can you easily unregister a user, so make sure you really want to do this.</source>
@@ -5941,12 +5941,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui" line="120"/>
         <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
-        <translation>最近の動作を全て表示します。サーバーへの接続、エラーや情報メッセージは全てここに表示されます。&lt;br /&gt;ここにどのメッセージを表示するかを指定するには、メニューから&lt;b&gt;設定&lt;/b&gt;コマンドを選んでください。</translation>
+        <translation>最近の動作を全て表示します。サーバへの接続、エラーや情報メッセージは全てここに表示されます。&lt;br /&gt;ここにどのメッセージを表示するかを指定するには、メニューから&lt;b&gt;設定&lt;/b&gt;コマンドを選んでください。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="53"/>
         <source>&amp;Server</source>
-        <translation>サーバー(&amp;S)</translation>
+        <translation>サーバ(&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Player</source>
@@ -6159,17 +6159,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Connected to server.</source>
-        <translation type="obsolete">サーバーに接続しました。</translation>
+        <translation type="obsolete">サーバに接続しました。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1863"/>
         <source>Server connection failed: %1.</source>
-        <translation>サーバーへの接続に失敗しました: %1.</translation>
+        <translation>サーバへの接続に失敗しました: %1.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1865"/>
         <source>Disconnected from server.</source>
-        <translation>サーバーから切断しました。</translation>
+        <translation>サーバから切断しました。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="625"/>
@@ -6179,7 +6179,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Messages.cpp" line="201"/>
         <source>Joined server: %1.</source>
-        <translation>サーバーに接続しました: %1.</translation>
+        <translation>サーバに接続しました: %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="248"/>
@@ -6206,7 +6206,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Messages.cpp" line="352"/>
         <source>Left server: %1.</source>
-        <translation>サーバーから切断しました: %1.</translation>
+        <translation>サーバから切断しました: %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="230"/>
@@ -6246,12 +6246,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Messages.cpp" line="175"/>
         <source>You need a certificate to perform this operation.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">この操作を実行するには証明書が必要です。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="177"/>
         <source>%1 does not have a certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 は証明書を持っていません。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="184"/>
@@ -6270,7 +6270,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>server</source>
-        <translation type="obsolete">サーバー</translation>
+        <translation type="obsolete">サーバ</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="254"/>
@@ -6359,22 +6359,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Messages.cpp" line="345"/>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation>あなたは %1 によってサーバーからキックされました: %2.</translation>
+        <translation>あなたは %1 によってサーバからキックされました: %2.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="350"/>
         <source>%3 was kicked from the server by %1: %2.</source>
-        <translation>%3 は %1 によってサーバーからキックされました: %2.</translation>
+        <translation>%3 は %1 によってサーバからキックされました: %2.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="343"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation>あなたは %1 によってキックされ、サーバーからBANされました: %2.</translation>
+        <translation>あなたは %1 によってキックされ、サーバからBANされました: %2.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="348"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation>%3 は %1 によってキックされ、サーバーからBANされました: %2.</translation>
+        <translation>%3 は %1 によってキックされ、サーバからBANされました: %2.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="302"/>
@@ -6409,7 +6409,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Messages.cpp" line="87"/>
         <source>Server connection rejected: %1.</source>
-        <translation>サーバーへの接続は拒否されました: %1.</translation>
+        <translation>サーバへの接続は拒否されました: %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="182"/>
@@ -6468,17 +6468,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="1877"/>
         <source>Invalid username</source>
-        <translation>不正なユーザー名</translation>
+        <translation>不正なユーザ名</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1877"/>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation>不正なユーザー名で接続しました。他の名前を試してください。</translation>
+        <translation>不正なユーザ名で接続しました。他の名前を試してください。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1877"/>
         <source>That username is already in use, please try another username.</source>
-        <translation>そのユーザー名は既に使われています。他の名前を試してください。</translation>
+        <translation>そのユーザ名は既に使われています。他の名前を試してください。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1882"/>
@@ -6488,12 +6488,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="1882"/>
         <source>Wrong password for registered users, please try again.</source>
-        <translation>登録されたユーザーのパスワードが違います。再度試してください</translation>
+        <translation>登録されたユーザのパスワードが違います。再度試してください</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1882"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation>未登録ユーザーのパスワードが違います。再度試してください。</translation>
+        <translation>未登録ユーザのパスワードが違います。再度試してください。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="437"/>
@@ -6513,7 +6513,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui" line="303"/>
         <source>Sends a text message to another user.</source>
-        <translation>他のユーザーにテキストメッセージを送信します。</translation>
+        <translation>他のユーザにテキストメッセージを送信します。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="58"/>
@@ -6554,7 +6554,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui" line="253"/>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
-        <translation type="unfinished">サーバーにいるユーザを発言禁止にしたり、解除したりします。聴取禁止になっているユーザに対して発言禁止の解除を行うと、聴取禁止も解除されます。</translation>
+        <translation type="unfinished">サーバにいるユーザを発言禁止にしたり、解除したりします。聴取禁止になっているユーザに対して発言禁止の解除を行うと、聴取禁止も解除されます。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="261"/>
@@ -6595,7 +6595,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="MainWindow.ui" line="347"/>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
-        <translation type="unfinished">あなたのいるチャンネルを選択されたチャンネルとリンクします。他方のチャンネルで発言する権限を持っていたら、ユーザはお互いを聞くことができます。これは恒久的なリンクであり、手動でリンクを解除されるかサーバーがリスタートするまで続きます。push-to-linkのショートカットを見てください。</translation>
+        <translation type="unfinished">あなたのいるチャンネルを選択されたチャンネルとリンクします。他方のチャンネルで発言する権限を持っていたら、ユーザはお互いを聞くことができます。これは恒久的なリンクであり、手動でリンクを解除されるかサーバがリスタートするまで続きます。push-to-linkのショートカットを見てください。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="466"/>
@@ -6630,12 +6630,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui" line="225"/>
         <source>Show information about the server connection</source>
-        <translation>サーバーとの接続についての情報を表示</translation>
+        <translation>サーバとの接続についての情報を表示</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="228"/>
         <source>This will show extended information about the connection to the server.</source>
-        <translation>サーバーとの接続についての詳細な情報を表示します。</translation>
+        <translation>サーバとの接続についての詳細な情報を表示します。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="379"/>
@@ -6675,7 +6675,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="450"/>
         <source>Enter username</source>
-        <translation>ユーザー名を入力してください。</translation>
+        <translation>ユーザ名を入力してください。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="463"/>
@@ -6716,7 +6716,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="733"/>
         <source>Mumble Server Information</source>
-        <translation>Mumble サーバーの情報</translation>
+        <translation>Mumble サーバの情報</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="737"/>
@@ -6779,22 +6779,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="1783"/>
         <source>SSL Version mismatch</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">SSL のバージョンの不一致</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1783"/>
         <source>This server is using an older encryption standard. It might be an older 1.1 based Mumble server.&lt;br /&gt;Would you like to launch the compatibility client to connect to it?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このサーバはより古い暗号化手順を使用しています。 1.1 ベースの Mumble サーバである可能性があります。&lt;br /&gt;このサーバに接続するために互換クライアントを起動しますか?</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1815"/>
         <source>Failed to launch compatibilty client</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">互換クライアントの起動に失敗</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1815"/>
         <source>The compatibility client could not be found, or failed to start.&lt;br /&gt;Note that the compatibility client is an optional component for most installations, and might not be installed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">互換クライアントが見つからないか起動に失敗しました。&lt;br /&gt;互換クライアントはほとんどのインストールに置いてオプションの項目であり、インストールされていない可能性があります。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1835"/>
@@ -6858,12 +6858,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="727"/>
         <source>To Server</source>
-        <translation>サーバー宛</translation>
+        <translation>サーバ宛</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="727"/>
         <source>From Server</source>
-        <translation>サーバーから</translation>
+        <translation>サーバから</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="727"/>
@@ -6910,7 +6910,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>You are now in local deafen mode. This mode is not reflected on the server, and you will still be transmitting voice to the server. This mode should only be used if there are several people in the same room and one of them have Mumble on loudspeakers.</source>
-        <translation type="obsolete">ローカルな聴取禁止モードになりました。このモードはサーバーには反映されません。そしてあなたの声はまだ送信され続けています。このモードは、同じ部屋に数人の人がいて、そのうちの1人がMumbleを大音量のスピーカーで使っているような時だけ使用すればよいでしょう。</translation>
+        <translation type="obsolete">ローカルな聴取禁止モードになりました。このモードはサーバには反映されません。そしてあなたの声はまだ送信され続けています。このモードは、同じ部屋に数人の人がいて、そのうちの1人がMumbleを大音量のスピーカーで使っているような時だけ使用すればよいでしょう。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="175"/>
@@ -6957,7 +6957,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui" line="544"/>
         <source>Sends a text message to all users in a channel.</source>
-        <translation>チャンネル内の全てのユーザーにテキストメッセージを送信します</translation>
+        <translation>チャンネル内の全てのユーザにテキストメッセージを送信します</translation>
     </message>
     <message>
         <source>Send &amp;Tree Message</source>
@@ -6973,7 +6973,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Server maximum bandwidth is only %1 kbit/s. Quality auto-adjusted.</source>
-        <translation type="obsolete">サーバーの最大帯域幅は %1 kbit/s しかありません。品質は自動的に調整されます。</translation>
+        <translation type="obsolete">サーバの最大帯域幅は %1 kbit/s しかありません。品質は自動的に調整されます。</translation>
     </message>
     <message>
         <location filename="main.cpp" line="299"/>
@@ -6986,12 +6986,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Connected to server %1.</source>
-        <translation type="obsolete">サーバー %1 に接続しました。</translation>
+        <translation type="obsolete">サーバ %1 に接続しました。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="311"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
-        <translation>サーバーに接続中です。接続を閉じるか最小化するかを選択してください。</translation>
+        <translation>サーバに接続中です。接続を閉じるか最小化するかを選択してください。</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="312"/>
@@ -7143,7 +7143,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="obsolete">サーバー</translation>
+        <translation type="obsolete">サーバ</translation>
     </message>
     <message>
         <source>&amp;Quit</source>
@@ -7186,12 +7186,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="NetworkConfig.ui" line="32"/>
         <source>Use TCP compatibility mode</source>
         <oldsource>Use TCP compatability mode</oldsource>
-        <translation type="unfinished">TCP 互換モードを使用</translation>
+        <translation type="unfinished">TCP 互換モードを使用する</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="35"/>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;TCP互換モードを有効にします。&lt;/b&gt;.&lt;br /&gt;この設定をするとMumbleがサーバーとの通信にTCPのみを使用するようになります。この設定は通信のオーバーヘッドを増大させ、通信時に音声が途切れる原因になるので、デフォルトの設定(音声:UDP 操作:TCP)が使用できない場合だけ使用するのが良いでしょう。</translation>
+        <translation>&lt;b&gt;TCP互換モードを有効にします。&lt;/b&gt;.&lt;br /&gt;この設定をするとMumbleがサーバとの通信にTCPのみを使用するようになります。この設定は通信のオーバーヘッドを増大させ、通信時に音声が途切れる原因になるので、デフォルトの設定(音声:UDP 操作:TCP)が使用できない場合だけ使用するのが良いでしょう。</translation>
     </message>
     <message>
         <source>Use TCP mode</source>
@@ -7205,7 +7205,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="NetworkConfig.ui" line="61"/>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation>&lt;b&gt;切断時に再接続を試みます。&lt;/b&gt;&lt;br /&gt;この設定をすると、サーバーへの接続が失敗した際、10秒後に再接続を行います。</translation>
+        <translation>&lt;b&gt;切断時に再接続を試みます。&lt;/b&gt;&lt;br /&gt;この設定をすると、サーバへの接続が失敗した際、10秒後に再接続を行います。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="64"/>
@@ -7264,22 +7264,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="NetworkConfig.ui" line="38"/>
         <source>Force TCP mode</source>
-        <translation type="unfinished">強制的にTCPモードを使用</translation>
+        <translation type="unfinished">強制的にTCPモードを使用する</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="45"/>
         <source>Enable QoS to prioritize packets</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">優先度付パケットのためにQoSを有効化</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="48"/>
         <source>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">QoSを有効にします。QoS 他の通信トラフィックより音声パケットの優先順位を上げようとするものです。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="51"/>
         <source>Use Quality of Service</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">QoS を使用する</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="71"/>
@@ -7294,7 +7294,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="NetworkConfig.ui" line="77"/>
         <source>Suppress certificate and password storage</source>
-        <translation type="unfinished">証明書とパスワードの保存を抑制</translation>
+        <translation type="unfinished">証明書とパスワードの保存を抑制する</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="115"/>
@@ -7324,17 +7324,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="NetworkConfig.ui" line="222"/>
         <source>Username</source>
-        <translation>ユーザー名</translation>
+        <translation>ユーザ名</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="229"/>
         <source>Username for proxy authentication</source>
-        <translation>プロキシ認証のユーザー名</translation>
+        <translation>プロキシ認証のユーザ名</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="232"/>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;プロキシ認証のユーザー名&lt;/b&gt;&lt;br /&gt;プロキシサーバの認証に使用するユーザー名を指定します。プロキシサーバが認証を行わなない場合や、匿名で接続する場合はこのフィールドを空にしてください。</translation>
+        <translation>&lt;b&gt;プロキシ認証のユーザ名&lt;/b&gt;&lt;br /&gt;プロキシサーバの認証に使用するユーザ名を指定します。プロキシサーバが認証を行わなない場合や、匿名で接続する場合はこのフィールドを空にしてください。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="239"/>
@@ -7371,7 +7371,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location filename="NetworkConfig.ui" line="281"/>
         <source>Disable image download</source>
-        <translation type="unfinished">画像のダウンロードを無効</translation>
+        <translation type="unfinished">画像のダウンロードを無効にする</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="291"/>
@@ -7391,7 +7391,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location filename="NetworkConfig.ui" line="303"/>
         <source>Check for application updates on startup</source>
-        <translation type="unfinished">開始時に Mumble のアップデートをチェック</translation>
+        <translation type="unfinished">開始時に Mumble のアップデートをチェックする</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="310"/>
@@ -7406,7 +7406,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location filename="NetworkConfig.ui" line="316"/>
         <source>Download plugin updates on startup</source>
-        <translation type="unfinished">開始時にプラグインのアップデートをダウンロード</translation>
+        <translation type="unfinished">開始時にプラグインのアップデートをダウンロードする</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui" line="326"/>
@@ -7739,17 +7739,17 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location filename="Overlay.ui" line="68"/>
         <source>Show User Textures</source>
-        <translation>ユーザーテクスチャを表示</translation>
+        <translation>ユーザテクスチャを表示</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="62"/>
         <source>Show User custom textures instead of text on the overlay.</source>
-        <translation>テキストの代わりにユーザーのカスタムテクスチャをオーバーレイに表示</translation>
+        <translation>テキストの代わりにユーザのカスタムテクスチャをオーバーレイに表示</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="65"/>
         <source>This sets whether to download and use custom textures for registered users. If disabled, the regular outline text will be used instead.</source>
-        <translation>登録されたユーザーのカスタムテクスチャをダウンロードして使用するかどうかを決定します。無効の時は通常のテキストが代わりに使われます。</translation>
+        <translation>登録されたユーザのカスタムテクスチャをダウンロードして使用するかどうかを決定します。無効の時は通常のテキストが代わりに使われます。</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="205"/>
@@ -7877,15 +7877,15 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     </message>
     <message>
         <source>This is a player connected to the server. The icon to the left of the player indicates whether or not they are talking:&lt;br /&gt;&lt;img src=&quot;:/icons/talking_on.png&quot; /&gt; Talking&lt;br /&gt;&lt;img src=&quot;:/icons/talking_off.png&quot; /&gt; Not talking</source>
-        <translation type="obsolete">サーバーに接続しているプレイヤーです。プレイヤーの左のアイコンはその人が話しているかどうかを示しています:&lt;br /&gt;&lt;img src=&quot;:/icons/talking_on.png&quot; /&gt; 話している&lt;br /&gt;&lt;img src=&quot;:/icons/talking_off.png&quot; /&gt; 話していない</translation>
+        <translation type="obsolete">サーバに接続しているプレイヤーです。プレイヤーの左のアイコンはその人が話しているかどうかを示しています:&lt;br /&gt;&lt;img src=&quot;:/icons/talking_on.png&quot; /&gt; 話している&lt;br /&gt;&lt;img src=&quot;:/icons/talking_off.png&quot; /&gt; 話していない</translation>
     </message>
     <message>
         <source>This is a channel on the server. Only players in the same channel can hear each other.</source>
-        <translation type="obsolete">サーバーにあるチャンネルです。同じチャンネルにいるプレイヤーしかお互いの会話を聞くことはできません。</translation>
+        <translation type="obsolete">サーバにあるチャンネルです。同じチャンネルにいるプレイヤーしかお互いの会話を聞くことはできません。</translation>
     </message>
     <message>
         <source>This shows the flags the player has on the server, if any:&lt;br /&gt;&lt;img src=&quot;:/icons/authenticated.png&quot; /&gt;Authenticated user&lt;br /&gt;&lt;img src=&quot;:/icons/muted_self.png&quot; /&gt;Muted (by self)&lt;br /&gt;&lt;img src=&quot;:/icons/muted_server.png&quot; /&gt;Muted (by admin)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_self.png&quot; /&gt;Deafened (by self)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_server.png&quot; /&gt;Deafened (by admin)&lt;br /&gt;A player muted by himself is probably just away, talking on the phone or something like that.&lt;br /&gt;A player muted by an admin is probably also just away, and the noise the player is making was annoying enough that an admin muted him.</source>
-        <translation type="obsolete">サーバー内のプレイヤーが持っているフラグを表示します:&lt;br /&gt;&lt;img src=&quot;:/icons/authenticated.png&quot; /&gt;認証されたユーザー&lt;br /&gt;&lt;img src=&quot;:/icons/muted_self.png&quot; /&gt;発言禁止(自分によって)&lt;br /&gt;&lt;img src=&quot;:/icons/muted_server.png&quot; /&gt;発言禁止(管理者によって)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_self.png&quot; /&gt;聴取禁止(自分によって)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_server.png&quot; /&gt;聴取禁止(管理者によって)&lt;br /&gt;自分で発言禁止にしているプレイヤーは、おそらくちょっと離席しているだけでしょう。&lt;br /&gt;管理者によって発言禁止にされているプレイヤーは同じく離席しているだけか、管理者が発言禁止するに値するほどその人の発する雑音がうるさかったのでしょう。</translation>
+        <translation type="obsolete">サーバ内のプレイヤーが持っているフラグを表示します:&lt;br /&gt;&lt;img src=&quot;:/icons/authenticated.png&quot; /&gt;認証されたユーザ&lt;br /&gt;&lt;img src=&quot;:/icons/muted_self.png&quot; /&gt;発言禁止(自分によって)&lt;br /&gt;&lt;img src=&quot;:/icons/muted_server.png&quot; /&gt;発言禁止(管理者によって)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_self.png&quot; /&gt;聴取禁止(自分によって)&lt;br /&gt;&lt;img src=&quot;:/icons/deafened_server.png&quot; /&gt;聴取禁止(管理者によって)&lt;br /&gt;自分で発言禁止にしているプレイヤーは、おそらくちょっと離席しているだけでしょう。&lt;br /&gt;管理者によって発言禁止にされているプレイヤーは同じく離席しているだけか、管理者が発言禁止するに値するほどその人の発する雑音がうるさかったのでしょう。</translation>
     </message>
     <message>
         <source>Name</source>
@@ -7897,11 +7897,11 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     </message>
     <message>
         <source>This is a player connected to the server. The icon to the left of the player indicates whether or not they are talking:&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt; Talking&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt; Not talking</source>
-        <translation type="obsolete">サーバーに接続しているプレイヤーです。プレイヤーの左のアイコンはその人が話しているかどうかを示しています:&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt; 話している&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt; 話していない</translation>
+        <translation type="obsolete">サーバに接続しているプレイヤーです。プレイヤーの左のアイコンはその人が話しているかどうかを示しています:&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt; 話している&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt; 話していない</translation>
     </message>
     <message>
         <source>This shows the flags the player has on the server, if any:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Authenticated user&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Muted (by self)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Muted (by admin)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Deafened (by self)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Deafened (by admin)&lt;br /&gt;A player muted by himself is probably just away, talking on the phone or something like that.&lt;br /&gt;A player muted by an admin is probably also just away, and the noise the player is making was annoying enough that an admin muted him.</source>
-        <translation type="obsolete">サーバー内のプレイヤーが持っているフラグを表示します:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;認証されたユーザー&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;発言禁止(自分によって)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;発言禁止(管理者によって)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;聴取禁止(自分によって)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;聴取禁止(管理者によって)&lt;br /&gt;自分で発言禁止にしているプレイヤーは、おそらくちょっと離席しているだけでしょう。&lt;br /&gt;管理者によって発言禁止にされているプレイヤーは同じく離席しているだけか、管理者が発言禁止するに値するほどその人の発する雑音がうるさかったのでしょう。</translation>
+        <translation type="obsolete">サーバ内のプレイヤーが持っているフラグを表示します:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;認証されたユーザ&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;発言禁止(自分によって)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;発言禁止(管理者によって)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;聴取禁止(自分によって)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;聴取禁止(管理者によって)&lt;br /&gt;自分で発言禁止にしているプレイヤーは、おそらくちょっと離席しているだけでしょう。&lt;br /&gt;管理者によって発言禁止にされているプレイヤーは同じく離席しているだけか、管理者が発言禁止するに値するほどその人の発する雑音がうるさかったのでしょう。</translation>
     </message>
     <message>
         <source>Mumble</source>
@@ -8676,7 +8676,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VersionCheck.cpp" line="97"/>
         <source>Mumble failed to retrieve version information from the SourceForge server.</source>
-        <translation>SourceForgeサーバーからのバージョン情報の取得に失敗しました。</translation>
+        <translation>SourceForgeサーバからのバージョン情報の取得に失敗しました。</translation>
     </message>
 </context>
 <context>
