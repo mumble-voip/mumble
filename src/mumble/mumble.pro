@@ -149,9 +149,6 @@ unix {
     SOURCES += ConfigDialog.mm ConfigDialogDelegate.mm
 
     # CoreAudio
-    !isEmpty(HAVE_PORTAUDIO) {
-        CONFIG -= portaudio
-    }
     LIBS += -framework CoreAudio -framework AudioUnit -framework AudioToolbox
     SOURCES += CoreAudio.cpp
     HEADERS += CoreAudio.h
