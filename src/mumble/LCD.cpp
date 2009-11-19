@@ -176,12 +176,23 @@ void LCDConfig::on_qsSplitterWidth_valueChanged(int v) {
 /* --- */
 
 LCD::LCD() : QObject() {
+
+#ifdef Q_OS_MAC
+	qfNormal.setStyleStrategy(QFont::NoAntialias);
+	qfNormal.setKerning(false);
+	qfNormal.setPointSize(10);
+	qfNormal.setFixedPitch(true);
+	qfNormal.setFamily(QString::fromLatin1("Andale Mono"));
+#else
 	qfNormal = QFont(QString::fromLatin1("Arial"), 7);
+#endif
+
 	qfItalic = qfNormal;
 	qfItalic.setItalic(true);
 
 	qfBold = qfNormal;
 	qfBold.setWeight(QFont::Black);
+
 	qfItalicBold = qfBold;
 	qfItalic.setItalic(true);
 
@@ -200,7 +211,8 @@ LCD::LCD() : QObject() {
 		bool enabled = g.s.qmLCDDevices.contains(d->name()) ? g.s.qmLCDDevices.value(d->name()) : true;
 		d->setEnabled(enabled);
 	}
-	qiLogo = QIcon(QLatin1String("skin:mumble.48x48.png")).pixmap(48,48).toImage().convertToFormat(QImage::Format_MonoLSB);
+	qiLogo = QIcon(QLatin1String("skin:mumble.svg")).pixmap(48,48).toImage().convertToFormat(QImage::Format_MonoLSB);
+	qiLogo.invertPixels();
 	updateUserView();
 }
 
@@ -253,7 +265,7 @@ void LCD::updateUserView() {
 	foreach(const QSize &size, qhImages.keys()) {
 		QImage *img = qhImages.value(size);
 		QPainter painter(img);
-		painter.setRenderHints(0, true);
+		painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing, false);
 		painter.setPen(Qt::color1);
 		painter.setFont(qfNormal);
 
@@ -264,8 +276,8 @@ void LCD::updateUserView() {
 			qmOld.clear();
 			qmSpeaking.clear();
 			qmNameCache.clear();
-			painter.drawImage(0,0,qiLogo);
-			painter.drawText(60,20, tr("Not connected"));
+			painter.drawImage(0, 0, qiLogo);
+			painter.drawText(60, 20, tr("Not connected"));
 			continue;
 		}
 
