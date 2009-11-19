@@ -244,7 +244,13 @@ Settings::Settings() {
 		qmMessageSounds.insert(i, QString());
 
 	qmMessages[Log::DebugInfo] = Settings::LogConsole;
+	qmMessages[Log::Warning] = Settings::LogConsole | Settings::LogBalloon;
 	qmMessages[Log::Information] = Settings::LogConsole;
+	qmMessages[Log::UserJoin] = Settings::LogConsole;
+	qmMessages[Log::UserLeave] = Settings::LogConsole;
+	qmMessages[Log::UserKicked] = Settings::LogConsole;
+	qmMessages[Log::OtherSelfMute] = Settings::LogConsole;
+	qmMessages[Log::OtherMutedOther] = Settings::LogConsole;
 }
 
 bool Settings::doEcho() const {

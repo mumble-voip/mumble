@@ -466,7 +466,7 @@ void MainWindow::openUrl(const QUrl &url) {
 
 	rtLast = MumbleProto::Reject_RejectType_None;
 	qaServerDisconnect->setEnabled(true);
-	g.l->log(Log::ServerConnected, tr("Connecting to server %1.").arg(host));
+	g.l->log(Log::Information, tr("Connecting to server %1.").arg(host));
 	g.sh->setConnectionInfo(host, port, user, pw);
 	g.sh->start(QThread::TimeCriticalPriority);
 }
@@ -618,7 +618,7 @@ void MainWindow::on_qaServerConnect_triggered() {
 		qsDesiredChannel = QString();
 		rtLast = MumbleProto::Reject_RejectType_None;
 		qaServerDisconnect->setEnabled(true);
-		g.l->log(Log::ServerConnected, tr("Connecting to server %1.").arg(cd->qsServer));
+		g.l->log(Log::Information, tr("Connecting to server %1.").arg(cd->qsServer));
 		g.sh->setConnectionInfo(cd->qsServer, cd->usPort, cd->qsUsername, cd->qsPassword);
 		g.sh->start(QThread::TimeCriticalPriority);
 	}
@@ -628,7 +628,7 @@ void MainWindow::on_qaServerConnect_triggered() {
 void MainWindow::on_Reconnect_timeout() {
 	if (g.sh->isRunning())
 		return;
-	g.l->log(Log::ServerDisconnected, tr("Reconnecting."));
+	g.l->log(Log::Information, tr("Reconnecting."));
 	g.sh->start(QThread::TimeCriticalPriority);
 }
 
@@ -1786,7 +1786,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 
 	if (! g.sh->qlErrors.isEmpty()) {
 		foreach(QSslError e, g.sh->qlErrors)
-			g.l->log(Log::ServerDisconnected, tr("SSL Verification failed: %1").arg(e.errorString()));
+			g.l->log(Log::Warning, tr("SSL Verification failed: %1").arg(e.errorString()));
 		if (! g.sh->qscCert.isEmpty()) {
 			QSslCertificate c = g.sh->qscCert.at(0);
 			QString basereason;
