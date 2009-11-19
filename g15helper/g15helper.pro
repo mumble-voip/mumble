@@ -15,6 +15,7 @@ win32 {
   LIBS *= -llgLcd -ladvapi32 -lshell32 -luser32
   LIBPATH *= /dev/G15SDK/SDK/Libs/x86
   INCLUDEPATH *= /dev/G15SDK/SDK/Src
+  DEFINES *= WIN32
 }
 
 macx {
@@ -24,6 +25,7 @@ macx {
   LIBPATH *= /opt/mumble-1.2/lglcd-sdk/SDK/lib/
   INCLUDEPATH *= /opt/mumble-1.2/lglcd-sdk/SDK/Src/
   QMAKE_LFLAGS *= -framework CoreFoundation -sectcreate __TEXT __info_plist g15helper.plist
+  DEFINES *= APPLE
 }
 
 CONFIG(release, debug|release) {
@@ -31,6 +33,6 @@ CONFIG(release, debug|release) {
 }
 
 CONFIG(debug, debug|release) {
-  DEFINES += USE_LOGFILE
+  DEFINES *= USE_LOGFILE
   DESTDIR = ../debug/
 }

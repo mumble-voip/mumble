@@ -37,7 +37,11 @@
 #define G15_MAX_BPP         1
 #define G15_MAX_FBMEM       (G15_MAX_WIDTH * G15_MAX_HEIGHT * G15_MAX_BPP)
 #define G15_MAX_FBMEM_BITS  (G15_MAX_FBMEM / 8)
-#define G15_WIDGET_NAME     L"Mumble G15 Display"
+#if defined(WIN32)
+ #define G15_WIDGET_NAME     L"Mumble G15 Display"
+#elif defined(APPLE)
+ #define G15_WIDGET_NAME     CFSTR("Mumble G15 Display")
+#endif
 
 enum {
 	G15_ERR_INIT = 1,

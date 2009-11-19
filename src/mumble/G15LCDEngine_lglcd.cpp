@@ -35,19 +35,17 @@ static LCDEngine *G15LCDEngineNew() {
 	return new G15LCDEngineLGLCD();
 }
 
-#ifdef Q_OS_WIN32
-#define G15_LGLCD_EXEC_SUFFIX ".exe"
-#else
-#define G15_LGLCD_EXEC_SUFFIX ""
-#endif
-
 static LCDEngineRegistrar registrar(G15LCDEngineNew);
 
 G15LCDEngineLGLCD::G15LCDEngineLGLCD() : LCDEngine() {
 	bRunning = false;
 	bUnavailable = false;
 
-	qsHelperExecutable = QString::fromLatin1("\"%1/mumble-g15-helper%2\"").arg(qApp->applicationDirPath()).arg(QLatin1String(G15_LGLCD_EXEC_SUFFIX));
+#if defined(Q_OS_WIN)
+	qsHelperExecutable = QString::fromLatin1("\"%1/mumble-g15-helper.exe\"").arg(qApp->applicationDirPath());
+#elif defined(Q_OS_MAC)
+	qsHelperExecutable = QString::fromLatin1("%1/mumble-g15-helper").arg(qApp->applicationDirPath());
+#endif
 
 	qpHelper = new QProcess(this);
 	qpHelper->setObjectName(QLatin1String("Helper"));

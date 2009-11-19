@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
 	memset(&ctx, 0, sizeof(ctx));
 	memset(&bitmap, 0, sizeof(bitmap));
 
-	conn.appFriendlyName = CFSTR(G15_WIDGET_NAME);
+	conn.appFriendlyName = G15_WIDGET_NAME;
 	conn.isAutostartable = FALSE;
 	conn.isPersistent = FALSE;
 	conn.dwAppletCapabilitiesSupported =LGLCD_APPLET_CAP_BASIC | LGLCD_APPLET_CAP_BW;
