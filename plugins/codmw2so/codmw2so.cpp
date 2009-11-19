@@ -77,23 +77,23 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 			Address			Type	Description
 			===================================
-			0x00786A64		float	Z-Coordinate
-			0x00786A68		float	X-Coordinate
-			0x00786A6C		float	Y-Coordinate
-			0x00786A34		float	Horizontal view (degrees)
-			0x00786A30		float	Vertical view (degrees)
+			0x00782A64		float	Z-Coordinate
+			0x00782A68		float	X-Coordinate
+			0x00782A6C		float	Y-Coordinate
+			0x00782A34		float	Horizontal view (degrees)
+			0x00782A30		float	Vertical view (degrees)
 
 			0x01597682		byte	Magical state value
 	*/
 	
-	so = peekProc((BYTE *) 0x01974920, &specops, 1); // Magical state value
+	so = peekProc((BYTE *) 0x019703A0, &specops, 1); // Magical state value
 		if (! so)
 		return false;
 		
 		if (specops != 2)
 		return false; // 2 value indicates you are playing Special Ops
 		
-	ok = peekProc((BYTE *) 0x01597682, &state, 1); // Magical state value
+	ok = peekProc((BYTE *) 0x01B12BBB, &state, 1); // Magical state value
 		if (! ok)
 		return false;
 
@@ -109,11 +109,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		if (state != 4)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
-	ok = peekProc((BYTE *) 0x00786A64, avatar_pos+2, 4) &&	//Z
-	     peekProc((BYTE *) 0x00786A68, avatar_pos, 4) &&	//X
-	     peekProc((BYTE *) 0x00786A6C, avatar_pos+1, 4) && //Y
-	     peekProc((BYTE *) 0x00786A34, &viewHor, 4) && //Hor
-	     peekProc((BYTE *) 0x00786A30, &viewVer, 4); //Ver
+	ok = peekProc((BYTE *) 0x00782A64, avatar_pos+2, 4) &&	//Z
+	     peekProc((BYTE *) 0x00782A68, avatar_pos, 4) &&	//X
+	     peekProc((BYTE *) 0x00782A6C, avatar_pos+1, 4) && //Y
+	     peekProc((BYTE *) 0x00782A34, &viewHor, 4) && //Hor
+	     peekProc((BYTE *) 0x00782A30, &viewVer, 4); //Ver
 
 	if (! ok)
 		return false;
