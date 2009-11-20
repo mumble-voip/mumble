@@ -75,6 +75,7 @@ class ServerHandler : public QThread {
 		void handleVoicePacket(unsigned int msgFlags, PacketDataStream &pds, MessageHandler::UDPMessageType type);
 	public:
 		Timer tTimestamp;
+		QTimer *tConnectionTimeoutTimer;
 		QList<QSslError> qlErrors;
 		QList<QSslCertificate> qscCert;
 		QSslCipher qscCipher;
@@ -109,6 +110,8 @@ class ServerHandler : public QThread {
 	protected slots:
 		void message(unsigned int, const QByteArray &);
 		void serverConnectionConnected();
+		void serverConnectionTimeoutOnConnect();
+		void serverConnectionStateChanged(QAbstractSocket::SocketState);
 		void serverConnectionClosed(QAbstractSocket::SocketError, const QString &);
 		void setSslErrors(const QList<QSslError> &);
 		void udpReady();

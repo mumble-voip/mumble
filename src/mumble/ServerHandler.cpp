@@ -244,6 +244,7 @@ void ServerHandler::run() {
 	qscCert.clear();
 
 	connect(qtsSock, SIGNAL(encrypted()), this, SLOT(serverConnectionConnected()));
+	connect(qtsSock, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this, SLOT(serverConnectionStateChanged(QAbstractSocket::SocketState)));
 	connect(cConnection.get(), SIGNAL(connectionClosed(QAbstractSocket::SocketError, const QString &)), this, SLOT(serverConnectionClosed(QAbstractSocket::SocketError, const QString &)));
 	connect(cConnection.get(), SIGNAL(message(unsigned int, const QByteArray &)), this, SLOT(message(unsigned int, const QByteArray &)));
 	connect(cConnection.get(), SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(setSslErrors(const QList<QSslError> &)));
@@ -404,7 +405,24 @@ void ServerHandler::serverConnectionClosed(QAbstractSocket::SocketError err, con
 	exit(0);
 }
 
+void ServerHandler::serverConnectionTimeoutOnConnect() {
+	cConnection->disconnectSocket(true);
+	serverConnectionClosed(QAbstractSocket::SocketTimeoutError, tr("Connection timed out"));
+}
+
+void ServerHandler::serverConnectionStateChanged(QAbstractSocket::SocketState state) {
+	if (state == QAbstractSocket::ConnectingState) {
+		// Start timer for connection timeout during connect after resolving is completed
+		tConnectionTimeoutTimer = new QTimer();
+		connect(tConnectionTimeoutTimer, SIGNAL(timeout()), this, SLOT(serverConnectionTimeoutOnConnect()));
+		tConnectionTimeoutTimer->setSingleShot(true);
+		tConnectionTimeoutTimer->start(30000);
+	}
+}
+
 void ServerHandler::serverConnectionConnected() {
+	tConnectionTimeoutTimer->stop();
+
 	if (g.s.bQoS)
 		cConnection->setToS();
 
