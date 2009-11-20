@@ -243,6 +243,18 @@ Settings::Settings() {
 	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i)
 		qmMessageSounds.insert(i, QString());
 
+	qmMessageSounds[Log::CriticalError] = QLatin1String(":/Critical.ogg");
+	qmMessageSounds[Log::PermissionDenied] = QLatin1String(":/PermissionDenied.ogg");
+	qmMessageSounds[Log::SelfMute] = QLatin1String(":/SelfMutedDeafened.ogg");
+	qmMessageSounds[Log::ServerConnected] = QLatin1String(":/ServerConnected.ogg");
+	qmMessageSounds[Log::ServerDisconnected] = QLatin1String(":/ServerDisconnected.ogg");
+	qmMessageSounds[Log::TextMessage] = QLatin1String(":/TextMessage.ogg");
+	qmMessageSounds[Log::ChannelJoin] = QLatin1String(":/UserJoinedChannel.ogg");
+	qmMessageSounds[Log::ChannelLeave] = QLatin1String(":/UserLeftChannel.ogg");
+	qmMessageSounds[Log::YouMutedOther] = QLatin1String(":/UserMutedYouOrByYou.ogg");
+	qmMessageSounds[Log::YouMuted] = QLatin1String(":/UserMutedYouOrByYou.ogg");
+	qmMessageSounds[Log::YouKicked] = QLatin1String(":/UserKickedYouOrByYou.ogg");
+
 	qmMessages[Log::DebugInfo] = Settings::LogConsole;
 	qmMessages[Log::Warning] = Settings::LogConsole | Settings::LogBalloon;
 	qmMessages[Log::Information] = Settings::LogConsole;
