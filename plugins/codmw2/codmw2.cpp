@@ -38,7 +38,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Call of Duty: Modern Warfare 2 Multiplayer(v1.0.166)", L"Mumble CoDMW2 MP Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Call of Duty: Modern Warfare 2 Multiplayer(v1.0.168)", L"Mumble CoDMW2 MP Plugin", MB_OK);
 }
 
 
@@ -56,11 +56,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 			Address			Type	Description
 			===================================
-			0x008EA4E0		float	Z-Coordinate
-			0x008EA4E4		float	X-Coordinate
-			0x008EA4E8		float	Y-Coordinate
-			0x008EA4EC		float	Horizontal view (degrees)
-			0x008EA4F0		float	Vertical view (degrees)
+			0x0085C668		float	Z-Coordinate
+			0x0085C66C		float	X-Coordinate
+			0x0085C670		float	Y-Coordinate
+			0x0085C654		float	Horizontal view (degrees)
+			0x0085C650		float	Vertical view (degrees)
 
 			0x007EE19D		byte	Magical state value
 	*/
@@ -163,10 +163,10 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 MP v1.0.166 only. No context or identity support yet.");
+	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 MP v1.0.168 only. No context or identity support yet.");
 }
 
-static std::wstring description(L"Call of Duty: Modern Warfare 2 MP v1.0.166");
+static std::wstring description(L"Call of Duty: Modern Warfare 2 MP v1.0.168");
 static std::wstring shortname(L"Call of Duty: Modern Warfare 2 MP");
 
 static MumblePlugin codmw2plug = {
