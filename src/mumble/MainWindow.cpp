@@ -231,6 +231,11 @@ void MainWindow::setupGui()  {
 	QMenu *qmWindow = new QMenu(tr("&Window"), this);
 	menubar->insertMenu(qmHelp->menuAction(), qmWindow);
 	qmWindow->addAction(tr("Minimize"), this, SLOT(showMinimized()), QKeySequence(tr("Ctrl+M")));
+
+	qtvUsers->setAttribute(Qt::WA_MacShowFocusRect, false);
+	qleChat->setFrame(false);
+	qleChat->setAttribute(Qt::WA_MacShowFocusRect, false);
+	qteLog->setFrameStyle(QFrame::NoFrame);
 #endif
 
 	LogDocument *ld = new LogDocument(qteLog);

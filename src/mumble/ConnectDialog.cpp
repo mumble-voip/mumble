@@ -703,7 +703,7 @@ void ConnectDialogEdit::on_qleServer_textChanged(const QString &text) {
 ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	setupUi(this);
 #ifdef Q_OS_MAC
-	setWindowFlags(Qt::Sheet);
+	setWindowModality(Qt::WindowModal);
 #endif
 	bPublicInit = false;
 
