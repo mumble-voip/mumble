@@ -805,11 +805,11 @@ static void impl_Server_setSuperuserPassword(const ::Murmur::AMD_Server_setSuper
 static void impl_Server_getLog(const ::Murmur::AMD_Server_getLogPtr cb, int server_id,  ::Ice::Int min,  ::Ice::Int max) {
 	NEED_SERVER_EXISTS;
 
-	::Murmur::LogEntry le;
 	::Murmur::LogList ll;
 
 	QList<ServerDB::LogRecord> dblog = ServerDB::getLog(server_id, min, max);
 	foreach(const ServerDB::LogRecord &e, dblog) {
+		::Murmur::LogEntry le;
 		logToLog(e, le);
 		ll.push_back(le);
 	}
@@ -819,8 +819,8 @@ static void impl_Server_getLog(const ::Murmur::AMD_Server_getLogPtr cb, int serv
 static void impl_Server_getUsers(const ::Murmur::AMD_Server_getUsersPtr cb, int server_id) {
 	NEED_SERVER;
 	::Murmur::UserMap pm;
-	::Murmur::User mp;
 	foreach(const ::User *p, server->qhUsers) {
+		::Murmur::User mp;
 		if (static_cast<const ServerUser *>(p)->sState == ::ServerUser::Authenticated) {
 			userToUser(p, mp);
 			pm[p->uiSession] = mp;
@@ -832,8 +832,8 @@ static void impl_Server_getUsers(const ::Murmur::AMD_Server_getUsersPtr cb, int 
 static void impl_Server_getChannels(const ::Murmur::AMD_Server_getChannelsPtr cb, int server_id) {
 	NEED_SERVER;
 	::Murmur::ChannelMap cm;
-	::Murmur::Channel mc;
 	foreach(const ::Channel *c, server->qhChannels) {
+		::Murmur::Channel mc;
 		channelToChannel(c, mc);
 		cm[c->iId] = mc;
 	}
@@ -878,8 +878,8 @@ static void impl_Server_getTree(const ::Murmur::AMD_Server_getTreePtr cb, int se
 static void impl_Server_getBans(const ::Murmur::AMD_Server_getBansPtr cb, int server_id) {
 	NEED_SERVER;
 	::Murmur::BanList bl;
-	::Murmur::Ban mb;
 	foreach(const ::Ban &ban, server->qlBans) {
+		::Murmur::Ban mb;
 		banToBan(ban, mb);
 		bl.push_back(mb);
 	}
