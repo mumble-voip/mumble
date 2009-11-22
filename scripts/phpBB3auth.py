@@ -55,6 +55,8 @@ default = {'database':(('lib', str, 'MySQLdb'),
                    ('port', int, 6502),
                    ('slice', str, 'Murmur.ice')),
                    
+            'iceraw':None,
+                   
             'murmur':(('servers', lambda x:map(int, x.split(',')), []),),
             'glacier':(('enabled', x2bool, False),
                        ('user', str, 'phpBB3auth'),
@@ -76,15 +78,23 @@ class config(object):
     def __init__(self, filename = None, default = None):
         if not filename or not default: return
         cfg = ConfigParser.ConfigParser()
+        cfg.optionxform = str
         cfg.read(filename)
         
         for h,v in default.iteritems():
-            self.__dict__[h] = config()
-            for name, conv, vdefault in v:
+            if not v:
+                # Output this whole section as a list of raw key/value tuples
                 try:
-                    self.__dict__[h].__dict__[name] = conv(cfg.get(h, name))
-                except (ValueError, ConfigParser.NoSectionError, ConfigParser.NoOptionError):
-                    self.__dict__[h].__dict__[name] = vdefault
+                    self.__dict__[h] = cfg.items(h)
+                except ConfigParser.NoSectionError:
+                    self.__dict__[h] = []
+            else:
+                self.__dict__[h] = config()
+                for name, conv, vdefault in v:
+                    try:
+                        self.__dict__[h].__dict__[name] = conv(cfg.get(h, name))
+                    except (ValueError, ConfigParser.NoSectionError, ConfigParser.NoOptionError):
+                        self.__dict__[h].__dict__[name] = vdefault
                     
 class threadDbException(Exception): pass
 class threadDB(object):
@@ -108,7 +118,8 @@ class threadDB(object):
                                    port = cfg.database.port,
                                    user = cfg.database.user,
                                    passwd = cfg.database.password,
-                                   db = cfg.database.name)
+                                   db = cfg.database.name,
+                                   charset = 'utf8')
             except db.Error, e:
                 error('Could not connect to database: %s', str(e))
                 raise threadDbException()
@@ -147,19 +158,36 @@ class threadDB(object):
             debug('Close database connection for thread %d', tid)
             con.close()
     disconnect = classmethod(disconnect)
-            
+
 def do_main_program():
     #
     #--- Authenticator implementation
     #    All of this has to go in here so we can correctly daemonize the tool
     #    without loosing the file descriptors opened by the Ice module
-    
     Ice.loadSlice(cfg.ice.slice)
     import Murmur
     
     class phpBBauthenticatorApp(Ice.Application):
         def run(self, args):
             self.shutdownOnInterrupt()
+            
+            if not self.initializeIceConnection():
+                return 1
+            
+            # Serve till we are stopped
+            self.communicator().waitForShutdown()
+            
+            if self.interrupted():
+                warning('Caught interrupt, shutting down')
+            
+            threadDB.disconnect()
+            return 0
+        
+        def initializeIceConnection(self):
+            """
+            Establishes the two-way Ice connection and adds the authenticator to the
+            configured servers
+            """
             ice = self.communicator()
             
             if cfg.glacier.enabled:
@@ -173,7 +201,7 @@ def do_main_program():
                 meta = Murmur.MetaPrx.checkedCast(base)
             except Ice.LocalException, e:
                 error('Could not connect to Ice server, error %d: %s', e.error, str(e).replace('\n', ' '))
-                return 1
+                return False
         
             adapter = ice.createObjectAdapterWithEndpoints('Callback.Client', 'tcp -h %s' % cfg.ice.host)
             adapter.activate()
@@ -184,16 +212,8 @@ def do_main_program():
                     authprx = adapter.addWithUUID(phpBBauthenticator(server, adapter))
                     auth = Murmur.ServerUpdatingAuthenticatorPrx.uncheckedCast(authprx)
                     server.setAuthenticator(auth)
-            
-            # Serve till we are stopped
-            self.communicator().waitForShutdown()
-            
-            if self.interrupted():
-                warning('Caught interrupt, shutting down')
-            
-            threadDB.disconnect()
-            return 0
-            
+            return True
+                    
     class phpBBauthenticator(Murmur.ServerUpdatingAuthenticator):
         texture_cache = {}
         def __init__(self, server, adapter):
@@ -488,6 +508,9 @@ def do_main_program():
     #
     info('Starting phpBB3 mumble authenticator')
     initdata = Ice.InitializationData()
+    initdata.properties = Ice.createProperties(None, initdata.properties)
+    for prop, val in cfg.iceraw:
+        initdata.properties.setProperty(prop, val)
     initdata.logger = CustomLogger()
     
     app = phpBBauthenticatorApp()
