@@ -379,40 +379,6 @@ class DiskImage(FolderObject):
 		print ' * Done!'
 
 
-class PackageMaker(FolderObject):
-
-	def __init__(self, filename, id, title, version):
-		FolderObject.__init__(self)
-		print 'Preparing to create package installer'
-		self.filename = filename
-		self.id = id
-		self.title = title
-		self.version = version
-
-	def create(self):
-		'''
-			Create the .pkg installer
-		'''
-		print ' * Creating installer. Please wait...'
-		if os.path.exists(self.filename):
-			if os.path.isdir(self.filename):
-				shutil.rmtree(self.filename)
-			else:
-				os.remove(self.filename)
-		p = Popen(['/Developer/usr/bin/packagemaker',
-		           '--root',     self.tmp,
-		           '--id',       self.id,
-		           '--title',    self.title,
-		           '--version',  self.version,
-		           '--target',   '10.4',
-		           '--scripts',  'installer_macx/scripts/',
-		           '--out',      self.filename])
-		retval = p.wait()
-		print ' * Removing temporary directory.'
-		shutil.rmtree(self.tmp)
-		print ' * Done!'
-
-
 if __name__ == '__main__':
 
 	parser = OptionParser()
@@ -532,4 +498,6 @@ if __name__ == '__main__':
 	d.copy('scripts/addban.php', '/Murmur Extras/')
 	d.copy('scripts/php.ini', '/Murmur Extras/')
 	d.copy('src/murmur/Murmur.ice', '/Murmur Extras/')
+	d.copy('scripts/phpBB3auth.ini', '/Murmur Extras/')
+	d.copy('scripts/phpBB3auth.py', '/Murmur Extras/')
 	d.create()
