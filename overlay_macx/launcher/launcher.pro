@@ -1,7 +1,20 @@
 # Overlay app-launcher for Mac OS X
 
-include(../app.pri)
+include(../../compiler.pri)
+include(../common.pri)
+
+TEMPLATE = app
+CONFIG -= qt app_bundle
+CONFIG *= debug_and_release
 
 TARGET = mumble-overlay
 SOURCES = launcher.m
 QMAKE_LFLAGS += -framework ApplicationServices -framework Cocoa
+
+CONFIG(debug, debug|release) {
+  DESTDIR       = ../../debug
+}
+
+CONFIG(release, debug|release) {
+  DESTDIR       = ../../release
+}
