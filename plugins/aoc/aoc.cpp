@@ -2,17 +2,22 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <tlhelp32.h>
+#include <string>
+#include <sstream>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
 
 #include "../mumble_plugin.h"
 
+using namespace std;
+
 HANDLE h;
 BYTE *posptr;
 BYTE *rotptr;
 BYTE *stateptr;
-BYTE *ccontextptr;
+BYTE *hostptr;
+BYTE *teamptr;
 
 static DWORD getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
@@ -94,85 +99,58 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 	return true;
 }
 
-static int trylock() {
-	h = NULL;
-	posptr = rotptr = NULL;
-
-	DWORD pid=getProcess(L"hl2.exe");
-	if (!pid)
-		return false;
-	BYTE *mod=getModuleAddr(pid, L"client.dll");
-	if (!mod)
-		return false;
-	BYTE *mod2=getModuleAddr(pid, L"server.dll");
-	if (!mod2)
-		return false;
-	BYTE *mod3=getModuleAddr(pid, L"engine.dll");
-	if (!mod3)
-		return false;
-	h=OpenProcess(PROCESS_VM_READ, false, pid);
-	if (!h)
-		return false;
-
-	// Check if we really have AOC running
-	/*
-		position tuple:		client.dll+0x748e14  (x,y,z, float)
-		orientation tuple:	client.dll+0x73dc9c  (v,h float)
-		ID string:			client.dll+0x7071e8 = "ageofchivalry" (13 characters, text)
-		spawn state:        client.dll+0x6d4334  (0 when at main menu, 1 when at team selection, 2 when not spawned,
-		                                          5 when spawned on red team, 7 when spawned on blue team, byte)
-	    context offsets:    server.dll + 0x65e538 = team info
-							engine.dll + 0x5acd40 = ip:port
-	*/
-	char sMagic[13];
-	if (!peekProc(mod + 0x7071e8, sMagic, 13) || strncmp("ageofchivalry", sMagic, 13)!=0)
-		return false;
-
-	// Remember addresses for later
-	posptr = mod + 0x748e14;
-	rotptr = mod + 0x73dc9c;
-	stateptr = mod + 0x6d4334;
-	ccontextptr = mod2 + 0x65e538;
-	ccontextptr = mod3 + 0x5acd40;
-
-	float pos[3];
-	float rot[3];
-	float opos[3], top[3], front[3];
-
-	bool ok = peekProc(posptr, pos, 12) &&
-	          peekProc(rotptr, rot, 12);
-
-	if (ok)
-		return calcout(pos, rot, opos, top, front);
-	// If it failed clean up
-	CloseHandle(h);
-	h = NULL;
-	return false;
-}
-
-static void unlock() {
-	if (h) {
-		CloseHandle(h);
-		h = NULL;
-	}
-	return;
-}
-
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, string &context, wstring &identity) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = 0;
 
 	float ipos[3], rot[3];
 	bool ok;
 	char state;
-	char ccontext[256];
-
-	context.assign(ccontext);
+	char chHostStr[40];
+	BYTE bTeam;
+	string sTeam;
+	wostringstream new_identity;
+	ostringstream new_context;
 
 	ok = peekProc(posptr, ipos, 12) &&
 	     peekProc(rotptr, rot, 12) &&
 	     peekProc(stateptr, &state, 1) &&
-	     peekProc(ccontextptr, ccontext, 256);
+	     peekProc(hostptr, chHostStr, 40) &&
+	     peekProc(teamptr, &bTeam, 1);
+	if (!ok)
+		return false;
+	chHostStr[39] = 0;
+
+
+	switch (bTeam) {
+		case 9:
+			sTeam = "Mason Order";
+			break;
+		case 10:
+			sTeam = "Agathia Knights";
+			break;
+		default:
+			sTeam = "Unknown";
+			break;
+	}
+		
+	new_context << "<context>"
+			<< "<game>aoc</game>"
+			<< "<hostport>" << chHostStr << "</hostport>"
+			<< "<team>" << sTeam << "</team>"
+		    << "</context>";
+	context = new_context.str();
+// // 
+	
+	/* TODO
+	new_identity << "<identity>"
+			<< "<name>" << "SAS" << "</name>"
+		     << "</identity>";
+	identity = new_identity.str(); */
+
+	// Check to see if you are spawned
+	if (state == 0 || state == 1 || state == 2)
+		return true; // Deactivate plugin
 
 	if (ok) {
 		int res = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
@@ -186,11 +164,71 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		}
 	}
 
-	// Check to see if you are spawned
-	if (state == 0 || state == 1 || state == 2)
-		return true; // Deactivate plugin
-
 	return false;
+}
+
+static int trylock() {
+	h = NULL;
+	posptr = rotptr = NULL;
+
+	DWORD pid=getProcess(L"hl2.exe");
+	if (!pid)
+		return false;
+	BYTE *mod=getModuleAddr(pid, L"client.dll");
+	if (!mod)
+		return false;
+	BYTE *mod_engine = getModuleAddr(pid, L"engine.dll");
+	if (!mod_engine)
+		return false;
+
+	h=OpenProcess(PROCESS_VM_READ, false, pid);
+	if (!h)
+		return false;
+
+	// Check if we really have AOC running
+	/*
+		position tuple:		client.dll+0x748e14  (x,y,z, float)
+		orientation tuple:	client.dll+0x73dc9c  (v,h float)
+		ID string:			client.dll+0x7071e8 = "ageofchivalry" (13 characters, text)
+		spawn state:        client.dll+0x6d4334  (0 when at main menu, 1 when at team selection, 2 when not spawned,
+		                                          between 6 and 7 when spawned)
+	    context offsets:    engine.dll + 0x3bf69f = (ip:port)
+							server.dll + 0x71a0a4 = (team info, 9 Mason, 10 Agathia)
+	*/
+
+	// Remember addresses for later
+	posptr = mod + 0x748e14;
+	rotptr = mod + 0x73dc9c;
+	stateptr = mod + 0x6d4334;
+	hostptr = mod_engine + 0x3bf69f;
+	teamptr = mod + 0x71a0a4;
+
+	//Gamecheck 
+	char sMagic[13];
+	if (!peekProc(mod + 0x7071e8, sMagic, 13) || strncmp("ageofchivalry", sMagic, 13)!=0)
+		return false;
+		
+	// Check if we can get meaningful data from it
+	float apos[3], afront[3], atop[3];
+	float cpos[3], cfront[3], ctop[3];
+	wstring sidentity;
+	string scontext;
+
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity))
+		return true;
+
+	// If it failed clean up
+	CloseHandle(h);
+	h = NULL;
+	return false;
+}
+
+static void unlock() {
+	if (h) {
+		CloseHandle(h);
+		h = NULL;
+	}
+	return;
 }
 
 static const std::wstring longdesc() {
