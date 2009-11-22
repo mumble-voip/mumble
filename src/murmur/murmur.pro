@@ -54,6 +54,7 @@ unix {
 macx {
   CONFIG -= app_bundle
   LIBS *= -framework Security
+  QMAKE_LFLAGS += -sectcreate __TEXT __info_plist murmur.plist
 }
 
 dbus {

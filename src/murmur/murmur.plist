@@ -3,33 +3,18 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleExecutable</key>
-	<string>Mumble11x</string>
+	<string>murmurd</string>
 	<key>CFBundleGetInfoString</key>
 	<string>An open source, low-latency, high quality voice chat software primarily intended for use while gaming.</string>
-	<key>CFBundleIconFile</key>
-	<string>mumble.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>net.sourceforge.mumble.Mumble11x</string>
+	<string>net.sourceforge.mumble.Murmur</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
-	<string>MBLE</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>Mumble Server URL</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>mumble</string>
-			</array>
-		</dict>
-	</array>
+	<string>MMUR</string>
 	<key>CFBundleVersion</key>
-	<string>1.1.x</string>
+	<string>1.2.0</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright (c) 2005-2009 Thorvald Natvig &lt;slicer@users.sourceforge.net&gt;</string>
-	<key>MumbleOverlayLibrary</key>
-	<string>Contents/Overlay/libmumbleoverlay.dylib</string>
 </dict>
 </plist>

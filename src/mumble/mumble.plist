@@ -9,7 +9,7 @@
 	<key>CFBundleIconFile</key>
 	<string>mumble.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>net.sourceforge.mumble</string>
+	<string>net.sourceforge.mumble.Mumble</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
