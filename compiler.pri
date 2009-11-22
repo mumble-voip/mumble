@@ -114,7 +114,7 @@ macx {
 		CONFIG += x86 ppc
 	}
 
-	INCLUDEPATH *= /opt/mumble-1.2/boost-1_40_0/include
+	INCLUDEPATH *= /opt/mumble-1.2/boost-1_41_0/include
 	INCLUDEPATH *= /opt/mumble-1.2/include
 	LIBPATH *= /opt/mumble-1.2/lib
 
