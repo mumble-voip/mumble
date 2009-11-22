@@ -14,3 +14,4 @@ CONFIG(release, debug|release) {
   DESTDIR       = ../../release/plugins
 }
 
+include(../symbols.pri)

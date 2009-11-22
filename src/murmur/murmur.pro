@@ -113,3 +113,5 @@ bonjour {
 		PKGCONFIG *= avahi-compat-libdns_sd avahi-client
 	}
 }
+
+include(../../symbols.pri)

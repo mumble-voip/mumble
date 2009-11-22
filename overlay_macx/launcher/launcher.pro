@@ -18,3 +18,5 @@ CONFIG(debug, debug|release) {
 CONFIG(release, debug|release) {
   DESTDIR       = ../../release
 }
+
+include(../../symbols.pri)

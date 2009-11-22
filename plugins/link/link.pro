@@ -14,4 +14,3 @@ unix {
 		LIBS          += -lrt
 	}
 }
-

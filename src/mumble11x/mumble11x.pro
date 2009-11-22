@@ -238,3 +238,5 @@ lrel.input = TRANSLATIONS
 lrel.CONFIG *= no_link target_predeps
 
 QMAKE_EXTRA_COMPILERS *= lrel
+
+include(../../symbols.pri)
