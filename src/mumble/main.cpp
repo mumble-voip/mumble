@@ -100,15 +100,23 @@ int main(int argc, char **argv) {
 	os_init();
 #endif
 
+	bool bAllowMultiple = false;
 	QUrl url;
 	if (a.arguments().count() > 1) {
-		QUrl u = QUrl::fromEncoded(a.arguments().last().toUtf8());
-		if (u.isValid() && (u.scheme() == QLatin1String("mumble"))) {
-			url = u;
-		} else {
-			QFile f(a.arguments().last());
-			if (f.exists()) {
-				url = QUrl::fromLocalFile(f.fileName());
+		QStringList args = a.arguments();
+		for (int i = 1; i < args.count(); ++i) {
+			if (args.at(i) == QLatin1String("-m")) {
+				bAllowMultiple = true;
+			} else {
+				QUrl u = QUrl::fromEncoded(args.at(i).toUtf8());
+				if (u.isValid() && (u.scheme() == QLatin1String("mumble"))) {
+					url = u;
+				} else {
+					QFile f(args.at(i));
+					if (f.exists()) {
+						url = QUrl::fromLocalFile(f.fileName());
+					}
+				}
 			}
 		}
 	}
@@ -132,52 +140,54 @@ int main(int argc, char **argv) {
 	}
 #endif
 
-	if (url.isValid()) {
-		int major, minor, patch;
-		major = 1;
-		minor = 1;
-		patch = 0;
+	if (! bAllowMultiple) {
+		if (url.isValid()) {
+			int major, minor, patch;
+			major = 1;
+			minor = 1;
+			patch = 0;
 
-		QString version = url.queryItemValue(QLatin1String("version"));
+			QString version = url.queryItemValue(QLatin1String("version"));
 
-		QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)"));
-		if (rx.exactMatch(version)) {
-			major = rx.cap(1).toInt();
-			minor = rx.cap(2).toInt();
-			patch = rx.cap(3).toInt();
-		}
+			QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)"));
+			if (rx.exactMatch(version)) {
+				major = rx.cap(1).toInt();
+				minor = rx.cap(2).toInt();
+				patch = rx.cap(3).toInt();
+			}
 
-		if ((major == 1) && (minor == 1)) {
-			QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble11x"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
+			if ((major == 1) && (minor == 1)) {
+				QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble11x"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
 
-			QDBusMessage reply=qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
-			if (reply.type() == QDBusMessage::ReplyMessage) {
-				return 0;
-			} else {
-				QString executable = a.applicationFilePath();
-				int idx = executable.lastIndexOf(QLatin1String("mumble"));
-				if (idx >= 0) {
-					QStringList args;
-					args << url.toString();
+				QDBusMessage reply=qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
+				if (reply.type() == QDBusMessage::ReplyMessage) {
+					return 0;
+				} else {
+					QString executable = a.applicationFilePath();
+					int idx = executable.lastIndexOf(QLatin1String("mumble"));
+					if (idx >= 0) {
+						QStringList args;
+						args << url.toString();
 
-					executable.replace(idx, 6, QLatin1String("mumble11x"));
-					if (QProcess::startDetached(executable, args))
-						return 0;
+						executable.replace(idx, 6, QLatin1String("mumble11x"));
+						if (QProcess::startDetached(executable, args))
+							return 0;
+					}
 				}
+			} else {
+				QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
+
+				QDBusMessage reply=qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
+				if (reply.type() == QDBusMessage::ReplyMessage)
+					return 0;
 			}
 		} else {
 			QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
 
-			QDBusMessage reply=qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
+			QDBusMessage reply=qdbi.call(QLatin1String("focus"));
 			if (reply.type() == QDBusMessage::ReplyMessage)
 				return 0;
 		}
-	} else {
-		QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
-
-		QDBusMessage reply=qdbi.call(QLatin1String("focus"));
-		if (reply.type() == QDBusMessage::ReplyMessage)
-			return 0;
 	}
 #endif
 	// Load preferences
