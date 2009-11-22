@@ -64,27 +64,17 @@ win32 {
 		INCLUDEPATH *= "$$VLD_DIR/include"
 		LIBPATH *= "$$VLD_DIR/lib"
 	}
-} else {
+}
+
+unix {
 	DEFINES *= RESTRICT=__restrict__
+	QMAKE_CFLAGS *= -Wfatal-errors -Wshadow -Wconversion -Wsign-compare -fvisibility=hidden
+	QMAKE_CXXFLAGS *= -Wfatal-errors -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare -fvisibility=hidden
+
 	CONFIG(opt-gcc) {
 		QMAKE_CC = /opt/gcc/bin/gcc
 		QMAKE_CXX = /opt/gcc/bin/g++
 		QMAKE_LINK = /opt/gcc/bin/g++
-	}
-
-	CONFIG(debug, debug|release) {
-		QMAKE_CFLAGS *= -fstack-protector -fPIE -pie
-		QMAKE_CXXFLAGS *= -fstack-protector -fPIE -pie
-		QMAKE_LFLAGS = -Wl,--no-add-needed
-	}
-
-	QMAKE_CFLAGS *= -Wfatal-errors -Wshadow -Wconversion -Wsign-compare -fvisibility=hidden
-	QMAKE_CXXFLAGS *= -Wfatal-errors -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare -fvisibility=hidden
-
-	DEFINES *= _FORTIFY_SOURCE=2
-
-	!macx {
-		QMAKE_LFLAGS *= -Wl,-z,relro -Wl,-z,now
 	}
 
 	CONFIG(optgen) {
@@ -97,6 +87,17 @@ win32 {
 		QMAKE_CFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-use
 		QMAKE_CXXFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-use
 	}
+}
+
+unix:!macx {
+	CONFIG(debug, debug|release) {
+		QMAKE_CFLAGS *= -fstack-protector -fPIE -pie
+		QMAKE_CXXFLAGS *= -fstack-protector -fPIE -pie
+		QMAKE_LFLAGS = -Wl,--no-add-needed
+	}
+
+	DEFINES *= _FORTIFY_SOURCE=2
+	QMAKE_LFLAGS *= -Wl,-z,relro -Wl,-z,now
 
 	CONFIG(symbols) {
 		QMAKE_CFLAGS *= -g
@@ -127,6 +128,11 @@ macx {
 
 	QMAKE_CFLAGS += -mmacosx-version-min=10.5 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
 	QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
+
+	CONFIG(symbols) {
+		QMAKE_CFLAGS *= -gfull -gdwarf-2
+		QMAKE_CXXFLAGS *= -gfull -gdwarf-2
+	}
 }
 
 CONFIG(no-pch) {
