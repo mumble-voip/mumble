@@ -114,7 +114,7 @@ macx {
 		CONFIG += x86 ppc
 	}
 
-	INCLUDEPATH *= /opt/mumble-1.2/boost-1_40_0/include
+	INCLUDEPATH *= /opt/mumble-1.2/boost-1_41_0/include
 	INCLUDEPATH *= /opt/mumble-1.2/include
 	LIBPATH *= /opt/mumble-1.2/lib
 
@@ -128,6 +128,7 @@ macx {
 
 	QMAKE_CFLAGS += -mmacosx-version-min=10.5 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
 	QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
+	QMAKE_LFLAGS *= -Wl,-dead_strip
 
 	CONFIG(symbols) {
 		QMAKE_CFLAGS *= -gfull -gdwarf-2

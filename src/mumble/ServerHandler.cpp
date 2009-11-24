@@ -75,11 +75,10 @@ ServerHandler::ServerHandler() {
 
 	hQoS = NULL;
 
-	HMODULE hLib = LoadLibrary(L"qWave.dll");
-	if (hLib == NULL) {
+
+	if (! SUCCEEDED(__HrLoadAllImportsForDll("qwave.dll"))) {
 		qWarning("ServerHandler: Failed to load qWave.dll, no QoS available");
 	} else {
-		FreeLibrary(hLib);
 		if (! QOSCreateHandle(&qvVer, &hQoS))
 			qWarning("ServerHandler: Failed to create QOS2 handle");
 		else

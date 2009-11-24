@@ -103,10 +103,9 @@ static void channelToChannel(const ::Channel *c, Murmur::Channel &mc) {
 	mc.id = c->iId;
 	mc.name = u8(c->qsName);
 	mc.parent = c->cParent ? c->cParent->iId : -1;
-	mc.links.clear();
-	if (! c->qsDesc.isEmpty())
-		mc.description = u8(c->qsDesc);
+	mc.description = u8(c->qsDesc);
 	mc.position = c->iPosition;
+	mc.links.clear();
 	foreach(::Channel *chn, c->qsPermLinks)
 		mc.links.push_back(chn->iId);
 	mc.temporary = c->bTemporary;

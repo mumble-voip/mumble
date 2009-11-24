@@ -933,6 +933,16 @@ void Server::newClient() {
 
 		HostAddress ha(adr);
 
+		QList<Ban> tmpBans = qlBans;
+		foreach(const Ban &ban, qlBans) {
+			if (ban.isExpired())
+				tmpBans.removeOne(ban);
+		}
+		if (qlBans.count() != tmpBans.count()) {
+			qlBans = tmpBans;
+			saveBans();
+		}
+
 		foreach(const Ban &ban, qlBans) {
 			if (ban.haAddress.match(ha, ban.iMask)) {
 				log(QString("Ignoring connection: %1 (Server ban)").arg(addressToString(sock->peerAddress(), sock->peerPort())));

@@ -146,6 +146,10 @@ QString HostAddress::toString() const {
 	}
 }
 
+bool Ban::isExpired() const {
+	return (iDuration > 0) && static_cast<int>(iDuration - qdtStart.secsTo(QDateTime::currentDateTime().toUTC())) < 0;
+}
+
 bool Ban::operator <(const Ban &other) const {
 	return haAddress < other.haAddress;
 }

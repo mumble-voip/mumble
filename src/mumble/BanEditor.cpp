@@ -46,6 +46,7 @@ BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p) {
 		b.qsHash = u8(be.hash());
 		b.qsReason = u8(be.reason());
 		b.qdtStart = QDateTime::fromString(u8(be.start()), Qt::ISODate);
+		b.qdtStart.setTimeSpec(Qt::UTC);
 		if (! b.qdtStart.isValid())
 			b.qdtStart = QDateTime::currentDateTime();
 		b.iDuration = be.duration();
@@ -91,8 +92,8 @@ void BanEditor::on_qlwBans_currentRowChanged() {
 	qlUser->setText(ban.qsUsername);
 	qlHash->setText(ban.qsHash);
 	qleReason->setText(ban.qsReason);
-	qdteStart->setDateTime(ban.qdtStart);
-	qdteEnd->setDateTime(ban.qdtStart.addSecs(ban.iDuration));
+	qdteStart->setDateTime(ban.qdtStart.toLocalTime());
+	qdteEnd->setDateTime(ban.qdtStart.toLocalTime().addSecs(ban.iDuration));
 
 }
 
@@ -111,7 +112,7 @@ Ban BanEditor::toBan(bool &ok) {
 		b.qsUsername = qlUser->text();
 		b.qsHash = qlHash->text();
 		b.qsReason = qleReason->text();
-		b.qdtStart = qdteStart->dateTime();
+		b.qdtStart = qdteStart->dateTime().toUTC();
 		const QDateTime &qdte = qdteEnd->dateTime();
 		if (qdte <= b.qdtStart)
 			b.iDuration = 0;

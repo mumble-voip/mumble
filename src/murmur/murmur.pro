@@ -54,6 +54,7 @@ unix {
 macx {
   CONFIG -= app_bundle
   LIBS *= -framework Security
+  QMAKE_LFLAGS += -sectcreate __TEXT __info_plist murmur.plist
 }
 
 dbus {
@@ -113,3 +114,5 @@ bonjour {
 		PKGCONFIG *= avahi-compat-libdns_sd avahi-client
 	}
 }
+
+include(../../symbols.pri)

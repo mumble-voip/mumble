@@ -13,9 +13,6 @@
   <property name="windowTitle">
    <string>Certificate Management</string>
   </property>
-  <property name="whatsThis">
-   <string>This opens a file selection dialog to choose a file to export the certificate to.</string>
-  </property>
   <widget class="QWizardPage" name="qwpWelcome">
    <property name="title">
     <string>Certificate Authentication</string>

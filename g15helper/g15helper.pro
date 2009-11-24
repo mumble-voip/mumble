@@ -36,3 +36,5 @@ CONFIG(debug, debug|release) {
   DEFINES *= USE_LOGFILE
   DESTDIR = ../debug/
 }
+
+include(../symbols.pri)

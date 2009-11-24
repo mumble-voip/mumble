@@ -506,8 +506,8 @@ void MainWindow::findDesiredChannel() {
 			g.sh->sendMessage(mpus);
 		}
 		qtvUsers->setCurrentIndex(pmModel->index(chan));
-	} else {
-		qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(g.uiSession)->cChannel));
+	} else if (g.uiSession) {
+			qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(g.uiSession)->cChannel));
 	}
 	updateMenuPermissions();
 }

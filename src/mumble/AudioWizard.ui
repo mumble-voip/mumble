@@ -190,7 +190,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
        <item row="3" column="1">
         <widget class="QCheckBox" name="qcbPositional">
          <property name="toolTip">
-          <string>Allows positioning of sound.</string>
+          <string>Allows positioning of sound</string>
          </property>
          <property name="whatsThis">
           <string>This allows Mumble to use positional audio to place voices.</string>
