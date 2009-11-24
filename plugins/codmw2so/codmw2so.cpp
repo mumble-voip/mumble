@@ -100,13 +100,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// /*
 	//	state value is:
 	//	0		while not in game
-	//	4		while playing
+	//	4 to 5	while playing
 	
 	//	This value is used for disabling pa for spectators
 	//	or people not on a server.
 	// */
 	
-		if (state != 4)
+		if (state == 0)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
 	ok = peekProc((BYTE *) 0x00782A64, avatar_pos+2, 4) &&	//Z
