@@ -73,17 +73,17 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		4		while playing
 		0		while spectating
 
-		This value is used for disabling pa for spectators
+		This value is used for disabling PA for spectators
 		or people not on a server.
 	*/
 	if (state != 4)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
-	ok = peekProc((BYTE *) 0x008EA4E0, avatar_pos+2, 4) &&	//Z
-	     peekProc((BYTE *) 0x008EA4E4, avatar_pos, 4) &&	//X
-	     peekProc((BYTE *) 0x008EA4E8, avatar_pos+1, 4) && //Y
-	     peekProc((BYTE *) 0x008EA4F0, &viewHor, 4) && //Hor
-	     peekProc((BYTE *) 0x008EA4EC, &viewVer, 4); //Ver
+	ok = peekProc((BYTE *) 0x008EA528, avatar_pos+2, 4) &&	//Z
+	     peekProc((BYTE *) 0x008EA52C, avatar_pos, 4) &&	//X
+	     peekProc((BYTE *) 0x008EA530, avatar_pos+1, 4) && //Y
+	     peekProc((BYTE *) 0x008EA538, &viewHor, 4) && //Hor
+	     peekProc((BYTE *) 0x008EA534, &viewVer, 4); //Ver
 
 	if (! ok)
 		return false;
