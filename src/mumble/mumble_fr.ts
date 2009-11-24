@@ -2168,7 +2168,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location filename="AudioStats.ui" line="181"/>
         <source>Bitrate of last frame</source>
-        <translation>Débit binaire de la dernière frame</translation>
+        <translation>Débit binaire de la dernière trame</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="184"/>
@@ -2178,7 +2178,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location filename="AudioStats.ui" line="207"/>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation>Temps entre le dernierdouble appuye sur Appuyez-pour-Parler</translation>
+        <translation>Temps entre la dernière pression double sur Appuyez-pour-Parler</translation>
     </message>
     <message>
         <location filename="AudioStats.ui" line="262"/>
@@ -2282,7 +2282,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location filename="AudioStats.ui" line="281"/>
         <source>Echo Analysis</source>
-        <translation>Analyse de l&apos;echo</translation>
+        <translation>Analyse de l&apos;écho</translation>
     </message>
 </context>
 <context>
@@ -2500,7 +2500,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location filename="AudioWizard.ui" line="127"/>
         <source>Use echo cancellation</source>
-        <translation>Utiliser l&apos;annulation de l&apos;echo</translation>
+        <translation>Utiliser l&apos;annulation de l&apos;écho</translation>
     </message>
     <message>
         <source>Cancel echo from headset or speakers.</source>
@@ -2518,8 +2518,9 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     </message>
     <message>
         <location filename="AudioWizard.ui" line="193"/>
-        <source>Allows positioning of sound.</source>
-        <translation>Autoriser la position audio.</translation>
+        <source>Allows positioning of sound</source>
+        <oldsource>Allows positioning of sound.</oldsource>
+        <translation>Autoriser la position audio</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="27"/>
@@ -2844,174 +2845,173 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation>Gestion du Certificat</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="17"/>
         <source>This opens a file selection dialog to choose a file to export the certificate to.</source>
-        <translation>Ouvre une fenêtre de sélection pour choisir le fichier devant contenir le certificat exporté.</translation>
+        <translation type="obsolete">Ouvre une fenêtre de sélection pour choisir le fichier devant contenir le certificat exporté.</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="21"/>
+        <location filename="Cert.ui" line="18"/>
         <source>Certificate Authentication</source>
         <translation>Authentification par certificat</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="24"/>
+        <location filename="Cert.ui" line="21"/>
         <source>Authenticating to servers without using passwords</source>
         <translation>Authentification aux serveurs sans utiliser de mots de passe</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="33"/>
+        <location filename="Cert.ui" line="30"/>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Mumble peut utiliser des certificats pour s&apos;authentifier avec les serveurs. L&apos;usage des certificats évite d&apos;utiliser des mots de passe, vous ne devez donc pas les divulguer à des sites distants. Il permet aussi de s&apos;enregistrer vraiment vacilement.&lt;/p&gt;&lt;p&gt;Même si Mumble peut fonctionner sans certificat, la majorité des serveurs s&apos;attendent à ce que vous en ayez un.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="43"/>
-        <location filename="Cert.ui" line="264"/>
-        <location filename="Cert.ui" line="351"/>
+        <location filename="Cert.ui" line="40"/>
+        <location filename="Cert.ui" line="261"/>
+        <location filename="Cert.ui" line="348"/>
         <source>Current certificate</source>
         <translation>Certificat actuel</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="46"/>
+        <location filename="Cert.ui" line="43"/>
         <source>This is the certificate Mumble currently uses.</source>
         <translation>C&apos;est le certificat que Mumble utilise actuellement.</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="49"/>
-        <location filename="Cert.ui" line="270"/>
+        <location filename="Cert.ui" line="46"/>
+        <location filename="Cert.ui" line="267"/>
         <source>Current Certificate</source>
         <translation>Certificat actuel</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="56"/>
-        <location filename="Cert.ui" line="62"/>
+        <location filename="Cert.ui" line="53"/>
+        <location filename="Cert.ui" line="59"/>
         <source>Create a new certificate</source>
         <translation>Créer un nouveau certificat</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="59"/>
+        <location filename="Cert.ui" line="56"/>
         <source>This will create a new certificate.</source>
         <translation>Créera un nouveau certificat.</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="82"/>
+        <location filename="Cert.ui" line="79"/>
         <source>Import certificate from file</source>
         <translation>Importer un certificat depuis un fichier</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="85"/>
+        <location filename="Cert.ui" line="82"/>
         <source>This will import a certificate from file.</source>
         <translation>Importera un certificat depuis un fichier.</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="88"/>
+        <location filename="Cert.ui" line="85"/>
         <source>Import a certificate</source>
         <translation>Importer un certificat</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="108"/>
-        <location filename="Cert.ui" line="297"/>
+        <location filename="Cert.ui" line="105"/>
+        <location filename="Cert.ui" line="294"/>
         <source>Export Certificate</source>
         <translation>Exporter un certificat</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="111"/>
+        <location filename="Cert.ui" line="108"/>
         <source>This will export a certificate to file.</source>
         <translation>Exportera le certificat vers un fichier.</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="114"/>
+        <location filename="Cert.ui" line="111"/>
         <source>Export current certificate</source>
         <translation>Exporter le certificat actuel</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="132"/>
+        <location filename="Cert.ui" line="129"/>
         <source>Import Certificate</source>
         <translation>Importer un certificat</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="135"/>
+        <location filename="Cert.ui" line="132"/>
         <source>PKCS #12 Certificate import</source>
         <translation>Importation de certificat PKCS #12</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="144"/>
+        <location filename="Cert.ui" line="141"/>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
         <translation>&lt;p&gt;Mumble peut importer des certificats stockés au format PKCS #12. C&apos;est le format utilisé lors de l&apos;exportation de la clé de Mumble, et aussi lors de l&apos;export de clés depuis Firefox, Internet Explorer, Opera, etc.&lt;/p&gt;&lt;p&gt;Si le fichier est protégé par un mot de passe, vous avez besoin de celui-ci pour importer le certificat.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="154"/>
+        <location filename="Cert.ui" line="151"/>
         <source>Import from</source>
         <translation>Importer depuis</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="164"/>
+        <location filename="Cert.ui" line="161"/>
         <source>Filename to import from</source>
         <translation>Nom de fichier à importer</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="167"/>
+        <location filename="Cert.ui" line="164"/>
         <source>This is the filename you wish to import a certificate from.</source>
         <translation>C&apos;est le fichier à partir duquel vous souhaitez importer le certificat.</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="174"/>
+        <location filename="Cert.ui" line="171"/>
         <source>Select file to import from</source>
         <translation>Sélectionnez le fichier à importer</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="177"/>
+        <location filename="Cert.ui" line="174"/>
         <source>This opens a file selection dialog to choose a file to import a certificate from.</source>
         <translation>Ouvre la boite de dialogue pour sélectionner le fichier de certificat à importer.</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="180"/>
+        <location filename="Cert.ui" line="177"/>
         <source>Open...</source>
         <translation>Ouvrir...</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="191"/>
+        <location filename="Cert.ui" line="188"/>
         <source>Password</source>
         <translation>Mot de passe</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="201"/>
+        <location filename="Cert.ui" line="198"/>
         <source>Password for PKCS#12 file</source>
         <translation>Fichier pour le mot de passe au format PKCS #12</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="204"/>
+        <location filename="Cert.ui" line="201"/>
         <source>This is the password for the PKCS#12 file containing your certificate.</source>
         <translation>C&apos;est le mot de passe pour le fichier PKCS #12 contenant votre certificat.</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="211"/>
+        <location filename="Cert.ui" line="208"/>
         <source>Certificate to import</source>
         <translation>Certificat à importer</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="214"/>
+        <location filename="Cert.ui" line="211"/>
         <source>This is the certificate you are importing.</source>
         <translation>C&apos;est le certificat que vous aller importer.</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="217"/>
-        <location filename="Cert.ui" line="357"/>
+        <location filename="Cert.ui" line="214"/>
+        <location filename="Cert.ui" line="354"/>
         <source>Certificate Details</source>
         <translation>Détails du certificat</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="225"/>
+        <location filename="Cert.ui" line="222"/>
         <source>Replace Certificate</source>
         <translation>Remplacer le certificat</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="228"/>
+        <location filename="Cert.ui" line="225"/>
         <source>Replace existing certificate with new certificate?</source>
         <translation>Remplacer le certificat existant par le nouveau ?</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="240"/>
+        <location filename="Cert.ui" line="237"/>
         <source>&lt;p&gt;You already have a certificate stored in Mumble, and you are about to replace it.&lt;/p&gt;
 &lt;p&gt;If you are upgrading to a certificate issued to you by a trusted CA and the email addresses match your current certificate, this is completely safe, and servers you connect to will automatically recognize the strong certificate for your email address.
 &lt;/p&gt;
@@ -3027,115 +3027,115 @@ Are you sure you wish to replace your certificate?
 &lt;p&gt;Êtex-vous sûr de vouloir remplacer votre certificat ?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="267"/>
+        <location filename="Cert.ui" line="264"/>
         <source>This is the certificate Mumble currently uses. It will be replaced.</source>
         <translation>C&apos;est le certificat Mumble que vous utilisez actuellement. Il sera remplacé.</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="283"/>
+        <location filename="Cert.ui" line="280"/>
         <source>New certificate</source>
         <translation>Nouveau certificat</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="286"/>
+        <location filename="Cert.ui" line="283"/>
         <source>This is the new certificate that will replace the old one.</source>
         <translation>C&apos;est le nouveau certificat qui va remplacer l&apos;ancien.</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="289"/>
-        <location filename="Cert.ui" line="365"/>
+        <location filename="Cert.ui" line="286"/>
+        <location filename="Cert.ui" line="362"/>
         <source>New Certificate</source>
         <translation>Nouveau certificat</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="300"/>
+        <location filename="Cert.ui" line="297"/>
         <source>Make a backup of your certificate</source>
         <translation>Faire une sauvegarde de votre certificat</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="309"/>
+        <location filename="Cert.ui" line="306"/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Si vous perdez votre certificat, ce qui peut se produire si votre ordinateur est victime d&apos;une panne matérielle ou si vous réinstallez votre machine, vous ne pourrez plus vous authentifier sur aucun des serveurs sur lesquels vous vous étiez enregistré. il est donc &lt;b&gt;obligatoire&lt;/b&gt; de faire une sauvegarde de votre certificat. Nous recommendons fortement de le sauvegarder sur un stockage amovible, tel une clé USB.&lt;/p&gt;
 &lt;p&gt;Notez que ce fichier ne sera pas chiffré, et que toute personne qui mettra la main dessus pourra se faire passer pour vous, prenez donc ceci en considération.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="320"/>
+        <location filename="Cert.ui" line="317"/>
         <source>Export to</source>
         <translation>Exporter vers</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="330"/>
+        <location filename="Cert.ui" line="327"/>
         <source>Filename to export to</source>
         <translation>Nom du fichier exporté</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="333"/>
+        <location filename="Cert.ui" line="330"/>
         <source>This is the filename you wish to export a certificate to.</source>
         <translation>C&apos;est le nom de fichier dans lequel vous souhaitez exporter votre certificat.</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="340"/>
+        <location filename="Cert.ui" line="337"/>
         <source>Save As...</source>
         <translation>Enregistrer sous...</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="354"/>
+        <location filename="Cert.ui" line="351"/>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
         <translation>C&apos;est le certificat que Mumble utilise actuellement. Il sera exporté.</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="368"/>
+        <location filename="Cert.ui" line="365"/>
         <source>Generate a new certificate for strong authentication</source>
         <translation>Génère un nouveau certificat pour l&apos;authentification forte</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="377"/>
+        <location filename="Cert.ui" line="374"/>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Mumble va maintenant générer un certificat pour l&apos;authentification forte avec les serveurs.&lt;/p&gt;&lt;p&gt;Si vous voulez, vous pouvez spécifier des informations additionnelles à enregistrer dans le certificat, qui seront présentées aux serveurs leur de vos connections. Si vous fournissez une adresse de courriel valide, vous pouvez demander à une autorité de certification de vous délivré un certificat courriel plus tard, qui permet une identification forte.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="387"/>
+        <location filename="Cert.ui" line="384"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="397"/>
+        <location filename="Cert.ui" line="394"/>
         <source>Email</source>
         <translation>Courriel</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="407"/>
+        <location filename="Cert.ui" line="404"/>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
         <translation>Votre adresse de courriel (ex. jacquesdupond@mumble.info)</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="410"/>
+        <location filename="Cert.ui" line="407"/>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
         <translation>C&apos;est votre adresse de courriel. Il est fortement recommandé de fournir une adresse email valide, car cela vous permettra de passer à un certificat d&apos;authentification forte sans problèmes.</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="424"/>
+        <location filename="Cert.ui" line="421"/>
         <source>Your name (e.g. John Doe)</source>
         <translation>Votre nom (ex. Jacques Dupond)</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="427"/>
+        <location filename="Cert.ui" line="424"/>
         <source>This is your name, and will be filled out in the certificate. This field is entirely optional.</source>
         <translation>C&apos;est votre nom, et celui-ci sera recopié dans le certificat. Ce champ est entièrement optionnel.</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="435"/>
+        <location filename="Cert.ui" line="432"/>
         <source>Finish</source>
         <translation>Terminer</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="438"/>
+        <location filename="Cert.ui" line="435"/>
         <source>Certificate-based authentication is ready for use</source>
         <translation>L&apos;authentification par certificat est prête à être utilisée</translation>
     </message>
     <message>
-        <location filename="Cert.ui" line="447"/>
+        <location filename="Cert.ui" line="444"/>
         <source>Enjoy using Mumble with strong authentication.</source>
         <translation>Profitez de l&apos;authentification forte avec Mumble.</translation>
     </message>
@@ -4960,8 +4960,9 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="LookConfig.ui" line="173"/>
-        <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
-        <translation>Définit le comportement en cas de déplacement d&apos;un salon ; peut être utilisé pour prévenir un déplacement accidentel. &lt;i&gt;Bouger un salon&lt;/i&gt; déplace le salon sans rien demander. &lt;i&gt;Ne rien faire&lt;/i&gt; n&apos;effectue aucune opération et affiche un message d&apos;erreur. &lt;i&gt;Demander&lt;/i&gt; affiche une fenêtre de confirmation pour confirmer le déplacement du salon.</translation>
+        <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
+        <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
+        <translation>Définit le comportement en cas de déplacement d&apos;un salon ; peut être utilisé pour prévenir un déplacement accidentel. &lt;i&gt;Déplacer&lt;/i&gt; déplace le salon sans rien demander. &lt;i&gt;Ne rien faire&lt;/i&gt; n&apos;effectue aucune opération et affiche un message d&apos;erreur. &lt;i&gt;Demander&lt;/i&gt; affiche une fenêtre de confirmation pour confirmer le déplacement du salon.</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="187"/>
@@ -5124,7 +5125,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="LookConfig.cpp" line="68"/>
         <source>Move</source>
-        <translation>Bouger</translation>
+        <translation>Déplacer</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="163"/>
@@ -5214,7 +5215,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.cpp" line="133"/>
-        <location filename="MainWindow.cpp" line="1717"/>
+        <location filename="MainWindow.cpp" line="1722"/>
         <source>Root</source>
         <translation>Racine</translation>
     </message>
@@ -5958,8 +5959,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Expulsion du joueur %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="964"/>
-        <location filename="MainWindow.cpp" line="986"/>
+        <location filename="MainWindow.cpp" line="969"/>
+        <location filename="MainWindow.cpp" line="991"/>
         <source>Enter reason</source>
         <translation>Entrez la raison</translation>
     </message>
@@ -5968,9 +5969,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Bannissement du joueur %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="317"/>
-        <location filename="MainWindow.cpp" line="1206"/>
-        <location filename="MainWindow.cpp" line="1802"/>
+        <location filename="MainWindow.cpp" line="322"/>
+        <location filename="MainWindow.cpp" line="1211"/>
+        <location filename="MainWindow.cpp" line="1807"/>
         <location filename="MainWindow.ui" line="14"/>
         <location filename="main.cpp" line="299"/>
         <source>Mumble</source>
@@ -5981,42 +5982,42 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Nom du canal</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1206"/>
+        <location filename="MainWindow.cpp" line="1211"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Etes-vous sûr(e) de vouloir supprimer %1 et tous ses sous-canaux ?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1379"/>
+        <location filename="MainWindow.cpp" line="1384"/>
         <source>Unmuted and undeafened.</source>
         <translation>N&apos;est pas sourd(e) et muet(te).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1381"/>
+        <location filename="MainWindow.cpp" line="1386"/>
         <source>Unmuted.</source>
         <translation>N&apos;est pas muet (te).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1383"/>
+        <location filename="MainWindow.cpp" line="1388"/>
         <source>Muted.</source>
         <translation>Muet(te).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1410"/>
+        <location filename="MainWindow.cpp" line="1415"/>
         <source>Muted and deafened.</source>
         <translation>Sourd(e) et muet(te).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1412"/>
+        <location filename="MainWindow.cpp" line="1417"/>
         <source>Deafened.</source>
         <translation>Sourd(e).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1414"/>
+        <location filename="MainWindow.cpp" line="1419"/>
         <source>Undeafened.</source>
         <translation>N&apos;est pas sourd(e).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1482"/>
+        <location filename="MainWindow.cpp" line="1487"/>
         <source>About Qt</source>
         <translation>A propos de QT</translation>
     </message>
@@ -6029,17 +6030,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Connecté au serveur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1870"/>
+        <location filename="MainWindow.cpp" line="1875"/>
         <source>Server connection failed: %1.</source>
         <translation>La connexion au serveur à échoué : %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1872"/>
+        <location filename="MainWindow.cpp" line="1877"/>
         <source>Disconnected from server.</source>
         <translation>Déconnecté du serveur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="631"/>
+        <location filename="MainWindow.cpp" line="636"/>
         <source>Reconnecting.</source>
         <translation>Reconnexion.</translation>
     </message>
@@ -6292,7 +6293,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Envoyer un message textuel à un autre utilisateur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1008"/>
+        <location filename="MainWindow.cpp" line="1013"/>
         <source>Sending message to %1</source>
         <translation>Envoi du message à %1</translation>
     </message>
@@ -6301,49 +6302,49 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Tappez votre message</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1021"/>
-        <location filename="MainWindow.cpp" line="1082"/>
+        <location filename="MainWindow.cpp" line="1026"/>
+        <location filename="MainWindow.cpp" line="1087"/>
         <source>To %1: %2</source>
         <translation>À %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1021"/>
-        <location filename="MainWindow.cpp" line="1082"/>
+        <location filename="MainWindow.cpp" line="1026"/>
+        <location filename="MainWindow.cpp" line="1087"/>
         <source>Message to %1</source>
         <translation>Message à %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1861"/>
+        <location filename="MainWindow.cpp" line="1866"/>
         <source>Failed to launch compatibility client</source>
         <translation>Erreur lors du lancement du client de compatibilité</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1884"/>
+        <location filename="MainWindow.cpp" line="1889"/>
         <source>Invalid username</source>
         <translation>Nom d&apos;utilisateur invalide</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1884"/>
+        <location filename="MainWindow.cpp" line="1889"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>Vous vous êtes connectés avec un nom d&apos;utilisateur invalide, veuillez en essayer un autre.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1884"/>
+        <location filename="MainWindow.cpp" line="1889"/>
         <source>That username is already in use, please try another username.</source>
         <translation>Ce nom d&apos;utilisateur est déjà utilisé, veuillez essayer un autre nom d&apos;utilisateur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1889"/>
+        <location filename="MainWindow.cpp" line="1894"/>
         <source>Wrong password</source>
         <translation>Mauvais mot de passe</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1889"/>
+        <location filename="MainWindow.cpp" line="1894"/>
         <source>Wrong password for registered users, please try again.</source>
         <translation>Mauvais mot de passe pour l&apos;utilisateur enregistré, veuillez essayer à nouveau.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1889"/>
+        <location filename="MainWindow.cpp" line="1894"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Mauvais mot de passe de serveur pour un utilisateur non enregistré, veuillez essayer à nouveau.</translation>
     </message>
@@ -6378,17 +6379,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Ceci vous guidera dans la configuration de votre matériel audio.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1789"/>
+        <location filename="MainWindow.cpp" line="1794"/>
         <source>SSL Verification failed: %1</source>
         <translation>Vérification SSL échoué: %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1794"/>
+        <location filename="MainWindow.cpp" line="1799"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;ATTENTION :&lt;/b&gt;Le serveur présente un certificat différent de celui mémorisé.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1796"/>
+        <location filename="MainWindow.cpp" line="1801"/>
         <source>Sever presented a certificate which failed verification.</source>
         <translation>Le serveur présente un certificat qui a une vérification invalide.</translation>
     </message>
@@ -6408,151 +6409,151 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Ceci affiche des informations supplémentaires sur la connexion au serveur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="385"/>
+        <location filename="MainWindow.cpp" line="390"/>
         <source>Opening URL %1</source>
         <translation>Ouvrir l&apos;URL %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="389"/>
+        <location filename="MainWindow.cpp" line="394"/>
         <source>File does not exist</source>
         <translation>Fichier inexistant</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="399"/>
+        <location filename="MainWindow.cpp" line="404"/>
         <source>File is not a configuration file.</source>
         <translation>Le fichier n&apos;est pas un fichier de configuration.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="405"/>
+        <location filename="MainWindow.cpp" line="410"/>
         <source>Settings merged from file.</source>
         <translation>Paramètres fusionnée à partir du fichier.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="411"/>
+        <location filename="MainWindow.cpp" line="416"/>
         <source>URL scheme is not &apos;mumble&apos;</source>
         <translation>Le schéma d&apos;URL n&apos;est pas &apos;mumble&apos;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="430"/>
+        <location filename="MainWindow.cpp" line="435"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
         <translation>Cette version de Mumble ne peut pas manipuler les URLs pour Mumble version %1.%2.%3</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="456"/>
+        <location filename="MainWindow.cpp" line="461"/>
         <source>Connecting to %1</source>
         <translation>Connexion à %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="456"/>
+        <location filename="MainWindow.cpp" line="461"/>
         <source>Enter username</source>
         <translation>Entrer le nom d&apos;utilisateur</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="469"/>
-        <location filename="MainWindow.cpp" line="621"/>
+        <location filename="MainWindow.cpp" line="474"/>
+        <location filename="MainWindow.cpp" line="626"/>
         <source>Connecting to server %1.</source>
         <translation>Connexion au serveur %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="706"/>
+        <location filename="MainWindow.cpp" line="711"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocole %1.%2.%3.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="711"/>
+        <location filename="MainWindow.cpp" line="716"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Aucune information de version de système disponible.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="713"/>
+        <location filename="MainWindow.cpp" line="718"/>
         <source>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="717"/>
+        <location filename="MainWindow.cpp" line="722"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canal de contrôle&lt;/h2&gt;&lt;p&gt;Chiffré en %2 %1 bits&lt;br/&gt;%3 ms de latence moyenne (déviation de %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="726"/>
+        <location filename="MainWindow.cpp" line="731"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canal de voix&lt;/h2&gt;&lt;p&gt;Chiffré en OCB-AES128 128 bits&lt;br/&gt;%1 ms de latence moyenne (déviation de %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="737"/>
+        <location filename="MainWindow.cpp" line="742"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Bande passante audio&lt;/h2&gt;&lt;p&gt;Maximale de %1 kbits/s&lt;br/&gt;Actuelle %2 kbits/s&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="739"/>
+        <location filename="MainWindow.cpp" line="744"/>
         <source>Mumble Server Information</source>
         <translation>Information sur le serveur Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="743"/>
-        <location filename="MainWindow.cpp" line="1810"/>
+        <location filename="MainWindow.cpp" line="748"/>
+        <location filename="MainWindow.cpp" line="1815"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Voir le certificat</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="919"/>
+        <location filename="MainWindow.cpp" line="924"/>
         <source>Register yourself as %1</source>
         <translation>S&apos;enregistrement en tant que %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="919"/>
+        <location filename="MainWindow.cpp" line="924"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vous êtes sur le point de vous enregistrer sur ce serveur. Cette action ne peut pas être annulée, et votre identifiant ne pourra plus être modifié une fois cette étape effectuée. Vous serez pour toujours connu comme &apos;%1&apos; sur ce serveur&lt;/p&gt;&lt;p&gt;Êtes-vous sûr de vouloir vous enregistrer ?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="921"/>
+        <location filename="MainWindow.cpp" line="926"/>
         <source>Register user %1</source>
         <translation>Enregistrer l&apos;utilisateur %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="921"/>
+        <location filename="MainWindow.cpp" line="926"/>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vous êtes sur le point d&apos;enregistrer %1 sur le serveur. Cette action est irréversible, le nom d&apos;utilisateur ne pourra pas être modifié, et %1 aura accès au serveur même si vous changez le mot de passe du serveur.&lt;/p&gt;&lt;p&gt;À partir de ce points, %1 sera authentifié avec le certificat actuellement utilisé.&lt;/p&gt;&lt;p&gt;Êtes-vous sûr de vouloir l&apos;enregistrer %1 ?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="964"/>
+        <location filename="MainWindow.cpp" line="969"/>
         <source>Kicking user %1</source>
         <translation>Expulsion de l&apos;utilisateur %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="986"/>
+        <location filename="MainWindow.cpp" line="991"/>
         <source>Banning user %1</source>
         <translation>Bannissement de l&apos;utilisateur %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1035"/>
+        <location filename="MainWindow.cpp" line="1040"/>
         <source>Change comment on user %1</source>
         <translation>Modifier le commentaire de l&apos;utilisateur %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1078"/>
-        <location filename="MainWindow.cpp" line="1295"/>
+        <location filename="MainWindow.cpp" line="1083"/>
+        <location filename="MainWindow.cpp" line="1300"/>
         <source>To channel %1: %2</source>
         <translation>Du salon %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1078"/>
-        <location filename="MainWindow.cpp" line="1295"/>
+        <location filename="MainWindow.cpp" line="1083"/>
+        <location filename="MainWindow.cpp" line="1300"/>
         <source>Message to channel %1</source>
         <translation>Message pour le salon %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1711"/>
+        <location filename="MainWindow.cpp" line="1716"/>
         <source>Connected.</source>
         <translation>Connecté.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1829"/>
+        <location filename="MainWindow.cpp" line="1834"/>
         <source>SSL Version mismatch</source>
         <translation>Incompatibilité de version SSL</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1829"/>
+        <location filename="MainWindow.cpp" line="1834"/>
         <source>This server is using an older encryption standard. It might be an older 1.1 based Mumble server.&lt;br /&gt;Would you like to launch the compatibility client to connect to it?</source>
         <translation>Ce serveur utilse un vieux standard de chiffrage. Ce doit être un serveur Mumble basé sur la version 1.1&lt;br/&gt;Voulez-vous lancer le client de compatibilité pour vous y connecter ?</translation>
     </message>
@@ -6561,93 +6562,93 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Impossible de lancer le client de compatibilité</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1861"/>
+        <location filename="MainWindow.cpp" line="1866"/>
         <source>The compatibility client could not be found, or failed to start.&lt;br /&gt;Note that the compatibility client is an optional component for most installations, and might not be installed.</source>
         <translation>Le client de compatibilité n&apos;a pas pu être trouvé, ou n&apos;a pas pu être lancé.&lt;br/&gt;Celui-ci étant un composant optionnel pour la majorité des installations, il peut ne pas être installé.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1803"/>
+        <location filename="MainWindow.cpp" line="1808"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Les erreurs de ce certificat sont les suivantes: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Voulez-vous quand même accepter ce certificat ?&lt;br /&gt;(Il sera également stocké et ne vous sera pas redemandé.)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1980"/>
+        <location filename="MainWindow.cpp" line="1985"/>
         <source>Type message to channel &apos;%1&apos; here</source>
         <translation>Saisir un message pour le salon &apos;%1&apos; ici</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1983"/>
+        <location filename="MainWindow.cpp" line="1988"/>
         <source>Type message to user &apos;%1&apos; here</source>
         <translation>Saisir un message pour l&apos;utilisateur &apos;%1&apos; ici</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2058"/>
+        <location filename="MainWindow.cpp" line="2063"/>
         <source>Choose image file</source>
         <translation>Choisir un fichier image</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2058"/>
+        <location filename="MainWindow.cpp" line="2063"/>
         <source>Images (*.png *.jpg)</source>
         <translation>Image (*.png *.jpg)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2065"/>
-        <location filename="MainWindow.cpp" line="2077"/>
+        <location filename="MainWindow.cpp" line="2070"/>
+        <location filename="MainWindow.cpp" line="2082"/>
         <source>Failed to load image</source>
         <translation>Impossible de charger l&apos;image</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2065"/>
+        <location filename="MainWindow.cpp" line="2070"/>
         <source>Could not open file for reading.</source>
         <translation>N&apos;a pas pu ouvrir le fichier en lecture.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2077"/>
+        <location filename="MainWindow.cpp" line="2082"/>
         <source>Image format not recognized.</source>
         <translation>Format d&apos;image non reconnu.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="724"/>
+        <location filename="MainWindow.cpp" line="729"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>La voix est envoyée au dessus du canal de contrôle.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="733"/>
+        <location filename="MainWindow.cpp" line="738"/>
         <source>UDP Statistics</source>
         <translation>Statistiques UDP</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="733"/>
+        <location filename="MainWindow.cpp" line="738"/>
         <source>To Server</source>
         <translation>Au serveur</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="733"/>
+        <location filename="MainWindow.cpp" line="738"/>
         <source>From Server</source>
         <translation>Du serveur</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="733"/>
+        <location filename="MainWindow.cpp" line="738"/>
         <source>Good</source>
         <translation>Bon</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="733"/>
+        <location filename="MainWindow.cpp" line="738"/>
         <source>Late</source>
         <translation>Tardif</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="733"/>
+        <location filename="MainWindow.cpp" line="738"/>
         <source>Lost</source>
         <translation>Perdu</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="733"/>
+        <location filename="MainWindow.cpp" line="738"/>
         <source>Resync</source>
         <translation>Resynchronise</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1278"/>
+        <location filename="MainWindow.cpp" line="1283"/>
         <source>Sending message to channel %1</source>
         <translation>Envoyé un message au salon %1</translation>
     </message>
@@ -6656,12 +6657,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Envoyé un message à l&apos;arborescence du canal %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1293"/>
+        <location filename="MainWindow.cpp" line="1298"/>
         <source>To tree %1: %2</source>
         <translation>A l&apos;arborescence %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1293"/>
+        <location filename="MainWindow.cpp" line="1298"/>
         <source>Message to tree %1</source>
         <translation>Message à l&apos;arborescence %1</translation>
     </message>
@@ -6734,18 +6735,18 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Connecté au serveur %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="317"/>
+        <location filename="MainWindow.cpp" line="322"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble est actuellement connecté à un serveur. Voulez vous le fermé ou le réduire dans la barre des tâches?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="318"/>
+        <location filename="MainWindow.cpp" line="323"/>
         <source>Close</source>
         <translation>Fermer</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="233"/>
-        <location filename="MainWindow.cpp" line="319"/>
+        <location filename="MainWindow.cpp" line="324"/>
         <source>Minimize</source>
         <translation>Réduire</translation>
     </message>
@@ -6844,13 +6845,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Diminuer le volume (-10%)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="270"/>
-        <location filename="MainWindow.cpp" line="1974"/>
+        <location filename="MainWindow.cpp" line="275"/>
+        <location filename="MainWindow.cpp" line="1979"/>
         <source>Not connected</source>
         <translation>Non connecté</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="379"/>
+        <location filename="MainWindow.cpp" line="384"/>
         <source>Clear</source>
         <translation>Effacer</translation>
     </message>
@@ -7944,27 +7945,27 @@ Empêche le client de télécharger les images intégrées dans les messages de 
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="370"/>
+        <location filename="ServerHandler.cpp" line="369"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>Les paquets UDP ne peuvent pas être envoyés ni reçus du serveur. Passage en mode TCP.</translation>
     </message>
     <message>
-        <location filename="ServerHandler.cpp" line="372"/>
+        <location filename="ServerHandler.cpp" line="371"/>
         <source>UDP packets cannot be sent to the server. Switching to TCP mode.</source>
         <translation>Les paquets UDP ne peuvent pas être envoyés au  serveur. Passage en mode TCP.</translation>
     </message>
     <message>
-        <location filename="ServerHandler.cpp" line="374"/>
+        <location filename="ServerHandler.cpp" line="373"/>
         <source>UDP packets cannot be received from the server. Switching to TCP mode.</source>
         <translation>Les paquets UDP ne peuvent pas être reçus du serveur. Passage en mode TCP.</translation>
     </message>
     <message>
-        <location filename="ServerHandler.cpp" line="381"/>
+        <location filename="ServerHandler.cpp" line="380"/>
         <source>UDP packets can be sent to and received from the server. Switching back to UDP mode.</source>
         <translation>Les paquets UDP  peuvent être envoyés et reçus du serveur. Retour en mode UDP.</translation>
     </message>
     <message>
-        <location filename="ServerHandler.cpp" line="410"/>
+        <location filename="ServerHandler.cpp" line="409"/>
         <source>Connection timed out</source>
         <translation>Délai de connexion dépassé</translation>
     </message>

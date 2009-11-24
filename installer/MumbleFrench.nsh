@@ -1,10 +1,10 @@
 ﻿; By Thorvald Natvig <slicer@users.sourceforge.net>
 ; Traduction par Thibault Capdevielle <blackstorm_@hotmail.com>
 
-LangString MUMBLE_CREATE_SHORTCUT ${LANG_FRENCH} "Créer un raccourci bureau"
-LangString MUMBLE_DONATE ${LANG_FRENCH} "Faire un don pour le projet Mumble"
+LangString MUMBLE_CREATE_SHORTCUT ${LANG_FRENCH} "Créer un raccourci sur le bureau"
+LangString MUMBLE_DONATE ${LANG_FRENCH} "Faire un don au projet Mumble"
 LangString MUMBLE_TERMINATE_DBUS ${LANG_FRENCH} "Le démon DBus utilisé par Mumble est en cours d'utilisation. Terminer le processus démon pour procéder à la mise à jour?"
-LangString MUMBLE_NO_SSE ${LANG_FRENCH} "Mumble a besoin des instructions SSE, fonctionnalité uniquement présente sur les Intel Pentium III, AMD Athlon XP ou processeurs plus récent. Les instructions SSE n'ont pas été détecté sur votre processeur, Mumble risque de ne pas fonctionner correctement. Désirez-vous quand de même poursuivre l'installation?"
+LangString MUMBLE_NO_SSE ${LANG_FRENCH} "Mumble a besoin des instructions SSE, fonctionnalité uniquement présente sur les Intel Pentium III, AMD Athlon XP ou processeurs plus récent. Les instructions SSE n'ont pas été détecté sur votre processeur, Mumble risque de ne pas fonctionner correctement. Désirez-vous quand même poursuivre l'installation?"
 LangString MUMBLE_NO_XP ${LANG_FRENCH} "Mumble fonctionne seulement avec Windows XP SP2 ou plus récent. Un système d'exploitation plus ancien et incompatible a été détecté, Mumble risque donc de ne pas fonctionner. Désirez-vous quand même installer Mumble?"
 LangString MUMBLE_START ${LANG_FRENCH} "Démarrer Mumble"
 
@@ -23,13 +23,13 @@ LangString INSTALL_SERVER ${LANG_FRENCH} "Server seulement"
 
 ; Install sections
 LangString MUMBLE_SEC_MUMBLE ${LANG_FRENCH} "Mumble (client)"
-LangString MUMBLE_SEC_MUMBLE11X ${LANG_FRENCH} "Mumble (backwards compatible client)"
-LangString MUMBLE_SEC_MURMUR ${LANG_FRENCH} "Murmur (server)"
-LangString MUMBLE_SEC_BONJOUR ${LANG_FRENCH} "Bonjour for Windows"
-LangString DESC_SectionMumble ${LANG_FRENCH} "Le client Mumble, nécessaire pour vous connecter à un serveur."
-LangString DESC_SectionMumble11X ${LANG_FRENCH} "The Mumble client for connecting to older servers."
+LangString MUMBLE_SEC_MUMBLE11X ${LANG_FRENCH} "Mumble (client de compatibilité)"
+LangString MUMBLE_SEC_MURMUR ${LANG_FRENCH} "Murmur (serveur)"
+LangString MUMBLE_SEC_BONJOUR ${LANG_FRENCH} "Bonjour pour Windows"
+LangString DESC_SectionMumble ${LANG_FRENCH} "Client Mumble nécessaire pour vous connecter à un serveur."
+LangString DESC_SectionMumble11X ${LANG_FRENCH} "Client Mumble pour se connecter aux anciens serveurs"
 LangString DESC_SectionMurmur ${LANG_FRENCH} "Le serveur pour Mumble. Inclus tout ce dont vous avez besoin pour installer votre propre serveur."
-LangString DESC_SectionBonjour ${LANG_FRENCH} "Bonjour enables announcement and discovery of Murmur servers on your LAN. This will download and run the Bonjour installer."
+LangString DESC_SectionBonjour ${LANG_FRENCH} "Bonjour permet d'annoncer et de découvrir les serveurs Murmur sur votre réseau local. Télécharge et lance le programme d'installation de Bonjour."
 
 ; Uninstall sections
 LangString MUMBLE_UNSEC_BASE ${LANG_FRENCH} "Mumble et Murmur"
