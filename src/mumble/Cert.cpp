@@ -85,7 +85,11 @@ void CertView::setCert(const QList<QSslCertificate> &cert) {
 
 		const QString &name = qscCert.subjectInfo(QSslCertificate::CommonName);
 
-		qlSubjectName->setText(name);
+		QString tmpName = name;
+		tmpName = tmpName.replace(QLatin1String("\\x"), QLatin1String("%"));
+		tmpName = QUrl::fromPercentEncoding(tmpName.toLatin1());
+
+		qlSubjectName->setText(tmpName);
 
 		if (emails.count() > 0)
 			qlSubjectEmail->setText(emails.join(QLatin1String("<br />")));
