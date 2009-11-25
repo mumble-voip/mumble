@@ -35,10 +35,26 @@
 #include "Global.h"
 #include "OSInfo.h"
 #include "LCD.h"
+#include "ClientUser.h"
 
 Usage::Usage(QObject *p) : QObject(p) {
+	qbReport.open(QBuffer::ReadWrite);
+	qdsReport.setDevice(&qbReport);
+	qdsReport.setVersion(QDataStream::Qt_4_5);
+	qdsReport << static_cast<unsigned int>(1);
+	
 	// Wait 10 minutes (so we know they're actually using this), then...
 	QTimer::singleShot(60 * 10 * 1000, this, SLOT(registerUsage()));
+	QTimer::singleShot(60 * 10 * 1000, this, SLOT(reportJitter()));
+}
+
+void Usage::addJitter(ClientUser *cu) {
+	QMutexLocker qml(& cu->qmTiming);
+	if (! cu->qlTiming.isEmpty()) {
+		qdsReport << cu->qsHash;
+		
+		qdsReport << cu->qlTiming;
+	}
 }
 
 void Usage::registerUsage() {
@@ -80,4 +96,25 @@ void Usage::registerUsage() {
 	qb->setParent(rep);
 
 	connect(rep, SIGNAL(finished()), rep, SLOT(deleteLater()));
+}
+
+void Usage::reportJitter() {
+	QTimer::singleShot(60 * 10 * 1000, this, SLOT(reportJitter()));
+	
+	if (qbReport.size() == 0)
+		return;
+
+	QNetworkRequest req(QUrl(QLatin1String("http://mumble.info/jitter.cgi")));
+	req.setHeader(QNetworkRequest::ContentTypeHeader, QLatin1String("application/octet-stream"));
+
+	QNetworkReply *rep = g.nam->post(req, qCompress(qbReport.buffer(), 9));
+	connect(rep, SIGNAL(finished()), rep, SLOT(deleteLater()));
+	
+	qbReport.close();
+	qbReport.setData(QByteArray());
+
+	qbReport.open(QBuffer::ReadWrite);
+	qdsReport.setDevice(&qbReport);
+	qdsReport.setVersion(QDataStream::Qt_4_5);
+	qdsReport << static_cast<unsigned int>(1);
 }

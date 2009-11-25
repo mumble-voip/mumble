@@ -168,3 +168,11 @@ void Channel::addClientUser(ClientUser *p) {
 	addUser(p);
 	p->setParent(this);
 }
+
+
+QDataStream &operator<<(QDataStream &qds, const ClientUser::JitterRecord &jr) {
+	qds << jr.iSequence;
+	qds << jr.iFrames;
+	qds << jr.uiElapsed;
+	return qds;
+}

@@ -32,6 +32,7 @@
 #define _CLIENTUSER_H
 
 #include "User.h"
+#include "Timer.h"
 
 class ClientUser : public QObject, public User {
 	private:
@@ -39,11 +40,22 @@ class ClientUser : public QObject, public User {
 		Q_DISABLE_COPY(ClientUser)
 	public:
 		enum TalkState { TalkingOff, Talking, TalkingWhisperChannel, TalkingWhisper };
+		
+		struct JitterRecord {
+			int iSequence;
+			int iFrames;
+			quint64 uiElapsed;
+		};
+		
 		TalkState tsState;
 		bool bLocalMute;
 
 		float fPowerMin, fPowerMax;
 		float fAverageAvailable;
+		
+		QMutex qmTiming;
+		Timer tTiming;
+		QList<JitterRecord> qlTiming;
 
 		QString qsFriendName;
 		int iTextureWidth;
@@ -68,5 +80,7 @@ class ClientUser : public QObject, public User {
 		void talkingChanged();
 		void muteDeafChanged();
 };
+
+QDataStream &operator<<(QDataStream &, const ClientUser::JitterRecord &);
 
 #endif

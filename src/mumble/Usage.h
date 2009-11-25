@@ -33,12 +33,19 @@
 
 #include "mumble_pch.hpp"
 
+class ClientUser;
+
 class Usage : public QObject {
 		Q_OBJECT
+	protected:
+		QBuffer qbReport;
+		QDataStream qdsReport;
 	public:
 		Usage(QObject *p = NULL);
+		void addJitter(ClientUser *cu);
 	public slots:
 		void registerUsage();
+		void reportJitter();
 };
 
 #endif

@@ -40,6 +40,7 @@
 #include "LCD.h"
 #include "Log.h"
 #include "Database.h"
+#include "Usage.h"
 
 QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;
 QHash <ClientUser *, ModelItem *> ModelItem::c_qhUsers;
@@ -829,6 +830,8 @@ void UserModel::removeUser(ClientUser *p) {
 
 	if (g.uiSession && (c == ClientUser::get(g.uiSession)->cChannel))
 		updateOverlay();
+		
+	g.mw->uUsage.addJitter(p);
 
 	delete p;
 	delete item;
