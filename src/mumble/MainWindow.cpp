@@ -1853,9 +1853,9 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			url.setUserName(user);
 			url.addQueryItem(QLatin1String("version"), QLatin1String("1.1.8"));
 
+#ifdef USE_DBUS
 			QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble11x"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
 
-#ifdef USE_DBUS
 			QDBusMessage reply=qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
 			if (reply.type() == QDBusMessage::ReplyMessage) {
 				this->close();
