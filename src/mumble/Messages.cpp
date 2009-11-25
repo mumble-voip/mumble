@@ -248,37 +248,88 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			QString admin = pSrc ? pSrc->qsName : tr("the server");
 
 			if (pDst == pSelf) {
-				if (pDst->bDeaf)
-					g.l->log(Log::YouMuted, tr("You were deafened by %1.").arg(admin));
-				else if (msg.has_mute() && pDst->bMute)
-					g.l->log(Log::YouMuted, tr("You were muted by %1.").arg(admin));
-				else if (msg.has_suppress() && pDst->bSuppress)
-					g.l->log(Log::YouMuted, tr("You were suppressed by %1.").arg(admin));
-				else if (msg.has_suppress())
-					g.l->log(Log::YouMuted, tr("You were unsuppressed by %1.").arg(admin));
-				else
-					g.l->log(Log::YouMuted, tr("You were unmuted by %1.").arg(admin));
+				if (msg.has_mute() && msg.has_deaf() && pDst->bMute && pDst->bDeaf) {
+					g.l->log(Log::YouMuted, tr("You were muted and deafened by %1.").arg(admin));
+				}
+				else if (msg.has_mute() && msg.has_deaf() && !pDst->bMute && !pDst->bDeaf) {
+					g.l->log(Log::YouMuted, tr("You were unmuted and undeafened by %1.").arg(admin));
+				}
+				else {
+					if (msg.has_mute()) {
+						if (pDst->bMute)
+							g.l->log(Log::YouMuted, tr("You were muted by %1.").arg(admin));
+						else
+							g.l->log(Log::YouMuted, tr("You were unmuted by %1.").arg(admin));
+					}
+
+					if (msg.has_deaf()) {
+						if (!pDst->bDeaf)
+							g.l->log(Log::YouMuted, tr("You were undeafened by %1.").arg(admin));
+					}
+				}
+
+				if (msg.has_suppress()) {
+					if (pDst->bSuppress)
+						g.l->log(Log::YouMuted, tr("You were suppressed by %1.").arg(admin));
+					else
+						g.l->log(Log::YouMuted, tr("You were unsuppressed by %1.").arg(admin));
+				}
 
 				updateTrayIcon();
 			} else if (pSrc == pSelf) {
-				if (msg.has_deaf() && pDst->bDeaf)
-					g.l->log(Log::YouMutedOther, tr("You deafened %1.").arg(vic));
-				else if (msg.has_mute() && pDst->bMute)
-					g.l->log(Log::YouMutedOther, tr("You muted %1.").arg(vic));
-				else if (msg.has_suppress() && ! pDst->bSuppress)
-					g.l->log(Log::YouMutedOther, tr("You unsuppressed %1.").arg(vic));
-				else
-					g.l->log(Log::YouMutedOther, tr("You unmuted %1.").arg(vic));
+				if (msg.has_mute() && msg.has_deaf() && pDst->bMute && pDst->bDeaf) {
+					g.l->log(Log::YouMutedOther, tr("You muted and deafened %1.").arg(vic));
+				}
+				else if (msg.has_mute() && msg.has_deaf() && !pDst->bMute && !pDst->bDeaf) {
+					g.l->log(Log::YouMutedOther, tr("You unmuted and undeafened %1.").arg(vic));
+				}
+				else {
+					if (msg.has_mute()) {
+						if (pDst->bMute)
+							g.l->log(Log::YouMutedOther, tr("You muted %1.").arg(vic));
+						else
+							g.l->log(Log::YouMutedOther, tr("You unmuted %1.").arg(vic));
+					}
+
+					if (msg.has_deaf()) {
+						if (!pDst->bDeaf)
+							g.l->log(Log::YouMutedOther, tr("You undeafened %1.").arg(vic));
+					}
+				}
+
+				if (msg.has_suppress()) {
+					if (pDst->bSuppress)
+						g.l->log(Log::YouMutedOther, tr("You suppressed %1.").arg(vic));
+					else
+						g.l->log(Log::YouMutedOther, tr("You unsuppressed %1.").arg(vic));
+				}
 			} else {
-				if (msg.has_suppress() && ! pSrc) {
-				} else if (msg.has_deaf() && pDst->bDeaf)
-					g.l->log(Log::OtherMutedOther, tr("%1 deafened by %2.").arg(vic, admin));
-				else if (msg.has_mute() && pDst->bMute)
-					g.l->log(Log::OtherMutedOther, tr("%1 muted by %2.").arg(vic, admin));
-				else if (msg.has_suppress() && ! pDst->bSuppress)
-					g.l->log(Log::OtherMutedOther, tr("%1 unsuppressed by %2.").arg(vic, admin));
-				else
-					g.l->log(Log::OtherMutedOther, tr("%1 unmuted by %2.").arg(vic, admin));
+				if (msg.has_mute() && msg.has_deaf() && pDst->bMute && pDst->bDeaf) {
+					g.l->log(Log::OtherMutedOther, tr("%1 muted and deafened by %2.").arg(vic, admin));
+				}
+				else if (msg.has_mute() && msg.has_deaf() && !pDst->bMute && !pDst->bDeaf) {
+					g.l->log(Log::OtherMutedOther, tr("%1 unmuted and undeafened by %2.").arg(vic, admin));
+				}
+				else {
+					if (msg.has_mute()) {
+						if (!pDst->bMute)
+							g.l->log(Log::OtherMutedOther, tr("%1 unmuted by %2.").arg(vic, admin));
+					}
+
+					if (msg.has_deaf()) {
+						if (pDst->bDeaf)
+							g.l->log(Log::OtherMutedOther, tr("%1 deafened by %2.").arg(vic, admin));
+						else
+							g.l->log(Log::OtherMutedOther, tr("%1 undeafened by %2.").arg(vic, admin));
+					}
+				}
+
+				if (msg.has_suppress()) {
+					if (pDst->bSuppress)
+						g.l->log(Log::OtherMutedOther, tr("%1 suppressed by %2.").arg(vic, admin));
+					else
+						g.l->log(Log::OtherMutedOther, tr("%1 unsuppressed by %2.").arg(vic, admin));
+				}
 			}
 		}
 	}
