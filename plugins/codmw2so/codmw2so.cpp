@@ -91,7 +91,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return false;
 		
 		if (specops != 2)
-		return false; // 2 value indicates you are playing Special Ops
+		return false; // 2 value indicates you are playing Special Ops, 1 indicates SP, 0 indicates at three-way selection menu
 		
 	ok = peekProc((BYTE *) 0x01B12BBB, &state, 1); // Magical state value
 		if (! ok)

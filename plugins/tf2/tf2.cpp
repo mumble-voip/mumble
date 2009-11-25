@@ -116,7 +116,7 @@ static int trylock() {
 		spawn state:        client.dll+0x49db9c  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (depending on the team side and gamemode), byte)
 	*/
 	char sMagic[9];
-	if (!peekProc(mod + 0x4eb30b, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
+	if (!peekProc(mod + 0x4ae30b, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
 		return false;
 
 	// Remember addresses for later

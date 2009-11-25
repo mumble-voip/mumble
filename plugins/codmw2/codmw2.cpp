@@ -163,10 +163,10 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 MP v1.0.168 only. No context or identity support yet.");
+	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 MP v1.0.169 only. No context or identity support yet.");
 }
 
-static std::wstring description(L"Call of Duty: Modern Warfare 2 MP v1.0.168");
+static std::wstring description(L"Call of Duty: Modern Warfare 2 MP v1.0.169");
 static std::wstring shortname(L"Call of Duty: Modern Warfare 2 MP");
 
 static MumblePlugin codmw2plug = {
