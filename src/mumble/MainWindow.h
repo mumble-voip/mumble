@@ -36,6 +36,7 @@
 
 #define TI_QEVENT (QEvent::User + 938)
 #define MB_QEVENT (QEvent::User + 939)
+#define OU_QEVENT (QEvent::User + 940)
 
 class ACLEditor;
 class BanEditor;
@@ -58,6 +59,12 @@ class MessageBoxEvent : public QEvent {
 	public:
 		QString msg;
 		MessageBoxEvent(QString msg);
+};
+
+class OpenURLEvent : public QEvent {
+	public:
+		QUrl url;
+		OpenURLEvent(QUrl url);
 };
 
 class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWindow {
@@ -92,6 +99,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void setOnTop(bool top);
 		void updateTrayIcon();
 		QPair<QByteArray, QImage> openImageFile();
+
 #ifdef Q_OS_WIN
 		bool winEvent(MSG *, long *);
 		unsigned int uiNewHardware;
@@ -116,6 +124,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void findDesiredChannel();
 		void setupView(bool toggle_minimize = true);
 		void setupIconMenu(bool top = false);
+		bool launchCompatibilityClient(const QUrl &url);
 		bool bNoHide;
 		virtual void closeEvent(QCloseEvent *e);
 		virtual void hideEvent(QHideEvent *e);

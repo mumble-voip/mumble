@@ -106,6 +106,10 @@ MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(M
 	msg = m;
 }
 
+OpenURLEvent::OpenURLEvent(QUrl u) : QEvent(static_cast<QEvent::Type>(OU_QEVENT)) {
+	url = u;
+}
+
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	qiIconMuteSelf.addFile(QLatin1String("skin:muted_self.svg"));
 	qiIconMuteServer.addFile(QLatin1String("skin:muted_server.svg"));
@@ -431,6 +435,12 @@ void MainWindow::openUrl(const QUrl &url) {
 		patch = rx.cap(3).toInt();
 	}
 
+#ifdef Q_OS_MAC
+	if ((major == 1) && (minor == 1)) {
+		launchCompatibilityClient(url);
+		return;
+	} else
+#endif
 	if ((major != 1) || (minor != 2) || (patch > 0)) {
 		g.l->log(Log::Warning, tr("This version of Mumble can't handle URLs for Mumble version %1.%2.%3").arg(major).arg(minor).arg(patch));
 		return;
@@ -1829,7 +1839,6 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			}
 		}
 	}
-#ifdef USE_DBUS
 	else if (err == QAbstractSocket::SslHandshakeFailedError) {
 		if (QMessageBox::warning(this, tr("SSL Version mismatch"), tr("This server is using an older encryption standard. It might be an older 1.1 based Mumble server.<br />Would you like to launch the compatibility client to connect to it?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes) {
 
@@ -1846,28 +1855,20 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 
 			QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble11x"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
 
+#ifdef USE_DBUS
 			QDBusMessage reply=qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
 			if (reply.type() == QDBusMessage::ReplyMessage) {
 				this->close();
 				return;
-			} else {
-				QString executable = QApplication::instance()->applicationFilePath();
-				int idx = executable.lastIndexOf(QLatin1String("mumble"));
-				if (idx >= 0) {
-					QStringList args;
-					args << url.toString();
-
-					executable.replace(idx, 6, QLatin1String("mumble11x"));
-					if (QProcess::startDetached(executable, args))
-						this->close();
+			} else
+#endif
+			{
+				if (launchCompatibilityClient(url))
 					return;
-				}
 			}
 			QMessageBox::critical(this, tr("Failed to launch compatibility client"), tr("The compatibility client could not be found, or failed to start.<br />Note that the compatibility client is an optional component for most installations, and might not be installed."), QMessageBox::Ok, QMessageBox::Ok);
 		}
-	}
-#endif
-	else {
+	} else {
 		bool ok = false;
 		bool matched = false;
 
@@ -1999,6 +2000,10 @@ void MainWindow::customEvent(QEvent *evt) {
 		MessageBoxEvent *mbe=static_cast<MessageBoxEvent *>(evt);
 		g.l->log(Log::Information, mbe->msg);
 		return;
+	} else if (evt->type() == OU_QEVENT) {
+		OpenURLEvent *oue=static_cast<OpenURLEvent *>(evt);
+		openUrl(oue->url);
+		return;
 	} else if (evt->type() != SERVERSEND_EVENT) {
 		return;
 	}
@@ -2087,4 +2092,51 @@ QPair<QByteArray, QImage> MainWindow::openImageFile() {
 	retval.second = img;
 
 	return retval;
+}
+
+bool MainWindow::launchCompatibilityClient(const QUrl &url) {
+#ifdef Q_OS_MAC
+	FSRef fref;
+	OSStatus err;
+
+	err = LSFindApplicationForInfo(kLSUnknownCreator, CFSTR("net.sourceforge.mumble.Mumble11x"), CFSTR("Mumble11x.app"), &fref, NULL);
+	if (err == noErr) {
+		CFMutableArrayRef arguments = CFArrayCreateMutable(kCFAllocatorDefault, 2, &kCFTypeArrayCallBacks);
+		if (arguments) {
+			CFArrayAppendValue(arguments, CFSTR("Mumble11x"));
+			QString qsUrlString = url.toString();
+			CFStringRef urlString = CFStringCreateWithCharacters(kCFAllocatorDefault, reinterpret_cast<const UniChar *>(qsUrlString.unicode()), qsUrlString.length());
+			CFArrayAppendValue(arguments, urlString);
+			CFRelease(urlString);
+		}
+
+		LSApplicationParameters parm;
+		memset(&parm, 0, sizeof(LSApplicationParameters));
+		parm.flags = kLSLaunchDefaults;
+		parm.application = &fref;
+		parm.argv = arguments;
+		err = LSOpenApplication(&parm, NULL);
+
+		CFRelease(arguments);
+
+		if (err == noErr) {
+			this->close();
+			return true;
+		}
+	}
+#else
+	QString executable = QApplication::instance()->applicationFilePath();
+	int idx = executable.lastIndexOf(QLatin1String("mumble"));
+	if (idx >= 0) {
+		QStringList args;
+		args << url.toString();
+
+		executable.replace(idx, 6, QLatin1String("mumble11x"));
+		if (QProcess::startDetached(executable, args))
+			this->close();
+		return true;
+	}
+#endif
+
+	return false;
 }

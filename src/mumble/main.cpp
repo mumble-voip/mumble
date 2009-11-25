@@ -323,10 +323,12 @@ int main(int argc, char **argv) {
 		g.p->checkUpdates();
 
 	if (url.isValid()) {
-		g.mw->openUrl(url);
+		OpenURLEvent *oue = new OpenURLEvent(url);
+		qApp->postEvent(g.mw, oue);
 #ifdef Q_OS_MAC
 	} else if (os_url) {
-		g.mw->openUrl(QUrl::fromEncoded(QByteArray(os_url)));
+		OpenURLEvent *oue = new OpenURLEvent(QUrl::fromEncoded(QByteArray(os_url)));
+		qApp->postEvent(g.mw, oue);
 #endif
 	} else {
 		g.mw->on_qaServerConnect_triggered();
