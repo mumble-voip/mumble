@@ -279,6 +279,12 @@ void MainWindow::setupGui()  {
 	qleChat->setDefaultText(tr("Not connected"));
 	qleChat->setEnabled(false);
 
+	connect(qtvUsers->selectionModel(),
+	        SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
+	        SLOT(qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)));
+
+	setupView(false);
+
 	if (g.s.bMinimalView && ! g.s.qbaMinimalViewGeometry.isNull())
 		restoreGeometry(g.s.qbaMinimalViewGeometry);
 	else if (! g.s.bMinimalView && ! g.s.qbaMainWindowGeometry.isNull())
@@ -286,12 +292,6 @@ void MainWindow::setupGui()  {
 
 	restoreState(g.s.qbaMainWindowState);
 	qtvUsers->header()->restoreState(g.s.qbaHeaderState);
-
-	connect(qtvUsers->selectionModel(),
-	        SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
-	        SLOT(qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)));
-
-	setupView(false);
 
 	qmTray = new QMenu(this);
 	setupIconMenu(false);
@@ -593,7 +593,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 		f |= Qt::WindowStaysOnTopHint;
 
 	setWindowFlags(f);
-
+	
 	qdwLog->setVisible(showit);
 	qdwChat->setVisible(showit && g.s.bShowChatbar);
 	qtvUsers->header()->setVisible(showit);
