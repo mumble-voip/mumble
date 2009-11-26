@@ -430,18 +430,20 @@ Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw) {
 	BIO *mem = NULL;
 	STACK_OF(X509) *certs = NULL;
 	Settings::KeyPair kp;
+	int ret = 0;
 
 	mem = BIO_new_mem_buf(data.data(), data.size());
 	BIO_set_close(mem, BIO_NOCLOSE);
 	pkcs = d2i_PKCS12_bio(mem, NULL);
 	if (pkcs) {
-		PKCS12_parse(pkcs, "", &pkey, &x509, &certs);
+		ret = PKCS12_parse(pkcs, NULL, &pkey, &x509, &certs);
 		if (pkcs && !pkey && !x509 && ! pw.isEmpty()) {
 			if (certs) {
-				sk_free(certs);
+				if (ret)
+					sk_X509_free(certs);
 				certs = NULL;
 			}
-			PKCS12_parse(pkcs, pw.toUtf8().constData(), &pkey, &x509, &certs);
+			ret = PKCS12_parse(pkcs, pw.toUtf8().constData(), &pkey, &x509, &certs);
 		}
 		if (pkey && x509 && X509_check_private_key(x509, pkey)) {
 			unsigned char *dptr;
@@ -481,16 +483,19 @@ Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw) {
 		}
 	}
 
-	if (pkey)
-		EVP_PKEY_free(pkey);
-	if (x509)
-		X509_free(x509);
-	if (certs)
-		sk_free(certs);
+	if (ret) {
+		if (pkey)
+			EVP_PKEY_free(pkey);
+		if (x509)
+			X509_free(x509);
+		if (certs)
+			sk_X509_free(certs);
+	}
 	if (pkcs)
 		PKCS12_free(pkcs);
 	if (mem)
 		BIO_free(mem);
+
 	return kp;
 }
 
