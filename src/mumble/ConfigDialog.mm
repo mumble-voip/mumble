@@ -36,6 +36,11 @@
 
 #import "ConfigDialogDelegate.h"
 
+class QWidgetPrivate {
+	private:
+		void updateFrameStrut();
+};
+
 /*
  * This file implements the Mumble configuration dialog on Mac OS X.
  *
@@ -183,8 +188,13 @@ void ConfigDialog::setupMacToolbar(bool expert) {
 	ConfigDialogDelegate *delegate = [[ConfigDialogDelegate alloc] initWithConfigDialog:this
 	                                                               andWidgetMap:&qmWidgets
 	                                                               inExpertMode:expert];
+
 	[toolbar setDelegate: delegate];
 	[window setToolbar: toolbar];
+
+	/* Hack alert: Qt doesn't export its Cocoa helper utilities, so this is the best we
+	 * can do to make the window the right size after setting up a NSToolbar manually. */
+	qt_widget_private(reinterpret_cast<QWidget *>(this))->updateFrameStrut();
 }
 
 void ConfigDialog::removeMacToolbar() {
