@@ -37,7 +37,7 @@
 #import "ConfigDialogDelegate.h"
 
 class QWidgetPrivate {
-	private:
+	public:
 		void updateFrameStrut();
 };
 
