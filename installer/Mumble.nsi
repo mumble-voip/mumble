@@ -288,6 +288,7 @@ Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
   File /oname=insurgency.dll "..\release\plugins\insurgency.dll"
   File /oname=link.dll "..\release\plugins\link.dll"
   File /oname=l4d.dll "..\release\plugins\l4d.dll"
+  File /oname=manual.dll "..\release\plugins\manual.dll"
   File /oname=tf2.dll "..\release\plugins\tf2.dll"
   File /oname=wolfet.dll "..\release\plugins\wolfet.dll"  
   File /oname=wow.dll "..\release\plugins\wow.dll"
