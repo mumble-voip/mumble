@@ -163,10 +163,10 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Call of Duty 5 MP v1.6.1252 only. No context or identity support yet.");
+	return std::wstring(L"Supports Call of Duty 5 MP v1.7.1263 only. No context or identity support yet.");
 }
 
-static std::wstring description(L"Call of Duty 5 MP v1.6.1252");
+static std::wstring description(L"Call of Duty 5 MP v1.7.1263");
 static std::wstring shortname(L"Call of Duty 5 MP");
 
 static MumblePlugin cod5plug = {

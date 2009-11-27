@@ -1,7 +1,7 @@
 include(../plugins.pri)
 
-TARGET		= codmw2sf
-SOURCES		= codmw2sf.cpp
+TARGET		= codmw2so
+SOURCES		= codmw2so.cpp
 LIBS		+= -luser32
 
 
