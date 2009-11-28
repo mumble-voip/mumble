@@ -312,14 +312,14 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 				}
 				else {
 					if (msg.has_mute()) {
-						if (!pDst->bMute)
+						if (pDst->bMute)
+							g.l->log(Log::OtherMutedOther, tr("%1 muted by %2.").arg(vic, admin));
+						else
 							g.l->log(Log::OtherMutedOther, tr("%1 unmuted by %2.").arg(vic, admin));
 					}
 
 					if (msg.has_deaf()) {
-						if (pDst->bDeaf)
-							g.l->log(Log::OtherMutedOther, tr("%1 deafened by %2.").arg(vic, admin));
-						else
+						if (!pDst->bDeaf)
 							g.l->log(Log::OtherMutedOther, tr("%1 undeafened by %2.").arg(vic, admin));
 					}
 				}
