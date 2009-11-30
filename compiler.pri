@@ -1,7 +1,7 @@
 CONFIG *= warn_on
 
 win32 {
-	INCLUDEPATH *= /dev/Boost/include/boost-1_40
+	INCLUDEPATH *= /dev/Boost/include/boost-1_41
 	CONFIG(intelcpp) {
 		DEFINES *= USE_INTEL_IPP
 		DEFINES *= RESTRICT=restrict

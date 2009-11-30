@@ -109,6 +109,8 @@ bool UserView::event(QEvent *evt) {
 	if (evt->type() == QEvent::WhatsThisClicked) {
 		QWhatsThisClickedEvent *qwtce = static_cast<QWhatsThisClickedEvent *>(evt);
 		QDesktopServices::openUrl(qwtce->href());
+		evt->accept();
+		return true;
 	}
 	return QTreeView::event(evt);
 }

@@ -464,7 +464,7 @@ Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw) {
 			qlCerts << qscCert;
 
 			if (certs) {
-				for (int i=0;i<sk_num(certs);++i) {
+				for (int i=0;i<sk_X509_num(certs);++i) {
 					X509 *c = sk_X509_value(certs, i);
 
 					crt.resize(i2d_X509(c, NULL));
@@ -504,7 +504,7 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 	EVP_PKEY *pkey = NULL;
 	PKCS12 *pkcs = NULL;
 	BIO *mem = NULL;
-	STACK_OF(X509) *certs = sk_new_null();
+	STACK_OF(X509) *certs = sk_X509_new_null();
 	const unsigned char *p;
 	long size;
 	char *data = NULL;
@@ -576,7 +576,7 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 	if (mem)
 		BIO_free(mem);
 	if (certs)
-		sk_free(certs);
+		sk_X509_free(certs);
 
 	return qba;
 }
