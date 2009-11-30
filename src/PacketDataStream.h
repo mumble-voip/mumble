@@ -347,19 +347,30 @@ class PacketDataStream {
 		}
 
 		union float32u {
-			quint32 ui;
+			quint8 ui[4];
 			float f;
 		};
 
 		PacketDataStream &operator <<(const float v) {
 			float32u u;
 			u.f = v;
-			return *this << u.ui;
+			append(u.ui[0]);
+			append(u.ui[1]);
+			append(u.ui[2]);
+			append(u.ui[3]);
+			return *this;
 		}
 
 		PacketDataStream &operator >>(float &v) {
 			float32u u;
-			*this >> u.ui;
+			if (left() < 4) {
+				ok = false;
+				v = 0;
+			}
+			u.ui[0] = next8();
+			u.ui[1] = next8();
+			u.ui[2] = next8();
+			u.ui[3] = next8();
 			v = u.f;
 			return *this;
 		}
