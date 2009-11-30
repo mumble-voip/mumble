@@ -55,7 +55,6 @@ BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p) {
 	}
 
 	refreshBanList();
-
 }
 
 void BanEditor::accept() {
@@ -134,6 +133,8 @@ void BanEditor::on_qpbAdd_clicked() {
 	Ban b = toBan(ok);
 
 	if (ok) {
+		b.qsHash = QString();
+		b.qsUsername = QString();
 		qlBans << b;
 		refreshBanList();
 		qlwBans->setCurrentRow(qlBans.indexOf(b));
