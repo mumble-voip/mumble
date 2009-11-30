@@ -202,7 +202,11 @@ bonjour {
 		LIBS *= -lDNSSD -delayload:DNSSD.DLL
 	}
 	unix:!macx {
-		PKGCONFIG *= avahi-compat-libdns_sd
+		system(pkg-config --exists avahi-compat-libdns_sd avahi-client) {
+			PKGCONFIG *= avahi-compat-libdns_sd avahi-client
+		} else {
+			LIBS *= -ldns_sd
+		}
 	}
 }
 
