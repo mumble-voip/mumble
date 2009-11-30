@@ -6077,6 +6077,11 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Vous avez rendu l&apos;ouïe à %1.</translation>
     </message>
     <message>
+        <location filename="Messages.cpp" line="302"/>
+        <source>You suppressed %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="Messages.cpp" line="308"/>
         <source>%1 muted and deafened by %2.</source>
         <translation>%2 a rendu %1 sour(e) et muet(te).</translation>
@@ -8062,7 +8067,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <location filename="GlobalShortcut.cpp" line="574"/>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Allumé</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="576"/>
@@ -8169,7 +8174,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <location filename="GlobalShortcut.cpp" line="262"/>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Allumé</translation>
     </message>
 </context>
 <context>
