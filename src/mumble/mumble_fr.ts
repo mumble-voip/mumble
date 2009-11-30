@@ -2759,12 +2759,12 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation>Émetteur</translation>
     </message>
     <message>
-        <location filename="Cert.cpp" line="93"/>
+        <location filename="Cert.cpp" line="97"/>
         <source>(none)</source>
         <translation>(aucun)</translation>
     </message>
     <message>
-        <location filename="Cert.cpp" line="99"/>
+        <location filename="Cert.cpp" line="103"/>
         <source>Self-signed</source>
         <translation>Auto-signé</translation>
     </message>
@@ -2772,67 +2772,67 @@ Mumble is under continuous development, and the development team wants to focus 
 <context>
     <name>CertWizard</name>
     <message>
-        <location filename="Cert.cpp" line="184"/>
+        <location filename="Cert.cpp" line="188"/>
         <source>Resolving domain %1.</source>
         <translation>Résolution du domaine %1.</translation>
     </message>
     <message>
-        <location filename="Cert.cpp" line="190"/>
+        <location filename="Cert.cpp" line="194"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
         <translation>Incapable de valider le courriel.&lt;br/&gt;Saisissez une adresse de courriel valide (ou vide) pour continuer.</translation>
     </message>
     <message>
-        <location filename="Cert.cpp" line="198"/>
+        <location filename="Cert.cpp" line="202"/>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
         <translation>Une erreur est survenue durant la génération de votre certificat.&lt;br/&gt;Veuillez réessayer.</translation>
     </message>
     <message>
-        <location filename="Cert.cpp" line="206"/>
+        <location filename="Cert.cpp" line="210"/>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
         <translation>Votre certificat et votre clé ne peuvent pas être exportés au format PKCS#12. Il doit y avoir une erreur dans votre certificat.</translation>
     </message>
     <message>
-        <location filename="Cert.cpp" line="211"/>
+        <location filename="Cert.cpp" line="215"/>
         <source>The file could not be opened for writing. Please use another file.</source>
         <translation>Le fichier ne peut pas être ouvert en ecriture. Veuillez utiliser un autre fichier.</translation>
     </message>
     <message>
-        <location filename="Cert.cpp" line="217"/>
+        <location filename="Cert.cpp" line="221"/>
         <source>The file could not be written successfully. Please use another file.</source>
         <translation>Le fichier n&apos;a pas pu être enregistré correctement. Veuillez utiliser un autre fichier.</translation>
     </message>
     <message>
-        <location filename="Cert.cpp" line="224"/>
+        <location filename="Cert.cpp" line="228"/>
         <source>The file could not be opened for reading. Please use another file.</source>
         <translation>Le fichier ne peut pas être lu. Veuillez utiliser un autre fichier.</translation>
     </message>
     <message>
-        <location filename="Cert.cpp" line="230"/>
+        <location filename="Cert.cpp" line="234"/>
         <source>The file is empty or could not be read. Please use another file.</source>
         <translation>Le fichier est vide ou ne peut être lu. Veuillez utiliser un autre fichier.</translation>
     </message>
     <message>
-        <location filename="Cert.cpp" line="235"/>
+        <location filename="Cert.cpp" line="239"/>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
         <translation>Le fichier ne contient pas de clé et de certificat valide. Veuillez utiliser un autre fichier.</translation>
     </message>
     <message>
-        <location filename="Cert.cpp" line="257"/>
+        <location filename="Cert.cpp" line="261"/>
         <source>Select file to export certificate to</source>
         <translation>Sélectionnez le fichier dans lequel exporter le certificat</translation>
     </message>
     <message>
-        <location filename="Cert.cpp" line="294"/>
+        <location filename="Cert.cpp" line="298"/>
         <source>Select file to import certificate from</source>
         <translation>Sélectionnez le fichier à partir duquel importer le certificat</translation>
     </message>
     <message>
-        <location filename="Cert.cpp" line="347"/>
+        <location filename="Cert.cpp" line="351"/>
         <source>Unable to resolve domain.</source>
         <translation>Incapable de résoudre le domaine.</translation>
     </message>
     <message>
-        <location filename="Cert.cpp" line="390"/>
+        <location filename="Cert.cpp" line="394"/>
         <source>Mumble User</source>
         <translation>Utilisateur Mumble</translation>
     </message>
@@ -3459,13 +3459,13 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="51"/>
-        <location filename="ConfigDialog.mm" line="65"/>
+        <location filename="ConfigDialog.mm" line="70"/>
         <source>Accept changes</source>
         <translation>Accepter les modifications</translation>
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="52"/>
-        <location filename="ConfigDialog.mm" line="66"/>
+        <location filename="ConfigDialog.mm" line="71"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
         <translation>Ce bouton acceptera les préférences actuelles et retournera à l&apos;application.&lt;br /&gt;Les préférences seront sauvegardées sur votre disque dur quand vous quitterez l&apos;application.</translation>
     </message>
@@ -3475,13 +3475,13 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="56"/>
-        <location filename="ConfigDialog.mm" line="70"/>
+        <location filename="ConfigDialog.mm" line="75"/>
         <source>Reject changes</source>
         <translation>Annuler les modifications</translation>
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="57"/>
-        <location filename="ConfigDialog.mm" line="71"/>
+        <location filename="ConfigDialog.mm" line="76"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
         <translation>Ce bouton annulera toutes les modifications et retournera à l&apos;application.&lt;br /&gt;Les paramètres seront restaurer à leurs états précédents.</translation>
     </message>
@@ -3491,37 +3491,37 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="61"/>
-        <location filename="ConfigDialog.mm" line="75"/>
+        <location filename="ConfigDialog.mm" line="80"/>
         <source>Apply changes</source>
         <translation>Appliquer les modifications</translation>
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="62"/>
-        <location filename="ConfigDialog.mm" line="76"/>
+        <location filename="ConfigDialog.mm" line="81"/>
         <source>This button will immediately apply all changes.</source>
         <translation>Ce bouton appliquera immédiatement toutes les modifications.</translation>
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="65"/>
-        <location filename="ConfigDialog.mm" line="79"/>
+        <location filename="ConfigDialog.mm" line="84"/>
         <source>Undo changes for current page</source>
         <translation>Annuler les modifications apportées à la page courante</translation>
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="66"/>
-        <location filename="ConfigDialog.mm" line="80"/>
+        <location filename="ConfigDialog.mm" line="85"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
         <translation>Ce bouton revient sur tous les changements effectués sur la page en cours depuis la dernière sauvegarde de paramètres.</translation>
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="69"/>
-        <location filename="ConfigDialog.mm" line="83"/>
+        <location filename="ConfigDialog.mm" line="88"/>
         <source>Restore defaults for current page</source>
         <translation>Restaurer par défaut pour la page courante</translation>
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="70"/>
-        <location filename="ConfigDialog.mm" line="84"/>
+        <location filename="ConfigDialog.mm" line="89"/>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <translation>Ce boutton restaure les paramètres par défaut de la page actuelle seulement. Les autres pages ne sont pas modifiées.&lt;br/&gt;Pour restaurer tous les paramètres par défaut, vous devez utiliser ce boutton sur toutes les pages.</translation>
     </message>
@@ -5209,13 +5209,13 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="282"/>
+        <location filename="main.cpp" line="284"/>
         <source>Welcome to Mumble.</source>
         <translation>Bienvenue sur Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="133"/>
-        <location filename="MainWindow.cpp" line="1722"/>
+        <location filename="MainWindow.cpp" line="137"/>
+        <location filename="MainWindow.cpp" line="1732"/>
         <source>Root</source>
         <translation>Racine</translation>
     </message>
@@ -5822,8 +5822,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Se connecte au site web de Mumble, vérifie si une nouvelle version est disponible, et vous propose un lien de téléchargement approprié le cas échéant.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="215"/>
-        <location filename="MainWindow.cpp" line="227"/>
+        <location filename="MainWindow.cpp" line="219"/>
+        <location filename="MainWindow.cpp" line="231"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -5866,25 +5866,25 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&amp;Aide</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="171"/>
+        <location filename="MainWindow.cpp" line="175"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Appuyez-pour-parler</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="173"/>
+        <location filename="MainWindow.cpp" line="177"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
         <translation>Pressez en maintenez ce bouton pour parler.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="174"/>
+        <location filename="MainWindow.cpp" line="178"/>
         <source>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</source>
         <comment>Global Shortcut</comment>
         <translation>Configure le bouton Appuyez-pour-parler, et tant que vous presserez ce bouton, votre voix sera transmise.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="177"/>
+        <location filename="MainWindow.cpp" line="181"/>
         <source>Reset Audio Processor</source>
         <comment>Global Shortcut</comment>
         <translation>RàZ processeur audio</translation>
@@ -5900,7 +5900,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Activer la surdité pour soi</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="190"/>
+        <location filename="MainWindow.cpp" line="194"/>
         <source>Unlink Plugin</source>
         <comment>Global Shortcut</comment>
         <translation>Désactiver le plugin</translation>
@@ -5926,25 +5926,25 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Tous les Sous Salon</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="193"/>
+        <location filename="MainWindow.cpp" line="197"/>
         <source>Push-to-Mute</source>
         <comment>Global Shortcut</comment>
         <translation>Appuyez-pour-Muet</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="196"/>
+        <location filename="MainWindow.cpp" line="200"/>
         <source>Join Channel</source>
         <comment>Global Shortcut</comment>
         <translation>Rejoindre le salon</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="199"/>
+        <location filename="MainWindow.cpp" line="203"/>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
         <translation>Activer/désactiver l&apos;overlay</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="201"/>
+        <location filename="MainWindow.cpp" line="205"/>
         <source>Toggle state of in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Activer/eésactiver l&apos;affichage de l&apos;overlay.</translation>
@@ -5959,8 +5959,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Expulsion du joueur %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="969"/>
-        <location filename="MainWindow.cpp" line="991"/>
+        <location filename="MainWindow.cpp" line="979"/>
+        <location filename="MainWindow.cpp" line="1001"/>
         <source>Enter reason</source>
         <translation>Entrez la raison</translation>
     </message>
@@ -5969,11 +5969,11 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Bannissement du joueur %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="322"/>
-        <location filename="MainWindow.cpp" line="1211"/>
-        <location filename="MainWindow.cpp" line="1807"/>
+        <location filename="MainWindow.cpp" line="326"/>
+        <location filename="MainWindow.cpp" line="1221"/>
+        <location filename="MainWindow.cpp" line="1817"/>
         <location filename="MainWindow.ui" line="14"/>
-        <location filename="main.cpp" line="299"/>
+        <location filename="main.cpp" line="301"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -5982,42 +5982,42 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Nom du canal</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1211"/>
+        <location filename="MainWindow.cpp" line="1221"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Etes-vous sûr(e) de vouloir supprimer %1 et tous ses sous-canaux ?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1384"/>
+        <location filename="MainWindow.cpp" line="1394"/>
         <source>Unmuted and undeafened.</source>
         <translation>N&apos;est pas sourd(e) et muet(te).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1386"/>
+        <location filename="MainWindow.cpp" line="1396"/>
         <source>Unmuted.</source>
         <translation>N&apos;est pas muet (te).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1388"/>
+        <location filename="MainWindow.cpp" line="1398"/>
         <source>Muted.</source>
         <translation>Muet(te).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1415"/>
+        <location filename="MainWindow.cpp" line="1425"/>
         <source>Muted and deafened.</source>
         <translation>Sourd(e) et muet(te).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1417"/>
+        <location filename="MainWindow.cpp" line="1427"/>
         <source>Deafened.</source>
         <translation>Sourd(e).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1419"/>
+        <location filename="MainWindow.cpp" line="1429"/>
         <source>Undeafened.</source>
         <translation>N&apos;est pas sourd(e).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1487"/>
+        <location filename="MainWindow.cpp" line="1497"/>
         <source>About Qt</source>
         <translation>A propos de QT</translation>
     </message>
@@ -6030,17 +6030,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Connecté au serveur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1875"/>
+        <location filename="MainWindow.cpp" line="1876"/>
         <source>Server connection failed: %1.</source>
         <translation>La connexion au serveur à échoué : %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1877"/>
+        <location filename="MainWindow.cpp" line="1878"/>
         <source>Disconnected from server.</source>
         <translation>Déconnecté du serveur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="636"/>
+        <location filename="MainWindow.cpp" line="646"/>
         <source>Reconnecting.</source>
         <translation>Reconnexion.</translation>
     </message>
@@ -6051,28 +6051,63 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="Messages.cpp" line="248"/>
-        <location filename="Messages.cpp" line="298"/>
-        <location filename="Messages.cpp" line="338"/>
+        <location filename="Messages.cpp" line="349"/>
+        <location filename="Messages.cpp" line="389"/>
         <source>the server</source>
         <translation>le serveur</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="305"/>
+        <location filename="Messages.cpp" line="255"/>
+        <source>You were unmuted and undeafened by %1.</source>
+        <translation>%1 vous a rendu la parole et l&apos;ouïe.</translation>
+    </message>
+    <message>
+        <location filename="Messages.cpp" line="281"/>
+        <source>You muted and deafened %1.</source>
+        <translation>Vous avez rendu %1 sour(e) et muet(te).</translation>
+    </message>
+    <message>
+        <location filename="Messages.cpp" line="284"/>
+        <source>You unmuted and undeafened %1.</source>
+        <translation>Vous avez rendu la porole et l&apos;ouïe à %1.</translation>
+    </message>
+    <message>
+        <location filename="Messages.cpp" line="296"/>
+        <source>You undeafened %1.</source>
+        <translation>Vous avez rendu l&apos;ouïe à %1.</translation>
+    </message>
+    <message>
+        <location filename="Messages.cpp" line="308"/>
+        <source>%1 muted and deafened by %2.</source>
+        <translation>%2 a rendu %1 sour(e) et muet(te).</translation>
+    </message>
+    <message>
+        <location filename="Messages.cpp" line="311"/>
+        <source>%1 unmuted and undeafened by %2.</source>
+        <translation>%2 a rendu la porole et l&apos;ouïe à %1.</translation>
+    </message>
+    <message>
+        <location filename="Messages.cpp" line="329"/>
+        <source>%1 suppressed by %2.</source>
+        <translation>%2 a suspendu(e) %1.</translation>
+    </message>
+    <message>
+        <location filename="Messages.cpp" line="356"/>
         <source>%1 moved to %2.</source>
         <translation>%1 a été déplacé(e) dans le salon %2.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="307"/>
+        <location filename="Messages.cpp" line="358"/>
         <source>%1 moved to %2 by %3.</source>
         <translation>%1 a été sorti(e) du salon %2 par %3.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="317"/>
+        <location filename="Messages.cpp" line="368"/>
         <source>%1 moved in from %2 by %3.</source>
         <translation>%1 a été déplacé(e) depuis le salon %2 par %3.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="352"/>
+        <location filename="Messages.cpp" line="403"/>
         <source>Left server: %1.</source>
         <translation>%1 a quitté le serveur.</translation>
     </message>
@@ -6141,111 +6176,112 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">serveur</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="254"/>
+        <location filename="Messages.cpp" line="260"/>
         <source>You were muted by %1.</source>
         <translation>%1 vous a rendu muet(te).</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="256"/>
+        <location filename="Messages.cpp" line="273"/>
         <source>You were suppressed by %1.</source>
         <translation>Vous avez été suspendu par %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="258"/>
+        <location filename="Messages.cpp" line="275"/>
         <source>You were unsuppressed by %1.</source>
         <translation>Vous avez été rétabli(e) par %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="260"/>
+        <location filename="Messages.cpp" line="262"/>
         <source>You were unmuted by %1.</source>
         <translation>%1 vous a rendu le droit à la parole.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="265"/>
         <source>You deafened %1.</source>
-        <translation>Vous avez rendu sourd %1.</translation>
+        <translation type="obsolete">Vous avez rendu sourd %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="267"/>
+        <location filename="Messages.cpp" line="289"/>
         <source>You muted %1.</source>
         <translation>Vous avez rendu muet %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="269"/>
+        <location filename="Messages.cpp" line="304"/>
         <source>You unsuppressed %1.</source>
         <translation>Vous avez rétabli(e) %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="271"/>
+        <location filename="Messages.cpp" line="291"/>
         <source>You unmuted %1.</source>
         <translation>Vous avez rendu la voix à %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="277"/>
+        <location filename="Messages.cpp" line="316"/>
         <source>%1 muted by %2.</source>
         <translation>%2 a rendu %1 muet(te).</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="279"/>
+        <location filename="Messages.cpp" line="331"/>
         <source>%1 unsuppressed by %2.</source>
         <translation>%1 a été rétabli(e) par %2.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="281"/>
+        <location filename="Messages.cpp" line="318"/>
         <source>%1 unmuted by %2.</source>
         <translation>%1 n&apos;est plus muet (%2).</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="436"/>
+        <location filename="Messages.cpp" line="487"/>
         <source>the server</source>
         <comment>message from</comment>
         <translation>le serveur</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="575"/>
+        <location filename="Messages.cpp" line="626"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Incapable de trouver des codecs CELT correspondant aux autres clients. Vous ne serez pas capable de parler aux autres utilisateurs.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="252"/>
-        <source>You were deafened by %1.</source>
-        <translation>%1 vous a rendu sourd(e).</translation>
+        <source>You were muted and deafened by %1.</source>
+        <oldsource>You were deafened by %1.</oldsource>
+        <translation>%1 vous a rendu sourd(e) et muet(te).</translation>
     </message>
     <message>
+        <location filename="Messages.cpp" line="267"/>
         <source>You were undeafened by %1.</source>
-        <translation type="obsolete">%1 vous a rendu le droit à la parole et à l&apos;écoute.</translation>
+        <translation>%1 vous a rendu le droit à la parole et à l&apos;écoute.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="275"/>
         <source>%1 deafened by %2.</source>
-        <translation>%1 a été rendu sourd(e) et muet(te) par %2.</translation>
+        <translation type="obsolete">%1 a été rendu sourd(e) et muet(te) par %2.</translation>
     </message>
     <message>
+        <location filename="Messages.cpp" line="323"/>
         <source>%1 undeafened by %2.</source>
-        <translation type="obsolete">%1 n&apos;est plus sourd et muet (%2).</translation>
+        <translation>%2 a rendu l&apos;ouïe à %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="345"/>
+        <location filename="Messages.cpp" line="396"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Vous avez été expulsé(e) du serveur par %1 : %2.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="350"/>
+        <location filename="Messages.cpp" line="401"/>
         <source>%3 was kicked from the server by %1: %2.</source>
         <translation>%3 a été expulsé(e) du serveur par %1 : %2.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="343"/>
+        <location filename="Messages.cpp" line="394"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
         <translation>Vous avez été expulsé(e) et banni(e) du serveur par %1 : %2.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="348"/>
+        <location filename="Messages.cpp" line="399"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
         <translation>%3 a été expulsé(e) et banni(e) du serveur par %1 : %2.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="302"/>
+        <location filename="Messages.cpp" line="353"/>
         <source>You were moved to %1 by %2.</source>
         <translation>Vous avez été déplacé(e) dans le salon %1 par %2.</translation>
     </message>
@@ -6258,7 +6294,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">%1 a été sorti(e) du canal par %2.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="315"/>
+        <location filename="Messages.cpp" line="366"/>
         <source>%1 entered channel.</source>
         <translation>%1 est entré(e) dans le salon.</translation>
     </message>
@@ -6293,7 +6329,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Envoyer un message textuel à un autre utilisateur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1013"/>
+        <location filename="MainWindow.cpp" line="1023"/>
         <source>Sending message to %1</source>
         <translation>Envoi du message à %1</translation>
     </message>
@@ -6302,59 +6338,59 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Tappez votre message</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1026"/>
-        <location filename="MainWindow.cpp" line="1087"/>
+        <location filename="MainWindow.cpp" line="1036"/>
+        <location filename="MainWindow.cpp" line="1097"/>
         <source>To %1: %2</source>
         <translation>À %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1026"/>
-        <location filename="MainWindow.cpp" line="1087"/>
+        <location filename="MainWindow.cpp" line="1036"/>
+        <location filename="MainWindow.cpp" line="1097"/>
         <source>Message to %1</source>
         <translation>Message à %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1866"/>
+        <location filename="MainWindow.cpp" line="1869"/>
         <source>Failed to launch compatibility client</source>
         <translation>Erreur lors du lancement du client de compatibilité</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1889"/>
+        <location filename="MainWindow.cpp" line="1890"/>
         <source>Invalid username</source>
         <translation>Nom d&apos;utilisateur invalide</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1889"/>
+        <location filename="MainWindow.cpp" line="1890"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>Vous vous êtes connectés avec un nom d&apos;utilisateur invalide, veuillez en essayer un autre.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1889"/>
+        <location filename="MainWindow.cpp" line="1890"/>
         <source>That username is already in use, please try another username.</source>
         <translation>Ce nom d&apos;utilisateur est déjà utilisé, veuillez essayer un autre nom d&apos;utilisateur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1894"/>
+        <location filename="MainWindow.cpp" line="1895"/>
         <source>Wrong password</source>
         <translation>Mauvais mot de passe</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1894"/>
+        <location filename="MainWindow.cpp" line="1895"/>
         <source>Wrong password for registered users, please try again.</source>
         <translation>Mauvais mot de passe pour l&apos;utilisateur enregistré, veuillez essayer à nouveau.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1894"/>
+        <location filename="MainWindow.cpp" line="1895"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Mauvais mot de passe de serveur pour un utilisateur non enregistré, veuillez essayer à nouveau.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="437"/>
+        <location filename="Messages.cpp" line="488"/>
         <source>From %1: %2</source>
         <translation>De %1 : %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="438"/>
+        <location filename="Messages.cpp" line="489"/>
         <source>Message from %1</source>
         <translation>Message de la part de %1</translation>
     </message>
@@ -6379,17 +6415,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Ceci vous guidera dans la configuration de votre matériel audio.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1794"/>
+        <location filename="MainWindow.cpp" line="1804"/>
         <source>SSL Verification failed: %1</source>
         <translation>Vérification SSL échoué: %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1799"/>
+        <location filename="MainWindow.cpp" line="1809"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;ATTENTION :&lt;/b&gt;Le serveur présente un certificat différent de celui mémorisé.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1801"/>
+        <location filename="MainWindow.cpp" line="1811"/>
         <source>Sever presented a certificate which failed verification.</source>
         <translation>Le serveur présente un certificat qui a une vérification invalide.</translation>
     </message>
@@ -6409,151 +6445,151 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Ceci affiche des informations supplémentaires sur la connexion au serveur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="390"/>
+        <location filename="MainWindow.cpp" line="394"/>
         <source>Opening URL %1</source>
         <translation>Ouvrir l&apos;URL %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="394"/>
+        <location filename="MainWindow.cpp" line="398"/>
         <source>File does not exist</source>
         <translation>Fichier inexistant</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="404"/>
+        <location filename="MainWindow.cpp" line="408"/>
         <source>File is not a configuration file.</source>
         <translation>Le fichier n&apos;est pas un fichier de configuration.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="410"/>
+        <location filename="MainWindow.cpp" line="414"/>
         <source>Settings merged from file.</source>
         <translation>Paramètres fusionnée à partir du fichier.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="416"/>
+        <location filename="MainWindow.cpp" line="420"/>
         <source>URL scheme is not &apos;mumble&apos;</source>
         <translation>Le schéma d&apos;URL n&apos;est pas &apos;mumble&apos;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="435"/>
+        <location filename="MainWindow.cpp" line="445"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
         <translation>Cette version de Mumble ne peut pas manipuler les URLs pour Mumble version %1.%2.%3</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="461"/>
+        <location filename="MainWindow.cpp" line="471"/>
         <source>Connecting to %1</source>
         <translation>Connexion à %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="461"/>
+        <location filename="MainWindow.cpp" line="471"/>
         <source>Enter username</source>
         <translation>Entrer le nom d&apos;utilisateur</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="474"/>
-        <location filename="MainWindow.cpp" line="626"/>
+        <location filename="MainWindow.cpp" line="484"/>
+        <location filename="MainWindow.cpp" line="636"/>
         <source>Connecting to server %1.</source>
         <translation>Connexion au serveur %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="711"/>
+        <location filename="MainWindow.cpp" line="721"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocole %1.%2.%3.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="716"/>
+        <location filename="MainWindow.cpp" line="726"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Aucune information de version de système disponible.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="718"/>
+        <location filename="MainWindow.cpp" line="728"/>
         <source>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="722"/>
+        <location filename="MainWindow.cpp" line="732"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canal de contrôle&lt;/h2&gt;&lt;p&gt;Chiffré en %2 %1 bits&lt;br/&gt;%3 ms de latence moyenne (déviation de %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="731"/>
+        <location filename="MainWindow.cpp" line="741"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canal de voix&lt;/h2&gt;&lt;p&gt;Chiffré en OCB-AES128 128 bits&lt;br/&gt;%1 ms de latence moyenne (déviation de %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="742"/>
+        <location filename="MainWindow.cpp" line="752"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Bande passante audio&lt;/h2&gt;&lt;p&gt;Maximale de %1 kbits/s&lt;br/&gt;Actuelle %2 kbits/s&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="744"/>
+        <location filename="MainWindow.cpp" line="754"/>
         <source>Mumble Server Information</source>
         <translation>Information sur le serveur Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="748"/>
-        <location filename="MainWindow.cpp" line="1815"/>
+        <location filename="MainWindow.cpp" line="758"/>
+        <location filename="MainWindow.cpp" line="1825"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Voir le certificat</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="924"/>
+        <location filename="MainWindow.cpp" line="934"/>
         <source>Register yourself as %1</source>
         <translation>S&apos;enregistrement en tant que %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="924"/>
+        <location filename="MainWindow.cpp" line="934"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vous êtes sur le point de vous enregistrer sur ce serveur. Cette action ne peut pas être annulée, et votre identifiant ne pourra plus être modifié une fois cette étape effectuée. Vous serez pour toujours connu comme &apos;%1&apos; sur ce serveur&lt;/p&gt;&lt;p&gt;Êtes-vous sûr de vouloir vous enregistrer ?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="926"/>
+        <location filename="MainWindow.cpp" line="936"/>
         <source>Register user %1</source>
         <translation>Enregistrer l&apos;utilisateur %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="926"/>
+        <location filename="MainWindow.cpp" line="936"/>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vous êtes sur le point d&apos;enregistrer %1 sur le serveur. Cette action est irréversible, le nom d&apos;utilisateur ne pourra pas être modifié, et %1 aura accès au serveur même si vous changez le mot de passe du serveur.&lt;/p&gt;&lt;p&gt;À partir de ce points, %1 sera authentifié avec le certificat actuellement utilisé.&lt;/p&gt;&lt;p&gt;Êtes-vous sûr de vouloir l&apos;enregistrer %1 ?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="969"/>
+        <location filename="MainWindow.cpp" line="979"/>
         <source>Kicking user %1</source>
         <translation>Expulsion de l&apos;utilisateur %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="991"/>
+        <location filename="MainWindow.cpp" line="1001"/>
         <source>Banning user %1</source>
         <translation>Bannissement de l&apos;utilisateur %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1040"/>
+        <location filename="MainWindow.cpp" line="1050"/>
         <source>Change comment on user %1</source>
         <translation>Modifier le commentaire de l&apos;utilisateur %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1083"/>
-        <location filename="MainWindow.cpp" line="1300"/>
+        <location filename="MainWindow.cpp" line="1093"/>
+        <location filename="MainWindow.cpp" line="1310"/>
         <source>To channel %1: %2</source>
         <translation>Du salon %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1083"/>
-        <location filename="MainWindow.cpp" line="1300"/>
+        <location filename="MainWindow.cpp" line="1093"/>
+        <location filename="MainWindow.cpp" line="1310"/>
         <source>Message to channel %1</source>
         <translation>Message pour le salon %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1716"/>
+        <location filename="MainWindow.cpp" line="1726"/>
         <source>Connected.</source>
         <translation>Connecté.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1834"/>
+        <location filename="MainWindow.cpp" line="1843"/>
         <source>SSL Version mismatch</source>
         <translation>Incompatibilité de version SSL</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1834"/>
+        <location filename="MainWindow.cpp" line="1843"/>
         <source>This server is using an older encryption standard. It might be an older 1.1 based Mumble server.&lt;br /&gt;Would you like to launch the compatibility client to connect to it?</source>
         <translation>Ce serveur utilse un vieux standard de chiffrage. Ce doit être un serveur Mumble basé sur la version 1.1&lt;br/&gt;Voulez-vous lancer le client de compatibilité pour vous y connecter ?</translation>
     </message>
@@ -6562,93 +6598,93 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Impossible de lancer le client de compatibilité</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1866"/>
+        <location filename="MainWindow.cpp" line="1869"/>
         <source>The compatibility client could not be found, or failed to start.&lt;br /&gt;Note that the compatibility client is an optional component for most installations, and might not be installed.</source>
         <translation>Le client de compatibilité n&apos;a pas pu être trouvé, ou n&apos;a pas pu être lancé.&lt;br/&gt;Celui-ci étant un composant optionnel pour la majorité des installations, il peut ne pas être installé.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1808"/>
+        <location filename="MainWindow.cpp" line="1818"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Les erreurs de ce certificat sont les suivantes: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Voulez-vous quand même accepter ce certificat ?&lt;br /&gt;(Il sera également stocké et ne vous sera pas redemandé.)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1985"/>
+        <location filename="MainWindow.cpp" line="1986"/>
         <source>Type message to channel &apos;%1&apos; here</source>
         <translation>Saisir un message pour le salon &apos;%1&apos; ici</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1988"/>
+        <location filename="MainWindow.cpp" line="1989"/>
         <source>Type message to user &apos;%1&apos; here</source>
         <translation>Saisir un message pour l&apos;utilisateur &apos;%1&apos; ici</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2063"/>
+        <location filename="MainWindow.cpp" line="2068"/>
         <source>Choose image file</source>
         <translation>Choisir un fichier image</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2063"/>
+        <location filename="MainWindow.cpp" line="2068"/>
         <source>Images (*.png *.jpg)</source>
         <translation>Image (*.png *.jpg)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2070"/>
-        <location filename="MainWindow.cpp" line="2082"/>
+        <location filename="MainWindow.cpp" line="2075"/>
+        <location filename="MainWindow.cpp" line="2087"/>
         <source>Failed to load image</source>
         <translation>Impossible de charger l&apos;image</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2070"/>
+        <location filename="MainWindow.cpp" line="2075"/>
         <source>Could not open file for reading.</source>
         <translation>N&apos;a pas pu ouvrir le fichier en lecture.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2082"/>
+        <location filename="MainWindow.cpp" line="2087"/>
         <source>Image format not recognized.</source>
         <translation>Format d&apos;image non reconnu.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="729"/>
+        <location filename="MainWindow.cpp" line="739"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>La voix est envoyée au dessus du canal de contrôle.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="738"/>
+        <location filename="MainWindow.cpp" line="748"/>
         <source>UDP Statistics</source>
         <translation>Statistiques UDP</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="738"/>
+        <location filename="MainWindow.cpp" line="748"/>
         <source>To Server</source>
         <translation>Au serveur</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="738"/>
+        <location filename="MainWindow.cpp" line="748"/>
         <source>From Server</source>
         <translation>Du serveur</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="738"/>
+        <location filename="MainWindow.cpp" line="748"/>
         <source>Good</source>
         <translation>Bon</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="738"/>
+        <location filename="MainWindow.cpp" line="748"/>
         <source>Late</source>
         <translation>Tardif</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="738"/>
+        <location filename="MainWindow.cpp" line="748"/>
         <source>Lost</source>
         <translation>Perdu</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="738"/>
+        <location filename="MainWindow.cpp" line="748"/>
         <source>Resync</source>
         <translation>Resynchronise</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1283"/>
+        <location filename="MainWindow.cpp" line="1293"/>
         <source>Sending message to channel %1</source>
         <translation>Envoyé un message au salon %1</translation>
     </message>
@@ -6657,12 +6693,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Envoyé un message à l&apos;arborescence du canal %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1298"/>
+        <location filename="MainWindow.cpp" line="1308"/>
         <source>To tree %1: %2</source>
         <translation>A l&apos;arborescence %1: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1298"/>
+        <location filename="MainWindow.cpp" line="1308"/>
         <source>Message to tree %1</source>
         <translation>Message à l&apos;arborescence %1</translation>
     </message>
@@ -6722,7 +6758,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">La bande passante du serveur est de maximum %1 kbit/s. La qualité audio doit être réajusté.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="299"/>
+        <location filename="main.cpp" line="301"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>C&apos;est la première fois que vous lancez Mumble.&lt;br /&gt; Souhaitez-vous passer par l&apos;Assistant audio pour configurer votre carte son ?</translation>
     </message>
@@ -6735,75 +6771,75 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Connecté au serveur %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="322"/>
+        <location filename="MainWindow.cpp" line="326"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble est actuellement connecté à un serveur. Voulez vous le fermé ou le réduire dans la barre des tâches?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="323"/>
+        <location filename="MainWindow.cpp" line="327"/>
         <source>Close</source>
         <translation>Fermer</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="233"/>
-        <location filename="MainWindow.cpp" line="324"/>
+        <location filename="MainWindow.cpp" line="237"/>
+        <location filename="MainWindow.cpp" line="328"/>
         <source>Minimize</source>
         <translation>Réduire</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="180"/>
+        <location filename="MainWindow.cpp" line="184"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Se rendre muet(te)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="182"/>
+        <location filename="MainWindow.cpp" line="186"/>
         <source>Set self-mute status.</source>
         <comment>Global Shortcut</comment>
         <translation>Activer le status muet pour soi même.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="183"/>
+        <location filename="MainWindow.cpp" line="187"/>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
         <comment>Global Shortcut</comment>
         <translation>Activera ou désactivera votre status muet. Si vous vous rendez la voix, vous entendrez aussi.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="185"/>
+        <location filename="MainWindow.cpp" line="189"/>
         <source>Deafen Self</source>
         <comment>Global Shortcut</comment>
         <translation>Se rendre sourd(e)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="187"/>
+        <location filename="MainWindow.cpp" line="191"/>
         <source>Set self-deafen status.</source>
         <comment>Global Shortcut</comment>
         <translation>Activer le status sourd pour soi même.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="188"/>
+        <location filename="MainWindow.cpp" line="192"/>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
         <translation>Se rendre sourd(e) ou non. Vous rendre sourd(e) vous rendra aussi muet(te).</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="202"/>
+        <location filename="MainWindow.cpp" line="206"/>
         <source>This will switch the states of the in-game overlay between showing everybody, just the users who are talking, and nobody.</source>
         <comment>Global Shortcut</comment>
         <translation>Bascule l&apos;affichage de l&apos;overlay en jeux entre afficher tout le monde, seulement les utilisateurs parlant ou personne.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="218"/>
+        <location filename="MainWindow.cpp" line="222"/>
         <source>Whisper</source>
         <translation>Chuchotter</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="231"/>
+        <location filename="MainWindow.cpp" line="235"/>
         <source>&amp;Window</source>
         <translation>&amp;Fenêtre</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="233"/>
+        <location filename="MainWindow.cpp" line="237"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
@@ -6812,7 +6848,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Ctrl+W</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="205"/>
+        <location filename="MainWindow.cpp" line="209"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
         <translation>Active/désactive l&apos;interface minimale</translation>
@@ -6833,25 +6869,25 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Cela basculer en mode minimal, où la fenêtre et le menu est caché.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="208"/>
+        <location filename="MainWindow.cpp" line="212"/>
         <source>Volume Up (+10%)</source>
         <comment>Global Shortcut</comment>
         <translation>Augmenter volume (+10%)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="211"/>
+        <location filename="MainWindow.cpp" line="215"/>
         <source>Volume Down (-10%)</source>
         <comment>Global Shortcut</comment>
         <translation>Diminuer le volume (-10%)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="275"/>
-        <location filename="MainWindow.cpp" line="1979"/>
+        <location filename="MainWindow.cpp" line="279"/>
+        <location filename="MainWindow.cpp" line="1980"/>
         <source>Not connected</source>
         <translation>Non connecté</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="384"/>
+        <location filename="MainWindow.cpp" line="388"/>
         <source>Clear</source>
         <translation>Effacer</translation>
     </message>
@@ -6861,12 +6897,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Historique</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="1248"/>
+        <location filename="UserModel.cpp" line="1251"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Votre option &apos;Faire glisser le salon&apos; est définie sur &quot;Ne rien faire&quot;, le salon n&apos;a donc pas été déplacé.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="1254"/>
+        <location filename="UserModel.cpp" line="1257"/>
         <source>Unknown Channel Drag mode in UserModel::dropMimeData.</source>
         <translation>Mode de déplacement du salon inconnu dans UserModel::dropMimeData.</translation>
     </message>
@@ -8230,145 +8266,145 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="524"/>
+        <location filename="UserModel.cpp" line="525"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>C&apos;est un utilisateur connecté au serveur. L&apos;icône à gauche de l&apos;utilisateur infique si il parle ou pas :</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="525"/>
+        <location filename="UserModel.cpp" line="526"/>
         <source>Talking to your channel.</source>
         <translation>Parle dans votre salon.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="526"/>
+        <location filename="UserModel.cpp" line="527"/>
         <source>Whispering directly to your channel.</source>
         <translation>Chuchotte directement dans votre salon.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="527"/>
+        <location filename="UserModel.cpp" line="528"/>
         <source>Whispering directly to you.</source>
         <translation>Vous chuchotte directement.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="528"/>
+        <location filename="UserModel.cpp" line="529"/>
         <source>Not talking.</source>
         <translation>Ne parle pas.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="536"/>
+        <location filename="UserModel.cpp" line="537"/>
         <source>This is a channel on the server. The icon indicates the state of the channel:</source>
         <translation>C&apos;est un salon dans le serveur. L&apos;icône indique l&apos;état du salon :</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="537"/>
+        <location filename="UserModel.cpp" line="538"/>
         <source>Your current channel.</source>
         <translation>Votre salon actuel.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="538"/>
+        <location filename="UserModel.cpp" line="539"/>
         <source>A channel that is linked with your channel. Linked channels can talk to each other.</source>
         <translation>Un salon qui est lié au votre. Les salons liés peuvent se parler l&apos;un-l&apos;autre.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="539"/>
+        <location filename="UserModel.cpp" line="540"/>
         <source>A channel on the server that you are not linked to.</source>
         <translation>Un salon du serveur qui n&apos;est pas lié.</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="555"/>
+        <location filename="UserModel.cpp" line="556"/>
         <source>This shows the flags the user has on the server, if any:</source>
         <translation>Affiche les attributs de l&apos;utilisateur sur le serveur, si disponible :</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="556"/>
+        <location filename="UserModel.cpp" line="557"/>
         <source>On your friend list</source>
         <translation>Dans votre liste d&apos;amis</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="557"/>
+        <location filename="UserModel.cpp" line="558"/>
         <source>Authenticated user</source>
         <translation>Utilisateur authentifié</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="558"/>
+        <location filename="UserModel.cpp" line="559"/>
         <source>Muted (manually muted by self)</source>
         <translation>Muet(te) (s&apos;est rendu muet(te))</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="559"/>
+        <location filename="UserModel.cpp" line="560"/>
         <source>Muted (manually muted by admin)</source>
         <translation>Muet(te) (manuellement par un admin)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="560"/>
+        <location filename="UserModel.cpp" line="561"/>
         <source>Muted (not allowed to speak in current channel)</source>
         <translation>Muet(te) (n&apos;a pas la permission de parler dans le salon actuel)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="561"/>
+        <location filename="UserModel.cpp" line="562"/>
         <source>Muted (muted by you, only on your machine)</source>
         <translation>Muet(te) (vous l&apos;avez rendu muet(te), seulement sur votre machine)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="563"/>
+        <location filename="UserModel.cpp" line="564"/>
         <source>Deafened (by self)</source>
         <translation>Sourd(e) (s&apos;est rendu sourd(e))</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="564"/>
+        <location filename="UserModel.cpp" line="565"/>
         <source>Deafened (by admin)</source>
         <translation>Sourd(e) (par un admin)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="565"/>
+        <location filename="UserModel.cpp" line="566"/>
         <source>User has a new comment set (click to show)</source>
         <translation>L&apos;utilisateur a un nouveau commentaire (cliquer pour afficher)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="566"/>
+        <location filename="UserModel.cpp" line="567"/>
         <source>User has a comment set, which you&apos;ve already seen. (click to show)</source>
         <translation>L&apos;utilisateur a un commentaire que vous avez déjà vu. (Cliquer pour afficher)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="573"/>
+        <location filename="UserModel.cpp" line="574"/>
         <source>This shows the flags the channel has, if any:</source>
         <translation>Affiche l&apos;attribut du salon, si disponible :</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="574"/>
+        <location filename="UserModel.cpp" line="575"/>
         <source>Channel has a new comment set (click to show)</source>
         <translation>Le salon a un nouveau commentaire (cliquer pour afficher)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="575"/>
+        <location filename="UserModel.cpp" line="576"/>
         <source>Channel has a comment set, which you&apos;ve already seen. (click to show)</source>
         <translation>Le salon a un commentaire que vous avez déjà lu. (Cliquer pour afficher)</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="593"/>
+        <location filename="UserModel.cpp" line="594"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="595"/>
+        <location filename="UserModel.cpp" line="596"/>
         <source>Flags</source>
         <translation>Attributs</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="1242"/>
-        <location filename="UserModel.cpp" line="1332"/>
-        <location filename="UserModel.cpp" line="1352"/>
+        <location filename="UserModel.cpp" line="1245"/>
+        <location filename="UserModel.cpp" line="1335"/>
+        <location filename="UserModel.cpp" line="1355"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="1242"/>
+        <location filename="UserModel.cpp" line="1245"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Etes vous sur de vouloir déplacer ce salon ?</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="1332"/>
-        <location filename="UserModel.cpp" line="1352"/>
+        <location filename="UserModel.cpp" line="1335"/>
+        <location filename="UserModel.cpp" line="1355"/>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
         <translation>Ne peut pas effectuer ce déplacement automatiquement, veuillez réinitialiser les indicateurs de position, ou l&apos;ajuster manuellement.</translation>
     </message>
