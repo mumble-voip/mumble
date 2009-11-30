@@ -5,13 +5,16 @@
 
 #ifdef WIN32
 #include <windows.h>
-#define uint32_t UINT32
-#else
 #endif
 
 struct LinkedMem {
+#ifdef WIN32
+	UINT32	uiVersion;
+	DWORD	uiTick;
+#else
 	uint32_t uiVersion;
 	uint32_t uiTick;
+#endif
 	float	fAvatarPosition[3];
 	float	fAvatarFront[3];
 	float	fAvatarTop[3];
@@ -20,7 +23,11 @@ struct LinkedMem {
 	float	fCameraFront[3];
 	float	fCameraTop[3];
 	wchar_t	identity[256];
+#ifdef WIN32
+	UINT32	context_len;
+#else
 	uint32_t context_len;
+#endif
 	unsigned char context[256];
 	wchar_t description[2048];
 };
@@ -58,38 +65,42 @@ void initMumble() {
 		return;
 	}
 #endif
-
-	wcsncpy(lm->name, L"TestLink", 256);
-	wcsncpy(lm->description, L"TestLink is a test of the Link plugin.", 2048);
 }
 
 void updateMumble() {
 	if (! lm)
 		return;
-	lm->uiVersion = 2;
+
+	if(lm->uiVersion != 2) {
+		wcsncpy(lm->name, L"TestLink", 256);
+		wcsncpy(lm->description, L"TestLink is a test of the Link plugin.", 2048);
+		lm->uiVersion = 2;
+	}
 	lm->uiTick++;
 
 	// Left handed coordinate system.
-	// X positive towards "left".
+	// X positive towards "right".
 	// Y positive towards "up".
 	// Z positive towards "into screen".
+	//
+	// 1 unit = 1 meter
 
-	// Front looks into scene.
+	// Unit vector pointing out of the avatars eyes (here Front looks into scene).
 	lm->fAvatarFront[0] = 0.0f;
 	lm->fAvatarFront[1] = 0.0f;
 	lm->fAvatarFront[2] = 1.0f;
 
-	// Top looks straight up.
+	// Unit vector pointing out of the top of the avatars head (here Top looks straight up).
 	lm->fAvatarTop[0] = 0.0f;
 	lm->fAvatarTop[1] = 1.0f;
 	lm->fAvatarTop[2] = 0.0f;
 
-	// Standing slightly off the origo
+	// Position of the avatar (here standing slightly off the origin)
 	lm->fAvatarPosition[0] += 0.001f;
 	lm->fAvatarPosition[1] = 0.0f;
 	lm->fAvatarPosition[2] = 0.5f;
 
-	// Camera fixed.
+	// Same as avatar but for the camera.
 	lm->fCameraPosition[0] = 0.0f;
 	lm->fCameraPosition[1] = 0.0f;
 	lm->fCameraPosition[2] = 0.0f;
@@ -102,7 +113,10 @@ void updateMumble() {
 	lm->fCameraTop[1] = 1.0f;
 	lm->fCameraTop[2] = 0.0f;
 
+	// Identifier which uniquely identifies a certain player in a context (e.g. the ingame Name).
 	wcsncpy(lm->identity, L"Unique ID", 256);
+	// Context should be equal for players which should be able to hear each other positional and
+	// differ for those who shouldn't (e.g. it could contain the server+port and team)
 	memcpy(lm->context, "ContextBlob\x00\x01\x02\x03\x04", 16);
 	lm->context_len = 16;
 }
