@@ -27,7 +27,13 @@ CONFIG(symbols):macx {
 	QMAKE_EXTRA_TARGETS *= dsym
 	QMAKE_DISTCLEAN *= $${DSYM_OUT}
 
+	strip.target = stripdebug
+	strip.commands = strip -S $${DSYM_TARGET_FULLPATH}
+	strip.depends = $${DSYM_OUT}
+	strip.CONFIG = recursive
+	QMAKE_EXTRA_TARGETS *= strip
+
 	!CONFIG(staticlib) {
-		ALL_DEPS += $${DSYM_OUT}
+		ALL_DEPS += $${DSYM_OUT} stripdebug
 	}
 }
