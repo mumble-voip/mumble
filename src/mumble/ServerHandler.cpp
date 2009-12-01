@@ -49,6 +49,38 @@ ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsi
 	bFlush = flush;
 }
 
+#ifdef Q_OS_WIN
+static HANDLE loadQoS() {
+	HANDLE hQoS = NULL;
+
+	HRESULT hr = E_FAIL;
+
+	__try {
+		hr = __HrLoadAllImportsForDll("qwave.dll");
+	}
+
+	__except(EXCEPTION_EXECUTE_HANDLER) {
+		hr = E_FAIL;
+	}
+
+	if (! SUCCEEDED(hr)) {
+		qWarning("ServerHandler: Failed to load qWave.dll, no QoS available");
+	} else {
+		QOS_VERSION qvVer;
+		qvVer.MajorVersion = 1;
+		qvVer.MinorVersion = 0;
+
+		if (! QOSCreateHandle(&qvVer, &hQoS)) {
+			qWarning("ServerHandler: Failed to create QOS2 handle");
+			hQoS = NULL;
+		} else {
+			qWarning("ServerHandler: QOS2 loaded");
+		}
+	}
+	return hQoS;
+}
+#endif
+
 ServerHandler::ServerHandler() {
 	cConnection.reset();
 	qusUdp = NULL;
@@ -58,32 +90,22 @@ ServerHandler::ServerHandler() {
 
 	MumbleSSL::addSystemCA();
 
-	QList<QSslCipher> pref;
-	foreach(QSslCipher c, QSslSocket::defaultCiphers()) {
-		if (c.usedBits() < 128)
-			continue;
-		pref << c;
+	{
+		QList<QSslCipher> pref;
+		foreach(QSslCipher c, QSslSocket::defaultCiphers()) {
+			if (c.usedBits() < 128)
+				continue;
+			pref << c;
+		}
+		if (pref.isEmpty())
+			qFatal("No ciphers of at least 128 bit found");
+		QSslSocket::setDefaultCiphers(pref);
 	}
-	if (pref.isEmpty())
-		qFatal("No ciphers of at least 128 bit found");
-	QSslSocket::setDefaultCiphers(pref);
 
 #ifdef Q_OS_WIN
-	QOS_VERSION qvVer;
-	qvVer.MajorVersion = 1;
-	qvVer.MinorVersion = 0;
-
-	hQoS = NULL;
-
-
-	if (! SUCCEEDED(__HrLoadAllImportsForDll("qwave.dll"))) {
-		qWarning("ServerHandler: Failed to load qWave.dll, no QoS available");
-	} else {
-		if (! QOSCreateHandle(&qvVer, &hQoS))
-			qWarning("ServerHandler: Failed to create QOS2 handle");
-		else
-			Connection::setQoS(hQoS);
-	}
+	hQoS = loadQoS();
+	if (hQoS)
+		Connection::setQoS(hQoS);
 #endif
 }
 
