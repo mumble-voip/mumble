@@ -109,6 +109,10 @@ class AppBundle(object):
 		if os.path.exists(g15):
 			self.handle_binary_libs(g15)
 
+		manual = os.path.join(os.path.abspath(self.bundle), 'Contents', 'Plugins', 'libmanual.dylib')
+		if os.path.exists(manual):
+			self.handle_binary_libs(manual)
+
 	def handle_binary_libs(self, macho=None):
 		'''
 			Fix up dylib depends for a specific binary.
@@ -422,9 +426,9 @@ if __name__ == '__main__':
 	a.copy_g15helper()
 	a.copy_overlay()
 	a.copy_codecs()
-	a.handle_libs()
 	a.copy_plugins()
 	a.copy_qt_plugins()
+	a.handle_libs()
 	a.copy_resources(['icons/mumble.icns', 'scripts/qt.conf'])
 	a.update_plist()
 	a.done()
@@ -433,9 +437,9 @@ if __name__ == '__main__':
 	c = AppBundle('release/Mumble11x.app', ver)
 	c.copy_g15helper()
 	c.copy_overlay()
-	c.handle_libs()
 	c.copy_plugins()
 	c.copy_qt_plugins()
+	c.handle_libs()
 	c.copy_resources(['icons/mumble.icns', 'scripts/qt.conf'])
 	c.update_plist()
 	c.done()
