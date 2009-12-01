@@ -12,7 +12,7 @@
 #ifdef Q_OS_UNIX
 #define __cdecl
 #define __declspec(x)
-typedef unsigned long HWND;
+typedef WId HWND;
 #define DLL_PUBLIC __attribute__((visibility("default")))
 #else
 #define DLL_PUBLIC __declspec(dllexport)
