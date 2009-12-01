@@ -115,13 +115,13 @@ static int trylock() {
 		spawn state:        client.dll+0x46ab34  (0 when at main menu, 2 when not spawned, 15 to 14 when spawned, byte)
 	*/
 	char sMagic[9];
-	if (!peekProc(mod + 0x5ec370, sMagic, 9) || strncmp("garrysmod", sMagic, 9)!=0)
+	if (!peekProc(mod + 0x5F3A70, sMagic, 9) || strncmp("garrysmod", sMagic, 9)!=0)
 		return false;
 
 	// Remember addresses for later
-	posptr = mod + 0x483fe0;
-	rotptr = mod + 0x4733bc;
-	stateptr = mod + 0x46ab34;
+	posptr = mod + 0x48B8D0;
+	rotptr = mod + 0x48B850;
+	stateptr = mod + 0x471B34;
 
 	float pos[3];
 	float rot[3];
