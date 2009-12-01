@@ -464,7 +464,7 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 		jbp.len = qbaPacket.size();
 		jbp.span = iFrameSize * frames;
 		jbp.timestamp = iFrameSize * iSeq;
-		
+
 		if (g.s.bUsage && (umtType != MessageHandler::UDPVoiceSpeex) && p && ! p->qsHash.isEmpty() && (p->qlTiming.count() < 3000)) {
 			QMutexLocker qml(& p->qmTiming);
 			ClientUser::JitterRecord jr;

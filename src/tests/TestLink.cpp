@@ -71,7 +71,7 @@ void updateMumble() {
 	if (! lm)
 		return;
 
-	if(lm->uiVersion != 2) {
+	if (lm->uiVersion != 2) {
 		wcsncpy(lm->name, L"TestLink", 256);
 		wcsncpy(lm->description, L"TestLink is a test of the Link plugin.", 2048);
 		lm->uiVersion = 2;

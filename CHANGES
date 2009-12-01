@@ -1,11 +1,282 @@
-2009-11-11
+2009-12-01
+  lolo_32 <Alex@.(none)>
+    d8188f7  Translations in French of new strings, and some minor write
+	     and grammar errors corrected
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    fdc8261  Fix up dylib refs for libmanual.dylib.
+    84099e5  Fix Mac ConfigDialog for Qt 4.6.
+    36c015c  OSX build fixes for Qt 4.6.
+    7aa6e67  Fix graphical glitch on OSX.
+    0e676a1  Strip debug symbols after extracting them for CONFIG+=symbol
+	     for macx.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    8533e2a  Fix manual positioning plugin on linux
+
   Thorvald Natvig <slicer@users.sourceforge.net>
+    45ebdb6  Quiet down a few compiler warnings
+    a908b5a  Use WId explicitly
+    7b30399  Commit shortcut editor before adding/removing
+    ad9c725  Use SEH magic to work around __HrLoadAllImportsForDll oddities
+    ff4057b  Try to promote libGL.so to global scope if we can't resolve it
+	     directly
+    14ff24f  Add magic 0.7.0 detector
+
+2009-11-30
+  lolo_32 <Alex@.(none)>
+    0632e82  Add the new strings
+
+  arrai <array.of.intellect@gmail.com>
+    00f3aa2  Fixed linking temporary channels
+
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    3a3926c  Extend TestLink plugin with comments so its code can be used
+	     directly in the documentation page
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    e7f089b  String updates
+    334fe4d  Upgrade deps to 4.6.0-rc1, openssl 1.0.0b4, boost 1.41
+    6d9a0e0  Change to straight 4-byte encoding for floats
+    dfd87b0  For fresh IP bans, don't clone hash and username
+    1f6e1dd  Fall back to -ldns_sd if pkgconfig for avahi isn't found
+
+2009-11-28
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    1c8d127  Fix mistake in previous message patch
+
+  Natenom <natenom@googlemail.com>
+    f392cb6  Updated German translations for 1.2.0
+
+2009-11-27
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    aa59399  Manual positioning plugin
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    3089fbe  Fix typo in ConfigDialog fix for OSX.
+    f61dd13  Make sure ConfigDialog is sized properly on OSX.
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    85919ce  Remove uncommitted game plugin
+    f6c26d6  CoD5 version bump; fix MW2SO .pro
+
+2009-11-26
+  Mikkel Krautz <mikkel@krautz.dk>
+    a7f4bea  Fix mumble11x build.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    fbb9989  Fix crash with importing a passworded cert
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    4b9941f  Update the celt codec yet again to fix more bugs
+    4d64a01  Update celt version
+    6bce206  Delay restoreGeometry to after windowflags are set
+    d042b70  Add jitter data to usage report
+
+2009-11-25
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    b2b8c10  Fix #2903204: wrong status message displayed for deafened
+	     (server) event
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    760bf63  Fix no-dbus build.
+    e0e8bc0  Fix OSX compatibility client launching and URL handling for
+	     unversioned and ?version=1.1.x URLs.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    a22567a  Fix cert name display with non ascii chars
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    23ada59  Update 0.7.0-src to a version that builds on Win32
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    9766240  MW2 string updates, TF2 identifier update
+
+2009-11-24
+  lolo_32 <Alex@.(none)>
+    47d2398  Translations in French of installer and Mumble
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    1d07f8a  Store the comment in the user object if it's changed via RPC
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    62aa53b  Don't deref the mainwindow before it's created
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    50af882  MW2SO fix state value
+
+2009-11-23
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    3f7ad99  Fix a few strings
+    39cd472  Upgrade celt to exp_time_pitch
+    67fc2c4  Change qwave loading to avoid a few XP bugs
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    b7bc917  Fix MW2 positional data
+
+2009-11-22
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    0c60717  Add channelname and username var to murmur.ini to make them
+	     more visible
+    6150c78  Fix Unicode handling in phpBB3auth.py and make it able to load
+	     raw Ice configuration tuples
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    860c105  Update Mac OS X Boost to 1.41.0.
+    a3cc6a2  Property list fixup for OSX binaries.
+    e96809e  Extract .dSYM debug symbols on Mac OS X when using
+	     CONFIG=symbols.
+    c365ac6  Clean up overlay_mac build.
+    ae45a2f  Use -dead_strip linker option on OSX.
+    0a2ef0e  Clean up Unix section of compiler.pri. Keep platform specific
+	     flags in their own sections.
+    8a10baf  Add phpBB3auth to OSX dist script. Remove dead PackageMaker
+	     code.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    3172ae4  Fix client ban timezone handling
+    c180869  Check bans using UTC time
+    248d44a  Fix ban expiration
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    f16570e  Stop findDesiredChannel while still connecting
+    2dc541b  Fix lingering channel comments
+
+2009-11-21
+  BAYSSE Laurent <lolo_32@users.sourceforge.net>
+    6390d4a  French translation update for 1.2.0
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    88c1b27  Refine MainWindow aesthetics on OSX.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    3e66866  Use a new instance for each iteration so we don't leak
+	     information of previous items in Ice replies
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    54a487e  AOC, CSS full context support
+    765c399  MW2 MP update
+
+2009-11-20
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    01a72bb  Integrate default sound pack into mumble
+    4ad97d3  Add Server connect timeout of 30s.
+    99b99e9  Reduce TTS/Notification Spam in defaults and reclassify some
+	     unimportant log messages to info level.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    447ac82  General LCD fixups and make G15 on OSX a bit prettier.
+
+2009-11-19
+  Martin Skilnand <cybknight@users.sourceforge.net>
+    7f0ba42  Centered dD0T type authenticated.svg.
+    62f9a8b  dD0T version of authenticated.svg. Attempt two.
+    b803a43  Making comment icons less 3D.
+    421d778  Replaced authenticated.svg
+
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    6144233  Revert to second draft for authenticated.svg.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    81c9e78  Revert AudioDevice{set,get} parameter change in CoreAudio.
+    da18c1f  Make sure G15 works on OSX.
+
+2009-11-18
+  arcenciel <arcenciel@users.sourceforge.net>
+    a8a25e9  Japanese Translation
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    a3cbe21  Don't disable for CoreAudio builds on Mac.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    5254448  Initialize bCertRequired
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    1176bdf  MW2 plugins version updates
+
+2009-11-17
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    34f9ea9  Raise default quality to 40kbit/s
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    3c050e9  Add an option to reject connections without a certificate
+    298d342  Add a warning if the settings database is read-only
+    2a582a6  Change reject type field to uint32
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    0c36a80  Add some type safetyp to denytype
+    c8b81b6  Make rejecttype optional
+
+2009-11-16
+  Martin Skilnand <cybknight@users.sourceforge.net>
+    c4d99f5  New comment icons for review.
+
+2009-11-15
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    d28e95f  Some comments and minimal refactoring of
+	     Server::recheckCodecVersions()
+    0eea7b5  Make hl2dm PA plugin compile again.
+
+  Kissaki <kissaki@gmx.de>
+    640d91e  German translation update minor English text fix
+
+2009-11-14
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    4911c8a  Update Spanish translation
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    5ec2225  Ins, TF2, L4D updates
+    ac11b54  Fix CoDMW2SO state value
+    9cc7f15  Add MW2 plugins to installer
+    b560789  Add MW2 plugins to plugins.pro
+    d5777ef  Fixed state and V/H for MW2; MW2SpecOps plugin added
+    dfd7909  Fixed state for MW2; MW2SpecOps plugin added
+
+2009-11-13
+  Mikkel Krautz <mikkel@krautz.dk>
+    c81ff65  CoreAudio: Allow devices to run even if they have to use their
+	     default buffer length (when we can't set it ourselves)
+    71e1b7b  Add buffer range debugging to CoreAudio. Fix isInput parameter
+	     for setting buffer size.
+
+2009-11-12
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    7411fc9  Use localeAwareCompare for overlay sorting.
+
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    382bca6  Updated Spanish translation
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    3df0dce  Add direct dependent libraries under X11
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    7f146f2  CRLF
+
+2009-11-11
+  Mikkel Krautz <mikkel@krautz.dk>
+    aba1fc2  Update osxdist script for beta and fix diskimage window
+	     dimensions.
+
+  Patrick Matthäi <pmatthaei@debian.org>
+    ec48050  Spelling fix
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    ada9d58  Allow setting version on binserver script too
+    f3b2395  Allow release script to specify custom version
+    f3e9ed7  Automatically use system CELT if it's >= 0.7.0
+    66c2261  Change initialization order to allow direct-copy constructor
     bd33712  .ts file update
     a59ce15  Don't distribute older celt versions in tarball either
     f765851  Initialize ucFlags properly
     786ed67  First check SSL cert errors, THEN check the SSL version
 
+  Tuck Therebelos <snares@users.sourceforge.net>
+    ddb16ce  CoDMW2 plugin; HL2DM context example
+
 2009-11-10
+  Karl Dietz <dekarl@users.sourceforge.net>
+    6019fc1  plugins/wow: disable context in release builds
+
   Ludwig Nussel <ludwig.nussel@suse.de>
     7dae3ed  silence integer/pointer cast warning
     1b2647b  Qt 4.4 doesn't have emitDataChanged(), the function is the
@@ -32,6 +303,9 @@
     aed4569  Italian translation for 1.2
 
 2009-11-09
+  Karl Dietz <dekarl@users.sourceforge.net>
+    8589e57  Clarify condition in PA context handling
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     0a0c83f  Add overlay safety checks for 11x too
     51f4bf3  Update benchmark test

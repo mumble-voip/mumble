@@ -133,15 +133,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			sTeam = "Unknown";
 			break;
 	}
-		
+
 	new_context << "<context>"
-			<< "<game>aoc</game>"
-			<< "<hostport>" << chHostStr << "</hostport>"
-			<< "<team>" << sTeam << "</team>"
-		    << "</context>";
+	<< "<game>aoc</game>"
+	<< "<hostport>" << chHostStr << "</hostport>"
+	<< "<team>" << sTeam << "</team>"
+	<< "</context>";
 	context = new_context.str();
-// // 
-	
+// //
+
 	/* TODO
 	new_identity << "<identity>"
 			<< "<name>" << "SAS" << "</name>"
@@ -203,11 +203,11 @@ static int trylock() {
 	hostptr = mod_engine + 0x3bf69f;
 	teamptr = mod + 0x71a0a4;
 
-	//Gamecheck 
+	//Gamecheck
 	char sMagic[13];
 	if (!peekProc(mod + 0x7071e8, sMagic, 13) || strncmp("ageofchivalry", sMagic, 13)!=0)
 		return false;
-		
+
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3];
 	float cpos[3], cfront[3], ctop[3];

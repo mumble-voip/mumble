@@ -85,28 +85,28 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 			0x01597682		byte	Magical state value
 	*/
-	
+
 	so = peekProc((BYTE *) 0x019703A0, &specops, 1); // Magical state value
-		if (! so)
+	if (! so)
 		return false;
-		
-		if (specops != 2)
+
+	if (specops != 2)
 		return false; // 2 value indicates you are playing Special Ops, 1 indicates SP, 0 indicates at three-way selection menu
-		
+
 	ok = peekProc((BYTE *) 0x01B12BBB, &state, 1); // Magical state value
-		if (! ok)
+	if (! ok)
 		return false;
 
 	// /*
 	//	state value is:
 	//	0		while not in game
 	//	4 to 5	while playing
-	
+
 	//	This value is used for disabling pa for spectators
 	//	or people not on a server.
 	// */
-	
-		if (state == 0)
+
+	if (state == 0)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
 	ok = peekProc((BYTE *) 0x00782A64, avatar_pos+2, 4) &&	//Z

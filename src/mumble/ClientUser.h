@@ -40,19 +40,19 @@ class ClientUser : public QObject, public User {
 		Q_DISABLE_COPY(ClientUser)
 	public:
 		enum TalkState { TalkingOff, Talking, TalkingWhisperChannel, TalkingWhisper };
-		
+
 		struct JitterRecord {
 			int iSequence;
 			int iFrames;
 			quint64 uiElapsed;
 		};
-		
+
 		TalkState tsState;
 		bool bLocalMute;
 
 		float fPowerMin, fPowerMax;
 		float fAverageAvailable;
-		
+
 		QMutex qmTiming;
 		Timer tTiming;
 		QList<JitterRecord> qlTiming;

@@ -250,11 +250,9 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			if (pDst == pSelf) {
 				if (msg.has_mute() && msg.has_deaf() && pDst->bMute && pDst->bDeaf) {
 					g.l->log(Log::YouMuted, tr("You were muted and deafened by %1.").arg(admin));
-				}
-				else if (msg.has_mute() && msg.has_deaf() && !pDst->bMute && !pDst->bDeaf) {
+				} else if (msg.has_mute() && msg.has_deaf() && !pDst->bMute && !pDst->bDeaf) {
 					g.l->log(Log::YouMuted, tr("You were unmuted and undeafened by %1.").arg(admin));
-				}
-				else {
+				} else {
 					if (msg.has_mute()) {
 						if (pDst->bMute)
 							g.l->log(Log::YouMuted, tr("You were muted by %1.").arg(admin));
@@ -279,11 +277,9 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			} else if (pSrc == pSelf) {
 				if (msg.has_mute() && msg.has_deaf() && pDst->bMute && pDst->bDeaf) {
 					g.l->log(Log::YouMutedOther, tr("You muted and deafened %1.").arg(vic));
-				}
-				else if (msg.has_mute() && msg.has_deaf() && !pDst->bMute && !pDst->bDeaf) {
+				} else if (msg.has_mute() && msg.has_deaf() && !pDst->bMute && !pDst->bDeaf) {
 					g.l->log(Log::YouMutedOther, tr("You unmuted and undeafened %1.").arg(vic));
-				}
-				else {
+				} else {
 					if (msg.has_mute()) {
 						if (pDst->bMute)
 							g.l->log(Log::YouMutedOther, tr("You muted %1.").arg(vic));
@@ -306,11 +302,9 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			} else {
 				if (msg.has_mute() && msg.has_deaf() && pDst->bMute && pDst->bDeaf) {
 					g.l->log(Log::OtherMutedOther, tr("%1 muted and deafened by %2.").arg(vic, admin));
-				}
-				else if (msg.has_mute() && msg.has_deaf() && !pDst->bMute && !pDst->bDeaf) {
+				} else if (msg.has_mute() && msg.has_deaf() && !pDst->bMute && !pDst->bDeaf) {
 					g.l->log(Log::OtherMutedOther, tr("%1 unmuted and undeafened by %2.").arg(vic, admin));
-				}
-				else {
+				} else {
 					if (msg.has_mute()) {
 						if (pDst->bMute)
 							g.l->log(Log::OtherMutedOther, tr("%1 muted by %2.").arg(vic, admin));

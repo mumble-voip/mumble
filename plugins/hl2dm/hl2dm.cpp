@@ -114,9 +114,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	chHostStr[39] = 0;
 
 	new_context << "<context>"
-			<< "<game>hl2dm</game>"
-			<< "<hostport>" << chHostStr << "</hostport>"
-		    << "</context>";
+	<< "<game>hl2dm</game>"
+	<< "<hostport>" << chHostStr << "</hostport>"
+	<< "</context>";
 	context = new_context.str();
 
 	/* TODO
@@ -174,7 +174,7 @@ static int trylock() {
 
 	// Check if we are really running hl2dm
 	char sMagic[4];
-	if (!peekProc(mod + 0x3a5674, sMagic, 4) || strncmp("Dm/$", sMagic, 4) !=0 )
+	if (!peekProc(mod + 0x3a5674, sMagic, 4) || strncmp("Dm/$", sMagic, 4) !=0)
 		return false;
 
 	// Check if we can get meaningfull data from it

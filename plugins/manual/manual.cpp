@@ -37,35 +37,35 @@ static struct {
 	std::wstring identity;
 } my = {{0,0,0}, {0,0,0}, {0,0,0},
 	{0,0,0}, {0,0,0}, {0,0,0},
-	std::string(), std::wstring()};
+	std::string(), std::wstring()
+};
 
 
-Manual::Manual(QWidget *p) : QDialog(p)
-{
-    setupUi(this);
+Manual::Manual(QWidget *p) : QDialog(p) {
+	setupUi(this);
 
-    qgvPosition->viewport()->installEventFilter(this);
-    qgvPosition->scale(1.0f, 1.0f);
-    qgsScene = new QGraphicsScene(QRectF(-5.0f, -5.0f, 10.0f, 10.0f), this);
-    qgiPosition = qgsScene->addEllipse(QRectF(-0.5f, -0.5f, 1.0f, 1.0f), QPen(Qt::black), QBrush(Qt::red));
+	qgvPosition->viewport()->installEventFilter(this);
+	qgvPosition->scale(1.0f, 1.0f);
+	qgsScene = new QGraphicsScene(QRectF(-5.0f, -5.0f, 10.0f, 10.0f), this);
+	qgiPosition = qgsScene->addEllipse(QRectF(-0.5f, -0.5f, 1.0f, 1.0f), QPen(Qt::black), QBrush(Qt::red));
 
-    qgvPosition->setScene(qgsScene);
-    qgvPosition->fitInView(-5.0f, -5.0f, 10.0f, 10.0f, Qt::KeepAspectRatio);
+	qgvPosition->setScene(qgsScene);
+	qgvPosition->fitInView(-5.0f, -5.0f, 10.0f, 10.0f, Qt::KeepAspectRatio);
 
-    qdsbX->setRange(-FLT_MAX, FLT_MAX);
-    qdsbY->setRange(-FLT_MAX, FLT_MAX);
-    qdsbZ->setRange(-FLT_MAX, FLT_MAX);
+	qdsbX->setRange(-FLT_MAX, FLT_MAX);
+	qdsbY->setRange(-FLT_MAX, FLT_MAX);
+	qdsbZ->setRange(-FLT_MAX, FLT_MAX);
 
-    qdsbX->setValue(my.avatar_pos[0]);
-    qdsbY->setValue(my.avatar_pos[1]);
-    qdsbZ->setValue(my.avatar_pos[2]);
+	qdsbX->setValue(my.avatar_pos[0]);
+	qdsbY->setValue(my.avatar_pos[1]);
+	qdsbZ->setValue(my.avatar_pos[2]);
 
-    qpbActivated->setChecked(bActive);
-    qpbLinked->setChecked(bLinkable);
+	qpbActivated->setChecked(bActive);
+	qpbLinked->setChecked(bLinkable);
 
-    qsbOrientation->setValue(iOrientation);
-    qsbAzimut->setValue(iAzimut);
-    updateTopAndFront(iOrientation, iAzimut);
+	qsbOrientation->setValue(iOrientation);
+	qsbAzimut->setValue(iAzimut);
+	updateTopAndFront(iOrientation, iAzimut);
 }
 
 bool Manual::eventFilter(QObject *obj, QEvent *evt) {
@@ -83,16 +83,15 @@ bool Manual::eventFilter(QObject *obj, QEvent *evt) {
 	return QDialog::eventFilter(obj, evt);
 }
 
-void Manual::changeEvent(QEvent *e)
-{
-    QDialog::changeEvent(e);
-    switch (e->type()) {
-    case QEvent::LanguageChange:
-	retranslateUi(this);
-        break;
-    default:
-        break;
-    }
+void Manual::changeEvent(QEvent *e) {
+	QDialog::changeEvent(e);
+	switch (e->type()) {
+		case QEvent::LanguageChange:
+			retranslateUi(this);
+			break;
+		default:
+			break;
+	}
 }
 
 void Manual::on_qpbUnhinge_pressed() {
@@ -215,8 +214,7 @@ static void config(HWND h) {
 	if (mDlg) {
 		mDlg->setParent(QWidget::find(h), Qt::Dialog);
 		mDlg->qpbUnhinge->setEnabled(true);
-	}
-	else {
+	} else {
 		mDlg = new Manual(QWidget::find(h));
 	}
 

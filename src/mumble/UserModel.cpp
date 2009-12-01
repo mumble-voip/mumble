@@ -830,7 +830,7 @@ void UserModel::removeUser(ClientUser *p) {
 
 	if (g.uiSession && (c == ClientUser::get(g.uiSession)->cChannel))
 		updateOverlay();
-		
+
 	g.mw->uUsage.addJitter(p);
 
 	delete p;

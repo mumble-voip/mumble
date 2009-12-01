@@ -443,10 +443,10 @@ void MainWindow::openUrl(const QUrl &url) {
 		return;
 	} else
 #endif
-	if ((major != 1) || (minor != 2) || (patch > 0)) {
-		g.l->log(Log::Warning, tr("This version of Mumble can't handle URLs for Mumble version %1.%2.%3").arg(major).arg(minor).arg(patch));
-		return;
-	}
+		if ((major != 1) || (minor != 2) || (patch > 0)) {
+			g.l->log(Log::Warning, tr("This version of Mumble can't handle URLs for Mumble version %1.%2.%3").arg(major).arg(minor).arg(patch));
+			return;
+		}
 
 	QString host = url.host();
 	unsigned short port = static_cast<unsigned short>(url.port(64738));
@@ -519,7 +519,7 @@ void MainWindow::findDesiredChannel() {
 		}
 		qtvUsers->setCurrentIndex(pmModel->index(chan));
 	} else if (g.uiSession) {
-			qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(g.uiSession)->cChannel));
+		qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(g.uiSession)->cChannel));
 	}
 	updateMenuPermissions();
 }
@@ -595,7 +595,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 		f |= Qt::WindowStaysOnTopHint;
 
 	setWindowFlags(f);
-	
+
 	qdwLog->setVisible(showit);
 	qdwChat->setVisible(showit && g.s.bShowChatbar);
 	qtvUsers->header()->setVisible(showit);
@@ -1840,8 +1840,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 				break;
 			}
 		}
-	}
-	else if (err == QAbstractSocket::SslHandshakeFailedError) {
+	} else if (err == QAbstractSocket::SslHandshakeFailedError) {
 		if (QMessageBox::warning(this, tr("SSL Version mismatch"), tr("This server is using an older encryption standard. It might be an older 1.1 based Mumble server.<br />Would you like to launch the compatibility client to connect to it?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes) {
 
 			QString host, user, pw;

@@ -18,7 +18,7 @@ CONFIG(symbols):macx {
 	contains(TEMPLATE, 'lib') {
 		DSYM_TARGET_FULLPATH = $${DESTDIR}/${TARGET}
 		DSYM_OUT = $${DSYM_DESTDIR}/symbols/${TARGET}.dSYM
-	}		
+	}
 
 	dsym.target = $${DSYM_OUT}
 	dsym.commands = $(MKDIR) $${DSYM_DESTDIR}/symbols/ && dsymutil $${DSYM_TARGET_FULLPATH} -o $${DSYM_OUT}

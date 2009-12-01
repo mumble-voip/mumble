@@ -42,7 +42,7 @@ Usage::Usage(QObject *p) : QObject(p) {
 	qdsReport.setDevice(&qbReport);
 	qdsReport.setVersion(QDataStream::Qt_4_5);
 	qdsReport << static_cast<unsigned int>(1);
-	
+
 	// Wait 10 minutes (so we know they're actually using this), then...
 	QTimer::singleShot(60 * 10 * 1000, this, SLOT(registerUsage()));
 	QTimer::singleShot(60 * 10 * 1000, this, SLOT(reportJitter()));
@@ -52,7 +52,7 @@ void Usage::addJitter(ClientUser *cu) {
 	QMutexLocker qml(& cu->qmTiming);
 	if (! cu->qlTiming.isEmpty()) {
 		qdsReport << cu->qsHash;
-		
+
 		qdsReport << cu->qlTiming;
 	}
 }
@@ -100,7 +100,7 @@ void Usage::registerUsage() {
 
 void Usage::reportJitter() {
 	QTimer::singleShot(60 * 10 * 1000, this, SLOT(reportJitter()));
-	
+
 	if (qbReport.size() == 0)
 		return;
 
@@ -109,7 +109,7 @@ void Usage::reportJitter() {
 
 	QNetworkReply *rep = g.nam->post(req, qCompress(qbReport.buffer(), 9));
 	connect(rep, SIGNAL(finished()), rep, SLOT(deleteLater()));
-	
+
 	qbReport.close();
 	qbReport.setData(QByteArray());
 

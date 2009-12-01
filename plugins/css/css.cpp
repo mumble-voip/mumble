@@ -133,15 +133,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			sTeam = "Unknown";
 			break;
 	}
-		
+
 	new_context << "<context>"
-			<< "<game>css</game>"
-			<< "<hostport>" << chHostStr << "</hostport>"
-			<< "<team>" << sTeam << "</team>"
-		    << "</context>";
+	<< "<game>css</game>"
+	<< "<hostport>" << chHostStr << "</hostport>"
+	<< "<team>" << sTeam << "</team>"
+	<< "</context>";
 	context = new_context.str();
-// // 
-	
+// //
+
 	/* TODO
 	new_identity << "<identity>"
 			<< "<name>" << "SAS" << "</name>"

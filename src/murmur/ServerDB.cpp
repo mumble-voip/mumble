@@ -1056,7 +1056,7 @@ void Server::addLink(Channel *c, Channel *l) {
 }
 
 void Server::removeLink(Channel *c, Channel *l) {
-    c->unlink(l);
+	c->unlink(l);
 
 	if (c->bTemporary || l->bTemporary)
 		return;
