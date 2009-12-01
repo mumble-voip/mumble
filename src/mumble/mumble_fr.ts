@@ -6064,12 +6064,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Messages.cpp" line="281"/>
         <source>You muted and deafened %1.</source>
-        <translation>Vous avez rendu %1 sour(e) et muet(te).</translation>
+        <translation>Vous avez rendu %1 sourd(e) et muet(te).</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="284"/>
         <source>You unmuted and undeafened %1.</source>
-        <translation>Vous avez rendu la porole et l&apos;ouïe à %1.</translation>
+        <translation>Vous avez rendu la parole et l&apos;ouïe à %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="296"/>
@@ -6079,12 +6079,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Messages.cpp" line="302"/>
         <source>You suppressed %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous avez suspendu %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="308"/>
         <source>%1 muted and deafened by %2.</source>
-        <translation>%2 a rendu %1 sour(e) et muet(te).</translation>
+        <translation>%2 a rendu %1 sourd(e) et muet(te).</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="311"/>
@@ -6094,7 +6094,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Messages.cpp" line="329"/>
         <source>%1 suppressed by %2.</source>
-        <translation>%2 a suspendu(e) %1.</translation>
+        <translation>%2 a suspendu %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="356"/>
@@ -6212,7 +6212,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Messages.cpp" line="304"/>
         <source>You unsuppressed %1.</source>
-        <translation>Vous avez rétabli(e) %1.</translation>
+        <translation>Vous avez rétabli %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="291"/>
@@ -8067,17 +8067,17 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <location filename="GlobalShortcut.cpp" line="574"/>
         <source>On</source>
-        <translation type="unfinished">Allumé</translation>
+        <translation>Activer</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="576"/>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Désactiver</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="578"/>
         <source>Toggle</source>
-        <translation type="unfinished"></translation>
+        <translation>Commuter</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="584"/>
@@ -8164,17 +8164,17 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <location filename="GlobalShortcut.cpp" line="254"/>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Désactiver</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="258"/>
         <source>Toggle</source>
-        <translation type="unfinished"></translation>
+        <translation>Commuter</translation>
     </message>
     <message>
         <location filename="GlobalShortcut.cpp" line="262"/>
         <source>On</source>
-        <translation type="unfinished">Allumé</translation>
+        <translation>Activer</translation>
     </message>
 </context>
 <context>
