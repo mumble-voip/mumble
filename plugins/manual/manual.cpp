@@ -11,7 +11,6 @@
 
 #ifdef Q_OS_UNIX
 #define __cdecl
-#define __declspec(x)
 typedef WId HWND;
 #define DLL_PUBLIC __attribute__((visibility("default")))
 #else
@@ -20,14 +19,14 @@ typedef WId HWND;
 
 #include "../mumble_plugin.h"
 
-QPointer<Manual> mDlg = NULL;
-bool bLinkable = false;
-bool bActive = true;
+static QPointer<Manual> mDlg = NULL;
+static bool bLinkable = false;
+static bool bActive = true;
 
-int iOrientation = 0;
-int iAzimut = 0;
+static int iOrientation = 0;
+static int iAzimut = 0;
 
-struct {
+static struct {
 	float avatar_pos[3];
 	float avatar_front[3];
 	float avatar_top[3];
@@ -41,7 +40,7 @@ struct {
 	std::string(), std::wstring()};
 
 
-Manual::Manual(QWidget *parent) : QDialog(parent)
+Manual::Manual(QWidget *p) : QDialog(p)
 {
     setupUi(this);
 
@@ -182,20 +181,20 @@ void Manual::on_buttonBox_clicked(QAbstractButton *button) {
 	}
 }
 
-void Manual::updateTopAndFront(int orientation, int azimut) {
-	iOrientation = orientation;
+void Manual::updateTopAndFront(int orient, int azimut) {
+	iOrientation = orient;
 	iAzimut = azimut;
 
-	double ori = orientation * M_PI / 180;
-	double azi = azimut * M_PI / 180;
+	double ori = orient * M_PI / 180.;
+	double azi = azimut * M_PI / 180.;
 
-	my.avatar_front[0]	= - cos(azi) * sin(ori);
-	my.avatar_front[1]	= sin(azi);
-	my.avatar_front[2]	= cos(azi) * cos(ori);
+	my.avatar_front[0]	= static_cast<float>(- cos(azi) * sin(ori));
+	my.avatar_front[1]	= static_cast<float>(sin(azi));
+	my.avatar_front[2]	= static_cast<float>(cos(azi) * cos(ori));
 
-	my.avatar_top[0]	= - sin(azi) * sin(ori);
-	my.avatar_top[1]	= sin(azi - M_PI_2);
-	my.avatar_top[2]	= sin(azi) * cos(ori);
+	my.avatar_top[0]	= static_cast<float>(- sin(azi) * sin(ori));
+	my.avatar_top[1]	= static_cast<float>(sin(azi - M_PI_2));
+	my.avatar_top[2]	= static_cast<float>(sin(azi) * cos(ori));
 
 	memcpy(my.camera_top, my.avatar_top, sizeof(float) * 3);
 	memcpy(my.camera_front, my.avatar_front, sizeof(float) * 3);
@@ -212,7 +211,7 @@ static void unlock() {
 	bLinkable = false;
 }
 
-static void config(WId h) {
+static void config(HWND h) {
 	if (mDlg) {
 		mDlg->setParent(QWidget::find(h), Qt::Dialog);
 		mDlg->qpbUnhinge->setEnabled(true);
