@@ -1,11 +1,22 @@
 #define _USE_MATH_DEFINES
 
+#include <QtCore/QtCore>
+#include <QtGui/QtGui>
 #include <QMessageBox>
 #include <QPointer>
 #include <math.h>
 #include <float.h>
 #include "manual.h"
 #include "ui_manual.h"
+
+#ifdef Q_OS_UNIX
+#define __cdecl
+#define __declspec(x)
+typedef unsigned long HWND;
+#define DLL_PUBLIC __attribute__((visibility("default")))
+#else
+#define DLL_PUBLIC __declspec(dllexport)
+#endif
 
 #include "../mumble_plugin.h"
 
@@ -175,16 +186,16 @@ void Manual::updateTopAndFront(int orientation, int azimut) {
 	iOrientation = orientation;
 	iAzimut = azimut;
 
-	double or = orientation * M_PI / 180;
-	double az = azimut * M_PI / 180;
+	double ori = orientation * M_PI / 180;
+	double azi = azimut * M_PI / 180;
 
-	my.avatar_front[0]	= - cos(az) * sin(or);
-	my.avatar_front[1]	= sin(az);
-	my.avatar_front[2]	= cos(az) * cos(or);
+	my.avatar_front[0]	= - cos(azi) * sin(ori);
+	my.avatar_front[1]	= sin(azi);
+	my.avatar_front[2]	= cos(azi) * cos(ori);
 
-	my.avatar_top[0]	= - sin(az) * sin(or);
-	my.avatar_top[1]	= sin(az - M_PI_2);
-	my.avatar_top[2]	= sin(az) * cos(or);
+	my.avatar_top[0]	= - sin(azi) * sin(ori);
+	my.avatar_top[1]	= sin(azi - M_PI_2);
+	my.avatar_top[2]	= sin(azi) * cos(ori);
 
 	memcpy(my.camera_top, my.avatar_top, sizeof(float) * 3);
 	memcpy(my.camera_front, my.avatar_front, sizeof(float) * 3);
@@ -259,6 +270,6 @@ static MumblePlugin manual = {
 	fetch
 };
 
-extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
+extern "C" DLL_PUBLIC MumblePlugin *getMumblePlugin() {
 	return &manual;
 }
