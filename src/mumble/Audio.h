@@ -87,6 +87,7 @@ class CELTCodec070 : public CELTCodec {
 		CELTMode *(*celt_mode_create)(celt_int32 Fs, int frame_size, int *error);
 		CELTEncoder *(__cdecl *celt_encoder_create)(const CELTMode *mode, int channels, int *error);
 		CELTDecoder *(__cdecl *celt_decoder_create)(const CELTMode *mode, int channels, int *error);
+		const char *(__cdecl *celt_strerror)(int error);
 	public:
 		CELTCodec070(const QString &version);
 		virtual CELTEncoder *encoderCreate();

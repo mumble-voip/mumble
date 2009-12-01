@@ -71,6 +71,13 @@ void CodecInit::initialize() {
 		g.qmCodecs.insert(codec->bitstreamVersion(), codec);
 	} else {
 		delete codec;
+		codec = new CELTCodec070(QLatin1String("0.0.0"));
+		if (codec->isValid()) {
+			codec->report();
+			g.qmCodecs.insert(codec->bitstreamVersion(), codec);
+		} else {
+			delete codec;
+		}
 	}
 }
 
@@ -205,6 +212,7 @@ CELTCodec070::CELTCodec070(const QString &version) : CELTCodec(version) {
 	RESOLVE(celt_mode_create);
 	RESOLVE(celt_encoder_create);
 	RESOLVE(celt_decoder_create);
+	RESOLVE(celt_strerror);
 
 	if (bValid) {
 		cmMode = celt_mode_create(SAMPLE_RATE, SAMPLE_RATE / 100, NULL);
