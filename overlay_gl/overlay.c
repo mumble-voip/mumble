@@ -107,6 +107,16 @@ FDEF(glXGetProcAddress);
 
 static void resolveOpenGL() {
 	RESOLVE(glXSwapBuffers);
+	
+	if (! oglXSwapBuffers) {
+		void *lib = dlopen("libGL.so.1", RTLD_GLOBAL | RTLD_NOLOAD);
+		if (! lib)
+			return;
+		RESOLVE(glXSwapBuffers);
+		if (! oglXSwapBuffers)
+			dlclose(lib);
+	}
+	
 	RESOLVE(glXGetProcAddressARB);
 	RESOLVE(glXGetProcAddress);
 }
