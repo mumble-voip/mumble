@@ -174,6 +174,7 @@ class GlobalShortcutConfig : public ConfigWidget, public Ui::GlobalShortcut {
 		void load(const Settings &r);
 		void reload();
 		bool expert(bool);
+		void commit();
 		void on_qpbAdd_clicked(bool);
 		void on_qpbRemove_clicked(bool);
 		void on_qtwShortcuts_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);

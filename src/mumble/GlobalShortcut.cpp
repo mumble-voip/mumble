@@ -608,7 +608,12 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	}
 }
 
+void GlobalShortcutConfig::commit() {
+	qtwShortcuts->closePersistentEditor(qtwShortcuts->currentItem(), qtwShortcuts->currentColumn());
+}
+
 void GlobalShortcutConfig::on_qpbAdd_clicked(bool) {
+	commit();
 	Shortcut sc;
 	sc.iIndex = -1;
 	sc.bSuppress = false;
@@ -617,6 +622,7 @@ void GlobalShortcutConfig::on_qpbAdd_clicked(bool) {
 }
 
 void GlobalShortcutConfig::on_qpbRemove_clicked(bool) {
+	commit();
 	QTreeWidgetItem *qtwi = qtwShortcuts->currentItem();
 	if (! qtwi)
 		return;
@@ -631,6 +637,7 @@ void GlobalShortcutConfig::on_qtwShortcuts_currentItemChanged(QTreeWidgetItem *i
 
 void GlobalShortcutConfig::on_qtwShortcuts_itemChanged(QTreeWidgetItem *item, int) {
 	int idx = qtwShortcuts->indexOfTopLevelItem(item);
+
 	Shortcut &sc = qlShortcuts[idx];
 	sc.iIndex = item->data(0, Qt::DisplayRole).toInt();
 	sc.qvData = item->data(1, Qt::DisplayRole);
