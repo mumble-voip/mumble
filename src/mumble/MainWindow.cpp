@@ -293,6 +293,8 @@ void MainWindow::setupGui()  {
 	restoreState(g.s.qbaMainWindowState);
 	qtvUsers->header()->restoreState(g.s.qbaHeaderState);
 
+	setupView(false);
+
 	qmTray = new QMenu(this);
 	setupIconMenu(false);
 	qstiIcon->setContextMenu(qmTray);
