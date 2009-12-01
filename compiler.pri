@@ -128,7 +128,7 @@ macx {
 
 	QMAKE_CFLAGS += -mmacosx-version-min=10.5 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
 	QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
-	QMAKE_LFLAGS *= -Wl,-dead_strip
+	QMAKE_LFLAGS += -Wl,-dead_strip -framework Cocoa -framework Carbon
 
 	CONFIG(symbols) {
 		QMAKE_CFLAGS *= -gfull -gdwarf-2
