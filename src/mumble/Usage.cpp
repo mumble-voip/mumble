@@ -101,7 +101,7 @@ void Usage::registerUsage() {
 void Usage::reportJitter() {
 	QTimer::singleShot(60 * 10 * 1000, this, SLOT(reportJitter()));
 
-	if (qbReport.size() == 0)
+	if (qbReport.size() < 1024)
 		return;
 
 	QNetworkRequest req(QUrl(QLatin1String("http://mumble.info/jitter.cgi")));
