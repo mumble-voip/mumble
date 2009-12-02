@@ -56,6 +56,8 @@ class ClientUser : public QObject, public User {
 		QMutex qmTiming;
 		Timer tTiming;
 		QList<JitterRecord> qlTiming;
+		int iFrames;
+		int iSequence;
 
 		QString qsFriendName;
 		int iTextureWidth;

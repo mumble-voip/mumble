@@ -42,6 +42,8 @@ ClientUser::ClientUser(QObject *p) : QObject(p) {
 	iTextureWidth = 0;
 	fPowerMin = fPowerMax = 0.0f;
 	fAverageAvailable = 0.0f;
+	iFrames = 0;
+	iSequence = 0;
 }
 
 ClientUser *ClientUser::get(unsigned int uiSession) {
@@ -169,10 +171,9 @@ void Channel::addClientUser(ClientUser *p) {
 	p->setParent(this);
 }
 
-
 QDataStream &operator<<(QDataStream &qds, const ClientUser::JitterRecord &jr) {
-	qds << jr.iSequence;
-	qds << jr.iFrames;
-	qds << jr.uiElapsed;
+	qds << static_cast<qint8>(qBound(-128, jr.iSequence, 127));
+	qds << static_cast<qint8>(qBound(-128, jr.iFrames, 127));
+	qds << static_cast<quint32>(qMin(4294967295ULL, jr.uiElapsed));
 	return qds;
 }
