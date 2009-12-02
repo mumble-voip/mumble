@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.0" language="pl">
-<defaultcodec></defaultcodec>
 <context>
     <name>ACLEditor</name>
     <message>
@@ -139,7 +138,7 @@
     <message>
         <location filename="ACLEditor.ui" line="228"/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be show in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation>Pokazuje aktywną listę reguł na tym kanale. Pozycje odziedziczone z kanałów nadrzędnych wyświetlone są przy użyciu kursywy.&lt;br /&gt; Lista ACL przetwarzana jest od góry do dołu, co oznacza, że pozycje znajdujące się na dole mają wyższy priorytet.</translation>
+        <translation>Pokazuje aktywną listę reguł na tym kanale. Pozycje odziedziczone z kanałów nadrzędnych wyświetlone są przy użyciu kursywy.&lt;br /&gt; Lista ACL przetwarzana jest od góry do dołu, oznacza to, że pozycje znajdujące się na dole listy mają wyższy priorytet.</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui" line="235"/>
@@ -569,7 +568,7 @@
     <message>
         <location filename="About.cpp" line="53"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Polskie tłumaczenie:&lt;/b&gt; Bartek &quot;stranded&quot; Sumowski&lt;br /&gt; &lt;a href=http://sumowski.com&gt;sumowski.com&lt;/a&gt;&lt;br&gt;&lt;b&gt;Korekta:&lt;/b&gt; Michał Żukowski&lt;br&gt;  &lt;br&gt;&lt;b&gt;Przy tłumaczeniu pomogł:&lt;/b&gt; _KaszpiR_&lt;br&gt;&lt;a href=http://www.hlds.pl&gt;hlds.pl&lt;/a&gt;&lt;/br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Komunikator głosowy dla graczy&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Polskie tłumaczenie:&lt;/b&gt; Bartek &quot;stranded&quot; Sumowski&lt;br /&gt; &lt;a href=http://sumowski.com&gt;sumowski.com&lt;/a&gt;&lt;br&gt;&lt;b&gt;Korekta:&lt;/b&gt; Michał Żukowski&lt;br&gt;  &lt;br&gt;&lt;b&gt;Przy tłumaczeniu pomógł:&lt;/b&gt; _KaszpiR_&lt;br&gt;&lt;a href=http://www.hlds.pl&gt;hlds.pl&lt;/a&gt;&lt;/br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Komunikator głosowy dla graczy&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -1060,7 +1059,7 @@
     </message>
     <message>
         <source>Minimum distance to player before sound decreases</source>
-        <translation type="obsolete">Ustawia minimalny zasięg
+        <translation type="obsolete">Ustawia minimalny zasięg 
 przechwytywania źródeł dźwięku</translation>
     </message>
     <message>
@@ -1074,7 +1073,7 @@ przechwytywania źródeł dźwięku</translation>
     </message>
     <message>
         <source>Maximum distance, beyond which sound won&apos;t decrease</source>
-        <translation type="obsolete">Ustawia maksymalny zasięg
+        <translation type="obsolete">Ustawia maksymalny zasięg 
 przechwytywania źródeł dźwięku</translation>
     </message>
     <message>
@@ -1112,7 +1111,7 @@ przechwytywania źródeł dźwięku</translation>
     <message>
         <location filename="AudioOutput.ui" line="486"/>
         <source>Variance in packet latency</source>
-        <translation>Zmienność w opóźnieniach pakietów</translation>
+        <translation type="unfinished">Opóźnienie pakietów podczas testu.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="489"/>
@@ -1127,7 +1126,7 @@ przechwytywania źródeł dźwięku</translation>
     <message>
         <location filename="AudioOutput.ui" line="525"/>
         <source>Packet loss for loopback mode</source>
-        <translation>Ilość utraconych pakietów podczas testu.</translation>
+        <translation type="unfinished">Ilość utraconych pakietów podczas testu.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="528"/>
@@ -1152,8 +1151,7 @@ przechwytywania źródeł dźwięku</translation>
     <message>
         <location filename="AudioOutput.ui" line="448"/>
         <source>Factor for sound volume increase</source>
-        <translation>&lt;b&gt;Jak bardzo Mumble powinien zmieniać głośność dla źródeł dźwięku, które są zbyt blisko?&lt;/b&gt;
-Ustaw odpowiednią liczbę %. Domyślnie 50%.</translation>
+        <translation type="unfinished">Czynnik wpływający na zwiększenie głośności</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="286"/>
@@ -1213,7 +1211,7 @@ Ustaw odpowiednią liczbę %. Domyślnie 50%.</translation>
     <message>
         <location filename="AudioOutput.ui" line="292"/>
         <source>Headphones</source>
-        <translation>W tej chwili używam słuchawek</translation>
+        <translation type="unfinished">Słuchawki</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="245"/>
@@ -1658,13 +1656,13 @@ Przejdź Dalej, aby rozpocząć konfigurację!</translation>
     <message>
         <location filename="AudioWizard.cpp" line="415"/>
         <source>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
-        <translation>Następnie musisz ustawić podane wskaźniki.
+        <translation>Następnie musisz ustawić podane wskaźniki. 
 Zielony - mowa zdecydowana, żółty - mowa normalna, czerwony - gdy nic nie mówisz.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="439"/>
         <source>Last, you need to adjust the grace time. Mumble may detect this much non-speech and still keep transmitting before it breaks off. This allows you to catch your breath while speaking.</source>
-        <translation>Ostatecznie ustaw jak długo Mumble podtrzymuje transmisję po zakończeniu wypowiedzi.
+        <translation>Ostatecznie ustaw jak długo Mumble podtrzymuje transmisję po zakończeniu wypowiedzi. 
 W ten sposób możesz uniknąć ucinania głosu pomiędzy wypowiadanymi zdaniami.</translation>
     </message>
     <message>
@@ -1681,13 +1679,13 @@ W ten sposób możesz uniknąć ucinania głosu pomiędzy wypowiadanymi zdaniami
         <location filename="AudioWizard.cpp" line="472"/>
         <source>To keep latency to an absolute minium, it&apos;s important to buffer as little audio as possible on the soundcard. However, many soundcards report that they require a much smaller buffer than what they can actually work with, so the only way to set this value is to try and fail.</source>
         <translation>Aby opóźnienia były najmniejsze bufor powinien być jak najmniejszy, wówczas karta dźwiękowa szybciej wysyła dźwięk.
-Niektóre karty dźwiękowe mają granice co do ustawień bufora, raz działają a raz nie.
+Niektóre karty dźwiękowe mają granice co do ustawień bufora, raz działają a raz nie. 
 Postaraj się ustawić wielkość bufora tak, aby nie występowały żadne zakłócenia w odtwarzanym dźwięku.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="495"/>
         <source>Amount of data to buffer.</source>
-        <translation>Ilość danych do zbuforowania</translation>
+        <translation type="unfinished">Ilość danych do trafiających do bufora</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="496"/>
@@ -1722,7 +1720,7 @@ Postaraj się ustawić wielkość bufora tak, aby nie występowały żadne zakł
     <message>
         <location filename="AudioWizard.cpp" line="795"/>
         <source>Audio path cannot be determined. Input not recognized.</source>
-        <translation>Ścieżka dźwiękowa nie może być określona.
+        <translation>Ścieżka dźwiękowa nie może być określona. 
 Wejście dźwieku nie zostało rozpoznane!</translation>
     </message>
     <message>
@@ -1743,7 +1741,7 @@ Wejście dźwieku nie zostało rozpoznane!</translation>
     <message>
         <location filename="AudioWizard.cpp" line="258"/>
         <source>Enable positional audio</source>
-        <translation>Uaktywnij dźwięk pozycyjny</translation>
+        <translation type="unfinished">Dźwięk pozycyjny</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="259"/>
@@ -1773,7 +1771,7 @@ Wejście dźwieku nie zostało rozpoznane!</translation>
     <message>
         <location filename="AudioWizard.cpp" line="288"/>
         <source>The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/font&gt;, the &lt;font color=&quot;yellow&quot;&gt;speakers&lt;/font&gt; and a &lt;font color=&quot;green&quot;&gt;moving sound source&lt;/font&gt; as if seen from above. You should hear the audio move between the channels.</source>
-        <translation>Wykres poniżej pokazuje &lt;font color=&quot;red&quot;&gt;ciebie&lt;/font&gt;, &lt;font color=&quot;yellow&quot;&gt;głośniki&lt;/font&gt; oraz &lt;font color=&quot;green&quot;&gt;poruszające źródło dźwięku&lt;/font&gt;.
+        <translation>Wykres poniżej pokazuje &lt;font color=&quot;red&quot;&gt;ciebie&lt;/font&gt;, &lt;font color=&quot;yellow&quot;&gt;głośniki&lt;/font&gt; oraz &lt;font color=&quot;green&quot;&gt;poruszające źródło dźwięku&lt;/font&gt;. 
 Powinieneś usłyszeć dźwięk przemieszczający się pomiędzy głośnikami.</translation>
     </message>
     <message>
@@ -1795,7 +1793,7 @@ Powinieneś usłyszeć dźwięk przemieszczający się pomiędzy głośnikami.</
         <location filename="AudioWizard.cpp" line="141"/>
         <source>Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistcs are essential for future development, and also make sure the features you use aren&apos;t deprecated.</source>
         <translation>Adnotacja twórców:
-Mumble jest ciągle rozwijany, naszym priorytetem jest skupianie się na cechach najbardziej pożądanych przez użytkowników, dlatego dodaliśmy do programu opcję wysyłania anonimowych statystyk.
+Mumble jest ciągle rozwijany, naszym priorytetem jest skupianie się na cechach najbardziej pożądanych przez użytkowników, dlatego dodaliśmy do programu opcję wysyłania anonimowych statystyk. 
 Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do przyszłego rozwoju aplikacji.</translation>
     </message>
     <message>
@@ -2458,7 +2456,7 @@ w żadnej z podanych lokacji.</translation>
     <message>
         <location filename="LCD.cpp" line="126"/>
         <source>Enable this device</source>
-        <translation>Uaktywnij te urządzenie</translation>
+        <translation type="unfinished">Uaktywnij to urządzenie</translation>
     </message>
     <message>
         <location filename="LCD.cpp" line="135"/>
@@ -4151,7 +4149,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="MainWindow.cpp" line="316"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
-        <translation>&lt;b&gt;UWAGA!&lt;/b&gt; Mumble jest obecnie połączony z serwerem.
+        <translation>&lt;b&gt;UWAGA!&lt;/b&gt; Mumble jest obecnie połączony z serwerem. 
 
 Chcesz zakończyć czy zminimalizować program?</translation>
     </message>
@@ -4488,7 +4486,7 @@ Chcesz zakończyć czy zminimalizować program?</translation>
     <message>
         <location filename="Overlay.ui" line="28"/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked with D3D9 applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</source>
-        <translation>Uaktywnia nakładkę. Wyświetla listę użytkowników na ekranie podczas gry.</translation>
+        <translation type="unfinished">To ustawia czy nakładka jest aktywna, czy nie. Te ustawienia są sprawdzane tylko podczas uruchamiania aplikacji obsługujących D3D9, więc upewnij się czy nakładka jest włączona zanim uruchomisz aplikację.&lt;br /&gt;Należy pamiętać że jeżeli uruchomisz aplikację przed włączeniem mumble, lub wyłączysz nakładkę podczas jej działania, to nie ma bezpiecznej metody by zrestartować nakładkę bez ponownego uruchomienia aplikacji.</translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="38"/>
@@ -4498,12 +4496,13 @@ Chcesz zakończyć czy zminimalizować program?</translation>
     <message>
         <location filename="Overlay.ui" line="41"/>
         <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>Wybierz kogo nakładka pokazuje podczas gry.</translation>
+        <translatorcomment>Wybierz kogo nakładka pokazuje podczas gry.</translatorcomment>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="54"/>
         <source>Always Show Self</source>
-        <translation>Pokazuj swój nick na nakładce</translation>
+        <translation type="unfinished">Pokazuj swój nick na nakładce </translation>
     </message>
     <message>
         <location filename="Overlay.ui" line="48"/>
@@ -4523,7 +4522,7 @@ Chcesz zakończyć czy zminimalizować program?</translation>
     <message>
         <location filename="Overlay.ui" line="61"/>
         <source>Show User custom textures instead of text on the overlay.</source>
-        <translation>Pokazuje tekstury wybrane przez użytkowników zamiast ich nazw użytkownika.
+        <translation>Pokazuje tekstury wybrane przez użytkowników zamiast ich nazw użytkownika. 
 Opcja dostępna tylko, gdy ustawisz teksturę na danym serwerze podczas rejestracji.</translation>
     </message>
     <message>
@@ -4712,19 +4711,18 @@ Opcja dostępna tylko, gdy ustawisz teksturę na danym serwerze podczas rejestra
     <message>
         <location filename="PlayerModel.cpp" line="421"/>
         <source>This is a player connected to the server. The icon to the left of the player indicates whether or not they are talking:&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt; Talking&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt; Not talking</source>
-        <translation>To jest użytkownik podłączony do serwera. Ikony wskazują następujące czynności: &lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt;Użytkownik mówiący&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot;/&gt;Użytkownik nie mówi</translation>
+        <translatorcomment>Zastąpiłem nie mówi na milczy //Zuko</translatorcomment>
+        <translation type="unfinished">To jest użytkownik połączony do serwera. Ikona po lewej stronie wskazuje czy użytkownik mówi czy milczy.&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt;Mówi&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt;Milczy</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="427"/>
         <source>This is a channel on the server. Only players in the same channel can hear each other.</source>
-        <translation>To jest kanał na serwerze, użytkownicy na tym samym kanale mogą rozmawiać między sobą.</translation>
+        <translation type="unfinished">To jest kanał na serwerze. Tylko użytkownicy znajdujący się na tym samym kanale mogą słyszeć się nawzajem.</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="429"/>
         <source>This shows the flags the player has on the server, if any:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Authenticated user&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Muted (by self)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Muted (by admin)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Deafened (by self)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Deafened (by admin)&lt;br /&gt;A player muted by himself is probably just away, talking on the phone or something like that.&lt;br /&gt;A player muted by an admin is probably also just away, and the noise the player is making was annoying enough that an admin muted him.</source>
-        <translation>To są atrybuty jakie użytkownik ma na serwerze:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Zarejestrowany użytkownik&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Wyciszony mikrofon (przez użytkownika)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Wyciszony mikrofon (przez administratora)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Wyciszone słuchawki (przez użytkownika)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Wyciszone słuchawki (przez administratora)&lt;br /&gt;
-Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora prawdopodobnie jest po prostu z dala od komputera lub denerwował innych i został wyciszony.
-</translation>
+        <translation type="unfinished">To są atrybuty jakie użytkownik posiada na serwerze:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;Uwierzytelnieniony użytkownik&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;Wyciszony mikrofon (przez siebie)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;Wyciszony mikrofon (przez administratora)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;Wyciszone słuchawki (przez użytkownika)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;Wyciszone słuchawki (przez administratora)&lt;br /&gt;Użytkownik który ma wyciszony mikrofon i/lub słuchawki przez siebie prawdopodobnie odszedł od komputera lub prowadzi inna rozmowę (np. przez telefon).&lt;br /&gt;Użytkownik, który ma wyciszony mikrofon i/lub słuchawki przez administratora prawdopodobnie wydawał dziwne dźwięki i denerwował innych przez zo został wyciszony.</translation>
     </message>
     <message>
         <location filename="PlayerModel.cpp" line="453"/>
@@ -4744,7 +4742,8 @@ Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora pr
     <message>
         <location filename="PlayerModel.cpp" line="990"/>
         <source>Are you sure you want to drag this channel?</source>
-        <translation>Czy jesteś pewien, że chcesz przenieść ten kanał?</translation>
+        <translatorcomment>drag - przeciągnąć a nie przenieść //Zuko</translatorcomment>
+        <translation type="unfinished">Czy jesteś pewien, że chcesz przeciągnąć ten kanał?</translation>
     </message>
 </context>
 <context>
@@ -4768,27 +4767,27 @@ Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora pr
     <message>
         <location filename="Plugins.ui" line="25"/>
         <source>Enable plugins and transmit positional information</source>
-        <translation>Uaktywnia wszystkie wtyczki, które są odpowiedzialne miedzy innymi za opcję dźwięku pozycyjnego</translation>
+        <translation type="unfinished">Włącza wtyczki oraz nadaje informacje o pozycjach graczy względem siebie podczas gry.</translation>
     </message>
     <message>
         <location filename="Plugins.ui" line="28"/>
         <source>This enables plugins for supported games to fetch your in-game position and transmit that with each voice packet. This enables other players to hear your voice in-game from the direction your character is in relation to their own.</source>
-        <translation>Uaktywnia to wtyczki, które przetwarzają dźwięk w zależności od położenia użytkownika na mapie, dzięki czemu możesz usłyszeć użytkowników ze względu na położenie na mapie. Ta funckja jest dostępna tylko do wybranych gier.</translation>
+        <translation type="unfinished"> Uaktywnia to wtyczki, które przetwarzają dźwięk w zależności od położenia użytkownika na mapie, dzięki czemu możesz usłyszeć użytkowników ze względu na położenie na mapie. Ta funckja jest dostępna tylko do wybranych gier.</translation>
     </message>
     <message>
         <location filename="Plugins.ui" line="58"/>
         <source>&amp;Reload plugins</source>
-        <translation>&amp;Przeładuj wtyczkę</translation>
+        <translation type="unfinished">&amp;Przeładuj wtyczki</translation>
     </message>
     <message>
         <location filename="Plugins.ui" line="52"/>
         <source>Reloads all plugins</source>
-        <translation>Przeładuj wtyczki</translation>
+        <translation type="unfinished">Przeładowuje wszystkie wtyczki</translation>
     </message>
     <message>
         <location filename="Plugins.ui" line="55"/>
         <source>This rescans and reloads plugins. Use this if you just added or changed a plugin to the plugins directory.</source>
-        <translation>Przeładowuje wszystkie wtyczki. Użyj tej opcji jeśli dopiero co dodałeś jakąś nową wtyczkę do folderu plugins.</translation>
+        <translation type="unfinished">Ponownie skanuje i przeładowuje wtyczki. Użyj tej opcji jeśli dodałeś lub zmieniłeś wtyczkę w katalogu &lt;i&gt;plugins&lt;/i&gt;.</translation>
     </message>
     <message>
         <location filename="Plugins.ui" line="84"/>
@@ -4803,7 +4802,7 @@ Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora pr
     <message>
         <location filename="Plugins.ui" line="81"/>
         <source>This shows a small information message about the plugin.</source>
-        <translation>Pokazuje informacje o wtyczce.</translation>
+        <translation type="unfinished">Pokazuje krótką informację na temat wtyczki.</translation>
     </message>
     <message>
         <location filename="Plugins.ui" line="97"/>
@@ -4813,12 +4812,12 @@ Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora pr
     <message>
         <location filename="Plugins.ui" line="91"/>
         <source>Show configuration page of plugin</source>
-        <translation>Pokaż ustawienia wtyczki</translation>
+        <translation type="unfinished">Otwiera okno konfiguracji</translation>
     </message>
     <message>
         <location filename="Plugins.ui" line="94"/>
         <source>This shows the configuration page of the plugin, if any.</source>
-        <translation>Pokazuje ustawienia danej wtyczki, o ile jaką kolwiek posiada.</translation>
+        <translation type="unfinished">Wyświetla okno z konfiguracją wtyczki, jeżeli wtyczka posiadą konfigurację.</translation>
     </message>
     <message>
         <location filename="Plugins.cpp" line="92"/>
@@ -4834,7 +4833,7 @@ Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora pr
     <message>
         <location filename="Plugins.cpp" line="104"/>
         <source>Plugin has no about function.</source>
-        <translation>Nie ma informacji o wtyczce.</translation>
+        <translation type="unfinished">Brak informacji o wtyczce.</translation>
     </message>
     <message>
         <location filename="Plugins.ui" line="13"/>
@@ -4860,7 +4859,7 @@ Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora pr
     <message>
         <location filename="PAAudio.cpp" line="275"/>
         <source>Default Device</source>
-        <translation>Urządzenie domyślne</translation>
+        <translation type="unfinished">Domyślne urządzenie</translation>
     </message>
 </context>
 <context>
@@ -4868,12 +4867,12 @@ Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora pr
     <message>
         <location filename="PulseAudio.cpp" line="531"/>
         <source>Default Input</source>
-        <translation>Domyślne Wejście</translation>
+        <translation type="unfinished">Domyślne wejście</translation>
     </message>
     <message>
         <location filename="PulseAudio.cpp" line="532"/>
         <source>Default Output</source>
-        <translation>Domyślne Wyjście</translation>
+        <translation type="unfinished">Domyślne wyjście</translation>
     </message>
 </context>
 <context>
@@ -4897,7 +4896,8 @@ Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora pr
     <message>
         <location filename="GlobalShortcut.cpp" line="60"/>
         <source>Press Shortcut</source>
-        <translation>Naciśnij klawisz, którego chcesz użyć jako skrótu</translation>
+        <translatorcomment>Tutaj była za długa fraza //Zuko</translatorcomment>
+        <translation type="unfinished">Naciśnij klawisz</translation>
     </message>
 </context>
 <context>
@@ -4915,12 +4915,13 @@ Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora pr
     <message>
         <location filename="TextMessage.ui" line="16"/>
         <source>Send raw message</source>
-        <translation>Wyślij wiadomość bez HTML</translation>
+        <translatorcomment>Stara wersja - Wyślij wiadomość bez HTML - ja sugeruję ją zastąpić //Zuko</translatorcomment>
+        <translation type="unfinished">Wyślij nieprzetworzoną wiadomość</translation>
     </message>
     <message>
         <location filename="TextMessage.ui" line="19"/>
         <source>Disables html formating</source>
-        <translation>Wyłącza HTML</translation>
+        <translation type="unfinished">Wyłącza formatowanie HTML</translation>
     </message>
 </context>
 <context>
@@ -4928,7 +4929,8 @@ Użytkownik, który ma wyciszony mikrofon lub słuchawki przez administratora pr
     <message>
         <location filename="VersionCheck.cpp" line="84"/>
         <source>Mumble failed to retrieve version information from the SourceForge server.</source>
-        <translation>Uzyskanie informacji o najnowszej wersji nie powiodło się.</translation>
+        <translatorcomment>Tutaj trzeba było usunąć nazwę własną //Zuko</translatorcomment>
+        <translation type="unfinished">Nie udało się pobrać informacji o wersji z serwera SourceForge.</translation>
     </message>
 </context>
 <context>
