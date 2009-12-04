@@ -2,16 +2,22 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <tlhelp32.h>
+#include <string>
+#include <sstream>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
 
 #include "../mumble_plugin.h"
 
+using namespace std;
+
 HANDLE h;
 BYTE *posptr;
 BYTE *rotptr;
 BYTE *stateptr;
+BYTE *hostptr;
+BYTE *teamptr;
 
 static DWORD getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
@@ -62,7 +68,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Insurgency: Modern Infantry Combat (Build 3945)", L"Mumble Insurgency Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Insurgency: Modern Infantry Combat (Build 3945). IP:Port context without team discriminator.", L"Mumble Insurgency Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -93,72 +99,36 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 	return true;
 }
 
-static int trylock() {
-	h = NULL;
-	posptr = rotptr = NULL;
-
-	DWORD pid=getProcess(L"hl2.exe");
-	if (!pid)
-		return false;
-	BYTE *mod=getModuleAddr(pid, L"client.dll");
-	if (!mod)
-		return false;
-	h=OpenProcess(PROCESS_VM_READ, false, pid);
-	if (!h)
-		return false;
-
-	// Check if we really have Insurgency running
-	/*
-		position tuple:		client.dll+0x47171c  (x,y,z, float)
-		orientation tuple:	client.dll+0x4f1458  (v,h float)
-		ID string:			client.dll+0x31a80a = "CombatWeapon@@" (14 characters, text)
-		spawn state:        client.dll+0x4aee58  (0 when at main menu, 1 when not spawned, 4 to 5 when spawned)
-	*/
-	char sMagic[14];
-	if (!peekProc(mod + 0x46a4b2, sMagic, 14) || strncmp("CombatWeapon@@", sMagic, 14)!=0)
-		return false;
-
-	// Remember addresses for later
-	posptr = mod + 0x47171c;
-	rotptr = mod + 0x4f1458;
-	stateptr = mod + 0x4aee58;
-
-	float pos[3];
-	float rot[3];
-	float opos[3], top[3], front[3];
-
-	bool ok = peekProc(posptr, pos, 12) &&
-	          peekProc(rotptr, rot, 12);
-
-	if (ok)
-		return calcout(pos, rot, opos, top, front);
-	// If it failed clean up
-	CloseHandle(h);
-	h = NULL;
-	return false;
-}
-
-static void unlock() {
-	if (h) {
-		CloseHandle(h);
-		h = NULL;
-	}
-	return;
-}
-
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, string &context, wstring &identity) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = 0;
 
 	float ipos[3], rot[3];
 	bool ok;
 	char state;
+	char chHostStr[40];
+	wostringstream new_identity;
+	ostringstream new_context;
 
 	ok = peekProc(posptr, ipos, 12) &&
 	     peekProc(rotptr, rot, 12) &&
-	     peekProc(stateptr, &state, 1);
+	     peekProc(stateptr, &state, 1) &&
+	     peekProc(hostptr, chHostStr, 40);
 	if (!ok)
 		return false;
+	chHostStr[39] = 0;
+
+	new_context << "<context>"
+	<< "<game>insurgency</game>"
+	<< "<hostport>" << chHostStr << "</hostport>"
+	<< "</context>";
+	context = new_context.str();
+
+	/* TODO
+	new_identity << "<identity>"
+			<< "<name>" << "SAS" << "</name>"
+		     << "</identity>";
+	identity = new_identity.str(); */
 
 	// Check to see if you are spawned
 	if (state == 0 || state == 1)
@@ -177,6 +147,67 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	return false;
+}
+
+static int trylock() {
+	h = NULL;
+	posptr = rotptr = NULL;
+
+	DWORD pid=getProcess(L"hl2.exe");
+	if (!pid)
+		return false;
+	BYTE *mod=getModuleAddr(pid, L"client.dll");
+	if (!mod)
+		return false;
+	BYTE *mod_engine = getModuleAddr(pid, L"engine.dll");
+	if (!mod_engine)
+		return false;
+	
+	h=OpenProcess(PROCESS_VM_READ, false, pid);
+	if (!h)
+		return false;
+
+	// Check if we really have Insurgency running
+	/*
+		position tuple:		client.dll+0x47171c  (x,y,z, float)
+		orientation tuple:	client.dll+0x4f1458  (v,h float)
+		ID string:			client.dll+0x31a80a = "CombatWeapon@@" (14 characters, text)
+		spawn state:        client.dll+0x4aee58  (0 when at main menu, 1 when not spawned, 4 to 5 when spawned)
+		host string: 		engine.dll+0x3909c4 (ip:port zero-terminated string)
+	*/
+
+	// Remember addresses for later
+	posptr = mod + 0x47171c;
+	rotptr = mod + 0x4f1458;
+	stateptr = mod + 0x4aee58;
+	hostptr = mod_engine + 0x3909c4;
+	
+	//Gamecheck
+	char sMagic[14];
+	if (!peekProc(mod + 0x46a4b2, sMagic, 14) || strncmp("CombatWeapon@@", sMagic, 14)!=0)
+		return false;
+		
+	// Check if we can get meaningful data from it
+	float apos[3], afront[3], atop[3];
+	float cpos[3], cfront[3], ctop[3];
+	wstring sidentity;
+	string scontext;
+
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity))
+		return true;
+
+	// If it failed clean up
+	CloseHandle(h);
+	h = NULL;
+	return false;
+}
+
+static void unlock() {
+	if (h) {
+		CloseHandle(h);
+		h = NULL;
+	}
+	return;
 }
 
 static const std::wstring longdesc() {

@@ -68,7 +68,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Age of Chivalry (Build 3943)", L"Mumble AOC Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Age of Chivalry (Build 3943). IP:Port context with team discriminator.", L"Mumble AOC Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -140,7 +140,6 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	<< "<team>" << sTeam << "</team>"
 	<< "</context>";
 	context = new_context.str();
-// //
 
 	/* TODO
 	new_identity << "<identity>"

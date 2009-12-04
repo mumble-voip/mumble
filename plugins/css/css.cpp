@@ -68,7 +68,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Counter-Strike: Source (Build 3945)", L"Mumble CSS Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Counter-Strike: Source (Build 3945). IP:Port context with team discriminator.", L"Mumble CSS Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -140,7 +140,6 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	<< "<team>" << sTeam << "</team>"
 	<< "</context>";
 	context = new_context.str();
-// //
 
 	/* TODO
 	new_identity << "<identity>"
@@ -180,6 +179,7 @@ static int trylock() {
 	BYTE *mod_engine = getModuleAddr(pid, L"engine.dll");
 	if (!mod_engine)
 		return false;
+		
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
@@ -188,10 +188,10 @@ static int trylock() {
 	/*
 		position tuple:		client.dll+0x3ee0c4  (x,y,z, float)
 		orientation tuple:	client.dll+0x39d504  (v,h float)
-		ID string:		client.dll+0x39ee41 = "CSSpectatorGUI@@" (16 characters, text)
+		ID string:			client.dll+0x39ee41 = "CSSpectatorGUI@@" (16 characters, text)
 		spawn state:		client.dll+0x390070  (0 in main menu, 3 when at team selection menu or when not spawned, 5 for CT and 6 for T when spawned)
 		ip:port string		engine.dll+0x3909C4  (zero terminated ip:port, string)
-		team state:		client.dll+0x3aa133  (60 when T, 61 when CT, byte)
+		team state:			client.dll+0x3aa133  (60 when T, 61 when CT, byte)
 	*/
 	// Remember addresses for later
 	posptr = mod + 0x3ee0c4;

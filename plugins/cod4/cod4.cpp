@@ -38,7 +38,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from COD4 (v 1.7.568)", L"Mumble COD4 Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from COD4 (v 1.7.568). IP:Port context without team discriminator.", L"Mumble COD4 Plugin", MB_OK);
 }
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
@@ -84,15 +84,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	     peekProc((BYTE *) 0x0072AFF0, avatar_pos+1, 4) && //Y
 	     peekProc((BYTE *) 0x0072AF3C, &viewHor, 4) && //Hor
 	     peekProc((BYTE *) 0x0072AF38, &viewVer, 4) && //Ver
-	     peekProc((BYTE *) 0x01410BE8, ccontext, 256);
+	     peekProc((BYTE *) 0x00956D88, ccontext, 256);
 
 	if (! ok)
 		return false;
 
 	/*
-	    Get context string, in this plugin this will be an
+	    Get context string; in this plugin this will be an
 	    ip:port (char 256 bytes) string
 	*/
+	ccontext[255] = 0;
 	context = std::string(ccontext);
 
 	// Scale Coordinates

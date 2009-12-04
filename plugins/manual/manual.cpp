@@ -249,7 +249,7 @@ static const std::wstring longdesc() {
 }
 
 static std::wstring description(L"Manual placement plugin");
-static std::wstring shortname(L"manual");
+static std::wstring shortname(L"Manual placement");
 
 static void about(WId h) {
 	QMessageBox::about(QWidget::find(h), QString::fromStdWString(description), QString::fromStdWString(longdesc()));
