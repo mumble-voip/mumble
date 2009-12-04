@@ -6,10 +6,11 @@
 #                    an existing phpBB3 forum database.
 #
 #    Requirements:
-#        python >=2.5
-#        PIL >=1.1.6 (only if avatar import is enabled)
-#        MySQLdb
-#        daemon (when run as a daemon)
+#        * python >=2.4
+#        * ice-python
+#        * PIL >=1.1.5 (only if avatar import is enabled)
+#        * MySQLdb
+#        * daemon (when run as a daemon)
 
 import sys
 import Ice
@@ -17,7 +18,6 @@ import thread
 import logging
 import ConfigParser
 
-from hashlib    import md5
 from logging    import (debug,
                         info,
                         warning,
@@ -25,6 +25,10 @@ from logging    import (debug,
                         critical,
                         getLogger)
 from optparse   import OptionParser
+try:
+    from hashlib import md5
+except ImportError: # python 2.4 compat
+    from md5 import md5
 
 def x2bool(s):
     """Helper function to convert strings from the config to bool"""
@@ -384,6 +388,7 @@ def do_main_program():
             
             try:
                 img = Image.open(file).convert("RGBA")
+                img.thumbnail((user_texture_resolution[0],user_texture_resolution[1]), Image.ANTIALIAS)
                 img = img.transform(user_texture_resolution,
                                     Image.EXTENT,
                                     (0, 0, user_texture_resolution[0], user_texture_resolution[1]))
@@ -656,6 +661,9 @@ if __name__ == '__main__':
         except IOError, e:
             print>>sys.stderr, 'Fatal error, could not open logfile "%s"' % cfg.log.file
             sys.exit(1)
+    else:
+        logfile = logging.sys.stderr
+        
             
     if option.verbose:
         level = cfg.log.level
@@ -664,7 +672,7 @@ if __name__ == '__main__':
     
     logging.basicConfig(level = level,
                         format='%(asctime)s %(levelname)s %(message)s',
-                        stream = logfile if cfg.log.file else logging.sys.stderr)
+                        stream = logfile)
         
     # As the default try to run as daemon. Silently degrade to running as a normal application if this fails
     # unless the user explicitly defined what he expected with the -a / -d parameter. 
@@ -680,7 +688,7 @@ if __name__ == '__main__':
         do_main_program()
     else:
         context = daemon.DaemonContext(working_directory = sys.path[0],
-                                       stderr = logfile if cfg.log.file else sys.stderr)
+                                       stderr = logfile)
         context.__enter__()
         try:
             do_main_program()
