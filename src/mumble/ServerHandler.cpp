@@ -203,9 +203,10 @@ void ServerHandler::handleVoicePacket(unsigned int msgFlags, PacketDataStream &p
 		QByteArray qba;
 		qba.reserve(pds.left() + 1);
 		qba.append(static_cast<char>(msgFlags));
-		qba.append(pds.dataBlock(pds.left()));
-
-		ao->addFrameToBuffer(p, qba, iSeq, type);
+		if (pds.left() > 0) {
+			qba.append(pds.dataBlock(pds.left()));
+			ao->addFrameToBuffer(p, qba, iSeq, type);
+		}
 	}
 }
 
