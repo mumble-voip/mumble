@@ -172,7 +172,7 @@ void LookConfig::accept() const {
 		QFile file(s.qsSkin);
 		file.open(QFile::ReadOnly);
 		QString sheet = QLatin1String(file.readAll());
-		if (! sheet.isEmpty()) {
+		if (! sheet.isEmpty() && (sheet != qApp->styleSheet())) {
 			qApp->setStyleSheet(sheet);
 			g.mw->qteLog->document()->setDefaultStyleSheet(sheet);
 		}
