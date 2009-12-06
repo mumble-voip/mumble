@@ -3565,37 +3565,37 @@ Are you sure you wish to replace your certificate?
 <context>
     <name>ClientUser</name>
     <message>
-        <location filename="ClientUser.cpp" line="97"/>
+        <location filename="ClientUser.cpp" line="99"/>
         <source>Friend</source>
         <translation type="unfinished">フレンド</translation>
     </message>
     <message>
-        <location filename="ClientUser.cpp" line="99"/>
+        <location filename="ClientUser.cpp" line="101"/>
         <source>Authenticated</source>
         <translation type="unfinished">認証済み</translation>
     </message>
     <message>
-        <location filename="ClientUser.cpp" line="101"/>
+        <location filename="ClientUser.cpp" line="103"/>
         <source>Muted (server)</source>
         <translation type="unfinished">発言禁止 (server)</translation>
     </message>
     <message>
-        <location filename="ClientUser.cpp" line="103"/>
+        <location filename="ClientUser.cpp" line="105"/>
         <source>Deafened (server)</source>
         <translation type="unfinished">聴取禁止 (サーバ)</translation>
     </message>
     <message>
-        <location filename="ClientUser.cpp" line="105"/>
+        <location filename="ClientUser.cpp" line="107"/>
         <source>Local Mute</source>
         <translation type="unfinished">ローカルでの発言禁止</translation>
     </message>
     <message>
-        <location filename="ClientUser.cpp" line="107"/>
+        <location filename="ClientUser.cpp" line="109"/>
         <source>Muted (self)</source>
         <translation type="unfinished">発言禁止 (セルフ)</translation>
     </message>
     <message>
-        <location filename="ClientUser.cpp" line="109"/>
+        <location filename="ClientUser.cpp" line="111"/>
         <source>Deafened (self)</source>
         <translation type="unfinished">聴取禁止 (セルフ)</translation>
     </message>
@@ -3619,13 +3619,13 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="51"/>
-        <location filename="ConfigDialog.mm" line="70"/>
+        <location filename="ConfigDialog.mm" line="73"/>
         <source>Accept changes</source>
         <translation>変更を確定</translation>
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="52"/>
-        <location filename="ConfigDialog.mm" line="71"/>
+        <location filename="ConfigDialog.mm" line="74"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
         <translation>このボタンは現在の設定を適用してアプリケーションに戻ります。&lt;br /&gt;この設定はアプリケーションを終了してもディスクに保存されます。</translation>
     </message>
@@ -3635,13 +3635,13 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="56"/>
-        <location filename="ConfigDialog.mm" line="75"/>
+        <location filename="ConfigDialog.mm" line="78"/>
         <source>Reject changes</source>
         <translation>変更を破棄</translation>
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="57"/>
-        <location filename="ConfigDialog.mm" line="76"/>
+        <location filename="ConfigDialog.mm" line="79"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
         <translation>このボタンは変更を破棄してアプリケーションに戻ります。&lt;br /&gt;設定は前の状態に戻ります。</translation>
     </message>
@@ -3651,37 +3651,37 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="61"/>
-        <location filename="ConfigDialog.mm" line="80"/>
+        <location filename="ConfigDialog.mm" line="83"/>
         <source>Apply changes</source>
         <translation>変更を適用</translation>
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="62"/>
-        <location filename="ConfigDialog.mm" line="81"/>
+        <location filename="ConfigDialog.mm" line="84"/>
         <source>This button will immediately apply all changes.</source>
         <translation>全ての変更を、すぐに適用します。</translation>
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="65"/>
-        <location filename="ConfigDialog.mm" line="84"/>
+        <location filename="ConfigDialog.mm" line="87"/>
         <source>Undo changes for current page</source>
         <translation>このページの変更を元に戻す。</translation>
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="66"/>
-        <location filename="ConfigDialog.mm" line="85"/>
+        <location filename="ConfigDialog.mm" line="88"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
         <translation>このボタンは、現在のページで最後に適用した変更を元に戻します。</translation>
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="69"/>
-        <location filename="ConfigDialog.mm" line="88"/>
+        <location filename="ConfigDialog.mm" line="91"/>
         <source>Restore defaults for current page</source>
         <translation>このページをデフォルト設定に戻す。</translation>
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="70"/>
-        <location filename="ConfigDialog.mm" line="89"/>
+        <location filename="ConfigDialog.mm" line="92"/>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <translation type="unfinished">このボタンは現在のページの設定をデフォルトに戻します。他のページは変更されません。&lt;br /&gt;全ての設定をデフォルト戻すには、各ページでこのボタンを使わなければなりません。</translation>
     </message>
@@ -3789,8 +3789,8 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished">ホスト %1 を追加中</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="448"/>
         <location filename="ConnectDialog.ui" line="48"/>
+        <location filename="ConnectDialog.cpp" line="448"/>
         <source>Servername</source>
         <translation type="unfinished">サーバ名</translation>
     </message>
@@ -3851,8 +3851,8 @@ Are you sure you wish to replace your certificate?
         <translation></translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="470"/>
         <location filename="ConnectDialog.ui" line="58"/>
+        <location filename="ConnectDialog.cpp" line="470"/>
         <source>Users</source>
         <translation type="unfinished">ユーザ</translation>
     </message>
@@ -3867,8 +3867,8 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished">接続</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="716"/>
         <location filename="ConnectDialog.ui" line="83"/>
+        <location filename="ConnectDialog.cpp" line="716"/>
         <source>Add New...</source>
         <translation type="unfinished">新しく追加 ...</translation>
     </message>
@@ -4465,7 +4465,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="647"/>
+        <location filename="GlobalShortcut.cpp" line="654"/>
         <source>Shortcuts</source>
         <translation>ショートカット</translation>
     </message>
@@ -4494,22 +4494,22 @@ of the possible locations.</source>
         <translation type="obsolete">抑制</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="685"/>
+        <location filename="GlobalShortcut.cpp" line="692"/>
         <source>Shortcut button combination.</source>
         <translation type="unfinished">ショートカットボタンの組み合わせ。</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="686"/>
+        <location filename="GlobalShortcut.cpp" line="693"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</source>
         <translation type="unfinished">&lt;b&gt;これはグローバルショットカットキーの組み合わせです。&lt;/b&gt;&lt;br /&gt;このフィールドをダブルクリックして、バインドしなおしたいキーかボタンのコンボをダブルクリックしてください。</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="690"/>
+        <location filename="GlobalShortcut.cpp" line="697"/>
         <source>Suppress keys from other applications</source>
         <translation>他のアプリケーションのキーを抑制します</translation>
     </message>
     <message>
-        <location filename="GlobalShortcut.cpp" line="691"/>
+        <location filename="GlobalShortcut.cpp" line="698"/>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
         <translation>&lt;b&gt;他のアプリケーションで押されたボタンを隠します.&lt;/b&gt;&lt;br /&gt;この設定を有効にすると、他のアプリケーションで押されたボタン(または、複数ボタンの組み合わせの最後のもの)を隠します. 全てのボタンを抑制できるわけではないことにご注意ください。</translation>
     </message>
@@ -5410,7 +5410,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="137"/>
-        <location filename="MainWindow.cpp" line="1732"/>
+        <location filename="MainWindow.cpp" line="1734"/>
         <source>Root</source>
         <translation>ルート</translation>
     </message>
@@ -6098,8 +6098,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">プレイヤー %1 をキックしました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="979"/>
-        <location filename="MainWindow.cpp" line="1001"/>
+        <location filename="MainWindow.cpp" line="981"/>
+        <location filename="MainWindow.cpp" line="1003"/>
         <source>Enter reason</source>
         <translation>理由を入力してください</translation>
     </message>
@@ -6108,10 +6108,10 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">プレイヤー %1 をBANしました</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="326"/>
-        <location filename="MainWindow.cpp" line="1221"/>
-        <location filename="MainWindow.cpp" line="1817"/>
         <location filename="MainWindow.ui" line="14"/>
+        <location filename="MainWindow.cpp" line="328"/>
+        <location filename="MainWindow.cpp" line="1223"/>
+        <location filename="MainWindow.cpp" line="1819"/>
         <location filename="main.cpp" line="301"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
@@ -6121,42 +6121,42 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">チャンネル名</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1221"/>
+        <location filename="MainWindow.cpp" line="1223"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>%1 とそのサブチャンネルを全て削除します。よろしいですか？</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1394"/>
+        <location filename="MainWindow.cpp" line="1396"/>
         <source>Unmuted and undeafened.</source>
         <translation>発言禁止を解除し、聴取禁止も解除</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1396"/>
+        <location filename="MainWindow.cpp" line="1398"/>
         <source>Unmuted.</source>
         <translation>発言禁止を解除</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1398"/>
+        <location filename="MainWindow.cpp" line="1400"/>
         <source>Muted.</source>
         <translation>発言禁止</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1425"/>
+        <location filename="MainWindow.cpp" line="1427"/>
         <source>Muted and deafened.</source>
         <translation>発言禁止と聴取禁止</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1427"/>
+        <location filename="MainWindow.cpp" line="1429"/>
         <source>Deafened.</source>
         <translation>聴取禁止</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1429"/>
+        <location filename="MainWindow.cpp" line="1431"/>
         <source>Undeafened.</source>
         <translation>聴取禁止を解除</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1497"/>
+        <location filename="MainWindow.cpp" line="1499"/>
         <source>About Qt</source>
         <translation>Qtについて</translation>
     </message>
@@ -6169,17 +6169,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバに接続しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1876"/>
+        <location filename="MainWindow.cpp" line="1877"/>
         <source>Server connection failed: %1.</source>
         <translation>サーバへの接続に失敗しました: %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1878"/>
+        <location filename="MainWindow.cpp" line="1879"/>
         <source>Disconnected from server.</source>
         <translation>サーバから切断しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="646"/>
+        <location filename="MainWindow.cpp" line="648"/>
         <source>Reconnecting.</source>
         <translation>再接続中.</translation>
     </message>
@@ -6190,63 +6190,68 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="Messages.cpp" line="248"/>
-        <location filename="Messages.cpp" line="349"/>
-        <location filename="Messages.cpp" line="389"/>
+        <location filename="Messages.cpp" line="343"/>
+        <location filename="Messages.cpp" line="383"/>
         <source>the server</source>
         <translation type="unfinished">サーバ</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="255"/>
+        <location filename="Messages.cpp" line="254"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="281"/>
+        <location filename="Messages.cpp" line="279"/>
         <source>You muted and deafened %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="284"/>
+        <location filename="Messages.cpp" line="281"/>
         <source>You unmuted and undeafened %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="296"/>
+        <location filename="Messages.cpp" line="292"/>
         <source>You undeafened %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="308"/>
+        <location filename="Messages.cpp" line="298"/>
+        <source>You suppressed %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Messages.cpp" line="304"/>
         <source>%1 muted and deafened by %2.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="311"/>
+        <location filename="Messages.cpp" line="306"/>
         <source>%1 unmuted and undeafened by %2.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="329"/>
+        <location filename="Messages.cpp" line="323"/>
         <source>%1 suppressed by %2.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="356"/>
+        <location filename="Messages.cpp" line="350"/>
         <source>%1 moved to %2.</source>
         <translation type="unfinished">%1 は %2 に移動されました。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="358"/>
+        <location filename="Messages.cpp" line="352"/>
         <source>%1 moved to %2 by %3.</source>
         <translation type="unfinished">%1 は %3 によって %2 に移動されました。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="368"/>
+        <location filename="Messages.cpp" line="362"/>
         <source>%1 moved in from %2 by %3.</source>
         <translation type="unfinished">%1 は %3 によって %2 から移動されました。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="403"/>
+        <location filename="Messages.cpp" line="397"/>
         <source>Left server: %1.</source>
         <translation>サーバから切断しました: %1.</translation>
     </message>
@@ -6315,22 +6320,22 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="260"/>
+        <location filename="Messages.cpp" line="258"/>
         <source>You were muted by %1.</source>
         <translation>あなたは %1 によって発言禁止にされました。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="273"/>
+        <location filename="Messages.cpp" line="271"/>
         <source>You were suppressed by %1.</source>
         <translation type="unfinished">あなたは %1 によって発言禁止にされました。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="275"/>
+        <location filename="Messages.cpp" line="273"/>
         <source>You were unsuppressed by %1.</source>
         <translation type="unfinished">あなたは %1 によって発言禁止を解除されました。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="262"/>
+        <location filename="Messages.cpp" line="260"/>
         <source>You were unmuted by %1.</source>
         <translation>あなたは %1 によって発言禁止を解除されました。</translation>
     </message>
@@ -6339,43 +6344,43 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">あなたは %1 を聴取禁止にしました。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="289"/>
+        <location filename="Messages.cpp" line="285"/>
         <source>You muted %1.</source>
         <translation type="unfinished">あなたは %1 を発言禁止にしました。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="304"/>
+        <location filename="Messages.cpp" line="300"/>
         <source>You unsuppressed %1.</source>
         <translation type="unfinished">あなたは %1 の発言禁止を解除しました。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="291"/>
+        <location filename="Messages.cpp" line="287"/>
         <source>You unmuted %1.</source>
         <translation type="unfinished">あなたは %1 の発言禁止を解除しました。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="316"/>
+        <location filename="Messages.cpp" line="310"/>
         <source>%1 muted by %2.</source>
         <translation>%1 は %2 によって発言禁止にされました。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="331"/>
+        <location filename="Messages.cpp" line="325"/>
         <source>%1 unsuppressed by %2.</source>
         <translation type="unfinished">%1 が %2 によって発言禁止を解除されました。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="318"/>
+        <location filename="Messages.cpp" line="312"/>
         <source>%1 unmuted by %2.</source>
         <translation>%1 は %2 によって発言禁止を解除されました。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="487"/>
+        <location filename="Messages.cpp" line="481"/>
         <source>the server</source>
         <comment>message from</comment>
         <translation type="unfinished">サーバ</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="626"/>
+        <location filename="Messages.cpp" line="620"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation type="unfinished">他のクライアントとマッチするCELTコーデックが見つかりません。あなたは全てのユーザとは話せないでしょう。</translation>
     </message>
@@ -6386,7 +6391,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">あなたは %1 によって聴取禁止にされました。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="267"/>
+        <location filename="Messages.cpp" line="265"/>
         <source>You were undeafened by %1.</source>
         <translation type="unfinished">あなたは %1 によって聴取禁止を解除されました。</translation>
     </message>
@@ -6395,32 +6400,32 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">%1 は %2 によって聴取禁止にされました。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="323"/>
+        <location filename="Messages.cpp" line="317"/>
         <source>%1 undeafened by %2.</source>
         <translation type="unfinished">%1 は %2 によって聴取禁止を解除されました。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="396"/>
+        <location filename="Messages.cpp" line="390"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>あなたは %1 によってサーバからキックされました: %2.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="401"/>
+        <location filename="Messages.cpp" line="395"/>
         <source>%3 was kicked from the server by %1: %2.</source>
         <translation>%3 は %1 によってサーバからキックされました: %2.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="394"/>
+        <location filename="Messages.cpp" line="388"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
         <translation>あなたは %1 によってキックされ、サーバからBANされました: %2.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="399"/>
+        <location filename="Messages.cpp" line="393"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
         <translation>%3 は %1 によってキックされ、サーバからBANされました: %2.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="353"/>
+        <location filename="Messages.cpp" line="347"/>
         <source>You were moved to %1 by %2.</source>
         <translation type="unfinished">あなたは %2 によって %1 に移動されました。</translation>
     </message>
@@ -6441,7 +6446,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">%1 は %2 によって移動させられました。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="366"/>
+        <location filename="Messages.cpp" line="360"/>
         <source>%1 entered channel.</source>
         <translation>%1 がチャンネルに入りました。</translation>
     </message>
@@ -6492,64 +6497,64 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>テキストメッセージを送信</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1023"/>
+        <location filename="MainWindow.cpp" line="1025"/>
         <source>Sending message to %1</source>
         <translation>%1 にメッセージを送信しています。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1036"/>
-        <location filename="MainWindow.cpp" line="1097"/>
+        <location filename="MainWindow.cpp" line="1038"/>
+        <location filename="MainWindow.cpp" line="1099"/>
         <source>To %1: %2</source>
         <translation>%1 宛: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1036"/>
-        <location filename="MainWindow.cpp" line="1097"/>
+        <location filename="MainWindow.cpp" line="1038"/>
+        <location filename="MainWindow.cpp" line="1099"/>
         <source>Message to %1</source>
         <translation>%1 へのメッセージ</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1869"/>
+        <location filename="MainWindow.cpp" line="1870"/>
         <source>Failed to launch compatibility client</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1890"/>
+        <location filename="MainWindow.cpp" line="1891"/>
         <source>Invalid username</source>
         <translation>不正なユーザ名</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1890"/>
+        <location filename="MainWindow.cpp" line="1891"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>不正なユーザ名で接続しました。他の名前を試してください。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1890"/>
+        <location filename="MainWindow.cpp" line="1891"/>
         <source>That username is already in use, please try another username.</source>
         <translation>そのユーザ名は既に使われています。他の名前を試してください。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1895"/>
+        <location filename="MainWindow.cpp" line="1896"/>
         <source>Wrong password</source>
         <translation>誤ったパスワード</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1895"/>
+        <location filename="MainWindow.cpp" line="1896"/>
         <source>Wrong password for registered users, please try again.</source>
         <translation>登録されたユーザのパスワードが違います。再度試してください</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1895"/>
+        <location filename="MainWindow.cpp" line="1896"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>未登録ユーザのパスワードが違います。再度試してください。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="488"/>
+        <location filename="Messages.cpp" line="482"/>
         <source>From %1: %2</source>
         <translation>%1 より: %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="489"/>
+        <location filename="Messages.cpp" line="483"/>
         <source>Message from %1</source>
         <translation>%1 からのメッセージ</translation>
     </message>
@@ -6656,17 +6661,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>サウンドハードウェアの設定プロセスに案内します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1804"/>
+        <location filename="MainWindow.cpp" line="1806"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL検証エラー: %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1809"/>
+        <location filename="MainWindow.cpp" line="1811"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;警告:&lt;/b&gt; 送信された証明書は保存されたものとは異なっています。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1811"/>
+        <location filename="MainWindow.cpp" line="1813"/>
         <source>Sever presented a certificate which failed verification.</source>
         <translation>送信された証明書の検証に失敗しました。</translation>
     </message>
@@ -6686,151 +6691,151 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>サーバとの接続についての詳細な情報を表示します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="394"/>
+        <location filename="MainWindow.cpp" line="396"/>
         <source>Opening URL %1</source>
         <translation>URL %1 を開きます</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="398"/>
+        <location filename="MainWindow.cpp" line="400"/>
         <source>File does not exist</source>
         <translation type="unfinished">ファイルが存在しません</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="408"/>
+        <location filename="MainWindow.cpp" line="410"/>
         <source>File is not a configuration file.</source>
         <translation type="unfinished">設定ファイルが見つかりません。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="414"/>
+        <location filename="MainWindow.cpp" line="416"/>
         <source>Settings merged from file.</source>
         <translation type="unfinished">設定をファイルからマージする。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="420"/>
+        <location filename="MainWindow.cpp" line="422"/>
         <source>URL scheme is not &apos;mumble&apos;</source>
         <translation>URLスキームは &apos;mumble&apos; ではありません</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="445"/>
+        <location filename="MainWindow.cpp" line="447"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
         <translation type="unfinished">このバージョンのMumble は Mumble %1.%2.%3 のための URL を扱えません</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="471"/>
+        <location filename="MainWindow.cpp" line="473"/>
         <source>Connecting to %1</source>
         <translation>%1 に接続しています</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="471"/>
+        <location filename="MainWindow.cpp" line="473"/>
         <source>Enter username</source>
         <translation>ユーザ名を入力してください。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="484"/>
-        <location filename="MainWindow.cpp" line="636"/>
+        <location filename="MainWindow.cpp" line="486"/>
+        <location filename="MainWindow.cpp" line="638"/>
         <source>Connecting to server %1.</source>
         <translation type="unfinished">サーバ %1 に接続しています。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="721"/>
+        <location filename="MainWindow.cpp" line="723"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
         <translation type="unfinished">&lt;h2&gt;バージョン&lt;/h2&gt;&lt;p&gt;プロトコル %1.%2.%3.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="726"/>
+        <location filename="MainWindow.cpp" line="728"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
         <translation type="unfinished">&lt;p&gt;ビルド情報がないか OS のバージョンが有効です。&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="728"/>
+        <location filename="MainWindow.cpp" line="730"/>
         <source>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="732"/>
+        <location filename="MainWindow.cpp" line="734"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation type="unfinished">&lt;h2&gt;制御チャンネル&lt;/h2&gt;&lt;p&gt;%1 bit %2 で暗号化されています。&lt;br /&gt;平均 %3 ms の遅延 (平方偏差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="741"/>
+        <location filename="MainWindow.cpp" line="743"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation type="unfinished">&lt;h2&gt;音声チャンネル&lt;/h2&gt;&lt;p&gt;128 bit OCB-AES128 で暗号化されています。&lt;br /&gt;平均 %1 ms の遅延 (平方偏差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="752"/>
+        <location filename="MainWindow.cpp" line="754"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;/p&gt;</source>
         <translation type="unfinished">&lt;h2&gt;音声帯域幅&lt;/h2&gt;&lt;p&gt;最大値 %1 kbit/s&lt;br /&gt;現在値 %2 kbit/s&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="754"/>
+        <location filename="MainWindow.cpp" line="756"/>
         <source>Mumble Server Information</source>
         <translation>Mumble サーバの情報</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="758"/>
-        <location filename="MainWindow.cpp" line="1825"/>
+        <location filename="MainWindow.cpp" line="760"/>
+        <location filename="MainWindow.cpp" line="1827"/>
         <source>&amp;View Certificate</source>
         <translation>証明書を見る(&amp;V)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="934"/>
+        <location filename="MainWindow.cpp" line="936"/>
         <source>Register yourself as %1</source>
         <translation type="unfinished">%1 として自分をユーザ登録</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="934"/>
+        <location filename="MainWindow.cpp" line="936"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation type="unfinished">&lt;p&gt;サーバ上で自分自身をユーザ登録しようとしています。このアクションは取り消せません。あなたのユーザ名はこの操作の後に変更できません。あなたはこのサーバ上で &apos;%1&apos; として知られるようになります。&lt;/p&gt;&lt;p&gt;本当に自分自身を登録しますか？&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="936"/>
+        <location filename="MainWindow.cpp" line="938"/>
         <source>Register user %1</source>
         <translation type="unfinished">ユーザ %1 を登録</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="936"/>
+        <location filename="MainWindow.cpp" line="938"/>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
         <translation type="unfinished">&lt;p&gt;あなたはサーバ上で %1 をユーザ登録しようとしています。このアクションは取り消せませんし登録済みのユーザ名を変えることもできません。登録済みのユーザ &apos;%1&apos; は、サーバパスワードを変更したとしても、サーバにアクセスするでしょう。&lt;/p&gt;&lt;p&gt;この時点から、&apos;%1&apos; は 現在の証明書でユーザ認証されます。&lt;/p&gt;&lt;p&gt;本当に %1 を登録しますか？&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="979"/>
+        <location filename="MainWindow.cpp" line="981"/>
         <source>Kicking user %1</source>
         <translation type="unfinished">ユーザをキック : %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1001"/>
+        <location filename="MainWindow.cpp" line="1003"/>
         <source>Banning user %1</source>
         <translation type="unfinished">ユーザ：%1 をバンする</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1050"/>
+        <location filename="MainWindow.cpp" line="1052"/>
         <source>Change comment on user %1</source>
         <translation type="unfinished">ユーザ %1 のコメントを変更する</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1093"/>
-        <location filename="MainWindow.cpp" line="1310"/>
+        <location filename="MainWindow.cpp" line="1095"/>
+        <location filename="MainWindow.cpp" line="1312"/>
         <source>To channel %1: %2</source>
         <translation type="unfinished">チャンネル %1 宛: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1093"/>
-        <location filename="MainWindow.cpp" line="1310"/>
+        <location filename="MainWindow.cpp" line="1095"/>
+        <location filename="MainWindow.cpp" line="1312"/>
         <source>Message to channel %1</source>
         <translation type="unfinished">チャンネル %1 へのメッセージ</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1726"/>
+        <location filename="MainWindow.cpp" line="1728"/>
         <source>Connected.</source>
         <translation type="unfinished">接続完了。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1843"/>
+        <location filename="MainWindow.cpp" line="1844"/>
         <source>SSL Version mismatch</source>
         <translation type="unfinished">SSL のバージョンの不一致</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1843"/>
+        <location filename="MainWindow.cpp" line="1844"/>
         <source>This server is using an older encryption standard. It might be an older 1.1 based Mumble server.&lt;br /&gt;Would you like to launch the compatibility client to connect to it?</source>
         <translation type="unfinished">このサーバはより古い暗号化手順を使用しています。 1.1 ベースの Mumble サーバである可能性があります。&lt;br /&gt;このサーバに接続するために互換クライアントを起動しますか?</translation>
     </message>
@@ -6839,48 +6844,48 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">互換クライアントの起動に失敗</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1869"/>
+        <location filename="MainWindow.cpp" line="1870"/>
         <source>The compatibility client could not be found, or failed to start.&lt;br /&gt;Note that the compatibility client is an optional component for most installations, and might not be installed.</source>
         <translation type="unfinished">互換クライアントが見つからないか起動に失敗しました。&lt;br /&gt;互換クライアントはほとんどのインストールに置いてオプションの項目であり、インストールされていない可能性があります。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1818"/>
+        <location filename="MainWindow.cpp" line="1820"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;詳細な証明書エラーの内容: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;この証明書を受け入れますか？&lt;br /&gt;(同時に証明書を保存するので、今後この質問は表示されません。)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1986"/>
+        <location filename="MainWindow.cpp" line="1987"/>
         <source>Type message to channel &apos;%1&apos; here</source>
         <translation type="unfinished">チャンネル &apos;%1&apos; へのメッセージをここに入力</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1989"/>
+        <location filename="MainWindow.cpp" line="1990"/>
         <source>Type message to user &apos;%1&apos; here</source>
         <translation type="unfinished">ユーザ &apos;%1&apos; へのメッセージをここに入力</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2068"/>
+        <location filename="MainWindow.cpp" line="2069"/>
         <source>Choose image file</source>
         <translation type="unfinished">イメージファイルを選択</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2068"/>
+        <location filename="MainWindow.cpp" line="2069"/>
         <source>Images (*.png *.jpg)</source>
         <translation type="unfinished">イメージ (*.png *.jpg)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2075"/>
-        <location filename="MainWindow.cpp" line="2087"/>
+        <location filename="MainWindow.cpp" line="2076"/>
+        <location filename="MainWindow.cpp" line="2088"/>
         <source>Failed to load image</source>
         <translation type="unfinished">画像の読み込みに失敗</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2075"/>
+        <location filename="MainWindow.cpp" line="2076"/>
         <source>Could not open file for reading.</source>
         <translation type="unfinished">読み込みモードでファイルを開けません。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="2087"/>
+        <location filename="MainWindow.cpp" line="2088"/>
         <source>Image format not recognized.</source>
         <translation type="unfinished">画像の形式を認識できません。</translation>
     </message>
@@ -6889,7 +6894,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;制御チャンネル&lt;/h2&gt;&lt;p&gt;%1 bit %2 で暗号化されています。&lt;br /&gt;平均 %3 ms の遅延 (平方偏差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="739"/>
+        <location filename="MainWindow.cpp" line="741"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>音声チャンネルは管理チャンネルを通して送信されます。</translation>
     </message>
@@ -6898,37 +6903,37 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;音声チャンネル&lt;/h2&gt;&lt;p&gt;128 bit OCB-AES128 で暗号化されています。&lt;br /&gt;平均 %1 ms の遅延 (平方偏差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="748"/>
+        <location filename="MainWindow.cpp" line="750"/>
         <source>UDP Statistics</source>
         <translation>UDP統計</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="748"/>
+        <location filename="MainWindow.cpp" line="750"/>
         <source>To Server</source>
         <translation>サーバ宛</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="748"/>
+        <location filename="MainWindow.cpp" line="750"/>
         <source>From Server</source>
         <translation>サーバから</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="748"/>
+        <location filename="MainWindow.cpp" line="750"/>
         <source>Good</source>
         <translation>良好</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="748"/>
+        <location filename="MainWindow.cpp" line="750"/>
         <source>Late</source>
         <translation>遅延</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="748"/>
+        <location filename="MainWindow.cpp" line="750"/>
         <source>Lost</source>
         <translation>消失</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="748"/>
+        <location filename="MainWindow.cpp" line="750"/>
         <source>Resync</source>
         <translation>最同期</translation>
     </message>
@@ -6937,7 +6942,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">チャンネル 「%1」 の説明を変更する</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1293"/>
+        <location filename="MainWindow.cpp" line="1295"/>
         <source>Sending message to channel %1</source>
         <translation>チャンネル %1 に送信するメッセージ</translation>
     </message>
@@ -6946,12 +6951,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">チャンネルツリー %1 に送信するメッセージ</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1308"/>
+        <location filename="MainWindow.cpp" line="1310"/>
         <source>To tree %1: %2</source>
         <translation>tree %1 宛: %2</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="1308"/>
+        <location filename="MainWindow.cpp" line="1310"/>
         <source>Message to tree %1</source>
         <translation>tree %1 宛メッセージ</translation>
     </message>
@@ -7036,18 +7041,18 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ %1 に接続しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="326"/>
+        <location filename="MainWindow.cpp" line="328"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>サーバに接続中です。接続を閉じるか最小化するかを選択してください。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="327"/>
+        <location filename="MainWindow.cpp" line="329"/>
         <source>Close</source>
         <translation>閉じる</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="237"/>
-        <location filename="MainWindow.cpp" line="328"/>
+        <location filename="MainWindow.cpp" line="330"/>
         <source>Minimize</source>
         <translation>最小化</translation>
     </message>
@@ -7147,12 +7152,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.cpp" line="279"/>
-        <location filename="MainWindow.cpp" line="1980"/>
+        <location filename="MainWindow.cpp" line="1981"/>
         <source>Not connected</source>
         <translation type="unfinished">接続されていません</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="388"/>
+        <location filename="MainWindow.cpp" line="390"/>
         <source>Clear</source>
         <translation>クリア</translation>
     </message>
@@ -7829,20 +7834,20 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation>全員</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="122"/>
         <location filename="Overlay.ui" line="231"/>
+        <location filename="Overlay.cpp" line="122"/>
         <source>Color for users</source>
         <translation type="unfinished">ユーザの色</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="126"/>
         <location filename="Overlay.ui" line="245"/>
+        <location filename="Overlay.cpp" line="126"/>
         <source>Color for talking users</source>
         <translation type="unfinished">しゃべっているユーザの色</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="130"/>
         <location filename="Overlay.ui" line="266"/>
+        <location filename="Overlay.cpp" line="130"/>
         <source>Color for whispering users</source>
         <translation type="unfinished">ささやいているユーザの色</translation>
     </message>
@@ -7967,8 +7972,8 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation>オプション</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="67"/>
         <location filename="Plugins.ui" line="42"/>
+        <location filename="Plugins.cpp" line="67"/>
         <source>Plugins</source>
         <translation>プラグイン</translation>
     </message>
@@ -8286,27 +8291,27 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="369"/>
+        <location filename="ServerHandler.cpp" line="390"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>UDP パケットをサーバに送ることができないか、サーバから受けとることができません。TCPモードに切り替えます。</translation>
     </message>
     <message>
-        <location filename="ServerHandler.cpp" line="371"/>
+        <location filename="ServerHandler.cpp" line="392"/>
         <source>UDP packets cannot be sent to the server. Switching to TCP mode.</source>
         <translation>UDPパケットをサーバに送ることができません。TCPモードに切り替えます。</translation>
     </message>
     <message>
-        <location filename="ServerHandler.cpp" line="373"/>
+        <location filename="ServerHandler.cpp" line="394"/>
         <source>UDP packets cannot be received from the server. Switching to TCP mode.</source>
         <translation>UDPパケットをサーバから受けとることができません。TCPモードに切り替えます。</translation>
     </message>
     <message>
-        <location filename="ServerHandler.cpp" line="380"/>
+        <location filename="ServerHandler.cpp" line="401"/>
         <source>UDP packets can be sent to and received from the server. Switching back to UDP mode.</source>
         <translation>UDPパケットをサーバに送ることも、サーバから受けとることもできません。UDPモードに切り替えます。</translation>
     </message>
     <message>
-        <location filename="ServerHandler.cpp" line="409"/>
+        <location filename="ServerHandler.cpp" line="430"/>
         <source>Connection timed out</source>
         <translation type="unfinished"></translation>
     </message>

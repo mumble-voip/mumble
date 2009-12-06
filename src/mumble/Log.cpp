@@ -213,25 +213,25 @@ Log::Log(QObject *p) : QObject(p) {
 }
 
 const char *Log::msgNames[] = {
-	QT_TR_NOOP("Debug"),
-	QT_TR_NOOP("Critical"),
-	QT_TR_NOOP("Warning"),
-	QT_TR_NOOP("Information"),
-	QT_TR_NOOP("Server Connected"),
-	QT_TR_NOOP("Server Disconnected"),
-	QT_TR_NOOP("User Joined Server"),
-	QT_TR_NOOP("User Left Server"),
-	QT_TR_NOOP("User kicked (you or by you)"),
-	QT_TR_NOOP("User kicked"),
-	QT_TR_NOOP("You self-muted/deafened"),
-	QT_TR_NOOP("Other self-muted/deafened"),
-	QT_TR_NOOP("User muted (you)"),
-	QT_TR_NOOP("User muted (by you)"),
-	QT_TR_NOOP("User muted (other)"),
-	QT_TR_NOOP("User Joined Channel"),
-	QT_TR_NOOP("User Left Channel"),
-	QT_TR_NOOP("Permission Denied"),
-	QT_TR_NOOP("Text Message")
+	QT_TRANSLATE_NOOP("Log", "Debug"),
+	QT_TRANSLATE_NOOP("Log", "Critical"),
+	QT_TRANSLATE_NOOP("Log", "Warning"),
+	QT_TRANSLATE_NOOP("Log", "Information"),
+	QT_TRANSLATE_NOOP("Log", "Server Connected"),
+	QT_TRANSLATE_NOOP("Log", "Server Disconnected"),
+	QT_TRANSLATE_NOOP("Log", "User Joined Server"),
+	QT_TRANSLATE_NOOP("Log", "User Left Server"),
+	QT_TRANSLATE_NOOP("Log", "User kicked (you or by you)"),
+	QT_TRANSLATE_NOOP("Log", "User kicked"),
+	QT_TRANSLATE_NOOP("Log", "You self-muted/deafened"),
+	QT_TRANSLATE_NOOP("Log", "Other self-muted/deafened"),
+	QT_TRANSLATE_NOOP("Log", "User muted (you)"),
+	QT_TRANSLATE_NOOP("Log", "User muted (by you)"),
+	QT_TRANSLATE_NOOP("Log", "User muted (other)"),
+	QT_TRANSLATE_NOOP("Log", "User Joined Channel"),
+	QT_TRANSLATE_NOOP("Log", "User Left Channel"),
+	QT_TRANSLATE_NOOP("Log", "Permission Denied"),
+	QT_TRANSLATE_NOOP("Log", "Text Message")
 };
 
 QString Log::msgName(MsgType t) const {
