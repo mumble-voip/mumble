@@ -2047,7 +2047,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
         <location filename="AudioOutput.ui" line="490"/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
-        <translation type="unfinished">&lt;b&gt;Establece la varianza de la latencia de los paquetes para la prueba de bucle de retorno&lt;/b&gt;&lt;br /&gt;La mayoría de rutas de audio contienen algo de latencia variable. Esto le permite fijar esa varianza para la prueba de bucle de retorno. Por ejemplo, si fija esto a 15 ms, se emulará una red con 20-35 ms de latencia de ping u 80-95 ms de latencia. La mayoría de conexiones de red domésticas tienen una variancia de unos 5 ms.</translation>
+        <translation>&lt;b&gt;Establece la varianza de la latencia de los paquetes para la prueba de bucle de retorno&lt;/b&gt;&lt;br /&gt;La mayoría de rutas de audio contienen algo de latencia variable. Esto le permite fijar esa varianza para la prueba de bucle de retorno. Por ejemplo, si fija esto a 15 ms, se emulará una red con 20-35 ms de latencia de ping u 80-95 ms de latencia. La mayoría de conexiones de red domésticas tienen una variancia de unos 5 ms.</translation>
     </message>
     <message>
         <location filename="AudioOutput.ui" line="516"/>
@@ -2672,7 +2672,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
         <location filename="AudioWizard.ui" line="193"/>
         <source>Allows positioning of sound</source>
         <oldsource>Allows positioning of sound.</oldsource>
-        <translation type="unfinished">Habilita el posicionamiento del sonido.</translation>
+        <translation>Habilita el posicionamiento del sonido</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui" line="27"/>
@@ -4441,7 +4441,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location filename="Database.cpp" line="90"/>
         <source>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</source>
-        <translation type="unfinished"></translation>
+        <translation>La base de datos &apos;%1&apos; es de solo lectura. Mumble no podrá almacenar los ajustes del servidor (p. ej., certificados SSL) hasta que arregle este problema.</translation>
     </message>
 </context>
 <context>
@@ -5470,7 +5470,7 @@ p, li { white-space: pre-wrap; }
         <location filename="LookConfig.ui" line="173"/>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation type="unfinished">Establece la conducta del arrastre de canales, puede ser usada para prevenir arrastres accidentales. &lt;i&gt;Mover canal&lt;/i&gt; mueve el canal sin avisar. &lt;i&gt;No hacer nada&lt;/i&gt; no hace nada y muestra un mensaje de error. &lt;i&gt;Preguntar&lt;/i&gt; usa un cuadro de mensajes para confirmar si usted realmente deseaba mover el canal.</translation>
+        <translation>Establece la conducta del arrastre de canales, puede ser usada para prevenir arrastres accidentales. &lt;i&gt;Mover&lt;/i&gt; mueve el canal sin avisar. &lt;i&gt;No hacer nada&lt;/i&gt; no hace nada y muestra un mensaje de error. &lt;i&gt;Preguntar&lt;/i&gt; usa un cuadro de mensajes para confirmar si usted realmente deseaba mover el canal.</translation>
     </message>
     <message>
         <location filename="LookConfig.ui" line="231"/>
@@ -6214,42 +6214,42 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Messages.cpp" line="254"/>
         <source>You were unmuted and undeafened by %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 le dio voz y escucha.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="279"/>
         <source>You muted and deafened %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fue enmudecido y ensordecido por %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="281"/>
         <source>You unmuted and undeafened %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enmudeció y ensordeció a %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="292"/>
         <source>You undeafened %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le dio escucha a %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="298"/>
         <source>You suppressed %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Contuvo a %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="304"/>
         <source>%1 muted and deafened by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 fue enmudecido y ensordecido por %2.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="306"/>
         <source>%1 unmuted and undeafened by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%2 dio voz y escucha a %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="323"/>
         <source>%1 suppressed by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 fue contenido por %2.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="350"/>
@@ -6404,17 +6404,17 @@ p, li { white-space: pre-wrap; }
         <location filename="Messages.cpp" line="252"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation type="unfinished">Fue ensordecido por %1.</translation>
+        <translation>Fue enmudecido y ensordecido por %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="265"/>
         <source>You were undeafened by %1.</source>
-        <translation type="unfinished">%1 le dio escucha.</translation>
+        <translation>%1 le dio escucha.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="317"/>
         <source>%1 undeafened by %2.</source>
-        <translation type="unfinished">%2 dio escucha a %1.</translation>
+        <translation>%2 dio escucha a %1.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="390"/>
@@ -6652,7 +6652,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="1870"/>
         <source>Failed to launch compatibility client</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo iniciar el cliente de compatibilidad</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1891"/>
@@ -8518,7 +8518,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
     <message>
         <location filename="ServerHandler.cpp" line="430"/>
         <source>Connection timed out</source>
-        <translation type="unfinished"></translation>
+        <translation>Expiró el tiempo de espera para la conexión</translation>
     </message>
 </context>
 <context>
