@@ -40,7 +40,7 @@
 Usage::Usage(QObject *p) : QObject(p) {
 	qbReport.open(QBuffer::ReadWrite);
 	qdsReport.setDevice(&qbReport);
-	qdsReport.setVersion(QDataStream::Qt_4_5);
+	qdsReport.setVersion(QDataStream::Qt_4_4);
 	qdsReport << static_cast<unsigned int>(2);
 
 	// Wait 10 minutes (so we know they're actually using this), then...
@@ -114,6 +114,6 @@ void Usage::reportJitter() {
 
 	qbReport.open(QBuffer::ReadWrite);
 	qdsReport.setDevice(&qbReport);
-	qdsReport.setVersion(QDataStream::Qt_4_5);
+	qdsReport.setVersion(QDataStream::Qt_4_4);
 	qdsReport << static_cast<unsigned int>(2);
 }
