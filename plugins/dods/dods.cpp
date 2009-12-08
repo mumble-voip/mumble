@@ -167,6 +167,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock() {
+
 	h = NULL;
 	posptr = rotptr = NULL;
 
@@ -229,39 +230,6 @@ static void unlock() {
 		h = NULL;
 	}
 	return;
-}
-
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
-	for (int i=0;i<3;i++)
-		avatar_pos[i] = avatar_front[i] = avatar_top[i] = 0;
-
-	float ipos[3], rot[3];
-	bool ok;
-	char state;
-
-	ok = peekProc(posptr, ipos, 12) &&
-	     peekProc(rotptr, rot, 12) &&
-	     peekProc(stateptr, &state, 1);
-	if (!ok)
-		return false;
-
-	// Check to see if you are spawned
-	if (state == 0 || state == 2)
-		return true; // Deactivate plugin
-
-	if (ok) {
-		int res = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
-		if (res) {
-			for (int i=0;i<3;++i) {
-				camera_pos[i] = avatar_pos[i];
-				camera_front[i] = avatar_front[i];
-				camera_top[i] = avatar_top[i];
-			}
-			return res;
-		}
-	}
-
-	return false;
 }
 
 static const std::wstring longdesc() {

@@ -2,16 +2,21 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <tlhelp32.h>
+#include <string>
+#include <sstream>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
 
 #include "../mumble_plugin.h"
 
+using namespace std;
+
 HANDLE h;
 BYTE *posptr;
 BYTE *rotptr;
 BYTE *stateptr;
+BYTE *hostptr;
 
 static DWORD getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
@@ -62,7 +67,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Garry's Mod 11 (Build 3943)", L"Mumble Gmod Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Garry's Mod 11 (Build 3943). IP:Port context without team descriminator.", L"Mumble Gmod Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -93,59 +98,6 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 	return true;
 }
 
-static int trylock() {
-	h = NULL;
-	posptr = rotptr = NULL;
-
-	DWORD pid=getProcess(L"hl2.exe");
-	if (!pid)
-		return false;
-	BYTE *mod=getModuleAddr(pid, L"client.dll");
-	if (!mod)
-		return false;
-	h=OpenProcess(PROCESS_VM_READ, false, pid);
-	if (!h)
-		return false;
-
-	// Check if we really have Gmod running
-	/*
-		position tuple:		client.dll+0x483fe0  (x,y,z, float)
-		orientation tuple:	client.dll+0x4733bc  (v,h float)
-		ID string:			client.dll+0x5ec370 = "garrysmod" (9 characters, text)
-		spawn state:        client.dll+0x46ab34  (0 when at main menu, 2 when not spawned, 15 to 14 when spawned, byte)
-	*/
-	char sMagic[9];
-	if (!peekProc(mod + 0x5F3A70, sMagic, 9) || strncmp("garrysmod", sMagic, 9)!=0)
-		return false;
-
-	// Remember addresses for later
-	posptr = mod + 0x48B8D0;
-	rotptr = mod + 0x48B850;
-	stateptr = mod + 0x471B34;
-
-	float pos[3];
-	float rot[3];
-	float opos[3], top[3], front[3];
-
-	bool ok = peekProc(posptr, pos, 12) &&
-	          peekProc(rotptr, rot, 12);
-
-	if (ok)
-		return calcout(pos, rot, opos, top, front);
-	// If it failed clean up
-	CloseHandle(h);
-	h = NULL;
-	return false;
-}
-
-static void unlock() {
-	if (h) {
-		CloseHandle(h);
-		h = NULL;
-	}
-	return;
-}
-
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = 0;
@@ -153,13 +105,24 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float ipos[3], rot[3];
 	bool ok;
 	char state;
+	char chHostStr[40];
+	wostringstream new_identity;
+	ostringstream new_context;
 
 	ok = peekProc(posptr, ipos, 12) &&
 	     peekProc(rotptr, rot, 12) &&
-	     peekProc(stateptr, &state, 1);
+	     peekProc(stateptr, &state, 1) &&
+		 peekProc(hostptr, chHostStr, 40);
 	if (!ok)
 		return false;
-
+	chHostStr[39] = 0;
+	
+	new_context << "<context>"
+	<< "<game>css</game>"
+	<< "<hostport>" << chHostStr << "</hostport>"
+	<< "</context>";
+	context = new_context.str();
+	
 	// Check to see if you are spawned
 	if (state != 15)
 		return true; // Deactivate plugin
@@ -177,6 +140,67 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	return false;
+}
+
+static int trylock() {
+
+	h = NULL;
+	posptr = rotptr = NULL;
+
+	DWORD pid=getProcess(L"hl2.exe");
+	if (!pid)
+		return false;
+	BYTE *mod=getModuleAddr(pid, L"client.dll");
+	if (!mod)
+		return false;
+	BYTE *mod_engine=getModuleAddr(pid, L"engine.dll");
+	if (!mod_engine)
+		return false;
+	h=OpenProcess(PROCESS_VM_READ, false, pid);
+	if (!h)
+		return false;
+
+	// Check if we really have Gmod running
+	/*
+		position tuple:		client.dll+0x483fe0  (x,y,z, float)
+		orientation tuple:	client.dll+0x4733bc  (v,h float)
+		ID string:			client.dll+0x5ec370 = "garrysmod" (9 characters, text)
+		spawn state:        client.dll+0x46ab34  (0 when at main menu, 2 when not spawned, 15 to 14 when spawned, byte)
+		host string: 		engine.dll+0x3C2A04
+	*/
+
+	// Remember addresses for later
+	posptr = mod + 0x48B8D0;
+	rotptr = mod + 0x48B850;
+	stateptr = mod + 0x471B34;
+	hostptr = mod_engine + 0x3C2A04;
+
+	// Gamecheck
+	char sMagic[9];
+	if (!peekProc(mod + 0x5F3A70, sMagic, 9) || strncmp("garrysmod", sMagic, 9)!=0)
+		return false;
+		
+	// Check if we can get meaningful data from it
+	float apos[3], afront[3], atop[3];
+	float cpos[3], cfront[3], ctop[3];
+	wstring sidentity;
+	string scontext;
+
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity))
+		return true;
+
+	// If it failed clean up
+	CloseHandle(h);
+	h = NULL;
+	return false;
+}
+
+static void unlock() {
+	if (h) {
+		CloseHandle(h);
+		h = NULL;
+	}
+	return;
 }
 
 static const std::wstring longdesc() {

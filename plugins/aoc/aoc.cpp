@@ -167,6 +167,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock() {
+
 	h = NULL;
 	posptr = rotptr = NULL;
 

@@ -44,7 +44,7 @@ static void about(HWND h) {
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	float viewHor, viewVer;
 	char state;
-	char ccontext[256];
+	char ccontext[128];
 
 	for (int i=0;i<3;i++)
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
@@ -84,7 +84,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	     peekProc((BYTE *) 0x0072AFF0, avatar_pos+1, 4) && //Y
 	     peekProc((BYTE *) 0x0072AF3C, &viewHor, 4) && //Hor
 	     peekProc((BYTE *) 0x0072AF38, &viewVer, 4) && //Ver
-	     peekProc((BYTE *) 0x00956D88, ccontext, 256);
+	     peekProc((BYTE *) 0x00956D88, ccontext, 128);
 
 	if (! ok)
 		return false;
@@ -93,7 +93,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	    Get context string; in this plugin this will be an
 	    ip:port (char 256 bytes) string
 	*/
-	ccontext[255] = 0;
+	ccontext[127] = 0;
 	context = std::string(ccontext);
 
 	// Scale Coordinates

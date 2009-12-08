@@ -67,7 +67,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Dystopia (Build 3945)", L"Mumble Dystopia Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Dystopia (Build 3945). IP:Port context without team descriminator.", L"Mumble Dystopia Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -159,8 +159,8 @@ static int trylock() {
 	BYTE *mod=getModuleAddr(pid, L"client.dll");
 	if (!mod)
 		return false;
-	BYTE *mod=getModuleAddr(pid, L"client.dll");
-	if (!mod)
+	BYTE *mod_engine=getModuleAddr(pid, L"engine.dll");
+	if (!mod_engine)
 		return false;
 
 	h=OpenProcess(PROCESS_VM_READ, false, pid);

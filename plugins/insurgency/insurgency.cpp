@@ -17,7 +17,6 @@ BYTE *posptr;
 BYTE *rotptr;
 BYTE *stateptr;
 BYTE *hostptr;
-BYTE *teamptr;
 
 static DWORD getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
@@ -150,6 +149,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock() {
+
 	h = NULL;
 	posptr = rotptr = NULL;
 
