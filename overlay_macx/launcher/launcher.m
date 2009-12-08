@@ -102,8 +102,13 @@ int main(int argc, char *argv[]) {
 	NSString *mumblePath = nil;
 
 	for (NSDictionary *dict in apps) {
-		if ([[dict objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:@"net.sourceforge.mumble"]) {
+		if ([[dict objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:@"net.sourceforge.mumble.Mumble"]) {
 			mumblePath = [dict objectForKey:@"NSApplicationPath"];
+			break;
+		}
+		if ([[dict objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:@"net.sourceforge.mumble.Mumble11x"]) {
+			mumblePath = [dict objectForKey:@"NSApplicationPath"];
+			break;
 		}
 	}
 
@@ -141,7 +146,7 @@ int main(int argc, char *argv[]) {
 	/* Create argv array. */
 	NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:(NSUInteger)argc];
 	for (i = 0; i < argc; i++) {
-		[arguments insertObject: [NSString stringWithCString:argv[i] encoding:NSUTF8StringEncoding] atIndex:0];
+		[arguments insertObject: [NSString stringWithCString:argv[i] encoding:NSUTF8StringEncoding] atIndex:i];
 	}
 
 	LSApplicationParameters parm = {

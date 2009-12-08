@@ -225,8 +225,6 @@ class AppBundle(object):
 		dst = os.path.join(self.bundle, 'Contents', 'Overlay')
 		os.makedirs(dst)
 		shutil.copy('release/libmumbleoverlay.dylib', dst)
-
-		dst = os.path.join(self.bundle, 'Contents', 'MacOS')
 		shutil.copy('release/mumble-overlay', dst)
 
 	def copy_codecs(self):
