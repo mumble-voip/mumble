@@ -222,7 +222,11 @@ void ServerItem::init() {
 void ServerItem::emitDataChanged() {
 	static QVariant emitDataChangedQVariants[] = { QVariant(0), QVariant(1) };
 
+	if (! treeWidget() || ! treeWidget()->header())
+		return;
+
 	m_emitDataChanged = !m_emitDataChanged;
+
 	int sortCol = treeWidget()->header()->sortIndicatorSection();
 	setData((sortCol > 0) ? sortCol : 0, Qt::UserRole, emitDataChangedQVariants[m_emitDataChanged]);
 }
