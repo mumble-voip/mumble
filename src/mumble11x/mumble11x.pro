@@ -139,8 +139,11 @@ unix {
 
     HEADERS *= GlobalShortcut_macx.h ConfigDialogDelegate.h
     SOURCES *= TextToSpeech_macx.cpp Overlay_unix.cpp GlobalShortcut_macx.cpp os_macx.cpp
-    SOURCES -= ConfigDialog.cpp
-    SOURCES *= ConfigDialog.mm ConfigDialogDelegate.mm
+
+    !CONFIG(no-cocoa) {
+        SOURCES -= ConfigDialog.cpp
+        SOURCES *= ConfigDialog.mm ConfigDialogDelegate.mm
+    }
 
     # CoreAudio
     !isEmpty(HAVE_PORTAUDIO) {

@@ -61,9 +61,10 @@ CONFIG+=optimize
  Build a heavily optimized version, specific to the machine it's being
  compiled on.
 
-CONFIG+=no-gcc42 (OSX)
- Do not build with GCC 4.2 specific optimizations (MMX/SSE/SSE2 for
- Universal Binaries), even though GCC 4.2 is availble on the system.
+CONFIG+=no-cocoa (OSX)
+ Disable parts of Mumble that require a Cocoa-version of Qt. This option
+ allows Mumble builds for pre-10.5 systems, but still requires the 10.5
+ SDK to build.
 
 CONFIG+=no-dbus (Mumble)
  Don't include DBus support on Mumble. This has no effect on Murmur, which
