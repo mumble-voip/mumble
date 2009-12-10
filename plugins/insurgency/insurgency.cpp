@@ -162,7 +162,7 @@ static int trylock() {
 	BYTE *mod_engine = getModuleAddr(pid, L"engine.dll");
 	if (!mod_engine)
 		return false;
-	
+
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
@@ -181,12 +181,12 @@ static int trylock() {
 	rotptr = mod + 0x4f1458;
 	stateptr = mod + 0x4aee58;
 	hostptr = mod_engine + 0x3909c4;
-	
+
 	//Gamecheck
 	char sMagic[14];
 	if (!peekProc(mod + 0x46a4b2, sMagic, 14) || strncmp("CombatWeapon@@", sMagic, 14)!=0)
 		return false;
-		
+
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3];
 	float cpos[3], cfront[3], ctop[3];

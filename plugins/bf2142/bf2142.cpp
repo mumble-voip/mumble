@@ -97,7 +97,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ok = peekProc(posptr, avatar_pos, 12) &&
 	     peekProc(faceptr, avatar_front, 12) &&
 	     peekProc(topptr, avatar_top, 12);
-		 peekProc((BYTE *) 0x00B527B8, ccontext, 128);
+	peekProc((BYTE *) 0x00B527B8, ccontext, 128);
 
 	if (! ok)
 		return false;
@@ -110,7 +110,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	context = std::string(ccontext);
 
 	if (state == 0)
-	return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 
 	for (int i=0;i<3;i++) {
 		camera_pos[i] = avatar_pos[i];

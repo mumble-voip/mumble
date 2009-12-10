@@ -1059,7 +1059,7 @@
     </message>
     <message>
         <source>Minimum distance to player before sound decreases</source>
-        <translation type="obsolete">Ustawia minimalny zasięg 
+        <translation type="obsolete">Ustawia minimalny zasięg
 przechwytywania źródeł dźwięku</translation>
     </message>
     <message>
@@ -1073,7 +1073,7 @@ przechwytywania źródeł dźwięku</translation>
     </message>
     <message>
         <source>Maximum distance, beyond which sound won&apos;t decrease</source>
-        <translation type="obsolete">Ustawia maksymalny zasięg 
+        <translation type="obsolete">Ustawia maksymalny zasięg
 przechwytywania źródeł dźwięku</translation>
     </message>
     <message>
@@ -1656,13 +1656,13 @@ Przejdź Dalej, aby rozpocząć konfigurację!</translation>
     <message>
         <location filename="AudioWizard.cpp" line="415"/>
         <source>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
-        <translation>Następnie musisz ustawić podane wskaźniki. 
+        <translation>Następnie musisz ustawić podane wskaźniki.
 Zielony - mowa zdecydowana, żółty - mowa normalna, czerwony - gdy nic nie mówisz.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="439"/>
         <source>Last, you need to adjust the grace time. Mumble may detect this much non-speech and still keep transmitting before it breaks off. This allows you to catch your breath while speaking.</source>
-        <translation>Ostatecznie ustaw jak długo Mumble podtrzymuje transmisję po zakończeniu wypowiedzi. 
+        <translation>Ostatecznie ustaw jak długo Mumble podtrzymuje transmisję po zakończeniu wypowiedzi.
 W ten sposób możesz uniknąć ucinania głosu pomiędzy wypowiadanymi zdaniami.</translation>
     </message>
     <message>
@@ -1679,7 +1679,7 @@ W ten sposób możesz uniknąć ucinania głosu pomiędzy wypowiadanymi zdaniami
         <location filename="AudioWizard.cpp" line="472"/>
         <source>To keep latency to an absolute minium, it&apos;s important to buffer as little audio as possible on the soundcard. However, many soundcards report that they require a much smaller buffer than what they can actually work with, so the only way to set this value is to try and fail.</source>
         <translation>Aby opóźnienia były najmniejsze bufor powinien być jak najmniejszy, wówczas karta dźwiękowa szybciej wysyła dźwięk.
-Niektóre karty dźwiękowe mają granice co do ustawień bufora, raz działają a raz nie. 
+Niektóre karty dźwiękowe mają granice co do ustawień bufora, raz działają a raz nie.
 Postaraj się ustawić wielkość bufora tak, aby nie występowały żadne zakłócenia w odtwarzanym dźwięku.</translation>
     </message>
     <message>
@@ -1720,7 +1720,7 @@ Postaraj się ustawić wielkość bufora tak, aby nie występowały żadne zakł
     <message>
         <location filename="AudioWizard.cpp" line="795"/>
         <source>Audio path cannot be determined. Input not recognized.</source>
-        <translation>Ścieżka dźwiękowa nie może być określona. 
+        <translation>Ścieżka dźwiękowa nie może być określona.
 Wejście dźwieku nie zostało rozpoznane!</translation>
     </message>
     <message>
@@ -1771,7 +1771,7 @@ Wejście dźwieku nie zostało rozpoznane!</translation>
     <message>
         <location filename="AudioWizard.cpp" line="288"/>
         <source>The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/font&gt;, the &lt;font color=&quot;yellow&quot;&gt;speakers&lt;/font&gt; and a &lt;font color=&quot;green&quot;&gt;moving sound source&lt;/font&gt; as if seen from above. You should hear the audio move between the channels.</source>
-        <translation>Wykres poniżej pokazuje &lt;font color=&quot;red&quot;&gt;ciebie&lt;/font&gt;, &lt;font color=&quot;yellow&quot;&gt;głośniki&lt;/font&gt; oraz &lt;font color=&quot;green&quot;&gt;poruszające źródło dźwięku&lt;/font&gt;. 
+        <translation>Wykres poniżej pokazuje &lt;font color=&quot;red&quot;&gt;ciebie&lt;/font&gt;, &lt;font color=&quot;yellow&quot;&gt;głośniki&lt;/font&gt; oraz &lt;font color=&quot;green&quot;&gt;poruszające źródło dźwięku&lt;/font&gt;.
 Powinieneś usłyszeć dźwięk przemieszczający się pomiędzy głośnikami.</translation>
     </message>
     <message>
@@ -1793,7 +1793,7 @@ Powinieneś usłyszeć dźwięk przemieszczający się pomiędzy głośnikami.</
         <location filename="AudioWizard.cpp" line="141"/>
         <source>Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistcs are essential for future development, and also make sure the features you use aren&apos;t deprecated.</source>
         <translation>Adnotacja twórców:
-Mumble jest ciągle rozwijany, naszym priorytetem jest skupianie się na cechach najbardziej pożądanych przez użytkowników, dlatego dodaliśmy do programu opcję wysyłania anonimowych statystyk. 
+Mumble jest ciągle rozwijany, naszym priorytetem jest skupianie się na cechach najbardziej pożądanych przez użytkowników, dlatego dodaliśmy do programu opcję wysyłania anonimowych statystyk.
 Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do przyszłego rozwoju aplikacji.</translation>
     </message>
     <message>
@@ -4149,7 +4149,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location filename="MainWindow.cpp" line="316"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
-        <translation>&lt;b&gt;UWAGA!&lt;/b&gt; Mumble jest obecnie połączony z serwerem. 
+        <translation>&lt;b&gt;UWAGA!&lt;/b&gt; Mumble jest obecnie połączony z serwerem.
 
 Chcesz zakończyć czy zminimalizować program?</translation>
     </message>
@@ -4522,7 +4522,7 @@ Chcesz zakończyć czy zminimalizować program?</translation>
     <message>
         <location filename="Overlay.ui" line="61"/>
         <source>Show User custom textures instead of text on the overlay.</source>
-        <translation>Pokazuje tekstury wybrane przez użytkowników zamiast ich nazw użytkownika. 
+        <translation>Pokazuje tekstury wybrane przez użytkowników zamiast ich nazw użytkownika.
 Opcja dostępna tylko, gdy ustawisz teksturę na danym serwerze podczas rejestracji.</translation>
     </message>
     <message>

@@ -112,17 +112,17 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ok = peekProc(posptr, ipos, 12) &&
 	     peekProc(rotptr, rot, 12) &&
 	     peekProc(stateptr, &state, 1) &&
-		 peekProc(hostptr, chHostStr, 40);
+	     peekProc(hostptr, chHostStr, 40);
 	if (!ok)
 		return false;
 	chHostStr[39] = 0;
-	
+
 	new_context << "<context>"
 	<< "<game>css</game>"
 	<< "<hostport>" << chHostStr << "</hostport>"
 	<< "</context>";
 	context = new_context.str();
-	
+
 	// Check to see if you are spawned
 	if (state != 15)
 		return true; // Deactivate plugin
@@ -179,7 +179,7 @@ static int trylock() {
 	char sMagic[9];
 	if (!peekProc(mod + 0x5F3A70, sMagic, 9) || strncmp("garrysmod", sMagic, 9)!=0)
 		return false;
-		
+
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3];
 	float cpos[3], cfront[3], ctop[3];

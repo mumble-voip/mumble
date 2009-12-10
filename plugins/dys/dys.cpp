@@ -186,7 +186,7 @@ static int trylock() {
 	char sMagic[14];
 	if (!peekProc(mod + 0x3c948e, sMagic, 14) || strncmp("DysObjective@@", sMagic, 14)!=0)
 		return false;
-		
+
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3];
 	float cpos[3], cfront[3], ctop[3];

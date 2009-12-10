@@ -472,14 +472,14 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 			jr.iSequence = iSeq;
 			jr.iFrames = frames;
 			jr.uiElapsed = p->tTiming.restart();
-			
+
 			if (! p->qlTiming.isEmpty()) {
 				jr.iFrames -= p->iFrames;
 				jr.iSequence -= p->iSequence + p->iFrames;
 			}
 			p->iFrames = frames;
 			p->iSequence = iSeq;
-			
+
 			p->qlTiming.append(jr);
 		}
 

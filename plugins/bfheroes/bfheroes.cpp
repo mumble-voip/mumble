@@ -81,19 +81,19 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
 
 	char state;
-	
+
 	bool ok;
 
 	ok = peekProc(posptr, avatar_pos, 12) &&
 	     peekProc(faceptr, avatar_front, 12) &&
 	     peekProc(topptr, avatar_top, 12) &&
-		 peekProc(stateptr, &state, 1);
+	     peekProc(stateptr, &state, 1);
 
 	if (! ok)
 		return false;
-	
-	 /*
-		This state value just uses the first memory position. If the memory position is "0," then it means that you are not ingame.
+
+	/*
+	   This state value just uses the first memory position. If the memory position is "0," then it means that you are not ingame.
 	*/
 	if (state == 0)
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
@@ -130,7 +130,7 @@ static int trylock() {
 	faceptr = peekProcPtr(cache + 0xc4);
 	topptr = peekProcPtr(cache + 0xc8);
 	stateptr = peekProcPtr(cache + 0xc0);
-	
+
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;
 	std::wstring identity;

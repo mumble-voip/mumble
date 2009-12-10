@@ -113,7 +113,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	     peekProc(rotptr, rot, 12) &&
 	     peekProc(stateptr, &state, 1) &&
 	     peekProc(hostptr, chHostStr, 40);
-		 
+
 	if (!ok)
 		return false;
 	chHostStr[39] = 0;
@@ -163,7 +163,7 @@ static int trylock() {
 	BYTE *mod_engine=getModuleAddr(pid, L"engine.dll");
 	if (!mod_engine)
 		return false;
-		
+
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
@@ -188,7 +188,7 @@ static int trylock() {
 	char sMagic[9];
 	if (!peekProc(mod + 0x4CE38B, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
 		return false;
-		
+
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3];
 	float cpos[3], cfront[3], ctop[3];

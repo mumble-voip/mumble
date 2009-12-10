@@ -1,3 +1,67 @@
+2009-12-10
+  Mikkel Krautz <mikkel@krautz.dk>
+    e9f7e0a  Add no-cocoa CONFIG option, to allow Mumble to build against
+	     non-Cocoa Qt.
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    a4ea89c  Added BFHeroes plugin; updated BF2 and BF2142 with IP contexts
+	     and improved linkstates
+
+2009-12-08
+  Cristian Gattamelati <cristian.gattamelati@gmail.com>
+    75f5b37  Italian Installer update
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    e595948  Fix overlay launcher for Snow Leopard. Update bundle
+	     identifiers.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    f4093f7  Work around bug in 4.4 compat emitDataChanged
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    eb9ab11  Various Source plugin updates, fixes; CoD4, MW2 context fixes
+
+  Bartek "stranded" Sumowski <sumowski@gmail.com>
+    58f9726  Updated Polish translation
+
+2009-12-07
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    be4786d  Updated Spanish translation
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    5554295  Use Qt4.4 compatible datastream for jitter report
+
+2009-12-06
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    a0908d5  Only reload stylesheet when necesarry
+    8f09a06  Set context for 4.6.0 translations
+
+2009-12-04
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    332b143  Make phpBB3auth.py python 2.4 compatible and improve avatar
+	     resizing
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    acb7642  Better fix for zerosized voice packets
+    5819780  Ignore zero-sized voice packets
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    e77beae  AOC, CSS string updates; Dys, Insurgenccy, TF2 IP:Port context
+	     support. DODS IP:Port+Team context support; CoD4 context fix;
+	     Manual plugin shortname fix
+
+2009-12-03
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    4023e4c  Back to the updated master branch of CELT
+
+2009-12-02
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    22f70fb  Usage format 2
+    a4f1ff7  Don't bother sending short jitter reports
+
+  Bartek "stranded" Sumowski <sumowski@gmail.com>
+    0521e38  Update 11x Polish translation
+
 2009-12-01
   lolo_32 <Alex@.(none)>
     d8188f7  Translations in French of new strings, and some minor write
@@ -22,6 +86,9 @@
     ff4057b  Try to promote libGL.so to global scope if we can't resolve it
 	     directly
     14ff24f  Add magic 0.7.0 detector
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    53fcb70  Gmod update
 
 2009-11-30
   lolo_32 <Alex@.(none)>

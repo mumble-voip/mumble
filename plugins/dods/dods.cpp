@@ -183,7 +183,7 @@ static int trylock() {
 	BYTE *mod_vphysics=getModuleAddr(pid, L"vphysics.dll");
 	if (!mod_vphysics)
 		return false;
-		
+
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
@@ -203,12 +203,12 @@ static int trylock() {
 	stateptr = mod + 0x3e2b94;
 	hostptr = mod_engine + 0x3c8124;
 	teamptr = mod_vphysics + 0xd6c3d;
-	
+
 	// Gamecheck
 	char sMagic[17];
 	if (!peekProc(mod + 0x3f6d91, sMagic, 17) || strncmp("DODSpectatorGUI@@", sMagic, 17)!=0)
 		return false;
-		
+
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3];
 	float cpos[3], cfront[3], ctop[3];

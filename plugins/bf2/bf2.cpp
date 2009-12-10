@@ -97,7 +97,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ok = peekProc(posptr, avatar_pos, 12) &&
 	     peekProc(faceptr, avatar_front, 12) &&
 	     peekProc(topptr, avatar_top, 12) &&
-		 peekProc((BYTE *) 0x009A64C8, ccontext, 128);
+	     peekProc((BYTE *) 0x009A64C8, ccontext, 128);
 
 	if (! ok)
 		return false;
@@ -106,8 +106,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	    Get context string; in this plugin this will be an
 	    ip:port (char 256 bytes) string
 	*/
-	 ccontext[127] = 0;
-	 context = std::string(ccontext);
+	ccontext[127] = 0;
+	context = std::string(ccontext);
 
 	if (state == 0)
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
@@ -132,7 +132,7 @@ static int trylock() {
 	BYTE *mod=getModuleAddr(pid, L"BF2Audio.dll");
 	if (!mod)
 		return false;
-		
+
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;

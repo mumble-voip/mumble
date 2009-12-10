@@ -180,7 +180,7 @@ static int trylock() {
 	BYTE *mod_engine = getModuleAddr(pid, L"engine.dll");
 	if (!mod_engine)
 		return false;
-		
+
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;

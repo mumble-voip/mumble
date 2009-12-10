@@ -85,8 +85,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	     peekProc((BYTE *) 0x008EA530, avatar_pos+1, 4) && //Y
 	     peekProc((BYTE *) 0x008EA538, &viewHor, 4) && //Hor
 	     peekProc((BYTE *) 0x008EA534, &viewVer, 4) && //Ver
-		 peekProc((BYTE *) 0x00A7C950, ccontext, 128);
-		 
+	     peekProc((BYTE *) 0x00A7C950, ccontext, 128);
+
 	if (! ok)
 		return false;
 
@@ -97,7 +97,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	*/
 	ccontext[127] = 0;
 	context = std::string(ccontext);
-	
+
 	// Scale Coordinates
 	/*
 	   Z-Value is increasing when heading north
