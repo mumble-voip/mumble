@@ -1,10 +1,14 @@
 2009-12-10
+  arcenciel <arcenciel@users.sourceforge.net>
+    d5e0afb  Japanese Translation for 1.2.0
+
   Mikkel Krautz <mikkel@krautz.dk>
     9171b43  Add missing .plists to DIST.
     e9f7e0a  Add no-cocoa CONFIG option, to allow Mumble to build against
 	     non-Cocoa Qt.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    68d33ba  Disable unfinished translations
     84c63d8  Update release scripts for new host
 
   Tuck Therebelos <snares@users.sourceforge.net>
