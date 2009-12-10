@@ -26,6 +26,7 @@ macx {
   INCLUDEPATH *= /opt/mumble-1.2/lglcd-sdk/SDK/Src/
   QMAKE_LFLAGS += -framework CoreFoundation -sectcreate __TEXT __info_plist g15helper.plist
   DEFINES *= APPLE
+  DIST = g15helper.plist
 }
 
 CONFIG(release, debug|release) {
