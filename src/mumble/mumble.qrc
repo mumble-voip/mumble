@@ -51,12 +51,8 @@
  <file>mumble_es.qm</file>
  <file>mumble_fr.qm</file>
  <file>mumble_de.qm</file>
- <file>mumble_ru.qm</file>
  <file>mumble_it.qm</file>
  <file>mumble_ja.qm</file>
- <file>mumble_cs.qm</file>
  <file>mumble_pl.qm</file>
- <file>mumble_zh_CN.qm</file>
- <file>mumble_zh_TW.qm</file>
 </qresource>
 </RCC>
