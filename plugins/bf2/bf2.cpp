@@ -7,11 +7,10 @@
 #include "../mumble_plugin.h"
 
 HANDLE h;
+
 BYTE *posptr;
 BYTE *faceptr;
 BYTE *topptr;
-BYTE *velptr;
-
 
 static DWORD getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
@@ -61,8 +60,6 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 	return (ok && (r == len));
 }
 
-static BYTE scratchbuffer[128];
-
 static DWORD peekProc(VOID *base) {
 	DWORD v = 0;
 	peekProc(base, reinterpret_cast<BYTE *>(&v), sizeof(DWORD));
@@ -75,59 +72,59 @@ static BYTE *peekProcPtr(VOID *base) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from BF2 (v1.41)", L"Mumble BF2 Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from BF2 (v1.50). IP context support.", L"Mumble BF2 Plugin", MB_OK);
 }
 
-static bool sane(float *avatar_pos, float *vel, float *avatar_face, float *avatar_top, bool initial = false) {
-	int i;
-	bool ok = true;
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+	for (int i=0;i<3;i++)
+		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
 
-	float min = (initial) ? 0.1f : 0.00001f;
+	char ccontext[128];
+	char state;
 
-	// Sanity check #1: Position should be from -2000 to +2000, and not 0.
-	for (i=0;i<3;i++) {
-		ok = ok && (fabs(avatar_pos[i]) > min);
-		ok = ok && (fabs(avatar_pos[i]) < 2000.0);
+	bool ok;
+
+	/*
+		state value is:
+		0						while not in game
+		usually 1, never 0		if you create your own server ingame; this value will switch to 1 the instant you click "Join Game"
+		usually 3, never 0		if you load into a server; this value will switch to 3 the instant you click "Join Game"
+	*/
+	ok = peekProc((BYTE *) 0x00A1D0A8, &state, 1); // Magical state value
+	if (! ok)
+		return false;
+
+	ok = peekProc(posptr, avatar_pos, 12) &&
+	     peekProc(faceptr, avatar_front, 12) &&
+	     peekProc(topptr, avatar_top, 12) &&
+		 peekProc((BYTE *) 0x009A64C8, ccontext, 128);
+
+	if (! ok)
+		return false;
+
+	/*
+	    Get context string; in this plugin this will be an
+	    ip:port (char 256 bytes) string
+	*/
+	 ccontext[127] = 0;
+	 context = std::string(ccontext);
+
+	if (state == 0)
+		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+
+	for (int i=0;i<3;i++) {
+		camera_pos[i] = avatar_pos[i];
+		camera_front[i] = avatar_front[i];
+		camera_top[i] = avatar_top[i];
 	}
-	if (! ok) {
-		return false;
-	}
 
-	// Sanity check #2: Directional vectors should have length 1. (and 1 * 1 == 1, so no sqrt)
-	double sqdist;
-	sqdist=avatar_face[0] * avatar_face[0] + avatar_face[1] * avatar_face[1] + avatar_face[2] * avatar_face[2];
-	if (fabs(sqdist - 1.0) > 0.1) {
-		return false;
-	}
-
-
-	sqdist=avatar_top[0] * avatar_top[0] + avatar_top[1] * avatar_top[1] + avatar_top[2] * avatar_top[2];
-	if (fabs(sqdist - 1.0) > 0.1) {
-		return false;
-	}
-
-	if (! initial)
-		return true;
-
-	// .. and it's not looking STRAIGHT ahead...
-	if (avatar_face[2] == 1.0)
-		return false;
-	if (avatar_top[1] == 1.0)
-		return false;
-
-	// Sanity check #3: Initial speed vector should be >0.2 (BF2 gravity) and < 1.0
-	sqdist=vel[0] * vel[0] + vel[1] * vel[1] + vel[2] * vel[2];
-	if ((sqdist < 0.2) || (sqdist > 1.0))
-		return false;
-
-	// We're good!
-	return true;
+	return ok;
 }
 
 static int trylock() {
 
 	h = NULL;
-	posptr = faceptr = topptr = velptr = NULL;
+	posptr = faceptr = topptr = NULL;
 
 	DWORD pid=getProcess(L"BF2.exe");
 	if (!pid)
@@ -135,35 +132,25 @@ static int trylock() {
 	BYTE *mod=getModuleAddr(pid, L"BF2Audio.dll");
 	if (!mod)
 		return false;
-
+		
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
 
-	BYTE *cacheaddr= mod + 0x4645c;
+	BYTE *cacheaddr = mod + 0x4645c;
 	BYTE *cache = peekProcPtr(cacheaddr);
 
 	posptr = peekProcPtr(cache + 0xb4);
 	faceptr = peekProcPtr(cache + 0xb8);
 	topptr = peekProcPtr(cache + 0xbc);
-	velptr = peekProcPtr(cache + 0xc0);
-	if (cache && posptr && faceptr && topptr && velptr) {
-		float avatar_pos[3];
-		float vel[3];
-		float avatar_face[3];
-		float avatar_top[3];
 
-		bool ok = peekProc(posptr, avatar_pos, 12) &&
-		          peekProc(velptr, vel, 12) &&
-		          peekProc(faceptr, avatar_face, 12) &&
-		          peekProc(topptr, avatar_top, 12);
+	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
+	std::string context;
+	std::wstring identity;
 
-		if (ok)
-			ok = sane(avatar_pos, vel, avatar_face, avatar_top, true);
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
+		return true;
 
-		if (ok)
-			return true;
-	}
 	CloseHandle(h);
 	h = NULL;
 	return false;
@@ -177,32 +164,11 @@ static void unlock() {
 	return;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
-	float vel[3];
-	bool ok;
-	ok = peekProc(posptr, avatar_pos, 12) &&
-	     peekProc(velptr, vel, 12) &&
-	     peekProc(faceptr, avatar_front, 12) &&
-	     peekProc(topptr, avatar_top, 12);
-
-	for (int i=0;i<3;i++) {
-		camera_pos[i] = avatar_pos[i];
-		camera_front[i] = avatar_front[i];
-		camera_top[i] = avatar_top[i];
-	}
-
-	if (ok) {
-		ok = sane(avatar_pos, vel, avatar_front, avatar_top);
-	}
-
-	return ok;
-}
-
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Battlefield 2 v1.41. No context or identity support yet.");
+	return std::wstring(L"Supports Battlefield 2 v1.50. No identity support yet.");
 }
 
-static std::wstring description(L"Battlefield 2 v1.41");
+static std::wstring description(L"Battlefield 2 v1.50");
 static std::wstring shortname(L"Battlefield 2");
 
 static MumblePlugin bf2plug = {

@@ -275,6 +275,7 @@ Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
   File /oname=aoc.dll "..\release\plugins\aoc.dll"
   File /oname=bf2.dll "..\release\plugins\bf2.dll"
   File /oname=bf2142.dll "..\release\plugins\bf2142.dll"
+  File /oname=bfheroes.dll "..\release\plugins\bfheroes.dll"
   File /oname=cod2.dll "..\release\plugins\cod2.dll"
   File /oname=cod4.dll "..\release\plugins\cod4.dll"
   File /oname=cod5.dll "..\release\plugins\cod5.dll"

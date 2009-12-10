@@ -11,6 +11,7 @@ HANDLE h;
 BYTE *posptr;
 BYTE *faceptr;
 BYTE *topptr;
+BYTE *stateptr;
 
 static DWORD getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
@@ -72,45 +73,30 @@ static BYTE *peekProcPtr(VOID *base) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from BF2142 (v1.50). IP:Port context support.", L"Mumble BF2142 Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Battlefield Heroes", L"Mumble BFHeroes Plugin", MB_OK);
 }
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
 
-	char ccontext[128];
 	char state;
-
+	
 	bool ok;
-
-	/*
-		state value is:
-		0						while not in game
-		usually 1, never 0		if you create your own server ingame; this value will switch to 1 the instant you click "Join Game"
-		usually 3, never 0		if you load into a server; this value will switch to 3 the instant you click "Join Game"
-	*/
-	ok = peekProc((BYTE *) 0x00B47968, &state, 1); // Magical state value
-	if (! ok)
-		return false;
 
 	ok = peekProc(posptr, avatar_pos, 12) &&
 	     peekProc(faceptr, avatar_front, 12) &&
-	     peekProc(topptr, avatar_top, 12);
-		 peekProc((BYTE *) 0x00B527B8, ccontext, 128);
+	     peekProc(topptr, avatar_top, 12) &&
+		 peekProc(stateptr, &state, 1);
 
 	if (! ok)
 		return false;
-
-	/*
-	    Get context string; in this plugin this will be an
-	    ip:port (char 256 bytes) string
+	
+	 /*
+		This state value just uses the first memory position. If the memory position is "0," then it means that you are not ingame.
 	*/
-	ccontext[127] = 0;
-	context = std::string(ccontext);
-
 	if (state == 0)
-	return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 
 	for (int i=0;i<3;i++) {
 		camera_pos[i] = avatar_pos[i];
@@ -126,10 +112,10 @@ static int trylock() {
 	h = NULL;
 	posptr = faceptr = topptr = NULL;
 
-	DWORD pid=getProcess(L"BF2142.exe");
+	DWORD pid=getProcess(L"BFHeroes.exe");
 	if (!pid)
 		return false;
-	BYTE *mod=getModuleAddr(pid, L"BF2142Audio.dll");
+	BYTE *mod=getModuleAddr(pid, L"BFAudio.dll");
 	if (!mod)
 		return false;
 
@@ -143,7 +129,8 @@ static int trylock() {
 	posptr = peekProcPtr(cache + 0xc0);
 	faceptr = peekProcPtr(cache + 0xc4);
 	topptr = peekProcPtr(cache + 0xc8);
-
+	stateptr = peekProcPtr(cache + 0xc0);
+	
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;
 	std::wstring identity;
@@ -165,13 +152,13 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Battlefield 2142 v1.50. No identity support yet.");
+	return std::wstring(L"Supports Battlefield Heroes. No identity support yet.");
 }
 
-static std::wstring description(L"Battlefield 2142 v1.50");
-static std::wstring shortname(L"Battlefield 2142");
+static std::wstring description(L"Battlefield Heroes");
+static std::wstring shortname(L"Battlefield Heroes");
 
-static MumblePlugin bf2142plug = {
+static MumblePlugin bfheroesplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
@@ -184,5 +171,5 @@ static MumblePlugin bf2142plug = {
 };
 
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
-	return &bf2142plug;
+	return &bfheroesplug;
 }
