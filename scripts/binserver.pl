@@ -90,5 +90,5 @@ foreach my $file (sort keys %files) {
 
 $tar->write("murmur-static_x86-${ver}.tar");
 system("lzma -9 murmur-static_x86-${ver}.tar");
-system("/usr/bin/scp","-4","murmur-static_x86-${ver}.tar.lzma", "xeno\@mix.hive.no:WEB/mumble.hive.no/snapshot/");
-system("/usr/bin/ssh","-4","xeno\@mix.hive.no","/home/xeno/WEB/mumble.hive.no/snapshot.cgi");
+system("/usr/bin/scp","-4","murmur-static_x86-${ver}.tar.lzma", "slicer\@mumble.hive.no:/var/www/snapshot/");
+system("/usr/bin/ssh","-4","slicer\@mumble.hive.no","/usr/lib/cgi-bin/snapshot.cgi");
