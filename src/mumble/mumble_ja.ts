@@ -4389,7 +4389,7 @@ of the possible locations.</source>
     <message>
         <location filename="Database.cpp" line="90"/>
         <source>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">データベース &quot;%1&quot; は読み込み専用です。 この問題を修正するまで、Mumble はサーバの設定（例えばSSL証明書）を保存できません。</translation>
     </message>
 </context>
 <context>
@@ -8313,7 +8313,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location filename="ServerHandler.cpp" line="430"/>
         <source>Connection timed out</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">接続はタイムアウトになりました</translation>
     </message>
 </context>
 <context>
