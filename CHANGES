@@ -1,7 +1,11 @@
 2009-12-10
   Mikkel Krautz <mikkel@krautz.dk>
+    9171b43  Add missing .plists to DIST.
     e9f7e0a  Add no-cocoa CONFIG option, to allow Mumble to build against
 	     non-Cocoa Qt.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    84c63d8  Update release scripts for new host
 
   Tuck Therebelos <snares@users.sourceforge.net>
     a4ea89c  Added BFHeroes plugin; updated BF2 and BF2142 with IP contexts
