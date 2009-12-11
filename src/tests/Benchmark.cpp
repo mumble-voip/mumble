@@ -72,7 +72,7 @@ Client::Client(QObject *p, QHostAddress qha, unsigned short prt, bool send, bool
 	ctr++;
 
 	MumbleProto::Version mpv;
-	mpv.set_release(u8(QLatin1String("1.2.0 Benchmark")));
+	mpv.set_release(u8(QLatin1String("1.2.1 Benchmark")));
 	mpv.set_version(0x010200);
 
 	sendMessage(mpv, MessageHandler::Version);
