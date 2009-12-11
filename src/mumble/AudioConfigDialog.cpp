@@ -239,8 +239,8 @@ void AudioInputDialog::updateBitrate() {
 
 	audiorate = q;
 
-	// 50 packets, in bits, IP + UDP + Crypt + type + seq
-	overhead = 100 * 8 * (20 + 8 + 4 + 1 + 2);
+	// 50 packets, in bits, IP + UDP + Crypt + type + seq + frameheader
+	overhead = 100 * 8 * (20 + 8 + 4 + 1 + 2 + p);
 
 	// TCP is 12 more bytes than UDP
 	if (NetworkConfig::TcpModeEnabled())

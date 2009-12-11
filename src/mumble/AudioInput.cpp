@@ -541,7 +541,7 @@ void AudioInput::setMaxBandwidth(int bitspersec) {
 }
 
 int AudioInput::getNetworkBandwidth(int bitrate, int frames) {
-	int overhead = 20 + 8 + 4 + 1 + 2 + (g.s.bTransmitPosition ? 12 : 0) + (NetworkConfig::TcpModeEnabled() ? 12 : 0);
+	int overhead = 20 + 8 + 4 + 1 + 2 + (g.s.bTransmitPosition ? 12 : 0) + (NetworkConfig::TcpModeEnabled() ? 12 : 0) + frames;
 	overhead *= (800 / frames);
 	int bw = overhead + bitrate;
 
@@ -810,6 +810,8 @@ void AudioInput::encodeAudioFrame() {
 
 		if (! cCodec)
 			return;
+
+		cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_PREDICTION(0));
 
 		cCodec->celt_encoder_ctl(ceEncoder,CELT_SET_VBR_RATE(iAudioQuality));
 		len = cCodec->celt_encode(ceEncoder, psSource, NULL, buffer, qMin(iAudioQuality / 800, 127));
