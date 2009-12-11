@@ -64,8 +64,7 @@ struct BandwidthRecord {
 	Timer a_qtWhen[N_BANDWIDTH_SLOTS];
 
 	BandwidthRecord();
-	void addFrame(int size);
-	int bytesPerSec() const;
+	bool addFrame(int size, int maxpersec);
 	int onlineSeconds() const;
 	int idleSeconds() const;
 	int bandwidth() const;

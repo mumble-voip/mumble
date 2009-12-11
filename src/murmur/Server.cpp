@@ -438,21 +438,25 @@ BandwidthRecord::BandwidthRecord() {
 		a_iBW[i] = 0;
 }
 
-void BandwidthRecord::addFrame(int size) {
-	iSum -= a_iBW[iRecNum];
-	a_iBW[iRecNum] = static_cast<unsigned char>(size);
-	iSum += a_iBW[iRecNum];
+bool BandwidthRecord::addFrame(int size, int maxpersec) {
+	quint64 elapsed = a_qtWhen[iRecNum].elapsed();
+	
+	int nsum = iSum-a_iBW[iRecNum]+size;
+	int bw = static_cast<int>((nsum * 1000000LL) / elapsed);
 
+	if(bw > maxpersec)
+		return false;
+
+	a_iBW[iRecNum] = static_cast<unsigned char>(size);
 	a_qtWhen[iRecNum].restart();
+
+	iSum = nsum;
 
 	iRecNum++;
 	if (iRecNum == N_BANDWIDTH_SLOTS)
 		iRecNum = 0;
-}
 
-int BandwidthRecord::bytesPerSec() const {
-	quint64 elapsed = a_qtWhen[iRecNum].elapsed();
-	return static_cast<int>((iSum * 1000000LL) / elapsed);
+	return true;
 }
 
 int BandwidthRecord::onlineSeconds() const {
@@ -766,9 +770,8 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 
 	// IP + UDP + Crypt + Data
 	int packetsize = 20 + 8 + 4 + len;
-	bw->addFrame(packetsize);
 
-	if ((bw->bytesPerSec() * 8)> iMaxBandwidth) {
+	if (! bw->addFrame(packetsize, iMaxBandwidth/8)) {
 		// Suppress packet.
 		return;
 	}
