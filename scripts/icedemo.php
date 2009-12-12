@@ -52,33 +52,34 @@ try {
   if (! is_null($_REQUEST['newserver'])) {
     $meta->newServer();
   } else if (! is_null($_REQUEST['delserver'])) {
-    $meta->getServer($_REQUEST['delserver'] + 0)->delete();
+    $meta->getServer((int)$_REQUEST['delserver'])->delete();
   } else if (! is_null($_REQUEST['stop'])) {
-    $meta->getServer($_REQUEST['stop'] + 0)->stop();
+    $meta->getServer((int) $_REQUEST['stop'])->stop();
   } else if (! is_null($_REQUEST['start'])) {
-    $meta->getServer($_REQUEST['start'] + 0)->start();
+    $meta->getServer((int) $_REQUEST['start'])->start();
   } else if (! is_null($_REQUEST['action'])) {
-    $server = $meta->getServer($_REQUEST['action'] + 0);
-    if (! is_null($_REQUEST['kick'])) {
-      $server->kickPlayer($_REQUEST['kick'] + 0, "Mushroom");
+    $server = $meta->getServer((int) $_REQUEST['action']);
+    if (!is_null($_REQUEST['kick'])) {
+      $server->kickPlayer((int) $_REQUEST['kick'], "Mushroom");
     }
   } else if (! is_null($_REQUEST['uedit'])) {
-    $server = $meta->getServer($_REQUEST['uedit'] + 0);
+    $server = $meta->getServer((int) $_REQUEST['uedit']);
     if (isset($_REQUEST['newplayer'])) {
       $reg = array();
       $reg[Murmur_UserInfo::UserName] = $_REQUEST['newplayer'];
+	  if ($_REQUEST['password']) $reg[Murmur_UserInfo::UserPassword] = $_REQUEST['password']; // This line is added for password at user creation
       $_REQUEST['uid'] = $server->registerUser($reg);
     }
     if (! is_null($_REQUEST['deleteplayer'])) {
-      $server->unregisterPlayer($_REQUEST['deleteplayer'] + 0);
+      $server->unregisterUser((int) $_REQUEST['deleteplayer']);
     }
     if (! is_null($_REQUEST['uid'])) {
-      $uid = $_REQUEST['uid'] + 0;
+      $uid = (int) $_REQUEST['uid'];
       $user = $server->getRegistration($uid);
       if (! is_null($_REQUEST['set'])) {
         $user[Murmur_UserInfo::UserEmail] = $_REQUEST['email'];
-        $user[Murmur_UserInfo::Password] = $_REQUEST['pw'];
-        $server->updateRegistration($user);
+        $user[Murmur_UserInfo::UserPassword] = $_REQUEST['pw'];
+        $server->updateRegistration($uid,$user);
       } else {
         echo "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">\n";
         echo "<p>\n";
@@ -99,6 +100,8 @@ try {
     echo "<input type=\"hidden\" name=\"uedit\" value=\"".$server->id()."\" />\n";
     echo "<b>New User:</b>";
     echo "<input type=\"text\" name=\"newplayer\" size=\"30\" maxlength=\"60\" />";
+	echo "<b>User Password:</b>";
+    echo "<input type=\"text\" name=\"password\" size=\"30\" maxlength=\"60\" />";
     echo "<input type=\"submit\" />\n";
     echo "</p>\n";
     echo "</form>\n";
