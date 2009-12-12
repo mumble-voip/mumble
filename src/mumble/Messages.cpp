@@ -129,6 +129,8 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 				VICTIM_INIT;
 				SELF_INIT;
 				Channel *c = Channel::get(msg.channel_id());
+				if (! c)
+					return;
 				QString pname = ChanACL::permName(static_cast<ChanACL::Permissions>(msg.permission()));
 				if (pDst == pSelf)
 					g.l->log(Log::PermissionDenied, tr("You were denied %1 privileges in %2.").arg(pname).arg(c->qsName));
