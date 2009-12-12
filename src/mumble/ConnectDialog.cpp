@@ -1239,6 +1239,9 @@ void ConnectDialog::startDns(ServerItem *si) {
 			si->qlAddresses = qhDNSCache.value(host);
 	}
 
+	if (qtwServers->currentItem() == si)
+		qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(! si->qlAddresses.isEmpty());
+		
 	if (! si->qlAddresses.isEmpty()) {
 		foreach(const QHostAddress &qha, si->qlAddresses) {
 			qhPings[qpAddress(qha, si->usPort)].insert(si);
