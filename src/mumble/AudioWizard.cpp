@@ -32,6 +32,7 @@
 #include "AudioInput.h"
 #include "Global.h"
 #include "Settings.h"
+#include "Log.h"
 #include "MainWindow.h"
 
 CompletablePage::CompletablePage(QWizard *p) : QWizardPage(p) {
@@ -408,6 +409,27 @@ void AudioWizard::accept() {
 		ql << s;
 	}
 	g.s.qlShortcuts = ql;
+
+	// Switch TTS<->Sounds according to user selection
+	Settings::MessageLog mlReplace = qrbNotificationTTS->isChecked() ? Settings::LogSoundfile : Settings::LogTTS;
+	for (int i = Log::firstMsgType;i <= Log::lastMsgType; ++i) {
+		if (g.s.qmMessages[i] & mlReplace)
+			g.s.qmMessages[i] ^= Settings::LogSoundfile | Settings::LogTTS;
+	}
+
+	// Set quality
+	if (qrbQualityLow->isChecked()) {
+		g.s.iQuality = 16000;
+		g.s.iFramesPerPacket = 6;
+	}
+	else if (qrbQualityBalanced->isChecked()) {
+		g.s.iQuality = 40000;
+		g.s.iFramesPerPacket = 2;
+	}
+	else if (qrbQualityUltra->isChecked()) {
+		g.s.iQuality = 72000;
+		g.s.iFramesPerPacket = 1;
+	}
 
 	g.s.bUsage = qcbUsage->isChecked();
 	g.bPosTest = false;
