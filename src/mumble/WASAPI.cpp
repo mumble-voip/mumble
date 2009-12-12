@@ -259,6 +259,7 @@ void WASAPIInput::run() {
 	DWORD dwTaskIndex = 0;
 	HANDLE hMmThread;
 	float *tbuff = NULL;
+	bool doecho = g.s.doEcho();
 
 	CoInitialize(NULL);
 
@@ -307,7 +308,7 @@ void WASAPIInput::run() {
 		CoTaskMemFree(devname);
 	}
 
-	if (g.s.doEcho()) {
+	if (doecho) {
 		if (! g.s.qsWASAPIOutput.isEmpty()) {
 			STACKVAR(wchar_t, devname, g.s.qsWASAPIOutput.length());
 			g.s.qsWASAPIOutput.toWCharArray(devname);
@@ -384,7 +385,7 @@ void WASAPIInput::run() {
 	iMicChannels = micpwfx->nChannels;
 	iMicFreq = micpwfx->nSamplesPerSec;
 
-	if (g.s.doEcho()) {
+	if (doecho) {
 		hr = pEchoDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void **) &pEchoAudioClient);
 		if (FAILED(hr)) {
 			qWarning("WASAPIInput: Activate Echo AudioClient failed");
