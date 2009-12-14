@@ -110,7 +110,14 @@ This value enables you to change the way Mumble arranges the channels in the tre
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="RichTextEditor" name="rteChannelDescription" native="true"/>
+        <widget class="RichTextEditor" name="rteChannelDescription" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
