@@ -82,7 +82,7 @@ void LookConfig::load(const Settings &r) {
 	loadComboBox(qcbChannelDrag, 0);
 
 	// Load Layout checkbox state
-	switch (r.iWindowLayout) {
+	switch (r.wlWindowLayout) {
 		case Settings::LayoutClassic:
 			qrbLClassic->setChecked(true);
 			break;
@@ -94,7 +94,7 @@ void LookConfig::load(const Settings &r) {
 			break;
 		case Settings::LayoutCustom:
 		default:
-			s.iWindowLayout = Settings::LayoutCustom;
+			s.wlWindowLayout = Settings::LayoutCustom;
 			qrbLCustom->setChecked(true);
 			break;
 	}
@@ -113,12 +113,13 @@ void LookConfig::load(const Settings &r) {
 		}
 	}
 
+	loadComboBox(qcbAlwaysOnTop, r.aotbAlwaysOnTop);
+
 	qleCSS->setText(r.qsSkin);
 	loadComboBox(qcbExpand, r.ceExpand);
 	loadComboBox(qcbChannelDrag, r.ceChannelDrag);
 	loadCheckBox(qcbShowChatbar, r.bShowChatbar);
 	loadCheckBox(qcbUsersTop, r.bUserTop);
-	loadCheckBox(qcbAlwaysOnTop, r.bAlwaysOnTop);
 	loadCheckBox(qcbAskOnQuit, r.bAskOnQuit);
 	loadCheckBox(qcbHideTray, r.bHideTray);
 	loadCheckBox(qcbShowUserCount, r.bShowUserCount);
@@ -142,20 +143,20 @@ void LookConfig::save() const {
 
 	// Save Layout radioboxes state
 	if (qrbLClassic->isChecked()) {
-		s.iWindowLayout = Settings::LayoutClassic;
+		s.wlWindowLayout = Settings::LayoutClassic;
 	} else if (qrbLStacked->isChecked()) {
-		s.iWindowLayout = Settings::LayoutStacked;
+		s.wlWindowLayout = Settings::LayoutStacked;
 	} else if (qrbLHybrid->isChecked()) {
-		s.iWindowLayout = Settings::LayoutHybrid;
+		s.wlWindowLayout = Settings::LayoutHybrid;
 	} else {
-		s.iWindowLayout = Settings::LayoutCustom;
+		s.wlWindowLayout = Settings::LayoutCustom;
 	}
 
 	s.ceExpand=static_cast<Settings::ChannelExpand>(qcbExpand->currentIndex());
 	s.ceChannelDrag=static_cast<Settings::ChannelDrag>(qcbChannelDrag->currentIndex());
 	s.bShowChatbar = qcbShowChatbar->isChecked();
 	s.bUserTop=qcbUsersTop->isChecked();
-	s.bAlwaysOnTop = qcbAlwaysOnTop->isChecked();
+	s.aotbAlwaysOnTop = static_cast<Settings::AlwaysOnTopBehaviour>(qcbAlwaysOnTop->currentIndex());
 	s.bAskOnQuit = qcbAskOnQuit->isChecked();
 	s.bHideTray = qcbHideTray->isChecked();
 	s.bShowUserCount = qcbShowUserCount->isChecked();

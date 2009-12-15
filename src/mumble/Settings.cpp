@@ -165,12 +165,12 @@ Settings::Settings() {
 	bShowChatbar = true;
 	bMinimalView = false;
 	bHideFrame = false;
-	bAlwaysOnTop = false;
+	aotbAlwaysOnTop = OnTopNever;
 	bAskOnQuit = true;
 	bHideTray = true;
 	bUsage = true;
 	bShowUserCount = false;
-	iWindowLayout = LayoutClassic;
+	wlWindowLayout = LayoutClassic;
 
 	ssFilter = ShowReachable;
 
@@ -294,6 +294,8 @@ BOOST_TYPEOF_REGISTER_TYPE(Settings::ProxyType)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::ChannelExpand)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::ChannelDrag)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::ServerShow)
+BOOST_TYPEOF_REGISTER_TYPE(Settings::WindowLayout)
+BOOST_TYPEOF_REGISTER_TYPE(Settings::AlwaysOnTopBehaviour)
 BOOST_TYPEOF_REGISTER_TYPE(QString)
 BOOST_TYPEOF_REGISTER_TYPE(QByteArray)
 BOOST_TYPEOF_REGISTER_TYPE(QColor)
@@ -405,7 +407,7 @@ void Settings::load() {
 	SAVELOAD(qsSkin, "ui/skin");
 	LOADENUM(ceExpand, "ui/expand");
 	LOADENUM(ceChannelDrag, "ui/drag");
-	SAVELOAD(bAlwaysOnTop, "ui/alwaysontop");
+	LOADENUM(aotbAlwaysOnTop, "ui/alwaysontop");
 	SAVELOAD(bAskOnQuit, "ui/askonquit");
 	SAVELOAD(bShowChatbar, "ui/shotchatbar");
 	SAVELOAD(bMinimalView, "ui/minimalview");
@@ -416,7 +418,7 @@ void Settings::load() {
 	SAVELOAD(qbaMainWindowState, "ui/state");
 	SAVELOAD(qbaMinimalViewGeometry, "ui/minimalviewgeometry");
 	SAVELOAD(qbaConfigGeometry, "ui/ConfigGeometry");
-	SAVELOAD(iWindowLayout, "ui/WindowLayout");
+	LOADENUM(wlWindowLayout, "ui/WindowLayout");
 	SAVELOAD(qbaSplitterState, "ui/splitter");
 	SAVELOAD(qbaHeaderState, "ui/header");
 	SAVELOAD(qsUsername, "ui/username");
@@ -580,7 +582,7 @@ void Settings::save() {
 	SAVELOAD(qsSkin, "ui/skin");
 	SAVELOAD(ceExpand, "ui/expand");
 	SAVELOAD(ceChannelDrag, "ui/drag");
-	SAVELOAD(bAlwaysOnTop, "ui/alwaysontop");
+	SAVELOAD(aotbAlwaysOnTop, "ui/alwaysontop");
 	SAVELOAD(bAskOnQuit, "ui/askonquit");
 	SAVELOAD(bShowChatbar, "ui/showchatbar");
 	SAVELOAD(bMinimalView, "ui/minimalview");
@@ -591,7 +593,7 @@ void Settings::save() {
 	SAVELOAD(qbaMainWindowState, "ui/state");
 	SAVELOAD(qbaMinimalViewGeometry, "ui/minimalviewgeometry");
 	SAVELOAD(qbaConfigGeometry, "ui/ConfigGeometry");
-	SAVELOAD(iWindowLayout, "ui/WindowLayout");
+	SAVELOAD(wlWindowLayout, "ui/WindowLayout");
 	SAVELOAD(qbaSplitterState, "ui/splitter");
 	SAVELOAD(qbaHeaderState, "ui/header");
 	SAVELOAD(qsUsername, "ui/username");

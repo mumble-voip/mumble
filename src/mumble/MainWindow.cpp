@@ -164,7 +164,10 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	on_qmUser_aboutToShow();
 	on_qmConfig_aboutToShow();
 
-	setOnTop(g.s.bAlwaysOnTop);
+	setOnTop(g.s.aotbAlwaysOnTop == Settings::OnTopAlways ||
+		 (g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInMinimal) ||
+		 (!g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInNormal));
+
 #ifdef NO_UPDATE_CHECK
 	delete qaHelpVersionCheck;
 #endif
@@ -290,9 +293,11 @@ void MainWindow::setupGui()  {
 	else if (! g.s.bMinimalView && ! g.s.qbaMainWindowGeometry.isNull())
 		restoreGeometry(g.s.qbaMainWindowGeometry);
 
+	Settings::WindowLayout wlTmp = g.s.wlWindowLayout;
 	restoreState(g.s.qbaMainWindowState);
-	qtvUsers->header()->restoreState(g.s.qbaHeaderState);
+	g.s.wlWindowLayout = wlTmp;
 
+	qtvUsers->header()->restoreState(g.s.qbaHeaderState);
 	setupView(false);
 
 	qmTray = new QMenu(this);
@@ -544,8 +549,8 @@ void MainWindow::setupView(bool toggle_minimize) {
 	bNoHide = true;
 
 	// Update window layout
-	int iTmp = g.s.iWindowLayout;
-	switch (iTmp) {
+	Settings::WindowLayout wlTmp = g.s.wlWindowLayout;
+	switch (wlTmp) {
 		case Settings::LayoutClassic:
 			removeDockWidget(qdwLog);
 			addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
@@ -567,10 +572,10 @@ void MainWindow::setupView(bool toggle_minimize) {
 			if (g.s.bShowChatbar) qdwChat->show();
 			break;
 		default:
-			iTmp = Settings::LayoutCustom;
+			wlTmp = Settings::LayoutCustom;
 			break;
 	}
-	g.s.iWindowLayout = iTmp;
+	g.s.wlWindowLayout = wlTmp;
 
 	QRect geom = frameGeometry();
 
@@ -591,7 +596,9 @@ void MainWindow::setupView(bool toggle_minimize) {
 		f = Qt::Tool;
 #endif
 
-	if (g.s.bAlwaysOnTop)
+	if (g.s.aotbAlwaysOnTop == Settings::OnTopAlways ||
+	    (g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInMinimal) ||
+	    (!g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInNormal))
 		f |= Qt::WindowStaysOnTopHint;
 
 	setWindowFlags(f);
@@ -2041,11 +2048,11 @@ void MainWindow::on_qteLog_highlighted(const QUrl &url) {
 }
 
 void MainWindow::on_qdwChat_dockLocationChanged(Qt::DockWidgetArea) {
-	g.s.iWindowLayout = Settings::LayoutCustom;
+	g.s.wlWindowLayout = Settings::LayoutCustom;
 }
 
 void MainWindow::on_qdwLog_dockLocationChanged(Qt::DockWidgetArea) {
-	g.s.iWindowLayout = Settings::LayoutCustom;
+	g.s.wlWindowLayout = Settings::LayoutCustom;
 }
 
 void MainWindow::context_triggered() {

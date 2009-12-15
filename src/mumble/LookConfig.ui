@@ -232,7 +232,57 @@
         </property>
        </widget>
       </item>
-      <item row="6" column="1" colspan="2">
+      <item row="4" column="0">
+       <widget class="QLabel" name="qliAlwaysOnTop">
+        <property name="text">
+         <string>Always On Top</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1" colspan="2">
+       <widget class="QComboBox" name="qcbAlwaysOnTop">
+        <property name="toolTip">
+         <string>This setting controls when the application will be always on top.</string>
+        </property>
+        <property name="whatsThis">
+         <string>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal mode&lt;/i&gt; will only raise the application on top when minimal view is activated / deactivated.  </string>
+        </property>
+        <item>
+         <property name="text">
+          <string>Never</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Always</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>In minimal view</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>In normal view</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QCheckBox" name="qcbShowChatbar">
+        <property name="toolTip">
+         <string>Check to show chat bar</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;If checked the chat bar is shown.&lt;/b&gt;&lt;br /&gt;Uncheck this to hide it.</string>
+        </property>
+        <property name="text">
+         <string>Show chatbar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
        <widget class="QCheckBox" name="qcbUsersTop">
         <property name="toolTip">
          <string>List users above subchannels (requires restart).</string>
@@ -242,6 +292,16 @@
         </property>
         <property name="text">
          <string>Users above Channels</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QCheckBox" name="qcbShowUserCount">
+        <property name="toolTip">
+         <string>Show number of users in each channel</string>
+        </property>
+        <property name="text">
+         <string>Show channel user count</string>
         </property>
        </widget>
       </item>
@@ -268,42 +328,6 @@
         </property>
         <property name="text">
          <string>Hide in tray when minimized</string>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="1" colspan="2">
-       <widget class="QCheckBox" name="qcbAlwaysOnTop">
-        <property name="toolTip">
-         <string>Make the Mumble window appear on top of other windows.</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;This makes the Mumble window a topmost window.&lt;/b&gt;</string>
-        </property>
-        <property name="text">
-         <string>Always On Top</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QCheckBox" name="qcbShowChatbar">
-        <property name="toolTip">
-         <string>Check to show chat bar</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;If checked the chat bar is shown.&lt;/b&gt;&lt;br /&gt;Uncheck this to hide it.</string>
-        </property>
-        <property name="text">
-         <string>Show chatbar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="1" colspan="2">
-       <widget class="QCheckBox" name="qcbShowUserCount">
-        <property name="toolTip">
-         <string>Show number of users in each channel</string>
-        </property>
-        <property name="text">
-         <string>Show channel user count</string>
         </property>
        </widget>
       </item>
