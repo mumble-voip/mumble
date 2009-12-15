@@ -347,6 +347,8 @@ int main(int argc, char **argv) {
 	res=a.exec();
 
 	g.s.save();
+	if (g.sh && g.sh->isRunning())
+		Database::setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts);
 
 	AudioInputPtr ai = g.ai;
 	AudioOutputPtr ao = g.ao;
