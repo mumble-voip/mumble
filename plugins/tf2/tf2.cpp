@@ -67,7 +67,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Team Fortress 2 (Build 4013). IP:Port context without team discriminator.", L"Mumble TF2 Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Team Fortress 2 (Build 4034). IP:Port context without team discriminator.", L"Mumble TF2 Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -179,14 +179,14 @@ static int trylock() {
 	*/
 
 	// Remember addresses for later
-	posptr = mod + 0x52A6A4;
-	rotptr = mod + 0x4D6B78;
-	stateptr = mod + 0x4BDBF4;
+	posptr = mod + 0x4D7C70;
+	rotptr = mod + 0x4D7BE4;
+	stateptr = mod + 0x4BEBF4;
 	hostptr = mod_engine + 0x3C91A4;
 
 	// Gamecheck
 	char sMagic[9];
-	if (!peekProc(mod + 0x4CE38B, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
+	if (!peekProc(mod + 0x4CF38B, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
@@ -213,10 +213,10 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports TF2 build 4013. No identity or context support yet.");
+	return std::wstring(L"Supports TF2 build 4034. No identity or context support yet.");
 }
 
-static std::wstring description(L"Team Fortress 2 (Build 4013)");
+static std::wstring description(L"Team Fortress 2 (Build 4034)");
 static std::wstring shortname(L"Team Fortress 2");
 
 static MumblePlugin tf2plug = {
