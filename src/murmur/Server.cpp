@@ -441,6 +441,9 @@ BandwidthRecord::BandwidthRecord() {
 bool BandwidthRecord::addFrame(int size, int maxpersec) {
 	quint64 elapsed = a_qtWhen[iRecNum].elapsed();
 	
+	if (elapsed == 0)
+		return false;
+	
 	int nsum = iSum-a_iBW[iRecNum]+size;
 	int bw = static_cast<int>((nsum * 1000000LL) / elapsed);
 
