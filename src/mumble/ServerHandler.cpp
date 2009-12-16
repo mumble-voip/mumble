@@ -139,12 +139,12 @@ void ServerHandler::customEvent(QEvent *evt) {
 
 void ServerHandler::udpReady() {
 	while (qusUdp->hasPendingDatagrams()) {
-		char encrypted[65536];
-		char buffer[65535];
+		char encrypted[2048];
+		char buffer[2048];
 		unsigned int buflen = static_cast<unsigned int>(qusUdp->pendingDatagramSize());
 		QHostAddress senderAddr;
 		quint16 senderPort;
-		qusUdp->readDatagram(encrypted, qMin(65536U, buflen), &senderAddr, &senderPort);
+		qusUdp->readDatagram(encrypted, qMin(2048U, buflen), &senderAddr, &senderPort);
 
 		if (!(senderAddr == qhaRemote) || (senderPort != usPort))
 			continue;
@@ -360,15 +360,15 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 		if (qbaMsg.length() < 1)
 			return;
 
-		MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((ptr[0] >> 5) & 0x7);
+		MessageHandler::UDPMessageType umsgType = static_cast<MessageHandler::UDPMessageType>((ptr[0] >> 5) & 0x7);
 		unsigned int msgFlags = ptr[0] & 0x1f;
 		PacketDataStream pds(qbaMsg.constData() + 1, qbaMsg.size());
 
-		switch (msgType) {
+		switch (umsgType) {
 			case MessageHandler::UDPVoiceCELTAlpha:
 			case MessageHandler::UDPVoiceCELTBeta:
 			case MessageHandler::UDPVoiceSpeex:
-				handleVoicePacket(msgFlags, pds, msgType);
+				handleVoicePacket(msgFlags, pds, umsgType);
 				break;
 			default:
 				break;
@@ -386,7 +386,7 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 			if (((cs.uiRemoteGood == 0) || (cs.uiGood == 0)) && bUdp && (tTimestamp.elapsed() > 20000000ULL)) {
 				bUdp = false;
 				if (! NetworkConfig::TcpModeEnabled()) {
-					if ((cs.uiRemoteGood == 0) && (cs.uiRemoteGood == 0))
+					if ((cs.uiRemoteGood == 0) && (cs.uiGood == 0))
 						g.mw->msgBox(tr("UDP packets cannot be sent to or received from the server. Switching to TCP mode."));
 					else if (cs.uiRemoteGood == 0)
 						g.mw->msgBox(tr("UDP packets cannot be sent to the server. Switching to TCP mode."));

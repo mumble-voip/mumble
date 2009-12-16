@@ -40,6 +40,10 @@ win32 {
 	} else {
 		QMAKE_CFLAGS_RELEASE *= -Ox -Ot /fp:fast /Qfast_transcendentals -Ob2
 		QMAKE_CXXFLAGS_RELEASE *= -Ox -Ot /fp:fast /Qfast_transcendentals -Ob2
+		CONFIG(analyze) {
+			QMAKE_CFLAGS_DEBUG *= /analyze
+			QMAKE_CXXFLAGS_DEBUG *= /analyze
+		}
 		DEFINES *= RESTRICT=
 	}
 
