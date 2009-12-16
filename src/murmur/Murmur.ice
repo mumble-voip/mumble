@@ -14,7 +14,7 @@ module Murmur
 	["python:seq:tuple"] sequence<byte> NetAddress;
 
 	/** A connected user.
-         **/
+	 **/
 	struct User {
 		/** Session ID. This identifies the connection to the server. */
 		int session;
@@ -113,7 +113,7 @@ module Murmur
 	/** Mute and deafen other users in this channel. */
 	const int PermissionMuteDeafen = 0x10;
 	/** Move users from channel. You need this permission in both the source and destination channel to move another user. */
-        const int PermissionMove = 0x20;
+	const int PermissionMove = 0x20;
 	/** Make new channel as a subchannel of this channel. */
 	const int PermissionMakeChannel = 0x40;
 	/** Make new temporary channel as a subchannel of this channel. */
@@ -152,7 +152,7 @@ module Murmur
 	};
 
 	/** A single ip mask for a ban.
-         **/
+	 **/
 	struct Ban {
 		/** Address to ban. */
 		NetAddress address;
@@ -204,13 +204,13 @@ module Murmur
 	sequence<CertificateDer> CertificateList;
 
 	/** User information map.
-         * Older versions of ice-php can't handle enums as keys. If you are using one of these, replace 'UserInfo' with 'byte'.
-         */
+	 * Older versions of ice-php can't handle enums as keys. If you are using one of these, replace 'UserInfo' with 'byte'.
+	 */
 
 	dictionary<UserInfo, string> UserInfoMap;
 
 	/** User and subchannel state. Read-only.
-         **/
+	 **/
 	class Tree {
 		/** Channel definition of current channel. */
 		Channel c;
@@ -394,9 +394,9 @@ module Murmur
 	};
 
 	/** Per-server interface. This includes all methods for configuring and altering
-         * the state of a single virtual server. You can retrieve a pointer to this interface
-         * from one of the methods in [Meta].
-         **/
+	 * the state of a single virtual server. You can retrieve a pointer to this interface
+	 * from one of the methods in [Meta].
+	 **/
 	["amd"] interface Server {
 		/** Shows if the server currently running (accepting users).
 		 *
@@ -616,12 +616,12 @@ module Murmur
 		idempotent void removeUserFromGroup(int channelid, int session, string group) throws ServerBootedException, InvalidChannelException, InvalidSessionException;
 
 		/** Redirect whisper targets for user. If set, whenever a user tries to whisper to group "source", the whisper will be redirected to group "target".
-                 * This is intended for context groups.
+		 * This is intended for context groups.
 		 * @param session Connection ID of user. See [User::session].
 		 * @param source Group name to redirect from.
 		 * @param target Group name to redirect to.
-                 */
-                idempotent void redirectWhisperGroup(int session, string source, string target) throws ServerBootedException, InvalidSessionException;
+		 */
+		idempotent void redirectWhisperGroup(int session, string source, string target) throws ServerBootedException, InvalidSessionException;
 
 		/** Map a list of [User::userid] to a matching name.
 		 * @param List of ids.
@@ -640,7 +640,7 @@ module Murmur
 		 * @return The ID of the user. See [RegisteredUser::userid].
 		 */
 		int registerUser(UserInfoMap info) throws ServerBootedException, InvalidUserException;
-		
+
 		/** Remove a user registration.
 		 * @param userid ID of registered user. See [RegisteredUser::userid].
 		 */
