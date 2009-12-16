@@ -45,7 +45,7 @@
      <x>0</x>
      <y>0</y>
      <width>671</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="qmServer">
@@ -671,6 +671,14 @@
    </property>
    <property name="toolTip">
     <string>Remove currently defined user texture.</string>
+   </property>
+  </action>
+  <action name="qaUserCommentReset">
+   <property name="text">
+    <string>Reset &amp;Comment</string>
+   </property>
+   <property name="toolTip">
+    <string>Reset the comment of the selected user.</string>
    </property>
   </action>
  </widget>

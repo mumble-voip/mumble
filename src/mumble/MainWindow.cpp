@@ -827,7 +827,12 @@ void MainWindow::on_qmUser_aboutToShow() {
 	qmUser->addAction(qaUserMute);
 	qmUser->addAction(qaUserDeaf);
 	qmUser->addAction(qaUserLocalMute);
-	qmUser->addAction(qaUserComment);
+
+	if (self)
+		qmUser->addAction(qaUserComment);
+	else
+		qmUser->addAction(qaUserCommentReset);
+
 	qmUser->addAction(qaUserTextMessage);
 
 	if (p && (p->iId < 0) && (g.pPermissions & ((self ? ChanACL::SelfRegister : ChanACL::Register) | ChanACL::Write))) {
@@ -880,7 +885,8 @@ void MainWindow::on_qmUser_aboutToShow() {
 		qaUserDeaf->setEnabled(! self || p->bDeaf);
 		qaUserTextMessage->setEnabled(true);
 		qaUserLocalMute->setEnabled(! self);
-		qaUserComment->setEnabled(self || (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
+		qaUserComment->setEnabled(self);
+		qaUserCommentReset->setEnabled(g.pPermissions & (ChanACL::Move | ChanACL::Write));
 
 		qaUserMute->setChecked(p->bMute || p->bSuppress);
 		qaUserDeaf->setChecked(p->bDeaf);
@@ -1070,6 +1076,25 @@ void MainWindow::on_qaUserComment_triggered() {
 		g.sh->sendMessage(mpus);
 	}
 	delete texm;
+}
+
+void MainWindow::on_qaUserCommentReset_triggered() {
+	User *p = pmModel->getUser(qtvUsers->currentIndex());
+
+	if (!p)
+		return;
+
+	unsigned int session = p->uiSession;
+
+	int ret = QMessageBox::question(this, tr("Mumble"),
+					tr("Are you sure you want to reset the comment of user %1?").arg(p->qsName),
+					QMessageBox::Yes, QMessageBox::No);
+	if (ret == QMessageBox::Yes) {
+		MumbleProto::UserState mpus;
+		mpus.set_session(session);
+		mpus.set_comment(std::string());
+		g.sh->sendMessage(mpus);
+	}
 }
 
 void MainWindow::on_qaQuit_triggered() {
