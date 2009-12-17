@@ -1607,7 +1607,7 @@ Channel *MainWindow::mapChannel(int idx) const {
 					c = c->cParent;
 				break;
 			default:
-				c = pmModel->getSubChannel(c, -4 - idx);
+				c = pmModel->getSubChannel(ClientUser::get(g.uiSession)->cChannel, -4 - idx);
 				break;
 		}
 	} else {
