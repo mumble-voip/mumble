@@ -513,7 +513,7 @@ def do_main_program():
     #
     info('Starting phpBB3 mumble authenticator')
     initdata = Ice.InitializationData()
-    initdata.properties = Ice.createProperties(None, initdata.properties)
+    initdata.properties = Ice.createProperties([], initdata.properties)
     for prop, val in cfg.iceraw:
         initdata.properties.setProperty(prop, val)
     initdata.logger = CustomLogger()
