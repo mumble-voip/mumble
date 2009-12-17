@@ -1560,6 +1560,7 @@ void MainWindow::on_gsDeafSelf_down(QVariant v) {
 }
 
 void MainWindow::on_PushToTalk_triggered(bool down, QVariant) {
+	g.iPrevTarget = 0;
 	if (down) {
 		g.uiDoublePush = g.tDoublePush.restart();
 		g.iPushToTalk++;
@@ -1616,6 +1617,7 @@ Channel *MainWindow::mapChannel(int idx) const {
 }
 
 void MainWindow::updateTarget() {
+	g.iPrevTarget = g.iTarget;
 	if (qsCurrentTargets.isEmpty()) {
 		g.bCenterPosition = false;
 		g.iTarget = 0;
@@ -1732,10 +1734,10 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 
 		g.iPushToTalk++;
 	} else if (g.iPushToTalk) {
+		g.iPushToTalk--;
+
 		qsCurrentTargets.remove(st);
 		updateTarget();
-
-		g.iPushToTalk--;
 	}
 }
 

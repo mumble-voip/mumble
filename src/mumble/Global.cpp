@@ -42,6 +42,7 @@ Global::Global() {
 	uiDoublePush = 1000000;
 	iPushToTalk = 0;
 	iTarget = 0;
+	iPrevTarget = 0;
 	bPushToMute = false;
 	bCenterPosition = false;
 	bPosTest = false;

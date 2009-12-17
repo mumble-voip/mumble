@@ -363,14 +363,15 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 			case Qt::DecorationRole:
 				if (idx.column() == 0)
 					switch (p->tsState) {
-						case ClientUser::TalkingOff:
-							return qiTalkingOff;
 						case ClientUser::Talking:
 							return qiTalkingOn;
 						case ClientUser::TalkingWhisper:
 							return qiTalkingWhisper;
-						default:
+						case ClientUser::TalkingWhisperChannel:
 							return qiTalkingWhisperChannel;
+						case ClientUser::TalkingOff:
+						default:
+							return qiTalkingOff;
 					}
 				break;
 			case Qt::FontRole:

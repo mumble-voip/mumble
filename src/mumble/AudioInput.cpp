@@ -847,6 +847,9 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 		return;
 
 	int flags = g.iTarget;
+	if (terminator)
+		flags = g.iPrevTarget;
+
 	if (g.s.lmLoopMode == Settings::Server)
 		flags = 0x1f;
 

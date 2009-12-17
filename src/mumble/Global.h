@@ -74,6 +74,7 @@ public:
 	Timer tDoublePush;
 	quint64 uiDoublePush;
 	int iTarget;
+	int iPrevTarget;
 	bool bPushToMute;
 	bool bCenterPosition;
 	bool bPosTest;
