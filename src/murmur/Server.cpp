@@ -1247,7 +1247,7 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 		mpus.set_channel_id(dest->iId);
 		sendAll(mpus);
 
-		userEnterChannel(p, dest, true);
+		userEnterChannel(p, dest);
 	}
 
 	MumbleProto::ChannelRemove mpcr;
