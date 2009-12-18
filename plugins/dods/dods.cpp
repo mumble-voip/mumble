@@ -123,11 +123,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 
 	switch (bTeam) {
-		case 60:
-			sTeam = "Wermacht";
-			break;
-		case 59:
+		case 114:
 			sTeam = "U.S. Army";
+			break;
+		case 100:
+			sTeam = "Wermacht";
 			break;
 		default:
 			sTeam = "Unknown";
@@ -135,7 +135,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	new_context << "<context>"
-	<< "<game>tf2</game>"
+	<< "<game>dods</game>"
 	<< "<hostport>" << chHostStr << "</hostport>"
 	<< "<team>" << sTeam << "</team>"
 	<< "</context>";
@@ -198,15 +198,15 @@ static int trylock() {
 	*/
 
 	// Remember addresses for later
-	posptr = mod + 0x3f62a0;
-	rotptr = mod + 0x3f6220;
-	stateptr = mod + 0x3e2b94;
-	hostptr = mod_engine + 0x3c8124;
-	teamptr = mod_vphysics + 0xd6c3d;
+	posptr = mod + 0x3FB358;
+	rotptr = mod + 0x3FB2CC;
+	stateptr = mod + 0x3E7BDC;
+	hostptr = mod_engine + 0x3C91A4;
+	teamptr = mod_vphysics + 0x489769;
 
 	// Gamecheck
 	char sMagic[17];
-	if (!peekProc(mod + 0x3f6d91, sMagic, 17) || strncmp("DODSpectatorGUI@@", sMagic, 17)!=0)
+	if (!peekProc(mod + 0x3FBE49, sMagic, 17) || strncmp("DODSpectatorGUI@@", sMagic, 17)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
