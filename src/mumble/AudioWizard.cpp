@@ -316,7 +316,7 @@ int AudioWizard::nextId() const {
 	AudioOutputPtr ao = g.ao;
 
 	int nextid = QWizard::nextId();
-	if (currentPage() == qwpTrigger && ! g.s.bPositionalAudio)
+	if (currentPage() == qwpSettings && ! g.s.bPositionalAudio)
 		nextid++;
 	else if ((currentPage() == qwpDevice) && ! bDelay)
 		nextid++;
