@@ -409,7 +409,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	iMissCount = 0;
 	iMissedFrames = 0;
 
-	ucFlags = 0;
+	ucFlags = 0xFF;
 
 	jbJitter = jitter_buffer_init(iFrameSize);
 	int margin = g.s.iJitterBufferSize * iFrameSize;
@@ -675,7 +675,7 @@ nextframe:
 	if (p) {
 		ClientUser::TalkState ts;
 		if (! nextalive)
-			ts = ClientUser::TalkingOff;
+			ucFlags = 0xFF;
 		else {
 			switch (ucFlags) {
 				case 0:
@@ -683,6 +683,9 @@ nextframe:
 					break;
 				case 1:
 					ts = ClientUser::TalkingWhisperChannel;
+					break;
+				case 0xFF:
+					ts = ClientUser::TalkingOff;
 					break;
 				default:
 					ts = ClientUser::TalkingWhisper;
