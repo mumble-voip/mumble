@@ -492,17 +492,17 @@ void AudioInput::adjustBandwidth(int bitspersec, int &bitrate, int &frames) {
 	if (bitspersec == -1) {
 		// No limit
 	} else {
-		if (getNetworkBandwidth(bitrate, frames) >= bitspersec) {
+		if (getNetworkBandwidth(bitrate, frames) > bitspersec) {
 			if ((frames <= 4) && (bitspersec <= 32000))
 				frames = 4;
 			else if ((frames == 1) && (bitspersec <= 64000))
 				frames = 2;
 			else if ((frames == 2) && (bitspersec <= 48000))
 				frames = 4;
-			if (getNetworkBandwidth(bitrate, frames) >= bitspersec) {
+			if (getNetworkBandwidth(bitrate, frames) > bitspersec) {
 				do {
 					bitrate -= 1000;
-				} while ((bitrate > 8000) && (getNetworkBandwidth(bitrate, frames) >= bitspersec));
+				} while ((bitrate > 8000) && (getNetworkBandwidth(bitrate, frames) > bitspersec));
 			}
 		}
 	}
