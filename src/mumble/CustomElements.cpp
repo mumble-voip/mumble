@@ -65,6 +65,18 @@ void ChatbarLineEdit::focusOutEvent(QFocusEvent *qfe) {
 	}
 }
 
+void ChatbarLineEdit::contextMenuEvent(QContextMenuEvent *qcme) {
+	QMenu *menu = createStandardContextMenu();
+
+	QAction *action = new QAction(tr("Paste and send") + QLatin1Char('\t'), menu);
+	action->setEnabled(!QApplication::clipboard()->text().isEmpty());
+	connect(action, SIGNAL(triggered()), this, SLOT(pasteAndSend_triggered()));
+	menu->insertAction(menu->actions()[6], action);
+
+	menu->exec(qcme->globalPos());
+	delete menu;
+}
+
 ChatbarLineEdit::ChatbarLineEdit(QWidget *p) : QLineEdit(p) {
 	bDefaultVisible = true;
 	setDefaultText(tr("Type chat message here"));
@@ -73,7 +85,7 @@ ChatbarLineEdit::ChatbarLineEdit(QWidget *p) : QLineEdit(p) {
 void ChatbarLineEdit::setDefaultText(const QString &new_default) {
 	qsDefaultText = new_default;
 
-	if (!hasFocus()) {
+	if (!hasFocus() && text().trimmed().isEmpty()) {
 		QFont f = font();
 		f.setItalic(true);
 		setFont(f);
@@ -159,6 +171,11 @@ unsigned int ChatbarLineEdit::completeAtCursor() {
 		setText(newtext);
 	}
 	return id;
+}
+
+void ChatbarLineEdit::pasteAndSend_triggered() {
+	paste();
+	emit returnPressed();
 }
 
 DockTitleBar::DockTitleBar() {

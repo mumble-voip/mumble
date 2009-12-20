@@ -42,14 +42,18 @@ class ChatbarLineEdit : public QLineEdit {
 		bool bDefaultVisible;
 		void focusInEvent(QFocusEvent *);
 		void focusOutEvent(QFocusEvent *);
+		void contextMenuEvent(QContextMenuEvent *);
 		bool event(QEvent *);
+	public:
+		void setDefaultText(const QString &);
+		unsigned int completeAtCursor();
 	signals:
 		void tabPressed(void);
 		void ctrlSpacePressed(void);
+	public slots:
+		void pasteAndSend_triggered();
 	public:
 		ChatbarLineEdit(QWidget *p = NULL);
-		void setDefaultText(const QString &);
-		unsigned int completeAtCursor();
 };
 
 class DockTitleBar : public QWidget {
