@@ -35,6 +35,8 @@
 UserEdit::UserEdit(const MumbleProto::UserList &msg, QWidget *p) : QDialog(p) {
 	setupUi(this);
 
+	qlwUserList->setContextMenuPolicy(Qt::CustomContextMenu);
+
 	for (int i=0;i<msg.users_size(); ++i) {
 		const MumbleProto::UserList_User &u = msg.users(i);
 		int id = u.user_id();
@@ -80,5 +82,27 @@ void UserEdit::on_qpbRemove_clicked() {
 		int id = qlwi->data(Qt::UserRole).toInt();
 		qmChanged.insert(id, QString());
 		delete qlwi;
+	}
+}
+
+void UserEdit::on_qlwUserList_customContextMenuRequested(const QPoint &point) {
+	QMenu *menu = new QMenu(this);
+
+	QAction *action = menu->addAction(tr("Rename"));
+	connect(action, SIGNAL(triggered()), this, SLOT(renameTriggered()));
+
+	menu->addSeparator();
+
+	action = menu->addAction(tr("Remove"));
+	connect(action, SIGNAL(triggered()), this, SLOT(on_qpbRemove_clicked()));
+
+	menu->exec(qlwUserList->mapToGlobal(point));
+	delete menu;
+}
+
+void UserEdit::renameTriggered() {
+	QListWidgetItem *item = qlwUserList->currentItem();
+	if (item) {
+		qlwUserList->editItem(item);
 	}
 }

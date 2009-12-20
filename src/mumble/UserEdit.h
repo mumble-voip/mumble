@@ -48,6 +48,8 @@ class UserEdit : public QDialog, public Ui::UserEdit {
 		void accept();
 	public slots:
 		void on_qpbRemove_clicked();
+		void on_qlwUserList_customContextMenuRequested(const QPoint&);
+		void renameTriggered();
 };
 
 #endif
