@@ -875,9 +875,11 @@ void MainWindow::on_qmUser_aboutToShow() {
 		qaUserKick->setEnabled(false);
 		qaUserBan->setEnabled(false);
 		qaUserMute->setEnabled(false);
-		qaUserLocalMute->setEnabled(false);
 		qaUserDeaf->setEnabled(false);
 		qaUserTextMessage->setEnabled(false);
+		qaUserLocalMute->setEnabled(false);
+		qaUserComment->setEnabled(false);
+		qaUserCommentReset->setEnabled(false);
 	} else {
 		qaUserKick->setEnabled(! self);
 		qaUserBan->setEnabled(! self);
