@@ -179,14 +179,14 @@ static int trylock() {
 	*/
 
 	// Remember addresses for later
-	posptr = mod + 0x51BA2C;
-	rotptr = mod + 0x50120C;
-	stateptr = mod + 0x52E620;
+	posptr = mod + 0x502298;
+	rotptr = mod + 0x50220C;
+	stateptr = mod + 0x55573D;
 	hostptr = mod_engine + 0x3C91A4;
 
 	// Gamecheck
 	char sMagic[9];
-	if (!peekProc(mod + 0x4F73AB, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
+	if (!peekProc(mod + 0x4F83AB, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
