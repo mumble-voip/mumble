@@ -71,7 +71,10 @@ void ChatbarLineEdit::contextMenuEvent(QContextMenuEvent *qcme) {
 	QAction *action = new QAction(tr("Paste and send") + QLatin1Char('\t'), menu);
 	action->setEnabled(!QApplication::clipboard()->text().isEmpty());
 	connect(action, SIGNAL(triggered()), this, SLOT(pasteAndSend_triggered()));
-	menu->insertAction(menu->actions()[6], action);
+	if (menu->actions().count() > 6)
+		menu->insertAction(menu->actions()[6], action);
+	else
+		menu->addAction(action);
 
 	menu->exec(qcme->globalPos());
 	delete menu;
