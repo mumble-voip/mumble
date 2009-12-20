@@ -691,8 +691,8 @@ QTreeWidgetItem *GlobalShortcutConfig::itemForShortcut(const Shortcut &sc) const
 
 	item->setData(2, Qt::ToolTipRole, tr("Shortcut button combination."));
 	item->setData(2, Qt::WhatsThisRole, tr("<b>This is the global shortcut key combination.</b><br />"
-	                                       "Double-click this field and then the desired key/button combo "
-	                                       "to rebind."));
+	                                       "Click this field and then the desired key/button combo "
+	                                       "to rebind. Double-click to clear."));
 
 	item->setData(3, Qt::ToolTipRole, tr("Suppress keys from other applications"));
 	item->setData(3, Qt::WhatsThisRole, tr("<b>This hides the button presses from other applications.</b><br />"
