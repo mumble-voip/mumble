@@ -324,17 +324,21 @@ void PortAudioInput::run() {
 	PaError             err;
 
 	//qWarning() << "PortAudioInput::run() BEGIN ===";
-	if (!PortAudioSystem::initStream(&inputStream, g.s.iPortAudioInput, iFrameSize, NULL, true))
+	if (!PortAudioSystem::initStream(&inputStream, g.s.iPortAudioInput, iFrameSize, reinterpret_cast<int *>(&iMicChannels), true))
 		return; // PA init or stream opening failed, we will give up
 
+	iMicFreq = SAMPLE_RATE;
 	eMicFormat = SampleShort;
+	initializeMixer();
+
+	short inBuffer[iMicLength * iMicChannels];
 
 	// depend on the stream having started
 	bRunning = PortAudioSystem::startStream(inputStream);
 	while (bRunning) {
-		err = Pa_ReadStream(inputStream, psMic, iFrameSize);
+		err = Pa_ReadStream(inputStream, inBuffer, iMicLength);
 		if (err == paNoError) {
-			encodeAudioFrame();
+			addMic(inBuffer, iMicLength);
 		} else if (err == paInputOverflowed) {
 			qWarning("PortAudioInput: Overflow on PortAudio input-stream, we lost incoming data!");
 		} else { // other error, aborg
