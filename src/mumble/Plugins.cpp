@@ -44,6 +44,7 @@ static ConfigRegistrar registrar(5000, PluginConfigDialogNew);
 
 struct PluginInfo {
 	bool locked;
+	bool enabled;
 	QLibrary lib;
 	QString filename;
 	QString description;
@@ -54,11 +55,15 @@ struct PluginInfo {
 
 PluginInfo::PluginInfo() {
 	locked = false;
+	enabled = false;
 	p = NULL;
 }
 
 PluginConfig::PluginConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
+
+	qtwPlugins->header()->setResizeMode(0, QHeaderView::Stretch);
+	qtwPlugins->header()->setResizeMode(1, QHeaderView::ResizeToContents);
 
 	refillPluginList();
 }
@@ -77,6 +82,16 @@ void PluginConfig::load(const Settings &r) {
 
 void PluginConfig::save() const {
 	s.bTransmitPosition = qcbTransmit->isChecked();
+	QMutexLocker lock(&g.p->qmPlugins);
+
+	s.qmPositionalAudioPlugins.clear();
+	foreach (int k, qhInfos.keys()) {
+		PluginInfo *pi = qhInfos[k];
+		bool enabled = qtwPlugins->topLevelItem(k)->checkState(1) == Qt::Checked;
+		s.qmPositionalAudioPlugins[QFileInfo(pi->filename).fileName()] = enabled;
+		pi->enabled = enabled;
+	}
+
 }
 
 bool PluginConfig::expert(bool) {
@@ -84,10 +99,10 @@ bool PluginConfig::expert(bool) {
 }
 
 void PluginConfig::on_qpbConfig_clicked() {
-	QListWidgetItem *i = qlwPlugins->currentItem();
-	if (!i)
+	QModelIndex idx = qtwPlugins->currentIndex();
+	if (!idx.isValid())
 		return;
-	PluginInfo *pi=qhInfos[i];
+	PluginInfo *pi=qhInfos[idx.row()];
 
 	if (pi->p->config)
 		pi->p->config(winId());
@@ -96,10 +111,10 @@ void PluginConfig::on_qpbConfig_clicked() {
 }
 
 void PluginConfig::on_qpbAbout_clicked() {
-	QListWidgetItem *i = qlwPlugins->currentItem();
-	if (!i)
+	QModelIndex idx = qtwPlugins->currentIndex();
+	if (!idx.isValid())
 		return;
-	PluginInfo *pi=qhInfos[i];
+	PluginInfo *pi=qhInfos[idx.row()];
 
 	if (pi->p->about)
 		pi->p->about(winId());
@@ -114,20 +129,22 @@ void PluginConfig::on_qpbReload_clicked() {
 
 void PluginConfig::refillPluginList() {
 	QMutexLocker lock(&g.p->qmPlugins);
-	qlwPlugins->clear();
+	qtwPlugins->clear();
 	qhInfos.clear();
 	PluginInfo *pi;
 	foreach(pi, g.p->qlPlugins) {
-		QListWidgetItem *i = new QListWidgetItem(pi->description, qlwPlugins);
-		i->setData(Qt::ToolTipRole, pi->lib.fileName());
-		qhInfos[i]=pi;
+		QTreeWidgetItem *i = new QTreeWidgetItem(qtwPlugins);
+		i->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+		i->setCheckState(1, pi->enabled ? Qt::Checked : Qt::Unchecked);
+		i->setText(0, pi->description);
+		qhInfos[qtwPlugins->indexOfTopLevelItem(i)] = pi;
 	}
 }
 
 Plugins::Plugins(QObject *p) : QObject(p) {
 	QTimer *timer=new QTimer(this);
 	timer->setObjectName(QLatin1String("Timer"));
-	timer->start(1000);
+	timer->start(500);
 	locked = prevlocked = NULL;
 	bValid = false;
 	iPluginTry = 0;
@@ -216,10 +233,11 @@ void Plugins::rescanPlugins() {
 				if (mpf) {
 					pi->p = mpf();
 					if (pi->p && (pi->p->magic == MUMBLE_PLUGIN_MAGIC)) {
-						pi->description=QString::fromStdWString(pi->p->description);
-						pi->shortname=QString::fromStdWString(pi->p->shortname);
+						pi->description = QString::fromStdWString(pi->p->description);
+						pi->shortname = QString::fromStdWString(pi->p->shortname);
 						qlPlugins << pi;
 						loaded.insert(fname);
+						pi->enabled = g.s.qmPositionalAudioPlugins.contains(fname) ? g.s.qmPositionalAudioPlugins[fname] : true;
 						continue;
 					}
 				}
@@ -258,13 +276,15 @@ bool Plugins::fetch() {
 	}
 
 	QMutexLocker lock(&qmPlugins);
-
 	if (! locked) {
 		bValid = false;
 		return bValid;
 	}
 
-	bool ok=locked->p->fetch(fPosition, fFront, fTop, fCameraPosition, fCameraFront, fCameraTop, ssContext, swsIdentity);
+	if (!locked->enabled)
+		bUnlink = true;
+
+	bool ok = locked->p->fetch(fPosition, fFront, fTop, fCameraPosition, fCameraFront, fCameraTop, ssContext, swsIdentity);
 	if (! ok || bUnlink) {
 		locked->p->unlock();
 		locked->locked = false;
@@ -328,7 +348,7 @@ void Plugins::on_Timer_timeout() {
 		iPluginTry = 0;
 
 	PluginInfo *pi = qlPlugins.at(iPluginTry);
-	if (pi->p->trylock()) {
+	if (pi->enabled && pi->p->trylock()) {
 		pi->shortname = QString::fromStdWString(pi->p->shortname);
 		g.l->log(Log::Information, tr("%1 linked.").arg(pi->shortname));
 		pi->locked = true;

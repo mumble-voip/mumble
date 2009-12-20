@@ -127,6 +127,7 @@ struct Settings {
 	bool bPositionalAudio;
 	bool bPositionalHeadphone;
 	float fAudioMinDistance, fAudioMaxDistance, fAudioMaxDistVolume, fAudioBloom;
+	QMap<QString, bool> qmPositionalAudioPlugins;
 
 	bool bOverlayEnable;
 	bool bOverlayUserTextures;

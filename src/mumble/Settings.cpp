@@ -475,6 +475,12 @@ void Settings::load() {
 		qmLCDDevices.insert(d, g.qs->value(d, true).toBool());
 	}
 	g.qs->endGroup();
+
+	g.qs->beginGroup(QLatin1String("audio/plugins"));
+	foreach(const QString &d, g.qs->childKeys()) {
+		qmPositionalAudioPlugins.insert(d, g.qs->value(d, true).toBool());
+	}
+	g.qs->endGroup();
 }
 
 #undef SAVELOAD
@@ -642,6 +648,16 @@ void Settings::save() {
 	g.qs->beginGroup(QLatin1String("lcd/devices"));
 	foreach(const QString &d, qmLCDDevices.keys()) {
 		bool v = qmLCDDevices.value(d);
+		if (!v)
+			g.qs->setValue(d, v);
+		else
+			g.qs->remove(d);
+	}
+	g.qs->endGroup();
+
+	g.qs->beginGroup(QLatin1String("audio/plugins"));
+	foreach(const QString &d, qmPositionalAudioPlugins.keys()) {
+		bool v = qmPositionalAudioPlugins.value(d);
 		if (!v)
 			g.qs->setValue(d, v);
 		else

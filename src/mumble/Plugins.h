@@ -42,7 +42,7 @@ class PluginConfig : public ConfigWidget, public Ui::PluginConfig {
 		Q_DISABLE_COPY(PluginConfig)
 	protected:
 		void refillPluginList();
-		QHash<QListWidgetItem *, PluginInfo *> qhInfos;
+		QHash<int, PluginInfo *> qhInfos;
 	public:
 		PluginConfig(Settings &st);
 		virtual QString title() const;
