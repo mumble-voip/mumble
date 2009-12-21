@@ -1846,14 +1846,13 @@ void MainWindow::serverConnected() {
 	}
 }
 
-static void getPathToChannel(Channel *c, QString &out) {
-	out.clear();
+static QString getPathToChannel(Channel *c) {
+	QString out;
 
 	if (!c)
-		return;
+		return out;
 
 	Channel *tmp = c;
-
 	while (tmp->cParent) {
 		// skip root channel
 		if (tmp->iId == 0)
@@ -1864,11 +1863,13 @@ static void getPathToChannel(Channel *c, QString &out) {
 
 		tmp = tmp->cParent;
 	}
+
+	return out;
 }
 
 void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString reason) {
 	if (g.uiSession)
-		getPathToChannel(ClientUser::get(g.uiSession)->cChannel, qsDesiredChannel);
+		qsDesiredChannel = getPathToChannel(ClientUser::get(g.uiSession)->cChannel);
 
 	g.uiSession = 0;
 	g.pPermissions = ChanACL::None;
