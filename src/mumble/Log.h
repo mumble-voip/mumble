@@ -89,7 +89,7 @@ class Log : public QObject {
 		static QString imageToImg(const QByteArray &format, const QByteArray &image);
 		static QString imageToImg(QImage img);
 		static QString msgColor(const QString &text, LogColorType t);
-		static QString formatClientUser(ClientUser *cu, LogColorType t = Log::Time);
+		static QString formatClientUser(ClientUser *cu, LogColorType t);
 		static QString formatChannel(::Channel *c);
 	public slots:
 		void log(MsgType t, const QString &console, const QString &terse=QString());

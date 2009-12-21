@@ -266,7 +266,7 @@ QString Log::formatClientUser(ClientUser *cu, LogColorType t) {
 
 	if (cu) {
 		if (cu->qsHash.isEmpty()) {
-			return QString::fromLatin1("<a href='clientid://%2/%4' class='log-u6ser%1'>*%3*</a>").arg(className).arg(cu->uiSession).arg(cu->qsName).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
+			return QString::fromLatin1("<a href='clientid://%2/%4' class='log-user%1'>*%3*</a>").arg(className).arg(cu->uiSession).arg(cu->qsName).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
 		} else {
 			return QString::fromLatin1("<a href='clientid://%2' class='log-user%1'>*%3*</a>").arg(className).arg(cu->qsHash).arg(cu->qsName);
 		}

@@ -176,7 +176,7 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 				if (pDst == pSelf)
 					g.l->log(Log::PermissionDenied, tr("You need a certificate to perform this operation."));
 				else
-					g.l->log(Log::PermissionDenied, tr("%1 does not have a certificate.").arg(Log::formatClientUser(pDst)));
+					g.l->log(Log::PermissionDenied, tr("%1 does not have a certificate.").arg(Log::formatClientUser(pDst, Log::Target)));
 			}
 			break;
 		default:
@@ -302,7 +302,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 				if (msg.has_mute() && msg.has_deaf() && pDst->bMute && pDst->bDeaf) {
 					g.l->log(Log::OtherMutedOther, tr("%1 muted and deafened by %2.").arg(Log::formatClientUser(pDst, Log::Target), Log::formatClientUser(pSrc, Log::Source)));
 				} else if (msg.has_mute() && msg.has_deaf() && !pDst->bMute && !pDst->bDeaf) {
-					g.l->log(Log::OtherMutedOther, tr("%1 unmuted and undeafened by %2.").arg(Log::formatClientUser(pDst, Log::Target), Log::formatClientUser(pSrc)));
+					g.l->log(Log::OtherMutedOther, tr("%1 unmuted and undeafened by %2.").arg(Log::formatClientUser(pDst, Log::Target), Log::formatClientUser(pSrc, Log::Source)));
 				} else {
 					if (msg.has_mute()) {
 						if (pDst->bMute)
@@ -474,7 +474,7 @@ void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 	ACTOR_INIT;
 	QString target;
-	const QString &name = pSrc ? Log::formatClientUser(pSrc) : tr("Server", "message from");
+	const QString &name = pSrc ? Log::formatClientUser(pSrc, Log::Source) : tr("Server", "message from");
 
 	if (msg.tree_id_size() > 0) {
 		target += tr("(Tree) ");
