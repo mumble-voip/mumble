@@ -11,6 +11,7 @@ typedef long long uint64_t;
 #if _DEBUG
 #include <iostream>
 #endif
+#include <sstream>
 
 #include "../mumble_plugin.h"
 
@@ -18,7 +19,14 @@ HANDLE h;
 uint32_t p_playerBase;
 uint64_t g_playerGUID;
 
-#define STATIC_REALMNAME  0x0127046E
+/*
+ * To update visit http://www.mmowned.com/forums/wow-memory-editing/
+ * and look for a thread called [WoW][TheVersion] Info Dump Thread.
+ */
+static uint32_t ptr_ClientConnection=0x00C923C0;
+static size_t off_ObjectManager=0x2E04;
+static uint32_t ptr_WorldFrame=0x00B0C544;
+static size_t off_CameraOffset=0x7E20;
 
 static DWORD getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
@@ -141,6 +149,19 @@ void getDebug16(uint32_t ptr) {
 #endif
 }
 
+void stringDebug(std::string &theString) {
+#ifdef _DEBUG
+	std::cout << "String length=" << theString.length() << " content=\"" << theString << "\" debug=";
+	for (size_t i=0; i<theString.length(); i++) {
+		if (i>0) {
+			std::cout << " ";
+		}
+		std::cout << (unsigned int)theString[i];
+	}
+	std::cout << std::endl;
+#endif
+}
+
 uint32_t getPlayerBase() {
 	uint32_t gClientConnection;
 	uint32_t sCurMgr;
@@ -153,8 +174,8 @@ uint32_t getPlayerBase() {
 
 	playerBase=0;
 
-	gClientConnection=getInt32(0x012705B0);
-	sCurMgr=getInt32(gClientConnection + 0x2d94);
+	gClientConnection=getInt32(ptr_ClientConnection);
+	sCurMgr=getInt32(gClientConnection + off_ObjectManager);
 	if (sCurMgr != 0) {
 		playerGUID=getInt64(sCurMgr+0xC0);
 		if (playerGUID != 0) {
@@ -178,7 +199,7 @@ uint32_t getPlayerBase() {
 	return playerBase;
 }
 
-static const unsigned long nameStorePtr        = 0x12542D8 + 0x8;  // 0x012541C8, 0x011AE3D0+8 , 0x00D29BA8+8 , Player name database
+static const unsigned long nameStorePtr        = 0x00C76018 + 0x8;  // Player name database
 static const unsigned long nameMaskOffset      = 0x024;  // Offset for the mask used with GUID to select a linked list
 static const unsigned long nameBaseOffset      = 0x01c;  // Offset for the start of the name linked list
 static const unsigned long nameStringOffset    = 0x020;  // Offset to the C string in a name structure
@@ -214,16 +235,12 @@ void getPlayerName(std::wstring &identity) {
 	getWString(current + nameStringOffset, identity);
 }
 
-void getRealmName(std::string &context) {
-	getString(STATIC_REALMNAME, context);
-}
-
 void getCamera(float camera_pos[3], float camera_front[3], float camera_top[3]) {
 	uint32_t ptr1, ptr2;
 	float buf[4][3];
 
-	ptr1 = getInt32(0x10e1824);
-	ptr2 = getInt32(ptr1+0x7da0);
+	ptr1 = getInt32(ptr_WorldFrame);
+	ptr2 = getInt32(ptr1+off_CameraOffset);
 
 	peekProc((BYTE *) ptr2+0x08, buf, sizeof(buf));
 
@@ -255,9 +272,6 @@ typedef class WowData {
 		std::wstring nameAvatar;
 		bool nameAvatarValid;
 
-		std::string nameRealm;
-		bool nameRealmValid;
-
 		uint64_t playerGUID;
 		uint32_t pointerPlayerObject;
 
@@ -276,15 +290,6 @@ typedef class WowData {
 			}
 		}
 
-		void WowData::updateRealmName() {
-			getRealmName(nameRealm);
-			if (!nameRealm.empty()) {
-				nameRealmValid = true;
-			} else {
-				nameRealmValid = false;
-			}
-		}
-
 		std::wstring getNameAvatar() {
 			if (!nameAvatarValid) {
 				updateAvatarName();
@@ -293,17 +298,8 @@ typedef class WowData {
 			return nameAvatar;
 		}
 
-		std::string getNameRealm() {
-			if (!nameRealmValid) {
-				updateRealmName();
-			}
-
-			return nameRealm;
-		}
-
 		void refresh() {
 			nameAvatarValid = false;
-			nameRealmValid = false;
 		}
 } WowData_t;
 
@@ -333,12 +329,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			return true;
 		}
 	}
-#ifdef _DEBUG
-	context = wow.getNameRealm();
-#else
 	context.clear();
-#endif
-	identity = wow.getNameAvatar();
+	std::wstringstream identityStream;
+	identityStream << wow.getNameAvatar();
+	identity = identityStream.str();
 
 	BOOL ok = true;
 
@@ -456,10 +450,10 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports World of Warcraft 3.2.2 (10505) (Release) (Euro). With context and identity support.");
+	return std::wstring(L"Supports World of Warcraft 3.3.0 (11159) (Release) (Euro). With identity support.");
 }
 
-static std::wstring description(L"World of Warcraft 3.2.2 (Euro)");
+static std::wstring description(L"World of Warcraft 3.3.0 (Euro)");
 
 static std::wstring shortname(L"World of Warcraft");
 
