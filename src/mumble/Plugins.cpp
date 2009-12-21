@@ -399,6 +399,8 @@ void Plugins::finished() {
 			}
 
 			QDir qd(qsSystemPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
+			QDir qdu(qsUserPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
+			
 			QFileInfoList libs = qd.entryInfoList();
 			foreach(const QFileInfo &libinfo, libs) {
 				QString libname = libinfo.absoluteFilePath();
@@ -417,11 +419,13 @@ void Plugins::finished() {
 						QString h = QLatin1String(QCryptographicHash::hash(f.readAll(), QCryptographicHash::Sha1).toHex());
 						f.close();
 						if (h == wanthash) {
-							QFile qfuser(qsUserPlugins + QString::fromLatin1("/") + filename);
-							if (qfuser.exists()) {
-								clearPlugins();
-								qfuser.remove();
-								rescanPlugins();
+							if (qd != qdu) {
+								QFile qfuser(qsUserPlugins + QString::fromLatin1("/") + filename);
+								if (qfuser.exists()) {
+									clearPlugins();
+									qfuser.remove();
+									rescanPlugins();
+								}
 							}
 							// Mark for removal from userplugins
 							qmPluginHash.insert(filename, QString());
@@ -430,26 +434,27 @@ void Plugins::finished() {
 				}
 			}
 
-			QDir qdu(qsUserPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
-			libs = qdu.entryInfoList();
-			foreach(const QFileInfo &libinfo, libs) {
-				QString libname = libinfo.absoluteFilePath();
-				QString filename = libinfo.fileName();
-				QString wanthash = qmPluginHash.value(filename);
-				if (! wanthash.isNull() && QLibrary::isLibrary(libname)) {
-					QFile f(libname);
-					if (wanthash.isEmpty()) {
-						// Outdated plugin
-						if (f.exists()) {
-							clearPlugins();
-							f.remove();
-							rescanPlugins();
-						}
-					} else if (f.open(QIODevice::ReadOnly)) {
-						QString h = QLatin1String(QCryptographicHash::hash(f.readAll(), QCryptographicHash::Sha1).toHex());
-						f.close();
-						if (h == wanthash) {
-							qmPluginHash.remove(filename);
+			if (qd != qdu) {
+				libs = qdu.entryInfoList();
+				foreach(const QFileInfo &libinfo, libs) {
+					QString libname = libinfo.absoluteFilePath();
+					QString filename = libinfo.fileName();
+					QString wanthash = qmPluginHash.value(filename);
+					if (! wanthash.isNull() && QLibrary::isLibrary(libname)) {
+						QFile f(libname);
+						if (wanthash.isEmpty()) {
+							// Outdated plugin
+							if (f.exists()) {
+								clearPlugins();
+								f.remove();
+								rescanPlugins();
+							}
+						} else if (f.open(QIODevice::ReadOnly)) {
+							QString h = QLatin1String(QCryptographicHash::hash(f.readAll(), QCryptographicHash::Sha1).toHex());
+							f.close();
+							if (h == wanthash) {
+								qmPluginHash.remove(filename);
+							}
 						}
 					}
 				}
