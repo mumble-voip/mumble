@@ -1,3 +1,108 @@
+2009-12-21
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    32c256b  Delay plugin rescan
+    ffed0d8  Don't update user plugins if userdir == systemdir
+
+2009-12-20
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    dc0cee5  Add the possibility to disable individual plugins (#2868251)
+    2b70c8e  Add rename context menu entry in "Registered User" (#2885100)
+    608650b  Disable qaUserComment/qaUserCommentReset action when no user
+	     is selected
+    a193f1b  Improve robustness of custom chatbar context menu
+    315ff84  Paste and send context menu entry for Chatbar (#2915069)
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    d6ac81e  Fix resampling in PortAudio backend.
+    04725ad  Attempt at better OSX 10.4 support.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    b392119  Fix help text for shortcut bind
+    3593ead  Remove a leftover else for red->blue transition
+    ed33707  Disable foreign key checks during database migration
+
+2009-12-19
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    d179b5d  Allow exact match of server bandwidth
+    b3e2cd6  Avoid red->blue flash transition on incoming whisper
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    75fbf02  TF2 update
+
+2009-12-18
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    ebef80e  Fix audio wizard page visibility and layout
+    ec9c1d7  Resend mute status after deleting a channel
+    13d7225  Fix join subchannel shortcuts
+
+2009-12-17
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    c421faf  Fix faulty function call in phpBB3auth.py
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    9d16137  Set correct target for the last whisper frame
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    2c83e67  TF2 update; update DOS build number
+    7b2d347  DODS update
+
+2009-12-16
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    53346cb  Only show comment reset for other users
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    90e945c  Add CONFIG+=analyze for VC. Needs a lot more filtering to be
+	     really usefull.
+
+2009-12-15
+  unknown <LoL@.(none)>
+    725c4cf  Update French translation
+
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    d2114f2  Enhance adjustability of always on top setting
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    0e241d1  Save server specific shortcuts on quit
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    718da15  Avoid a potential divide by 0 under really bizarre
+	     circumstances
+
+2009-12-14
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    39ba54f  Fix RichTextEditor resizing in edit channel dialog
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    9aaa8cc  TF2 update
+
+2009-12-13
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    76c2c4d  Add quality & notification page to Audio Wizard
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    2ed1710  Reupdate the CELT rev
+
+2009-12-12
+  Phrag <info@clanwars.cz>
+    6efe83a  Czech installer
+
+  Julien Pardons <j.pardons@redline-hosting.eu>
+    8d76b5a  Patch for icedemo.php (user edit)
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    18a3e80  Fix permissiondenied on invalid channel
+    a1114e4  Enable connect to freshly added servers
+    11a6e94  Cache result of doEcho
+
+2009-12-11
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    9716748  Include varlength array fix for CELT
+    842769a  Use a bit more forgiving bandwidth estimation on the server
+    7dcc10e  Add frame header when computing bandwidth on client
+    43c4def  Try the new LPC-based LPC for CELT
+    f0298e3  Bump version to 1.2.1
+    867da14  Order channels when importing to MySQL
+
 2009-12-10
   arcenciel <arcenciel@users.sourceforge.net>
     d5e0afb  Japanese Translation for 1.2.0
@@ -209,6 +314,7 @@
 	     code.
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
+    839cf4c  Add a command line option to allow multiple clients
     3172ae4  Fix client ban timezone handling
     c180869  Check bans using UTC time
     248d44a  Fix ban expiration
@@ -274,6 +380,7 @@
     34f9ea9  Raise default quality to 40kbit/s
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
+    fd830d7  Add the ability to colorize log messages
     3c050e9  Add an option to reject connections without a certificate
     298d342  Add a warning if the settings database is read-only
     2a582a6  Change reject type field to uint32

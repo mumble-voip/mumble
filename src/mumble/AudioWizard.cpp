@@ -421,12 +421,10 @@ void AudioWizard::accept() {
 	if (qrbQualityLow->isChecked()) {
 		g.s.iQuality = 16000;
 		g.s.iFramesPerPacket = 6;
-	}
-	else if (qrbQualityBalanced->isChecked()) {
+	} else if (qrbQualityBalanced->isChecked()) {
 		g.s.iQuality = 40000;
 		g.s.iFramesPerPacket = 2;
-	}
-	else if (qrbQualityUltra->isChecked()) {
+	} else if (qrbQualityUltra->isChecked()) {
 		g.s.iQuality = 72000;
 		g.s.iFramesPerPacket = 1;
 	}

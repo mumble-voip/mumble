@@ -85,7 +85,7 @@ void PluginConfig::save() const {
 	QMutexLocker lock(&g.p->qmPlugins);
 
 	s.qmPositionalAudioPlugins.clear();
-	foreach (int k, qhInfos.keys()) {
+	foreach(int k, qhInfos.keys()) {
 		PluginInfo *pi = qhInfos[k];
 		bool enabled = qtwPlugins->topLevelItem(k)->checkState(1) == Qt::Checked;
 		s.qmPositionalAudioPlugins[QFileInfo(pi->filename).fileName()] = enabled;
@@ -376,7 +376,7 @@ void Plugins::checkUpdates() {
 
 void Plugins::finished() {
 	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
-	
+
 	bool rescan = false;
 
 	if (rep->error() == QNetworkReply::NoError) {
@@ -402,7 +402,7 @@ void Plugins::finished() {
 
 			QDir qd(qsSystemPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
 			QDir qdu(qsUserPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
-			
+
 			QFileInfoList libs = qd.entryInfoList();
 			foreach(const QFileInfo &libinfo, libs) {
 				QString libname = libinfo.absoluteFilePath();
@@ -542,7 +542,7 @@ void Plugins::finished() {
 		}
 
 	}
-	
+
 	if (rescan)
 		rescanPlugins();
 

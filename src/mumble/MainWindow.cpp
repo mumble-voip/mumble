@@ -165,8 +165,8 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	on_qmConfig_aboutToShow();
 
 	setOnTop(g.s.aotbAlwaysOnTop == Settings::OnTopAlways ||
-		 (g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInMinimal) ||
-		 (!g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInNormal));
+	         (g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInMinimal) ||
+	         (!g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInNormal));
 
 #ifdef NO_UPDATE_CHECK
 	delete qaHelpVersionCheck;
@@ -597,8 +597,8 @@ void MainWindow::setupView(bool toggle_minimize) {
 #endif
 
 	if (g.s.aotbAlwaysOnTop == Settings::OnTopAlways ||
-	    (g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInMinimal) ||
-	    (!g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInNormal))
+	        (g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInMinimal) ||
+	        (!g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInNormal))
 		f |= Qt::WindowStaysOnTopHint;
 
 	setWindowFlags(f);
@@ -1089,8 +1089,8 @@ void MainWindow::on_qaUserCommentReset_triggered() {
 	unsigned int session = p->uiSession;
 
 	int ret = QMessageBox::question(this, tr("Mumble"),
-					tr("Are you sure you want to reset the comment of user %1?").arg(p->qsName),
-					QMessageBox::Yes, QMessageBox::No);
+	                                tr("Are you sure you want to reset the comment of user %1?").arg(p->qsName),
+	                                QMessageBox::Yes, QMessageBox::No);
 	if (ret == QMessageBox::Yes) {
 		MumbleProto::UserState mpus;
 		mpus.set_session(session);
