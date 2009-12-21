@@ -888,7 +888,7 @@ void MainWindow::on_qmUser_aboutToShow() {
 		qaUserTextMessage->setEnabled(true);
 		qaUserLocalMute->setEnabled(! self);
 		qaUserComment->setEnabled(self);
-		qaUserCommentReset->setEnabled(g.pPermissions & (ChanACL::Move | ChanACL::Write));
+		qaUserCommentReset->setEnabled(!p->qsComment.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
 
 		qaUserMute->setChecked(p->bMute || p->bSuppress);
 		qaUserDeaf->setChecked(p->bDeaf);
