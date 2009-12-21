@@ -32,6 +32,8 @@
 #include "Log.h"
 #include "TextToSpeech.h"
 #include "MainWindow.h"
+#include "Channel.h"
+#include "ServerHandler.h"
 #include "Global.h"
 
 #ifdef Q_OS_MAC
@@ -241,9 +243,6 @@ QString Log::msgName(MsgType t) const {
 const char *Log::colorClasses[] = {
 	"time",
 	"server",
-	"channel",
-	"source",
-	"target",
 	"privilege"
 };
 
@@ -251,6 +250,29 @@ QString Log::msgColor(const QString &text, LogColorType t) {
 	QString classname;
 
 	return QString::fromLatin1("<span class='log-%1'>%2</span>").arg(QString::fromLatin1(colorClasses[t])).arg(text);
+}
+
+QString Log::formatChannel(::Channel *c) {
+	return QString::fromLatin1("<a href='channelid://%1/%3' class='log-channel'>\"%2\"</a>").arg(c->iId).arg(c->qsName).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
+}
+
+QString Log::formatClientUser(ClientUser *cu, LogColorType t) {
+	QString className;
+	if (t == Log::Target) {
+		className = QString::fromLatin1("-target");
+	} else if (t == Log::Source) {
+		className = QString::fromLatin1("-source");
+	}
+
+	if (cu) {
+		if (cu->qsHash.isEmpty()) {
+			return QString::fromLatin1("<a href='clientid://%2/%4' class='log-u6ser%1'>*%3*</a>").arg(className).arg(cu->uiSession).arg(cu->qsName).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
+		} else {
+			return QString::fromLatin1("<a href='clientid://%2' class='log-user%1'>*%3*</a>").arg(className).arg(cu->qsHash).arg(cu->qsName);
+		}
+	} else {
+		return QString::fromLatin1("<span class='log-server%1'>%2</span>").arg(className).arg(tr("the server"));
+	}
 }
 
 void Log::setIgnore(MsgType t, int ignore) {
@@ -330,6 +352,8 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 	qslValid << QLatin1String("http");
 	qslValid << QLatin1String("https");
 	qslValid << QLatin1String("ftp");
+	qslValid << QLatin1String("clientid");
+	qslValid << QLatin1String("channelid");
 
 	QRectF qr = dw.availableGeometry(dw.screenNumber(g.mw));
 	qtd.setTextWidth(qr.width() / 2);

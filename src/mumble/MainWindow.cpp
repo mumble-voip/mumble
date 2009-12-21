@@ -142,6 +142,9 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	tokenEdit = NULL;
 	bNoHide = false;
 
+	cmUid = -1;
+	cmCid = -1;
+
 	qtReconnect = new QTimer(this);
 	qtReconnect->setInterval(10000);
 	qtReconnect->setSingleShot(true);
@@ -385,7 +388,69 @@ void MainWindow::updateTrayIcon() {
 	}
 }
 
+Channel *MainWindow::getContextMenuChannel() {
+	if (cmCid >= 0)
+		return Channel::get(cmCid);
+
+	return pmModel->getChannel(qtvUsers->currentIndex());
+}
+
+ClientUser *MainWindow::getContextMenuUser() {
+	if (cmUid >= 0)
+		return ClientUser::get(cmUid);
+
+	return pmModel->getUser(qtvUsers->currentIndex());
+}
+
+bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &_pos, bool focus) {
+	if (url.scheme() == QString::fromLatin1("clientid")) {
+		bool ok = false;
+		QString x(url.host());
+		if (x.length() == 40) {
+			ClientUser *cu = ClientUser::getByHash(x);
+			if (cu) {
+				cmUid = ClientUser::getUiSession(cu);
+				ok = true;
+			}
+		} else {
+			QByteArray qbaServerDigest = QByteArray::fromBase64(url.path().remove(0, 1).toLatin1());
+			cmUid = url.host().toInt(&ok, 10);
+			ok = ok && (qbaServerDigest == g.sh->qbaDigest);
+		}
+		if (ok && ClientUser::isValid(cmUid)) {
+			if (focus)
+				qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(cmUid)));
+			else
+				qmUser->exec(_pos, NULL);
+		}
+		cmUid = -1;
+	} else if (url.scheme() == QString::fromLatin1("channelid")) {
+		bool ok;
+		QByteArray qbaServerDigest = QByteArray::fromBase64(url.path().remove(0, 1).toLatin1());
+		cmCid = url.host().toInt(&ok, 10);
+		ok = ok && (qbaServerDigest == g.sh->qbaDigest);
+		if (ok) {
+			if (focus)
+				qtvUsers->setCurrentIndex(pmModel->index(Channel::get(cmCid)));
+			else
+				qmChannel->exec(_pos, NULL);
+		}
+		cmCid = -1;
+	} else {
+		return false;
+	}
+	return true;
+}
+
 void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
+	QString link = qteLog->anchorAt(mpos);
+	if (! link.isEmpty()) {
+		QUrl l(link);
+
+		if (handleSpecialContextMenu(l, qteLog->mapToGlobal(mpos)))
+			return;
+	}
+
 #if QT_VERSION >= 0x040400
 	QMenu *menu = qteLog->createStandardContextMenu(mpos);
 #else
@@ -815,7 +880,8 @@ void MainWindow::on_qaServerTokens_triggered() {
 }
 
 void MainWindow::on_qmUser_aboutToShow() {
-	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
+	ClientUser *p = getContextMenuUser();
+
 	bool self = p && (p->uiSession == g.uiSession);
 
 	qmUser->clear();
@@ -898,7 +964,7 @@ void MainWindow::on_qmUser_aboutToShow() {
 }
 
 void MainWindow::on_qaUserMute_triggered() {
-	User *p = pmModel->getUser(qtvUsers->currentIndex());
+	ClientUser *p = getContextMenuUser();
 	if (!p)
 		return;
 
@@ -916,7 +982,7 @@ void MainWindow::on_qaUserMute_triggered() {
 }
 
 void MainWindow::on_qaUserLocalMute_triggered() {
-	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
+	ClientUser *p = getContextMenuUser();
 	if (!p)
 		return;
 
@@ -928,7 +994,7 @@ void MainWindow::on_qaUserLocalMute_triggered() {
 }
 
 void MainWindow::on_qaUserDeaf_triggered() {
-	User *p = pmModel->getUser(qtvUsers->currentIndex());
+	ClientUser *p = getContextMenuUser();
 	if (!p)
 		return;
 
@@ -939,7 +1005,7 @@ void MainWindow::on_qaUserDeaf_triggered() {
 }
 
 void MainWindow::on_qaUserRegister_triggered() {
-	User *p = pmModel->getUser(qtvUsers->currentIndex());
+	ClientUser *p = getContextMenuUser();
 	if (!p)
 		return;
 
@@ -964,7 +1030,7 @@ void MainWindow::on_qaUserRegister_triggered() {
 }
 
 void MainWindow::on_qaUserFriendAdd_triggered() {
-	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
+	ClientUser *p = getContextMenuUser();
 	if (!p)
 		return;
 
@@ -977,7 +1043,7 @@ void MainWindow::on_qaUserFriendUpdate_triggered() {
 }
 
 void MainWindow::on_qaUserFriendRemove_triggered() {
-	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
+	ClientUser *p = getContextMenuUser();
 	if (!p)
 		return;
 
@@ -986,7 +1052,7 @@ void MainWindow::on_qaUserFriendRemove_triggered() {
 }
 
 void MainWindow::on_qaUserKick_triggered() {
-	User *p = pmModel->getUser(qtvUsers->currentIndex());
+	ClientUser *p = getContextMenuUser();
 	if (!p)
 		return;
 
@@ -1008,7 +1074,7 @@ void MainWindow::on_qaUserKick_triggered() {
 }
 
 void MainWindow::on_qaUserBan_triggered() {
-	User *p = pmModel->getUser(qtvUsers->currentIndex());
+	ClientUser *p = getContextMenuUser();
 	if (!p)
 		return;
 
@@ -1030,7 +1096,7 @@ void MainWindow::on_qaUserBan_triggered() {
 }
 
 void MainWindow::on_qaUserTextMessage_triggered() {
-	User *p = pmModel->getUser(qtvUsers->currentIndex());
+	ClientUser *p = getContextMenuUser();
 
 	if (!p)
 		return;
@@ -1057,7 +1123,7 @@ void MainWindow::on_qaUserTextMessage_triggered() {
 }
 
 void MainWindow::on_qaUserComment_triggered() {
-	User *p = pmModel->getUser(qtvUsers->currentIndex());
+	ClientUser *p = getContextMenuUser();
 
 	if (!p)
 		return;
@@ -1081,7 +1147,7 @@ void MainWindow::on_qaUserComment_triggered() {
 }
 
 void MainWindow::on_qaUserCommentReset_triggered() {
-	User *p = pmModel->getUser(qtvUsers->currentIndex());
+	ClientUser *p = getContextMenuUser();
 
 	if (!p)
 		return;
@@ -1107,7 +1173,7 @@ void MainWindow::on_qaQuit_triggered() {
 void MainWindow::on_qleChat_returnPressed() {
 	if (qleChat->text().isEmpty() || g.uiSession == 0) return; // Check if text & connection is available
 
-	User *p = pmModel->getUser(qtvUsers->currentIndex());
+	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
 	MumbleProto::TextMessage mptm;
@@ -1126,11 +1192,11 @@ void MainWindow::on_qleChat_returnPressed() {
 			c = ClientUser::get(g.uiSession)->cChannel;
 
 		mptm.add_channel_id(c->iId);
-		g.l->log(Log::TextMessage, tr("To channel %1: %2").arg(Log::msgColor(c->qsName, Log::Channel)).arg(qsText), tr("Message to channel %1").arg(c->qsName));
+		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c)).arg(qsText), tr("Message to channel %1").arg(c->qsName));
 	} else {
 		// User message
 		mptm.add_session(p->uiSession);
-		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::msgColor(p->qsName, Log::Target)).arg(qsText), tr("Message to %1").arg(p->qsName));
+		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target)).arg(qsText), tr("Message to %1").arg(p->qsName));
 	}
 
 	g.sh->sendMessage(mptm);
@@ -1161,8 +1227,6 @@ void MainWindow::on_qmConfig_aboutToShow() {
 }
 
 void MainWindow::on_qmChannel_aboutToShow() {
-	QModelIndex idx = qtvUsers->currentIndex();
-
 	qmChannel->clear();
 	qmChannel->addAction(qaChannelAdd);
 	qmChannel->addAction(qaChannelACL);
@@ -1198,7 +1262,7 @@ void MainWindow::on_qmChannel_aboutToShow() {
 		msg = true;
 		descUpdate = true;
 
-		Channel *c = pmModel->getChannel(idx);
+		Channel *c = getContextMenuChannel();
 		Channel *home = ClientUser::get(g.uiSession)->cChannel;
 
 		if (c && c->bTemporary)
@@ -1230,7 +1294,7 @@ void MainWindow::on_qmChannel_aboutToShow() {
 }
 
 void MainWindow::on_qaChannelAdd_triggered() {
-	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
+	Channel *c = getContextMenuChannel();
 	if (aclEdit) {
 		aclEdit->reject();
 		delete aclEdit;
@@ -1248,7 +1312,7 @@ void MainWindow::on_qaChannelAdd_triggered() {
 
 void MainWindow::on_qaChannelRemove_triggered() {
 	int ret;
-	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
+	Channel *c = getContextMenuChannel();
 	if (! c)
 		return;
 
@@ -1268,7 +1332,7 @@ void MainWindow::on_qaChannelRemove_triggered() {
 }
 
 void MainWindow::on_qaChannelACL_triggered() {
-	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
+	Channel *c = getContextMenuChannel();
 	int id = c ? c->iId : 0;
 
 	MumbleProto::ACL mpacl;
@@ -1286,7 +1350,7 @@ void MainWindow::on_qaChannelACL_triggered() {
 
 void MainWindow::on_qaChannelLink_triggered() {
 	Channel *c = ClientUser::get(g.uiSession)->cChannel;
-	Channel *l = pmModel->getChannel(qtvUsers->currentIndex());
+	Channel *l = getContextMenuChannel();
 	if (! l)
 		l = Channel::get(0);
 
@@ -1298,7 +1362,7 @@ void MainWindow::on_qaChannelLink_triggered() {
 
 void MainWindow::on_qaChannelUnlink_triggered() {
 	Channel *c = ClientUser::get(g.uiSession)->cChannel;
-	Channel *l = pmModel->getChannel(qtvUsers->currentIndex());
+	Channel *l = getContextMenuChannel();
 	if (! l)
 		l = Channel::get(0);
 
@@ -1319,7 +1383,7 @@ void MainWindow::on_qaChannelUnlinkAll_triggered() {
 }
 
 void MainWindow::on_qaChannelSendMessage_triggered() {
-	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
+	Channel *c = getContextMenuChannel();
 
 	if (!c)
 		return;
@@ -1341,15 +1405,16 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 		g.sh->sendMessage(mptm);
 
 		if (texm->bTreeMessage)
-			g.l->log(Log::TextMessage, tr("To tree %1: %2").arg(Log::msgColor(c->qsName, Log::Channel)).arg(texm->message()), tr("Message to tree %1").arg(c->qsName));
+			g.l->log(Log::TextMessage, tr("(Tree) %1: %2").arg(Log::formatChannel(c)).arg(texm->message()), tr("Message to tree %1").arg(c->qsName));
 		else
-			g.l->log(Log::TextMessage, tr("To channel %1: %2").arg(Log::msgColor(c->qsName, Log::Channel)).arg(texm->message()), tr("Message to channel %1").arg(c->qsName));
+			g.l->log(Log::TextMessage, tr("%1: %2").arg(Log::formatChannel(c)).arg(texm->message()), tr("Message to channel %1").arg(c->qsName));
 	}
 	delete texm;
 }
 
 void MainWindow::updateMenuPermissions() {
-	Channel *c = g.uiSession ? pmModel->getChannel(qtvUsers->currentIndex()) : NULL;
+	ClientUser *cu = getContextMenuUser();
+	Channel *c = g.uiSession ? (cu ? cu->cChannel : getContextMenuChannel()) : NULL;
 	ChanACL::Permissions p = static_cast<ChanACL::Permissions>(c ? c->uiPermissions : ChanACL::None);
 
 	if (c && ! p) {
@@ -2088,11 +2153,20 @@ void MainWindow::customEvent(QEvent *evt) {
 #undef MUMBLE_MH_MSG
 }
 
+
 void MainWindow::on_qteLog_anchorClicked(const QUrl &url) {
-	QDesktopServices::openUrl(url);
+	if (!handleSpecialContextMenu(url, QCursor::pos(), true)) {
+		if (url.scheme() != QLatin1String("file")
+			&& url.scheme() != QLatin1String("qrc")
+			&& !url.isRelative())
+			QDesktopServices::openUrl(url);
+	}
 }
 
 void MainWindow::on_qteLog_highlighted(const QUrl &url) {
+	if (url.scheme() == QString::fromLatin1("clientid") || url.scheme() == QString::fromLatin1("channelid"))
+		return;
+
 	if (! url.isValid())
 		QToolTip::hideText();
 	else

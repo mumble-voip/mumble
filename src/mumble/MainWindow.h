@@ -128,6 +128,14 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		bool bNoHide;
 		virtual void closeEvent(QCloseEvent *e);
 		virtual void hideEvent(QHideEvent *e);
+
+	private:
+		qint32 cmUid;
+		qint32 cmCid;
+		bool handleSpecialContextMenu(const QUrl &url, const QPoint &_pos, bool focus = false);
+		Channel* getContextMenuChannel();
+		ClientUser* getContextMenuUser();
+
 	public slots:
 		void on_qmServer_aboutToShow();
 		void on_qaServerConnect_triggered();

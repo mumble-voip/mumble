@@ -52,6 +52,30 @@ ClientUser *ClientUser::get(unsigned int uiSession) {
 	return p;
 }
 
+ClientUser *ClientUser::getByHash(QString _qsHash) {
+	QReadLocker lock(&c_qrwlUsers);
+
+	ClientUser *cu;
+	foreach (cu, c_qmUsers) {
+		if (cu->qsHash == _qsHash)
+			return cu;
+	}
+
+	return NULL;
+}
+
+unsigned int ClientUser::getUiSession(ClientUser *cu) {
+	QReadLocker lock(&c_qrwlUsers);
+
+	return c_qmUsers.key(cu);
+}
+
+bool ClientUser::isValid(unsigned int uiSession) {
+	QReadLocker lock(&c_qrwlUsers);
+
+	return c_qmUsers.contains(uiSession);
+}
+
 ClientUser *ClientUser::add(unsigned int uiSession, QObject *po) {
 	QWriteLocker lock(&c_qrwlUsers);
 

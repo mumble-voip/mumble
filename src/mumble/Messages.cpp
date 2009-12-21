@@ -133,9 +133,9 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 					return;
 				QString pname = ChanACL::permName(static_cast<ChanACL::Permissions>(msg.permission()));
 				if (pDst == pSelf)
-					g.l->log(Log::PermissionDenied, tr("You were denied %1 privileges in %2.").arg(Log::msgColor(pname, Log::Privilege)).arg(Log::msgColor(c->qsName, Log::Channel)));
+					g.l->log(Log::PermissionDenied, tr("You were denied %1 privileges in %2.").arg(Log::msgColor(pname, Log::Privilege)).arg(Log::formatChannel(c)));
 				else
-					g.l->log(Log::PermissionDenied, tr("%3 was denied %1 privileges in %2.").arg(Log::msgColor(pname, Log::Privilege)).arg(Log::msgColor(c->qsName, Log::Channel)).arg(Log::msgColor(pDst->qsName, Log::Target)));
+					g.l->log(Log::PermissionDenied, tr("%3 was denied %1 privileges in %2.").arg(Log::msgColor(pname, Log::Privilege)).arg(Log::formatChannel(c)).arg(Log::formatClientUser(pDst, Log::Target)));
 			}
 			break;
 		case MumbleProto::PermissionDenied_DenyType_SuperUser: {
@@ -176,7 +176,7 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 				if (pDst == pSelf)
 					g.l->log(Log::PermissionDenied, tr("You need a certificate to perform this operation."));
 				else
-					g.l->log(Log::PermissionDenied, tr("%1 does not have a certificate.").arg(Log::msgColor(pDst->qsName, Log::Target)));
+					g.l->log(Log::PermissionDenied, tr("%1 does not have a certificate.").arg(Log::formatClientUser(pDst)));
 			}
 			break;
 		default:
@@ -200,7 +200,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	if (! pDst) {
 		if (msg.has_name()) {
 			pDst = pmModel->addUser(msg.session(), u8(msg.name()));
-			g.l->log(Log::UserJoin, tr("Joined server: %1.").arg(Log::msgColor(pDst->qsName, Log::Target)));
+			g.l->log(Log::UserJoin, tr("Joined server: %1.").arg(Log::formatClientUser(pDst, Log::Source)));
 			if (! msg.has_texture())
 				g.o->verifyTexture(pDst);
 		} else {
@@ -229,11 +229,11 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		if (pSelf && pDst != pSelf && (pDst->cChannel == pSelf->cChannel)) {
 			QString name = pDst->qsName;
 			if (pDst->bSelfMute && pDst->bSelfDeaf)
-				g.l->log(Log::OtherSelfMute, tr("%1 is now muted and deafened.").arg(Log::msgColor(name, Log::Target)));
+				g.l->log(Log::OtherSelfMute, tr("%1 is now muted and deafened.").arg(Log::formatClientUser(pDst, Log::Target)));
 			else if (pDst->bSelfMute)
-				g.l->log(Log::OtherSelfMute, tr("%1 is now muted.").arg(Log::msgColor(name, Log::Target)));
+				g.l->log(Log::OtherSelfMute, tr("%1 is now muted.").arg(Log::formatClientUser(pDst, Log::Target)));
 			else
-				g.l->log(Log::OtherSelfMute, tr("%1 is now unmuted.").arg(Log::msgColor(name, Log::Target)));
+				g.l->log(Log::OtherSelfMute, tr("%1 is now unmuted.").arg(Log::formatClientUser(pDst, Log::Target)));
 		}
 	}
 
@@ -246,85 +246,82 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			pDst->setSuppress(msg.suppress());
 
 		if (pSelf && ((pDst->cChannel == pSelf->cChannel) || (pSrc == pSelf))) {
-			QString vic = pDst->qsName;
-			QString admin = pSrc ? pSrc->qsName : tr("the server");
-
 			if (pDst == pSelf) {
 				if (msg.has_mute() && msg.has_deaf() && pDst->bMute && pDst->bDeaf) {
-					g.l->log(Log::YouMuted, tr("You were muted and deafened by %1.").arg(Log::msgColor(admin, Log::Source)));
+					g.l->log(Log::YouMuted, tr("You were muted and deafened by %1.").arg(Log::formatClientUser(pSrc, Log::Source)));
 				} else if (msg.has_mute() && msg.has_deaf() && !pDst->bMute && !pDst->bDeaf) {
-					g.l->log(Log::YouMuted, tr("You were unmuted and undeafened by %1.").arg(Log::msgColor(admin, Log::Source)));
+					g.l->log(Log::YouMuted, tr("You were unmuted and undeafened by %1.").arg(Log::formatClientUser(pSrc, Log::Source)));
 				} else {
 					if (msg.has_mute()) {
 						if (pDst->bMute)
-							g.l->log(Log::YouMuted, tr("You were muted by %1.").arg(Log::msgColor(admin, Log::Source)));
+							g.l->log(Log::YouMuted, tr("You were muted by %1.").arg(Log::formatClientUser(pSrc, Log::Source)));
 						else
-							g.l->log(Log::YouMuted, tr("You were unmuted by %1.").arg(Log::msgColor(admin, Log::Source)));
+							g.l->log(Log::YouMuted, tr("You were unmuted by %1.").arg(Log::formatClientUser(pSrc, Log::Source)));
 					}
 
 					if (msg.has_deaf()) {
 						if (!pDst->bDeaf)
-							g.l->log(Log::YouMuted, tr("You were undeafened by %1.").arg(Log::msgColor(admin, Log::Source)));
+							g.l->log(Log::YouMuted, tr("You were undeafened by %1.").arg(Log::formatClientUser(pSrc, Log::Source)));
 					}
 				}
 
 				if (msg.has_suppress()) {
 					if (pDst->bSuppress)
-						g.l->log(Log::YouMuted, tr("You were suppressed by %1.").arg(Log::msgColor(admin, Log::Source)));
+						g.l->log(Log::YouMuted, tr("You were suppressed by %1.").arg(Log::formatClientUser(pSrc, Log::Source)));
 					else
-						g.l->log(Log::YouMuted, tr("You were unsuppressed by %1.").arg(Log::msgColor(admin, Log::Source)));
+						g.l->log(Log::YouMuted, tr("You were unsuppressed by %1.").arg(Log::formatClientUser(pSrc, Log::Source)));
 				}
 
 				updateTrayIcon();
 			} else if (pSrc == pSelf) {
 				if (msg.has_mute() && msg.has_deaf() && pDst->bMute && pDst->bDeaf) {
-					g.l->log(Log::YouMutedOther, tr("You muted and deafened %1.").arg(Log::msgColor(vic, Log::Target)));
+					g.l->log(Log::YouMutedOther, tr("You muted and deafened %1.").arg(Log::formatClientUser(pDst, Log::Target)));
 				} else if (msg.has_mute() && msg.has_deaf() && !pDst->bMute && !pDst->bDeaf) {
-					g.l->log(Log::YouMutedOther, tr("You unmuted and undeafened %1.").arg(Log::msgColor(vic, Log::Target)));
+					g.l->log(Log::YouMutedOther, tr("You unmuted and undeafened %1.").arg(Log::formatClientUser(pDst, Log::Target)));
 				} else {
 					if (msg.has_mute()) {
 						if (pDst->bMute)
-							g.l->log(Log::YouMutedOther, tr("You muted %1.").arg(Log::msgColor(vic, Log::Target)));
+							g.l->log(Log::YouMutedOther, tr("You muted %1.").arg(Log::formatClientUser(pDst, Log::Target)));
 						else
-							g.l->log(Log::YouMutedOther, tr("You unmuted %1.").arg(Log::msgColor(vic, Log::Target)));
+							g.l->log(Log::YouMutedOther, tr("You unmuted %1.").arg(Log::formatClientUser(pDst, Log::Target)));
 					}
 
 					if (msg.has_deaf()) {
 						if (!pDst->bDeaf)
-							g.l->log(Log::YouMutedOther, tr("You undeafened %1.").arg(Log::msgColor(vic, Log::Target)));
+							g.l->log(Log::YouMutedOther, tr("You undeafened %1.").arg(Log::formatClientUser(pDst, Log::Target)));
 					}
 				}
 
 				if (msg.has_suppress()) {
 					if (pDst->bSuppress)
-						g.l->log(Log::YouMutedOther, tr("You suppressed %1.").arg(Log::msgColor(vic, Log::Target)));
+						g.l->log(Log::YouMutedOther, tr("You suppressed %1.").arg(Log::formatClientUser(pDst, Log::Target)));
 					else
-						g.l->log(Log::YouMutedOther, tr("You unsuppressed %1.").arg(Log::msgColor(vic, Log::Target)));
+						g.l->log(Log::YouMutedOther, tr("You unsuppressed %1.").arg(Log::formatClientUser(pDst, Log::Target)));
 				}
 			} else {
 				if (msg.has_mute() && msg.has_deaf() && pDst->bMute && pDst->bDeaf) {
-					g.l->log(Log::OtherMutedOther, tr("%1 muted and deafened by %2.").arg(Log::msgColor(vic, Log::Target), Log::msgColor(admin, Log::Source)));
+					g.l->log(Log::OtherMutedOther, tr("%1 muted and deafened by %2.").arg(Log::formatClientUser(pDst, Log::Target), Log::formatClientUser(pSrc, Log::Source)));
 				} else if (msg.has_mute() && msg.has_deaf() && !pDst->bMute && !pDst->bDeaf) {
-					g.l->log(Log::OtherMutedOther, tr("%1 unmuted and undeafened by %2.").arg(Log::msgColor(vic, Log::Target), Log::msgColor(admin, Log::Source)));
+					g.l->log(Log::OtherMutedOther, tr("%1 unmuted and undeafened by %2.").arg(Log::formatClientUser(pDst, Log::Target), Log::formatClientUser(pSrc)));
 				} else {
 					if (msg.has_mute()) {
 						if (pDst->bMute)
-							g.l->log(Log::OtherMutedOther, tr("%1 muted by %2.").arg(Log::msgColor(vic, Log::Target), Log::msgColor(admin, Log::Source)));
+							g.l->log(Log::OtherMutedOther, tr("%1 muted by %2.").arg(Log::formatClientUser(pDst, Log::Target), Log::formatClientUser(pSrc, Log::Source)));
 						else
-							g.l->log(Log::OtherMutedOther, tr("%1 unmuted by %2.").arg(Log::msgColor(vic, Log::Target), Log::msgColor(admin, Log::Source)));
+							g.l->log(Log::OtherMutedOther, tr("%1 unmuted by %2.").arg(Log::formatClientUser(pDst, Log::Target), Log::formatClientUser(pSrc, Log::Source)));
 					}
 
 					if (msg.has_deaf()) {
 						if (!pDst->bDeaf)
-							g.l->log(Log::OtherMutedOther, tr("%1 undeafened by %2.").arg(Log::msgColor(vic, Log::Target), Log::msgColor(admin, Log::Source)));
+							g.l->log(Log::OtherMutedOther, tr("%1 undeafened by %2.").arg(Log::formatClientUser(pDst, Log::Target), Log::formatClientUser(pSrc, Log::Source)));
 					}
 				}
 
 				if (msg.has_suppress()) {
 					if (pDst->bSuppress)
-						g.l->log(Log::OtherMutedOther, tr("%1 suppressed by %2.").arg(Log::msgColor(vic, Log::Target), Log::msgColor(admin, Log::Source)));
+						g.l->log(Log::OtherMutedOther, tr("%1 suppressed by %2.").arg(Log::formatClientUser(pDst, Log::Target), Log::formatClientUser(pSrc, Log::Source)));
 					else
-						g.l->log(Log::OtherMutedOther, tr("%1 unsuppressed by %2.").arg(Log::msgColor(vic, Log::Target), Log::msgColor(admin, Log::Source)));
+						g.l->log(Log::OtherMutedOther, tr("%1 unsuppressed by %2.").arg(Log::formatClientUser(pDst, Log::Target), Log::formatClientUser(pSrc, Log::Source)));
 				}
 			}
 		}
@@ -341,17 +338,14 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		if (c != old) {
 			bool log = pSelf && !((pDst == pSelf) && (pSrc == pSelf));
 
-			QString pname = pDst->qsName;
-			QString admin = pSrc ? pSrc->qsName : tr("the server");
-
 			if (log) {
 				if (pDst == pSelf) {
-					g.l->log(Log::ChannelJoin, tr("You were moved to %1 by %2.").arg(Log::msgColor(c->qsName, Log::Channel)).arg(Log::msgColor(admin, Log::Source)));
+					g.l->log(Log::ChannelJoin, tr("You were moved to %1 by %2.").arg(Log::formatChannel(c)).arg(Log::formatClientUser(pSrc, Log::Source)));
 				} else if (pDst->cChannel == ClientUser::get(g.uiSession)->cChannel) {
 					if (pDst == pSrc)
-						g.l->log(Log::ChannelLeave, tr("%1 moved to %2.").arg(Log::msgColor(pname, Log::Target)).arg(Log::msgColor(c->qsName, Log::Channel)));
+						g.l->log(Log::ChannelLeave, tr("%1 moved to %2.").arg(Log::formatClientUser(pDst, Log::Target)).arg(Log::formatChannel(c)));
 					else
-						g.l->log(Log::ChannelLeave, tr("%1 moved to %2 by %3.").arg(Log::msgColor(pname, Log::Target)).arg(Log::msgColor(c->qsName, Log::Channel)).arg(Log::msgColor(admin, Log::Source)));
+						g.l->log(Log::ChannelLeave, tr("%1 moved to %2 by %3.").arg(Log::formatClientUser(pDst, Log::Target)).arg(Log::formatChannel(c)).arg(Log::formatClientUser(pSrc, Log::Source)));
 				}
 			}
 
@@ -359,9 +353,9 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 
 			if (log && (pDst != pSelf) && (pDst->cChannel == pSelf->cChannel)) {
 				if (pDst == pSrc)
-					g.l->log(Log::ChannelJoin, tr("%1 entered channel.").arg(Log::msgColor(pname, Log::Target)));
+					g.l->log(Log::ChannelJoin, tr("%1 entered channel.").arg(Log::formatClientUser(pDst, Log::Target)));
 				else
-					g.l->log(Log::ChannelJoin, tr("%1 moved in from %2 by %3.").arg(Log::msgColor(pname, Log::Target)).arg(Log::msgColor(old->qsName, Log::Channel)).arg(Log::msgColor(admin, Log::Source)));
+					g.l->log(Log::ChannelJoin, tr("%1 moved in from %2 by %3.").arg(Log::formatClientUser(pDst, Log::Target)).arg(Log::formatChannel(old)).arg(Log::formatClientUser(pSrc, Log::Source)));
 			}
 		}
 	}
@@ -382,21 +376,20 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 	ACTOR_INIT;
 	SELF_INIT;
 
-	QString admin = pSrc ? pSrc->qsName : tr("the server");
 	QString reason = u8(msg.reason());
 
 	if (pDst == pSelf) {
 		if (msg.ban())
-			g.l->log(Log::YouKicked, tr("You were kicked and banned from the server by %1: %2.").arg(Log::msgColor(admin, Log::Source)).arg(reason));
+			g.l->log(Log::YouKicked, tr("You were kicked and banned from the server by %1: %2.").arg(Log::formatClientUser(pSrc, Log::Source)).arg(reason));
 		else
-			g.l->log(Log::YouKicked, tr("You were kicked from the server by %1: %2.").arg(Log::msgColor(admin, Log::Source)).arg(reason));
+			g.l->log(Log::YouKicked, tr("You were kicked from the server by %1: %2.").arg(Log::formatClientUser(pSrc, Log::Source)).arg(reason));
 	} else if (pSrc) {
 		if (msg.ban())
-			g.l->log((pSrc == pSelf) ? Log::YouKicked : Log::UserKicked, tr("%3 was kicked and banned from the server by %1: %2.").arg(Log::msgColor(admin, Log::Source)).arg(reason).arg(Log::msgColor(pDst->qsName, Log::Target)));
+			g.l->log((pSrc == pSelf) ? Log::YouKicked : Log::UserKicked, tr("%3 was kicked and banned from the server by %1: %2.").arg(Log::formatClientUser(pSrc, Log::Source)).arg(reason).arg(Log::formatClientUser(pDst, Log::Target)));
 		else
-			g.l->log((pSrc == pSelf) ? Log::YouKicked : Log::UserKicked, tr("%3 was kicked from the server by %1: %2.").arg(Log::msgColor(admin, Log::Source)).arg(reason).arg(Log::msgColor(pDst->qsName, Log::Target)));
+			g.l->log((pSrc == pSelf) ? Log::YouKicked : Log::UserKicked, tr("%3 was kicked from the server by %1: %2.").arg(Log::formatClientUser(pSrc, Log::Source)).arg(reason).arg(Log::formatClientUser(pDst, Log::Target)));
 	} else {
-		g.l->log(Log::UserLeave, tr("Left server: %1.").arg(Log::msgColor(pDst->qsName, Log::Target)));
+		g.l->log(Log::UserLeave, tr("Left server: %1.").arg(Log::formatClientUser(pDst, Log::Source)));
 	}
 	if (pDst != pSelf)
 		pmModel->removeUser(pDst);
@@ -480,8 +473,16 @@ void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 
 void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 	ACTOR_INIT;
-	const QString &name = pSrc ? pSrc->qsName : tr("the server", "message from");
-	g.l->log(Log::TextMessage, tr("From %1: %2").arg(Log::msgColor(name, Log::Source)).arg(u8(msg.message())),
+	QString target;
+	const QString &name = pSrc ? Log::formatClientUser(pSrc) : tr("Server", "message from");
+
+	if (msg.tree_id_size() > 0) {
+		target += tr("(Tree) ");
+	} else if (msg.channel_id_size() > 0) {
+		target += tr("(Channel) ");
+	}
+
+	g.l->log(Log::TextMessage, tr("%2%1: %3").arg(name).arg(target).arg(u8(msg.message())),
 	         tr("Message from %1").arg(name));
 }
 

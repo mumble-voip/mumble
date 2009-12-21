@@ -66,6 +66,9 @@ class ClientUser : public QObject, public User {
 		static QHash<unsigned int, ClientUser *> c_qmUsers;
 		static QReadWriteLock c_qrwlUsers;
 		static ClientUser *get(unsigned int);
+		static ClientUser *getByHash(QString _qsHash);
+		static unsigned int getUiSession(ClientUser *cu);
+		static bool isValid(unsigned int);
 		static ClientUser *add(unsigned int, QObject *p = NULL);
 		static ClientUser *match(const ClientUser *p, bool matchname = false);
 		static void remove(unsigned int);
