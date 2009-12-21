@@ -1781,7 +1781,30 @@ void MainWindow::serverConnected() {
 	}
 }
 
+static void getPathToChannel(Channel *c, QString &out) {
+	out.clear();
+
+	if (!c)
+		return;
+
+	Channel *tmp = c;
+
+	while (tmp->cParent) {
+		// skip root channel
+		if (tmp->iId == 0)
+			break;
+
+		out.prepend(QString::fromLatin1("/"));
+		out.prepend(tmp->qsName);
+
+		tmp = tmp->cParent;
+	}
+}
+
 void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString reason) {
+	if (g.uiSession)
+		getPathToChannel(ClientUser::get(g.uiSession)->cChannel, qsDesiredChannel);
+
 	g.uiSession = 0;
 	g.pPermissions = ChanACL::None;
 	qaServerDisconnect->setEnabled(false);
