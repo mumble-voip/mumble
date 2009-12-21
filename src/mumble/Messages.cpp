@@ -196,13 +196,14 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	ACTOR_INIT;
 	SELF_INIT;
 	ClientUser *pDst=ClientUser::get(msg.session());
+	bool bNewUser = false;
 
 	if (! pDst) {
 		if (msg.has_name()) {
 			pDst = pmModel->addUser(msg.session(), u8(msg.name()));
-			g.l->log(Log::UserJoin, tr("Joined server: %1.").arg(Log::formatClientUser(pDst, Log::Source)));
 			if (! msg.has_texture())
 				g.o->verifyTexture(pDst);
+			bNewUser = true;
 		} else {
 			return;
 		}
@@ -219,6 +220,9 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		if (Database::isLocalMuted(pDst->qsHash))
 			pDst->setLocalMute(true);
 	}
+
+	if (bNewUser)
+		g.l->log(Log::UserJoin, tr("Joined server: %1.").arg(Log::formatClientUser(pDst, Log::Source)));
 
 	if (msg.has_self_deaf() || msg.has_self_mute()) {
 		if (msg.has_self_mute())
