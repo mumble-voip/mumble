@@ -279,7 +279,7 @@ void MainWindow::setupGui()  {
 	dtbChatDockTitle = new DockTitleBar();
 	qdwChat->setTitleBarWidget(dtbChatDockTitle);
 	qdwChat->installEventFilter(dtbChatDockTitle);
-	qleChat->setDefaultText(tr("Not connected"));
+	qleChat->setDefaultText(tr("Not connected"), true);
 	qleChat->setEnabled(false);
 
 	connect(qtvUsers->selectionModel(),
@@ -2014,7 +2014,7 @@ void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
 	if (g.uiSession == 0) {
-		qleChat->setDefaultText(tr("Not connected"));
+		qleChat->setDefaultText(tr("Not connected"), true);
 	} else if (p == NULL || p->uiSession == g.uiSession) {
 		// Channel tree target
 		if (c == NULL) // If no channel selected fallback to current one

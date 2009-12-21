@@ -45,7 +45,7 @@ class ChatbarLineEdit : public QLineEdit {
 		void contextMenuEvent(QContextMenuEvent *);
 		bool event(QEvent *);
 	public:
-		void setDefaultText(const QString &);
+		void setDefaultText(const QString &, bool = false);
 		unsigned int completeAtCursor();
 	signals:
 		void tabPressed(void);

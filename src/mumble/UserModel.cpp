@@ -703,6 +703,7 @@ ModelItem *UserModel::moveItem(ModelItem *oldparent, ModelItem *newparent, Model
 
 	if (active.isValid()) {
 		sel->select(active, QItemSelectionModel::SelectCurrent);
+		v->setCurrentIndex(active);
 	}
 	if (expanded)
 		v->expand(index(t));

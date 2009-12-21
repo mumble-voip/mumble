@@ -85,10 +85,10 @@ ChatbarLineEdit::ChatbarLineEdit(QWidget *p) : QLineEdit(p) {
 	setDefaultText(tr("Type chat message here"));
 }
 
-void ChatbarLineEdit::setDefaultText(const QString &new_default) {
+void ChatbarLineEdit::setDefaultText(const QString &new_default, bool force) {
 	qsDefaultText = new_default;
 
-	if (!hasFocus() && text().trimmed().isEmpty()) {
+	if (bDefaultVisible || force) {
 		QFont f = font();
 		f.setItalic(true);
 		setFont(f);
