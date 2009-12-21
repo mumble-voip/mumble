@@ -376,6 +376,8 @@ void Plugins::checkUpdates() {
 
 void Plugins::finished() {
 	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
+	
+	bool rescan = false;
 
 	if (rep->error() == QNetworkReply::NoError) {
 		const QString &path = rep->url().path();
@@ -413,7 +415,7 @@ void Plugins::finished() {
 						if (f.exists()) {
 							clearPlugins();
 							f.remove();
-							rescanPlugins();
+							rescan=true;
 						}
 					} else if (f.open(QIODevice::ReadOnly)) {
 						QString h = QLatin1String(QCryptographicHash::hash(f.readAll(), QCryptographicHash::Sha1).toHex());
@@ -424,7 +426,7 @@ void Plugins::finished() {
 								if (qfuser.exists()) {
 									clearPlugins();
 									qfuser.remove();
-									rescanPlugins();
+									rescan=true;
 								}
 							}
 							// Mark for removal from userplugins
@@ -447,7 +449,7 @@ void Plugins::finished() {
 							if (f.exists()) {
 								clearPlugins();
 								f.remove();
-								rescanPlugins();
+								rescan=true;
 							}
 						} else if (f.open(QIODevice::ReadOnly)) {
 							QString h = QLatin1String(QCryptographicHash::hash(f.readAll(), QCryptographicHash::Sha1).toHex());
@@ -533,13 +535,16 @@ void Plugins::finished() {
 							}
 						}
 
-						rescanPlugins();
+						rescan=true;
 					}
 				}
 			}
 		}
 
 	}
+	
+	if (rescan)
+		rescanPlugins();
 
 	rep->deleteLater();
 }
