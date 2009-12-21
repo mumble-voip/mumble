@@ -2158,8 +2158,8 @@ void MainWindow::customEvent(QEvent *evt) {
 void MainWindow::on_qteLog_anchorClicked(const QUrl &url) {
 	if (!handleSpecialContextMenu(url, QCursor::pos(), true)) {
 		if (url.scheme() != QLatin1String("file")
-			&& url.scheme() != QLatin1String("qrc")
-			&& !url.isRelative())
+		        && url.scheme() != QLatin1String("qrc")
+		        && !url.isRelative())
 			QDesktopServices::openUrl(url);
 	}
 }

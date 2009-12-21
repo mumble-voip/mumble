@@ -190,7 +190,7 @@ void CertWizard::initializePage(int id) {
 
 bool CertWizard::validateCurrentPage() {
 	if ((currentPage() == qwpWelcome) && qrbQuick->isChecked()) {
-			kpNew = generateNewCert(QString(), QString());
+		kpNew = generateNewCert(QString(), QString());
 	}
 	if (currentPage() == qwpNew) {
 		if (! bValidDomain) {

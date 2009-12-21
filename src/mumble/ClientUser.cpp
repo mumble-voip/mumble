@@ -56,7 +56,7 @@ ClientUser *ClientUser::getByHash(QString _qsHash) {
 	QReadLocker lock(&c_qrwlUsers);
 
 	ClientUser *cu;
-	foreach (cu, c_qmUsers) {
+	foreach(cu, c_qmUsers) {
 		if (cu->qsHash == _qsHash)
 			return cu;
 	}

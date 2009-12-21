@@ -1,5 +1,22 @@
 2009-12-21
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    bb55b37  Fix current index on item move + chatbar default text update
+    a9bd564  Only enable comment reset if there is a comment
+
+  Karl Dietz <dekarl@users.sourceforge.net>
+    6da2259  update wow plugin
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    9f19fe4  Fixed typos and missing types in log messages.
+    fa8a98d  Change getPathToChannel to return a QString instead of
+	     modifing it's arguments
+    902fe58  Add links to the log window
+    17f619e  Remember last channel on disconnect
+
   Thorvald Natvig <slicer@users.sourceforge.net>
+    546b35c  Quickgenerate certificate for lazy users
+    06f3542  Make celt compile on msvc again
+    cb5c323  Add a few more CELT fixes
     32c256b  Delay plugin rescan
     ffed0d8  Don't update user plugins if userdir == systemdir
 
