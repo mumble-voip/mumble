@@ -116,10 +116,17 @@ CertWizard::CertWizard(QWidget *p) : QWizard(p) {
 	qwpExport->setComplete(false);
 }
 
+CertWizard::~CertWizard() {
+	if (! validateCert(g.s.kpCertificate))
+		g.s.kpCertificate = generateNewCert(QString(), QString());
+}
+
 int CertWizard::nextId() const {
 	switch (currentId()) {
 		case 0: {	// Welcome
-				if (qrbCreate->isChecked())
+				if (qrbQuick->isChecked())
+					return 5;
+				else if (qrbCreate->isChecked())
 					return 1;
 				else if (qrbImport->isChecked())
 					return 2;
@@ -156,12 +163,15 @@ void CertWizard::initializePage(int id) {
 		kpCurrent = kpNew = g.s.kpCertificate;
 
 		if (validateCert(kpCurrent)) {
+			qrbQuick->setEnabled(false);
 			qrbExport->setEnabled(true);
 			cvWelcome->setCert(kpCurrent.first);
 			cvWelcome->setVisible(true);
 		} else {
+			qrbQuick->setEnabled(true);
 			qrbExport->setEnabled(false);
 			cvWelcome->setVisible(false);
+			qrbQuick->setChecked(true);
 		}
 	}
 	if (id == 3) {
@@ -179,6 +189,9 @@ void CertWizard::initializePage(int id) {
 }
 
 bool CertWizard::validateCurrentPage() {
+	if ((currentPage() == qwpWelcome) && qrbQuick->isChecked()) {
+			kpNew = generateNewCert(QString(), QString());
+	}
 	if (currentPage() == qwpNew) {
 		if (! bValidDomain) {
 			QRegExp ereg(QLatin1String("(.+)@(.+)"), Qt::CaseInsensitive, QRegExp::RegExp2);

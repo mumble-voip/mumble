@@ -57,6 +57,7 @@ class CertWizard : public QWizard, public Ui::Certificates {
 		int iLookupId;
 	public:
 		CertWizard(QWidget *p = NULL);
+		~CertWizard();
 		int nextId() const;
 		void initializePage(int);
 		bool validateCurrentPage();

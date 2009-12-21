@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file alias="actions/bookmark-new.svg" >../../icons/tango/actions/bookmark-new.svg</file>
     <file alias="actions/document-new.svg" >../../icons/tango/actions/document-new.svg</file>
     <file alias="actions/document-open.svg" >../../icons/tango/actions/document-open.svg</file>
     <file alias="actions/document-save-as.svg" >../../icons/tango/actions/document-save-as.svg</file>
