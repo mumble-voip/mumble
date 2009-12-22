@@ -116,11 +116,6 @@ CertWizard::CertWizard(QWidget *p) : QWizard(p) {
 	qwpExport->setComplete(false);
 }
 
-CertWizard::~CertWizard() {
-	if (! validateCert(g.s.kpCertificate))
-		g.s.kpCertificate = generateNewCert(QString(), QString());
-}
-
 int CertWizard::nextId() const {
 	switch (currentId()) {
 		case 0: {	// Welcome
@@ -189,9 +184,6 @@ void CertWizard::initializePage(int id) {
 }
 
 bool CertWizard::validateCurrentPage() {
-	if ((currentPage() == qwpWelcome) && qrbQuick->isChecked()) {
-		kpNew = generateNewCert(QString(), QString());
-	}
 	if (currentPage() == qwpNew) {
 		if (! bValidDomain) {
 			QRegExp ereg(QLatin1String("(.+)@(.+)"), Qt::CaseInsensitive, QRegExp::RegExp2);

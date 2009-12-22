@@ -57,12 +57,11 @@ class CertWizard : public QWizard, public Ui::Certificates {
 		int iLookupId;
 	public:
 		CertWizard(QWidget *p = NULL);
-		~CertWizard();
 		int nextId() const;
 		void initializePage(int);
 		bool validateCurrentPage();
 		static bool validateCert(const Settings::KeyPair &);
-		static Settings::KeyPair generateNewCert(QString name, const QString &email);
+		static Settings::KeyPair generateNewCert(QString name = QString(), const QString &email = QString());
 		static QByteArray exportCert(const Settings::KeyPair &cert);
 		static Settings::KeyPair importCert(QByteArray, const QString & = QString());
 	public slots:
