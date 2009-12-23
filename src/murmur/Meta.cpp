@@ -437,6 +437,26 @@ bool Meta::boot(int srvnum) {
 	}
 	qhServers.insert(srvnum, s);
 	emit started(s);
+
+#ifdef Q_OS_UNIX
+	int sockets = 19; // Base
+	foreach(s, qhServers) {
+		sockets += 11; // Listen sockets, signal pipes etc.
+		sockets += s->iMaxUsers; // One per user
+	}
+	
+	struct rlimit r;
+	if (getrlimit(RLIMIT_NOFILE, &r) == 0) {
+		if (r.rlim_cur < r.rlim_max) {
+			r.rlim_cur = r.rlim_max;
+			setrlimit(RLIMIT_NOFILE, &r);
+			getrlimit(RLIMIT_NOFILE, &r);
+		}
+		if (r.rlim_cur < sockets)
+			qCritical("Current booted servers require minimum %d file descriptors when all slots are full, but only %d file descriptors are allowed for this process. Your server will crash and burn; read the FAQ for details.", sockets, r.rlim_cur);
+	}
+#endif
+
 	return true;
 }
 
