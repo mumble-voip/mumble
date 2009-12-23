@@ -13,7 +13,7 @@ win32 {
   SOURCES = g15helper.c
   RC_FILE = g15helper.rc
   LIBS *= -llgLcd -ladvapi32 -lshell32 -luser32
-  LIBPATH *= /dev/G15SDK/SDK/Libs/x86
+  LIBPATH *= /dev/G15SDK/SDK/Lib/x86
   INCLUDEPATH *= /dev/G15SDK/SDK/Src
   DEFINES *= WIN32
 }
