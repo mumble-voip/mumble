@@ -781,6 +781,11 @@ void WASAPIOutput::run() {
 
 		packetLength = bufferFrameCount - numFramesAvailable;
 
+		if (g.bAttenuateOthers != lastspoke) {
+			lastspoke = g.bAttenuateOthers;
+			setVolumes(pDevice, g.bAttenuateOthers);
+		}
+
 		while (packetLength > 0) {
 			hr = pRenderClient->GetBuffer(packetLength, &pData);
 			if (FAILED(hr))
@@ -794,9 +799,11 @@ void WASAPIOutput::run() {
 			if (FAILED(hr))
 				goto cleanup;
 
-			if (lastspoke != mixed) {
-				lastspoke = mixed;
-				setVolumes(pDevice, mixed);
+			if (lastspoke != mixed || lastspoke != g.bAttenuateOthers) {
+				if (!(lastspoke && (g.bAttenuateOthers | mixed))) {
+					lastspoke = mixed;
+					setVolumes(pDevice, mixed);
+				}
 			}
 
 			hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);

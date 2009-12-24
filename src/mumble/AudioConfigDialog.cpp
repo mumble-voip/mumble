@@ -421,6 +421,7 @@ void AudioOutputDialog::load(const Settings &r) {
 	loadSlider(qsDelay, r.iOutputDelay);
 	loadSlider(qsVolume, iroundf(r.fVolume * 100.0f));
 	loadSlider(qsOtherVolume, iroundf(r.fOtherVolume * 100.0f));
+	loadCheckBox(qcbAttenuateOthersOnTalk, r.bAttenuateOthersOnTalk);
 	loadSlider(qsJitter, r.iJitterBufferSize);
 	loadComboBox(qcbLoopback, r.lmLoopMode);
 	loadSlider(qsPacketDelay, static_cast<int>(r.dMaxPacketDelay));
@@ -437,6 +438,7 @@ void AudioOutputDialog::save() const {
 	s.iOutputDelay = qsDelay->value();
 	s.fVolume = static_cast<float>(qsVolume->value()) / 100.0f;
 	s.fOtherVolume = static_cast<float>(qsOtherVolume->value()) / 100.0f;
+	s.bAttenuateOthersOnTalk = qcbAttenuateOthersOnTalk->isChecked();
 	s.iJitterBufferSize = qsJitter->value();
 	s.qsAudioOutput = qcbSystem->currentText();
 	s.lmLoopMode = static_cast<Settings::LoopMode>(qcbLoopback->currentIndex());
@@ -481,6 +483,7 @@ void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
 		}
 		bool canmute = aor->canMuteOthers();
 		qsOtherVolume->setEnabled(canmute);
+		qcbAttenuateOthersOnTalk->setEnabled(canmute);
 		qlOtherVolume->setEnabled(canmute);
 
 		bool usesdelay = aor->usesOutputDelay();

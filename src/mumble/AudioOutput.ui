@@ -194,7 +194,43 @@
         </property>
        </widget>
       </item>
+      <item row="3" column="2">
+       <widget class="QLabel" name="qlOtherVolume">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QSlider" name="qsOtherVolume">
+        <property name="toolTip">
+         <string>Volume of other applications during speech</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Decrease volume of other applications during speech.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming speech. This sets the relative volume of other applications when others are talking.</string>
+        </property>
+        <property name="minimum">
+         <number>0</number>
+        </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
       <item row="3" column="0">
+       <widget class="QLabel" name="qliOtherVolume">
+        <property name="text">
+         <string>Other Applications</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsOtherVolume</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
        <widget class="QLabel" name="qliDelay">
         <property name="text">
          <string>Output Delay</string>
@@ -204,7 +240,7 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
+      <item row="2" column="1">
        <widget class="QSlider" name="qsDelay">
         <property name="toolTip">
          <string>Amount of data to buffer</string>
@@ -226,46 +262,20 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="2">
-       <widget class="QLabel" name="qlDelay">
+      <item row="4" column="1">
+       <widget class="QCheckBox" name="qcbAttenuateOthersOnTalk">
+        <property name="toolTip">
+         <string>If checked Mumble also lowers the volume of other applications when you talk</string>
+        </property>
         <property name="text">
-         <string/>
+         <string>Attenuate other applications while you talk</string>
         </property>
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QLabel" name="qlOtherVolume">
+       <widget class="QLabel" name="qlDelay">
         <property name="text">
          <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="qliOtherVolume">
-        <property name="text">
-         <string>Other Applications</string>
-        </property>
-        <property name="buddy">
-         <cstring>qsOtherVolume</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QSlider" name="qsOtherVolume">
-        <property name="toolTip">
-         <string>Volume of other applications during speech</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;Decrease volume of other applications during speech.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming speech. This sets the relative volume of other applications when others are talking.</string>
-        </property>
-        <property name="minimum">
-         <number>0</number>
-        </property>
-        <property name="maximum">
-         <number>100</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>

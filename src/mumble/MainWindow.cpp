@@ -1497,6 +1497,21 @@ void MainWindow::updateMenuPermissions() {
 }
 
 void MainWindow::talkingChanged() {
+	if (g.s.bAttenuateOthersOnTalk) {
+		ClientUser *p=ClientUser::get(g.uiSession);
+		switch (p->tsState) {
+			case ClientUser::Talking:
+			case ClientUser::TalkingWhisper:
+			case ClientUser::TalkingWhisperChannel:
+				g.bAttenuateOthers = true;
+				break;
+			case ClientUser::TalkingOff:
+			default:
+				g.bAttenuateOthers = false;
+				break;
+		}
+	}
+
 	if (g.s.bStateInTray)
 		updateTrayIcon();
 }

@@ -88,6 +88,7 @@ public:
 	QMap<int, CELTCodec *> qmCodecs;
 	int iCodecAlpha, iCodecBeta;
 	bool bPreferAlpha;
+	bool bAttenuateOthers;
 	Global();
 	~Global();
 };

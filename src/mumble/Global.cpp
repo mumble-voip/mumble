@@ -53,6 +53,8 @@ Global::Global() {
 	iCodecBeta = 0;
 	bPreferAlpha = true;
 
+	bAttenuateOthers = false;
+
 	QString apppath = QCoreApplication::instance()->applicationDirPath();
 	QFile inifile(QString::fromLatin1("%1/mumble.ini").arg(apppath));
 	if (inifile.exists() && inifile.permissions().testFlag(QFile::WriteUser)) {

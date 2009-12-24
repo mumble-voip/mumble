@@ -219,6 +219,9 @@ void ConfigDialog::apply() {
 	foreach(ConfigWidget *cw, qmWidgets)
 		cw->accept();
 
+	if (!g.s.bAttenuateOthersOnTalk)
+		g.bAttenuateOthers = false;
+
 	g.ai = AudioInputRegistrar::newFromChoice(g.s.qsAudioInput);
 	if (g.ai)
 		g.ai->start(QThread::HighestPriority);
