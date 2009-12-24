@@ -41,8 +41,9 @@ class UserDelegate : public QStyledItemDelegate {
 		Q_DISABLE_COPY(UserDelegate)
 	public:
 		UserDelegate(QObject *parent = NULL);
-		QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
 		void paint(QPainter * painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+	public slots:
+		bool helpEvent(QHelpEvent *event, QAbstractItemView *view, const QStyleOptionViewItem &option, const QModelIndex &index);
 };
 
 class UserView : public QTreeView {

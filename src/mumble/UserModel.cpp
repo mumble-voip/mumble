@@ -243,7 +243,7 @@ UserModel::~UserModel() {
 
 
 int UserModel::columnCount(const QModelIndex &) const {
-	return 2;
+	return 1;
 }
 
 QModelIndex UserModel::index(int row, int column, const QModelIndex &p) const {
@@ -388,10 +388,8 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					else
 						return p->qsName;
 				}
-				if (! p->qsFriendName.isEmpty())
-					l << qiFriend;
-				if (p->iId >= 0)
-					l << qiAuthenticated;
+				if (! p->qsComment.isEmpty())
+					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
 				if (p->bMute)
 					l << qiMutedServer;
 				if (p->bSuppress)
@@ -404,8 +402,10 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					l << qiDeafenedServer;
 				if (p->bSelfDeaf)
 					l << qiDeafenedSelf;
-				if (! p->qsComment.isEmpty())
-					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
+				if (p->iId >= 0)
+					l << qiAuthenticated;
+				if (! p->qsFriendName.isEmpty())
+					l << qiFriend;
 				return l;
 			default:
 				break;
@@ -1165,7 +1165,7 @@ void UserModel::userTalkingChanged() {
 
 void UserModel::userMuteDeafChanged() {
 	ClientUser *p=static_cast<ClientUser *>(sender());
-	QModelIndex idx = index(p, 1);
+	QModelIndex idx = index(p);
 	emit dataChanged(idx, idx);
 	if (g.uiSession && (p->cChannel == ClientUser::get(g.uiSession)->cChannel))
 		updateOverlay();

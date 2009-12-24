@@ -304,7 +304,6 @@ void MainWindow::setupGui()  {
 	restoreState(g.s.qbaMainWindowState);
 	g.s.wlWindowLayout = wlTmp;
 
-	qtvUsers->header()->restoreState(g.s.qbaHeaderState);
 	setupView(false);
 
 	qmTray = new QMenu(this);
@@ -690,7 +689,6 @@ void MainWindow::setupView(bool toggle_minimize) {
 
 	qdwLog->setVisible(showit);
 	qdwChat->setVisible(showit && g.s.bShowChatbar);
-	qtvUsers->header()->setVisible(showit);
 	menuBar()->setVisible(showit);
 
 	if (toggle_minimize) {

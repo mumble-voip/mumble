@@ -60,37 +60,57 @@
 UserDelegate::UserDelegate(QObject *p) : QStyledItemDelegate(p) {
 }
 
-QSize UserDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {
-	if (index.column() == 1) {
-		const QAbstractItemModel *m = index.model();
-		QVariant data = m->data(index);
-		QList<QVariant> ql = data.toList();
-		return QSize(18 * ql.count(), 18);
-	} else {
-		return QStyledItemDelegate::sizeHint(option, index);
+void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
+	const QAbstractItemModel *m = index.model();
+	const QModelIndex idxc1 = index.sibling(index.row(), 1);
+	QVariant data = m->data(idxc1);
+	QList<QVariant> ql = data.toList();
+
+	painter->save();
+
+	QStyleOptionViewItemV4 o = option;
+	initStyleOption(&o, index);
+
+	// draw background
+	o.widget->style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &o, painter, o.widget);
+
+	// resize rect to exclude the flag icons
+	o.rect = option.rect.adjusted(0, 0, -18 * ql.count(), 0);
+
+	// remove focus state
+	o.state &= ~QStyle::State_Selected;
+	o.state &= ~QStyle::State_MouseOver;
+
+	o.widget->style()->drawControl(QStyle::CE_ItemViewItem, &o, painter, o.widget);
+
+	QRect ps = QRect(option.rect.right() - (ql.size() * 18), option.rect.y(), ql.size() * 18, option.rect.height());
+	for (int i = 0; i < ql.size(); ++i) {
+		QRect r = ps;
+		r.setSize(QSize(16, 16));
+		r.translate(i * 18 + 1, 1);
+		QPixmap pixmap = (qvariant_cast<QIcon>(ql[i]).pixmap(QSize(16, 16)));
+		QPoint p = QStyle::alignedRect(option.direction, option.decorationAlignment, pixmap.size(), r).topLeft();
+		painter->drawPixmap(p, pixmap);
 	}
+
+	painter->restore();
 }
 
-void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
-	if (index.column() == 1) {
+bool UserDelegate::helpEvent(QHelpEvent *evt, QAbstractItemView *view, const QStyleOptionViewItem &option, const QModelIndex &index) {
+	if (index.isValid()) {
 		const QAbstractItemModel *m = index.model();
-		QVariant data = m->data(index);
+		const QModelIndex idxc1 = index.sibling(index.row(), 1);
+		QVariant data = m->data(idxc1);
 		QList<QVariant> ql = data.toList();
+		int offset = 0;
+		offset = ql.size() * 18;
+		offset = option.rect.topRight().x() - offset;
 
-		painter->save();
-		for (int i=0;i<ql.size();i++) {
-			QRect r = option.rect;
-			r.setSize(QSize(16,16));
-			r.translate(i*18+1,1);
-			QPixmap pixmap= (qvariant_cast<QIcon>(ql[i]).pixmap(QSize(16,16)));
-			QPoint p = QStyle::alignedRect(option.direction, option.decorationAlignment, pixmap.size(), r).topLeft();
-			painter->drawPixmap(p, pixmap);
+		if (evt->pos().x() >= offset) {
+			return QStyledItemDelegate::helpEvent(evt, view, option, idxc1);
 		}
-		painter->restore();
-		return;
-	} else {
-		QStyledItemDelegate::paint(painter,option,index);
 	}
+	return QStyledItemDelegate::helpEvent(evt, view, option, index);
 }
 
 UserView::UserView(QWidget *p) : QTreeView(p) {
@@ -119,42 +139,40 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 	QPoint qpos = evt->pos();
 
 	QModelIndex idx = indexAt(qpos);
-	if ((evt->button() == Qt::LeftButton) && idx.isValid() && (idx.column() == 1)) {
+	if ((evt->button() == Qt::LeftButton) && idx.isValid()) {
 		UserModel *um = static_cast<UserModel *>(model());
 		ClientUser *cu = um->getUser(idx);
 		Channel * c = um->getChannel(idx);
 		if ((cu && ! cu->qsComment.isEmpty()) ||
 		        (! cu && c && ! c->qsDesc.isEmpty())) {
 			QRect r = visualRect(idx);
-			qpos = qpos - r.topLeft();
 
-			int offset = 0;
+			int offset = 18;
 
 			if (cu) {
 				// Calculate pixel offset of comment flag
-				if (! cu->qsFriendName.isEmpty())
-					offset += 18;
-				if (cu->iId >= 0)
-					offset += 18;
 				if (cu->bMute)
 					offset += 18;
 				if (cu->bSuppress)
 					offset += 18;
-				if (cu->bDeaf)
-					offset += 18;
 				if (cu->bSelfMute)
-					offset += 18;
-				if (cu->bSelfDeaf)
 					offset += 18;
 				if (cu->bLocalMute)
 					offset += 18;
+				if (cu->bSelfDeaf)
+					offset += 18;
+				if (cu->bDeaf)
+					offset += 18;
+				if (! cu->qsFriendName.isEmpty())
+					offset += 18;
+				if (cu->iId >= 0)
+					offset += 18;
 			}
+
+			offset = r.topRight().x() - offset;
 
 			if ((qpos.x() >= offset) && (qpos.x() <= (offset+18))) {
 				// Clicked on comment flag
-				QModelIndex midx = idx.sibling(idx.row(), 0);
-				r = r.united(visualRect(midx));
-				r.setWidth(r.width() / 2);
 				QWhatsThis::showText(viewport()->mapToGlobal(r.bottomRight()), Log::validHtml(cu ? cu->qsComment : c->qsDesc), this);
 				um->seenComment(idx);
 				return;
