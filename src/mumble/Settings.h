@@ -171,6 +171,7 @@ struct Settings {
 	AlwaysOnTopBehaviour aotbAlwaysOnTop;
 	bool bAskOnQuit;
 	bool bHideTray;
+	bool bStateInTray;
 	bool bUsage;
 	bool bShowUserCount;
 

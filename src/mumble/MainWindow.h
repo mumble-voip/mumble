@@ -77,6 +77,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QSystemTrayIcon *qstiIcon;
 		QMenu *qmTray;
 		QIcon qiIcon, qiIconMuteSelf, qiIconMuteServer, qiIconDeafSelf, qiIconDeafServer, qiIconMuteSuppressed;
+		QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingWhisperChannel, qiTalkingOff;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;
@@ -210,6 +211,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void context_triggered();
 		void updateTarget();
 		void updateMenuPermissions();
+		void talkingChanged();
 	public:
 		MainWindow(QWidget *parent);
 		~MainWindow();

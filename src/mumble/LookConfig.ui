@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>351</width>
+    <width>353</width>
     <height>505</height>
    </rect>
   </property>
@@ -328,6 +328,19 @@
         </property>
         <property name="text">
          <string>Hide in tray when minimized</string>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="1" colspan="2">
+       <widget class="QCheckBox" name="qcbStateInTray">
+        <property name="toolTip">
+         <string>Displays talking status in tray</string>
+        </property>
+        <property name="whatsThis">
+         <string/>
+        </property>
+        <property name="text">
+         <string>Show talking status in tray icon</string>
         </property>
        </widget>
       </item>

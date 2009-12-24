@@ -168,6 +168,7 @@ Settings::Settings() {
 	aotbAlwaysOnTop = OnTopNever;
 	bAskOnQuit = true;
 	bHideTray = true;
+	bStateInTray = true;
 	bUsage = true;
 	bShowUserCount = false;
 	wlWindowLayout = LayoutClassic;
@@ -429,6 +430,7 @@ void Settings::load() {
 	SAVELOAD(bPluginCheck, "ui/plugincheck");
 #endif
 	SAVELOAD(bHideTray, "ui/hidetray");
+	SAVELOAD(bStateInTray, "ui/stateintray");
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
 	SAVELOAD(qsImagePath, "ui/imagepath");
@@ -608,6 +610,7 @@ void Settings::save() {
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 	SAVELOAD(bPluginCheck, "ui/plugincheck");
 	SAVELOAD(bHideTray, "ui/hidetray");
+	SAVELOAD(bStateInTray, "ui/stateintray");
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
 	SAVELOAD(qsImagePath, "ui/imagepath");

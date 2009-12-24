@@ -122,6 +122,7 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbUsersTop, r.bUserTop);
 	loadCheckBox(qcbAskOnQuit, r.bAskOnQuit);
 	loadCheckBox(qcbHideTray, r.bHideTray);
+	loadCheckBox(qcbStateInTray, r.bStateInTray);
 	loadCheckBox(qcbShowUserCount, r.bShowUserCount);
 }
 
@@ -159,6 +160,7 @@ void LookConfig::save() const {
 	s.aotbAlwaysOnTop = static_cast<Settings::AlwaysOnTopBehaviour>(qcbAlwaysOnTop->currentIndex());
 	s.bAskOnQuit = qcbAskOnQuit->isChecked();
 	s.bHideTray = qcbHideTray->isChecked();
+	s.bStateInTray = qcbStateInTray->isChecked();
 	s.bShowUserCount = qcbShowUserCount->isChecked();
 }
 
@@ -186,6 +188,7 @@ bool LookConfig::expert(bool b) {
 	qcbUsersTop->setVisible(b);
 	qcbStyle->setVisible(b);
 	qliStyle->setVisible(b);
+	qcbStateInTray->setVisible(b);
 	return true;
 }
 

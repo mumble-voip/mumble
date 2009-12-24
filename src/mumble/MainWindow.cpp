@@ -116,6 +116,10 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	qiIconMuteSuppressed.addFile(QLatin1String("skin:muted_suppressed.svg"));
 	qiIconDeafSelf.addFile(QLatin1String("skin:deafened_self.svg"));
 	qiIconDeafServer.addFile(QLatin1String("skin:deafened_server.svg"));
+	qiTalkingOff.addFile(QLatin1String("skin:talking_off.svg"));
+	qiTalkingOn.addFile(QLatin1String("skin:talking_on.svg"));
+	qiTalkingWhisperChannel.addFile(QLatin1String("skin:talking_alt.svg"));
+	qiTalkingWhisper.addFile(QLatin1String("skin:talking_whisper.svg"));
 
 	qiIcon.addFile(QLatin1String("skin:mumble.svg"));
 #ifdef Q_OS_MAC
@@ -383,6 +387,22 @@ void MainWindow::updateTrayIcon() {
 		qstiIcon->setIcon(qiIconMuteServer);
 	} else if (p && p->bSuppress) {
 		qstiIcon->setIcon(qiIconMuteSuppressed);
+	} else if (p && g.s.bStateInTray) {
+		switch (p->tsState) {
+			case ClientUser::Talking:
+				qstiIcon->setIcon(qiTalkingOn);
+				break;
+			case ClientUser::TalkingWhisper:
+				qstiIcon->setIcon(qiTalkingWhisper);
+				break;
+			case ClientUser::TalkingWhisperChannel:
+				qstiIcon->setIcon(qiTalkingWhisperChannel);
+				break;
+			case ClientUser::TalkingOff:
+			default:
+				qstiIcon->setIcon(qiTalkingOff);
+				break;
+		}
 	} else {
 		qstiIcon->setIcon(qiIcon);
 	}
@@ -1476,6 +1496,11 @@ void MainWindow::updateMenuPermissions() {
 	qleChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 }
 
+void MainWindow::talkingChanged() {
+	if (g.s.bStateInTray)
+		updateTrayIcon();
+}
+
 void MainWindow::on_qaAudioReset_triggered() {
 	AudioInputPtr ai = g.ai;
 	if (ai)
@@ -1553,8 +1578,10 @@ void MainWindow::on_qaAudioUnlink_triggered() {
 
 void MainWindow::on_qaConfigDialog_triggered() {
 	ConfigDialog *dlg= new ConfigDialog(this);
-	if (dlg->exec() == QDialog::Accepted)
+	if (dlg->exec() == QDialog::Accepted) {
 		setupView(false);
+		updateTrayIcon();
+	}
 	delete dlg;
 }
 

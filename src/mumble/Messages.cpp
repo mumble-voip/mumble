@@ -121,6 +121,10 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 		g.s.qlShortcuts << sc;
 		GlobalShortcutEngine::engine->bNeedRemap = true;
 	}
+
+	ClientUser *p=ClientUser::get(g.uiSession);
+	connect(p, SIGNAL(talkingChanged()), this, SLOT(talkingChanged()));
+	updateTrayIcon();
 }
 
 void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
