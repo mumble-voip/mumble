@@ -226,7 +226,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	}
 
 	if (bNewUser)
-		g.l->log(Log::UserJoin, tr("Joined server: %1.").arg(Log::formatClientUser(pDst, Log::Source)));
+		g.l->log(Log::UserJoin, tr("%1 connected.").arg(Log::formatClientUser(pDst, Log::Source)));
 
 	if (msg.has_self_deaf() || msg.has_self_mute()) {
 		if (msg.has_self_mute())
@@ -397,7 +397,7 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 		else
 			g.l->log((pSrc == pSelf) ? Log::YouKicked : Log::UserKicked, tr("%3 was kicked from the server by %1: %2.").arg(Log::formatClientUser(pSrc, Log::Source)).arg(reason).arg(Log::formatClientUser(pDst, Log::Target)));
 	} else {
-		g.l->log(Log::UserLeave, tr("Left server: %1.").arg(Log::formatClientUser(pDst, Log::Source)));
+		g.l->log(Log::UserLeave, tr("%1 disconnected.").arg(Log::formatClientUser(pDst, Log::Source)));
 	}
 	if (pDst != pSelf)
 		pmModel->removeUser(pDst);
