@@ -348,6 +348,25 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>qcbEnable</tabstop>
+  <tabstop>qcbShow</tabstop>
+  <tabstop>qcbAlwaysSelf</tabstop>
+  <tabstop>qcbUserTextures</tabstop>
+  <tabstop>qcbTop</tabstop>
+  <tabstop>qcbRight</tabstop>
+  <tabstop>qcbBottom</tabstop>
+  <tabstop>qcbLeft</tabstop>
+  <tabstop>qsY</tabstop>
+  <tabstop>qsX</tabstop>
+  <tabstop>qpbSetFont</tabstop>
+  <tabstop>qsMaxHeight</tabstop>
+  <tabstop>qpbUser</tabstop>
+  <tabstop>qpbTalking</tabstop>
+  <tabstop>qpbWhisper</tabstop>
+  <tabstop>qpbChannel</tabstop>
+  <tabstop>qpbChannelTalking</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

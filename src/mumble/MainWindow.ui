@@ -294,7 +294,7 @@
   </action>
   <action name="qaUserTextMessage">
    <property name="text">
-    <string>Send Messa&amp;ge</string>
+    <string>Send &amp;Message</string>
    </property>
    <property name="toolTip">
     <string>Send a Text Message</string>
@@ -360,7 +360,7 @@
   </action>
   <action name="qaChannelUnlinkAll">
    <property name="text">
-    <string>Unlink &amp;All</string>
+    <string>&amp;Unlink All</string>
    </property>
    <property name="toolTip">
     <string>Unlinks your channel from all linked channels.</string>
@@ -535,7 +535,7 @@
   </action>
   <action name="qaChannelSendMessage">
    <property name="text">
-    <string>Send Messa&amp;ge</string>
+    <string>Send &amp;Message</string>
    </property>
    <property name="toolTip">
     <string>Send a Text Message</string>
@@ -585,7 +585,7 @@
   </action>
   <action name="qaConfigCert">
    <property name="text">
-    <string>Certificate Wizard</string>
+    <string>&amp;Certificate Wizard</string>
    </property>
    <property name="toolTip">
     <string>Configure certificates for strong authentication</string>
@@ -596,7 +596,7 @@
   </action>
   <action name="qaUserRegister">
    <property name="text">
-    <string>Register</string>
+    <string>&amp;Register</string>
    </property>
    <property name="toolTip">
     <string>Register user on server</string>
@@ -651,7 +651,7 @@
   </action>
   <action name="qaServerTexture">
    <property name="text">
-    <string>Change Texture</string>
+    <string>Change &amp;Texture</string>
    </property>
    <property name="toolTip">
     <string>Change your overlay texture on this server</string>
@@ -667,7 +667,7 @@
   </action>
   <action name="qaServerTextureRemove">
    <property name="text">
-    <string>Remove Texture</string>
+    <string>&amp;Remove Texture</string>
    </property>
    <property name="toolTip">
     <string>Remove currently defined user texture.</string>

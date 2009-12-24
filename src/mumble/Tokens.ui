@@ -75,6 +75,12 @@ An access token is a text string, which can be used as a password for very simpl
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>qlwTokens</tabstop>
+  <tabstop>qpbAdd</tabstop>
+  <tabstop>qpbRemove</tabstop>
+  <tabstop>qbbButtons</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

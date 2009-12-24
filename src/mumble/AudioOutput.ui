@@ -603,6 +603,24 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>qcbSystem</tabstop>
+  <tabstop>qcbDevice</tabstop>
+  <tabstop>qcbPositional</tabstop>
+  <tabstop>qsJitter</tabstop>
+  <tabstop>qsVolume</tabstop>
+  <tabstop>qsDelay</tabstop>
+  <tabstop>qsOtherVolume</tabstop>
+  <tabstop>qcbAttenuateOthersOnTalk</tabstop>
+  <tabstop>qcbHeadphones</tabstop>
+  <tabstop>qsMinDistance</tabstop>
+  <tabstop>qsBloom</tabstop>
+  <tabstop>qsMaxDistance</tabstop>
+  <tabstop>qsMaxDistVolume</tabstop>
+  <tabstop>qcbLoopback</tabstop>
+  <tabstop>qsPacketDelay</tabstop>
+  <tabstop>qsPacketLoss</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

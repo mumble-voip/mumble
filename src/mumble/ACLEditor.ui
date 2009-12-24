@@ -653,7 +653,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
  </customwidgets>
  <tabstops>
   <tabstop>qtwTab</tabstop>
+  <tabstop>qleChannelName</tabstop>
+  <tabstop>qleChannelPassword</tabstop>
+  <tabstop>qsbChannelPosition</tabstop>
+  <tabstop>qcbChannelTemporary</tabstop>
   <tabstop>qcbGroupList</tabstop>
+  <tabstop>qpbGroupAdd</tabstop>
   <tabstop>qpbGroupRemove</tabstop>
   <tabstop>qcbGroupInherit</tabstop>
   <tabstop>qcbGroupInheritable</tabstop>
@@ -668,16 +673,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
   <tabstop>qpbGroupRemoveRemove</tabstop>
   <tabstop>qlwGroupInherit</tabstop>
   <tabstop>qpbGroupInheritRemove</tabstop>
-  <tabstop>qdbbButtons</tabstop>
+  <tabstop>qlwACLs</tabstop>
+  <tabstop>qcbACLInherit</tabstop>
   <tabstop>qpbACLUp</tabstop>
   <tabstop>qpbACLDown</tabstop>
   <tabstop>qpbACLAdd</tabstop>
   <tabstop>qpbACLRemove</tabstop>
-  <tabstop>qcbACLApplyHere</tabstop>
   <tabstop>qcbACLApplySubs</tabstop>
+  <tabstop>qcbACLApplyHere</tabstop>
   <tabstop>qcbACLGroup</tabstop>
-  <tabstop>qcbACLInherit</tabstop>
-  <tabstop>qlwACLs</tabstop>
+  <tabstop>qcbACLUser</tabstop>
+  <tabstop>qdbbButtons</tabstop>
  </tabstops>
  <resources/>
  <connections>

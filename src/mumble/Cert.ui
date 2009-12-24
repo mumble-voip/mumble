@@ -470,29 +470,30 @@ Are you sure you wish to replace your certificate?
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CertView</class>
-   <extends>QGroupBox</extends>
-   <header>Cert.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>CompletablePage</class>
    <extends>QWizardPage</extends>
    <header>AudioWizard.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>CertView</class>
+   <extends>QGroupBox</extends>
+   <header>Cert.h</header>
+   <container>1</container>
+  </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>qleName</tabstop>
-  <tabstop>qleEmail</tabstop>
-  <tabstop>qlePassword</tabstop>
-  <tabstop>qrbExport</tabstop>
-  <tabstop>qpbImportFile</tabstop>
+  <tabstop>qrbQuick</tabstop>
   <tabstop>qrbCreate</tabstop>
   <tabstop>qrbImport</tabstop>
+  <tabstop>qrbExport</tabstop>
   <tabstop>qleImportFile</tabstop>
+  <tabstop>qpbImportFile</tabstop>
+  <tabstop>qlePassword</tabstop>
   <tabstop>qleExportFile</tabstop>
   <tabstop>qpbExportFile</tabstop>
+  <tabstop>qleName</tabstop>
+  <tabstop>qleEmail</tabstop>
  </tabstops>
  <resources>
   <include location="mumble.qrc"/>

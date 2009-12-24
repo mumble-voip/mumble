@@ -75,12 +75,12 @@
   </action>
   <action name="qaFavoriteEdit">
    <property name="text">
-    <string>Edit...</string>
+    <string>&amp;Edit...</string>
    </property>
   </action>
   <action name="qaFavoriteAddNew">
    <property name="text">
-    <string>Add New...</string>
+    <string>&amp;Add New...</string>
    </property>
    <property name="toolTip">
     <string>Add custom server</string>
@@ -88,12 +88,12 @@
   </action>
   <action name="qaFavoriteAdd">
    <property name="text">
-    <string>Add to Favorites</string>
+    <string>Add to &amp;Favorites</string>
    </property>
   </action>
   <action name="qaUrl">
    <property name="text">
-    <string>Open Webpage</string>
+    <string>Open &amp;Webpage</string>
    </property>
   </action>
   <action name="qaShowReachable">
@@ -104,7 +104,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Show Reachable</string>
+    <string>Show &amp;Reachable</string>
    </property>
    <property name="toolTip">
     <string>Show all servers that respond to ping</string>
@@ -118,7 +118,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Show Populated</string>
+    <string>Show &amp;Populated</string>
    </property>
    <property name="toolTip">
     <string>Show all servers with users</string>
@@ -129,7 +129,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Show All</string>
+    <string>Show &amp;All</string>
    </property>
    <property name="toolTip">
     <string>Show all servers</string>

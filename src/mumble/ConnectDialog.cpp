@@ -715,9 +715,9 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 		qlPublicServers.clear();
 	}
 
-	qdbbButtonBox->button(QDialogButtonBox::Ok)->setText(tr("Connect"));
+	qdbbButtonBox->button(QDialogButtonBox::Ok)->setText(tr("&Connect"));
 
-	QPushButton *qpb = new QPushButton(tr("Add New..."), this);
+	QPushButton *qpb = new QPushButton(tr("&Add New..."), this);
 	qpb->setDefault(false);
 	qpb->setAutoDefault(false);
 	connect(qpb, SIGNAL(clicked()), qaFavoriteAddNew, SIGNAL(triggered()));
@@ -754,7 +754,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	connect(qagFilters, SIGNAL(triggered(QAction *)), this, SLOT(onFiltersTriggered(QAction *)));
 
 	qmPopup = new QMenu(this);
-	qmFilters = new QMenu(tr("Filters"), this);
+	qmFilters = new QMenu(tr("&Filters"), this);
 	qmFilters->addAction(qaShowAll);
 	qmFilters->addAction(qaShowReachable);
 	qmFilters->addAction(qaShowPopulated);

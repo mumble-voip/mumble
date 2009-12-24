@@ -760,13 +760,22 @@
  <tabstops>
   <tabstop>qcbSystem</tabstop>
   <tabstop>qcbDevice</tabstop>
+  <tabstop>qcbEcho</tabstop>
   <tabstop>qcbTransmit</tabstop>
   <tabstop>qsDoublePush</tabstop>
+  <tabstop>qcbPushClick</tabstop>
+  <tabstop>qpbPushClickPreview</tabstop>
+  <tabstop>qpbPushClickReset</tabstop>
+  <tabstop>qlePushClickPathOn</tabstop>
+  <tabstop>qpbPushClickBrowseOn</tabstop>
+  <tabstop>qlePushClickPathOff</tabstop>
+  <tabstop>qpbPushClickBrowseOff</tabstop>
   <tabstop>qrbSNR</tabstop>
   <tabstop>qrbAmplitude</tabstop>
   <tabstop>qsTransmitHold</tabstop>
   <tabstop>qsTransmitMin</tabstop>
   <tabstop>qsTransmitMax</tabstop>
+  <tabstop>qsIdle</tabstop>
   <tabstop>qsQuality</tabstop>
   <tabstop>qsFrames</tabstop>
   <tabstop>qsNoise</tabstop>

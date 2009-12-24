@@ -191,14 +191,16 @@
  <tabstops>
   <tabstop>qrbUsers</tabstop>
   <tabstop>qrbChannel</tabstop>
-  <tabstop>qbbButtons</tabstop>
   <tabstop>qlwUsers</tabstop>
   <tabstop>qcbUser</tabstop>
   <tabstop>qpbAdd</tabstop>
   <tabstop>qpbRemove</tabstop>
   <tabstop>qtwChannels</tabstop>
+  <tabstop>qleGroup</tabstop>
   <tabstop>qcbLinks</tabstop>
   <tabstop>qcbChildren</tabstop>
+  <tabstop>qcbForceCenter</tabstop>
+  <tabstop>qbbButtons</tabstop>
  </tabstops>
  <resources/>
  <connections>

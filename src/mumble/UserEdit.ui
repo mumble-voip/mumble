@@ -50,6 +50,7 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>qlwUserList</tabstop>
   <tabstop>qpbRemove</tabstop>
   <tabstop>qbbButtons</tabstop>
  </tabstops>
