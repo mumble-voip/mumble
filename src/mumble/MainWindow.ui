@@ -48,11 +48,6 @@
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="qmServer">
-    <property name="title">
-     <string>&amp;Server</string>
-    </property>
-   </widget>
    <widget class="QMenu" name="qmUser">
     <property name="title">
      <string>&amp;User</string>
@@ -94,6 +89,11 @@
     <addaction name="qaHelpAboutQt"/>
     <addaction name="separator"/>
     <addaction name="qaHelpVersionCheck"/>
+   </widget>
+   <widget class="QMenu" name="qmServer">
+    <property name="title">
+     <string>&amp;Server</string>
+    </property>
    </widget>
    <addaction name="qmServer"/>
    <addaction name="qmUser"/>
@@ -679,6 +679,11 @@
    </property>
    <property name="toolTip">
     <string>Reset the comment of the selected user.</string>
+   </property>
+  </action>
+  <action name="qaChannelJoin">
+   <property name="text">
+    <string>&amp;Join Channel</string>
    </property>
   </action>
  </widget>

@@ -1248,6 +1248,11 @@ void MainWindow::on_qmConfig_aboutToShow() {
 
 void MainWindow::on_qmChannel_aboutToShow() {
 	qmChannel->clear();
+
+	if (cmCid >= 0 && g.uiSession != 0 && cmCid != ClientUser::get(g.uiSession)->cChannel->iId) {
+		qmChannel->addAction(qaChannelJoin);
+		qmChannel->addSeparator();
+	}
 	qmChannel->addAction(qaChannelAdd);
 	qmChannel->addAction(qaChannelACL);
 	qmChannel->addAction(qaChannelRemove);
@@ -1311,6 +1316,17 @@ void MainWindow::on_qmChannel_aboutToShow() {
 	qaChannelUnlinkAll->setEnabled(unlinkall);
 	qaChannelSendMessage->setEnabled(msg);
 	updateMenuPermissions();
+}
+
+void MainWindow::on_qaChannelJoin_triggered() {
+	Channel *c = getContextMenuChannel();
+
+	if (c) {
+		MumbleProto::UserState mpus;
+		mpus.set_session(g.uiSession);
+		mpus.set_channel_id(c->iId);
+		g.sh->sendMessage(mpus);
+	}
 }
 
 void MainWindow::on_qaChannelAdd_triggered() {
