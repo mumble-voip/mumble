@@ -79,6 +79,7 @@ public:
 	int iAudioBandwidth;
 	int iAudioQuality;
 	QString qsRegionalHost;
+	bool bAttenuateOthers;
 	Global();
 };
 

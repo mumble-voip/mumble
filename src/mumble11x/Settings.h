@@ -74,6 +74,7 @@ struct Settings {
 	QString qsAudioInput, qsAudioOutput;
 	float fVolume;
 	float fOtherVolume;
+	bool bAttenuateOthersOnTalk;
 	int iOutputDelay;
 
 	QString qsALSAInput, qsALSAOutput;
