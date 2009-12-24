@@ -179,14 +179,14 @@ static int trylock() {
 	*/
 
 	// Remember addresses for later
-	posptr = mod + 0x502298;
-	rotptr = mod + 0x50220C;
-	stateptr = mod + 0x55573D;
+	posptr = mod + 0x5022D0;
+	rotptr = mod + 0x502244;
+	stateptr = mod + 0x4E7BCC;
 	hostptr = mod_engine + 0x3C91A4;
 
 	// Gamecheck
 	char sMagic[9];
-	if (!peekProc(mod + 0x4F83AB, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
+	if (!peekProc(mod + 0x4F83E3, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
@@ -213,7 +213,7 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports TF2 build 4057. No identity or context support yet.");
+	return std::wstring(L"Supports TF2 build 4057. No context support yet.");
 }
 
 static std::wstring description(L"Team Fortress 2 (Build 4057)");
