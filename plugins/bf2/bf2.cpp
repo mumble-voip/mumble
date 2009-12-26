@@ -84,7 +84,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char logincheck;
 	bool ok;
 	
-	ok = peekProc((BYTE *) 0x009FFA90, &logincheck, 1);
+	ok = peekProc((BYTE *) 0x30058642, &logincheck, 1);
 	if (! ok)
 		return false;
 
