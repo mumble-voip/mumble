@@ -189,13 +189,25 @@ void MetaParams::read(QString fname) {
 			}
 		}
 
-		if (hasipv6)
+		if (hasipv6) {
 			qlBind << QHostAddress(QHostAddress::AnyIPv6);
 #ifdef Q_OS_UNIX
-		else
+			if (hasipv4) {
+				int s = ::socket(AF_INET6, SOCK_STREAM, 0);
+				if (s != -1) {
+					int ipv6only = 0;
+					socklen_t optlen = sizeof(ipv6only);
+					if (getsockopt(s, IPPROTO_IPV6, IPV6_V6ONLY, &ipv6only, &optlen) == 0) {
+						if (ipv6only == 0)
+							hasipv4 = false;
+					}
+					close(s);
+				}
+			}
 #endif
-			if (hasipv4)
-				qlBind << QHostAddress(QHostAddress::Any);
+		}
+		if (hasipv4)
+			qlBind << QHostAddress(QHostAddress::Any);
 	}
 
 	qsPassword = qsSettings->value("serverpassword", qsPassword).toString();
