@@ -60,7 +60,7 @@ struct BandwidthRecord {
 	int iRecNum;
 	int iSum;
 	Timer qtFirst;
-	unsigned char a_iBW[N_BANDWIDTH_SLOTS];
+	unsigned short a_iBW[N_BANDWIDTH_SLOTS];
 	Timer a_qtWhen[N_BANDWIDTH_SLOTS];
 
 	BandwidthRecord();
