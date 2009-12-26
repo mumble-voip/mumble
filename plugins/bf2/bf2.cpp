@@ -72,7 +72,7 @@ static BYTE *peekProcPtr(VOID *base) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from BF2 (v1.50). IP context support.", L"Mumble BF2 Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from BF2 (v1.50). IP:Port context support.", L"Mumble BF2 Plugin", MB_OK);
 }
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
@@ -81,8 +81,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	char ccontext[128];
 	char state;
-
+	char logincheck;
 	bool ok;
+	
+	ok = peekProc((BYTE *) 0x009FFA90, &logincheck, 1);
+	if (! ok)
+		return false;
+
+	if (logincheck == 0)
+		return false;
+
 
 	/*
 		state value is:
@@ -97,7 +105,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ok = peekProc(posptr, avatar_pos, 12) &&
 	     peekProc(faceptr, avatar_front, 12) &&
 	     peekProc(topptr, avatar_top, 12) &&
-	     peekProc((BYTE *) 0x009A64C8, ccontext, 128);
+	     peekProc((BYTE *) 0x009A80B8, ccontext, 128);
 
 	if (! ok)
 		return false;
@@ -122,7 +130,6 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock() {
-
 	h = NULL;
 	posptr = faceptr = topptr = NULL;
 
