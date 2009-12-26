@@ -38,14 +38,13 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Call of Duty: Modern Warfare 2 Multiplayer v1.0.172). IP:Port context without team discriminator.", L"Mumble CoDMW2 MP Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Call of Duty: Modern Warfare 2 Multiplayer v1.0.174). IP:Port context without team discriminator.", L"Mumble CoDMW2 MP Plugin", MB_OK);
 }
 
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	float viewHor, viewVer;
 	char state;
-	char ccontext[128];
 
 	for (int i=0;i<3;i++)
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
@@ -65,7 +64,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 			0x007EE19D		byte	Magical state value
 	*/
-	ok = peekProc((BYTE *) 0x007EE19D, &state, 1); // Magical state value
+	ok = peekProc((BYTE *) 0x007EF19D, &state, 1); // Magical state value
 	if (! ok)
 		return false;
 	/*
@@ -80,23 +79,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (state != 4)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
-	ok = peekProc((BYTE *) 0x008EA528, avatar_pos+2, 4) &&	//Z
-	     peekProc((BYTE *) 0x008EA52C, avatar_pos, 4) &&	//X
-	     peekProc((BYTE *) 0x008EA530, avatar_pos+1, 4) && //Y
-	     peekProc((BYTE *) 0x008EA538, &viewHor, 4) && //Hor
-	     peekProc((BYTE *) 0x008EA534, &viewVer, 4) && //Ver
-	     peekProc((BYTE *) 0x00A7C950, ccontext, 128);
+	ok = peekProc((BYTE *) 0x00862E44, avatar_pos+2, 4) &&	//Z
+	     peekProc((BYTE *) 0x00862E48, avatar_pos, 4) &&	//X
+	     peekProc((BYTE *) 0x00862E4C, avatar_pos+1, 4) && //Y
+	     peekProc((BYTE *) 0x00862E54, &viewHor, 4) && //Hor
+	     peekProc((BYTE *) 0x00862E50, &viewVer, 4); //Ver
 
 	if (! ok)
 		return false;
-
-	/*
-	    Get context string; in this plugin this will be an
-	    ip:port (char 256 bytes) string.
-		If you start your own server, the string for this address will be "localhost".
-	*/
-	ccontext[127] = 0;
-	context = std::string(ccontext);
 
 	// Scale Coordinates
 	/*
@@ -173,10 +163,10 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 MP v1.0.172 only. No identity support yet.");
+	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 MP v1.0.174 only. No identity support yet.");
 }
 
-static std::wstring description(L"Call of Duty: Modern Warfare 2 MP v1.0.172");
+static std::wstring description(L"Call of Duty: Modern Warfare 2 MP v1.0.174");
 static std::wstring shortname(L"Call of Duty: Modern Warfare 2 MP");
 
 static MumblePlugin codmw2plug = {
