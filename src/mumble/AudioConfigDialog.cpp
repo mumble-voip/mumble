@@ -489,6 +489,7 @@ void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
 		bool canmute = aor->canMuteOthers();
 		qsOtherVolume->setEnabled(canmute);
 		qcbAttenuateOthersOnTalk->setEnabled(canmute);
+		qcbAttenuateOthers->setEnabled(canmute);
 		qlOtherVolume->setEnabled(canmute);
 
 		bool usesdelay = aor->usesOutputDelay();
