@@ -396,7 +396,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location/>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation type="unfinished">このチャンネルに適用する。</translation>
+        <translation type="unfinished">入力項目はこのチャンネルに適用されます。</translation>
     </message>
     <message>
         <location/>
@@ -406,7 +406,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Entry should apply to sub-channels.</source>
-        <translation>サブチャンネルに適用</translation>
+        <translation type="unfinished">入力項目はサブチャンネルに適用されます。</translation>
     </message>
     <message>
         <location/>
@@ -552,7 +552,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&amp;Properties</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">プロパティ(&amp;P)</translation>
     </message>
 </context>
 <context>
@@ -1360,7 +1360,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;b&gt;発言を送信するタイミングを設定します。&lt;/b&gt;&lt;br /&gt;&lt;i&gt;常に有効&lt;/i&gt; - 常時音声入力を受け付けます&lt;br /&gt;&lt;i&gt;声で有効化&lt;/i&gt; - はっきりとしゃべっている時に受け付けます。&lt;br /&gt;&lt;i&gt;キー押下で有効化&lt;/i&gt; - &lt;i&gt;ショートカットキー&lt;/i&gt;で設定したキーを押している間音声入力を受け付けます。</translation>
+        <translation type="unfinished">&lt;b&gt;発言を送信するタイミングを設定します。&lt;/b&gt;&lt;br /&gt;&lt;i&gt;常に有効&lt;/i&gt; - 常時音声入力を受け付けます&lt;br /&gt;&lt;i&gt;声で有効化&lt;/i&gt; - はっきりとしゃべっている時に受け付けます。&lt;br /&gt;&lt;i&gt;プッシュトーク&lt;/i&gt; - &lt;i&gt;ショートカットキー&lt;/i&gt;で設定したキーを押している間音声入力を受け付けます。</translation>
     </message>
     <message>
         <location/>
@@ -1378,12 +1378,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;This enables the audio cues for push to talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when push to talk is pressed and released.</source>
-        <translation>&lt;b&gt;キー押下で有効化の際に通知を行います&lt;/b&gt;&lt;br /&gt;この設定を有効にすると、ショートカットキーが押されたり離されたりするタイミング短いビープ音を鳴らします。</translation>
+        <translation type="unfinished">&lt;b&gt;プッシュトークの際に通知を行います&lt;/b&gt;&lt;br /&gt;この設定を有効にすると、ショートカットキーが押されたり離されたりするタイミング短いビープ音を鳴らします。</translation>
     </message>
     <message>
         <location/>
         <source>PTT Audio cue</source>
-        <translation>キー押下を音で通知</translation>
+        <translation type="unfinished">プッシュトークを音で通知</translation>
     </message>
     <message>
         <location/>
@@ -1402,7 +1402,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Use Amplitude based speech detection.</source>
-        <translation>信号の強さに基づく発言認識を使用</translation>
+        <translation type="unfinished">信号の強さに基づく発言認識を使用します。</translation>
     </message>
     <message>
         <location/>
@@ -1576,27 +1576,27 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Echo</source>
-        <translation type="unfinished">エコー</translation>
+        <translation>エコー</translation>
     </message>
     <message>
         <location/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation type="unfinished">PTTキーを2回押すとロックされます。</translation>
+        <translation type="unfinished">プッシュトーク キーを2回押すとロックされます。</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation type="unfinished">&lt;b&gt;2度押し時間&lt;/b&gt;&lt;br /&gt;もしあなたがプッシュトークキーを2回、ここで設定した感覚の間に押したなら、キーはロックされます。Mumble は あなたがPTTをアンロックするために一回以上キーを押すまで転送状態のままです。</translation>
+        <translation type="unfinished">&lt;b&gt;2度押し時間&lt;/b&gt;&lt;br /&gt;もしあなたがプッシュトークキーを2回、ここで設定した感覚の間に押したなら、キーはロックされます。Mumble は あなたがプッシュトークをアンロックするために一回以上キーを押すまで転送状態のままです。</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when the PTT button is pressed</source>
-        <translation type="unfinished">PTT ボタンが押されたときに再生させる</translation>
+        <translation type="unfinished">プッシュトーク ボタンが押されたときに再生させる</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when the PTT button is released</source>
-        <translation type="unfinished">PTT ボタンが放されたときに再生させる</translation>
+        <translation type="unfinished">プッシュトーク ボタンが放されたときに再生させる</translation>
     </message>
     <message>
         <location/>
@@ -1656,7 +1656,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Audible audio cue when push-to-talk is activated or deactivated</source>
-        <translation type="unfinished">&quot;キー押下で有効化&quot;設定の時、ショートカットキーが押される/離されるといったタイミングで音による通知を行います</translation>
+        <translation type="unfinished">&quot;プッシュトーク&quot;の設定の時、ショートカットキーが押される/離されるといったタイミングで音による通知を行います</translation>
     </message>
     <message>
         <location/>
@@ -1723,7 +1723,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>Push To Talk</source>
-        <translation>キー押下で有効化</translation>
+        <translation type="unfinished">プッシュトーク</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1762,7 +1762,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+55"/>
         <source>%1 kbit/s (Audio %2 %5, Position %4, Overhead %3)</source>
         <oldsource>%1kbit/s (Audio %2 %5, Position %4, Overhead %3)</oldsource>
-        <translation type="unfinished">%1kbit/s (音声 %2 %5, 位置 %4, オーバヘッド %3)</translation>
+        <translation>%1kbit/s (音声 %2 %5, 位置 %4, オーバヘッド %3)</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -1831,7 +1831,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation>位置音響</translation>
+        <translation type="unfinished">位置音響を使う</translation>
     </message>
     <message>
         <location/>
@@ -1971,7 +1971,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
-        <translation type="unfinished">&lt;b&gt;ループバックテストの為のパケットレイテンシーの値を調整します。&lt;/b&gt;&lt;br /&gt;音声のネットワーク経路は、ほとんどの場合若干のレイテンシーを含んでいます。 この設定はループバックモードでのテスト時、レイテンシーの値を変更できるようにします。例えば、この値を15msにすると、20-35msのレイテンシーや80ms-95msのレイテンシーを持ったネットワークをエミュレートするでしょう。 国内のネット接続ではおよそ5msくらいのレイテンシーがあります</translation>
+        <translation type="unfinished">&lt;b&gt;ループバックテストの為のパケットレイテンシーの値を調整します。&lt;/b&gt;&lt;br /&gt;音声のネットワーク経路は、ほとんどの場合若干のレイテンシーを含んでいます。 この設定はループバックモードでのテスト時、レイテンシーの値を変更できるようにします。例えば、この値を15msにすると、20-35msのレイテンシーや80ms-95msのレイテンシーを持ったネットワークをエミュレートするでしょう。 国内のネット接続ではおよそ5msくらいのレイテンシーがあります。</translation>
     </message>
     <message>
         <location/>
@@ -2068,7 +2068,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Other Applications</source>
-        <translation>他のアプリケーション</translation>
+        <translation type="unfinished">他のアプリケーションの音量</translation>
     </message>
     <message>
         <location/>
@@ -2088,12 +2088,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>If checked Mumble also lowers the volume of other applications when you talk</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チェックすると、Mumble はあなたが発言しているときに他のアプリケーションの音量を下げます</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate other applications while you talk</source>
-        <translation type="unfinished"></translation>
+        <translation>あなたが発言しているとき、他のアプリケーションの音量を下げる</translation>
     </message>
 </context>
 <context>
@@ -2132,13 +2132,13 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+31"/>
         <location line="+4"/>
         <source>%1 %</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="-16"/>
         <location line="+6"/>
         <source>%1 m</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>%1%</source>
@@ -2275,7 +2275,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation type="unfinished">直近2回のショートカットキー押下の間隔</translation>
+        <translation type="unfinished">直近2回のプッシュトークの間隔</translation>
     </message>
     <message>
         <location/>
@@ -2759,7 +2759,7 @@ Mumbleは、いくつかのゲームにおいてゲーム内での他プレイ�
     <message>
         <location/>
         <source>Use headphones instead of speakers</source>
-        <translation type="unfinished">スピーカーの代わりにヘッドホンを使う</translation>
+        <translation type="unfinished">スピーカーの代わりにヘッドホンを使います</translation>
     </message>
     <message>
         <location/>
@@ -2811,72 +2811,72 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
     <message>
         <location/>
         <source>Push To Talk:</source>
-        <translation>キー押下で有効化:</translation>
+        <translation type="unfinished">プッシュトーク:</translation>
     </message>
     <message>
         <location/>
         <source>Quality &amp; Notifications</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">品質と通知 </translation>
     </message>
     <message>
         <location/>
         <source>Adjust quality and notification settings.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">音質と通知の設定を調整します。</translation>
     </message>
     <message>
         <location/>
         <source>Quality settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">品質の設定</translation>
     </message>
     <message>
         <location/>
         <source>Low</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">低い</translation>
     </message>
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitable result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (Speex 16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">この設定ではMumbleは&lt;b&gt;少量の帯域&lt;/b&gt;を使います。 これにより当然ながら高い遅延と残念な音質になります。 あなたのネットワーク環境で他の設定がうまく動作しない場合のみこの設定を選んでください。. (Speex 16kbit/s, 60ms / packet)</translation>
     </message>
     <message>
         <location/>
         <source>Balanced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">バランス</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency and bandwidth usage. (CELT 40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">これは&lt;b&gt;標準で推奨される&lt;/b&gt;設定です。音質・遅延と帯域との間に素晴らしいバランスを提供します。 (CELT 40kbit/s, 20ms per packet)</translation>
     </message>
     <message>
         <location/>
         <source>Ultra</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ウルトラ</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (CELT 72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">この設定はLAN内のような通信帯域が問題とならない状況で使うことが推奨されます。 Mumble がサポートする最小の遅延と&lt;b&gt;高い品質&lt;/b&gt;提供します。. (CELT 72kbit/s, 10ms / packet)</translation>
     </message>
     <message>
         <location/>
         <source>Notification settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">通知設定</translation>
     </message>
     <message>
         <location/>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">通知を読み上げあなたに伝えます</translation>
     </message>
     <message>
         <location/>
         <source>Disable Text-To-Speech and use sounds instead.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">テキスト読み上げを無効にして、代わりにサウンドファイルを再生します。</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="+274"/>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -3363,7 +3363,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Automatic certificate creation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書の自動発行</translation>
     </message>
 </context>
 <context>
@@ -3929,7 +3929,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location line="+284"/>
         <source>&amp;Filters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">フィルタ(&amp;F)</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
@@ -4078,38 +4078,38 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>&amp;Edit...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">編集(&amp;E)...</translation>
     </message>
     <message>
         <location/>
         <location filename="ConnectDialog.cpp" line="-688"/>
         <source>&amp;Add New...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">新しく追加(&amp;A) ...</translation>
     </message>
     <message>
         <location/>
         <source>Add to &amp;Favorites</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">お気に入りに追加(&amp;F)</translation>
     </message>
     <message>
         <location/>
         <source>Open &amp;Webpage</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Webページを開く(&amp;W)</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;Reachable</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">到達可能なものを表示(&amp;R)</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;Populated</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザのいるサーバを表示(&amp;P)</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">全て表示(&amp;A)</translation>
     </message>
 </context>
 <context>
@@ -4854,7 +4854,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>This setting decides the width of column splitter.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">この設定は列の分割の幅を決めます。</translation>
     </message>
     <message>
         <source>TextLabel</source>
@@ -5006,7 +5006,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+40"/>
         <source>the server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバ</translation>
     </message>
     <message>
         <location line="+118"/>
@@ -5461,7 +5461,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Always On Top</source>
-        <translation type="unfinished">常に前面に表示する</translation>
+        <translation type="unfinished">常に手前に表示</translation>
     </message>
     <message>
         <location/>
@@ -5518,42 +5518,42 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>This setting controls when the application will be always on top.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">この設定はどのような状況でアプリケーションを常に手前に表示するかを制御します。</translation>
     </message>
     <message>
         <location/>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal mode&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">この設定はどのような状況でアプリケーションを常に手前で表示するかを制御します。</translation>
     </message>
     <message>
         <location/>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">手前に表示しない</translation>
     </message>
     <message>
         <location/>
         <source>Always</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">常に手前に表示する</translation>
     </message>
     <message>
         <location/>
         <source>In minimal view</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">小さい表示でのみ常に手前で表示する</translation>
     </message>
     <message>
         <location/>
         <source>In normal view</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">通常の表示でのみ常に手前で表示する</translation>
     </message>
     <message>
         <location/>
         <source>Displays talking status in system tray</source>
-        <translation type="unfinished"></translation>
+        <translation>システムトレイに発現状態を表示する</translation>
     </message>
     <message>
         <location/>
         <source>Show talking status in tray icon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">発言状態をトレイアイコンで表示する</translation>
     </message>
 </context>
 <context>
@@ -6128,7 +6128,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="MainWindow.cpp" line="-56"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation>音声を有効化</translation>
+        <translation type="unfinished">プッシュトーク</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6140,7 +6140,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1"/>
         <source>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">キー押し下げのボタンを設定する。このボタンを押している間あなたの声は送信される。</translation>
+        <translation type="unfinished">プッシュトークのボタンを設定する。このボタンを押している間あなたの声は送信される。</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6340,57 +6340,57 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Messages.cpp" line="+261"/>
         <source>You were unmuted and undeafened by %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 によって発言・聴取を禁止されました。</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>You muted and deafened %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 を発言・聴取禁止にしました。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You unmuted and undeafened %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 の発言・聴取の禁止を解除しました。</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>You undeafened %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 の聴取禁止を解除しました。</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>You suppressed %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 を発言禁止にしました。</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>%1 muted and deafened by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 は %2 によって発言・聴取が禁止されました。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 unmuted and undeafened by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 が %2 によって発言・聴取の禁止が解除されました。</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>%1 suppressed by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 は %2 よって発言禁止にされました。</translation>
     </message>
     <message>
         <location line="+24"/>
         <source>%1 moved to %2.</source>
-        <translation type="unfinished">%1 は %2 に移動されました。</translation>
+        <translation>%1 は %2 に移動しました。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 moved to %2 by %3.</source>
-        <translation type="unfinished">%1 は %3 によって %2 に移動されました。</translation>
+        <translation>%1 は %3 によって %2 に移動させられました。</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>%1 moved in from %2 by %3.</source>
-        <translation type="unfinished">%1 は %3 によって %2 から移動されました。</translation>
+        <translation>%1 は %3 によって %2 から移動させられました。</translation>
     </message>
     <message>
         <source>Left server: %1.</source>
@@ -6404,52 +6404,52 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-100"/>
         <source>You were denied %1 privileges in %2.</source>
-        <translation type="unfinished">あなたは %2 で %1 の権限を拒否されました。</translation>
+        <translation>あなたは %2 で %1 の権限を拒否されました。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%3 was denied %1 privileges in %2.</source>
-        <translation type="unfinished">%3 は %2 で %1 の権限がありません。</translation>
+        <translation>%3 は %2 で %1 の権限がありません。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Cannot modify SuperUser.</source>
-        <translation type="unfinished">拒否: SuperUserを変更できません。</translation>
+        <translation>拒否: SuperUserを参照できません。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Invalid channel name.</source>
-        <translation type="unfinished">拒否: 不正なユーザ名です。</translation>
+        <translation>拒否: 不正なユーザ名です。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Text message too long.</source>
-        <translation type="unfinished">拒否: テキストメッセージが長すぎます。</translation>
+        <translation>拒否: テキストメッセージが長すぎます。</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
-        <translation type="unfinished">拒否: 一時チャンネル上で操作が許可されていません。</translation>
+        <translation>拒否: 一時チャンネル上では許可されない操作です。</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>You need a certificate to perform this operation.</source>
-        <translation type="unfinished">この操作を実行するには証明書が必要です。</translation>
+        <translation>この操作を実行するには証明書が必要です。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 does not have a certificate.</source>
-        <translation type="unfinished">%1 は証明書を持っていません。</translation>
+        <translation>%1 は証明書を持っていません。</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Permission denied.</source>
-        <translation type="unfinished">権限がありません。</translation>
+        <translation>権限がありません。</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>%1 connected.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 が接続しました。</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -6464,17 +6464,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+156"/>
         <source>%1 disconnected.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 が切断しました。</translation>
     </message>
     <message>
         <location line="+88"/>
         <source>(Tree) </source>
-        <translation type="unfinished"></translation>
+        <translation>(ツリー) </translation>
     </message>
     <message>
         <location line="+2"/>
         <source>(Channel) </source>
-        <translation type="unfinished"></translation>
+        <translation>(チャンネル) </translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6493,12 +6493,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+13"/>
         <source>You were suppressed by %1.</source>
-        <translation type="unfinished">あなたは %1 によって発言禁止にされました。</translation>
+        <translation>あなたは %1 によって発言禁止にされました。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You were unsuppressed by %1.</source>
-        <translation type="unfinished">あなたは %1 によって発言禁止を解除されました。</translation>
+        <translation>あなたは %1 によって発言禁止を解除されました。</translation>
     </message>
     <message>
         <location line="-13"/>
@@ -6512,17 +6512,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+25"/>
         <source>You muted %1.</source>
-        <translation type="unfinished">あなたは %1 を発言禁止にしました。</translation>
+        <translation>あなたは %1 を発言禁止にしました。</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>You unsuppressed %1.</source>
-        <translation type="unfinished">あなたは %1 の発言禁止を解除しました。</translation>
+        <translation>あなたは %1 の発言禁止を解除しました。</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>You unmuted %1.</source>
-        <translation type="unfinished">あなたは %1 の発言禁止を解除しました。</translation>
+        <translation>あなたは %1 の発言禁止を解除しました。</translation>
     </message>
     <message>
         <location line="+23"/>
@@ -6532,7 +6532,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+15"/>
         <source>%1 unsuppressed by %2.</source>
-        <translation type="unfinished">%1 が %2 によって発言禁止を解除されました。</translation>
+        <translation>%1 が %2 によって発言禁止を解除されました。</translation>
     </message>
     <message>
         <location line="-13"/>
@@ -6679,12 +6679,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-41"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザ %1 のコメントをリセットしますか?</translation>
     </message>
     <message>
         <location line="+266"/>
         <source>(Tree) %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">(ツリー） %1: %2</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6694,7 +6694,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+611"/>
         <source>Failed to launch compatibility client</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">互換クライアントの起動に失敗しました</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -7348,7 +7348,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+6"/>
         <source>Unknown Channel Drag mode in UserModel::dropMimeData.</source>
-        <translation type="unfinished">不明なチャンネルドラッグモード, UserModel::dropMimeData.</translation>
+        <translation type="unfinished">UserModel::dropMimeData で不明なチャンネルドラッグモードです。</translation>
     </message>
     <message>
         <source>Unknown Channel Drag mode in PlayerModel::dropMimeData.</source>
@@ -7394,47 +7394,47 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Send &amp;Message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">メッセージを送信(&amp;M)</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Unlink All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">全てのリンクを解除(&amp;U)</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Certificate Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書ウィザード(&amp;C)</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Register</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザ登録(&amp;R)</translation>
     </message>
     <message>
         <location/>
         <source>Change &amp;Texture</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">テクスチャを変更(&amp;T)</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove Texture</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">テクスチャを削除(&amp;R)</translation>
     </message>
     <message>
         <location/>
         <source>Reset &amp;Comment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">コメントをリセット(&amp;R)</translation>
     </message>
     <message>
         <location/>
         <source>Reset the comment of the selected user.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">選択したユーザのコメントをリセットする。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Join Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルに参加(&amp;J)</translation>
     </message>
 </context>
 <context>
@@ -7482,7 +7482,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Reconnect automatically</source>
-        <translation>自動再接続</translation>
+        <translation type="unfinished">自動的に再接続する</translation>
     </message>
     <message>
         <location/>
@@ -8281,12 +8281,12 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">名前</translation>
     </message>
     <message>
         <location/>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">有効化</translation>
     </message>
 </context>
 <context>
@@ -8533,12 +8533,12 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+7"/>
         <source>UDP packets can be sent to and received from the server. Switching back to UDP mode.</source>
-        <translation>UDPパケットをサーバに送ることも、サーバから受けとることもできません。UDPモードに切り替えます。</translation>
+        <translation type="unfinished">UDPパケットのサーバへの送受信ができるようになりました。UDPモードに切り替えます。</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>Connection timed out</source>
-        <translation type="unfinished">接続はタイムアウトになりました</translation>
+        <translation type="unfinished">接続がタイムアウトになりました</translation>
     </message>
 </context>
 <context>
@@ -8805,7 +8805,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserEdit.cpp" line="-5"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">名前を変更</translation>
     </message>
 </context>
 <context>
@@ -8951,7 +8951,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+90"/>
         <location line="+20"/>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">自動的にこの移動を実行できません。数値的な並び替えの指標をリセットするか手動で調整してください。</translation>
     </message>
 </context>
 <context>
