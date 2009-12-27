@@ -92,6 +92,17 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 		qcbOutput->setEnabled(false);
 	}
 
+	if (g.s.iQuality == 16000 && g.s.iFramesPerPacket == 6)
+		qrbQualityLow->setChecked(true);
+	else if (g.s.iQuality == 40000 && g.s.iFramesPerPacket == 2)
+		qrbQualityBalanced->setChecked(true);
+	else if (g.s.iQuality == 72000 && g.s.iFramesPerPacket == 1)
+		qrbQualityUltra->setChecked(true);
+	else
+		qrbQualityCustom->setChecked(true);
+
+	qrbQualityCustom->setVisible(qrbQualityCustom->isChecked());
+
 	qcbPositional->setChecked(g.s.bPositionalAudio);
 	qcbAttenuateOthers->setChecked(g.s.bAttenuateOthers);
 
@@ -421,18 +432,6 @@ void AudioWizard::accept() {
 			g.s.qmMessages[i] ^= Settings::LogSoundfile | Settings::LogTTS;
 	}
 
-	// Set quality
-	if (qrbQualityLow->isChecked()) {
-		g.s.iQuality = 16000;
-		g.s.iFramesPerPacket = 6;
-	} else if (qrbQualityBalanced->isChecked()) {
-		g.s.iQuality = 40000;
-		g.s.iFramesPerPacket = 2;
-	} else if (qrbQualityUltra->isChecked()) {
-		g.s.iQuality = 72000;
-		g.s.iFramesPerPacket = 1;
-	}
-
 	g.s.bUsage = qcbUsage->isChecked();
 	g.bPosTest = false;
 	GlobalShortcutEngine::engine->bNeedRemap = true;
@@ -576,4 +575,32 @@ void AudioWizard::updateTriggerWidgets(bool ptt) {
 void AudioWizard::on_qcbAttenuateOthers_clicked(bool checked)
 {
 	g.s.bAttenuateOthers = checked;
+}
+
+void AudioWizard::on_qrbQualityLow_clicked()
+{
+	g.s.iQuality = 16000;
+	g.s.iFramesPerPacket = 6;
+	restartAudio();
+}
+
+void AudioWizard::on_qrbQualityBalanced_clicked()
+{
+	g.s.iQuality = 40000;
+	g.s.iFramesPerPacket = 2;
+	restartAudio();
+}
+
+void AudioWizard::on_qrbQualityUltra_clicked()
+{
+	g.s.iQuality = 72000;
+	g.s.iFramesPerPacket = 1;
+	restartAudio();
+}
+
+void AudioWizard::on_qrbQualityCustom_clicked()
+{
+	g.s.iQuality = sOldSettings.iQuality;
+	g.s.iFramesPerPacket = sOldSettings.iFramesPerPacket;
+	restartAudio();
 }
