@@ -200,6 +200,19 @@ Please be aware that as long as this wizard is active, audio will be looped loca
          </property>
         </widget>
        </item>
+       <item row="4" column="1">
+        <widget class="QCheckBox" name="qcbAttenuateOthers">
+         <property name="toolTip">
+          <string>Enables attenuation of other applications while users talk to you</string>
+         </property>
+         <property name="whatsThis">
+          <string>Enables attenuation of other applications while users talk to you. This means that as soon someone is starting to speak to you in mumble the sound of all other applications, like audio players, will get attenuated so you can understand them better.</string>
+         </property>
+         <property name="text">
+          <string>Attenuate applications while other users talk</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>

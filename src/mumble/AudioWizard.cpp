@@ -82,6 +82,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 			if (aor->name == AudioOutputRegistrar::current) {
 				qcbOutput->setCurrentIndex(qcbOutput->count() - 1);
 				bDelay = aor->usesOutputDelay();
+				qcbAttenuateOthers->setEnabled(aor->canMuteOthers());
 			}
 			QList<audioDevice> ql= aor->getDeviceChoices();
 		}
@@ -92,6 +93,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	}
 
 	qcbPositional->setChecked(g.s.bPositionalAudio);
+	qcbAttenuateOthers->setChecked(g.s.bAttenuateOthers);
 
 	on_qcbInput_activated(qcbInput->currentIndex());
 	on_qcbOutput_activated(qcbOutput->currentIndex());
@@ -236,6 +238,8 @@ void AudioWizard::on_qcbOutput_activated(int) {
 	foreach(audioDevice d, ql) {
 		qcbOutputDevice->addItem(d.first, d.second);
 	}
+
+	qcbAttenuateOthers->setEnabled(aor->canMuteOthers());
 
 	qcbOutputDevice->setEnabled(ql.count() > 1);
 
@@ -567,4 +571,9 @@ void AudioWizard::on_qcbPositional_clicked(bool on) {
 void AudioWizard::updateTriggerWidgets(bool ptt) {
 	qwVAD->setEnabled(!ptt);
 	qwpTrigger->setComplete(!ptt || (skwPTT->qlButtons.count() > 0));
+}
+
+void AudioWizard::on_qcbAttenuateOthers_clicked(bool checked)
+{
+	g.s.bAttenuateOthers = checked;
 }
