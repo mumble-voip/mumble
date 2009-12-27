@@ -110,6 +110,7 @@ struct Settings {
 	float fVolume;
 	float fOtherVolume;
 	bool bAttenuateOthersOnTalk;
+	bool bAttenuateOthers;
 	int iOutputDelay;
 
 	QString qsALSAInput, qsALSAOutput;

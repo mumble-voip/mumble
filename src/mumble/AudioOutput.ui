@@ -151,7 +151,7 @@
          </size>
         </property>
         <property name="text">
-         <string/>
+         <string>jb</string>
         </property>
        </widget>
       </item>
@@ -190,43 +190,7 @@
       <item row="1" column="2">
        <widget class="QLabel" name="qlVolume">
         <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="2">
-       <widget class="QLabel" name="qlOtherVolume">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QSlider" name="qsOtherVolume">
-        <property name="toolTip">
-         <string>Volume of other applications during speech</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;Decrease volume of other applications during speech.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming speech. This sets the relative volume of other applications when others are talking.</string>
-        </property>
-        <property name="minimum">
-         <number>0</number>
-        </property>
-        <property name="maximum">
-         <number>100</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="qliOtherVolume">
-        <property name="text">
-         <string>Other Applications</string>
-        </property>
-        <property name="buddy">
-         <cstring>qsOtherVolume</cstring>
+         <string>vol</string>
         </property>
        </widget>
       </item>
@@ -262,22 +226,78 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
-       <widget class="QCheckBox" name="qcbAttenuateOthersOnTalk">
-        <property name="toolTip">
-         <string>If checked Mumble also lowers the volume of other applications when you talk</string>
-        </property>
-        <property name="text">
-         <string>Attenuate other applications while you talk</string>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="2">
        <widget class="QLabel" name="qlDelay">
         <property name="text">
-         <string/>
+         <string>od</string>
         </property>
        </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="qliOtherVolume">
+        <property name="text">
+         <string>Attenuate other applications...</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="buddy">
+         <cstring>qsOtherVolume</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QSlider" name="qsOtherVolume">
+        <property name="toolTip">
+         <string>Volume of other applications during speech</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Decrease volume of other applications during speech.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming speech. This sets the relative volume of other applications when others are talking.</string>
+        </property>
+        <property name="minimum">
+         <number>0</number>
+        </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLabel" name="qlOtherVolume">
+        <property name="text">
+         <string>at</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QCheckBox" name="qcbAttenuateOthers">
+          <property name="toolTip">
+           <string>If checked Mumble lowers the volume of other applications when you talk</string>
+          </property>
+          <property name="text">
+           <string>while others talk</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="qcbAttenuateOthersOnTalk">
+          <property name="toolTip">
+           <string>If checked Mumble lowers the volume of other applications while you talk</string>
+          </property>
+          <property name="text">
+           <string>while you talk</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
@@ -345,7 +365,7 @@
          </size>
         </property>
         <property name="text">
-         <string/>
+         <string>md</string>
         </property>
        </widget>
       </item>
@@ -387,7 +407,7 @@
          </size>
         </property>
         <property name="text">
-         <string/>
+         <string>md</string>
         </property>
        </widget>
       </item>
@@ -426,7 +446,7 @@
          </size>
         </property>
         <property name="text">
-         <string/>
+         <string>mv</string>
         </property>
        </widget>
       </item>
@@ -449,7 +469,7 @@
          </size>
         </property>
         <property name="text">
-         <string/>
+         <string>bl</string>
         </property>
        </widget>
       </item>
@@ -516,7 +536,7 @@
          </size>
         </property>
         <property name="text">
-         <string/>
+         <string>dv</string>
         </property>
        </widget>
       </item>
@@ -561,7 +581,7 @@
          </size>
         </property>
         <property name="text">
-         <string/>
+         <string>pl</string>
         </property>
        </widget>
       </item>
@@ -610,8 +630,6 @@
   <tabstop>qsJitter</tabstop>
   <tabstop>qsVolume</tabstop>
   <tabstop>qsDelay</tabstop>
-  <tabstop>qsOtherVolume</tabstop>
-  <tabstop>qcbAttenuateOthersOnTalk</tabstop>
   <tabstop>qcbHeadphones</tabstop>
   <tabstop>qsMinDistance</tabstop>
   <tabstop>qsBloom</tabstop>

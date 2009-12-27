@@ -422,6 +422,7 @@ void AudioOutputDialog::load(const Settings &r) {
 	loadSlider(qsVolume, iroundf(r.fVolume * 100.0f));
 	loadSlider(qsOtherVolume, iroundf(r.fOtherVolume * 100.0f));
 	loadCheckBox(qcbAttenuateOthersOnTalk, r.bAttenuateOthersOnTalk);
+	loadCheckBox(qcbAttenuateOthers, r.bAttenuateOthers);
 	loadSlider(qsJitter, r.iJitterBufferSize);
 	loadComboBox(qcbLoopback, r.lmLoopMode);
 	loadSlider(qsPacketDelay, static_cast<int>(r.dMaxPacketDelay));
@@ -432,6 +433,9 @@ void AudioOutputDialog::load(const Settings &r) {
 	loadSlider(qsBloom, iroundf(r.fAudioBloom * 100.0f));
 	loadCheckBox(qcbHeadphones, r.bPositionalHeadphone);
 	loadCheckBox(qcbPositional, r.bPositionalAudio);
+
+	qsOtherVolume->setEnabled(r.bAttenuateOthersOnTalk || r.bAttenuateOthers);
+	qlOtherVolume->setEnabled(r.bAttenuateOthersOnTalk || r.bAttenuateOthers);
 }
 
 void AudioOutputDialog::save() const {
@@ -439,6 +443,7 @@ void AudioOutputDialog::save() const {
 	s.fVolume = static_cast<float>(qsVolume->value()) / 100.0f;
 	s.fOtherVolume = static_cast<float>(qsOtherVolume->value()) / 100.0f;
 	s.bAttenuateOthersOnTalk = qcbAttenuateOthersOnTalk->isChecked();
+	s.bAttenuateOthers = qcbAttenuateOthers->isChecked();
 	s.iJitterBufferSize = qsJitter->value();
 	s.qsAudioOutput = qcbSystem->currentText();
 	s.lmLoopMode = static_cast<Settings::LoopMode>(qcbLoopback->currentIndex());
@@ -558,4 +563,16 @@ void AudioOutputDialog::on_qsBloom_valueChanged(int v) {
 
 void AudioOutputDialog::on_qcbPositional_stateChanged(int v) {
 	qgbVolume->setEnabled(v);
+}
+
+void AudioOutputDialog::on_qcbAttenuateOthersOnTalk_clicked(bool checked) {
+	bool b = qcbAttenuateOthers->isChecked() || checked;
+	qsOtherVolume->setEnabled(b);
+	qlOtherVolume->setEnabled(b);
+}
+
+void AudioOutputDialog::on_qcbAttenuateOthers_clicked(bool checked) {
+	bool b = qcbAttenuateOthersOnTalk->isChecked() || checked;
+	qsOtherVolume->setEnabled(b);
+	qlOtherVolume->setEnabled(b);
 }

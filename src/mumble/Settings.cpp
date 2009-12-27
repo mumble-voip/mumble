@@ -129,6 +129,7 @@ Settings::Settings() {
 	fVolume = 1.0f;
 	fOtherVolume = 0.5f;
 	bAttenuateOthersOnTalk = false;
+	bAttenuateOthers = false;
 	iMinLoudness = 1000;
 	iVoiceHold = 50;
 	iJitterBufferSize = 1;
@@ -320,6 +321,7 @@ void Settings::load() {
 	SAVELOAD(iMinLoudness, "audio/loudness");
 	SAVELOAD(fVolume, "audio/volume");
 	SAVELOAD(fOtherVolume, "audio/othervolume");
+	SAVELOAD(bAttenuateOthers, "audio/attenuateothers");
 	SAVELOAD(bAttenuateOthersOnTalk, "audio/attenuateothersontalk");
 	LOADENUM(vsVAD, "audio/vadsource");
 	SAVELOAD(fVADmin, "audio/vadmin");
@@ -504,6 +506,7 @@ void Settings::save() {
 	SAVELOAD(iMinLoudness, "audio/loudness");
 	SAVELOAD(fVolume, "audio/volume");
 	SAVELOAD(fOtherVolume, "audio/othervolume");
+	SAVELOAD(bAttenuateOthers, "audio/attenuateothers");
 	SAVELOAD(bAttenuateOthersOnTalk, "audio/attenuateothersontalk");
 	SAVELOAD(vsVAD, "audio/vadsource");
 	SAVELOAD(fVADmin, "audio/vadmin");

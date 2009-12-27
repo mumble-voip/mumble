@@ -800,6 +800,10 @@ void WASAPIOutput::run() {
 			if (FAILED(hr))
 				goto cleanup;
 
+			if (!g.s.bAttenuateOthers && !g.bAttenuateOthers && mixed) {
+				mixed = false;
+			}
+
 			if (lastspoke ^ (g.bAttenuateOthers | mixed)) {
 				lastspoke = g.bAttenuateOthers | mixed;
 				setVolumes(pDevice, lastspoke);
