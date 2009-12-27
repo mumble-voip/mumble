@@ -354,6 +354,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 	qslValid << QLatin1String("ftp");
 	qslValid << QLatin1String("clientid");
 	qslValid << QLatin1String("channelid");
+	qslValid << QLatin1String("spotify");
 
 	QRectF qr = dw.availableGeometry(dw.screenNumber(g.mw));
 	qtd.setTextWidth(qr.width() / 2);
