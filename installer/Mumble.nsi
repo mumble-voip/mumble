@@ -657,7 +657,7 @@ FunctionEnd
 
 Function Run_Mumble
   ${If} ${SectionIsSelected} ${SectionMumble}
-    UAC::Exec '' "$INSTDIR\mumble.exe" '' ''
+    UAC::ShellExec "open" SW_SHOWNORMAL "$INSTDIR\mumble.exe" "" "$INSTDIR"
   ${EndIf}
 FunctionEnd
 
