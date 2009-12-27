@@ -48,6 +48,7 @@ Settings::Settings() {
 	fVolume = 1.0f;
 	fOtherVolume = 0.5f;
 	bAttenuateOthersOnTalk = false;
+	bAttenuateOthers = false;
 	iMinLoudness = 1000;
 	iVoiceHold = 50;
 	iJitterBufferSize = 1;
