@@ -450,7 +450,7 @@ bool BandwidthRecord::addFrame(int size, int maxpersec) {
 	if (bw > maxpersec)
 		return false;
 
-	a_iBW[iRecNum] = static_cast<unsigned char>(size);
+	a_iBW[iRecNum] = static_cast<unsigned short>(size);
 	a_qtWhen[iRecNum].restart();
 
 	iSum = nsum;
