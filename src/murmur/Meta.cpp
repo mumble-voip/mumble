@@ -456,7 +456,7 @@ bool Meta::boot(int srvnum) {
 		sockets += 11; // Listen sockets, signal pipes etc.
 		sockets += s->iMaxUsers; // One per user
 	}
-	
+
 	struct rlimit r;
 	if (getrlimit(RLIMIT_NOFILE, &r) == 0) {
 		if (r.rlim_cur < r.rlim_max) {

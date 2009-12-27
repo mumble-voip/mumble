@@ -33,8 +33,8 @@
 #define TASK_LIST_H
 
 class TaskList {
-public:
-	static void addToRecentList(QString name, QString host, int port);
+	public:
+		static void addToRecentList(QString name, QString host, int port);
 };
 
 #endif // TASK_LIST_H

@@ -1,3 +1,54 @@
+2009-12-27
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    69a05b8  Small fixes for the german translation
+    1c2a5b3  Change some translated strings
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    a42f160  Set uiAccess to true
+    eac3c5a  Allow spotify links
+    107aedb  No, really, use short instead of char
+    075098e  Listen to IPv4 explicitly if IPV6_V6ONLY is 1
+    357e016  Fix bandwidth monitor to handle larger frame sizes
+
+  zentriple <zentriple@users.sourceforge.net>
+    b24f793  Danish translation for 1.2
+
+2009-12-26
+  Tuck Therebelos <snares@users.sourceforge.net>
+    2566014  Linkcheck is different if loading movies
+    87ec3c5  Fix BF2 link bug; improved context address
+    98cd01e  Update MW2; remove useless context
+
+2009-12-25
+  Natenom <natenom@googlemail.com>
+    60ca8ee  Added some new translations for 1.2.1
+
+2009-12-24
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    7a058a9  Add possibility to attenuate other applications while talking
+    a7a18de  Show talking state in tray icon
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    b39f73b  Remove the flags column and draw the flags icons right aligned
+    a6a4bba  Fix 11x compile error
+    e2568ea  Added/Fixed accelerator keys and tab ordering
+    f3a3d1d  Add channel join action to context menu
+    4a45dd8  Fix TTS output for user links
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    9f48958  TF2 update
+
+2009-12-23
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    27ad7ea  Update Qt license text
+    8389b64  Print a big, fat warning if resource limits indicate
+	     insuficient descriptors are available
+    c360c5c  Update path to G15SDK 3.04
+
+2009-12-22
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    20e65f8  Automatic certificate creation with backup and restore
+
 2009-12-21
   Stefan Hacker <dd0t@users.sourceforge.net>
     bb55b37  Fix current index on item move + chatbar default text update
@@ -7,6 +58,7 @@
     6da2259  update wow plugin
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
+    c25a624  Fix joined server link for registered users
     9f19fe4  Fixed typos and missing types in log messages.
     fa8a98d  Change getPathToChannel to return a QString instead of
 	     modifing it's arguments
@@ -55,6 +107,9 @@
 2009-12-17
   Stefan Hacker <dd0t@users.sourceforge.net>
     c421faf  Fix faulty function call in phpBB3auth.py
+
+  Kissaki <kissaki@gmx.de>
+    f5260da  indendation fix, normalization
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     9d16137  Set correct target for the last whisper frame
@@ -514,6 +569,9 @@
 2009-11-08
   Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     0bfaea9  Updated Spanish translation.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    5f8aedf  Add tasklist entries for recent connections
 
   meanracoon <racoon@meanclan.org>
     6db9fb1  Dutch Installer Translation
