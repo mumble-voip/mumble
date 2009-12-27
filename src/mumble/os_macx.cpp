@@ -161,7 +161,11 @@ static void crashhandler_signals_restore() {
 }
 
 static void crashhandler_init() {
+#ifdef COMPAT_CLIENT
+	QString dump = QDir::homePath() + QLatin1String("/Library/Preferences/Mumble/mumble11x.dmp");
+#else
 	QString dump = g.qdBasePath.filePath(QLatin1String("mumble.dmp"));
+#endif
 	if (strncpy(crashhandler_fn, dump.toUtf8().data(), PATH_MAX)) {
 		crashhandler_signals_setup();
 		/* todo: Change the behavior of the Apple crash dialog? Maybe? */
@@ -179,7 +183,11 @@ void os_init() {
 	crashhandler_init();
 
 	const char *home = getenv("HOME");
+#ifdef COMPAT_CLIENT
+	const char *logpath = "/Library/Logs/Mumble11x.log";
+#else
 	const char *logpath = "/Library/Logs/Mumble.log";
+#endif
 
 	if (home) {
 		size_t len = strlen(home) + strlen(logpath) + 1;
