@@ -255,7 +255,7 @@
          <string>Volume of other applications during speech</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Decrease volume of other applications during speech.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming speech. This sets the relative volume of other applications when others are talking.</string>
+         <string>&lt;b&gt;Attenuate volume of other applications during speech.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the relative volume of other applications if the feature is enabled.</string>
         </property>
         <property name="minimum">
          <number>0</number>
@@ -280,7 +280,10 @@
         <item>
          <widget class="QCheckBox" name="qcbAttenuateOthers">
           <property name="toolTip">
-           <string>If checked Mumble lowers the volume of other applications when you talk</string>
+           <string>If checked Mumble lowers the volume of other applications while others talk</string>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;b&gt;Attenuate applications while others talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while others talk to you.</string>
           </property>
           <property name="text">
            <string>while others talk</string>
@@ -291,6 +294,9 @@
          <widget class="QCheckBox" name="qcbAttenuateOthersOnTalk">
           <property name="toolTip">
            <string>If checked Mumble lowers the volume of other applications while you talk</string>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</string>
           </property>
           <property name="text">
            <string>while you talk</string>
