@@ -28,7 +28,7 @@ LangString MUMBLE_SEC_BONJOUR ${LANG_DANISH} "Bonjour for Windows"
 LangString DESC_SectionMumble ${LANG_DANISH} "Mumble-klienten, som du behøver for at kunne oprette forbindelse til en server."
 LangString DESC_SectionMumble11X ${LANG_DANISH} "Mumble-klienten til at oprette forbindelse til ældre servere."
 LangString DESC_SectionMurmur ${LANG_DANISH} "Serveren for Mumble. Inkluderer alt hvad der er nødvendigt for at køre din egen server."
-LangString DESC_SectionBonjour ${LANG_DANISH} "Bonjour annoncerer og opdager Murmur-servere på dit LAN-netværk. This will download and run the Bonjour installer."
+LangString DESC_SectionBonjour ${LANG_DANISH} "Bonjour annoncerer og opdager Murmur-servere på dit LAN-netværk. Dette vil downloade og køre Bonjour-installationsprogrammet."
 
 ; Uninstall sections
 LangString MUMBLE_UNSEC_BASE ${LANG_DANISH} "Mumble og Murmur"
