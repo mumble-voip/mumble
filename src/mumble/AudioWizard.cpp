@@ -271,7 +271,7 @@ void AudioWizard::on_qcbOutputDevice_activated(int) {
 }
 
 void AudioWizard::on_qsOutputDelay_valueChanged(int v) {
-	qlOutputDelay->setText(tr("%1ms").arg(v*10));
+	qlOutputDelay->setText(tr("%1 ms").arg(v*10));
 	g.s.iOutputDelay = v;
 	restartAudio();
 }

@@ -381,9 +381,9 @@ void AudioStats::on_Tick_timeout() {
 	}
 
 	if (g.uiDoublePush > 1000000)
-		txt = tr(">1000ms");
+		txt = tr(">1000 ms");
 	else
-		txt.sprintf("%04llums",g.uiDoublePush / 1000);
+		txt.sprintf("%04llu ms",g.uiDoublePush / 1000);
 	qlDoublePush->setText(txt);
 
 	abSpeech->iBelow = iroundf(g.s.fVADmin * 32767.0f);

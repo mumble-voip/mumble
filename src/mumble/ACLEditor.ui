@@ -21,7 +21,7 @@
      </property>
      <widget class="QWidget" name="qwChannel">
       <attribute name="title">
-       <string>Properties</string>
+       <string>&amp;Properties</string>
       </attribute>
       <layout class="QFormLayout" name="formLayout">
        <property name="fieldGrowthPolicy">

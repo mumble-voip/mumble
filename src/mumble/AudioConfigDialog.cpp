@@ -266,7 +266,7 @@ void AudioInputDialog::updateBitrate() {
 
 	qlBitrate->setPalette(pal);
 
-	QString v = tr("%1kbit/s (Audio %2 %5, Position %4, Overhead %3)").arg(total / 1000.0, 0, 'f', 1).arg(audiorate / 1000.0, 0, 'f', 1).arg(overhead / 1000.0, 0, 'f', 1).arg(posrate / 1000.0, 0, 'f', 1).arg(::AudioInput::preferCELT(q,p) ? tr("CELT") : tr("Speex"));
+	QString v = tr("%1 kbit/s (Audio %2 %5, Position %4, Overhead %3)").arg(total / 1000.0, 0, 'f', 1).arg(audiorate / 1000.0, 0, 'f', 1).arg(overhead / 1000.0, 0, 'f', 1).arg(posrate / 1000.0, 0, 'f', 1).arg(::AudioInput::preferCELT(q,p) ? tr("CELT") : tr("Speex"));
 	qlBitrate->setText(v);
 
 	if (p == 1) {
@@ -506,11 +506,11 @@ void AudioOutputDialog::on_qsVolume_valueChanged(int v) {
 	}
 	qlVolume->setPalette(pal);
 
-	qlVolume->setText(tr("%1%").arg(v));
+	qlVolume->setText(tr("%1 %").arg(v));
 }
 
 void AudioOutputDialog::on_qsOtherVolume_valueChanged(int v) {
-	qlOtherVolume->setText(tr("%1%").arg(v));
+	qlOtherVolume->setText(tr("%1 %").arg(v));
 }
 
 void AudioOutputDialog::on_qsPacketDelay_valueChanged(int v) {
@@ -518,11 +518,11 @@ void AudioOutputDialog::on_qsPacketDelay_valueChanged(int v) {
 }
 
 void AudioOutputDialog::on_qsPacketLoss_valueChanged(int v) {
-	qlPacketLoss->setText(tr("%1%").arg(v));
+	qlPacketLoss->setText(tr("%1 %").arg(v));
 }
 
 void AudioOutputDialog::on_qsDelay_valueChanged(int v) {
-	qlDelay->setText(tr("%1ms").arg(v*10));
+	qlDelay->setText(tr("%1 ms").arg(v*10));
 }
 
 void AudioOutputDialog::on_qcbLoopback_currentIndexChanged(int v) {
@@ -537,23 +537,23 @@ void AudioOutputDialog::on_qcbLoopback_currentIndexChanged(int v) {
 }
 
 void AudioOutputDialog::on_qsMinDistance_valueChanged(int v) {
-	qlMinDistance->setText(tr("%1m").arg(v/10.0, 0, 'f', 1));
+	qlMinDistance->setText(tr("%1 m").arg(v/10.0, 0, 'f', 1));
 	if (qsMaxDistance->value() < v)
 		qsMaxDistance->setValue(v);
 }
 
 void AudioOutputDialog::on_qsMaxDistance_valueChanged(int v) {
-	qlMaxDistance->setText(tr("%1m").arg(v/10.0, 0, 'f', 1));
+	qlMaxDistance->setText(tr("%1 m").arg(v/10.0, 0, 'f', 1));
 	if (qsMinDistance->value() > v)
 		qsMinDistance->setValue(v);
 }
 
 void AudioOutputDialog::on_qsMaxDistVolume_valueChanged(int v) {
-	qlMaxDistVolume->setText(tr("%1%").arg(v));
+	qlMaxDistVolume->setText(tr("%1 %").arg(v));
 }
 
 void AudioOutputDialog::on_qsBloom_valueChanged(int v) {
-	qlBloom->setText(tr("%1%").arg(v+100));
+	qlBloom->setText(tr("%1 %").arg(v+100));
 }
 
 void AudioOutputDialog::on_qcbPositional_stateChanged(int v) {
