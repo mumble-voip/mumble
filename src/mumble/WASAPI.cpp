@@ -774,6 +774,7 @@ void WASAPIOutput::run() {
 	iChannels = pwfx->nChannels;
 	initializeMixer(chanmasks);
 
+	bool mixed = false;
 	while (bRunning && ! FAILED(hr)) {
 		hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
 		if (FAILED(hr))
@@ -781,9 +782,9 @@ void WASAPIOutput::run() {
 
 		packetLength = bufferFrameCount - numFramesAvailable;
 
-		if (g.bAttenuateOthers != lastspoke) {
-			lastspoke = g.bAttenuateOthers;
-			setVolumes(pDevice, g.bAttenuateOthers);
+		if (lastspoke ^ (g.bAttenuateOthers | mixed)) {
+			lastspoke = g.bAttenuateOthers | mixed;
+			setVolumes(pDevice, lastspoke);
 		}
 
 		while (packetLength > 0) {
@@ -791,7 +792,7 @@ void WASAPIOutput::run() {
 			if (FAILED(hr))
 				goto cleanup;
 
-			bool mixed = mix(reinterpret_cast<float *>(pData), packetLength);
+			mixed = mix(reinterpret_cast<float *>(pData), packetLength);
 			if (mixed)
 				hr = pRenderClient->ReleaseBuffer(packetLength, 0);
 			else
@@ -799,11 +800,9 @@ void WASAPIOutput::run() {
 			if (FAILED(hr))
 				goto cleanup;
 
-			if (lastspoke != mixed || lastspoke != g.bAttenuateOthers) {
-				if (!(lastspoke && (g.bAttenuateOthers | mixed))) {
-					lastspoke = mixed;
-					setVolumes(pDevice, mixed);
-				}
+			if (lastspoke ^ (g.bAttenuateOthers | mixed)) {
+				lastspoke = g.bAttenuateOthers | mixed;
+				setVolumes(pDevice, lastspoke);
 			}
 
 			hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
