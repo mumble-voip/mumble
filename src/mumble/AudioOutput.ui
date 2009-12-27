@@ -236,7 +236,7 @@
       <item row="3" column="0">
        <widget class="QLabel" name="qliOtherVolume">
         <property name="text">
-         <string>Attenuate other applications...</string>
+         <string>Attenuate applications by...</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -252,16 +252,19 @@
       <item row="3" column="1">
        <widget class="QSlider" name="qsOtherVolume">
         <property name="toolTip">
-         <string>Volume of other applications during speech</string>
+         <string>Attenuation of other applications during speech</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Attenuate volume of other applications during speech.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the relative volume of other applications if the feature is enabled.</string>
+         <string>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</string>
         </property>
         <property name="minimum">
          <number>0</number>
         </property>
         <property name="maximum">
          <number>100</number>
+        </property>
+        <property name="value">
+         <number>0</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -280,13 +283,13 @@
         <item>
          <widget class="QCheckBox" name="qcbAttenuateOthers">
           <property name="toolTip">
-           <string>If checked Mumble lowers the volume of other applications while others talk</string>
+           <string>If checked Mumble lowers the volume of other applications while other users talk</string>
           </property>
           <property name="whatsThis">
-           <string>&lt;b&gt;Attenuate applications while others talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while others talk to you.</string>
+           <string>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</string>
           </property>
           <property name="text">
-           <string>while others talk</string>
+           <string>while other users talk</string>
           </property>
          </widget>
         </item>

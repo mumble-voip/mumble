@@ -420,7 +420,7 @@ void AudioOutputDialog::load(const Settings &r) {
 
 	loadSlider(qsDelay, r.iOutputDelay);
 	loadSlider(qsVolume, iroundf(r.fVolume * 100.0f));
-	loadSlider(qsOtherVolume, iroundf(r.fOtherVolume * 100.0f));
+	loadSlider(qsOtherVolume, iroundf((1.0f - r.fOtherVolume) * 100.0f));
 	loadCheckBox(qcbAttenuateOthersOnTalk, r.bAttenuateOthersOnTalk);
 	loadCheckBox(qcbAttenuateOthers, r.bAttenuateOthers);
 	loadSlider(qsJitter, r.iJitterBufferSize);
@@ -441,7 +441,7 @@ void AudioOutputDialog::load(const Settings &r) {
 void AudioOutputDialog::save() const {
 	s.iOutputDelay = qsDelay->value();
 	s.fVolume = static_cast<float>(qsVolume->value()) / 100.0f;
-	s.fOtherVolume = static_cast<float>(qsOtherVolume->value()) / 100.0f;
+	s.fOtherVolume = 1.0f - (static_cast<float>(qsOtherVolume->value()) / 100.0f);
 	s.bAttenuateOthersOnTalk = qcbAttenuateOthersOnTalk->isChecked();
 	s.bAttenuateOthers = qcbAttenuateOthers->isChecked();
 	s.iJitterBufferSize = qsJitter->value();
