@@ -44,6 +44,8 @@
 #endif
 #include "VersionCheck.h"
 #include "NetworkConfig.h"
+#include "CrashReporter.h"
+
 
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
@@ -60,10 +62,6 @@ extern char *os_lang;
 int main(int argc, char **argv) {
 	int res;
 
-#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
-	os_init();
-#endif
-
 	QT_REQUIRE_VERSION(argc, argv, "4.4.1");
 
 	// Initialize application object.
@@ -72,6 +70,10 @@ int main(int argc, char **argv) {
 	a.setOrganizationName(QLatin1String("Mumble"));
 	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
 	a.setQuitOnLastWindowClosed(false);
+
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+	os_init();
+#endif
 
 	Global::g_global_struct = new Global();
 
@@ -186,6 +188,14 @@ int main(int argc, char **argv) {
 	// Initialize proxy settings
 	NetworkConfig::SetupProxy();
 
+	g.nam = new QNetworkAccessManager();
+
+#ifndef NO_CRASH_REPORT
+	CrashReporter *cr = new CrashReporter();
+	cr->run();
+	delete cr;
+#endif
+
 	// Initialize logger
 	g.l = new Log();
 
@@ -200,8 +210,6 @@ int main(int argc, char **argv) {
 	g.o->setActive(g.s.bOverlayEnable);
 
 	g.lcd = new LCD();
-
-	g.nam = new QNetworkAccessManager();
 
 	// Process any waiting events before initializing our MainWindow.
 	// The mumble:// URL support for Mac OS X happens through AppleEvents,

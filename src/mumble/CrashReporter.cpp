@@ -105,7 +105,11 @@ void CrashReporter::uploadProgress(qint64 sent, qint64 total) {
 
 void CrashReporter::run() {
 	QByteArray qbaDumpContents;
+#ifdef COMPAT_CLIENT
+	QFile qfCrashDump(QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QLatin1String("/mumble11x.dmp"));
+#else
 	QFile qfCrashDump(g.qdBasePath.filePath(QLatin1String("mumble.dmp")));
+#endif
 	if (! qfCrashDump.exists())
 		return;
 
