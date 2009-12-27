@@ -6058,7 +6058,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location filename="MainWindow.ui" line="594"/>
         <source>&amp;Certificate Wizard</source>
-        <translation>Zertifikats-Assistent</translation>
+        <translation>&amp;Zertifikats-Assistent</translation>
     </message>
     <message>
         <location filename="MainWindow.ui" line="605"/>
@@ -6862,7 +6862,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location filename="MainWindow.cpp" line="1176"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
-        <translation>Wollen Sie wirklich das Kommentar des Benutzers  %1 löschen?</translation>
+        <translation>Wollen Sie wirklich den Kommentar des Benutzers %1 löschen?</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="1442"/>
