@@ -211,7 +211,7 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Dystopia build 3945. No identity or context support yet.");
+	return std::wstring(L"Supports Dystopia build 3945. No identity support yet.");
 }
 
 static std::wstring description(L"Dystopia (Build 3945)");

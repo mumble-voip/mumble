@@ -5,10 +5,14 @@
 #include <windows.h>
 #include <tlhelp32.h>
 #include <math.h>
+#include <string>
+#include <sstream>
 
 #include "../mumble_plugin.h"
 
 HANDLE h = NULL;
+
+using namespace std;
 
 static DWORD getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
@@ -38,7 +42,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from COD4 (v 1.7.568). IP:Port context without team discriminator.", L"Mumble COD4 Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from COD4 (v1.7.568). IP:Port context without team discriminator.", L"Mumble COD4 Plugin", MB_OK);
 }
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
@@ -93,9 +97,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	    Get context string; in this plugin this will be an
 	    ip:port (char 256 bytes) string
 	*/
+ 
 	ccontext[127] = 0;
 	context = std::string(ccontext);
-
+	
+	if (context.find(':')==string::npos) 
+		context.append(":28960");
+		
 	// Scale Coordinates
 	/*
 	   Z-Value is increasing when heading north
@@ -171,7 +179,7 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Call of Duty 4 v1.7.568 only. Only supports context.");
+	return std::wstring(L"Supports Call of Duty 4 v1.7.568 only. No identity support yet.");
 }
 
 static std::wstring description(L"Call of Duty 4 v1.7.568");

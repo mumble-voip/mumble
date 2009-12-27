@@ -66,6 +66,10 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 	return (ok && (r == len));
 }
 
+static void about(HWND h) {
+	::MessageBox(h, L"Reads audio position information from Garry's Mod 11 (Build 3943). IP:Port context without team descriminator.", L"Mumble Gmod Plugin", MB_OK);
+}
+
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
 	float v = rot[1];
@@ -162,7 +166,7 @@ static int trylock() {
 	/*
 		position tuple:		client.dll+0x3dcad4  (x,y,z, float)
 		orientation tuple:	client.dll+0x3dcae0  (v,h float)
-		ID string:		client.dll+0x3a5674 = "Dm/$" (4 characters, text)
+		ID string:			client.dll+0x3a5674 = "Dm/$" (4 characters, text)
 		spawn state:		client.dll+0x37e180  (0 when at main menu, 2 when not spawned, 7 when spawned, byte)
 		ip:port string		engine.dll+0x3909c4  (zero terminated ip:port, string)
 	*/
@@ -198,11 +202,6 @@ static void unlock() {
 		h = NULL;
 	}
 	return;
-}
-
-
-static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Half-Life 2: Deathmatch (Build 3945)", L"Mumble HL2DM Plugin", MB_OK);
 }
 
 static const wstring longdesc() {

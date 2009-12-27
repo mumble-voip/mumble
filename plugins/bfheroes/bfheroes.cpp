@@ -81,9 +81,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
 
 	char state;
-
+	char logincheck;
 	bool ok;
+	
+	ok = peekProc((BYTE *) 0x00A24D6C, &logincheck, 1);
+	if (! ok)
+		return false;
 
+	if (logincheck == 0)
+		return false;
+	
 	ok = peekProc(posptr, avatar_pos, 12) &&
 	     peekProc(faceptr, avatar_front, 12) &&
 	     peekProc(topptr, avatar_top, 12) &&

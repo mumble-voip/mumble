@@ -193,7 +193,7 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 Special Ops v1.0 only. No context or identity support yet.");
+	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 Special Ops v1.0 only. No context or identity support.");
 }
 
 static std::wstring description(L"Call of Duty: Modern Warfare 2 Special Ops v1.0");

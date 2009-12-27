@@ -11,6 +11,7 @@
 HANDLE h;
 BYTE *posptr;
 BYTE *rotptr;
+BYTE *stateptr;
 
 static DWORD getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
@@ -61,7 +62,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Left 4 Dead (Build 3922)", L"Mumble L4D Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Left 4 Dead (Build 4023)", L"Mumble L4D Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -114,6 +115,7 @@ static int trylock() {
 
 	posptr = mod + 0x580588;
 	rotptr = mod + 0x4FF024;
+	stateptr = mod + 0x4F8E34;
 
 	float pos[3];
 	float rot[3];
@@ -141,9 +143,15 @@ static void unlock() {
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	float ipos[3], rot[3];
 	bool ok;
+	char state;
+	
 	ok = peekProc(posptr, ipos, 12) &&
-	     peekProc(rotptr, rot, 12);
+	     peekProc(rotptr, rot, 12) &&
+		 peekProc(stateptr, &state, 1);
 
+	if (state == 0)
+		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+		
 	if (ok) {
 		int res = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
 		if (res) {
@@ -164,10 +172,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports L4D version 3986 only. Supports no fancy stuff.");
+	return std::wstring(L"Supports L4D version 4023 only. Supports no fancy stuff.");
 }
 
-static std::wstring description(L"Left 4 Dead (Build 3986)");
+static std::wstring description(L"Left 4 Dead (Build 4023)");
 static std::wstring shortname(L"Left 4 Dead");
 
 static MumblePlugin l4dplug = {

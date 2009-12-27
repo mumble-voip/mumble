@@ -38,7 +38,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Wolfenstein: Enemy Territory (v 2.60b)", L"Mumble W:ET plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Wolfenstein: Enemy Territory (v2.60b)", L"Mumble W:ET plugin", MB_OK);
 }
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
@@ -149,10 +149,10 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Wolfenstien: Enemy Territory 2.60b. No context or identity support yet.");
+	return std::wstring(L"Supports Wolfenstien: Enemy Territory v2.60b. No context or identity support yet.");
 }
 
-static std::wstring description(L"Wolfenstein: Enemy Territory 2.60b");
+static std::wstring description(L"Wolfenstein: Enemy Territory v2.60b");
 static std::wstring shortname(L"Wolfenstein: Enemy Territory");
 
 static MumblePlugin wolfetplug = {

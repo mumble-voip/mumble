@@ -118,7 +118,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	chHostStr[39] = 0;
 
 	new_context << "<context>"
-	<< "<game>css</game>"
+	<< "<game>gmod</game>"
 	<< "<hostport>" << chHostStr << "</hostport>"
 	<< "</context>";
 	context = new_context.str();
@@ -204,7 +204,7 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Gmod build 3943. No identity or context support yet.");
+	return std::wstring(L"Supports Gmod build 3943. No identity support yet.");
 }
 
 static std::wstring description(L"Garry's Mod 11 (Build 3943)");

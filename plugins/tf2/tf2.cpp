@@ -213,7 +213,7 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports TF2 build 4057. No context support yet.");
+	return std::wstring(L"Supports TF2 build 4057. No identity support yet.");
 }
 
 static std::wstring description(L"Team Fortress 2 (Build 4057)");

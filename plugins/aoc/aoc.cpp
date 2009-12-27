@@ -232,7 +232,7 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports AOC Build 3943. Context support only.");
+	return std::wstring(L"Supports AOC Build 3943. No identity support yet.");
 }
 
 static std::wstring description(L"Age of Chivalry (Build 3943)");
