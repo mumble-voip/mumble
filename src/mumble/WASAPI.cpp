@@ -782,8 +782,8 @@ void WASAPIOutput::run() {
 
 		packetLength = bufferFrameCount - numFramesAvailable;
 
-		if (lastspoke ^(g.bAttenuateOthers | mixed)) {
-			lastspoke = g.bAttenuateOthers | mixed;
+		if (lastspoke != (g.bAttenuateOthers || mixed)) {
+			lastspoke = g.bAttenuateOthers || mixed;
 			setVolumes(pDevice, lastspoke);
 		}
 
@@ -800,12 +800,12 @@ void WASAPIOutput::run() {
 			if (FAILED(hr))
 				goto cleanup;
 
-			if (!g.s.bAttenuateOthers && !g.bAttenuateOthers && mixed) {
+			if (!g.s.bAttenuateOthers && !g.bAttenuateOthers) {
 				mixed = false;
 			}
 
-			if (lastspoke ^(g.bAttenuateOthers | mixed)) {
-				lastspoke = g.bAttenuateOthers | mixed;
+			if (lastspoke != (g.bAttenuateOthers || mixed)) {
+				lastspoke = g.bAttenuateOthers || mixed;
 				setVolumes(pDevice, lastspoke);
 			}
 
