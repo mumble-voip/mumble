@@ -80,7 +80,7 @@ static BYTE *peekProcPtr(VOID *base) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Enemy Territory: Quake Wars (v1.50). IP:Port context support. Note that vehicle PA support is not present or may not function as expected", L"Mumble ETQW plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Enemy Territory: Quake Wars (v1.50). IP:Port context support.", L"Mumble ETQW plugin", MB_OK);
 }
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
@@ -142,22 +142,22 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// Calculate view unit vector
 	/*
 	   Vertical view 0 when centered
-				   -90 when looking up
-				   +90 when looking down
+				   ~+271 when looking up
+				   ~+88 when looking down
 	   Increasing when looking down.
 
-	   Horizontal is 90 when facing north
-					  0 when facing east
-					-90 when facing south
-					+/-180 when facing west
+	   Horizontal is +90 when facing north
+					   0 when facing east
+					+270 when facing south
+					+180 when facing west
 	   Increasing when turning left.
 	*/
 	viewVer *= static_cast<float>(M_PI / 180.0f);
 	viewHor *= static_cast<float>(M_PI / 180.0f);
 
-	avatar_front[0] = cos(viewVer) * cos(viewHor);
+	avatar_front[0] = -sin(viewHor) * cos(viewVer);
 	avatar_front[1] = -sin(viewVer);
-	avatar_front[2] = cos(viewVer) * sin(viewHor);
+	avatar_front[2] = cos(viewHor) * cos(viewVer);
 
 	for (int i=0;i<3;i++) {
 		camera_pos[i] = avatar_pos[i];
@@ -182,7 +182,7 @@ static int trylock() {
 	pos1ptr = mod + 0x74EABC;
 	pos2ptr = mod + 0x74EAB4;
 	pos3ptr = mod + 0x74EAB8;
-	rot1ptr = mod + 0x75F014;
+	rot1ptr = mod + 0x75D2B4;
 	rot2ptr = mod + 0x75D30C;
 
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
