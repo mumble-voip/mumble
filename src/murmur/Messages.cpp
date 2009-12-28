@@ -1270,11 +1270,21 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 				unregisterUser(id);
 			} else {
 				const QString &name = u8(u.name());
-				log(uSource, QString::fromLatin1("Renamed user %1 to '%2'").arg(QString::number(id), name));
+				if (validateUserName(name)) {
+					log(uSource, QString::fromLatin1("Renamed user %1 to '%2'").arg(QString::number(id), name));
 
-				QMap<int, QString> info;
-				info.insert(ServerDB::User_Name, name);
-				setInfo(id, info);
+					QMap<int, QString> info;
+					info.insert(ServerDB::User_Name, name);
+					setInfo(id, info);
+				} else {
+					MumbleProto::PermissionDenied mppd;
+					mppd.set_type(MumbleProto::PermissionDenied_DenyType_UserName);
+					if (uSource->uiVersion < 0x010201)
+						mppd.set_reason(u8(QString::fromLatin1("%1 is not a valid username").arg(name)));
+					else
+						mppd.set_name(u8(name));
+					sendMessage(uSource, mppd);
+				}
 			}
 		}
 	}
