@@ -183,11 +183,18 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 					g.l->log(Log::PermissionDenied, tr("%1 does not have a certificate.").arg(Log::formatClientUser(pDst, Log::Target)));
 			}
 			break;
-		default:
-			if (msg.has_reason()) {
-				g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(u8(msg.reason())));
-			} else {
-				g.l->log(Log::PermissionDenied, tr("Permission denied."));
+		case MumbleProto::PermissionDenied_DenyType_UserName: {
+				if (msg.has_name()) 
+					g.l->log(Log::PermissionDenied, tr("Invalid username: %1.").arg(u8(msg.name())));
+				else
+					g.l->log(Log::PermissionDenied, tr("Invalid username."));
+			}
+			break;
+		default: {
+				if (msg.has_reason()) 
+					g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(u8(msg.reason())));
+				else
+					g.l->log(Log::PermissionDenied, tr("Permission denied."));
 			}
 			break;
 	}
