@@ -77,20 +77,28 @@ void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option,
 	// resize rect to exclude the flag icons
 	o.rect = option.rect.adjusted(0, 0, -18 * ql.count(), 0);
 
-	// remove focus state
-	o.state &= ~QStyle::State_Selected;
-	o.state &= ~QStyle::State_MouseOver;
+	QIcon::Mode iMode = ((o.state & QStyle::State_Selected) ? QIcon::Selected : QIcon::Normal);
 
-	o.widget->style()->drawControl(QStyle::CE_ItemViewItem, &o, painter, o.widget);
+	// draw icon
+	QIcon iP = qvariant_cast<QIcon>(m->data(index, Qt::DecorationRole));
+	QRect pR = o.widget->style()->subElementRect(QStyle::SE_ItemViewItemDecoration, &o, o.widget);
+	iP.paint(painter, pR, o.decorationAlignment, iMode, QIcon::On);
 
+	// draw text
+	QFont iF = qvariant_cast<QFont>(m->data(index, Qt::FontRole));
+	QRect tR = o.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &o, o.widget);
+	painter->setFont(iF);
+	QString iT = painter->fontMetrics().elidedText(qvariant_cast<QString>(m->data(index)), static_cast<const QTreeWidget *>(o.widget)->textElideMode(), tR.width());
+	o.widget->style()->drawItemText(painter, tR, o.displayAlignment, o.widget->palette(), true, iT, ((o.state & QStyle::State_Selected) ? QPalette::HighlightedText : QPalette::Text));
+
+	// draw flag icons
 	QRect ps = QRect(option.rect.right() - (ql.size() * 18), option.rect.y(), ql.size() * 18, option.rect.height());
 	for (int i = 0; i < ql.size(); ++i) {
 		QRect r = ps;
 		r.setSize(QSize(16, 16));
 		r.translate(i * 18 + 1, 1);
-		QPixmap pixmap = (qvariant_cast<QIcon>(ql[i]).pixmap(QSize(16, 16)));
-		QPoint p = QStyle::alignedRect(option.direction, option.decorationAlignment, pixmap.size(), r).topLeft();
-		painter->drawPixmap(p, pixmap);
+		QRect p = QStyle::alignedRect(option.direction, option.decorationAlignment, r.size(), r);
+		qvariant_cast<QIcon>(ql[i]).paint(painter, p, option.decorationAlignment, iMode, QIcon::On);
 	}
 
 	painter->restore();
