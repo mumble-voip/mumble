@@ -169,7 +169,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 
 	iMaxPeak = 0;
 	iTicks = 0;
-	
+
 	qpTalkingOn = QPixmap::fromImage(QImage(QLatin1String("skin:talking_on.svg")).scaled(64,64));
 	qpTalkingOff = QPixmap::fromImage(QImage(QLatin1String("skin:talking_off.svg")).scaled(64,64));
 
@@ -328,7 +328,7 @@ void AudioWizard::showPage(int) {
 	} else {
 		g.s.bMute = false;
 	}
-	
+
 	if (cp == qwpTrigger) {
 		if (! bTransmitChanged)
 			g.s.atTransmit = sOldSettings.atTransmit;
@@ -466,7 +466,7 @@ void AudioWizard::on_Ticker_timeout() {
 		abVAD->iValue = static_cast<int>(ai->fSpeechProb * 32767.0f);
 	}
 	abVAD->update();
-	
+
 	bool active = ai->isTransmitting();
 	if (active != bLastActive) {
 		bLastActive = active;
@@ -596,34 +596,29 @@ void AudioWizard::updateTriggerWidgets(bool ptt) {
 	qwpTrigger->setComplete(!ptt || (skwPTT->qlButtons.count() > 0));
 }
 
-void AudioWizard::on_qcbAttenuateOthers_clicked(bool checked)
-{
+void AudioWizard::on_qcbAttenuateOthers_clicked(bool checked) {
 	g.s.bAttenuateOthers = checked;
 }
 
-void AudioWizard::on_qrbQualityLow_clicked()
-{
+void AudioWizard::on_qrbQualityLow_clicked() {
 	g.s.iQuality = 16000;
 	g.s.iFramesPerPacket = 6;
 	restartAudio();
 }
 
-void AudioWizard::on_qrbQualityBalanced_clicked()
-{
+void AudioWizard::on_qrbQualityBalanced_clicked() {
 	g.s.iQuality = 40000;
 	g.s.iFramesPerPacket = 2;
 	restartAudio();
 }
 
-void AudioWizard::on_qrbQualityUltra_clicked()
-{
+void AudioWizard::on_qrbQualityUltra_clicked() {
 	g.s.iQuality = 72000;
 	g.s.iFramesPerPacket = 1;
 	restartAudio();
 }
 
-void AudioWizard::on_qrbQualityCustom_clicked()
-{
+void AudioWizard::on_qrbQualityCustom_clicked() {
 	g.s.iQuality = sOldSettings.iQuality;
 	g.s.iFramesPerPacket = sOldSettings.iFramesPerPacket;
 	restartAudio();

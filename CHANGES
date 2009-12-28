@@ -1,16 +1,50 @@
+2009-12-28
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    bef7408  Show and react immediately to tranmission changes in
+	     audiowizard
+
 2009-12-27
+  arcenciel <arcenciel@users.sourceforge.net>
+    6364d67  Updated Japanese Translations for 1.2.1
+
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    117f396  Make audio quality selection in audio wizard apply immediately
+    afb7b45  Add "Attenuate applications while other users talk" check box
+	     to the audio wizard's device selection page
+    26a5f9c  Make other applications volume slider represent attenuation.
+	     Fix surrounding strings.
+    8bc620d  Add what's this and correct tooltip for attenuation feature
+    6412b3a  Disable new attenuate others controls if the sound system does
+	     not support them
+    c24b7f0  Make Gui for volume attenuation of other applications more
+	     useful
+    347ef1d  Fix bug in attenuate others while you talk code
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    1b52809  Fix 11x crashreporter for OSX.
+
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     69a05b8  Small fixes for the german translation
     1c2a5b3  Change some translated strings
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    ff50167  Use ShellExec to launch mumble in installer
+    484aa0b  Add symlink for os_win
+    676f6da  Backport crash reporter to 1.1.x
+    1831073  Compile fix for 11x
+    19d171c  Update changelog script to skip language updates
     a42f160  Set uiAccess to true
     eac3c5a  Allow spotify links
     107aedb  No, really, use short instead of char
     075098e  Listen to IPv4 explicitly if IPV6_V6ONLY is 1
     357e016  Fix bandwidth monitor to handle larger frame sizes
 
+  Tuck Therebelos <snares@users.sourceforge.net>
+    417ae98  Unified string messages; added ETQW plugin; various plugin
+	     fixes, improvements and updates
+
   zentriple <zentriple@users.sourceforge.net>
+    48646e1  Update Danish translation
     b24f793  Danish translation for 1.2
 
 2009-12-26

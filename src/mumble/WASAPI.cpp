@@ -782,7 +782,7 @@ void WASAPIOutput::run() {
 
 		packetLength = bufferFrameCount - numFramesAvailable;
 
-		if (lastspoke ^ (g.bAttenuateOthers | mixed)) {
+		if (lastspoke ^(g.bAttenuateOthers | mixed)) {
 			lastspoke = g.bAttenuateOthers | mixed;
 			setVolumes(pDevice, lastspoke);
 		}
@@ -804,7 +804,7 @@ void WASAPIOutput::run() {
 				mixed = false;
 			}
 
-			if (lastspoke ^ (g.bAttenuateOthers | mixed)) {
+			if (lastspoke ^(g.bAttenuateOthers | mixed)) {
 				lastspoke = g.bAttenuateOthers | mixed;
 				setVolumes(pDevice, lastspoke);
 			}
