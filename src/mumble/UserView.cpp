@@ -71,34 +71,40 @@ void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option,
 	QStyleOptionViewItemV4 o = option;
 	initStyleOption(&o, index);
 
+	QStyle *style = o.widget->style();
+	QIcon::Mode iconMode = QIcon::Normal;
+
+	QPalette::ColorRole colorRole = ((o.state & QStyle::State_Selected) ? QPalette::HighlightedText : QPalette::Text);
+#ifdef Q_OS_WIN
+	// Qt's Vista Style has the wrong highlight color for treeview items...
+	if (qobject_cast<QWindowsVistaStyle *>(style))
+		colorRole = QPalette::Text;
+#endif
+
 	// draw background
-	o.widget->style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &o, painter, o.widget);
+	style->drawPrimitive(QStyle::PE_PanelItemViewItem, &o, painter, o.widget);
 
 	// resize rect to exclude the flag icons
 	o.rect = option.rect.adjusted(0, 0, -18 * ql.count(), 0);
 
-	QIcon::Mode iMode = ((o.state & QStyle::State_Selected) ? QIcon::Selected : QIcon::Normal);
-
 	// draw icon
-	QIcon iP = qvariant_cast<QIcon>(m->data(index, Qt::DecorationRole));
-	QRect pR = o.widget->style()->subElementRect(QStyle::SE_ItemViewItemDecoration, &o, o.widget);
-	iP.paint(painter, pR, o.decorationAlignment, iMode, QIcon::On);
+	QRect decorationRect = style->subElementRect(QStyle::SE_ItemViewItemDecoration, &o, o.widget);
+	o.icon.paint(painter, decorationRect, o.decorationAlignment, iconMode, QIcon::On);
 
 	// draw text
-	QFont iF = qvariant_cast<QFont>(m->data(index, Qt::FontRole));
-	QRect tR = o.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &o, o.widget);
-	painter->setFont(iF);
-	QString iT = painter->fontMetrics().elidedText(qvariant_cast<QString>(m->data(index)), static_cast<const QTreeWidget *>(o.widget)->textElideMode(), tR.width());
-	o.widget->style()->drawItemText(painter, tR, o.displayAlignment, o.widget->palette(), true, iT, ((o.state & QStyle::State_Selected) ? QPalette::HighlightedText : QPalette::Text));
+	QRect textRect = style->subElementRect(QStyle::SE_ItemViewItemText, &o, o.widget);
+	QString itemText = o.fontMetrics.elidedText(o.text, o.textElideMode, textRect.width());
+	painter->setFont(o.font);
+	style->drawItemText(painter, textRect, o.displayAlignment, o.palette, true, itemText, colorRole);
 
-	// draw flag icons
+	// draw flag icons to original rect
 	QRect ps = QRect(option.rect.right() - (ql.size() * 18), option.rect.y(), ql.size() * 18, option.rect.height());
 	for (int i = 0; i < ql.size(); ++i) {
 		QRect r = ps;
 		r.setSize(QSize(16, 16));
 		r.translate(i * 18 + 1, 1);
 		QRect p = QStyle::alignedRect(option.direction, option.decorationAlignment, r.size(), r);
-		qvariant_cast<QIcon>(ql[i]).paint(painter, p, option.decorationAlignment, iMode, QIcon::On);
+		qvariant_cast<QIcon>(ql[i]).paint(painter, p, option.decorationAlignment, iconMode, QIcon::On);
 	}
 
 	painter->restore();
