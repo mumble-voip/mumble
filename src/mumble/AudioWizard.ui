@@ -396,8 +396,8 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
    <property name="subTitle">
     <string>Letting Mumble figure out when you're talking and when you're silent.</string>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_7">
-    <item>
+   <layout class="QGridLayout" name="gridLayout_4">
+    <item row="0" column="0" colspan="2">
      <widget class="QLabel" name="qliVADText">
       <property name="text">
        <string>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</string>
@@ -407,7 +407,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
       </property>
      </widget>
     </item>
-    <item>
+    <item row="1" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QRadioButton" name="qrPTT">
@@ -421,21 +421,34 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
       </item>
      </layout>
     </item>
-    <item>
+    <item row="1" column="1" rowspan="3">
+     <widget class="QLabel" name="qlTalkIcon">
+      <property name="minimumSize">
+       <size>
+        <width>64</width>
+        <height>64</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
      <widget class="QRadioButton" name="qrSNR">
       <property name="text">
        <string>Signal-To-Noise ratio</string>
       </property>
      </widget>
     </item>
-    <item>
+    <item row="3" column="0">
      <widget class="QRadioButton" name="qrAmplitude">
       <property name="text">
        <string>Raw amplitude from input</string>
       </property>
      </widget>
     </item>
-    <item>
+    <item row="4" column="0" colspan="2">
      <widget class="QWidget" name="qwVAD" native="true">
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <property name="margin">
@@ -483,7 +496,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
       </layout>
      </widget>
     </item>
-    <item>
+    <item row="5" column="0">
      <spacer name="verticalSpacer_7">
       <property name="orientation">
        <enum>Qt::Vertical</enum>

@@ -50,6 +50,7 @@ bool CompletablePage::isComplete() const {
 
 AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	bInit = true;
+	bLastActive = false;
 
 	ticker = new QTimer(this);
 	ticker->setObjectName(QLatin1String("Ticker"));
@@ -164,11 +165,13 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	g.s.bMute = true;
 	g.s.bDeaf = false;
 
-	g.s.atTransmit = Settings::Continous;
 	bTransmitChanged = false;
 
 	iMaxPeak = 0;
 	iTicks = 0;
+	
+	qpTalkingOn = QPixmap::fromImage(QImage(QLatin1String("skin:talking_on.svg")).scaled(64,64));
+	qpTalkingOff = QPixmap::fromImage(QImage(QLatin1String("skin:talking_off.svg")).scaled(64,64));
 
 	bInit = false;
 
@@ -325,6 +328,17 @@ void AudioWizard::showPage(int) {
 	} else {
 		g.s.bMute = false;
 	}
+	
+	if (cp == qwpTrigger) {
+		if (! bTransmitChanged)
+			g.s.atTransmit = sOldSettings.atTransmit;
+		else if (qrPTT->isChecked())
+			g.s.atTransmit = Settings::PushToTalk;
+		else
+			g.s.atTransmit = Settings::VAD;
+	} else {
+		g.s.atTransmit = Settings::Continous;
+	}
 }
 
 int AudioWizard::nextId() const {
@@ -402,29 +416,6 @@ void AudioWizard::accept() {
 	g.s.bDeaf = sOldSettings.bDeaf;
 	g.s.lmLoopMode = Settings::None;
 
-	const QList<QVariant> &buttons = skwPTT->getShortcut();
-	QList<Shortcut> ql;
-	bool found = false;
-	foreach(Shortcut s, g.s.qlShortcuts) {
-		if (s.iIndex == g.mw->gsPushTalk->idx) {
-			if (buttons.isEmpty())
-				continue;
-			else if (! found) {
-				s.qlButtons = buttons;
-				found = true;
-			}
-		}
-		ql << s;
-	}
-	if (! found && ! buttons.isEmpty()) {
-		Shortcut s;
-		s.iIndex = g.mw->gsPushTalk->idx;
-		s.bSuppress = false;
-		s.qlButtons = buttons;
-		ql << s;
-	}
-	g.s.qlShortcuts = ql;
-
 	// Switch TTS<->Sounds according to user selection
 	Settings::MessageLog mlReplace = qrbNotificationTTS->isChecked() ? Settings::LogSoundfile : Settings::LogTTS;
 	for (int i = Log::firstMsgType;i <= Log::lastMsgType; ++i) {
@@ -434,8 +425,6 @@ void AudioWizard::accept() {
 
 	g.s.bUsage = qcbUsage->isChecked();
 	g.bPosTest = false;
-	GlobalShortcutEngine::engine->bNeedRemap = true;
-	GlobalShortcutEngine::engine->needRemap();
 	restartAudio();
 	QWizard::accept();
 }
@@ -477,6 +466,12 @@ void AudioWizard::on_Ticker_timeout() {
 		abVAD->iValue = static_cast<int>(ai->fSpeechProb * 32767.0f);
 	}
 	abVAD->update();
+	
+	bool active = ai->isTransmitting();
+	if (active != bLastActive) {
+		bLastActive = active;
+		qlTalkIcon->setPixmap(active ? qpTalkingOn : qpTalkingOff);
+	}
 
 	if (! qgsScene) {
 		unsigned int nspeaker = 0;
@@ -523,6 +518,7 @@ void AudioWizard::on_qsVAD_valueChanged(int v) {
 void AudioWizard::on_qrSNR_clicked(bool on) {
 	if (on) {
 		g.s.vsVAD = Settings::SignalToNoise;
+		g.s.atTransmit = Settings::VAD;
 		updateTriggerWidgets(false);
 		bTransmitChanged = true;
 	}
@@ -531,6 +527,7 @@ void AudioWizard::on_qrSNR_clicked(bool on) {
 void AudioWizard::on_qrAmplitude_clicked(bool on) {
 	if (on) {
 		g.s.vsVAD = Settings::Amplitude;
+		g.s.atTransmit = Settings::VAD;
 		updateTriggerWidgets(false);
 		bTransmitChanged = true;
 	}
@@ -538,6 +535,7 @@ void AudioWizard::on_qrAmplitude_clicked(bool on) {
 
 void AudioWizard::on_qrPTT_clicked(bool on) {
 	if (on) {
+		g.s.atTransmit = Settings::PushToTalk;
 		updateTriggerWidgets(true);
 		bTransmitChanged = true;
 	}
@@ -550,6 +548,32 @@ void AudioWizard::on_skwPTT_keySet(bool valid) {
 		qrSNR->setChecked(true);
 	updateTriggerWidgets(valid);
 	bTransmitChanged = true;
+
+	const QList<QVariant> &buttons = skwPTT->getShortcut();
+	QList<Shortcut> ql;
+	bool found = false;
+	foreach(Shortcut s, g.s.qlShortcuts) {
+		if (s.iIndex == g.mw->gsPushTalk->idx) {
+			if (buttons.isEmpty())
+				continue;
+			else if (! found) {
+				s.qlButtons = buttons;
+				found = true;
+			}
+		}
+		ql << s;
+	}
+	if (! found && ! buttons.isEmpty()) {
+		Shortcut s;
+		s.iIndex = g.mw->gsPushTalk->idx;
+		s.bSuppress = false;
+		s.qlButtons = buttons;
+		ql << s;
+	}
+	g.s.qlShortcuts = ql;
+
+	GlobalShortcutEngine::engine->bNeedRemap = true;
+	GlobalShortcutEngine::engine->needRemap();
 }
 
 void AudioWizard::on_qcbEcho_clicked(bool on) {

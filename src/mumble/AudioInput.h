@@ -124,7 +124,7 @@ class AudioInput : public QThread {
 		void addEcho(const void *data, unsigned int nsamp);
 
 		volatile bool bRunning;
-		bool bPreviousVoice;
+		volatile bool bPreviousVoice;
 
 		int iFrameCounter;
 		int iSilentFrames;
@@ -148,16 +148,13 @@ class AudioInput : public QThread {
 		float dPeakMic, dPeakSpeaker, dPeakSignal, dMaxMic;
 		float fSpeechProb;
 
-		bool isTransmitting() {
-			return bPreviousVoice;
-		};
-
 		static int getNetworkBandwidth(int bitrate, int frames);
 		static void setMaxBandwidth(int bitspersec);
 
 		AudioInput();
 		~AudioInput();
 		void run() = 0;
+		bool isTransmitting() const;
 };
 
 #else

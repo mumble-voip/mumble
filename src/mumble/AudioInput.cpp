@@ -211,6 +211,9 @@ AudioInput::~AudioInput() {
 		delete [] pfOutput;
 }
 
+bool AudioInput::isTransmitting() const {
+	return bPreviousVoice;
+};
 
 #define IN_MIXER_FLOAT(channels) \
 static void inMixerFloat##channels ( float * RESTRICT buffer, const void * RESTRICT ipt, unsigned int nsamp, unsigned int N) { \

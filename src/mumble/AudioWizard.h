@@ -67,6 +67,9 @@ class AudioWizard: public QWizard, public Ui::AudioWizard {
 
 		bool bInit;
 		bool bDelay;
+		bool bLastActive;
+		
+		QPixmap qpTalkingOn, qpTalkingOff;
 
 		int iMaxPeak;
 		int iTicks;
