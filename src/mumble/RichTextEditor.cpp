@@ -178,6 +178,7 @@ QString RichTextEditorLink::text() const {
 RichTextEditor::RichTextEditor(QWidget *p) : QTabWidget(p) {
 	bChanged = false;
 	bModified = false;
+	bReadOnly = false;
 
 	setupUi(this);
 
@@ -535,12 +536,18 @@ void RichTextEditor::richToPlain() {
 	qptePlainText->setPlainText(qsOutput);
 }
 
-void RichTextEditor::setText(const QString &txt) {
+void RichTextEditor::setText(const QString &txt, bool readonly) {
+	qtbToolBar->setEnabled(! readonly);
+	qtbToolBar->setVisible(! readonly);
+	qptePlainText->setReadOnly(readonly);
+	qteRichText->setReadOnly(readonly);
+
 	qptePlainText->setPlainText(txt);
 	qteRichText->setHtml(txt);
 
 	bChanged = false;
 	bModified = false;
+	bReadOnly = readonly;
 }
 
 QString RichTextEditor::text() {

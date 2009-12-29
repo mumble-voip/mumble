@@ -150,6 +150,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qmUser_aboutToShow();
 		void on_qaUserComment_triggered();
 		void on_qaUserCommentReset_triggered();
+		void on_qaUserCommentView_triggered();
 		void on_qaUserKick_triggered();
 		void on_qaUserBan_triggered();
 		void on_qaUserMute_triggered();

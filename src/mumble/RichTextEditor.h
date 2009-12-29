@@ -63,6 +63,7 @@ class RichTextEditor : public QTabWidget, Ui::RichTextEditor {
 	protected:
 		bool bModified;
 		bool bChanged;
+		bool bReadOnly;
 		void richToPlain();
 		QColor qcColor;
 	public:
@@ -70,7 +71,7 @@ class RichTextEditor : public QTabWidget, Ui::RichTextEditor {
 		QString text();
 		bool isModified() const;
 	public slots:
-		void setText(const QString &text);
+		void setText(const QString &text, bool readonly = false);
 		void updateColor(const QColor &);
 		void updateActions();
 	protected slots:

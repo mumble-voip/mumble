@@ -918,8 +918,10 @@ void MainWindow::on_qmUser_aboutToShow() {
 
 	if (self)
 		qmUser->addAction(qaUserComment);
-	else
+	else {
+		qmUser->addAction(qaUserCommentView);
 		qmUser->addAction(qaUserCommentReset);
+	}
 
 	qmUser->addAction(qaUserTextMessage);
 
@@ -968,6 +970,7 @@ void MainWindow::on_qmUser_aboutToShow() {
 		qaUserLocalMute->setEnabled(false);
 		qaUserComment->setEnabled(false);
 		qaUserCommentReset->setEnabled(false);
+		qaUserCommentView->setEnabled(false);
 	} else {
 		qaUserKick->setEnabled(! self);
 		qaUserBan->setEnabled(! self);
@@ -977,6 +980,7 @@ void MainWindow::on_qmUser_aboutToShow() {
 		qaUserLocalMute->setEnabled(! self);
 		qaUserComment->setEnabled(self);
 		qaUserCommentReset->setEnabled(!p->qsComment.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
+		qaUserCommentView->setEnabled(! p->qsComment.isEmpty());
 
 		qaUserMute->setChecked(p->bMute || p->bSuppress);
 		qaUserDeaf->setChecked(p->bDeaf);
@@ -1166,6 +1170,19 @@ void MainWindow::on_qaUserComment_triggered() {
 		g.sh->sendMessage(mpus);
 	}
 	delete texm;
+}
+
+void MainWindow::on_qaUserCommentView_triggered() {
+	ClientUser *p = getContextMenuUser();
+
+	if (!p)
+		return;
+
+	::TextMessage *texm = new ::TextMessage(this, tr("View comment on user %1").arg(p->qsName));
+
+	texm->rteMessage->setText(p->qsComment, true);
+	texm->setAttribute(Qt::WA_DeleteOnClose, true);
+	texm->show();
 }
 
 void MainWindow::on_qaUserCommentReset_triggered() {
