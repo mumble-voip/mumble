@@ -253,25 +253,25 @@ QString Log::msgColor(const QString &text, LogColorType t) {
 }
 
 QString Log::formatChannel(::Channel *c) {
-	return QString::fromLatin1("<a href='channelid://%1/%3' class='log-channel'>\"%2\"</a>").arg(c->iId).arg(c->qsName).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
+	return QString::fromLatin1("<a href='channelid://%1/%3' class='log-channel'>%2</a>").arg(c->iId).arg(c->qsName).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
 }
 
 QString Log::formatClientUser(ClientUser *cu, LogColorType t) {
 	QString className;
 	if (t == Log::Target) {
-		className = QString::fromLatin1("-target");
+		className = QString::fromLatin1("target");
 	} else if (t == Log::Source) {
-		className = QString::fromLatin1("-source");
+		className = QString::fromLatin1("source");
 	}
 
 	if (cu) {
 		if (cu->qsHash.isEmpty()) {
-			return QString::fromLatin1("<a href='clientid://%2/%4' class='log-user log-%1'>\"%3\"</a>").arg(className).arg(cu->uiSession).arg(cu->qsName).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
+			return QString::fromLatin1("<a href='clientid://%2/%4' class='log-user log-%1'>%3</a>").arg(className).arg(cu->uiSession).arg(cu->qsName).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
 		} else {
-			return QString::fromLatin1("<a href='clientid://%2' class='log-user log-%1'>\"%3\"</a>").arg(className).arg(cu->qsHash).arg(cu->qsName);
+			return QString::fromLatin1("<a href='clientid://%2' class='log-user log-%1'>%3</a>").arg(className).arg(cu->qsHash).arg(cu->qsName);
 		}
 	} else {
-		return QString::fromLatin1("<span class='log-server%1'>%2</span>").arg(className).arg(tr("the server"));
+		return QString::fromLatin1("<span class='log-server log-%1'>%2</span>").arg(className).arg(tr("the server"));
 	}
 }
 
