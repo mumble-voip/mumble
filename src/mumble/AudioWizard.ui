@@ -511,7 +511,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </item>
    </layout>
   </widget>
-  <widget class="QWizardPage" name="qwpSettings">
+  <widget class="CompletablePage" name="qwpSettings">
    <property name="title">
     <string>Quality &amp; Notifications</string>
    </property>

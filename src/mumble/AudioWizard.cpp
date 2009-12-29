@@ -298,7 +298,10 @@ void AudioWizard::on_qsMaxAmp_valueChanged(int v) {
 	g.s.iMinLoudness = qMin(v, 30000);
 }
 
-void AudioWizard::showPage(int) {
+void AudioWizard::showPage(int pageid) {
+	if (pageid == -1)
+		return;
+	
 	CompletablePage *cp = qobject_cast<CompletablePage *>(currentPage());
 
 	AudioOutputPtr ao = g.ao;
@@ -329,7 +332,7 @@ void AudioWizard::showPage(int) {
 		g.s.bMute = false;
 	}
 
-	if (cp == qwpTrigger) {
+	if ((cp == qwpTrigger) || (cp == qwpSettings)) {
 		if (! bTransmitChanged)
 			g.s.atTransmit = sOldSettings.atTransmit;
 		else if (qrPTT->isChecked())
@@ -400,6 +403,11 @@ void AudioWizard::reject() {
 
 	g.s.lmLoopMode = Settings::None;
 	restartAudio();
+
+	AudioOutputPtr ao = g.ao;
+	if (ao)
+		ao->wipe();
+	aosSource = NULL;
 
 	QWizard::reject();
 }
