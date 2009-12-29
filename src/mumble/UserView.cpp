@@ -76,9 +76,11 @@ void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option,
 
 	QPalette::ColorRole colorRole = ((o.state & QStyle::State_Selected) ? QPalette::HighlightedText : QPalette::Text);
 #ifdef Q_OS_WIN
-	// Qt's Vista Style has the wrong highlight color for treeview items...
-	if (qobject_cast<QWindowsVistaStyle *>(style))
+	// Qt's Vista Style has the wrong highlight color for treeview items
+	// We can't check for QStyleSheetStyle so we have to search the children list search for a QWindowsVistaStyle
+	if (qobject_cast<QWindowsVistaStyle *>(style) || style->findChild<QWindowsVistaStyle *>()) {
 		colorRole = QPalette::Text;
+	}
 #endif
 
 	// draw background

@@ -266,6 +266,7 @@ void MainWindow::setupGui()  {
 	pmModel = new UserModel(qtvUsers);
 	qtvUsers->setModel(pmModel);
 	qtvUsers->setRowHidden(0, QModelIndex(), true);
+	qtvUsers->ensurePolished();
 
 	qaServerConnect->setShortcuts(QKeySequence::Open);
 	qaServerDisconnect->setShortcuts(QKeySequence::Close);
