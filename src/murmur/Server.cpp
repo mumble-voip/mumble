@@ -303,6 +303,7 @@ void Server::readParams() {
 	iTimeout = Meta::mp.iTimeout;
 	iMaxBandwidth = Meta::mp.iMaxBandwidth;
 	iMaxUsers = Meta::mp.iMaxUsers;
+	iMaxUsersPerChannel = Meta::mp.iMaxUsersPerChannel;
 	iMaxTextMessageLength = Meta::mp.iMaxTextMessageLength;
 	bAllowHTML = Meta::mp.bAllowHTML;
 	iDefaultChan = Meta::mp.iDefaultChan;
@@ -350,6 +351,7 @@ void Server::readParams() {
 	iTimeout = getConf("timeout", iTimeout).toInt();
 	iMaxBandwidth = getConf("bandwidth", iMaxBandwidth).toInt();
 	iMaxUsers = getConf("users", iMaxUsers).toInt();
+	iMaxUsersPerChannel = getConf("usersperchannel", iMaxUsersPerChannel).toInt();
 	iMaxTextMessageLength = getConf("textmessagelength", iMaxTextMessageLength).toInt();
 	bAllowHTML = getConf("allowhtml", bAllowHTML).toBool();
 	iDefaultChan = getConf("defaultchannel", iDefaultChan).toInt();
@@ -378,6 +380,8 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		iMaxBandwidth = i ? i : Meta::mp.iMaxBandwidth;
 	else if (key == "users")
 		iMaxUsers = i ? i : Meta::mp.iMaxUsers;
+	else if (key == "usersperchannel")
+		iMaxUsersPerChannel = i ? i : Meta::mp.iMaxUsersPerChannel;
 	else if (key == "textmessagelength")
 		iMaxTextMessageLength = i ? i : Meta::mp.iMaxTextMessageLength;
 	else if (key == "allowhtml")

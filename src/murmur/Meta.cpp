@@ -46,6 +46,7 @@ MetaParams::MetaParams() {
 	iTimeout = 30;
 	iMaxBandwidth = 72000;
 	iMaxUsers = 1000;
+	iMaxUsersPerChannel = 0;
 	iMaxTextMessageLength = 5000;
 	bAllowHTML = true;
 	iDefaultChan = 0;
@@ -218,6 +219,7 @@ void MetaParams::read(QString fname) {
 	iMaxBandwidth = qsSettings->value("bandwidth", iMaxBandwidth).toInt();
 	iDefaultChan = qsSettings->value("defaultchannel", iDefaultChan).toInt();
 	iMaxUsers = qsSettings->value("users", iMaxUsers).toInt();
+	iMaxUsersPerChannel = qsSettings->value("usersperchannel", iMaxUsersPerChannel).toInt();
 	qsWelcomeText = qsSettings->value("welcometext", qsWelcomeText).toString();
 	bCertRequired = qsSettings->value("certrequired", bCertRequired).toBool();
 

@@ -190,6 +190,10 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 					g.l->log(Log::PermissionDenied, tr("Invalid username."));
 			}
 			break;
+		case MumbleProto::PermissionDenied_DenyType_ChannelFull: {
+				g.l->log(Log::PermissionDenied, tr("Channel is full."));
+			}
+			break;
 		default: {
 				if (msg.has_reason()) 
 					g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(u8(msg.reason())));

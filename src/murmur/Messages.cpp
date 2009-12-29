@@ -69,6 +69,15 @@
 		sendMessage(uSource, mppd); \
 	}
 
+#define PERM_DENIED_FALLBACK(type,version,text) \
+	{ \
+		MumbleProto::PermissionDenied mppd; \
+		mppd.set_type(MumbleProto::PermissionDenied_DenyType_##type); \
+		if (uSource->uiVersion < version) \
+			mppd.set_reason(u8(text)); \
+		sendMessage(uSource, mppd); \
+	}
+
 #define PERM_DENIED_HASH(user) \
 	{ \
 		MumbleProto::PermissionDenied mppd; \
@@ -443,6 +452,10 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 
 		if (! hasPermission(uSource, c, ChanACL::Move) && ! hasPermission(pDstServerUser, c, ChanACL::Enter)) {
 			PERM_DENIED(pDstServerUser, c, ChanACL::Enter);
+			return;
+		}
+		if (iMaxUsersPerChannel && (c->qlUsers.count() >= iMaxUsersPerChannel)) {
+			PERM_DENIED_FALLBACK(ChannelFull, 0x010201, QLatin1String("Channel is full."));
 			return;
 		}
 	}

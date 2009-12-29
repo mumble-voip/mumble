@@ -188,6 +188,7 @@ class Server : public QThread {
 		int iTimeout;
 		int iMaxBandwidth;
 		int iMaxUsers;
+		int iMaxUsersPerChannel;
 		int iDefaultChan;
 		int iMaxTextMessageLength;
 		bool bAllowHTML;
