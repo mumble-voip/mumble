@@ -79,9 +79,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (state != 4)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
-	ok = peekProc((BYTE *) 0x00862E44, avatar_pos+2, 4) &&	//Z
-	     peekProc((BYTE *) 0x00862E48, avatar_pos, 4) &&	//X
-	     peekProc((BYTE *) 0x00862E4C, avatar_pos+1, 4) && //Y
+	ok = peekProc((BYTE *) 0x00862E5C, avatar_pos+2, 4) &&	//Z
+	     peekProc((BYTE *) 0x00862E60, avatar_pos, 4) &&	//X
+	     peekProc((BYTE *) 0x00862E64, avatar_pos+1, 4) && //Y
 	     peekProc((BYTE *) 0x00862E54, &viewHor, 4) && //Hor
 	     peekProc((BYTE *) 0x00862E50, &viewVer, 4); //Ver
 

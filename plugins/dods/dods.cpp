@@ -17,7 +17,6 @@ BYTE *posptr;
 BYTE *rotptr;
 BYTE *stateptr;
 BYTE *hostptr;
-BYTE *teamptr;
 
 static DWORD getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
@@ -68,7 +67,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Day of Defeat: Source (Build 4057). IP:Port context with team discriminator.", L"Mumble DODS Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Day of Defeat: Source (Build 4057). IP:Port context support.", L"Mumble DODS Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -107,37 +106,25 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 	char state;
 	char chHostStr[40];
-	BYTE bTeam;
-	string sTeam;
+	string sHost;
 	wostringstream new_identity;
 	ostringstream new_context;
 
 	ok = peekProc(posptr, ipos, 12) &&
 	     peekProc(rotptr, rot, 12) &&
 	     peekProc(stateptr, &state, 1) &&
-	     peekProc(hostptr, chHostStr, 40) &&
-	     peekProc(teamptr, &bTeam, 1);
+	     peekProc(hostptr, chHostStr, 40);
 	if (!ok)
 		return false;
+
 	chHostStr[39] = 0;
-
-
-	switch (bTeam) {
-		case 114:
-			sTeam = "U.S. Army";
-			break;
-		case 100:
-			sTeam = "Wehrmacht";
-			break;
-		default:
-			sTeam = "Unknown";
-			break;
-	}
+	
+	sHost.assign(chHostStr);
+	if (sHost.find(':')==string::npos)
 
 	new_context << "<context>"
 	<< "<game>dods</game>"
-	<< "<hostport>" << chHostStr << "</hostport>"
-	<< "<team>" << sTeam << "</team>"
+	<< "<hostport>" << sHost << "</hostport>"
 	<< "</context>";
 	context = new_context.str();
 
@@ -180,9 +167,6 @@ static int trylock() {
 	BYTE *mod_engine=getModuleAddr(pid, L"engine.dll");
 	if (!mod_engine)
 		return false;
-	BYTE *mod_vphysics=getModuleAddr(pid, L"vphysics.dll");
-	if (!mod_vphysics)
-		return false;
 
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
@@ -202,7 +186,6 @@ static int trylock() {
 	rotptr = mod + 0x3FB2CC;
 	stateptr = mod + 0x3E7BDC;
 	hostptr = mod_engine + 0x3C91A4;
-	teamptr = mod_vphysics + 0x489769;
 
 	// Gamecheck
 	char sMagic[17];

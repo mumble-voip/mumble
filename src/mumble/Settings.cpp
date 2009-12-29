@@ -192,7 +192,7 @@ Settings::Settings() {
 	bPositionalHeadphone = false;
 	fAudioMinDistance = 1.0f;
 	fAudioMaxDistance = 15.0f;
-	fAudioMaxDistVolume = 0.15f;
+	fAudioMaxDistVolume = 0.80f;
 	fAudioBloom = 0.5f;
 
 	bOverlayEnable = true;

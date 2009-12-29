@@ -67,7 +67,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Insurgency: Modern Infantry Combat (Build 3945). IP:Port context without team discriminator.", L"Mumble Insurgency Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Insurgency: Modern Infantry Combat (Build 3945). IP:Port context support.", L"Mumble Insurgency Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -106,6 +106,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 	char state;
 	char chHostStr[40];
+	string sHost;
 	wostringstream new_identity;
 	ostringstream new_context;
 
@@ -115,11 +116,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	     peekProc(hostptr, chHostStr, 40);
 	if (!ok)
 		return false;
+		
 	chHostStr[39] = 0;
+	
+	sHost.assign(chHostStr);
+	if (sHost.find(':')==string::npos)
+		sHost.append(":27015");
 
 	new_context << "<context>"
 	<< "<game>insurgency</game>"
-	<< "<hostport>" << chHostStr << "</hostport>"
+	<< "<hostport>" << sHost << "</hostport>"
 	<< "</context>";
 	context = new_context.str();
 
@@ -159,7 +165,7 @@ static int trylock() {
 	BYTE *mod=getModuleAddr(pid, L"client.dll");
 	if (!mod)
 		return false;
-	BYTE *mod_engine = getModuleAddr(pid, L"engine.dll");
+	BYTE *mod_engine=getModuleAddr(pid, L"engine.dll");
 	if (!mod_engine)
 		return false;
 

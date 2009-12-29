@@ -17,7 +17,6 @@ BYTE *posptr;
 BYTE *rotptr;
 BYTE *stateptr;
 BYTE *hostptr;
-BYTE *teamptr;
 
 static DWORD getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
@@ -68,7 +67,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Age of Chivalry (Build 3943). IP:Port context with team discriminator.", L"Mumble AOC Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Age of Chivalry (Build 3943). IP:Port context support.", L"Mumble AOC Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -107,37 +106,26 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 	char state;
 	char chHostStr[40];
-	BYTE bTeam;
-	string sTeam;
+	string sHost;
 	wostringstream new_identity;
 	ostringstream new_context;
 
 	ok = peekProc(posptr, ipos, 12) &&
 	     peekProc(rotptr, rot, 12) &&
 	     peekProc(stateptr, &state, 1) &&
-	     peekProc(hostptr, chHostStr, 40) &&
-	     peekProc(teamptr, &bTeam, 1);
+	     peekProc(hostptr, chHostStr, 40);
 	if (!ok)
 		return false;
+
 	chHostStr[39] = 0;
-
-
-	switch (bTeam) {
-		case 9:
-			sTeam = "Mason Order";
-			break;
-		case 10:
-			sTeam = "Agathia Knights";
-			break;
-		default:
-			sTeam = "Unknown";
-			break;
-	}
+	
+	sHost.assign(chHostStr);
+	if (sHost.find(':')==string::npos)
+		sHost.append(":27015");
 
 	new_context << "<context>"
 	<< "<game>aoc</game>"
-	<< "<hostport>" << chHostStr << "</hostport>"
-	<< "<team>" << sTeam << "</team>"
+	<< "<hostport>" << sHost << "</hostport>"
 	<< "</context>";
 	context = new_context.str();
 
@@ -177,7 +165,7 @@ static int trylock() {
 	BYTE *mod=getModuleAddr(pid, L"client.dll");
 	if (!mod)
 		return false;
-	BYTE *mod_engine = getModuleAddr(pid, L"engine.dll");
+	BYTE *mod_engine=getModuleAddr(pid, L"engine.dll");
 	if (!mod_engine)
 		return false;
 
@@ -193,15 +181,14 @@ static int trylock() {
 		spawn state:        client.dll+0x6d4334  (0 when at main menu, 1 when at team selection, 2 when not spawned,
 		                                          between 6 and 7 when spawned)
 	    context offsets:    engine.dll + 0x3bf69f = (ip:port)
-							server.dll + 0x71a0a4 = (team info, 9 Mason, 10 Agathia)
+							server.dll + 0x71a0a4 = (team info, 3 Mason, 1 Agathia)
 	*/
 
 	// Remember addresses for later
 	posptr = mod + 0x748e14;
 	rotptr = mod + 0x73dc9c;
 	stateptr = mod + 0x6d4334;
-	hostptr = mod_engine + 0x3bf69f;
-	teamptr = mod + 0x71a0a4;
+	hostptr = mod_engine + 0x3C2A04;
 
 	//Gamecheck
 	char sMagic[13];

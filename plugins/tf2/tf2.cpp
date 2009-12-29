@@ -67,7 +67,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Team Fortress 2 (Build 4057). IP:Port context without team discriminator.", L"Mumble TF2 Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Team Fortress 2 (Build 4057). IP:Port context support.", L"Mumble TF2 Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -106,6 +106,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 	char state;
 	char chHostStr[40];
+	string sHost;
 	wostringstream new_identity;
 	ostringstream new_context;
 
@@ -116,7 +117,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	if (!ok)
 		return false;
+
 	chHostStr[39] = 0;
+	
+	sHost.assign(chHostStr);
+	if (sHost.find(':')==string::npos)
+		sHost.append(":27015");
 
 	new_context << "<context>"
 	<< "<game>tf2</game>"
