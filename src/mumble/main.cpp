@@ -208,6 +208,8 @@ int main(int argc, char **argv) {
 			QDir::addSearchPath(QLatin1String("skin"), fi.path());
 			a.setStyleSheet(styleSheet);
 		}
+	} else {
+		a.setStyleSheet(MainWindow::defaultStyleSheet);
 	}
 
 	QDir::addSearchPath(QLatin1String("skin"),QLatin1String(":/"));

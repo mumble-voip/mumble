@@ -100,6 +100,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void setOnTop(bool top);
 		void updateTrayIcon();
 		QPair<QByteArray, QImage> openImageFile();
+		static const QString defaultStyleSheet;
 
 #ifdef Q_OS_WIN
 		bool winEvent(MSG *, long *);

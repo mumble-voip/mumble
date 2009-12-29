@@ -169,8 +169,8 @@ void LookConfig::accept() const {
 		qApp->setStyle(s.qsStyle);
 	}
 	if (s.qsSkin.isEmpty()) {
-		qApp->setStyleSheet(QString());
-		g.mw->qteLog->document()->setDefaultStyleSheet(QString());
+		qApp->setStyleSheet(MainWindow::defaultStyleSheet);
+		g.mw->qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
 	} else {
 		QFile file(s.qsSkin);
 		file.open(QFile::ReadOnly);
