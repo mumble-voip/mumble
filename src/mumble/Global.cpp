@@ -55,21 +55,36 @@ Global::Global() {
 
 	bAttenuateOthers = false;
 
-	QString apppath = QCoreApplication::instance()->applicationDirPath();
-	QFile inifile(QString::fromLatin1("%1/mumble.ini").arg(apppath));
-	if (inifile.exists() && inifile.permissions().testFlag(QFile::WriteUser)) {
-		qdBasePath = apppath;
-		qs = new QSettings(inifile.fileName(), QSettings::IniFormat);
-	} else {
+	qs = NULL;
+	
+	QStringList qsl;
+	qsl << QCoreApplication::instance()->applicationDirPath();
+	qsl << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+#if defined(Q_OS_WIN)
+	QSettings settings(QSettings::UserScope, QLatin1String("Microsoft"), QLatin1String("Windows"));
+	settings.beginGroup(QLatin1String("CurrentVersion/Explorer/Shell Folders"));
+	QString appdata = QDir::fromNativeSeparators(settings.value(QLatin1String("AppData")).toString());
+	if (! appdata.isEmpty()) {
+		appdata.append(QLatin1String("/Mumble"));
+		qsl << appdata;
+	}
+	settings.endGroup();
+#endif
+
+	foreach(const QString &dir, qsl) {
+		QFile inifile(QString::fromLatin1("%1/mumble.ini").arg(dir));
+		if (inifile.exists() && inifile.permissions().testFlag(QFile::WriteUser)) {
+			qdBasePath = dir;
+			qs = new QSettings(inifile.fileName(), QSettings::IniFormat);
+			break;
+		}
+	}
+
+	if (!qs) {
 		qs = new QSettings();
 #if defined(Q_OS_WIN)
-		QSettings settings(QSettings::UserScope, QLatin1String("Microsoft"), QLatin1String("Windows"));
-		settings.beginGroup(QLatin1String("CurrentVersion/Explorer/Shell Folders"));
-		QString dir = QDir::fromNativeSeparators(settings.value(QLatin1String("AppData")).toString());
-		if (! dir.isEmpty()) {
-			dir.append(QLatin1String("/Mumble"));
-			qdBasePath.setPath(dir);
-		}
+		if (! appdata.isEmpty())
+			qdBasePath.setPath(appdata);
 #elif defined(Q_OS_MAC)
 		qdBasePath.setPath(QDir::homePath() + QLatin1String("/Library/Preferences/Mumble/"));
 #else
@@ -81,6 +96,7 @@ Global::Global() {
 				qdBasePath = QDir::home();
 		}
 	}
+
 	if (! qdBasePath.exists(QLatin1String("Plugins")))
 		qdBasePath.mkpath(QLatin1String("Plugins"));
 
