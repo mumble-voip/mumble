@@ -103,6 +103,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 		qrbQualityCustom->setChecked(true);
 
 	qrbQualityCustom->setVisible(qrbQualityCustom->isChecked());
+	qlQualityCustom->setVisible(qrbQualityCustom->isChecked());
 
 	qcbPositional->setChecked(g.s.bPositionalAudio);
 	qcbAttenuateOthers->setChecked(g.s.bAttenuateOthers);
