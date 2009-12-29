@@ -587,11 +587,6 @@ void AudioWizard::on_qcbPositional_clicked(bool on) {
 	restartAudio();
 }
 
-void AudioWizard::on_qcbPositional_clicked(bool on) {
-	g.s.bPositionalAudio = on;
-	restartAudio();
-}
-
 void AudioWizard::updateTriggerWidgets(bool ptt) {
 	qwVAD->setEnabled(!ptt);
 	qwpTrigger->setComplete(!ptt || (skwPTT->qlButtons.count() > 0));
