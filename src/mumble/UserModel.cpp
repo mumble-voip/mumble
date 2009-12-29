@@ -887,7 +887,7 @@ void UserModel::renameUser(ClientUser *p, const QString &name) {
 
 void UserModel::setUserId(ClientUser *p, int id) {
 	p->iId = id;
-	QModelIndex idx = index(p, 1);
+	QModelIndex idx = index(p, 0);
 	emit dataChanged(idx, idx);
 }
 
@@ -901,9 +901,8 @@ void UserModel::setHash(ClientUser *p, const QString &hash) {
 
 void UserModel::setFriendName(ClientUser *p, const QString &name) {
 	p->qsFriendName = name;
-	QModelIndex idx_a = index(p, 0);
-	QModelIndex idx_b = index(p, 1);
-	emit dataChanged(idx_a, idx_b);
+	QModelIndex idx = index(p, 0);
+	emit dataChanged(idx, idx);
 }
 
 void UserModel::setComment(ClientUser *cu, const QString &comment) {
@@ -923,7 +922,7 @@ void UserModel::setComment(ClientUser *cu, const QString &comment) {
 		}
 
 		if (oldstate != newstate) {
-			QModelIndex idx = index(cu, 1);
+			QModelIndex idx = index(cu, 0);
 			emit dataChanged(idx, idx);
 		}
 	}
@@ -946,7 +945,7 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 		}
 
 		if (oldstate != newstate) {
-			QModelIndex idx = index(c, 1);
+			QModelIndex idx = index(c, 0);
 			emit dataChanged(idx, idx);
 		}
 	}
