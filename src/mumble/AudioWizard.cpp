@@ -596,9 +596,9 @@ void AudioWizard::on_qcbHeadphone_clicked(bool on) {
 
 void AudioWizard::on_qcbPositional_clicked(bool on) {
 	g.s.bPositionalAudio = on;
+	g.s.bTransmitPosition = on;
 	restartAudio();
 }
-
 
 void AudioWizard::updateTriggerWidgets(bool ptt) {
 	qwVAD->setEnabled(!ptt);
