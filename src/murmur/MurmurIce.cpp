@@ -1012,8 +1012,10 @@ static void impl_Server_setChannelState(const ::Murmur::AMD_Server_setChannelSta
 	int channelid = state.id;
 	NEED_SERVER;
 	NEED_CHANNEL;
-	::Channel *np;
-	NEED_CHANNEL_VAR(np, state.parent);
+	::Channel *np = NULL;
+	if (channel->iId != 0) {
+		NEED_CHANNEL_VAR(np, state.parent);
+	}
 
 	QString qsName = u8(state.name);
 
