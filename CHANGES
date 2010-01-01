@@ -1,7 +1,52 @@
-2009-12-28
+2009-12-31
   Thorvald Natvig <slicer@users.sourceforge.net>
+    064969a  Allow setChannelState on root channel
+
+2009-12-30
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    0434d8f  Hide the custom quality text if the checkbox is not visible
+
+2009-12-29
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    3f9be33  Fix QWindowsVistaStyle hack when using stylesheets
+    530bc5e  Add a default stylesheet for log messages
+    3983bd1  Fix log CSS classes and remove "'s around channel/usernames
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    52b5939  Don't showpage() on exit
+    764151d  Fix a few leftover column 1 dataChanged()
+    7825b04  Allow viewing comments in richtexteditor
+    ef1b9ff  Search for mumble.ini in APPDATA as well
+    feef4ef  Per-channel userlimits (usersperchannel in .ini, hidden
+	     option)
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    dec2ba8  Link AW PA setting to TransmitPosition
+    c70af3e  Fix qcbHeadphone
+    fce765a  Remove leftover stub
+    d58af53  Fix remaining plugin bugs; ensure console connects get handled
+	     properly; link PA in AW to bTransmitPosition; set default
+	     minimum volume of PA to 85%
+
+2009-12-28
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    32d4490  Replace bitwise operators with boolean ones in attenuation
+	     handling
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    827cab2  Hack around Qt's Vista Style weirdness and drawing code
+	     cleanup
+    9caba4f  Rewrite UserView drawing code
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    04f3e4f  Handle permissiondenied for user rename in client
+    338ea0f  Validate usernames on user rename
+    02214c0  New PLC code in CELT master
     bef7408  Show and react immediately to tranmission changes in
 	     audiowizard
+
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
+    243f5c7  Update Polish installer
 
 2009-12-27
   arcenciel <arcenciel@users.sourceforge.net>
@@ -40,6 +85,8 @@
     357e016  Fix bandwidth monitor to handle larger frame sizes
 
   Tuck Therebelos <snares@users.sourceforge.net>
+    c0ecbd2  Fix vehicle V/H floats
+    86f851f  Add ETQW plugin files
     417ae98  Unified string messages; added ETQW plugin; various plugin
 	     fixes, improvements and updates
 

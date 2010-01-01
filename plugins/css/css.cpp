@@ -117,28 +117,28 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	     peekProc(rotptr, rot, 12) &&
 	     peekProc(stateptr, &state, 1) &&
 	     peekProc(hostptr, chHostStr, 40); //&&
-	     //peekProc(teamptr, &bTeam, 1);
+	//peekProc(teamptr, &bTeam, 1);
 	if (!ok)
 		return false;
-		
+
 	chHostStr[39] = 0;
-	
+
 	sHost.assign(chHostStr);
 	if (sHost.find(':')==string::npos)
 		sHost.append(":27015");
 
-/*	switch (bTeam) {
-		case 60:
-			sTeam = "Terrorists";
-			break;
-		case 61:
-			sTeam = "Counter Terrorists";
-			break;
-		default:
-			sTeam = "Unknown";
-			break;
-	}
-*/
+	/*	switch (bTeam) {
+			case 60:
+				sTeam = "Terrorists";
+				break;
+			case 61:
+				sTeam = "Counter Terrorists";
+				break;
+			default:
+				sTeam = "Unknown";
+				break;
+		}
+	*/
 
 	new_context << "<context>"
 	<< "<game>css</game>"

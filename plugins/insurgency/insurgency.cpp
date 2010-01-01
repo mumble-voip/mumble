@@ -116,9 +116,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	     peekProc(hostptr, chHostStr, 40);
 	if (!ok)
 		return false;
-		
+
 	chHostStr[39] = 0;
-	
+
 	sHost.assign(chHostStr);
 	if (sHost.find(':')==string::npos)
 		sHost.append(":27015");

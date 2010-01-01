@@ -302,7 +302,7 @@ void AudioWizard::on_qsMaxAmp_valueChanged(int v) {
 void AudioWizard::showPage(int pageid) {
 	if (pageid == -1)
 		return;
-	
+
 	CompletablePage *cp = qobject_cast<CompletablePage *>(currentPage());
 
 	AudioOutputPtr ao = g.ao;

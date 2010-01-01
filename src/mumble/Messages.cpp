@@ -184,7 +184,7 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 			}
 			break;
 		case MumbleProto::PermissionDenied_DenyType_UserName: {
-				if (msg.has_name()) 
+				if (msg.has_name())
 					g.l->log(Log::PermissionDenied, tr("Invalid username: %1.").arg(u8(msg.name())));
 				else
 					g.l->log(Log::PermissionDenied, tr("Invalid username."));
@@ -195,7 +195,7 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 			}
 			break;
 		default: {
-				if (msg.has_reason()) 
+				if (msg.has_reason())
 					g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(u8(msg.reason())));
 				else
 					g.l->log(Log::PermissionDenied, tr("Permission denied."));

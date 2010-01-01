@@ -56,7 +56,7 @@ Global::Global() {
 	bAttenuateOthers = false;
 
 	qs = NULL;
-	
+
 	QStringList qsl;
 	qsl << QCoreApplication::instance()->applicationDirPath();
 	qsl << QDesktopServices::storageLocation(QDesktopServices::DataLocation);

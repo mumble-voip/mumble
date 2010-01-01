@@ -86,7 +86,7 @@ static void about(HWND h) {
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	char menustate;
 	char ccontext[128];
-	
+
 	float viewHor, viewVer;
 	for (int i=0;i<3;i++)
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
@@ -116,17 +116,17 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	     peekProc(pos3ptr, avatar_pos+2, 4) && //Z
 	     peekProc(rot1ptr, &viewHor, 4) && //Hor
 	     peekProc(rot2ptr, &viewVer, 4) && //Ver
-		 peekProc((BYTE *) 0x0122E0B8, ccontext, 128);
+	     peekProc((BYTE *) 0x0122E0B8, ccontext, 128);
 
 	if (! ok)
 		return false;
 
 	avatar_top[2] = -1; // Head movement is in front vector
-	
+
 	ccontext[127] = 0;
 	context = std::string(ccontext);
-	
-	if (context.find(':')==string::npos) 
+
+	if (context.find(':')==string::npos)
 		context.append(":27733");
 
 	/*
@@ -171,14 +171,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 static int trylock() {
 	h = NULL;
 	pos1ptr = pos2ptr = pos3ptr = rot1ptr = rot2ptr = NULL;
-	
+
 	DWORD pid=getProcess(L"etqw.exe");
 	if (!pid)
 		return false;
 	BYTE *mod=getModuleAddr(pid, L"gamex86.dll");
 	if (!mod)
 		return false;
-		
+
 	pos1ptr = mod + 0x74EABC;
 	pos2ptr = mod + 0x74EAB4;
 	pos3ptr = mod + 0x74EAB8;
