@@ -2,7 +2,11 @@
   arcenciel <arcenciel@users.sourceforge.net>
     b9a647b  Updated Japanese Translations for 1.2.1
 
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    eee808d  Updated Spanish translation
+
   Thorvald Natvig <slicer@users.sourceforge.net>
+    cfcc962  Fix stuck PTT input in audiowizard
     6a8a20d  Roll back mumble_de.ts
     d150ba1  Fix spelling error in manpage
     64a7d22  Honor CONFIG+=no-crash-report for 11x

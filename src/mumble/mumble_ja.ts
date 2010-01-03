@@ -2960,9 +2960,8 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
         <translation type="unfinished">ユーザが会話しているときに他のアプリケーションの減衰を有効</translation>
     </message>
     <message>
-        <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone is starting to speak to you in mumble the sound of all other applications, like audio players, will get attenuated so you can understand them better.</source>
-        <translation type="unfinished">ユーザが会話しているときに他のアプリケーションの減衰を有効にする。 Mumble で誰かがあなたに話し始めたらすぐに、他のすべてのアプリケーションの音量はあなたが他人の会話を良く理解出来るように減衰されます。</translation>
+        <translation type="obsolete">ユーザが会話しているときに他のアプリケーションの減衰を有効にする。 Mumble で誰かがあなたに話し始めたらすぐに、他のすべてのアプリケーションの音量はあなたが他人の会話を良く理解出来るように減衰されます。</translation>
     </message>
     <message>
         <location/>
@@ -2998,6 +2997,11 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
         <location/>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
         <translation type="unfinished">あなたはすでに音質設定をカスタマイズしています。設定を保持したい場合はこれを選んでください。</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5642,9 +5646,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">この設定はどのような状況でアプリケーションを常に手前に表示するかを制御します。</translation>
     </message>
     <message>
-        <location/>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal mode&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation type="unfinished">この設定はどのような状況でアプリケーションを常に手前で表示するかを制御します。</translation>
+        <translation type="obsolete">この設定はどのような状況でアプリケーションを常に手前で表示するかを制御します。</translation>
     </message>
     <message>
         <location/>
@@ -5675,6 +5678,11 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location/>
         <source>Show talking status in tray icon</source>
         <translation type="unfinished">発言状態をトレイアイコンで表示する</translation>
+    </message>
+    <message>
+        <location/>
+        <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

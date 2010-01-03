@@ -2939,9 +2939,8 @@ Diese Statistiken sind grundlegend für die weitere Entwicklung und stellen sich
         <translation>Aktiviert die Abschwächung anderer Anwendungen während Sie sprechen</translation>
     </message>
     <message>
-        <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone is starting to speak to you in mumble the sound of all other applications, like audio players, will get attenuated so you can understand them better.</source>
-        <translation>Aktiviert die Abschwächung anderer Andwendungen während anderre Benutzer zu ihnen sprechen. Das bedeutet, dass z.B. Musikprogramme automatisch leiser werden, sobald jemand mit zu Ihnen spricht.</translation>
+        <translation type="obsolete">Aktiviert die Abschwächung anderer Andwendungen während anderre Benutzer zu ihnen sprechen. Das bedeutet, dass z.B. Musikprogramme automatisch leiser werden, sobald jemand mit zu Ihnen spricht.</translation>
     </message>
     <message>
         <location/>
@@ -2977,6 +2976,11 @@ Diese Statistiken sind grundlegend für die weitere Entwicklung und stellen sich
         <location/>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
         <translation>Sie haben bereits angepasste Qualitätseinstellungen in Mumble. Mit dieser Einstellungen behalten Sie sie.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5787,13 +5791,13 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     </message>
     <message>
         <location/>
-        <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal mode&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation type="unfinished"></translation>
+        <source>Displays talking status in system tray</source>
+        <translation>Zeigt den Sprechstatus im System Tray</translation>
     </message>
     <message>
         <location/>
-        <source>Displays talking status in system tray</source>
-        <translation>Zeigt den Sprechstatus im System Tray</translation>
+        <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
