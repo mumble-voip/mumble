@@ -80,12 +80,12 @@ class ShortcutKeyWidget : public QLineEdit {
 		bool bModified;
 		ShortcutKeyWidget(QWidget *p = NULL);
 		QList<QVariant> getShortcut() const;
+		void displayKeys(bool last = true);
 	public slots:
 		void updateKeys(bool last);
-		void displayKeys();
 		void setShortcut(const QList<QVariant> &shortcut);
 	signals:
-		void keySet(bool);
+		void keySet(bool, bool);
 };
 
 class ShortcutActionWidget : public QComboBox {

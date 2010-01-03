@@ -94,7 +94,7 @@ class AudioWizard: public QWizard, public Ui::AudioWizard {
 		void on_qcbHeadphone_clicked(bool);
 		void on_qcbPositional_clicked(bool);
 		void on_qcbAttenuateOthers_clicked(bool);
-		void on_skwPTT_keySet(bool);
+		void on_skwPTT_keySet(bool, bool);
 		void on_qrbQualityUltra_clicked();
 		void on_qrbQualityBalanced_clicked();
 		void on_qrbQualityLow_clicked();

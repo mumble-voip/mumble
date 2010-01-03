@@ -550,7 +550,7 @@ void AudioWizard::on_qrPTT_clicked(bool on) {
 	}
 }
 
-void AudioWizard::on_skwPTT_keySet(bool valid) {
+void AudioWizard::on_skwPTT_keySet(bool valid, bool last) {
 	if (valid)
 		qrPTT->setChecked(true);
 	else if (qrPTT->isChecked())
@@ -558,31 +558,33 @@ void AudioWizard::on_skwPTT_keySet(bool valid) {
 	updateTriggerWidgets(valid);
 	bTransmitChanged = true;
 
-	const QList<QVariant> &buttons = skwPTT->getShortcut();
-	QList<Shortcut> ql;
-	bool found = false;
-	foreach(Shortcut s, g.s.qlShortcuts) {
-		if (s.iIndex == g.mw->gsPushTalk->idx) {
-			if (buttons.isEmpty())
-				continue;
-			else if (! found) {
-				s.qlButtons = buttons;
-				found = true;
-			}
-		}
-		ql << s;
-	}
-	if (! found && ! buttons.isEmpty()) {
-		Shortcut s;
-		s.iIndex = g.mw->gsPushTalk->idx;
-		s.bSuppress = false;
-		s.qlButtons = buttons;
-		ql << s;
-	}
-	g.s.qlShortcuts = ql;
+	if (last) {
 
-	GlobalShortcutEngine::engine->bNeedRemap = true;
-	GlobalShortcutEngine::engine->needRemap();
+		const QList<QVariant> &buttons = skwPTT->getShortcut();
+		QList<Shortcut> ql;
+		bool found = false;
+		foreach(Shortcut s, g.s.qlShortcuts) {
+			if (s.iIndex == g.mw->gsPushTalk->idx) {
+				if (buttons.isEmpty())
+					continue;
+				else if (! found) {
+					s.qlButtons = buttons;
+					found = true;
+				}
+			}
+			ql << s;
+		}
+		if (! found && ! buttons.isEmpty()) {
+			Shortcut s;
+			s.iIndex = g.mw->gsPushTalk->idx;
+			s.bSuppress = false;
+			s.qlButtons = buttons;
+			ql << s;
+		}
+		g.s.qlShortcuts = ql;
+		GlobalShortcutEngine::engine->bNeedRemap = true;
+		GlobalShortcutEngine::engine->needRemap();
+	}
 }
 
 void AudioWizard::on_qcbEcho_clicked(bool on) {

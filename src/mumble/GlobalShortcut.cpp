@@ -193,10 +193,10 @@ void ShortcutKeyWidget::updateKeys(bool last) {
 	if (last)
 		clearFocus();
 	else
-		displayKeys();
+		displayKeys(false);
 }
 
-void ShortcutKeyWidget::displayKeys() {
+void ShortcutKeyWidget::displayKeys(bool last) {
 	QStringList keys;
 
 	foreach(QVariant button, qlButtons) {
@@ -205,7 +205,7 @@ void ShortcutKeyWidget::displayKeys() {
 			keys << id;
 	}
 	setText(keys.join(QLatin1String(" + ")));
-	emit keySet(keys.count() > 0);
+	emit keySet(keys.count() > 0, last);
 }
 
 ShortcutActionWidget::ShortcutActionWidget(QWidget *p) : QComboBox(p) {
