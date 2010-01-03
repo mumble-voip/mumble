@@ -554,7 +554,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     <message>
         <location/>
         <source>&amp;Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Propiedades</translation>
     </message>
 </context>
 <context>
@@ -1583,7 +1583,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     <message>
         <location/>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation>Activar ésto cancelará el eco de sus altavoces. Mezclado tien un impacto bajo en la CPU, pero sólo funciona bien si sus altavoces están al mismo volúmen y son equidistantes al micrófono. La cancelación del eco multicanal proporciona mejor cancelación de eco, pero a un coste de CPU mayor.</translation>
+        <translation>Habilitar ésto cancelará el eco de sus altavoces. Mezclado tiene un impacto bajo en la CPU, pero sólo funciona bien si sus altavoces están al mismo volúmen y son equidistantes al micrófono. La cancelación del eco multicanal proporciona mejor cancelación de eco, pero a un coste de CPU mayor.</translation>
     </message>
     <message>
         <location/>
@@ -1628,17 +1628,17 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     <message>
         <location/>
         <source>Reset audio cue to default</source>
-        <translation>Reinicial la indicación sonora al valor por defecto</translation>
+        <translation>Restaura la indicación sonora al valor por defecto</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation>&lt;b&gt;Reiniciar&lt;/b&gt;&lt;br/&gt;Reinicia las rutas de los ficheros a sus valores por defecto.</translation>
+        <translation>&lt;b&gt;Restaurar&lt;/b&gt;&lt;br/&gt;Reinicia las rutas de los ficheros a sus valores por defecto.</translation>
     </message>
     <message>
         <location/>
         <source>Reset</source>
-        <translation>Reiniciar</translation>
+        <translation>Restaurar</translation>
     </message>
     <message>
         <location/>
@@ -1789,7 +1789,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
         <location line="+55"/>
         <source>%1 kbit/s (Audio %2 %5, Position %4, Overhead %3)</source>
         <oldsource>%1kbit/s (Audio %2 %5, Position %4, Overhead %3)</oldsource>
-        <translation type="unfinished">%1kbit/s (Audio %2 %5, Posición %4, Sobrecarga %3)</translation>
+        <translation>%1 kbit/s (Audio %2 %5, Posición %4, Sobrecarga %3)</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -1896,7 +1896,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt;Activa uno de los modos de prueba de bucle de retorno.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Ninguno&lt;/i&gt; - Bucle de retorno desactivado&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emula un servidor local.&lt;br /&gt;&lt;i&gt;Servidor&lt;/i&gt; - Solicita un bucle de retorno desde el servidor.&lt;br /&gt;Por favor, fíjese en que cuando está activado el modo de bucle de retorno, ningún otro usuario oirá su voz. Esta opción no se guarda al salir de la aplicación.</translation>
+        <translation>&lt;b&gt;Habilita uno de los modos de prueba de bucle de retorno.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Ninguno&lt;/i&gt; - Bucle de retorno desactivado&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emula un servidor local.&lt;br /&gt;&lt;i&gt;Servidor&lt;/i&gt; - Solicita un bucle de retorno desde el servidor.&lt;br /&gt;Por favor, fíjese en que cuando está activado el modo de bucle de retorno, ningún otro usuario oirá su voz. Esta opción no se guarda al salir de la aplicación.</translation>
     </message>
     <message>
         <source>TextLabel</source>
@@ -2110,87 +2110,87 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     <message>
         <location/>
         <source>vol</source>
-        <translation type="unfinished"></translation>
+        <translation>vol</translation>
     </message>
     <message>
         <location/>
         <source>od</source>
-        <translation type="unfinished"></translation>
+        <translation>od</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate applications by...</source>
-        <translation type="unfinished"></translation>
+        <translation>Atenuar las aplicaciones un...</translation>
     </message>
     <message>
         <location/>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Atenuación de las otras aplicaciones durante el habla</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Atenuar el volúmen de las otras aplicaciones durante el habla&lt;/b&gt;&lt;br /&gt;Mumble puede disminuir el volúmen de las otras aplicaciones durante el habla entrante y/o saliente. Ésto establece la atenuación de las otras aplicaciones si la característica está habilitada.</translation>
     </message>
     <message>
         <location/>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>at</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Si se activa, Mumble disminuye el volúmen de las otras aplicaciones mientras otros usuarios hablan</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Atenuar las aplicaciones mientras otros usuarios hablan&lt;/b&gt;&lt;br /&gt;Mumble puede disminuir el volúmen de las otras aplicaciones durante el habla entrante y/o saliente. Ésto hace que Mumble active la característica mientras otros usuarios le hablan.</translation>
     </message>
     <message>
         <location/>
         <source>while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation>mientras otros usuarios hablan</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Si se activa, Mumble disminuye el volúmen de otras aplicaciones mientras usted habla</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Atenuar las aplicaciones mientras usted habla&lt;/b&gt;&lt;br /&gt;Mumble puede disminuir el volúmen de las otras aplicaciones durante el habla entrante y/o saliente. Ésto hace que Mumble active la característica mientras usted habla.</translation>
     </message>
     <message>
         <location/>
         <source>while you talk</source>
-        <translation type="unfinished"></translation>
+        <translation>mientras usted habla</translation>
     </message>
     <message>
         <location/>
         <source>md</source>
-        <translation type="unfinished"></translation>
+        <translation>md</translation>
     </message>
     <message>
         <location/>
         <source>mv</source>
-        <translation type="unfinished"></translation>
+        <translation>mv</translation>
     </message>
     <message>
         <location/>
         <source>bl</source>
-        <translation type="unfinished"></translation>
+        <translation>bl</translation>
     </message>
     <message>
         <location/>
         <source>dv</source>
-        <translation type="unfinished"></translation>
+        <translation>dv</translation>
     </message>
     <message>
         <location/>
         <source>pl</source>
-        <translation type="unfinished"></translation>
+        <translation>pl</translation>
     </message>
 </context>
 <context>
@@ -2229,13 +2229,13 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
         <location line="+31"/>
         <location line="+4"/>
         <source>%1 %</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %</translation>
     </message>
     <message>
         <location line="-16"/>
         <location line="+6"/>
         <source>%1 m</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 m</translation>
     </message>
     <message>
         <source>%1%</source>
@@ -2417,7 +2417,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
         <location filename="AudioStats.cpp" line="+384"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
-        <translation type="unfinished">&gt;1000ms</translation>
+        <translation>&gt;1000 ms</translation>
     </message>
     <message>
         <location filename="AudioStats.ui"/>
@@ -2825,7 +2825,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Abra su panel de control de sonido y vaya a las opciones de grabación. Asegúrese de que el micrófono está seleccionado como la entrada activa y con el máximo volumen de grabación. Si existe una opción para activar un &quot;Potenciado del micrófono&quot; asegúrese de que está activada.
+Abra su panel de control de sonido y vaya a las opciones de grabación. Asegúrese de que el micrófono está seleccionado como la entrada activa y con el máximo volumen de grabación. Si existe una opción para habilitar un &quot;Potenciado del micrófono&quot; asegúrese de que está activada.
 &lt;/p&gt;
 &lt;p&gt;
 Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volumen en el panel de control de sonido hasta que la barra de abajo permanezca, mientras habla, tan alto como sea posible en la zona azul y verde pero &lt;b&gt;no&lt;/b&gt; en la zona roja.
@@ -2852,7 +2852,7 @@ The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Mumble soporta audio posicional para algunos juegos, y posicionará la voz de otros usuarios en relación a su posición en el juego. Dependiendo de su posición, el volúmen de la voz cambiará entre los altavoces para simular la dirección y la distancia a la que están los otros usuarios. Tal posicionamiento depende de que la configuración de los altavoces sea correcta en su sistema operativo, así que se hará una prueba aquí.
+Mumble adminte audio posicional para algunos juegos, y posicionará la voz de otros usuarios en relación a su posición en el juego. Dependiendo de su posición, el volúmen de la voz cambiará entre los altavoces para simular la dirección y la distancia a la que están los otros usuarios. Tal posicionamiento depende de que la configuración de los altavoces sea correcta en su sistema operativo, así que se hará una prueba aquí.
 &lt;/p&gt;
 &lt;p&gt;
 El gráfico de abajo muestra &lt;font color=&quot;red&quot;&gt;su&lt;/font&gt; posición, los &lt;font color=&quot;yellow&quot;&gt;altavoces&lt;/font&gt; y una &lt;font color=&quot;green&quot;&gt;fuente de sonido móvil&lt;/font&gt; vistas desde arriba. Debería oir el audio moverse entre los canales.
@@ -2920,92 +2920,92 @@ Mumble se encuentra en continuo desarrollo, y el equipo de desarrollo quiere cen
     <message>
         <location/>
         <source>Quality &amp; Notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Notificaciones de calidad</translation>
     </message>
     <message>
         <location/>
         <source>Adjust quality and notification settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajusta las opciones de calidad y notificación.</translation>
     </message>
     <message>
         <location/>
         <source>Quality settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de calidad</translation>
     </message>
     <message>
         <location/>
         <source>Low</source>
-        <translation type="unfinished"></translation>
+        <translation>Baja</translation>
     </message>
     <message>
         <location/>
         <source>Balanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Equlibrada</translation>
     </message>
     <message>
         <location/>
         <source>Notification settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Opciones de notificación</translation>
     </message>
     <message>
         <location/>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar Texto-A-Voz (TTS) para leer las notificaciones y mensajes para usted.</translation>
     </message>
     <message>
         <location/>
         <source>Disable Text-To-Speech and use sounds instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Inhabilitar Texto-A-Voz (TTS) y usar sonidos en su lugar.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="+293"/>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui"/>
         <source>Enables attenuation of other applications while users talk to you</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilita la atenuación de las otras aplicaciones mientras los usuarios le hablan</translation>
     </message>
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone is starting to speak to you in mumble the sound of all other applications, like audio players, will get attenuated so you can understand them better.</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilita la atenuación de las otras aplicaciones mientras los usuarios le hablan. Esto significa que en cuanto alguien comience a hablarle en Mumble el sonido de las demás aplicaciones, como reproductores de audio, será atenuado para permitirle entenderlo mejor.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate applications while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Atenuar las aplicaciones mientras otros usuarios hablan</translation>
     </message>
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (Speex 16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>En esta configuración Mumble usará una &lt;b&gt;baja cantidad de ancho de banda&lt;/b&gt;. Ésto resultará inevitablemente en alta latencia y mala calidad. Elija esto sólo si su conexión no admite las otras opciones. (Speex 16kbit/s, 60ms por paquete)</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (CELT 40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ésta es la configuración &lt;b&gt;recomendada por defecto&lt;/b&gt;. Proporciona un buen equilibrio entre calidad, latencia y uso de ancho de banda. (CELT 40kbit/s, 20ms por paquete)</translation>
     </message>
     <message>
         <location/>
         <source>High</source>
-        <translation type="unfinished"></translation>
+        <translation>Alta</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (CELT 72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta configuración se recomienda sólo para instalaciones en las que el ancho de banda no es problemático, como una LAN. Proporciona la menor latencia admitida por Mumble y &lt;b&gt;alta calidad&lt;/b&gt;. (CELT 72kbit/s, 10ms por paquete)</translation>
     </message>
     <message>
         <location/>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation>Personalizada</translation>
     </message>
     <message>
         <location/>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ya estableció una configuración de calidad personalizada en Mumble. Seleccione esta opción para mantenerla.</translation>
     </message>
 </context>
 <context>
@@ -3493,7 +3493,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Automatic certificate creation</source>
-        <translation type="unfinished"></translation>
+        <translation>Creación automática del certificado</translation>
     </message>
 </context>
 <context>
@@ -3736,7 +3736,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="CustomElements.cpp" line="+71"/>
         <source>Paste and send</source>
-        <translation type="unfinished"></translation>
+        <translation>Pegar y enviar</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -3940,7 +3940,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="ConnectDialog.cpp" line="+718"/>
         <source>&amp;Connect</source>
-        <translation type="unfinished">&amp;Conectar</translation>
+        <translation>&amp;Conectar</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -4063,7 +4063,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location line="+284"/>
         <source>&amp;Filters</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Filtros</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
@@ -4212,38 +4212,38 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>&amp;Edit...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Editar...</translation>
     </message>
     <message>
         <location/>
         <location filename="ConnectDialog.cpp" line="-688"/>
         <source>&amp;Add New...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Agregar nuevo...</translation>
     </message>
     <message>
         <location/>
         <source>Add to &amp;Favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>Agregar a &amp;favoritos</translation>
     </message>
     <message>
         <location/>
         <source>Open &amp;Webpage</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir página &amp;web</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;Reachable</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar a&amp;lcanzables</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;Populated</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar en &amp;uso</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar &amp;todos</translation>
     </message>
 </context>
 <context>
@@ -4758,7 +4758,7 @@ de las ubicaciones posibles.</translation>
         <location line="+1"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
-        <translation type="unfinished">&lt;b&gt;Ésta es la combinación de teclas del método abreviado global.&lt;/b&gt;&lt;br /&gt;Haga doble click en este campo y después presione la combinación de teclas deseada para volver a asociarla.</translation>
+        <translation>&lt;b&gt;Ésta es la combinación de teclas del método abreviado global.&lt;/b&gt;&lt;br /&gt;Haga click en este campo y después presione la combinación de teclas deseada para volver a asociarla.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4768,7 +4768,7 @@ de las ubicaciones posibles.</translation>
     <message>
         <location line="+1"/>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
-        <translation>&lt;b&gt;Oculta a otras aplicaciones las pulsaciones de teclas.&lt;/b&gt;&lt;br /&gt;Activar ésto ocultará el botón (o el último botón de una combinación de múltiples botones) a otras apliaciones. Tenga en cuenta que no todos los botones se pueden ocultar.</translation>
+        <translation>&lt;b&gt;Oculta a otras aplicaciones las pulsaciones de teclas.&lt;/b&gt;&lt;br /&gt;Habilitar ésto ocultará el botón (o el último botón de una combinación de múltiples botones) a otras apliaciones. Tenga en cuenta que no todos los botones se pueden ocultar.</translation>
     </message>
 </context>
 <context>
@@ -5232,7 +5232,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+40"/>
         <source>the server</source>
-        <translation type="unfinished"></translation>
+        <translation>el servidor</translation>
     </message>
     <message>
         <location line="+118"/>
@@ -5755,42 +5755,42 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>This setting controls when the application will be always on top.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta opción controla cuando se mantendrá la aplicación sobre las demás.</translation>
     </message>
     <message>
         <location/>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal mode&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta opción controla en qué situaciones la aplicación permanecerá visible sobre todas las demás. Si selecciona &lt;i&gt;Nunca&lt;/i&gt; la aplicación no se mantendrá sobre las demás. &lt;i&gt;Siempre&lt;/i&gt; mantendrá la aplicación sobre las demás. &lt;i&gt;En la vista mínima&lt;/i&gt; / &lt;i&gt;En modo normal&lt;/i&gt; mantendrá la aplicación sobre las demás sólo cuando la vista mínima se active / desactive.</translation>
     </message>
     <message>
         <location/>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation>Nunca</translation>
     </message>
     <message>
         <location/>
         <source>Always</source>
-        <translation type="unfinished"></translation>
+        <translation>Siempre</translation>
     </message>
     <message>
         <location/>
         <source>In minimal view</source>
-        <translation type="unfinished"></translation>
+        <translation>En la vista mínima</translation>
     </message>
     <message>
         <location/>
         <source>In normal view</source>
-        <translation type="unfinished"></translation>
+        <translation>En la vista normal</translation>
     </message>
     <message>
         <location/>
         <source>Displays talking status in system tray</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar el estado del habla en el área de notificación</translation>
     </message>
     <message>
         <location/>
         <source>Show talking status in tray icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar el estado del habla en el área de notificación</translation>
     </message>
 </context>
 <context>
@@ -6066,7 +6066,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
-        <translation>Activa o desactiva el motor de texto-a-voz (TTS). Realmente sólo se dirán los mensajes habilitados para TTS en el cuadro de diálogo Configuración.</translation>
+        <translation>Habilita o inhabilita el motor de texto-a-voz (TTS). Realmente sólo se dirán los mensajes habilitados para TTS en el cuadro de diálogo Configuración.</translation>
     </message>
     <message>
         <location/>
@@ -6557,17 +6557,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+5"/>
         <source>Invalid username: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de usuario inválido: %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Invalid username.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de usuario inválido.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Channel is full.</source>
-        <translation type="unfinished"></translation>
+        <translation>El canal está lleno.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -6577,7 +6577,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+39"/>
         <source>%1 connected.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 se ha conectado.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -6592,22 +6592,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+156"/>
         <source>%1 disconnected.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 se ha desconectado.</translation>
     </message>
     <message>
         <location line="+88"/>
         <source>(Tree) </source>
-        <translation type="unfinished"></translation>
+        <translation>(Árbol)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>(Channel) </source>
-        <translation type="unfinished"></translation>
+        <translation>(Canal)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>%2%1: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%2%1: %3</translation>
     </message>
     <message>
         <source>server</source>
@@ -7240,22 +7240,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+71"/>
         <source>View comment on user %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ver los comentarios sobre el usuario %1</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Está seguro de que desea reiniciar el comentario sobre el usuario %1?</translation>
     </message>
     <message>
         <location line="+266"/>
         <source>(Tree) %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>(Árbol) %1: %2</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <location line="+585"/>
@@ -7671,7 +7671,7 @@ p, li { white-space: pre-wrap; }
         <location filename="Messages.cpp" line="-9"/>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished">Servidor</translation>
+        <translation>Servidor</translation>
     </message>
     <message>
         <source>&amp;Quit</source>
@@ -7695,57 +7695,57 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Send &amp;Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar &amp;mensaje</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Unlink All</source>
-        <translation type="unfinished"></translation>
+        <translation>Desvincular &amp;todo</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Certificate Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Asistente de &amp;certificados</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Register</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Registrar</translation>
     </message>
     <message>
         <location/>
         <source>Change &amp;Texture</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambiar te&amp;xtura</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove Texture</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Eliminar textura</translation>
     </message>
     <message>
         <location/>
         <source>Reset &amp;Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Restaurar &amp;comentario</translation>
     </message>
     <message>
         <location/>
         <source>Reset the comment of the selected user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Restaura el comentario sobre el usuario seleccionado.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Join Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Unirse al canal</translation>
     </message>
     <message>
         <location/>
         <source>View Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Ver comentario</translation>
     </message>
     <message>
         <location/>
         <source>View comment in editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Ver comentario en el editor</translation>
     </message>
 </context>
 <context>
@@ -8116,7 +8116,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation>No se pudo cargar la biblioteca de sobreimpresión. Esto quiere decir que:
+        <translation>No se pudo cargar la biblioteca de sobreimpresión. Ésto significa que:
 - la biblioteca (mumble_ol.dll) no fue encontrada en el directorio desde el que ejecutó Mumble
 - está usando un SO anterior a WinXP SP2</translation>
     </message>
@@ -8613,12 +8613,12 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location/>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilitado</translation>
     </message>
 </context>
 <context>
@@ -9138,7 +9138,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     <message>
         <location filename="UserEdit.cpp" line="-5"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Renombrar</translation>
     </message>
 </context>
 <context>
