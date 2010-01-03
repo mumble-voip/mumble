@@ -12,7 +12,7 @@ SOURCES *= smallft.cpp
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble11x.plist
 RESOURCES	*= mumble.qrc
 FORMS	*= ConfigDialog.ui MainWindow.ui ConnectDialog.ui BanEditor.ui ACLEditor.ui Plugins.ui Overlay.ui LookConfig.ui AudioInput.ui AudioOutput.ui Log.ui TextMessage.ui AudioStats.ui NetworkConfig.ui LCD.ui GlobalShortcut.ui
-TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_fr.ts mumble_ru.ts mumble_cs.ts mumble_ja.ts mumble_pl.ts mumble_zh_CN.ts mumble_zh_TW.ts
+TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_fr.ts mumble_it.ts mumble_ru.ts mumble_cs.ts mumble_ja.ts mumble_pl.ts mumble_zh_CN.ts mumble_zh_TW.ts
 PRECOMPILED_HEADER = mumble_pch.hpp
 
 VERSION		= 1.1.8
