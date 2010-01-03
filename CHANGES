@@ -1,8 +1,23 @@
+2010-01-03
+  arcenciel <arcenciel@users.sourceforge.net>
+    b9a647b  Updated Japanese Translations for 1.2.1
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    6a8a20d  Roll back mumble_de.ts
+    d150ba1  Fix spelling error in manpage
+    64a7d22  Honor CONFIG+=no-crash-report for 11x
+
+  Spaccaossi <spaccaossi@users.sourceforge.net>
+    9019991  Italian translation for 1.2.1 and 1.1.x
+
 2009-12-31
   Thorvald Natvig <slicer@users.sourceforge.net>
     064969a  Allow setChannelState on root channel
 
 2009-12-30
+  Natenom <natenom@googlemail.com>
+    c9f7a54  Updated German Translations
+
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     0434d8f  Hide the custom quality text if the checkbox is not visible
 
