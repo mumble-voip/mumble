@@ -1,4 +1,4 @@
-static const char *licenseMumble = "Copyright (C) 2005-2009, Thorvald Natvig <thorvald@natvig.com>\n"
+static const char *licenseMumble = "Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>\n"
                                    "Copyright (C) 2007, Stefan Gehn <mETz AT gehn DOT net>\n"
                                    "Copyright (C) 2007, Sebastian Schlingmann <mit_service@users.sourceforge.net>\n"
                                    "Copyright (C) 2008-2009, Mikkel Krautz <mikkel@krautz.dk>\n"

@@ -31,7 +31,7 @@ VS_VERSION_INFO VERSIONINFO
 				VALUE "FileDescription", "Mumble - Low-latency VoIP client"
 				VALUE "FileVersion", "1.1.8"
 				VALUE "ProductVersion", "1.1.8"
-				VALUE "LegalCopyright", "Copyright (C) 2005-2009, Thorvald Natvig <thorvald@natvig.com>"
+				VALUE "LegalCopyright", "Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>"
 				VALUE "OriginalFilename", "mumble.exe"
 				VALUE "ProductName", "Mumble"
 #ifndef RELEASE_BUILD

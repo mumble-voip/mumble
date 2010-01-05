@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2009, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
    Copyright (C) 2009, Benjamin Jemlich <pcgod@users.sourceforge.net>
 
    All rights reserved.
