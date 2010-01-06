@@ -5686,7 +5686,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
-        <translation>Establece qué canales expandir automáticamente. &lt;i&gt;Ninguno&lt;/i&gt; no expandirá ningún canal, &lt;i&gt;Todos&lt;/i&gt; expandirá todos los canales y &lt;i&gt;Sólo con usuarios&lt;/i&gt; expandirá y contraerá los canales según se unan o los abandonen los usuarios.</translation>
+        <translation>Establece qué canales expandir automáticamente. &lt;i&gt;Ninguno&lt;/i&gt; y &lt;i&gt;Todos&lt;/i&gt; harán que se expandan ninguno o todos los canales, mientras que &lt;i&gt;Sólo con usuarios&lt;/i&gt; hará que los canales se expandan y contraigan según los usuarios se unan a ellos o los abandonen.</translation>
     </message>
     <message>
         <location/>
