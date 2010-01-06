@@ -2049,7 +2049,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>How much should sound volume increase for sources that are really close?</source>
-        <translation>入力ソースの近さによってどのくらいボリュームを上げるか</translation>
+        <translation type="unfinished">入力ソースの近さによってどのくらいボリュームを上げるべきか?</translation>
     </message>
     <message>
         <source>Connected &quot;speakers&quot; are actually headphones.</source>
@@ -2818,7 +2818,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation>位置音響の減衰効果を調整します</translation>
+        <translation type="unfinished">位置音響の減衰効果を調整します。</translation>
     </message>
     <message>
         <location/>
@@ -2957,7 +2957,7 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
     <message>
         <location filename="AudioWizard.ui"/>
         <source>Enables attenuation of other applications while users talk to you</source>
-        <translation type="unfinished">ユーザが会話しているときに他のアプリケーションの減衰を有効</translation>
+        <translation type="unfinished">ユーザが会話しているときに他のアプリケーションの減衰を有効化</translation>
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone is starting to speak to you in mumble the sound of all other applications, like audio players, will get attenuated so you can understand them better.</source>
@@ -3001,7 +3001,7 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザが会話しているときに他のアプリケーションの減衰を有効にします。 Mumble で誰かがあなたに話し始めたらすぐに、他のすべてのアプリケーションの音量はあなたが他人の会話を良く理解出来るように減衰されます。</translation>
     </message>
 </context>
 <context>
@@ -3727,7 +3727,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="CustomElements.cpp" line="+71"/>
         <source>Paste and send</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">貼り付けて送信</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -4321,7 +4321,7 @@ Username to send to the server. Be aware that the server can impose restrictions
     <message>
         <location filename="CoreAudio.cpp" line="+85"/>
         <source>Default Device</source>
-        <translation type="unfinished">デフォルトデバイス</translation>
+        <translation>デフォルトデバイス</translation>
     </message>
 </context>
 <context>
@@ -4421,7 +4421,7 @@ Username to send to the server. Be aware that the server can impose restrictions
     <message>
         <location line="-5"/>
         <source>Lost DirectSound input device.</source>
-        <translation>DirectSound入力デバイスを失いました</translation>
+        <translation type="unfinished">DirectSound入力デバイスを失いました。</translation>
     </message>
 </context>
 <context>
@@ -4448,7 +4448,7 @@ Username to send to the server. Be aware that the server can impose restrictions
     <message>
         <location line="+326"/>
         <source>Lost DirectSound output device.</source>
-        <translation>DirectSound出力デバイスを失いました</translation>
+        <translation type="unfinished">DirectSound出力デバイスを失いました。</translation>
     </message>
 </context>
 <context>
@@ -5564,7 +5564,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
-        <translation>終了時に最小化するか閉じるかを確認します</translation>
+        <translation type="unfinished">終了時に最小化するか閉じるかを確認します。</translation>
     </message>
     <message>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;b&gt;</source>
@@ -5638,7 +5638,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
-        <translation>最小化されている時にメインウインドウをタスクトレイに格納します</translation>
+        <translation type="unfinished">最小化されている時にメインウインドウをタスクトレイに格納します。</translation>
     </message>
     <message>
         <location/>
@@ -6573,17 +6573,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+5"/>
         <source>Invalid username: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">不正なユーザ名: %1。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Invalid username.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">不正なユーザ名です。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Channel is full.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルが満員です。</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -6823,7 +6823,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-57"/>
         <source>View comment on user %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザ %1 のコメントを見ます</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -7588,12 +7588,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>View Comment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">コメントを見る</translation>
     </message>
     <message>
         <location/>
         <source>View comment in editor</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">エディタでコメントを見ます</translation>
     </message>
 </context>
 <context>
