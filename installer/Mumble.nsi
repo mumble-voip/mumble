@@ -167,7 +167,7 @@ Section "" SectionCommon
 
   File "\dev\protobuf-2.2.0\vsprojects\Release\libprotobuf.dll"
 
-  File "\Program Files (x86)\Intel\Compiler\11.0\075\cpp\Bin\ia32\libmmd.dll"
+  File "\Program Files (x86)\Intel\Compiler\11.1\054\Bin\ia32\libmmd.dll"
   File "\Program Files (x86)\Debugging Tools for Windows (x86)\dbghelp.dll"
 
   SetOutPath "$INSTDIR\QtPlugins\iconengines"
