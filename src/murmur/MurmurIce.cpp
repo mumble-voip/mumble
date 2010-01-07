@@ -874,6 +874,27 @@ static void impl_Server_getTree(const ::Murmur::AMD_Server_getTreePtr cb, int se
 	cb->ice_response(recurseTree(server->qhChannels.value(0)));
 }
 
+static void impl_Server_getCertificateList(const ::Murmur::AMD_Server_getCertificateListPtr cb, int server_id, ::Ice::Int session) {
+	NEED_SERVER;
+	NEED_PLAYER;
+
+ 	::Murmur::CertificateList certs;
+ 	
+ 	const QList<QSslCertificate> &certlist = user->peerCertificateChain();
+
+	certs.resize(certlist.size());
+	for (int i=0;i<certlist.size();++i) {
+		::Murmur::CertificateDer der;
+		QByteArray qba = certlist.at(i).toDer();
+		der.resize(qba.size());
+		const char *ptr = qba.constData();
+		for (int j=0;j<qba.size();++j)
+			der[j] = ptr[j];
+		certs[i] = der;
+	}
+	cb->ice_response(certs);
+}
+
 static void impl_Server_getBans(const ::Murmur::AMD_Server_getBansPtr cb, int server_id) {
 	NEED_SERVER;
 	::Murmur::BanList bl;

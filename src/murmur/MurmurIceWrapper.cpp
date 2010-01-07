@@ -58,6 +58,10 @@ void ::Murmur::ServerI::getChannels_async(const ::Murmur::AMD_Server_getChannels
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getChannels, cb, QString::fromStdString(current.id.name).toInt()));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
+void ::Murmur::ServerI::getCertificateList_async(const ::Murmur::AMD_Server_getCertificateListPtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
+	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getCertificateList, cb, QString::fromStdString(current.id.name).toInt(), p1));
+	QCoreApplication::instance()->postEvent(mi, ie);
+};
 void ::Murmur::ServerI::getTree_async(const ::Murmur::AMD_Server_getTreePtr &cb, const ::Ice::Current &current) {
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getTree, cb, QString::fromStdString(current.id.name).toInt()));
 	QCoreApplication::instance()->postEvent(mi, ie);

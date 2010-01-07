@@ -1,6 +1,7 @@
 ﻿#!/usr/bin/env python
 # -*- coding: utf-8
-import Ice, sys
+import Ice, sys, sha
+from M2Crypto import X509;
 
 Ice.loadSlice('Murmur.ice')
 import Murmur
@@ -25,6 +26,12 @@ class ServerCallbackI(Murmur.ServerCallback):
       self.server.addContextCallback(p.session, "flubber", "Power up the T", self.contextR, Murmur.ContextChannel | Murmur.ContextUser)
       if (self.server.hasPermission(p.session, 0, Murmur.PermissionWrite)):
         print "Is a global admin"
+      certlist=self.server.getCertificateList(p.session)
+      for cert in certlist:
+         hash = sha.new()
+         hash.update(cert)
+         cert = X509.load_cert_der_string(cert)
+         print cert.get_subject(), "issued by", cert.get_issuer(), "hash", hash.hexdigest()
 
     def userDisconnected(self, p, current=None):
       print "disconnected"

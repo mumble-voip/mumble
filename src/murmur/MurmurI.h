@@ -58,6 +58,10 @@ class ServerI : virtual public Server {
 		virtual void getTree_async(const ::Murmur::AMD_Server_getTreePtr&,
 		                           const Ice::Current&);
 
+		virtual void getCertificateList_async(const ::Murmur::AMD_Server_getCertificateListPtr&,
+		                                      ::Ice::Int,
+		                                      const ::Ice::Current&);
+
 		virtual void getBans_async(const ::Murmur::AMD_Server_getBansPtr&,
 		                           const Ice::Current&);
 

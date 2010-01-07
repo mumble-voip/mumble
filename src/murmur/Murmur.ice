@@ -481,6 +481,12 @@ module Murmur
 		 */
 		idempotent ChannelMap getChannels() throws ServerBootedException;
 
+		/** Fetch certificate of user. This returns the complete certificate chain of a user.
+		 * @param session Connection ID of user. See [User::session].
+		 * @return Certificate list of user.
+		 */
+		idempotent CertificateList getCertificateList(int session) throws ServerBootedException, InvalidSessionException;
+
 		/** Fetch all channels and connected users as a tree. This retrieves an easy-to-use representation of the server
 		 *  as a tree. This is primarily used for viewing the state of the server on a webpage.
 		 * @return Recursive tree of all channels and connected users.
