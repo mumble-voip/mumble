@@ -5453,7 +5453,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+147"/>
-        <location line="+1768"/>
+        <location line="+1770"/>
         <source>Root</source>
         <translation>Racine</translation>
     </message>
@@ -6055,7 +6055,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Se connecte au site web de Mumble, vérifie si une nouvelle version est disponible, et vous propose un lien de téléchargement approprié le cas échéant.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1680"/>
+        <location filename="MainWindow.cpp" line="-1682"/>
         <location line="+12"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
@@ -6192,7 +6192,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Expulsion du joueur %1</translation>
     </message>
     <message>
-        <location line="+870"/>
+        <location line="+872"/>
         <location line="+22"/>
         <source>Enter reason</source>
         <translation>Entrez la raison</translation>
@@ -6203,8 +6203,8 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.ui"/>
-        <location filename="MainWindow.cpp" line="-767"/>
-        <location line="+853"/>
+        <location filename="MainWindow.cpp" line="-769"/>
+        <location line="+855"/>
         <location line="+180"/>
         <location line="+649"/>
         <location filename="main.cpp" line="+17"/>
@@ -6735,7 +6735,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Ceci affiche des informations supplémentaires sur la connexion au serveur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1530"/>
+        <location filename="MainWindow.cpp" line="-1532"/>
         <source>Opening URL %1</source>
         <translation>Ouvrir l&apos;URL %1</translation>
     </message>
@@ -6775,8 +6775,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Entrer le nom d&apos;utilisateur</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <location line="+153"/>
+        <location line="+14"/>
+        <location line="+154"/>
         <source>Connecting to server %1.</source>
         <translation>Connexion au serveur %1.</translation>
     </message>
@@ -7058,7 +7058,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Connecté au serveur %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1120"/>
+        <location filename="MainWindow.cpp" line="-1122"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble est actuellement connecté à un serveur. Voulez-vous le fermer ou le réduire dans la barre des tâches?</translation>
     </message>
@@ -7169,12 +7169,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+1894"/>
+        <location line="+1896"/>
         <source>Not connected</source>
         <translation>Non connecté</translation>
     </message>
     <message>
-        <location line="-1704"/>
+        <location line="-1706"/>
         <source>Clear</source>
         <translation>Effacer</translation>
     </message>
@@ -8329,7 +8329,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+390"/>
+        <location filename="ServerHandler.cpp" line="+391"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>Les paquets UDP ne peuvent pas être envoyés ni reçus du serveur. Passage en mode TCP.</translation>
     </message>

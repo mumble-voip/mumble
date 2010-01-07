@@ -5689,7 +5689,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+147"/>
-        <location line="+1768"/>
+        <location line="+1770"/>
         <source>Root</source>
         <translation>ルート</translation>
     </message>
@@ -6210,7 +6210,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumbleのウェブページに接続して新しいバージョンが出ているかを確認します。もし新しいのが出ていたら適切なダウンロードURLを通知します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1680"/>
+        <location filename="MainWindow.cpp" line="-1682"/>
         <location line="+12"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
@@ -6372,7 +6372,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">プレイヤー %1 をキックしました。</translation>
     </message>
     <message>
-        <location line="+870"/>
+        <location line="+872"/>
         <location line="+22"/>
         <source>Enter reason</source>
         <translation>理由を入力してください</translation>
@@ -6383,8 +6383,8 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.ui"/>
-        <location filename="MainWindow.cpp" line="-767"/>
-        <location line="+853"/>
+        <location filename="MainWindow.cpp" line="-769"/>
+        <location line="+855"/>
         <location line="+180"/>
         <location line="+649"/>
         <location filename="main.cpp" line="+313"/>
@@ -7017,7 +7017,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>サーバとの接続についての詳細な情報を表示します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1530"/>
+        <location filename="MainWindow.cpp" line="-1532"/>
         <source>Opening URL %1</source>
         <translation>URL %1 を開きます</translation>
     </message>
@@ -7057,8 +7057,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">ユーザ名を入力してください</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <location line="+153"/>
+        <location line="+14"/>
+        <location line="+154"/>
         <source>Connecting to server %1.</source>
         <translation type="unfinished">サーバ %1 に接続しています。</translation>
     </message>
@@ -7364,7 +7364,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ %1 に接続しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1120"/>
+        <location filename="MainWindow.cpp" line="-1122"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation type="unfinished">Mumble は現在、サーバに接続しています。接続を閉じるか最小化しますか?</translation>
     </message>
@@ -7475,12 +7475,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+1894"/>
+        <location line="+1896"/>
         <source>Not connected</source>
         <translation type="unfinished">接続されていません</translation>
     </message>
     <message>
-        <location line="-1704"/>
+        <location line="-1706"/>
         <source>Clear</source>
         <translation>クリア</translation>
     </message>
@@ -8675,7 +8675,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+390"/>
+        <location filename="ServerHandler.cpp" line="+391"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>UDP パケットをサーバに送ることができないか、サーバから受けとることができません。TCPモードに切り替えます。</translation>
     </message>

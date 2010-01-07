@@ -4912,7 +4912,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+147"/>
-        <location line="+1768"/>
+        <location line="+1770"/>
         <source>Root</source>
         <translation>Kořen</translation>
     </message>
@@ -5530,7 +5530,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Připojí se k webové stránce Mumble pro zjištění případné dostupnosti novějších verzí a vypíše vhodný odkaz na stažení, pokud je nová verze k dispozici.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1680"/>
+        <location filename="MainWindow.cpp" line="-1682"/>
         <location line="+12"/>
         <source>Mumble -- %1</source>
         <translation>Mumble =- %1 </translation>
@@ -5658,7 +5658,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Alternativní klávesa pro mluvení</translation>
     </message>
     <message>
-        <location line="+524"/>
+        <location line="+526"/>
         <source>Reconnecting.</source>
         <translation>Opětovné připojování.</translation>
     </message>
@@ -5700,8 +5700,8 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.ui"/>
-        <location filename="MainWindow.cpp" line="-895"/>
-        <location line="+853"/>
+        <location filename="MainWindow.cpp" line="-897"/>
+        <location line="+855"/>
         <location line="+180"/>
         <location line="+649"/>
         <location filename="main.cpp" line="+17"/>
@@ -6119,7 +6119,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1596"/>
+        <location filename="MainWindow.cpp" line="-1598"/>
         <source>Opening URL %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6159,8 +6159,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">Zadejte jmého uživatele</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <location line="+153"/>
+        <location line="+14"/>
+        <location line="+154"/>
         <source>Connecting to server %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6418,7 +6418,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1120"/>
+        <location filename="MainWindow.cpp" line="-1122"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6525,12 +6525,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+1894"/>
+        <location line="+1896"/>
         <source>Not connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1704"/>
+        <location line="-1706"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7585,7 +7585,7 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+390"/>
+        <location filename="ServerHandler.cpp" line="+391"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation type="unfinished"></translation>
     </message>

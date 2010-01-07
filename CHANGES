@@ -11,6 +11,7 @@
     7426294  Update LICENSE
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    2e36c68  Process disconnect events before connecting to new server
     10e4c19  Add Africa
     f6dd2b7  Intel C++ 11.1.054 on Win32
     b5b6ba2  Add getCertificateList to Ice

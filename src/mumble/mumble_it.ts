@@ -4798,12 +4798,12 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+147"/>
-        <location line="+1768"/>
+        <location line="+1770"/>
         <source>Root</source>
         <translation>Radice</translation>
     </message>
     <message>
-        <location line="-1724"/>
+        <location line="-1726"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Premi-per-parlare</translation>
@@ -4937,7 +4937,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui"/>
         <location filename="MainWindow.cpp" line="+115"/>
-        <location line="+853"/>
+        <location line="+855"/>
         <location line="+180"/>
         <location line="+649"/>
         <location filename="main.cpp" line="+313"/>
@@ -4945,7 +4945,7 @@ p, li { white-space: pre-wrap; }
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1793"/>
+        <location filename="MainWindow.cpp" line="-1795"/>
         <location line="+12"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
@@ -5025,12 +5025,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1894"/>
+        <location line="+1896"/>
         <source>Not connected</source>
         <translation>Non connesso</translation>
     </message>
     <message>
-        <location line="-1704"/>
+        <location line="-1706"/>
         <source>Clear</source>
         <translation>Cancella</translation>
     </message>
@@ -5076,8 +5076,8 @@ p, li { white-space: pre-wrap; }
         <translation>Inserisci nome utente</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <location line="+153"/>
+        <location line="+14"/>
+        <location line="+154"/>
         <source>Connecting to server %1.</source>
         <translation>Connessione al server %1.</translation>
     </message>
@@ -7501,7 +7501,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+390"/>
+        <location filename="ServerHandler.cpp" line="+391"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>Pacchetti UDP impossibili da inviare o ricevere dal server. Cambio modalità su TCP.</translation>
     </message>
