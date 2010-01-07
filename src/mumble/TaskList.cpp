@@ -35,7 +35,7 @@
 
 #include "TaskList.h"
 
-void TaskList::addToRecentList(QString name, QString host, int port) {
+void TaskList::addToRecentList(QString name, QString user, QString host, int port) {
 	OSVERSIONINFOEXW ovi;
 	memset(&ovi, 0, sizeof(ovi));
 
@@ -61,6 +61,7 @@ void TaskList::addToRecentList(QString name, QString host, int port) {
 
 	QUrl url;
 	url.setScheme(QLatin1String("mumble"));
+	url.setUserName(user);
 	url.setHost(host);
 	url.setPort(port);
 	url.addQueryItem(QLatin1String("title"), name);

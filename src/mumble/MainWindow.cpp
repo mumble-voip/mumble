@@ -1943,7 +1943,7 @@ void MainWindow::serverConnected() {
 	}
 
 #ifdef Q_OS_WIN
-	TaskList::addToRecentList(g.s.qsLastServer, host, port);
+	TaskList::addToRecentList(g.s.qsLastServer, uname, host, port);
 #endif
 }
 
