@@ -3009,7 +3009,7 @@ Mumble se encuentra en continuo desarrollo, y el equipo de desarrollo quiere cen
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilita la atenuación de las otras aplicaciones mientras los usuarios le hablan. Esto significa que en cuanto alguien comience a hablarle en Mumble el sonido de las demás aplicaciones, como reproductores de audio, será atenuado para permitirle entenderlo mejor.</translation>
     </message>
 </context>
 <context>
@@ -5798,7 +5798,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta opción controla en qué situaciones la aplicación permanecerá visible sobre todas las demás. Si selecciona &lt;i&gt;Nunca&lt;/i&gt; la aplicación no se mantendrá sobre las demás. &lt;i&gt;Siempre&lt;/i&gt; hará que la aplicación se mantenga sobre las demás. &lt;i&gt;En la vista mínima&lt;/i&gt; / &lt;i&gt;En modo normal&lt;/i&gt; hará que la aplicación se mantenga sobre las demás sólo cuando la vista mínima se active / desactive.</translation>
     </message>
 </context>
 <context>
