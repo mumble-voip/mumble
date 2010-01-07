@@ -575,6 +575,7 @@ void MainWindow::openUrl(const QUrl &url) {
 	if (g.sh && g.sh->isRunning()) {
 		on_qaServerDisconnect_triggered();
 		g.sh->wait();
+		QCoreApplication::instance()->processEvents();
 	}
 
 	rtLast = MumbleProto::Reject_RejectType_None;
@@ -726,6 +727,7 @@ void MainWindow::on_qaServerConnect_triggered() {
 	if (g.sh && g.sh->isRunning() && res == QDialog::Accepted) {
 		on_qaServerDisconnect_triggered();
 		g.sh->wait();
+		QCoreApplication::instance()->processEvents();
 	}
 
 	if (res == QDialog::Accepted) {

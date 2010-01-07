@@ -314,6 +314,7 @@ void ServerHandler::run() {
 	while (! cptr.unique()) {
 		msleep(100);
 	}
+	delete qtsSock;
 }
 
 void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
