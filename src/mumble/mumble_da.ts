@@ -58,7 +58,7 @@
         <location/>
         <source>&amp;Properties</source>
         <oldsource>Properties</oldsource>
-        <translation type="unfinished">Egenskaber</translation>
+        <translation>&amp;Egenskaber</translation>
     </message>
     <message>
         <location/>
@@ -969,7 +969,7 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     <message>
         <location/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Dette viser den maksimale udgående båndbredde-brug.&lt;/b&gt;&lt;br /&gt;Dette viser den maksimale mængde båndbredde, der bliver sendt fra din maskine. Lyd-bitrate er den maksimale bitrate (eftersom vi bruger VBR) for alene lyddata. &lt;i&gt;Placering&lt;/i&gt; er bitrate&apos;en der bliver brugt til placeringsinformation. &lt;i&gt;Overhead&lt;/i&gt; er vores framing og IP-pakke-headers (IP og UDP er 75% af denne overhead).</translation>
+        <translation>&lt;b&gt;Dette viser den maksimale udgående båndbredde-brug.&lt;/b&gt;&lt;br /&gt;Dette viser den maksimale mængde båndbredde, der bliver sendt fra din maskine. Lyd-bitrate er den maksimale bitrate (eftersom vi bruger VBR) for alene lyddata. &lt;i&gt;Placering&lt;/i&gt; er bitrate&apos;en der bliver brugt til placeringsinformation. &lt;i&gt;Tab&lt;/i&gt; er vores framing og IP-pakke-headers (IP og UDP er 75% af denne overhead).</translation>
     </message>
     <message>
         <location/>
@@ -1019,7 +1019,7 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     <message>
         <location/>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation>Aktivering af dette vil eliminere ekko fra din højtalere. &lt;i&gt;Blandet&lt;/i&gt; forbruger ikke så meget CPU, men vil kun virke godt, hvis dine højtalere er lige højre og lige langt væk fra din mikrofon. &lt;i&gt;Multikanal&lt;/i&gt;-ekkoeliminering giver meget bedre ekkoeliminering, men forbruger meget CPU.</translation>
+        <translation>Aktivering af dette vil eliminere ekko fra din højtalere. &lt;i&gt;Blandet&lt;/i&gt; forbruger ikke så meget CPU, men vil kun virke godt, hvis dine højtalere er lige høje og lige langt væk fra din mikrofon. &lt;i&gt;Multikanal&lt;/i&gt;-ekkoeliminering giver meget bedre ekkoeliminering, men ved et højere CPU-forbrug.</translation>
     </message>
     <message>
         <location/>
@@ -1141,7 +1141,7 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
         <location line="+55"/>
         <source>%1 kbit/s (Audio %2 %5, Position %4, Overhead %3)</source>
         <oldsource>%1kbit/s (Audio %2 %5, Position %4, Overhead %3)</oldsource>
-        <translation type="unfinished">%1kbit/s (Lyd %2 %5, Placering %4, Overhead %3)</translation>
+        <translation>%1kbit/s (Lyd %2 %5, Placering %4, Tab %3)</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -1230,67 +1230,67 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     <message>
         <location/>
         <source>jb</source>
-        <translation type="unfinished"></translation>
+        <translation>jb</translation>
     </message>
     <message>
         <location/>
         <source>vol</source>
-        <translation type="unfinished"></translation>
+        <translation>vol</translation>
     </message>
     <message>
         <location/>
         <source>od</source>
-        <translation type="unfinished"></translation>
+        <translation>od</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate applications by...</source>
-        <translation type="unfinished"></translation>
+        <translation>Dæmp programmer med...</translation>
     </message>
     <message>
         <location/>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Dæmpning af andre programmer når der snakkes</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dæmp lydstyrke for andre programmer når der tales&lt;/b&gt;&lt;br /&gt;Mumble giver mulighed for at formindske lydstyrken af andre programmer under indgående og/eller udgående tale. Dette indstillinger dæmpningen af andre programmer, hvis funktionen er aktiveret.</translation>
     </message>
     <message>
         <location/>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>at</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvis denne er markeret, vil Mumble dæmpe lydstyrken af andre programmer, når andre brugere snakker</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dæmp programmer når andre brugere snakker&lt;/b&gt;&lt;br /&gt;Mumble giver mulighed for at formindske lydstyrken af andre programmer under indgående og/eller udgående tale. Dette får Mumble til at aktivere funktionen, når andre brugere snakker til dig.</translation>
     </message>
     <message>
         <location/>
         <source>while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation>når andre brugere snakker</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvis denne er markeret, vil Mumble dæmpe lydstyrken af andre programmer, når du snakker</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dæmp programmer når du snakker&lt;/b&gt;&lt;br /&gt;Mumble giver mulighed for at formindske lydstyrken af andre programmer under indgående og/eller udgående tale. Dette får Mumble til at aktivere funktionen, når du snakker.</translation>
     </message>
     <message>
         <location/>
         <source>while you talk</source>
-        <translation type="unfinished"></translation>
+        <translation>når du snakker</translation>
     </message>
     <message>
         <location/>
@@ -1305,7 +1305,7 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     <message>
         <location/>
         <source>md</source>
-        <translation type="unfinished"></translation>
+        <translation>md</translation>
     </message>
     <message>
         <location/>
@@ -1315,22 +1315,22 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     <message>
         <location/>
         <source>mv</source>
-        <translation type="unfinished"></translation>
+        <translation>mv</translation>
     </message>
     <message>
         <location/>
         <source>bl</source>
-        <translation type="unfinished"></translation>
+        <translation>bl</translation>
     </message>
     <message>
         <location/>
         <source>dv</source>
-        <translation type="unfinished"></translation>
+        <translation>dv</translation>
     </message>
     <message>
         <location/>
         <source>pl</source>
-        <translation type="unfinished"></translation>
+        <translation>pl</translation>
     </message>
     <message>
         <location/>
@@ -1523,13 +1523,13 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
         <location line="+31"/>
         <location line="+4"/>
         <source>%1 %</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %</translation>
     </message>
     <message>
         <location line="-16"/>
         <location line="+6"/>
         <source>%1 m</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 m</translation>
     </message>
     <message>
         <source>%1%</source>
@@ -1568,7 +1568,7 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
         <location filename="AudioStats.cpp" line="+384"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
-        <translation type="unfinished">&gt;1000ms</translation>
+        <translation>&gt;1000 ms</translation>
     </message>
     <message>
         <location filename="AudioStats.ui"/>
@@ -1898,12 +1898,17 @@ Vær opmærksom på at så længe denne guide er aktiv, vil lyden blive gentaget
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiverer dæmpning af andre programmer når brugere snakker til dig</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Enables attenuation of other applications while users talk to you. This means that as soon someone is starting to speak to you in mumble the sound of all other applications, like audio players, will get attenuated so you can understand them better.</source>
+        <translation>Aktiverer dæmpning af andre programmer når brugere snakker til dig. Dette betyder, at så snart nogen begynder at tale til dig i Mumble, vil lyden fra alle andre programmer, fx lydafspillere, blive dæmpet, så du kan høre og forstå de andre brugere bedre.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate applications while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Dæmp programmer når andre brugere snakker</translation>
     </message>
     <message>
         <location/>
@@ -1952,72 +1957,72 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
     <message>
         <location/>
         <source>Quality &amp; Notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Kvalitet &amp; notifikationer</translation>
     </message>
     <message>
         <location/>
         <source>Adjust quality and notification settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Justér kvalitet og notifikationsindstillinger.</translation>
     </message>
     <message>
         <location/>
         <source>Quality settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Kvalitetsindstillinger</translation>
     </message>
     <message>
         <location/>
         <source>Low</source>
-        <translation type="unfinished"></translation>
+        <translation>Lav</translation>
     </message>
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (Speex 16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Med denne konfiguration vil Mumble bruge en &lt;b&gt;lav mængde båndbredde&lt;/b&gt;. Dette vil uundgåeligt resultere i høj forsinkelse og dårlig kvalitet. Vælg kun dette, hvis din forbindelse ikke kan klare de andre indstillinger. (Speex 16kbit/s, 60ms pr. pakke)</translation>
     </message>
     <message>
         <location/>
         <source>Balanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Balanceret</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (CELT 40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dette er den &lt;b&gt;anbefalede standard&lt;/b&gt;-konfiguration. Det giver en god balance mellem kvalitet, forsinkelse og båndbredde-forbrug (CELT 40kbit/s, 20ms pr. pakke)</translation>
     </message>
     <message>
         <location/>
         <source>High</source>
-        <translation type="unfinished"></translation>
+        <translation>Høj</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (CELT 72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Det anbefales kun at bruge denne konfiguration i opsætninger, hvor båndbredde ikke er noget problem, fx til LAN. Det yder den laveste forsinkelse, som Mumble understøtter, og &lt;b&gt;høj kvalitet&lt;/b&gt;. (CELT 72kbit/s, 10ms pr. pakke)</translation>
     </message>
     <message>
         <location/>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation>Brugerdefineret</translation>
     </message>
     <message>
         <location/>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du har allerede indstillet en brugerdefineret opsætning af kvalitet i Mumble. Vælg denne indstilling for at beholde den.</translation>
     </message>
     <message>
         <location/>
         <source>Notification settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Notifikationsindstillinger</translation>
     </message>
     <message>
         <location/>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Brug Tekst-til-tale til at læse notifikationer og beskeder for dig.</translation>
     </message>
     <message>
         <location/>
         <source>Disable Text-To-Speech and use sounds instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deaktivér Tekst-til-tale og brug lyde i stedet.</translation>
     </message>
     <message>
         <location/>
@@ -2121,7 +2126,7 @@ Mumble er under konstant udvikling, og udviklerteamet vil gerne fokusere på fun
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation>Dernæst skal du justere følgende skyder. De første få udtagelser du siger, burde ende i det grønne område (definitiv snak). Når du snakker, burde du forblive inden for det gule (kan være tale), og når du ikke snakker, burde alt være i det røde (definitivt ikke snak).</translation>
+        <translation>Dernæst skal du justere følgende skyder. De første få udtagelser du siger, burde ende i det grønne område (definitivt snak). Når du snakker, burde du forblive inden for det gule (kan være snak), og når du ikke snakker, burde alt være i det røde (definitivt ikke snak).</translation>
     </message>
     <message>
         <location/>
@@ -2148,14 +2153,9 @@ Mumble er under konstant udvikling, og udviklerteamet vil gerne fokusere på fun
         <translation>Tryk-for-snak:</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+293"/>
+        <location filename="AudioWizard.cpp" line="+292"/>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioWizard.ui"/>
-        <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ms</translation>
     </message>
 </context>
 <context>
@@ -2332,7 +2332,7 @@ Mumble er under konstant udvikling, og udviklerteamet vil gerne fokusere på fun
     <message>
         <location/>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble kan bruge certifikater til at autentificere dig med servere. Ved at bruge certifikater, undgår man adgangskoder, hvilket vil sige at du ikke behøver afsløre nogen adgangskoder som nemt kan komme i omløb. Med certifikater er der mulighed for meget nem brugerregistrering.&lt;/p&gt;&lt;p&gt;Mumble kan godt nok fungere uden certifikater, men størstedelen af alle servere forventer at du har et.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble kan bruge certifikater til at autentificere dig med servere. Ved at bruge certifikater, undgår man adgangskoder, hvilket vil sige, at du derved ikke behøver afsløre nogen adgangskoder, som nemt kan komme i omløb. Med certifikater er der mulighed for meget nem brugerregistrering.&lt;/p&gt;&lt;p&gt;Mumble kan godt nok fungere uden certifikater, men størstedelen af alle servere forventer at du har et.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2611,7 +2611,7 @@ Er du sikker på du vil erstatte dit certifikat?
     <message>
         <location/>
         <source>Automatic certificate creation</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisk oprettelse af certifikat</translation>
     </message>
 </context>
 <context>
@@ -2782,7 +2782,7 @@ Er du sikker på du vil erstatte dit certifikat?
     <message>
         <location filename="CustomElements.cpp" line="+71"/>
         <source>Paste and send</source>
-        <translation type="unfinished"></translation>
+        <translation>Indsæt og send</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -2985,12 +2985,12 @@ Er du sikker på du vil erstatte dit certifikat?
     <message>
         <location line="+245"/>
         <source>&amp;Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Opret forbindelse</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>&amp;Filters</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Filtre</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
@@ -3012,7 +3012,7 @@ Er du sikker på du vil erstatte dit certifikat?
         <location filename="ConnectDialog.cpp" line="+245"/>
         <source>&amp;Add New...</source>
         <oldsource>Add New...</oldsource>
-        <translation type="unfinished">Tilføj ny...</translation>
+        <translation>&amp;Tilføj ny...</translation>
     </message>
     <message>
         <source>Filters</source>
@@ -3047,7 +3047,7 @@ Er du sikker på du vil erstatte dit certifikat?
         <location/>
         <source>&amp;Edit...</source>
         <oldsource>Edit...</oldsource>
-        <translation type="unfinished">Redigér...</translation>
+        <translation>&amp;Redigér...</translation>
     </message>
     <message>
         <location/>
@@ -3058,19 +3058,19 @@ Er du sikker på du vil erstatte dit certifikat?
         <location/>
         <source>Add to &amp;Favorites</source>
         <oldsource>Add to Favorites</oldsource>
-        <translation type="unfinished">Tilføj til favoritter</translation>
+        <translation>Tilføj til &amp;favoritter</translation>
     </message>
     <message>
         <location/>
         <source>Open &amp;Webpage</source>
         <oldsource>Open Webpage</oldsource>
-        <translation type="unfinished">Åben websted</translation>
+        <translation>Åben &amp;websted</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;Reachable</source>
         <oldsource>Show Reachable</oldsource>
-        <translation type="unfinished">Vis opnåelige</translation>
+        <translation>Vis &amp;opnåelige</translation>
     </message>
     <message>
         <location/>
@@ -3081,7 +3081,7 @@ Er du sikker på du vil erstatte dit certifikat?
         <location/>
         <source>Show &amp;Populated</source>
         <oldsource>Show Populated</oldsource>
-        <translation type="unfinished">Vis befolkede</translation>
+        <translation>Vis &amp;befolkede</translation>
     </message>
     <message>
         <location/>
@@ -3092,7 +3092,7 @@ Er du sikker på du vil erstatte dit certifikat?
         <location/>
         <source>Show &amp;All</source>
         <oldsource>Show All</oldsource>
-        <translation type="unfinished">Vis alle</translation>
+        <translation>Vis &amp;alle</translation>
     </message>
     <message>
         <location/>
@@ -3422,7 +3422,7 @@ som helst mulige placeringer.</translation>
         <location line="+1"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
-        <translation type="unfinished">&lt;b&gt;Dette er den globale genvejstast kombination.&lt;/b&gt;&lt;br /&gt;Dobbeltklik i dette felt og tryk derefter på den ønskede knap/tastkombination.</translation>
+        <translation>&lt;b&gt;Dette er den globale genvejstast kombination.&lt;/b&gt;&lt;br /&gt;Klik i dette felt og tryk derefter på den ønskede knap/tastkombination. Dobbeltklik for at fjerne.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3724,7 +3724,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+40"/>
         <source>the server</source>
-        <translation type="unfinished"></translation>
+        <translation>serveren</translation>
     </message>
     <message>
         <location line="+118"/>
@@ -3971,27 +3971,32 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location/>
         <source>This setting controls when the application will be always on top.</source>
-        <translation type="unfinished"></translation>
+        <translation>Denne indstilling kontrollerer, hvornår programmet altid vil være øverst.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal mode&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
+        <translation>Denne indstilling kontrollerer, i hvilke situationer programmet vil forblive øverst. Hvis du vælger &lt;i&gt;Aldrig&lt;/i&gt;, vil programmet ikke være øverst. &lt;i&gt;Altid&lt;/i&gt; vil altid bevare programmet øverst. &lt;i&gt;I minimal visning&lt;/i&gt; / &lt;i&gt;I normal tilstand&lt;/i&gt; vil kun bevare programmet øverst, når minimal visning er aktiveret/deaktiveret.</translation>
     </message>
     <message>
         <location/>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation>Aldrig</translation>
     </message>
     <message>
         <location/>
         <source>Always</source>
-        <translation type="unfinished"></translation>
+        <translation>Altid</translation>
     </message>
     <message>
         <location/>
         <source>In minimal view</source>
-        <translation type="unfinished"></translation>
+        <translation>I minimal visning</translation>
     </message>
     <message>
         <location/>
         <source>In normal view</source>
-        <translation type="unfinished"></translation>
+        <translation>I normal visning</translation>
     </message>
     <message>
         <location/>
@@ -4017,12 +4022,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location/>
         <source>Displays talking status in system tray</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis i ikonet i systembakken om du taler</translation>
     </message>
     <message>
         <location/>
         <source>Show talking status in tray icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis i systembakken om du taler</translation>
     </message>
     <message>
         <location/>
@@ -4168,22 +4173,17 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
         <translation>Skjul Mumble hovedvinduet i systembakken når det er minimeret.</translation>
     </message>
-    <message>
-        <location/>
-        <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+147"/>
-        <location line="+1768"/>
+        <location filename="MainWindow.cpp" line="+145"/>
+        <location line="+1750"/>
         <source>Root</source>
         <translation>Rod</translation>
     </message>
     <message>
-        <location line="-1724"/>
+        <location line="-1706"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryk-for-snak</translation>
@@ -4256,16 +4256,16 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location filename="MainWindow.ui"/>
-        <location filename="MainWindow.cpp" line="+115"/>
-        <location line="+853"/>
+        <location filename="MainWindow.cpp" line="+114"/>
+        <location line="+836"/>
         <location line="+180"/>
         <location line="+649"/>
-        <location filename="main.cpp" line="+313"/>
+        <location filename="main.cpp" line="+311"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1793"/>
+        <location filename="MainWindow.cpp" line="-1775"/>
         <location line="+12"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
@@ -4277,17 +4277,17 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+2"/>
-        <location line="+95"/>
+        <location line="+94"/>
         <source>Minimize</source>
         <translation>Minimér</translation>
     </message>
     <message>
-        <location line="-95"/>
+        <location line="-94"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+94"/>
+        <location line="+93"/>
         <source>Close</source>
         <translation>Luk</translation>
     </message>
@@ -4297,7 +4297,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Mumble har i øjeblikket forbindelse til en server. Vil du lukke eller minimere det?</translation>
     </message>
     <message>
-        <location line="-146"/>
+        <location line="-145"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Mute dig selv</translation>
@@ -4344,13 +4344,13 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Hvisk</translation>
     </message>
     <message>
-        <location line="+58"/>
-        <location line="+1894"/>
+        <location line="+57"/>
+        <location line="+1877"/>
         <source>Not connected</source>
         <translation>Ingen forbindelse oprettet</translation>
     </message>
     <message>
-        <location line="-1704"/>
+        <location line="-1687"/>
         <source>Clear</source>
         <translation>Ryd</translation>
     </message>
@@ -4436,7 +4436,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>&lt;h2&gt;Lyd båndbredde&lt;/h2&gt;&lt;p&gt;Maksimum %1 kbit/s&lt;br /&gt;Nuværende %2 kbit/s&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+195"/>
+        <location line="+191"/>
         <source>Register yourself as %1</source>
         <translation>Registrér dig selv som %1</translation>
     </message>
@@ -4453,7 +4453,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+0"/>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Du er ved at registrere &apos;%1&apos; på serveren. Denne handling kan ikke fortrydes, brugernavnet kan ikke ændres, og som en registreret bruger vil &apos;%1&apos; have adgangs til serveren, selvom du skifter serveradgangskoden.&lt;/p&gt;&lt;p&gt;%1 vil blive autentificeret med certifikatet der i øjeblikket er i brug.&lt;/p&gt;&lt;p&gt;Er du sikker på du vil registrere &apos;%1&apos;?&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Du er ved at registrere &apos;%1&apos; på serveren. Denne handling kan ikke fortrydes, brugernavnet kan ikke ændres, og som en registreret bruger vil &apos;%1&apos; have adgang til serveren, selvom du skifter adgangskoden til serveren.&lt;/p&gt;&lt;p&gt;%1 vil blive autentificeret med certifikatet, der i øjeblikket er i brug.&lt;/p&gt;&lt;p&gt;Er du sikker på du vil registrere &apos;%1&apos;?&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+43"/>
@@ -4475,7 +4475,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">Til kanal %1: %2</translation>
     </message>
     <message>
-        <location line="+75"/>
+        <location line="+62"/>
         <location line="+231"/>
         <source>Message to channel %1</source>
         <translation>Besked til kanal %1</translation>
@@ -4537,7 +4537,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Billedformatet blev ikke genkendt.</translation>
     </message>
     <message>
-        <location line="-1468"/>
+        <location line="-1451"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Lydkanal er sendt over kontrolkanal.</translation>
     </message>
@@ -4583,12 +4583,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1179"/>
+        <location line="+1162"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Se certifikat</translation>
     </message>
     <message>
-        <location line="-945"/>
+        <location line="-932"/>
         <location line="+22"/>
         <source>Enter reason</source>
         <translation>Skriv begrundelse</translation>
@@ -4600,26 +4600,21 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+13"/>
-        <location line="+89"/>
+        <location line="+76"/>
         <location line="+4"/>
         <source>To %1: %2</source>
         <translation>Til %1: %2</translation>
     </message>
     <message>
-        <location line="-93"/>
-        <location line="+93"/>
+        <location line="-80"/>
+        <location line="+80"/>
         <source>Message to %1</source>
         <translation>Besked til %1</translation>
     </message>
     <message>
-        <location line="-57"/>
-        <source>View comment on user %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+16"/>
+        <location line="-41"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>Er du sikker på, at du vil nulstille kommentaren for brugeren %1?</translation>
     </message>
     <message>
         <location line="+179"/>
@@ -4643,12 +4638,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+0"/>
         <source>(Tree) %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>(Træ) %1: %2</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <location line="+105"/>
@@ -5022,7 +5017,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location/>
         <source>Send &amp;Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Send &amp;besked</translation>
     </message>
     <message>
         <location/>
@@ -5284,37 +5279,37 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location/>
         <source>&amp;Certificate Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Certifikatguide</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Register</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Registrér</translation>
     </message>
     <message>
         <location/>
         <source>Change &amp;Texture</source>
-        <translation type="unfinished"></translation>
+        <translation>Skift &amp;tekstur</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove Texture</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fjern tekstur</translation>
     </message>
     <message>
         <location/>
         <source>Reset &amp;Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Nulstil &amp;kommentar</translation>
     </message>
     <message>
         <location/>
         <source>Reset the comment of the selected user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nulstil kommentaren for den valgte bruger.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Join Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Gå ind i kanal</translation>
     </message>
     <message>
         <source>Certificate Wizard</source>
@@ -5440,7 +5435,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location/>
         <source>&amp;Unlink All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fjern alle sammenkædninger</translation>
     </message>
     <message>
         <location/>
@@ -5461,7 +5456,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">serveren</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+297"/>
+        <location filename="Messages.cpp" line="+286"/>
         <source>You muted and deafened %1.</source>
         <translation>Du muted og gjorde %1 døv.</translation>
     </message>
@@ -5525,7 +5520,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>%1 er nu muted og gjort døv.</translation>
     </message>
     <message>
-        <location line="-111"/>
+        <location line="-100"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation>Du blev nægtet &lt;i&gt;%1&lt;/i&gt;-privilegier i %2.</translation>
     </message>
@@ -5565,21 +5560,6 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>%1 har ikke et certifikat.</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>Invalid username: %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Invalid username.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Channel is full.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location line="+7"/>
         <source>Permission denied.</source>
         <translation>Tilladelser nægtet.</translation>
@@ -5587,7 +5567,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+39"/>
         <source>%1 connected.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 oprettede forbindelse.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -5627,28 +5607,28 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+120"/>
         <source>%1 disconnected.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 afbrød forbindelsen.</translation>
     </message>
     <message>
         <location line="+85"/>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished"></translation>
+        <translation>server</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>(Tree) </source>
-        <translation type="unfinished"></translation>
+        <translation>(Træ) </translation>
     </message>
     <message>
         <location line="+2"/>
         <source>(Channel) </source>
-        <translation type="unfinished"></translation>
+        <translation>(Kanal) </translation>
     </message>
     <message>
         <location line="+3"/>
         <source>%2%1: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%2%1: %3</translation>
     </message>
     <message>
         <location line="-226"/>
@@ -5732,12 +5712,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>%1 gik ind i kanalen.</translation>
     </message>
     <message>
-        <location line="-288"/>
+        <location line="-277"/>
         <source>Server connection rejected: %1.</source>
         <translation>Forbindelse til server afvist: %1.</translation>
     </message>
     <message>
-        <location line="+112"/>
+        <location line="+101"/>
         <source>Denied: %1.</source>
         <translation>Nægtet. %1.</translation>
     </message>
@@ -5751,7 +5731,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Besked fra %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1252"/>
+        <location filename="UserModel.cpp" line="+1253"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Du har kanalflytning sat til &quot;Gør intet&quot;, så kanalen blev ikke flyttet.</translation>
     </message>
@@ -5785,16 +5765,6 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
         <translation>Dette vil slå til/fra hvorvidt det minimale vindue skal have en ramme der kan bruges til flytning eller ændring af størrelsen.</translation>
     </message>
-    <message>
-        <location/>
-        <source>View Comment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>View comment in editor</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>NetworkConfig</name>
@@ -5822,7 +5792,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location/>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;Aktivér TCP-kompatibilitetstilstand&lt;/b&gt;.&lt;br /&gt;Dette vil få Mumble til kun at bruge TCP når der kommunikeres med serveren. Dette vil forøge overhead, og forårsage at mistede pakker frembringer hørbare pauser i kommunikationen, så dette skal kun bruges, hvis du ikke er i stand til at bruge standarden (som bruger UDP for tale og TCP for kontrol).</translation>
+        <translation>&lt;b&gt;Aktivér TCP-kompatibilitetstilstand&lt;/b&gt;.&lt;br /&gt;Dette vil få Mumble til kun at bruge TCP når der kommunikeres med serveren. Dette vil forøge tabet, og forårsage at mistede pakker frembringer hørbare pauser i kommunikationen, så dette skal kun bruges, hvis du ikke er i stand til at bruge standarden (som bruger UDP for tale og TCP for kontrol).</translation>
     </message>
     <message>
         <location/>
@@ -6369,12 +6339,12 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Navn</translation>
     </message>
     <message>
         <location/>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiveret</translation>
     </message>
     <message>
         <location/>
@@ -6470,7 +6440,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
 <context>
     <name>RichTextEditor</name>
     <message>
-        <location filename="RichTextEditor.cpp" line="+241"/>
+        <location filename="RichTextEditor.cpp" line="+240"/>
         <source>Failed to load image</source>
         <translation>Indlæsning af billede mislykkedes</translation>
     </message>
@@ -6843,13 +6813,13 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     <message>
         <location filename="UserEdit.cpp" line="-5"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Omdøb</translation>
     </message>
 </context>
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-732"/>
+        <location filename="UserModel.cpp" line="-733"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Dette er en bruger, der har oprettet forbindelse til serveren. Ikonet til venstre for brugeren viser om vedkommende snakker:</translation>
     </message>
@@ -6974,7 +6944,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <translation>Flag</translation>
     </message>
     <message>
-        <location line="+649"/>
+        <location line="+650"/>
         <location line="+90"/>
         <location line="+20"/>
         <source>Mumble</source>
