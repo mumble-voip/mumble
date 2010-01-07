@@ -878,9 +878,9 @@ static void impl_Server_getCertificateList(const ::Murmur::AMD_Server_getCertifi
 	NEED_SERVER;
 	NEED_PLAYER;
 
- 	::Murmur::CertificateList certs;
- 	
- 	const QList<QSslCertificate> &certlist = user->peerCertificateChain();
+	::Murmur::CertificateList certs;
+
+	const QList<QSslCertificate> &certlist = user->peerCertificateChain();
 
 	certs.resize(certlist.size());
 	for (int i=0;i<certlist.size();++i) {

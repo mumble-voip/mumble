@@ -137,8 +137,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	//peekProc(contextptr, ccontext, 128);
 
 	ok = peekProc((BYTE *) 0x00976274, avatar_pos, 12) &&
-		 peekProc(faceptr, avatar_front, 12) &&
-		 peekProc(topptr, avatar_top, 12);
+	     peekProc(faceptr, avatar_front, 12) &&
+	     peekProc(topptr, avatar_top, 12);
 
 	if (! ok)
 		return false;
@@ -149,7 +149,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	*/
 	//ccontext[127] = 0;
 	//context = std::string(ccontext);
-	
+
 	for (int i=0;i<3;i++) {
 		camera_pos[i] = avatar_pos[i];
 		camera_front[i] = avatar_front[i];
@@ -173,14 +173,14 @@ static int trylock() {
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
-	
+
 	BYTE *ptr1 = peekProcPtr((BYTE *) 0x009A9468);
 	BYTE *ptr2 = peekProcPtr(ptr1 + 0x98);
-	
+
 	faceptr = ptr2 + 0x5C;
 	topptr = ptr2 + 0x4C;
 	stateptr = mod + 0x52FB1;
-	
+
 	//BYTE *ctxtp1 = peekProcPtr((BYTE *) 0x);
 	//BYTE *ctxtp2 = peekProcPtr(ctxtp1 + 0x);
 

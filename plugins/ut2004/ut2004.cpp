@@ -122,7 +122,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
 
 	bool ok;
-	
+
 	/*
 	   Z-Value is increasing when heading north
 				  decreasing when heading south
@@ -134,8 +134,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ok = peekProc(pos2ptr, avatar_pos+1, 4) &&	//Y
 	     peekProc(pos3ptr, avatar_pos, 4) &&	//X
 	     peekProc(pos1ptr, avatar_pos+2, 4) &&  //Z
-		 peekProc(rotptr, &rot_corrector, 12);
-		 //peekProc((BYTE *) 0x0122E0B8, ccontext, 128);
+	     peekProc(rotptr, &rot_corrector, 12);
+	//peekProc((BYTE *) 0x0122E0B8, ccontext, 128);
 
 	if (! ok)
 		return false;
@@ -146,11 +146,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_front[0] = rot_corrector[2]; //
 	avatar_front[1] = rot_corrector[1]; //
 	avatar_front[2] = rot_corrector[0]; //
-	
+
 	//ccontext[127] = 0;
 	//context = std::string(ccontext);
-	
-	//if (context.find(':')==string::npos) 
+
+	//if (context.find(':')==string::npos)
 	//	context.append(":UT3PORT");
 
 	for (int i=0;i<3;i++) {
@@ -165,27 +165,27 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 static int trylock() {
 	h = NULL;
 	pos1ptr = pos2ptr = pos3ptr = rotptr = NULL;
-	
+
 	DWORD pid=getProcess(L"UT2004.exe");
 	if (!pid)
 		return false;
 	BYTE *mod=getModuleAddr(pid, L"Engine.dll");
 	if (!mod)
 		return false;
-	
+
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
-	
+
 	BYTE *ptraddress = mod + 0x4A44FC;
 	BYTE *ptr2 = peekProcPtr(ptraddress);
 	BYTE *ptr3 = peekProcPtr(ptr2 + 0xCC);
 	BYTE *baseptr = ptr3 + 0x1C8;
-	
+
 	pos1ptr = baseptr;
 	pos2ptr = baseptr + 0x4;
 	pos3ptr = baseptr + 0x8;
-	
+
 	rotptr = baseptr + 0x18;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];

@@ -1,3 +1,29 @@
+2010-01-07
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    9a38eee  Updated Spanish translation
+    5989b9c  Updated Spanish Translation
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    b5b6ba2  Add getCertificateList to Ice
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    57e8b77  Update remaining plugin licenses
+    58081c6  Update licenses; add UT3, 2004, 1942 plugins; update some
+	     Source plugins
+
+2010-01-06
+  arcenciel <arcenciel@users.sourceforge.net>
+    a8d4b61  Updated Japanese Translations
+
+2010-01-05
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    16339bf  Update license to 2010
+    45da4e1  Add license info to a few plugins
+
+2010-01-04
+  Tuck Therebelos <snares@users.sourceforge.net>
+    85e5429  Add licenses to plugins
+
 2010-01-03
   arcenciel <arcenciel@users.sourceforge.net>
     b9a647b  Updated Japanese Translations for 1.2.1
@@ -5,7 +31,11 @@
   Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     eee808d  Updated Spanish translation
 
+  Ilmar Kruis <seaeagle1@users.sourceforge.net>
+    2701266  Positional audio plugin for Lord of the Rings Online.
+
   Thorvald Natvig <slicer@users.sourceforge.net>
+    2950634  Fix a few spelling problems
     cfcc962  Fix stuck PTT input in audiowizard
     6a8a20d  Roll back mumble_de.ts
     d150ba1  Fix spelling error in manpage
@@ -13,6 +43,9 @@
 
   Spaccaossi <spaccaossi@users.sourceforge.net>
     9019991  Italian translation for 1.2.1 and 1.1.x
+
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
+    336d02d  Updated Polish translation
 
 2009-12-31
   Thorvald Natvig <slicer@users.sourceforge.net>

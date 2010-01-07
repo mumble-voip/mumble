@@ -134,8 +134,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		Position as represented by /loc command
 
 		lx, ly = 8 * (byte)l;
-		ox, oy, oz = (float)o; 
-		
+		ox, oy, oz = (float)o;
+
 		0 < ox < 160
 
 		x = north
@@ -148,15 +148,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	ok = peekProc((BYTE *) 0x0109F8F0, o, 12) &&
 	     peekProc((BYTE *) 0x0109F8E8, l, 2) &&
-		 peekProc((BYTE *) 0x0109F8E4, &r, 1) &&
-		 peekProc((BYTE *) 0x0109F8EC, &i, 1) &&
+	     peekProc((BYTE *) 0x0109F8E4, &r, 1) &&
+	     peekProc((BYTE *) 0x0109F8EC, &i, 1) &&
 	     peekProc((BYTE *)(lotroclient + 0x00D85EC0 + 0x00000034), &h, 4);
 
 	if (! ok)
 		return false;
 
 	// Use region as context since each region has its own coordinate system
-	if(r == 1)
+	if (r == 1)
 		context = "Eriador";
 	else if (r == 2)
 		context = "Rhovannion";
@@ -164,18 +164,18 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return true;
 
 	// If we're in an instance, append the instance id
-	if(i != 0)
+	if (i != 0)
 		context += i;
 
 	// Heading should be between 0 and 360
-	if(h < 0 || h > 360)
+	if (h < 0 || h > 360)
 		return true;
 
 	// Limit coordinates to byte-values, otherwise we probably have a read error
-	if(l[0] == 255 && l[1] == 255)
+	if (l[0] == 255 && l[1] == 255)
 		return true;
 
-	avatar_pos[0] = -( (float)l[1] * 160.0 + o[1] );
+	avatar_pos[0] = -((float)l[1] * 160.0 + o[1]);
 	avatar_pos[1] = o[2];
 	avatar_pos[2] = (float)l[0] * 160.0 + o[0];
 

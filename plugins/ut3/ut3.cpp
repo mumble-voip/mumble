@@ -132,7 +132,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ok = peekProc((BYTE *) 0x01DEAFD9, &state, 1);
 	if (! ok)
 		return false;
-		
+
 	if (state == 1)
 		return true;
 
@@ -148,30 +148,30 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	//Convert to left-handed coordinate system
 
 	ok = peekProc(pos2ptr, avatar_pos, 4) &&	//X
-		 peekProc(pos1ptr, avatar_pos+1, 4) &&	//Y
-		 peekProc(pos0ptr, avatar_pos+2, 4) &&  //Z
-		 peekProc(faceptr, &face_corrector, 12) &&
-		 peekProc(top0ptr, &top0_corrector, 4) &&
-		 peekProc(top1ptr, &top1_corrector, 4) &&
-		 peekProc(top2ptr, &top2_corrector, 4);
-		 //peekProc((BYTE *) 0x0122E0B8, ccontext, 128);
+	     peekProc(pos1ptr, avatar_pos+1, 4) &&	//Y
+	     peekProc(pos0ptr, avatar_pos+2, 4) &&  //Z
+	     peekProc(faceptr, &face_corrector, 12) &&
+	     peekProc(top0ptr, &top0_corrector, 4) &&
+	     peekProc(top1ptr, &top1_corrector, 4) &&
+	     peekProc(top2ptr, &top2_corrector, 4);
+	//peekProc((BYTE *) 0x0122E0B8, ccontext, 128);
 
 	if (! ok)
 		return false;
-	
+
 	//Find north by playing on a Warfare game type - center view on the up arrow on the mini map
-	avatar_front[0] = face_corrector[2]; 
-	avatar_front[1] = face_corrector[1]; 
+	avatar_front[0] = face_corrector[2];
+	avatar_front[1] = face_corrector[1];
 	avatar_front[2] = face_corrector[0];
-	
+
 	avatar_top[0] = top2_corrector;
 	avatar_top[1] = top1_corrector;
 	avatar_top[2] = top0_corrector;
 
 	//ccontext[127] = 0;
 	//context = std::string(ccontext);
-	
-	//if (context.find(':')==string::npos) 
+
+	//if (context.find(':')==string::npos)
 	//	context.append(":UT3PORT");
 
 	for (int i=0;i<3;i++) {
@@ -186,7 +186,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 static int trylock() {
 	h = NULL;
 	pos0ptr = pos1ptr = pos2ptr = faceptr = top0ptr = top1ptr = top2ptr = NULL;
-	
+
 	DWORD pid=getProcess(L"UT3.exe");
 	if (!pid)
 		return false;
@@ -213,7 +213,7 @@ static int trylock() {
 
 	top1ptr = ptr1 + 0xA8;
 
-    //stateptr = mod + 0xC4;
+	//stateptr = mod + 0xC4;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;
