@@ -3734,7 +3734,7 @@ Are you sure you wish to replace your certificate?
         <translation type="obsolete">Mot de &amp;passe</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+718"/>
+        <location filename="ConnectDialog.cpp" line="+719"/>
         <source>&amp;Connect</source>
         <translation type="unfinished">&amp;Connexion</translation>
     </message>
@@ -8357,7 +8357,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-1336"/>
+        <location filename="ConnectDialog.cpp" line="-1337"/>
         <source>Favorite</source>
         <translation>Favoris</translation>
     </message>
@@ -8373,6 +8373,11 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     </message>
     <message>
         <location line="+6"/>
+        <source>Africa</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Asia</source>
         <translation>Asie</translation>
     </message>

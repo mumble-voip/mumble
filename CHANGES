@@ -1,15 +1,27 @@
 2010-01-07
+  Mikkel Krautz <mikkel@krautz.dk>
+    d43d38c  Tell codesign where the mumble-overlay binary resides now.
+
   Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     9a38eee  Updated Spanish translation
     5989b9c  Updated Spanish Translation
 
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    3ec3f5e  Fix compiling mumur on FreeBSD
+    7426294  Update LICENSE
+
   Thorvald Natvig <slicer@users.sourceforge.net>
+    10e4c19  Add Africa
+    f6dd2b7  Intel C++ 11.1.054 on Win32
     b5b6ba2  Add getCertificateList to Ice
 
   Tuck Therebelos <snares@users.sourceforge.net>
     57e8b77  Update remaining plugin licenses
     58081c6  Update licenses; add UT3, 2004, 1942 plugins; update some
 	     Source plugins
+
+  zentriple <zentriple@users.sourceforge.net>
+    2e2652b  Update Danish translation for 1.2.1.
 
 2010-01-06
   arcenciel <arcenciel@users.sourceforge.net>

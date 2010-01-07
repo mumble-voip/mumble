@@ -3409,7 +3409,7 @@ Are you sure you wish to replace your certificate?
         <translation type="obsolete">&amp;Heslo</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+718"/>
+        <location filename="ConnectDialog.cpp" line="+719"/>
         <source>&amp;Connect</source>
         <translation type="unfinished">&amp;Připojit</translation>
     </message>
@@ -7613,7 +7613,7 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-648"/>
+        <location filename="ConnectDialog.cpp" line="-649"/>
         <source>Favorite</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7629,6 +7629,11 @@ To může být způsobeno například těmito důvody:
     </message>
     <message>
         <location line="+6"/>
+        <source>Africa</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Asia</source>
         <translation type="unfinished"></translation>
     </message>

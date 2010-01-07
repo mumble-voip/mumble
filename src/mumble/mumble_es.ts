@@ -3942,7 +3942,7 @@ Are you sure you wish to replace your certificate?
         <translation type="obsolete">&amp;Contraseña</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+718"/>
+        <location filename="ConnectDialog.cpp" line="+719"/>
         <source>&amp;Connect</source>
         <translation>&amp;Conectar</translation>
     </message>
@@ -8884,7 +8884,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-648"/>
+        <location filename="ConnectDialog.cpp" line="-649"/>
         <source>Favorite</source>
         <translation>Favorito</translation>
     </message>
@@ -8900,6 +8900,11 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
     </message>
     <message>
         <location line="+6"/>
+        <source>Africa</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Asia</source>
         <translation>Asia</translation>
     </message>

@@ -3955,7 +3955,7 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
         <translation type="obsolete">&amp;Passwort</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+718"/>
+        <location filename="ConnectDialog.cpp" line="+719"/>
         <source>&amp;Connect</source>
         <translation>&amp;Verbinden</translation>
     </message>
@@ -8815,7 +8815,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-1336"/>
+        <location filename="ConnectDialog.cpp" line="-1337"/>
         <source>Favorite</source>
         <translation>Favoriten</translation>
     </message>
@@ -8831,6 +8831,11 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     </message>
     <message>
         <location line="+6"/>
+        <source>Africa</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Asia</source>
         <translation>Asien</translation>
     </message>

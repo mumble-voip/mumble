@@ -3929,7 +3929,7 @@ Are you sure you wish to replace your certificate?
         <translation type="obsolete">パスワード(&amp;P)</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+718"/>
+        <location filename="ConnectDialog.cpp" line="+719"/>
         <source>&amp;Connect</source>
         <translation type="unfinished">接続(&amp;C)</translation>
     </message>
@@ -8703,7 +8703,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-648"/>
+        <location filename="ConnectDialog.cpp" line="-649"/>
         <source>Favorite</source>
         <translation type="unfinished">お気に入り</translation>
     </message>
@@ -8719,6 +8719,11 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     </message>
     <message>
         <location line="+6"/>
+        <source>Africa</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Asia</source>
         <translation type="unfinished">アジア</translation>
     </message>

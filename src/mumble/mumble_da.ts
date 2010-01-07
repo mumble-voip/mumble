@@ -1901,9 +1901,8 @@ Vær opmærksom på at så længe denne guide er aktiv, vil lyden blive gentaget
         <translation>Aktiverer dæmpning af andre programmer når brugere snakker til dig</translation>
     </message>
     <message>
-        <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone is starting to speak to you in mumble the sound of all other applications, like audio players, will get attenuated so you can understand them better.</source>
-        <translation>Aktiverer dæmpning af andre programmer når brugere snakker til dig. Dette betyder, at så snart nogen begynder at tale til dig i Mumble, vil lyden fra alle andre programmer, fx lydafspillere, blive dæmpet, så du kan høre og forstå de andre brugere bedre.</translation>
+        <translation type="obsolete">Aktiverer dæmpning af andre programmer når brugere snakker til dig. Dette betyder, at så snart nogen begynder at tale til dig i Mumble, vil lyden fra alle andre programmer, fx lydafspillere, blive dæmpet, så du kan høre og forstå de andre brugere bedre.</translation>
     </message>
     <message>
         <location/>
@@ -2153,9 +2152,14 @@ Mumble er under konstant udvikling, og udviklerteamet vil gerne fokusere på fun
         <translation>Tryk-for-snak:</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+292"/>
+        <location filename="AudioWizard.cpp" line="+293"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
+    </message>
+    <message>
+        <location filename="AudioWizard.ui"/>
+        <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2905,7 +2909,7 @@ Er du sikker på du vil erstatte dit certifikat?
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+841"/>
+        <location filename="ConnectDialog.cpp" line="+842"/>
         <source>Connecting to %1</source>
         <translation>Opretter forbindelse til %1</translation>
     </message>
@@ -3974,9 +3978,8 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Denne indstilling kontrollerer, hvornår programmet altid vil være øverst.</translation>
     </message>
     <message>
-        <location/>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal mode&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation>Denne indstilling kontrollerer, i hvilke situationer programmet vil forblive øverst. Hvis du vælger &lt;i&gt;Aldrig&lt;/i&gt;, vil programmet ikke være øverst. &lt;i&gt;Altid&lt;/i&gt; vil altid bevare programmet øverst. &lt;i&gt;I minimal visning&lt;/i&gt; / &lt;i&gt;I normal tilstand&lt;/i&gt; vil kun bevare programmet øverst, når minimal visning er aktiveret/deaktiveret.</translation>
+        <translation type="obsolete">Denne indstilling kontrollerer, i hvilke situationer programmet vil forblive øverst. Hvis du vælger &lt;i&gt;Aldrig&lt;/i&gt;, vil programmet ikke være øverst. &lt;i&gt;Altid&lt;/i&gt; vil altid bevare programmet øverst. &lt;i&gt;I minimal visning&lt;/i&gt; / &lt;i&gt;I normal tilstand&lt;/i&gt; vil kun bevare programmet øverst, når minimal visning er aktiveret/deaktiveret.</translation>
     </message>
     <message>
         <location/>
@@ -4173,17 +4176,22 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
         <translation>Skjul Mumble hovedvinduet i systembakken når det er minimeret.</translation>
     </message>
+    <message>
+        <location/>
+        <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+145"/>
-        <location line="+1750"/>
+        <location filename="MainWindow.cpp" line="+147"/>
+        <location line="+1768"/>
         <source>Root</source>
         <translation>Rod</translation>
     </message>
     <message>
-        <location line="-1706"/>
+        <location line="-1724"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryk-for-snak</translation>
@@ -4256,16 +4264,16 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location filename="MainWindow.ui"/>
-        <location filename="MainWindow.cpp" line="+114"/>
-        <location line="+836"/>
+        <location filename="MainWindow.cpp" line="+115"/>
+        <location line="+853"/>
         <location line="+180"/>
         <location line="+649"/>
-        <location filename="main.cpp" line="+311"/>
+        <location filename="main.cpp" line="+313"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1775"/>
+        <location filename="MainWindow.cpp" line="-1793"/>
         <location line="+12"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
@@ -4277,17 +4285,17 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+2"/>
-        <location line="+94"/>
+        <location line="+95"/>
         <source>Minimize</source>
         <translation>Minimér</translation>
     </message>
     <message>
-        <location line="-94"/>
+        <location line="-95"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+94"/>
         <source>Close</source>
         <translation>Luk</translation>
     </message>
@@ -4297,7 +4305,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Mumble har i øjeblikket forbindelse til en server. Vil du lukke eller minimere det?</translation>
     </message>
     <message>
-        <location line="-145"/>
+        <location line="-146"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Mute dig selv</translation>
@@ -4344,13 +4352,13 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Hvisk</translation>
     </message>
     <message>
-        <location line="+57"/>
-        <location line="+1877"/>
+        <location line="+58"/>
+        <location line="+1894"/>
         <source>Not connected</source>
         <translation>Ingen forbindelse oprettet</translation>
     </message>
     <message>
-        <location line="-1687"/>
+        <location line="-1704"/>
         <source>Clear</source>
         <translation>Ryd</translation>
     </message>
@@ -4436,7 +4444,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>&lt;h2&gt;Lyd båndbredde&lt;/h2&gt;&lt;p&gt;Maksimum %1 kbit/s&lt;br /&gt;Nuværende %2 kbit/s&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+191"/>
+        <location line="+195"/>
         <source>Register yourself as %1</source>
         <translation>Registrér dig selv som %1</translation>
     </message>
@@ -4475,7 +4483,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">Til kanal %1: %2</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+75"/>
         <location line="+231"/>
         <source>Message to channel %1</source>
         <translation>Besked til kanal %1</translation>
@@ -4537,7 +4545,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Billedformatet blev ikke genkendt.</translation>
     </message>
     <message>
-        <location line="-1451"/>
+        <location line="-1468"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Lydkanal er sendt over kontrolkanal.</translation>
     </message>
@@ -4583,12 +4591,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1162"/>
+        <location line="+1179"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Se certifikat</translation>
     </message>
     <message>
-        <location line="-932"/>
+        <location line="-945"/>
         <location line="+22"/>
         <source>Enter reason</source>
         <translation>Skriv begrundelse</translation>
@@ -4600,19 +4608,24 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+13"/>
-        <location line="+76"/>
+        <location line="+89"/>
         <location line="+4"/>
         <source>To %1: %2</source>
         <translation>Til %1: %2</translation>
     </message>
     <message>
-        <location line="-80"/>
-        <location line="+80"/>
+        <location line="-93"/>
+        <location line="+93"/>
         <source>Message to %1</source>
         <translation>Besked til %1</translation>
     </message>
     <message>
-        <location line="-41"/>
+        <location line="-57"/>
+        <source>View comment on user %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
         <translation>Er du sikker på, at du vil nulstille kommentaren for brugeren %1?</translation>
     </message>
@@ -5456,7 +5469,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">serveren</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+286"/>
+        <location filename="Messages.cpp" line="+297"/>
         <source>You muted and deafened %1.</source>
         <translation>Du muted og gjorde %1 døv.</translation>
     </message>
@@ -5520,7 +5533,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>%1 er nu muted og gjort døv.</translation>
     </message>
     <message>
-        <location line="-100"/>
+        <location line="-111"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation>Du blev nægtet &lt;i&gt;%1&lt;/i&gt;-privilegier i %2.</translation>
     </message>
@@ -5558,6 +5571,21 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <location line="+2"/>
         <source>%1 does not have a certificate.</source>
         <translation>%1 har ikke et certifikat.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Invalid username: %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Invalid username.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Channel is full.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5712,12 +5740,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>%1 gik ind i kanalen.</translation>
     </message>
     <message>
-        <location line="-277"/>
+        <location line="-288"/>
         <source>Server connection rejected: %1.</source>
         <translation>Forbindelse til server afvist: %1.</translation>
     </message>
     <message>
-        <location line="+101"/>
+        <location line="+112"/>
         <source>Denied: %1.</source>
         <translation>Nægtet. %1.</translation>
     </message>
@@ -5731,7 +5759,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Besked fra %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1253"/>
+        <location filename="UserModel.cpp" line="+1252"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Du har kanalflytning sat til &quot;Gør intet&quot;, så kanalen blev ikke flyttet.</translation>
     </message>
@@ -5764,6 +5792,16 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <location/>
         <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
         <translation>Dette vil slå til/fra hvorvidt det minimale vindue skal have en ramme der kan bruges til flytning eller ændring af størrelsen.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>View Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>View comment in editor</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6440,7 +6478,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
 <context>
     <name>RichTextEditor</name>
     <message>
-        <location filename="RichTextEditor.cpp" line="+240"/>
+        <location filename="RichTextEditor.cpp" line="+241"/>
         <source>Failed to load image</source>
         <translation>Indlæsning af billede mislykkedes</translation>
     </message>
@@ -6568,7 +6606,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-1336"/>
+        <location filename="ConnectDialog.cpp" line="-1337"/>
         <source>Favorite</source>
         <translation>Favoritter</translation>
     </message>
@@ -6584,6 +6622,11 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
     </message>
     <message>
         <location line="+6"/>
+        <source>Africa</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Asia</source>
         <translation>Asien</translation>
     </message>
@@ -6819,7 +6862,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-733"/>
+        <location filename="UserModel.cpp" line="-732"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Dette er en bruger, der har oprettet forbindelse til serveren. Ikonet til venstre for brugeren viser om vedkommende snakker:</translation>
     </message>
@@ -6944,7 +6987,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <translation>Flag</translation>
     </message>
     <message>
-        <location line="+650"/>
+        <location line="+649"/>
         <location line="+90"/>
         <location line="+20"/>
         <source>Mumble</source>

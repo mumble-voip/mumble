@@ -3373,7 +3373,7 @@ Are you sure you wish to replace your certificate?
         <translation type="obsolete">П&amp;ароль</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+718"/>
+        <location filename="ConnectDialog.cpp" line="+719"/>
         <source>&amp;Connect</source>
         <translation type="unfinished">&amp;Связаться</translation>
     </message>
@@ -7602,7 +7602,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-648"/>
+        <location filename="ConnectDialog.cpp" line="-649"/>
         <source>Favorite</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7618,6 +7618,11 @@ Prevents the client from downloading images embedded into chat messages with the
     </message>
     <message>
         <location line="+6"/>
+        <source>Africa</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Asia</source>
         <translation type="unfinished"></translation>
     </message>

@@ -3108,7 +3108,7 @@ Are you sure you wish to replace your certificate?
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+841"/>
+        <location filename="ConnectDialog.cpp" line="+842"/>
         <source>Connecting to %1</source>
         <translation>正在連接到 %1</translation>
     </message>
@@ -7234,7 +7234,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-648"/>
+        <location filename="ConnectDialog.cpp" line="-649"/>
         <source>Favorite</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7250,6 +7250,11 @@ Prevents the client from downloading images embedded into chat messages with the
     </message>
     <message>
         <location line="+6"/>
+        <source>Africa</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Asia</source>
         <translation type="unfinished"></translation>
     </message>

@@ -3237,7 +3237,7 @@ Sei sicuro di voler sostituire il tuo certificato?
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+841"/>
+        <location filename="ConnectDialog.cpp" line="+842"/>
         <source>Connecting to %1</source>
         <translation>Connessione a %1</translation>
     </message>
@@ -7529,7 +7529,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-648"/>
+        <location filename="ConnectDialog.cpp" line="-649"/>
         <source>Favorite</source>
         <translation>Preferiti</translation>
     </message>
@@ -7545,6 +7545,11 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
     </message>
     <message>
         <location line="+6"/>
+        <source>Africa</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Asia</source>
         <translation>Asia</translation>
     </message>
