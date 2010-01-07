@@ -450,13 +450,13 @@ if __name__ == '__main__':
 			'release/Mumble.app',
 			'release/Mumble.app/Contents/MacOS/murmurd',
 			'release/Mumble.app/Contents/MacOS/mumble-g15-helper',
-			'release/Mumble.app/Contents/MacOS/mumble-overlay',
+			'release/Mumble.app/Contents/Overlay/mumble-overlay',
 			'release/Mumble.app/Contents/Plugins/liblink.dylib',
 			'release/Mumble.app/Contents/Overlay/libmumbleoverlay.dylib',
 			# 1.1.x
 			'release/Mumble11x.app/',
 			'release/Mumble11x.app/Contents/MacOS/mumble-g15-helper',
-			'release/Mumble11x.app/Contents/MacOS/mumble-overlay',
+			'release/Mumble11x.app/Contents/Overlay/mumble-overlay',
 			'release/Mumble11x.app/Contents/Plugins/liblink.dylib',
 			'release/Mumble11x.app/Contents/Overlay/libmumbleoverlay.dylib',
 		)
