@@ -277,6 +277,7 @@ Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
 
   SetOutPath "$INSTDIR\plugins"
   File /oname=aoc.dll "..\release\plugins\aoc.dll"
+  File /oname=bf1942.dll "..\release\plugins\bf1942.dll"
   File /oname=bf2.dll "..\release\plugins\bf2.dll"
   File /oname=bf2142.dll "..\release\plugins\bf2142.dll"
   File /oname=bfheroes.dll "..\release\plugins\bfheroes.dll"
@@ -292,10 +293,13 @@ Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
   File /oname=gmod.dll "..\release\plugins\gmod.dll"
   File /oname=hl2dm.dll "..\release\plugins\hl2dm.dll"
   File /oname=insurgency.dll "..\release\plugins\insurgency.dll"
-  File /oname=link.dll "..\release\plugins\link.dll"
   File /oname=l4d.dll "..\release\plugins\l4d.dll"
+  File /oname=link.dll "..\release\plugins\link.dll"
+  File /oname=lotro.dll "..\release\plugins\lotro.dll"
   File /oname=manual.dll "..\release\plugins\manual.dll"
   File /oname=tf2.dll "..\release\plugins\tf2.dll"
+  File /oname=ut2004.dll "..\release\plugins\ut2004.dll"
+  File /oname=ut3.dll "..\release\plugins\ut3.dll"
   File /oname=wolfet.dll "..\release\plugins\wolfet.dll"  
   File /oname=wow.dll "..\release\plugins\wow.dll"
 

@@ -1,4 +1,5 @@
 /* Copyright (C) 2009-2010, Snares <snares@users.sourceforge.net>
+   Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -215,14 +216,14 @@ static int trylock() {
 	*/
 
 	// Remember addresses for later
-	posptr = mod + 0x5022D0;
-	rotptr = mod + 0x502244;
-	stateptr = mod + 0x4E7BCC;
+	posptr = mod_engine + 0x555BB4;
+	rotptr = mod_engine + 0x3CDC30;
+	stateptr = mod + 0x4EABCC;
 	hostptr = mod_engine + 0x3C91A4;
 
 	// Gamecheck
 	char sMagic[9];
-	if (!peekProc(mod + 0x4F83E3, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
+	if (!peekProc(mod + 0x4FB3E3, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it

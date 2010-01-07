@@ -1,4 +1,5 @@
 /* Copyright (C) 2009-2010, Snares <snares@users.sourceforge.net>
+   Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -165,7 +166,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	identity = new_identity.str(); */
 
 	// Check to see if you are in a server
-	if (state == 0 || state == 2)
+	if (state == 0 || state == 1 || state == 2)
 		return true; // Deactivate plugin
 
 	if (ok) {
@@ -212,8 +213,8 @@ static int trylock() {
 	*/
 
 	// Remember addresses for later
-	posptr = mod + 0x3FB358;
-	rotptr = mod + 0x3FB2CC;
+	posptr = mod_engine + 0x555BB4;
+	rotptr = mod_engine + 0x3CDC30;
 	stateptr = mod + 0x3E7BDC;
 	hostptr = mod_engine + 0x3C91A4;
 

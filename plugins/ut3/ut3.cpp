@@ -1,5 +1,4 @@
 /* Copyright (C) 2009-2010, Snares <snares@users.sourceforge.net>
-   Copyright (C) 2009-2010, Stefan Hacker <dD0t@users.sourceforge.net>
    Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
@@ -30,16 +29,30 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#define _USE_MATH_DEFINES
+//#define _USE_MATH_DEFINES
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
 #include <tlhelp32.h>
 #include <math.h>
+//#include <string>
+//#include <sstream>
 
 #include "../mumble_plugin.h"
 
 HANDLE h = NULL;
+
+using namespace std;
+
+BYTE *pos0ptr;
+BYTE *pos1ptr;
+BYTE *pos2ptr;
+BYTE *faceptr;
+BYTE *top0ptr;
+BYTE *top1ptr;
+BYTE *top2ptr;
+//BYTE *stateptr;
 
 static DWORD getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
@@ -88,103 +101,78 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 	return (ok && (r == len));
 }
 
-static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Call of Duty: Modern Warfare 2 Special Ops(v1.0)", L"Mumble CoDMW2SO Plugin", MB_OK);
+static DWORD peekProc(VOID *base) {
+	DWORD v = 0;
+	peekProc(base, reinterpret_cast<BYTE *>(&v), sizeof(DWORD));
+	return v;
 }
 
+static BYTE *peekProcPtr(VOID *base) {
+	DWORD v = peekProc(base);
+	return reinterpret_cast<BYTE *>(v);
+}
+
+static void about(HWND h) {
+	::MessageBox(h, L"Reads audio position information from Unreal Tournament 3 (v2.1).", L"Mumble UT3 plugin", MB_OK);
+}
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
-	float viewHor, viewVer;
 	char state;
-	char specops;
+	//char ccontext[128];
+	bool ok;
+
+	float face_corrector[3];
+	float top0_corrector;
+	float top1_corrector;
+	float top2_corrector;
 
 	for (int i=0;i<3;i++)
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
 
-	bool ok;
-	bool so;
-
-	/*
-		This plugin uses the following Variables:
-
-			Address			Type	Description
-			===================================
-			0x00782A64		float	Z-Coordinate
-			0x00782A68		float	X-Coordinate
-			0x00782A6C		float	Y-Coordinate
-			0x00782A34		float	Horizontal view (degrees)
-			0x00782A30		float	Vertical view (degrees)
-
-			0x01597682		byte	Magical state value
-	*/
-
-	so = peekProc((BYTE *) 0x019703A0, &specops, 1); // Magical state value
-	if (! so)
-		return false;
-
-	if (specops != 2)
-		return false; // 2 value indicates you are playing Special Ops, 1 indicates SP, 0 indicates at three-way selection menu
-
-	ok = peekProc((BYTE *) 0x01B12BBB, &state, 1); // Magical state value
+	ok = peekProc((BYTE *) 0x01DEAFD9, &state, 1);
 	if (! ok)
 		return false;
+		
+	if (state == 1)
+		return true;
 
-	// /*
-	//	state value is:
-	//	0		while not in game
-	//	4 to 5	while playing
-
-	//	This value is used for disabling pa for spectators
-	//	or people not on a server.
-	// */
-
-	if (state == 0)
-		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
-
-	ok = peekProc((BYTE *) 0x00782A64, avatar_pos+2, 4) &&	//Z
-	     peekProc((BYTE *) 0x00782A68, avatar_pos, 4) &&	//X
-	     peekProc((BYTE *) 0x00782A6C, avatar_pos+1, 4) && //Y
-	     peekProc((BYTE *) 0x00782A34, &viewHor, 4) && //Hor
-	     peekProc((BYTE *) 0x00782A30, &viewVer, 4); //Ver
-
-	if (! ok)
-		return false;
-
-	// Scale Coordinates
 	/*
 	   Z-Value is increasing when heading north
 				  decreasing when heading south
-	   X-Value is increasing when heading west
-				  decreasing when heading east
+	   X-Value is increasing when heading east
+				  decreasing when heading west
 	   Y-Value is increasing when going up
 				  decreasing when going down
-	   40 units = 1 meter (not confirmed)
 	*/
-	for (int i=0;i<3;i++)
-		avatar_pos[i]/=40.0f; // Scale to meters
-	avatar_pos[0]*=(-1.0f); // Convert right to left handed
 
-	avatar_top[2] = -1; // Head movement is in front vector
+	//Convert to left-handed coordinate system
 
-	// Calculate view unit vector
-	/*
-	   Vertical view 0° when centered
-					85°	when looking down
-				   275° when looking up
-	   Decreasing when looking up.
+	ok = peekProc(pos2ptr, avatar_pos, 4) &&	//X
+		 peekProc(pos1ptr, avatar_pos+1, 4) &&	//Y
+		 peekProc(pos0ptr, avatar_pos+2, 4) &&  //Z
+		 peekProc(faceptr, &face_corrector, 12) &&
+		 peekProc(top0ptr, &top0_corrector, 4) &&
+		 peekProc(top1ptr, &top1_corrector, 4) &&
+		 peekProc(top2ptr, &top2_corrector, 4);
+		 //peekProc((BYTE *) 0x0122E0B8, ccontext, 128);
 
-	   Horizontal is 0° when facing North
-					90° when facing West
-				   180° when facing South
-				   270° when facing East
-	   Increasing when turning left.
-	*/
-	viewVer *= static_cast<float>(M_PI / 180.0f);
-	viewHor *= static_cast<float>(M_PI / 180.0f);
+	if (! ok)
+		return false;
+	
+	//Find north by playing on a Warfare game type - center view on the up arrow on the mini map
+	avatar_front[0] = face_corrector[2]; 
+	avatar_front[1] = face_corrector[1]; 
+	avatar_front[2] = face_corrector[0];
+	
+	avatar_top[0] = top2_corrector;
+	avatar_top[1] = top1_corrector;
+	avatar_top[2] = top0_corrector;
 
-	avatar_front[0] = -sin(viewHor) * cos(viewVer);
-	avatar_front[1] = -sin(viewVer);
-	avatar_front[2] = cos(viewHor) * cos(viewVer);
+	//ccontext[127] = 0;
+	//context = std::string(ccontext);
+	
+	//if (context.find(':')==string::npos) 
+	//	context.append(":UT3PORT");
 
 	for (int i=0;i<3;i++) {
 		camera_pos[i] = avatar_pos[i];
@@ -197,13 +185,35 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 static int trylock() {
 	h = NULL;
-	DWORD pid=getProcess(L"iw4sp.exe");
+	pos0ptr = pos1ptr = pos2ptr = faceptr = top0ptr = top1ptr = top2ptr = NULL;
+	
+	DWORD pid=getProcess(L"UT3.exe");
 	if (!pid)
+		return false;
+	BYTE *mod=getModuleAddr(pid, L"wrap_oal.dll");
+	if (!mod)
 		return false;
 
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
+
+	BYTE *ptraddress = mod + 0x8A740;
+	BYTE *baseptr = peekProcPtr(ptraddress);
+
+	pos0ptr = baseptr;
+	pos1ptr = baseptr + 0x4;
+	pos2ptr = baseptr + 0x8;
+	faceptr = baseptr + 0x18;
+	top0ptr = baseptr + 0x24;
+	top2ptr = baseptr + 0x2C;
+
+	BYTE *ptraddress2 = peekProcPtr((BYTE *) 0x01DD1FF4);
+	BYTE *ptr1 = peekProcPtr(ptraddress2 + 0x230);
+
+	top1ptr = ptr1 + 0xA8;
+
+    //stateptr = mod + 0xC4;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;
@@ -225,13 +235,13 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 Special Ops v1.0 only. No context or identity support.");
+	return std::wstring(L"Supports Unreal Tournament 3 (v2.1). No context or identity support yet.");
 }
 
-static std::wstring description(L"Call of Duty: Modern Warfare 2 Special Ops v1.0");
-static std::wstring shortname(L"Call of Duty: Modern Warfare 2 Special Ops");
+static std::wstring description(L"Unreal Tournament 3 (v2.1)");
+static std::wstring shortname(L"Unreal Tournament 3");
 
-static MumblePlugin codmw2soplug = {
+static MumblePlugin ut3plug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
@@ -244,5 +254,5 @@ static MumblePlugin codmw2soplug = {
 };
 
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
-	return &codmw2soplug;
+	return &ut3plug;
 }
