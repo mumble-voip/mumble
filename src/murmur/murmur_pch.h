@@ -53,11 +53,11 @@ extern "C" {
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <sys/time.h>
+#include <sys/resource.h>
 #ifdef Q_OS_LINUX
 #include <sys/capability.h>
 #include <sys/prctl.h>
-#include <sys/time.h>
-#include <sys/resource.h>
 #endif
 #include <pwd.h>
 #ifdef __FreeBSD__
