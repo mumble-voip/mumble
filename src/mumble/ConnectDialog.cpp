@@ -89,6 +89,7 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 
 	siPublic->setExpanded(false);
 
+	qmContinentNames.insert(QLatin1String("af"), tr("Africa"));	
 	qmContinentNames.insert(QLatin1String("as"), tr("Asia"));
 	qmContinentNames.insert(QLatin1String("na"), tr("North America"));
 	qmContinentNames.insert(QLatin1String("sa"), tr("South America"));
