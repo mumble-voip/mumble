@@ -39,7 +39,7 @@ static LCDEngineRegistrar registrar(G15LCDEngineNew);
 
 G15LCDEngineLGLCD::G15LCDEngineLGLCD() : LCDEngine() {
 	bRunning = false;
-	bUnavailable = false;
+	bUnavailable = true;
 
 #if defined(Q_OS_WIN)
 	qsHelperExecutable = QString::fromLatin1("\"%1/mumble-g15-helper.exe\"").arg(qApp->applicationDirPath());
@@ -63,6 +63,7 @@ G15LCDEngineLGLCD::G15LCDEngineLGLCD() : LCDEngine() {
 	}
 
 	qlDevices << new G15LCDDeviceLGLCD(this);
+	bUnavailable = false;
 
 	QMetaObject::connectSlotsByName(this);
 }
@@ -109,7 +110,7 @@ void G15LCDEngineLGLCD::on_Helper_finished(int exitCode, QProcess::ExitStatus st
 }
 
 bool G15LCDEngineLGLCD::framebufferReady() const {
-	return !bUnavailable;
+	return !bUnavailable && (qpHelper->state() == QProcess::Running);
 }
 
 void G15LCDEngineLGLCD::submitFrame(bool alert, unsigned char *buf, size_t len) {
