@@ -78,7 +78,7 @@ void TaskList::addToRecentList(QString name, QString user, QString host, int por
 	IPropertyStore *ps;
 	hr = link->QueryInterface(__uuidof(IPropertyStore), reinterpret_cast<void **>(&ps));
 	if (FAILED(hr))
-		return;
+		goto cleanup;
 
 	STACKVAR(wchar_t, wcName, host.length() + 1);
 	len = name.toWCharArray(wcName);
@@ -89,15 +89,18 @@ void TaskList::addToRecentList(QString name, QString user, QString host, int por
 
 	hr = ps->SetValue(PKEY_Title, pt);
 	if (FAILED(hr))
-		return;
+		goto cleanup;
 
 	hr = ps->Commit();
 	if (FAILED(hr))
-		return;
+		goto cleanup;
 
 	SHAddToRecentDocs(SHARD_LINK, link);
 
+cleanup:
 	PropVariantClear(&pt);
-	ps->Release();
-	link->Release();
+	if (ps)
+		ps->Release();
+	if (link)
+		link->Release();
 }
