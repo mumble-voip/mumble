@@ -67,8 +67,6 @@ win32 {
 		}
 		INCLUDEPATH *= "$$VLD_DIR/include"
 		LIBPATH *= "$$VLD_DIR/lib"
-	} else {
-		QMAKE_LFLAGS *= /MANIFESTUAC:\"level=\'asInvoker\' uiAccess=\'true\'\"
 	}
 }
 
