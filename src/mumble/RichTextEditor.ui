@@ -52,7 +52,7 @@
    </property>
    <property name="icon">
     <iconset resource="mumble_tango.qrc">
-     <normaloff>:/actions/format-text-bold.svg</normaloff>:/actions/format-text-bold.svg</iconset>
+     <normaloff>skin:actions/format-text-bold.svg</normaloff>skin:actions/format-text-bold.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Bold</string>
@@ -67,7 +67,7 @@
    </property>
    <property name="icon">
     <iconset resource="mumble_tango.qrc">
-     <normaloff>:/actions/format-text-italic.svg</normaloff>:/actions/format-text-italic.svg</iconset>
+     <normaloff>skin:actions/format-text-italic.svg</normaloff>skin:actions/format-text-italic.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Italic</string>
@@ -85,7 +85,7 @@
    </property>
    <property name="icon">
     <iconset resource="mumble_tango.qrc">
-     <normaloff>:/actions/format-text-underline.svg</normaloff>:/actions/format-text-underline.svg</iconset>
+     <normaloff>skin:actions/format-text-underline.svg</normaloff>skin:actions/format-text-underline.svg</iconset>
    </property>
    <property name="text">
     <string>Underline</string>
@@ -102,7 +102,7 @@
   <action name="qaLink">
    <property name="icon">
     <iconset resource="mumble_tango.qrc">
-     <normaloff>:/mimetypes/text-html.svg</normaloff>:/mimetypes/text-html.svg</iconset>
+     <normaloff>skin:mimetypes/text-html.svg</normaloff>skin:mimetypes/text-html.svg</iconset>
    </property>
    <property name="text">
     <string>Insert Link</string>
@@ -114,7 +114,7 @@
   <action name="qaImage">
    <property name="icon">
     <iconset resource="mumble_tango.qrc">
-     <normaloff>:/mimetypes/image-x-generic.svg</normaloff>:/mimetypes/image-x-generic.svg</iconset>
+     <normaloff>skin:mimetypes/image-x-generic.svg</normaloff>skin:mimetypes/image-x-generic.svg</iconset>
    </property>
    <property name="text">
     <string>Insert Image</string>

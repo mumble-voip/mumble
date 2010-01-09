@@ -225,7 +225,7 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiChannel=QIcon(QLatin1String("skin:channel.svg"));
 	qiActiveChannel=QIcon(QLatin1String("skin:channel_active.svg"));
 	qiLinkedChannel=QIcon(QLatin1String("skin:channel_linked.svg"));
-	qiFriend=QIcon(QLatin1String(":/emblems/emblem-favorite.svg"));
+	qiFriend=QIcon(QLatin1String("skin:emblems/emblem-favorite.svg"));
 	qiComment=QIcon(QLatin1String("skin:comment.svg"));
 	qiCommentSeen=QIcon(QLatin1String("skin:comment_seen.svg"));
 
@@ -544,7 +544,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 					if (isUser)
 						return QString::fromLatin1("%1"
 						                           "<table>"
-						                           "<tr><td><img src=\":/emblems/emblem-favorite.svg\" width=64 /></td><td valign=\"middle\">%2</td></tr>"
+						                           "<tr><td><img src=\"skin:emblems/emblem-favorite.svg\" width=64 /></td><td valign=\"middle\">%2</td></tr>"
 						                           "<tr><td><img src=\"skin:authenticated.svg\" width=64 /></td><td valign=\"middle\">%3</td></tr>"
 						                           "<tr><td><img src=\"skin:muted_self.svg\" width=64 /></td><td valign=\"middle\">%4</td></tr>"
 						                           "<tr><td><img src=\"skin:muted_server.svg\" width=64 /></td><td valign=\"middle\">%5</td></tr>"

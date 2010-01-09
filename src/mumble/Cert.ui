@@ -54,7 +54,7 @@
       </property>
       <property name="icon">
        <iconset resource="mumble_tango.qrc">
-        <normaloff>:/actions/bookmark-new.svg</normaloff>:/actions/bookmark-new.svg</iconset>
+        <normaloff>skin:actions/bookmark-new.svg</normaloff>skin:actions/bookmark-new.svg</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -77,7 +77,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>:actions/document-new.svg</normaloff>:actions/document-new.svg</iconset>
+        <normaloff>skin:actions/document-new.svg</normaloff>skin:actions/document-new.svg</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -103,7 +103,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>:actions/document-open.svg</normaloff>:actions/document-open.svg</iconset>
+        <normaloff>skin:actions/document-open.svg</normaloff>skin:actions/document-open.svg</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -129,7 +129,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>:actions/document-save-as.svg</normaloff>:actions/document-save-as.svg</iconset>
+        <normaloff>skin:actions/document-save-as.svg</normaloff>skin:actions/document-save-as.svg</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -195,7 +195,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>:actions/document-open.svg</normaloff>:actions/document-open.svg</iconset>
+        <normaloff>skin:actions/document-open.svg</normaloff>skin:actions/document-open.svg</iconset>
       </property>
      </widget>
     </item>
@@ -355,7 +355,7 @@ Are you sure you wish to replace your certificate?
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>:actions/document-save-as.svg</normaloff>:actions/document-save-as.svg</iconset>
+        <normaloff>skin:actions/document-save-as.svg</normaloff>skin:actions/document-save-as.svg</iconset>
       </property>
      </widget>
     </item>

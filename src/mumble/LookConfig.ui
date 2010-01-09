@@ -70,7 +70,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="mumble.qrc">:/layout_stacked.svg</pixmap>
+         <pixmap resource="mumble.qrc">skin:layout_stacked.svg</pixmap>
         </property>
        </widget>
       </item>
@@ -86,7 +86,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="mumble.qrc">:/layout_hybrid.svg</pixmap>
+         <pixmap resource="mumble.qrc">skin:layout_hybrid.svg</pixmap>
         </property>
         <property name="scaledContents">
          <bool>false</bool>
@@ -131,7 +131,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="mumble.qrc">:/layout_custom.svg</pixmap>
+         <pixmap resource="mumble.qrc">skin:layout_custom.svg</pixmap>
         </property>
        </widget>
       </item>
@@ -144,7 +144,7 @@
          </sizepolicy>
         </property>
         <property name="pixmap">
-         <pixmap resource="mumble.qrc">:/layout_classic.svg</pixmap>
+         <pixmap resource="mumble.qrc">skin:layout_classic.svg</pixmap>
         </property>
        </widget>
       </item>

@@ -418,13 +418,13 @@ QVariant ServerItem::data(int column, int role) const {
 					return qsName;
 				case Qt::DecorationRole:
 					if (itType == FavoriteType)
-						return loadIcon(QLatin1String(":/emblems/emblem-favorite.svg"));
+						return loadIcon(QLatin1String("skin:emblems/emblem-favorite.svg"));
 					else if (itType == LANType)
-						return loadIcon(QLatin1String(":/places/network-workgroup.svg"));
+						return loadIcon(QLatin1String("skin:places/network-workgroup.svg"));
 					else if (! qsCountryCode.isEmpty())
 						return loadIcon(QString::fromLatin1(":/flags/%1.png").arg(qsCountryCode));
 					else
-						return loadIcon(QLatin1String(":/categories/applications-internet.svg"));
+						return loadIcon(QLatin1String("skin:categories/applications-internet.svg"));
 			}
 		}
 	} else {
