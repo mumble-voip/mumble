@@ -558,7 +558,7 @@ Enthält die Liste von Mitgliedern, welche vom aktuellen Kanal geerbt wurden. De
     <message>
         <location/>
         <source>&amp;Properties</source>
-        <translation>Eigenschaften</translation>
+        <translation>&amp;Eigenschaften</translation>
     </message>
 </context>
 <context>
@@ -2012,7 +2012,7 @@ Bitte beachten Sie, dass, so lange die Rückkopplung aktiv ist, Sie kein anderer
     <message>
         <location/>
         <source>jb</source>
-        <translation type="unfinished"></translation>
+        <translation>jb</translation>
     </message>
     <message>
         <location/>
@@ -2086,32 +2086,33 @@ Bitte beachten Sie, dass, so lange die Rückkopplung aktiv ist, Sie kein anderer
     <message>
         <location/>
         <source>vol</source>
-        <translation type="unfinished"></translation>
+        <translation>vol</translation>
     </message>
     <message>
         <location/>
         <source>od</source>
-        <translation type="unfinished"></translation>
+        <translation>od</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate applications by...</source>
-        <translation>Anwendungen abschwächen um...</translation>
+        <translation>Anwendungslautstärken herabsetzen um…</translation>
     </message>
     <message>
         <location/>
         <source>Attenuation of other applications during speech</source>
-        <translation>Abschwächung anderer Anwendungen während des Sprechens</translation>
+        <translation>Lautstärkedämpfung anderer Anwendungen während des Sprechens</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Lautstärke anderer Anwendungen dämpfen während gesprochen wird&lt;/b&gt;&lt;br/&gt;
+Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während ein- und/oder ausgehendem Sprechen. Dieser Regler legt die Höhe der Herabsenkung der Lautstärke der anderen Anwendungen fest, wenn die Funktion aktiviert ist.</translation>
     </message>
     <message>
         <location/>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>at</translation>
     </message>
     <message>
         <location/>
@@ -2121,7 +2122,8 @@ Bitte beachten Sie, dass, so lange die Rückkopplung aktiv ist, Sie kein anderer
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Lautstärke anderer Anwendungen herabsetzen während andere Benutzer sprechen&lt;/b&gt;&lt;br/&gt;
+Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während ein- und/oder ausgehendem Sprechen. Dies lässt Mumble diese Funktion für das Sprechen anderer Benutzer zu ihnen aktivieren.</translation>
     </message>
     <message>
         <location/>
@@ -2136,7 +2138,8 @@ Bitte beachten Sie, dass, so lange die Rückkopplung aktiv ist, Sie kein anderer
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Lautstärke anderer Anwendungen herabsetzen während Sie sprechen&lt;/b&gt;&lt;br/&gt;
+Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während ein- und/oder ausgehendem Sprechen. Dies aktiviert diese Funktion für wenn Sie sprechen.</translation>
     </message>
     <message>
         <location/>
@@ -2146,27 +2149,27 @@ Bitte beachten Sie, dass, so lange die Rückkopplung aktiv ist, Sie kein anderer
     <message>
         <location/>
         <source>md</source>
-        <translation type="unfinished"></translation>
+        <translation>md</translation>
     </message>
     <message>
         <location/>
         <source>mv</source>
-        <translation type="unfinished"></translation>
+        <translation>ml</translation>
     </message>
     <message>
         <location/>
         <source>bl</source>
-        <translation type="unfinished"></translation>
+        <translation>bl</translation>
     </message>
     <message>
         <location/>
         <source>dv</source>
-        <translation type="unfinished"></translation>
+        <translation>dv</translation>
     </message>
     <message>
         <location/>
         <source>pl</source>
-        <translation type="unfinished"></translation>
+        <translation>pl</translation>
     </message>
 </context>
 <context>
@@ -2720,7 +2723,7 @@ Bitte beachten Sie, dass, so lange die Rückkopplung aktiv ist, Sie kein anderer
         <location/>
         <source>Allows positioning of sound</source>
         <oldsource>Allows positioning of sound.</oldsource>
-        <translation>Erlaubt die Positionierung der Audio-Signale.</translation>
+        <translation>Erlaubt die Positionierung der Audio-Signale</translation>
     </message>
     <message>
         <location/>
@@ -2807,7 +2810,7 @@ Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass 
     <message>
         <location/>
         <source>Quality &amp; Notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualität &amp; Hinweise</translation>
     </message>
     <message>
         <location/>
@@ -2980,7 +2983,7 @@ Diese Statistiken sind grundlegend für die weitere Entwicklung und stellen sich
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert die Herabsetzung der Lautstärke anderer Anwendungen während andere Benutzer zu Ihnen sprechen. Das heißt sobald jemand in Mumble zu Ihnen spricht wird die Lautstärke aller anderen Programme (etwa einem Musik-/Mediaplayer) herabgesetzt, damit Sie die zu Ihnen sprechende Person besser verstehen können.</translation>
     </message>
 </context>
 <context>
@@ -5520,7 +5523,7 @@ Stellen Sie sicher, dass die Sound-Hinweise für diesen Ereignistyp aktiviert si
     <message>
         <location/>
         <source>This setting controls when the application will be always on top.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Einstellung legt fest, wann die Anwendung immer über anderen angezeigt wird (“always on top”).</translation>
     </message>
     <message>
         <location/>
@@ -5576,7 +5579,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
     <message>
         <location/>
         <source>Show talking status in tray icon</source>
-        <translation>Zeige Sendestatus im Tray Icon</translation>
+        <translation>Zeige Sprechstatus im Tray Icon</translation>
     </message>
     <message>
         <source>Enabled advanced channel editor</source>
@@ -5797,7 +5800,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location/>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Einstellung legt fest, in welchen Situationen das Mumble-Fenster immer über den anderen bleibt. Wenn Sie &lt;i&gt;Niemals&lt;/i&gt; wählen bleibt das Fenster niemals oben auf. &lt;i&gt;Immer&lt;/i&gt; zeigt das Fenster immer über den anderen. &lt;i&gt;In der Minimalansicht&lt;/i&gt;/&lt;i&gt;In der Normalansicht&lt;/i&gt; lässt das Fenster nur im jeweiligen Anzeigemodus über den anderen stehen.</translation>
     </message>
 </context>
 <context>
@@ -8832,12 +8835,12 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location line="+8"/>
         <source>Public Internet</source>
-        <translation>Öffentlich - Internet</translation>
+        <translation>Internet – Öffentlich</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Africa</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrika</translation>
     </message>
     <message>
         <location line="+1"/>
