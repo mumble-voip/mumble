@@ -332,7 +332,7 @@ ServerDB::ServerDB() {
 		} else {
 			qWarning("Importing old data...");
 
-			SQLMAY("SET FOREIGN_KEY_CHECKS = 0;");
+			SQLDO("SET FOREIGN_KEY_CHECKS = 0;");
 			SQLDO("INSERT INTO `%1servers` (`server_id`) SELECT `server_id` FROM `%1servers_old`");
 			SQLDO("INSERT INTO `%1slog` (`server_id`, `msg`, `msgtime`) SELECT `server_id`, `msg`, `msgtime` FROM `%1slog_old`");
 			SQLDO("INSERT INTO `%1config` (`server_id`, `key`, `value`) SELECT `server_id`, `keystring`, `value` FROM `%1config_old`");
@@ -342,7 +342,7 @@ ServerDB::ServerDB() {
 			SQLDO("INSERT INTO `%1group_members` (`group_id`, `server_id`, `user_id`, `addit`) SELECT `group_id`, `server_id`, `player_id`, `addit` FROM `%1group_members_old`");
 			SQLDO("INSERT INTO `%1acl` (`server_id`, `channel_id`, `priority`, `user_id`, `group_name`, `apply_here`, `apply_sub`, `grantpriv`, `revokepriv`) SELECT `server_id`, `channel_id`, `priority`, `player_id`, `group_name`, `apply_here`, `apply_sub`, `grantpriv`, `revokepriv` FROM `%1acl_old`");
 			SQLDO("INSERT INTO `%1channel_links` (`server_id`, `channel_id`, `link_id`) SELECT `server_id`, `channel_id`, `link_id` FROM `%1channel_links_old`");
-			SQLMAY("SET FOREIGN_KEY_CHECKS = 1;");
+			SQLDO("SET FOREIGN_KEY_CHECKS = 1;");
 
 			QList<QList<QVariant> > ql;
 			SQLPREP("SELECT `server_id`, `base`, `mask` FROM `%1bans_old`");
