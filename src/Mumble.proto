@@ -92,7 +92,7 @@ message UserState {
 	optional bool self_mute = 9;
 	optional bool self_deaf = 10;
 	optional bytes texture = 11;
-	optional string plugin_context = 12;
+	optional bytes plugin_context = 12;
 	optional string plugin_identity = 13;
 	optional string comment = 14;
 	optional string hash = 15;
@@ -225,4 +225,30 @@ message CodecVersion {
 	required int32 alpha = 1;
 	required int32 beta = 2;
 	required bool prefer_alpha = 3 [default = true];
+}
+
+message UserStats {
+	message Stats {
+		optional uint32 good = 1;
+		optional uint32 late = 2;
+		optional uint32 lost = 3;
+		optional uint32 resync = 4;
+	}
+
+	optional uint32 session = 1;
+	optional bool stats_only = 2 [default = false];
+	repeated bytes certificates = 3;
+	optional Stats from_client = 4;
+	optional Stats from_server = 5;
+
+	optional uint32 udp_packets = 6;
+	optional uint32 tcp_packets = 7;
+	optional float udp_ping_avg = 8;
+	optional float udp_ping_var = 9;
+	optional float tcp_ping_avg = 10;
+	optional float tcp_ping_var = 11;
+
+	optional Version version = 12;
+	repeated int32 celt_versions = 13;
+	optional bytes address = 14;
 }

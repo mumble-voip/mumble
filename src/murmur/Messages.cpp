@@ -1358,3 +1358,71 @@ void Server::msgPermissionQuery(ServerUser *uSource, MumbleProto::PermissionQuer
 
 void Server::msgCodecVersion(ServerUser *, MumbleProto::CodecVersion &) {
 }
+
+void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
+	MSG_SETUP(ServerUser::Authenticated);
+	VICTIM_SETUP;
+	const CryptState &cs = pDstServerUser->csCrypt;
+	const QList<QSslCertificate> &certs = pDstServerUser->peerCertificateChain();
+	MumbleProto::UserStats_Stats *mpusss;
+	MumbleProto::Version *mpv;
+
+	bool extend = (uSource == pDstServerUser) || hasPermission(uSource, qhChannels.value(0), ChanACL::Register);
+
+	if (! extend && ! hasPermission(uSource, pDstServerUser->cChannel, ChanACL::Enter)) {
+		PERM_DENIED(uSource, pDstServerUser->cChannel, ChanACL::Enter);
+		return;
+	}
+
+	if (msg.stats_only())
+		extend = false;
+
+	msg.Clear();
+	msg.set_session(pDstServerUser->uiSession);
+
+	if (extend) {
+		foreach(const QSslCertificate &cert, certs) {
+			const QByteArray &der = cert.toDer();
+			msg.add_certificates(std::string(der.constData(), der.length()));
+		}
+	}
+
+	mpusss = msg.mutable_from_client();
+	mpusss->set_good(cs.uiRemoteGood);
+	mpusss->set_late(cs.uiRemoteLate);
+	mpusss->set_lost(cs.uiRemoteLost);
+	mpusss->set_resync(cs.uiRemoteResync);
+
+	mpusss = msg.mutable_from_server();
+	mpusss->set_good(cs.uiGood);
+	mpusss->set_late(cs.uiLate);
+	mpusss->set_lost(cs.uiLost);
+	mpusss->set_resync(cs.uiResync);
+
+	msg.set_udp_packets(pDstServerUser->uiUDPPackets);
+	msg.set_udp_packets(pDstServerUser->uiTCPPackets);
+	msg.set_udp_ping_avg(pDstServerUser->dUDPPingAvg);
+	msg.set_udp_ping_var(pDstServerUser->dUDPPingVar);
+	msg.set_tcp_ping_avg(pDstServerUser->dTCPPingAvg);
+	msg.set_tcp_ping_var(pDstServerUser->dTCPPingVar);
+
+	if (extend) {
+		mpv = msg.mutable_version();
+		if (pDstServerUser->uiVersion)
+			mpv->set_version(pDstServerUser->uiVersion);
+		if (! pDstServerUser->qsRelease.isEmpty())
+			mpv->set_release(u8(pDstServerUser->qsRelease));
+		if (! pDstServerUser->qsOS.isEmpty()) {
+			mpv->set_os(u8(pDstServerUser->qsOS));
+			if (! pDstServerUser->qsOSVersion.isEmpty())
+				mpv->set_os_version(u8(pDstServerUser->qsOSVersion));
+		}
+
+		foreach(int v, pDstServerUser->qlCodecs)
+			msg.add_celt_versions(v);
+
+		msg.set_address(pDstServerUser->haAddress.toStdString());
+	}
+
+	sendMessage(uSource, msg);
+}

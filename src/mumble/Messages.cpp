@@ -646,3 +646,6 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 		warned = false;
 	}
 }
+
+void MainWindow::msgUserStats(const MumbleProto::UserStats &msg) {
+}

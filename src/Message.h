@@ -56,7 +56,8 @@
 	MUMBLE_MH_MSG(UserList) \
 	MUMBLE_MH_MSG(VoiceTarget) \
 	MUMBLE_MH_MSG(PermissionQuery) \
-	MUMBLE_MH_MSG(CodecVersion)
+	MUMBLE_MH_MSG(CodecVersion) \
+	MUMBLE_MH_MSG(UserStats)
 
 class MessageHandler {
 	public:

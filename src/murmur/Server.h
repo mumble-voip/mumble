@@ -128,8 +128,8 @@ class ServerUser : public Connection, public User {
 		State sState;
 		operator const QString() const;
 
-		double dUDPPingAvg, dUDPPingVar;
-		double dTCPPingAvg, dTCPPingVar;
+		float dUDPPingAvg, dUDPPingVar;
+		float dTCPPingAvg, dTCPPingVar;
 		quint64 uiUDPPackets, uiTCPPackets;
 
 		unsigned int uiVersion;
