@@ -251,4 +251,7 @@ message UserStats {
 	optional Version version = 12;
 	repeated int32 celt_versions = 13;
 	optional bytes address = 14;
+	optional uint32 bandwidth = 15;
+	optional uint32 onlinesecs = 16;
+	optional uint32 idlesecs = 17;
 }

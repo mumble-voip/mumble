@@ -1363,6 +1363,7 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 	MSG_SETUP(ServerUser::Authenticated);
 	VICTIM_SETUP;
 	const CryptState &cs = pDstServerUser->csCrypt;
+	const BandwidthRecord &bwr = pDstServerUser->bwr;
 	const QList<QSslCertificate> &certs = pDstServerUser->peerCertificateChain();
 	MumbleProto::UserStats_Stats *mpusss;
 	MumbleProto::Version *mpv;
@@ -1373,31 +1374,36 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 		PERM_DENIED(uSource, pDstServerUser->cChannel, ChanACL::Enter);
 		return;
 	}
+	
+	bool details = extend;
+	bool local = extend || (pDstServerUser->cChannel == uSource->cChannel);
 
 	if (msg.stats_only())
-		extend = false;
+		details = false;
 
 	msg.Clear();
 	msg.set_session(pDstServerUser->uiSession);
 
-	if (extend) {
+	if (details) {
 		foreach(const QSslCertificate &cert, certs) {
 			const QByteArray &der = cert.toDer();
 			msg.add_certificates(std::string(der.constData(), der.length()));
 		}
 	}
 
-	mpusss = msg.mutable_from_client();
-	mpusss->set_good(cs.uiGood);
-	mpusss->set_late(cs.uiLate);
-	mpusss->set_lost(cs.uiLost);
-	mpusss->set_resync(cs.uiResync);
+	if (local) {
+		mpusss = msg.mutable_from_client();
+		mpusss->set_good(cs.uiGood);
+		mpusss->set_late(cs.uiLate);
+		mpusss->set_lost(cs.uiLost);
+		mpusss->set_resync(cs.uiResync);
 
-	mpusss = msg.mutable_from_server();
-	mpusss->set_good(cs.uiRemoteGood);
-	mpusss->set_late(cs.uiRemoteLate);
-	mpusss->set_lost(cs.uiRemoteLost);
-	mpusss->set_resync(cs.uiRemoteResync);
+		mpusss = msg.mutable_from_server();
+		mpusss->set_good(cs.uiRemoteGood);
+		mpusss->set_late(cs.uiRemoteLate);
+		mpusss->set_lost(cs.uiRemoteLost);
+		mpusss->set_resync(cs.uiRemoteResync);
+	}
 
 	msg.set_udp_packets(pDstServerUser->uiUDPPackets);
 	msg.set_tcp_packets(pDstServerUser->uiTCPPackets);
@@ -1406,7 +1412,7 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 	msg.set_tcp_ping_avg(pDstServerUser->dTCPPingAvg);
 	msg.set_tcp_ping_var(pDstServerUser->dTCPPingVar);
 
-	if (extend) {
+	if (details) {
 		mpv = msg.mutable_version();
 		if (pDstServerUser->uiVersion)
 			mpv->set_version(pDstServerUser->uiVersion);
@@ -1423,6 +1429,12 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 
 		msg.set_address(pDstServerUser->haAddress.toStdString());
 	}
-
+	
+	if (local)
+		msg.set_bandwidth(bwr.bandwidth());
+	msg.set_onlinesecs(bwr.onlineSeconds());
+	if (local)
+		msg.set_idlesecs(bwr.idleSeconds());
+	
 	sendMessage(uSource, msg);
 }
