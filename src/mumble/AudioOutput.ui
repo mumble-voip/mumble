@@ -151,7 +151,7 @@
          </size>
         </property>
         <property name="text">
-         <string>jb</string>
+         <string notr="true">jb</string>
         </property>
        </widget>
       </item>
@@ -190,7 +190,7 @@
       <item row="1" column="2">
        <widget class="QLabel" name="qlVolume">
         <property name="text">
-         <string>vol</string>
+         <string notr="true">vol</string>
         </property>
        </widget>
       </item>
@@ -229,7 +229,7 @@
       <item row="2" column="2">
        <widget class="QLabel" name="qlDelay">
         <property name="text">
-         <string>od</string>
+         <string notr="true">od</string>
         </property>
        </widget>
       </item>
@@ -274,7 +274,7 @@
       <item row="3" column="2">
        <widget class="QLabel" name="qlOtherVolume">
         <property name="text">
-         <string>at</string>
+         <string notr="true">at</string>
         </property>
        </widget>
       </item>
@@ -374,7 +374,7 @@
          </size>
         </property>
         <property name="text">
-         <string>md</string>
+         <string notr="true">md</string>
         </property>
        </widget>
       </item>
@@ -416,7 +416,7 @@
          </size>
         </property>
         <property name="text">
-         <string>md</string>
+         <string notr="true">md</string>
         </property>
        </widget>
       </item>
@@ -455,7 +455,7 @@
          </size>
         </property>
         <property name="text">
-         <string>mv</string>
+         <string notr="true">mv</string>
         </property>
        </widget>
       </item>
@@ -478,7 +478,7 @@
          </size>
         </property>
         <property name="text">
-         <string>bl</string>
+         <string notr="true">bl</string>
         </property>
        </widget>
       </item>
@@ -545,7 +545,7 @@
          </size>
         </property>
         <property name="text">
-         <string>dv</string>
+         <string notr="true">dv</string>
         </property>
        </widget>
       </item>
@@ -590,7 +590,7 @@
          </size>
         </property>
         <property name="text">
-         <string>pl</string>
+         <string notr="true">pl</string>
         </property>
        </widget>
       </item>
