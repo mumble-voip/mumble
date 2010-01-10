@@ -47,6 +47,7 @@ UserInformation::UserInformation(const MumbleProto::UserStats &msg, QWidget *p) 
 	qgbConnection->setVisible(false);
 
 	update(msg);
+	resize(sizeHint());
 }
 
 unsigned int UserInformation::session() const {
@@ -54,8 +55,6 @@ unsigned int UserInformation::session() const {
 }
 
 void UserInformation::tick() {
-	qWarning() << "Resend" << bRequested << uiSession;
-
 	if (bRequested)
 		return;
 		
@@ -68,8 +67,8 @@ void UserInformation::tick() {
 
 void UserInformation::on_qpbCertificate_clicked() {
 	ViewCert *vc = new ViewCert(qlCerts, this);
-	vc->exec();
-	delete vc;
+	vc->setAttribute(Qt::WA_DeleteOnClose, true);
+	vc->show();
 }
 
 QString UserInformation::secsToString(unsigned int secs) {
@@ -98,8 +97,6 @@ QString UserInformation::secsToString(unsigned int secs) {
 }
 
 void UserInformation::update(const MumbleProto::UserStats &msg) {
-	qWarning() << "UPDATE";
-
 	bRequested = false;
 	
 	bool showcon = false;
@@ -157,17 +154,22 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 	qlUDPAvg->setText(QString::number(msg.udp_ping_avg(), 'f', 2));
 	qlUDPVar->setText(QString::number(msg.udp_ping_var(), 'f', 2));
 	
-	const MumbleProto::UserStats_Stats &from = msg.from_client();
-	qlFromGood->setText(QString::number(from.good()));
-	qlFromLate->setText(QString::number(from.late()));
-	qlFromLost->setText(QString::number(from.lost()));
-	qlFromResync->setText(QString::number(from.resync()));
+	if (msg.has_from_client() && msg.has_from_server()) {
+		qgbUDP->setVisible(true);
+		const MumbleProto::UserStats_Stats &from = msg.from_client();
+		qlFromGood->setText(QString::number(from.good()));
+		qlFromLate->setText(QString::number(from.late()));
+		qlFromLost->setText(QString::number(from.lost()));
+		qlFromResync->setText(QString::number(from.resync()));
 
-	const MumbleProto::UserStats_Stats &to = msg.from_server();
-	qlToGood->setText(QString::number(to.good()));
-	qlToLate->setText(QString::number(to.late()));
-	qlToLost->setText(QString::number(to.lost()));
-	qlToResync->setText(QString::number(to.resync()));
+		const MumbleProto::UserStats_Stats &to = msg.from_server();
+		qlToGood->setText(QString::number(to.good()));
+		qlToLate->setText(QString::number(to.late()));
+		qlToLost->setText(QString::number(to.lost()));
+		qlToResync->setText(QString::number(to.resync()));
+	} else {
+		qgbUDP->setVisible(false);
+	}
 	
 	if (msg.has_onlinesecs()) {
 		if (msg.has_idlesecs())
@@ -175,8 +177,13 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 		else
 			qlTime->setText(tr("%1 online").arg(secsToString(msg.onlinesecs())));
 	} 
-	if (msg.has_bandwidth())
+	if (msg.has_bandwidth()) {
+		qlBandwidth->setVisible(true);
+		qliBandwidth->setVisible(true);
 		qlBandwidth->setText(tr("%1 kbit/s").arg(msg.bandwidth() / 125.0f, 0, 'f', 1));
-	else
+	} else {
+		qlBandwidth->setVisible(false);
+		qliBandwidth->setVisible(false);
 		qlBandwidth->setText(QString());
+	}
 }
