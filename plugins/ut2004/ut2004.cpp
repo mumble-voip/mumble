@@ -45,10 +45,10 @@ HANDLE h = NULL;
 
 using namespace std;
 
+BYTE *pos0ptr;
 BYTE *pos1ptr;
 BYTE *pos2ptr;
-BYTE *pos3ptr;
-BYTE *rotptr;
+BYTE *faceptr;
 BYTE *topptr;
 
 static DWORD getProcess(const wchar_t *exename) {
@@ -116,7 +116,8 @@ static void about(HWND h) {
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	//char ccontext[128];
-	float rot_corrector[3];
+	float face_corrector[3];
+	float top_corrector[3];
 
 	for (int i=0;i<3;i++)
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
@@ -131,21 +132,24 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	   Y-Value is increasing when going up
 				  decreasing when going down
 	*/
-	ok = peekProc(pos2ptr, avatar_pos+1, 4) &&	//Y
-	     peekProc(pos3ptr, avatar_pos, 4) &&	//X
-	     peekProc(pos1ptr, avatar_pos+2, 4) &&  //Z
-	     peekProc(rotptr, &rot_corrector, 12);
+	ok = peekProc(pos2ptr, avatar_pos, 4) &&	//X
+		 peekProc(pos1ptr, avatar_pos+1, 4) &&	//Y
+	     peekProc(pos0ptr, avatar_pos+2, 4) &&  //Z
+	     peekProc(faceptr, &face_corrector, 12) &&
+		 peekProc(topptr, &top_corrector, 12);
 	//peekProc((BYTE *) 0x0122E0B8, ccontext, 128);
 
 	if (! ok)
 		return false;
 
-	avatar_top[2] = -1; // Head movement is in front vector, and V up/down is ~90 degrees
-
 	//Convert to left-handed coordinate system
-	avatar_front[0] = rot_corrector[2]; //
-	avatar_front[1] = rot_corrector[1]; //
-	avatar_front[2] = rot_corrector[0]; //
+	avatar_front[0] = face_corrector[2];
+	avatar_front[1] = face_corrector[1];
+	avatar_front[2] = face_corrector[0];
+	
+	avatar_top[0] = top_corrector[2];
+	avatar_top[1] = top_corrector[1];
+	avatar_top[2] = top_corrector[0];
 
 	//ccontext[127] = 0;
 	//context = std::string(ccontext);
@@ -164,7 +168,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 static int trylock() {
 	h = NULL;
-	pos1ptr = pos2ptr = pos3ptr = rotptr = NULL;
+	pos0ptr = pos1ptr = pos2ptr = faceptr = topptr = NULL;
 
 	DWORD pid=getProcess(L"UT2004.exe");
 	if (!pid)
@@ -182,11 +186,13 @@ static int trylock() {
 	BYTE *ptr3 = peekProcPtr(ptr2 + 0xCC);
 	BYTE *baseptr = ptr3 + 0x1C8;
 
-	pos1ptr = baseptr;
-	pos2ptr = baseptr + 0x4;
-	pos3ptr = baseptr + 0x8;
+	pos0ptr = baseptr;
+	pos1ptr = baseptr + 0x4;
+	pos2ptr = baseptr + 0x8;
 
-	rotptr = baseptr + 0x18;
+	faceptr = baseptr + 0x18;
+	
+	topptr = baseptr + 0x24;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;
