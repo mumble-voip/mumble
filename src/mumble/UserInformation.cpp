@@ -48,6 +48,8 @@ UserInformation::UserInformation(const MumbleProto::UserStats &msg, QWidget *p) 
 
 	update(msg);
 	resize(sizeHint());
+	
+	qfCertificateFont = qlCertificate->font();
 }
 
 unsigned int UserInformation::session() const {
@@ -111,7 +113,25 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 		}
 		if (! qlCerts.isEmpty()) {
 			qpbCertificate->setEnabled(true);
-			qlCertificate->setText(qlCerts.last().subjectInfo(QSslCertificate::CommonName));
+			
+			const QSslCertificate &cert = qlCerts.last();
+			const QMultiMap<QSsl::AlternateNameEntryType, QString> &alts = cert.alternateSubjectNames();
+
+			if (alts.contains(QSsl::EmailEntry))
+				qlCertificate->setText(QStringList(alts.values(QSsl::EmailEntry)).join(tr(", ")));
+			else	
+				qlCertificate->setText(cert.subjectInfo(QSslCertificate::CommonName));
+				
+			if (msg.strong_certificate()) {
+				QFont f = qfCertificateFont;
+				f.setBold(true);
+				qlCertificate->setFont(f);
+			} else {
+				qlCertificate->setFont(qfCertificateFont);
+			}
+		} else {
+			qpbCertificate->setEnabled(false);
+			qlCertificate->setText(QString());
 		}
 	}
 	if (msg.has_address()) {
