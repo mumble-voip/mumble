@@ -45,6 +45,7 @@ class UserInformation : public QDialog, Ui::UserInformation {
 		unsigned int uiSession;
 		QTimer *qtTimer;
 		QList<QSslCertificate> qlCerts;
+		static QString secsToString(unsigned int secs);
 	protected slots:
 		void tick();
 		void on_qpbCertificate_clicked();

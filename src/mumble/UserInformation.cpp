@@ -72,6 +72,31 @@ void UserInformation::on_qpbCertificate_clicked() {
 	delete vc;
 }
 
+QString UserInformation::secsToString(unsigned int secs) {
+	QStringList qsl;
+
+	int weeks = secs / (60 * 60 * 24 * 7);
+	secs = secs % (60 * 60 * 24 * 7);
+	int days = secs / (60 * 60 * 24);
+	secs = secs % (60 * 60 * 24);
+	int hours = secs / (60 * 60);
+	secs = secs % (60 * 60);
+	int minutes = secs / 60;
+	int seconds = secs % 60;
+	
+	if (weeks)
+		qsl << tr("%1w").arg(weeks);
+	if (days)
+		qsl << tr("%1d").arg(days);
+	if (hours)
+		qsl << tr("%1h").arg(hours);
+	if (minutes || hours)
+		qsl << tr("%1m").arg(minutes);
+	qsl << tr("%1s").arg(seconds);
+	
+	return qsl.join(tr(" "));
+}
+
 void UserInformation::update(const MumbleProto::UserStats &msg) {
 	qWarning() << "UPDATE";
 
@@ -143,4 +168,15 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 	qlToLate->setText(QString::number(to.late()));
 	qlToLost->setText(QString::number(to.lost()));
 	qlToResync->setText(QString::number(to.resync()));
+	
+	if (msg.has_onlinesecs()) {
+		if (msg.has_idlesecs())
+			qlTime->setText(tr("%1 online (%2 idle)").arg(secsToString(msg.onlinesecs()), secsToString(msg.idlesecs())));
+		else
+			qlTime->setText(tr("%1 online").arg(secsToString(msg.onlinesecs())));
+	} 
+	if (msg.has_bandwidth())
+		qlBandwidth->setText(tr("%1 kbit/s").arg(msg.bandwidth() / 125.0f, 0, 'f', 1));
+	else
+		qlBandwidth->setText(QString());
 }
