@@ -254,4 +254,5 @@ message UserStats {
 	optional uint32 bandwidth = 15;
 	optional uint32 onlinesecs = 16;
 	optional uint32 idlesecs = 17;
+	optional bool strong_certificate = 18 [default = false];
 }

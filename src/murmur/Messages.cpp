@@ -1389,6 +1389,7 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 			const QByteArray &der = cert.toDer();
 			msg.add_certificates(std::string(der.constData(), der.length()));
 		}
+		msg.set_strong_certificate(pDstServerUser->bVerified);
 	}
 
 	if (local) {
