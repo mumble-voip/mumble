@@ -41,7 +41,7 @@ HANDLE h;
 
 BYTE *faceptr;
 BYTE *topptr;
-BYTE *stateptr;
+//BYTE *stateptr;
 //BYTE *contextptr;
 
 static DWORD getProcess(const wchar_t *exename) {
@@ -111,34 +111,22 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
 
 	//char ccontext[128];
-	char state;
+	//char state;
 	//char spawn;
 	bool ok;
 
-	/*
-		state value is:
-		0 when not in a server
-		32 when in a server
-	*/
-	ok = peekProc(stateptr, &state, 1); // Magical state value
-	if (! ok)
-		return false;
-
-	if (state == 0)
-		return false; // Unlink plugin
-
-	//ok = peekProc((BYTE *) 0x0097634D, &spawn, 1);
+	//ok = peekProc(stateptr, &state, 1); // Magical state value
 	//if (! ok)
 	//	return false;
 
-	//if (spawn == 0)
-	//	return true; //Center PA
+	//if (state == 0)
+	//	return false; 
 
 	//peekProc(contextptr, ccontext, 128);
 
 	ok = peekProc((BYTE *) 0x00976274, avatar_pos, 12) &&
-	     peekProc(faceptr, avatar_front, 12) &&
-	     peekProc(topptr, avatar_top, 12);
+		 peekProc(faceptr, avatar_front, 12) &&
+		 peekProc(topptr, avatar_top, 12);
 
 	if (! ok)
 		return false;
@@ -149,7 +137,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	*/
 	//ccontext[127] = 0;
 	//context = std::string(ccontext);
-
+	
 	for (int i=0;i<3;i++) {
 		camera_pos[i] = avatar_pos[i];
 		camera_front[i] = avatar_front[i];
@@ -166,25 +154,16 @@ static int trylock() {
 	DWORD pid=getProcess(L"BF1942.exe");
 	if (!pid)
 		return false;
-	BYTE *mod=getModuleAddr(pid, L"binkw32.dll");
-	if (!mod)
-		return false;
 
 	h=OpenProcess(PROCESS_VM_READ, false, pid);
 	if (!h)
 		return false;
-
+	
 	BYTE *ptr1 = peekProcPtr((BYTE *) 0x009A9468);
 	BYTE *ptr2 = peekProcPtr(ptr1 + 0x98);
-
+	
 	faceptr = ptr2 + 0x5C;
 	topptr = ptr2 + 0x4C;
-	stateptr = mod + 0x52FB1;
-
-	//BYTE *ctxtp1 = peekProcPtr((BYTE *) 0x);
-	//BYTE *ctxtp2 = peekProcPtr(ctxtp1 + 0x);
-
-	//contextptr = ctxtp2 + 0x;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;
