@@ -51,30 +51,6 @@
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="qmUser">
-    <property name="title">
-     <string>&amp;User</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="qmChannel">
-    <property name="title">
-     <string>&amp;Channel</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="qmAudio">
-    <property name="title">
-     <string>&amp;Audio</string>
-    </property>
-    <addaction name="qaAudioMute"/>
-    <addaction name="qaAudioDeaf"/>
-    <addaction name="separator"/>
-    <addaction name="qaAudioReset"/>
-    <addaction name="qaAudioUnlink"/>
-    <addaction name="separator"/>
-    <addaction name="qaAudioTTS"/>
-    <addaction name="separator"/>
-    <addaction name="qaAudioStats"/>
-   </widget>
    <widget class="QMenu" name="qmConfig">
     <property name="title">
      <string>C&amp;onfigure</string>
@@ -95,13 +71,22 @@
    </widget>
    <widget class="QMenu" name="qmServer">
     <property name="title">
-     <string>&amp;Server</string>
+     <string>S&amp;erver</string>
     </property>
    </widget>
+   <widget class="QMenu" name="qmSelf">
+    <property name="title">
+     <string>&amp;Self</string>
+    </property>
+    <addaction name="qaAudioMute"/>
+    <addaction name="qaAudioDeaf"/>
+    <addaction name="separator"/>
+    <addaction name="qaSelfComment"/>
+    <addaction name="qaServerTexture"/>
+    <addaction name="qaServerTextureRemove"/>
+   </widget>
    <addaction name="qmServer"/>
-   <addaction name="qmUser"/>
-   <addaction name="qmChannel"/>
-   <addaction name="qmAudio"/>
+   <addaction name="qmSelf"/>
    <addaction name="qmConfig"/>
    <addaction name="qmHelp"/>
   </widget>
@@ -427,7 +412,7 @@
   </action>
   <action name="qaAudioStats">
    <property name="text">
-    <string>S&amp;tatistics</string>
+    <string>Audio S&amp;tatistics</string>
    </property>
    <property name="toolTip">
     <string>Display audio statistics</string>
@@ -438,7 +423,7 @@
   </action>
   <action name="qaAudioUnlink">
    <property name="text">
-    <string comment="Plugin">&amp;Unlink</string>
+    <string>&amp;Unlink Plugins</string>
    </property>
    <property name="toolTip">
     <string>Forcibly unlink plugin</string>
@@ -703,6 +688,14 @@
    </property>
    <property name="toolTip">
     <string>Query server for connection information for user</string>
+   </property>
+  </action>
+  <action name="qaSelfComment">
+   <property name="text">
+    <string>&amp;Change Comment</string>
+   </property>
+   <property name="toolTip">
+    <string>Change your own comment.</string>
    </property>
   </action>
  </widget>

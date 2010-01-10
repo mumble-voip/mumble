@@ -76,6 +76,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 	public:
 		UserModel *pmModel;
 		QSystemTrayIcon *qstiIcon;
+		QMenu *qmUser;
+		QMenu *qmChannel;
 		QMenu *qmTray;
 		QIcon qiIcon, qiIconMuteSelf, qiIconMuteServer, qiIconDeafSelf, qiIconDeafServer, qiIconMuteSuppressed;
 		QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingWhisperChannel, qiTalkingOff;
@@ -149,7 +151,9 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaServerTexture_triggered();
 		void on_qaServerTextureRemove_triggered();
 		void on_qaServerTokens_triggered();
-		void on_qmUser_aboutToShow();
+		void on_qmSelf_aboutToShow();
+		void on_qaSelfComment_triggered();
+		void qmUser_aboutToShow();
 		void on_qaUserComment_triggered();
 		void on_qaUserCommentReset_triggered();
 		void on_qaUserCommentView_triggered();
@@ -164,7 +168,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaUserFriendAdd_triggered();
 		void on_qaUserFriendRemove_triggered();
 		void on_qaUserFriendUpdate_triggered();
-		void on_qmChannel_aboutToShow();
+		void qmChannel_aboutToShow();
 		void on_qaChannelJoin_triggered();
 		void on_qaChannelAdd_triggered();
 		void on_qaChannelRemove_triggered();

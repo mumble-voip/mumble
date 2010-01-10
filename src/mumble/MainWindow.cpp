@@ -165,6 +165,11 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	setupUi(this);
 	setupGui();
 
+	qmUser = new QMenu(this);
+	qmChannel = new QMenu(this);
+	connect(qmUser, SIGNAL(aboutToShow()), this, SLOT(qmUser_aboutToShow()));
+	connect(qmChannel, SIGNAL(aboutToShow()), this, SLOT(qmChannel_aboutToShow()));
+
 	connect(g.sh, SIGNAL(connected()), this, SLOT(serverConnected()));
 	connect(g.sh, SIGNAL(disconnected(QAbstractSocket::SocketError, QString)), this, SLOT(serverDisconnected(QAbstractSocket::SocketError, QString)));
 
@@ -174,8 +179,9 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 		a->setShortcutContext(Qt::ApplicationShortcut);
 
 	on_qmServer_aboutToShow();
-	on_qmChannel_aboutToShow();
-	on_qmUser_aboutToShow();
+	on_qmSelf_aboutToShow();
+	qmChannel_aboutToShow();
+	qmUser_aboutToShow();
 	on_qmConfig_aboutToShow();
 
 	setOnTop(g.s.aotbAlwaysOnTop == Settings::OnTopAlways ||
@@ -758,6 +764,38 @@ void MainWindow::on_Reconnect_timeout() {
 	g.sh->start(QThread::TimeCriticalPriority);
 }
 
+void MainWindow::on_qmSelf_aboutToShow() {
+	qaServerTexture->setEnabled(g.uiSession != 0);
+	qaSelfComment->setEnabled(g.uiSession != 0);
+
+	ClientUser *user = ClientUser::get(g.uiSession);
+	qaServerTextureRemove->setEnabled(user && ! user->qbaTexture.isEmpty());
+}
+
+void MainWindow::on_qaSelfComment_triggered() {
+	ClientUser *p = ClientUser::get(g.uiSession);
+
+	if (!p)
+		return;
+
+	unsigned int session = p->uiSession;
+
+	::TextMessage *texm = new ::TextMessage(this, tr("Change comment on user %1").arg(p->qsName));
+
+	texm->rteMessage->setText(p->qsComment);
+	int res = texm->exec();
+
+	p = ClientUser::get(session);
+
+	if (p && (res==QDialog::Accepted)) {
+		MumbleProto::UserState mpus;
+		mpus.set_session(session);
+		mpus.set_comment(u8(texm->message()));
+		g.sh->sendMessage(mpus);
+	}
+	delete texm;
+}
+
 void MainWindow::on_qmServer_aboutToShow() {
 	qmServer->clear();
 	qmServer->addAction(qaServerConnect);
@@ -765,8 +803,6 @@ void MainWindow::on_qmServer_aboutToShow() {
 	qmServer->addAction(qaServerBanList);
 	qmServer->addAction(qaServerUserList);
 	qmServer->addAction(qaServerInformation);
-	qmServer->addAction(qaServerTexture);
-	qmServer->addAction(qaServerTextureRemove);
 	qmServer->addAction(qaServerTokens);
 	qmServer->addSeparator();
 	qmServer->addAction(qaQuit);
@@ -774,11 +810,7 @@ void MainWindow::on_qmServer_aboutToShow() {
 	qaServerBanList->setEnabled(g.pPermissions & (ChanACL::Ban | ChanACL::Write));
 	qaServerUserList->setEnabled(g.pPermissions & (ChanACL::Register | ChanACL::Write));
 	qaServerInformation->setEnabled(g.uiSession != 0);
-	qaServerTexture->setEnabled(g.uiSession != 0);
 	qaServerTokens->setEnabled(g.uiSession != 0);
-
-	ClientUser *user = ClientUser::get(g.uiSession);
-	qaServerTextureRemove->setEnabled(user && ! user->qbaTexture.isEmpty());
 
 	if (! qlServerActions.isEmpty()) {
 		qmServer->addSeparator();
@@ -915,7 +947,7 @@ void MainWindow::on_qaServerTokens_triggered() {
 	tokenEdit->show();
 }
 
-void MainWindow::on_qmUser_aboutToShow() {
+void MainWindow::qmUser_aboutToShow() {
 	ClientUser *p = getContextMenuUser();
 
 	bool self = p && (p->uiSession == g.uiSession);
@@ -966,7 +998,7 @@ void MainWindow::on_qmUser_aboutToShow() {
 	if (g.s.bMinimalView) {
 		qmUser->addSeparator();
 		qmUser->addMenu(qmServer);
-		qmUser->addMenu(qmAudio);
+		qmUser->addMenu(qmSelf);
 		qmUser->addMenu(qmConfig);
 		qmUser->addMenu(qmHelp);
 	}
@@ -1262,12 +1294,15 @@ void MainWindow::on_qmConfig_aboutToShow() {
 	qmConfig->addAction(qaAudioWizard);
 	qmConfig->addAction(qaConfigCert);
 	qmConfig->addSeparator();
+	qmConfig->addAction(qaAudioTTS);
+	qmConfig->addAction(qaAudioStats);
+	qmConfig->addSeparator();
 	qmConfig->addAction(qaConfigMinimal);
 	if (g.s.bMinimalView)
 		qmConfig->addAction(qaConfigHideFrame);
 }
 
-void MainWindow::on_qmChannel_aboutToShow() {
+void MainWindow::qmChannel_aboutToShow() {
 	qmChannel->clear();
 
 	if (cmCid >= 0 && g.uiSession != 0 && cmCid != ClientUser::get(g.uiSession)->cChannel->iId) {
@@ -1287,7 +1322,7 @@ void MainWindow::on_qmChannel_aboutToShow() {
 	if (g.s.bMinimalView) {
 		qmChannel->addSeparator();
 		qmChannel->addMenu(qmServer);
-		qmChannel->addMenu(qmAudio);
+		qmChannel->addMenu(qmSelf);
 		qmChannel->addMenu(qmConfig);
 		qmChannel->addMenu(qmHelp);
 	}
