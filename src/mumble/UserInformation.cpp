@@ -61,10 +61,8 @@ void UserInformation::tick() {
 		return;
 
 	bRequested = true;
-	MumbleProto::UserStats mpus;
-	mpus.set_session(uiSession);
-	mpus.set_stats_only(true);
-	g.sh->sendMessage(mpus);
+
+	g.sh->requestUserStats(uiSession, true);
 }
 
 void UserInformation::on_qpbCertificate_clicked() {

@@ -252,13 +252,7 @@ void ACLEditor::accept() {
 	}
 	// Update channel state
 	if (bAddChannelMode) {
-		MumbleProto::ChannelState mpcs;
-		mpcs.set_name(u8(qleChannelName->text()));
-		mpcs.set_description(u8(rteChannelDescription->text()));
-		mpcs.set_parent(iChannel);
-		mpcs.set_position(qsbChannelPosition->value());
-		mpcs.set_temporary(qcbChannelTemporary->isChecked());
-		g.sh->sendMessage(mpcs);
+		g.sh->createChannel(iChannel, qleChannelName->text(), rteChannelDescription->text(), qsbChannelPosition->value(), qcbChannelTemporary->isChecked());
 	} else {
 		bool b = false;
 

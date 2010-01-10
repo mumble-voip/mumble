@@ -610,10 +610,7 @@ void MainWindow::findDesiredChannel() {
 	}
 	if (found) {
 		if (chan != ClientUser::get(g.uiSession)->cChannel) {
-			MumbleProto::UserState mpus;
-			mpus.set_session(g.uiSession);
-			mpus.set_channel_id(chan->iId);
-			g.sh->sendMessage(mpus);
+			g.sh->joinChannel(chan->iId);
 		}
 		qtvUsers->setCurrentIndex(pmModel->index(chan));
 	} else if (g.uiSession) {
@@ -786,9 +783,7 @@ void MainWindow::on_qaServerDisconnect_triggered() {
 }
 
 void MainWindow::on_qaServerBanList_triggered() {
-	MumbleProto::BanList mpbl;
-	mpbl.set_query(true);
-	g.sh->sendMessage(mpbl);
+	g.sh->requestBanList();
 
 	if (banEdit) {
 		banEdit->reject();
@@ -798,8 +793,7 @@ void MainWindow::on_qaServerBanList_triggered() {
 }
 
 void MainWindow::on_qaServerUserList_triggered() {
-	MumbleProto::UserList mpul;
-	g.sh->sendMessage(mpul);
+	g.sh->requestUserList();
 
 	if (userEdit) {
 		userEdit->reject();
@@ -885,15 +879,12 @@ void MainWindow::on_qaServerTexture_triggered() {
 	}
 	QByteArray qba(reinterpret_cast<const char *>(img.bits()), img.numBytes());
 	qba = qCompress(qba);
-	MumbleProto::UserState mpus;
-	mpus.set_texture(qba.constData(), qba.length());
-	g.sh->sendMessage(mpus);
+
+	g.sh->setTexture(qba);
 }
 
 void MainWindow::on_qaServerTextureRemove_triggered() {
-	MumbleProto::UserState mpus;
-	mpus.set_texture(NULL, 0);
-	g.sh->sendMessage(mpus);
+	g.sh->setTexture(QByteArray());
 }
 
 void MainWindow::on_qaServerTokens_triggered() {
@@ -1055,10 +1046,7 @@ void MainWindow::on_qaUserRegister_triggered() {
 		p = ClientUser::get(session);
 		if (! p)
 			return;
-		MumbleProto::UserState mpus;
-		mpus.set_session(p->uiSession);
-		mpus.set_user_id(0);
-		g.sh->sendMessage(mpus);
+		g.sh->registerUser(p->uiSession);
 	}
 }
 
@@ -1099,10 +1087,7 @@ void MainWindow::on_qaUserKick_triggered() {
 		return;
 
 	if (ok) {
-		MumbleProto::UserRemove mpur;
-		mpur.set_session(p->uiSession);
-		mpur.set_reason(u8(reason));
-		g.sh->sendMessage(mpur);
+		g.sh->kickBanUser(p->uiSession, reason, false);
 	}
 }
 
@@ -1120,11 +1105,7 @@ void MainWindow::on_qaUserBan_triggered() {
 		return;
 
 	if (ok) {
-		MumbleProto::UserRemove mpur;
-		mpur.set_session(p->uiSession);
-		mpur.set_reason(u8(reason));
-		mpur.set_ban(true);
-		g.sh->sendMessage(mpur);
+		g.sh->kickBanUser(p->uiSession, reason, true);
 	}
 }
 
@@ -1145,10 +1126,7 @@ void MainWindow::on_qaUserTextMessage_triggered() {
 		QString msg = texm->message();
 
 		if (! msg.isEmpty()) {
-			MumbleProto::TextMessage mptm;
-			mptm.add_session(p->uiSession);
-			mptm.set_message(u8(msg));
-			g.sh->sendMessage(mptm);
+			g.sh->sendUserTextMessage(p->uiSession, msg);
 			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::msgColor(p->qsName, Log::Target)).arg(texm->message()), tr("Message to %1").arg(p->qsName));
 		}
 	}
@@ -1171,10 +1149,7 @@ void MainWindow::on_qaUserComment_triggered() {
 	p = ClientUser::get(session);
 
 	if (p && (res==QDialog::Accepted)) {
-		MumbleProto::UserState mpus;
-		mpus.set_session(session);
-		mpus.set_comment(u8(texm->message()));
-		g.sh->sendMessage(mpus);
+		g.sh->setUserComment(session, texm->message());
 	}
 	delete texm;
 }
@@ -1204,10 +1179,7 @@ void MainWindow::on_qaUserCommentReset_triggered() {
 	                                tr("Are you sure you want to reset the comment of user %1?").arg(p->qsName),
 	                                QMessageBox::Yes, QMessageBox::No);
 	if (ret == QMessageBox::Yes) {
-		MumbleProto::UserState mpus;
-		mpus.set_session(session);
-		mpus.set_comment(std::string());
-		g.sh->sendMessage(mpus);
+		g.sh->setUserComment(session, QString());
 	}
 }
 
@@ -1217,9 +1189,7 @@ void MainWindow::on_qaUserInformation_triggered() {
 	if (!p)
 		return;
 
-	MumbleProto::UserStats mpus;
-	mpus.set_session(p->uiSession);
-	g.sh->sendMessage(mpus);
+	g.sh->requestUserStats(p->uiSession, false);
 }
 
 void MainWindow::on_qaQuit_triggered() {
@@ -1233,7 +1203,6 @@ void MainWindow::on_qleChat_returnPressed() {
 	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
-	MumbleProto::TextMessage mptm;
 	QString qsText;
 
 	qsText = qleChat->text();
@@ -1241,22 +1210,19 @@ void MainWindow::on_qleChat_returnPressed() {
 		qsText = TextMessage::autoFormat(qsText);
 	}
 
-	mptm.set_message(u8(qsText));
-
 	if (p == NULL || p->uiSession == g.uiSession) {
-		// Channel tree message
+		// Channel message
 		if (c == NULL) // If no channel selected fallback to current one
 			c = ClientUser::get(g.uiSession)->cChannel;
 
-		mptm.add_channel_id(c->iId);
+		g.sh->sendChannelTextMessage(c->iId, qsText, false);
 		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c)).arg(qsText), tr("Message to channel %1").arg(c->qsName));
 	} else {
 		// User message
-		mptm.add_session(p->uiSession);
+		g.sh->sendUserTextMessage(p->uiSession, qsText);
 		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target)).arg(qsText), tr("Message to %1").arg(p->qsName));
 	}
 
-	g.sh->sendMessage(mptm);
 	qleChat->clear();
 }
 
@@ -1359,10 +1325,7 @@ void MainWindow::on_qaChannelJoin_triggered() {
 	Channel *c = getContextMenuChannel();
 
 	if (c) {
-		MumbleProto::UserState mpus;
-		mpus.set_session(g.uiSession);
-		mpus.set_channel_id(c->iId);
-		g.sh->sendMessage(mpus);
+		g.sh->joinChannel(c->iId);
 	}
 }
 
@@ -1398,9 +1361,7 @@ void MainWindow::on_qaChannelRemove_triggered() {
 		return;
 
 	if (ret == QMessageBox::Yes) {
-		MumbleProto::ChannelRemove mpcr;
-		mpcr.set_channel_id(c->iId);
-		g.sh->sendMessage(mpcr);
+		g.sh->removeChannel(c->iId);
 	}
 }
 
@@ -1408,11 +1369,7 @@ void MainWindow::on_qaChannelACL_triggered() {
 	Channel *c = getContextMenuChannel();
 	int id = c ? c->iId : 0;
 
-	MumbleProto::ACL mpacl;
-	mpacl.set_channel_id(id);
-	mpacl.set_query(true);
-
-	g.sh->sendMessage(mpacl);
+	g.sh->requestACL(id);
 
 	if (aclEdit) {
 		aclEdit->reject();
@@ -1427,10 +1384,7 @@ void MainWindow::on_qaChannelLink_triggered() {
 	if (! l)
 		l = Channel::get(0);
 
-	MumbleProto::ChannelState mpcs;
-	mpcs.set_channel_id(c->iId);
-	mpcs.add_links_add(l->iId);
-	g.sh->sendMessage(mpcs);
+	g.sh->addChannelLink(c->iId, l->iId);
 }
 
 void MainWindow::on_qaChannelUnlink_triggered() {
@@ -1439,10 +1393,7 @@ void MainWindow::on_qaChannelUnlink_triggered() {
 	if (! l)
 		l = Channel::get(0);
 
-	MumbleProto::ChannelState mpcs;
-	mpcs.set_channel_id(c->iId);
-	mpcs.add_links_remove(l->iId);
-	g.sh->sendMessage(mpcs);
+	g.sh->removeChannelLink(c->iId, l->iId);
 }
 
 void MainWindow::on_qaChannelUnlinkAll_triggered() {
@@ -1469,13 +1420,7 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 	c = Channel::get(id);
 
 	if (c && (res==QDialog::Accepted)) {
-		MumbleProto::TextMessage mptm;
-		if (texm->bTreeMessage)
-			mptm.add_tree_id(id);
-		else
-			mptm.add_channel_id(id);
-		mptm.set_message(u8(texm->message()));
-		g.sh->sendMessage(mptm);
+		g.sh->sendChannelTextMessage(id, texm->message(), texm->bTreeMessage);
 
 		if (texm->bTreeMessage)
 			g.l->log(Log::TextMessage, tr("(Tree) %1: %2").arg(Log::formatChannel(c)).arg(texm->message()), tr("Message to tree %1").arg(c->qsName));
@@ -1491,9 +1436,7 @@ void MainWindow::updateMenuPermissions() {
 	ChanACL::Permissions p = static_cast<ChanACL::Permissions>(c ? c->uiPermissions : ChanACL::None);
 
 	if (c && ! p) {
-		MumbleProto::PermissionQuery mppq;
-		mppq.set_channel_id(c->iId);
-		g.sh->sendMessage(mppq);
+		g.sh->requestChannelPermissions(c->iId);
 		if (c->iId == 0)
 			p = g.pPermissions;
 		else
@@ -1506,9 +1449,7 @@ void MainWindow::updateMenuPermissions() {
 	ChanACL::Permissions pparent = static_cast<ChanACL::Permissions>(cparent ? cparent->uiPermissions : ChanACL::None);
 
 	if (cparent && ! pparent) {
-		MumbleProto::PermissionQuery mppq;
-		mppq.set_channel_id(cparent->iId);
-		g.sh->sendMessage(mppq);
+		g.sh->requestChannelPermissions(cparent->iId);
 		if (cparent->iId == 0)
 			pparent = g.pPermissions;
 		else
@@ -1522,9 +1463,7 @@ void MainWindow::updateMenuPermissions() {
 	ChanACL::Permissions homep = static_cast<ChanACL::Permissions>(homec ? homec->uiPermissions : ChanACL::None);
 
 	if (homec && ! homep) {
-		MumbleProto::PermissionQuery mppq;
-		mppq.set_channel_id(homec->iId);
-		g.sh->sendMessage(mppq);
+		g.sh->requestChannelPermissions(homec->iId);
 		if (homec->iId == 0)
 			homep = g.pPermissions;
 		else
@@ -1594,10 +1533,7 @@ void MainWindow::on_qaAudioMute_triggered() {
 		g.l->log(Log::SelfMute, tr("Muted."));
 	}
 
-	MumbleProto::UserState mpus;
-	mpus.set_self_mute(g.s.bMute);
-	mpus.set_self_deaf(g.s.bDeaf);
-	g.sh->sendMessage(mpus);
+	g.sh->setSelfMuteDeafState(g.s.bMute, g.s.bDeaf);
 
 	updateTrayIcon();
 }
@@ -1625,10 +1561,7 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 		g.l->log(Log::SelfMute, tr("Undeafened."));
 	}
 
-	MumbleProto::UserState mpus;
-	mpus.set_self_mute(g.s.bMute);
-	mpus.set_self_deaf(g.s.bDeaf);
-	g.sh->sendMessage(mpus);
+	g.sh->setSelfMuteDeafState(g.s.bMute, g.s.bDeaf);
 
 	updateTrayIcon();
 }
@@ -1884,10 +1817,7 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 			if (! st.bUsers) {
 				Channel *c = mapChannel(st.iChannel);
 				if (c) {
-					MumbleProto::UserState mpus;
-					mpus.set_session(g.uiSession);
-					mpus.set_channel_id(c->iId);
-					g.sh->sendMessage(mpus);
+					g.sh->joinChannel(c->iId);
 				}
 				return;
 			}
@@ -1936,10 +1866,7 @@ void MainWindow::serverConnected() {
 	qtvUsers->setRowHidden(0, QModelIndex(), false);
 
 	if (g.s.bMute || g.s.bDeaf) {
-		MumbleProto::UserState mpus;
-		mpus.set_self_mute(g.s.bMute);
-		mpus.set_self_deaf(g.s.bDeaf);
-		g.sh->sendMessage(mpus);
+		g.sh->setSelfMuteDeafState(g.s.bMute, g.s.bDeaf);
 	}
 
 #ifdef Q_OS_WIN

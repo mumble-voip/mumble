@@ -549,3 +549,125 @@ void ServerHandler::getConnectionInfo(QString &host, unsigned short &port, QStri
 	username = qsUserName;
 	pw = qsPassword;
 }
+
+void ServerHandler::requestUserStats(const quint32 uiSession, const bool statsOnly) {
+	MumbleProto::UserStats mpus;
+	mpus.set_session(uiSession);
+	mpus.set_stats_only(statsOnly);
+	sendMessage(mpus);
+}
+
+void ServerHandler::joinChannel(const quint32 channel) {
+	MumbleProto::UserState mpus;
+	// TODO: remove global uiSession reference
+	mpus.set_session(g.uiSession);
+	mpus.set_channel_id(channel);
+	sendMessage(mpus);
+}
+
+void ServerHandler::createChannel(const quint32 parent_, const QString &name, const QString &description, const quint32 position, const bool temporary) {
+	MumbleProto::ChannelState mpcs;
+	mpcs.set_parent(parent_);
+	mpcs.set_name(u8(name));
+	mpcs.set_description(u8(description));
+	mpcs.set_position(position);
+	mpcs.set_temporary(temporary);
+	sendMessage(mpcs);
+}
+
+void ServerHandler::setTexture(const QByteArray &qba) {
+	MumbleProto::UserState mpus;
+	mpus.set_texture(qba.constData(), qba.length());
+	sendMessage(mpus);
+}
+
+void ServerHandler::requestBanList() {
+	MumbleProto::BanList mpbl;
+	mpbl.set_query(true);
+	sendMessage(mpbl);
+}
+
+void ServerHandler::requestUserList() {
+	MumbleProto::UserList mpul;
+	sendMessage(mpul);
+}
+
+void ServerHandler::requestACL(const quint32 channel) {
+	MumbleProto::ACL mpacl;
+	mpacl.set_channel_id(channel);
+	mpacl.set_query(true);
+	sendMessage(mpacl);
+}
+
+void ServerHandler::registerUser(const quint32 uiSession) {
+	MumbleProto::UserState mpus;
+	mpus.set_session(uiSession);
+	mpus.set_user_id(0);
+	sendMessage(mpus);
+}
+
+void ServerHandler::kickBanUser(const quint32 uiSession, const QString &reason, bool ban) {
+	MumbleProto::UserRemove mpur;
+	mpur.set_session(uiSession);
+	mpur.set_reason(u8(reason));
+	mpur.set_ban(ban);
+	sendMessage(mpur);
+}
+
+void ServerHandler::sendUserTextMessage(const quint32 uiSession, const QString &message_) {
+	MumbleProto::TextMessage mptm;
+	mptm.add_session(uiSession);
+	mptm.set_message(u8(message_));
+	sendMessage(mptm);
+}
+
+void ServerHandler::sendChannelTextMessage(const quint32 channel, const QString &message_, bool tree) {
+	MumbleProto::TextMessage mptm;
+	if (tree) {
+		mptm.add_tree_id(channel);
+	} else {
+		mptm.add_channel_id(channel);
+	}
+	mptm.set_message(u8(message_));
+	sendMessage(mptm);
+}
+
+void ServerHandler::setUserComment(const quint32 uiSession, const QString &comment) {
+	MumbleProto::UserState mpus;
+	mpus.set_session(uiSession);
+	mpus.set_comment(u8(comment));
+	sendMessage(mpus);
+}
+
+void ServerHandler::removeChannel(const quint32 channel) {
+	MumbleProto::ChannelRemove mpcr;
+	mpcr.set_channel_id(channel);
+	sendMessage(mpcr);
+}
+
+void ServerHandler::addChannelLink(const quint32 channel, const quint32 link) {
+	MumbleProto::ChannelState mpcs;
+	mpcs.set_channel_id(channel);
+	mpcs.add_links_add(link);
+	sendMessage(mpcs);
+}
+
+void ServerHandler::removeChannelLink(const quint32 channel, const quint32 link) {
+	MumbleProto::ChannelState mpcs;
+	mpcs.set_channel_id(channel);
+	mpcs.add_links_remove(link);
+	sendMessage(mpcs);
+}
+
+void ServerHandler::requestChannelPermissions(const quint32 channel) {
+	MumbleProto::PermissionQuery mppq;
+	mppq.set_channel_id(channel);
+	sendMessage(mppq);
+}
+
+void ServerHandler::setSelfMuteDeafState(bool mute, bool deaf) {
+	MumbleProto::UserState mpus;
+	mpus.set_self_mute(mute);
+	mpus.set_self_deaf(deaf);
+	sendMessage(mpus);
+}

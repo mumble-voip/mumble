@@ -102,6 +102,24 @@ class ServerHandler : public QThread {
 		MUMBLE_MH_ALL
 #undef MUMBLE_MH_MSG
 
+		void requestUserStats(const quint32 uiSession, const bool statsOnly);
+		void joinChannel(const quint32 channel);
+		void createChannel(const quint32 parent_, const QString &name, const QString &description, const quint32 position, const bool temporary);
+		void setTexture(const QByteArray &qba);
+		void requestBanList();
+		void requestUserList();
+		void requestACL(const quint32 channel);
+		void registerUser(const quint32 uiSession);
+		void kickBanUser(const quint32 uiSession, const QString &reason, bool ban);
+		void sendUserTextMessage(const quint32 uiSession, const QString &message_);
+		void sendChannelTextMessage(const quint32 channel, const QString &message_, bool tree);
+		void setUserComment(const quint32 uiSession, const QString &comment);
+		void removeChannel(const quint32 channel);
+		void addChannelLink(const quint32 channel, const quint32 link);
+		void removeChannelLink(const quint32 channel, const quint32 link);
+		void requestChannelPermissions(const quint32 channel);
+		void setSelfMuteDeafState(bool mute, bool deaf);
+
 		void disconnect();
 		void run();
 	signals:

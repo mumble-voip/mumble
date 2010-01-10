@@ -225,10 +225,7 @@ void UserView::doubleClick(const QModelIndex &idx) {
 	Channel *c = um->getChannel(idx);
 	if (c) {
 		// if a channel is double clicked join it
-		MumbleProto::UserState mpus;
-		mpus.set_session(g.uiSession);
-		mpus.set_channel_id(c->iId);
-		g.sh->sendMessage(mpus);
+		g.sh->joinChannel(c->iId);
 	}
 }
 

@@ -599,9 +599,7 @@ void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
 
 		// We always need the permissions of the current focus channel
 		if (current && current->iId != msg.channel_id()) {
-			MumbleProto::PermissionQuery mppq;
-			mppq.set_channel_id(current->iId);
-			g.sh->sendMessage(mppq);
+			g.sh->requestChannelPermissions(current->iId);
 
 			current->uiPermissions = ChanACL::All;
 		}
