@@ -1360,7 +1360,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation type="unfinished">&lt;b&gt;発言を送信するタイミングを設定します。&lt;/b&gt;&lt;br /&gt;&lt;i&gt;常に有効&lt;/i&gt; - 常時音声入力を受け付けます&lt;br /&gt;&lt;i&gt;声で有効化&lt;/i&gt; - はっきりとしゃべっている時に受け付けます。&lt;br /&gt;&lt;i&gt;プッシュトーク&lt;/i&gt; - &lt;i&gt;ショートカットキー&lt;/i&gt;で設定したキーを押している間音声入力を受け付けます。</translation>
+        <translation type="unfinished">&lt;b&gt;発言を送信するタイミングを設定します。&lt;/b&gt;&lt;br /&gt;&lt;i&gt;常に有効&lt;/i&gt; - 常時音声入力を受け付けます&lt;br /&gt;&lt;i&gt;声で有効化&lt;/i&gt; - はっきりとしゃべっている時に受け付けます。&lt;br /&gt;&lt;i&gt;プッシュ・トゥ・トーク&lt;/i&gt; - &lt;i&gt;ショートカットキー&lt;/i&gt;で設定したキーを押している間音声入力を受け付けます。</translation>
     </message>
     <message>
         <location/>
@@ -1378,12 +1378,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;This enables the audio cues for push to talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when push to talk is pressed and released.</source>
-        <translation type="unfinished">&lt;b&gt;プッシュトークの際に通知を行います&lt;/b&gt;&lt;br /&gt;この設定を有効にすると、ショートカットキーが押されたり離されたりするタイミング短いビープ音を鳴らします。</translation>
+        <translation type="unfinished">&lt;b&gt;プッシュ・トゥ・トークの際に通知を行います&lt;/b&gt;&lt;br /&gt;この設定を有効にすると、ショートカットキーが押されたり離されたりするタイミング短いビープ音を鳴らします。</translation>
     </message>
     <message>
         <location/>
         <source>PTT Audio cue</source>
-        <translation type="unfinished">プッシュトークを音で通知</translation>
+        <translation type="unfinished">プッシュ・トゥ・トークを音で通知</translation>
     </message>
     <message>
         <location/>
@@ -1581,22 +1581,22 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation type="unfinished">プッシュトーク キーを2回押すとロックされます。</translation>
+        <translation type="unfinished">プッシュ・トゥ・トーク キーを2回押すとロックされます。</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation type="unfinished">&lt;b&gt;2度押し時間&lt;/b&gt;&lt;br /&gt;もしあなたがプッシュトークキーを2回、ここで設定した感覚の間に押したなら、キーはロックされます。Mumble は あなたがプッシュトークをアンロックするために一回以上キーを押すまで転送状態のままです。</translation>
+        <translation type="unfinished">&lt;b&gt;2度押し時間&lt;/b&gt;&lt;br /&gt;もしあなたがプッシュ・トゥ・トークキーを2回、ここで設定した感覚の間に押したなら、キーはロックされます。Mumble は あなたがプッシュ・トゥ・トークをアンロックするために一回以上キーを押すまで転送状態のままです。</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when the PTT button is pressed</source>
-        <translation type="unfinished">プッシュトーク ボタンが押されたときに再生させる</translation>
+        <translation type="unfinished">プッシュ・トゥ・トーク ボタンが押されたときに再生させる</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when the PTT button is released</source>
-        <translation type="unfinished">プッシュトーク ボタンが放されたときに再生させる</translation>
+        <translation type="unfinished">プッシュ・トゥ・トーク ボタンが放されたときに再生させる</translation>
     </message>
     <message>
         <location/>
@@ -1656,7 +1656,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Audible audio cue when push-to-talk is activated or deactivated</source>
-        <translation type="unfinished">&quot;プッシュトーク&quot;の設定の時、ショートカットキーが押される/離されるといったタイミングで音による通知を行います</translation>
+        <translation type="unfinished">&quot;プッシュ・トゥ・トーク&quot;の設定の時、ショートカットキーが押される/離されるといったタイミングで音による通知を行います</translation>
     </message>
     <message>
         <location/>
@@ -1723,7 +1723,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>Push To Talk</source>
-        <translation type="unfinished">プッシュトーク</translation>
+        <translation type="unfinished">プッシュ・トゥ・トーク</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -2355,7 +2355,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation type="unfinished">直近2回のプッシュトークの間隔</translation>
+        <translation type="unfinished">直近2回のプッシュ・トゥ・トークの間隔</translation>
     </message>
     <message>
         <location/>
@@ -2891,7 +2891,7 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
     <message>
         <location/>
         <source>Push To Talk:</source>
-        <translation type="unfinished">プッシュトーク:</translation>
+        <translation type="unfinished">プッシュ・トゥ・トーク:</translation>
     </message>
     <message>
         <location/>
@@ -5866,7 +5866,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Link your channel to another channel</source>
-        <translation>あなたのいるチャンネルを他のチャンネルとリンクします。</translation>
+        <translation type="unfinished">あなたのいるチャンネルを他のチャンネルとリンクします</translation>
     </message>
     <message>
         <source>This links your current channel to the selected channel. If they have permission to speak in the other channel, players can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
@@ -6202,7 +6202,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Check for new version of Mumble</source>
-        <translation>Mumbleの新しいバージョンがあるか確認します。</translation>
+        <translation type="unfinished">Mumbleの新しいバージョンがあるか確認します</translation>
     </message>
     <message>
         <location/>
@@ -6257,7 +6257,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="MainWindow.cpp" line="-56"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">プッシュトーク</translation>
+        <translation type="unfinished">プッシュ・トゥ・トーク</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6269,7 +6269,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1"/>
         <source>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">プッシュトークのボタンを設定する。このボタンを押している間あなたの声は送信される。</translation>
+        <translation type="unfinished">プッシュ・トゥ・トークのボタンを設定する。このボタンを押している間あなたの声は送信される。</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6548,7 +6548,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+4"/>
         <source>Denied: Invalid channel name.</source>
-        <translation>拒否: 不正なユーザ名です。</translation>
+        <translation type="unfinished">拒否: 不正なチャンネル名です。</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -6623,7 +6623,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+3"/>
         <source>%2%1: %3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>server</source>
@@ -8360,7 +8360,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location/>
         <source>Enable plugins and transmit positional information</source>
-        <translation>プラグインを有効にすると位置情報を送信します。</translation>
+        <translation type="unfinished">プラグインを有効にすると位置情報を送信します</translation>
     </message>
     <message>
         <source>This enables plugins for supported games to fetch your in-game position and transmit that with each voice packet. This enables other players to hear your voice in-game from the direction your character is in relation to their own.</source>
@@ -8720,7 +8720,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+6"/>
         <source>Africa</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">アフリカ</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8969,7 +8969,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserEdit.cpp" line="-5"/>
         <source>Rename</source>
-        <translation type="unfinished">名前を変更</translation>
+        <translation>名前を変更</translation>
     </message>
 </context>
 <context>
