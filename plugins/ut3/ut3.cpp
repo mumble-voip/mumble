@@ -128,7 +128,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ok = peekProc((BYTE *) 0x01DEAFD9, &state, 1);
 	if (! ok)
 		return false;
-		
+
 	if (state == 1)
 		return true;
 
@@ -144,39 +144,39 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	//Convert to left-handed coordinate system
 
 	ok = peekProc(pos2ptr, avatar_pos, 4) &&	//X
-		 peekProc(pos1ptr, avatar_pos+1, 4) &&	//Y
-		 peekProc(pos0ptr, avatar_pos+2, 4) &&  //Z
-		 peekProc(faceptr, &face_corrector, 12) &&
-		 peekProc(topptr, &top_corrector, 12);
+	     peekProc(pos1ptr, avatar_pos+1, 4) &&	//Y
+	     peekProc(pos0ptr, avatar_pos+2, 4) &&  //Z
+	     peekProc(faceptr, &face_corrector, 12) &&
+	     peekProc(topptr, &top_corrector, 12);
 
-		 //peekProc((BYTE *) 0x0122E0B8, ccontext, 128);
+	//peekProc((BYTE *) 0x0122E0B8, ccontext, 128);
 
 	if (! ok)
 		return false;
- 
+
 	if (face_corrector[1] <= -0.98) {
 		top_corrector[1] = -top_corrector[1];
 	}
-		if (face_corrector[1] >= 0.98) {
+	if (face_corrector[1] >= 0.98) {
 		top_corrector[1] = -top_corrector[1];
 	}
 
 	//Find north by playing on a Warfare game type - center view on the up arrow on the mini map
-	avatar_front[0] = face_corrector[2]; 
+	avatar_front[0] = face_corrector[2];
 	avatar_front[1] = face_corrector[1];
 	avatar_front[2] = face_corrector[0];
-	
-	avatar_top[0] = top_corrector[2]; 
+
+	avatar_top[0] = top_corrector[2];
 	avatar_top[1] = top_corrector[1];
 	avatar_top[2] = top_corrector[0];
-		
+
 	//avatar_top[0] = top_corrector[2];
 	//avatar_top[1] = top_corrector[1];
 
 	//ccontext[127] = 0;
 	//context = std::string(ccontext);
-	
-	//if (context.find(':')==string::npos) 
+
+	//if (context.find(':')==string::npos)
 	//	context.append(":UT3PORT");
 
 	for (int i=0;i<3;i++) {
@@ -191,7 +191,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 static int trylock() {
 	h = NULL;
 	pos0ptr = pos1ptr = pos2ptr = faceptr = NULL;
-	
+
 	DWORD pid=getProcess(L"UT3.exe");
 	if (!pid)
 		return false;
@@ -211,8 +211,8 @@ static int trylock() {
 	pos2ptr = baseptr + 0x8;
 	faceptr = baseptr + 0x18;
 	topptr = baseptr + 0x24;
-	
-    //stateptr = mod + 0xC4;
+
+	//stateptr = mod + 0xC4;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;

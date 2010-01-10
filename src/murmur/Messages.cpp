@@ -1374,7 +1374,7 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 		PERM_DENIED(uSource, pDstServerUser->cChannel, ChanACL::Enter);
 		return;
 	}
-	
+
 	bool details = extend;
 	bool local = extend || (pDstServerUser->cChannel == uSource->cChannel);
 
@@ -1430,12 +1430,12 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 
 		msg.set_address(pDstServerUser->haAddress.toStdString());
 	}
-	
+
 	if (local)
 		msg.set_bandwidth(bwr.bandwidth());
 	msg.set_onlinesecs(bwr.onlineSeconds());
 	if (local)
 		msg.set_idlesecs(bwr.idleSeconds());
-	
+
 	sendMessage(uSource, msg);
 }

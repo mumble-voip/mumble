@@ -37,9 +37,9 @@
 
 UserInformation::UserInformation(const MumbleProto::UserStats &msg, QWidget *p) : QDialog(p) {
 	setupUi(this);
-	
+
 	uiSession = msg.session();
-	
+
 	qtTimer = new QTimer(this);
 	connect(qtTimer, SIGNAL(timeout()), this, SLOT(tick()));
 	qtTimer->start(12000);
@@ -48,7 +48,7 @@ UserInformation::UserInformation(const MumbleProto::UserStats &msg, QWidget *p) 
 
 	update(msg);
 	resize(sizeHint());
-	
+
 	qfCertificateFont = qlCertificate->font();
 }
 
@@ -59,7 +59,7 @@ unsigned int UserInformation::session() const {
 void UserInformation::tick() {
 	if (bRequested)
 		return;
-		
+
 	bRequested = true;
 	MumbleProto::UserStats mpus;
 	mpus.set_session(uiSession);
@@ -84,7 +84,7 @@ QString UserInformation::secsToString(unsigned int secs) {
 	secs = secs % (60 * 60);
 	int minutes = secs / 60;
 	int seconds = secs % 60;
-	
+
 	if (weeks)
 		qsl << tr("%1w").arg(weeks);
 	if (days)
@@ -94,34 +94,34 @@ QString UserInformation::secsToString(unsigned int secs) {
 	if (minutes || hours)
 		qsl << tr("%1m").arg(minutes);
 	qsl << tr("%1s").arg(seconds);
-	
+
 	return qsl.join(tr(" "));
 }
 
 void UserInformation::update(const MumbleProto::UserStats &msg) {
 	bRequested = false;
-	
+
 	bool showcon = false;
-	
+
 	if (msg.certificates_size() > 0) {
 		showcon = true;
 		qlCerts.clear();
-		for(int i=0;i<msg.certificates_size(); ++i) {
+		for (int i=0;i<msg.certificates_size(); ++i) {
 			const std::string &s = msg.certificates(i);
 			QList<QSslCertificate> certs = QSslCertificate::fromData(QByteArray(s.data(), s.length()), QSsl::Der);
 			qlCerts <<certs;
 		}
 		if (! qlCerts.isEmpty()) {
 			qpbCertificate->setEnabled(true);
-			
+
 			const QSslCertificate &cert = qlCerts.last();
 			const QMultiMap<QSsl::AlternateNameEntryType, QString> &alts = cert.alternateSubjectNames();
 
 			if (alts.contains(QSsl::EmailEntry))
 				qlCertificate->setText(QStringList(alts.values(QSsl::EmailEntry)).join(tr(", ")));
-			else	
+			else
 				qlCertificate->setText(cert.subjectInfo(QSslCertificate::CommonName));
-				
+
 			if (msg.strong_certificate()) {
 				QFont f = qfCertificateFont;
 				f.setBold(true);
@@ -147,16 +147,16 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 		unsigned int major = (v >> 16) & 0xFFFF;
 		unsigned int minor = (v >> 8) & 0xFF;
 		unsigned int patch = (v & 0xFF);
-		
+
 		qlVersion->setText(tr("%1.%2.%3 (%4)").arg(major).arg(minor).arg(patch).arg(u8(mpv.release())));
 		qlOS->setText(tr("%1 (%2)").arg(u8(mpv.os())).arg(u8(mpv.os_version())));
 	}
 	if (msg.celt_versions_size() > 0) {
 		QStringList qsl;
-		for(int i=0;i<msg.celt_versions_size(); ++i) {
+		for (int i=0;i<msg.celt_versions_size(); ++i) {
 			int v = msg.celt_versions(i);
 			CELTCodec *cc = g.qmCodecs.value(v);
-			if (cc) 
+			if (cc)
 				qsl << cc->version();
 			else
 				qsl << QString::number(v, 16);
@@ -165,7 +165,7 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 	}
 	if (showcon)
 		qgbConnection->setVisible(true);
-		
+
 	qlTCPCount->setText(QString::number(msg.tcp_packets()));
 	qlTCPAvg->setText(QString::number(msg.tcp_ping_avg(), 'f', 2));
 	qlTCPVar->setText(QString::number(msg.tcp_ping_var(), 'f', 2));
@@ -173,7 +173,7 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 	qlUDPCount->setText(QString::number(msg.udp_packets()));
 	qlUDPAvg->setText(QString::number(msg.udp_ping_avg(), 'f', 2));
 	qlUDPVar->setText(QString::number(msg.udp_ping_var(), 'f', 2));
-	
+
 	if (msg.has_from_client() && msg.has_from_server()) {
 		qgbUDP->setVisible(true);
 		const MumbleProto::UserStats_Stats &from = msg.from_client();
@@ -190,13 +190,13 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 	} else {
 		qgbUDP->setVisible(false);
 	}
-	
+
 	if (msg.has_onlinesecs()) {
 		if (msg.has_idlesecs())
 			qlTime->setText(tr("%1 online (%2 idle)").arg(secsToString(msg.onlinesecs()), secsToString(msg.idlesecs())));
 		else
 			qlTime->setText(tr("%1 online").arg(secsToString(msg.onlinesecs())));
-	} 
+	}
 	if (msg.has_bandwidth()) {
 		qlBandwidth->setVisible(true);
 		qliBandwidth->setVisible(true);

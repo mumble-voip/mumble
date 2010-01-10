@@ -1,3 +1,41 @@
+2010-01-10
+  arcenciel <arcenciel@users.sourceforge.net>
+    5eed139  Fixed Japanese Translation for 1.2.1
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    01b78bb  Show strong certificate state in client
+    fd87e5b  Zero packet stats on startup (oops) and export strong
+	     certificate state
+    a3cb3fb  Make UserInfo fields copyable
+    3a2280f  Bump version to 1.2.2
+    360085f  Hide empty statistics fields
+    070f316  Show bandwidthrecord stats in client
+    fba3df2  Export bandwidthrecord statistics
+    73dc378  Clientside user information
+    e233e6e  Fix mixed up stats sent from server
+    08c753b  Userinfo (serverside)
+
+2010-01-09
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    e11e8a7  Fixed patch for sqlite syntax
+    ad833d6  Revert "Don't use mysql syntax in sqlite path"
+    114d4ea  Don't use mysql syntax in sqlite path
+    c85e37d  Try using skin: in a few more places
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    a27bda5  Add top vector to UT2004
+    77713c8  Fix unreliable pointer on 1942; fix UT3 top[1] reversal issue
+	     when looking down
+
+2010-01-08
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    a6a6680  Fix possible memory leak in tasklist code
+    625fbc4  Fix multiple recent list entries with different usernames
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    0457bb0  Have G15 default as unavailable until proven otherwise
+    2e177ba  Use uiAccess only for mumble.exe
+
 2010-01-07
   Mikkel Krautz <mikkel@krautz.dk>
     d43d38c  Tell codesign where the mumble-overlay binary resides now.

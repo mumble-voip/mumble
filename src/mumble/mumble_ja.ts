@@ -5688,8 +5688,8 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+147"/>
-        <location line="+1770"/>
+        <location filename="MainWindow.cpp" line="+148"/>
+        <location line="+1784"/>
         <source>Root</source>
         <translation>ルート</translation>
     </message>
@@ -6210,7 +6210,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumbleのウェブページに接続して新しいバージョンが出ているかを確認します。もし新しいのが出ていたら適切なダウンロードURLを通知します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1682"/>
+        <location filename="MainWindow.cpp" line="-1696"/>
         <location line="+12"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
@@ -6372,7 +6372,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">プレイヤー %1 をキックしました。</translation>
     </message>
     <message>
-        <location line="+872"/>
+        <location line="+873"/>
         <location line="+22"/>
         <source>Enter reason</source>
         <translation>理由を入力してください</translation>
@@ -6383,10 +6383,10 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.ui"/>
-        <location filename="MainWindow.cpp" line="-769"/>
-        <location line="+855"/>
-        <location line="+180"/>
-        <location line="+649"/>
+        <location filename="MainWindow.cpp" line="-770"/>
+        <location line="+856"/>
+        <location line="+191"/>
+        <location line="+651"/>
         <location filename="main.cpp" line="+313"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
@@ -6396,12 +6396,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">チャンネル名</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-649"/>
+        <location filename="MainWindow.cpp" line="-651"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation type="unfinished">%1 とそのサブチャンネルを全て削除します。よろしいですか?</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+196"/>
         <source>Unmuted and undeafened.</source>
         <translation type="unfinished">発言禁止を解除し、聴取禁止も解除する。</translation>
     </message>
@@ -6454,7 +6454,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>サーバから切断しました。</translation>
     </message>
     <message>
-        <location line="-1343"/>
+        <location line="-1357"/>
         <source>Reconnecting.</source>
         <translation>再接続中.</translation>
     </message>
@@ -6467,7 +6467,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+272"/>
+        <location filename="Messages.cpp" line="+273"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation type="unfinished">%1 によって発言・聴取を禁止されました。</translation>
     </message>
@@ -6803,25 +6803,25 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>テキストメッセージを送信</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+390"/>
+        <location filename="MainWindow.cpp" line="+391"/>
         <source>Sending message to %1</source>
         <translation type="unfinished">%1 にメッセージを送信しています</translation>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+89"/>
+        <location line="+100"/>
         <location line="+4"/>
         <source>To %1: %2</source>
         <translation>%1 宛: %2</translation>
     </message>
     <message>
-        <location line="-93"/>
-        <location line="+93"/>
+        <location line="-104"/>
+        <location line="+104"/>
         <source>Message to %1</source>
         <translation>%1 へのメッセージ</translation>
     </message>
     <message>
-        <location line="-57"/>
+        <location line="-68"/>
         <source>View comment on user %1</source>
         <translation type="unfinished">ユーザ %1 のコメントを見ます</translation>
     </message>
@@ -6831,7 +6831,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">ユーザ %1 のコメントをリセットしますか?</translation>
     </message>
     <message>
-        <location line="+266"/>
+        <location line="+277"/>
         <source>(Tree) %1: %2</source>
         <translation type="unfinished">(ツリー） %1: %2</translation>
     </message>
@@ -6841,7 +6841,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation></translation>
     </message>
     <message>
-        <location line="+611"/>
+        <location line="+613"/>
         <source>Failed to launch compatibility client</source>
         <translation type="unfinished">互換クライアントの起動に失敗しました</translation>
     </message>
@@ -7017,7 +7017,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>サーバとの接続についての詳細な情報を表示します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1532"/>
+        <location filename="MainWindow.cpp" line="-1546"/>
         <source>Opening URL %1</source>
         <translation>URL %1 を開きます</translation>
     </message>
@@ -7099,12 +7099,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1179"/>
+        <location line="+1193"/>
         <source>&amp;View Certificate</source>
         <translation>証明書を見る(&amp;V)</translation>
     </message>
     <message>
-        <location line="-990"/>
+        <location line="-1003"/>
         <source>Register yourself as %1</source>
         <translation type="unfinished">%1 として自分をユーザ登録</translation>
     </message>
@@ -7143,13 +7143,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">チャンネル %1 宛: %2</translation>
     </message>
     <message>
-        <location line="+75"/>
+        <location line="+86"/>
         <location line="+231"/>
         <source>Message to channel %1</source>
         <translation type="unfinished">チャンネル %1 へのメッセージ</translation>
     </message>
     <message>
-        <location line="+441"/>
+        <location line="+443"/>
         <source>Connected.</source>
         <translation type="unfinished">接続完了。</translation>
     </message>
@@ -7218,7 +7218,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;制御チャンネル&lt;/h2&gt;&lt;p&gt;%1 bit %2 で暗号化されています。&lt;br /&gt;平均 %3 ms の遅延 (平方偏差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1468"/>
+        <location line="-1482"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>音声チャンネルは管理チャンネルを通して送信されます。</translation>
     </message>
@@ -7266,7 +7266,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">チャンネル 「%1」 の説明を変更する</translation>
     </message>
     <message>
-        <location line="+604"/>
+        <location line="+616"/>
         <source>Sending message to channel %1</source>
         <translation>チャンネル %1 に送信するメッセージ</translation>
     </message>
@@ -7364,7 +7364,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ %1 に接続しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1122"/>
+        <location filename="MainWindow.cpp" line="-1134"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation type="unfinished">Mumble は現在、サーバに接続しています。接続を閉じるか最小化しますか?</translation>
     </message>
@@ -7475,12 +7475,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+1896"/>
+        <location line="+1910"/>
         <source>Not connected</source>
         <translation type="unfinished">接続されていません</translation>
     </message>
     <message>
-        <location line="-1706"/>
+        <location line="-1720"/>
         <source>Clear</source>
         <translation>クリア</translation>
     </message>
@@ -7594,6 +7594,11 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location/>
         <source>View comment in editor</source>
         <translation type="unfinished">エディタでコメントを見ます</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Query server for connection information for user</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8973,6 +8978,185 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
 </context>
 <context>
+    <name>UserInformation</name>
+    <message>
+        <location filename="UserInformation.ui"/>
+        <source>User Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Connection Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>OS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>IP Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>CELT Versions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Details...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Ping Statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Pings recieved</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Average ping</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Ping variance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>TCP (Control)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>UDP (Voice)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>UDP Network statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Good</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Late</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Lost</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Resync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>From Client</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>To Client</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Bandwidth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Connection time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="UserInformation.cpp" line="+89"/>
+        <source>%1w</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1d</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1h</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1m</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>%1s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source> </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <location line="+43"/>
+        <source>, </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-13"/>
+        <source>%1.%2.%3 (%4)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>%1 (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+44"/>
+        <source>%1 online (%2 idle)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 online</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>%1 kbit/s</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>UserModel</name>
     <message>
         <location filename="UserModel.cpp" line="-732"/>
@@ -9153,42 +9337,42 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>%1 %2</translation>
     </message>
     <message>
+        <location line="+31"/>
         <location line="+28"/>
-        <location line="+13"/>
         <source>Common Name: %1</source>
         <translation>一般名称(CN): %1</translation>
     </message>
     <message>
-        <location line="-12"/>
-        <location line="+13"/>
+        <location line="-27"/>
+        <location line="+28"/>
         <source>Organization: %1</source>
         <translation>組織(O): %1</translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="-27"/>
         <source>Subunit: %1</source>
         <translation>部門(OU): %1</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+13"/>
+        <location line="+28"/>
         <source>Country: %1</source>
         <translation>国(C): %1</translation>
     </message>
     <message>
-        <location line="-12"/>
-        <location line="+13"/>
+        <location line="-27"/>
+        <location line="+28"/>
         <source>Locality: %1</source>
         <translation>地域(L): %1</translation>
     </message>
     <message>
-        <location line="-12"/>
-        <location line="+13"/>
+        <location line="-27"/>
+        <location line="+28"/>
         <source>State: %1</source>
         <translation>地方(ST): %1</translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="-27"/>
         <source>Valid from: %1</source>
         <translation>発行者: %1</translation>
     </message>
@@ -9223,7 +9407,17 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>ダイジェスト(MD5): %1</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+4"/>
+        <source>Email: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>DNS: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>Issued by:</source>
         <translation>発行者:</translation>
     </message>

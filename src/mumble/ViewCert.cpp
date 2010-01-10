@@ -87,15 +87,13 @@ void ViewCert::on_Chain_currentRowChanged(int idx) {
 	l << tr("Serial: %1").arg(QString::fromLatin1(c.serialNumber().toHex()));
 	l << tr("Public Key: %1 bits %2").arg(c.publicKey().length()).arg((c.publicKey().algorithm() == QSsl::Rsa) ? tr("RSA") : tr("DSA"));
 	l << tr("Digest (MD5): %1").arg(QString::fromLatin1(c.digest().toHex()));
-	for(i=alts.constBegin(); i != alts.constEnd(); ++i) {
+	for (i=alts.constBegin(); i != alts.constEnd(); ++i) {
 		switch (i.key()) {
-			case QSsl::EmailEntry:
-				{
+			case QSsl::EmailEntry: {
 					l << tr("Email: %1").arg(i.value());
 				}
 				break;
-			case QSsl::DnsEntry:
-				{
+			case QSsl::DnsEntry: {
 					l << tr("DNS: %1").arg(i.value());
 				}
 				break;
@@ -103,7 +101,7 @@ void ViewCert::on_Chain_currentRowChanged(int idx) {
 				break;
 		}
 	}
-	
+
 	l << QString();
 	l << tr("Issued by:");
 	l << tr("Common Name: %1").arg(c.issuerInfo(QSslCertificate::CommonName));

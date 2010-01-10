@@ -133,10 +133,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 				  decreasing when going down
 	*/
 	ok = peekProc(pos2ptr, avatar_pos, 4) &&	//X
-		 peekProc(pos1ptr, avatar_pos+1, 4) &&	//Y
+	     peekProc(pos1ptr, avatar_pos+1, 4) &&	//Y
 	     peekProc(pos0ptr, avatar_pos+2, 4) &&  //Z
 	     peekProc(faceptr, &face_corrector, 12) &&
-		 peekProc(topptr, &top_corrector, 12);
+	     peekProc(topptr, &top_corrector, 12);
 	//peekProc((BYTE *) 0x0122E0B8, ccontext, 128);
 
 	if (! ok)
@@ -146,7 +146,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_front[0] = face_corrector[2];
 	avatar_front[1] = face_corrector[1];
 	avatar_front[2] = face_corrector[0];
-	
+
 	avatar_top[0] = top_corrector[2];
 	avatar_top[1] = top_corrector[1];
 	avatar_top[2] = top_corrector[0];
@@ -191,7 +191,7 @@ static int trylock() {
 	pos2ptr = baseptr + 0x8;
 
 	faceptr = baseptr + 0x18;
-	
+
 	topptr = baseptr + 0x24;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];

@@ -931,7 +931,7 @@ void MainWindow::on_qmUser_aboutToShow() {
 
 	qmUser->addAction(qaUserTextMessage);
 	qmUser->addAction(qaUserInformation);
-	
+
 	if (p && (p->iId < 0) && (g.pPermissions & ((self ? ChanACL::SelfRegister : ChanACL::Register) | ChanACL::Write))) {
 		qmUser->addSeparator();
 		qmUser->addAction(qaUserRegister);
@@ -1213,10 +1213,10 @@ void MainWindow::on_qaUserCommentReset_triggered() {
 
 void MainWindow::on_qaUserInformation_triggered() {
 	ClientUser *p = getContextMenuUser();
-	
+
 	if (!p)
 		return;
-		
+
 	MumbleProto::UserStats mpus;
 	mpus.set_session(p->uiSession);
 	g.sh->sendMessage(mpus);
@@ -2380,7 +2380,7 @@ bool MainWindow::launchCompatibilityClient(const QUrl &url) {
 void MainWindow::destroyUserInformation() {
 	UserInformation *ui = static_cast<UserInformation *>(sender());
 	QMap<unsigned int, UserInformation *>::iterator i;
-	for(i=qmUserInformations.begin(); i != qmUserInformations.end(); ++i) {
+	for (i=qmUserInformations.begin(); i != qmUserInformations.end(); ++i) {
 		if (i.value() == ui) {
 			qmUserInformations.erase(i);
 			return;
