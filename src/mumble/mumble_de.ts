@@ -7787,7 +7787,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location/>
         <source>Query server for connection information for user</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige Informationen über den Benutzer an</translation>
     </message>
 </context>
 <context>
@@ -8915,7 +8915,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location line="+203"/>
         <source>Root</source>
-        <translation>Wurzel</translation>
+        <translation>Hauptkanal</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -9107,62 +9107,62 @@ Ein Zugriffscode ist ein Textstück, welches als Passwort für sehr einfaches Zu
     <message>
         <location filename="UserInformation.ui"/>
         <source>User Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzerinformationen</translation>
     </message>
     <message>
         <location/>
         <source>Connection Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindungsinformationen</translation>
     </message>
     <message>
         <location/>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Version</translation>
     </message>
     <message>
         <location/>
         <source>OS</source>
-        <translation type="unfinished"></translation>
+        <translation>Betriebssystem</translation>
     </message>
     <message>
         <location/>
         <source>Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Zertifikat</translation>
     </message>
     <message>
         <location/>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation>IP-Adresse</translation>
     </message>
     <message>
         <location/>
         <source>CELT Versions</source>
-        <translation type="unfinished"></translation>
+        <translation>CELT-Versionen</translation>
     </message>
     <message>
         <location/>
         <source>Details...</source>
-        <translation type="unfinished"></translation>
+        <translation>Details...</translation>
     </message>
     <message>
         <location/>
         <source>Ping Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Pingstatistik</translation>
     </message>
     <message>
         <location/>
         <source>Pings recieved</source>
-        <translation type="unfinished"></translation>
+        <translation>Empfangen</translation>
     </message>
     <message>
         <location/>
         <source>Average ping</source>
-        <translation type="unfinished"></translation>
+        <translation>Durchschnitt</translation>
     </message>
     <message>
         <location/>
         <source>Ping variance</source>
-        <translation type="unfinished"></translation>
+        <translation>Varianz</translation>
     </message>
     <message>
         <location/>
@@ -9172,52 +9172,52 @@ Ein Zugriffscode ist ein Textstück, welches als Passwort für sehr einfaches Zu
     <message>
         <location/>
         <source>UDP (Voice)</source>
-        <translation type="unfinished"></translation>
+        <translation>UDP (Stimme)</translation>
     </message>
     <message>
         <location/>
         <source>UDP Network statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>UDP Netzwerkstatistik</translation>
     </message>
     <message>
         <location/>
         <source>Good</source>
-        <translation type="unfinished"></translation>
+        <translation>Gut</translation>
     </message>
     <message>
         <location/>
         <source>Late</source>
-        <translation type="unfinished"></translation>
+        <translation>Spät</translation>
     </message>
     <message>
         <location/>
         <source>Lost</source>
-        <translation type="unfinished"></translation>
+        <translation>Verloren</translation>
     </message>
     <message>
         <location/>
         <source>Resync</source>
-        <translation type="unfinished"></translation>
+        <translation>Resync</translation>
     </message>
     <message>
         <location/>
         <source>From Client</source>
-        <translation type="unfinished"></translation>
+        <translation>Vom Client</translation>
     </message>
     <message>
         <location/>
         <source>To Client</source>
-        <translation type="unfinished"></translation>
+        <translation>Zum Client</translation>
     </message>
     <message>
         <location/>
         <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
+        <translation>Bandbreite</translation>
     </message>
     <message>
         <location/>
         <source>Connection time</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindungszeit</translation>
     </message>
     <message>
         <location filename="UserInformation.cpp" line="+88"/>
@@ -9253,17 +9253,17 @@ Ein Zugriffscode ist ein Textstück, welches als Passwort für sehr einfaches Zu
         <location line="+23"/>
         <location line="+43"/>
         <source>, </source>
-        <translation type="unfinished"></translation>
+        <translation>, </translation>
     </message>
     <message>
         <location line="-13"/>
         <source>%1.%2.%3 (%4)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1.%2.%3 (%4)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location line="+44"/>
@@ -9273,12 +9273,12 @@ Ein Zugriffscode ist ein Textstück, welches als Passwort für sehr einfaches Zu
     <message>
         <location line="+2"/>
         <source>%1 online</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 online</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 kbit/s</translation>
     </message>
 </context>
 <context>
@@ -9534,12 +9534,12 @@ Ein Zugriffscode ist ein Textstück, welches als Passwort für sehr einfaches Zu
     <message>
         <location line="+4"/>
         <source>Email: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Email: %1</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>DNS: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>DNS: %1</translation>
     </message>
     <message>
         <location line="+9"/>
