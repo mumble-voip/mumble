@@ -1388,19 +1388,19 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 	}
 
 	mpusss = msg.mutable_from_client();
-	mpusss->set_good(cs.uiRemoteGood);
-	mpusss->set_late(cs.uiRemoteLate);
-	mpusss->set_lost(cs.uiRemoteLost);
-	mpusss->set_resync(cs.uiRemoteResync);
-
-	mpusss = msg.mutable_from_server();
 	mpusss->set_good(cs.uiGood);
 	mpusss->set_late(cs.uiLate);
 	mpusss->set_lost(cs.uiLost);
 	mpusss->set_resync(cs.uiResync);
 
+	mpusss = msg.mutable_from_server();
+	mpusss->set_good(cs.uiRemoteGood);
+	mpusss->set_late(cs.uiRemoteLate);
+	mpusss->set_lost(cs.uiRemoteLost);
+	mpusss->set_resync(cs.uiRemoteResync);
+
 	msg.set_udp_packets(pDstServerUser->uiUDPPackets);
-	msg.set_udp_packets(pDstServerUser->uiTCPPackets);
+	msg.set_tcp_packets(pDstServerUser->uiTCPPackets);
 	msg.set_udp_ping_avg(pDstServerUser->dUDPPingAvg);
 	msg.set_udp_ping_var(pDstServerUser->dUDPPingVar);
 	msg.set_tcp_ping_avg(pDstServerUser->dTCPPingAvg);
