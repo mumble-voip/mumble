@@ -99,6 +99,7 @@ extern "C" {
 CELTCodec::CELTCodec(const QString &version) {
 	bValid = false;
 	cmMode = NULL;
+	qsVersion = version;
 	qlCELT.setLoadHints(QLibrary::ResolveAllSymbolsHint);
 
 	QStringList alternatives;
@@ -182,6 +183,10 @@ int CELTCodec::bitstreamVersion() const {
 	if (cmMode)
 		celt_mode_info(cmMode, CELT_GET_BITSTREAM_VERSION, reinterpret_cast<celt_int32 *>(&v));
 	return v;
+}
+
+QString CELTCodec::version() const {
+	return qsVersion;
 }
 
 void CELTCodec::report() const {

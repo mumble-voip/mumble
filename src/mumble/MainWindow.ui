@@ -700,6 +700,14 @@
     <string>View comment in editor</string>
    </property>
   </action>
+  <action name="qaUserInformation">
+   <property name="text">
+    <string>&amp;Information</string>
+   </property>
+   <property name="toolTip">
+    <string>Query server for connection information for user</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

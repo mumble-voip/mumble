@@ -56,6 +56,7 @@
 #include "TextMessage.h"
 #include "NetworkConfig.h"
 #include "ACL.h"
+#include "UserInformation.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -929,7 +930,8 @@ void MainWindow::on_qmUser_aboutToShow() {
 	}
 
 	qmUser->addAction(qaUserTextMessage);
-
+	qmUser->addAction(qaUserInformation);
+	
 	if (p && (p->iId < 0) && (g.pPermissions & ((self ? ChanACL::SelfRegister : ChanACL::Register) | ChanACL::Write))) {
 		qmUser->addSeparator();
 		qmUser->addAction(qaUserRegister);
@@ -1207,6 +1209,17 @@ void MainWindow::on_qaUserCommentReset_triggered() {
 		mpus.set_comment(std::string());
 		g.sh->sendMessage(mpus);
 	}
+}
+
+void MainWindow::on_qaUserInformation_triggered() {
+	ClientUser *p = getContextMenuUser();
+	
+	if (!p)
+		return;
+		
+	MumbleProto::UserStats mpus;
+	mpus.set_session(p->uiSession);
+	g.sh->sendMessage(mpus);
 }
 
 void MainWindow::on_qaQuit_triggered() {
@@ -1523,6 +1536,8 @@ void MainWindow::updateMenuPermissions() {
 	qaUserMute->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen));
 	qaUserDeaf->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen));
 	qaUserTextMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
+
+	qaUserInformation->setEnabled((g.pPermissions & (ChanACL::Write | ChanACL::Register)) || (p & (ChanACL::Write | ChanACL::Enter)) || (cu == user));
 
 	qaChannelAdd->setEnabled(p & (ChanACL::Write | ChanACL::MakeChannel | ChanACL::MakeTempChannel));
 	qaChannelRemove->setEnabled(p & ChanACL::Write);
@@ -2360,4 +2375,15 @@ bool MainWindow::launchCompatibilityClient(const QUrl &url) {
 #endif
 
 	return false;
+}
+
+void MainWindow::destroyUserInformation() {
+	UserInformation *ui = static_cast<UserInformation *>(sender());
+	QMap<unsigned int, UserInformation *>::iterator i;
+	for(i=qmUserInformations.begin(); i != qmUserInformations.end(); ++i) {
+		if (i.value() == ui) {
+			qmUserInformations.erase(i);
+			return;
+		}
+	}
 }

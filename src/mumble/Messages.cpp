@@ -51,6 +51,7 @@
 #include "Global.h"
 #include "Database.h"
 #include "ViewCert.h"
+#include "UserInformation.h"
 
 #define ACTOR_INIT \
 	ClientUser *pSrc=NULL; \
@@ -648,4 +649,15 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 }
 
 void MainWindow::msgUserStats(const MumbleProto::UserStats &msg) {
+	UserInformation *ui = qmUserInformations.value(msg.session());
+	if (ui) {
+		ui->update(msg);
+	} else {
+		ui = new UserInformation(msg, this);
+		ui->setAttribute(Qt::WA_DeleteOnClose, true);
+		connect(ui, SIGNAL(destroyed()), this, SLOT(destroyUserInformation()));
+
+		qmUserInformations.insert(msg.session(), ui);
+		ui->show();
+	}
 }

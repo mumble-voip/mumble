@@ -43,6 +43,7 @@ class CELTCodec {
 		Q_DISABLE_COPY(CELTCodec);
 	protected:
 		const CELTMode *cmMode;
+		QString qsVersion;
 		QLibrary qlCELT;
 		bool bValid;
 
@@ -64,6 +65,7 @@ class CELTCodec {
 		virtual ~CELTCodec();
 		bool isValid() const;
 		int bitstreamVersion() const;
+		QString version() const;
 
 		virtual void report() const;
 

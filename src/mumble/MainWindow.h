@@ -47,6 +47,7 @@ class TextToSpeech;
 class UserModel;
 class Tokens;
 class Channel;
+class UserInformation;
 
 struct ShortcutTarget;
 
@@ -119,6 +120,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QMap<int, int> qmTargetUse;
 		Channel *mapChannel(int idx) const;
 		int iTargetCounter;
+		QMap<unsigned int, UserInformation *> qmUserInformations;
 
 		void createActions();
 		void setupGui();
@@ -159,6 +161,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaUserLocalMute_triggered();
 		void on_qaUserTextMessage_triggered();
 		void on_qaUserRegister_triggered();
+		void on_qaUserInformation_triggered();
 		void on_qaUserFriendAdd_triggered();
 		void on_qaUserFriendRemove_triggered();
 		void on_qaUserFriendUpdate_triggered();
@@ -215,6 +218,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void updateTarget();
 		void updateMenuPermissions();
 		void talkingChanged();
+		void destroyUserInformation();
 	public:
 		MainWindow(QWidget *parent);
 		~MainWindow();
