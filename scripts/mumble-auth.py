@@ -238,10 +238,9 @@ class mumble_auth(object):
                             self.snippet_retry % {'url':baseurl+id}
                 else:
                     # Register user
-                    pid = server.registerUser(username)
-                    reg = server.getRegistration(pid)
-                    reg.pw = password
-                    server.updateregistration(reg)
+                    info = {Murmur.UserInfo.UserName:username,
+                            Murmur.UserInfo.UserPassword:password}
+                    server.registerUser(info)
                     # Void registration id
                     del ids[id]
                     # Success
