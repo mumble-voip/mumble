@@ -443,13 +443,13 @@ void Database::setUdp(const QByteArray &digest, bool udp) {
 	query.exec();
 }
 
-bool Database::fuzzyMatch(QString &user, QString &pw, QString &hostname, unsigned short port) {
+bool Database::fuzzyMatch(QString &name, QString &user, QString &pw, QString &hostname, unsigned short port) {
 	QSqlQuery query;
 	if (! user.isEmpty()) {
-		query.prepare(QLatin1String("SELECT `username`, `password`, `hostname` FROM `servers` WHERE `username` LIKE ? AND `hostname` LIKE ? AND `port`=?"));
+		query.prepare(QLatin1String("SELECT `username`, `password`, `hostname`, `name` FROM `servers` WHERE `username` LIKE ? AND `hostname` LIKE ? AND `port`=?"));
 		query.addBindValue(user);
 	} else {
-		query.prepare(QLatin1String("SELECT `username`, `password`, `hostname` FROM `servers` WHERE `hostname` LIKE ? AND `port`=?"));
+		query.prepare(QLatin1String("SELECT `username`, `password`, `hostname`, `name` FROM `servers` WHERE `hostname` LIKE ? AND `port`=?"));
 	}
 	query.addBindValue(hostname);
 	query.addBindValue(port);
@@ -459,6 +459,8 @@ bool Database::fuzzyMatch(QString &user, QString &pw, QString &hostname, unsigne
 		if (pw.isEmpty())
 			pw = query.value(1).toString();
 		hostname = query.value(2).toString();
+		if (name.isEmpty())
+			name = query.value(3).toString();
 		return true;
 	} else {
 		return false;

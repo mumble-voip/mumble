@@ -550,6 +550,9 @@ void MainWindow::openUrl(const QUrl &url) {
 	QString user = url.userName();
 	QString pw = url.password();
 	qsDesiredChannel = url.path();
+	QString name;
+	if (url.hasQueryItem(QLatin1String("title")))
+		name = url.queryItemValue(QLatin1String("title"));
 
 	if (g.sh && g.sh->isRunning()) {
 		QString oHost, oUser, oPw;
@@ -563,7 +566,7 @@ void MainWindow::openUrl(const QUrl &url) {
 		}
 	}
 
-	Database::fuzzyMatch(user, pw, host, port);
+	Database::fuzzyMatch(name, user, pw, host, port);
 
 	if (user.isEmpty()) {
 		bool ok;
@@ -573,12 +576,16 @@ void MainWindow::openUrl(const QUrl &url) {
 		g.s.qsUsername = user;
 	}
 
+	if (name.isEmpty())
+		name = QString::fromLatin1("%1@%2").arg(user).arg(host);
+
 	if (g.sh && g.sh->isRunning()) {
 		on_qaServerDisconnect_triggered();
 		g.sh->wait();
 		QCoreApplication::instance()->processEvents();
 	}
 
+	g.s.qsLastServer = name;
 	rtLast = MumbleProto::Reject_RejectType_None;
 	qaServerDisconnect->setEnabled(true);
 	g.l->log(Log::Information, tr("Connecting to server %1.").arg(Log::msgColor(host, Log::Server)));

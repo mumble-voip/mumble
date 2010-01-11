@@ -52,7 +52,7 @@ class Database : public QObject {
 		static QList<FavoriteServer> getFavorites();
 		static void setFavorites(const QList<FavoriteServer> &servers);
 		static void setPassword(const QString &host, unsigned short port, const QString &user, const QString &pw);
-		static bool fuzzyMatch(QString &user, QString &pw, QString &host, unsigned short port);
+		static bool fuzzyMatch(QString &name, QString &user, QString &pw, QString &host, unsigned short port);
 
 		static bool isLocalMuted(const QString &hash);
 		static void setLocalMuted(const QString &hash, bool muted);
