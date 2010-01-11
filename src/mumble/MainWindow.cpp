@@ -921,7 +921,8 @@ void MainWindow::on_qmUser_aboutToShow() {
 	}
 
 	qmUser->addAction(qaUserTextMessage);
-	qmUser->addAction(qaUserInformation);
+	if (g.sh->uiVersion >= 0x010202)
+		qmUser->addAction(qaUserInformation);
 
 	if (p && (p->iId < 0) && (g.pPermissions & ((self ? ChanACL::SelfRegister : ChanACL::Register) | ChanACL::Write))) {
 		qmUser->addSeparator();
