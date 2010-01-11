@@ -53,7 +53,7 @@ void ChatbarLineEdit::focusInEvent(QFocusEvent *qfe) {
 
 void ChatbarLineEdit::focusOutEvent(QFocusEvent *qfe) {
 	QLineEdit::focusOutEvent(qfe);
-	if (text().trimmed().isEmpty()) {
+	if (text().trimmed().isEmpty() || bDefaultVisible) {
 		QFont f = font();
 		f.setItalic(true);
 		setFont(f);
