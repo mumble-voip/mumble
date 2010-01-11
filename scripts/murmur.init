@@ -27,7 +27,6 @@ DAEMON_OPTS="-ini $INIFILE"
 MURMUR_DAEMON_START=0
 MURMUR_USE_CAPABILITIES=0
 MURMUR_LIMIT_NOFILE=0
-MURMUR_LIMIT_RTPRIO=0
 
 # Include murmur defaults if available
 if [ -f /etc/default/$NAME ] ; then
@@ -39,9 +38,6 @@ fi
 
 if [ "$MURMUR_LIMIT_NOFILE" -gt 0 ] ; then
 	ulimit -n $MURMUR_LIMIT_NOFILE
-fi
-if [ "$MURMUR_LIMIT_RTPRIO" -gt 0 ]; then
-	ulimit -r 1
 fi
 
 case "$1" in
