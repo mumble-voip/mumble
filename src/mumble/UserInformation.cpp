@@ -67,6 +67,7 @@ void UserInformation::tick() {
 
 void UserInformation::on_qpbCertificate_clicked() {
 	ViewCert *vc = new ViewCert(qlCerts, this);
+	vc->setWindowModality(Qt::WindowModal);
 	vc->setAttribute(Qt::WA_DeleteOnClose, true);
 	vc->show();
 }
