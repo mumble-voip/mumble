@@ -34,9 +34,6 @@
 #include "OSInfo.h"
 
 void Server::initRegister() {
-	http = NULL;
-	qssReg = NULL;
-
 	connect(&qtTick, SIGNAL(timeout()), this, SLOT(update()));
 
 	if (! qsRegName.isEmpty()) {
@@ -49,20 +46,14 @@ void Server::initRegister() {
 	}
 }
 
-void Server::abort() {
-	if (http) {
-		http->setSocket(NULL);
-		http->deleteLater();
-		http = NULL;
-	}
-	if (qssReg) {
-		qssReg->deleteLater();
-		qssReg = NULL;
-	}
-}
-
 void Server::update() {
-	abort();
+	if (!((! qsRegName.isEmpty()) && (! qsRegName.isEmpty()) && (! qsRegPassword.isEmpty()) && qurlRegWeb.isValid() && qsPassword.isEmpty() && bAllowPing))
+		return;
+
+	// When QNAM distinguishes connections by client cert, move this to Meta
+	if (! qnamNetwork)
+		qnamNetwork = new QNetworkAccessManager(this);
+		
 	qtTick.start(1000 * (60 * 60 + (qrand() % 300)));
 
 	QDomDocument doc;
@@ -113,34 +104,36 @@ void Server::update() {
 	root.appendChild(tag);
 	t=doc.createTextNode(QString::number(qhChannels.count()));
 	tag.appendChild(t);
+	
+	QNetworkRequest qnr(QUrl(QLatin1String("https://mumble.hive.no/register.cgi")));
+	qnr.setHeader(QNetworkRequest::ContentTypeHeader, QLatin1String("text/xml"));
 
-	qssReg = new QSslSocket(this);
-	qssReg->setLocalCertificate(qscCert);
-	qssReg->setPrivateKey(qskKey);
+	QSslConfiguration ssl = qnr.sslConfiguration();
+	ssl.setLocalCertificate(qscCert);
+	ssl.setPrivateKey(qskKey);
 
-	http = new QHttp(QLatin1String("mumble.hive.no"), QHttp::ConnectionModeHttps, 443, this);
-	http->setSocket(qssReg);
-
-	connect(http, SIGNAL(done(bool)), this, SLOT(done(bool)));
-	connect(http, SIGNAL(sslErrors(const QList<QSslError> &)), this, SLOT(regSslError(const QList<QSslError> &)));
-
-	QHttpRequestHeader h(QLatin1String("POST"), QLatin1String("/register.cgi"));
-	h.setValue(QLatin1String("Connection"), QLatin1String("Keep-Alive"));
-	h.setValue(QLatin1String("Host"), QLatin1String("mumble.hive.no"));
-	h.setContentType(QLatin1String("text/xml"));
-	http->request(h, doc.toString().toUtf8());
+	/* Work around bug in QSslConfiguration */
+	QList<QSslCertificate> calist = ssl.caCertificates();
+	calist << QSslSocket::defaultCaCertificates();
+	ssl.setCaCertificates(calist);
+	
+	qnr.setSslConfiguration(ssl);
+	
+	QNetworkReply *rep = qnamNetwork->post(qnr, doc.toString().toUtf8());
+	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
+	connect(rep, SIGNAL(sslErrors(const QList<QSslError> &)), this, SLOT(regSslError(const QList<QSslError> &)));
 }
 
-void Server::done(bool err) {
-	if (! http || ! qssReg)
-		return;
-	if (err) {
-		log(QString("Registration failed: %1").arg(http->errorString()));
+void Server::finished() {
+	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
+
+	if (rep->error() != QNetworkReply::NoError) {
+		log(QString("Registration failed: %1").arg(rep->errorString()));
 	} else {
-		QByteArray qba = http->readAll();
+		QByteArray qba = rep->readAll();
 		log(QString("Registration: %1").arg(QLatin1String(qba)));
 	}
-	abort();
+	rep->deleteLater();
 }
 
 void Server::regSslError(const QList<QSslError> &errs) {

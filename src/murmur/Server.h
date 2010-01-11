@@ -173,6 +173,8 @@ class Server : public QThread {
 		Q_DISABLE_COPY(Server);
 	protected:
 		bool bRunning;
+		
+		QNetworkAccessManager *qnamNetwork;
 
 #ifdef USE_BONJOUR
 		BonjourServer *bsRegistration;
@@ -225,14 +227,11 @@ class Server : public QThread {
 #endif
 		// Registration, implementation in Register.cpp
 		QTimer qtTick;
-		QHttp *http;
-		QSslSocket *qssReg;
 		void initRegister();
 	public slots:
 		void regSslError(const QList<QSslError> &);
-		void done(bool);
+		void finished();
 		void update();
-		void abort();
 
 		// Certificate stuff, implemented partially in Cert.cpp
 	public:
