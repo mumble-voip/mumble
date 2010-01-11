@@ -209,7 +209,9 @@ void ConfigDialog::apply() {
 	g.ao.reset();
 
 	while (! ai.unique() || ! ao.unique()) {
-		// Where is QThread::yield() ?
+#if QT_VERSION >= 0x040500
+		QThread::yieldCurrentThread();
+#endif
 	}
 	ai.reset();
 	ao.reset();

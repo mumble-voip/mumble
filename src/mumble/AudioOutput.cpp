@@ -781,7 +781,11 @@ AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
 	if (handle == NULL)
 		return NULL;
 
-	while ((iMixerFreq == 0) && bRunning) {}
+	while ((iMixerFreq == 0) && bRunning) {
+#if QT_VERSION >= 0x040500
+		QThread::yieldCurrentThread();
+#endif
+	}
 
 	if (! iMixerFreq)
 		return NULL;
