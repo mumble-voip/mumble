@@ -310,7 +310,7 @@ void LCD::updateUserView() {
 		qmOld = old;
 
 		QList<struct ListEntry> entries;
-		entries << ListEntry(QString::fromLatin1("[%1]").arg(me->cChannel->qsName), false, false);
+		entries << ListEntry(QString::fromLatin1("[%1:%2]").arg(me->cChannel->qsName).arg(me->cChannel->qlUsers.count()), false, false);
 
 		bool hasnew = false;
 
