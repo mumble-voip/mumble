@@ -2075,6 +2075,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			qtReconnect->start();
 		}
 	}
+	qstiIcon->setToolTip(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
 	AudioInput::setMaxBandwidth(-1);
 }
 

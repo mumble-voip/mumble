@@ -125,6 +125,8 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 
 	ClientUser *p=ClientUser::get(g.uiSession);
 	connect(p, SIGNAL(talkingChanged()), this, SLOT(talkingChanged()));
+
+	qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(0)->qsName));
 	updateTrayIcon();
 }
 
