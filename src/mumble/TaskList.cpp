@@ -35,29 +35,20 @@
 
 #include "TaskList.h"
 
-void TaskList::addToRecentList(QString name, QString user, QString host, int port) {
-	OSVERSIONINFOEXW ovi;
-	memset(&ovi, 0, sizeof(ovi));
+extern bool bIsWin7;
 
-	ovi.dwOSVersionInfoSize = sizeof(ovi);
-	GetVersionEx(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
-	// Tasklist is Windows 7 only
-	if ((ovi.dwMajorVersion < 6) || (ovi.dwBuildNumber < 7600))
+void TaskList::addToRecentList(QString name, QString user, QString host, int port) {
+	if (! bIsWin7)
 		return;
 
 	HRESULT hr;
-	IShellLink *link;
+	IShellLink *link = NULL;
+	IPropertyStore *ps = NULL;
+	PROPVARIANT pt;
 
 	hr = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, __uuidof(IShellLink), reinterpret_cast<void **>(&link));
 	if (!link || FAILED(hr))
 		return;
-
-	int len;
-	STACKVAR(wchar_t, appPath, QCoreApplication::applicationFilePath().length() + 1);
-	len = QCoreApplication::applicationFilePath().toWCharArray(appPath);
-	appPath[len] = 0;
-
-	link->SetPath(appPath);
 
 	QUrl url;
 	url.setScheme(QLatin1String("mumble"));
@@ -67,38 +58,39 @@ void TaskList::addToRecentList(QString name, QString user, QString host, int por
 	url.addQueryItem(QLatin1String("title"), name);
 	url.addQueryItem(QLatin1String("version"), QLatin1String("1.2.0"));
 
-	QString qs = QLatin1String(url.toEncoded());
+	QSettings settings(QLatin1String("HKEY_CLASSES_ROOT"), QSettings::NativeFormat);
+	
+	QString app = settings.value(QLatin1String("mumble/DefaultIcon/.")).toString();
+	if (app.isEmpty() || ! QFileInfo(app).exists())
+		app = QCoreApplication::applicationFilePath();
 
-	STACKVAR(wchar_t, urlArg, qs.length() + 1);
-	len = qs.toWCharArray(urlArg);
-	urlArg[len] = 0;
+	link->SetPath(app.utf16());
+	link->SetArguments(QString::fromLatin1(url.toEncoded()).utf16());
 
-	link->SetArguments(urlArg);
-
-	IPropertyStore *ps;
 	hr = link->QueryInterface(__uuidof(IPropertyStore), reinterpret_cast<void **>(&ps));
-	if (FAILED(hr))
+	if (FAILED(hr)) {
+		qFatal("TaskList: Failed to get property store");
 		goto cleanup;
+	}
 
-	STACKVAR(wchar_t, wcName, host.length() + 1);
-	len = name.toWCharArray(wcName);
-	wcName[len] = 0;
-
-	PROPVARIANT pt;
-	InitPropVariantFromString(wcName, &pt);
-
+	InitPropVariantFromString(name.utf16(), &pt);
 	hr = ps->SetValue(PKEY_Title, pt);
-	if (FAILED(hr))
+	PropVariantClear(&pt);
+
+	if (FAILED(hr)) {
+		qFatal("TaskList: Failed to set title");
 		goto cleanup;
+	}
 
 	hr = ps->Commit();
-	if (FAILED(hr))
+	if (FAILED(hr)) {
+		qFatal("TaskList: Failed commit");
 		goto cleanup;
+	}
 
 	SHAddToRecentDocs(SHARD_LINK, link);
 
 cleanup:
-	PropVariantClear(&pt);
 	if (ps)
 		ps->Release();
 	if (link)

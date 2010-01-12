@@ -51,6 +51,9 @@ static MINIDUMP_USER_STREAM musComment;
 
 static int cpuinfo[4];
 
+bool bIsWin7 = false;
+bool bIsVistaSP1 = false;
+
 static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 	char c;
 	switch (type) {
@@ -156,6 +159,14 @@ void os_init() {
 		exit(0);
 	}
 
+	OSVERSIONINFOEXW ovi;
+	memset(&ovi, 0, sizeof(ovi));
+
+	ovi.dwOSVersionInfoSize = sizeof(ovi);
+	GetVersionEx(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
+	bIsWin7 = (ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) &&(ovi.dwBuildNumber >= 7100));
+	bIsVistaSP1 = (ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) &&(ovi.dwBuildNumber >= 6001));
+
 	unsigned int currentControl = 0;
 	_controlfp_s(&currentControl, _DN_FLUSH, _MCW_DN);
 
@@ -223,5 +234,8 @@ void os_init() {
 	if (!SetPriorityClass(GetCurrentProcess(),HIGH_PRIORITY_CLASS))
 		qWarning("Application: Failed to set priority!");
 #endif
+
+	if (bIsWin7)
+		SetCurrentProcessExplicitAppUserModelID(QString::fromLatin1("net.sourceforge.mumble.Mumble").utf16());
 }
 

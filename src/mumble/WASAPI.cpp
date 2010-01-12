@@ -34,7 +34,6 @@
 #include "MainWindow.h"
 #include "Timer.h"
 
-
 // Now that Win7 is published, which includes public versions of these
 // interfaces, we simply inherit from those but use the "old" IIDs.
 
@@ -77,17 +76,13 @@ class WASAPIInit : public DeferInit {
 
 static WASAPIInit wasapiinit;
 
+extern bool bIsWin7, bIsVistaSP1;
+
 void WASAPIInit::initialize() {
 	wirReg = NULL;
 	worReg = NULL;
 
-	OSVERSIONINFOEXW ovi;
-	memset(&ovi, 0, sizeof(ovi));
-
-	ovi.dwOSVersionInfoSize=sizeof(ovi);
-	GetVersionEx(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
-
-	if ((ovi.dwMajorVersion < 6) || (ovi.dwBuildNumber < 6001)) {
+	if (! bIsVistaSP1) {
 		qWarning("WASAPIInit: Requires Vista SP1");
 		return;
 	}
@@ -551,30 +546,16 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 	int max = 0;
 	DWORD dwMumble = GetCurrentProcessId();
 
-	static int version = -1;
-	if (version == -1) {
-		OSVERSIONINFOEXW ovi;
-		memset(&ovi, 0, sizeof(ovi));
-
-		ovi.dwOSVersionInfoSize=sizeof(ovi);
-		GetVersionEx(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
-
-		if ((ovi.dwMajorVersion <= 6) && (ovi.dwBuildNumber < 7100))
-			version = 0;
-		else
-			version = 1;
-	}
-
 	qmVolumes.clear();
 	if (qFuzzyCompare(g.s.fOtherVolume, 1.0f))
 		return;
 
 	// FIXME: Try to keep the session object around when returning volume.
 
-	if (SUCCEEDED(hr = pDevice->Activate(version ? __uuidof(IAudioSessionManager2) : __uuidof(IAudioSessionManager), CLSCTX_ALL, NULL, (void **) &pAudioSessionManager))) {
+	if (SUCCEEDED(hr = pDevice->Activate(bIsWin7 ? __uuidof(IAudioSessionManager2) : __uuidof(IAudioSessionManager), CLSCTX_ALL, NULL, (void **) &pAudioSessionManager))) {
 		IAudioSessionEnumerator *pEnumerator = NULL;
 		IAudioSessionQuery *pMysticQuery = NULL;
-		if (version == 0) {
+		if (! bIsWin7) {
 			if (SUCCEEDED(hr = pAudioSessionManager->QueryInterface(__uuidof(IAudioSessionQuery), (void **) &pMysticQuery))) {
 				hr = pMysticQuery->GetQueryInterface(&pEnumerator);
 			}
@@ -590,7 +571,7 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 					IAudioSessionControl *pControl = NULL;
 					if (SUCCEEDED(hr = pEnumerator->GetSession(i, &pControl))) {
 						IAudioSessionControl2 *pControl2 = NULL;
-						if (SUCCEEDED(hr = pControl->QueryInterface(version ? __uuidof(IAudioSessionControl2) : __uuidof(IVistaAudioSessionControl2), (void **) &pControl2)))  {
+						if (SUCCEEDED(hr = pControl->QueryInterface(bIsWin7 ? __uuidof(IAudioSessionControl2) : __uuidof(IVistaAudioSessionControl2), (void **) &pControl2)))  {
 							DWORD pid;
 							if (SUCCEEDED(hr = pControl2->GetProcessId(&pid)) && (pid != dwMumble)) {
 								AudioSessionState ass;
