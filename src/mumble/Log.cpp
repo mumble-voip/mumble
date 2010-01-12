@@ -368,8 +368,13 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 			QTextCharFormat qcf = qtf.charFormat();
 			if (! qcf.anchorHref().isEmpty()) {
 				QUrl url(qcf.anchorHref());
-				if (! url.isValid() || ! qslValid.contains(url.scheme()))
-					valid = false;
+				if (! url.isValid() || ! qslValid.contains(url.scheme())) {
+					QTextCharFormat qcfn = QTextCharFormat();
+					QTextCursor qtc(&qtd);
+					qtc.setPosition(qtf.position(), QTextCursor::MoveAnchor);
+					qtc.setPosition(qtf.position()+qtf.length(), QTextCursor::KeepAnchor);
+					qtc.setCharFormat(qcfn);
+				}
 			}
 			if (qcf.isImageFormat()) {
 				QTextImageFormat qtif = qcf.toImageFormat();
@@ -393,7 +398,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 		return qtd.toHtml();
 	}
 
-	return Qt::mightBeRichText(html) ? html : (QLatin1String("<span></span>")+html);
+	return qtd.toHtml();
 }
 
 void Log::log(MsgType mt, const QString &console, const QString &terse) {
@@ -431,7 +436,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		} else if (! g.mw->qteLog->document()->isEmpty()) {
 			tc.insertBlock();
 		}
-		tc.insertHtml(QString::fromLatin1("[%2] %1\n").arg(validHtml(console, true), Log::msgColor(dt.time().toString(Qt::DefaultLocaleShortDate), Log::Time)));
+		tc.insertHtml(validHtml(QString::fromLatin1("[%2] %1\n").arg(console, Log::msgColor(dt.time().toString(Qt::DefaultLocaleShortDate), Log::Time)), true));
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);
 		g.mw->qteLog->ensureCursorVisible();
