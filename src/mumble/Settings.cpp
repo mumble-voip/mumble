@@ -438,6 +438,8 @@ void Settings::load() {
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
 	SAVELOAD(qsImagePath, "ui/imagepath");
+	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
+	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
 
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
@@ -620,6 +622,8 @@ void Settings::save() {
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
 	SAVELOAD(qsImagePath, "ui/imagepath");
+	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
+	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
 
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");

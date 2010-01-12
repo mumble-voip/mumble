@@ -176,6 +176,7 @@ struct Settings {
 	bool bStateInTray;
 	bool bUsage;
 	bool bShowUserCount;
+	QByteArray qbaConnectDialogHeader, qbaConnectDialogGeometry;
 
 	QString qsUsername;
 	QString qsLastServer;
