@@ -550,14 +550,14 @@ void ServerHandler::getConnectionInfo(QString &host, unsigned short &port, QStri
 	pw = qsPassword;
 }
 
-void ServerHandler::requestUserStats(const quint32 uiSession, const bool statsOnly) {
+void ServerHandler::requestUserStats(unsigned int uiSession, bool statsOnly) {
 	MumbleProto::UserStats mpus;
 	mpus.set_session(uiSession);
 	mpus.set_stats_only(statsOnly);
 	sendMessage(mpus);
 }
 
-void ServerHandler::joinChannel(const quint32 channel) {
+void ServerHandler::joinChannel(unsigned int channel) {
 	MumbleProto::UserState mpus;
 	// TODO: remove global uiSession reference
 	mpus.set_session(g.uiSession);
@@ -565,7 +565,7 @@ void ServerHandler::joinChannel(const quint32 channel) {
 	sendMessage(mpus);
 }
 
-void ServerHandler::createChannel(const quint32 parent_, const QString &name, const QString &description, const quint32 position, const bool temporary) {
+void ServerHandler::createChannel(unsigned int parent_, const QString &name, const QString &description, unsigned int position, bool temporary) {
 	MumbleProto::ChannelState mpcs;
 	mpcs.set_parent(parent_);
 	mpcs.set_name(u8(name));
@@ -592,21 +592,21 @@ void ServerHandler::requestUserList() {
 	sendMessage(mpul);
 }
 
-void ServerHandler::requestACL(const quint32 channel) {
+void ServerHandler::requestACL(unsigned int channel) {
 	MumbleProto::ACL mpacl;
 	mpacl.set_channel_id(channel);
 	mpacl.set_query(true);
 	sendMessage(mpacl);
 }
 
-void ServerHandler::registerUser(const quint32 uiSession) {
+void ServerHandler::registerUser(unsigned int uiSession) {
 	MumbleProto::UserState mpus;
 	mpus.set_session(uiSession);
 	mpus.set_user_id(0);
 	sendMessage(mpus);
 }
 
-void ServerHandler::kickBanUser(const quint32 uiSession, const QString &reason, bool ban) {
+void ServerHandler::kickBanUser(unsigned int uiSession, const QString &reason, bool ban) {
 	MumbleProto::UserRemove mpur;
 	mpur.set_session(uiSession);
 	mpur.set_reason(u8(reason));
@@ -614,14 +614,14 @@ void ServerHandler::kickBanUser(const quint32 uiSession, const QString &reason, 
 	sendMessage(mpur);
 }
 
-void ServerHandler::sendUserTextMessage(const quint32 uiSession, const QString &message_) {
+void ServerHandler::sendUserTextMessage(unsigned int uiSession, const QString &message_) {
 	MumbleProto::TextMessage mptm;
 	mptm.add_session(uiSession);
 	mptm.set_message(u8(message_));
 	sendMessage(mptm);
 }
 
-void ServerHandler::sendChannelTextMessage(const quint32 channel, const QString &message_, bool tree) {
+void ServerHandler::sendChannelTextMessage(unsigned int channel, const QString &message_, bool tree) {
 	MumbleProto::TextMessage mptm;
 	if (tree) {
 		mptm.add_tree_id(channel);
@@ -632,34 +632,34 @@ void ServerHandler::sendChannelTextMessage(const quint32 channel, const QString 
 	sendMessage(mptm);
 }
 
-void ServerHandler::setUserComment(const quint32 uiSession, const QString &comment) {
+void ServerHandler::setUserComment(unsigned int uiSession, const QString &comment) {
 	MumbleProto::UserState mpus;
 	mpus.set_session(uiSession);
 	mpus.set_comment(u8(comment));
 	sendMessage(mpus);
 }
 
-void ServerHandler::removeChannel(const quint32 channel) {
+void ServerHandler::removeChannel(unsigned int channel) {
 	MumbleProto::ChannelRemove mpcr;
 	mpcr.set_channel_id(channel);
 	sendMessage(mpcr);
 }
 
-void ServerHandler::addChannelLink(const quint32 channel, const quint32 link) {
+void ServerHandler::addChannelLink(unsigned int channel, unsigned int link) {
 	MumbleProto::ChannelState mpcs;
 	mpcs.set_channel_id(channel);
 	mpcs.add_links_add(link);
 	sendMessage(mpcs);
 }
 
-void ServerHandler::removeChannelLink(const quint32 channel, const quint32 link) {
+void ServerHandler::removeChannelLink(unsigned int channel, unsigned int link) {
 	MumbleProto::ChannelState mpcs;
 	mpcs.set_channel_id(channel);
 	mpcs.add_links_remove(link);
 	sendMessage(mpcs);
 }
 
-void ServerHandler::requestChannelPermissions(const quint32 channel) {
+void ServerHandler::requestChannelPermissions(unsigned int channel) {
 	MumbleProto::PermissionQuery mppq;
 	mppq.set_channel_id(channel);
 	sendMessage(mppq);

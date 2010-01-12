@@ -102,22 +102,22 @@ class ServerHandler : public QThread {
 		MUMBLE_MH_ALL
 #undef MUMBLE_MH_MSG
 
-		void requestUserStats(const quint32 uiSession, const bool statsOnly);
-		void joinChannel(const quint32 channel);
-		void createChannel(const quint32 parent_, const QString &name, const QString &description, const quint32 position, const bool temporary);
+		void requestUserStats(unsigned int uiSession, bool statsOnly);
+		void joinChannel(unsigned int channel);
+		void createChannel(unsigned int parent_, const QString &name, const QString &description, unsigned int position, bool temporary);
 		void setTexture(const QByteArray &qba);
 		void requestBanList();
 		void requestUserList();
-		void requestACL(const quint32 channel);
-		void registerUser(const quint32 uiSession);
-		void kickBanUser(const quint32 uiSession, const QString &reason, bool ban);
-		void sendUserTextMessage(const quint32 uiSession, const QString &message_);
-		void sendChannelTextMessage(const quint32 channel, const QString &message_, bool tree);
-		void setUserComment(const quint32 uiSession, const QString &comment);
-		void removeChannel(const quint32 channel);
-		void addChannelLink(const quint32 channel, const quint32 link);
-		void removeChannelLink(const quint32 channel, const quint32 link);
-		void requestChannelPermissions(const quint32 channel);
+		void requestACL(unsigned int channel);
+		void registerUser(unsigned int uiSession);
+		void kickBanUser(unsigned int uiSession, const QString &reason, bool ban);
+		void sendUserTextMessage(unsigned int uiSession, const QString &message_);
+		void sendChannelTextMessage(unsigned int channel, const QString &message_, bool tree);
+		void setUserComment(unsigned int uiSession, const QString &comment);
+		void removeChannel(unsigned int channel);
+		void addChannelLink(unsigned int channel, unsigned int link);
+		void removeChannelLink(unsigned int channel, unsigned int link);
+		void requestChannelPermissions(unsigned int channel);
 		void setSelfMuteDeafState(bool mute, bool deaf);
 
 		void disconnect();

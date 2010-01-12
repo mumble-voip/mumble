@@ -134,8 +134,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		virtual void hideEvent(QHideEvent *e);
 
 	private:
-		qint32 cmUid;
-		qint32 cmCid;
+		qint64 cmUid;
+		qint64 cmCid;
 		bool handleSpecialContextMenu(const QUrl &url, const QPoint &_pos, bool focus = false);
 		Channel* getContextMenuChannel();
 		ClientUser* getContextMenuUser();
