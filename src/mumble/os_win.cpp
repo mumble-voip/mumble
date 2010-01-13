@@ -235,7 +235,9 @@ void os_init() {
 		qWarning("Application: Failed to set priority!");
 #endif
 
+#ifndef COMPAT_CLIENT
 	if (bIsWin7)
 		SetCurrentProcessExplicitAppUserModelID(QString::fromLatin1("net.sourceforge.mumble.Mumble").utf16());
+#endif
 }
 
