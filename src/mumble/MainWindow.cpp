@@ -817,7 +817,7 @@ void MainWindow::on_qaServerInformation_triggered() {
 
 	CryptState &cs = c->csCrypt;
 	QSslCipher qsc = g.sh->qscCipher;
-	
+
 	unsigned int version = g.sh->uiVersion;
 	QString qsVersion=tr("<h2>Version</h2><p>Protocol %1.%2.%3.</p>").arg(QString::number((version >> 16) & 0xFF),
 	                  QString::number((version >> 8) & 0xFF),
@@ -829,10 +829,10 @@ void MainWindow::on_qaServerInformation_triggered() {
 		qsVersion.append(tr("<p>%1 (%2)<br />%3</p>")
 		                 .arg(g.sh->qsRelease, g.sh->qsOS, g.sh->qsOSVersion));
 	}
-	
+
 	QString host, uname, pw;
 	unsigned short port;
-	
+
 	g.sh->getConnectionInfo(host,port,uname,pw);
 
 	QString qsControl=tr("<h2>Control channel</h2><p>Encrypted with %1 bit %2<br />%3 ms average latency (%4 deviation)</p><p>Remote host %5 (port %6)</p>").arg(QString::number(qsc.usedBits()),

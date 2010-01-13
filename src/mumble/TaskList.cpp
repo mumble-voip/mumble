@@ -59,7 +59,7 @@ void TaskList::addToRecentList(QString name, QString user, QString host, int por
 	url.addQueryItem(QLatin1String("version"), QLatin1String("1.2.0"));
 
 	QSettings settings(QLatin1String("HKEY_CLASSES_ROOT"), QSettings::NativeFormat);
-	
+
 	QString app = settings.value(QLatin1String("mumble/DefaultIcon/.")).toString();
 	if (app.isEmpty() || ! QFileInfo(app).exists())
 		app = QCoreApplication::applicationFilePath();

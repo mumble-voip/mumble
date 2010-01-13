@@ -173,7 +173,7 @@ class Server : public QThread {
 		Q_DISABLE_COPY(Server);
 	protected:
 		bool bRunning;
-		
+
 		QNetworkAccessManager *qnamNetwork;
 
 #ifdef USE_BONJOUR

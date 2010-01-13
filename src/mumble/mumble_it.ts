@@ -1526,14 +1526,12 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
         <translation type="obsolete">&lt;b&gt;Diminuire il volume delle altre applicazioni durante il parlato.&lt;/b&gt;&lt;br /&gt;Mumble supporta la diminuzione del volume delle altre applicazioni durante la ricezione della voce. Imposta il volume relativo delle altre applicazioni quando stanno parlando gli altri.</translation>
     </message>
     <message>
-        <location/>
         <source>vol</source>
-        <translation>vol</translation>
+        <translation type="obsolete">vol</translation>
     </message>
     <message>
-        <location/>
         <source>od</source>
-        <translation>od</translation>
+        <translation type="obsolete">od</translation>
     </message>
     <message>
         <location/>
@@ -1551,9 +1549,8 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
         <translation>&lt;b&gt;Attenua volume delle altre applicazioni durante il discorso&lt;/b&gt;&lt;br /&gt;Mumble supporta il decremento del volume delle altre applicazioni durante il discorso in ingresso e/o in uscita. Questo imposta l&apos;attenuazione delle altre applicazioni se la caratteristica è abilitata.</translation>
     </message>
     <message>
-        <location/>
         <source>at</source>
-        <translation>at</translation>
+        <translation type="obsolete">at</translation>
     </message>
     <message>
         <location/>
@@ -1586,29 +1583,24 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
         <translation>mentre tu parli</translation>
     </message>
     <message>
-        <location/>
         <source>md</source>
-        <translation>md</translation>
+        <translation type="obsolete">md</translation>
     </message>
     <message>
-        <location/>
         <source>mv</source>
-        <translation>mv</translation>
+        <translation type="obsolete">mv</translation>
     </message>
     <message>
-        <location/>
         <source>bl</source>
-        <translation>bl</translation>
+        <translation type="obsolete">bl</translation>
     </message>
     <message>
-        <location/>
         <source>dv</source>
-        <translation>dv</translation>
+        <translation type="obsolete">dv</translation>
     </message>
     <message>
-        <location/>
         <source>pl</source>
-        <translation>pl</translation>
+        <translation type="obsolete">pl</translation>
     </message>
 </context>
 <context>
@@ -3237,13 +3229,13 @@ Sei sicuro di voler sostituire il tuo certificato?
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+842"/>
+        <location filename="ConnectDialog.cpp" line="+850"/>
         <source>Connecting to %1</source>
         <translation>Connessione a %1</translation>
     </message>
     <message>
-        <location line="-452"/>
-        <location line="+452"/>
+        <location line="-460"/>
+        <location line="+460"/>
         <source>Enter username</source>
         <translation>Inserire il nome utente</translation>
     </message>
@@ -3252,7 +3244,7 @@ Sei sicuro di voler sostituire il tuo certificato?
         <translation type="obsolete">Sconosciuto</translation>
     </message>
     <message>
-        <location line="-452"/>
+        <location line="-460"/>
         <source>Adding host %1</source>
         <translation>Aggiunta host %1</translation>
     </message>
@@ -3347,7 +3339,7 @@ Sei sicuro di voler sostituire il tuo certificato?
         <translation type="obsolete">Filtri</translation>
     </message>
     <message>
-        <location line="+933"/>
+        <location line="+941"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -3476,7 +3468,7 @@ Sei sicuro di voler sostituire il tuo certificato?
         <translation type="obsolete">&amp;Password</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-690"/>
+        <location filename="ConnectDialog.cpp" line="-698"/>
         <source>&amp;Connect</source>
         <translation>&amp;Connetti</translation>
     </message>
@@ -3703,7 +3695,7 @@ Nome utente da mandare al server. ll server potrebbe avere delle restrizioni su 
         <translation>Questo veramente non è divertente, ma apparentemente c&apos;è un bug nel codice del rapporto, e abbiamo fallito ad inviare il rapporto. Puoi informare uno sviluppatore sull&apos;errore %1</translation>
     </message>
     <message>
-        <location line="+79"/>
+        <location line="+114"/>
         <source>Uploading crash report</source>
         <translation>Invio rapporto errore in corso</translation>
     </message>
@@ -4284,7 +4276,7 @@ p, li { white-space: pre-wrap; }
         <translation>il server</translation>
     </message>
     <message>
-        <location line="+118"/>
+        <location line="+123"/>
         <source>[[ Text object too large to display ]]</source>
         <translation>[[ Oggetto di testo troppo grande per essere visualizzato ]]</translation>
     </message>
@@ -4299,7 +4291,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-344"/>
+        <location line="-349"/>
         <source>Toggle console for %1 events</source>
         <translation>Imposta console per gli eventi %1</translation>
     </message>
@@ -4798,12 +4790,12 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1784"/>
+        <location line="+1727"/>
         <source>Root</source>
         <translation>Radice</translation>
     </message>
     <message>
-        <location line="-1740"/>
+        <location line="-1683"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Premi-per-parlare</translation>
@@ -4937,21 +4929,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui"/>
         <location filename="MainWindow.cpp" line="+115"/>
-        <location line="+856"/>
-        <location line="+191"/>
-        <location line="+651"/>
+        <location line="+844"/>
+        <location line="+179"/>
+        <location line="+615"/>
         <location filename="main.cpp" line="+313"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1809"/>
+        <location filename="MainWindow.cpp" line="-1749"/>
         <location line="+12"/>
+        <location line="+1830"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="-1826"/>
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
@@ -5025,12 +5018,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1910"/>
+        <location line="+1851"/>
         <source>Not connected</source>
         <translation>Non connesso</translation>
     </message>
     <message>
-        <location line="-1720"/>
+        <location line="-1661"/>
         <source>Clear</source>
         <translation>Cancella</translation>
     </message>
@@ -5066,7 +5059,7 @@ p, li { white-space: pre-wrap; }
         <translation></translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+29"/>
         <source>Connecting to %1</source>
         <translation>Connessione a %1</translation>
     </message>
@@ -5076,8 +5069,8 @@ p, li { white-space: pre-wrap; }
         <translation>Inserisci nome utente</translation>
     </message>
     <message>
-        <location line="+14"/>
-        <location line="+154"/>
+        <location line="+18"/>
+        <location line="+151"/>
         <source>Connecting to server %1.</source>
         <translation>Connessione al server %1.</translation>
     </message>
@@ -5087,7 +5080,7 @@ p, li { white-space: pre-wrap; }
         <translation>Riconnessione.</translation>
     </message>
     <message>
-        <location line="+75"/>
+        <location line="+70"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Versione&lt;/h2&gt;&lt;p&gt;Protocollo %1.%2.%3.&lt;/p&gt;</translation>
     </message>
@@ -5102,12 +5095,16 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+4"/>
-        <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
+        <location line="+9"/>
+        <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;</source>
+        <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canale di voce&lt;/h2&gt;&lt;p&gt;Crittografato con 128 bit OCB-AES128&lt;br/&gt;%1 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
@@ -5117,7 +5114,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;h2&gt;banda audio&lt;/h2&gt;&lt;p&gt;Massimo %1 kbit/s&lt;br/&gt;Attuale %2 kbit/s&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+196"/>
+        <location line="+194"/>
         <source>Register yourself as %1</source>
         <translation>Registrati come %1</translation>
     </message>
@@ -5137,22 +5134,22 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;p&gt;Stai per registrare %1 sul server. Quest&apos;azione non può essere annullata, il nome utente non può essere cambiato, ed essendo un utente registrato, %1 avrà accesso al server anche se il server cambierà password.&lt;/p&gt;&lt;p&gt;Da questo punto in poi, %1 sarà autenticato con il certificato attualmente in uso.&lt;/p&gt;&lt;p&gt;Se sicuro di voler registrare %1?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+40"/>
         <source>Kicking user %1</source>
         <translation>Espellimento utente %1</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+19"/>
         <source>Banning user %1</source>
         <translation>Bandimento utente %1</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="+42"/>
         <source>Change comment on user %1</source>
         <translation>Cambia commento sull&apos;utente %1</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+19"/>
         <source>View comment on user %1</source>
         <translation>Visualizza commento nell&apos;utente %1</translation>
     </message>
@@ -5166,8 +5163,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Al canale %1: %2</translation>
     </message>
     <message>
-        <location line="+48"/>
-        <location line="+231"/>
+        <location line="+40"/>
+        <location line="+209"/>
         <source>Message to channel %1</source>
         <translation>Messaggio al canale %1</translation>
     </message>
@@ -5182,12 +5179,12 @@ p, li { white-space: pre-wrap; }
         <translation>%1: %2</translation>
     </message>
     <message>
-        <location line="+443"/>
+        <location line="+428"/>
         <source>Connected.</source>
         <translation>Connesso.</translation>
     </message>
     <message>
-        <location line="+144"/>
+        <location line="+141"/>
         <source>SSL Version mismatch</source>
         <translation>Versione SSL diversa</translation>
     </message>
@@ -5202,7 +5199,7 @@ p, li { white-space: pre-wrap; }
         <translation>Il client retrocompatibile non è stato trovato, o la sua apertura è fallita.&lt;br /&gt;Nota che il client retrocompatibile è un componente facoltativo in molte installazioni, e potrebbe non esssere installato.</translation>
     </message>
     <message>
-        <location line="+117"/>
+        <location line="+118"/>
         <source>Type message to channel &apos;%1&apos; here</source>
         <translation>Inserisci qui il messaggio per il canale &apos;%1&apos;</translation>
     </message>
@@ -5242,7 +5239,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 variazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1482"/>
+        <location line="-1417"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Il canale di voce è trasmesso sul canale di controllo.</translation>
     </message>
@@ -5296,7 +5293,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1193"/>
+        <location line="+1127"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Visualizza certificato</translation>
     </message>
@@ -5305,8 +5302,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Espulsione giocatore %1</translation>
     </message>
     <message>
-        <location line="-958"/>
-        <location line="+22"/>
+        <location line="-897"/>
+        <location line="+19"/>
         <source>Enter reason</source>
         <translation>Inserisci motivazione</translation>
     </message>
@@ -5315,20 +5312,20 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Bandimento giocatore %1</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+18"/>
         <source>Sending message to %1</source>
         <translation>Invio messaggio a %1</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <location line="+100"/>
+        <location line="+10"/>
+        <location line="+89"/>
         <location line="+4"/>
         <source>To %1: %2</source>
         <translation>Per %1: %2</translation>
     </message>
     <message>
-        <location line="-104"/>
-        <location line="+104"/>
+        <location line="-93"/>
+        <location line="+93"/>
         <source>Message to %1</source>
         <translation>Messaggio a %1</translation>
     </message>
@@ -5337,7 +5334,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Nome canale</translation>
     </message>
     <message>
-        <location line="+138"/>
+        <location line="+134"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Sei sicuro di voler cancellare %1 e tutti i suoi sottocanali?</translation>
     </message>
@@ -5346,7 +5343,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Cambia la descrizione del canale %1</translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location line="+60"/>
         <source>Sending message to channel %1</source>
         <translation>Invio messaggio al canale %1</translation>
     </message>
@@ -5359,12 +5356,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Per l&apos;albero di canali %1: %2</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+9"/>
         <source>Message to tree %1</source>
         <translation>Messaggio all&apos;albero di canali %1</translation>
     </message>
     <message>
-        <location line="+109"/>
+        <location line="+103"/>
         <source>Unmuted and undeafened.</source>
         <translation>Microfono e audio riattivati.</translation>
     </message>
@@ -5379,7 +5376,7 @@ p, li { white-space: pre-wrap; }
         <translation>Microfono disattivato.</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+24"/>
         <source>Muted and deafened.</source>
         <translation>Microfono e audio disattivati.</translation>
     </message>
@@ -5394,7 +5391,7 @@ p, li { white-space: pre-wrap; }
         <translation>Audio riattivato.</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+67"/>
         <source>About Qt</source>
         <translation>Informazioni su Qt</translation>
     </message>
@@ -5407,7 +5404,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Connessione al server %1.</translation>
     </message>
     <message>
-        <location line="+337"/>
+        <location line="+331"/>
         <source>SSL Verification failed: %1</source>
         <translation>Verifica SSL fallita: %1</translation>
     </message>
@@ -6233,7 +6230,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">il server</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+273"/>
+        <location filename="Messages.cpp" line="+275"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>Microfono e audio riattivati da %1.</translation>
     </message>
@@ -6302,7 +6299,12 @@ p, li { white-space: pre-wrap; }
         <translation>Ti è stato negato il privilegio %1 su %2.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-14"/>
+        <source>Mumble: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
         <source>%3 was denied %1 privileges in %2.</source>
         <translation>A %3 è stato negato il privilegio %1 su %2.</translation>
     </message>
@@ -6455,12 +6457,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">messaggio dal server</translation>
     </message>
     <message>
-        <location line="+312"/>
+        <location line="+310"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Impossibile trovare codec CELT uguali a quelli degli altri utenti. Non sarai in grado di parlare con gli altri utenti.</translation>
     </message>
     <message>
-        <location line="-372"/>
+        <location line="-370"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Microfono e audio disattivati da %1.</translation>
@@ -6522,12 +6524,12 @@ p, li { white-space: pre-wrap; }
         <translation>%1 è entrato nel canale.</translation>
     </message>
     <message>
-        <location line="-288"/>
+        <location line="-290"/>
         <source>Server connection rejected: %1.</source>
         <translation>Connessione al server respinta: %1.</translation>
     </message>
     <message>
-        <location line="+112"/>
+        <location line="+114"/>
         <source>Denied: %1.</source>
         <translation>Negato: %1.</translation>
     </message>
@@ -7921,7 +7923,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="UserInformation.cpp" line="+89"/>
+        <location filename="UserInformation.cpp" line="+88"/>
         <source>%1w</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8252,7 +8254,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+177"/>
+        <location filename="WASAPI.cpp" line="+172"/>
         <source>Default Device</source>
         <translation>Periferica predefinita</translation>
     </message>

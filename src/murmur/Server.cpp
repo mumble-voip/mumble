@@ -108,7 +108,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 
 	iCodecAlpha = iCodecBeta = 0;
 	bPreferAlpha = false;
-	
+
 	qnamNetwork = NULL;
 
 	readParams();

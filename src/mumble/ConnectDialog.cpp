@@ -808,7 +808,7 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	bLastFound = false;
 
 	qmPingCache = Database::getPingCache();
-	
+
 	if (! g.s.qbaConnectDialogGeometry.isEmpty())
 		restoreGeometry(g.s.qbaConnectDialogGeometry);
 	if (! g.s.qbaConnectDialogHeader.isEmpty())
@@ -831,7 +831,7 @@ ConnectDialog::~ConnectDialog() {
 	}
 	Database::setFavorites(ql);
 	Database::setPingCache(qmPingCache);
-	
+
 	g.s.qbaConnectDialogHeader = qtwServers->header()->saveState();
 	g.s.qbaConnectDialogGeometry = saveGeometry();
 }

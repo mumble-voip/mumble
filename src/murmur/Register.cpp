@@ -53,7 +53,7 @@ void Server::update() {
 	// When QNAM distinguishes connections by client cert, move this to Meta
 	if (! qnamNetwork)
 		qnamNetwork = new QNetworkAccessManager(this);
-		
+
 	qtTick.start(1000 * (60 * 60 + (qrand() % 300)));
 
 	QDomDocument doc;
@@ -104,7 +104,7 @@ void Server::update() {
 	root.appendChild(tag);
 	t=doc.createTextNode(QString::number(qhChannels.count()));
 	tag.appendChild(t);
-	
+
 	QNetworkRequest qnr(QUrl(QLatin1String("https://mumble.hive.no/register.cgi")));
 	qnr.setHeader(QNetworkRequest::ContentTypeHeader, QLatin1String("text/xml"));
 
@@ -116,9 +116,9 @@ void Server::update() {
 	QList<QSslCertificate> calist = ssl.caCertificates();
 	calist << QSslSocket::defaultCaCertificates();
 	ssl.setCaCertificates(calist);
-	
+
 	qnr.setSslConfiguration(ssl);
-	
+
 	QNetworkReply *rep = qnamNetwork->post(qnr, doc.toString().toUtf8());
 	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
 	connect(rep, SIGNAL(sslErrors(const QList<QSslError> &)), this, SLOT(regSslError(const QList<QSslError> &)));

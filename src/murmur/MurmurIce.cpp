@@ -1246,7 +1246,7 @@ static void impl_Server_updateRegistration(const ::Murmur::AMD_Server_updateRegi
 	}
 
 	if (info.contains(ServerDB::User_Comment)) {
-		foreach (ServerUser *u, server->qhUsers) {
+		foreach(ServerUser *u, server->qhUsers) {
 			if (u->iId == id)
 				server->setUserState(u, u->cChannel, u->bMute, u->bDeaf, u->bSuppress, info.value(ServerDB::User_Comment));
 		}

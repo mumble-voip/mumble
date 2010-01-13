@@ -172,13 +172,13 @@ void CrashReporter::run() {
 		QTemporaryFile qtf;
 		if (qtf.open()) {
 			qtf.close();
-			
+
 			QProcess qp;
 			QStringList qsl;
 
 			qsl << QLatin1String("/t");
 			qsl << qtf.fileName();
-			
+
 			QString app = QLatin1String("dxdiag.exe");
 			wchar_t *sr = NULL;
 			size_t srsize = 0;

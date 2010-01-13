@@ -1,6 +1,43 @@
+2010-01-13
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c876409  Include dxdiag in crashreport
+
+2010-01-12
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    1e0ec8c  Fix coding style in ServerHandler
+    68ac664  Unbreak log messages containing invalid links
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c9f005b  Save/restore connectdialog state
+    0671d7b  Show server name in trayicon tooltip
+    cac28da  Show remote host in Server|Information
+    95d667b  Show channel user count in G15
+    c39492f  Unify 'IsThisVista?' checks to one place, and use release
+	     build apppath for jumplist
+
+2010-01-11
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    c12f127  Fix focus tracking hiccup on disconnect in chat bar
+    09dd4a3  Fix mumble-auth.py for 1.2.0 (#2926521)
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    0bfb9c7  Update comment in updateRegistration for connected users
+    16a38a1  Add QThread yield calls
+    c34a38c  Make cert details dialog in the user info dialog window modal
+    5a567c0  Set last servername in URL handler
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    da6ef89  Use QNetworkAccessManager to register, QHttp is deprecated
+    876fd2f  Remove 'ulimit -r' from init script as it requires bash
+    cbee6c8  Only show userinformation if server >= 1.2.2
+
 2010-01-10
   arcenciel <arcenciel@users.sourceforge.net>
     5eed139  Fixed Japanese Translation for 1.2.1
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    cf33de4  Move assembly of some protobuf messages to ServerHandler
+    170fd04  Disable translation for some invisible strings
 
   Thorvald Natvig <slicer@users.sourceforge.net>
     01b78bb  Show strong certificate state in client
@@ -16,6 +53,9 @@
     08c753b  Userinfo (serverside)
 
 2010-01-09
+  Kissaki <kissaki@gmx.de>
+    de2208e  German translation updates
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     e11e8a7  Fixed patch for sqlite syntax
     ad833d6  Revert "Don't use mysql syntax in sqlite path"
