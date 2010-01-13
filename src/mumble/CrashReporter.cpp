@@ -166,6 +166,41 @@ void CrashReporter::run() {
 	}
 #endif
 
+	QString details;
+#ifdef Q_OS_WIN
+	{
+		QTemporaryFile qtf;
+		if (qtf.open()) {
+			qtf.close();
+			
+			QProcess qp;
+			QStringList qsl;
+
+			qsl << QLatin1String("/t");
+			qsl << qtf.fileName();
+			
+			QString app = QLatin1String("dxdiag.exe");
+			wchar_t *sr = NULL;
+			size_t srsize = 0;
+			if (_wdupenv_s(&sr, &srsize, L"SystemRoot") == 0) {
+				app = QDir::fromNativeSeparators(QString::fromWCharArray(sr)) + QLatin1String("/System32/dxdiag.exe");
+				free(sr);
+			}
+
+			qp.start(app, qsl);
+			if (qp.waitForFinished(30000)) {
+				if (qtf.open()) {
+					QByteArray qba = qtf.readAll();
+					details = QString::fromLocal8Bit(qba);
+				}
+			} else {
+				details = QLatin1String("Failed to run dxdiag");
+			}
+			qp.kill();
+		}
+	}
+#endif
+
 	if (qbaDumpContents.isEmpty()) {
 		qWarning("CrashReporter: Empty crash dump file, not reporting.");
 		return;
@@ -183,10 +218,11 @@ void CrashReporter::run() {
 		QString ver = QString::fromLatin1("--%1\r\nContent-Disposition: form-data; name=\"ver\"\r\nContent-Transfer-Encoding: 8bit\r\n\r\n%2 %3\r\n").arg(boundary, QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)), QLatin1String(MUMBLE_RELEASE));
 		QString email = QString::fromLatin1("--%1\r\nContent-Disposition: form-data; name=\"email\"\r\nContent-Transfer-Encoding: 8bit\r\n\r\n%2\r\n").arg(boundary, qleEmail->text());
 		QString descr = QString::fromLatin1("--%1\r\nContent-Disposition: form-data; name=\"desc\"\r\nContent-Transfer-Encoding: 8bit\r\n\r\n%2\r\n").arg(boundary, qteDescription->toPlainText());
+		QString det = QString::fromLatin1("--%1\r\nContent-Disposition: form-data; name=\"details\"\r\nContent-Transfer-Encoding: 8bit\r\n\r\n%2\r\n").arg(boundary, details);
 		QString head = QString::fromLatin1("--%1\r\nContent-Disposition: form-data; name=\"dump\"; filename=\"mumble.dmp\"\r\nContent-Type: binary/octet-stream\r\n\r\n").arg(boundary);
 		QString end = QString::fromLatin1("\r\n--%1--\r\n").arg(boundary);
 
-		QByteArray post = os.toUtf8() + ver.toUtf8() + email.toUtf8() + descr.toUtf8() + head.toUtf8() + qbaDumpContents + end.toUtf8();
+		QByteArray post = os.toUtf8() + ver.toUtf8() + email.toUtf8() + descr.toUtf8() + det.toUtf8() + head.toUtf8() + qbaDumpContents + end.toUtf8();
 
 		QUrl url(QLatin1String("https://mumble.hive.no/crashreport.php"));
 		QNetworkRequest req(url);
