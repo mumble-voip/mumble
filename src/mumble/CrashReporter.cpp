@@ -56,7 +56,7 @@ CrashReporter::CrashReporter(QWidget *p) : QDialog(p) {
 
 	qteDescription=new QTextEdit();
 	l->setBuddy(qteDescription);
-	l = new QLabel(tr("Please briefly describe what you were doing at the time of the crash"));
+	l = new QLabel(tr("Please describe briefly, in English, what you were doing at the time of the crash"));
 
 	vbl->addWidget(l);
 	vbl->addWidget(qteDescription, 1);
