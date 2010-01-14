@@ -342,7 +342,7 @@ QString Log::imageToImg(QImage img) {
 	return QString();
 }
 
-QString Log::validHtml(const QString &html, bool allowReplacement) {
+QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *tc) {
 	QDesktopWidget dw;
 	ValidDocument qtd(allowReplacement);
 	bool valid = false;
@@ -358,6 +358,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 
 	QRectF qr = dw.availableGeometry(dw.screenNumber(g.mw));
 	qtd.setTextWidth(qr.width() / 2);
+	qtd.setDefaultStyleSheet(qApp->styleSheet());
 
 	qtd.setHtml(html);
 	valid = qtd.isValid();
@@ -395,10 +396,16 @@ QString Log::validHtml(const QString &html, bool allowReplacement) {
 
 		if ((s.width() > qr.width()) || (s.height() > qr.height()))
 			return tr("[[ Text object too large to display ]]");
-		return qtd.toHtml();
 	}
 
-	return qtd.toHtml();
+	if (tc) {
+		QTextCursor tcNew(&qtd);
+		tcNew.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+		tc->insertFragment(tcNew.selection());
+		return QString();
+	} else {
+		return qtd.toHtml();
+	}
 }
 
 void Log::log(MsgType mt, const QString &console, const QString &terse) {
@@ -436,7 +443,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		} else if (! g.mw->qteLog->document()->isEmpty()) {
 			tc.insertBlock();
 		}
-		tc.insertHtml(validHtml(QString::fromLatin1("[%2] %1\n").arg(console, Log::msgColor(dt.time().toString(Qt::DefaultLocaleShortDate), Log::Time)), true));
+		validHtml(QString::fromLatin1("[%2] %1\n").arg(console, Log::msgColor(dt.time().toString(Qt::DefaultLocaleShortDate), Log::Time)), true, &tc);
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);
 		g.mw->qteLog->ensureCursorVisible();
