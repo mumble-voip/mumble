@@ -445,10 +445,13 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &_pos, b
 			ok = ok && (qbaServerDigest == g.sh->qbaDigest);
 		}
 		if (ok && ClientUser::isValid(cmUid)) {
-			if (focus)
+			if (focus) {
 				qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(cmUid)));
-			else
+				qleChat->setFocus();
+			}
+			else {
 				qmUser->exec(_pos, NULL);
+			}
 		}
 		cmUid = -1;
 	} else if (url.scheme() == QString::fromLatin1("channelid")) {
@@ -457,10 +460,13 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &_pos, b
 		cmCid = url.host().toInt(&ok, 10);
 		ok = ok && (qbaServerDigest == g.sh->qbaDigest);
 		if (ok) {
-			if (focus)
+			if (focus) {
 				qtvUsers->setCurrentIndex(pmModel->index(Channel::get(cmCid)));
-			else
+				qleChat->setFocus();
+			}
+			else {
 				qmChannel->exec(_pos, NULL);
+			}
 		}
 		cmCid = -1;
 	} else {
