@@ -23,11 +23,11 @@ CONFIG(packaged) {
 }
 
 win32 {
-	INCLUDEPATH *= /dev/protobuf-2.2.0/vsprojects/include /dev/protobuf-2.2.0/src
+	INCLUDEPATH *= /dev/protobuf-2.3.0/vsprojects/include /dev/protobuf-2.3.0/src
 	CONFIG(debug, debug|release) {
-		LIBPATH *= /dev/protobuf-2.2.0/vsprojects/Debug
+		LIBPATH *= /dev/protobuf-2.3.0/vsprojects/Debug
 	} else {
-		LIBPATH *= /dev/protobuf-2.2.0/vsprojects/Release
+		LIBPATH *= /dev/protobuf-2.3.0/vsprojects/Release
 	}
 	INCLUDEPATH *= /dev/OpenSSL/include
 	LIBPATH	*= /dev/OpenSSL/lib
