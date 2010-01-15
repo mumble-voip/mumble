@@ -198,7 +198,7 @@
       <item row="0" column="3">
        <widget class="QLabel" name="qliPingVar">
         <property name="text">
-         <string>Ping variance</string>
+         <string>Ping deviation</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

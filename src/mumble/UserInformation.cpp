@@ -42,7 +42,7 @@ UserInformation::UserInformation(const MumbleProto::UserStats &msg, QWidget *p) 
 
 	qtTimer = new QTimer(this);
 	connect(qtTimer, SIGNAL(timeout()), this, SLOT(tick()));
-	qtTimer->start(12000);
+	qtTimer->start(6000);
 
 	qgbConnection->setVisible(false);
 
@@ -166,12 +166,13 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 		qgbConnection->setVisible(true);
 
 	qlTCPCount->setText(QString::number(msg.tcp_packets()));
-	qlTCPAvg->setText(QString::number(msg.tcp_ping_avg(), 'f', 2));
-	qlTCPVar->setText(QString::number(msg.tcp_ping_var(), 'f', 2));
-
 	qlUDPCount->setText(QString::number(msg.udp_packets()));
+
+	qlTCPAvg->setText(QString::number(msg.tcp_ping_avg(), 'f', 2));
 	qlUDPAvg->setText(QString::number(msg.udp_ping_avg(), 'f', 2));
-	qlUDPVar->setText(QString::number(msg.udp_ping_var(), 'f', 2));
+
+	qlTCPVar->setText(QString::number(msg.tcp_ping_var() > 0.0f ? sqrtf(msg.tcp_ping_var()) : 0.0f, 'f', 2));
+	qlUDPVar->setText(QString::number(msg.udp_ping_var() > 0.0f ? sqrtf(msg.udp_ping_var()) : 0.0f, 'f', 2));
 
 	if (msg.has_from_client() && msg.has_from_server()) {
 		qgbUDP->setVisible(true);
