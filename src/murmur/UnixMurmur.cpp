@@ -273,7 +273,7 @@ void UnixMurmur::initialcap() {
 
 void UnixMurmur::finalcap() {
 #ifdef Q_OS_LINUX
-	cap_value_t caps[] = {CAP_NET_ADMIN};
+	cap_value_t caps[] = {CAP_NET_ADMIN, CAP_SYS_RESOURCE};
 	struct rlimit r;
 
 	if (! bRoot)

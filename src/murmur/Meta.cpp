@@ -461,10 +461,18 @@ bool Meta::boot(int srvnum) {
 
 	struct rlimit r;
 	if (getrlimit(RLIMIT_NOFILE, &r) == 0) {
-		if (r.rlim_cur < r.rlim_max) {
-			r.rlim_cur = r.rlim_max;
-			setrlimit(RLIMIT_NOFILE, &r);
-			getrlimit(RLIMIT_NOFILE, &r);
+		if (r.rlim_cur < sockets) {
+			r.rlim_cur = sockets;
+			if (r.rlim_max < sockets)
+				r.rlim_max = sockets;
+			if (setrlimit(RLIMIT_NOFILE, &r) != 0) {
+				getrlimit(RLIMIT_NOFILE, &r);
+				if (r.rlim_cur < r.rlim_max) {
+					r.rlim_cur = r.rlim_max;
+					setrlimit(RLIMIT_NOFILE, &r);
+					getrlimit(RLIMIT_NOFILE, &r);
+				}
+			}
 		}
 		if (r.rlim_cur < sockets)
 			qCritical("Current booted servers require minimum %d file descriptors when all slots are full, but only %d file descriptors are allowed for this process. Your server will crash and burn; read the FAQ for details.", sockets, r.rlim_cur);
