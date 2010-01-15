@@ -481,15 +481,26 @@ int BandwidthRecord::idleSeconds() const {
 }
 
 int BandwidthRecord::bandwidth() const {
-	int sincelast = static_cast<int>(a_qtWhen[(iRecNum + N_BANDWIDTH_SLOTS - 1) % N_BANDWIDTH_SLOTS].elapsed() / 10000LL);
-	int todo = N_BANDWIDTH_SLOTS - sincelast;
-	if (todo < 0)
+	int sum = 0;
+	int records = 0;
+	quint64 elapsed = 0ULL;
+
+	for(int i=1;i<N_BANDWIDTH_SLOTS;++i) {
+		int idx = (iRecNum + N_BANDWIDTH_SLOTS - i) % N_BANDWIDTH_SLOTS;
+		quint64 e = a_qtWhen[idx].elapsed();
+		if (e > 1000000ULL) {
+			break;
+		} else {
+			++records;
+			sum += a_iBW[idx];
+			elapsed = e;
+		}
+	}
+
+	if (elapsed < 250000ULL)
 		return 0;
 
-	int sum = 0;
-	for (int i=1;i<=todo;++i)
-		sum += a_iBW[(iRecNum+N_BANDWIDTH_SLOTS - i) % N_BANDWIDTH_SLOTS];
-	return (sum*100)/N_BANDWIDTH_SLOTS;
+	return static_cast<int>((sum * 1000000ULL) / elapsed);
 }
 
 ExecEvent::ExecEvent(boost::function<void ()> f) : QEvent(static_cast<QEvent::Type>(EXEC_QEVENT)) {
