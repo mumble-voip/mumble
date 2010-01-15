@@ -76,7 +76,7 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 	if (cChannel != pUser->cChannel) {
 		changed = true;
 		mpus.set_channel_id(cChannel->iId);
-		userEnterChannel(pUser, cChannel);
+		userEnterChannel(pUser, cChannel, mpus);
 	}
 
 	if (changed) {

@@ -213,17 +213,6 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	mpcrypt.set_client_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.decrypt_iv), AES_BLOCK_SIZE));
 	sendMessage(uSource, mpcrypt);
 
-	int lchan = readLastChannel(uSource->iId);
-	if (lchan == 0)
-		lchan = iDefaultChan;
-	Channel *lc = qhChannels.value(lchan);
-	if (! lc)
-		lc = root;
-	else if (! hasPermission(uSource, lc, ChanACL::Enter))
-		lc = root;
-
-	userEnterChannel(uSource, lc, true);
-
 	if (msg.celt_versions_size() > 0) {
 		for (int i=0;i < msg.celt_versions_size(); ++i)
 			uSource->qlCodecs.append(msg.celt_versions(i));
@@ -281,6 +270,18 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	// Transmit user profile
 	MumbleProto::UserState mpus;
 
+
+	int lchan = readLastChannel(uSource->iId);
+	if (lchan == 0)
+		lchan = iDefaultChan;
+	Channel *lc = qhChannels.value(lchan);
+	if (! lc)
+		lc = root;
+	else if (! hasPermission(uSource, lc, ChanACL::Enter))
+		lc = root;
+
+	userEnterChannel(uSource, lc, mpus);
+
 	uSource->sState = ServerUser::Authenticated;
 	mpus.set_session(uSource->uiSession);
 	mpus.set_name(u8(uSource->qsName));
@@ -301,11 +302,14 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	if (uSource->cChannel->iId != 0)
 		mpus.set_channel_id(uSource->cChannel->iId);
 
-	sendExcept(uSource, mpus);
+	sendAll(mpus);
 
 	// Transmit other users profiles
 	foreach(ServerUser *u, qhUsers) {
 		if (u->sState != ServerUser::Authenticated)
+			continue;
+			
+		if (u == uSource)
 			continue;
 
 		mpus.Clear();
@@ -357,7 +361,6 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	log(uSource, "Authenticated");
 
 	emit userConnected(uSource);
-	userEnterChannel(uSource, lc, false);
 }
 
 void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
@@ -553,12 +556,6 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		}
 	}
 
-	if (msg.has_channel_id()) {
-		Channel *c = qhChannels.value(msg.channel_id());
-
-		userEnterChannel(pDstServerUser, c);
-		log(uSource, QString("Moved %1 to %2").arg(QString(*pDstServerUser), QString(*c)));
-	}
 
 
 	if (msg.has_mute() || msg.has_deaf() || msg.has_suppress()) {
@@ -581,6 +578,13 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		        QString::number(pDstServerUser->bMute),
 		        QString::number(pDstServerUser->bDeaf),
 		        QString::number(pDstServerUser->bSuppress)));
+	}
+
+	if (msg.has_channel_id()) {
+		Channel *c = qhChannels.value(msg.channel_id());
+
+		userEnterChannel(pDstServerUser, c, msg);
+		log(uSource, QString("Moved %1 to %2").arg(QString(*pDstServerUser), QString(*c)));
 	}
 
 	if (msg.has_user_id()) {
@@ -760,8 +764,9 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			MumbleProto::UserState mpus;
 			mpus.set_session(uSource->uiSession);
 			mpus.set_channel_id(c->iId);
+			userEnterChannel(uSource, c, mpus);
 			sendAll(mpus);
-			userEnterChannel(uSource, c);
+			emit userStateChanged(uSource);
 		}
 	} else {
 		// The message is related to an existing channel c so check if the user is allowed to modify it

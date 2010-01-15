@@ -315,7 +315,7 @@ class Server : public QThread {
 
 		void removeChannel(int id);
 		void removeChannel(Channel *c, Channel *dest = NULL);
-		void userEnterChannel(User *u, Channel *c, bool quiet = false, bool ignoretemp = false);
+		void userEnterChannel(User *u, Channel *c, MumbleProto::UserState &mpus, bool quiet = false);
 		bool unregisterUser(int id);
 
 		Server(int snum, QObject *parent = NULL);

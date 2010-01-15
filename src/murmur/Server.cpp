@@ -1263,12 +1263,16 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 	foreach(p, chan->qlUsers) {
 		chan->removeUser(p);
 
+		Channel *target = dest;
+		while (target->cParent && ! hasPermission(static_cast<ServerUser *>(p), target, ChanACL::Enter))
+			target = target->cParent;
+		
 		MumbleProto::UserState mpus;
 		mpus.set_session(p->uiSession);
-		mpus.set_channel_id(dest->iId);
+		mpus.set_channel_id(target->iId);
+		userEnterChannel(p, target, mpus);
 		sendAll(mpus);
-
-		userEnterChannel(p, dest);
+		emit userStateChanged(p);
 	}
 
 	MumbleProto::ChannelRemove mpcr;
@@ -1328,7 +1332,7 @@ bool Server::unregisterUser(int id) {
 	return true;
 }
 
-void Server::userEnterChannel(User *p, Channel *c, bool quiet, bool ignoretemp) {
+void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus, bool quiet) {
 	if (quiet && (p->cChannel == c))
 		return;
 
@@ -1344,26 +1348,18 @@ void Server::userEnterChannel(User *p, Channel *c, bool quiet, bool ignoretemp) 
 	if (quiet)
 		return;
 
-
 	setLastChannel(p);
 
 	bool mayspeak = hasPermission(static_cast<ServerUser *>(p), c, ChanACL::Speak);
 	bool sup = p->bSuppress;
 
-	if (! p->bMute) {
-		if (mayspeak == sup) {
-			// Ok, he can speak and was suppressed, or vice versa
-			p->bSuppress = ! mayspeak;
-
-			MumbleProto::UserState mpus;
-			mpus.set_session(p->uiSession);
-			mpus.set_suppress(p->bSuppress);
-			sendAll(mpus);
-		}
+	if (mayspeak == sup) {
+		// Ok, he can speak and was suppressed, or vice versa
+		p->bSuppress = ! mayspeak;
+		mpus.set_suppress(p->bSuppress);
 	}
-	emit userStateChanged(p);
 
-	if (old && old->bTemporary && old->qlUsers.isEmpty() && ! ignoretemp) {
+	if (old && old->bTemporary && old->qlUsers.isEmpty()) {
 		QCoreApplication::instance()->postEvent(this, new ExecEvent(boost::bind(&Server::removeChannel, this, old->iId)));
 	}
 
