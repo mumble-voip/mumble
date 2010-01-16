@@ -272,7 +272,7 @@ Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
   File "..\release\mumble.exe"
   File "..\release\mumble-g15-helper.exe"
   !insertmacro InstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "..\release\mumble_ol.dll" "$INSTDIR\mumble_ol.dll" "$INSTDIR"
-  File "..\release\celt.*.dll"
+  File "..\release\celt0.*.dll"
   File "..\release\speex*.dll"
 
   SetOutPath "$INSTDIR\plugins"
@@ -422,7 +422,7 @@ end:
   Delete "$INSTDIR\mumble11x.exe"
   Delete "$INSTDIR\murmur.exe"
   Delete "$INSTDIR\mumble-g15-helper.exe"
-  Delete "$INSTDIR\celt.*.dll"
+  Delete "$INSTDIR\celt0.*.dll"
   Delete "$INSTDIR\speex*.dll"
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\mumble_ol.dll"
   Delete "$INSTDIR\qos.reg"

@@ -104,25 +104,28 @@ CELTCodec::CELTCodec(const QString &version) {
 
 	QStringList alternatives;
 #if defined(Q_OS_MAC)
-	alternatives << QString::fromLatin1("celt.%1.dylib").arg(version);
+	alternatives << QString::fromLatin1("libcelt0.%1.dylib").arg(version);
+	alternatives << QString::fromLatin1("celt0.%1.dylib").arg(version);
 	alternatives << QString::fromLatin1("libcelt.%1.dylib").arg(version);
+	alternatives << QString::fromLatin1("celt.%1.dylib").arg(version);
 #elif defined(Q_OS_UNIX)
-	alternatives << QString::fromLatin1("celt.so.%1").arg(version);
+	alternatives << QString::fromLatin1("libcelt0.so.%1").arg(version);
 	alternatives << QString::fromLatin1("libcelt.so.%1").arg(version);
+	alternatives << QString::fromLatin1("celt.so.%1").arg(version);
 #else
 	int cpuinfo[4];
 	__cpuid(cpuinfo, 1);
 	if (cpuinfo[3] & 0x02000000) {
 		if (cpuinfo[3] & 0x04000000) {
 			if (cpuinfo[2] & 0x00000001) {
-				alternatives << QString::fromLatin1("celt.%1.sse3.dll").arg(version);
+				alternatives << QString::fromLatin1("celt0.%1.sse3.dll").arg(version);
 			}
-			alternatives << QString::fromLatin1("celt.%1.sse2.dll").arg(version);
+			alternatives << QString::fromLatin1("celt0.%1.sse2.dll").arg(version);
 		}
-		alternatives << QString::fromLatin1("celt.%1.sse.dll").arg(version);
+		alternatives << QString::fromLatin1("celt0.%1.sse.dll").arg(version);
 	}
 
-	alternatives << QString::fromLatin1("celt.%1.dll").arg(version);
+	alternatives << QString::fromLatin1("celt0.%1.dll").arg(version);
 #endif
 	foreach(const QString &lib, alternatives) {
 		qlCELT.setFileName(QApplication::instance()->applicationDirPath() + QLatin1String("/") + lib);

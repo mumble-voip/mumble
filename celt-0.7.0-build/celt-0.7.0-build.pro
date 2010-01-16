@@ -24,7 +24,7 @@ CONFIG += debug_and_release
 CONFIG -= warn_on
 CONFIG += warn_off
 VPATH	= ../$$SOURCEDIR/libcelt
-TARGET = celt
+TARGET = celt0
 DEFINES += HAVE_CONFIG_H
 TARGET_VERSION_EXT = .$$VERSION
 
