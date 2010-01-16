@@ -622,7 +622,7 @@ module Murmur
 		idempotent void removeUserFromGroup(int channelid, int session, string group) throws ServerBootedException, InvalidChannelException, InvalidSessionException;
 
 		/** Redirect whisper targets for user. If set, whenever a user tries to whisper to group "source", the whisper will be redirected to group "target".
-		 * This is intended for context groups.
+		 * To remove a redirect pass an empty target string. This is intended for context groups.
 		 * @param session Connection ID of user. See [User::session].
 		 * @param source Group name to redirect from.
 		 * @param target Group name to redirect to.
