@@ -661,3 +661,6 @@ void MainWindow::msgUserStats(const MumbleProto::UserStats &msg) {
 		ui->show();
 	}
 }
+
+void MainWindow::msgRequestBlob(const MumbleProto::RequestBlob &) {
+}
