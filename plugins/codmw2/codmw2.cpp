@@ -70,7 +70,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Call of Duty: Modern Warfare 2 Multiplayer v1.0.174). IP:Port context without team discriminator.", L"Mumble CoDMW2 MP Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Call of Duty: Modern Warfare 2 Multiplayer v1.0.175). IP:Port context without team discriminator.", L"Mumble CoDMW2 MP Plugin", MB_OK);
 }
 
 
@@ -96,26 +96,26 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 			0x007EE19D		byte	Magical state value
 	*/
-	ok = peekProc((BYTE *) 0x007EF19D, &state, 1); // Magical state value
+	ok = peekProc((BYTE *) 0x007F316C, &state, 1); // Magical state value
 	if (! ok)
 		return false;
 	/*
 		state value is:
 		0		while not in game
-		4		while playing
-		0		while spectating
+		1		while playing
+		5		while spectating
 
 		This value is used for disabling PA for spectators
 		or people not on a server.
 	*/
-	if (state != 4)
+	if (state != 1)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
-	ok = peekProc((BYTE *) 0x00862E5C, avatar_pos+2, 4) &&	//Z
-	     peekProc((BYTE *) 0x00862E60, avatar_pos, 4) &&	//X
-	     peekProc((BYTE *) 0x00862E64, avatar_pos+1, 4) && //Y
-	     peekProc((BYTE *) 0x00862E54, &viewHor, 4) && //Hor
-	     peekProc((BYTE *) 0x00862E50, &viewVer, 4); //Ver
+	ok = peekProc((BYTE *) 0x00863E5C, avatar_pos+2, 4) &&	//Z
+	     peekProc((BYTE *) 0x00863E60, avatar_pos, 4) &&	//X
+	     peekProc((BYTE *) 0x00863E64, avatar_pos+1, 4) && //Y
+	     peekProc((BYTE *) 0x00863E54, &viewHor, 4) && //Hor
+	     peekProc((BYTE *) 0x00863E50, &viewVer, 4); //Ver
 
 	if (! ok)
 		return false;
@@ -195,10 +195,10 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 MP v1.0.174 only. No identity support yet.");
+	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 MP v1.0.175 only. No identity support yet.");
 }
 
-static std::wstring description(L"Call of Duty: Modern Warfare 2 MP v1.0.174");
+static std::wstring description(L"Call of Duty: Modern Warfare 2 MP v1.0.175");
 static std::wstring shortname(L"Call of Duty: Modern Warfare 2 MP");
 
 static MumblePlugin codmw2plug = {
