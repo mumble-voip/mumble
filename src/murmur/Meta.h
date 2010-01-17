@@ -47,6 +47,7 @@ struct MetaParams {
 	int iMaxUsersPerChannel;
 	int iDefaultChan;
 	int iMaxTextMessageLength;
+	int iMaxImageMessageLength;
 	bool bAllowHTML;
 	QString qsPassword;
 	QString qsWelcomeText;

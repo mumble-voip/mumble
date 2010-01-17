@@ -193,6 +193,7 @@ class Server : public QThread {
 		int iMaxUsersPerChannel;
 		int iDefaultChan;
 		int iMaxTextMessageLength;
+		int iMaxImageMessageLength;
 		bool bAllowHTML;
 		QString qsPassword;
 		QString qsWelcomeText;
@@ -308,6 +309,7 @@ class Server : public QThread {
 
 		static void hashAssign(QString &destination, QByteArray &hash, const QString &str);
 		static void hashAssign(QByteArray &destination, QByteArray &hash, const QByteArray &source);
+		bool isTextAllowed(QString &str, bool &changed);
 
 		void setLiveConf(const QString &key, const QString &value);
 

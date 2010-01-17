@@ -108,7 +108,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 
 	iCodecAlpha = iCodecBeta = 0;
 	bPreferAlpha = false;
-	
+
 	qnamNetwork = NULL;
 
 	readParams();
@@ -311,6 +311,7 @@ void Server::readParams() {
 	iMaxUsers = Meta::mp.iMaxUsers;
 	iMaxUsersPerChannel = Meta::mp.iMaxUsersPerChannel;
 	iMaxTextMessageLength = Meta::mp.iMaxTextMessageLength;
+	iMaxImageMessageLength = Meta::mp.iMaxImageMessageLength;
 	bAllowHTML = Meta::mp.bAllowHTML;
 	iDefaultChan = Meta::mp.iDefaultChan;
 	qsWelcomeText = Meta::mp.qsWelcomeText;
@@ -359,6 +360,7 @@ void Server::readParams() {
 	iMaxUsers = getConf("users", iMaxUsers).toInt();
 	iMaxUsersPerChannel = getConf("usersperchannel", iMaxUsersPerChannel).toInt();
 	iMaxTextMessageLength = getConf("textmessagelength", iMaxTextMessageLength).toInt();
+	iMaxImageMessageLength = getConf("imagemessagelength", iMaxImageMessageLength).toInt();
 	bAllowHTML = getConf("allowhtml", bAllowHTML).toBool();
 	iDefaultChan = getConf("defaultchannel", iDefaultChan).toInt();
 	qsWelcomeText = getConf("welcometext", qsWelcomeText).toString();
@@ -390,6 +392,8 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		iMaxUsersPerChannel = i ? i : Meta::mp.iMaxUsersPerChannel;
 	else if (key == "textmessagelength")
 		iMaxTextMessageLength = i ? i : Meta::mp.iMaxTextMessageLength;
+	else if (key == "imagemessagelength")
+		iMaxImageMessageLength = i ? i : Meta::mp.iMaxImageMessageLength;
 	else if (key == "allowhtml")
 		bAllowHTML = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bAllowHTML;
 	else if (key == "defaultchannel")
@@ -485,7 +489,7 @@ int BandwidthRecord::bandwidth() const {
 	int records = 0;
 	quint64 elapsed = 0ULL;
 
-	for(int i=1;i<N_BANDWIDTH_SLOTS;++i) {
+	for (int i=1;i<N_BANDWIDTH_SLOTS;++i) {
 		int idx = (iRecNum + N_BANDWIDTH_SLOTS - i) % N_BANDWIDTH_SLOTS;
 		quint64 e = a_qtWhen[idx].elapsed();
 		if (e > 1000000ULL) {
@@ -1267,7 +1271,7 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 		Channel *target = dest;
 		while (target->cParent && ! hasPermission(static_cast<ServerUser *>(p), target, ChanACL::Enter))
 			target = target->cParent;
-		
+
 		MumbleProto::UserState mpus;
 		mpus.set_session(p->uiSession);
 		mpus.set_channel_id(target->iId);
@@ -1502,7 +1506,7 @@ void Server::recheckCodecVersions() {
 	QMap<int, unsigned int> qmCodecUsercount;
 	QMap<int, unsigned int>::const_iterator i;
 	int users = 0;
-	
+
 	// Count how many users use which codec
 	foreach(ServerUser *u, qhUsers) {
 		if (u->qlCodecs.isEmpty())
@@ -1570,4 +1574,83 @@ void Server::hashAssign(QByteArray &dest, QByteArray &hash, const QByteArray &sr
 		hash = sha1(dest);
 	else
 		hash = QByteArray();
+}
+
+bool Server::isTextAllowed(QString &text, bool &changed) {
+	changed = false;
+
+	if (! bAllowHTML) {
+		if (! text.contains(QLatin1Char('<'))) {
+			text = text.simplified();
+		} else {
+			QXmlStreamReader qxsr(QString::fromLatin1("<document>%1</document>").arg(text));
+			QString qs;
+			while (! qxsr.atEnd()) {
+				switch (qxsr.readNext()) {
+					case QXmlStreamReader::Invalid:
+						return false;
+					case QXmlStreamReader::Characters:
+						qs += qxsr.text();
+						break;
+					case QXmlStreamReader::EndElement:
+						if ((qxsr.name() == QLatin1String("br")) || (qxsr.name() == QLatin1String("p")))
+							qs += "\n";
+						break;
+					default:
+						break;
+				}
+			}
+			text = qs.simplified();
+		}
+		changed = true;
+		return ((iMaxTextMessageLength == 0) || (text.length() <= iMaxTextMessageLength));
+	} else {
+		int length = text.length();
+		
+		// No limits
+		if ((iMaxTextMessageLength == 0) && (iMaxImageMessageLength == 0))
+			return true;
+
+		// Over Image limit? (If so, always fail)
+		if ((iMaxImageMessageLength != 0) && (length > iMaxImageMessageLength))
+			return false;
+
+		// Under textlength?
+		if ((iMaxTextMessageLength == 0) || (length <= iMaxTextMessageLength))
+			return true;
+
+		// Over textlength, under imagelength. If no XML, this is a fail.
+		if (! text.contains(QLatin1Char('<')))
+			return false;
+
+		QString qsOut;
+		QXmlStreamReader qxsr(QString::fromLatin1("<document>%1</document>").arg(text));
+		QXmlStreamWriter qxsw(&qsOut);
+		while (! qxsr.atEnd()) {
+			switch (qxsr.readNext()) {
+				case QXmlStreamReader::Invalid:
+					return false;
+				case QXmlStreamReader::StartElement: {
+						if (qxsr.name() == QLatin1String("img")) {
+							QXmlStreamAttributes attr = qxsr.attributes();
+
+							qxsw.writeStartElement(qxsr.namespaceUri().toString(), qxsr.name().toString());
+							foreach(const QXmlStreamAttribute &a, qxsr.attributes())
+								if (a.name() != QLatin1String("src"))
+									qxsw.writeAttribute(a);
+						} else {
+							qxsw.writeCurrentToken(qxsr);
+						}
+					}
+					break;
+				default:
+					qxsw.writeCurrentToken(qxsr);
+					break;
+			}
+		}
+
+		length = qsOut.length();
+
+		return (length <= iMaxTextMessageLength);
+	}
 }

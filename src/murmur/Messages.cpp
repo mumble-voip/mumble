@@ -87,28 +87,6 @@
 		sendMessage(uSource, mppd); \
 	}
 
-static QString toPlainText(const QString &text) {
-	if (! text.contains(QLatin1Char('<')))
-		return text.simplified();
-
-	QXmlStreamReader qxsr(QString::fromLatin1("<document>%1</document>").arg(text));
-	QString qs;
-	while (! qxsr.atEnd()) {
-		switch (qxsr.readNext()) {
-			case QXmlStreamReader::Characters:
-				qs += qxsr.text();
-				break;
-			case QXmlStreamReader::EndElement:
-				if ((qxsr.name() == QLatin1String("br")) || (qxsr.name() == QLatin1String("p")))
-					qs += "\n";
-				break;
-			default:
-				break;
-		}
-	}
-	return qs.simplified();
-}
-
 void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg) {
 	if ((msg.tokens_size() > 0) || (uSource->sState == ServerUser::Authenticated)) {
 		QStringList qsl;
@@ -142,7 +120,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	MumbleProto::Reject_RejectType rtType = MumbleProto::Reject_RejectType_None;
 
 	if (! nameok && (uSource->iId == -1)) {
-		reason = "Invalid ServerUsername";
+		reason = "Invalid username";
 		rtType = MumbleProto::Reject_RejectType_InvalidUsername;
 	} else if (id==-1) {
 		reason = "Wrong password for user";
@@ -492,23 +470,30 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			return;
 		}
 	}
+	
+	QString comment;
 
 	if (msg.has_comment()) {
+		bool changed = false;
+		comment = u8(msg.comment());
 		if (uSource != pDstServerUser) {
 			if (! hasPermission(uSource, root, ChanACL::Move)) {
 				PERM_DENIED(uSource, root, ChanACL::Move);
 				return;
 			}
-			if (msg.comment().length() > 0) {
+			if (comment.length() > 0) {
 				PERM_DENIED_TYPE(TextTooLong);
 				return;
 			}
 		}
-
-		if (iMaxTextMessageLength > 0 && (msg.comment().length() > static_cast<unsigned int>(iMaxTextMessageLength))) {
+		
+		
+		if (! isTextAllowed(comment, changed)) {
 			PERM_DENIED_TYPE(TextTooLong);
 			return;
 		}
+		if (changed)
+			msg.set_comment(u8(comment));
 	}
 
 	if (msg.has_user_id()) {
@@ -560,15 +545,8 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		uSource->qsIdentity = u8(msg.plugin_identity());
 	}
 
-	if (msg.has_comment()) {
-		pDstServerUser->qsComment = u8(msg.comment());
-		
-		if (bAllowHTML) {
-			hashAssign(pDstServerUser->qsComment, pDstServerUser->qbaCommentHash, u8(msg.comment()));
-		} else {
-			hashAssign(pDstServerUser->qsComment, pDstServerUser->qbaCommentHash, toPlainText(u8(msg.comment())));
-			msg.set_comment(u8(pDstServerUser->qsComment));
-		}
+	if (! comment.isNull()) {
+		hashAssign(pDstServerUser->qsComment, pDstServerUser->qbaCommentHash, comment);
 
 		if (pDstServerUser->iId >= 0) {
 			QMap<int, QString> info;
@@ -702,15 +680,14 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 	QString qsName;
 	QString qsDesc;
 	if (msg.has_description()) {
-		if (iMaxTextMessageLength > 0 && (msg.description().length() > static_cast<unsigned int>(iMaxTextMessageLength))) {
+		qsDesc = u8(msg.description());
+		bool changed = false;
+		if (! isTextAllowed(qsDesc, changed)) {
 			PERM_DENIED_TYPE(TextTooLong);
 			return;
 		}
-		qsDesc = u8(msg.description());
-		if (! bAllowHTML) {
-			qsDesc = toPlainText(qsDesc);
+		if (changed)
 			msg.set_description(u8(qsDesc));
-		}
 	}
 
 	if (msg.has_name()) {
@@ -960,17 +937,17 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	QSet<ServerUser *> users;
 	QQueue<Channel *> q;
 
-	if (iMaxTextMessageLength > 0 && (msg.message().length() > static_cast<unsigned int>(iMaxTextMessageLength))) {
+	QString text = u8(msg.message());
+	bool changed = false;
+
+	if (! isTextAllowed(text, changed)) {
 		PERM_DENIED_TYPE(TextTooLong);
 		return;
 	}
-
-	if (! bAllowHTML) {
-		QString plain = toPlainText(u8(msg.message()));
-		if (plain.isEmpty())
-			return;
-		msg.set_message(u8(plain));
-	}
+	if (text.isEmpty())
+		return;
+	if (changed)
+		msg.set_message(u8(text));
 
 	{
 		char m[29] = {0117, 0160, 0145, 0156, 040, 0164, 0150, 0145, 040, 0160, 0157, 0144, 040, 0142, 0141, 0171, 040, 0144, 0157, 0157, 0162, 0163, 054, 040, 0110, 0101, 0114, 056, 0};

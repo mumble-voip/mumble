@@ -48,6 +48,7 @@ MetaParams::MetaParams() {
 	iMaxUsers = 1000;
 	iMaxUsersPerChannel = 0;
 	iMaxTextMessageLength = 5000;
+	iMaxImageMessageLength = 131072;
 	bAllowHTML = true;
 	iDefaultChan = 0;
 	qsWelcomeText = QString("Welcome to this server");
@@ -215,6 +216,7 @@ void MetaParams::read(QString fname) {
 	usPort = static_cast<unsigned short>(qsSettings->value("port", usPort).toUInt());
 	iTimeout = qsSettings->value("timeout", iTimeout).toInt();
 	iMaxTextMessageLength = qsSettings->value("textmessagelength", iMaxTextMessageLength).toInt();
+	iMaxImageMessageLength = qsSettings->value("imagemessagelength", iMaxImageMessageLength).toInt();
 	bAllowHTML = qsSettings->value("allowhtml", bAllowHTML).toBool();
 	iMaxBandwidth = qsSettings->value("bandwidth", iMaxBandwidth).toInt();
 	iDefaultChan = qsSettings->value("defaultchannel", iDefaultChan).toInt();
