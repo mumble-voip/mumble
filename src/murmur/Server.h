@@ -294,17 +294,20 @@ class Server : public QThread {
 		void flushClientPermissionCache(ServerUser *u, MumbleProto::PermissionQuery &mpqq);
 		void clearACLCache(User *p = NULL);
 
-		void sendProtoAll(const ::google::protobuf::Message &msg, unsigned int msgType);
-		void sendProtoExcept(ServerUser *, const ::google::protobuf::Message &msg, unsigned int msgType);
+		void sendProtoAll(const ::google::protobuf::Message &msg, unsigned int msgType, unsigned int minversion);
+		void sendProtoExcept(ServerUser *, const ::google::protobuf::Message &msg, unsigned int msgType, unsigned int minversion);
 		void sendProtoMessage(ServerUser *, const ::google::protobuf::Message &msg, unsigned int msgType);
 
 #define MUMBLE_MH_MSG(x) \
-		void sendAll(const MumbleProto:: x &msg) { sendProtoAll(msg, MessageHandler:: x); } \
-		void sendExcept(ServerUser *u, const MumbleProto:: x &msg) { sendProtoExcept(u, msg, MessageHandler:: x); } \
+		void sendAll(const MumbleProto:: x &msg, unsigned int v = 0) { sendProtoAll(msg, MessageHandler:: x, v); } \
+		void sendExcept(ServerUser *u, const MumbleProto:: x &msg, unsigned int v = 0) { sendProtoExcept(u, msg, MessageHandler:: x, v); } \
 		void sendMessage(ServerUser *u, const MumbleProto:: x &msg) { sendProtoMessage(u, msg, MessageHandler:: x); }
 
 		MUMBLE_MH_ALL
 #undef MUMBLE_MH_MSG
+
+		static void hashAssign(QString &destination, QByteArray &hash, const QString &str);
+		static void hashAssign(QByteArray &destination, QByteArray &hash, const QByteArray &source);
 
 		void setLiveConf(const QString &key, const QString &value);
 

@@ -71,6 +71,7 @@ message ChannelState {
 	repeated uint32 links_remove = 7;
 	optional bool temporary = 8 [default = false];
 	optional int32 position = 9 [default = 0];
+	optional bytes description_hash = 10;
 }
 
 message UserRemove {
@@ -96,6 +97,8 @@ message UserState {
 	optional string plugin_identity = 13;
 	optional string comment = 14;
 	optional string hash = 15;
+	optional bytes comment_hash = 16;
+	optional bytes texture_hash = 17;
 }
 
 message BanList {
@@ -255,4 +258,10 @@ message UserStats {
 	optional uint32 onlinesecs = 16;
 	optional uint32 idlesecs = 17;
 	optional bool strong_certificate = 18 [default = false];
+}
+
+message RequestBlob {
+	repeated uint32 session_texture = 1;
+	repeated uint32 session_comment = 2;
+	repeated uint32 channel_description = 3;
 }

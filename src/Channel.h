@@ -52,6 +52,7 @@ class Channel : public QObject {
 		Channel *cParent;
 		QString qsName;
 		QString qsDesc;
+		QByteArray qbaDescHash;
 		QList<Channel *> qlChannels;
 		QList<User *> qlUsers;
 		QHash<QString, Group *> qhGroups;

@@ -57,7 +57,8 @@
 	MUMBLE_MH_MSG(VoiceTarget) \
 	MUMBLE_MH_MSG(PermissionQuery) \
 	MUMBLE_MH_MSG(CodecVersion) \
-	MUMBLE_MH_MSG(UserStats)
+	MUMBLE_MH_MSG(UserStats) \
+	MUMBLE_MH_MSG(RequestBlob)
 
 class MessageHandler {
 	public:
@@ -81,6 +82,22 @@ inline QString u8(const ::std::wstring &str) {
 inline ::std::string u8(const QString &str) {
 	const QByteArray &qba = str.toUtf8();
 	return ::std::string(qba.constData(), qba.length());
+}
+
+inline QByteArray blob(const ::std::string &str) {
+	return QByteArray(str.data(), static_cast<int>(str.length()));
+}
+
+inline ::std::string blob(const QByteArray &str) {
+	return ::std::string(str.constData(), str.length());
+}
+
+inline QByteArray sha1(const QByteArray &blob) {
+	return QCryptographicHash::hash(blob, QCryptographicHash::Sha1);
+}
+
+inline QByteArray sha1(const QString &str) {
+	return QCryptographicHash::hash(str.toUtf8(), QCryptographicHash::Sha1);
 }
 
 #else

@@ -43,11 +43,13 @@ class User {
 		int iId;
 		QString qsName;
 		QString qsComment;
+		QByteArray qbaCommentHash;
 		QString qsHash;
 		bool bMute, bDeaf, bSuppress;
 		bool bSelfMute, bSelfDeaf;
 		Channel *cChannel;
 		QByteArray qbaTexture;
+		QByteArray qbaTextureHash;
 
 		User();
 		virtual ~User() {};

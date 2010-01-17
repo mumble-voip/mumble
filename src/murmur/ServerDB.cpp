@@ -762,7 +762,7 @@ int Server::authenticate(QString &name, const QString &pw, const QStringList &em
 	if (query.next()) {
 		res = -1;
 		QString storedpw = query.value(2).toString();
-		QString hashedpw = QString::fromLatin1(QCryptographicHash::hash(pw.toUtf8(), QCryptographicHash::Sha1).toHex());
+		QString hashedpw = QString::fromLatin1(sha1(pw).toHex());
 
 		if (! storedpw.isEmpty() && (storedpw == hashedpw)) {
 			name = query.value(1).toString();
@@ -932,8 +932,8 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 		tex = qCompress(tex);
 
 	ServerUser *u = qhUsers.value(id);
-	if (u)
-		u->qbaTexture = tex;
+	if (u) 
+		hashAssign(u->qbaTexture, u->qbaTextureHash, tex);
 
 	int res = -2;
 	emit setTextureSig(res, id, tex);
@@ -1248,7 +1248,7 @@ void Server::readChannelPrivs(Channel *c) {
 		int key = query.value(0).toInt();
 		const QString &value = query.value(1).toString();
 		if (key == ServerDB::Channel_Description) {
-			c->qsDesc = value;
+			hashAssign(c->qsDesc, c->qbaDescHash, value);
 		} else if (key == ServerDB::Channel_Position) {
 			c->iPosition = QVariant(value).toInt(); // If the conversion fails it'll return the default value 0
 		}

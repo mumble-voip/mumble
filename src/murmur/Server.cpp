@@ -108,7 +108,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 
 	iCodecAlpha = iCodecBeta = 0;
 	bPreferAlpha = false;
-
+	
 	qnamNetwork = NULL;
 
 	readParams();
@@ -1230,15 +1230,16 @@ void Server::sendProtoMessage(ServerUser *u, const ::google::protobuf::Message &
 	u->sendMessage(msg, msgType, cache);
 }
 
-void Server::sendProtoAll(const ::google::protobuf::Message &msg, unsigned int msgType) {
-	sendProtoExcept(NULL, msg, msgType);
+void Server::sendProtoAll(const ::google::protobuf::Message &msg, unsigned int msgType, unsigned int minversion) {
+	sendProtoExcept(NULL, msg, msgType, minversion);
 }
 
-void Server::sendProtoExcept(ServerUser *u, const ::google::protobuf::Message &msg, unsigned int msgType) {
+void Server::sendProtoExcept(ServerUser *u, const ::google::protobuf::Message &msg, unsigned int msgType, unsigned int minversion) {
 	QByteArray cache;
 	foreach(ServerUser *usr, qhUsers)
 		if ((usr != u) && (usr->sState == ServerUser::Authenticated))
-			usr->sendMessage(msg, msgType, cache);
+			if ((minversion == 0) || (usr->uiVersion >= minversion) || ((minversion & 0x80000000) && (usr->uiVersion < (~minversion))))
+				usr->sendMessage(msg, msgType, cache);
 }
 
 void Server::removeChannel(int id) {
@@ -1501,6 +1502,7 @@ void Server::recheckCodecVersions() {
 	QMap<int, unsigned int> qmCodecUsercount;
 	QMap<int, unsigned int>::const_iterator i;
 	int users = 0;
+	
 	// Count how many users use which codec
 	foreach(ServerUser *u, qhUsers) {
 		if (u->qlCodecs.isEmpty())
@@ -1552,4 +1554,20 @@ void Server::recheckCodecVersions() {
 	sendAll(mpcv);
 
 	log(QString::fromLatin1("CELT codec switch %1 %2 (prefer %3)").arg(iCodecAlpha,0,16).arg(iCodecBeta,0,16).arg(bPreferAlpha ? iCodecAlpha : iCodecBeta,0,16));
+}
+
+void Server::hashAssign(QString &dest, QByteArray &hash, const QString &src) {
+	dest = src;
+	if (src.length() > 128)
+		hash = sha1(dest);
+	else
+		hash = QByteArray();
+}
+
+void Server::hashAssign(QByteArray &dest, QByteArray &hash, const QByteArray &src) {
+	dest = src;
+	if (src.length() > 128)
+		hash = sha1(dest);
+	else
+		hash = QByteArray();
 }
