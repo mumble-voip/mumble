@@ -71,7 +71,7 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 	pUser->bDeaf = deaf;
 	pUser->bMute = mute;
 	pUser->bSuppress = suppressed;
-	pUser->qsComment = comment;
+	hashAssign(pUser->qsComment, pUser->qbaCommentHash, comment);
 
 	if (cChannel != pUser->cChannel) {
 		changed = true;
@@ -80,7 +80,13 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 	}
 
 	if (changed) {
-		sendAll(mpus);
+		sendAll(mpus, ~ 0x010202);
+		if (mpus.has_comment() && ! pUser->qbaCommentHash.isEmpty()) {
+			mpus.clear_comment();
+			mpus.set_comment_hash(blob(pUser->qbaCommentHash));
+		}
+		sendAll(mpus, 0x010202);
+
 		emit userStateChanged(pUser);
 	}
 }
@@ -148,14 +154,19 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 	if (! desc.isNull() && desc != cChannel->qsDesc) {
 		updated = true;
 		changed = true;
-		cChannel->qsDesc = desc;
+		hashAssign(cChannel->qsDesc, cChannel->qbaDescHash, desc);
 		mpcs.set_description(u8(desc));
 	}
 
 	if (updated)
 		updateChannel(cChannel);
 	if (changed) {
-		sendAll(mpcs);
+		sendAll(mpcs, ~ 0x010202);
+		if (mpcs.has_description() && ! cChannel->qbaDescHash.isEmpty()) {
+			mpcs.clear_description();
+			mpcs.set_description_hash(blob(cChannel->qbaDescHash));
+		}
+		sendAll(mpcs, 0x010202);
 		emit channelStateChanged(cChannel);
 	}
 

@@ -1320,10 +1320,25 @@ static void impl_Server_setTexture(const ::Murmur::AMD_Server_setTexturePtr cb, 
 	char *ptr = qba.data();
 	for (unsigned int i=0;i<tex.size();++i)
 		ptr[i] = tex[i];
-	if (! server->setTexture(userid, qba))
+	if (! server->setTexture(userid, qba)) {
 		cb->ice_exception(InvalidTextureException());
-	else
+	} else {
+		ServerUser *user = server->qhUsers.value(userid);
+		if (user) {
+			MumbleProto::UserState mpus;
+			mpus.set_session(user->uiSession);
+			mpus.set_texture(blob(user->qbaTexture));
+			
+			server->sendAll(mpus, ~0x010202);
+			if (! user->qbaTextureHash.isEmpty()) {
+				mpus.clear_texture();
+				mpus.set_texture_hash(blob(user->qbaTextureHash));
+			}
+			server->sendAll(mpus, 0x010202);
+		}
+
 		cb->ice_response();
+	}
 }
 
 static void impl_Server_addUserToGroup(const ::Murmur::AMD_Server_addUserToGroupPtr cb, int server_id, ::Ice::Int channelid,  ::Ice::Int session,  const ::std::string& group) {
