@@ -444,11 +444,21 @@ void Overlay::clearCache() {
 
 	qhTextures.clear();
 	qhWidths.clear();
+	qsForce.clear();
+	qsQueried.clear();
 }
 
 void Overlay::setTexts(const QList<TextLine> &lines) {
+	QSet<unsigned int> query;
+
 	foreach(const TextLine &e, lines) {
 		ClientUser *cp = ClientUser::get(e.uiSession);
+		if (g.s.bOverlayUserTextures && cp && ! cp->qbaTextureHash.isEmpty()) {
+			if (cp->qbaTexture.isEmpty() && ! qsQueried.contains(cp->uiSession))
+				query.insert(cp->uiSession);
+			else if (! cp->qbaTexture.isEmpty() && qsQueried.contains(cp->uiSession))
+				qsQueried.remove(cp->uiSession);
+		}
 		if ((! e.qsText.isEmpty()) && (! qhTextures.contains(e.qsText)) && !(g.s.bOverlayUserTextures && cp && cp->iTextureWidth)) {
 			unsigned char *td = new unsigned char[TEXTURE_SIZE];
 			memset(td, 0, TEXTURE_SIZE);
@@ -474,6 +484,15 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 			qhTextures[e.qsText] = td;
 			qhWidths[e.qsText] = qMin(static_cast<short>(qp.boundingRect().width()+6), static_cast<short>(TEXT_WIDTH));
 		}
+	}
+
+	if (! query.isEmpty()) {
+		MumbleProto::RequestBlob mprb;
+		foreach(unsigned int session, query) {
+			qsQueried.insert(session);
+			mprb.add_session_texture(session);
+		}
+		g.sh->sendMessage(mprb);
 	}
 
 	if (! sm.sm || ! sm.tryLock())

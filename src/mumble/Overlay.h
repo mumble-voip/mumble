@@ -113,6 +113,7 @@ class Overlay : public QObject {
 		QHash<QString, unsigned char *> qhTextures;
 		QHash<QString, short> qhWidths;
 		QSet<unsigned int> qsForce;
+		QSet<unsigned int> qsQueried;
 		QLibrary *qlOverlay;
 		QTimer *qtTimer;
 		QFont qfFont;
