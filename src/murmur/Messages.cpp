@@ -198,7 +198,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		uSource->qlCodecs.append(static_cast<qint32>(0x8000000a));
 	}
 	recheckCodecVersions();
-	
+
 	MumbleProto::CodecVersion mpcv;
 	mpcv.set_alpha(iCodecAlpha);
 	mpcv.set_beta(iCodecBeta);
@@ -263,24 +263,24 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		lc = root;
 
 	userEnterChannel(uSource, lc, mpus);
-	
+
 	uSource->sState = ServerUser::Authenticated;
 	mpus.set_session(uSource->uiSession);
 	mpus.set_name(u8(uSource->qsName));
 	if (uSource->iId >= 0) {
 		mpus.set_user_id(uSource->iId);
-		
+
 		hashAssign(uSource->qbaTexture, uSource->qbaTextureHash, getUserTexture(uSource->iId));
-		
-		if (! uSource->qbaTextureHash.isEmpty()) 
+
+		if (! uSource->qbaTextureHash.isEmpty())
 			mpus.set_texture_hash(blob(uSource->qbaTextureHash));
 		else if (! uSource->qbaTexture.isEmpty())
 			mpus.set_texture(std::string(uSource->qbaTexture.constData(), uSource->qbaTexture.size()));
 
 		const QMap<int, QString> &info = getRegistration(uSource->iId);
 		if (info.contains(ServerDB::User_Comment)) {
-			hashAssign(uSource->qsComment, uSource->qbaCommentHash, info.value(ServerDB::User_Comment)); 
-			if (! uSource->qbaCommentHash.isEmpty()) 
+			hashAssign(uSource->qsComment, uSource->qbaCommentHash, info.value(ServerDB::User_Comment));
+			if (! uSource->qbaCommentHash.isEmpty())
 				mpus.set_comment_hash(blob(uSource->qbaCommentHash));
 			else if (! uSource->qsComment.isEmpty())
 				mpus.set_comment(u8(uSource->qsComment));
@@ -303,7 +303,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	foreach(ServerUser *u, qhUsers) {
 		if (u->sState != ServerUser::Authenticated)
 			continue;
-			
+
 		if (u == uSource)
 			continue;
 
@@ -470,7 +470,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			return;
 		}
 	}
-	
+
 	QString comment;
 
 	if (msg.has_comment()) {
@@ -486,8 +486,8 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 				return;
 			}
 		}
-		
-		
+
+
 		if (! isTextAllowed(comment, changed)) {
 			PERM_DENIED_TYPE(TextTooLong);
 			return;
@@ -1469,10 +1469,10 @@ void Server::msgRequestBlob(ServerUser *uSource, MumbleProto::RequestBlob &msg) 
 	int ntextures = msg.session_texture_size();
 	int ncomments = msg.session_comment_size();
 	int ndescriptions = msg.channel_description_size();
-	
+
 	if (ndescriptions) {
 		MumbleProto::ChannelState mpcs;
-		for(int i=0;i<ndescriptions;++i) {
+		for (int i=0;i<ndescriptions;++i) {
 			int id = msg.channel_description(i);
 			Channel *c = qhChannels.value(id);
 			if (c && ! c->qsDesc.isEmpty()) {
@@ -1484,7 +1484,7 @@ void Server::msgRequestBlob(ServerUser *uSource, MumbleProto::RequestBlob &msg) 
 	}
 	if (ntextures || ncomments) {
 		MumbleProto::UserState mpus;
-		for(int i=0;i<ntextures;++i) {
+		for (int i=0;i<ntextures;++i) {
 			int session = msg.session_texture(i);
 			ServerUser *su = qhUsers.value(session);
 			if (su && ! su->qbaTexture.isEmpty()) {
@@ -1495,7 +1495,7 @@ void Server::msgRequestBlob(ServerUser *uSource, MumbleProto::RequestBlob &msg) 
 		}
 		if (ntextures)
 			mpus.clear_texture();
-		for(int i=0;i<ncomments;++i) {
+		for (int i=0;i<ncomments;++i) {
 			int session = msg.session_comment(i);
 			ServerUser *su = qhUsers.value(session);
 			if (su && ! su->qsComment.isEmpty()) {

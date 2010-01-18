@@ -207,7 +207,7 @@ MurmurIce::MurmurIce() {
 		communicator = Ice::initialize(idd);
 		if (! meta->mp.qsIceSecret.isEmpty()) {
 			::Ice::ImplicitContextPtr impl = communicator->getImplicitContext();
-			if (impl) 
+			if (impl)
 				impl->put("secret", u8(meta->mp.qsIceSecret));
 		}
 		adapter = communicator->createObjectAdapterWithEndpoints("Murmur", qPrintable(meta->mp.qsIceEndpoint));
@@ -1334,7 +1334,7 @@ static void impl_Server_setTexture(const ::Murmur::AMD_Server_setTexturePtr cb, 
 			MumbleProto::UserState mpus;
 			mpus.set_session(user->uiSession);
 			mpus.set_texture(blob(user->qbaTexture));
-			
+
 			server->sendAll(mpus, ~0x010202);
 			if (! user->qbaTextureHash.isEmpty()) {
 				mpus.clear_texture();

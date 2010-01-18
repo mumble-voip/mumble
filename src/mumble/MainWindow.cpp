@@ -448,8 +448,7 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &_pos, b
 			if (focus) {
 				qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(cmUid)));
 				qleChat->setFocus();
-			}
-			else {
+			} else {
 				qmUser->exec(_pos, NULL);
 			}
 		}
@@ -463,8 +462,7 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &_pos, b
 			if (focus) {
 				qtvUsers->setCurrentIndex(pmModel->index(Channel::get(cmCid)));
 				qleChat->setFocus();
-			}
-			else {
+			} else {
 				qmChannel->exec(_pos, NULL);
 			}
 		}

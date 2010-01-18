@@ -1228,12 +1228,6 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
         <translation>&lt;b&gt;Dette indstiller den minimale sikkerhedsmargen for flimmer-bufferen.&lt;/b&gt;&lt;br /&gt;Alt indgående lyd er buffet, og flimmer-bufferen prøver uafbrudt at presse bufferen til det minimale opretholdelige af dit netværk, så forsinkelsen kan være så lille som muligt. Dette indstiller den minimale buffer-størrelse der kan bruges. Hvis starten af sætninger, du hører, er meget flimrende, så forøg denne værdi.</translation>
     </message>
     <message>
-        <location/>
-        <source>Form</source>
-        <oldsource>jb</oldsource>
-        <translation type="unfinished">jb</translation>
-    </message>
-    <message>
         <source>vol</source>
         <translation type="obsolete">vol</translation>
     </message>
@@ -2231,12 +2225,17 @@ Mumble er under konstant udvikling, og udviklerteamet vil gerne fokusere på fun
         <translation>Udsteder</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+7"/>
+        <source>Expiry Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+34"/>
         <source>(none)</source>
         <translation>(ingen)</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+11"/>
         <source>Self-signed</source>
         <translation>Selv-signeret</translation>
     </message>
@@ -2307,6 +2306,11 @@ Mumble er under konstant udvikling, og udviklerteamet vil gerne fokusere på fun
         <location line="+43"/>
         <source>Mumble User</source>
         <translation>Mumble bruger</translation>
+    </message>
+    <message>
+        <location filename="main.cpp" line="+346"/>
+        <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3223,8 +3227,9 @@ Brugernavn der skal sendes til serveren. Vær opmærksom på at serveren kan hav
     </message>
     <message>
         <location line="+9"/>
-        <source>Please briefly describe what you were doing at the time of the crash</source>
-        <translation>Skriv venligst (på engelsk) i korte træk hvad du gjorde da Mumble gik ned</translation>
+        <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
+        <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
+        <translation type="unfinished">Skriv venligst (på engelsk) i korte træk hvad du gjorde da Mumble gik ned</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3322,7 +3327,7 @@ Brugernavn der skal sendes til serveren. Vær opmærksom på at serveren kan hav
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+83"/>
+        <location filename="Database.cpp" line="+84"/>
         <location line="+7"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
@@ -3724,12 +3729,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>serveren</translation>
     </message>
     <message>
-        <location line="+123"/>
+        <location line="+124"/>
         <source>[[ Text object too large to display ]]</source>
         <translation>[[ Tekstobjekt for stort til at blive vist ]]</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+35"/>
         <source>[Date changed to %1]
 </source>
         <translation>[Datoen skiftede til %1]
@@ -3739,7 +3744,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-349"/>
+        <location line="-356"/>
         <source>Toggle console for %1 events</source>
         <translation>Slå konsol til/fra for %1-hændelser</translation>
     </message>
@@ -4179,12 +4184,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1727"/>
+        <location line="+1731"/>
         <source>Root</source>
         <translation>Rod</translation>
     </message>
     <message>
-        <location line="-1683"/>
+        <location line="-1687"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryk-for-snak</translation>
@@ -4258,22 +4263,22 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location filename="MainWindow.ui"/>
         <location filename="MainWindow.cpp" line="+115"/>
-        <location line="+844"/>
+        <location line="+848"/>
         <location line="+179"/>
         <location line="+615"/>
-        <location filename="main.cpp" line="+313"/>
+        <location filename="main.cpp" line="-33"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1749"/>
+        <location filename="MainWindow.cpp" line="-1753"/>
         <location line="+12"/>
-        <location line="+1830"/>
+        <location line="+1834"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-1826"/>
+        <location line="-1830"/>
         <source>&amp;Window</source>
         <translation>&amp;Vindue</translation>
     </message>
@@ -4347,7 +4352,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1851"/>
+        <location line="+1855"/>
         <source>Not connected</source>
         <translation>Ingen forbindelse oprettet</translation>
     </message>
@@ -5636,12 +5641,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Du blev unmuted af %1.</translation>
     </message>
     <message>
-        <location line="+120"/>
+        <location line="+126"/>
         <source>%1 disconnected.</source>
         <translation>%1 afbrød forbindelsen.</translation>
     </message>
     <message>
-        <location line="+85"/>
+        <location line="+87"/>
         <source>Server</source>
         <comment>message from</comment>
         <translation>server</translation>
@@ -5662,7 +5667,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>%2%1: %3</translation>
     </message>
     <message>
-        <location line="-226"/>
+        <location line="-234"/>
         <source>You were unmuted by %1.</source>
         <translation>Du blev unmuted af %1.</translation>
     </message>
@@ -5702,18 +5707,18 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">serveren</translation>
     </message>
     <message>
-        <location line="+310"/>
+        <location line="+318"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Kunne ikke finde matchende CELT-codecs host andre klienter. Du vil ikke være i stand til at snakke med alle brugere.</translation>
     </message>
     <message>
-        <location line="-370"/>
+        <location line="-378"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Du blev muted og gjort døv af %1.</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+140"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Du blev kicked fra serveren af %1: %2.</translation>
     </message>
@@ -5733,7 +5738,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>%3 blev kicked og udelukket fra serveren af %1: %2.</translation>
     </message>
     <message>
-        <location line="-45"/>
+        <location line="-51"/>
         <source>You were moved to %1 by %2.</source>
         <translation>Du blev flyttet til %1 af %2.</translation>
     </message>
@@ -5757,12 +5762,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">Fra %1: %2</translation>
     </message>
     <message>
-        <location line="+306"/>
+        <location line="+314"/>
         <source>Message from %1</source>
         <translation>Besked fra %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1252"/>
+        <location filename="UserModel.cpp" line="+1342"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Du har kanalflytning sat til &quot;Gør intet&quot;, så kanalen blev ikke flyttet.</translation>
     </message>
@@ -6926,11 +6931,6 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     </message>
     <message>
         <location/>
-        <source>Ping variance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
         <source>TCP (Control)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7031,7 +7031,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+45"/>
         <source>%1 online (%2 idle)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7049,7 +7049,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-732"/>
+        <location filename="UserModel.cpp" line="-798"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Dette er en bruger, der har oprettet forbindelse til serveren. Ikonet til venstre for brugeren viser om vedkommende snakker:</translation>
     </message>
@@ -7174,7 +7174,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <translation>Flag</translation>
     </message>
     <message>
-        <location line="+649"/>
+        <location line="+715"/>
         <location line="+90"/>
         <location line="+20"/>
         <source>Mumble</source>

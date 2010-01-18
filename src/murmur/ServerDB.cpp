@@ -932,7 +932,7 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 		tex = qCompress(tex);
 
 	ServerUser *u = qhUsers.value(id);
-	if (u) 
+	if (u)
 		hashAssign(u->qbaTexture, u->qbaTextureHash, tex);
 
 	int res = -2;

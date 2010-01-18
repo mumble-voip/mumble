@@ -1606,7 +1606,7 @@ bool Server::isTextAllowed(QString &text, bool &changed) {
 		return ((iMaxTextMessageLength == 0) || (text.length() <= iMaxTextMessageLength));
 	} else {
 		int length = text.length();
-		
+
 		// No limits
 		if ((iMaxTextMessageLength == 0) && (iMaxImageMessageLength == 0))
 			return true;

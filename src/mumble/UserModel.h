@@ -92,7 +92,7 @@ class UserModel : public QAbstractItemModel {
 		ModelItem *miRoot;
 		QSet<Channel *> qsLinked;
 		QMap<QString, ClientUser *> qmHashes;
-		
+
 		unsigned int uiSessionComment;
 		int iChannelDescription;
 		bool bClicked;

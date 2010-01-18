@@ -2571,12 +2571,17 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+7"/>
+        <source>Expiry Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+34"/>
         <source>(none)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+11"/>
         <source>Self-signed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2646,6 +2651,11 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location line="+43"/>
         <source>Mumble User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.cpp" line="+346"/>
+        <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3655,7 +3665,8 @@ Username to send to the server. Be aware that the server can impose restrictions
     </message>
     <message>
         <location line="+9"/>
-        <source>Please briefly describe what you were doing at the time of the crash</source>
+        <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
+        <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3909,7 +3920,7 @@ Username to send to the server. Be aware that the server can impose restrictions
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+83"/>
+        <location filename="Database.cpp" line="+84"/>
         <location line="+7"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
@@ -4413,12 +4424,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+123"/>
+        <location line="+124"/>
         <source>[[ Text object too large to display ]]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+35"/>
         <source>[Date changed to %1]
 </source>
         <translation type="unfinished"></translation>
@@ -4427,7 +4438,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-349"/>
+        <location line="-356"/>
         <source>Toggle console for %1 events</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4867,7 +4878,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1727"/>
+        <location line="+1731"/>
         <source>Root</source>
         <translation>Корень</translation>
     </message>
@@ -5352,9 +5363,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Присоединяется к вебстранице Mumble, чтобы проверить доступность новой версии, и уведомляет вас о ссылке для закачки в этом случае.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1639"/>
+        <location filename="MainWindow.cpp" line="-1643"/>
         <location line="+12"/>
-        <location line="+1830"/>
+        <location line="+1834"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -5397,7 +5408,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&amp;Помощь</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1886"/>
+        <location filename="MainWindow.cpp" line="-1890"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Нажмите чтобы говорить</translation>
@@ -5491,7 +5502,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Выкидывание игрока %1</translation>
     </message>
     <message>
-        <location line="+874"/>
+        <location line="+878"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Введите причину</translation>
@@ -5502,11 +5513,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.ui"/>
-        <location filename="MainWindow.cpp" line="-768"/>
-        <location line="+844"/>
+        <location filename="MainWindow.cpp" line="-772"/>
+        <location line="+848"/>
         <location line="+179"/>
         <location line="+615"/>
-        <location filename="main.cpp" line="+313"/>
+        <location filename="main.cpp" line="-33"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -5726,12 +5737,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>С %1 снято глушение.</translation>
     </message>
     <message>
-        <location line="+156"/>
+        <location line="+162"/>
         <source>%1 disconnected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+85"/>
+        <location line="+87"/>
         <source>Server</source>
         <comment>message from</comment>
         <translation type="unfinished"></translation>
@@ -5756,7 +5767,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">сервер</translation>
     </message>
     <message>
-        <location line="-228"/>
+        <location line="-236"/>
         <source>You were muted by %1.</source>
         <translation>Вы заглушили %1.</translation>
     </message>
@@ -5806,12 +5817,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%2 снял глушение с %1.</translation>
     </message>
     <message>
-        <location line="+310"/>
+        <location line="+318"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-370"/>
+        <location line="-378"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation type="unfinished">На вас наложил онемение %1.</translation>
@@ -5831,7 +5842,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">С %1 снято онемение %2.</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+75"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Вы были выкинуты с сервера благодаря %1: %2.</translation>
     </message>
@@ -5851,7 +5862,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%3 был выкинут с сервера и забанен администратором %1: %2.</translation>
     </message>
     <message>
-        <location line="-45"/>
+        <location line="-51"/>
         <source>You were moved to %1 by %2.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5976,7 +5987,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+306"/>
+        <location filename="Messages.cpp" line="+314"/>
         <source>Message from %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6376,7 +6387,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1092"/>
+        <location filename="MainWindow.cpp" line="-1096"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6483,7 +6494,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+1851"/>
+        <location line="+1855"/>
         <source>Not connected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6498,7 +6509,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1252"/>
+        <location filename="UserModel.cpp" line="+1342"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7883,11 +7894,6 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location/>
-        <source>Ping variance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
         <source>TCP (Control)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7988,7 +7994,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+45"/>
         <source>%1 online (%2 idle)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8006,7 +8012,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-732"/>
+        <location filename="UserModel.cpp" line="-798"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8131,7 +8137,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished">Флаги</translation>
     </message>
     <message>
-        <location line="+649"/>
+        <location line="+715"/>
         <location line="+90"/>
         <location line="+20"/>
         <source>Mumble</source>

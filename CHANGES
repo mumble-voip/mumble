@@ -1,5 +1,58 @@
+2010-01-18
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    20e73fc  Texture on demand
+    56bff0a  Fetch comment/desc on demand
+    b1bb8a8  Show cert expiry in wizard, and warn on startup if cert
+	     expires in <14 days
+    5cd6a1b  Add icesecret .ini parameter to "protect" local Ice
+	     connections
+    c129ba4  Add imagemessagelength limit to server
+
+2010-01-17
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    731d293  Make the client compile, even if it's missing blob support
+    d89423b  On-demand stuff for Ice
+    60e7151  Serverside comment/texture send-on-demand
+
+2010-01-16
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    dd6a310  Round out the redirectWhisperGroup doc in Murmur.ice
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    d109910  Update to new naming for libcelt0
+    7ec36ab  Update CELT
+    814752a  Request CAP_SYS_RESOURCE and dynamically increase nofile on
+	     demand
+    3a50ef5  Clean up suppress state messages
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    ad0f30f  MW2 version update
+
+2010-01-15
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    838697d  Update LICENSE file for 2010
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    0fc5d55  Fix bandwidth estimate for UserInformation and Ice
+    8463c82  Increase userinfo update frequency and show stddev instead of
+	     variance
+
+2010-01-14
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    221626f  Make click on client/channel link focus the chat bar
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    e5fbc07  Fix stylesheets in log messages
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    2f2012f  Use Qt 4.6.0 for static server snapshots
+    31ff2e6  Use Protobuf 2.3.0 on Win32
+    a14e3f2  Specify that we want crashreport descriptions in English,
+	     please
+
 2010-01-13
   Thorvald Natvig <slicer@users.sourceforge.net>
+    daa8341  Don't set appusermodelid for 11x
     c876409  Include dxdiag in crashreport
 
 2010-01-12
@@ -19,6 +72,9 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     c12f127  Fix focus tracking hiccup on disconnect in chat bar
     09dd4a3  Fix mumble-auth.py for 1.2.0 (#2926521)
+
+  Natenom <natenom@googlemail.com>
+    759480f  Updated German Translations
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     0bfb9c7  Update comment in updateRegistration for connected users

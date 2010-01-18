@@ -63,7 +63,7 @@ CertView::CertView(QWidget *p) : QGroupBox(p) {
 
 	l = new QLabel(tr("Issuer"));
 	grid->addWidget(l, 2, 0, 1, 1, Qt::AlignRight);
-	
+
 	qlIssuerName = new QLabel();
 	qlIssuerName->setWordWrap(true);
 	grid->addWidget(qlIssuerName, 2, 1, 1, 1);
@@ -74,7 +74,7 @@ CertView::CertView(QWidget *p) : QGroupBox(p) {
 	qlExpiry = new QLabel();
 	qlExpiry->setWordWrap(true);
 	grid->addWidget(qlExpiry, 3, 1, 1, 1);
-	
+
 	grid->setColumnStretch(1, 1);
 }
 

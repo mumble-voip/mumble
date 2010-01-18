@@ -2562,7 +2562,8 @@
     </message>
     <message>
         <location line="+9"/>
-        <source>Please briefly describe what you were doing at the time of the crash</source>
+        <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
+        <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>

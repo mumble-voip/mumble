@@ -1,7 +1,7 @@
 void ::Murmur::ServerI::isRunning_async(const ::Murmur::AMD_Server_isRunningPtr &cb, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -12,7 +12,7 @@ void ::Murmur::ServerI::isRunning_async(const ::Murmur::AMD_Server_isRunningPtr 
 void ::Murmur::ServerI::start_async(const ::Murmur::AMD_Server_startPtr &cb, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -23,7 +23,7 @@ void ::Murmur::ServerI::start_async(const ::Murmur::AMD_Server_startPtr &cb, con
 void ::Murmur::ServerI::stop_async(const ::Murmur::AMD_Server_stopPtr &cb, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -34,7 +34,7 @@ void ::Murmur::ServerI::stop_async(const ::Murmur::AMD_Server_stopPtr &cb, const
 void ::Murmur::ServerI::delete_async(const ::Murmur::AMD_Server_deletePtr &cb, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -45,7 +45,7 @@ void ::Murmur::ServerI::delete_async(const ::Murmur::AMD_Server_deletePtr &cb, c
 void ::Murmur::ServerI::id_async(const ::Murmur::AMD_Server_idPtr &cb, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -56,7 +56,7 @@ void ::Murmur::ServerI::id_async(const ::Murmur::AMD_Server_idPtr &cb, const ::I
 void ::Murmur::ServerI::addCallback_async(const ::Murmur::AMD_Server_addCallbackPtr &cb,  const ::Murmur::ServerCallbackPrx& p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -67,7 +67,7 @@ void ::Murmur::ServerI::addCallback_async(const ::Murmur::AMD_Server_addCallback
 void ::Murmur::ServerI::removeCallback_async(const ::Murmur::AMD_Server_removeCallbackPtr &cb,  const ::Murmur::ServerCallbackPrx& p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -78,7 +78,7 @@ void ::Murmur::ServerI::removeCallback_async(const ::Murmur::AMD_Server_removeCa
 void ::Murmur::ServerI::setAuthenticator_async(const ::Murmur::AMD_Server_setAuthenticatorPtr &cb,  const ::Murmur::ServerAuthenticatorPrx& p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -89,7 +89,7 @@ void ::Murmur::ServerI::setAuthenticator_async(const ::Murmur::AMD_Server_setAut
 void ::Murmur::ServerI::getConf_async(const ::Murmur::AMD_Server_getConfPtr &cb,  const ::std::string& p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -100,7 +100,7 @@ void ::Murmur::ServerI::getConf_async(const ::Murmur::AMD_Server_getConfPtr &cb,
 void ::Murmur::ServerI::getAllConf_async(const ::Murmur::AMD_Server_getAllConfPtr &cb, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -111,7 +111,7 @@ void ::Murmur::ServerI::getAllConf_async(const ::Murmur::AMD_Server_getAllConfPt
 void ::Murmur::ServerI::setConf_async(const ::Murmur::AMD_Server_setConfPtr &cb,  const ::std::string& p1,  const ::std::string& p2, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -122,7 +122,7 @@ void ::Murmur::ServerI::setConf_async(const ::Murmur::AMD_Server_setConfPtr &cb,
 void ::Murmur::ServerI::setSuperuserPassword_async(const ::Murmur::AMD_Server_setSuperuserPasswordPtr &cb,  const ::std::string& p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -133,7 +133,7 @@ void ::Murmur::ServerI::setSuperuserPassword_async(const ::Murmur::AMD_Server_se
 void ::Murmur::ServerI::getLog_async(const ::Murmur::AMD_Server_getLogPtr &cb,  ::Ice::Int p1,  ::Ice::Int p2, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -144,7 +144,7 @@ void ::Murmur::ServerI::getLog_async(const ::Murmur::AMD_Server_getLogPtr &cb,  
 void ::Murmur::ServerI::getUsers_async(const ::Murmur::AMD_Server_getUsersPtr &cb, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -155,7 +155,7 @@ void ::Murmur::ServerI::getUsers_async(const ::Murmur::AMD_Server_getUsersPtr &c
 void ::Murmur::ServerI::getChannels_async(const ::Murmur::AMD_Server_getChannelsPtr &cb, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -166,7 +166,7 @@ void ::Murmur::ServerI::getChannels_async(const ::Murmur::AMD_Server_getChannels
 void ::Murmur::ServerI::getCertificateList_async(const ::Murmur::AMD_Server_getCertificateListPtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -177,7 +177,7 @@ void ::Murmur::ServerI::getCertificateList_async(const ::Murmur::AMD_Server_getC
 void ::Murmur::ServerI::getTree_async(const ::Murmur::AMD_Server_getTreePtr &cb, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -188,7 +188,7 @@ void ::Murmur::ServerI::getTree_async(const ::Murmur::AMD_Server_getTreePtr &cb,
 void ::Murmur::ServerI::getBans_async(const ::Murmur::AMD_Server_getBansPtr &cb, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -199,7 +199,7 @@ void ::Murmur::ServerI::getBans_async(const ::Murmur::AMD_Server_getBansPtr &cb,
 void ::Murmur::ServerI::setBans_async(const ::Murmur::AMD_Server_setBansPtr &cb,  const ::Murmur::BanList& p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -210,7 +210,7 @@ void ::Murmur::ServerI::setBans_async(const ::Murmur::AMD_Server_setBansPtr &cb,
 void ::Murmur::ServerI::kickUser_async(const ::Murmur::AMD_Server_kickUserPtr &cb,  ::Ice::Int p1,  const ::std::string& p2, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -221,7 +221,7 @@ void ::Murmur::ServerI::kickUser_async(const ::Murmur::AMD_Server_kickUserPtr &c
 void ::Murmur::ServerI::getState_async(const ::Murmur::AMD_Server_getStatePtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -232,7 +232,7 @@ void ::Murmur::ServerI::getState_async(const ::Murmur::AMD_Server_getStatePtr &c
 void ::Murmur::ServerI::setState_async(const ::Murmur::AMD_Server_setStatePtr &cb,  const ::Murmur::User& p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -243,7 +243,7 @@ void ::Murmur::ServerI::setState_async(const ::Murmur::AMD_Server_setStatePtr &c
 void ::Murmur::ServerI::sendMessage_async(const ::Murmur::AMD_Server_sendMessagePtr &cb,  ::Ice::Int p1,  const ::std::string& p2, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -254,7 +254,7 @@ void ::Murmur::ServerI::sendMessage_async(const ::Murmur::AMD_Server_sendMessage
 void ::Murmur::ServerI::hasPermission_async(const ::Murmur::AMD_Server_hasPermissionPtr &cb,  ::Ice::Int p1,  ::Ice::Int p2,  ::Ice::Int p3, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -265,7 +265,7 @@ void ::Murmur::ServerI::hasPermission_async(const ::Murmur::AMD_Server_hasPermis
 void ::Murmur::ServerI::addContextCallback_async(const ::Murmur::AMD_Server_addContextCallbackPtr &cb,  ::Ice::Int p1,  const ::std::string& p2,  const ::std::string& p3,  const ::Murmur::ServerContextCallbackPrx& p4,  ::Ice::Int p5, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -276,7 +276,7 @@ void ::Murmur::ServerI::addContextCallback_async(const ::Murmur::AMD_Server_addC
 void ::Murmur::ServerI::removeContextCallback_async(const ::Murmur::AMD_Server_removeContextCallbackPtr &cb,  const ::Murmur::ServerContextCallbackPrx& p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -287,7 +287,7 @@ void ::Murmur::ServerI::removeContextCallback_async(const ::Murmur::AMD_Server_r
 void ::Murmur::ServerI::getChannelState_async(const ::Murmur::AMD_Server_getChannelStatePtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -298,7 +298,7 @@ void ::Murmur::ServerI::getChannelState_async(const ::Murmur::AMD_Server_getChan
 void ::Murmur::ServerI::setChannelState_async(const ::Murmur::AMD_Server_setChannelStatePtr &cb,  const ::Murmur::Channel& p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -309,7 +309,7 @@ void ::Murmur::ServerI::setChannelState_async(const ::Murmur::AMD_Server_setChan
 void ::Murmur::ServerI::removeChannel_async(const ::Murmur::AMD_Server_removeChannelPtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -320,7 +320,7 @@ void ::Murmur::ServerI::removeChannel_async(const ::Murmur::AMD_Server_removeCha
 void ::Murmur::ServerI::addChannel_async(const ::Murmur::AMD_Server_addChannelPtr &cb,  const ::std::string& p1,  ::Ice::Int p2, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -331,7 +331,7 @@ void ::Murmur::ServerI::addChannel_async(const ::Murmur::AMD_Server_addChannelPt
 void ::Murmur::ServerI::sendMessageChannel_async(const ::Murmur::AMD_Server_sendMessageChannelPtr &cb,  ::Ice::Int p1,  bool p2,  const ::std::string& p3, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -342,7 +342,7 @@ void ::Murmur::ServerI::sendMessageChannel_async(const ::Murmur::AMD_Server_send
 void ::Murmur::ServerI::getACL_async(const ::Murmur::AMD_Server_getACLPtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -353,7 +353,7 @@ void ::Murmur::ServerI::getACL_async(const ::Murmur::AMD_Server_getACLPtr &cb,  
 void ::Murmur::ServerI::setACL_async(const ::Murmur::AMD_Server_setACLPtr &cb,  ::Ice::Int p1,  const ::Murmur::ACLList& p2,  const ::Murmur::GroupList& p3,  bool p4, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -364,7 +364,7 @@ void ::Murmur::ServerI::setACL_async(const ::Murmur::AMD_Server_setACLPtr &cb,  
 void ::Murmur::ServerI::addUserToGroup_async(const ::Murmur::AMD_Server_addUserToGroupPtr &cb,  ::Ice::Int p1,  ::Ice::Int p2,  const ::std::string& p3, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -375,7 +375,7 @@ void ::Murmur::ServerI::addUserToGroup_async(const ::Murmur::AMD_Server_addUserT
 void ::Murmur::ServerI::removeUserFromGroup_async(const ::Murmur::AMD_Server_removeUserFromGroupPtr &cb,  ::Ice::Int p1,  ::Ice::Int p2,  const ::std::string& p3, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -386,7 +386,7 @@ void ::Murmur::ServerI::removeUserFromGroup_async(const ::Murmur::AMD_Server_rem
 void ::Murmur::ServerI::redirectWhisperGroup_async(const ::Murmur::AMD_Server_redirectWhisperGroupPtr &cb,  ::Ice::Int p1,  const ::std::string& p2,  const ::std::string& p3, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -397,7 +397,7 @@ void ::Murmur::ServerI::redirectWhisperGroup_async(const ::Murmur::AMD_Server_re
 void ::Murmur::ServerI::getUserNames_async(const ::Murmur::AMD_Server_getUserNamesPtr &cb,  const ::Murmur::IdList& p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -408,7 +408,7 @@ void ::Murmur::ServerI::getUserNames_async(const ::Murmur::AMD_Server_getUserNam
 void ::Murmur::ServerI::getUserIds_async(const ::Murmur::AMD_Server_getUserIdsPtr &cb,  const ::Murmur::NameList& p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -419,7 +419,7 @@ void ::Murmur::ServerI::getUserIds_async(const ::Murmur::AMD_Server_getUserIdsPt
 void ::Murmur::ServerI::registerUser_async(const ::Murmur::AMD_Server_registerUserPtr &cb,  const ::Murmur::UserInfoMap& p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -430,7 +430,7 @@ void ::Murmur::ServerI::registerUser_async(const ::Murmur::AMD_Server_registerUs
 void ::Murmur::ServerI::unregisterUser_async(const ::Murmur::AMD_Server_unregisterUserPtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -441,7 +441,7 @@ void ::Murmur::ServerI::unregisterUser_async(const ::Murmur::AMD_Server_unregist
 void ::Murmur::ServerI::updateRegistration_async(const ::Murmur::AMD_Server_updateRegistrationPtr &cb,  ::Ice::Int p1,  const ::Murmur::UserInfoMap& p2, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -452,7 +452,7 @@ void ::Murmur::ServerI::updateRegistration_async(const ::Murmur::AMD_Server_upda
 void ::Murmur::ServerI::getRegistration_async(const ::Murmur::AMD_Server_getRegistrationPtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -463,7 +463,7 @@ void ::Murmur::ServerI::getRegistration_async(const ::Murmur::AMD_Server_getRegi
 void ::Murmur::ServerI::getRegisteredUsers_async(const ::Murmur::AMD_Server_getRegisteredUsersPtr &cb,  const ::std::string& p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -474,7 +474,7 @@ void ::Murmur::ServerI::getRegisteredUsers_async(const ::Murmur::AMD_Server_getR
 void ::Murmur::ServerI::verifyPassword_async(const ::Murmur::AMD_Server_verifyPasswordPtr &cb,  const ::std::string& p1,  const ::std::string& p2, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -485,7 +485,7 @@ void ::Murmur::ServerI::verifyPassword_async(const ::Murmur::AMD_Server_verifyPa
 void ::Murmur::ServerI::getTexture_async(const ::Murmur::AMD_Server_getTexturePtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -496,7 +496,7 @@ void ::Murmur::ServerI::getTexture_async(const ::Murmur::AMD_Server_getTexturePt
 void ::Murmur::ServerI::setTexture_async(const ::Murmur::AMD_Server_setTexturePtr &cb,  ::Ice::Int p1,  const ::Murmur::Texture& p2, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -507,7 +507,7 @@ void ::Murmur::ServerI::setTexture_async(const ::Murmur::AMD_Server_setTexturePt
 void ::Murmur::MetaI::getServer_async(const ::Murmur::AMD_Meta_getServerPtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -518,7 +518,7 @@ void ::Murmur::MetaI::getServer_async(const ::Murmur::AMD_Meta_getServerPtr &cb,
 void ::Murmur::MetaI::newServer_async(const ::Murmur::AMD_Meta_newServerPtr &cb, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -529,7 +529,7 @@ void ::Murmur::MetaI::newServer_async(const ::Murmur::AMD_Meta_newServerPtr &cb,
 void ::Murmur::MetaI::getBootedServers_async(const ::Murmur::AMD_Meta_getBootedServersPtr &cb, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -540,7 +540,7 @@ void ::Murmur::MetaI::getBootedServers_async(const ::Murmur::AMD_Meta_getBootedS
 void ::Murmur::MetaI::getAllServers_async(const ::Murmur::AMD_Meta_getAllServersPtr &cb, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -551,7 +551,7 @@ void ::Murmur::MetaI::getAllServers_async(const ::Murmur::AMD_Meta_getAllServers
 void ::Murmur::MetaI::getDefaultConf_async(const ::Murmur::AMD_Meta_getDefaultConfPtr &cb, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -562,7 +562,7 @@ void ::Murmur::MetaI::getDefaultConf_async(const ::Murmur::AMD_Meta_getDefaultCo
 void ::Murmur::MetaI::getVersion_async(const ::Murmur::AMD_Meta_getVersionPtr &cb, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -573,7 +573,7 @@ void ::Murmur::MetaI::getVersion_async(const ::Murmur::AMD_Meta_getVersionPtr &c
 void ::Murmur::MetaI::addCallback_async(const ::Murmur::AMD_Meta_addCallbackPtr &cb,  const ::Murmur::MetaCallbackPrx& p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}
@@ -584,7 +584,7 @@ void ::Murmur::MetaI::addCallback_async(const ::Murmur::AMD_Meta_addCallbackPtr 
 void ::Murmur::MetaI::removeCallback_async(const ::Murmur::AMD_Meta_removeCallbackPtr &cb,  const ::Murmur::MetaCallbackPrx& p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
-		if((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
 			cb->ice_exception(InvalidSecretException());
 			return;
 		}

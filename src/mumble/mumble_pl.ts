@@ -1550,12 +1550,6 @@ przechwytywania źródeł dźwięku</translation>
     </message>
     <message>
         <location/>
-        <source>Form</source>
-        <oldsource>jb</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
         <source>Attenuate applications by...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2461,12 +2455,17 @@ Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do p
         <translation>Wystawca</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+7"/>
+        <source>Expiry Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+34"/>
         <source>(none)</source>
         <translation>(brak)</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+11"/>
         <source>Self-signed</source>
         <translation>Własnoręcznie podpisany</translation>
     </message>
@@ -2537,6 +2536,11 @@ Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do p
         <location line="+43"/>
         <source>Mumble User</source>
         <translation>Użytkownik Mumble</translation>
+    </message>
+    <message>
+        <location filename="main.cpp" line="+346"/>
+        <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3668,8 +3672,9 @@ Nazwa użytkownika na serwerze. Zwróć uwagę na to, że serwer może zablokowa
     </message>
     <message>
         <location line="+9"/>
-        <source>Please briefly describe what you were doing at the time of the crash</source>
-        <translation>Prosimy o krótki opis czynności, które wykonywałeś podczas wystąpienia błędu</translation>
+        <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
+        <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
+        <translation type="unfinished">Prosimy o krótki opis czynności, które wykonywałeś podczas wystąpienia błędu</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3767,7 +3772,7 @@ Nazwa użytkownika na serwerze. Zwróć uwagę na to, że serwer może zablokowa
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+83"/>
+        <location filename="Database.cpp" line="+84"/>
         <location line="+7"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
@@ -4285,12 +4290,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+123"/>
+        <location line="+124"/>
         <source>[[ Text object too large to display ]]</source>
         <translation>[[ Obiekt tekstowy jest zbyt duży, aby go wyświetlić ]]</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+35"/>
         <source>[Date changed to %1]
 </source>
         <translation>[Data zmieniona na %1]</translation>
@@ -4299,7 +4304,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-349"/>
+        <location line="-356"/>
         <source>Toggle console for %1 events</source>
         <translation>Włącz konsolę dla zdarzeń: %1</translation>
     </message>
@@ -4802,7 +4807,7 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1727"/>
+        <location line="+1731"/>
         <source>Root</source>
         <translation>Źródło</translation>
     </message>
@@ -5307,9 +5312,9 @@ p, li { white-space: pre-wrap; }
         <translation>Usuwa obecną teksturę z nakładki.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1639"/>
+        <location filename="MainWindow.cpp" line="-1643"/>
         <location line="+12"/>
-        <location line="+1830"/>
+        <location line="+1834"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -5364,16 +5369,16 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     </message>
     <message>
         <location filename="MainWindow.ui"/>
-        <location filename="MainWindow.cpp" line="-768"/>
-        <location line="+844"/>
+        <location filename="MainWindow.cpp" line="-772"/>
+        <location line="+848"/>
         <location line="+179"/>
         <location line="+615"/>
-        <location filename="main.cpp" line="+313"/>
+        <location filename="main.cpp" line="-33"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1791"/>
+        <location filename="MainWindow.cpp" line="-1795"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
         <translation>Naciśnij i przytrzymaj ten przycisk, aby transmitować głos.</translation>
@@ -5419,7 +5424,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation type="obsolete">Zmień opis kanału %1</translation>
     </message>
     <message>
-        <location line="+1320"/>
+        <location line="+1324"/>
         <source>Unmuted and undeafened.</source>
         <translation>Słuchawki i mikrofon ponownie działają.</translation>
     </message>
@@ -5571,12 +5576,12 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>%1 przeniesiony z %2 przez %3.</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+40"/>
         <source>%1 disconnected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="+90"/>
         <source>(Tree) </source>
         <translation type="unfinished"></translation>
     </message>
@@ -5605,7 +5610,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Nie udało się odnaleźć pasujących kodeków CELT. Nie będziesz mógł rozmawiać do wszystkich użytkowników.</translation>
     </message>
     <message>
-        <location line="-389"/>
+        <location line="-397"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 ma teraz wyciszone słuchawki i mikrofon.</translation>
     </message>
@@ -5732,7 +5737,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>%2 wyłączył wyciszenie słuchawek %1.</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+75"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Zostałeś wykopany z serwera przez %1. Z powodu: %2.</translation>
     </message>
@@ -5752,7 +5757,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>%3 dostał bana od %1 z powodu: %2.</translation>
     </message>
     <message>
-        <location line="-45"/>
+        <location line="-51"/>
         <source>You were moved to %1 by %2.</source>
         <translation>Zostałeś przeniesiony do kanału %1 przez %2.</translation>
     </message>
@@ -5797,7 +5802,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Witamy w Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-560"/>
+        <location filename="MainWindow.cpp" line="-564"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Aktywacja przyciskiem</translation>
@@ -5868,7 +5873,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Wyłącz wtyczki</translation>
     </message>
     <message>
-        <location line="+380"/>
+        <location line="+384"/>
         <location line="+151"/>
         <source>Connecting to server %1.</source>
         <translation>Łączenie z serwerem %1.</translation>
@@ -6115,7 +6120,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation type="obsolete">Od %1: %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+306"/>
+        <location filename="Messages.cpp" line="+314"/>
         <source>Message from %1</source>
         <translation>Wiadomość od %1</translation>
     </message>
@@ -6271,7 +6276,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Otwieranie adresu %1</translation>
     </message>
     <message>
-        <location line="-292"/>
+        <location line="-296"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Wycisz swój mikrofon</translation>
@@ -6319,7 +6324,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1851"/>
+        <location line="+1855"/>
         <source>Not connected</source>
         <translation>Nie połączony</translation>
     </message>
@@ -6489,7 +6494,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation type="obsolete">Połączony z serwerem %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1092"/>
+        <location filename="MainWindow.cpp" line="-1096"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>&lt;b&gt;UWAGA!&lt;/b&gt; Mumble jest obecnie połączony z serwerem. Chcesz zakończyć czy zminimalizować program?</translation>
     </message>
@@ -6557,12 +6562,12 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Głośność w dół (-10%)</translation>
     </message>
     <message>
-        <location line="+255"/>
+        <location line="+259"/>
         <source>Clear</source>
         <translation>Wyczyść</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1252"/>
+        <location filename="UserModel.cpp" line="+1342"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation type="unfinished">Przeciąganie kanału masz ustatwione na &quot;wyłącz opcje przeciągania kanałów&quot; dlatego nie zostałeś przeniesiony.</translation>
     </message>
@@ -7883,11 +7888,6 @@ Hasło dostępu to tekst, ktory może być użyty jako hasło do bardzo łatwego
     </message>
     <message>
         <location/>
-        <source>Ping variance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
         <source>TCP (Control)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7988,7 +7988,7 @@ Hasło dostępu to tekst, ktory może być użyty jako hasło do bardzo łatwego
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+45"/>
         <source>%1 online (%2 idle)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8006,7 +8006,7 @@ Hasło dostępu to tekst, ktory może być użyty jako hasło do bardzo łatwego
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-732"/>
+        <location filename="UserModel.cpp" line="-798"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>To jest użytkownik podłączony do serwera. Ikona po lewej wskazuje czy w chwili obecnej:</translation>
     </message>
@@ -8131,7 +8131,7 @@ Hasło dostępu to tekst, ktory może być użyty jako hasło do bardzo łatwego
         <translation>Atrybut(y)</translation>
     </message>
     <message>
-        <location line="+649"/>
+        <location line="+715"/>
         <location line="+90"/>
         <location line="+20"/>
         <source>Mumble</source>
