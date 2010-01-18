@@ -198,12 +198,18 @@ MurmurIce::MurmurIce() {
 	for (i=props.begin(); i != props.end(); ++i) {
 		ipp->setProperty((*i).first, (*i).second);
 	}
+	ipp->setProperty("Ice.ImplicitContext", "Shared");
 
 	Ice::InitializationData idd;
 	idd.properties = ipp;
 
 	try {
 		communicator = Ice::initialize(idd);
+		if (! meta->mp.qsIceSecret.isEmpty()) {
+			::Ice::ImplicitContextPtr impl = communicator->getImplicitContext();
+			if (impl) 
+				impl->put("secret", u8(meta->mp.qsIceSecret));
+		}
 		adapter = communicator->createObjectAdapterWithEndpoints("Murmur", qPrintable(meta->mp.qsIceEndpoint));
 		MetaPtr m = new MetaI;
 		MetaPrx mprx = MetaPrx::uncheckedCast(adapter->add(m, communicator->stringToIdentity("Meta")));

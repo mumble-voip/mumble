@@ -32,6 +32,8 @@ class ServerCallbackI(Murmur.ServerCallback):
          hash.update(cert)
          cert = X509.load_cert_der_string(cert)
          print cert.get_subject(), "issued by", cert.get_issuer(), "hash", hash.hexdigest()
+      if current:
+        print current.ctx
 
     def userDisconnected(self, p, current=None):
       print "disconnected"
@@ -72,11 +74,20 @@ class ServerContextCallbackI(Murmur.ServerContextCallback):
 if __name__ == "__main__":
     global contextR
 
+    prop = Ice.createProperties(sys.argv)
+    prop.setProperty("Ice.ImplicitContext", "Shared")
+
+    idd = Ice.InitializationData()
+    idd.properties = prop
+
+    ice = Ice.initialize(idd)
+
     print "Creating callbacks...",
-    ice = Ice.initialize(sys.argv)
+
+    # If icesecret is set, we need to set it here as well.
+    ice.getImplicitContext().put("secret", "fourtytwo")
 
     meta = Murmur.MetaPrx.checkedCast(ice.stringToProxy('Meta:tcp -h 127.0.0.1 -p 6502'))
-
     adapter = ice.createObjectAdapterWithEndpoints("Callback.Client", "tcp -h 127.0.0.1")
 
     metaR=Murmur.MetaCallbackPrx.uncheckedCast(adapter.addWithUUID(MetaCallbackI()))

@@ -237,6 +237,8 @@ module Murmur
 	exception InvalidTextureException extends MurmurException {};
 	/** This is thrown when you supply an invalid callback. */
 	exception InvalidCallbackException extends MurmurException {};
+	/**  This is thrown when you supply the wrong secret in the calling context. */
+	exception InvalidSecretException extends MurmurException {};
 
 	/** Callback interface for servers. You can supply an implementation of this to receive notification
 	 *  messages from the server.

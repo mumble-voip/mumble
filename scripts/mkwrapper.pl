@@ -18,6 +18,13 @@ sub func($$\@\@\@) {
 
     print I "void ::Murmur::${class}I::${func}_async(". join(", ", @{$wrapargs}).") {\n";
 #    print I "\tqWarning(\"CALL ${func}\");\n";
+    print I "\tif (! meta->mp.qsIceSecret.isEmpty()) {\n";
+    print I "\t\t::Ice::Context::const_iterator i = current.ctx.find(\"secret\");\n";
+    print I "\t\tif((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {\n";
+    print I "\t\t\tcb->ice_exception(InvalidSecretException());\n";
+    print I "\t\t\treturn;\n";
+    print I "\t\t}\n";
+    print I "\t}\n";
     print I "\tExecEvent *ie = new ExecEvent(boost::bind(&impl_${class}_$func, " . join(", ", @${callargs})."));\n";
     print I "\tQCoreApplication::instance()->postEvent(mi, ie);\n";
     print I "};\n";
