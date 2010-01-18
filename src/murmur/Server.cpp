@@ -120,7 +120,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 		connect(ss, SIGNAL(newConnection()), this, SLOT(newClient()), Qt::QueuedConnection);
 
 		if (! ss->listen(qha, usPort)) {
-			log(QString("Server: TCP Listen on %1 failed").arg(addressToString(qha,usPort)));
+			log(QString("Server: TCP Listen on %1 failed: %2").arg(addressToString(qha,usPort), ss->errorString()));
 			bValid = false;
 		} else {
 			log(QString("Server listening on %1").arg(addressToString(qha,usPort)));
