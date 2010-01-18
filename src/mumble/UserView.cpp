@@ -159,8 +159,8 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 		UserModel *um = static_cast<UserModel *>(model());
 		ClientUser *cu = um->getUser(idx);
 		Channel * c = um->getChannel(idx);
-		if ((cu && ! cu->qsComment.isEmpty()) ||
-		        (! cu && c && ! c->qsDesc.isEmpty())) {
+		if ((cu && ! cu->qbaCommentHash.isEmpty()) ||
+		        (! cu && c && ! c->qbaDescHash.isEmpty())) {
 			QRect r = visualRect(idx);
 
 			int offset = 18;
@@ -188,9 +188,13 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 			offset = r.topRight().x() - offset;
 
 			if ((qpos.x() >= offset) && (qpos.x() <= (offset+18))) {
-				// Clicked on comment flag
-				QWhatsThis::showText(viewport()->mapToGlobal(r.bottomRight()), Log::validHtml(cu ? cu->qsComment : c->qsDesc), this);
-				um->seenComment(idx);
+				QString str = um->data(idx, Qt::ToolTipRole).toString();
+				if (str.isEmpty()) {
+					um->bClicked = true;
+				} else {
+					QWhatsThis::showText(viewport()->mapToGlobal(r.bottomRight()), str, this);
+					um->seenComment(idx);
+				}
 				return;
 			}
 		}

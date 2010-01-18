@@ -193,7 +193,7 @@ QString ModelItem::hash() const {
 		if (! pUser->qsHash.isEmpty())
 			return pUser->qsHash;
 		else
-			return QLatin1String(QCryptographicHash::hash(pUser->qsName.toUtf8(), QCryptographicHash::Sha1).toHex());
+			return QLatin1String(sha1(pUser->qsName).toHex());
 	} else {
 		QCryptographicHash chash(QCryptographicHash::Sha1);
 
@@ -230,6 +230,10 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiCommentSeen=QIcon(QLatin1String("skin:comment_seen.svg"));
 
 	ModelItem::bUsersTop = g.s.bUserTop;
+
+	uiSessionComment = 0;
+	iChannelDescription = -1;
+	bClicked = false;
 
 	miRoot = new ModelItem(Channel::get(0));
 }
@@ -388,7 +392,7 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					else
 						return p->qsName;
 				}
-				if (! p->qsComment.isEmpty())
+				if (! p->qbaCommentHash.isEmpty())
 					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
 				if (p->bMute)
 					l << qiMutedServer;
@@ -429,7 +433,7 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 
 					return QString::fromLatin1("%1 (%2)").arg(c->qsName).arg(item->iUsers);
 				}
-				if (! c->qsDesc.isEmpty())
+				if (! c->qbaDescHash.isEmpty())
 					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
 				return l;
 			case Qt::FontRole:
@@ -472,6 +476,9 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 
 	switch (role) {
 		case Qt::ToolTipRole:
+			const_cast<UserModel *>(this)->uiSessionComment = 0;
+			const_cast<UserModel *>(this)->iChannelDescription = -1;
+			const_cast<UserModel *>(this)->bClicked = false;
 			switch (section) {
 				case 0: {
 						if (isUser) {
@@ -487,12 +494,20 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 								qsImage = Log::imageToImg(img);
 							}
 
-							if (p->qsComment.isEmpty()) {
+							if (p->qbaCommentHash.isEmpty()) {
 								if (! qsImage.isEmpty())
 									return qsImage;
 								else
 									return p->qsName;
 							} else {
+								if (p->qsComment.isEmpty()) {
+									const_cast<UserModel *>(this)->uiSessionComment = p->uiSession;
+
+									MumbleProto::RequestBlob mprb;
+									mprb.add_session_comment(p->uiSession);
+									g.sh->sendMessage(mprb);
+									return QVariant();
+								}
 								const_cast<UserModel *>(this)->seenComment(idx);
 								QString base = Log::validHtml(p->qsComment);
 								if (! qsImage.isEmpty())
@@ -500,9 +515,18 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 								return base;
 							}
 						} else {
-							if (c->qsDesc.isEmpty()) {
+							if (c->qbaDescHash.isEmpty()) {
 								return c->qsName;
 							} else {
+								if (c->qsDesc.isEmpty()) {
+									const_cast<UserModel *>(this)->iChannelDescription = c->iId;
+
+									MumbleProto::RequestBlob mprb;
+									mprb.add_channel_description(c->iId);
+									g.sh->sendMessage(mprb);
+									return QVariant();
+								}
+
 								const_cast<UserModel *>(this)->seenComment(idx);
 								return Log::validHtml(c->qsDesc);
 							}
@@ -908,18 +932,49 @@ void UserModel::setFriendName(ClientUser *p, const QString &name) {
 void UserModel::setComment(ClientUser *cu, const QString &comment) {
 	if (comment != cu->qsComment) {
 		ModelItem *item = ModelItem::c_qhUsers.value(cu);
-		int oldstate = cu->qsComment.isEmpty() ? 0 : (item->bCommentSeen ? 2 : 1);
+		int oldstate = (cu->qsComment.isEmpty() && cu->qbaCommentHash.isEmpty()) ? 0 : (item->bCommentSeen ? 2 : 1);
 		int newstate;
 
 		cu->qsComment = comment;
+		cu->qbaCommentHash = comment.isEmpty() ? QByteArray() : sha1(comment);
 
 		if (! comment.isEmpty()) {
-			item->bCommentSeen = Database::seenComment(item->hash(), comment);
-			newstate = item->bCommentSeen ? 2 : 1;
+			if (cu->uiSession == uiSessionComment) {
+				uiSessionComment = 0;
+				item->bCommentSeen = false;
+				if (bClicked) {
+					QRect r = g.mw->qtvUsers->visualRect(index(cu));
+					QWhatsThis::showText(g.mw->qtvUsers->viewport()->mapToGlobal(r.bottomRight()), data(index(cu, 0), Qt::ToolTipRole).toString(), g.mw->qtvUsers);
+				} else {
+					QToolTip::showText(QCursor::pos(), data(index(cu, 0), Qt::ToolTipRole).toString(), g.mw->qtvUsers);
+				}
+			} else {
+				item->bCommentSeen = Database::seenComment(item->hash(), comment);
+				newstate = item->bCommentSeen ? 2 : 1;
+			}
 		} else {
 			item->bCommentSeen = true;
 			newstate = 0;
 		}
+
+		if (oldstate != newstate) {
+			QModelIndex idx = index(cu, 0);
+			emit dataChanged(idx, idx);
+		}
+	}
+}
+
+void UserModel::setCommentHash(ClientUser *cu, const QByteArray &hash) {
+	if (hash != cu->qbaCommentHash) {
+		ModelItem *item = ModelItem::c_qhUsers.value(cu);
+		int oldstate = (cu->qsComment.isEmpty() && cu->qbaCommentHash.isEmpty()) ? 0 : (item->bCommentSeen ? 2 : 1);
+		int newstate;
+
+		cu->qsComment = QString();
+		cu->qbaCommentHash = hash;
+
+		item->bCommentSeen = Database::seenComment(item->hash(), hash);
+		newstate = item->bCommentSeen ? 2 : 1;
 
 		if (oldstate != newstate) {
 			QModelIndex idx = index(cu, 0);
@@ -935,14 +990,45 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 		int newstate;
 
 		c->qsDesc = comment;
+		c->qbaDescHash = comment.isEmpty() ? QByteArray() : sha1(comment);
 
 		if (! comment.isEmpty()) {
-			item->bCommentSeen = Database::seenComment(item->hash(), comment);
-			newstate = item->bCommentSeen ? 2 : 1;
+			if (c->iId == iChannelDescription) {
+				iChannelDescription = -1;
+				item->bCommentSeen = false;
+				if (bClicked) {
+					QRect r = g.mw->qtvUsers->visualRect(index(c));
+					QWhatsThis::showText(g.mw->qtvUsers->viewport()->mapToGlobal(r.bottomRight()), data(index(c, 0), Qt::ToolTipRole).toString(), g.mw->qtvUsers);
+				} else {
+					QToolTip::showText(QCursor::pos(), data(index(c, 0), Qt::ToolTipRole).toString(), g.mw->qtvUsers);
+				}
+			} else {
+				item->bCommentSeen = Database::seenComment(item->hash(), comment);
+				newstate = item->bCommentSeen ? 2 : 1;
+			}
 		} else {
 			item->bCommentSeen = true;
 			newstate = 0;
 		}
+
+		if (oldstate != newstate) {
+			QModelIndex idx = index(c, 0);
+			emit dataChanged(idx, idx);
+		}
+	}
+}
+
+void UserModel::setCommentHash(Channel *c, const QByteArray &hash) {
+	if (hash != c->qbaDescHash) {
+		ModelItem *item = ModelItem::c_qhChannels.value(c);
+		int oldstate = (c->qsDesc.isEmpty() && c->qbaDescHash.isEmpty()) ? 0 : (item->bCommentSeen ? 2 : 1);
+		int newstate;
+
+		c->qsDesc = QString();
+		c->qbaDescHash = hash;
+
+		item->bCommentSeen = Database::seenComment(item->hash(), hash);
+		newstate = item->bCommentSeen ? 2 : 1;
 
 		if (oldstate != newstate) {
 			QModelIndex idx = index(c, 0);
@@ -1098,6 +1184,10 @@ void UserModel::unlinkAll(Channel *c) {
 void UserModel::removeAll() {
 	ModelItem *item = miRoot;
 	ModelItem *i;
+
+	uiSessionComment = 0;
+	iChannelDescription = -1;
+	bClicked = false;
 
 	foreach(i, item->qlChildren) {
 		if (i->pUser)

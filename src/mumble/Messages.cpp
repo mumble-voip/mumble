@@ -384,11 +384,17 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	if (msg.has_name()) {
 		pmModel->renameUser(pDst, u8(msg.name()));
 	}
-	if (msg.has_texture()) {
-		const std::string &str = msg.texture();
-		pDst->qbaTexture = QByteArray(str.data(), static_cast<int>(str.size()));
+	if (msg.has_texture_hash()) {
+		pDst->qbaTextureHash = blob(msg.texture_hash());
+		pDst->qbaTexture = QByteArray();
 		g.o->verifyTexture(pDst);
 	}
+	if (msg.has_texture()) {
+		pDst->qbaTexture = blob(msg.texture());
+		g.o->verifyTexture(pDst);
+	}
+	if (msg.has_comment_hash())
+		pmModel->setCommentHash(pDst, blob(msg.comment_hash()));
 	if (msg.has_comment())
 		pmModel->setComment(pDst, u8(msg.comment()));
 }
@@ -447,6 +453,8 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 	if (msg.has_name())
 		pmModel->renameChannel(c, u8(msg.name()));
 
+	if (msg.has_description_hash())
+		pmModel->setCommentHash(c, blob(msg.description_hash()));
 	if (msg.has_description())
 		pmModel->setComment(c, u8(msg.description()));
 

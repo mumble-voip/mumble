@@ -78,6 +78,7 @@ public:
 
 class UserModel : public QAbstractItemModel {
 		friend struct ModelItem;
+		friend class UserView;
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(UserModel)
@@ -91,6 +92,10 @@ class UserModel : public QAbstractItemModel {
 		ModelItem *miRoot;
 		QSet<Channel *> qsLinked;
 		QMap<QString, ClientUser *> qmHashes;
+		
+		unsigned int uiSessionComment;
+		int iChannelDescription;
+		bool bClicked;
 
 		void recursiveClone(const ModelItem *old, ModelItem *item, QModelIndexList &from, QModelIndexList &to);
 		ModelItem *moveItem(ModelItem *oldparent, ModelItem *newparent, ModelItem *item);
@@ -132,11 +137,13 @@ class UserModel : public QAbstractItemModel {
 		void setHash(ClientUser *p, const QString &hash);
 		void setFriendName(ClientUser *p, const QString &name);
 		void setComment(ClientUser *p, const QString &comment);
+		void setCommentHash(ClientUser *p, const QByteArray &hash);
 		void seenComment(const QModelIndex &idx);
 
 		void moveUser(ClientUser *p, Channel *c);
 		void moveChannel(Channel *c, Channel *p);
 		void setComment(Channel *c, const QString &comment);
+		void setCommentHash(Channel *c, const QByteArray &hash);
 
 		void removeUser(ClientUser *p);
 		void removeChannel(Channel *c);

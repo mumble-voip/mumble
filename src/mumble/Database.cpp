@@ -30,6 +30,7 @@
 
 #include "Database.h"
 #include "Global.h"
+#include "Message.h"
 
 Database::Database() {
 	QSqlDatabase db = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"));
@@ -223,7 +224,26 @@ void Database::setPingCache(const QMap<QPair<QString, unsigned short>, unsigned 
 bool Database::seenComment(const QString &hash, const QString &comment) {
 	QSqlQuery query;
 
-	QByteArray commenthash = QCryptographicHash::hash(comment.toUtf8(), QCryptographicHash::Sha1);
+	QByteArray commenthash = sha1(comment);
+
+	query.prepare(QLatin1String("SELECT COUNT(*) FROM `comments` WHERE `who` = ? AND `comment` = ?"));
+	query.addBindValue(hash);
+	query.addBindValue(commenthash);
+	query.exec();
+	if (query.next()) {
+		if (query.value(0).toInt() > 0) {
+			query.prepare(QLatin1String("UPDATE `comments` SET `seen` = datetime('now') WHERE `who` = ? AND `comment` = ?"));
+			query.addBindValue(hash);
+			query.addBindValue(commenthash);
+			query.exec();
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Database::seenComment(const QString &hash, const QByteArray &commenthash) {
+	QSqlQuery query;
 
 	query.prepare(QLatin1String("SELECT COUNT(*) FROM `comments` WHERE `who` = ? AND `comment` = ?"));
 	query.addBindValue(hash);
@@ -246,7 +266,7 @@ void Database::setSeenComment(const QString &hash, const QString &comment) {
 
 	query.prepare(QLatin1String("REPLACE INTO `comments` (`who`, `comment`, `seen`) VALUES (?, ?, datetime('now'))"));
 	query.addBindValue(hash);
-	query.addBindValue(QCryptographicHash::hash(comment.toUtf8(), QCryptographicHash::Sha1));
+	query.addBindValue(sha1(comment));
 	query.exec();
 }
 
