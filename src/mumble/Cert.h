@@ -39,7 +39,7 @@ class CertView : public QGroupBox {
 		Q_DISABLE_COPY(CertView)
 	protected:
 		QList<QSslCertificate> qlCert;
-		QLabel *qlSubjectName, *qlSubjectEmail, *qlIssuerName;
+		QLabel *qlSubjectName, *qlSubjectEmail, *qlIssuerName, *qlExpiry;
 	public:
 		CertView(QWidget *p);
 		void setCert(const QList<QSslCertificate> &cert);
