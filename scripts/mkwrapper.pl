@@ -20,7 +20,7 @@ sub func($$\@\@\@) {
 #    print I "\tqWarning(\"CALL ${func}\");\n";
     print I "\tif (! meta->mp.qsIceSecret.isEmpty()) {\n";
     print I "\t\t::Ice::Context::const_iterator i = current.ctx.find(\"secret\");\n";
-    print I "\t\tif((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {\n";
+    print I "\t\tif ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {\n";
     print I "\t\t\tcb->ice_exception(InvalidSecretException());\n";
     print I "\t\t\treturn;\n";
     print I "\t\t}\n";
