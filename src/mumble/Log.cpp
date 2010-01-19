@@ -375,6 +375,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 					qtc.setPosition(qtf.position(), QTextCursor::MoveAnchor);
 					qtc.setPosition(qtf.position()+qtf.length(), QTextCursor::KeepAnchor);
 					qtc.setCharFormat(qcfn);
+					qtbi = qtb.begin();
 				}
 			}
 			if (qcf.isImageFormat()) {
