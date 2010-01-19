@@ -62,6 +62,7 @@ class ServerHandler : public QThread {
 		QString qsDigest;
 		unsigned short usPort;
 		bool bUdp;
+		bool bStrong;
 
 #ifdef Q_OS_WIN
 		HANDLE hQoS;
@@ -92,7 +93,8 @@ class ServerHandler : public QThread {
 		ServerHandler();
 		~ServerHandler();
 		void setConnectionInfo(const QString &host, unsigned short port, const QString &username, const QString &pw);
-		void getConnectionInfo(QString &host, unsigned short &port, QString &username, QString &pw);
+		void getConnectionInfo(QString &host, unsigned short &port, QString &username, QString &pw) const;
+		bool isStrong() const;
 		void customEvent(QEvent *evt);
 
 		void sendProtoMessage(const ::google::protobuf::Message &msg, unsigned int msgType);

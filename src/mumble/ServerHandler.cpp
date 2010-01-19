@@ -84,6 +84,7 @@ static HANDLE loadQoS() {
 ServerHandler::ServerHandler() {
 	cConnection.reset();
 	qusUdp = NULL;
+	bStrong = false;
 
 	// For some strange reason, on Win32, we have to call supportsSsl before the cipher list is ready.
 	qWarning("OpenSSL Support: %d", QSslSocket::supportsSsl());
@@ -248,6 +249,7 @@ void ServerHandler::sendProtoMessage(const ::google::protobuf::Message &msg, uns
 
 void ServerHandler::run() {
 	qbaDigest = QByteArray();
+	bStrong = true;
 	QSslSocket *qtsSock = new QSslSocket(this);
 
 	if (! g.s.bSuppressIdentity && CertWizard::validateCert(g.s.kpCertificate)) {
@@ -318,6 +320,7 @@ void ServerHandler::run() {
 }
 
 void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
+	bStrong = false;
 	qscCert = cConnection->peerCertificateChain();
 	if ((qscCert.size() > 0)  && (QString::fromLatin1(qscCert.at(0).digest(QCryptographicHash::Sha1).toHex()) == Database::getDigest(qsHostName, usPort)))
 		cConnection->proceedAnyway();
@@ -543,11 +546,15 @@ void ServerHandler::setConnectionInfo(const QString &host, unsigned short port, 
 	qsPassword = pw;
 }
 
-void ServerHandler::getConnectionInfo(QString &host, unsigned short &port, QString &username, QString &pw) {
+void ServerHandler::getConnectionInfo(QString &host, unsigned short &port, QString &username, QString &pw) const {
 	host = qsHostName;
 	port = usPort;
 	username = qsUserName;
 	pw = qsPassword;
+}
+
+bool ServerHandler::isStrong() const {
+	return bStrong;
 }
 
 void ServerHandler::requestUserStats(unsigned int uiSession, bool statsOnly) {
