@@ -127,7 +127,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void customEvent(QEvent *evt);
 		void findDesiredChannel();
 		void setupView(bool toggle_minimize = true);
-		void setupIconMenu(bool top = false);
 		bool launchCompatibilityClient(const QUrl &url);
 		bool bNoHide;
 		virtual void closeEvent(QCloseEvent *e);
@@ -219,6 +218,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void updateMenuPermissions();
 		void talkingChanged();
 		void destroyUserInformation();
+		void trayAboutToShow();
 	public:
 		MainWindow(QWidget *parent);
 		~MainWindow();

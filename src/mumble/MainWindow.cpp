@@ -315,7 +315,8 @@ void MainWindow::setupGui()  {
 	setupView(false);
 
 	qmTray = new QMenu(this);
-	setupIconMenu(false);
+	connect(qmTray, SIGNAL(aboutToShow()), this, SLOT(trayAboutToShow()));
+	trayAboutToShow();
 	qstiIcon->setContextMenu(qmTray);
 
 	updateTrayIcon();
@@ -2083,7 +2084,21 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	AudioInput::setMaxBandwidth(-1);
 }
 
-void MainWindow::setupIconMenu(bool top) {
+void MainWindow::trayAboutToShow() {
+	bool top = false;
+
+	QPoint p = qstiIcon->geometry().center();
+	if (p.isNull()) {
+		p = QCursor::pos();
+	}
+
+	QDesktopWidget dw;
+
+	QRect qr = dw.screenGeometry(p);
+
+	if (p.y() < (qr.height() / 2))
+		top = true;
+
 	qmTray->clear();
 	if (top) {
 		qmTray->addAction(qaQuit);
@@ -2113,24 +2128,6 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 		tDoubleClick.restart();
 	} else if (bDoubleClick && (reason == QSystemTrayIcon::Trigger) && !(tDoubleClick.elapsed() > 100000UL)) {
 		return;
-	}
-
-	if (reason == QSystemTrayIcon::Context) {
-		bool top = false;
-
-		QPoint p = qstiIcon->geometry().center();
-		if (p.isNull()) {
-			p = QCursor::pos();
-		}
-
-		QDesktopWidget dw;
-
-		QRect qr = dw.screenGeometry(p);
-
-		if (p.y() < (qr.height() / 2))
-			top = true;
-
-		setupIconMenu(top);
 	}
 
 	if (reason == QSystemTrayIcon::Trigger) {
