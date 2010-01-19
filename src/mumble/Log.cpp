@@ -394,8 +394,15 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 		qtd.adjustSize();
 		s = qtd.size();
 
-		if ((s.width() > qr.width()) || (s.height() > qr.height()))
-			return tr("[[ Text object too large to display ]]");
+		if ((s.width() > qr.width()) || (s.height() > qr.height())) {
+			QString errorMessage = tr("[[ Text object too large to display ]]");
+			if (tc) {
+				tc->insertText(errorMessage);
+				return QString();
+			} else {
+				return errorMessage;
+			}
+		}
 	}
 
 	if (tc) {
@@ -443,7 +450,8 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		} else if (! g.mw->qteLog->document()->isEmpty()) {
 			tc.insertBlock();
 		}
-		validHtml(QString::fromLatin1("[%2] %1\n").arg(console, Log::msgColor(dt.time().toString(Qt::DefaultLocaleShortDate), Log::Time)), true, &tc);
+		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(dt.time().toString(Qt::DefaultLocaleShortDate)), Log::Time));
+		validHtml(console, true, &tc);
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);
 		g.mw->qteLog->ensureCursorVisible();
