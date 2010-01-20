@@ -52,8 +52,14 @@ default = {'database':(('lib', str, 'MySQLdb'),
                        ('port', int, 3306)),
                        
             'user':(('id_offset', int, 1000000000),
-                    ('avatar_enable', x2bool, True),
-                    ('avatar_path', str, 'http://forum.tld/phpBB3/download.php?avatar=')),
+                    ('avatar_enable', x2bool, False),
+                    ('avatar_path', str, 'http://forum.tld/phpBB3/download.php?avatar='),
+                    ('avatar_username_enable', x2bool, True),
+                    ('avatar_username_font', str, 'verdana.ttf'),
+                    ('avatar_username_fontsize', int, 30),
+                    ('avatar_username_x', int, 65),
+                    ('avatar_username_y', int, 10),
+                    ('avatar_username_fill', str, '#FF0000')),
                     
             'ice':(('host', str, '127.0.0.1'),
                    ('port', int, 6502),
@@ -224,6 +230,16 @@ def do_main_program():
             Murmur.ServerUpdatingAuthenticator.__init__(self)
             self.server = server
             
+            if cfg.user.avatar_enable and cfg.user.avatar_username_enable:
+                # Load font
+                try:
+                    self.font = ImageFont.truetype(cfg.user.avatar_username_font, cfg.user.avatar_username_fontsize)
+                except IOError, e:
+                    error("Could not load font for username texture overlay from '%s': %s", cfg.user.avatar_username_font, e)
+                    self.font = None
+            else:
+                self.font = None
+            
             
         def authenticate(self, name, pw, certlist, certhash, strong, current = None):
             """
@@ -355,7 +371,7 @@ def do_main_program():
             # Otherwise get the users texture from phpBB3
             bbid = id - cfg.user.id_offset
             try:
-                sql = 'SELECT user_avatar, user_avatar_type FROM %susers WHERE (user_type = 0 OR user_type = 3) AND user_id = %%s' % cfg.database.prefix
+                sql = 'SELECT username, user_avatar, user_avatar_type FROM %susers WHERE (user_type = 0 OR user_type = 3) AND user_id = %%s' % cfg.database.prefix
                 cur = threadDB.execute(sql, bbid)
             except threadDbException:
                 return FALL_THROUGH
@@ -365,7 +381,7 @@ def do_main_program():
             if not res:
                 debug('idToTexture %d -> user unknown, fall through', id)
                 return FALL_THROUGH
-            avatar_file, avatar_type = res
+            username, avatar_file, avatar_type = res
             if avatar_type != 1 and avatar_type != 2:
                 debug('idToTexture %d -> no texture available for this user (%d), fall through', id, avatar_type)
                 return FALL_THROUGH
@@ -387,11 +403,21 @@ def do_main_program():
                 return FALL_THROUGH
             
             try:
+                # Load image and scale it
                 img = Image.open(file).convert("RGBA")
                 img.thumbnail((user_texture_resolution[0],user_texture_resolution[1]), Image.ANTIALIAS)
                 img = img.transform(user_texture_resolution,
                                     Image.EXTENT,
                                     (0, 0, user_texture_resolution[0], user_texture_resolution[1]))
+                
+                if cfg.user.avatar_username_enable and self.font:
+                    # Insert user name into picture
+                    draw = ImageDraw.Draw(img)
+                    draw.text((cfg.user.avatar_username_x, cfg.user.avatar_username_y),
+                                username,
+                                fill = cfg.user.avatar_username_fill,
+                                font = self.font)
+                
                 r,g,b,a = img.split()
                 raw = Image.merge('RGBA', (b, g, r, a)).tostring()
                 comp = compress(raw)
@@ -635,6 +661,9 @@ if __name__ == '__main__':
         # If we use avatars we need PIL to manipulate it and some other stuff for working with them
         try:
             import Image
+            if cfg.user.avatar_username_enable:
+                import ImageFont
+                import ImageDraw
         except ImportError, e:
             print>>sys.stderr, 'Error, could not import PIL library, '\
             'please install the missing dependency and restart the authenticator'
