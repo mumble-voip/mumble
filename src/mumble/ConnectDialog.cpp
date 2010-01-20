@@ -245,6 +245,8 @@ ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetIt
 	qsPassword = fs.qsPassword;
 
 	qsUrl = fs.qsUrl;
+	
+	bCA = false;
 
 	if (fs.qsHostname.startsWith(QLatin1Char('@'))) {
 		qsBonjourHost = fs.qsHostname.mid(1);
@@ -267,6 +269,7 @@ ServerItem::ServerItem(const PublicInfo &pi) : QTreeWidgetItem(QTreeWidgetItem::
 	qsCountry = pi.qsCountry;
 	qsCountryCode = pi.qsCountryCode;
 	qsContinentCode = pi.qsContinentCode;
+	bCA = pi.bCA;
 
 	init();
 }
@@ -278,6 +281,7 @@ ServerItem::ServerItem(const QString &name, const QString &host, unsigned short 
 	qsName = name;
 	usPort = port;
 	qsUsername = username;
+	bCA = false;
 
 	if (host.startsWith(QLatin1Char('@'))) {
 		qsBonjourHost = host.mid(1);
@@ -297,6 +301,7 @@ ServerItem::ServerItem(const BonjourRecord &br) : QTreeWidgetItem(QTreeWidgetIte
 	qsBonjourHost = qsName;
 	brRecord = br;
 	usPort = 0;
+	bCA = false;
 
 	init();
 }
@@ -311,6 +316,7 @@ ServerItem::ServerItem(const QString &name, ItemType itype, const QString &conti
 		qsContinentCode = continent;
 	}
 	setFlags(flags() & ~Qt::ItemIsDragEnabled);
+	bCA = false;
 
 	init();
 }
@@ -332,6 +338,7 @@ ServerItem::ServerItem(const ServerItem *si) {
 	qsBonjourHost = si->qsBonjourHost;
 	brRecord = si->brRecord;
 	qlAddresses = si->qlAddresses;
+	bCA = si->bCA;
 
 	uiVersion = si->uiVersion;
 	uiPing = si->uiPing;
@@ -478,6 +485,12 @@ QVariant ServerItem::data(int column, int role) const {
 			}
 			qs += QLatin1String("</table>");
 			return qs;
+		} else if (role == Qt::BackgroundRole) {
+			if (bCA) {
+				QColor qc(Qt::green);
+				qc.setAlpha(32);
+				return qc;
+			}
 		}
 	}
 	return QTreeWidgetItem::data(column, role);
@@ -1132,6 +1145,7 @@ void ConnectDialog::fillList() {
 				si->qsCountryCode = pi.qsCountryCode;
 				si->qsContinentCode = pi.qsContinentCode;
 				si->qsUrl = pi.quUrl.toString();
+				si->bCA = pi.bCA;
 				si->setDatas();
 
 				if (si->itType == ServerItem::PublicType)
@@ -1440,6 +1454,7 @@ void ConnectDialog::finished() {
 				pi.qsCountry = e.attribute(QLatin1String("country"));
 				pi.qsCountryCode = e.attribute(QLatin1String("country_code")).toLower();
 				pi.qsContinentCode = e.attribute(QLatin1String("continent_code")).toLower();
+				pi.bCA = e.attribute(QLatin1String("ca")).toInt() ? true : false;
 
 				qlPublicServers << pi;
 			}

@@ -51,6 +51,7 @@ struct PublicInfo {
 	QString qsCountryCode;
 	QString qsContinentCode;
 	unsigned short usPort;
+	bool bCA;
 };
 
 struct PingStats {
@@ -123,6 +124,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 
 		QString qsHostname;
 		unsigned short usPort;
+		bool bCA;
 
 		QString qsUsername;
 		QString qsPassword;
@@ -132,7 +134,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		QString qsContinentCode;
 
 		QString qsUrl;
-
+		
 		QString qsBonjourHost;
 		BonjourRecord brRecord;
 
