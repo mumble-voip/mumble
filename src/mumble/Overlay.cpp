@@ -309,9 +309,10 @@ void Overlay::verifyTexture(ClientUser *cp) {
 
 	unsigned char *data = reinterpret_cast<unsigned char *>(cp->qbaTexture.data());
 	int width = 0;
+	// If we have an alpha only part on the right side of the image ignore it
 	for (int y=0;y<TEXT_HEIGHT;++y) {
 		for (int x=0;x<TEXT_WIDTH; ++x) {
-			if ((x > width) && (data[(y*TEXT_WIDTH+x)*4] != 0x00))
+			if ((x > width) && (data[(y*TEXT_WIDTH+x)*4 + 3] != 0x00))
 				width = x;
 		}
 	}
