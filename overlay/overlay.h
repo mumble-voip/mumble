@@ -71,4 +71,28 @@ struct SharedMem {
 	struct TextEntry texts[NUM_TEXTS];
 };
 
+struct OverlayMsgHeader {
+	unsigned int uiMagic;
+	int iLength;
+	unsigned int uiType;
+};
+
+#define OVERLAY_MSGTYPE_INIT 0
+struct OverlayMsgInit {
+	unsigned int uiWidth;
+	unsigned int uiHeight;
+};
+
+#define OVERLAY_MSGTYPE_BLIT 1
+struct OverlayMsgBlit {
+	unsigned int x, y, w, h;
+};
+
+union OverlayMsgs {
+	char buffer[1];
+	OverlayMsgHeader omh;
+	OverlayMsgInit omi;
+	OverlayMsgBlit omb;
+};
+
 #endif

@@ -37,6 +37,7 @@
 #include "ui_Overlay.h"
 
 class User;
+class Overlay;
 
 class SharedMemoryPrivate;
 class SharedMemory {
@@ -78,6 +79,20 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void save() const;
 		void load(const Settings &r);
 		bool expert(bool);
+};
+
+class OverlayClient : public QObject {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(OverlayClient);
+	public:
+		OverlayMsgHeader omhHeader;
+		QLocalSocket *qlsSocket;
+		unsigned int uiWidth, uiHeight;
+	protected slots:
+		void readyRead();
+	public:
+		OverlayClient(QLocalSocket *, QObject *);
 };
 
 class OverlayPrivate : public QObject {
@@ -123,6 +138,13 @@ class Overlay : public QObject {
 		void setTexts(const QList<TextLine> &lines);
 		void fixFont();
 		void clearCache();
+		
+		QLocalServer *qlsServer;
+		QList<OverlayClient *> qlClients;
+	protected slots:
+		void disconnected();
+		void error(QLocalSocket::LocalSocketError);
+		void newConnection();
 	public:
 		Overlay();
 		~Overlay();

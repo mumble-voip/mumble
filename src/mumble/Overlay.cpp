@@ -171,6 +171,102 @@ void OverlayConfig::accept() const {
 	g.o->setActive(s.bOverlayEnable);
 }
 
+OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
+	qlsSocket = socket;
+	qlsSocket->setParent(this);
+	connect(qlsSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
+	omhHeader.iLength = 0;
+	uiWidth = uiHeight = 0;
+}
+
+void OverlayClient::readyRead() {
+	qWarning() << "readyRead";
+	
+	while(1) {
+		int ready = qlsSocket->bytesAvailable();
+		
+		qWarning() << ready;
+
+		if (omhHeader.iLength == -1) {
+			if (ready < sizeof(OverlayMsgHeader))
+				break;
+			else {
+				qlsSocket->read(reinterpret_cast<char *>(&omhHeader), sizeof(OverlayMsgHeader));
+				if ((omhHeader.uiMagic != OVERLAY_MAGIC_NUMBER) || (omhHeader.iLength < 0)) {
+					disconnect();
+					return;
+				}
+				ready -= sizeof(OverlayMsgHeader);
+			}
+		}
+		
+		if (ready >= omhHeader.iLength) {
+			QByteArray qba = qlsSocket->read(omhHeader.iLength);
+			unsigned char *data = reinterpret_cast<unsigned char *>(qba.data());
+			int length = qba.length();
+
+			if (length != omhHeader.iLength) {
+				disconnect();
+				return;
+			}
+			switch(omhHeader.uiType) {
+				case OVERLAY_MSGTYPE_INIT:
+					{
+						OverlayMsgInit *omi = reinterpret_cast<OverlayMsgInit *>(data);
+						if (length != sizeof(OverlayMsgInit))
+							break;
+							
+						uiWidth = omi->uiWidth;
+						uiHeight = omi->uiHeight;
+
+						OverlayMsgs om;
+						om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+						om.omh.uiType = OVERLAY_MSGTYPE_BLIT;
+						om.omh.iLength = sizeof(OverlayMsgBlit);
+						qlsSocket->write(om.buffer, sizeof(OverlayMsgHeader));
+						
+						// FIXME: Clear is implied, but send now for testing.
+						om.omb.x = 0;
+						om.omb.y = 0;
+						om.omb.w = uiWidth;
+						om.omb.h = uiHeight;
+						qlsSocket->write(om.buffer, sizeof(OverlayMsgBlit));
+						
+						// FIXME: Yellow test square.
+						unsigned char buff[10*10*4];
+						for(int i=0;i<10*10;++i) {
+							buff[i*4+0] = 0x00;
+							buff[i*4+1] = 0xff;
+							buff[i*4+2] = 0xff;
+							buff[i*4+3] = 0xe0;
+						}
+
+						om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+						om.omh.uiType = OVERLAY_MSGTYPE_BLIT;
+						om.omh.iLength = sizeof(OverlayMsgBlit) + sizeof(buff);
+						qlsSocket->write(om.buffer, sizeof(OverlayMsgHeader));
+						
+						om.omb.x = 5;
+						om.omb.y = 5;
+						om.omb.w = 10;
+						om.omb.h = 10;
+						qlsSocket->write(om.buffer, sizeof(OverlayMsgBlit));
+
+						qlsSocket->write(reinterpret_cast<char *>(buff), sizeof(buff));
+					}
+					break;
+				default:
+					break;
+			}
+			omhHeader.iLength = -1;
+			ready -= length;
+		} else {
+			break;
+		}
+	}
+}
+
+
 bool Overlay::TextLine::operator <(const Overlay::TextLine &other) const {
 	if (iPriority < other.iPriority)
 		return true;
@@ -214,7 +310,7 @@ Overlay::Overlay() : QObject() {
 		sm.sm->version[2] = OVERLAY_VERSION_PATCH;
 		sm.sm->version[3] = OVERLAY_VERSION_SUB;
 	}
-
+	
 	QImage img;
 	img = QIcon(QLatin1String("skin:muted_self.svg")).pixmap(60,60).toImage();
 	qbaMuted = QByteArray(reinterpret_cast<const char *>(img.bits()), img.numBytes());
@@ -228,6 +324,16 @@ Overlay::Overlay() : QObject() {
 
 	platformInit();
 	forceSettings();
+	
+	qlsServer = new QLocalServer(this);
+
+	// FIXME: Only do this if loading the dll failed.
+	if (! qlsServer->listen(QLatin1String("MumbleOverlayPipe"))) {
+		QMessageBox::warning(NULL, tr("Mumble"), tr("Failed to create communication with overlay: %1. No overlay will be available.").arg(qlsServer->errorString()), QMessageBox::Ok, QMessageBox::NoButton);
+	} else {
+		qWarning() << "Overlay listening on" << qlsServer->fullServerName();
+		connect(qlsServer, SIGNAL(newConnection()), this, SLOT(newConnection()));
+	}
 
 	QMetaObject::connectSlotsByName(this);
 }
@@ -237,6 +343,37 @@ Overlay::~Overlay() {
 	if (d)
 		delete d;
 	qlOverlay->unload();
+}
+
+void Overlay::newConnection() {
+	while (1) {
+		QLocalSocket *qls = qlsServer->nextPendingConnection();
+		if (! qls)
+			break;
+		OverlayClient *oc = new OverlayClient(qls, this);
+		qlClients << oc;
+		
+		connect(qls, SIGNAL(disconnected()), this, SLOT(disconnected()));
+		connect(qls, SIGNAL(error(QLocalSocket::LocalSocketError)), this, SLOT(error(QLocalSocket::LocalSocketError)));
+	}
+}
+
+void Overlay::disconnected() {
+	qWarning() << "disconnected";
+	QLocalSocket *qls = qobject_cast<QLocalSocket *>(sender());
+	foreach(OverlayClient *oc, qlClients) {
+		if (oc->qlsSocket == qls) {
+			qlClients.removeAll(oc);
+			oc->deleteLater();
+			return;
+		}
+	}
+}
+
+void Overlay::error(QLocalSocket::LocalSocketError err) {
+	qWarning() << "error";
+	QLocalSocket *qls = qobject_cast<QLocalSocket *>(sender());
+	disconnected();
 }
 
 bool Overlay::isActive() const {
@@ -329,11 +466,17 @@ void Overlay::updateOverlay() {
 	quint32 colChannelTalking = g.s.qcOverlayChannelTalking.rgba();
 	QString str;
 	QList<qpChanCol> linkchans;
+	QList<TextLine> lines;
 
 	if (! isActive())
 		return;
 
-	if (g.uiSession) {
+	if (! g.uiSession) {
+		clearCache();
+		setTexts(lines);
+		return;
+	}
+
 		Channel *home = ClientUser::get(g.uiSession)->cChannel;
 		foreach(Channel *c, home->allLinks()) {
 			if (home == c)
@@ -351,11 +494,7 @@ void Overlay::updateOverlay() {
 				linkchans << qpChanCol(c->qsName, colChannel);
 		}
 		qSort(linkchans);
-	}
 
-	QList<TextLine> lines;
-
-	if (g.uiSession) {
 		if (g.s.bOverlayTop) {
 			foreach(qpChanCol cc, linkchans) {
 				if ((g.s.osOverlay == Settings::All) || (cc.second == colChannelTalking)) {
@@ -402,9 +541,7 @@ void Overlay::updateOverlay() {
 				}
 			}
 		}
-	} else {
-		clearCache();
-	}
+
 	qSort(lines);
 	setTexts(lines);
 }
@@ -451,6 +588,58 @@ void Overlay::clearCache() {
 
 void Overlay::setTexts(const QList<TextLine> &lines) {
 	QSet<unsigned int> query;
+	
+	qWarning() << "Bawk?";
+	
+	foreach(OverlayClient *oc, qlClients) {
+		qWarning() << "Send update" << oc->uiWidth << oc->uiHeight;
+
+		if (! oc->uiWidth || ! oc->uiHeight)
+			continue;
+			
+		unsigned char *td = new unsigned char[oc->uiWidth * oc->uiHeight * 4];
+		memset(td, 0, oc->uiWidth * oc->uiHeight * 4);
+		QImage qi(td, oc->uiWidth, oc->uiHeight, QImage::Format_ARGB32);
+
+		QPainter p(&qi);
+		p.setRenderHint(QPainter::Antialiasing);
+		p.setRenderHint(QPainter::TextAntialiasing);
+		p.setBrush(Qt::white);
+
+		foreach(const TextLine &e, lines) {
+			if (e.qsText.isEmpty())
+				continue;
+
+			QPainterPath qp;
+			qp.addText(2, fFontBase, qfFont, e.qsText);
+
+			p.setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+			p.drawPath(qp);
+			p.setPen(Qt::NoPen);
+			p.drawPath(qp);
+			
+			p.translate(0, 20);
+		}
+
+		OverlayMsgs om;
+		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+		om.omh.uiType = OVERLAY_MSGTYPE_BLIT;
+		om.omh.iLength = sizeof(OverlayMsgBlit) + oc->uiWidth * oc->uiHeight * 4;
+		oc->qlsSocket->write(om.buffer, sizeof(OverlayMsgHeader));
+
+		// FIXME: Clear is implied, but send now for testing.
+		om.omb.x = 0;
+		om.omb.y = 0;
+		om.omb.w = oc->uiWidth;
+		om.omb.h = oc->uiHeight;
+		oc->qlsSocket->write(om.buffer, sizeof(OverlayMsgBlit));
+		oc->qlsSocket->write(reinterpret_cast<char *>(td), oc->uiWidth * oc->uiHeight * 4);
+		
+		delete [] td;
+		
+		if (! oc->qlsSocket->flush())
+			qWarning() << "Hmm" << oc->qlsSocket->bytesToWrite();
+	}
 
 	foreach(const TextLine &e, lines) {
 		ClientUser *cp = ClientUser::get(e.uiSession);
