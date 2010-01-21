@@ -367,7 +367,7 @@
             <item>
              <widget class="QRadioButton" name="qrbAmplitude">
               <property name="toolTip">
-               <string>Use Amplitude based speech detection.</string>
+               <string>Use Amplitude based speech detection</string>
               </property>
               <property name="whatsThis">
                <string>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</string>
@@ -395,7 +395,7 @@
              <string>How long to keep transmitting after silence</string>
             </property>
             <property name="whatsThis">
-             <string>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).&lt;br /&gt;Only makes sense when used with Voice Activity transmission.</string>
+             <string>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</string>
             </property>
             <property name="minimum">
              <number>20</number>
