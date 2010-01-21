@@ -246,6 +246,18 @@ const char *Log::colorClasses[] = {
 	"privilege"
 };
 
+const QStringList Log::allowedSchemes() {
+	QStringList qslAllowedSchemeNames;
+	qslAllowedSchemeNames << QLatin1String("mumble");
+	qslAllowedSchemeNames << QLatin1String("http");
+	qslAllowedSchemeNames << QLatin1String("https");
+	qslAllowedSchemeNames << QLatin1String("ftp");
+	qslAllowedSchemeNames << QLatin1String("clientid");
+	qslAllowedSchemeNames << QLatin1String("channelid");
+	qslAllowedSchemeNames << QLatin1String("spotify");
+	return qslAllowedSchemeNames;
+}
+
 QString Log::msgColor(const QString &text, LogColorType t) {
 	QString classname;
 
@@ -347,15 +359,6 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 	ValidDocument qtd(allowReplacement);
 	bool valid = false;
 
-	QStringList qslValid;
-	qslValid << QLatin1String("mumble");
-	qslValid << QLatin1String("http");
-	qslValid << QLatin1String("https");
-	qslValid << QLatin1String("ftp");
-	qslValid << QLatin1String("clientid");
-	qslValid << QLatin1String("channelid");
-	qslValid << QLatin1String("spotify");
-
 	QRectF qr = dw.availableGeometry(dw.screenNumber(g.mw));
 	qtd.setTextWidth(qr.width() / 2);
 	qtd.setDefaultStyleSheet(qApp->styleSheet());
@@ -363,13 +366,14 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 	qtd.setHtml(html);
 	valid = qtd.isValid();
 
+	QStringList qslAllowed = allowedSchemes();
 	for (QTextBlock qtb = qtd.begin(); qtb != qtd.end(); qtb = qtb.next()) {
 		for (QTextBlock::iterator qtbi = qtb.begin(); qtbi != qtb.end(); ++qtbi) {
 			const QTextFragment &qtf = qtbi.fragment();
 			QTextCharFormat qcf = qtf.charFormat();
 			if (! qcf.anchorHref().isEmpty()) {
 				QUrl url(qcf.anchorHref());
-				if (! url.isValid() || ! qslValid.contains(url.scheme())) {
+				if (! url.isValid() || ! qslAllowed.contains(url.scheme())) {
 					QTextCharFormat qcfn = QTextCharFormat();
 					QTextCursor qtc(&qtd);
 					qtc.setPosition(qtf.position(), QTextCursor::MoveAnchor);
@@ -426,7 +430,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		return;
 	}
 
-	const QString plain = QTextDocumentFragment::fromHtml(console).toPlainText();
+	QString plain = QTextDocumentFragment::fromHtml(console).toPlainText();
 
 	quint32 flags = g.s.qmMessages.value(mt);
 
@@ -551,7 +555,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		QString sSound = g.s.qmMessageSounds.value(mt);
 		AudioOutputPtr ao = g.ao;
 		if (!ao || !ao->playSample(sSound, false)) {
-			qWarning() << "Sound file" << sSound << "is not a valid speex file, fallback to TTS.";
+			qWarning() << "Sound file" << sSound << "is not a valid audio file, fallback to TTS.";
 			flags ^= Settings::LogSoundfile | Settings::LogTTS; // Fallback to TTS
 		}
 	}
@@ -560,7 +564,35 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 	if (! g.s.bTTS || !(flags & Settings::LogTTS))
 		return;
 
-	/* TTS threshold limiter. */
+	// Apply simplifications to spoken text
+	QRegExp identifyURL(QLatin1String("\\b(([\\w-]+://?|www[.])[^\\s()<>]+(?:\\([\\w\\d]+\\)|([^!\"#$%&'()*+,-./:;<=>?@\\[\\\\\\]^_`{|}~\\s]|/)))"));
+	QStringList qslAllowed = allowedSchemes();
+	int pos = 0;
+	while ((pos = identifyURL.indexIn(plain, pos)) != -1) {
+		QUrl url(identifyURL.cap(0));
+		int len = identifyURL.matchedLength();
+		if (url.isValid() && qslAllowed.contains(url.scheme())) {
+			// Replace it appropriatly
+			QString replacement;
+			if (url.scheme() == QLatin1String("http") || url.scheme() == QLatin1String("https"))
+				replacement = tr("link to %1").arg(url.host());
+			else if (url.scheme() == QLatin1String("ftp"))
+				replacement = tr("ftp link to %1").arg(url.host());
+			else if (url.scheme() == QLatin1String("clientid"))
+				replacement = tr("player link");
+			else if (url.scheme() == QLatin1String("channelid"))
+				replacement = tr("channel link");
+			else
+				replacement = tr("%1 link").arg(url.scheme());
+
+			plain.replace(pos, len, replacement);
+		}
+		else {
+			pos += len;
+		}
+	}
+
+	// TTS threshold limiter.
 	if (plain.length() <= g.s.iTTSThreshold)
 		tts->say(plain);
 	else if ((! terse.isEmpty()) && (terse.length() <= g.s.iTTSThreshold))

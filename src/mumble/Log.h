@@ -80,6 +80,7 @@ class Log : public QObject {
 		TextToSpeech *tts;
 		unsigned int uiLastId;
 		QDate qdDate;
+		static const QStringList allowedSchemes();
 	public:
 		Log(QObject *p = NULL);
 		QString msgName(MsgType t) const;
