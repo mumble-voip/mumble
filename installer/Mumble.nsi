@@ -294,6 +294,7 @@ Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
   File /oname=hl2dm.dll "..\release\plugins\hl2dm.dll"
   File /oname=insurgency.dll "..\release\plugins\insurgency.dll"
   File /oname=l4d.dll "..\release\plugins\l4d.dll"
+  File /oname=l4d2.dll "..\release\plugins\l4d2.dll"
   File /oname=link.dll "..\release\plugins\link.dll"
   File /oname=lotro.dll "..\release\plugins\lotro.dll"
   File /oname=manual.dll "..\release\plugins\manual.dll"
