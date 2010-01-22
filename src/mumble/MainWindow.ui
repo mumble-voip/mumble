@@ -26,9 +26,6 @@
    <property name="dragEnabled">
     <bool>true</bool>
    </property>
-   <property name="autoExpandDelay">
-    <number>250</number>
-   </property>
    <property name="indentation">
     <number>10</number>
    </property>
