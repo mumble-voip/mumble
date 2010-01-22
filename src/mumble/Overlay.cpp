@@ -182,13 +182,9 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 }
 
 void OverlayClient::readyRead() {
-	qWarning() << "readyRead";
-	
 	while(1) {
 		int ready = qlsSocket->bytesAvailable();
 		
-		qWarning() << ready;
-
 		if (omMsg.omh.iLength == -1) {
 			if (ready < sizeof(OverlayMsgHeader))
 				break;
@@ -205,13 +201,11 @@ void OverlayClient::readyRead() {
 		if (ready >= omMsg.omh.iLength) {
 			int length = qlsSocket->read(omMsg.msgbuffer, omMsg.omh.iLength);
 
-			qWarning() << length << omMsg.omh.uiType;
-
 			if (length != omMsg.omh.iLength) {
 				disconnect();
 				return;
 			}
-	
+			
 			switch(omMsg.omh.uiType) {
 				case OVERLAY_MSGTYPE_INIT:
 					{
@@ -236,27 +230,23 @@ void OverlayClient::readyRead() {
 							qsmMem = NULL;
 						}
 						if (! qsmMem) {
-							qWarning() << "SHMEM FAIL";
+							qWarning() << "OverlayClient: Failed to create shared memory";
 							break;
 						}
-
+						
 						QByteArray key = qsmMem->key().toUtf8();
 
 						OverlayMsg om;
 						om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
-						
 						om.omh.uiType = OVERLAY_MSGTYPE_SHMEM;
 						om.omh.iLength = key.length();
 						memcpy(om.oms.a_cName, key.constData(), key.length());
 						qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + om.omh.iLength);
 
-						om.omh.uiType = OVERLAY_MSGTYPE_BLIT;
-						om.omh.iLength = sizeof(OverlayMsgBlit);
-						om.omb.x = 0;
-						om.omb.y = 0;
-						om.omb.w = uiWidth;
-						om.omb.h = uiHeight;
-						qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgBlit));
+						setupRender();
+
+						Overlay *o = static_cast<Overlay *>(parent());
+						setTexts(o->qlCurrentTexts);
 					}
 					break;
 				default:
@@ -269,8 +259,339 @@ void OverlayClient::readyRead() {
 	}
 }
 
+void OverlayClient::reset() {
+	if (! uiWidth || ! uiHeight || ! qsmMem || ! qsmMem->isAttached())
+		return;
+	setupRender();
+}
 
-bool Overlay::TextLine::operator <(const Overlay::TextLine &other) const {
+void OverlayClient::setupRender() {
+	Overlay *o = static_cast<Overlay *>(parent());
+	
+	fItemHeight = uiHeight * g.s.fOverlayHeight;
+	iItemHeight = iroundf(fItemHeight + 0.5f);
+	fEdge = fItemHeight * 0.05f;
+
+	qiMuted = QImage(iItemHeight, iItemHeight, QImage::Format_ARGB32);
+	qiDeafened = QImage(iItemHeight, iItemHeight, QImage::Format_ARGB32);
+	{
+		QPainter p(&qiMuted);
+		p.setRenderHint(QPainter::Antialiasing);
+		p.setRenderHint(QPainter::TextAntialiasing);
+		p.setCompositionMode(QPainter::CompositionMode_Clear);
+		p.setBackground(QColor(0,0,0,0));
+		p.eraseRect(0, 0, iItemHeight, iItemHeight);
+		p.setCompositionMode(QPainter::CompositionMode_Source);
+		o->qsrMuted.render(&p);
+	}
+
+	{
+		QPainter p(&qiDeafened);
+		p.setRenderHint(QPainter::Antialiasing);
+		p.setRenderHint(QPainter::TextAntialiasing);
+		p.setCompositionMode(QPainter::CompositionMode_Clear);
+		p.setBackground(QColor(0,0,0,0));
+		p.eraseRect(0, 0, iItemHeight, iItemHeight);
+		p.setCompositionMode(QPainter::CompositionMode_Source);
+		o->qsrDeafened.render(&p);
+	}
+	
+	fFont = g.s.qfOverlayFont;
+
+	QPainterPath qp;
+	qp.addText(0.0f, 0.0f, fFont, QLatin1String("Üy"));
+	QRectF r = qp.controlPointRect();
+
+	float fs = fFont.pointSizeF();
+	float ds = fs * ((fItemHeight - 2 * fEdge) / r.height());
+
+	fFont.setPointSizeF(ds);
+
+	qp = QPainterPath();
+	qp.addText(0.0f, 0.0f, fFont, QLatin1String("Hello"));
+	fBase = qp.controlPointRect().height();
+	
+	qcTexts.clear();
+	qlLines.clear();
+
+	memset(qsmMem->data(), 0, qsmMem->size());
+
+	OverlayMsg om;
+	om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+	om.omh.uiType = OVERLAY_MSGTYPE_BLIT;
+	om.omh.iLength = sizeof(OverlayMsgBlit);
+	om.omb.x = 0;
+	om.omb.y = 0;
+	om.omb.w = uiWidth;
+	om.omb.h = uiHeight;
+	qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgBlit));
+}
+
+bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
+	if (! uiWidth || ! uiHeight || ! qsmMem || ! qsmMem->isAttached())
+		return true;
+
+	Overlay *o = static_cast<Overlay *>(parent());
+
+	QImage qi(reinterpret_cast<unsigned char *>(qsmMem->data()), uiWidth, uiHeight, QImage::Format_ARGB32);
+	QRect dirty, active;
+
+	QPainter p(&qi);
+	p.setRenderHint(QPainter::Antialiasing);
+	p.setRenderHint(QPainter::TextAntialiasing);
+	p.setBackground(QColor(0,0,0,0));
+	p.setCompositionMode(QPainter::CompositionMode_SourceOver);
+
+	QList<TextImageKey> imagekeys;
+	
+	if (qcTexts.maxCost() < 4 * lines.count())
+		qcTexts.setMaxCost(4 * lines.count());
+
+	int height = 0;
+
+	foreach(const OverlayTextLine &e, lines) {
+		TextImageKey key;
+
+		if (! e.qsText.isEmpty() || e.uiSession != 0) {
+			QString str(e.qsText);
+			if (e.uiSession != 0) {
+				ClientUser *cu = ClientUser::get(e.uiSession);
+				if (cu && ! cu->qbaTexture.isEmpty()) {
+					key = TextImageKey(cu->qbaTextureHash, e.uiColor);
+					
+					if (! qcTexts.contains(key)) {
+						unsigned int rm = (e.uiColor & 0xff0000) >> 16;
+						unsigned int gm = (e.uiColor & 0x00ff00) >> 8;
+						unsigned int bm = (e.uiColor & 0x0000ff);
+
+						QImage img(cu->iTextureWidth, 60, QImage::Format_ARGB32);
+						{
+							QImage srcimg(reinterpret_cast<const uchar *>(cu->qbaTexture.constData()), 600, 60, QImage::Format_ARGB32);
+
+							QPainter p(&img);
+							p.setRenderHint(QPainter::Antialiasing);
+							p.setRenderHint(QPainter::TextAntialiasing);
+							p.setCompositionMode(QPainter::CompositionMode_Clear);
+							p.setBackground(QColor(0,0,0,0));
+							p.eraseRect(0, 0, iItemHeight, iItemHeight);
+							p.setCompositionMode(QPainter::CompositionMode_Source);
+							p.drawImage(0, 0, srcimg);
+						}
+						
+						img = img.scaledToHeight(iItemHeight, Qt::SmoothTransformation);
+						
+						unsigned int *ptr = reinterpret_cast<unsigned int *>(img.bits());
+						int npix = img.width() * img.height();
+						for(int i=0;i<npix;++i) {
+							ptr[i] = (ptr[i] & 0xff000000) |
+									 (((((ptr[i] & 0x00ff0000) >> 16) * rm) & 0x0000ff00) << 8) |
+									 (((((ptr[i] & 0x0000ff00) >>  8) * gm) & 0x0000ff00) << 0) |
+									 (((((ptr[i] & 0x000000ff) >>  0) * bm) & 0x0000ff00) >> 8);
+						}
+						qcTexts.insert(key, new TextImage(img, 0));
+					}
+					str = QString();
+				}
+			}
+			if (! str.isEmpty()) {
+				key = TextImageKey(sha1(str), e.uiColor);
+				if (! qcTexts.contains(key)) {
+					QPainterPath qp;
+					qp.addText(0.0f, fBase+fEdge, fFont, str);
+					
+					QRectF qr = qp.controlPointRect();
+					qp.translate(- qr.x() + fEdge, - qr.y() + fEdge);
+					
+					int w = iroundf(qr.width() + 2 * fEdge + 0.5f);
+					int h = iroundf(qr.height() + 2 * fEdge + 0.5f);
+
+					QImage img(w, h, QImage::Format_ARGB32);
+
+					QPainter imgp(&img);
+					imgp.setRenderHint(QPainter::Antialiasing);
+					imgp.setRenderHint(QPainter::TextAntialiasing);
+
+					imgp.setBackground(QColor(0,0,0,0));
+					imgp.setCompositionMode(QPainter::CompositionMode_Clear);
+					imgp.eraseRect(0, 0, w, h);
+					
+					QColor qc(e.uiColor);
+					qc.setAlpha(255);
+
+					imgp.setCompositionMode(QPainter::CompositionMode_Source);
+					imgp.setBrush(qc);
+					imgp.setPen(QPen(Qt::black, fEdge, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+					imgp.drawPath(qp);
+
+					imgp.setPen(Qt::NoPen);
+					imgp.drawPath(qp);
+					
+					qcTexts.insert(key, new TextImage(img, qr.top()));
+				}
+			}
+			height += iItemHeight;
+		} else {
+			height += iItemHeight / 2;
+		}
+		imagekeys << key;
+	}
+
+	if (height > uiHeight)
+		height = uiHeight;
+
+	int y = iroundf(uiHeight * g.s.fOverlayY);
+	if (g.s.bOverlayTop) {
+		y -= height;
+	} else if (! g.s.bOverlayBottom) {
+		y -= height / 2;
+	}
+	
+	if (y < 0)
+		y = 0;
+	if ((y + height) >= uiHeight)
+		y = uiHeight - height;
+	
+	int i;
+	for(i=0;i<lines.count();++i) {
+		if (i >= qlLines.count())
+			qlLines << OverlayTextLine();
+			
+		const OverlayTextLine &src = lines.at(i);
+		OverlayTextLine &dst = qlLines[i];
+		const TextImageKey &key = imagekeys.at(i);
+		TextImage *ti = qcTexts.object(key);
+
+		int x = iroundf(uiWidth * g.s.fOverlayX);
+		int width = iItemHeight;
+		
+		if (ti)
+			width += ti->qiImage.width();
+
+		if (width > uiWidth)
+			width = uiWidth;
+			
+		if (g.s.bOverlayLeft) {
+			x -= width;
+		} else if (! g.s.bOverlayRight) {
+			x -= width / 2;
+		}
+		
+		QRect nr;
+		
+		QColor qc;
+		qc.setRgba(src.uiColor);
+
+		if (x < 0)
+			x = 0;
+		if ((x + width) >= static_cast<int>(uiWidth))
+			x = uiWidth - width - 1;
+			
+		if (ti)
+			nr = QRect(g.s.bOverlayLeft ? x : x + iItemHeight, y + ti->iOffset, ti->qiImage.width(), ti->qiImage.height());
+			
+		if ((src.uiColor != dst.uiColor) || (src.qsText != dst.qsText)) {
+			dst.dDecor = OverlayTextLine::None;
+			dst.uiColor = src.uiColor;
+			dst.qsText = src.qsText;
+			
+			if (dst.qrRect.isValid()) {
+				dirty |= dst.qrRect;
+				p.setOpacity(1.0f);
+				p.setCompositionMode(QPainter::CompositionMode_Clear);
+				p.eraseRect(dst.qrRect);
+				p.setCompositionMode(QPainter::CompositionMode_SourceOver);
+			}
+			
+			if (ti) {
+				dirty |= nr;
+				p.setOpacity(qc.alphaF());
+				p.drawImage(nr.x(), nr.y(), ti->qiImage);
+			}
+		}
+
+		int decorx = x + (g.s.bOverlayLeft ? (width - iItemHeight) : 0);
+		QRect decr = QRect(decorx, y, iItemHeight, iItemHeight);
+		nr = nr.united(decr);
+		
+		if (src.dDecor != dst.dDecor) {
+			dst.dDecor = src.dDecor;
+
+			p.setOpacity(1.0f);
+			p.setCompositionMode(QPainter::CompositionMode_Clear);
+			p.eraseRect(decr);
+			p.setCompositionMode(QPainter::CompositionMode_SourceOver);
+
+			dirty |= decr;
+			
+			dst.dDecor = src.dDecor;
+			switch(dst.dDecor) {
+				case OverlayTextLine::Muted:
+					p.drawImage(decorx, y, qiMuted);
+					break;
+				case OverlayTextLine::Deafened:
+					p.drawImage(decorx, y, qiDeafened);
+					break;
+				default:
+					break;
+			}
+		}
+		
+		dst.qrRect = nr;
+		active |= nr;
+		
+		y += iItemHeight;
+	}
+
+	while (qlLines.count() > lines.count()) {
+		OverlayTextLine &dst = qlLines.last();
+		
+		if (dst.qrRect.isValid()) {
+			p.setOpacity(1.0f);
+			p.setCompositionMode(QPainter::CompositionMode_Clear);
+			p.eraseRect(dst.qrRect);
+			p.setCompositionMode(QPainter::CompositionMode_SourceOver);
+			
+			dirty |= dst.qrRect;
+		}
+		
+		qlLines.removeLast();
+	}
+	
+	if (dirty.isValid()) {
+		OverlayMsg om;
+		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+		om.omh.uiType = OVERLAY_MSGTYPE_BLIT;
+		om.omh.iLength = sizeof(OverlayMsgBlit);
+		om.omb.x = dirty.x();
+		om.omb.y = dirty.y();
+		om.omb.w = dirty.width();
+		om.omb.h = dirty.height();
+		qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgBlit));
+	}
+	
+	if (active != qrLast) {
+		qrLast = active;
+
+		OverlayMsg om;
+		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+		om.omh.uiType = OVERLAY_MSGTYPE_ACTIVE;
+		om.omh.iLength = sizeof(OverlayMsgActive);
+		om.oma.x = qrLast.x();
+		om.oma.y = qrLast.y();
+		om.oma.w = qrLast.width();
+		om.oma.h = qrLast.height();
+		qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgActive));
+	}
+
+	if (! qlsSocket->flush() && qlsSocket->bytesToWrite()) {
+		return (t.elapsed() <= 5000000ULL);
+	} else {
+		t.restart();
+		return true;
+	}
+}
+
+bool OverlayTextLine::operator <(const OverlayTextLine &other) const {
 	if (iPriority < other.iPriority)
 		return true;
 	else if (iPriority > other.iPriority)
@@ -334,9 +655,12 @@ Overlay::Overlay() : QObject() {
 	if (! qlsServer->listen(QLatin1String("MumbleOverlayPipe"))) {
 		QMessageBox::warning(NULL, tr("Mumble"), tr("Failed to create communication with overlay: %1. No overlay will be available.").arg(qlsServer->errorString()), QMessageBox::Ok, QMessageBox::NoButton);
 	} else {
-		qWarning() << "Overlay listening on" << qlsServer->fullServerName();
+		qWarning() << "Overlay: Listening on" << qlsServer->fullServerName();
 		connect(qlsServer, SIGNAL(newConnection()), this, SLOT(newConnection()));
 	}
+	
+	qsrMuted.load(QLatin1String("skin:muted_self.svg"));
+	qsrDeafened.load(QLatin1String("skin:deafened_self.svg"));
 
 	QMetaObject::connectSlotsByName(this);
 }
@@ -362,7 +686,6 @@ void Overlay::newConnection() {
 }
 
 void Overlay::disconnected() {
-	qWarning() << "disconnected";
 	QLocalSocket *qls = qobject_cast<QLocalSocket *>(sender());
 	foreach(OverlayClient *oc, qlClients) {
 		if (oc->qlsSocket == qls) {
@@ -374,8 +697,6 @@ void Overlay::disconnected() {
 }
 
 void Overlay::error(QLocalSocket::LocalSocketError err) {
-	qWarning() << "error";
-	QLocalSocket *qls = qobject_cast<QLocalSocket *>(sender());
 	disconnected();
 }
 
@@ -432,6 +753,10 @@ void Overlay::forceSettings() {
 		sm.sm->fFontSize = g.s.fOverlayHeight;
 		sm.unlock();
 	}
+	foreach(OverlayClient *oc, qlClients) {
+		oc->reset();
+	}
+
 	updateOverlay();
 }
 
@@ -469,7 +794,7 @@ void Overlay::updateOverlay() {
 	quint32 colChannelTalking = g.s.qcOverlayChannelTalking.rgba();
 	QString str;
 	QList<qpChanCol> linkchans;
-	QList<TextLine> lines;
+	QList<OverlayTextLine> lines;
 
 	if (! isActive())
 		return;
@@ -501,11 +826,11 @@ void Overlay::updateOverlay() {
 		if (g.s.bOverlayTop) {
 			foreach(qpChanCol cc, linkchans) {
 				if ((g.s.osOverlay == Settings::All) || (cc.second == colChannelTalking)) {
-					lines << TextLine(cc.first, cc.second, 0);
+					lines << OverlayTextLine(cc.first, cc.second, 0);
 				}
 			}
 			if (linkchans.count() > 0) {
-				lines << TextLine(QString(), 0, 0);
+				lines << OverlayTextLine(QString(), 0, 0);
 			}
 		}
 
@@ -513,11 +838,11 @@ void Overlay::updateOverlay() {
 			ClientUser *u = static_cast<ClientUser *>(p);
 			if ((g.s.osOverlay == Settings::All) || (u->tsState != ClientUser::TalkingOff) || ((u == ClientUser::get(g.uiSession)) && g.s.bOverlayAlwaysSelf)) {
 				QString name = u->qsName;
-				Decoration dec = None;
+				OverlayTextLine::Decoration dec = OverlayTextLine::None;
 				if (u->bDeaf || u->bSelfDeaf)
-					dec = Deafened;
+					dec = OverlayTextLine::Deafened;
 				else if (u->bMute || u->bSelfMute || u->bLocalMute)
-					dec = Muted;
+					dec = OverlayTextLine::Muted;
 				quint32 col;
 				switch (u->tsState) {
 					case ClientUser::TalkingOff:
@@ -530,17 +855,17 @@ void Overlay::updateOverlay() {
 						col = colWhisper;
 						break;
 				}
-				lines << TextLine(name, col, 1, u->uiSession, dec);
+				lines << OverlayTextLine(name, col, 1, u->uiSession, dec);
 			}
 		}
 
 		if (! g.s.bOverlayTop) {
 			if (linkchans.count() > 0) {
-				lines << TextLine(QString(), 0, 2);
+				lines << OverlayTextLine(QString(), 0, 2);
 			}
 			foreach(qpChanCol cc, linkchans) {
 				if ((g.s.osOverlay == Settings::All) || (cc.second == colChannelTalking)) {
-					lines << TextLine(cc.first, cc.second, 2);
+					lines << OverlayTextLine(cc.first, cc.second, 2);
 				}
 			}
 		}
@@ -589,54 +914,19 @@ void Overlay::clearCache() {
 	qsQueried.clear();
 }
 
-void Overlay::setTexts(const QList<TextLine> &lines) {
+void Overlay::setTexts(const QList<OverlayTextLine> &lines) {
 	QSet<unsigned int> query;
 	
-	qWarning() << "Bawk?";
-	
 	foreach(OverlayClient *oc, qlClients) {
-		qWarning() << "Send update" << oc->uiWidth << oc->uiHeight;
-
-		if (! oc->uiWidth || ! oc->uiHeight || ! oc->qsmMem || ! oc->qsmMem->isAttached())
-			continue;
-			
-		QImage qi(reinterpret_cast<unsigned char *>(oc->qsmMem->data()), oc->uiWidth, oc->uiHeight, QImage::Format_ARGB32);
-
-		QPainter p(&qi);
-		p.setRenderHint(QPainter::Antialiasing);
-		p.setRenderHint(QPainter::TextAntialiasing);
-		p.setBrush(Qt::white);
-
-		foreach(const TextLine &e, lines) {
-			if (e.qsText.isEmpty())
-				continue;
-
-			QPainterPath qp;
-			qp.addText(2, fFontBase, qfFont, e.qsText);
-
-			p.setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-			p.drawPath(qp);
-			p.setPen(Qt::NoPen);
-			p.drawPath(qp);
-			
-			p.translate(0, 20);
+		if (! oc->setTexts(lines)) {
+			qWarning() << "DEAD CLIENT";
+			qlClients.removeAll(oc);
+			delete oc;
+			break;
 		}
-
-		OverlayMsg om;
-		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
-		om.omh.uiType = OVERLAY_MSGTYPE_BLIT;
-		om.omh.iLength = sizeof(OverlayMsgBlit);
-		om.omb.x = 0;
-		om.omb.y = 0;
-		om.omb.w = oc->uiWidth;
-		om.omb.h = oc->uiHeight;
-		oc->qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgBlit));
-		
-		if (! oc->qlsSocket->flush())
-			qWarning() << "Hmm" << oc->qlsSocket->bytesToWrite();
 	}
 
-	foreach(const TextLine &e, lines) {
+	foreach(const OverlayTextLine &e, lines) {
 		ClientUser *cp = ClientUser::get(e.uiSession);
 		if (g.s.bOverlayUserTextures && cp && ! cp->qbaTextureHash.isEmpty()) {
 			if (cp->qbaTexture.isEmpty() && ! qsQueried.contains(cp->uiSession))
@@ -689,7 +979,7 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 		if (i >= NUM_TEXTS)
 			break;
 
-		const TextLine &tl = lines.at(i);
+		const OverlayTextLine &tl = lines.at(i);
 		TextEntry *te = & sm.sm->texts[i];
 
 		tl.qsText.left(127).toWCharArray(te->text);
@@ -713,9 +1003,9 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 
 				unsigned char * dst = NULL;
 
-				if (tl.dDecor != None) {
+				if (tl.dDecor != OverlayTextLine::None) {
 					unsigned char * decdst;
-					const unsigned char * decsrc = reinterpret_cast<const unsigned char *>((tl.dDecor == Muted) ? qbaMuted.constData() : qbaDeafened.constData());
+					const unsigned char * decsrc = reinterpret_cast<const unsigned char *>((tl.dDecor == OverlayTextLine::Muted) ? qbaMuted.constData() : qbaDeafened.constData());
 
 					width = qMin(TEXT_WIDTH - TEXT_HEIGHT, width);
 					if (g.s.bOverlayLeft) {
@@ -736,7 +1026,7 @@ void Overlay::setTexts(const QList<TextLine> &lines) {
 				for (int j=0;j<TEXT_HEIGHT;j++)
 					memcpy(dst + j * TEXT_WIDTH * 4, src + j * TEXT_WIDTH * 4, width * 4);
 
-				if (tl.dDecor != None)
+				if (tl.dDecor != OverlayTextLine::None)
 					width += TEXT_HEIGHT;
 
 				te->width = static_cast<short>(width);

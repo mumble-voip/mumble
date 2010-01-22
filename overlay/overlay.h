@@ -93,6 +93,11 @@ struct OverlayMsgBlit {
 	unsigned int x, y, w, h;
 };
 
+#define OVERLAY_MSGTYPE_ACTIVE 3
+struct OverlayMsgActive {
+	unsigned int x, y, w, h;
+};
+
 struct OverlayMsg {
 	union {
 		char headerbuffer[1];
@@ -103,6 +108,7 @@ struct OverlayMsg {
 		OverlayMsgShmem oms;
 		OverlayMsgInit omi;
 		OverlayMsgBlit omb;
+		OverlayMsgActive oma;
 	};
 };
 

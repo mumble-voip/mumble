@@ -81,19 +81,52 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		bool expert(bool);
 };
 
+struct OverlayTextLine {
+	enum Decoration { None, Muted, Deafened };
+	QString qsText;
+	unsigned int uiSession;
+	QRgb uiColor;
+	Decoration dDecor;
+	int iPriority;
+	QRect qrRect;
+	OverlayTextLine() : uiSession(0), uiColor(0), dDecor(None), iPriority(0) { };
+	OverlayTextLine(const QString &t, quint32 c, int priority = 0, unsigned int session = 0, Decoration d = None) : qsText(t), uiSession(session), uiColor(c), dDecor(d), iPriority(priority) { };
+	bool operator <(const OverlayTextLine &o) const;
+};
+
 class OverlayClient : public QObject {
+		friend class Overlay;
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(OverlayClient);
-	public:
+	protected:
+		typedef QPair<QByteArray, QRgb> TextImageKey;
+		struct TextImage {
+			QImage qiImage;
+			float iOffset;
+			TextImage(const QImage &img, int i) : qiImage(img), iOffset(i) {};
+		};
+	
 		OverlayMsg omMsg;
 		QLocalSocket *qlsSocket;
 		QSharedMemory *qsmMem;
 		unsigned int uiWidth, uiHeight;
+		float fItemHeight, fEdge, fBase;
+		int iItemHeight;
+		QList<OverlayTextLine> qlLines;
+		QRect qrLast;
+		QFont fFont;
+		Timer t;
+		QImage qiMuted, qiDeafened;
+		QCache<TextImageKey, TextImage> qcTexts;
+		
+		void setupRender();
 	protected slots:
 		void readyRead();
 	public:
 		OverlayClient(QLocalSocket *, QObject *);
+		bool setTexts(const QList<OverlayTextLine> &lines);
+		void reset();
 };
 
 class OverlayPrivate : public QObject {
@@ -106,26 +139,15 @@ class OverlayPrivate : public QObject {
 
 class Overlay : public QObject {
 		friend class OverlayConfig;
+		friend class OverlayClient;
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(Overlay)
 	protected:
 		OverlayPrivate *d;
 
-		enum Decoration { None, Muted, Deafened };
-
-		struct TextLine {
-			QString qsText;
-			unsigned int uiSession;
-			quint32 uiColor;
-			Decoration dDecor;
-			int iPriority;
-			TextLine(const QString &t, quint32 c, int priority = 0, unsigned int session = 0, Decoration d = None) : qsText(t), uiSession(session), uiColor(c), dDecor(d), iPriority(priority) { };
-			bool operator <(const TextLine &o) const;
-		};
-
 		QByteArray qbaMuted, qbaDeafened;
-		QList<TextLine> qlCurrentTexts;
+		QList<OverlayTextLine> qlCurrentTexts;
 		QHash<QString, unsigned char *> qhTextures;
 		QHash<QString, short> qhWidths;
 		QSet<unsigned int> qsForce;
@@ -135,8 +157,9 @@ class Overlay : public QObject {
 		QFont qfFont;
 		float fFontBase;
 		SharedMemory sm;
+		QSvgRenderer qsrMuted, qsrDeafened;
 		void platformInit();
-		void setTexts(const QList<TextLine> &lines);
+		void setTexts(const QList<OverlayTextLine> &lines);
 		void fixFont();
 		void clearCache();
 		
