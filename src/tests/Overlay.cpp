@@ -7,17 +7,17 @@
 #include "Timer.h"
 
 class OverlayWidget : public QWidget {
-	Q_OBJECT
-	
+		Q_OBJECT
+
 	protected:
 		QImage img;
 		OverlayMsg om;
 		QLocalSocket *qlsSocket;
 		QSharedMemory *qsmMem;
 		QRect qrActive;
-		
+
 		unsigned int uiWidth, uiHeight;
-		
+
 		void resizeEvent(QResizeEvent *);
 		void paintEvent(QPaintEvent *);
 		void init(const QSize &);
@@ -68,16 +68,16 @@ void OverlayWidget::paintEvent(QPaintEvent *evt) {
 
 void OverlayWidget::init(const QSize &sz) {
 
-	OverlayMsg m;	
+	OverlayMsg m;
 	m.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 	m.omh.uiType = OVERLAY_MSGTYPE_INIT;
 	m.omh.iLength = sizeof(OverlayMsgInit);
 	m.omi.uiWidth = sz.width();
 	m.omi.uiHeight = sz.height();
-	
+
 	if (qlsSocket && qlsSocket->state() == QLocalSocket::ConnectedState)
 		qlsSocket->write(m.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgInit));
-	
+
 	img = QImage(sz.width(), sz.height(), QImage::Format_ARGB32);
 }
 
@@ -94,9 +94,9 @@ void OverlayWidget::detach() {
 
 void OverlayWidget::connected() {
 	qWarning() << "connected";
-	
+
 	om.omh.iLength = -1;
-	
+
 	init(size());
 }
 
@@ -119,9 +119,9 @@ void OverlayWidget::readyRead() {
 	if (qls != qlsSocket)
 		return;
 
-	while(1) {
+	while (1) {
 		int ready = qlsSocket->bytesAvailable();
-		
+
 		if (om.omh.iLength == -1) {
 			if (ready < sizeof(OverlayMsgHeader))
 				break;
@@ -141,13 +141,12 @@ void OverlayWidget::readyRead() {
 			qWarning() << length << om.omh.uiType;
 
 			if (length != om.omh.iLength) {
-					detach();
-					return;
+				detach();
+				return;
 			}
 
-			switch(om.omh.uiType) {
-				case OVERLAY_MSGTYPE_SHMEM:
-					{
+			switch (om.omh.uiType) {
+				case OVERLAY_MSGTYPE_SHMEM: {
 						OverlayMsgShmem *oms = & om.oms;
 						QString key = QString::fromUtf8(oms->a_cName, length);
 						qWarning() << "SHMAT" << key;
@@ -167,8 +166,7 @@ void OverlayWidget::readyRead() {
 						}
 					}
 					break;
-				case OVERLAY_MSGTYPE_BLIT:
-					{
+				case OVERLAY_MSGTYPE_BLIT: {
 						OverlayMsgBlit *omb = & om.omb;
 						length -= sizeof(OverlayMsgBlit);
 
@@ -176,13 +174,13 @@ void OverlayWidget::readyRead() {
 
 						if (! qsmMem || ! qsmMem->isAttached())
 							break;
-														
-						if (((omb->x + omb->w) > img.width()) || 
-							((omb->y + omb->h) > img.height()))
-								break;
-								
 
-						for(int y = 0; y < omb->h; ++y) {
+						if (((omb->x + omb->w) > img.width()) ||
+						        ((omb->y + omb->h) > img.height()))
+							break;
+
+
+						for (int y = 0; y < omb->h; ++y) {
 							unsigned char *src = reinterpret_cast<unsigned char *>(qsmMem->data()) + 4 * (width() * (y + omb->y) + omb->x);
 							unsigned char *dst = img.scanLine(y + omb->y) + omb->x * 4;
 							memcpy(dst, src, omb->w * 4);
@@ -191,12 +189,11 @@ void OverlayWidget::readyRead() {
 						update();
 					}
 					break;
-				case OVERLAY_MSGTYPE_ACTIVE:
-					{
+				case OVERLAY_MSGTYPE_ACTIVE: {
 						OverlayMsgActive *oma = & om.oma;
-						
+
 						qWarning() << "ACTIVE" << oma->x << oma->y << oma->w << oma->h;
-						
+
 						qrActive = QRect(oma->x, oma->y, oma->w, oma->h);
 						update();
 					};
@@ -213,8 +210,8 @@ void OverlayWidget::readyRead() {
 }
 
 class TestWin : public QObject {
-	Q_OBJECT
-	
+		Q_OBJECT
+
 	protected:
 		QWidget *qw;
 	public:
@@ -224,19 +221,19 @@ class TestWin : public QObject {
 TestWin::TestWin() {
 	QMainWindow *qmw=new QMainWindow();
 	qmw->setObjectName(QLatin1String("main"));
-	
+
 	OverlayWidget *ow = new OverlayWidget();
 	qmw->setCentralWidget(ow);
-	
+
 	qmw->show();
 	qmw->resize(1280,720);
-	
+
 	QMetaObject::connectSlotsByName(this);
 }
 
 int main(int argc, char **argv) {
 	QApplication a(argc, argv);
-	
+
 	TestWin t;
 
 	return a.exec();

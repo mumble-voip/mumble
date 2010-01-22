@@ -586,8 +586,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 				replacement = tr("%1 link").arg(url.scheme());
 
 			plain.replace(pos, len, replacement);
-		}
-		else {
+		} else {
 			pos += len;
 		}
 	}

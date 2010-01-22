@@ -2885,7 +2885,7 @@
     <message>
         <location filename="CoreAudio.cpp" line="+85"/>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dispositivo por defecto</translation>
     </message>
 </context>
 <context>

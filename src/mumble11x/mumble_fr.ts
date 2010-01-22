@@ -2743,7 +2743,7 @@
     <message>
         <location filename="CoreAudio.cpp" line="+85"/>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Périphérique par défaut</translation>
     </message>
 </context>
 <context>

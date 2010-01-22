@@ -1,4 +1,57 @@
+2010-01-22
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    f07dc00  Disable auto expand in the user list
+    64f30a4  Add text before the welcome message to fix weird QTextDocument
+	     behaviour
+    588975a  Fix two compiler warnings
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    b915976  Explicitly name 'struct' for C89 compliance
+    6d885b2  Shared texture based overlay (client part)
+    1f51f0c  Shmem based overlay (still WIP)
+
+2010-01-21
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    345d96b  Replace URLs in TTS with more ear friendly strings
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    30b63c2  socket-based overlay (WIP)
+    8d64449  Fix a few strings in AudioInput.ui
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    295bc08  MW2 updates
+    71fd273  Add L4D2 plugin
+
+2010-01-20
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    179159c  Fix overlay cropping (used blue instead of alpha channel)
+    02805c7  Give phpBB3auth.py auth the ability to display username next
+	     to avatar
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    6b75459  Instead of showing selfsigns as red, show strong certs as
+	     green, also in browser
+    019224c  Upgrade CELT to 0.7.1
+
+2010-01-19
+  Mikkel Krautz <mikkel@krautz.dk>
+    0216000  Fix OSX dist script for new libcelt-naming.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    e28919d  Fix log time coloring & text object too large text object
+	     error message
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    bf008bb  Mark untrusted servers with a pale red color
+    8b0cbe8  Qt 4.6.1 for static snapshots
+    0835890  Reset document iterator after editing
+    416a742  Fix icon contextmenu
+    fd8dd9d  Update mkwrapper to generate astyle-compatible output
+
 2010-01-18
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    7d8102f  Display errorString on listen failure
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     20e73fc  Texture on demand
     56bff0a  Fetch comment/desc on demand
@@ -92,6 +145,7 @@
     5eed139  Fixed Japanese Translation for 1.2.1
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
+    7213a00  Add a Self menu and remove the context menus from the menubar
     cf33de4  Move assembly of some protobuf messages to ServerHandler
     170fd04  Disable translation for some invisible strings
 

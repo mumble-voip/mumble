@@ -2180,7 +2180,7 @@
     <message>
         <location filename="CoreAudio.cpp" line="+85"/>
         <source>Default Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">默认设备</translation>
     </message>
 </context>
 <context>

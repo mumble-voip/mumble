@@ -134,7 +134,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		QString qsContinentCode;
 
 		QString qsUrl;
-		
+
 		QString qsBonjourHost;
 		BonjourRecord brRecord;
 

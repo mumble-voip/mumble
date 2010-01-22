@@ -245,7 +245,7 @@ ServerItem::ServerItem(const FavoriteServer &fs) : QTreeWidgetItem(QTreeWidgetIt
 	qsPassword = fs.qsPassword;
 
 	qsUrl = fs.qsUrl;
-	
+
 	bCA = false;
 
 	if (fs.qsHostname.startsWith(QLatin1Char('@'))) {

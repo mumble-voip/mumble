@@ -106,7 +106,7 @@ class OverlayClient : public QObject {
 			float iOffset;
 			TextImage(const QImage &img, int i) : qiImage(img), iOffset(i) {};
 		};
-	
+
 		OverlayMsg omMsg;
 		QLocalSocket *qlsSocket;
 		QSharedMemory *qsmMem;
@@ -119,7 +119,7 @@ class OverlayClient : public QObject {
 		Timer t;
 		QImage qiMuted, qiDeafened;
 		QCache<TextImageKey, TextImage> qcTexts;
-		
+
 		void setupRender();
 	protected slots:
 		void readyRead();
@@ -162,7 +162,7 @@ class Overlay : public QObject {
 		void setTexts(const QList<OverlayTextLine> &lines);
 		void fixFont();
 		void clearCache();
-		
+
 		QLocalServer *qlsServer;
 		QList<OverlayClient *> qlClients;
 	protected slots:
