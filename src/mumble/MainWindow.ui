@@ -84,6 +84,9 @@
     <addaction name="qaSelfComment"/>
     <addaction name="qaServerTexture"/>
     <addaction name="qaServerTextureRemove"/>
+    <addaction name="separator"/>
+    <addaction name="qaSelfRegister"/>
+    <addaction name="qaAudioStats"/>
    </widget>
    <addaction name="qmServer"/>
    <addaction name="qmSelf"/>
@@ -696,6 +699,14 @@
    </property>
    <property name="toolTip">
     <string>Change your own comment.</string>
+   </property>
+  </action>
+  <action name="qaSelfRegister">
+   <property name="text">
+    <string>R&amp;egister</string>
+   </property>
+   <property name="toolTip">
+    <string>Register yourself on the server</string>
    </property>
   </action>
  </widget>

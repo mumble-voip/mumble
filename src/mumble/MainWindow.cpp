@@ -161,12 +161,13 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	qtReconnect->setSingleShot(true);
 	qtReconnect->setObjectName(QLatin1String("Reconnect"));
 
+	qmUser = new QMenu(tr("&User"), this);
+	qmChannel = new QMenu(tr("&Channel"), this);
+
 	createActions();
 	setupUi(this);
 	setupGui();
 
-	qmUser = new QMenu(this);
-	qmChannel = new QMenu(this);
 	connect(qmUser, SIGNAL(aboutToShow()), this, SLOT(qmUser_aboutToShow()));
 	connect(qmChannel, SIGNAL(aboutToShow()), this, SLOT(qmChannel_aboutToShow()));
 
@@ -711,6 +712,24 @@ void MainWindow::setupView(bool toggle_minimize) {
 
 	setWindowFlags(f);
 
+	if (g.s.bShowContextMenuInMenuBar) {
+		bool found = false;
+		foreach (QAction *a, menuBar()->actions()) {
+			if (a == qmUser->menuAction()) {
+				found = true;
+				break;
+			}
+		}
+
+		if (!found) {
+			menuBar()->insertMenu(qmConfig->menuAction(), qmUser);
+			menuBar()->insertMenu(qmConfig->menuAction(), qmChannel);
+		}
+	} else {
+		menuBar()->removeAction(qmUser->menuAction());
+		menuBar()->removeAction(qmChannel->menuAction());
+	}
+
 	qdwLog->setVisible(showit);
 	qdwChat->setVisible(showit && g.s.bShowChatbar);
 	menuBar()->setVisible(showit);
@@ -770,11 +789,12 @@ void MainWindow::on_qmSelf_aboutToShow() {
 
 	ClientUser *user = ClientUser::get(g.uiSession);
 	qaServerTextureRemove->setEnabled(user && ! user->qbaTexture.isEmpty());
+
+	qaSelfRegister->setEnabled(user && user->iId < 0 && (g.pPermissions & (ChanACL::SelfRegister | ChanACL::Write)));
 }
 
 void MainWindow::on_qaSelfComment_triggered() {
 	ClientUser *p = ClientUser::get(g.uiSession);
-
 	if (!p)
 		return;
 
@@ -787,13 +807,25 @@ void MainWindow::on_qaSelfComment_triggered() {
 
 	p = ClientUser::get(session);
 
-	if (p && (res==QDialog::Accepted)) {
+	if (p && (res == QDialog::Accepted)) {
 		MumbleProto::UserState mpus;
 		mpus.set_session(session);
 		mpus.set_comment(u8(texm->message()));
 		g.sh->sendMessage(mpus);
 	}
 	delete texm;
+}
+
+void MainWindow::on_qaSelfRegister_triggered() {
+	ClientUser *p = ClientUser::get(g.uiSession);
+	if (!p)
+		return;
+
+	QMessageBox::StandardButton result;
+	result = QMessageBox::question(this, tr("Register yourself as %1").arg(p->qsName), tr("<p>You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as '%1' on this server.</p><p>Are you sure you want to register yourself?</p>").arg(p->qsName), QMessageBox::Yes|QMessageBox::No);
+
+	if (result == QMessageBox::Yes)
+		g.sh->registerUser(p->uiSession);
 }
 
 void MainWindow::on_qmServer_aboutToShow() {
@@ -1295,7 +1327,6 @@ void MainWindow::on_qmConfig_aboutToShow() {
 	qmConfig->addAction(qaConfigCert);
 	qmConfig->addSeparator();
 	qmConfig->addAction(qaAudioTTS);
-	qmConfig->addAction(qaAudioStats);
 	qmConfig->addSeparator();
 	qmConfig->addAction(qaConfigMinimal);
 	if (g.s.bMinimalView)

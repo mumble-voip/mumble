@@ -124,6 +124,7 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbHideTray, r.bHideTray);
 	loadCheckBox(qcbStateInTray, r.bStateInTray);
 	loadCheckBox(qcbShowUserCount, r.bShowUserCount);
+	loadCheckBox(qcbShowContextMenuInMenuBar, r.bShowContextMenuInMenuBar);
 }
 
 void LookConfig::save() const {
@@ -162,6 +163,7 @@ void LookConfig::save() const {
 	s.bHideTray = qcbHideTray->isChecked();
 	s.bStateInTray = qcbStateInTray->isChecked();
 	s.bShowUserCount = qcbShowUserCount->isChecked();
+	s.bShowContextMenuInMenuBar = qcbShowContextMenuInMenuBar->isChecked();
 }
 
 void LookConfig::accept() const {

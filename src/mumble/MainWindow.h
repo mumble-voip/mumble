@@ -153,6 +153,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaServerTokens_triggered();
 		void on_qmSelf_aboutToShow();
 		void on_qaSelfComment_triggered();
+		void on_qaSelfRegister_triggered();
 		void qmUser_aboutToShow();
 		void on_qaUserComment_triggered();
 		void on_qaUserCommentReset_triggered();

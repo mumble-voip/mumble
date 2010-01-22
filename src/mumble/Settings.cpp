@@ -174,6 +174,7 @@ Settings::Settings() {
 	bUsage = true;
 	bShowUserCount = false;
 	wlWindowLayout = LayoutClassic;
+	bShowContextMenuInMenuBar = false;
 
 	ssFilter = ShowReachable;
 
@@ -438,6 +439,7 @@ void Settings::load() {
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
 	SAVELOAD(qsImagePath, "ui/imagepath");
+	SAVELOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
 	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
 	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
 
@@ -622,6 +624,7 @@ void Settings::save() {
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
 	SAVELOAD(qsImagePath, "ui/imagepath");
+	SAVELOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
 	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
 	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
 
