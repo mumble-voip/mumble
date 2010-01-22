@@ -101,14 +101,14 @@ struct OverlayMsgActive {
 struct OverlayMsg {
 	union {
 		char headerbuffer[1];
-		OverlayMsgHeader omh;
+		struct OverlayMsgHeader omh;
 	};
 	union {
 		char msgbuffer[1];
-		OverlayMsgShmem oms;
-		OverlayMsgInit omi;
-		OverlayMsgBlit omb;
-		OverlayMsgActive oma;
+		struct OverlayMsgShmem oms;
+		struct OverlayMsgInit omi;
+		struct OverlayMsgBlit omb;
+		struct OverlayMsgActive oma;
 	};
 };
 
