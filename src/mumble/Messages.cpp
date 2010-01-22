@@ -93,7 +93,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	g.uiSession = msg.session();
 	g.pPermissions = static_cast<ChanACL::Permissions>(msg.permissions());
 	g.l->clearIgnore();
-	g.l->log(Log::Information, u8(msg.welcome_text()));
+	g.l->log(Log::Information, tr("Welcome message: %1").arg(u8(msg.welcome_text())));
 	pmModel->ensureSelfVisible();
 	pmModel->recheckLinks();
 
