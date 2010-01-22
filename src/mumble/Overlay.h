@@ -86,8 +86,9 @@ class OverlayClient : public QObject {
 		Q_OBJECT
 		Q_DISABLE_COPY(OverlayClient);
 	public:
-		OverlayMsgHeader omhHeader;
+		OverlayMsg omMsg;
 		QLocalSocket *qlsSocket;
+		QSharedMemory *qsmMem;
 		unsigned int uiWidth, uiHeight;
 	protected slots:
 		void readyRead();

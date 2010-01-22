@@ -11,13 +11,13 @@ class OverlayWidget : public QWidget {
 	
 	protected:
 		QImage img;
-		OverlayMsgHeader omhHeader;
+		OverlayMsg om;
 		QLocalSocket *qlsSocket;
+		QSharedMemory *qsmMem;
 		
 		void resizeEvent(QResizeEvent *);
 		void paintEvent(QPaintEvent *);
-		
-		void disconnect(QLocalSocket *);
+		void detach();
 	protected slots:
 		void connected();
 		void disconnected();
@@ -29,6 +29,7 @@ class OverlayWidget : public QWidget {
 
 OverlayWidget::OverlayWidget(QWidget *p) : QWidget(p) {
 	qlsSocket = NULL;
+	qsmMem = NULL;
 }
 
 void OverlayWidget::resizeEvent(QResizeEvent *evt) {
@@ -38,10 +39,7 @@ void OverlayWidget::resizeEvent(QResizeEvent *evt) {
 	if (! img.isNull())
 		img = img.scaled(evt->size().width(), evt->size().height());
 	
-	if (qlsSocket) {
-		qlsSocket->abort();
-		qlsSocket->deleteLater();
-	}
+	detach();
 	
 	qlsSocket = new QLocalSocket(this);
 	connect(qlsSocket, SIGNAL(connected()), this, SLOT(connected()));
@@ -58,22 +56,31 @@ void OverlayWidget::paintEvent(QPaintEvent *evt) {
 	painter.drawImage(0, 0, img);
 }
 
+void OverlayWidget::detach() {
+	if (qlsSocket) {
+		qlsSocket->abort();
+		qlsSocket->deleteLater();
+		qlsSocket = NULL;
+	}
+	if (qsmMem) {
+		qsmMem->detach();
+		delete qsmMem;
+		qsmMem = NULL;
+	}
+}
+
 void OverlayWidget::connected() {
 	qWarning() << "connected";
 	
-	omhHeader.iLength = -1;
+	om.omh.iLength = -1;
 
-	OverlayMsgs om;	
-	om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
-	om.omh.uiType = OVERLAY_MSGTYPE_INIT;
-	om.omh.iLength = sizeof(OverlayMsgInit);
-	
-	qlsSocket->write(om.buffer, sizeof(OverlayMsgHeader));
-	
-	om.omi.uiWidth = width();
-	om.omi.uiHeight = height();
-
-	qlsSocket->write(om.buffer, sizeof(OverlayMsgInit));
+	OverlayMsg m;	
+	m.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+	m.omh.uiType = OVERLAY_MSGTYPE_INIT;
+	m.omh.iLength = sizeof(OverlayMsgInit);
+	m.omi.uiWidth = width();
+	m.omi.uiHeight = height();
+	qlsSocket->write(m.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgInit));
 	
 	img = QImage(width(), height(), QImage::Format_ARGB32);
 }
@@ -82,11 +89,8 @@ void OverlayWidget::disconnected() {
 	QLocalSocket *qls = qobject_cast<QLocalSocket *>(sender());
 	if (qls == qlsSocket) {
 		qWarning() << "disconnected";
+		detach();
 	}
-	qls->disconnect();
-	qls->abort();
-	qls->deleteLater();
-
 }
 
 void OverlayWidget::error(QLocalSocket::LocalSocketError) {
@@ -101,43 +105,60 @@ void OverlayWidget::readyRead() {
 	while(1) {
 		int ready = qlsSocket->bytesAvailable();
 		
-		qWarning() << ready << omhHeader.iLength;
+		qWarning() << ready << om.omh.iLength;
 
-		if (omhHeader.iLength == -1) {
+		if (om.omh.iLength == -1) {
 			if (ready < sizeof(OverlayMsgHeader))
 				break;
 			else {
-				qlsSocket->read(reinterpret_cast<char *>(&omhHeader), sizeof(OverlayMsgHeader));
-				if ((omhHeader.uiMagic != OVERLAY_MAGIC_NUMBER) || (omhHeader.iLength < 0)) {
-					qlsSocket->deleteLater();
-					qlsSocket = NULL;
+				qlsSocket->read(reinterpret_cast<char *>(om.headerbuffer), sizeof(OverlayMsgHeader));
+				if ((om.omh.uiMagic != OVERLAY_MAGIC_NUMBER) || (om.omh.iLength < 0) || (om.omh.iLength > sizeof(OverlayMsgShmem))) {
+					detach();
 					return;
 				}
 				ready -= sizeof(OverlayMsgHeader);
 			}
 		}
 
-		qWarning() << "2" << ready << omhHeader.iLength;
+		qWarning() << "2" << ready << om.omh.iLength;
 		
-		if (ready >= omhHeader.iLength) {
-			QByteArray qba = qlsSocket->read(omhHeader.iLength);
-			unsigned char *data = reinterpret_cast<unsigned char *>(qba.data());
-			int length = qba.length();
+		if (ready >= om.omh.iLength) {
+			int length = qlsSocket->read(om.msgbuffer, om.omh.iLength);
 
-			qWarning() << length << omhHeader.uiType;
+			qWarning() << length << om.omh.uiType;
 
-			if (length != omhHeader.iLength) {
-					qlsSocket->deleteLater();
-					qlsSocket = NULL;
+			if (length != om.omh.iLength) {
+					detach();
 					return;
 			}
-			switch(omhHeader.uiType) {
+
+			switch(om.omh.uiType) {
+				case OVERLAY_MSGTYPE_SHMEM:
+					{
+						OverlayMsgShmem *oms = & om.oms;
+						QString key = QString::fromUtf8(oms->a_cName, length);
+						if (qsmMem) {
+							qsmMem->detach();
+							qsmMem->deleteLater();
+							break;
+						}
+						qsmMem = new QSharedMemory(key, qlsSocket);
+						if (! qsmMem->attach(QSharedMemory::ReadOnly)) { // || (qsmMem->size() != width() * height() * 4)) {
+							qWarning() << "SHMEM FAIL" << qsmMem->errorString();
+							qsmMem->detach();
+							qsmMem->deleteLater();
+							qsmMem = NULL;
+							return;
+						}
+						qWarning() << "SHMEM";
+					}
+					break;
 				case OVERLAY_MSGTYPE_BLIT:
 					{
-						OverlayMsgBlit *omb = reinterpret_cast<OverlayMsgBlit *>(data);
+						OverlayMsgBlit *omb = & om.omb;
 						length -= sizeof(OverlayMsgBlit);
 
-						if ((length != 0) && (length != omb->w * omb->h * 4))
+						if (! qsmMem || ! qsmMem->isAttached())
 							break;
 														
 						if (((omb->x + omb->w) > img.width()) || 
@@ -145,22 +166,20 @@ void OverlayWidget::readyRead() {
 								break;
 								
 						qWarning() << "BLIT" << omb->x << omb->y << omb->w << omb->h;
-						
-						unsigned char *src = length ? data + sizeof(OverlayMsgBlit) : NULL;
+
 						for(int y = 0; y < omb->h; ++y) {
+							unsigned char *src = reinterpret_cast<unsigned char *>(qsmMem->data()) + 4 * (width() * (y + omb->y) + omb->x);
 							unsigned char *dst = img.scanLine(y + omb->y) + omb->x * 4;
-							if (length == 0)
-								memset(dst, 0, omb->w * 4);
-							else
-								memcpy(dst, src + y * omb->w * 4, omb->w * 4);
+							memcpy(dst, src, omb->w * 4);
 						}
+
 						update();
 					}
 					break;
 				default:
 					break;
 			}
-			omhHeader.iLength = -1;
+			om.omh.iLength = -1;
 			ready -= length;
 		} else {
 			break;
