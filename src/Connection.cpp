@@ -131,8 +131,8 @@ void Connection::socketRead() {
 			unsigned char a_ucBuffer[6];
 
 			qtsSocket->read(reinterpret_cast<char *>(a_ucBuffer), 6);
-			uiType = qFromBigEndian(* reinterpret_cast<quint16 *>(& a_ucBuffer[0]));
-			iPacketLength = qFromBigEndian(* reinterpret_cast<quint32 *>(& a_ucBuffer[2]));
+			uiType = qFromBigEndian<quint16>(&a_ucBuffer[0]);
+			iPacketLength = qFromBigEndian<quint32>(&a_ucBuffer[2]);
 			iAvailable -= 6;
 		}
 
