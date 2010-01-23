@@ -1,6 +1,7 @@
 #include <QtCore>
 #include <QtNetwork>
 #include <QtGui>
+#include "SharedMemory.h"
 
 #include "../../overlay/overlay.h"
 
@@ -13,7 +14,7 @@ class OverlayWidget : public QWidget {
 		QImage img;
 		OverlayMsg om;
 		QLocalSocket *qlsSocket;
-		QSharedMemory *qsmMem;
+		SharedMemory2 *smMem;
 		QRect qrActive;
 
 		unsigned int uiWidth, uiHeight;
@@ -33,7 +34,7 @@ class OverlayWidget : public QWidget {
 
 OverlayWidget::OverlayWidget(QWidget *p) : QWidget(p) {
 	qlsSocket = NULL;
-	qsmMem = NULL;
+	smMem = NULL;
 	uiWidth = uiHeight = 0;
 }
 
@@ -46,7 +47,7 @@ void OverlayWidget::resizeEvent(QResizeEvent *evt) {
 	init(evt->size());
 }
 
-void OverlayWidget::paintEvent(QPaintEvent *evt) {
+void OverlayWidget::paintEvent(QPaintEvent *) {
 	qWarning() << "paint";
 
 	if (! qlsSocket || qlsSocket->state() == QLocalSocket::UnconnectedState) {
@@ -87,8 +88,8 @@ void OverlayWidget::detach() {
 		qlsSocket->deleteLater();
 		qlsSocket = NULL;
 	}
-	if (qsmMem) {
-		qsmMem = NULL;
+	if (smMem) {
+		smMem = NULL;
 	}
 }
 
@@ -150,19 +151,15 @@ void OverlayWidget::readyRead() {
 						OverlayMsgShmem *oms = & om.oms;
 						QString key = QString::fromUtf8(oms->a_cName, length);
 						qWarning() << "SHMAT" << key;
-						if (qsmMem)
-							delete qsmMem;
-						qsmMem = new QSharedMemory(key, qlsSocket);
-						if (! qsmMem->attach(QSharedMemory::ReadOnly)) { // || (qsmMem->size() != width() * height() * 4)) {
-							qWarning() << "SHMEM FAIL" << qsmMem->errorString();
-							delete qsmMem;
-							qsmMem = NULL;
-						} else if (qsmMem->size() < width() * height() * 4) {
-							qWarning() << "SHMEM SIZE" << qsmMem->size();
-							delete qsmMem;
-							qsmMem = NULL;
+						if (smMem)
+							delete smMem;
+						smMem = new SharedMemory2(this, width() * height() * 4, key);
+						if (! smMem->data()) {
+							qWarning() << "SHMEM FAIL";
+							delete smMem;
+							smMem = NULL;
 						} else {
-							qWarning() << "SHMEM" << qsmMem->size();
+							qWarning() << "SHMEM" << smMem->size();
 						}
 					}
 					break;
@@ -172,7 +169,7 @@ void OverlayWidget::readyRead() {
 
 						qWarning() << "BLIT" << omb->x << omb->y << omb->w << omb->h;
 
-						if (! qsmMem || ! qsmMem->isAttached())
+						if (! smMem)
 							break;
 
 						if (((omb->x + omb->w) > img.width()) ||
@@ -181,7 +178,7 @@ void OverlayWidget::readyRead() {
 
 
 						for (int y = 0; y < omb->h; ++y) {
-							unsigned char *src = reinterpret_cast<unsigned char *>(qsmMem->data()) + 4 * (width() * (y + omb->y) + omb->x);
+							unsigned char *src = reinterpret_cast<unsigned char *>(smMem->data()) + 4 * (width() * (y + omb->y) + omb->x);
 							unsigned char *dst = img.scanLine(y + omb->y) + omb->x * 4;
 							memcpy(dst, src, omb->w * 4);
 						}

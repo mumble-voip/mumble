@@ -34,6 +34,7 @@
 #include "../../overlay/overlay.h"
 #include "ConfigDialog.h"
 #include "ClientUser.h"
+#include "SharedMemory.h"
 #include "ui_Overlay.h"
 
 class User;
@@ -109,7 +110,7 @@ class OverlayClient : public QObject {
 
 		OverlayMsg omMsg;
 		QLocalSocket *qlsSocket;
-		QSharedMemory *qsmMem;
+		SharedMemory2 *smMem;
 		unsigned int uiWidth, uiHeight;
 		float fItemHeight, fEdge, fBase;
 		int iItemHeight;

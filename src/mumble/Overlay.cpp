@@ -177,7 +177,7 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	connect(qlsSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 
 	omMsg.omh.iLength = -1;
-	qsmMem = NULL;
+	smMem = NULL;
 	uiWidth = uiHeight = 0;
 }
 
@@ -216,24 +216,18 @@ void OverlayClient::readyRead() {
 						uiWidth = omi->uiWidth;
 						uiHeight = omi->uiHeight;
 
-						if (qsmMem) {
-							qsmMem->detach();
-							qsmMem->deleteLater();
-						}
-
-						for (int i=0;i<100;++i) {
-							qsmMem = new QSharedMemory(QString::fromLatin1("MumbleShmem%1").arg(i), this);
-							if (qsmMem->create(uiWidth * uiHeight * 4))
-								break;
-							delete qsmMem;
-							qsmMem = NULL;
-						}
-						if (! qsmMem) {
+						if (smMem) 
+							delete smMem;
+							
+						smMem = new SharedMemory2(this, uiWidth * uiHeight * 4);
+						if (! smMem->data()) {
 							qWarning() << "OverlayClient: Failed to create shared memory";
+							delete smMem;
+							smMem = NULL;
 							break;
 						}
 
-						QByteArray key = qsmMem->key().toUtf8();
+						QByteArray key = smMem->name().toUtf8();
 
 						OverlayMsg om;
 						om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
@@ -259,7 +253,7 @@ void OverlayClient::readyRead() {
 }
 
 void OverlayClient::reset() {
-	if (! uiWidth || ! uiHeight || ! qsmMem || ! qsmMem->isAttached())
+	if (! uiWidth || ! uiHeight || ! smMem)
 		return;
 	setupRender();
 }
@@ -313,7 +307,7 @@ void OverlayClient::setupRender() {
 	qcTexts.clear();
 	qlLines.clear();
 
-	memset(qsmMem->data(), 0, qsmMem->size());
+	memset(smMem->data(), 0, smMem->size());
 
 	OverlayMsg om;
 	om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
@@ -327,12 +321,10 @@ void OverlayClient::setupRender() {
 }
 
 bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
-	if (! uiWidth || ! uiHeight || ! qsmMem || ! qsmMem->isAttached())
+	if (! uiWidth || ! uiHeight || ! smMem)
 		return true;
 
-	Overlay *o = static_cast<Overlay *>(parent());
-
-	QImage qi(reinterpret_cast<unsigned char *>(qsmMem->data()), uiWidth, uiHeight, QImage::Format_ARGB32);
+	QImage qi(reinterpret_cast<unsigned char *>(smMem->data()), uiWidth, uiHeight, QImage::Format_ARGB32);
 	QRect dirty, active;
 
 	QPainter p(&qi);
@@ -435,7 +427,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		imagekeys << key;
 	}
 
-	if (height > uiHeight)
+	if (height > static_cast<int>(uiHeight))
 		height = uiHeight;
 
 	int y = iroundf(uiHeight * g.s.fOverlayY);
@@ -447,7 +439,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 
 	if (y < 0)
 		y = 0;
-	if ((y + height) >= uiHeight)
+	if ((y + height) >= static_cast<int>(uiHeight))
 		y = uiHeight - height;
 
 	int i;
@@ -466,7 +458,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		if (ti)
 			width += ti->qiImage.width();
 
-		if (width > uiWidth)
+		if (width > static_cast<int>(uiWidth))
 			width = uiWidth;
 
 		if (g.s.bOverlayLeft) {
@@ -695,7 +687,7 @@ void Overlay::disconnected() {
 	}
 }
 
-void Overlay::error(QLocalSocket::LocalSocketError err) {
+void Overlay::error(QLocalSocket::LocalSocketError) {
 	disconnected();
 }
 

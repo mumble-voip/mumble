@@ -2,6 +2,9 @@ CONFIG *= warn_on
 
 win32 {
 	INCLUDEPATH *= /dev/Boost/include/boost-1_41
+	LIBPATH	*= /dev/OpenSSL/lib /dev/libsndfile
+	INCLUDEPATH *= /dev/OpenSSL/include /dev/libsndfile/include
+
 	CONFIG(intelcpp) {
 		DEFINES *= USE_INTEL_IPP
 		DEFINES *= RESTRICT=restrict
