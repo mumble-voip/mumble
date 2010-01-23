@@ -277,6 +277,7 @@ Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
 
   SetOutPath "$INSTDIR\plugins"
   File /oname=aoc.dll "..\release\plugins\aoc.dll"
+  File /oname=aoc.dll "..\release\plugins\arma2.dll"
   File /oname=bf1942.dll "..\release\plugins\bf1942.dll"
   File /oname=bf2.dll "..\release\plugins\bf2.dll"
   File /oname=bf2142.dll "..\release\plugins\bf2142.dll"

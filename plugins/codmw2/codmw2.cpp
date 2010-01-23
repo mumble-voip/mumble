@@ -70,7 +70,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Call of Duty: Modern Warfare 2 Multiplayer v1.0.177.", L"Mumble CoDMW2 MP Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Call of Duty: Modern Warfare 2 Multiplayer v1.0.180.", L"Mumble CoDMW2 MP Plugin", MB_OK);
 }
 
 
@@ -195,10 +195,10 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 MP v1.0.177 only. No context or identity support yet.");
+	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 MP v1.0.180 only. No context or identity support yet.");
 }
 
-static std::wstring description(L"Call of Duty: Modern Warfare 2 MP v1.0.177");
+static std::wstring description(L"Call of Duty: Modern Warfare 2 MP v1.0.180");
 static std::wstring shortname(L"Call of Duty: Modern Warfare 2 MP");
 
 static MumblePlugin codmw2plug = {

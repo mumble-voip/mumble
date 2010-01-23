@@ -98,7 +98,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Team Fortress 2 (Build 4057). IP:Port context support.", L"Mumble TF2 Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Team Fortress 2 (Build 4069). IP:Port context support.", L"Mumble TF2 Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -250,10 +250,10 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports TF2 build 4057. No identity support yet.");
+	return std::wstring(L"Supports TF2 build 4069. No identity support yet.");
 }
 
-static std::wstring description(L"Team Fortress 2 (Build 4057)");
+static std::wstring description(L"Team Fortress 2 (Build 4069)");
 static std::wstring shortname(L"Team Fortress 2");
 
 static MumblePlugin tf2plug = {
