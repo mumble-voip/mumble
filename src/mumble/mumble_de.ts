@@ -1686,7 +1686,7 @@ Setzt die Pfade zu den Dateien auf die Standardwerte zurück.</translation>
     <message>
         <location filename="AudioInput.ui"/>
         <source>Use Amplitude based speech detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutze amplitudenbasierte Spracherkennung</translation>
     </message>
     <message>
         <location/>
@@ -3087,7 +3087,7 @@ Diese Statistiken sind grundlegend für die weitere Entwicklung und stellen sich
     <message>
         <location line="+7"/>
         <source>Expiry Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Verfallsdatum</translation>
     </message>
     <message>
         <location line="+34"/>
@@ -3178,7 +3178,7 @@ Bitte verwenden Sie eine andere Datei.</translation>
     <message>
         <location filename="main.cpp" line="+346"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ablauf des Zertifikats:&lt;/b&gt; Ihr Zertifikat wird bald ablaufen. Sie müssen es erneuern oder Sie werden nicht mehr in der Lage sein sich auf Server zu verbinden auf denen Sie registriert sind.</translation>
     </message>
 </context>
 <context>
@@ -4383,7 +4383,7 @@ Der Absturz-Bericht enthält eine Teilkopie von Mumbles Speicher zum Zeitpunkt d
         <location line="+9"/>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation type="unfinished">Bitte beschreiben Sie kurz, was Sie getan haben, als Mumble abgestürzt ist</translation>
+        <translation>Bitte beschreiben Sie kurz, in Englischer Sprache, was Sie getan haben als Mumble abgestürzt ist</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -5259,27 +5259,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+133"/>
         <source>link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Link zu %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ftp link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>FTP Link zu %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>player link</source>
-        <translation type="unfinished"></translation>
+        <translation>Link auf Benutzer</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>channel link</source>
-        <translation type="unfinished"></translation>
+        <translation>Link auf Kanal</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 link</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Link</translation>
     </message>
 </context>
 <context>
@@ -6625,12 +6625,12 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location line="-47"/>
         <source>Welcome message: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Willkommensnachricht: %1</translation>
     </message>
     <message>
         <location line="+33"/>
         <source>Mumble: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble: %1</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -7538,7 +7538,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location line="+398"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;Kontrollkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit %1 bit %2&lt;br /&gt;%3 ms Durchschnittslatenz (%4 Abweichung)&lt;/p&gt;&lt;p&gt;Gegenstelle %5 (Port %6)&lt;/p&gt;</translation>
     </message>
     <message>
         <source>File is not a config file.</source>
@@ -7845,27 +7845,27 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location/>
         <source>S&amp;erver</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;erver</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Self</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Selbst</translation>
     </message>
     <message>
         <location/>
         <source>Audio S&amp;tatistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Audios&amp;tatistik</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Unlink Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Pl&amp;ugins trennen</translation>
     </message>
     <message>
         <location/>
         <source>Change your own comment.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ändere eigenen Kommentar.</translation>
     </message>
     <message>
         <location/>
