@@ -38,3 +38,14 @@
 #include <errno.h>
 #include <string.h>
 
+#include "SharedMemory.h"
+
+SharedMemory2::SharedMemory2(QObject *p, unsigned int minsize, const QString &name) : QObject(p) {
+  a_ucData = NULL;
+}
+
+SharedMemory2::~SharedMemory2() {
+}
+
+void SharedMemory2::systemRelease() {
+}

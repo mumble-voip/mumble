@@ -236,4 +236,4 @@ int main(int argc, char **argv) {
 	return a.exec();
 }
 
-#include "Overlay.moc"
+#include "OverlayTest.moc"
