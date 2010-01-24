@@ -34,8 +34,6 @@ static HANDLE hMapObject = NULL;
 static HANDLE hHookMutex = NULL;
 static HHOOK hhookWnd = 0;
 
-SharedMem *sm = NULL;
-HANDLE hSharedMutex = NULL;
 HMODULE hSelf = NULL;
 static BOOL bMumble = FALSE;
 static BOOL bDebug = FALSE;
@@ -44,6 +42,8 @@ static HardHook hhLoad;
 static HardHook hhLoadW;
 void *HardHook::pCode = NULL;
 unsigned int HardHook::uiCode = 0;
+
+static SharedData *sd;
 
 HardHook::HardHook() {
 	int i;
@@ -372,7 +372,7 @@ void __cdecl fods(const char *format, ...) {
 
 void __cdecl ods(const char *format, ...) {
 #ifndef DEBUG
-	if (!bDebug && (!sm || ! sm->bDebug))
+	if (!bDebug)
 		return;
 #endif
 	char    buf[4096], *p = buf;
@@ -649,23 +649,21 @@ static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
 extern "C" __declspec(dllexport) void __cdecl RemoveHooks() {
 	DWORD dwWaitResult = WaitForSingleObject(hHookMutex, 1000L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
-		if (sm->bHooked) {
+		if (sd->bHooked) {
 			if (hhookWnd) {
 				UnhookWindowsHookEx(hhookWnd);
 				hhookWnd = NULL;
 			}
-			sm->bHooked = false;
+			sd->bHooked = false;
 		}
 		ReleaseMutex(hHookMutex);
 	}
 }
 
 extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
-	sm->lastAppAlive = GetTickCount();
-
 	DWORD dwWaitResult = WaitForSingleObject(hHookMutex, 1000L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
-		if (! sm->bHooked) {
+		if (! sd->bHooked) {
 			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) &InstallHooks, &hSelf);
 			if (hSelf == NULL) {
 				ods("Lib: Failed to find myself");
@@ -675,7 +673,7 @@ extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
 					ods("Lib: Failed to insert WNDProc hook");
 			}
 
-			sm->bHooked = true;
+			sd->bHooked = true;
 		}
 		ReleaseMutex(hHookMutex);
 	}
@@ -685,12 +683,7 @@ extern "C" __declspec(dllexport) unsigned int __cdecl GetOverlayMagicVersion() {
 	return OVERLAY_MAGIC_NUMBER;
 }
 
-extern "C" __declspec(dllexport) SharedMem * __cdecl GetSharedMemory() {
-	return sm;
-}
-
 extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
-
 	char procname[1024+64];
 	GetModuleFileName(NULL, procname, 1024);
 
@@ -731,57 +724,36 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 
 				ods("Lib: ProcAttach: %s", procname);
 
-				hSharedMutex = CreateMutex(NULL, false, "MumbleSharedMutex");
 				hHookMutex = CreateMutex(NULL, false, "MumbleHookMutex");
-				if ((hSharedMutex == NULL) || (hHookMutex == NULL)) {
+				if (hHookMutex == NULL) {
 					ods("Lib: CreateMutex failed");
 					return TRUE;
 				}
 
-				DWORD dwWaitResult = WaitForSingleObject(hSharedMutex, 1000L);
-				if (dwWaitResult != WAIT_OBJECT_0) {
-					ods("Lib: WaitForMutex failed");
-					return TRUE;
-				}
+				DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData);
 
-				DWORD dwSharedSize = sizeof(SharedMem) + sizeof(Direct3D9Data) + sizeof(DXGIData);
-
-				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, "MumbleSharedMemory");
+				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, "MumbleOverlayPrivate");
 				if (hMapObject == NULL) {
 					ods("Lib: CreateFileMapping failed");
-					ReleaseMutex(hSharedMutex);
 					return TRUE;
 				}
 
 				bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
 
-				sm = (SharedMem *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize);
+				sd = (SharedData *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize);
 
-				if (sm == NULL) {
+				if (sd == NULL) {
 					ods("MapViewOfFile Failed");
-					ReleaseMutex(hSharedMutex);
 					return TRUE;
 				}
 
-				unsigned char *raw = (unsigned char *) sm;
-				d3dd = (Direct3D9Data *)(raw + sizeof(SharedMem));
-				dxgi = (DXGIData *)(raw + sizeof(SharedMem) + sizeof(Direct3D9Data));
+				if (bInit)
+					memset(sd, 0, dwSharedSize);
 
-				if (bInit) {
-					memset(sm, 0, sizeof(SharedMem) + sizeof(Direct3D9Data) + sizeof(DXGIData));
-					sm->lastAppAlive = 0;
-					sm->bHooked = false;
-					sm->bDebug = false;
-					sm->bShow = true;
-					sm->bReset = false;
-					sm->fX = sm->fY = 1.0;
-					sm->bTop = false;
-					sm->bBottom = true;
-					sm->bLeft = true;
-					sm->bRight = false;
-					sm->fFontSize = 72;
-				}
-				ReleaseMutex(hSharedMutex);
+				unsigned char *raw = (unsigned char *) sd;
+				d3dd = (Direct3D9Data *)(raw + sizeof(SharedData));
+				dxgi = (DXGIData *)(raw + sizeof(SharedData) + sizeof(Direct3D9Data));
+
 
 				if (! bMumble) {
 					hhLoad.setup(reinterpret_cast<voidFunc>(LoadLibraryA), reinterpret_cast<voidFunc>(MyLoadLibrary));
@@ -801,19 +773,17 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 				ods("Lib: ProcDetach: %s", procname);
 				hhLoad.restore(true);
 				hhLoadW.restore(true);
-				if (sm)
-					UnmapViewOfFile(sm);
+				if (sd)
+					UnmapViewOfFile(sd);
 				if (hMapObject)
 					CloseHandle(hMapObject);
-				if (hSharedMutex)
-					CloseHandle(hSharedMutex);
 				if (hHookMutex)
 					CloseHandle(hHookMutex);
 			}
 			break;
 		case DLL_THREAD_ATTACH: {
 				static bool bTriedHook = false;
-				if (sm && ! bTriedHook && ! bMumble) {
+				if (sd && ! bTriedHook && ! bMumble) {
 					bTriedHook = true;
 					checkD3D9Hook();
 					checkDXGIHook();

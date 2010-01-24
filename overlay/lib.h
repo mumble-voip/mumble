@@ -87,6 +87,10 @@ struct DXGIData {
 	wchar_t wcD3D10FileName[2048];
 };
 
+struct SharedData {
+	bool bHooked;
+};
+
 struct FakeInterface {
 	typedef ULONG(FakeInterface::* voidMemberFunc)();
 	void **vtbl;
@@ -133,10 +137,8 @@ extern void checkDXGIHook(bool preonly = false);
 extern void checkD3D9Hook(bool preonly = false);
 extern void checkOpenGLHook();
 
-extern SharedMem *sm;
 extern Direct3D9Data *d3dd;
 extern DXGIData *dxgi;
-extern HANDLE hSharedMutex;
 extern HMODULE hSelf;
 extern unsigned int uiAudioCount;
 extern bool bVideoHooked;

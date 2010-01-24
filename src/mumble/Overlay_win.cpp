@@ -40,74 +40,87 @@ typedef unsigned int (__cdecl *GetOverlayMagicVersionProc)();
 typedef void (__cdecl *PrepProc)();
 typedef void (__cdecl *PrepDXGIProc)();
 
-class SharedMemoryPrivate {
-	public:
-		HANDLE hMutex;
-};
-
 SharedMemory::SharedMemory() {
-	d = new SharedMemoryPrivate();
+	d = NULL;
 	sm = NULL;
 }
 
 SharedMemory::~SharedMemory() {
-	CloseHandle(d->hMutex);
-	delete d;
-	d = NULL;
 }
 
-void SharedMemory::resolve(QLibrary *lib) {
-	GetOverlayMagicVersionProc gompvp = (GetOverlayMagicVersionProc)lib->resolve("GetOverlayMagicVersion");
+void SharedMemory::resolve(QLibrary *) {
+}
+
+bool SharedMemory::tryLock() {
+	return false;
+}
+
+void SharedMemory::unlock() {
+}
+
+class OverlayPrivateWin : public OverlayPrivate {
+	protected:
+		QLibrary *qlOverlay;
+	public:
+		HooksProc hpInstall, hpRemove;
+		
+		void setActive(bool);
+		OverlayPrivateWin(QObject *);
+		~OverlayPrivateWin();
+};
+
+OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
+	QString path=QString::fromLatin1("%1/mumble_ol.dll").arg(qApp->applicationDirPath());
+
+	qlOverlay = new QLibrary(this);
+	hpInstall = NULL;
+	hpRemove = NULL;
+
+	qlOverlay->setFileName(path);
+	if (! qlOverlay->load()) {
+		QMessageBox::critical(NULL, tr("Mumble"), tr("Failed to load overlay library. This means either that:\n"
+		                      "- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from\n"
+		                      "- you're on an OS earlier than WinXP SP2"), QMessageBox::Ok, QMessageBox::NoButton);
+		qWarning("Overlay failure");
+		return;
+	} 
+
+	GetOverlayMagicVersionProc gompvp = (GetOverlayMagicVersionProc)qlOverlay->resolve("GetOverlayMagicVersion");
 	if (! gompvp)
 		return;
 
 	if (gompvp() != OVERLAY_MAGIC_NUMBER)
 		return;
 
-	GetSharedMemProc gsmp = (GetSharedMemProc)lib->resolve("GetSharedMemory");
-	if (gsmp)
-		sm=gsmp();
-	d->hMutex = CreateMutex(NULL, false, L"MumbleSharedMutex");
+	hpInstall = (HooksProc)qlOverlay->resolve("InstallHooks");
+	hpRemove = (HooksProc)qlOverlay->resolve("RemoveHooks");
+	PrepProc pp = (PrepProc) qlOverlay->resolve("PrepareD3D9");
+	PrepDXGIProc pdxgi = (PrepDXGIProc) qlOverlay->resolve("PrepareDXGI");
 
-	if (sm) {
-		PrepProc pp = (PrepProc) lib->resolve("PrepareD3D9");
-		if (pp)
-			pp();
+	if (pp)
+		pp();
 
-		PrepDXGIProc pdxgi = (PrepDXGIProc) lib->resolve("PrepareDXGI");
-		if (pdxgi)
-			pdxgi();
-	}
+	if (pdxgi)
+		pdxgi();
 }
 
-bool SharedMemory::tryLock() {
-	DWORD dwWaitResult = WaitForSingleObject(d->hMutex, 500L);
-	return (dwWaitResult == WAIT_OBJECT_0);
+OverlayPrivateWin::~OverlayPrivateWin() {
+	qlOverlay->unload();
 }
 
-void SharedMemory::unlock() {
-	ReleaseMutex(d->hMutex);
+void OverlayPrivateWin::setActive(bool act) {
+	if (act && hpInstall)
+		hpInstall();
+	else if (! act && hpRemove)
+		hpRemove();
 }
-
-class OverlayPrivateWin : public OverlayPrivate {
-	public:
-		HooksProc hpInstall, hpRemove;
-};
 
 void Overlay::platformInit() {
-	d = new OverlayPrivateWin();
-	static_cast<OverlayPrivateWin *>(d)->hpInstall = (HooksProc)qlOverlay->resolve("InstallHooks");
-	static_cast<OverlayPrivateWin *>(d)->hpRemove = (HooksProc)qlOverlay->resolve("RemoveHooks");
+	d = new OverlayPrivateWin(this);
 }
 
 void Overlay::setActive(bool act) {
-	if (! sm.sm)
-		return;
-
-	if (act)
-		static_cast<OverlayPrivateWin *>(d)->hpInstall();
-	else
-		static_cast<OverlayPrivateWin *>(d)->hpRemove();
+	static_cast<OverlayPrivateWin *>(d)->setActive(act);
 }
 
 void Overlay::on_Timer_timeout() {

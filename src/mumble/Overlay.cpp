@@ -604,38 +604,6 @@ bool OverlayTextLine::operator <(const OverlayTextLine &other) const {
 
 Overlay::Overlay() : QObject() {
 	d = NULL;
-	qlOverlay = new QLibrary(this);
-
-#ifdef Q_OS_WIN
-	QString path=QString::fromLatin1("%1/mumble_ol.dll").arg(qApp->applicationDirPath());
-
-	qlOverlay->setFileName(path);
-	if (! qlOverlay->load()) {
-		QMessageBox::critical(NULL, tr("Mumble"), tr("Failed to load overlay library. This means either that:\n"
-		                      "- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from\n"
-		                      "- you're on an OS earlier than WinXP SP2"), QMessageBox::Ok, QMessageBox::NoButton);
-		qWarning("Overlay failure");
-	} else {
-		sm.resolve(qlOverlay);
-	}
-#else
-	sm.resolve(qlOverlay);
-#endif
-
-	if (! sm.sm) {
-		QMessageBox::warning(NULL, tr("Mumble"), tr("Failed to initialize overlay memory. This usually means that the shared memory is "
-		                     "locked by the OS, and you need to reboot to release it."), QMessageBox::Ok, QMessageBox::NoButton);
-	} else {
-#ifndef QT_NO_DEBUG
-		sm.sm->bDebug = true;
-#else
-		sm.sm->bDebug = false;
-#endif
-		sm.sm->version[0] = OVERLAY_VERSION_MAJ;
-		sm.sm->version[1] = OVERLAY_VERSION_MIN;
-		sm.sm->version[2] = OVERLAY_VERSION_PATCH;
-		sm.sm->version[3] = OVERLAY_VERSION_SUB;
-	}
 
 	QImage img;
 	img = QIcon(QLatin1String("skin:muted_self.svg")).pixmap(60,60).toImage();
@@ -671,7 +639,6 @@ Overlay::~Overlay() {
 	setActive(false);
 	if (d)
 		delete d;
-	qlOverlay->unload();
 }
 
 void Overlay::newConnection() {
@@ -725,10 +692,7 @@ void Overlay::toggleShow() {
 	}
 	g.s.osOverlay = ns;
 
-	if (! sm.sm)
-		return;
-
-	if (sm.tryLock()) {
+	if (sm.sm && sm.tryLock()) {
 		sm.sm->bShow = (g.s.osOverlay != Settings::Nothing);
 		sm.unlock();
 	}
@@ -738,12 +702,9 @@ void Overlay::toggleShow() {
 void Overlay::forceSettings() {
 	QString str;
 
-	if (! sm.sm)
-		return;
-
 	fixFont();
 
-	if (sm.tryLock()) {
+	if (sm.sm && sm.tryLock()) {
 		sm.sm->fX = g.s.fOverlayX;
 		sm.sm->fY = g.s.fOverlayY;
 		sm.sm->bTop = g.s.bOverlayTop;
@@ -798,7 +759,7 @@ void Overlay::updateOverlay() {
 	QList<qpChanCol> linkchans;
 	QList<OverlayTextLine> lines;
 
-	if (! isActive())
+	if (! isActive() && qlClients.isEmpty())
 		return;
 
 	if (! g.uiSession) {
@@ -972,6 +933,8 @@ void Overlay::setTexts(const QList<OverlayTextLine> &lines) {
 		g.sh->sendMessage(mprb);
 	}
 
+	qlCurrentTexts = lines;
+
 	if (! sm.sm || ! sm.tryLock())
 		return;
 
@@ -1042,6 +1005,5 @@ void Overlay::setTexts(const QList<OverlayTextLine> &lines) {
 		sm.sm->texts[i].width = -1;
 	}
 
-	qlCurrentTexts = lines;
 	sm.unlock();
 }

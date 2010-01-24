@@ -236,8 +236,6 @@ void Context::newTexture(unsigned int width, unsigned int height) {
 }
 
 void Context::draw(HDC hdc) {
-	sm->bHooked = true;
-
 	// DEBUG
 	// sm->bDebug = true;
 

@@ -135,7 +135,7 @@ class OverlayPrivate : public QObject {
 		Q_OBJECT
 		Q_DISABLE_COPY(OverlayPrivate);
 	public:
-		OverlayPrivate() : QObject() {};
+		OverlayPrivate(QObject *p) : QObject(p) {};
 };
 
 class Overlay : public QObject {
@@ -153,7 +153,6 @@ class Overlay : public QObject {
 		QHash<QString, short> qhWidths;
 		QSet<unsigned int> qsForce;
 		QSet<unsigned int> qsQueried;
-		QLibrary *qlOverlay;
 		QTimer *qtTimer;
 		QFont qfFont;
 		float fFontBase;

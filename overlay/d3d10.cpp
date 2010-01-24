@@ -33,7 +33,7 @@
 #include <d3d10.h>
 #include <d3dx10.h>
 
-DXGIData *dxgi;
+DXGIData *dxgi = NULL;
 
 static bool bHooked = false;
 static bool bChaining = false;
@@ -561,6 +561,9 @@ void checkDXGIHook(bool preonly) {
 }
 
 extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
+	if (! dxgi)
+		return;
+	
 	ods("Preparing static data for DXGI Injection");
 
 	HMODULE hD3D10 = LoadLibrary("D3D10.DLL");

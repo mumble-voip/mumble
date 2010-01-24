@@ -31,7 +31,7 @@
 #include "lib.h"
 #include <d3d9.h>
 
-Direct3D9Data *d3dd;
+Direct3D9Data *d3dd = NULL;
 
 typedef IDirect3D9*(WINAPI *pDirect3DCreate9)(UINT SDKVersion) ;
 typedef HRESULT(WINAPI *pDirect3DCreate9Ex)(UINT SDKVersion, IDirect3D9Ex **ppD3D) ;
@@ -40,7 +40,7 @@ struct D3DTLVERTEX {
 	float    x, y, z, rhw; // Position
 	float    tu, tv;  // Texture coordinates
 };
-const DWORD D3DFVF_TLVERTEX = D3DFVF_XYZRHW | D3DFVF_TEX1;
+static const DWORD D3DFVF_TLVERTEX = D3DFVF_XYZRHW | D3DFVF_TEX1;
 
 class DevState : protected Pipe {
 	public:
@@ -265,7 +265,7 @@ static HardHook hhSwapPresent;
 static void doPresent(IDirect3DDevice9 *idd) {
 	DevState *ds = devMap[idd];
 
-	if (ds && sm->bShow) {
+	if (ds) {
 		DWORD dwOldThread = ds->dwMyThread;
 		if (dwOldThread)
 			ods("doPresent from other thread");
@@ -278,7 +278,6 @@ static void doPresent(IDirect3DDevice9 *idd) {
 
 		ods("D3D9: doPresent Back %p RenderT %p",pTarget,pRenderTarget);
 
-
 		IDirect3DStateBlock9* pStateBlock = NULL;
 		idd->CreateStateBlock(D3DSBT_ALL, &pStateBlock);
 		pStateBlock->Capture();
@@ -287,11 +286,6 @@ static void doPresent(IDirect3DDevice9 *idd) {
 
 		if (pTarget != pRenderTarget)
 			idd->SetRenderTarget(0, pTarget);
-
-		if (sm->bReset) {
-			sm->bReset = false;
-			ds->releaseData();
-		}
 
 		idd->BeginScene();
 		ds->draw();
@@ -620,6 +614,9 @@ void checkD3D9Hook(bool preonly) {
 }
 
 extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
+	if (! d3dd)
+		return;
+	
 	ods("Preparing static data for D3D9 Injection");
 
 	char buffb[2048];
