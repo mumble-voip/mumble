@@ -926,6 +926,8 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 
 		if (tex.size() != 600 * 60 * 4)
 			return false;
+	} else {
+		tex = texture;
 	}
 
 	if (! tex.isEmpty())

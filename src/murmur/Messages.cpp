@@ -514,10 +514,12 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	// Permission checks done. Now enact this.
 
 	if (msg.has_texture()) {
+		QByteArray qba = blob(msg.texture());
 		if (uSource->iId > 0) {
-			QByteArray qba = QByteArray(msg.texture().data(), static_cast<int>(msg.texture().size()));
 			if (! setTexture(uSource->iId, qba))
 				return;
+		} else {
+			hashAssign(uSource->qbaTexture, uSource->qbaTextureHash, qba);
 		}
 	}
 
