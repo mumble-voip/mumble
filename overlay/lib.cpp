@@ -397,6 +397,205 @@ void __cdecl ods(const char *format, ...) {
 	OutputDebugStringA(buf);
 }
 
+Pipe::Pipe() {
+	hSocket = INVALID_HANDLE_VALUE;
+	hMemory = NULL;
+	a_ucTexture = NULL;
+
+	omMsg.omh.iLength = -1;
+	
+	uiWidth = uiHeight = 0;
+	uiLeft = uiRight = uiTop = uiBottom = 0;
+}
+
+Pipe::~Pipe() {
+	disconnect();
+}
+
+void Pipe::release() {
+	if (hMemory) {
+		CloseHandle(hMemory);
+		hMemory = NULL;
+		if (a_ucTexture) {
+			UnmapViewOfFile(a_ucTexture);
+			a_ucTexture = NULL;
+		}
+		
+		uiLeft = uiRight = uiTop = uiBottom = 0;
+	}
+}
+
+void Pipe::disconnect() {
+	release();
+	if (hSocket != INVALID_HANDLE_VALUE) {
+		ods("Pipe: Disconnect");
+		CloseHandle(hSocket);
+		hSocket = INVALID_HANDLE_VALUE;
+	}
+	uiWidth = 0;
+	uiHeight = 0;
+	omMsg.omh.iLength = -1;
+}
+
+bool Pipe::sendMessage(const OverlayMsg &om) {
+	DWORD dwBytesToWrite = sizeof(OverlayMsgHeader) + om.omh.iLength;
+	DWORD dwBytesWritten = dwBytesToWrite;
+
+	if (WriteFile(hSocket, om.headerbuffer, sizeof(OverlayMsgHeader) + om.omh.iLength, &dwBytesWritten, NULL))
+		if (dwBytesToWrite == dwBytesWritten)
+			return true;
+	
+	ods("Pipe: Short write");
+	disconnect();
+	return false;
+}
+
+void Pipe::checkMessage(unsigned int w, unsigned int h) {
+	if (!w || ! h)
+		return;
+		
+	if (hSocket == INVALID_HANDLE_VALUE) {
+		hSocket = CreateFileW(L"\\\\.\\pipe\\MumbleOverlayPipe", GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
+		if (hSocket == INVALID_HANDLE_VALUE) {
+			ods("Pipe: Connection failed");
+			return;
+		}
+		ods("Pipe: Connected");
+		
+		uiWidth = 0;
+		uiHeight = 0;
+	}
+
+	if ((uiWidth != w) || (uiHeight != h)) {
+		release();
+		
+		uiWidth = w;
+		uiHeight = h;
+		
+		OverlayMsg om;
+		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+		om.omh.uiType = OVERLAY_MSGTYPE_INIT;
+		om.omh.iLength = sizeof(OverlayMsgInit);
+		om.omi.uiWidth = uiWidth;
+		om.omi.uiHeight = uiHeight;
+		
+		if (!sendMessage(om))
+			return;
+			
+		ods("Pipe: SentInit %d %d", w, h);
+	}
+	
+	while(1) {
+		DWORD dwBytesLeft;
+		DWORD dwBytesRead;
+		
+		if (! PeekNamedPipe(hSocket, NULL, 0, NULL, &dwBytesLeft, NULL)) {
+			ods("Pipe: No peek");
+			disconnect();
+			return;
+		}
+
+		if (omMsg.omh.iLength == -1) {
+			if (dwBytesLeft < sizeof(OverlayMsgHeader))
+				break;
+			
+			ReadFile(hSocket, omMsg.headerbuffer, sizeof(OverlayMsgHeader), &dwBytesRead, NULL);
+			dwBytesLeft -= sizeof(OverlayMsgHeader);
+			
+			if (dwBytesRead != sizeof(OverlayMsgHeader)) {
+				ods("Pipe: Short header read %d", dwBytesRead);
+				disconnect();
+				return;
+			}
+		}
+
+		if (static_cast<int>(dwBytesLeft) < omMsg.omh.iLength)
+			break;
+
+		ReadFile(hSocket, omMsg.msgbuffer, omMsg.omh.iLength, &dwBytesRead, NULL);
+		if (dwBytesRead != omMsg.omh.iLength) {
+			ods("Pipe: Short body read %d/%d", dwBytesRead, omMsg.omh.iLength);
+			disconnect();
+			return;
+		}
+
+		switch(omMsg.omh.uiType) {
+			case OVERLAY_MSGTYPE_SHMEM: {
+					wchar_t memname[2048];
+					memname[0] = 0;
+
+					MultiByteToWideChar(CP_UTF8, 0, omMsg.oms.a_cName, omMsg.omh.iLength, memname, 2048);
+					
+					release();
+
+					hMemory = CreateFileMappingW(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, uiWidth * uiHeight * 4, memname);
+
+					if (GetLastError() != ERROR_ALREADY_EXISTS) {
+						ods("Pipe: Memory %s(%d) => %ls doesn't exist", omMsg.oms.a_cName, omMsg.omh.iLength, memname);
+						if (hMemory) {
+							CloseHandle(hMemory);
+							hMemory = NULL;
+							break;
+						}
+					}
+					
+					if (! hMemory) {
+						ods("Pipe: CreateFileMapping failed");
+						break;
+					}
+					
+					a_ucTexture = reinterpret_cast<unsigned char *>(MapViewOfFile(hMemory, FILE_MAP_ALL_ACCESS, 0, 0, 0));
+
+					if (a_ucTexture == NULL) {
+						ods("Pipe: Failed to map memory");
+						CloseHandle(hMemory);
+						hMemory = NULL;
+					}
+
+					MEMORY_BASIC_INFORMATION mbi;
+					memset(&mbi, 0, sizeof(mbi));
+					if ((VirtualQuery(a_ucTexture, &mbi, sizeof(mbi)) == 0) || (mbi.RegionSize < (uiHeight * uiWidth * 4))) {
+						ods("Pipe: Memory too small");
+						UnmapViewOfFile(a_ucTexture);
+						CloseHandle(hMemory);
+						a_ucTexture = NULL;
+						hMemory = NULL;
+						break;
+					}
+					
+					OverlayMsg om;
+					om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+					om.omh.uiType = OVERLAY_MSGTYPE_SHMEM;
+					om.omh.iLength = 0;
+					
+					if (!sendMessage(om))
+						return;
+						
+					newTexture(uiWidth, uiHeight);
+				}
+				break;
+			case OVERLAY_MSGTYPE_BLIT: {
+					if (a_ucTexture)
+						blit(omMsg.omb.x, omMsg.omb.y, omMsg.omb.w, omMsg.omb.h);
+				}
+				break;
+			case OVERLAY_MSGTYPE_ACTIVE: {
+					uiLeft = omMsg.oma.x;
+					uiTop = omMsg.oma.y;
+					uiRight = omMsg.oma.x + omMsg.oma.w;
+					uiBottom = omMsg.oma.y + omMsg.oma.h;
+					if (a_ucTexture) 
+						setRect();
+				}
+				break;
+			default:
+				break;
+		}
+		omMsg.omh.iLength = -1;
+	}
+}
+
+static bool bBlackListed = false;
 static const char *blacklist[] = {
 	"iexplore.exe",
 	"ieuser.exe",
@@ -413,7 +612,7 @@ static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
 	hhLoad.restore();
 
 	HMODULE h = oLoadLibrary(lpFileName);
-	ods("Library %s loaded to %p", lpFileName, h);
+//	ods("Library %s loaded to %p", lpFileName, h);
 
 	if (! bMumble) {
 		checkD3D9Hook();
@@ -498,7 +697,6 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH: {
 				Mutex::init();
-				ods("Lib: ProcAttach: %s", procname);
 				char *p = strrchr(procname, '\\');
 
 				if (p) {
@@ -507,7 +705,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					int i =0;
 					while (blacklist[i]) {
 						if (_stricmp(p+1,blacklist[i])==0) {
-							ods("Process %s is blacklisted", procname);
+							bBlackListed = true;
 							return TRUE;
 						}
 						i++;
@@ -530,6 +728,8 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 						bDebug = TRUE;
 					}
 				}
+
+				ods("Lib: ProcAttach: %s", procname);
 
 				hSharedMutex = CreateMutex(NULL, false, "MumbleSharedMutex");
 				hHookMutex = CreateMutex(NULL, false, "MumbleHookMutex");
@@ -596,6 +796,8 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 			}
 			break;
 		case DLL_PROCESS_DETACH: {
+				if (bBlackListed)
+					return TRUE;
 				ods("Lib: ProcDetach: %s", procname);
 				hhLoad.restore(true);
 				hhLoadW.restore(true);

@@ -61,7 +61,9 @@ struct SimpleVertex {
 	D3DXVECTOR2 Tex;
 };
 
-struct D10State {
+class D10State: protected Pipe {
+	public:
+
 	LONG lHighMark;
 
 	LONG initRefCount;
@@ -80,36 +82,167 @@ struct D10State {
 	ID3D10Effect *pEffect;
 	ID3D10EffectTechnique *pTechnique;
 	ID3D10EffectShaderResourceVariable * pDiffuseTexture;
-	ID3D10EffectVectorVariable * pColor;
 	ID3D10InputLayout *pVertexLayout;
 	ID3D10Buffer *pVertexBuffer;
 	ID3D10Buffer *pIndexBuffer;
 	ID3D10BlendState *pBlendState;
-	ID3D10Texture2D *pTexture[NUM_TEXTS];
-	ID3D10ShaderResourceView *pSRView[NUM_TEXTS];
-	unsigned int uiCounter[NUM_TEXTS];
 
+	ID3D10Texture2D *pTexture;
+	ID3D10ShaderResourceView *pSRView;
+	
 	D10State(IDXGISwapChain *, ID3D10Device *);
 	~D10State();
 	void init();
 	void draw();
+	
+	void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
+	void setRect();
+	void newTexture(unsigned int w, unsigned int h);
 };
 
 map<IDXGISwapChain *, D10State *> chains;
 map<ID3D10Device *, D10State *> devices;
 
 D10State::D10State(IDXGISwapChain *pSwapChain, ID3D10Device *pDevice) {
-	memset(this, 0, sizeof(*this));
-
 	this->pSwapChain = pSwapChain;
 	this->pDevice = pDevice;
 
+	lHighMark = initRefCount  = refCount = myRefCount = 0;
 	dwMyThread = 0;
-	refCount = 0;
-	myRefCount = 0;
-
+	
+	ZeroMemory(&vp, sizeof(vp));
+	
+	pOrigStateBlock = NULL;
+	pMyStateBlock = NULL;
+	pRTV = NULL;
+	pEffect = NULL;
+	pTechnique = NULL;
+	pDiffuseTexture = NULL;
+	pVertexLayout = NULL;
+	pVertexBuffer = NULL;
+	pIndexBuffer = NULL;
+	pBlendState = NULL;
+	pTexture = NULL;
+	pSRView = NULL;
+	
 	pDevice->AddRef();
 	initRefCount = pDevice->Release();
+}
+
+void D10State::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h) {
+	HRESULT hr;
+
+	ods("D3D10: Blit %d %d %d %d", x, y, w, h);
+	
+	if (! pTexture || ! pSRView)
+		return;
+
+	D3D10_MAPPED_TEXTURE2D mappedTex;
+	hr = pTexture->Map(D3D10CalcSubresource(0, 0, 1), D3D10_MAP_WRITE_DISCARD, 0, &mappedTex);
+	if (FAILED(hr)) {
+		ods("D3D10: Failed map");
+	}
+
+	UCHAR* pTexels = (UCHAR*)mappedTex.pData;
+
+	for (int r=0;r< uiHeight; ++r) {
+		unsigned char *sptr = a_ucTexture + r * uiWidth * 4;
+		unsigned char *dptr = reinterpret_cast<unsigned char *>(pTexels) + r * mappedTex.RowPitch;
+		memcpy(dptr, sptr, uiWidth * 4);
+	}
+
+	pTexture->Unmap(D3D10CalcSubresource(0, 0, 1));
+}
+
+void D10State::setRect() {
+	HRESULT hr;
+
+	ods("D3D10: Setrect");
+
+	float w = static_cast<float>(uiWidth);
+	float h = static_cast<float>(uiHeight);
+
+	float left   = static_cast<float>(uiLeft) - 0.5f;
+	float top    = static_cast<float>(uiTop) - 0.5f;
+	float right  = static_cast<float>(uiRight) + 0.5f;
+	float bottom = static_cast<float>(uiBottom) + 0.5f;
+	
+	float texl = (left) / w;
+	float text = (top) / h;
+	float texr = (right + 1.0f) / w;
+	float texb = (bottom + 1.0f) / h;
+
+	left = 2.0f * (left / vp.Width) - 1.0f;
+	right = 2.0f * (right / vp.Width) - 1.0f;
+	top = -2.0f * (top / vp.Height) + 1.0f;
+	bottom = -2.0f * (bottom / vp.Height) + 1.0f;
+
+	ods("Vertex (%f %f) (%f %f)", left, top, right, bottom);
+
+	// Create vertex buffer
+	SimpleVertex vertices[] = {
+		{ D3DXVECTOR3(left, top, 0.5f), D3DXVECTOR2(texl, text) },
+		{ D3DXVECTOR3(right, top, 0.5f), D3DXVECTOR2(texr, text) },
+		{ D3DXVECTOR3(right, bottom, 0.5f), D3DXVECTOR2(texr, texb) },
+		{ D3DXVECTOR3(left, bottom, 0.5f), D3DXVECTOR2(texl, texb) },
+	};
+
+	void *pData = NULL;
+
+	hr = pVertexBuffer->Map(D3D10_MAP_WRITE_DISCARD, 0, &pData);
+	memcpy(pData, vertices, sizeof(vertices));
+	ods("Map: %lx %d", hr, sizeof(vertices));
+	pVertexBuffer->Unmap();
+}
+
+void D10State::newTexture(unsigned int w, unsigned int h) {
+	HRESULT hr;
+
+	ods("D3D10: newTex %d %d", w, h);
+
+	if (pTexture) {
+		pTexture->Release();
+		pTexture = NULL;
+	}
+	if (pSRView) {
+		pSRView->Release();
+		pSRView = NULL;
+	}
+
+	D3D10_TEXTURE2D_DESC desc;
+	ZeroMemory(&desc, sizeof(desc));
+
+	desc.Width = w;
+	desc.Height = h;
+	desc.MipLevels = desc.ArraySize = 1;
+	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	desc.SampleDesc.Count = 1;
+	desc.Usage = D3D10_USAGE_DYNAMIC;
+	desc.BindFlags = D3D10_BIND_SHADER_RESOURCE;
+	desc.CPUAccessFlags = D3D10_CPU_ACCESS_WRITE;
+	hr = pDevice->CreateTexture2D(&desc, NULL, &pTexture);
+	
+	if (! SUCCEEDED(hr)) {
+		pTexture = NULL;
+		ods("D3D10: Failed to create texture.");
+		return;
+	}
+
+	D3D10_SHADER_RESOURCE_VIEW_DESC srvDesc;
+	ZeroMemory(&srvDesc, sizeof(srvDesc));
+	srvDesc.Format = desc.Format;
+	srvDesc.ViewDimension = D3D10_SRV_DIMENSION_TEXTURE2D;
+	srvDesc.Texture2D.MostDetailedMip = 0;
+	srvDesc.Texture2D.MipLevels = desc.MipLevels;
+
+	hr = pDevice->CreateShaderResourceView(pTexture, &srvDesc, &pSRView);
+	if (! SUCCEEDED(hr)) {
+		pSRView = NULL;
+		pTexture->Release();
+		pTexture = NULL;
+		ods("D3D10: Failed to create resource view.");
+		return;
+	}
 }
 
 void D10State::init() {
@@ -169,13 +302,9 @@ void D10State::init() {
 
 	pTechnique = pEffect->GetTechniqueByName("Render");
 	pDiffuseTexture = pEffect->GetVariableByName("txDiffuse")->AsShaderResource();
-	pColor = pEffect->GetVariableByName("fColor")->AsVector();
 
-	for (int i=0;i<NUM_TEXTS;++i) {
-		pTexture[i] = NULL;
-		pSRView[i] = NULL;
-		uiCounter[i] = 0;
-	}
+	pTexture = NULL;
+	pSRView = NULL;
 
 	// Define the input layout
 	D3D10_INPUT_ELEMENT_DESC layout[] = {
@@ -235,12 +364,10 @@ D10State::~D10State() {
 	pVertexLayout->Release();
 	pEffect->Release();
 	pRTV->Release();
-	for (int i=0;i<NUM_TEXTS;++i) {
-		if (pTexture[i])
-			pTexture[i]->Release();
-		if (pSRView[i])
-			pSRView[i]->Release();
-	}
+	if (pTexture)
+		pTexture->Release();
+	if (pSRView)
+		pSRView->Release();
 
 	pMyStateBlock->ReleaseAllDeviceObjects();
 	pMyStateBlock->Release();
@@ -250,197 +377,33 @@ D10State::~D10State() {
 }
 
 void D10State::draw() {
-	dwMyThread = GetCurrentThreadId();
-
-	pOrigStateBlock->Capture();
-	pMyStateBlock->Apply();
-
-	int idx = 0;
 	HRESULT hr;
+	dwMyThread = GetCurrentThreadId();
+	
+	checkMessage(vp.Width, vp.Height);
 
-	vector<ID3D10ShaderResourceView *> texs;
-	vector<unsigned int> widths;
-	vector<unsigned int> yofs;
-	vector<DWORD> colors;
+	if (a_ucTexture && pSRView && (uiLeft != uiRight)) {
+		pOrigStateBlock->Capture();
+		pMyStateBlock->Apply();
 
-	unsigned int y = 0;
-
-	if (sm->fFontSize < 0.01f)
-		sm->fFontSize = 0.01f;
-	else if (sm->fFontSize > 1.0f)
-		sm->fFontSize = 1.0f;
-
-	int iHeight = lround(vp.Height * sm->fFontSize);
-
-	if (iHeight > TEXT_HEIGHT)
-		iHeight = TEXT_HEIGHT;
-
-	float s = iHeight / 60.0f;
-
-	ods("D3D10: Init: Scale %f. iH %d. Final scale %f", sm->fFontSize, iHeight, s);
-
-	DWORD dwWaitResult = WaitForSingleObject(hSharedMutex, 50L);
-	if (dwWaitResult == WAIT_OBJECT_0) {
-		for (int i=0;i<NUM_TEXTS;i++) {
-			if (sm->texts[i].width == 0) {
-				y += iHeight / 4;
-			} else if (sm->texts[i].width > 0) {
-				if (!pSRView[i] || (sm->texts[i].uiCounter != uiCounter[i])) {
-					if (pTexture[i])
-						pTexture[i]->Release();
-					if (pSRView[i])
-						pSRView[i]->Release();
-
-					pTexture[i] = NULL;
-					pSRView[i] = NULL;
-
-					D3D10_TEXTURE2D_DESC desc;
-					ZeroMemory(&desc, sizeof(desc));
-
-					desc.Width = sm->texts[i].width;
-					desc.Height = TEXT_HEIGHT;
-					desc.MipLevels = desc.ArraySize = 1;
-					desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-					desc.SampleDesc.Count = 1;
-					desc.Usage = D3D10_USAGE_DYNAMIC;
-					desc.BindFlags = D3D10_BIND_SHADER_RESOURCE;
-					desc.CPUAccessFlags = D3D10_CPU_ACCESS_WRITE;
-					hr = pDevice->CreateTexture2D(&desc, NULL, &pTexture[i]);
-					ods("Setting %d by %d texture %d", desc.Width, desc.Height, i);
-					ods("%lx %p", hr, pTexture[i]);
-
-					D3D10_MAPPED_TEXTURE2D mappedTex;
-					hr = pTexture[i]->Map(D3D10CalcSubresource(0, 0, 1), D3D10_MAP_WRITE_DISCARD, 0, &mappedTex);
-
-					UCHAR* pTexels = (UCHAR*)mappedTex.pData;
-
-					for (int r=0;r<TEXT_HEIGHT;r++) {
-						unsigned char *dptr = reinterpret_cast<unsigned char *>(pTexels) + r * mappedTex.RowPitch;
-						memcpy(dptr, sm->texts[i].texture + r * TEXT_WIDTH * 4, sm->texts[i].width * 4);
-					}
-
-					pTexture[i]->Unmap(D3D10CalcSubresource(0, 0, 1));
-
-					D3D10_SHADER_RESOURCE_VIEW_DESC srvDesc;
-					ZeroMemory(&srvDesc, sizeof(srvDesc));
-					srvDesc.Format = desc.Format;
-					srvDesc.ViewDimension = D3D10_SRV_DIMENSION_TEXTURE2D;
-					srvDesc.Texture2D.MostDetailedMip = 0;
-					srvDesc.Texture2D.MipLevels = desc.MipLevels;
-					pDevice->CreateShaderResourceView(pTexture[i], &srvDesc, &pSRView[i]);
-
-					uiCounter[i] = sm->texts[i].uiCounter;
-				}
-				unsigned int w = lround(sm->texts[i].width * s);
-				texs.push_back(pSRView[i]);
-				colors.push_back(sm->texts[i].color);
-				widths.push_back(w);
-				yofs.push_back(y);
-				idx++;
-				y += iHeight;
-			}
-		}
-		ReleaseMutex(hSharedMutex);
-	}
-
-	if (idx == 0)
-		return;
-
-	int height = y;
-	y = lround(vp.Height * sm->fY);
-
-	if (sm->bTop) {
-		y -= height;
-	} else if (sm->bBottom) {
-	} else {
-		y -= height / 2;
-	}
-
-
-	if (y < 1)
-		y = 1;
-	if ((y + height + 1) > vp.Height)
-		y = vp.Height - height - 1;
-
-	D3D10_TECHNIQUE_DESC techDesc;
-	pTechnique->GetDesc(&techDesc);
-
-	for (int i=0;i<idx;i++) {
-		unsigned int width = widths[i];
-
-		int x = lround(vp.Width * sm->fX);
-
-		if (sm->bLeft) {
-			x -= width;
-		} else if (sm->bRight) {
-		} else {
-			x -= width / 2;
-		}
-
-		if (x < 1)
-			x = 1;
-		if ((x + width + 1) > vp.Width)
-			x = vp.Width - width - 1;
-
-//		D3DCOLOR color = colors[i];
-
-		float cols[] = {
-			((colors[i] >> 24) & 0xFF) / 255.0f,
-			((colors[i] >> 16) & 0xFF) / 255.0f,
-			((colors[i] >> 8) & 0xFF) / 255.0f,
-			((colors[i] >> 0) & 0xFF) / 255.0f,
-		};
-
-		float left   = static_cast<float>(x);
-		float top    = static_cast<float>(y + yofs[i]);
-		float right  = left + width;
-		float bottom = top + iHeight;
-
-		left = 2.0f * (left / vp.Width) - 1.0f;
-		right = 2.0f * (right / vp.Width) - 1.0f;
-		top = -2.0f * (top / vp.Height) + 1.0f;
-		bottom = -2.0f * (bottom / vp.Height) + 1.0f;
-
-		ods("Vertex (%f %f) (%f %f)", left, top, right, bottom);
-
-		// Create vertex buffer
-		SimpleVertex vertices[] = {
-			{ D3DXVECTOR3(left, top, 0.5f), D3DXVECTOR2(0.0f, 0.0f) },
-			{ D3DXVECTOR3(right, top, 0.5f), D3DXVECTOR2(1.0f, 0.0f) },
-			{ D3DXVECTOR3(right, bottom, 0.5f), D3DXVECTOR2(1.0f, 1.0f) },
-			{ D3DXVECTOR3(left, bottom, 0.5f), D3DXVECTOR2(0.0f, 1.0f) },
-		};
-
-		void *pData = NULL;
-
-		hr = pVertexBuffer->Map(D3D10_MAP_WRITE_DISCARD, 0, &pData);
-		memcpy(pData, vertices, sizeof(vertices));
-		ods("Map: %lx %d", hr, sizeof(vertices));
-		pVertexBuffer->Unmap();
+		D3D10_TECHNIQUE_DESC techDesc;
+		pTechnique->GetDesc(&techDesc);
 
 		// Set vertex buffer
 		UINT stride = sizeof(SimpleVertex);
 		UINT offset = 0;
 		pDevice->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
 
-		hr = pDiffuseTexture->SetResource(texs[i]);
-		ods("setres %p %lx", pDiffuseTexture, hr);
-
-		hr = pColor->SetFloatVector(cols);
-		ods("setres %p %lx", pColor, hr);
-
-		ods("%f %f %f %f", cols[0], cols[1], cols[2], cols[3]);
+		hr = pDiffuseTexture->SetResource(pSRView);
+		if (! SUCCEEDED(hr))
+			ods("D3D10: Failed to set resource");
 
 		for (UINT p = 0; p < techDesc.Passes; ++p) {
-			//		ods("Pass %d", p);
 			pTechnique->GetPassByIndex(p)->Apply(0);
 			pDevice->DrawIndexed(6, 0, 0);
 		}
+		pOrigStateBlock->Apply();
 	}
-
-
-	// Render a triangle
-	pOrigStateBlock->Apply();
 
 	dwMyThread = 0;
 }

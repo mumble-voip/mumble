@@ -1,5 +1,4 @@
 Texture2D txDiffuse;
-float4 fColor;
 SamplerState samLinear
 {
     Filter = MIN_MAG_MIP_LINEAR;
@@ -29,7 +28,7 @@ PS_INPUT VS( VS_INPUT input )
 
 float4 PS( PS_INPUT input ) : SV_Target
 {
-    return txDiffuse.Sample(samLinear, input.Tex).bgra * fColor;
+    return txDiffuse.Sample(samLinear, input.Tex).bgra;
 }
 
 technique10 Render

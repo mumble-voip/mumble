@@ -215,6 +215,7 @@ void OverlayClient::readyRead() {
 
 						uiWidth = omi->uiWidth;
 						uiHeight = omi->uiHeight;
+						qrLast = QRect();
 
 						if (smMem) 
 							delete smMem;
@@ -226,8 +227,8 @@ void OverlayClient::readyRead() {
 							smMem = NULL;
 							break;
 						}
-
 						QByteArray key = smMem->name().toUtf8();
+						key.append(static_cast<char>(0));
 
 						OverlayMsg om;
 						om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
@@ -240,6 +241,11 @@ void OverlayClient::readyRead() {
 
 						Overlay *o = static_cast<Overlay *>(parent());
 						setTexts(o->qlCurrentTexts);
+					}
+					break;
+				case OVERLAY_MSGTYPE_SHMEM: {
+						if (smMem)
+							smMem->systemRelease();
 					}
 					break;
 				default:
@@ -307,7 +313,7 @@ void OverlayClient::setupRender() {
 	qcTexts.clear();
 	qlLines.clear();
 
-	memset(smMem->data(), 0, smMem->size());
+	smMem->erase();
 
 	OverlayMsg om;
 	om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
@@ -354,19 +360,19 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 						unsigned int rm = (e.uiColor & 0xff0000) >> 16;
 						unsigned int gm = (e.uiColor & 0x00ff00) >> 8;
 						unsigned int bm = (e.uiColor & 0x0000ff);
-
+						
 						QImage img(cu->iTextureWidth, 60, QImage::Format_ARGB32);
 						{
 							QImage srcimg(reinterpret_cast<const uchar *>(cu->qbaTexture.constData()), 600, 60, QImage::Format_ARGB32);
 
-							QPainter p(&img);
-							p.setRenderHint(QPainter::Antialiasing);
-							p.setRenderHint(QPainter::TextAntialiasing);
-							p.setCompositionMode(QPainter::CompositionMode_Clear);
-							p.setBackground(QColor(0,0,0,0));
-							p.eraseRect(0, 0, iItemHeight, iItemHeight);
-							p.setCompositionMode(QPainter::CompositionMode_Source);
-							p.drawImage(0, 0, srcimg);
+							QPainter imgp(&img);
+							imgp.setRenderHint(QPainter::Antialiasing);
+							imgp.setRenderHint(QPainter::TextAntialiasing);
+							imgp.setCompositionMode(QPainter::CompositionMode_Clear);
+							imgp.setBackground(QColor(0,0,0,0));
+							imgp.eraseRect(0, 0, img.height(), img.width());
+							imgp.setCompositionMode(QPainter::CompositionMode_Source);
+							imgp.drawImage(0, 0, srcimg);
 						}
 
 						img = img.scaledToHeight(iItemHeight, Qt::SmoothTransformation);
@@ -475,7 +481,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		if (x < 0)
 			x = 0;
 		if ((x + width) >= static_cast<int>(uiWidth))
-			x = uiWidth - width - 1;
+			x = uiWidth - width;
 
 		if (ti)
 			nr = QRect(g.s.bOverlayLeft ? x : x + iItemHeight, y + ti->iOffset, ti->qiImage.width(), ti->qiImage.height());
@@ -503,7 +509,6 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		int decorx = x + (g.s.bOverlayLeft ? (width - iItemHeight) : 0);
 		QRect decr = QRect(decorx, y, iItemHeight, iItemHeight);
 		nr = nr.united(decr);
-
 		if (src.dDecor != dst.dDecor) {
 			dst.dDecor = src.dDecor;
 
@@ -549,6 +554,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 	}
 
 	if (dirty.isValid()) {
+		dirty = dirty.intersected(QRect(0,0,uiWidth, uiHeight));
 		OverlayMsg om;
 		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 		om.omh.uiType = OVERLAY_MSGTYPE_BLIT;
@@ -559,6 +565,11 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		om.omb.h = dirty.height();
 		qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgBlit));
 	}
+	
+	if (active.isEmpty())
+		active = QRect(0,0,0,0);
+
+	active = active.intersected(QRect(0,0,uiWidth,uiHeight));
 
 	if (active != qrLast) {
 		qrLast = active;
@@ -772,7 +783,7 @@ void Overlay::verifyTexture(ClientUser *cp) {
 				width = x;
 		}
 	}
-	cp->iTextureWidth = width;
+	cp->iTextureWidth = width + 1;
 }
 
 typedef QPair<QString, quint32> qpChanCol;

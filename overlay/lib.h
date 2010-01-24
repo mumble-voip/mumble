@@ -107,6 +107,28 @@ class Mutex {
 		~Mutex();
 };
 
+class Pipe {
+	private:
+		HANDLE hSocket;
+		HANDLE hMemory;
+		
+		void release();
+		void disconnect();
+	protected:
+		unsigned int uiWidth, uiHeight;
+		unsigned int uiLeft, uiTop, uiRight, uiBottom;
+		unsigned char *a_ucTexture;
+		OverlayMsg omMsg;
+
+		void checkMessage(unsigned int w, unsigned int h);
+		bool sendMessage(const OverlayMsg &m);
+		virtual void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h) = 0;
+		virtual void setRect() = 0;
+		virtual void newTexture(unsigned int w, unsigned int h) = 0;
+		Pipe();
+		~Pipe();
+};
+
 extern void checkDXGIHook(bool preonly = false);
 extern void checkD3D9Hook(bool preonly = false);
 extern void checkOpenGLHook();

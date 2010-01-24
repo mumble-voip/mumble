@@ -50,6 +50,7 @@ typedef double          GLdouble;
 #define GL_CLAMP_TO_EDGE                        0x812F
 #define GL_TEXTURE_MAG_FILTER                   0x2800
 #define GL_TEXTURE_MIN_FILTER                   0x2801
+#define GL_NEAREST                              0x2600
 #define GL_LINEAR                               0x2601
 #define GL_FRONT_AND_BACK                       0x0408
 #define GL_AMBIENT_AND_DIFFUSE                  0x1602
@@ -81,12 +82,16 @@ typedef double          GLdouble;
 #define GL_MODELVIEW                            0x1700
 #define GL_PROJECTION                           0x1701
 #define GL_BLEND                                0x0BE2
+#define GL_TEXTURE_ENV                          0x2300
+#define GL_TEXTURE_ENV_MODE                     0x2200
+#define GL_REPLACE                              0x1E01
 
 #define TDEF(ret, name, arg) typedef ret (__stdcall * t##name) arg
 #define GLDEF(ret, name, arg) TDEF(ret, name, arg); t##name o##name = NULL
 
 GLDEF(HGLRC, wglCreateContext, (HDC));
 GLDEF(void, glGenTextures, (GLsizei, GLuint *));
+GLDEF(void, glDeleteTextures, (GLsizei, GLuint *));
 GLDEF(void, glEnable, (GLenum));
 GLDEF(void, glDisable, (GLenum));
 GLDEF(void, glBlendFunc, (GLenum, GLenum));
@@ -105,7 +110,9 @@ GLDEF(void, glTexCoord2f, (GLfloat, GLfloat));
 GLDEF(void, glVertex2f, (GLfloat, GLfloat));
 GLDEF(void, glPopMatrix, (void));
 GLDEF(void, glTexParameteri, (GLenum, GLenum, GLint));
+GLDEF(void, glTexEnvi, (GLenum, GLenum, GLint));
 GLDEF(void, glTexImage2D, (GLenum, GLint, GLint, GLsizei, GLsizei, GLint, GLenum, GLenum, const GLvoid *));
+GLDEF(void, glTexSubImage2D, (GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, const GLvoid *));
 GLDEF(void, wglMakeCurrent, (HDC, HGLRC));
 GLDEF(HGLRC, wglGetCurrentContext, (void));
 GLDEF(HDC, wglGetCurrentDC, (void));
@@ -121,12 +128,19 @@ INJDEF(BOOL, SwapBuffers, (HDC));
 static bool bHooked = false;
 static bool bChaining = false;
 
-struct Context {
-	HGLRC ctx;
-	GLuint textures[NUM_TEXTS];
-	unsigned int uiCounter[NUM_TEXTS];
-	Context(HDC hdc);
-	void draw(HDC hdc);
+class Context : protected Pipe {
+	public:
+		HGLRC ctx;
+		GLuint textures[NUM_TEXTS];
+		GLuint texture;
+		unsigned int uiCounter[NUM_TEXTS];
+
+		Context(HDC hdc);
+		void draw(HDC hdc);
+	
+		void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
+		void setRect();
+		void newTexture(unsigned int width, unsigned int height);
 };
 
 Context::Context(HDC hdc) {
@@ -141,7 +155,7 @@ Context::Context(HDC hdc) {
 	oglEnable(GL_BLEND);
 	// Skip clip planes, there are thousands of them.
 	oglDisable(GL_COLOR_LOGIC_OP);
-	oglEnable(GL_COLOR_MATERIAL);
+	oglDisable(GL_COLOR_MATERIAL);
 	oglDisable(GL_COLOR_TABLE);
 	oglDisable(GL_CONVOLUTION_1D);
 	oglDisable(GL_CONVOLUTION_2D);
@@ -166,16 +180,59 @@ Context::Context(HDC hdc) {
 	oglDisable(GL_TEXTURE_GEN_T);
 
 	oglBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	oglColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+	
+	texture = ~0;
+}
 
-	DWORD dwWaitResult = WaitForSingleObject(hSharedMutex, 50L);
-	if (dwWaitResult != WAIT_OBJECT_0)
+void Context::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h) {
+	ods("OpenGL: Blit %d %d %d %d -- %d %d : %d", x, y, w, h, uiWidth, uiHeight, texture);
+	
+	if (texture == ~0)
 		return;
 
-	for (int i=0;i<NUM_TEXTS;++i)
-		uiCounter[i] = 0;
+	oglBindTexture(GL_TEXTURE_2D, texture);
 
-	ReleaseMutex(hSharedMutex);
+	if ((x == 0) && (y == 0) && (w == uiWidth) && (h == uiHeight)) {
+		oglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, uiWidth, uiHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, a_ucTexture);
+	} else {
+		unsigned char *ptr = new unsigned char[w*h*4];
+		memset(ptr, 0xff, w * h * 4);
+
+		for(int r = 0; r < h; ++r) {
+			const unsigned char *sptr = a_ucTexture + 4 * ((y+r) * uiWidth + x);
+			unsigned char *dptr = ptr + 4 * w * r;
+			memcpy(dptr, sptr, w * 4);
+		}
+
+		oglTexSubImage2D(GL_TEXTURE_2D, 0, x, y, w, h, GL_BGRA, GL_UNSIGNED_BYTE, ptr);
+		delete [] ptr;
+	}
+}
+
+void Context::setRect() {
+	ods("OpenGL: setRect");
+}
+
+void Context::newTexture(unsigned int width, unsigned int height) {
+	ods("OpenGL: newTex");
+
+	if (texture == ~0) {
+		oglBindTexture(GL_TEXTURE_2D, 0);
+		oglDeleteTextures(1, &texture);
+		texture = ~0;
+	}
+	oglGenTextures(1, &texture);
+
+	oglBindTexture(GL_TEXTURE_2D, texture);
+	oglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	oglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	oglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	oglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	
+	unsigned char *ptr = new unsigned char[width*height*4];
+	memset(ptr, 0, width*height*4);
+	oglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, ptr);
+	delete [] ptr;
 }
 
 void Context::draw(HDC hdc) {
@@ -185,35 +242,13 @@ void Context::draw(HDC hdc) {
 	// sm->bDebug = true;
 
 	unsigned int width, height;
-	int i;
 
 	width = oGetDeviceCaps(hdc, HORZRES);
 	height = oGetDeviceCaps(hdc, VERTRES);
 
-	ods("DrawStart: Screen is %d x %d", width, height);
-
-	if (sm->fFontSize < 0.01f)
-		sm->fFontSize = 0.01f;
-	else if (sm->fFontSize > 1.0f)
-		sm->fFontSize = 1.0f;
-
-	int iHeight = (int)((height * 1.0) * sm->fFontSize);
-	if (iHeight > TEXT_HEIGHT)
-		iHeight = TEXT_HEIGHT;
-
-	float s = iHeight / 60.0f;
-	int y = 0;
-	int idx = 0;
-
-	int texs[NUM_TEXTS];
-	int widths[NUM_TEXTS];
-	int yofs[NUM_TEXTS];
-	unsigned int color[NUM_TEXTS];
-
-
-	DWORD dwWaitResult = WaitForSingleObject(hSharedMutex, 50L);
-	if (dwWaitResult != WAIT_OBJECT_0)
-		return;
+	ods("OpenGL: DrawStart: Screen is %d x %d", width, height);
+	
+	checkMessage(width, height);
 
 	oglViewport(0, 0, width, height);
 
@@ -223,89 +258,41 @@ void Context::draw(HDC hdc) {
 
 	oglMatrixMode(GL_MODELVIEW);
 
-	for (i = 0; i < NUM_TEXTS; i++) {
-		if (sm->texts[i].width == 0) {
-			y += iHeight / 4;
-		} else if (sm->texts[i].width > 0) {
-			if (sm->texts[i].uiCounter != uiCounter[i]) {
-				ods("OpenGL: Updating %d %d texture", sm->texts[i].width, TEXT_HEIGHT);
-				oglBindTexture(GL_TEXTURE_2D, textures[i]);
-				oglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-				oglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-				oglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-				oglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-				oglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, TEXT_WIDTH, TEXT_HEIGHT, 0, GL_BGRA, GL_UNSIGNED_BYTE, sm->texts[i].texture);
-				uiCounter[i] = sm->texts[i].uiCounter;
-			}
-			texs[idx] = textures[i];
-			widths[idx] = sm->texts[i].width;
-			color[idx] = sm->texts[i].color;
-			yofs[idx] = y;
-			y += iHeight;
-			idx++;
-		}
-	}
-	ReleaseMutex(hSharedMutex);
+	oglBindTexture(GL_TEXTURE_2D, texture);
+	oglPushMatrix();
+	oglLoadIdentity();
 
-	int h = y;
-	y = (int)(height * sm->fY);
+	float w = static_cast<float>(uiWidth);
+	float h = static_cast<float>(uiHeight);
 
-	if (sm->bTop) {
-		y -= h;
-	} else if (sm->bBottom) {
-	} else {
-		y -= h / 2;
-	}
+	float left   = static_cast<float>(uiLeft);
+	float top    = static_cast<float>(uiTop);
+	float right  = static_cast<float>(uiRight);
+	float bottom = static_cast<float>(uiBottom);
 
-	if (y < 1)
-		y = 1;
-	if ((y + h + 1) > (int)height)
-		y = height - h - 1;
+	float xm = (left) / w;
+	float ym = (top) / h;
+	float xmx = (right) / w;
+	float ymx = (bottom) / h;
 
+	oglTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+	oglBegin(GL_QUADS);
 
-	for (i = 0; i < idx; i++) {
-		int w = (int)(widths[i] * s);
-		int x = (int)(width * sm->fX);
-		if (sm->bLeft) {
-			x -= w;
-		} else if (sm->bRight) {
-		} else {
-			x -= w / 2;
-		}
+	oglTexCoord2f(xm, ymx);
+	oglVertex2f(left, bottom);
 
-		if (x < 1)
-			x = 1;
-		if ((x + w + 1) > (int)width)
-			x = width - w - 1;
+	oglTexCoord2f(xm, ym);
+	oglVertex2f(left, top);
 
-		ods("OpenGL: Drawing text at %d %d  %d %d", x, y + yofs[i], w, iHeight);
-		oglBindTexture(GL_TEXTURE_2D, texs[i]);
-		oglPushMatrix();
-		oglLoadIdentity();
+	oglTexCoord2f(xmx, ym);
+	oglVertex2f(right, top);
 
-		float xm = 0.0;
-		float ym = 0.0;
-		float xmx = (1.0f * widths[i]) / TEXT_WIDTH;
-		float ymx = 1.0f;
+	oglTexCoord2f(xmx, ymx);
+	oglVertex2f(right, bottom);
+	oglEnd();
 
-		unsigned int c = color[i];
+	oglPopMatrix();
 
-		oglColor4ub((c >> 16) & 0xFF, (c >> 8) & 0xFF, c & 0xFF, (c >> 24) & 0xFF);
-
-
-		oglTranslatef(static_cast<float>(x), static_cast<float>(y + yofs[i]), 0.0f);
-		oglBegin(GL_QUADS);
-		oglTexCoord2f(xm, ymx);
-		oglVertex2f(0.0f, static_cast<float>(iHeight));
-		oglTexCoord2f(xm, ym);
-		oglVertex2f(0.0f, 0.0f);
-		oglTexCoord2f(xmx, ym);
-		oglVertex2f(static_cast<float>(w), 0.0f);
-		oglTexCoord2f(xmx, ymx);
-		oglVertex2f(static_cast<float>(w), static_cast<float>(iHeight));
-		oglEnd();
-		oglPopMatrix();
-	}
 }
 
 static map<HDC, Context *> contexts;
@@ -381,6 +368,7 @@ void checkOpenGLHook() {
 
 			GLDEF(wglCreateContext);
 			GLDEF(glGenTextures);
+			GLDEF(glDeleteTextures);
 			GLDEF(glEnable);
 			GLDEF(glDisable);
 			GLDEF(glBlendFunc);
@@ -399,7 +387,9 @@ void checkOpenGLHook() {
 			GLDEF(glVertex2f);
 			GLDEF(glPopMatrix);
 			GLDEF(glTexParameteri);
+			GLDEF(glTexEnvi);
 			GLDEF(glTexImage2D);
+			GLDEF(glTexSubImage2D);
 			GLDEF(wglMakeCurrent);
 			GLDEF(wglGetCurrentContext);
 			GLDEF(wglGetCurrentDC);

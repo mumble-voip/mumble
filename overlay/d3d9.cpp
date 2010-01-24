@@ -38,12 +38,11 @@ typedef HRESULT(WINAPI *pDirect3DCreate9Ex)(UINT SDKVersion, IDirect3D9Ex **ppD3
 
 struct D3DTLVERTEX {
 	float    x, y, z, rhw; // Position
-	D3DCOLOR color;  // Vertex colour
 	float    tu, tv;  // Texture coordinates
 };
-const DWORD D3DFVF_TLVERTEX = D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1;
+const DWORD D3DFVF_TLVERTEX = D3DFVF_XYZRHW | D3DFVF_TEX1;
 
-class DevState {
+class DevState : protected Pipe {
 	public:
 		IDirect3DDevice9 *dev;
 		IDirect3DStateBlock9 *pSB;
@@ -52,9 +51,9 @@ class DevState {
 		LONG refCount;
 		LONG myRefCount;
 		DWORD dwMyThread;
-
-		LPDIRECT3DTEXTURE9 tex[NUM_TEXTS];
-		unsigned int uiCounter[NUM_TEXTS];
+		
+		D3DTLVERTEX vertices[4];
+		LPDIRECT3DTEXTURE9 texTexture;
 
 		DevState();
 
@@ -63,6 +62,10 @@ class DevState {
 		void releaseAll();
 		void draw();
 		void postDraw();
+		
+		void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
+		void setRect();
+		void newTexture(unsigned int width, unsigned int height);
 };
 
 static map<IDirect3DDevice9 *, DevState *> devMap;
@@ -76,18 +79,102 @@ DevState::DevState() {
 	dwMyThread = 0;
 	refCount = 0;
 	myRefCount = 0;
-	for (int i = 0;i < NUM_TEXTS;i++)
-		tex[i] = NULL;
+	texTexture = NULL;
+	
+	for(int i=0;i<4;++i) {
+		vertices[i].x = vertices[i].y = 0.0f;
+		vertices[i].tu = vertices[i].tv = 0.0f;
+		vertices[i].z = vertices[i].rhw = 1.0f;
+	}
 }
 
 void DevState::releaseData() {
 	ods("D3D9: Release Data");
 
-	for (int i=0;i<NUM_TEXTS;i++)
-		if (tex[i]) {
-			tex[i]->Release();
-			tex[i] = NULL;
-		}
+	if (texTexture) {
+		texTexture->Release();
+		texTexture = NULL;
+	}
+}
+
+void DevState::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h) {
+	ods("D3D9: Blit %d %d %d %d", x, y, w, h);
+	
+	if (! texTexture)
+		return;
+
+	D3DLOCKED_RECT lr;
+	RECT r;
+	
+	r.left = x;
+	r.top = y;
+	r.right = x + w;
+	r.bottom = y + h;
+
+	if (texTexture->LockRect(0, &lr, &r, 0) != D3D_OK)
+		return;
+
+	for (unsigned int r=0;r < h;++r) {
+		unsigned char *dptr = reinterpret_cast<unsigned char *>(lr.pBits) + r * lr.Pitch;
+		unsigned char *sptr = a_ucTexture + 4 * ((y + r) * uiWidth + x);
+		memcpy(dptr, sptr, w * 4);
+	}
+
+	texTexture->UnlockRect(0);
+}
+
+void DevState::setRect() {
+	ods("D3D9: New subrect");
+
+	float w = static_cast<float>(uiWidth);
+	float h = static_cast<float>(uiHeight);
+
+	float left   = static_cast<float>(uiLeft) - 0.5f;
+	float top    = static_cast<float>(uiTop) - 0.5f;
+	float right  = static_cast<float>(uiRight) + 0.5f;
+	float bottom = static_cast<float>(uiBottom) + 0.5f;
+	
+	float texl = (left) / w;
+	float text = (top) / h;
+	float texr = (right + 1.0f) / w;
+	float texb = (bottom + 1.0f) / h;
+	
+	vertices[0].x = left;
+	vertices[0].y = top;
+	vertices[0].tu = texl;
+	vertices[0].tv = text;
+
+	vertices[1].x = right;
+	vertices[1].y = top;
+	vertices[1].tu = texr;
+	vertices[1].tv = text;
+
+	vertices[2].x = right;
+	vertices[2].y = bottom;
+	vertices[2].tu = texr;
+	vertices[2].tv = texb;
+
+	vertices[3].x = left;
+	vertices[3].y = bottom;
+	vertices[3].tu = texl;
+	vertices[3].tv = texb;
+}
+
+void DevState::newTexture(unsigned int width, unsigned int height) {
+	ods("D3D9: New texture %d x %d", width, height);
+	
+	if (texTexture) {
+		texTexture->Release();
+		texTexture = NULL;
+	}
+
+	dev->CreateTexture(uiWidth, uiHeight, 1, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &texTexture, NULL);
+
+	for(int i=0;i<4;++i) {
+		vertices[i].x = vertices[i].y = vertices[i].z = 0.0f;
+		vertices[i].tu = vertices[i].tv = 0.0f;
+		vertices[i].rhw = 1.0f;
+	}
 }
 
 void DevState::releaseAll() {
@@ -102,119 +189,13 @@ void DevState::draw() {
 	D3DVIEWPORT9 vp;
 	dev->GetViewport(&vp);
 
-	int idx = 0;
-
-	vector<LPDIRECT3DTEXTURE9> texs;
-	vector<unsigned int> widths;
-	vector<unsigned int> yofs;
-	vector<DWORD> colors;
-
-	unsigned int y = 0;
-
-	if (sm->fFontSize < 0.01f)
-		sm->fFontSize = 0.01f;
-	else if (sm->fFontSize > 1.0f)
-		sm->fFontSize = 1.0f;
-
-	int iHeight = lround(vp.Height * sm->fFontSize);
-
-	if (iHeight > TEXT_HEIGHT)
-		iHeight = TEXT_HEIGHT;
-
-	float s = iHeight / 60.0f;
-
-	ods("D3D9: Init: Scale %f. iH %d. Final scale %f", sm->fFontSize, iHeight, s);
-
-	DWORD dwWaitResult = WaitForSingleObject(hSharedMutex, 50L);
-	if (dwWaitResult == WAIT_OBJECT_0) {
-		for (int i=0;i<NUM_TEXTS;i++) {
-			if (sm->texts[i].width == 0) {
-				y += iHeight / 4;
-			} else if (sm->texts[i].width > 0) {
-				if (!tex[i] || (sm->texts[i].uiCounter != uiCounter[i])) {
-					if (tex[i])
-						tex[i]->Release();
-
-					dev->CreateTexture(sm->texts[i].width, TEXT_HEIGHT, 1, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &tex[i], NULL);
-
-					D3DLOCKED_RECT lr;
-					tex[i]->LockRect(0, &lr, NULL, D3DLOCK_DISCARD);
-
-					for (int r=0;r<TEXT_HEIGHT;r++) {
-						unsigned char *dptr = reinterpret_cast<unsigned char *>(lr.pBits) + r * lr.Pitch;
-						memcpy(dptr, sm->texts[i].texture + r * TEXT_WIDTH * 4, sm->texts[i].width * 4);
-					}
-
-					tex[i]->UnlockRect(0);
-					uiCounter[i] = sm->texts[i].uiCounter;
-				}
-				unsigned int w = lround(sm->texts[i].width * s);
-				texs.push_back(tex[i]);
-				colors.push_back(sm->texts[i].color);
-				widths.push_back(w);
-				yofs.push_back(y);
-				idx++;
-				y += iHeight;
-			}
-		}
-		ReleaseMutex(hSharedMutex);
-	}
-
-	if (idx == 0)
+	checkMessage(vp.Width, vp.Height);
+	
+	if (! a_ucTexture || !texTexture || (uiLeft == uiRight))
 		return;
 
-	int height = y;
-	y = lround(vp.Height * sm->fY);
-
-	if (sm->bTop) {
-		y -= height;
-	} else if (sm->bBottom) {
-	} else {
-		y -= height / 2;
-	}
-
-
-	if (y < 1)
-		y = 1;
-	if ((y + height + 1) > vp.Height)
-		y = vp.Height - height - 1;
-
-	for (int i=0;i<idx;i++) {
-		unsigned int width = widths[i];
-
-		int x = lround(vp.Width * sm->fX);
-
-		if (sm->bLeft) {
-			x -= width;
-		} else if (sm->bRight) {
-		} else {
-			x -= width / 2;
-		}
-
-		if (x < 1)
-			x = 1;
-		if ((x + width + 1) > vp.Width)
-			x = vp.Width - width - 1;
-
-		D3DCOLOR color = colors[i];
-
-		float left   = static_cast<float>(x);
-		float top    = static_cast<float>(y + yofs[i]);
-		float right  = left + width;
-		float bottom = top + iHeight;
-
-		const float z = 1.0f;
-		D3DTLVERTEX vertices[4] = {
-			// x, y, z, color, tu, tv
-			{ left,  top,    z, 1, color, 0, 0 },
-			{ right, top,    z, 1, color, 1, 0 },
-			{ right, bottom, z, 1, color, 1, 1 },
-			{ left,  bottom, z, 1, color, 0, 1 }
-		};
-
-		dev->SetTexture(0, texs[i]);
-		dev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vertices, sizeof(D3DTLVERTEX));
-	}
+	dev->SetTexture(0, texTexture);
+	dev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vertices, sizeof(D3DTLVERTEX));
 }
 
 void DevState::createCleanState() {
