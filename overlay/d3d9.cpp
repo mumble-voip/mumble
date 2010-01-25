@@ -51,7 +51,7 @@ class DevState : protected Pipe {
 		LONG refCount;
 		LONG myRefCount;
 		DWORD dwMyThread;
-		
+
 		D3DTLVERTEX vertices[4];
 		LPDIRECT3DTEXTURE9 texTexture;
 
@@ -62,7 +62,7 @@ class DevState : protected Pipe {
 		void releaseAll();
 		void draw();
 		void postDraw();
-		
+
 		void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
 		void setRect();
 		void newTexture(unsigned int width, unsigned int height);
@@ -80,8 +80,8 @@ DevState::DevState() {
 	refCount = 0;
 	myRefCount = 0;
 	texTexture = NULL;
-	
-	for(int i=0;i<4;++i) {
+
+	for (int i=0;i<4;++i) {
 		vertices[i].x = vertices[i].y = 0.0f;
 		vertices[i].tu = vertices[i].tv = 0.0f;
 		vertices[i].z = vertices[i].rhw = 1.0f;
@@ -99,13 +99,13 @@ void DevState::releaseData() {
 
 void DevState::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h) {
 	ods("D3D9: Blit %d %d %d %d", x, y, w, h);
-	
+
 	if (! texTexture)
 		return;
 
 	D3DLOCKED_RECT lr;
 	RECT r;
-	
+
 	r.left = x;
 	r.top = y;
 	r.right = x + w;
@@ -133,12 +133,12 @@ void DevState::setRect() {
 	float top    = static_cast<float>(uiTop) - 0.5f;
 	float right  = static_cast<float>(uiRight) + 0.5f;
 	float bottom = static_cast<float>(uiBottom) + 0.5f;
-	
+
 	float texl = (left) / w;
 	float text = (top) / h;
 	float texr = (right + 1.0f) / w;
 	float texb = (bottom + 1.0f) / h;
-	
+
 	vertices[0].x = left;
 	vertices[0].y = top;
 	vertices[0].tu = texl;
@@ -162,7 +162,7 @@ void DevState::setRect() {
 
 void DevState::newTexture(unsigned int width, unsigned int height) {
 	ods("D3D9: New texture %d x %d", width, height);
-	
+
 	if (texTexture) {
 		texTexture->Release();
 		texTexture = NULL;
@@ -170,7 +170,7 @@ void DevState::newTexture(unsigned int width, unsigned int height) {
 
 	dev->CreateTexture(uiWidth, uiHeight, 1, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &texTexture, NULL);
 
-	for(int i=0;i<4;++i) {
+	for (int i=0;i<4;++i) {
 		vertices[i].x = vertices[i].y = vertices[i].z = 0.0f;
 		vertices[i].tu = vertices[i].tv = 0.0f;
 		vertices[i].rhw = 1.0f;
@@ -190,7 +190,7 @@ void DevState::draw() {
 	dev->GetViewport(&vp);
 
 	checkMessage(vp.Width, vp.Height);
-	
+
 	if (! a_ucTexture || !texTexture || (uiLeft == uiRight))
 		return;
 
@@ -616,7 +616,7 @@ void checkD3D9Hook(bool preonly) {
 extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 	if (! d3dd)
 		return;
-	
+
 	ods("Preparing static data for D3D9 Injection");
 
 	char buffb[2048];

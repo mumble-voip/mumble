@@ -217,9 +217,9 @@ void OverlayClient::readyRead() {
 						uiHeight = omi->uiHeight;
 						qrLast = QRect();
 
-						if (smMem) 
+						if (smMem)
 							delete smMem;
-							
+
 						smMem = new SharedMemory2(this, uiWidth * uiHeight * 4);
 						if (! smMem->data()) {
 							qWarning() << "OverlayClient: Failed to create shared memory";
@@ -360,7 +360,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 						unsigned int rm = (e.uiColor & 0xff0000) >> 16;
 						unsigned int gm = (e.uiColor & 0x00ff00) >> 8;
 						unsigned int bm = (e.uiColor & 0x0000ff);
-						
+
 						QImage img(cu->iTextureWidth, 60, QImage::Format_ARGB32);
 						{
 							QImage srcimg(reinterpret_cast<const uchar *>(cu->qbaTexture.constData()), 600, 60, QImage::Format_ARGB32);
@@ -570,7 +570,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		om.omb.h = dirty.height();
 		qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgBlit));
 	}
-	
+
 	if (active.isEmpty())
 		active = QRect(0,0,0,0);
 

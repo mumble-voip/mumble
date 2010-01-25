@@ -115,7 +115,7 @@ class Pipe {
 	private:
 		HANDLE hSocket;
 		HANDLE hMemory;
-		
+
 		void release();
 		void disconnect();
 	protected:

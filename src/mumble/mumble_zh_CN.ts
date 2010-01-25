@@ -4267,7 +4267,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>用户界面</translation>
     </message>
     <message>
-        <location line="+124"/>
+        <location line="+126"/>
         <source>Choose skin file</source>
         <translation>选择皮肤文件</translation>
     </message>
@@ -4551,17 +4551,22 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Show context menu in menu bar</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1767"/>
+        <location line="+1798"/>
         <source>Root</source>
         <translation>根</translation>
     </message>
     <message>
-        <location line="-1717"/>
+        <location line="-1747"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>按键通话</translation>
@@ -4695,22 +4700,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui"/>
         <location filename="MainWindow.cpp" line="+116"/>
-        <location line="+874"/>
-        <location line="+182"/>
+        <location line="+905"/>
+        <location line="+181"/>
         <location line="+615"/>
         <location filename="main.cpp" line="-33"/>
         <source>Mumble</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1783"/>
+        <location filename="MainWindow.cpp" line="-1813"/>
         <location line="+12"/>
-        <location line="+1864"/>
+        <location line="+1894"/>
         <source>Mumble -- %1</source>
         <translation></translation>
     </message>
     <message>
-        <location line="-1860"/>
+        <location line="-1890"/>
         <source>&amp;Window</source>
         <translation>&amp;窗口</translation>
     </message>
@@ -4736,7 +4741,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumble 现在连接到了一个服务器。你想要关闭还是最小化它？</translation>
     </message>
     <message>
-        <location line="-147"/>
+        <location line="-191"/>
+        <source>&amp;User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+44"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
@@ -4784,12 +4794,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1881"/>
+        <location line="+1911"/>
         <source>Not connected</source>
         <translation type="unfinished">未连接</translation>
     </message>
     <message>
-        <location line="-1686"/>
+        <location line="-1716"/>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
@@ -4835,7 +4845,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+18"/>
-        <location line="+151"/>
+        <location line="+169"/>
         <source>Connecting to server %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4845,7 +4855,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>正在重新连接中。</translation>
     </message>
     <message>
-        <location line="+96"/>
+        <location line="+109"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4875,12 +4885,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="-104"/>
+        <location line="+298"/>
         <source>Register yourself as %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-298"/>
+        <location line="+298"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4905,8 +4917,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-369"/>
-        <location line="+411"/>
+        <location line="-381"/>
+        <location line="+423"/>
         <source>Change comment on user %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4922,7 +4934,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+40"/>
-        <location line="+212"/>
+        <location line="+211"/>
         <source>Message to channel %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4997,7 +5009,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;控制信道&lt;/h2&gt;&lt;p&gt;使用 %1 比特 %2 加密&lt;br /&gt;平均延迟 %3 毫秒（%4 方差）&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1416"/>
+        <location line="-1415"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>语音频道通过控制信道发送。</translation>
     </message>
@@ -5051,7 +5063,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1130"/>
+        <location line="+1129"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;查看认证</translation>
     </message>
@@ -5060,7 +5072,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">踢出玩家 %1</translation>
     </message>
     <message>
-        <location line="-900"/>
+        <location line="-899"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>输入原因</translation>
@@ -5092,7 +5104,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">频道名</translation>
     </message>
     <message>
-        <location line="+137"/>
+        <location line="+136"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>你确信要删除 %1和它的子频道吗？</translation>
     </message>
@@ -5235,8 +5247,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;玩家</translation>
     </message>
     <message>
+        <location line="-1968"/>
         <source>&amp;Channel</source>
-        <translation type="obsolete">&amp;频道</translation>
+        <translation type="unfinished">&amp;频道</translation>
     </message>
     <message>
         <source>&amp;Audio</source>
@@ -6396,6 +6409,16 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>Change your own comment.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>R&amp;egister</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Register yourself on the server</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NetworkConfig</name>
@@ -6666,11 +6689,14 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+611"/>
-        <location line="+12"/>
-        <location line="+32"/>
+        <location filename="Overlay.cpp" line="+646"/>
         <source>Mumble</source>
         <translation></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -6682,28 +6708,11 @@ Prevents the client from downloading images embedded into chat messages with the
 - 你的操作系统版本低于 WinXP SP2
 - 你的 DX9.0C 版本低于 2007年6月升级版</translation>
     </message>
-    <message>
-        <location line="-44"/>
-        <source>Failed to load overlay library. This means either that:
-- the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
-- you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+12"/>
-        <source>Failed to initialize overlay memory. This usually means that the shared memory is locked by the OS, and you need to reboot to release it.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+32"/>
-        <source>Failed to create communication with overlay: %1. No overlay will be available.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-608"/>
+        <location line="-599"/>
         <source>Show no one</source>
         <translation>不显示任何人</translation>
     </message>
@@ -6966,6 +6975,21 @@ Prevents the client from downloading images embedded into chat messages with the
         <location/>
         <source>Color for active Channels</source>
         <translation>活跃频道的颜色</translation>
+    </message>
+</context>
+<context>
+    <name>OverlayPrivateWin</name>
+    <message>
+        <location filename="Overlay_win.cpp" line="+81"/>
+        <source>Mumble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Failed to load overlay library. This means either that:
+- the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
+- you&apos;re on an OS earlier than WinXP SP2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

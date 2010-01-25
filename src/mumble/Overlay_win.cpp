@@ -63,7 +63,7 @@ class OverlayPrivateWin : public OverlayPrivate {
 		QLibrary *qlOverlay;
 	public:
 		HooksProc hpInstall, hpRemove;
-		
+
 		void setActive(bool);
 		OverlayPrivateWin(QObject *);
 		~OverlayPrivateWin();
@@ -83,7 +83,7 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 		                      "- you're on an OS earlier than WinXP SP2"), QMessageBox::Ok, QMessageBox::NoButton);
 		qWarning("Overlay failure");
 		return;
-	} 
+	}
 
 	GetOverlayMagicVersionProc gompvp = (GetOverlayMagicVersionProc)qlOverlay->resolve("GetOverlayMagicVersion");
 	if (! gompvp)

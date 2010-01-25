@@ -1,11 +1,11 @@
-/* Copyright (C) 2005-2010, Snares <snares@users.sourceforge.net> 
-   Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com> 
+/* Copyright (C) 2005-2010, Snares <snares@users.sourceforge.net>
+   Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
- 
+
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions
-   are met: 
+   are met:
 
    - Redistributions of source code must retain the above copyright notice,
      this list of conditions and the following disclaimer.
@@ -27,18 +27,18 @@
    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/ 
- 
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
 #include <tlhelp32.h>
-#include <math.h> 
+#include <math.h>
 
-#include "../mumble_plugin.h"  
+#include "../mumble_plugin.h"
 
-HANDLE h; 
- 
+HANDLE h;
+
 BYTE *posptr;
 
 static DWORD getProcess(const wchar_t *exename) {
@@ -108,13 +108,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	for (int i=0;i<3;i++)
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
 
-    // char state;
+	// char state;
 	bool ok;
-	
+
 	float front_corrector1;
 	float front_corrector2;
 	float front_corrector3;
-	
+
 	float top_corrector1;
 	float top_corrector2;
 	float top_corrector3;
@@ -127,15 +127,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// 	return false;
 
 	// if (state == 0)
-    //          return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+	//          return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 
 	ok = peekProc(posptr, avatar_pos, 12) &&
 	     peekProc((BYTE *) 0x016CE6F8, &front_corrector1, 4) &&
-		 peekProc((BYTE *) 0x016CE704, &front_corrector2, 4) &&
-		 peekProc((BYTE *) 0x016CE710, &front_corrector3, 4) &&
+	     peekProc((BYTE *) 0x016CE704, &front_corrector2, 4) &&
+	     peekProc((BYTE *) 0x016CE710, &front_corrector3, 4) &&
 	     peekProc((BYTE *) 0x016CE6F4, &top_corrector1, 4) &&
-		 peekProc((BYTE *) 0x016CE700, &top_corrector2, 4) &&
-		 peekProc((BYTE *) 0x016CE70C, &top_corrector3, 4);
+	     peekProc((BYTE *) 0x016CE700, &top_corrector2, 4) &&
+	     peekProc((BYTE *) 0x016CE70C, &top_corrector3, 4);
 
 	if (! ok)
 		return false;
@@ -143,11 +143,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_front[0] = front_corrector1;
 	avatar_front[1] = front_corrector2;
 	avatar_front[2] = front_corrector3;
-	
+
 	avatar_top[0] = top_corrector1;
 	avatar_top[1] = top_corrector2;
 	avatar_top[2] = top_corrector3;
-	
+
 	for (int i=0;i<3;i++) {
 		camera_pos[i] = avatar_pos[i];
 		camera_front[i] = avatar_front[i];
@@ -164,7 +164,7 @@ static int trylock() {
 	DWORD pid=getProcess(L"arma2.exe");
 	if (!pid)
 		return false;
-    // Comment out code we don't need
+	// Comment out code we don't need
 	// BYTE *mod=getModuleAddr(pid, L"<module name, if you need it>.dll");
 	// if (!mod)
 	// 	return false;
@@ -175,7 +175,7 @@ static int trylock() {
 
 	BYTE *ptr1 = peekProcPtr((BYTE *) 0x00C10F80);
 	BYTE *ptr2 = peekProcPtr(ptr1 + 0x280);
-	
+
 	posptr = ptr2 + 0x40;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];

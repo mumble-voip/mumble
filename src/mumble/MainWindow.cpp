@@ -714,7 +714,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 
 	if (g.s.bShowContextMenuInMenuBar) {
 		bool found = false;
-		foreach (QAction *a, menuBar()->actions()) {
+		foreach(QAction *a, menuBar()->actions()) {
 			if (a == qmUser->menuAction()) {
 				found = true;
 				break;

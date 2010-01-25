@@ -5643,7 +5643,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="+124"/>
+        <location filename="LookConfig.cpp" line="+126"/>
         <source>Choose skin file</source>
         <translation>Wähle Skindatei</translation>
     </message>
@@ -5686,7 +5686,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation type="obsolete">Prüfe nach Updates bei Start</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="-134"/>
+        <location filename="LookConfig.cpp" line="-136"/>
         <source>None</source>
         <translation>Keine</translation>
     </message>
@@ -5833,12 +5833,17 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
         <translation>Diese Einstellung legt fest, in welchen Situationen das Mumble-Fenster immer über den anderen bleibt. Wenn Sie &lt;i&gt;Niemals&lt;/i&gt; wählen bleibt das Fenster niemals oben auf. &lt;i&gt;Immer&lt;/i&gt; zeigt das Fenster immer über den anderen. &lt;i&gt;In der Minimalansicht&lt;/i&gt;/&lt;i&gt;In der Normalansicht&lt;/i&gt; lässt das Fenster nur im jeweiligen Anzeigemodus über den anderen stehen.</translation>
     </message>
+    <message>
+        <location/>
+        <source>Show context menu in menu bar</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1767"/>
+        <location line="+1798"/>
         <source>Root</source>
         <translation>Hauptkanal</translation>
     </message>
@@ -6408,9 +6413,9 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Verbindet sich mit der Mumble-Webseite um zu überprüfen ob eine neue Version verfügbar ist. Ist eine neue Version verfügbar wird mit einer passenden Download-URL darauf hingewiesen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1673"/>
+        <location filename="MainWindow.cpp" line="-1703"/>
         <location line="+12"/>
-        <location line="+1864"/>
+        <location line="+1894"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6432,15 +6437,16 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">B&amp;enutzer</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="-1984"/>
         <source>&amp;Channel</source>
-        <translation type="obsolete">&amp;Kanal</translation>
+        <translation type="unfinished">&amp;Kanal</translation>
     </message>
     <message>
         <source>&amp;Audio</source>
         <translation type="obsolete">&amp;Audio</translation>
     </message>
     <message>
-        <location/>
+        <location filename="MainWindow.ui"/>
         <source>C&amp;onfigure</source>
         <translation>K&amp;onfiguration</translation>
     </message>
@@ -6454,7 +6460,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Kicke Benutzer %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-985"/>
+        <location filename="MainWindow.cpp" line="+1000"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Grund eingeben</translation>
@@ -6465,9 +6471,9 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     </message>
     <message>
         <location filename="MainWindow.ui"/>
-        <location filename="MainWindow.cpp" line="-798"/>
-        <location line="+874"/>
-        <location line="+182"/>
+        <location filename="MainWindow.cpp" line="-829"/>
+        <location line="+905"/>
+        <location line="+181"/>
         <location line="+615"/>
         <location filename="main.cpp" line="-33"/>
         <source>Mumble</source>
@@ -6535,7 +6541,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Verbindung zum Server unterbrochen.</translation>
     </message>
     <message>
-        <location line="-1322"/>
+        <location line="-1334"/>
         <source>Reconnecting.</source>
         <translation>Neuverbindung.</translation>
     </message>
@@ -6870,7 +6876,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Willkommen in Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-565"/>
+        <location filename="MainWindow.cpp" line="-583"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Push-To-Talk</translation>
@@ -6996,12 +7002,12 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     </message>
     <message>
         <location line="+47"/>
-        <location line="+151"/>
+        <location line="+169"/>
         <source>Connecting to server %1.</source>
         <translation>Zu Server %1 verbinden.</translation>
     </message>
     <message>
-        <location line="+106"/>
+        <location line="+119"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protokoll %1.%2.%3.&lt;/p&gt;</translation>
     </message>
@@ -7040,7 +7046,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Wollen Sie wirklich den Kommentar des Benutzers %1 löschen?</translation>
     </message>
     <message>
-        <location line="+250"/>
+        <location line="+249"/>
         <source>(Tree) %1: %2</source>
         <translation>(Baum) %1: %2</translation>
     </message>
@@ -7068,12 +7074,14 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Öffnen der Bilddatei fehlgeschlagen.</translation>
     </message>
     <message>
-        <location line="-1190"/>
+        <location line="-1487"/>
+        <location line="+298"/>
         <source>Register yourself as %1</source>
         <translation>Sich selbst als %1 registrieren</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-298"/>
+        <location line="+298"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Sie sind dabei sich auf dem Server zu registrieren. Diese Aktion kann nicht rückgängig gemacht werden und Ihr Benutzername &apos;%1&apos; auf diesem Server kann von Ihnen selbst nicht mehr geändert werden.&lt;/p&gt;&lt;p&gt;Sind Sie sicher, dass Sie sich selbst registrieren möchten?&lt;/p&gt;</translation>
     </message>
@@ -7100,8 +7108,8 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Benutzer %1 bannen</translation>
     </message>
     <message>
-        <location line="-369"/>
-        <location line="+411"/>
+        <location line="-381"/>
+        <location line="+423"/>
         <source>Change comment on user %1</source>
         <translation>Ändert den Kommentar für Benutzer %1</translation>
     </message>
@@ -7111,7 +7119,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     </message>
     <message>
         <location line="+75"/>
-        <location line="+212"/>
+        <location line="+211"/>
         <source>Message to channel %1</source>
         <translation>Nachricht an den Kanal %1</translation>
     </message>
@@ -7212,7 +7220,7 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
         <translation type="obsolete">Sende eine Text-Nachricht an einen anderen Benutzer.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1130"/>
+        <location filename="MainWindow.cpp" line="-1129"/>
         <source>Sending message to %1</source>
         <translation>Sende Nachricht an %1</translation>
     </message>
@@ -7234,7 +7242,7 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
         <translation type="obsolete">Ändere Beschreibung von Kanal %1</translation>
     </message>
     <message>
-        <location line="+824"/>
+        <location line="+823"/>
         <source>Invalid username</source>
         <translation>Ungültiger Benutzername</translation>
     </message>
@@ -7283,11 +7291,12 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
         <translation>Schickt eine Textnachricht an einen anderen Benutzer.</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="-1969"/>
         <source>&amp;User</source>
-        <translation type="obsolete">&amp;Benutzer</translation>
+        <translation type="unfinished">&amp;Benutzer</translation>
     </message>
     <message>
-        <location/>
+        <location filename="MainWindow.ui"/>
         <source>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</source>
         <translation>Dies ist die Chatbar&lt;br /&gt;
 Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer oder Kanal gesendet, welcher ausgewählt ist. Sofern nichts selektiert ist wird die Nachricht an den aktuellen Kanal gesendet.</translation>
@@ -7384,7 +7393,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Dies leitet Sie durch den Hardware-Konfigurationsprozess.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-90"/>
+        <location filename="MainWindow.cpp" line="+1879"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL-Überprüfung fehlgeschlagen: %1</translation>
     </message>
@@ -7443,7 +7452,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Dies zeigt erweitertete Informationen über die Verbindung zum Server an.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1127"/>
+        <location filename="MainWindow.cpp" line="-1126"/>
         <source>Mumble Server Information</source>
         <translation>Mumble - Server Informationen</translation>
     </message>
@@ -7453,12 +7462,12 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1130"/>
+        <location line="+1129"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Zertifikat zeigen</translation>
     </message>
     <message>
-        <location line="-1529"/>
+        <location line="-1559"/>
         <source>Opening URL %1</source>
         <translation>Öffne URL %1</translation>
     </message>
@@ -7511,17 +7520,17 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1881"/>
+        <location line="+1911"/>
         <source>Not connected</source>
         <translation>Nicht verbunden</translation>
     </message>
     <message>
-        <location line="-1676"/>
+        <location line="-1706"/>
         <source>File does not exist</source>
         <translation>Datei existiert nicht</translation>
     </message>
     <message>
-        <location line="+367"/>
+        <location line="+398"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7530,7 +7539,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">Diese Datei ist keine Konfigurationsdatei.</translation>
     </message>
     <message>
-        <location line="-351"/>
+        <location line="-382"/>
         <source>Settings merged from file.</source>
         <translation>Einstellungen aus Datei eingelesen.</translation>
     </message>
@@ -7571,7 +7580,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">&lt;h2&gt;Kontrollkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit %1 Bit %2&lt;br /&gt;%3 ms Durchschnittslatenz (%4 Varianz)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+300"/>
+        <location filename="MainWindow.cpp" line="+331"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Sprachkanal wird über den Kontrollkanal gesendet.</translation>
     </message>
@@ -7653,7 +7662,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Über &amp;Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+577"/>
+        <location filename="MainWindow.cpp" line="+576"/>
         <source>Sending message to channel %1</source>
         <translation>Sende Nachricht an den Kanal %1</translation>
     </message>
@@ -7700,7 +7709,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">Mit Server %1 verbunden.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1125"/>
+        <location filename="MainWindow.cpp" line="-1155"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble ist gerade zu einem Server verbunden. Möchten Sie es schließen oder minimieren?</translation>
     </message>
@@ -7850,6 +7859,16 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location/>
         <source>Change your own comment.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>R&amp;egister</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Register yourself on the server</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8183,11 +8202,14 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+611"/>
-        <location line="+12"/>
-        <location line="+32"/>
+        <location filename="Overlay.cpp" line="+646"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -8200,23 +8222,16 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
 - Sie nicht die Juni 2007 Version von DX9.0c installiert haben</translation>
     </message>
     <message>
-        <location line="-44"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation>Das Laden der Overlay-Bibliothek ist fehlgeschlagen. Das heißt entweder dass:
+        <translation type="obsolete">Das Laden der Overlay-Bibliothek ist fehlgeschlagen. Das heißt entweder dass:
 - die Bibliothek (mumble_ol.dll) nicht in dem Verzeichnis gefunden wurde, aus welchem Sie Mumble gestartet haben
 - Sie ein Betriebssystem vor WinXP SP2 benutzen</translation>
     </message>
     <message>
-        <location line="+12"/>
         <source>Failed to initialize overlay memory. This usually means that the shared memory is locked by the OS, and you need to reboot to release it.</source>
-        <translation>Das Initialisieren des Overlay-Speichers ist fehlgeschlagen. Das heißt meistens, dass der Gemeinsame Speicher (shared memory) vom Betriebssystem gesperrt ist und Sie neu starten müssen um ihn freizugeben.</translation>
-    </message>
-    <message>
-        <location line="+32"/>
-        <source>Failed to create communication with overlay: %1. No overlay will be available.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Das Initialisieren des Overlay-Speichers ist fehlgeschlagen. Das heißt meistens, dass der Gemeinsame Speicher (shared memory) vom Betriebssystem gesperrt ist und Sie neu starten müssen um ihn freizugeben.</translation>
     </message>
 </context>
 <context>
@@ -8426,7 +8441,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation>Farbe für aktive Kanäle</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-513"/>
+        <location filename="Overlay.cpp" line="-504"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
@@ -8502,6 +8517,23 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <location/>
         <source>TextLabel</source>
         <translation>Textlabel</translation>
+    </message>
+</context>
+<context>
+    <name>OverlayPrivateWin</name>
+    <message>
+        <location filename="Overlay_win.cpp" line="+81"/>
+        <source>Mumble</source>
+        <translation type="unfinished">Mumble</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Failed to load overlay library. This means either that:
+- the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
+- you&apos;re on an OS earlier than WinXP SP2</source>
+        <translation type="unfinished">Das Laden der Overlay-Bibliothek ist fehlgeschlagen. Das heißt entweder dass:
+- die Bibliothek (mumble_ol.dll) nicht in dem Verzeichnis gefunden wurde, aus welchem Sie Mumble gestartet haben
+- Sie ein Betriebssystem vor WinXP SP2 benutzen</translation>
     </message>
 </context>
 <context>

@@ -4625,7 +4625,7 @@ p, li { white-space: pre-wrap; }
         <translation>...</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="+124"/>
+        <location filename="LookConfig.cpp" line="+126"/>
         <source>Choose skin file</source>
         <translation>Zmień skórkę</translation>
     </message>
@@ -4656,7 +4656,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Sprawdzaj, czy istnieje nowsza wersja Mumble przy starcie</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="-134"/>
+        <location filename="LookConfig.cpp" line="-136"/>
         <source>None</source>
         <translation>nie rozwijaj kanałów</translation>
     </message>
@@ -4835,12 +4835,17 @@ p, li { white-space: pre-wrap; }
         <source>Show talking status in tray icon</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Show context menu in menu bar</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1767"/>
+        <location line="+1798"/>
         <source>Root</source>
         <translation>Źródło</translation>
     </message>
@@ -5344,9 +5349,9 @@ p, li { white-space: pre-wrap; }
         <translation>Usuwa obecną teksturę z nakładki.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1673"/>
+        <location filename="MainWindow.cpp" line="-1703"/>
         <location line="+12"/>
-        <location line="+1864"/>
+        <location line="+1894"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -5365,15 +5370,16 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation type="obsolete">&amp;Użytkownik</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="-1984"/>
         <source>&amp;Channel</source>
-        <translation type="obsolete">&amp;Kanał</translation>
+        <translation type="unfinished">&amp;Kanał</translation>
     </message>
     <message>
         <source>&amp;Audio</source>
         <translation type="obsolete">&amp;Dźwięk</translation>
     </message>
     <message>
-        <location/>
+        <location filename="MainWindow.ui"/>
         <source>C&amp;onfigure</source>
         <translation>K&amp;onfiguracja</translation>
     </message>
@@ -5387,7 +5393,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation type="obsolete">Wykopywanie użytkownika %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-985"/>
+        <location filename="MainWindow.cpp" line="+1000"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Podaj powód</translation>
@@ -5398,16 +5404,16 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     </message>
     <message>
         <location filename="MainWindow.ui"/>
-        <location filename="MainWindow.cpp" line="-798"/>
-        <location line="+874"/>
-        <location line="+182"/>
+        <location filename="MainWindow.cpp" line="-829"/>
+        <location line="+905"/>
+        <location line="+181"/>
         <location line="+615"/>
         <location filename="main.cpp" line="-33"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1825"/>
+        <location filename="MainWindow.cpp" line="-1855"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
         <translation>Naciśnij i przytrzymaj ten przycisk, aby transmitować głos.</translation>
@@ -5453,7 +5459,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation type="obsolete">Zmień opis kanału %1</translation>
     </message>
     <message>
-        <location line="+1354"/>
+        <location line="+1384"/>
         <source>Unmuted and undeafened.</source>
         <translation>Słuchawki i mikrofon ponownie działają.</translation>
     </message>
@@ -5502,7 +5508,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Rozłączony od serwera.</translation>
     </message>
     <message>
-        <location line="-1322"/>
+        <location line="-1334"/>
         <source>Reconnecting.</source>
         <translation>Ponowne łączenie.</translation>
     </message>
@@ -5836,7 +5842,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Witamy w Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-565"/>
+        <location filename="MainWindow.cpp" line="-583"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Aktywacja przyciskiem</translation>
@@ -5908,12 +5914,12 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     </message>
     <message>
         <location line="+385"/>
-        <location line="+151"/>
+        <location line="+169"/>
         <source>Connecting to server %1.</source>
         <translation>Łączenie z serwerem %1.</translation>
     </message>
     <message>
-        <location line="+106"/>
+        <location line="+119"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Wersja&lt;/h2&gt;&lt;p&gt;Protokół %1.%2.%3.&lt;/p&gt;</translation>
     </message>
@@ -5942,12 +5948,14 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>&lt;h2&gt;Przepustowość dźwięku&lt;/h2&gt;&lt;p&gt;Maksymalnie %1 kbit/s&lt;br /&gt;Obecnie %2 kbit/s&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="-104"/>
+        <location line="+298"/>
         <source>Register yourself as %1</source>
         <translation>Zarejestruj siebie jako %1</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-298"/>
+        <location line="+298"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Masz zamiar zarejestrować się na tym serwerze. Akcja ta nie może zostać cofnięta, twoja nazwa użytkownika również nie może ulec zmianie w przyszłości. Na zawsze będziesz znany jako &apos;%1&apos; na tym serwerze.&lt;/p&gt;&lt;p&gt;Czy jesteś pewien, że chcesz się zarejestrować?&lt;/p&gt;</translation>
     </message>
@@ -5972,8 +5980,8 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Banowanie użytkownika %1</translation>
     </message>
     <message>
-        <location line="-369"/>
-        <location line="+411"/>
+        <location line="-381"/>
+        <location line="+423"/>
         <source>Change comment on user %1</source>
         <translation>Edycja komentarza użytkownika %1</translation>
     </message>
@@ -5983,7 +5991,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     </message>
     <message>
         <location line="+75"/>
-        <location line="+212"/>
+        <location line="+211"/>
         <source>Message to channel %1</source>
         <translation>Wiadomość do kanału %1</translation>
     </message>
@@ -6053,7 +6061,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Wyślij wiadomość tekstową</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1425"/>
+        <location filename="MainWindow.cpp" line="-1424"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6086,7 +6094,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+250"/>
+        <location line="+249"/>
         <source>(Tree) %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6170,11 +6178,12 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Wysyła wiadomość tekstową do innego użytkownika.</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="-1969"/>
         <source>&amp;User</source>
-        <translation type="obsolete">&amp;Użytkownik</translation>
+        <translation type="unfinished">&amp;Użytkownik</translation>
     </message>
     <message>
-        <location/>
+        <location filename="MainWindow.ui"/>
         <source>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</source>
         <translation>To jest pasek czatu.&lt;br /&gt;Jeśli wpiszesz w nim tekst i naciśniesz enter zostanie on wysłany do kanału lub użytkownika, który w chwili obecnej jest zaznaczony. Jeśli nic nie jest zaznaczone wiadomość zostanie wysłana do kanału, na którym się znajdujesz.</translation>
     </message>
@@ -6259,7 +6268,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Ten kreator poprowadzi cię przez proces konfiguracji ustawień dźwięku.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-90"/>
+        <location filename="MainWindow.cpp" line="+1879"/>
         <source>SSL Verification failed: %1</source>
         <translation>Weryfikacja SSL nie powiodła się: %1</translation>
     </message>
@@ -6294,18 +6303,18 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Wyświetla zaawansowane informacje na temat połączenia z serwerem.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1127"/>
+        <location filename="MainWindow.cpp" line="-1126"/>
         <source>Mumble Server Information</source>
         <translation>Serwer Mumble - Informacje</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1130"/>
+        <location line="+1129"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Zobacz certyfikat</translation>
     </message>
     <message>
-        <location line="-1529"/>
+        <location line="-1559"/>
         <source>Opening URL %1</source>
         <translation>Otwieranie adresu %1</translation>
     </message>
@@ -6358,12 +6367,12 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1881"/>
+        <location line="+1911"/>
         <source>Not connected</source>
         <translation>Nie połączony</translation>
     </message>
     <message>
-        <location line="-1676"/>
+        <location line="-1706"/>
         <source>File does not exist</source>
         <translation>Plik nie istnieje</translation>
     </message>
@@ -6415,7 +6424,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation type="obsolete">&lt;h2&gt;Kanał kontrolny&lt;/h2&gt;&lt;p&gt;Szyfrowanie %1 bit %2&lt;br /&gt;%1 ms przeciętnego opóźnienia (%4 niezgodności)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+300"/>
+        <location filename="MainWindow.cpp" line="+331"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Kanał głosowy jest wysyłany przez kanał kontrolny.</translation>
     </message>
@@ -6481,7 +6490,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>O &amp;Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+577"/>
+        <location filename="MainWindow.cpp" line="+576"/>
         <source>Sending message to channel %1</source>
         <translation>Wysyłanie wiadomości na kanał: %1</translation>
     </message>
@@ -6528,7 +6537,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation type="obsolete">Połączony z serwerem %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1125"/>
+        <location filename="MainWindow.cpp" line="-1155"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>&lt;b&gt;UWAGA!&lt;/b&gt; Mumble jest obecnie połączony z serwerem. Chcesz zakończyć czy zminimalizować program?</translation>
     </message>
@@ -6733,6 +6742,16 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location/>
         <source>Change your own comment.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>R&amp;egister</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Register yourself on the server</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7004,11 +7023,14 @@ Zapobiega pobieraniu obrazów przez klienta, które są umieszczane w dzienniku 
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+611"/>
-        <location line="+12"/>
-        <location line="+32"/>
+        <location filename="Overlay.cpp" line="+646"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -7021,23 +7043,16 @@ Zapobiega pobieraniu obrazów przez klienta, które są umieszczane w dzienniku 
 - nie masz zainstalowanego DirectX 9.0c z Czerwca 2007</translation>
     </message>
     <message>
-        <location line="-44"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation>Nie udało się załadować bibliotek nakładki, oznacza to że:
+        <translation type="obsolete">Nie udało się załadować bibliotek nakładki, oznacza to że:
 - biblioteka (mumble_ol.dll) nie znajduje się w folderze aplikacji
 - jesteś na systemie starszym niż WinXP SP2</translation>
     </message>
     <message>
-        <location line="+12"/>
         <source>Failed to initialize overlay memory. This usually means that the shared memory is locked by the OS, and you need to reboot to release it.</source>
-        <translation>Nie udało się zainicjalizować pamięci nakładki. Ten błąd zazwyczaj oznacza, że pamieć współdzielona jest zablokowana przez system i musisz uruchomić komputer ponownie, aby ją zwolnić.</translation>
-    </message>
-    <message>
-        <location line="+32"/>
-        <source>Failed to create communication with overlay: %1. No overlay will be available.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Nie udało się zainicjalizować pamięci nakładki. Ten błąd zazwyczaj oznacza, że pamieć współdzielona jest zablokowana przez system i musisz uruchomić komputer ponownie, aby ją zwolnić.</translation>
     </message>
 </context>
 <context>
@@ -7230,7 +7245,7 @@ Opcja dostępna tylko, gdy ustawisz teksturę na danym serwerze podczas rejestra
         <translation>Kolor aktywnych kanałów</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-513"/>
+        <location filename="Overlay.cpp" line="-504"/>
         <source>Overlay</source>
         <translation>Nakładka</translation>
     </message>
@@ -7306,6 +7321,23 @@ Opcja dostępna tylko, gdy ustawisz teksturę na danym serwerze podczas rejestra
         <location/>
         <source>TextLabel</source>
         <translation>Tekst</translation>
+    </message>
+</context>
+<context>
+    <name>OverlayPrivateWin</name>
+    <message>
+        <location filename="Overlay_win.cpp" line="+81"/>
+        <source>Mumble</source>
+        <translation type="unfinished">Mumble</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Failed to load overlay library. This means either that:
+- the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
+- you&apos;re on an OS earlier than WinXP SP2</source>
+        <translation type="unfinished">Nie udało się załadować bibliotek nakładki, oznacza to że:
+- biblioteka (mumble_ol.dll) nie znajduje się w folderze aplikacji
+- jesteś na systemie starszym niż WinXP SP2</translation>
     </message>
 </context>
 <context>

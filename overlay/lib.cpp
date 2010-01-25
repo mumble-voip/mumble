@@ -403,7 +403,7 @@ Pipe::Pipe() {
 	a_ucTexture = NULL;
 
 	omMsg.omh.iLength = -1;
-	
+
 	uiWidth = uiHeight = 0;
 	uiLeft = uiRight = uiTop = uiBottom = 0;
 }
@@ -420,7 +420,7 @@ void Pipe::release() {
 			UnmapViewOfFile(a_ucTexture);
 			a_ucTexture = NULL;
 		}
-		
+
 		uiLeft = uiRight = uiTop = uiBottom = 0;
 	}
 }
@@ -444,7 +444,7 @@ bool Pipe::sendMessage(const OverlayMsg &om) {
 	if (WriteFile(hSocket, om.headerbuffer, sizeof(OverlayMsgHeader) + om.omh.iLength, &dwBytesWritten, NULL))
 		if (dwBytesToWrite == dwBytesWritten)
 			return true;
-	
+
 	ods("Pipe: Short write");
 	disconnect();
 	return false;
@@ -453,7 +453,7 @@ bool Pipe::sendMessage(const OverlayMsg &om) {
 void Pipe::checkMessage(unsigned int w, unsigned int h) {
 	if (!w || ! h)
 		return;
-		
+
 	if (hSocket == INVALID_HANDLE_VALUE) {
 		hSocket = CreateFileW(L"\\\\.\\pipe\\MumbleOverlayPipe", GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
 		if (hSocket == INVALID_HANDLE_VALUE) {
@@ -461,34 +461,34 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 			return;
 		}
 		ods("Pipe: Connected");
-		
+
 		uiWidth = 0;
 		uiHeight = 0;
 	}
 
 	if ((uiWidth != w) || (uiHeight != h)) {
 		release();
-		
+
 		uiWidth = w;
 		uiHeight = h;
-		
+
 		OverlayMsg om;
 		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 		om.omh.uiType = OVERLAY_MSGTYPE_INIT;
 		om.omh.iLength = sizeof(OverlayMsgInit);
 		om.omi.uiWidth = uiWidth;
 		om.omi.uiHeight = uiHeight;
-		
+
 		if (!sendMessage(om))
 			return;
-			
+
 		ods("Pipe: SentInit %d %d", w, h);
 	}
-	
-	while(1) {
+
+	while (1) {
 		DWORD dwBytesLeft;
 		DWORD dwBytesRead;
-		
+
 		if (! PeekNamedPipe(hSocket, NULL, 0, NULL, &dwBytesLeft, NULL)) {
 			ods("Pipe: No peek");
 			disconnect();
@@ -498,10 +498,10 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 		if (omMsg.omh.iLength == -1) {
 			if (dwBytesLeft < sizeof(OverlayMsgHeader))
 				break;
-			
+
 			ReadFile(hSocket, omMsg.headerbuffer, sizeof(OverlayMsgHeader), &dwBytesRead, NULL);
 			dwBytesLeft -= sizeof(OverlayMsgHeader);
-			
+
 			if (dwBytesRead != sizeof(OverlayMsgHeader)) {
 				ods("Pipe: Short header read %d", dwBytesRead);
 				disconnect();
@@ -519,13 +519,13 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 			return;
 		}
 
-		switch(omMsg.omh.uiType) {
+		switch (omMsg.omh.uiType) {
 			case OVERLAY_MSGTYPE_SHMEM: {
 					wchar_t memname[2048];
 					memname[0] = 0;
 
 					MultiByteToWideChar(CP_UTF8, 0, omMsg.oms.a_cName, omMsg.omh.iLength, memname, 2048);
-					
+
 					release();
 
 					hMemory = CreateFileMappingW(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, uiWidth * uiHeight * 4, memname);
@@ -538,12 +538,12 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 							break;
 						}
 					}
-					
+
 					if (! hMemory) {
 						ods("Pipe: CreateFileMapping failed");
 						break;
 					}
-					
+
 					a_ucTexture = reinterpret_cast<unsigned char *>(MapViewOfFile(hMemory, FILE_MAP_ALL_ACCESS, 0, 0, 0));
 
 					if (a_ucTexture == NULL) {
@@ -562,15 +562,15 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 						hMemory = NULL;
 						break;
 					}
-					
+
 					OverlayMsg om;
 					om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 					om.omh.uiType = OVERLAY_MSGTYPE_SHMEM;
 					om.omh.iLength = 0;
-					
+
 					if (!sendMessage(om))
 						return;
-						
+
 					newTexture(uiWidth, uiHeight);
 				}
 				break;
@@ -584,7 +584,7 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 					uiTop = omMsg.oma.y;
 					uiRight = omMsg.oma.x + omMsg.oma.w;
 					uiBottom = omMsg.oma.y + omMsg.oma.h;
-					if (a_ucTexture) 
+					if (a_ucTexture)
 						setRect();
 				}
 				break;

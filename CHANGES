@@ -1,5 +1,33 @@
+2010-01-25
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c00b9bf  Socket-based linux overlay
+    eaf4fc0  Make new overlay drawer Qt 4.5 compaible and use QDir::home()
+	     for sockets
+
+2010-01-24
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    e548546  Initial import of WIP mumble protocol description
+
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    59b0d54  Updated Spanish translation
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    036c6c3  Remove dependence on sm.sm from Win32 overlay
+    0baf758  D3D9, D3D10 and OpenGL/Win32 pipe-based overlay
+    2322bec  Clean up texture assignment
+
+2010-01-23
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    7b30742  Add placeholder SharedMem unix implementation
+    9dfc063  Add missing SharedMem files
+    d173452  New SharedMemory2 class for communication client/server
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    d24d29b  Added alpha-testing ArmA 2 plugin; plugin version bumps
+
 2010-01-22
   Benjamin Jemlich <pcgod@users.sourceforge.net>
+    909d515  Add menu bar config option
     f07dc00  Disable auto expand in the user list
     64f30a4  Add text before the welcome message to fix weird QTextDocument
 	     behaviour

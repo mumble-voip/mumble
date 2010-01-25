@@ -137,7 +137,7 @@ class Context : protected Pipe {
 
 		Context(HDC hdc);
 		void draw(HDC hdc);
-	
+
 		void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
 		void setRect();
 		void newTexture(unsigned int width, unsigned int height);
@@ -180,13 +180,13 @@ Context::Context(HDC hdc) {
 	oglDisable(GL_TEXTURE_GEN_T);
 
 	oglBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	
+
 	texture = ~0;
 }
 
 void Context::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h) {
 	ods("OpenGL: Blit %d %d %d %d -- %d %d : %d", x, y, w, h, uiWidth, uiHeight, texture);
-	
+
 	if (texture == ~0)
 		return;
 
@@ -198,7 +198,7 @@ void Context::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int 
 		unsigned char *ptr = new unsigned char[w*h*4];
 		memset(ptr, 0xff, w * h * 4);
 
-		for(int r = 0; r < h; ++r) {
+		for (int r = 0; r < h; ++r) {
 			const unsigned char *sptr = a_ucTexture + 4 * ((y+r) * uiWidth + x);
 			unsigned char *dptr = ptr + 4 * w * r;
 			memcpy(dptr, sptr, w * 4);
@@ -228,7 +228,7 @@ void Context::newTexture(unsigned int width, unsigned int height) {
 	oglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	oglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	oglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	
+
 	unsigned char *ptr = new unsigned char[width*height*4];
 	memset(ptr, 0, width*height*4);
 	oglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, ptr);
@@ -254,7 +254,7 @@ void Context::draw(HDC hdc) {
 	}
 
 	ods("OpenGL: DrawStart: Screen is %d x %d", width, height);
-	
+
 	checkMessage(width, height);
 
 	oglViewport(0, 0, width, height);

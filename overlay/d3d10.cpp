@@ -64,40 +64,40 @@ struct SimpleVertex {
 class D10State: protected Pipe {
 	public:
 
-	LONG lHighMark;
+		LONG lHighMark;
 
-	LONG initRefCount;
-	LONG refCount;
-	LONG myRefCount;
-	DWORD dwMyThread;
+		LONG initRefCount;
+		LONG refCount;
+		LONG myRefCount;
+		DWORD dwMyThread;
 
-	D3D10_VIEWPORT vp;
+		D3D10_VIEWPORT vp;
 
-	ID3D10Device *pDevice;
-	IDXGISwapChain *pSwapChain;
+		ID3D10Device *pDevice;
+		IDXGISwapChain *pSwapChain;
 
-	ID3D10StateBlock *pOrigStateBlock;
-	ID3D10StateBlock *pMyStateBlock;
-	ID3D10RenderTargetView *pRTV;
-	ID3D10Effect *pEffect;
-	ID3D10EffectTechnique *pTechnique;
-	ID3D10EffectShaderResourceVariable * pDiffuseTexture;
-	ID3D10InputLayout *pVertexLayout;
-	ID3D10Buffer *pVertexBuffer;
-	ID3D10Buffer *pIndexBuffer;
-	ID3D10BlendState *pBlendState;
+		ID3D10StateBlock *pOrigStateBlock;
+		ID3D10StateBlock *pMyStateBlock;
+		ID3D10RenderTargetView *pRTV;
+		ID3D10Effect *pEffect;
+		ID3D10EffectTechnique *pTechnique;
+		ID3D10EffectShaderResourceVariable * pDiffuseTexture;
+		ID3D10InputLayout *pVertexLayout;
+		ID3D10Buffer *pVertexBuffer;
+		ID3D10Buffer *pIndexBuffer;
+		ID3D10BlendState *pBlendState;
 
-	ID3D10Texture2D *pTexture;
-	ID3D10ShaderResourceView *pSRView;
-	
-	D10State(IDXGISwapChain *, ID3D10Device *);
-	~D10State();
-	void init();
-	void draw();
-	
-	void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
-	void setRect();
-	void newTexture(unsigned int w, unsigned int h);
+		ID3D10Texture2D *pTexture;
+		ID3D10ShaderResourceView *pSRView;
+
+		D10State(IDXGISwapChain *, ID3D10Device *);
+		~D10State();
+		void init();
+		void draw();
+
+		void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
+		void setRect();
+		void newTexture(unsigned int w, unsigned int h);
 };
 
 map<IDXGISwapChain *, D10State *> chains;
@@ -109,9 +109,9 @@ D10State::D10State(IDXGISwapChain *pSwapChain, ID3D10Device *pDevice) {
 
 	lHighMark = initRefCount  = refCount = myRefCount = 0;
 	dwMyThread = 0;
-	
+
 	ZeroMemory(&vp, sizeof(vp));
-	
+
 	pOrigStateBlock = NULL;
 	pMyStateBlock = NULL;
 	pRTV = NULL;
@@ -124,7 +124,7 @@ D10State::D10State(IDXGISwapChain *pSwapChain, ID3D10Device *pDevice) {
 	pBlendState = NULL;
 	pTexture = NULL;
 	pSRView = NULL;
-	
+
 	pDevice->AddRef();
 	initRefCount = pDevice->Release();
 }
@@ -133,7 +133,7 @@ void D10State::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int
 	HRESULT hr;
 
 	ods("D3D10: Blit %d %d %d %d", x, y, w, h);
-	
+
 	if (! pTexture || ! pSRView)
 		return;
 
@@ -166,7 +166,7 @@ void D10State::setRect() {
 	float top    = static_cast<float>(uiTop) - 0.5f;
 	float right  = static_cast<float>(uiRight) + 0.5f;
 	float bottom = static_cast<float>(uiBottom) + 0.5f;
-	
+
 	float texl = (left) / w;
 	float text = (top) / h;
 	float texr = (right + 1.0f) / w;
@@ -221,7 +221,7 @@ void D10State::newTexture(unsigned int w, unsigned int h) {
 	desc.BindFlags = D3D10_BIND_SHADER_RESOURCE;
 	desc.CPUAccessFlags = D3D10_CPU_ACCESS_WRITE;
 	hr = pDevice->CreateTexture2D(&desc, NULL, &pTexture);
-	
+
 	if (! SUCCEEDED(hr)) {
 		pTexture = NULL;
 		ods("D3D10: Failed to create texture.");
@@ -379,7 +379,7 @@ D10State::~D10State() {
 void D10State::draw() {
 	HRESULT hr;
 	dwMyThread = GetCurrentThreadId();
-	
+
 	checkMessage(vp.Width, vp.Height);
 
 	if (a_ucTexture && pSRView && (uiLeft != uiRight)) {
@@ -563,7 +563,7 @@ void checkDXGIHook(bool preonly) {
 extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 	if (! dxgi)
 		return;
-	
+
 	ods("Preparing static data for DXGI Injection");
 
 	HMODULE hD3D10 = LoadLibrary("D3D10.DLL");

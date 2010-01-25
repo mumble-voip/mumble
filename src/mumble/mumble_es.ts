@@ -5539,7 +5539,7 @@ p, li { white-space: pre-wrap; }
         <translation>...</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="+124"/>
+        <location filename="LookConfig.cpp" line="+126"/>
         <source>Choose skin file</source>
         <translation>Elija el archivo de carátula</translation>
     </message>
@@ -5591,7 +5591,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Busca actualizaciones al inicio</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="-134"/>
+        <location filename="LookConfig.cpp" line="-136"/>
         <source>None</source>
         <translation>Ninguno</translation>
     </message>
@@ -5836,6 +5836,11 @@ p, li { white-space: pre-wrap; }
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
         <translation>Esta opción controla en qué situaciones la aplicación permanecerá visible sobre todas las demás. Si selecciona &lt;i&gt;Nunca&lt;/i&gt; la aplicación no se mantendrá sobre las demás. &lt;i&gt;Siempre&lt;/i&gt; hará que la aplicación se mantenga sobre las demás. &lt;i&gt;En la vista mínima&lt;/i&gt; / &lt;i&gt;En modo normal&lt;/i&gt; hará que la aplicación se mantenga sobre las demás sólo cuando la vista mínima se active / desactive.</translation>
     </message>
+    <message>
+        <location/>
+        <source>Show context menu in menu bar</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -5846,7 +5851,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1767"/>
+        <location line="+1798"/>
         <source>Root</source>
         <translation>Root</translation>
     </message>
@@ -6357,9 +6362,9 @@ p, li { white-space: pre-wrap; }
         <translation>Elimina la textura actual definida por el usuario.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1673"/>
+        <location filename="MainWindow.cpp" line="-1703"/>
         <location line="+12"/>
-        <location line="+1864"/>
+        <location line="+1894"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6376,8 +6381,9 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Jugador</translation>
     </message>
     <message>
+        <location line="-1984"/>
         <source>&amp;Channel</source>
-        <translation type="obsolete">&amp;Canal</translation>
+        <translation type="unfinished">&amp;Canal</translation>
     </message>
     <message>
         <source>&amp;Audio</source>
@@ -6398,7 +6404,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Expulsando al jugador %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-985"/>
+        <location filename="MainWindow.cpp" line="+1000"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Introduzca el motivo</translation>
@@ -6409,9 +6415,9 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="MainWindow.ui"/>
-        <location filename="MainWindow.cpp" line="-798"/>
-        <location line="+874"/>
-        <location line="+182"/>
+        <location filename="MainWindow.cpp" line="-829"/>
+        <location line="+905"/>
+        <location line="+181"/>
         <location line="+615"/>
         <location filename="main.cpp" line="+17"/>
         <source>Mumble</source>
@@ -6479,7 +6485,7 @@ p, li { white-space: pre-wrap; }
         <translation>Desconectado del servidor.</translation>
     </message>
     <message>
-        <location line="-1322"/>
+        <location line="-1334"/>
         <source>Reconnecting.</source>
         <translation>Volviendo a conectar.</translation>
     </message>
@@ -6819,7 +6825,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">%1 ensordecido por %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-565"/>
+        <location filename="MainWindow.cpp" line="-583"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Presionar-para-Hablar (PTT)</translation>
@@ -6898,7 +6904,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">%2 mudó a %1.</translation>
     </message>
     <message>
-        <location line="+1184"/>
+        <location line="+1214"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>¿Está seguro de que desa borrar %1 y todos sus subcanales?</translation>
     </message>
@@ -6932,7 +6938,7 @@ p, li { white-space: pre-wrap; }
         <translation>Enviar un mensaje de texto</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-240"/>
+        <location filename="MainWindow.cpp" line="-239"/>
         <source>Sending message to %1</source>
         <translation>Enviando mensaje a %1</translation>
     </message>
@@ -6954,8 +6960,8 @@ p, li { white-space: pre-wrap; }
         <translation>Mensaje para %1</translation>
     </message>
     <message>
-        <location line="-490"/>
-        <location line="+411"/>
+        <location line="-502"/>
+        <location line="+423"/>
         <source>Change comment on user %1</source>
         <translation>Cambió el comentario sobre el usuario %1</translation>
     </message>
@@ -6965,7 +6971,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+75"/>
-        <location line="+212"/>
+        <location line="+211"/>
         <source>Message to channel %1</source>
         <translation>Mensaje al canal %1</translation>
     </message>
@@ -7029,11 +7035,12 @@ p, li { white-space: pre-wrap; }
         <translation>Envía un mensaje de texto a otro usuario.</translation>
     </message>
     <message>
+        <location filename="MainWindow.cpp" line="-1969"/>
         <source>&amp;User</source>
-        <translation type="obsolete">&amp;Usuario</translation>
+        <translation type="unfinished">&amp;Usuario</translation>
     </message>
     <message>
-        <location/>
+        <location filename="MainWindow.ui"/>
         <source>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</source>
         <translation>Ésta es la barra de charla&lt;br /&gt;Si introduce texto aquí y después presiona intro, el texto se enviará al usuario o canal que esté seleccionado. Si no se selecciona nada, el mensaje se envía a su canal actual.</translation>
     </message>
@@ -7119,7 +7126,7 @@ p, li { white-space: pre-wrap; }
         <translation>Le guiará a través del proceso de configuración de su hardware de audio.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-90"/>
+        <location filename="MainWindow.cpp" line="+1879"/>
         <source>SSL Verification failed: %1</source>
         <translation>Falló la verificación SSL: %1</translation>
     </message>
@@ -7178,7 +7185,7 @@ p, li { white-space: pre-wrap; }
         <translation>Muestra información extendida acerca de la conexión con el servidor.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1522"/>
+        <location filename="MainWindow.cpp" line="-1552"/>
         <source>Opening URL %1</source>
         <translation>Abriendo URL %1</translation>
     </message>
@@ -7219,12 +7226,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+18"/>
-        <location line="+151"/>
+        <location line="+169"/>
         <source>Connecting to server %1.</source>
         <translation>Conectando al servidor %1.</translation>
     </message>
     <message>
-        <location line="+106"/>
+        <location line="+119"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Versión&lt;/h2&gt;&lt;p&gt;Protocolo %1.%2.%3.&lt;/p&gt;</translation>
     </message>
@@ -7263,12 +7270,14 @@ p, li { white-space: pre-wrap; }
         <translation>Información del servidor Mumble</translation>
     </message>
     <message>
-        <location line="+192"/>
+        <location line="-106"/>
+        <location line="+298"/>
         <source>Register yourself as %1</source>
         <translation>Registrarse como %1</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-298"/>
+        <location line="+298"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Está a punto de registrarse en este servidor. Esta acción no puede deshacerse, y su nombre de usuario no puede cambiarse una vez que se complete. Será conocido para siempre como &apos;%1&apos; en este servidor.&lt;/p&gt;&lt;p&gt;¿Está seguro de que desea registrarse?&lt;/p&gt;</translation>
     </message>
@@ -7303,7 +7312,7 @@ p, li { white-space: pre-wrap; }
         <translation>¿Está seguro de que desea reiniciar el comentario sobre el usuario %1?</translation>
     </message>
     <message>
-        <location line="+250"/>
+        <location line="+249"/>
         <source>(Tree) %1: %2</source>
         <translation>(Árbol) %1: %2</translation>
     </message>
@@ -7372,8 +7381,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Canal de control: latencia %1 ms, Cifrado con %3 bit %4&lt;br /&gt;Canal de voz: latencia %2 ms, Sin cifrar</translation>
     </message>
     <message>
-        <location line="-1397"/>
-        <location line="+1130"/>
+        <location line="-1396"/>
+        <location line="+1129"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Ver certificado</translation>
     </message>
@@ -7382,7 +7391,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bits&lt;br /&gt;%3 ms de latencia media (%4 de varianza)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1833"/>
+        <location line="-1863"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
         <translation>Mantenga pulsado este botón para enviar la voz.</translation>
@@ -7425,7 +7434,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Esto conmutará el estado de la sobreimpresión durante el juego entre mostrar a todos, sólo mostrar los jugadores que están hablando, y no mostrar a nadie.</translation>
     </message>
     <message>
-        <location line="+656"/>
+        <location line="+687"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>El canal de voz se envía a través del canal de control.</translation>
     </message>
@@ -7473,7 +7482,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Cambiar descripción del canal %1</translation>
     </message>
     <message>
-        <location line="+577"/>
+        <location line="+576"/>
         <source>Sending message to channel %1</source>
         <translation>Enviando mensaje al canal %1</translation>
     </message>
@@ -7571,7 +7580,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Conectado al servidor %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1125"/>
+        <location filename="MainWindow.cpp" line="-1155"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble está conectado a un servidor actualmente. ¿Desea cerrarlo o minimizarlo?</translation>
     </message>
@@ -7682,12 +7691,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+65"/>
-        <location line="+1881"/>
+        <location line="+1911"/>
         <source>Not connected</source>
         <translation>Desconectado</translation>
     </message>
     <message>
-        <location line="-1686"/>
+        <location line="-1716"/>
         <source>Clear</source>
         <translation>Borrar</translation>
     </message>
@@ -7830,6 +7839,16 @@ p, li { white-space: pre-wrap; }
         <location/>
         <source>Change your own comment.</source>
         <translation>Cambia su propio comentario.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>R&amp;egister</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Register yourself on the server</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8163,11 +8182,14 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+611"/>
-        <location line="+12"/>
-        <location line="+32"/>
+        <location filename="Overlay.cpp" line="+646"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -8197,23 +8219,20 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation type="obsolete">No se pudo cargar la biblioteca de sobreimpresión. Esto quiere decir que ha ocurrido alguna de las siguientes circunstancias:- la biblioteca (mumble_ol.dll) no fue encontrada en el directorio desde el que ejecutó Mumble- está usando un SO anterior a WinXP SP2- no tiene la versión de DX9.0c actualizada en junio de 2007</translation>
     </message>
     <message>
-        <location line="-44"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation>No se pudo cargar la biblioteca de sobreimpresión. Ésto significa que:
+        <translation type="obsolete">No se pudo cargar la biblioteca de sobreimpresión. Ésto significa que:
 - la biblioteca (mumble_ol.dll) no fue encontrada en el directorio desde el que ejecutó Mumble
 - está usando un SO anterior a WinXP SP2</translation>
     </message>
     <message>
-        <location line="+12"/>
         <source>Failed to initialize overlay memory. This usually means that the shared memory is locked by the OS, and you need to reboot to release it.</source>
-        <translation>No se pudo inicializar la memoria de sobreimpresión. Normalmente esto significa que la memoria compartida está bloqueada por el S.O., y que necesita reiniciar para liberarla.</translation>
+        <translation type="obsolete">No se pudo inicializar la memoria de sobreimpresión. Normalmente esto significa que la memoria compartida está bloqueada por el S.O., y que necesita reiniciar para liberarla.</translation>
     </message>
     <message>
-        <location line="+32"/>
         <source>Failed to create communication with overlay: %1. No overlay will be available.</source>
-        <translation>No se pudo establecer la comunicación con la sobreimpresión: %1. La sobreimpresión no estará disponible.</translation>
+        <translation type="obsolete">No se pudo establecer la comunicación con la sobreimpresión: %1. La sobreimpresión no estará disponible.</translation>
     </message>
 </context>
 <context>
@@ -8408,7 +8427,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation>Color de los canales activos</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-513"/>
+        <location filename="Overlay.cpp" line="-504"/>
         <source>Overlay</source>
         <translation>Sobreimpresión</translation>
     </message>
@@ -8534,6 +8553,23 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <location/>
         <source>TextLabel</source>
         <translation>EtiquetaDeTexto</translation>
+    </message>
+</context>
+<context>
+    <name>OverlayPrivateWin</name>
+    <message>
+        <location filename="Overlay_win.cpp" line="+81"/>
+        <source>Mumble</source>
+        <translation type="unfinished">Mumble</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Failed to load overlay library. This means either that:
+- the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
+- you&apos;re on an OS earlier than WinXP SP2</source>
+        <translation type="unfinished">No se pudo cargar la biblioteca de sobreimpresión. Ésto significa que:
+- la biblioteca (mumble_ol.dll) no fue encontrada en el directorio desde el que ejecutó Mumble
+- está usando un SO anterior a WinXP SP2</translation>
     </message>
 </context>
 <context>

@@ -51,7 +51,7 @@ SharedMemory2::SharedMemory2(QObject *p, unsigned int minsize, const QString &me
 
 	if (memname.isEmpty()) {
 		prot |= PROT_WRITE;
-		for(int i=0;i<100;++i) {
+		for (int i=0;i<100;++i) {
 			qsName = QString::fromLatin1("/MumbleOverlayMemory%1").arg(++uiIndex);
 			d->iShmemFD=shm_open(qsName.toUtf8().constData(), O_RDWR|O_CREAT|O_EXCL, 0600);
 			if (d->iShmemFD != -1) {

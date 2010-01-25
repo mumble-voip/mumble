@@ -45,23 +45,23 @@ SharedMemory2::SharedMemory2(QObject *p, unsigned int minsize, const QString &me
 
 	d = new SharedMemory2Private();
 	d->hMemory = NULL;
-	
+
 	if (memname.isEmpty()) {
 		// Create a new segment
 
-		for(int i=0;i<100;++i) {
+		for (int i=0;i<100;++i) {
 			qsName = QString::fromLatin1("Local\\MumbleOverlayMemory%1").arg(++uiIndex);
 			d->hMemory = CreateFileMappingW(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, minsize, qsName.utf16());
 			if (d->hMemory && GetLastError() != ERROR_ALREADY_EXISTS)
 				break;
-			
+
 			if (d->hMemory)
 				CloseHandle(d->hMemory);
 			d->hMemory = NULL;
 		}
 	} else {
 		// Open existing segment
-		
+
 		qsName = memname;
 		d->hMemory = CreateFileMappingW(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, minsize, qsName.utf16());
 		qWarning("%p %lx", d->hMemory, GetLastError());
