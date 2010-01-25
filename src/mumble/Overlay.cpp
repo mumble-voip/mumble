@@ -397,7 +397,12 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 					qp.addText(0.0f, fBase+fEdge, fFont, str);
 
 					QRectF qr = qp.controlPointRect();
+#if QT_VERSION >= 0x040600
 					qp.translate(- qr.x() + fEdge, - qr.y() + fEdge);
+#else
+					qp = QPainterPath();
+					qp.addText(- qr.x() + fEdge, - qr.y() + 2 * fEdge + fBase, fFont, str);
+#endif
 
 					int w = iroundf(qr.width() + 2 * fEdge + 0.5f);
 					int h = iroundf(qr.height() + 2 * fEdge + 0.5f);
@@ -620,10 +625,25 @@ Overlay::Overlay() : QObject() {
 	forceSettings();
 
 	qlsServer = new QLocalServer(this);
+	QString pipepath;
+#ifdef Q_OS_WIN
+	pipepath = QLatin1String("MumbleOverlayPipe");
+#else
+	pipepath = QDir::home().absoluteFilePath(QLatin1String(".MumbleOverlayPipe"));
+	{
+		QFile f(pipepath);
+		if (f.exists()) {
+			qWarning() << "Overlay: Removing old socket on" << pipepath;
+			f.remove();
+		}
+	}
+#endif
+
+
 
 	// FIXME: Only do this if loading the dll failed.
-	if (! qlsServer->listen(QLatin1String("MumbleOverlayPipe"))) {
-		QMessageBox::warning(NULL, tr("Mumble"), tr("Failed to create communication with overlay: %1. No overlay will be available.").arg(qlsServer->errorString()), QMessageBox::Ok, QMessageBox::NoButton);
+	if (! qlsServer->listen(pipepath)) {
+		QMessageBox::warning(NULL, tr("Mumble"), tr("Failed to create communication with overlay at %2: %1. No overlay will be available.").arg(qlsServer->errorString(),pipepath), QMessageBox::Ok, QMessageBox::NoButton);
 	} else {
 		qWarning() << "Overlay: Listening on" << qlsServer->fullServerName();
 		connect(qlsServer, SIGNAL(newConnection()), this, SLOT(newConnection()));

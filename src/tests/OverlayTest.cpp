@@ -58,7 +58,11 @@ void OverlayWidget::paintEvent(QPaintEvent *) {
 		connect(qlsSocket, SIGNAL(disconnected()), this, SLOT(disconnected()));
 		connect(qlsSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 		connect(qlsSocket, SIGNAL(error(QLocalSocket::LocalSocketError)), this, SLOT(error(QLocalSocket::LocalSocketError)));
+#ifdef Q_OS_WIN
 		qlsSocket->connectToServer(QLatin1String("MumbleOverlayPipe"));
+#else
+		qlsSocket->connectToServer(QDir::home().absoluteFilePath(QLatin1String(".MumbleOverlayPipe")));
+#endif
 	}
 
 	QPainter painter(this);
