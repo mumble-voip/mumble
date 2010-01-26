@@ -418,7 +418,7 @@ void Plugins::finished() {
 							rescan=true;
 						}
 					} else if (f.open(QIODevice::ReadOnly)) {
-						QString h = QLatin1String(QCryptographicHash::hash(f.readAll(), QCryptographicHash::Sha1).toHex());
+						QString h = QLatin1String(sha1(f.readAll()).toHex());
 						f.close();
 						if (h == wanthash) {
 							if (qd != qdu) {
@@ -452,7 +452,7 @@ void Plugins::finished() {
 								rescan=true;
 							}
 						} else if (f.open(QIODevice::ReadOnly)) {
-							QString h = QLatin1String(QCryptographicHash::hash(f.readAll(), QCryptographicHash::Sha1).toHex());
+							QString h = QLatin1String(sha1(f.readAll()).toHex());
 							f.close();
 							if (h == wanthash) {
 								qmPluginHash.remove(filename);
@@ -476,7 +476,7 @@ void Plugins::finished() {
 			QString fname = QFileInfo(path).fileName();
 			if (qmPluginHash.contains(fname)) {
 				QByteArray qba = rep->readAll();
-				if (qmPluginHash.value(fname) == QLatin1String(QCryptographicHash::hash(qba, QCryptographicHash::Sha1).toHex())) {
+				if (qmPluginHash.value(fname) == QLatin1String(sha1(qba).toHex())) {
 					bool verified = true;
 #ifdef Q_OS_WIN
 					verified = false;

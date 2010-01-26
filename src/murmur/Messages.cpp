@@ -275,7 +275,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		if (! uSource->qbaTextureHash.isEmpty())
 			mpus.set_texture_hash(blob(uSource->qbaTextureHash));
 		else if (! uSource->qbaTexture.isEmpty())
-			mpus.set_texture(std::string(uSource->qbaTexture.constData(), uSource->qbaTexture.size()));
+			mpus.set_texture(blob(uSource->qbaTexture));
 
 		const QMap<int, QString> &info = getRegistration(uSource->iId);
 		if (info.contains(ServerDB::User_Comment)) {
@@ -313,7 +313,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		if (u->iId >= 0) {
 			mpus.set_user_id(u->iId);
 			if (! u->qbaTexture.isEmpty())
-				mpus.set_texture(std::string(u->qbaTexture.constData(), u->qbaTexture.size()));
+				mpus.set_texture(blob(u->qbaTexture));
 		}
 
 		if (u->cChannel->iId != 0)
@@ -1414,7 +1414,7 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 	if (details) {
 		foreach(const QSslCertificate &cert, certs) {
 			const QByteArray &der = cert.toDer();
-			msg.add_certificates(std::string(der.constData(), der.length()));
+			msg.add_certificates(blob(der));
 		}
 		msg.set_strong_certificate(pDstServerUser->bVerified);
 	}
@@ -1491,7 +1491,7 @@ void Server::msgRequestBlob(ServerUser *uSource, MumbleProto::RequestBlob &msg) 
 			ServerUser *su = qhUsers.value(session);
 			if (su && ! su->qbaTexture.isEmpty()) {
 				mpus.set_session(session);
-				mpus.set_texture(std::string(su->qbaTexture.constData(), su->qbaTexture.length()));
+				mpus.set_texture(blob(su->qbaTexture));
 				sendMessage(uSource, mpus);
 			}
 		}

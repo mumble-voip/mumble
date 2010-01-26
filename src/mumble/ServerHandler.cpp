@@ -455,7 +455,7 @@ void ServerHandler::serverConnectionConnected() {
 
 	if (! qscCert.isEmpty()) {
 		const QSslCertificate &qsc = qscCert.last();
-		qbaDigest = QCryptographicHash::hash(qsc.publicKey().toDer(), QCryptographicHash::Sha1);
+		qbaDigest = sha1(qsc.publicKey().toDer());
 		bUdp = Database::getUdp(qbaDigest);
 	} else {
 		bUdp = true;
