@@ -963,7 +963,7 @@ void UserModel::setComment(ClientUser *cu, const QString &comment) {
 					QToolTip::showText(QCursor::pos(), data(index(cu, 0), Qt::ToolTipRole).toString(), g.mw->qtvUsers);
 				}
 			} else {
-				item->bCommentSeen = Database::seenComment(item->hash(), comment);
+				item->bCommentSeen = Database::seenComment(item->hash(), cu->qbaCommentHash);
 				newstate = item->bCommentSeen ? 2 : 1;
 			}
 		} else {
@@ -987,7 +987,7 @@ void UserModel::setCommentHash(ClientUser *cu, const QByteArray &hash) {
 		cu->qsComment = QString();
 		cu->qbaCommentHash = hash;
 		
-		item->bCommentSeen = Database::seenComment(item->hash(), hash);
+		item->bCommentSeen = Database::seenComment(item->hash(), cu->qbaCommentHash);
 		newstate = item->bCommentSeen ? 2 : 1;
 
 		if (oldstate != newstate) {
@@ -1019,7 +1019,7 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 					QToolTip::showText(QCursor::pos(), data(index(c, 0), Qt::ToolTipRole).toString(), g.mw->qtvUsers);
 				}
 			} else {
-				item->bCommentSeen = Database::seenComment(item->hash(), comment);
+				item->bCommentSeen = Database::seenComment(item->hash(), c->qbaDescHash);
 				newstate = item->bCommentSeen ? 2 : 1;
 			}
 		} else {
@@ -1065,9 +1065,9 @@ void UserModel::seenComment(const QModelIndex &idx) {
 	emit dataChanged(idx, idx);
 
 	if (item->pUser)
-		Database::setSeenComment(item->hash(), item->pUser->qsComment);
+		Database::setSeenComment(item->hash(), item->pUser->qbaCommentHash);
 	else
-		Database::setSeenComment(item->hash(), item->cChan->qsDesc);
+		Database::setSeenComment(item->hash(), item->cChan->qbaDescHash);
 }
 
 void UserModel::renameChannel(Channel *c, const QString &name) {

@@ -60,9 +60,8 @@ class Database : public QObject {
 		static QMap<QPair<QString, unsigned short>, unsigned int> getPingCache();
 		static void setPingCache(const QMap<QPair<QString, unsigned short>, unsigned int> &cache);
 
-		static bool seenComment(const QString &hash, const QString &comment);
 		static bool seenComment(const QString &hash, const QByteArray &commenthash);
-		static void setSeenComment(const QString &hash, const QString &comment);
+		static void setSeenComment(const QString &hash, const QByteArray &commenthash);
 		
 		static QByteArray blob(const QByteArray &hash);
 		static void setBlob(const QByteArray &hash, const QByteArray &blob);
