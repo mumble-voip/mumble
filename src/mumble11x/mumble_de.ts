@@ -3925,8 +3925,8 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+128"/>
-        <location line="+1197"/>
+        <location filename="MainWindow.cpp" line="+127"/>
+        <location line="+1196"/>
         <source>Root</source>
         <translation>Wurzel</translation>
     </message>
@@ -4395,7 +4395,7 @@ p, li { white-space: pre-wrap; }
         <location line="+22"/>
         <location line="+21"/>
         <location line="+451"/>
-        <location filename="main.cpp" line="+248"/>
+        <location filename="main.cpp" line="+244"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -4469,7 +4469,7 @@ p, li { white-space: pre-wrap; }
         <translation>Neuverbindung.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+57"/>
+        <location filename="Messages.cpp" line="+56"/>
         <source>Joined server: %1.</source>
         <translation>Server beigetreten: %1.</translation>
     </message>
@@ -4608,7 +4608,7 @@ p, li { white-space: pre-wrap; }
         <translation>Willkommen in Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-407"/>
+        <location filename="MainWindow.cpp" line="-406"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Push-To-Talk</translation>
@@ -4722,19 +4722,19 @@ p, li { white-space: pre-wrap; }
         <translation>Dies wechselt den in-game Overlay Modus zwischen &apos;zeige Jeden&apos;, &apos;nur Sprechende&apos; und &apos;Niemanden&apos;.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+2"/>
         <source>Alt Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Alt Push-To-Talk</translation>
     </message>
     <message>
-        <location line="-34"/>
+        <location line="-33"/>
         <source>Unlink Plugin</source>
         <comment>Global Shortcut</comment>
         <translation>Plugin trennen</translation>
     </message>
     <message>
-        <location line="+734"/>
+        <location line="+733"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Sind Sie sicher, dass Sie %1 und alle Unterkanäle löschen möchten?</translation>
     </message>
@@ -5186,7 +5186,7 @@ p, li { white-space: pre-wrap; }
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="+996"/>
+        <location filename="PlayerModel.cpp" line="+995"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Die Kanal-Ziehen-Aktion wurde auf &quot;Nichts tun&quot; gesetzt. Der Kanal wird also nicht bewegt.</translation>
     </message>
@@ -5463,17 +5463,15 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+194"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2
 - you do not have the June 2007 updated version of DX9.0c</source>
-        <translation>Konnte Overlay-Bibliothek nicht laden. Dies bedeutet entweder, dass:
+        <translation type="obsolete">Konnte Overlay-Bibliothek nicht laden. Dies bedeutet entweder, dass:
 - die Bibliothek (mumble_ol.dll) nicht in dem Verzeichnis gefunden werden konnte, von dem aus Mumble gestartet wurde
 - Sie ein Betriebssystem älter als WinXP SP2 nutze
 - Sie nicht die Juni 2007 Version von DX9.0c installiert haben</translation>
@@ -5482,34 +5480,28 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="Overlay.ui"/>
         <source>Options</source>
-        <translation>Optionen</translation>
+        <translation type="obsolete">Optionen</translation>
     </message>
     <message>
-        <location/>
         <source>Position</source>
-        <translation>Position</translation>
+        <translation type="obsolete">Position</translation>
     </message>
     <message>
-        <location/>
         <source>Font</source>
-        <translation>Schriftart</translation>
+        <translation type="obsolete">Schriftart</translation>
     </message>
     <message>
-        <location/>
         <source>Enable Overlay</source>
-        <translation>Overlay aktivieren</translation>
+        <translation type="obsolete">Overlay aktivieren</translation>
     </message>
     <message>
-        <location/>
         <source>Enable overlay.</source>
-        <translation>Overlay aktivieren.</translation>
+        <translation type="obsolete">Overlay aktivieren.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked with D3D9 applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</source>
-        <translation>Dies legt fest, ob das Overlay benutzt wird oder nicht. Diese Einstellung wird nur angezeigt wenn D3D9 Applikationen gestartet sind. Versichern Sie sich also dass Mumble läuft und diese Option aktiviert ist bevor Sie die Applikation starten.&lt;br /&gt;Bitte beachten Sie dass, falls Sie die Applikation nach Mumble starten, oder Sie das Overlay während des Betriebs deaktivieren, es keinen sicheren Weg gibt das Overlay neuzustarten ohne die Applikation neuzustarten.</translation>
+        <translation type="obsolete">Dies legt fest, ob das Overlay benutzt wird oder nicht. Diese Einstellung wird nur angezeigt wenn D3D9 Applikationen gestartet sind. Versichern Sie sich also dass Mumble läuft und diese Option aktiviert ist bevor Sie die Applikation starten.&lt;br /&gt;Bitte beachten Sie dass, falls Sie die Applikation nach Mumble starten, oder Sie das Overlay während des Betriebs deaktivieren, es keinen sicheren Weg gibt das Overlay neuzustarten ohne die Applikation neuzustarten.</translation>
     </message>
     <message>
         <source>No one</source>
@@ -5528,209 +5520,168 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Zeige</translation>
     </message>
     <message>
-        <location/>
         <source>Who to show on the overlay</source>
-        <translation>Wer auf dem Overlay angezeigt werden soll</translation>
+        <translation type="obsolete">Wer auf dem Overlay angezeigt werden soll</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>&lt;b&gt;Dies legt fest, wer im Overlay angezeigt werden soll.&lt;/b&gt;&lt;br /&gt;Falls viele Spieler im selben Kanal sind, könnte die Overlayliste sehr lang werden. Benutzen Sie dies um sie zu kürzen.&lt;br /&gt;&lt;i&gt;Niemand&lt;/i&gt; - Zeige niemanden  (aber lass das Overlay laufen).&lt;br /&gt;&lt;i&gt;Nur Sprechende&lt;/i&gt; - Nur sprechende Benutzer zeigen.&lt;br /&gt;&lt;i&gt;Jeder&lt;/i&gt; - Zeige alle (im Kanal).</translation>
+        <translation type="obsolete">&lt;b&gt;Dies legt fest, wer im Overlay angezeigt werden soll.&lt;/b&gt;&lt;br /&gt;Falls viele Spieler im selben Kanal sind, könnte die Overlayliste sehr lang werden. Benutzen Sie dies um sie zu kürzen.&lt;br /&gt;&lt;i&gt;Niemand&lt;/i&gt; - Zeige niemanden  (aber lass das Overlay laufen).&lt;br /&gt;&lt;i&gt;Nur Sprechende&lt;/i&gt; - Nur sprechende Benutzer zeigen.&lt;br /&gt;&lt;i&gt;Jeder&lt;/i&gt; - Zeige alle (im Kanal).</translation>
     </message>
     <message>
-        <location/>
         <source>Always Show Self</source>
-        <translation>Immer sich selbst anzeigen</translation>
+        <translation type="obsolete">Immer sich selbst anzeigen</translation>
     </message>
     <message>
-        <location/>
         <source>Always show yourself on overlay.</source>
-        <translation>Immer sich selbst auf dem Overlay anzeigen.</translation>
+        <translation type="obsolete">Immer sich selbst auf dem Overlay anzeigen.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
-        <translation>Dies legt fest, ob Sie selbst immer angezeigt werden sollen oder nicht. Diese Einstellung ist nützlich, wenn Sie im Overlay nicht jeden anzeigen. In dem Fall würden sie ihren Status nur sehen, wenn Sie sprechen und sie könnten nicht sehen ob sie taub- oder stummgestellt wurden.</translation>
+        <translation type="obsolete">Dies legt fest, ob Sie selbst immer angezeigt werden sollen oder nicht. Diese Einstellung ist nützlich, wenn Sie im Overlay nicht jeden anzeigen. In dem Fall würden sie ihren Status nur sehen, wenn Sie sprechen und sie könnten nicht sehen ob sie taub- oder stummgestellt wurden.</translation>
     </message>
     <message>
-        <location/>
         <source>Show User Textures</source>
-        <translation>Zeige Benutzertexturen</translation>
+        <translation type="obsolete">Zeige Benutzertexturen</translation>
     </message>
     <message>
-        <location/>
         <source>Show User custom textures instead of text on the overlay.</source>
-        <translation>Zeige benutzerdefinierte Texturen statt Text auf dem Overlay.</translation>
+        <translation type="obsolete">Zeige benutzerdefinierte Texturen statt Text auf dem Overlay.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to download and use custom textures for registered users. If disabled, the regular outline text will be used instead.</source>
-        <translation>Dies legt fest ob Benutzertexturen von registrierten Benutzern heruntergeladen und benutz werden sollen. Wenn deaktiviert, wird normaler Text angezeigt.</translation>
+        <translation type="obsolete">Dies legt fest ob Benutzertexturen von registrierten Benutzern heruntergeladen und benutz werden sollen. Wenn deaktiviert, wird normaler Text angezeigt.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Left</source>
-        <translation>Nach links wachsen</translation>
+        <translation type="obsolete">Nach links wachsen</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the left</source>
-        <translation>Das Overlay nach links wachsen lassen</translation>
+        <translation type="obsolete">Das Overlay nach links wachsen lassen</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the left if needed.</source>
-        <translation>Das Overlay versucht so klein wie möglich und an der Position die sie gewählt haben zu bleiben. Dies erlaubt das Overlay notfalls nach links wachsen zu lassen.</translation>
+        <translation type="obsolete">Das Overlay versucht so klein wie möglich und an der Position die sie gewählt haben zu bleiben. Dies erlaubt das Overlay notfalls nach links wachsen zu lassen.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Right</source>
-        <translation>Nach rechts wachsen</translation>
+        <translation type="obsolete">Nach rechts wachsen</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Up</source>
-        <translation>Nach oben wachsen</translation>
+        <translation type="obsolete">Nach oben wachsen</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow upwards</source>
-        <translation>Das Overlay nach oben wachsen lassen</translation>
+        <translation type="obsolete">Das Overlay nach oben wachsen lassen</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Down</source>
-        <translation>Nach unten wachsen lassen</translation>
+        <translation type="obsolete">Nach unten wachsen lassen</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow downwards</source>
-        <translation>Das Overlay nach unten wachsen lassen</translation>
+        <translation type="obsolete">Das Overlay nach unten wachsen lassen</translation>
     </message>
     <message>
-        <location/>
         <source>X-Position of Overlay</source>
-        <translation>X-Position des Overlays</translation>
+        <translation type="obsolete">X-Position des Overlays</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative X position of the overlay.</source>
-        <translation>Dies legt die relative X-Position des Overlays fest.</translation>
+        <translation type="obsolete">Dies legt die relative X-Position des Overlays fest.</translation>
     </message>
     <message>
-        <location/>
         <source>Y-Position of Overlay</source>
-        <translation>Y-Position des Overlays</translation>
+        <translation type="obsolete">Y-Position des Overlays</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative Y position of the overlay.</source>
-        <translation>Dies legt die relative Y-Position des Overlay fest.</translation>
+        <translation type="obsolete">Dies legt die relative Y-Position des Overlay fest.</translation>
     </message>
     <message>
-        <location/>
         <source>Current Font</source>
-        <translation>Aktuelle Schriftart</translation>
+        <translation type="obsolete">Aktuelle Schriftart</translation>
     </message>
     <message>
-        <location/>
         <source>Set Font</source>
-        <translation>Setze Schriftart</translation>
+        <translation type="obsolete">Setze Schriftart</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height of names.</source>
-        <translation>Maximale Höhe von Namen.</translation>
+        <translation type="obsolete">Maximale Höhe von Namen.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels tall. Note that the names will not be taller than 60 pixels no matter what you set here.</source>
-        <translation>Dies legt die maximale Höhe der Namen  (oder Benutzertexturen) relativ zur Bildschirmauflösung fest. Wenn Ihr aktives 3D-Fenster 800 Pixel hoch ist und Sie dies auf 5% setzen, wird jeder Name maximal 40 Pixel hoch. Namen werden eine Höhe von 60 Pixeln nicht überschreiten, egal was Sie hier festlegen.</translation>
+        <translation type="obsolete">Dies legt die maximale Höhe der Namen  (oder Benutzertexturen) relativ zur Bildschirmauflösung fest. Wenn Ihr aktives 3D-Fenster 800 Pixel hoch ist und Sie dies auf 5% setzen, wird jeder Name maximal 40 Pixel hoch. Namen werden eine Höhe von 60 Pixeln nicht überschreiten, egal was Sie hier festlegen.</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height</source>
-        <translation>Maximale Höhe</translation>
+        <translation type="obsolete">Maximale Höhe</translation>
     </message>
     <message>
-        <location/>
         <source>Change</source>
-        <translation>Ändern</translation>
+        <translation type="obsolete">Ändern</translation>
     </message>
     <message>
-        <location/>
         <source>Color for players</source>
-        <translation>Farbe für Benutzer</translation>
+        <translation type="obsolete">Farbe für Benutzer</translation>
     </message>
     <message>
-        <location/>
         <source>Color for talking players</source>
-        <translation>Farbe für sprechende Benutzer</translation>
+        <translation type="obsolete">Farbe für sprechende Benutzer</translation>
     </message>
     <message>
-        <location/>
         <source>Color for alt-talking players</source>
-        <translation>Farbe für alternativ-sprechende Benutzer</translation>
+        <translation type="obsolete">Farbe für alternativ-sprechende Benutzer</translation>
     </message>
     <message>
-        <location/>
         <source>Color for Channels</source>
-        <translation>Farbe für Kanäle</translation>
+        <translation type="obsolete">Farbe für Kanäle</translation>
     </message>
     <message>
-        <location/>
         <source>Color for active Channels</source>
-        <translation>Farbe für aktive Kanäle</translation>
+        <translation type="obsolete">Farbe für aktive Kanäle</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-40"/>
         <source>Overlay</source>
-        <translation>Overlay</translation>
+        <translation type="obsolete">Overlay</translation>
     </message>
     <message>
-        <location line="-107"/>
         <source>Show no one</source>
-        <translation>Zeige niemanden</translation>
+        <translation type="obsolete">Zeige niemanden</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show only talking</source>
-        <translation>Zeige nur sprechende</translation>
+        <translation type="obsolete">Zeige nur sprechende</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show everyone</source>
-        <translation>Zeigen Jeden</translation>
+        <translation type="obsolete">Zeigen Jeden</translation>
     </message>
     <message>
-        <location filename="Overlay.ui"/>
         <source>Form</source>
-        <translation>Formular</translation>
+        <translation type="obsolete">Formular</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</source>
-        <translation>Das Overlay versucht so klein wie möglich und an der Position die sie gewählt haben zu bleiben. Dies erlaubt das Overlay notfalls nach oben wachsen zu lassen.</translation>
+        <translation type="obsolete">Das Overlay versucht so klein wie möglich und an der Position die sie gewählt haben zu bleiben. Dies erlaubt das Overlay notfalls nach oben wachsen zu lassen.</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the right</source>
-        <translation>Das Overlay nach rechts wachsen lassen</translation>
+        <translation type="obsolete">Das Overlay nach rechts wachsen lassen</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the right if needed.</source>
-        <translation>Das Overlay versucht so klein wie möglich und an der Position die sie gewählt haben zu bleiben. Dies erlaubt das Overlay notfalls nach rechts wachsen zu lassen.</translation>
+        <translation type="obsolete">Das Overlay versucht so klein wie möglich und an der Position die sie gewählt haben zu bleiben. Dies erlaubt das Overlay notfalls nach rechts wachsen zu lassen.</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow downwards if needed.</source>
-        <translation>Das Overlay versucht so klein wie möglich und an der Position die sie gewählt haben zu bleiben. Dies erlaubt das Overlay notfalls nach unten wachsen zu lassen.</translation>
+        <translation type="obsolete">Das Overlay versucht so klein wie möglich und an der Position die sie gewählt haben zu bleiben. Dies erlaubt das Overlay notfalls nach unten wachsen zu lassen.</translation>
     </message>
     <message>
-        <location/>
         <source>TextLabel</source>
-        <translation>Textlabel</translation>
+        <translation type="obsolete">Textlabel</translation>
     </message>
 </context>
 <context>

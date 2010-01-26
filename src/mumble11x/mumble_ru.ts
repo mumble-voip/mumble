@@ -3574,8 +3574,8 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+128"/>
-        <location line="+1197"/>
+        <location filename="MainWindow.cpp" line="+127"/>
+        <location line="+1196"/>
         <source>Root</source>
         <translation>Корень</translation>
     </message>
@@ -4021,7 +4021,7 @@ p, li { white-space: pre-wrap; }
         <translation>&amp;Помощь</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-75"/>
+        <location filename="MainWindow.cpp" line="-74"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Нажмите чтобы говорить</translation>
@@ -4142,7 +4142,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+2"/>
         <source>Alt Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Усиленное нажмите чтобы говорить</translation>
@@ -4171,7 +4171,7 @@ p, li { white-space: pre-wrap; }
         <location line="+22"/>
         <location line="+21"/>
         <location line="+451"/>
-        <location filename="main.cpp" line="+248"/>
+        <location filename="main.cpp" line="+244"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -4246,7 +4246,7 @@ p, li { white-space: pre-wrap; }
         <translation>Повтор связи.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+57"/>
+        <location filename="Messages.cpp" line="+56"/>
         <source>Joined server: %1.</source>
         <translation>Присединились к серверу: %1.</translation>
     </message>
@@ -4767,7 +4767,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="+996"/>
+        <location filename="PlayerModel.cpp" line="+995"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5014,9 +5014,8 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+194"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -5028,46 +5027,32 @@ p, li { white-space: pre-wrap; }
 - Ваша ОС старше, чем WinXP SP2
 - у Вас нет обновленной в августе 2006 версии DX9.0c</translation>
     </message>
-    <message>
-        <location line="+0"/>
-        <source>Failed to load overlay library. This means either that:
-- the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
-- you&apos;re on an OS earlier than WinXP SP2
-- you do not have the June 2007 updated version of DX9.0c</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="Overlay.ui"/>
         <source>Options</source>
-        <translation>Настройки</translation>
+        <translation type="obsolete">Настройки</translation>
     </message>
     <message>
-        <location/>
         <source>Position</source>
-        <translation>Позиция</translation>
+        <translation type="obsolete">Позиция</translation>
     </message>
     <message>
-        <location/>
         <source>Font</source>
-        <translation>Шрифт</translation>
+        <translation type="obsolete">Шрифт</translation>
     </message>
     <message>
-        <location/>
         <source>Enable Overlay</source>
-        <translation>Включить замещение</translation>
+        <translation type="obsolete">Включить замещение</translation>
     </message>
     <message>
-        <location/>
         <source>Enable overlay.</source>
-        <translation>Включить замещение.</translation>
+        <translation type="obsolete">Включить замещение.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked with D3D9 applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</source>
-        <translation>Устанавливает, включить замещение или нет. Опция отмечена, если запущены приложения D3D9, так что удостоверьтесь, что Mumble запущен и эта опция включена перед стартом приложения.&lt;br /&gt;Заметьте, что если вы запустите приложение после запуска Mumble, или вы отключите замещение во время действия программы, не будет безопасного способа заново включить замещение без перезапуска программы.</translation>
+        <translation type="obsolete">Устанавливает, включить замещение или нет. Опция отмечена, если запущены приложения D3D9, так что удостоверьтесь, что Mumble запущен и эта опция включена перед стартом приложения.&lt;br /&gt;Заметьте, что если вы запустите приложение после запуска Mumble, или вы отключите замещение во время действия программы, не будет безопасного способа заново включить замещение без перезапуска программы.</translation>
     </message>
     <message>
         <source>No one</source>
@@ -5086,49 +5071,40 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Показать</translation>
     </message>
     <message>
-        <location/>
         <source>Who to show on the overlay</source>
-        <translation>Кого показывать при замещении</translation>
+        <translation type="obsolete">Кого показывать при замещении</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>&lt;b&gt;Определяет, кого показывать в игровом замещении.&lt;/b&gt;&lt;br /&gt;Если много людей на одном канале, замещение может быть очень долгим. Используйте это, чтобы сократить его.&lt;br /&gt;&lt;i&gt;Никого&lt;/i&gt; -Не показывать никого (но оставить замещение включенным).&lt;br /&gt;&lt;i&gt;Только говорящих&lt;/i&gt; - Показывать только говорящих людей.&lt;br /&gt;&lt;i&gt;Всех&lt;/i&gt; - Показывать всех.</translation>
+        <translation type="obsolete">&lt;b&gt;Определяет, кого показывать в игровом замещении.&lt;/b&gt;&lt;br /&gt;Если много людей на одном канале, замещение может быть очень долгим. Используйте это, чтобы сократить его.&lt;br /&gt;&lt;i&gt;Никого&lt;/i&gt; -Не показывать никого (но оставить замещение включенным).&lt;br /&gt;&lt;i&gt;Только говорящих&lt;/i&gt; - Показывать только говорящих людей.&lt;br /&gt;&lt;i&gt;Всех&lt;/i&gt; - Показывать всех.</translation>
     </message>
     <message>
-        <location/>
         <source>Always Show Self</source>
-        <translation>Всегда показывать меня</translation>
+        <translation type="obsolete">Всегда показывать меня</translation>
     </message>
     <message>
-        <location/>
         <source>Always show yourself on overlay.</source>
-        <translation>Всегда показывать себя в замещении.</translation>
+        <translation type="obsolete">Всегда показывать себя в замещении.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
-        <translation>Устанавливает, всегда ли показывать себя. Настройка применима если вы не отображаете всех в замещении, поэтому тогда вы увидите собственный статус при разговоре, который вы не услышите, если в онемении или заглушены.</translation>
+        <translation type="obsolete">Устанавливает, всегда ли показывать себя. Настройка применима если вы не отображаете всех в замещении, поэтому тогда вы увидите собственный статус при разговоре, который вы не услышите, если в онемении или заглушены.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Left</source>
-        <translation>Расти влево</translation>
+        <translation type="obsolete">Расти влево</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the left</source>
-        <translation>Позволяет замещению расти влево</translation>
+        <translation type="obsolete">Позволяет замещению расти влево</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the left if needed.</source>
-        <translation>Замещение пытается остаться как можно меньшим и на выбранной позиции. Позволяет замещению расти влево при необходимости.</translation>
+        <translation type="obsolete">Замещение пытается остаться как можно меньшим и на выбранной позиции. Позволяет замещению расти влево при необходимости.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Right</source>
-        <translation>Расти вправо</translation>
+        <translation type="obsolete">Расти вправо</translation>
     </message>
     <message>
         <source>Let overlay grow to the Right</source>
@@ -5139,62 +5115,52 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Замещение попытается оставться как можно меньшим и на установленой позиции. Позволяет замещению расти вправо при необходимости.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Up</source>
-        <translation>Расти вверх</translation>
+        <translation type="obsolete">Расти вверх</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow upwards</source>
-        <translation>Позволяет замещению расти вверх</translation>
+        <translation type="obsolete">Позволяет замещению расти вверх</translation>
     </message>
     <message>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the top if needed.</source>
         <translation type="obsolete">Замещение попытается оставться как можно меньшим и на установленой позиции. Позволяет замещению расти вверх при необходимости.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Down</source>
-        <translation>Расти вниз</translation>
+        <translation type="obsolete">Расти вниз</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow downwards</source>
-        <translation>Позволяет замещению расти вниз</translation>
+        <translation type="obsolete">Позволяет замещению расти вниз</translation>
     </message>
     <message>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow towards the bottom if needed.</source>
         <translation type="obsolete">Замещение попытается оставться как можно меньшим и на установленой позиции. Позволяет замещению расти вниз при необходимости.</translation>
     </message>
     <message>
-        <location/>
         <source>X-Position of Overlay</source>
-        <translation>Позиция Х замещения</translation>
+        <translation type="obsolete">Позиция Х замещения</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative X position of the overlay.</source>
-        <translation>Устанавливает относительную Х позицию замещения.</translation>
+        <translation type="obsolete">Устанавливает относительную Х позицию замещения.</translation>
     </message>
     <message>
-        <location/>
         <source>Y-Position of Overlay</source>
-        <translation>Y-позиция замещения</translation>
+        <translation type="obsolete">Y-позиция замещения</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative Y position of the overlay.</source>
-        <translation>Устанавливает относительную Y - позицию замещения.</translation>
+        <translation type="obsolete">Устанавливает относительную Y - позицию замещения.</translation>
     </message>
     <message>
-        <location/>
         <source>Current Font</source>
-        <translation>Текущий шрифт</translation>
+        <translation type="obsolete">Текущий шрифт</translation>
     </message>
     <message>
-        <location/>
         <source>Set Font</source>
-        <translation>Установить шрифт</translation>
+        <translation type="obsolete">Установить шрифт</translation>
     </message>
     <message>
         <source>Maximum width of names.</source>
@@ -5209,114 +5175,32 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Максимальная ширина</translation>
     </message>
     <message>
-        <location/>
         <source>Change</source>
-        <translation>Изменить</translation>
+        <translation type="obsolete">Изменить</translation>
     </message>
     <message>
-        <location/>
         <source>Color for players</source>
-        <translation>Цвет для игроков</translation>
+        <translation type="obsolete">Цвет для игроков</translation>
     </message>
     <message>
-        <location/>
         <source>Color for talking players</source>
-        <translation>Цвет для разговаривающих игроков</translation>
+        <translation type="obsolete">Цвет для разговаривающих игроков</translation>
     </message>
     <message>
-        <location/>
         <source>Color for alt-talking players</source>
-        <translation>Цвета для усиленно говорящих игроков</translation>
+        <translation type="obsolete">Цвета для усиленно говорящих игроков</translation>
     </message>
     <message>
-        <location/>
         <source>Color for Channels</source>
-        <translation>Цвет для каналов</translation>
+        <translation type="obsolete">Цвет для каналов</translation>
     </message>
     <message>
-        <location/>
         <source>Color for active Channels</source>
-        <translation>Цвет для Активных каналов</translation>
+        <translation type="obsolete">Цвет для Активных каналов</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-40"/>
         <source>Overlay</source>
-        <translation>Замещение</translation>
-    </message>
-    <message>
-        <location filename="Overlay.ui"/>
-        <source>Show User Textures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Show User custom textures instead of text on the overlay.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>This sets whether to download and use custom textures for registered users. If disabled, the regular outline text will be used instead.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Maximum height of names.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels tall. Note that the names will not be taller than 60 pixels no matter what you set here.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Maximum height</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Overlay.cpp" line="-107"/>
-        <source>Show no one</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Show only talking</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Show everyone</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Overlay.ui"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Let overlay grow to the right</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the right if needed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow downwards if needed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Замещение</translation>
     </message>
 </context>
 <context>

@@ -2993,13 +2993,13 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+128"/>
-        <location line="+1197"/>
+        <location filename="MainWindow.cpp" line="+127"/>
+        <location line="+1196"/>
         <source>Root</source>
         <translation>根</translation>
     </message>
     <message>
-        <location line="-1161"/>
+        <location line="-1160"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>按键通话</translation>
@@ -3119,7 +3119,7 @@ p, li { white-space: pre-wrap; }
         <translation>在显示所有人，只有发言的玩家和不显示任何人之间切换游戏中的 overlay 状态。</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+2"/>
         <source>Alt Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>交替按键通话</translation>
@@ -3150,7 +3150,7 @@ p, li { white-space: pre-wrap; }
         <location line="+22"/>
         <location line="+21"/>
         <location line="+451"/>
-        <location filename="main.cpp" line="+248"/>
+        <location filename="main.cpp" line="+244"/>
         <source>Mumble</source>
         <translation></translation>
     </message>
@@ -4018,7 +4018,7 @@ p, li { white-space: pre-wrap; }
         <translation>这将启用简化窗口模式，该模式将隐藏日志窗口和菜单。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+57"/>
+        <location filename="Messages.cpp" line="+56"/>
         <source>Joined server: %1.</source>
         <translation>加入服务器: %1.</translation>
     </message>
@@ -4159,7 +4159,7 @@ p, li { white-space: pre-wrap; }
         <translation>来至 %1 的消息</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="+996"/>
+        <location filename="PlayerModel.cpp" line="+995"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>你设置频道拖动为“无动作&quot;因此频道没有被移动。</translation>
     </message>
@@ -4373,17 +4373,11 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+194"/>
-        <source>Mumble</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+0"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2
 - you do not have the June 2007 updated version of DX9.0c</source>
-        <translation>无法加载 overlay 库。这意味着：
+        <translation type="obsolete">无法加载 overlay 库。这意味着：
 - 库（mumble_ol.dll）没有在 Mumble 的运行目录里被找到。
 - 你的操作系统版本低于 WinXP SP2
 - 你的 DX9.0C 版本低于 2007年6月升级版</translation>
@@ -4392,239 +4386,188 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-147"/>
         <source>Show no one</source>
-        <translation>不显示任何人</translation>
+        <translation type="obsolete">不显示任何人</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show only talking</source>
-        <translation>当发言时显示</translation>
+        <translation type="obsolete">当发言时显示</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show everyone</source>
-        <translation>显示所有人</translation>
+        <translation type="obsolete">显示所有人</translation>
     </message>
     <message>
-        <location line="+105"/>
-        <source>Overlay</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="Overlay.ui"/>
         <source>Form</source>
-        <translation>表单</translation>
+        <translation type="obsolete">表单</translation>
     </message>
     <message>
-        <location/>
         <source>Options</source>
-        <translation>选项</translation>
+        <translation type="obsolete">选项</translation>
     </message>
     <message>
-        <location/>
         <source>Enable overlay.</source>
-        <translation>启用 overlay .</translation>
+        <translation type="obsolete">启用 overlay .</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked with D3D9 applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</source>
-        <translation>设置是否启用 overlay。该设置仅当应用程序已启动时才会被检查，因此确保 Mumble 正在运行并且该选项在你启动应用程序之前已被打开。&lt;br /&gt;请注意如果你在启动 Mumble 后启动应用程序，或者你在运行时禁用 overlay，重新启动 overlay 需要重新启动应用程序。</translation>
+        <translation type="obsolete">设置是否启用 overlay。该设置仅当应用程序已启动时才会被检查，因此确保 Mumble 正在运行并且该选项在你启动应用程序之前已被打开。&lt;br /&gt;请注意如果你在启动 Mumble 后启动应用程序，或者你在运行时禁用 overlay，重新启动 overlay 需要重新启动应用程序。</translation>
     </message>
     <message>
-        <location/>
         <source>Enable Overlay</source>
-        <translation>启用 Overlay</translation>
+        <translation type="obsolete">启用 Overlay</translation>
     </message>
     <message>
-        <location/>
         <source>Who to show on the overlay</source>
-        <translation>在 overlay 上显示谁</translation>
+        <translation type="obsolete">在 overlay 上显示谁</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>&lt;b&gt;设置在游戏中的 overlay 内显示谁。&lt;/b&gt;&lt;br /&gt;如果许多玩家已经连接到同一个频道，overlay 列表可能会非常长。使用该选项来让列表变短。&lt;br /&gt;&lt;i&gt;无人&lt;/i&gt; - 不显示任何人（但是让 overlay 运行).&lt;br /&gt;&lt;i&gt;仅当用户发言时&lt;/i&gt; - 仅显示正在发言的人。&lt;br /&gt;&lt;i&gt;所有人&lt;/i&gt; - 显示所有人。</translation>
+        <translation type="obsolete">&lt;b&gt;设置在游戏中的 overlay 内显示谁。&lt;/b&gt;&lt;br /&gt;如果许多玩家已经连接到同一个频道，overlay 列表可能会非常长。使用该选项来让列表变短。&lt;br /&gt;&lt;i&gt;无人&lt;/i&gt; - 不显示任何人（但是让 overlay 运行).&lt;br /&gt;&lt;i&gt;仅当用户发言时&lt;/i&gt; - 仅显示正在发言的人。&lt;br /&gt;&lt;i&gt;所有人&lt;/i&gt; - 显示所有人。</translation>
     </message>
     <message>
-        <location/>
         <source>Always show yourself on overlay.</source>
-        <translation>在 overlay 上总是显示自己。</translation>
+        <translation type="obsolete">在 overlay 上总是显示自己。</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
-        <translation>设置是否总是显示自己。该选项只有当你不在 overlay 中显示所有人时才有用，你在讲话时只能看到自己的状态，你将看不到自己被禁音或耳聋。</translation>
+        <translation type="obsolete">设置是否总是显示自己。该选项只有当你不在 overlay 中显示所有人时才有用，你在讲话时只能看到自己的状态，你将看不到自己被禁音或耳聋。</translation>
     </message>
     <message>
-        <location/>
         <source>Always Show Self</source>
-        <translation>总是显示自己</translation>
+        <translation type="obsolete">总是显示自己</translation>
     </message>
     <message>
-        <location/>
         <source>Show User custom textures instead of text on the overlay.</source>
-        <translation>在 overlay 上显示用户自定义纹理而不是文本。</translation>
+        <translation type="obsolete">在 overlay 上显示用户自定义纹理而不是文本。</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to download and use custom textures for registered users. If disabled, the regular outline text will be used instead.</source>
-        <translation>设置是否让注册用户下载并使用自定义纹理。如果禁用该选项，常规边框文字将被使用。</translation>
+        <translation type="obsolete">设置是否让注册用户下载并使用自定义纹理。如果禁用该选项，常规边框文字将被使用。</translation>
     </message>
     <message>
-        <location/>
         <source>Show User Textures</source>
-        <translation>显示用户纹理</translation>
+        <translation type="obsolete">显示用户纹理</translation>
     </message>
     <message>
-        <location/>
         <source>Position</source>
-        <translation>位置</translation>
+        <translation type="obsolete">位置</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow upwards</source>
-        <translation>让 overlay 往上增长</translation>
+        <translation type="obsolete">让 overlay 往上增长</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</source>
-        <translation>Overlay 试着保持足够小并固定在你选定的位置上。该选项允许 overlay 在需要时往上增长。</translation>
+        <translation type="obsolete">Overlay 试着保持足够小并固定在你选定的位置上。该选项允许 overlay 在需要时往上增长。</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Up</source>
-        <translation>往上增长</translation>
+        <translation type="obsolete">往上增长</translation>
     </message>
     <message>
-        <location/>
         <source>Y-Position of Overlay</source>
-        <translation>Overlay 的 Y-坐标</translation>
+        <translation type="obsolete">Overlay 的 Y-坐标</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative Y position of the overlay.</source>
-        <translation>设置 overlay 的相对 Y 坐标。</translation>
+        <translation type="obsolete">设置 overlay 的相对 Y 坐标。</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the left</source>
-        <translation>让 overlay 往左增长</translation>
+        <translation type="obsolete">让 overlay 往左增长</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the left if needed.</source>
-        <translation>Overlay 试着保持足够小并固定在你选定的位置上。该选项允许 overlay 在需要时往左增长。</translation>
+        <translation type="obsolete">Overlay 试着保持足够小并固定在你选定的位置上。该选项允许 overlay 在需要时往左增长。</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Left</source>
-        <translation>往左增长</translation>
+        <translation type="obsolete">往左增长</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the right</source>
-        <translation>让 overlay 往右增长</translation>
+        <translation type="obsolete">让 overlay 往右增长</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the right if needed.</source>
-        <translation>Overlay 试着保持足够小并固定在你选定的位置上。该选项允许 overlay 在需要时往右增长。</translation>
+        <translation type="obsolete">Overlay 试着保持足够小并固定在你选定的位置上。该选项允许 overlay 在需要时往右增长。</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Right</source>
-        <translation>往右增长</translation>
+        <translation type="obsolete">往右增长</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow downwards</source>
-        <translation>让 overlay 往下增长</translation>
+        <translation type="obsolete">让 overlay 往下增长</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow downwards if needed.</source>
-        <translation>Overlay 试着保持足够小并固定在你选定的位置上。该选项允许 overlay 在需要时往下增长。</translation>
+        <translation type="obsolete">Overlay 试着保持足够小并固定在你选定的位置上。该选项允许 overlay 在需要时往下增长。</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Down</source>
-        <translation>往下增长</translation>
+        <translation type="obsolete">往下增长</translation>
     </message>
     <message>
-        <location/>
         <source>X-Position of Overlay</source>
-        <translation>Overlay 的 X-坐标</translation>
+        <translation type="obsolete">Overlay 的 X-坐标</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative X position of the overlay.</source>
-        <translation>设置 overlay 的相对 X 坐标。</translation>
+        <translation type="obsolete">设置 overlay 的相对 X 坐标。</translation>
     </message>
     <message>
-        <location/>
         <source>Font</source>
-        <translation>字体</translation>
+        <translation type="obsolete">字体</translation>
     </message>
     <message>
-        <location/>
         <source>Current Font</source>
-        <translation>当前字体</translation>
+        <translation type="obsolete">当前字体</translation>
     </message>
     <message>
-        <location/>
         <source>TextLabel</source>
-        <translation>文本标签</translation>
+        <translation type="obsolete">文本标签</translation>
     </message>
     <message>
-        <location/>
         <source>Set Font</source>
-        <translation>设置字体</translation>
+        <translation type="obsolete">设置字体</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height</source>
-        <translation>最大高度</translation>
+        <translation type="obsolete">最大高度</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height of names.</source>
-        <translation>名字的最大高度.</translation>
+        <translation type="obsolete">名字的最大高度.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels tall. Note that the names will not be taller than 60 pixels no matter what you set here.</source>
-        <translation>设置显示的名字的最大高度，相对于屏幕高度来说。如果你的活跃 3D 窗口是 800像素高而该值被设成 5%，每个名字会是 40像素高。注意无论你在这里设置什么值名字都不会高于 60像素.</translation>
+        <translation type="obsolete">设置显示的名字的最大高度，相对于屏幕高度来说。如果你的活跃 3D 窗口是 800像素高而该值被设成 5%，每个名字会是 40像素高。注意无论你在这里设置什么值名字都不会高于 60像素.</translation>
     </message>
     <message>
-        <location/>
         <source>Color for players</source>
-        <translation>玩家颜色</translation>
+        <translation type="obsolete">玩家颜色</translation>
     </message>
     <message>
-        <location/>
         <source>Change</source>
-        <translation>更改</translation>
+        <translation type="obsolete">更改</translation>
     </message>
     <message>
-        <location/>
         <source>Color for talking players</source>
-        <translation>正在发言玩家的颜色</translation>
+        <translation type="obsolete">正在发言玩家的颜色</translation>
     </message>
     <message>
-        <location/>
         <source>Color for alt-talking players</source>
-        <translation>试图发言玩家的颜色</translation>
+        <translation type="obsolete">试图发言玩家的颜色</translation>
     </message>
     <message>
-        <location/>
         <source>Color for Channels</source>
-        <translation>频道的颜色</translation>
+        <translation type="obsolete">频道的颜色</translation>
     </message>
     <message>
-        <location/>
         <source>Color for active Channels</source>
-        <translation>活跃频道的颜色</translation>
+        <translation type="obsolete">活跃频道的颜色</translation>
     </message>
 </context>
 <context>

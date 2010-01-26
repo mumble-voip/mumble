@@ -734,7 +734,7 @@ void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
 	ClientUser *self = ClientUser::get(g.uiSession);
 	if (allowupdate && self && self->cChannel->isLinked(cp->cChannel))
 		setTexts(qlCurrentTexts);
-		
+
 	qsQueried.remove(cp->uiSession);
 }
 
@@ -830,7 +830,7 @@ void Overlay::setTexts(const QList<OverlayTextLine> &lines) {
 
 	if (qlClients.isEmpty())
 		return;
-	
+
 	QSet<unsigned int> query;
 
 	foreach(const OverlayTextLine &e, lines) {

@@ -1,3 +1,14 @@
+2010-01-26
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    57ef6e6  Fix texture assignment in server
+    cf9c337  Fix enable-state of usermenu
+    7f019a7  Remove last parts of old SharedMemory
+    4568886  Be quiet about expected suppress state
+    38015bf  Use the new blob/sha1 functions
+    89a0f32  Make database work on sha1 for comment seen state
+    63568fd  Client-side blob cache for comments
+    e51a048  Make Win32 OGL overlay work in windowed mode
+
 2010-01-25
   Thorvald Natvig <slicer@users.sourceforge.net>
     c00b9bf  Socket-based linux overlay

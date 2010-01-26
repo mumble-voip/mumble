@@ -3502,13 +3502,13 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="+231"/>
+        <location filename="main.cpp" line="+227"/>
         <source>Welcome to Mumble.</source>
         <translation>Vítejte v aplikaci Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+128"/>
-        <location line="+1197"/>
+        <location filename="MainWindow.cpp" line="+127"/>
+        <location line="+1196"/>
         <source>Root</source>
         <translation>Kořen</translation>
     </message>
@@ -4007,7 +4007,7 @@ p, li { white-space: pre-wrap; }
         <translation>&amp;Pomoc</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-75"/>
+        <location filename="MainWindow.cpp" line="-74"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Mluvení při stisku klávesy</translation>
@@ -4127,7 +4127,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+2"/>
         <source>Alt Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Alternativní klávesa pro mluvení</translation>
@@ -4282,7 +4282,7 @@ p, li { white-space: pre-wrap; }
         <translation>Spojení se serverem bylo zrušeno.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+57"/>
+        <location filename="Messages.cpp" line="+56"/>
         <source>Joined server: %1.</source>
         <translation>K serveru se připojil: %1.</translation>
     </message>
@@ -4706,7 +4706,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="+996"/>
+        <location filename="PlayerModel.cpp" line="+995"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4965,17 +4965,15 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+194"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2
 - you do not have the June 2007 updated version of DX9.0c</source>
-        <translation>Selhalo načítání knihovny pro funkci overlay.
+        <translation type="obsolete">Selhalo načítání knihovny pro funkci overlay.
 To může být způsobeno například těmito důvody:
 - knihovna (mumble_ol.dll) nebyla nalezena v adresáři kde byla spuštěna aplikace Mumble
 - váš OS je novější než WinXP SP2
@@ -4985,34 +4983,28 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="Overlay.ui"/>
         <source>Options</source>
-        <translation>Volby</translation>
+        <translation type="obsolete">Volby</translation>
     </message>
     <message>
-        <location/>
         <source>Position</source>
-        <translation>Umístění</translation>
+        <translation type="obsolete">Umístění</translation>
     </message>
     <message>
-        <location/>
         <source>Font</source>
-        <translation>Písmo</translation>
+        <translation type="obsolete">Písmo</translation>
     </message>
     <message>
-        <location/>
         <source>Enable Overlay</source>
-        <translation>Zapnout Overlay</translation>
+        <translation type="obsolete">Zapnout Overlay</translation>
     </message>
     <message>
-        <location/>
         <source>Enable overlay.</source>
-        <translation>Zapnout overlay.</translation>
+        <translation type="obsolete">Zapnout overlay.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked with D3D9 applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</source>
-        <translation>Nastavuje funkci overlay.  Toto nastavení D3D9 applikace zjišťují při spouštění, takže se ujistěte, že Mumble běží a overlay je zapnut ještě než pustíte svoji aplikaci.&lt;br /&gt;Prosím všimněte si, že pokud aplikaci spustíte po Mumble, nebo pokud zakážete overlay funkci za běhu, není možné bezpečně vypnout overlay bez restartu dané aplikace.</translation>
+        <translation type="obsolete">Nastavuje funkci overlay.  Toto nastavení D3D9 applikace zjišťují při spouštění, takže se ujistěte, že Mumble běží a overlay je zapnut ještě než pustíte svoji aplikaci.&lt;br /&gt;Prosím všimněte si, že pokud aplikaci spustíte po Mumble, nebo pokud zakážete overlay funkci za běhu, není možné bezpečně vypnout overlay bez restartu dané aplikace.</translation>
     </message>
     <message>
         <source>No one</source>
@@ -5031,64 +5023,52 @@ To může být způsobeno například těmito důvody:
         <translation type="obsolete">Ukázat</translation>
     </message>
     <message>
-        <location/>
         <source>Who to show on the overlay</source>
-        <translation>Kdo bude zobrazen v overlay vrstvě</translation>
+        <translation type="obsolete">Kdo bude zobrazen v overlay vrstvě</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>&lt;b&gt;Nastaví, kdo bude vidět v overlay vrstvě.&lt;/b&gt;&lt;br /&gt;Pokud bude připojeno příliš mnoho lidí, seznam se může stát nepříjemně dlouhým. Tímto nastavením jej můžete zkrátit.&lt;br /&gt;&lt;i&gt;Nikoho&lt;/i&gt; - nezobrazovat nikoho (ale nechat běžící overlay).&lt;br /&gt;&lt;i&gt;Pozue mluvící&lt;/i&gt; - zobrazí pouze uživatele, kteří právě mluví.&lt;br /&gt;&lt;i&gt;Každého&lt;/i&gt; - zobrazí úplně každého.</translation>
+        <translation type="obsolete">&lt;b&gt;Nastaví, kdo bude vidět v overlay vrstvě.&lt;/b&gt;&lt;br /&gt;Pokud bude připojeno příliš mnoho lidí, seznam se může stát nepříjemně dlouhým. Tímto nastavením jej můžete zkrátit.&lt;br /&gt;&lt;i&gt;Nikoho&lt;/i&gt; - nezobrazovat nikoho (ale nechat běžící overlay).&lt;br /&gt;&lt;i&gt;Pozue mluvící&lt;/i&gt; - zobrazí pouze uživatele, kteří právě mluví.&lt;br /&gt;&lt;i&gt;Každého&lt;/i&gt; - zobrazí úplně každého.</translation>
     </message>
     <message>
-        <location/>
         <source>Always Show Self</source>
-        <translation>Vždy ukázat sebe</translation>
+        <translation type="obsolete">Vždy ukázat sebe</translation>
     </message>
     <message>
-        <location/>
         <source>Always show yourself on overlay.</source>
-        <translation>Vždy ukáže vaše jméno v overlay vrstvě.</translation>
+        <translation type="obsolete">Vždy ukáže vaše jméno v overlay vrstvě.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
-        <translation>Nastavuje, jestli budete vidět vy sami. Toto nastavení je nejvíce užitečné, pokud nikoho ostatního vidět nechcete, pouze chcete vidět svůj vlastní stav - jestli mluvíte nebo ne, nebo jestli máte zakázáno mluvení/poslech.</translation>
+        <translation type="obsolete">Nastavuje, jestli budete vidět vy sami. Toto nastavení je nejvíce užitečné, pokud nikoho ostatního vidět nechcete, pouze chcete vidět svůj vlastní stav - jestli mluvíte nebo ne, nebo jestli máte zakázáno mluvení/poslech.</translation>
     </message>
     <message>
-        <location/>
         <source>Show User Textures</source>
-        <translation>Ukázat obrázky uživatelů</translation>
+        <translation type="obsolete">Ukázat obrázky uživatelů</translation>
     </message>
     <message>
-        <location/>
         <source>Show User custom textures instead of text on the overlay.</source>
-        <translation>Ukázat v overlay vrstvě uživatelův nastavený obrázek místo textu.</translation>
+        <translation type="obsolete">Ukázat v overlay vrstvě uživatelův nastavený obrázek místo textu.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to download and use custom textures for registered users. If disabled, the regular outline text will be used instead.</source>
-        <translation>Nastavuje, jestli se má stáhnout a použít navolený obrázek pro zobrazení registrovaných uživatelů. Pokud je zakázáno, zobrazí se uživatelé běžným textem.</translation>
+        <translation type="obsolete">Nastavuje, jestli se má stáhnout a použít navolený obrázek pro zobrazení registrovaných uživatelů. Pokud je zakázáno, zobrazí se uživatelé běžným textem.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Left</source>
-        <translation>Zvětšovat doleva</translation>
+        <translation type="obsolete">Zvětšovat doleva</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the left</source>
-        <translation>Overlay se zvětšuje směrem doleva</translation>
+        <translation type="obsolete">Overlay se zvětšuje směrem doleva</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the left if needed.</source>
-        <translation>Ovelay vrstva je  tak malá, jak je to jenom možné a je na zvolené pozici. Tímto nastavením se povolí zvětšování overlay na levou stranu, pokud je to potřeba.</translation>
+        <translation type="obsolete">Ovelay vrstva je  tak malá, jak je to jenom možné a je na zvolené pozici. Tímto nastavením se povolí zvětšování overlay na levou stranu, pokud je to potřeba.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Right</source>
-        <translation>Zvětšovat doprava</translation>
+        <translation type="obsolete">Zvětšovat doprava</translation>
     </message>
     <message>
         <source>Let overlay grow to the Right</source>
@@ -5099,157 +5079,92 @@ To může být způsobeno například těmito důvody:
         <translation type="obsolete">Ovelay vrstva je  tak malá, jak je to jenom možné a je na zvolené pozici. Tímto nastavením se povolí zvětšování overlay na pravou stranu, pokud je to potřeba.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Up</source>
-        <translation>Zvětšovat nahoru</translation>
+        <translation type="obsolete">Zvětšovat nahoru</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow upwards</source>
-        <translation>Overlay se zvětšuje směrem nahoru</translation>
+        <translation type="obsolete">Overlay se zvětšuje směrem nahoru</translation>
     </message>
     <message>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the top if needed.</source>
         <translation type="obsolete">Ovelay vrstva je  tak malá, jak je to jenom možné a je na zvolené pozici. Tímto nastavením se povolí zvětšování overlay nahoru, pokud je to potřeba.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Down</source>
-        <translation>Zvětšovat dolů</translation>
+        <translation type="obsolete">Zvětšovat dolů</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow downwards</source>
-        <translation>Overlay se zvětšuje směrem dolů</translation>
+        <translation type="obsolete">Overlay se zvětšuje směrem dolů</translation>
     </message>
     <message>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow towards the bottom if needed.</source>
         <translation type="obsolete">Ovelay vrstva je  tak malá, jak je to jenom možné a je na zvolené pozici. Tímto nastavením se povolí zvětšování overlay směrem dolů, pokud je to potřeba.</translation>
     </message>
     <message>
-        <location/>
         <source>X-Position of Overlay</source>
-        <translation>Pozice overlay na ose X</translation>
+        <translation type="obsolete">Pozice overlay na ose X</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative X position of the overlay.</source>
-        <translation>Relativni pozice na ose X.</translation>
+        <translation type="obsolete">Relativni pozice na ose X.</translation>
     </message>
     <message>
-        <location/>
         <source>Y-Position of Overlay</source>
-        <translation>Pozice overlay na ose Y</translation>
+        <translation type="obsolete">Pozice overlay na ose Y</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative Y position of the overlay.</source>
-        <translation>Relativni pozice na ose Y.</translation>
+        <translation type="obsolete">Relativni pozice na ose Y.</translation>
     </message>
     <message>
-        <location/>
         <source>Current Font</source>
-        <translation>Současný font</translation>
+        <translation type="obsolete">Současný font</translation>
     </message>
     <message>
-        <location/>
         <source>Set Font</source>
-        <translation>nastavit font</translation>
+        <translation type="obsolete">nastavit font</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height of names.</source>
-        <translation>Maximální výška jmen.</translation>
+        <translation type="obsolete">Maximální výška jmen.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels tall. Note that the names will not be taller than 60 pixels no matter what you set here.</source>
-        <translation>Nastaví maximální výšku zobrazených jmen, relativně k výšce obrazovky. Pokud vaše 3D okno má 800 pixelů na výšku a tato hodnota je nastavena na 5%, každé jméno bude 40 pixelů vysoké. Jména nikdy nebudou větší než 60 pixelů, i kdybyste nastavili vyšší hodnotu.</translation>
+        <translation type="obsolete">Nastaví maximální výšku zobrazených jmen, relativně k výšce obrazovky. Pokud vaše 3D okno má 800 pixelů na výšku a tato hodnota je nastavena na 5%, každé jméno bude 40 pixelů vysoké. Jména nikdy nebudou větší než 60 pixelů, i kdybyste nastavili vyšší hodnotu.</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height</source>
-        <translation>Maximální výška</translation>
+        <translation type="obsolete">Maximální výška</translation>
     </message>
     <message>
-        <location/>
         <source>Change</source>
-        <translation>Změnit</translation>
+        <translation type="obsolete">Změnit</translation>
     </message>
     <message>
-        <location/>
         <source>Color for players</source>
-        <translation>Barva pro uživatele</translation>
+        <translation type="obsolete">Barva pro uživatele</translation>
     </message>
     <message>
-        <location/>
         <source>Color for talking players</source>
-        <translation>Barva pro mluvící uživatele</translation>
+        <translation type="obsolete">Barva pro mluvící uživatele</translation>
     </message>
     <message>
-        <location/>
         <source>Color for alt-talking players</source>
-        <translation>Barva pro Alt-mluvící uživatele</translation>
+        <translation type="obsolete">Barva pro Alt-mluvící uživatele</translation>
     </message>
     <message>
-        <location/>
         <source>Color for Channels</source>
-        <translation>Barva pro kanály</translation>
+        <translation type="obsolete">Barva pro kanály</translation>
     </message>
     <message>
-        <location/>
         <source>Color for active Channels</source>
-        <translation>Barva pro aktivní kanály</translation>
+        <translation type="obsolete">Barva pro aktivní kanály</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-40"/>
         <source>Overlay</source>
-        <translation>Overlay</translation>
-    </message>
-    <message>
-        <location line="-107"/>
-        <source>Show no one</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Show only talking</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Show everyone</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Overlay.ui"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Let overlay grow to the right</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the right if needed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow downwards if needed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Overlay</translation>
     </message>
 </context>
 <context>

@@ -239,7 +239,7 @@ void Context::draw(HDC hdc) {
 
 	width = oGetDeviceCaps(hdc, HORZRES);
 	height = oGetDeviceCaps(hdc, VERTRES);
-	
+
 	HWND hwnd = WindowFromDC(hdc);
 	if (hwnd) {
 		RECT r;

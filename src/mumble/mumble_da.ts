@@ -4222,12 +4222,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1798"/>
+        <location line="+1800"/>
         <source>Root</source>
         <translation>Rod</translation>
     </message>
     <message>
-        <location line="-1747"/>
+        <location line="-1749"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryk-for-snak</translation>
@@ -4301,22 +4301,22 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location filename="MainWindow.ui"/>
         <location filename="MainWindow.cpp" line="+116"/>
-        <location line="+905"/>
+        <location line="+901"/>
         <location line="+181"/>
-        <location line="+615"/>
+        <location line="+621"/>
         <location filename="main.cpp" line="-33"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1813"/>
+        <location filename="MainWindow.cpp" line="-1815"/>
         <location line="+12"/>
-        <location line="+1894"/>
+        <location line="+1896"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-1890"/>
+        <location line="-1892"/>
         <source>&amp;Window</source>
         <translation>&amp;Vindue</translation>
     </message>
@@ -4390,12 +4390,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1911"/>
+        <location line="+1913"/>
         <source>Not connected</source>
         <translation>Ingen forbindelse oprettet</translation>
     </message>
     <message>
-        <location line="-1716"/>
+        <location line="-1718"/>
         <source>Clear</source>
         <translation>Ryd</translation>
     </message>
@@ -4481,13 +4481,13 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="-104"/>
-        <location line="+298"/>
+        <location line="+294"/>
         <source>Register yourself as %1</source>
         <translation>Registrér dig selv som %1</translation>
     </message>
     <message>
-        <location line="-298"/>
-        <location line="+298"/>
+        <location line="-294"/>
+        <location line="+294"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Du er ved at registrere dig selv på denne server. Denne handling kan ikke fortrydes, og dit brugernavn kan ikke senere ændres. Du vil for altid være kendt som &apos;%1&apos; på denne server.&lt;/p&gt;&lt;p&gt;Er du sikker på du vil registrere dig selv?&lt;/p&gt;</translation>
     </message>
@@ -4512,8 +4512,8 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Udelukker bruger %1</translation>
     </message>
     <message>
-        <location line="-381"/>
-        <location line="+423"/>
+        <location line="-377"/>
+        <location line="+419"/>
         <source>Change comment on user %1</source>
         <translation>Skift kommentar for brugeren %1</translation>
     </message>
@@ -4528,7 +4528,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Besked til kanal %1</translation>
     </message>
     <message>
-        <location line="+428"/>
+        <location line="+434"/>
         <source>Connected.</source>
         <translation>Forbindelse oprettet.</translation>
     </message>
@@ -4584,7 +4584,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Billedformatet blev ikke genkendt.</translation>
     </message>
     <message>
-        <location line="-1415"/>
+        <location line="-1417"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Lydkanal er sendt over kontrolkanal.</translation>
     </message>
@@ -4635,12 +4635,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1129"/>
+        <location line="+1131"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Se certifikat</translation>
     </message>
     <message>
-        <location line="-899"/>
+        <location line="-905"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Skriv begrundelse</translation>
@@ -4703,7 +4703,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>%1: %2</translation>
     </message>
     <message>
-        <location line="+101"/>
+        <location line="+107"/>
         <source>Unmuted and undeafened.</source>
         <translation>Unmuted og ikke længere døv.</translation>
     </message>
@@ -4807,7 +4807,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">&amp;Server</translation>
     </message>
     <message>
-        <location line="-1968"/>
+        <location line="-1970"/>
         <source>&amp;Channel</source>
         <translation type="unfinished">&amp;Kanal</translation>
     </message>
@@ -5509,7 +5509,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">serveren</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+300"/>
+        <location filename="Messages.cpp" line="+304"/>
         <source>You muted and deafened %1.</source>
         <translation>Du muted og gjorde %1 døv.</translation>
     </message>
@@ -5524,12 +5524,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Du gjorde så %1 ikke længere er døv.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>You suppressed %1.</source>
         <translation>Du mutede %1.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>%1 muted and deafened by %2.</source>
         <translation>%1 muted og gjort døv af %2.</translation>
     </message>
@@ -5544,12 +5544,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>%2 gjorde så %1 ikke længere er døv.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>%1 suppressed by %2.</source>
         <translation>%1 muted af %2.</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+25"/>
         <source>%1 moved to %2.</source>
         <translation>%1 flyttet til %2.</translation>
     </message>
@@ -5568,7 +5568,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">Forlod server: %1.</translation>
     </message>
     <message>
-        <location line="-126"/>
+        <location line="-134"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 er nu muted og gjort døv.</translation>
     </message>
@@ -5674,8 +5674,14 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+6"/>
-        <source>You were suppressed by %1.</source>
-        <translation>Du blev muted af %1.</translation>
+        <source>You were suppressed.</source>
+        <oldsource>You were suppressed by %1.</oldsource>
+        <translation type="unfinished">Du blev muted af %1.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>You were unsuppressed.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5683,7 +5689,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Du blev unmuted af %1.</translation>
     </message>
     <message>
-        <location line="+127"/>
+        <location line="+134"/>
         <source>%1 disconnected.</source>
         <translation>%1 afbrød forbindelsen.</translation>
     </message>
@@ -5709,37 +5715,37 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>%2%1: %3</translation>
     </message>
     <message>
-        <location line="-235"/>
+        <location line="-245"/>
         <source>You were unmuted by %1.</source>
         <translation>Du blev unmuted af %1.</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+29"/>
         <source>You muted %1.</source>
         <translation>Du muted %1.</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source>You unsuppressed %1.</source>
         <translation>Du unmutede %1.</translation>
     </message>
     <message>
-        <location line="-13"/>
+        <location line="-14"/>
         <source>You unmuted %1.</source>
         <translation>Du unmuted %1.</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+25"/>
         <source>%1 muted by %2.</source>
         <translation>%1 muted af %2.</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source>%1 unsuppressed by %2.</source>
         <translation>%2 unmutede %1.</translation>
     </message>
     <message>
-        <location line="-13"/>
+        <location line="-14"/>
         <source>%1 unmuted by %2.</source>
         <translation>%1 unmuted af %2.</translation>
     </message>
@@ -5749,18 +5755,18 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">serveren</translation>
     </message>
     <message>
-        <location line="+319"/>
+        <location line="+323"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Kunne ikke finde matchende CELT-codecs host andre klienter. Du vil ikke være i stand til at snakke med alle brugere.</translation>
     </message>
     <message>
-        <location line="-379"/>
+        <location line="-389"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Du blev muted og gjort døv af %1.</translation>
     </message>
     <message>
-        <location line="+141"/>
+        <location line="+151"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Du blev kicked fra serveren af %1: %2.</translation>
     </message>
@@ -5780,7 +5786,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>%3 blev kicked og udelukket fra serveren af %1: %2.</translation>
     </message>
     <message>
-        <location line="-52"/>
+        <location line="-54"/>
         <source>You were moved to %1 by %2.</source>
         <translation>Du blev flyttet til %1 af %2.</translation>
     </message>
@@ -5790,7 +5796,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>%1 gik ind i kanalen.</translation>
     </message>
     <message>
-        <location line="-290"/>
+        <location line="-298"/>
         <source>Server connection rejected: %1.</source>
         <translation>Forbindelse til server afvist: %1.</translation>
     </message>
@@ -5804,12 +5810,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">Fra %1: %2</translation>
     </message>
     <message>
-        <location line="+315"/>
+        <location line="+325"/>
         <source>Message from %1</source>
         <translation>Besked fra %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1349"/>
+        <location filename="UserModel.cpp" line="+1358"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Du har kanalflytning sat til &quot;Gør intet&quot;, så kanalen blev ikke flyttet.</translation>
     </message>
@@ -6143,7 +6149,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+646"/>
+        <location filename="Overlay.cpp" line="+637"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -6168,7 +6174,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-599"/>
+        <location line="-589"/>
         <source>Show no one</source>
         <translation>Vis ingen</translation>
     </message>
@@ -6420,7 +6426,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
 <context>
     <name>OverlayPrivateWin</name>
     <message>
-        <location filename="Overlay_win.cpp" line="+81"/>
+        <location filename="Overlay_win.cpp" line="+62"/>
         <source>Mumble</source>
         <translation type="unfinished">Mumble</translation>
     </message>
@@ -7145,7 +7151,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-798"/>
+        <location filename="UserModel.cpp" line="-801"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Dette er en bruger, der har oprettet forbindelse til serveren. Ikonet til venstre for brugeren viser om vedkommende snakker:</translation>
     </message>
@@ -7270,7 +7276,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <translation>Flag</translation>
     </message>
     <message>
-        <location line="+715"/>
+        <location line="+718"/>
         <location line="+90"/>
         <location line="+20"/>
         <source>Mumble</source>

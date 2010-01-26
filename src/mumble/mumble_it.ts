@@ -4839,12 +4839,12 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1798"/>
+        <location line="+1800"/>
         <source>Root</source>
         <translation>Radice</translation>
     </message>
     <message>
-        <location line="-1747"/>
+        <location line="-1749"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Premi-per-parlare</translation>
@@ -4978,22 +4978,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.ui"/>
         <location filename="MainWindow.cpp" line="+116"/>
-        <location line="+905"/>
+        <location line="+901"/>
         <location line="+181"/>
-        <location line="+615"/>
+        <location line="+621"/>
         <location filename="main.cpp" line="-33"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1813"/>
+        <location filename="MainWindow.cpp" line="-1815"/>
         <location line="+12"/>
-        <location line="+1894"/>
+        <location line="+1896"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-1890"/>
+        <location line="-1892"/>
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
@@ -5067,12 +5067,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1911"/>
+        <location line="+1913"/>
         <source>Not connected</source>
         <translation>Non connesso</translation>
     </message>
     <message>
-        <location line="-1716"/>
+        <location line="-1718"/>
         <source>Clear</source>
         <translation>Cancella</translation>
     </message>
@@ -5164,13 +5164,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="-104"/>
-        <location line="+298"/>
+        <location line="+294"/>
         <source>Register yourself as %1</source>
         <translation>Registrati come %1</translation>
     </message>
     <message>
-        <location line="-298"/>
-        <location line="+298"/>
+        <location line="-294"/>
+        <location line="+294"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Stai per registrarti sul server. Quest&apos;azione non può essere annullata, il tuo nome utente non potrà essere cambiato. Sarai per sempre conosciuto come &apos;%1&apos; su questo server.&lt;p&gt;Se sicuro di volerti registrare?&lt;/p&gt;</translation>
     </message>
@@ -5195,8 +5195,8 @@ p, li { white-space: pre-wrap; }
         <translation>Bandimento utente %1</translation>
     </message>
     <message>
-        <location line="-381"/>
-        <location line="+423"/>
+        <location line="-377"/>
+        <location line="+419"/>
         <source>Change comment on user %1</source>
         <translation>Cambia commento sull&apos;utente %1</translation>
     </message>
@@ -5231,7 +5231,7 @@ p, li { white-space: pre-wrap; }
         <translation>%1: %2</translation>
     </message>
     <message>
-        <location line="+428"/>
+        <location line="+434"/>
         <source>Connected.</source>
         <translation>Connesso.</translation>
     </message>
@@ -5291,7 +5291,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 variazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1415"/>
+        <location line="-1417"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Il canale di voce è trasmesso sul canale di controllo.</translation>
     </message>
@@ -5345,7 +5345,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1129"/>
+        <location line="+1131"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Visualizza certificato</translation>
     </message>
@@ -5354,7 +5354,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Espulsione giocatore %1</translation>
     </message>
     <message>
-        <location line="-899"/>
+        <location line="-905"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Inserisci motivazione</translation>
@@ -5413,7 +5413,7 @@ p, li { white-space: pre-wrap; }
         <translation>Messaggio all&apos;albero di canali %1</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+109"/>
         <source>Unmuted and undeafened.</source>
         <translation>Microfono e audio riattivati.</translation>
     </message>
@@ -5529,7 +5529,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Giocatore</translation>
     </message>
     <message>
-        <location line="-1968"/>
+        <location line="-1970"/>
         <source>&amp;Channel</source>
         <translation type="unfinished">&amp;Canale</translation>
     </message>
@@ -6283,7 +6283,7 @@ p, li { white-space: pre-wrap; }
         <translation>Microfono e audio riattivati da %1.</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+29"/>
         <source>You muted and deafened %1.</source>
         <translation>Hai disattivato il microfono e l&apos;audio di %1.</translation>
     </message>
@@ -6298,12 +6298,12 @@ p, li { white-space: pre-wrap; }
         <translation>Hai riattivato l&apos;audio di %1.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>You suppressed %1.</source>
         <translation>Hai sedato %1.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>%1 muted and deafened by %2.</source>
         <translation>%2 Ha disattivato il microfono e l&apos;audio di %1.</translation>
     </message>
@@ -6313,12 +6313,12 @@ p, li { white-space: pre-wrap; }
         <translation>%2 Ha riattivato il microfono e l&apos;audio di %1.</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
         <source>%1 suppressed by %2.</source>
         <translation>%1 sedato da %2.</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+25"/>
         <source>%1 moved to %2.</source>
         <translation>%1 spostato su %2.</translation>
     </message>
@@ -6337,7 +6337,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">%1 ha lasciato il server.</translation>
     </message>
     <message>
-        <location line="-126"/>
+        <location line="-134"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 ha disattivato il suo audio e microfono.</translation>
     </message>
@@ -6427,7 +6427,12 @@ p, li { white-space: pre-wrap; }
         <translation>%1 ha riattivato il microfono.</translation>
     </message>
     <message>
-        <location line="+163"/>
+        <location line="+37"/>
+        <source>You were unsuppressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+136"/>
         <source>%1 disconnected.</source>
         <translation>%1 disconnesso.</translation>
     </message>
@@ -6451,22 +6456,23 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">server</translation>
     </message>
     <message>
-        <location line="-237"/>
+        <location line="-247"/>
         <source>You were muted by %1.</source>
         <translation>Microfono disattivato da %1.</translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>You were suppressed by %1.</source>
-        <translation>Sei stato sedato da %1.</translation>
+        <source>You were suppressed.</source>
+        <oldsource>You were suppressed by %1.</oldsource>
+        <translation type="unfinished">Sei stato sedato da %1.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+5"/>
         <source>You were unsuppressed by %1.</source>
         <translation>Sei stato rafforzato da %1.</translation>
     </message>
     <message>
-        <location line="-13"/>
+        <location line="-16"/>
         <source>You were unmuted by %1.</source>
         <translation>Microfono riattivato da %1.</translation>
     </message>
@@ -6475,32 +6481,32 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Ha disattivato l&apos;audio di %1.</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+29"/>
         <source>You muted %1.</source>
         <translation>Hai disattivato il microfono di %1.</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source>You unsuppressed %1.</source>
         <translation>Hai rafforzato %1.</translation>
     </message>
     <message>
-        <location line="-13"/>
+        <location line="-14"/>
         <source>You unmuted %1.</source>
         <translation>Hai riattivato il microfono di %1.</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+25"/>
         <source>%1 muted by %2.</source>
         <translation>Microfono di %1 disattivato da %2.</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source>%1 unsuppressed by %2.</source>
         <translation>Il microfono di %1 è stato riattivato da %2.</translation>
     </message>
     <message>
-        <location line="-13"/>
+        <location line="-14"/>
         <source>%1 unmuted by %2.</source>
         <translation>Microfono di %1 riattivato da %2.</translation>
     </message>
@@ -6510,12 +6516,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">messaggio dal server</translation>
     </message>
     <message>
-        <location line="+319"/>
+        <location line="+323"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Impossibile trovare codec CELT uguali a quelli degli altri utenti. Non sarai in grado di parlare con gli altri utenti.</translation>
     </message>
     <message>
-        <location line="-379"/>
+        <location line="-389"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Microfono e audio disattivati da %1.</translation>
@@ -6530,12 +6536,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">L&apos;audio e il microfono di %1 sono stati disattivati da %2.</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+58"/>
         <source>%1 undeafened by %2.</source>
         <translation>Microfono e audio di%1 riattivati da %2.</translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+80"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Sei stato espulso dal server da %1 per la seguente motivazione: %2.</translation>
     </message>
@@ -6555,7 +6561,7 @@ p, li { white-space: pre-wrap; }
         <translation>%3 è stato espulto e bandito dal server da %1 per la seguente motivazione: %2.</translation>
     </message>
     <message>
-        <location line="-52"/>
+        <location line="-54"/>
         <source>You were moved to %1 by %2.</source>
         <translation>Sei stato spostato da %2 sul canale %1.</translation>
     </message>
@@ -6577,7 +6583,7 @@ p, li { white-space: pre-wrap; }
         <translation>%1 è entrato nel canale.</translation>
     </message>
     <message>
-        <location line="-290"/>
+        <location line="-298"/>
         <source>Server connection rejected: %1.</source>
         <translation>Connessione al server respinta: %1.</translation>
     </message>
@@ -6595,12 +6601,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Da %1: %2</translation>
     </message>
     <message>
-        <location line="+315"/>
+        <location line="+325"/>
         <source>Message from %1</source>
         <translation>Messaggio da %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1349"/>
+        <location filename="UserModel.cpp" line="+1358"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Hai selezionato &quot;non fare niente&quot; sulle impostazioni del trascinamento del canale, quindi il canale non sarà spostato.</translation>
     </message>
@@ -7010,7 +7016,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+646"/>
+        <location filename="Overlay.cpp" line="+637"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -7045,7 +7051,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-599"/>
+        <location line="-589"/>
         <source>Show no one</source>
         <translation>Non mostrare nessuno</translation>
     </message>
@@ -7313,7 +7319,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
 <context>
     <name>OverlayPrivateWin</name>
     <message>
-        <location filename="Overlay_win.cpp" line="+81"/>
+        <location filename="Overlay_win.cpp" line="+62"/>
         <source>Mumble</source>
         <translation type="unfinished">Mumble</translation>
     </message>
@@ -8089,7 +8095,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-798"/>
+        <location filename="UserModel.cpp" line="-801"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Questo è un utente connesso al server. L&apos;icona sulla sinistra dell&apos;utente indica se stà parlando o no:</translation>
     </message>
@@ -8214,7 +8220,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>Segnali</translation>
     </message>
     <message>
-        <location line="+715"/>
+        <location line="+718"/>
         <location line="+90"/>
         <location line="+20"/>
         <source>Mumble</source>

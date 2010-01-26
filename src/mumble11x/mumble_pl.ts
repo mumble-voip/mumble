@@ -3093,8 +3093,8 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+128"/>
-        <location line="+1197"/>
+        <location filename="MainWindow.cpp" line="+127"/>
+        <location line="+1196"/>
         <source>Root</source>
         <translation>Źródło</translation>
     </message>
@@ -3548,12 +3548,12 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <location line="+22"/>
         <location line="+21"/>
         <location line="+451"/>
-        <location filename="main.cpp" line="+248"/>
+        <location filename="main.cpp" line="+244"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1223"/>
+        <location filename="MainWindow.cpp" line="-1222"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
         <translation>Naciśnij i przytrzymaj ten przycisk, aby transmitować głos.</translation>
@@ -3601,7 +3601,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Ta opcja zmieni tryb nakładki w grze trzema dostępnymi trybami.</translation>
     </message>
     <message>
-        <location line="+681"/>
+        <location line="+680"/>
         <location line="+43"/>
         <source>Channel Name</source>
         <translation>Podaj nazwę kanału:</translation>
@@ -3667,7 +3667,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Ponowne łączenie.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+57"/>
+        <location filename="Messages.cpp" line="+56"/>
         <source>Joined server: %1.</source>
         <translation>%1 dołączył do serwera.</translation>
     </message>
@@ -3806,7 +3806,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Witamy w Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-407"/>
+        <location filename="MainWindow.cpp" line="-406"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Aktywacja przyciskiem</translation>
@@ -3872,19 +3872,19 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Włącz nakładkę</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+5"/>
         <source>Alt Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Alternatywny przycisk - aktywacji przyciskiem</translation>
     </message>
     <message>
-        <location line="-34"/>
+        <location line="-33"/>
         <source>Unlink Plugin</source>
         <comment>Global Shortcut</comment>
         <translation>Wyłącz wtyczki</translation>
     </message>
     <message>
-        <location line="+734"/>
+        <location line="+733"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Czy jesteś pewien, że chcesz usunąć %1 oraz wszystkie pod-kanały?</translation>
     </message>
@@ -4276,7 +4276,7 @@ Chcesz zakończyć czy zminimalizować program?</translation>
         <translation>Wyczyść</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="+996"/>
+        <location filename="PlayerModel.cpp" line="+995"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Przeciąganie kanału masz ustatwione na &quot;wyłącz opcje przeciągania kanałów&quot; dlatego nie zostałeś przeniesiony.</translation>
     </message>
@@ -4494,17 +4494,15 @@ Chcesz zakończyć czy zminimalizować program?</translation>
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+194"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2
 - you do not have the June 2007 updated version of DX9.0c</source>
-        <translation>Nie udało się załadowac biblioteki nakładki. Oznacza to, że:
+        <translation type="obsolete">Nie udało się załadowac biblioteki nakładki. Oznacza to, że:
 - brakuje biblioteki w folderze Mumble (mumble_ol.dll)
 - jesteś na starszym systemie niż Windows XP SP2
 - nie masz zainstalowanego DirectX 9.0c z Czerwca 2007</translation>
@@ -4513,241 +4511,189 @@ Chcesz zakończyć czy zminimalizować program?</translation>
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="Overlay.ui"/>
         <source>Options</source>
-        <translation>Opcje</translation>
+        <translation type="obsolete">Opcje</translation>
     </message>
     <message>
-        <location/>
         <source>Position</source>
-        <translation>Pozycja nakładki na ekranie</translation>
+        <translation type="obsolete">Pozycja nakładki na ekranie</translation>
     </message>
     <message>
-        <location/>
         <source>Font</source>
-        <translation>Czcionka</translation>
+        <translation type="obsolete">Czcionka</translation>
     </message>
     <message>
-        <location/>
         <source>Enable Overlay</source>
-        <translation>Włącz nakładkę</translation>
+        <translation type="obsolete">Włącz nakładkę</translation>
     </message>
     <message>
-        <location/>
         <source>Enable overlay.</source>
-        <translation>Włącza nakładkę.</translation>
+        <translation type="obsolete">Włącza nakładkę.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked with D3D9 applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</source>
-        <translation type="unfinished">To ustawia czy nakładka jest aktywna, czy nie. Te ustawienia są sprawdzane tylko podczas uruchamiania aplikacji obsługujących D3D9, więc upewnij się czy nakładka jest włączona zanim uruchomisz aplikację.&lt;br /&gt;Należy pamiętać że jeżeli uruchomisz aplikację przed włączeniem mumble, lub wyłączysz nakładkę podczas jej działania, to nie ma bezpiecznej metody by zrestartować nakładkę bez ponownego uruchomienia aplikacji.</translation>
+        <translation type="obsolete">To ustawia czy nakładka jest aktywna, czy nie. Te ustawienia są sprawdzane tylko podczas uruchamiania aplikacji obsługujących D3D9, więc upewnij się czy nakładka jest włączona zanim uruchomisz aplikację.&lt;br /&gt;Należy pamiętać że jeżeli uruchomisz aplikację przed włączeniem mumble, lub wyłączysz nakładkę podczas jej działania, to nie ma bezpiecznej metody by zrestartować nakładkę bez ponownego uruchomienia aplikacji.</translation>
     </message>
     <message>
-        <location/>
         <source>Who to show on the overlay</source>
-        <translation>Kogo pokazywać w nakładce</translation>
+        <translation type="obsolete">Kogo pokazywać w nakładce</translation>
     </message>
     <message>
-        <location/>
-        <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translatorcomment>Wybierz kogo nakładka pokazuje podczas gry.</translatorcomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
         <source>Always Show Self</source>
-        <translation type="unfinished">Pokazuj swój nick na nakładce </translation>
+        <translation type="obsolete">Pokazuj swój nick na nakładce </translation>
     </message>
     <message>
-        <location/>
         <source>Always show yourself on overlay.</source>
-        <translation>Ta opcja sprawia, że Mumble zawsze pokazuje twoją nazwę użytkownika na nakładce.</translation>
+        <translation type="obsolete">Ta opcja sprawia, że Mumble zawsze pokazuje twoją nazwę użytkownika na nakładce.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
-        <translation>Ustawia czy zobaczysz swoją nazwę użytkownika na nakładce czy też nie.</translation>
+        <translation type="obsolete">Ustawia czy zobaczysz swoją nazwę użytkownika na nakładce czy też nie.</translation>
     </message>
     <message>
-        <location/>
         <source>Show User Textures</source>
-        <translation>Pokazuj tekstury użytkowników zamiast ich nicków</translation>
+        <translation type="obsolete">Pokazuj tekstury użytkowników zamiast ich nicków</translation>
     </message>
     <message>
-        <location/>
         <source>Show User custom textures instead of text on the overlay.</source>
-        <translation>Pokazuje tekstury wybrane przez użytkowników zamiast ich nazw użytkownika.
+        <translation type="obsolete">Pokazuje tekstury wybrane przez użytkowników zamiast ich nazw użytkownika.
 Opcja dostępna tylko, gdy ustawisz teksturę na danym serwerze podczas rejestracji.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to download and use custom textures for registered users. If disabled, the regular outline text will be used instead.</source>
-        <translation>Używa niestandardowe tekstury użytkowników zamiast ich nazw użytkownika.</translation>
+        <translation type="obsolete">Używa niestandardowe tekstury użytkowników zamiast ich nazw użytkownika.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Left</source>
-        <translation>Do lewej</translation>
+        <translation type="obsolete">Do lewej</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the left</source>
-        <translation>Do lewej</translation>
+        <translation type="obsolete">Do lewej</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the left if needed.</source>
-        <translation>Nakładka stara się pozostać najmniejszą jak tylko może w pozycji, którą ustawiłeś. Ta opcja pozwala nakładce rosnąć w lewo jeśli trzeba.</translation>
+        <translation type="obsolete">Nakładka stara się pozostać najmniejszą jak tylko może w pozycji, którą ustawiłeś. Ta opcja pozwala nakładce rosnąć w lewo jeśli trzeba.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Right</source>
-        <translation>Do prawej</translation>
+        <translation type="obsolete">Do prawej</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Up</source>
-        <translation>Do góry</translation>
+        <translation type="obsolete">Do góry</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow upwards</source>
-        <translation>Pozwala nakładce rosnąć w górę</translation>
+        <translation type="obsolete">Pozwala nakładce rosnąć w górę</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Down</source>
-        <translation>Do dołu</translation>
+        <translation type="obsolete">Do dołu</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow downwards</source>
-        <translation>Pozwala nakładce rosnąć do dołu</translation>
+        <translation type="obsolete">Pozwala nakładce rosnąć do dołu</translation>
     </message>
     <message>
-        <location/>
         <source>X-Position of Overlay</source>
-        <translation>Pozycja X Nakładki</translation>
+        <translation type="obsolete">Pozycja X Nakładki</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative X position of the overlay.</source>
-        <translation>Ustawia pozycję X nakładki.</translation>
+        <translation type="obsolete">Ustawia pozycję X nakładki.</translation>
     </message>
     <message>
-        <location/>
         <source>Y-Position of Overlay</source>
-        <translation>Pozycja Y Nakładki</translation>
+        <translation type="obsolete">Pozycja Y Nakładki</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative Y position of the overlay.</source>
-        <translation>Ustawia pozycję Y nakładki.</translation>
+        <translation type="obsolete">Ustawia pozycję Y nakładki.</translation>
     </message>
     <message>
-        <location/>
         <source>Current Font</source>
-        <translation>Obecna czcionka</translation>
+        <translation type="obsolete">Obecna czcionka</translation>
     </message>
     <message>
-        <location/>
         <source>Set Font</source>
-        <translation>Czcionka</translation>
+        <translation type="obsolete">Czcionka</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height of names.</source>
-        <translation>Maksymalna wysokość nazw użytkownika.</translation>
+        <translation type="obsolete">Maksymalna wysokość nazw użytkownika.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels tall. Note that the names will not be taller than 60 pixels no matter what you set here.</source>
-        <translation>Maksymalna wysokość nazw użytkownika na nakładce.</translation>
+        <translation type="obsolete">Maksymalna wysokość nazw użytkownika na nakładce.</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height</source>
-        <translation>Maksymalna wysokość</translation>
+        <translation type="obsolete">Maksymalna wysokość</translation>
     </message>
     <message>
-        <location/>
         <source>Change</source>
-        <translation>Zmień</translation>
+        <translation type="obsolete">Zmień</translation>
     </message>
     <message>
-        <location/>
         <source>Color for players</source>
-        <translation>Kolor użytkownika nieaktywnego</translation>
+        <translation type="obsolete">Kolor użytkownika nieaktywnego</translation>
     </message>
     <message>
-        <location/>
         <source>Color for talking players</source>
-        <translation>Kolor użytkownika aktywnego</translation>
+        <translation type="obsolete">Kolor użytkownika aktywnego</translation>
     </message>
     <message>
-        <location/>
         <source>Color for alt-talking players</source>
-        <translation>Alternatywny kolor użytkownika aktywnego</translation>
+        <translation type="obsolete">Alternatywny kolor użytkownika aktywnego</translation>
     </message>
     <message>
-        <location/>
         <source>Color for Channels</source>
-        <translation>Kolor kanałów</translation>
+        <translation type="obsolete">Kolor kanałów</translation>
     </message>
     <message>
-        <location/>
         <source>Color for active Channels</source>
-        <translation>Kolor aktywnych kanałów</translation>
+        <translation type="obsolete">Kolor aktywnych kanałów</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-40"/>
         <source>Overlay</source>
-        <translation>Nakładka</translation>
+        <translation type="obsolete">Nakładka</translation>
     </message>
     <message>
-        <location line="-107"/>
         <source>Show no one</source>
-        <translation>nie pokazuj nikogo</translation>
+        <translation type="obsolete">nie pokazuj nikogo</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show only talking</source>
-        <translation>pokazuj tylko rozmawiających</translation>
+        <translation type="obsolete">pokazuj tylko rozmawiających</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show everyone</source>
-        <translation>pokazuj wszystkich</translation>
+        <translation type="obsolete">pokazuj wszystkich</translation>
     </message>
     <message>
-        <location filename="Overlay.ui"/>
         <source>Form</source>
-        <translation>Formularz</translation>
+        <translation type="obsolete">Formularz</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</source>
-        <translation>Nakładka stara się pozostać najmniejszą jak tylko może w pozycji, którą ustawiłeś. Ta opcja pozwala nakładce rosnąć w górę jeśli trzeba.</translation>
+        <translation type="obsolete">Nakładka stara się pozostać najmniejszą jak tylko może w pozycji, którą ustawiłeś. Ta opcja pozwala nakładce rosnąć w górę jeśli trzeba.</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the right</source>
-        <translation>Pozwala nakładce rosnąć do prawej</translation>
+        <translation type="obsolete">Pozwala nakładce rosnąć do prawej</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the right if needed.</source>
-        <translation>Nakładka stara się pozostać najmniejszą jak tylko może w pozycji, którą ustawiłeś. Ta opcja pozwala nakładce rosnąć w prawo jeśli trzeba.</translation>
+        <translation type="obsolete">Nakładka stara się pozostać najmniejszą jak tylko może w pozycji, którą ustawiłeś. Ta opcja pozwala nakładce rosnąć w prawo jeśli trzeba.</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow downwards if needed.</source>
-        <translation>Nakładka stara się pozostać najmniejszą jak tylko może w pozycji, którą ustawiłeś. Ta opcja pozwala nakładce rosnąć w dół jeśli trzeba.</translation>
+        <translation type="obsolete">Nakładka stara się pozostać najmniejszą jak tylko może w pozycji, którą ustawiłeś. Ta opcja pozwala nakładce rosnąć w dół jeśli trzeba.</translation>
     </message>
     <message>
-        <location/>
         <source>TextLabel</source>
-        <translation>Tekst</translation>
+        <translation type="obsolete">Tekst</translation>
     </message>
 </context>
 <context>

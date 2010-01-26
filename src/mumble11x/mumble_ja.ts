@@ -3939,8 +3939,8 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+128"/>
-        <location line="+1197"/>
+        <location filename="MainWindow.cpp" line="+127"/>
+        <location line="+1196"/>
         <source>Root</source>
         <translation>ルート</translation>
     </message>
@@ -4386,7 +4386,7 @@ p, li { white-space: pre-wrap; }
         <translation>ヘルプ(&amp;H)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-75"/>
+        <location filename="MainWindow.cpp" line="-74"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>プッシュトーク</translation>
@@ -4506,7 +4506,7 @@ p, li { white-space: pre-wrap; }
         <translation>ゲーム中でのオーバーレイの状態を「全員」と「話している人だけ」、「なし」の間で切り替える。</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+2"/>
         <source>Alt Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Alt発言有効化</translation>
@@ -4535,7 +4535,7 @@ p, li { white-space: pre-wrap; }
         <location line="+22"/>
         <location line="+21"/>
         <location line="+451"/>
-        <location filename="main.cpp" line="+248"/>
+        <location filename="main.cpp" line="+244"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -4610,7 +4610,7 @@ p, li { white-space: pre-wrap; }
         <translation>再接続中.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+57"/>
+        <location filename="Messages.cpp" line="+56"/>
         <source>Joined server: %1.</source>
         <translation>サーバに接続しました: %1.</translation>
     </message>
@@ -5155,7 +5155,7 @@ p, li { white-space: pre-wrap; }
         <translation>ログ</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="+996"/>
+        <location filename="PlayerModel.cpp" line="+995"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>チャンネルをドラッグしたときに &quot;何もしない&quot; ようにします; チャンネルが移動しなくなります。</translation>
     </message>
@@ -5430,9 +5430,8 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+194"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -5445,12 +5444,11 @@ p, li { white-space: pre-wrap; }
 - 2006年8月にアップデートされたバージョンの DX9.0x を使っていない</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2
 - you do not have the June 2007 updated version of DX9.0c</source>
-        <translation>オーバーレイライブラリの読み込みに失敗しました。 原因は次のうちのどれかです:
+        <translation type="obsolete">オーバーレイライブラリの読み込みに失敗しました。 原因は次のうちのどれかです:
 - ライブラリ (mumble_ol.dll) が起動していたMumbleのディレクトリに存在しなかった
 - WinXP SP2 以前のOSを使っている
 - 2007年6月にアップデートされたバージョンの DX9.0x を使っていない</translation>
@@ -5459,34 +5457,28 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="Overlay.ui"/>
         <source>Options</source>
-        <translation>オプション</translation>
+        <translation type="obsolete">オプション</translation>
     </message>
     <message>
-        <location/>
         <source>Position</source>
-        <translation>ポジション</translation>
+        <translation type="obsolete">ポジション</translation>
     </message>
     <message>
-        <location/>
         <source>Font</source>
-        <translation>フォント</translation>
+        <translation type="obsolete">フォント</translation>
     </message>
     <message>
-        <location/>
         <source>Enable Overlay</source>
-        <translation>オーバーレイを有効にする</translation>
+        <translation type="obsolete">オーバーレイを有効にする</translation>
     </message>
     <message>
-        <location/>
         <source>Enable overlay.</source>
-        <translation>オーバーレイを有効にします。</translation>
+        <translation type="obsolete">オーバーレイを有効にします。</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked with D3D9 applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</source>
-        <translation>オーバーレイを有効にするかどうか決定します。この設定はD3D9を使ったアプリケーションが起動された時だけチェックされます。ですので、アプリケーションを起動する前にMumbleが起動していて、このオプションが有効になっているか確認してください。&lt;br /&gt;Mumbleを起動してからアプリケーションを起動し、起動中にオーバーレイを無効にした場合、アプリケーションの再起動をしないでオーバーレイを再開させる安全な方法はありませんのでご注意ください。</translation>
+        <translation type="obsolete">オーバーレイを有効にするかどうか決定します。この設定はD3D9を使ったアプリケーションが起動された時だけチェックされます。ですので、アプリケーションを起動する前にMumbleが起動していて、このオプションが有効になっているか確認してください。&lt;br /&gt;Mumbleを起動してからアプリケーションを起動し、起動中にオーバーレイを無効にした場合、アプリケーションの再起動をしないでオーバーレイを再開させる安全な方法はありませんのでご注意ください。</translation>
     </message>
     <message>
         <source>No one</source>
@@ -5505,49 +5497,40 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">表示</translation>
     </message>
     <message>
-        <location/>
         <source>Who to show on the overlay</source>
-        <translation>オーバーレイに誰を表示するか</translation>
+        <translation type="obsolete">オーバーレイに誰を表示するか</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>&lt;b&gt;ゲーム中のオーバーレイに誰を表示するか決定します。&lt;/b&gt;&lt;br /&gt;多くの人が同じチャンネルにいる場合、リストはとても長くなるでしょう。&lt;br /&gt;&lt;i&gt;なし&lt;/i&gt; - 誰も表示ません。(それでもオーバーレイは動いています)&lt;br /&gt;&lt;i&gt;話している人だけ&lt;/i&gt; - 話している人だけ表示します。&lt;br /&gt;&lt;i&gt;全員&lt;/i&gt; - 全員表示します。</translation>
+        <translation type="obsolete">&lt;b&gt;ゲーム中のオーバーレイに誰を表示するか決定します。&lt;/b&gt;&lt;br /&gt;多くの人が同じチャンネルにいる場合、リストはとても長くなるでしょう。&lt;br /&gt;&lt;i&gt;なし&lt;/i&gt; - 誰も表示ません。(それでもオーバーレイは動いています)&lt;br /&gt;&lt;i&gt;話している人だけ&lt;/i&gt; - 話している人だけ表示します。&lt;br /&gt;&lt;i&gt;全員&lt;/i&gt; - 全員表示します。</translation>
     </message>
     <message>
-        <location/>
         <source>Always Show Self</source>
-        <translation>常に自分を表示</translation>
+        <translation type="obsolete">常に自分を表示</translation>
     </message>
     <message>
-        <location/>
         <source>Always show yourself on overlay.</source>
-        <translation>オーバーレイで常に自分を表示</translation>
+        <translation type="obsolete">オーバーレイで常に自分を表示</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
-        <translation>自分自身を常に表示するかどうか決定します。この設定は全員表示にしていない時に効果的です。自分が話しているかの状況だけを確認することができます。あなたが発言禁止や聴取禁止になっている場合には表示されません。</translation>
+        <translation type="obsolete">自分自身を常に表示するかどうか決定します。この設定は全員表示にしていない時に効果的です。自分が話しているかの状況だけを確認することができます。あなたが発言禁止や聴取禁止になっている場合には表示されません。</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Left</source>
-        <translation>左に延長</translation>
+        <translation type="obsolete">左に延長</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the left</source>
-        <translation>オーバーレイを左に延長させる</translation>
+        <translation type="obsolete">オーバーレイを左に延長させる</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the left if needed.</source>
-        <translation>オーバーレイは選択した位置にできるだけ小さく留まろうとします。この設定は、必要ならオーバーレイが左に伸びることを許可します。</translation>
+        <translation type="obsolete">オーバーレイは選択した位置にできるだけ小さく留まろうとします。この設定は、必要ならオーバーレイが左に伸びることを許可します。</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Right</source>
-        <translation>右に延長</translation>
+        <translation type="obsolete">右に延長</translation>
     </message>
     <message>
         <source>Let overlay grow to the Right</source>
@@ -5558,62 +5541,52 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">オーバーレイは選択した位置にできるだけ小さく留まろうとします。この設定は、必要ならオーバーレイが右に伸びることを許可します。</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Up</source>
-        <translation>上に延長</translation>
+        <translation type="obsolete">上に延長</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow upwards</source>
-        <translation>オーバーレイを上方向に延長させる</translation>
+        <translation type="obsolete">オーバーレイを上方向に延長させる</translation>
     </message>
     <message>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the top if needed.</source>
         <translation type="obsolete">オーバーレイは選択した位置にできるだけ小さく留まろうとします。この設定は、必要ならオーバーレイが上に伸びることを許可します。</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Down</source>
-        <translation>下に延長</translation>
+        <translation type="obsolete">下に延長</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow downwards</source>
-        <translation>オーバーレイを下方向に延長させる</translation>
+        <translation type="obsolete">オーバーレイを下方向に延長させる</translation>
     </message>
     <message>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow towards the bottom if needed.</source>
         <translation type="obsolete">オーバーレイは選択した位置にできるだけ小さく留まろうとします。この設定は、必要ならオーバーレイが下に伸びることを許可します。</translation>
     </message>
     <message>
-        <location/>
         <source>X-Position of Overlay</source>
-        <translation>オーバーレイの横軸の位置</translation>
+        <translation type="obsolete">オーバーレイの横軸の位置</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative X position of the overlay.</source>
-        <translation>オーバーレイの相対的なX座標を決定します。</translation>
+        <translation type="obsolete">オーバーレイの相対的なX座標を決定します。</translation>
     </message>
     <message>
-        <location/>
         <source>Y-Position of Overlay</source>
-        <translation>オーバーレイの縦軸の位置</translation>
+        <translation type="obsolete">オーバーレイの縦軸の位置</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative Y position of the overlay.</source>
-        <translation>オーバーレイの相対的なY座標を決定します。</translation>
+        <translation type="obsolete">オーバーレイの相対的なY座標を決定します。</translation>
     </message>
     <message>
-        <location/>
         <source>Current Font</source>
-        <translation>現在のフォント</translation>
+        <translation type="obsolete">現在のフォント</translation>
     </message>
     <message>
-        <location/>
         <source>Set Font</source>
-        <translation>フォント設定</translation>
+        <translation type="obsolete">フォント設定</translation>
     </message>
     <message>
         <source>Maximum width of names.</source>
@@ -5628,114 +5601,92 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">最大の幅</translation>
     </message>
     <message>
-        <location/>
         <source>Change</source>
-        <translation>変更</translation>
+        <translation type="obsolete">変更</translation>
     </message>
     <message>
-        <location/>
         <source>Color for players</source>
-        <translation>プレイヤーの色</translation>
+        <translation type="obsolete">プレイヤーの色</translation>
     </message>
     <message>
-        <location/>
         <source>Color for talking players</source>
-        <translation>話しているプレイヤーの色</translation>
+        <translation type="obsolete">話しているプレイヤーの色</translation>
     </message>
     <message>
-        <location/>
         <source>Color for alt-talking players</source>
-        <translation>Alt発言をしているプレイヤーの色</translation>
+        <translation type="obsolete">Alt発言をしているプレイヤーの色</translation>
     </message>
     <message>
-        <location/>
         <source>Color for Channels</source>
-        <translation>チャンネルの色</translation>
+        <translation type="obsolete">チャンネルの色</translation>
     </message>
     <message>
-        <location/>
         <source>Color for active Channels</source>
-        <translation>有効なチャンネルの色</translation>
+        <translation type="obsolete">有効なチャンネルの色</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-40"/>
         <source>Overlay</source>
-        <translation>オーバーレイ</translation>
+        <translation type="obsolete">オーバーレイ</translation>
     </message>
     <message>
-        <location filename="Overlay.ui"/>
         <source>Show User Textures</source>
-        <translation>ユーザテクスチャを表示</translation>
+        <translation type="obsolete">ユーザテクスチャを表示</translation>
     </message>
     <message>
-        <location/>
         <source>Show User custom textures instead of text on the overlay.</source>
-        <translation>テキストの代わりにユーザのカスタムテクスチャをオーバーレイに表示</translation>
+        <translation type="obsolete">テキストの代わりにユーザのカスタムテクスチャをオーバーレイに表示</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to download and use custom textures for registered users. If disabled, the regular outline text will be used instead.</source>
-        <translation>登録されたユーザのカスタムテクスチャをダウンロードして使用するかどうかを決定します。無効の時は通常のテキストが代わりに使われます。</translation>
+        <translation type="obsolete">登録されたユーザのカスタムテクスチャをダウンロードして使用するかどうかを決定します。無効の時は通常のテキストが代わりに使われます。</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height of names.</source>
-        <translation>名前の最大の高さ</translation>
+        <translation type="obsolete">名前の最大の高さ</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels tall. Note that the names will not be taller than 60 pixels no matter what you set here.</source>
-        <translation>画面の高さに対する名前表示の最大の高さを決定します。あなたのゲーム画面が 800ピクセルの高さでこれが5%にセットされているとき、各名前は 40ピクセルの高さで表示されます。注意: ここの値に関わらず、名前の高さは 60ピクセル以上にはなりません。</translation>
+        <translation type="obsolete">画面の高さに対する名前表示の最大の高さを決定します。あなたのゲーム画面が 800ピクセルの高さでこれが5%にセットされているとき、各名前は 40ピクセルの高さで表示されます。注意: ここの値に関わらず、名前の高さは 60ピクセル以上にはなりません。</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height</source>
-        <translation>最大の高さ</translation>
+        <translation type="obsolete">最大の高さ</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-107"/>
         <source>Show no one</source>
-        <translation>なし</translation>
+        <translation type="obsolete">なし</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show only talking</source>
-        <translation>話している人だけ</translation>
+        <translation type="obsolete">話している人だけ</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show everyone</source>
-        <translation>全員</translation>
+        <translation type="obsolete">全員</translation>
     </message>
     <message>
-        <location filename="Overlay.ui"/>
         <source>Form</source>
-        <translation>フォーム</translation>
+        <translation type="obsolete">フォーム</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</source>
-        <translation>オーバーレイはあなたが選択した位置で最小の状態で表示されます。この設定を有効にすると、必要に応じてオーバーレイが上方向に伸びます。</translation>
+        <translation type="obsolete">オーバーレイはあなたが選択した位置で最小の状態で表示されます。この設定を有効にすると、必要に応じてオーバーレイが上方向に伸びます。</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the right</source>
-        <translation>オーバーレイを右に延長させる</translation>
+        <translation type="obsolete">オーバーレイを右に延長させる</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the right if needed.</source>
-        <translation>オーバーレイはあなたが選択した位置で最小の状態で表示されます。この設定を有効にすると、必要に応じてオーバーレイが右方向に伸びます。</translation>
+        <translation type="obsolete">オーバーレイはあなたが選択した位置で最小の状態で表示されます。この設定を有効にすると、必要に応じてオーバーレイが右方向に伸びます。</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow downwards if needed.</source>
-        <translation>オーバーレイはあなたが選択した位置で最小の状態で表示されます。この設定を有効にすると、必要に応じてオーバーレイが下方向に伸びます。</translation>
+        <translation type="obsolete">オーバーレイはあなたが選択した位置で最小の状態で表示されます。この設定を有効にすると、必要に応じてオーバーレイが下方向に伸びます。</translation>
     </message>
     <message>
-        <location/>
         <source>TextLabel</source>
-        <translation>テキストラベル</translation>
+        <translation type="obsolete">テキストラベル</translation>
     </message>
 </context>
 <context>

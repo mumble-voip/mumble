@@ -3011,13 +3011,13 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+128"/>
-        <location line="+1197"/>
+        <location filename="MainWindow.cpp" line="+127"/>
+        <location line="+1196"/>
         <source>Root</source>
         <translation>Radice</translation>
     </message>
     <message>
-        <location line="-1161"/>
+        <location line="-1160"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Premi-per-parlare</translation>
@@ -3137,7 +3137,7 @@ p, li { white-space: pre-wrap; }
         <translation>Questo cambia lo stato della sovrapposizione in-game tra visualizza tutti, solo il giocatore a cui stai parlando e nessuno.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+2"/>
         <source>Alt Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Alt Premi-per.parlare</translation>
@@ -3168,7 +3168,7 @@ p, li { white-space: pre-wrap; }
         <location line="+22"/>
         <location line="+21"/>
         <location line="+451"/>
-        <location filename="main.cpp" line="+248"/>
+        <location filename="main.cpp" line="+244"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -4036,7 +4036,7 @@ p, li { white-space: pre-wrap; }
         <translation>Questo seleziona la modalità minima, dove la finestra del log e il menu sono noscosti.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+57"/>
+        <location filename="Messages.cpp" line="+56"/>
         <source>Joined server: %1.</source>
         <translation>%1 è entrato nel server.</translation>
     </message>
@@ -4177,7 +4177,7 @@ p, li { white-space: pre-wrap; }
         <translation>Messaggio da %1</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="+996"/>
+        <location filename="PlayerModel.cpp" line="+995"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Hai selezionato &quot;non fare niente&quot; sulle impostazioni del trascinamento del canale, quindi il canale non sarà spostato.</translation>
     </message>
@@ -4391,17 +4391,15 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+194"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2
 - you do not have the June 2007 updated version of DX9.0c</source>
-        <translation>Caricamento della libreria di sovrapposizione fallito. Significa che o:
+        <translation type="obsolete">Caricamento della libreria di sovrapposizione fallito. Significa che o:
 - la libreria (mumble_ol.dll) non è stata trovata nella directory dove stai eseguendo Mumble
 - hai un OS precedente a WinXP SP2
 - non hai la versione di DX9.0c aggiornata al June 2007</translation>
@@ -4410,239 +4408,192 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-147"/>
         <source>Show no one</source>
-        <translation>Non mostrare nessuno</translation>
+        <translation type="obsolete">Non mostrare nessuno</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show only talking</source>
-        <translation>Mostra solo chi parla</translation>
+        <translation type="obsolete">Mostra solo chi parla</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show everyone</source>
-        <translation>Mostra tutti</translation>
+        <translation type="obsolete">Mostra tutti</translation>
     </message>
     <message>
-        <location line="+105"/>
         <source>Overlay</source>
-        <translation>Sovrapposizione</translation>
+        <translation type="obsolete">Sovrapposizione</translation>
     </message>
     <message>
-        <location filename="Overlay.ui"/>
         <source>Form</source>
-        <translation>Modulo</translation>
+        <translation type="obsolete">Modulo</translation>
     </message>
     <message>
-        <location/>
         <source>Options</source>
-        <translation>Opzioni</translation>
+        <translation type="obsolete">Opzioni</translation>
     </message>
     <message>
-        <location/>
         <source>Enable overlay.</source>
-        <translation>Abilita sovrapposizione.</translation>
+        <translation type="obsolete">Abilita sovrapposizione.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked with D3D9 applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</source>
-        <translation>Stabilisce se la sovrapposizione è attivata o meno. Questa impostazione è settata solo con applicazioni D3D9 in esecuzione, quindi assicuratevi che Mumble sia in esecuzione e che questa opzione sia attiva prima di avviare l&apos;applicazione.&lt;br /&gt;Si prega di notare che se si avvia l&apos;applicazione dopo l&apos;avvio di Mumble, o se si disattiva la sovrapposizione durante l&apos;esecuzione, non vi è alcun modo sicuro per riavviare la sovrapposizione senza dover riavviare l&apos;applicazione.</translation>
+        <translation type="obsolete">Stabilisce se la sovrapposizione è attivata o meno. Questa impostazione è settata solo con applicazioni D3D9 in esecuzione, quindi assicuratevi che Mumble sia in esecuzione e che questa opzione sia attiva prima di avviare l&apos;applicazione.&lt;br /&gt;Si prega di notare che se si avvia l&apos;applicazione dopo l&apos;avvio di Mumble, o se si disattiva la sovrapposizione durante l&apos;esecuzione, non vi è alcun modo sicuro per riavviare la sovrapposizione senza dover riavviare l&apos;applicazione.</translation>
     </message>
     <message>
-        <location/>
         <source>Enable Overlay</source>
-        <translation>Abilita la sovrapposizione</translation>
+        <translation type="obsolete">Abilita la sovrapposizione</translation>
     </message>
     <message>
-        <location/>
         <source>Who to show on the overlay</source>
-        <translation>Chi mostrare nella sovrapposizione</translation>
+        <translation type="obsolete">Chi mostrare nella sovrapposizione</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>Stabilisce chi mostrare nella sovrapposizione al gioco.&lt;/b&gt;&lt;br /&gt;Se molte persone sono collegate allo stesso canale, la lista sovrapposta potrebbe essere molto lunga. Usa questo per accorciarla.&lt;br /&gt;&lt;i&gt;Nessuno&lt;/i&gt; - Non mostrare nessuno (ma lascia in esecuzione di sovrapposizione).&lt;br /&gt;&lt;i&gt;Solo chi sta parlando&lt;/i&gt; - Mostra solo chi sta parlando.&lt;br /&gt;&lt;i&gt;Tutti&lt;/i&gt; - Mostra tutti.</translation>
+        <translation type="obsolete">Stabilisce chi mostrare nella sovrapposizione al gioco.&lt;/b&gt;&lt;br /&gt;Se molte persone sono collegate allo stesso canale, la lista sovrapposta potrebbe essere molto lunga. Usa questo per accorciarla.&lt;br /&gt;&lt;i&gt;Nessuno&lt;/i&gt; - Non mostrare nessuno (ma lascia in esecuzione di sovrapposizione).&lt;br /&gt;&lt;i&gt;Solo chi sta parlando&lt;/i&gt; - Mostra solo chi sta parlando.&lt;br /&gt;&lt;i&gt;Tutti&lt;/i&gt; - Mostra tutti.</translation>
     </message>
     <message>
-        <location/>
         <source>Always show yourself on overlay.</source>
-        <translation>Mostra sempre se stessi nella sovrapposizione.</translation>
+        <translation type="obsolete">Mostra sempre se stessi nella sovrapposizione.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
-        <translation>Stabilisce se mostrare sempre te stesso o meno. Questa impostazione è utile se non stai visualizzando tutti nella sovrapposizione, dato che vedresti solo il tuo stato se stessi parlando, che non ti permette di vedere che sei statoi escluso o silenziato.</translation>
+        <translation type="obsolete">Stabilisce se mostrare sempre te stesso o meno. Questa impostazione è utile se non stai visualizzando tutti nella sovrapposizione, dato che vedresti solo il tuo stato se stessi parlando, che non ti permette di vedere che sei statoi escluso o silenziato.</translation>
     </message>
     <message>
-        <location/>
         <source>Always Show Self</source>
-        <translation>Mostra sempre se stessi</translation>
+        <translation type="obsolete">Mostra sempre se stessi</translation>
     </message>
     <message>
-        <location/>
         <source>Show User custom textures instead of text on the overlay.</source>
-        <translation>Mostra una immagine personalizzata dell&apos;utente al posto della sovrapposizione testuale.</translation>
+        <translation type="obsolete">Mostra una immagine personalizzata dell&apos;utente al posto della sovrapposizione testuale.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to download and use custom textures for registered users. If disabled, the regular outline text will be used instead.</source>
-        <translation>Imposta se scaricare e usare una immagine personalizzata per gli utenti registrati. Se disabilitato, verrà usato il testo standard.</translation>
+        <translation type="obsolete">Imposta se scaricare e usare una immagine personalizzata per gli utenti registrati. Se disabilitato, verrà usato il testo standard.</translation>
     </message>
     <message>
-        <location/>
         <source>Show User Textures</source>
-        <translation>Mostra le immagini Utente</translation>
+        <translation type="obsolete">Mostra le immagini Utente</translation>
     </message>
     <message>
-        <location/>
         <source>Position</source>
-        <translation>Posizione</translation>
+        <translation type="obsolete">Posizione</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow upwards</source>
-        <translation>Fai crescere verso l&apos;alto la sovrapposizione</translation>
+        <translation type="obsolete">Fai crescere verso l&apos;alto la sovrapposizione</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</source>
-        <translation>Tiene la sovrapposizione la più piccola possibile e alla posizione da te selezionata. Permette alla sovrapposizione di crescere verso l&apos;alto se necessario.</translation>
+        <translation type="obsolete">Tiene la sovrapposizione la più piccola possibile e alla posizione da te selezionata. Permette alla sovrapposizione di crescere verso l&apos;alto se necessario.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Up</source>
-        <translation>Cresce in alto</translation>
+        <translation type="obsolete">Cresce in alto</translation>
     </message>
     <message>
-        <location/>
         <source>Y-Position of Overlay</source>
-        <translation>Coordinata Y della sovrapposizione</translation>
+        <translation type="obsolete">Coordinata Y della sovrapposizione</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative Y position of the overlay.</source>
-        <translation>Imposta la coordinata Y relativa della sovrapposizione.</translation>
+        <translation type="obsolete">Imposta la coordinata Y relativa della sovrapposizione.</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the left</source>
-        <translation>Fai crescere la sovrapposizione verso sinistra</translation>
+        <translation type="obsolete">Fai crescere la sovrapposizione verso sinistra</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the left if needed.</source>
-        <translation>Tiene la sovrapposizione la più piccola possibile e alla posizione da te selezionata. Permette alla sovrapposizione di crescere verso sinistra se necessario.</translation>
+        <translation type="obsolete">Tiene la sovrapposizione la più piccola possibile e alla posizione da te selezionata. Permette alla sovrapposizione di crescere verso sinistra se necessario.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Left</source>
-        <translation>Cresce a sinistra</translation>
+        <translation type="obsolete">Cresce a sinistra</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the right</source>
-        <translation>Lascia crescere verso destra</translation>
+        <translation type="obsolete">Lascia crescere verso destra</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the right if needed.</source>
-        <translation>Tiene la sovrapposizione la più piccola possibile e alla posizione da te selezionata. Permette alla sovrapposizione di crescere verso destra se necessario.</translation>
+        <translation type="obsolete">Tiene la sovrapposizione la più piccola possibile e alla posizione da te selezionata. Permette alla sovrapposizione di crescere verso destra se necessario.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Right</source>
-        <translation>Cresce a destra</translation>
+        <translation type="obsolete">Cresce a destra</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow downwards</source>
-        <translation>Fai crescere la sovrapposizione verso il basso</translation>
+        <translation type="obsolete">Fai crescere la sovrapposizione verso il basso</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow downwards if needed.</source>
-        <translation>Tiene la sovrapposizione la più piccola possibile e alla posizione da te selezionata. Permette alla sovrapposizione di crescere verso il basso se necessario.</translation>
+        <translation type="obsolete">Tiene la sovrapposizione la più piccola possibile e alla posizione da te selezionata. Permette alla sovrapposizione di crescere verso il basso se necessario.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Down</source>
-        <translation>Cresci in basso</translation>
+        <translation type="obsolete">Cresci in basso</translation>
     </message>
     <message>
-        <location/>
         <source>X-Position of Overlay</source>
-        <translation>Coordinata X della sovrapposizione</translation>
+        <translation type="obsolete">Coordinata X della sovrapposizione</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative X position of the overlay.</source>
-        <translation>Imposta la coordinata X relativa della sovrapposizione.</translation>
+        <translation type="obsolete">Imposta la coordinata X relativa della sovrapposizione.</translation>
     </message>
     <message>
-        <location/>
         <source>Font</source>
-        <translation>Carattere</translation>
+        <translation type="obsolete">Carattere</translation>
     </message>
     <message>
-        <location/>
         <source>Current Font</source>
-        <translation>Carattere corrente</translation>
+        <translation type="obsolete">Carattere corrente</translation>
     </message>
     <message>
-        <location/>
         <source>TextLabel</source>
-        <translation>EtichettaTesto</translation>
+        <translation type="obsolete">EtichettaTesto</translation>
     </message>
     <message>
-        <location/>
         <source>Set Font</source>
-        <translation>Imposta Carattere</translation>
+        <translation type="obsolete">Imposta Carattere</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height</source>
-        <translation>Altezza massima</translation>
+        <translation type="obsolete">Altezza massima</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height of names.</source>
-        <translation>Massima altezza dei nomi.</translation>
+        <translation type="obsolete">Massima altezza dei nomi.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels tall. Note that the names will not be taller than 60 pixels no matter what you set here.</source>
-        <translation>Stabilisce l&apos;altezza massima dei nomi mostrati, rispetto all&apos;altezza dello schermo. Se la finestra 3D attiva è di 800 pixel di altezza e questa è impostata al 5%, ogni nome sarà di 40 pixel di altezza. Si noti che i nomi non saranno più alti di 60 pixel, con qualsiasi impostazione.</translation>
+        <translation type="obsolete">Stabilisce l&apos;altezza massima dei nomi mostrati, rispetto all&apos;altezza dello schermo. Se la finestra 3D attiva è di 800 pixel di altezza e questa è impostata al 5%, ogni nome sarà di 40 pixel di altezza. Si noti che i nomi non saranno più alti di 60 pixel, con qualsiasi impostazione.</translation>
     </message>
     <message>
-        <location/>
         <source>Color for players</source>
-        <translation>Colore per i giocatori</translation>
+        <translation type="obsolete">Colore per i giocatori</translation>
     </message>
     <message>
-        <location/>
         <source>Change</source>
-        <translation>Cambia</translation>
+        <translation type="obsolete">Cambia</translation>
     </message>
     <message>
-        <location/>
         <source>Color for talking players</source>
-        <translation>Colore per il giocatore parlante</translation>
+        <translation type="obsolete">Colore per il giocatore parlante</translation>
     </message>
     <message>
-        <location/>
         <source>Color for alt-talking players</source>
-        <translation>Colore per il giocatore Alt parlante</translation>
+        <translation type="obsolete">Colore per il giocatore Alt parlante</translation>
     </message>
     <message>
-        <location/>
         <source>Color for Channels</source>
-        <translation>Colore per i Canali</translation>
+        <translation type="obsolete">Colore per i Canali</translation>
     </message>
     <message>
-        <location/>
         <source>Color for active Channels</source>
-        <translation>Colore per i Canali attivi</translation>
+        <translation type="obsolete">Colore per i Canali attivi</translation>
     </message>
 </context>
 <context>

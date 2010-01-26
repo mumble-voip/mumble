@@ -129,7 +129,7 @@ Database::Database() {
 
 	query.exec(QLatin1String("DELETE FROM `comments` WHERE `seen` < datetime('now', '-1 years')"));
 	query.exec(QLatin1String("DELETE FROM `blobs` WHERE `seen` < datetime('now', '-1 months')"));
-	
+
 	query.exec(QLatin1String("VACUUM"));
 }
 
@@ -264,7 +264,7 @@ QByteArray Database::blob(const QByteArray &hash) {
 	query.exec();
 	if (query.next()) {
 		QByteArray qba = query.value(0).toByteArray();
-		
+
 		query.prepare(QLatin1String("UPDATE `blobs` SET `seen` = datetime('now') WHERE `hash` = ?"));
 		query.addBindValue(hash);
 		query.exec();
@@ -279,7 +279,7 @@ void Database::setBlob(const QByteArray &hash, const QByteArray &data) {
 		return;
 
 	QSqlQuery query;
-	
+
 	query.prepare(QLatin1String("REPLACE INTO `blobs` (`hash`, `data`, `seen`) VALUES (?, ?, datetime('now'))"));
 	query.addBindValue(hash);
 	query.addBindValue(data);

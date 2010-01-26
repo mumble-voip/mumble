@@ -4026,13 +4026,13 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="+231"/>
+        <location filename="main.cpp" line="+227"/>
         <source>Welcome to Mumble.</source>
         <translation>Bienvenido a Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+128"/>
-        <location line="+1197"/>
+        <location filename="MainWindow.cpp" line="+127"/>
+        <location line="+1196"/>
         <source>Root</source>
         <translation>Root</translation>
     </message>
@@ -4561,7 +4561,7 @@ p, li { white-space: pre-wrap; }
         <translation>Volviendo a conectar.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+57"/>
+        <location filename="Messages.cpp" line="+56"/>
         <source>Joined server: %1.</source>
         <translation>Se ha unido al servidor: %1.</translation>
     </message>
@@ -4705,7 +4705,7 @@ p, li { white-space: pre-wrap; }
         <translation>%1 ensordecido por %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-407"/>
+        <location filename="MainWindow.cpp" line="-406"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Presionar-para-Hablar (PTT)</translation>
@@ -4777,7 +4777,7 @@ p, li { white-space: pre-wrap; }
         <translation>Conmutar sobreimpresión</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+5"/>
         <source>Alt Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Presionar-para-Hablar Alt</translation>
@@ -5006,7 +5006,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bits&lt;br /&gt;%3 ms de latencia media (%4 de varianza)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-455"/>
+        <location line="-454"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
         <translation>Mantenga pulsado este botón para enviar la voz.</translation>
@@ -5054,7 +5054,7 @@ p, li { white-space: pre-wrap; }
         <translation>Esto conmutará el estado de la sobreimpresión durante el juego entre mostrar a todos, sólo mostrar los jugadores que están hablando, y no mostrar a nadie.</translation>
     </message>
     <message>
-        <location line="+411"/>
+        <location line="+410"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>El canal de voz se envía a través del canal de control.</translation>
     </message>
@@ -5287,7 +5287,7 @@ p, li { white-space: pre-wrap; }
         <translation>Registro</translation>
     </message>
     <message>
-        <location filename="PlayerModel.cpp" line="+996"/>
+        <location filename="PlayerModel.cpp" line="+995"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Ha establecido el arrastre de canales a &quot;No hacer nada&quot; así que el canal no se movió.</translation>
     </message>
@@ -5568,9 +5568,8 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+194"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -5593,45 +5592,38 @@ p, li { white-space: pre-wrap; }
 - no tiene la versión actualizada en agosto de 2006 de DX9.0c</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2
 - you do not have the June 2007 updated version of DX9.0c</source>
-        <translation>No se pudo cargar la biblioteca de sobreimpresión. Esto quiere decir que ha ocurrido alguna de las siguientes circunstancias:- la biblioteca (mumble_ol.dll) no fue encontrada en el directorio desde el que ejecutó Mumble- está usando un SO anterior a WinXP SP2- no tiene la versión de DX9.0c actualizada en junio de 2007</translation>
+        <translation type="obsolete">No se pudo cargar la biblioteca de sobreimpresión. Esto quiere decir que ha ocurrido alguna de las siguientes circunstancias:- la biblioteca (mumble_ol.dll) no fue encontrada en el directorio desde el que ejecutó Mumble- está usando un SO anterior a WinXP SP2- no tiene la versión de DX9.0c actualizada en junio de 2007</translation>
     </message>
 </context>
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="Overlay.ui"/>
         <source>Options</source>
-        <translation>Opciones</translation>
+        <translation type="obsolete">Opciones</translation>
     </message>
     <message>
-        <location/>
         <source>Position</source>
-        <translation>Posición</translation>
+        <translation type="obsolete">Posición</translation>
     </message>
     <message>
-        <location/>
         <source>Font</source>
-        <translation>Fuente</translation>
+        <translation type="obsolete">Fuente</translation>
     </message>
     <message>
-        <location/>
         <source>Enable Overlay</source>
-        <translation>Habilitar Sobreimpresión</translation>
+        <translation type="obsolete">Habilitar Sobreimpresión</translation>
     </message>
     <message>
-        <location/>
         <source>Enable overlay.</source>
-        <translation>Habilita la sobreimpresión.</translation>
+        <translation type="obsolete">Habilita la sobreimpresión.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked with D3D9 applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</source>
-        <translation>Establece si la sobreimpresión está habilitada o no. Esta opción se comprueba sólo cuando se inician aplicaciones D3D9, así que asegúrese de que Mumble está ejecutándose y esta opción está activada antes de que inicie la aplicación.&lt;br /&gt;Por favor, fíjese en que si inicia la aplicación después de iniciar Mumble, o si desactiva la sobreimpresión mientras se está ejecutando, no existe ninguna forma segura de reiniciar la sobreimpresión sin reiniciar también la aplicación.</translation>
+        <translation type="obsolete">Establece si la sobreimpresión está habilitada o no. Esta opción se comprueba sólo cuando se inician aplicaciones D3D9, así que asegúrese de que Mumble está ejecutándose y esta opción está activada antes de que inicie la aplicación.&lt;br /&gt;Por favor, fíjese en que si inicia la aplicación después de iniciar Mumble, o si desactiva la sobreimpresión mientras se está ejecutando, no existe ninguna forma segura de reiniciar la sobreimpresión sin reiniciar también la aplicación.</translation>
     </message>
     <message>
         <source>No one</source>
@@ -5650,43 +5642,36 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Mostrar</translation>
     </message>
     <message>
-        <location/>
         <source>Who to show on the overlay</source>
-        <translation>Quién mostrar en la sobreimpresión</translation>
+        <translation type="obsolete">Quién mostrar en la sobreimpresión</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets who to show in the ingame overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
         <translation type="obsolete">&lt;b&gt;Establece a quién mostrar en la sobreimpresión durante el juego.&lt;/b&gt;&lt;br /&gt;Si muchas personas están conectadas al mismo canal, la lista sobreimpresionada podría ser muy larga. Use ésto para acortarla.&lt;br /&gt;&lt;i&gt;Nadie&lt;/i&gt; - No mostrar a nadie (pero dejar funcionando la sobreimpresión).&lt;br /&gt;&lt;i&gt;Sólo hablando&lt;/i&gt; - Sólo mostrar las personas que hablan.&lt;br /&gt;&lt;i&gt;Todos&lt;/i&gt; - Mostrar todos.</translation>
     </message>
     <message>
-        <location/>
         <source>Always Show Self</source>
-        <translation>Siempre mostrarse a sí mismo</translation>
+        <translation type="obsolete">Siempre mostrarse a sí mismo</translation>
     </message>
     <message>
-        <location/>
         <source>Always show yourself on overlay.</source>
-        <translation>Siempre le muestra en la sobreimpresión.</translation>
+        <translation type="obsolete">Siempre le muestra en la sobreimpresión.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Left</source>
-        <translation>Crecer hacia la izquierda</translation>
+        <translation type="obsolete">Crecer hacia la izquierda</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the left</source>
-        <translation>Permitir a la sobreimpresión crecer hacia la izquierda</translation>
+        <translation type="obsolete">Permitir a la sobreimpresión crecer hacia la izquierda</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the left if needed.</source>
-        <translation>La sobreimpresión trata de permanecer lo más pequeña posible y en la posición que ha seleccionado. Esto permite que la sobreimpresión crezca hacia la izquierda si es necesario.</translation>
+        <translation type="obsolete">La sobreimpresión trata de permanecer lo más pequeña posible y en la posición que ha seleccionado. Esto permite que la sobreimpresión crezca hacia la izquierda si es necesario.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Right</source>
-        <translation>Crecer hacia la derecha</translation>
+        <translation type="obsolete">Crecer hacia la derecha</translation>
     </message>
     <message>
         <source>Let overlay grow to the Right</source>
@@ -5697,62 +5682,52 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">La sobreimpresión trata de permanecer lo más pequeña posible y en la posición que ha seleccionado. Esto permite que la sobreimpresión crezca hacia la derecha si es necesario.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Up</source>
-        <translation>Crecer hacia arriba</translation>
+        <translation type="obsolete">Crecer hacia arriba</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow upwards</source>
-        <translation>Permitir a la sobreimpresión crecer hacia arriba</translation>
+        <translation type="obsolete">Permitir a la sobreimpresión crecer hacia arriba</translation>
     </message>
     <message>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the top if needed.</source>
         <translation type="obsolete">La sobreimpresión trata de permanecer lo más pequeña posible y en la posición que ha seleccionado. Esto permite que la sobreimpresión crezca hacia la arriba si es necesario.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Down</source>
-        <translation>Crecer hacia abajo</translation>
+        <translation type="obsolete">Crecer hacia abajo</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow downwards</source>
-        <translation>Permitir a la sobreimpresión crecer hacia abajo</translation>
+        <translation type="obsolete">Permitir a la sobreimpresión crecer hacia abajo</translation>
     </message>
     <message>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow towards the bottom if needed.</source>
         <translation type="obsolete">La sobreimpresión trata de permanecer lo más pequeña posible y en la posición que ha seleccionado. Esto permite que la sobreimpresión crezca hacia la abajo si es necesario.</translation>
     </message>
     <message>
-        <location/>
         <source>X-Position of Overlay</source>
-        <translation>Posición-X de la sobreimpresión</translation>
+        <translation type="obsolete">Posición-X de la sobreimpresión</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative X position of the overlay.</source>
-        <translation>Establece la posición X relativa de la sobreimpresión.</translation>
+        <translation type="obsolete">Establece la posición X relativa de la sobreimpresión.</translation>
     </message>
     <message>
-        <location/>
         <source>Y-Position of Overlay</source>
-        <translation>Posición-Y de la sobreimpresión</translation>
+        <translation type="obsolete">Posición-Y de la sobreimpresión</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative Y position of the overlay.</source>
-        <translation>Establece la posición Y relativa de la sobreimpresión.</translation>
+        <translation type="obsolete">Establece la posición Y relativa de la sobreimpresión.</translation>
     </message>
     <message>
-        <location/>
         <source>Current Font</source>
-        <translation>Fuente actual</translation>
+        <translation type="obsolete">Fuente actual</translation>
     </message>
     <message>
-        <location/>
         <source>Set Font</source>
-        <translation>Establece la fuente</translation>
+        <translation type="obsolete">Establece la fuente</translation>
     </message>
     <message>
         <source>Maximum width of names.</source>
@@ -5767,128 +5742,104 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Anchura máxima</translation>
     </message>
     <message>
-        <location/>
         <source>Change</source>
-        <translation>Cambiar</translation>
+        <translation type="obsolete">Cambiar</translation>
     </message>
     <message>
-        <location/>
         <source>Color for players</source>
-        <translation>Color de los jugadores</translation>
+        <translation type="obsolete">Color de los jugadores</translation>
     </message>
     <message>
-        <location/>
         <source>Color for talking players</source>
-        <translation>Color de los jugadores que hablan</translation>
+        <translation type="obsolete">Color de los jugadores que hablan</translation>
     </message>
     <message>
-        <location/>
         <source>Color for alt-talking players</source>
-        <translation>Color de los jugadores que hablan-alt</translation>
+        <translation type="obsolete">Color de los jugadores que hablan-alt</translation>
     </message>
     <message>
-        <location/>
         <source>Color for Channels</source>
-        <translation>Color de los canales</translation>
+        <translation type="obsolete">Color de los canales</translation>
     </message>
     <message>
-        <location/>
         <source>Color for active Channels</source>
-        <translation>Color de los canales activos</translation>
+        <translation type="obsolete">Color de los canales activos</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-40"/>
         <source>Overlay</source>
-        <translation>Sobreimpresión</translation>
+        <translation type="obsolete">Sobreimpresión</translation>
     </message>
     <message>
-        <location filename="Overlay.ui"/>
         <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
-        <translation>Establece si mostrarse siempre a sí mismo o no. Esta opción es útil si no está mostrando a todos en la sobreimpresión, ya que entonces sólo vería su propio estado si usted está hablando, lo que no le permitiría ver si fue ensordecido o enmudecido.</translation>
+        <translation type="obsolete">Establece si mostrarse siempre a sí mismo o no. Esta opción es útil si no está mostrando a todos en la sobreimpresión, ya que entonces sólo vería su propio estado si usted está hablando, lo que no le permitiría ver si fue ensordecido o enmudecido.</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>&lt;b&gt;Establece a quién mostrar en la sobreimpresión durante el juego.&lt;/b&gt;&lt;br /&gt;Si muchas personas están conectadas al mismo canal, la lista sobreimpresionada podría ser muy larga. Use esto para acortarla.&lt;br /&gt;&lt;i&gt;Nadie&lt;/i&gt; - No mostrar a nadie (pero dejar funcionando la sobreimpresión).&lt;br /&gt;&lt;i&gt;Sólo hablando&lt;/i&gt; - Sólo mostrar las personas que hablan.&lt;br /&gt;&lt;i&gt;Todos&lt;/i&gt; - Mostrar todos.</translation>
+        <translation type="obsolete">&lt;b&gt;Establece a quién mostrar en la sobreimpresión durante el juego.&lt;/b&gt;&lt;br /&gt;Si muchas personas están conectadas al mismo canal, la lista sobreimpresionada podría ser muy larga. Use esto para acortarla.&lt;br /&gt;&lt;i&gt;Nadie&lt;/i&gt; - No mostrar a nadie (pero dejar funcionando la sobreimpresión).&lt;br /&gt;&lt;i&gt;Sólo hablando&lt;/i&gt; - Sólo mostrar las personas que hablan.&lt;br /&gt;&lt;i&gt;Todos&lt;/i&gt; - Mostrar todos.</translation>
     </message>
     <message>
         <source>This sets the maximum width of names shown, relative to the height. If you set this to 100%, no line of text will be wider than it is high. At 500%, no line will be more than 5 times wider than its height, and so on.</source>
         <translation type="obsolete">Establece la anchura máxima de los nombres mostrados, relativa a la altura. Si fija esto a 100%, ninguna línea de texto será más ancha que su altura. A 500%, ninguna línea será 5 veces más ancha que su altura, y así sucesivamente.</translation>
     </message>
     <message>
-        <location/>
         <source>Show User Textures</source>
-        <translation>Mostrar texturas de los usuarios</translation>
+        <translation type="obsolete">Mostrar texturas de los usuarios</translation>
     </message>
     <message>
-        <location/>
         <source>Show User custom textures instead of text on the overlay.</source>
-        <translation>Muestra texturas personalizadas por el usuario en vez de texto en la sobreimpresión.</translation>
+        <translation type="obsolete">Muestra texturas personalizadas por el usuario en vez de texto en la sobreimpresión.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to download and use custom textures for registered users. If disabled, the regular outline text will be used instead.</source>
-        <translation>Establece si se descargarán y usarán texturas personalizadas para los usuarios registrados. Si se desactiva, se usará en su lugar el texto resumido habitual.</translation>
+        <translation type="obsolete">Establece si se descargarán y usarán texturas personalizadas para los usuarios registrados. Si se desactiva, se usará en su lugar el texto resumido habitual.</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height of names.</source>
-        <translation>Altura maxima de los nombres.</translation>
+        <translation type="obsolete">Altura maxima de los nombres.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels tall. Note that the names will not be taller than 60 pixels no matter what you set here.</source>
-        <translation>Establece la altura máxima de los nombres mostrados, en relación a la altura de la pantalla. Si su ventana 3D activa tiene 800 píxeles de alto y se fija esto a 5%, entonces cada nombre tendrá 40 píxeles de alto. Fíjese en que los nombres no serán más altos de 60 píxeles sin importar lo que se establezca aquí.</translation>
+        <translation type="obsolete">Establece la altura máxima de los nombres mostrados, en relación a la altura de la pantalla. Si su ventana 3D activa tiene 800 píxeles de alto y se fija esto a 5%, entonces cada nombre tendrá 40 píxeles de alto. Fíjese en que los nombres no serán más altos de 60 píxeles sin importar lo que se establezca aquí.</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height</source>
-        <translation>Altura máxima</translation>
+        <translation type="obsolete">Altura máxima</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-107"/>
         <source>Show no one</source>
-        <translation>No mostrar a nadie</translation>
+        <translation type="obsolete">No mostrar a nadie</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show only talking</source>
-        <translation>Mostrar sólo a los que hablan</translation>
+        <translation type="obsolete">Mostrar sólo a los que hablan</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show everyone</source>
-        <translation>Mostrar a todos</translation>
+        <translation type="obsolete">Mostrar a todos</translation>
     </message>
     <message>
-        <location filename="Overlay.ui"/>
         <source>Form</source>
-        <translation>Formulario</translation>
+        <translation type="obsolete">Formulario</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</source>
-        <translation>La sobreimpresión trata de permanecer lo más pequeña posible y en la posición que ha seleccionado. Esto permite que la sobreimpresión crezca hacia la arriba si es necesario.</translation>
+        <translation type="obsolete">La sobreimpresión trata de permanecer lo más pequeña posible y en la posición que ha seleccionado. Esto permite que la sobreimpresión crezca hacia la arriba si es necesario.</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the right</source>
-        <translation>Permitir a la sobreimpresión crecer hacia la derecha</translation>
+        <translation type="obsolete">Permitir a la sobreimpresión crecer hacia la derecha</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the right if needed.</source>
-        <translation>La sobreimpresión trata de permanecer lo más pequeña posible y en la posición que ha seleccionado. Esto permite que la sobreimpresión crezca hacia la derecha si es necesario.</translation>
+        <translation type="obsolete">La sobreimpresión trata de permanecer lo más pequeña posible y en la posición que ha seleccionado. Esto permite que la sobreimpresión crezca hacia la derecha si es necesario.</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow downwards if needed.</source>
-        <translation>La sobreimpresión trata de permanecer lo más pequeña posible y en la posición que ha seleccionado. Esto permite que la sobreimpresión crezca hacia la arriba si es necesario.</translation>
+        <translation type="obsolete">La sobreimpresión trata de permanecer lo más pequeña posible y en la posición que ha seleccionado. Esto permite que la sobreimpresión crezca hacia la arriba si es necesario.</translation>
     </message>
     <message>
-        <location/>
         <source>TextLabel</source>
-        <translation>EtiquetaDeTexto</translation>
+        <translation type="obsolete">EtiquetaDeTexto</translation>
     </message>
 </context>
 <context>

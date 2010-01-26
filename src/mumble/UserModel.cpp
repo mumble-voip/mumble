@@ -986,7 +986,7 @@ void UserModel::setCommentHash(ClientUser *cu, const QByteArray &hash) {
 
 		cu->qsComment = QString();
 		cu->qbaCommentHash = hash;
-		
+
 		item->bCommentSeen = Database::seenComment(item->hash(), cu->qbaCommentHash);
 		newstate = item->bCommentSeen ? 2 : 1;
 
