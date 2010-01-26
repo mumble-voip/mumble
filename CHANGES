@@ -1,4 +1,7 @@
 2010-01-26
+  arcenciel <arcenciel@users.sourceforge.net>
+    8bd520e  Updated Japanese Translation
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     57ef6e6  Fix texture assignment in server
     cf9c337  Fix enable-state of usermenu
@@ -8,6 +11,9 @@
     89a0f32  Make database work on sha1 for comment seen state
     63568fd  Client-side blob cache for comments
     e51a048  Make Win32 OGL overlay work in windowed mode
+
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
+    8b56834  Polish translation
 
 2010-01-25
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -28,6 +34,9 @@
     2322bec  Clean up texture assignment
 
 2010-01-23
+  Natenom <natenom@googlemail.com>
+    b1884ac  Updated German Translations
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     7b30742  Add placeholder SharedMem unix implementation
     9dfc063  Add missing SharedMem files
