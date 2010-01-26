@@ -1044,8 +1044,6 @@ void MainWindow::qmUser_aboutToShow() {
 	if (! p) {
 		qaUserKick->setEnabled(false);
 		qaUserBan->setEnabled(false);
-		qaUserMute->setEnabled(false);
-		qaUserDeaf->setEnabled(false);
 		qaUserTextMessage->setEnabled(false);
 		qaUserLocalMute->setEnabled(false);
 		qaUserComment->setEnabled(false);
@@ -1054,8 +1052,6 @@ void MainWindow::qmUser_aboutToShow() {
 	} else {
 		qaUserKick->setEnabled(! self);
 		qaUserBan->setEnabled(! self);
-		qaUserMute->setEnabled(! self || p->bMute || p->bSuppress);
-		qaUserDeaf->setEnabled(! self || p->bDeaf);
 		qaUserTextMessage->setEnabled(true);
 		qaUserLocalMute->setEnabled(! self);
 		qaUserComment->setEnabled(self);
@@ -1556,11 +1552,17 @@ void MainWindow::updateMenuPermissions() {
 		homec->uiPermissions = homep;
 	}
 
-	qaUserMute->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen));
-	qaUserDeaf->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen));
-	qaUserTextMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
-
-	qaUserInformation->setEnabled((g.pPermissions & (ChanACL::Write | ChanACL::Register)) || (p & (ChanACL::Write | ChanACL::Enter)) || (cu == user));
+	if (cu) {
+		qaUserMute->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen) && (cu != user) && (cu->bMute || cu->bSuppress));
+		qaUserDeaf->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen) && cu->bDeaf);
+		qaUserTextMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
+		qaUserInformation->setEnabled((g.pPermissions & (ChanACL::Write | ChanACL::Register)) || (p & (ChanACL::Write | ChanACL::Enter)) || (cu == user));
+	} else {
+		qaUserMute->setEnabled(false);
+		qaUserDeaf->setEnabled(false);
+		qaUserTextMessage->setEnabled(false);
+		qaUserInformation->setEnabled(false);
+	}
 
 	qaChannelAdd->setEnabled(p & (ChanACL::Write | ChanACL::MakeChannel | ChanACL::MakeTempChannel));
 	qaChannelRemove->setEnabled(p & ChanACL::Write);
