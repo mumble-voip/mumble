@@ -933,9 +933,10 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 	if (! tex.isEmpty())
 		tex = qCompress(tex);
 
-	ServerUser *u = qhUsers.value(id);
-	if (u)
-		hashAssign(u->qbaTexture, u->qbaTextureHash, tex);
+	foreach(ServerUser *u, qhUsers) {
+		if (u->iId == id)
+			hashAssign(u->qbaTexture, u->qbaTextureHash, tex);
+	}
 
 	int res = -2;
 	emit setTextureSig(res, id, tex);

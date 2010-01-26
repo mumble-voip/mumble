@@ -1562,16 +1562,16 @@ void Server::recheckCodecVersions() {
 
 void Server::hashAssign(QString &dest, QByteArray &hash, const QString &src) {
 	dest = src;
-	if (src.length() > 128)
-		hash = sha1(dest);
+	if (src.length() >= 128)
+		hash = sha1(src);
 	else
 		hash = QByteArray();
 }
 
 void Server::hashAssign(QByteArray &dest, QByteArray &hash, const QByteArray &src) {
 	dest = src;
-	if (src.length() > 128)
-		hash = sha1(dest);
+	if (src.length() >= 128)
+		hash = sha1(src);
 	else
 		hash = QByteArray();
 }
