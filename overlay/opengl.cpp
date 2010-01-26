@@ -243,6 +243,15 @@ void Context::draw(HDC hdc) {
 
 	width = oGetDeviceCaps(hdc, HORZRES);
 	height = oGetDeviceCaps(hdc, VERTRES);
+	
+	HWND hwnd = WindowFromDC(hdc);
+	if (hwnd) {
+		RECT r;
+		if (GetClientRect(hwnd, &r)) {
+			width = r.right - r.left;
+			height = r.bottom - r.top;
+		}
+	}
 
 	ods("OpenGL: DrawStart: Screen is %d x %d", width, height);
 	
