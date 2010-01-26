@@ -508,12 +508,15 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 									return p->qsName;
 							} else {
 								if (p->qsComment.isEmpty()) {
-									const_cast<UserModel *>(this)->uiSessionComment = p->uiSession;
+									p->qsComment = QString::fromUtf8(Database::blob(p->qbaCommentHash));
+									if (p->qsComment.isEmpty()) {
+										const_cast<UserModel *>(this)->uiSessionComment = p->uiSession;
 
-									MumbleProto::RequestBlob mprb;
-									mprb.add_session_comment(p->uiSession);
-									g.sh->sendMessage(mprb);
-									return QVariant();
+										MumbleProto::RequestBlob mprb;
+										mprb.add_session_comment(p->uiSession);
+										g.sh->sendMessage(mprb);
+										return QVariant();
+									}
 								}
 								const_cast<UserModel *>(this)->seenComment(idx);
 								QString base = Log::validHtml(p->qsComment);
@@ -526,12 +529,15 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 								return c->qsName;
 							} else {
 								if (c->qsDesc.isEmpty()) {
-									const_cast<UserModel *>(this)->iChannelDescription = c->iId;
+									c->qsDesc = QString::fromUtf8(Database::blob(c->qbaDescHash));
+									if (c->qsDesc.isEmpty()) {
+										const_cast<UserModel *>(this)->iChannelDescription = c->iId;
 
-									MumbleProto::RequestBlob mprb;
-									mprb.add_channel_description(c->iId);
-									g.sh->sendMessage(mprb);
-									return QVariant();
+										MumbleProto::RequestBlob mprb;
+										mprb.add_channel_description(c->iId);
+										g.sh->sendMessage(mprb);
+										return QVariant();
+									}
 								}
 
 								const_cast<UserModel *>(this)->seenComment(idx);
@@ -946,6 +952,7 @@ void UserModel::setComment(ClientUser *cu, const QString &comment) {
 		cu->qbaCommentHash = comment.isEmpty() ? QByteArray() : sha1(comment);
 
 		if (! comment.isEmpty()) {
+			Database::setBlob(cu->qbaCommentHash, cu->qsComment.toUtf8());
 			if (cu->uiSession == uiSessionComment) {
 				uiSessionComment = 0;
 				item->bCommentSeen = false;
@@ -979,7 +986,7 @@ void UserModel::setCommentHash(ClientUser *cu, const QByteArray &hash) {
 
 		cu->qsComment = QString();
 		cu->qbaCommentHash = hash;
-
+		
 		item->bCommentSeen = Database::seenComment(item->hash(), hash);
 		newstate = item->bCommentSeen ? 2 : 1;
 
@@ -1000,6 +1007,8 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 		c->qbaDescHash = comment.isEmpty() ? QByteArray() : sha1(comment);
 
 		if (! comment.isEmpty()) {
+			Database::setBlob(c->qbaDescHash, c->qsDesc.toUtf8());
+
 			if (c->iId == iChannelDescription) {
 				iChannelDescription = -1;
 				item->bCommentSeen = false;

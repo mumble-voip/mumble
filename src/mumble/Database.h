@@ -63,6 +63,9 @@ class Database : public QObject {
 		static bool seenComment(const QString &hash, const QString &comment);
 		static bool seenComment(const QString &hash, const QByteArray &commenthash);
 		static void setSeenComment(const QString &hash, const QString &comment);
+		
+		static QByteArray blob(const QByteArray &hash);
+		static void setBlob(const QByteArray &hash, const QByteArray &blob);
 
 		static QStringList getTokens(const QByteArray &digest);
 		static void setTokens(const QByteArray &digest, QStringList &tokens);

@@ -101,6 +101,10 @@ Database::Database() {
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `comments_comment` ON `comments`(`who`, `comment`)"));
 	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `comments_seen` ON `comments`(`seen`)"));
 
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `blobs` (`hash` TEXT, `data` BLOB, `seen` DATE)"));
+	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `blobs_hash` ON `blobs`(`hash`)"));
+	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `blobs_seen` ON `blobs`(`seen`)"));
+
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `tokens` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `digest` BLOB, `token` TEXT)"));
 	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `tokens_host_port` ON `tokens`(`digest`)"));
 
@@ -124,6 +128,9 @@ Database::Database() {
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `pingcache_host_port` ON `pingcache`(`hostname`,`port`)"));
 
 	query.exec(QLatin1String("DELETE FROM `comments` WHERE `seen` < datetime('now', '-1 years')"));
+	query.exec(QLatin1String("DELETE FROM `blobs` WHERE `seen` < datetime('now', '-1 months')"));
+	
+	query.exec(QLatin1String("VACUUM"));
 }
 
 QList<FavoriteServer> Database::getFavorites() {
@@ -267,6 +274,36 @@ void Database::setSeenComment(const QString &hash, const QString &comment) {
 	query.prepare(QLatin1String("REPLACE INTO `comments` (`who`, `comment`, `seen`) VALUES (?, ?, datetime('now'))"));
 	query.addBindValue(hash);
 	query.addBindValue(sha1(comment));
+	query.exec();
+}
+
+QByteArray Database::blob(const QByteArray &hash) {
+	QSqlQuery query;
+
+	query.prepare(QLatin1String("SELECT `data` FROM `blobs` WHERE `hash` = ?"));
+	query.addBindValue(hash);
+	query.exec();
+	if (query.next()) {
+		QByteArray qba = query.value(0).toByteArray();
+		
+		query.prepare(QLatin1String("UPDATE `blobs` SET `seen` = datetime('now') WHERE `hash` = ?"));
+		query.addBindValue(hash);
+		query.exec();
+
+		return qba;
+	}
+	return QByteArray();
+}
+
+void Database::setBlob(const QByteArray &hash, const QByteArray &data) {
+	if (hash.isEmpty() || data.isEmpty())
+		return;
+
+	QSqlQuery query;
+	
+	query.prepare(QLatin1String("REPLACE INTO `blobs` (`hash`, `data`, `seen`) VALUES (?, ?, datetime('now'))"));
+	query.addBindValue(hash);
+	query.addBindValue(data);
 	query.exec();
 }
 
