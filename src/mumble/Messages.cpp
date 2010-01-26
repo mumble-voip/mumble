@@ -289,9 +289,13 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 
 				if (msg.has_suppress()) {
 					if (pDst->bSuppress)
-						g.l->log(Log::YouMuted, tr("You were suppressed by %1.").arg(Log::formatClientUser(pSrc, Log::Source)));
-					else
-						g.l->log(Log::YouMuted, tr("You were unsuppressed by %1.").arg(Log::formatClientUser(pSrc, Log::Source)));
+						g.l->log(Log::YouMuted, tr("You were suppressed."));
+					else {
+						if (msg.has_channel_id())
+							g.l->log(Log::YouMuted, tr("You were unsuppressed."));
+						else
+							g.l->log(Log::YouMuted, tr("You were unsuppressed by %1.").arg(Log::formatClientUser(pSrc, Log::Source)));
+					}
 				}
 
 				updateTrayIcon();
@@ -315,10 +319,12 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 				}
 
 				if (msg.has_suppress()) {
-					if (pDst->bSuppress)
-						g.l->log(Log::YouMutedOther, tr("You suppressed %1.").arg(Log::formatClientUser(pDst, Log::Target)));
-					else
-						g.l->log(Log::YouMutedOther, tr("You unsuppressed %1.").arg(Log::formatClientUser(pDst, Log::Target)));
+					if (! msg.has_channel_id()) {
+						if (pDst->bSuppress)
+							g.l->log(Log::YouMutedOther, tr("You suppressed %1.").arg(Log::formatClientUser(pDst, Log::Target)));
+						else
+							g.l->log(Log::YouMutedOther, tr("You unsuppressed %1.").arg(Log::formatClientUser(pDst, Log::Target)));
+					}
 				}
 			} else {
 				if (msg.has_mute() && msg.has_deaf() && pDst->bMute && pDst->bDeaf) {
@@ -340,10 +346,12 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 				}
 
 				if (msg.has_suppress()) {
-					if (pDst->bSuppress)
-						g.l->log(Log::OtherMutedOther, tr("%1 suppressed by %2.").arg(Log::formatClientUser(pDst, Log::Target), Log::formatClientUser(pSrc, Log::Source)));
-					else
-						g.l->log(Log::OtherMutedOther, tr("%1 unsuppressed by %2.").arg(Log::formatClientUser(pDst, Log::Target), Log::formatClientUser(pSrc, Log::Source)));
+					if (! msg.has_channel_id()) {
+						if (pDst->bSuppress)
+							g.l->log(Log::OtherMutedOther, tr("%1 suppressed by %2.").arg(Log::formatClientUser(pDst, Log::Target), Log::formatClientUser(pSrc, Log::Source)));
+						else
+							g.l->log(Log::OtherMutedOther, tr("%1 unsuppressed by %2.").arg(Log::formatClientUser(pDst, Log::Target), Log::formatClientUser(pSrc, Log::Source)));
+					}
 				}
 			}
 		}
