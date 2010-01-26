@@ -131,9 +131,7 @@ static bool bChaining = false;
 class Context : protected Pipe {
 	public:
 		HGLRC ctx;
-		GLuint textures[NUM_TEXTS];
 		GLuint texture;
-		unsigned int uiCounter[NUM_TEXTS];
 
 		Context(HDC hdc);
 		void draw(HDC hdc);
@@ -146,8 +144,6 @@ class Context : protected Pipe {
 Context::Context(HDC hdc) {
 	ctx = owglCreateContext(hdc);
 	owglMakeCurrent(hdc, ctx);
-
-	oglGenTextures(NUM_TEXTS, textures);
 
 	// Here we go. From the top. Where is glResetState?
 	oglDisable(GL_ALPHA_TEST);

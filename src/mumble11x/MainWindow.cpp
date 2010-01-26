@@ -45,7 +45,6 @@
 #include "AudioStats.h"
 #include "Plugins.h"
 #include "Log.h"
-#include "Overlay.h"
 #include "Global.h"
 #include "Database.h"
 #include "ViewCert.h"
@@ -212,7 +211,6 @@ void MainWindow::createActions() {
 	gsToggleOverlay->setObjectName(QLatin1String("ToggleOverlay"));
 	gsToggleOverlay->qsToolTip = tr("Toggle state of in-game overlay.", "Global Shortcut");
 	gsToggleOverlay->qsWhatsThis = tr("This will switch the states of the ingame overlay between showing everybody, just the players who are talking, and nobody.", "Global Shortcut");
-	connect(gsToggleOverlay, SIGNAL(down()), g.o, SLOT(toggleShow()));
 
 	gsAltTalk=new GlobalShortcut(this, idx++, tr("Alt Push-to-Talk", "Global Shortcut"));
 	gsAltTalk->setObjectName(QLatin1String("AltPushToTalk"));

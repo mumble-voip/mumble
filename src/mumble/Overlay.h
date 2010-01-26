@@ -40,21 +40,6 @@
 class User;
 class Overlay;
 
-class SharedMemoryPrivate;
-class SharedMemory {
-	private:
-		Q_DISABLE_COPY(SharedMemory)
-	protected:
-		SharedMemoryPrivate *d;
-	public:
-		SharedMem *sm;
-		SharedMemory();
-		~SharedMemory();
-		void resolve(QLibrary *lib);
-		bool tryLock();
-		void unlock();
-};
-
 class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 	private:
 		Q_OBJECT
@@ -90,6 +75,7 @@ struct OverlayTextLine {
 	Decoration dDecor;
 	int iPriority;
 	QRect qrRect;
+	QByteArray qbaHash;
 	OverlayTextLine() : uiSession(0), uiColor(0), dDecor(None), iPriority(0) { };
 	OverlayTextLine(const QString &t, quint32 c, int priority = 0, unsigned int session = 0, Decoration d = None) : qsText(t), uiSession(session), uiColor(c), dDecor(d), iPriority(priority) { };
 	bool operator <(const OverlayTextLine &o) const;
@@ -147,21 +133,12 @@ class Overlay : public QObject {
 	protected:
 		OverlayPrivate *d;
 
-		QByteArray qbaMuted, qbaDeafened;
 		QList<OverlayTextLine> qlCurrentTexts;
-		QHash<QString, unsigned char *> qhTextures;
-		QHash<QString, short> qhWidths;
-		QSet<unsigned int> qsForce;
 		QSet<unsigned int> qsQueried;
-		QTimer *qtTimer;
-		QFont qfFont;
-		float fFontBase;
-		SharedMemory sm;
+
 		QSvgRenderer qsrMuted, qsrDeafened;
 		void platformInit();
 		void setTexts(const QList<OverlayTextLine> &lines);
-		void fixFont();
-		void clearCache();
 
 		QLocalServer *qlsServer;
 		QList<OverlayClient *> qlClients;
@@ -173,9 +150,8 @@ class Overlay : public QObject {
 		Overlay();
 		~Overlay();
 		bool isActive() const;
-		void verifyTexture(ClientUser *cp);
+		void verifyTexture(ClientUser *cp, bool allowupdate = true);
 	public slots:
-		void on_Timer_timeout();
 		void updateOverlay();
 		void setActive(bool act);
 		void toggleShow();

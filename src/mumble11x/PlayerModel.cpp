@@ -35,7 +35,6 @@
 #include "Channel.h"
 #include "Player.h"
 #include "Global.h"
-#include "Overlay.h"
 #include "LCD.h"
 #include "Log.h"
 
@@ -1012,7 +1011,6 @@ bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, co
 }
 
 void PlayerModel::updateOverlay() const {
-	g.o->updateOverlay();
 	g.lcd->updatePlayerView();
 }
 

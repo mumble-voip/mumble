@@ -101,7 +101,7 @@ bool Channel::lessThan(const Channel *first, const Channel *second) {
 }
 
 bool Channel::isLinked(Channel *l) const {
-	return qhLinks.contains(l);
+	return ((l == this) || qhLinks.contains(l));
 }
 
 void Channel::link(Channel *l) {

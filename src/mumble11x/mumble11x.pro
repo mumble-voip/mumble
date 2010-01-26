@@ -3,15 +3,15 @@ include(../../compiler.pri)
 TEMPLATE	= app
 QT		*= network sql opengl xml
 TARGET		= mumble11x
-HEADERS		= BanEditor.h ACLEditor.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h MainWindow.h ServerHandler.h About.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h PlayerModel.h Audio.h ConfigDialog.h Plugins.h LookConfig.h Overlay.h  AudioWizard.h ViewCert.h TextMessage.h NetworkConfig.h LCD.h Usage.h ConfigWidget.h
-SOURCES		= BanEditor.cpp ACLEditor.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp PlayerModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp LookConfig.cpp Overlay.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp TextMessage.cpp GlobalShortcut.cpp NetworkConfig.cpp LCD.cpp Usage.cpp ConfigWidget.cpp
+HEADERS		= BanEditor.h ACLEditor.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h MainWindow.h ServerHandler.h About.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h PlayerModel.h Audio.h ConfigDialog.h Plugins.h LookConfig.h AudioWizard.h ViewCert.h TextMessage.h NetworkConfig.h LCD.h Usage.h ConfigWidget.h
+SOURCES		= BanEditor.cpp ACLEditor.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp main.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp PlayerModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp LookConfig.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp TextMessage.cpp GlobalShortcut.cpp NetworkConfig.cpp LCD.cpp Usage.cpp ConfigWidget.cpp
 SOURCES *= ../Timer.cpp ../CryptState.cpp ../OSInfo.cpp
 HEADERS *= Message.h Player.h  Channel.h ACL.h Connection.h Group.cpp
 SOURCES *= Message.cpp Player.cpp Channel.cpp ACL.cpp Connection.cpp
 SOURCES *= smallft.cpp
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble11x.plist
 RESOURCES	*= mumble.qrc
-FORMS	*= ConfigDialog.ui MainWindow.ui ConnectDialog.ui BanEditor.ui ACLEditor.ui Plugins.ui Overlay.ui LookConfig.ui AudioInput.ui AudioOutput.ui Log.ui TextMessage.ui AudioStats.ui NetworkConfig.ui LCD.ui GlobalShortcut.ui
+FORMS	*= ConfigDialog.ui MainWindow.ui ConnectDialog.ui BanEditor.ui ACLEditor.ui Plugins.ui LookConfig.ui AudioInput.ui AudioOutput.ui Log.ui TextMessage.ui AudioStats.ui NetworkConfig.ui LCD.ui GlobalShortcut.ui
 TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_fr.ts mumble_it.ts mumble_ru.ts mumble_cs.ts mumble_ja.ts mumble_pl.ts mumble_zh_CN.ts mumble_zh_TW.ts
 PRECOMPILED_HEADER = mumble_pch.hpp
 
@@ -71,7 +71,7 @@ CONFIG(no-crash-report) {
 win32 {
   RC_FILE	= mumble.rc
   HEADERS	*= GlobalShortcut_win.h
-  SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp os_win.cpp
+  SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp os_win.cpp
   LIBS		*= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -l"$$(DXSDK_DIR)Lib/x86/dinput8" -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32 -llibogg -ldbghelp
   LIBS		*= -ldelayimp -lQwave -delayload:Qwave.DLL
 
@@ -129,7 +129,7 @@ unix {
     }
 
     HEADERS *= GlobalShortcut_unix.h
-    SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp
+    SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp
     LIBS *= -lrt
   }
 
@@ -145,7 +145,7 @@ unix {
     QMAKE_PKGINFO_TYPEINFO = MBLE
 
     HEADERS *= GlobalShortcut_macx.h ConfigDialogDelegate.h
-    SOURCES *= TextToSpeech_macx.cpp Overlay_unix.cpp GlobalShortcut_macx.cpp os_macx.cpp
+    SOURCES *= TextToSpeech_macx.cpp GlobalShortcut_macx.cpp os_macx.cpp
 
     !CONFIG(no-cocoa) {
         SOURCES -= ConfigDialog.cpp

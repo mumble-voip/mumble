@@ -35,28 +35,9 @@
 #include "Global.h"
 
 typedef void (__cdecl *HooksProc)();
-typedef SharedMem * (__cdecl *GetSharedMemProc)();
 typedef unsigned int (__cdecl *GetOverlayMagicVersionProc)();
 typedef void (__cdecl *PrepProc)();
 typedef void (__cdecl *PrepDXGIProc)();
-
-SharedMemory::SharedMemory() {
-	d = NULL;
-	sm = NULL;
-}
-
-SharedMemory::~SharedMemory() {
-}
-
-void SharedMemory::resolve(QLibrary *) {
-}
-
-bool SharedMemory::tryLock() {
-	return false;
-}
-
-void SharedMemory::unlock() {
-}
 
 class OverlayPrivateWin : public OverlayPrivate {
 	protected:
@@ -121,9 +102,4 @@ void Overlay::platformInit() {
 
 void Overlay::setActive(bool act) {
 	static_cast<OverlayPrivateWin *>(d)->setActive(act);
-}
-
-void Overlay::on_Timer_timeout() {
-	if (sm.sm)
-		sm.sm->lastAppAlive = GetTickCount();
 }

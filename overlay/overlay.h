@@ -33,44 +33,6 @@
 
 #define OVERLAY_MAGIC_NUMBER 0x00000005
 
-#define TEXT_WIDTH 600
-#define TEXT_HEIGHT 60
-#define NUM_TEXTS 32
-
-#define TEXTURE_SIZE (TEXT_WIDTH*TEXT_HEIGHT*4)
-
-#define OVERLAY_VERSION_MAJ 1
-#define OVERLAY_VERSION_MIN 1
-#define OVERLAY_VERSION_PATCH 7
-#define OVERLAY_VERSION_SUB 0
-
-struct TextEntry {
-	unsigned int color;
-	wchar_t text[128];
-	unsigned int uiCounter;
-	short width;
-	unsigned char texture[TEXTURE_SIZE];
-};
-
-struct SharedMem {
-	unsigned char version[4];
-	unsigned int lastAppAlive;
-	bool bHooked;
-	bool bDebug;
-	bool bShow;
-	bool bReset;
-	float fX, fY;
-	bool bTop, bBottom, bLeft, bRight;
-	float fFontSize;
-
-	unsigned int uiAudioTick;
-	float fPos[3];
-	float fFront[3];
-	float fTop[3];
-
-	struct TextEntry texts[NUM_TEXTS];
-};
-
 struct OverlayMsgHeader {
 	unsigned int uiMagic;
 	int iLength;

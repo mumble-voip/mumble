@@ -28,7 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "Overlay.h"
 #include "MainWindow.h"
 #include "ServerHandler.h"
 #include "AudioInput.h"
@@ -206,9 +205,6 @@ int main(int argc, char **argv) {
 	g.sh = new ServerHandler();
 	g.sh->moveToThread(g.sh);
 
-	g.o = new Overlay();
-	g.o->setActive(g.s.bOverlayEnable);
-
 	g.lcd = new LCD();
 
 	// Process any waiting events before initializing our MainWindow.
@@ -294,9 +290,6 @@ int main(int argc, char **argv) {
 
 	delete g.db;
 	delete g.l;
-
-
-	delete g.o;
 
 	delete g.qs;
 

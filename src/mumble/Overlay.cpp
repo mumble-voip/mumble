@@ -33,6 +33,7 @@
 #include "Channel.h"
 #include "Global.h"
 #include "Message.h"
+#include "Database.h"
 #include "ServerHandler.h"
 
 static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
@@ -491,10 +492,11 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		if (ti)
 			nr = QRect(g.s.bOverlayLeft ? x : x + iItemHeight, y + ti->iOffset, ti->qiImage.width(), ti->qiImage.height());
 
-		if ((src.uiColor != dst.uiColor) || (src.qsText != dst.qsText)) {
+		if ((src.uiColor != dst.uiColor) || (src.qsText != dst.qsText) || (key.first != dst.qbaHash)) {
 			dst.dDecor = OverlayTextLine::None;
 			dst.uiColor = src.uiColor;
 			dst.qsText = src.qsText;
+			dst.qbaHash = key.first;
 
 			if (dst.qrRect.isValid()) {
 				dirty |= dst.qrRect;
@@ -610,16 +612,8 @@ bool OverlayTextLine::operator <(const OverlayTextLine &other) const {
 Overlay::Overlay() : QObject() {
 	d = NULL;
 
-	QImage img;
-	img = QIcon(QLatin1String("skin:muted_self.svg")).pixmap(60,60).toImage();
-	qbaMuted = QByteArray(reinterpret_cast<const char *>(img.bits()), img.numBytes());
-
-	img = QIcon(QLatin1String("skin:deafened_self.svg")).pixmap(60,60).toImage();
-	qbaDeafened = QByteArray(reinterpret_cast<const char *>(img.bits()), img.numBytes());
-
-	qtTimer=new QTimer(this);
-	qtTimer->setObjectName(QLatin1String("Timer"));
-	qtTimer->start(1000);
+	qsrMuted.load(QLatin1String("skin:muted_self.svg"));
+	qsrDeafened.load(QLatin1String("skin:deafened_self.svg"));
 
 	platformInit();
 	forceSettings();
@@ -639,18 +633,12 @@ Overlay::Overlay() : QObject() {
 	}
 #endif
 
-
-
-	// FIXME: Only do this if loading the dll failed.
 	if (! qlsServer->listen(pipepath)) {
 		QMessageBox::warning(NULL, tr("Mumble"), tr("Failed to create communication with overlay at %2: %1. No overlay will be available.").arg(qlsServer->errorString(),pipepath), QMessageBox::Ok, QMessageBox::NoButton);
 	} else {
 		qWarning() << "Overlay: Listening on" << qlsServer->fullServerName();
 		connect(qlsServer, SIGNAL(newConnection()), this, SLOT(newConnection()));
 	}
-
-	qsrMuted.load(QLatin1String("skin:muted_self.svg"));
-	qsrDeafened.load(QLatin1String("skin:deafened_self.svg"));
 
 	QMetaObject::connectSlotsByName(this);
 }
@@ -690,10 +678,7 @@ void Overlay::error(QLocalSocket::LocalSocketError) {
 }
 
 bool Overlay::isActive() const {
-	if (! sm.sm)
-		return false;
-
-	return sm.sm->bHooked;
+	return ! qlClients.isEmpty();
 }
 
 void Overlay::toggleShow() {
@@ -712,30 +697,10 @@ void Overlay::toggleShow() {
 	}
 	g.s.osOverlay = ns;
 
-	if (sm.sm && sm.tryLock()) {
-		sm.sm->bShow = (g.s.osOverlay != Settings::Nothing);
-		sm.unlock();
-	}
 	updateOverlay();
 }
 
 void Overlay::forceSettings() {
-	QString str;
-
-	fixFont();
-
-	if (sm.sm && sm.tryLock()) {
-		sm.sm->fX = g.s.fOverlayX;
-		sm.sm->fY = g.s.fOverlayY;
-		sm.sm->bTop = g.s.bOverlayTop;
-		sm.sm->bBottom = g.s.bOverlayBottom;
-		sm.sm->bLeft = g.s.bOverlayLeft;
-		sm.sm->bRight = g.s.bOverlayRight;
-		sm.sm->bReset = true;
-		sm.sm->bShow = (g.s.osOverlay != Settings::Nothing);
-		sm.sm->fFontSize = g.s.fOverlayHeight;
-		sm.unlock();
-	}
 	foreach(OverlayClient *oc, qlClients) {
 		oc->reset();
 	}
@@ -743,28 +708,34 @@ void Overlay::forceSettings() {
 	updateOverlay();
 }
 
-void Overlay::verifyTexture(ClientUser *cp) {
-	qsForce.insert(cp->uiSession);
-	if (! cp->qbaTexture.isEmpty() && (cp->qbaTexture.size() != TEXTURE_SIZE)) {
+void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
+	if (! cp->qbaTexture.isEmpty() && (cp->qbaTexture.size() != (600*60*4))) {
 		cp->qbaTexture = qUncompress(cp->qbaTexture);
-		if (cp->qbaTexture.size() != TEXTURE_SIZE)
+		if (cp->qbaTexture.size() != (600*60*4)) {
 			cp->qbaTexture = QByteArray();
+			cp->qbaTextureHash = QByteArray();
+		}
 	}
 	if (cp->qbaTexture.isEmpty()) {
 		cp->iTextureWidth = 0;
-		return;
+	} else {
+		unsigned char *data = reinterpret_cast<unsigned char *>(cp->qbaTexture.data());
+		int width = 0;
+		// If we have an alpha only part on the right side of the image ignore it
+		for (int y=0;y<60;++y) {
+			for (int x=0;x<600; ++x) {
+				if ((x > width) && (data[(y*600+x)*4 + 3] != 0x00))
+					width = x;
+			}
+		}
+		cp->iTextureWidth = width + 1;
 	}
 
-	unsigned char *data = reinterpret_cast<unsigned char *>(cp->qbaTexture.data());
-	int width = 0;
-	// If we have an alpha only part on the right side of the image ignore it
-	for (int y=0;y<TEXT_HEIGHT;++y) {
-		for (int x=0;x<TEXT_WIDTH; ++x) {
-			if ((x > width) && (data[(y*TEXT_WIDTH+x)*4 + 3] != 0x00))
-				width = x;
-		}
-	}
-	cp->iTextureWidth = width + 1;
+	ClientUser *self = ClientUser::get(g.uiSession);
+	if (allowupdate && self && self->cChannel->isLinked(cp->cChannel))
+		setTexts(qlCurrentTexts);
+		
+	qsQueried.remove(cp->uiSession);
 }
 
 typedef QPair<QString, quint32> qpChanCol;
@@ -779,11 +750,8 @@ void Overlay::updateOverlay() {
 	QList<qpChanCol> linkchans;
 	QList<OverlayTextLine> lines;
 
-	if (! isActive() && qlClients.isEmpty())
-		return;
-
 	if (! g.uiSession) {
-		clearCache();
+		qsQueried.clear();
 		setTexts(lines);
 		return;
 	}
@@ -857,90 +825,24 @@ void Overlay::updateOverlay() {
 	setTexts(lines);
 }
 
-/*
- * Here's the thing. The painterpath, and what you get if you just use painter. They're different.
- * The font metrics? They must be for martian charaters; human ones fit inside a much smaller box.
- *
- * So. If at first you don't succeed, try and try again.
- */
-
-void Overlay::fixFont() {
-	qfFont = g.s.qfOverlayFont;
-
-	qfFont.setStyleStrategy(QFont::ForceOutline);
-
-	int psize = TEXT_HEIGHT;
-
-	QRectF br;
-
-	do {
-		qfFont.setPixelSize(psize--);
-		QPainterPath qp;
-		qp.addText(0, 0, qfFont, QLatin1String("Üy"));
-		br=qp.boundingRect();
-	} while ((br.height()+2) > TEXT_HEIGHT);
-
-	fFontBase = static_cast<float>(fabs(br.top()));
-
-	clearCache();
-
-	qlCurrentTexts.clear();
-}
-
-void Overlay::clearCache() {
-	foreach(unsigned char *ptr, qhTextures)
-		delete [] ptr;
-
-	qhTextures.clear();
-	qhWidths.clear();
-	qsForce.clear();
-	qsQueried.clear();
-}
-
 void Overlay::setTexts(const QList<OverlayTextLine> &lines) {
-	QSet<unsigned int> query;
+	qlCurrentTexts = lines;
 
-	foreach(OverlayClient *oc, qlClients) {
-		if (! oc->setTexts(lines)) {
-			qWarning() << "DEAD CLIENT";
-			qlClients.removeAll(oc);
-			delete oc;
-			break;
-		}
-	}
+	if (qlClients.isEmpty())
+		return;
+	
+	QSet<unsigned int> query;
 
 	foreach(const OverlayTextLine &e, lines) {
 		ClientUser *cp = ClientUser::get(e.uiSession);
 		if (g.s.bOverlayUserTextures && cp && ! cp->qbaTextureHash.isEmpty()) {
-			if (cp->qbaTexture.isEmpty() && ! qsQueried.contains(cp->uiSession))
-				query.insert(cp->uiSession);
-			else if (! cp->qbaTexture.isEmpty() && qsQueried.contains(cp->uiSession))
-				qsQueried.remove(cp->uiSession);
-		}
-		if ((! e.qsText.isEmpty()) && (! qhTextures.contains(e.qsText)) && !(g.s.bOverlayUserTextures && cp && cp->iTextureWidth)) {
-			unsigned char *td = new unsigned char[TEXTURE_SIZE];
-			memset(td, 0, TEXTURE_SIZE);
-
-			QImage qi(td, TEXT_WIDTH, TEXT_HEIGHT, QImage::Format_ARGB32);
-
-			QPainterPath qp;
-			qp.addText(2, fFontBase, qfFont, e.qsText);
-
-			QPainter p(&qi);
-			p.setRenderHint(QPainter::Antialiasing);
-			p.setRenderHint(QPainter::TextAntialiasing);
-			p.setBrush(Qt::white);
-
-			// Draw with big border, this will be the "outline"
-			p.setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-			p.drawPath(qp);
-
-			// And again, all white with no border. This avoids thin fonts being just black outline.
-			p.setPen(Qt::NoPen);
-			p.drawPath(qp);
-
-			qhTextures[e.qsText] = td;
-			qhWidths[e.qsText] = qMin(static_cast<short>(qp.boundingRect().width()+6), static_cast<short>(TEXT_WIDTH));
+			if (cp->qbaTexture.isEmpty() && ! qsQueried.contains(cp->uiSession)) {
+				cp->qbaTexture=Database::blob(cp->qbaTextureHash);
+				if (cp->qbaTexture.isEmpty())
+					query.insert(cp->uiSession);
+				else
+					verifyTexture(cp, false);
+			}
 		}
 	}
 
@@ -953,77 +855,12 @@ void Overlay::setTexts(const QList<OverlayTextLine> &lines) {
 		g.sh->sendMessage(mprb);
 	}
 
-	qlCurrentTexts = lines;
-
-	if (! sm.sm || ! sm.tryLock())
-		return;
-
-	int i;
-
-	for (i=0;i<lines.count();i++) {
-		if (i >= NUM_TEXTS)
+	foreach(OverlayClient *oc, qlClients) {
+		if (! oc->setTexts(lines)) {
+			qWarning() << "Overlay: Dead client detected";
+			qlClients.removeAll(oc);
+			delete oc;
 			break;
-
-		const OverlayTextLine &tl = lines.at(i);
-		TextEntry *te = & sm.sm->texts[i];
-
-		tl.qsText.left(127).toWCharArray(te->text);
-		te->color = lines[i].uiColor;
-
-		if ((i >= qlCurrentTexts.count()) || (qlCurrentTexts[i].dDecor != tl.dDecor) || (qlCurrentTexts[i].qsText != tl.qsText) || qsForce.contains(tl.uiSession)) {
-			if (tl.qsText.isNull()) {
-				te->width = 0;
-			} else {
-				int width = 0;
-				const unsigned char *src = NULL;
-				ClientUser *cp = ClientUser::get(tl.uiSession);
-
-				if (g.s.bOverlayUserTextures && cp && cp->iTextureWidth) {
-					width = cp->iTextureWidth;
-					src = reinterpret_cast<const unsigned char *>(cp->qbaTexture.constData());
-				} else {
-					width = qhWidths[tl.qsText];
-					src = qhTextures[tl.qsText];
-				}
-
-				unsigned char * dst = NULL;
-
-				if (tl.dDecor != OverlayTextLine::None) {
-					unsigned char * decdst;
-					const unsigned char * decsrc = reinterpret_cast<const unsigned char *>((tl.dDecor == OverlayTextLine::Muted) ? qbaMuted.constData() : qbaDeafened.constData());
-
-					width = qMin(TEXT_WIDTH - TEXT_HEIGHT, width);
-					if (g.s.bOverlayLeft) {
-						dst = sm.sm->texts[i].texture + TEXT_HEIGHT * 4;
-						decdst = sm.sm->texts[i].texture;
-					} else {
-						dst = sm.sm->texts[i].texture;
-						decdst = sm.sm->texts[i].texture + width * 4;
-					}
-					for (int j=0;j<TEXT_HEIGHT;j++)
-						memcpy(decdst + j * TEXT_WIDTH * 4, decsrc + j * TEXT_HEIGHT * 4, TEXT_HEIGHT * 4);
-
-				} else {
-					width = qMin(TEXT_WIDTH, width);
-					dst = sm.sm->texts[i].texture;
-				}
-
-				for (int j=0;j<TEXT_HEIGHT;j++)
-					memcpy(dst + j * TEXT_WIDTH * 4, src + j * TEXT_WIDTH * 4, width * 4);
-
-				if (tl.dDecor != OverlayTextLine::None)
-					width += TEXT_HEIGHT;
-
-				te->width = static_cast<short>(width);
-				te->uiCounter++;
-			}
-			qsForce.remove(tl.uiSession);
 		}
 	}
-
-	for (;i<NUM_TEXTS;i++) {
-		sm.sm->texts[i].width = -1;
-	}
-
-	sm.unlock();
 }

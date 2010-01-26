@@ -45,7 +45,6 @@
 #include "AudioStats.h"
 #include "Plugins.h"
 #include "Log.h"
-#include "Overlay.h"
 #include "Global.h"
 #include "Database.h"
 #include "ViewCert.h"
@@ -374,9 +373,7 @@ void MainWindow::msgPing(Connection *, MessagePing *) {
 void MainWindow::msgPingStats(Connection *, MessagePingStats *) {
 }
 
-void MainWindow::msgTexture(Connection *, MessageTexture *msg) {
-	if (! msg->qbaTexture.isEmpty())
-		g.o->textureResponse(msg->iPlayerId,msg->qbaTexture);
+void MainWindow::msgTexture(Connection *, MessageTexture *) {
 }
 
 void MainWindow::msgCryptSetup(Connection *, MessageCryptSetup *msg) {

@@ -45,7 +45,6 @@ class Database;
 class Log;
 class Plugins;
 class QSettings;
-class Overlay;
 class LCD;
 
 struct Global {
@@ -62,7 +61,6 @@ public:
 	Log *l;
 	Plugins *p;
 	QSettings *qs;
-	Overlay *o;
 	LCD *lcd;
 	QNetworkAccessManager *nam;
 	int iPushToTalk;
