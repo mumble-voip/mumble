@@ -1691,7 +1691,7 @@ Setzt die Pfade zu den Dateien auf die Standardwerte zurück.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Hiermit bestimmen Sie, wie lange nach Beenden des Gesprächs noch übertragen werden soll.&lt;/b&gt;&lt;br /&gt;Höhere Werte sind hilfreich, wenn die Stimme plötzlich abbricht (erkennbar an einem flackerndem Voice-Icon neben dem Namen).</translation>
     </message>
 </context>
 <context>
@@ -5836,7 +5836,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location/>
         <source>Show context menu in menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige Kontextmenü in der Menüleiste</translation>
     </message>
 </context>
 <context>
@@ -6439,7 +6439,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location filename="MainWindow.cpp" line="-1986"/>
         <source>&amp;Channel</source>
-        <translation type="unfinished">&amp;Kanal</translation>
+        <translation>&amp;Kanal</translation>
     </message>
     <message>
         <source>&amp;Audio</source>
@@ -6571,7 +6571,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location line="+11"/>
         <source>You undeafened %1.</source>
-        <translation>Sie haben die Sprachunterdrückung von %1 deaktiviert.</translation>
+        <translation>Sie haben die Taubstellung von %1 deaktiviert.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -6705,7 +6705,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location line="+37"/>
         <source>You were unsuppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ihre Sprachunterdrückung wurde deaktiviert.</translation>
     </message>
     <message>
         <location line="+136"/>
@@ -6734,13 +6734,13 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location line="-247"/>
         <source>You were muted by %1.</source>
-        <translation>Ihre Sprachunterdrückung wurde aktiviert durch %1.</translation>
+        <translation>Stummstellung wurde aktiviert durch %1.</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>You were suppressed.</source>
         <oldsource>You were suppressed by %1.</oldsource>
-        <translation type="unfinished">Ihre Sprachunterdrückung wurde aktiviert durch %1.</translation>
+        <translation>Sprachunterdrückung wurde aktiviert.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6750,7 +6750,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location line="-16"/>
         <source>You were unmuted by %1.</source>
-        <translation>Stummstellen wurde deaktiviert durch %1.</translation>
+        <translation>Stummstellung wurde aufgehoben durch %1.</translation>
     </message>
     <message>
         <source>You deafened %1.</source>
@@ -6764,12 +6764,12 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location line="+16"/>
         <source>You unsuppressed %1.</source>
-        <translation>Sie haben die Sprachunterdrückung von %1 deaktiviert.</translation>
+        <translation>Sprachunterdrückung von %1 deaktiviert.</translation>
     </message>
     <message>
         <location line="-14"/>
         <source>You unmuted %1.</source>
-        <translation>Sie haben die Sprachunterdrückung von %1 deaktiviert.</translation>
+        <translation>Stummstellung von %1 aufgehoben.</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -7299,7 +7299,7 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
     <message>
         <location filename="MainWindow.cpp" line="-1971"/>
         <source>&amp;User</source>
-        <translation type="unfinished">&amp;Benutzer</translation>
+        <translation>&amp;Benutzer</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -7870,12 +7870,12 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location/>
         <source>R&amp;egister</source>
-        <translation type="unfinished"></translation>
+        <translation>R&amp;egistrieren</translation>
     </message>
     <message>
         <location/>
         <source>Register yourself on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Sich selbst auf dem Server registrieren</translation>
     </message>
 </context>
 <context>
@@ -8215,7 +8215,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location line="+0"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommunikation mit dem Overlay auf %2: %1 fehlgeschlagen. Das Overlay wird nicht verfügbar sein.</translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -8530,14 +8530,14 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="Overlay_win.cpp" line="+62"/>
         <source>Mumble</source>
-        <translation type="unfinished">Mumble</translation>
+        <translation>Mumble</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation type="unfinished">Das Laden der Overlay-Bibliothek ist fehlgeschlagen. Das heißt entweder dass:
+        <translation>Das Laden der Overlay-Bibliothek ist fehlgeschlagen. Das heißt entweder dass:
 - die Bibliothek (mumble_ol.dll) nicht in dem Verzeichnis gefunden wurde, aus welchem Sie Mumble gestartet haben
 - Sie ein Betriebssystem vor WinXP SP2 benutzen</translation>
     </message>
@@ -9273,7 +9273,7 @@ Ein Zugriffscode ist ein Textstück, welches als Passwort für sehr einfaches Zu
     <message>
         <location/>
         <source>TCP (Control)</source>
-        <translation type="unfinished"></translation>
+        <translation>TCP (Steuerung)</translation>
     </message>
     <message>
         <location/>
@@ -9353,7 +9353,7 @@ Ein Zugriffscode ist ein Textstück, welches als Passwort für sehr einfaches Zu
     <message>
         <location line="+2"/>
         <source> </source>
-        <translation type="unfinished"></translation>
+        <translation> </translation>
     </message>
     <message>
         <location line="+23"/>
@@ -9374,7 +9374,7 @@ Ein Zugriffscode ist ein Textstück, welches als Passwort für sehr einfaches Zu
     <message>
         <location line="+45"/>
         <source>%1 online (%2 idle)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 online (%2 untätig)</translation>
     </message>
     <message>
         <location line="+2"/>
