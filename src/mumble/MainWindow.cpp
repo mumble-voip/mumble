@@ -1567,6 +1567,8 @@ void MainWindow::updateMenuPermissions() {
 		qaUserInformation->setEnabled(false);
 	}
 
+	qaChannelJoin->setEnabled(p & (ChanACL::Write | ChanACL::Enter));
+
 	qaChannelAdd->setEnabled(p & (ChanACL::Write | ChanACL::MakeChannel | ChanACL::MakeTempChannel));
 	qaChannelRemove->setEnabled(p & ChanACL::Write);
 	qaChannelACL->setEnabled((p & ChanACL::Write) || (pparent & ChanACL::Write));
