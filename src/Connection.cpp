@@ -176,8 +176,8 @@ void Connection::messageToNetwork(const ::google::protobuf::Message &msg, unsign
 		return;
 	cache.resize(len + 6);
 	unsigned char *uc = reinterpret_cast<unsigned char *>(cache.data());
-	* reinterpret_cast<quint16 *>(& uc[0]) = qToBigEndian(static_cast<quint16>(msgType));
-	* reinterpret_cast<quint32 *>(& uc[2]) = qToBigEndian(static_cast<quint32>(len));
+	qToBigEndian<quint16>(msgType, & uc[0]);
+	qToBigEndian<quint32>(len, & uc[2]);
 
 	msg.SerializeToArray(uc + 6, len);
 }
