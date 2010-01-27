@@ -1553,8 +1553,8 @@ void MainWindow::updateMenuPermissions() {
 	}
 
 	if (cu) {
-		qaUserMute->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen) && (cu != user) && (cu->bMute || cu->bSuppress));
-		qaUserDeaf->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen) && cu->bDeaf);
+		qaUserMute->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen) && ((cu != user) || cu->bMute || cu->bSuppress));
+		qaUserDeaf->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen) && ((cu != user) || cu->bDeaf));
 		qaUserTextMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 		qaUserInformation->setEnabled((g.pPermissions & (ChanACL::Write | ChanACL::Register)) || (p & (ChanACL::Write | ChanACL::Enter)) || (cu == user));
 	} else {
