@@ -241,7 +241,7 @@ int main(int argc, char **argv) {
 	a.setQuitOnLastWindowClosed(false);
 
 	if (g.s.bFirstTime) {
-		if (QMessageBox::question(g.mw, MainWindow::tr("Mumble"), MainWindow::tr("This is the first time you're starting Mumble.<br />Would you like to go through the Audio Wizard to configure your soundcard?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes) {
+		if (QMessageBox::question(g.mw, QLatin1String("Mumble"), MainWindow::tr("This is the first time you're starting Mumble.<br />Would you like to go through the Audio Wizard to configure your soundcard?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes) {
 			AudioWizard *aw = new AudioWizard(g.mw);
 			aw->exec();
 			delete aw;

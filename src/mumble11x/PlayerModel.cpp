@@ -986,7 +986,7 @@ bool PlayerModel::dropMimeData(const QMimeData *md, Qt::DropAction, int, int, co
 		int ret;
 		switch (g.s.ceChannelDrag) {
 			case Settings::Ask:
-				ret=QMessageBox::question(g.mw, tr("Mumble"), tr("Are you sure you want to drag this channel?"), QMessageBox::Yes, QMessageBox::No);
+				ret=QMessageBox::question(g.mw, QLatin1String("Mumble"), tr("Are you sure you want to drag this channel?"), QMessageBox::Yes, QMessageBox::No);
 
 				if (ret == QMessageBox::No)
 					return false;

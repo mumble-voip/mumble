@@ -59,7 +59,7 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 
 	qlOverlay->setFileName(path);
 	if (! qlOverlay->load()) {
-		QMessageBox::critical(NULL, tr("Mumble"), tr("Failed to load overlay library. This means either that:\n"
+		QMessageBox::critical(NULL, QLatin1String("Mumble"), tr("Failed to load overlay library. This means either that:\n"
 		                      "- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from\n"
 		                      "- you're on an OS earlier than WinXP SP2"), QMessageBox::Ok, QMessageBox::NoButton);
 		qWarning("Overlay failure");

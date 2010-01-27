@@ -94,7 +94,7 @@ QString UserInformation::secsToString(unsigned int secs) {
 		qsl << tr("%1m").arg(minutes);
 	qsl << tr("%1s").arg(seconds);
 
-	return qsl.join(tr(" "));
+	return qsl.join(QLatin1String(" "));
 }
 
 void UserInformation::update(const MumbleProto::UserStats &msg) {

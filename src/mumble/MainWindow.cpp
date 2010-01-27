@@ -352,7 +352,7 @@ bool MainWindow::winEvent(MSG *msg, long *) {
 void MainWindow::closeEvent(QCloseEvent *e) {
 #ifndef Q_OS_MAC
 	if (g.sh && g.sh->isRunning() && g.s.bAskOnQuit && !bSuppressAskOnQuit) {
-		QMessageBox mb(QMessageBox::Warning, tr("Mumble"), tr("Mumble is currently connected to a server. Do you want to Close or Minimize it?"), QMessageBox::NoButton, this);
+		QMessageBox mb(QMessageBox::Warning, QLatin1String("Mumble"), tr("Mumble is currently connected to a server. Do you want to Close or Minimize it?"), QMessageBox::NoButton, this);
 		QPushButton *qpbClose = mb.addButton(tr("Close"), QMessageBox::YesRole);
 		QPushButton *qpbMinimize = mb.addButton(tr("Minimize"), QMessageBox::NoRole);
 		mb.setDefaultButton(qpbMinimize);
@@ -1253,7 +1253,7 @@ void MainWindow::on_qaUserCommentReset_triggered() {
 
 	unsigned int session = p->uiSession;
 
-	int ret = QMessageBox::question(this, tr("Mumble"),
+	int ret = QMessageBox::question(this, QLatin1String("Mumble"),
 	                                tr("Are you sure you want to reset the comment of user %1?").arg(p->qsName),
 	                                QMessageBox::Yes, QMessageBox::No);
 	if (ret == QMessageBox::Yes) {
@@ -1437,7 +1437,7 @@ void MainWindow::on_qaChannelRemove_triggered() {
 
 	int id = c->iId;
 
-	ret=QMessageBox::question(this, tr("Mumble"), tr("Are you sure you want to delete %1 and all its sub-channels?").arg(c->qsName), QMessageBox::Yes, QMessageBox::No);
+	ret=QMessageBox::question(this, QLatin1String("Mumble"), tr("Are you sure you want to delete %1 and all its sub-channels?").arg(c->qsName), QMessageBox::Yes, QMessageBox::No);
 
 	c = Channel::get(id);
 	if (!c)
@@ -2058,7 +2058,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			foreach(QSslError e, g.sh->qlErrors)
 				qsl << QString::fromLatin1("<li>%1</li>").arg(e.errorString());
 
-			QMessageBox qmb(QMessageBox::Warning, tr("Mumble"),
+			QMessageBox qmb(QMessageBox::Warning, QLatin1String("Mumble"),
 			                tr("<p>%1.<br />The specific errors with this certificate are: </p><ol>%2</ol>"
 			                   "<p>Do you wish to accept this certificate anyway?<br />(It will also be stored so you won't be asked this again.)</p>"
 			                  ).arg(basereason).arg(qsl.join(QString())), QMessageBox::Yes | QMessageBox::No, this);

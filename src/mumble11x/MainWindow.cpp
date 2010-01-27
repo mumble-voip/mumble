@@ -225,7 +225,7 @@ void MainWindow::createActions() {
 	gsVolumeDown->setObjectName(QLatin1String("VolumeDown"));
 
 	qstiIcon = new QSystemTrayIcon(qiIcon, this);
-	qstiIcon->setToolTip(tr("Mumble"));
+	qstiIcon->setToolTip(QLatin1String("Mumble"));
 	qstiIcon->setObjectName(QLatin1String("Icon"));
 
 #ifndef Q_OS_MAC
@@ -314,7 +314,7 @@ void MainWindow::msgBox(QString msg) {
 void MainWindow::closeEvent(QCloseEvent *e) {
 #ifndef Q_OS_MAC
 	if (g.sh && g.sh->isRunning() && g.s.bAskOnQuit) {
-		QMessageBox mb(QMessageBox::Warning, tr("Mumble"), tr("Mumble is currently connected to a server. Do you want to Close or Minimize it?"), QMessageBox::NoButton, this);
+		QMessageBox mb(QMessageBox::Warning, QLatin1String("Mumble"), tr("Mumble is currently connected to a server. Do you want to Close or Minimize it?"), QMessageBox::NoButton, this);
 		QPushButton *qpbClose = mb.addButton(tr("Close"), QMessageBox::YesRole);
 		QPushButton *qpbMinimize = mb.addButton(tr("Minimize"), QMessageBox::NoRole);
 		mb.setDefaultButton(qpbMinimize);
@@ -890,7 +890,7 @@ void MainWindow::on_qaChannelAdd_triggered() {
 	bool ok;
 	Channel *c = pmModel->getChannel(qtvPlayers->currentIndex());
 	int iParent = c ? c->iId : 0;
-	QString name = QInputDialog::getText(this, tr("Mumble"), tr("Channel Name"), QLineEdit::Normal, QString(), &ok);
+	QString name = QInputDialog::getText(this, QLatin1String("Mumble"), tr("Channel Name"), QLineEdit::Normal, QString(), &ok);
 
 	c = Channel::get(iParent);
 	if (! c)
@@ -912,7 +912,7 @@ void MainWindow::on_qaChannelRemove_triggered() {
 
 	int id = c->iId;
 
-	ret=QMessageBox::question(this, tr("Mumble"), tr("Are you sure you want to delete %1 and all its sub-channels?").arg(c->qsName), QMessageBox::Yes, QMessageBox::No);
+	ret=QMessageBox::question(this, QLatin1String("Mumble"), tr("Are you sure you want to delete %1 and all its sub-channels?").arg(c->qsName), QMessageBox::Yes, QMessageBox::No);
 
 	c = Channel::get(id);
 	if (!c)
@@ -933,7 +933,7 @@ void MainWindow::on_qaChannelRename_triggered() {
 
 	int id = c->iId;
 
-	QString name = QInputDialog::getText(this, tr("Mumble"), tr("Channel Name"), QLineEdit::Normal, c->qsName, &ok);
+	QString name = QInputDialog::getText(this, QLatin1String("Mumble"), tr("Channel Name"), QLineEdit::Normal, c->qsName, &ok);
 
 	c = Channel::get(id);
 	if (! c)
@@ -1384,7 +1384,7 @@ void MainWindow::serverDisconnected(QString reason) {
 			foreach(QSslError e, g.sh->qlErrors)
 				qsl << QString::fromLatin1("<li>%1</li>").arg(e.errorString());
 
-			QMessageBox qmb(QMessageBox::Warning, tr("Mumble"),
+			QMessageBox qmb(QMessageBox::Warning, QLatin1String("Mumble"),
 			                tr("<p>%1.<br />The specific errors with this certificate are: </p><ol>%2</ol>"
 			                   "<p>Do you wish to accept this certificate anyway?<br />(It will also be stored so you won't be asked this again.)</p>"
 			                  ).arg(basereason).arg(qsl.join(QString())), QMessageBox::Yes | QMessageBox::No, this);

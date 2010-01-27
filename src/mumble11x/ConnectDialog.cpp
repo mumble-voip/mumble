@@ -220,7 +220,7 @@ void ConnectDialog::on_qpbCopy_clicked() {
 
 void ConnectDialog::on_Request_done(bool err) {
 	if (err) {
-		QMessageBox::warning(this, tr("Mumble"), tr("Failed to fetch server list"), QMessageBox::Ok);
+		QMessageBox::warning(this, QLatin1String("Mumble"), tr("Failed to fetch server list"), QMessageBox::Ok);
 		return;
 	}
 
