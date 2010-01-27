@@ -1332,9 +1332,12 @@ void MainWindow::on_qmConfig_aboutToShow() {
 void MainWindow::qmChannel_aboutToShow() {
 	qmChannel->clear();
 
-	if (cmCid >= 0 && g.uiSession != 0 && cmCid != ClientUser::get(g.uiSession)->cChannel->iId) {
-		qmChannel->addAction(qaChannelJoin);
-		qmChannel->addSeparator();
+	if (g.uiSession != 0) {
+		Channel *c = getContextMenuChannel();
+		if (c && c->iId != ClientUser::get(g.uiSession)->cChannel->iId) {
+			qmChannel->addAction(qaChannelJoin);
+			qmChannel->addSeparator();
+		}
 	}
 	qmChannel->addAction(qaChannelAdd);
 	qmChannel->addAction(qaChannelACL);
