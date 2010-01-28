@@ -34,14 +34,17 @@
 #include <sys/mman.h>
 #include <sys/ipc.h>   
 #include <sys/time.h>
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <sys/stat.h>
 #include <time.h>
 #include <fcntl.h>
 #include <errno.h>
 #include <string.h>
 #include <mach/mach_init.h>
 #include <mach/task.h>
-#include <semaphore.h>
 #include <dlfcn.h>
+#include <pwd.h>
 
 #include <OpenGL/OpenGL.h>
 #include <Carbon/Carbon.h>
@@ -53,112 +56,51 @@
 
 #include "../../overlay/overlay.h"
 
-static struct SharedMem *sm = NULL;
-static sem_t *sem = NULL;
 static bool bDebug = false;
-
-enum {
-	OVERLAY_TYPE_AGL = 0,
-	OVERLAY_TYPE_COCOA,
-	OVERLAY_TYPE_CGL,
-};
 
 typedef struct _Context {
 	struct _Context *next;
-	union {
-		AGLContext       aglctx;
-		NSOpenGLContext  *nsctx;
-		CGLContextObj    cglctx;
-	};
-	unsigned int type;
-	GLuint textures[NUM_TEXTS];
-	unsigned int uiCounter[NUM_TEXTS];
+	CGLContextObj cglctx;
 	GLuint uiProgram;
+
+	unsigned int uiWidth, uiHeight;
+	unsigned int uiLeft, uiRight, uiTop, uiBottom;
+
+	struct sockaddr_un saName;
+	int iSocket;
+	struct OverlayMsg omMsg;
+	GLuint texture;
+
+	unsigned char *a_ucTexture;
+	unsigned int uiMappedLength;
 } Context;
 
-static const char vshader[] = "" 
-"void main() {"
-"gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;"
-"gl_TexCoord[0] = gl_MultiTexCoord0;"
-"gl_FrontColor = gl_Color;"
-"}";
+static const char vshader[] = ""
+                              "void main() {"
+                              "gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;"
+                              "gl_TexCoord[0] = gl_MultiTexCoord0;"
+                              "}";
 
-static const char fshader[] = "" 
-"uniform sampler2D tex;"
-"void main() {" 
-"gl_FragColor = gl_Color * texture2D(tex, gl_TexCoord[0].st);"
-"}";
+static const char fshader[] = ""
+                              "uniform sampler2D tex;"
+                              "void main() {"
+                              "gl_FragColor = texture2D(tex, gl_TexCoord[0].st);"
+                              "}";
 
 const GLfloat fBorder[] = {0.125f, 0.250f, 0.5f, 0.75f};
 
 static Context *contexts = NULL;
 
 #define FDEF(name) static __typeof__(&name) o##name = NULL
-FDEF(aglSwapBuffers);
 FDEF(CGLFlushDrawable);
-
-static void resolveSM() {
-	static bool warned_sm = false;
-	static bool warned_ver = false;
-
-	char memname[256];
-	char semname[256];
-	snprintf(memname, 256, "/MumbleOverlayMem.%d", getuid());
-	snprintf(semname, 256, "/MumbleOverlaySem.%d", getuid());
-
-	int fd = shm_open(memname, O_RDWR, 0600);
-	if (fd >= 0) {
-		sm = (struct SharedMem *)(mmap(NULL, sizeof(struct SharedMem), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0));
-		if (sm == (void *)(-1)) {
-			sm = NULL;
-			close(fd);
-		} else {
-			if ((sm->version[0] != OVERLAY_VERSION_MAJ) ||
-			        (sm->version[1] != OVERLAY_VERSION_MIN) ||
-			        (sm->version[2] != OVERLAY_VERSION_PATCH)) {
-				if (! warned_ver) {
-					fflush(stderr);
-					fprintf(stderr, "MUMBLE OVERLAY:: Version mismatch. Library is %u.%u.%u.%u, application is %u.%u.%u.%u\n",
-					        OVERLAY_VERSION_MAJ, OVERLAY_VERSION_MIN, OVERLAY_VERSION_PATCH, OVERLAY_VERSION_SUB,
-					        sm->version[0], sm->version[1], sm->version[2], sm->version[3]
-					       );
-					fflush(stderr);
-					warned_ver = true;
-				}
-				munmap(sm, sizeof(struct SharedMem));
-				sm = NULL;
-				close(fd);
-
-			} else {
-				sem = sem_open(semname, 0);
-				if (sem == SEM_FAILED) {
-					munmap(sm, sizeof(struct SharedMem));
-					sm = NULL;
-					close(fd);
-				}
-			}
-		}
-	}
-
-	if (sm == NULL) {
-		if (! warned_sm && ! warned_ver) {
-			fflush(stderr);
-			fprintf(stderr, "MUMBLE OVERLAY:: NO CONTACT WITH MUMBLE\n");
-			fflush(stderr);
-			warned_sm = true;
-		}
-	}
-
-	if (bDebug)
-		fprintf(stderr, "Successfully hooked GL!\n");
-}
 
 __attribute__((format(printf, 1, 2)))
 static void ods(const char *format, ...) {
 	if (!bDebug) {
-		if (! sm || !sm->bDebug)
-			return;
+		return;
 	}
+
+	fprintf(stderr, "MumbleOverlay: ");
 
 	va_list args;
 	va_start(args, format);
@@ -171,16 +113,25 @@ static void ods(const char *format, ...) {
 static void newContext(Context * ctx) {
 	int i;
 
-	if (sm) {
-		sm->bHooked = true;
+	ctx->iSocket = -1;
+	ctx->omMsg.omh.iLength = -1;
+	ctx->texture = ~0;
+
+	char *home = getenv("HOME");
+	if (home == NULL) {
+		struct passwd *pwent= getpwuid(getuid());
+		if (pwent && pwent->pw_dir && pwent->pw_dir[0])
+			home = pwent->pw_dir;
 	}
-	for (i = 0; i < NUM_TEXTS; i++) {
-		ctx->uiCounter[i] = 0;
-		ctx->textures[i] = -1;
+
+	if (home) {
+		ctx->saName.sun_family = PF_UNIX;
+		strcpy(ctx->saName.sun_path, home);
+		strcat(ctx->saName.sun_path, "/.MumbleOverlayPipe");
 	}
 
 	ods("OpenGL Version %s, Vendor %s, Renderer %s, Shader %s", glGetString(GL_VERSION), glGetString(GL_VENDOR), glGetString(GL_RENDERER), glGetString(GL_SHADING_LANGUAGE_VERSION));
-	
+
 	const char *vsource = vshader;
 	const char *fsource = fshader;
 	char buffer[8192];
@@ -201,146 +152,236 @@ static void newContext(Context * ctx) {
 	glLinkProgram(ctx->uiProgram);
 }
 
-static void drawOverlay(Context *ctx, int width, int height) {
-	// DEBUG
-	// sm->bDebug = true;
+static void releaseMem(Context *ctx) {
+	if (ctx->a_ucTexture) {
+		munmap(ctx->a_ucTexture, ctx->uiMappedLength);
+		ctx->a_ucTexture = NULL;
+		ctx->uiMappedLength = 0;
+	}
+	if (ctx->texture != ~0) {
+		glDeleteTextures(1, &ctx->texture);
+		ctx->texture = ~0;
+	}
+	ctx->uiLeft = ctx->uiTop = ctx->uiRight = ctx->uiBottom = 0;
+}
 
+static void disconnect(Context *ctx) {
+	releaseMem(ctx);
+	ctx->uiWidth = ctx->uiHeight = 0;
+	if (ctx->iSocket != -1) {
+		close(ctx->iSocket);
+		ctx->iSocket = -1;
+	}
+	ods("Disconnected");
+}
+
+static bool sendMessage(Context *ctx, struct OverlayMsg *om) {
+	if (ctx->iSocket != -1) {
+		ssize_t wantsend = sizeof(struct OverlayMsgHeader) + om->omh.iLength;
+		ssize_t sent = send(ctx->iSocket, om, wantsend, MSG_DONTWAIT);
+		if (wantsend == sent)
+			return true;
+		ods("Short write");
+	}
+	disconnect(ctx);
+	return false;
+}
+
+static void regenTexture(Context *ctx) {
+	if (ctx->texture != ~0)
+		glDeleteTextures(1, & ctx->texture);
+	glGenTextures(1, &ctx->texture);
+
+	glBindTexture(GL_TEXTURE_2D, ctx->texture);
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, fBorder);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ctx->uiWidth, ctx->uiHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, ctx->a_ucTexture);
+}
+
+static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 	int i;
-	ods("DrawStart: Screen is %d x %d", width, height);
 
-	if (sm->fFontSize < 0.01)
-		sm->fFontSize = 0.01;
-	else if (sm->fFontSize > 1.0)
-		sm->fFontSize = 1.0;
-
-	int iHeight = (int)((height * 1.0) * sm->fFontSize);
-	if (iHeight > TEXT_HEIGHT)
-		iHeight = TEXT_HEIGHT;
-
-	float s = iHeight / 60.0;
-	int y = 0;
-	int idx = 0;
-
-	int indexes[NUM_TEXTS];
-	int yofs[NUM_TEXTS];
-
-	if (sem_trywait(sem) != 0) {
-		ods("Fail lock");
-		return;
-	}
-		
-	for (i = 0; i < NUM_TEXTS; i++) {
-		if (sm->texts[i].width == 0) {
-			y += iHeight / 4;
-		} else if (sm->texts[i].width > 0) {
-			indexes[idx] = i;
-			yofs[idx] = y;
-			y += iHeight;
-			idx++;
+	if (ctx->iSocket == -1) {
+		releaseMem(ctx);
+		if (! ctx->saName.sun_path[0])
+			return;
+		ctx->iSocket = socket(AF_UNIX, SOCK_STREAM, 0);
+		if (ctx->iSocket == -1) {
+			ods("socket() failure");
+			return;
 		}
-	}
-
-	int h = y;
-	y = (int)(height * sm->fY);
-
-	if (sm->bTop) {
-		y -= h;
-	} else if (sm->bBottom) {
-	} else {
-		y -= h / 2;
-	}
-
-	if (y < 1)
-		y = 1;
-	if ((y + h + 1) > height)
-		y = height - h - 1;
-
-	for (i = 0; i < idx; i++) {
-		int index = indexes[i];
-		int w = (int)(sm->texts[index].width * s);
-		int x = (int)(width * sm->fX);
-		if (sm->bLeft) {
-			x -= w;
-		} else if (sm->bRight) {
-		} else {
-			x -= w / 2;
+		fcntl(ctx->iSocket, F_SETFL, O_NONBLOCK, 1);
+		if (connect(ctx->iSocket, (struct sockaddr *)(& ctx->saName), sizeof(ctx->saName)) != 0) {
+			close(ctx->iSocket);
+			ctx->iSocket = -1;
+			ods("connect() failure %s", ctx->saName.sun_path);
+			return;
 		}
+		ods("Connected");
+	}
 
-		if (x < 1)
-			x = 1;
-		if ((x + w + 1) > width)
-			x = width - w - 1;
-			
-		bool regen = false;
+	if ((ctx->uiWidth != width) || (ctx->uiHeight != height)) {
+		ods("Sent init");
+		releaseMem(ctx);
 
-		if ((ctx->textures[index] == -1) || (! glIsTexture(ctx->textures[index]))) {
-			if (ctx->textures[index] != -1) 
-				ods("Lost texture");
-			regen = true;
+		ctx->uiWidth = width;
+		ctx->uiHeight = height;
+
+		struct OverlayMsg om;
+		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+		om.omh.uiType = OVERLAY_MSGTYPE_INIT;
+		om.omh.iLength = sizeof(struct OverlayMsgInit);
+		om.omi.uiWidth = ctx->uiWidth;
+		om.omi.uiHeight = ctx->uiHeight;
+
+		if (! sendMessage(ctx, &om))
+			return;
+	}
+
+	while (1) {
+		if (ctx->omMsg.omh.iLength == -1) {
+			ssize_t length = recv(ctx->iSocket, ctx->omMsg.headerbuffer, sizeof(struct OverlayMsgHeader), 0);
+			if (length < 0) {
+				if ((errno == EAGAIN) || (errno == EWOULDBLOCK))
+					break;
+				disconnect(ctx);
+				return;
+			} else if (length != sizeof(struct OverlayMsgHeader)) {
+				ods("Short header read");
+				disconnect(ctx);
+				return;
+			}
 		} else {
-			glBindTexture(GL_TEXTURE_2D, ctx->textures[index]);
-			GLfloat bordercolor[4];
-			glGetTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, bordercolor);
-			if (bordercolor[0] != fBorder[0] || bordercolor[1] != fBorder[1] || bordercolor[2] != fBorder[2] || bordercolor[3] != fBorder[3]) {
-				ods("Texture hijacked");
-				regen = true;
+			ssize_t  length = recv(ctx->iSocket, ctx->omMsg.msgbuffer, ctx->omMsg.omh.iLength, 0);
+			if (length < 0) {
+				if ((errno == EAGAIN) || (errno == EWOULDBLOCK))
+					break;
+				disconnect(ctx);
+				return;
+			} else if (length != ctx->omMsg.omh.iLength) {
+				ods("Short message read %x %d/%d", ctx->omMsg.omh.uiType, length, ctx->omMsg.omh.iLength);
+				disconnect(ctx);
+				return;
+			}
+			ctx->omMsg.omh.iLength = -1;
+
+			switch (ctx->omMsg.omh.uiType) {
+				case OVERLAY_MSGTYPE_SHMEM: {
+						struct OverlayMsgShmem *oms = & ctx->omMsg.omi;
+						ods("SHMEM %s", oms->a_cName);
+						releaseMem(ctx);
+						int fd = shm_open(oms->a_cName, O_RDONLY, 0600);
+						if (fd != -1) {
+							struct stat buf;
+							fstat(fd, &buf);
+							if (buf.st_size >= ctx->uiWidth * ctx->uiHeight * 4) {
+								ctx->uiMappedLength = buf.st_size;
+								ctx->a_ucTexture = mmap(NULL, buf.st_size, PROT_READ, MAP_SHARED, fd, 0);
+								if (ctx->a_ucTexture != (unsigned char *) -1) {
+									regenTexture(ctx);
+									continue;
+								}
+								ctx->a_ucTexture = NULL;
+							}
+							ctx->uiMappedLength = 0;
+							close(fd);
+						}
+						ods("Failed to map memory");
+					}
+					break;
+				case OVERLAY_MSGTYPE_BLIT: {
+						struct OverlayMsgBlit *omb = & ctx->omMsg.omb;
+						ods("BLIT %d %d %d %d", omb->x, omb->y, omb->w, omb->h);
+						if ((ctx->a_ucTexture != NULL) && (ctx->texture != ~0)) {
+							glBindTexture(GL_TEXTURE_2D, ctx->texture);
+
+							if ((omb->x == 0) && (omb->y == 0) && (omb->w == ctx->uiWidth) && (omb->h == ctx->uiHeight)) {
+								ods("Optimzied fullscreen blit");
+								glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ctx->uiWidth, ctx->uiHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, ctx->a_ucTexture);
+							} else {
+								unsigned int x = omb->x;
+								unsigned int y = omb->y;
+								unsigned int w = omb->w;
+								unsigned int h = omb->h;
+								unsigned char *ptr = (unsigned char *) malloc(w*h*4);
+								int r;
+								memset(ptr, 0, w * h * 4);
+
+								for (r = 0; r < h; ++r) {
+									const unsigned char *sptr = ctx->a_ucTexture + 4 * ((y+r) * ctx->uiWidth + x);
+									unsigned char *dptr = ptr + 4 * w * r;
+									memcpy(dptr, sptr, w * 4);
+								}
+
+								glTexSubImage2D(GL_TEXTURE_2D, 0, x, y, w, h, GL_BGRA, GL_UNSIGNED_BYTE, ptr);
+								free(ptr);
+							}
+						}
+					}
+					break;
+				case OVERLAY_MSGTYPE_ACTIVE: {
+						struct OverlayMsgActive *oma = & ctx->omMsg.oma;
+						ods("ACTIVE %d %d %d %d", oma->x, oma->y, oma->w, oma->h);
+						ctx->uiLeft = oma->x;
+						ctx->uiTop = oma->y;
+						ctx->uiRight = oma->x + oma->w;
+						ctx->uiBottom = oma->y + oma->h;
+					}
+					break;
+				default:
+					break;
 			}
 		}
-		if (regen) {
-			ctx->uiCounter[index] = 0;
-			glGenTextures(1, &ctx->textures[index]);
-			glBindTexture(GL_TEXTURE_2D, ctx->textures[index]);
-			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, fBorder);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		}
-
-		if (sm->texts[index].uiCounter != ctx->uiCounter[index]) {
-			ods("Updating %d %d texture", sm->texts[index].width, TEXT_HEIGHT);
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, TEXT_WIDTH, TEXT_HEIGHT, 0, GL_BGRA, GL_UNSIGNED_BYTE, sm->texts[index].texture);
-			ctx->uiCounter[index] = sm->texts[index].uiCounter;
-		}
-
-		ods("Drawing text at %d %d  %d %d", x, y + yofs[i], w, iHeight);
-
-		glPushMatrix();
-
-		double xm = 0.0;
-		double ym = 0.0;
-		double xmx = (1.0 * sm->texts[index].width) / TEXT_WIDTH;
-		double ymx = 1.0;
-
-		unsigned int c = sm->texts[index].color;
-
-		glColor4ub((c >> 16) & 0xFF, (c >> 8) & 0xFF, c & 0xFF, (c >> 24) & 0xFF);
-
-		glTranslatef(x, y + yofs[i], 0.0);
-
-#if 0
-		GLint vertex[] = {0, iHeight, 0, 0, w, 0, w, iHeight };
-		GLfloat tex[] = {xm, ymx, xm, ym, xmx, ym, xmx, ymx};
-		glVertexPointer(2, GL_INT, 0, vertex);
-		glTexCoordPointer(2, GL_FLOAT, 0, tex);
-		glDrawArrays(GL_QUADS, 0, 4);
-#else
-		glBegin(GL_QUADS);
-		glTexCoord2f(xm, ymx);
-		glVertex2f(0, iHeight);
-		glTexCoord2f(xm, ym);
-		glVertex2f(0, 0);
-		glTexCoord2f(xmx, ym);
-		glVertex2f(w, 0);
-		glTexCoord2f(xmx, ymx);
-		glVertex2f(w, iHeight);
-		glEnd();
-#endif 
-
-		glPopMatrix();
 	}
-	sem_post(sem);
+
+	if ((ctx->a_ucTexture == NULL) || (ctx->texture == ~0))
+		return;
+
+	if (! glIsTexture(ctx->texture)) {
+		ctx->texture = ~0;
+		ods("Lost texture");
+		regenTexture(ctx);
+	} else {
+		glBindTexture(GL_TEXTURE_2D, ctx->texture);
+		GLfloat bordercolor[4];
+		glGetTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, bordercolor);
+		if (bordercolor[0] != fBorder[0] || bordercolor[1] != fBorder[1] || bordercolor[2] != fBorder[2] || bordercolor[3] != fBorder[3]) {
+			ods("Texture hijacked");
+			regenTexture(ctx);
+		}
+	}
+
+	glBindTexture(GL_TEXTURE_2D, ctx->texture);
+	glPushMatrix();
+
+	float w = (float)(ctx->uiWidth);
+	float h = (float)(ctx->uiHeight);
+
+	float left   = (float)(ctx->uiLeft);
+	float top    = (float)(ctx->uiTop);
+	float right  = (float)(ctx->uiRight);
+	float bottom = (float)(ctx->uiBottom);
+
+	float xm = (left) / w;
+	float ym = (top) / h;
+	float xmx = (right) / w;
+	float ymx = (bottom) / h;
+
+
+	GLfloat vertex[] = {left, bottom,
+			    left, top,
+			    right, top,
+			    right, bottom};
+	GLfloat tex[] = {xm, ymx, xm, ym, xmx, ym, xmx, ymx};
+	glVertexPointer(2, GL_FLOAT, 0, vertex);
+	glTexCoordPointer(2, GL_FLOAT, 0, tex);
+	glDrawArrays(GL_QUADS, 0, 4);
+
+	glPopMatrix();
 }
 
 static void drawContext(Context * ctx, int width, int height) {
@@ -367,7 +408,7 @@ static void drawContext(Context * ctx, int width, int height) {
 	glMatrixMode(GL_TEXTURE);
 	glPushMatrix();
 	glLoadIdentity();
-	
+
 
 	glDisable(GL_ALPHA_TEST);
 	glDisable(GL_AUTO_NORMAL);
@@ -395,7 +436,7 @@ static void drawContext(Context * ctx, int width, int height) {
 	glDisable(GL_TEXTURE_GEN_R);
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_GEN_T);
-	
+
 	glRenderMode(GL_RENDER);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
@@ -404,29 +445,29 @@ static void drawContext(Context * ctx, int width, int height) {
 	glDisableClientState(GL_INDEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_EDGE_FLAG_ARRAY);
-	
+
 	glPixelStorei(GL_UNPACK_SWAP_BYTES, 0);
 	glPixelStorei(GL_UNPACK_LSB_FIRST, 0);
 	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 	glPixelStorei(GL_UNPACK_SKIP_ROWS, 0);
 	glPixelStorei(GL_UNPACK_SKIP_PIXELS, 0);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	
+
 	GLint texunits = 1;
-	
+
 	glGetIntegerv(GL_MAX_TEXTURE_UNITS, &texunits);
-	
-	for(i=texunits-1;i>=0;--i) {
+
+	for (i=texunits-1;i>=0;--i) {
 		glActiveTexture(GL_TEXTURE0 + i);
 		glDisable(GL_TEXTURE_1D);
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_TEXTURE_3D);
 	}
-	
+
 	glDisable(GL_TEXTURE_CUBE_MAP);
 	glDisable(GL_VERTEX_PROGRAM_ARB);
 	glDisable(GL_FRAGMENT_PROGRAM_ARB);
-	
+
 	glUseProgram(ctx->uiProgram);
 
 	glEnable(GL_COLOR_MATERIAL);
@@ -437,21 +478,21 @@ static void drawContext(Context * ctx, int width, int height) {
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 	glMatrixMode(GL_MODELVIEW);
-	
+
 	GLint uni = glGetUniformLocation(ctx->uiProgram, "tex");
 	glUniform1i(uni, 0);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	
+
 	drawOverlay(ctx, width, height);
 
 	glMatrixMode(GL_TEXTURE);
 	glPopMatrix();
-	
+
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
-	
+
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 
@@ -461,130 +502,38 @@ static void drawContext(Context * ctx, int width, int height) {
 	glUseProgram(program);
 }
 
-void aglSwapBuffersOverride(AGLContext ctx) {
-	ods("aglSwapBuffers()");
-
-	if (sm) {
-		Context *c = contexts;
-	
-		while (c) {
-			if (c->aglctx == ctx)
-				break;
-			c = c->next;
-		}
-
-		if (!c) {
-			ods("Current context is: %p", ctx);
-
-			c = malloc(sizeof(Context));
-			if (!c) {
-				ods("malloc failure");
-				return;
-			}
-			c->next = contexts;
-			c->aglctx = ctx;
-			c->type = OVERLAY_TYPE_AGL;
-			contexts = c;
-			newContext(c);
-		}
-
-		Rect rect;
-		AGLDrawable ptr = aglGetDrawable(c->aglctx);
-		WindowRef win = GetWindowFromPort(ptr);
-		GetWindowPortBounds(win, &rect);
-		int width = rect.right - rect.left;
-		int height = rect.bottom - rect.top;
-		if (!(width > 0 && height > 0)) {
-			GLint viewport[4];
-			glGetIntegerv(GL_VIEWPORT, viewport);
-			width = viewport[2];
-			height = viewport[3];
-		}
-		drawContext(c, width, height);
-	}
-
-	oaglSwapBuffers(ctx);
-}
-
-@implementation NSObject (NSOpenGLContextOverride)
-- (void) overlayFlushBuffer {
-	ods("[NSOpenGLContext flushBuffer]");
-
-	if (sm) {
-		Context *c = contexts;
-
-		while (c) {
-			if (c->nsctx == self)
-				break;
-			c = c->next;
-		}
-
-		if (!c) {
-			ods("Current context is: %p", self);
-
-			c = malloc(sizeof(Context));
-			if (!c) {
-				ods("malloc failure");
-				return;
-			}
-			c->next = contexts;
-			c->nsctx = self;
-			c->type = OVERLAY_TYPE_COCOA;
-			contexts = c;
-			newContext(c);
-		}
-
-		NSView *v = [c->nsctx view];
-		NSRect r = [v bounds];
-		int width = (int)r.size.width;
-		int height = (int)r.size.height;
-		if (!(width > 0 && height > 0)) {
-			GLint viewport[4];
-			glGetIntegerv(GL_VIEWPORT, viewport);
-			width = viewport[2];
-			height = viewport[3];
-		}
-
-		drawContext(c, width, height);
-	}
-
-	[self overlayFlushBuffer];
-}
-@end
-
 void CGLFlushDrawableOverride(CGLContextObj ctx) {
 	ods("CGLFlushDrawable()");
 
-	if (sm) {
-		Context *c = contexts;
+	Context *c = contexts;
 	
-		while (c) {
-			if (c->cglctx == ctx)
-				break;
-			c = c->next;
-		}
-
-		if (!c) {
-			ods("Current context is: %p", ctx);
-
-			c = malloc(sizeof(Context));
-			if (!c) {
-				ods("malloc failure");
-				return;
-			}
-			c->next = contexts;
-			c->cglctx = ctx;
-			c->type = OVERLAY_TYPE_CGL;
-			contexts = c;
-			newContext(c);
-		}
-
-		GLint viewport[4];
-		glGetIntegerv(GL_VIEWPORT, viewport);
-		int width = viewport[2];
-		int height = viewport[3];
-		drawContext(c, width, height);
+	while (c) {
+		if (c->cglctx == ctx)
+			break;
+		c = c->next;
 	}
+
+	if (!c) {
+		ods("Current context is: %p", ctx);
+
+		c = malloc(sizeof(Context));
+		if (!c) {
+			ods("malloc failure");
+			return;
+		}
+		memset(c, 0, sizeof(Context));
+		c->next = contexts;
+		c->cglctx = ctx;
+		contexts = c;
+		newContext(c);
+	}
+
+	GLint viewport[4];
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	ods("%i, %i", viewport[0], viewport[1]);
+	int width = viewport[2];
+	int height = viewport[3];
+	drawContext(c, width, height);
 
 	oCGLFlushDrawable(ctx);
 }
@@ -592,58 +541,20 @@ void CGLFlushDrawableOverride(CGLContextObj ctx) {
 
 __attribute__((constructor))
 static void entryPoint() {
-	bool b;
-
 	if (getenv("MUMBLE_OVERLAY_DEBUG"))
 		bDebug = true;
 	else            
 		bDebug = false;
 
-	resolveSM();
-
-	void *agl = NULL, *nsgl = NULL, *cgl = NULL;
-	agl = dlsym(RTLD_DEFAULT, "aglSwapBuffers");
-	nsgl = dlsym(RTLD_DEFAULT, "NSClassFromString");
-	cgl = dlsym(RTLD_DEFAULT, "CGLFlushDrawable");
-
-	ods("agl: %s, nsgl: %s, cgl: %s",
-		agl ? "true" : "false",
-	   nsgl ? "true" : "false",
-	    cgl ? "true" : "false");
-
-#if 0
-	/* AGL */
-	if (agl) {
-		ods("Attempting to hook AGL");
-		if (mach_override("_aglSwapBuffers", NULL, aglSwapBuffersOverride, (void **) &oaglSwapBuffers) != 0) {
-			ods("aglSwapBuffers override failed.");
-		}
-	}
-
-	/* NSOpenGL */
-	if (nsgl) {
-		ods("Attempting to hook NSOpenGL");
-		Class c = NSClassFromString(@"NSOpenGLContext");
-		if (c) {
-			Method orig = class_getInstanceMethod(c, @selector(flushBuffer));
-			Method new = class_getInstanceMethod(c, @selector(overlayFlushBuffer));
-			if (orig && new) {
-				IMP tmp = orig->method_imp;
-				orig->method_imp = new->method_imp;
-				new->method_imp = tmp;
-			} else
-				ods("Unable to retrieve method pointers.");
-		} else
-			ods("Unable to look up class NSOpenGLContext.");
-	}
-#endif
-
-	/* CGL */
-	if (cgl) {
+	void *cglAvailable = dlsym(RTLD_DEFAULT, "CGLFlushDrawable");
+	if (cglAvailable) {
 		ods("Attempting to hook CGL");
 		if (mach_override("_CGLFlushDrawable", NULL, CGLFlushDrawableOverride, (void **) &oCGLFlushDrawable) != 0) {
 			ods("CGLFlushDrawable override failed.");
 		}
+	} else {
+		ods("Unable to hook CGL");
+		return;
 	}
 
 	ods("Up running.");
