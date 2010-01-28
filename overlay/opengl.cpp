@@ -85,6 +85,8 @@ typedef double          GLdouble;
 #define GL_TEXTURE_ENV                          0x2300
 #define GL_TEXTURE_ENV_MODE                     0x2200
 #define GL_REPLACE                              0x1E01
+#define GL_PACK_ROW_LENGTH                      0x0D02
+#define GL_UNPACK_ROW_LENGTH                    0x0CF2
 
 #define TDEF(ret, name, arg) typedef ret (__stdcall * t##name) arg
 #define GLDEF(ret, name, arg) TDEF(ret, name, arg); t##name o##name = NULL
@@ -113,6 +115,7 @@ GLDEF(void, glTexParameteri, (GLenum, GLenum, GLint));
 GLDEF(void, glTexEnvi, (GLenum, GLenum, GLint));
 GLDEF(void, glTexImage2D, (GLenum, GLint, GLint, GLsizei, GLsizei, GLint, GLenum, GLenum, const GLvoid *));
 GLDEF(void, glTexSubImage2D, (GLenum, GLint, GLint, GLint, GLsizei, GLsizei, GLenum, GLenum, const GLvoid *));
+GLDEF(void, glPixelStorei, (GLenum, GLint));
 GLDEF(void, wglMakeCurrent, (HDC, HGLRC));
 GLDEF(HGLRC, wglGetCurrentContext, (void));
 GLDEF(HDC, wglGetCurrentDC, (void));
@@ -191,17 +194,11 @@ void Context::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int 
 	if ((x == 0) && (y == 0) && (w == uiWidth) && (h == uiHeight)) {
 		oglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, uiWidth, uiHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, a_ucTexture);
 	} else {
-		unsigned char *ptr = new unsigned char[w*h*4];
-		memset(ptr, 0xff, w * h * 4);
-
-		for (int r = 0; r < h; ++r) {
-			const unsigned char *sptr = a_ucTexture + 4 * ((y+r) * uiWidth + x);
-			unsigned char *dptr = ptr + 4 * w * r;
-			memcpy(dptr, sptr, w * 4);
-		}
-
-		oglTexSubImage2D(GL_TEXTURE_2D, 0, x, y, w, h, GL_BGRA, GL_UNSIGNED_BYTE, ptr);
-		delete [] ptr;
+		if (w != uiWidth) 
+			oglPixelStorei(GL_UNPACK_ROW_LENGTH, uiWidth);
+		oglTexSubImage2D(GL_TEXTURE_2D, 0, x, y, w, h, GL_BGRA, GL_UNSIGNED_BYTE, a_ucTexture + 4 * (y * uiWidth + x));
+		if (w != uiWidth) 
+			oglPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 	}
 }
 
@@ -393,6 +390,7 @@ void checkOpenGLHook() {
 			GLDEF(glTexEnvi);
 			GLDEF(glTexImage2D);
 			GLDEF(glTexSubImage2D);
+			GLDEF(glPixelStorei);
 			GLDEF(wglMakeCurrent);
 			GLDEF(wglGetCurrentContext);
 			GLDEF(wglGetCurrentDC);
