@@ -357,6 +357,10 @@ void CertWizard::on_qlePassword_textChanged(const QString &) {
 	on_qleImportFile_textChanged(qleImportFile->text());
 }
 
+void CertWizard::on_qlIntroText_linkActivated(const QString &url) {
+	QDesktopServices::openUrl(QUrl(url));
+}
+
 void CertWizard::lookedUp(QHostInfo info) {
 	bPendingDns = false;
 	if (info.error() == QHostInfo::NoError) {

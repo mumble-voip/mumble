@@ -27,7 +27,11 @@
     <item>
      <widget class="QLabel" name="qlIntroText">
       <property name="text">
-       <string>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don't need to disclose any password to the remote site. It also enables very easy user registration.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;</string>
+       <string>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don't need to disclose any password to the remote site. It also enables very easy user registration.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;
+&lt;p&gt;
+It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
+&lt;/p&gt;
+</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
@@ -53,7 +57,7 @@
        <string>Automatic certificate creation</string>
       </property>
       <property name="icon">
-       <iconset resource="mumble_tango.qrc">
+       <iconset>
         <normaloff>skin:actions/bookmark-new.svg</normaloff>skin:actions/bookmark-new.svg</iconset>
       </property>
       <property name="iconSize">

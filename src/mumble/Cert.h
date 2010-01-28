@@ -71,6 +71,7 @@ class CertWizard : public QWizard, public Ui::Certificates {
 		void on_qpbImportFile_clicked();
 		void on_qleImportFile_textChanged(const QString &);
 		void on_qlePassword_textChanged(const QString &);
+		void on_qlIntroText_linkActivated(const QString &);
 		void lookedUp(QHostInfo);
 };
 
