@@ -5691,7 +5691,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Show context menu in menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">メニューバーにコンテキストメニューを表示する</translation>
     </message>
 </context>
 <context>
@@ -6270,7 +6270,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+2"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">声を送るときに押し続けるボタン。</translation>
+        <translation type="unfinished">声を送るときに押し続けるボタンです。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6420,12 +6420,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>Muted.</source>
-        <translation type="unfinished">発言禁止する。</translation>
+        <translation type="unfinished">発言禁止になりました。</translation>
     </message>
     <message>
         <location line="+24"/>
         <source>Muted and deafened.</source>
-        <translation type="unfinished">発言禁止と聴取禁止する。</translation>
+        <translation type="unfinished">発言と聴取が禁止になりました。</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6590,12 +6590,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+5"/>
         <source>Invalid username: %1.</source>
-        <translation type="unfinished">不正なユーザ名: %1。</translation>
+        <translation type="unfinished">無効なユーザ名: %1。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Invalid username.</source>
-        <translation type="unfinished">不正なユーザ名です。</translation>
+        <translation type="unfinished">無効なユーザ名です。</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -6625,7 +6625,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+37"/>
         <source>You were unsuppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">あなたは発言禁止を解除されました。</translation>
     </message>
     <message>
         <location line="+136"/>
@@ -6660,7 +6660,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+13"/>
         <source>You were suppressed.</source>
         <oldsource>You were suppressed by %1.</oldsource>
-        <translation type="unfinished">あなたは %1 によって発言禁止にされました。</translation>
+        <translation type="unfinished">あなたは発言禁止にされました。</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6871,12 +6871,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+21"/>
         <source>Invalid username</source>
-        <translation>不正なユーザ名</translation>
+        <translation type="unfinished">無効なユーザ名</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation>不正なユーザ名で接続しました。他の名前を試してください。</translation>
+        <translation type="unfinished">無効なユーザ名で接続しました。他の名前を試してください。</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -6951,7 +6951,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Mute user</source>
-        <translation type="unfinished">ユーザを発言禁止</translation>
+        <translation type="unfinished">ユーザの発言を禁止しました</translation>
     </message>
     <message>
         <location/>
@@ -6981,7 +6981,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Mute user locally</source>
-        <translation type="unfinished">ローカルでユーザを発言禁止にする</translation>
+        <translation type="unfinished">ローカルでユーザを発言禁止にしました</translation>
     </message>
     <message>
         <location/>
@@ -7413,7 +7413,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-149"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">自分を発言禁止</translation>
+        <translation type="unfinished">自分を発言禁止にしました</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -7657,12 +7657,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>R&amp;egister</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">登録(&amp;E)</translation>
     </message>
     <message>
         <location/>
         <source>Register yourself on the server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバにあなたを登録します</translation>
     </message>
 </context>
 <context>
@@ -7997,7 +7997,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+0"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">オーバレイ:  %2: %1 との通信の作成に失敗しました。有効なオーバレイはありません。</translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -9114,7 +9114,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Pings recieved</source>
-        <translation type="unfinished">受け取ったPingの数</translation>
+        <translation type="unfinished">受け取ったPing</translation>
     </message>
     <message>
         <location/>
@@ -9124,7 +9124,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>TCP (Control)</source>
-        <translation type="unfinished">TCP(制御)</translation>
+        <translation type="unfinished">TCP (制御)</translation>
     </message>
     <message>
         <location/>
@@ -9179,7 +9179,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserInformation.cpp" line="+88"/>
         <source>%1w</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1週間</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -9225,12 +9225,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+45"/>
         <source>%1 online (%2 idle)</source>
-        <translation type="unfinished">%1 オンライン (%2 アイドル)</translation>
+        <translation type="unfinished">オンライン時間 %1  (アイドル時間 %2)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 online</source>
-        <translation type="unfinished">%1 オンライン</translation>
+        <translation type="unfinished">オンライン時間 %1</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -9248,7 +9248,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Talking to your channel.</source>
-        <translation type="unfinished">あなたのチャンネルに話しています。</translation>
+        <translation type="unfinished">あなたのいるチャンネルに話しています。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -9491,7 +9491,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+4"/>
         <source>Email: %1</source>
-        <translation type="unfinished">Eメール: %1</translation>
+        <translation>Eメール: %1</translation>
     </message>
     <message>
         <location line="+4"/>
