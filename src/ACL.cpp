@@ -34,7 +34,7 @@
 #include "User.h"
 
 #ifdef MURMUR
-#include "Server.h"
+#include "ServerUser.h"
 #endif
 
 ChanACL::ChanACL(Channel *chan) : QObject(chan) {

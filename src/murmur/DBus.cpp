@@ -29,6 +29,7 @@
 */
 
 #include "Server.h"
+#include "ServerUser.h"
 #include "ServerDB.h"
 #include "Connection.h"
 #include "Message.h"
@@ -336,7 +337,7 @@ void MurmurDBus::authenticateSlot(int &res, QString &uname, const QList<QSslCert
 
 void MurmurDBus::getPlayers(QList<PlayerInfoExtended> &a) {
 	a.clear();
-	foreach(User *p, server->qhUsers) {
+	foreach(ServerUser *p, server->qhUsers) {
 		if (static_cast<ServerUser *>(p)->sState == ServerUser::Authenticated)
 			a << PlayerInfoExtended(p);
 	}

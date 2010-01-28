@@ -29,7 +29,7 @@
 */
 
 #include "Server.h"
-#include "User.h"
+#include "ServerUser.h"
 #include "Channel.h"
 #include "Group.h"
 #include "Meta.h"

@@ -32,7 +32,7 @@
 #include "Channel.h"
 #include "User.h"
 #ifdef MURMUR
-#include "Server.h"
+#include "ServerUser.h"
 #endif
 
 Group::Group(Channel *assoc, const QString &name) {

@@ -13,8 +13,8 @@ TARGET = murmur
 DBFILE  = murmur.db
 LANGUAGE	= C++
 FORMS =
-HEADERS *= Server.h Meta.h
-SOURCES *= main.cpp Server.cpp ServerDB.cpp Register.cpp Cert.cpp Messages.cpp Meta.cpp RPC.cpp
+HEADERS *= Server.h ServerUser.h Meta.h
+SOURCES *= main.cpp Server.cpp ServerUser.cpp ServerDB.cpp Register.cpp Cert.cpp Messages.cpp Meta.cpp RPC.cpp
 
 DIST = DBus.h ServerDB.h ../../icons/murmur.ico Murmur.ice MurmurI.h MurmurIceWrapper.cpp murmur.plist
 PRECOMPILED_HEADER = murmur_pch.h

@@ -34,6 +34,7 @@
 #include "Group.h"
 #include "ACL.h"
 #include "Server.h"
+#include "ServerUser.h"
 #include "Meta.h"
 #include "Connection.h"
 #include "DBus.h"

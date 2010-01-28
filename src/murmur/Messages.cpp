@@ -37,6 +37,7 @@
 #include "ServerDB.h"
 #include "Connection.h"
 #include "Server.h"
+#include "ServerUser.h"
 #include "DBus.h"
 
 #define MSG_SETUP(st) \

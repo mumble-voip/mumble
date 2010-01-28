@@ -47,28 +47,7 @@
 
 class Channel;
 class PacketDataStream;
-
-typedef QPair<quint32, quint16> Peer;
-
-// Unfortunately, this needs to be "large enough" to hold
-// enough frames to account for both short-term and
-// long-term "maladjustments".
-
-#define N_BANDWIDTH_SLOTS 360
-
-struct BandwidthRecord {
-	int iRecNum;
-	int iSum;
-	Timer qtFirst;
-	unsigned short a_iBW[N_BANDWIDTH_SLOTS];
-	Timer a_qtWhen[N_BANDWIDTH_SLOTS];
-
-	BandwidthRecord();
-	bool addFrame(int size, int maxpersec);
-	int onlineSeconds() const;
-	int idleSeconds() const;
-	int bandwidth() const;
-};
+class ServerUser;
 
 class LogEmitter : public QObject {
 	private:
@@ -93,19 +72,6 @@ class SslServer : public QTcpServer {
 		SslServer(QObject *parent = NULL);
 };
 
-class Server;
-
-struct WhisperTarget {
-	struct Channel {
-		int iId;
-		bool bChildren;
-		bool bLinks;
-		QString qsGroup;
-	};
-	QList<unsigned int> qlSessions;
-	QList<WhisperTarget::Channel> qlChannels;
-};
-
 #define EXEC_QEVENT (QEvent::User + 959)
 
 class ExecEvent : public QEvent {
@@ -115,56 +81,6 @@ class ExecEvent : public QEvent {
 	public:
 		ExecEvent(boost::function<void ()>);
 		void execute();
-};
-
-class ServerUser : public Connection, public User {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(ServerUser)
-	protected:
-		Server *s;
-	public:
-		enum State { Connected, Authenticated };
-		State sState;
-		operator const QString() const;
-
-		float dUDPPingAvg, dUDPPingVar;
-		float dTCPPingAvg, dTCPPingVar;
-		quint64 uiUDPPackets, uiTCPPackets;
-
-		unsigned int uiVersion;
-		QString qsRelease;
-		QString qsOS;
-		QString qsOSVersion;
-
-		std::string ssContext;
-		QString qsIdentity;
-
-		bool bVerified;
-		QStringList qslEmail;
-
-		HostAddress haAddress;
-		bool bUdp;
-
-		QList<int> qlCodecs;
-
-		QStringList qslAccessTokens;
-
-		QMap<int, WhisperTarget> qmTargets;
-		typedef QPair<QSet<ServerUser *>, QSet<ServerUser *> > TargetCache;
-		QMap<int, TargetCache> qmTargetCache;
-		QMap<QString, QString> qmWhisperRedirect;
-
-		int iLastPermissionCheck;
-		QMap<int, unsigned int> qmPermissionSent;
-#ifdef Q_OS_UNIX
-		int sUdpSocket;
-#else
-		SOCKET sUdpSocket;
-#endif
-		BandwidthRecord bwr;
-		struct sockaddr_storage saiUdpAddress;
-		ServerUser(Server *parent, QSslSocket *socket);
 };
 
 class Server : public QThread {
@@ -392,7 +308,6 @@ class Server : public QThread {
 		MUMBLE_MH_ALL
 #undef MUMBLE_MH_MSG
 };
-
 
 #else
 class Server;

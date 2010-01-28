@@ -33,6 +33,7 @@
 #include <IceUtil/IceUtil.h>
 #include "Meta.h"
 #include "Server.h"
+#include "ServerUser.h"
 #include "ServerDB.h"
 #include "User.h"
 #include "Channel.h"
