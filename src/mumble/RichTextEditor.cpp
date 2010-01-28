@@ -272,6 +272,65 @@ void RichTextEditor::on_qteRichText_textChanged() {
 	bModified = true;
 	bChanged = true;
 	updateActions();
+
+	if (! g.uiMessageLength)
+		return;
+	
+	richToPlain();
+	
+	const QString &text = qptePlainText->toPlainText();
+
+	bool over = true;
+	
+	unsigned int imagelength = text.length();
+
+
+	if (g.uiMessageLength && imagelength <= g.uiMessageLength) {
+		over = false;
+	} else if (g.uiImageLength && imagelength > g.uiImageLength) {
+		over = true;
+	} else {
+		QString qsOut;
+		QXmlStreamReader qxsr(QString::fromLatin1("<document>%1</document>").arg(text));
+		QXmlStreamWriter qxsw(&qsOut);
+		while (! qxsr.atEnd()) {
+				switch (qxsr.readNext()) {
+						case QXmlStreamReader::Invalid:
+								return;
+						case QXmlStreamReader::StartElement: {
+										if (qxsr.name() == QLatin1String("img")) {
+												QXmlStreamAttributes attr = qxsr.attributes();
+
+												qxsw.writeStartElement(qxsr.namespaceUri().toString(), qxsr.name().toString());
+												foreach(const QXmlStreamAttribute &a, qxsr.attributes())
+														if (a.name() != QLatin1String("src"))
+																qxsw.writeAttribute(a);
+										} else {
+												qxsw.writeCurrentToken(qxsr);
+										}
+								}
+								break;
+						default:
+								qxsw.writeCurrentToken(qxsr);
+								break;
+				}
+		}
+		over = (static_cast<unsigned int>(qsOut.length()) > g.uiMessageLength);
+	}
+
+	
+	QString tooltip = tr("Message is too long.");
+	
+	if (!over) {
+		if (QToolTip::text() == tooltip)
+			QToolTip::hideText();
+	} else {
+		QPoint p = QCursor::pos();
+		const QRect &r = qteRichText->rect();
+		if (! r.contains(qteRichText->mapFromGlobal(p))) 
+			p = qteRichText->mapToGlobal(r.center());
+		QToolTip::showText(p, tooltip, qteRichText);
+	}
 }
 
 void RichTextEditor::on_qteRichText_cursorPositionChanged() {
@@ -537,13 +596,13 @@ void RichTextEditor::richToPlain() {
 }
 
 void RichTextEditor::setText(const QString &txt, bool readonly) {
-	qtbToolBar->setEnabled(! readonly);
-	qtbToolBar->setVisible(! readonly);
-	qptePlainText->setReadOnly(readonly);
+	qtbToolBar->setEnabled(! readonly && g.bAllowHTML);
+	qtbToolBar->setVisible(! readonly && g.bAllowHTML);
+	qptePlainText->setReadOnly(readonly || ! g.bAllowHTML);
 	qteRichText->setReadOnly(readonly);
 
-	qptePlainText->setPlainText(txt);
 	qteRichText->setHtml(txt);
+	qptePlainText->setPlainText(txt);
 
 	bChanged = false;
 	bModified = false;

@@ -1956,6 +1956,10 @@ void MainWindow::serverConnected() {
 
 	qtvUsers->setRowHidden(0, QModelIndex(), false);
 
+	g.bAllowHTML = true;
+	g.uiMessageLength = 5000;
+	g.uiImageLength = 131072;
+
 	if (g.s.bMute || g.s.bDeaf) {
 		g.sh->setSelfMuteDeafState(g.s.bMute, g.s.bDeaf);
 	}

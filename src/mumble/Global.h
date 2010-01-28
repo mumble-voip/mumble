@@ -89,6 +89,9 @@ public:
 	int iCodecAlpha, iCodecBeta;
 	bool bPreferAlpha;
 	bool bAttenuateOthers;
+	bool bAllowHTML;
+	unsigned int uiMessageLength;
+	unsigned int uiImageLength;
 	Global();
 	~Global();
 };
