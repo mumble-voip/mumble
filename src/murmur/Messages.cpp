@@ -345,8 +345,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	if (! qsWelcomeText.isEmpty())
 		mpss.set_welcome_text(u8(qsWelcomeText));
 	mpss.set_max_bandwidth(iMaxBandwidth);
-	mpss.set_allow_html(bAllowHTML);
-
+	
 	if (uSource->iId == 0) {
 		mpss.set_permissions(ChanACL::All);
 	} else {
@@ -356,6 +355,13 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	}
 
 	sendMessage(uSource, mpss);
+
+	MumbleProto::ServerConfig mpsc;
+	mpsc.set_allow_html(bAllowHTML);
+	mpsc.set_message_length(iMaxTextMessageLength);
+	mpsc.set_image_message_length(iMaxImageMessageLength);
+	sendMessage(uSource, mpsc);
+
 	log(uSource, "Authenticated");
 
 	emit userConnected(uSource);
@@ -1508,4 +1514,7 @@ void Server::msgRequestBlob(ServerUser *uSource, MumbleProto::RequestBlob &msg) 
 			}
 		}
 	}
+}
+
+void Server::msgServerConfig(ServerUser *, MumbleProto::ServerConfig &) {
 }

@@ -49,12 +49,19 @@ message Reject {
 	optional string reason = 2;
 }
 
+message ServerConfig {
+	optional uint32 max_bandwidth = 1;
+	optional string welcome_text = 2;
+	optional bool allow_html = 3;
+	optional uint32 message_length = 4;
+	optional uint32 image_message_length = 5;
+}
+
 message ServerSync {
 	optional uint32 session = 1;
 	optional uint32 max_bandwidth = 2;
 	optional string welcome_text = 3;
 	optional uint64 permissions = 4;
-	optional bool allow_html = 5 [default = true];
 }
 
 message ChannelRemove {

@@ -368,24 +368,71 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		qsPassword = !v.isNull() ? v : Meta::mp.qsPassword;
 	else if (key == "timeout")
 		iTimeout = i ? i : Meta::mp.iTimeout;
-	else if (key == "bandwidth")
-		iMaxBandwidth = i ? i : Meta::mp.iMaxBandwidth;
+	else if (key == "bandwidth") {
+		int length = i ? i : Meta::mp.iMaxBandwidth;
+		if (length != iMaxBandwidth) {
+			iMaxBandwidth = length;
+			MumbleProto::ServerConfig mpsc;
+			mpsc.set_max_bandwidth(length);
+			sendAll(mpsc);
+		}
+	}
 	else if (key == "users")
 		iMaxUsers = i ? i : Meta::mp.iMaxUsers;
 	else if (key == "usersperchannel")
 		iMaxUsersPerChannel = i ? i : Meta::mp.iMaxUsersPerChannel;
-	else if (key == "textmessagelength")
-		iMaxTextMessageLength = i ? i : Meta::mp.iMaxTextMessageLength;
-	else if (key == "imagemessagelength")
-		iMaxImageMessageLength = i ? i : Meta::mp.iMaxImageMessageLength;
-	else if (key == "allowhtml")
-		bAllowHTML = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bAllowHTML;
+	else if (key == "textmessagelength") {
+		int length = i ? i : Meta::mp.iMaxTextMessageLength;
+		if (length != iMaxTextMessageLength) {
+			iMaxTextMessageLength = length;
+			MumbleProto::ServerConfig mpsc;
+			mpsc.set_message_length(length);
+			sendAll(mpsc);
+		}
+	}
+	else if (key == "imagemessagelength") {
+		int length = i ? i : Meta::mp.iMaxImageMessageLength;
+		if (length != iMaxImageMessageLength) {
+			iMaxImageMessageLength = length;
+			MumbleProto::ServerConfig mpsc;
+			mpsc.set_image_message_length(length);
+			sendAll(mpsc);
+		}
+	}
+	else if (key == "allowhtml") {
+		bool allow = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bAllowHTML;
+		if (allow != bAllowHTML) {
+			bAllowHTML = allow;
+			MumbleProto::ServerConfig mpsc;
+			mpsc.set_allow_html(bAllowHTML);
+			sendAll(mpsc);
+		}
+	}
 	else if (key == "defaultchannel")
 		iDefaultChan = i ? i : Meta::mp.iDefaultChan;
-	else if (key == "welcometext")
-		qsWelcomeText = !v.isNull() ? v : Meta::mp.qsWelcomeText;
-	else if (key == "registername")
-		qsRegName = !v.isNull() ? v : Meta::mp.qsRegName;
+	else if (key == "welcometext") {
+		QString text = !v.isNull() ? v : Meta::mp.qsWelcomeText;
+		if (text != qsWelcomeText) {
+			qsWelcomeText = text;
+			if (! qsWelcomeText.isEmpty()) {
+				MumbleProto::ServerConfig mpsc;
+				mpsc.set_welcome_text(u8(qsWelcomeText));
+				sendAll(mpsc);
+			}
+		}
+	}
+	else if (key == "registername") {
+		QString text = !v.isNull() ? v : Meta::mp.qsRegName;
+		if (text != qsRegName) {
+			qsRegName = text;
+			if (! qsRegName.isEmpty()) {
+				MumbleProto::ChannelState mpcs;
+				mpcs.set_channel_id(0);
+				mpcs.set_name(u8(qsRegName));
+				sendAll(mpcs);
+			}
+		}
+	}
 	else if (key == "registerpassword")
 		qsRegPassword = !v.isNull() ? v : Meta::mp.qsRegPassword;
 	else if (key == "registerhostname")

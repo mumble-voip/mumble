@@ -58,7 +58,8 @@
 	MUMBLE_MH_MSG(PermissionQuery) \
 	MUMBLE_MH_MSG(CodecVersion) \
 	MUMBLE_MH_MSG(UserStats) \
-	MUMBLE_MH_MSG(RequestBlob)
+	MUMBLE_MH_MSG(RequestBlob) \
+	MUMBLE_MH_MSG(ServerConfig)
 
 class MessageHandler {
 	public:

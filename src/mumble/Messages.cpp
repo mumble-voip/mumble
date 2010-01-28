@@ -683,3 +683,6 @@ void MainWindow::msgUserStats(const MumbleProto::UserStats &msg) {
 
 void MainWindow::msgRequestBlob(const MumbleProto::RequestBlob &) {
 }
+
+void MainWindow::msgServerConfig(const MumbleProto::ServerConfig &) {
+}
