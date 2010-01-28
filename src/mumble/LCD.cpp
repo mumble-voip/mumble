@@ -138,7 +138,7 @@ void LCDConfig::load(const Settings &r) {
 	foreach(QTreeWidgetItem *qtwi, qlItems) {
 		QString qsName = qtwi->text(0);
 		bool enabled = r.qmLCDDevices.contains(qsName) ? r.qmLCDDevices.value(qsName) : true;
-		qtwi->setCheckState(3, enabled ? Qt::Checked : Qt::Unchecked);
+		qtwi->setCheckState(2, enabled ? Qt::Checked : Qt::Unchecked);
 	}
 
 	loadSlider(qsMinColWidth, r.iLCDUserViewMinColWidth);
@@ -150,7 +150,7 @@ void LCDConfig::save() const {
 
 	foreach(QTreeWidgetItem *qtwi, qlItems) {
 		QString qsName = qtwi->text(0);
-		s.qmLCDDevices.insert(qsName, qtwi->checkState(3) == Qt::Checked);
+		s.qmLCDDevices.insert(qsName, qtwi->checkState(2) == Qt::Checked);
 	}
 
 	s.iLCDUserViewMinColWidth = qsMinColWidth->value();
