@@ -16,7 +16,10 @@ import sys
 import Ice
 import thread
 import logging
+import urllib2
 import ConfigParser
+from htmlentitydefs import name2codepoint as n2cp
+import re
 
 from logging    import (debug,
                         info,
@@ -78,7 +81,7 @@ default = {'database':(('lib', str, 'MySQLdb'),
                    ('file', str, 'smfauth.log'))}
  
 #
-#--- Helper classes
+#--- Helpers
 #
 class config(object):
     """
@@ -105,7 +108,39 @@ class config(object):
                         self.__dict__[h].__dict__[name] = conv(cfg.get(h, name))
                     except (ValueError, ConfigParser.NoSectionError, ConfigParser.NoOptionError):
                         self.__dict__[h].__dict__[name] = vdefault
-                    
+ 
+def decode_htmlentities(string):
+    """
+    Decode HTML entities–hex, decimal, or named–in a string
+    @see http://snippets.dzone.com/posts/show/4569
+    
+    >>> u = u'E tu vivrai nel terrore - L&#x27;aldil&#xE0; (1981)'
+    >>> print decode_htmlentities(u).encode('UTF-8')
+    E tu vivrai nel terrore - L'aldilà (1981)
+    >>> print decode_htmlentities("l&#39;eau")
+    l'eau
+    >>> print decode_htmlentities("foo &lt; bar")                
+    foo < bar
+    """
+    def substitute_entity(match):
+        ent = match.group(3)
+        if match.group(1) == "#":
+            # decoding by number
+            if match.group(2) == '':
+                # number is in decimal
+                return unichr(int(ent))
+            elif match.group(2) == 'x':
+                # number is in hex
+                return unichr(int('0x'+ent, 16))
+        else:
+            # they were using a name
+            cp = n2cp.get(ent)
+            if cp: return unichr(cp)
+            else: return match.group()
+    
+    entity_re = re.compile(r'&(#?)(x?)(\w+);')
+    return entity_re.subn(substitute_entity, string)[0]
+                   
 class threadDbException(Exception): pass
 class threadDB(object):
     """
@@ -255,7 +290,7 @@ def do_main_program():
                 return (FALL_THROUGH, None, None)
             
             try:
-                sql = 'SELECT ID_MEMBER, passwd, ID_GROUP, memberName, additionalGroups, is_activated FROM %smembers WHERE LOWER(memberName) = LOWER(%%s)' % cfg.database.prefix
+                sql = 'SELECT ID_MEMBER, passwd, ID_GROUP, memberName, realName, additionalGroups, is_activated FROM %smembers WHERE LOWER(memberName) = LOWER(%%s)' % cfg.database.prefix
                 cur = threadDB.execute(sql, name)
             except threadDbException:
                 return (FALL_THROUGH, None, None)
@@ -266,7 +301,7 @@ def do_main_program():
                 info('Fall through for unknown user "%s"', name)
                 return (FALL_THROUGH, None, None)
     
-            uid, upw, ug, unm, uag, activated = res
+            uid, upw, ug, unm, urn, uag, activated = res
             
             if activated == 1 and smf_check_hash(pw, upw, unm):
                 # Authenticated, fetch group memberships
@@ -283,7 +318,7 @@ def do_main_program():
     
                 info('User authenticated: "%s" (%d)', name, uid + cfg.user.id_offset)
                 debug('Group memberships: %s', str(res))
-                return (uid + cfg.user.id_offset, name, res)
+                return (uid + cfg.user.id_offset, decode_htmlentities(urn), res)
             
             info('Failed authentication attempt for user: "%s" (%d)', name, uid + cfg.user.id_offset)
             return (AUTH_REFUSED, None, None)
@@ -372,7 +407,7 @@ def do_main_program():
             # Otherwise get the users texture from smf
             bbid = id - cfg.user.id_offset
             try:
-                sql = 'SELECT memberName, avatar FROM %smembers WHERE ID_MEMBER = %%s' % cfg.database.prefix
+                sql = 'SELECT realName, avatar FROM %smembers WHERE ID_MEMBER = %%s' % cfg.database.prefix
                 cur = threadDB.execute(sql, bbid)
             except threadDbException:
                 return FALL_THROUGH
@@ -387,7 +422,7 @@ def do_main_program():
             if not avatar:
                 # Either the user has none or it is in the attachments, check there
                 try:
-                    sql = 'SELECT file_hash FROM %sattachments WHERE ID_MEMBER = %%s' % cfg.database.prefix
+                    sql = 'SELECT ID_ATTACH FROM %sattachments WHERE ID_MEMBER = %%s' % cfg.database.prefix
                     cur = threadDB.execute(sql, bbid)
                 except threadDbException:
                     return FALL_THROUGH
@@ -399,7 +434,7 @@ def do_main_program():
                     debug('idToTexture %d -> no texture available for this user, fall through', id)
                     return FALL_THROUGH
 
-                avatar_file = cfg.forum.url + 'index.php?action=dlattach;attach=%d;type=avatar' % bbid
+                avatar_file = cfg.forum.url + 'index.php?action=dlattach;attach=%d;type=avatar' % res[0]
             elif "://" in avatar:
                 # ...or it is a external link
                 avatar_file = avatar
@@ -429,7 +464,7 @@ def do_main_program():
                     # Insert user name into picture
                     draw = ImageDraw.Draw(img)
                     draw.text((cfg.user.avatar_username_x, cfg.user.avatar_username_y),
-                                username,
+                                decode_htmlentities(username),
                                 fill = cfg.user.avatar_username_fill,
                                 font = self.font)
                 
@@ -438,7 +473,7 @@ def do_main_program():
                 comp = compress(raw)
                 res = pack('>L', len(raw)) + comp
             except Exception, e:
-                warning('Image manipulation for "%s" (%d) failed', url, id)
+                warning('Image manipulation for "%s" (%d) failed', avatar_file, id)
                 debug(e)
                 return FALL_THROUGH
 
@@ -616,7 +651,6 @@ if __name__ == '__main__':
             'please install the missing dependency and restart the authenticator'
             sys.exit(1)
 
-        import urllib2
         import StringIO
         
         from zlib   import compress
