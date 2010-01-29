@@ -18,7 +18,6 @@ import thread
 import logging
 import urllib2
 import ConfigParser
-from htmlentitydefs import name2codepoint as n2cp
 import re
 
 from logging    import (debug,
@@ -28,6 +27,7 @@ from logging    import (debug,
                         critical,
                         getLogger)
 from optparse   import OptionParser
+
 try:
     from hashlib import sha1
 except ImportError: # python 2.4 compat
@@ -53,7 +53,7 @@ default = {'database':(('lib', str, 'MySQLdb'),
                        ('prefix', str, 'smf_'),
                        ('host', str, '127.0.0.1'),
                        ('port', int, 3306)),
-            'forum':(('url', str, 'http://localhost/smf/'),),
+            'forum':(('path', str, 'http://localhost/smf/'),),
                      
             'user':(('id_offset', int, 1000000000),
                     ('avatar_enable', x2bool, False),
@@ -108,39 +108,35 @@ class config(object):
                         self.__dict__[h].__dict__[name] = conv(cfg.get(h, name))
                     except (ValueError, ConfigParser.NoSectionError, ConfigParser.NoOptionError):
                         self.__dict__[h].__dict__[name] = vdefault
- 
-def decode_htmlentities(string):
+
+def entity_decode(string):
     """
-    Decode HTML entities–hex, decimal, or named–in a string
-    @see http://snippets.dzone.com/posts/show/4569
-    
-    >>> u = u'E tu vivrai nel terrore - L&#x27;aldil&#xE0; (1981)'
-    >>> print decode_htmlentities(u).encode('UTF-8')
-    E tu vivrai nel terrore - L'aldilà (1981)
-    >>> print decode_htmlentities("l&#39;eau")
-    l'eau
-    >>> print decode_htmlentities("foo &lt; bar")                
-    foo < bar
+    Python reverse implementation of php htmlspecialchars
     """
-    def substitute_entity(match):
-        ent = match.group(3)
-        if match.group(1) == "#":
-            # decoding by number
-            if match.group(2) == '':
-                # number is in decimal
-                return unichr(int(ent))
-            elif match.group(2) == 'x':
-                # number is in hex
-                return unichr(int('0x'+ent, 16))
-        else:
-            # they were using a name
-            cp = n2cp.get(ent)
-            if cp: return unichr(cp)
-            else: return match.group()
-    
-    entity_re = re.compile(r'&(#?)(x?)(\w+);')
-    return entity_re.subn(substitute_entity, string)[0]
-                   
+    htmlspecialchars = (('"', '&quot;'),
+                        ("'", '&#039;'),
+                        ('<', '&lt;'),
+                        ('>', '&gt'),
+                        ('&', '&amp;'))
+    ret = string
+    for (s,t) in htmlspecialchars:
+        ret = ret.replace(t, s)
+    return ret
+
+def entity_encode(string):
+    """
+    Python implementation of htmlspecialchars
+    """
+    htmlspecialchars = (('&', '&amp;'),
+                        ('"', '&quot;'),
+                        ("'", '&#039;'),
+                        ('<', '&lt;'),
+                        ('>', '&gt'))
+    ret = string
+    for (s,t) in htmlspecialchars:
+        ret = ret.replace(s, t)
+    return ret
+        
 class threadDbException(Exception): pass
 class threadDB(object):
     """
@@ -218,7 +214,7 @@ def do_main_program():
             
             if not self.initializeIceConnection():
                 return 1
-            
+
             # Serve till we are stopped
             self.communicator().waitForShutdown()
             
@@ -288,10 +284,10 @@ def do_main_program():
             if name == 'SuperUser':
                 debug('Forced fall through for SuperUser')
                 return (FALL_THROUGH, None, None)
-            
+            print entity_encode(name)
             try:
-                sql = 'SELECT ID_MEMBER, passwd, ID_GROUP, memberName, realName, additionalGroups, is_activated FROM %smembers WHERE LOWER(memberName) = LOWER(%%s)' % cfg.database.prefix
-                cur = threadDB.execute(sql, name)
+                sql = 'SELECT ID_MEMBER, passwd, ID_GROUP, memberName, realName, additionalGroups, is_activated FROM %smembers WHERE LOWER(memberName) = LOWER(%%s) OR realName = %%s' % cfg.database.prefix
+                cur = threadDB.execute(sql, (name, entity_encode(name)))
             except threadDbException:
                 return (FALL_THROUGH, None, None)
             
@@ -318,7 +314,7 @@ def do_main_program():
     
                 info('User authenticated: "%s" (%d)', name, uid + cfg.user.id_offset)
                 debug('Group memberships: %s', str(res))
-                return (uid + cfg.user.id_offset, decode_htmlentities(urn), res)
+                return (uid + cfg.user.id_offset, entity_decode(urn), res)
             
             info('Failed authentication attempt for user: "%s" (%d)', name, uid + cfg.user.id_offset)
             return (AUTH_REFUSED, None, None)
@@ -422,7 +418,7 @@ def do_main_program():
             if not avatar:
                 # Either the user has none or it is in the attachments, check there
                 try:
-                    sql = 'SELECT ID_ATTACH FROM %sattachments WHERE ID_MEMBER = %%s' % cfg.database.prefix
+                    sql = 'SELECT ID_ATTACH, file_hash FROM %sattachments WHERE ID_MEMBER = %%s' % cfg.database.prefix
                     cur = threadDB.execute(sql, bbid)
                 except threadDbException:
                     return FALL_THROUGH
@@ -433,17 +429,22 @@ def do_main_program():
                     # No uploaded avatar found, seems like the user didn't set one
                     debug('idToTexture %d -> no texture available for this user, fall through', id)
                     return FALL_THROUGH
-
-                avatar_file = cfg.forum.url + 'index.php?action=dlattach;attach=%d;type=avatar' % res[0]
+                
+                if cfg.forum.path.startswith('file://'):
+                    # We are supposed to load this from the local fs
+                    avatar_file = cfg.forum.path + 'attachments/%d_%s' % (res[0], res[1])
+                else: 
+                    avatar_file = cfg.forum.path + 'index.php?action=dlattach;attach=%d;type=avatar' % res[0]
             elif "://" in avatar:
                 # ...or it is a external link
                 avatar_file = avatar
             else:
                 # Or it is saved locally in the avatar folder
-                avatar_file = cfg.forum.url + 'avatars/' + avatar
+                avatar_file = cfg.forum.path + 'avatars/' + avatar
                 
             if avatar_file in self.texture_cache:
                 return self.texture_cache[avatar_file]
+            
             try:
                 handle = urllib2.urlopen(avatar_file)
                 file = StringIO.StringIO(handle.read())
@@ -464,7 +465,7 @@ def do_main_program():
                     # Insert user name into picture
                     draw = ImageDraw.Draw(img)
                     draw.text((cfg.user.avatar_username_x, cfg.user.avatar_username_y),
-                                decode_htmlentities(username),
+                                entity_decode(username),
                                 fill = cfg.user.avatar_username_fill,
                                 font = self.font)
                 
@@ -607,7 +608,7 @@ def smf_check_hash(password, hash, username):
     """
     Python implementation of the smf check hash function
     """
-    return sha1(username.lower() + password.lower()).hexdigest() == hash
+    return sha1(username.lower() + password).hexdigest() == hash
 
 #
 #--- Start of program
