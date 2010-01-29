@@ -54,7 +54,7 @@ Global::Global() {
 	bPreferAlpha = true;
 
 	bAttenuateOthers = false;
-	
+
 	bAllowHTML = true;
 	uiMessageLength = 5000;
 	uiImageLength = 131072;

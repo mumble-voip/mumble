@@ -379,15 +379,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+42"/>
-        <location line="+4"/>
-        <location line="+23"/>
-        <location line="+4"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="+42"/>
         <location line="+27"/>
         <source>ASIO Initialization failed: %1</source>
         <translation>Inizializzazione di ASIO fallita: %1</translation>
@@ -529,13 +525,11 @@
 <context>
     <name>ASIOInput</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+80"/>
-        <location line="+103"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-103"/>
+        <location filename="ASIOInput.cpp" line="+80"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
         <translation>Devi selezionare almeno un microfono e un altoparlante per usare ASIO. Se hai bisogno solo il campionamento microfonico, usa DirectSound.</translation>
     </message>
@@ -2057,12 +2051,11 @@
         <translation>Sconosciuto</translation>
     </message>
     <message>
-        <location line="+14"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+14"/>
         <source>Failed to fetch server list</source>
         <translation>Scaricamento della lista dei server fallita</translation>
     </message>
@@ -2306,12 +2299,11 @@
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+127"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location filename="Database.cpp" line="+127"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Mumble non è riuscito a inizializzare il database in nessuna
@@ -3162,18 +3154,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="MainWindow.ui"/>
-        <location filename="MainWindow.cpp" line="+4"/>
-        <location line="+89"/>
-        <location line="+576"/>
-        <location line="+22"/>
-        <location line="+21"/>
-        <location line="+451"/>
-        <location filename="main.cpp" line="+244"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1150"/>
+        <location filename="MainWindow.cpp" line="+13"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -4187,7 +4172,7 @@ p, li { white-space: pre-wrap; }
         <translation>Modalità trascianamento canale sconosciuta in PlayerModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-17"/>
+        <location filename="main.cpp" line="+227"/>
         <source>Welcome to Mumble.</source>
         <translation>Benvenuto su Mumble.</translation>
     </message>
@@ -4624,12 +4609,11 @@ p, li { white-space: pre-wrap; }
         <translation>Segnali</translation>
     </message>
     <message>
-        <location line="+535"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+535"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Sei sicuro di voler spostare questo canale?</translation>
     </message>
@@ -4643,13 +4627,11 @@ p, li { white-space: pre-wrap; }
         <translation>Plugins</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+28"/>
-        <location line="+12"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location filename="Plugins.cpp" line="+28"/>
         <source>Plugin has no configure function.</source>
         <translation>Il Plugins non ha funzioni di configurazione.</translation>
     </message>

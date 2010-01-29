@@ -719,15 +719,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+42"/>
-        <location line="+4"/>
-        <location line="+23"/>
-        <location line="+4"/>
         <source>Mumble</source>
-        <translation type="unfinished">Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="+42"/>
         <location line="+27"/>
         <source>ASIO Initialization failed: %1</source>
         <translation type="unfinished"></translation>
@@ -752,13 +748,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>ASIOInput</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+80"/>
-        <location line="+103"/>
         <source>Mumble</source>
-        <translation type="unfinished">Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-103"/>
+        <location filename="ASIOInput.cpp" line="+80"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2676,7 +2670,7 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+57"/>
         <source>Unable to resolve domain.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2706,11 +2700,6 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Authenticating to servers without using passwords</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2981,6 +2970,15 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Automatic certificate creation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;
+&lt;p&gt;
+It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
+&lt;/p&gt;
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3514,12 +3512,11 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+948"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+948"/>
         <source>Failed to fetch server list</source>
         <translation>Selhalo stažení seznamu dostupných serverů</translation>
     </message>
@@ -3892,13 +3889,11 @@ Username to send to the server. Be aware that the server can impose restrictions
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+84"/>
-        <location line="+7"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-7"/>
+        <location filename="Database.cpp" line="+84"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Mumble nedokazalo inicializovat databázi
@@ -4917,7 +4912,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1800"/>
+        <location line="+1792"/>
         <source>Root</source>
         <translation>Kořen</translation>
     </message>
@@ -5529,9 +5524,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Připojí se k webové stránce Mumble pro zjištění případné dostupnosti novějších verzí a vypíše vhodný odkaz na stažení, pokud je nová verze k dispozici.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1705"/>
+        <location filename="MainWindow.cpp" line="-1697"/>
         <location line="+12"/>
-        <location line="+1896"/>
+        <location line="+1892"/>
         <source>Mumble -- %1</source>
         <translation>Mumble =- %1 </translation>
     </message>
@@ -5553,7 +5548,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Uživatel</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1986"/>
+        <location filename="MainWindow.cpp" line="-1982"/>
         <source>&amp;Channel</source>
         <translation type="unfinished">&amp;Kanál</translation>
     </message>
@@ -5665,7 +5660,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Vykopnutí uživaetele %1</translation>
     </message>
     <message>
-        <location line="+379"/>
+        <location line="+366"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Zadejte důvod</translation>
@@ -5698,11 +5693,6 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.ui"/>
-        <location filename="MainWindow.cpp" line="-946"/>
-        <location line="+901"/>
-        <location line="+181"/>
-        <location line="+621"/>
-        <location filename="main.cpp" line="+17"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -5711,12 +5701,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Název kanálu</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-621"/>
+        <location filename="MainWindow.cpp" line="+139"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Opravdu chcete odstranit kanál %1 včetně všech jeho podkanálů?</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+180"/>
         <source>Unmuted and undeafened.</source>
         <translation>Opět schopen slyšet a mluvit.</translation>
     </message>
@@ -5759,7 +5749,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Připojen k serveru.</translation>
     </message>
     <message>
-        <location line="+402"/>
+        <location line="+406"/>
         <source>Server connection failed: %1.</source>
         <translation>Připojování k serveru selhalo: %1.</translation>
     </message>
@@ -5807,7 +5797,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Uživatel %1 opustil server.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+254"/>
+        <location filename="Messages.cpp" line="+268"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 má zakázáno mluvit a poslouchat.</translation>
     </message>
@@ -5908,22 +5898,23 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">%1 byl přesunut do kanálu zásahem uživatele %2.</translation>
     </message>
     <message>
-        <location line="-298"/>
+        <location line="-312"/>
         <source>Server connection rejected: %1.</source>
         <translation>Spojení se serverem bylo odmítnuto: %1.</translation>
     </message>
     <message>
         <location line="+8"/>
+        <location line="+40"/>
         <source>Welcome message: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="-7"/>
         <source>Mumble: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+28"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6133,7 +6124,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1613"/>
+        <location filename="MainWindow.cpp" line="-1609"/>
         <source>Opening URL %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6210,19 +6201,19 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1131"/>
+        <location line="+1127"/>
         <source>&amp;View Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1241"/>
-        <location line="+294"/>
+        <location line="-1237"/>
+        <location line="+281"/>
         <source>Register yourself as %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-294"/>
-        <location line="+294"/>
+        <location line="-281"/>
+        <location line="+281"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6247,8 +6238,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-377"/>
-        <location line="+419"/>
+        <location line="-364"/>
+        <location line="+406"/>
         <source>Change comment on user %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6259,17 +6250,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+56"/>
-        <location line="+211"/>
+        <location line="+214"/>
         <source>Message to channel %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+434"/>
+        <location line="+436"/>
         <source>Connected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+141"/>
+        <location line="+145"/>
         <source>SSL Version mismatch</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6289,7 +6280,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1881"/>
+        <location line="-1877"/>
         <source>&amp;User</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6299,12 +6290,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+350"/>
+        <location line="+337"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+249"/>
+        <location line="+252"/>
         <source>(Tree) %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6314,7 +6305,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+542"/>
+        <location line="+548"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6370,7 +6361,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1417"/>
+        <location line="-1413"/>
         <source>Voice channel is sent over control channel.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6410,7 +6401,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+572"/>
+        <location line="+562"/>
         <source>Sending message to channel %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6435,12 +6426,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+0"/>
+        <location filename="main.cpp" line="+17"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1151"/>
+        <location filename="MainWindow.cpp" line="-1141"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6547,12 +6538,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+1913"/>
+        <location line="+1909"/>
         <source>Not connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1718"/>
+        <location line="-1714"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6994,12 +6985,11 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+637"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location filename="Overlay.cpp" line="+703"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7237,7 +7227,7 @@ To může být způsobeno například těmito důvody:
         <translation>Barva pro aktivní kanály</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-494"/>
+        <location filename="Overlay.cpp" line="-560"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
@@ -7318,12 +7308,11 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>OverlayPrivateWin</name>
     <message>
-        <location filename="Overlay_win.cpp" line="+62"/>
         <source>Mumble</source>
-        <translation type="unfinished">Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location filename="Overlay_win.cpp" line="+62"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
@@ -7443,13 +7432,11 @@ To může být způsobeno například těmito důvody:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+38"/>
-        <location line="+12"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location filename="Plugins.cpp" line="+38"/>
         <source>Plugin has no configure function.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7564,6 +7551,11 @@ To může být způsobeno například těmito důvody:
     <message>
         <location line="+0"/>
         <source>Image file too large to embed in document. Please use images smaller than %1 kB.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+81"/>
+        <source>Message is too long.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8070,12 +8062,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source> </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+23"/>
+        <location line="+25"/>
         <location line="+43"/>
         <source>, </source>
         <translation type="unfinished"></translation>
@@ -8234,14 +8221,11 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished">Příznaky</translation>
     </message>
     <message>
-        <location line="+718"/>
-        <location line="+90"/>
-        <location line="+20"/>
         <source>Mumble</source>
-        <translation type="unfinished">Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-110"/>
+        <location line="+718"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation type="unfinished"></translation>
     </message>

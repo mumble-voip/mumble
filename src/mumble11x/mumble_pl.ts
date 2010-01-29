@@ -469,15 +469,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+42"/>
-        <location line="+4"/>
-        <location line="+23"/>
-        <location line="+4"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="+42"/>
         <location line="+27"/>
         <source>ASIO Initialization failed: %1</source>
         <translation>Inizjalizacja ASIO nie powiodła się: %1</translation>
@@ -531,13 +527,11 @@
 <context>
     <name>ASIOInput</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+80"/>
-        <location line="+103"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-103"/>
+        <location filename="ASIOInput.cpp" line="+80"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
         <translation>Musisz zaznaczyć przynajmniej jeden mikrofon oraz jedno źródło głośnika, aby używać ASIO. Jeżeli potrzebujesz tylko próbkowania mikrofonu używaj DirectSound.</translation>
     </message>
@@ -2191,12 +2185,11 @@ Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do p
         <translation>Nazwa użytkownika</translation>
     </message>
     <message>
-        <location line="+99"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+99"/>
         <source>Failed to fetch server list</source>
         <translation>Nie udało sie pobrać listy</translation>
     </message>
@@ -2375,12 +2368,11 @@ Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do p
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+127"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location filename="Database.cpp" line="+127"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Nie udało się zainicjalizować bazy danych
@@ -3542,18 +3534,11 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     </message>
     <message>
         <location filename="MainWindow.ui"/>
-        <location filename="MainWindow.cpp" line="-536"/>
-        <location line="+89"/>
-        <location line="+576"/>
-        <location line="+22"/>
-        <location line="+21"/>
-        <location line="+451"/>
-        <location filename="main.cpp" line="+244"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1222"/>
+        <location filename="MainWindow.cpp" line="-599"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
         <translation>Naciśnij i przytrzymaj ten przycisk, aby transmitować głos.</translation>
@@ -3801,7 +3786,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Zabroniono: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-17"/>
+        <location filename="main.cpp" line="+227"/>
         <source>Welcome to Mumble.</source>
         <translation>Witamy w Mumble.</translation>
     </message>
@@ -4725,12 +4710,11 @@ Opcja dostępna tylko, gdy ustawisz teksturę na danym serwerze podczas rejestra
         <translation>Atrybut(y)</translation>
     </message>
     <message>
-        <location line="+535"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+535"/>
         <source>Are you sure you want to drag this channel?</source>
         <translatorcomment>drag - przeciągnąć a nie przenieść //Zuko</translatorcomment>
         <translation type="unfinished">Czy jesteś pewien, że chcesz przeciągnąć ten kanał?</translation>
@@ -4810,13 +4794,11 @@ Opcja dostępna tylko, gdy ustawisz teksturę na danym serwerze podczas rejestra
         <translation type="unfinished">Wyświetla okno z konfiguracją wtyczki, jeżeli wtyczka posiadą konfigurację.</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+28"/>
-        <location line="+12"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location filename="Plugins.cpp" line="+28"/>
         <source>Plugin has no configure function.</source>
         <translation>Wtyczka nie posiada konfiguracji.</translation>
     </message>

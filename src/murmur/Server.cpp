@@ -376,8 +376,7 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			mpsc.set_max_bandwidth(length);
 			sendAll(mpsc);
 		}
-	}
-	else if (key == "users")
+	} else if (key == "users")
 		iMaxUsers = i ? i : Meta::mp.iMaxUsers;
 	else if (key == "usersperchannel")
 		iMaxUsersPerChannel = i ? i : Meta::mp.iMaxUsersPerChannel;
@@ -389,8 +388,7 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			mpsc.set_message_length(length);
 			sendAll(mpsc);
 		}
-	}
-	else if (key == "imagemessagelength") {
+	} else if (key == "imagemessagelength") {
 		int length = i ? i : Meta::mp.iMaxImageMessageLength;
 		if (length != iMaxImageMessageLength) {
 			iMaxImageMessageLength = length;
@@ -398,8 +396,7 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			mpsc.set_image_message_length(length);
 			sendAll(mpsc);
 		}
-	}
-	else if (key == "allowhtml") {
+	} else if (key == "allowhtml") {
 		bool allow = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bAllowHTML;
 		if (allow != bAllowHTML) {
 			bAllowHTML = allow;
@@ -407,8 +404,7 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			mpsc.set_allow_html(bAllowHTML);
 			sendAll(mpsc);
 		}
-	}
-	else if (key == "defaultchannel")
+	} else if (key == "defaultchannel")
 		iDefaultChan = i ? i : Meta::mp.iDefaultChan;
 	else if (key == "welcometext") {
 		QString text = !v.isNull() ? v : Meta::mp.qsWelcomeText;
@@ -420,8 +416,7 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 				sendAll(mpsc);
 			}
 		}
-	}
-	else if (key == "registername") {
+	} else if (key == "registername") {
 		QString text = !v.isNull() ? v : Meta::mp.qsRegName;
 		if (text != qsRegName) {
 			qsRegName = text;
@@ -432,8 +427,7 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 				sendAll(mpcs);
 			}
 		}
-	}
-	else if (key == "registerpassword")
+	} else if (key == "registerpassword")
 		qsRegPassword = !v.isNull() ? v : Meta::mp.qsRegPassword;
 	else if (key == "registerhostname")
 		qsRegHost = !v.isNull() ? v : Meta::mp.qsRegHost;

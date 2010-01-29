@@ -345,7 +345,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	if (! qsWelcomeText.isEmpty())
 		mpss.set_welcome_text(u8(qsWelcomeText));
 	mpss.set_max_bandwidth(iMaxBandwidth);
-	
+
 	if (uSource->iId == 0) {
 		mpss.set_permissions(ChanACL::All);
 	} else {

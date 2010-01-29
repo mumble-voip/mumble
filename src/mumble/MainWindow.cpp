@@ -946,7 +946,7 @@ void MainWindow::on_qaServerTexture_triggered() {
 		return;
 
 	const QImage &img = choice.second;
-		
+
 	if ((img.height() <= 1024) && (img.width() <= 1024))
 		g.sh->setTexture(choice.first);
 }

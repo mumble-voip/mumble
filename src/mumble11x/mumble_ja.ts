@@ -578,15 +578,11 @@
         <translation></translation>
     </message>
     <message>
-        <location line="+42"/>
-        <location line="+4"/>
-        <location line="+23"/>
-        <location line="+4"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="+42"/>
         <location line="+27"/>
         <source>ASIO Initialization failed: %1</source>
         <translation>ASIOの初期化に失敗しました: %1</translation>
@@ -629,13 +625,11 @@
 <context>
     <name>ASIOInput</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+80"/>
-        <location line="+103"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-103"/>
+        <location filename="ASIOInput.cpp" line="+80"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
         <translation>ASIOを使用するためには少なくとも1つのマイクと1つのスピーカーを選択しなければなりません。もしマイクサンプリングが必要なだけなら DirectSound を使用してください。</translation>
     </message>
@@ -2782,12 +2776,11 @@
         <translation>ユーザ名を入力してください</translation>
     </message>
     <message>
-        <location line="+99"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+99"/>
         <source>Failed to fetch server list</source>
         <translation>サーバリストを取得出来ませんでした</translation>
     </message>
@@ -3129,12 +3122,11 @@
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+127"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location filename="Database.cpp" line="+127"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Mumble: データベースの初期化が可能な場所がなく、
@@ -4529,18 +4521,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="MainWindow.ui"/>
-        <location filename="MainWindow.cpp" line="-536"/>
-        <location line="+89"/>
-        <location line="+576"/>
-        <location line="+22"/>
-        <location line="+21"/>
-        <location line="+451"/>
-        <location filename="main.cpp" line="+244"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-494"/>
+        <location filename="MainWindow.cpp" line="+129"/>
         <location line="+43"/>
         <source>Channel Name</source>
         <translation>チャンネル名</translation>
@@ -4744,7 +4729,7 @@ p, li { white-space: pre-wrap; }
         <translation>拒否されました: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-17"/>
+        <location filename="main.cpp" line="+227"/>
         <source>Welcome to Mumble.</source>
         <translation>Mumbleへようこそ</translation>
     </message>
@@ -5752,12 +5737,11 @@ p, li { white-space: pre-wrap; }
         <translation>サーバ内のプレイヤーが持っているフラグを表示します:&lt;br /&gt;&lt;img src=&quot;skin:authenticated.png&quot; /&gt;認証されたユーザ&lt;br /&gt;&lt;img src=&quot;skin:muted_self.png&quot; /&gt;発言禁止(自分によって)&lt;br /&gt;&lt;img src=&quot;skin:muted_server.png&quot; /&gt;発言禁止(管理者によって)&lt;br /&gt;&lt;img src=&quot;skin:deafened_self.png&quot; /&gt;聴取禁止(自分によって)&lt;br /&gt;&lt;img src=&quot;skin:deafened_server.png&quot; /&gt;聴取禁止(管理者によって)&lt;br /&gt;自分で発言禁止にしているプレイヤーは、おそらくちょっと離席しているだけでしょう。&lt;br /&gt;管理者によって発言禁止にされているプレイヤーは同じく離席しているだけか、管理者が発言禁止するに値するほどその人の発する雑音がうるさかったのでしょう。</translation>
     </message>
     <message>
-        <location line="+561"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+561"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>本当にこのチャンネルをドラッグしますか？</translation>
     </message>
@@ -5836,13 +5820,11 @@ p, li { white-space: pre-wrap; }
         <translation>プラグインの設定ページがあれば表示します。</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+28"/>
-        <location line="+12"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location filename="Plugins.cpp" line="+28"/>
         <source>Plugin has no configure function.</source>
         <translation>プラグインに設定機能がありません。</translation>
     </message>

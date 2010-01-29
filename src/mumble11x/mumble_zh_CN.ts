@@ -380,14 +380,6 @@
     </message>
     <message>
         <location line="+42"/>
-        <location line="+4"/>
-        <location line="+23"/>
-        <location line="+4"/>
-        <source>Mumble</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="-31"/>
         <location line="+27"/>
         <source>ASIO Initialization failed: %1</source>
         <translation>ASIO初始化失败: %1</translation>
@@ -530,12 +522,6 @@
     <name>ASIOInput</name>
     <message>
         <location filename="ASIOInput.cpp" line="+80"/>
-        <location line="+103"/>
-        <source>Mumble</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="-103"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
         <translation>你需要选择至少一个麦克风和一个扬声器源来使用 ASIO.如果你只需要使用要麦克风进行采样,请使用 DirectSound.</translation>
     </message>
@@ -2054,11 +2040,6 @@
     </message>
     <message>
         <location line="+14"/>
-        <source>Mumble</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+0"/>
         <source>Failed to fetch server list</source>
         <translation>无法获取服务器列表</translation>
     </message>
@@ -2303,11 +2284,6 @@
     <name>Database</name>
     <message>
         <location filename="Database.cpp" line="+127"/>
-        <source>Mumble</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+0"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Mumble 无法在任何可能的位置里初始化数据库.</translation>
@@ -3144,18 +3120,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="MainWindow.ui"/>
-        <location filename="MainWindow.cpp" line="+4"/>
-        <location line="+89"/>
-        <location line="+576"/>
-        <location line="+22"/>
-        <location line="+21"/>
-        <location line="+451"/>
-        <location filename="main.cpp" line="+244"/>
         <source>Mumble</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1150"/>
+        <location filename="MainWindow.cpp" line="+13"/>
         <source>Mumble -- %1</source>
         <translation></translation>
     </message>
@@ -4169,7 +4138,7 @@ p, li { white-space: pre-wrap; }
         <translation>未知的频道拖动模式 PlayerModel::dropMimeData。</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-17"/>
+        <location filename="main.cpp" line="+227"/>
         <source>Welcome to Mumble.</source>
         <translation>欢迎来到 Mumble。</translation>
     </message>
@@ -4599,11 +4568,6 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+535"/>
-        <source>Mumble</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+0"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>你确信要拖动这个频道吗？</translation>
     </message>
@@ -4618,12 +4582,6 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="Plugins.cpp" line="+28"/>
-        <location line="+12"/>
-        <source>Mumble</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="-12"/>
         <source>Plugin has no configure function.</source>
         <translation>插件没有配置选项。</translation>
     </message>

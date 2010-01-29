@@ -194,10 +194,10 @@ void Context::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int 
 	if ((x == 0) && (y == 0) && (w == uiWidth) && (h == uiHeight)) {
 		oglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, uiWidth, uiHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, a_ucTexture);
 	} else {
-		if (w != uiWidth) 
+		if (w != uiWidth)
 			oglPixelStorei(GL_UNPACK_ROW_LENGTH, uiWidth);
 		oglTexSubImage2D(GL_TEXTURE_2D, 0, x, y, w, h, GL_BGRA, GL_UNSIGNED_BYTE, a_ucTexture + 4 * (y * uiWidth + x));
-		if (w != uiWidth) 
+		if (w != uiWidth)
 			oglPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 	}
 }

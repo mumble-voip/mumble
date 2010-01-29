@@ -1,6 +1,46 @@
+2010-01-29
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    705738a  Server-side avatar support
+    75fc50a  User avatars
+
+2010-01-28
+  arcenciel <arcenciel@users.sourceforge.net>
+    f816fe6  Updated and fixed japanese translation
+
+  Erik Bouvin Pedersen <erikbp@users.sourceforge.net>
+    eda8b2f  Update Danish translation.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    b2181bc  Re-enable Intel-specific hacks in OSX overlay.
+    5f4fcb1  Socket-based overlay for Mac OS X.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    eba8bb3  Add strong cert link to cert wizard
+    8b90d2e  Show tooltip warning in rich text editor when over message
+	     limits
+    7a2061c  Propagate a few server config options to the client
+    7d81002  Split ServerUser from Server.cpp
+    d878550  Use glPixelStorei for subtexture updates on Win32
+    fc76734  Fix LCD enable state
+
+2010-01-27
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    cdf21bc  Some untranslatable strings were marked translatable
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    202d1bb  Only enable Join Channel if we can join the channel.
+    d891807  Always visible Join Channel context menu option
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    f54a142  Fix endian on ARM
+    af4ac7a  Fix enable-state for mute/deafen
+
 2010-01-26
   arcenciel <arcenciel@users.sourceforge.net>
     8bd520e  Updated Japanese Translation
+
+  Natenom <natenom@googlemail.com>
+    b502e7f  Updated German Translations
 
   Thorvald Natvig <slicer@users.sourceforge.net>
     57ef6e6  Fix texture assignment in server

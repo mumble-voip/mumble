@@ -546,15 +546,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+42"/>
-        <location line="+4"/>
-        <location line="+23"/>
-        <location line="+4"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="+42"/>
         <location line="+27"/>
         <source>ASIO Initialization failed: %1</source>
         <translation>Ошибка инициализации ASIO: %1</translation>
@@ -589,13 +585,11 @@
 <context>
     <name>ASIOInput</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+80"/>
-        <location line="+103"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-103"/>
+        <location filename="ASIOInput.cpp" line="+80"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
         <translation>Вам нужно выбрать хотя бы одно устройство для микрофона и одно для динамика для использования ASIO. Если вам нужно только протестировать микрофон, используйет DirectSound.</translation>
     </message>
@@ -2478,12 +2472,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+99"/>
         <source>Mumble</source>
-        <translation type="unfinished">Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+99"/>
         <source>Failed to fetch server list</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2817,12 +2810,11 @@
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+127"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location filename="Database.cpp" line="+127"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Mumble не удалось инициализировать базу данных ни в
@@ -4165,18 +4157,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="MainWindow.ui"/>
-        <location filename="MainWindow.cpp" line="-536"/>
-        <location line="+89"/>
-        <location line="+576"/>
-        <location line="+22"/>
-        <location line="+21"/>
-        <location line="+451"/>
-        <location filename="main.cpp" line="+244"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-494"/>
+        <location filename="MainWindow.cpp" line="+129"/>
         <location line="+43"/>
         <source>Channel Name</source>
         <translation>Имя канала</translation>
@@ -4380,7 +4365,7 @@ p, li { white-space: pre-wrap; }
         <translation>Запрещено: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-17"/>
+        <location filename="main.cpp" line="+227"/>
         <source>Welcome to Mumble.</source>
         <translation>Добро пожаловать в Mumble.</translation>
     </message>
@@ -5251,12 +5236,11 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+561"/>
         <source>Mumble</source>
-        <translation type="unfinished">Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+561"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5335,13 +5319,11 @@ p, li { white-space: pre-wrap; }
         <translation>Показывает страницу настроек плагина, если есть.</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+28"/>
-        <location line="+12"/>
         <source>Mumble</source>
-        <translation>Mumble</translation>
+        <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location filename="Plugins.cpp" line="+28"/>
         <source>Plugin has no configure function.</source>
         <translation>Плагин не имеет функции конфигурирования.</translation>
     </message>

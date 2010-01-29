@@ -410,7 +410,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 						default:
 							break;
 					}
-					
+
 					if (! hash.isEmpty()) {
 						avatar = TextImageKey(hash, e.uiColor);
 
@@ -469,7 +469,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 									cu->qbaTextureHash = QByteArray();
 								}
 							}
-							
+
 							QImage decal(iItemHeight, iItemHeight, QImage::Format_ARGB32);
 
 							QPainter imgp(&decal);
@@ -596,7 +596,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 			p.setCompositionMode(QPainter::CompositionMode_SourceOver);
 
 			p.setOpacity(qc.alphaF());
-			
+
 			if (ai)
 				p.drawImage(decorx, y + ai->iOffset, ai->qiImage);
 
@@ -655,7 +655,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		om.oma.h = qrLast.height();
 		qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgActive));
 	}
-	
+
 	bool late = false;
 
 	if (! qlsSocket->flush() && (qlsSocket->bytesToWrite() > 1024)) {
