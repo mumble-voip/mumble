@@ -52,7 +52,8 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
         return None
 
     def idToTexture(self, id, current=None):
-      return None
+      print "idToTexture", id
+      return open("../icons/mumble.osx.png").read();
 
     # The expanded methods from UpdatingAuthenticator. We only implement a subset for this example, but
     # a valid implementation has to define all of them
