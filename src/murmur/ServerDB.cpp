@@ -902,37 +902,10 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 		return false;
 
 	QByteArray tex;
-	if (! texture.isEmpty()) {
-		qint32 l = 600*60*4;
-		if (texture.size() < 4)
-			return false;
-
-		if (texture.size() != l) {
-			const unsigned char *data = reinterpret_cast<const unsigned char *>(texture.constData());
-
-			if (((data[0] << 24) | (data[1] << 16) | (data[2] << 8) | data[3]) == l) {
-				tex = qUncompress(texture);
-			} else {
-				QByteArray qba(4,0);
-				qba[0] = static_cast<char>((l >> 24) & 0xFF);
-				qba[1] = static_cast<char>((l >> 16) & 0xFF);
-				qba[2] = static_cast<char>((l >> 8) & 0xFF);
-				qba[3] = static_cast<char>((l >> 0) & 0xFF);
-				qba.append(texture);
-				tex = qUncompress(qba);
-			}
-		} else {
-			tex = texture;
-		}
-
-		if (tex.size() != 600 * 60 * 4)
-			return false;
-	} else {
+	if (texture.size() == 600 * 60 * 4)
+		tex = qCompress(texture);
+	else
 		tex = texture;
-	}
-
-	if (! tex.isEmpty())
-		tex = qCompress(tex);
 
 	foreach(ServerUser *u, qhUsers) {
 		if (u->iId == id)
