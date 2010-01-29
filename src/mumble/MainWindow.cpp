@@ -945,23 +945,10 @@ void MainWindow::on_qaServerTexture_triggered() {
 	if (choice.first.isEmpty())
 		return;
 
-	QImage &img = choice.second;
-	img = img.convertToFormat(QImage::Format_ARGB32);
-	if ((img.height() != 60) || (img.width() != 600)) {
-		QImage final(600, 60, QImage::Format_ARGB32);
-		img = img.scaled(600, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-		qWarning() << img.width() << img.height();
-		final.fill(0);
-		{
-			QPainter p(&final);
-			p.drawImage(0, 0, img);
-		}
-		img = final;
-	}
-	QByteArray qba(reinterpret_cast<const char *>(img.bits()), img.numBytes());
-	qba = qCompress(qba);
-
-	g.sh->setTexture(qba);
+	const QImage &img = choice.second;
+		
+	if ((img.height() <= 1024) && (img.width() <= 1024))
+		g.sh->setTexture(choice.first);
 }
 
 void MainWindow::on_qaServerTextureRemove_triggered() {

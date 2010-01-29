@@ -15,6 +15,7 @@ class OverlayWidget : public QWidget {
 		OverlayMsg om;
 		QLocalSocket *qlsSocket;
 		SharedMemory2 *smMem;
+		QTimer *qtTimer;
 		QRect qrActive;
 
 		unsigned int uiWidth, uiHeight;
@@ -36,10 +37,13 @@ OverlayWidget::OverlayWidget(QWidget *p) : QWidget(p) {
 	qlsSocket = NULL;
 	smMem = NULL;
 	uiWidth = uiHeight = 0;
+
+	qtTimer = new QTimer(this);
+	connect(qtTimer, SIGNAL(timeout()), this, SLOT(update()));
+	qtTimer->start(100);
 }
 
 void OverlayWidget::resizeEvent(QResizeEvent *evt) {
-	qWarning() << "resize";
 	QWidget::resizeEvent(evt);
 
 	if (! img.isNull())
@@ -48,8 +52,6 @@ void OverlayWidget::resizeEvent(QResizeEvent *evt) {
 }
 
 void OverlayWidget::paintEvent(QPaintEvent *) {
-	qWarning() << "paint";
-
 	if (! qlsSocket || qlsSocket->state() == QLocalSocket::UnconnectedState) {
 		detach();
 

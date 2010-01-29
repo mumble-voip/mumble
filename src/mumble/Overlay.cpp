@@ -241,7 +241,7 @@ void OverlayClient::readyRead() {
 						setupRender();
 
 						Overlay *o = static_cast<Overlay *>(parent());
-						setTexts(o->qlCurrentTexts);
+						QTimer::singleShot(0, o, SLOT(updateOverlay()));
 					}
 					break;
 				case OVERLAY_MSGTYPE_SHMEM: {
@@ -272,8 +272,8 @@ void OverlayClient::setupRender() {
 	iItemHeight = iroundf(fItemHeight + 0.5f);
 	fEdge = fItemHeight * 0.05f;
 
-	qiMuted = QImage(iItemHeight, iItemHeight, QImage::Format_ARGB32);
-	qiDeafened = QImage(iItemHeight, iItemHeight, QImage::Format_ARGB32);
+	qiMuted = QImage(iItemHeight / 2, iItemHeight / 2, QImage::Format_ARGB32);
+	qiDeafened = QImage(iItemHeight / 2, iItemHeight / 2, QImage::Format_ARGB32);
 	{
 		QPainter p(&qiMuted);
 		p.setRenderHint(QPainter::Antialiasing);
@@ -341,6 +341,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 	p.setCompositionMode(QPainter::CompositionMode_SourceOver);
 
 	QList<TextImageKey> imagekeys;
+	QList<TextImageKey> avatarkeys;
 
 	if (qcTexts.maxCost() < 4 * lines.count())
 		qcTexts.setMaxCost(4 * lines.count());
@@ -348,95 +349,161 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 	int height = 0;
 
 	foreach(const OverlayTextLine &e, lines) {
-		TextImageKey key;
+		TextImageKey key, avatar;
 
 		if (! e.qsText.isEmpty() || e.uiSession != 0) {
-			QString str(e.qsText);
+			key = TextImageKey(sha1(e.qsText), e.uiColor);
+			if (! qcTexts.contains(key)) {
+				QPainterPath qp;
+				qp.addText(0.0f, fBase+fEdge, fFont, e.qsText);
+
+				QRectF qr = qp.controlPointRect();
+#if QT_VERSION >= 0x040600
+				qp.translate(- qr.x() + fEdge, - qr.y() + fEdge);
+#else
+				qp = QPainterPath();
+				qp.addText(- qr.x() + fEdge, - qr.y() + 2 * fEdge + fBase, fFont, str);
+#endif
+
+				int w = iroundf(qr.width() + 2 * fEdge + 0.5f);
+				int h = iroundf(qr.height() + 2 * fEdge + 0.5f);
+
+				QImage img(w, h, QImage::Format_ARGB32);
+
+				QPainter imgp(&img);
+				imgp.setRenderHint(QPainter::Antialiasing);
+				imgp.setRenderHint(QPainter::TextAntialiasing);
+
+				imgp.setBackground(QColor(0,0,0,0));
+				imgp.setCompositionMode(QPainter::CompositionMode_Clear);
+				imgp.eraseRect(0, 0, w, h);
+
+				QColor qc(e.uiColor);
+				qc.setAlpha(255);
+
+				imgp.setCompositionMode(QPainter::CompositionMode_Source);
+				imgp.setBrush(qc);
+				imgp.setPen(QPen(Qt::black, fEdge, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+				imgp.drawPath(qp);
+
+				imgp.setPen(Qt::NoPen);
+				imgp.drawPath(qp);
+
+				qcTexts.insert(key, new TextImage(img, qr.top()));
+			}
+			height += iItemHeight;
+
 			if (e.uiSession != 0) {
 				ClientUser *cu = ClientUser::get(e.uiSession);
-				if (cu && ! cu->qbaTexture.isEmpty()) {
-					key = TextImageKey(cu->qbaTextureHash, e.uiColor);
 
-					if (! qcTexts.contains(key)) {
-						unsigned int rm = (e.uiColor & 0xff0000) >> 16;
-						unsigned int gm = (e.uiColor & 0x00ff00) >> 8;
-						unsigned int bm = (e.uiColor & 0x0000ff);
+				if (cu) {
+					QByteArray hash = cu->qbaTextureHash;
+					if (cu->qbaTexture.isEmpty())
+						hash = QByteArray();
+					switch (e.dDecor) {
+						case OverlayTextLine::Muted:
+							hash.append('m');
+							break;
+						case OverlayTextLine::Deafened:
+							hash.append('d');
+							break;
+						default:
+							break;
+					}
+					
+					if (! hash.isEmpty()) {
+						avatar = TextImageKey(hash, e.uiColor);
 
-						QImage img(cu->iTextureWidth, 60, QImage::Format_ARGB32);
-						{
-							QImage srcimg(reinterpret_cast<const uchar *>(cu->qbaTexture.constData()), 600, 60, QImage::Format_ARGB32);
+						if (! qcTexts.contains(avatar)) {
+							QImage img;
 
-							QPainter imgp(&img);
+							if (! cu->qbaTexture.isEmpty()) {
+								if (qFromBigEndian<unsigned int>(reinterpret_cast<const unsigned char *>(cu->qbaTexture.constData())) == 600 * 60 * 4) {
+									QByteArray qba = qUncompress(cu->qbaTexture);
+									if (qba.length() == 600 * 60 * 4) {
+										int width = 0;
+										int height = 0;
+										const unsigned int *ptr = reinterpret_cast<const unsigned int *>(qba.constData());
+
+										// If we have an alpha only part on the right side of the image ignore it
+										for (int y=0;y<60;++y) {
+											for (int x=0;x<600; ++x) {
+												if (ptr[y*600+x] & 0xff000000) {
+													if (x > width)
+														width = x;
+													if (y > height)
+														height = y;
+												}
+											}
+										}
+
+										img = QImage(width+1, height+1, QImage::Format_ARGB32);
+										{
+											QImage srcimg(reinterpret_cast<const uchar *>(cu->qbaTexture.constData()), 600, 60, QImage::Format_ARGB32);
+
+											QPainter imgp(&img);
+											imgp.setRenderHint(QPainter::Antialiasing);
+											imgp.setRenderHint(QPainter::TextAntialiasing);
+											imgp.setCompositionMode(QPainter::CompositionMode_Clear);
+											imgp.setBackground(QColor(0,0,0,0));
+											imgp.eraseRect(0, 0, img.height(), img.width());
+											imgp.setCompositionMode(QPainter::CompositionMode_Source);
+											imgp.drawImage(0, 0, srcimg);
+										}
+										img = img.scaled(iItemHeight, iItemHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+									}
+								} else {
+									QBuffer qb(& cu->qbaTexture);
+									qb.open(QIODevice::ReadOnly);
+
+									QImageReader qir(&qb);
+									if (qir.canRead() && (qir.size().width() <= 1024) && (qir.size().height() <= 1024)) {
+										QSize sz = qir.size();
+										sz.scale(iItemHeight, iItemHeight, Qt::KeepAspectRatio);
+										qir.setScaledSize(sz);
+										img = qir.read();
+									}
+								}
+								if (img.isNull()) {
+									cu->qbaTexture = QByteArray();
+									cu->qbaTextureHash = QByteArray();
+								}
+							}
+							
+							QImage decal(iItemHeight, iItemHeight, QImage::Format_ARGB32);
+
+							QPainter imgp(&decal);
 							imgp.setRenderHint(QPainter::Antialiasing);
 							imgp.setRenderHint(QPainter::TextAntialiasing);
 							imgp.setCompositionMode(QPainter::CompositionMode_Clear);
 							imgp.setBackground(QColor(0,0,0,0));
-							imgp.eraseRect(0, 0, img.height(), img.width());
-							imgp.setCompositionMode(QPainter::CompositionMode_Source);
-							imgp.drawImage(0, 0, srcimg);
-						}
+							imgp.eraseRect(0, 0, decal.height(), decal.width());
+							imgp.setCompositionMode(QPainter::CompositionMode_SourceOver);
+							if (! img.isNull()) {
+								imgp.drawImage((iItemHeight - img.width()) / 2, (iItemHeight - img.height()) / 2, img);
+								imgp.setOpacity(0.8f);
+							}
+							switch (e.dDecor) {
+								case OverlayTextLine::Muted:
+									imgp.drawImage(iItemHeight / 2, iItemHeight / 2, qiMuted);
+									break;
+								case OverlayTextLine::Deafened:
+									imgp.drawImage(iItemHeight / 2, iItemHeight / 2, qiDeafened);
+									break;
+								default:
+									break;
+							}
 
-						img = img.scaledToHeight(iItemHeight, Qt::SmoothTransformation);
-
-						unsigned int *ptr = reinterpret_cast<unsigned int *>(img.bits());
-						int npix = img.width() * img.height();
-						for (int i=0;i<npix;++i) {
-							ptr[i] = (ptr[i] & 0xff000000) |
-							         (((((ptr[i] & 0x00ff0000) >> 16) * rm) & 0x0000ff00) << 8) |
-							         (((((ptr[i] & 0x0000ff00) >>  8) * gm) & 0x0000ff00) << 0) |
-							         (((((ptr[i] & 0x000000ff) >>  0) * bm) & 0x0000ff00) >> 8);
+							qcTexts.insert(avatar, new TextImage(decal, 0));
 						}
-						qcTexts.insert(key, new TextImage(img, 0));
 					}
-					str = QString();
 				}
 			}
-			if (! str.isEmpty()) {
-				key = TextImageKey(sha1(str), e.uiColor);
-				if (! qcTexts.contains(key)) {
-					QPainterPath qp;
-					qp.addText(0.0f, fBase+fEdge, fFont, str);
-
-					QRectF qr = qp.controlPointRect();
-#if QT_VERSION >= 0x040600
-					qp.translate(- qr.x() + fEdge, - qr.y() + fEdge);
-#else
-					qp = QPainterPath();
-					qp.addText(- qr.x() + fEdge, - qr.y() + 2 * fEdge + fBase, fFont, str);
-#endif
-
-					int w = iroundf(qr.width() + 2 * fEdge + 0.5f);
-					int h = iroundf(qr.height() + 2 * fEdge + 0.5f);
-
-					QImage img(w, h, QImage::Format_ARGB32);
-
-					QPainter imgp(&img);
-					imgp.setRenderHint(QPainter::Antialiasing);
-					imgp.setRenderHint(QPainter::TextAntialiasing);
-
-					imgp.setBackground(QColor(0,0,0,0));
-					imgp.setCompositionMode(QPainter::CompositionMode_Clear);
-					imgp.eraseRect(0, 0, w, h);
-
-					QColor qc(e.uiColor);
-					qc.setAlpha(255);
-
-					imgp.setCompositionMode(QPainter::CompositionMode_Source);
-					imgp.setBrush(qc);
-					imgp.setPen(QPen(Qt::black, fEdge, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-					imgp.drawPath(qp);
-
-					imgp.setPen(Qt::NoPen);
-					imgp.drawPath(qp);
-
-					qcTexts.insert(key, new TextImage(img, qr.top()));
-				}
-			}
-			height += iItemHeight;
 		} else {
 			height += iItemHeight / 2;
 		}
 		imagekeys << key;
+		avatarkeys << avatar;
 	}
 
 	if (height > static_cast<int>(uiHeight))
@@ -462,7 +529,9 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		const OverlayTextLine &src = lines.at(i);
 		OverlayTextLine &dst = qlLines[i];
 		const TextImageKey &key = imagekeys.at(i);
+		const TextImageKey &avatar = avatarkeys.at(i);
 		TextImage *ti = qcTexts.object(key);
+		TextImage *ai = qcTexts.object(avatar);
 
 		int x = iroundf(uiWidth * g.s.fOverlayX);
 		int width = iItemHeight;
@@ -492,11 +561,11 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		if (ti)
 			nr = QRect(g.s.bOverlayLeft ? x : x + iItemHeight, y + ti->iOffset, ti->qiImage.width(), ti->qiImage.height());
 
-		if ((src.uiColor != dst.uiColor) || (src.qsText != dst.qsText) || (key.first != dst.qbaHash)) {
+		if ((src.uiColor != dst.uiColor) || (src.qsText != dst.qsText)) {
 			dst.dDecor = OverlayTextLine::None;
+			dst.qbaHash = QByteArray();
 			dst.uiColor = src.uiColor;
 			dst.qsText = src.qsText;
-			dst.qbaHash = key.first;
 
 			if (dst.qrRect.isValid()) {
 				dirty |= dst.qrRect;
@@ -516,27 +585,22 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		int decorx = x + (g.s.bOverlayLeft ? (width - iItemHeight) : 0);
 		QRect decr = QRect(decorx, y, iItemHeight, iItemHeight);
 		nr = nr.united(decr);
-		if (src.dDecor != dst.dDecor) {
+
+		if ((src.uiColor != dst.uiColor) || (src.dDecor != dst.dDecor) || (avatar.first != dst.qbaHash)) {
 			dst.dDecor = src.dDecor;
+			dst.qbaHash = avatar.first;
 
 			p.setOpacity(1.0f);
 			p.setCompositionMode(QPainter::CompositionMode_Clear);
 			p.eraseRect(decr);
 			p.setCompositionMode(QPainter::CompositionMode_SourceOver);
 
-			dirty |= decr;
+			p.setOpacity(qc.alphaF());
+			
+			if (ai)
+				p.drawImage(decorx, y + ai->iOffset, ai->qiImage);
 
-			dst.dDecor = src.dDecor;
-			switch (dst.dDecor) {
-				case OverlayTextLine::Muted:
-					p.drawImage(decorx, y, qiMuted);
-					break;
-				case OverlayTextLine::Deafened:
-					p.drawImage(decorx, y, qiDeafened);
-					break;
-				default:
-					break;
-			}
+			dirty |= decr;
 		}
 
 		dst.qrRect = nr;
@@ -591,8 +655,10 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		om.oma.h = qrLast.height();
 		qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgActive));
 	}
+	
+	bool late = false;
 
-	if (! qlsSocket->flush() && qlsSocket->bytesToWrite()) {
+	if (! qlsSocket->flush() && (qlsSocket->bytesToWrite() > 1024)) {
 		return (t.elapsed() <= 5000000ULL);
 	} else {
 		t.restart();
@@ -709,28 +775,6 @@ void Overlay::forceSettings() {
 }
 
 void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
-	if (! cp->qbaTexture.isEmpty() && (cp->qbaTexture.size() != (600*60*4))) {
-		cp->qbaTexture = qUncompress(cp->qbaTexture);
-		if (cp->qbaTexture.size() != (600*60*4)) {
-			cp->qbaTexture = QByteArray();
-			cp->qbaTextureHash = QByteArray();
-		}
-	}
-	if (cp->qbaTexture.isEmpty()) {
-		cp->iTextureWidth = 0;
-	} else {
-		unsigned char *data = reinterpret_cast<unsigned char *>(cp->qbaTexture.data());
-		int width = 0;
-		// If we have an alpha only part on the right side of the image ignore it
-		for (int y=0;y<60;++y) {
-			for (int x=0;x<600; ++x) {
-				if ((x > width) && (data[(y*600+x)*4 + 3] != 0x00))
-					width = x;
-			}
-		}
-		cp->iTextureWidth = width + 1;
-	}
-
 	ClientUser *self = ClientUser::get(g.uiSession);
 	if (allowupdate && self && self->cChannel->isLinked(cp->cChannel))
 		setTexts(qlCurrentTexts);
