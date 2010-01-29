@@ -2,8 +2,8 @@
 # -*- coding: utf-8
 
 #
-#    phpBB3auth.py - Sample script to demonstrate authentication against
-#                    an existing phpBB3 forum database.
+#    smfauth.py - Sample script to demonstrate authentication against
+#                 an existing simple machine forums forum database.
 #
 #    Requirements:
 #        * python >=2.4 and the following python modules:
@@ -26,9 +26,9 @@ from logging    import (debug,
                         getLogger)
 from optparse   import OptionParser
 try:
-    from hashlib import md5
+    from hashlib import sha1
 except ImportError: # python 2.4 compat
-    from md5 import md5
+    from sha import sha as sha1
 
 def x2bool(s):
     """Helper function to convert strings from the config to bool"""
@@ -41,19 +41,19 @@ def x2bool(s):
 #
 #--- Default configuration values
 #
-cfgfile = 'phpBB3auth.ini'
+cfgfile = 'smfauth.ini'
 user_texture_resolution = (600,60)
 default = {'database':(('lib', str, 'MySQLdb'),
-                       ('name', str, 'phpbb3'),
-                       ('user', str, 'phpbb3'),
+                       ('name', str, 'smf'),
+                       ('user', str, 'smf'),
                        ('password', str, 'secret'),
-                       ('prefix', str, 'phpbb_'),
+                       ('prefix', str, 'smf_'),
                        ('host', str, '127.0.0.1'),
                        ('port', int, 3306)),
-                       
+            'forum':(('url', str, 'http://localhost/smf/'),),
+                     
             'user':(('id_offset', int, 1000000000),
                     ('avatar_enable', x2bool, False),
-                    ('avatar_path', str, 'http://localhost/phpBB3/download.php?avatar='),
                     ('avatar_username_enable', x2bool, True),
                     ('avatar_username_font', str, 'verdana.ttf'),
                     ('avatar_username_fontsize', int, 30),
@@ -69,13 +69,13 @@ default = {'database':(('lib', str, 'MySQLdb'),
                    
             'murmur':(('servers', lambda x:map(int, x.split(',')), []),),
             'glacier':(('enabled', x2bool, False),
-                       ('user', str, 'phpBB3auth'),
+                       ('user', str, 'smf'),
                        ('password', str, 'secret'),
                        ('host', str, 'localhost'),
                        ('port', int, '4063')),
                        
             'log':(('level', int, logging.DEBUG),
-                   ('file', str, 'phpBB3auth.log'))}
+                   ('file', str, 'smfauth.log'))}
  
 #
 #--- Helper classes
@@ -177,7 +177,7 @@ def do_main_program():
     Ice.loadSlice(cfg.ice.slice)
     import Murmur
     
-    class phpBBauthenticatorApp(Ice.Application):
+    class smfauthenticatorApp(Ice.Application):
         def run(self, args):
             self.shutdownOnInterrupt()
             
@@ -219,12 +219,12 @@ def do_main_program():
             for server in meta.getBootedServers():
                 if not cfg.murmur.servers or server.id() in cfg.murmur.servers:
                     info('Setting authenticator for server %d', server.id())
-                    authprx = adapter.addWithUUID(phpBBauthenticator(server, adapter))
+                    authprx = adapter.addWithUUID(smfauthenticator(server, adapter))
                     auth = Murmur.ServerUpdatingAuthenticatorPrx.uncheckedCast(authprx)
                     server.setAuthenticator(auth)
             return True
                     
-    class phpBBauthenticator(Murmur.ServerUpdatingAuthenticator):
+    class smfauthenticator(Murmur.ServerUpdatingAuthenticator):
         texture_cache = {}
         def __init__(self, server, adapter):
             Murmur.ServerUpdatingAuthenticator.__init__(self)
@@ -255,7 +255,7 @@ def do_main_program():
                 return (FALL_THROUGH, None, None)
             
             try:
-                sql = 'SELECT user_id, user_password, user_type, username FROM %susers WHERE (user_type = 0 OR user_type = 3) AND LOWER(username) = LOWER(%%s)' % cfg.database.prefix
+                sql = 'SELECT ID_MEMBER, passwd, ID_GROUP, memberName, additionalGroups, is_activated FROM %smembers WHERE LOWER(memberName) = LOWER(%%s)' % cfg.database.prefix
                 cur = threadDB.execute(sql, name)
             except threadDbException:
                 return (FALL_THROUGH, None, None)
@@ -266,12 +266,13 @@ def do_main_program():
                 info('Fall through for unknown user "%s"', name)
                 return (FALL_THROUGH, None, None)
     
-            uid, upw, utp, unm = res
-            if phpbb_check_hash(pw, upw):
+            uid, upw, ug, unm, uag, activated = res
+            
+            if activated == 1 and smf_check_hash(pw, upw, unm):
                 # Authenticated, fetch group memberships
                 try:
-                    sql = 'SELECT group_name FROM %suser_group JOIN %sgroups USING (group_id) WHERE user_id = %%s' % (cfg.database.prefix, cfg.database.prefix)
-                    cur = threadDB.execute(sql, uid)
+                    sql = 'SELECT groupName FROM %smembergroups WHERE ID_GROUP IN (%s)' % (cfg.database.prefix, str(ug) if not uag else str(ug)+','+uag)
+                    cur = threadDB.execute(sql)
                 except threadDbException:
                     return (FALL_THROUGH, None, None)
                 
@@ -309,7 +310,7 @@ def do_main_program():
                 return FALL_THROUGH
             
             try:
-                sql = 'SELECT user_id FROM %susers WHERE (user_type = 0 OR user_type = 3) AND LOWER(username) = LOWER(%%s)' % cfg.database.prefix
+                sql = 'SELECT ID_MEMBER FROM %smembers WHERE LOWER(memberName) = LOWER(%%s)' % cfg.database.prefix
                 cur = threadDB.execute(sql, name)
             except threadDbException:
                 return FALL_THROUGH
@@ -330,14 +331,14 @@ def do_main_program():
             """
             
             FALL_THROUGH = ""
-            # Make sure the ID is in our range and transform it to the actual phpBB3 user id
+            # Make sure the ID is in our range and transform it to the actual smf user id
             if id < cfg.user.id_offset:
                 return FALL_THROUGH 
             bbid = id - cfg.user.id_offset
             
             # Fetch the user from the database
             try:
-                sql = 'SELECT username FROM %susers WHERE (user_type = 0 OR user_type = 3) AND user_id = %%s' % cfg.database.prefix
+                sql = 'SELECT memberName FROM %smembers WHERE ID_MEMBER = %%s' % cfg.database.prefix
                 cur = threadDB.execute(sql, bbid)
             except threadDbException:
                 return FALL_THROUGH
@@ -368,10 +369,10 @@ def do_main_program():
                 debug('idToTexture %d -> fall through', id)
                 return FALL_THROUGH
             
-            # Otherwise get the users texture from phpBB3
+            # Otherwise get the users texture from smf
             bbid = id - cfg.user.id_offset
             try:
-                sql = 'SELECT username, user_avatar, user_avatar_type FROM %susers WHERE (user_type = 0 OR user_type = 3) AND user_id = %%s' % cfg.database.prefix
+                sql = 'SELECT memberName, avatar FROM %smembers WHERE ID_MEMBER = %%s' % cfg.database.prefix
                 cur = threadDB.execute(sql, bbid)
             except threadDbException:
                 return FALL_THROUGH
@@ -381,25 +382,39 @@ def do_main_program():
             if not res:
                 debug('idToTexture %d -> user unknown, fall through', id)
                 return FALL_THROUGH
-            username, avatar_file, avatar_type = res
-            if avatar_type != 1 and avatar_type != 2:
-                debug('idToTexture %d -> no texture available for this user (%d), fall through', id, avatar_type)
-                return FALL_THROUGH
+            username, avatar = res
             
+            if not avatar:
+                # Either the user has none or it is in the attachments, check there
+                try:
+                    sql = 'SELECT file_hash FROM %sattachments WHERE ID_MEMBER = %%s' % cfg.database.prefix
+                    cur = threadDB.execute(sql, bbid)
+                except threadDbException:
+                    return FALL_THROUGH
+                
+                res = cur.fetchone()
+                cur.close()
+                if not res:
+                    # No uploaded avatar found, seems like the user didn't set one
+                    debug('idToTexture %d -> no texture available for this user, fall through', id)
+                    return FALL_THROUGH
+
+                avatar_file = cfg.forum.url + 'index.php?action=dlattach;attach=%d;type=avatar' % bbid
+            elif "://" in avatar:
+                # ...or it is a external link
+                avatar_file = avatar
+            else:
+                # Or it is saved locally in the avatar folder
+                avatar_file = cfg.forum.url + 'avatars/' + avatar
+                
             if avatar_file in self.texture_cache:
                 return self.texture_cache[avatar_file]
-            
-            if avatar_type == 1:
-                url = cfg.user.avatar_path + avatar_file
-            else:
-                url = avatar_file
-                
             try:
-                handle = urllib2.urlopen(url)
+                handle = urllib2.urlopen(avatar_file)
                 file = StringIO.StringIO(handle.read())
                 handle.close()
             except urllib2.URLError, e:
-                warning('Image download for "%s" (%d) failed: %s', url, id, str(e))
+                warning('Image download for "%s" (%d) failed: %s', avatar_file, id, str(e))
                 return FALL_THROUGH
             
             try:
@@ -447,7 +462,7 @@ def do_main_program():
             """
             
             FALL_THROUGH = -1
-            # Return -1 to fall through to internal server database, we will not modify the phpbb3 database
+            # Return -1 to fall through to internal server database, we will not modify the smf database
             # but we can make murmur delete all additional information it got this way.
             debug('unregisterUser %d -> fall through', id)
             return FALL_THROUGH
@@ -455,7 +470,7 @@ def do_main_program():
         
         def getRegisteredUsers(self, filter, current = None):
             """
-            Returns a list of usernames in the phpBB3 database which contain
+            Returns a list of usernames in the smf database which contain
             filter as a substring.
             """
             
@@ -463,7 +478,7 @@ def do_main_program():
                 filter = '%'
             
             try:
-                sql = 'SELECT user_id, username FROM %susers WHERE (user_type = 0 OR user_type = 3) AND username LIKE %%s' % cfg.database.prefix
+                sql = 'SELECT ID_MEMBER, memberName FROM %smembers WHERE is_activated = 1 AND memberName LIKE %%s' % cfg.database.prefix
                 cur = threadDB.execute(sql, filter)
             except threadDbException:
                 return {}
@@ -485,7 +500,7 @@ def do_main_program():
             
             FALL_THROUGH = -1
             # Return -1 to fall through to the internal server handler. We must not modify
-            # the phpBB3 database so the additional information is stored in murmurs database
+            # the smf database so the additional information is stored in murmurs database
             debug('setInfo %d -> fall through', id)
             return FALL_THROUGH
         
@@ -503,11 +518,11 @@ def do_main_program():
                 return FALL_THROUGH
             
             if cfg.user.avatar_enable:
-                # Report a fail (0) as we will not update the avatar in the phpBB3 database.
+                # Report a fail (0) as we will not update the avatar in the smf database.
                 debug('setTexture %d -> failed', id)
                 return FAILED
             
-            # If we don't use textures from phpbb we let mumble save it
+            # If we don't use textures from smf we let mumble save it
             debug('setTexture %d -> fall through', id)
             return FALL_THROUGH
             
@@ -537,95 +552,27 @@ def do_main_program():
     #
     #--- Start of authenticator
     #
-    info('Starting phpBB3 mumble authenticator')
+    info('Starting smf mumble authenticator')
     initdata = Ice.InitializationData()
     initdata.properties = Ice.createProperties([], initdata.properties)
     for prop, val in cfg.iceraw:
         initdata.properties.setProperty(prop, val)
     initdata.logger = CustomLogger()
     
-    app = phpBBauthenticatorApp()
+    app = smfauthenticatorApp()
     state = app.main(sys.argv[:1], initData = initdata)
     info('Shutdown complete')
 
 
 
 #
-#--- Python implementation of the phpBB3 check hash function (salted md5)
+#--- Python implementation of the smf check hash function
 #
-def _hash_encode64(sinput, count, itoa64):
-    output = ''
-    i = 0
-    while True:
-        value = ord(sinput[i])
-        i += 1
-        output += itoa64[value & 0x3f]
-        
-        if i < count:
-            value |= (ord(sinput[i]) << 8)
-        
-        output += itoa64[(value >> 6) & 0x3f]
-        
-        if i >= count:
-            break
-        i += 1
-        
-        if i < count:
-            value |= (ord(sinput[i]) << 16)
-        
-        output += itoa64[(value >> 12) & 0x3f]
-        
-        if i >= count:
-            break
-        
-        i = i + 1
-        output += itoa64[(value >> 18) & 0x3f]
-        if i >= count:
-            break
-    return output
-
-def _hash_crypt_private(password, settings, itoa64):
-    output = '*'
-    
-    if settings[0:3] != '$H$':
-        return output
-    
-    try:
-        count_log2 = itoa64.index(settings[3])
-    except ValueError:
-        return output
-    
-    if (count_log2 < 7) or (count_log2 > 30):
-        return output
-    
-    count = 1 << count_log2
-    salt = settings[4:12]
-    
-    if len(salt) != 8:
-        return output
-    
-    hash = md5(salt + password).digest()
-    while True:
-        hash = md5(hash + password).digest()
-        count = count - 1
-        if count <= 0:
-            break
-        
-    output = settings[0:12]
-    output += _hash_encode64(hash, 16, itoa64)
-    
-    return output
-
-def phpbb_check_hash(password, hash):
+def smf_check_hash(password, hash, username):
     """
-    Python implementation of the phpBB3 check hash function
+    Python implementation of the smf check hash function
     """
-    
-    itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
-    if len(hash) == 34:
-        return _hash_crypt_private(password, hash, itoa64) == hash
-
-    return md5(password).hexdigest() == hash
+    return sha1(username.lower() + password.lower()).hexdigest() == hash
 
 #
 #--- Start of program
