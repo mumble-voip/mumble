@@ -136,7 +136,6 @@ class Overlay : public QObject {
 		QList<OverlayTextLine> qlCurrentTexts;
 		QSet<unsigned int> qsQueried;
 
-		QSvgRenderer qsrMuted, qsrDeafened;
 		void platformInit();
 		void setTexts(const QList<OverlayTextLine> &lines);
 

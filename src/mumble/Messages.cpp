@@ -233,8 +233,6 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	if (! pDst) {
 		if (msg.has_name()) {
 			pDst = pmModel->addUser(msg.session(), u8(msg.name()));
-			if (! msg.has_texture())
-				g.o->verifyTexture(pDst);
 			bNewUser = true;
 		} else {
 			return;
@@ -413,9 +411,12 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	}
 	if (msg.has_texture()) {
 		pDst->qbaTexture = blob(msg.texture());
-		pDst->qbaTextureHash = pDst->qbaTexture.isEmpty() ? QByteArray() : sha1(pDst->qbaTexture);
-
-		Database::setBlob(pDst->qbaTextureHash, pDst->qbaTexture);
+		if (pDst->qbaTexture.isEmpty()) {
+			pDst->qbaTextureHash = QByteArray();
+		} else {
+			pDst->qbaTextureHash = sha1(pDst->qbaTexture);
+			Database::setBlob(pDst->qbaTextureHash, pDst->qbaTexture);
+		}
 		g.o->verifyTexture(pDst);
 	}
 	if (msg.has_comment_hash())

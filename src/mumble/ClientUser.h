@@ -59,8 +59,9 @@ class ClientUser : public QObject, public User {
 		int iFrames;
 		int iSequence;
 
+		QByteArray qbaTextureFormat;
 		QString qsFriendName;
-		int iTextureWidth;
+
 		QString getFlagsString() const;
 		ClientUser(QObject *p = NULL);
 		static QHash<unsigned int, ClientUser *> c_qmUsers;

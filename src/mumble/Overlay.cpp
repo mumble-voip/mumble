@@ -266,35 +266,25 @@ void OverlayClient::reset() {
 }
 
 void OverlayClient::setupRender() {
-	Overlay *o = static_cast<Overlay *>(parent());
-
 	fItemHeight = uiHeight * g.s.fOverlayHeight;
 	iItemHeight = iroundf(fItemHeight + 0.5f);
 	fEdge = fItemHeight * 0.05f;
 
-	qiMuted = QImage(iItemHeight / 2, iItemHeight / 2, QImage::Format_ARGB32);
-	qiDeafened = QImage(iItemHeight / 2, iItemHeight / 2, QImage::Format_ARGB32);
 	{
-		QPainter p(&qiMuted);
-		p.setRenderHint(QPainter::Antialiasing);
-		p.setRenderHint(QPainter::TextAntialiasing);
-		p.setCompositionMode(QPainter::CompositionMode_Clear);
-		p.setBackground(QColor(0,0,0,0));
-		p.eraseRect(0, 0, iItemHeight, iItemHeight);
-		p.setCompositionMode(QPainter::CompositionMode_Source);
-		o->qsrMuted.render(&p);
+		QImageReader qir(QLatin1String("skin:muted_self.svg"));
+		QSize sz = qir.size();
+		sz.scale(iItemHeight / 2, iItemHeight / 2, Qt::KeepAspectRatio);
+		qir.setScaledSize(sz);
+		qiMuted = qir.read();
 	}
-
 	{
-		QPainter p(&qiDeafened);
-		p.setRenderHint(QPainter::Antialiasing);
-		p.setRenderHint(QPainter::TextAntialiasing);
-		p.setCompositionMode(QPainter::CompositionMode_Clear);
-		p.setBackground(QColor(0,0,0,0));
-		p.eraseRect(0, 0, iItemHeight, iItemHeight);
-		p.setCompositionMode(QPainter::CompositionMode_Source);
-		o->qsrDeafened.render(&p);
+		QImageReader qir(QLatin1String("skin:deafened_self.svg"));
+		QSize sz = qir.size();
+		sz.scale(iItemHeight / 2, iItemHeight / 2, Qt::KeepAspectRatio);
+		qir.setScaledSize(sz);
+		qiDeafened = qir.read();
 	}
+	
 
 	fFont = g.s.qfOverlayFont;
 
@@ -418,56 +408,14 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 							QImage img;
 
 							if (! cu->qbaTexture.isEmpty()) {
-								if (qFromBigEndian<unsigned int>(reinterpret_cast<const unsigned char *>(cu->qbaTexture.constData())) == 600 * 60 * 4) {
-									QByteArray qba = qUncompress(cu->qbaTexture);
-									if (qba.length() == 600 * 60 * 4) {
-										int width = 0;
-										int height = 0;
-										const unsigned int *ptr = reinterpret_cast<const unsigned int *>(qba.constData());
+								QBuffer qb(& cu->qbaTexture);
+								qb.open(QIODevice::ReadOnly);
 
-										// If we have an alpha only part on the right side of the image ignore it
-										for (int y=0;y<60;++y) {
-											for (int x=0;x<600; ++x) {
-												if (ptr[y*600+x] & 0xff000000) {
-													if (x > width)
-														width = x;
-													if (y > height)
-														height = y;
-												}
-											}
-										}
-
-										img = QImage(width+1, height+1, QImage::Format_ARGB32);
-										{
-											QImage srcimg(reinterpret_cast<const uchar *>(cu->qbaTexture.constData()), 600, 60, QImage::Format_ARGB32);
-
-											QPainter imgp(&img);
-											imgp.setRenderHint(QPainter::Antialiasing);
-											imgp.setRenderHint(QPainter::TextAntialiasing);
-											imgp.setCompositionMode(QPainter::CompositionMode_Clear);
-											imgp.setBackground(QColor(0,0,0,0));
-											imgp.eraseRect(0, 0, img.height(), img.width());
-											imgp.setCompositionMode(QPainter::CompositionMode_Source);
-											imgp.drawImage(0, 0, srcimg);
-										}
-										img = img.scaled(iItemHeight, iItemHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-									}
-								} else {
-									QBuffer qb(& cu->qbaTexture);
-									qb.open(QIODevice::ReadOnly);
-
-									QImageReader qir(&qb);
-									if (qir.canRead() && (qir.size().width() <= 1024) && (qir.size().height() <= 1024)) {
-										QSize sz = qir.size();
-										sz.scale(iItemHeight, iItemHeight, Qt::KeepAspectRatio);
-										qir.setScaledSize(sz);
-										img = qir.read();
-									}
-								}
-								if (img.isNull()) {
-									cu->qbaTexture = QByteArray();
-									cu->qbaTextureHash = QByteArray();
-								}
+								QImageReader qir(&qb);
+								QSize sz = qir.size();
+								sz.scale(iItemHeight, iItemHeight, Qt::KeepAspectRatio);
+								qir.setScaledSize(sz);
+								img = qir.read();
 							}
 
 							QImage decal(iItemHeight, iItemHeight, QImage::Format_ARGB32);
@@ -656,8 +604,6 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgActive));
 	}
 
-	bool late = false;
-
 	if (! qlsSocket->flush() && (qlsSocket->bytesToWrite() > 1024)) {
 		return (t.elapsed() <= 5000000ULL);
 	} else {
@@ -677,9 +623,6 @@ bool OverlayTextLine::operator <(const OverlayTextLine &other) const {
 
 Overlay::Overlay() : QObject() {
 	d = NULL;
-
-	qsrMuted.load(QLatin1String("skin:muted_self.svg"));
-	qsrDeafened.load(QLatin1String("skin:deafened_self.svg"));
 
 	platformInit();
 	forceSettings();
@@ -775,11 +718,85 @@ void Overlay::forceSettings() {
 }
 
 void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
-	ClientUser *self = ClientUser::get(g.uiSession);
-	if (allowupdate && self && self->cChannel->isLinked(cp->cChannel))
-		setTexts(qlCurrentTexts);
-
 	qsQueried.remove(cp->uiSession);
+	
+	ClientUser *self = ClientUser::get(g.uiSession);
+	allowupdate = allowupdate && self && self->cChannel->isLinked(cp->cChannel);
+
+	if (allowupdate && ! cp->qbaTextureHash.isEmpty() && cp->qbaTexture.isEmpty())
+		cp->qbaTexture = Database::blob(cp->qbaTextureHash);
+
+	if (! cp->qbaTexture.isEmpty()) {
+		bool valid = true;
+
+		if (cp->qbaTexture.length() < sizeof(unsigned int)) {
+			valid = false;
+		} else if (qFromBigEndian<unsigned int>(reinterpret_cast<const unsigned char *>(cp->qbaTexture.constData())) == 600 * 60 * 4) {
+			QByteArray qba = qUncompress(cp->qbaTexture);
+			if (qba.length() != 600 * 60 * 4) {
+				valid = false;
+			} else {
+				int width = 0;
+				int height = 0;
+				const unsigned int *ptr = reinterpret_cast<const unsigned int *>(qba.constData());
+
+				// If we have an alpha only part on the right side of the image ignore it
+				for (int y=0;y<60;++y) {
+					for (int x=0;x<600; ++x) {
+						if (ptr[y*600+x] & 0xff000000) {
+							if (x > width)
+								width = x;
+							if (y > height)
+								height = y;
+						}
+					}
+				}
+
+				if (! width || ! height) {
+					valid = false;
+				} else {
+					QImage img = QImage(width+1, height+1, QImage::Format_ARGB32);
+					{
+						QImage srcimg(reinterpret_cast<const uchar *>(qba.constData()), 600, 60, QImage::Format_ARGB32);
+
+						QPainter imgp(&img);
+						imgp.setRenderHint(QPainter::Antialiasing);
+						imgp.setRenderHint(QPainter::TextAntialiasing);
+						imgp.setCompositionMode(QPainter::CompositionMode_Clear);
+						imgp.setBackground(QColor(0,0,0,0));
+						imgp.eraseRect(0, 0, img.height(), img.width());
+						imgp.setCompositionMode(QPainter::CompositionMode_Source);
+						imgp.drawImage(0, 0, srcimg);
+					}
+					cp->qbaTexture = QByteArray();
+
+					QBuffer qb(& cp->qbaTexture);
+					qb.open(QIODevice::WriteOnly);
+					QImageWriter qiw(&qb, "png");
+					qiw.write(img);
+				}
+			}
+		} else {
+			QBuffer qb(& cp->qbaTexture);
+			qb.open(QIODevice::ReadOnly);
+
+			QImageReader qir(&qb);
+			if (! qir.canRead() || (qir.size().width() > 1024) || (qir.size().height() > 1024)) {
+				valid = false;
+			} else {
+				cp->qbaTextureFormat = qir.format();
+				QImage qi = qir.read();
+				valid = ! qi.isNull();
+			}
+		}
+		if (! valid) {
+			cp->qbaTexture = QByteArray();
+			cp->qbaTextureHash = QByteArray();
+		}
+	}
+	
+	if (allowupdate)
+		setTexts(qlCurrentTexts);
 }
 
 typedef QPair<QString, quint32> qpChanCol;

@@ -584,7 +584,36 @@ void ServerHandler::createChannel(unsigned int parent_, const QString &name, con
 
 void ServerHandler::setTexture(const QByteArray &qba) {
 	MumbleProto::UserState mpus;
-	mpus.set_texture(qba.constData(), qba.length());
+	if ((uiVersion >= 0x010202) || qba.isEmpty()) {
+		mpus.set_texture(blob(qba));
+	} else {
+		QByteArray raw = qba;
+		QBuffer qb(& raw);
+		qb.open(QIODevice::ReadOnly);
+		QImageReader qir(&qb);
+		
+		QSize sz = qir.size();
+		sz.scale(600, 60, Qt::KeepAspectRatio);
+		qir.setScaledSize(sz);
+		
+		QImage tex = qir.read();
+		
+		if (tex.isNull())
+			return;
+			
+		qWarning() << tex.width() << tex.height();
+
+		raw = QByteArray(600*60*4, 0);
+		QImage img(reinterpret_cast<unsigned char *>(raw.data()), 600, 60, QImage::Format_ARGB32);
+
+		QPainter imgp(&img);
+		imgp.setRenderHint(QPainter::Antialiasing);
+		imgp.setRenderHint(QPainter::TextAntialiasing);
+		imgp.setCompositionMode(QPainter::CompositionMode_SourceOver);
+		imgp.drawImage(0, 0, tex);
+		
+		mpus.set_texture(blob(qCompress(QByteArray(reinterpret_cast<const char *>(img.bits()), 600*60*4))));
+	}
 	sendMessage(mpus);
 }
 
