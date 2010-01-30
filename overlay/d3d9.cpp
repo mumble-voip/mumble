@@ -104,15 +104,21 @@ void DevState::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int
 		return;
 
 	D3DLOCKED_RECT lr;
-	RECT r;
+		
+	if ((x == 0) && (y == 0) && (w == uiWidth) && (h == uiHeight)) {
+		if (texTexture->LockRect(0, &lr, NULL, D3DLOCK_DISCARD) != D3D_OK)
+			return;
+	} else {
+		RECT r;
 
-	r.left = x;
-	r.top = y;
-	r.right = x + w;
-	r.bottom = y + h;
+		r.left = x;
+		r.top = y;
+		r.right = x + w;
+		r.bottom = y + h;
 
-	if (texTexture->LockRect(0, &lr, &r, 0) != D3D_OK)
-		return;
+		if (texTexture->LockRect(0, &lr, &r, 0) != D3D_OK)
+			return;
+	}
 
 	for (unsigned int r=0;r < h;++r) {
 		unsigned char *dptr = reinterpret_cast<unsigned char *>(lr.pBits) + r * lr.Pitch;
@@ -191,8 +197,24 @@ void DevState::draw() {
 
 	checkMessage(vp.Width, vp.Height);
 
-	if (! a_ucTexture || !texTexture || (uiLeft == uiRight))
+	if (! a_ucTexture || (uiLeft == uiRight))
 		return;
+		
+	if (! texTexture) {
+		unsigned int l, r, t, b;
+		l = uiLeft;
+		r = uiRight;
+		t = uiTop;
+		b = uiBottom;
+		newTexture(uiWidth, uiHeight);
+		blit(0, 0, uiWidth, uiHeight);
+
+		uiLeft = l;
+		uiRight = r;
+		uiTop = t;
+		uiBottom = b;
+		setRect();
+	}
 
 	dev->SetTexture(0, texTexture);
 	dev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vertices, sizeof(D3DTLVERTEX));
@@ -297,7 +319,7 @@ static void doPresent(IDirect3DDevice9 *idd) {
 		pRenderTarget->Release();
 		pTarget->Release();
 
-		ods("Finished ref is %d %d", ds->myRefCount, ds->refCount);
+//		ods("Finished ref is %d %d", ds->myRefCount, ds->refCount);
 		ds->dwMyThread = dwOldThread;
 	}
 }
