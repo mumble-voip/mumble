@@ -1,5 +1,24 @@
-2010-01-29
+2010-01-30
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    03f5930  Do not hide group/acl tabs from non-experts and visualize that
+	     WriteACL grants all rights by graying out the others if it is
+	     set.
+
   Thorvald Natvig <slicer@users.sourceforge.net>
+    3ebcd23  s/Texture/Avatar/ in menus
+    93a4c7f  Fix mouseover textures and 1.2.1-compatibility
+
+2010-01-29
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    e70d404  Allow the use of realName in smfauth and make it possible to
+	     read avatars from local file system
+    ff36e04  Make smfauth display realName instead of memberName
+    d30713c  Added Simple Machine Forums (SMF) authenticator to scripts
+	     folder
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    1070713  Make channel_info and user_info be utf8 on mysql
+    e913f4b  Have testauth return a dummy avatar
     705738a  Server-side avatar support
     75fc50a  User avatars
 

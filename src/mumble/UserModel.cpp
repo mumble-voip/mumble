@@ -501,7 +501,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 										g.o->verifyTexture(p);
 									}
 								}
-								if (! p->qbaTexture.isEmpty()) 
+								if (! p->qbaTexture.isEmpty())
 									qsImage = Log::imageToImg(p->qbaTextureFormat, p->qbaTexture);
 							}
 

@@ -8,7 +8,7 @@
         <translation type="obsolete">Mumble - Modifica ACL per %1</translation>
     </message>
     <message>
-        <location filename="ACLEditor.cpp" line="+111"/>
+        <location filename="ACLEditor.cpp" line="+100"/>
         <source>Deny</source>
         <translation>Nega</translation>
     </message>
@@ -28,13 +28,13 @@
         <translation>Nega %1</translation>
     </message>
     <message>
-        <location line="-72"/>
+        <location line="-61"/>
         <source>Mumble - Add channel</source>
         <translation>Mumble - Aggiungi canale</translation>
     </message>
     <message>
-        <location line="+27"/>
-        <location line="+168"/>
+        <location line="+22"/>
+        <location line="+162"/>
         <source>Failed: Invalid channel</source>
         <translation>Fallito: Canale non valido</translation>
     </message>
@@ -3129,7 +3129,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ClientUser</name>
     <message>
-        <location filename="ClientUser.cpp" line="+123"/>
+        <location filename="ClientUser.cpp" line="+122"/>
         <source>Friend</source>
         <translation>Amico</translation>
     </message>
@@ -6213,9 +6213,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Cambia Immagine</translation>
     </message>
     <message>
-        <location/>
         <source>Change your overlay texture on this server</source>
-        <translation>Cambia l&apos;immagine della sovrapposizione su questo server</translation>
+        <translation type="obsolete">Cambia l&apos;immagine della sovrapposizione su questo server</translation>
     </message>
     <message>
         <location/>
@@ -6232,9 +6231,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Rimuovi immagine</translation>
     </message>
     <message>
-        <location/>
         <source>Remove currently defined user texture.</source>
-        <translation>Rimuove l&apos;immagine attuale dell&apos;utente.</translation>
+        <translation type="obsolete">Rimuove l&apos;immagine attuale dell&apos;utente.</translation>
     </message>
     <message>
         <source>Send &amp;Tree Message</source>
@@ -6272,7 +6270,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">il server</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+289"/>
+        <location filename="Messages.cpp" line="+287"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>Microfono e audio riattivati da %1.</translation>
     </message>
@@ -6336,7 +6334,7 @@ p, li { white-space: pre-wrap; }
         <translation>%1 ha disattivato il suo audio e microfono.</translation>
     </message>
     <message>
-        <location line="-111"/>
+        <location line="-109"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation>Ti è stato negato il privilegio %1 su %2.</translation>
     </message>
@@ -6407,7 +6405,7 @@ p, li { white-space: pre-wrap; }
         <translation>Permesso negato.</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+37"/>
         <source>%1 connected.</source>
         <translation>%1 connesso.</translation>
     </message>
@@ -6427,7 +6425,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+139"/>
         <source>%1 disconnected.</source>
         <translation>%1 disconnesso.</translation>
     </message>
@@ -6451,7 +6449,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">server</translation>
     </message>
     <message>
-        <location line="-247"/>
+        <location line="-250"/>
         <source>You were muted by %1.</source>
         <translation>Microfono disattivato da %1.</translation>
     </message>
@@ -6511,12 +6509,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">messaggio dal server</translation>
     </message>
     <message>
-        <location line="+323"/>
+        <location line="+326"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Impossibile trovare codec CELT uguali a quelli degli altri utenti. Non sarai in grado di parlare con gli altri utenti.</translation>
     </message>
     <message>
-        <location line="-389"/>
+        <location line="-392"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Microfono e audio disattivati da %1.</translation>
@@ -6536,7 +6534,7 @@ p, li { white-space: pre-wrap; }
         <translation>Microfono e audio di%1 riattivati da %2.</translation>
     </message>
     <message>
-        <location line="+80"/>
+        <location line="+83"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Sei stato espulso dal server da %1 per la seguente motivazione: %2.</translation>
     </message>
@@ -6556,7 +6554,7 @@ p, li { white-space: pre-wrap; }
         <translation>%3 è stato espulto e bandito dal server da %1 per la seguente motivazione: %2.</translation>
     </message>
     <message>
-        <location line="-54"/>
+        <location line="-57"/>
         <source>You were moved to %1 by %2.</source>
         <translation>Sei stato spostato da %2 sul canale %1.</translation>
     </message>
@@ -6578,7 +6576,7 @@ p, li { white-space: pre-wrap; }
         <translation>%1 è entrato nel canale.</translation>
     </message>
     <message>
-        <location line="-312"/>
+        <location line="-310"/>
         <source>Server connection rejected: %1.</source>
         <translation>Connessione al server respinta: %1.</translation>
     </message>
@@ -6596,12 +6594,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Da %1: %2</translation>
     </message>
     <message>
-        <location line="+325"/>
+        <location line="+326"/>
         <source>Message from %1</source>
         <translation>Messaggio da %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1358"/>
+        <location filename="UserModel.cpp" line="+1362"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Hai selezionato &quot;non fare niente&quot; sulle impostazioni del trascinamento del canale, quindi il canale non sarà spostato.</translation>
     </message>
@@ -6666,14 +6664,12 @@ p, li { white-space: pre-wrap; }
         <translation>&amp;Registra</translation>
     </message>
     <message>
-        <location/>
         <source>Change &amp;Texture</source>
-        <translation>Cambia &amp;Immagine</translation>
+        <translation type="obsolete">Cambia &amp;Immagine</translation>
     </message>
     <message>
-        <location/>
         <source>&amp;Remove Texture</source>
-        <translation>&amp;Rimuovi Immagine</translation>
+        <translation type="obsolete">&amp;Rimuovi Immagine</translation>
     </message>
     <message>
         <location/>
@@ -6738,6 +6734,26 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Register yourself on the server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Change &amp;Avatar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Change your avatar image on this server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Remove Avatar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Remove currently defined avatar image.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7015,7 +7031,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+703"/>
+        <location filename="Overlay.cpp" line="+646"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7045,7 +7061,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-655"/>
+        <location line="-598"/>
         <source>Show no one</source>
         <translation>Non mostrare nessuno</translation>
     </message>

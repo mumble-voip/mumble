@@ -284,7 +284,7 @@ void OverlayClient::setupRender() {
 		qir.setScaledSize(sz);
 		qiDeafened = qir.read();
 	}
-	
+
 
 	fFont = g.s.qfOverlayFont;
 
@@ -719,7 +719,7 @@ void Overlay::forceSettings() {
 
 void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
 	qsQueried.remove(cp->uiSession);
-	
+
 	ClientUser *self = ClientUser::get(g.uiSession);
 	allowupdate = allowupdate && self && self->cChannel->isLinked(cp->cChannel);
 
@@ -794,7 +794,7 @@ void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
 			cp->qbaTextureHash = QByteArray();
 		}
 	}
-	
+
 	if (allowupdate)
 		setTexts(qlCurrentTexts);
 }

@@ -84,7 +84,7 @@
         <translation>ユーザID</translation>
     </message>
     <message>
-        <location filename="ACLEditor.cpp" line="+111"/>
+        <location filename="ACLEditor.cpp" line="+100"/>
         <source>Deny</source>
         <translation>禁止</translation>
     </message>
@@ -443,13 +443,13 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>%1を禁止する</translation>
     </message>
     <message>
-        <location line="-72"/>
+        <location line="-61"/>
         <source>Mumble - Add channel</source>
         <translation type="unfinished">Mumble - チャンネル追加</translation>
     </message>
     <message>
-        <location line="+27"/>
-        <location line="+168"/>
+        <location line="+22"/>
+        <location line="+162"/>
         <source>Failed: Invalid channel</source>
         <translation type="unfinished">失敗: 無効なチャンネル</translation>
     </message>
@@ -3745,7 +3745,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ClientUser</name>
     <message>
-        <location filename="ClientUser.cpp" line="+123"/>
+        <location filename="ClientUser.cpp" line="+122"/>
         <source>Friend</source>
         <translation type="unfinished">フレンド</translation>
     </message>
@@ -6164,9 +6164,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">テクスチャを変更</translation>
     </message>
     <message>
-        <location/>
         <source>Change your overlay texture on this server</source>
-        <translation type="unfinished">このサーバでのあなたのオーバレイテクスチャを変更する</translation>
+        <translation type="obsolete">このサーバでのあなたのオーバレイテクスチャを変更する</translation>
     </message>
     <message>
         <location/>
@@ -6183,9 +6182,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">テクスチャを削除</translation>
     </message>
     <message>
-        <location/>
         <source>Remove currently defined user texture.</source>
-        <translation type="unfinished">現在定義されているユーザテクスチャを削除します。</translation>
+        <translation type="obsolete">現在定義されているユーザテクスチャを削除します。</translation>
     </message>
     <message>
         <source>&amp;About Qt</source>
@@ -6468,7 +6466,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+289"/>
+        <location filename="Messages.cpp" line="+287"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation type="unfinished">%1 によって発言・聴取を禁止されました。</translation>
     </message>
@@ -6532,7 +6530,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%1 が発言禁止/聴取禁止状態になりました。</translation>
     </message>
     <message>
-        <location line="-111"/>
+        <location line="-109"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation>あなたは %2 で %1 の権限を拒否されました。</translation>
     </message>
@@ -6603,7 +6601,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>権限がありません。</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+37"/>
         <source>%1 connected.</source>
         <translation>%1 が接続しました。</translation>
     </message>
@@ -6623,7 +6621,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">あなたは発言禁止を解除されました。</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+139"/>
         <source>%1 disconnected.</source>
         <translation>%1 が切断しました。</translation>
     </message>
@@ -6647,7 +6645,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ</translation>
     </message>
     <message>
-        <location line="-247"/>
+        <location line="-250"/>
         <source>You were muted by %1.</source>
         <translation>あなたは %1 によって発言禁止にされました。</translation>
     </message>
@@ -6707,12 +6705,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ</translation>
     </message>
     <message>
-        <location line="+323"/>
+        <location line="+326"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation type="unfinished">他のクライアントとマッチするCELTコーデックが見つかりません。あなたは全てのユーザとは話せないでしょう。</translation>
     </message>
     <message>
-        <location line="-389"/>
+        <location line="-392"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation type="unfinished">あなたは %1 によって聴取禁止にされました。</translation>
@@ -6732,7 +6730,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">%1 は %2 によって聴取禁止を解除されました。</translation>
     </message>
     <message>
-        <location line="+80"/>
+        <location line="+83"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>あなたは %1 によってサーバからキックされました: %2.</translation>
     </message>
@@ -6752,7 +6750,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%3 は %1 によってキックされ、サーバからBANされました: %2.</translation>
     </message>
     <message>
-        <location line="-54"/>
+        <location line="-57"/>
         <source>You were moved to %1 by %2.</source>
         <translation type="unfinished">あなたは %2 によって %1 に移動されました。</translation>
     </message>
@@ -6782,7 +6780,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">%1 は %2 によって移動させられました。</translation>
     </message>
     <message>
-        <location line="-312"/>
+        <location line="-310"/>
         <source>Server connection rejected: %1.</source>
         <translation>サーバへの接続は拒否されました: %1.</translation>
     </message>
@@ -6898,7 +6896,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">%1 より: %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+325"/>
+        <location filename="Messages.cpp" line="+326"/>
         <source>Message from %1</source>
         <translation>%1 からのメッセージ</translation>
     </message>
@@ -7515,7 +7513,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>ログ</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1358"/>
+        <location filename="UserModel.cpp" line="+1362"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>チャンネルをドラッグしたときに &quot;何もしない&quot; ようにします; チャンネルが移動しなくなります。</translation>
     </message>
@@ -7585,14 +7583,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">ユーザ登録(&amp;R)</translation>
     </message>
     <message>
-        <location/>
         <source>Change &amp;Texture</source>
-        <translation type="unfinished">テクスチャを変更(&amp;T)</translation>
+        <translation type="obsolete">テクスチャを変更(&amp;T)</translation>
     </message>
     <message>
-        <location/>
         <source>&amp;Remove Texture</source>
-        <translation type="unfinished">テクスチャを削除(&amp;R)</translation>
+        <translation type="obsolete">テクスチャを削除(&amp;R)</translation>
     </message>
     <message>
         <location/>
@@ -7658,6 +7654,26 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location/>
         <source>Register yourself on the server</source>
         <translation type="unfinished">サーバにあなたを登録します</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Change &amp;Avatar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Change your avatar image on this server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Remove Avatar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Remove currently defined avatar image.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7989,7 +8005,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+703"/>
+        <location filename="Overlay.cpp" line="+646"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished">オーバレイ:  %2: %1 との通信の作成に失敗しました。有効なオーバレイはありません。</translation>
     </message>
@@ -8228,7 +8244,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation>有効なチャンネルの色</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-560"/>
+        <location filename="Overlay.cpp" line="-503"/>
         <source>Overlay</source>
         <translation>オーバーレイ</translation>
     </message>

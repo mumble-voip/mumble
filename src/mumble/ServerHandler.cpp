@@ -591,16 +591,16 @@ void ServerHandler::setTexture(const QByteArray &qba) {
 		QBuffer qb(& raw);
 		qb.open(QIODevice::ReadOnly);
 		QImageReader qir(&qb);
-		
+
 		QSize sz = qir.size();
 		sz.scale(600, 60, Qt::KeepAspectRatio);
 		qir.setScaledSize(sz);
-		
+
 		QImage tex = qir.read();
-		
+
 		if (tex.isNull())
 			return;
-			
+
 		qWarning() << tex.width() << tex.height();
 
 		raw = QByteArray(600*60*4, 0);
@@ -611,7 +611,7 @@ void ServerHandler::setTexture(const QByteArray &qba) {
 		imgp.setRenderHint(QPainter::TextAntialiasing);
 		imgp.setCompositionMode(QPainter::CompositionMode_SourceOver);
 		imgp.drawImage(0, 0, tex);
-		
+
 		mpus.set_texture(blob(qCompress(QByteArray(reinterpret_cast<const char *>(img.bits()), 600*60*4))));
 	}
 	sendMessage(mpus);

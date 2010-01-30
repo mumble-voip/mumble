@@ -79,7 +79,7 @@
         <translation>ID Użytkownika</translation>
     </message>
     <message>
-        <location filename="ACLEditor.cpp" line="+111"/>
+        <location filename="ACLEditor.cpp" line="+100"/>
         <source>Deny</source>
         <translation>Zabroń</translation>
     </message>
@@ -405,13 +405,13 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>Zabroń %1</translation>
     </message>
     <message>
-        <location line="-72"/>
+        <location line="-61"/>
         <source>Mumble - Add channel</source>
         <translation>Mumble - Dodaj kanał</translation>
     </message>
     <message>
-        <location line="+27"/>
-        <location line="+168"/>
+        <location line="+22"/>
+        <location line="+162"/>
         <source>Failed: Invalid channel</source>
         <translation>Niepowodzenie: Niepoprawny kanał</translation>
     </message>
@@ -3125,7 +3125,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ClientUser</name>
     <message>
-        <location filename="ClientUser.cpp" line="+123"/>
+        <location filename="ClientUser.cpp" line="+122"/>
         <source>Friend</source>
         <translation>Znajomy</translation>
     </message>
@@ -5315,9 +5315,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Zmień awatar</translation>
     </message>
     <message>
-        <location/>
         <source>Change your overlay texture on this server</source>
-        <translation type="unfinished">Zmienia twoją teksturę widoczną na nakładce na tym serwerze</translation>
+        <translation type="obsolete">Zmienia twoją teksturę widoczną na nakładce na tym serwerze</translation>
     </message>
     <message>
         <location/>
@@ -5334,9 +5333,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Usuń awatar</translation>
     </message>
     <message>
-        <location/>
         <source>Remove currently defined user texture.</source>
-        <translation>Usuwa obecną teksturę z nakładki.</translation>
+        <translation type="obsolete">Usuwa obecną teksturę z nakładki.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="-1697"/>
@@ -5506,7 +5504,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation type="obsolete">serwer</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+287"/>
+        <location filename="Messages.cpp" line="+285"/>
         <source>You were muted and deafened by %1.</source>
         <translation>Twój mikrofon/słuchawki i mikrofon zostały wyciszone przez %1.</translation>
     </message>
@@ -5595,7 +5593,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>%1 przeniesiony z %2 przez %3.</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+46"/>
         <source>%1 disconnected.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5629,12 +5627,12 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Nie udało się odnaleźć pasujących kodeków CELT. Nie będziesz mógł rozmawiać do wszystkich użytkowników.</translation>
     </message>
     <message>
-        <location line="-408"/>
+        <location line="-411"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 ma teraz wyciszone słuchawki i mikrofon.</translation>
     </message>
     <message>
-        <location line="-172"/>
+        <location line="-170"/>
         <location line="+40"/>
         <source>Welcome message: %1</source>
         <translation type="unfinished"></translation>
@@ -5705,7 +5703,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Brak dostępu.</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+37"/>
         <source>%1 connected.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5772,7 +5770,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>%2 wyłączył wyciszenie słuchawek %1.</translation>
     </message>
     <message>
-        <location line="+80"/>
+        <location line="+83"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Zostałeś wykopany z serwera przez %1. Z powodu: %2.</translation>
     </message>
@@ -5792,7 +5790,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>%3 dostał bana od %1 z powodu: %2.</translation>
     </message>
     <message>
-        <location line="-54"/>
+        <location line="-57"/>
         <source>You were moved to %1 by %2.</source>
         <translation>Zostałeś przeniesiony do kanału %1 przez %2.</translation>
     </message>
@@ -5822,7 +5820,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation type="obsolete">%2 przeniósł %1.</translation>
     </message>
     <message>
-        <location line="-312"/>
+        <location line="-310"/>
         <source>Server connection rejected: %1.</source>
         <translation>Połączenie odrzucone: %1.</translation>
     </message>
@@ -6158,7 +6156,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation type="obsolete">Od %1: %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+325"/>
+        <location filename="Messages.cpp" line="+326"/>
         <source>Message from %1</source>
         <translation>Wiadomość od %1</translation>
     </message>
@@ -6605,7 +6603,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Wyczyść</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1358"/>
+        <location filename="UserModel.cpp" line="+1362"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation type="unfinished">Przeciąganie kanału masz ustatwione na &quot;wyłącz opcje przeciągania kanałów&quot; dlatego nie zostałeś przeniesiony.</translation>
     </message>
@@ -6675,14 +6673,12 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>&amp;Zarejestruj</translation>
     </message>
     <message>
-        <location/>
         <source>Change &amp;Texture</source>
-        <translation>Zmień &amp;Obrazek</translation>
+        <translation type="obsolete">Zmień &amp;Obrazek</translation>
     </message>
     <message>
-        <location/>
         <source>&amp;Remove Texture</source>
-        <translation>&amp;Usuń Obrazek</translation>
+        <translation type="obsolete">&amp;Usuń Obrazek</translation>
     </message>
     <message>
         <location/>
@@ -6747,6 +6743,26 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
     <message>
         <location/>
         <source>Register yourself on the server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Change &amp;Avatar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Change your avatar image on this server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Remove Avatar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Remove currently defined avatar image.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7022,7 +7038,7 @@ Zapobiega pobieraniu obrazów przez klienta, które są umieszczane w dzienniku 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+703"/>
+        <location filename="Overlay.cpp" line="+646"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7239,7 +7255,7 @@ Opcja dostępna tylko, gdy ustawisz teksturę na danym serwerze podczas rejestra
         <translation>Kolor aktywnych kanałów</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-560"/>
+        <location filename="Overlay.cpp" line="-503"/>
         <source>Overlay</source>
         <translation>Nakładka</translation>
     </message>
