@@ -41,6 +41,9 @@
    <attribute name="headerVisible">
     <bool>false</bool>
    </attribute>
+   <attribute name="headerVisible">
+    <bool>false</bool>
+   </attribute>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -642,10 +645,10 @@
   </action>
   <action name="qaServerTexture">
    <property name="text">
-    <string>Change &amp;Texture</string>
+    <string>Change &amp;Avatar</string>
    </property>
    <property name="toolTip">
-    <string>Change your overlay texture on this server</string>
+    <string>Change your avatar image on this server</string>
    </property>
   </action>
   <action name="qaServerTokens">
@@ -658,10 +661,10 @@
   </action>
   <action name="qaServerTextureRemove">
    <property name="text">
-    <string>&amp;Remove Texture</string>
+    <string>&amp;Remove Avatar</string>
    </property>
    <property name="toolTip">
-    <string>Remove currently defined user texture.</string>
+    <string>Remove currently defined avatar image.</string>
    </property>
   </action>
   <action name="qaUserCommentReset">
