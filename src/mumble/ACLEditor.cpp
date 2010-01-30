@@ -563,7 +563,7 @@ void ACLEditor::ACLEnableCheck() {
 	int idx;
 	for (idx=0;idx<qlACLAllow.count();idx++) {
 		// Only enable other checkboxes if writeacl isn't set
-		bool enathis = ena && (qlPerms[idx] == ChanACL::Write || !(as && static_cast<int>(as->pAllow) & ChanACL::Write));
+		bool enathis = ena && (qlPerms[idx] == ChanACL::Write || !(as && static_cast<int>(as->pAllow) & ChanACL::Write) || qlPerms[idx] == ChanACL::Speak);
 		qlACLAllow[idx]->setEnabled(enathis);
 		qlACLDeny[idx]->setEnabled(enathis);
 	}
@@ -816,8 +816,8 @@ void ACLEditor::ACLPermissions_clicked() {
 				qlACLAllow[idx]->setChecked(false);
 		}
 
-		qlACLAllow[idx]->setEnabled(ena);
-		qlACLDeny[idx]->setEnabled(ena);
+		qlACLAllow[idx]->setEnabled(ena || p == ChanACL::Speak);
+		qlACLDeny[idx]->setEnabled(ena || p == ChanACL::Speak);
 
 		if (p == ChanACL::Write && qlACLAllow[idx]->isChecked())
 			ena = false;
