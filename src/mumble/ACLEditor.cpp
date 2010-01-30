@@ -55,11 +55,6 @@ ACLEditor::ACLEditor(int channelparentid, QWidget *p) : QDialog(p) {
 	qtwTab->removeTab(2);
 	qtwTab->removeTab(1);
 
-	if (!g.s.bExpert) {
-		qsbChannelPosition->hide();
-		qlChannelPosition->hide();
-	}
-
 	// Until I come around implementing it hide the password fields
 	qleChannelPassword->hide();
 	qlChannelPassword->hide();
@@ -87,12 +82,6 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 
 	setupUi(this);
 
-	if (!g.s.bExpert) {
-		qtwTab->removeTab(2);
-		qtwTab->removeTab(1);
-		qsbChannelPosition->hide();
-		qlChannelPosition->hide();
-	}
 	qcbChannelTemporary->hide();
 
 	iId = mea.channel_id();
@@ -573,8 +562,10 @@ void ACLEditor::ACLEnableCheck() {
 
 	int idx;
 	for (idx=0;idx<qlACLAllow.count();idx++) {
-		qlACLAllow[idx]->setEnabled(ena);
-		qlACLDeny[idx]->setEnabled(ena);
+		// Only enable other checkboxes if writeacl isn't set
+		bool enathis = ena && (qlPerms[idx] == ChanACL::Write || !(as && static_cast<int>(as->pAllow) & ChanACL::Write));
+		qlACLAllow[idx]->setEnabled(enathis);
+		qlACLDeny[idx]->setEnabled(enathis);
 	}
 
 	if (as) {
@@ -815,6 +806,7 @@ void ACLEditor::ACLPermissions_clicked() {
 	a = 0;
 	d = 0;
 
+	bool ena = true;
 	for (idx=0;idx<qlACLAllow.count();idx++) {
 		ChanACL::Perm p = qlPerms[idx];
 		if (qlACLAllow[idx]->isChecked() && qlACLDeny[idx]->isChecked()) {
@@ -823,6 +815,13 @@ void ACLEditor::ACLPermissions_clicked() {
 			else
 				qlACLAllow[idx]->setChecked(false);
 		}
+
+		qlACLAllow[idx]->setEnabled(ena);
+		qlACLDeny[idx]->setEnabled(ena);
+
+		if (p == ChanACL::Write && qlACLAllow[idx]->isChecked())
+			ena = false;
+
 		if (qlACLAllow[idx]->isChecked())
 			a |= p;
 		if (qlACLDeny[idx]->isChecked())
