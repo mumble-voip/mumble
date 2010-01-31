@@ -194,6 +194,20 @@ int main(int argc, char **argv) {
 	// Load preferences
 	g.s.load();
 
+	// Check wheter we need to enable accessbility features
+#ifdef Q_OS_WIN
+	// Only windows for now. Could not find any information on how to query this for osx or linux
+	{
+		HIGHCONTRAST hc;
+		hc.cbSize = sizeof(HIGHCONTRAST);
+		SystemParametersInfo(SPI_GETHIGHCONTRAST, sizeof(HIGHCONTRAST), &hc, 0);
+
+		if (hc.dwFlags & HCF_HIGHCONTRASTON)
+			g.s.bHighContrast = true;
+
+	}
+#endif
+
 	DeferInit::run_initializers();
 
 	if (! g.s.qsStyle.isEmpty()) {
