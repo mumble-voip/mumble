@@ -214,7 +214,7 @@ void UserView::contextMenu(const QPoint &mpos) {
 	if (p) {
 		g.mw->qmUser->popup(mapToGlobal(mpos), g.mw->qaUserMute);
 	} else {
-		g.mw->qmChannel->popup(mapToGlobal(mpos), g.mw->qaChannelACL);
+		g.mw->qmChannel->popup(mapToGlobal(mpos), NULL);
 	}
 }
 
