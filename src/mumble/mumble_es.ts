@@ -3509,7 +3509,11 @@ Are you sure you wish to replace your certificate?
 It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Mumble puede usar certificados para autenticarse con los servidores. El uso de certificados evita las contraseñas, lo que significa que no necesita divulgar ninguna contraseña al sitio remoto. También posibilita un registro de usuarios muy sencillo.&lt;/p&gt;&lt;p&gt;Aunque Mumble puede funcionar sin certificados, la mayoría de servidores suponen que usted dispone de uno.&lt;/p&gt;
+&lt;p&gt;
+Se le recomienda &lt;b&gt;encarecidamente&lt;/b&gt; que &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;cree un certificado de confianza&lt;/a&gt;.
+&lt;/p&gt;
+</translation>
     </message>
 </context>
 <context>
@@ -5838,7 +5842,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Show context menu in menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar el menú contextual en la barra de menú</translation>
     </message>
 </context>
 <context>
@@ -6380,7 +6384,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="-1982"/>
         <source>&amp;Channel</source>
-        <translation type="unfinished">&amp;Canal</translation>
+        <translation>&amp;Canal</translation>
     </message>
     <message>
         <source>&amp;Audio</source>
@@ -6642,7 +6646,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+37"/>
         <source>You were unsuppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fue liberado.</translation>
     </message>
     <message>
         <location line="+139"/>
@@ -6677,7 +6681,7 @@ p, li { white-space: pre-wrap; }
         <location line="+13"/>
         <source>You were suppressed.</source>
         <oldsource>You were suppressed by %1.</oldsource>
-        <translation type="unfinished">Fue contenido por %1.</translation>
+        <translation>Fue contenido.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -7036,7 +7040,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="-1967"/>
         <source>&amp;User</source>
-        <translation type="unfinished">&amp;Usuario</translation>
+        <translation>&amp;Usuario</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -7840,32 +7844,32 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>R&amp;egister</source>
-        <translation type="unfinished"></translation>
+        <translation>R&amp;egistrar</translation>
     </message>
     <message>
         <location/>
         <source>Register yourself on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Le registra como usuario en el servidor</translation>
     </message>
     <message>
         <location/>
         <source>Change &amp;Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambiar &amp;Avatar</translation>
     </message>
     <message>
         <location/>
         <source>Change your avatar image on this server</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambia su imágen avatar en este servidor</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Eliminar Avatar</translation>
     </message>
     <message>
         <location/>
         <source>Remove currently defined avatar image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Elimina la imágen avatar actualmente definida.</translation>
     </message>
 </context>
 <context>
@@ -8205,7 +8209,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
     <message>
         <location filename="Overlay.cpp" line="+646"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo establecer la comunicación con la sobreimpresión en %2: %1. La sobreimpresión no estará disponible.</translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -8582,7 +8586,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation type="unfinished">No se pudo cargar la biblioteca de sobreimpresión. Ésto significa que:
+        <translation>No se pudo cargar la biblioteca de sobreimpresión. Ésto significa que se da alguna de las siguientes circunstancias:
 - la biblioteca (mumble_ol.dll) no fue encontrada en el directorio desde el que ejecutó Mumble
 - está usando un SO anterior a WinXP SP2</translation>
     </message>
@@ -8899,7 +8903,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
     <message>
         <location line="+81"/>
         <source>Message is too long.</source>
-        <translation type="unfinished"></translation>
+        <translation>El mensaje es demasiado largo.</translation>
     </message>
     <message>
         <source>TabWidget</source>
