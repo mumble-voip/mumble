@@ -45,6 +45,9 @@ class AudioBar : public QWidget {
 		int iBelow, iAbove;
 		int iValue, iPeak;
 		QColor qcBelow, qcInside, qcAbove;
+
+		QList<QColor> qlReplacableColors;
+		QList<QBrush> qlReplacementBrushes;
 };
 
 class AudioEchoWidget : public QGLWidget {

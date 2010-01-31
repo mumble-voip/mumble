@@ -37,6 +37,7 @@ AudioBar::AudioBar(QWidget *p) : QWidget(p) {
 	qcBelow = Qt::yellow;
 	qcAbove = Qt::red;
 	qcInside = Qt::green;
+
 	iMin = 0;
 	iMax = 32768;
 	iBelow = 2000;
@@ -44,6 +45,9 @@ AudioBar::AudioBar(QWidget *p) : QWidget(p) {
 	iValue = 1000;
 	iPeak = -1;
 	setMinimumSize(100,20);
+
+	qlReplacableColors	<< Qt::yellow		<< Qt::red		<< Qt::green	<< Qt::blue;
+	qlReplacementBrushes	<< Qt::BDiagPattern	<< Qt::DiagCrossPattern << Qt::NoBrush	<< Qt::FDiagPattern;
 }
 
 void AudioBar::paintEvent(QPaintEvent *) {
@@ -77,14 +81,13 @@ void AudioBar::paintEvent(QPaintEvent *) {
 	int min = iroundf(static_cast<float>(iMin) * scale);
 	int peak = iroundf(static_cast<float>(iPeak) * scale);
 
-
 	if (g.s.bHighContrast) {
 		// Draw b/w representation
 		p.setPen(Qt::black);
 
-		p.fillRect(0, 0, below, h, Qt::BDiagPattern);
-		p.fillRect(below, 0, above - below, h, Qt::FDiagPattern);
-
+		p.fillRect(0, 0, below, h, qlReplacementBrushes.value(qlReplacableColors.indexOf(qcBelow), Qt::CrossPattern));
+		p.fillRect(below, 0, above - below, h, qlReplacementBrushes.value(qlReplacableColors.indexOf(qcInside), Qt::NoBrush));
+		p.fillRect(above, 0, max - above, h, qlReplacementBrushes.value(qlReplacableColors.indexOf(qcAbove), Qt::CrossPattern));
 		p.fillRect(0, 0, val, h, Qt::black);
 
 		p.drawRect(0, 0, max - 1, h - 1);
