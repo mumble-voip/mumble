@@ -788,7 +788,7 @@ void MainWindow::on_qmSelf_aboutToShow() {
 	qaSelfComment->setEnabled(g.uiSession != 0);
 
 	ClientUser *user = ClientUser::get(g.uiSession);
-	qaServerTextureRemove->setEnabled(user && ! user->qbaTexture.isEmpty());
+	qaServerTextureRemove->setEnabled(user && ! user->qbaTextureHash.isEmpty());
 
 	qaSelfRegister->setEnabled(user && user->iId < 0 && (g.pPermissions & (ChanACL::SelfRegister | ChanACL::Write)));
 }
