@@ -193,6 +193,7 @@ bool LookConfig::expert(bool b) {
 	qcbStyle->setVisible(b);
 	qliStyle->setVisible(b);
 	qcbStateInTray->setVisible(b);
+	qcbShowContextMenuInMenuBar->setVisible(b);
 	return true;
 }
 
