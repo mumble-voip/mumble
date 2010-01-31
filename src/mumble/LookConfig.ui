@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>700</width>
-    <height>450</height>
+    <height>530</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
-   <item row="0" column="0" colspan="3">
+   <item row="0" column="0" colspan="2">
     <widget class="QGroupBox" name="qgbLayout">
      <property name="title">
       <string>Layout</string>
@@ -151,7 +151,7 @@
      </layout>
     </widget>
    </item>
-   <item row="1" column="1">
+   <item row="1" column="0" rowspan="3">
     <widget class="QGroupBox" name="qgbLookFeel">
      <property name="title">
       <string>Look and Feel</string>
@@ -164,7 +164,7 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1" colspan="2">
+      <item row="1" column="0" colspan="2">
        <widget class="QComboBox" name="qcbStyle">
         <property name="toolTip">
          <string>Basic widget style</string>
@@ -174,14 +174,14 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
+      <item row="2" column="0">
        <widget class="QLabel" name="qliCSS">
         <property name="text">
          <string>Skin</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="3" column="0">
        <widget class="QLineEdit" name="qleCSS">
         <property name="toolTip">
          <string>Skin file to use</string>
@@ -191,30 +191,10 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
+      <item row="3" column="1">
        <widget class="QPushButton" name="qpbSkinFile">
         <property name="text">
          <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="12" column="1" colspan="2">
-       <widget class="QCheckBox" name="qcbHighContrast">
-        <property name="toolTip">
-         <string>Apply some high contrast optimizations for visually impaired users</string>
-        </property>
-        <property name="text">
-         <string>Optimize for high contrast</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1" colspan="2">
-       <widget class="QComboBox" name="qcbLanguage">
-        <property name="toolTip">
-         <string>Language to use (requires restart)</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</string>
         </property>
        </widget>
       </item>
@@ -228,10 +208,125 @@
         </property>
        </widget>
       </item>
+      <item row="5" column="0" colspan="2">
+       <widget class="QComboBox" name="qcbLanguage">
+        <property name="toolTip">
+         <string>Language to use (requires restart)</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QCheckBox" name="qcbHighContrast">
+        <property name="toolTip">
+         <string>Apply some high contrast optimizations for visually impaired users</string>
+        </property>
+        <property name="text">
+         <string>Optimize for high contrast</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
      </layout>
     </widget>
    </item>
-   <item row="2" column="2">
+   <item row="1" column="1">
+    <widget class="QGroupBox" name="qgbApplication">
+     <property name="title">
+      <string>Application</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,1">
+      <item row="0" column="0">
+       <widget class="QLabel" name="qliAlwaysOnTop">
+        <property name="text">
+         <string>Always On Top</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="qcbAlwaysOnTop">
+        <property name="toolTip">
+         <string>This setting controls when the application will be always on top.</string>
+        </property>
+        <property name="whatsThis">
+         <string>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>Never</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Always</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>In minimal view</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>In normal view</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbShowChatbar">
+        <property name="toolTip">
+         <string>Check to show chat bar</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;If checked the chat bar is shown.&lt;/b&gt;&lt;br /&gt;Uncheck this to hide it.</string>
+        </property>
+        <property name="text">
+         <string>Show chatbar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbShowContextMenuInMenuBar">
+        <property name="toolTip">
+         <string>Adds user and channel context menus into the menu bar</string>
+        </property>
+        <property name="text">
+         <string>Show context menu in menu bar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbAskOnQuit">
+        <property name="toolTip">
+         <string>Ask whether to close or minimize when quitting Mumble.</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</string>
+        </property>
+        <property name="text">
+         <string>Ask on quit while connected</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="1">
     <widget class="QGroupBox" name="qgbTray">
      <property name="title">
       <string>Tray Icon</string>
@@ -263,123 +358,15 @@
         </property>
        </widget>
       </item>
-      <item>
-       <spacer name="verticalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
      </layout>
     </widget>
    </item>
-   <item row="2" column="1">
-    <widget class="QGroupBox" name="qgbApplication">
-     <property name="title">
-      <string>Application</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0">
-      <item row="1" column="1">
-       <widget class="QComboBox" name="qcbAlwaysOnTop">
-        <property name="toolTip">
-         <string>This setting controls when the application will be always on top.</string>
-        </property>
-        <property name="whatsThis">
-         <string>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>Never</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Always</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>In minimal view</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>In normal view</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QCheckBox" name="qcbAskOnQuit">
-        <property name="toolTip">
-         <string>Ask whether to close or minimize when quitting Mumble.</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</string>
-        </property>
-        <property name="text">
-         <string>Ask on quit while connected</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QCheckBox" name="qcbShowChatbar">
-        <property name="toolTip">
-         <string>Check to show chat bar</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;If checked the chat bar is shown.&lt;/b&gt;&lt;br /&gt;Uncheck this to hide it.</string>
-        </property>
-        <property name="text">
-         <string>Show chatbar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="qliAlwaysOnTop">
-        <property name="text">
-         <string>Always On Top:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="1">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="3" column="1">
-       <widget class="QCheckBox" name="qcbShowContextMenuInMenuBar">
-        <property name="toolTip">
-         <string>Adds user and channel context menus into the menu bar</string>
-        </property>
-        <property name="text">
-         <string>Show context menu in menu bar</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="2">
+   <item row="3" column="1">
     <widget class="QGroupBox" name="qgbChannel">
      <property name="title">
       <string>Channel Tree</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0">
+     <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,1">
       <item row="0" column="0">
        <widget class="QLabel" name="qliChannelDrag">
         <property name="text">
@@ -397,14 +384,14 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
+      <item row="1" column="0">
        <widget class="QLabel" name="qliExpand">
         <property name="text">
          <string>Expand</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
+      <item row="1" column="1">
        <widget class="QComboBox" name="qcbExpand">
         <property name="toolTip">
          <string>When to automatically expand channels</string>
@@ -414,7 +401,7 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
+      <item row="2" column="0" colspan="2">
        <widget class="QCheckBox" name="qcbUsersTop">
         <property name="toolTip">
          <string>List users above subchannels (requires restart).</string>
@@ -427,7 +414,7 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
+      <item row="3" column="0" colspan="2">
        <widget class="QCheckBox" name="qcbShowUserCount">
         <property name="toolTip">
          <string>Show number of users in each channel</string>
@@ -437,23 +424,10 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="0" colspan="2">
-       <spacer name="verticalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
      </layout>
     </widget>
    </item>
-   <item row="3" column="1" colspan="2">
+   <item row="5" column="1">
     <spacer name="verticalSpacer_2">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -462,6 +436,19 @@
       <size>
        <width>20</width>
        <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="4" column="1">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
       </size>
      </property>
     </spacer>
