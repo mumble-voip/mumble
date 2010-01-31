@@ -502,7 +502,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 									}
 								}
 								if (! p->qbaTexture.isEmpty())
-									qsImage = Log::imageToImg(p->qbaTextureFormat, p->qbaTexture);
+									qsImage = QString::fromLatin1("<img src=\"texture://%1/texture.%2\" />").arg(p->uiSession).arg(QString::fromLatin1(p->qbaTextureFormat).toLower());
 							}
 
 							if (p->qbaCommentHash.isEmpty()) {

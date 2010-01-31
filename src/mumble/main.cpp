@@ -52,6 +52,7 @@
 #include "VersionCheck.h"
 #include "NetworkConfig.h"
 #include "CrashReporter.h"
+#include "FileEngine.h"
 
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
@@ -298,6 +299,8 @@ int main(int argc, char **argv) {
 	// Plugins
 	g.p = new Plugins(NULL);
 	g.p->rescanPlugins();
+	
+	MumbleFileEngineHandler *mfeh = new MumbleFileEngineHandler();
 
 	// And the start the last chosen audio system.
 	g.ai = AudioInputRegistrar::newFromChoice();
@@ -385,6 +388,9 @@ int main(int argc, char **argv) {
 	ao.reset();
 
 	g.sh->disconnect();
+	
+	delete mfeh;
+	
 	delete g.sh;
 	delete g.mw;
 
