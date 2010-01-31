@@ -352,7 +352,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 				qp.translate(- qr.x() + fEdge, - qr.y() + fEdge);
 #else
 				qp = QPainterPath();
-				qp.addText(- qr.x() + fEdge, - qr.y() + 2 * fEdge + fBase, fFont, str);
+				qp.addText(- qr.x() + fEdge, - qr.y() + 2 * fEdge + fBase, fFont, e.qsText);
 #endif
 
 				int w = iroundf(qr.width() + 2 * fEdge + 0.5f);
