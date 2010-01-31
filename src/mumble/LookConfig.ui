@@ -70,7 +70,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="mumble.qrc">skin:layout_stacked.svg</pixmap>
+         <pixmap>skin:layout_stacked.svg</pixmap>
         </property>
        </widget>
       </item>
@@ -86,7 +86,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="mumble.qrc">skin:layout_hybrid.svg</pixmap>
+         <pixmap>skin:layout_hybrid.svg</pixmap>
         </property>
         <property name="scaledContents">
          <bool>false</bool>
@@ -131,7 +131,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="mumble.qrc">skin:layout_custom.svg</pixmap>
+         <pixmap>skin:layout_custom.svg</pixmap>
         </property>
        </widget>
       </item>
@@ -144,7 +144,7 @@
          </sizepolicy>
         </property>
         <property name="pixmap">
-         <pixmap resource="mumble.qrc">skin:layout_classic.svg</pixmap>
+         <pixmap>skin:layout_classic.svg</pixmap>
         </property>
        </widget>
       </item>
@@ -346,8 +346,21 @@
       </item>
       <item row="11" column="1" colspan="2">
        <widget class="QCheckBox" name="qcbShowContextMenuInMenuBar">
+        <property name="toolTip">
+         <string>Adds user and channel context menus into the menu bar</string>
+        </property>
         <property name="text">
          <string>Show context menu in menu bar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="12" column="1" colspan="2">
+       <widget class="QCheckBox" name="qcbHighContrast">
+        <property name="toolTip">
+         <string>Apply some high contrast optimizations for visually impaired users</string>
+        </property>
+        <property name="text">
+         <string>Optimize for high contrast</string>
         </property>
        </widget>
       </item>
@@ -398,8 +411,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="mumble.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

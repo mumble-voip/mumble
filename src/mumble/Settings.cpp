@@ -233,6 +233,9 @@ Settings::Settings() {
 	iMaxImageHeight = 1024;
 	bSuppressIdentity = false;
 
+	// Accessibility
+	bHighContrast = false;
+
 #if defined(AUDIO_TEST)
 	lmLoopMode = Server;
 #else
@@ -442,6 +445,7 @@ void Settings::load() {
 	SAVELOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
 	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
 	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
+	SAVELOAD(bHighContrast, "ui/HighContrast");
 
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
@@ -627,6 +631,7 @@ void Settings::save() {
 	SAVELOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
 	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
 	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
+	SAVELOAD(bHighContrast, "ui/HighContrast");
 
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");

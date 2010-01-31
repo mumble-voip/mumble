@@ -204,6 +204,9 @@ struct Settings {
 	KeyPair kpCertificate;
 	bool bSuppressIdentity;
 
+	// Accessibility
+	bool bHighContrast;
+
 	// Nonsaved
 	LoopMode lmLoopMode;
 	float dPacketLoss;

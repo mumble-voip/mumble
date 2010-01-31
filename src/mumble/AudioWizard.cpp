@@ -93,6 +93,8 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 		qcbOutput->setEnabled(false);
 	}
 
+	qcbHighContrast->setChecked(g.s.bHighContrast);
+
 	if (g.s.iQuality == 16000 && g.s.iFramesPerPacket == 6)
 		qrbQualityLow->setChecked(true);
 	else if (g.s.iQuality == 40000 && g.s.iFramesPerPacket == 2)
@@ -612,6 +614,10 @@ void AudioWizard::updateTriggerWidgets(bool ptt) {
 
 void AudioWizard::on_qcbAttenuateOthers_clicked(bool checked) {
 	g.s.bAttenuateOthers = checked;
+}
+
+void AudioWizard::on_qcbHighContrast_clicked(bool checked) {
+	g.s.bHighContrast = checked;
 }
 
 void AudioWizard::on_qrbQualityLow_clicked() {

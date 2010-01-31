@@ -147,6 +147,9 @@ struct Settings {
 	QString qsProxyHost, qsProxyUsername, qsProxyPassword;
 	unsigned short usProxyPort;
 
+	// Accessibility
+	bool bHighContrast;
+
 	// Nonsaved
 	LoopMode lmLoopMode;
 	float dPacketLoss;

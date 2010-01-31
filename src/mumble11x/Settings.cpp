@@ -38,6 +38,7 @@ bool Shortcut::operator <(const Shortcut &other) const {
 }
 
 Settings::Settings() {
+	bHighContrast = false;
 	atTransmit = VAD;
 	bTransmitPosition = false;
 	bMute = bDeaf = false;

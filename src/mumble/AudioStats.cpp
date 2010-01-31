@@ -77,31 +77,47 @@ void AudioBar::paintEvent(QPaintEvent *) {
 	int min = iroundf(static_cast<float>(iMin) * scale);
 	int peak = iroundf(static_cast<float>(iPeak) * scale);
 
-	if (val <= below) {
-		p.fillRect(0, 0, val, h, qcBelow);
-		p.fillRect(val, 0, below-val, h, qcBelow.darker(300));
-		p.fillRect(below, 0, above-below, h, qcInside.darker(300));
-		p.fillRect(above, 0, max-above, h, qcAbove.darker(300));
-	} else if (val <= above) {
-		p.fillRect(0, 0, below, h, qcBelow);
-		p.fillRect(below, 0, val-below, h, qcInside);
-		p.fillRect(val, 0, above-val, h, qcInside.darker(300));
-		p.fillRect(above, 0, max-above, h, qcAbove.darker(300));
-	} else {
-		p.fillRect(0, 0, below, h, qcBelow);
-		p.fillRect(below, 0, above-below, h, qcInside);
-		p.fillRect(above, 0, val-above, h, qcAbove);
-		p.fillRect(val, 0, max-val, h, qcAbove.darker(300));
-	}
 
-	if ((peak >= min) && (peak <= max))  {
-		if (peak <= below)
-			p.setPen(qcBelow.lighter(150));
-		else if (peak <= above)
-			p.setPen(qcInside.lighter(150));
-		else
-			p.setPen(qcAbove.lighter(150));
-		p.drawLine(peak, 0, peak, h);
+	if (g.s.bHighContrast) {
+		// Draw b/w representation
+		p.setPen(Qt::black);
+
+		p.fillRect(0, 0, below, h, Qt::BDiagPattern);
+		p.fillRect(below, 0, above - below, h, Qt::FDiagPattern);
+
+		p.fillRect(0, 0, val, h, Qt::black);
+
+		p.drawRect(0, 0, max - 1, h - 1);
+		p.drawLine(below, 0, below, h);
+		p.drawLine(above, 0, above, h);
+	}
+	else {
+		if (val <= below) {
+			p.fillRect(0, 0, val, h, qcBelow);
+			p.fillRect(val, 0, below-val, h, qcBelow.darker(300));
+			p.fillRect(below, 0, above-below, h, qcInside.darker(300));
+			p.fillRect(above, 0, max-above, h, qcAbove.darker(300));
+		} else if (val <= above) {
+			p.fillRect(0, 0, below, h, qcBelow);
+			p.fillRect(below, 0, val-below, h, qcInside);
+			p.fillRect(val, 0, above-val, h, qcInside.darker(300));
+			p.fillRect(above, 0, max-above, h, qcAbove.darker(300));
+		} else {
+			p.fillRect(0, 0, below, h, qcBelow);
+			p.fillRect(below, 0, above-below, h, qcInside);
+			p.fillRect(above, 0, val-above, h, qcAbove);
+			p.fillRect(val, 0, max-val, h, qcAbove.darker(300));
+		}
+
+		if ((peak >= min) && (peak <= max))  {
+			if (peak <= below)
+				p.setPen(qcBelow.lighter(150));
+			else if (peak <= above)
+				p.setPen(qcInside.lighter(150));
+			else
+				p.setPen(qcAbove.lighter(150));
+			p.drawLine(peak, 0, peak, h);
+		}
 	}
 
 }
