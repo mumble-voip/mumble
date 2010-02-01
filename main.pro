@@ -26,7 +26,7 @@ CONFIG *= ordered debug_and_release
     }
   }
 
-  unix:!macx {
+  unix:!macx:!CONFIG(no-overlay) {
     SUBDIRS *= overlay_gl
   }
 
