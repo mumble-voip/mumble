@@ -174,12 +174,15 @@ void OverlayConfig::accept() const {
 
 OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	qlsSocket = socket;
-	qlsSocket->setParent(this);
 	connect(qlsSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 
 	omMsg.omh.iLength = -1;
 	smMem = NULL;
 	uiWidth = uiHeight = 0;
+}
+
+OverlayClient::~OverlayClient() {
+	qlsSocket->abort();
 }
 
 void OverlayClient::readyRead() {
@@ -680,6 +683,7 @@ void Overlay::disconnected() {
 			return;
 		}
 	}
+	qls->deleteLater();
 }
 
 void Overlay::error(QLocalSocket::LocalSocketError) {

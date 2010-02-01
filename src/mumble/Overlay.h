@@ -112,6 +112,7 @@ class OverlayClient : public QObject {
 		void readyRead();
 	public:
 		OverlayClient(QLocalSocket *, QObject *);
+		~OverlayClient();
 		bool setTexts(const QList<OverlayTextLine> &lines);
 		void reset();
 };
