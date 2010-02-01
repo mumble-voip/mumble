@@ -95,6 +95,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 
 	qcbHighContrast->setChecked(g.s.bHighContrast);
 
+	// Settings
 	if (g.s.iQuality == 16000 && g.s.iFramesPerPacket == 6)
 		qrbQualityLow->setChecked(true);
 	else if (g.s.iQuality == 40000 && g.s.iFramesPerPacket == 2)
@@ -103,6 +104,20 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 		qrbQualityUltra->setChecked(true);
 	else
 		qrbQualityCustom->setChecked(true);
+
+	quint32 iMessage = Settings::LogNone;
+	for (int i = Log::firstMsgType;i <= Log::lastMsgType; ++i) {
+		iMessage |= (g.s.qmMessages[i] & (Settings::LogSoundfile | Settings::LogTTS));
+	}
+
+	if (iMessage == Settings::LogTTS)
+		qrbNotificationTTS->setChecked(true);
+	else if (iMessage == Settings::LogSoundfile)
+		qrbNotificationSounds->setChecked(true);
+	else
+		qrbNotificationCustom->setChecked(true);
+
+	qrbNotificationCustom->setVisible(qrbNotificationCustom->isChecked());
 
 	qrbQualityCustom->setVisible(qrbQualityCustom->isChecked());
 	qlQualityCustom->setVisible(qrbQualityCustom->isChecked());

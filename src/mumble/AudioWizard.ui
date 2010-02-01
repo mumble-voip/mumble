@@ -676,6 +676,13 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QRadioButton" name="qrbNotificationCustom">
+         <property name="text">
+          <string>Keep custom Text-To-Speech settings.</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
