@@ -311,12 +311,12 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		mpus.Clear();
 		mpus.set_session(u->uiSession);
 		mpus.set_name(u8(u->qsName));
-		if (u->iId >= 0) {
+		if (u->iId >= 0)
 			mpus.set_user_id(u->iId);
-			if (! u->qbaTexture.isEmpty())
-				mpus.set_texture(blob(u->qbaTexture));
-		}
-
+		if ((uSource->uiVersion >= 0x010202) && ! u->qbaTextureHash.isEmpty())
+			mpus.set_texture_hash(blob(u->qbaTextureHash));
+		else if (! u->qbaTexture.isEmpty())
+			mpus.set_texture(blob(u->qbaTexture));
 		if (u->cChannel->iId != 0)
 			mpus.set_channel_id(u->cChannel->iId);
 		if (u->bDeaf)
