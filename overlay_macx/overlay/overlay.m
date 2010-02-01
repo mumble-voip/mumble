@@ -504,6 +504,8 @@ static void drawContext(Context * ctx, int width, int height) {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
+	glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
+
 	drawOverlay(ctx, width, height);
 
 	glMatrixMode(GL_TEXTURE);
