@@ -38,27 +38,45 @@ MumbleFileEngineHandler::MumbleFileEngineHandler() : QAbstractFileEngineHandler(
 QAbstractFileEngine *MumbleFileEngineHandler::create(const QString &name) const {
 	QUrl url(name);
 	
-	if (url.scheme() == QLatin1String("texture"))
+	if (url.scheme() == QLatin1String("memoryblob"))
 		return new MumbleImageFileEngine(url);
 
-	qWarning() << "Unhandled open" << name;
 	return NULL;
 }
 
 MumbleImageFileEngine::MumbleImageFileEngine(const QUrl &url) : QAbstractFileEngine(), quUrl(url) {
-	unsigned int session = url.host().toUInt();
-	ClientUser *cu = ClientUser::get(session);
+	const QString &domain = url.host();
+	qslPath = url.path().split(QLatin1Char('/'), QString::SkipEmptyParts);
 	
-	if (cu)
-		qbData.setData(cu->qbaTexture);
+	if (domain == QLatin1String("avatar") && (qslPath.size() == 2)) {
+		
+		unsigned int session = qslPath.first().toUInt();
+		ClientUser *cu = ClientUser::get(session);
+
+		if (cu)
+			qbData.setData(cu->qbaTexture);
+	}
 }
 
 bool MumbleImageFileEngine::open(QIODevice::OpenMode om) {
 	return qbData.open(om);
 }
 
+bool MumbleImageFileEngine::close() {
+	qbData.close();
+	return true;
+}
+
+bool MumbleImageFileEngine::seek(qint64 offset) {
+	return qbData.seek(offset);
+}
+
 qint64 MumbleImageFileEngine::size() const {
 	return qbData.size();
+}
+
+qint64 MumbleImageFileEngine::pos() const {
+	return qbData.pos();
 }
 
 qint64 MumbleImageFileEngine::read(char *data, qint64 maxlen) {
@@ -66,5 +84,10 @@ qint64 MumbleImageFileEngine::read(char *data, qint64 maxlen) {
 }
 
 QString MumbleImageFileEngine::fileName(QAbstractFileEngine::FileName fn) const {
-	return quUrl.toString();
+	switch (fn) {
+		case QAbstractFileEngine::BaseName:
+			return qslPath.last();
+		default:
+			return quUrl.toString();
+	}
 }

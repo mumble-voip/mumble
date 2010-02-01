@@ -47,11 +47,15 @@ class MumbleImageFileEngine : public QAbstractFileEngine {
 	protected:
 		QBuffer qbData;
 		QUrl quUrl;
+		QStringList qslPath;
 	public:
 		MumbleImageFileEngine(const QUrl &);
 		bool open(QIODevice::OpenMode);
-		qint64 read(char *data, qint64 maxlen);
+		bool close();
+		bool seek(qint64 offset);
+		qint64 pos() const;
 		qint64 size() const;
+		qint64 read(char *data, qint64 maxlen);
 		QString fileName(QAbstractFileEngine::FileName) const;
 };
 

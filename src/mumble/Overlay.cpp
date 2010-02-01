@@ -751,6 +751,22 @@ void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
 						}
 					}
 				}
+				
+				// Full size image? More likely image without alpha; fix it.
+				if ((width == 599) && (height == 59)) {
+					width = 0;
+					height = 0;
+					for (int y=0;y<60;++y) {
+						for (int x=0;x<600; ++x) {
+							if (ptr[y*600+x] & 0x00ffffff) {
+								if (x > width)
+									width = x;
+								if (y > height)
+									height = y;
+							}
+						}
+					}
+				}
 
 				if (! width || ! height) {
 					valid = false;
@@ -774,6 +790,8 @@ void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
 					qb.open(QIODevice::WriteOnly);
 					QImageWriter qiw(&qb, "png");
 					qiw.write(img);
+					
+					cp->qbaTextureFormat = QString::fromLatin1("png").toUtf8();
 				}
 			}
 		} else {
