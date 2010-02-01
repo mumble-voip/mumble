@@ -104,7 +104,7 @@ void DevState::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int
 		return;
 
 	D3DLOCKED_RECT lr;
-		
+
 	if ((x == 0) && (y == 0) && (w == uiWidth) && (h == uiHeight)) {
 		if (texTexture->LockRect(0, &lr, NULL, D3DLOCK_DISCARD) != D3D_OK)
 			return;
@@ -199,7 +199,7 @@ void DevState::draw() {
 
 	if (! a_ucTexture || (uiLeft == uiRight))
 		return;
-		
+
 	if (! texTexture) {
 		unsigned int l, r, t, b;
 		l = uiLeft;

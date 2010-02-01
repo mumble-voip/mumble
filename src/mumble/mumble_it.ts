@@ -1683,7 +1683,7 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
 <context>
     <name>AudioStats</name>
     <message>
-        <location filename="AudioStats.cpp" line="+384"/>
+        <location filename="AudioStats.cpp" line="+402"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000ms</translation>
@@ -2323,7 +2323,7 @@ Mumble è in continuo sviluppo, e gli sviluppatori cercano di concentrarsi sulle
         <translation>Disabilita sintesi vocale e utilizza invece i suoni.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+293"/>
+        <location filename="AudioWizard.cpp" line="+295"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -2374,6 +2374,16 @@ Mumble è in continuo sviluppo, e gli sviluppatori cercano di concentrarsi sulle
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Apply some high contrast optimizations for visually impaired users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Use high contrast graphics</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2540,7 +2550,7 @@ Mumble è in continuo sviluppo, e gli sviluppatori cercano di concentrarsi sulle
         <translation>Utente Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+346"/>
+        <location filename="main.cpp" line="+363"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4540,7 +4550,7 @@ p, li { white-space: pre-wrap; }
         <translation>Interfaccia Utente</translation>
     </message>
     <message>
-        <location line="+126"/>
+        <location line="+129"/>
         <source>Choose skin file</source>
         <translation>Scegli file delle skin</translation>
     </message>
@@ -4831,6 +4841,36 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Show context menu in menu bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Apply some high contrast optimizations for visually impaired users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Optimize for high contrast</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Adds user and channel context menus into the menu bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Tray Icon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel Tree</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6430,7 +6470,7 @@ p, li { white-space: pre-wrap; }
         <translation>%1 disconnesso.</translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+91"/>
         <source>(Tree) </source>
         <translation>(Albero) </translation>
     </message>
@@ -6449,7 +6489,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">server</translation>
     </message>
     <message>
-        <location line="-250"/>
+        <location line="-251"/>
         <source>You were muted by %1.</source>
         <translation>Microfono disattivato da %1.</translation>
     </message>
@@ -6509,12 +6549,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">messaggio dal server</translation>
     </message>
     <message>
-        <location line="+326"/>
+        <location line="+327"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Impossibile trovare codec CELT uguali a quelli degli altri utenti. Non sarai in grado di parlare con gli altri utenti.</translation>
     </message>
     <message>
-        <location line="-392"/>
+        <location line="-393"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Microfono e audio disattivati da %1.</translation>
@@ -6594,7 +6634,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Da %1: %2</translation>
     </message>
     <message>
-        <location line="+326"/>
+        <location line="+327"/>
         <source>Message from %1</source>
         <translation>Messaggio da %1</translation>
     </message>
@@ -6613,17 +6653,18 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Modalità trascianamento canale sconosciuta in PlayerModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-50"/>
+        <location filename="main.cpp" line="-52"/>
         <source>Welcome to Mumble.</source>
         <translation>Benvenuto su Mumble.</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+19"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>Questa è la prima volta che avvii Mumble.&lt;br /&gt;Vorresti essere aiutato dall&apos;Audio Wizard per configurare la tua scheda audio e le impostazioni audio?</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="-9"/>
+        <location filename="Messages.cpp" line="-10"/>
+        <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
         <translation>Server</translation>

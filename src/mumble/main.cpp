@@ -313,7 +313,7 @@ int main(int argc, char **argv) {
 	// Plugins
 	g.p = new Plugins(NULL);
 	g.p->rescanPlugins();
-	
+
 	MumbleFileEngineHandler *mfeh = new MumbleFileEngineHandler();
 
 	// And the start the last chosen audio system.
@@ -402,9 +402,9 @@ int main(int argc, char **argv) {
 	ao.reset();
 
 	g.sh->disconnect();
-	
+
 	delete mfeh;
-	
+
 	delete g.sh;
 	delete g.mw;
 

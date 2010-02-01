@@ -1,10 +1,48 @@
+2010-02-01
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    f375d2b  Re-Regroup the UI config page
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    e6b585d  Fix compat textures without proper alpha, make the avatars be
+	     memoryblob://avatar/ and expand the fileengine slightly
+    07e0d90  Send only the avatar hash on login
+
+2010-01-31
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    a7e7171  Auto-enable high contrast mode when high contrast theme is
+	     detected (Win only)
+    95e41b8  Make high contrast mode of AudioBar use color to brush
+	     replacement table instead of fixed values
+    48cc272  Add High contrast option for visually impaired. For now only
+	     affects AGC/VAD config bars
+
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    3ae5144  Updated Spanish translation
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    62272b4  Regroup UI options
+    584ab54  Always start the channel context menu at the first option
+    5c17dbe  Fix TTS plaintext for long text messages
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    bd97e45  Proof-of-concept image filesystem
+    e99122c  Fix qt<4.6 overlay render
+    0901e3a  Allow removing of texture without downloading it
+
 2010-01-30
   Stefan Hacker <dd0t@users.sourceforge.net>
+    c1515fe  Special case for Speak right in the ACLEditors indicate scope
+	     for WriteACL functionality
     03f5930  Do not hide group/acl tabs from non-experts and visualize that
 	     WriteACL grants all rights by graying out the others if it is
 	     set.
 
+  Natenom <natenom@googlemail.com>
+    82e3d5c  German Strings updated
+
   Thorvald Natvig <slicer@users.sourceforge.net>
+    5004a8e  Fix snapshot path in binserver
+    28641d2  Fix texture in D3D9 after reset
     3ebcd23  s/Texture/Avatar/ in menus
     93a4c7f  Fix mouseover textures and 1.2.1-compatibility
 

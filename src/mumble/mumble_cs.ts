@@ -1972,7 +1972,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="+384"/>
+        <location filename="AudioStats.cpp" line="+402"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation type="unfinished"></translation>
@@ -2443,7 +2443,7 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+293"/>
+        <location filename="AudioWizard.cpp" line="+295"/>
         <source>%1 ms</source>
         <translation type="unfinished">%1 ms</translation>
     </message>
@@ -2490,6 +2490,16 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Apply some high contrast optimizations for visually impaired users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Use high contrast graphics</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2680,7 +2690,7 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+346"/>
+        <location filename="main.cpp" line="+363"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4743,7 +4753,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Rozhraní</translation>
     </message>
     <message>
-        <location line="+126"/>
+        <location line="+129"/>
         <source>Choose skin file</source>
         <translation>Vyberte soubor s motivem</translation>
     </message>
@@ -4758,7 +4768,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="-136"/>
+        <location filename="LookConfig.cpp" line="-139"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4902,11 +4912,41 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>Show context menu in menu bar</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Apply some high contrast optimizations for visually impaired users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Optimize for high contrast</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Adds user and channel context menus into the menu bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Tray Icon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel Tree</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="-50"/>
+        <location filename="main.cpp" line="-52"/>
         <source>Welcome to Mumble.</source>
         <translation>Vítejte v aplikaci Mumble.</translation>
     </message>
@@ -6070,7 +6110,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+91"/>
         <source>(Tree) </source>
         <translation type="unfinished"></translation>
     </message>
@@ -6416,7 +6456,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+17"/>
+        <location filename="main.cpp" line="+19"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6564,7 +6604,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">O&amp;dpojit</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="-144"/>
+        <location filename="Messages.cpp" line="-145"/>
+        <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
         <translation type="unfinished">Server</translation>

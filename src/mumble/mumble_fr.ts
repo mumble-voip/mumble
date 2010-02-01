@@ -2244,7 +2244,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <translation>Montre le poids de la suppression de l&apos;écho, avec le temps en ordonnée et la fréquence en absisse.&lt;br /&gt;Idéalement, celui-ci devrait être noir, indiquant qu&apos;aucun écho n&apos;existe. Plus communément, vous aurez une ou plusieurs bandes bleutées représentant le temps de retard de l&apos;écho. Vous devriez être capable de visualiser les poids mis à jour en temps réel.&lt;br /&gt;Notez que tant que vous n&apos;avez aucun signal où enlever l&apos;écho, vous ne verrez pas beaucoup de données utiles ici. Ecoutez de la musique et les choses devraient se stabiliser.&lt;br /&gt;Vous pouvez choisir de voir la partie réelle ou imaginaire dans le domaine fréquentiel, ou alternativement le module et la phase des poids. Le plus utile de ces outils serait probablement le module, qui est l&apos;amplitude de l&apos;écho, qui montre la quantité de signal sortant supprimé à chaque instant. Les autres modes de visualisation sont principalement utiles pour les gens qui veulent régler les algorithmes d&apos;annulation de l&apos;écho.&lt;br /&gt;Remarque : si l&apos;image entière fluctue massivement en mode module, l&apos;algorithme de suppression de l&apos;écho n&apos;a pas réussi à trouver une corrélation entre les deux sources d&apos;entrée (haut-parleurs et microphone). Soit vous avez un retard très long sur l&apos;écho, soit une des sources d&apos;entrée est mal configurée.</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="+384"/>
+        <location filename="AudioStats.cpp" line="+402"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation type="unfinished">&gt;1000ms</translation>
@@ -2523,7 +2523,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <translation type="obsolete">Spécifie la quantité de données à mettre en cache dans le tampon de sortie. Essayez différentes valeurs et mettez la plus basse qui ne cause pas de rapides décalages du son.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+293"/>
+        <location filename="AudioWizard.cpp" line="+295"/>
         <source>%1 ms</source>
         <oldsource>%1ms</oldsource>
         <translation type="unfinished">%1ms</translation>
@@ -2782,6 +2782,16 @@ Mumble is under continuous development, and the development team wants to focus 
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Apply some high contrast optimizations for visually impaired users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Use high contrast graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BanEditor</name>
@@ -2970,7 +2980,7 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation>Utilisateur Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+346"/>
+        <location filename="main.cpp" line="+363"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5277,7 +5287,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Interface utilisateur</translation>
     </message>
     <message>
-        <location line="+126"/>
+        <location line="+129"/>
         <source>Choose skin file</source>
         <translation>Choisir le fichier thème</translation>
     </message>
@@ -5312,7 +5322,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Vérifier les mises a jour au démarrage</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="-136"/>
+        <location filename="LookConfig.cpp" line="-139"/>
         <source>None</source>
         <translation>Aucun</translation>
     </message>
@@ -5451,11 +5461,41 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>Show context menu in menu bar</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Apply some high contrast optimizations for visually impaired users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Optimize for high contrast</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Adds user and channel context menus into the menu bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Tray Icon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel Tree</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="-50"/>
+        <location filename="main.cpp" line="-52"/>
         <source>Welcome to Mumble.</source>
         <translation>Bienvenue sur Mumble.</translation>
     </message>
@@ -6446,7 +6486,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+91"/>
         <source>(Tree) </source>
         <translation type="unfinished"></translation>
     </message>
@@ -6465,7 +6505,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">serveur</translation>
     </message>
     <message>
-        <location line="-250"/>
+        <location line="-251"/>
         <source>You were muted by %1.</source>
         <translation>%1 vous a rendu muet(te).</translation>
     </message>
@@ -6525,12 +6565,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">le serveur</translation>
     </message>
     <message>
-        <location line="+326"/>
+        <location line="+327"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Incapable de trouver des codecs CELT correspondant aux autres clients. Vous ne serez pas capable de parler aux autres utilisateurs.</translation>
     </message>
     <message>
-        <location line="-392"/>
+        <location line="-393"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>%1 vous a rendu sourd(e) et muet(te).</translation>
@@ -6696,7 +6736,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">De %1 : %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+326"/>
+        <location filename="Messages.cpp" line="+327"/>
         <source>Message from %1</source>
         <translation>Message de la part de %1</translation>
     </message>
@@ -7068,7 +7108,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">La bande passante du serveur est de maximum %1 kbit/s. La qualité audio doit être réajusté.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+17"/>
+        <location filename="main.cpp" line="+19"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>C&apos;est la première fois que vous lancez Mumble.&lt;br /&gt; Souhaitez-vous passer par l&apos;Assistant audio pour configurer votre carte son ?</translation>
     </message>
@@ -7228,7 +7268,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Délier</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="-9"/>
+        <location filename="Messages.cpp" line="-10"/>
+        <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
         <translation type="unfinished">Serveur</translation>

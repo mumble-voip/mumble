@@ -93,8 +93,7 @@ void AudioBar::paintEvent(QPaintEvent *) {
 		p.drawRect(0, 0, max - 1, h - 1);
 		p.drawLine(below, 0, below, h);
 		p.drawLine(above, 0, above, h);
-	}
-	else {
+	} else {
 		if (val <= below) {
 			p.fillRect(0, 0, val, h, qcBelow);
 			p.fillRect(val, 0, below-val, h, qcBelow.darker(300));

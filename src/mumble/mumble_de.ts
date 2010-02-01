@@ -2366,7 +2366,7 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
         <translation type="obsolete">DoublePush Intervall</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="+384"/>
+        <location filename="AudioStats.cpp" line="+402"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000 ms</translation>
@@ -2664,7 +2664,7 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
         <translation type="obsolete">Dies legt die Menge an Daten fest, die im Ausgabepuffer vorgepuffert werden sollen. Experimentieren Sie mit verschiedenen Werten und setzen Sie es auf den niedrigsten Wert, der noch kein schnelles Zittern oder Vibrieren im Ton verursacht.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+293"/>
+        <location filename="AudioWizard.cpp" line="+295"/>
         <source>%1 ms</source>
         <oldsource>%1ms</oldsource>
         <translation>%1 ms</translation>
@@ -2974,6 +2974,16 @@ Diese Statistiken sind grundlegend für die weitere Entwicklung und stellen sich
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
         <translation>Aktiviert die Herabsetzung der Lautstärke anderer Anwendungen während andere Benutzer zu Ihnen sprechen. Das heißt sobald jemand in Mumble zu Ihnen spricht wird die Lautstärke aller anderen Programme (etwa einem Musik-/Mediaplayer) herabgesetzt, damit Sie die zu Ihnen sprechende Person besser verstehen können.</translation>
     </message>
+    <message>
+        <location/>
+        <source>Apply some high contrast optimizations for visually impaired users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Use high contrast graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BanEditor</name>
@@ -3170,7 +3180,7 @@ Bitte verwenden Sie eine andere Datei.</translation>
         <translation>Mumble-Benutzer</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+346"/>
+        <location filename="main.cpp" line="+363"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Ablauf des Zertifikats:&lt;/b&gt; Ihr Zertifikat wird bald ablaufen. Sie müssen es erneuern oder Sie werden nicht mehr in der Lage sein sich auf Server zu verbinden auf denen Sie registriert sind.</translation>
     </message>
@@ -5646,7 +5656,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="+126"/>
+        <location filename="LookConfig.cpp" line="+129"/>
         <source>Choose skin file</source>
         <translation>Wähle Skindatei</translation>
     </message>
@@ -5689,7 +5699,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation type="obsolete">Prüfe nach Updates bei Start</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="-136"/>
+        <location filename="LookConfig.cpp" line="-139"/>
         <source>None</source>
         <translation>Keine</translation>
     </message>
@@ -5840,6 +5850,36 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <location/>
         <source>Show context menu in menu bar</source>
         <translation>Zeige Kontextmenü in der Menüleiste</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Apply some high contrast optimizations for visually impaired users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Optimize for high contrast</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Adds user and channel context menus into the menu bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Tray Icon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel Tree</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6708,7 +6748,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>%1 hat den Server verlassen.</translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+91"/>
         <source>(Tree) </source>
         <translation>(Baum)</translation>
     </message>
@@ -6727,7 +6767,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Server</translation>
     </message>
     <message>
-        <location line="-250"/>
+        <location line="-251"/>
         <source>You were muted by %1.</source>
         <translation>Stummstellung wurde aktiviert durch %1.</translation>
     </message>
@@ -6787,12 +6827,12 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Server</translation>
     </message>
     <message>
-        <location line="+326"/>
+        <location line="+327"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Es wurde kein für alle Benutzer passender CELT-Codec gefunden. Sie werden nicht zu allen Benutzern sprechen können.</translation>
     </message>
     <message>
-        <location line="-392"/>
+        <location line="-393"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Sie wurden taub gestellt durch %1.</translation>
@@ -6872,7 +6912,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Abgelehnt: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-50"/>
+        <location filename="main.cpp" line="-52"/>
         <source>Welcome to Mumble.</source>
         <translation>Willkommen in Mumble.</translation>
     </message>
@@ -7277,7 +7317,7 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
         <translation type="obsolete">Von %1: %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+326"/>
+        <location filename="Messages.cpp" line="+327"/>
         <source>Message from %1</source>
         <translation>Nachricht von %1</translation>
     </message>
@@ -7572,7 +7612,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">Dies benennt einen Kanal um.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+17"/>
+        <location filename="main.cpp" line="+19"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>Dies ist das erste Mal, dass Sie Mumble starten.&lt;br /&gt;Wollen Sie den Audio-Assistenten starten, um Ihre Soundkarte zu konfigurieren?</translation>
     </message>
@@ -7808,7 +7848,8 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">&amp;Deaktivieren</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="-9"/>
+        <location filename="Messages.cpp" line="-10"/>
+        <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
         <translation>Server</translation>
@@ -9359,12 +9400,12 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <location line="+2"/>
         <source>%1m</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1m</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1s</translation>
     </message>
     <message>
         <source> </source>

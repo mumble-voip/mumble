@@ -2360,7 +2360,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="obsolete">位相</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="+384"/>
+        <location filename="AudioStats.cpp" line="+402"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation type="unfinished">&gt;1000ms</translation>
@@ -2912,7 +2912,7 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
         <translation type="unfinished">テキスト読み上げを無効にして、代わりにサウンドファイルを再生します。</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+293"/>
+        <location filename="AudioWizard.cpp" line="+295"/>
         <source>%1 ms</source>
         <translation></translation>
     </message>
@@ -2964,6 +2964,16 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
         <translation type="unfinished">ユーザが会話しているときに他のアプリケーションの減衰を有効にします。 Mumble で誰かがあなたに話し始めたらすぐに、他のすべてのアプリケーションの音量はあなたが他人の会話を良く理解出来るように減衰されます。</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Apply some high contrast optimizations for visually impaired users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Use high contrast graphics</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3153,7 +3163,7 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
         <translation type="unfinished">Mumble ユーザ</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+346"/>
+        <location filename="main.cpp" line="+363"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation type="unfinished">&lt;b&gt;証明書の有効期限:&lt;/b&gt;あなたの証明書の有効期限がもうすぐ切れます。証明書を更新する必要があります。さもないとあなたはユーザ登録したサーバに接続できなくなるでしょう。</translation>
     </message>
@@ -5457,7 +5467,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>インターフェース</translation>
     </message>
     <message>
-        <location line="+126"/>
+        <location line="+129"/>
         <source>Choose skin file</source>
         <translation>スキンファイルを選択</translation>
     </message>
@@ -5504,7 +5514,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">起動時に更新をチェックする</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="-136"/>
+        <location filename="LookConfig.cpp" line="-139"/>
         <source>None</source>
         <translation>なし</translation>
     </message>
@@ -5691,6 +5701,36 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location/>
         <source>Show context menu in menu bar</source>
         <translation type="unfinished">メニューバーにコンテキストメニューを表示する</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Apply some high contrast optimizations for visually impaired users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Optimize for high contrast</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Adds user and channel context menus into the menu bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Tray Icon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel Tree</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6626,7 +6666,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%1 が切断しました。</translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+91"/>
         <source>(Tree) </source>
         <translation>(ツリー) </translation>
     </message>
@@ -6645,7 +6685,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ</translation>
     </message>
     <message>
-        <location line="-250"/>
+        <location line="-251"/>
         <source>You were muted by %1.</source>
         <translation>あなたは %1 によって発言禁止にされました。</translation>
     </message>
@@ -6705,12 +6745,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ</translation>
     </message>
     <message>
-        <location line="+326"/>
+        <location line="+327"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation type="unfinished">他のクライアントとマッチするCELTコーデックが見つかりません。あなたは全てのユーザとは話せないでしょう。</translation>
     </message>
     <message>
-        <location line="-392"/>
+        <location line="-393"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation type="unfinished">あなたは %1 によって聴取禁止にされました。</translation>
@@ -6790,7 +6830,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>拒否されました: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-50"/>
+        <location filename="main.cpp" line="-52"/>
         <source>Welcome to Mumble.</source>
         <translation type="unfinished">Mumbleへようこそ。</translation>
     </message>
@@ -6896,7 +6936,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">%1 より: %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+326"/>
+        <location filename="Messages.cpp" line="+327"/>
         <source>Message from %1</source>
         <translation>%1 からのメッセージ</translation>
     </message>
@@ -7374,7 +7414,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバの最大帯域幅は %1 kbit/s しかありません。品質は自動的に調整されます。</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+17"/>
+        <location filename="main.cpp" line="+19"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation type="unfinished">初めての起動です。&lt;br /&gt;サウンドカードの設定をするために音声ウィザードに移動しますか?</translation>
     </message>
@@ -7538,7 +7578,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">リンク解除(&amp;U)</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="-9"/>
+        <location filename="Messages.cpp" line="-10"/>
+        <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
         <translation type="unfinished">サーバ</translation>

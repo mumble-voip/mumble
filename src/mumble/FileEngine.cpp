@@ -37,7 +37,7 @@ MumbleFileEngineHandler::MumbleFileEngineHandler() : QAbstractFileEngineHandler(
 
 QAbstractFileEngine *MumbleFileEngineHandler::create(const QString &name) const {
 	QUrl url(name);
-	
+
 	if (url.scheme() == QLatin1String("memoryblob"))
 		return new MumbleImageFileEngine(url);
 
@@ -47,9 +47,9 @@ QAbstractFileEngine *MumbleFileEngineHandler::create(const QString &name) const 
 MumbleImageFileEngine::MumbleImageFileEngine(const QUrl &url) : QAbstractFileEngine(), quUrl(url) {
 	const QString &domain = url.host();
 	qslPath = url.path().split(QLatin1Char('/'), QString::SkipEmptyParts);
-	
+
 	if (domain == QLatin1String("avatar") && (qslPath.size() == 2)) {
-		
+
 		unsigned int session = qslPath.first().toUInt();
 		ClientUser *cu = ClientUser::get(session);
 

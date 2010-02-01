@@ -1772,7 +1772,7 @@ przechwytywania źródeł dźwięku</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="+384"/>
+        <location filename="AudioStats.cpp" line="+402"/>
         <source>&gt;1000 ms</source>
         <translation>&gt;1000ms</translation>
     </message>
@@ -2370,9 +2370,19 @@ Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do p
         <translation>Wyłącz funkcję Tekst-Na-Mowę i zamiast tego używaj powiadomień dźwiękowych.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+293"/>
+        <location filename="AudioWizard.cpp" line="+295"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
+    </message>
+    <message>
+        <location filename="AudioWizard.ui"/>
+        <source>Apply some high contrast optimizations for visually impaired users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Use high contrast graphics</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2538,7 +2548,7 @@ Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do p
         <translation>Użytkownik Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+346"/>
+        <location filename="main.cpp" line="+363"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Wygaśnięcie certyfikatu:&lt;/b&gt;Twój certyfikat niedługo straci ważność. Musisz go odnowić, jeśli tego nie zrobisz nie będziesz w stanie połączyć się z serwerami, na których jesteś zarejestrowany.</translation>
     </message>
@@ -4615,7 +4625,7 @@ p, li { white-space: pre-wrap; }
         <translation>...</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="+126"/>
+        <location filename="LookConfig.cpp" line="+129"/>
         <source>Choose skin file</source>
         <translation>Zmień skórkę</translation>
     </message>
@@ -4646,7 +4656,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Sprawdzaj, czy istnieje nowsza wersja Mumble przy starcie</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="-136"/>
+        <location filename="LookConfig.cpp" line="-139"/>
         <source>None</source>
         <translation>nie rozwijaj kanałów</translation>
     </message>
@@ -4828,6 +4838,36 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Show context menu in menu bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Apply some high contrast optimizations for visually impaired users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Optimize for high contrast</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Adds user and channel context menus into the menu bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Tray Icon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel Tree</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5598,7 +5638,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+91"/>
         <source>(Tree) </source>
         <translation type="unfinished"></translation>
     </message>
@@ -5627,7 +5667,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Nie udało się odnaleźć pasujących kodeków CELT. Nie będziesz mógł rozmawiać do wszystkich użytkowników.</translation>
     </message>
     <message>
-        <location line="-411"/>
+        <location line="-412"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 ma teraz wyciszone słuchawki i mikrofon.</translation>
     </message>
@@ -5830,7 +5870,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Zabroniono: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-50"/>
+        <location filename="main.cpp" line="-52"/>
         <source>Welcome to Mumble.</source>
         <translation>Witamy w Mumble.</translation>
     </message>
@@ -6156,7 +6196,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation type="obsolete">Od %1: %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+326"/>
+        <location filename="Messages.cpp" line="+327"/>
         <source>Message from %1</source>
         <translation>Wiadomość od %1</translation>
     </message>
@@ -6408,7 +6448,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation type="obsolete">Zmienia nazwę kanału.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+17"/>
+        <location filename="main.cpp" line="+19"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>Program Mumble został uruchomiony po raz pierwszy na tym komputerze.&lt;br /&gt; Czy chciałbyś uruchomić kreator ustawień dźwięku, aby skonfigurować podstawowe opcje aplikacji?</translation>
     </message>
@@ -6628,7 +6668,8 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation type="obsolete">&amp;Wyłącz wtyczki</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="-9"/>
+        <location filename="Messages.cpp" line="-10"/>
+        <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
         <translation type="unfinished">Serwer</translation>

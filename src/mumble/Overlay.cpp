@@ -751,7 +751,7 @@ void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
 						}
 					}
 				}
-				
+
 				// Full size image? More likely image without alpha; fix it.
 				if ((width == 599) && (height == 59)) {
 					width = 0;
@@ -790,7 +790,7 @@ void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
 					qb.open(QIODevice::WriteOnly);
 					QImageWriter qiw(&qb, "png");
 					qiw.write(img);
-					
+
 					cp->qbaTextureFormat = QString::fromLatin1("png").toUtf8();
 				}
 			}

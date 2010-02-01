@@ -2408,7 +2408,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
         <translation type="obsolete">Fase</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="+384"/>
+        <location filename="AudioStats.cpp" line="+402"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000 ms</translation>
@@ -2952,7 +2952,7 @@ Mumble se encuentra en continuo desarrollo, y el equipo de desarrollo quiere cen
         <translation>Inhabilitar Texto-A-Voz (TTS) y usar sonidos en su lugar.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+293"/>
+        <location filename="AudioWizard.cpp" line="+295"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -3004,6 +3004,16 @@ Mumble se encuentra en continuo desarrollo, y el equipo de desarrollo quiere cen
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
         <translation>Habilita la atenuación de las otras aplicaciones mientras los usuarios le hablan. Esto significa que en cuanto alguien comience a hablarle en Mumble el sonido de las demás aplicaciones, como reproductores de audio, será atenuado para permitirle entenderlo mejor.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Apply some high contrast optimizations for visually impaired users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Use high contrast graphics</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3193,7 +3203,7 @@ Mumble se encuentra en continuo desarrollo, y el equipo de desarrollo quiere cen
         <translation>Usuario Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+346"/>
+        <location filename="main.cpp" line="+363"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Vencimiento del certificado:&lt;/b&gt; Su certificado está a punto de caducar. Debe renovarlo, o de lo contrario no podrá conectarse a los servidores en los que se haya registrado.</translation>
     </message>
@@ -5542,7 +5552,7 @@ p, li { white-space: pre-wrap; }
         <translation>...</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="+126"/>
+        <location filename="LookConfig.cpp" line="+129"/>
         <source>Choose skin file</source>
         <translation>Elija el archivo de carátula</translation>
     </message>
@@ -5594,7 +5604,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Busca actualizaciones al inicio</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="-136"/>
+        <location filename="LookConfig.cpp" line="-139"/>
         <source>None</source>
         <translation>Ninguno</translation>
     </message>
@@ -5844,11 +5854,41 @@ p, li { white-space: pre-wrap; }
         <source>Show context menu in menu bar</source>
         <translation>Mostrar el menú contextual en la barra de menú</translation>
     </message>
+    <message>
+        <location/>
+        <source>Apply some high contrast optimizations for visually impaired users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Optimize for high contrast</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Adds user and channel context menus into the menu bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Tray Icon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel Tree</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="-50"/>
+        <location filename="main.cpp" line="-52"/>
         <source>Welcome to Mumble.</source>
         <translation>Bienvenido a Mumble.</translation>
     </message>
@@ -6654,7 +6694,7 @@ p, li { white-space: pre-wrap; }
         <translation>%1 se ha desconectado.</translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+91"/>
         <source>(Tree) </source>
         <translation>(Árbol)</translation>
     </message>
@@ -6673,7 +6713,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">servidor</translation>
     </message>
     <message>
-        <location line="-250"/>
+        <location line="-251"/>
         <source>You were muted by %1.</source>
         <translation>Fue enmudecido por %1.</translation>
     </message>
@@ -6733,12 +6773,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">el servidor</translation>
     </message>
     <message>
-        <location line="+326"/>
+        <location line="+327"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>No se pudieron encontrar codecs CELT adecuados para los otros clientes. No podrá hablar a todos los usuarios.</translation>
     </message>
     <message>
-        <location line="-392"/>
+        <location line="-393"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Fue enmudecido y ensordecido por %1.</translation>
@@ -7023,7 +7063,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">De %1: %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+326"/>
+        <location filename="Messages.cpp" line="+327"/>
         <source>Message from %1</source>
         <translation>Mensaje de %1</translation>
     </message>
@@ -7570,7 +7610,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">El ancho de banda máximo del servidor es sólo de %1 kbit/s. Se ha ajustado automáticamente la calidad.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+17"/>
+        <location filename="main.cpp" line="+19"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>Ésta es la primera vez que inicia Mumble.&lt;br /&gt;¿Le gustaría ejecutar el Asistente de audio para configurar su tarjeta de sonido?</translation>
     </message>
@@ -7734,7 +7774,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Desvincular</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="-9"/>
+        <location filename="Messages.cpp" line="-10"/>
+        <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
         <translation>Servidor</translation>

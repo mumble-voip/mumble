@@ -1554,7 +1554,7 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
 <context>
     <name>AudioStats</name>
     <message>
-        <location filename="AudioStats.cpp" line="+384"/>
+        <location filename="AudioStats.cpp" line="+402"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000 ms</translation>
@@ -2141,7 +2141,7 @@ Mumble er under konstant udvikling, og udviklerteamet vil gerne fokusere på fun
         <translation>Tryk-for-snak:</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+293"/>
+        <location filename="AudioWizard.cpp" line="+295"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -2149,6 +2149,16 @@ Mumble er under konstant udvikling, og udviklerteamet vil gerne fokusere på fun
         <location filename="AudioWizard.ui"/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
         <translation>Aktiverer dæmpning af andre programmer mens brugere snakker til dig. Det betyder at så snart nogen begynder at snakke til dig i Mumble, vil lyden af alle andre programmer (så som musikafspillere) blive dæmpet så du kan høre dem bedre.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Apply some high contrast optimizations for visually impaired users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Use high contrast graphics</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2310,7 +2320,7 @@ Mumble er under konstant udvikling, og udviklerteamet vil gerne fokusere på fun
         <translation>Mumble bruger</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+346"/>
+        <location filename="main.cpp" line="+363"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Certifikat Udløb:&lt;/b&gt; Dit certifikat er ved at udløbe. Du skal fornye det, ellers vil du ikke længere være i stand til at forbinde til servere du registreret på.</translation>
     </message>
@@ -3963,7 +3973,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Brugergrænseflade</translation>
     </message>
     <message>
-        <location line="+126"/>
+        <location line="+129"/>
         <source>Choose skin file</source>
         <translation>Vælg temafil</translation>
     </message>
@@ -4214,6 +4224,36 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location/>
         <source>Show context menu in menu bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Apply some high contrast optimizations for visually impaired users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Optimize for high contrast</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Adds user and channel context menus into the menu bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Tray Icon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel Tree</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5679,6 +5719,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+87"/>
+        <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
         <translation>server</translation>
@@ -5699,7 +5740,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>%2%1: %3</translation>
     </message>
     <message>
-        <location line="-248"/>
+        <location line="-249"/>
         <source>You were unmuted by %1.</source>
         <translation>Du blev unmuted af %1.</translation>
     </message>
@@ -5749,12 +5790,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">serveren</translation>
     </message>
     <message>
-        <location line="+326"/>
+        <location line="+327"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Kunne ikke finde matchende CELT-codecs host andre klienter. Du vil ikke være i stand til at snakke med alle brugere.</translation>
     </message>
     <message>
-        <location line="-392"/>
+        <location line="-393"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Du blev muted og gjort døv af %1.</translation>
@@ -5804,7 +5845,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">Fra %1: %2</translation>
     </message>
     <message>
-        <location line="+326"/>
+        <location line="+327"/>
         <source>Message from %1</source>
         <translation>Besked fra %1</translation>
     </message>
@@ -5819,12 +5860,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Ukendt kanalflytning-tilstand i UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-50"/>
+        <location filename="main.cpp" line="-52"/>
         <source>Welcome to Mumble.</source>
         <translation>Velkommen til Mumble.</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+19"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>Dette er første gang du åbner Mumble.&lt;br /&gt;Kunne du tænke dig at gennemgå lydguiden for at konfigurere dit lydkort?</translation>
     </message>
