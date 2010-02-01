@@ -294,8 +294,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 	sendAll(mpus, 0x010202);
 
-	if (! uSource->qbaTexture.isEmpty())
-		mpus.set_texture(blob(uSource->qbaTexture));
+	if ((uSource->qbaTexture.length() >= 4) && (qFromBigEndian<unsigned int>(reinterpret_cast<const unsigned char *>(uSource->qbaTexture.constData())) == 600 * 60 * 4))
+			mpus.set_texture(blob(uSource->qbaTexture));
 	if (! uSource->qsComment.isEmpty())
 		mpus.set_comment(u8(uSource->qsComment));
 	sendAll(mpus, ~ 0x010202);
@@ -313,10 +313,14 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		mpus.set_name(u8(u->qsName));
 		if (u->iId >= 0)
 			mpus.set_user_id(u->iId);
-		if ((uSource->uiVersion >= 0x010202) && ! u->qbaTextureHash.isEmpty())
-			mpus.set_texture_hash(blob(u->qbaTextureHash));
-		else if (! u->qbaTexture.isEmpty())
-			mpus.set_texture(blob(u->qbaTexture));
+		if (uSource->uiVersion >= 0x010202) {
+			if (! u->qbaTextureHash.isEmpty())
+				mpus.set_texture_hash(blob(u->qbaTextureHash));
+			else if (! u->qbaTexture.isEmpty())
+				mpus.set_texture(blob(u->qbaTexture));
+		} else if ((uSource->qbaTexture.length() >= 4) && (qFromBigEndian<unsigned int>(reinterpret_cast<const unsigned char *>(uSource->qbaTexture.constData())) == 600 * 60 * 4)) {
+				mpus.set_texture(blob(u->qbaTexture));
+		}
 		if (u->cChannel->iId != 0)
 			mpus.set_channel_id(u->cChannel->iId);
 		if (u->bDeaf)
@@ -612,7 +616,11 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	}
 
 	if (! bNoBroadcast) {
-		sendAll(msg, ~ 0x010202);
+		if ((pDstServerUser->qbaTexture.length() >= 4) && (qFromBigEndian<unsigned int>(reinterpret_cast<const unsigned char *>(pDstServerUser->qbaTexture.constData())) != 600 * 60 * 4)) {
+			msg.clear_texture();
+			sendAll(msg, ~ 0x010202);
+			msg.set_texture(blob(pDstServerUser->qbaTexture));
+		}
 		if (msg.has_texture() && ! pDstServerUser->qbaTextureHash.isEmpty()) {
 			msg.clear_texture();
 			msg.set_texture_hash(blob(pDstServerUser->qbaTextureHash));
