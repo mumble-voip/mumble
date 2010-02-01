@@ -96,7 +96,7 @@ unix {
 	}
 }
 
-unix:!macx {
+unix:!macx:!CONFIG(no-overlay) {
 	CONFIG(debug, debug|release) {
 		QMAKE_CFLAGS *= -fstack-protector -fPIE -pie
 		QMAKE_CXXFLAGS *= -fstack-protector -fPIE -pie
