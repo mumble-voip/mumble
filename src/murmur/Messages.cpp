@@ -620,6 +620,8 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			msg.clear_texture();
 			sendAll(msg, ~ 0x010202);
 			msg.set_texture(blob(pDstServerUser->qbaTexture));
+		} else {
+			sendAll(msg, ~ 0x010202);
 		}
 		if (msg.has_texture() && ! pDstServerUser->qbaTextureHash.isEmpty()) {
 			msg.clear_texture();
