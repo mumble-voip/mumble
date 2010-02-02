@@ -316,7 +316,10 @@ void MainWindow::setupGui()  {
 		restoreGeometry(g.s.qbaMainWindowGeometry);
 
 	Settings::WindowLayout wlTmp = g.s.wlWindowLayout;
-	restoreState(g.s.qbaMainWindowState);
+	if (g.s.bMinimalView && ! g.s.qbaMinimalViewState.isNull())
+		restoreState(g.s.qbaMinimalViewState);
+	else if (! g.s.bMinimalView && ! g.s.qbaMainWindowState.isNull())
+		restoreState(g.s.qbaMainWindowState);
 	g.s.wlWindowLayout = wlTmp;
 
 	setupView(false);
@@ -367,11 +370,12 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	g.uiSession = 0;
 	g.pPermissions = ChanACL::None;
 
-	g.s.qbaMainWindowState = saveState();
 	if (g.s.bMinimalView) {
 		g.s.qbaMinimalViewGeometry = saveGeometry();
+		g.s.qbaMinimalViewState = saveState();
 	} else {
 		g.s.qbaMainWindowGeometry = saveGeometry();
+		g.s.qbaMainWindowState = saveState();
 		g.s.qbaHeaderState = qtvUsers->header()->saveState();
 	}
 	QMainWindow::closeEvent(e);
@@ -665,20 +669,22 @@ void MainWindow::setupView(bool toggle_minimize) {
 			addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
 			qdwLog->show();
 			splitDockWidget(qdwLog, qdwChat, Qt::Vertical);
+			qdwChat->show();
 			break;
 		case Settings::LayoutStacked:
 			removeDockWidget(qdwLog);
 			addDockWidget(Qt::BottomDockWidgetArea, qdwLog);
 			qdwLog->show();
 			splitDockWidget(qdwLog, qdwChat, Qt::Vertical);
+			qdwChat->show();
 			break;
 		case Settings::LayoutHybrid:
 			removeDockWidget(qdwLog);
+			removeDockWidget(qdwChat);
 			addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
 			qdwLog->show();
-			removeDockWidget(qdwChat);
 			addDockWidget(Qt::BottomDockWidgetArea, qdwChat);
-			if (g.s.bShowChatbar) qdwChat->show();
+			qdwChat->show();
 			break;
 		default:
 			wlTmp = Settings::LayoutCustom;
@@ -691,9 +697,11 @@ void MainWindow::setupView(bool toggle_minimize) {
 	if (toggle_minimize) {
 		if (! showit) {
 			g.s.qbaMainWindowGeometry = saveGeometry();
+			g.s.qbaMainWindowState = saveState();
 			g.s.qbaHeaderState = qtvUsers->header()->saveState();
 		} else {
 			g.s.qbaMinimalViewGeometry = saveGeometry();
+			g.s.qbaMinimalViewState = saveState();
 		}
 	}
 
@@ -730,15 +738,24 @@ void MainWindow::setupView(bool toggle_minimize) {
 		menuBar()->removeAction(qmChannel->menuAction());
 	}
 
-	qdwLog->setVisible(showit);
-	qdwChat->setVisible(showit && g.s.bShowChatbar);
+	if (! showit) {
+		qdwLog->setVisible(showit);
+		qdwChat->setVisible(showit);
+	}
 	menuBar()->setVisible(showit);
 
 	if (toggle_minimize) {
-		if (! showit && ! g.s.qbaMinimalViewGeometry.isNull())
-			restoreGeometry(g.s.qbaMinimalViewGeometry);
-		else if (showit && ! g.s.qbaMainWindowGeometry.isNull())
-			restoreGeometry(g.s.qbaMainWindowGeometry);
+		if (! showit) {
+			if (! g.s.qbaMinimalViewGeometry.isNull())
+				restoreGeometry(g.s.qbaMinimalViewGeometry);
+			if (! g.s.qbaMinimalViewState.isNull())
+				restoreState(g.s.qbaMinimalViewState);
+		} else {
+			if (! g.s.qbaMainWindowGeometry.isNull())
+				restoreGeometry(g.s.qbaMainWindowGeometry);
+			if (! g.s.qbaMainWindowState.isNull())
+				restoreState(g.s.qbaMainWindowState);
+		}
 	} else {
 		QRect newgeom = frameGeometry();
 		resize(geometry().width()-newgeom.width()+geom.width(),

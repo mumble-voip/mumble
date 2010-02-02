@@ -160,13 +160,12 @@ struct Settings {
 	QString qsStyle;
 	QString qsSkin;
 	bool bFirstTime;
-	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaMinimalViewGeometry, qbaSplitterState, qbaHeaderState;
+	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaMinimalViewGeometry, qbaMinimalViewState, qbaSplitterState, qbaHeaderState;
 	QByteArray qbaConfigGeometry;
 	enum WindowLayout { LayoutClassic, LayoutStacked, LayoutHybrid, LayoutCustom };
 	WindowLayout wlWindowLayout;
 	ChannelExpand ceExpand;
 	ChannelDrag ceChannelDrag;
-	bool bShowChatbar;
 	bool bMinimalView;
 	bool bHideFrame;
 	enum AlwaysOnTopBehaviour { OnTopNever, OnTopAlways, OnTopInMinimal, OnTopInNormal };

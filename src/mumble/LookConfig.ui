@@ -249,7 +249,7 @@
      <property name="title">
       <string>Application</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,1">
+     <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0">
       <item row="0" column="0">
        <widget class="QLabel" name="qliAlwaysOnTop">
         <property name="text">
@@ -288,19 +288,6 @@
        </widget>
       </item>
       <item row="1" column="0" colspan="2">
-       <widget class="QCheckBox" name="qcbShowChatbar">
-        <property name="toolTip">
-         <string>Check to show chat bar</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;If checked the chat bar is shown.&lt;/b&gt;&lt;br /&gt;Uncheck this to hide it.</string>
-        </property>
-        <property name="text">
-         <string>Show chatbar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" colspan="2">
        <widget class="QCheckBox" name="qcbShowContextMenuInMenuBar">
         <property name="toolTip">
          <string>Adds user and channel context menus into the menu bar</string>
@@ -310,7 +297,7 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0" colspan="2">
+      <item row="2" column="0" colspan="2">
        <widget class="QCheckBox" name="qcbAskOnQuit">
         <property name="toolTip">
          <string>Ask whether to close or minimize when quitting Mumble.</string>

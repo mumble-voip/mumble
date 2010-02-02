@@ -164,7 +164,6 @@ Settings::Settings() {
 	bFirstTime = true;
 	ceExpand = ChannelsWithUsers;
 	ceChannelDrag = Ask;
-	bShowChatbar = true;
 	bMinimalView = false;
 	bHideFrame = false;
 	aotbAlwaysOnTop = OnTopNever;
@@ -418,7 +417,6 @@ void Settings::load() {
 	LOADENUM(ceChannelDrag, "ui/drag");
 	LOADENUM(aotbAlwaysOnTop, "ui/alwaysontop");
 	SAVELOAD(bAskOnQuit, "ui/askonquit");
-	SAVELOAD(bShowChatbar, "ui/shotchatbar");
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bHideFrame, "ui/hideframe");
 	SAVELOAD(bUserTop, "ui/usertop");
@@ -426,6 +424,7 @@ void Settings::load() {
 	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");
 	SAVELOAD(qbaMainWindowState, "ui/state");
 	SAVELOAD(qbaMinimalViewGeometry, "ui/minimalviewgeometry");
+	SAVELOAD(qbaMinimalViewState, "ui/minimalviewstate");
 	SAVELOAD(qbaConfigGeometry, "ui/ConfigGeometry");
 	LOADENUM(wlWindowLayout, "ui/WindowLayout");
 	SAVELOAD(qbaSplitterState, "ui/splitter");
@@ -606,7 +605,6 @@ void Settings::save() {
 	SAVELOAD(ceChannelDrag, "ui/drag");
 	SAVELOAD(aotbAlwaysOnTop, "ui/alwaysontop");
 	SAVELOAD(bAskOnQuit, "ui/askonquit");
-	SAVELOAD(bShowChatbar, "ui/showchatbar");
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bHideFrame, "ui/hideframe");
 	SAVELOAD(bUserTop, "ui/usertop");
@@ -614,6 +612,7 @@ void Settings::save() {
 	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");
 	SAVELOAD(qbaMainWindowState, "ui/state");
 	SAVELOAD(qbaMinimalViewGeometry, "ui/minimalviewgeometry");
+	SAVELOAD(qbaMinimalViewState, "ui/minimalviewstate");
 	SAVELOAD(qbaConfigGeometry, "ui/ConfigGeometry");
 	SAVELOAD(wlWindowLayout, "ui/WindowLayout");
 	SAVELOAD(qbaSplitterState, "ui/splitter");
