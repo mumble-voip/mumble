@@ -86,11 +86,19 @@ bool BandwidthRecord::addFrame(int size, int maxpersec) {
 }
 
 int BandwidthRecord::onlineSeconds() const {
-	return static_cast<int>(qtFirst.elapsed() / 1000000LL);
+	return static_cast<int>(tFirst.elapsed() / 1000000LL);
 }
 
 int BandwidthRecord::idleSeconds() const {
-	return static_cast<int>(a_qtWhen[(iRecNum + N_BANDWIDTH_SLOTS - 1) % N_BANDWIDTH_SLOTS].elapsed() / 1000000LL);
+	quint64 iIdle = a_qtWhen[(iRecNum + N_BANDWIDTH_SLOTS - 1) % N_BANDWIDTH_SLOTS].elapsed();
+	if (tIdleControl.elapsed() < iIdle)
+		iIdle = tIdleControl.elapsed();
+
+	return static_cast<int>(iIdle / 1000000LL);
+}
+
+void BandwidthRecord::resetIdleSeconds() {
+	tIdleControl.restart();
 }
 
 int BandwidthRecord::bandwidth() const {

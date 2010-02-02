@@ -41,6 +41,12 @@
 #include "DBus.h"
 
 #define MSG_SETUP(st) \
+	if (uSource->sState != st) { \
+		return; \
+	} \
+	uSource->bwr.resetIdleSeconds()
+
+#define MSG_SETUP_NO_UNIDLE(st) \
 	if (uSource->sState != st) \
 		return
 
@@ -426,7 +432,7 @@ void Server::msgPermissionDenied(ServerUser *, MumbleProto::PermissionDenied &) 
 }
 
 void Server::msgUDPTunnel(ServerUser *uSource, MumbleProto::UDPTunnel &msg) {
-	MSG_SETUP(ServerUser::Authenticated);
+	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
 	const std::string &str = msg.packet();
 	int len = static_cast<int>(str.length());
@@ -1223,7 +1229,7 @@ void Server::msgQueryUsers(ServerUser *uSource, MumbleProto::QueryUsers &msg) {
 }
 
 void Server::msgPing(ServerUser *uSource, MumbleProto::Ping &msg) {
-	MSG_SETUP(ServerUser::Authenticated);
+	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 	CryptState &cs=uSource->csCrypt;
 
 	cs.uiRemoteGood = msg.good();
@@ -1251,7 +1257,7 @@ void Server::msgPing(ServerUser *uSource, MumbleProto::Ping &msg) {
 }
 
 void Server::msgCryptSetup(ServerUser *uSource, MumbleProto::CryptSetup &msg) {
-	MSG_SETUP(ServerUser::Authenticated);
+	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 	if (! msg.has_client_nonce()) {
 		log(uSource, "Requested crypt-nonce resync");
 		msg.set_server_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.encrypt_iv), AES_BLOCK_SIZE));
@@ -1348,7 +1354,7 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 }
 
 void Server::msgVoiceTarget(ServerUser *uSource, MumbleProto::VoiceTarget &msg) {
-	MSG_SETUP(ServerUser::Authenticated);
+	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
 	int target = msg.id();
 	if ((target < 1) || (target >= 0x1f))
@@ -1391,7 +1397,7 @@ void Server::msgVoiceTarget(ServerUser *uSource, MumbleProto::VoiceTarget &msg) 
 }
 
 void Server::msgPermissionQuery(ServerUser *uSource, MumbleProto::PermissionQuery &msg) {
-	MSG_SETUP(ServerUser::Authenticated);
+	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
 	Channel *c = qhChannels.value(msg.channel_id());
 	if (!c)
@@ -1404,7 +1410,7 @@ void Server::msgCodecVersion(ServerUser *, MumbleProto::CodecVersion &) {
 }
 
 void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
-	MSG_SETUP(ServerUser::Authenticated);
+	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 	VICTIM_SETUP;
 	const CryptState &cs = pDstServerUser->csCrypt;
 	const BandwidthRecord &bwr = pDstServerUser->bwr;
