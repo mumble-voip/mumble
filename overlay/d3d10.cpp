@@ -521,6 +521,9 @@ void checkDXGIHook(bool preonly) {
 		return;
 		ods("DXGI: Causing a chain");
 	}
+	
+	if (! dxgi->iOffsetPresent || ! dxgi->iOffsetResize) 
+		return;
 
 	bChaining = true;
 
@@ -566,10 +569,6 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 
 	ods("Preparing static data for DXGI Injection");
 
-	HMODULE hD3D10 = LoadLibrary("D3D10.DLL");
-	HMODULE hDXGI = LoadLibrary("DXGI.DLL");
-	HRESULT hr;
-
 	dxgi->wcDXGIFileName[0] = 0;
 	dxgi->wcD3D10FileName[0] = 0;
 	dxgi->iOffsetPresent = 0;
@@ -577,120 +576,132 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 	dxgi->iOffsetAddRef = 0;
 	dxgi->iOffsetRelease = 0;
 
-	if (hDXGI != NULL && hD3D10 != NULL) {
-		CreateDXGIFactoryType pCreateDXGIFactory = reinterpret_cast<CreateDXGIFactoryType>(GetProcAddress(hDXGI, "CreateDXGIFactory"));
-		ods("Got %p", pCreateDXGIFactory);
-		if (pCreateDXGIFactory) {
-			IDXGIFactory * pFactory;
-			hr = pCreateDXGIFactory(__uuidof(IDXGIFactory), (void**)(&pFactory));
-			if (pFactory) {
-				HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI Window", WS_OVERLAPPEDWINDOW,
-				                          CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
-				                          NULL, NULL, 0);
+	OSVERSIONINFOEXW ovi;
+	memset(&ovi, 0, sizeof(ovi));
+	ovi.dwOSVersionInfoSize = sizeof(ovi);
+	GetVersionExW(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
+	if ((ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 6001))) {
+		HMODULE hD3D10 = LoadLibrary("D3D10.DLL");
+		HMODULE hDXGI = LoadLibrary("DXGI.DLL");
+		HRESULT hr;
 
-				IDXGIAdapter *pAdapter = NULL;
-				pFactory->EnumAdapters(0, &pAdapter);
+		if (hDXGI != NULL && hD3D10 != NULL) {
+			CreateDXGIFactoryType pCreateDXGIFactory = reinterpret_cast<CreateDXGIFactoryType>(GetProcAddress(hDXGI, "CreateDXGIFactory"));
+			ods("Got %p", pCreateDXGIFactory);
+			if (pCreateDXGIFactory) {
+				IDXGIFactory * pFactory;
+				hr = pCreateDXGIFactory(__uuidof(IDXGIFactory), (void**)(&pFactory));
+				if (pFactory) {
+					HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI Window", WS_OVERLAPPEDWINDOW,
+											  CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
+											  NULL, NULL, 0);
 
-				D3D10CreateDeviceAndSwapChainType pD3D10CreateDeviceAndSwapChain = reinterpret_cast<D3D10CreateDeviceAndSwapChainType>(GetProcAddress(hD3D10, "D3D10CreateDeviceAndSwapChain"));
+					IDXGIAdapter *pAdapter = NULL;
+					pFactory->EnumAdapters(0, &pAdapter);
 
-				IDXGISwapChain *pSwapChain = NULL;
-				ID3D10Device *pDevice = NULL;
+					D3D10CreateDeviceAndSwapChainType pD3D10CreateDeviceAndSwapChain = reinterpret_cast<D3D10CreateDeviceAndSwapChainType>(GetProcAddress(hD3D10, "D3D10CreateDeviceAndSwapChain"));
 
-				DXGI_SWAP_CHAIN_DESC desc;
-				ZeroMemory(&desc, sizeof(desc));
+					IDXGISwapChain *pSwapChain = NULL;
+					ID3D10Device *pDevice = NULL;
 
-				RECT rcWnd;
-				GetClientRect(hwnd, &rcWnd);
-				desc.BufferDesc.Width = rcWnd.right - rcWnd.left;
-				desc.BufferDesc.Height = rcWnd.bottom - rcWnd.top;
+					DXGI_SWAP_CHAIN_DESC desc;
+					ZeroMemory(&desc, sizeof(desc));
 
-				ods("W %d H %d", desc.BufferDesc.Width, desc.BufferDesc.Height);
+					RECT rcWnd;
+					GetClientRect(hwnd, &rcWnd);
+					desc.BufferDesc.Width = rcWnd.right - rcWnd.left;
+					desc.BufferDesc.Height = rcWnd.bottom - rcWnd.top;
 
-				desc.BufferDesc.RefreshRate.Numerator = 60;
-				desc.BufferDesc.RefreshRate.Denominator = 1;
-				desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
-				desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
-				desc.BufferDesc.Scaling = DXGI_MODE_SCALING_CENTERED;
+					ods("W %d H %d", desc.BufferDesc.Width, desc.BufferDesc.Height);
 
-				desc.SampleDesc.Count = 1;
-				desc.SampleDesc.Quality = 0;
+					desc.BufferDesc.RefreshRate.Numerator = 60;
+					desc.BufferDesc.RefreshRate.Denominator = 1;
+					desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
+					desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+					desc.BufferDesc.Scaling = DXGI_MODE_SCALING_CENTERED;
 
-				desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+					desc.SampleDesc.Count = 1;
+					desc.SampleDesc.Quality = 0;
 
-				desc.BufferCount = 2;
+					desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 
-				desc.OutputWindow = hwnd;
+					desc.BufferCount = 2;
 
-				desc.Windowed = true;
+					desc.OutputWindow = hwnd;
 
-				desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+					desc.Windowed = true;
 
-				hr = pD3D10CreateDeviceAndSwapChain(pAdapter, D3D10_DRIVER_TYPE_HARDWARE, NULL, 0, D3D10_SDK_VERSION, &desc, &pSwapChain, &pDevice);
+					desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
-				if (pDevice && pSwapChain) {
-					HMODULE hRef;
-					void ***vtbl = (void ***) pSwapChain;
-					void *pPresent = (*vtbl)[8];
-					if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pPresent, &hRef)) {
-						ods("DXGI: Failed to get module for Present");
-					} else {
-						GetModuleFileNameW(hRef, dxgi->wcDXGIFileName, 2048);
-						unsigned char *b = (unsigned char *) pPresent;
-						unsigned char *a = (unsigned char *) hRef;
-						dxgi->iOffsetPresent = b-a;
-						ods("DXGI: Successfully found Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
-					}
+					hr = pD3D10CreateDeviceAndSwapChain(pAdapter, D3D10_DRIVER_TYPE_HARDWARE, NULL, 0, D3D10_SDK_VERSION, &desc, &pSwapChain, &pDevice);
 
-					void *pResize = (*vtbl)[13];
-					if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pResize, &hRef)) {
-						ods("DXGI: Failed to get module for ResizeBuffers");
-					} else {
-						wchar_t buff[2048];
-						GetModuleFileNameW(hRef, buff, 2048);
-						if (wcscmp(buff, dxgi->wcDXGIFileName) == 0) {
-							unsigned char *b = (unsigned char *) pResize;
+					if (pDevice && pSwapChain) {
+						HMODULE hRef;
+						void ***vtbl = (void ***) pSwapChain;
+						void *pPresent = (*vtbl)[8];
+						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pPresent, &hRef)) {
+							ods("DXGI: Failed to get module for Present");
+						} else {
+							GetModuleFileNameW(hRef, dxgi->wcDXGIFileName, 2048);
+							unsigned char *b = (unsigned char *) pPresent;
 							unsigned char *a = (unsigned char *) hRef;
-							dxgi->iOffsetResize = b-a;
-							ods("DXGI: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
+							dxgi->iOffsetPresent = b-a;
+							ods("DXGI: Successfully found Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
+						}
+
+						void *pResize = (*vtbl)[13];
+						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pResize, &hRef)) {
+							ods("DXGI: Failed to get module for ResizeBuffers");
+						} else {
+							wchar_t buff[2048];
+							GetModuleFileNameW(hRef, buff, 2048);
+							if (wcscmp(buff, dxgi->wcDXGIFileName) == 0) {
+								unsigned char *b = (unsigned char *) pResize;
+								unsigned char *a = (unsigned char *) hRef;
+								dxgi->iOffsetResize = b-a;
+								ods("DXGI: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
+							}
+						}
+
+						vtbl = (void ***) pDevice;
+
+						void *pAddRef = (*vtbl)[1];
+						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pAddRef, &hRef)) {
+							ods("D3D10: Failed to get module for AddRef");
+						} else {
+							GetModuleFileNameW(hRef, dxgi->wcD3D10FileName, 2048);
+							unsigned char *b = (unsigned char *) pAddRef;
+							unsigned char *a = (unsigned char *) hRef;
+							dxgi->iOffsetAddRef = b-a;
+							ods("D3D10: Successfully found AddRef offset: %ls: %d", dxgi->wcD3D10FileName, dxgi->iOffsetAddRef);
+						}
+
+						void *pRelease = (*vtbl)[2];
+						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pRelease, &hRef)) {
+							ods("D3D10: Failed to get module for Release");
+						} else {
+							wchar_t buff[2048];
+							GetModuleFileNameW(hRef, buff, 2048);
+							if (wcscmp(buff, dxgi->wcD3D10FileName) == 0) {
+								unsigned char *b = (unsigned char *) pRelease;
+								unsigned char *a = (unsigned char *) hRef;
+								dxgi->iOffsetRelease = b-a;
+								ods("D3D10: Successfully found Release offset: %ls: %d", dxgi->wcD3D10FileName, dxgi->iOffsetRelease);
+							}
 						}
 					}
 
-					vtbl = (void ***) pDevice;
+					if (pDevice)
+						pDevice->Release();
+					if (pSwapChain)
+						pSwapChain->Release();
+					DestroyWindow(hwnd);
 
-					void *pAddRef = (*vtbl)[1];
-					if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pAddRef, &hRef)) {
-						ods("D3D10: Failed to get module for AddRef");
-					} else {
-						GetModuleFileNameW(hRef, dxgi->wcD3D10FileName, 2048);
-						unsigned char *b = (unsigned char *) pAddRef;
-						unsigned char *a = (unsigned char *) hRef;
-						dxgi->iOffsetAddRef = b-a;
-						ods("D3D10: Successfully found AddRef offset: %ls: %d", dxgi->wcD3D10FileName, dxgi->iOffsetAddRef);
-					}
-
-					void *pRelease = (*vtbl)[2];
-					if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pRelease, &hRef)) {
-						ods("D3D10: Failed to get module for Release");
-					} else {
-						wchar_t buff[2048];
-						GetModuleFileNameW(hRef, buff, 2048);
-						if (wcscmp(buff, dxgi->wcD3D10FileName) == 0) {
-							unsigned char *b = (unsigned char *) pRelease;
-							unsigned char *a = (unsigned char *) hRef;
-							dxgi->iOffsetRelease = b-a;
-							ods("D3D10: Successfully found Release offset: %ls: %d", dxgi->wcD3D10FileName, dxgi->iOffsetRelease);
-						}
-					}
+					pFactory->Release();
 				}
-
-				if (pDevice)
-					pDevice->Release();
-				if (pSwapChain)
-					pSwapChain->Release();
-				DestroyWindow(hwnd);
-
-				pFactory->Release();
 			}
 		}
+	} else {
+		ods("No DXGI pre-Vista");
 	}
 }
