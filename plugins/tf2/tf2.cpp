@@ -98,7 +98,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Team Fortress 2 (Build 4069). IP:Port context support.", L"Mumble TF2 Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Team Fortress 2 (Build 4097). IP:Port context support.", L"Mumble TF2 Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -167,8 +167,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		     << "</identity>";
 	identity = new_identity.str(); */
 
-	// Check to see if you are in a server
-	if (state == 0 || state == 1 || state == 3)
+	// Check to see if you are in a server and spawned
+	if (state != 17)
 		return true; // Deactivate plugin
 
 	if (ok) {
@@ -194,9 +194,6 @@ static int trylock() {
 	DWORD pid=getProcess(L"hl2.exe");
 	if (!pid)
 		return false;
-	BYTE *mod=getModuleAddr(pid, L"client.dll");
-	if (!mod)
-		return false;
 	BYTE *mod_engine=getModuleAddr(pid, L"engine.dll");
 	if (!mod_engine)
 		return false;
@@ -207,10 +204,11 @@ static int trylock() {
 
 	// Check if we really have TF2 running
 	/*
+		note that these are just examples of memory values, and may not be updated or correct
 		position tuple:		client.dll+0x5753d8  (x,y,z, float)
 		orientation tuple:	client.dll+0x4b691c  (v,h float)
 		ID string:			client.dll+0x4eb30b = "teamJet@@" (9 characters, text)
-		spawn state:        client.dll+0x49db9c  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (depending on the team side and gamemode), byte)
+		spawn state:        engine.dll+0x53DAEC  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (depending on the team side and gamemode), byte)
 		host string: 		engine.dll+0x3c8124  (ip:port zero-terminated string; localhost:27015 if create a server ingame)
 			note that memory addresses in this comment are for example only; the real ones are defined below
 	*/
@@ -218,14 +216,21 @@ static int trylock() {
 	// Remember addresses for later
 	posptr = mod_engine + 0x555BB4;
 	rotptr = mod_engine + 0x3CDC30;
-	stateptr = mod + 0x4EABCC;
+	stateptr = mod_engine + 0x53DAEC;
 	hostptr = mod_engine + 0x3C91A4;
 
+	/*
 	// Gamecheck
 	char sMagic[9];
 	if (!peekProc(mod + 0x4FB3E3, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
 		return false;
-
+	*/
+	
+	// Gamecheck
+	char sMagic[13];
+	if (!peekProc(mod_engine + 0x53FBE0, sMagic, 13) || strncmp("DemomanTaunts", sMagic, 13)!=0)
+		return false;
+		
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3];
 	float cpos[3], cfront[3], ctop[3];
@@ -250,10 +255,10 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports TF2 build 4069. No identity support yet.");
+	return std::wstring(L"Supports TF2 build 4097. No identity support yet.");
 }
 
-static std::wstring description(L"Team Fortress 2 (Build 4069)");
+static std::wstring description(L"Team Fortress 2 (Build 4097)");
 static std::wstring shortname(L"Team Fortress 2");
 
 static MumblePlugin tf2plug = {
