@@ -470,7 +470,7 @@
    <item>
     <widget class="QGroupBox" name="qgbBandwidth">
      <property name="title">
-      <string>Bandwidth</string>
+      <string comment="GroupBox">Bandwidth</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="0">
@@ -499,7 +499,7 @@
       <item row="1" column="0">
        <widget class="QLabel" name="qliBandwidth">
         <property name="text">
-         <string>Bandwidth</string>
+         <string comment="Label">Bandwidth</string>
         </property>
        </widget>
       </item>
