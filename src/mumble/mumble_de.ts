@@ -2977,17 +2977,17 @@ Diese Statistiken sind grundlegend für die weitere Entwicklung und stellen sich
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf hohen Kontrast optimierte Darstellung für sehbehinderte Benutzer verwenden</translation>
     </message>
     <message>
         <location/>
         <source>Use high contrast graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzeigen mit hohem Kontrast verwenden</translation>
     </message>
     <message>
         <location/>
         <source>Keep custom Text-To-Speech settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Derzeitige Text-Zu-Sprache-Einstellungen beibehalten.</translation>
     </message>
 </context>
 <context>
@@ -5611,12 +5611,12 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
     <message>
         <location/>
         <source>Show number of users in each channel</source>
-        <translation>Zeige die Anzahl an Benutzern in jedem Kanal</translation>
+        <translation>Zeige die Anzahl der Benutzer in jedem Kanal</translation>
     </message>
     <message>
         <location/>
         <source>Show channel user count</source>
-        <translation>Zeige Kanal-Benutzeranzahl</translation>
+        <translation>Anzahl der Benutzer im Kanal anzeigen</translation>
     </message>
     <message>
         <source>Displays talking status in tray</source>
@@ -5856,22 +5856,22 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf hohen Kontrast optimierte Darstellung für sehbehinderte Benutzer verwenden</translation>
     </message>
     <message>
         <location/>
         <source>Optimize for high contrast</source>
-        <translation type="unfinished"></translation>
+        <translation>Optimiere für hohen Kontrast</translation>
     </message>
     <message>
         <location/>
         <source>Application</source>
-        <translation type="unfinished"></translation>
+        <translation>Anwendung</translation>
     </message>
     <message>
         <location/>
         <source>Adds user and channel context menus into the menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Fügt Benutzer- und Kanalkontextmenüs zur Menüleiste hinzu</translation>
     </message>
     <message>
         <location/>
@@ -5881,7 +5881,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location/>
         <source>Channel Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalbaum</translation>
     </message>
 </context>
 <context>
@@ -9401,12 +9401,12 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <location line="+2"/>
         <source>%1m</source>
-        <translation type="unfinished">%1m</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1s</source>
-        <translation type="unfinished">%1s</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source> </source>
@@ -9447,13 +9447,13 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <location filename="UserInformation.ui"/>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished">Bandbreite</translation>
+        <translation>Bandbreite</translation>
     </message>
     <message>
         <location/>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished">Bandbreite</translation>
+        <translation>Bandbreite</translation>
     </message>
 </context>
 <context>
