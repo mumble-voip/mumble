@@ -41,9 +41,6 @@
    <attribute name="headerVisible">
     <bool>false</bool>
    </attribute>
-   <attribute name="headerVisible">
-    <bool>false</bool>
-   </attribute>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -155,6 +152,26 @@
     </property>
    </widget>
   </widget>
+  <widget class="QToolBar" name="qtIconToolbar">
+   <property name="windowTitle">
+    <string>Icon Toolbar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="qaServerConnect"/>
+   <addaction name="qaServerInformation"/>
+   <addaction name="separator"/>
+   <addaction name="qaAudioMute"/>
+   <addaction name="qaAudioDeaf"/>
+   <addaction name="separator"/>
+   <addaction name="qaSelfComment"/>
+   <addaction name="separator"/>
+   <addaction name="qaConfigDialog"/>
+  </widget>
   <action name="qaQuit">
    <property name="text">
     <string>&amp;Quit Mumble</string>
@@ -170,6 +187,10 @@
    </property>
   </action>
   <action name="qaServerConnect">
+   <property name="icon">
+    <iconset resource="mumble_tango.qrc">
+     <normaloff>:/categories/applications-internet.svg</normaloff>:/categories/applications-internet.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Connect</string>
    </property>
@@ -178,6 +199,9 @@
    </property>
    <property name="whatsThis">
     <string>Shows a dialog of registered servers, and also allows quick-connect.</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
    </property>
   </action>
   <action name="qaServerDisconnect">
@@ -212,6 +236,10 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
+   <property name="icon">
+    <iconset resource="mumble.qrc">
+     <normaloff>:/Information_icon.svg</normaloff>:/Information_icon.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Information</string>
    </property>
@@ -220,6 +248,9 @@
    </property>
    <property name="whatsThis">
     <string>This will show extended information about the connection to the server.</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
    </property>
   </action>
   <action name="qaUserKick">
@@ -378,6 +409,12 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="mumble_tango.qrc">
+     <normaloff>:/actions/audio-input-microphone.svg</normaloff>
+     <normalon>:/actions/audio-input-microphone-muted.svg</normalon>
+     <activeon>:/actions/audio-input-microphone-muted.svg</activeon>:/actions/audio-input-microphone.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Mute Self</string>
    </property>
@@ -387,10 +424,19 @@
    <property name="whatsThis">
     <string>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</string>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="qaAudioDeaf">
    <property name="checkable">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="mumble.qrc">
+     <normaloff>:/self_undeafened.svg</normaloff>
+     <normalon>:/deafened_self.svg</normalon>
+     <activeon>:/deafened_self.svg</activeon>:/self_undeafened.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Deafen Self</string>
@@ -400,6 +446,9 @@
    </property>
    <property name="whatsThis">
     <string>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
    </property>
   </action>
   <action name="qaAudioTTS">
@@ -439,6 +488,10 @@
    </property>
   </action>
   <action name="qaConfigDialog">
+   <property name="icon">
+    <iconset resource="mumble.qrc">
+     <normaloff>:/config_basic.png</normaloff>:/config_basic.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Settings</string>
    </property>
@@ -450,6 +503,9 @@
    </property>
    <property name="menuRole">
     <enum>QAction::PreferencesRole</enum>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
    </property>
   </action>
   <action name="qaAudioWizard">
@@ -697,11 +753,18 @@
    </property>
   </action>
   <action name="qaSelfComment">
+   <property name="icon">
+    <iconset resource="mumble.qrc">
+     <normaloff>:/comment.svg</normaloff>:/comment.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Change Comment</string>
    </property>
    <property name="toolTip">
     <string>Change your own comment.</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
    </property>
   </action>
   <action name="qaSelfRegister">
@@ -725,6 +788,9 @@
    <header>CustomElements.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="mumble_tango.qrc"/>
+  <include location="mumble.qrc"/>
+ </resources>
  <connections/>
 </ui>
