@@ -2141,7 +2141,7 @@ Mumble er under konstant udvikling, og udviklerteamet vil gerne fokusere på fun
         <translation>Tryk-for-snak:</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+295"/>
+        <location filename="AudioWizard.cpp" line="+314"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -2158,6 +2158,11 @@ Mumble er under konstant udvikling, og udviklerteamet vil gerne fokusere på fun
     <message>
         <location/>
         <source>Use high contrast graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Keep custom Text-To-Speech settings.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3287,7 +3292,7 @@ Brugernavn der skal sendes til serveren. Vær opmærksom på at serveren kan hav
         <translation>Det her er ikke sjovt, for der er tilsyneladende en fejl i nedbrudsrapporterings-koden, og rapporten kunne derfor ikke uploades. Du må gerne informere en udvikler om fejlen %1</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+115"/>
         <source>Uploading crash report</source>
         <translation>Uploader nedbrudsrapport</translation>
     </message>
@@ -3973,7 +3978,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Brugergrænseflade</translation>
     </message>
     <message>
-        <location line="+129"/>
+        <location line="+127"/>
         <source>Choose skin file</source>
         <translation>Vælg temafil</translation>
     </message>
@@ -4008,9 +4013,8 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>&lt;b&gt;Hvis denne er markeret, vil du skulle bekræfte, at du vil afslutte, hvis du har oprettet forbindelse.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location/>
         <source>Check to show chat bar</source>
-        <translation>Markér for at vise chatbaren</translation>
+        <translation type="obsolete">Markér for at vise chatbaren</translation>
     </message>
     <message>
         <location/>
@@ -4042,15 +4046,13 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>I normal visning</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;If checked the chat bar is shown.&lt;/b&gt;&lt;br /&gt;Uncheck this to hide it.</source>
         <oldsource>&lt;b&gt;If checked the chat bar is shown&lt;/b&gt;&lt;br /&gt;Uncheck to hide it</oldsource>
-        <translation>&lt;b&gt;Hvis denne er markeret, er chatbaren vist.&lt;/b&gt;&lt;br /&gt;Fjern markering for at skjule den.</translation>
+        <translation type="obsolete">&lt;b&gt;Hvis denne er markeret, er chatbaren vist.&lt;/b&gt;&lt;br /&gt;Fjern markering for at skjule den.</translation>
     </message>
     <message>
-        <location/>
         <source>Show chatbar</source>
-        <translation>Vis chatbar</translation>
+        <translation type="obsolete">Vis chatbar</translation>
     </message>
     <message>
         <location/>
@@ -4261,12 +4263,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1792"/>
+        <location line="+1809"/>
         <source>Root</source>
         <translation>Rod</translation>
     </message>
     <message>
-        <location line="-1741"/>
+        <location line="-1758"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryk-for-snak</translation>
@@ -4345,28 +4347,28 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+1892"/>
+        <location line="+1909"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-1888"/>
+        <location line="-1905"/>
         <source>&amp;Window</source>
         <translation>&amp;Vindue</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+96"/>
+        <location line="+99"/>
         <source>Minimize</source>
         <translation>Minimér</translation>
     </message>
     <message>
-        <location line="-96"/>
+        <location line="-99"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+98"/>
         <source>Close</source>
         <translation>Luk</translation>
     </message>
@@ -4376,7 +4378,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Mumble har i øjeblikket forbindelse til en server. Vil du lukke eller minimere det?</translation>
     </message>
     <message>
-        <location line="-147"/>
+        <location line="-150"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Mute dig selv</translation>
@@ -4424,12 +4426,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1909"/>
+        <location line="+1926"/>
         <source>Not connected</source>
         <translation>Ingen forbindelse oprettet</translation>
     </message>
     <message>
-        <location line="-1714"/>
+        <location line="-1727"/>
         <source>Clear</source>
         <translation>Ryd</translation>
     </message>
@@ -4475,7 +4477,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+18"/>
-        <location line="+169"/>
+        <location line="+182"/>
         <source>Connecting to server %1.</source>
         <translation>Opretter forbindelse til server %1.</translation>
     </message>
@@ -4841,7 +4843,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">&amp;Server</translation>
     </message>
     <message>
-        <location line="-1966"/>
+        <location line="-1983"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanal</translation>
     </message>
@@ -6220,7 +6222,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="obsolete">Det mislykkedes at initialisere overlægningshukommelse. Dette betyder som regel at den delte hukommelse er låst af operativsystemet, og du behøver derfor at genstarte for at frigøre den.</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+646"/>
+        <location filename="Overlay.cpp" line="+649"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6228,7 +6230,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-598"/>
+        <location line="-601"/>
         <source>Show no one</source>
         <translation>Vis ingen</translation>
     </message>
@@ -7134,9 +7136,8 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <translation>Til Klient</translation>
     </message>
     <message>
-        <location/>
         <source>Bandwidth</source>
-        <translation>Båndbredde</translation>
+        <translation type="obsolete">Båndbredde</translation>
     </message>
     <message>
         <location/>
@@ -7202,6 +7203,18 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <location line="+5"/>
         <source>%1 kbit/s</source>
         <translation></translation>
+    </message>
+    <message>
+        <location filename="UserInformation.ui"/>
+        <source>Bandwidth</source>
+        <comment>GroupBox</comment>
+        <translation type="unfinished">Båndbredde</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Bandwidth</source>
+        <comment>Label</comment>
+        <translation type="unfinished">Båndbredde</translation>
     </message>
 </context>
 <context>

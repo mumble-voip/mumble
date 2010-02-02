@@ -2231,7 +2231,7 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+295"/>
+        <location filename="AudioWizard.cpp" line="+314"/>
         <source>%1 ms</source>
         <translation type="unfinished">%1 毫秒</translation>
     </message>
@@ -2288,6 +2288,11 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Use high contrast graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Keep custom Text-To-Speech settings.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3508,7 +3513,7 @@ Username to send to the server. Be aware that the server can impose restrictions
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+115"/>
         <source>Uploading crash report</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4256,7 +4261,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>用户界面</translation>
     </message>
     <message>
-        <location line="+129"/>
+        <location line="+127"/>
         <source>Choose skin file</source>
         <translation>选择皮肤文件</translation>
     </message>
@@ -4288,22 +4293,6 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Check to show chat bar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;If checked the chat bar is shown.&lt;/b&gt;&lt;br /&gt;Uncheck this to hide it.</source>
-        <oldsource>&lt;b&gt;If checked the chat bar is shown&lt;/b&gt;&lt;br /&gt;Uncheck to hide it</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Show chatbar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4580,12 +4569,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1792"/>
+        <location line="+1809"/>
         <source>Root</source>
         <translation>根</translation>
     </message>
     <message>
-        <location line="-1741"/>
+        <location line="-1758"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>按键通话</translation>
@@ -4724,28 +4713,28 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+1892"/>
+        <location line="+1909"/>
         <source>Mumble -- %1</source>
         <translation></translation>
     </message>
     <message>
-        <location line="-1888"/>
+        <location line="-1905"/>
         <source>&amp;Window</source>
         <translation>&amp;窗口</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+96"/>
+        <location line="+99"/>
         <source>Minimize</source>
         <translation>最小化</translation>
     </message>
     <message>
-        <location line="-96"/>
+        <location line="-99"/>
         <source>Ctrl+M</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+98"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
@@ -4755,7 +4744,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumble 现在连接到了一个服务器。你想要关闭还是最小化它？</translation>
     </message>
     <message>
-        <location line="-191"/>
+        <location line="-194"/>
         <source>&amp;User</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4808,12 +4797,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1909"/>
+        <location line="+1926"/>
         <source>Not connected</source>
         <translation type="unfinished">未连接</translation>
     </message>
     <message>
-        <location line="-1714"/>
+        <location line="-1727"/>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
@@ -4859,7 +4848,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+18"/>
-        <location line="+169"/>
+        <location line="+182"/>
         <source>Connecting to server %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5261,7 +5250,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;玩家</translation>
     </message>
     <message>
-        <location line="-1966"/>
+        <location line="-1983"/>
         <source>&amp;Channel</source>
         <translation type="unfinished">&amp;频道</translation>
     </message>
@@ -6711,7 +6700,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+646"/>
+        <location filename="Overlay.cpp" line="+649"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6729,7 +6718,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-598"/>
+        <location line="-601"/>
         <source>Show no one</source>
         <translation>不显示任何人</translation>
     </message>
@@ -7682,11 +7671,6 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location/>
-        <source>Bandwidth</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
         <source>Connection time</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7744,6 +7728,18 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+5"/>
         <source>%1 kbit/s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="UserInformation.ui"/>
+        <source>Bandwidth</source>
+        <comment>GroupBox</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Bandwidth</source>
+        <comment>Label</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>

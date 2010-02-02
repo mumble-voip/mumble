@@ -2323,7 +2323,7 @@ Mumble è in continuo sviluppo, e gli sviluppatori cercano di concentrarsi sulle
         <translation>Disabilita sintesi vocale e utilizza invece i suoni.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+295"/>
+        <location filename="AudioWizard.cpp" line="+314"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -2384,6 +2384,11 @@ Mumble è in continuo sviluppo, e gli sviluppatori cercano di concentrarsi sulle
     <message>
         <location/>
         <source>Use high contrast graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Keep custom Text-To-Speech settings.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3725,7 +3730,7 @@ Nome utente da mandare al server. ll server potrebbe avere delle restrizioni su 
         <translation>Questo veramente non è divertente, ma apparentemente c&apos;è un bug nel codice del rapporto, e abbiamo fallito ad inviare il rapporto. Puoi informare uno sviluppatore sull&apos;errore %1</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+115"/>
         <source>Uploading crash report</source>
         <translation>Invio rapporto errore in corso</translation>
     </message>
@@ -4550,7 +4555,7 @@ p, li { white-space: pre-wrap; }
         <translation>Interfaccia Utente</translation>
     </message>
     <message>
-        <location line="+129"/>
+        <location line="+127"/>
         <source>Choose skin file</source>
         <translation>Scegli file delle skin</translation>
     </message>
@@ -4585,20 +4590,17 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;b&gt;Se selezionato, verificherà se vuoi uscire quando sei connesso&lt;/b&gt;</translation>
     </message>
     <message>
-        <location/>
         <source>Check to show chat bar</source>
-        <translation>Seleziona per visualizzare la barra della chat</translation>
+        <translation type="obsolete">Seleziona per visualizzare la barra della chat</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;If checked the chat bar is shown.&lt;/b&gt;&lt;br /&gt;Uncheck this to hide it.</source>
         <oldsource>&lt;b&gt;If checked the chat bar is shown&lt;/b&gt;&lt;br /&gt;Uncheck to hide it</oldsource>
-        <translation>&lt;b&gt;Se selezionato la barra della chat sarà visibile&lt;/b&gt;&lt;br /&gt;Deselezionalo per nasconderla.</translation>
+        <translation type="obsolete">&lt;b&gt;Se selezionato la barra della chat sarà visibile&lt;/b&gt;&lt;br /&gt;Deselezionalo per nasconderla.</translation>
     </message>
     <message>
-        <location/>
         <source>Show chatbar</source>
-        <translation>Visualizza chatbar</translation>
+        <translation type="obsolete">Visualizza chatbar</translation>
     </message>
     <message>
         <location/>
@@ -4878,12 +4880,12 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1792"/>
+        <location line="+1809"/>
         <source>Root</source>
         <translation>Radice</translation>
     </message>
     <message>
-        <location line="-1741"/>
+        <location line="-1758"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Premi-per-parlare</translation>
@@ -5022,28 +5024,28 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+1892"/>
+        <location line="+1909"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-1888"/>
+        <location line="-1905"/>
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+96"/>
+        <location line="+99"/>
         <source>Minimize</source>
         <translation>Minimizza</translation>
     </message>
     <message>
-        <location line="-96"/>
+        <location line="-99"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+98"/>
         <source>Close</source>
         <translation>Chiudi</translation>
     </message>
@@ -5053,7 +5055,7 @@ p, li { white-space: pre-wrap; }
         <translation>Mumble è attualmente connesso ad un server. Vuoi Chiuderlo o Minimizzarlo?</translation>
     </message>
     <message>
-        <location line="-147"/>
+        <location line="-150"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Disattivati microfono</translation>
@@ -5101,12 +5103,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1909"/>
+        <location line="+1926"/>
         <source>Not connected</source>
         <translation>Non connesso</translation>
     </message>
     <message>
-        <location line="-1714"/>
+        <location line="-1727"/>
         <source>Clear</source>
         <translation>Cancella</translation>
     </message>
@@ -5153,7 +5155,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+18"/>
-        <location line="+169"/>
+        <location line="+182"/>
         <source>Connecting to server %1.</source>
         <translation>Connessione al server %1.</translation>
     </message>
@@ -5563,7 +5565,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Giocatore</translation>
     </message>
     <message>
-        <location line="-1966"/>
+        <location line="-1983"/>
         <source>&amp;Channel</source>
         <translation type="unfinished">&amp;Canale</translation>
     </message>
@@ -7072,7 +7074,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+646"/>
+        <location filename="Overlay.cpp" line="+649"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7102,7 +7104,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-598"/>
+        <location line="-601"/>
         <source>Show no one</source>
         <translation>Non mostrare nessuno</translation>
     </message>
@@ -8074,9 +8076,8 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location/>
         <source>Bandwidth</source>
-        <translation type="unfinished">Banda</translation>
+        <translation type="obsolete">Banda</translation>
     </message>
     <message>
         <location/>
@@ -8138,6 +8139,18 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+5"/>
         <source>%1 kbit/s</source>
         <translation type="unfinished">%1 kbit/s</translation>
+    </message>
+    <message>
+        <location filename="UserInformation.ui"/>
+        <source>Bandwidth</source>
+        <comment>GroupBox</comment>
+        <translation type="unfinished">Banda</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Bandwidth</source>
+        <comment>Label</comment>
+        <translation type="unfinished">Banda</translation>
     </message>
 </context>
 <context>

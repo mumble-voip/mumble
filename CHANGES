@@ -1,11 +1,42 @@
+2010-02-02
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    7218413  phpBB3 and SMF authenticator moved to
+	     http://gitorious.org/mumble-scripts/ . From now one all
+	     non-sample scripts will be placed in this repository.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    b6bd51c  Add disambiguation for "Bandwidth" in UserInformation
+    c372eb4  Windows XP doesn't have DXGI or D3D10
+    fd0bbfb  Save state for dock widgets when going minimal
+    83f8d64  Add dontskip for dxdiag
+    aa9616e  Work around QLocalSocket NOT closing sockets when it is
+	     deleted
+
 2010-02-01
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    dfd5e43  Hide high contrast option from audio wizard on windows
+    e40ea57  Make notification settings in wizard reflect current settings
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    9a9ad5c  Fix no-overlay option.
+    3203941  Add CONFIG+=no-overlay for devices where an overlay doesn't
+	     make sense.
+    6f28020  Unbind PBO buffer before we draw our GL overlay.
+    1b99c94  Remove overlay from Mumble11x. Codesign libmanual.dylib.
+
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     f375d2b  Re-Regroup the UI config page
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    99a8546  Send userstate to pre 1.2.2 clients without textures as well.
+	     Oops.
+    f9c3d34  Don't send new-style textures to old clients
     e6b585d  Fix compat textures without proper alpha, make the avatars be
 	     memoryblob://avatar/ and expand the fileengine slightly
     07e0d90  Send only the avatar hash on login
+
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
+    3ca49eb  Polish translation
 
 2010-01-31
   Stefan Hacker <dd0t@users.sourceforge.net>

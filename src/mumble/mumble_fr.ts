@@ -2523,7 +2523,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <translation type="obsolete">Spécifie la quantité de données à mettre en cache dans le tampon de sortie. Essayez différentes valeurs et mettez la plus basse qui ne cause pas de rapides décalages du son.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+295"/>
+        <location filename="AudioWizard.cpp" line="+314"/>
         <source>%1 ms</source>
         <oldsource>%1ms</oldsource>
         <translation type="unfinished">%1ms</translation>
@@ -2790,6 +2790,11 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Use high contrast graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Keep custom Text-To-Speech settings.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4168,7 +4173,7 @@ Nom d&apos;utilisateur envoyé au serveur. Notez que le serveur peut imposer des
         <translation>Ce n&apos;est vraiment pas drôle, mais il semblerait qu&apos;il y ait un boggue dans le code du rapport d&apos;erreur, et donc, le rapport n&apos;a pu être envoyé. Vous devriez informer un développeur à propos de l&apos;erreur %1</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+115"/>
         <source>Uploading crash report</source>
         <translation>Envoie du rapport d&apos;erreur</translation>
     </message>
@@ -5223,20 +5228,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>En vue normale</translation>
     </message>
     <message>
-        <location/>
         <source>Check to show chat bar</source>
-        <translation>Cocher pour afficher la zone de saisir</translation>
+        <translation type="obsolete">Cocher pour afficher la zone de saisir</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;If checked the chat bar is shown.&lt;/b&gt;&lt;br /&gt;Uncheck this to hide it.</source>
         <oldsource>&lt;b&gt;If checked the chat bar is shown&lt;/b&gt;&lt;br /&gt;Uncheck to hide it</oldsource>
-        <translation>&lt;b&gt;Si coché, la zone de saisie est affichée&lt;/b&gt;&lt;br/&gt;Décocher pour la masquer.</translation>
+        <translation type="obsolete">&lt;b&gt;Si coché, la zone de saisie est affichée&lt;/b&gt;&lt;br/&gt;Décocher pour la masquer.</translation>
     </message>
     <message>
-        <location/>
         <source>Show chatbar</source>
-        <translation>Afficher la zone de saisie</translation>
+        <translation type="obsolete">Afficher la zone de saisie</translation>
     </message>
     <message>
         <location/>
@@ -5287,7 +5289,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Interface utilisateur</translation>
     </message>
     <message>
-        <location line="+129"/>
+        <location line="+127"/>
         <source>Choose skin file</source>
         <translation>Choisir le fichier thème</translation>
     </message>
@@ -5322,7 +5324,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Vérifier les mises a jour au démarrage</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="-139"/>
+        <location filename="LookConfig.cpp" line="-137"/>
         <source>None</source>
         <translation>Aucun</translation>
     </message>
@@ -5501,7 +5503,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1792"/>
+        <location line="+1809"/>
         <source>Root</source>
         <translation>Racine</translation>
     </message>
@@ -5693,7 +5695,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Délier</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1776"/>
+        <location filename="MainWindow.cpp" line="-1793"/>
         <source>&amp;User</source>
         <translation type="unfinished">&amp;Utilisateur</translation>
     </message>
@@ -6102,7 +6104,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+79"/>
         <location line="+12"/>
-        <location line="+1892"/>
+        <location line="+1909"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6124,7 +6126,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Joueur</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1982"/>
+        <location filename="MainWindow.cpp" line="-1999"/>
         <source>&amp;Channel</source>
         <translation type="unfinished">&amp;Salon</translation>
     </message>
@@ -6236,7 +6238,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Expulsion du joueur %1</translation>
     </message>
     <message>
-        <location line="+919"/>
+        <location line="+936"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Entrez la raison</translation>
@@ -6791,7 +6793,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Ceci affiche des informations supplémentaires sur la connexion au serveur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1543"/>
+        <location filename="MainWindow.cpp" line="-1556"/>
         <source>Opening URL %1</source>
         <translation>Ouvrir l&apos;URL %1</translation>
     </message>
@@ -6832,7 +6834,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+18"/>
-        <location line="+169"/>
+        <location line="+182"/>
         <source>Connecting to server %1.</source>
         <translation>Connexion au serveur %1.</translation>
     </message>
@@ -7121,7 +7123,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Connecté au serveur %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1141"/>
+        <location filename="MainWindow.cpp" line="-1155"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble est actuellement connecté à un serveur. Voulez-vous le fermer ou le réduire dans la barre des tâches?</translation>
     </message>
@@ -7131,13 +7133,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Fermer</translation>
     </message>
     <message>
-        <location line="-95"/>
-        <location line="+96"/>
+        <location line="-98"/>
+        <location line="+99"/>
         <source>Minimize</source>
         <translation>Réduire</translation>
     </message>
     <message>
-        <location line="-149"/>
+        <location line="-152"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Se rendre muet(te)</translation>
@@ -7232,12 +7234,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+1909"/>
+        <location line="+1926"/>
         <source>Not connected</source>
         <translation>Non connecté</translation>
     </message>
     <message>
-        <location line="-1714"/>
+        <location line="-1727"/>
         <source>Clear</source>
         <translation>Effacer</translation>
     </message>
@@ -7719,7 +7721,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+646"/>
+        <location filename="Overlay.cpp" line="+649"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7951,7 +7953,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation>Couleur des canaux actifs</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-503"/>
+        <location filename="Overlay.cpp" line="-506"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
@@ -8857,9 +8859,8 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location/>
         <source>Bandwidth</source>
-        <translation type="unfinished">Bande passante</translation>
+        <translation type="obsolete">Bande passante</translation>
     </message>
     <message>
         <location/>
@@ -8921,6 +8922,18 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
         <location line="+5"/>
         <source>%1 kbit/s</source>
         <translation type="unfinished">%1 kbits/s</translation>
+    </message>
+    <message>
+        <location filename="UserInformation.ui"/>
+        <source>Bandwidth</source>
+        <comment>GroupBox</comment>
+        <translation type="unfinished">Bande passante</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Bandwidth</source>
+        <comment>Label</comment>
+        <translation type="unfinished">Bande passante</translation>
     </message>
 </context>
 <context>

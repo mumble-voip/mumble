@@ -521,8 +521,8 @@ void checkDXGIHook(bool preonly) {
 		return;
 		ods("DXGI: Causing a chain");
 	}
-	
-	if (! dxgi->iOffsetPresent || ! dxgi->iOffsetResize) 
+
+	if (! dxgi->iOffsetPresent || ! dxgi->iOffsetResize)
 		return;
 
 	bChaining = true;
@@ -593,8 +593,8 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 				hr = pCreateDXGIFactory(__uuidof(IDXGIFactory), (void**)(&pFactory));
 				if (pFactory) {
 					HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI Window", WS_OVERLAPPEDWINDOW,
-											  CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
-											  NULL, NULL, 0);
+					                          CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
+					                          NULL, NULL, 0);
 
 					IDXGIAdapter *pAdapter = NULL;
 					pFactory->EnumAdapters(0, &pAdapter);

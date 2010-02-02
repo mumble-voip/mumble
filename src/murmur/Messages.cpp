@@ -295,7 +295,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	sendAll(mpus, 0x010202);
 
 	if ((uSource->qbaTexture.length() >= 4) && (qFromBigEndian<unsigned int>(reinterpret_cast<const unsigned char *>(uSource->qbaTexture.constData())) == 600 * 60 * 4))
-			mpus.set_texture(blob(uSource->qbaTexture));
+		mpus.set_texture(blob(uSource->qbaTexture));
 	if (! uSource->qsComment.isEmpty())
 		mpus.set_comment(u8(uSource->qsComment));
 	sendAll(mpus, ~ 0x010202);
@@ -319,7 +319,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 			else if (! u->qbaTexture.isEmpty())
 				mpus.set_texture(blob(u->qbaTexture));
 		} else if ((uSource->qbaTexture.length() >= 4) && (qFromBigEndian<unsigned int>(reinterpret_cast<const unsigned char *>(uSource->qbaTexture.constData())) == 600 * 60 * 4)) {
-				mpus.set_texture(blob(u->qbaTexture));
+			mpus.set_texture(blob(u->qbaTexture));
 		}
 		if (u->cChannel->iId != 0)
 			mpus.set_channel_id(u->cChannel->iId);
