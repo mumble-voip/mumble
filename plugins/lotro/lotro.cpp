@@ -106,10 +106,10 @@ static BYTE *peekProcPtr(VOID *base) {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Lord of the Rings Online (Codemasters Edition, Vol II Book 9). Context support based on region and instance. No Identity support.");
+	return std::wstring(L"Supports Lord of the Rings Online (Codemasters Edition, Vol II Book 9 Patch1, v3.0.6.8015). Context support based on region and instance. No Identity support.");
 }
 
-static std::wstring description(L"Lord of the Rings Online (EU), Vol II Book 9");
+static std::wstring description(L"Lord of the Rings Online (EU), Vol II Book 9 Patch1");
 static std::wstring shortname(L"Lord of the Rings Online");
 
 static void about(HWND h) {
@@ -145,12 +145,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		r = region
 		i = instance nr
 	*/
-
-	ok = peekProc((BYTE *) 0x0109F8F0, o, 12) &&
-	     peekProc((BYTE *) 0x0109F8E8, l, 2) &&
-	     peekProc((BYTE *) 0x0109F8E4, &r, 1) &&
-	     peekProc((BYTE *) 0x0109F8EC, &i, 1) &&
-	     peekProc((BYTE *)(lotroclient + 0x00D85EC0 + 0x00000034), &h, 4);
+	
+	ok = peekProc((BYTE *) 0x010A18F0, o, 12) &&
+	     peekProc((BYTE *) 0x010A18E8, l, 2) &&
+	     peekProc((BYTE *) 0x010A18E4, &r, 1) &&
+	     peekProc((BYTE *) 0x010A18EC, &i, 1) &&
+	     peekProc((BYTE *)(lotroclient + 0x00D87EC0 + 0x00000034), &h, 4);
 
 	if (! ok)
 		return false;
