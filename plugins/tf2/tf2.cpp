@@ -168,7 +168,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	identity = new_identity.str(); */
 
 	// Check to see if you are in a server and spawned
-	if (state != 17)
+	if (state == 0 || state == 1 || state == 3)
 		return true; // Deactivate plugin
 
 	if (ok) {
@@ -194,6 +194,9 @@ static int trylock() {
 	DWORD pid=getProcess(L"hl2.exe");
 	if (!pid)
 		return false;
+	BYTE *mod=getModuleAddr(pid, L"client.dll");
+	if (!mod)
+		return false;
 	BYTE *mod_engine=getModuleAddr(pid, L"engine.dll");
 	if (!mod_engine)
 		return false;
@@ -208,7 +211,7 @@ static int trylock() {
 		position tuple:		client.dll+0x5753d8  (x,y,z, float)
 		orientation tuple:	client.dll+0x4b691c  (v,h float)
 		ID string:			client.dll+0x4eb30b = "teamJet@@" (9 characters, text)
-		spawn state:        engine.dll+0x53DAEC  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (depending on the team side and gamemode), byte)
+		spawn state:        client.dll+0x4EABCC; (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (depending on the team side and gamemode), byte)
 		host string: 		engine.dll+0x3c8124  (ip:port zero-terminated string; localhost:27015 if create a server ingame)
 			note that memory addresses in this comment are for example only; the real ones are defined below
 	*/
@@ -216,7 +219,7 @@ static int trylock() {
 	// Remember addresses for later
 	posptr = mod_engine + 0x555BB4;
 	rotptr = mod_engine + 0x3CDC30;
-	stateptr = mod_engine + 0x53DAEC;
+	stateptr = mod + 0x4EABCC;
 	hostptr = mod_engine + 0x3C91A4;
 
 	/*
