@@ -267,7 +267,11 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	if (! lc)
 		lc = root;
 	else if (! hasPermission(uSource, lc, ChanACL::Enter))
-		lc = root;
+		if (iDefaultChan > 0)
+			lc = qhChannels.value(iDefaultChan);
+		else
+			lc = root;
+
 
 	userEnterChannel(uSource, lc, mpus);
 
