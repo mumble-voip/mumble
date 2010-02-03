@@ -98,6 +98,9 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		bool bSuppressAskOnQuit;
 		bool bAutoUnmute;
 
+		unsigned int uiContextSession;
+		int iContextChannel;
+
 		void recheckTTS();
 		void msgBox(QString msg);
 		void setOnTop(bool top);
@@ -134,9 +137,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		virtual void closeEvent(QCloseEvent *e);
 		virtual void hideEvent(QHideEvent *e);
 
-	private:
-		qint64 cmUid;
-		qint64 cmCid;
 		bool handleSpecialContextMenu(const QUrl &url, const QPoint &_pos, bool focus = false);
 		Channel* getContextMenuChannel();
 		ClientUser* getContextMenuUser();
@@ -155,7 +155,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaSelfComment_triggered();
 		void on_qaSelfRegister_triggered();
 		void qmUser_aboutToShow();
-		void on_qaUserComment_triggered();
 		void on_qaUserCommentReset_triggered();
 		void on_qaUserCommentView_triggered();
 		void on_qaUserKick_triggered();

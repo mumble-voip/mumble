@@ -153,8 +153,8 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	tokenEdit = NULL;
 	bNoHide = false;
 
-	cmUid = -1;
-	cmCid = -1;
+	uiContextSession = ~0;
+	iContextChannel = -1;
 
 	qtReconnect = new QTimer(this);
 	qtReconnect->setInterval(10000);
@@ -428,15 +428,15 @@ void MainWindow::updateTrayIcon() {
 }
 
 Channel *MainWindow::getContextMenuChannel() {
-	if (cmCid >= 0)
-		return Channel::get(cmCid);
+	if (iContextChannel >= 0)
+		return Channel::get(iContextChannel);
 
 	return pmModel->getChannel(qtvUsers->currentIndex());
 }
 
 ClientUser *MainWindow::getContextMenuUser() {
-	if (cmUid >= 0)
-		return ClientUser::get(cmUid);
+	if (uiContextSession != ~0)
+		return ClientUser::get(uiContextSession);
 
 	return pmModel->getUser(qtvUsers->currentIndex());
 }
@@ -448,37 +448,37 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &_pos, b
 		if (x.length() == 40) {
 			ClientUser *cu = ClientUser::getByHash(x);
 			if (cu) {
-				cmUid = ClientUser::getUiSession(cu);
+				uiContextSession = cu->uiSession;
 				ok = true;
 			}
 		} else {
 			QByteArray qbaServerDigest = QByteArray::fromBase64(url.path().remove(0, 1).toLatin1());
-			cmUid = url.host().toInt(&ok, 10);
+			uiContextSession = url.host().toInt(&ok, 10);
 			ok = ok && (qbaServerDigest == g.sh->qbaDigest);
 		}
-		if (ok && ClientUser::isValid(cmUid)) {
+		if (ok && ClientUser::isValid(uiContextSession)) {
 			if (focus) {
-				qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(cmUid)));
+				qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(uiContextSession)));
 				qleChat->setFocus();
 			} else {
 				qmUser->exec(_pos, NULL);
 			}
 		}
-		cmUid = -1;
+		uiContextSession = ~0;
 	} else if (url.scheme() == QString::fromLatin1("channelid")) {
 		bool ok;
 		QByteArray qbaServerDigest = QByteArray::fromBase64(url.path().remove(0, 1).toLatin1());
-		cmCid = url.host().toInt(&ok, 10);
+		iContextChannel = url.host().toInt(&ok, 10);
 		ok = ok && (qbaServerDigest == g.sh->qbaDigest);
 		if (ok) {
 			if (focus) {
-				qtvUsers->setCurrentIndex(pmModel->index(Channel::get(cmCid)));
+				qtvUsers->setCurrentIndex(pmModel->index(Channel::get(iContextChannel)));
 				qleChat->setFocus();
 			} else {
 				qmChannel->exec(_pos, NULL);
 			}
 		}
-		cmCid = -1;
+		iContextChannel = -1;
 	} else {
 		return false;
 	}
@@ -803,7 +803,6 @@ void MainWindow::on_Reconnect_timeout() {
 
 void MainWindow::on_qmSelf_aboutToShow() {
 	qaServerTexture->setEnabled(g.uiSession != 0);
-	qaSelfComment->setEnabled(g.uiSession != 0);
 
 	ClientUser *user = ClientUser::get(g.uiSession);
 	qaServerTextureRemove->setEnabled(user && ! user->qbaTextureHash.isEmpty());
@@ -815,10 +814,21 @@ void MainWindow::on_qaSelfComment_triggered() {
 	ClientUser *p = ClientUser::get(g.uiSession);
 	if (!p)
 		return;
+		
+	if (! p->qbaCommentHash.isEmpty() && p->qsComment.isEmpty()) {
+		p->qsComment = QString::fromUtf8(Database::blob(p->qbaCommentHash));
+		if (p->qsComment.isEmpty()) {
+			pmModel->uiSessionComment = ~(p->uiSession);
+			MumbleProto::RequestBlob mprb;
+			mprb.add_session_comment(p->uiSession);
+			g.sh->sendMessage(mprb);
+			return;
+		}
+	}
 
 	unsigned int session = p->uiSession;
 
-	::TextMessage *texm = new ::TextMessage(this, tr("Change comment on user %1").arg(p->qsName));
+	::TextMessage *texm = new ::TextMessage(this, tr("Change your comment"));
 
 	texm->rteMessage->setText(p->qsComment);
 	int res = texm->exec();
@@ -1000,7 +1010,7 @@ void MainWindow::qmUser_aboutToShow() {
 	qmUser->addAction(qaUserLocalMute);
 
 	if (self)
-		qmUser->addAction(qaUserComment);
+		qmUser->addAction(qaSelfComment);
 	else {
 		qmUser->addAction(qaUserCommentView);
 		qmUser->addAction(qaUserCommentReset);
@@ -1051,7 +1061,6 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserBan->setEnabled(false);
 		qaUserTextMessage->setEnabled(false);
 		qaUserLocalMute->setEnabled(false);
-		qaUserComment->setEnabled(false);
 		qaUserCommentReset->setEnabled(false);
 		qaUserCommentView->setEnabled(false);
 	} else {
@@ -1059,9 +1068,8 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserBan->setEnabled(! self);
 		qaUserTextMessage->setEnabled(true);
 		qaUserLocalMute->setEnabled(! self);
-		qaUserComment->setEnabled(self);
-		qaUserCommentReset->setEnabled(!p->qsComment.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
-		qaUserCommentView->setEnabled(! p->qsComment.isEmpty());
+		qaUserCommentReset->setEnabled(! p->qbaCommentHash.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
+		qaUserCommentView->setEnabled(! p->qbaCommentHash.isEmpty());
 
 		qaUserMute->setChecked(p->bMute || p->bSuppress);
 		qaUserDeaf->setChecked(p->bDeaf);
@@ -1216,32 +1224,22 @@ void MainWindow::on_qaUserTextMessage_triggered() {
 	delete texm;
 }
 
-void MainWindow::on_qaUserComment_triggered() {
-	ClientUser *p = getContextMenuUser();
-
-	if (!p)
-		return;
-
-	unsigned int session = p->uiSession;
-
-	::TextMessage *texm = new ::TextMessage(this, tr("Change comment on user %1").arg(p->qsName));
-
-	texm->rteMessage->setText(p->qsComment);
-	int res = texm->exec();
-
-	p = ClientUser::get(session);
-
-	if (p && (res==QDialog::Accepted)) {
-		g.sh->setUserComment(session, texm->message());
-	}
-	delete texm;
-}
-
 void MainWindow::on_qaUserCommentView_triggered() {
 	ClientUser *p = getContextMenuUser();
 
 	if (!p)
 		return;
+
+	if (! p->qbaCommentHash.isEmpty() && p->qsComment.isEmpty()) {
+		p->qsComment = QString::fromUtf8(Database::blob(p->qbaCommentHash));
+		if (p->qsComment.isEmpty()) {
+			pmModel->uiSessionComment = ~(p->uiSession);
+			MumbleProto::RequestBlob mprb;
+			mprb.add_session_comment(p->uiSession);
+			g.sh->sendMessage(mprb);
+			return;
+		}
+	}
 
 	::TextMessage *texm = new ::TextMessage(this, tr("View comment on user %1").arg(p->qsName));
 
@@ -1455,7 +1453,18 @@ void MainWindow::on_qaChannelRemove_triggered() {
 
 void MainWindow::on_qaChannelACL_triggered() {
 	Channel *c = getContextMenuChannel();
-	int id = c ? c->iId : 0;
+	if (! c)
+		c = Channel::get(0);
+	int id = c->iId;
+	
+	if (! c->qbaDescHash.isEmpty() && c->qsDesc.isEmpty()) {
+		c->qsDesc = QString::fromUtf8(Database::blob(c->qbaDescHash));
+		if (c->qsDesc.isEmpty()) {
+			MumbleProto::RequestBlob mprb;
+			mprb.add_channel_description(id);
+			g.sh->sendMessage(mprb);
+		}
+	}
 
 	g.sh->requestACL(id);
 

@@ -966,6 +966,14 @@ void UserModel::setComment(ClientUser *cu, const QString &comment) {
 				} else {
 					QToolTip::showText(QCursor::pos(), data(index(cu, 0), Qt::ToolTipRole).toString(), g.mw->qtvUsers);
 				}
+			} else if (cu->uiSession == ~uiSessionComment) {
+				uiSessionComment = 0;
+				if (cu->uiSession == g.uiSession) {
+					QTimer::singleShot(0, g.mw, SLOT(on_qaSelfComment_triggered()));
+				} else {
+					g.mw->uiContextSession = cu->uiSession;
+					QTimer::singleShot(0, g.mw, SLOT(on_qaUserCommentView_triggered()));
+				}
 			} else {
 				item->bCommentSeen = Database::seenComment(item->hash(), cu->qbaCommentHash);
 				newstate = item->bCommentSeen ? 2 : 1;

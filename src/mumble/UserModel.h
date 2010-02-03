@@ -93,8 +93,6 @@ class UserModel : public QAbstractItemModel {
 		QSet<Channel *> qsLinked;
 		QMap<QString, ClientUser *> qmHashes;
 
-		unsigned int uiSessionComment;
-		int iChannelDescription;
 		bool bClicked;
 
 		void recursiveClone(const ModelItem *old, ModelItem *item, QModelIndexList &from, QModelIndexList &to);
@@ -158,6 +156,9 @@ class UserModel : public QAbstractItemModel {
 		void collapseEmpty(Channel *c);
 
 		QVariant otherRoles(const QModelIndex &idx, int role) const;
+
+		unsigned int uiSessionComment;
+		int iChannelDescription;
 	public slots:
 		void userTalkingChanged();
 		void userMuteDeafChanged();

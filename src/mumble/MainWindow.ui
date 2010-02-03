@@ -41,6 +41,9 @@
    <attribute name="headerVisible">
     <bool>false</bool>
    </attribute>
+   <attribute name="headerVisible">
+    <bool>false</bool>
+   </attribute>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -620,17 +623,6 @@
    </property>
    <property name="whatsThis">
     <string>This will toggle whether the minimal window should have a frame for moving and resizing.</string>
-   </property>
-  </action>
-  <action name="qaUserComment">
-   <property name="text">
-    <string>&amp;Change Comment</string>
-   </property>
-   <property name="toolTip">
-    <string>Change the comment on the selected user.</string>
-   </property>
-   <property name="whatsThis">
-    <string>This allows you to change the comment (shown as a tooltip) of a user. Unless you've been given extra privileges on the server, you can only change your own comment.</string>
    </property>
   </action>
   <action name="qaConfigCert">
