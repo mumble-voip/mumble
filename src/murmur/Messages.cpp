@@ -259,19 +259,13 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	// Transmit user profile
 	MumbleProto::UserState mpus;
 
-
-	int lchan = readLastChannel(uSource->iId);
-	if (lchan == 0)
-		lchan = iDefaultChan;
-	Channel *lc = qhChannels.value(lchan);
-	if (! lc)
-		lc = root;
-	else if (! hasPermission(uSource, lc, ChanACL::Enter))
-		if (iDefaultChan > 0)
-			lc = qhChannels.value(iDefaultChan);
-		else
+	Channel *lc = qhChannels.value(readLastChannel(uSource->iId));
+	if (! lc || ! hasPermission(uSource, lc, ChanACL::Enter)) {
+		lc = qhChannels.value(iDefaultChan);
+		if (! lc || ! hasPermission(uSource, lc, ChanACL::Enter)) {
 			lc = root;
-
+		}
+	}
 
 	userEnterChannel(uSource, lc, mpus);
 

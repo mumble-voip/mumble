@@ -738,6 +738,8 @@ int Server::authenticate(QString &name, const QString &pw, const QStringList &em
 			QSqlQuery &query = *th.qsqQuery;
 
 			int lchan=readLastChannel(res);
+			if (lchan < 0)
+				lchan = 0;
 
 			SQLPREP("REPLACE INTO `%1users` (`server_id`, `user_id`, `name`, `lastchannel`) VALUES (?,?,?,?)");
 			query.addBindValue(iServerNum);
@@ -1347,7 +1349,7 @@ void Server::setLastChannel(const User *p) {
 
 int Server::readLastChannel(int id) {
 	if (id < 0)
-		return 0;
+		return -1;
 
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
@@ -1362,7 +1364,7 @@ int Server::readLastChannel(int id) {
 		if (qhChannels.contains(cid))
 			return cid;
 	}
-	return 0;
+	return -1;
 }
 
 void Server::dumpChannel(const Channel *c) {
