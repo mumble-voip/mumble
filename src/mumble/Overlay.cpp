@@ -414,7 +414,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 								QBuffer qb(& cu->qbaTexture);
 								qb.open(QIODevice::ReadOnly);
 
-								QImageReader qir(&qb);
+								QImageReader qir(&qb, cu->qbaTextureFormat);
 								QSize sz = qir.size();
 								sz.scale(iItemHeight, iItemHeight, Qt::KeepAspectRatio);
 								qir.setScaledSize(sz);
@@ -659,6 +659,10 @@ Overlay::~Overlay() {
 	setActive(false);
 	if (d)
 		delete d;
+		
+	// Need to be deleted first, since destructor references lingering QLocalSockets
+	foreach(OverlayClient *oc, qlClients)
+		delete oc;
 }
 
 void Overlay::newConnection() {
@@ -802,7 +806,10 @@ void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
 			QBuffer qb(& cp->qbaTexture);
 			qb.open(QIODevice::ReadOnly);
 
-			QImageReader qir(&qb);
+			QImageReader qir;
+			if (cp->qbaTexture.startsWith("<?xml"))
+				qir.setFormat("svg");
+			qir.setDevice(&qb);
 			if (! qir.canRead() || (qir.size().width() > 1024) || (qir.size().height() > 1024)) {
 				valid = false;
 			} else {

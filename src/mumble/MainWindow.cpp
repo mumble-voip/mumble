@@ -2326,8 +2326,11 @@ void MainWindow::context_triggered() {
 
 QPair<QByteArray, QImage> MainWindow::openImageFile() {
 	QPair<QByteArray, QImage> retval;
+	
+	if (g.s.qsImagePath.isEmpty() || ! QDir::root().exists(g.s.qsImagePath))
+		g.s.qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
 
-	QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file"), g.s.qsImagePath, tr("Images (*.png *.jpg)"));
+	QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file"), g.s.qsImagePath, tr("Images (*.png *.jpg *.svg)"));
 
 	if (fname.isNull())
 		return retval;
@@ -2343,9 +2346,14 @@ QPair<QByteArray, QImage> MainWindow::openImageFile() {
 
 	QByteArray qba = f.readAll();
 	f.close();
-
-	QImage img;
-	if (! img.loadFromData(qba)) {
+	
+	QBuffer qb(&qba);
+	qb.open(QIODevice::ReadOnly);
+	
+	QImageReader qir(&qb, fi.suffix().toUtf8());
+	
+	QImage img = qir.read();
+	if (img.isNull()) {
 		QMessageBox::warning(this, tr("Failed to load image"), tr("Image format not recognized."));
 		return retval;
 	}

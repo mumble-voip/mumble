@@ -590,7 +590,10 @@ void ServerHandler::setTexture(const QByteArray &qba) {
 		QByteArray raw = qba;
 		QBuffer qb(& raw);
 		qb.open(QIODevice::ReadOnly);
-		QImageReader qir(&qb);
+		QImageReader qir;
+		if (qba.startsWith("<?xml"))
+			qir.setFormat("svg");
+		qir.setDevice(&qb);
 
 		QSize sz = qir.size();
 		sz.scale(600, 60, Qt::KeepAspectRatio);
