@@ -501,8 +501,18 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 										g.o->verifyTexture(p);
 									}
 								}
-								if (! p->qbaTexture.isEmpty())
-									qsImage = QString::fromLatin1("<img src=\"memoryblob://avatar/%1/texture.%2\" width=\"128\" />").arg(p->uiSession).arg(QString::fromLatin1(p->qbaTextureFormat).toLower());
+								if (! p->qbaTexture.isEmpty()) {
+									QBuffer qb(&p->qbaTexture);
+									qb.open(QIODevice::ReadOnly);
+									QImageReader qir(&qb, p->qbaTextureFormat);
+									QSize sz = qir.size();
+									if (sz.width() > 128) {
+										int targ = sz.width() / ((sz.width()+127)/ 128);
+										qsImage = QString::fromLatin1("<img src=\"memoryblob://avatar/%1/texture.%2\" width=\"%3\" />").arg(p->uiSession).arg(QString::fromLatin1(p->qbaTextureFormat).toLower()).arg(targ);
+									} else if (sz.width() > 0) {
+										qsImage = QString::fromLatin1("<img src=\"memoryblob://avatar/%1/texture.%2\" />").arg(p->uiSession).arg(QString::fromLatin1(p->qbaTextureFormat).toLower());
+									}
+								}
 							}
 
 							if (p->qbaCommentHash.isEmpty()) {
