@@ -175,6 +175,9 @@ class ServerI : virtual public Server {
 		                              const ::Murmur::Texture&,
 		                              const Ice::Current&);
 
+		virtual void getUptime_async(const ::Murmur::AMD_Server_getUptimePtr&,
+		                             const Ice::Current&);
+
 		virtual void ice_ping(const Ice::Current&) const;
 };
 
@@ -203,6 +206,9 @@ class MetaI : virtual public Meta {
 
 		virtual void addCallback_async(const ::Murmur::AMD_Meta_addCallbackPtr&, const ::Murmur::MetaCallbackPrx&, const ::Ice::Current& = ::Ice::Current());
 		virtual void removeCallback_async(const ::Murmur::AMD_Meta_removeCallbackPtr&, const ::Murmur::MetaCallbackPrx&, const ::Ice::Current& = ::Ice::Current());
+
+		virtual void getUptime_async(const ::Murmur::AMD_Meta_getUptimePtr&,
+		                             const Ice::Current&);
 };
 
 }

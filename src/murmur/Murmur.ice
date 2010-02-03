@@ -690,6 +690,11 @@ module Murmur
 		 * @param tex Texture to set for the user, or an empty texture to remove the existing texture.
 		 */
 		idempotent void setTexture(int userid, Texture tex) throws ServerBootedException, InvalidUserException, InvalidTextureException;
+
+		/** Get virtual server uptime.
+		 * @return Uptime of the virtual server in seconds
+		 */
+		idempotent int getUptime() throws ServerBootedException;
 	};
 
 	/** Callback interface for Meta. You can supply an implementation of this to recieve notifications
@@ -768,5 +773,10 @@ module Murmur
 		 * @param cb Callback interface to be removed.
 		 */
 		void removeCallback(MetaCallback *cb) throws InvalidCallbackException;
+		
+		/** Get murmur uptime.
+		 * @return Uptime of murmur in seconds
+		 */
+		idempotent int getUptime();
 	};
 };

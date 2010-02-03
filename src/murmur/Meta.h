@@ -113,6 +113,7 @@ class Meta : public QObject {
 		QHash<QHostAddress, QList<Timer> > qhAttempts;
 		QHash<QHostAddress, Timer> qhBans;
 		QString qsOS, qsOSVersion;
+		Timer tUptime;
 
 #ifdef Q_OS_WIN
 		static HANDLE hQoS;

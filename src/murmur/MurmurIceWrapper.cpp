@@ -504,6 +504,17 @@ void ::Murmur::ServerI::setTexture_async(const ::Murmur::AMD_Server_setTexturePt
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_setTexture, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };
+void ::Murmur::ServerI::getUptime_async(const ::Murmur::AMD_Server_getUptimePtr &cb, const ::Ice::Current &current) {
+	if (! meta->mp.qsIceSecret.isEmpty()) {
+		::Ice::Context::const_iterator i = current.ctx.find("secret");
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+			cb->ice_exception(InvalidSecretException());
+			return;
+		}
+	}
+	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_getUptime, cb, QString::fromStdString(current.id.name).toInt()));
+	QCoreApplication::instance()->postEvent(mi, ie);
+};
 void ::Murmur::MetaI::getServer_async(const ::Murmur::AMD_Meta_getServerPtr &cb,  ::Ice::Int p1, const ::Ice::Current &current) {
 	if (! meta->mp.qsIceSecret.isEmpty()) {
 		::Ice::Context::const_iterator i = current.ctx.find("secret");
@@ -590,5 +601,16 @@ void ::Murmur::MetaI::removeCallback_async(const ::Murmur::AMD_Meta_removeCallba
 		}
 	}
 	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Meta_removeCallback, cb, current.adapter, p1));
+	QCoreApplication::instance()->postEvent(mi, ie);
+};
+void ::Murmur::MetaI::getUptime_async(const ::Murmur::AMD_Meta_getUptimePtr &cb, const ::Ice::Current &current) {
+	if (! meta->mp.qsIceSecret.isEmpty()) {
+		::Ice::Context::const_iterator i = current.ctx.find("secret");
+		if ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {
+			cb->ice_exception(InvalidSecretException());
+			return;
+		}
+	}
+	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Meta_getUptime, cb, current.adapter));
 	QCoreApplication::instance()->postEvent(mi, ie);
 };

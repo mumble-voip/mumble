@@ -129,6 +129,8 @@ class Server : public QThread {
 		QSslCertificate qscCert;
 		QSslKey qskKey;
 
+		Timer tUptime;
+
 		bool bValid;
 
 		void readParams();
