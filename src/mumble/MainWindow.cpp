@@ -836,10 +836,14 @@ void MainWindow::on_qaSelfComment_triggered() {
 	p = ClientUser::get(session);
 
 	if (p && (res == QDialog::Accepted)) {
+		const QString &msg = texm->message();
 		MumbleProto::UserState mpus;
 		mpus.set_session(session);
-		mpus.set_comment(u8(texm->message()));
+		mpus.set_comment(u8(msg));
 		g.sh->sendMessage(mpus);
+		
+		if (! msg.isEmpty())
+			Database::setBlob(sha1(msg), msg.toUtf8());
 	}
 	delete texm;
 }

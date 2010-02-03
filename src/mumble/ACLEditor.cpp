@@ -36,7 +36,7 @@
 #include "User.h"
 #include "Global.h"
 #include "Log.h"
-
+#include "Database.h"
 
 ACLGroup::ACLGroup(const QString &name) : Group(NULL, name) {
 	bInherited = false;
@@ -254,14 +254,17 @@ void ACLEditor::accept() {
 			b = true;
 		}
 		if (rteChannelDescription->isModified() && (pChannel->qsDesc != rteChannelDescription->text())) {
-			mpcs.set_description(u8(rteChannelDescription->text()));
+			const QString &msg = rteChannelDescription->text();
+			mpcs.set_description(u8(msg));
 			b = true;
+			Database::setBlob(sha1(msg), msg.toUtf8());
 		}
 		if (pChannel->iPosition != qsbChannelPosition->value()) {
 			mpcs.set_position(qsbChannelPosition->value());
 			b = true;
 		}
-		if (b) g.sh->sendMessage(mpcs);
+		if (b)
+			g.sh->sendMessage(mpcs);
 
 		// Update ACL
 		msg.set_inherit_acls(bInheritACL);

@@ -583,9 +583,9 @@ void ServerHandler::createChannel(unsigned int parent_, const QString &name, con
 }
 
 void ServerHandler::setTexture(const QByteArray &qba) {
-	MumbleProto::UserState mpus;
+	QByteArray texture;
 	if ((uiVersion >= 0x010202) || qba.isEmpty()) {
-		mpus.set_texture(blob(qba));
+		texture = qba;
 	} else {
 		QByteArray raw = qba;
 		QBuffer qb(& raw);
@@ -614,10 +614,15 @@ void ServerHandler::setTexture(const QByteArray &qba) {
 		imgp.setRenderHint(QPainter::TextAntialiasing);
 		imgp.setCompositionMode(QPainter::CompositionMode_SourceOver);
 		imgp.drawImage(0, 0, tex);
-
-		mpus.set_texture(blob(qCompress(QByteArray(reinterpret_cast<const char *>(img.bits()), 600*60*4))));
+		
+		texture = qCompress(QByteArray(reinterpret_cast<const char *>(img.bits()), 600*60*4));
 	}
+	MumbleProto::UserState mpus;
+	mpus.set_texture(blob(texture));
 	sendMessage(mpus);
+	
+	if (! texture.isEmpty())
+		Database::setBlob(sha1(texture), texture);
 }
 
 void ServerHandler::requestBanList() {
