@@ -1,8 +1,41 @@
-2010-02-02
+2010-02-03
   Stefan Hacker <dd0t@users.sourceforge.net>
+    9929a44  Add getUptime() function returning uptime in seconds to murmur
+	     and individual virtual servers
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    1b3dadf  Use QImage::fill instead of QPainter::eraseRect
+    5a7beda  Limit avatar sizes to iMaxImageMessageLength
+    35fbbcd  Only use integer decimation in tooltip avatars
+    ef9de69  Precache texture/comment when sending to server
+    1679e06  Drop qaUserComment in favor of qaSelfComment, and query
+	     comment/desc on view/edit
+    346755d  Handle SVG for overlay properly, and fix a crashbug in
+	     ~Overlay
+    3b33b67  Clean up default channel logic slightly
+
+2010-02-02
+  Netbios Domain Administrator <admin@gameserver2.(none)>
+    97a15a8  User join defaultchan if last channel is not permitted
+
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    2e816c7  Make idleseconds not only reset on voice but on all actions
+	     caused by the user
     7218413  phpBB3 and SMF authenticator moved to
 	     http://gitorious.org/mumble-scripts/ . From now one all
 	     non-sample scripts will be placed in this repository.
+
+  DWM|G <gallaghermumble@gmail.com>
+    38b47ec  Added Icon Toolbar.
+
+  Jamie Fraser <jamie.f@sabrienix.com>
+    a9e9922  Added a crappy example of an auto idle-move written in PHP.
+
+  Natenom <natenom@googlemail.com>
+    11e4cec  Added some new strings to German translations
+
+  Ilmar Kruis <seaeagle1@users.sourceforge.net>
+    59e10d1  Update lotro plugin to Book 9 Patch 1.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
     b6bd51c  Add disambiguation for "Bandwidth" in UserInformation
@@ -11,6 +44,13 @@
     83f8d64  Add dontskip for dxdiag
     aa9616e  Work around QLocalSocket NOT closing sockets when it is
 	     deleted
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    1afffff  Fix unstable TF2 state address
+    7ef0e7f  TF2 update; hopefully more update-friendly arrays now
+
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
+    7925624  Polish translation
 
 2010-02-01
   Stefan Hacker <dd0t@users.sourceforge.net>

@@ -656,7 +656,7 @@ Overlay::~Overlay() {
 	setActive(false);
 	if (d)
 		delete d;
-		
+
 	// Need to be deleted first, since destructor references lingering QLocalSockets
 	foreach(OverlayClient *oc, qlClients)
 		delete oc;

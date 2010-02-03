@@ -5896,7 +5896,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1809"/>
+        <location line="+1824"/>
         <source>Root</source>
         <translation>Root</translation>
     </message>
@@ -6277,14 +6277,12 @@ p, li { white-space: pre-wrap; }
         <translation>&amp;Cambiar comentario</translation>
     </message>
     <message>
-        <location/>
         <source>Change the comment on the selected user.</source>
-        <translation>Cambia el comentario sobre el usuario seleccionado.</translation>
+        <translation type="obsolete">Cambia el comentario sobre el usuario seleccionado.</translation>
     </message>
     <message>
-        <location/>
         <source>This allows you to change the comment (shown as a tooltip) of a user. Unless you&apos;ve been given extra privileges on the server, you can only change your own comment.</source>
-        <translation>Le permite cambiar el comentario (mostrado como un consejo) de un usuario. A menos que se le hayan concedido privilegios adicionales en el servidor, sólo puede cambiar su propio comentario.</translation>
+        <translation type="obsolete">Le permite cambiar el comentario (mostrado como un consejo) de un usuario. A menos que se le hayan concedido privilegios adicionales en el servidor, sólo puede cambiar su propio comentario.</translation>
     </message>
     <message>
         <source>Certificate Wizard</source>
@@ -6405,9 +6403,9 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Elimina la textura actual definida por el usuario.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1714"/>
+        <location filename="MainWindow.cpp" line="-1729"/>
         <location line="+12"/>
-        <location line="+1909"/>
+        <location line="+1925"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6424,7 +6422,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Jugador</translation>
     </message>
     <message>
-        <location line="-1999"/>
+        <location line="-2015"/>
         <source>&amp;Channel</source>
         <translation>&amp;Canal</translation>
     </message>
@@ -6447,7 +6445,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Expulsando al jugador %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1000"/>
+        <location filename="MainWindow.cpp" line="+1013"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Introduzca el motivo</translation>
@@ -6470,7 +6468,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">¿Está seguro de que desa borrar %1 y todos sus subcanales?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+440"/>
+        <location filename="MainWindow.cpp" line="+441"/>
         <source>Unmuted and undeafened.</source>
         <translation>Con voz y escucha.</translation>
     </message>
@@ -6513,7 +6511,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Conectado al servidor.</translation>
     </message>
     <message>
-        <location line="+406"/>
+        <location line="+408"/>
         <source>Server connection failed: %1.</source>
         <translation>Falló la conexión con el servidor: %1.</translation>
     </message>
@@ -6523,7 +6521,7 @@ p, li { white-space: pre-wrap; }
         <translation>Desconectado del servidor.</translation>
     </message>
     <message>
-        <location line="-1332"/>
+        <location line="-1347"/>
         <source>Reconnecting.</source>
         <translation>Volviendo a conectar.</translation>
     </message>
@@ -6870,7 +6868,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">%1 ensordecido por %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-600"/>
+        <location filename="MainWindow.cpp" line="-601"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Presionar-para-Hablar (PTT)</translation>
@@ -6949,7 +6947,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">%2 mudó a %1.</translation>
     </message>
     <message>
-        <location line="+1217"/>
+        <location line="+1220"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>¿Está seguro de que desa borrar %1 y todos sus subcanales?</translation>
     </message>
@@ -6983,7 +6981,7 @@ p, li { white-space: pre-wrap; }
         <translation>Enviar un mensaje de texto</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-242"/>
+        <location filename="MainWindow.cpp" line="-232"/>
         <source>Sending message to %1</source>
         <translation>Enviando mensaje a %1</translation>
     </message>
@@ -6993,30 +6991,28 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+10"/>
-        <location line="+89"/>
+        <location line="+79"/>
         <location line="+4"/>
         <source>To %1: %2</source>
         <translation>A %1: %2</translation>
     </message>
     <message>
-        <location line="-93"/>
-        <location line="+93"/>
+        <location line="-83"/>
+        <location line="+83"/>
         <source>Message to %1</source>
         <translation>Mensaje para %1</translation>
     </message>
     <message>
-        <location line="-485"/>
-        <location line="+406"/>
         <source>Change comment on user %1</source>
-        <translation>Cambió el comentario sobre el usuario %1</translation>
+        <translation type="obsolete">Cambió el comentario sobre el usuario %1</translation>
     </message>
     <message>
         <source>To channel %1: %2</source>
         <translation type="obsolete">Para el canal %1: %2</translation>
     </message>
     <message>
-        <location line="+75"/>
-        <location line="+214"/>
+        <location line="-4"/>
+        <location line="+225"/>
         <source>Message to channel %1</source>
         <translation>Mensaje al canal %1</translation>
     </message>
@@ -7026,7 +7022,7 @@ p, li { white-space: pre-wrap; }
         <translation>Conectado.</translation>
     </message>
     <message>
-        <location line="+171"/>
+        <location line="+173"/>
         <source>Failed to launch compatibility client</source>
         <translation>No se pudo iniciar el cliente de compatibilidad</translation>
     </message>
@@ -7080,7 +7076,7 @@ p, li { white-space: pre-wrap; }
         <translation>Envía un mensaje de texto a otro usuario.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1984"/>
+        <location filename="MainWindow.cpp" line="-2000"/>
         <source>&amp;User</source>
         <translation>&amp;Usuario</translation>
     </message>
@@ -7171,7 +7167,7 @@ p, li { white-space: pre-wrap; }
         <translation>Le guiará a través del proceso de configuración de su hardware de audio.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1894"/>
+        <location filename="MainWindow.cpp" line="+1910"/>
         <source>SSL Verification failed: %1</source>
         <translation>Falló la verificación SSL: %1</translation>
     </message>
@@ -7230,7 +7226,7 @@ p, li { white-space: pre-wrap; }
         <translation>Muestra información extendida acerca de la conexión con el servidor.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1563"/>
+        <location filename="MainWindow.cpp" line="-1579"/>
         <source>Opening URL %1</source>
         <translation>Abriendo URL %1</translation>
     </message>
@@ -7271,12 +7267,17 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+18"/>
-        <location line="+182"/>
+        <location line="+183"/>
         <source>Connecting to server %1.</source>
         <translation>Conectando al servidor %1.</translation>
     </message>
     <message>
-        <location line="+119"/>
+        <location line="+41"/>
+        <source>Change your comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+92"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Versión&lt;/h2&gt;&lt;p&gt;Protocolo %1.%2.%3.&lt;/p&gt;</translation>
     </message>
@@ -7291,11 +7292,16 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
+        <location line="+1416"/>
+        <source>Images (*.png *.jpg *.svg)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation type="obsolete">&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bit&lt;br /&gt;%3 ms de latencia media (desviación %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="-1407"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bit&lt;br /&gt;%3 ms de latencia media (desviación %4)&lt;/p&gt;&lt;p&gt;Anfitrión remoto %5 (puerto %6)&lt;/p&gt;</translation>
     </message>
@@ -7316,13 +7322,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="-106"/>
-        <location line="+281"/>
+        <location line="+279"/>
         <source>Register yourself as %1</source>
         <translation>Registrarse como %1</translation>
     </message>
     <message>
-        <location line="-281"/>
-        <location line="+281"/>
+        <location line="-279"/>
+        <location line="+279"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Está a punto de registrarse en este servidor. Esta acción no puede deshacerse, y su nombre de usuario no puede cambiarse una vez que se complete. Será conocido para siempre como &apos;%1&apos; en este servidor.&lt;/p&gt;&lt;p&gt;¿Está seguro de que desea registrarse?&lt;/p&gt;</translation>
     </message>
@@ -7347,7 +7353,7 @@ p, li { white-space: pre-wrap; }
         <translation>Prohibiendo al usuario %1</translation>
     </message>
     <message>
-        <location line="+61"/>
+        <location line="+51"/>
         <source>View comment on user %1</source>
         <translation>Ver los comentarios sobre el usuario %1</translation>
     </message>
@@ -7357,7 +7363,7 @@ p, li { white-space: pre-wrap; }
         <translation>¿Está seguro de que desea reiniciar el comentario sobre el usuario %1?</translation>
     </message>
     <message>
-        <location line="+252"/>
+        <location line="+263"/>
         <source>(Tree) %1: %2</source>
         <translation>(Árbol) %1: %2</translation>
     </message>
@@ -7367,7 +7373,7 @@ p, li { white-space: pre-wrap; }
         <translation>%1: %2</translation>
     </message>
     <message>
-        <location line="+581"/>
+        <location line="+583"/>
         <source>SSL Version mismatch</source>
         <translation>Las versiones de SSL no coinciden</translation>
     </message>
@@ -7396,28 +7402,27 @@ p, li { white-space: pre-wrap; }
         <translation>Escriba aquí el mensaje al usuario &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="+91"/>
         <source>Choose image file</source>
         <translation>Elija el archivo de imágen</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Images (*.png *.jpg)</source>
-        <translation>Imágenes (*.png *.jpg)</translation>
+        <translation type="obsolete">Imágenes (*.png *.jpg)</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+12"/>
+        <location line="+17"/>
         <source>Failed to load image</source>
         <translation>Fallo al cargar archivo de imágen</translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="-17"/>
         <source>Could not open file for reading.</source>
         <translation>No se pudo abrir el archivo para su lectura.</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+17"/>
         <source>Image format not recognized.</source>
         <translation>Formato de imágen no reconocido.</translation>
     </message>
@@ -7426,8 +7431,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Canal de control: latencia %1 ms, Cifrado con %3 bit %4&lt;br /&gt;Canal de voz: latencia %2 ms, Sin cifrar</translation>
     </message>
     <message>
-        <location line="-1394"/>
-        <location line="+1127"/>
+        <location line="-1403"/>
+        <location line="+1128"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Ver certificado</translation>
     </message>
@@ -7436,7 +7441,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bits&lt;br /&gt;%3 ms de latencia media (%4 de varianza)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1878"/>
+        <location line="-1894"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
         <translation>Mantenga pulsado este botón para enviar la voz.</translation>
@@ -7479,7 +7484,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Esto conmutará el estado de la sobreimpresión durante el juego entre mostrar a todos, sólo mostrar los jugadores que están hablando, y no mostrar a nadie.</translation>
     </message>
     <message>
-        <location line="+704"/>
+        <location line="+719"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>El canal de voz se envía a través del canal de control.</translation>
     </message>
@@ -7527,7 +7532,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Cambiar descripción del canal %1</translation>
     </message>
     <message>
-        <location line="+562"/>
+        <location line="+561"/>
         <source>Sending message to channel %1</source>
         <translation>Enviando mensaje al canal %1</translation>
     </message>
@@ -7625,7 +7630,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Conectado al servidor %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1155"/>
+        <location filename="MainWindow.cpp" line="-1169"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble está conectado a un servidor actualmente. ¿Desea cerrarlo o minimizarlo?</translation>
     </message>
@@ -7736,12 +7741,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+65"/>
-        <location line="+1926"/>
+        <location line="+1942"/>
         <source>Not connected</source>
         <translation>Desconectado</translation>
     </message>
     <message>
-        <location line="-1727"/>
+        <location line="-1743"/>
         <source>Clear</source>
         <translation>Borrar</translation>
     </message>
@@ -7751,7 +7756,7 @@ p, li { white-space: pre-wrap; }
         <translation>Registro</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1362"/>
+        <location filename="UserModel.cpp" line="+1380"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Ha establecido el arrastre de canales a &quot;No hacer nada&quot; así que el canal no se movió.</translation>
     </message>
@@ -7913,6 +7918,11 @@ p, li { white-space: pre-wrap; }
         <location/>
         <source>Remove currently defined avatar image.</source>
         <translation>Elimina la imágen avatar actualmente definida.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Icon Toolbar</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8250,7 +8260,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+649"/>
+        <location filename="Overlay.cpp" line="+646"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>No se pudo establecer la comunicación con la sobreimpresión en %2: %1. La sobreimpresión no estará disponible.</translation>
     </message>
@@ -8490,7 +8500,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation>Color de los canales activos</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-506"/>
+        <location filename="Overlay.cpp" line="-503"/>
         <source>Overlay</source>
         <translation>Sobreimpresión</translation>
     </message>
@@ -9524,7 +9534,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-801"/>
+        <location filename="UserModel.cpp" line="-809"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Éste es un usuario conectado al servidor. El icono a la izquierda del usuario indica si está o no hablando:</translation>
     </message>
@@ -9653,7 +9663,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+718"/>
+        <location line="+726"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>¿Está seguro de que desea arrastrar este canal?</translation>
     </message>

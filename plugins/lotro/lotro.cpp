@@ -145,7 +145,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		r = region
 		i = instance nr
 	*/
-	
+
 	ok = peekProc((BYTE *) 0x010A18F0, o, 12) &&
 	     peekProc((BYTE *) 0x010A18E8, l, 2) &&
 	     peekProc((BYTE *) 0x010A18E4, &r, 1) &&

@@ -4569,12 +4569,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1809"/>
+        <location line="+1824"/>
         <source>Root</source>
         <translation>根</translation>
     </message>
     <message>
-        <location line="-1758"/>
+        <location line="-1773"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>按键通话</translation>
@@ -4713,12 +4713,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+1909"/>
+        <location line="+1925"/>
         <source>Mumble -- %1</source>
         <translation></translation>
     </message>
     <message>
-        <location line="-1905"/>
+        <location line="-1921"/>
         <source>&amp;Window</source>
         <translation>&amp;窗口</translation>
     </message>
@@ -4797,12 +4797,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1926"/>
+        <location line="+1942"/>
         <source>Not connected</source>
         <translation type="unfinished">未连接</translation>
     </message>
     <message>
-        <location line="-1727"/>
+        <location line="-1743"/>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
@@ -4848,7 +4848,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+18"/>
-        <location line="+182"/>
+        <location line="+183"/>
         <source>Connecting to server %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4858,7 +4858,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>正在重新连接中。</translation>
     </message>
     <message>
-        <location line="+109"/>
+        <location line="+31"/>
+        <source>Change your comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+92"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4888,14 +4893,19 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-104"/>
-        <location line="+281"/>
+        <location line="+1385"/>
+        <source>Images (*.png *.jpg *.svg)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1489"/>
+        <location line="+279"/>
         <source>Register yourself as %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-281"/>
-        <location line="+281"/>
+        <location line="-279"/>
+        <location line="+279"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4920,13 +4930,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-364"/>
-        <location line="+406"/>
-        <source>Change comment on user %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+19"/>
+        <location line="+51"/>
         <source>View comment on user %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4937,7 +4941,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+40"/>
-        <location line="+214"/>
+        <location line="+225"/>
         <source>Message to channel %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4957,7 +4961,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+145"/>
+        <location line="+147"/>
         <source>SSL Version mismatch</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4982,28 +4986,23 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="+91"/>
         <source>Choose image file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
-        <source>Images (*.png *.jpg)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location line="+7"/>
-        <location line="+12"/>
+        <location line="+17"/>
         <source>Failed to load image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="-17"/>
         <source>Could not open file for reading.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+17"/>
         <source>Image format not recognized.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5012,7 +5011,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;控制信道&lt;/h2&gt;&lt;p&gt;使用 %1 比特 %2 加密&lt;br /&gt;平均延迟 %3 毫秒（%4 方差）&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1413"/>
+        <location line="-1422"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>语音频道通过控制信道发送。</translation>
     </message>
@@ -5066,7 +5065,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1127"/>
+        <location line="+1128"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;查看认证</translation>
     </message>
@@ -5075,7 +5074,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">踢出玩家 %1</translation>
     </message>
     <message>
-        <location line="-914"/>
+        <location line="-917"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>输入原因</translation>
@@ -5091,14 +5090,14 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+10"/>
-        <location line="+89"/>
+        <location line="+79"/>
         <location line="+4"/>
         <source>To %1: %2</source>
         <translation>发送给 %1: %2</translation>
     </message>
     <message>
-        <location line="-93"/>
-        <location line="+93"/>
+        <location line="-83"/>
+        <location line="+83"/>
         <source>Message to %1</source>
         <translation>发送消息给 %1</translation>
     </message>
@@ -5116,7 +5115,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">改变频道 %1的描叙</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+71"/>
         <source>Sending message to channel %1</source>
         <translation>发送消息给频道 %1</translation>
     </message>
@@ -5177,7 +5176,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">已连接到服务器 %1.</translation>
     </message>
     <message>
-        <location line="+335"/>
+        <location line="+337"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL 认证失败: %1</translation>
     </message>
@@ -5250,7 +5249,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;玩家</translation>
     </message>
     <message>
-        <location line="-1983"/>
+        <location line="-1999"/>
         <source>&amp;Channel</source>
         <translation type="unfinished">&amp;频道</translation>
     </message>
@@ -5830,16 +5829,6 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location/>
-        <source>Change the comment on the selected user.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>This allows you to change the comment (shown as a tooltip) of a user. Unless you&apos;ve been given extra privileges on the server, you can only change your own comment.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
         <source>Configure certificates for strong authentication</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6280,7 +6269,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>来至 %1 的消息</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1362"/>
+        <location filename="UserModel.cpp" line="+1380"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>你设置频道拖动为“无动作&quot;因此频道没有被移动。</translation>
     </message>
@@ -6428,6 +6417,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Remove currently defined avatar image.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Icon Toolbar</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6700,7 +6694,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+649"/>
+        <location filename="Overlay.cpp" line="+646"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6718,7 +6712,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-601"/>
+        <location line="-598"/>
         <source>Show no one</source>
         <translation>不显示任何人</translation>
     </message>
@@ -7746,7 +7740,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-801"/>
+        <location filename="UserModel.cpp" line="-809"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7871,7 +7865,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished">标志</translation>
     </message>
     <message>
-        <location line="+718"/>
+        <location line="+726"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation type="unfinished">你确信要拖动这个频道吗？</translation>
     </message>

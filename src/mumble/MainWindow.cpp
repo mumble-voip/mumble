@@ -814,7 +814,7 @@ void MainWindow::on_qaSelfComment_triggered() {
 	ClientUser *p = ClientUser::get(g.uiSession);
 	if (!p)
 		return;
-		
+
 	if (! p->qbaCommentHash.isEmpty() && p->qsComment.isEmpty()) {
 		p->qsComment = QString::fromUtf8(Database::blob(p->qbaCommentHash));
 		if (p->qsComment.isEmpty()) {
@@ -841,7 +841,7 @@ void MainWindow::on_qaSelfComment_triggered() {
 		mpus.set_session(session);
 		mpus.set_comment(u8(msg));
 		g.sh->sendMessage(mpus);
-		
+
 		if (! msg.isEmpty())
 			Database::setBlob(sha1(msg), msg.toUtf8());
 	}
@@ -1460,7 +1460,7 @@ void MainWindow::on_qaChannelACL_triggered() {
 	if (! c)
 		c = Channel::get(0);
 	int id = c->iId;
-	
+
 	if (! c->qbaDescHash.isEmpty() && c->qsDesc.isEmpty()) {
 		c->qsDesc = QString::fromUtf8(Database::blob(c->qbaDescHash));
 		if (c->qsDesc.isEmpty()) {
@@ -2339,7 +2339,7 @@ void MainWindow::context_triggered() {
 
 QPair<QByteArray, QImage> MainWindow::openImageFile() {
 	QPair<QByteArray, QImage> retval;
-	
+
 	if (g.s.qsImagePath.isEmpty() || ! QDir::root().exists(g.s.qsImagePath))
 		g.s.qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
 
@@ -2359,12 +2359,12 @@ QPair<QByteArray, QImage> MainWindow::openImageFile() {
 
 	QByteArray qba = f.readAll();
 	f.close();
-	
+
 	QBuffer qb(&qba);
 	qb.open(QIODevice::ReadOnly);
-	
+
 	QImageReader qir(&qb, fi.suffix().toUtf8());
-	
+
 	QImage img = qir.read();
 	if (img.isNull()) {
 		QMessageBox::warning(this, tr("Failed to load image"), tr("Image format not recognized."));

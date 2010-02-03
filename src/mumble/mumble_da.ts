@@ -4263,12 +4263,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1809"/>
+        <location line="+1824"/>
         <source>Root</source>
         <translation>Rod</translation>
     </message>
     <message>
-        <location line="-1758"/>
+        <location line="-1773"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryk-for-snak</translation>
@@ -4347,12 +4347,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+1909"/>
+        <location line="+1925"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-1905"/>
+        <location line="-1921"/>
         <source>&amp;Window</source>
         <translation>&amp;Vindue</translation>
     </message>
@@ -4426,12 +4426,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1926"/>
+        <location line="+1942"/>
         <source>Not connected</source>
         <translation>Ingen forbindelse oprettet</translation>
     </message>
     <message>
-        <location line="-1727"/>
+        <location line="-1743"/>
         <source>Clear</source>
         <translation>Ryd</translation>
     </message>
@@ -4477,7 +4477,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+18"/>
-        <location line="+182"/>
+        <location line="+183"/>
         <source>Connecting to server %1.</source>
         <translation>Opretter forbindelse til server %1.</translation>
     </message>
@@ -4487,7 +4487,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Opretter forbindelse  igen.</translation>
     </message>
     <message>
-        <location line="+109"/>
+        <location line="+31"/>
+        <source>Change your comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+92"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</translation>
     </message>
@@ -4502,11 +4507,16 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
+        <location line="+1416"/>
+        <source>Images (*.png *.jpg *.svg)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation type="obsolete">&lt;h2&gt;Kontrolkanal&lt;/h2&gt;&lt;p&gt;Krypteret med %1 bit %2&lt;br /&gt;%3 ms gennemsnitlig forsinkelse (%4 afvigelse)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="-1396"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Stemmekanal&lt;/h2&gt;&lt;p&gt;Krypteret med 128 bit OCB-AES128&lt;br /&gt;%1 ms gennemsnitlig forsinkelse (%4 afvigelse)&lt;/p&gt;</translation>
     </message>
@@ -4517,13 +4527,13 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="-104"/>
-        <location line="+281"/>
+        <location line="+279"/>
         <source>Register yourself as %1</source>
         <translation>Registrér dig selv som %1</translation>
     </message>
     <message>
-        <location line="-281"/>
-        <location line="+281"/>
+        <location line="-279"/>
+        <location line="+279"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Du er ved at registrere dig selv på denne server. Denne handling kan ikke fortrydes, og dit brugernavn kan ikke senere ændres. Du vil for altid være kendt som &apos;%1&apos; på denne server.&lt;/p&gt;&lt;p&gt;Er du sikker på du vil registrere dig selv?&lt;/p&gt;</translation>
     </message>
@@ -4548,18 +4558,16 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Udelukker bruger %1</translation>
     </message>
     <message>
-        <location line="-364"/>
-        <location line="+406"/>
         <source>Change comment on user %1</source>
-        <translation>Skift kommentar for brugeren %1</translation>
+        <translation type="obsolete">Skift kommentar for brugeren %1</translation>
     </message>
     <message>
         <source>To channel %1: %2</source>
         <translation type="obsolete">Til kanal %1: %2</translation>
     </message>
     <message>
-        <location line="+75"/>
-        <location line="+214"/>
+        <location line="+107"/>
+        <location line="+225"/>
         <source>Message to channel %1</source>
         <translation>Besked til kanal %1</translation>
     </message>
@@ -4569,7 +4577,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Forbindelse oprettet.</translation>
     </message>
     <message>
-        <location line="+145"/>
+        <location line="+147"/>
         <source>SSL Version mismatch</source>
         <translation>SSL-version uoverenstemmelse</translation>
     </message>
@@ -4594,33 +4602,32 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Skriv besked til brugeren &apos;%1&apos; hér</translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="+91"/>
         <source>Choose image file</source>
         <translation>Vælg billedfil</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Images (*.png *.jpg)</source>
-        <translation>Billeder (*.png *.jpg)</translation>
+        <translation type="obsolete">Billeder (*.png *.jpg)</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+12"/>
+        <location line="+17"/>
         <source>Failed to load image</source>
         <translation>Indlæsning af billede mislykkedes</translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="-17"/>
         <source>Could not open file for reading.</source>
         <translation>Kunne ikke åbne filen for læsning.</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+17"/>
         <source>Image format not recognized.</source>
         <translation>Billedformatet blev ikke genkendt.</translation>
     </message>
     <message>
-        <location line="-1413"/>
+        <location line="-1422"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Lydkanal er sendt over kontrolkanal.</translation>
     </message>
@@ -4671,12 +4678,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1127"/>
+        <location line="+1128"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Se certifikat</translation>
     </message>
     <message>
-        <location line="-914"/>
+        <location line="-917"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Skriv begrundelse</translation>
@@ -4688,14 +4695,14 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+10"/>
-        <location line="+89"/>
+        <location line="+79"/>
         <location line="+4"/>
         <source>To %1: %2</source>
         <translation>Til %1: %2</translation>
     </message>
     <message>
-        <location line="-93"/>
-        <location line="+93"/>
+        <location line="-83"/>
+        <location line="+83"/>
         <source>Message to %1</source>
         <translation>Besked til %1</translation>
     </message>
@@ -4715,7 +4722,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Er du sikker på, at du vil slette %1 og alle dens underkanaler?</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+71"/>
         <source>Sending message to channel %1</source>
         <translation>Sender besked til kanalen %1</translation>
     </message>
@@ -4774,7 +4781,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Om Qt</translation>
     </message>
     <message>
-        <location line="+335"/>
+        <location line="+337"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL-verificering mislykkedes: %1</translation>
     </message>
@@ -4843,7 +4850,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">&amp;Server</translation>
     </message>
     <message>
-        <location line="-1983"/>
+        <location line="-1999"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanal</translation>
     </message>
@@ -5356,14 +5363,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>&amp;Skift kommentar</translation>
     </message>
     <message>
-        <location/>
         <source>Change the comment on the selected user.</source>
-        <translation>Skift kommentaren på den valgte bruger.</translation>
+        <translation type="obsolete">Skift kommentaren på den valgte bruger.</translation>
     </message>
     <message>
-        <location/>
         <source>This allows you to change the comment (shown as a tooltip) of a user. Unless you&apos;ve been given extra privileges on the server, you can only change your own comment.</source>
-        <translation>Dette gør dig i stand til at ændre kommentaren (vist som et tooltip) for en bruger. Medmindre du har fået tildelt ekstra privilegier på serveren, kan du kun ændre din egen kommentar.</translation>
+        <translation type="obsolete">Dette gør dig i stand til at ændre kommentaren (vist som et tooltip) for en bruger. Medmindre du har fået tildelt ekstra privilegier på serveren, kan du kun ændre din egen kommentar.</translation>
     </message>
     <message>
         <location/>
@@ -5852,7 +5857,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Besked fra %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1362"/>
+        <location filename="UserModel.cpp" line="+1380"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Du har kanalflytning sat til &quot;Gør intet&quot;, så kanalen blev ikke flyttet.</translation>
     </message>
@@ -5954,6 +5959,11 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location/>
         <source>Remove currently defined avatar image.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Icon Toolbar</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6222,7 +6232,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="obsolete">Det mislykkedes at initialisere overlægningshukommelse. Dette betyder som regel at den delte hukommelse er låst af operativsystemet, og du behøver derfor at genstarte for at frigøre den.</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+649"/>
+        <location filename="Overlay.cpp" line="+646"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6230,7 +6240,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-601"/>
+        <location line="-598"/>
         <source>Show no one</source>
         <translation>Vis ingen</translation>
     </message>
@@ -7220,7 +7230,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-801"/>
+        <location filename="UserModel.cpp" line="-809"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Dette er en bruger, der har oprettet forbindelse til serveren. Ikonet til venstre for brugeren viser om vedkommende snakker:</translation>
     </message>
@@ -7349,7 +7359,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+718"/>
+        <location line="+726"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Er du sikker på, at du vil flytte denne kanal?</translation>
     </message>

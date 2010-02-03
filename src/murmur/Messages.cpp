@@ -513,8 +513,8 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 
 	if (msg.has_texture()) {
 		if (iMaxImageMessageLength && (msg.texture().length() > iMaxImageMessageLength)) {
-				PERM_DENIED_TYPE(TextTooLong);
-				return;
+			PERM_DENIED_TYPE(TextTooLong);
+			return;
 		}
 	}
 

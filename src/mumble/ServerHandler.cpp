@@ -614,13 +614,13 @@ void ServerHandler::setTexture(const QByteArray &qba) {
 		imgp.setRenderHint(QPainter::TextAntialiasing);
 		imgp.setCompositionMode(QPainter::CompositionMode_SourceOver);
 		imgp.drawImage(0, 0, tex);
-		
+
 		texture = qCompress(QByteArray(reinterpret_cast<const char *>(img.bits()), 600*60*4));
 	}
 	MumbleProto::UserState mpus;
 	mpus.set_texture(blob(texture));
 	sendMessage(mpus);
-	
+
 	if (! texture.isEmpty())
 		Database::setBlob(sha1(texture), texture);
 }

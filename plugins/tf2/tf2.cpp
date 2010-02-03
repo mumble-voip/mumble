@@ -228,12 +228,12 @@ static int trylock() {
 	if (!peekProc(mod + 0x4FB3E3, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
 		return false;
 	*/
-	
+
 	// Gamecheck
 	char sMagic[13];
 	if (!peekProc(mod_engine + 0x53FBE0, sMagic, 13) || strncmp("DemomanTaunts", sMagic, 13)!=0)
 		return false;
-		
+
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3];
 	float cpos[3], cfront[3], ctop[3];
