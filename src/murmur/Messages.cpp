@@ -511,6 +511,14 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			msg.set_comment(u8(comment));
 	}
 
+	if (msg.has_texture()) {
+		if (iMaxImageMessageLength && (msg.texture().length() > iMaxImageMessageLength)) {
+				PERM_DENIED_TYPE(TextTooLong);
+				return;
+		}
+	}
+
+
 	if (msg.has_user_id()) {
 		ChanACL::Perm p = (uSource == pDstServerUser) ? ChanACL::SelfRegister : ChanACL::Register;
 		if ((pDstServerUser->iId >= 0) || ! hasPermission(uSource, root, p)) {
