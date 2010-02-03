@@ -362,19 +362,17 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 				int h = iroundf(qr.height() + 2 * fEdge + 0.5f);
 
 				QImage img(w, h, QImage::Format_ARGB32);
+				img.fill(0);
 
 				QPainter imgp(&img);
 				imgp.setRenderHint(QPainter::Antialiasing);
 				imgp.setRenderHint(QPainter::TextAntialiasing);
-
 				imgp.setBackground(QColor(0,0,0,0));
-				imgp.setCompositionMode(QPainter::CompositionMode_Clear);
-				imgp.eraseRect(0, 0, w, h);
+				imgp.setCompositionMode(QPainter::CompositionMode_Source);
 
 				QColor qc(e.uiColor);
 				qc.setAlpha(255);
 
-				imgp.setCompositionMode(QPainter::CompositionMode_Source);
 				imgp.setBrush(qc);
 				imgp.setPen(QPen(Qt::black, fEdge, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
 				imgp.drawPath(qp);
@@ -422,13 +420,12 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 							}
 
 							QImage decal(iItemHeight, iItemHeight, QImage::Format_ARGB32);
+							decal.fill(0);
 
 							QPainter imgp(&decal);
 							imgp.setRenderHint(QPainter::Antialiasing);
 							imgp.setRenderHint(QPainter::TextAntialiasing);
-							imgp.setCompositionMode(QPainter::CompositionMode_Clear);
 							imgp.setBackground(QColor(0,0,0,0));
-							imgp.eraseRect(0, 0, decal.height(), decal.width());
 							imgp.setCompositionMode(QPainter::CompositionMode_SourceOver);
 							if (! img.isNull()) {
 								imgp.drawImage((iItemHeight - img.width()) / 2, (iItemHeight - img.height()) / 2, img);
@@ -784,11 +781,10 @@ void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
 						QImage srcimg(reinterpret_cast<const uchar *>(qba.constData()), 600, 60, QImage::Format_ARGB32);
 
 						QPainter imgp(&img);
+						img.fill(0);
 						imgp.setRenderHint(QPainter::Antialiasing);
 						imgp.setRenderHint(QPainter::TextAntialiasing);
-						imgp.setCompositionMode(QPainter::CompositionMode_Clear);
 						imgp.setBackground(QColor(0,0,0,0));
-						imgp.eraseRect(0, 0, img.height(), img.width());
 						imgp.setCompositionMode(QPainter::CompositionMode_Source);
 						imgp.drawImage(0, 0, srcimg);
 					}
