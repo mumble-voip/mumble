@@ -146,8 +146,6 @@ static void ods(const char *format, ...) {
 }
 
 static void newContext(Context * ctx) {
-	int i;
-
 	ctx->iSocket = -1;
 	ctx->omMsg.omh.iLength = -1;
 	ctx->texture = ~0;
@@ -238,8 +236,6 @@ static void regenTexture(Context *ctx) {
 }
 
 static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
-	int i;
-
 	if (ctx->iSocket == -1) {
 		releaseMem(ctx);
 		if (! ctx->saName.sun_path[0])
@@ -520,9 +516,16 @@ static void drawContext(Context * ctx, int width, int height) {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
+	int bound = 0;
+	glGetIntegerv(GL_PIXEL_UNPACK_BUFFER_BINDING, &bound);
+
+	if (bound != 0)
+		glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
 
 	drawOverlay(ctx, width, height);
+	
+	if (bound != 0)
+		glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, bound);
 
 	glMatrixMode(GL_TEXTURE);
 	glPopMatrix();
@@ -537,6 +540,8 @@ static void drawContext(Context * ctx, int width, int height) {
 	glPopAttrib();
 	glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
 	glUseProgram(program);
+	
+	glGetError();
 }
 
 __attribute__((visibility("default")))
