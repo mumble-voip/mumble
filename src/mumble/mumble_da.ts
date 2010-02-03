@@ -1081,12 +1081,12 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     <message>
         <location filename="AudioInput.ui"/>
         <source>Use Amplitude based speech detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Brug styke-baseret stemmegenkendelse</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dette indstiller hvor længe overførslen skal fortsætte efter et opfattet stop.&lt;/b&gt;&lt;br /&gt;Indstil denne højere hvis din stemme afbrydes, når du snakker (det ses ved at lydikonet ved siden af dit navn blinker hurtigt).</translation>
     </message>
 </context>
 <context>
@@ -2153,17 +2153,17 @@ Mumble er under konstant udvikling, og udviklerteamet vil gerne fokusere på fun
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"></translation>
+        <translation>Anvend nogle høje kontrast optimeringer for brugere med nedsat syn</translation>
     </message>
     <message>
         <location/>
         <source>Use high contrast graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Brug grafik med høj kontrast</translation>
     </message>
     <message>
         <location/>
         <source>Keep custom Text-To-Speech settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Behold brugerdefineret Tekst-til-tale indstillinger.</translation>
     </message>
 </context>
 <context>
@@ -2637,7 +2637,10 @@ Er du sikker på du vil erstatte dit certifikat?
 It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Mumble kan bruge certifikater til at autentificere dig med servere. Ved at bruge certifikater, undgår man adgangskoder, hvilket vil sige, at du derved ikke behøver afsløre nogen adgangskoder, som nemt kan komme i omløb. Med certifikater er der mulighed for meget nem brugerregistrering.&lt;/p&gt;&lt;p&gt;Mumble kan godt nok fungere uden certifikater, men størstedelen af alle servere forventer at du har et.&lt;/p&gt;
+&lt;p&gt;
+Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;opretter et betroet certifikat&lt;/a&gt;.
+&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -2665,7 +2668,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Mute/Deafen</source>
-        <translation>Mute/Gøv døv</translation>
+        <translation>Mute/Gør døv</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3765,27 +3768,27 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+133"/>
         <source>link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>link til %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ftp link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ftp-link til %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>player link</source>
-        <translation type="unfinished"></translation>
+        <translation>bruger-link</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>channel link</source>
-        <translation type="unfinished"></translation>
+        <translation>kanal-link</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 link</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 link</translation>
     </message>
 </context>
 <context>
@@ -4226,37 +4229,38 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location/>
         <source>Show context menu in menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis genvejsmenuen i menulinjen</translation>
     </message>
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"></translation>
+        <translation>Anvend nogle høje kontrast optimeringer for brugere med nedsat syn</translation>
     </message>
     <message>
         <location/>
         <source>Optimize for high contrast</source>
-        <translation type="unfinished"></translation>
+        <translation>Optimér for høj kontrast</translation>
     </message>
     <message>
         <location/>
         <source>Application</source>
-        <translation type="unfinished"></translation>
+        <translation>Program</translation>
     </message>
     <message>
         <location/>
         <source>Adds user and channel context menus into the menu bar</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>&quot;kanal- og brugermenu&quot; sounds better than &quot;bruger- og kanalmenu&quot;</translatorcomment>
+        <translation>Tilføj kanal- og brugermenu i menulinjen</translation>
     </message>
     <message>
         <location/>
         <source>Tray Icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Statusikon</translation>
     </message>
     <message>
         <location/>
         <source>Channel Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanaltræ</translation>
     </message>
 </context>
 <context>
@@ -4489,7 +4493,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+31"/>
         <source>Change your comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Skift din kommentar</translation>
     </message>
     <message>
         <location line="+92"/>
@@ -4509,7 +4513,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+1416"/>
         <source>Images (*.png *.jpg *.svg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Billeder (*.png *.jpg *.svg)</translation>
     </message>
     <message>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;</source>
@@ -5618,7 +5622,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <location line="-61"/>
         <location line="+40"/>
         <source>Welcome message: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Velkomstbesked: %1</translation>
     </message>
     <message>
         <location line="-7"/>
@@ -5754,12 +5758,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+11"/>
         <source>You were suppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du blev muted.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>You were unsuppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du blev unmuted.</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -5909,62 +5913,62 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location/>
         <source>S&amp;erver</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;erver</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Self</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Selv</translation>
     </message>
     <message>
         <location/>
         <source>Audio S&amp;tatistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Lyds&amp;tatistikker</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Unlink Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Unlink plugins</translation>
     </message>
     <message>
         <location/>
         <source>Change your own comment.</source>
-        <translation type="unfinished"></translation>
+        <translation>Skift din egen kommentar.</translation>
     </message>
     <message>
         <location/>
         <source>R&amp;egister</source>
-        <translation type="unfinished"></translation>
+        <translation>R&amp;egistrér</translation>
     </message>
     <message>
         <location/>
         <source>Register yourself on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Registrér dig selv på serveren</translation>
     </message>
     <message>
         <location/>
         <source>Change &amp;Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Skift &amp;avatar</translation>
     </message>
     <message>
         <location/>
         <source>Change your avatar image on this server</source>
-        <translation type="unfinished"></translation>
+        <translation>Skift dit avaterbillede på denne server</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fjern avatar</translation>
     </message>
     <message>
         <location/>
         <source>Remove currently defined avatar image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern nuværende indstilte avatarbillede.</translation>
     </message>
     <message>
         <location/>
         <source>Icon Toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Ikon værktøjslinje</translation>
     </message>
 </context>
 <context>
@@ -6234,7 +6238,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
     <message>
         <location filename="Overlay.cpp" line="+646"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Det mislykkedes at oprette kommunikation med overlægningen på %2: %1. Der vil ikke være nogen overlægning tilgængelig.</translation>
     </message>
 </context>
 <context>
@@ -6496,7 +6500,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation type="unfinished">Det mislykkedes at indlæse overlægningsbibliotek. Dette skyldes enten at:
+        <translation>Det mislykkedes at indlæse overlægningsbibliotek. Dette skyldes enten at:
 - biblioteket (mumble_ol.dll) ikke kunne findes i det bibliotek du kørte Mumble fra
 - du er på et operativsystem ældre end WinXP SP2</translation>
     </message>
@@ -6664,7 +6668,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
     <message>
         <location line="+81"/>
         <source>Message is too long.</source>
-        <translation type="unfinished"></translation>
+        <translation>Beskeden er for lang.</translation>
     </message>
     <message>
         <source>TabWidget</source>
@@ -7098,7 +7102,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     <message>
         <location/>
         <source>Ping deviation</source>
-        <translation type="unfinished"></translation>
+        <translation>Ping afvigelse</translation>
     </message>
     <message>
         <location/>
@@ -7218,13 +7222,13 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <location filename="UserInformation.ui"/>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished">Båndbredde</translation>
+        <translation>Båndbredde</translation>
     </message>
     <message>
         <location/>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished">Båndbredde</translation>
+        <translation>Båndbredde</translation>
     </message>
 </context>
 <context>
