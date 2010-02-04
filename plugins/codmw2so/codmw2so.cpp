@@ -118,21 +118,21 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			0x01597682		byte	Magical state value
 	*/
 
-	so = peekProc((BYTE *) 0x019713A0, &specops, 1); // Magical state value
+	so = peekProc((BYTE *) 0x019713F0, &specops, 1); // Magical state value
 	if (! so)
 		return false;
 
 	if (specops != 2)
 		return false; // 2 value indicates you are playing Special Ops, 1 indicates SP, 0 indicates at three-way selection menu
 
-	ok = peekProc((BYTE *) 0x01B13BBB, &state, 1); // Magical state value
+	ok = peekProc((BYTE *) 0x009270F0, &state, 1); // Magical state value
 	if (! ok)
 		return false;
 
 	// /*
 	//	state value is:
 	//	0		while not in game
-	//	4 to 5	while playing
+	//	4		while playing
 
 	//	This value is used for disabling pa for spectators
 	//	or people not on a server.
