@@ -128,6 +128,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	byte l[2];
 	byte r,i;
 	float o[3];
+	BYTE *hPtr;
 	float h;
 
 	/*
@@ -138,8 +139,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 		0 < ox < 160
 
-		x = north
-		y = west
+		x = west
+		y = north
 		z = altitude
 
 		r = region
@@ -150,7 +151,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	     peekProc((BYTE *) 0x010A18E8, l, 2) &&
 	     peekProc((BYTE *) 0x010A18E4, &r, 1) &&
 	     peekProc((BYTE *) 0x010A18EC, &i, 1) &&
-	     peekProc((BYTE *)(lotroclient + 0x00D87EC0 + 0x00000034), &h, 4);
+	     peekProc((BYTE *)(lotroclient + 0x00D87EC0), &hPtr, 4);
+
+	if (! ok)
+		return false;
+
+	ok = peekProc((BYTE *)(hPtr + 0x00000034), &h, 4);
 
 	if (! ok)
 		return false;
@@ -175,13 +181,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (l[0] == 255 && l[1] == 255)
 		return true;
 
-	avatar_pos[0] = -((float)l[1] * 160.0 + o[1]);
+	avatar_pos[0] = (float)l[0] * 160.0 + o[0];
 	avatar_pos[1] = o[2];
-	avatar_pos[2] = (float)l[0] * 160.0 + o[0];
+	avatar_pos[2] = (float)l[1] * 160.0 + o[1];
 
-	avatar_front[0] = sin(h * 3.1415926 / 180.0);
+	avatar_front[0] = sin(h * 3.14159265 / 180.0);
 	avatar_front[1] = 0.0f;
-	avatar_front[2] = cos(h * 3.1415926 / 180.0);
+	avatar_front[2] = cos(h * 3.14159265 / 180.0);
 
 	avatar_top[0] = 0.0;
 	avatar_top[1] = 1.0;
@@ -194,7 +200,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		camera_top[i] = avatar_top[i];
 	}
 
-	//printf("P %f %f %f -- %f %f %f \n", avatar_pos[0], avatar_pos[1], avatar_pos[2], avatar_front[0], avatar_front[1], avatar_front[2]);
+	//qDebug("P %f %f %f -- %f %f %f -- h %f \n", avatar_pos[0], avatar_pos[1], avatar_pos[2], avatar_front[0], avatar_front[1], avatar_front[2], h);
 
 	return ok;
 }
