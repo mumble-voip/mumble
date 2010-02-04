@@ -1175,12 +1175,12 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
     <message>
         <location filename="AudioInput.ui"/>
         <source>Use Amplitude based speech detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Usa riconoscimento della voce basato sull&apos;Ampiezza</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Imposta per quanto tempo dopo un arresto del discorso la trasmissione deve continuare.&lt;/b&gt;&lt;br /&gt;Aumentalo se la tua voce viene tagliata quando parli (si vedi un lampeggio rapido dell&apos;icona voce accanto al tuo nome).</translation>
     </message>
 </context>
 <context>
@@ -2374,22 +2374,22 @@ Mumble è in continuo sviluppo, e gli sviluppatori cercano di concentrarsi sulle
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilita attenuazione delle altre applicazioni mentre gli utenti ti stanno parlando. Questo vuol dire che appena qualcuno inizia a parlarti su Mumble il suono di tutte le altre applicazioni, come lettori audio, sarà attenuato in modo da sentirli meglio.</translation>
     </message>
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"></translation>
+        <translation>Applica alcune ottimizazioni per un contrasto elevato per gli utenti con problemi visivi</translation>
     </message>
     <message>
         <location/>
         <source>Use high contrast graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilizza grafica con alto contrasto</translation>
     </message>
     <message>
         <location/>
         <source>Keep custom Text-To-Speech settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lascia impostazioni predefinite sulla sintesi vocale.</translation>
     </message>
 </context>
 <context>
@@ -2474,7 +2474,7 @@ Mumble è in continuo sviluppo, e gli sviluppatori cercano di concentrarsi sulle
     <message>
         <location line="+7"/>
         <source>Expiry Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Data di scadenza</translation>
     </message>
     <message>
         <location line="+34"/>
@@ -2557,7 +2557,7 @@ Mumble è in continuo sviluppo, e gli sviluppatori cercano di concentrarsi sulle
     <message>
         <location filename="main.cpp" line="+363"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Scadenza certificato:&lt;/b&gt; Il tuo certificato stà per scadere. Devi rinnovarlo, o non sarai più in grado di connetterti ai server a cui ti sei registrato.</translation>
     </message>
 </context>
 <context>
@@ -2857,7 +2857,7 @@ Sei sicuro di voler sostituire il tuo certificato?
     <message>
         <location/>
         <source>Enjoy using Mumble with strong authentication.</source>
-        <translation>Divertiti utilizzando Mumble con una potente autenticazione.</translation>
+        <translation>Divertiti utilizzando Mumble con una forte autenticazione.</translation>
     </message>
     <message>
         <location/>
@@ -2871,7 +2871,11 @@ Sei sicuro di voler sostituire il tuo certificato?
 It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Mumble può usare i certificati per autenticarsi con i server. Usare i certificati evita di dover usare password, vuol dire che non c&apos;è bisogno di inviare password al sito remoto. In questo modo è possibile registrarsi ai server molto più facilmente.&lt;/p&gt;&lt;p&gt;Anche se Mumble può funzionare senza certificati, molti server ne richiedono uno.&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;Creare un certificato&lt;/a&gt; è &lt;b&gt;vivamente&lt;/b&gt; raccomandato.
+&lt;/p&gt;
+</translation>
     </message>
 </context>
 <context>
@@ -3691,7 +3695,7 @@ Nome utente da mandare al server. ll server potrebbe avere delle restrizioni su 
         <location line="+9"/>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation type="unfinished">Per favore descrivi brevemente cosa stavi facendo al momento della chiusura (preferibilmente in inglese)</translation>
+        <translation>Per favore descrivi brevemente cosa stavi facendo al momento della chiusura (preferibilmente in inglese)</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -4323,27 +4327,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+133"/>
         <source>link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>collegamento con %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ftp link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>collegamento ftp con %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>player link</source>
-        <translation type="unfinished"></translation>
+        <translation>giocatore collegato</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>channel link</source>
-        <translation type="unfinished"></translation>
+        <translation>canale collegato</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 link</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 collegato</translation>
     </message>
 </context>
 <context>
@@ -4838,42 +4842,42 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questa impostazione controlla in quali situazioni l&apos;applicazione deve rimanere sempre in primo piano. Se selezioni &lt;i&gt;Mai&lt;/i&gt; l&apos;applicazione non starà sopra le altre. &lt;i&gt;Sempre&lt;/i&gt; manterrà l&apos;applicazione sempre sopra le altre. &lt;i&gt;In visuale minima&lt;/i&gt; / &lt;i&gt;In visuale normale&lt;/i&gt; manterrà l&apos;applicazione sopra le altre quando la visuale minima è attivata / disattivata.</translation>
     </message>
     <message>
         <location/>
         <source>Show context menu in menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Visualizza menu contestuale nella barra del menu</translation>
     </message>
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"></translation>
+        <translation>Applica alcune ottimizazioni per un contrasto elevato per gli utenti con problemi visivi</translation>
     </message>
     <message>
         <location/>
         <source>Optimize for high contrast</source>
-        <translation type="unfinished"></translation>
+        <translation>Ottimizza per contrasto elevato</translation>
     </message>
     <message>
         <location/>
         <source>Application</source>
-        <translation type="unfinished"></translation>
+        <translation>Applicazione</translation>
     </message>
     <message>
         <location/>
         <source>Adds user and channel context menus into the menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiunge menu contestuale per l&apos;utente e il canale nella barra del menu</translation>
     </message>
     <message>
         <location/>
         <source>Tray Icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Icona in tray</translation>
     </message>
     <message>
         <location/>
         <source>Channel Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Albero del canale</translation>
     </message>
 </context>
 <context>
@@ -5167,7 +5171,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+31"/>
         <source>Change your comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambia il tuo commento</translation>
     </message>
     <message>
         <location line="+92"/>
@@ -5187,12 +5191,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+9"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;&lt;p&gt;Host remoto %5 (porta%6)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+1407"/>
         <source>Images (*.png *.jpg *.svg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Immagini (*.png *.jpg *.svg)</translation>
     </message>
     <message>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;</source>
@@ -5574,7 +5578,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="-1999"/>
         <source>&amp;Channel</source>
-        <translation type="unfinished">&amp;Canale</translation>
+        <translation>&amp;Canale</translation>
     </message>
     <message>
         <source>&amp;Audio</source>
@@ -5843,7 +5847,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="-1"/>
         <source>&amp;User</source>
-        <translation type="unfinished">&amp;Utente</translation>
+        <translation>&amp;Utente</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -6339,7 +6343,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+7"/>
         <source>You suppressed %1.</source>
-        <translation>Hai sedato %1.</translation>
+        <translation>Hai soppresso %1.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -6389,12 +6393,12 @@ p, li { white-space: pre-wrap; }
         <location line="-61"/>
         <location line="+40"/>
         <source>Welcome message: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Messaggio di benvenuto: %1</translation>
     </message>
     <message>
         <location line="-7"/>
         <source>Mumble: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble: %1</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -6469,7 +6473,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+37"/>
         <source>You were unsuppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sei stato riattivato.</translation>
     </message>
     <message>
         <location line="+139"/>
@@ -6504,12 +6508,12 @@ p, li { white-space: pre-wrap; }
         <location line="+13"/>
         <source>You were suppressed.</source>
         <oldsource>You were suppressed by %1.</oldsource>
-        <translation type="unfinished">Sei stato sedato da %1.</translation>
+        <translation>Sei stato soppresso.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>You were unsuppressed by %1.</source>
-        <translation>Sei stato rafforzato da %1.</translation>
+        <translation>Sei stato riattivato da %1.</translation>
     </message>
     <message>
         <location line="-16"/>
@@ -6528,7 +6532,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+16"/>
         <source>You unsuppressed %1.</source>
-        <translation>Hai rafforzato %1.</translation>
+        <translation>Hai riattivato %1.</translation>
     </message>
     <message>
         <location line="-14"/>
@@ -6747,67 +6751,68 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Query server for connection information for user</source>
-        <translation type="unfinished"></translation>
+        <translation>Interrogazione del server per le informazioni di connessione dell&apos;utente</translation>
     </message>
     <message>
         <location/>
         <source>S&amp;erver</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Server</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Self</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>non saprei cos&apos;altro metterci</translatorcomment>
+        <translation>&amp;Utente</translation>
     </message>
     <message>
         <location/>
         <source>Audio S&amp;tatistics</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Statistiche audio</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Unlink Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Scollega plugin</translation>
     </message>
     <message>
         <location/>
         <source>Change your own comment.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambia il tuo stesso commento.</translation>
     </message>
     <message>
         <location/>
         <source>R&amp;egister</source>
-        <translation type="unfinished"></translation>
+        <translation>R&amp;egistrati</translation>
     </message>
     <message>
         <location/>
         <source>Register yourself on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Registrati sul server</translation>
     </message>
     <message>
         <location/>
         <source>Change &amp;Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambia &amp;avatar</translation>
     </message>
     <message>
         <location/>
         <source>Change your avatar image on this server</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambia l&apos;immagine dell&apos;avatar in questo server</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Rimuovi avatar</translation>
     </message>
     <message>
         <location/>
         <source>Remove currently defined avatar image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rimuove l&apos;immagine attualmente definita come avatar.</translation>
     </message>
     <message>
         <location/>
         <source>Icon Toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Toolbar delle icone</translation>
     </message>
 </context>
 <context>
@@ -7086,7 +7091,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
     <message>
         <location filename="Overlay.cpp" line="+646"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile creare una comunicazione con la sovrapposizione su %2 :%1. La sovrapposizione non sarà disponibile.</translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -7390,9 +7395,9 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation type="unfinished">Caricamento della libreria di sovrapposizione fallito. Significa che o:
+        <translation>Caricamento della libreria di sovrapposizione fallito. Significa che o:
 - la libreria (mumble_ol.dll) non è stata trovata nella directory dove stai eseguendo Mumble
-- hai un OS precedente a WinXP SP2</translation>
+- hai un SO precedente a WinXP SP2</translation>
     </message>
 </context>
 <context>
@@ -7593,7 +7598,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
     <message>
         <location line="+81"/>
         <source>Message is too long.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il messaggio è troppo lungo.</translation>
     </message>
     <message>
         <source>TabWidget</source>
@@ -7731,7 +7736,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
     <message>
         <location line="+6"/>
         <source>Africa</source>
-        <translation type="unfinished"></translation>
+        <translation>Africa</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7988,102 +7993,102 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserInformation.ui"/>
         <source>User Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informazione utente</translation>
     </message>
     <message>
         <location/>
         <source>Connection Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informazione connessione</translation>
     </message>
     <message>
         <location/>
         <source>Version</source>
-        <translation type="unfinished">Versione</translation>
+        <translation>Versione</translation>
     </message>
     <message>
         <location/>
         <source>OS</source>
-        <translation type="unfinished"></translation>
+        <translation>SO</translation>
     </message>
     <message>
         <location/>
         <source>Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Certificato</translation>
     </message>
     <message>
         <location/>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Indirizzo IP</translation>
     </message>
     <message>
         <location/>
         <source>CELT Versions</source>
-        <translation type="unfinished"></translation>
+        <translation>Versioni CELT</translation>
     </message>
     <message>
         <location/>
         <source>Details...</source>
-        <translation type="unfinished"></translation>
+        <translation>Dettagli...</translation>
     </message>
     <message>
         <location/>
         <source>Ping Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statistiche ping</translation>
     </message>
     <message>
         <location/>
         <source>Pings recieved</source>
-        <translation type="unfinished"></translation>
+        <translation>Ping ricevuti</translation>
     </message>
     <message>
         <location/>
         <source>Average ping</source>
-        <translation type="unfinished"></translation>
+        <translation>Ping medio</translation>
     </message>
     <message>
         <location/>
         <source>TCP (Control)</source>
-        <translation type="unfinished"></translation>
+        <translation>TCP (Controllo)</translation>
     </message>
     <message>
         <location/>
         <source>UDP (Voice)</source>
-        <translation type="unfinished"></translation>
+        <translation>UDP (Voce)</translation>
     </message>
     <message>
         <location/>
         <source>UDP Network statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statistiche UDP rete</translation>
     </message>
     <message>
         <location/>
         <source>Good</source>
-        <translation type="unfinished">Buono</translation>
+        <translation>Buono</translation>
     </message>
     <message>
         <location/>
         <source>Late</source>
-        <translation type="unfinished">Ultimo</translation>
+        <translation>Ultimo</translation>
     </message>
     <message>
         <location/>
         <source>Lost</source>
-        <translation type="unfinished">Perso</translation>
+        <translation>Perso</translation>
     </message>
     <message>
         <location/>
         <source>Resync</source>
-        <translation type="unfinished">Risincronizzazione</translation>
+        <translation>Risincronizzazione</translation>
     </message>
     <message>
         <location/>
         <source>From Client</source>
-        <translation type="unfinished"></translation>
+        <translation>Dal Client</translation>
     </message>
     <message>
         <location/>
         <source>To Client</source>
-        <translation type="unfinished"></translation>
+        <translation>Al Client</translation>
     </message>
     <message>
         <source>Bandwidth</source>
@@ -8092,75 +8097,75 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Connection time</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempo di connessione</translation>
     </message>
     <message>
         <location filename="UserInformation.cpp" line="+88"/>
         <source>%1w</source>
-        <translation type="unfinished"></translation>
+        <translation>%1w</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1d</source>
-        <translation type="unfinished"></translation>
+        <translation>%1d</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1h</source>
-        <translation type="unfinished"></translation>
+        <translation>%1h</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1m</source>
-        <translation type="unfinished">%1m</translation>
+        <translation>%1m</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1s</source>
-        <translation type="unfinished"></translation>
+        <translation>%1s</translation>
     </message>
     <message>
         <location line="+25"/>
         <location line="+43"/>
         <source>, </source>
-        <translation type="unfinished">, </translation>
+        <translation>, </translation>
     </message>
     <message>
         <location line="-13"/>
         <source>%1.%2.%3 (%4)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1.%2.%3 (%4)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location line="+45"/>
         <source>%1 online (%2 idle)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 online (%2 inattivo)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 online</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 online</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%1 kbit/s</source>
-        <translation type="unfinished">%1 kbit/s</translation>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <location filename="UserInformation.ui"/>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished">Banda</translation>
+        <translation>Banda</translation>
     </message>
     <message>
         <location/>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished">Banda</translation>
+        <translation>Banda</translation>
     </message>
 </context>
 <context>
@@ -8409,12 +8414,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+4"/>
         <source>Email: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Email: %1</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>DNS: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>DNS: %1</translation>
     </message>
     <message>
         <location line="+9"/>
