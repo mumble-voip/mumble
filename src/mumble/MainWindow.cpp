@@ -711,6 +711,8 @@ void MainWindow::setupView(bool toggle_minimize) {
 #ifndef Q_OS_MAC
 	else if (!showit)
 		f = Qt::Tool;
+#else
+	f |= Qt::MacWindowToolBarButtonHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint;
 #endif
 
 	if (g.s.aotbAlwaysOnTop == Settings::OnTopAlways ||
@@ -767,7 +769,6 @@ void MainWindow::setupView(bool toggle_minimize) {
 	show();
 	activateWindow();
 	bNoHide = false;
-
 }
 
 void MainWindow::on_qaServerConnect_triggered() {
