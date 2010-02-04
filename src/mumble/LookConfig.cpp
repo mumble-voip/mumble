@@ -44,6 +44,11 @@ static ConfigRegistrar registrar(1100, LookConfigNew);
 LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
+#ifdef Q_OS_MAC
+	/* Hide tray-icon configuration on OSX. We don't use a tray icon there. */
+	qgbTray->hide();
+#endif
+
 	qcbLanguage->addItem(tr("System default"));
 	QDir d(QLatin1String(":"),QLatin1String("mumble_*.qm"),QDir::Name,QDir::Files);
 	QStringList langs;
