@@ -44,7 +44,7 @@
 #include "VersionCheck.h"
 #include "NetworkConfig.h"
 #include "CrashReporter.h"
-
+#include "SocketRPC.h"
 
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
@@ -107,6 +107,16 @@ int main(int argc, char **argv) {
 	if (reply.type() == QDBusMessage::ReplyMessage) {
 		if (url.isValid())
 			qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
+		return 0;
+	}
+#else
+	if (SocketRPC::send(QLatin1String("Mumble11x"), QLatin1String("focus"))) {
+		if (url.isValid()) {
+			QMap<QString, QVariant> param;
+			param.insert(QLatin1String("href"), url);
+			SocketRPC::send(QLatin1String("Mumble11x"), QLatin1String("url"), param);
+		}
+			
 		return 0;
 	}
 #endif
@@ -195,6 +205,8 @@ int main(int argc, char **argv) {
 	delete cr;
 #endif
 
+	SocketRPC *srpc = new SocketRPC(QLatin1String("Mumble11x"));
+
 	// Initialize logger
 	g.l = new Log();
 
@@ -282,6 +294,9 @@ int main(int argc, char **argv) {
 	ao.reset();
 
 	g.sh->disconnect();
+	
+	delete srpc;
+	
 	delete g.sh;
 	delete g.mw;
 

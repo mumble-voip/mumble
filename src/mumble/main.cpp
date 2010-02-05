@@ -53,6 +53,7 @@
 #include "NetworkConfig.h"
 #include "CrashReporter.h"
 #include "FileEngine.h"
+#include "SocketRPC.h"
 
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
@@ -140,6 +141,7 @@ int main(int argc, char **argv) {
 		}
 	}
 #endif
+#endif
 
 	if (! bAllowMultiple) {
 		if (url.isValid()) {
@@ -149,6 +151,10 @@ int main(int argc, char **argv) {
 			patch = 0;
 
 			QString version = url.queryItemValue(QLatin1String("version"));
+#ifndef USE_DBUS
+			QMap<QString, QVariant> param;
+			param.insert(QLatin1String("href"), url);
+#endif
 
 			QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)"));
 			if (rx.exactMatch(version)) {
@@ -158,10 +164,16 @@ int main(int argc, char **argv) {
 			}
 
 			if ((major == 1) && (minor == 1)) {
+				bool sent = false;
+#ifdef USE_DBUS
 				QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble11x"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
 
 				QDBusMessage reply=qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
-				if (reply.type() == QDBusMessage::ReplyMessage) {
+				sent = (reply.type() == QDBusMessage::ReplyMessage);
+#else
+				sent = SocketRPC::send(QLatin1String("Mumble11x"), QLatin1String("url"), param);
+#endif
+				if (sent) {
 					return 0;
 				} else {
 					QString executable = a.applicationFilePath();
@@ -176,21 +188,34 @@ int main(int argc, char **argv) {
 					}
 				}
 			} else {
+				bool sent = false;
+#ifdef USE_DBUS
 				QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
 
 				QDBusMessage reply=qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
-				if (reply.type() == QDBusMessage::ReplyMessage)
+				sent = (reply.type() == QDBusMessage::ReplyMessage);
+#else
+				sent = SocketRPC::send(QLatin1String("Mumble"), QLatin1String("url"), param);
+#endif
+				if (sent)
 					return 0;
 			}
 		} else {
+			bool sent = false;
+#ifdef USE_DBUS
 			QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
 
 			QDBusMessage reply=qdbi.call(QLatin1String("focus"));
-			if (reply.type() == QDBusMessage::ReplyMessage)
+			sent = (reply.type() == QDBusMessage::ReplyMessage);
+#else
+			sent = SocketRPC::send(QLatin1String("Mumble"), QLatin1String("focus"));
+#endif
+			if (sent)
 				return 0;
+
 		}
 	}
-#endif
+
 	// Load preferences
 	g.s.load();
 
@@ -308,6 +333,8 @@ int main(int argc, char **argv) {
 	QDBusConnection::sessionBus().registerService(QLatin1String("net.sourceforge.mumble.mumble"));
 #endif
 
+	SocketRPC *srpc = new SocketRPC(QLatin1String("Mumble"));
+
 	g.l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));
 
 	// Plugins
@@ -404,6 +431,8 @@ int main(int argc, char **argv) {
 	g.sh->disconnect();
 
 	delete mfeh;
+	
+	delete srpc;
 
 	delete g.sh;
 	delete g.mw;
