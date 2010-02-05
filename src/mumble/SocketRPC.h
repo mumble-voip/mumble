@@ -60,8 +60,9 @@ class SocketRPC : public QObject {
 	protected:
 		QLocalServer *qlsServer;
 	public:
+		typedef QMap<QString, QVariant> ParameterMap;
 		SocketRPC(const QString &basename, QObject *p = NULL);
-		static bool send(const QString &basename, const QString &request, const QMap<QString, QVariant> &param = QMap<QString, QVariant>());
+		static bool send(const QString &basename, const QString &request, const ParameterMap &param = ParameterMap());
 	public slots:
 		void newConnection();
 };
