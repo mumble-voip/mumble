@@ -180,8 +180,14 @@ void SocketRPCClient::processXml() {
 			if (iter != qmRequest.constEnd()) {
 				QUrl u = iter.value().toUrl();
 				if (u.isValid() && u.scheme() == QLatin1String("mumble")) {
+#ifdef COMPAT_CLIENT
+				if (u.userName().isEmpty())
+					u.setUserName(QLatin1String("Unknown"));
+				g.mw->openUrl(u);
+#else
 	                OpenURLEvent *oue = new OpenURLEvent(u);
 	                qApp->postEvent(g.mw, oue);
+#endif
 					ack = true;
 				}
 			} else {
@@ -215,7 +221,7 @@ SocketRPC::SocketRPC(const QString &basename, QObject *p) : QObject(p) {
 #ifdef Q_OS_WIN
 	pipepath = basename;
 #else
-	pipepath = QDir::home().absoluteFilePath(QLatin1String(".") + basename + QLatin1String("Socket")));
+	pipepath = QDir::home().absoluteFilePath(QLatin1String(".") + basename + QLatin1String("Socket"));
 	{
 		QFile f(pipepath);
 		if (f.exists()) {
@@ -249,7 +255,7 @@ bool SocketRPC::send(const QString &basename, const QString &request, const QMap
 #ifdef Q_OS_WIN
 	pipepath = basename;
 #else
-	pipepath = QDir::home().absoluteFilePath(QLatin1String(".") + basename + QLatin1String("Socket")));
+	pipepath = QDir::home().absoluteFilePath(QLatin1String(".") + basename + QLatin1String("Socket"));
 #endif
 
 	QLocalSocket qls;
