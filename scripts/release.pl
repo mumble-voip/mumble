@@ -5,10 +5,12 @@ use warnings;
 use Carp;
 use Switch;
 use Archive::Tar;
+use Archive::Tar::Constant;
 use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
 use Compress::Zlib;
 use POSIX;
 use File::Copy;
+use File::stat;
 
 sub adddir($$) {
   my ($dir, $ref) = @_;
@@ -171,13 +173,17 @@ my $zipdir = $zip->addDirectory($dir);
 foreach my $file ('LICENSE', sort keys %files) {
   print "Adding $file\n";
   open(F, $file) or croak "Missing $file";
-  sysread(F, $blob, 1000000000);
+  sysread(F, $blob, stat($file)->size);
 
   if ($file eq "src/Version.h") {
     $blob =~ s/(\#ifndef MUMBLE_VERSION)/$1\n\#define MUMBLE_VERSION $ver\n\#endif\n$1/;
   }
 
-  $tar->add_data($dir . $file, $blob);
+  if (-l $file) {
+    $tar->add_data($dir . $file, "", { linkname => readlink($file), type => Archive::Tar::Constant::SYMLINK });
+  } else {
+    $tar->add_data($dir . $file, $blob);
+  }
   my $zipmember=$zip->addString($blob, $dir . $file);
   $zipmember->desiredCompressionMethod( COMPRESSION_DEFLATED );
   $zipmember->desiredCompressionLevel( 9 );
