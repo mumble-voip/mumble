@@ -233,9 +233,16 @@ void DevState::createCleanState() {
 
 	IDirect3DStateBlock9* pStateBlock = NULL;
 	dev->CreateStateBlock(D3DSBT_ALL, &pStateBlock);
+	if (! pStateBlock)
+		return;
+
 	pStateBlock->Capture();
 
 	dev->CreateStateBlock(D3DSBT_ALL, &pSB);
+	if (! pSB) {
+		pStateBlock->Release();
+		return;
+	}
 
 	D3DVIEWPORT9 vp;
 	dev->GetViewport(&vp);
@@ -287,7 +294,7 @@ static HardHook hhSwapPresent;
 static void doPresent(IDirect3DDevice9 *idd) {
 	DevState *ds = devMap[idd];
 
-	if (ds) {
+	if (ds && ds->pSB) {
 		DWORD dwOldThread = ds->dwMyThread;
 		if (dwOldThread)
 			ods("doPresent from other thread");
@@ -377,7 +384,6 @@ static HRESULT __stdcall myReset(IDirect3DDevice9 * idd, D3DPRESENT_PARAMETERS *
 		ds->releaseAll();
 		ds->dwMyThread = dwOldThread;
 	}
-
 
 	ResetType oReset = (ResetType) hhReset.call;
 
