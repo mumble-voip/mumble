@@ -5876,7 +5876,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location/>
         <source>Tray Icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Tray Icon</translation>
     </message>
     <message>
         <location/>
@@ -7211,7 +7211,7 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
     <message>
         <location line="+0"/>
         <source>Images (*.png *.jpg *.svg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder (*.png, *.jpg, *.svg)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -7575,7 +7575,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location line="+318"/>
         <source>Change your comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Ändere deinen Kommentar</translation>
     </message>
     <message>
         <location line="+108"/>
@@ -7943,7 +7943,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location/>
         <source>Icon Toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Icon Toolbar</translation>
     </message>
 </context>
 <context>
@@ -9396,27 +9396,27 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <location filename="UserInformation.cpp" line="+88"/>
         <source>%1w</source>
-        <translation type="unfinished"></translation>
+        <translation>%1w</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1d</source>
-        <translation type="unfinished"></translation>
+        <translation>%1d</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1h</source>
-        <translation type="unfinished"></translation>
+        <translation>%1h</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1m</source>
-        <translation type="unfinished">%1m</translation>
+        <translation>%1m</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1s</source>
-        <translation type="unfinished">%1s</translation>
+        <translation>%1s</translation>
     </message>
     <message>
         <source> </source>
