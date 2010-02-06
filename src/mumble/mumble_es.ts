@@ -3008,17 +3008,17 @@ Mumble se encuentra en continuo desarrollo, y el equipo de desarrollo quiere cen
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplica algunas optimizaciones de alto contraste para usuarios con discapacidades visuales</translation>
     </message>
     <message>
         <location/>
         <source>Use high contrast graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar gráficos de alto contraste</translation>
     </message>
     <message>
         <location/>
         <source>Keep custom Text-To-Speech settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mantener las opciones personalizadas de Texto-A-Voz (TTS)</translation>
     </message>
 </context>
 <context>
@@ -5859,32 +5859,32 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplica algunas optimizaciones de alto contraste para usuarios con deficiencias visuales</translation>
     </message>
     <message>
         <location/>
         <source>Optimize for high contrast</source>
-        <translation type="unfinished"></translation>
+        <translation>Optimizar para alto contraste</translation>
     </message>
     <message>
         <location/>
         <source>Application</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicación</translation>
     </message>
     <message>
         <location/>
         <source>Adds user and channel context menus into the menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Añade los menús contextuales de usuario y canal a la barra de menús</translation>
     </message>
     <message>
         <location/>
         <source>Tray Icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Icono del área de notificación</translation>
     </message>
     <message>
         <location/>
         <source>Channel Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Árbol de canales</translation>
     </message>
 </context>
 <context>
@@ -7274,7 +7274,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+41"/>
         <source>Change your comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambia su comentario</translation>
     </message>
     <message>
         <location line="+92"/>
@@ -7294,7 +7294,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+1416"/>
         <source>Images (*.png *.jpg *.svg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Imágenes (*.png *.jpg *.svg)</translation>
     </message>
     <message>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;</source>
@@ -7922,7 +7922,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Icon Toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Barra de herramientas de iconos</translation>
     </message>
 </context>
 <context>
@@ -9522,13 +9522,13 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
         <location filename="UserInformation.ui"/>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished">Ancho de banda</translation>
+        <translation>Ancho de banda</translation>
     </message>
     <message>
         <location/>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished">Ancho de banda</translation>
+        <translation>Ancho de banda</translation>
     </message>
 </context>
 <context>
