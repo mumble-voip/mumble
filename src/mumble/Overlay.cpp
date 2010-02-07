@@ -91,11 +91,8 @@ bool OverlayConfig::expert(bool b) {
 }
 
 void OverlayConfig::setColorLabel(QLabel *label, QColor col) {
-	label->setText(col.name());
-
-	QPalette palette;
-	palette.setColor(label->foregroundRole(), col);
-	label->setPalette(palette);
+	QString str = QString::fromLatin1("<span style=\"color: %1; opacity: %2\">%1</span>").arg(col.name()).arg(col.alphaF(), 0, 'f', 3);
+	label->setText(str);
 }
 
 void OverlayConfig::on_qpbSetFont_clicked() {
