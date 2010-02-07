@@ -196,7 +196,6 @@ Settings::Settings() {
 	fAudioBloom = 0.5f;
 
 	bOverlayEnable = true;
-	bOverlayUserTextures=true;
 	osOverlay = All;
 	bOverlayAlwaysSelf = true;
 	fOverlayX = 0.8f;
@@ -379,7 +378,6 @@ void Settings::load() {
 
 	SAVELOAD(bOverlayEnable, "overlay/enable");
 	LOADENUM(osOverlay, "overlay/show");
-	SAVELOAD(bOverlayUserTextures, "overlay/usertextures");
 	SAVELOAD(bOverlayAlwaysSelf, "overlay/alwaysself");
 	SAVELOAD(fOverlayX, "overlay/x");
 	SAVELOAD(fOverlayY, "overlay/y");
@@ -568,7 +566,6 @@ void Settings::save() {
 
 	SAVELOAD(bOverlayEnable, "overlay/enable");
 	SAVELOAD(osOverlay, "overlay/show");
-	SAVELOAD(bOverlayUserTextures, "overlay/usertextures");
 	SAVELOAD(bOverlayAlwaysSelf, "overlay/alwaysself");
 	SAVELOAD(fOverlayX, "overlay/x");
 	SAVELOAD(fOverlayY, "overlay/y");

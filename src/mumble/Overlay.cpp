@@ -53,7 +53,6 @@ OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 void OverlayConfig::load(const Settings &r) {
 	loadCheckBox(qcbEnable, r.bOverlayEnable);
 	loadCheckBox(qcbAlwaysSelf, r.bOverlayAlwaysSelf);
-	loadCheckBox(qcbUserTextures, r.bOverlayUserTextures);
 	loadComboBox(qcbShow, r.osOverlay);
 
 	loadCheckBox(qcbLeft, r.bOverlayLeft);
@@ -79,8 +78,6 @@ void OverlayConfig::load(const Settings &r) {
 }
 
 bool OverlayConfig::expert(bool b) {
-	qcbUserTextures->setVisible(b);
-
 	qcbLeft->setVisible(b);
 	qcbRight->setVisible(b);
 	qcbTop->setVisible(b);
@@ -148,7 +145,6 @@ void OverlayConfig::save() const {
 	s.bOverlayEnable = qcbEnable->isChecked();
 	s.osOverlay = static_cast<Settings::OverlayShow>(qcbShow->currentIndex());
 	s.bOverlayAlwaysSelf = qcbAlwaysSelf->isChecked();
-	s.bOverlayUserTextures = qcbUserTextures->isChecked();
 	s.fOverlayX = static_cast<float>(qsX->value()) / 100.0f;
 	s.fOverlayY = 1.0f - static_cast<float>(qsY->value()) / 100.0f;
 	s.bOverlayLeft = qcbLeft->isChecked();
@@ -918,7 +914,7 @@ void Overlay::setTexts(const QList<OverlayTextLine> &lines) {
 
 	foreach(const OverlayTextLine &e, lines) {
 		ClientUser *cp = ClientUser::get(e.uiSession);
-		if (g.s.bOverlayUserTextures && cp && ! cp->qbaTextureHash.isEmpty()) {
+		if (cp && ! cp->qbaTextureHash.isEmpty()) {
 			if (cp->qbaTexture.isEmpty() && ! qsQueried.contains(cp->uiSession)) {
 				cp->qbaTexture=Database::blob(cp->qbaTextureHash);
 				if (cp->qbaTexture.isEmpty())

@@ -56,19 +56,6 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QCheckBox" name="qcbUserTextures">
-        <property name="toolTip">
-         <string>Show User custom textures instead of text on the overlay.</string>
-        </property>
-        <property name="whatsThis">
-         <string>This sets whether to download and use custom textures for registered users. If disabled, the regular outline text will be used instead.</string>
-        </property>
-        <property name="text">
-         <string>Show User Textures</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </item>
@@ -352,7 +339,6 @@
   <tabstop>qcbEnable</tabstop>
   <tabstop>qcbShow</tabstop>
   <tabstop>qcbAlwaysSelf</tabstop>
-  <tabstop>qcbUserTextures</tabstop>
   <tabstop>qcbTop</tabstop>
   <tabstop>qcbRight</tabstop>
   <tabstop>qcbBottom</tabstop>

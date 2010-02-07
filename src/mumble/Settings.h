@@ -132,7 +132,6 @@ struct Settings {
 	QMap<QString, bool> qmPositionalAudioPlugins;
 
 	bool bOverlayEnable;
-	bool bOverlayUserTextures;
 	OverlayShow osOverlay;
 	bool bOverlayAlwaysSelf;
 	float fOverlayX;
