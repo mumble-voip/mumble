@@ -441,7 +441,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 				}
 			}
 		} else {
-			height += iItemHeight / 2;
+			height += iItemHeight / 4;
 		}
 		imagekeys << key;
 		avatarkeys << avatar;
@@ -475,7 +475,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		TextImage *ai = qcTexts.object(avatar);
 
 		int x = iroundf(uiWidth * g.s.fOverlayX);
-		int width = iItemHeight;
+		int width = iItemHeight + iItemHeight/8;
 
 		if (ti)
 			width += ti->qiImage.width();
@@ -500,7 +500,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 			x = uiWidth - width;
 
 		if (ti)
-			nr = QRect(g.s.bOverlayLeft ? x : x + iItemHeight, y + ti->iOffset, ti->qiImage.width(), ti->qiImage.height());
+			nr = QRect(g.s.bOverlayLeft ? x : (x + iItemHeight + iItemHeight / 8), y + ti->iOffset, ti->qiImage.width(), ti->qiImage.height());
 
 		if ((src.uiColor != dst.uiColor) || (src.qsText != dst.qsText)) {
 			dst.dDecor = OverlayTextLine::None;
@@ -547,7 +547,10 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		dst.qrRect = nr;
 		active |= nr;
 
-		y += iItemHeight;
+		if (src.qsText.isEmpty())
+			y += iItemHeight / 4;
+		else
+			y += iItemHeight;
 	}
 
 	while (qlLines.count() > lines.count()) {
