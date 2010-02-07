@@ -43,7 +43,7 @@ class SocketRPCClient : public QObject {
 		QXmlStreamWriter qxswWriter;
 		QBuffer *qbBuffer;
 		QByteArray qbaOutput;
-		
+
 		void processXml();
 	public:
 		SocketRPCClient(QLocalSocket *s, QObject *p = NULL);

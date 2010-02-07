@@ -116,7 +116,7 @@ int main(int argc, char **argv) {
 			param.insert(QLatin1String("href"), url);
 			SocketRPC::send(QLatin1String("Mumble11x"), QLatin1String("url"), param);
 		}
-			
+
 		return 0;
 	}
 #endif
@@ -294,9 +294,9 @@ int main(int argc, char **argv) {
 	ao.reset();
 
 	g.sh->disconnect();
-	
+
 	delete srpc;
-	
+
 	delete g.sh;
 	delete g.mw;
 

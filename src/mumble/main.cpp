@@ -431,7 +431,7 @@ int main(int argc, char **argv) {
 	g.sh->disconnect();
 
 	delete mfeh;
-	
+
 	delete srpc;
 
 	delete g.sh;
