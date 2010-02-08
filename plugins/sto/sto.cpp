@@ -34,72 +34,13 @@
 #include <tlhelp32.h>
 #include <math.h>
 
-#include "../mumble_plugin.h"
+#include "../mumble_plugin_win32.h"
 
-HANDLE h;
+#define PLUGIN_DEBUG
 
 BYTE *identptr;
 BYTE *contextptr;
 BYTE *posptr;
-
-static DWORD getProcess(const wchar_t *exename) {
-	PROCESSENTRY32 pe;
-	DWORD pid = 0;
-
-	pe.dwSize = sizeof(pe);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Process32First(hSnap, &pe);
-
-		while (ok) {
-			if (wcscmp(pe.szExeFile, exename)==0) {
-				pid = pe.th32ProcessID;
-				break;
-			}
-			ok = Process32Next(hSnap, &pe);
-		}
-		CloseHandle(hSnap);
-	}
-	return pid;
-}
-
-static BYTE *getModuleAddr(DWORD pid, const wchar_t *modname) {
-	MODULEENTRY32 me;
-	BYTE *addr = NULL;
-	me.dwSize = sizeof(me);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Module32First(hSnap, &me);
-
-		while (ok) {
-			if (wcscmp(me.szModule, modname)==0) {
-				addr = me.modBaseAddr;
-				break;
-			}
-			ok = Module32Next(hSnap, &me);
-		}
-		CloseHandle(hSnap);
-	}
-	return addr;
-}
-
-
-static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
-	SIZE_T r;
-	BOOL ok=ReadProcessMemory(h, base, dest, len, &r);
-	return (ok && (r == len));
-}
-
-static DWORD peekProc(VOID *base) {
-	DWORD v = 0;
-	peekProc(base, reinterpret_cast<BYTE *>(&v), sizeof(DWORD));
-	return v;
-}
-
-static BYTE *peekProcPtr(VOID *base) {
-	DWORD v = peekProc(base);
-	return reinterpret_cast<BYTE *>(v);
-}
 
 static void about(HWND h) {
 	::MessageBox(h, L"Reads audio position information from Star Trek Online", L"Mumble STO Plugin", MB_OK);
@@ -110,15 +51,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		char contextblock[0x80];
 		float posblock[64];
 
-		if (! peekProc(identptr, identblock, sizeof(identblock)) ||
-		    ! peekProc(contextptr, contextblock, sizeof(contextblock)) ||
-		    ! peekProc(posptr, posblock, sizeof(posblock))) 
+		if (! peekProc(identptr, identblock) ||
+		    ! peekProc(contextptr, contextblock) ||
+		    ! peekProc(posptr, posblock)) 
 		    return false;
 		    
-		wchar_t widentbuff[0x200];
 		std::string ident = std::string(identblock+0x188, strnlen(identblock + 0x188, 0x78)) + std::string("@") + std::string(identblock, strnlen(identblock, 0x80));
-		int len = MultiByteToWideChar(CP_UTF8, 0, ident.c_str(), ident.length(), widentbuff, 0x200);
-		identity.assign(widentbuff, len);
+		u8(identity, ident);
+
 #ifdef PLUGIN_DEBUG
 		printf("%ls\n", identity.c_str());
 #endif
@@ -154,8 +94,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
+static void unlock() {
+	if (hProcess) {
+		CloseHandle(hProcess);
+		hProcess = NULL;
+	}
+	return;
+}
+
 static int trylock() {
-	h = NULL;
+	hProcess = NULL;
 	identptr = contextptr = posptr = NULL;
 
 	DWORD pid=getProcess(L"GameClient.exe");
@@ -166,8 +114,8 @@ static int trylock() {
 	if (!mod)
 		return false;
 
-	h=OpenProcess(PROCESS_VM_READ, false, pid);
-	if (!h)
+	hProcess=OpenProcess(PROCESS_VM_READ, false, pid);
+	if (!hProcess)
 		return false;
 
 	BYTE *versionptr = mod + 0x15E8778;
@@ -188,18 +136,9 @@ static int trylock() {
 		return true;
 	}
 
+	unlock();
 
-	CloseHandle(h);
-	h = NULL;
 	return false;
-}
-
-static void unlock() {
-	if (h) {
-		CloseHandle(h);
-		h = NULL;
-	}
-	return;
 }
 
 static const std::wstring longdesc() {
