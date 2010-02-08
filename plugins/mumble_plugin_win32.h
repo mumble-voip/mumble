@@ -31,6 +31,13 @@
 #ifndef _MUMBLE_PLUGIN_WIN32_H
 #define _MUMBLE_PLUGIN_WIN32_H
 
+#define _USE_MATH_DEFINES
+#include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
+#include <tlhelp32.h>
+#include <math.h>
+
 #include "mumble_plugin.h"
 
 static HANDLE hProcess;
