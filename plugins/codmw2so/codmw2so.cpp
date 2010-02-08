@@ -102,24 +102,24 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	bool ok;
-	bool so;
 
 	/*
 		This plugin uses the following Variables:
 
 			Address			Type	Description
 			===================================
-			0x00782A64		float	Z-Coordinate
-			0x00782A68		float	X-Coordinate
-			0x00782A6C		float	Y-Coordinate
-			0x00782A34		float	Horizontal view (degrees)
-			0x00782A30		float	Vertical view (degrees)
+			0x00783A64		float	Z-Coordinate
+			0x00783A68		float	X-Coordinate
+			0x00783A6C		float	Y-Coordinate
+			0x00783A34		float	Horizontal view (degrees)
+			0x00783A30		float	Vertical view (degrees)
 
-			0x01597682		byte	Magical state value
+			0x019713F0		byte	SO game identifier
+			0x009270F0		byte	Magical state value
 	*/
 
-	so = peekProc((BYTE *) 0x019713F0, &specops, 1); // Magical state value
-	if (! so)
+	ok = peekProc((BYTE *) 0x019713F0, &specops, 1); // Magical state value
+	if (! ok)
 		return false;
 
 	if (specops != 2)
@@ -192,7 +192,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		camera_top[i] = avatar_top[i];
 	}
 
-	return ok;
+	return true;
 }
 
 static int trylock() {

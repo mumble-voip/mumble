@@ -170,16 +170,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (state == 0 || state == 1)
 		return true; // Deactivate plugin
 
+	ok = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
 	if (ok) {
-		int res = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
-		if (res) {
-			for (int i=0;i<3;++i) {
-				camera_pos[i] = avatar_pos[i];
-				camera_front[i] = avatar_front[i];
-				camera_top[i] = avatar_top[i];
-			}
-			return res;
+		for (int i=0;i<3;++i) {
+			camera_pos[i] = avatar_pos[i];
+			camera_front[i] = avatar_front[i];
+			camera_top[i] = avatar_top[i];
 		}
+		return true;
 	}
 
 	return false;

@@ -88,13 +88,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 			Address			Type	Description
 			===================================
-			0x0085C668		float	Z-Coordinate
-			0x0085C66C		float	X-Coordinate
-			0x0085C670		float	Y-Coordinate
-			0x0085C654		float	Horizontal view (degrees)
-			0x0085C650		float	Vertical view (degrees)
+			0x008F0F78		float	Z-Coordinate
+			0x008F0F7C		float	X-Coordinate
+			0x008F0F80		float	Y-Coordinate
+			0x008F0F88		float	Horizontal view (degrees)
+			0x008F0F84		float	Vertical view (degrees)
 
-			0x007EE19D		byte	Magical state value
+			0x007F7A34		byte	Magical state value
 	*/
 	ok = peekProc((BYTE *) 0x007F7A34, &state, 1); // Magical state value
 	if (! ok)
@@ -162,7 +162,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		camera_top[i] = avatar_top[i];
 	}
 
-	return ok;
+	return true;
 }
 
 static int trylock() {

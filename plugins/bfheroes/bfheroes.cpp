@@ -141,7 +141,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		camera_top[i] = avatar_top[i];
 	}
 
-	return ok;
+	return true;
 }
 
 static int trylock() {

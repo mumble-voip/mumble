@@ -146,7 +146,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_front[1] = -sin(viewVer);
 	avatar_front[2] = cos(viewHor) * cos(viewVer);
 
-	return ok;
+	return true;
 }
 
 static int trylock() {

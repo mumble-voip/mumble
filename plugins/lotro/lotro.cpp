@@ -202,7 +202,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	//qDebug("P %f %f %f -- %f %f %f -- h %f \n", avatar_pos[0], avatar_pos[1], avatar_pos[2], avatar_front[0], avatar_front[1], avatar_front[2], h);
 
-	return ok;
+	return true;
 }
 
 static int trylock() {
