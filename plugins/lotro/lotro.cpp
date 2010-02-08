@@ -185,9 +185,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_pos[1] = o[2];
 	avatar_pos[2] = (float)l[1] * 160.0 + o[1];
 
-	avatar_front[0] = sin(h * 3.14159265 / 180.0);
+	avatar_front[0] = sin(h * M_PI / 180.0);
 	avatar_front[1] = 0.0f;
-	avatar_front[2] = cos(h * 3.14159265 / 180.0);
+	avatar_front[2] = cos(h * M_PI / 180.0);
 
 	avatar_top[0] = 0.0;
 	avatar_top[1] = 1.0;
