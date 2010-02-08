@@ -36,11 +36,9 @@
 
 #include "../mumble_plugin_win32.h"
 
-#define PLUGIN_DEBUG
-
-BYTE *identptr;
-BYTE *contextptr;
-BYTE *posptr;
+static BYTE *identptr;
+static BYTE *contextptr;
+static BYTE *posptr;
 
 static void about(HWND h) {
 	::MessageBox(h, L"Reads audio position information from Star Trek Online", L"Mumble STO Plugin", MB_OK);
@@ -103,35 +101,22 @@ static void unlock() {
 }
 
 static int trylock() {
-	hProcess = NULL;
 	identptr = contextptr = posptr = NULL;
-
-	DWORD pid=getProcess(L"GameClient.exe");
-	if (!pid)
+	
+	if (! initialize(L"GameClient.exe"))
 		return false;
-
-	BYTE *mod=getModuleAddr(pid, L"GameClient.exe");
-	if (!mod)
-		return false;
-
-	hProcess=OpenProcess(PROCESS_VM_READ, false, pid);
-	if (!hProcess)
-		return false;
-
-	BYTE *versionptr = mod + 0x15E8778;
+	
 	char version[17];
+	peekProc(pModule + 0x15E8778, version);
 	version[16]=0;
 	
-	peekProc(versionptr, version, 16);
-	
-	
-	if (memcmp(version, "ST.0.20100202a.7", 16) == 0) {
+	if (memcmp(version, "ST.0.20100202a.7", sizeof(version)) == 0) {
 #ifdef PLUGIN_DEBUG
 		printf("STO: WANTLINK %s\n", version);
 #endif
-		identptr = mod + 0x1675E80;
-		contextptr = mod + 0x1675a30;
-		posptr = mod + 0x1885da0;
+		identptr = pModule + 0x1675E80;
+		contextptr = pModule + 0x1675a30;
+		posptr = pModule + 0x1885da0;
 		
 		return true;
 	}

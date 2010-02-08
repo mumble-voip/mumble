@@ -34,6 +34,7 @@
 #include "mumble_plugin.h"
 
 static HANDLE hProcess;
+static BYTE *pModule;
 
 static inline DWORD getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
@@ -96,7 +97,7 @@ T peekProc(VOID *base) {
 	return v;
 }
 
-static void u8(std::wstring &dst, const std::string &src) {
+static void inline u8(std::wstring &dst, const std::string &src) {
 	int len = MultiByteToWideChar(CP_UTF8, 0, src.data(), src.length(), NULL, 0);
 	
 	wchar_t *wbuff = reinterpret_cast<wchar_t *>(_alloca(sizeof(wchar_t) * len));
@@ -105,13 +106,32 @@ static void u8(std::wstring &dst, const std::string &src) {
 	dst.assign(wbuff, len);
 }
 
-static void u8(std::wstring &dst, const char *src, int srclen) {
+static void inline u8(std::wstring &dst, const char *src, int srclen) {
 	int len = MultiByteToWideChar(CP_UTF8, 0, src, srclen, NULL, 0);
 	
 	wchar_t *wbuff = reinterpret_cast<wchar_t *>(_alloca(sizeof(wchar_t) * len));
 	MultiByteToWideChar(CP_UTF8, 0, src, srclen, wbuff, len);
 	
 	dst.assign(wbuff, len);
+}
+
+static bool inline initialize(const wchar_t *procname, const wchar_t *modname = NULL) {
+	hProcess = NULL;
+	pModule = NULL;
+
+	DWORD pid=getProcess(procname);
+	if (!pid)
+		return false;
+
+	pModule=getModuleAddr(pid, modname ? modname : procname);
+	if (!pModule)
+		return false;
+
+	hProcess=OpenProcess(PROCESS_VM_READ, false, pid);
+	if (!hProcess)
+		return false;
+
+	return true;
 }
 
 #endif
