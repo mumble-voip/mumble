@@ -54,6 +54,7 @@ class PluginConfig : public ConfigWidget, public Ui::PluginConfig {
 		void on_qpbConfig_clicked();
 		void on_qpbAbout_clicked();
 		void on_qpbReload_clicked();
+		void on_qtwPlugins_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
 };
 
 class Plugins : public QObject {

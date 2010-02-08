@@ -139,6 +139,19 @@ void PluginConfig::refillPluginList() {
 		i->setText(0, pi->description);
 		qhInfos[qtwPlugins->indexOfTopLevelItem(i)] = pi;
 	}
+	qtwPlugins->setCurrentItem(qtwPlugins->topLevelItem(0));
+	on_qtwPlugins_currentItemChanged(qtwPlugins->topLevelItem(0), NULL);
+}
+
+void PluginConfig::on_qtwPlugins_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *) {
+	PluginInfo *pi = qhInfos.value(qtwPlugins->indexOfTopLevelItem(current));
+	if (pi) {
+		qpbAbout->setEnabled(pi->p->about != NULL);
+		qpbConfig->setEnabled(pi->p->config != NULL);
+	} else {
+		qpbAbout->setEnabled(false);
+		qpbConfig->setEnabled(false);
+	}
 }
 
 Plugins::Plugins(QObject *p) : QObject(p) {

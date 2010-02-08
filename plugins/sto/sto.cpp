@@ -40,10 +40,6 @@ static BYTE *identptr;
 static BYTE *contextptr;
 static BYTE *posptr;
 
-static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Star Trek Online", L"Mumble STO Plugin", MB_OK);
-}
-
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 		char identblock[0x200];
 		char contextblock[0x80];
@@ -92,14 +88,6 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static void unlock() {
-	if (hProcess) {
-		CloseHandle(hProcess);
-		hProcess = NULL;
-	}
-	return;
-}
-
 static int trylock() {
 	identptr = contextptr = posptr = NULL;
 	
@@ -119,11 +107,10 @@ static int trylock() {
 		posptr = pModule + 0x1885da0;
 		
 		return true;
+	} else {
+		generic_unlock();
+		return false;
 	}
-
-	unlock();
-
-	return false;
 }
 
 static const std::wstring longdesc() {
@@ -137,10 +124,10 @@ static MumblePlugin stoplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
-	about,
+	NULL,
 	NULL,
 	trylock,
-	unlock,
+	generic_unlock,
 	longdesc,
 	fetch
 };

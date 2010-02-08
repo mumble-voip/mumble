@@ -134,4 +134,12 @@ static bool inline initialize(const wchar_t *procname, const wchar_t *modname = 
 	return true;
 }
 
+static void generic_unlock() {
+	if (hProcess) {
+		CloseHandle(hProcess);
+		hProcess = NULL;
+		pModule = NULL;
+	}
+}
+
 #endif
