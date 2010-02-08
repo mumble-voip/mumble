@@ -257,6 +257,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	if (!bActive) {
 		memset(avatar_pos, 0, sizeof(float)*3);
+		memset(camera_pos, 0, sizeof(float)*3);
 		return true;
 	}
 
