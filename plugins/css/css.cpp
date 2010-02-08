@@ -132,7 +132,7 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, string &context, wstring &identity) {
 	for (int i=0;i<3;i++)
-		avatar_pos[i] = avatar_front[i] = avatar_top[i] = 0;
+		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	float ipos[3], rot[3];
 	bool ok;
