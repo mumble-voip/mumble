@@ -134,14 +134,21 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		printf("AvatarF  %8.3f %8.3f %8.3f\n", posblock[15], posblock[16], posblock[17]);
 		printf("Camera   %8.3f %8.3f %8.3f\n", posblock[3], posblock[4], posblock[5]);
 		printf("CameraF  %8.3f %8.3f %8.3f\n", posblock[18], posblock[19], posblock[20]);
+		printf("SpawnST  %d\n", * reinterpret_cast<DWORD *>(& posblock[52]));
 #endif
-		for(int i=0;i<3;++i) {
-			avatar_pos[i] = posblock[i];
-			avatar_front[i] = posblock[i+15];
-			camera_pos[i] = posblock[i+3];
-			camera_front[i] = posblock[i+18];
-			
-			avatar_top[i] = camera_top[i] = 0.0f;
+		if (* reinterpret_cast<DWORD *>(& posblock[52]) == 1) {
+			for(int i=0;i<3;++i) {
+				avatar_pos[i] = posblock[i];
+				avatar_front[i] = posblock[i+15];
+				camera_pos[i] = posblock[i+3];
+				camera_front[i] = posblock[i+18];
+				
+				avatar_top[i] = camera_top[i] = 0.0f;
+			}
+		} else {
+			for (int i=0;i<3;++i) {
+				avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
+			}
 		}
 
 	return true;
@@ -171,8 +178,9 @@ static int trylock() {
 	
 	
 	if (memcmp(version, "ST.0.20100202a.7", 16) == 0) {
+#ifdef PLUGIN_DEBUG
 		printf("STO: WANTLINK %s\n", version);
-
+#endif
 		identptr = mod + 0x1675E80;
 		contextptr = mod + 0x1675a30;
 		posptr = mod + 0x1885da0;
