@@ -995,32 +995,52 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		for (unsigned int i=0;i<iChannels;++i)
 			svol[i] = mul * fSpeakerVolume[i];
 
-		if (g.s.bPositionalAudio && (iChannels > 1) && g.p->fetch() && (g.bPosTest || g.p->fPosition[0] != 0 || g.p->fPosition[1] != 0 || g.p->fPosition[2] != 0)) {
-			float front[3] = { g.p->fFront[0], g.p->fFront[1], g.p->fFront[2] };
-			float top[3] = { g.p->fTop[0], g.p->fTop[1], g.p->fTop[2] };
+		if (g.s.bPositionalAudio && (iChannels > 1) && g.p->fetch() && (g.bPosTest || g.p->fCameraPosition[0] != 0 || g.p->fCameraPosition[1] != 0 || g.p->fCameraPosition[2] != 0)) {
+			
+			float front[3] = { g.p->fCameraFront[0], g.p->fCameraFront[1], g.p->fCameraFront[2] };
+			float top[3] = { g.p->fCameraTop[0], g.p->fCameraTop[1], g.p->fCameraTop[2] };
 
-			if (fabs(front[0] * top[0] + front[1] * top[1] + front[2] * top[2]) > 0.01f) {
-				// Not perpendicular. Ditch Y and point top up.
-				front[1] = 0;
-				top[0] = 0;
-				top[1] = 1;
-				top[2] = 0;
-			}
+			// Front vector is dominant; if it's zero we presume all is zero.
 
-			// Normalize
 			float flen = sqrtf(front[0]*front[0]+front[1]*front[1]+front[2]*front[2]);
-			float tlen = sqrtf(top[0]*top[0]+top[1]*top[1]+top[2]*top[2]);
-
+			
 			if (flen > 0.0f) {
-				front[0] /= flen;
-				front[1] /= flen;
-				front[2] /= flen;
-			}
+				front[0] *= (1.0f / flen);
+				front[1] *= (1.0f / flen);
+				front[2] *= (1.0f / flen);
 
-			if (tlen > 0.0f) {
-				top[0] /= tlen;
-				top[1] /= tlen;
-				top[2] /= tlen;
+				float tlen = sqrtf(top[0]*top[0]+top[1]*top[1]+top[2]*top[2]);
+				
+				if (tlen > 0.0f) {
+					top[0] *= (1.0f / tlen);
+					top[1] *= (1.0f / tlen);
+					top[2] *= (1.0f / tlen);
+				} else {
+					top[0] = 0.0f;
+					top[1] = 1.0f;
+					top[2] = 0.0f;
+				}
+
+				if (fabs(front[0] * top[0] + front[1] * top[1] + front[2] * top[2]) > 0.01f) {
+					// Not perpendicular. Assume Y up and rotate 90 degrees.
+					
+					float azimuth = 0.0f;
+					if ((front[0] != 0.0f) || (front[2] != 0.0f))
+						azimuth = atan2f(front[2], front[0]);
+					float inclination = acosf(front[1]) - M_PI / 2;
+					
+					top[0] = sinf(inclination)*cosf(azimuth);
+					top[1] = cosf(inclination);
+					top[2] = sinf(inclination)*sinf(azimuth);
+				}
+			} else {
+				front[0] = 0.0f;
+				front[1] = 0.0f;
+				front[2] = 1.0f;
+				
+				top[0] = 0.0f;
+				top[1] = 1.0f;
+				top[2] = 0.0f;
 			}
 
 			// Calculate right vector as front X top
@@ -1044,7 +1064,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			const float * RESTRICT pfBuffer = aop->pfBuffer;
 
 			if (validListener && ((aop->fPos[0] != 0.0f) || (aop->fPos[1] != 0.0f) || (aop->fPos[2] != 0.0f))) {
-				float dir[3] = { aop->fPos[0] - g.p->fPosition[0], aop->fPos[1] - g.p->fPosition[1], aop->fPos[2] - g.p->fPosition[2] };
+				float dir[3] = { aop->fPos[0] - g.p->fCameraPosition[0], aop->fPos[1] - g.p->fCameraPosition[1], aop->fPos[2] - g.p->fCameraPosition[2] };
 				float len = sqrtf(dir[0] * dir[0] + dir[1] * dir[1] + dir[2] * dir[2]);
 				if (len > 0.0f) {
 					dir[0] /= len;

@@ -6,6 +6,7 @@ CONFIG		-= qt
 DIST		*= mumble_plugin.h
 
 CONFIG(debug, debug|release) {
+  DEFINES += PLUGIN_DEBUG
   CONFIG += console
   DESTDIR       = ../../debug/plugins
 }
