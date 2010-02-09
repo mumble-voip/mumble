@@ -1049,6 +1049,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qmUser->addAction(qaAudioDeaf);
 	}
 
+#ifndef Q_OS_MAC
 	if (g.s.bMinimalView) {
 		qmUser->addSeparator();
 		qmUser->addMenu(qmServer);
@@ -1056,6 +1057,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qmUser->addMenu(qmConfig);
 		qmUser->addMenu(qmHelp);
 	}
+#endif
 
 	if (! qlUserActions.isEmpty()) {
 		qmUser->addSeparator();
@@ -1359,6 +1361,7 @@ void MainWindow::qmChannel_aboutToShow() {
 	qmChannel->addSeparator();
 	qmChannel->addAction(qaChannelSendMessage);
 
+#ifndef Q_OS_MAC
 	if (g.s.bMinimalView) {
 		qmChannel->addSeparator();
 		qmChannel->addMenu(qmServer);
@@ -1366,6 +1369,7 @@ void MainWindow::qmChannel_aboutToShow() {
 		qmChannel->addMenu(qmConfig);
 		qmChannel->addMenu(qmHelp);
 	}
+#endif
 
 	if (! qlChannelActions.isEmpty()) {
 		qmChannel->addSeparator();
