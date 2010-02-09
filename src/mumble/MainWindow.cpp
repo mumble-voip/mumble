@@ -308,7 +308,9 @@ void MainWindow::setupGui()  {
 	        SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
 	        SLOT(qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)));
 
+#ifndef Q_OS_MAC
 	setupView(false);
+#endif
 
 	if (g.s.bMinimalView && ! g.s.qbaMinimalViewGeometry.isNull())
 		restoreGeometry(g.s.qbaMinimalViewGeometry);
