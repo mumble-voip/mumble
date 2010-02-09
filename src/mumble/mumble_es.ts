@@ -3208,7 +3208,7 @@ Mumble se encuentra en continuo desarrollo, y el equipo de desarrollo quiere cen
         <translation>Usuario Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+363"/>
+        <location filename="main.cpp" line="+390"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Vencimiento del certificado:&lt;/b&gt; Su certificado está a punto de caducar. Debe renovarlo, o de lo contrario no podrá conectarse a los servidores en los que se haya registrado.</translation>
     </message>
@@ -5491,7 +5491,7 @@ p, li { white-space: pre-wrap; }
         <translation>Apariencia</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="+47"/>
+        <location filename="LookConfig.cpp" line="+52"/>
         <location line="+11"/>
         <source>System default</source>
         <translation>Predeterminado del sistema</translation>
@@ -5896,7 +5896,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1824"/>
+        <location line="+1831"/>
         <source>Root</source>
         <translation>Root</translation>
     </message>
@@ -6403,9 +6403,9 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Elimina la textura actual definida por el usuario.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1729"/>
+        <location filename="MainWindow.cpp" line="-1736"/>
         <location line="+12"/>
-        <location line="+1925"/>
+        <location line="+1932"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6422,7 +6422,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Jugador</translation>
     </message>
     <message>
-        <location line="-2015"/>
+        <location line="-2022"/>
         <source>&amp;Channel</source>
         <translation>&amp;Canal</translation>
     </message>
@@ -6445,7 +6445,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Expulsando al jugador %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1013"/>
+        <location filename="MainWindow.cpp" line="+1018"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Introduzca el motivo</translation>
@@ -6468,7 +6468,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">¿Está seguro de que desa borrar %1 y todos sus subcanales?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+441"/>
+        <location filename="MainWindow.cpp" line="+443"/>
         <source>Unmuted and undeafened.</source>
         <translation>Con voz y escucha.</translation>
     </message>
@@ -6521,7 +6521,7 @@ p, li { white-space: pre-wrap; }
         <translation>Desconectado del servidor.</translation>
     </message>
     <message>
-        <location line="-1347"/>
+        <location line="-1351"/>
         <source>Reconnecting.</source>
         <translation>Volviendo a conectar.</translation>
     </message>
@@ -6868,7 +6868,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">%1 ensordecido por %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-601"/>
+        <location filename="MainWindow.cpp" line="-604"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Presionar-para-Hablar (PTT)</translation>
@@ -6947,7 +6947,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">%2 mudó a %1.</translation>
     </message>
     <message>
-        <location line="+1220"/>
+        <location line="+1227"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>¿Está seguro de que desa borrar %1 y todos sus subcanales?</translation>
     </message>
@@ -6981,7 +6981,7 @@ p, li { white-space: pre-wrap; }
         <translation>Enviar un mensaje de texto</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-232"/>
+        <location filename="MainWindow.cpp" line="-234"/>
         <source>Sending message to %1</source>
         <translation>Enviando mensaje a %1</translation>
     </message>
@@ -7012,7 +7012,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="-4"/>
-        <location line="+225"/>
+        <location line="+227"/>
         <source>Message to channel %1</source>
         <translation>Mensaje al canal %1</translation>
     </message>
@@ -7076,7 +7076,7 @@ p, li { white-space: pre-wrap; }
         <translation>Envía un mensaje de texto a otro usuario.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2000"/>
+        <location filename="MainWindow.cpp" line="-2007"/>
         <source>&amp;User</source>
         <translation>&amp;Usuario</translation>
     </message>
@@ -7167,7 +7167,7 @@ p, li { white-space: pre-wrap; }
         <translation>Le guiará a través del proceso de configuración de su hardware de audio.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1910"/>
+        <location filename="MainWindow.cpp" line="+1917"/>
         <source>SSL Verification failed: %1</source>
         <translation>Falló la verificación SSL: %1</translation>
     </message>
@@ -7226,7 +7226,7 @@ p, li { white-space: pre-wrap; }
         <translation>Muestra información extendida acerca de la conexión con el servidor.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1579"/>
+        <location filename="MainWindow.cpp" line="-1584"/>
         <source>Opening URL %1</source>
         <translation>Abriendo URL %1</translation>
     </message>
@@ -7267,7 +7267,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+18"/>
-        <location line="+183"/>
+        <location line="+184"/>
         <source>Connecting to server %1.</source>
         <translation>Conectando al servidor %1.</translation>
     </message>
@@ -7292,7 +7292,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1416"/>
+        <location line="+1420"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation>Imágenes (*.png *.jpg *.svg)</translation>
     </message>
@@ -7301,7 +7301,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bit&lt;br /&gt;%3 ms de latencia media (desviación %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1407"/>
+        <location line="-1411"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bit&lt;br /&gt;%3 ms de latencia media (desviación %4)&lt;/p&gt;&lt;p&gt;Anfitrión remoto %5 (puerto %6)&lt;/p&gt;</translation>
     </message>
@@ -7322,13 +7322,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="-106"/>
-        <location line="+279"/>
+        <location line="+281"/>
         <source>Register yourself as %1</source>
         <translation>Registrarse como %1</translation>
     </message>
     <message>
-        <location line="-279"/>
-        <location line="+279"/>
+        <location line="-281"/>
+        <location line="+281"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Está a punto de registrarse en este servidor. Esta acción no puede deshacerse, y su nombre de usuario no puede cambiarse una vez que se complete. Será conocido para siempre como &apos;%1&apos; en este servidor.&lt;/p&gt;&lt;p&gt;¿Está seguro de que desea registrarse?&lt;/p&gt;</translation>
     </message>
@@ -7363,7 +7363,7 @@ p, li { white-space: pre-wrap; }
         <translation>¿Está seguro de que desea reiniciar el comentario sobre el usuario %1?</translation>
     </message>
     <message>
-        <location line="+263"/>
+        <location line="+265"/>
         <source>(Tree) %1: %2</source>
         <translation>(Árbol) %1: %2</translation>
     </message>
@@ -7431,8 +7431,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Canal de control: latencia %1 ms, Cifrado con %3 bit %4&lt;br /&gt;Canal de voz: latencia %2 ms, Sin cifrar</translation>
     </message>
     <message>
-        <location line="-1403"/>
-        <location line="+1128"/>
+        <location line="-1407"/>
+        <location line="+1132"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Ver certificado</translation>
     </message>
@@ -7441,7 +7441,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bits&lt;br /&gt;%3 ms de latencia media (%4 de varianza)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1894"/>
+        <location line="-1901"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
         <translation>Mantenga pulsado este botón para enviar la voz.</translation>
@@ -7484,7 +7484,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Esto conmutará el estado de la sobreimpresión durante el juego entre mostrar a todos, sólo mostrar los jugadores que están hablando, y no mostrar a nadie.</translation>
     </message>
     <message>
-        <location line="+719"/>
+        <location line="+722"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>El canal de voz se envía a través del canal de control.</translation>
     </message>
@@ -7532,7 +7532,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Cambiar descripción del canal %1</translation>
     </message>
     <message>
-        <location line="+561"/>
+        <location line="+565"/>
         <source>Sending message to channel %1</source>
         <translation>Enviando mensaje al canal %1</translation>
     </message>
@@ -7630,7 +7630,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Conectado al servidor %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1169"/>
+        <location filename="MainWindow.cpp" line="-1174"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble está conectado a un servidor actualmente. ¿Desea cerrarlo o minimizarlo?</translation>
     </message>
@@ -7640,13 +7640,13 @@ p, li { white-space: pre-wrap; }
         <translation>Cerrar</translation>
     </message>
     <message>
-        <location line="-98"/>
-        <location line="+99"/>
+        <location line="-100"/>
+        <location line="+101"/>
         <source>Minimize</source>
         <translation>Minimizar</translation>
     </message>
     <message>
-        <location line="-152"/>
+        <location line="-154"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Enmudecerse</translation>
@@ -7741,12 +7741,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+65"/>
-        <location line="+1942"/>
+        <location line="+1949"/>
         <source>Not connected</source>
         <translation>Desconectado</translation>
     </message>
     <message>
-        <location line="-1743"/>
+        <location line="-1748"/>
         <source>Clear</source>
         <translation>Borrar</translation>
     </message>
@@ -7756,7 +7756,7 @@ p, li { white-space: pre-wrap; }
         <translation>Registro</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1380"/>
+        <location filename="UserModel.cpp" line="+1382"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Ha establecido el arrastre de canales a &quot;No hacer nada&quot; así que el canal no se movió.</translation>
     </message>
@@ -8260,7 +8260,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+646"/>
+        <location filename="Overlay.cpp" line="+642"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>No se pudo establecer la comunicación con la sobreimpresión en %2: %1. La sobreimpresión no estará disponible.</translation>
     </message>
@@ -8500,7 +8500,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation>Color de los canales activos</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-503"/>
+        <location filename="Overlay.cpp" line="-505"/>
         <source>Overlay</source>
         <translation>Sobreimpresión</translation>
     </message>
@@ -8519,19 +8519,16 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation type="obsolete">Establece la anchura máxima de los nombres mostrados, relativa a la altura. Si fija esto a 100%, ninguna línea de texto será más ancha que su altura. A 500%, ninguna línea será 5 veces más ancha que su altura, y así sucesivamente.</translation>
     </message>
     <message>
-        <location/>
         <source>Show User Textures</source>
-        <translation>Mostrar texturas de los usuarios</translation>
+        <translation type="obsolete">Mostrar texturas de los usuarios</translation>
     </message>
     <message>
-        <location/>
         <source>Show User custom textures instead of text on the overlay.</source>
-        <translation>Muestra texturas personalizadas por el usuario en vez de texto en la sobreimpresión.</translation>
+        <translation type="obsolete">Muestra texturas personalizadas por el usuario en vez de texto en la sobreimpresión.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to download and use custom textures for registered users. If disabled, the regular outline text will be used instead.</source>
-        <translation>Establece si se descargarán y usarán texturas personalizadas para los usuarios registrados. Si se desactiva, se usará en su lugar el texto resumido habitual.</translation>
+        <translation type="obsolete">Establece si se descargarán y usarán texturas personalizadas para los usuarios registrados. Si se desactiva, se usará en su lugar el texto resumido habitual.</translation>
     </message>
     <message>
         <location/>
@@ -8549,7 +8546,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation>Altura máxima</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-95"/>
+        <location filename="Overlay.cpp" line="-89"/>
         <source>Show no one</source>
         <translation>No mostrar a nadie</translation>
     </message>
@@ -8565,7 +8562,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
     </message>
     <message>
         <location filename="Overlay.ui"/>
-        <location filename="Overlay.cpp" line="+73"/>
+        <location filename="Overlay.cpp" line="+67"/>
         <source>Color for users</source>
         <translation>Color de los usuarios</translation>
     </message>
@@ -8820,7 +8817,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+404"/>
+        <location filename="Plugins.cpp" line="+417"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
         <translation>Se ha descargado un complemento nuevo o actualizado para %1.</translation>
@@ -9534,7 +9531,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-809"/>
+        <location filename="UserModel.cpp" line="-811"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Éste es un usuario conectado al servidor. El icono a la izquierda del usuario indica si está o no hablando:</translation>
     </message>
@@ -9663,7 +9660,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+726"/>
+        <location line="+728"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>¿Está seguro de que desea arrastrar este canal?</translation>
     </message>

@@ -4138,7 +4138,7 @@ p, li { white-space: pre-wrap; }
         <translation>未知的頻道拖動模式 PlayerModel::dropMimeData。</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+227"/>
+        <location filename="main.cpp" line="+239"/>
         <source>Welcome to Mumble.</source>
         <translation>歡迎來到 Mumble。</translation>
     </message>

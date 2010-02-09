@@ -1,3 +1,34 @@
+2010-02-09
+  Mikkel Krautz <mikkel@krautz.dk>
+    b2cd5de  Do not add menus to user/channel context menus on OSX. Menus
+	     that are added to the global menu bar on Cocoa/OSX must not be
+	     added to other menus or menu bars, according to the Qt docs.
+    b303856  Disable unified toolbar on OSX. Too buggy at the moment. Get
+	     rid of graphical artifacts on launch.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c41a192  Zap commenthash when switching servers
+
+2010-02-08
+  Martin Skilnand <cybknight@users.sourceforge.net>
+    1e36860  Placeholder default_avatar.svg
+
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    070692d  Small style fixes in some plugins
+    dfaa2d5  Zero camera position if manual plugin is deactivated
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    3938ebe  Move plugin system-level includes to common header
+    99366f3  Disable config/about buttons if plugin doesn't have that, and
+	     add a generic_unlock
+    de21a22  Update STO plugin and add common initialize() function
+    effc993  Template helpers for Win32 plugins
+    e207ef6  Zero camera positions in plugins' fetch()
+    5271bc0  Disable PLUGIN_DEBUG as the console spams breaks up audio
+    33b90aa  Spawn state for STO
+    f1c66fb  STO plugin, and use camera position for positional audio and
+	     rotate top vector properly
+
 2010-02-07
   Thorvald Natvig <slicer@users.sourceforge.net>
     5595aba  Add vertical space for empty lines and add some space around
@@ -5,6 +36,9 @@
     f7d3dc7  Deprecate the OverlayUserTextures option; they are now
 	     on-demand loaded avatars, so always on
     8a1705d  Work around colors lost when application style lost
+
+  Żukowski Michał <zuczeq@gmail.com>
+    1ec8726  Small fixes in Polish translation
 
 2010-02-06
   Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>

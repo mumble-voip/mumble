@@ -3786,7 +3786,7 @@ Możesz dowolnie skonfigurować okno dziennika w Konfiguracja&gt;Ustawienia&gt;W
         <translation>Zabroniono: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+227"/>
+        <location filename="main.cpp" line="+239"/>
         <source>Welcome to Mumble.</source>
         <translation>Witamy w Mumble.</translation>
     </message>

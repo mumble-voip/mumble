@@ -35,63 +35,63 @@ static BYTE *contextptr;
 static BYTE *posptr;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
-		char identblock[0x200];
-		char contextblock[0x80];
-		float posblock[64];
+	char identblock[0x200];
+	char contextblock[0x80];
+	float posblock[64];
 
-		if (! peekProc(identptr, identblock) ||
-		    ! peekProc(contextptr, contextblock) ||
-		    ! peekProc(posptr, posblock)) 
-		    return false;
-		    
-		std::string ident = std::string(identblock+0x188, strnlen(identblock + 0x188, 0x78)) + std::string("@") + std::string(identblock, strnlen(identblock, 0x80));
-		u8(identity, ident);
+	if (! peekProc(identptr, identblock) ||
+	        ! peekProc(contextptr, contextblock) ||
+	        ! peekProc(posptr, posblock))
+		return false;
+
+	std::string ident = std::string(identblock+0x188, strnlen(identblock + 0x188, 0x78)) + std::string("@") + std::string(identblock, strnlen(identblock, 0x80));
+	u8(identity, ident);
 
 #ifdef PLUGIN_DEBUG
-		printf("%ls\n", identity.c_str());
+	printf("%ls\n", identity.c_str());
 #endif
 
-		context.assign(reinterpret_cast<char *>(contextblock + 0x30), 4);
+	context.assign(reinterpret_cast<char *>(contextblock + 0x30), 4);
 #ifdef PLUGIN_DEBUG
-		DWORD *ctx = reinterpret_cast<DWORD *>(contextblock + 0x30);
-		printf("%08x\n", *ctx);
+	DWORD *ctx = reinterpret_cast<DWORD *>(contextblock + 0x30);
+	printf("%08x\n", *ctx);
 #endif
-		
+
 #ifdef PLUGIN_DEBUG
-		printf("Avatar   %8.3f %8.3f %8.3f\n", posblock[0], posblock[1], posblock[2]);
-		printf("AvatarF  %8.3f %8.3f %8.3f\n", posblock[15], posblock[16], posblock[17]);
-		printf("Camera   %8.3f %8.3f %8.3f\n", posblock[3], posblock[4], posblock[5]);
-		printf("CameraF  %8.3f %8.3f %8.3f\n", posblock[18], posblock[19], posblock[20]);
-		printf("SpawnST  %d\n", * reinterpret_cast<DWORD *>(& posblock[52]));
+	printf("Avatar   %8.3f %8.3f %8.3f\n", posblock[0], posblock[1], posblock[2]);
+	printf("AvatarF  %8.3f %8.3f %8.3f\n", posblock[15], posblock[16], posblock[17]);
+	printf("Camera   %8.3f %8.3f %8.3f\n", posblock[3], posblock[4], posblock[5]);
+	printf("CameraF  %8.3f %8.3f %8.3f\n", posblock[18], posblock[19], posblock[20]);
+	printf("SpawnST  %d\n", * reinterpret_cast<DWORD *>(& posblock[52]));
 #endif
-		if (* reinterpret_cast<DWORD *>(& posblock[52]) == 1) {
-			for(int i=0;i<3;++i) {
-				avatar_pos[i] = posblock[i];
-				avatar_front[i] = posblock[i+15];
-				camera_pos[i] = posblock[i+3];
-				camera_front[i] = posblock[i+18];
-				
-				avatar_top[i] = camera_top[i] = 0.0f;
-			}
-		} else {
-			for (int i=0;i<3;++i) {
-				avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
-			}
+	if (* reinterpret_cast<DWORD *>(& posblock[52]) == 1) {
+		for (int i=0;i<3;++i) {
+			avatar_pos[i] = posblock[i];
+			avatar_front[i] = posblock[i+15];
+			camera_pos[i] = posblock[i+3];
+			camera_front[i] = posblock[i+18];
+
+			avatar_top[i] = camera_top[i] = 0.0f;
 		}
+	} else {
+		for (int i=0;i<3;++i) {
+			avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
+		}
+	}
 
 	return true;
 }
 
 static int trylock() {
 	identptr = contextptr = posptr = NULL;
-	
+
 	if (! initialize(L"GameClient.exe"))
 		return false;
-	
+
 	char version[17];
 	peekProc(pModule + 0x15E8778, version);
 	version[16]=0;
-	
+
 	if (memcmp(version, "ST.0.20100202a.7", sizeof(version)) == 0) {
 #ifdef PLUGIN_DEBUG
 		printf("STO: WANTLINK %s\n", version);
@@ -99,7 +99,7 @@ static int trylock() {
 		identptr = pModule + 0x1675E80;
 		contextptr = pModule + 0x1675a30;
 		posptr = pModule + 0x1885da0;
-		
+
 		return true;
 	} else {
 		generic_unlock();

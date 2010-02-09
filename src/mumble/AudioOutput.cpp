@@ -996,21 +996,21 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			svol[i] = mul * fSpeakerVolume[i];
 
 		if (g.s.bPositionalAudio && (iChannels > 1) && g.p->fetch() && (g.bPosTest || g.p->fCameraPosition[0] != 0 || g.p->fCameraPosition[1] != 0 || g.p->fCameraPosition[2] != 0)) {
-			
+
 			float front[3] = { g.p->fCameraFront[0], g.p->fCameraFront[1], g.p->fCameraFront[2] };
 			float top[3] = { g.p->fCameraTop[0], g.p->fCameraTop[1], g.p->fCameraTop[2] };
 
 			// Front vector is dominant; if it's zero we presume all is zero.
 
 			float flen = sqrtf(front[0]*front[0]+front[1]*front[1]+front[2]*front[2]);
-			
+
 			if (flen > 0.0f) {
 				front[0] *= (1.0f / flen);
 				front[1] *= (1.0f / flen);
 				front[2] *= (1.0f / flen);
 
 				float tlen = sqrtf(top[0]*top[0]+top[1]*top[1]+top[2]*top[2]);
-				
+
 				if (tlen > 0.0f) {
 					top[0] *= (1.0f / tlen);
 					top[1] *= (1.0f / tlen);
@@ -1023,12 +1023,12 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 
 				if (fabs(front[0] * top[0] + front[1] * top[1] + front[2] * top[2]) > 0.01f) {
 					// Not perpendicular. Assume Y up and rotate 90 degrees.
-					
+
 					float azimuth = 0.0f;
 					if ((front[0] != 0.0f) || (front[2] != 0.0f))
 						azimuth = atan2f(front[2], front[0]);
 					float inclination = acosf(front[1]) - M_PI / 2;
-					
+
 					top[0] = sinf(inclination)*cosf(azimuth);
 					top[1] = cosf(inclination);
 					top[2] = sinf(inclination)*sinf(azimuth);
@@ -1037,7 +1037,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 				front[0] = 0.0f;
 				front[1] = 0.0f;
 				front[2] = 1.0f;
-				
+
 				top[0] = 0.0f;
 				top[1] = 1.0f;
 				top[2] = 0.0f;

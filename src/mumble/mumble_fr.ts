@@ -2985,7 +2985,7 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation>Utilisateur Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+363"/>
+        <location filename="main.cpp" line="+390"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5122,7 +5122,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Apparence</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="+47"/>
+        <location filename="LookConfig.cpp" line="+52"/>
         <location line="+11"/>
         <source>System default</source>
         <translation>Par défault</translation>
@@ -5503,7 +5503,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1824"/>
+        <location line="+1831"/>
         <source>Root</source>
         <translation>Racine</translation>
     </message>
@@ -5695,7 +5695,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Délier</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1808"/>
+        <location filename="MainWindow.cpp" line="-1815"/>
         <source>&amp;User</source>
         <translation type="unfinished">&amp;Utilisateur</translation>
     </message>
@@ -6102,7 +6102,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+79"/>
         <location line="+12"/>
-        <location line="+1925"/>
+        <location line="+1932"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6124,7 +6124,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Joueur</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2015"/>
+        <location filename="MainWindow.cpp" line="-2022"/>
         <source>&amp;Channel</source>
         <translation type="unfinished">&amp;Salon</translation>
     </message>
@@ -6236,7 +6236,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Expulsion du joueur %1</translation>
     </message>
     <message>
-        <location line="+949"/>
+        <location line="+954"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Entrez la raison</translation>
@@ -6255,7 +6255,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Nom du canal</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+250"/>
+        <location filename="MainWindow.cpp" line="+252"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Etes-vous sûr(e) de vouloir supprimer %1 et tous ses sous-canaux ?</translation>
     </message>
@@ -6313,7 +6313,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Déconnecté du serveur.</translation>
     </message>
     <message>
-        <location line="-1347"/>
+        <location line="-1351"/>
         <source>Reconnecting.</source>
         <translation>Reconnexion.</translation>
     </message>
@@ -6655,7 +6655,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Envoyer un message textuel à un autre utilisateur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+415"/>
+        <location filename="MainWindow.cpp" line="+417"/>
         <source>Sending message to %1</source>
         <translation>Envoi du message à %1</translation>
     </message>
@@ -6687,7 +6687,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+263"/>
+        <location line="+265"/>
         <source>(Tree) %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6796,7 +6796,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Ceci affiche des informations supplémentaires sur la connexion au serveur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1572"/>
+        <location filename="MainWindow.cpp" line="-1577"/>
         <source>Opening URL %1</source>
         <translation>Ouvrir l&apos;URL %1</translation>
     </message>
@@ -6837,7 +6837,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+18"/>
-        <location line="+183"/>
+        <location line="+184"/>
         <source>Connecting to server %1.</source>
         <translation>Connexion au serveur %1.</translation>
     </message>
@@ -6882,19 +6882,19 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1128"/>
+        <location line="+1132"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Voir le certificat</translation>
     </message>
     <message>
-        <location line="-1238"/>
-        <location line="+279"/>
+        <location line="-1242"/>
+        <location line="+281"/>
         <source>Register yourself as %1</source>
         <translation>S&apos;enregistrement en tant que %1</translation>
     </message>
     <message>
-        <location line="-279"/>
-        <location line="+279"/>
+        <location line="-281"/>
+        <location line="+281"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vous êtes sur le point de vous enregistrer sur ce serveur. Cette action ne peut pas être annulée, et votre identifiant ne pourra plus être modifié une fois cette étape effectuée. Vous serez pour toujours connu comme &apos;%1&apos; sur ce serveur&lt;/p&gt;&lt;p&gt;Êtes-vous sûr de vouloir vous enregistrer ?&lt;/p&gt;</translation>
     </message>
@@ -6928,7 +6928,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+107"/>
-        <location line="+225"/>
+        <location line="+227"/>
         <source>Message to channel %1</source>
         <translation>Message pour le salon %1</translation>
     </message>
@@ -6997,7 +6997,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Format d&apos;image non reconnu.</translation>
     </message>
     <message>
-        <location line="-1422"/>
+        <location line="-1426"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>La voix est envoyée au dessus du canal de contrôle.</translation>
     </message>
@@ -7042,7 +7042,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Resynchronise</translation>
     </message>
     <message>
-        <location line="+561"/>
+        <location line="+565"/>
         <source>Sending message to channel %1</source>
         <translation>Envoyé un message au salon %1</translation>
     </message>
@@ -7128,7 +7128,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Connecté au serveur %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1169"/>
+        <location filename="MainWindow.cpp" line="-1174"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble est actuellement connecté à un serveur. Voulez-vous le fermer ou le réduire dans la barre des tâches?</translation>
     </message>
@@ -7138,13 +7138,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Fermer</translation>
     </message>
     <message>
-        <location line="-98"/>
-        <location line="+99"/>
+        <location line="-100"/>
+        <location line="+101"/>
         <source>Minimize</source>
         <translation>Réduire</translation>
     </message>
     <message>
-        <location line="-152"/>
+        <location line="-154"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Se rendre muet(te)</translation>
@@ -7239,12 +7239,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+1942"/>
+        <location line="+1949"/>
         <source>Not connected</source>
         <translation>Non connecté</translation>
     </message>
     <message>
-        <location line="-1743"/>
+        <location line="-1748"/>
         <source>Clear</source>
         <translation>Effacer</translation>
     </message>
@@ -7254,7 +7254,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Historique</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1380"/>
+        <location filename="UserModel.cpp" line="+1382"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Votre option &apos;Faire glisser le salon&apos; est définie sur &quot;Ne rien faire&quot;, le salon n&apos;a donc pas été déplacé.</translation>
     </message>
@@ -7731,7 +7731,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+646"/>
+        <location filename="Overlay.cpp" line="+642"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7963,7 +7963,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation>Couleur des canaux actifs</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-503"/>
+        <location filename="Overlay.cpp" line="-505"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
@@ -7983,22 +7983,19 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation>Hauteur maximum</translation>
     </message>
     <message>
-        <location/>
         <source>Show User Textures</source>
-        <translation>Montrer les textures des utilisateurs</translation>
+        <translation type="obsolete">Montrer les textures des utilisateurs</translation>
     </message>
     <message>
-        <location/>
         <source>Show User custom textures instead of text on the overlay.</source>
-        <translation>Montrer les textures des utilisateurs au lieu du texte de l&apos;overlay.</translation>
+        <translation type="obsolete">Montrer les textures des utilisateurs au lieu du texte de l&apos;overlay.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to download and use custom textures for registered users. If disabled, the regular outline text will be used instead.</source>
-        <translation>Ceci définit le téléchargement et l&apos;utilisation des textures personnalisées pour les utilisateurs enregistrés. Si désactivé, l&apos;esquisse de texte ordinaire sera utilisé à sa place.</translation>
+        <translation type="obsolete">Ceci définit le téléchargement et l&apos;utilisation des textures personnalisées pour les utilisateurs enregistrés. Si désactivé, l&apos;esquisse de texte ordinaire sera utilisé à sa place.</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-95"/>
+        <location filename="Overlay.cpp" line="-89"/>
         <source>Show no one</source>
         <translation>Afficher aucun</translation>
     </message>
@@ -8014,7 +8011,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     </message>
     <message>
         <location filename="Overlay.ui"/>
-        <location filename="Overlay.cpp" line="+73"/>
+        <location filename="Overlay.cpp" line="+67"/>
         <source>Color for users</source>
         <translation>Couleur des utilisateurs</translation>
     </message>
@@ -8253,7 +8250,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+404"/>
+        <location filename="Plugins.cpp" line="+417"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
         <translation>Téléchargé le nouveau plugin ou mis à jour vers %1.</translation>
@@ -8949,7 +8946,7 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-809"/>
+        <location filename="UserModel.cpp" line="-811"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>C&apos;est un utilisateur connecté au serveur. L&apos;icône à gauche de l&apos;utilisateur infique si il parle ou pas :</translation>
     </message>
@@ -9078,7 +9075,7 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+726"/>
+        <location line="+728"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Etes vous sur de vouloir déplacer ce salon ?</translation>
     </message>

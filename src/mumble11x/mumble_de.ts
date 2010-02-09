@@ -4588,7 +4588,7 @@ p, li { white-space: pre-wrap; }
         <translation>Abgelehnt: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+227"/>
+        <location filename="main.cpp" line="+239"/>
         <source>Welcome to Mumble.</source>
         <translation>Willkommen in Mumble.</translation>
     </message>

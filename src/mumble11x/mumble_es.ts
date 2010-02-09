@@ -4018,7 +4018,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="+227"/>
+        <location filename="main.cpp" line="+239"/>
         <source>Welcome to Mumble.</source>
         <translation>Bienvenido a Mumble.</translation>
     </message>

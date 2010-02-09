@@ -4172,7 +4172,7 @@ p, li { white-space: pre-wrap; }
         <translation>Modalità trascianamento canale sconosciuta in PlayerModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+227"/>
+        <location filename="main.cpp" line="+239"/>
         <source>Welcome to Mumble.</source>
         <translation>Benvenuto su Mumble.</translation>
     </message>
