@@ -1971,7 +1971,7 @@ void MainWindow::serverConnected() {
 
 	Channel *root = Channel::get(0);
 	pmModel->renameChannel(root, tr("Root"));
-	pmModel->setComment(root, QString());
+	pmModel->setCommentHash(root, QByteArray());
 	root->uiPermissions = 0;
 
 	qtvUsers->setRowHidden(0, QModelIndex(), false);
