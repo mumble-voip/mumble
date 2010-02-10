@@ -76,8 +76,6 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) 
 	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
 }
 
-#define SNAPSHOT_BUILD
-
 void VersionCheck::finished() {
 	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
 	QUrl url = rep->request().url();
