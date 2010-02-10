@@ -1,7 +1,7 @@
 <pkgref spec="1.12" uuid="6AB1E063-9961-4D61-A451-60139AFE7955">
   <config>
     <identifier>net.sourceforge.mumble.base</identifier>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
     <description></description>
     <post-install type="none" />
     <requireAuthorization />

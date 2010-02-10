@@ -195,11 +195,11 @@ Section "" SectionCommon
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
                  "Publisher" "Mumble"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
-                 "InstallSource" "http://prdownloads.sourceforge.net/mumble/Mumble-1.2.2.exe?download"
+                 "InstallSource" "http://prdownloads.sourceforge.net/mumble/Mumble-1.2.3.exe?download"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
                  "URLInfoAbout" "http://mumble.sourceforge.net/"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
-                 "DisplayVersion" "1.2.2"
+                 "DisplayVersion" "1.2.3"
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \
                  "NoModify" 1
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Mumble" \

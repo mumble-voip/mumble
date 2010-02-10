@@ -558,7 +558,7 @@ void MainWindow::openUrl(const QUrl &url) {
 		return;
 	} else
 #endif
-		if ((major != 1) || (minor != 2) || (patch > 2)) {
+		if ((major != 1) || (minor != 2) || (patch > 3)) {
 			g.l->log(Log::Warning, tr("This version of Mumble can't handle URLs for Mumble version %1.%2.%3").arg(major).arg(minor).arg(patch));
 			return;
 		}
