@@ -380,6 +380,8 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		g.s.qbaMainWindowState = saveState();
 		g.s.qbaHeaderState = qtvUsers->header()->saveState();
 	}
+	g.bQuit = true;
+
 	QMainWindow::closeEvent(e);
 	qApp->quit();
 }

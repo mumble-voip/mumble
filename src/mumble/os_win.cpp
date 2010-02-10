@@ -236,6 +236,7 @@ void os_init() {
 #endif
 
 #ifndef COMPAT_CLIENT
+	g.qdBasePath.mkpath(QLatin1String("Snapshots"));
 	if (bIsWin7)
 		SetCurrentProcessExplicitAppUserModelID(QString::fromLatin1("net.sourceforge.mumble.Mumble").utf16());
 #endif

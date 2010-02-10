@@ -60,6 +60,8 @@ Global::Global() {
 	uiImageLength = 131072;
 
 	qs = NULL;
+	
+	bQuit = false;
 
 	QStringList qsl;
 	qsl << QCoreApplication::instance()->applicationDirPath();

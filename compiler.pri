@@ -157,3 +157,7 @@ CONFIG(no-pch) {
 } else {
  	CONFIG *= precompile_header
 }
+
+CONFIG(debug, debug|release) {
+	DEFINES *= SNAPSHOT_BUILD
+}

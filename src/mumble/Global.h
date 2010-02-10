@@ -92,6 +92,7 @@ public:
 	bool bAllowHTML;
 	unsigned int uiMessageLength;
 	unsigned int uiImageLength;
+	bool bQuit;
 	Global();
 	~Global();
 };

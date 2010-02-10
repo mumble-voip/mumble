@@ -76,15 +76,103 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) 
 	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
 }
 
+#define SNAPSHOT_BUILD
+
 void VersionCheck::finished() {
 	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
+	QUrl url = rep->request().url();
 
 	if (rep->error() == QNetworkReply::NoError) {
 		const QByteArray &a=rep->readAll();
-		if (! a.isEmpty())
+		if (! a.isEmpty()) {
+#if defined(SNAPSHOT_BUILD) && ! defined(COMPAT_CLIENT)
+			if (url.path() == QLatin1String("/focus.php")) {
+				g.mw->msgBox(QString::fromUtf8(a));
+			} else if (url.path() == QLatin1String("/ver.php")) {
+#ifndef Q_OS_WIN
+				g.mw->msgBox(QString::fromUtf8(a));
+#else
+				QDomDocument qdd;
+				qdd.setContent(a);
+				
+				QDomElement elem = qdd.firstChildElement(QLatin1String("p"));
+				elem = elem.firstChildElement(QLatin1String("a"));
+				
+				QUrl fetch = QUrl(elem.attribute(QLatin1String("href")));
+				if (! fetch.isValid()) {
+					g.mw->msgBox(QString::fromUtf8(a));
+				} else {
+					QString filename = g.qdBasePath.absoluteFilePath(QLatin1String("Snapshots/") + QFileInfo(fetch.path()).fileName());
+					
+					QFile qf(filename);
+					if (qf.exists()) {
+						QString	native = QDir::toNativeSeparators(filename);
+
+						WINTRUST_FILE_INFO file;
+						ZeroMemory(&file, sizeof(file));
+						file.cbStruct = sizeof(file);
+						file.pcwszFilePath = native.utf16();
+
+						WINTRUST_DATA data;
+						ZeroMemory(&data, sizeof(data));
+						data.cbStruct = sizeof(data);
+						data.dwUIChoice = WTD_UI_NONE;
+						data.fdwRevocationChecks = WTD_REVOKE_NONE;
+						data.dwUnionChoice = WTD_CHOICE_FILE;
+						data.pFile = &file;
+						data.dwProvFlags = WTD_SAFER_FLAG | WTD_USE_DEFAULT_OSVER_CHECK | WTD_LIFETIME_SIGNING_FLAG;
+						data.dwUIContext = WTD_UICONTEXT_INSTALL;
+
+						static GUID guid = WINTRUST_ACTION_GENERIC_VERIFY_V2;
+
+						HRESULT hr = WinVerifyTrust(0, &guid , &data);
+						
+						if (hr == 0) {
+							if (QMessageBox::question(g.mw,
+								tr("Upgrade Mumble"),
+								tr("A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?"),
+								QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes)
+							{
+								if (QProcess::startDetached(filename)) {
+									g.mw->bSuppressAskOnQuit = true;
+									qApp->closeAllWindows();
+								}
+							}
+							
+						} else {
+							g.mw->msgBox(tr("Corrupt download of new version detected. Automatically removed."));
+							qf.remove();
+						}
+					} else {
+						fetch.setHost(g.qsRegionalHost);
+						g.mw->msgBox(tr("Downloading new snapshot from %1 to %2").arg(fetch.toString(), filename));
+					
+						QNetworkRequest req(fetch);
+						QNetworkReply *nrep = g.nam->get(req);
+						connect(nrep, SIGNAL(finished()), this, SLOT(finished()));
+					
+						rep->deleteLater();
+						return;
+					}
+				}
+			} else {
+				QString filename = g.qdBasePath.absoluteFilePath(QLatin1String("Snapshots/") + QFileInfo(url.path()).fileName());
+
+				QFile qf(filename);
+				if (qf.open(QIODevice::WriteOnly)) {
+					qf.write(a);
+					qf.close();
+					new VersionCheck(true, g.mw);
+				} else {
+					g.mw->msgBox(tr("Failed to write new version to disc."));
+				}
+			}
+#endif
+#else
 			g.mw->msgBox(QString::fromUtf8(a));
+#endif
+		}
 	} else {
-		QUrl url = rep->request().url();
 		if (url.host() == g.qsRegionalHost) {
 			url.setHost(QLatin1String("mumble.info"));
 			QNetworkRequest req(url);
@@ -94,7 +182,7 @@ void VersionCheck::finished() {
 			rep->deleteLater();
 			return;
 		} else if (bSilent) {
-			g.mw->msgBox(tr("Mumble failed to retrieve version information from the SourceForge server."));
+			g.mw->msgBox(tr("Mumble failed to retrieve version information from the central server."));
 		}
 	}
 

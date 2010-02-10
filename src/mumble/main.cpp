@@ -398,7 +398,7 @@ int main(int argc, char **argv) {
 
 	if (g.s.bPluginCheck)
 		g.p->checkUpdates();
-
+		
 	if (url.isValid()) {
 		OpenURLEvent *oue = new OpenURLEvent(url);
 		qApp->postEvent(g.mw, oue);
@@ -411,7 +411,8 @@ int main(int argc, char **argv) {
 		g.mw->on_qaServerConnect_triggered();
 	}
 
-	res=a.exec();
+	if (! g.bQuit)
+		res=a.exec();
 
 	g.s.save();
 	if (g.sh && g.sh->isRunning())
