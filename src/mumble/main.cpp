@@ -408,8 +408,6 @@ int main(int argc, char **argv) {
 	if (! g.bQuit)
 		res=a.exec();
 		
-	qWarning() << "OUTLOOP";
-
 	g.s.save();
 	if (g.sh && g.sh->isRunning())
 		Database::setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts);
