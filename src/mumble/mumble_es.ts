@@ -2952,7 +2952,7 @@ Mumble se encuentra en continuo desarrollo, y el equipo de desarrollo quiere cen
         <translation>Inhabilitar Texto-A-Voz (TTS) y usar sonidos en su lugar.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+314"/>
+        <location filename="AudioWizard.cpp" line="+304"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -3208,7 +3208,7 @@ Mumble se encuentra en continuo desarrollo, y el equipo de desarrollo quiere cen
         <translation>Usuario Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+390"/>
+        <location filename="main.cpp" line="+384"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Vencimiento del certificado:&lt;/b&gt; Su certificado está a punto de caducar. Debe renovarlo, o de lo contrario no podrá conectarse a los servidores en los que se haya registrado.</translation>
     </message>
@@ -4452,17 +4452,17 @@ Nombre de usuario que se envia al servidor. Sepa que el servidor puede imponer r
         <translation type="obsolete">Falló la apertura del dispositivo DirectSound elegido. Usando los valores por defecto.</translation>
     </message>
     <message>
-        <location filename="DirectSound.cpp" line="+558"/>
+        <location filename="DirectSound.cpp" line="+556"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
         <translation>Falló la apertura del dispositivo DirectSound elegido. Se usará el dispositivo por defecto.</translation>
     </message>
     <message>
-        <location line="-384"/>
+        <location line="-382"/>
         <source>Default DirectSound Voice Input</source>
         <translation>Entrada de voz DirectSound por defecto</translation>
     </message>
     <message>
-        <location line="+463"/>
+        <location line="+461"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
         <translation>Falló la apertura del dispositivo DirectSound elegido. No se realizará ninguna captura del micrófono.</translation>
     </message>
@@ -4479,7 +4479,7 @@ Nombre de usuario que se envia al servidor. Sepa que el servidor puede imponer r
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-168"/>
+        <location line="-167"/>
         <source>Opening chosen DirectSound Output failed. No audio will be heard.</source>
         <translation>Falló la apertura del dispositivo DirectSound elegido. No se oirá audio.</translation>
     </message>
@@ -4489,12 +4489,12 @@ Nombre de usuario que se envia al servidor. Sepa que el servidor puede imponer r
         <translation>Falló la apertura del dispositivo DirectSound elegido. Se usará el dispositivo por defecto.</translation>
     </message>
     <message>
-        <location line="-248"/>
+        <location line="-247"/>
         <source>Default DirectSound Voice Output</source>
         <translation>Salida de voz DirectSound por defecto</translation>
     </message>
     <message>
-        <location line="+326"/>
+        <location line="+325"/>
         <source>Lost DirectSound output device.</source>
         <translation>Dispositivo de salida DirectSound perdido.</translation>
     </message>
@@ -5263,7 +5263,7 @@ p, li { white-space: pre-wrap; }
         <translation>Usuario dejó el canal</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+53"/>
         <source>the server</source>
         <translation>el servidor</translation>
     </message>
@@ -5308,7 +5308,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-509"/>
+        <location line="-510"/>
         <source>Toggle console for %1 events</source>
         <translation>Conmutar consola para eventos &quot;%1&quot;</translation>
     </message>
@@ -5890,13 +5890,13 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="-52"/>
+        <location filename="main.cpp" line="-46"/>
         <source>Welcome to Mumble.</source>
         <translation>Bienvenido a Mumble.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1831"/>
+        <location line="+1833"/>
         <source>Root</source>
         <translation>Root</translation>
     </message>
@@ -6403,9 +6403,9 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Elimina la textura actual definida por el usuario.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1736"/>
+        <location filename="MainWindow.cpp" line="-1738"/>
         <location line="+12"/>
-        <location line="+1932"/>
+        <location line="+1934"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6422,7 +6422,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Jugador</translation>
     </message>
     <message>
-        <location line="-2022"/>
+        <location line="-2024"/>
         <source>&amp;Channel</source>
         <translation>&amp;Canal</translation>
     </message>
@@ -6445,7 +6445,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Expulsando al jugador %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1018"/>
+        <location filename="MainWindow.cpp" line="+1020"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Introduzca el motivo</translation>
@@ -6868,7 +6868,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">%1 ensordecido por %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-604"/>
+        <location filename="MainWindow.cpp" line="-606"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Presionar-para-Hablar (PTT)</translation>
@@ -6947,7 +6947,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">%2 mudó a %1.</translation>
     </message>
     <message>
-        <location line="+1227"/>
+        <location line="+1229"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>¿Está seguro de que desa borrar %1 y todos sus subcanales?</translation>
     </message>
@@ -7076,7 +7076,7 @@ p, li { white-space: pre-wrap; }
         <translation>Envía un mensaje de texto a otro usuario.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2007"/>
+        <location filename="MainWindow.cpp" line="-2009"/>
         <source>&amp;User</source>
         <translation>&amp;Usuario</translation>
     </message>
@@ -7167,7 +7167,7 @@ p, li { white-space: pre-wrap; }
         <translation>Le guiará a través del proceso de configuración de su hardware de audio.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1917"/>
+        <location filename="MainWindow.cpp" line="+1919"/>
         <source>SSL Verification failed: %1</source>
         <translation>Falló la verificación SSL: %1</translation>
     </message>
@@ -7441,7 +7441,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bits&lt;br /&gt;%3 ms de latencia media (%4 de varianza)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1901"/>
+        <location line="-1903"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
         <translation>Mantenga pulsado este botón para enviar la voz.</translation>
@@ -7484,7 +7484,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Esto conmutará el estado de la sobreimpresión durante el juego entre mostrar a todos, sólo mostrar los jugadores que están hablando, y no mostrar a nadie.</translation>
     </message>
     <message>
-        <location line="+722"/>
+        <location line="+724"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>El canal de voz se envía a través del canal de control.</translation>
     </message>
@@ -7617,7 +7617,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">El ancho de banda máximo del servidor es sólo de %1 kbit/s. Se ha ajustado automáticamente la calidad.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+19"/>
+        <location filename="main.cpp" line="+13"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>Ésta es la primera vez que inicia Mumble.&lt;br /&gt;¿Le gustaría ejecutar el Asistente de audio para configurar su tarjeta de sonido?</translation>
     </message>
@@ -7630,7 +7630,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Conectado al servidor %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1174"/>
+        <location filename="MainWindow.cpp" line="-1176"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble está conectado a un servidor actualmente. ¿Desea cerrarlo o minimizarlo?</translation>
     </message>
@@ -7741,7 +7741,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+65"/>
-        <location line="+1949"/>
+        <location line="+1951"/>
         <source>Not connected</source>
         <translation>Desconectado</translation>
     </message>
@@ -8769,7 +8769,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+38"/>
+        <location filename="Plugins.cpp" line="+51"/>
         <source>Plugin has no configure function.</source>
         <translation>El complemento no tiene función de configuración.</translation>
     </message>
@@ -8794,7 +8794,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation>&amp;Configurar</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+12"/>
+        <location filename="Plugins.cpp" line="+14"/>
         <source>Plugin has no about function.</source>
         <translation>El complemento no tiene información &quot;acerca de&quot;.</translation>
     </message>
@@ -8817,7 +8817,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+417"/>
+        <location filename="Plugins.cpp" line="+420"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
         <translation>Se ha descargado un complemento nuevo o actualizado para %1.</translation>
@@ -9682,9 +9682,38 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
         <translation type="obsolete">No se pudo recuperar del servidor la información de la versión.</translation>
     </message>
     <message>
-        <location filename="VersionCheck.cpp" line="+97"/>
         <source>Mumble failed to retrieve version information from the SourceForge server.</source>
-        <translation>Mumble no pudo recuperar la información de la versión del servidor SourceForge.</translation>
+        <translation type="obsolete">Mumble no pudo recuperar la información de la versión del servidor SourceForge.</translation>
+    </message>
+    <message>
+        <location filename="VersionCheck.cpp" line="+132"/>
+        <source>Upgrade Mumble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Corrupt download of new version detected. Automatically removed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Downloading new snapshot from %1 to %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Failed to write new version to disc.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Mumble failed to retrieve version information from the central server.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

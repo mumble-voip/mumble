@@ -2443,7 +2443,7 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+314"/>
+        <location filename="AudioWizard.cpp" line="+304"/>
         <source>%1 ms</source>
         <translation type="unfinished">%1 ms</translation>
     </message>
@@ -2695,7 +2695,7 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+390"/>
+        <location filename="main.cpp" line="+384"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3795,17 +3795,17 @@ Username to send to the server. Be aware that the server can impose restrictions
         <translation type="obsolete">Otevírání vybraného vstupu DirectSound selhalo. Nebude prováděn záznam mikrofonu.</translation>
     </message>
     <message>
-        <location filename="DirectSound.cpp" line="+558"/>
+        <location filename="DirectSound.cpp" line="+556"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
         <translation>Otevírání vybraného vstupu DirectSound  selhalo. Bude použito výchozí zařízení.</translation>
     </message>
     <message>
-        <location line="-384"/>
+        <location line="-382"/>
         <source>Default DirectSound Voice Input</source>
         <translation type="unfinished">Výchozí DirectSound hlasový vstup</translation>
     </message>
     <message>
-        <location line="+463"/>
+        <location line="+461"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3822,7 +3822,7 @@ Username to send to the server. Be aware that the server can impose restrictions
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-168"/>
+        <location line="-167"/>
         <source>Opening chosen DirectSound Output failed. No audio will be heard.</source>
         <translation>Otevírání vybraného výstupu DirectSound selhalo. Nebude slyšet žádný zvukový výstup.</translation>
     </message>
@@ -3832,12 +3832,12 @@ Username to send to the server. Be aware that the server can impose restrictions
         <translation>Otevírání vybraného výstupu DirectSound  selhalo. Bude použito výchozí zařízení.</translation>
     </message>
     <message>
-        <location line="-248"/>
+        <location line="-247"/>
         <source>Default DirectSound Voice Output</source>
         <translation type="unfinished">Výchozí DirectSound hlasový výstup</translation>
     </message>
     <message>
-        <location line="+326"/>
+        <location line="+325"/>
         <source>Lost DirectSound output device.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4397,7 +4397,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+53"/>
         <source>the server</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4441,7 +4441,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-509"/>
+        <location line="-510"/>
         <source>Toggle console for %1 events</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4935,13 +4935,13 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="-52"/>
+        <location filename="main.cpp" line="-46"/>
         <source>Welcome to Mumble.</source>
         <translation>Vítejte v aplikaci Mumble.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1831"/>
+        <location line="+1833"/>
         <source>Root</source>
         <translation>Kořen</translation>
     </message>
@@ -5533,9 +5533,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Připojí se k webové stránce Mumble pro zjištění případné dostupnosti novějších verzí a vypíše vhodný odkaz na stažení, pokud je nová verze k dispozici.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1736"/>
+        <location filename="MainWindow.cpp" line="-1738"/>
         <location line="+12"/>
-        <location line="+1932"/>
+        <location line="+1934"/>
         <source>Mumble -- %1</source>
         <translation>Mumble =- %1 </translation>
     </message>
@@ -5557,7 +5557,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Uživatel</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2022"/>
+        <location filename="MainWindow.cpp" line="-2024"/>
         <source>&amp;Channel</source>
         <translation type="unfinished">&amp;Kanál</translation>
     </message>
@@ -5660,7 +5660,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Alternativní klávesa pro mluvení</translation>
     </message>
     <message>
-        <location line="+574"/>
+        <location line="+576"/>
         <source>Reconnecting.</source>
         <translation>Opětovné připojování.</translation>
     </message>
@@ -6293,12 +6293,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1917"/>
+        <location line="-1919"/>
         <source>&amp;User</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+778"/>
+        <location line="+780"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6434,12 +6434,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+19"/>
+        <location filename="main.cpp" line="+13"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1174"/>
+        <location filename="MainWindow.cpp" line="-1176"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6546,7 +6546,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+1949"/>
+        <location line="+1951"/>
         <source>Not connected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7457,12 +7457,12 @@ To může být způsobeno například těmito důvody:
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+38"/>
+        <location filename="Plugins.cpp" line="+51"/>
         <source>Plugin has no configure function.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+14"/>
         <source>Plugin has no about function.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7485,7 +7485,7 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+417"/>
+        <location filename="Plugins.cpp" line="+420"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
         <translation type="unfinished"></translation>
@@ -8271,9 +8271,38 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="VersionCheck.cpp" line="+97"/>
         <source>Mumble failed to retrieve version information from the SourceForge server.</source>
-        <translation>Mumble nedokázalo získat informace o aktuálních verzích ze serveru SourceForge.</translation>
+        <translation type="obsolete">Mumble nedokázalo získat informace o aktuálních verzích ze serveru SourceForge.</translation>
+    </message>
+    <message>
+        <location filename="VersionCheck.cpp" line="+132"/>
+        <source>Upgrade Mumble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Corrupt download of new version detected. Automatically removed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Downloading new snapshot from %1 to %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Failed to write new version to disc.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Mumble failed to retrieve version information from the central server.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

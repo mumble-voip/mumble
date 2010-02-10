@@ -2617,17 +2617,17 @@
         <translation type="obsolete">Открытие выбранного входа DirectSound невозможно. Ввод с микрофона неосуществим.</translation>
     </message>
     <message>
-        <location filename="DirectSound.cpp" line="+558"/>
+        <location filename="DirectSound.cpp" line="+556"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
         <translation>Открытие выбранного входа DirectSound невозможно. Будет использовано устройство по умолчанию.</translation>
     </message>
     <message>
-        <location line="-384"/>
+        <location line="-382"/>
         <source>Default DirectSound Voice Input</source>
         <translation type="unfinished">Голосовой вход DirectSound по умолчанию</translation>
     </message>
     <message>
-        <location line="+463"/>
+        <location line="+461"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2644,7 +2644,7 @@
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="-168"/>
+        <location line="-167"/>
         <source>Opening chosen DirectSound Output failed. No audio will be heard.</source>
         <translation>Открытие выбранного выхода DirectSound невозможно. Вы не услышите звука.</translation>
     </message>
@@ -2654,12 +2654,12 @@
         <translation>Открытие выбранного выхода DirectSound невозможно. Будет использовано устройство по умолчанию.</translation>
     </message>
     <message>
-        <location line="-248"/>
+        <location line="-247"/>
         <source>Default DirectSound Voice Output</source>
         <translation type="unfinished">Голосовой выход DirectSound по умолчанию</translation>
     </message>
     <message>
-        <location line="+326"/>
+        <location line="+325"/>
         <source>Lost DirectSound output device.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5471,9 +5471,38 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="VersionCheck.cpp" line="+97"/>
         <source>Mumble failed to retrieve version information from the SourceForge server.</source>
-        <translation>Mumble возвратил ошибку при запросе информации о версии с сервера SourceForge.</translation>
+        <translation type="obsolete">Mumble возвратил ошибку при запросе информации о версии с сервера SourceForge.</translation>
+    </message>
+    <message>
+        <location filename="VersionCheck.cpp" line="+132"/>
+        <source>Upgrade Mumble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Corrupt download of new version detected. Automatically removed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Downloading new snapshot from %1 to %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Failed to write new version to disc.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Mumble failed to retrieve version information from the central server.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -2141,7 +2141,7 @@ Mumble er under konstant udvikling, og udviklerteamet vil gerne fokusere på fun
         <translation>Tryk-for-snak:</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+314"/>
+        <location filename="AudioWizard.cpp" line="+304"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -2325,7 +2325,7 @@ Mumble er under konstant udvikling, og udviklerteamet vil gerne fokusere på fun
         <translation>Mumble bruger</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+390"/>
+        <location filename="main.cpp" line="+384"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Certifikat Udløb:&lt;/b&gt; Dit certifikat er ved at udløbe. Du skal fornye det, ellers vil du ikke længere være i stand til at forbinde til servere du registreret på.</translation>
     </message>
@@ -3313,7 +3313,7 @@ Brugernavn der skal sendes til serveren. Vær opmærksom på at serveren kan hav
         <translation>Standard DirectSounds stemmeindspilning</translation>
     </message>
     <message>
-        <location line="+463"/>
+        <location line="+461"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
         <translation>Åbning af valgte DirectSound indspilningsenhed mislykkedes. Ingen mikrofonopfangelse vil blive udført.</translation>
     </message>
@@ -3331,12 +3331,12 @@ Brugernavn der skal sendes til serveren. Vær opmærksom på at serveren kan hav
 <context>
     <name>DXAudioOutput</name>
     <message>
-        <location line="-498"/>
+        <location line="-496"/>
         <source>Default DirectSound Voice Output</source>
         <translation>Standard DirectSound lydafspilning</translation>
     </message>
     <message>
-        <location line="+248"/>
+        <location line="+247"/>
         <source>Opening chosen DirectSound Output failed. Default device will be used.</source>
         <translation>Åbning af valgte DirectSound afspilnings mislykkedes. Standardenhed vil blive brugt.</translation>
     </message>
@@ -3749,7 +3749,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Bruger forlader kanal</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+53"/>
         <source>the server</source>
         <translation>serveren</translation>
     </message>
@@ -3794,7 +3794,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-509"/>
+        <location line="-510"/>
         <source>Toggle console for %1 events</source>
         <translation>Slå konsol til/fra for %1-hændelser</translation>
     </message>
@@ -4267,12 +4267,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1831"/>
+        <location line="+1833"/>
         <source>Root</source>
         <translation>Rod</translation>
     </message>
     <message>
-        <location line="-1780"/>
+        <location line="-1782"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryk-for-snak</translation>
@@ -4351,12 +4351,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+1932"/>
+        <location line="+1934"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-1928"/>
+        <location line="-1930"/>
         <source>&amp;Window</source>
         <translation>&amp;Vindue</translation>
     </message>
@@ -4430,7 +4430,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1949"/>
+        <location line="+1951"/>
         <source>Not connected</source>
         <translation>Ingen forbindelse oprettet</translation>
     </message>
@@ -4854,7 +4854,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">&amp;Server</translation>
     </message>
     <message>
-        <location line="-2006"/>
+        <location line="-2008"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanal</translation>
     </message>
@@ -5871,12 +5871,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Ukendt kanalflytning-tilstand i UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-52"/>
+        <location filename="main.cpp" line="-46"/>
         <source>Welcome to Mumble.</source>
         <translation>Velkommen til Mumble.</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+13"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation>Dette er første gang du åbner Mumble.&lt;br /&gt;Kunne du tænke dig at gennemgå lydguiden for at konfigurere dit lydkort?</translation>
     </message>
@@ -6515,12 +6515,12 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+38"/>
+        <location filename="Plugins.cpp" line="+51"/>
         <source>Plugin has no configure function.</source>
         <translation>Plugin&apos;et har ingen konfigurationsfunktioner.</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+14"/>
         <source>Plugin has no about function.</source>
         <translation>Plugin&apos;et har ingen om-funktion.</translation>
     </message>
@@ -6608,7 +6608,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+417"/>
+        <location filename="Plugins.cpp" line="+420"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
         <translation>Downloadede nyt eller opdateret plugin til %1.</translation>
@@ -7374,9 +7374,38 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
 <context>
     <name>VersionCheck</name>
     <message>
-        <location filename="VersionCheck.cpp" line="+97"/>
         <source>Mumble failed to retrieve version information from the SourceForge server.</source>
-        <translation>Det mislykkedes Mumble at hente version-information fra SourceForge-serveren.</translation>
+        <translation type="obsolete">Det mislykkedes Mumble at hente version-information fra SourceForge-serveren.</translation>
+    </message>
+    <message>
+        <location filename="VersionCheck.cpp" line="+132"/>
+        <source>Upgrade Mumble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Corrupt download of new version detected. Automatically removed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Downloading new snapshot from %1 to %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Failed to write new version to disc.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Mumble failed to retrieve version information from the central server.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

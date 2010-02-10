@@ -166,7 +166,7 @@ AudioInput::AudioInput() {
 	if (g.uiSession) {
 		setMaxBandwidth(g.iMaxBandwidth);
 	}
-	
+
 	bRunning = true;
 
 	connect(this, SIGNAL(doMute()), g.mw->qaAudioMute, SLOT(trigger()), Qt::QueuedConnection);
@@ -535,7 +535,7 @@ void AudioInput::setMaxBandwidth(int bitspersec) {
 		ai->iAudioFrames = frames;
 		return;
 	}
-	
+
 	Audio::stopInput();
 	Audio::startInput();
 }
@@ -610,7 +610,7 @@ void AudioInput::encodeAudioFrame() {
 	short *psSource;
 
 	iFrameCounter++;
-	
+
 	if (! bRunning)
 		return;
 

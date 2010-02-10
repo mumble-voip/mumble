@@ -94,16 +94,16 @@ void VersionCheck::finished() {
 #else
 				QDomDocument qdd;
 				qdd.setContent(a);
-				
+
 				QDomElement elem = qdd.firstChildElement(QLatin1String("p"));
 				elem = elem.firstChildElement(QLatin1String("a"));
-				
+
 				QUrl fetch = QUrl(elem.attribute(QLatin1String("href")));
 				if (! fetch.isValid()) {
 					g.mw->msgBox(QString::fromUtf8(a));
 				} else {
 					QString filename = g.qdBasePath.absoluteFilePath(QLatin1String("Snapshots/") + QFileInfo(fetch.path()).fileName());
-					
+
 					QFile qf(filename);
 					if (qf.exists()) {
 						QString	native = QDir::toNativeSeparators(filename);
@@ -126,19 +126,18 @@ void VersionCheck::finished() {
 						static GUID guid = WINTRUST_ACTION_GENERIC_VERIFY_V2;
 
 						HRESULT hr = WinVerifyTrust(0, &guid , &data);
-						
+
 						if (hr == 0) {
 							if (QMessageBox::question(g.mw,
-								tr("Upgrade Mumble"),
-								tr("A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?"),
-								QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes)
-							{
+							                          tr("Upgrade Mumble"),
+							                          tr("A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?"),
+							                          QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes) {
 								if (QProcess::startDetached(filename)) {
 									g.mw->bSuppressAskOnQuit = true;
 									qApp->closeAllWindows();
 								}
 							}
-							
+
 						} else {
 							g.mw->msgBox(tr("Corrupt download of new version detected. Automatically removed."));
 							qf.remove();
@@ -146,11 +145,11 @@ void VersionCheck::finished() {
 					} else {
 						fetch.setHost(g.qsRegionalHost);
 						g.mw->msgBox(tr("Downloading new snapshot from %1 to %2").arg(fetch.toString(), filename));
-					
+
 						QNetworkRequest req(fetch);
 						QNetworkReply *nrep = g.nam->get(req);
 						connect(nrep, SIGNAL(finished()), this, SLOT(finished()));
-					
+
 						rep->deleteLater();
 						return;
 					}

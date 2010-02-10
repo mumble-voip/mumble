@@ -85,11 +85,11 @@ void PluginConfig::save() const {
 
 	s.bTransmitPosition = qcbTransmit->isChecked();
 	s.qmPositionalAudioPlugins.clear();
-	
+
 	QList<QTreeWidgetItem *> list = qtwPlugins->findItems(QString(), Qt::MatchContains);
 	foreach(QTreeWidgetItem *i, list) {
 		bool enabled = (i->checkState(1) == Qt::Checked);
-		
+
 		PluginInfo *pi = pluginForItem(i);
 		if (pi) {
 			s.qmPositionalAudioPlugins.insert(pi->filename, enabled);
@@ -113,7 +113,7 @@ void PluginConfig::on_qpbConfig_clicked() {
 	QReadLocker lock(&g.p->qrwlPlugins);
 
 	PluginInfo *pi=pluginForItem(qtwPlugins->currentItem());
-	
+
 	if (! pi)
 		return;
 
@@ -127,7 +127,7 @@ void PluginConfig::on_qpbAbout_clicked() {
 	QReadLocker lock(&g.p->qrwlPlugins);
 
 	PluginInfo *pi=pluginForItem(qtwPlugins->currentItem());
-	
+
 	if (! pi)
 		return;
 

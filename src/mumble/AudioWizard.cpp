@@ -242,9 +242,9 @@ void AudioWizard::on_qcbInputDevice_activated(int) {
 
 	if (! AudioInputRegistrar::qmNew)
 		return;
-		
+
 	Audio::stopInput();
-		
+
 	AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbInput->currentText());
 	int idx = qcbInputDevice->currentIndex();
 	if (idx > -1) {
@@ -381,7 +381,7 @@ void AudioWizard::restartAudio() {
 
 	g.s.qsAudioInput = qcbInput->currentText();
 	g.s.qsAudioOutput = qcbOutput->currentText();
-	
+
 	Audio::start();
 
 	if (qgsScene) {

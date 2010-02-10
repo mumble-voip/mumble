@@ -1,3 +1,15 @@
+2010-02-10
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    7d74f37  Fix new audio compile problems in 11x
+    1ef46ba  Add steam:// as allowed URL scheme
+    926e4fe  Create isAlive() to check runstate instead of bRunning, and
+	     unify stop/start of audio threads
+    e411773  Debian/kFreeBSD compile fixes
+    7c33c9b  Fix X11 compile of VersionCheck
+    b33d3b8  Automatic snapshot download and install
+    dd75b31  Make plugin config be name-based instead of pointer based
+    e31b265  Bump version to 1.2.3
+
 2010-02-09
   Mikkel Krautz <mikkel@krautz.dk>
     b2cd5de  Do not add menus to user/channel context menus on OSX. Menus

@@ -48,9 +48,9 @@
 
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
-void throw_exception(std::exception const &) {
-	qFatal("Boost exception caught!");
-}
+	void throw_exception(std::exception const &) {
+		qFatal("Boost exception caught!");
+	}
 }
 #endif
 

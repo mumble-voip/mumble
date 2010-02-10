@@ -57,9 +57,9 @@
 
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
-void throw_exception(std::exception const &) {
-	qFatal("Boost exception caught!");
-}
+	void throw_exception(std::exception const &) {
+		qFatal("Boost exception caught!");
+	}
 }
 #endif
 
@@ -392,7 +392,7 @@ int main(int argc, char **argv) {
 
 	if (g.s.bPluginCheck)
 		g.p->checkUpdates();
-		
+
 	if (url.isValid()) {
 		OpenURLEvent *oue = new OpenURLEvent(url);
 		qApp->postEvent(g.mw, oue);
@@ -407,7 +407,7 @@ int main(int argc, char **argv) {
 
 	if (! g.bQuit)
 		res=a.exec();
-		
+
 	g.s.save();
 	if (g.sh && g.sh->isRunning())
 		Database::setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts);

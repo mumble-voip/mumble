@@ -147,7 +147,7 @@ class AudioInput : public QThread {
 		int iBitrate;
 		float dPeakMic, dPeakSpeaker, dPeakSignal, dMaxMic;
 		float fSpeechProb;
-		
+
 		static int getNetworkBandwidth(int bitrate, int frames);
 		static void setMaxBandwidth(int bitspersec);
 
