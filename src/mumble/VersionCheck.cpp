@@ -166,8 +166,8 @@ void VersionCheck::finished() {
 				} else {
 					g.mw->msgBox(tr("Failed to write new version to disc."));
 				}
-			}
 #endif
+			}
 #else
 			g.mw->msgBox(QString::fromUtf8(a));
 #endif
