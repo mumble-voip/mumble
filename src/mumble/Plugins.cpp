@@ -81,28 +81,41 @@ void PluginConfig::load(const Settings &r) {
 }
 
 void PluginConfig::save() const {
+	QReadLocker lock(&g.p->qrwlPlugins);
+
 	s.bTransmitPosition = qcbTransmit->isChecked();
-	QMutexLocker lock(&g.p->qmPlugins);
-
 	s.qmPositionalAudioPlugins.clear();
-	foreach(int k, qhInfos.keys()) {
-		PluginInfo *pi = qhInfos[k];
-		bool enabled = qtwPlugins->topLevelItem(k)->checkState(1) == Qt::Checked;
-		s.qmPositionalAudioPlugins[QFileInfo(pi->filename).fileName()] = enabled;
-		pi->enabled = enabled;
+	
+	QList<QTreeWidgetItem *> list = qtwPlugins->findItems(QString(), Qt::MatchContains);
+	foreach(QTreeWidgetItem *i, list) {
+		bool enabled = (i->checkState(1) == Qt::Checked);
+		
+		PluginInfo *pi = pluginForItem(i);
+		if (pi) {
+			s.qmPositionalAudioPlugins.insert(pi->filename, enabled);
+			pi->enabled = enabled;
+		}
 	}
-
 }
 
 bool PluginConfig::expert(bool) {
 	return false;
 }
 
+PluginInfo *PluginConfig::pluginForItem(QTreeWidgetItem *i) const {
+	foreach(PluginInfo *pi, g.p->qlPlugins) {
+		if (pi->filename == i->data(0, Qt::UserRole).toString())
+			return pi;
+	}
+}
+
 void PluginConfig::on_qpbConfig_clicked() {
-	QModelIndex idx = qtwPlugins->currentIndex();
-	if (!idx.isValid())
+	QReadLocker lock(&g.p->qrwlPlugins);
+
+	PluginInfo *pi=pluginForItem(qtwPlugins->currentItem());
+	
+	if (! pi)
 		return;
-	PluginInfo *pi=qhInfos[idx.row()];
 
 	if (pi->p->config)
 		pi->p->config(winId());
@@ -111,10 +124,12 @@ void PluginConfig::on_qpbConfig_clicked() {
 }
 
 void PluginConfig::on_qpbAbout_clicked() {
-	QModelIndex idx = qtwPlugins->currentIndex();
-	if (!idx.isValid())
+	QReadLocker lock(&g.p->qrwlPlugins);
+
+	PluginInfo *pi=pluginForItem(qtwPlugins->currentItem());
+	
+	if (! pi)
 		return;
-	PluginInfo *pi=qhInfos[idx.row()];
 
 	if (pi->p->about)
 		pi->p->about(winId());
@@ -128,23 +143,26 @@ void PluginConfig::on_qpbReload_clicked() {
 }
 
 void PluginConfig::refillPluginList() {
-	QMutexLocker lock(&g.p->qmPlugins);
+	QReadLocker lock(&g.p->qrwlPlugins);
 	qtwPlugins->clear();
-	qhInfos.clear();
-	PluginInfo *pi;
-	foreach(pi, g.p->qlPlugins) {
+
+	foreach(PluginInfo *pi, g.p->qlPlugins) {
 		QTreeWidgetItem *i = new QTreeWidgetItem(qtwPlugins);
 		i->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 		i->setCheckState(1, pi->enabled ? Qt::Checked : Qt::Unchecked);
 		i->setText(0, pi->description);
-		qhInfos[qtwPlugins->indexOfTopLevelItem(i)] = pi;
+		if (pi->p->longdesc)
+			i->setToolTip(0, QString::fromStdWString(pi->p->longdesc()));
+		i->setData(0, Qt::UserRole, pi->filename);
 	}
 	qtwPlugins->setCurrentItem(qtwPlugins->topLevelItem(0));
 	on_qtwPlugins_currentItemChanged(qtwPlugins->topLevelItem(0), NULL);
 }
 
 void PluginConfig::on_qtwPlugins_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *) {
-	PluginInfo *pi = qhInfos.value(qtwPlugins->indexOfTopLevelItem(current));
+	QReadLocker lock(&g.p->qrwlPlugins);
+
+	PluginInfo *pi=pluginForItem(current);
 	if (pi) {
 		qpbAbout->setEnabled(pi->p->about != NULL);
 		qpbConfig->setEnabled(pi->p->config != NULL);
@@ -213,7 +231,7 @@ Plugins::~Plugins() {
 }
 
 void Plugins::clearPlugins() {
-	QMutexLocker lock(&qmPlugins);
+	QWriteLocker lock(&g.p->qrwlPlugins);
 	foreach(PluginInfo *pi, qlPlugins) {
 		if (pi->locked)
 			pi->p->unlock();
@@ -226,7 +244,7 @@ void Plugins::clearPlugins() {
 void Plugins::rescanPlugins() {
 	clearPlugins();
 
-	QMutexLocker lock(&qmPlugins);
+	QWriteLocker lock(&g.p->qrwlPlugins);
 	prevlocked = locked = NULL;
 	bValid = false;
 
@@ -239,8 +257,8 @@ void Plugins::rescanPlugins() {
 		QString libname = libinfo.absoluteFilePath();
 		if (!loaded.contains(fname) && QLibrary::isLibrary(libname)) {
 			PluginInfo *pi = new PluginInfo();
-			pi->filename = libname;
-			pi->lib.setFileName(pi->filename);
+			pi->lib.setFileName(libname);
+			pi->filename = fname;
 			if (pi->lib.load()) {
 				mumblePluginFunc mpf = reinterpret_cast<mumblePluginFunc>(pi->lib.resolve("getMumblePlugin"));
 				if (mpf) {
@@ -248,9 +266,9 @@ void Plugins::rescanPlugins() {
 					if (pi->p && (pi->p->magic == MUMBLE_PLUGIN_MAGIC)) {
 						pi->description = QString::fromStdWString(pi->p->description);
 						pi->shortname = QString::fromStdWString(pi->p->shortname);
+						pi->enabled = g.s.qmPositionalAudioPlugins.value(pi->filename, true);
 						qlPlugins << pi;
 						loaded.insert(fname);
-						pi->enabled = g.s.qmPositionalAudioPlugins.contains(fname) ? g.s.qmPositionalAudioPlugins[fname] : true;
 						continue;
 					}
 				}
@@ -288,7 +306,7 @@ bool Plugins::fetch() {
 		return bValid;
 	}
 
-	QMutexLocker lock(&qmPlugins);
+	QReadLocker lock(&g.p->qrwlPlugins);
 	if (! locked) {
 		bValid = false;
 		return bValid;
@@ -313,7 +331,7 @@ bool Plugins::fetch() {
 void Plugins::on_Timer_timeout() {
 	fetch();
 
-	QMutexLocker lock(&qmPlugins);
+	QReadLocker lock(&g.p->qrwlPlugins);
 
 	if (prevlocked) {
 		g.l->log(Log::Information, tr("%1 lost link.").arg(prevlocked->shortname));

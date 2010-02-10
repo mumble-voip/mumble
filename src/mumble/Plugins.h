@@ -42,7 +42,7 @@ class PluginConfig : public ConfigWidget, public Ui::PluginConfig {
 		Q_DISABLE_COPY(PluginConfig)
 	protected:
 		void refillPluginList();
-		QHash<int, PluginInfo *> qhInfos;
+		PluginInfo *pluginForItem(QTreeWidgetItem *) const;
 	public:
 		PluginConfig(Settings &st);
 		virtual QString title() const;
@@ -63,7 +63,7 @@ class Plugins : public QObject {
 		Q_OBJECT
 		Q_DISABLE_COPY(Plugins)
 	protected:
-		QMutex qmPlugins;
+		QReadWriteLock qrwlPlugins;
 		QList<PluginInfo *> qlPlugins;
 		PluginInfo *locked;
 		PluginInfo *prevlocked;
