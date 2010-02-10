@@ -199,22 +199,10 @@ void ConfigDialog::on_qcbExpert_clicked(bool b) {
 }
 
 void ConfigDialog::apply() {
+	Audio::stop();
+
 	foreach(ConfigWidget *cw, qmWidgets)
 		cw->save();
-
-	AudioInputPtr ai = g.ai;
-	AudioOutputPtr ao = g.ao;
-
-	g.ai.reset();
-	g.ao.reset();
-
-	while (! ai.unique() || ! ao.unique()) {
-#if QT_VERSION >= 0x040500
-		QThread::yieldCurrentThread();
-#endif
-	}
-	ai.reset();
-	ao.reset();
 
 	g.s = s;
 
@@ -224,17 +212,11 @@ void ConfigDialog::apply() {
 	if (!g.s.bAttenuateOthersOnTalk)
 		g.bAttenuateOthers = false;
 
-	g.ai = AudioInputRegistrar::newFromChoice(g.s.qsAudioInput);
-	if (g.ai)
-		g.ai->start(QThread::HighestPriority);
-	g.ao = AudioOutputRegistrar::newFromChoice(g.s.qsAudioOutput);
-	if (g.ao)
-		g.ao->start(QThread::HighPriority);
-
 	// They might have changed their keys.
 	g.iPushToTalk = 0;
-
 	g.s.bExpert = qcbExpert->isChecked();
+
+	Audio::start();
 }
 
 void ConfigDialog::accept() {

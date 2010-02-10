@@ -222,7 +222,6 @@ const QList<audioDevice> WASAPISystem::mapToDevice(const QHash<QString, QString>
 }
 
 WASAPIInput::WASAPIInput() {
-	bRunning = true;
 };
 
 WASAPIInput::~WASAPIInput() {
@@ -518,7 +517,6 @@ cleanup:
 }
 
 WASAPIOutput::WASAPIOutput() {
-	bRunning = true;
 }
 
 WASAPIOutput::~WASAPIOutput() {

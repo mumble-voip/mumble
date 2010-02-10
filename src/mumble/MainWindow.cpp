@@ -2387,6 +2387,8 @@ QPair<QByteArray, QImage> MainWindow::openImageFile() {
 }
 
 bool MainWindow::launchCompatibilityClient(const QUrl &url) {
+	Audio::stop();
+
 #ifdef Q_OS_MAC
 	FSRef fref;
 	OSStatus err;
@@ -2424,11 +2426,15 @@ bool MainWindow::launchCompatibilityClient(const QUrl &url) {
 		args << url.toString();
 
 		executable.replace(idx, 6, QLatin1String("mumble11x"));
-		if (QProcess::startDetached(executable, args))
-			this->close();
+		if (QProcess::startDetached(executable, args)) {
+			g.mw->bSuppressAskOnQuit = true;
+			qApp->closeAllWindows();
+		}
 		return true;
 	}
 #endif
+
+	Audio::start();
 
 	return false;
 }

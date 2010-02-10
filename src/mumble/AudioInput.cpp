@@ -166,8 +166,8 @@ AudioInput::AudioInput() {
 	if (g.uiSession) {
 		setMaxBandwidth(g.iMaxBandwidth);
 	}
-
-	bRunning = false;
+	
+	bRunning = true;
 
 	connect(this, SIGNAL(doMute()), g.mw->qaAudioMute, SLOT(trigger()), Qt::QueuedConnection);
 }
@@ -535,12 +535,9 @@ void AudioInput::setMaxBandwidth(int bitspersec) {
 		ai->iAudioFrames = frames;
 		return;
 	}
-	g.ai.reset();
-	while (! ai.unique()) {}
-	ai.reset();
-	g.ai = AudioInputRegistrar::newFromChoice(g.s.qsAudioInput);
-	if (g.ai)
-		g.ai->start(QThread::HighestPriority);
+	
+	Audio::stopInput();
+	Audio::startInput();
 }
 
 int AudioInput::getNetworkBandwidth(int bitrate, int frames) {
@@ -613,10 +610,9 @@ void AudioInput::encodeAudioFrame() {
 	short *psSource;
 
 	iFrameCounter++;
-
-	if (! bRunning) {
+	
+	if (! bRunning)
 		return;
-	}
 
 	sum=1.0f;
 	for (i=0;i<iFrameSize;i++)
@@ -888,4 +884,8 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 		g.sh->sendMessage(data, pds.size() + 1);
 
 	qlFrames.clear();
+}
+
+bool AudioInput::isAlive() const {
+	return isRunning();
 }

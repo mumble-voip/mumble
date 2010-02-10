@@ -242,14 +242,9 @@ void AudioWizard::on_qcbInputDevice_activated(int) {
 
 	if (! AudioInputRegistrar::qmNew)
 		return;
-
-	AudioInputPtr ai = g.ai;
-	g.ai.reset();
-
-	while (! ai.unique()) {
-	}
-	ai.reset();
-
+		
+	Audio::stopInput();
+		
 	AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbInput->currentText());
 	int idx = qcbInputDevice->currentIndex();
 	if (idx > -1) {
@@ -289,12 +284,7 @@ void AudioWizard::on_qcbOutputDevice_activated(int) {
 	if (! AudioOutputRegistrar::qmNew)
 		return;
 
-	AudioOutputPtr ao = g.ao;
-	g.ao.reset();
-
-	while (! ao.unique()) {
-	}
-	ao.reset();
+	Audio::stopOutput();
 
 	AudioOutputRegistrar *aor = AudioOutputRegistrar::qmNew->value(qcbOutput->currentText());
 	int idx = qcbOutputDevice->currentIndex();
@@ -385,32 +375,14 @@ void AudioWizard::playChord() {
 }
 
 void AudioWizard::restartAudio() {
-	AudioInputPtr ai = g.ai;
-	AudioOutputPtr ao = g.ao;
-
 	aosSource = NULL;
 
-	g.ai.reset();
-	g.ao.reset();
-
-	while (! ai.unique() || ! ao.unique()) {
-#if QT_VERSION >= 0x040500
-		QThread::yieldCurrentThread();
-#endif
-	}
-
-	ai.reset();
-	ao.reset();
+	Audio::stop();
 
 	g.s.qsAudioInput = qcbInput->currentText();
 	g.s.qsAudioOutput = qcbOutput->currentText();
-
-	g.ai = AudioInputRegistrar::newFromChoice(g.s.qsAudioInput);
-	if (g.ai)
-		g.ai->start(QThread::HighestPriority);
-	g.ao = AudioOutputRegistrar::newFromChoice(g.s.qsAudioOutput);
-	if (g.ao)
-		g.ao->start(QThread::HighPriority);
+	
+	Audio::start();
 
 	if (qgsScene) {
 		delete qgsScene;

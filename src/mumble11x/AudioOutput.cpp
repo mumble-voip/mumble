@@ -439,7 +439,7 @@ AudioOutput::AudioOutput() {
 	void *ds=speex_decoder_init(speex_lib_get_mode(SPEEX_MODEID_WB));
 	speex_decoder_ctl(ds, SPEEX_GET_FRAME_SIZE, &iFrameSize);
 	speex_decoder_destroy(ds);
-	bRunning = false;
+	bRunning = true;
 
 	iChannels = 0;
 	fSpeakers = NULL;
@@ -514,7 +514,7 @@ const float *AudioOutput::getSpeakerPos(unsigned int &speakers) {
 }
 
 AudioSine *AudioOutput::playSine(float hz, float i, unsigned int frames, float volume) {
-	while ((iMixerFreq == 0) && bRunning) {}
+	while ((iMixerFreq == 0) && isAlive()) {}
 	if (! iMixerFreq)
 		return NULL;
 
@@ -530,7 +530,7 @@ AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
 	if (packets.isEmpty())
 		return NULL;
 
-	while ((iMixerFreq == 0) && bRunning) {}
+	while ((iMixerFreq == 0) && isAlive()) {}
 	if (! iMixerFreq)
 		return NULL;
 
@@ -550,7 +550,7 @@ void AudioOutput::addFrameToBuffer(ClientPlayer *player, const QByteArray &qbaPa
 	if (! aop) {
 		qrwlOutputs.unlock();
 
-		while ((iMixerFreq == 0) && bRunning) {}
+		while ((iMixerFreq == 0) && isAlive()) {}
 		if (! iMixerFreq)
 			return;
 
@@ -896,4 +896,8 @@ bool AudioSine::needSamples(unsigned int snum) {
 		memset(pfBuffer, 0, sizeof(float) * snum);
 		return false;
 	}
+}
+
+bool AudioOutput::isAlive() const {
+	return isRunning();
 }

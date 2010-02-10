@@ -31,6 +31,7 @@
 #include <math.h>
 
 #include "Audio.h"
+#include "AudioInput.h"
 #include "AudioOutput.h"
 #include "Global.h"
 #include "PacketDataStream.h"
@@ -315,4 +316,66 @@ void LoopUser::fetchFrames() {
 	}
 
 	qtLastFetch.restart();
+}
+
+void Audio::startOutput(const QString &output) {
+	g.ao = AudioOutputRegistrar::newFromChoice(output);
+	if (g.ao)
+		g.ao->start(QThread::HighPriority);
+}
+
+void Audio::stopOutput() {
+	AudioOutputPtr ao = g.ao;
+
+	g.ao.reset();
+
+	while (ao.get() && ! ao.unique()) {
+#if QT_VERSION >= 0x040500
+		QThread::yieldCurrentThread();
+#endif
+	}
+
+	ao.reset();
+}
+
+void Audio::startInput(const QString &input) {
+	g.ai = AudioInputRegistrar::newFromChoice(input);
+	if (g.ai)
+		g.ai->start(QThread::HighestPriority);
+}
+
+void Audio::stopInput() {
+	AudioInputPtr ai = g.ai;
+
+	g.ai.reset();
+
+	while (ai.get() && ! ai.unique()) {
+#if QT_VERSION >= 0x040500
+		QThread::yieldCurrentThread();
+#endif
+	}
+
+	ai.reset();
+}
+
+void Audio::start(const QString &input, const QString &output) {
+	startInput(input);
+	startOutput(output);
+}
+
+void Audio::stop() {
+	AudioInputPtr ai = g.ai;
+	AudioOutputPtr ao = g.ao;
+
+	g.ao.reset();
+	g.ai.reset();
+
+	while ((ai.get() && ! ai.unique()) || (ao.get() && ! ao.unique())) {
+#if QT_VERSION >= 0x040500
+		QThread::yieldCurrentThread();
+#endif
+	}
+
+	ai.reset();
+	ao.reset();
 }

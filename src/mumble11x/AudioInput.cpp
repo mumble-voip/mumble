@@ -146,7 +146,7 @@ AudioInput::AudioInput() {
 		setMaxBandwidth(g.iMaxBandwidth);
 	}
 
-	bRunning = false;
+	bRunning = true;
 
 	connect(this, SIGNAL(doMute()), g.mw->qaAudioMute, SLOT(trigger()), Qt::QueuedConnection);
 }
@@ -749,4 +749,8 @@ void AudioInput::flushCheck() {
 
 	iFrames = 0;
 	speex_bits_reset(&sbBits);
+}
+
+bool AudioInput::isAlive() const {
+	return isRunning();
 }

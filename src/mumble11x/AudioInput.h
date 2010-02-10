@@ -133,6 +133,8 @@ class AudioInput : public QThread {
 
 		unsigned int iBestBin;
 
+		virtual bool isAlive() const;
+
 		bool isTransmitting() {
 			return bPreviousVoice;
 		};

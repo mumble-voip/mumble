@@ -343,13 +343,7 @@ int main(int argc, char **argv) {
 
 	MumbleFileEngineHandler *mfeh = new MumbleFileEngineHandler();
 
-	// And the start the last chosen audio system.
-	g.ai = AudioInputRegistrar::newFromChoice();
-	if (g.ai)
-		g.ai->start(QThread::HighestPriority);
-	g.ao = AudioOutputRegistrar::newFromChoice();
-	if (g.ao)
-		g.ao->start(QThread::HighPriority);
+	Audio::start();
 
 	a.setQuitOnLastWindowClosed(false);
 
@@ -413,21 +407,14 @@ int main(int argc, char **argv) {
 
 	if (! g.bQuit)
 		res=a.exec();
+		
+	qWarning() << "OUTLOOP";
 
 	g.s.save();
 	if (g.sh && g.sh->isRunning())
 		Database::setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts);
 
-	AudioInputPtr ai = g.ai;
-	AudioOutputPtr ao = g.ao;
-
-	g.ao.reset();
-	g.ai.reset();
-
-	while (! ai.unique() || ! ao.unique()) {}
-
-	ai.reset();
-	ao.reset();
+	Audio::stop();
 
 	g.sh->disconnect();
 

@@ -206,7 +206,6 @@ bool DXAudioInputRegistrar::canEcho(const QString &) const {
 }
 
 DXAudioOutput::DXAudioOutput() {
-	bRunning = true;
 }
 
 DXAudioOutput::~DXAudioOutput() {
@@ -480,7 +479,6 @@ cleanup:
 #define NBUFFBLOCKS 50
 
 DXAudioInput::DXAudioInput() {
-	bRunning = true;
 }
 
 DXAudioInput::~DXAudioInput() {

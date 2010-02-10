@@ -111,4 +111,15 @@ class LoopUser : public ClientUser {
 		void fetchFrames();
 };
 
+namespace Audio {
+	void startInput(const QString &input = QString());
+	void stopInput();
+	
+	void startOutput(const QString &output = QString());
+	void stopOutput();
+	
+	void start(const QString &input = QString(), const QString &output = QString());
+	void stop();
+}
+
 #endif

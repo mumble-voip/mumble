@@ -230,10 +230,12 @@ class AudioOutput : public QThread {
 
 		AudioOutput();
 		~AudioOutput();
+
 		void addFrameToBuffer(ClientUser *, const QByteArray &, unsigned int iSeq, MessageHandler::UDPMessageType type);
 		void removeBuffer(const ClientUser *);
 		AudioOutputSample *playSample(const QString &filename, bool loop = false);
 		void run() = 0;
+		virtual bool isAlive() const;
 		const float *getSpeakerPos(unsigned int &nspeakers);
 		static float calcGain(float dotproduct, float distance);
 };

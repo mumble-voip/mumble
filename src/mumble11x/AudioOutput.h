@@ -215,6 +215,7 @@ class AudioOutput : public QThread {
 		AudioSine *playSine(float hz, float i = 0.0, unsigned int frames = 0xffffff, float volume = 0.3f);
 		AudioOutputSample *playSample(const QString &filename, bool loop);
 		void run() = 0;
+		virtual bool isAlive() const;
 		const float *getSpeakerPos(unsigned int &nspeakers);
 		static float calcGain(float dotproduct, float distance);
 };

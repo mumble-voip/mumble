@@ -701,7 +701,7 @@ nextframe:
 
 AudioOutput::AudioOutput() {
 	iFrameSize = SAMPLE_RATE / 100;
-	bRunning = false;
+	bRunning = true;
 
 	iChannels = 0;
 	fSpeakers = NULL;
@@ -781,7 +781,7 @@ AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
 	if (handle == NULL)
 		return NULL;
 
-	while ((iMixerFreq == 0) && bRunning) {
+	while ((iMixerFreq == 0) && isAlive()) {
 #if QT_VERSION >= 0x040500
 		QThread::yieldCurrentThread();
 #endif
@@ -811,7 +811,7 @@ void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket
 		if (aop)
 			removeBuffer(aop);
 
-		while ((iMixerFreq == 0) && bRunning) {}
+		while ((iMixerFreq == 0) && isAlive()) {}
 
 		if (! iMixerFreq)
 			return;
@@ -1119,4 +1119,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		removeBuffer(aop);
 
 	return (! qlMix.isEmpty());
+}
+
+bool AudioOutput::isAlive() const {
+	return isRunning();
 }
