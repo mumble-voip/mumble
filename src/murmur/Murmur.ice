@@ -165,7 +165,7 @@ module Murmur
 		/** Reason for ban. */
 		string reason;
 		/** Date ban was applied in unix time format. */
-		long start;
+		int start;
 		/** Duration of ban. */
 		int duration;
 	};

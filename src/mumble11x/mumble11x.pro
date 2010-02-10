@@ -114,30 +114,6 @@ unix {
   CONFIG *= link_pkgconfig
 
   PKGCONFIG *= openssl ogg
-
-  contains(UNAME, Linux) {
-    !CONFIG(no-oss) {
-      CONFIG  *= oss
-    }
-
-    !CONFIG(no-alsa) {
-      CONFIG *= alsa
-    }
-
-    !CONFIG(no-speechd) {
-      CONFIG *= speechd
-    }
-
-    HEADERS *= GlobalShortcut_unix.h
-    SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp
-    LIBS *= -lrt
-  }
-
-  !macx {
-    PKGCONFIG *= x11
-    LIBS *= -lXi
-  }
-
   macx {
     TARGET = Mumble11x
     ICON = ../../icons/mumble.icns
@@ -159,6 +135,24 @@ unix {
     LIBS += -framework CoreAudio -framework AudioUnit -framework AudioToolbox
     SOURCES += CoreAudio.cpp
     HEADERS += CoreAudio.h
+  } else {
+    HEADERS *= GlobalShortcut_unix.h
+    SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp
+    PKGCONFIG *= x11
+    LIBS *= -lrt -lXi
+
+    !CONFIG(no-oss) {
+      CONFIG  *= oss
+    }
+
+    !CONFIG(no-alsa):contains(UNAME, Linux) {
+      CONFIG *= alsa
+    }
+
+    !CONFIG(no-speechd) {
+      CONFIG *= speechd
+    }
+
   }
 }
 
