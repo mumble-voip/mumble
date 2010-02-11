@@ -1391,6 +1391,9 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 
 		long long inewpos = 0;
 		Channel *dropped = Channel::c_qhChannels.value(iId);
+		
+		if (! dropped)
+			return false;
 
 		if (p.isValid()) {
 			ModelItem *pi = static_cast<ModelItem *>(p.internalPointer());
