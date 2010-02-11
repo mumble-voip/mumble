@@ -34,7 +34,9 @@
 #include "MainWindow.h"
 #include "Channel.h"
 #include "ServerHandler.h"
+#include "NetworkConfig.h"
 #include "Global.h"
+
 
 #ifdef Q_OS_MAC
 extern bool qt_mac_execute_apple_script(const QString &script, AEDesc *ret);
@@ -646,8 +648,7 @@ QVariant LogDocument::loadResource(int type, const QUrl &url) {
 	if ((url.scheme() != QLatin1String("http")) && (url.scheme() != QLatin1String("https")))
 		return qi;
 
-	QNetworkRequest req(url);
-	QNetworkReply *rep = g.nam->get(req);
+	QNetworkReply *rep = Network::get(url);
 	connect(rep, SIGNAL(metaDataChanged()), this, SLOT(receivedHead()));
 	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
 	return qi;

@@ -31,6 +31,7 @@
 #include "VersionCheck.h"
 #include "Global.h"
 #include "MainWindow.h"
+#include "NetworkConfig.h"
 
 VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) {
 	bSilent = autocheck;
@@ -71,8 +72,7 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) 
 		}
 	}
 
-	QNetworkRequest req(url);
-	QNetworkReply *rep = g.nam->get(req);
+	QNetworkReply *rep = Network::get(url);
 	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
 }
 
@@ -144,8 +144,7 @@ void VersionCheck::finished() {
 						fetch.setHost(g.qsRegionalHost);
 						g.mw->msgBox(tr("Downloading new snapshot from %1 to %2").arg(fetch.toString(), filename));
 
-						QNetworkRequest req(fetch);
-						QNetworkReply *nrep = g.nam->get(req);
+						QNetworkReply *nrep = Network::get(fetch);
 						connect(nrep, SIGNAL(finished()), this, SLOT(finished()));
 
 						rep->deleteLater();
@@ -172,8 +171,7 @@ void VersionCheck::finished() {
 	} else {
 		if (url.host() == g.qsRegionalHost) {
 			url.setHost(QLatin1String("mumble.info"));
-			QNetworkRequest req(url);
-			QNetworkReply *nrep = g.nam->get(req);
+			QNetworkReply *nrep = Network::get(url);
 			connect(nrep, SIGNAL(finished()), this, SLOT(finished()));
 
 			rep->deleteLater();

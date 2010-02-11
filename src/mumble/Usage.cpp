@@ -36,6 +36,7 @@
 #include "OSInfo.h"
 #include "LCD.h"
 #include "ClientUser.h"
+#include "NetworkConfig.h"
 
 Usage::Usage(QObject *p) : QObject(p) {
 	qbReport.open(QBuffer::ReadWrite);
@@ -89,6 +90,7 @@ void Usage::registerUsage() {
 	qb->open(QIODevice::ReadOnly);
 
 	QNetworkRequest req(QUrl(QLatin1String("http://mumble.info/usage.cgi")));
+	Network::prepareRequest(req);
 	req.setHeader(QNetworkRequest::ContentTypeHeader, QLatin1String("text/xml"));
 
 	QNetworkReply *rep = g.nam->post(req, qb);
@@ -104,6 +106,7 @@ void Usage::reportJitter() {
 		return;
 
 	QNetworkRequest req(QUrl(QLatin1String("http://mumble.info/jitter.cgi")));
+	Network::prepareRequest(req);
 	req.setHeader(QNetworkRequest::ContentTypeHeader, QLatin1String("application/octet-stream"));
 
 	QNetworkReply *rep = g.nam->post(req, qCompress(qbReport.buffer(), 9));

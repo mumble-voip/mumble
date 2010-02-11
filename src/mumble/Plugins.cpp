@@ -33,6 +33,7 @@
 #include "Message.h"
 #include "ServerHandler.h"
 #include "MainWindow.h"
+#include "NetworkConfig.h"
 #include "../../plugins/mumble_plugin.h"
 #include "Global.h"
 
@@ -389,7 +390,10 @@ void Plugins::on_Timer_timeout() {
 }
 
 void Plugins::checkUpdates() {
-	QUrl url(QLatin1String("http://mumble.info/plugins.php"));
+	QUrl url;
+	url.setScheme(QLatin1String("http"));
+	url.setHost(g.qsRegionalHost);
+	url.setPath(QLatin1String("/plugins.php"));
 
 	url.addQueryItem(QLatin1String("ver"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
 #if defined(Q_OS_WIN)
@@ -400,18 +404,18 @@ void Plugins::checkUpdates() {
 	url.addQueryItem(QLatin1String("os"), QLatin1String("Unix"));
 #endif
 
-	QNetworkRequest req(url);
-	QNetworkReply *rep = g.nam->get(req);
+	QNetworkReply *rep = Network::get(url);
 	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
 }
 
 void Plugins::finished() {
 	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
+	QUrl url = rep->request().url();
 
 	bool rescan = false;
 
 	if (rep->error() == QNetworkReply::NoError) {
-		const QString &path = rep->url().path();
+		const QString &path = url.path();
 		if (path == QLatin1String("/plugins.php")) {
 			qmPluginHash.clear();
 			QDomDocument doc;
@@ -495,11 +499,12 @@ void Plugins::finished() {
 			QMap<QString, QString>::const_iterator i;
 			for (i = qmPluginHash.constBegin(); i != qmPluginHash.constEnd(); ++i) {
 				if (! i.value().isEmpty()) {
-					QUrl url(QLatin1String("http://mumble.info/"));
+					QUrl url;
+					url.setScheme(QLatin1String("http"));
+					url.setHost(g.qsRegionalHost);
 					url.setPath(QString::fromLatin1("plugins/%1").arg(i.key()));
 
-					QNetworkRequest req(url);
-					QNetworkReply *r = g.nam->get(req);
+					QNetworkReply *r = Network::get(url);
 					connect(r, SIGNAL(finished()), this, SLOT(finished()));
 				}
 			}
@@ -571,7 +576,12 @@ void Plugins::finished() {
 				}
 			}
 		}
-
+	} else {
+		if (url.host() == g.qsRegionalHost) {
+			url.setHost(QLatin1String("mumble.info"));
+			QNetworkReply *nrep = Network::get(url);
+			connect(nrep, SIGNAL(finished()), this, SLOT(finished()));
+		}
 	}
 
 	if (rescan)

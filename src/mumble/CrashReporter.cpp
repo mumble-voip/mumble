@@ -31,6 +31,7 @@
 #include "CrashReporter.h"
 #include "Global.h"
 #include "OSInfo.h"
+#include "NetworkConfig.h"
 
 CrashReporter::CrashReporter(QWidget *p) : QDialog(p) {
 	setWindowTitle(tr("Mumble Crash Report"));
@@ -228,6 +229,7 @@ void CrashReporter::run() {
 		QNetworkRequest req(url);
 		req.setHeader(QNetworkRequest::ContentTypeHeader, QString::fromLatin1("multipart/form-data; boundary=%1").arg(boundary));
 		req.setHeader(QNetworkRequest::ContentLengthHeader, QString::number(post.size()));
+		Network::prepareRequest(req);
 		qnrReply = g.nam->post(req, post);
 		connect(qnrReply, SIGNAL(finished()), this, SLOT(uploadFinished()));
 		connect(qnrReply, SIGNAL(uploadProgress(qint64, qint64)), this, SLOT(uploadProgress(qint64, qint64)));

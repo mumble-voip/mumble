@@ -32,6 +32,7 @@
 #include "NetworkConfig.h"
 #include "Global.h"
 #include "MainWindow.h"
+#include "OSInfo.h"
 
 static ConfigWidget *NetworkConfigNew(Settings &st) {
 	return new NetworkConfig(st);
@@ -153,4 +154,16 @@ void NetworkConfig::on_qcbType_currentIndexChanged(int v) {
 	qcbTcpMode->setEnabled(pt == Settings::NoProxy);
 
 	s.ptProxyType = pt;
+}
+
+
+QNetworkReply *Network::get(const QUrl &url) {
+	QNetworkRequest req(url);
+	prepareRequest(req);
+	return g.nam->get(req);
+}
+
+void Network::prepareRequest(QNetworkRequest &req) {
+	req.setAttribute(QNetworkRequest::HttpPipeliningAllowedAttribute, true);
+	req.setRawHeader(QString::fromLatin1("User-Agent").toUtf8(), QString::fromLatin1("Mozilla/5.0 (%1; %2) Mumble/%3 %4").arg(OSInfo::getOS(), OSInfo::getOSVersion(), QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)), QLatin1String(MUMBLE_RELEASE)).toUtf8());
 }

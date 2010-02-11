@@ -33,6 +33,7 @@
 #include "ServerHandler.h"
 #include "Channel.h"
 #include "Database.h"
+#include "NetworkConfig.h"
 
 QMap<QString, QIcon> ServerItem::qmIcons;
 QList<PublicInfo> ConnectDialog::qlPublicServers;
@@ -1073,8 +1074,7 @@ void ConnectDialog::initList() {
 	url.setPath(QLatin1String("/list2.cgi"));
 	url.addQueryItem(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
 
-	QNetworkRequest req(url);
-	QNetworkReply *rep = g.nam->get(req);
+	QNetworkReply *rep = Network::get(url);
 	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
 }
 
@@ -1420,8 +1420,7 @@ void ConnectDialog::finished() {
 		QUrl url = rep->request().url();
 		if (url.host() == g.qsRegionalHost) {
 			url.setHost(QLatin1String("mumble.info"));
-			QNetworkRequest req(url);
-			QNetworkReply *nrep = g.nam->get(req);
+			QNetworkReply *nrep = Network::get(url);
 			connect(nrep, SIGNAL(finished()), this, SLOT(finished()));
 
 			rep->deleteLater();

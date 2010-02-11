@@ -54,6 +54,11 @@ class NetworkConfig : public ConfigWidget, Ui::NetworkConfig {
 		void on_qcbType_currentIndexChanged(int v);
 };
 
+namespace Network {
+		void prepareRequest(QNetworkRequest &);
+		QNetworkReply *get(const QUrl &);
+}
+
 #else
 class NetworkConfig;
 #endif

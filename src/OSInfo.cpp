@@ -88,6 +88,13 @@ QString OSInfo::getOS() {
 }
 
 QString OSInfo::getOSVersion() {
+	static QString qsCached;
+	
+	if (! qsCached.isNull())
+		return qsCached.isEmpty() ? QString() : qsCached;
+
+	QString os;
+
 #if defined(Q_WS_WIN)
 	OSVERSIONINFOEXW ovi;
 	memset(&ovi, 0, sizeof(ovi));
@@ -95,9 +102,7 @@ QString OSInfo::getOSVersion() {
 	ovi.dwOSVersionInfoSize=sizeof(ovi);
 	GetVersionEx(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
 
-	QString os;
 	os.sprintf("%d.%d.%d.%d", ovi.dwMajorVersion, ovi.dwMinorVersion, ovi.dwBuildNumber, (ovi.wProductType == VER_NT_WORKSTATION) ? 1 : 0);
-	return os;
 #elif defined(Q_OS_MAC)
 	SInt32 major, minor, bugfix;
 	OSErr err = Gestalt(gestaltSystemVersionMajor, &major);
@@ -114,7 +119,6 @@ QString OSInfo::getOSVersion() {
 
 	QString os;
 	os.sprintf("%i.%i.%i (%s)", major, minor, bugfix, arch);
-	return os;
 #else
 #ifdef Q_OS_LINUX
 	QProcess qp;
@@ -126,22 +130,28 @@ QString OSInfo::getOSVersion() {
 		QString os = QString::fromUtf8(qp.readAll()).simplified();
 		if (os.startsWith(QLatin1Char('"')) && os.endsWith(QLatin1Char('"')))
 			os = os.mid(1, os.length() - 2).trimmed();
-		if (! os.isEmpty())
-			return os;
 	}
-	qWarning("OSInfo: Failed to execute lsb_release");
+	if (os.isEmpty())
+		qWarning("OSInfo: Failed to execute lsb_release");
+
 	qp.terminate();
 	if (! qp.waitForFinished(1000))
 		qp.kill();
 #endif
-	struct utsname un;
-	if (uname(&un) == 0) {
-		QString os;
-		os.sprintf("%s %s", un.sysname, un.release);
-		return os;
+	if (os.isEmpty()) {
+		struct utsname un;
+		if (uname(&un) == 0) {
+			os.sprintf("%s %s", un.sysname, un.release);
+		}
 	}
-	return QString();
 #endif
+
+	if (! os.isNull())
+		qsCached = os;
+	else
+		qsCached = QLatin1String("");
+
+	return qsCached;
 }
 
 void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, const QString &osver, const QList<QHostAddress> &qlBind) {
