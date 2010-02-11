@@ -176,7 +176,6 @@ void CrashReporter::run() {
 			QProcess qp;
 			QStringList qsl;
 
-			qsl << QLatin1String("/dontskip");
 			qsl << QLatin1String("/t");
 			qsl << qtf.fileName();
 
