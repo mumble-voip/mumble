@@ -505,7 +505,7 @@ Enthält die Liste von Mitgliedern, welche vom aktuellen Kanal geerbt wurden. De
     <message>
         <location/>
         <source>Make group inheritable to sub-channels</source>
-        <translation>Erlaubt das Unterkanälen die Gruppe erben können</translation>
+        <translation>Erlaubt, dass Unterkanäle die Gruppe erben können</translation>
     </message>
     <message>
         <source>This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
@@ -9121,7 +9121,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location line="+6"/>
         <source>Root</source>
-        <translation>Wurzel</translation>
+        <translation>Hauptkanal</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -9619,32 +9619,32 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <location filename="VersionCheck.cpp" line="+132"/>
         <source>Upgrade Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble aktualisieren</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine neue Version von Mumble ist verfügbar und wurde automatisch heruntergeladen. Es wird empfohlen, dass Sie entweder diese neue Version oder die letzte stabile Version installieren. Möchten Sie die neue Version jetzt installieren?</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Corrupt download of new version detected. Automatically removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Download der neuen Mumble-Version war fehlerhaft und wurde gelöscht.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Downloading new snapshot from %1 to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Snapshot wird heruntergeladen von %1 nach %2</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Failed to write new version to disc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Version konnte nicht gespeichert werden.</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Mumble failed to retrieve version information from the central server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble konnte keine Versions-Informationen vom Zentralserver abfragen.</translation>
     </message>
 </context>
 <context>
