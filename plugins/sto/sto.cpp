@@ -51,9 +51,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	printf("%ls\n", identity.c_str());
 #endif
 
-	context.assign(reinterpret_cast<char *>(contextblock + 0x30), 4);
+	context.assign(reinterpret_cast<char *>(contextblock), 4);
 #ifdef PLUGIN_DEBUG
-	DWORD *ctx = reinterpret_cast<DWORD *>(contextblock + 0x30);
+	DWORD *ctx = reinterpret_cast<DWORD *>(contextblock);
 	printf("%08x\n", *ctx);
 #endif
 
@@ -89,16 +89,16 @@ static int trylock() {
 		return false;
 
 	char version[17];
-	peekProc(pModule + 0x15E8778, version);
+	peekProc(pModule + 0x1612500, version);
 	version[16]=0;
 
-	if (memcmp(version, "ST.0.20100202a.7", sizeof(version)) == 0) {
+	if (memcmp(version, "ST.0.20100208b.4", sizeof(version)) == 0) {
 #ifdef PLUGIN_DEBUG
 		printf("STO: WANTLINK %s\n", version);
 #endif
-		identptr = pModule + 0x1675E80;
-		contextptr = pModule + 0x1675a30;
-		posptr = pModule + 0x1885da0;
+		identptr = pModule + 0x16aec48;
+		contextptr = pModule + 0x16ae804;
+		posptr = pModule + 0x18be420;
 
 		return true;
 	} else {
@@ -111,7 +111,7 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports Star Trek Online");
 }
 
-static std::wstring description(L"Star Trek Online ST.0.20100202a.7");
+static std::wstring description(L"Star Trek Online ST.0.20100208b.4");
 static std::wstring shortname(L"Star Trek Online");
 
 static MumblePlugin stoplug = {
