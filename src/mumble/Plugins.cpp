@@ -108,6 +108,7 @@ PluginInfo *PluginConfig::pluginForItem(QTreeWidgetItem *i) const {
 		if (pi->filename == i->data(0, Qt::UserRole).toString())
 			return pi;
 	}
+	return NULL;
 }
 
 void PluginConfig::on_qpbConfig_clicked() {
