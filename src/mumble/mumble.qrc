@@ -35,6 +35,7 @@
  <file alias="layout_custom.svg">../../icons/layout_custom.svg</file>
  <file alias="comment.svg">../../icons/comment.svg</file>
  <file alias="comment_seen.svg">../../icons/comment_seen.svg</file>
+ <file alias="default_avatar.svg">../../icons/default_avatar.svg</file>
  <file alias="rec.svg">../../icons/rec.svg</file>
  <file alias="wb_male.oga">../../samples/wb_male.oga</file>
  <file alias="on.ogg">../../samples/on.ogg</file>

@@ -74,11 +74,31 @@ struct OverlayTextLine {
 	QRgb uiColor;
 	Decoration dDecor;
 	int iPriority;
-	QRect qrRect;
-	QByteArray qbaHash;
 	OverlayTextLine() : uiSession(0), uiColor(0), dDecor(None), iPriority(0) { };
 	OverlayTextLine(const QString &t, quint32 c, int priority = 0, unsigned int session = 0, Decoration d = None) : qsText(t), uiSession(session), uiColor(c), dDecor(d), iPriority(priority) { };
 	bool operator <(const OverlayTextLine &o) const;
+};
+
+class OverlayUser : public QGraphicsItemGroup {
+	private:
+		Q_DISABLE_COPY(OverlayUser);
+	protected:
+		enum TextColor { Passive, Talking, Linked, WhisperPrivate, WhisperChannel };
+		QGraphicsPixmapItem *qgpiMuted, *qgpiDeafened;
+		QGraphicsPixmapItem *qgpiAvatar;
+		QGraphicsPixmapItem *qgpiName[5];
+		QGraphicsPixmapItem *qgpiChannel;
+		
+		unsigned int uiSize;
+		ClientUser *cuUser;
+		QString qsName;
+		QString qsChannelName;
+		QByteArray qbaAvatar;
+		
+		static QPixmap createPixmap(const QString &str, unsigned int height, unsigned int maxwidth, QColor col, QPainterPath & = QPainterPath());
+	public:
+		OverlayUser(ClientUser *cu, unsigned int uiSize);
+		void updateUser();
 };
 
 class OverlayClient : public QObject {
@@ -87,29 +107,22 @@ class OverlayClient : public QObject {
 		Q_OBJECT
 		Q_DISABLE_COPY(OverlayClient);
 	protected:
-		typedef QPair<QByteArray, QRgb> TextImageKey;
-		struct TextImage {
-			QImage qiImage;
-			float iOffset;
-			TextImage(const QImage &img, int i) : qiImage(img), iOffset(i) {};
-		};
-
 		OverlayMsg omMsg;
 		QLocalSocket *qlsSocket;
 		SharedMemory2 *smMem;
 		unsigned int uiWidth, uiHeight;
-		float fItemHeight, fEdge, fBase;
 		int iItemHeight;
-		QList<OverlayTextLine> qlLines;
 		QRect qrLast;
-		QFont fFont;
 		Timer t;
-		QImage qiMuted, qiDeafened;
-		QCache<TextImageKey, TextImage> qcTexts;
+
+		QGraphicsScene qgs;
+		QMap<QObject *, OverlayUser *> qmUsers;
 
 		void setupRender();
 	protected slots:
 		void readyRead();
+		void userDestroyed(QObject *);
+		void changed(const QList<QRectF> &);
 	public:
 		OverlayClient(QLocalSocket *, QObject *);
 		~OverlayClient();
@@ -128,11 +141,14 @@ class OverlayPrivate : public QObject {
 class Overlay : public QObject {
 		friend class OverlayConfig;
 		friend class OverlayClient;
+		friend class OverlayUser;
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(Overlay)
 	protected:
 		OverlayPrivate *d;
+		
+		QList<QColor> qlColors;
 
 		QList<OverlayTextLine> qlCurrentTexts;
 		QSet<unsigned int> qsQueried;
