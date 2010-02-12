@@ -130,7 +130,14 @@ void VersionCheck::finished() {
 							                          tr("Upgrade Mumble"),
 							                          tr("A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?"),
 							                          QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes) {
-								if (QProcess::startDetached(filename)) {
+								SHELLEXECUTEINFOW execinfo;
+								ZeroMemory(&execinfo, sizeof(execinfo));
+								execinfo.cbSize = sizeof(execinfo);
+								execinfo.lpFile = filename.utf16();
+								execinfo.lpDirectory = QDir::toNativeSeparators(QDir::tempPath()).utf16();
+								execinfo.nShow = SW_NORMAL;
+
+								if (ShellExecuteExW(&execinfo)) {
 									g.mw->bSuppressAskOnQuit = true;
 									qApp->closeAllWindows();
 								}
