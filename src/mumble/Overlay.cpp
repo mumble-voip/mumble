@@ -506,6 +506,11 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 	int y = 0;
 	int x = 0;
 	
+	QList<QGraphicsItem *> items;
+	foreach(QGraphicsItem *qgi, qgs.items())
+		if (! qgi->parentItem())
+			items << qgi;
+	
 	foreach(const OverlayTextLine &e, lines) {
 		if (e.uiSession != 0) {
 			ClientUser *cu = ClientUser::get(e.uiSession);
@@ -515,6 +520,8 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 				ou = new OverlayUser(cu, iItemHeight);
 				connect(cu, SIGNAL(destroyed(QObject *)), this, SLOT(userDestroyed(QObject *)));
 				qmUsers.insert(cu, ou);
+			} else {
+				items.removeAll(ou);
 			}
 			
 			ou->setPos(uiWidth * g.s.fOverlayX + iroundf(x * iItemHeight * 1.05f), g.s.fOverlayY + iroundf(y * iItemHeight * 1.05f));
@@ -531,6 +538,9 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 			}
 		}
 	}
+	
+	foreach(QGraphicsItem *qgi, items)
+		qgs.removeItem(qgi);
 
 	if (qlsSocket->bytesToWrite() > 1024) {
 		return (t.elapsed() <= 5000000ULL);
