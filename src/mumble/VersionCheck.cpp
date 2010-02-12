@@ -140,6 +140,8 @@ void VersionCheck::finished() {
 								if (ShellExecuteExW(&execinfo)) {
 									g.mw->bSuppressAskOnQuit = true;
 									qApp->closeAllWindows();
+								} else {
+									g.mw->msgBox(tr("Failed to launch snapshot installer."));
 								}
 							}
 
