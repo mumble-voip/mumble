@@ -55,7 +55,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	                  "<p>Copyright %3 Thorvald Natvig<br />slicer@users.sourceforge.net</p>"
 	                  "<p><b>A voice-chat utility for gamers</b></p>"
 	                  "<p><tt><a href=\"%2\">%2</a></tt></p>"
-	              ).arg(QLatin1String(MUMBLE_RELEASE)).arg(QLatin1String("http://mumble.sourceforge.net/")).arg(QLatin1String("2005-2008")));
+	              ).arg(QLatin1String(MUMBLE_RELEASE)).arg(QLatin1String("http://mumble.sourceforge.net/")).arg(QLatin1String("2005-2010")));
 	QHBoxLayout *qhbl=new QHBoxLayout(about);
 	qhbl->addWidget(icon);
 	qhbl->addWidget(text);
