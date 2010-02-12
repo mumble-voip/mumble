@@ -753,7 +753,7 @@
     <string>&amp;Change Comment</string>
    </property>
    <property name="toolTip">
-    <string>Change your own comment.</string>
+    <string>Change your own comment</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>
