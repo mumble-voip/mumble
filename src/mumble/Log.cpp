@@ -258,6 +258,7 @@ const QStringList Log::allowedSchemes() {
 	qslAllowedSchemeNames << QLatin1String("channelid");
 	qslAllowedSchemeNames << QLatin1String("spotify");
 	qslAllowedSchemeNames << QLatin1String("steam");
+	qslAllowedSchemeNames << QLatin1String("irc");
 	return qslAllowedSchemeNames;
 }
 
