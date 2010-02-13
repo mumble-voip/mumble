@@ -812,7 +812,7 @@ void MainWindow::on_qmSelf_aboutToShow() {
 	ClientUser *user = ClientUser::get(g.uiSession);
 	qaServerTextureRemove->setEnabled(user && ! user->qbaTextureHash.isEmpty());
 
-	qaSelfRegister->setEnabled(user && user->iId < 0 && (g.pPermissions & (ChanACL::SelfRegister | ChanACL::Write)));
+	qaSelfRegister->setEnabled(user && (user->iId < 0) && ! user->qsHash.isEmpty() && (g.pPermissions & (ChanACL::SelfRegister | ChanACL::Write)));
 }
 
 void MainWindow::on_qaSelfComment_triggered() {
@@ -1029,7 +1029,7 @@ void MainWindow::qmUser_aboutToShow() {
 	if (g.sh->uiVersion >= 0x010202)
 		qmUser->addAction(qaUserInformation);
 
-	if (p && (p->iId < 0) && (g.pPermissions & ((self ? ChanACL::SelfRegister : ChanACL::Register) | ChanACL::Write))) {
+	if (p && (p->iId < 0) && ! p->qsHash.isEmpty() && (g.pPermissions & ((self ? ChanACL::SelfRegister : ChanACL::Register) | ChanACL::Write))) {
 		qmUser->addSeparator();
 		qmUser->addAction(qaUserRegister);
 	}
