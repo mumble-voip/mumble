@@ -95,7 +95,7 @@ class OverlayUser : public QGraphicsItemGroup {
 		QString qsChannelName;
 		QByteArray qbaAvatar;
 		
-		static QPixmap createPixmap(const QString &str, unsigned int height, unsigned int maxwidth, QColor col, QPainterPath & = QPainterPath());
+		static QPixmap createPixmap(const QString &str, unsigned int height, unsigned int maxwidth, QColor col, QPainterPath &);
 	public:
 		OverlayUser(ClientUser *cu, unsigned int uiSize);
 		void updateUser();

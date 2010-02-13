@@ -292,7 +292,6 @@ void OverlayUser::updateUser() {
 		qsName = cuUser->qsName;
 		
 		QPainterPath pp;
-
 		for(int i=0;i<g.o->qlColors.size(); ++i) {
 			const QPixmap &pm = createPixmap(qsName, uiSize / 6, uiSize, g.o->qlColors.at(i), pp);
 			qgpiName[i]->setPixmap(pm);
@@ -302,8 +301,9 @@ void OverlayUser::updateUser() {
 
 	if (qsChannelName != cuUser->cChannel->qsName) {
 		qsChannelName = cuUser->cChannel->qsName;
-		
-		const QPixmap &pm = createPixmap(qsChannelName, uiSize / 6, uiSize, g.s.qcOverlayChannel);
+
+		QPainterPath pp;
+		const QPixmap &pm = createPixmap(qsChannelName, uiSize / 6, uiSize, g.s.qcOverlayChannel, pp);
 		qgpiChannel->setPixmap(pm);
 		qgpiChannel->setX(uiSize - pm.width());
 	}
