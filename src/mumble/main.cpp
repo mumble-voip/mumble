@@ -383,7 +383,9 @@ int main(int argc, char **argv) {
 	if (QDateTime::currentDateTime().daysTo(g.s.kpCertificate.first.first().expiryDate()) < 14)
 		g.l->log(Log::Warning, CertWizard::tr("<b>Certificate Expiry:</b> Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on."));
 
+#if defined(RELEASE_BUILD) || ! defined(QT_NO_DEBUG)
 	if (g.s.bUpdateCheck)
+#endif
 		new VersionCheck(true, g.mw);
 
 #ifdef SNAPSHOT_BUILD

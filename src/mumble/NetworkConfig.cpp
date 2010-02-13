@@ -82,6 +82,11 @@ void NetworkConfig::load(const Settings &r) {
 	loadCheckBox(qcbAutoUpdate, r.bUpdateCheck);
 	loadCheckBox(qcbPluginUpdate, r.bPluginCheck);
 	loadCheckBox(qcbUsage, r.bUsage);
+
+#if defined(SNAPSHOT_BUILD) && defined(QT_NO_DEBUG)
+	qcbAutoUpdate->setEnabled(false);
+	qcbAutoUpdate->setToolTip(tr("Updates are mandatory when using snapshot releases."));
+#endif
 }
 
 void NetworkConfig::save() const {
