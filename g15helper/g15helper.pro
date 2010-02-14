@@ -19,12 +19,14 @@ win32 {
 }
 
 macx {
-  CONFIG -= app_bundle
+  CONFIG -= app_bundle x86_64
+  CONFIG += i386
   SOURCES = g15helper_macx.c
   LIBS *= -llgLcd
   LIBPATH *= /opt/mumble-1.2/lglcd-sdk/SDK/lib/
   INCLUDEPATH *= /opt/mumble-1.2/lglcd-sdk/SDK/Src/
-  QMAKE_LFLAGS += -framework CoreFoundation -sectcreate __TEXT __info_plist g15helper.plist
+  QMAKE_CFLAGS += -arch i386
+  QMAKE_LFLAGS += -arch i386 -framework CoreFoundation -sectcreate __TEXT __info_plist g15helper.plist
   DEFINES *= APPLE
   DIST = g15helper.plist
 }

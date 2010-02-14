@@ -176,15 +176,17 @@ GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
 			if (data)
 				kbdLayout = reinterpret_cast<UCKeyboardLayout *>(const_cast<UInt8 *>(CFDataGetBytePtr(data)));
 		}
-	} else
+	}
 #endif
-	{
+#ifndef __LP64__
+	if (! kbdLayout) {
 		SInt16 currentKeyScript = GetScriptManagerVariable(smKeyScript);
 		SInt16 lastKeyLayoutID = GetScriptVariable(currentKeyScript, smScriptKeys);
 		Handle handle = GetResource('uchr', lastKeyLayoutID);
 		if (handle)
 			kbdLayout = reinterpret_cast<UCKeyboardLayout *>(*handle);
 	}
+#endif
 	if (! kbdLayout)
 		qWarning("GlobalShortcutMac: No keyboard layout mapping available. Unable to perform key translation.");
 

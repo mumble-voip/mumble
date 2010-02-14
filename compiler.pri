@@ -113,19 +113,11 @@ unix:!macx {
 }
 
 macx {
-	CONFIG(debug, debug|release) {
-		CONFIG += no-universal
-	}
+	INCLUDEPATH *= /opt/mumble-x86-64/boost-1_42_0/include
+	INCLUDEPATH *= /opt/mumble-x86-64/include
+	LIBPATH *= /opt/mumble-x86-64/lib
 
-	!CONFIG(no-universal) {
-		CONFIG += x86 ppc
-	}
-
-	INCLUDEPATH *= /opt/mumble-1.2/boost-1_42_0/include
-	INCLUDEPATH *= /opt/mumble-1.2/include
-	LIBPATH *= /opt/mumble-1.2/lib
-
-	QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.4
+	QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
 	XCODE_PATH=$$system(xcode-select -print-path)
 	QMAKE_MAC_SDK = $${XCODE_PATH}/SDKs/MacOSX10.5.sdk
 
@@ -133,18 +125,9 @@ macx {
 	QMAKE_CXX = $${XCODE_PATH}/usr/bin/g++-4.2
 	QMAKE_LINK = $${XCODE_PATH}/usr/bin/g++-4.2
 
-	QMAKE_CFLAGS += -mmacosx-version-min=10.4 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
-	QMAKE_CXXFLAGS += -mmacosx-version-min=10.4 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
+	QMAKE_CFLAGS *= -mmacosx-version-min=10.5 -mmmx -msse -msse2
+	QMAKE_CXXFLAGS *= -mmacosx-version-min=10.5 -mmmx -msse -msse2
 	QMAKE_LFLAGS += -Wl,-dead_strip -framework Cocoa -framework Carbon
-
-	CONFIG(no-cocoa) {
-		# The no-cocoa option basically means that we should build without depending on
-		# a Cocoa build of Qt. However, for the most part, the reason we do this is to
-		# run on older versions of Mac OS X. We 'abuse' that to disable features we don't
-		# want enabled on Mac OS X 10.4.
-		QMAKE_CFLAGS -= -fno-stack-protector -fno-stack-protector-all
-		QMAKE_CXXFLAGS -= -fno-stack-protector -fno-stack-protector-all
-	}
 
 	CONFIG(symbols) {
 		QMAKE_CFLAGS *= -gfull -gdwarf-2
