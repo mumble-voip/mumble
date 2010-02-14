@@ -98,7 +98,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Insurgency: Modern Infantry Combat (Build 3945). IP:Port context support.", L"Mumble Insurgency Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Insurgency: Modern Infantry Combat (Build 4044). IP:Port context support.", L"Mumble Insurgency Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -212,14 +212,14 @@ static int trylock() {
 	*/
 
 	// Remember addresses for later
-	posptr = mod + 0x47171c;
-	rotptr = mod + 0x4f1458;
-	stateptr = mod + 0x4aee58;
-	hostptr = mod_engine + 0x3909c4;
+	posptr = mod + 0x47271C;
+	rotptr = mod + 0x4F2458;
+	stateptr = mod + 0x4AFE58;
+	hostptr = mod_engine + 0x3909A4;
 
 	//Gamecheck
 	char sMagic[14];
-	if (!peekProc(mod + 0x46a4b2, sMagic, 14) || strncmp("CombatWeapon@@", sMagic, 14)!=0)
+	if (!peekProc(mod + 0x46B4B2, sMagic, 14) || strncmp("CombatWeapon@@", sMagic, 14)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
@@ -246,10 +246,10 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Insurgency mod build 3945. No identity support yet.");
+	return std::wstring(L"Supports Insurgency mod build 4044. No identity support yet.");
 }
 
-static std::wstring description(L"Insurgency: Modern Infantry Combat (Build 3945)");
+static std::wstring description(L"Insurgency: Modern Infantry Combat (Build 4044)");
 static std::wstring shortname(L"Insurgency: Modern Infantry Combat");
 
 static MumblePlugin insurgencyplug = {
