@@ -98,7 +98,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Team Fortress 2 (Build 4097). IP:Port context support.", L"Mumble TF2 Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Team Fortress 2 (Build 4105). IP:Port context support.", L"Mumble TF2 Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -215,10 +215,10 @@ static int trylock() {
 	*/
 
 	// Remember addresses for later
-	posptr = mod_engine + 0x555BB4;
-	rotptr = mod_engine + 0x3CDC30;
-	stateptr = mod + 0x4EABCC;
-	hostptr = mod_engine + 0x3C91A4;
+	posptr = mod_engine + 0x507390;
+	rotptr = mod_engine + 0x507304;
+	stateptr = mod + 0x4ECBF4;
+	hostptr = mod_engine + 0x3C91EC;
 
 	/*
 	// Gamecheck
@@ -229,7 +229,7 @@ static int trylock() {
 
 	// Gamecheck
 	char sMagic[13];
-	if (!peekProc(mod_engine + 0x53FBE0, sMagic, 13) || strncmp("DemomanTaunts", sMagic, 13)!=0)
+	if (!peekProc(mod_engine + 0x53FC60, sMagic, 13) || strncmp("DemomanTaunts", sMagic, 13)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
@@ -256,10 +256,10 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports TF2 build 4097. No identity support yet.");
+	return std::wstring(L"Supports TF2 build 4105. No identity support yet.");
 }
 
-static std::wstring description(L"Team Fortress 2 (Build 4097)");
+static std::wstring description(L"Team Fortress 2 (Build 4105)");
 static std::wstring shortname(L"Team Fortress 2");
 
 static MumblePlugin tf2plug = {

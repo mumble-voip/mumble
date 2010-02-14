@@ -92,7 +92,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Left 4 Dead 2 (Build 4079).", L"Mumble L4D Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Left 4 Dead 2 (Build 4106).", L"Mumble L4D Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -143,8 +143,8 @@ static int trylock() {
 	if (!h)
 		return false;
 
-	posptr = mod + 0x6DA6A0;
-	rotptr = mod + 0x626554;
+	posptr = mod + 0x6265E4;
+	rotptr = mod + 0x6DA738;
 	stateptr = mod + 0x61FF6C;
 
 	float pos[3];
@@ -178,6 +178,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 	char state;
 
+	// stateptr returns byte values: 0 when map is not loaded; 8 when loaded 
 	ok = peekProc(posptr, ipos, 12) &&
 	     peekProc(rotptr, rot, 12) &&
 	     peekProc(stateptr, &state, 1);
@@ -205,10 +206,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports L4D2 build 4079. No identity or context support yet.");
+	return std::wstring(L"Supports L4D2 build 4106. No identity or context support yet.");
 }
 
-static std::wstring description(L"Left 4 Dead 2 (Build 4079)");
+static std::wstring description(L"Left 4 Dead 2 (Build 4106)");
 static std::wstring shortname(L"Left 4 Dead 2");
 
 static MumblePlugin l4d2plug = {

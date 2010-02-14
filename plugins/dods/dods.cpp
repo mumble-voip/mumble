@@ -64,7 +64,7 @@ static DWORD getProcess(const wchar_t *exename) {
 				break;
 			}
 			ok = Process32Next(hSnap, &pe);
-		}
+		}4069
 		CloseHandle(hSnap);
 	}
 	return pid;
@@ -98,7 +98,7 @@ static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 }
 
 static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Day of Defeat: Source (Build 4069). IP:Port context support.", L"Mumble DODS Plugin", MB_OK);
+	::MessageBox(h, L"Reads audio position information from Day of Defeat: Source (Build 4105). IP:Port context support.", L"Mumble DODS Plugin", MB_OK);
 }
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -211,14 +211,14 @@ static int trylock() {
 	*/
 
 	// Remember addresses for later
-	posptr = mod_engine + 0x555BB4;
-	rotptr = mod_engine + 0x3CDC30;
-	stateptr = mod + 0x3E7BDC;
-	hostptr = mod_engine + 0x3C91A4;
+	posptr = mod_engine + 0x41E0B4;
+	rotptr = mod_engine + 0x40538C;
+	stateptr = mod + 0x3F1C3C;
+	hostptr = mod_engine + 0x3C91EC;
 
 	// Gamecheck
 	char sMagic[17];
-	if (!peekProc(mod + 0x3FBE49, sMagic, 17) || strncmp("DODSpectatorGUI@@", sMagic, 17)!=0)
+	if (!peekProc(mod + 0x405F09, sMagic, 17) || strncmp("DODSpectatorGUI@@", sMagic, 17)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
@@ -245,10 +245,10 @@ static void unlock() {
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports DODS build 4069. No identity support yet.");
+	return std::wstring(L"Supports DODS build 4105. No identity support yet.");
 }
 
-static std::wstring description(L"Day of Defeat: Source (Build 4069)");
+static std::wstring description(L"Day of Defeat: Source (Build 4105)");
 static std::wstring shortname(L"Day of Defeat: Source");
 
 static MumblePlugin dodsplug = {
