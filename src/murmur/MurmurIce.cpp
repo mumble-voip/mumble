@@ -206,10 +206,10 @@ MurmurIce::MurmurIce() {
 
 	try {
 		communicator = Ice::initialize(idd);
-		if (! meta->mp.qsIceSecret.isEmpty()) {
+		if (! meta->mp.qsIceSecretWrite.isEmpty()) {
 			::Ice::ImplicitContextPtr impl = communicator->getImplicitContext();
 			if (impl)
-				impl->put("secret", u8(meta->mp.qsIceSecret));
+				impl->put("secret", u8(meta->mp.qsIceSecretWrite));
 		}
 		adapter = communicator->createObjectAdapterWithEndpoints("Murmur", qPrintable(meta->mp.qsIceEndpoint));
 		MetaPtr m = new MetaI;
@@ -683,6 +683,7 @@ void ServerI::ice_ping(const Ice::Current &current) const {
 		throw ::Ice::ObjectNotExistException(__FILE__, __LINE__);
 }
 
+#define ACCESS_Server_isRunning_READ
 static void impl_Server_isRunning(const ::Murmur::AMD_Server_isRunningPtr cb, int server_id) {
 	NEED_SERVER_EXISTS;
 	cb->ice_response(server != NULL);
@@ -769,16 +770,19 @@ static void impl_Server_setAuthenticator(const ::Murmur::AMD_Server_setAuthentic
 	server->log(QString("Registered Ice Authenticator %1").arg(QString::fromStdString(mi->communicator->proxyToString(aptr))));
 }
 
+#define ACCESS_Server_id_READ
 static void impl_Server_id(const ::Murmur::AMD_Server_idPtr cb, int server_id) {
 	NEED_SERVER_EXISTS;
 	cb->ice_response(server_id);
 }
 
+#define ACCESS_Server_getConf_READ
 static void impl_Server_getConf(const ::Murmur::AMD_Server_getConfPtr cb, int server_id,  const ::std::string& key) {
 	NEED_SERVER_EXISTS;
 	cb->ice_response(u8(ServerDB::getConf(server_id, u8(key)).toString()));
 }
 
+#define ACCESS_Server_getAllConf_READ
 static void impl_Server_getAllConf(const ::Murmur::AMD_Server_getAllConfPtr cb, int server_id) {
 	NEED_SERVER_EXISTS;
 
@@ -808,6 +812,7 @@ static void impl_Server_setSuperuserPassword(const ::Murmur::AMD_Server_setSuper
 	cb->ice_response();
 }
 
+#define ACCESS_Server_getLog_READ
 static void impl_Server_getLog(const ::Murmur::AMD_Server_getLogPtr cb, int server_id,  ::Ice::Int min,  ::Ice::Int max) {
 	NEED_SERVER_EXISTS;
 
@@ -822,6 +827,7 @@ static void impl_Server_getLog(const ::Murmur::AMD_Server_getLogPtr cb, int serv
 	cb->ice_response(ll);
 }
 
+#define ACCESS_Server_getUsers_READ
 static void impl_Server_getUsers(const ::Murmur::AMD_Server_getUsersPtr cb, int server_id) {
 	NEED_SERVER;
 	::Murmur::UserMap pm;
@@ -835,6 +841,7 @@ static void impl_Server_getUsers(const ::Murmur::AMD_Server_getUsersPtr cb, int 
 	cb->ice_response(pm);
 }
 
+#define ACCESS_Server_getChannels_READ
 static void impl_Server_getChannels(const ::Murmur::AMD_Server_getChannelsPtr cb, int server_id) {
 	NEED_SERVER;
 	::Murmur::ChannelMap cm;
@@ -876,11 +883,13 @@ TreePtr recurseTree(const ::Channel *c) {
 	return t;
 }
 
+#define ACCESS_Server_getTree_READ
 static void impl_Server_getTree(const ::Murmur::AMD_Server_getTreePtr cb, int server_id) {
 	NEED_SERVER;
 	cb->ice_response(recurseTree(server->qhChannels.value(0)));
 }
 
+#define ACCESS_Server_getCertificateList_READ
 static void impl_Server_getCertificateList(const ::Murmur::AMD_Server_getCertificateListPtr cb, int server_id, ::Ice::Int session) {
 	NEED_SERVER;
 	NEED_PLAYER;
@@ -902,6 +911,7 @@ static void impl_Server_getCertificateList(const ::Murmur::AMD_Server_getCertifi
 	cb->ice_response(certs);
 }
 
+#define ACCESS_Server_getBans_READ
 static void impl_Server_getBans(const ::Murmur::AMD_Server_getBansPtr cb, int server_id) {
 	NEED_SERVER;
 	::Murmur::BanList bl;
@@ -945,6 +955,7 @@ static void impl_Server_sendMessage(const ::Murmur::AMD_Server_sendMessagePtr cb
 	cb->ice_response();
 }
 
+#define ACCESS_Server_hasPermission_READ
 static void impl_Server_hasPermission(const ::Murmur::AMD_Server_hasPermissionPtr cb, int server_id, ::Ice::Int session, ::Ice::Int channelid, ::Ice::Int perm) {
 	NEED_SERVER;
 	NEED_PLAYER;
@@ -999,6 +1010,7 @@ static void impl_Server_removeContextCallback(const Murmur::AMD_Server_removeCon
 	}
 }
 
+#define ACCESS_Server_getState_READ
 static void impl_Server_getState(const ::Murmur::AMD_Server_getStatePtr cb, int server_id,  ::Ice::Int session) {
 	NEED_SERVER;
 	NEED_PLAYER;
@@ -1027,6 +1039,7 @@ static void impl_Server_sendMessageChannel(const ::Murmur::AMD_Server_sendMessag
 	cb->ice_response();
 }
 
+#define ACCESS_Server_getChannelState_READ
 static void impl_Server_getChannelState(const ::Murmur::AMD_Server_getChannelStatePtr cb, int server_id,  ::Ice::Int channelid) {
 	NEED_SERVER;
 	NEED_CHANNEL;
@@ -1092,6 +1105,7 @@ static void impl_Server_addChannel(const ::Murmur::AMD_Server_addChannelPtr cb, 
 	cb->ice_response(newid);
 }
 
+#define ACCESS_Server_getACL_READ
 static void impl_Server_getACL(const ::Murmur::AMD_Server_getACLPtr cb, int server_id, ::Ice::Int channelid) {
 	NEED_SERVER;
 	NEED_CHANNEL;
@@ -1196,6 +1210,7 @@ static void impl_Server_setACL(const ::Murmur::AMD_Server_setACLPtr cb, int serv
 	cb->ice_response();
 }
 
+#define ACCESS_Server_getUserNames_READ
 static void impl_Server_getUserNames(const ::Murmur::AMD_Server_getUserNamesPtr cb, int server_id,  const ::Murmur::IdList& ids) {
 	NEED_SERVER;
 	::Murmur::NameMap nm;
@@ -1205,6 +1220,7 @@ static void impl_Server_getUserNames(const ::Murmur::AMD_Server_getUserNamesPtr 
 	cb->ice_response(nm);
 }
 
+#define ACCESS_Server_getUserIds_READ
 static void impl_Server_getUserIds(const ::Murmur::AMD_Server_getUserIdsPtr cb, int server_id,  const ::Murmur::NameList& names) {
 	NEED_SERVER;
 	::Murmur::IdMap im;
@@ -1277,6 +1293,7 @@ static void impl_Server_getRegistration(const ::Murmur::AMD_Server_getRegistrati
 	cb->ice_response(im);
 }
 
+#define ACCESS_Server_getRegisteredUsers_READ
 static void impl_Server_getRegisteredUsers(const ::Murmur::AMD_Server_getRegisteredUsersPtr cb, int server_id,  const ::std::string& filter) {
 	NEED_SERVER;
 	Murmur::NameMap rpl;
@@ -1290,12 +1307,14 @@ static void impl_Server_getRegisteredUsers(const ::Murmur::AMD_Server_getRegiste
 	cb->ice_response(rpl);
 }
 
+#define ACCESS_Server_verifyPassword_READ
 static void impl_Server_verifyPassword(const ::Murmur::AMD_Server_verifyPasswordPtr cb, int server_id,  const ::std::string& name,  const ::std::string& pw) {
 	NEED_SERVER;
 	QString uname = u8(name);
 	cb->ice_response(server->authenticate(uname, u8(pw)));
 }
 
+#define ACCESS_Server_getTexture_READ
 static void impl_Server_getTexture(const ::Murmur::AMD_Server_getTexturePtr cb, int server_id,  ::Ice::Int userid) {
 	NEED_SERVER;
 
@@ -1348,6 +1367,7 @@ static void impl_Server_setTexture(const ::Murmur::AMD_Server_setTexturePtr cb, 
 	}
 }
 
+#define ACCESS_Server_getUptime_READ
 static void impl_Server_getUptime(const ::Murmur::AMD_Server_getUptimePtr cb, int server_id) {
 	NEED_SERVER;
 	cb->ice_response(static_cast<int>(server->tUptime.elapsed()/1000000LL));
@@ -1411,6 +1431,7 @@ static void impl_Server_redirectWhisperGroup(const ::Murmur::AMD_Server_redirect
 	cb->ice_response();
 }
 
+#define ACCESS_Meta_getServer_READ
 static void impl_Meta_getServer(const ::Murmur::AMD_Meta_getServerPtr cb, const Ice::ObjectAdapterPtr adapter, ::Ice::Int id) {
 	QList<int> server_list = ServerDB::getAllServers();
 	if (! server_list.contains(id))
@@ -1423,6 +1444,7 @@ static void impl_Meta_newServer(const ::Murmur::AMD_Meta_newServerPtr cb, const 
 	cb->ice_response(idToProxy(ServerDB::addServer(), adapter));
 }
 
+#define ACCESS_Meta_getAllServers_READ
 static void impl_Meta_getAllServers(const ::Murmur::AMD_Meta_getAllServersPtr cb, const Ice::ObjectAdapterPtr adapter) {
 	::Murmur::ServerList sl;
 
@@ -1431,6 +1453,7 @@ static void impl_Meta_getAllServers(const ::Murmur::AMD_Meta_getAllServersPtr cb
 	cb->ice_response(sl);
 }
 
+#define ACCESS_Meta_getDefaultConf_READ
 static void impl_Meta_getDefaultConf(const ::Murmur::AMD_Meta_getDefaultConfPtr cb, const Ice::ObjectAdapterPtr) {
 	::Murmur::ConfigMap cm;
 	QMap<QString, QString>::const_iterator i;
@@ -1440,6 +1463,7 @@ static void impl_Meta_getDefaultConf(const ::Murmur::AMD_Meta_getDefaultConfPtr 
 	cb->ice_response(cm);
 }
 
+#define ACCESS_Meta_getBootedServers_READ
 static void impl_Meta_getBootedServers(const ::Murmur::AMD_Meta_getBootedServersPtr cb, const Ice::ObjectAdapterPtr adapter) {
 	::Murmur::ServerList sl;
 
@@ -1448,6 +1472,7 @@ static void impl_Meta_getBootedServers(const ::Murmur::AMD_Meta_getBootedServers
 	cb->ice_response(sl);
 }
 
+#define ACCESS_Meta_getVersion_ALL
 static void impl_Meta_getVersion(const ::Murmur::AMD_Meta_getVersionPtr cb, const Ice::ObjectAdapterPtr) {
 	int major, minor, patch;
 	QString txt;
@@ -1476,6 +1501,7 @@ static void impl_Meta_removeCallback(const Murmur::AMD_Meta_removeCallbackPtr cb
 	}
 }
 
+#define ACCESS_Meta_getUptime_ALL
 static void impl_Meta_getUptime(const ::Murmur::AMD_Meta_getUptimePtr cb, const Ice::ObjectAdapterPtr) {
 	cb->ice_response(static_cast<int>(meta->tUptime.elapsed()/1000000LL));
 }

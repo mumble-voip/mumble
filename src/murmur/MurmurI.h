@@ -209,6 +209,9 @@ namespace Murmur {
 
 			virtual void getUptime_async(const ::Murmur::AMD_Meta_getUptimePtr&,
 			                             const Ice::Current&);
+
+			virtual void getSlice_async(const ::Murmur::AMD_Meta_getSlicePtr&,
+			                            const Ice::Current&);
 	};
 
 }

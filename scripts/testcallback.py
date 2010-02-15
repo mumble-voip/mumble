@@ -89,10 +89,10 @@ if __name__ == "__main__":
 
     meta = Murmur.MetaPrx.checkedCast(ice.stringToProxy('Meta:tcp -h 127.0.0.1 -p 6502'))
     adapter = ice.createObjectAdapterWithEndpoints("Callback.Client", "tcp -h 127.0.0.1")
-
+    
     metaR=Murmur.MetaCallbackPrx.uncheckedCast(adapter.addWithUUID(MetaCallbackI()))
     adapter.activate()
-
+    
     meta.addCallback(metaR)
 
     for server in meta.getBootedServers():

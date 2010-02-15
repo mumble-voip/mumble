@@ -236,7 +236,9 @@ void MetaParams::read(QString fname) {
 	iDBPort = qsSettings->value("dbPort", iDBPort).toInt();
 
 	qsIceEndpoint = qsSettings->value("ice", qsIceEndpoint).toString();
-	qsIceSecret = qsSettings->value("icesecret", qsIceSecret).toString();
+	qsIceSecretRead = qsSettings->value("icesecret", qsIceSecretRead).toString();
+	qsIceSecretRead = qsSettings->value("icesecretread", qsIceSecretRead).toString();
+	qsIceSecretWrite = qsSettings->value("icesecretwrite", qsIceSecretRead).toString();
 
 	iLogDays = qsSettings->value("logdays", iLogDays).toInt();
 

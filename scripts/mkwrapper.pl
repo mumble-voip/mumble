@@ -9,30 +9,65 @@ open(MI, "MurmurIce.cpp");
 my @mi = <MI>;
 close(MI);
 
+my $ice;
+open(ICE, "Murmur.ice");
+my @ice=<ICE>;
+close(ICE);
+$ice = join("", @ice);
+
+$ice =~ s/\/\*.+?\*\///gms;
+$ice =~ s/^\t+//gm;
+$ice =~ s/\n+/\n/gs;
+$ice =~ s/^\n+//s;
+
+$ice =~ s/"/\\"/g;
+$ice =~ s/\n/\\n/g;
+
 open(I, ">MurmurIceWrapper.cpp");
 open(B, ">BasicImpl.cpp");
 open(MH, "Murmur.h");
 
 sub func($$\@\@\@) {
   my ($class, $func, $wrapargs, $callargs, $implargs) = @_;
+  
 
-    print I "void ::Murmur::${class}I::${func}_async(". join(", ", @{$wrapargs}).") {\n";
-#    print I "\tqWarning(\"CALL ${func}\");\n";
-    print I "\tif (! meta->mp.qsIceSecret.isEmpty()) {\n";
-    print I "\t\t::Ice::Context::const_iterator i = current.ctx.find(\"secret\");\n";
-    print I "\t\tif ((i == current.ctx.end()) || (u8((*i).second) != meta->mp.qsIceSecret)) {\n";
-    print I "\t\t\tcb->ice_exception(InvalidSecretException());\n";
-    print I "\t\t\treturn;\n";
-    print I "\t\t}\n";
-    print I "\t}\n";
-    print I "\tExecEvent *ie = new ExecEvent(boost::bind(&impl_${class}_$func, " . join(", ", @${callargs})."));\n";
-    print I "\tQCoreApplication::instance()->postEvent(mi, ie);\n";
-    print I "};\n";
-
-    if( ! grep(/impl_${class}_$func/,@mi)) {
-      print B "static void impl_${class}_$func(".join(", ", @${implargs}). ") {}\n";
-    }
+  print I qq'
+void ::Murmur::${class}I::${func}_async('. join(", ", @{$wrapargs}).qq') {
+	// qWarning() << "${func}" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
+#ifndef ACCESS_${class}_${func}_ALL
+#ifdef ACCESS_${class}_${func}_READ
+	if (! meta->mp.qsIceSecretRead.isNull()) {
+		bool ok = ! meta->mp.qsIceSecretRead.isEmpty();
+#else
+	if (! meta->mp.qsIceSecretRead.isNull() || ! meta->mp.qsIceSecretWrite.isNull()) {
+		bool ok = ! meta->mp.qsIceSecretWrite.isEmpty();
+#endif
+		::Ice::Context::const_iterator i = current.ctx.find("secret");
+		ok = ok && (i != current.ctx.end());
+		if (ok) {
+			const QString &secret = u8((*i).second);
+#ifdef ACCESS_${class}_${func}_READ
+			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+#else
+			ok = (secret == meta->mp.qsIceSecretWrite);
+#endif
+		}
+		if (! ok) {
+			cb->ice_exception(InvalidSecretException());
+			return;
+		}
+	}
+#endif
+	ExecEvent *ie = new ExecEvent(boost::bind(&impl_${class}_$func, ' . join(", ", @${callargs}).qq'));
+	QCoreApplication::instance()->postEvent(mi, ie);
 }
+';
+
+  if( ! grep(/impl_${class}_$func/,@mi)) {
+    print B "static void impl_${class}_$func(".join(", ", @${implargs}). ") {}\n";
+  }
+}
+
 
 while(<MH>) {
   chomp();
@@ -46,6 +81,8 @@ while(<MH>) {
     my $func=$1;
     my $obj=$2;
     my $args=$3;
+    
+    next if ($func eq "getSlice");
 
     my $class="Meta";
     $class = "Server" if ($obj =~ /AMD_Server/);
@@ -79,6 +116,12 @@ while(<MH>) {
     func($class,$func,@wrapargs,@callargs,@implargs);
   }
 }
+                                                                             
+print I qq'
+void ::Murmur::MetaI::getSlice_async(const ::Murmur::AMD_Meta_getSlicePtr& cb, const Ice::Current&) {
+	cb->ice_response(std::string("$ice"));
+}
+';
 
 close(MH);
 close(I);
