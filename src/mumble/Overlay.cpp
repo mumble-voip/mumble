@@ -524,7 +524,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 				items.removeAll(ou);
 			}
 			
-			ou->setPos(uiWidth * g.s.fOverlayX + iroundf(x * iItemHeight * 1.05f), g.s.fOverlayY + iroundf(y * iItemHeight * 1.05f));
+			ou->setPos(iroundf(uiWidth * g.s.fOverlayX + x * iItemHeight * 1.05f), iroundf(uiHeight * g.s.fOverlayY + y * iItemHeight * 1.05f));
 			ou->updateUser();
 			
 			if (! ou->scene())
