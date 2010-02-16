@@ -31,6 +31,9 @@ CONFIG *= ordered debug_and_release
   }
 
   macx {
+    isEmpty($$(MUMBLE_PREFIX)) {
+      error("Missing $MUMBLE_PREFIX environment variable");
+    }
     SUBDIRS *= macx
     !CONFIG(no-g15) {
       SUBDIRS *= g15helper
