@@ -31,7 +31,8 @@ CONFIG *= ordered debug_and_release
   }
 
   macx {
-    isEmpty($$(MUMBLE_PREFIX)) {
+    MUMBLE_PREFIX = $$(MUMBLE_PREFIX)
+    isEmpty(MUMBLE_PREFIX) {
       error("Missing $MUMBLE_PREFIX environment variable");
     }
     SUBDIRS *= macx
