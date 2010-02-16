@@ -61,10 +61,12 @@ CONFIG+=optimize
  Build a heavily optimized version, specific to the machine it's being
  compiled on.
 
-CONFIG+=no-cocoa (OSX)
- Disable parts of Mumble that require a Cocoa-version of Qt. This option
- allows Mumble builds for pre-10.5 systems, but still requires the 10.5
- SDK to build.
+CONFIG+=universal (OSX)
+ Builds an universal-binary build of Mumble for i386 and ppc instead of the
+ default x86-64-only build. The universal build is meant to be used with
+ the Carbon version of Qt, and is compatible with 10.4+.
+ The x86-64 build of Mumble is compatible with 10.5+ and requires a Cocoa
+ version of Qt.
 
 CONFIG+=no-dbus (Mumble)
  Don't include DBus support on Mumble. This has no effect on Murmur, which

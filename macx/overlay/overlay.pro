@@ -2,7 +2,7 @@
 
 include(../../compiler.pri)
 
-CONFIG += x86_64 i386 ppc
+CONFIG += x86_64 x86 ppc
 
 TEMPLATE = lib
 CONFIG += plugin

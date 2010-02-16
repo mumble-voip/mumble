@@ -113,11 +113,10 @@ unix:!macx {
 }
 
 macx {
-	INCLUDEPATH *= /opt/mumble-x86-64/boost-1_42_0/include
-	INCLUDEPATH *= /opt/mumble-x86-64/include
-	LIBPATH *= /opt/mumble-x86-64/lib
+	INCLUDEPATH *= $$(MUMBLE_PREFIX)/boost-1_42_0/include
+	INCLUDEPATH *= $$(MUMBLE_PREFIX)/include
+	LIBPATH *= $$(MUMBLE_PREFIX)/lib
 
-	QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
 	XCODE_PATH=$$system(xcode-select -print-path)
 	QMAKE_MAC_SDK = $${XCODE_PATH}/SDKs/MacOSX10.5.sdk
 
@@ -125,8 +124,17 @@ macx {
 	QMAKE_CXX = $${XCODE_PATH}/usr/bin/g++-4.2
 	QMAKE_LINK = $${XCODE_PATH}/usr/bin/g++-4.2
 
-	QMAKE_CFLAGS += -mmacosx-version-min=10.5 -Xarch_x86_64 -mmmx -Xarch_x86_64 -msse -Xarch_x86_64 -msse2
-	QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -Xarch_x86_64 -mmmx -Xarch_x86_64 -msse -Xarch_x86_64 -msse2
+	!CONFIG(universal) {
+		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
+		QMAKE_CFLAGS += -mmacosx-version-min=10.5 -Xarch_x86_64 -mmmx -Xarch_x86_64 -msse -Xarch_x86_64 -msse2
+		QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -Xarch_x86_64 -mmmx -Xarch_x86_64 -msse -Xarch_x86_64 -msse2
+	} else {
+		CONFIG += x86 ppc
+		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.4
+		QMAKE_CFLAGS += -mmacosx-version-min=10.4 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
+		QMAKE_CXXFLAGS += -mmacosx-version-min=10.4 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
+	}
+
 	QMAKE_LFLAGS += -Wl,-dead_strip -framework Cocoa -framework Carbon
 
 	CONFIG(symbols) {
