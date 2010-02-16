@@ -64,7 +64,7 @@ static DWORD getProcess(const wchar_t *exename) {
 				break;
 			}
 			ok = Process32Next(hSnap, &pe);
-		}4069
+		}
 		CloseHandle(hSnap);
 	}
 	return pid;
