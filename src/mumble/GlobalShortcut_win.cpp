@@ -30,6 +30,7 @@
 
 #include "GlobalShortcut_win.h"
 #include "MainWindow.h"
+#include "Overlay.h"
 #include "Global.h"
 
 #undef FAILED
@@ -44,6 +45,14 @@ uint qHash(const GUID &a) {
 	return val;
 }
 
+WinEvent::WinEvent(HWND h, UINT u, WPARAM w, LPARAM l) : QEvent(eventType()), hWnd(h), msg(u), wParam(w), lParam(l) {
+}
+
+QEvent::Type WinEvent::eventType() {
+	static Type t = static_cast<QEvent::Type>(registerEventType());
+	return t;
+}
+
 GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutWin();
 }
@@ -51,7 +60,6 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 GlobalShortcutWin::GlobalShortcutWin() {
 	pDI = NULL;
 	uiHardwareDevices = 0;
-	moveToThread(this);
 	start(QThread::LowestPriority);
 }
 
@@ -78,12 +86,14 @@ void GlobalShortcutWin::run() {
 		this->msleep(20);
 
 	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (wchar_t *) &HookKeyboard, &hSelf);
-#ifdef QT_NO_DEBUG
 	hhKeyboard = SetWindowsHookEx(WH_KEYBOARD_LL, HookKeyboard, hSelf, 0);
 	hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
+
+#ifdef QT_NO_DEBUG
 #endif
 
 	timer = new QTimer(this);
+	timer->moveToThread(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(timeTicked()));
 	timer->start(20);
 
@@ -108,13 +118,31 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 	GlobalShortcutWin *gsw=static_cast<GlobalShortcutWin *>(engine);
 	KBDLLHOOKSTRUCT *key=reinterpret_cast<KBDLLHOOKSTRUCT *>(lParam);
 	if (nCode >= 0) {
+		bool suppress = false;
+		if (g.ocIntercept) {
+			WPARAM w = key->vkCode;
+			LPARAM l = 1 | (key->scanCode << 16);
+			if (key->flags & LLKHF_EXTENDED)
+				l |= 0x1000000;
+			if (wParam == WM_KEYUP)
+				l |= 0xC0000000;
+
+			QWidget *widget = qApp->focusWidget();
+			if (! widget)
+				widget = & g.ocIntercept->qgv;
+			WinEvent *we = new WinEvent(widget->winId(), wParam, w, l);
+			QCoreApplication::postEvent(gsw, we);
+			
+			suppress = true;
+		}
+		
 		QList<QVariant> ql;
 		unsigned int keyid = static_cast<unsigned int>((key->scanCode << 8) | 0x4);
 		if (key->flags & LLKHF_EXTENDED)
 			keyid |= 0x8000U;
 		ql << keyid;
 		ql << QVariant(QUuid(GUID_SysKeyboard));
-		if (gsw->handleButton(ql, !(key->flags & LLKHF_UP)))
+		if (gsw->handleButton(ql, !(key->flags & LLKHF_UP)) || suppress)
 			return 1;
 	}
 	return CallNextHookEx(gsw->hhKeyboard, nCode, wParam, lParam);
@@ -124,6 +152,27 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 	GlobalShortcutWin *gsw=static_cast<GlobalShortcutWin *>(engine);
 	MSLLHOOKSTRUCT *mouse=reinterpret_cast<MSLLHOOKSTRUCT *>(lParam);
 	if (nCode >= 0) {
+		bool suppress = false;
+
+		if (g.ocIntercept) {
+			WPARAM w = (mouse->mouseData) >> 16;
+			POINT p;
+			GetCursorPos(&p);
+
+			LONG x = mouse->pt.x - p.x;
+			LONG y = mouse->pt.y - p.y;
+
+			LPARAM l = (static_cast<short>(x) & 0xFFFF) | ((y << 16) & 0xFFFF0000);
+
+			QWidget *widget = qApp->focusWidget();
+			if (! widget)
+				widget = & g.ocIntercept->qgv;
+			WinEvent *we = new WinEvent(widget->winId(), wParam, w, l);
+			QCoreApplication::postEvent(gsw, we);
+
+			suppress = true;
+		}
+
 		bool down = false;
 		unsigned int btn = 0;
 		switch (wParam) {
@@ -153,8 +202,10 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 			QList<QVariant> ql;
 			ql << static_cast<unsigned int>((btn << 8) | 0x4);
 			ql << QVariant(QUuid(GUID_SysMouse));
-			if (gsw->handleButton(ql, down))
+			if (gsw->handleButton(ql, down) || suppress)
 				return 1;
+		} else if (suppress) {
+			return 1;
 		}
 	}
 	return CallNextHookEx(gsw->hhMouse, nCode, wParam, lParam);
@@ -329,4 +380,163 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 
 bool GlobalShortcutWin::canSuppress() {
 	return true;
+}
+
+void GlobalShortcutWin::prepareInput() {
+	SetKeyboardState(ucKeyState);
+}
+
+void GlobalShortcutWin::customEvent(QEvent *e) {
+	if (e->type() == WinEvent::eventType()) {
+		WinEvent *we = static_cast<WinEvent *>(e);
+
+		GetKeyboardState(ucKeyState);
+
+		if ((we->msg == WM_KEYDOWN) || (we->msg == WM_KEYUP) || (we->msg == WM_SYSKEYDOWN) || (we->msg == WM_SYSKEYUP)) {
+			switch (we->wParam) {
+				case VK_LCONTROL:
+				case VK_RCONTROL:
+					if ((we->msg == WM_KEYDOWN) || (we->msg == WM_SYSKEYDOWN))
+						ucKeyState[we->wParam] |= 0x80;
+					else {
+						ucKeyState[we->wParam] &= 0x7f;
+						
+						if ((ucKeyState[VK_LCONTROL] & 0x80) || (ucKeyState[VK_RCONTROL] & 0x80)) {
+							SetKeyboardState(ucKeyState);
+							return;
+						}
+					}
+
+					we->wParam = VK_CONTROL;
+					break;
+				case VK_LSHIFT:
+				case VK_RSHIFT:
+					if ((we->msg == WM_KEYDOWN) || (we->msg == WM_SYSKEYDOWN))
+						ucKeyState[we->wParam] |= 0x80;
+					else {
+						ucKeyState[we->wParam] &= 0x7f;
+						
+						if ((ucKeyState[VK_LSHIFT] & 0x80) || (ucKeyState[VK_RSHIFT] & 0x80)) {
+							SetKeyboardState(ucKeyState);
+							return;
+						}
+					}
+
+					we->wParam = VK_SHIFT;
+					break;
+					
+				case VK_LMENU:
+				case VK_RMENU:
+					if ((we->msg == WM_KEYDOWN) || (we->msg == WM_SYSKEYDOWN))
+						ucKeyState[we->wParam] |= 0x80;
+					else {
+						ucKeyState[we->wParam] &= 0x7f;
+						
+						if ((ucKeyState[VK_LMENU] & 0x80) || (ucKeyState[VK_RMENU] & 0x80)) {
+							SetKeyboardState(ucKeyState);
+							return;
+						}
+					}
+
+					we->wParam = VK_MENU;
+					break;
+				default:
+					break;
+			}
+
+			if ((we->msg == WM_KEYDOWN) || (we->msg == WM_SYSKEYDOWN)) {
+				if (ucKeyState[we->wParam] & 0x80)
+					we->lParam |= 0x40000000;
+				ucKeyState[we->wParam] |= 0x80;
+
+			} else if (we->msg == WM_KEYUP) {
+				ucKeyState[we->wParam] &= 0x7f;
+			}
+			qWarning("SEND %x %04x %08x (%d %d %d)", we->msg, we->wParam, we->lParam, g.mw->qleChat->isActiveWindow(), g.mw->qleChat->isVisible(), g.mw->qleChat->hasFocus());
+
+			SetKeyboardState(ucKeyState);
+			::PostMessage(we->hWnd, we->msg, we->wParam, we->lParam);
+		} else {
+			short dx = (we->lParam & 0xffff);
+			short dy = (we->lParam >> 16);
+			
+			switch(we->msg) {
+				case WM_LBUTTONDOWN:
+					ucKeyState[VK_LBUTTON] |= 0x80;
+					break;
+				case WM_LBUTTONUP:
+					ucKeyState[VK_LBUTTON] &= 0x7f;
+					break;
+				case WM_RBUTTONDOWN:
+					ucKeyState[VK_RBUTTON] |= 0x80;
+					break;
+				case WM_RBUTTONUP:
+					ucKeyState[VK_RBUTTON] &= 0x7f;
+					break;
+				case WM_MBUTTONDOWN:
+					ucKeyState[VK_MBUTTON] |= 0x80;
+					break;
+				case WM_MBUTTONUP:
+					ucKeyState[VK_MBUTTON] &= 0x7f;
+					break;
+				case WM_XBUTTONDOWN:
+					if (we->wParam == XBUTTON1)
+						ucKeyState[VK_XBUTTON1] |= 0x80;
+					else if (we->wParam == XBUTTON2)
+						ucKeyState[VK_XBUTTON2] |= 0x80;
+					break;
+				case WM_XBUTTONUP:
+					if (we->wParam == XBUTTON1)
+						ucKeyState[VK_XBUTTON1] &= 0x7f;
+					else if (we->wParam == XBUTTON2)
+						ucKeyState[VK_XBUTTON2] &= 0x7f;
+					break;
+				default:
+					break;
+			}
+			
+			we->wParam = 0;
+			if (ucKeyState[VK_CONTROL] & 0x80)
+				we->wParam |= MK_CONTROL;
+			if (ucKeyState[VK_LBUTTON] & 0x80)
+				we->wParam |= MK_LBUTTON;
+			if (ucKeyState[VK_MBUTTON] & 0x80)
+				we->wParam |= MK_MBUTTON;
+			if (ucKeyState[VK_RBUTTON] & 0x80)
+				we->wParam |= MK_RBUTTON;
+			if (ucKeyState[VK_SHIFT] & 0x80)
+				we->wParam |= MK_SHIFT;
+			if (ucKeyState[VK_XBUTTON1] & 0x80)
+				we->wParam |= MK_XBUTTON1;
+			if (ucKeyState[VK_XBUTTON2] & 0x80)
+				we->wParam |= MK_XBUTTON2;
+
+			int x, y;
+
+			g.ocIntercept->moveMouse(dx, dy, x, y);
+
+			qWarning("Mousy %d %d => %d %d %d %d", dx, dy, x, y, QCursor::pos().x(), QCursor::pos().y());
+/*
+			QDesktopWidget qdw;
+			QRect qr = qdw.screenGeometry();
+
+			x -= qr.x();
+			y -= qr.y();
+
+			unsigned int uix = (x * g.ocIntercept->uiWidth) / qr.x();
+			unsigned int uiy = (y * g.ocIntercept->uiHeight) / qr.y();
+
+			qWarning("%d, %d => %d, %d", x, y, uix, uiy);
+*/			
+			unsigned int uix = x;
+			unsigned int uiy = y;
+			we->lParam = uix | (uiy << 16);
+			
+			::PostMessage(we->hWnd, we->msg, we->wParam, we->lParam);
+			
+		}
+		e->accept();
+		return;
+	}
+	GlobalShortcutEngine::customEvent(e);
 }

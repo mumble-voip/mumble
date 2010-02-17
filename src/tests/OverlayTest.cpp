@@ -7,6 +7,10 @@
 
 #include "Timer.h"
 
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
+
 class OverlayWidget : public QWidget {
 		Q_OBJECT
 
@@ -74,6 +78,7 @@ void OverlayWidget::paintEvent(QPaintEvent *) {
 }
 
 void OverlayWidget::init(const QSize &sz) {
+	qWarning() << "Init" << sz.width() << sz.height();
 
 	OverlayMsg m;
 	m.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
@@ -101,6 +106,17 @@ void OverlayWidget::detach() {
 
 void OverlayWidget::connected() {
 	qWarning() << "connected";
+	
+	OverlayMsg m;
+	m.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+	m.omh.uiType = OVERLAY_MSGTYPE_PID;
+	m.omh.iLength = sizeof(OverlayMsgPid);
+#ifdef Q_OS_WIN
+	m.omp.pid = GetCurrentProcessId();
+#else
+	m.omp.pid = getpid();
+#endif
+	qlsSocket->write(m.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgPid));
 
 	om.omh.iLength = -1;
 

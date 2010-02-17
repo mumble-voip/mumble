@@ -50,6 +50,7 @@ class QSettings;
 class Overlay;
 class LCD;
 class BonjourClient;
+class OverlayClient;
 class CELTCodec;
 
 struct Global {
@@ -78,6 +79,7 @@ public:
 	bool bPushToMute;
 	bool bCenterPosition;
 	bool bPosTest;
+	OverlayClient *ocIntercept;
 	int iAudioPathTime;
 	unsigned int uiSession;
 	ChanACL::Permissions pPermissions;

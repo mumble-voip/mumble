@@ -95,10 +95,11 @@ class OverlayUser : public QGraphicsItemGroup {
 		QString qsChannelName;
 		QByteArray qbaAvatar;
 		
-		static QPixmap createPixmap(const QString &str, unsigned int height, unsigned int maxwidth, QColor col, QPainterPath &);
 	public:
 		OverlayUser(ClientUser *cu, unsigned int uiSize);
 		void updateUser();
+
+		static QPixmap createPixmap(const QString &str, unsigned int height, unsigned int maxwidth, QColor col, QPainterPath &);
 };
 
 class OverlayClient : public QObject {
@@ -110,24 +111,39 @@ class OverlayClient : public QObject {
 		OverlayMsg omMsg;
 		QLocalSocket *qlsSocket;
 		SharedMemory2 *smMem;
-		unsigned int uiWidth, uiHeight;
 		int iItemHeight;
 		QRect qrLast;
 		Timer t;
+		
+		quint64 uiPid;
 
 		QGraphicsScene qgs;
+		QGraphicsPixmapItem *qgpiCursor;
+
 		QMap<QObject *, OverlayUser *> qmUsers;
 
 		void setupRender();
+		
+		bool eventFilter(QObject *, QEvent *);
 	protected slots:
 		void readyRead();
 		void userDestroyed(QObject *);
 		void changed(const QList<QRectF> &);
 	public:
+		QGraphicsView qgv;
+		unsigned int uiWidth, uiHeight;
+		int iMouseX, iMouseY;
+
 		OverlayClient(QLocalSocket *, QObject *);
 		~OverlayClient();
 		bool setTexts(const QList<OverlayTextLine> &lines);
 		void reset();
+
+	public slots:
+		void showGui();
+		void hideGui();
+		void fixup();
+		void updateCursor();
 };
 
 class OverlayPrivate : public QObject {

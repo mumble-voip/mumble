@@ -464,6 +464,17 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 
 		uiWidth = 0;
 		uiHeight = 0;
+		
+		OverlayMsg om;
+		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+		om.omh.uiType = OVERLAY_MSGTYPE_PID;
+		om.omh.iLength = sizeof(OverlayMsgPid);
+		om.omp.pid = GetCurrentProcessId();
+
+		if (!sendMessage(om))
+			return;
+			
+		ods("Pipe: SentPid");
 	}
 
 	if ((uiWidth != w) || (uiHeight != h)) {
@@ -507,8 +518,14 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 				disconnect();
 				return;
 			}
-		}
 
+			if (omMsg.omh.uiMagic != OVERLAY_MAGIC_NUMBER) {
+				ods("Pipe: Invalid magic number %x", omMsg.omh.uiMagic);
+				disconnect();
+				return;
+			}
+		}
+		
 		if (static_cast<int>(dwBytesLeft) < omMsg.omh.iLength)
 			break;
 

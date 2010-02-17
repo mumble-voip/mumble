@@ -54,11 +54,28 @@ struct InputDevice {
 	QSet<DWORD> activeMap;
 };
 
+class WinEvent : public QEvent {
+	private:
+		Q_DISABLE_COPY(WinEvent);
+	public:
+		HWND hWnd;
+		UINT msg;
+		WPARAM wParam;
+		LPARAM lParam;
+	
+		WinEvent(HWND, UINT, WPARAM, LPARAM);
+		static Type eventType();
+		void post();
+};
+
 class GlobalShortcutWin : public GlobalShortcutEngine {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(GlobalShortcutWin)
+	protected:
+		void customEvent(QEvent *);
 	public:
+		BYTE ucKeyState[256];
 		LPDIRECTINPUT8 pDI;
 		QHash<GUID, InputDevice *> qhInputDevices;
 		HHOOK hhMouse, hhKeyboard;
@@ -77,6 +94,8 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		~GlobalShortcutWin();
 		void unacquire();
 		QString buttonName(const QVariant &);
+
+		virtual void prepareInput();
 };
 
 uint qHash(const GUID &);

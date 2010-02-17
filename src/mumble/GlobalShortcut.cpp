@@ -880,6 +880,9 @@ QString GlobalShortcutEngine::buttonText(const QList<QVariant> &list) {
 	return keys.join(QLatin1String(" + "));
 }
 
+void GlobalShortcutEngine::prepareInput() {
+}
+
 GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName, bool expert, QVariant def) : QObject(p) {
 	idx = index;
 	name=qsName;
