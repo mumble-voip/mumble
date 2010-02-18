@@ -1738,8 +1738,9 @@ void MainWindow::on_qaHelpWhatsThis_triggered() {
 }
 
 void MainWindow::on_qaHelpAbout_triggered() {
-	AboutDialog adAbout(this);
-	adAbout.exec();
+	AboutDialog *adAbout = new AboutDialog(this);
+	adAbout->setAttribute(Qt::WA_DeleteOnClose);
+	adAbout->show();
 }
 
 void MainWindow::on_qaHelpAboutSpeex_triggered() {

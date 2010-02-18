@@ -385,7 +385,7 @@ OverlayScene::OverlayScene(QObject *p) : QGraphicsScene(p) {
 }
 
 void OverlayScene::mouseMoveEvent(QGraphicsSceneMouseEvent *qgsme) {
-	qWarning() << "MouseMove" << qgsme->scenePos().x() << qgsme->scenePos().y();
+	qWarning() << "MouseMove" << qgsme->scenePos().x() << qgsme->scenePos().y() << qgsme->buttons();
 
 	qgpiCursor->setPos(qgsme->scenePos().x(), qgsme->scenePos().y());
 
@@ -490,11 +490,6 @@ void OverlayClient::showGui() {
 		}
 	}
 
-	g.ocIntercept = NULL;
-//	g.ocIntercept = this;
-
-//	QTimer::singleShot(1000, this, SLOT(fixup()));
-	
 	QEvent event(QEvent::WindowActivate);
 	qApp->sendEvent(&qgs, &event);
 	
@@ -505,63 +500,30 @@ void OverlayClient::showGui() {
 	qgs.qgpiCursor->setPos(iMouseX, iMouseY);
 	qgs.qgpiCursor->show();
 	
-	fixup();
-}
-
-void OverlayClient::fixup() {
-	g.ocIntercept = this;
-
-	qWarning() << g.mw->qleChat->isVisible();
-	qWarning() << g.mw->qleChat->hasFocus();
-	qWarning() << g.mw->qleChat->isActiveWindow();
-
-	qWarning() << qgs.isActive();
-	qWarning() << qgs.hasFocus();
-	
 	qgs.setFocus();
-
-//	qgv.show();
-
-	qWarning() << qgs.hasFocus();
 
 	g.mw->qleChat->activateWindow();
 	g.mw->qleChat->setFocus();
 
-	qWarning() << g.mw->qleChat->isVisible();
-	qWarning() << g.mw->qleChat->hasFocus();
-	qWarning() << g.mw->qleChat->isActiveWindow();
-	
-	qWarning("%p", g.mw->qleChat->focusProxy());
-	
-	qWarning() << "Focus" << qApp->focusWidget() << qApp->activeWindow();
 	qgv.setAttribute(Qt::WA_WState_Hidden, false);
 	qApp->setActiveWindow(&qgv);
 	qgv.setFocus();
-	qWarning() << "Focus" << qApp->focusWidget() << qApp->activeWindow();
-	
-	QKeyEvent *e = new QKeyEvent(QEvent::KeyPress, Qt::Key_A, Qt::NoModifier, QLatin1String("a"), 1);
-	qApp->postEvent(g.mw->qleChat, e);
+
 }
 
 void OverlayClient::hideGui() {
-	qWarning() << "hideGui";
-	
 	foreach(QGraphicsItem *qgi, qgs.items()) {
 		QGraphicsProxyWidget *qgpw = qgraphicsitem_cast<QGraphicsProxyWidget *>(qgi);
 		if (qgpw && ! qgpw->parentItem()) {
 			QWidget *w = qgpw->widget();
 			
-			if (w) {
-				qgpw->setWidget(NULL);
-				if (! qobject_cast<QMainWindow *>(w))
-					QTimer::singleShot(0, w, SLOT(hide()));
-			}
+			qgpw->setWidget(NULL);
 			delete qgpw;
 		}
 	}
 	
 	qgs.qgpiCursor->hide();
-	
+
 	if (g.ocIntercept == this)
 		g.ocIntercept = NULL;
 }

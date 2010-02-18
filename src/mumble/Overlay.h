@@ -154,11 +154,9 @@ class OverlayClient : public QObject {
 		~OverlayClient();
 		bool setTexts(const QList<OverlayTextLine> &lines);
 		void reset();
-
 	public slots:
 		void showGui();
 		void hideGui();
-		void fixup();
 };
 
 class OverlayPrivate : public QObject {
