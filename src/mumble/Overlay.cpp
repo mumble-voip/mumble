@@ -373,6 +373,56 @@ void OverlayUser::updateUser() {
 	setOpacity(qc.alphaF());
 }
 
+OverlayScene::OverlayScene(QObject *p) : QGraphicsScene(p) {
+	qgpiCursor = new QGraphicsPixmapItem();
+	qgpiCursor->hide();
+	qgpiCursor->setZValue(10.0f);
+
+	addItem(qgpiCursor);
+
+	QPainterPath pp;
+	qgpiCursor->setPixmap(OverlayUser::createPixmap(QLatin1String("T"), 40, 40, Qt::black, pp));
+}
+
+void OverlayScene::mouseMoveEvent(QGraphicsSceneMouseEvent *qgsme) {
+	qWarning() << "MouseMove" << qgsme->scenePos().x() << qgsme->scenePos().y();
+
+	qgpiCursor->setPos(qgsme->scenePos().x(), qgsme->scenePos().y());
+
+	QGraphicsScene::mouseMoveEvent(qgsme);
+}
+
+void OverlayScene::dragEnterEvent(QGraphicsSceneDragDropEvent *qsdde) {
+	qWarning() << "dragEnterEvent";
+
+	QGraphicsScene::dragEnterEvent(qsdde);
+}
+
+void OverlayScene::dragLeaveEvent(QGraphicsSceneDragDropEvent *qsdde) {
+	qWarning() << "dragLeaveEvent";
+
+	QGraphicsScene::dragLeaveEvent(qsdde);
+}
+
+void OverlayScene::dragMoveEvent(QGraphicsSceneDragDropEvent *qsdde) {
+	qWarning() << "dragMoveEvent";
+
+	qgpiCursor->setPos(qsdde->scenePos().x(), qsdde->scenePos().y());
+
+	QGraphicsScene::dragMoveEvent(qsdde);
+}
+
+void OverlayScene::dropEvent(QGraphicsSceneDragDropEvent *qsdde) {
+	qWarning() << "dropEvent";
+	QGraphicsScene::dropEvent(qsdde);
+}
+
+void OverlayScene::resetScene() {
+	removeItem(qgpiCursor);
+	clear();
+	addItem(qgpiCursor);
+}
+
 OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	qlsSocket = socket;
 	connect(qlsSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
@@ -383,14 +433,13 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	
 	uiPid = ~0ULL;
 	
-	qgpiCursor = NULL;
-	
 	qgv.setScene(&qgs);
 	qgv.installEventFilter(this);
 	qgv.viewport()->installEventFilter(this);
 
 	// Make sure it has a native window id
 	qgv.winId();
+	qgv.viewport()->winId();
 	
 	connect(&qgs, SIGNAL(changed(const QList<QRectF> &)), this, SLOT(changed(const QList<QRectF> &)));
 }
@@ -403,7 +452,7 @@ OverlayClient::~OverlayClient() {
 	foreach(OverlayUser *ou, qmUsers)
 		delete ou;
 	qmUsers.clear();
-	qgs.clear();
+	qgs.resetScene();
 }
 
 bool OverlayClient::eventFilter(QObject *o, QEvent *e) {
@@ -444,7 +493,7 @@ void OverlayClient::showGui() {
 	g.ocIntercept = NULL;
 //	g.ocIntercept = this;
 
-	QTimer::singleShot(1000, this, SLOT(fixup()));
+//	QTimer::singleShot(1000, this, SLOT(fixup()));
 	
 	QEvent event(QEvent::WindowActivate);
 	qApp->sendEvent(&qgs, &event);
@@ -453,8 +502,10 @@ void OverlayClient::showGui() {
 	iMouseX = qBound<int>(0, p.x(), uiWidth);
 	iMouseY = qBound<int>(0, p.y(), uiHeight);
 	
-	updateCursor();
-	qgpiCursor->show();
+	qgs.qgpiCursor->setPos(iMouseX, iMouseY);
+	qgs.qgpiCursor->show();
+	
+	fixup();
 }
 
 void OverlayClient::fixup() {
@@ -509,18 +560,10 @@ void OverlayClient::hideGui() {
 		}
 	}
 	
-	if (qgpiCursor)
-		qgpiCursor->hide();
+	qgs.qgpiCursor->hide();
 	
 	if (g.ocIntercept == this)
 		g.ocIntercept = NULL;
-}
-
-void OverlayClient::updateCursor() {
-	qgpiCursor->setPos(iMouseX, iMouseY);
-
-	QPainterPath pp;
-	qgpiCursor->setPixmap(OverlayUser::createPixmap(QLatin1String("T"), 40, 40, Qt::black, pp));
 }
 
 void OverlayClient::readyRead() {
@@ -623,17 +666,12 @@ void OverlayClient::setupRender() {
 		delete ou;
 	qmUsers.clear();
 
-	qgs.clear();
+	qgs.resetScene();
 	qgs.setSceneRect(0, 0, uiWidth, uiHeight);
 	qgv.setScene(NULL);
 	qgv.setGeometry(-2, -2, uiWidth + 2, uiHeight + 2);
 	qgv.viewport()->setGeometry(0, 0, uiWidth, uiHeight);
 	qgv.setScene(&qgs);
-
-	qgpiCursor = new QGraphicsPixmapItem();
-	qgpiCursor->hide();
-	qgpiCursor->setZValue(10.0f);
-	qgs.addItem(qgpiCursor);
 
 	smMem->erase();
 
@@ -860,6 +898,13 @@ void Overlay::toggleShow() {
 	} else {
 		foreach(OverlayClient *oc, qlClients) {
 			if (oc->uiPid) {
+#ifdef Q_OS_WIN
+				HWND hwnd = GetForegroundWindow();
+				DWORD pid = 0;
+				GetWindowThreadProcessId(hwnd, &pid);
+				if (pid != oc->uiPid)
+					continue;
+#endif
 				oc->showGui();
 				return;
 			}

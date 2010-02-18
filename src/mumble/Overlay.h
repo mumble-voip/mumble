@@ -102,6 +102,23 @@ class OverlayUser : public QGraphicsItemGroup {
 		static QPixmap createPixmap(const QString &str, unsigned int height, unsigned int maxwidth, QColor col, QPainterPath &);
 };
 
+class OverlayScene : public QGraphicsScene {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(OverlayScene);
+	protected:
+		virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *);
+		virtual void dragEnterEvent(QGraphicsSceneDragDropEvent *);
+		virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent *);
+		virtual void dragMoveEvent(QGraphicsSceneDragDropEvent *);
+		virtual void dropEvent(QGraphicsSceneDragDropEvent *);
+	public:
+		QGraphicsPixmapItem *qgpiCursor;
+		OverlayScene(QObject *p = NULL);
+	public slots:
+		void resetScene();
+};
+
 class OverlayClient : public QObject {
 		friend class Overlay;
 	private:
@@ -117,8 +134,7 @@ class OverlayClient : public QObject {
 		
 		quint64 uiPid;
 
-		QGraphicsScene qgs;
-		QGraphicsPixmapItem *qgpiCursor;
+		OverlayScene qgs;
 
 		QMap<QObject *, OverlayUser *> qmUsers;
 
@@ -143,7 +159,6 @@ class OverlayClient : public QObject {
 		void showGui();
 		void hideGui();
 		void fixup();
-		void updateCursor();
 };
 
 class OverlayPrivate : public QObject {
