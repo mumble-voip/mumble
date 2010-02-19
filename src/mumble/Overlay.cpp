@@ -386,7 +386,6 @@ OverlayScene::OverlayScene(QObject *p) : QGraphicsScene(p) {
 
 void OverlayScene::mouseMoveEvent(QGraphicsSceneMouseEvent *qgsme) {
 	qWarning() << "MouseMove" << qgsme->scenePos().x() << qgsme->scenePos().y() << qgsme->buttons();
-
 	qgpiCursor->setPos(qgsme->scenePos().x(), qgsme->scenePos().y());
 
 	QGraphicsScene::mouseMoveEvent(qgsme);
@@ -406,7 +405,6 @@ void OverlayScene::dragLeaveEvent(QGraphicsSceneDragDropEvent *qsdde) {
 
 void OverlayScene::dragMoveEvent(QGraphicsSceneDragDropEvent *qsdde) {
 	qWarning() << "dragMoveEvent";
-
 	qgpiCursor->setPos(qsdde->scenePos().x(), qsdde->scenePos().y());
 
 	QGraphicsScene::dragMoveEvent(qsdde);
@@ -716,17 +714,27 @@ void OverlayClient::changed(const QList<QRectF> &region) {
 	}
 	
 	QRect dirty = dirtyf.toAlignedRect();
+	
+	QRect target = dirty;
+	target.moveTo(0,0);
+	
+	QImage img(reinterpret_cast<unsigned char *>(smMem->data()), uiWidth, uiHeight, QImage::Format_ARGB32);
+	QImage qi(target.width(), target.height(), QImage::Format_ARGB32);
+	qi.fill(0);
 
-	QImage qi(reinterpret_cast<unsigned char *>(smMem->data()), uiWidth, uiHeight, QImage::Format_ARGB32);
+	{
+		QPainter p(&qi);
+		p.setRenderHint(QPainter::Antialiasing);
+		p.setRenderHint(QPainter::TextAntialiasing);
+		p.setCompositionMode(QPainter::CompositionMode_SourceOver);
+		qgs.render(&p, target, dirty, Qt::IgnoreAspectRatio);
+	}
 
-	QPainter p(&qi);
-	p.setRenderHint(QPainter::Antialiasing);
-	p.setRenderHint(QPainter::TextAntialiasing);
-	p.setBackground(QColor(0,0,0,0));
-	p.setCompositionMode(QPainter::CompositionMode_Clear);
-	p.eraseRect(dirty);
-	p.setCompositionMode(QPainter::CompositionMode_SourceOver);
-	qgs.render(&p, dirty, dirty);
+	{
+		QPainter p(&img);
+		p.setCompositionMode(QPainter::CompositionMode_Source);
+		p.drawImage(dirty.x(), dirty.y(), qi);
+	}
 	
 	active = qgs.itemsBoundingRect().toAlignedRect();
 
