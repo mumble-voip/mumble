@@ -133,10 +133,10 @@ class OverlayClient : public QObject {
 		Timer t;
 		
 		quint64 uiPid;
-
 		OverlayScene qgs;
-
 		QMap<QObject *, OverlayUser *> qmUsers;
+
+		bool bWasVisible;
 
 		void setupRender();
 		

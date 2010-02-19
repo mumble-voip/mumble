@@ -387,10 +387,11 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 }
 
 void MainWindow::hideEvent(QHideEvent *e) {
-	if (g.ocIntercept)
+	if (g.ocIntercept) {
+		QMetaObject::invokeMethod(g.ocIntercept, "hideGui", Qt::QueuedConnection);
+		e->ignore();
 		return;
-
-	qWarning() << "hideEvent";
+	}
 
 #ifndef Q_OS_MAC
 #ifdef Q_OS_UNIX

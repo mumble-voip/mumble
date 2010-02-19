@@ -98,6 +98,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		bool bSuppressAskOnQuit;
 		bool bAutoUnmute;
 
+		bool bNoHide;
+
 		unsigned int uiContextSession;
 		int iContextChannel;
 
@@ -133,7 +135,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void findDesiredChannel();
 		void setupView(bool toggle_minimize = true);
 		bool launchCompatibilityClient(const QUrl &url);
-		bool bNoHide;
 		virtual void closeEvent(QCloseEvent *e);
 		virtual void hideEvent(QHideEvent *e);
 

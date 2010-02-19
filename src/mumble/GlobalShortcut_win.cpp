@@ -197,7 +197,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 			if (! widget)
 				widget = & g.ocIntercept->qgv;
 				
-			widget = g.ocIntercept->qgv.viewport();
+			widget = & g.ocIntercept->qgv;
 
 			if (! nomsg) {
 				qWarning("SENDKEY   %x %04x %08x", msg, w, l);
@@ -292,7 +292,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 			if (! widget)
 				widget = & g.ocIntercept->qgv;
 			
-			widget = g.ocIntercept->qgv.viewport();
+			widget = & g.ocIntercept->qgv;
 			qWarning("SENDMOUSE %x %04x %08x", msg, w, l);
 			::PostMessage(widget->winId(), msg, w, l);
 

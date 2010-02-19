@@ -437,7 +437,6 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 
 	// Make sure it has a native window id
 	qgv.winId();
-	qgv.viewport()->winId();
 	
 	connect(&qgs, SIGNAL(changed(const QList<QRectF> &)), this, SLOT(changed(const QList<QRectF> &)));
 }
@@ -457,6 +456,10 @@ bool OverlayClient::eventFilter(QObject *o, QEvent *e) {
 	return QObject::eventFilter(o, e);
 }
 
+#if defined(Q_WS_WIN) || defined(Q_WS_MAC)
+extern bool Q_GUI_EXPORT qt_use_native_dialogs;
+#endif
+
 void OverlayClient::showGui() {
 	if (g.ocIntercept)
 		g.ocIntercept->hideGui();
@@ -470,9 +473,9 @@ void OverlayClient::showGui() {
 			continue;
 			
 		if (qobject_cast<QMainWindow *>(w)) {
-			w->hide();
+			bWasVisible = ! w->isHidden();
 			
-			QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget();
+			QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(NULL, Qt::Window);
 
 			qgpw->setOpacity(0.90f);
 			qgpw->setWidget(w);
@@ -507,6 +510,7 @@ void OverlayClient::showGui() {
 	qApp->setActiveWindow(&qgv);
 	qgv.setFocus();
 
+	qt_use_native_dialogs = false;
 }
 
 void OverlayClient::hideGui() {
@@ -517,6 +521,17 @@ void OverlayClient::hideGui() {
 			
 			qgpw->setWidget(NULL);
 			delete qgpw;
+			
+			if (qobject_cast<QMainWindow *>(w)) {
+				g.mw->bNoHide = true;
+				
+				w->hide();
+				if (bWasVisible) 
+					w->show();
+
+				g.mw->bNoHide = false;
+			}
+				
 		}
 	}
 	
@@ -524,6 +539,8 @@ void OverlayClient::hideGui() {
 
 	if (g.ocIntercept == this)
 		g.ocIntercept = NULL;
+		
+	qt_use_native_dialogs = true;
 }
 
 void OverlayClient::readyRead() {
@@ -769,7 +786,7 @@ void OverlayClient::changed(const QList<QRectF> &region) {
 		om.oma.h = qrLast.height();
 		qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgActive));
 	}
-	
+
 	qlsSocket->flush();
 }
 
