@@ -470,7 +470,7 @@ if __name__ == '__main__':
 
 	# Create diskimage
 	d = DiskImage(fn, title)
-	d.copy('installer_macx/DS_Store', '/.DS_Store')
+	d.copy('macx/scripts/DS_Store', '/.DS_Store')
 	d.mkdir('.background')
 	d.copy('icons/mumble.osx.installer.png', '/.background/background.png')
 	d.symlink('/Applications', '/Applications')
