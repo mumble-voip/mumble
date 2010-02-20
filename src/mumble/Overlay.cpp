@@ -382,15 +382,13 @@ OverlayScene::OverlayScene(QObject *p) : QGraphicsScene(p) {
 	addItem(qgpiCursor);
 	
 	csShape = Qt::BlankCursor;
-
-	QPainterPath pp;
-	qgpiCursor->setPixmap(OverlayUser::createPixmap(QLatin1String("T"), 40, 40, Qt::black, pp));
+	
+	iOffsetX = iOffsetY = 0;
 }
 
 void OverlayScene::mouseMoveEvent(QGraphicsSceneMouseEvent *qgsme) {
 	qWarning() << "MouseMove" << qgsme->scenePos().x() << qgsme->scenePos().y() << qgsme->buttons();
 
-	qgpiCursor->setPos(qgsme->scenePos().x(), qgsme->scenePos().y());
 	QGraphicsScene::mouseMoveEvent(qgsme);
 
 	const QList<QGraphicsView *> &vlist = views();
@@ -398,77 +396,115 @@ void OverlayScene::mouseMoveEvent(QGraphicsSceneMouseEvent *qgsme) {
 		const QCursor &cursor = vlist.first()->viewport()->cursor();
 
 		if (cursor.shape() != csShape) {
-			qWarning("NEW SHAPE!");
 			csShape = cursor.shape();
+			QString pixmapname;
+
+
+			switch (csShape) {
+				case Qt::ArrowCursor:
+						pixmapname = QLatin1String("skin:cursors/Arrow.png");
+						iOffsetX = 1;
+						iOffsetY = 1;
+						break;
+				case Qt::BusyCursor:
+						pixmapname = QLatin1String("skin:cursors/Busy.png");
+						iOffsetX = 1;
+						iOffsetY = 1;
+						break;
+				case Qt::ClosedHandCursor:
+						pixmapname = QLatin1String("skin:cursors/ClosedHand.png");
+						iOffsetX = 1;
+						iOffsetY = 1;
+						break;
+				case Qt::CrossCursor:
+						pixmapname = QLatin1String("skin:cursors/Cross.png");
+						iOffsetX = 12;
+						iOffsetY = 12;
+						break;
+				case Qt::ForbiddenCursor:
+						pixmapname = QLatin1String("skin:cursors/Forbidden.png");
+						iOffsetX = 12;
+						iOffsetY = 12;
+						break;
+				case Qt::IBeamCursor:
+						pixmapname = QLatin1String("skin:cursors/IBeam.png");
+						iOffsetX = 12;
+						iOffsetY = 12;
+						break;
+				case Qt::OpenHandCursor:
+						pixmapname = QLatin1String("skin:cursors/OpenHand.png");
+						iOffsetX = 1;
+						iOffsetY = 1;
+						break;
+				case Qt::PointingHandCursor:
+						pixmapname = QLatin1String("skin:cursors/PointingHand.png");
+						iOffsetX = 1;
+						iOffsetY = 1;
+						break;
+				case Qt::SizeAllCursor:
+						pixmapname = QLatin1String("skin:cursors/SizeAll.png");
+						iOffsetX = 1;
+						iOffsetY = 1;
+						break;
+				case Qt::SizeBDiagCursor:
+						pixmapname = QLatin1String("skin:cursors/SizeBDiag.png");
+						iOffsetX = 12;
+						iOffsetY = 12;
+						break;
+				case Qt::SizeFDiagCursor:
+						pixmapname = QLatin1String("skin:cursors/SizeFDiag.png");
+						iOffsetX = 12;
+						iOffsetY = 12;
+						break;
+				case Qt::SizeHorCursor:
+						pixmapname = QLatin1String("skin:cursors/SizeHor.png");
+						iOffsetX = 12;
+						iOffsetY = 12;
+						break;
+				case Qt::SizeVerCursor:
+						pixmapname = QLatin1String("skin:cursors/SizeVer.png");
+						iOffsetX = 12;
+						iOffsetY = 12;
+						break;
+				case Qt::SplitHCursor:
+						pixmapname = QLatin1String("skin:cursors/SplitH.png");
+						iOffsetX = 12;
+						iOffsetY = 12;
+						break;
+				case Qt::SplitVCursor:
+						pixmapname = QLatin1String("skin:cursors/SplitV.png");
+						iOffsetX = 12;
+						iOffsetY = 12;
+						break;
+				case Qt::UpArrowCursor:
+						pixmapname = QLatin1String("skin:cursors/UpArrow.png");
+						iOffsetX = 1;
+						iOffsetY = 1;
+						break;
+				case Qt::WaitCursor:
+						pixmapname = QLatin1String("skin:cursors/Wait.png");
+						iOffsetX = 1;
+						iOffsetY = 1;
+						break;
+				case Qt::WhatsThisCursor:
+						pixmapname = QLatin1String("skin:cursors/WhatsThis.png");
+						iOffsetX = 1;
+						iOffsetY = 1;
+						break;
+				break;
+			}
 
 			QPixmap pm = qmCursors.value(csShape);
 
 			if (pm.isNull()) {
-				QString pixmapname;
-
-				switch (csShape) {
-					case Qt::ArrowCursor:
-							pixmapname = QLatin1String("skin:cursors/Arrow.png");
-							break;
-					case Qt::BusyCursor:
-							pixmapname = QLatin1String("skin:cursors/Busy.png");
-							break;
-					case Qt::ClosedHandCursor:
-							pixmapname = QLatin1String("skin:cursors/ClosedHand.png");
-							break;
-					case Qt::CrossCursor:
-							pixmapname = QLatin1String("skin:cursors/Cross.png");
-							break;
-					case Qt::ForbiddenCursor:
-							pixmapname = QLatin1String("skin:cursors/Forbidden.png");
-							break;
-					case Qt::IBeamCursor:
-							pixmapname = QLatin1String("skin:cursors/IBeam.png");
-							break;
-					case Qt::OpenHandCursor:
-							pixmapname = QLatin1String("skin:cursors/OpenHand.png");
-							break;
-					case Qt::PointingHandCursor:
-							pixmapname = QLatin1String("skin:cursors/PointingHand.png");
-							break;
-					case Qt::SizeAllCursor:
-							pixmapname = QLatin1String("skin:cursors/SizeAll.png");
-							break;
-					case Qt::SizeBDiagCursor:
-							pixmapname = QLatin1String("skin:cursors/SizeBDiag.png");
-							break;
-					case Qt::SizeFDiagCursor:
-							pixmapname = QLatin1String("skin:cursors/SizeFDiag.png");
-							break;
-					case Qt::SizeHorCursor:
-							pixmapname = QLatin1String("skin:cursors/SizeHor.png");
-							break;
-					case Qt::SizeVerCursor:
-							pixmapname = QLatin1String("skin:cursors/SizeVer.png");
-							break;
-					case Qt::SplitHCursor:
-							pixmapname = QLatin1String("skin:cursors/SplitH.png");
-							break;
-					case Qt::SplitVCursor:
-							pixmapname = QLatin1String("skin:cursors/SplitV.png");
-							break;
-					case Qt::UpArrowCursor:
-							pixmapname = QLatin1String("skin:cursors/UpArrow.png");
-							break;
-					case Qt::WaitCursor:
-							pixmapname = QLatin1String("skin:cursors/Wait.png");
-							break;
-					case Qt::WhatsThisCursor:
-							pixmapname = QLatin1String("skin:cursors/WhatsThis.png");
-							break;
-					break;
-				}
 				pm.load(pixmapname);
 				qmCursors.insert(csShape, pm);
 			}
 			qgpiCursor->setPixmap(pm);
 		}
 	}
+
+	qgpiCursor->setPos(qgsme->scenePos().x() - iOffsetX, qgsme->scenePos().y() - iOffsetY);
 }
 
 void OverlayScene::dragEnterEvent(QGraphicsSceneDragDropEvent *qsdde) {
@@ -836,6 +872,14 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 }
 
 void OverlayClient::changed(const QList<QRectF> &region) {
+	qlDirty.append(region);
+	QMetaObject::invokeMethod(this, "render", Qt::QueuedConnection);
+}
+
+void OverlayClient::render() {
+	const QList<QRectF> region = qlDirty;
+	qlDirty.clear();
+	
 	if (! uiWidth || ! uiHeight || ! smMem)
 		return;
 

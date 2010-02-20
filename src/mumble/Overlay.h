@@ -115,6 +115,7 @@ class OverlayScene : public QGraphicsScene {
 
 		Qt::CursorShape csShape;
 		QMap<Qt::CursorShape, QPixmap> qmCursors;
+		int iOffsetX, iOffsetY;
 	public:
 		QGraphicsPixmapItem *qgpiCursor;
 		OverlayScene(QObject *p = NULL);
@@ -145,10 +146,13 @@ class OverlayClient : public QObject {
 		void setupRender();
 		
 		bool eventFilter(QObject *, QEvent *);
+		
+		QList<QRectF> qlDirty;
 	protected slots:
 		void readyRead();
 		void userDestroyed(QObject *);
 		void changed(const QList<QRectF> &);
+		void render();
 	public:
 		QGraphicsView qgv;
 		unsigned int uiWidth, uiHeight;
