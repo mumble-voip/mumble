@@ -337,6 +337,9 @@ AudioStats::AudioStats(QWidget *p) : QDialog(p) {
 	on_Tick_timeout();
 }
 
+AudioStats::~AudioStats() {
+}
+
 void AudioStats::on_Tick_timeout() {
 	AudioInputPtr ai = g.ai;
 

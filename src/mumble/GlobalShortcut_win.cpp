@@ -30,7 +30,9 @@
 
 #include "GlobalShortcut_win.h"
 #include "MainWindow.h"
+#ifndef COMPAT_CLIENT
 #include "Overlay.h"
+#endif
 #include "Global.h"
 
 #undef FAILED
@@ -114,8 +116,14 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 	GlobalShortcutWin *gsw=static_cast<GlobalShortcutWin *>(engine);
 	KBDLLHOOKSTRUCT *key=reinterpret_cast<KBDLLHOOKSTRUCT *>(lParam);
 	BYTE *ucKeyState = gsw->ucKeyState;
+	
+#ifndef QT_NO_DEBUG
+	static int safety = 0;
 
+	if ((++safety < 100) && (nCode >= 0)) {
+#else
 	if (nCode >= 0) {
+#endif
 		UINT msg = wParam;
 		WPARAM w = key->vkCode;
 		LPARAM l = 1 | (key->scanCode << 16);
@@ -192,6 +200,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 		ql << QVariant(QUuid(GUID_SysKeyboard));
 		bool suppress = gsw->handleButton(ql, !(key->flags & LLKHF_UP));
 		
+#ifndef COMPAT_CLIENT
 		if (! suppress && g.ocIntercept) {
 			QWidget *widget = qApp->focusWidget();
 			if (! widget)
@@ -206,6 +215,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 			
 			suppress = true;
 		}
+#endif
 
 		if (suppress)
 			return 1;
@@ -258,6 +268,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 				break;
 		}
 
+#ifndef COMPAT_CLIENT
 		if (g.ocIntercept) {
 			POINT p;
 			GetCursorPos(&p);
@@ -298,6 +309,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 
 			suppress = true;
 		}
+#endif
 
 		bool down = false;
 		unsigned int btn = 0;

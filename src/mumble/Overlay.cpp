@@ -37,6 +37,7 @@
 #include "ServerHandler.h"
 #include "MainWindow.h"
 
+
 static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
 	return new OverlayConfig(st);
 }
@@ -379,6 +380,8 @@ OverlayScene::OverlayScene(QObject *p) : QGraphicsScene(p) {
 	qgpiCursor->setZValue(10.0f);
 
 	addItem(qgpiCursor);
+	
+	csShape = Qt::BlankCursor;
 
 	QPainterPath pp;
 	qgpiCursor->setPixmap(OverlayUser::createPixmap(QLatin1String("T"), 40, 40, Qt::black, pp));
@@ -386,9 +389,21 @@ OverlayScene::OverlayScene(QObject *p) : QGraphicsScene(p) {
 
 void OverlayScene::mouseMoveEvent(QGraphicsSceneMouseEvent *qgsme) {
 	qWarning() << "MouseMove" << qgsme->scenePos().x() << qgsme->scenePos().y() << qgsme->buttons();
-	qgpiCursor->setPos(qgsme->scenePos().x(), qgsme->scenePos().y());
 
+	qgpiCursor->setPos(qgsme->scenePos().x(), qgsme->scenePos().y());
 	QGraphicsScene::mouseMoveEvent(qgsme);
+
+/*
+	const QList<QGraphicsView *> &vlist = views();
+	if (! vlist.isEmpty()) {
+		const QCursor &cursor = vlist.first()->viewport()->cursor();
+
+		if (cursor.shape() != csShape) {
+			qWarning("NEW SHAPE!");
+			csShape = cursor.shape();
+		}
+	}
+*/
 }
 
 void OverlayScene::dragEnterEvent(QGraphicsSceneDragDropEvent *qsdde) {
@@ -431,6 +446,9 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	
 	uiPid = ~0ULL;
 	
+	bWasVisible = false;
+	bDelete = false;
+	
 	qgv.setScene(&qgs);
 	qgv.installEventFilter(this);
 	qgv.viewport()->installEventFilter(this);
@@ -442,14 +460,11 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 }
 
 OverlayClient::~OverlayClient() {
-	hideGui();
-
 	qlsSocket->abort();
 
 	foreach(OverlayUser *ou, qmUsers)
 		delete ou;
 	qmUsers.clear();
-	qgs.resetScene();
 }
 
 bool OverlayClient::eventFilter(QObject *o, QEvent *e) {
@@ -460,34 +475,53 @@ bool OverlayClient::eventFilter(QObject *o, QEvent *e) {
 extern bool Q_GUI_EXPORT qt_use_native_dialogs;
 #endif
 
+// Qt gets very very unhappy if we embed or unmbed the widget that an event is called from.
+// This means that if any modal dialog is open, we'll be in a event loop of an object
+// that we're about to reparent.
+
 void OverlayClient::showGui() {
-	if (g.ocIntercept)
-		g.ocIntercept->hideGui();
-		
-	g.ocIntercept = this;
-	
 	QWidgetList widgets = qApp->topLevelWidgets();
-	
+	widgets.removeAll(g.mw);
+	widgets.prepend(g.mw);
+
+#if 1
+	if (QCoreApplication::loopLevel() > 1)
+		return;
+#else
+	int count = 0;
+
 	foreach(QWidget *w, widgets) {
 		if (w->isHidden() && (w != g.mw))
 			continue;
-			
-		if (qobject_cast<QMainWindow *>(w)) {
-			bWasVisible = ! w->isHidden();
-			
+		qWarning("Counting %s", w->metaObject()->className());
+		count++;
+	}
+	
+	// If there's more than one window up, we're likely deep in a message loop.
+	if (count > 1)
+		return;
+#endif
+
+	g.ocIntercept = this;
+	
+	bWasVisible = ! g.mw->isHidden();
+	
+	foreach(QWidget *w, widgets) {
+		if ((w == g.mw) || (! w->isHidden())) {
 			QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(NULL, Qt::Window);
 
 			qgpw->setOpacity(0.90f);
 			qgpw->setWidget(w);
 
+
+			if (w == g.mw) {
+				qgpw->setPos(uiWidth / 10, uiHeight / 10);
+				qgpw->resize((uiWidth * 8) / 10, (uiHeight * 8) / 10);
+			}
+
 			w->showNormal();
-			
-			qgpw->setPos(uiWidth / 10, uiHeight / 10);
-			qgpw->resize((uiWidth * 8) / 10, (uiHeight * 8) / 10);
-		
+
 			qgs.addItem(qgpw);
-		} else {
-			w->hide();
 		}
 	}
 
@@ -514,33 +548,56 @@ void OverlayClient::showGui() {
 }
 
 void OverlayClient::hideGui() {
-	foreach(QGraphicsItem *qgi, qgs.items()) {
+	if (QCoreApplication::loopLevel() > 1) {
+		QCoreApplication::exit_loop();
+		QMetaObject::invokeMethod(this, "hideGui", Qt::QueuedConnection);
+		return;
+	}
+	
+	QList<QWidget *> widgetlist;
+	
+	foreach(QGraphicsItem *qgi, qgs.items(Qt::DescendingOrder)) {
 		QGraphicsProxyWidget *qgpw = qgraphicsitem_cast<QGraphicsProxyWidget *>(qgi);
-		if (qgpw && ! qgpw->parentItem()) {
+		if (qgpw && qgpw->widget()) {
 			QWidget *w = qgpw->widget();
-			
-			qgpw->setWidget(NULL);
-			delete qgpw;
-			
-			if (qobject_cast<QMainWindow *>(w)) {
-				g.mw->bNoHide = true;
-				
-				w->hide();
-				if (bWasVisible) 
-					w->show();
 
-				g.mw->bNoHide = false;
-			}
-				
+			qgpw->setVisible(false);
+			widgetlist << w;
 		}
 	}
 	
+	foreach(QWidget *w, widgetlist) {
+		QGraphicsProxyWidget *qgpw = w->graphicsProxyWidget();
+		if (qgpw) {
+			qgpw->setVisible(false);
+			qgpw->setWidget(NULL);
+			delete qgpw;
+		}
+	}
+
 	qgs.qgpiCursor->hide();
 
 	if (g.ocIntercept == this)
 		g.ocIntercept = NULL;
 		
+
+	g.mw->bNoHide = true;
+	foreach(QWidget *w, widgetlist) {
+		if (bWasVisible) 
+			w->show();
+	}
+	g.mw->bNoHide = false;
+
+	qgv.setAttribute(Qt::WA_WState_Hidden, true);
 	qt_use_native_dialogs = true;
+	
+	if (bDelete)
+		deleteLater();
+}
+
+void OverlayClient::scheduleDelete() {
+	bDelete = true;
+	hideGui();
 }
 
 void OverlayClient::readyRead() {
@@ -635,15 +692,12 @@ void OverlayClient::reset() {
 }
 
 void OverlayClient::setupRender() {
-	hideGui();
-	
 	iItemHeight = iroundf(uiHeight * g.s.fOverlayHeight + 0.5f);
 
 	foreach(OverlayUser *ou, qmUsers)
 		delete ou;
 	qmUsers.clear();
 
-	qgs.resetScene();
 	qgs.setSceneRect(0, 0, uiWidth, uiHeight);
 	qgv.setScene(NULL);
 	qgv.setGeometry(-2, -2, uiWidth + 2, uiHeight + 2);
@@ -1137,7 +1191,7 @@ void Overlay::setTexts(const QList<OverlayTextLine> &lines) {
 		if (! oc->setTexts(lines)) {
 			qWarning() << "Overlay: Dead client detected";
 			qlClients.removeAll(oc);
-			delete oc;
+			oc->scheduleDelete();
 			break;
 		}
 	}

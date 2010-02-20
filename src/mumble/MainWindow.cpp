@@ -730,7 +730,8 @@ void MainWindow::setupView(bool toggle_minimize) {
 	        (!g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInNormal))
 		f |= Qt::WindowStaysOnTopHint;
 
-	setWindowFlags(f);
+	if (! graphicsProxyWidget())
+		setWindowFlags(f);
 
 	if (g.s.bShowContextMenuInMenuBar) {
 		bool found = false;

@@ -112,6 +112,8 @@ class OverlayScene : public QGraphicsScene {
 		virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent *);
 		virtual void dragMoveEvent(QGraphicsSceneDragDropEvent *);
 		virtual void dropEvent(QGraphicsSceneDragDropEvent *);
+
+		Qt::CursorShape csShape;
 	public:
 		QGraphicsPixmapItem *qgpiCursor;
 		OverlayScene(QObject *p = NULL);
@@ -137,6 +139,7 @@ class OverlayClient : public QObject {
 		QMap<QObject *, OverlayUser *> qmUsers;
 
 		bool bWasVisible;
+		bool bDelete;
 
 		void setupRender();
 		
@@ -157,6 +160,7 @@ class OverlayClient : public QObject {
 	public slots:
 		void showGui();
 		void hideGui();
+		void scheduleDelete();
 };
 
 class OverlayPrivate : public QObject {
