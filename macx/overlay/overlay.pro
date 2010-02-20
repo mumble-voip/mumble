@@ -2,10 +2,9 @@
 
 include(../../compiler.pri)
 
-CONFIG += x86_64 x86 ppc
+CONFIG += x86_64 x86 ppc debug_and_release plugin
 
 TEMPLATE = lib
-CONFIG += plugin
 CONFIG -= gui qt
 
 TARGET = mumbleoverlay

@@ -120,10 +120,10 @@ unix {
     QMAKE_INFO_PLIST = mumble.plist
     QMAKE_PKGINFO_TYPEINFO = MBLE
 
-    LIBS += -framework Security
+    LIBS += -framework Security -framework ScriptingBridge
 
     HEADERS *= GlobalShortcut_macx.h ConfigDialogDelegate.h
-    SOURCES *= TextToSpeech_macx.cpp Overlay_unix.cpp SharedMemory_unix.cpp GlobalShortcut_macx.cpp os_macx.cpp
+    SOURCES *= TextToSpeech_macx.cpp Overlay_macx.mm SharedMemory_unix.cpp GlobalShortcut_macx.cpp os_macx.cpp
 
     !CONFIG(no-cocoa) {
         SOURCES -= ConfigDialog.cpp

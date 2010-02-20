@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>MumbleOverlay</string>
+	<key>CFBundleIdentifier</key>
+	<string>net.sourceforge.mumble.OverlayScriptingAddition</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>osax</string>
+	<key>CFbundleVersion</key>
+	<string>1.2.3</string>
+	<key>CFBundleSignature</key>
+	<string>MUOL</string>
+	<key>CSResourcesFileMapped</key>
+	<true/>
+	<key>OSAScriptingDefinition</key>
+	<string>MumbleOverlay.sdef</string>
+	<key>OSAXHandlers</key>
+	<dict>
+		<key>Events</key>
+		<dict>
+			<key>MUOLload</key>
+			<dict>
+				<key>Handler</key>
+				<string>MumbleOverlayEventHandler</string>
+				<key>Context</key>
+				<string>Process</string>
+				<key>ThreadSafe</key>
+				<false/>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -1,5 +1,5 @@
 /* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2008-2009, Mikkel Krautz <mikkel@krautz.dk>
+   Copyright (C) 2008-2010, Mikkel Krautz <mikkel@krautz.dk>
 
    All rights reserved.
 
@@ -57,7 +57,6 @@
 #include "../../overlay/overlay.h"
 
 static bool bDebug = false;
-static bool vendorIntel = false;
 
 typedef struct _Context {
 	struct _Context *next;
@@ -130,11 +129,6 @@ static void newContext(Context * ctx) {
 	}
 
 	ods("OpenGL Version %s, Vendor %s, Renderer %s, Shader %s", glGetString(GL_VERSION), glGetString(GL_VENDOR), glGetString(GL_RENDERER), glGetString(GL_SHADING_LANGUAGE_VERSION));
-
-	if (!strcmp(glGetString(GL_VENDOR), "Intel Inc.")) {
-		ods("Enabling Intel specific hacks");
-		vendorIntel = true;
-	}
 
 	const char *vsource = vshader;
 	const char *fsource = fshader;
@@ -379,22 +373,16 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 			    right, bottom};
 	GLfloat tex[] = {xm, ymx, xm, ym, xmx, ym, xmx, ymx};
 
-	if (! vendorIntel) {
-		glVertexPointer(2, GL_FLOAT, 0, vertex);
-		glTexCoordPointer(2, GL_FLOAT, 0, tex);
-		glDrawArrays(GL_QUADS, 0, 4);
-	} else {
-		glBegin(GL_QUADS);
-		glTexCoord2f(tex[0], tex[1]);
-		glVertex2f(vertex[0], vertex[1]);
-		glTexCoord2f(tex[2], tex[3]);
-		glVertex2f(vertex[2], vertex[3]);
-		glTexCoord2f(tex[4], tex[5]);
-		glVertex2f(vertex[4], vertex[5]);
-		glTexCoord2f(tex[6], tex[7]);
-		glVertex2f(vertex[6], vertex[7]);
-		glEnd();
-	}
+	glBegin(GL_QUADS);
+	glTexCoord2f(tex[0], tex[1]);
+	glVertex2f(vertex[0], vertex[1]);
+	glTexCoord2f(tex[2], tex[3]);
+	glVertex2f(vertex[2], vertex[3]);
+	glTexCoord2f(tex[4], tex[5]);
+	glVertex2f(vertex[4], vertex[5]);
+	glTexCoord2f(tex[6], tex[7]);
+	glVertex2f(vertex[6], vertex[7]);
+	glEnd();
 
 	glPopMatrix();
 }
@@ -565,8 +553,9 @@ void CGLFlushDrawableOverride(CGLContextObj ctx) {
 }
 
 
+__attribute__ ((visibility("default")))
 __attribute__((constructor))
-static void entryPoint() {
+void MumbleOverlayEntryPoint() {
 	if (getenv("MUMBLE_OVERLAY_DEBUG"))
 		bDebug = true;
 	else            
