@@ -292,7 +292,23 @@ class AppBundle(object):
 			p['CFBundleVersion'] = self.version
 			plistlib.writePlist(p, self.infopath)
 
+	def add_compat_warning(self):
+		'''
+			Add compat binary for when our binary is run on i386 or ppc.
+			The compat binary displays a warning dialog telling the user that they need to download a universal version of Mumble
+		'''
+		print ' * Splicing Mumble.compat into main bundle executable'
+		os.system('lipo -create release/Mumble.compat -arch x86_64 %s -output %s' % (self.binary, self.binary))
+
+	def set_min_macosx_version(self, version):
+		'''
+			Set the minimum version of Mac OS X version that this App will run on.
+		'''
+		print ' * Setting minimum Mac OS X version to: %s' % (version)
+		self.infoplist['LSMinimumSystemVersion'] = version
+
 	def done(self):
+		plistlib.writePlist(self.infoplist, self.infopath)
 		print ' * Done!'
 		print ''
 
@@ -387,6 +403,7 @@ if __name__ == '__main__':
 	parser.add_option('', '--release', dest='release', help='Build a release. This determines the version number of the release.')
 	parser.add_option('', '--snapshot', dest='snapshot', help='Build a snapshot release. This determines the \'snapshot version\'.')
 	parser.add_option('', '--git', dest='git', help='Build a snapshot release. Use the git revision number as the \'snapshot version\'.', action='store_true', default=False)
+	parser.add_option('', '--universal', dest='universal', help='Build an universal snapshot.', action='store_true', default=False)
 	parser.add_option('', '--only-appbundle', dest='only_appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
 	parser.add_option('', '--codesign', dest='codesign', help='Create a codesigned build.')
 
@@ -420,6 +437,11 @@ if __name__ == '__main__':
 
 	# Do the finishing touches to our Application bundle before release
 	a = AppBundle('release/Mumble.app', ver)
+	if not options.universal:
+		a.add_compat_warning()
+		a.set_min_macosx_version('10.5.0')
+	else:
+		a.set_min_macosx_version('10.4.8')
 	a.copy_murmur()
 	a.copy_g15helper()
 	a.copy_overlay()
@@ -433,6 +455,11 @@ if __name__ == '__main__':
 
 	# Fix Mumble11x
 	c = AppBundle('release/Mumble11x.app', ver)
+	if not options.universal:
+		c.add_compat_warning()
+		c.set_min_macosx_version('10.5.0')
+	else:
+		c.set_min_macosx_version('10.4.8')
 	c.copy_g15helper()
 	c.copy_overlay()
 	c.copy_plugins()
