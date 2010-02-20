@@ -50,6 +50,24 @@
  <file alias="UserKickedYouOrByYou.ogg">../../samples/UserKickedYouOrByYou.ogg</file>
  <file alias="UserLeftChannel.ogg">../../samples/UserLeftChannel.ogg</file>
  <file alias="UserMutedYouOrByYou.ogg">../../samples/UserMutedYouOrByYou.ogg</file>
+ <file alias="cursors/Arrow.png">../../icons/cursors/Arrow.png</file>
+ <file alias="cursors/Busy.png">../../icons/cursors/Busy.png</file>
+ <file alias="cursors/ClosedHand.png">../../icons/cursors/ClosedHand.png</file>
+ <file alias="cursors/Cross.png">../../icons/cursors/Cross.png</file>
+ <file alias="cursors/Forbidden.png">../../icons/cursors/Forbidden.png</file>
+ <file alias="cursors/IBeam.png">../../icons/cursors/IBeam.png</file>
+ <file alias="cursors/OpenHand.png">../../icons/cursors/OpenHand.png</file>
+ <file alias="cursors/PointingHand.png">../../icons/cursors/PointingHand.png</file>
+ <file alias="cursors/SizeAll.png">../../icons/cursors/SizeAll.png</file>
+ <file alias="cursors/SizeBDiag.png">../../icons/cursors/SizeBDiag.png</file>
+ <file alias="cursors/SizeFDiag.png">../../icons/cursors/SizeFDiag.png</file>
+ <file alias="cursors/SizeHor.png">../../icons/cursors/SizeHor.png</file>
+ <file alias="cursors/SizeVer.png">../../icons/cursors/SizeVer.png</file>
+ <file alias="cursors/SplitH.png">../../icons/cursors/SplitH.png</file>
+ <file alias="cursors/SplitV.png">../../icons/cursors/SplitV.png</file>
+ <file alias="cursors/UpArrow.png">../../icons/cursors/UpArrow.png</file>
+ <file alias="cursors/Wait.png">../../icons/cursors/Wait.png</file>
+ <file alias="cursors/WhatsThis.png">../../icons/cursors/WhatsThis.png</file>
  <file>mumble_en.qm</file>
  <file>mumble_es.qm</file>
  <file>mumble_fr.qm</file>

@@ -393,7 +393,6 @@ void OverlayScene::mouseMoveEvent(QGraphicsSceneMouseEvent *qgsme) {
 	qgpiCursor->setPos(qgsme->scenePos().x(), qgsme->scenePos().y());
 	QGraphicsScene::mouseMoveEvent(qgsme);
 
-/*
 	const QList<QGraphicsView *> &vlist = views();
 	if (! vlist.isEmpty()) {
 		const QCursor &cursor = vlist.first()->viewport()->cursor();
@@ -401,9 +400,75 @@ void OverlayScene::mouseMoveEvent(QGraphicsSceneMouseEvent *qgsme) {
 		if (cursor.shape() != csShape) {
 			qWarning("NEW SHAPE!");
 			csShape = cursor.shape();
+
+			QPixmap pm = qmCursors.value(csShape);
+
+			if (pm.isNull()) {
+				QString pixmapname;
+
+				switch (csShape) {
+					case Qt::ArrowCursor:
+							pixmapname = QLatin1String("skin:cursors/Arrow.png");
+							break;
+					case Qt::BusyCursor:
+							pixmapname = QLatin1String("skin:cursors/Busy.png");
+							break;
+					case Qt::ClosedHandCursor:
+							pixmapname = QLatin1String("skin:cursors/ClosedHand.png");
+							break;
+					case Qt::CrossCursor:
+							pixmapname = QLatin1String("skin:cursors/Cross.png");
+							break;
+					case Qt::ForbiddenCursor:
+							pixmapname = QLatin1String("skin:cursors/Forbidden.png");
+							break;
+					case Qt::IBeamCursor:
+							pixmapname = QLatin1String("skin:cursors/IBeam.png");
+							break;
+					case Qt::OpenHandCursor:
+							pixmapname = QLatin1String("skin:cursors/OpenHand.png");
+							break;
+					case Qt::PointingHandCursor:
+							pixmapname = QLatin1String("skin:cursors/PointingHand.png");
+							break;
+					case Qt::SizeAllCursor:
+							pixmapname = QLatin1String("skin:cursors/SizeAll.png");
+							break;
+					case Qt::SizeBDiagCursor:
+							pixmapname = QLatin1String("skin:cursors/SizeBDiag.png");
+							break;
+					case Qt::SizeFDiagCursor:
+							pixmapname = QLatin1String("skin:cursors/SizeFDiag.png");
+							break;
+					case Qt::SizeHorCursor:
+							pixmapname = QLatin1String("skin:cursors/SizeHor.png");
+							break;
+					case Qt::SizeVerCursor:
+							pixmapname = QLatin1String("skin:cursors/SizeVer.png");
+							break;
+					case Qt::SplitHCursor:
+							pixmapname = QLatin1String("skin:cursors/SplitH.png");
+							break;
+					case Qt::SplitVCursor:
+							pixmapname = QLatin1String("skin:cursors/SplitV.png");
+							break;
+					case Qt::UpArrowCursor:
+							pixmapname = QLatin1String("skin:cursors/UpArrow.png");
+							break;
+					case Qt::WaitCursor:
+							pixmapname = QLatin1String("skin:cursors/Wait.png");
+							break;
+					case Qt::WhatsThisCursor:
+							pixmapname = QLatin1String("skin:cursors/WhatsThis.png");
+							break;
+					break;
+				}
+				pm.load(pixmapname);
+				qmCursors.insert(csShape, pm);
+			}
+			qgpiCursor->setPixmap(pm);
 		}
 	}
-*/
 }
 
 void OverlayScene::dragEnterEvent(QGraphicsSceneDragDropEvent *qsdde) {

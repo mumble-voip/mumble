@@ -340,11 +340,10 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 			QList<QVariant> ql;
 			ql << static_cast<unsigned int>((btn << 8) | 0x4);
 			ql << QVariant(QUuid(GUID_SysMouse));
-			if (gsw->handleButton(ql, down) || suppress)
-				return 1;
-		} else if (suppress) {
-			return 1;
+			suppress = gsw->handleButton(ql, down);
 		}
+		if (suppress)
+			return 1;
 	}
 	return CallNextHookEx(gsw->hhMouse, nCode, wParam, lParam);
 }
