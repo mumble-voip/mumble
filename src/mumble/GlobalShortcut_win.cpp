@@ -236,6 +236,8 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 		switch(msg) {
 			case WM_LBUTTONDOWN:
 				ucKeyState[VK_LBUTTON] |= 0x80;
+				if (gsw->tDoubleClick.restart() < (QApplication::doubleClickInterval() * 1000ULL))
+					msg = WM_LBUTTONDBLCLK;
 				break;
 			case WM_LBUTTONUP:
 				ucKeyState[VK_LBUTTON] &= 0x7f;
@@ -306,6 +308,8 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 			widget = & g.ocIntercept->qgv;
 			qWarning("SENDMOUSE %x %04x %08x", msg, w, l);
 			::PostMessage(widget->winId(), msg, w, l);
+			
+			QMetaObject::invokeMethod(g.ocIntercept, "updateMouse", Qt::QueuedConnection);
 
 			suppress = true;
 		}

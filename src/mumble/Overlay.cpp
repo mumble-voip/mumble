@@ -374,85 +374,31 @@ void OverlayUser::updateUser() {
 }
 
 OverlayScene::OverlayScene(QObject *p) : QGraphicsScene(p) {
-	qgpiCursor = new QGraphicsPixmapItem();
-	qgpiCursor->hide();
-	qgpiCursor->setZValue(10.0f);
-
-	addItem(qgpiCursor);
-	
-	csShape = Qt::BlankCursor;
-	
-	iOffsetX = iOffsetY = 0;
 }
 
 void OverlayScene::mouseMoveEvent(QGraphicsSceneMouseEvent *qgsme) {
 //	qWarning() << "MouseMove" << qgsme->scenePos().x() << qgsme->scenePos().y() << qgsme->buttons();
-
 	QGraphicsScene::mouseMoveEvent(qgsme);
-
-
-	const QList<QGraphicsView *> &vlist = views();
-	if (! vlist.isEmpty()) {
-		const QCursor &cursor = vlist.first()->viewport()->cursor();
-
-		if (cursor.shape() != csShape) {
-			csShape = cursor.shape();
-			
-			QPixmap pm;
-			
-#ifdef Q_OS_WIN
-			ICONINFO info;
-			ZeroMemory(&info, sizeof(info));
-			if (::GetIconInfo(cursor.handle(), &info)) {
-				qWarning("ICONINFO %d %x %x", info.fIcon, info.hbmMask, info.hbmColor);
-				
-				pm = QPixmap::fromWinHBITMAP(info.hbmColor);
-				pm.setMask(QBitmap(QPixmap::fromWinHBITMAP(info.hbmMask)));
-				
-				if (info.hbmMask) 
-					::DeleteObject(info.hbmMask);
-				if (info.hbmColor)
-					::DeleteObject(info.hbmColor);
-					
-				iOffsetX = info.xHotspot;
-				iOffsetY = info.yHotspot;
-			}
-#endif
-			qgpiCursor->setPixmap(pm);
-		}
-	}
-
-	qgpiCursor->setPos(qgsme->scenePos().x() - iOffsetX, qgsme->scenePos().y() - iOffsetY);
 }
 
 void OverlayScene::dragEnterEvent(QGraphicsSceneDragDropEvent *qsdde) {
 	qWarning() << "dragEnterEvent";
-
 	QGraphicsScene::dragEnterEvent(qsdde);
 }
 
 void OverlayScene::dragLeaveEvent(QGraphicsSceneDragDropEvent *qsdde) {
 	qWarning() << "dragLeaveEvent";
-
 	QGraphicsScene::dragLeaveEvent(qsdde);
 }
 
 void OverlayScene::dragMoveEvent(QGraphicsSceneDragDropEvent *qsdde) {
 	qWarning() << "dragMoveEvent";
-	qgpiCursor->setPos(qsdde->scenePos().x(), qsdde->scenePos().y());
-
 	QGraphicsScene::dragMoveEvent(qsdde);
 }
 
 void OverlayScene::dropEvent(QGraphicsSceneDragDropEvent *qsdde) {
 	qWarning() << "dropEvent";
 	QGraphicsScene::dropEvent(qsdde);
-}
-
-void OverlayScene::resetScene() {
-	removeItem(qgpiCursor);
-	clear();
-	addItem(qgpiCursor);
 }
 
 OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
@@ -474,6 +420,16 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 
 	// Make sure it has a native window id
 	qgv.winId();
+
+	qgpiCursor = new QGraphicsPixmapItem();
+	qgpiCursor->hide();
+	qgpiCursor->setZValue(10.0f);
+
+	qgs.addItem(qgpiCursor);
+	
+	csShape = Qt::BlankCursor;
+	
+	iOffsetX = iOffsetY = 0;
 	
 	connect(&qgs, SIGNAL(changed(const QList<QRectF> &)), this, SLOT(changed(const QList<QRectF> &)));
 }
@@ -488,6 +444,38 @@ OverlayClient::~OverlayClient() {
 
 bool OverlayClient::eventFilter(QObject *o, QEvent *e) {
 	return QObject::eventFilter(o, e);
+}
+
+void OverlayClient::updateMouse() {
+	const QCursor &cursor = qgv.cursor();
+
+	if (cursor.shape() != csShape) {
+		csShape = cursor.shape();
+
+		QPixmap pm;
+
+#ifdef Q_OS_WIN
+		ICONINFO info;
+		ZeroMemory(&info, sizeof(info));
+		if (::GetIconInfo(cursor.handle(), &info)) {
+			qWarning("ICONINFO %d %x %x", info.fIcon, info.hbmMask, info.hbmColor);
+
+			pm = QPixmap::fromWinHBITMAP(info.hbmColor);
+			pm.setMask(QBitmap(QPixmap::fromWinHBITMAP(info.hbmMask)));
+
+			if (info.hbmMask) 
+				::DeleteObject(info.hbmMask);
+			if (info.hbmColor)
+				::DeleteObject(info.hbmColor);
+
+			iOffsetX = info.xHotspot;
+			iOffsetY = info.yHotspot;
+		}
+#endif
+		qgpiCursor->setPixmap(pm);
+	}
+
+	qgpiCursor->setPos(iMouseX - iOffsetX, iMouseY - iOffsetY);
 }
 
 #if defined(Q_WS_WIN) || defined(Q_WS_MAC)
@@ -551,8 +539,8 @@ void OverlayClient::showGui() {
 	iMouseX = qBound<int>(0, p.x(), uiWidth);
 	iMouseY = qBound<int>(0, p.y(), uiHeight);
 	
-	qgs.qgpiCursor->setPos(iMouseX, iMouseY);
-	qgs.qgpiCursor->show();
+	qgpiCursor->setPos(iMouseX, iMouseY);
+	qgpiCursor->show();
 	
 	qgs.setFocus();
 
@@ -594,7 +582,7 @@ void OverlayClient::hideGui() {
 		}
 	}
 
-	qgs.qgpiCursor->hide();
+	qgpiCursor->hide();
 
 	if (g.ocIntercept == this)
 		g.ocIntercept = NULL;

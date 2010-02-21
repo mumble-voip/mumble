@@ -29,6 +29,7 @@
 */
 
 #include "GlobalShortcut.h"
+#include "Timer.h"
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
@@ -64,6 +65,7 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		QHash<GUID, InputDevice *> qhInputDevices;
 		HHOOK hhMouse, hhKeyboard;
 		unsigned int uiHardwareDevices;
+		Timer tDoubleClick;
 		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
 		static BOOL CALLBACK EnumDevicesCB(LPCDIDEVICEINSTANCE, LPVOID);
 		static BOOL CALLBACK EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);

@@ -112,14 +112,8 @@ class OverlayScene : public QGraphicsScene {
 		virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent *);
 		virtual void dragMoveEvent(QGraphicsSceneDragDropEvent *);
 		virtual void dropEvent(QGraphicsSceneDragDropEvent *);
-
-		Qt::CursorShape csShape;
-		int iOffsetX, iOffsetY;
 	public:
-		QGraphicsPixmapItem *qgpiCursor;
 		OverlayScene(QObject *p = NULL);
-	public slots:
-		void resetScene();
 };
 
 class OverlayClient : public QObject {
@@ -134,6 +128,10 @@ class OverlayClient : public QObject {
 		int iItemHeight;
 		QRect qrLast;
 		Timer t;
+
+		Qt::CursorShape csShape;
+		int iOffsetX, iOffsetY;
+		QGraphicsPixmapItem *qgpiCursor;
 		
 		quint64 uiPid;
 		OverlayScene qgs;
@@ -165,6 +163,7 @@ class OverlayClient : public QObject {
 		void showGui();
 		void hideGui();
 		void scheduleDelete();
+		void updateMouse();
 };
 
 class OverlayPrivate : public QObject {
