@@ -114,7 +114,6 @@ class OverlayScene : public QGraphicsScene {
 		virtual void dropEvent(QGraphicsSceneDragDropEvent *);
 
 		Qt::CursorShape csShape;
-		QMap<Qt::CursorShape, QPixmap> qmCursors;
 		int iOffsetX, iOffsetY;
 	public:
 		QGraphicsPixmapItem *qgpiCursor;

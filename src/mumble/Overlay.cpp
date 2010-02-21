@@ -37,7 +37,6 @@
 #include "ServerHandler.h"
 #include "MainWindow.h"
 
-
 static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
 	return new OverlayConfig(st);
 }
@@ -387,9 +386,10 @@ OverlayScene::OverlayScene(QObject *p) : QGraphicsScene(p) {
 }
 
 void OverlayScene::mouseMoveEvent(QGraphicsSceneMouseEvent *qgsme) {
-	qWarning() << "MouseMove" << qgsme->scenePos().x() << qgsme->scenePos().y() << qgsme->buttons();
+//	qWarning() << "MouseMove" << qgsme->scenePos().x() << qgsme->scenePos().y() << qgsme->buttons();
 
 	QGraphicsScene::mouseMoveEvent(qgsme);
+
 
 	const QList<QGraphicsView *> &vlist = views();
 	if (! vlist.isEmpty()) {
@@ -397,109 +397,27 @@ void OverlayScene::mouseMoveEvent(QGraphicsSceneMouseEvent *qgsme) {
 
 		if (cursor.shape() != csShape) {
 			csShape = cursor.shape();
-			QString pixmapname;
-
-
-			switch (csShape) {
-				case Qt::ArrowCursor:
-						pixmapname = QLatin1String("skin:cursors/Arrow.png");
-						iOffsetX = 1;
-						iOffsetY = 1;
-						break;
-				case Qt::BusyCursor:
-						pixmapname = QLatin1String("skin:cursors/Busy.png");
-						iOffsetX = 1;
-						iOffsetY = 1;
-						break;
-				case Qt::ClosedHandCursor:
-						pixmapname = QLatin1String("skin:cursors/ClosedHand.png");
-						iOffsetX = 1;
-						iOffsetY = 1;
-						break;
-				case Qt::CrossCursor:
-						pixmapname = QLatin1String("skin:cursors/Cross.png");
-						iOffsetX = 12;
-						iOffsetY = 12;
-						break;
-				case Qt::ForbiddenCursor:
-						pixmapname = QLatin1String("skin:cursors/Forbidden.png");
-						iOffsetX = 12;
-						iOffsetY = 12;
-						break;
-				case Qt::IBeamCursor:
-						pixmapname = QLatin1String("skin:cursors/IBeam.png");
-						iOffsetX = 12;
-						iOffsetY = 12;
-						break;
-				case Qt::OpenHandCursor:
-						pixmapname = QLatin1String("skin:cursors/OpenHand.png");
-						iOffsetX = 1;
-						iOffsetY = 1;
-						break;
-				case Qt::PointingHandCursor:
-						pixmapname = QLatin1String("skin:cursors/PointingHand.png");
-						iOffsetX = 1;
-						iOffsetY = 1;
-						break;
-				case Qt::SizeAllCursor:
-						pixmapname = QLatin1String("skin:cursors/SizeAll.png");
-						iOffsetX = 1;
-						iOffsetY = 1;
-						break;
-				case Qt::SizeBDiagCursor:
-						pixmapname = QLatin1String("skin:cursors/SizeBDiag.png");
-						iOffsetX = 12;
-						iOffsetY = 12;
-						break;
-				case Qt::SizeFDiagCursor:
-						pixmapname = QLatin1String("skin:cursors/SizeFDiag.png");
-						iOffsetX = 12;
-						iOffsetY = 12;
-						break;
-				case Qt::SizeHorCursor:
-						pixmapname = QLatin1String("skin:cursors/SizeHor.png");
-						iOffsetX = 12;
-						iOffsetY = 12;
-						break;
-				case Qt::SizeVerCursor:
-						pixmapname = QLatin1String("skin:cursors/SizeVer.png");
-						iOffsetX = 12;
-						iOffsetY = 12;
-						break;
-				case Qt::SplitHCursor:
-						pixmapname = QLatin1String("skin:cursors/SplitH.png");
-						iOffsetX = 12;
-						iOffsetY = 12;
-						break;
-				case Qt::SplitVCursor:
-						pixmapname = QLatin1String("skin:cursors/SplitV.png");
-						iOffsetX = 12;
-						iOffsetY = 12;
-						break;
-				case Qt::UpArrowCursor:
-						pixmapname = QLatin1String("skin:cursors/UpArrow.png");
-						iOffsetX = 1;
-						iOffsetY = 1;
-						break;
-				case Qt::WaitCursor:
-						pixmapname = QLatin1String("skin:cursors/Wait.png");
-						iOffsetX = 1;
-						iOffsetY = 1;
-						break;
-				case Qt::WhatsThisCursor:
-						pixmapname = QLatin1String("skin:cursors/WhatsThis.png");
-						iOffsetX = 1;
-						iOffsetY = 1;
-						break;
-				break;
+			
+			QPixmap pm;
+			
+#ifdef Q_OS_WIN
+			ICONINFO info;
+			ZeroMemory(&info, sizeof(info));
+			if (::GetIconInfo(cursor.handle(), &info)) {
+				qWarning("ICONINFO %d %x %x", info.fIcon, info.hbmMask, info.hbmColor);
+				
+				pm = QPixmap::fromWinHBITMAP(info.hbmColor);
+				pm.setMask(QBitmap(QPixmap::fromWinHBITMAP(info.hbmMask)));
+				
+				if (info.hbmMask) 
+					::DeleteObject(info.hbmMask);
+				if (info.hbmColor)
+					::DeleteObject(info.hbmColor);
+					
+				iOffsetX = info.xHotspot;
+				iOffsetY = info.yHotspot;
 			}
-
-			QPixmap pm = qmCursors.value(csShape);
-
-			if (pm.isNull()) {
-				pm.load(pixmapname);
-				qmCursors.insert(csShape, pm);
-			}
+#endif
 			qgpiCursor->setPixmap(pm);
 		}
 	}
@@ -691,7 +609,7 @@ void OverlayClient::hideGui() {
 
 	qgv.setAttribute(Qt::WA_WState_Hidden, true);
 	qt_use_native_dialogs = true;
-	
+
 	if (bDelete)
 		deleteLater();
 }
@@ -817,8 +735,6 @@ void OverlayClient::setupRender() {
 	om.omb.h = uiHeight;
 	qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgBlit));
 }
-
-unsigned int uiColumns = 2;
 
 bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 	if (! uiWidth || ! uiHeight || ! smMem)
