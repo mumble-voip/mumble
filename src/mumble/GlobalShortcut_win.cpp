@@ -202,15 +202,19 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 		
 #ifndef COMPAT_CLIENT
 		if (! suppress && g.ocIntercept) {
-			QWidget *widget = qApp->focusWidget();
-			if (! widget)
-				widget = & g.ocIntercept->qgv;
-				
-			widget = & g.ocIntercept->qgv;
+			HWND hwnd = g.ocIntercept->qgv.winId();
+
+			GUITHREADINFO gti;
+			ZeroMemory(&gti, sizeof(gti));
+			gti.cbSize = sizeof(gti);
+			::GetGUIThreadInfo(::GetWindowThreadProcessId(hwnd, NULL), &gti);
+			
+			if (gti.hwndFocus)
+				hwnd = gti.hwndFocus;
 
 			if (! nomsg) {
-				qWarning("SENDKEY   %x %04x %08x", msg, w, l);
-				::PostMessage(widget->winId(), msg, w, l);
+				qWarning("SENDKEY %x <= %x %04x %08x", hwnd, msg, w, l);
+				::PostMessage(hwnd, msg, w, l);
 			}
 			
 			suppress = true;
@@ -278,8 +282,8 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 			int dx = mouse->pt.x - p.x;
 			int dy = mouse->pt.y - p.y;
 			
-			g.ocIntercept->iMouseX = qBound<int>(0, g.ocIntercept->iMouseX + dx, g.ocIntercept->uiWidth);
-			g.ocIntercept->iMouseY = qBound<int>(0, g.ocIntercept->iMouseY + dy, g.ocIntercept->uiHeight);
+			g.ocIntercept->iMouseX = qBound<int>(0, g.ocIntercept->iMouseX + dx, g.ocIntercept->uiWidth - 1);
+			g.ocIntercept->iMouseY = qBound<int>(0, g.ocIntercept->iMouseY + dy, g.ocIntercept->uiHeight - 1);
 
 			WPARAM w = 0;
 			LPARAM l = (static_cast<short>(g.ocIntercept->iMouseX) & 0xFFFF) | ((g.ocIntercept->iMouseY << 16) & 0xFFFF0000);
@@ -299,15 +303,18 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 			if (ucKeyState[VK_XBUTTON2] & 0x80)
 				w |= MK_XBUTTON2;
 
-			qWarning("Mousy %d %d => %d %d %d %d", dx, dy, g.ocIntercept->iMouseX, g.ocIntercept->iMouseY, QCursor::pos().x(), QCursor::pos().y());
+			HWND hwnd = g.ocIntercept->qgv.winId();
 
-			QWidget *widget = qApp->focusWidget();
-			if (! widget)
-				widget = & g.ocIntercept->qgv;
+			GUITHREADINFO gti;
+			ZeroMemory(&gti, sizeof(gti));
+			gti.cbSize = sizeof(gti);
+			::GetGUIThreadInfo(::GetWindowThreadProcessId(hwnd, NULL), &gti);
 			
-			widget = & g.ocIntercept->qgv;
-			qWarning("SENDMOUSE %x %04x %08x", msg, w, l);
-			::PostMessage(widget->winId(), msg, w, l);
+			if (gti.hwndCapture)
+				hwnd = gti.hwndCapture;
+
+			qWarning("SENDMOUSE %x <= %x %04x %08x", hwnd, msg, w, l);
+			::PostMessage(hwnd, msg, w, l);
 			
 			QMetaObject::invokeMethod(g.ocIntercept, "updateMouse", Qt::QueuedConnection);
 

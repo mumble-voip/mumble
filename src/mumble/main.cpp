@@ -86,15 +86,17 @@ void QAppMumble::commitData(QSessionManager &) {
 
 #ifdef Q_OS_WIN
 bool QAppMumble::winEventFilter(MSG *msg, long *result) {
-	if (Global::g_global_struct && g.ocIntercept) {
-		switch (msg->message) {
-			case WM_KEYDOWN:
-			case WM_KEYUP:
-			case WM_SYSKEYDOWN:
-			case WM_SYSKEYUP:
-				GlobalShortcutEngine::engine->prepareInput();
-			default:
-				break;
+	if (QThread::currentThread() == thread()) {
+		if (Global::g_global_struct && g.ocIntercept) {
+			switch (msg->message) {
+				case WM_KEYDOWN:
+				case WM_KEYUP:
+				case WM_SYSKEYDOWN:
+				case WM_SYSKEYUP:
+					GlobalShortcutEngine::engine->prepareInput();
+				default:
+					break;
+			}
 		}
 	}
 	return QApplication::winEventFilter(msg, result);
