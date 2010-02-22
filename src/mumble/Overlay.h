@@ -102,6 +102,15 @@ class OverlayUser : public QGraphicsItemGroup {
 		static QPixmap createPixmap(const QString &str, unsigned int height, unsigned int maxwidth, QColor col, QPainterPath &);
 };
 
+class OverlayMouse : public QGraphicsPixmapItem {
+	private:
+		Q_DISABLE_COPY(OverlayMouse);
+	public:
+		bool contains(const QPointF &) const;
+		bool collidesWithPath(const QPainterPath &, Qt::ItemSelectionMode = Qt::IntersectsItemShape) const;
+		OverlayMouse(QGraphicsItem * = NULL);
+};
+
 class OverlayScene : public QGraphicsScene {
 	private:
 		Q_OBJECT

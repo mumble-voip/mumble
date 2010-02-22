@@ -36,6 +36,7 @@
 #include "Database.h"
 #include "ServerHandler.h"
 #include "MainWindow.h"
+#include "GlobalShortcut.h"
 
 static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
 	return new OverlayConfig(st);
@@ -373,6 +374,17 @@ void OverlayUser::updateUser() {
 	setOpacity(qc.alphaF());
 }
 
+OverlayMouse::OverlayMouse(QGraphicsItem *p) : QGraphicsPixmapItem(p) {
+}
+
+bool OverlayMouse::contains(const QPointF &) const {
+	return false;
+}
+
+bool OverlayMouse::collidesWithPath(const QPainterPath &, Qt::ItemSelectionMode) const {
+	return false;
+}
+
 OverlayScene::OverlayScene(QObject *p) : QGraphicsScene(p) {
 }
 
@@ -421,7 +433,7 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	// Make sure it has a native window id
 	qgv.winId();
 
-	qgpiCursor = new QGraphicsPixmapItem();
+	qgpiCursor = new OverlayMouse();
 	qgpiCursor->hide();
 	qgpiCursor->setZValue(10.0f);
 
@@ -528,6 +540,7 @@ void OverlayClient::showGui() {
 
 			w->showNormal();
 
+			qgpw->setActive(true);
 			qgs.addItem(qgpw);
 		}
 	}

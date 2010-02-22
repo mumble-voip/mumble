@@ -188,7 +188,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 			if (ucKeyState[w] & 0x80)
 				l |= 0x40000000;
 			ucKeyState[w] |= 0x80;
-		} else if ((msg == WM_KEYUP) && !nomsg) {
+		} else if (((msg == WM_KEYUP) || (msg == WM_SYSKEYUP)) && !nomsg) {
 			ucKeyState[w] &= 0x7f;
 		}
 
