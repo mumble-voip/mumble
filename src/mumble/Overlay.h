@@ -111,20 +111,6 @@ class OverlayMouse : public QGraphicsPixmapItem {
 		OverlayMouse(QGraphicsItem * = NULL);
 };
 
-class OverlayScene : public QGraphicsScene {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(OverlayScene);
-	protected:
-		virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *);
-		virtual void dragEnterEvent(QGraphicsSceneDragDropEvent *);
-		virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent *);
-		virtual void dragMoveEvent(QGraphicsSceneDragDropEvent *);
-		virtual void dropEvent(QGraphicsSceneDragDropEvent *);
-	public:
-		OverlayScene(QObject *p = NULL);
-};
-
 class OverlayClient : public QObject {
 		friend class Overlay;
 	private:
@@ -142,7 +128,7 @@ class OverlayClient : public QObject {
 		QGraphicsPixmapItem *qgpiCursor;
 		
 		quint64 uiPid;
-		OverlayScene qgs;
+		QGraphicsScene qgs;
 		QMap<QObject *, OverlayUser *> qmUsers;
 
 		bool bWasVisible;

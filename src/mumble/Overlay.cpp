@@ -167,6 +167,8 @@ void OverlayConfig::accept() const {
 	g.o->setActive(s.bOverlayEnable);
 }
 
+
+
 OverlayUser::OverlayUser(ClientUser *cu, unsigned int height) : QGraphicsItemGroup(), cuUser(cu), uiSize(height) {
 	// Creation
 
@@ -374,6 +376,8 @@ void OverlayUser::updateUser() {
 	setOpacity(qc.alphaF());
 }
 
+
+
 OverlayMouse::OverlayMouse(QGraphicsItem *p) : QGraphicsPixmapItem(p) {
 }
 
@@ -385,33 +389,7 @@ bool OverlayMouse::collidesWithPath(const QPainterPath &, Qt::ItemSelectionMode)
 	return false;
 }
 
-OverlayScene::OverlayScene(QObject *p) : QGraphicsScene(p) {
-}
 
-void OverlayScene::mouseMoveEvent(QGraphicsSceneMouseEvent *qgsme) {
-//	qWarning() << "MouseMove" << qgsme->scenePos().x() << qgsme->scenePos().y() << qgsme->buttons();
-	QGraphicsScene::mouseMoveEvent(qgsme);
-}
-
-void OverlayScene::dragEnterEvent(QGraphicsSceneDragDropEvent *qsdde) {
-	qWarning() << "dragEnterEvent";
-	QGraphicsScene::dragEnterEvent(qsdde);
-}
-
-void OverlayScene::dragLeaveEvent(QGraphicsSceneDragDropEvent *qsdde) {
-	qWarning() << "dragLeaveEvent";
-	QGraphicsScene::dragLeaveEvent(qsdde);
-}
-
-void OverlayScene::dragMoveEvent(QGraphicsSceneDragDropEvent *qsdde) {
-	qWarning() << "dragMoveEvent";
-	QGraphicsScene::dragMoveEvent(qsdde);
-}
-
-void OverlayScene::dropEvent(QGraphicsSceneDragDropEvent *qsdde) {
-	qWarning() << "dropEvent";
-	QGraphicsScene::dropEvent(qsdde);
-}
 
 OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	qlsSocket = socket;
@@ -871,6 +849,8 @@ void OverlayClient::userDestroyed(QObject *obj) {
 		delete ou;
 }
 
+
+
 bool OverlayTextLine::operator <(const OverlayTextLine &other) const {
 	if (iPriority < other.iPriority)
 		return true;
@@ -879,6 +859,8 @@ bool OverlayTextLine::operator <(const OverlayTextLine &other) const {
 
 	return QString::localeAwareCompare(qsText, other.qsText) < 0;
 }
+
+
 
 Overlay::Overlay() : QObject() {
 	d = NULL;

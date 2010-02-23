@@ -251,10 +251,8 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 			if (gti.hwndFocus)
 				hwnd = gti.hwndFocus;
 
-			if (! nomsg) {
-				qWarning("SENDKEY %x <= %x %04x %08x", hwnd, msg, w, l);
+			if (! nomsg) 
 				::PostMessage(hwnd, msg, w, l);
-			}
 			
 			suppress = true;
 		}
@@ -352,7 +350,6 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 			if (gti.hwndCapture)
 				hwnd = gti.hwndCapture;
 
-			qWarning("SENDMOUSE %x <= %x %04x %08x", hwnd, msg, w, l);
 			::PostMessage(hwnd, msg, w, l);
 			
 			QMetaObject::invokeMethod(g.ocIntercept, "updateMouse", Qt::QueuedConnection);
