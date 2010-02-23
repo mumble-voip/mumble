@@ -1,3 +1,130 @@
+2010-02-23
+  arcenciel <arcenciel@users.sourceforge.net>
+    eda6b17  Updated Japanese Translations for 1.2.2
+
+  Kissaki <kissaki@gmx.de>
+    eda77d2  Fix spelling error in murmur.ini
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    caee7c8  Merge branch 'overlay'
+    c157f6e  Fix overlay to compile on nix
+    46288be  Cleanup unused Scene
+    e4c7724  Grab cursor from Win32 directly
+    3b38ac2  Override DoDragDrop's window detection
+
+2010-02-22
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    dac5d96  Honor Win32 focus/capture override
+    b52344d  Fix keyboard input state and remove mouse as valid click
+	     object
+
+2010-02-21
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    145fbce  Doubleclick and direct mouse update
+    44d8c7c  Clone cursor bitmap from system
+
+2010-02-20
+  Mikkel Krautz <mikkel@krautz.dk>
+    1be405b  Add targets for x86_64 and universal (i386 and ppc) to
+	     osxdist.py.
+    a309532  Move OSX dist scripts to macx directory.
+    8934d91  Add automatic overlay injection for OSX (Snow Leopard only,
+	     for now).
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    6725d88  Cursor with offset support
+    f6ed071  Temporary cursors
+    e71a214  Eventloop fixing; gracefull enter/exit
+
+2010-02-19
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    fde785e  Re-modalize about dialog
+    f690f2f  Use non-native dialogs when embedded, and unembed on window
+	     hide
+    2c2918e  Doublebuffer painter
+
+2010-02-18
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    0d45ea6  Async about dialog
+    46bb060  Somewhat threaded input handling
+
+2010-02-17
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    5a9b23d  WIP: Overlay
+
+2010-02-16
+  Mikkel Krautz <mikkel@krautz.dk>
+    4a31df9  Sneakily fix MUMBLE_PREFIX envvar detection.
+    e815da0  Bail if no MUMBLE_PREFIX envvar is set during OSX build.
+    c0791fb  Add CONFIG+=universal for the traditional (i386,ppc) build of
+	     Mumble.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    1576957  Calculate overlay offset correctly
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    59d6d67  Attempt to fix Arma 2 rotation addresses using pointers; fix
+	     DoDS typo
+
+2010-02-15
+  Mikkel Krautz <mikkel@krautz.dk>
+    80863d5  Add compat stub-app to instruct users that they're using an
+	     unsupported arch, and how to get a version that will work for
+	     them.
+    2dbba84  Move OSX overlay and overlay launcher into macx subdir.
+    ffe8fe2  Use new OSX install prefix for Murmur.
+    e268627  Rename 'installer_macx' to 'macx'. We don't have an installer
+	     anymore. Use it for more general OSX stuff.
+    6fa6411  CFLAGS fix for multiarch OSX overlay.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    79fc874  Expand dynamic slice-fetch example to show fallback
+    a2b4f85  Example of on-the-fly slice-fetch for Python
+    7ba42b7  Split icesecret in icesecretread and icesecretwrite
+
+  Żukowski Michał <zuczeq@gmail.com>
+    aa6250d  Updated Polish translation
+
+2010-02-14
+  Mikkel Krautz <mikkel@krautz.dk>
+    cbc5380  Change default OSX build to x86_64.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    eca8b3c  Fix compile error on gcc
+
+2010-02-13
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    6e430ca  Add irc:// protocol to whitelist
+    11ec4b4  Only allow register for users with a cert
+    bdbd480  Grey out autoupdate for snapshots
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    9d3a304  Gmod, Insurgency updates
+    0de84db  DoDs, L4D2, TF2 updates
+
+2010-02-12
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    7f459eb  Update some license stuff we missed
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    f0583b1  Add error message on snapshot installer fail
+    31cd532  Use ShellExecuteEx instead of QProcess to launch installer
+    97e8720  Remove gone users from overlay
+    c551d63  QGraphicsLayout based overlay render
+    d97d55c  Remove period in tooltip
+
+2010-02-11
+  Natenom <natenom@googlemail.com>
+    c067589  Add few German translations strings
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    fb5a618  Fix crash when dropping nonexisting channels
+    c473d5f  Update STO plugin
+    58cbf0e  Hopefully fix a compilebug I introduced on OSX
+    91cf6c7  Pipeline http fetch and set user-agent
+    61a1074  /dontskip for dxdiag requires Win7, so skip it
+    15a299a  Remove debug define from VersionCheck
+
 2010-02-10
   Thorvald Natvig <slicer@users.sourceforge.net>
     7d74f37  Fix new audio compile problems in 11x
@@ -28,6 +155,9 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     070692d  Small style fixes in some plugins
     dfaa2d5  Zero camera position if manual plugin is deactivated
+
+  Karl Dietz <dekarl@users.sourceforge.net>
+    d8e25b0  LOTRO use Pi from math.h
 
   Thorvald Natvig <slicer@users.sourceforge.net>
     3938ebe  Move plugin system-level includes to common header

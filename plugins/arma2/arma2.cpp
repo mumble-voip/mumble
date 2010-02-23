@@ -116,7 +116,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float front_corrector1;
 	float front_corrector2;
 	float front_corrector3;
-	
+
 	float top_corrector1;
 	float top_corrector2;
 	float top_corrector3;
@@ -133,11 +133,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	ok = peekProc(posptr, avatar_pos, 12) &&
 	     peekProc(frontptr, &front_corrector1, 4) &&
-		 peekProc(frontptr + 0xC, &front_corrector2, 4) &&
-		 peekProc(frontptr + 0x18, &front_corrector3, 4) &&
+	     peekProc(frontptr + 0xC, &front_corrector2, 4) &&
+	     peekProc(frontptr + 0x18, &front_corrector3, 4) &&
 	     peekProc(topptr, &top_corrector1, 4) &&
-		 peekProc(topptr + 0xC, &top_corrector2, 4) &&
-		 peekProc(topptr + 0x18, &top_corrector3, 4);
+	     peekProc(topptr + 0xC, &top_corrector2, 4) &&
+	     peekProc(topptr + 0x18, &top_corrector3, 4);
 
 	if (! ok)
 		return false;
@@ -179,13 +179,13 @@ static int trylock() {
 	BYTE *ptr2 = peekProcPtr(ptr1 + 0x280);
 
 	posptr = ptr2 + 0x40;
-	
+
 	BYTE *ptr3 = peekProcPtr((BYTE *) 0x00C10B00);
 	BYTE *ptr4 = peekProcPtr(ptr1 + 0x18);
-	
+
 	frontptr = ptr4 + 0xA8;
 	topptr = ptr4 + 0xA4;
-	
+
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;
 	std::wstring identity;

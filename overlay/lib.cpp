@@ -464,7 +464,7 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 
 		uiWidth = 0;
 		uiHeight = 0;
-		
+
 		OverlayMsg om;
 		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 		om.omh.uiType = OVERLAY_MSGTYPE_PID;
@@ -473,7 +473,7 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 
 		if (!sendMessage(om))
 			return;
-			
+
 		ods("Pipe: SentPid");
 	}
 
@@ -525,7 +525,7 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 				return;
 			}
 		}
-		
+
 		if (static_cast<int>(dwBytesLeft) < omMsg.omh.iLength)
 			break;
 

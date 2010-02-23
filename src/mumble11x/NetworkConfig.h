@@ -55,8 +55,8 @@ class NetworkConfig : public ConfigWidget, Ui::NetworkConfig {
 };
 
 namespace Network {
-		void prepareRequest(QNetworkRequest &);
-		QNetworkReply *get(const QUrl &);
+	void prepareRequest(QNetworkRequest &);
+	QNetworkReply *get(const QUrl &);
 }
 
 #else

@@ -89,7 +89,7 @@ QString OSInfo::getOS() {
 
 QString OSInfo::getOSVersion() {
 	static QString qsCached;
-	
+
 	if (! qsCached.isNull())
 		return qsCached.isEmpty() ? QString() : qsCached;
 

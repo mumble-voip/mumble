@@ -106,7 +106,7 @@ void OverlayWidget::detach() {
 
 void OverlayWidget::connected() {
 	qWarning() << "connected";
-	
+
 	OverlayMsg m;
 	m.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 	m.omh.uiType = OVERLAY_MSGTYPE_PID;

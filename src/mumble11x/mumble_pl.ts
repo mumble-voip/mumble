@@ -1448,7 +1448,7 @@ Ustaw odpowiednią liczbę %. Domyślnie 50%.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="+402"/>
+        <location filename="AudioStats.cpp" line="+405"/>
         <source>&gt;1000 ms</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2252,7 +2252,7 @@ Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do p
 <context>
     <name>CrashReporter</name>
     <message>
-        <location filename="CrashReporter.cpp" line="+36"/>
+        <location filename="CrashReporter.cpp" line="+37"/>
         <source>Mumble Crash Report</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2309,7 +2309,7 @@ Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do p
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+115"/>
+        <location line="+114"/>
         <source>Uploading crash report</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4311,7 +4311,7 @@ Chcesz zakończyć czy zminimalizować program?</translation>
 <context>
     <name>NetworkConfig</name>
     <message>
-        <location filename="NetworkConfig.cpp" line="+50"/>
+        <location filename="NetworkConfig.cpp" line="+51"/>
         <source>Network</source>
         <translation>Sieć</translation>
     </message>
@@ -4922,7 +4922,7 @@ Opcja dostępna tylko, gdy ustawisz teksturę na danym serwerze podczas rejestra
         <translation type="obsolete">Nie udało się pobrać informacji o wersji z serwera SourceForge.</translation>
     </message>
     <message>
-        <location filename="VersionCheck.cpp" line="+132"/>
+        <location filename="VersionCheck.cpp" line="+130"/>
         <source>Upgrade Mumble</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4932,7 +4932,12 @@ Opcja dostępna tylko, gdy ustawisz teksturę na danym serwerze podczas rejestra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+13"/>
+        <source>Failed to launch snapshot installer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>Corrupt download of new version detected. Automatically removed.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4942,12 +4947,12 @@ Opcja dostępna tylko, gdy ustawisz teksturę na danym serwerze podczas rejestra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+18"/>
         <source>Failed to write new version to disc.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+17"/>
         <source>Mumble failed to retrieve version information from the central server.</source>
         <translation type="unfinished"></translation>
     </message>

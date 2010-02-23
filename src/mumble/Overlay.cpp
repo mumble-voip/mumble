@@ -197,7 +197,7 @@ OverlayUser::OverlayUser(ClientUser *cu, unsigned int height) : QGraphicsItemGro
 	qgpiAvatar = new QGraphicsPixmapItem();
 	addToGroup(qgpiAvatar);
 
-	for(int i=0;i<5;++i) {
+	for (int i=0;i<5;++i) {
 		qgpiName[i] = new QGraphicsPixmapItem();
 		qgpiName[i]->hide();
 		addToGroup(qgpiName[i]);
@@ -216,10 +216,10 @@ OverlayUser::OverlayUser(ClientUser *cu, unsigned int height) : QGraphicsItemGro
 	qgpiDeafened->setPos(0.0f, 0.0f);
 	qgpiDeafened->setZValue(1.0f);
 	qgpiDeafened->setOpacity(0.7f);
-	
+
 	qgpiAvatar->setPos(0.0f, 0.0f);
 
-	for(int i=0;i<5;++i) {
+	for (int i=0;i<5;++i) {
 		qgpiName[i]->setPos(0.0f, (5 * uiSize) / 6);
 		qgpiName[i]->setZValue(2.0f);
 		qgpiName[i]->setOpacity(0.9f);
@@ -244,16 +244,16 @@ QPixmap OverlayUser::createPixmap(const QString &string, unsigned int height, un
 		float ds = fs * ((height - 2.0f * edge) / r.height());
 
 		f.setPointSizeF(ds);
-		
+
 		QString str;
-		
+
 		if (r.width() < maxwidth) {
 			str = string;
 		} else {
 			QFontMetrics qfm(f);
 			str = qfm.elidedText(string, Qt::ElideRight, iroundf(maxwidth - 2 * edge));
 		}
-		
+
 		pp.addText(0.0f, 0.0f, f, str);
 		QRectF qr = pp.controlPointRect();
 
@@ -287,16 +287,16 @@ QPixmap OverlayUser::createPixmap(const QString &string, unsigned int height, un
 
 	imgp.setPen(Qt::NoPen);
 	imgp.drawPath(pp);
-	
+
 	return QPixmap::fromImage(img);
 }
 
 void OverlayUser::updateUser() {
 	if (qsName != cuUser->qsName) {
 		qsName = cuUser->qsName;
-		
+
 		QPainterPath pp;
-		for(int i=0;i<g.o->qlColors.size(); ++i) {
+		for (int i=0;i<g.o->qlColors.size(); ++i) {
 			const QPixmap &pm = createPixmap(qsName, uiSize / 6, uiSize, g.o->qlColors.at(i), pp);
 			qgpiName[i]->setPixmap(pm);
 			qgpiName[i]->setX((uiSize - pm.width()) / 2);
@@ -314,7 +314,7 @@ void OverlayUser::updateUser() {
 
 	if (qgpiAvatar->pixmap().isNull() || (qbaAvatar != cuUser->qbaTextureHash)) {
 		qbaAvatar = cuUser->qbaTextureHash;
-		
+
 		QImage img;
 		if (qbaAvatar.isNull()) {
 			QImageReader qir(QLatin1String("skin:default_avatar.svg"));
@@ -332,14 +332,14 @@ void OverlayUser::updateUser() {
 			qir.setScaledSize(sz);
 			img = qir.read();
 		}
-		
+
 		qgpiAvatar->setPixmap(QPixmap::fromImage(img));
 	}
-	
+
 	ClientUser *self = ClientUser::get(g.uiSession);
 
 	qgpiAvatar->show();
-	
+
 	if (cuUser->bDeaf || cuUser->bSelfDeaf) {
 		qgpiMuted->hide();
 		qgpiDeafened->show();
@@ -368,8 +368,8 @@ void OverlayUser::updateUser() {
 		default:
 			break;
 	}
-	
-	for(int i=0;i<5;++i)
+
+	for (int i=0;i<5;++i)
 		qgpiName[i]->setVisible(i == tc);
 
 	QColor qc = g.o->qlColors.at(tc);
@@ -398,12 +398,12 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	omMsg.omh.iLength = -1;
 	smMem = NULL;
 	uiWidth = uiHeight = 0;
-	
+
 	uiPid = ~0ULL;
-	
+
 	bWasVisible = false;
 	bDelete = false;
-	
+
 	qgv.setScene(&qgs);
 	qgv.installEventFilter(this);
 	qgv.viewport()->installEventFilter(this);
@@ -416,9 +416,9 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	qgpiCursor->setZValue(10.0f);
 
 	qgs.addItem(qgpiCursor);
-	
+
 	iOffsetX = iOffsetY = 0;
-	
+
 	connect(&qgs, SIGNAL(changed(const QList<QRectF> &)), this, SLOT(changed(const QList<QRectF> &)));
 }
 
@@ -436,28 +436,28 @@ bool OverlayClient::eventFilter(QObject *o, QEvent *e) {
 
 void OverlayClient::updateMouse() {
 #ifdef Q_OS_WIN
-		QPixmap pm;
+	QPixmap pm;
 
-		HICON c = ::GetCursor();
-		if (c == NULL)
-			c = qgv.viewport()->cursor().handle();
-			
-		ICONINFO info;
-		ZeroMemory(&info, sizeof(info));
-		if (::GetIconInfo(c, &info)) {
-			pm = QPixmap::fromWinHBITMAP(info.hbmColor);
-			pm.setMask(QBitmap(QPixmap::fromWinHBITMAP(info.hbmMask)));
+	HICON c = ::GetCursor();
+	if (c == NULL)
+		c = qgv.viewport()->cursor().handle();
 
-			if (info.hbmMask) 
-				::DeleteObject(info.hbmMask);
-			if (info.hbmColor)
-				::DeleteObject(info.hbmColor);
+	ICONINFO info;
+	ZeroMemory(&info, sizeof(info));
+	if (::GetIconInfo(c, &info)) {
+		pm = QPixmap::fromWinHBITMAP(info.hbmColor);
+		pm.setMask(QBitmap(QPixmap::fromWinHBITMAP(info.hbmMask)));
 
-			iOffsetX = info.xHotspot;
-			iOffsetY = info.yHotspot;
-		}
+		if (info.hbmMask)
+			::DeleteObject(info.hbmMask);
+		if (info.hbmColor)
+			::DeleteObject(info.hbmColor);
 
-		qgpiCursor->setPixmap(pm);
+		iOffsetX = info.xHotspot;
+		iOffsetY = info.yHotspot;
+	}
+
+	qgpiCursor->setPixmap(pm);
 #else
 #endif
 
@@ -488,16 +488,16 @@ void OverlayClient::showGui() {
 			continue;
 		count++;
 	}
-	
+
 	// If there's more than one window up, we're likely deep in a message loop.
 	if (count > 1)
 		return;
 #endif
 
 	g.ocIntercept = this;
-	
+
 	bWasVisible = ! g.mw->isHidden();
-	
+
 	foreach(QWidget *w, widgets) {
 		if ((w == g.mw) || (! w->isHidden())) {
 			QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(NULL, Qt::Window);
@@ -520,14 +520,14 @@ void OverlayClient::showGui() {
 
 	QEvent event(QEvent::WindowActivate);
 	qApp->sendEvent(&qgs, &event);
-	
+
 	QPoint p = QCursor::pos();
 	iMouseX = qBound<int>(0, p.x(), uiWidth-1);
 	iMouseY = qBound<int>(0, p.y(), uiHeight-1);
-	
+
 	qgpiCursor->setPos(iMouseX, iMouseY);
 	qgpiCursor->show();
-	
+
 	qgs.setFocus();
 
 	g.mw->qleChat->activateWindow();
@@ -552,7 +552,7 @@ void OverlayClient::hideGui() {
 #endif
 
 	QList<QWidget *> widgetlist;
-	
+
 	foreach(QGraphicsItem *qgi, qgs.items(Qt::DescendingOrder)) {
 		QGraphicsProxyWidget *qgpw = qgraphicsitem_cast<QGraphicsProxyWidget *>(qgi);
 		if (qgpw && qgpw->widget()) {
@@ -562,7 +562,7 @@ void OverlayClient::hideGui() {
 			widgetlist << w;
 		}
 	}
-	
+
 	foreach(QWidget *w, widgetlist) {
 		QGraphicsProxyWidget *qgpw = w->graphicsProxyWidget();
 		if (qgpw) {
@@ -576,11 +576,11 @@ void OverlayClient::hideGui() {
 
 	if (g.ocIntercept == this)
 		g.ocIntercept = NULL;
-		
+
 
 	g.mw->bNoHide = true;
 	foreach(QWidget *w, widgetlist) {
-		if (bWasVisible) 
+		if (bWasVisible)
 			w->show();
 	}
 	g.mw->bNoHide = false;
@@ -721,16 +721,16 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 
 	int y = 0;
 	int x = 0;
-	
+
 	QList<QGraphicsItem *> items;
 	foreach(QGraphicsItem *qgi, qgs.items())
 		if (! qgi->parentItem() && (qgi->type() == 10))
 			items << qgi;
-	
+
 	foreach(const OverlayTextLine &e, lines) {
 		if (e.uiSession != 0) {
 			ClientUser *cu = ClientUser::get(e.uiSession);
-			
+
 			OverlayUser *ou = qmUsers.value(cu);
 			if (! ou) {
 				ou = new OverlayUser(cu, iItemHeight);
@@ -739,10 +739,10 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 			} else {
 				items.removeAll(ou);
 			}
-			
+
 			ou->setPos(iroundf(uiWidth * g.s.fOverlayX + x * iItemHeight * 1.05f), iroundf(uiHeight * g.s.fOverlayY + y * iItemHeight * 1.05f));
 			ou->updateUser();
-			
+
 			if (! ou->scene())
 				qgs.addItem(ou);
 
@@ -754,7 +754,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 			}
 		}
 	}
-	
+
 	foreach(QGraphicsItem *qgi, items)
 		qgs.removeItem(qgi);
 
@@ -774,25 +774,25 @@ void OverlayClient::changed(const QList<QRectF> &region) {
 void OverlayClient::render() {
 	const QList<QRectF> region = qlDirty;
 	qlDirty.clear();
-	
+
 	if (! uiWidth || ! uiHeight || ! smMem)
 		return;
 
 	QRect active;
 	QRectF dirtyf;
-	
+
 	if (region.isEmpty())
 		return;
-	
+
 	foreach(const QRectF &r, region) {
 		dirtyf |= r;
 	}
-	
+
 	QRect dirty = dirtyf.toAlignedRect();
-	
+
 	QRect target = dirty;
 	target.moveTo(0,0);
-	
+
 	QImage img(reinterpret_cast<unsigned char *>(smMem->data()), uiWidth, uiHeight, QImage::Format_ARGB32);
 	QImage qi(target.width(), target.height(), QImage::Format_ARGB32);
 	qi.fill(0);
@@ -810,7 +810,7 @@ void OverlayClient::render() {
 		p.setCompositionMode(QPainter::CompositionMode_Source);
 		p.drawImage(dirty.x(), dirty.y(), qi);
 	}
-	
+
 	active = qgs.itemsBoundingRect().toAlignedRect();
 
 	if (dirty.isValid()) {
@@ -869,7 +869,7 @@ bool OverlayTextLine::operator <(const OverlayTextLine &other) const {
 
 Overlay::Overlay() : QObject() {
 	d = NULL;
-	
+
 	platformInit();
 	forceSettings();
 

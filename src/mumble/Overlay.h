@@ -88,13 +88,13 @@ class OverlayUser : public QGraphicsItemGroup {
 		QGraphicsPixmapItem *qgpiAvatar;
 		QGraphicsPixmapItem *qgpiName[5];
 		QGraphicsPixmapItem *qgpiChannel;
-		
+
 		unsigned int uiSize;
 		ClientUser *cuUser;
 		QString qsName;
 		QString qsChannelName;
 		QByteArray qbaAvatar;
-		
+
 	public:
 		OverlayUser(ClientUser *cu, unsigned int uiSize);
 		void updateUser();
@@ -126,7 +126,7 @@ class OverlayClient : public QObject {
 
 		int iOffsetX, iOffsetY;
 		QGraphicsPixmapItem *qgpiCursor;
-		
+
 		quint64 uiPid;
 		QGraphicsScene qgs;
 		QMap<QObject *, OverlayUser *> qmUsers;
@@ -135,9 +135,9 @@ class OverlayClient : public QObject {
 		bool bDelete;
 
 		void setupRender();
-		
+
 		bool eventFilter(QObject *, QEvent *);
-		
+
 		QList<QRectF> qlDirty;
 	protected slots:
 		void readyRead();
@@ -177,7 +177,7 @@ class Overlay : public QObject {
 		Q_DISABLE_COPY(Overlay)
 	protected:
 		OverlayPrivate *d;
-		
+
 		QList<QColor> qlColors;
 
 		QList<OverlayTextLine> qlCurrentTexts;

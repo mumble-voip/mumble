@@ -219,7 +219,7 @@ class GlobalShortcutEngine : public QThread {
 		static QString buttonText(const QList<QVariant> &);
 		virtual QString buttonName(const QVariant &) = 0;
 		virtual bool canSuppress();
-		
+
 		virtual void prepareInput();
 	signals:
 		void buttonPressed(bool last);

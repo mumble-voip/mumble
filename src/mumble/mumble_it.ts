@@ -1683,7 +1683,7 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
 <context>
     <name>AudioStats</name>
     <message>
-        <location filename="AudioStats.cpp" line="+402"/>
+        <location filename="AudioStats.cpp" line="+405"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000ms</translation>
@@ -2555,7 +2555,7 @@ Mumble è in continuo sviluppo, e gli sviluppatori cercano di concentrarsi sulle
         <translation>Utente Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+384"/>
+        <location filename="main.cpp" line="+409"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Scadenza certificato:&lt;/b&gt; Il tuo certificato stà per scadere. Devi rinnovarlo, o non sarai più in grado di connetterti ai server a cui ti sei registrato.</translation>
     </message>
@@ -3268,7 +3268,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+863"/>
+        <location filename="ConnectDialog.cpp" line="+864"/>
         <source>Connecting to %1</source>
         <translation>Connessione a %1</translation>
     </message>
@@ -3382,7 +3382,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+948"/>
+        <location line="+946"/>
         <source>Failed to fetch server list</source>
         <translation>Scaricamento della lista dei server fallita</translation>
     </message>
@@ -3506,7 +3506,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">&amp;Password</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-699"/>
+        <location filename="ConnectDialog.cpp" line="-697"/>
         <source>&amp;Connect</source>
         <translation>&amp;Connetti</translation>
     </message>
@@ -3677,7 +3677,7 @@ Nome utente da mandare al server. ll server potrebbe avere delle restrizioni su 
 <context>
     <name>CrashReporter</name>
     <message>
-        <location filename="CrashReporter.cpp" line="+36"/>
+        <location filename="CrashReporter.cpp" line="+37"/>
         <source>Mumble Crash Report</source>
         <translation>Rapporto errori di Mumble</translation>
     </message>
@@ -3734,7 +3734,7 @@ Nome utente da mandare al server. ll server potrebbe avere delle restrizioni su 
         <translation>Questo veramente non è divertente, ma apparentemente c&apos;è un bug nel codice del rapporto, e abbiamo fallito ad inviare il rapporto. Puoi informare uno sviluppatore sull&apos;errore %1</translation>
     </message>
     <message>
-        <location line="+115"/>
+        <location line="+114"/>
         <source>Uploading crash report</source>
         <translation>Invio rapporto errore in corso</translation>
     </message>
@@ -4173,7 +4173,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+218"/>
+        <location filename="Log.cpp" line="+220"/>
         <source>Debug</source>
         <translation>Debug</translation>
     </message>
@@ -4308,7 +4308,7 @@ p, li { white-space: pre-wrap; }
         <translation>Utente uscito dal canale</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+54"/>
         <source>the server</source>
         <translation>il server</translation>
     </message>
@@ -4353,7 +4353,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-510"/>
+        <location line="-511"/>
         <source>Toggle console for %1 events</source>
         <translation>Imposta console per gli eventi %1</translation>
     </message>
@@ -4884,12 +4884,12 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1833"/>
+        <location line="+1840"/>
         <source>Root</source>
         <translation>Radice</translation>
     </message>
     <message>
-        <location line="-1782"/>
+        <location line="-1789"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Premi-per-parlare</translation>
@@ -5028,12 +5028,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+1934"/>
+        <location line="+1941"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-1930"/>
+        <location line="-1937"/>
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
@@ -5095,24 +5095,23 @@ p, li { white-space: pre-wrap; }
         <translation>Questo imposta o cambia lo stato di audio e microfono disattivato. Se lo imposti su ON, abiliterai anche la disattivazione automatica del microfono.</translation>
     </message>
     <message>
-        <location line="+14"/>
         <source>This will switch the states of the in-game overlay between showing everybody, just the users who are talking, and nobody.</source>
         <comment>Global Shortcut</comment>
-        <translation>Questo cambia lo stato della sovrapposizione in-game tra visualizza tutti, solo gli utenti che stanno parlando e nessuno.</translation>
+        <translation type="obsolete">Questo cambia lo stato della sovrapposizione in-game tra visualizza tutti, solo gli utenti che stanno parlando e nessuno.</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+30"/>
         <source>Whisper</source>
         <translation>Sussurra</translation>
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1951"/>
+        <location line="+1958"/>
         <source>Not connected</source>
         <translation>Non connesso</translation>
     </message>
     <message>
-        <location line="-1748"/>
+        <location line="-1749"/>
         <source>Clear</source>
         <translation>Cancella</translation>
     </message>
@@ -5159,7 +5158,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+18"/>
-        <location line="+184"/>
+        <location line="+185"/>
         <source>Connecting to server %1.</source>
         <translation>Connessione al server %1.</translation>
     </message>
@@ -5219,7 +5218,13 @@ p, li { white-space: pre-wrap; }
         <translation>Registrati come %1</translation>
     </message>
     <message>
-        <location line="-281"/>
+        <location line="-920"/>
+        <source>This will switch the states of the in-game overlay.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+639"/>
         <location line="+281"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Stai per registrarti sul server. Quest&apos;azione non può essere annullata, il tuo nome utente non potrà essere cambiato. Sarai per sempre conosciuto come &apos;%1&apos; su questo server.&lt;p&gt;Se sicuro di volerti registrare?&lt;/p&gt;</translation>
@@ -5576,7 +5581,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Giocatore</translation>
     </message>
     <message>
-        <location line="-2008"/>
+        <location line="-2015"/>
         <source>&amp;Channel</source>
         <translation>&amp;Canale</translation>
     </message>
@@ -6775,9 +6780,8 @@ p, li { white-space: pre-wrap; }
         <translation>&amp;Scollega plugin</translation>
     </message>
     <message>
-        <location/>
         <source>Change your own comment.</source>
-        <translation>Cambia il tuo stesso commento.</translation>
+        <translation type="obsolete">Cambia il tuo stesso commento.</translation>
     </message>
     <message>
         <location/>
@@ -6814,13 +6818,23 @@ p, li { white-space: pre-wrap; }
         <source>Icon Toolbar</source>
         <translation>Toolbar delle icone</translation>
     </message>
+    <message>
+        <location/>
+        <source>Change your own comment</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NetworkConfig</name>
     <message>
-        <location filename="NetworkConfig.cpp" line="+52"/>
+        <location filename="NetworkConfig.cpp" line="+53"/>
         <source>Network</source>
         <translation>Rete</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Updates are mandatory when using snapshot releases.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui"/>
@@ -7089,7 +7103,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+642"/>
+        <location filename="Overlay.cpp" line="+892"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Impossibile creare una comunicazione con la sovrapposizione su %2 :%1. La sovrapposizione non sarà disponibile.</translation>
     </message>
@@ -7119,7 +7133,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-594"/>
+        <location line="-842"/>
         <source>Show no one</source>
         <translation>Non mostrare nessuno</translation>
     </message>
@@ -7432,7 +7446,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
     <name>PluginConfig</name>
     <message>
         <location filename="Plugins.ui"/>
-        <location filename="Plugins.cpp" line="+72"/>
+        <location filename="Plugins.cpp" line="+73"/>
         <source>Plugins</source>
         <translation>Plugin</translation>
     </message>
@@ -7538,7 +7552,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+420"/>
+        <location filename="Plugins.cpp" line="+424"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
         <translation>Scaricato nuovo o aggiornato plugin a %1.</translation>
@@ -7549,7 +7563,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation>Installazione fallita del nouvo plugin a %1.</translation>
     </message>
     <message>
-        <location line="-228"/>
+        <location line="-232"/>
         <source>%1 lost link.</source>
         <translation>Collegamento perso con %1.</translation>
     </message>
@@ -8302,7 +8316,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>Sei sicuro di voler spostare questo canale?</translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+93"/>
         <location line="+20"/>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
         <translation>Impossibile eseguire questo movimento automaticamente, per favore reimposta gli indicatori numerici o aggiustalo manualmente.</translation>
@@ -8315,7 +8329,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="obsolete">Mumble non è riuscito a recuperare le informazioni sull&apos;ultima versione dal server SourceForge.</translation>
     </message>
     <message>
-        <location filename="VersionCheck.cpp" line="+132"/>
+        <location filename="VersionCheck.cpp" line="+130"/>
         <source>Upgrade Mumble</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8325,7 +8339,12 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+13"/>
+        <source>Failed to launch snapshot installer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>Corrupt download of new version detected. Automatically removed.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8335,12 +8354,12 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+18"/>
         <source>Failed to write new version to disc.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+17"/>
         <source>Mumble failed to retrieve version information from the central server.</source>
         <translation type="unfinished"></translation>
     </message>

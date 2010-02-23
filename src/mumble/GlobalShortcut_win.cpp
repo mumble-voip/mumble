@@ -61,8 +61,8 @@ GlobalShortcutWin::GlobalShortcutWin() {
 	DWORD oldProtect;
 	unsigned char *f = reinterpret_cast<unsigned char *>(&WindowFromPoint);
 	VirtualProtect(f, 6, PAGE_EXECUTE_READWRITE, &oldProtect);
-	
-	for(int i=0;i<6;++i)
+
+	for (int i=0;i<6;++i)
 		ucWindowFromPointOrig[i] = f[i];
 
 	unsigned char **iptr = reinterpret_cast<unsigned char **>(&ucWindowFromPointNew[1]);
@@ -70,7 +70,7 @@ GlobalShortcutWin::GlobalShortcutWin() {
 	ucWindowFromPointNew[0] = 0x68;
 	ucWindowFromPointNew[5] = 0xc3;
 
-	for(int i=0;i<6;++i)
+	for (int i=0;i<6;++i)
 		f[i] = ucWindowFromPointNew[i];
 
 	FlushInstructionCache(GetCurrentProcess(), f, 6);
@@ -92,16 +92,16 @@ HWND WINAPI GlobalShortcutWin::HookWindowFromPoint(POINT p) {
 
 	unsigned char *f = reinterpret_cast<unsigned char *>(&WindowFromPoint);
 
-	for(int i=0;i<6;++i)
+	for (int i=0;i<6;++i)
 		f[i] = ucWindowFromPointOrig[i];
 	FlushInstructionCache(GetCurrentProcess(), f, 6);
-	
+
 	HWND hwnd = WindowFromPoint(p);
-	
-	for(int i=0;i<6;++i)
+
+	for (int i=0;i<6;++i)
 		f[i] = ucWindowFromPointNew[i];
 	FlushInstructionCache(GetCurrentProcess(), f, 6);
-	
+
 	return hwnd;
 }
 
@@ -155,7 +155,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 	GlobalShortcutWin *gsw=static_cast<GlobalShortcutWin *>(engine);
 	KBDLLHOOKSTRUCT *key=reinterpret_cast<KBDLLHOOKSTRUCT *>(lParam);
 	BYTE *ucKeyState = gsw->ucKeyState;
-	
+
 #ifndef QT_NO_DEBUG
 	static int safety = 0;
 
@@ -170,7 +170,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 			l |= 0x1000000;
 		if (wParam == WM_KEYUP)
 			l |= 0xC0000000;
-			
+
 		bool nomsg = false;
 
 		switch (w) {
@@ -238,7 +238,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 		ql << keyid;
 		ql << QVariant(QUuid(GUID_SysKeyboard));
 		bool suppress = gsw->handleButton(ql, !(key->flags & LLKHF_UP));
-		
+
 #ifndef COMPAT_CLIENT
 		if (! suppress && g.ocIntercept) {
 			HWND hwnd = g.ocIntercept->qgv.winId();
@@ -247,20 +247,20 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 			ZeroMemory(&gti, sizeof(gti));
 			gti.cbSize = sizeof(gti);
 			::GetGUIThreadInfo(::GetWindowThreadProcessId(hwnd, NULL), &gti);
-			
+
 			if (gti.hwndFocus)
 				hwnd = gti.hwndFocus;
 
-			if (! nomsg) 
+			if (! nomsg)
 				::PostMessage(hwnd, msg, w, l);
-			
+
 			suppress = true;
 		}
 #endif
 
 		if (suppress)
 			return 1;
-		
+
 	}
 	return CallNextHookEx(gsw->hhKeyboard, nCode, wParam, lParam);
 }
@@ -274,7 +274,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 		bool suppress = false;
 		UINT msg = wParam;
 
-		switch(msg) {
+		switch (msg) {
 			case WM_LBUTTONDOWN:
 				ucKeyState[VK_LBUTTON] |= 0x80;
 				if (gsw->tDoubleClick.restart() < (QApplication::doubleClickInterval() * 1000ULL))
@@ -318,7 +318,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 
 			int dx = mouse->pt.x - p.x;
 			int dy = mouse->pt.y - p.y;
-			
+
 			g.ocIntercept->iMouseX = qBound<int>(0, g.ocIntercept->iMouseX + dx, g.ocIntercept->uiWidth - 1);
 			g.ocIntercept->iMouseY = qBound<int>(0, g.ocIntercept->iMouseY + dy, g.ocIntercept->uiHeight - 1);
 
@@ -346,12 +346,12 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 			ZeroMemory(&gti, sizeof(gti));
 			gti.cbSize = sizeof(gti);
 			::GetGUIThreadInfo(::GetWindowThreadProcessId(hwnd, NULL), &gti);
-			
+
 			if (gti.hwndCapture)
 				hwnd = gti.hwndCapture;
 
 			::PostMessage(hwnd, msg, w, l);
-			
+
 			QMetaObject::invokeMethod(g.ocIntercept, "updateMouse", Qt::QueuedConnection);
 
 			suppress = true;

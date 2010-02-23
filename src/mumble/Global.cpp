@@ -60,7 +60,7 @@ Global::Global() {
 	uiImageLength = 131072;
 
 	qs = NULL;
-	
+
 	ocIntercept = NULL;
 
 	bQuit = false;

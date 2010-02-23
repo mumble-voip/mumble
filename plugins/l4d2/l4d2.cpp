@@ -178,7 +178,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 	char state;
 
-	// stateptr returns byte values: 0 when map is not loaded; 8 when loaded 
+	// stateptr returns byte values: 0 when map is not loaded; 8 when loaded
 	ok = peekProc(posptr, ipos, 12) &&
 	     peekProc(rotptr, rot, 12) &&
 	     peekProc(stateptr, &state, 1);
