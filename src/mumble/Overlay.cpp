@@ -439,8 +439,6 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 
 	qgs.addItem(qgpiCursor);
 	
-	csShape = Qt::BlankCursor;
-	
 	iOffsetX = iOffsetY = 0;
 	
 	connect(&qgs, SIGNAL(changed(const QList<QRectF> &)), this, SLOT(changed(const QList<QRectF> &)));
@@ -459,19 +457,16 @@ bool OverlayClient::eventFilter(QObject *o, QEvent *e) {
 }
 
 void OverlayClient::updateMouse() {
-	const QCursor &cursor = qgv.cursor();
-
-	if (cursor.shape() != csShape) {
-		csShape = cursor.shape();
-
+#ifdef Q_OS_WIN
 		QPixmap pm;
 
-#ifdef Q_OS_WIN
+		HICON c = ::GetCursor();
+		if (c == NULL)
+			c = qgv.viewport()->cursor().handle();
+			
 		ICONINFO info;
 		ZeroMemory(&info, sizeof(info));
-		if (::GetIconInfo(cursor.handle(), &info)) {
-			qWarning("ICONINFO %d %x %x", info.fIcon, info.hbmMask, info.hbmColor);
-
+		if (::GetIconInfo(c, &info)) {
 			pm = QPixmap::fromWinHBITMAP(info.hbmColor);
 			pm.setMask(QBitmap(QPixmap::fromWinHBITMAP(info.hbmMask)));
 
@@ -483,9 +478,10 @@ void OverlayClient::updateMouse() {
 			iOffsetX = info.xHotspot;
 			iOffsetY = info.yHotspot;
 		}
-#endif
+
 		qgpiCursor->setPixmap(pm);
-	}
+#else
+#endif
 
 	qgpiCursor->setPos(iMouseX - iOffsetX, iMouseY - iOffsetY);
 }
@@ -512,7 +508,6 @@ void OverlayClient::showGui() {
 	foreach(QWidget *w, widgets) {
 		if (w->isHidden() && (w != g.mw))
 			continue;
-		qWarning("Counting %s", w->metaObject()->className());
 		count++;
 	}
 	
@@ -549,8 +544,8 @@ void OverlayClient::showGui() {
 	qApp->sendEvent(&qgs, &event);
 	
 	QPoint p = QCursor::pos();
-	iMouseX = qBound<int>(0, p.x(), uiWidth);
-	iMouseY = qBound<int>(0, p.y(), uiHeight);
+	iMouseX = qBound<int>(0, p.x(), uiWidth-1);
+	iMouseY = qBound<int>(0, p.y(), uiHeight-1);
 	
 	qgpiCursor->setPos(iMouseX, iMouseY);
 	qgpiCursor->show();

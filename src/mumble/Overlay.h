@@ -138,7 +138,6 @@ class OverlayClient : public QObject {
 		QRect qrLast;
 		Timer t;
 
-		Qt::CursorShape csShape;
 		int iOffsetX, iOffsetY;
 		QGraphicsPixmapItem *qgpiCursor;
 		
