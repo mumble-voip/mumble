@@ -29,95 +29,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <windows.h>
-#include <tlhelp32.h>
-#include <math.h>
-
-#if _DEBUG
-#include <iostream>
-#endif
-
-#include <QtGui/QMessageBox>
-#include "../mumble_plugin.h"
-
-HANDLE h;
-
-BYTE *lotroclient;
-
-static DWORD getProcess(const wchar_t *exename) {
-	PROCESSENTRY32 pe;
-	DWORD pid = 0;
-
-	pe.dwSize = sizeof(pe);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Process32First(hSnap, &pe);
-
-		while (ok) {
-			if (wcscmp(pe.szExeFile, exename)==0) {
-				pid = pe.th32ProcessID;
-				break;
-			}
-			ok = Process32Next(hSnap, &pe);
-		}
-		CloseHandle(hSnap);
-	}
-	return pid;
-}
-
-static BYTE *getModuleAddr(DWORD pid, const wchar_t *modname) {
-	MODULEENTRY32 me;
-	BYTE *addr = NULL;
-	me.dwSize = sizeof(me);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Module32First(hSnap, &me);
-
-		while (ok) {
-			if (wcscmp(me.szModule, modname)==0) {
-				addr = me.modBaseAddr;
-				break;
-			}
-			ok = Module32Next(hSnap, &me);
-		}
-		CloseHandle(hSnap);
-	}
-	return addr;
-}
-
-
-static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
-	SIZE_T r;
-	BOOL ok=ReadProcessMemory(h, base, dest, len, &r);
-	return (ok && (r == len));
-}
-
-static DWORD peekProc(VOID *base) {
-	DWORD v = 0;
-	peekProc(base, reinterpret_cast<BYTE *>(&v), sizeof(DWORD));
-	return v;
-}
-
-static BYTE *peekProcPtr(VOID *base) {
-	DWORD v = peekProc(base);
-	return reinterpret_cast<BYTE *>(v);
-}
-
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports Lord of the Rings Online (Codemasters Edition, Vol II Book 9 Patch1, v3.0.6.8015). Context support based on region and instance. No Identity support.");
-}
-
-static std::wstring description(L"Lord of the Rings Online (EU), Vol II Book 9 Patch1");
-static std::wstring shortname(L"Lord of the Rings Online");
-
-static void about(HWND h) {
-	QMessageBox msg;
-	msg.setWindowTitle(QString::fromStdWString(description));
-	msg.setText(QString::fromStdWString(longdesc()));
-	msg.exec();
-}
+#include "../mumble_plugin_win32.h"
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++)
@@ -151,7 +63,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	     peekProc((BYTE *) 0x010A18E8, l, 2) &&
 	     peekProc((BYTE *) 0x010A18E4, &r, 1) &&
 	     peekProc((BYTE *) 0x010A18EC, &i, 1) &&
-	     peekProc((BYTE *)(lotroclient + 0x00D87EC0), &hPtr, 4);
+	     peekProc((BYTE *)(pModule + 0x00D87EC0), &hPtr, 4);
 
 	if (! ok)
 		return false;
@@ -181,13 +93,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (l[0] == 255 && l[1] == 255)
 		return true;
 
-	avatar_pos[0] = (float)l[0] * 160.0 + o[0];
+	avatar_pos[0] = (float)l[0] * 160.0f + o[0];
 	avatar_pos[1] = o[2];
-	avatar_pos[2] = (float)l[1] * 160.0 + o[1];
+	avatar_pos[2] = (float)l[1] * 160.0f + o[1];
 
-	avatar_front[0] = sin(h * M_PI / 180.0);
+	avatar_front[0] = sinf(h * M_PI / 180.0f);
 	avatar_front[1] = 0.0f;
-	avatar_front[2] = cos(h * M_PI / 180.0);
+	avatar_front[2] = cosf(h * M_PI / 180.0f);
 
 	avatar_top[0] = 0.0;
 	avatar_top[1] = 1.0;
@@ -206,60 +118,36 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock() {
-
-	lotroclient = NULL;
-	h = NULL;
-
-	DWORD pid=getProcess(L"lotroclient.exe");
-	if (!pid)
+	if (!initialize(L"lotroclient.exe"))
 		return false;
-
-	lotroclient = getModuleAddr(pid, L"lotroclient.exe");
-	if (!lotroclient)
-		return false;
-
-	h=OpenProcess(PROCESS_VM_READ, false, pid);
-	if (!h) {
-#ifdef _DEBUG
-		DWORD dwError;
-		wchar_t errBuf[256];
-
-		dwError = GetLastError();
-		FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, dwError, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR)errBuf, sizeof(errBuf),NULL);
-		std::cout << "Error in OpenProcess: ";
-		std::wcout << errBuf << std::endl;
-#endif
-		return false;
-	}
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;
 	std::wstring identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
 		return true;
-
-	CloseHandle(h);
-	h = NULL;
-	return false;
-}
-
-static void unlock() {
-	if (h) {
-		CloseHandle(h);
-		h = NULL;
+	} else {
+		generic_unlock();
+		return false;
 	}
-	return;
 }
+
+static const std::wstring longdesc() {
+	return std::wstring(L"Supports Lord of the Rings Online (Codemasters Edition, Vol II Book 9 Patch1, v3.0.6.8015). Context support based on region and instance. No Identity support.");
+}
+
+static std::wstring description(L"Lord of the Rings Online (EU), Vol II Book 9 Patch1");
+static std::wstring shortname(L"Lord of the Rings Online");
 
 static MumblePlugin lotroplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
-	about,
+	NULL,
 	NULL,
 	trylock,
-	unlock,
+	generic_unlock,
 	longdesc,
 	fetch
 };
