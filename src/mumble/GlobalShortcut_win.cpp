@@ -47,6 +47,9 @@ uint qHash(const GUID &a) {
 	return val;
 }
 
+unsigned char GlobalShortcutWin::ucWindowFromPointOrig[6];
+unsigned char GlobalShortcutWin::ucWindowFromPointNew[6];
+
 GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutWin();
 }
@@ -54,7 +57,24 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 GlobalShortcutWin::GlobalShortcutWin() {
 	pDI = NULL;
 	uiHardwareDevices = 0;
+
+	DWORD oldProtect;
+	unsigned char *f = reinterpret_cast<unsigned char *>(&WindowFromPoint);
+	VirtualProtect(f, 6, PAGE_EXECUTE_READWRITE, &oldProtect);
 	
+	for(int i=0;i<6;++i)
+		ucWindowFromPointOrig[i] = f[i];
+
+	unsigned char **iptr = reinterpret_cast<unsigned char **>(&ucWindowFromPointNew[1]);
+	*iptr = reinterpret_cast<unsigned char *>(&HookWindowFromPoint);
+	ucWindowFromPointNew[0] = 0x68;
+	ucWindowFromPointNew[5] = 0xc3;
+
+	for(int i=0;i<6;++i)
+		f[i] = ucWindowFromPointNew[i];
+
+	FlushInstructionCache(GetCurrentProcess(), f, 6);
+
 	GetKeyboardState(ucKeyState);
 
 	moveToThread(this);
@@ -64,6 +84,25 @@ GlobalShortcutWin::GlobalShortcutWin() {
 GlobalShortcutWin::~GlobalShortcutWin() {
 	quit();
 	wait();
+}
+
+HWND WINAPI GlobalShortcutWin::HookWindowFromPoint(POINT p) {
+	if (g.ocIntercept)
+		return g.ocIntercept->qgv.winId();
+
+	unsigned char *f = reinterpret_cast<unsigned char *>(&WindowFromPoint);
+
+	for(int i=0;i<6;++i)
+		f[i] = ucWindowFromPointOrig[i];
+	FlushInstructionCache(GetCurrentProcess(), f, 6);
+	
+	HWND hwnd = WindowFromPoint(p);
+	
+	for(int i=0;i<6;++i)
+		f[i] = ucWindowFromPointNew[i];
+	FlushInstructionCache(GetCurrentProcess(), f, 6);
+	
+	return hwnd;
 }
 
 void GlobalShortcutWin::run() {

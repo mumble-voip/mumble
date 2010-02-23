@@ -89,6 +89,9 @@ bool QAppMumble::winEventFilter(MSG *msg, long *result) {
 	if (QThread::currentThread() == thread()) {
 		if (Global::g_global_struct && g.ocIntercept) {
 			switch (msg->message) {
+				case WM_MOUSELEAVE:
+					*result = 0;
+					return true;
 				case WM_KEYDOWN:
 				case WM_KEYUP:
 				case WM_SYSKEYDOWN:

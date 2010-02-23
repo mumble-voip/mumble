@@ -71,6 +71,11 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		static BOOL CALLBACK EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
 		static LRESULT CALLBACK HookKeyboard(int, WPARAM, LPARAM);
 		static LRESULT CALLBACK HookMouse(int, WPARAM, LPARAM);
+
+		static unsigned char ucWindowFromPointOrig[6];
+		static unsigned char ucWindowFromPointNew[6];
+		static HWND WINAPI HookWindowFromPoint(POINT);
+
 		virtual bool canSuppress();
 		void run();
 	public slots:
