@@ -477,7 +477,7 @@ void OverlayClient::showGui() {
 	widgets.removeAll(g.mw);
 	widgets.prepend(g.mw);
 
-#if 1
+#if defined(QT3_SUPPORT) || defined(Q_WS_WIN)
 	if (QCoreApplication::loopLevel() > 1)
 		return;
 #else
@@ -537,16 +537,20 @@ void OverlayClient::showGui() {
 	qApp->setActiveWindow(&qgv);
 	qgv.setFocus();
 
+#if defined(Q_WS_WIN) || defined(Q_WS_MAC)
 	qt_use_native_dialogs = false;
+#endif
 }
 
 void OverlayClient::hideGui() {
+#if defined(QT3_SUPPORT) || defined(Q_WS_WIN)
 	if (QCoreApplication::loopLevel() > 1) {
 		QCoreApplication::exit_loop();
 		QMetaObject::invokeMethod(this, "hideGui", Qt::QueuedConnection);
 		return;
 	}
-	
+#endif
+
 	QList<QWidget *> widgetlist;
 	
 	foreach(QGraphicsItem *qgi, qgs.items(Qt::DescendingOrder)) {
@@ -582,8 +586,9 @@ void OverlayClient::hideGui() {
 	g.mw->bNoHide = false;
 
 	qgv.setAttribute(Qt::WA_WState_Hidden, true);
+#if defined(Q_WS_WIN) || defined(Q_WS_MAC)
 	qt_use_native_dialogs = true;
-
+#endif
 	if (bDelete)
 		deleteLater();
 }
