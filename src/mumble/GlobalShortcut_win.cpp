@@ -58,6 +58,7 @@ GlobalShortcutWin::GlobalShortcutWin() {
 	pDI = NULL;
 	uiHardwareDevices = 0;
 
+#ifndef COMPAT_CLIENT
 	DWORD oldProtect;
 	unsigned char *f = reinterpret_cast<unsigned char *>(&WindowFromPoint);
 	VirtualProtect(f, 6, PAGE_EXECUTE_READWRITE, &oldProtect);
@@ -74,6 +75,7 @@ GlobalShortcutWin::GlobalShortcutWin() {
 		f[i] = ucWindowFromPointNew[i];
 
 	FlushInstructionCache(GetCurrentProcess(), f, 6);
+#endif
 
 	GetKeyboardState(ucKeyState);
 
@@ -86,6 +88,7 @@ GlobalShortcutWin::~GlobalShortcutWin() {
 	wait();
 }
 
+#ifndef COMPAT_CLIENT
 HWND WINAPI GlobalShortcutWin::HookWindowFromPoint(POINT p) {
 	if (g.ocIntercept)
 		return g.ocIntercept->qgv.winId();
@@ -104,6 +107,7 @@ HWND WINAPI GlobalShortcutWin::HookWindowFromPoint(POINT p) {
 
 	return hwnd;
 }
+#endif
 
 void GlobalShortcutWin::run() {
 	HMODULE hSelf;
