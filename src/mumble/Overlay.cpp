@@ -35,6 +35,8 @@
 #include "Message.h"
 #include "Database.h"
 #include "ServerHandler.h"
+#include "MainWindow.h"
+#include "GlobalShortcut.h"
 
 static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
 	return new OverlayConfig(st);
@@ -164,6 +166,8 @@ void OverlayConfig::accept() const {
 	g.o->forceSettings();
 	g.o->setActive(s.bOverlayEnable);
 }
+
+
 
 OverlayUser::OverlayUser(ClientUser *cu, unsigned int height) : QGraphicsItemGroup(), cuUser(cu), uiSize(height) {
 	// Creation
@@ -372,6 +376,21 @@ void OverlayUser::updateUser() {
 	setOpacity(qc.alphaF());
 }
 
+
+
+OverlayMouse::OverlayMouse(QGraphicsItem *p) : QGraphicsPixmapItem(p) {
+}
+
+bool OverlayMouse::contains(const QPointF &) const {
+	return false;
+}
+
+bool OverlayMouse::collidesWithPath(const QPainterPath &, Qt::ItemSelectionMode) const {
+	return false;
+}
+
+
+
 OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	qlsSocket = socket;
 	connect(qlsSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
@@ -379,6 +398,26 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	omMsg.omh.iLength = -1;
 	smMem = NULL;
 	uiWidth = uiHeight = 0;
+	
+	uiPid = ~0ULL;
+	
+	bWasVisible = false;
+	bDelete = false;
+	
+	qgv.setScene(&qgs);
+	qgv.installEventFilter(this);
+	qgv.viewport()->installEventFilter(this);
+
+	// Make sure it has a native window id
+	qgv.winId();
+
+	qgpiCursor = new OverlayMouse();
+	qgpiCursor->hide();
+	qgpiCursor->setZValue(10.0f);
+
+	qgs.addItem(qgpiCursor);
+	
+	iOffsetX = iOffsetY = 0;
 	
 	connect(&qgs, SIGNAL(changed(const QList<QRectF> &)), this, SLOT(changed(const QList<QRectF> &)));
 }
@@ -389,7 +428,174 @@ OverlayClient::~OverlayClient() {
 	foreach(OverlayUser *ou, qmUsers)
 		delete ou;
 	qmUsers.clear();
-	qgs.clear();
+}
+
+bool OverlayClient::eventFilter(QObject *o, QEvent *e) {
+	return QObject::eventFilter(o, e);
+}
+
+void OverlayClient::updateMouse() {
+#ifdef Q_OS_WIN
+		QPixmap pm;
+
+		HICON c = ::GetCursor();
+		if (c == NULL)
+			c = qgv.viewport()->cursor().handle();
+			
+		ICONINFO info;
+		ZeroMemory(&info, sizeof(info));
+		if (::GetIconInfo(c, &info)) {
+			pm = QPixmap::fromWinHBITMAP(info.hbmColor);
+			pm.setMask(QBitmap(QPixmap::fromWinHBITMAP(info.hbmMask)));
+
+			if (info.hbmMask) 
+				::DeleteObject(info.hbmMask);
+			if (info.hbmColor)
+				::DeleteObject(info.hbmColor);
+
+			iOffsetX = info.xHotspot;
+			iOffsetY = info.yHotspot;
+		}
+
+		qgpiCursor->setPixmap(pm);
+#else
+#endif
+
+	qgpiCursor->setPos(iMouseX - iOffsetX, iMouseY - iOffsetY);
+}
+
+#if defined(Q_WS_WIN) || defined(Q_WS_MAC)
+extern bool Q_GUI_EXPORT qt_use_native_dialogs;
+#endif
+
+// Qt gets very very unhappy if we embed or unmbed the widget that an event is called from.
+// This means that if any modal dialog is open, we'll be in a event loop of an object
+// that we're about to reparent.
+
+void OverlayClient::showGui() {
+	QWidgetList widgets = qApp->topLevelWidgets();
+	widgets.removeAll(g.mw);
+	widgets.prepend(g.mw);
+
+#if defined(QT3_SUPPORT) || defined(Q_WS_WIN)
+	if (QCoreApplication::loopLevel() > 1)
+		return;
+#else
+	int count = 0;
+
+	foreach(QWidget *w, widgets) {
+		if (w->isHidden() && (w != g.mw))
+			continue;
+		count++;
+	}
+	
+	// If there's more than one window up, we're likely deep in a message loop.
+	if (count > 1)
+		return;
+#endif
+
+	g.ocIntercept = this;
+	
+	bWasVisible = ! g.mw->isHidden();
+	
+	foreach(QWidget *w, widgets) {
+		if ((w == g.mw) || (! w->isHidden())) {
+			QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(NULL, Qt::Window);
+
+			qgpw->setOpacity(0.90f);
+			qgpw->setWidget(w);
+
+
+			if (w == g.mw) {
+				qgpw->setPos(uiWidth / 10, uiHeight / 10);
+				qgpw->resize((uiWidth * 8) / 10, (uiHeight * 8) / 10);
+			}
+
+			w->showNormal();
+
+			qgpw->setActive(true);
+			qgs.addItem(qgpw);
+		}
+	}
+
+	QEvent event(QEvent::WindowActivate);
+	qApp->sendEvent(&qgs, &event);
+	
+	QPoint p = QCursor::pos();
+	iMouseX = qBound<int>(0, p.x(), uiWidth-1);
+	iMouseY = qBound<int>(0, p.y(), uiHeight-1);
+	
+	qgpiCursor->setPos(iMouseX, iMouseY);
+	qgpiCursor->show();
+	
+	qgs.setFocus();
+
+	g.mw->qleChat->activateWindow();
+	g.mw->qleChat->setFocus();
+
+	qgv.setAttribute(Qt::WA_WState_Hidden, false);
+	qApp->setActiveWindow(&qgv);
+	qgv.setFocus();
+
+#if defined(Q_WS_WIN) || defined(Q_WS_MAC)
+	qt_use_native_dialogs = false;
+#endif
+}
+
+void OverlayClient::hideGui() {
+#if defined(QT3_SUPPORT) || defined(Q_WS_WIN)
+	if (QCoreApplication::loopLevel() > 1) {
+		QCoreApplication::exit_loop();
+		QMetaObject::invokeMethod(this, "hideGui", Qt::QueuedConnection);
+		return;
+	}
+#endif
+
+	QList<QWidget *> widgetlist;
+	
+	foreach(QGraphicsItem *qgi, qgs.items(Qt::DescendingOrder)) {
+		QGraphicsProxyWidget *qgpw = qgraphicsitem_cast<QGraphicsProxyWidget *>(qgi);
+		if (qgpw && qgpw->widget()) {
+			QWidget *w = qgpw->widget();
+
+			qgpw->setVisible(false);
+			widgetlist << w;
+		}
+	}
+	
+	foreach(QWidget *w, widgetlist) {
+		QGraphicsProxyWidget *qgpw = w->graphicsProxyWidget();
+		if (qgpw) {
+			qgpw->setVisible(false);
+			qgpw->setWidget(NULL);
+			delete qgpw;
+		}
+	}
+
+	qgpiCursor->hide();
+
+	if (g.ocIntercept == this)
+		g.ocIntercept = NULL;
+		
+
+	g.mw->bNoHide = true;
+	foreach(QWidget *w, widgetlist) {
+		if (bWasVisible) 
+			w->show();
+	}
+	g.mw->bNoHide = false;
+
+	qgv.setAttribute(Qt::WA_WState_Hidden, true);
+#if defined(Q_WS_WIN) || defined(Q_WS_MAC)
+	qt_use_native_dialogs = true;
+#endif
+	if (bDelete)
+		deleteLater();
+}
+
+void OverlayClient::scheduleDelete() {
+	bDelete = true;
+	hideGui();
 }
 
 void OverlayClient::readyRead() {
@@ -433,7 +639,7 @@ void OverlayClient::readyRead() {
 
 						smMem = new SharedMemory2(this, uiWidth * uiHeight * 4);
 						if (! smMem->data()) {
-							qWarning() << "OverlayClient: Failed to create shared memory";
+							qWarning() << "OverlayClient: Failed to create shared memory" << uiWidth << uiHeight;
 							delete smMem;
 							smMem = NULL;
 							break;
@@ -459,6 +665,14 @@ void OverlayClient::readyRead() {
 							smMem->systemRelease();
 					}
 					break;
+				case OVERLAY_MSGTYPE_PID: {
+						if (length != sizeof(OverlayMsgPid))
+							break;
+
+						OverlayMsgPid *omp = & omMsg.omp;
+						uiPid = omp->pid;
+					}
+					break;
 				default:
 					break;
 			}
@@ -481,8 +695,12 @@ void OverlayClient::setupRender() {
 	foreach(OverlayUser *ou, qmUsers)
 		delete ou;
 	qmUsers.clear();
-	qgs.clear();
+
 	qgs.setSceneRect(0, 0, uiWidth, uiHeight);
+	qgv.setScene(NULL);
+	qgv.setGeometry(-2, -2, uiWidth + 2, uiHeight + 2);
+	qgv.viewport()->setGeometry(0, 0, uiWidth, uiHeight);
+	qgv.setScene(&qgs);
 
 	smMem->erase();
 
@@ -497,8 +715,6 @@ void OverlayClient::setupRender() {
 	qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgBlit));
 }
 
-unsigned int uiColumns = 2;
-
 bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 	if (! uiWidth || ! uiHeight || ! smMem)
 		return true;
@@ -508,7 +724,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 	
 	QList<QGraphicsItem *> items;
 	foreach(QGraphicsItem *qgi, qgs.items())
-		if (! qgi->parentItem())
+		if (! qgi->parentItem() && (qgi->type() == 10))
 			items << qgi;
 	
 	foreach(const OverlayTextLine &e, lines) {
@@ -551,6 +767,14 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 }
 
 void OverlayClient::changed(const QList<QRectF> &region) {
+	qlDirty.append(region);
+	QMetaObject::invokeMethod(this, "render", Qt::QueuedConnection);
+}
+
+void OverlayClient::render() {
+	const QList<QRectF> region = qlDirty;
+	qlDirty.clear();
+	
 	if (! uiWidth || ! uiHeight || ! smMem)
 		return;
 
@@ -565,17 +789,27 @@ void OverlayClient::changed(const QList<QRectF> &region) {
 	}
 	
 	QRect dirty = dirtyf.toAlignedRect();
+	
+	QRect target = dirty;
+	target.moveTo(0,0);
+	
+	QImage img(reinterpret_cast<unsigned char *>(smMem->data()), uiWidth, uiHeight, QImage::Format_ARGB32);
+	QImage qi(target.width(), target.height(), QImage::Format_ARGB32);
+	qi.fill(0);
 
-	QImage qi(reinterpret_cast<unsigned char *>(smMem->data()), uiWidth, uiHeight, QImage::Format_ARGB32);
+	{
+		QPainter p(&qi);
+		p.setRenderHint(QPainter::Antialiasing);
+		p.setRenderHint(QPainter::TextAntialiasing);
+		p.setCompositionMode(QPainter::CompositionMode_SourceOver);
+		qgs.render(&p, target, dirty, Qt::IgnoreAspectRatio);
+	}
 
-	QPainter p(&qi);
-	p.setRenderHint(QPainter::Antialiasing);
-	p.setRenderHint(QPainter::TextAntialiasing);
-	p.setBackground(QColor(0,0,0,0));
-	p.setCompositionMode(QPainter::CompositionMode_Clear);
-	p.eraseRect(dirty);
-	p.setCompositionMode(QPainter::CompositionMode_SourceOver);
-	qgs.render(&p, dirty, dirty);
+	{
+		QPainter p(&img);
+		p.setCompositionMode(QPainter::CompositionMode_Source);
+		p.drawImage(dirty.x(), dirty.y(), qi);
+	}
 	
 	active = qgs.itemsBoundingRect().toAlignedRect();
 
@@ -610,7 +844,7 @@ void OverlayClient::changed(const QList<QRectF> &region) {
 		om.oma.h = qrLast.height();
 		qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgActive));
 	}
-	
+
 	qlsSocket->flush();
 }
 
@@ -620,6 +854,8 @@ void OverlayClient::userDestroyed(QObject *obj) {
 		delete ou;
 }
 
+
+
 bool OverlayTextLine::operator <(const OverlayTextLine &other) const {
 	if (iPriority < other.iPriority)
 		return true;
@@ -628,6 +864,8 @@ bool OverlayTextLine::operator <(const OverlayTextLine &other) const {
 
 	return QString::localeAwareCompare(qsText, other.qsText) < 0;
 }
+
+
 
 Overlay::Overlay() : QObject() {
 	d = NULL;
@@ -704,22 +942,23 @@ bool Overlay::isActive() const {
 }
 
 void Overlay::toggleShow() {
-	Settings::OverlayShow ns;
-
-	switch (g.s.osOverlay) {
-		case Settings::Nothing:
-			ns = Settings::All;
-			break;
-		case Settings::All:
-			ns = Settings::Talking;
-			break;
-		default:
-			ns = Settings::All;
-			break;
+	if (g.ocIntercept) {
+		g.ocIntercept->hideGui();
+	} else {
+		foreach(OverlayClient *oc, qlClients) {
+			if (oc->uiPid) {
+#ifdef Q_OS_WIN
+				HWND hwnd = GetForegroundWindow();
+				DWORD pid = 0;
+				GetWindowThreadProcessId(hwnd, &pid);
+				if (pid != oc->uiPid)
+					continue;
+#endif
+				oc->showGui();
+				return;
+			}
+		}
 	}
-	g.s.osOverlay = ns;
-
-	updateOverlay();
 }
 
 void Overlay::forceSettings() {
@@ -960,7 +1199,7 @@ void Overlay::setTexts(const QList<OverlayTextLine> &lines) {
 		if (! oc->setTexts(lines)) {
 			qWarning() << "Overlay: Dead client detected";
 			qlClients.removeAll(oc);
-			delete oc;
+			oc->scheduleDelete();
 			break;
 		}
 	}

@@ -71,6 +71,9 @@ class QAppMumble:public QApplication {
 	public:
 		QAppMumble(int &pargc, char **pargv) : QApplication(pargc, pargv) {}
 		void commitData(QSessionManager&);
+#ifdef Q_OS_WIN
+		bool winEventFilter(MSG *msg, long *result);
+#endif
 };
 
 void QAppMumble::commitData(QSessionManager &) {
@@ -80,6 +83,28 @@ void QAppMumble::commitData(QSessionManager &) {
 		g.mw->bSuppressAskOnQuit = true;
 	}
 }
+
+#ifdef Q_OS_WIN
+bool QAppMumble::winEventFilter(MSG *msg, long *result) {
+	if (QThread::currentThread() == thread()) {
+		if (Global::g_global_struct && g.ocIntercept) {
+			switch (msg->message) {
+				case WM_MOUSELEAVE:
+					*result = 0;
+					return true;
+				case WM_KEYDOWN:
+				case WM_KEYUP:
+				case WM_SYSKEYDOWN:
+				case WM_SYSKEYUP:
+					GlobalShortcutEngine::engine->prepareInput();
+				default:
+					break;
+			}
+		}
+	}
+	return QApplication::winEventFilter(msg, result);
+}
+#endif
 
 int main(int argc, char **argv) {
 	int res;

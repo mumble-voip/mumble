@@ -29,6 +29,7 @@
 */
 
 #include "GlobalShortcut.h"
+#include "Timer.h"
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
@@ -59,15 +60,22 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		Q_OBJECT
 		Q_DISABLE_COPY(GlobalShortcutWin)
 	public:
+		BYTE ucKeyState[256];
 		LPDIRECTINPUT8 pDI;
 		QHash<GUID, InputDevice *> qhInputDevices;
 		HHOOK hhMouse, hhKeyboard;
 		unsigned int uiHardwareDevices;
+		Timer tDoubleClick;
 		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
 		static BOOL CALLBACK EnumDevicesCB(LPCDIDEVICEINSTANCE, LPVOID);
 		static BOOL CALLBACK EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
 		static LRESULT CALLBACK HookKeyboard(int, WPARAM, LPARAM);
 		static LRESULT CALLBACK HookMouse(int, WPARAM, LPARAM);
+
+		static unsigned char ucWindowFromPointOrig[6];
+		static unsigned char ucWindowFromPointNew[6];
+		static HWND WINAPI HookWindowFromPoint(POINT);
+
 		virtual bool canSuppress();
 		void run();
 	public slots:
@@ -77,6 +85,8 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		~GlobalShortcutWin();
 		void unacquire();
 		QString buttonName(const QVariant &);
+
+		virtual void prepareInput();
 };
 
 uint qHash(const GUID &);

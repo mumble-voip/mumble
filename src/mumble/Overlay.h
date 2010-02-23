@@ -95,10 +95,20 @@ class OverlayUser : public QGraphicsItemGroup {
 		QString qsChannelName;
 		QByteArray qbaAvatar;
 		
-		static QPixmap createPixmap(const QString &str, unsigned int height, unsigned int maxwidth, QColor col, QPainterPath &);
 	public:
 		OverlayUser(ClientUser *cu, unsigned int uiSize);
 		void updateUser();
+
+		static QPixmap createPixmap(const QString &str, unsigned int height, unsigned int maxwidth, QColor col, QPainterPath &);
+};
+
+class OverlayMouse : public QGraphicsPixmapItem {
+	private:
+		Q_DISABLE_COPY(OverlayMouse);
+	public:
+		bool contains(const QPointF &) const;
+		bool collidesWithPath(const QPainterPath &, Qt::ItemSelectionMode = Qt::IntersectsItemShape) const;
+		OverlayMouse(QGraphicsItem * = NULL);
 };
 
 class OverlayClient : public QObject {
@@ -110,24 +120,44 @@ class OverlayClient : public QObject {
 		OverlayMsg omMsg;
 		QLocalSocket *qlsSocket;
 		SharedMemory2 *smMem;
-		unsigned int uiWidth, uiHeight;
 		int iItemHeight;
 		QRect qrLast;
 		Timer t;
 
+		int iOffsetX, iOffsetY;
+		QGraphicsPixmapItem *qgpiCursor;
+		
+		quint64 uiPid;
 		QGraphicsScene qgs;
 		QMap<QObject *, OverlayUser *> qmUsers;
 
+		bool bWasVisible;
+		bool bDelete;
+
 		void setupRender();
+		
+		bool eventFilter(QObject *, QEvent *);
+		
+		QList<QRectF> qlDirty;
 	protected slots:
 		void readyRead();
 		void userDestroyed(QObject *);
 		void changed(const QList<QRectF> &);
+		void render();
 	public:
+		QGraphicsView qgv;
+		unsigned int uiWidth, uiHeight;
+		int iMouseX, iMouseY;
+
 		OverlayClient(QLocalSocket *, QObject *);
 		~OverlayClient();
 		bool setTexts(const QList<OverlayTextLine> &lines);
 		void reset();
+	public slots:
+		void showGui();
+		void hideGui();
+		void scheduleDelete();
+		void updateMouse();
 };
 
 class OverlayPrivate : public QObject {

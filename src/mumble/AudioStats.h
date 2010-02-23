@@ -83,6 +83,7 @@ class AudioStats : public QDialog, public Ui::AudioStats {
 		bool bTalking;
 	public:
 		AudioStats(QWidget *parent);
+		~AudioStats();
 	public slots:
 		void on_Tick_timeout();
 };

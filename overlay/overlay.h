@@ -60,6 +60,11 @@ struct OverlayMsgActive {
 	unsigned int x, y, w, h;
 };
 
+#define OVERLAY_MSGTYPE_PID 4
+struct OverlayMsgPid {
+	unsigned int pid;
+};
+
 struct OverlayMsg {
 	union {
 		char headerbuffer[1];
@@ -71,6 +76,7 @@ struct OverlayMsg {
 		struct OverlayMsgInit omi;
 		struct OverlayMsgBlit omb;
 		struct OverlayMsgActive oma;
+		struct OverlayMsgPid omp;
 	};
 };
 

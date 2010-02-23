@@ -227,7 +227,7 @@ void MainWindow::createActions() {
 	gsToggleOverlay=new GlobalShortcut(this, idx++, tr("Toggle Overlay", "Global Shortcut"), false);
 	gsToggleOverlay->setObjectName(QLatin1String("ToggleOverlay"));
 	gsToggleOverlay->qsToolTip = tr("Toggle state of in-game overlay.", "Global Shortcut");
-	gsToggleOverlay->qsWhatsThis = tr("This will switch the states of the in-game overlay between showing everybody, just the users who are talking, and nobody.", "Global Shortcut");
+	gsToggleOverlay->qsWhatsThis = tr("This will switch the states of the in-game overlay.", "Global Shortcut");
 	connect(gsToggleOverlay, SIGNAL(down(QVariant)), g.o, SLOT(toggleShow()));
 
 	gsMinimal=new GlobalShortcut(this, idx++, tr("Toggle Minimal", "Global Shortcut"));
@@ -387,6 +387,12 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 }
 
 void MainWindow::hideEvent(QHideEvent *e) {
+	if (g.ocIntercept) {
+		QMetaObject::invokeMethod(g.ocIntercept, "hideGui", Qt::QueuedConnection);
+		e->ignore();
+		return;
+	}
+
 #ifndef Q_OS_MAC
 #ifdef Q_OS_UNIX
 	if (! qApp->activeModalWidget() && ! qApp->activePopupWidget())
@@ -724,7 +730,8 @@ void MainWindow::setupView(bool toggle_minimize) {
 	        (!g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInNormal))
 		f |= Qt::WindowStaysOnTopHint;
 
-	setWindowFlags(f);
+	if (! graphicsProxyWidget())
+		setWindowFlags(f);
 
 	if (g.s.bShowContextMenuInMenuBar) {
 		bool found = false;
