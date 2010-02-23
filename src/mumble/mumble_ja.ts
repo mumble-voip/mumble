@@ -2968,17 +2968,17 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">視覚障害者のためにハイコントラストへ最適化します</translation>
     </message>
     <message>
         <location/>
         <source>Use high contrast graphics</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ハイコントラストの画像を使う</translation>
     </message>
     <message>
         <location/>
         <source>Keep custom Text-To-Speech settings.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">カスタムのテキスト・トゥ・スピーク設定を保持します。</translation>
     </message>
 </context>
 <context>
@@ -3483,7 +3483,11 @@ Are you sure you wish to replace your certificate?
 It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;Mumbleではサーバへの認証に証明書を使えます。証明書を使うとパスワードが必要なくなります。これはパスワードをリモートサイトに公開する必要がないことを意味します。また、非常に簡単にユーザ登録できるようになります。&lt;/p&gt;
+&lt;p&gt;Mumbleは証明書なしでも動きますが、多くのサーバはあなたが証明書を持っていることを期待しています。&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;信頼された証明書&lt;/a&gt;を作ることが&lt;b&gt;強く&lt;/b&gt; 推奨されます。
+&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -5707,32 +5711,32 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">視覚障害者のためにハイコントラストへの最適化を適用します</translation>
     </message>
     <message>
         <location/>
         <source>Optimize for high contrast</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ハイコントラストに最適化する</translation>
     </message>
     <message>
         <location/>
         <source>Application</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">アプリケーション</translation>
     </message>
     <message>
         <location/>
         <source>Adds user and channel context menus into the menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザとチャンネルのコンテキストメニューをメニューバーに追加します</translation>
     </message>
     <message>
         <location/>
         <source>Tray Icon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">トレイアイコン</translation>
     </message>
     <message>
         <location/>
         <source>Channel Tree</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルツリー</translation>
     </message>
 </context>
 <context>
@@ -6934,7 +6938,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+182"/>
         <source>Images (*.png *.jpg *.svg)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">画像 (*.png *.jpg *.svg)</translation>
     </message>
     <message>
         <source>From %1: %2</source>
@@ -7126,7 +7130,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+41"/>
         <source>Change your comment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">コメントを変更します</translation>
     </message>
     <message>
         <location line="+92"/>
@@ -7453,7 +7457,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-154"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">自分を発言禁止にしました</translation>
+        <translation type="unfinished">自分を発言禁止にする</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -7706,27 +7710,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Change &amp;Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">アバターを変更(&amp;A)</translation>
     </message>
     <message>
         <location/>
         <source>Change your avatar image on this server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このサーバでのアバターイメージを変更します</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">アバターを削除(&amp;R)</translation>
     </message>
     <message>
         <location/>
         <source>Remove currently defined avatar image.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">現在、設定されている画像を削除します。</translation>
     </message>
     <message>
         <location/>
         <source>Icon Toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">アイコンツールバー</translation>
     </message>
 </context>
 <context>
@@ -8736,7 +8740,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+81"/>
         <source>Message is too long.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">メッセージが長すぎます。</translation>
     </message>
     <message>
         <source>TabWidget</source>
@@ -8859,47 +8863,47 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location filename="ConnectDialog.cpp" line="-662"/>
         <source>Favorite</source>
-        <translation type="unfinished">お気に入り</translation>
+        <translation>お気に入り</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>LAN</source>
-        <translation type="unfinished">ローカル</translation>
+        <translation>ローカル</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Public Internet</source>
-        <translation type="unfinished">インターネット</translation>
+        <translation>インターネット</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Africa</source>
-        <translation type="unfinished">アフリカ</translation>
+        <translation>アフリカ</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Asia</source>
-        <translation type="unfinished">アジア</translation>
+        <translation>アジア</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>North America</source>
-        <translation type="unfinished">北アメリカ</translation>
+        <translation>北アメリカ</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>South America</source>
-        <translation type="unfinished">南アメリカ</translation>
+        <translation>南アメリカ</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Europe</source>
-        <translation type="unfinished">ヨーロッパ</translation>
+        <translation>ヨーロッパ</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Oceania</source>
-        <translation type="unfinished">オセアニア</translation>
+        <translation>オセアニア</translation>
     </message>
 </context>
 <context>
@@ -9131,7 +9135,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserInformation.ui"/>
         <source>User Information</source>
-        <translation type="unfinished">ユーザ情報</translation>
+        <translation>ユーザ情報</translation>
     </message>
     <message>
         <location/>
@@ -9141,7 +9145,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Version</source>
-        <translation type="unfinished">バージョン</translation>
+        <translation>バージョン</translation>
     </message>
     <message>
         <location/>
@@ -9458,32 +9462,32 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VersionCheck.cpp" line="+132"/>
         <source>Upgrade Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumble のアップグレード</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumble の新しいバージョンが見つかり、自動的にダウンロードされました。このバージョンにアップグレードするか、最新の安定リリースにダウングレードすることが推奨されます。このインストーラを起動しますか?</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Corrupt download of new version detected. Automatically removed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">新しいバージョンの破損したダウンロードが検知されました。自動的に削除されました。</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Downloading new snapshot from %1 to %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 から %2 に新しい snapshot をダウンロード中です</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Failed to write new version to disc.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ディスクに新しいバージョンを書きこむことに失敗しました。</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Mumble failed to retrieve version information from the central server.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumble は中央サーバからのバージョン情報の取得に失敗しました。</translation>
     </message>
 </context>
 <context>
