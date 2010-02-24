@@ -104,9 +104,11 @@ bool PluginConfig::expert(bool) {
 }
 
 PluginInfo *PluginConfig::pluginForItem(QTreeWidgetItem *i) const {
-	foreach(PluginInfo *pi, g.p->qlPlugins) {
-		if (pi->filename == i->data(0, Qt::UserRole).toString())
-			return pi;
+	if (i) {
+		foreach(PluginInfo *pi, g.p->qlPlugins) {
+			if (pi->filename == i->data(0, Qt::UserRole).toString())
+				return pi;
+		}
 	}
 	return NULL;
 }
