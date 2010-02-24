@@ -4754,7 +4754,7 @@ de las ubicaciones posibles.</translation>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+654"/>
+        <location filename="GlobalShortcut.cpp" line="+655"/>
         <source>Shortcuts</source>
         <translation>Métodos abreviados</translation>
     </message>
@@ -6993,11 +6993,12 @@ p, li { white-space: pre-wrap; }
         <location line="+10"/>
         <location line="+79"/>
         <location line="+4"/>
+        <location line="+223"/>
         <source>To %1: %2</source>
         <translation>A %1: %2</translation>
     </message>
     <message>
-        <location line="-83"/>
+        <location line="-306"/>
         <location line="+83"/>
         <source>Message to %1</source>
         <translation>Mensaje para %1</translation>
@@ -7292,7 +7293,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1420"/>
+        <location line="+1421"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation>Imágenes (*.png *.jpg *.svg)</translation>
     </message>
@@ -7301,7 +7302,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bit&lt;br /&gt;%3 ms de latencia media (desviación %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1411"/>
+        <location line="-1412"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bit&lt;br /&gt;%3 ms de latencia media (desviación %4)&lt;/p&gt;&lt;p&gt;Anfitrión remoto %5 (puerto %6)&lt;/p&gt;</translation>
     </message>
@@ -7370,13 +7371,18 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+265"/>
-        <source>(Tree) %1: %2</source>
-        <translation>(Árbol) %1: %2</translation>
+        <source>To %1 (Tree): %2</source>
+        <oldsource>(Tree) %1: %2</oldsource>
+        <translation type="unfinished">(Árbol) %1: %2</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>%1: %2</source>
-        <translation>%1: %2</translation>
+        <location line="-304"/>
+        <location line="+79"/>
+        <location line="+4"/>
+        <location line="+223"/>
+        <source>To %1: %2</source>
+        <oldsource>%1: %2</oldsource>
+        <translation type="unfinished">%1: %2</translation>
     </message>
     <message>
         <location line="+583"/>
@@ -7398,7 +7404,7 @@ p, li { white-space: pre-wrap; }
         <translation>No se pudo encontrar el cliente de compatibilidad, o éste no se pudo iniciar.&lt;br /&gt;Fíjese en que el cliente de compatibilidad es un componente opcional para la mayoría de instalaciones, y podría no estar instalado.</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+115"/>
         <source>Type message to channel &apos;%1&apos; here</source>
         <translation>Escriba aquí el mensaje al canal &apos;%1&apos;</translation>
     </message>
@@ -7437,7 +7443,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Canal de control: latencia %1 ms, Cifrado con %3 bit %4&lt;br /&gt;Canal de voz: latencia %2 ms, Sin cifrar</translation>
     </message>
     <message>
-        <location line="-1407"/>
+        <location line="-1408"/>
         <location line="+1132"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Ver certificado</translation>
@@ -7746,12 +7752,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+65"/>
-        <location line="+1958"/>
+        <location line="+1959"/>
         <source>Not connected</source>
         <translation>Desconectado</translation>
     </message>
     <message>
-        <location line="-1749"/>
+        <location line="-1750"/>
         <source>Clear</source>
         <translation>Borrar</translation>
     </message>
@@ -8274,7 +8280,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+892"/>
+        <location filename="Overlay.cpp" line="+938"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>No se pudo establecer la comunicación con la sobreimpresión en %2: %1. La sobreimpresión no estará disponible.</translation>
     </message>
@@ -8514,7 +8520,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation>Color de los canales activos</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-753"/>
+        <location filename="Overlay.cpp" line="-799"/>
         <source>Overlay</source>
         <translation>Sobreimpresión</translation>
     </message>
@@ -8783,7 +8789,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+51"/>
+        <location filename="Plugins.cpp" line="+54"/>
         <source>Plugin has no configure function.</source>
         <translation>El complemento no tiene función de configuración.</translation>
     </message>
@@ -8831,7 +8837,12 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+424"/>
+        <location filename="Plugins.cpp" line="+273"/>
+        <source>Skipping plugin update in debug mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+155"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
         <translation>Se ha descargado un complemento nuevo o actualizado para %1.</translation>
@@ -8846,7 +8857,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation type="obsolete">El plugin %1 perdió el vínculo.</translation>
     </message>
     <message>
-        <location line="-232"/>
+        <location line="-236"/>
         <source>%1 lost link.</source>
         <translation>%1 perdió el vínculo.</translation>
     </message>
@@ -9470,7 +9481,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
         <translation>Tiempo de conexión</translation>
     </message>
     <message>
-        <location filename="UserInformation.cpp" line="+88"/>
+        <location filename="UserInformation.cpp" line="+93"/>
         <source>%1w</source>
         <translation>%1sem</translation>
     </message>
@@ -9499,7 +9510,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
         <translation type="obsolete"> </translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+29"/>
         <location line="+43"/>
         <source>, </source>
         <translation>, </translation>
@@ -9738,7 +9749,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
 <context>
     <name>ViewCert</name>
     <message>
-        <location filename="ViewCert.cpp" line="+36"/>
+        <location filename="ViewCert.cpp" line="+41"/>
         <source>Certificate Chain Details</source>
         <translation>Detalles de la cadena de certificados</translation>
     </message>

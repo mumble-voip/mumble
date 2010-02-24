@@ -416,7 +416,7 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	qgpiCursor->setZValue(10.0f);
 
 	qgs.addItem(qgpiCursor);
-	
+
 	qgpiLogo = NULL;
 
 	iOffsetX = iOffsetY = 0;
@@ -546,7 +546,7 @@ void OverlayClient::showGui() {
 	qgv.setAttribute(Qt::WA_WState_Hidden, false);
 	qApp->setActiveWindow(&qgv);
 	qgv.setFocus();
-	
+
 	qgs.setBackgroundBrush(QColor(0,0,0,64));
 
 	if (! qgpiLogo) {
@@ -560,12 +560,12 @@ void OverlayClient::showGui() {
 		QSize sz = qir.size();
 		sz.scale(uiWidth, uiHeight, Qt::KeepAspectRatio);
 		qir.setScaledSize(sz);
-		
+
 		qgpiLogo->setPixmap(QPixmap::fromImage(qir.read()));
 
 		QRectF qrf = qgpiLogo->boundingRect();
 		qgpiLogo->setPos(iroundf((uiWidth - qrf.width()) / 2.0f), iroundf((uiHeight - qrf.height()) / 2.0f));
-		
+
 		qgs.addItem(qgpiLogo);
 	}
 	qgpiLogo->show();

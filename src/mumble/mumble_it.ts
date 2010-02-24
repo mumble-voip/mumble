@@ -3875,7 +3875,7 @@ delle possibili posizioni.</translation>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+654"/>
+        <location filename="GlobalShortcut.cpp" line="+655"/>
         <source>Shortcuts</source>
         <translation>Scorciatoie</translation>
     </message>
@@ -5106,12 +5106,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1958"/>
+        <location line="+1959"/>
         <source>Not connected</source>
         <translation>Non connesso</translation>
     </message>
     <message>
-        <location line="-1749"/>
+        <location line="-1750"/>
         <source>Clear</source>
         <translation>Cancella</translation>
     </message>
@@ -5193,7 +5193,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;&lt;p&gt;Host remoto %5 (porta%6)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1411"/>
+        <location line="+1412"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation>Immagini (*.png *.jpg *.svg)</translation>
     </message>
@@ -5202,7 +5202,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1400"/>
+        <location line="-1401"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canale di voce&lt;/h2&gt;&lt;p&gt;Crittografato con 128 bit OCB-AES128&lt;br/&gt;%1 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
@@ -5275,13 +5275,18 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="-2"/>
-        <source>(Tree) %1: %2</source>
-        <translation>(Albero) %1:%2</translation>
+        <source>To %1 (Tree): %2</source>
+        <oldsource>(Tree) %1: %2</oldsource>
+        <translation type="unfinished">(Albero) %1:%2</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>%1: %2</source>
-        <translation>%1: %2</translation>
+        <location line="-304"/>
+        <location line="+79"/>
+        <location line="+4"/>
+        <location line="+223"/>
+        <source>To %1: %2</source>
+        <oldsource>%1: %2</oldsource>
+        <translation type="unfinished">%1: %2</translation>
     </message>
     <message>
         <location line="+436"/>
@@ -5304,7 +5309,7 @@ p, li { white-space: pre-wrap; }
         <translation>Il client retrocompatibile non è stato trovato, o la sua apertura è fallita.&lt;br /&gt;Nota che il client retrocompatibile è un componente facoltativo in molte installazioni, e potrebbe non esssere installato.</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+115"/>
         <source>Type message to channel &apos;%1&apos; here</source>
         <translation>Inserisci qui il messaggio per il canale &apos;%1&apos;</translation>
     </message>
@@ -5343,7 +5348,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 variazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1426"/>
+        <location line="-1427"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Il canale di voce è trasmesso sul canale di controllo.</translation>
     </message>
@@ -5424,11 +5429,12 @@ p, li { white-space: pre-wrap; }
         <location line="+10"/>
         <location line="+79"/>
         <location line="+4"/>
+        <location line="+223"/>
         <source>To %1: %2</source>
         <translation>Per %1: %2</translation>
     </message>
     <message>
-        <location line="-83"/>
+        <location line="-306"/>
         <location line="+83"/>
         <source>Message to %1</source>
         <translation>Messaggio a %1</translation>
@@ -7103,7 +7109,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+892"/>
+        <location filename="Overlay.cpp" line="+938"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Impossibile creare una comunicazione con la sovrapposizione su %2 :%1. La sovrapposizione non sarà disponibile.</translation>
     </message>
@@ -7133,7 +7139,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-842"/>
+        <location line="-888"/>
         <source>Show no one</source>
         <translation>Non mostrare nessuno</translation>
     </message>
@@ -7455,7 +7461,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+51"/>
+        <location filename="Plugins.cpp" line="+54"/>
         <source>Plugin has no configure function.</source>
         <translation>Il Plugins non ha funzioni di configurazione.</translation>
     </message>
@@ -7552,7 +7558,12 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+424"/>
+        <location filename="Plugins.cpp" line="+273"/>
+        <source>Skipping plugin update in debug mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+155"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
         <translation>Scaricato nuovo o aggiornato plugin a %1.</translation>
@@ -7563,7 +7574,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation>Installazione fallita del nouvo plugin a %1.</translation>
     </message>
     <message>
-        <location line="-232"/>
+        <location line="-236"/>
         <source>%1 lost link.</source>
         <translation>Collegamento perso con %1.</translation>
     </message>
@@ -8111,7 +8122,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>Tempo di connessione</translation>
     </message>
     <message>
-        <location filename="UserInformation.cpp" line="+88"/>
+        <location filename="UserInformation.cpp" line="+93"/>
         <source>%1w</source>
         <translation>%1w</translation>
     </message>
@@ -8136,7 +8147,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>%1s</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+29"/>
         <location line="+43"/>
         <source>, </source>
         <translation>, </translation>
@@ -8367,7 +8378,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>ViewCert</name>
     <message>
-        <location filename="ViewCert.cpp" line="+36"/>
+        <location filename="ViewCert.cpp" line="+41"/>
         <source>Certificate Chain Details</source>
         <translation>Dettagli sulla Catena dei Certificati</translation>
     </message>

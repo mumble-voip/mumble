@@ -3436,7 +3436,7 @@ som helst mulige placeringer.</translation>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+654"/>
+        <location filename="GlobalShortcut.cpp" line="+655"/>
         <source>Shortcuts</source>
         <translation>Genveje</translation>
     </message>
@@ -4429,12 +4429,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1958"/>
+        <location line="+1959"/>
         <source>Not connected</source>
         <translation>Ingen forbindelse oprettet</translation>
     </message>
     <message>
-        <location line="-1749"/>
+        <location line="-1750"/>
         <source>Clear</source>
         <translation>Ryd</translation>
     </message>
@@ -4510,7 +4510,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1420"/>
+        <location line="+1421"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation>Billeder (*.png *.jpg *.svg)</translation>
     </message>
@@ -4519,7 +4519,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">&lt;h2&gt;Kontrolkanal&lt;/h2&gt;&lt;p&gt;Krypteret med %1 bit %2&lt;br /&gt;%3 ms gennemsnitlig forsinkelse (%4 afvigelse)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1400"/>
+        <location line="-1401"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Stemmekanal&lt;/h2&gt;&lt;p&gt;Krypteret med 128 bit OCB-AES128&lt;br /&gt;%1 ms gennemsnitlig forsinkelse (%4 afvigelse)&lt;/p&gt;</translation>
     </message>
@@ -4595,7 +4595,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Kompatibilitetsprogrammet kunne ikke findes, eller kunne ikke starte.&lt;br /&gt;Dette kan skyldes at kompatibilitetsprogrammet er et valgfrit komponent, som muligvis ikke er installeret.</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+115"/>
         <source>Type message to channel &apos;%1&apos; here</source>
         <translation>Skriv besked til kanalen &apos;%1&apos; hér</translation>
     </message>
@@ -4630,7 +4630,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Billedformatet blev ikke genkendt.</translation>
     </message>
     <message>
-        <location line="-1426"/>
+        <location line="-1427"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Lydkanal er sendt over kontrolkanal.</translation>
     </message>
@@ -4706,11 +4706,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <location line="+10"/>
         <location line="+79"/>
         <location line="+4"/>
+        <location line="+223"/>
         <source>To %1: %2</source>
         <translation>Til %1: %2</translation>
     </message>
     <message>
-        <location line="-83"/>
+        <location line="-306"/>
         <location line="+83"/>
         <source>Message to %1</source>
         <translation>Besked til %1</translation>
@@ -4746,13 +4747,18 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+0"/>
-        <source>(Tree) %1: %2</source>
-        <translation>(Træ) %1: %2</translation>
+        <source>To %1 (Tree): %2</source>
+        <oldsource>(Tree) %1: %2</oldsource>
+        <translation type="unfinished">(Træ) %1: %2</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>%1: %2</source>
-        <translation>%1: %2</translation>
+        <location line="-304"/>
+        <location line="+79"/>
+        <location line="+4"/>
+        <location line="+223"/>
+        <source>To %1: %2</source>
+        <oldsource>%1: %2</oldsource>
+        <translation type="unfinished">%1: %2</translation>
     </message>
     <message>
         <location line="+109"/>
@@ -6250,7 +6256,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="obsolete">Det mislykkedes at initialisere overlægningshukommelse. Dette betyder som regel at den delte hukommelse er låst af operativsystemet, og du behøver derfor at genstarte for at frigøre den.</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+892"/>
+        <location filename="Overlay.cpp" line="+938"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Det mislykkedes at oprette kommunikation med overlægningen på %2: %1. Der vil ikke være nogen overlægning tilgængelig.</translation>
     </message>
@@ -6258,7 +6264,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-842"/>
+        <location line="-888"/>
         <source>Show no one</source>
         <translation>Vis ingen</translation>
     </message>
@@ -6529,7 +6535,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+51"/>
+        <location filename="Plugins.cpp" line="+54"/>
         <source>Plugin has no configure function.</source>
         <translation>Plugin&apos;et har ingen konfigurationsfunktioner.</translation>
     </message>
@@ -6622,7 +6628,12 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+424"/>
+        <location filename="Plugins.cpp" line="+273"/>
+        <source>Skipping plugin update in debug mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+155"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
         <translation>Downloadede nyt eller opdateret plugin til %1.</translation>
@@ -6633,7 +6644,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation>Installation af nyt plugin til %1 mislykkedes.</translation>
     </message>
     <message>
-        <location line="-232"/>
+        <location line="-236"/>
         <source>%1 lost link.</source>
         <translation>%1 mistede link.</translation>
     </message>
@@ -7170,7 +7181,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <translation>Forbindelsestid</translation>
     </message>
     <message>
-        <location filename="UserInformation.cpp" line="+88"/>
+        <location filename="UserInformation.cpp" line="+93"/>
         <source>%1w</source>
         <translation>%1u</translation>
     </message>
@@ -7199,7 +7210,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <translation type="obsolete"> </translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+29"/>
         <location line="+43"/>
         <source>, </source>
         <translation></translation>
@@ -7430,7 +7441,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
 <context>
     <name>ViewCert</name>
     <message>
-        <location filename="ViewCert.cpp" line="+36"/>
+        <location filename="ViewCert.cpp" line="+41"/>
         <source>Certificate Chain Details</source>
         <translation>Certifikatrække-detaljer</translation>
     </message>

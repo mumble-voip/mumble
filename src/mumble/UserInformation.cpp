@@ -44,7 +44,7 @@ UserInformation::UserInformation(const MumbleProto::UserStats &msg, QWidget *p) 
 	setupUi(this);
 
 	uiSession = msg.session();
-	
+
 	qtTimer = new QTimer(this);
 	connect(qtTimer, SIGNAL(timeout()), this, SLOT(tick()));
 	qtTimer->start(6000);

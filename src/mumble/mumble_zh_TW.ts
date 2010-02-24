@@ -3649,7 +3649,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+654"/>
+        <location filename="GlobalShortcut.cpp" line="+655"/>
         <source>Shortcuts</source>
         <translation>快捷鍵</translation>
     </message>
@@ -4791,12 +4791,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1958"/>
+        <location line="+1959"/>
         <source>Not connected</source>
         <translation type="unfinished">未連接</translation>
     </message>
     <message>
-        <location line="-1749"/>
+        <location line="-1750"/>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
@@ -4887,12 +4887,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1389"/>
+        <location line="+1390"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1493"/>
+        <location line="-1494"/>
         <location line="+281"/>
         <source>Register yourself as %1</source>
         <translation type="unfinished"></translation>
@@ -4947,13 +4947,18 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="-2"/>
-        <source>(Tree) %1: %2</source>
+        <source>To %1 (Tree): %2</source>
+        <oldsource>(Tree) %1: %2</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <location line="-304"/>
+        <location line="+79"/>
+        <location line="+4"/>
+        <location line="+223"/>
+        <source>To %1: %2</source>
+        <oldsource>%1: %2</oldsource>
+        <translation type="unfinished">發送給 %1: %2</translation>
     </message>
     <message>
         <location line="+436"/>
@@ -4976,7 +4981,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+115"/>
         <source>Type message to channel &apos;%1&apos; here</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5011,7 +5016,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;控制信道&lt;/h2&gt;&lt;p&gt;使用 %1 比特 %2 加密&lt;br /&gt;平均延遲 %3 毫秒（%4 方差）&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1426"/>
+        <location line="-1427"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>語音頻道通過控制信道發送。</translation>
     </message>
@@ -5092,11 +5097,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+10"/>
         <location line="+79"/>
         <location line="+4"/>
+        <location line="+223"/>
         <source>To %1: %2</source>
         <translation>發送給 %1: %2</translation>
     </message>
     <message>
-        <location line="-83"/>
+        <location line="-306"/>
         <location line="+83"/>
         <source>Message to %1</source>
         <translation>發送消息給 %1</translation>
@@ -6699,7 +6705,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+892"/>
+        <location filename="Overlay.cpp" line="+938"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6717,7 +6723,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-842"/>
+        <location line="-888"/>
         <source>Show no one</source>
         <translation>不顯示任何人</translation>
     </message>
@@ -7025,7 +7031,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>插件</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+51"/>
+        <location filename="Plugins.cpp" line="+54"/>
         <source>Plugin has no configure function.</source>
         <translation>插件沒有配置選項。</translation>
     </message>
@@ -7122,7 +7128,12 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+424"/>
+        <location filename="Plugins.cpp" line="+273"/>
+        <source>Skipping plugin update in debug mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+155"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
         <translation type="unfinished"></translation>
@@ -7133,7 +7144,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-232"/>
+        <location line="-236"/>
         <source>%1 lost link.</source>
         <translation>%1 的鏈接丟失。</translation>
     </message>
@@ -7671,7 +7682,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="UserInformation.cpp" line="+88"/>
+        <location filename="UserInformation.cpp" line="+93"/>
         <source>%1w</source>
         <translation type="unfinished">%1 米 {1w?}</translation>
     </message>
@@ -7696,7 +7707,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished">%1 米 {1s?}</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+29"/>
         <location line="+43"/>
         <source>, </source>
         <translation type="unfinished"></translation>
@@ -7923,7 +7934,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>ViewCert</name>
     <message>
-        <location filename="ViewCert.cpp" line="+36"/>
+        <location filename="ViewCert.cpp" line="+41"/>
         <source>Certificate Chain Details</source>
         <translation>認証鏈詳細信息</translation>
     </message>

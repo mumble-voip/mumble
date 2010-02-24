@@ -6223,7 +6223,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ViewCert</name>
     <message>
-        <location filename="ViewCert.cpp" line="+36"/>
+        <location filename="ViewCert.cpp" line="+41"/>
         <source>Certificate Chain Details</source>
         <translation>Detalles de la cadena de certificados</translation>
     </message>
