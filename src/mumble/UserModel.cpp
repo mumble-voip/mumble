@@ -418,7 +418,7 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 		switch (role) {
 			case Qt::DecorationRole:
 				if (idx.column() == 0) {
-					if (qsLinked.contains(c)) {
+					if (g.uiSession && qsLinked.contains(c)) {
 						if (ClientUser::get(g.uiSession)->cChannel == c)
 							return qiActiveChannel;
 						else
