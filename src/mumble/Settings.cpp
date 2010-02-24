@@ -223,6 +223,7 @@ Settings::Settings() {
 	bTCPCompat = false;
 	bQoS = true;
 	bReconnect = true;
+	bAutoConnect = false;
 	ptProxyType = NoProxy;
 	usProxyPort = 0;
 
@@ -397,6 +398,7 @@ void Settings::load() {
 	SAVELOAD(bTCPCompat, "net/tcponly");
 	SAVELOAD(bQoS, "net/qos");
 	SAVELOAD(bReconnect, "net/reconnect");
+	SAVELOAD(bAutoConnect, "net/autoconnect");
 	SAVELOAD(bSuppressIdentity, "net/suppress");
 	LOADENUM(ptProxyType, "net/proxytype");
 	SAVELOAD(qsProxyHost, "net/proxyhost");
@@ -585,6 +587,7 @@ void Settings::save() {
 	SAVELOAD(bTCPCompat, "net/tcponly");
 	SAVELOAD(bQoS, "net/qos");
 	SAVELOAD(bReconnect, "net/reconnect");
+	SAVELOAD(bAutoConnect, "net/autoconnect");
 	SAVELOAD(ptProxyType, "net/proxytype");
 	SAVELOAD(qsProxyHost, "net/proxyhost");
 	SAVELOAD(usProxyPort, "net/proxyport");

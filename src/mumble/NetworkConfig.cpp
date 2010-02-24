@@ -62,6 +62,7 @@ void NetworkConfig::load(const Settings &r) {
 	loadCheckBox(qcbTcpMode, s.bTCPCompat);
 	loadCheckBox(qcbQoS, s.bQoS);
 	loadCheckBox(qcbAutoReconnect, s.bReconnect);
+	loadCheckBox(qcbAutoConnect, s.bAutoConnect);
 	loadCheckBox(qcbSuppressIdentity, s.bSuppressIdentity);
 	loadComboBox(qcbType, s.ptProxyType);
 
@@ -93,6 +94,7 @@ void NetworkConfig::save() const {
 	s.bTCPCompat = qcbTcpMode->isChecked();
 	s.bQoS = qcbQoS->isChecked();
 	s.bReconnect = qcbAutoReconnect->isChecked();
+	s.bAutoConnect = qcbAutoConnect->isChecked();
 	s.bSuppressIdentity = qcbSuppressIdentity->isChecked();
 
 	s.ptProxyType = static_cast<Settings::ProxyType>(qcbType->currentIndex());

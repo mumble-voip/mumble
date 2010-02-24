@@ -725,6 +725,8 @@ ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
 	setWindowModality(Qt::WindowModal);
 #endif
 	bPublicInit = false;
+	
+	siAutoConnect = NULL;
 
 	if (tPublicServers.elapsed() >= 60 * 24 * 1000000ULL) {
 		qlPublicServers.clear();
@@ -852,8 +854,10 @@ ConnectDialog::~ConnectDialog() {
 
 void ConnectDialog::accept() {
 	ServerItem *si = static_cast<ServerItem *>(qtwServers->currentItem());
-	if (! si || si->qlAddresses.isEmpty() || si->qsHostname.isEmpty())
+	if (! si || si->qlAddresses.isEmpty() || si->qsHostname.isEmpty()) {
+		qWarning() << "Sad panda";
 		return;
+	}
 
 	qsPassword = si->qsPassword;
 	qsServer = si->qsHostname;
@@ -1178,6 +1182,13 @@ void ConnectDialog::timeTick() {
 		if (!items.isEmpty()) {
 			bLastFound = true;
 			qtwServers->setCurrentItem(items.at(0));
+			if (g.s.bAutoConnect) {
+				siAutoConnect = static_cast<ServerItem *>(items.at(0));
+				if (! siAutoConnect->qlAddresses.isEmpty()) {
+					accept();
+					return;
+				}
+			}
 		}
 	}
 
@@ -1334,8 +1345,11 @@ void ConnectDialog::lookedUp(QHostInfo info) {
 			qhPings[addr].insert(si);
 		}
 
-		if (si == qtwServers->currentItem())
+		if (si == qtwServers->currentItem()) {
 			on_qtwServers_currentItemChanged(si, si);
+			if (si == siAutoConnect)
+				accept();
+		}
 	}
 
 	qhDNSWait.remove(host);

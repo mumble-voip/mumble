@@ -211,6 +211,8 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QTimer *qtPingTick;
 		QList<ServerItem *> qlItems;
 
+		ServerItem *siAutoConnect;
+
 		QList<QString> qlDNSLookup;
 		QSet<QString> qsDNSActive;
 		QHash<QString, QSet<ServerItem *> > qhDNSWait;

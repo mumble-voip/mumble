@@ -190,6 +190,7 @@ struct Settings {
 	enum ProxyType { NoProxy, HttpProxy, Socks5Proxy };
 	bool bTCPCompat;
 	bool bReconnect;
+	bool bAutoConnect;
 	bool bQoS;
 	ProxyType ptProxyType;
 	QString qsProxyHost, qsProxyUsername, qsProxyPassword;
