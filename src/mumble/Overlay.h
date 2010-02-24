@@ -126,6 +126,7 @@ class OverlayClient : public QObject {
 
 		int iOffsetX, iOffsetY;
 		QGraphicsPixmapItem *qgpiCursor;
+		QGraphicsPixmapItem *qgpiLogo;
 
 		quint64 uiPid;
 		QGraphicsScene qgs;

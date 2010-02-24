@@ -416,6 +416,8 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	qgpiCursor->setZValue(10.0f);
 
 	qgs.addItem(qgpiCursor);
+	
+	qgpiLogo = NULL;
 
 	iOffsetX = iOffsetY = 0;
 
@@ -445,8 +447,16 @@ void OverlayClient::updateMouse() {
 	ICONINFO info;
 	ZeroMemory(&info, sizeof(info));
 	if (::GetIconInfo(c, &info)) {
-		pm = QPixmap::fromWinHBITMAP(info.hbmColor);
-		pm.setMask(QBitmap(QPixmap::fromWinHBITMAP(info.hbmMask)));
+		if (info.hbmColor) {
+			pm = QPixmap::fromWinHBITMAP(info.hbmColor);
+			pm.setMask(QBitmap(QPixmap::fromWinHBITMAP(info.hbmMask)));
+		} else {
+			QImage img = QPixmap::fromWinHBITMAP(info.hbmMask).toImage();
+			img.invertPixels();
+			QBitmap full = QBitmap::fromImage(img);
+			pm = full.copy(0, 0, full.width(), full.height() / 2);
+			pm.setMask(QBitmap(full.copy(0, full.height() / 2, full.width(), full.height() / 2)));
+		}
 
 		if (info.hbmMask)
 			::DeleteObject(info.hbmMask);
@@ -536,6 +546,29 @@ void OverlayClient::showGui() {
 	qgv.setAttribute(Qt::WA_WState_Hidden, false);
 	qApp->setActiveWindow(&qgv);
 	qgv.setFocus();
+	
+	qgs.setBackgroundBrush(QColor(0,0,0,64));
+
+	if (! qgpiLogo) {
+		qgpiLogo = new OverlayMouse();
+		qgpiLogo->hide();
+		qgpiLogo->setOpacity(0.8f);
+		qgpiLogo->setZValue(-5.0f);
+
+
+		QImageReader qir(QLatin1String("skin:mumble.svg"));
+		QSize sz = qir.size();
+		sz.scale(uiWidth, uiHeight, Qt::KeepAspectRatio);
+		qir.setScaledSize(sz);
+		
+		qgpiLogo->setPixmap(QPixmap::fromImage(qir.read()));
+
+		QRectF qrf = qgpiLogo->boundingRect();
+		qgpiLogo->setPos(iroundf((uiWidth - qrf.width()) / 2.0f), iroundf((uiHeight - qrf.height()) / 2.0f));
+		
+		qgs.addItem(qgpiLogo);
+	}
+	qgpiLogo->show();
 
 #if defined(Q_WS_WIN) || defined(Q_WS_MAC)
 	qt_use_native_dialogs = false;
@@ -589,6 +622,11 @@ void OverlayClient::hideGui() {
 #if defined(Q_WS_WIN) || defined(Q_WS_MAC)
 	qt_use_native_dialogs = true;
 #endif
+
+	if (qgpiLogo)
+		qgpiLogo->hide();
+	qgs.setBackgroundBrush(Qt::NoBrush);
+
 	if (bDelete)
 		deleteLater();
 }
@@ -695,6 +733,11 @@ void OverlayClient::setupRender() {
 	foreach(OverlayUser *ou, qmUsers)
 		delete ou;
 	qmUsers.clear();
+
+	if (qgpiLogo) {
+		delete qgpiLogo;
+		qgpiLogo = NULL;
+	}
 
 	qgs.setSceneRect(0, 0, uiWidth, uiHeight);
 	qgv.setScene(NULL);
@@ -811,7 +854,6 @@ void OverlayClient::render() {
 		p.drawImage(dirty.x(), dirty.y(), qi);
 	}
 
-	active = qgs.itemsBoundingRect().toAlignedRect();
 
 	if (dirty.isValid()) {
 		dirty = dirty.intersected(QRect(0,0,uiWidth, uiHeight));
@@ -826,10 +868,14 @@ void OverlayClient::render() {
 		qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgBlit));
 	}
 
-	if (active.isEmpty())
-		active = QRect(0,0,0,0);
-
-	active = active.intersected(QRect(0,0,uiWidth,uiHeight));
+	if (qgpiCursor->isVisible()) {
+		active = QRect(0,0,uiWidth,uiHeight);
+	} else {
+		active = qgs.itemsBoundingRect().toAlignedRect();
+		if (active.isEmpty())
+			active = QRect(0,0,0,0);
+		active = active.intersected(QRect(0,0,uiWidth,uiHeight));
+	}
 
 	if (active != qrLast) {
 		qrLast = active;
