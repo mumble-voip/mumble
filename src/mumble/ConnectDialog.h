@@ -203,6 +203,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		QActionGroup *qagFilters;
 
 		bool bPublicInit;
+		bool bAutoConnect;
 
 		Timer tPing;
 		Timer tCurrent, tHover, tRestart;
@@ -262,7 +263,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 	public:
 		QString qsServer, qsUsername, qsPassword;
 		unsigned short usPort;
-		ConnectDialog(QWidget *parent);
+		ConnectDialog(QWidget *parent, bool autoconnect);
 		~ConnectDialog();
 
 #ifdef USE_BONJOUR

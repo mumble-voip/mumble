@@ -719,7 +719,7 @@ void ConnectDialogEdit::on_qleServer_textChanged(const QString &text) {
 	qlePort->setDisabled(!text.isEmpty() && text.startsWith(QLatin1Char('@')));
 }
 
-ConnectDialog::ConnectDialog(QWidget *p) : QDialog(p) {
+ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoConnect(autoconnect) {
 	setupUi(this);
 #ifdef Q_OS_MAC
 	setWindowModality(Qt::WindowModal);
@@ -1182,7 +1182,7 @@ void ConnectDialog::timeTick() {
 		if (!items.isEmpty()) {
 			bLastFound = true;
 			qtwServers->setCurrentItem(items.at(0));
-			if (g.s.bAutoConnect) {
+			if (g.s.bAutoConnect && bAutoConnect) {
 				siAutoConnect = static_cast<ServerItem *>(items.at(0));
 				if (! siAutoConnect->qlAddresses.isEmpty()) {
 					accept();

@@ -782,8 +782,8 @@ void MainWindow::setupView(bool toggle_minimize) {
 	bNoHide = false;
 }
 
-void MainWindow::on_qaServerConnect_triggered() {
-	ConnectDialog *cd = new ConnectDialog(this);
+void MainWindow::on_qaServerConnect_triggered(bool autoconnect) {
+	ConnectDialog *cd = new ConnectDialog(this, autoconnect);
 	int res = cd->exec();
 
 	if (cd->qsServer.isEmpty() || (cd->usPort==0) || cd->qsUsername.isEmpty())

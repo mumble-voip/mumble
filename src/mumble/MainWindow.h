@@ -144,7 +144,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 
 	public slots:
 		void on_qmServer_aboutToShow();
-		void on_qaServerConnect_triggered();
+		void on_qaServerConnect_triggered(bool autoconnect = false);
 		void on_qaServerDisconnect_triggered();
 		void on_qaServerBanList_triggered();
 		void on_qaServerUserList_triggered();
