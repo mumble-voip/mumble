@@ -2246,7 +2246,8 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 	if (reason == QSystemTrayIcon::Trigger) {
 		if (! isVisible()) {
 			show();
-			showNormal();
+			if (isMinimized())
+				showNormal();
 			activateWindow();
 		} else {
 			hide();
