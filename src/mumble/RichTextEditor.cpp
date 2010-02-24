@@ -169,7 +169,7 @@ QString RichTextEditorLink::text() const {
 	QString txt = qleText->text();
 
 	if (url.isValid() && ! url.isRelative() && ! txt.isEmpty()) {
-		return QString::fromLatin1("<a href=\"%1\">%2</a>").arg(QLatin1String(url.toEncoded()), Qt::escape(txt));
+		return QString::fromLatin1("<a href=\"%1\">%2</a>").arg(url.toString(), Qt::escape(txt));
 	}
 
 	return QString();
