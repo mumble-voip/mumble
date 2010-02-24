@@ -33,6 +33,7 @@
 #include "Database.h"
 #include "ClientUser.h"
 #include "Channel.h"
+#include "AudioInput.h"
 
 /*!
   \class ShortcutKeyWidget
@@ -805,6 +806,12 @@ bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 			qlActiveButtons << button;
 		}
 		emit buttonPressed(! down);
+	}
+	
+	if (down) {
+		AudioInputPtr ai = g.ai;
+		if (ai.get())
+			ai->tIdle.restart();
 	}
 
 	int idx = qlButtonList.indexOf(button);

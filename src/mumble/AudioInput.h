@@ -138,7 +138,7 @@ class AudioInput : public QThread {
 		static bool preferCELT(int bitrate, int frames);
 		static void adjustBandwidth(int bitspersec, int &bitrate, int &frames);
 	signals:
-		void doMute();
+		void doDeaf();
 	public:
 		bool bResetProcessor;
 
