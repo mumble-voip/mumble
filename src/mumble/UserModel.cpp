@@ -1301,7 +1301,7 @@ void UserModel::userMuteDeafChanged() {
 }
 
 Qt::DropActions UserModel::supportedDropActions() const {
-	return Qt::CopyAction;
+	return Qt::MoveAction;
 }
 
 QStringList UserModel::mimeTypes() const {
