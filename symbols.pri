@@ -18,6 +18,10 @@ CONFIG(symbols):macx {
 	contains(TEMPLATE, 'lib') {
 		DSYM_TARGET_FULLPATH = $${DESTDIR}/${TARGET}
 		DSYM_OUT = $${DSYM_DESTDIR}/symbols/${TARGET}.dSYM
+		CONFIG(plugin_bundle) {
+			DSYM_TARGET_FULLPATH = ${DESTDIR}${TARGET}$${QMAKE_BUNDLE_EXTENSION}/Contents/MacOS/${TARGET}
+			DSYM_OUT = $${DSYM_DESTDIR}/symbols/${TARGET}$${QMAKE_BUNDLE_EXTENSION}.dSYM
+		}
 	}
 
 	dsym.target = $${DSYM_OUT}
