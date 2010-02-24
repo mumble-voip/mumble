@@ -61,20 +61,22 @@ GlobalShortcutWin::GlobalShortcutWin() {
 #ifndef COMPAT_CLIENT
 	DWORD oldProtect;
 	unsigned char *f = reinterpret_cast<unsigned char *>(&WindowFromPoint);
-	VirtualProtect(f, 6, PAGE_EXECUTE_READWRITE, &oldProtect);
+	if (VirtualProtect(f, 6, PAGE_EXECUTE_READWRITE, &oldProtect)) {
+		for (int i=0;i<6;++i)
+			ucWindowFromPointOrig[i] = f[i];
 
-	for (int i=0;i<6;++i)
-		ucWindowFromPointOrig[i] = f[i];
+		unsigned char **iptr = reinterpret_cast<unsigned char **>(&ucWindowFromPointNew[1]);
+		*iptr = reinterpret_cast<unsigned char *>(&HookWindowFromPoint);
+		ucWindowFromPointNew[0] = 0x68;
+		ucWindowFromPointNew[5] = 0xc3;
 
-	unsigned char **iptr = reinterpret_cast<unsigned char **>(&ucWindowFromPointNew[1]);
-	*iptr = reinterpret_cast<unsigned char *>(&HookWindowFromPoint);
-	ucWindowFromPointNew[0] = 0x68;
-	ucWindowFromPointNew[5] = 0xc3;
+		for (int i=0;i<6;++i)
+			f[i] = ucWindowFromPointNew[i];
 
-	for (int i=0;i<6;++i)
-		f[i] = ucWindowFromPointNew[i];
-
-	FlushInstructionCache(GetCurrentProcess(), f, 6);
+		FlushInstructionCache(GetCurrentProcess(), f, 6);
+	} else {
+		qWarning("GlobalShortcutWin: Failed to patch WindowFromPoint");
+	}
 #endif
 
 	GetKeyboardState(ucKeyState);
