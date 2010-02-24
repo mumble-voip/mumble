@@ -35,11 +35,16 @@
 #include "Audio.h"
 #include "Global.h"
 
+static QString decode_utf8_qssl_string(const QString &input) {
+	QString i = input;
+	return QUrl::fromPercentEncoding(i.replace(QLatin1String("\\x"), QLatin1String("%")).toLatin1());
+}
+
 UserInformation::UserInformation(const MumbleProto::UserStats &msg, QWidget *p) : QDialog(p) {
 	setupUi(this);
 
 	uiSession = msg.session();
-
+	
 	qtTimer = new QTimer(this);
 	connect(qtTimer, SIGNAL(timeout()), this, SLOT(tick()));
 	qtTimer->start(6000);
@@ -102,6 +107,10 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 
 	bool showcon = false;
 
+	ClientUser *cu = ClientUser::get(uiSession);
+	if (cu)
+		setWindowTitle(cu->qsName);
+
 	if (msg.certificates_size() > 0) {
 		showcon = true;
 		qlCerts.clear();
@@ -119,7 +128,7 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 			if (alts.contains(QSsl::EmailEntry))
 				qlCertificate->setText(QStringList(alts.values(QSsl::EmailEntry)).join(tr(", ")));
 			else
-				qlCertificate->setText(cert.subjectInfo(QSslCertificate::CommonName));
+				qlCertificate->setText(decode_utf8_qssl_string(cert.subjectInfo(QSslCertificate::CommonName)));
 
 			if (msg.strong_certificate()) {
 				QFont f = qfCertificateFont;

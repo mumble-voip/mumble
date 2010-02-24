@@ -407,8 +407,12 @@ void Plugins::checkUpdates() {
 	url.addQueryItem(QLatin1String("os"), QLatin1String("Unix"));
 #endif
 
+#ifdef QT_NO_DEBUG
 	QNetworkReply *rep = Network::get(url);
 	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
+#else
+	g.mw->msgBox(tr("Skipping plugin update in debug mode."));
+#endif
 }
 
 void Plugins::finished() {
