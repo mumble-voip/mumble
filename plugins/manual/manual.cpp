@@ -229,7 +229,7 @@ void Manual::updateTopAndFront(int orient, int azimut) {
 	memcpy(my.camera_front, my.avatar_front, sizeof(float) * 3);
 }
 
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &) {
+static int trylock() {
 	return bLinkable;
 }
 

@@ -264,25 +264,8 @@ void Plugins::on_Timer_timeout() {
 	AdjustTokenPrivileges(hToken, FALSE, &tp, sizeof(TOKEN_PRIVILEGES), &tpPrevious, &cbPrevious);
 #endif
 
-	std::multimap<std::wstring, unsigned long long int> pids;
-#ifdef Q_OS_WIN
-	PROCESSENTRY32 pe;
-
-	pe.dwSize = sizeof(pe);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Process32First(hSnap, &pe);
-
-		while (ok) {
-			pids.insert(std::pair<std::wstring, unsigned long long int>(std::wstring(pe.szExeFile), pe.th32ProcessID));
-			ok = Process32Next(hSnap, &pe);
-		}
-		CloseHandle(hSnap);
-	}
-#endif
-
 	foreach(PluginInfo *pi, qlPlugins) {
-		if (pi->p->trylock(pids)) {
+		if (pi->p->trylock()) {
 			pi->shortname = QString::fromStdWString(pi->p->shortname);
 			g.l->log(Log::Information, tr("%1 linked.").arg(pi->shortname));
 			pi->locked = true;

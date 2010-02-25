@@ -35,6 +35,8 @@
 #include <map>
 
 #define MUMBLE_PLUGIN_MAGIC 0xd63ab7ef
+#define MUMBLE_PLUGIN_MAGIC_2 0xd63ab7fe
+#define MUMBLE_PLUGIN_VERSION 2
 
 typedef struct _MumblePlugin {
 	unsigned int magic;
@@ -42,13 +44,20 @@ typedef struct _MumblePlugin {
 	const std::wstring &shortname;
 	void (__cdecl *about)(HWND);
 	void (__cdecl *config)(HWND);
-	int (__cdecl *trylock)(const std::multimap<std::wstring, unsigned long long int> &);
+	int (__cdecl *trylock)();
 	void (__cdecl *unlock)();
 	const std::wstring(__cdecl *longdesc)();
 	int (__cdecl *fetch)(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity);
 } MumblePlugin;
 
+typedef struct _MumblePlugin2 {
+	unsigned int magic;
+	unsigned int version;
+	int (__cdecl *trylock)(const std::multimap<std::wstring, unsigned long long int> &);
+} MumblePlugin2;
+
 typedef MumblePlugin *(__cdecl *mumblePluginFunc)();
+typedef MumblePlugin2 *(__cdecl *mumblePlugin2Func)();
 
 /*
  * All plugins must implement one function called mumbleGetPlugin(), which

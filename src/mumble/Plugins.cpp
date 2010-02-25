@@ -51,6 +51,7 @@ struct PluginInfo {
 	QString description;
 	QString shortname;
 	MumblePlugin *p;
+	MumblePlugin2 *p2;
 	PluginInfo();
 };
 
@@ -58,6 +59,7 @@ PluginInfo::PluginInfo() {
 	locked = false;
 	enabled = false;
 	p = NULL;
+	p2 = NULL;
 }
 
 PluginConfig::PluginConfig(Settings &st) : ConfigWidget(st) {
@@ -271,6 +273,15 @@ void Plugins::rescanPlugins() {
 						pi->description = QString::fromStdWString(pi->p->description);
 						pi->shortname = QString::fromStdWString(pi->p->shortname);
 						pi->enabled = g.s.qmPositionalAudioPlugins.value(pi->filename, true);
+						
+						mumblePlugin2Func mpf2 = reinterpret_cast<mumblePlugin2Func>(pi->lib.resolve("getMumblePlugin2"));
+						if (mpf2) {
+							pi->p2 = mpf2();
+							if (pi->p2->magic != MUMBLE_PLUGIN_MAGIC_2) {
+								pi->p2 = NULL;
+							}
+						}
+						
 						qlPlugins << pi;
 						loaded.insert(fname);
 						continue;
@@ -408,12 +419,14 @@ void Plugins::on_Timer_timeout() {
 #endif
 
 	PluginInfo *pi = qlPlugins.at(iPluginTry);
-	if (pi->enabled && pi->p->trylock(pids)) {
-		pi->shortname = QString::fromStdWString(pi->p->shortname);
-		g.l->log(Log::Information, tr("%1 linked.").arg(pi->shortname));
-		pi->locked = true;
-		bUnlink = false;
-		locked = pi;
+	if (pi->enabled) {
+		if (pi->p2 ? pi->p2->trylock(pids) : pi->p->trylock()) {
+			pi->shortname = QString::fromStdWString(pi->p->shortname);
+			g.l->log(Log::Information, tr("%1 linked.").arg(pi->shortname));
+			pi->locked = true;
+			bUnlink = false;
+			locked = pi;
+		}
 	}
 }
 
