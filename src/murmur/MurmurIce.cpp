@@ -1328,8 +1328,8 @@ static void impl_Server_getTexture(const ::Murmur::AMD_Server_getTexturePtr cb, 
 	::Murmur::Texture tex;
 	tex.resize(qba.size());
 	const char *ptr = qba.constData();
-	for (int i=0;i<qba.size()-4;++i)
-		tex[i] = ptr[i+4];
+	for (int i=0;i<qba.size();++i)
+		tex[i] = ptr[i];
 
 	cb->ice_response(tex);
 }
