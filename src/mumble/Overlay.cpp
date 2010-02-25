@@ -1017,12 +1017,18 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 
 	foreach(QGraphicsItem *qgi, items)
 		qgs.removeItem(qgi);
+		
+	float nx = (users.count() > 1) ? 2.05f : 1.0f;
+	float ny = 1.0f + (users.count() - 1) / 2 * 1.05f;
+
+	int basex = qBound<int>(0, iroundf(uiWidth * g.s.fOverlayX), uiWidth - iroundf(iItemHeight * nx));
+	int basey = qBound<int>(0, iroundf(uiHeight * g.s.fOverlayY), uiHeight - iroundf(iItemHeight * ny));
 
 	int y = 0;
 	int x = 0;
 
 	foreach(OverlayUser *ou, users) {
-		ou->setPos(iroundf(uiWidth * g.s.fOverlayX + x * iItemHeight * 1.05f), iroundf(uiHeight * g.s.fOverlayY + y * iItemHeight * 1.05f));
+		ou->setPos(basex + iroundf(x * iItemHeight * 1.05f), basey + iroundf(y * iItemHeight * 1.05f));
 		ou->show();
 		ou->updateUser();
 
