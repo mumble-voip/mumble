@@ -129,21 +129,36 @@ static void inline u8(std::wstring &dst, const char *src, int srclen) {
 	dst.assign(wbuff, len);
 }
 
-static bool inline initialize(const std::multimap<std::wstring, unsigned long long int> &, const wchar_t *procname, const wchar_t *modname = NULL) {
+static bool inline initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = NULL) {
 	hProcess = NULL;
 	pModule = NULL;
 
-	dwPid=getProcess(procname);
+	if (! pids.empty()) {
+		std::multimap<std::wstring, unsigned long long int>::const_iterator iter = pids.find(std::wstring(procname));
+
+		if (iter != pids.end())
+			dwPid = static_cast<DWORD>(iter->second);
+		else
+			dwPid = 0;
+	} else {
+		dwPid=getProcess(procname);
+	}
+
 	if (!dwPid)
 		return false;
 
 	pModule=getModuleAddr(modname ? modname : procname);
-	if (!pModule)
+	if (!pModule) {
+		dwPid = 0;
 		return false;
+	}
 
 	hProcess=OpenProcess(PROCESS_VM_READ, false, dwPid);
-	if (!hProcess)
+	if (!hProcess) {
+		dwPid = 0;
+		pModule = NULL;
 		return false;
+	}
 
 	return true;
 }
@@ -153,6 +168,7 @@ static void generic_unlock() {
 		CloseHandle(hProcess);
 		hProcess = NULL;
 		pModule = NULL;
+		dwPid = 0;
 	}
 }
 
