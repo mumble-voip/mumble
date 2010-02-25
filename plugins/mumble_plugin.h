@@ -32,6 +32,7 @@
 #define _MUMBLE_PLUGIN_H
 
 #include <string>
+#include <map>
 
 #define MUMBLE_PLUGIN_MAGIC 0xd63ab7ef
 
@@ -41,7 +42,7 @@ typedef struct _MumblePlugin {
 	const std::wstring &shortname;
 	void (__cdecl *about)(HWND);
 	void (__cdecl *config)(HWND);
-	int (__cdecl *trylock)();
+	int (__cdecl *trylock)(const std::multimap<std::wstring, unsigned long long int> &);
 	void (__cdecl *unlock)();
 	const std::wstring(__cdecl *longdesc)();
 	int (__cdecl *fetch)(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity);
@@ -60,6 +61,7 @@ typedef MumblePlugin *(__cdecl *mumblePluginFunc)();
  * about(HWND parent) - Player clicked the about button over plugin
  * config(HWND parent) - Player clicked the config button
  * trylock() - Search system for likely process and try to lock on.
+ *      The parameter is a set of process names and associated PIDs.
  *		Return 1 if succeeded, else 0. Note that once a plugin is locked on,
  *		no other plugins will be queried.
  * unlock() - Unlock from process. Either from user intervention or

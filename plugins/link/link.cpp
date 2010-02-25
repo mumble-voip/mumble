@@ -73,7 +73,7 @@ static void unlock() {
 	wsDescription.clear();
 }
 
-static int trylock() {
+static int trylock(const std::multimap<std::wstring, unsigned long long int> &) {
 	if ((lm->uiVersion == 1) || (lm->uiVersion == 2)) {
 		if (lm->dwcount != last_count) {
 			last_count = lm->dwcount;

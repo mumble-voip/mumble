@@ -88,7 +88,7 @@ static void unlock() {
 	wsDescription.clear();
 }
 
-static int trylock() {
+static int trylock(const std::multimap<std::wstring, unsigned long long int> &) {
 	if (lm == lm_invalid)
 		return false;
 
