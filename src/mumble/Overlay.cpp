@@ -230,6 +230,10 @@ void OverlayUser::setup(bool selectable) {
 	}
 }
 
+#define SCALESIZE(var) iroundf(uiSize * g.s.qrfOverlay##var .height()), iroundf(uiSize * g.s.qrfOverlay##var .width())
+#define SCALEPOS(var) iroundf(uiSize * g.s.qrfOverlay##var .x()), iroundf(uiSize * g.s.qrfOverlay##var .y())
+
+
 void OverlayUser::updateLayout() {
 	QPixmap pm;
 
@@ -242,7 +246,7 @@ void OverlayUser::updateLayout() {
 	{
 		QImageReader qir(QLatin1String("skin:muted_self.svg"));
 		QSize sz = qir.size();
-		sz.scale(uiSize / 2, uiSize / 2, Qt::KeepAspectRatio);
+		sz.scale(SCALESIZE(MutedDeafened), Qt::KeepAspectRatio);
 		qir.setScaledSize(sz);
 		qgpiMuted->setPixmap(QPixmap::fromImage(qir.read()));
 	}
@@ -250,28 +254,28 @@ void OverlayUser::updateLayout() {
 	{
 		QImageReader qir(QLatin1String("skin:deafened_self.svg"));
 		QSize sz = qir.size();
-		sz.scale(uiSize / 2, uiSize / 2, Qt::KeepAspectRatio);
+		sz.scale(SCALESIZE(MutedDeafened), Qt::KeepAspectRatio);
 		qir.setScaledSize(sz);
 		qgpiDeafened->setPixmap(QPixmap::fromImage(qir.read()));
 	}
 	
-	qgpiMuted->setPos(0.0f, 0.0f);
+	qgpiMuted->setPos(SCALEPOS(MutedDeafened));
 	qgpiMuted->setZValue(1.0f);
 	qgpiMuted->setOpacity(g.s.fOverlayMutedDeafened);
 
-	qgpiDeafened->setPos(0.0f, 0.0f);
+	qgpiDeafened->setPos(SCALEPOS(MutedDeafened));
 	qgpiDeafened->setZValue(1.0f);
 	qgpiDeafened->setOpacity(g.s.fOverlayMutedDeafened);
 
-	qgpiAvatar->setPos(0.0f, 0.0f);
+	qgpiAvatar->setPos(SCALEPOS(Avatar));
 	qgpiAvatar->setOpacity(g.s.fOverlayAvatar);
 
 	for (int i=0;i<4;++i) {
-		qgpiName[i]->setPos(0.0f, (5 * uiSize) / 6);
+		qgpiName[i]->setPos(SCALEPOS(UserName));
 		qgpiName[i]->setZValue(2.0f);
 		qgpiName[i]->setOpacity(g.s.fOverlayUserName[i]);
 	}
-	qgpiChannel->setPos(0.0f, 0.0f);
+	qgpiChannel->setPos(SCALEPOS(Channel));
 	qgpiChannel->setZValue(2.0f);
 	qgpiChannel->setOpacity(g.s.fOverlayChannel);
 }
@@ -345,9 +349,9 @@ void OverlayUser::updateUser() {
 
 		QPainterPath pp;
 		for (int i=0; i<4; ++i) {
-			const QPixmap &pm = createPixmap(qsName, uiSize / 6, uiSize, g.s.qcOverlayUserName[i], g.s.qfOverlayUserName, pp);
+			const QPixmap &pm = createPixmap(qsName, SCALESIZE(UserName), g.s.qcOverlayUserName[i], g.s.qfOverlayUserName, pp);
 			qgpiName[i]->setPixmap(pm);
-			qgpiName[i]->setX((uiSize - pm.width()) / 2);
+			qgpiName[i]->setPos(SCALEPOS(UserName));
 		}
 	}
 
@@ -356,9 +360,9 @@ void OverlayUser::updateUser() {
 			qsChannelName = cuUser->cChannel->qsName;
 
 		QPainterPath pp;
-		const QPixmap &pm = createPixmap(qsChannelName, uiSize / 6, uiSize, g.s.qcOverlayChannel, g.s.qfOverlayChannel, pp);
+		const QPixmap &pm = createPixmap(qsChannelName, SCALESIZE(Channel), g.s.qcOverlayChannel, g.s.qfOverlayChannel, pp);
 		qgpiChannel->setPixmap(pm);
-		qgpiChannel->setX(uiSize - pm.width());
+		qgpiChannel->setPos(SCALEPOS(Channel));
 	}
 
 	if (qgpiAvatar->pixmap().isNull() || (cuUser && (qbaAvatar != cuUser->qbaTextureHash))) {
@@ -369,7 +373,7 @@ void OverlayUser::updateUser() {
 		if (qbaAvatar.isNull()) {
 			QImageReader qir(QLatin1String("skin:default_avatar.svg"));
 			QSize sz = qir.size();
-			sz.scale(uiSize, uiSize, Qt::KeepAspectRatio);
+			sz.scale(SCALESIZE(Avatar), Qt::KeepAspectRatio);
 			qir.setScaledSize(sz);
 			img = qir.read();
 		} else {
@@ -378,12 +382,13 @@ void OverlayUser::updateUser() {
 
 			QImageReader qir(&qb, cuUser->qbaTextureFormat);
 			QSize sz = qir.size();
-			sz.scale(uiSize, uiSize, Qt::KeepAspectRatio);
+			sz.scale(SCALESIZE(Avatar), Qt::KeepAspectRatio);
 			qir.setScaledSize(sz);
 			img = qir.read();
 		}
 
 		qgpiAvatar->setPixmap(QPixmap::fromImage(img));
+		qgpiAvatar->setPos(SCALEPOS(Avatar));
 	}
 
 	qgpiAvatar->show();

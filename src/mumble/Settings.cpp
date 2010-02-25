@@ -242,8 +242,8 @@ Settings::Settings() {
 	fOverlayUser[WhisperPrivate] = (7.0f / 8.0f);
 	fOverlayUser[WhisperChannel] = (7.0f / 8.0f);
 	
-	qrfOverlayUserName = QRectF(0.0f, 0.7f, 1.0f, 0.3f);
-	qrfOverlayChannel = QRectF(0.2f, 0.0f, 0.8f, 0.2f);
+	qrfOverlayUserName = QRectF(0.0f, 0.8f, 1.0f, 0.2f);
+	qrfOverlayChannel = QRectF(0.2f, 0.0f, 0.8f, 0.15f);
 	qrfOverlayMutedDeafened = QRectF(0.0f, 0.0f, 0.5f, 0.5f);
 	qrfOverlayAvatar = QRectF(0.0f, 0.0f, 1.0f, 1.0f);
 
