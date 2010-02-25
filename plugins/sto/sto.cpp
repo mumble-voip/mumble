@@ -89,16 +89,16 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 
 	char version[17];
-	peekProc(pModule + 0x1612500, version);
+	peekProc(pModule + 0x1616080, version);
 	version[16]=0;
 
-	if (memcmp(version, "ST.0.20100208b.4", sizeof(version)) == 0) {
+	if (memcmp(version, "ST.0.20100217c.3", sizeof(version)) == 0) {
 #ifdef PLUGIN_DEBUG
 		printf("STO: WANTLINK %s\n", version);
 #endif
-		identptr = pModule + 0x16aec48;
-		contextptr = pModule + 0x16ae804;
-		posptr = pModule + 0x18be420;
+		contextptr = pModule + 0x16b2cd4;
+		identptr = contextptr + 0x444;
+		posptr = pModule + 0x18c2340;
 
 		return true;
 	} else {
