@@ -33,20 +33,11 @@
 typedef int uint32_t;
 typedef long long uint64_t;
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <windows.h>
-#include <tlhelp32.h>
-#include <math.h>
-
 #if _DEBUG
-#include <iostream>
 #endif
-#include <sstream>
 
-#include "../mumble_plugin.h"
+#include "../mumble_plugin_win32.h"
 
-HANDLE h;
 uint32_t p_playerBase;
 uint64_t g_playerGUID;
 
@@ -59,41 +50,10 @@ static size_t off_ObjectManager=0x2E04;
 static uint32_t ptr_WorldFrame=0x00B0D578;
 static size_t off_CameraOffset=0x7E24;
 
-static DWORD getProcess(const wchar_t *exename) {
-	PROCESSENTRY32 pe;
-	DWORD pid = 0;
-
-	pe.dwSize = sizeof(pe);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Process32First(hSnap, &pe);
-
-		while (ok) {
-			if (wcscmp(pe.szExeFile, exename)==0) {
-				pid = pe.th32ProcessID;
-				break;
-			}
-			ok = Process32Next(hSnap, &pe);
-		}
-		CloseHandle(hSnap);
-	}
-	return pid;
-}
-
-static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
-	SIZE_T r;
-	BOOL ok=ReadProcessMemory(h, base, dest, len, &r);
-	return (ok && (r == len));
-}
-
-static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from World of Warcraft", L"Mumble WoW Plugin", MB_OK);
-}
-
 uint32_t getInt32(uint32_t ptr) {
 	uint32_t result;
 	SIZE_T r;
-	BOOL ok=ReadProcessMemory(h, (void *)ptr, &result, sizeof(uint32_t), &r);
+	BOOL ok=ReadProcessMemory(hProcess, (void *)ptr, &result, sizeof(uint32_t), &r);
 	if (ok && (r == sizeof(uint32_t))) {
 		return result;
 	} else {
@@ -104,7 +64,7 @@ uint32_t getInt32(uint32_t ptr) {
 uint64_t getInt64(uint32_t ptr) {
 	uint64_t result;
 	SIZE_T r;
-	BOOL ok=ReadProcessMemory(h, (void *)ptr, &result, sizeof(uint64_t), &r);
+	BOOL ok=ReadProcessMemory(hProcess, (void *)ptr, &result, sizeof(uint64_t), &r);
 	if (ok && (r == sizeof(uint64_t))) {
 		return result;
 	} else {
@@ -115,7 +75,7 @@ uint64_t getInt64(uint32_t ptr) {
 float getFloat(uint32_t ptr) {
 	float result;
 	SIZE_T r;
-	BOOL ok=ReadProcessMemory(h, (void *)ptr, &result, sizeof(float), &r);
+	BOOL ok=ReadProcessMemory(hProcess, (void *)ptr, &result, sizeof(float), &r);
 	if (ok && (r == sizeof(float))) {
 		return result;
 	} else {
@@ -125,7 +85,7 @@ float getFloat(uint32_t ptr) {
 
 int getCStringN(uint32_t ptr, char *buffer, size_t buffersize) {
 	SIZE_T r;
-	BOOL ok = ReadProcessMemory(h, (void *)ptr, buffer, buffersize, &r);
+	BOOL ok = ReadProcessMemory(hProcess, (void *)ptr, buffer, buffersize, &r);
 
 	/* safety net, just in case we didn't get a string back at all */
 	buffer[buffersize-1] = '\0';
@@ -162,12 +122,11 @@ int getWString(uint32_t ptr, std::wstring &buffer) {
 	return 0;
 }
 
-
 void getDebug16(uint32_t ptr) {
 #ifdef _DEBUG
 	unsigned char buf[16];
 	SIZE_T r;
-	BOOL ok=ReadProcessMemory(h, (void *)ptr, &buf, sizeof(buf), &r);
+	BOOL ok=ReadProcessMemory(hProcess, (void *)ptr, &buf, sizeof(buf), &r);
 	if (ok && (r == sizeof(buf))) {
 		printf("%08x: %02x%02x%02x%02x %02x%02x%02x%02x %02x%02x%02x%02x %02x%02x%02x%02x\n",
 		       ptr,
@@ -298,7 +257,6 @@ void getCamera(float camera_pos[3], float camera_front[3], float camera_top[3]) 
 	camera_top[2] =  buf[3][0];
 }
 
-
 typedef class WowData {
 		std::wstring nameAvatar;
 		bool nameAvatarValid;
@@ -335,7 +293,6 @@ typedef class WowData {
 } WowData_t;
 
 WowData_t wow;
-
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	/* clear position */
@@ -436,25 +393,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	h = NULL;
-
-	DWORD pid=getProcess(L"Wow.exe");
-	if (!pid)
+	if (! initialize(pids, L"Wow.exe"))
 		return false;
-
-	h=OpenProcess(PROCESS_VM_READ, false, pid);
-	if (!h) {
-#ifdef _DEBUG
-		DWORD dwError;
-		wchar_t errBuf[256];
-
-		dwError = GetLastError();
-		FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, dwError, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR)errBuf, sizeof(errBuf),NULL);
-		std::cout << "Error in OpenProcess: ";
-		std::wcout << errBuf << std::endl;
-#endif
-		return false;
-	}
 
 	p_playerBase=getPlayerBase();
 	if (p_playerBase != 0) {
@@ -462,22 +402,12 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		std::string context;
 		std::wstring identity;
 
-		if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
+		if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
 			return true;
-		}
 	}
 
-	CloseHandle(h);
-	h = NULL;
+	generic_unlock();
 	return false;
-}
-
-static void unlock() {
-	if (h) {
-		CloseHandle(h);
-		h = NULL;
-	}
-	return;
 }
 
 static const std::wstring longdesc() {
@@ -488,18 +418,32 @@ static std::wstring description(L"World of Warcraft 3.3.2 (Euro)");
 
 static std::wstring shortname(L"World of Warcraft");
 
+static int trylock1() {
+	return trylock(std::multimap<std::wstring, unsigned long long int>());
+}
+
 static MumblePlugin wowplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
-	about,
 	NULL,
-	trylock,
-	unlock,
+	NULL,
+	trylock1,
+	generic_unlock,
 	longdesc,
 	fetch
 };
 
+static MumblePlugin2 wowplug2 = {
+	MUMBLE_PLUGIN_MAGIC_2,
+	MUMBLE_PLUGIN_VERSION,
+	trylock
+};
+
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
 	return &wowplug;
+}
+
+extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
+	return &wowplug2;
 }

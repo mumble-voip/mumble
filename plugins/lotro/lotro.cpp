@@ -118,7 +118,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	if (!initialize(L"lotroclient.exe"))
+	if (! initialize(pids, L"lotroclient.exe"))
 		return false;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
@@ -140,18 +140,32 @@ static const std::wstring longdesc() {
 static std::wstring description(L"Lord of the Rings Online (EU), Vol II Book 9 Patch1");
 static std::wstring shortname(L"Lord of the Rings Online");
 
+static int trylock1() {
+	return trylock(std::multimap<std::wstring, unsigned long long int>());
+}
+
 static MumblePlugin lotroplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
 	NULL,
 	NULL,
-	trylock,
+	trylock1,
 	generic_unlock,
 	longdesc,
 	fetch
 };
 
+static MumblePlugin2 lotroplug2 = {
+	MUMBLE_PLUGIN_MAGIC_2,
+	MUMBLE_PLUGIN_VERSION,
+	trylock
+};
+
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
 	return &lotroplug;
+}
+
+extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
+	return &lotroplug2;
 }

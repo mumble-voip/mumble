@@ -29,78 +29,15 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <windows.h>
-#include <tlhelp32.h>
-#include <string>
-#include <sstream>
-
-#define _USE_MATH_DEFINES
-#include <math.h>
-
-#include "../mumble_plugin.h"
+#include "../mumble_plugin_win32.h"
 
 using namespace std;
 
-HANDLE h;
 BYTE *posptr;
 BYTE *rotptr;
 BYTE *stateptr;
 BYTE *hostptr;
 //BYTE *teamptr;
-
-static DWORD getProcess(const wchar_t *exename) {
-	PROCESSENTRY32 pe;
-	DWORD pid = 0;
-
-	pe.dwSize = sizeof(pe);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Process32First(hSnap, &pe);
-
-		while (ok) {
-			if (wcscmp(pe.szExeFile, exename)==0) {
-				pid = pe.th32ProcessID;
-				break;
-			}
-			ok = Process32Next(hSnap, &pe);
-		}
-		CloseHandle(hSnap);
-	}
-	return pid;
-}
-
-static BYTE *getModuleAddr(DWORD pid, const wchar_t *modname) {
-	MODULEENTRY32 me;
-	BYTE *addr = NULL;
-	me.dwSize = sizeof(me);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Module32First(hSnap, &me);
-
-		while (ok) {
-			if (wcscmp(me.szModule, modname)==0) {
-				addr = me.modBaseAddr;
-				break;
-			}
-			ok = Module32Next(hSnap, &me);
-		}
-		CloseHandle(hSnap);
-	}
-	return addr;
-}
-
-
-static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
-	SIZE_T r;
-	BOOL ok=ReadProcessMemory(h, base, dest, len, &r);
-	return (ok && (r == len));
-}
-
-static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Counter-Strike: Source (Build 3945). IP:Port context support.", L"Mumble CSS Plugin", MB_OK);
-}
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
@@ -203,22 +140,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-
-	h = NULL;
 	posptr = rotptr = NULL;
 
-	DWORD pid=getProcess(L"hl2.exe");
-	if (!pid)
-		return false;
-	BYTE *mod=getModuleAddr(pid, L"client.dll");
-	if (!mod)
-		return false;
-	BYTE *mod_engine=getModuleAddr(pid, L"engine.dll");
-	if (!mod_engine)
+	if (! initialize(pids, L"hl2.exe", L"client.dll"))
 		return false;
 
-	h=OpenProcess(PROCESS_VM_READ, false, pid);
-	if (!h)
+	BYTE *mod_engine=getModuleAddr(L"engine.dll");
+	if (!mod_engine)
 		return false;
 
 	// Check if we really have CSS running
@@ -231,15 +159,15 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		team state:			client.dll+0x3aa133  (60 when T, 61 when CT, byte)
 	*/
 	// Remember addresses for later
-	posptr = mod + 0x3ee0c4;
-	rotptr = mod + 0x39d504;
-	stateptr = mod + 0x390070;
+	posptr = pModule + 0x3ee0c4;
+	rotptr = pModule + 0x39d504;
+	stateptr = pModule + 0x390070;
 	hostptr = mod_engine + 0x3909c4;
-	//teamptr = mod + 0x3aa133;
+	//teamptr = pModule + 0x3aa133;
 
 	//Gamecheck
 	char sMagic[16];
-	if (!peekProc(mod + 0x39ee41, sMagic, 16) || strncmp("CSSpectatorGUI@@", sMagic, 16)!=0)
+	if (!peekProc(pModule + 0x39ee41, sMagic, 16) || strncmp("CSSpectatorGUI@@", sMagic, 16)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
@@ -248,23 +176,13 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	wstring sidentity;
 	string scontext;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity))
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
 		return true;
-
-	// If it failed clean up
-	CloseHandle(h);
-	h = NULL;
-	return false;
-}
-
-static void unlock() {
-	if (h) {
-		CloseHandle(h);
-		h = NULL;
+	} else {
+		generic_unlock();
+		return false;
 	}
-	return;
 }
-
 
 static const std::wstring longdesc() {
 	return std::wstring(L"Supports CSS build 3945. No identity support yet.");
@@ -273,18 +191,32 @@ static const std::wstring longdesc() {
 static std::wstring description(L"Counter-Strike: Source (Build 3945)");
 static std::wstring shortname(L"Counter-Strike: Source");
 
+static int trylock1() {
+	return trylock(std::multimap<std::wstring, unsigned long long int>());
+}
+
 static MumblePlugin cssplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
-	about,
 	NULL,
-	trylock,
-	unlock,
+	NULL,
+	trylock1,
+	generic_unlock,
 	longdesc,
 	fetch
 };
 
+static MumblePlugin2 cssplug2 = {
+	MUMBLE_PLUGIN_MAGIC_2,
+	MUMBLE_PLUGIN_VERSION,
+	trylock
+};
+
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
 	return &cssplug;
+}
+
+extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
+	return &cssplug2;
 }

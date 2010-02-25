@@ -37,6 +37,8 @@
 #include <windows.h>
 #include <tlhelp32.h>
 #include <math.h>
+#include <sstream>
+#include <iostream>
 
 #include "mumble_plugin.h"
 

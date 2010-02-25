@@ -29,19 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#define _USE_MATH_DEFINES
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <windows.h>
-#include <tlhelp32.h>
-#include <math.h>
-//#include <string>
-//#include <sstream>
-
-#include "../mumble_plugin.h"
-
-HANDLE h = NULL;
+////
+#include "../mumble_plugin_win32.h"
 
 using namespace std;
 
@@ -50,69 +39,6 @@ BYTE *pos1ptr;
 BYTE *pos2ptr;
 BYTE *faceptr;
 BYTE *topptr;
-
-static DWORD getProcess(const wchar_t *exename) {
-	PROCESSENTRY32 pe;
-	DWORD pid = 0;
-
-	pe.dwSize = sizeof(pe);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Process32First(hSnap, &pe);
-
-		while (ok) {
-			if (wcscmp(pe.szExeFile, exename)==0) {
-				pid = pe.th32ProcessID;
-				break;
-			}
-			ok = Process32Next(hSnap, &pe);
-		}
-		CloseHandle(hSnap);
-	}
-	return pid;
-}
-
-static BYTE *getModuleAddr(DWORD pid, const wchar_t *modname) {
-	MODULEENTRY32 me;
-	BYTE *addr = NULL;
-	me.dwSize = sizeof(me);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Module32First(hSnap, &me);
-
-		while (ok) {
-			if (wcscmp(me.szModule, modname)==0) {
-				addr = me.modBaseAddr;
-				break;
-			}
-			ok = Module32Next(hSnap, &me);
-		}
-		CloseHandle(hSnap);
-	}
-	return addr;
-}
-
-
-static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
-	SIZE_T r;
-	BOOL ok=ReadProcessMemory(h, base, dest, len, &r);
-	return (ok && (r == len));
-}
-
-static DWORD peekProc(VOID *base) {
-	DWORD v = 0;
-	peekProc(base, reinterpret_cast<BYTE *>(&v), sizeof(DWORD));
-	return v;
-}
-
-static BYTE *peekProcPtr(VOID *base) {
-	DWORD v = peekProc(base);
-	return reinterpret_cast<BYTE *>(v);
-}
-
-static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Unreal Tournament 2004 (v3369).", L"Mumble UT2004 plugin", MB_OK);
-}
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	//char ccontext[128];
@@ -167,23 +93,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	h = NULL;
 	pos0ptr = pos1ptr = pos2ptr = faceptr = topptr = NULL;
 
-	DWORD pid=getProcess(L"UT2004.exe");
-	if (!pid)
-		return false;
-	BYTE *mod=getModuleAddr(pid, L"Engine.dll");
-	if (!mod)
+	if (! initialize(pids, L"UT2004.exe", L"Engine.dll"))
 		return false;
 
-	h=OpenProcess(PROCESS_VM_READ, false, pid);
-	if (!h)
-		return false;
-
-	BYTE *ptraddress = mod + 0x4A44FC;
-	BYTE *ptr2 = peekProcPtr(ptraddress);
-	BYTE *ptr3 = peekProcPtr(ptr2 + 0xCC);
+	BYTE *ptraddress = pModule + 0x4A44FC;
+	BYTE *ptr2 = peekProc<BYTE *>(ptraddress);
+	BYTE *ptr3 = peekProc<BYTE *>(ptr2 + 0xCC);
 	BYTE *baseptr = ptr3 + 0x1C8;
 
 	pos0ptr = baseptr;
@@ -198,18 +115,11 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	std::string context;
 	std::wstring identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
 		return true;
-
-	CloseHandle(h);
-	h = NULL;
-	return false;
-}
-
-static void unlock() {
-	if (h) {
-		CloseHandle(h);
-		h = NULL;
+	} else {
+		generic_unlock();
+		return false;
 	}
 }
 
@@ -220,18 +130,32 @@ static const std::wstring longdesc() {
 static std::wstring description(L"Unreal Tournament 2004 (v3369)");
 static std::wstring shortname(L"Unreal Tournament 2004");
 
+static int trylock1() {
+	return trylock(std::multimap<std::wstring, unsigned long long int>());
+}
+
 static MumblePlugin ut2004plug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
-	about,
 	NULL,
-	trylock,
-	unlock,
+	NULL,
+	trylock1,
+	generic_unlock,
 	longdesc,
 	fetch
 };
 
+static MumblePlugin2 ut2004plug2 = {
+	MUMBLE_PLUGIN_MAGIC_2,
+	MUMBLE_PLUGIN_VERSION,
+	trylock
+};
+
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
 	return &ut2004plug;
+}
+
+extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
+	return &ut2004plug2;
 }

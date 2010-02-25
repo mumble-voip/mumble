@@ -30,19 +30,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#define _USE_MATH_DEFINES
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <windows.h>
-#include <tlhelp32.h>
-#include <math.h>
-#include <string>
-#include <sstream>
-
-#include "../mumble_plugin.h"
-
-HANDLE h = NULL;
+#include "../mumble_plugin_win32.h"
 
 using namespace std;
 
@@ -51,69 +39,6 @@ BYTE *pos2ptr;
 BYTE *pos3ptr;
 BYTE *rot1ptr;
 BYTE *rot2ptr;
-
-static DWORD getProcess(const wchar_t *exename) {
-	PROCESSENTRY32 pe;
-	DWORD pid = 0;
-
-	pe.dwSize = sizeof(pe);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Process32First(hSnap, &pe);
-
-		while (ok) {
-			if (wcscmp(pe.szExeFile, exename)==0) {
-				pid = pe.th32ProcessID;
-				break;
-			}
-			ok = Process32Next(hSnap, &pe);
-		}
-		CloseHandle(hSnap);
-	}
-	return pid;
-}
-
-static BYTE *getModuleAddr(DWORD pid, const wchar_t *modname) {
-	MODULEENTRY32 me;
-	BYTE *addr = NULL;
-	me.dwSize = sizeof(me);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Module32First(hSnap, &me);
-
-		while (ok) {
-			if (wcscmp(me.szModule, modname)==0) {
-				addr = me.modBaseAddr;
-				break;
-			}
-			ok = Module32Next(hSnap, &me);
-		}
-		CloseHandle(hSnap);
-	}
-	return addr;
-}
-
-
-static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
-	SIZE_T r;
-	BOOL ok=ReadProcessMemory(h, base, dest, len, &r);
-	return (ok && (r == len));
-}
-
-static DWORD peekProc(VOID *base) {
-	DWORD v = 0;
-	peekProc(base, reinterpret_cast<BYTE *>(&v), sizeof(DWORD));
-	return v;
-}
-
-static BYTE *peekProcPtr(VOID *base) {
-	DWORD v = peekProc(base);
-	return reinterpret_cast<BYTE *>(v);
-}
-
-static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Enemy Territory: Quake Wars (v1.50). IP:Port context support.", L"Mumble ETQW plugin", MB_OK);
-}
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	char menustate;
@@ -201,42 +126,26 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	h = NULL;
 	pos1ptr = pos2ptr = pos3ptr = rot1ptr = rot2ptr = NULL;
 
-	DWORD pid=getProcess(L"etqw.exe");
-	if (!pid)
-		return false;
-	BYTE *mod=getModuleAddr(pid, L"gamex86.dll");
-	if (!mod)
+	if (! initialize(pids, L"etqw.exe", L"gamex86.dll"))
 		return false;
 
-	pos1ptr = mod + 0x74EABC;
-	pos2ptr = mod + 0x74EAB4;
-	pos3ptr = mod + 0x74EAB8;
-	rot1ptr = mod + 0x75D2B4;
-	rot2ptr = mod + 0x75D30C;
-
-	h=OpenProcess(PROCESS_VM_READ, false, pid);
-	if (!h)
-		return false;
+	pos1ptr = pModule + 0x74EABC;
+	pos2ptr = pModule + 0x74EAB4;
+	pos3ptr = pModule + 0x74EAB8;
+	rot1ptr = pModule + 0x75D2B4;
+	rot2ptr = pModule + 0x75D30C;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;
 	std::wstring identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
 		return true;
-
-	CloseHandle(h);
-	h = NULL;
-	return false;
-}
-
-static void unlock() {
-	if (h) {
-		CloseHandle(h);
-		h = NULL;
+	} else {
+		generic_unlock();
+		return false;
 	}
 }
 
@@ -247,18 +156,32 @@ static const std::wstring longdesc() {
 static std::wstring description(L"Enemy Territory: Quake Wars v1.50");
 static std::wstring shortname(L"Enemy Territory: Quake Wars");
 
+static int trylock1() {
+	return trylock(std::multimap<std::wstring, unsigned long long int>());
+}
+
 static MumblePlugin etqwplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
-	about,
 	NULL,
-	trylock,
-	unlock,
+	NULL,
+	trylock1,
+	generic_unlock,
 	longdesc,
 	fetch
 };
 
+static MumblePlugin2 etqwplug2 = {
+	MUMBLE_PLUGIN_MAGIC_2,
+	MUMBLE_PLUGIN_VERSION,
+	trylock
+};
+
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
 	return &etqwplug;
+}
+
+extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
+	return &etqwplug2;
 }

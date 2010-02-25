@@ -30,68 +30,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#define _USE_MATH_DEFINES
-#include <stdio.h>
-#include <stdlib.h>
-#include <windows.h>
-#include <tlhelp32.h>
-#include <math.h>
-
-#include "../mumble_plugin.h"
-
-HANDLE h = NULL;
-
-static DWORD getProcess(const wchar_t *exename) {
-	PROCESSENTRY32 pe;
-	DWORD pid = 0;
-
-	pe.dwSize = sizeof(pe);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Process32First(hSnap, &pe);
-
-		while (ok) {
-			if (wcscmp(pe.szExeFile, exename)==0) {
-				pid = pe.th32ProcessID;
-				break;
-			}
-			ok = Process32Next(hSnap, &pe);
-		}
-		CloseHandle(hSnap);
-	}
-	return pid;
-}
-
-static BYTE *getModuleAddr(DWORD pid, const wchar_t *modname) {
-	MODULEENTRY32 me;
-	BYTE *addr = NULL;
-	me.dwSize = sizeof(me);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Module32First(hSnap, &me);
-
-		while (ok) {
-			if (wcscmp(me.szModule, modname)==0) {
-				addr = me.modBaseAddr;
-				break;
-			}
-			ok = Module32Next(hSnap, &me);
-		}
-		CloseHandle(hSnap);
-	}
-	return addr;
-}
-
-static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
-	SIZE_T r;
-	BOOL ok=ReadProcessMemory(h, base, dest, len, &r);
-	return (ok && (r == len));
-}
-
-static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Call of Duty: Modern Warfare 2 Special Ops v1.1", L"Mumble CoDMW2SO Plugin", MB_OK);
-}
-
+#include "../mumble_plugin_win32.h"
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	float viewHor, viewVer;
@@ -196,31 +135,18 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	h = NULL;
-	DWORD pid=getProcess(L"iw4sp.exe");
-	if (!pid)
-		return false;
-
-	h=OpenProcess(PROCESS_VM_READ, false, pid);
-	if (!h)
+	if (! initialize(pids, L"iw4sp.exe"))
 		return false;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;
 	std::wstring identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
 		return true;
-
-	CloseHandle(h);
-	h = NULL;
-	return false;
-}
-
-static void unlock() {
-	if (h) {
-		CloseHandle(h);
-		h = NULL;
+	} else {
+		generic_unlock();
+		return false;
 	}
 }
 
@@ -231,18 +157,32 @@ static const std::wstring longdesc() {
 static std::wstring description(L"Call of Duty: Modern Warfare 2 Special Ops v1.1");
 static std::wstring shortname(L"Call of Duty: Modern Warfare 2 Special Ops");
 
+static int trylock1() {
+	return trylock(std::multimap<std::wstring, unsigned long long int>());
+}
+
 static MumblePlugin codmw2soplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
-	about,
 	NULL,
-	trylock,
-	unlock,
+	NULL,
+	trylock1,
+	generic_unlock,
 	longdesc,
 	fetch
 };
 
+static MumblePlugin2 codmw2soplug2 = {
+	MUMBLE_PLUGIN_MAGIC_2,
+	MUMBLE_PLUGIN_VERSION,
+	trylock
+};
+
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
 	return &codmw2soplug;
+}
+
+extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
+	return &codmw2soplug2;
 }

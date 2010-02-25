@@ -29,82 +29,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <windows.h>
-#include <tlhelp32.h>
-#include <math.h>
-
-#include "../mumble_plugin.h"
-
-HANDLE h;
+#include "../mumble_plugin_win32.h"
 
 BYTE *faceptr;
 BYTE *topptr;
 //BYTE *stateptr;
 //BYTE *contextptr;
-
-static DWORD getProcess(const wchar_t *exename) {
-	PROCESSENTRY32 pe;
-	DWORD pid = 0;
-
-	pe.dwSize = sizeof(pe);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Process32First(hSnap, &pe);
-
-		while (ok) {
-			if (wcscmp(pe.szExeFile, exename)==0) {
-				pid = pe.th32ProcessID;
-				break;
-			}
-			ok = Process32Next(hSnap, &pe);
-		}
-		CloseHandle(hSnap);
-	}
-	return pid;
-}
-
-static BYTE *getModuleAddr(DWORD pid, const wchar_t *modname) {
-	MODULEENTRY32 me;
-	BYTE *addr = NULL;
-	me.dwSize = sizeof(me);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Module32First(hSnap, &me);
-
-		while (ok) {
-			if (wcscmp(me.szModule, modname)==0) {
-				addr = me.modBaseAddr;
-				break;
-			}
-			ok = Module32Next(hSnap, &me);
-		}
-		CloseHandle(hSnap);
-	}
-	return addr;
-}
-
-static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
-	SIZE_T r;
-	BOOL ok=ReadProcessMemory(h, base, dest, len, &r);
-	return (ok && (r == len));
-}
-
-static DWORD peekProc(VOID *base) {
-	DWORD v = 0;
-	peekProc(base, reinterpret_cast<BYTE *>(&v), sizeof(DWORD));
-	return v;
-}
-
-static BYTE *peekProcPtr(VOID *base) {
-	DWORD v = peekProc(base);
-	return reinterpret_cast<BYTE *>(v);
-}
-
-static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Battlefield 1942 v1.61b.", L"Mumble BF2 Plugin", MB_OK);
-}
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++)
@@ -148,19 +78,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	h = NULL;
 	faceptr = topptr = NULL;
 
-	DWORD pid=getProcess(L"BF1942.exe");
-	if (!pid)
+	if (! initialize(pids, L"BF1942.exe"))
 		return false;
 
-	h=OpenProcess(PROCESS_VM_READ, false, pid);
-	if (!h)
-		return false;
-
-	BYTE *ptr1 = peekProcPtr((BYTE *) 0x009A9468);
-	BYTE *ptr2 = peekProcPtr(ptr1 + 0x98);
+	BYTE *ptr1 = peekProc<BYTE *>((BYTE *) 0x009A9468);
+	BYTE *ptr2 = peekProc<BYTE *>(ptr1 + 0x98);
 
 	faceptr = ptr2 + 0x5C;
 	topptr = ptr2 + 0x4C;
@@ -169,20 +93,12 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	std::string context;
 	std::wstring identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
 		return true;
-
-	CloseHandle(h);
-	h = NULL;
-	return false;
-}
-
-static void unlock() {
-	if (h) {
-		CloseHandle(h);
-		h = NULL;
+	} else {
+		generic_unlock();
+		return false;
 	}
-	return;
 }
 
 static const std::wstring longdesc() {
@@ -192,18 +108,32 @@ static const std::wstring longdesc() {
 static std::wstring description(L"Battlefield 1942 v1.61b");
 static std::wstring shortname(L"Battlefield 1942");
 
+static int trylock1() {
+	return trylock(std::multimap<std::wstring, unsigned long long int>());
+}
+
 static MumblePlugin bf1942plug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
-	about,
 	NULL,
-	trylock,
-	unlock,
+	NULL,
+	trylock1,
+	generic_unlock,
 	longdesc,
 	fetch
 };
 
+static MumblePlugin2 bf1942plug2 = {
+	MUMBLE_PLUGIN_MAGIC_2,
+	MUMBLE_PLUGIN_VERSION,
+	trylock
+};
+
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
 	return &bf1942plug;
+}
+
+extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
+	return &bf1942plug2;
 }

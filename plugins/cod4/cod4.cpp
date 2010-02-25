@@ -29,52 +29,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#define _USE_MATH_DEFINES
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <windows.h>
-#include <tlhelp32.h>
-#include <math.h>
-#include <string>
-#include <sstream>
-
-#include "../mumble_plugin.h"
-
-HANDLE h = NULL;
+#include "../mumble_plugin_win32.h"
 
 using namespace std;
-
-static DWORD getProcess(const wchar_t *exename) {
-	PROCESSENTRY32 pe;
-	DWORD pid = 0;
-
-	pe.dwSize = sizeof(pe);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Process32First(hSnap, &pe);
-
-		while (ok) {
-			if (wcscmp(pe.szExeFile, exename)==0) {
-				pid = pe.th32ProcessID;
-				break;
-			}
-			ok = Process32Next(hSnap, &pe);
-		}
-		CloseHandle(hSnap);
-	}
-	return pid;
-}
-
-static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
-	SIZE_T r;
-	BOOL ok=ReadProcessMemory(h, base, dest, len, &r);
-	return (ok && (r == len));
-}
-
-static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from COD4 (v1.7.568). IP:Port context without team discriminator.", L"Mumble COD4 Plugin", MB_OK);
-}
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	float viewHor, viewVer;
@@ -181,31 +138,18 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	h = NULL;
-	DWORD pid=getProcess(L"iw3mp.exe");
-	if (!pid)
-		return false;
-
-	h=OpenProcess(PROCESS_VM_READ, false, pid);
-	if (!h)
+	if (! initialize(pids, L"iw3mp.exe"))
 		return false;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;
 	std::wstring identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
 		return true;
-
-	CloseHandle(h);
-	h = NULL;
-	return false;
-}
-
-static void unlock() {
-	if (h) {
-		CloseHandle(h);
-		h = NULL;
+	} else {
+		generic_unlock();
+		return false;
 	}
 }
 
@@ -216,18 +160,32 @@ static const std::wstring longdesc() {
 static std::wstring description(L"Call of Duty 4 v1.7.568");
 static std::wstring shortname(L"Call of Duty 4");
 
+static int trylock1() {
+	return trylock(std::multimap<std::wstring, unsigned long long int>());
+}
+
 static MumblePlugin cod4plug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
-	about,
 	NULL,
-	trylock,
-	unlock,
+	NULL,
+	trylock1,
+	generic_unlock,
 	longdesc,
 	fetch
 };
 
+static MumblePlugin2 cod4plug2 = {
+	MUMBLE_PLUGIN_MAGIC_2,
+	MUMBLE_PLUGIN_VERSION,
+	trylock
+};
+
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
 	return &cod4plug;
+}
+
+extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
+	return &cod4plug2;
 }

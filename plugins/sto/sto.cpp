@@ -85,7 +85,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
 	identptr = contextptr = posptr = NULL;
 
-	if (! initialize(L"GameClient.exe"))
+	if (! initialize(pids, L"GameClient.exe"))
 		return false;
 
 	char version[17];
@@ -114,18 +114,32 @@ static const std::wstring longdesc() {
 static std::wstring description(L"Star Trek Online ST.0.20100208b.4");
 static std::wstring shortname(L"Star Trek Online");
 
+static int trylock1() {
+	return trylock(std::multimap<std::wstring, unsigned long long int>());
+}
+
 static MumblePlugin stoplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
 	NULL,
 	NULL,
-	trylock,
+	trylock1,
 	generic_unlock,
 	longdesc,
 	fetch
 };
 
+static MumblePlugin2 stoplug2 = {
+	MUMBLE_PLUGIN_MAGIC_2,
+	MUMBLE_PLUGIN_VERSION,
+	trylock
+};
+
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
 	return &stoplug;
+}
+
+extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
+	return &stoplug2;
 }
