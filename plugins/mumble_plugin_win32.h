@@ -40,6 +40,7 @@
 
 #include "mumble_plugin.h"
 
+DWORD dwPid;
 static HANDLE hProcess;
 static BYTE *pModule;
 
@@ -84,6 +85,10 @@ static inline BYTE *getModuleAddr(DWORD pid, const wchar_t *modname) {
 	return addr;
 }
 
+static inline BYTE *getModuleAddr(const wchar_t *modname) {
+	return getModuleAddr(dwPid, modname);
+}
+
 static inline bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 	SIZE_T r;
 	BOOL ok=ReadProcessMemory(hProcess, base, dest, len, &r);
@@ -122,19 +127,19 @@ static void inline u8(std::wstring &dst, const char *src, int srclen) {
 	dst.assign(wbuff, len);
 }
 
-static bool inline initialize(const wchar_t *procname, const wchar_t *modname = NULL) {
+static bool inline initialize(const std::multimap<std::wstring, unsigned long long int> &, const wchar_t *procname, const wchar_t *modname = NULL) {
 	hProcess = NULL;
 	pModule = NULL;
 
-	DWORD pid=getProcess(procname);
-	if (!pid)
+	dwPid=getProcess(procname);
+	if (!dwPid)
 		return false;
 
-	pModule=getModuleAddr(pid, modname ? modname : procname);
+	pModule=getModuleAddr(modname ? modname : procname);
 	if (!pModule)
 		return false;
 
-	hProcess=OpenProcess(PROCESS_VM_READ, false, pid);
+	hProcess=OpenProcess(PROCESS_VM_READ, false, dwPid);
 	if (!hProcess)
 		return false;
 
