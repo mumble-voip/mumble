@@ -7222,7 +7222,7 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
     <message>
         <location line="+0"/>
         <source>Images (*.png *.jpg *.svg)</source>
-        <translation>Bilder (*.png, *.jpg, *.svg)</translation>
+        <translation>Bilder (*.png *.jpg *.svg)</translation>
     </message>
     <message>
         <location line="+7"/>
