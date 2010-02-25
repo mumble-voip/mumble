@@ -310,7 +310,7 @@ bool Plugins::fetch() {
 		return bValid;
 	}
 
-	QReadLocker lock(&g.p->qrwlPlugins);
+	QReadLocker lock(&qrwlPlugins);
 	if (! locked) {
 		bValid = false;
 		return bValid;
@@ -321,12 +321,17 @@ bool Plugins::fetch() {
 
 	bool ok = locked->p->fetch(fPosition, fFront, fTop, fCameraPosition, fCameraFront, fCameraTop, ssContext, swsIdentity);
 	if (! ok || bUnlink) {
-		locked->p->unlock();
-		locked->locked = false;
-		prevlocked = locked;
-		locked = NULL;
-		for (int i=0;i<3;i++)
-			fPosition[i]=fFront[i]=fTop[i]=fCameraPosition[i]=fCameraFront[i]=fCameraTop[i] = 0.0f;
+		lock.unlock();
+		QWriteLocker wlock(&qrwlPlugins);
+
+		if (locked) {
+			locked->p->unlock();
+			locked->locked = false;
+			prevlocked = locked;
+			locked = NULL;
+			for (int i=0;i<3;i++)
+				fPosition[i]=fFront[i]=fTop[i]=fCameraPosition[i]=fCameraFront[i]=fCameraTop[i] = 0.0f;
+		}
 	}
 	bValid = ok;
 	return bValid;
@@ -335,7 +340,7 @@ bool Plugins::fetch() {
 void Plugins::on_Timer_timeout() {
 	fetch();
 
-	QReadLocker lock(&g.p->qrwlPlugins);
+	QReadLocker lock(&qrwlPlugins);
 
 	if (prevlocked) {
 		g.l->log(Log::Information, tr("%1 lost link.").arg(prevlocked->shortname));
@@ -374,6 +379,9 @@ void Plugins::on_Timer_timeout() {
 
 	if (! g.s.bTransmitPosition)
 		return;
+
+	lock.unlock();
+	QWriteLocker wlock(&qrwlPlugins);
 
 	if (qlPlugins.isEmpty())
 		return;
