@@ -169,37 +169,34 @@ void OverlayConfig::accept() const {
 
 
 
-OverlayUser::OverlayUser(ClientUser *cu, unsigned int height) : QGraphicsItemGroup(), cuUser(cu), uiSize(height) {
+OverlayUser::OverlayUser(ClientUser *cu, unsigned int height) : QGraphicsItemGroup(), cuUser(cu), uiSize(height), tsColor(Settings::Passive) {
 	setup();
 	updateLayout();
 }
 
-OverlayUser::OverlayUser(OverlayUser::TextColor tc, unsigned int height) : QGraphicsItemGroup(), cuUser(NULL), uiSize(height), tcColor(tc) {
-	setup();
+OverlayUser::OverlayUser(Settings::TalkState ts, unsigned int height) : QGraphicsItemGroup(), cuUser(NULL), uiSize(height), tsColor(ts) {
+	setup(true);
 	updateLayout();
 	
-	qsChannelName = Overlay::tr("Channel Name");
+	qsChannelName = tr("Channel Name");
 	
-	switch(tc) {
-		case Passive:
-			qsName = Overlay::tr("Silent");
+	switch(ts) {
+		case Settings::Passive:
+			qsName = tr("Silent");
 			break;
-		case Talking:
-			qsName = Overlay::tr("Talking");
+		case Settings::Talking:
+			qsName = tr("Talking");
 			break;
-		case Linked:
-			qsName = Overlay::tr("Silent (Linked)");
+		case Settings::WhisperPrivate:
+			qsName = tr("Private Whisper");
 			break;
-		case WhisperPrivate:
-			qsName = Overlay::tr("Private Whisper");
-			break;
-		case WhisperChannel:
-			qsName = Overlay::tr("Channel Whisper");
+		case Settings::WhisperChannel:
+			qsName = tr("Channel Whisper");
 			break;
 	}
 }
 
-void OverlayUser::setup() {
+void OverlayUser::setup(bool selectable) {
 	setZValue(-4.0f);
 
 	qgpiMuted = new QGraphicsPixmapItem();
@@ -213,7 +210,7 @@ void OverlayUser::setup() {
 	qgpiAvatar = new QGraphicsPixmapItem();
 	addToGroup(qgpiAvatar);
 
-	for (int i=0;i<5;++i) {
+	for (int i=0;i<4;++i) {
 		qgpiName[i] = new QGraphicsPixmapItem();
 		qgpiName[i]->hide();
 		addToGroup(qgpiName[i]);
@@ -222,12 +219,21 @@ void OverlayUser::setup() {
 	qgpiChannel = new QGraphicsPixmapItem();
 	qgpiChannel->hide();
 	addToGroup(qgpiChannel);
+	
+	if (selectable) {
+		qgpiMuted->setFlag(QGraphicsItem::ItemIsSelectable);
+		qgpiDeafened->setFlag(QGraphicsItem::ItemIsSelectable);
+		qgpiAvatar->setFlag(QGraphicsItem::ItemIsSelectable);
+		qgpiChannel->setFlag(QGraphicsItem::ItemIsSelectable);
+		for(int i=0;i<4;++i)
+			qgpiName[i]->setFlag(QGraphicsItem::ItemIsSelectable);
+	}
 }
 
 void OverlayUser::updateLayout() {
 	QPixmap pm;
 
-	for(int i=0;i<5;++i)
+	for(int i=0;i<4;++i)
 		qgpiName[i]->setPixmap(pm);
 		
 	qgpiAvatar->setPixmap(pm);
@@ -251,29 +257,30 @@ void OverlayUser::updateLayout() {
 	
 	qgpiMuted->setPos(0.0f, 0.0f);
 	qgpiMuted->setZValue(1.0f);
-	qgpiMuted->setOpacity(0.7f);
+	qgpiMuted->setOpacity(g.s.fOverlayMutedDeafened);
 
 	qgpiDeafened->setPos(0.0f, 0.0f);
 	qgpiDeafened->setZValue(1.0f);
-	qgpiDeafened->setOpacity(0.7f);
+	qgpiDeafened->setOpacity(g.s.fOverlayMutedDeafened);
 
 	qgpiAvatar->setPos(0.0f, 0.0f);
+	qgpiAvatar->setOpacity(g.s.fOverlayAvatar);
 
-	for (int i=0;i<5;++i) {
+	for (int i=0;i<4;++i) {
 		qgpiName[i]->setPos(0.0f, (5 * uiSize) / 6);
 		qgpiName[i]->setZValue(2.0f);
-		qgpiName[i]->setOpacity(0.9f);
+		qgpiName[i]->setOpacity(g.s.fOverlayUserName[i]);
 	}
 	qgpiChannel->setPos(0.0f, 0.0f);
 	qgpiChannel->setZValue(2.0f);
-	qgpiChannel->setOpacity(0.8f);
+	qgpiChannel->setOpacity(g.s.fOverlayChannel);
 }
 
-QPixmap OverlayUser::createPixmap(const QString &string, unsigned int height, unsigned int maxwidth, QColor col, QPainterPath &pp) {
+QPixmap OverlayUser::createPixmap(const QString &string, unsigned int height, unsigned int maxwidth, QColor col, const QFont &font, QPainterPath &pp) {
 	float edge = height * 0.05f;
 
 	if (pp.isEmpty()) {
-		QFont f = g.s.qfOverlayFont;
+		QFont f = font;
 
 		QPainterPath qp;
 		qp.addText(0.0f, 0.0f, f, string);
@@ -337,8 +344,8 @@ void OverlayUser::updateUser() {
 			qsName = cuUser->qsName;
 
 		QPainterPath pp;
-		for (int i=0;i<g.o->qlColors.size(); ++i) {
-			const QPixmap &pm = createPixmap(qsName, uiSize / 6, uiSize, g.o->qlColors.at(i), pp);
+		for (int i=0; i<4; ++i) {
+			const QPixmap &pm = createPixmap(qsName, uiSize / 6, uiSize, g.s.qcOverlayUserName[i], g.s.qfOverlayUserName, pp);
 			qgpiName[i]->setPixmap(pm);
 			qgpiName[i]->setX((uiSize - pm.width()) / 2);
 		}
@@ -349,7 +356,7 @@ void OverlayUser::updateUser() {
 			qsChannelName = cuUser->cChannel->qsName;
 
 		QPainterPath pp;
-		const QPixmap &pm = createPixmap(qsChannelName, uiSize / 6, uiSize, g.s.qcOverlayChannel, pp);
+		const QPixmap &pm = createPixmap(qsChannelName, uiSize / 6, uiSize, g.s.qcOverlayChannel, g.s.qfOverlayChannel, pp);
 		qgpiChannel->setPixmap(pm);
 		qgpiChannel->setX(uiSize - pm.width());
 	}
@@ -381,8 +388,6 @@ void OverlayUser::updateUser() {
 
 	qgpiAvatar->show();
 	
-	TextColor tc;
-
 	if (cuUser) {
 		ClientUser *self = ClientUser::get(g.uiSession);
 
@@ -400,35 +405,173 @@ void OverlayUser::updateUser() {
 		bool samechannel = self && (self->cChannel == cuUser->cChannel);
 		qgpiChannel->setVisible(! samechannel);
 
-		tc = samechannel ? Passive : Linked;
+		tsColor = Settings::Passive;
 		switch (cuUser->tsState) {
 			case ClientUser::Talking:
-				tc = Talking;
+				tsColor = Settings::Talking;
 				break;
 			case ClientUser::TalkingWhisper:
-				tc = WhisperPrivate;
+				tsColor = Settings::WhisperPrivate;
 				break;
 			case ClientUser::TalkingWhisperChannel:
-				tc = WhisperChannel;
+				tsColor = Settings::WhisperChannel;
 				break;
 			default:
 				break;
 		}
 	} else {
-		tc = tcColor;
-		qgpiChannel->setVisible((tc != Passive) && (tc != Talking));
+		qgpiChannel->setVisible((tsColor != Settings::Passive) && (tsColor != Settings::Talking));
 		qgpiMuted->show();
 		qgpiDeafened->hide();
 	}		
 
-	for (int i=0;i<5;++i)
-		qgpiName[i]->setVisible(i == tc);
+	for (int i=0;i<4;++i)
+		qgpiName[i]->setVisible(i == tsColor);
 
-	QColor qc = g.o->qlColors.at(tc);
-	setOpacity(qc.alphaF());
+	setOpacity(g.s.fOverlayUser[tsColor]);
 }
 
+QGraphicsPixmapItem *OverlayUser::childAt(const QPointF &pos) {
+	QGraphicsItem *item = NULL;
 
+	foreach(QGraphicsItem *qgi, childItems()) {
+		QPointF qp = mapToItem(qgi, pos);
+		if (qgi->isVisible() && qgi->contains(qp)) {
+			if (qgi->isSelected())
+				return static_cast<QGraphicsPixmapItem *>(qgi);
+			item = qgi;
+		}
+	}
+	return static_cast<QGraphicsPixmapItem *>(item);
+}
+
+void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
+	QGraphicsPixmapItem *item = childAt(event->pos());
+	if (! item || !(item->flags() & QGraphicsItem::ItemIsSelectable)) {
+		QGraphicsItemGroup::contextMenuEvent(event);
+		return;
+	}
+
+	event->accept();
+
+	QMenu qm(g.mw);
+
+	QMenu *qmTrans = qm.addMenu(tr("User Opacity"));
+	QActionGroup *qagUser = new QActionGroup(&qm);
+	QAction *userOpacity[8];
+	for(int i=0;i<8;++i) {
+		qreal o = (i + 1) / 8.0f;
+
+		userOpacity[i] = new QAction(tr("%1%").arg(o * 100.0f, 0, 'f', 1), qagUser);
+		userOpacity[i]->setCheckable(true);
+		userOpacity[i]->setData(o);
+		if (qFuzzyCompare(opacity(), o))
+			userOpacity[i]->setChecked(true);
+		qmTrans->addAction(userOpacity[i]);
+	}
+	
+	qm.addSeparator();
+
+	QMenu *qmObjTrans = qm.addMenu(tr("Object Opacity"));
+	QActionGroup *qagObject = new QActionGroup(&qm);
+	QAction *objectOpacity[10];
+	for(int i=0;i<8;++i) {
+		qreal o = (i + 1) / 8.0f;
+
+		objectOpacity[i] = new QAction(tr("%1%").arg(o * 100.0f, 0, 'f', 1), qagObject);
+		objectOpacity[i]->setCheckable(true);
+		objectOpacity[i]->setData(o);
+		if (qFuzzyCompare(item->opacity(), o))
+			objectOpacity[i]->setChecked(true);
+		qmObjTrans->addAction(objectOpacity[i]);
+	}
+
+	
+	QAction *color = NULL;
+	QAction *font = NULL;
+
+	if ((item != qgpiAvatar) && (item != qgpiMuted) && (item != qgpiDeafened)) {
+		color = qm.addAction(tr("Color..."));
+		font = qm.addAction(tr("Font..."));
+	}
+
+	QAction *act = qm.exec(event->screenPos());
+	if (act) {
+
+		for(int i=0;i<8;++i) {
+			if (userOpacity[i] == act) {
+				float o = act->data().toReal();
+				g.s.fOverlayUser[tsColor] = o;
+				g.o->forceSettings();
+			}
+		}
+
+		for(int i=0;i<8;++i) {
+			if (objectOpacity[i] == act) {
+				qreal o = act->data().toReal();
+
+				if ((item == qgpiMuted) || (item == qgpiDeafened))
+					g.s.fOverlayMutedDeafened = o;
+				else if (item == qgpiAvatar)
+					g.s.fOverlayAvatar = o;
+				else if (item == qgpiChannel)
+					g.s.fOverlayChannel = o;
+				else
+					for(int i=0;i<4;++i)
+						if (item == qgpiName[i])
+							g.s.fOverlayUserName[i] = o;
+
+				g.o->forceSettings();
+			}
+		}
+
+		if (act == color) {
+			QColor *col = NULL;
+			if (item == qgpiChannel)
+				col = & g.s.qcOverlayChannel;
+			else
+				for(int i=0;i<4;++i)
+					if (item == qgpiName[i])
+						col = & g.s.qcOverlayUserName[i];
+			
+			if (col) {
+				QColor qc = QColorDialog::getColor(*col, g.mw, tr("Pick color"), QColorDialog::DontUseNativeDialog);
+				if (qc.isValid()) {
+					qc.setAlpha(255);
+					if (qc != *col) {
+						*col = qc;
+						g.o->forceSettings();
+					}
+				}
+			}
+		} else if (act == font) {
+			QFont *fontptr = (item == qgpiChannel) ? &g.s.qfOverlayChannel : &g.s.qfOverlayUserName;
+			
+			// QFontDialog doesn't really like graphics view. At all.
+
+			QFontDialog qfd;
+			qfd.setOptions(QFontDialog::DontUseNativeDialog);
+			qfd.setCurrentFont(*fontptr);
+			qfd.setWindowTitle(tr("Pick font"));
+			
+			QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(NULL, Qt::Window);
+			qgpw->setWidget(&qfd);
+			scene()->addItem(qgpw);
+			qgpw->show();
+			
+			int ret = qfd.exec();
+			
+			qgpw->hide();
+			qgpw->setWidget(NULL);
+			delete qgpw;
+			
+			if (ret) {
+				*fontptr = qfd.selectedFont();
+				g.o->forceSettings();
+			}
+		}
+	}
+}
 
 OverlayMouse::OverlayMouse(QGraphicsItem *p) : QGraphicsPixmapItem(p) {
 }
@@ -798,11 +941,10 @@ void OverlayClient::setupScene() {
 		qgpiLogo->show();
 	
 		if (qlExampleUsers.isEmpty()) {
-			qlExampleUsers << new OverlayUser(OverlayUser::Passive, iItemHeight);
-			qlExampleUsers << new OverlayUser(OverlayUser::Linked, iItemHeight);
-			qlExampleUsers << new OverlayUser(OverlayUser::Talking, iItemHeight);
-			qlExampleUsers << new OverlayUser(OverlayUser::WhisperPrivate, iItemHeight);
-			qlExampleUsers << new OverlayUser(OverlayUser::WhisperChannel, iItemHeight);
+			qlExampleUsers << new OverlayUser(Settings::Passive, iItemHeight);
+			qlExampleUsers << new OverlayUser(Settings::Talking, iItemHeight);
+			qlExampleUsers << new OverlayUser(Settings::WhisperPrivate, iItemHeight);
+			qlExampleUsers << new OverlayUser(Settings::WhisperChannel, iItemHeight);
 		}
 	} else {
 		qgs.setBackgroundBrush(Qt::NoBrush);
@@ -1099,13 +1241,6 @@ void Overlay::toggleShow() {
 }
 
 void Overlay::forceSettings() {
-	qlColors.clear();
-	qlColors << g.s.qcOverlayUser;
-	qlColors << g.s.qcOverlayTalking;
-	qlColors << g.s.qcOverlayChannelTalking;
-	qlColors << g.s.qcOverlayWhisper;
-	qlColors << g.s.qcOverlayWhisper;
-
 	foreach(OverlayClient *oc, qlClients) {
 		oc->reset();
 	}

@@ -209,12 +209,43 @@ Settings::Settings() {
 #else
 	qfOverlayFont = QFont(QLatin1String("Arial"), 20);
 #endif
-	fOverlayHeight = .03f;
 	qcOverlayUser = QColor(255,255,255,128);
 	qcOverlayTalking = QColor(255,255,196,255);
 	qcOverlayWhisper = QColor(255,128,128,255);
 	qcOverlayChannel = QColor(192,192,255,192);
 	qcOverlayChannelTalking = QColor(224,224,255,255);
+
+	fOverlayHeight = .1f;
+
+	qcOverlayUserName[Passive] = QColor(128, 128, 128);
+	qcOverlayUserName[Talking] = QColor(255, 255, 255);
+	qcOverlayUserName[WhisperPrivate] = QColor(128, 255, 128);
+	qcOverlayUserName[WhisperChannel] = QColor(255, 128, 255);
+
+	for(int i=0;i<4;++i)
+		fOverlayUserName[i] = 0.75f;
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+	qfOverlayUserName = QFont(QLatin1String("Verdana"), 20);
+#else
+	qfOverlayUserName = QFont(QLatin1String("Arial"), 20);
+#endif
+
+	qcOverlayChannel = QColor(255, 255, 128);
+	fOverlayChannel = 0.75f;
+	qfOverlayChannel = qfOverlayUserName;
+	
+	fOverlayMutedDeafened = 0.5f;
+	fOverlayAvatar = 1.0f;
+	
+	fOverlayUser[Passive] = 0.5f;
+	fOverlayUser[Talking] = (7.0f / 8.0f);
+	fOverlayUser[WhisperPrivate] = (7.0f / 8.0f);
+	fOverlayUser[WhisperChannel] = (7.0f / 8.0f);
+	
+	qrfOverlayUserName = QRectF(0.0f, 0.7f, 1.0f, 0.3f);
+	qrfOverlayChannel = QRectF(0.2f, 0.0f, 0.8f, 0.2f);
+	qrfOverlayMutedDeafened = QRectF(0.0f, 0.0f, 0.5f, 0.5f);
+	qrfOverlayAvatar = QRectF(0.0f, 0.0f, 1.0f, 1.0f);
 
 	iLCDUserViewMinColWidth = 50;
 	iLCDUserViewSplitterWidth = 2;

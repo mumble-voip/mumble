@@ -79,33 +79,36 @@ struct OverlayTextLine {
 	bool operator <(const OverlayTextLine &o) const;
 };
 
-class OverlayUser : public QGraphicsItemGroup {
+class OverlayUser : public QObject, public QGraphicsItemGroup {
 	private:
+		Q_OBJECT
 		Q_DISABLE_COPY(OverlayUser);
 	public:
-		enum TextColor { Passive, Talking, Linked, WhisperPrivate, WhisperChannel };
 	protected:
 		QGraphicsPixmapItem *qgpiMuted, *qgpiDeafened;
 		QGraphicsPixmapItem *qgpiAvatar;
-		QGraphicsPixmapItem *qgpiName[5];
+		QGraphicsPixmapItem *qgpiName[4];
 		QGraphicsPixmapItem *qgpiChannel;
 
 		unsigned int uiSize;
 		ClientUser *cuUser;
-		TextColor tcColor;
+		Settings::TalkState tsColor;
 
 		QString qsName;
 		QString qsChannelName;
 		QByteArray qbaAvatar;
 		
-		void setup();
+		void setup(bool selectable = false);
+		
+		void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
+		QGraphicsPixmapItem *childAt(const QPointF &);
 	public:
 		OverlayUser(ClientUser *cu, unsigned int uiSize);
-		OverlayUser(TextColor tc, unsigned int uiSize);
+		OverlayUser(Settings::TalkState ts, unsigned int uiSize);
 		void updateUser();
 		void updateLayout();
 
-		static QPixmap createPixmap(const QString &str, unsigned int height, unsigned int maxwidth, QColor col, QPainterPath &);
+		static QPixmap createPixmap(const QString &str, unsigned int height, unsigned int maxwidth, QColor col, const QFont &font, QPainterPath &);
 };
 
 class OverlayMouse : public QGraphicsPixmapItem {
@@ -186,8 +189,6 @@ class Overlay : public QObject {
 		Q_DISABLE_COPY(Overlay)
 	protected:
 		OverlayPrivate *d;
-
-		QList<QColor> qlColors;
 
 		QList<OverlayTextLine> qlCurrentTexts;
 		QSet<unsigned int> qsQueried;

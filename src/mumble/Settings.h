@@ -77,10 +77,11 @@ struct Settings {
 	enum AudioTransmit { Continous, VAD, PushToTalk };
 	enum VADSource { Amplitude, SignalToNoise };
 	enum LoopMode { None, Local, Server };
-	enum OverlayShow { Nothing, Talking, All };
+	enum OverlayShow { Nothing, OverlayTalking, All };
 	enum ChannelExpand { NoChannels, ChannelsWithUsers, AllChannels };
 	enum ChannelDrag { Ask, DoNothing, Move };
 	enum ServerShow { ShowPopulated, ShowReachable, ShowAll };
+	enum TalkState { Passive, Talking, WhisperPrivate, WhisperChannel };
 	typedef QPair<QList<QSslCertificate>, QSslKey> KeyPair;
 
 	AudioTransmit atTransmit;
@@ -138,12 +139,29 @@ struct Settings {
 	float fOverlayY;
 	bool bOverlayLeft, bOverlayRight, bOverlayTop, bOverlayBottom;
 	QFont qfOverlayFont;
-	float fOverlayHeight;
 	QColor qcOverlayUser;
 	QColor qcOverlayTalking;
 	QColor qcOverlayWhisper;
-	QColor qcOverlayChannel;
 	QColor qcOverlayChannelTalking;
+
+	qreal fOverlayHeight;
+	
+	QColor qcOverlayUserName[4];
+	qreal fOverlayUserName[4];
+	QFont qfOverlayUserName;
+
+	QColor qcOverlayChannel;
+	qreal fOverlayChannel;
+	QFont qfOverlayChannel;
+	
+	qreal fOverlayMutedDeafened;
+	qreal fOverlayAvatar;
+	qreal fOverlayUser[4];
+	
+	QRectF qrfOverlayUserName;
+	QRectF qrfOverlayChannel;
+	QRectF qrfOverlayMutedDeafened;
+	QRectF qrfOverlayAvatar;
 
 	int iLCDUserViewMinColWidth;
 	int iLCDUserViewSplitterWidth;
