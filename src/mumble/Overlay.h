@@ -82,8 +82,9 @@ struct OverlayTextLine {
 class OverlayUser : public QGraphicsItemGroup {
 	private:
 		Q_DISABLE_COPY(OverlayUser);
-	protected:
+	public:
 		enum TextColor { Passive, Talking, Linked, WhisperPrivate, WhisperChannel };
+	protected:
 		QGraphicsPixmapItem *qgpiMuted, *qgpiDeafened;
 		QGraphicsPixmapItem *qgpiAvatar;
 		QGraphicsPixmapItem *qgpiName[5];
@@ -91,13 +92,18 @@ class OverlayUser : public QGraphicsItemGroup {
 
 		unsigned int uiSize;
 		ClientUser *cuUser;
+		TextColor tcColor;
+
 		QString qsName;
 		QString qsChannelName;
 		QByteArray qbaAvatar;
-
+		
+		void setup();
 	public:
 		OverlayUser(ClientUser *cu, unsigned int uiSize);
+		OverlayUser(TextColor tc, unsigned int uiSize);
 		void updateUser();
+		void updateLayout();
 
 		static QPixmap createPixmap(const QString &str, unsigned int height, unsigned int maxwidth, QColor col, QPainterPath &);
 };
@@ -131,11 +137,13 @@ class OverlayClient : public QObject {
 		quint64 uiPid;
 		QGraphicsScene qgs;
 		QMap<QObject *, OverlayUser *> qmUsers;
+		QList<OverlayUser *> qlExampleUsers;
 
 		bool bWasVisible;
 		bool bDelete;
 
 		void setupRender();
+		void setupScene();
 
 		bool eventFilter(QObject *, QEvent *);
 
