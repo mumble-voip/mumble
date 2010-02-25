@@ -127,7 +127,7 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 	return true;
 }
 
-static int trylock() {
+static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
 	h = NULL;
 	posptr = rotptr = NULL;
 

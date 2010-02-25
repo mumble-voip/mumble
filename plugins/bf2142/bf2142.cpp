@@ -158,7 +158,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return true;
 }
 
-static int trylock() {
+static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
 
 	h = NULL;
 	posptr = faceptr = topptr = NULL;
