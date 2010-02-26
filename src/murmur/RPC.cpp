@@ -126,7 +126,7 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 
 	if (links != oldset) {
 		// Remove
-		foreach(Channel *l, links) {
+		foreach(Channel *l, oldset) {
 			if (! links.contains(l)) {
 				removeLink(cChannel, l);
 				mpcs.add_links_remove(l->iId);
