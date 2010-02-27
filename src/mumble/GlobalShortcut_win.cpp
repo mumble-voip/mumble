@@ -74,6 +74,7 @@ GlobalShortcutWin::GlobalShortcutWin() {
 			f[i] = ucWindowFromPointNew[i];
 
 		FlushInstructionCache(GetCurrentProcess(), f, 6);
+		VirtualProtect(f, 6, oldProtect, &oldProtect);
 	} else {
 		qWarning("GlobalShortcutWin: Failed to patch WindowFromPoint");
 	}
@@ -95,7 +96,10 @@ HWND WINAPI GlobalShortcutWin::HookWindowFromPoint(POINT p) {
 	if (g.ocIntercept)
 		return g.ocIntercept->qgv.winId();
 
+	DWORD oldProtect;
 	unsigned char *f = reinterpret_cast<unsigned char *>(&WindowFromPoint);
+
+	VirtualProtect(f, 6, PAGE_EXECUTE_READWRITE, &oldProtect);
 
 	for (int i=0;i<6;++i)
 		f[i] = ucWindowFromPointOrig[i];
@@ -106,6 +110,8 @@ HWND WINAPI GlobalShortcutWin::HookWindowFromPoint(POINT p) {
 	for (int i=0;i<6;++i)
 		f[i] = ucWindowFromPointNew[i];
 	FlushInstructionCache(GetCurrentProcess(), f, 6);
+
+	VirtualProtect(f, 6, oldProtect, &oldProtect);
 
 	return hwnd;
 }
