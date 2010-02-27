@@ -122,6 +122,7 @@ class Pipe {
 		unsigned int uiWidth, uiHeight;
 		unsigned int uiLeft, uiTop, uiRight, uiBottom;
 		unsigned char *a_ucTexture;
+		DWORD dwAlreadyRead;
 		OverlayMsg omMsg;
 
 		void checkMessage(unsigned int w, unsigned int h);

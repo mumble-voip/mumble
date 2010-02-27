@@ -403,6 +403,8 @@ Pipe::Pipe() {
 	a_ucTexture = NULL;
 
 	omMsg.omh.iLength = -1;
+	
+	dwAlreadyRead = 0;
 
 	uiWidth = uiHeight = 0;
 	uiLeft = uiRight = uiTop = uiBottom = 0;
@@ -496,6 +498,8 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 		ods("Pipe: SentInit %d %d", w, h);
 	}
 
+	std::vector<RECT> blits;
+	
 	while (1) {
 		DWORD dwBytesLeft;
 		DWORD dwBytesRead;
@@ -505,36 +509,48 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 			disconnect();
 			return;
 		}
+		
+		if (! dwBytesLeft)
+			break;
 
 		if (omMsg.omh.iLength == -1) {
-			if (dwBytesLeft < sizeof(OverlayMsgHeader))
-				break;
-
-			ReadFile(hSocket, omMsg.headerbuffer, sizeof(OverlayMsgHeader), &dwBytesRead, NULL);
-			dwBytesLeft -= sizeof(OverlayMsgHeader);
-
-			if (dwBytesRead != sizeof(OverlayMsgHeader)) {
-				ods("Pipe: Short header read %d", dwBytesRead);
+			if (! ReadFile(hSocket, reinterpret_cast<unsigned char *>(omMsg.headerbuffer) + dwAlreadyRead, sizeof(OverlayMsgHeader) - dwAlreadyRead, &dwBytesRead, NULL)) {
+				ods("Pipe: Read header fail");
 				disconnect();
 				return;
 			}
+			
+			dwBytesLeft -= dwBytesRead;
+			dwAlreadyRead += dwBytesRead;
+
+			if (dwAlreadyRead != sizeof(OverlayMsgHeader)) {
+				break;
+			}
+			
+			dwAlreadyRead = 0;
 
 			if (omMsg.omh.uiMagic != OVERLAY_MAGIC_NUMBER) {
 				ods("Pipe: Invalid magic number %x", omMsg.omh.uiMagic);
 				disconnect();
 				return;
 			}
+
+			if (static_cast<int>(dwBytesLeft) < omMsg.omh.iLength)
+				continue;
 		}
 
-		if (static_cast<int>(dwBytesLeft) < omMsg.omh.iLength)
-			break;
-
-		ReadFile(hSocket, omMsg.msgbuffer, omMsg.omh.iLength, &dwBytesRead, NULL);
-		if (dwBytesRead != omMsg.omh.iLength) {
-			ods("Pipe: Short body read %d/%d", dwBytesRead, omMsg.omh.iLength);
+		if (! ReadFile(hSocket, reinterpret_cast<unsigned char *>(omMsg.msgbuffer) + dwAlreadyRead, omMsg.omh.iLength - dwAlreadyRead, &dwBytesRead, NULL)) {
+			ods("Pipe: Read data fail");
 			disconnect();
 			return;
 		}
+		
+		dwAlreadyRead += dwBytesRead;
+		
+		if (static_cast<int>(dwBytesLeft) < omMsg.omh.iLength)
+			continue;
+			
+		dwAlreadyRead = 0;
 
 		switch (omMsg.omh.uiType) {
 			case OVERLAY_MSGTYPE_SHMEM: {
@@ -592,8 +608,21 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 				}
 				break;
 			case OVERLAY_MSGTYPE_BLIT: {
-					if (a_ucTexture)
-						blit(omMsg.omb.x, omMsg.omb.y, omMsg.omb.w, omMsg.omb.h);
+					RECT r = {omMsg.omb.x, omMsg.omb.y, omMsg.omb.x + omMsg.omb.w, omMsg.omb.y + omMsg.omb.h};
+
+					std::vector<RECT>::iterator i = blits.begin();
+					while (i != blits.end()) {
+						RECT is;
+						if (::IntersectRect(&is, &r, & *i)) {
+							::UnionRect(&is, &r, & *i);
+							r = is;
+							blits.erase(i);
+							i = blits.begin();
+						} else {
+							++i;
+						}
+					}
+					blits.push_back(r);
 				}
 				break;
 			case OVERLAY_MSGTYPE_ACTIVE: {
@@ -610,6 +639,9 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 		}
 		omMsg.omh.iLength = -1;
 	}
+
+	for(std::vector<RECT>::iterator i = blits.begin(); i != blits.end(); ++i)
+		blit((*i).left, (*i).top, (*i).right - (*i).left, (*i).bottom - (*i).top);
 }
 
 static bool bBlackListed = false;

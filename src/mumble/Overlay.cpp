@@ -1132,10 +1132,9 @@ void OverlayClient::showGui() {
 				qgpw->resize((uiWidth * 8) / 10, (uiHeight * 8) / 10);
 			}
 
-			w->showNormal();
-
-			qgpw->setActive(true);
 			qgs.addItem(qgpw);
+			qgpw->show();
+			qgpw->setActive(true);
 		}
 	}
 
@@ -1150,7 +1149,6 @@ void OverlayClient::showGui() {
 	qgpiCursor->show();
 
 	qgs.setFocus();
-
 	g.mw->qleChat->activateWindow();
 	g.mw->qleChat->setFocus();
 
