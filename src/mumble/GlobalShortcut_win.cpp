@@ -345,6 +345,8 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 				w |= MK_XBUTTON1;
 			if (ucKeyState[VK_XBUTTON2] & 0x80)
 				w |= MK_XBUTTON2;
+				
+			w |= (mouse->mouseData & 0xFFFF0000);
 
 			HWND hwnd = g.ocIntercept->qgv.winId();
 

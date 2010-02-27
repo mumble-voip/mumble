@@ -178,7 +178,7 @@ OverlayUser::OverlayUser(Settings::TalkState ts, unsigned int height) : QGraphic
 	setup();
 	updateLayout();
 	
-	qsChannelName = tr("Channel Name");
+	qsChannelName = tr("Channel");
 	
 	switch(ts) {
 		case Settings::Passive:
@@ -188,10 +188,10 @@ OverlayUser::OverlayUser(Settings::TalkState ts, unsigned int height) : QGraphic
 			qsName = tr("Talking");
 			break;
 		case Settings::WhisperPrivate:
-			qsName = tr("Private Whisper");
+			qsName = tr("Whisper");
 			break;
 		case Settings::WhisperChannel:
-			qsName = tr("Channel Whisper");
+			qsName = tr("Shout");
 			break;
 	}
 }
@@ -239,7 +239,8 @@ QRectF OverlayUser::selectedRect() const {
 				qrf = & g.s.qrfOverlayUserName;
 	if (! qrf)
 		return QRectF();
-	return QRectF(iroundf(uiSize * qrf->x()), iroundf(uiSize * qrf->y()), iroundf(uiSize * qrf->width()), iroundf(uiSize * qrf->height()));
+
+	return scaledRect(*qrf, uiSize).toAlignedRect();
 }
 
 void OverlayUser::paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *) {
@@ -268,6 +269,7 @@ void OverlayUser::setup() {
 	
 	if (cuUser) {
 		qgriSelected = NULL;
+		qgriActive = NULL;
 	} else {
 		qgriSelected = new QGraphicsRectItem(this);
 		qgriSelected->hide();
@@ -277,7 +279,17 @@ void OverlayUser::setup() {
 		qgriSelected->setBrush(Qt::NoBrush);
 		qgriSelected->setPen(QPen(Qt::black, 4.0f));
 		qgriSelected->setZValue(5.0f);
-		
+
+		qgriActive = new QGraphicsRectItem(this);
+		qgriActive->hide();
+
+		qgriActive->setFlag(QGraphicsItem::ItemIgnoresParentOpacity, true);
+		qgriActive->setOpacity(1.0f);
+		qgriActive->setBrush(Qt::Dense6Pattern);
+		qgriActive->setPen(QPen(Qt::black, 2.0f, Qt::DashLine));
+		qgriActive->setZValue(-5.0f);
+
+		setFlag(QGraphicsItem::ItemIsSelectable, true);
 		setFlag(QGraphicsItem::ItemIsFocusable, true);
 		setFlag(QGraphicsItem::ItemIsPanel, true);
 		setAcceptHoverEvents(true);
@@ -334,6 +346,12 @@ void OverlayUser::updateLayout() {
 	qgpiChannel->setPos(SCALEPOS(Channel));
 	qgpiChannel->setZValue(2.0f);
 	qgpiChannel->setOpacity(g.s.fOverlayChannel);
+
+	if (qgriActive) {
+		QRectF children = g.s.qrfOverlayAvatar | g.s.qrfOverlayChannel | g.s.qrfOverlayMutedDeafened | g.s.qrfOverlayUserName;
+		qgriActive->setRect(QRectF(0.0f, 0.0f, iroundf(children.width() * uiSize), iroundf(children.height() * uiSize)));
+		qgriActive->setPos(0.0f, 0.0f);
+	}
 }
 
 QPixmap OverlayUser::createPixmap(const QString &string, unsigned int height, unsigned int maxwidth, QColor col, const QFont &font, QPainterPath &pp) {
@@ -504,7 +522,7 @@ void OverlayUser::updateUser() {
 void OverlayUser::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 	QGraphicsItem::mousePressEvent(event);
 	
-	if (event->button() == Qt::LeftButton) {
+	if (!cuUser && (event->button() == Qt::LeftButton)) {
 		event->accept();
 		
 		if (wfsHover == Qt::NoSection) {
@@ -539,23 +557,6 @@ void OverlayUser::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 		}
 
 		QRectF scaled(rect.x() / uiSize, rect.y() / uiSize, rect.width() / uiSize, rect.height() / uiSize);
-		
-		qreal dx = (scaled.x() < 0.0f) ? -scaled.x() : 0.0f;
-		qreal dy = (scaled.y() < 0.0f) ? -scaled.y() : 0.0f;
-		
-		bool relayout = false;
-		
-		if (dx || dy) {
-			g.s.qrfOverlayAvatar.translate(dx, dy);
-			g.s.qrfOverlayChannel.translate(dx,dy);
-			g.s.qrfOverlayMutedDeafened.translate(dx,dy);
-			g.s.qrfOverlayUserName.translate(dx,dy);
-			scaled.translate(dx,dy);
-			relayout = true;
-		} else {
-			QRectF children = g.s.qrfOverlayAvatar | g.s.qrfOverlayChannel | g.s.qrfOverlayMutedDeafened | g.s.qrfOverlayUserName;
-			relayout = ! children.contains(scaled);
-		}
 
 		if ((qgpiSelected == qgpiMuted) || (qgpiSelected == qgpiDeafened))
 			g.s.qrfOverlayMutedDeafened = scaled;
@@ -567,6 +568,18 @@ void OverlayUser::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 			for(int i=0;i<4;++i)
 				if (qgpiSelected == qgpiName[i])
 					g.s.qrfOverlayUserName = scaled;
+
+		QRectF children = g.s.qrfOverlayAvatar | g.s.qrfOverlayChannel | g.s.qrfOverlayMutedDeafened | g.s.qrfOverlayUserName;
+		
+		qreal dx = - children.x();
+		qreal dy = - children.y();
+		
+		if (dx || dy) {
+			g.s.qrfOverlayAvatar.translate(dx, dy);
+			g.s.qrfOverlayChannel.translate(dx,dy);
+			g.s.qrfOverlayMutedDeafened.translate(dx,dy);
+			g.s.qrfOverlayUserName.translate(dx,dy);
+		}
 
 		g.o->forceSettings();
 	}
@@ -586,6 +599,8 @@ void OverlayUser::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 			
 		QPointF delta = event->pos() - event->buttonDownPos(Qt::LeftButton);
 		
+		bool square = event->modifiers() & Qt::ShiftModifier;
+		
 		QRectF orig = selectedRect();
 		switch(wfsHover) {
 			case Qt::TitleBarArea:
@@ -595,21 +610,29 @@ void OverlayUser::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 				orig.setTop(orig.top() + delta.y());
 				if (orig.height() < 8.0f)
 					orig.setTop(orig.bottom() - 8.0f);
+				if (square)
+					orig.setRight(orig.left() + orig.height());
 				break;
 			case Qt::BottomSection:
 				orig.setBottom(orig.bottom() + delta.y());
 				if (orig.height() < 8.0f)
 					orig.setBottom(orig.top() + 8.0f);
+				if (square)
+					orig.setRight(orig.left() + orig.height());
 				break;
 			case Qt::LeftSection:
 				orig.setLeft(orig.left() + delta.x());
 				if (orig.width() < 8.0f)
 					orig.setLeft(orig.right() - 8.0f);
+				if (square)
+					orig.setBottom(orig.top() + orig.width());
 				break;
 			case Qt::RightSection:
 				orig.setRight(orig.right() + delta.x());
 				if (orig.width() < 8.0f)
 					orig.setRight(orig.left() + 8.0f);
+				if (square)
+					orig.setBottom(orig.top() + orig.width());
 				break;
 			case Qt::TopLeftSection:
 				orig.setTopLeft(orig.topLeft() + delta);
@@ -617,6 +640,11 @@ void OverlayUser::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 					orig.setTop(orig.bottom() - 8.0f);
 				if (orig.width() < 8.0f)
 					orig.setLeft(orig.right() - 8.0f);
+				if (square) {
+					qreal size = qMin(orig.width(), orig.height());
+					QPointF sz(-size, -size);
+					orig.setTopLeft(orig.bottomRight() + sz);
+				}
 				break;
 			case Qt::TopRightSection:
 				orig.setTopRight(orig.topRight() + delta);
@@ -624,6 +652,11 @@ void OverlayUser::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 					orig.setTop(orig.bottom() - 8.0f);
 				if (orig.width() < 8.0f)
 					orig.setRight(orig.left() + 8.0f);
+				if (square) {
+					qreal size = qMin(orig.width(), orig.height());
+					QPointF sz(size, -size);
+					orig.setTopRight(orig.bottomLeft() + sz);
+				}
 				break;
 			case Qt::BottomLeftSection:
 				orig.setBottomLeft(orig.bottomLeft() + delta);
@@ -631,6 +664,11 @@ void OverlayUser::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 					orig.setBottom(orig.top() + 8.0f);
 				if (orig.width() < 8.0f)
 					orig.setLeft(orig.right() - 8.0f);
+				if (square) {
+					qreal size = qMin(orig.width(), orig.height());
+					QPointF sz(-size, size);
+					orig.setBottomLeft(orig.topRight() + sz);
+				}
 				break;
 			case Qt::BottomRightSection:
 				orig.setBottomRight(orig.bottomRight() + delta);
@@ -638,6 +676,11 @@ void OverlayUser::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 					orig.setBottom(orig.top() + 8.0f);
 				if (orig.width() < 8.0f)
 					orig.setRight(orig.left() + 8.0f);
+				if (square) {
+					qreal size = qMin(orig.width(), orig.height());
+					QPointF sz(size, size);
+					orig.setBottomRight(orig.topLeft() + sz);
+				}
 				break;
 		}
 		prepareGeometryChange();
@@ -647,17 +690,20 @@ void OverlayUser::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 
 void OverlayUser::focusInEvent(QFocusEvent *event) {
 	event->accept();
-	setZValue(-3.0f);
 	prepareGeometryChange();
+
+	setZValue(-3.0f);
+	qgriActive->show();
 }
 
 void OverlayUser::focusOutEvent(QFocusEvent *event) {
 	event->accept();
+	prepareGeometryChange();
 
 	wfsHover = Qt::NoSection;
 
 	setZValue(-4.0f);
-	prepareGeometryChange();
+	qgriActive->hide();
 
 	if (qgpiSelected) {
 		qgpiSelected = NULL;
@@ -667,6 +713,31 @@ void OverlayUser::focusOutEvent(QFocusEvent *event) {
 
 void OverlayUser::hoverMoveEvent(QGraphicsSceneHoverEvent *event) {
 	updateCursorShape(event->pos());
+}
+
+void OverlayUser::wheelEvent(QGraphicsSceneWheelEvent *event) {
+	event->accept();
+
+	QRectF children = g.s.qrfOverlayAvatar | g.s.qrfOverlayChannel | g.s.qrfOverlayMutedDeafened | g.s.qrfOverlayUserName;
+	
+	qreal scale = 0.875f;
+	
+	if (event->delta() > 0)
+		scale = 1.0f / 0.875f;
+		
+	if ((scale < 1.0f) && (children.height() <= 0.03125f))
+		return;
+	else if ((scale > 1.0f) && (children.height() >= 0.25f))
+		return;
+
+	prepareGeometryChange();
+
+	g.s.qrfOverlayMutedDeafened = scaledRect(g.s.qrfOverlayMutedDeafened, scale);
+	g.s.qrfOverlayAvatar = scaledRect(g.s.qrfOverlayAvatar, scale);
+	g.s.qrfOverlayChannel = scaledRect(g.s.qrfOverlayChannel, scale);
+	g.s.qrfOverlayUserName = scaledRect(g.s.qrfOverlayUserName, scale);
+		
+	g.o->forceSettings();
 }
 
 void OverlayUser::updateCursorShape(const QPointF &point) {
@@ -890,6 +961,10 @@ Qt::WindowFrameSection OverlayUser::rectSection(const QRectF &qrf, const QPointF
 		return Qt::TitleBarArea;
 		
 	return Qt::NoSection;
+}
+
+QRectF OverlayUser::scaledRect(const QRectF &qr, qreal scale) {
+	return QRectF(qr.x() * scale, qr.y() * scale, qr.width() * scale, qr.height() * scale);
 }
 
 
@@ -1356,8 +1431,8 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 	int width = iroundf(children.width() * uiHeight);
 	int height = iroundf(children.height() * uiHeight);
 	
-	int basex = qBound<int>(0, iroundf(uiWidth * g.s.fOverlayX), uiWidth - nx * width + (nx - 1) * 2);
-	int basey = qBound<int>(0, iroundf(uiHeight * g.s.fOverlayY), uiHeight - ny * height + (ny - 1) * 2);
+	int basex = qBound<int>(0, iroundf(uiWidth * g.s.fOverlayX), uiWidth - (nx * width + (nx - 1) * 2));
+	int basey = qBound<int>(0, iroundf(uiHeight * g.s.fOverlayY), uiHeight - (ny * height + (ny - 1) * 2));
 
 	int y = 0;
 	int x = 0;

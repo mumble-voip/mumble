@@ -91,6 +91,7 @@ class OverlayUser : public QObject, public QGraphicsItem {
 		QGraphicsPixmapItem *qgpiName[4];
 		QGraphicsPixmapItem *qgpiChannel;
 		
+		QGraphicsRectItem *qgriActive;
 		QGraphicsRectItem *qgriSelected;
 		QGraphicsPixmapItem *qgpiSelected;
 		int iDragCorner;
@@ -114,13 +115,14 @@ class OverlayUser : public QObject, public QGraphicsItem {
 		void focusInEvent(QFocusEvent *);
 		void focusOutEvent(QFocusEvent *);
 		void hoverMoveEvent(QGraphicsSceneHoverEvent *);
+		void wheelEvent(QGraphicsSceneWheelEvent *);
 		void updateCursorShape(const QPointF &point);
-		static Qt::WindowFrameSection rectSection(const QRectF &rect, const QPointF &point, qreal dist = 3.0f);
 
 		QGraphicsPixmapItem *childAt(const QPointF &);
-		QList<QGraphicsPixmapItem *> childrenAt(const QPointF &);
-		
 		QRectF selectedRect() const;
+
+		static Qt::WindowFrameSection rectSection(const QRectF &rect, const QPointF &point, qreal dist = 3.0f);
+		static QRectF scaledRect(const QRectF &qr, qreal scale);
 	public:
 		OverlayUser(ClientUser *cu, unsigned int uiSize);
 		OverlayUser(Settings::TalkState ts, unsigned int uiSize);

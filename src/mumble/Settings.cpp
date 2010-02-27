@@ -244,8 +244,8 @@ Settings::Settings() {
 
 	// Nice and exact float values.
 	
-	qrfOverlayUserName = QRectF(0.0f, 0.09375f, 0.125f, 0.03125f);
-	qrfOverlayChannel = QRectF(0.03125f, 0.0f, 0.09375f, 0.03125f);
+	qrfOverlayUserName = QRectF(0.0f, 0.101563f, 0.125f, 0.023438f);
+	qrfOverlayChannel = QRectF(0.03125f, 0.0f, 0.09375f, 0.015625f);
 	qrfOverlayMutedDeafened = QRectF(0.0f, 0.0f, 0.0625f, 0.0625f);
 	qrfOverlayAvatar = QRectF(0.0f, 0.0f, 0.125f, 0.125f);
 
