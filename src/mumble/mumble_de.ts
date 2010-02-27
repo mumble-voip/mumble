@@ -3984,7 +3984,7 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
         <translation type="obsolete">&amp;Passwort</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+733"/>
+        <location filename="ConnectDialog.cpp" line="+735"/>
         <source>&amp;Connect</source>
         <translation>&amp;Verbinden</translation>
     </message>
@@ -4037,7 +4037,7 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
         <translation type="obsolete">LAN</translation>
     </message>
     <message>
-        <location line="-271"/>
+        <location line="-273"/>
         <source>Hostname</source>
         <translation>Hostname</translation>
     </message>
@@ -4109,7 +4109,7 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="+251"/>
+        <location filename="ConnectDialog.cpp" line="+253"/>
         <source>&amp;Add New...</source>
         <oldsource>Add New...</oldsource>
         <translation>&amp;Server hinzufügen...</translation>
@@ -4119,18 +4119,18 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
         <translation type="obsolete">Filter</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+129"/>
+        <location filename="ConnectDialog.cpp" line="+131"/>
         <source>Connecting to %1</source>
         <translation>Verbinde zu %1</translation>
     </message>
     <message>
-        <location line="-466"/>
-        <location line="+466"/>
+        <location line="-470"/>
+        <location line="+470"/>
         <source>Enter username</source>
         <translation>Benutzername eingeben</translation>
     </message>
     <message>
-        <location line="-466"/>
+        <location line="-470"/>
         <source>Adding host %1</source>
         <translation>Host %1 hinzufügen</translation>
     </message>
@@ -4141,7 +4141,7 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
         <translation>Servername</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+311"/>
+        <location filename="ConnectDialog.cpp" line="+313"/>
         <source>&amp;Filters</source>
         <translation>&amp;Filter</translation>
     </message>
@@ -4150,7 +4150,7 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+658"/>
+        <location line="+670"/>
         <source>Failed to fetch server list</source>
         <translation>Serverliste konnte nicht geladen werden</translation>
     </message>
@@ -7280,14 +7280,6 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
     </message>
     <message>
         <location line="+10"/>
-        <location line="+79"/>
-        <location line="+4"/>
-        <location line="+223"/>
-        <source>To %1: %2</source>
-        <translation>An %1: %2</translation>
-    </message>
-    <message>
-        <location line="-306"/>
         <location line="+83"/>
         <source>Message to %1</source>
         <translation>Nachricht an %1</translation>
@@ -7969,7 +7961,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Netzwerk</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+36"/>
         <source>Updates are mandatory when using snapshot releases.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8233,6 +8225,16 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <source>Submit anonymous statistics</source>
         <translation>Sende anonyme Statistiken</translation>
     </message>
+    <message>
+        <location/>
+        <source>Reconnect to last used server when starting Mumble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Reconnect to last server on startup</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OSSConfig</name>
@@ -8300,7 +8302,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+938"/>
+        <location filename="Overlay.cpp" line="+1588"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Kommunikation mit dem Overlay auf %2: %1 fehlgeschlagen. Das Overlay wird nicht verfügbar sein.</translation>
     </message>
@@ -8531,7 +8533,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation>Farbe für aktive Kanäle</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-799"/>
+        <location filename="Overlay.cpp" line="-1449"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
@@ -8626,6 +8628,70 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     </message>
 </context>
 <context>
+    <name>OverlayUser</name>
+    <message>
+        <location filename="Overlay.cpp" line="+46"/>
+        <source>Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Silent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Talking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Whisper</source>
+        <translation type="unfinished">Flüstern</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Shout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+600"/>
+        <source>User Opacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <location line="+16"/>
+        <source>%1%</source>
+        <translation type="unfinished">%1%</translation>
+    </message>
+    <message>
+        <location line="-6"/>
+        <source>Object Opacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Color...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Font...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+43"/>
+        <source>Pick color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Pick font</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PAAudioConfig</name>
     <message>
         <source>PortAudio</source>
@@ -8692,7 +8758,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     </message>
     <message>
         <location/>
-        <location filename="Plugins.cpp" line="+73"/>
+        <location filename="Plugins.cpp" line="+75"/>
         <source>Plugins</source>
         <translation>Plugins</translation>
     </message>
@@ -8794,7 +8860,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+273"/>
+        <location filename="Plugins.cpp" line="+309"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8814,7 +8880,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation type="obsolete">Plugin %1 hat Verbindung verloren.</translation>
     </message>
     <message>
-        <location line="-236"/>
+        <location line="-258"/>
         <source>%1 lost link.</source>
         <translation>%1 hat Verbindung verloren.</translation>
     </message>
@@ -8823,7 +8889,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation type="obsolete">Plugin %1 hat sich verbunden.</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+68"/>
         <source>%1 linked.</source>
         <translation>%1 verbunden.</translation>
     </message>
@@ -9024,7 +9090,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-1357"/>
+        <location filename="ConnectDialog.cpp" line="-1371"/>
         <source>Favorite</source>
         <translation>Favoriten</translation>
     </message>

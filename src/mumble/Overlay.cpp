@@ -177,10 +177,10 @@ OverlayUser::OverlayUser(ClientUser *cu, unsigned int height) : QGraphicsItem(),
 OverlayUser::OverlayUser(Settings::TalkState ts, unsigned int height) : QGraphicsItem(), cuUser(NULL), uiSize(height), tsColor(ts) {
 	setup();
 	updateLayout();
-	
+
 	qsChannelName = tr("Channel");
-	
-	switch(ts) {
+
+	switch (ts) {
 		case Settings::Passive:
 			qsName = tr("Silent");
 			break;
@@ -198,7 +198,7 @@ OverlayUser::OverlayUser(Settings::TalkState ts, unsigned int height) : QGraphic
 
 QGraphicsPixmapItem *OverlayUser::childAt(const QPointF &pos) {
 	QGraphicsItem *item = NULL;
-	
+
 	if (qgpiSelected) {
 		if (selectedRect().contains(pos))
 			return qgpiSelected;
@@ -226,7 +226,7 @@ QRectF OverlayUser::boundingRect() const {
 
 QRectF OverlayUser::selectedRect() const {
 	const QRectF *qrf = NULL;
-	
+
 	if ((qgpiSelected == qgpiMuted) || (qgpiSelected == qgpiDeafened))
 		qrf = & g.s.qrfOverlayMutedDeafened;
 	else if (qgpiSelected == qgpiAvatar)
@@ -234,7 +234,7 @@ QRectF OverlayUser::selectedRect() const {
 	else if (qgpiSelected == qgpiChannel)
 		qrf = & g.s.qrfOverlayChannel;
 	else
-		for(int i=0;i<4;++i)
+		for (int i=0;i<4;++i)
 			if (qgpiSelected == qgpiName[i])
 				qrf = & g.s.qrfOverlayUserName;
 	if (! qrf)
@@ -264,9 +264,9 @@ void OverlayUser::setup() {
 
 	qgpiChannel = new QGraphicsPixmapItem(this);
 	qgpiChannel->hide();
-	
+
 	qgpiSelected = NULL;
-	
+
 	if (cuUser) {
 		qgriSelected = NULL;
 		qgriActive = NULL;
@@ -305,9 +305,9 @@ void OverlayUser::updateLayout() {
 
 	prepareGeometryChange();
 
-	for(int i=0;i<4;++i)
+	for (int i=0;i<4;++i)
 		qgpiName[i]->setPixmap(pm);
-		
+
 	qgpiAvatar->setPixmap(pm);
 	qgpiChannel->setPixmap(pm);
 
@@ -326,7 +326,7 @@ void OverlayUser::updateLayout() {
 		qir.setScaledSize(sz);
 		qgpiDeafened->setPixmap(QPixmap::fromImage(qir.read()));
 	}
-	
+
 	qgpiMuted->setPos(SCALEPOS(MutedDeafened));
 	qgpiMuted->setZValue(1.0f);
 	qgpiMuted->setOpacity(g.s.fOverlayMutedDeafened);
@@ -475,7 +475,7 @@ void OverlayUser::updateUser() {
 	}
 
 	qgpiAvatar->show();
-	
+
 	if (cuUser) {
 		ClientUser *self = ClientUser::get(g.uiSession);
 
@@ -511,7 +511,7 @@ void OverlayUser::updateUser() {
 		qgpiChannel->setVisible((tsColor != Settings::Passive) && (tsColor != Settings::Talking));
 		qgpiMuted->show();
 		qgpiDeafened->hide();
-	}		
+	}
 
 	for (int i=0;i<4;++i)
 		qgpiName[i]->setVisible(i == tsColor);
@@ -521,10 +521,10 @@ void OverlayUser::updateUser() {
 
 void OverlayUser::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 	QGraphicsItem::mousePressEvent(event);
-	
+
 	if (!cuUser && (event->button() == Qt::LeftButton)) {
 		event->accept();
-		
+
 		if (wfsHover == Qt::NoSection) {
 			qgpiSelected = childAt(event->pos());
 			if (qgpiSelected) {
@@ -551,7 +551,7 @@ void OverlayUser::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 			setCursor(Qt::OpenHandCursor);
 
 		QRectF rect = qgriSelected->rect();
-		
+
 		if (! qgpiSelected || (rect == selectedRect())) {
 			return;
 		}
@@ -565,15 +565,15 @@ void OverlayUser::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 		else if (qgpiSelected == qgpiChannel)
 			g.s.qrfOverlayChannel = scaled;
 		else
-			for(int i=0;i<4;++i)
+			for (int i=0;i<4;++i)
 				if (qgpiSelected == qgpiName[i])
 					g.s.qrfOverlayUserName = scaled;
 
 		QRectF children = g.s.qrfOverlayAvatar | g.s.qrfOverlayChannel | g.s.qrfOverlayMutedDeafened | g.s.qrfOverlayUserName;
-		
+
 		qreal dx = - children.x();
 		qreal dy = - children.y();
-		
+
 		if (dx || dy) {
 			g.s.qrfOverlayAvatar.translate(dx, dy);
 			g.s.qrfOverlayChannel.translate(dx,dy);
@@ -587,22 +587,22 @@ void OverlayUser::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 
 void OverlayUser::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 	QGraphicsItem::mouseMoveEvent(event);
-	
+
 	if (qgpiSelected && (event->buttons() & Qt::LeftButton)) {
 		event->accept();
-		
+
 		if (wfsHover == Qt::NoSection)
 			return;
-		
+
 		if (cursor().shape() == Qt::OpenHandCursor)
 			setCursor(Qt::ClosedHandCursor);
-			
+
 		QPointF delta = event->pos() - event->buttonDownPos(Qt::LeftButton);
-		
+
 		bool square = event->modifiers() & Qt::ShiftModifier;
-		
+
 		QRectF orig = selectedRect();
-		switch(wfsHover) {
+		switch (wfsHover) {
 			case Qt::TitleBarArea:
 				orig.translate(delta);
 				break;
@@ -719,12 +719,12 @@ void OverlayUser::wheelEvent(QGraphicsSceneWheelEvent *event) {
 	event->accept();
 
 	QRectF children = g.s.qrfOverlayAvatar | g.s.qrfOverlayChannel | g.s.qrfOverlayMutedDeafened | g.s.qrfOverlayUserName;
-	
+
 	qreal scale = 0.875f;
-	
+
 	if (event->delta() > 0)
 		scale = 1.0f / 0.875f;
-		
+
 	if ((scale < 1.0f) && (children.height() <= 0.03125f))
 		return;
 	else if ((scale > 1.0f) && (children.height() >= 0.25f))
@@ -736,7 +736,7 @@ void OverlayUser::wheelEvent(QGraphicsSceneWheelEvent *event) {
 	g.s.qrfOverlayAvatar = scaledRect(g.s.qrfOverlayAvatar, scale);
 	g.s.qrfOverlayChannel = scaledRect(g.s.qrfOverlayChannel, scale);
 	g.s.qrfOverlayUserName = scaledRect(g.s.qrfOverlayUserName, scale);
-		
+
 	g.o->forceSettings();
 }
 
@@ -749,7 +749,7 @@ void OverlayUser::updateCursorShape(const QPointF &point) {
 		wfsHover = Qt::NoSection;
 	}
 
-	switch(wfsHover) {
+	switch (wfsHover) {
 		case Qt::TopLeftSection:
 		case Qt::BottomRightSection:
 			cs = Qt::SizeFDiagCursor;
@@ -776,7 +776,7 @@ void OverlayUser::updateCursorShape(const QPointF &point) {
 
 	if (cursor().shape() != cs)
 		setCursor(cs);
-		
+
 }
 
 void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
@@ -794,7 +794,7 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 	QMenu *qmTrans = qm.addMenu(tr("User Opacity"));
 	QActionGroup *qagUser = new QActionGroup(&qm);
 	QAction *userOpacity[8];
-	for(int i=0;i<8;++i) {
+	for (int i=0;i<8;++i) {
 		qreal o = (i + 1) / 8.0f;
 
 		userOpacity[i] = new QAction(tr("%1%").arg(o * 100.0f, 0, 'f', 1), qagUser);
@@ -804,13 +804,13 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 			userOpacity[i]->setChecked(true);
 		qmTrans->addAction(userOpacity[i]);
 	}
-	
+
 	qm.addSeparator();
 
 	QMenu *qmObjTrans = qm.addMenu(tr("Object Opacity"));
 	QActionGroup *qagObject = new QActionGroup(&qm);
 	QAction *objectOpacity[10];
-	for(int i=0;i<8;++i) {
+	for (int i=0;i<8;++i) {
 		qreal o = (i + 1) / 8.0f;
 
 		objectOpacity[i] = new QAction(tr("%1%").arg(o * 100.0f, 0, 'f', 1), qagObject);
@@ -821,7 +821,7 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		qmObjTrans->addAction(objectOpacity[i]);
 	}
 
-	
+
 	QAction *color = NULL;
 	QAction *font = NULL;
 
@@ -833,7 +833,7 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 	QAction *act = qm.exec(event->screenPos());
 	if (act) {
 
-		for(int i=0;i<8;++i) {
+		for (int i=0;i<8;++i) {
 			if (userOpacity[i] == act) {
 				float o = act->data().toReal();
 				g.s.fOverlayUser[tsColor] = o;
@@ -841,7 +841,7 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 			}
 		}
 
-		for(int i=0;i<8;++i) {
+		for (int i=0;i<8;++i) {
 			if (objectOpacity[i] == act) {
 				qreal o = act->data().toReal();
 
@@ -852,7 +852,7 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 				else if (item == qgpiChannel)
 					g.s.fOverlayChannel = o;
 				else
-					for(int i=0;i<4;++i)
+					for (int i=0;i<4;++i)
 						if (item == qgpiName[i])
 							g.s.fOverlayUserName[i] = o;
 
@@ -865,10 +865,10 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 			if (item == qgpiChannel)
 				col = & g.s.qcOverlayChannel;
 			else
-				for(int i=0;i<4;++i)
+				for (int i=0;i<4;++i)
 					if (item == qgpiName[i])
 						col = & g.s.qcOverlayUserName[i];
-			
+
 			if (col) {
 				QColor qc = QColorDialog::getColor(*col, g.mw, tr("Pick color"), QColorDialog::DontUseNativeDialog);
 				if (qc.isValid()) {
@@ -881,25 +881,25 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 			}
 		} else if (act == font) {
 			QFont *fontptr = (item == qgpiChannel) ? &g.s.qfOverlayChannel : &g.s.qfOverlayUserName;
-			
+
 			// QFontDialog doesn't really like graphics view. At all.
 
 			QFontDialog qfd;
 			qfd.setOptions(QFontDialog::DontUseNativeDialog);
 			qfd.setCurrentFont(*fontptr);
 			qfd.setWindowTitle(tr("Pick font"));
-			
+
 			QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(NULL, Qt::Window);
 			qgpw->setWidget(&qfd);
 			scene()->addItem(qgpw);
 			qgpw->show();
-			
+
 			int ret = qfd.exec();
-			
+
 			qgpw->hide();
 			qgpw->setWidget(NULL);
 			delete qgpw;
-			
+
 			if (ret) {
 				*fontptr = qfd.selectedFont();
 				g.o->forceSettings();
@@ -911,9 +911,9 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 static qreal distancePointLine(const QPointF &a, const QPointF &b, const QPointF &p) {
 	qreal xda = a.x() - p.x();
 	qreal xdb = p.x() - b.x();
-	
+
 	qreal xd = 0;
-	
+
 	if (xda > 0)
 		xd = xda;
 	if (xdb > 0)
@@ -921,25 +921,25 @@ static qreal distancePointLine(const QPointF &a, const QPointF &b, const QPointF
 
 	qreal yda = a.y() - p.y();
 	qreal ydb = p.y() - b.y();
-	
+
 	qreal yd = 0;
-	
+
 	if (yda > 0)
 		yd = yda;
 	if (ydb > 0)
 		yd = qMax(yd, ydb);
-	
+
 	return qMax(xd, yd);
 }
 
 Qt::WindowFrameSection OverlayUser::rectSection(const QRectF &qrf, const QPointF &qp, qreal dist) {
 	qreal left, right, top, bottom;
-	
+
 	top = distancePointLine(qrf.topLeft(), qrf.topRight(), qp);
 	bottom = distancePointLine(qrf.bottomLeft(), qrf.bottomRight(), qp);
 	left = distancePointLine(qrf.topLeft(), qrf.bottomLeft(), qp);
 	right = distancePointLine(qrf.topRight(), qrf.bottomRight(), qp);
-	
+
 	if ((top < dist) && (top < bottom)) {
 		if ((left < dist) && (left < right))
 			return Qt::TopLeftSection;
@@ -959,7 +959,7 @@ Qt::WindowFrameSection OverlayUser::rectSection(const QRectF &qrf, const QPointF
 	}
 	if (qrf.contains(qp))
 		return Qt::TitleBarArea;
-		
+
 	return Qt::NoSection;
 }
 
@@ -1017,7 +1017,7 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 OverlayClient::~OverlayClient() {
 	qlsSocket->abort();
 
-	foreach(OverlayUser *ou, qlExampleUsers) 
+	foreach(OverlayUser *ou, qlExampleUsers)
 		delete ou;
 	qlExampleUsers.clear();
 
@@ -1047,21 +1047,21 @@ void OverlayClient::updateMouse() {
 		} else {
 			QBitmap orig(QPixmap::fromWinHBITMAP(info.hbmMask));
 			QImage img = orig.toImage();
-			
+
 			int h = img.height() / 2;
 			int w = img.bytesPerLine() / sizeof(quint32);
-			
+
 			QImage out(img.width(), h, QImage::Format_MonoLSB);
 			QImage outmask(img.width(), h, QImage::Format_MonoLSB);
-			
-			for(int i=0;i<h; ++i) {
+
+			for (int i=0;i<h; ++i) {
 				const quint32 *srcimg = reinterpret_cast<const quint32 *>(img.scanLine(i + h));
 				const quint32 *srcmask = reinterpret_cast<const quint32 *>(img.scanLine(i));
 
 				quint32 *dstimg = reinterpret_cast<quint32 *>(out.scanLine(i));
 				quint32 *dstmask = reinterpret_cast<quint32 *>(outmask.scanLine(i));
 
-				for(int j=0;j<w;++j) {
+				for (int j=0;j<w;++j) {
 					dstmask[j] = srcmask[j];
 					dstimg[j] = srcimg[j];
 				}
@@ -1155,7 +1155,7 @@ void OverlayClient::showGui() {
 	qgv.setAttribute(Qt::WA_WState_Hidden, false);
 	qApp->setActiveWindow(&qgv);
 	qgv.setFocus();
-	
+
 	setupScene();
 
 #if defined(Q_WS_WIN) || defined(Q_WS_MAC)
@@ -1203,7 +1203,7 @@ void OverlayClient::hideGui() {
 			w->show();
 	}
 	g.mw->bNoHide = false;
-	
+
 	setupScene();
 
 	qgv.setAttribute(Qt::WA_WState_Hidden, true);
@@ -1317,11 +1317,11 @@ void OverlayClient::reset() {
 		delete qgpiLogo;
 		qgpiLogo = NULL;
 	}
-	
-	foreach(OverlayUser *ou, qlExampleUsers) 
+
+	foreach(OverlayUser *ou, qlExampleUsers)
 		delete ou;
 	qlExampleUsers.clear();
-	
+
 	setupScene();
 }
 
@@ -1349,7 +1349,7 @@ void OverlayClient::setupScene() {
 			qgs.addItem(qgpiLogo);
 		}
 		qgpiLogo->show();
-	
+
 		if (qlExampleUsers.isEmpty()) {
 			qlExampleUsers << new OverlayUser(Settings::Passive, uiHeight);
 			qlExampleUsers << new OverlayUser(Settings::Talking, uiHeight);
@@ -1420,15 +1420,15 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 
 	foreach(QGraphicsItem *qgi, items)
 		qgs.removeItem(qgi);
-		
+
 	int nx = (users.count() > 1) ? 2 : 1;
 	int ny = 1 + (users.count() - 1) / 2;
 
 	QRectF children = g.s.qrfOverlayAvatar | g.s.qrfOverlayChannel | g.s.qrfOverlayMutedDeafened | g.s.qrfOverlayUserName;
-	
+
 	int width = iroundf(children.width() * uiHeight);
 	int height = iroundf(children.height() * uiHeight);
-	
+
 	int basex = qBound<int>(0, iroundf(uiWidth * g.s.fOverlayX), uiWidth - (nx * width + (nx - 1) * 2));
 	int basey = qBound<int>(0, iroundf(uiHeight * g.s.fOverlayY), uiHeight - (ny * height + (ny - 1) * 2));
 

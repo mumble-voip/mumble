@@ -3091,13 +3091,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+864"/>
+        <location filename="ConnectDialog.cpp" line="+868"/>
         <source>Connecting to %1</source>
         <translation>正在連接到 %1</translation>
     </message>
     <message>
-        <location line="-466"/>
-        <location line="+466"/>
+        <location line="-470"/>
+        <location line="+470"/>
         <source>Enter username</source>
         <translation>輸入用戶名</translation>
     </message>
@@ -3106,7 +3106,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">未知</translation>
     </message>
     <message>
-        <location line="-466"/>
+        <location line="-470"/>
         <source>Adding host %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3173,13 +3173,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+290"/>
+        <location line="+292"/>
         <source>&amp;Filters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-289"/>
+        <location filename="ConnectDialog.cpp" line="-291"/>
         <source>Users</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3189,7 +3189,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+946"/>
+        <location line="+960"/>
         <source>Failed to fetch server list</source>
         <translation>無法獲取服務器列表</translation>
     </message>
@@ -3289,7 +3289,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">&amp;密碼</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-697"/>
+        <location filename="ConnectDialog.cpp" line="-709"/>
         <source>&amp;Connect</source>
         <translation type="unfinished">&amp;連接</translation>
     </message>
@@ -5095,14 +5095,6 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+10"/>
-        <location line="+79"/>
-        <location line="+4"/>
-        <location line="+223"/>
-        <source>To %1: %2</source>
-        <translation>發送給 %1: %2</translation>
-    </message>
-    <message>
-        <location line="-306"/>
         <location line="+83"/>
         <source>Message to %1</source>
         <translation>發送消息給 %1</translation>
@@ -6439,7 +6431,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>網絡</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+36"/>
         <source>Updates are mandatory when using snapshot releases.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6701,11 +6693,21 @@ Prevents the client from downloading images embedded into chat messages with the
         <source>Submit anonymous statistics</source>
         <translation>遞交匿名統計數據</translation>
     </message>
+    <message>
+        <location/>
+        <source>Reconnect to last used server when starting Mumble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Reconnect to last server on startup</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+938"/>
+        <location filename="Overlay.cpp" line="+1588"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6723,7 +6725,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-888"/>
+        <location line="-1538"/>
         <source>Show no one</source>
         <translation>不顯示任何人</translation>
     </message>
@@ -6996,6 +6998,70 @@ Prevents the client from downloading images embedded into chat messages with the
     </message>
 </context>
 <context>
+    <name>OverlayUser</name>
+    <message>
+        <location filename="Overlay.cpp" line="+42"/>
+        <source>Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Silent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Talking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Whisper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Shout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+600"/>
+        <source>User Opacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <location line="+16"/>
+        <source>%1%</source>
+        <translation type="unfinished">%1 米 {1%?}</translation>
+    </message>
+    <message>
+        <location line="-6"/>
+        <source>Object Opacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Color...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Font...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+43"/>
+        <source>Pick color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Pick font</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PlayerModel</name>
     <message>
         <source>This is a player connected to the server. The icon to the left of the player indicates whether or not they are talking:&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt; Talking&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt; Not talking</source>
@@ -7026,7 +7092,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <name>PluginConfig</name>
     <message>
         <location filename="Plugins.ui"/>
-        <location filename="Plugins.cpp" line="+73"/>
+        <location filename="Plugins.cpp" line="+75"/>
         <source>Plugins</source>
         <translation>插件</translation>
     </message>
@@ -7128,7 +7194,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+273"/>
+        <location filename="Plugins.cpp" line="+309"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7144,12 +7210,12 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-236"/>
+        <location line="-258"/>
         <source>%1 lost link.</source>
         <translation>%1 的鏈接丟失。</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+68"/>
         <source>%1 linked.</source>
         <translation>%1 已鏈接上。</translation>
     </message>
@@ -7307,7 +7373,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-662"/>
+        <location filename="ConnectDialog.cpp" line="-664"/>
         <source>Favorite</source>
         <translation type="unfinished"></translation>
     </message>

@@ -3268,13 +3268,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+864"/>
+        <location filename="ConnectDialog.cpp" line="+868"/>
         <source>Connecting to %1</source>
         <translation>Connessione a %1</translation>
     </message>
     <message>
-        <location line="-466"/>
-        <location line="+466"/>
+        <location line="-470"/>
+        <location line="+470"/>
         <source>Enter username</source>
         <translation>Inserire il nome utente</translation>
     </message>
@@ -3283,7 +3283,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">Sconosciuto</translation>
     </message>
     <message>
-        <location line="-466"/>
+        <location line="-470"/>
         <source>Adding host %1</source>
         <translation>Aggiunta host %1</translation>
     </message>
@@ -3350,13 +3350,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation>%1 kbit/s</translation>
     </message>
     <message>
-        <location line="+290"/>
+        <location line="+292"/>
         <source>&amp;Filters</source>
         <translation>&amp;Filtri</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-289"/>
+        <location filename="ConnectDialog.cpp" line="-291"/>
         <source>Users</source>
         <translation>Utenti</translation>
     </message>
@@ -3382,7 +3382,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+946"/>
+        <location line="+960"/>
         <source>Failed to fetch server list</source>
         <translation>Scaricamento della lista dei server fallita</translation>
     </message>
@@ -3506,7 +3506,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">&amp;Password</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-697"/>
+        <location filename="ConnectDialog.cpp" line="-709"/>
         <source>&amp;Connect</source>
         <translation>&amp;Connetti</translation>
     </message>
@@ -5427,14 +5427,6 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+10"/>
-        <location line="+79"/>
-        <location line="+4"/>
-        <location line="+223"/>
-        <source>To %1: %2</source>
-        <translation>Per %1: %2</translation>
-    </message>
-    <message>
-        <location line="-306"/>
         <location line="+83"/>
         <source>Message to %1</source>
         <translation>Messaggio a %1</translation>
@@ -6838,7 +6830,7 @@ p, li { white-space: pre-wrap; }
         <translation>Rete</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+36"/>
         <source>Updates are mandatory when using snapshot releases.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7101,6 +7093,16 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <source>Submit anonymous statistics</source>
         <translation>Invia statistiche anonime</translation>
     </message>
+    <message>
+        <location/>
+        <source>Reconnect to last used server when starting Mumble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Reconnect to last server on startup</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Overlay</name>
@@ -7109,7 +7111,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+938"/>
+        <location filename="Overlay.cpp" line="+1588"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Impossibile creare una comunicazione con la sovrapposizione su %2 :%1. La sovrapposizione non sarà disponibile.</translation>
     </message>
@@ -7139,7 +7141,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-888"/>
+        <location line="-1538"/>
         <source>Show no one</source>
         <translation>Non mostrare nessuno</translation>
     </message>
@@ -7418,6 +7420,70 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
     </message>
 </context>
 <context>
+    <name>OverlayUser</name>
+    <message>
+        <location filename="Overlay.cpp" line="+42"/>
+        <source>Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Silent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Talking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Whisper</source>
+        <translation type="unfinished">Sussurra</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Shout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+600"/>
+        <source>User Opacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <location line="+16"/>
+        <source>%1%</source>
+        <translation type="unfinished">%1%</translation>
+    </message>
+    <message>
+        <location line="-6"/>
+        <source>Object Opacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Color...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Font...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+43"/>
+        <source>Pick color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Pick font</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PlayerModel</name>
     <message>
         <source>This is a player connected to the server. The icon to the left of the player indicates whether or not they are talking:&lt;br /&gt;&lt;img src=&quot;skin:talking_on.png&quot; /&gt; Talking&lt;br /&gt;&lt;img src=&quot;skin:talking_off.png&quot; /&gt; Not talking</source>
@@ -7452,7 +7518,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
     <name>PluginConfig</name>
     <message>
         <location filename="Plugins.ui"/>
-        <location filename="Plugins.cpp" line="+73"/>
+        <location filename="Plugins.cpp" line="+75"/>
         <source>Plugins</source>
         <translation>Plugin</translation>
     </message>
@@ -7558,7 +7624,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+273"/>
+        <location filename="Plugins.cpp" line="+309"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7574,12 +7640,12 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation>Installazione fallita del nouvo plugin a %1.</translation>
     </message>
     <message>
-        <location line="-236"/>
+        <location line="-258"/>
         <source>%1 lost link.</source>
         <translation>Collegamento perso con %1.</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+68"/>
         <source>%1 linked.</source>
         <translation>collegato con %1.</translation>
     </message>
@@ -7741,7 +7807,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-662"/>
+        <location filename="ConnectDialog.cpp" line="-664"/>
         <source>Favorite</source>
         <translation>Preferiti</translation>
     </message>

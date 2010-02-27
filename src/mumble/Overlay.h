@@ -90,7 +90,7 @@ class OverlayUser : public QObject, public QGraphicsItem {
 		QGraphicsPixmapItem *qgpiAvatar;
 		QGraphicsPixmapItem *qgpiName[4];
 		QGraphicsPixmapItem *qgpiChannel;
-		
+
 		QGraphicsRectItem *qgriActive;
 		QGraphicsRectItem *qgriSelected;
 		QGraphicsPixmapItem *qgpiSelected;
@@ -103,11 +103,11 @@ class OverlayUser : public QObject, public QGraphicsItem {
 		QString qsName;
 		QString qsChannelName;
 		QByteArray qbaAvatar;
-		
+
 		Qt::WindowFrameSection wfsHover;
-		
+
 		void setup();
-		
+
 		void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
 		void mousePressEvent(QGraphicsSceneMouseEvent *);
 		void mouseMoveEvent(QGraphicsSceneMouseEvent *);
@@ -128,11 +128,11 @@ class OverlayUser : public QObject, public QGraphicsItem {
 		OverlayUser(Settings::TalkState ts, unsigned int uiSize);
 		void updateUser();
 		void updateLayout();
-		
+
 		int type() const;
 		QRectF boundingRect() const;
 		void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
-		
+
 
 		static QPixmap createPixmap(const QString &str, unsigned int height, unsigned int maxwidth, QColor col, const QFont &font, QPainterPath &);
 };

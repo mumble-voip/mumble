@@ -403,7 +403,7 @@ Pipe::Pipe() {
 	a_ucTexture = NULL;
 
 	omMsg.omh.iLength = -1;
-	
+
 	dwAlreadyRead = 0;
 
 	uiWidth = uiHeight = 0;
@@ -499,7 +499,7 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 	}
 
 	std::vector<RECT> blits;
-	
+
 	while (1) {
 		DWORD dwBytesLeft;
 		DWORD dwBytesRead;
@@ -509,7 +509,7 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 			disconnect();
 			return;
 		}
-		
+
 		if (! dwBytesLeft)
 			break;
 
@@ -519,14 +519,14 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 				disconnect();
 				return;
 			}
-			
+
 			dwBytesLeft -= dwBytesRead;
 			dwAlreadyRead += dwBytesRead;
 
 			if (dwAlreadyRead != sizeof(OverlayMsgHeader)) {
 				break;
 			}
-			
+
 			dwAlreadyRead = 0;
 
 			if (omMsg.omh.uiMagic != OVERLAY_MAGIC_NUMBER) {
@@ -544,12 +544,12 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 			disconnect();
 			return;
 		}
-		
+
 		dwAlreadyRead += dwBytesRead;
-		
+
 		if (static_cast<int>(dwBytesLeft) < omMsg.omh.iLength)
 			continue;
-			
+
 		dwAlreadyRead = 0;
 
 		switch (omMsg.omh.uiType) {
@@ -640,7 +640,7 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 		omMsg.omh.iLength = -1;
 	}
 
-	for(std::vector<RECT>::iterator i = blits.begin(); i != blits.end(); ++i)
+	for (std::vector<RECT>::iterator i = blits.begin(); i != blits.end(); ++i)
 		blit((*i).left, (*i).top, (*i).right - (*i).left, (*i).bottom - (*i).top);
 }
 

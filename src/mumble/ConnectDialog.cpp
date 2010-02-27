@@ -725,7 +725,7 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	setWindowModality(Qt::WindowModal);
 #endif
 	bPublicInit = false;
-	
+
 	siAutoConnect = NULL;
 
 	if (tPublicServers.elapsed() >= 60 * 24 * 1000000ULL) {

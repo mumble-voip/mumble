@@ -273,7 +273,7 @@ void Plugins::rescanPlugins() {
 						pi->description = QString::fromStdWString(pi->p->description);
 						pi->shortname = QString::fromStdWString(pi->p->shortname);
 						pi->enabled = g.s.qmPositionalAudioPlugins.value(pi->filename, true);
-						
+
 						mumblePlugin2Func mpf2 = reinterpret_cast<mumblePlugin2Func>(pi->lib.resolve("getMumblePlugin2"));
 						if (mpf2) {
 							pi->p2 = mpf2();
@@ -281,7 +281,7 @@ void Plugins::rescanPlugins() {
 								pi->p2 = NULL;
 							}
 						}
-						
+
 						qlPlugins << pi;
 						loaded.insert(fname);
 						continue;

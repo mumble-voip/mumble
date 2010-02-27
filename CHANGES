@@ -1,8 +1,44 @@
+2010-02-27
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    0abb9e5  Don't use widget functions on embedded widgets, they misbehave
+	     in release mode
+    4ee7782  Hold shift for square resize and scale with wheel
+    f1ab7fa  Editable overlay
+
+2010-02-26
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    ed8f3e2  Fix unlink over Ice
+    0f377b1  Don't strip header in Ice getTexture
+
+2010-02-25
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    5da308f  Fix image selection in the german translation
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    7cfe0b2  Constrain avatars to visible screen
+    3f7287c  Avatar placement based on Settings
+    9022177  Context menu for avatars
+    3fcb682  Add example users to overlay
+    ed39267  Update STO plugin
+    6d11c22  Use process map in initialize
+    f2c191d  The grand plugin multiregexp experiment
+    63adacd  Common dwPid var
+    71e5e85  Backwards compatible plugin structure
+    c263aa0  Update plugins to new trylock signature
+    6d9bc4e  Send pidmap to plugin trylock
+    b23d6fa  Require write lock to lock/unlock plugins
+    1856143  Fix autoconnect
+
 2010-02-24
+  Mikkel Krautz <mikkel@krautz.dk>
+    1df4b0d  Handle symbol-generation for plugin_bundles on Mac OS X.
+
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     56406e3  Fix a possible null pointer deref
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    f9091f0  Add option to autoconnect to last used server on start
+    a2f724e  Handle VirtualProtect failures
     3d31674  Add logo to overlay
     26a2a3c  Work around a few utf8 qssl issues and change window title on
 	     userinfo to be user name

@@ -28,7 +28,7 @@ class OverlayWidget : public QWidget {
 		void paintEvent(QPaintEvent *);
 		void init(const QSize &);
 		void detach();
-		
+
 		void keyPressEvent(QKeyEvent *);
 	protected slots:
 		void connected();
@@ -43,7 +43,7 @@ OverlayWidget::OverlayWidget(QWidget *p) : QWidget(p) {
 	qlsSocket = NULL;
 	smMem = NULL;
 	uiWidth = uiHeight = 0;
-	
+
 	setFocusPolicy(Qt::StrongFocus);
 	setFocus();
 

@@ -222,7 +222,7 @@ Settings::Settings() {
 	qcOverlayUserName[WhisperPrivate] = QColor(128, 255, 128);
 	qcOverlayUserName[WhisperChannel] = QColor(255, 128, 255);
 
-	for(int i=0;i<4;++i)
+	for (int i=0;i<4;++i)
 		fOverlayUserName[i] = 0.75f;
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
 	qfOverlayUserName = QFont(QLatin1String("Verdana"), 20);
@@ -233,17 +233,17 @@ Settings::Settings() {
 	qcOverlayChannel = QColor(255, 255, 128);
 	fOverlayChannel = 0.75f;
 	qfOverlayChannel = qfOverlayUserName;
-	
+
 	fOverlayMutedDeafened = 0.5f;
 	fOverlayAvatar = 1.0f;
-	
+
 	fOverlayUser[Passive] = 0.5f;
 	fOverlayUser[Talking] = (7.0f / 8.0f);
 	fOverlayUser[WhisperPrivate] = (7.0f / 8.0f);
 	fOverlayUser[WhisperChannel] = (7.0f / 8.0f);
 
 	// Nice and exact float values.
-	
+
 	qrfOverlayUserName = QRectF(0.0f, 0.101563f, 0.125f, 0.023438f);
 	qrfOverlayChannel = QRectF(0.03125f, 0.0f, 0.09375f, 0.015625f);
 	qrfOverlayMutedDeafened = QRectF(0.0f, 0.0f, 0.0625f, 0.0625f);
