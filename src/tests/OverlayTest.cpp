@@ -28,6 +28,8 @@ class OverlayWidget : public QWidget {
 		void paintEvent(QPaintEvent *);
 		void init(const QSize &);
 		void detach();
+		
+		void keyPressEvent(QKeyEvent *);
 	protected slots:
 		void connected();
 		void disconnected();
@@ -41,10 +43,19 @@ OverlayWidget::OverlayWidget(QWidget *p) : QWidget(p) {
 	qlsSocket = NULL;
 	smMem = NULL;
 	uiWidth = uiHeight = 0;
+	
+	setFocusPolicy(Qt::StrongFocus);
+	setFocus();
 
 	qtTimer = new QTimer(this);
 	connect(qtTimer, SIGNAL(timeout()), this, SLOT(update()));
 	qtTimer->start(100);
+}
+
+void OverlayWidget::keyPressEvent(QKeyEvent *evt) {
+	evt->accept();
+	qWarning("Keypress");
+	detach();
 }
 
 void OverlayWidget::resizeEvent(QResizeEvent *evt) {

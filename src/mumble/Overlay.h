@@ -79,16 +79,21 @@ struct OverlayTextLine {
 	bool operator <(const OverlayTextLine &o) const;
 };
 
-class OverlayUser : public QObject, public QGraphicsItemGroup {
+class OverlayUser : public QObject, public QGraphicsItem {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(OverlayUser);
 	public:
+		enum { Type = UserType + 1 };
 	protected:
 		QGraphicsPixmapItem *qgpiMuted, *qgpiDeafened;
 		QGraphicsPixmapItem *qgpiAvatar;
 		QGraphicsPixmapItem *qgpiName[4];
 		QGraphicsPixmapItem *qgpiChannel;
+		
+		QGraphicsRectItem *qgriSelected;
+		QGraphicsPixmapItem *qgpiSelected;
+		int iDragCorner;
 
 		unsigned int uiSize;
 		ClientUser *cuUser;
@@ -98,15 +103,34 @@ class OverlayUser : public QObject, public QGraphicsItemGroup {
 		QString qsChannelName;
 		QByteArray qbaAvatar;
 		
-		void setup(bool selectable = false);
+		Qt::WindowFrameSection wfsHover;
+		
+		void setup();
 		
 		void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
+		void mousePressEvent(QGraphicsSceneMouseEvent *);
+		void mouseMoveEvent(QGraphicsSceneMouseEvent *);
+		void mouseReleaseEvent(QGraphicsSceneMouseEvent *);
+		void focusInEvent(QFocusEvent *);
+		void focusOutEvent(QFocusEvent *);
+		void hoverMoveEvent(QGraphicsSceneHoverEvent *);
+		void updateCursorShape(const QPointF &point);
+		static Qt::WindowFrameSection rectSection(const QRectF &rect, const QPointF &point, qreal dist = 3.0f);
+
 		QGraphicsPixmapItem *childAt(const QPointF &);
+		QList<QGraphicsPixmapItem *> childrenAt(const QPointF &);
+		
+		QRectF selectedRect() const;
 	public:
 		OverlayUser(ClientUser *cu, unsigned int uiSize);
 		OverlayUser(Settings::TalkState ts, unsigned int uiSize);
 		void updateUser();
 		void updateLayout();
+		
+		int type() const;
+		QRectF boundingRect() const;
+		void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
+		
 
 		static QPixmap createPixmap(const QString &str, unsigned int height, unsigned int maxwidth, QColor col, const QFont &font, QPainterPath &);
 };
@@ -129,7 +153,6 @@ class OverlayClient : public QObject {
 		OverlayMsg omMsg;
 		QLocalSocket *qlsSocket;
 		SharedMemory2 *smMem;
-		int iItemHeight;
 		QRect qrLast;
 		Timer t;
 

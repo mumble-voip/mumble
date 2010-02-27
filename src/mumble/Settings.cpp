@@ -241,11 +241,13 @@ Settings::Settings() {
 	fOverlayUser[Talking] = (7.0f / 8.0f);
 	fOverlayUser[WhisperPrivate] = (7.0f / 8.0f);
 	fOverlayUser[WhisperChannel] = (7.0f / 8.0f);
+
+	// Nice and exact float values.
 	
-	qrfOverlayUserName = QRectF(0.0f, 0.8f, 1.0f, 0.2f);
-	qrfOverlayChannel = QRectF(0.2f, 0.0f, 0.8f, 0.15f);
-	qrfOverlayMutedDeafened = QRectF(0.0f, 0.0f, 0.5f, 0.5f);
-	qrfOverlayAvatar = QRectF(0.0f, 0.0f, 1.0f, 1.0f);
+	qrfOverlayUserName = QRectF(0.0f, 0.09375f, 0.125f, 0.03125f);
+	qrfOverlayChannel = QRectF(0.03125f, 0.0f, 0.09375f, 0.03125f);
+	qrfOverlayMutedDeafened = QRectF(0.0f, 0.0f, 0.0625f, 0.0625f);
+	qrfOverlayAvatar = QRectF(0.0f, 0.0f, 0.125f, 0.125f);
 
 	iLCDUserViewMinColWidth = 50;
 	iLCDUserViewSplitterWidth = 2;
