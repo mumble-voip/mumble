@@ -344,7 +344,7 @@ void OverlayUser::updateLayout() {
 		qgpiName[i]->setOpacity(g.s.fOverlayUserName[i]);
 	}
 	qgpiChannel->setPos(SCALEPOS(Channel));
-	qgpiChannel->setZValue(2.0f);
+	qgpiChannel->setZValue(3.0f);
 	qgpiChannel->setOpacity(g.s.fOverlayChannel);
 
 	if (qgriActive) {
@@ -790,6 +790,10 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 	event->accept();
 
 	QMenu qm(g.mw);
+	
+	QMenu *qmLayout = qm.addMenu(tr("Layout preset"));
+	QAction *qaLayoutLargeAvatar = qmLayout->addAction(tr("Large square avatar"));
+	QAction *qaLayoutText = qmLayout->addAction(tr("Avatar and Name"));
 
 	QMenu *qmTrans = qm.addMenu(tr("User Opacity"));
 	QActionGroup *qagUser = new QActionGroup(&qm);
@@ -832,7 +836,6 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 
 	QAction *act = qm.exec(event->screenPos());
 	if (act) {
-
 		for (int i=0;i<8;++i) {
 			if (userOpacity[i] == act) {
 				float o = act->data().toReal();
@@ -904,6 +907,56 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 				*fontptr = qfd.selectedFont();
 				g.o->forceSettings();
 			}
+		} else if (act == qaLayoutLargeAvatar) {
+			for (int i=0;i<4;++i)
+				g.s.fOverlayUserName[i] = 0.75f;
+			g.s.fOverlayChannel = 0.75f;
+			g.s.fOverlayMutedDeafened = 0.5f;
+			g.s.fOverlayAvatar = 1.0f;
+
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+			g.s.qfOverlayUserName = QFont(QLatin1String("Verdana"), 20);
+#else
+			g.s.qfOverlayUserName = QFont(QLatin1String("Arial"), 20);
+#endif
+			g.s.qfOverlayChannel = g.s.qfOverlayUserName;
+
+			g.s.fOverlayUser[Settings::Passive] = 0.5f;
+			g.s.fOverlayUser[Settings::Talking] = (7.0f / 8.0f);
+			g.s.fOverlayUser[Settings::WhisperPrivate] = (7.0f / 8.0f);
+			g.s.fOverlayUser[Settings::WhisperChannel] = (7.0f / 8.0f);
+
+			g.s.qrfOverlayUserName = QRectF(0.0f, 0.101563f, 0.125f, 0.023438f);
+			g.s.qrfOverlayChannel = QRectF(0.03125f, 0.0f, 0.09375f, 0.015625f);
+			g.s.qrfOverlayMutedDeafened = QRectF(0.0f, 0.0f, 0.0625f, 0.0625f);
+			g.s.qrfOverlayAvatar = QRectF(0.0f, 0.0f, 0.125f, 0.125f);
+
+			g.o->forceSettings();
+		} else if (act == qaLayoutText) {
+			for (int i=0;i<4;++i)
+				g.s.fOverlayUserName[i] = 1.0f;
+			g.s.fOverlayChannel = (7.0f / 8.0f);
+			g.s.fOverlayMutedDeafened = (7.0f / 8.0f);
+			g.s.fOverlayAvatar = 1.0f;
+
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+			g.s.qfOverlayUserName = QFont(QLatin1String("Verdana"), 20);
+#else
+			g.s.qfOverlayUserName = QFont(QLatin1String("Arial"), 20);
+#endif
+			g.s.qfOverlayChannel = g.s.qfOverlayUserName;
+
+			g.s.fOverlayUser[Settings::Passive] = 0.5f;
+			g.s.fOverlayUser[Settings::Talking] = (7.0f / 8.0f);
+			g.s.fOverlayUser[Settings::WhisperPrivate] = (7.0f / 8.0f);
+			g.s.fOverlayUser[Settings::WhisperChannel] = (7.0f / 8.0f);
+
+			g.s.qrfOverlayUserName = QRectF(0.03125f, 0.0f, 0.250f, 0.03125f);
+			g.s.qrfOverlayChannel = QRectF(0.0625f, 0.0f, 0.1875f, 0.015625f);
+			g.s.qrfOverlayMutedDeafened = QRectF(0.0f, 0.0f, 0.03125f, 0.03125f);
+			g.s.qrfOverlayAvatar = QRectF(0.0f, 0.0f, 0.03125f, 0.03125f);
+
+			g.o->forceSettings();
 		}
 	}
 }
