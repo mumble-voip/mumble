@@ -34,51 +34,66 @@
 #include "Overlay.h"
 #endif
 #include "Global.h"
+#include "../../overlay/HardHook.h"
 
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)
 
 #define DX_SAMPLE_BUFFER_SIZE 512
 
-uint qHash(const GUID &a) {
+static uint qHash(const GUID &a) {
 	uint val = a.Data1 ^ a.Data2 ^ a.Data3;
 	for (int i=0;i<8;i++)
 		val += a.Data4[i];
 	return val;
 }
 
-unsigned char GlobalShortcutWin::ucWindowFromPointOrig[6];
-unsigned char GlobalShortcutWin::ucWindowFromPointNew[6];
+#ifndef COMPAT_CLIENT
+
+static HWND WINAPI HookWindowFromPoint(POINT p);
+static BOOL WINAPI HookSetForegroundWindow(HWND hwnd);
+
+static HardHook hhWindowFromPoint(reinterpret_cast<voidFunc>(::WindowFromPoint), reinterpret_cast<voidFunc>(HookWindowFromPoint));
+static HardHook hhSetForegroundWindow(reinterpret_cast<voidFunc>(::SetForegroundWindow), reinterpret_cast<voidFunc>(HookSetForegroundWindow));
+
+typedef HWND(__stdcall *WindowFromPointType)(POINT);
+static HWND WINAPI HookWindowFromPoint(POINT p) {
+	if (g.ocIntercept)
+		return g.ocIntercept->qgv.winId();
+
+	WindowFromPointType oWindowFromPoint = (WindowFromPointType) hhWindowFromPoint.call;
+	hhWindowFromPoint.restore();
+	
+	HWND hwnd = oWindowFromPoint(p);
+	
+	hhWindowFromPoint.inject();
+	return hwnd;
+}
+
+typedef BOOL(__stdcall *SetForegroundWindowType)(HWND);
+static BOOL WINAPI HookSetForegroundWindow(HWND hwnd) {
+	if (g.ocIntercept)
+		return TRUE;
+	
+	SetForegroundWindowType oSetForegroundWindow = (SetForegroundWindowType) hhSetForegroundWindow.call;
+	hhSetForegroundWindow.restore();
+	
+	BOOL ret = oSetForegroundWindow(hwnd);
+	
+	hhSetForegroundWindow.inject();
+	return ret;
+}
+
+#endif
 
 GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutWin();
 }
 
+
 GlobalShortcutWin::GlobalShortcutWin() {
 	pDI = NULL;
 	uiHardwareDevices = 0;
-
-#ifndef COMPAT_CLIENT
-	DWORD oldProtect;
-	unsigned char *f = reinterpret_cast<unsigned char *>(&WindowFromPoint);
-	if (VirtualProtect(f, 6, PAGE_EXECUTE_READWRITE, &oldProtect)) {
-		for (int i=0;i<6;++i)
-			ucWindowFromPointOrig[i] = f[i];
-
-		unsigned char **iptr = reinterpret_cast<unsigned char **>(&ucWindowFromPointNew[1]);
-		*iptr = reinterpret_cast<unsigned char *>(&HookWindowFromPoint);
-		ucWindowFromPointNew[0] = 0x68;
-		ucWindowFromPointNew[5] = 0xc3;
-
-		for (int i=0;i<6;++i)
-			f[i] = ucWindowFromPointNew[i];
-
-		FlushInstructionCache(GetCurrentProcess(), f, 6);
-		VirtualProtect(f, 6, oldProtect, &oldProtect);
-	} else {
-		qWarning("GlobalShortcutWin: Failed to patch WindowFromPoint");
-	}
-#endif
 
 	GetKeyboardState(ucKeyState);
 
@@ -90,32 +105,6 @@ GlobalShortcutWin::~GlobalShortcutWin() {
 	quit();
 	wait();
 }
-
-#ifndef COMPAT_CLIENT
-HWND WINAPI GlobalShortcutWin::HookWindowFromPoint(POINT p) {
-	if (g.ocIntercept)
-		return g.ocIntercept->qgv.winId();
-
-	DWORD oldProtect;
-	unsigned char *f = reinterpret_cast<unsigned char *>(&WindowFromPoint);
-
-	VirtualProtect(f, 6, PAGE_EXECUTE_READWRITE, &oldProtect);
-
-	for (int i=0;i<6;++i)
-		f[i] = ucWindowFromPointOrig[i];
-	FlushInstructionCache(GetCurrentProcess(), f, 6);
-
-	HWND hwnd = WindowFromPoint(p);
-
-	for (int i=0;i<6;++i)
-		f[i] = ucWindowFromPointNew[i];
-	FlushInstructionCache(GetCurrentProcess(), f, 6);
-
-	VirtualProtect(f, 6, oldProtect, &oldProtect);
-
-	return hwnd;
-}
-#endif
 
 void GlobalShortcutWin::run() {
 	HMODULE hSelf;

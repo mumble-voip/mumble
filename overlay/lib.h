@@ -42,6 +42,7 @@
 #include <vector>
 #include <string>
 #include "overlay.h"
+#include "HardHook.h"
 
 #define lround(x) static_cast<long int>((x) + (((x) >= 0.0) ? 0.5 : -0.5))
 
@@ -49,28 +50,6 @@ using namespace std;
 
 void __cdecl fods(const char *format, ...);
 void __cdecl ods(const char *format, ...);
-
-typedef void *(*voidFunc)();
-
-struct HardHook {
-	unsigned char *baseptr;
-	unsigned char orig[6];
-	unsigned char replace[6];
-	bool bTrampoline;
-	voidFunc call;
-
-	static void *pCode;
-	static unsigned int uiCode;
-
-	HardHook();
-	void *cloneCode(void **orig);
-	void setup(voidFunc func, voidFunc replacement);
-	void setupInterface(IUnknown *intf, LONG funcoffset, voidFunc replacement);
-	void inject(bool force = false);
-	void restore(bool force = false);
-	void print();
-	void check();
-};
 
 struct Direct3D9Data {
 	int iOffsetCreate;
