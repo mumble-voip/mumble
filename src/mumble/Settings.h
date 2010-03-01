@@ -147,13 +147,13 @@ struct Settings {
 	qreal fOverlayHeight;
 
 	QColor qcOverlayUserName[4];
-	qreal fOverlayUserName[4];
 	QFont qfOverlayUserName;
 
 	QColor qcOverlayChannel;
-	qreal fOverlayChannel;
 	QFont qfOverlayChannel;
 
+	qreal fOverlayUserName;
+	qreal fOverlayChannel;
 	qreal fOverlayMutedDeafened;
 	qreal fOverlayAvatar;
 	qreal fOverlayUser[4];

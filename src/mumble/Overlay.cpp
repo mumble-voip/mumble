@@ -341,7 +341,7 @@ void OverlayUser::updateLayout() {
 	for (int i=0;i<4;++i) {
 		qgpiName[i]->setPos(SCALEPOS(UserName));
 		qgpiName[i]->setZValue(2.0f);
-		qgpiName[i]->setOpacity(g.s.fOverlayUserName[i]);
+		qgpiName[i]->setOpacity(g.s.fOverlayUserName);
 	}
 	qgpiChannel->setPos(SCALEPOS(Channel));
 	qgpiChannel->setZValue(3.0f);
@@ -857,7 +857,7 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 				else
 					for (int i=0;i<4;++i)
 						if (item == qgpiName[i])
-							g.s.fOverlayUserName[i] = o;
+							g.s.fOverlayUserName = o;
 
 				g.o->forceSettings();
 			}
@@ -908,8 +908,7 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 				g.o->forceSettings();
 			}
 		} else if (act == qaLayoutLargeAvatar) {
-			for (int i=0;i<4;++i)
-				g.s.fOverlayUserName[i] = 0.75f;
+			g.s.fOverlayUserName = 0.75f;
 			g.s.fOverlayChannel = 0.75f;
 			g.s.fOverlayMutedDeafened = 0.5f;
 			g.s.fOverlayAvatar = 1.0f;
@@ -933,8 +932,7 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 
 			g.o->forceSettings();
 		} else if (act == qaLayoutText) {
-			for (int i=0;i<4;++i)
-				g.s.fOverlayUserName[i] = 1.0f;
+			g.s.fOverlayUserName = 1.0f;
 			g.s.fOverlayChannel = (7.0f / 8.0f);
 			g.s.fOverlayMutedDeafened = (7.0f / 8.0f);
 			g.s.fOverlayAvatar = 1.0f;

@@ -222,8 +222,7 @@ Settings::Settings() {
 	qcOverlayUserName[WhisperPrivate] = QColor(128, 255, 128);
 	qcOverlayUserName[WhisperChannel] = QColor(255, 128, 255);
 
-	for (int i=0;i<4;++i)
-		fOverlayUserName[i] = 0.75f;
+	fOverlayUserName = 0.75f;
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
 	qfOverlayUserName = QFont(QLatin1String("Verdana"), 20);
 #else
