@@ -235,6 +235,11 @@ Settings::Settings() {
 
 	fOverlayMutedDeafened = 0.5f;
 	fOverlayAvatar = 1.0f;
+	
+	qcOverlayBoxPen = QColor(0, 0, 0, 224);
+	qcOverlayBoxFill = QColor(128, 128, 128, 128);
+	fOverlayBoxPenWidth = (1.f / 256.0f);
+	fOverlayBoxPad = (1.f / 256.0f);
 
 	fOverlayUser[Passive] = 0.5f;
 	fOverlayUser[Talking] = (7.0f / 8.0f);
@@ -247,6 +252,12 @@ Settings::Settings() {
 	qrfOverlayChannel = QRectF(0.03125f, 0.0f, 0.09375f, 0.015625f);
 	qrfOverlayMutedDeafened = QRectF(0.0f, 0.0f, 0.0625f, 0.0625f);
 	qrfOverlayAvatar = QRectF(0.0f, 0.0f, 0.125f, 0.125f);
+
+	bOverlayUserName = true;
+	bOverlayChannel = true;
+	bOverlayMutedDeafened = true;
+	bOverlayAvatar = true;
+	bOverlayBox = false;
 
 	iLCDUserViewMinColWidth = 50;
 	iLCDUserViewSplitterWidth = 2;

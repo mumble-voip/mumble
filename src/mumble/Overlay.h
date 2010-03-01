@@ -90,6 +90,7 @@ class OverlayUser : public QObject, public QGraphicsItem {
 		QGraphicsPixmapItem *qgpiAvatar;
 		QGraphicsPixmapItem *qgpiName[4];
 		QGraphicsPixmapItem *qgpiChannel;
+		QGraphicsPathItem *qgpiBox;
 
 		QGraphicsRectItem *qgriActive;
 		QGraphicsRectItem *qgriSelected;

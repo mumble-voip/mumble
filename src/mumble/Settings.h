@@ -151,6 +151,17 @@ struct Settings {
 
 	QColor qcOverlayChannel;
 	QFont qfOverlayChannel;
+	
+	qreal fOverlayBoxPad;
+	qreal fOverlayBoxPenWidth;
+	QColor qcOverlayBoxPen;
+	QColor qcOverlayBoxFill;
+	
+	bool bOverlayUserName;
+	bool bOverlayChannel;
+	bool bOverlayMutedDeafened;
+	bool bOverlayAvatar;
+	bool bOverlayBox;
 
 	qreal fOverlayUserName;
 	qreal fOverlayChannel;
