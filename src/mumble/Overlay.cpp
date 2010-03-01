@@ -1080,6 +1080,10 @@ OverlayClient::~OverlayClient() {
 }
 
 bool OverlayClient::eventFilter(QObject *o, QEvent *e) {
+	if (e->type() == QEvent::Paint) {
+		e->accept();
+		return true;
+	}
 	return QObject::eventFilter(o, e);
 }
 
@@ -1513,6 +1517,9 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 }
 
 void OverlayClient::changed(const QList<QRectF> &region) {
+	if (region.isEmpty())
+		return;
+
 	qlDirty.append(region);
 	QMetaObject::invokeMethod(this, "render", Qt::QueuedConnection);
 }
@@ -1523,7 +1530,7 @@ void OverlayClient::render() {
 
 	if (! uiWidth || ! uiHeight || ! smMem)
 		return;
-
+		
 	QRect active;
 	QRectF dirtyf;
 
@@ -1534,32 +1541,31 @@ void OverlayClient::render() {
 		dirtyf |= r;
 	}
 
+
 	QRect dirty = dirtyf.toAlignedRect();
+	dirty = dirty.intersected(QRect(0,0,uiWidth, uiHeight));
 
 	QRect target = dirty;
 	target.moveTo(0,0);
 
 	QImage img(reinterpret_cast<unsigned char *>(smMem->data()), uiWidth, uiHeight, QImage::Format_ARGB32);
-	QImage qi(target.width(), target.height(), QImage::Format_ARGB32);
+	QImage qi(target.size(), QImage::Format_ARGB32_Premultiplied);
 	qi.fill(0);
 
-	{
-		QPainter p(&qi);
-		p.setRenderHint(QPainter::Antialiasing);
-		p.setRenderHint(QPainter::TextAntialiasing);
-		p.setCompositionMode(QPainter::CompositionMode_SourceOver);
-		qgs.render(&p, target, dirty, Qt::IgnoreAspectRatio);
-	}
+	QPainter p;
+	p.begin(&qi);
+	p.setRenderHints(p.renderHints(), false);
+	p.setCompositionMode(QPainter::CompositionMode_SourceOver);
+	qgs.render(&p, target, dirty, Qt::IgnoreAspectRatio);
+	p.end();
 
-	{
-		QPainter p(&img);
-		p.setCompositionMode(QPainter::CompositionMode_Source);
-		p.drawImage(dirty.x(), dirty.y(), qi);
-	}
-
+	p.begin(&img);
+	p.setRenderHints(p.renderHints(), false);
+	p.setCompositionMode(QPainter::CompositionMode_Source);
+	p.drawImage(dirty.x(), dirty.y(), qi);
+	p.end();
 
 	if (dirty.isValid()) {
-		dirty = dirty.intersected(QRect(0,0,uiWidth, uiHeight));
 		OverlayMsg om;
 		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 		om.omh.uiType = OVERLAY_MSGTYPE_BLIT;
