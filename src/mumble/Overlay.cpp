@@ -1548,7 +1548,7 @@ void OverlayClient::render() {
 	QRect target = dirty;
 	target.moveTo(0,0);
 
-	QImage img(reinterpret_cast<unsigned char *>(smMem->data()), uiWidth, uiHeight, QImage::Format_ARGB32);
+	QImage img(reinterpret_cast<unsigned char *>(smMem->data()), uiWidth, uiHeight, QImage::Format_ARGB32_Premultiplied);
 	QImage qi(target.size(), QImage::Format_ARGB32_Premultiplied);
 	qi.fill(0);
 

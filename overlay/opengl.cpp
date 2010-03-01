@@ -40,6 +40,7 @@ typedef int             GLsizei;
 typedef float           GLfloat;
 typedef double          GLdouble;
 
+#define GL_ONE                                     0x1
 #define GL_TEXTURE_2D                           0x0DE1
 #define GL_UNSIGNED_BYTE                        0x1401
 #define GL_QUADS                                0x0007
@@ -178,7 +179,7 @@ Context::Context(HDC hdc) {
 	oglDisable(GL_TEXTURE_GEN_S);
 	oglDisable(GL_TEXTURE_GEN_T);
 
-	oglBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	oglBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
 	texture = ~0;
 }

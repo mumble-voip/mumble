@@ -286,10 +286,10 @@ void D10State::init() {
 	D3D10_BLEND_DESC blend;
 	ZeroMemory(&blend, sizeof(blend));
 	blend.BlendEnable[0] = TRUE;
-	blend.SrcBlend = D3D10_BLEND_SRC_ALPHA;
+	blend.SrcBlend = D3D10_BLEND_ONE;
 	blend.DestBlend = D3D10_BLEND_INV_SRC_ALPHA;
 	blend.BlendOp = D3D10_BLEND_OP_ADD;
-	blend.SrcBlendAlpha = D3D10_BLEND_SRC_ALPHA;
+	blend.SrcBlendAlpha = D3D10_BLEND_ONE;
 	blend.DestBlendAlpha = D3D10_BLEND_INV_SRC_ALPHA;
 	blend.BlendOpAlpha = D3D10_BLEND_OP_ADD;
 	blend.RenderTargetWriteMask[0] = D3D10_COLOR_WRITE_ENABLE_ALL;

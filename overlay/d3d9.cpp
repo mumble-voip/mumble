@@ -257,7 +257,7 @@ void DevState::createCleanState() {
 	dev->SetRenderState(D3DRS_WRAP0, FALSE); // 0x80
 
 	dev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	dev->SetRenderState(D3DRS_SRCBLEND,  D3DBLEND_SRCALPHA);
+	dev->SetRenderState(D3DRS_SRCBLEND,  D3DBLEND_ONE);
 	dev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
 	dev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);

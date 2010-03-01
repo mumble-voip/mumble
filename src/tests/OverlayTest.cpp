@@ -101,7 +101,7 @@ void OverlayWidget::init(const QSize &sz) {
 	if (qlsSocket && qlsSocket->state() == QLocalSocket::ConnectedState)
 		qlsSocket->write(m.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgInit));
 
-	img = QImage(sz.width(), sz.height(), QImage::Format_ARGB32);
+	img = QImage(sz.width(), sz.height(), QImage::Format_ARGB32_Premultiplied);
 }
 
 void OverlayWidget::detach() {
