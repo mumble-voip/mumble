@@ -393,7 +393,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	if (! initialize(pids, L"Wow.exe"))
+	if (! initialize(pids, L"Wow.exe", L"WoW.exe"))
 		return false;
 
 	p_playerBase=getPlayerBase();
