@@ -174,6 +174,11 @@ struct Settings {
 	QRectF qrfOverlayMutedDeafened;
 	QRectF qrfOverlayAvatar;
 
+	Qt::Alignment qaOverlayUserName;
+	Qt::Alignment qaOverlayChannel;
+	Qt::Alignment qaOverlayMutedDeafened;
+	Qt::Alignment qaOverlayAvatar;
+
 	int iLCDUserViewMinColWidth;
 	int iLCDUserViewSplitterWidth;
 	QMap<QString, bool> qmLCDDevices;

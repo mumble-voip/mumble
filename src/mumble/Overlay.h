@@ -124,6 +124,7 @@ class OverlayUser : public QObject, public QGraphicsItem {
 
 		static Qt::WindowFrameSection rectSection(const QRectF &rect, const QPointF &point, qreal dist = 3.0f);
 		static QRectF scaledRect(const QRectF &qr, qreal scale);
+		static QPointF alignedPosition(const QRectF &box, const QRectF &item, Qt::Alignment a);
 	public:
 		OverlayUser(ClientUser *cu, unsigned int uiSize);
 		OverlayUser(Settings::TalkState ts, unsigned int uiSize);

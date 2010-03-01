@@ -258,6 +258,11 @@ Settings::Settings() {
 	bOverlayMutedDeafened = true;
 	bOverlayAvatar = true;
 	bOverlayBox = false;
+	
+	qaOverlayUserName = Qt::AlignCenter;
+	qaOverlayMutedDeafened = Qt::AlignLeft | Qt::AlignTop;
+	qaOverlayAvatar = Qt::AlignCenter;
+	qaOverlayChannel = Qt::AlignCenter;
 
 	iLCDUserViewMinColWidth = 50;
 	iLCDUserViewSplitterWidth = 2;
