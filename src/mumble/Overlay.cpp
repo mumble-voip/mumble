@@ -1208,7 +1208,7 @@ void OverlayUser::updateLayout() {
 	qreal pw = haspen ? qMax<qreal>(1.0f, g.s.os.fBoxPenWidth * uiSize * g.s.os.fHeight) : 0.0f;
 	qreal pad = g.s.os.fBoxPad * uiSize * g.s.os.fHeight;
 	QPainterPath pp;
-	pp.addRoundedRect(-pw / 2.0f - pad, -pw / 2.0f - pad, children.width() * uiSize * g.s.os.fHeight + pw + 2.0f * pad, children.height() * uiSize * g.s.os.fHeight + pw + 2.0f * pad, 2.0f * pw, 2.0f * pw);
+	pp.addRoundedRect(children.x() * uiSize * g.s.os.fHeight + -pw / 2.0f - pad, children.y() * uiSize * g.s.os.fHeight + -pw / 2.0f - pad, children.width() * uiSize * g.s.os.fHeight + pw + 2.0f * pad, children.height() * uiSize * g.s.os.fHeight + pw + 2.0f * pad, 2.0f * pw, 2.0f * pw);
 	qgpiBox->setPath(pp);
 	qgpiBox->setPos(0.0f, 0.0f);
 	qgpiBox->setZValue(-1.0f);
@@ -1980,8 +1980,12 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 
 	QRectF children = g.s.os.qrfAvatar | g.s.os.qrfChannel | g.s.os.qrfMutedDeafened | g.s.os.qrfUserName;
 
-	int width = iroundf(children.width() * uiHeight * g.s.os.fHeight);
-	int height = iroundf(children.height() * uiHeight * g.s.os.fHeight);
+	int pad = g.s.os.bBox ? iroundf(uiHeight * g.s.os.fHeight * (g.s.os.fBoxPad + g.s.os.fBoxPenWidth)) : 0;
+	int width = iroundf(children.width() * uiHeight * g.s.os.fHeight) + 2 * pad;
+	int height = iroundf(children.height() * uiHeight * g.s.os.fHeight) + 2 * pad;
+	
+	int xofs = - iroundf(children.left() * uiHeight * g.s.os.fHeight) + pad;
+	int yofs = - iroundf(children.top() * uiHeight * g.s.os.fHeight) + pad;
 
 	int y = 0;
 	int x = 0;
@@ -1990,7 +1994,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		if (ou->parentItem() == NULL)
 			ou->setParentItem(&ougUsers);
 
-		ou->setPos(x * (width+2), y * (height + 2));
+		ou->setPos(x * (width+4) + xofs, y * (height + 4) + yofs);
 		ou->updateUser();
 		ou->show();
 
