@@ -8302,7 +8302,37 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+1588"/>
+        <location filename="Overlay.cpp" line="+167"/>
+        <location line="+1055"/>
+        <source>Silent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1052"/>
+        <location line="+1055"/>
+        <source>Talking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1052"/>
+        <location line="+1055"/>
+        <source>Whisper</source>
+        <translation type="unfinished">Flüstern</translation>
+    </message>
+    <message>
+        <location line="-1052"/>
+        <location line="+1055"/>
+        <source>Shout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1035"/>
+        <location line="+928"/>
+        <source>Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1033"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Kommunikation mit dem Overlay auf %2: %1 fehlgeschlagen. Das Overlay wird nicht verfügbar sein.</translation>
     </message>
@@ -8330,6 +8360,14 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     </message>
 </context>
 <context>
+    <name>OverlayClient</name>
+    <message>
+        <location line="-662"/>
+        <source>Edit...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>OverlayConfig</name>
     <message>
         <location filename="Overlay.ui"/>
@@ -8343,8 +8381,9 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     </message>
     <message>
         <location/>
-        <source>Font</source>
-        <translation>Schriftart</translation>
+        <source>Form</source>
+        <oldsource>Font</oldsource>
+        <translation type="unfinished">Schriftart</translation>
     </message>
     <message>
         <location/>
@@ -8414,44 +8453,36 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation type="obsolete">Dies legt fest ob Benutzertexturen von registrierten Benutzern heruntergeladen und benutzt werden sollen. Wenn deaktiviert, wird normaler Text angezeigt.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Left</source>
-        <translation>Nach links wachsen</translation>
+        <translation type="obsolete">Nach links wachsen</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the left</source>
-        <translation>Das Overlay nach links wachsen lassen</translation>
+        <translation type="obsolete">Das Overlay nach links wachsen lassen</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the left if needed.</source>
-        <translation>Das Overlay versucht so klein wie möglich und an der Position die Sie gewählt haben zu bleiben. Dies erlaubt dem Overlay notfalls nach links zu wachsen.</translation>
+        <translation type="obsolete">Das Overlay versucht so klein wie möglich und an der Position die Sie gewählt haben zu bleiben. Dies erlaubt dem Overlay notfalls nach links zu wachsen.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Right</source>
-        <translation>Nach rechts wachsen</translation>
+        <translation type="obsolete">Nach rechts wachsen</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Up</source>
-        <translation>Nach oben wachsen</translation>
+        <translation type="obsolete">Nach oben wachsen</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow upwards</source>
-        <translation>Das Overlay nach oben wachsen lassen</translation>
+        <translation type="obsolete">Das Overlay nach oben wachsen lassen</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Down</source>
-        <translation>Nach unten wachsen</translation>
+        <translation type="obsolete">Nach unten wachsen</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow downwards</source>
-        <translation>Das Overlay nach unten wachsen lassen</translation>
+        <translation type="obsolete">Das Overlay nach unten wachsen lassen</translation>
     </message>
     <message>
         <location/>
@@ -8481,34 +8512,28 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation>Dies legt die relative Y-Position des Overlay fest.</translation>
     </message>
     <message>
-        <location/>
         <source>Current Font</source>
-        <translation>Aktuelle Schriftart</translation>
+        <translation type="obsolete">Aktuelle Schriftart</translation>
     </message>
     <message>
-        <location/>
         <source>Set Font</source>
-        <translation>Setze Schriftart</translation>
+        <translation type="obsolete">Setze Schriftart</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height of names.</source>
-        <translation>Maximale Höhe von Namen.</translation>
+        <translation type="obsolete">Maximale Höhe von Namen.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels tall. Note that the names will not be taller than 60 pixels no matter what you set here.</source>
-        <translation>Dies legt die maximale Höhe der Namen  (oder Benutzertexturen) relativ zur Bildschirmauflösung fest. Wenn Ihr aktives 3D-Fenster 800 Pixel hoch ist und Sie dies auf 5% setzen, wird jeder Name maximal 40 Pixel hoch. Namen werden eine Höhe von 60 Pixeln nicht überschreiten, egal was Sie hier festlegen.</translation>
+        <translation type="obsolete">Dies legt die maximale Höhe der Namen  (oder Benutzertexturen) relativ zur Bildschirmauflösung fest. Wenn Ihr aktives 3D-Fenster 800 Pixel hoch ist und Sie dies auf 5% setzen, wird jeder Name maximal 40 Pixel hoch. Namen werden eine Höhe von 60 Pixeln nicht überschreiten, egal was Sie hier festlegen.</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height</source>
-        <translation>Maximale Höhe</translation>
+        <translation type="obsolete">Maximale Höhe</translation>
     </message>
     <message>
-        <location/>
         <source>Change</source>
-        <translation>Ändern</translation>
+        <translation type="obsolete">Ändern</translation>
     </message>
     <message>
         <source>Color for players</source>
@@ -8523,22 +8548,20 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation type="obsolete">Farbe für alternativ-sprechende Benutzer</translation>
     </message>
     <message>
-        <location/>
         <source>Color for Channels</source>
-        <translation>Farbe für Kanäle</translation>
+        <translation type="obsolete">Farbe für Kanäle</translation>
     </message>
     <message>
-        <location/>
         <source>Color for active Channels</source>
-        <translation>Farbe für aktive Kanäle</translation>
+        <translation type="obsolete">Farbe für aktive Kanäle</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-1449"/>
+        <location filename="Overlay.cpp" line="-1426"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
     <message>
-        <location line="-89"/>
+        <location line="-19"/>
         <source>Show no one</source>
         <translation>Zeige niemanden</translation>
     </message>
@@ -8553,32 +8576,24 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation>Zeige Jeden</translation>
     </message>
     <message>
-        <location filename="Overlay.ui"/>
-        <location filename="Overlay.cpp" line="+67"/>
         <source>Color for users</source>
-        <translation>Farbe für Benutzer</translation>
+        <translation type="obsolete">Farbe für Benutzer</translation>
     </message>
     <message>
-        <location/>
-        <location filename="Overlay.cpp" line="+4"/>
         <source>Color for talking users</source>
-        <translation>Farbe für sprechende Benutzer</translation>
+        <translation type="obsolete">Farbe für sprechende Benutzer</translation>
     </message>
     <message>
-        <location/>
-        <location filename="Overlay.cpp" line="+4"/>
         <source>Color for whispering users</source>
-        <translation>Farbe für flüsternde Benutzer</translation>
+        <translation type="obsolete">Farbe für flüsternde Benutzer</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+4"/>
         <source>Color for channels</source>
-        <translation>Farbe für Kanäle</translation>
+        <translation type="obsolete">Farbe für Kanäle</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>Color for active channels</source>
-        <translation>Farbe für aktive Kanäle</translation>
+        <translation type="obsolete">Farbe für aktive Kanäle</translation>
     </message>
     <message>
         <location filename="Overlay.ui"/>
@@ -8586,29 +8601,262 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation>Formular</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</source>
-        <translation>Das Overlay versucht so klein wie möglich und an der Position die Sie gewählt haben zu bleiben. Dies erlaubt dem Overlay notfalls nach oben zu wachsen.</translation>
+        <translation type="obsolete">Das Overlay versucht so klein wie möglich und an der Position die Sie gewählt haben zu bleiben. Dies erlaubt dem Overlay notfalls nach oben zu wachsen.</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the right</source>
-        <translation>Das Overlay nach rechts wachsen lassen</translation>
+        <translation type="obsolete">Das Overlay nach rechts wachsen lassen</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the right if needed.</source>
-        <translation>Das Overlay versucht so klein wie möglich und an der Position die Sie gewählt haben zu bleiben. Dies erlaubt dem Overlay notfalls nach rechts zu wachsen.</translation>
+        <translation type="obsolete">Das Overlay versucht so klein wie möglich und an der Position die Sie gewählt haben zu bleiben. Dies erlaubt dem Overlay notfalls nach rechts zu wachsen.</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow downwards if needed.</source>
-        <translation>Das Overlay versucht so klein wie möglich und an der Position die Sie gewählt haben zu bleiben. Dies erlaubt dem Overlay notfalls nach unten zu wachsen.</translation>
+        <translation type="obsolete">Das Overlay versucht so klein wie möglich und an der Position die Sie gewählt haben zu bleiben. Dies erlaubt dem Overlay notfalls nach unten zu wachsen.</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation type="obsolete">Textlabel</translation>
+    </message>
+</context>
+<context>
+    <name>OverlayEditor</name>
+    <message>
+        <location filename="OverlayEditor.ui"/>
+        <source>Dialog</source>
+        <translation type="unfinished">Dialog</translation>
     </message>
     <message>
         <location/>
-        <source>TextLabel</source>
-        <translation>Textlabel</translation>
+        <source>State</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User is not talking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Passive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User is talking in your channel or a linked channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Talking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User is whispering to you privately</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Private Whisper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User is shouting to your channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel Whisper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Zoom Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Enabled Elements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User avatar, chosen by each user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Avatar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User&apos;s name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Username</source>
+        <translation type="unfinished">Benutzername</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Name of user&apos;s channel, if outside your current channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Muted or deafened</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Mute state</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Bounding box</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OverlayEditorScene</name>
+    <message>
+        <location filename="Overlay.cpp" line="+540"/>
+        <source>Layout preset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Large square avatar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Avatar and Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>User Opacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <location line="+31"/>
+        <source>%1%</source>
+        <translation type="unfinished">%1%</translation>
+    </message>
+    <message>
+        <location line="-5"/>
+        <source>Object Opacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Alignment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <location line="+18"/>
+        <source>Center</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-13"/>
+        <source>Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Color...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Font...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Bounding box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pen width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Padding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pen color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Fill color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+87"/>
+        <source>Pick pen color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Pick fill color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Pick color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Pick font</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8630,65 +8878,12 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
 <context>
     <name>OverlayUser</name>
     <message>
-        <location filename="Overlay.cpp" line="+46"/>
-        <source>Channel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Silent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Talking</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
         <source>Whisper</source>
-        <translation type="unfinished">Flüstern</translation>
+        <translation type="obsolete">Flüstern</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Shout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+600"/>
-        <source>User Opacity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <location line="+16"/>
         <source>%1%</source>
-        <translation type="unfinished">%1%</translation>
-    </message>
-    <message>
-        <location line="-6"/>
-        <source>Object Opacity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+19"/>
-        <source>Color...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Font...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+43"/>
-        <source>Pick color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+17"/>
-        <source>Pick font</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">%1%</translation>
     </message>
 </context>
 <context>

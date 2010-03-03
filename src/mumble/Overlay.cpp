@@ -90,10 +90,10 @@ void OverlayConfig::accept() const {
 
 OverlayEditorScene::OverlayEditorScene(QObject *p) : QGraphicsScene(p) {
 	os = g.s.os;
-	
+
 	tsColor = Settings::Talking;
 	uiZoom = 2;
-	
+
 	if (g.ocIntercept)
 		uiSize = g.ocIntercept->uiHeight;
 	else
@@ -115,10 +115,10 @@ OverlayEditorScene::OverlayEditorScene(QObject *p) : QGraphicsScene(p) {
 
 	qgpiChannel = new QGraphicsPixmapItem(qgiGroup);
 	qgpiChannel->hide();
-	
+
 	qgpiBox = new QGraphicsPathItem(qgiGroup);
 	qgpiBox->hide();
-	
+
 	qgpiSelected = NULL;
 
 	qgriSelected = new QGraphicsRectItem;
@@ -129,7 +129,7 @@ OverlayEditorScene::OverlayEditorScene(QObject *p) : QGraphicsScene(p) {
 	qgriSelected->setBrush(Qt::NoBrush);
 	qgriSelected->setPen(QPen(Qt::black, 4.0f));
 	qgriSelected->setZValue(5.0f);
-	
+
 	addItem(qgriSelected);
 
 	qgpiChannel->setZValue(2.0f);
@@ -161,7 +161,7 @@ void OverlayEditorScene::moveMuted() {
 
 void OverlayEditorScene::updateUserName() {
 	QString qsName;
-	
+
 	switch (tsColor) {
 		case Settings::Passive:
 			qsName = Overlay::tr("Silent");
@@ -181,7 +181,7 @@ void OverlayEditorScene::updateUserName() {
 
 	const QPixmap &pm = OverlayUser::createPixmap(qsName, SCALESIZE(UserName), os.qcUserName[tsColor], os.qfUserName, pp);
 	qgpiName->setPixmap(pm);
-	
+
 	moveUserName();
 }
 
@@ -225,7 +225,7 @@ void OverlayEditorScene::moveAvatar() {
 
 void OverlayEditorScene::moveBox() {
 	QRectF children = os.qrfAvatar | os.qrfChannel | os.qrfMutedDeafened | os.qrfUserName;
-	
+
 	bool haspen = (os.qcBoxPen != os.qcBoxFill) && (! qFuzzyCompare(os.qcBoxPen.alphaF(), static_cast<qreal>(0.0f)));
 	qreal pw = haspen ? qMax<qreal>(1.0f, os.fBoxPenWidth * uiSize * uiZoom) : 0.0f;
 	qreal pad = os.fBoxPad * uiSize * uiZoom;
@@ -253,30 +253,30 @@ void OverlayEditorScene::updateSelected() {
 }
 
 void OverlayEditorScene::resync() {
- 	QRadialGradient gradient(0, 0, 10 * uiZoom);
- 	gradient.setSpread(QGradient::ReflectSpread);
- 	gradient.setColorAt(0.0f, QColor(255, 255, 255, 64));
- 	gradient.setColorAt(0.2f, QColor(0, 0, 0, 64));
- 	gradient.setColorAt(0.4f, QColor(255, 128, 0, 64));
- 	gradient.setColorAt(0.6f, QColor(0, 0, 0, 64));
- 	gradient.setColorAt(0.8f, QColor(0, 128, 255, 64));
- 	gradient.setColorAt(1.0f, QColor(0, 0, 0, 64));
- 	setBackgroundBrush(gradient);
+	QRadialGradient gradient(0, 0, 10 * uiZoom);
+	gradient.setSpread(QGradient::ReflectSpread);
+	gradient.setColorAt(0.0f, QColor(255, 255, 255, 64));
+	gradient.setColorAt(0.2f, QColor(0, 0, 0, 64));
+	gradient.setColorAt(0.4f, QColor(255, 128, 0, 64));
+	gradient.setColorAt(0.6f, QColor(0, 0, 0, 64));
+	gradient.setColorAt(0.8f, QColor(0, 128, 255, 64));
+	gradient.setColorAt(1.0f, QColor(0, 0, 0, 64));
+	setBackgroundBrush(gradient);
 
 	updateMuted();
 	updateUserName();
 	updateChannel();
 	updateAvatar();
-	
+
 	moveMuted();
 	moveUserName();
 	moveChannel();
 	moveAvatar();
-	
+
 	moveBox();
 
 	qgiGroup->setOpacity(os.fUser[tsColor]);
-	
+
 	qgpiSelected = NULL;
 	qgriSelected->setVisible(false);
 }
@@ -284,14 +284,14 @@ void OverlayEditorScene::resync() {
 void OverlayEditorScene::drawBackground(QPainter *p, const QRectF &rect) {
 	p->setBrushOrigin(0, 0);
 	p->fillRect(rect, backgroundBrush());
-	
-	QRectF upscaled = OverlayUser::scaledRect(rect, 128.f / (uiSize * uiZoom) );
-	
+
+	QRectF upscaled = OverlayUser::scaledRect(rect, 128.f / (uiSize * uiZoom));
+
 	{
 		int min = iroundf(upscaled.left() - 0.5f);
 		int max = iroundf(upscaled.right() + 0.5f);
 
-		for(int i=min;i<=max;++i) {
+		for (int i=min;i<=max;++i) {
 			qreal v = (i / 128.f) * uiSize * uiZoom;
 
 			if (i != 0)
@@ -307,7 +307,7 @@ void OverlayEditorScene::drawBackground(QPainter *p, const QRectF &rect) {
 		int min = iroundf(upscaled.top() - 0.5f);
 		int max = iroundf(upscaled.bottom() + 0.5f);
 
-		for(int i=min;i<=max;++i) {
+		for (int i=min;i<=max;++i) {
 			qreal v = (i / 128.f) * uiSize * uiZoom;
 
 			if (i != 0)
@@ -397,7 +397,7 @@ void OverlayEditorScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 		if (! qgpiSelected || (rect == selectedRect())) {
 			return;
 		}
-		
+
 		QRectF scaled(rect.x() / (uiSize * uiZoom), rect.y() / (uiSize * uiZoom), rect.width() / (uiSize * uiZoom), rect.height() / (uiSize * uiZoom));
 
 		if (qgpiSelected == qgpiMuted) {
@@ -413,7 +413,7 @@ void OverlayEditorScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 			os.qrfUserName = scaled;
 			updateUserName();
 		}
-		
+
 		moveBox();
 	}
 }
@@ -516,7 +516,7 @@ void OverlayEditorScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 				}
 				break;
 		}
-		
+
 		qgriSelected->setRect(orig);
 	} else {
 		updateCursorShape(event->scenePos());
@@ -531,7 +531,7 @@ void OverlayEditorScene::updateCursorShape(const QPointF &point) {
 	} else {
 		wfsHover = Qt::NoSection;
 	}
-	
+
 	switch (wfsHover) {
 		case Qt::TopLeftSection:
 		case Qt::BottomRightSection:
@@ -586,9 +586,9 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 		return;
 
 	QGraphicsPixmapItem *item = childAt(event->scenePos());
-	
+
 	QMenu qm(event->widget());
-	
+
 	QMenu *qmLayout = qm.addMenu(tr("Layout preset"));
 	QAction *qaLayoutLargeAvatar = qmLayout->addAction(tr("Large square avatar"));
 	QAction *qaLayoutText = qmLayout->addAction(tr("Avatar and Name"));
@@ -612,15 +612,15 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 	QAction *color = NULL;
 	QAction *font = NULL;
 	QAction *objectOpacity[8];
-	for(int i=0;i<8;++i)
+	for (int i=0;i<8;++i)
 		objectOpacity[i] = NULL;
 	QAction *boxpen[4] = { NULL, NULL, NULL, NULL};
 	QAction *boxpad[4] = { NULL, NULL, NULL, NULL};
 	QAction *boxpencolor = NULL;
 	QAction *boxfillcolor = NULL;
-	
+
 	QAction *align[6];
-	for(int i=0;i<6;++i)
+	for (int i=0;i<6;++i)
 		align[i] = NULL;
 
 	if (item) {
@@ -637,7 +637,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 				objectOpacity[i]->setChecked(true);
 			qmObjTrans->addAction(objectOpacity[i]);
 		}
-		
+
 		QMenu *qmObjAlign = qm.addMenu(tr("Alignment"));
 		Qt::Alignment a;
 		if (item == qgpiAvatar)
@@ -664,7 +664,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 		align[2]->setData(Qt::AlignRight);
 		if (a & Qt::AlignRight)
 			align[2]->setChecked(true);
-			
+
 		qmObjAlign->addSeparator();
 
 		align[3] = qmObjAlign->addAction(tr("Top"));
@@ -688,7 +688,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 			font = qm.addAction(tr("Font..."));
 		}
 	}
-	
+
 	if (qgpiBox->isVisible()) {
 		qm.addSeparator();
 		QMenu *qmBox = qm.addMenu(tr("Bounding box"));
@@ -696,10 +696,10 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 		QMenu *qmPad = qmBox->addMenu(tr("Padding"));
 		boxpencolor = qmBox->addAction(tr("Pen color"));
 		boxfillcolor = qmBox->addAction(tr("Fill color"));
-		
+
 		QActionGroup *qagPen = new QActionGroup(qmPen);
 		QActionGroup *qagPad = new QActionGroup(qmPad);
-		for(int i=0;i<4;++i) {
+		for (int i=0;i<4;++i) {
 			qreal v = (i) ? powf(2.0f, -10 + i) : 0.0f;
 			boxpen[i] = new QAction(QString::number(i), qagPen);
 			boxpen[i]->setData(v);
@@ -718,7 +718,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 	}
 
 	QAction *act = qm.exec(event->screenPos());
-	
+
 	if (! act)
 		return;
 
@@ -726,7 +726,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 		if (userOpacity[i] == act) {
 			float o = act->data().toReal();
 			os.fUser[tsColor] = o;
-			
+
 			qgiGroup->setOpacity(o);
 		}
 	}
@@ -743,12 +743,12 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 				os.fChannel = o;
 			else if (item == qgpiName)
 				os.fUserName = o;
-				
+
 			item->setOpacity(o);
 		}
 	}
 
-	for(int i=0;i<4;++i) {
+	for (int i=0;i<4;++i) {
 		if (boxpen[i] == act) {
 			os.fBoxPenWidth = act->data().toReal();
 			moveBox();
@@ -758,7 +758,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 		}
 	}
 
-	for(int i=0;i<6;++i) {
+	for (int i=0;i<6;++i) {
 		if (align[i] == act) {
 			Qt::Alignment *aptr;
 			if (item == qgpiAvatar)
@@ -776,7 +776,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 			} else {
 				*aptr = (*aptr & ~Qt::AlignVertical_Mask) | a;
 			}
-			
+
 			updateSelected();
 		}
 	}
@@ -798,7 +798,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 		if (item == qgpiChannel)
 			col = & os.qcChannel;
 		else if (item == qgpiName)
-				col = & os.qcUserName[tsColor];
+			col = & os.qcUserName[tsColor];
 		if (! col)
 			return;
 
@@ -814,7 +814,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 		updateSelected();
 	} else if (act == font) {
 		QFont *fontptr = (item == qgpiChannel) ? &os.qfChannel : &os.qfUserName;
-		
+
 		qgpiSelected = NULL;
 		qgriSelected->hide();
 
@@ -824,10 +824,10 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 		qfd.setOptions(QFontDialog::DontUseNativeDialog);
 		qfd.setCurrentFont(*fontptr);
 		qfd.setWindowTitle(tr("Pick font"));
-		
+
 		QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(NULL, Qt::Window);
 		qgpw->setWidget(&qfd);
-		
+
 		addItem(qgpw);
 
 		qgpw->setZValue(3.0f);
@@ -884,7 +884,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 		os.qaMutedDeafened = Qt::AlignLeft | Qt::AlignTop;
 		os.qaAvatar = Qt::AlignCenter;
 		os.qaChannel = Qt::AlignCenter;
-		
+
 		resync();
 	} else if (act == qaLayoutText) {
 		os.fUserName = 1.0f;
@@ -924,7 +924,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 		os.qaMutedDeafened = Qt::AlignRight | Qt::AlignVCenter;
 		os.qaAvatar = Qt::AlignRight | Qt::AlignVCenter;
 		os.qaChannel = Qt::AlignLeft | Qt::AlignTop;
-		
+
 		resync();
 	}
 }
@@ -988,10 +988,10 @@ Qt::WindowFrameSection OverlayEditorScene::rectSection(const QRectF &qrf, const 
 
 OverlayEditor::OverlayEditor(QWidget *p, QGraphicsItem *qgi) : QDialog(p), qgiPromote(qgi) {
 	setupUi(this);
-	
+
 	connect(qdbbBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()), this, SLOT(apply()));
 	connect(qdbbBox->button(QDialogButtonBox::Reset), SIGNAL(clicked()), this, SLOT(reset()));
-	
+
 	QGraphicsProxyWidget *qgpw = graphicsProxyWidget();
 	if (qgpw) {
 		qgpw->setFlag(QGraphicsItem::ItemIgnoresParentOpacity);
@@ -1000,9 +1000,9 @@ OverlayEditor::OverlayEditor(QWidget *p, QGraphicsItem *qgi) : QDialog(p), qgiPr
 			qgpw->resize(iroundf(g.ocIntercept->uiWidth * 14.0f / 16.0f), iroundf(g.ocIntercept->uiHeight * 14.0f / 16.0f));
 		}
 	}
-	
+
 	qgvView->setScene(&oes);
-	
+
 	reset();
 }
 
@@ -1147,7 +1147,7 @@ void OverlayUser::setup() {
 
 	qgpiChannel = new QGraphicsPixmapItem(this);
 	qgpiChannel->hide();
-	
+
 	qgpiBox = new QGraphicsPathItem(this);
 	qgpiBox->hide();
 }
@@ -1203,7 +1203,7 @@ void OverlayUser::updateLayout() {
 	qgpiChannel->setOpacity(g.s.os.fChannel);
 
 	QRectF children = g.s.os.qrfAvatar | g.s.os.qrfChannel | g.s.os.qrfMutedDeafened | g.s.os.qrfUserName;
-	
+
 	bool haspen = (g.s.os.qcBoxPen != g.s.os.qcBoxFill) && (! qFuzzyCompare(g.s.os.qcBoxPen.alphaF(), static_cast<qreal>(0.0f)));
 	qreal pw = haspen ? qMax<qreal>(1.0f, g.s.os.fBoxPenWidth * uiSize * g.s.os.fHeight) : 0.0f;
 	qreal pad = g.s.os.fBoxPad * uiSize * g.s.os.fHeight;
@@ -1215,7 +1215,7 @@ void OverlayUser::updateLayout() {
 	qgpiBox->setPen(haspen ? QPen(g.s.os.qcBoxPen, pw) : Qt::NoPen);
 	qgpiBox->setBrush(qFuzzyCompare(g.s.os.qcBoxFill.alphaF(), static_cast<qreal>(0.0f)) ? Qt::NoBrush : g.s.os.qcBoxFill);
 	qgpiBox->setOpacity(1.0f);
-	
+
 	if (! cuUser) {
 		switch (tsColor) {
 			case Settings::Passive:
@@ -1307,7 +1307,7 @@ QPixmap OverlayUser::createPixmap(const QString &string, unsigned int height, un
 
 void OverlayUser::updateUser() {
 	prepareGeometryChange();
-	
+
 	if (g.s.os.bUserName && (qgpiName[0]->pixmap().isNull() || (cuUser && (qsName != cuUser->qsName)))) {
 		if (cuUser)
 			qsName = cuUser->qsName;
@@ -1410,7 +1410,7 @@ void OverlayUser::updateUser() {
 	else
 		for (int i=0;i<4;++i)
 			qgpiName[i]->setVisible(false);
-			
+
 	qgpiBox->setVisible(g.s.os.bBox);
 
 	setOpacity(g.s.os.fUser[tsColor]);
@@ -1423,26 +1423,26 @@ QRectF OverlayUser::scaledRect(const QRectF &qr, qreal scale) {
 QPointF OverlayUser::alignedPosition(const QRectF &box, const QRectF &item, Qt::Alignment a) {
 	qreal boxw = box.width();
 	qreal boxh = box.height();
-	
+
 	qreal itemw = item.width();
 	qreal itemh = item.height();
-	
+
 	qreal wdiff = boxw - itemw;
 	qreal hdiff = boxh - itemh;
-	
+
 	qreal xofs = box.x() - item.x();
 	qreal yofs = box.y() - item.y();
-	
+
 	if (a & Qt::AlignRight)
 		xofs += wdiff;
 	else if (a & Qt::AlignHCenter)
 		xofs += wdiff * 0.5f;
-		
+
 	if (a & Qt::AlignBottom)
 		yofs += hdiff;
 	else if (a & Qt::AlignVCenter)
 		yofs += hdiff * 0.5f;
-		
+
 	return QPointF(iroundf(xofs), iroundf(yofs));
 }
 
@@ -1495,7 +1495,7 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 	QAction *qaEdit = qm.addAction(OverlayClient::tr("Edit..."));
 
 	QAction *act = qm.exec(event->screenPos());
-	
+
 	if (! act)
 		return;
 
@@ -1518,7 +1518,7 @@ void OverlayUserGroup::wheelEvent(QGraphicsSceneWheelEvent *event) {
 		return;
 
 	prepareGeometryChange();
-	
+
 	g.s.os.fHeight *= scale;
 
 	g.o->forceSettings();
@@ -1550,7 +1550,7 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	qgpiCursor->setZValue(10.0f);
 
 	qgs.addItem(qgpiCursor);
-	
+
 	ougUsers.setZValue(-1.0f);
 	qgs.addItem(&ougUsers);
 	ougUsers.show();
@@ -1983,7 +1983,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 	int pad = g.s.os.bBox ? iroundf(uiHeight * g.s.os.fHeight * (g.s.os.fBoxPad + g.s.os.fBoxPenWidth)) : 0;
 	int width = iroundf(children.width() * uiHeight * g.s.os.fHeight) + 2 * pad;
 	int height = iroundf(children.height() * uiHeight * g.s.os.fHeight) + 2 * pad;
-	
+
 	int xofs = - iroundf(children.left() * uiHeight * g.s.os.fHeight) + pad;
 	int yofs = - iroundf(children.top() * uiHeight * g.s.os.fHeight) + pad;
 
@@ -2005,12 +2005,12 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 			x = 1;
 		}
 	}
-	
+
 	QRectF br = ougUsers.boundingRect();
 
 	int basex = qBound<int>(0, iroundf(uiWidth * g.s.os.fX), iroundf(uiWidth - br.width()));
 	int basey = qBound<int>(0, iroundf(uiHeight * g.s.os.fY), iroundf(uiHeight - br.height()));
-	
+
 	ougUsers.setPos(basex, basey);
 
 	if (qlsSocket->bytesToWrite() > 1024) {
@@ -2035,7 +2035,7 @@ void OverlayClient::render() {
 
 	if (! uiWidth || ! uiHeight || ! smMem)
 		return;
-		
+
 	QRect active;
 	QRectF dirtyf;
 
@@ -2116,7 +2116,7 @@ void OverlayClient::userDestroyed(QObject *obj) {
 
 void OverlayClient::openEditor() {
 	OverlayEditor oe(g.mw, &ougUsers);
-	
+
 	oe.exec();
 }
 
@@ -2207,11 +2207,11 @@ bool Overlay::isActive() const {
 }
 
 void Overlay::toggleShow() {
-/*
-	OverlayEditor oe(g.mw);
-	oe.exec();
-	return;
-*/
+	/*
+		OverlayEditor oe(g.mw);
+		oe.exec();
+		return;
+	*/
 	if (g.ocIntercept) {
 		g.ocIntercept->hideGui();
 	} else {

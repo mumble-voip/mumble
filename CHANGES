@@ -1,5 +1,38 @@
+2010-03-03
+  arcenciel <arcenciel@users.sourceforge.net>
+    9b8d1be  Updated Japanese Translation
+
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    1e6b573  Do not minimize to tray on windows 7 by default (#2947574)
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    38f059c  Proper bounding box and padding for overlay painter
+    2a9dbee  Save/load overlay
+    1e35f54  Refactor overlay config var names and clean up old
+	     configdialog
+    ebcb6d9  Fix zoom factor and add grid background
+    2ee79f2  Standalone overlay editor
+
+2010-03-01
+  Karl Dietz <dekarl@users.sourceforge.net>
+    d6d2e4a  wow: unbreak plugin after regexp experiment
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    dde4708  Scaled alignment for elements
+    030ed4d  Bounding box and element toggle
+    2b12585  Same transparency for all speakstates text
+    9fa00c3  Use premultiplied alpha textures
+    b658561  Speed up rendering slightly
+    b7d97dd  Add two preset layouts
+
+2010-02-28
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    d44c84c  This is not the window you are looking for
+    f223a82  Update weblist.php to use Ice 3.4b
+
 2010-02-27
   Thorvald Natvig <slicer@users.sourceforge.net>
+    47a4538  Reprotect WindowFromPoint after patching
     0abb9e5  Don't use widget functions on embedded widgets, they misbehave
 	     in release mode
     4ee7782  Hold shift for square resize and scale with wheel

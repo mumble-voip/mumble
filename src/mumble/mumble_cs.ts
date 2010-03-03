@@ -742,7 +742,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ASIOInput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Písmo</translation>
     </message>
 </context>
 <context>
@@ -1045,7 +1045,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Písmo</translation>
     </message>
     <message>
         <location/>
@@ -1507,7 +1507,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioOutput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Písmo</translation>
     </message>
     <message>
         <location/>
@@ -4199,7 +4199,7 @@ v žádném z možných míst.</translation>
     <message>
         <location filename="LCD.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Písmo</translation>
     </message>
     <message>
         <location/>
@@ -4754,7 +4754,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Písmo</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="-137"/>
@@ -6726,7 +6726,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="NetworkConfig.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Písmo</translation>
     </message>
     <message>
         <location/>
@@ -7025,7 +7025,37 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+1588"/>
+        <location filename="Overlay.cpp" line="+167"/>
+        <location line="+1055"/>
+        <source>Silent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1052"/>
+        <location line="+1055"/>
+        <source>Talking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1052"/>
+        <location line="+1055"/>
+        <source>Whisper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1052"/>
+        <location line="+1055"/>
+        <source>Shout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1035"/>
+        <location line="+928"/>
+        <source>Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1033"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7042,6 +7072,14 @@ To může být způsobeno například těmito důvody:
     </message>
 </context>
 <context>
+    <name>OverlayClient</name>
+    <message>
+        <location line="-662"/>
+        <source>Edit...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>OverlayConfig</name>
     <message>
         <location filename="Overlay.ui"/>
@@ -7055,8 +7093,9 @@ To může být způsobeno například těmito důvody:
     </message>
     <message>
         <location/>
-        <source>Font</source>
-        <translation>Písmo</translation>
+        <source>Form</source>
+        <oldsource>Font</oldsource>
+        <translation type="unfinished">Písmo</translation>
     </message>
     <message>
         <location/>
@@ -7126,24 +7165,20 @@ To může být způsobeno například těmito důvody:
         <translation type="obsolete">Nastavuje, jestli se má stáhnout a použít navolený obrázek pro zobrazení registrovaných uživatelů. Pokud je zakázáno, zobrazí se uživatelé běžným textem.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Left</source>
-        <translation>Zvětšovat doleva</translation>
+        <translation type="obsolete">Zvětšovat doleva</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the left</source>
-        <translation>Overlay se zvětšuje směrem doleva</translation>
+        <translation type="obsolete">Overlay se zvětšuje směrem doleva</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the left if needed.</source>
-        <translation>Ovelay vrstva je  tak malá, jak je to jenom možné a je na zvolené pozici. Tímto nastavením se povolí zvětšování overlay na levou stranu, pokud je to potřeba.</translation>
+        <translation type="obsolete">Ovelay vrstva je  tak malá, jak je to jenom možné a je na zvolené pozici. Tímto nastavením se povolí zvětšování overlay na levou stranu, pokud je to potřeba.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Right</source>
-        <translation>Zvětšovat doprava</translation>
+        <translation type="obsolete">Zvětšovat doprava</translation>
     </message>
     <message>
         <source>Let overlay grow to the Right</source>
@@ -7154,28 +7189,24 @@ To může být způsobeno například těmito důvody:
         <translation type="obsolete">Ovelay vrstva je  tak malá, jak je to jenom možné a je na zvolené pozici. Tímto nastavením se povolí zvětšování overlay na pravou stranu, pokud je to potřeba.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Up</source>
-        <translation>Zvětšovat nahoru</translation>
+        <translation type="obsolete">Zvětšovat nahoru</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow upwards</source>
-        <translation>Overlay se zvětšuje směrem nahoru</translation>
+        <translation type="obsolete">Overlay se zvětšuje směrem nahoru</translation>
     </message>
     <message>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the top if needed.</source>
         <translation type="obsolete">Ovelay vrstva je  tak malá, jak je to jenom možné a je na zvolené pozici. Tímto nastavením se povolí zvětšování overlay nahoru, pokud je to potřeba.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Down</source>
-        <translation>Zvětšovat dolů</translation>
+        <translation type="obsolete">Zvětšovat dolů</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow downwards</source>
-        <translation>Overlay se zvětšuje směrem dolů</translation>
+        <translation type="obsolete">Overlay se zvětšuje směrem dolů</translation>
     </message>
     <message>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow towards the bottom if needed.</source>
@@ -7208,34 +7239,28 @@ To může být způsobeno například těmito důvody:
         <translation>Relativni pozice na ose Y.</translation>
     </message>
     <message>
-        <location/>
         <source>Current Font</source>
-        <translation>Současný font</translation>
+        <translation type="obsolete">Současný font</translation>
     </message>
     <message>
-        <location/>
         <source>Set Font</source>
-        <translation>nastavit font</translation>
+        <translation type="obsolete">nastavit font</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height of names.</source>
-        <translation>Maximální výška jmen.</translation>
+        <translation type="obsolete">Maximální výška jmen.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels tall. Note that the names will not be taller than 60 pixels no matter what you set here.</source>
-        <translation>Nastaví maximální výšku zobrazených jmen, relativně k výšce obrazovky. Pokud vaše 3D okno má 800 pixelů na výšku a tato hodnota je nastavena na 5%, každé jméno bude 40 pixelů vysoké. Jména nikdy nebudou větší než 60 pixelů, i kdybyste nastavili vyšší hodnotu.</translation>
+        <translation type="obsolete">Nastaví maximální výšku zobrazených jmen, relativně k výšce obrazovky. Pokud vaše 3D okno má 800 pixelů na výšku a tato hodnota je nastavena na 5%, každé jméno bude 40 pixelů vysoké. Jména nikdy nebudou větší než 60 pixelů, i kdybyste nastavili vyšší hodnotu.</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height</source>
-        <translation>Maximální výška</translation>
+        <translation type="obsolete">Maximální výška</translation>
     </message>
     <message>
-        <location/>
         <source>Change</source>
-        <translation>Změnit</translation>
+        <translation type="obsolete">Změnit</translation>
     </message>
     <message>
         <source>Color for players</source>
@@ -7250,22 +7275,20 @@ To může být způsobeno například těmito důvody:
         <translation type="obsolete">Barva pro Alt-mluvící uživatele</translation>
     </message>
     <message>
-        <location/>
         <source>Color for Channels</source>
-        <translation>Barva pro kanály</translation>
+        <translation type="obsolete">Barva pro kanály</translation>
     </message>
     <message>
-        <location/>
         <source>Color for active Channels</source>
-        <translation>Barva pro aktivní kanály</translation>
+        <translation type="obsolete">Barva pro aktivní kanály</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-1449"/>
+        <location filename="Overlay.cpp" line="-1426"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
     <message>
-        <location line="-89"/>
+        <location line="-19"/>
         <source>Show no one</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7281,60 +7304,245 @@ To může být způsobeno například těmito důvody:
     </message>
     <message>
         <location filename="Overlay.ui"/>
-        <location filename="Overlay.cpp" line="+67"/>
-        <source>Color for users</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <location filename="Overlay.cpp" line="+4"/>
-        <source>Color for talking users</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <location filename="Overlay.cpp" line="+4"/>
-        <source>Color for whispering users</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Overlay.cpp" line="+4"/>
-        <source>Color for channels</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Color for active channels</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Overlay.ui"/>
         <source>Form</source>
+        <translation type="unfinished">Písmo</translation>
+    </message>
+</context>
+<context>
+    <name>OverlayEditor</name>
+    <message>
+        <location filename="OverlayEditor.ui"/>
+        <source>Dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
-        <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</source>
+        <source>State</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
-        <source>Let overlay grow to the right</source>
+        <source>User is not talking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
-        <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the right if needed.</source>
+        <source>Passive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
-        <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow downwards if needed.</source>
+        <source>User is talking in your channel or a linked channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
-        <source>TextLabel</source>
+        <source>Talking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User is whispering to you privately</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Private Whisper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User is shouting to your channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel Whisper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Zoom Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Enabled Elements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User avatar, chosen by each user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Avatar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User&apos;s name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Name of user&apos;s channel, if outside your current channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Muted or deafened</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Mute state</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Bounding box</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OverlayEditorScene</name>
+    <message>
+        <location filename="Overlay.cpp" line="+540"/>
+        <source>Layout preset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Large square avatar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Avatar and Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>User Opacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <location line="+31"/>
+        <source>%1%</source>
+        <translation type="unfinished">%1%</translation>
+    </message>
+    <message>
+        <location line="-5"/>
+        <source>Object Opacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Alignment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <location line="+18"/>
+        <source>Center</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-13"/>
+        <source>Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Color...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Font...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Bounding box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pen width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Padding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pen color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Fill color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+87"/>
+        <source>Pick pen color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Pick fill color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Pick color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Pick font</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7355,65 +7563,8 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>OverlayUser</name>
     <message>
-        <location filename="Overlay.cpp" line="+46"/>
-        <source>Channel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Silent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Talking</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Whisper</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Shout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+600"/>
-        <source>User Opacity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <location line="+16"/>
         <source>%1%</source>
-        <translation type="unfinished">%1%</translation>
-    </message>
-    <message>
-        <location line="-6"/>
-        <source>Object Opacity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+19"/>
-        <source>Color...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Font...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+43"/>
-        <source>Pick color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+17"/>
-        <source>Pick font</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">%1%</translation>
     </message>
 </context>
 <context>
@@ -7545,7 +7696,7 @@ To může být způsobeno například těmito důvody:
     <message>
         <location filename="Plugins.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Písmo</translation>
     </message>
     <message>
         <location/>

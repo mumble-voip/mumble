@@ -138,7 +138,7 @@ OverlaySettings::OverlaySettings() {
 
 	fMutedDeafened = 0.5f;
 	fAvatar = 1.0f;
-	
+
 	qcBoxPen = QColor(0, 0, 0, 224);
 	qcBoxFill = QColor(128, 128, 128, 128);
 	fBoxPenWidth = (1.f / 256.0f);
@@ -160,7 +160,7 @@ OverlaySettings::OverlaySettings() {
 	bMutedDeafened = true;
 	bAvatar = true;
 	bBox = false;
-	
+
 	qaUserName = Qt::AlignCenter;
 	qaMutedDeafened = Qt::AlignLeft | Qt::AlignTop;
 	qaAvatar = Qt::AlignCenter;
@@ -359,15 +359,15 @@ void OverlaySettings::load() {
 	SAVELOAD(fX, "x");
 	SAVELOAD(fY, "y");
 	SAVELOAD(fHeight, "zoom");
-	
+
 	g.qs->beginReadArray(QLatin1String("states"));
-	for(int i=0;i<4;++i) {
+	for (int i=0;i<4;++i) {
 		g.qs->setArrayIndex(i);
 		SAVELOAD(qcUserName[i], "color");
 		SAVELOAD(fUser[i], "opacity");
 	}
 	g.qs->endArray();
-	
+
 	SAVELOAD(qfUserName, "userfont");
 	SAVELOAD(qfChannel, "channelfont");
 	SAVELOAD(qcChannel, "channelcolor");
@@ -376,13 +376,13 @@ void OverlaySettings::load() {
 	SAVELOAD(fBoxPenWidth, "penwidth");
 	SAVELOAD(qcBoxPen, "pencolor");
 	SAVELOAD(qcBoxFill, "fillcolor");
-	
+
 	SAVELOAD(bUserName, "usershow");
 	SAVELOAD(bChannel, "channelshow");
 	SAVELOAD(bMutedDeafened, "mutedshow");
 	SAVELOAD(bAvatar, "avatarshow");
 	SAVELOAD(bBox, "boxshow");
-	
+
 	SAVELOAD(fUserName, "useropacity");
 	SAVELOAD(fChannel, "channelopacity");
 	SAVELOAD(fMutedDeafened, "mutedopacity");
@@ -392,7 +392,7 @@ void OverlaySettings::load() {
 	SAVELOAD(qrfChannel, "channelrect");
 	SAVELOAD(qrfMutedDeafened, "mutedrect");
 	SAVELOAD(qrfAvatar, "avatarrect");
-	
+
 	LOADFLAG(qaUserName, "useralign");
 	LOADFLAG(qaChannel, "channelalign");
 	LOADFLAG(qaMutedDeafened, "mutedalign");
@@ -569,7 +569,7 @@ void Settings::load() {
 		qmPositionalAudioPlugins.insert(d, g.qs->value(d, true).toBool());
 	}
 	g.qs->endGroup();
-	
+
 	g.qs->beginGroup(QLatin1String("overlay"));
 	os.load();
 	g.qs->endGroup();
@@ -585,15 +585,15 @@ void OverlaySettings::save() {
 	SAVELOAD(fX, "x");
 	SAVELOAD(fY, "y");
 	SAVELOAD(fHeight, "zoom");
-	
+
 	g.qs->beginReadArray(QLatin1String("states"));
-	for(int i=0;i<4;++i) {
+	for (int i=0;i<4;++i) {
 		g.qs->setArrayIndex(i);
 		SAVELOAD(qcUserName[i], "color");
 		SAVELOAD(fUser[i], "opacity");
 	}
 	g.qs->endArray();
-	
+
 	SAVELOAD(qfUserName, "userfont");
 	SAVELOAD(qfChannel, "channelfont");
 	SAVELOAD(qcChannel, "channelcolor");
@@ -602,13 +602,13 @@ void OverlaySettings::save() {
 	SAVELOAD(fBoxPenWidth, "penwidth");
 	SAVELOAD(qcBoxPen, "pencolor");
 	SAVELOAD(qcBoxFill, "fillcolor");
-	
+
 	SAVELOAD(bUserName, "usershow");
 	SAVELOAD(bChannel, "channelshow");
 	SAVELOAD(bMutedDeafened, "mutedshow");
 	SAVELOAD(bAvatar, "avatarshow");
 	SAVELOAD(bBox, "boxshow");
-	
+
 	SAVELOAD(fUserName, "useropacity");
 	SAVELOAD(fChannel, "channelopacity");
 	SAVELOAD(fMutedDeafened, "mutedopacity");
@@ -618,7 +618,7 @@ void OverlaySettings::save() {
 	SAVELOAD(qrfChannel, "channelrect");
 	SAVELOAD(qrfMutedDeafened, "mutedrect");
 	SAVELOAD(qrfAvatar, "avatarrect");
-	
+
 	SAVEFLAG(qaUserName, "useralign");
 	SAVEFLAG(qaChannel, "channelalign");
 	SAVEFLAG(qaMutedDeafened, "mutedalign");

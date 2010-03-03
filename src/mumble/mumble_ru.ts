@@ -754,7 +754,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ASIOInput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шрифт</translation>
     </message>
 </context>
 <context>
@@ -1037,7 +1037,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шрифт</translation>
     </message>
     <message>
         <location/>
@@ -1499,7 +1499,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioOutput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шрифт</translation>
     </message>
     <message>
         <location/>
@@ -4235,7 +4235,7 @@ of the possible locations.</source>
     <message>
         <location filename="LCD.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шрифт</translation>
     </message>
     <message>
         <location/>
@@ -4754,7 +4754,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шрифт</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="-137"/>
@@ -6712,7 +6712,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="NetworkConfig.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шрифт</translation>
     </message>
     <message>
         <location/>
@@ -6999,7 +6999,37 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+1588"/>
+        <location filename="Overlay.cpp" line="+167"/>
+        <location line="+1055"/>
+        <source>Silent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1052"/>
+        <location line="+1055"/>
+        <source>Talking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1052"/>
+        <location line="+1055"/>
+        <source>Whisper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1052"/>
+        <location line="+1055"/>
+        <source>Shout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1035"/>
+        <location line="+928"/>
+        <source>Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1033"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7012,6 +7042,14 @@ Prevents the client from downloading images embedded into chat messages with the
 - библиотека (mumble_ol.dll) не была найдена в папке, из которой вы запустили Mumble
 - Ваша ОС старше, чем WinXP SP2
 - у Вас нет обновленной в августе 2006 версии DX9.0c</translation>
+    </message>
+</context>
+<context>
+    <name>OverlayClient</name>
+    <message>
+        <location line="-662"/>
+        <source>Edit...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7028,8 +7066,9 @@ Prevents the client from downloading images embedded into chat messages with the
     </message>
     <message>
         <location/>
-        <source>Font</source>
-        <translation>Шрифт</translation>
+        <source>Form</source>
+        <oldsource>Font</oldsource>
+        <translation type="unfinished">Шрифт</translation>
     </message>
     <message>
         <location/>
@@ -7087,24 +7126,20 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Устанавливает, всегда ли показывать себя. Настройка применима если вы не отображаете всех в замещении, поэтому тогда вы увидите собственный статус при разговоре, который вы не услышите, если в онемении или заглушены.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Left</source>
-        <translation>Расти влево</translation>
+        <translation type="obsolete">Расти влево</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the left</source>
-        <translation>Позволяет замещению расти влево</translation>
+        <translation type="obsolete">Позволяет замещению расти влево</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the left if needed.</source>
-        <translation>Замещение пытается остаться как можно меньшим и на выбранной позиции. Позволяет замещению расти влево при необходимости.</translation>
+        <translation type="obsolete">Замещение пытается остаться как можно меньшим и на выбранной позиции. Позволяет замещению расти влево при необходимости.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Right</source>
-        <translation>Расти вправо</translation>
+        <translation type="obsolete">Расти вправо</translation>
     </message>
     <message>
         <source>Let overlay grow to the Right</source>
@@ -7115,28 +7150,24 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Замещение попытается оставться как можно меньшим и на установленой позиции. Позволяет замещению расти вправо при необходимости.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Up</source>
-        <translation>Расти вверх</translation>
+        <translation type="obsolete">Расти вверх</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow upwards</source>
-        <translation>Позволяет замещению расти вверх</translation>
+        <translation type="obsolete">Позволяет замещению расти вверх</translation>
     </message>
     <message>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the top if needed.</source>
         <translation type="obsolete">Замещение попытается оставться как можно меньшим и на установленой позиции. Позволяет замещению расти вверх при необходимости.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Down</source>
-        <translation>Расти вниз</translation>
+        <translation type="obsolete">Расти вниз</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow downwards</source>
-        <translation>Позволяет замещению расти вниз</translation>
+        <translation type="obsolete">Позволяет замещению расти вниз</translation>
     </message>
     <message>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow towards the bottom if needed.</source>
@@ -7163,14 +7194,12 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Устанавливает относительную Y - позицию замещения.</translation>
     </message>
     <message>
-        <location/>
         <source>Current Font</source>
-        <translation>Текущий шрифт</translation>
+        <translation type="obsolete">Текущий шрифт</translation>
     </message>
     <message>
-        <location/>
         <source>Set Font</source>
-        <translation>Установить шрифт</translation>
+        <translation type="obsolete">Установить шрифт</translation>
     </message>
     <message>
         <source>Maximum width of names.</source>
@@ -7185,9 +7214,8 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Максимальная ширина</translation>
     </message>
     <message>
-        <location/>
         <source>Change</source>
-        <translation>Изменить</translation>
+        <translation type="obsolete">Изменить</translation>
     </message>
     <message>
         <source>Color for players</source>
@@ -7202,37 +7230,20 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Цвета для усиленно говорящих игроков</translation>
     </message>
     <message>
-        <location/>
         <source>Color for Channels</source>
-        <translation>Цвет для каналов</translation>
+        <translation type="obsolete">Цвет для каналов</translation>
     </message>
     <message>
-        <location/>
         <source>Color for active Channels</source>
-        <translation>Цвет для Активных каналов</translation>
+        <translation type="obsolete">Цвет для Активных каналов</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-1449"/>
+        <location filename="Overlay.cpp" line="-1426"/>
         <source>Overlay</source>
         <translation>Замещение</translation>
     </message>
     <message>
-        <location filename="Overlay.ui"/>
-        <source>Maximum height of names.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels tall. Note that the names will not be taller than 60 pixels no matter what you set here.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Maximum height</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Overlay.cpp" line="-89"/>
+        <location line="-19"/>
         <source>Show no one</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7248,36 +7259,8 @@ Prevents the client from downloading images embedded into chat messages with the
     </message>
     <message>
         <location filename="Overlay.ui"/>
-        <location filename="Overlay.cpp" line="+67"/>
-        <source>Color for users</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <location filename="Overlay.cpp" line="+4"/>
-        <source>Color for talking users</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <location filename="Overlay.cpp" line="+4"/>
-        <source>Color for whispering users</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Overlay.cpp" line="+4"/>
-        <source>Color for channels</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Color for active channels</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Overlay.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шрифт</translation>
     </message>
     <message>
         <location/>
@@ -7285,29 +7268,242 @@ Prevents the client from downloading images embedded into chat messages with the
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>OverlayEditor</name>
     <message>
-        <location/>
-        <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</source>
+        <location filename="OverlayEditor.ui"/>
+        <source>Dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
-        <source>Let overlay grow to the right</source>
+        <source>State</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
-        <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the right if needed.</source>
+        <source>User is not talking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
-        <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow downwards if needed.</source>
+        <source>Passive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
-        <source>TextLabel</source>
+        <source>User is talking in your channel or a linked channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Talking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User is whispering to you privately</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Private Whisper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User is shouting to your channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel Whisper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Zoom Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Enabled Elements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User avatar, chosen by each user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Avatar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User&apos;s name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Name of user&apos;s channel, if outside your current channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Muted or deafened</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Mute state</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Bounding box</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OverlayEditorScene</name>
+    <message>
+        <location filename="Overlay.cpp" line="+540"/>
+        <source>Layout preset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Large square avatar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Avatar and Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>User Opacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <location line="+31"/>
+        <source>%1%</source>
+        <translation type="unfinished">%1%</translation>
+    </message>
+    <message>
+        <location line="-5"/>
+        <source>Object Opacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Alignment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <location line="+18"/>
+        <source>Center</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-13"/>
+        <source>Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Color...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Font...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Bounding box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pen width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Padding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pen color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Fill color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+87"/>
+        <source>Pick pen color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Pick fill color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Pick color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Pick font</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7328,65 +7524,8 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayUser</name>
     <message>
-        <location filename="Overlay.cpp" line="+46"/>
-        <source>Channel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Silent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Talking</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Whisper</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Shout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+600"/>
-        <source>User Opacity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <location line="+16"/>
         <source>%1%</source>
-        <translation type="unfinished">%1%</translation>
-    </message>
-    <message>
-        <location line="-6"/>
-        <source>Object Opacity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+19"/>
-        <source>Color...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Font...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+43"/>
-        <source>Pick color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+17"/>
-        <source>Pick font</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">%1%</translation>
     </message>
 </context>
 <context>
@@ -7522,7 +7661,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="Plugins.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шрифт</translation>
     </message>
     <message>
         <location/>

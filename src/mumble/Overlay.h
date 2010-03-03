@@ -51,7 +51,7 @@ class OverlayGroup : public QGraphicsItem {
 
 		QRectF boundingRect() const;
 		void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
-		
+
 		int type() const;
 };
 
@@ -118,7 +118,7 @@ class OverlayEditorScene : public QGraphicsScene {
 		QGraphicsRectItem *qgriSelected;
 		QGraphicsPixmapItem *qgpiSelected;
 		int iDragCorner;
-		
+
 		Qt::WindowFrameSection wfsHover;
 
 		unsigned int uiSize;
@@ -130,7 +130,7 @@ class OverlayEditorScene : public QGraphicsScene {
 		void mouseMoveEvent(QGraphicsSceneMouseEvent *);
 		void mouseReleaseEvent(QGraphicsSceneMouseEvent *);
 		void updateCursorShape(const QPointF &point);
-		
+
 		void drawBackground(QPainter *, const QRectF &);
 
 		QGraphicsPixmapItem *childAt(const QPointF &);
@@ -141,13 +141,13 @@ class OverlayEditorScene : public QGraphicsScene {
 		Settings::TalkState tsColor;
 		unsigned int uiZoom;
 		OverlaySettings os;
-	
+
 		OverlayEditorScene(QObject *p = NULL);
 
 	public slots:
 		void resync();
 		void updateSelected();
-		
+
 		void updateMuted();
 		void updateUserName();
 		void updateChannel();
@@ -167,7 +167,7 @@ class OverlayEditor : public QDialog, public Ui::OverlayEditor {
 	protected:
 		QGraphicsItem *qgiPromote;
 		OverlayEditorScene oes;
-		
+
 		void enterEvent(QEvent *);
 		void leaveEvent(QEvent *);
 	public:
@@ -182,13 +182,13 @@ class OverlayEditor : public QDialog, public Ui::OverlayEditor {
 		void on_qrbTalking_clicked();
 		void on_qrbWhisper_clicked();
 		void on_qrbShout_clicked();
-		
+
 		void on_qcbAvatar_clicked();
 		void on_qcbUser_clicked();
 		void on_qcbChannel_clicked();
 		void on_qcbMutedDeafened_clicked();
 		void on_qcbBox_clicked();
-		
+
 		void on_qsZoom_valueChanged(int);
 };
 

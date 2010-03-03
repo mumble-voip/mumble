@@ -84,12 +84,12 @@ struct OverlaySettings {
 
 	QColor qcChannel;
 	QFont qfChannel;
-	
+
 	qreal fBoxPad;
 	qreal fBoxPenWidth;
 	QColor qcBoxPen;
 	QColor qcBoxFill;
-	
+
 	bool bUserName;
 	bool bChannel;
 	bool bMutedDeafened;

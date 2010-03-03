@@ -7080,7 +7080,37 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+1588"/>
+        <location filename="Overlay.cpp" line="+167"/>
+        <location line="+1055"/>
+        <source>Silent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1052"/>
+        <location line="+1055"/>
+        <source>Talking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1052"/>
+        <location line="+1055"/>
+        <source>Whisper</source>
+        <translation type="unfinished">Szept</translation>
+    </message>
+    <message>
+        <location line="-1052"/>
+        <location line="+1055"/>
+        <source>Shout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1035"/>
+        <location line="+928"/>
+        <source>Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1033"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Tworzenie komunikacji z nakładką nie powiodło się w %2: %1. Nakładka nie będzie dostępna.</translation>
     </message>
@@ -7108,6 +7138,14 @@ Prevents the client from downloading images embedded into chat messages with the
     </message>
 </context>
 <context>
+    <name>OverlayClient</name>
+    <message>
+        <location line="-662"/>
+        <source>Edit...</source>
+        <translation type="unfinished">Edytuj...</translation>
+    </message>
+</context>
+<context>
     <name>OverlayConfig</name>
     <message>
         <location filename="Overlay.ui"/>
@@ -7121,8 +7159,9 @@ Prevents the client from downloading images embedded into chat messages with the
     </message>
     <message>
         <location/>
-        <source>Font</source>
-        <translation>Czcionka</translation>
+        <source>Form</source>
+        <oldsource>Font</oldsource>
+        <translation type="unfinished">Czcionka</translation>
     </message>
     <message>
         <location/>
@@ -7176,44 +7215,36 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Określa czy program ma pobierać awatary zarejestrowanych użytkowników. Jeśli wyłączone, w zamian zostanie użyty zwykły tekst.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Left</source>
-        <translation>Do lewej</translation>
+        <translation type="obsolete">Do lewej</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the left</source>
-        <translation>Do lewej</translation>
+        <translation type="obsolete">Do lewej</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the left if needed.</source>
-        <translation>Nakładka stara się pozostać najmniejszą jak tylko to tylko możliwe w pozycji, którą ustawiłeś. Pozwala nakładce rosnąć w lewo jeżeli trzeba.</translation>
+        <translation type="obsolete">Nakładka stara się pozostać najmniejszą jak tylko to tylko możliwe w pozycji, którą ustawiłeś. Pozwala nakładce rosnąć w lewo jeżeli trzeba.</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Right</source>
-        <translation>Do prawej</translation>
+        <translation type="obsolete">Do prawej</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Up</source>
-        <translation>Do góry</translation>
+        <translation type="obsolete">Do góry</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow upwards</source>
-        <translation>Pozwala nakładce rosnąć w górę</translation>
+        <translation type="obsolete">Pozwala nakładce rosnąć w górę</translation>
     </message>
     <message>
-        <location/>
         <source>Grow Down</source>
-        <translation>Do dołu</translation>
+        <translation type="obsolete">Do dołu</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow downwards</source>
-        <translation>Pozwala nakładce rosnąć do dołu</translation>
+        <translation type="obsolete">Pozwala nakładce rosnąć do dołu</translation>
     </message>
     <message>
         <location/>
@@ -7241,34 +7272,28 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Ustawia pozycję Y nakładki.</translation>
     </message>
     <message>
-        <location/>
         <source>Current Font</source>
-        <translation>Obecna czcionka</translation>
+        <translation type="obsolete">Obecna czcionka</translation>
     </message>
     <message>
-        <location/>
         <source>Set Font</source>
-        <translation>Czcionka</translation>
+        <translation type="obsolete">Czcionka</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height of names.</source>
-        <translation>Maksymalna wysokość nazw użytkownika.</translation>
+        <translation type="obsolete">Maksymalna wysokość nazw użytkownika.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels tall. Note that the names will not be taller than 60 pixels no matter what you set here.</source>
-        <translation>Maksymalna wysokość nazwy użytkownika na nakładce.</translation>
+        <translation type="obsolete">Maksymalna wysokość nazwy użytkownika na nakładce.</translation>
     </message>
     <message>
-        <location/>
         <source>Maximum height</source>
-        <translation>Maksymalna wysokość</translation>
+        <translation type="obsolete">Maksymalna wysokość</translation>
     </message>
     <message>
-        <location/>
         <source>Change</source>
-        <translation>Zmień</translation>
+        <translation type="obsolete">Zmień</translation>
     </message>
     <message>
         <source>Color for players</source>
@@ -7283,22 +7308,20 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Alternatywny kolor użytkownika aktywnego</translation>
     </message>
     <message>
-        <location/>
         <source>Color for Channels</source>
-        <translation>Kolor kanałów</translation>
+        <translation type="obsolete">Kolor kanałów</translation>
     </message>
     <message>
-        <location/>
         <source>Color for active Channels</source>
-        <translation>Kolor aktywnych kanałów</translation>
+        <translation type="obsolete">Kolor aktywnych kanałów</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-1449"/>
+        <location filename="Overlay.cpp" line="-1426"/>
         <source>Overlay</source>
         <translation>Nakładka</translation>
     </message>
     <message>
-        <location line="-89"/>
+        <location line="-19"/>
         <source>Show no one</source>
         <translation>Nie wyświetlaj nikogo</translation>
     </message>
@@ -7313,32 +7336,24 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Wyświetlaj wszystkich</translation>
     </message>
     <message>
-        <location filename="Overlay.ui"/>
-        <location filename="Overlay.cpp" line="+67"/>
         <source>Color for users</source>
-        <translation>Kolor dla użytkowników</translation>
+        <translation type="obsolete">Kolor dla użytkowników</translation>
     </message>
     <message>
-        <location/>
-        <location filename="Overlay.cpp" line="+4"/>
         <source>Color for talking users</source>
-        <translation>Kolor dla mówiących użytkowników</translation>
+        <translation type="obsolete">Kolor dla mówiących użytkowników</translation>
     </message>
     <message>
-        <location/>
-        <location filename="Overlay.cpp" line="+4"/>
         <source>Color for whispering users</source>
-        <translation>Kolor dla szepczących użytkowników</translation>
+        <translation type="obsolete">Kolor dla szepczących użytkowników</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+4"/>
         <source>Color for channels</source>
-        <translation>Kolor dla kanałów</translation>
+        <translation type="obsolete">Kolor dla kanałów</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>Color for active channels</source>
-        <translation>Kolor dla aktywnych kanałów</translation>
+        <translation type="obsolete">Kolor dla aktywnych kanałów</translation>
     </message>
     <message>
         <location filename="Overlay.ui"/>
@@ -7346,29 +7361,262 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Formularz</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</source>
-        <translation>Nakładka stara się pozostać najmniejszą jak to tylko możliwe w pozycji, którą ustawiłeś. Pozwala nakładce rosnąć w górę jeżeli trzeba.</translation>
+        <translation type="obsolete">Nakładka stara się pozostać najmniejszą jak to tylko możliwe w pozycji, którą ustawiłeś. Pozwala nakładce rosnąć w górę jeżeli trzeba.</translation>
     </message>
     <message>
-        <location/>
         <source>Let overlay grow to the right</source>
-        <translation>Pozwala nakładce rosnąć do prawej</translation>
+        <translation type="obsolete">Pozwala nakładce rosnąć do prawej</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the right if needed.</source>
-        <translation>Nakładka stara się pozostać najmniejszą jak to tylko możliwe w pozycji, którą ustawiłeś. Pozwala nakładce rosnąć w prawo jeżeli trzeba.</translation>
+        <translation type="obsolete">Nakładka stara się pozostać najmniejszą jak to tylko możliwe w pozycji, którą ustawiłeś. Pozwala nakładce rosnąć w prawo jeżeli trzeba.</translation>
     </message>
     <message>
-        <location/>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow downwards if needed.</source>
-        <translation>Nakładka stara się pozostać najmniejszą jak to tylko możliwe w pozycji, którą ustawiłeś. Pozwala nakładce rosnąć w dół jeżeli trzeba.</translation>
+        <translation type="obsolete">Nakładka stara się pozostać najmniejszą jak to tylko możliwe w pozycji, którą ustawiłeś. Pozwala nakładce rosnąć w dół jeżeli trzeba.</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation type="obsolete">Tekst</translation>
+    </message>
+</context>
+<context>
+    <name>OverlayEditor</name>
+    <message>
+        <location filename="OverlayEditor.ui"/>
+        <source>Dialog</source>
+        <translation type="unfinished">Dialog</translation>
     </message>
     <message>
         <location/>
-        <source>TextLabel</source>
-        <translation>Tekst</translation>
+        <source>State</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User is not talking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Passive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User is talking in your channel or a linked channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Talking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User is whispering to you privately</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Private Whisper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User is shouting to your channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel Whisper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Zoom Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Enabled Elements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User avatar, chosen by each user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Avatar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>User&apos;s name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Username</source>
+        <translation type="unfinished">Użytkownik</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Name of user&apos;s channel, if outside your current channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Muted or deafened</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Mute state</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Bounding box</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OverlayEditorScene</name>
+    <message>
+        <location filename="Overlay.cpp" line="+540"/>
+        <source>Layout preset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Large square avatar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Avatar and Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>User Opacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <location line="+31"/>
+        <source>%1%</source>
+        <translation type="unfinished">%1%</translation>
+    </message>
+    <message>
+        <location line="-5"/>
+        <source>Object Opacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Alignment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <location line="+18"/>
+        <source>Center</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-13"/>
+        <source>Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Color...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Font...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Bounding box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pen width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Padding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pen color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Fill color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+87"/>
+        <source>Pick pen color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Pick fill color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Pick color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Pick font</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7390,65 +7638,12 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayUser</name>
     <message>
-        <location filename="Overlay.cpp" line="+46"/>
-        <source>Channel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Silent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Talking</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
         <source>Whisper</source>
-        <translation type="unfinished">Szept</translation>
+        <translation type="obsolete">Szept</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Shout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+600"/>
-        <source>User Opacity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <location line="+16"/>
         <source>%1%</source>
-        <translation type="unfinished">%1%</translation>
-    </message>
-    <message>
-        <location line="-6"/>
-        <source>Object Opacity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+19"/>
-        <source>Color...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Font...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+43"/>
-        <source>Pick color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+17"/>
-        <source>Pick font</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">%1%</translation>
     </message>
 </context>
 <context>

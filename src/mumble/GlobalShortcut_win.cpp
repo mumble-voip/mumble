@@ -63,9 +63,9 @@ static HWND WINAPI HookWindowFromPoint(POINT p) {
 
 	WindowFromPointType oWindowFromPoint = (WindowFromPointType) hhWindowFromPoint.call;
 	hhWindowFromPoint.restore();
-	
+
 	HWND hwnd = oWindowFromPoint(p);
-	
+
 	hhWindowFromPoint.inject();
 	return hwnd;
 }
@@ -74,12 +74,12 @@ typedef BOOL(__stdcall *SetForegroundWindowType)(HWND);
 static BOOL WINAPI HookSetForegroundWindow(HWND hwnd) {
 	if (g.ocIntercept)
 		return TRUE;
-	
+
 	SetForegroundWindowType oSetForegroundWindow = (SetForegroundWindowType) hhSetForegroundWindow.call;
 	hhSetForegroundWindow.restore();
-	
+
 	BOOL ret = oSetForegroundWindow(hwnd);
-	
+
 	hhSetForegroundWindow.inject();
 	return ret;
 }
