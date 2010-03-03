@@ -65,20 +65,7 @@
       <string>Position</string>
      </property>
      <layout class="QGridLayout">
-      <item row="0" column="1">
-       <widget class="QCheckBox" name="qcbTop">
-        <property name="toolTip">
-         <string>Let overlay grow upwards</string>
-        </property>
-        <property name="whatsThis">
-         <string>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</string>
-        </property>
-        <property name="text">
-         <string>Grow Up</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3" rowspan="3">
+      <item row="0" column="2" rowspan="2">
        <widget class="QSlider" name="qsY">
         <property name="toolTip">
          <string>Y-Position of Overlay</string>
@@ -94,46 +81,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QCheckBox" name="qcbLeft">
-        <property name="toolTip">
-         <string>Let overlay grow to the left</string>
-        </property>
-        <property name="whatsThis">
-         <string>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the left if needed.</string>
-        </property>
-        <property name="text">
-         <string>Grow Left</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QCheckBox" name="qcbRight">
-        <property name="toolTip">
-         <string>Let overlay grow to the right</string>
-        </property>
-        <property name="whatsThis">
-         <string>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow to the right if needed.</string>
-        </property>
-        <property name="text">
-         <string>Grow Right</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QCheckBox" name="qcbBottom">
-        <property name="toolTip">
-         <string>Let overlay grow downwards</string>
-        </property>
-        <property name="whatsThis">
-         <string>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow downwards if needed.</string>
-        </property>
-        <property name="text">
-         <string>Grow Down</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" colspan="3">
+      <item row="2" column="0" colspan="2">
        <widget class="QSlider" name="qsX">
         <property name="toolTip">
          <string>X-Position of Overlay</string>
@@ -146,174 +94,6 @@
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="qgbFont">
-     <property name="title">
-      <string>Font</string>
-     </property>
-     <layout class="QGridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="qliSetFont">
-        <property name="text">
-         <string>Current Font</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" colspan="2">
-       <widget class="QLabel" name="qlCurrentFont">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QPushButton" name="qpbSetFont">
-        <property name="text">
-         <string>Set Font</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="qliMaxHeight">
-        <property name="text">
-         <string>Maximum height</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QSlider" name="qsMaxHeight">
-        <property name="toolTip">
-         <string>Maximum height of names.</string>
-        </property>
-        <property name="whatsThis">
-         <string>This sets the maximum height of names shown, relative to the screen height. If your active 3D window is 800 pixels tall and this is set to 5%, each name will be 40 pixels tall. Note that the names will not be taller than 60 pixels no matter what you set here.</string>
-        </property>
-        <property name="minimum">
-         <number>10</number>
-        </property>
-        <property name="maximum">
-         <number>200</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QLabel" name="qlMaxHeight">
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="qliUser">
-        <property name="text">
-         <string>Color for users</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="3">
-       <widget class="QPushButton" name="qpbUser">
-        <property name="text">
-         <string>Change</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="qliTalking">
-        <property name="text">
-         <string>Color for talking users</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1" colspan="2">
-       <widget class="QLabel" name="qlTalking">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="3">
-       <widget class="QPushButton" name="qpbTalking">
-        <property name="text">
-         <string>Change</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="qliWhisper">
-        <property name="text">
-         <string>Color for whispering users</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1" colspan="2">
-       <widget class="QLabel" name="qlWhisper">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="3">
-       <widget class="QPushButton" name="qpbWhisper">
-        <property name="text">
-         <string>Change</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="qliChannel">
-        <property name="text">
-         <string>Color for Channels</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1" colspan="2">
-       <widget class="QLabel" name="qlChannel">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="3">
-       <widget class="QPushButton" name="qpbChannel">
-        <property name="text">
-         <string>Change</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="qliChannelTalking">
-        <property name="text">
-         <string>Color for active Channels</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1">
-       <widget class="QLabel" name="qlChannelTalking">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="3">
-       <widget class="QPushButton" name="qpbChannelTalking">
-        <property name="text">
-         <string>Change</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" colspan="2">
-       <widget class="QLabel" name="qlUser">
-        <property name="text">
-         <string/>
         </property>
        </widget>
       </item>
@@ -339,19 +119,8 @@
   <tabstop>qcbEnable</tabstop>
   <tabstop>qcbShow</tabstop>
   <tabstop>qcbAlwaysSelf</tabstop>
-  <tabstop>qcbTop</tabstop>
-  <tabstop>qcbRight</tabstop>
-  <tabstop>qcbBottom</tabstop>
-  <tabstop>qcbLeft</tabstop>
   <tabstop>qsY</tabstop>
   <tabstop>qsX</tabstop>
-  <tabstop>qpbSetFont</tabstop>
-  <tabstop>qsMaxHeight</tabstop>
-  <tabstop>qpbUser</tabstop>
-  <tabstop>qpbTalking</tabstop>
-  <tabstop>qpbWhisper</tabstop>
-  <tabstop>qpbChannel</tabstop>
-  <tabstop>qpbChannelTalking</tabstop>
  </tabstops>
  <resources/>
  <connections/>

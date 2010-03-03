@@ -114,6 +114,59 @@ QDataStream &operator>>(QDataStream &qds, ShortcutTarget &st) {
 const QString Settings::cqsDefaultPushClickOn = QLatin1String(":/on.ogg");
 const QString Settings::cqsDefaultPushClickOff = QLatin1String(":/off.ogg");
 
+OverlaySettings::OverlaySettings() {
+	fX = 0.8f;
+	fY = 0.0f;
+	fHeight = 1.f;
+
+	qcUserName[Settings::Passive] = QColor(128, 128, 128);
+	qcUserName[Settings::Talking] = QColor(255, 255, 255);
+	qcUserName[Settings::WhisperPrivate] = QColor(128, 255, 128);
+	qcUserName[Settings::WhisperChannel] = QColor(255, 128, 255);
+	qcChannel = QColor(192,192,255,192);
+
+	fUserName = 0.75f;
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+	qfUserName = QFont(QLatin1String("Verdana"), 20);
+#else
+	qfUserName = QFont(QLatin1String("Arial"), 20);
+#endif
+
+	qcChannel = QColor(255, 255, 128);
+	fChannel = 0.75f;
+	qfChannel = qfUserName;
+
+	fMutedDeafened = 0.5f;
+	fAvatar = 1.0f;
+	
+	qcBoxPen = QColor(0, 0, 0, 224);
+	qcBoxFill = QColor(128, 128, 128, 128);
+	fBoxPenWidth = (1.f / 256.0f);
+	fBoxPad = (1.f / 256.0f);
+
+	fUser[Settings::Passive] = 0.5f;
+	fUser[Settings::Talking] = (7.0f / 8.0f);
+	fUser[Settings::WhisperPrivate] = (7.0f / 8.0f);
+	fUser[Settings::WhisperChannel] = (7.0f / 8.0f);
+
+	// Nice and exact float values.
+	qrfUserName = QRectF(-0.0625f, 0.101563f - 0.0625f, 0.125f, 0.023438f);
+	qrfChannel = QRectF(-0.03125f, -0.0625f, 0.09375f, 0.015625f);
+	qrfMutedDeafened = QRectF(-0.0625f, -0.0625f, 0.0625f, 0.0625f);
+	qrfAvatar = QRectF(-0.0625f, -0.0625f, 0.125f, 0.125f);
+
+	bUserName = true;
+	bChannel = true;
+	bMutedDeafened = true;
+	bAvatar = true;
+	bBox = false;
+	
+	qaUserName = Qt::AlignCenter;
+	qaMutedDeafened = Qt::AlignLeft | Qt::AlignTop;
+	qaAvatar = Qt::AlignCenter;
+	qaChannel = Qt::AlignCenter;
+}
+
 Settings::Settings() {
 	qRegisterMetaType<ShortcutTarget>("ShortcutTarget");
 	qRegisterMetaTypeStreamOperators<ShortcutTarget>("ShortcutTarget");
@@ -203,72 +256,6 @@ Settings::Settings() {
 	bOverlayEnable = true;
 	osOverlay = All;
 	bOverlayAlwaysSelf = true;
-	bOverlayTop = false;
-	bOverlayBottom = true;
-	bOverlayLeft = true;
-	bOverlayRight = false;
-#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
-	qfOverlayFont = QFont(QLatin1String("Verdana"), 20);
-#else
-	qfOverlayFont = QFont(QLatin1String("Arial"), 20);
-#endif
-	qcOverlayUser = QColor(255,255,255,128);
-	qcOverlayTalking = QColor(255,255,196,255);
-	qcOverlayWhisper = QColor(255,128,128,255);
-	qcOverlayChannelTalking = QColor(224,224,255,255);
-
-	os.fOverlayX = 0.8f;
-	os.fOverlayY = 0.0f;
-	os.fOverlayHeight = 3.f;
-
-	os.qcOverlayUserName[Passive] = QColor(128, 128, 128);
-	os.qcOverlayUserName[Talking] = QColor(255, 255, 255);
-	os.qcOverlayUserName[WhisperPrivate] = QColor(128, 255, 128);
-	os.qcOverlayUserName[WhisperChannel] = QColor(255, 128, 255);
-	os.qcOverlayChannel = QColor(192,192,255,192);
-
-
-	os.fOverlayUserName = 0.75f;
-#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
-	os.qfOverlayUserName = QFont(QLatin1String("Verdana"), 20);
-#else
-	os.qfOverlayUserName = QFont(QLatin1String("Arial"), 20);
-#endif
-
-	os.qcOverlayChannel = QColor(255, 255, 128);
-	os.fOverlayChannel = 0.75f;
-	os.qfOverlayChannel = os.qfOverlayUserName;
-
-	os.fOverlayMutedDeafened = 0.5f;
-	os.fOverlayAvatar = 1.0f;
-	
-	os.qcOverlayBoxPen = QColor(0, 0, 0, 224);
-	os.qcOverlayBoxFill = QColor(128, 128, 128, 128);
-	os.fOverlayBoxPenWidth = (1.f / 256.0f);
-	os.fOverlayBoxPad = (1.f / 256.0f);
-
-	os.fOverlayUser[Passive] = 0.5f;
-	os.fOverlayUser[Talking] = (7.0f / 8.0f);
-	os.fOverlayUser[WhisperPrivate] = (7.0f / 8.0f);
-	os.fOverlayUser[WhisperChannel] = (7.0f / 8.0f);
-
-	// Nice and exact float values.
-
-	os.qrfOverlayUserName = QRectF(0.0f, 0.101563f, 0.125f, 0.023438f);
-	os.qrfOverlayChannel = QRectF(0.03125f, 0.0f, 0.09375f, 0.015625f);
-	os.qrfOverlayMutedDeafened = QRectF(0.0f, 0.0f, 0.0625f, 0.0625f);
-	os.qrfOverlayAvatar = QRectF(0.0f, 0.0f, 0.125f, 0.125f);
-
-	os.bOverlayUserName = true;
-	os.bOverlayChannel = true;
-	os.bOverlayMutedDeafened = true;
-	os.bOverlayAvatar = true;
-	os.bOverlayBox = false;
-	
-	os.qaOverlayUserName = Qt::AlignCenter;
-	os.qaOverlayMutedDeafened = Qt::AlignLeft | Qt::AlignTop;
-	os.qaOverlayAvatar = Qt::AlignCenter;
-	os.qaOverlayChannel = Qt::AlignCenter;
 
 	iLCDUserViewMinColWidth = 50;
 	iLCDUserViewSplitterWidth = 2;
@@ -366,6 +353,26 @@ BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
 #define SAVELOAD(var,name) var = qvariant_cast<BOOST_TYPEOF(var)>(g.qs->value(QLatin1String(name), var))
 #define LOADENUM(var, name) var = static_cast<BOOST_TYPEOF(var)>(g.qs->value(QLatin1String(name), var).toInt())
 
+void OverlaySettings::load() {
+/*
+	LOADENUM(osOverlay, "overlay/show");
+	SAVELOAD(bOverlayAlwaysSelf, "overlay/alwaysself");
+	SAVELOAD(fOverlayX, "overlay/x");
+	SAVELOAD(fOverlayY, "overlay/y");
+	SAVELOAD(bTransmitPosition, "audio/postransmit");
+	SAVELOAD(bOverlayTop, "overlay/top");
+	SAVELOAD(bOverlayBottom, "overlay/bottom");
+	SAVELOAD(bOverlayLeft, "overlay/left");
+	SAVELOAD(bOverlayRight, "overlay/right");
+	SAVELOAD(qfOverlayFont, "overlay/font");
+	SAVELOAD(fOverlayHeight, "overlay/height");
+	SAVELOAD(qcOverlayUser, "overlay/user");
+	SAVELOAD(qcOverlayTalking, "overlay/talking");
+	SAVELOAD(qcOverlayChannel, "overlay/channel");
+	SAVELOAD(qcOverlayChannelTalking, "overlay/channeltalking");
+*/
+}
+
 void Settings::load() {
 	SAVELOAD(bMute, "audio/mute");
 	SAVELOAD(bDeaf, "audio/deaf");
@@ -398,6 +405,7 @@ void Settings::load() {
 	SAVELOAD(qsAudioInput, "audio/input");
 	SAVELOAD(qsAudioOutput, "audio/output");
 	SAVELOAD(bWhisperFriends, "audio/whisperfriends");
+	SAVELOAD(bTransmitPosition, "audio/postransmit");
 
 	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
 	SAVELOAD(iFramesPerPacket, "net/framesperpacket");
@@ -432,23 +440,8 @@ void Settings::load() {
 	SAVELOAD(iTTSThreshold, "tts/threshold");
 
 	SAVELOAD(bOverlayEnable, "overlay/enable");
-/*
 	LOADENUM(osOverlay, "overlay/show");
 	SAVELOAD(bOverlayAlwaysSelf, "overlay/alwaysself");
-	SAVELOAD(fOverlayX, "overlay/x");
-	SAVELOAD(fOverlayY, "overlay/y");
-	SAVELOAD(bTransmitPosition, "audio/postransmit");
-	SAVELOAD(bOverlayTop, "overlay/top");
-	SAVELOAD(bOverlayBottom, "overlay/bottom");
-	SAVELOAD(bOverlayLeft, "overlay/left");
-	SAVELOAD(bOverlayRight, "overlay/right");
-	SAVELOAD(qfOverlayFont, "overlay/font");
-	SAVELOAD(fOverlayHeight, "overlay/height");
-	SAVELOAD(qcOverlayUser, "overlay/user");
-	SAVELOAD(qcOverlayTalking, "overlay/talking");
-	SAVELOAD(qcOverlayChannel, "overlay/channel");
-	SAVELOAD(qcOverlayChannelTalking, "overlay/channeltalking");
-*/
 
 	// Network settings
 	SAVELOAD(bTCPCompat, "net/tcponly");
@@ -550,10 +543,17 @@ void Settings::load() {
 		qmPositionalAudioPlugins.insert(d, g.qs->value(d, true).toBool());
 	}
 	g.qs->endGroup();
+	
+	g.qs->beginGroup(QLatin1String("overlay"));
+	os.load();
+	g.qs->endGroup();
 }
 
 #undef SAVELOAD
 #define SAVELOAD(var,name) if (var != def.var) g.qs->setValue(QLatin1String(name), var); else g.qs->remove(QLatin1String(name))
+
+void OverlaySettings::save() {
+}
 
 void Settings::save() {
 	Settings def;
@@ -623,23 +623,10 @@ void Settings::save() {
 	SAVELOAD(iTTSThreshold, "tts/threshold");
 
 	SAVELOAD(bOverlayEnable, "overlay/enable");
-/*
-	SAVELOAD(osOverlay, "overlay/show");
+
+	SAVELOAD(bOverlayEnable, "overlay/enable");
+	LOADENUM(osOverlay, "overlay/show");
 	SAVELOAD(bOverlayAlwaysSelf, "overlay/alwaysself");
-	SAVELOAD(fOverlayX, "overlay/x");
-	SAVELOAD(fOverlayY, "overlay/y");
-	SAVELOAD(bTransmitPosition, "audio/postransmit");
-	SAVELOAD(bOverlayTop, "overlay/top");
-	SAVELOAD(bOverlayBottom, "overlay/bottom");
-	SAVELOAD(bOverlayLeft, "overlay/left");
-	SAVELOAD(bOverlayRight, "overlay/right");
-	SAVELOAD(qfOverlayFont, "overlay/font");
-	SAVELOAD(fOverlayHeight, "overlay/height");
-	SAVELOAD(qcOverlayUser, "overlay/user");
-	SAVELOAD(qcOverlayTalking, "overlay/talking");
-	SAVELOAD(qcOverlayChannel, "overlay/channel");
-	SAVELOAD(qcOverlayChannelTalking, "overlay/channeltalking");
-*/
 
 	// Network settings
 	SAVELOAD(bTCPCompat, "net/tcponly");
@@ -741,5 +728,9 @@ void Settings::save() {
 		else
 			g.qs->remove(d);
 	}
+	g.qs->endGroup();
+
+	g.qs->beginGroup(QLatin1String("overlay"));
+	os.save();
 	g.qs->endGroup();
 }

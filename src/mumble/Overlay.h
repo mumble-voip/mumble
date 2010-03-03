@@ -196,23 +196,11 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(OverlayConfig)
-	protected:
-		QFont qfFont;
-		QColor qcUser, qcWhisper, qcTalking, qcChannel, qcChannelTalking;
-
-		static void setColorLabel(QLabel *label, QColor col);
 	public:
 		OverlayConfig(Settings &st);
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
-		void on_qsMaxHeight_valueChanged(int v);
-		void on_qpbSetFont_clicked();
-		void on_qpbUser_clicked();
-		void on_qpbTalking_clicked();
-		void on_qpbWhisper_clicked();
-		void on_qpbChannel_clicked();
-		void on_qpbChannelTalking_clicked();
 		void accept() const;
 		void save() const;
 		void load(const Settings &r);

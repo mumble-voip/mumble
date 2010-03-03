@@ -74,43 +74,46 @@ QDataStream &operator>>(QDataStream &, ShortcutTarget &);
 Q_DECLARE_METATYPE(ShortcutTarget);
 
 struct OverlaySettings {
-	float fOverlayX;
-	float fOverlayY;
+	float fX;
+	float fY;
 
-	qreal fOverlayHeight;
+	qreal fHeight;
 
-	QColor qcOverlayUserName[4];
-	QFont qfOverlayUserName;
+	QColor qcUserName[4];
+	QFont qfUserName;
 
-	QColor qcOverlayChannel;
-	QFont qfOverlayChannel;
+	QColor qcChannel;
+	QFont qfChannel;
 	
-	qreal fOverlayBoxPad;
-	qreal fOverlayBoxPenWidth;
-	QColor qcOverlayBoxPen;
-	QColor qcOverlayBoxFill;
+	qreal fBoxPad;
+	qreal fBoxPenWidth;
+	QColor qcBoxPen;
+	QColor qcBoxFill;
 	
-	bool bOverlayUserName;
-	bool bOverlayChannel;
-	bool bOverlayMutedDeafened;
-	bool bOverlayAvatar;
-	bool bOverlayBox;
+	bool bUserName;
+	bool bChannel;
+	bool bMutedDeafened;
+	bool bAvatar;
+	bool bBox;
 
-	qreal fOverlayUserName;
-	qreal fOverlayChannel;
-	qreal fOverlayMutedDeafened;
-	qreal fOverlayAvatar;
-	qreal fOverlayUser[4];
+	qreal fUserName;
+	qreal fChannel;
+	qreal fMutedDeafened;
+	qreal fAvatar;
+	qreal fUser[4];
 
-	QRectF qrfOverlayUserName;
-	QRectF qrfOverlayChannel;
-	QRectF qrfOverlayMutedDeafened;
-	QRectF qrfOverlayAvatar;
+	QRectF qrfUserName;
+	QRectF qrfChannel;
+	QRectF qrfMutedDeafened;
+	QRectF qrfAvatar;
 
-	Qt::Alignment qaOverlayUserName;
-	Qt::Alignment qaOverlayChannel;
-	Qt::Alignment qaOverlayMutedDeafened;
-	Qt::Alignment qaOverlayAvatar;
+	Qt::Alignment qaUserName;
+	Qt::Alignment qaChannel;
+	Qt::Alignment qaMutedDeafened;
+	Qt::Alignment qaAvatar;
+	OverlaySettings();
+	void load();
+	void save();
 };
 
 struct Settings {
@@ -175,13 +178,6 @@ struct Settings {
 	bool bOverlayEnable;
 	OverlayShow osOverlay;
 	bool bOverlayAlwaysSelf;
-	bool bOverlayLeft, bOverlayRight, bOverlayTop, bOverlayBottom;
-	QFont qfOverlayFont;
-	QColor qcOverlayUser;
-	QColor qcOverlayTalking;
-	QColor qcOverlayWhisper;
-	QColor qcOverlayChannelTalking;
-	
 	OverlaySettings os;
 
 	int iLCDUserViewMinColWidth;
