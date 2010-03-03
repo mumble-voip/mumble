@@ -96,6 +96,9 @@
         <property name="pageStep">
          <number>5</number>
         </property>
+        <property name="value">
+         <number>2</number>
+        </property>
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>

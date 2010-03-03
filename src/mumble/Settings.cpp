@@ -219,7 +219,7 @@ Settings::Settings() {
 
 	os.fOverlayX = 0.8f;
 	os.fOverlayY = 0.0f;
-	os.fOverlayHeight = 1.f;
+	os.fOverlayHeight = 3.f;
 
 	os.qcOverlayUserName[Passive] = QColor(128, 128, 128);
 	os.qcOverlayUserName[Talking] = QColor(255, 255, 255);

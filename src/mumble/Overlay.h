@@ -90,41 +90,6 @@ class OverlayUser : public OverlayGroup {
 		static QPointF alignedPosition(const QRectF &box, const QRectF &item, Qt::Alignment a);
 };
 
-/*
-class OverlayEditUser : public QObject, public OverlayUser {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(OverlayEditUser);
-	public:
-		enum { Type = UserType + 2 };
-	protected:
-		QGraphicsRectItem *qgriSelected;
-		QGraphicsPixmapItem *qgpiSelected;
-		int iDragCorner;
-
-		Qt::WindowFrameSection wfsHover;
-
-		void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
-		void mousePressEvent(QGraphicsSceneMouseEvent *);
-		void mouseMoveEvent(QGraphicsSceneMouseEvent *);
-		void mouseReleaseEvent(QGraphicsSceneMouseEvent *);
-		void focusInEvent(QFocusEvent *);
-		void focusOutEvent(QFocusEvent *);
-		void hoverMoveEvent(QGraphicsSceneHoverEvent *);
-		void updateCursorShape(const QPointF &point);
-
-		QGraphicsPixmapItem *childAt(const QPointF &);
-		QRectF selectedRect() const;
-
-		static Qt::WindowFrameSection rectSection(const QRectF &rect, const QPointF &point, qreal dist = 3.0f);
-	public:
-		OverlayEditUser(Settings::TalkState ts, unsigned int uiSize);
-
-		QRectF boundingRect() const;
-		int type() const;
-};
-*/
-
 class OverlayUserGroup : public OverlayGroup {
 	private:
 		Q_DISABLE_COPY(OverlayUserGroup);
@@ -165,6 +130,8 @@ class OverlayEditorScene : public QGraphicsScene {
 		void mouseMoveEvent(QGraphicsSceneMouseEvent *);
 		void mouseReleaseEvent(QGraphicsSceneMouseEvent *);
 		void updateCursorShape(const QPointF &point);
+		
+		void drawBackground(QPainter *, const QRectF &);
 
 		QGraphicsPixmapItem *childAt(const QPointF &);
 		QRectF selectedRect() const;
@@ -172,6 +139,7 @@ class OverlayEditorScene : public QGraphicsScene {
 		static Qt::WindowFrameSection rectSection(const QRectF &rect, const QPointF &point, qreal dist = 3.0f);
 	public:
 		Settings::TalkState tsColor;
+		unsigned int uiZoom;
 		OverlaySettings os;
 	
 		OverlayEditorScene(QObject *p = NULL);
@@ -220,6 +188,8 @@ class OverlayEditor : public QDialog, public Ui::OverlayEditor {
 		void on_qcbChannel_clicked();
 		void on_qcbMutedDeafened_clicked();
 		void on_qcbBox_clicked();
+		
+		void on_qsZoom_valueChanged(int);
 };
 
 class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
