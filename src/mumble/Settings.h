@@ -111,6 +111,11 @@ struct OverlaySettings {
 	Qt::Alignment qaChannel;
 	Qt::Alignment qaMutedDeafened;
 	Qt::Alignment qaAvatar;
+
+	bool bUseWhitelist;
+	QStringList qslBlacklist;
+	QStringList qslWhitelist;
+
 	OverlaySettings();
 	void load();
 	void save();

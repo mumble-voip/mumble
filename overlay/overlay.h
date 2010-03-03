@@ -80,4 +80,16 @@ struct OverlayMsg {
 	};
 };
 
+static const char *overlayBlacklist[] = {
+	"iexplore.exe",
+	"ieuser.exe",
+	"vlc.exe",
+	"dbgview.exe",
+	"opera.exe",
+	"chrome.exe",
+	"acrord32.exe",
+	"explorer.exe",
+	NULL
+};
+
 #endif

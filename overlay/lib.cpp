@@ -426,15 +426,6 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 }
 
 static bool bBlackListed = false;
-static const char *blacklist[] = {
-	"iexplore.exe",
-	"ieuser.exe",
-	"vlc.exe",
-	"dbgview.exe",
-	"opera.exe",
-	"explorer.exe",
-	NULL
-};
 
 typedef HMODULE(__stdcall *LoadLibraryAType)(const char *);
 static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
@@ -525,16 +516,69 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 				if (p) {
 					if ((_stricmp(p+1, "mumble.exe")==0) || (_stricmp(p+1, "mumble11x.exe")==0))
 						bMumble = TRUE;
-					int i =0;
-					while (blacklist[i]) {
-						if (_stricmp(p+1,blacklist[i])==0) {
-							bBlackListed = true;
-							return TRUE;
-						}
-						i++;
-					}
-					strcpy_s(p+1, 64, "nooverlay");
 
+					int i = 0;
+					char buffer[MAX_PATH * 101];
+					DWORD buffsize;
+
+					bool usewhitelist;
+					HKEY key = NULL;
+
+					bool success = true;
+
+					buffsize = sizeof(buffer);
+					success = (RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Mumble\\Mumble\\overlay", NULL, KEY_READ, &key) == ERROR_SUCCESS) &&
+						   (RegQueryValueExA(key, "usewhitelist", NULL, NULL, (LPBYTE)buffer, &buffsize) == ERROR_SUCCESS);
+
+					if(success) {
+						usewhitelist = (_stricmp(buffer, "true") == 0);
+						buffsize = sizeof(buffer);
+						success = (RegQueryValueExA(key, usewhitelist ? "whitelist" : "blacklist", NULL, NULL, (LPBYTE)buffer, &buffsize) == ERROR_SUCCESS);
+					}
+
+					if (success) {
+						unsigned int pos = 0;
+
+						if (usewhitelist) {
+							bool onwhitelist = false;
+							while (buffer[pos] != 0 && pos < sizeof(buffer)) {
+								if (_stricmp(p+1, buffer + pos) == 0) {
+									fods("Overlay enabled for whitelisted %s", p+1);
+									onwhitelist = true;
+									break;
+								}
+								pos += strlen(buffer + pos) + 1;
+							}
+
+							if (!onwhitelist) {
+								bBlackListed = true;
+								return TRUE;
+							}
+						}
+						else {
+							while (buffer[pos] != 0 && pos < sizeof(buffer)) {
+								if (_stricmp(p+1, buffer + pos) == 0) {
+									bBlackListed = true;
+									fods("Overlay blacklist entry found for %s", p+1);
+									return TRUE;
+								}
+								pos += strlen(buffer + pos) + 1;
+							}
+						}
+					} else {
+						// If there is no list in the registry fallback to using the default blacklist
+						fods("Overlay fallback to default blacklist");
+						while (overlayBlacklist[i]) {
+							if (_stricmp(p+1, overlayBlacklist[i])==0) {
+								fods("Overlay blacklist entry found for %s", p+1);
+								bBlackListed = true;
+								return TRUE;
+							}
+							i++;
+						}
+					}
+
+					strcpy_s(p+1, 64, "nooverlay");
 					HANDLE h = CreateFile(procname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 					if (h != INVALID_HANDLE_VALUE) {
 						CloseHandle(h);

@@ -19,7 +19,7 @@ QMAKE_CXXFLAGS_DEBUG	*= -MTd
 
 INCLUDEPATH *= "$$(DXSDK_DIR)Include"
 
-LIBS *= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -luuid -lole32 -luser32
+LIBS *= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -luuid -lole32 -luser32 -ladvapi32
 
 CONFIG(release, debug|release) {
   DESTDIR       = ../release

@@ -34,6 +34,7 @@
 #include "Global.h"
 #include "AudioInput.h"
 #include "Cert.h"
+#include "../../overlay/overlay.h"
 
 bool Shortcut::isServerSpecific() const {
 	if (qvData.canConvert<ShortcutTarget>()) {
@@ -165,6 +166,17 @@ OverlaySettings::OverlaySettings() {
 	qaMutedDeafened = Qt::AlignLeft | Qt::AlignTop;
 	qaAvatar = Qt::AlignCenter;
 	qaChannel = Qt::AlignCenter;
+
+	bUseWhitelist = false;
+
+#ifdef Q_OS_WIN
+	int i = 0;
+	while (overlayBlacklist[i]) {
+		qslBlacklist << QLatin1String(overlayBlacklist[i]);
+		i++;
+	}
+#endif
+
 }
 
 Settings::Settings() {
@@ -397,6 +409,10 @@ void OverlaySettings::load() {
 	LOADFLAG(qaChannel, "channelalign");
 	LOADFLAG(qaMutedDeafened, "mutedalign");
 	LOADFLAG(qaAvatar, "avataralign");
+
+	SAVELOAD(bUseWhitelist, "usewhitelist");
+	SAVELOAD(qslBlacklist, "blacklist");
+	SAVELOAD(qslWhitelist, "whitelist");
 }
 
 void Settings::load() {
@@ -623,6 +639,10 @@ void OverlaySettings::save() {
 	SAVEFLAG(qaChannel, "channelalign");
 	SAVEFLAG(qaMutedDeafened, "mutedalign");
 	SAVEFLAG(qaAvatar, "avataralign");
+
+	g.qs->setValue(QLatin1String("usewhitelist"), bUseWhitelist);
+	g.qs->setValue(QLatin1String("blacklist"), qslBlacklist);
+	g.qs->setValue(QLatin1String("whitelist"), qslWhitelist);
 }
 
 void Settings::save() {
