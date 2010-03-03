@@ -62,16 +62,15 @@ void OverlayConfig::load(const Settings &r) {
 	loadCheckBox(qcbTop, r.bOverlayTop);
 	loadCheckBox(qcbBottom, r.bOverlayBottom);
 
-	loadSlider(qsX, iroundf(r.fOverlayX * 100.0f));
-	loadSlider(qsY, 100 - iroundf(r.fOverlayY * 100.0f));
+	loadSlider(qsX, iroundf(r.os.fOverlayX * 100.0f));
+	loadSlider(qsY, 100 - iroundf(r.os.fOverlayY * 100.0f));
 	qfFont = r.qfOverlayFont;
 	qcUser = r.qcOverlayUser;
 	qcTalking= r.qcOverlayTalking;
 	qcWhisper= r.qcOverlayWhisper;
-	qcChannel = r.qcOverlayChannel;
+	qcChannel = r.os.qcOverlayChannel;
 	qcChannelTalking = r.qcOverlayChannelTalking;
 	qlCurrentFont->setText(qfFont.family());
-	loadSlider(qsMaxHeight, iroundf(r.fOverlayHeight * 1000.0f));
 	setColorLabel(qlUser, qcUser);
 	setColorLabel(qlTalking, qcTalking);
 	setColorLabel(qlWhisper, qcWhisper);
@@ -147,18 +146,16 @@ void OverlayConfig::save() const {
 	s.bOverlayEnable = qcbEnable->isChecked();
 	s.osOverlay = static_cast<Settings::OverlayShow>(qcbShow->currentIndex());
 	s.bOverlayAlwaysSelf = qcbAlwaysSelf->isChecked();
-	s.fOverlayX = static_cast<float>(qsX->value()) / 100.0f;
-	s.fOverlayY = 1.0f - static_cast<float>(qsY->value()) / 100.0f;
+	s.os.fOverlayX = static_cast<float>(qsX->value()) / 100.0f;
+	s.os.fOverlayY = 1.0f - static_cast<float>(qsY->value()) / 100.0f;
 	s.bOverlayLeft = qcbLeft->isChecked();
 	s.bOverlayRight = qcbRight->isChecked();
 	s.bOverlayTop = qcbTop->isChecked();
 	s.bOverlayBottom = qcbBottom->isChecked();
 	s.qfOverlayFont = qfFont;
-	s.fOverlayHeight = static_cast<float>(qsMaxHeight->value()) / 1000.0f;
 	s.qcOverlayUser = qcUser;
 	s.qcOverlayTalking = qcTalking;
 	s.qcOverlayWhisper = qcWhisper;
-	s.qcOverlayChannel = qcChannel;
 	s.qcOverlayChannelTalking = qcChannelTalking;
 }
 
@@ -169,455 +166,291 @@ void OverlayConfig::accept() const {
 
 
 
-OverlayUser::OverlayUser(ClientUser *cu, unsigned int height) : QGraphicsItem(), cuUser(cu), uiSize(height), tsColor(Settings::Passive) {
-	setup();
-	updateLayout();
+OverlayEditorScene::OverlayEditorScene(QObject *p) : QGraphicsScene(p) {
+	os = g.s.os;
+	
+	tsColor = Settings::Talking;
+	
+	if (g.ocIntercept)
+		uiSize = g.ocIntercept->uiHeight;
+	else
+		uiSize = 1080.f;
+
+	qgiGroup = new OverlayGroup();
+	qgiGroup->setAcceptHoverEvents(true);
+	qgiGroup->setPos(0.0f, 0.0f);
+	addItem(qgiGroup);
+
+	qgpiMuted = new QGraphicsPixmapItem(qgiGroup);
+	qgpiMuted->hide();
+
+	qgpiAvatar = new QGraphicsPixmapItem(qgiGroup);
+	qgpiAvatar->hide();
+
+	qgpiName = new QGraphicsPixmapItem(qgiGroup);
+	qgpiName->hide();
+
+	qgpiChannel = new QGraphicsPixmapItem(qgiGroup);
+	qgpiChannel->hide();
+	
+	qgpiBox = new QGraphicsPathItem(qgiGroup);
+	qgpiBox->hide();
+	
+	qgpiSelected = NULL;
+
+	qgriSelected = new QGraphicsRectItem;
+	qgriSelected->hide();
+
+	qgriSelected->setFlag(QGraphicsItem::ItemIgnoresParentOpacity, true);
+	qgriSelected->setOpacity(1.0f);
+	qgriSelected->setBrush(Qt::NoBrush);
+	qgriSelected->setPen(QPen(Qt::black, 4.0f));
+	qgriSelected->setZValue(5.0f);
+	
+	addItem(qgriSelected);
+
+	qgpiChannel->setZValue(2.0f);
+	qgpiName->setZValue(1.0f);
+	qgpiMuted->setZValue(3.0f);
+
+	qgpiBox->setZValue(-1.0f);
+	
+	resync();
 }
 
-OverlayUser::OverlayUser(Settings::TalkState ts, unsigned int height) : QGraphicsItem(), cuUser(NULL), uiSize(height), tsColor(ts) {
-	setup();
-	updateLayout();
+#define SCALESIZE(var) iroundf(uiSize * os.fOverlayHeight * os.qrfOverlay##var .height()), iroundf(uiSize * os.fOverlayHeight * os.qrfOverlay##var .width())
 
-	qsChannelName = tr("Channel");
+void OverlayEditorScene::updateMuted() {
+	QImageReader qir(QLatin1String("skin:muted_self.svg"));
+	QSize sz = qir.size();
+	sz.scale(SCALESIZE(MutedDeafened), Qt::KeepAspectRatio);
+	qir.setScaledSize(sz);
+	qgpiMuted->setPixmap(QPixmap::fromImage(qir.read()));
 
-	switch (ts) {
+	moveMuted();
+}
+
+void OverlayEditorScene::moveMuted() {
+	qgpiMuted->setVisible(os.bOverlayMutedDeafened);
+	qgpiMuted->setPos(OverlayUser::alignedPosition(OverlayUser::scaledRect(os.qrfOverlayMutedDeafened, uiSize * os.fOverlayHeight), qgpiMuted->boundingRect(), os.qaOverlayMutedDeafened));
+	qgpiMuted->setOpacity(os.fOverlayMutedDeafened);
+}
+
+void OverlayEditorScene::updateUserName() {
+	QString qsName;
+	
+	switch (tsColor) {
 		case Settings::Passive:
-			qsName = tr("Silent");
+			qsName = Overlay::tr("Silent");
 			break;
 		case Settings::Talking:
-			qsName = tr("Talking");
+			qsName = Overlay::tr("Talking");
 			break;
 		case Settings::WhisperPrivate:
-			qsName = tr("Whisper");
+			qsName = Overlay::tr("Whisper");
 			break;
 		case Settings::WhisperChannel:
-			qsName = tr("Shout");
+			qsName = Overlay::tr("Shout");
 			break;
 	}
+
+	QPainterPath pp;
+
+	const QPixmap &pm = OverlayUser::createPixmap(qsName, SCALESIZE(UserName), os.qcOverlayUserName[tsColor], os.qfOverlayUserName, pp);
+	qgpiName->setPixmap(pm);
+	
+	moveUserName();
 }
 
-QGraphicsPixmapItem *OverlayUser::childAt(const QPointF &pos) {
+void OverlayEditorScene::moveUserName() {
+	qgpiName->setVisible(os.bOverlayUserName);
+	qgpiName->setPos(OverlayUser::alignedPosition(OverlayUser::scaledRect(os.qrfOverlayUserName, uiSize * os.fOverlayHeight), qgpiName->boundingRect(), os.qaOverlayUserName));
+	qgpiName->setOpacity(os.fOverlayUserName);
+}
+
+void OverlayEditorScene::updateChannel() {
+	QPainterPath pp;
+	const QPixmap &pm = OverlayUser::createPixmap(Overlay::tr("Channel"), SCALESIZE(Channel), os.qcOverlayChannel, os.qfOverlayChannel, pp);
+	qgpiChannel->setPixmap(pm);
+
+	moveChannel();
+}
+
+void OverlayEditorScene::moveChannel() {
+	qgpiChannel->setVisible(os.bOverlayChannel);
+	qgpiChannel->setPos(OverlayUser::alignedPosition(OverlayUser::scaledRect(os.qrfOverlayChannel, uiSize * os.fOverlayHeight), qgpiChannel->boundingRect(), os.qaOverlayChannel));
+	qgpiChannel->setOpacity(os.fOverlayChannel);
+}
+
+void OverlayEditorScene::updateAvatar() {
+	QImage img;
+	QImageReader qir(QLatin1String("skin:default_avatar.svg"));
+	QSize sz = qir.size();
+	sz.scale(SCALESIZE(Avatar), Qt::KeepAspectRatio);
+	qir.setScaledSize(sz);
+	img = qir.read();
+	qgpiAvatar->setPixmap(QPixmap::fromImage(img));
+
+	moveAvatar();
+}
+
+void OverlayEditorScene::moveAvatar() {
+	qgpiAvatar->setVisible(os.bOverlayAvatar);
+	qgpiAvatar->setPos(OverlayUser::alignedPosition(OverlayUser::scaledRect(os.qrfOverlayAvatar, uiSize * os.fOverlayHeight), qgpiAvatar->boundingRect(), os.qaOverlayAvatar));
+	qgpiAvatar->setOpacity(os.fOverlayAvatar);
+}
+
+void OverlayEditorScene::moveBox() {
+	QRectF children = os.qrfOverlayAvatar | os.qrfOverlayChannel | os.qrfOverlayMutedDeafened | os.qrfOverlayUserName;
+	
+	bool haspen = (os.qcOverlayBoxPen != os.qcOverlayBoxFill) && (! qFuzzyCompare(os.qcOverlayBoxPen.alphaF(), static_cast<qreal>(0.0f)));
+	qreal pw = haspen ? qMax<qreal>(1.0f, os.fOverlayBoxPenWidth * uiSize * os.fOverlayHeight) : 0.0f;
+	qreal pad = os.fOverlayBoxPad * uiSize * os.fOverlayHeight;
+
+	QPainterPath pp;
+	pp.addRoundedRect(children.x() * uiSize * os.fOverlayHeight + -pw / 2.0f - pad, children.y() * uiSize * os.fOverlayHeight + -pw / 2.0f - pad, children.width() * uiSize * os.fOverlayHeight + pw + 2.0f * pad, children.height() * uiSize * os.fOverlayHeight + pw + 2.0f * pad, 2.0f * pw, 2.0f * pw);
+	qgpiBox->setPath(pp);
+	qgpiBox->setPos(0.0f, 0.0f);
+	qgpiBox->setPen(haspen ? QPen(os.qcOverlayBoxPen, pw) : Qt::NoPen);
+	qgpiBox->setBrush(qFuzzyCompare(os.qcOverlayBoxFill.alphaF(), static_cast<qreal>(0.0f)) ? Qt::NoBrush : os.qcOverlayBoxFill);
+	qgpiBox->setOpacity(1.0f);
+
+	qgpiBox->setVisible(os.bOverlayBox);
+}
+
+void OverlayEditorScene::updateSelected() {
+	if (qgpiSelected == qgpiAvatar)
+		updateAvatar();
+	else if (qgpiSelected == qgpiName)
+		updateUserName();
+	else if (qgpiSelected == qgpiAvatar)
+		updateAvatar();
+	else if (qgpiSelected == qgpiMuted)
+		updateMuted();
+}
+
+void OverlayEditorScene::resync() {
+	updateMuted();
+	updateUserName();
+	updateChannel();
+	updateAvatar();
+	
+	moveMuted();
+	moveUserName();
+	moveChannel();
+	moveAvatar();
+	
+	moveBox();
+
+	qgiGroup->setOpacity(os.fOverlayUser[tsColor]);
+	
+	qgpiSelected = NULL;
+	qgriSelected->setVisible(false);
+}
+
+QGraphicsPixmapItem *OverlayEditorScene::childAt(const QPointF &pos) {
 	QGraphicsItem *item = NULL;
 
-	if (qgpiSelected) {
-		if (selectedRect().contains(pos))
+	if (qgriSelected->isVisible()) {
+		if (qgriSelected->rect().contains(pos)) {
 			return qgpiSelected;
+		}
 	}
 
-	foreach(QGraphicsItem *qgi, childItems()) {
-		QPointF qp = mapToItem(qgi, pos);
-		if (qgi->isVisible() && qgi->contains(qp)) {
-			if (qgi->isSelected())
-				return static_cast<QGraphicsPixmapItem *>(qgi);
+	foreach(QGraphicsItem *qgi, items(Qt::AscendingOrder)) {
+		if (!qgi->isVisible() || ! qgraphicsitem_cast<QGraphicsPixmapItem *>(qgi))
+			continue;
+
+		QPointF qp = pos - qgi->pos();
+		if (qgi->contains(qp)) {
 			item = qgi;
 		}
 	}
 	return static_cast<QGraphicsPixmapItem *>(item);
 }
 
-int OverlayUser::type() const {
-	return Type;
-}
-
-QRectF OverlayUser::boundingRect() const {
-	QRectF qrf = childrenBoundingRect();
-	return qrf;
-}
-
-QRectF OverlayUser::selectedRect() const {
+QRectF OverlayEditorScene::selectedRect() const {
 	const QRectF *qrf = NULL;
 
-	if ((qgpiSelected == qgpiMuted) || (qgpiSelected == qgpiDeafened))
-		qrf = & g.s.qrfOverlayMutedDeafened;
+	if (qgpiSelected == qgpiMuted)
+		qrf = & os.qrfOverlayMutedDeafened;
 	else if (qgpiSelected == qgpiAvatar)
-		qrf = & g.s.qrfOverlayAvatar;
+		qrf = & os.qrfOverlayAvatar;
 	else if (qgpiSelected == qgpiChannel)
-		qrf = & g.s.qrfOverlayChannel;
-	else
-		for (int i=0;i<4;++i)
-			if (qgpiSelected == qgpiName[i])
-				qrf = & g.s.qrfOverlayUserName;
+		qrf = & os.qrfOverlayChannel;
+	else if (qgpiSelected == qgpiName)
+		qrf = & os.qrfOverlayUserName;
+
 	if (! qrf)
 		return QRectF();
 
-	return scaledRect(*qrf, uiSize).toAlignedRect();
+	return OverlayUser::scaledRect(*qrf, uiSize).toAlignedRect();
 }
 
-void OverlayUser::paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *) {
-}
 
-void OverlayUser::setup() {
-	setZValue(-4.0f);
+void OverlayEditorScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+	QGraphicsScene::mousePressEvent(event);
 
-	qgpiMuted = new QGraphicsPixmapItem(this);
-	qgpiMuted->hide();
+	if (event->isAccepted())
+		return;
 
-	qgpiDeafened = new QGraphicsPixmapItem(this);
-	qgpiDeafened->hide();
-
-	qgpiAvatar = new QGraphicsPixmapItem(this);
-
-	for (int i=0;i<4;++i) {
-		qgpiName[i] = new QGraphicsPixmapItem(this);
-		qgpiName[i]->hide();
-	}
-
-	qgpiChannel = new QGraphicsPixmapItem(this);
-	qgpiChannel->hide();
-	
-	qgpiBox = new QGraphicsPathItem(this);
-	qgpiBox->hide();
-
-	qgpiSelected = NULL;
-
-	if (cuUser) {
-		qgriSelected = NULL;
-		qgriActive = NULL;
-	} else {
-		qgriSelected = new QGraphicsRectItem(this);
-		qgriSelected->hide();
-
-		qgriSelected->setFlag(QGraphicsItem::ItemIgnoresParentOpacity, true);
-		qgriSelected->setOpacity(1.0f);
-		qgriSelected->setBrush(Qt::NoBrush);
-		qgriSelected->setPen(QPen(Qt::black, 4.0f));
-		qgriSelected->setZValue(5.0f);
-
-		qgriActive = new QGraphicsRectItem(this);
-		qgriActive->hide();
-
-		qgriActive->setFlag(QGraphicsItem::ItemIgnoresParentOpacity, true);
-		qgriActive->setOpacity(1.0f);
-		qgriActive->setBrush(Qt::Dense6Pattern);
-		qgriActive->setPen(QPen(Qt::black, 2.0f, Qt::DashLine));
-		qgriActive->setZValue(-5.0f);
-
-		setFlag(QGraphicsItem::ItemIsSelectable, true);
-		setFlag(QGraphicsItem::ItemIsFocusable, true);
-		setFlag(QGraphicsItem::ItemIsPanel, true);
-		setAcceptHoverEvents(true);
-	}
-}
-
-#define SCALESIZE(var) iroundf(uiSize * g.s.qrfOverlay##var .height()), iroundf(uiSize * g.s.qrfOverlay##var .width())
-#define SCALEPOS(var) iroundf(uiSize * g.s.qrfOverlay##var .x()), iroundf(uiSize * g.s.qrfOverlay##var .y())
-
-
-void OverlayUser::updateLayout() {
-	QPixmap pm;
-
-	prepareGeometryChange();
-
-	for (int i=0;i<4;++i)
-		qgpiName[i]->setPixmap(pm);
-
-	qgpiAvatar->setPixmap(pm);
-	qgpiChannel->setPixmap(pm);
-
-	{
-		QImageReader qir(QLatin1String("skin:muted_self.svg"));
-		QSize sz = qir.size();
-		sz.scale(SCALESIZE(MutedDeafened), Qt::KeepAspectRatio);
-		qir.setScaledSize(sz);
-		qgpiMuted->setPixmap(QPixmap::fromImage(qir.read()));
-	}
-
-	{
-		QImageReader qir(QLatin1String("skin:deafened_self.svg"));
-		QSize sz = qir.size();
-		sz.scale(SCALESIZE(MutedDeafened), Qt::KeepAspectRatio);
-		qir.setScaledSize(sz);
-		qgpiDeafened->setPixmap(QPixmap::fromImage(qir.read()));
-	}
-
-	qgpiMuted->setPos(alignedPosition(scaledRect(g.s.qrfOverlayMutedDeafened, uiSize), qgpiMuted->boundingRect(), g.s.qaOverlayMutedDeafened));
-	qgpiMuted->setZValue(1.0f);
-	qgpiMuted->setOpacity(g.s.fOverlayMutedDeafened);
-
-	qgpiDeafened->setPos(alignedPosition(scaledRect(g.s.qrfOverlayMutedDeafened, uiSize), qgpiDeafened->boundingRect(), g.s.qaOverlayMutedDeafened));
-	qgpiDeafened->setZValue(1.0f);
-	qgpiDeafened->setOpacity(g.s.fOverlayMutedDeafened);
-
-	qgpiAvatar->setPos(0.0f, 0.0f);
-	qgpiAvatar->setOpacity(g.s.fOverlayAvatar);
-
-	for (int i=0;i<4;++i) {
-		qgpiName[i]->setPos(0.0f, 0.0f);
-		qgpiName[i]->setZValue(2.0f);
-		qgpiName[i]->setOpacity(g.s.fOverlayUserName);
-	}
-	qgpiChannel->setPos(0.0f, 0.0f);
-	qgpiChannel->setZValue(3.0f);
-	qgpiChannel->setOpacity(g.s.fOverlayChannel);
-
-	QRectF children = g.s.qrfOverlayAvatar | g.s.qrfOverlayChannel | g.s.qrfOverlayMutedDeafened | g.s.qrfOverlayUserName;
-	
-	bool haspen = (g.s.qcOverlayBoxPen != g.s.qcOverlayBoxFill) && (! qFuzzyCompare(g.s.qcOverlayBoxPen.alphaF(), static_cast<qreal>(0.0f)));
-	qreal pw = haspen ? qMax<qreal>(1.0f, g.s.fOverlayBoxPenWidth * uiSize) : 0.0f;
-	qreal pad = g.s.fOverlayBoxPad * uiSize;
-	QPainterPath pp;
-	pp.addRoundedRect(-pw / 2.0f - pad, -pw / 2.0f - pad, children.width() * uiSize + pw + 2.0f * pad, children.height() * uiSize + pw + 2.0f * pad, 2.0f * pw, 2.0f * pw);
-	qgpiBox->setPath(pp);
-	qgpiBox->setPos(0.0f, 0.0f);
-	qgpiBox->setZValue(-1.0f);
-	qgpiBox->setPen(haspen ? QPen(g.s.qcOverlayBoxPen, pw) : Qt::NoPen);
-	qgpiBox->setBrush(qFuzzyCompare(g.s.qcOverlayBoxFill.alphaF(), static_cast<qreal>(0.0f)) ? Qt::NoBrush : g.s.qcOverlayBoxFill);
-	qgpiBox->setOpacity(1.0f);
-
-	if (qgriActive) {
-		qgriActive->setRect(QRectF(0.0f, 0.0f, iroundf(children.width() * uiSize), iroundf(children.height() * uiSize)));
-		qgriActive->setPos(0.0f, 0.0f);
-	}
-}
-
-QPixmap OverlayUser::createPixmap(const QString &string, unsigned int height, unsigned int maxwidth, QColor col, const QFont &font, QPainterPath &pp) {
-	float edge = height * 0.05f;
-
-	if (pp.isEmpty()) {
-		QFont f = font;
-
-		QRectF r;
-		{
-			QPainterPath qp;
-			qp.addText(0.0f, 0.0f, f, string);
-			r = qp.controlPointRect();
-		}
-
-		float fs = f.pointSizeF();
-		float ds = fs * ((height - 2.0f * edge) / r.height());
-
-		f.setPointSizeF(ds);
-
-		pp.addText(0.0f, 0.0f, f, string);
-		r = pp.controlPointRect();
-
-		QString str;
-
-		if (r.width() < maxwidth) {
-			str = string;
-		} else {
-			QFontMetrics qfm(f);
-			str = qfm.elidedText(string, Qt::ElideRight, iroundf(maxwidth - 2 * edge));
-			if (str.trimmed().isEmpty())
-				str = QLatin1String("...");
-
-			pp = QPainterPath();
-			pp.addText(0.0f, 0.0f, f, str);
-		}
-
-		QRectF qr = pp.controlPointRect();
-
-#if QT_VERSION >= 0x040600
-		pp.translate(- qr.x() + edge, - qr.y() + edge);
-#else
-		pp = QPainterPath();
-		pp.addText(- qr.x() + edge, - qr.y() + edge, f, str);
-#endif
-	}
-
-	QRectF qr = pp.controlPointRect();
-	int w = iroundf(qr.width() + 2 * edge + 0.5f);
-	int h = iroundf(qr.height() + 2 * edge + 0.5f);
-
-	QImage img(w, h, QImage::Format_ARGB32);
-	img.fill(0);
-
-	QPainter imgp(&img);
-	imgp.setRenderHint(QPainter::Antialiasing);
-	imgp.setRenderHint(QPainter::TextAntialiasing);
-	imgp.setBackground(QColor(0,0,0,0));
-	imgp.setCompositionMode(QPainter::CompositionMode_Source);
-
-	QColor qc(col);
-	qc.setAlpha(255);
-
-	imgp.setBrush(qc);
-	imgp.setPen(QPen(Qt::black, edge, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-	imgp.drawPath(pp);
-
-	imgp.setPen(Qt::NoPen);
-	imgp.drawPath(pp);
-
-	return QPixmap::fromImage(img);
-}
-
-void OverlayUser::updateUser() {
-	if (g.s.bOverlayUserName && (qgpiName[0]->pixmap().isNull() || (cuUser && (qsName != cuUser->qsName)))) {
-		if (cuUser)
-			qsName = cuUser->qsName;
-
-		QPainterPath pp;
-		for (int i=0; i<4; ++i) {
-			const QPixmap &pm = createPixmap(qsName, SCALESIZE(UserName), g.s.qcOverlayUserName[i], g.s.qfOverlayUserName, pp);
-			qgpiName[i]->setPixmap(pm);
-
-			if (i == 0)
-				qgpiName[0]->setPos(alignedPosition(scaledRect(g.s.qrfOverlayUserName, uiSize), qgpiName[0]->boundingRect(), g.s.qaOverlayUserName));
-			else
-				qgpiName[i]->setPos(qgpiName[0]->pos());
-		}
-	}
-
-	if (g.s.bOverlayChannel && (qgpiChannel->pixmap().isNull() || (cuUser && (qsChannelName != cuUser->cChannel->qsName)))) {
-		if (cuUser)
-			qsChannelName = cuUser->cChannel->qsName;
-
-		QPainterPath pp;
-		const QPixmap &pm = createPixmap(qsChannelName, SCALESIZE(Channel), g.s.qcOverlayChannel, g.s.qfOverlayChannel, pp);
-		qgpiChannel->setPixmap(pm);
-		qgpiChannel->setPos(alignedPosition(scaledRect(g.s.qrfOverlayChannel, uiSize), qgpiChannel->boundingRect(), g.s.qaOverlayChannel));
-	}
-
-	if (g.s.bOverlayAvatar && (qgpiAvatar->pixmap().isNull() || (cuUser && (qbaAvatar != cuUser->qbaTextureHash)))) {
-		if (cuUser)
-			qbaAvatar = cuUser->qbaTextureHash;
-
-		QImage img;
-		if (qbaAvatar.isNull()) {
-			QImageReader qir(QLatin1String("skin:default_avatar.svg"));
-			QSize sz = qir.size();
-			sz.scale(SCALESIZE(Avatar), Qt::KeepAspectRatio);
-			qir.setScaledSize(sz);
-			img = qir.read();
-		} else {
-			QBuffer qb(& cuUser->qbaTexture);
-			qb.open(QIODevice::ReadOnly);
-
-			QImageReader qir(&qb, cuUser->qbaTextureFormat);
-			QSize sz = qir.size();
-			sz.scale(SCALESIZE(Avatar), Qt::KeepAspectRatio);
-			qir.setScaledSize(sz);
-			img = qir.read();
-		}
-
-		qgpiAvatar->setPixmap(QPixmap::fromImage(img));
-		qgpiAvatar->setPos(alignedPosition(scaledRect(g.s.qrfOverlayAvatar, uiSize), qgpiAvatar->boundingRect(), g.s.qaOverlayAvatar));
-	}
-
-	qgpiAvatar->setVisible(g.s.bOverlayAvatar);
-
-	if (cuUser) {
-		ClientUser *self = ClientUser::get(g.uiSession);
-
-		if (g.s.bOverlayMutedDeafened) {
-			if (cuUser->bDeaf || cuUser->bSelfDeaf) {
-				qgpiMuted->hide();
-				qgpiDeafened->show();
-			} else if (cuUser->bMute || cuUser->bSelfMute || cuUser->bLocalMute || cuUser->bSuppress) {
-				qgpiMuted->show();
-				qgpiDeafened->hide();
-			} else {
-				qgpiMuted->hide();
-				qgpiDeafened->hide();
-			}
-		} else {
-			qgpiMuted->hide();
-			qgpiDeafened->hide();
-		}
-
-		bool samechannel = self && (self->cChannel == cuUser->cChannel);
-		qgpiChannel->setVisible(g.s.bOverlayChannel && ! samechannel);
-
-		tsColor = Settings::Passive;
-		switch (cuUser->tsState) {
-			case ClientUser::Talking:
-				tsColor = Settings::Talking;
-				break;
-			case ClientUser::TalkingWhisper:
-				tsColor = Settings::WhisperPrivate;
-				break;
-			case ClientUser::TalkingWhisperChannel:
-				tsColor = Settings::WhisperChannel;
-				break;
-			default:
-				break;
-		}
-	} else {
-		qgpiChannel->setVisible(g.s.bOverlayChannel && (tsColor != Settings::Passive) && (tsColor != Settings::Talking));
-		qgpiMuted->setVisible(g.s.bOverlayChannel);
-		qgpiDeafened->hide();
-	}
-
-	if (g.s.bOverlayUserName)
-		for (int i=0;i<4;++i)
-			qgpiName[i]->setVisible(i == tsColor);
-	else
-		for (int i=0;i<4;++i)
-			qgpiName[i]->setVisible(false);
-			
-	qgpiBox->setVisible(g.s.bOverlayBox);
-
-	setOpacity(g.s.fOverlayUser[tsColor]);
-}
-
-void OverlayUser::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-	QGraphicsItem::mousePressEvent(event);
-
-	if (!cuUser && (event->button() == Qt::LeftButton)) {
+	if (event->button() == Qt::LeftButton) {
 		event->accept();
 
 		if (wfsHover == Qt::NoSection) {
-			qgpiSelected = childAt(event->pos());
+			qgpiSelected = childAt(event->scenePos());
 			if (qgpiSelected) {
 				qgriSelected->setRect(selectedRect());
 				qgriSelected->show();
-				setActive(true);
-				setFocus();
 			} else {
 				qgriSelected->hide();
 			}
 		}
 
-		updateCursorShape(event->pos());
+		updateCursorShape(event->scenePos());
 	}
 }
 
-void OverlayUser::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
-	QGraphicsItem::mouseReleaseEvent(event);
+void OverlayEditorScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
+	QGraphicsScene::mouseReleaseEvent(event);
+
+	if (event->isAccepted())
+		return;
 
 	if (event->button() == Qt::LeftButton) {
 		event->accept();
-
-		if (cursor().shape() == Qt::ClosedHandCursor)
-			setCursor(Qt::OpenHandCursor);
 
 		QRectF rect = qgriSelected->rect();
 
 		if (! qgpiSelected || (rect == selectedRect())) {
 			return;
 		}
-
+		
 		QRectF scaled(rect.x() / uiSize, rect.y() / uiSize, rect.width() / uiSize, rect.height() / uiSize);
 
-		if ((qgpiSelected == qgpiMuted) || (qgpiSelected == qgpiDeafened))
-			g.s.qrfOverlayMutedDeafened = scaled;
-		else if (qgpiSelected == qgpiAvatar)
-			g.s.qrfOverlayAvatar = scaled;
-		else if (qgpiSelected == qgpiChannel)
-			g.s.qrfOverlayChannel = scaled;
-		else
-			for (int i=0;i<4;++i)
-				if (qgpiSelected == qgpiName[i])
-					g.s.qrfOverlayUserName = scaled;
-
-		QRectF children = g.s.qrfOverlayAvatar | g.s.qrfOverlayChannel | g.s.qrfOverlayMutedDeafened | g.s.qrfOverlayUserName;
-
-		qreal dx = - children.x();
-		qreal dy = - children.y();
-
-		if (dx || dy) {
-			g.s.qrfOverlayAvatar.translate(dx, dy);
-			g.s.qrfOverlayChannel.translate(dx,dy);
-			g.s.qrfOverlayMutedDeafened.translate(dx,dy);
-			g.s.qrfOverlayUserName.translate(dx,dy);
+		if (qgpiSelected == qgpiMuted) {
+			os.qrfOverlayMutedDeafened = scaled;
+			updateMuted();
+		} else if (qgpiSelected == qgpiAvatar) {
+			os.qrfOverlayAvatar = scaled;
+			updateAvatar();
+		} else if (qgpiSelected == qgpiChannel) {
+			os.qrfOverlayChannel = scaled;
+			updateChannel();
+		} else if (qgpiSelected == qgpiName) {
+			os.qrfOverlayUserName = scaled;
+			updateUserName();
 		}
-
-		g.o->forceSettings();
+		
+		moveBox();
 	}
 }
 
-void OverlayUser::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
-	QGraphicsItem::mouseMoveEvent(event);
+void OverlayEditorScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
+	QGraphicsScene::mouseMoveEvent(event);
+
+	if (event->isAccepted())
+		return;
 
 	if (qgpiSelected && (event->buttons() & Qt::LeftButton)) {
 		event->accept();
@@ -625,10 +458,7 @@ void OverlayUser::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 		if (wfsHover == Qt::NoSection)
 			return;
 
-		if (cursor().shape() == Qt::OpenHandCursor)
-			setCursor(Qt::ClosedHandCursor);
-
-		QPointF delta = event->pos() - event->buttonDownPos(Qt::LeftButton);
+		QPointF delta = event->scenePos() - event->buttonDownScenePos(Qt::LeftButton);
 
 		bool square = event->modifiers() & Qt::ShiftModifier;
 
@@ -714,74 +544,22 @@ void OverlayUser::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 				}
 				break;
 		}
-		prepareGeometryChange();
+		
 		qgriSelected->setRect(orig);
+	} else {
+		updateCursorShape(event->scenePos());
 	}
 }
 
-void OverlayUser::focusInEvent(QFocusEvent *event) {
-	event->accept();
-	prepareGeometryChange();
-
-	setZValue(-3.0f);
-	qgriActive->show();
-}
-
-void OverlayUser::focusOutEvent(QFocusEvent *event) {
-	event->accept();
-	prepareGeometryChange();
-
-	wfsHover = Qt::NoSection;
-
-	setZValue(-4.0f);
-	qgriActive->hide();
-
-	if (qgpiSelected) {
-		qgpiSelected = NULL;
-		qgriSelected->hide();
-	}
-}
-
-void OverlayUser::hoverMoveEvent(QGraphicsSceneHoverEvent *event) {
-	updateCursorShape(event->pos());
-}
-
-void OverlayUser::wheelEvent(QGraphicsSceneWheelEvent *event) {
-	event->accept();
-
-	QRectF children = g.s.qrfOverlayAvatar | g.s.qrfOverlayChannel | g.s.qrfOverlayMutedDeafened | g.s.qrfOverlayUserName;
-
-	qreal scale = 0.875f;
-
-	if (event->delta() > 0)
-		scale = 1.0f / 0.875f;
-
-	if ((scale < 1.0f) && (children.height() <= 0.03125f))
-		return;
-	else if ((scale > 1.0f) && (children.height() >= 0.25f))
-		return;
-
-	prepareGeometryChange();
-
-	g.s.qrfOverlayMutedDeafened = scaledRect(g.s.qrfOverlayMutedDeafened, scale);
-	g.s.qrfOverlayAvatar = scaledRect(g.s.qrfOverlayAvatar, scale);
-	g.s.qrfOverlayChannel = scaledRect(g.s.qrfOverlayChannel, scale);
-	g.s.qrfOverlayUserName = scaledRect(g.s.qrfOverlayUserName, scale);
-	g.s.fOverlayBoxPenWidth = g.s.fOverlayBoxPenWidth * scale;
-	g.s.fOverlayBoxPad = g.s.fOverlayBoxPad * scale;
-
-	g.o->forceSettings();
-}
-
-void OverlayUser::updateCursorShape(const QPointF &point) {
+void OverlayEditorScene::updateCursorShape(const QPointF &point) {
 	Qt::CursorShape	cs;
 
-	if (hasFocus() && qgriSelected->isVisible()) {
+	if (qgriSelected->isVisible()) {
 		wfsHover = rectSection(qgriSelected->rect(), point);
 	} else {
 		wfsHover = Qt::NoSection;
 	}
-
+	
 	switch (wfsHover) {
 		case Qt::TopLeftSection:
 		case Qt::BottomRightSection:
@@ -807,22 +585,37 @@ void OverlayUser::updateCursorShape(const QPointF &point) {
 			break;
 	}
 
-	if (cursor().shape() != cs)
-		setCursor(cs);
 
+	foreach(QGraphicsView *v, views()) {
+		if (v->viewport()->cursor().shape() != cs) {
+			v->viewport()->setCursor(cs);
+
+			// But an embedded, injected GraphicsView doesn't propagage mouse cursors...
+			QWidget *p = v->parentWidget();
+			if (p) {
+				QGraphicsProxyWidget *qgpw = p->graphicsProxyWidget();
+				if (qgpw) {
+					qgpw->setCursor(cs);
+					if (g.ocIntercept)
+						g.ocIntercept->updateMouse();
+				}
+			}
+		}
+	}
 }
 
-void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
-	QGraphicsPixmapItem *item = childAt(event->pos());
+void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
+	QGraphicsScene::contextMenuEvent(event);
 
-	if (cuUser || ! item) {
-		QGraphicsItem::contextMenuEvent(event);
+	if (event->isAccepted())
 		return;
-	}
 
-	event->accept();
+	if (! event->widget())
+		return;
 
-	QMenu qm(g.mw);
+	QGraphicsPixmapItem *item = childAt(event->scenePos());
+	
+	QMenu qm(event->widget());
 	
 	QMenu *qmLayout = qm.addMenu(tr("Layout preset"));
 	QAction *qaLayoutLargeAvatar = qmLayout->addAction(tr("Large square avatar"));
@@ -837,34 +630,12 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		userOpacity[i] = new QAction(tr("%1%").arg(o * 100.0f, 0, 'f', 1), qagUser);
 		userOpacity[i]->setCheckable(true);
 		userOpacity[i]->setData(o);
-		if (qFuzzyCompare(opacity(), o))
+
+		if (qFuzzyCompare(qgiGroup->opacity(), o))
 			userOpacity[i]->setChecked(true);
+
 		qmTrans->addAction(userOpacity[i]);
 	}
-
-	QMenu *qmEnabled = qm.addMenu(tr("Elements"));
-
-	QAction *qaElementAvatar = qmEnabled->addAction(tr("Avatar"));
-	qaElementAvatar->setCheckable(true);
-	qaElementAvatar->setChecked(g.s.bOverlayAvatar);
-
-	QAction *qaElementUserName = qmEnabled->addAction(tr("User name"));
-	qaElementUserName->setCheckable(true);
-	qaElementUserName->setChecked(g.s.bOverlayUserName);
-
-	QAction *qaElementChannel = qmEnabled->addAction(tr("Channel name"));
-	qaElementChannel->setCheckable(true);
-	qaElementChannel->setChecked(g.s.bOverlayChannel);
-
-	QAction *qaElementMutedDeafened = qmEnabled->addAction(tr("Mute state"));
-	qaElementMutedDeafened->setCheckable(true);
-	qaElementMutedDeafened->setChecked(g.s.bOverlayMutedDeafened);
-
-	QAction *qaElementBox = qmEnabled->addAction(tr("Bouding box"));
-	qaElementBox->setCheckable(true);
-	qaElementBox->setChecked(g.s.bOverlayBox);
-
-	qm.addSeparator();
 
 	QAction *color = NULL;
 	QAction *font = NULL;
@@ -881,6 +652,7 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		align[i] = NULL;
 
 	if (item) {
+		qm.addSeparator();
 		QMenu *qmObjTrans = qm.addMenu(tr("Object Opacity"));
 		QActionGroup *qagObject = new QActionGroup(&qm);
 		for (int i=0;i<8;++i) {
@@ -897,13 +669,13 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		QMenu *qmObjAlign = qm.addMenu(tr("Alignment"));
 		Qt::Alignment a;
 		if (item == qgpiAvatar)
-			a = g.s.qaOverlayAvatar;
+			a = os.qaOverlayAvatar;
 		else if (item == qgpiChannel)
-			a = g.s.qaOverlayChannel;
-		else if ((item == qgpiMuted) || (item == qgpiDeafened))
-			a = g.s.qaOverlayMutedDeafened;
+			a = os.qaOverlayChannel;
+		else if (item == qgpiMuted)
+			a = os.qaOverlayMutedDeafened;
 		else
-			a = g.s.qaOverlayUserName;
+			a = os.qaOverlayUserName;
 
 		align[0] = qmObjAlign->addAction(tr("Left"));
 		align[0]->setCheckable(true);
@@ -939,13 +711,13 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		if (a & Qt::AlignBottom)
 			align[5]->setChecked(true);
 
-		if ((item != qgpiAvatar) && (item != qgpiMuted) && (item != qgpiDeafened)) {
+		if ((item != qgpiAvatar) && (item != qgpiMuted)) {
 			color = qm.addAction(tr("Color..."));
 			font = qm.addAction(tr("Font..."));
 		}
 	}
 	
-	if (g.s.bOverlayBox) {
+	if (qgpiBox->isVisible()) {
 		qm.addSeparator();
 		QMenu *qmBox = qm.addMenu(tr("Bounding box"));
 		QMenu *qmPen = qmBox->addMenu(tr("Pen width"));
@@ -960,14 +732,14 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 			boxpen[i] = new QAction(QString::number(i), qagPen);
 			boxpen[i]->setData(v);
 			boxpen[i]->setCheckable(true);
-			if (qFuzzyCompare(g.s.fOverlayBoxPenWidth, v))
+			if (qFuzzyCompare(os.fOverlayBoxPenWidth, v))
 				boxpen[i]->setChecked(true);
 			qmPen->addAction(boxpen[i]);
 
 			boxpad[i] = new QAction(QString::number(i), qagPad);
 			boxpad[i]->setData(v);
 			boxpad[i]->setCheckable(true);
-			if (qFuzzyCompare(g.s.fOverlayBoxPad, v))
+			if (qFuzzyCompare(os.fOverlayBoxPad, v))
 				boxpad[i]->setChecked(true);
 			qmPad->addAction(boxpad[i]);
 		}
@@ -981,7 +753,9 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 	for (int i=0;i<8;++i) {
 		if (userOpacity[i] == act) {
 			float o = act->data().toReal();
-			g.s.fOverlayUser[tsColor] = o;
+			os.fOverlayUser[tsColor] = o;
+			
+			qgiGroup->setOpacity(o);
 		}
 	}
 
@@ -989,25 +763,26 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		if (objectOpacity[i] == act) {
 			qreal o = act->data().toReal();
 
-			if ((item == qgpiMuted) || (item == qgpiDeafened))
-				g.s.fOverlayMutedDeafened = o;
+			if (item == qgpiMuted)
+				os.fOverlayMutedDeafened = o;
 			else if (item == qgpiAvatar)
-				g.s.fOverlayAvatar = o;
+				os.fOverlayAvatar = o;
 			else if (item == qgpiChannel)
-				g.s.fOverlayChannel = o;
-			else
-				for (int i=0;i<4;++i)
-					if (item == qgpiName[i])
-						g.s.fOverlayUserName = o;
+				os.fOverlayChannel = o;
+			else if (item == qgpiName)
+				os.fOverlayUserName = o;
+				
+			item->setOpacity(o);
 		}
 	}
 
 	for(int i=0;i<4;++i) {
 		if (boxpen[i] == act) {
-			g.s.fOverlayBoxPenWidth = act->data().toReal();
-			g.o->forceSettings();
+			os.fOverlayBoxPenWidth = act->data().toReal();
+			moveBox();
 		} else if (boxpad[i] == act) {
-			g.s.fOverlayBoxPad = act->data().toReal();
+			os.fOverlayBoxPad = act->data().toReal();
+			moveBox();
 		}
 	}
 
@@ -1015,13 +790,13 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		if (align[i] == act) {
 			Qt::Alignment *aptr;
 			if (item == qgpiAvatar)
-				aptr = & g.s.qaOverlayAvatar;
+				aptr = & os.qaOverlayAvatar;
 			else if (item == qgpiChannel)
-				aptr = & g.s.qaOverlayChannel;
-			else if ((item == qgpiMuted) || (item == qgpiDeafened))
-				aptr = & g.s.qaOverlayMutedDeafened;
+				aptr = & os.qaOverlayChannel;
+			else if (item == qgpiMuted)
+				aptr = & os.qaOverlayMutedDeafened;
 			else
-				aptr = & g.s.qaOverlayUserName;
+				aptr = & os.qaOverlayUserName;
 
 			Qt::Alignment a = act->data().toInt();
 			if (a & Qt::AlignHorizontal_Mask) {
@@ -1029,31 +804,33 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 			} else {
 				*aptr = (*aptr & ~Qt::AlignVertical_Mask) | a;
 			}
+			
+			updateSelected();
 		}
 	}
 
 	if (act == boxpencolor) {
-		QColor qc = QColorDialog::getColor(g.s.qcOverlayBoxPen, g.mw, tr("Pick pen color"), QColorDialog::DontUseNativeDialog | QColorDialog::ShowAlphaChannel);
+		QColor qc = QColorDialog::getColor(os.qcOverlayBoxPen, event->widget(), tr("Pick pen color"), QColorDialog::DontUseNativeDialog | QColorDialog::ShowAlphaChannel);
 		if (! qc.isValid())
 			return;
-		g.s.qcOverlayBoxPen = qc;
+		os.qcOverlayBoxPen = qc;
+		moveBox();
 	} else if (act == boxfillcolor) {
-		QColor qc = QColorDialog::getColor(g.s.qcOverlayBoxFill, g.mw, tr("Pick fill color"), QColorDialog::DontUseNativeDialog | QColorDialog::ShowAlphaChannel);
+		QColor qc = QColorDialog::getColor(os.qcOverlayBoxFill, event->widget(), tr("Pick fill color"), QColorDialog::DontUseNativeDialog | QColorDialog::ShowAlphaChannel);
 		if (! qc.isValid())
 			return;
-		g.s.qcOverlayBoxFill = qc;
+		os.qcOverlayBoxFill = qc;
+		moveBox();
 	} else if (act == color) {
 		QColor *col = NULL;
 		if (item == qgpiChannel)
-			col = & g.s.qcOverlayChannel;
-		else
-			for (int i=0;i<4;++i)
-				if (item == qgpiName[i])
-					col = & g.s.qcOverlayUserName[i];
+			col = & os.qcOverlayChannel;
+		else if (item == qgpiName)
+				col = & os.qcOverlayUserName[tsColor];
 		if (! col)
 			return;
 
-		QColor qc = QColorDialog::getColor(*col, g.mw, tr("Pick color"), QColorDialog::DontUseNativeDialog);
+		QColor qc = QColorDialog::getColor(*col, event->widget(), tr("Pick color"), QColorDialog::DontUseNativeDialog);
 		if (! qc.isValid())
 			return;
 		qc.setAlpha(255);
@@ -1062,8 +839,12 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 			return;
 
 		*col = qc;
+		updateSelected();
 	} else if (act == font) {
-		QFont *fontptr = (item == qgpiChannel) ? &g.s.qfOverlayChannel : &g.s.qfOverlayUserName;
+		QFont *fontptr = (item == qgpiChannel) ? &os.qfOverlayChannel : &os.qfOverlayUserName;
+		
+		qgpiSelected = NULL;
+		qgriSelected->hide();
 
 		// QFontDialog doesn't really like graphics view. At all.
 
@@ -1071,10 +852,15 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		qfd.setOptions(QFontDialog::DontUseNativeDialog);
 		qfd.setCurrentFont(*fontptr);
 		qfd.setWindowTitle(tr("Pick font"));
-
+		
 		QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(NULL, Qt::Window);
 		qgpw->setWidget(&qfd);
-		scene()->addItem(qgpw);
+		
+		addItem(qgpw);
+
+		qgpw->setZValue(3.0f);
+		qgpw->setPanelModality(QGraphicsItem::PanelModal);
+		qgpw->setPos(- qgpw->boundingRect().width() / 2.0f, - qgpw->boundingRect().height() / 2.0f);
 		qgpw->show();
 
 		int ret = qfd.exec();
@@ -1086,98 +872,89 @@ void OverlayUser::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		if (! ret)
 			return;
 		*fontptr = qfd.selectedFont();
+
+		resync();
 	} else if (act == qaLayoutLargeAvatar) {
-		g.s.fOverlayUserName = 0.75f;
-		g.s.fOverlayChannel = 0.75f;
-		g.s.fOverlayMutedDeafened = 0.5f;
-		g.s.fOverlayAvatar = 1.0f;
+		os.fOverlayUserName = 0.75f;
+		os.fOverlayChannel = 0.75f;
+		os.fOverlayMutedDeafened = 0.5f;
+		os.fOverlayAvatar = 1.0f;
 
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
-		g.s.qfOverlayUserName = QFont(QLatin1String("Verdana"), 20);
+		os.qfOverlayUserName = QFont(QLatin1String("Verdana"), 20);
 #else
-		g.s.qfOverlayUserName = QFont(QLatin1String("Arial"), 20);
+		os.qfOverlayUserName = QFont(QLatin1String("Arial"), 20);
 #endif
-		g.s.qfOverlayChannel = g.s.qfOverlayUserName;
+		os.qfOverlayChannel = os.qfOverlayUserName;
 
-		g.s.fOverlayUser[Settings::Passive] = 0.5f;
-		g.s.fOverlayUser[Settings::Talking] = (7.0f / 8.0f);
-		g.s.fOverlayUser[Settings::WhisperPrivate] = (7.0f / 8.0f);
-		g.s.fOverlayUser[Settings::WhisperChannel] = (7.0f / 8.0f);
+		os.fOverlayUser[Settings::Passive] = 0.5f;
+		os.fOverlayUser[Settings::Talking] = (7.0f / 8.0f);
+		os.fOverlayUser[Settings::WhisperPrivate] = (7.0f / 8.0f);
+		os.fOverlayUser[Settings::WhisperChannel] = (7.0f / 8.0f);
 
-		g.s.qrfOverlayUserName = QRectF(0.0f, 0.101563f, 0.125f, 0.023438f);
-		g.s.qrfOverlayChannel = QRectF(0.03125f, 0.0f, 0.09375f, 0.015625f);
-		g.s.qrfOverlayMutedDeafened = QRectF(0.0f, 0.0f, 0.0625f, 0.0625f);
-		g.s.qrfOverlayAvatar = QRectF(0.0f, 0.0f, 0.125f, 0.125f);
+		os.qrfOverlayUserName = QRectF(0.0f, 0.101563f, 0.125f, 0.023438f);
+		os.qrfOverlayChannel = QRectF(0.03125f, 0.0f, 0.09375f, 0.015625f);
+		os.qrfOverlayMutedDeafened = QRectF(0.0f, 0.0f, 0.0625f, 0.0625f);
+		os.qrfOverlayAvatar = QRectF(0.0f, 0.0f, 0.125f, 0.125f);
 
-		g.s.qcOverlayBoxPen = QColor(0, 0, 0, 224);
-		g.s.qcOverlayBoxFill = QColor(128, 128, 128, 128);
-		g.s.fOverlayBoxPenWidth = (1.f / 256.0f);
-		g.s.fOverlayBoxPad = (1.f / 256.0f);
+		os.qcOverlayBoxPen = QColor(0, 0, 0, 224);
+		os.qcOverlayBoxFill = QColor(128, 128, 128, 128);
+		os.fOverlayBoxPenWidth = (1.f / 256.0f);
+		os.fOverlayBoxPad = (1.f / 256.0f);
 
-		g.s.bOverlayUserName = true;
-		g.s.bOverlayChannel = true;
-		g.s.bOverlayMutedDeafened = true;
-		g.s.bOverlayAvatar = true;
-		g.s.bOverlayBox = false;
+		os.bOverlayUserName = true;
+		os.bOverlayChannel = true;
+		os.bOverlayMutedDeafened = true;
+		os.bOverlayAvatar = true;
+		os.bOverlayBox = false;
 
-		g.s.qaOverlayUserName = Qt::AlignCenter;
-		g.s.qaOverlayMutedDeafened = Qt::AlignLeft | Qt::AlignTop;
-		g.s.qaOverlayAvatar = Qt::AlignCenter;
-		g.s.qaOverlayChannel = Qt::AlignCenter;
+		os.qaOverlayUserName = Qt::AlignCenter;
+		os.qaOverlayMutedDeafened = Qt::AlignLeft | Qt::AlignTop;
+		os.qaOverlayAvatar = Qt::AlignCenter;
+		os.qaOverlayChannel = Qt::AlignCenter;
+		
+		resync();
 	} else if (act == qaLayoutText) {
-		g.s.fOverlayUserName = 1.0f;
-		g.s.fOverlayChannel = (7.0f / 8.0f);
-		g.s.fOverlayMutedDeafened = (7.0f / 8.0f);
-		g.s.fOverlayAvatar = 1.0f;
+		os.fOverlayUserName = 1.0f;
+		os.fOverlayChannel = (7.0f / 8.0f);
+		os.fOverlayMutedDeafened = (7.0f / 8.0f);
+		os.fOverlayAvatar = 1.0f;
 
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
-		g.s.qfOverlayUserName = QFont(QLatin1String("Verdana"), 20);
+		os.qfOverlayUserName = QFont(QLatin1String("Verdana"), 20);
 #else
-		g.s.qfOverlayUserName = QFont(QLatin1String("Arial"), 20);
+		os.qfOverlayUserName = QFont(QLatin1String("Arial"), 20);
 #endif
-		g.s.qfOverlayChannel = g.s.qfOverlayUserName;
+		os.qfOverlayChannel = os.qfOverlayUserName;
 
-		g.s.fOverlayUser[Settings::Passive] = 0.5f;
-		g.s.fOverlayUser[Settings::Talking] = (7.0f / 8.0f);
-		g.s.fOverlayUser[Settings::WhisperPrivate] = (7.0f / 8.0f);
-		g.s.fOverlayUser[Settings::WhisperChannel] = (7.0f / 8.0f);
+		os.fOverlayUser[Settings::Passive] = 0.5f;
+		os.fOverlayUser[Settings::Talking] = (7.0f / 8.0f);
+		os.fOverlayUser[Settings::WhisperPrivate] = (7.0f / 8.0f);
+		os.fOverlayUser[Settings::WhisperChannel] = (7.0f / 8.0f);
 
-		g.s.qrfOverlayUserName = QRectF(0.03125f, 0.0f, 0.250f, 0.03125f);
-		g.s.qrfOverlayChannel = QRectF(0.0625f, 0.0f, 0.1875f, 0.015625f);
-		g.s.qrfOverlayMutedDeafened = QRectF(0.0f, 0.0f, 0.03125f, 0.03125f);
-		g.s.qrfOverlayAvatar = QRectF(0.0f, 0.0f, 0.03125f, 0.03125f);
+		os.qrfOverlayUserName = QRectF(0.03125f, 0.0f, 0.250f, 0.03125f);
+		os.qrfOverlayChannel = QRectF(0.0625f, 0.0f, 0.1875f, 0.015625f);
+		os.qrfOverlayMutedDeafened = QRectF(0.0f, 0.0f, 0.03125f, 0.03125f);
+		os.qrfOverlayAvatar = QRectF(0.0f, 0.0f, 0.03125f, 0.03125f);
 
-		g.s.qcOverlayBoxPen = QColor(0, 0, 0, 224);
-		g.s.qcOverlayBoxFill = QColor(128, 128, 128, 128);
-		g.s.fOverlayBoxPenWidth = 0.0f;
-		g.s.fOverlayBoxPad = (1.f / 512.0f);
+		os.qcOverlayBoxPen = QColor(0, 0, 0, 224);
+		os.qcOverlayBoxFill = QColor(128, 128, 128, 128);
+		os.fOverlayBoxPenWidth = 0.0f;
+		os.fOverlayBoxPad = (1.f / 512.0f);
 
-		g.s.bOverlayUserName = true;
-		g.s.bOverlayChannel = false;
-		g.s.bOverlayMutedDeafened = true;
-		g.s.bOverlayAvatar = true;
-		g.s.bOverlayBox = true;
+		os.bOverlayUserName = true;
+		os.bOverlayChannel = false;
+		os.bOverlayMutedDeafened = true;
+		os.bOverlayAvatar = true;
+		os.bOverlayBox = true;
 
-		g.s.qaOverlayUserName = Qt::AlignLeft | Qt::AlignVCenter;
-		g.s.qaOverlayMutedDeafened = Qt::AlignRight | Qt::AlignVCenter;
-		g.s.qaOverlayAvatar = Qt::AlignRight | Qt::AlignVCenter;
-		g.s.qaOverlayChannel = Qt::AlignLeft | Qt::AlignTop;
-	} else if (act == qaElementAvatar) {
-		g.s.bOverlayAvatar = ! g.s.bOverlayAvatar;
-		if (! g.s.bOverlayAvatar)
-			g.s.bOverlayUserName = true;
-	} else if (act == qaElementUserName) {
-		g.s.bOverlayUserName = ! g.s.bOverlayUserName;
-		if (! g.s.bOverlayUserName)
-			g.s.bOverlayAvatar = true;
-	} else if (act == qaElementChannel) {
-		g.s.bOverlayChannel = ! g.s.bOverlayChannel;
-	} else if (act == qaElementMutedDeafened) {
-		g.s.bOverlayMutedDeafened = ! g.s.bOverlayMutedDeafened;
-	} else if (act == qaElementBox) {
-		g.s.bOverlayBox = ! g.s.bOverlayBox;
+		os.qaOverlayUserName = Qt::AlignLeft | Qt::AlignVCenter;
+		os.qaOverlayMutedDeafened = Qt::AlignRight | Qt::AlignVCenter;
+		os.qaOverlayAvatar = Qt::AlignRight | Qt::AlignVCenter;
+		os.qaOverlayChannel = Qt::AlignLeft | Qt::AlignTop;
+		
+		resync();
 	}
-	g.o->forceSettings();
 }
 
 static qreal distancePointLine(const QPointF &a, const QPointF &b, const QPointF &p) {
@@ -1204,7 +981,7 @@ static qreal distancePointLine(const QPointF &a, const QPointF &b, const QPointF
 	return qMax(xd, yd);
 }
 
-Qt::WindowFrameSection OverlayUser::rectSection(const QRectF &qrf, const QPointF &qp, qreal dist) {
+Qt::WindowFrameSection OverlayEditorScene::rectSection(const QRectF &qrf, const QPointF &qp, qreal dist) {
 	qreal left, right, top, bottom;
 
 	top = distancePointLine(qrf.topLeft(), qrf.topRight(), qp);
@@ -1233,6 +1010,434 @@ Qt::WindowFrameSection OverlayUser::rectSection(const QRectF &qrf, const QPointF
 		return Qt::TitleBarArea;
 
 	return Qt::NoSection;
+}
+
+
+
+OverlayEditor::OverlayEditor(QWidget *p, QGraphicsItem *qgi) : QDialog(p), qgiPromote(qgi) {
+	setupUi(this);
+	
+	connect(qdbbBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()), this, SLOT(apply()));
+	connect(qdbbBox->button(QDialogButtonBox::Reset), SIGNAL(clicked()), this, SLOT(reset()));
+	
+	QGraphicsProxyWidget *qgpw = graphicsProxyWidget();
+	if (qgpw) {
+		qgpw->setFlag(QGraphicsItem::ItemIgnoresParentOpacity);
+		if (g.ocIntercept) {
+			qgpw->setPos(iroundf(g.ocIntercept->uiWidth / 16.0f), iroundf(g.ocIntercept->uiHeight / 16.0f));
+			qgpw->resize(iroundf(g.ocIntercept->uiWidth * 14.0f / 16.0f), iroundf(g.ocIntercept->uiHeight * 14.0f / 16.0f));
+		}
+	}
+	
+	qgvView->setScene(&oes);
+	
+	reset();
+}
+
+OverlayEditor::~OverlayEditor() {
+	QGraphicsProxyWidget *qgpw = g.mw->graphicsProxyWidget();
+	if (qgpw)
+		qgpw->setOpacity(0.9f);
+	if (qgiPromote)
+		qgiPromote->setZValue(-1.0f);
+}
+
+void OverlayEditor::enterEvent(QEvent *event) {
+	QGraphicsProxyWidget *qgpw = g.mw->graphicsProxyWidget();
+	if (qgpw)
+		qgpw->setOpacity(0.9f);
+
+	qgpw = graphicsProxyWidget();
+	if (qgpw)
+		qgpw->setOpacity(1.0f);
+
+	if (qgiPromote)
+		qgiPromote->setZValue(-1.0f);
+
+	QDialog::enterEvent(event);
+}
+
+void OverlayEditor::leaveEvent(QEvent *event) {
+	QGraphicsProxyWidget *qgpw = g.mw->graphicsProxyWidget();
+	if (qgpw)
+		qgpw->setOpacity(0.3f);
+
+	qgpw = graphicsProxyWidget();
+	if (qgpw)
+		qgpw->setOpacity(0.3f);
+
+	if (qgiPromote)
+		qgiPromote->setZValue(1.0f);
+
+	QDialog::leaveEvent(event);
+}
+
+void OverlayEditor::reset() {
+	oes.os = g.s.os;
+	oes.resync();
+
+	qcbAvatar->setChecked(oes.os.bOverlayAvatar);
+	qcbUser->setChecked(oes.os.bOverlayUserName);
+	qcbChannel->setChecked(oes.os.bOverlayChannel);
+	qcbMutedDeafened->setChecked(oes.os.bOverlayMutedDeafened);
+	qcbBox->setChecked(oes.os.bOverlayBox);
+}
+
+void OverlayEditor::apply() {
+	g.s.os = oes.os;
+	g.o->forceSettings();
+}
+
+void OverlayEditor::accept() {
+	apply();
+	QDialog::accept();
+}
+
+void OverlayEditor::on_qrbPassive_clicked() {
+	oes.tsColor = Settings::Passive;
+	oes.resync();
+}
+
+void OverlayEditor::on_qrbTalking_clicked() {
+	oes.tsColor = Settings::Talking;
+	oes.resync();
+}
+
+void OverlayEditor::on_qrbWhisper_clicked() {
+	oes.tsColor = Settings::WhisperPrivate;
+	oes.resync();
+}
+
+void OverlayEditor::on_qrbShout_clicked() {
+	oes.tsColor = Settings::WhisperChannel;
+	oes.resync();
+}
+
+void OverlayEditor::on_qcbAvatar_clicked() {
+	oes.os.bOverlayAvatar = qcbAvatar->isChecked();
+	oes.updateAvatar();
+}
+
+void OverlayEditor::on_qcbUser_clicked() {
+	oes.os.bOverlayUserName = qcbUser->isChecked();
+	oes.updateUserName();
+}
+
+void OverlayEditor::on_qcbChannel_clicked() {
+	oes.os.bOverlayChannel = qcbChannel->isChecked();
+	oes.updateChannel();
+}
+
+void OverlayEditor::on_qcbMutedDeafened_clicked() {
+	oes.os.bOverlayMutedDeafened = qcbMutedDeafened->isChecked();
+	oes.updateMuted();
+}
+
+void OverlayEditor::on_qcbBox_clicked() {
+	oes.os.bOverlayBox = qcbBox->isChecked();
+	oes.moveBox();
+}
+
+
+OverlayUser::OverlayUser(ClientUser *cu, unsigned int height) : OverlayGroup(), cuUser(cu), uiSize(height), tsColor(Settings::Passive) {
+	setup();
+	updateLayout();
+}
+
+OverlayUser::OverlayUser(Settings::TalkState ts, unsigned int height) : OverlayGroup(), cuUser(NULL), uiSize(height), tsColor(ts) {
+	qsChannelName = Overlay::tr("Channel");
+
+	setup();
+	updateLayout();
+}
+
+int OverlayUser::type() const {
+	return Type;
+}
+
+void OverlayUser::setup() {
+	qgpiMuted = new QGraphicsPixmapItem(this);
+	qgpiMuted->hide();
+
+	qgpiDeafened = new QGraphicsPixmapItem(this);
+	qgpiDeafened->hide();
+
+	qgpiAvatar = new QGraphicsPixmapItem(this);
+
+	for (int i=0;i<4;++i) {
+		qgpiName[i] = new QGraphicsPixmapItem(this);
+		qgpiName[i]->hide();
+	}
+
+	qgpiChannel = new QGraphicsPixmapItem(this);
+	qgpiChannel->hide();
+	
+	qgpiBox = new QGraphicsPathItem(this);
+	qgpiBox->hide();
+}
+
+#undef SCALESIZE
+#define SCALESIZE(var) iroundf(uiSize * g.s.os.fOverlayHeight * g.s.os.qrfOverlay##var .height()), iroundf(uiSize * g.s.os.fOverlayHeight * g.s.os.qrfOverlay##var .width())
+
+void OverlayUser::updateLayout() {
+	QPixmap pm;
+
+	prepareGeometryChange();
+
+	for (int i=0;i<4;++i)
+		qgpiName[i]->setPixmap(pm);
+
+	qgpiAvatar->setPixmap(pm);
+	qgpiChannel->setPixmap(pm);
+
+	{
+		QImageReader qir(QLatin1String("skin:muted_self.svg"));
+		QSize sz = qir.size();
+		sz.scale(SCALESIZE(MutedDeafened), Qt::KeepAspectRatio);
+		qir.setScaledSize(sz);
+		qgpiMuted->setPixmap(QPixmap::fromImage(qir.read()));
+	}
+
+	{
+		QImageReader qir(QLatin1String("skin:deafened_self.svg"));
+		QSize sz = qir.size();
+		sz.scale(SCALESIZE(MutedDeafened), Qt::KeepAspectRatio);
+		qir.setScaledSize(sz);
+		qgpiDeafened->setPixmap(QPixmap::fromImage(qir.read()));
+	}
+
+	qgpiMuted->setPos(alignedPosition(scaledRect(g.s.os.qrfOverlayMutedDeafened, uiSize * g.s.os.fOverlayHeight), qgpiMuted->boundingRect(), g.s.os.qaOverlayMutedDeafened));
+	qgpiMuted->setZValue(1.0f);
+	qgpiMuted->setOpacity(g.s.os.fOverlayMutedDeafened);
+
+	qgpiDeafened->setPos(alignedPosition(scaledRect(g.s.os.qrfOverlayMutedDeafened, uiSize * g.s.os.fOverlayHeight), qgpiDeafened->boundingRect(), g.s.os.qaOverlayMutedDeafened));
+	qgpiDeafened->setZValue(1.0f);
+	qgpiDeafened->setOpacity(g.s.os.fOverlayMutedDeafened);
+
+	qgpiAvatar->setPos(0.0f, 0.0f);
+	qgpiAvatar->setOpacity(g.s.os.fOverlayAvatar);
+
+	for (int i=0;i<4;++i) {
+		qgpiName[i]->setPos(0.0f, 0.0f);
+		qgpiName[i]->setZValue(2.0f);
+		qgpiName[i]->setOpacity(g.s.os.fOverlayUserName);
+	}
+	qgpiChannel->setPos(0.0f, 0.0f);
+	qgpiChannel->setZValue(3.0f);
+	qgpiChannel->setOpacity(g.s.os.fOverlayChannel);
+
+	QRectF children = g.s.os.qrfOverlayAvatar | g.s.os.qrfOverlayChannel | g.s.os.qrfOverlayMutedDeafened | g.s.os.qrfOverlayUserName;
+	
+	bool haspen = (g.s.os.qcOverlayBoxPen != g.s.os.qcOverlayBoxFill) && (! qFuzzyCompare(g.s.os.qcOverlayBoxPen.alphaF(), static_cast<qreal>(0.0f)));
+	qreal pw = haspen ? qMax<qreal>(1.0f, g.s.os.fOverlayBoxPenWidth * uiSize * g.s.os.fOverlayHeight) : 0.0f;
+	qreal pad = g.s.os.fOverlayBoxPad * uiSize * g.s.os.fOverlayHeight;
+	QPainterPath pp;
+	pp.addRoundedRect(-pw / 2.0f - pad, -pw / 2.0f - pad, children.width() * uiSize * g.s.os.fOverlayHeight + pw + 2.0f * pad, children.height() * uiSize * g.s.os.fOverlayHeight + pw + 2.0f * pad, 2.0f * pw, 2.0f * pw);
+	qgpiBox->setPath(pp);
+	qgpiBox->setPos(0.0f, 0.0f);
+	qgpiBox->setZValue(-1.0f);
+	qgpiBox->setPen(haspen ? QPen(g.s.os.qcOverlayBoxPen, pw) : Qt::NoPen);
+	qgpiBox->setBrush(qFuzzyCompare(g.s.os.qcOverlayBoxFill.alphaF(), static_cast<qreal>(0.0f)) ? Qt::NoBrush : g.s.os.qcOverlayBoxFill);
+	qgpiBox->setOpacity(1.0f);
+	
+	if (! cuUser) {
+		switch (tsColor) {
+			case Settings::Passive:
+				qsName = Overlay::tr("Silent");
+				break;
+			case Settings::Talking:
+				qsName = Overlay::tr("Talking");
+				break;
+			case Settings::WhisperPrivate:
+				qsName = Overlay::tr("Whisper");
+				break;
+			case Settings::WhisperChannel:
+				qsName = Overlay::tr("Shout");
+				break;
+		}
+	}
+}
+
+QPixmap OverlayUser::createPixmap(const QString &string, unsigned int height, unsigned int maxwidth, QColor col, const QFont &font, QPainterPath &pp) {
+	float edge = height * 0.05f;
+
+	if (pp.isEmpty()) {
+		QFont f = font;
+
+		QRectF r;
+		{
+			QPainterPath qp;
+			qp.addText(0.0f, 0.0f, f, string);
+			r = qp.controlPointRect();
+		}
+
+		float fs = f.pointSizeF();
+		float ds = fs * ((height - 2.0f * edge) / r.height());
+
+		f.setPointSizeF(ds);
+
+		pp.addText(0.0f, 0.0f, f, string);
+		r = pp.controlPointRect();
+
+		QString str;
+
+		if (r.width() < maxwidth) {
+			str = string;
+		} else {
+			QFontMetrics qfm(f);
+			str = qfm.elidedText(string, Qt::ElideRight, iroundf(maxwidth - 2 * edge));
+			if (str.trimmed().isEmpty())
+				str = QLatin1String("...");
+
+			pp = QPainterPath();
+			pp.addText(0.0f, 0.0f, f, str);
+		}
+
+		QRectF qr = pp.controlPointRect();
+
+#if QT_VERSION >= 0x040600
+		pp.translate(- qr.x() + edge, - qr.y() + edge);
+#else
+		pp = QPainterPath();
+		pp.addText(- qr.x() + edge, - qr.y() + edge, f, str);
+#endif
+	}
+
+	QRectF qr = pp.controlPointRect();
+	int w = iroundf(qr.width() + 2 * edge + 0.5f);
+	int h = iroundf(qr.height() + 2 * edge + 0.5f);
+
+	QImage img(w, h, QImage::Format_ARGB32);
+	img.fill(0);
+
+	QPainter imgp(&img);
+	imgp.setRenderHint(QPainter::Antialiasing);
+	imgp.setRenderHint(QPainter::TextAntialiasing);
+	imgp.setBackground(QColor(0,0,0,0));
+	imgp.setCompositionMode(QPainter::CompositionMode_Source);
+
+	QColor qc(col);
+	qc.setAlpha(255);
+
+	imgp.setBrush(qc);
+	imgp.setPen(QPen(Qt::black, edge, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+	imgp.drawPath(pp);
+
+	imgp.setPen(Qt::NoPen);
+	imgp.drawPath(pp);
+
+	return QPixmap::fromImage(img);
+}
+
+void OverlayUser::updateUser() {
+	prepareGeometryChange();
+	
+	if (g.s.os.bOverlayUserName && (qgpiName[0]->pixmap().isNull() || (cuUser && (qsName != cuUser->qsName)))) {
+		if (cuUser)
+			qsName = cuUser->qsName;
+
+		QPainterPath pp;
+		for (int i=0; i<4; ++i) {
+			const QPixmap &pm = createPixmap(qsName, SCALESIZE(UserName), g.s.os.qcOverlayUserName[i], g.s.os.qfOverlayUserName, pp);
+			qgpiName[i]->setPixmap(pm);
+
+			if (i == 0)
+				qgpiName[0]->setPos(alignedPosition(scaledRect(g.s.os.qrfOverlayUserName, uiSize * g.s.os.fOverlayHeight), qgpiName[0]->boundingRect(), g.s.os.qaOverlayUserName));
+			else
+				qgpiName[i]->setPos(qgpiName[0]->pos());
+		}
+	}
+
+	if (g.s.os.bOverlayChannel && (qgpiChannel->pixmap().isNull() || (cuUser && (qsChannelName != cuUser->cChannel->qsName)))) {
+		if (cuUser)
+			qsChannelName = cuUser->cChannel->qsName;
+
+		QPainterPath pp;
+		const QPixmap &pm = createPixmap(qsChannelName, SCALESIZE(Channel), g.s.os.qcOverlayChannel, g.s.os.qfOverlayChannel, pp);
+		qgpiChannel->setPixmap(pm);
+		qgpiChannel->setPos(alignedPosition(scaledRect(g.s.os.qrfOverlayChannel, uiSize * g.s.os.fOverlayHeight), qgpiChannel->boundingRect(), g.s.os.qaOverlayChannel));
+	}
+
+	if (g.s.os.bOverlayAvatar && (qgpiAvatar->pixmap().isNull() || (cuUser && (qbaAvatar != cuUser->qbaTextureHash)))) {
+		if (cuUser)
+			qbaAvatar = cuUser->qbaTextureHash;
+
+		QImage img;
+		if (qbaAvatar.isNull()) {
+			QImageReader qir(QLatin1String("skin:default_avatar.svg"));
+			QSize sz = qir.size();
+			sz.scale(SCALESIZE(Avatar), Qt::KeepAspectRatio);
+			qir.setScaledSize(sz);
+			img = qir.read();
+		} else {
+			QBuffer qb(& cuUser->qbaTexture);
+			qb.open(QIODevice::ReadOnly);
+
+			QImageReader qir(&qb, cuUser->qbaTextureFormat);
+			QSize sz = qir.size();
+			sz.scale(SCALESIZE(Avatar), Qt::KeepAspectRatio);
+			qir.setScaledSize(sz);
+			img = qir.read();
+		}
+
+		qgpiAvatar->setPixmap(QPixmap::fromImage(img));
+		qgpiAvatar->setPos(alignedPosition(scaledRect(g.s.os.qrfOverlayAvatar, uiSize * g.s.os.fOverlayHeight), qgpiAvatar->boundingRect(), g.s.os.qaOverlayAvatar));
+	}
+
+	qgpiAvatar->setVisible(g.s.os.bOverlayAvatar);
+
+	if (cuUser) {
+		ClientUser *self = ClientUser::get(g.uiSession);
+
+		if (g.s.os.bOverlayMutedDeafened) {
+			if (cuUser->bDeaf || cuUser->bSelfDeaf) {
+				qgpiMuted->hide();
+				qgpiDeafened->show();
+			} else if (cuUser->bMute || cuUser->bSelfMute || cuUser->bLocalMute || cuUser->bSuppress) {
+				qgpiMuted->show();
+				qgpiDeafened->hide();
+			} else {
+				qgpiMuted->hide();
+				qgpiDeafened->hide();
+			}
+		} else {
+			qgpiMuted->hide();
+			qgpiDeafened->hide();
+		}
+
+		bool samechannel = self && (self->cChannel == cuUser->cChannel);
+		qgpiChannel->setVisible(g.s.os.bOverlayChannel && ! samechannel);
+
+		tsColor = Settings::Passive;
+		switch (cuUser->tsState) {
+			case ClientUser::Talking:
+				tsColor = Settings::Talking;
+				break;
+			case ClientUser::TalkingWhisper:
+				tsColor = Settings::WhisperPrivate;
+				break;
+			case ClientUser::TalkingWhisperChannel:
+				tsColor = Settings::WhisperChannel;
+				break;
+			default:
+				break;
+		}
+	} else {
+		qgpiChannel->setVisible(g.s.os.bOverlayChannel && (tsColor != Settings::Passive) && (tsColor != Settings::Talking));
+		qgpiMuted->setVisible(g.s.os.bOverlayChannel);
+		qgpiDeafened->hide();
+	}
+
+	if (g.s.os.bOverlayUserName)
+		for (int i=0;i<4;++i)
+			qgpiName[i]->setVisible(i == tsColor);
+	else
+		for (int i=0;i<4;++i)
+			qgpiName[i]->setVisible(false);
+			
+	qgpiBox->setVisible(g.s.os.bOverlayBox);
+
+	setOpacity(g.s.os.fOverlayUser[tsColor]);
 }
 
 QRectF OverlayUser::scaledRect(const QRectF &qr, qreal scale) {
@@ -1265,6 +1470,8 @@ QPointF OverlayUser::alignedPosition(const QRectF &box, const QRectF &item, Qt::
 	return QPointF(iroundf(xofs), iroundf(yofs));
 }
 
+
+
 OverlayMouse::OverlayMouse(QGraphicsItem *p) : QGraphicsPixmapItem(p) {
 }
 
@@ -1276,6 +1483,70 @@ bool OverlayMouse::collidesWithPath(const QPainterPath &, Qt::ItemSelectionMode)
 	return false;
 }
 
+
+
+OverlayGroup::OverlayGroup() : QGraphicsItem() {
+}
+
+int OverlayGroup::type() const {
+	return Type;
+}
+
+void OverlayGroup::paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *) {
+}
+
+QRectF OverlayGroup::boundingRect() const {
+	QRectF qr;
+	foreach(const QGraphicsItem *item, childItems())
+		if (item->isVisible())
+			qr |= item->boundingRect().translated(item->pos());
+
+	return qr;
+}
+
+
+OverlayUserGroup::OverlayUserGroup() : OverlayGroup() {
+}
+
+int OverlayUserGroup::type() const {
+	return Type;
+}
+
+void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
+	event->accept();
+
+	QMenu qm(g.mw);
+	QAction *qaEdit = qm.addAction(OverlayClient::tr("Edit..."));
+
+	QAction *act = qm.exec(event->screenPos());
+	
+	if (! act)
+		return;
+
+	if (act == qaEdit) {
+		QMetaObject::invokeMethod(g.ocIntercept, "openEditor", Qt::QueuedConnection);
+	}
+}
+
+void OverlayUserGroup::wheelEvent(QGraphicsSceneWheelEvent *event) {
+	event->accept();
+
+	qreal scale = 0.875f;
+
+	if (event->delta() > 0)
+		scale = 1.0f / 0.875f;
+
+	if ((scale < 1.0f) && (g.s.os.fOverlayHeight <= (1.0f / 16.0f)))
+		return;
+	else if ((scale > 1.0f) && (g.s.os.fOverlayHeight >= 16.0f))
+		return;
+
+	prepareGeometryChange();
+	
+	g.s.os.fOverlayHeight *= scale;
+
+	g.o->forceSettings();
+}
 
 
 OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
@@ -1303,6 +1574,10 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	qgpiCursor->setZValue(10.0f);
 
 	qgs.addItem(qgpiCursor);
+	
+	ougUsers.setZValue(-1.0f);
+	qgs.addItem(&ougUsers);
+	ougUsers.show();
 
 	qgpiLogo = NULL;
 
@@ -1695,9 +1970,8 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		return true;
 
 	QList<QGraphicsItem *> items;
-	foreach(QGraphicsItem *qgi, qgs.items())
-		if (! qgi->parentItem() && (qgi->type() == OverlayUser::Type))
-			items << qgi;
+	foreach(QGraphicsItem *qgi, ougUsers.childItems())
+		items << qgi;
 
 	QList<OverlayUser *> users;
 	if (qgpiCursor->isVisible()) {
@@ -1715,6 +1989,7 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 				ou = new OverlayUser(cu, uiHeight);
 				connect(cu, SIGNAL(destroyed(QObject *)), this, SLOT(userDestroyed(QObject *)));
 				qmUsers.insert(cu, ou);
+				ou->hide();
 			} else {
 				items.removeAll(ou);
 			}
@@ -1722,30 +1997,26 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 		}
 	}
 
-	foreach(QGraphicsItem *qgi, items)
+	foreach(QGraphicsItem *qgi, items) {
 		qgs.removeItem(qgi);
+		qgi->hide();
+	}
 
-	int nx = (users.count() > 1) ? 2 : 1;
-	int ny = 1 + (users.count() - 1) / 2;
+	QRectF children = g.s.os.qrfOverlayAvatar | g.s.os.qrfOverlayChannel | g.s.os.qrfOverlayMutedDeafened | g.s.os.qrfOverlayUserName;
 
-	QRectF children = g.s.qrfOverlayAvatar | g.s.qrfOverlayChannel | g.s.qrfOverlayMutedDeafened | g.s.qrfOverlayUserName;
-
-	int width = iroundf(children.width() * uiHeight);
-	int height = iroundf(children.height() * uiHeight);
-
-	int basex = qBound<int>(0, iroundf(uiWidth * g.s.fOverlayX), uiWidth - (nx * width + (nx - 1) * 2));
-	int basey = qBound<int>(0, iroundf(uiHeight * g.s.fOverlayY), uiHeight - (ny * height + (ny - 1) * 2));
+	int width = iroundf(children.width() * uiHeight * g.s.os.fOverlayHeight);
+	int height = iroundf(children.height() * uiHeight * g.s.os.fOverlayHeight);
 
 	int y = 0;
 	int x = 0;
 
 	foreach(OverlayUser *ou, users) {
-		ou->setPos(basex + x * (width+2), basey + y * (height + 2));
-		ou->show();
-		ou->updateUser();
+		if (ou->parentItem() == NULL)
+			ou->setParentItem(&ougUsers);
 
-		if (! ou->scene())
-			qgs.addItem(ou);
+		ou->setPos(x * (width+2), y * (height + 2));
+		ou->updateUser();
+		ou->show();
 
 		if (x) {
 			x = 0;
@@ -1754,6 +2025,13 @@ bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 			x = 1;
 		}
 	}
+	
+	QRectF br = ougUsers.boundingRect();
+
+	int basex = qBound<int>(0, iroundf(uiWidth * g.s.os.fOverlayX), iroundf(uiWidth - br.width()));
+	int basey = qBound<int>(0, iroundf(uiHeight * g.s.os.fOverlayY), iroundf(uiHeight - br.height()));
+	
+	ougUsers.setPos(basex, basey);
 
 	if (qlsSocket->bytesToWrite() > 1024) {
 		return (t.elapsed() <= 5000000ULL);
@@ -1856,6 +2134,11 @@ void OverlayClient::userDestroyed(QObject *obj) {
 		delete ou;
 }
 
+void OverlayClient::openEditor() {
+	OverlayEditor oe(g.mw, &ougUsers);
+	
+	oe.exec();
+}
 
 
 bool OverlayTextLine::operator <(const OverlayTextLine &other) const {
@@ -1944,6 +2227,11 @@ bool Overlay::isActive() const {
 }
 
 void Overlay::toggleShow() {
+/*
+	OverlayEditor oe(g.mw);
+	oe.exec();
+	return;
+*/
 	if (g.ocIntercept) {
 		g.ocIntercept->hideGui();
 	} else {
@@ -2079,7 +2367,7 @@ void Overlay::updateOverlay() {
 	quint32 colUser = g.s.qcOverlayUser.rgba();
 	quint32 colTalking = g.s.qcOverlayTalking.rgba();
 	quint32 colWhisper = g.s.qcOverlayWhisper.rgba();
-	quint32 colChannel = g.s.qcOverlayChannel.rgba();
+	quint32 colChannel = g.s.os.qcOverlayChannel.rgba();
 	quint32 colChannelTalking = g.s.qcOverlayChannelTalking.rgba();
 	QString str;
 	QList<qpChanCol> linkchans;

@@ -73,6 +73,46 @@ QDataStream &operator<<(QDataStream &, const ShortcutTarget &);
 QDataStream &operator>>(QDataStream &, ShortcutTarget &);
 Q_DECLARE_METATYPE(ShortcutTarget);
 
+struct OverlaySettings {
+	float fOverlayX;
+	float fOverlayY;
+
+	qreal fOverlayHeight;
+
+	QColor qcOverlayUserName[4];
+	QFont qfOverlayUserName;
+
+	QColor qcOverlayChannel;
+	QFont qfOverlayChannel;
+	
+	qreal fOverlayBoxPad;
+	qreal fOverlayBoxPenWidth;
+	QColor qcOverlayBoxPen;
+	QColor qcOverlayBoxFill;
+	
+	bool bOverlayUserName;
+	bool bOverlayChannel;
+	bool bOverlayMutedDeafened;
+	bool bOverlayAvatar;
+	bool bOverlayBox;
+
+	qreal fOverlayUserName;
+	qreal fOverlayChannel;
+	qreal fOverlayMutedDeafened;
+	qreal fOverlayAvatar;
+	qreal fOverlayUser[4];
+
+	QRectF qrfOverlayUserName;
+	QRectF qrfOverlayChannel;
+	QRectF qrfOverlayMutedDeafened;
+	QRectF qrfOverlayAvatar;
+
+	Qt::Alignment qaOverlayUserName;
+	Qt::Alignment qaOverlayChannel;
+	Qt::Alignment qaOverlayMutedDeafened;
+	Qt::Alignment qaOverlayAvatar;
+};
+
 struct Settings {
 	enum AudioTransmit { Continous, VAD, PushToTalk };
 	enum VADSource { Amplitude, SignalToNoise };
@@ -135,49 +175,14 @@ struct Settings {
 	bool bOverlayEnable;
 	OverlayShow osOverlay;
 	bool bOverlayAlwaysSelf;
-	float fOverlayX;
-	float fOverlayY;
 	bool bOverlayLeft, bOverlayRight, bOverlayTop, bOverlayBottom;
 	QFont qfOverlayFont;
 	QColor qcOverlayUser;
 	QColor qcOverlayTalking;
 	QColor qcOverlayWhisper;
 	QColor qcOverlayChannelTalking;
-
-	qreal fOverlayHeight;
-
-	QColor qcOverlayUserName[4];
-	QFont qfOverlayUserName;
-
-	QColor qcOverlayChannel;
-	QFont qfOverlayChannel;
 	
-	qreal fOverlayBoxPad;
-	qreal fOverlayBoxPenWidth;
-	QColor qcOverlayBoxPen;
-	QColor qcOverlayBoxFill;
-	
-	bool bOverlayUserName;
-	bool bOverlayChannel;
-	bool bOverlayMutedDeafened;
-	bool bOverlayAvatar;
-	bool bOverlayBox;
-
-	qreal fOverlayUserName;
-	qreal fOverlayChannel;
-	qreal fOverlayMutedDeafened;
-	qreal fOverlayAvatar;
-	qreal fOverlayUser[4];
-
-	QRectF qrfOverlayUserName;
-	QRectF qrfOverlayChannel;
-	QRectF qrfOverlayMutedDeafened;
-	QRectF qrfOverlayAvatar;
-
-	Qt::Alignment qaOverlayUserName;
-	Qt::Alignment qaOverlayChannel;
-	Qt::Alignment qaOverlayMutedDeafened;
-	Qt::Alignment qaOverlayAvatar;
+	OverlaySettings os;
 
 	int iLCDUserViewMinColWidth;
 	int iLCDUserViewSplitterWidth;

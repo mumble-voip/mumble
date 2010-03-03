@@ -203,8 +203,6 @@ Settings::Settings() {
 	bOverlayEnable = true;
 	osOverlay = All;
 	bOverlayAlwaysSelf = true;
-	fOverlayX = 0.8f;
-	fOverlayY = 0.0f;
 	bOverlayTop = false;
 	bOverlayBottom = true;
 	bOverlayLeft = true;
@@ -217,57 +215,60 @@ Settings::Settings() {
 	qcOverlayUser = QColor(255,255,255,128);
 	qcOverlayTalking = QColor(255,255,196,255);
 	qcOverlayWhisper = QColor(255,128,128,255);
-	qcOverlayChannel = QColor(192,192,255,192);
 	qcOverlayChannelTalking = QColor(224,224,255,255);
 
-	fOverlayHeight = .1f;
+	os.fOverlayX = 0.8f;
+	os.fOverlayY = 0.0f;
+	os.fOverlayHeight = 1.f;
 
-	qcOverlayUserName[Passive] = QColor(128, 128, 128);
-	qcOverlayUserName[Talking] = QColor(255, 255, 255);
-	qcOverlayUserName[WhisperPrivate] = QColor(128, 255, 128);
-	qcOverlayUserName[WhisperChannel] = QColor(255, 128, 255);
+	os.qcOverlayUserName[Passive] = QColor(128, 128, 128);
+	os.qcOverlayUserName[Talking] = QColor(255, 255, 255);
+	os.qcOverlayUserName[WhisperPrivate] = QColor(128, 255, 128);
+	os.qcOverlayUserName[WhisperChannel] = QColor(255, 128, 255);
+	os.qcOverlayChannel = QColor(192,192,255,192);
 
-	fOverlayUserName = 0.75f;
+
+	os.fOverlayUserName = 0.75f;
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
-	qfOverlayUserName = QFont(QLatin1String("Verdana"), 20);
+	os.qfOverlayUserName = QFont(QLatin1String("Verdana"), 20);
 #else
-	qfOverlayUserName = QFont(QLatin1String("Arial"), 20);
+	os.qfOverlayUserName = QFont(QLatin1String("Arial"), 20);
 #endif
 
-	qcOverlayChannel = QColor(255, 255, 128);
-	fOverlayChannel = 0.75f;
-	qfOverlayChannel = qfOverlayUserName;
+	os.qcOverlayChannel = QColor(255, 255, 128);
+	os.fOverlayChannel = 0.75f;
+	os.qfOverlayChannel = os.qfOverlayUserName;
 
-	fOverlayMutedDeafened = 0.5f;
-	fOverlayAvatar = 1.0f;
+	os.fOverlayMutedDeafened = 0.5f;
+	os.fOverlayAvatar = 1.0f;
 	
-	qcOverlayBoxPen = QColor(0, 0, 0, 224);
-	qcOverlayBoxFill = QColor(128, 128, 128, 128);
-	fOverlayBoxPenWidth = (1.f / 256.0f);
-	fOverlayBoxPad = (1.f / 256.0f);
+	os.qcOverlayBoxPen = QColor(0, 0, 0, 224);
+	os.qcOverlayBoxFill = QColor(128, 128, 128, 128);
+	os.fOverlayBoxPenWidth = (1.f / 256.0f);
+	os.fOverlayBoxPad = (1.f / 256.0f);
 
-	fOverlayUser[Passive] = 0.5f;
-	fOverlayUser[Talking] = (7.0f / 8.0f);
-	fOverlayUser[WhisperPrivate] = (7.0f / 8.0f);
-	fOverlayUser[WhisperChannel] = (7.0f / 8.0f);
+	os.fOverlayUser[Passive] = 0.5f;
+	os.fOverlayUser[Talking] = (7.0f / 8.0f);
+	os.fOverlayUser[WhisperPrivate] = (7.0f / 8.0f);
+	os.fOverlayUser[WhisperChannel] = (7.0f / 8.0f);
 
 	// Nice and exact float values.
 
-	qrfOverlayUserName = QRectF(0.0f, 0.101563f, 0.125f, 0.023438f);
-	qrfOverlayChannel = QRectF(0.03125f, 0.0f, 0.09375f, 0.015625f);
-	qrfOverlayMutedDeafened = QRectF(0.0f, 0.0f, 0.0625f, 0.0625f);
-	qrfOverlayAvatar = QRectF(0.0f, 0.0f, 0.125f, 0.125f);
+	os.qrfOverlayUserName = QRectF(0.0f, 0.101563f, 0.125f, 0.023438f);
+	os.qrfOverlayChannel = QRectF(0.03125f, 0.0f, 0.09375f, 0.015625f);
+	os.qrfOverlayMutedDeafened = QRectF(0.0f, 0.0f, 0.0625f, 0.0625f);
+	os.qrfOverlayAvatar = QRectF(0.0f, 0.0f, 0.125f, 0.125f);
 
-	bOverlayUserName = true;
-	bOverlayChannel = true;
-	bOverlayMutedDeafened = true;
-	bOverlayAvatar = true;
-	bOverlayBox = false;
+	os.bOverlayUserName = true;
+	os.bOverlayChannel = true;
+	os.bOverlayMutedDeafened = true;
+	os.bOverlayAvatar = true;
+	os.bOverlayBox = false;
 	
-	qaOverlayUserName = Qt::AlignCenter;
-	qaOverlayMutedDeafened = Qt::AlignLeft | Qt::AlignTop;
-	qaOverlayAvatar = Qt::AlignCenter;
-	qaOverlayChannel = Qt::AlignCenter;
+	os.qaOverlayUserName = Qt::AlignCenter;
+	os.qaOverlayMutedDeafened = Qt::AlignLeft | Qt::AlignTop;
+	os.qaOverlayAvatar = Qt::AlignCenter;
+	os.qaOverlayChannel = Qt::AlignCenter;
 
 	iLCDUserViewMinColWidth = 50;
 	iLCDUserViewSplitterWidth = 2;
@@ -431,6 +432,7 @@ void Settings::load() {
 	SAVELOAD(iTTSThreshold, "tts/threshold");
 
 	SAVELOAD(bOverlayEnable, "overlay/enable");
+/*
 	LOADENUM(osOverlay, "overlay/show");
 	SAVELOAD(bOverlayAlwaysSelf, "overlay/alwaysself");
 	SAVELOAD(fOverlayX, "overlay/x");
@@ -446,6 +448,7 @@ void Settings::load() {
 	SAVELOAD(qcOverlayTalking, "overlay/talking");
 	SAVELOAD(qcOverlayChannel, "overlay/channel");
 	SAVELOAD(qcOverlayChannelTalking, "overlay/channeltalking");
+*/
 
 	// Network settings
 	SAVELOAD(bTCPCompat, "net/tcponly");
@@ -620,6 +623,7 @@ void Settings::save() {
 	SAVELOAD(iTTSThreshold, "tts/threshold");
 
 	SAVELOAD(bOverlayEnable, "overlay/enable");
+/*
 	SAVELOAD(osOverlay, "overlay/show");
 	SAVELOAD(bOverlayAlwaysSelf, "overlay/alwaysself");
 	SAVELOAD(fOverlayX, "overlay/x");
@@ -635,6 +639,7 @@ void Settings::save() {
 	SAVELOAD(qcOverlayTalking, "overlay/talking");
 	SAVELOAD(qcOverlayChannel, "overlay/channel");
 	SAVELOAD(qcOverlayChannelTalking, "overlay/channeltalking");
+*/
 
 	// Network settings
 	SAVELOAD(bTCPCompat, "net/tcponly");

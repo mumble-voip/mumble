@@ -36,9 +36,191 @@
 #include "ClientUser.h"
 #include "SharedMemory.h"
 #include "ui_Overlay.h"
+#include "ui_OverlayEditor.h"
 
 class User;
 class Overlay;
+
+class OverlayGroup : public QGraphicsItem {
+	private:
+		Q_DISABLE_COPY(OverlayGroup);
+	public:
+		enum { Type = UserType + 5 };
+	public:
+		OverlayGroup();
+
+		QRectF boundingRect() const;
+		void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
+		
+		int type() const;
+};
+
+class OverlayUser : public OverlayGroup {
+	private:
+		Q_DISABLE_COPY(OverlayUser);
+	public:
+		enum { Type = UserType + 1 };
+	protected:
+		QGraphicsPixmapItem *qgpiMuted, *qgpiDeafened;
+		QGraphicsPixmapItem *qgpiAvatar;
+		QGraphicsPixmapItem *qgpiName[4];
+		QGraphicsPixmapItem *qgpiChannel;
+		QGraphicsPathItem *qgpiBox;
+
+		unsigned int uiSize;
+		ClientUser *cuUser;
+		Settings::TalkState tsColor;
+
+		QString qsName;
+		QString qsChannelName;
+		QByteArray qbaAvatar;
+
+		void setup();
+
+	public:
+		OverlayUser(ClientUser *cu, unsigned int uiSize);
+		OverlayUser(Settings::TalkState ts, unsigned int uiSize);
+		void updateUser();
+		void updateLayout();
+
+		int type() const;
+
+		static QPixmap createPixmap(const QString &str, unsigned int height, unsigned int maxwidth, QColor col, const QFont &font, QPainterPath &);
+		static QRectF scaledRect(const QRectF &qr, qreal scale);
+		static QPointF alignedPosition(const QRectF &box, const QRectF &item, Qt::Alignment a);
+};
+
+/*
+class OverlayEditUser : public QObject, public OverlayUser {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(OverlayEditUser);
+	public:
+		enum { Type = UserType + 2 };
+	protected:
+		QGraphicsRectItem *qgriSelected;
+		QGraphicsPixmapItem *qgpiSelected;
+		int iDragCorner;
+
+		Qt::WindowFrameSection wfsHover;
+
+		void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
+		void mousePressEvent(QGraphicsSceneMouseEvent *);
+		void mouseMoveEvent(QGraphicsSceneMouseEvent *);
+		void mouseReleaseEvent(QGraphicsSceneMouseEvent *);
+		void focusInEvent(QFocusEvent *);
+		void focusOutEvent(QFocusEvent *);
+		void hoverMoveEvent(QGraphicsSceneHoverEvent *);
+		void updateCursorShape(const QPointF &point);
+
+		QGraphicsPixmapItem *childAt(const QPointF &);
+		QRectF selectedRect() const;
+
+		static Qt::WindowFrameSection rectSection(const QRectF &rect, const QPointF &point, qreal dist = 3.0f);
+	public:
+		OverlayEditUser(Settings::TalkState ts, unsigned int uiSize);
+
+		QRectF boundingRect() const;
+		int type() const;
+};
+*/
+
+class OverlayUserGroup : public OverlayGroup {
+	private:
+		Q_DISABLE_COPY(OverlayUserGroup);
+	public:
+		enum { Type = UserType + 3 };
+	protected:
+		void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
+		void wheelEvent(QGraphicsSceneWheelEvent *);
+	public:
+		OverlayUserGroup();
+		int type() const;
+};
+
+class OverlayEditorScene : public QGraphicsScene {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(OverlayEditorScene)
+	protected:
+		QGraphicsItem *qgiGroup;
+
+		QGraphicsPixmapItem *qgpiMuted;
+		QGraphicsPixmapItem *qgpiAvatar;
+		QGraphicsPixmapItem *qgpiName;
+		QGraphicsPixmapItem *qgpiChannel;
+		QGraphicsPathItem *qgpiBox;
+		QGraphicsRectItem *qgriSelected;
+		QGraphicsPixmapItem *qgpiSelected;
+		int iDragCorner;
+		
+		Qt::WindowFrameSection wfsHover;
+
+		unsigned int uiSize;
+
+		void setup();
+
+		void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
+		void mousePressEvent(QGraphicsSceneMouseEvent *);
+		void mouseMoveEvent(QGraphicsSceneMouseEvent *);
+		void mouseReleaseEvent(QGraphicsSceneMouseEvent *);
+		void updateCursorShape(const QPointF &point);
+
+		QGraphicsPixmapItem *childAt(const QPointF &);
+		QRectF selectedRect() const;
+
+		static Qt::WindowFrameSection rectSection(const QRectF &rect, const QPointF &point, qreal dist = 3.0f);
+	public:
+		Settings::TalkState tsColor;
+		OverlaySettings os;
+	
+		OverlayEditorScene(QObject *p = NULL);
+
+	public slots:
+		void resync();
+		void updateSelected();
+		
+		void updateMuted();
+		void updateUserName();
+		void updateChannel();
+		void updateAvatar();
+
+		void moveMuted();
+		void moveUserName();
+		void moveChannel();
+		void moveAvatar();
+		void moveBox();
+};
+
+class OverlayEditor : public QDialog, public Ui::OverlayEditor {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(OverlayEditor)
+	protected:
+		QGraphicsItem *qgiPromote;
+		OverlayEditorScene oes;
+		
+		void enterEvent(QEvent *);
+		void leaveEvent(QEvent *);
+	public:
+		OverlayEditor(QWidget *p = NULL, QGraphicsItem *qgi = NULL);
+		~OverlayEditor();
+	public slots:
+		void reset();
+		void apply();
+		void accept();
+
+		void on_qrbPassive_clicked();
+		void on_qrbTalking_clicked();
+		void on_qrbWhisper_clicked();
+		void on_qrbShout_clicked();
+		
+		void on_qcbAvatar_clicked();
+		void on_qcbUser_clicked();
+		void on_qcbChannel_clicked();
+		void on_qcbMutedDeafened_clicked();
+		void on_qcbBox_clicked();
+};
 
 class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 	private:
@@ -79,66 +261,6 @@ struct OverlayTextLine {
 	bool operator <(const OverlayTextLine &o) const;
 };
 
-class OverlayUser : public QObject, public QGraphicsItem {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(OverlayUser);
-	public:
-		enum { Type = UserType + 1 };
-	protected:
-		QGraphicsPixmapItem *qgpiMuted, *qgpiDeafened;
-		QGraphicsPixmapItem *qgpiAvatar;
-		QGraphicsPixmapItem *qgpiName[4];
-		QGraphicsPixmapItem *qgpiChannel;
-		QGraphicsPathItem *qgpiBox;
-
-		QGraphicsRectItem *qgriActive;
-		QGraphicsRectItem *qgriSelected;
-		QGraphicsPixmapItem *qgpiSelected;
-		int iDragCorner;
-
-		unsigned int uiSize;
-		ClientUser *cuUser;
-		Settings::TalkState tsColor;
-
-		QString qsName;
-		QString qsChannelName;
-		QByteArray qbaAvatar;
-
-		Qt::WindowFrameSection wfsHover;
-
-		void setup();
-
-		void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
-		void mousePressEvent(QGraphicsSceneMouseEvent *);
-		void mouseMoveEvent(QGraphicsSceneMouseEvent *);
-		void mouseReleaseEvent(QGraphicsSceneMouseEvent *);
-		void focusInEvent(QFocusEvent *);
-		void focusOutEvent(QFocusEvent *);
-		void hoverMoveEvent(QGraphicsSceneHoverEvent *);
-		void wheelEvent(QGraphicsSceneWheelEvent *);
-		void updateCursorShape(const QPointF &point);
-
-		QGraphicsPixmapItem *childAt(const QPointF &);
-		QRectF selectedRect() const;
-
-		static Qt::WindowFrameSection rectSection(const QRectF &rect, const QPointF &point, qreal dist = 3.0f);
-		static QRectF scaledRect(const QRectF &qr, qreal scale);
-		static QPointF alignedPosition(const QRectF &box, const QRectF &item, Qt::Alignment a);
-	public:
-		OverlayUser(ClientUser *cu, unsigned int uiSize);
-		OverlayUser(Settings::TalkState ts, unsigned int uiSize);
-		void updateUser();
-		void updateLayout();
-
-		int type() const;
-		QRectF boundingRect() const;
-		void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
-
-
-		static QPixmap createPixmap(const QString &str, unsigned int height, unsigned int maxwidth, QColor col, const QFont &font, QPainterPath &);
-};
-
 class OverlayMouse : public QGraphicsPixmapItem {
 	private:
 		Q_DISABLE_COPY(OverlayMouse);
@@ -166,6 +288,7 @@ class OverlayClient : public QObject {
 
 		quint64 uiPid;
 		QGraphicsScene qgs;
+		OverlayUserGroup ougUsers;
 		QMap<QObject *, OverlayUser *> qmUsers;
 		QList<OverlayUser *> qlExampleUsers;
 
@@ -197,6 +320,7 @@ class OverlayClient : public QObject {
 		void hideGui();
 		void scheduleDelete();
 		void updateMouse();
+		void openEditor();
 };
 
 class OverlayPrivate : public QObject {
