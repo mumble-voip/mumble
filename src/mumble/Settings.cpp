@@ -168,7 +168,12 @@ Settings::Settings() {
 	bHideFrame = false;
 	aotbAlwaysOnTop = OnTopNever;
 	bAskOnQuit = true;
+#ifdef Q_OS_WIN
+	// Don't enable minimize to tray by default on win7
+	bHideTray = (QSysInfo::windowsVersion() != QSysInfo::WV_6_1);
+#else
 	bHideTray = true;
+#endif
 	bStateInTray = true;
 	bUsage = true;
 	bShowUserCount = false;
