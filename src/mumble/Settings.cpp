@@ -333,8 +333,9 @@ bool Settings::doPositionalAudio() const {
 #include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()
 
 
-BOOST_TYPEOF_REGISTER_TYPE(Settings::AudioTransmit);
-BOOST_TYPEOF_REGISTER_TYPE(Settings::VADSource);
+BOOST_TYPEOF_REGISTER_TYPE(Qt::Alignment)
+BOOST_TYPEOF_REGISTER_TYPE(Settings::AudioTransmit)
+BOOST_TYPEOF_REGISTER_TYPE(Settings::VADSource)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::LoopMode)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::OverlayShow)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::ProxyType)
@@ -352,25 +353,50 @@ BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
 
 #define SAVELOAD(var,name) var = qvariant_cast<BOOST_TYPEOF(var)>(g.qs->value(QLatin1String(name), var))
 #define LOADENUM(var, name) var = static_cast<BOOST_TYPEOF(var)>(g.qs->value(QLatin1String(name), var).toInt())
+#define LOADFLAG(var, name) var = static_cast<BOOST_TYPEOF(var)>(g.qs->value(QLatin1String(name), static_cast<int>(var)).toInt())
 
 void OverlaySettings::load() {
-/*
-	LOADENUM(osOverlay, "overlay/show");
-	SAVELOAD(bOverlayAlwaysSelf, "overlay/alwaysself");
-	SAVELOAD(fOverlayX, "overlay/x");
-	SAVELOAD(fOverlayY, "overlay/y");
-	SAVELOAD(bTransmitPosition, "audio/postransmit");
-	SAVELOAD(bOverlayTop, "overlay/top");
-	SAVELOAD(bOverlayBottom, "overlay/bottom");
-	SAVELOAD(bOverlayLeft, "overlay/left");
-	SAVELOAD(bOverlayRight, "overlay/right");
-	SAVELOAD(qfOverlayFont, "overlay/font");
-	SAVELOAD(fOverlayHeight, "overlay/height");
-	SAVELOAD(qcOverlayUser, "overlay/user");
-	SAVELOAD(qcOverlayTalking, "overlay/talking");
-	SAVELOAD(qcOverlayChannel, "overlay/channel");
-	SAVELOAD(qcOverlayChannelTalking, "overlay/channeltalking");
-*/
+	SAVELOAD(fX, "x");
+	SAVELOAD(fY, "y");
+	SAVELOAD(fHeight, "zoom");
+	
+	g.qs->beginReadArray(QLatin1String("states"));
+	for(int i=0;i<4;++i) {
+		g.qs->setArrayIndex(i);
+		SAVELOAD(qcUserName[i], "color");
+		SAVELOAD(fUser[i], "opacity");
+	}
+	g.qs->endArray();
+	
+	SAVELOAD(qfUserName, "userfont");
+	SAVELOAD(qfChannel, "channelfont");
+	SAVELOAD(qcChannel, "channelcolor");
+
+	SAVELOAD(fBoxPad, "padding");
+	SAVELOAD(fBoxPenWidth, "penwidth");
+	SAVELOAD(qcBoxPen, "pencolor");
+	SAVELOAD(qcBoxFill, "fillcolor");
+	
+	SAVELOAD(bUserName, "usershow");
+	SAVELOAD(bChannel, "channelshow");
+	SAVELOAD(bMutedDeafened, "mutedshow");
+	SAVELOAD(bAvatar, "avatarshow");
+	SAVELOAD(bBox, "boxshow");
+	
+	SAVELOAD(fUserName, "useropacity");
+	SAVELOAD(fChannel, "channelopacity");
+	SAVELOAD(fMutedDeafened, "mutedopacity");
+	SAVELOAD(fAvatar, "avataropacity");
+
+	SAVELOAD(qrfUserName, "userrect");
+	SAVELOAD(qrfChannel, "channelrect");
+	SAVELOAD(qrfMutedDeafened, "mutedrect");
+	SAVELOAD(qrfAvatar, "avatarrect");
+	
+	LOADFLAG(qaUserName, "useralign");
+	LOADFLAG(qaChannel, "channelalign");
+	LOADFLAG(qaMutedDeafened, "mutedalign");
+	LOADFLAG(qaAvatar, "avataralign");
 }
 
 void Settings::load() {
@@ -551,8 +577,52 @@ void Settings::load() {
 
 #undef SAVELOAD
 #define SAVELOAD(var,name) if (var != def.var) g.qs->setValue(QLatin1String(name), var); else g.qs->remove(QLatin1String(name))
+#define SAVEFLAG(var,name) if (var != def.var) g.qs->setValue(QLatin1String(name), static_cast<int>(var)); else g.qs->remove(QLatin1String(name))
 
 void OverlaySettings::save() {
+	OverlaySettings def;
+
+	SAVELOAD(fX, "x");
+	SAVELOAD(fY, "y");
+	SAVELOAD(fHeight, "zoom");
+	
+	g.qs->beginReadArray(QLatin1String("states"));
+	for(int i=0;i<4;++i) {
+		g.qs->setArrayIndex(i);
+		SAVELOAD(qcUserName[i], "color");
+		SAVELOAD(fUser[i], "opacity");
+	}
+	g.qs->endArray();
+	
+	SAVELOAD(qfUserName, "userfont");
+	SAVELOAD(qfChannel, "channelfont");
+	SAVELOAD(qcChannel, "channelcolor");
+
+	SAVELOAD(fBoxPad, "padding");
+	SAVELOAD(fBoxPenWidth, "penwidth");
+	SAVELOAD(qcBoxPen, "pencolor");
+	SAVELOAD(qcBoxFill, "fillcolor");
+	
+	SAVELOAD(bUserName, "usershow");
+	SAVELOAD(bChannel, "channelshow");
+	SAVELOAD(bMutedDeafened, "mutedshow");
+	SAVELOAD(bAvatar, "avatarshow");
+	SAVELOAD(bBox, "boxshow");
+	
+	SAVELOAD(fUserName, "useropacity");
+	SAVELOAD(fChannel, "channelopacity");
+	SAVELOAD(fMutedDeafened, "mutedopacity");
+	SAVELOAD(fAvatar, "avataropacity");
+
+	SAVELOAD(qrfUserName, "userrect");
+	SAVELOAD(qrfChannel, "channelrect");
+	SAVELOAD(qrfMutedDeafened, "mutedrect");
+	SAVELOAD(qrfAvatar, "avatarrect");
+	
+	SAVEFLAG(qaUserName, "useralign");
+	SAVEFLAG(qaChannel, "channelalign");
+	SAVEFLAG(qaMutedDeafened, "mutedalign");
+	SAVEFLAG(qaAvatar, "avataralign");
 }
 
 void Settings::save() {
@@ -589,6 +659,7 @@ void Settings::save() {
 	SAVELOAD(qsAudioInput, "audio/input");
 	SAVELOAD(qsAudioOutput, "audio/output");
 	SAVELOAD(bWhisperFriends, "audio/whisperfriends");
+	SAVELOAD(bTransmitPosition, "audio/postransmit");
 
 	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
 	SAVELOAD(iFramesPerPacket, "net/framesperpacket");
