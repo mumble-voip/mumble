@@ -28,6 +28,9 @@ Detailed build instructions are available at
 http://mumble.sourceforge.net/BuildingLinux and it is highly recommended
 to follow them to the letter.
 
+Please note that in addition to the depending libraries, you also need
+lsb_release installed.
+
 Building Mumble and Murmur
 ==========================
 
