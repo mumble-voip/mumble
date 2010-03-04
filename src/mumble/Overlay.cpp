@@ -59,9 +59,21 @@ void OverlayConfig::load(const Settings &r) {
 
 	loadSlider(qsX, iroundf(r.os.fX * 100.0f));
 	loadSlider(qsY, 100 - iroundf(r.os.fY * 100.0f));
+
+	qlwBlacklist->clear();
+	qlwWhitelist->clear();
+	qcbWhitelist->setChecked(r.os.bUseWhitelist);
+	qswBlackWhiteList->setCurrentWidget(r.os.bUseWhitelist ? qwWhite : qwBlack);
+	foreach (QString str, r.os.qslWhitelist) {
+		qlwWhitelist->addItem(str);
+	}
+	foreach (QString str, r.os.qslBlacklist) {
+		qlwBlacklist->addItem(str);
+	}
 }
 
-bool OverlayConfig::expert(bool) {
+bool OverlayConfig::expert(bool expert) {
+	qgbExceptions->setVisible(expert);
 	return true;
 }
 
@@ -79,11 +91,50 @@ void OverlayConfig::save() const {
 	s.bOverlayAlwaysSelf = qcbAlwaysSelf->isChecked();
 	s.os.fX = static_cast<float>(qsX->value()) / 100.0f;
 	s.os.fY = 1.0f - static_cast<float>(qsY->value()) / 100.0f;
+
+	// Directly save overlay config
+	s.os.qslBlacklist.clear();
+	for (int i=0;i<qlwBlacklist->count();++i) {
+		s.os.qslBlacklist << qlwBlacklist->item(i)->text();
+	}
+
+	s.os.qslWhitelist.clear();
+	for (int i=0;i<qlwWhitelist->count();++i) {
+		s.os.qslWhitelist << qlwWhitelist->item(i)->text();
+	}
+
+	s.os.bUseWhitelist = qcbWhitelist->isChecked();
+
+	g.qs->beginGroup(QLatin1String("overlay"));
+	s.os.save();
+	g.qs->endGroup();
 }
 
 void OverlayConfig::accept() const {
 	g.o->forceSettings();
 	g.o->setActive(s.bOverlayEnable);
+}
+
+void OverlayConfig::on_qpbAdd_clicked() {
+	QString file = QFileDialog::getOpenFileName(this, tr("Choose executable"), QString(), QLatin1String("*.exe"));
+	if (! file.isEmpty()) {
+		file = QFileInfo(file).fileName();
+		QListWidget *sel = qcbBlacklist->isChecked() ? qlwBlacklist : qlwWhitelist;
+
+		if (sel->findItems(file, Qt::MatchExactly).isEmpty())
+			sel->addItem(file);
+	}
+}
+
+void OverlayConfig::on_qpbRemove_clicked() {
+	QListWidget *sel = qcbBlacklist->isChecked() ? qlwBlacklist : qlwWhitelist;
+	int row = sel->currentRow();
+	if (row != -1)
+		delete sel->takeItem(row);
+}
+
+void OverlayConfig::on_qcbBlacklist_toggled(bool checked) {
+	qswBlackWhiteList->setCurrentWidget(checked ? qwBlack : qwWhite);
 }
 
 
