@@ -37,12 +37,14 @@ class ChatbarLineEdit : public QLineEdit {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(ChatbarLineEdit)
+		void inFocus(bool);
 	protected:
 		QString qsDefaultText;
 		bool bDefaultVisible;
 		void focusInEvent(QFocusEvent *);
 		void focusOutEvent(QFocusEvent *);
 		void contextMenuEvent(QContextMenuEvent *);
+		void dropEvent(QDropEvent *);
 		bool event(QEvent *);
 	public:
 		void setDefaultText(const QString &, bool = false);

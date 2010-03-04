@@ -40,28 +40,38 @@
 */
 
 void ChatbarLineEdit::focusInEvent(QFocusEvent *qfe) {
+	inFocus(true);
 	QLineEdit::focusInEvent(qfe);
-	if (bDefaultVisible) {
-		QFont f = font();
-		f.setItalic(false);
-		setFont(f);
-		setAlignment(Qt::AlignLeft);
-		setText(QString());
-		bDefaultVisible = false;
-	}
+
 }
 
 void ChatbarLineEdit::focusOutEvent(QFocusEvent *qfe) {
+	inFocus(false);
 	QLineEdit::focusOutEvent(qfe);
-	if (text().trimmed().isEmpty() || bDefaultVisible) {
-		QFont f = font();
-		f.setItalic(true);
-		setFont(f);
-		setAlignment(Qt::AlignCenter);
-		setText(qsDefaultText);
-		bDefaultVisible = true;
-	} else {
-		bDefaultVisible = false;
+}
+
+void ChatbarLineEdit::inFocus(bool focus) {
+	if (focus) {
+		if (bDefaultVisible) {
+			QFont f = font();
+			f.setItalic(false);
+			setFont(f);
+			setAlignment(Qt::AlignLeft);
+			setText(QString());
+			bDefaultVisible = false;
+		}
+	}
+	else {
+		if (text().trimmed().isEmpty() || bDefaultVisible) {
+			QFont f = font();
+			f.setItalic(true);
+			setFont(f);
+			setAlignment(Qt::AlignCenter);
+			setText(qsDefaultText);
+			bDefaultVisible = true;
+		} else {
+			bDefaultVisible = false;
+		}
 	}
 }
 
@@ -78,6 +88,11 @@ void ChatbarLineEdit::contextMenuEvent(QContextMenuEvent *qcme) {
 
 	menu->exec(qcme->globalPos());
 	delete menu;
+}
+
+void ChatbarLineEdit::dropEvent(QDropEvent *event) {
+	inFocus(true);
+	QLineEdit::dropEvent(event);
 }
 
 ChatbarLineEdit::ChatbarLineEdit(QWidget *p) : QLineEdit(p) {
