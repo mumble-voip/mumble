@@ -1533,6 +1533,21 @@ QRectF OverlayGroup::boundingRect() const {
 
 
 OverlayUserGroup::OverlayUserGroup() : OverlayGroup() {
+	bShowExamples = false;
+}
+
+OverlayUserGroup::~OverlayUserGroup() {
+	reset();
+}
+
+void OverlayUserGroup::reset() {
+	foreach(OverlayUser *ou, qlExampleUsers)
+		delete ou;
+	qlExampleUsers.clear();
+
+	foreach(OverlayUser *ou, qmUsers)
+		delete ou;
+	qmUsers.clear();
 }
 
 int OverlayUserGroup::type() const {
@@ -1575,6 +1590,103 @@ void OverlayUserGroup::wheelEvent(QGraphicsSceneWheelEvent *event) {
 	g.o->forceSettings();
 }
 
+void OverlayUserGroup::updateUsers() {
+	QRectF sr = scene()->sceneRect();
+	
+	unsigned int uiHeight = iroundf(sr.height());
+
+	QList<QGraphicsItem *> items;
+	foreach(QGraphicsItem *qgi, childItems())
+		items << qgi;
+
+	QList<OverlayUser *> users;
+	if (bShowExamples) {
+		if (qlExampleUsers.isEmpty()) {
+			qlExampleUsers << new OverlayUser(Settings::Passive, uiHeight);
+			qlExampleUsers << new OverlayUser(Settings::Talking, uiHeight);
+			qlExampleUsers << new OverlayUser(Settings::WhisperPrivate, uiHeight);
+			qlExampleUsers << new OverlayUser(Settings::WhisperChannel, uiHeight);
+		}
+
+		users = qlExampleUsers;
+		foreach(OverlayUser *ou, users)
+			items.removeAll(ou);
+	}
+	
+	ClientUser *self = ClientUser::get(g.uiSession);
+	if (self) {
+		Channel *home = ClientUser::get(g.uiSession)->cChannel;
+		QList<ClientUser *> showusers;
+
+		foreach(Channel *c, home->allLinks()) {
+			foreach(User *p, c->qlUsers)
+				showusers << static_cast<ClientUser *>(p);
+		}
+		
+		foreach(ClientUser *cu, showusers) {
+			OverlayUser *ou = qmUsers.value(cu);
+			if (! ou) {
+				ou = new OverlayUser(cu, uiHeight);
+				connect(cu, SIGNAL(destroyed(QObject *)), this, SLOT(userDestroyed(QObject *)));
+				qmUsers.insert(cu, ou);
+				ou->hide();
+			} else {
+				items.removeAll(ou);
+			}
+			users << ou;
+		}
+	}
+
+
+	foreach(QGraphicsItem *qgi, items) {
+		scene()->removeItem(qgi);
+		qgi->hide();
+	}
+
+	QRectF children = g.s.os.qrfAvatar | g.s.os.qrfChannel | g.s.os.qrfMutedDeafened | g.s.os.qrfUserName;
+
+	int pad = g.s.os.bBox ? iroundf(uiHeight * g.s.os.fHeight * (g.s.os.fBoxPad + g.s.os.fBoxPenWidth)) : 0;
+	int width = iroundf(children.width() * uiHeight * g.s.os.fHeight) + 2 * pad;
+	int height = iroundf(children.height() * uiHeight * g.s.os.fHeight) + 2 * pad;
+
+	int xofs = - iroundf(children.left() * uiHeight * g.s.os.fHeight) + pad;
+	int yofs = - iroundf(children.top() * uiHeight * g.s.os.fHeight) + pad;
+
+	int y = 0;
+	int x = 0;
+
+	foreach(OverlayUser *ou, users) {
+		if (ou->parentItem() == NULL)
+			ou->setParentItem(this);
+
+		ou->setPos(x * (width+4) + xofs, y * (height + 4) + yofs);
+		ou->updateUser();
+		ou->show();
+
+		if (x) {
+			x = 0;
+			++y;
+		} else {
+			x = 1;
+		}
+	}
+
+	QRectF br = boundingRect();
+
+	int basex = qBound<int>(0, iroundf(sr.width() * g.s.os.fX), iroundf(sr.width() - br.width()));
+	int basey = qBound<int>(0, iroundf(sr.height() * g.s.os.fY), iroundf(sr.height() - br.height()));
+
+	setPos(basex, basey);
+}
+
+void OverlayUserGroup::userDestroyed(QObject *obj) {
+	OverlayUser *ou = qmUsers.take(obj);
+	if (ou)
+		delete ou;
+}
+
+
+
 
 OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	qlsSocket = socket;
@@ -1615,14 +1727,8 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 
 OverlayClient::~OverlayClient() {
 	qlsSocket->abort();
-
-	foreach(OverlayUser *ou, qlExampleUsers)
-		delete ou;
-	qlExampleUsers.clear();
-
-	foreach(OverlayUser *ou, qmUsers)
-		delete ou;
-	qmUsers.clear();
+	
+	ougUsers.reset();
 }
 
 bool OverlayClient::eventFilter(QObject *o, QEvent *e) {
@@ -1758,6 +1864,8 @@ void OverlayClient::showGui() {
 	qgv.setAttribute(Qt::WA_WState_Hidden, false);
 	qApp->setActiveWindow(&qgv);
 	qgv.setFocus();
+	
+	ougUsers.bShowExamples = true;
 
 	setupScene();
 
@@ -1769,6 +1877,7 @@ void OverlayClient::showGui() {
 
 void OverlayClient::hideGui() {
 	qgpiCursor->hide();
+
 #if defined(QT3_SUPPORT) || defined(Q_WS_WIN)
 	if (QCoreApplication::loopLevel() > 1) {
 		QCoreApplication::exit_loop();
@@ -1776,6 +1885,8 @@ void OverlayClient::hideGui() {
 		return;
 	}
 #endif
+
+	ougUsers.bShowExamples = false;
 
 	QList<QWidget *> widgetlist;
 
@@ -1915,18 +2026,12 @@ void OverlayClient::reset() {
 	if (! uiWidth || ! uiHeight || ! smMem)
 		return;
 
-	foreach(OverlayUser *ou, qmUsers)
-		delete ou;
-	qmUsers.clear();
-
 	if (qgpiLogo) {
 		delete qgpiLogo;
 		qgpiLogo = NULL;
 	}
-
-	foreach(OverlayUser *ou, qlExampleUsers)
-		delete ou;
-	qlExampleUsers.clear();
+	
+	ougUsers.reset();
 
 	setupScene();
 }
@@ -1955,19 +2060,13 @@ void OverlayClient::setupScene() {
 			qgs.addItem(qgpiLogo);
 		}
 		qgpiLogo->show();
-
-		if (qlExampleUsers.isEmpty()) {
-			qlExampleUsers << new OverlayUser(Settings::Passive, uiHeight);
-			qlExampleUsers << new OverlayUser(Settings::Talking, uiHeight);
-			qlExampleUsers << new OverlayUser(Settings::WhisperPrivate, uiHeight);
-			qlExampleUsers << new OverlayUser(Settings::WhisperChannel, uiHeight);
-		}
 	} else {
 		qgs.setBackgroundBrush(Qt::NoBrush);
 
 		if (qgpiLogo)
 			qgpiLogo->hide();
 	}
+	ougUsers.updateUsers();
 }
 
 void OverlayClient::setupRender() {
@@ -1995,74 +2094,8 @@ void OverlayClient::setupRender() {
 bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
 	if (! uiWidth || ! uiHeight || ! smMem)
 		return true;
-
-	QList<QGraphicsItem *> items;
-	foreach(QGraphicsItem *qgi, ougUsers.childItems())
-		items << qgi;
-
-	QList<OverlayUser *> users;
-	if (qgpiCursor->isVisible()) {
-		users = qlExampleUsers;
-		foreach(OverlayUser *ou, users)
-			items.removeAll(ou);
-	}
-
-	foreach(const OverlayTextLine &e, lines) {
-		if (e.uiSession != 0) {
-			ClientUser *cu = ClientUser::get(e.uiSession);
-
-			OverlayUser *ou = qmUsers.value(cu);
-			if (! ou) {
-				ou = new OverlayUser(cu, uiHeight);
-				connect(cu, SIGNAL(destroyed(QObject *)), this, SLOT(userDestroyed(QObject *)));
-				qmUsers.insert(cu, ou);
-				ou->hide();
-			} else {
-				items.removeAll(ou);
-			}
-			users << ou;
-		}
-	}
-
-	foreach(QGraphicsItem *qgi, items) {
-		qgs.removeItem(qgi);
-		qgi->hide();
-	}
-
-	QRectF children = g.s.os.qrfAvatar | g.s.os.qrfChannel | g.s.os.qrfMutedDeafened | g.s.os.qrfUserName;
-
-	int pad = g.s.os.bBox ? iroundf(uiHeight * g.s.os.fHeight * (g.s.os.fBoxPad + g.s.os.fBoxPenWidth)) : 0;
-	int width = iroundf(children.width() * uiHeight * g.s.os.fHeight) + 2 * pad;
-	int height = iroundf(children.height() * uiHeight * g.s.os.fHeight) + 2 * pad;
-
-	int xofs = - iroundf(children.left() * uiHeight * g.s.os.fHeight) + pad;
-	int yofs = - iroundf(children.top() * uiHeight * g.s.os.fHeight) + pad;
-
-	int y = 0;
-	int x = 0;
-
-	foreach(OverlayUser *ou, users) {
-		if (ou->parentItem() == NULL)
-			ou->setParentItem(&ougUsers);
-
-		ou->setPos(x * (width+4) + xofs, y * (height + 4) + yofs);
-		ou->updateUser();
-		ou->show();
-
-		if (x) {
-			x = 0;
-			++y;
-		} else {
-			x = 1;
-		}
-	}
-
-	QRectF br = ougUsers.boundingRect();
-
-	int basex = qBound<int>(0, iroundf(uiWidth * g.s.os.fX), iroundf(uiWidth - br.width()));
-	int basey = qBound<int>(0, iroundf(uiHeight * g.s.os.fY), iroundf(uiHeight - br.height()));
-
-	ougUsers.setPos(basex, basey);
+		
+	ougUsers.updateUsers();
 
 	if (qlsSocket->bytesToWrite() > 1024) {
 		return (t.elapsed() <= 5000000ULL);
@@ -2157,12 +2190,6 @@ void OverlayClient::render() {
 	}
 
 	qlsSocket->flush();
-}
-
-void OverlayClient::userDestroyed(QObject *obj) {
-	OverlayUser *ou = qmUsers.take(obj);
-	if (ou)
-		delete ou;
 }
 
 void OverlayClient::openEditor() {

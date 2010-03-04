@@ -90,17 +90,31 @@ class OverlayUser : public OverlayGroup {
 		static QPointF alignedPosition(const QRectF &box, const QRectF &item, Qt::Alignment a);
 };
 
-class OverlayUserGroup : public OverlayGroup {
+class OverlayUserGroup : public QObject, public OverlayGroup {
 	private:
+		Q_OBJECT
 		Q_DISABLE_COPY(OverlayUserGroup);
 	public:
 		enum { Type = UserType + 3 };
 	protected:
+		QMap<QObject *, OverlayUser *> qmUsers;
+		QList<OverlayUser *> qlExampleUsers;
+
 		void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
 		void wheelEvent(QGraphicsSceneWheelEvent *);
+
+	protected slots:
+		void userDestroyed(QObject *);
 	public:
+		bool bShowExamples;
+
 		OverlayUserGroup();
+		~OverlayUserGroup();
+
 		int type() const;
+	public slots:
+		void reset();
+		void updateUsers();
 };
 
 class OverlayEditorScene : public QGraphicsScene {
@@ -251,8 +265,6 @@ class OverlayClient : public QObject {
 		quint64 uiPid;
 		QGraphicsScene qgs;
 		OverlayUserGroup ougUsers;
-		QMap<QObject *, OverlayUser *> qmUsers;
-		QList<OverlayUser *> qlExampleUsers;
 
 		bool bWasVisible;
 		bool bDelete;
@@ -265,7 +277,6 @@ class OverlayClient : public QObject {
 		QList<QRectF> qlDirty;
 	protected slots:
 		void readyRead();
-		void userDestroyed(QObject *);
 		void changed(const QList<QRectF> &);
 		void render();
 	public:
