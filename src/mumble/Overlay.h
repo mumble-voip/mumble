@@ -210,6 +210,18 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(OverlayConfig)
+	protected:
+		QGraphicsPixmapItem *qgpiScreen;
+		QGraphicsScene qgs;
+		OverlayUserGroup *oug;
+		
+		bool eventFilter(QObject *, QEvent *);
+	protected slots:
+		void on_qpbAdd_clicked();
+		void on_qpbRemove_clicked();
+		void on_qcbBlacklist_toggled(bool);
+		void resizeScene();
+
 	public:
 		OverlayConfig(Settings &st);
 		virtual QString title() const;
@@ -219,10 +231,6 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void save() const;
 		void load(const Settings &r);
 		bool expert(bool);
-	private slots:
-		void on_qpbAdd_clicked();
-		void on_qpbRemove_clicked();
-		void on_qcbBlacklist_toggled(bool);
 };
 
 struct OverlayTextLine {

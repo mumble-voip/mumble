@@ -50,6 +50,27 @@ OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 	qcbShow->addItem(tr("Show no one"), Settings::Nothing);
 	qcbShow->addItem(tr("Show only talking"), Settings::Talking);
 	qcbShow->addItem(tr("Show everyone"), Settings::All);
+	
+	qgs.setBackgroundBrush(Qt::black);
+	
+	qgpiScreen = new QGraphicsPixmapItem();
+	qgpiScreen->setPixmap(QPixmap::grabWindow(QApplication::desktop()->winId()));
+	qgpiScreen->setOpacity(0.5f);
+	qgpiScreen->setZValue(-10.0f);
+	
+	oug = new OverlayUserGroup();
+	oug->bShowExamples = true;
+
+	qgs.addItem(qgpiScreen);
+	qgpiScreen->show();
+
+	qgs.addItem(oug);
+	oug->show();
+	
+	qgs.setSceneRect(QRectF(0, 0, qgpiScreen->pixmap().width(), qgpiScreen->pixmap().height()));
+	qgvView->setScene(&qgs);
+
+	qgvView->installEventFilter(this);
 }
 
 void OverlayConfig::load(const Settings &r) {
@@ -113,6 +134,17 @@ void OverlayConfig::save() const {
 void OverlayConfig::accept() const {
 	g.o->forceSettings();
 	g.o->setActive(s.bOverlayEnable);
+}
+
+bool OverlayConfig::eventFilter(QObject *obj, QEvent *evt) {
+	if (evt->type() == QEvent::Resize)
+		QMetaObject::invokeMethod(this, "resizeScene", Qt::QueuedConnection);
+	return ConfigWidget::eventFilter(obj, evt);
+}
+
+void OverlayConfig::resizeScene() {
+	qgvView->fitInView(qgs.sceneRect(), Qt::KeepAspectRatio);
+	oug->updateUsers();
 }
 
 void OverlayConfig::on_qpbAdd_clicked() {
@@ -1287,7 +1319,10 @@ void OverlayUser::updateLayout() {
 
 QPixmap OverlayUser::createPixmap(const QString &string, unsigned int height, unsigned int maxwidth, QColor col, const QFont &font, QPainterPath &pp) {
 	float edge = height * 0.05f;
-
+	
+	if (! height || ! maxwidth)
+		return QPixmap();
+	
 	if (pp.isEmpty()) {
 		QFont f = font;
 
@@ -1566,7 +1601,13 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		return;
 
 	if (act == qaEdit) {
-		QMetaObject::invokeMethod(g.ocIntercept, "openEditor", Qt::QueuedConnection);
+		if (g.ocIntercept) {
+			QMetaObject::invokeMethod(g.ocIntercept, "openEditor", Qt::QueuedConnection);
+		} else {
+			OverlayEditor oe(qApp->activeModalWidget());
+
+			oe.exec();
+		}			
 	}
 }
 
