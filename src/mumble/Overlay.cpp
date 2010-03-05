@@ -78,9 +78,6 @@ void OverlayConfig::load(const Settings &r) {
 	loadCheckBox(qcbAlwaysSelf, r.bOverlayAlwaysSelf);
 	loadComboBox(qcbShow, r.osOverlay);
 
-	loadSlider(qsX, iroundf(r.os.fX * 100.0f));
-	loadSlider(qsY, 100 - iroundf(r.os.fY * 100.0f));
-
 	qlwBlacklist->clear();
 	qlwWhitelist->clear();
 	qcbWhitelist->setChecked(r.os.bUseWhitelist);
@@ -110,8 +107,6 @@ void OverlayConfig::save() const {
 	s.bOverlayEnable = qcbEnable->isChecked();
 	s.osOverlay = static_cast<Settings::OverlayShow>(qcbShow->currentIndex());
 	s.bOverlayAlwaysSelf = qcbAlwaysSelf->isChecked();
-	s.os.fX = static_cast<float>(qsX->value()) / 100.0f;
-	s.os.fY = 1.0f - static_cast<float>(qsY->value()) / 100.0f;
 
 	// Directly save overlay config
 	s.os.qslBlacklist.clear();
@@ -1571,9 +1566,18 @@ QRectF OverlayGroup::boundingRect() const {
 	return qr;
 }
 
+template<class T>
+QRectF OverlayGroup::boundingRect() const {
+	QRectF qr;
+	foreach(const QGraphicsItem *item, childItems())
+		if (item->isVisible() && (item->type() == static_cast<T>(NULL)->Type))
+			qr |= item->boundingRect().translated(item->pos());
 
-OverlayUserGroup::OverlayUserGroup(OverlaySettings *osptr) : OverlayGroup(), os(osptr) {
-	bShowExamples = false;
+	return qr;
+}
+
+
+OverlayUserGroup::OverlayUserGroup(OverlaySettings *osptr) : OverlayGroup(), os(osptr), bShowExamples(false), qgeiHandle(NULL) {
 }
 
 OverlayUserGroup::~OverlayUserGroup() {
@@ -1588,6 +1592,11 @@ void OverlayUserGroup::reset() {
 	foreach(OverlayUser *ou, qmUsers)
 		delete ou;
 	qmUsers.clear();
+	
+	if (qgeiHandle) {
+		delete qgeiHandle;
+		qgeiHandle = NULL;
+	}
 }
 
 int OverlayUserGroup::type() const {
@@ -1638,6 +1647,33 @@ void OverlayUserGroup::wheelEvent(QGraphicsSceneWheelEvent *event) {
 	updateLayout();
 }
 
+bool OverlayUserGroup::sceneEventFilter(QGraphicsItem *watched, QEvent *event) {
+	switch (event->type()) {
+		case QEvent::GraphicsSceneMouseMove:
+		case QEvent::GraphicsSceneMouseRelease:
+			QMetaObject::invokeMethod(this, "moveUsers", Qt::QueuedConnection);
+			break;
+		default:
+			break;
+			
+	}
+	return OverlayGroup::sceneEventFilter(watched, event);
+}
+
+void OverlayUserGroup::moveUsers() {
+	if (! qgeiHandle)
+		return;
+
+	const QRectF &sr = scene()->sceneRect();
+	const QPointF &p = qgeiHandle->pos();
+	
+	os->fX = qBound<qreal>(0.0f, p.x() / sr.width(), 1.0f);
+	os->fY = qBound<qreal>(0.0f, p.y() / sr.height(), 1.0f);
+	
+	qgeiHandle->setPos(os->fX * sr.width(), os->fY * sr.height());
+	updateUsers();
+}
+
 void OverlayUserGroup::updateLayout() {
 	prepareGeometryChange();
 	reset();
@@ -1645,7 +1681,7 @@ void OverlayUserGroup::updateLayout() {
 }
 
 void OverlayUserGroup::updateUsers() {
-	QRectF sr = scene()->sceneRect();
+	const QRectF &sr = scene()->sceneRect();
 	
 	unsigned int uiHeight = iroundf(sr.height());
 
@@ -1665,6 +1701,24 @@ void OverlayUserGroup::updateUsers() {
 		users = qlExampleUsers;
 		foreach(OverlayUser *ou, users)
 			items.removeAll(ou);
+			
+		if (! qgeiHandle) {
+			qgeiHandle = new QGraphicsEllipseItem(QRectF(-4.0f, -4.0f, 8.0f, 8.0f));
+			qgeiHandle->setPen(QPen(Qt::darkRed, 0.0f));
+			qgeiHandle->setBrush(Qt::red);
+			qgeiHandle->setZValue(0.5f);
+			qgeiHandle->setFlag(QGraphicsItem::ItemIsMovable);
+			qgeiHandle->setFlag(QGraphicsItem::ItemIsSelectable);
+			qgeiHandle->setPos(sr.width() * os->fX, sr.height() * os->fY);
+			scene()->addItem(qgeiHandle);
+			qgeiHandle->show();
+			qgeiHandle->installSceneEventFilter(this);
+		}
+	} else {
+		if (qgeiHandle) {
+			delete qgeiHandle;
+			qgeiHandle = NULL;
+		}
 	}
 	
 	ClientUser *self = ClientUser::get(g.uiSession);
@@ -1725,7 +1779,7 @@ void OverlayUserGroup::updateUsers() {
 		}
 	}
 
-	QRectF br = boundingRect();
+	QRectF br = boundingRect<OverlayUser *>();
 
 	int basex = qBound<int>(0, iroundf(sr.width() * os->fX), iroundf(sr.width() - br.width()));
 	int basey = qBound<int>(0, iroundf(sr.height() * os->fY), iroundf(sr.height() - br.height()));

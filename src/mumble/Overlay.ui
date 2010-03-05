@@ -65,38 +65,6 @@
       <string>Layout</string>
      </property>
      <layout class="QGridLayout">
-      <item row="0" column="2" rowspan="2">
-       <widget class="QSlider" name="qsY">
-        <property name="toolTip">
-         <string>Y-Position of Overlay</string>
-        </property>
-        <property name="whatsThis">
-         <string>This sets the relative Y position of the overlay.</string>
-        </property>
-        <property name="maximum">
-         <number>100</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" colspan="2">
-       <widget class="QSlider" name="qsX">
-        <property name="toolTip">
-         <string>X-Position of Overlay</string>
-        </property>
-        <property name="whatsThis">
-         <string>This sets the relative X position of the overlay.</string>
-        </property>
-        <property name="maximum">
-         <number>100</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="0" colspan="2">
        <widget class="QGraphicsView" name="qgvView">
         <property name="sizePolicy">
@@ -238,8 +206,6 @@
   <tabstop>qcbEnable</tabstop>
   <tabstop>qcbShow</tabstop>
   <tabstop>qcbAlwaysSelf</tabstop>
-  <tabstop>qsY</tabstop>
-  <tabstop>qsX</tabstop>
  </tabstops>
  <resources/>
  <connections/>

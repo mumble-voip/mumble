@@ -51,6 +51,8 @@ class OverlayGroup : public QGraphicsItem {
 		OverlayGroup();
 
 		QRectF boundingRect() const;
+		template<class T>
+		QRectF boundingRect() const;
 		void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
 
 		int type() const;
@@ -101,15 +103,18 @@ class OverlayUserGroup : public QObject, public OverlayGroup {
 		enum { Type = UserType + 3 };
 	protected:
 		OverlaySettings *os;
-
+		
 		QMap<QObject *, OverlayUser *> qmUsers;
 		QList<OverlayUser *> qlExampleUsers;
 
+		QGraphicsEllipseItem *qgeiHandle;
+
 		void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
 		void wheelEvent(QGraphicsSceneWheelEvent *);
-
+		bool sceneEventFilter(QGraphicsItem *, QEvent *);
 	protected slots:
 		void userDestroyed(QObject *);
+		void moveUsers();
 	public:
 		bool bShowExamples;
 
