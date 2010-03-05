@@ -35,6 +35,7 @@
 #include "ConfigDialog.h"
 #include "ClientUser.h"
 #include "SharedMemory.h"
+#include "Global.h"
 #include "ui_Overlay.h"
 #include "ui_OverlayEditor.h"
 
@@ -67,6 +68,8 @@ class OverlayUser : public OverlayGroup {
 		QGraphicsPixmapItem *qgpiChannel;
 		QGraphicsPathItem *qgpiBox;
 
+		OverlaySettings *os;
+
 		unsigned int uiSize;
 		ClientUser *cuUser;
 		Settings::TalkState tsColor;
@@ -78,8 +81,8 @@ class OverlayUser : public OverlayGroup {
 		void setup();
 
 	public:
-		OverlayUser(ClientUser *cu, unsigned int uiSize);
-		OverlayUser(Settings::TalkState ts, unsigned int uiSize);
+		OverlayUser(ClientUser *cu, unsigned int uiSize, OverlaySettings *osptr);
+		OverlayUser(Settings::TalkState ts, unsigned int uiSize, OverlaySettings *osptr);
 		void updateUser();
 		void updateLayout();
 
@@ -97,6 +100,8 @@ class OverlayUserGroup : public QObject, public OverlayGroup {
 	public:
 		enum { Type = UserType + 3 };
 	protected:
+		OverlaySettings *os;
+
 		QMap<QObject *, OverlayUser *> qmUsers;
 		QList<OverlayUser *> qlExampleUsers;
 
@@ -108,13 +113,14 @@ class OverlayUserGroup : public QObject, public OverlayGroup {
 	public:
 		bool bShowExamples;
 
-		OverlayUserGroup();
+		OverlayUserGroup(OverlaySettings *osptr = &g.s.os);
 		~OverlayUserGroup();
 
 		int type() const;
 	public slots:
 		void reset();
 		void updateUsers();
+		void updateLayout();
 };
 
 class OverlayEditorScene : public QGraphicsScene {
@@ -156,8 +162,7 @@ class OverlayEditorScene : public QGraphicsScene {
 		unsigned int uiZoom;
 		OverlaySettings os;
 
-		OverlayEditorScene(QObject *p = NULL);
-
+		OverlayEditorScene(QObject *p = NULL, const OverlaySettings &srcos = g.s.os);
 	public slots:
 		void resync();
 		void updateSelected();
@@ -181,12 +186,15 @@ class OverlayEditor : public QDialog, public Ui::OverlayEditor {
 	protected:
 		QGraphicsItem *qgiPromote;
 		OverlayEditorScene oes;
+		OverlaySettings *os;
 
 		void enterEvent(QEvent *);
 		void leaveEvent(QEvent *);
 	public:
-		OverlayEditor(QWidget *p = NULL, QGraphicsItem *qgi = NULL);
+		OverlayEditor(QWidget *p = NULL, QGraphicsItem *qgi = NULL, OverlaySettings *osptr = NULL);
 		~OverlayEditor();
+	signals:
+		void applySettings();
 	public slots:
 		void reset();
 		void apply();
@@ -221,7 +229,6 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void on_qpbRemove_clicked();
 		void on_qcbBlacklist_toggled(bool);
 		void resizeScene();
-
 	public:
 		OverlayConfig(Settings &st);
 		virtual QString title() const;
