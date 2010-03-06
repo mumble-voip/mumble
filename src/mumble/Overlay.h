@@ -31,13 +31,13 @@
 #ifndef _OVERLAY_H
 #define _OVERLAY_H
 
-#include "../../overlay/overlay.h"
 #include "ConfigDialog.h"
 #include "ClientUser.h"
 #include "SharedMemory.h"
 #include "Global.h"
 #include "ui_Overlay.h"
 #include "ui_OverlayEditor.h"
+#include "../../overlay/overlay.h"
 
 class User;
 class Overlay;
