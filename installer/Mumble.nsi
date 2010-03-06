@@ -12,6 +12,7 @@ RequestExecutionLevel user
   !include "LogicLib.nsh"
   !include "Library.nsh"
   !include "WinVer.nsh"
+  !include "FileFunc.nsh"
 
 ;--------------------------------
 ;General
@@ -352,8 +353,8 @@ Section /o "$(MUMBLE_SEC_MURMUR)" SectionMurmur
 
   File "\dev\dbus\bin\dbus-send.exe"
 
-  File "\dev\Ice\bin\ice33.dll"
-  File "\dev\Ice\bin\iceutil33.dll"
+  File "\dev\Ice\bin\ice34.dll"
+  File "\dev\Ice\bin\iceutil34.dll"
   File "\dev\Ice\bin\bzip2.dll"
 
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
@@ -431,6 +432,10 @@ end:
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\mumble_ol_old.dll"
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\mumble_ol.dll"
   Delete "$INSTDIR\qos.reg"
+
+  ${un.Getparameters} $R1
+  ${un.GetOptions} $R1 '/UPGRADE' $R0
+  IfErrors 0 +2
   Delete "$INSTDIR\murmur.ini"
 
   Delete "$INSTDIR\Murmur.ice"
@@ -463,8 +468,8 @@ end:
   Delete "$INSTDIR\libmmd.dll"
   Delete "$INSTDIR\dbghelp.dll"
 
-  Delete "$INSTDIR\ice33.dll"
-  Delete "$INSTDIR\iceutil33.dll"
+  Delete "$INSTDIR\ice34.dll"
+  Delete "$INSTDIR\iceutil34.dll"
   Delete "$INSTDIR\bzip2.dll"
 
   Delete "$INSTDIR\libeay32.dll"
@@ -583,7 +588,7 @@ Function PageLeaveReinstall
 reinst_uninstall:
   HideWindow
   ClearErrors
-  ExecWait '$R0 _?=$INSTDIR'
+  ExecWait '$R0 /UPGRADE _?=$INSTDIR'
   IfErrors no_remove_uninstaller
   IfFileExists "$INSTDIR\mumble.exe" no_remove_uninstaller
   Delete $R0
