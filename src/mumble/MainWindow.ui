@@ -107,6 +107,9 @@
     <number>1</number>
    </attribute>
    <widget class="QTextBrowser" name="qteLog">
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
     <property name="contextMenuPolicy">
      <enum>Qt::CustomContextMenu</enum>
     </property>

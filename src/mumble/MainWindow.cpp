@@ -301,7 +301,7 @@ void MainWindow::setupGui()  {
 	dtbChatDockTitle = new DockTitleBar();
 	qdwChat->setTitleBarWidget(dtbChatDockTitle);
 	qdwChat->installEventFilter(dtbChatDockTitle);
-	qleChat->setDefaultText(tr("Not connected"), true);
+	qleChat->setDefaultText(tr("<center>Not connected</center>"), true);
 	qleChat->setEnabled(false);
 
 	connect(qtvUsers->selectionModel(),
@@ -1296,15 +1296,15 @@ void MainWindow::on_qaQuit_triggered() {
 	this->close();
 }
 
-void MainWindow::on_qleChat_returnPressed() {
-	if (qleChat->text().isEmpty() || g.uiSession == 0) return; // Check if text & connection is available
+void MainWindow::sendChatbarMessage() {
+	if (qleChat->toPlainText().isEmpty() || g.uiSession == 0) return; // Check if text & connection is available
 
 	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
 	QString qsText;
 
-	qsText = qleChat->text();
+	qsText = qleChat->toPlainText();
 	if (! Qt::mightBeRichText(qsText)) {
 		qsText = TextMessage::autoFormat(qsText);
 	}
@@ -2260,16 +2260,16 @@ void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
 	if (g.uiSession == 0) {
-		qleChat->setDefaultText(tr("Not connected"), true);
+		qleChat->setDefaultText(tr("<center>Not connected</center>"), true);
 	} else if (p == NULL || p->uiSession == g.uiSession) {
 		// Channel tree target
 		if (c == NULL) // If no channel selected fallback to current one
 			c = ClientUser::get(g.uiSession)->cChannel;
 
-		qleChat->setDefaultText(tr("Type message to channel '%1' here").arg(c->qsName));
+		qleChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(c->qsName));
 	} else {
 		// User target
-		qleChat->setDefaultText(tr("Type message to user '%1' here").arg(p->qsName));
+		qleChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(p->qsName));
 	}
 
 	updateMenuPermissions();

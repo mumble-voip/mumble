@@ -33,11 +33,12 @@
 
 #include "mumble_pch.hpp"
 
-class ChatbarLineEdit : public QLineEdit {
+class ChatbarLineEdit : public QTextEdit {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(ChatbarLineEdit)
 		void inFocus(bool);
+		void doScrollbar();
 	protected:
 		QString qsDefaultText;
 		bool bDefaultVisible;
@@ -46,6 +47,9 @@ class ChatbarLineEdit : public QLineEdit {
 		void contextMenuEvent(QContextMenuEvent *);
 		void dropEvent(QDropEvent *);
 		bool event(QEvent *);
+		QSize minimumSizeHint();
+		QSize sizeHint();
+		void resizeEvent(QResizeEvent *e);
 	public:
 		void setDefaultText(const QString &, bool = false);
 		unsigned int completeAtCursor();
@@ -54,6 +58,7 @@ class ChatbarLineEdit : public QLineEdit {
 		void ctrlSpacePressed(void);
 	public slots:
 		void pasteAndSend_triggered();
+		void doResize();
 	public:
 		ChatbarLineEdit(QWidget *p = NULL);
 };

@@ -30,6 +30,8 @@
 */
 #include "CustomElements.h"
 #include "ClientUser.h"
+#include "Global.h"
+#include "MainWindow.h"
 
 /*!
   \fn int ChatbarLineEdit::completeAtCursor()
@@ -41,13 +43,12 @@
 
 void ChatbarLineEdit::focusInEvent(QFocusEvent *qfe) {
 	inFocus(true);
-	QLineEdit::focusInEvent(qfe);
-
+	QTextEdit::focusInEvent(qfe);
 }
 
 void ChatbarLineEdit::focusOutEvent(QFocusEvent *qfe) {
 	inFocus(false);
-	QLineEdit::focusOutEvent(qfe);
+	QTextEdit::focusOutEvent(qfe);
 }
 
 void ChatbarLineEdit::inFocus(bool focus) {
@@ -56,18 +57,16 @@ void ChatbarLineEdit::inFocus(bool focus) {
 			QFont f = font();
 			f.setItalic(false);
 			setFont(f);
-			setAlignment(Qt::AlignLeft);
-			setText(QString());
+			setPlainText(QString());
 			bDefaultVisible = false;
 		}
 	}
 	else {
-		if (text().trimmed().isEmpty() || bDefaultVisible) {
+		if (toPlainText().trimmed().isEmpty() || bDefaultVisible) {
 			QFont f = font();
 			f.setItalic(true);
 			setFont(f);
-			setAlignment(Qt::AlignCenter);
-			setText(qsDefaultText);
+			setHtml(qsDefaultText);
 			bDefaultVisible = true;
 		} else {
 			bDefaultVisible = false;
@@ -92,12 +91,44 @@ void ChatbarLineEdit::contextMenuEvent(QContextMenuEvent *qcme) {
 
 void ChatbarLineEdit::dropEvent(QDropEvent *event) {
 	inFocus(true);
-	QLineEdit::dropEvent(event);
+	QTextEdit::dropEvent(event);
 }
 
-ChatbarLineEdit::ChatbarLineEdit(QWidget *p) : QLineEdit(p) {
+ChatbarLineEdit::ChatbarLineEdit(QWidget *p) : QTextEdit(p) {
+	setWordWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
+	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	setMinimumHeight(0);
+	connect(this, SIGNAL(textChanged()), SLOT(doResize()));
+
 	bDefaultVisible = true;
-	setDefaultText(tr("Type chat message here"));
+	setDefaultText(tr("<center>Type chat message here</center>"));
+}
+
+QSize ChatbarLineEdit::minimumSizeHint() {
+	return QSize(0, fontMetrics().height());
+}
+
+QSize ChatbarLineEdit::sizeHint() {
+	QSize sizeHint = QTextEdit::sizeHint();
+	sizeHint.setHeight(document()->documentLayout()->documentSize().height());
+	setMaximumHeight(sizeHint.height());
+	return sizeHint;
+}
+
+void ChatbarLineEdit::resizeEvent(QResizeEvent *e) {
+	QTextEdit::resizeEvent(e);
+	doScrollbar();
+}
+
+void ChatbarLineEdit::doResize() {
+	updateGeometry();
+	doScrollbar();
+}
+
+void ChatbarLineEdit::doScrollbar() {
+	setVerticalScrollBarPolicy(sizeHint().height() > height() ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
+	ensureCursorVisible();
 }
 
 void ChatbarLineEdit::setDefaultText(const QString &new_default, bool force) {
@@ -107,15 +138,24 @@ void ChatbarLineEdit::setDefaultText(const QString &new_default, bool force) {
 		QFont f = font();
 		f.setItalic(true);
 		setFont(f);
-		setAlignment(Qt::AlignCenter);
-		setText(qsDefaultText);
+		setHtml(qsDefaultText);
 		bDefaultVisible = true;
 	}
 }
 
 bool ChatbarLineEdit::event(QEvent *event) {
+	if (event->type() == QEvent::ShortcutOverride) {
+		return false;
+	}
+
 	if (event->type() == QEvent::KeyPress) {
 		QKeyEvent *kev = static_cast<QKeyEvent*>(event);
+		if ((kev->key() == Qt::Key_Enter || kev->key() == Qt::Key_Return) && !(kev->modifiers() & Qt::ShiftModifier)) {
+			g.mw->sendChatbarMessage();
+			return true;
+		}
+// currently broken
+#if 0
 		if (kev->key() == Qt::Key_Tab) {
 			emit tabPressed();
 			return true;
@@ -123,11 +163,14 @@ bool ChatbarLineEdit::event(QEvent *event) {
 			emit ctrlSpacePressed();
 			return true;
 		}
+#endif
 	}
-	return QLineEdit::event(event);
+	return QTextEdit::event(event);
 }
 
 unsigned int ChatbarLineEdit::completeAtCursor() {
+// currently  broken
+#if 0
 	// Get an alphabetically sorted list of usernames
 	unsigned int id = 0;
 	QList<QString> qlsUsernames;
@@ -139,7 +182,7 @@ unsigned int ChatbarLineEdit::completeAtCursor() {
 	qSort(qlsUsernames);
 
 	QString newtext;
-	newtext = text();
+	newtext = toPlainText();
 	QString target = QString();
 	if (newtext.isEmpty()) {
 		target = qlsUsernames.first();
@@ -189,11 +232,12 @@ unsigned int ChatbarLineEdit::completeAtCursor() {
 		setText(newtext);
 	}
 	return id;
+#endif
 }
 
 void ChatbarLineEdit::pasteAndSend_triggered() {
 	paste();
-	emit returnPressed();
+	g.mw->sendChatbarMessage();
 }
 
 DockTitleBar::DockTitleBar() {

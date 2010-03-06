@@ -108,6 +108,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void setOnTop(bool top);
 		void updateTrayIcon();
 		QPair<QByteArray, QImage> openImageFile();
+		void sendChatbarMessage();
 		static const QString defaultStyleSheet;
 
 #ifdef Q_OS_WIN
@@ -196,7 +197,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaHelpAboutQt_triggered();
 		void on_qaHelpVersionCheck_triggered();
 		void on_qaQuit_triggered();
-		void on_qleChat_returnPressed();
 		void on_qleChat_tabPressed();
 		void on_qleChat_ctrlSpacePressed();
 		void on_qteLog_customContextMenuRequested(const QPoint &pos);
