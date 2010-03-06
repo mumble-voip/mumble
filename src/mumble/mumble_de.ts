@@ -3785,7 +3785,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     <message>
         <location line="+25"/>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;center&gt;Textnachricht hier eingeben&lt;/center&gt;</translation>
     </message>
     <message>
         <source>Type chat message here</source>
@@ -4871,12 +4871,6 @@ der möglichen Orte initialisieren.</translation>
     </message>
     <message>
         <location/>
-        <source>Whisper Target</source>
-        <oldsource>Whisper to subchannels</oldsource>
-        <translation type="unfinished">An Unterkanäle flüstern</translation>
-    </message>
-    <message>
-        <location/>
         <source>List of users</source>
         <translation>Benutzerliste</translation>
     </message>
@@ -4889,12 +4883,6 @@ der möglichen Orte initialisieren.</translation>
         <location/>
         <source>Remove</source>
         <translation>Entfernen</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Whisper Target</source>
-        <oldsource>Whisper to Channel</oldsource>
-        <translation type="unfinished">An den Kanal flüstern</translation>
     </message>
     <message>
         <location/>
@@ -4914,17 +4902,17 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location/>
         <source>Shout to Linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">An verknüpfte Kanäle rufen</translation>
     </message>
     <message>
         <location/>
         <source>Shout to subchannels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">An Unterkanäle rufen</translation>
     </message>
     <message>
         <location/>
         <source>Shout to Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">An den Kanal rufen</translation>
     </message>
 </context>
 <context>
@@ -6770,7 +6758,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location line="+91"/>
         <source>(Tree) </source>
-        <translation>(Baum)</translation>
+        <translation>(Baum) </translation>
     </message>
     <message>
         <location line="+2"/>
@@ -7055,7 +7043,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <location line="+12"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ändert den Modus den Ingame-Overlays</translation>
     </message>
     <message>
         <location line="+303"/>
@@ -7116,7 +7104,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <location line="+265"/>
         <source>To %1 (Tree): %2</source>
         <oldsource>(Tree) %1: %2</oldsource>
-        <translation type="unfinished">(Baum) %1: %2</translation>
+        <translation>An %1 (Baum): %2</translation>
     </message>
     <message>
         <location line="-304"/>
@@ -7125,7 +7113,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <location line="+223"/>
         <source>To %1: %2</source>
         <oldsource>%1: %2</oldsource>
-        <translation type="unfinished">%1: %2</translation>
+        <translation>An %1: %2</translation>
     </message>
     <message>
         <location line="+609"/>
@@ -7228,13 +7216,13 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
         <location line="+115"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
-        <translation type="unfinished">Geben Sie hier Ihre Nachricht an den Kanal &apos;%1&apos; ein</translation>
+        <translation>&lt;center&gt;Geben Sie hier Ihre Nachricht an den Kanal &apos;%1&apos; ein&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to user &apos;%1&apos; here</oldsource>
-        <translation type="unfinished">Geben Sie hier Ihre Nachricht an den Benutzer &apos;%1&apos; ein</translation>
+        <translation>&lt;center&gt;Nachricht an den Benutzer &apos;%1&apos; hier eingeben&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="+91"/>
@@ -7585,14 +7573,14 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <location line="+30"/>
         <source>Whisper/Shout</source>
         <oldsource>Whisper</oldsource>
-        <translation type="unfinished">Flüstern</translation>
+        <translation>Flüstern/Rufen</translation>
     </message>
     <message>
         <location line="+58"/>
         <location line="+1959"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
-        <translation type="unfinished">Nicht verbunden</translation>
+        <translation>&lt;center&gt;Nicht verbunden&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="-1740"/>
@@ -7974,7 +7962,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location/>
         <source>Change your own comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Ändert Ihren eigenen Kommentar</translation>
     </message>
 </context>
 <context>
@@ -7987,7 +7975,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location line="+36"/>
         <source>Updates are mandatory when using snapshot releases.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualisierungen sind verpflichtend wenn Sie Snapshots verwenden.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui"/>
@@ -8252,12 +8240,12 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location/>
         <source>Reconnect to last used server when starting Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbinde beim Start zum zuletzt verwendeten Server</translation>
     </message>
     <message>
         <location/>
         <source>Reconnect to last server on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbinde beim Start zum zuletzt benutzen Server</translation>
     </message>
 </context>
 <context>
@@ -8329,31 +8317,31 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <location filename="Overlay.cpp" line="+265"/>
         <location line="+1075"/>
         <source>Silent</source>
-        <translation type="unfinished"></translation>
+        <translation>Still</translation>
     </message>
     <message>
         <location line="-1072"/>
         <location line="+1075"/>
         <source>Talking</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprechen</translation>
     </message>
     <message>
         <location line="-1072"/>
         <location line="+1075"/>
         <source>Whisper</source>
-        <translation type="unfinished">Flüstern</translation>
+        <translation>Flüstern</translation>
     </message>
     <message>
         <location line="-1072"/>
         <location line="+1075"/>
         <source>Shout</source>
-        <translation type="unfinished"></translation>
+        <translation>Rufen</translation>
     </message>
     <message>
         <location line="-1055"/>
         <location line="+945"/>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal</translation>
     </message>
     <message>
         <location line="+1189"/>
@@ -8388,42 +8376,42 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location line="-795"/>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Filter</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Only talking</source>
-        <translation type="unfinished">Nur sprechen</translation>
+        <translation>Nur sprechen</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in current channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle im aktuellen Kanal</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle in verknüpften Kanälen</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Always show yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Sich selbst immer anzeigen</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Spalten</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Edit...</source>
-        <translation type="unfinished"></translation>
+        <translation>Bearbeiten...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Reset Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom zurücksetzen</translation>
     </message>
 </context>
 <context>
@@ -8607,17 +8595,17 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="Overlay.cpp" line="-1606"/>
         <source>To move the users, drag the little red dot.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ziehen Sie den kleinen roten Punkt um die Benutzer zu verschieben.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>To resize the users, mousewheel over a user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzen Sie das Mausrad über einem Benutzer um seine Größe zu ändern.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>For more options, rightclick a user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechtsklick auf einen Benutzer für mehr Optionen.</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -8627,7 +8615,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location line="+59"/>
         <source>Choose executable</source>
-        <translation type="unfinished"></translation>
+        <translation>Anwendung auswählen</translation>
     </message>
     <message>
         <source>Show no one</source>
@@ -8684,12 +8672,12 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="Overlay.ui"/>
         <source>Layout</source>
-        <translation type="unfinished">Anordnung</translation>
+        <translation>Anordnung</translation>
     </message>
     <message>
         <location/>
         <source>Overlay exceptions</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausnahmeliste</translation>
     </message>
     <message>
         <location/>
@@ -8704,12 +8692,12 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished">Hinzufügen</translation>
+        <translation>Hinzufügen</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished">Entfernen</translation>
+        <translation>Entfernen</translation>
     </message>
 </context>
 <context>
@@ -8717,117 +8705,117 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="OverlayEditor.ui"/>
         <source>Dialog</source>
-        <translation type="unfinished">Dialog</translation>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location/>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Status</translation>
     </message>
     <message>
         <location/>
         <source>User is not talking</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzer spricht nicht</translation>
     </message>
     <message>
         <location/>
         <source>Passive</source>
-        <translation type="unfinished"></translation>
+        <translation>Inaktiv</translation>
     </message>
     <message>
         <location/>
         <source>User is talking in your channel or a linked channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzer spricht in Ihrem oder einem verknüpften Kanal</translation>
     </message>
     <message>
         <location/>
         <source>Talking</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprechen</translation>
     </message>
     <message>
         <location/>
         <source>User is whispering to you privately</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzer flüstert privat zu Ihnen</translation>
     </message>
     <message>
         <location/>
         <source>Private Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation>Flüstern</translation>
     </message>
     <message>
         <location/>
         <source>User is shouting to your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzer ruft zu den Benutzern in Ihrem Kanal</translation>
     </message>
     <message>
         <location/>
         <source>Channel Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation>Rufen (Kanal)</translation>
     </message>
     <message>
         <location/>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom</translation>
     </message>
     <message>
         <location/>
         <source>Zoom Factor</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoomfaktor</translation>
     </message>
     <message>
         <location/>
         <source>Enabled Elements</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivierte Elemente</translation>
     </message>
     <message>
         <location/>
         <source>User avatar, chosen by each user</source>
-        <translation type="unfinished"></translation>
+        <translation>Avatar, den jeder Benutzer selbst wählen kann</translation>
     </message>
     <message>
         <location/>
         <source>Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Avatar</translation>
     </message>
     <message>
         <location/>
         <source>User&apos;s name</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzername</translation>
     </message>
     <message>
         <location/>
         <source>Username</source>
-        <translation type="unfinished">Benutzername</translation>
+        <translation>Benutzername</translation>
     </message>
     <message>
         <location/>
         <source>Name of user&apos;s channel, if outside your current channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Name des Kanals des Benutzers, sofern er sich nicht innerhalb ihres Kanals befindet</translation>
     </message>
     <message>
         <location/>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal</translation>
     </message>
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>Stumm oder taub gestellt</translation>
     </message>
     <message>
         <location/>
         <source>Mute state</source>
-        <translation type="unfinished"></translation>
+        <translation>Stumm Status</translation>
     </message>
     <message>
         <location/>
         <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Rahmen, der automatisch alle sichtbaren Elemente einschliesst</translation>
     </message>
     <message>
         <location/>
         <source>Bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>Rahmen</translation>
     </message>
 </context>
 <context>
@@ -8835,99 +8823,99 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="Overlay.cpp" line="+522"/>
         <source>Layout preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Layout Vorlage</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Large square avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Großer quadratischer Avatar</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Avatar and Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Avatar und Name</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>User Opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzer-Deckkraft</translation>
     </message>
     <message>
         <location line="+6"/>
         <location line="+31"/>
         <source>%1%</source>
-        <translation type="unfinished">%1%</translation>
+        <translation>%1%</translation>
     </message>
     <message>
         <location line="-5"/>
         <source>Object Opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>Objekt-Deckkraft</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausrichtung</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Links</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+18"/>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Mitte</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechts</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Oben</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Unten</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Color...</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Font...</source>
-        <translation type="unfinished"></translation>
+        <translation>Schrift...</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>Rahmen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pen width</source>
-        <translation type="unfinished"></translation>
+        <translation>Rahmenbreite</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Padding</source>
-        <translation type="unfinished"></translation>
+        <translation>Rahmenabstand</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pen color</source>
-        <translation type="unfinished"></translation>
+        <translation>Rahmenfarbe</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Füllfarbe</translation>
     </message>
     <message>
         <location line="+87"/>
@@ -9148,7 +9136,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location filename="Plugins.cpp" line="+309"/>
         <source>Skipping plugin update in debug mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Überspringe Plugin-Aktualisierung im Debug-Modus.</translation>
     </message>
     <message>
         <location line="+155"/>
@@ -9856,7 +9844,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <location line="+1"/>
         <source>Shouting directly to your channel.</source>
         <oldsource>Whispering directly to your channel.</oldsource>
-        <translation type="unfinished">Flüstert direkt zu Ihrem Kanal.</translation>
+        <translation type="unfinished">Direkt an Ihren Kanal rufen.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -10007,7 +9995,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <location line="+13"/>
         <source>Failed to launch snapshot installer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Start des Snapshot-Installers fehlgeschlagen.</translation>
     </message>
     <message>
         <location line="+5"/>
