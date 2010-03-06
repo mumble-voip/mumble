@@ -846,7 +846,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 			else
 				aptr = & os.qaUserName;
 
-			Qt::Alignment a = act->data().toInt();
+			Qt::Alignment a = static_cast<Qt::Alignment>(act->data().toInt());
 			if (a & Qt::AlignHorizontal_Mask) {
 				*aptr = (*aptr & ~Qt::AlignHorizontal_Mask) | a;
 			} else {
