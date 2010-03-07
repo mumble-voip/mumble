@@ -169,10 +169,10 @@ bool ChatbarLineEdit::event(QEvent *event) {
 }
 
 unsigned int ChatbarLineEdit::completeAtCursor() {
-// currently  broken
-#if 0
 	// Get an alphabetically sorted list of usernames
 	unsigned int id = 0;
+// currently  broken
+#if 0
 	QList<QString> qlsUsernames;
 
 	if (ClientUser::c_qmUsers.empty()) return id;
@@ -231,8 +231,8 @@ unsigned int ChatbarLineEdit::completeAtCursor() {
 		}
 		setText(newtext);
 	}
-	return id;
 #endif
+	return id;
 }
 
 void ChatbarLineEdit::pasteAndSend_triggered() {
