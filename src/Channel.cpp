@@ -94,7 +94,7 @@ void Channel::remove(Channel *c) {
 #endif
 
 bool Channel::lessThan(const Channel *first, const Channel *second) {
-	if (first->iPosition != second->iPosition)
+	if ((first->iPosition != second->iPosition) && (first->cParent == second->cParent))
 		return first->iPosition < second->iPosition;
 	else
 		return QString::localeAwareCompare(first->qsName, second->qsName) < 0;

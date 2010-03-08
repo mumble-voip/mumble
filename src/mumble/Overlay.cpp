@@ -1821,6 +1821,8 @@ void OverlayUserGroup::updateUsers() {
 				break;
 		}
 		
+		ClientUser::sortUsers(showusers);
+		
 		foreach(ClientUser *cu, showusers) {
 			OverlayUser *ou = qmUsers.value(cu);
 			if (! ou) {
@@ -1834,8 +1836,7 @@ void OverlayUserGroup::updateUsers() {
 			users << ou;
 		}
 	}
-
-
+	
 	foreach(QGraphicsItem *qgi, items) {
 		scene()->removeItem(qgi);
 		qgi->hide();

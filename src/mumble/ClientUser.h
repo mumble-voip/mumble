@@ -71,6 +71,8 @@ class ClientUser : public QObject, public User {
 		static QList<ClientUser *> c_qlTalking;
 		static QReadWriteLock c_qrwlTalking;
 		static QList<ClientUser *> getTalking();
+		
+		static void sortUsers(QList<ClientUser *> &list);
 
 		static ClientUser *get(unsigned int);
 		static ClientUser *getByHash(const QString &hash);
@@ -79,6 +81,9 @@ class ClientUser : public QObject, public User {
 		static ClientUser *match(const ClientUser *p, bool matchname = false);
 		static void remove(unsigned int);
 		static void remove(ClientUser *);
+
+	protected:
+		static bool lessThan(const ClientUser *, const ClientUser *);
 	public slots:
 		void setTalking(TalkState ts);
 		void setMute(bool mute);

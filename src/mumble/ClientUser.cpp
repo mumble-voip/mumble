@@ -204,6 +204,25 @@ void ClientUser::setSelfDeaf(bool deaf) {
 	emit muteDeafChanged();
 }
 
+bool ClientUser::lessThan(const ClientUser *first, const ClientUser *second) {
+	if (first->cChannel == second->cChannel)
+		return (QString::localeAwareCompare(first->qsName, second->qsName) < 0);
+
+	ClientUser *self = c_qmUsers.value(g.uiSession);
+	if (self && (self->cChannel == first->cChannel))
+		return true;
+
+	return (QString::localeAwareCompare(first->cChannel->qsName, second->cChannel->qsName) < 0);
+}
+
+
+
+void ClientUser::sortUsers(QList<ClientUser *> &list) {
+	QReadLocker lock(&c_qrwlUsers);
+
+	qSort(list.begin(), list.end(), ClientUser::lessThan);
+}
+
 /* From Channel.h
  */
 void Channel::addClientUser(ClientUser *p) {
