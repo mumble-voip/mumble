@@ -228,6 +228,7 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		QGraphicsPixmapItem *qgpiScreen;
 		QGraphicsScene qgs;
 		OverlayUserGroup *oug;
+		QGraphicsTextItem *qgtiInstructions;
 		
 		bool eventFilter(QObject *, QEvent *);
 	protected slots:

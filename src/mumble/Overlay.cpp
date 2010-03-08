@@ -59,6 +59,16 @@ OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 	qgpiScreen->setPixmap(qpScreen);
 	qgpiScreen->setOpacity(0.5f);
 	qgpiScreen->setZValue(-10.0f);
+	
+	qgtiInstructions = new QGraphicsTextItem();
+	qgtiInstructions->setHtml(QString::fromLatin1("<ul><li>%1</li><li>%2</li><li>%3</li></ul>").arg(
+		tr("To move the users, drag the little red dot."),
+		tr("To resize the users, mousewheel over a user."),
+		tr("For more options, rightclick a user.")
+		));
+	qgtiInstructions->setOpacity(1.0f);
+	qgtiInstructions->setZValue(-5.0f);
+	qgtiInstructions->setDefaultTextColor(Qt::white);
 
 	qgs.setSceneRect(QRectF(0, 0, qgpiScreen->pixmap().width(), qgpiScreen->pixmap().height()));
 	
@@ -70,6 +80,9 @@ OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 
 	qgs.addItem(oug);
 	oug->show();
+	
+	qgs.addItem(qgtiInstructions);
+	qgtiInstructions->show();
 	
 	qgvView->setScene(&qgs);
 
@@ -145,6 +158,14 @@ void OverlayConfig::resizeScene() {
 	
 	qgpiScreen->setPixmap(qpScreen.scaled(sz, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 	qgs.setSceneRect(QRectF(0, 0, qgpiScreen->pixmap().width(), qgpiScreen->pixmap().height()));
+
+	
+	QFont f = qgtiInstructions->font();
+	f.setPointSizeF(qgs.sceneRect().height() / 20.0f);
+	qgtiInstructions->setFont(f);
+
+	qgtiInstructions->setPos(qgs.sceneRect().width() / 5.0f, qgs.sceneRect().height() / 5.0f);
+	qgtiInstructions->setTextWidth(qgs.sceneRect().width() * 6.0f / 10.0f);
 
 	qgvView->fitInView(qgs.sceneRect(), Qt::KeepAspectRatio);
 	oug->updateLayout();
