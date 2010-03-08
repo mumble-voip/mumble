@@ -36,6 +36,9 @@
 QHash<unsigned int, ClientUser *> ClientUser::c_qmUsers;
 QReadWriteLock ClientUser::c_qrwlUsers;
 
+QList<ClientUser *> ClientUser::c_qlTalking;
+QReadWriteLock ClientUser::c_qrwlTalking;
+
 ClientUser::ClientUser(QObject *p) : QObject(p) {
 	tsState = TalkingOff;
 	bLocalMute = false;
@@ -51,22 +54,21 @@ ClientUser *ClientUser::get(unsigned int uiSession) {
 	return p;
 }
 
-ClientUser *ClientUser::getByHash(QString _qsHash) {
+ClientUser *ClientUser::getByHash(const QString &hash) {
 	QReadLocker lock(&c_qrwlUsers);
 
 	ClientUser *cu;
 	foreach(cu, c_qmUsers) {
-		if (cu->qsHash == _qsHash)
+		if (cu->qsHash == hash)
 			return cu;
 	}
 
 	return NULL;
 }
 
-unsigned int ClientUser::getUiSession(ClientUser *cu) {
-	QReadLocker lock(&c_qrwlUsers);
-
-	return c_qmUsers.key(cu);
+QList<ClientUser *> ClientUser::getTalking() {
+	QReadLocker lock(&c_qrwlTalking);
+	return c_qlTalking;
 }
 
 bool ClientUser::isValid(unsigned int uiSession) {
@@ -139,8 +141,23 @@ QString ClientUser::getFlagsString() const {
 void ClientUser::setTalking(TalkState ts) {
 	if (tsState == ts)
 		return;
+		
+	bool nstate = false;
+	if (ts == TalkingOff)
+		nstate = true;
+	else if (tsState == TalkingOff)
+		nstate = true;
+
 	tsState = ts;
 	emit talkingChanged();
+
+	if (nstate) {
+		QWriteLocker lock(&c_qrwlTalking);
+		if (ts == TalkingOff)
+			c_qlTalking.removeAll(this);
+		else
+			c_qlTalking << this;
+	}
 }
 
 void ClientUser::setMute(bool mute) {

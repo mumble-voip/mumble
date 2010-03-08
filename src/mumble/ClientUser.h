@@ -64,11 +64,16 @@ class ClientUser : public QObject, public User {
 
 		QString getFlagsString() const;
 		ClientUser(QObject *p = NULL);
+
 		static QHash<unsigned int, ClientUser *> c_qmUsers;
 		static QReadWriteLock c_qrwlUsers;
+
+		static QList<ClientUser *> c_qlTalking;
+		static QReadWriteLock c_qrwlTalking;
+		static QList<ClientUser *> getTalking();
+
 		static ClientUser *get(unsigned int);
-		static ClientUser *getByHash(QString _qsHash);
-		static unsigned int getUiSession(ClientUser *cu);
+		static ClientUser *getByHash(const QString &hash);
 		static bool isValid(unsigned int);
 		static ClientUser *add(unsigned int, QObject *p = NULL);
 		static ClientUser *match(const ClientUser *p, bool matchname = false);

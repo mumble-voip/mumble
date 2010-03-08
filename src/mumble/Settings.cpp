@@ -116,6 +116,9 @@ const QString Settings::cqsDefaultPushClickOn = QLatin1String(":/on.ogg");
 const QString Settings::cqsDefaultPushClickOff = QLatin1String(":/off.ogg");
 
 OverlaySettings::OverlaySettings() {
+	osShow = LinkedChannels;
+	bAlwaysSelf = true;
+
 	fX = 0.8f;
 	fY = 0.0f;
 	fHeight = 1.f;
@@ -266,8 +269,6 @@ Settings::Settings() {
 	fAudioBloom = 0.5f;
 
 	bOverlayEnable = true;
-	osOverlay = All;
-	bOverlayAlwaysSelf = true;
 
 	iLCDUserViewMinColWidth = 50;
 	iLCDUserViewSplitterWidth = 2;
@@ -368,6 +369,9 @@ BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
 #define LOADFLAG(var, name) var = static_cast<BOOST_TYPEOF(var)>(g.qs->value(QLatin1String(name), static_cast<int>(var)).toInt())
 
 void OverlaySettings::load() {
+	LOADENUM(osShow, "show");
+	SAVELOAD(bAlwaysSelf, "alwaysself");
+
 	SAVELOAD(fX, "x");
 	SAVELOAD(fY, "y");
 	SAVELOAD(fHeight, "zoom");
@@ -482,8 +486,6 @@ void Settings::load() {
 	SAVELOAD(iTTSThreshold, "tts/threshold");
 
 	SAVELOAD(bOverlayEnable, "overlay/enable");
-	LOADENUM(osOverlay, "overlay/show");
-	SAVELOAD(bOverlayAlwaysSelf, "overlay/alwaysself");
 
 	// Network settings
 	SAVELOAD(bTCPCompat, "net/tcponly");
@@ -598,6 +600,8 @@ void Settings::load() {
 void OverlaySettings::save() {
 	OverlaySettings def;
 
+	SAVELOAD(osShow, "show");
+	SAVELOAD(bAlwaysSelf, "alwaysself");
 	SAVELOAD(fX, "x");
 	SAVELOAD(fY, "y");
 	SAVELOAD(fHeight, "zoom");
@@ -716,8 +720,6 @@ void Settings::save() {
 	SAVELOAD(bOverlayEnable, "overlay/enable");
 
 	SAVELOAD(bOverlayEnable, "overlay/enable");
-	LOADENUM(osOverlay, "overlay/show");
-	SAVELOAD(bOverlayAlwaysSelf, "overlay/alwaysself");
 
 	// Network settings
 	SAVELOAD(bTCPCompat, "net/tcponly");

@@ -74,6 +74,11 @@ QDataStream &operator>>(QDataStream &, ShortcutTarget &);
 Q_DECLARE_METATYPE(ShortcutTarget);
 
 struct OverlaySettings {
+	enum OverlayShow { Talking, HomeChannel, LinkedChannels };
+
+	OverlayShow osShow;
+	bool bAlwaysSelf;
+
 	float fX;
 	float fY;
 
@@ -125,7 +130,6 @@ struct Settings {
 	enum AudioTransmit { Continous, VAD, PushToTalk };
 	enum VADSource { Amplitude, SignalToNoise };
 	enum LoopMode { None, Local, Server };
-	enum OverlayShow { Nothing, OverlayTalking, All };
 	enum ChannelExpand { NoChannels, ChannelsWithUsers, AllChannels };
 	enum ChannelDrag { Ask, DoNothing, Move };
 	enum ServerShow { ShowPopulated, ShowReachable, ShowAll };
@@ -181,8 +185,6 @@ struct Settings {
 	QMap<QString, bool> qmPositionalAudioPlugins;
 
 	bool bOverlayEnable;
-	OverlayShow osOverlay;
-	bool bOverlayAlwaysSelf;
 	OverlaySettings os;
 
 	int iLCDUserViewMinColWidth;

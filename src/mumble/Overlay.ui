@@ -33,29 +33,6 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QComboBox" name="qcbShow">
-        <property name="toolTip">
-         <string>Who to show on the overlay</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don't show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="qcbAlwaysSelf">
-        <property name="toolTip">
-         <string>Always show yourself on overlay.</string>
-        </property>
-        <property name="whatsThis">
-         <string>This sets whether to always show yourself or not. This setting is useful if you aren't showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn't let you see that you were deafened or muted.</string>
-        </property>
-        <property name="text">
-         <string>Always Show Self</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </item>
@@ -204,8 +181,6 @@
  </widget>
  <tabstops>
   <tabstop>qcbEnable</tabstop>
-  <tabstop>qcbShow</tabstop>
-  <tabstop>qcbAlwaysSelf</tabstop>
  </tabstops>
  <resources/>
  <connections/>

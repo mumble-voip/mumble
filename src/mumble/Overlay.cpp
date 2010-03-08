@@ -47,10 +47,6 @@ static ConfigRegistrar registrar(6000, OverlayConfigDialogNew);
 OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
-	qcbShow->addItem(tr("Show no one"), Settings::Nothing);
-	qcbShow->addItem(tr("Show only talking"), Settings::Talking);
-	qcbShow->addItem(tr("Show everyone"), Settings::All);
-	
 	qgs.setBackgroundBrush(QColor(128, 128, 128, 255));
 
 	qpScreen = QPixmap::grabWindow(QApplication::desktop()->winId());
@@ -91,8 +87,6 @@ OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 
 void OverlayConfig::load(const Settings &r) {
 	loadCheckBox(qcbEnable, r.bOverlayEnable);
-	loadCheckBox(qcbAlwaysSelf, r.bOverlayAlwaysSelf);
-	loadComboBox(qcbShow, r.osOverlay);
 
 	qlwBlacklist->clear();
 	qlwWhitelist->clear();
@@ -121,8 +115,6 @@ QIcon OverlayConfig::icon() const {
 
 void OverlayConfig::save() const {
 	s.bOverlayEnable = qcbEnable->isChecked();
-	s.osOverlay = static_cast<Settings::OverlayShow>(qcbShow->currentIndex());
-	s.bOverlayAlwaysSelf = qcbAlwaysSelf->isChecked();
 
 	// Directly save overlay config
 	s.os.qslBlacklist.clear();
@@ -1650,6 +1642,31 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 	event->accept();
 
 	QMenu qm(g.mw);
+	QMenu *qmShow = qm.addMenu(OverlayClient::tr("Filter"));
+
+	QAction *qaShowTalking = qmShow->addAction(OverlayClient::tr("Only talking"));
+	qaShowTalking->setCheckable(true);
+	if (os->osShow == OverlaySettings::Talking)
+		qaShowTalking->setChecked(true);
+
+	QAction *qaShowHome = qmShow->addAction(OverlayClient::tr("All in current channel"));
+	qaShowHome->setCheckable(true);
+	if (os->osShow == OverlaySettings::HomeChannel)
+		qaShowHome->setChecked(true);
+
+	QAction *qaShowLinked = qmShow->addAction(OverlayClient::tr("All in linked channels"));
+	qaShowLinked->setCheckable(true);
+	if (os->osShow == OverlaySettings::LinkedChannels)
+		qaShowLinked->setChecked(true);
+		
+	qmShow->addSeparator();
+
+	QAction *qaShowSelf = qmShow->addAction(OverlayClient::tr("Always show yourself"));
+	qaShowSelf->setCheckable(true);
+	qaShowSelf->setEnabled(os->osShow == OverlaySettings::Talking);
+	if (os->bAlwaysSelf)
+		qaShowSelf->setChecked(true);
+	
 	QAction *qaEdit = qm.addAction(OverlayClient::tr("Edit..."));
 	QAction *qaZoom = qm.addAction(OverlayClient::tr("Reset Zoom"));
 
@@ -1669,6 +1686,18 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 	} else if (act == qaZoom) {
 		os->fHeight = 1.0f;
 		updateLayout();
+	} else if (act == qaShowTalking) {
+		os->osShow = OverlaySettings::Talking;
+		updateUsers();
+	} else if (act == qaShowHome) {
+		os->osShow = OverlaySettings::HomeChannel;
+		updateUsers();
+	} else if (act == qaShowLinked) {
+		os->osShow = OverlaySettings::LinkedChannels;
+		updateUsers();
+	} else if (act == qaShowSelf) {
+		os->bAlwaysSelf = ! os->bAlwaysSelf;
+		updateUsers();
 	}
 }
 
@@ -1766,12 +1795,30 @@ void OverlayUserGroup::updateUsers() {
 	
 	ClientUser *self = ClientUser::get(g.uiSession);
 	if (self) {
-		Channel *home = ClientUser::get(g.uiSession)->cChannel;
 		QList<ClientUser *> showusers;
+		Channel *home = ClientUser::get(g.uiSession)->cChannel;
 
-		foreach(Channel *c, home->allLinks()) {
-			foreach(User *p, c->qlUsers)
-				showusers << static_cast<ClientUser *>(p);
+		switch(os->osShow) {
+			case OverlaySettings::LinkedChannels:
+				foreach(Channel *c, home->allLinks())
+					foreach(User *p, c->qlUsers)
+						showusers << static_cast<ClientUser *>(p);
+				foreach(ClientUser *cu, ClientUser::getTalking())
+					if (! showusers.contains(cu))
+						showusers << cu;
+				break;
+			case OverlaySettings::HomeChannel:
+				foreach(User *p, home->qlUsers)
+					showusers << static_cast<ClientUser *>(p);
+				foreach(ClientUser *cu, ClientUser::getTalking())
+					if (! showusers.contains(cu))
+						showusers << cu;
+				break;
+			default:
+				showusers = ClientUser::getTalking();
+				if (os->bAlwaysSelf && (self->tsState == ClientUser::TalkingOff))
+					showusers << self;
+				break;
 		}
 		
 		foreach(ClientUser *cu, showusers) {
@@ -2609,9 +2656,7 @@ void Overlay::updateOverlay() {
 
 	if (1) {
 		foreach(qpChanCol cc, linkchans) {
-			if ((g.s.osOverlay == Settings::All) || (cc.second == colChannelTalking)) {
 				lines << OverlayTextLine(cc.first, cc.second, 0);
-			}
 		}
 		if (linkchans.count() > 0) {
 			lines << OverlayTextLine(QString(), 0, 0);
@@ -2620,7 +2665,7 @@ void Overlay::updateOverlay() {
 
 	foreach(User *p, ClientUser::get(g.uiSession)->cChannel->qlUsers) {
 		ClientUser *u = static_cast<ClientUser *>(p);
-		if ((g.s.osOverlay == Settings::All) || (u->tsState != ClientUser::TalkingOff) || ((u == ClientUser::get(g.uiSession)) && g.s.bOverlayAlwaysSelf)) {
+		if (1) {
 			QString name = u->qsName;
 			OverlayTextLine::Decoration dec = OverlayTextLine::None;
 			if (u->bDeaf || u->bSelfDeaf)
