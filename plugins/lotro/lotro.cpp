@@ -30,6 +30,7 @@
 */
 
 #include "../mumble_plugin_win32.h"
+#include <QtCore/QtCore>
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++)
@@ -42,6 +43,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float o[3];
 	BYTE *hPtr;
 	float h;
+	BYTE *nPtr;
+	BYTE *nPtr2;
+	wchar_t* nPtr3;
+
 
 	/*
 		Position as represented by /loc command
@@ -57,21 +62,27 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 		r = region
 		i = instance nr
+
+		nPtr = pointer to character name (unique on a server)
 	*/
 
-	ok = peekProc((BYTE *) 0x010A18F0, o, 12) &&
-	     peekProc((BYTE *) 0x010A18E8, l, 2) &&
-	     peekProc((BYTE *) 0x010A18E4, &r, 1) &&
-	     peekProc((BYTE *) 0x010A18EC, &i, 1) &&
-	     peekProc((BYTE *)(pModule + 0x00D87EC0), &hPtr, 4);
+	ok = peekProc((BYTE *) 0x010A9DC0, o, 12) &&
+	     peekProc((BYTE *) 0x010A9DB8, l, 2) &&
+	     peekProc((BYTE *) 0x010A9DB4, &r, 1) &&
+	     peekProc((BYTE *) 0x010A9DBC, &i, 1) &&
+	     peekProc((BYTE *)(pModule + 0x00DA0864), &hPtr, 4);
 
 	if (! ok)
 		return false;
 
-	ok = peekProc((BYTE *)(hPtr + 0x00000034), &h, 4);
+	ok = peekProc((BYTE *)(hPtr  + 0x000007DC), &h, 4); 
 
 	if (! ok)
 		return false;
+
+	// Set identity
+	//if(nPtr3 > 0)
+	//	identity.assign(nPtr3);
 
 	// Use region as context since each region has its own coordinate system
 	if (r == 1)
@@ -112,6 +123,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		camera_top[i] = avatar_top[i];
 	}
 
+	//qDebug("I %s", identity);
 	//qDebug("P %f %f %f -- %f %f %f -- h %f \n", avatar_pos[0], avatar_pos[1], avatar_pos[2], avatar_front[0], avatar_front[1], avatar_front[2], h);
 
 	return true;
@@ -134,10 +146,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Lord of the Rings Online (Codemasters Edition, Vol II Book 9 Patch1, v3.0.6.8015). Context support based on region and instance. No Identity support.");
+	return std::wstring(L"Supports Lord of the Rings Online (Codemasters Edition, Vol III Book 1, v3.1.0.8026). Context support based on region and instance. No Identity support.");
 }
 
-static std::wstring description(L"Lord of the Rings Online (EU), Vol II Book 9 Patch1");
+static std::wstring description(L"Lord of the Rings Online (EU), Vol III Book 1");
 static std::wstring shortname(L"Lord of the Rings Online");
 
 static int trylock1() {
