@@ -125,7 +125,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	qiIconDeafServer.addFile(QLatin1String("skin:deafened_server.svg"));
 	qiTalkingOff.addFile(QLatin1String("skin:talking_off.svg"));
 	qiTalkingOn.addFile(QLatin1String("skin:talking_on.svg"));
-	qiTalkingWhisperChannel.addFile(QLatin1String("skin:talking_alt.svg"));
+	qiTalkingShout.addFile(QLatin1String("skin:talking_alt.svg"));
 	qiTalkingWhisper.addFile(QLatin1String("skin:talking_whisper.svg"));
 
 	qiIcon.addFile(QLatin1String("skin:mumble.svg"));
@@ -243,7 +243,7 @@ void MainWindow::createActions() {
 	qstiIcon->setToolTip(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
 	qstiIcon->setObjectName(QLatin1String("Icon"));
 
-	gsWhisper = new GlobalShortcut(this, idx++, tr("Whisper"), false, QVariant::fromValue(ShortcutTarget()));
+	gsWhisper = new GlobalShortcut(this, idx++, tr("Whisper/Shout"), false, QVariant::fromValue(ShortcutTarget()));
 	gsWhisper->setObjectName(QLatin1String("gsWhisper"));
 
 #ifndef Q_OS_MAC
@@ -418,16 +418,16 @@ void MainWindow::updateTrayIcon() {
 		qstiIcon->setIcon(qiIconMuteSuppressed);
 	} else if (p && g.s.bStateInTray) {
 		switch (p->tsState) {
-			case ClientUser::Talking:
+			case Settings::Talking:
 				qstiIcon->setIcon(qiTalkingOn);
 				break;
-			case ClientUser::TalkingWhisper:
+			case Settings::Whispering:
 				qstiIcon->setIcon(qiTalkingWhisper);
 				break;
-			case ClientUser::TalkingWhisperChannel:
-				qstiIcon->setIcon(qiTalkingWhisperChannel);
+			case Settings::Shouting:
+				qstiIcon->setIcon(qiTalkingShout);
 				break;
-			case ClientUser::TalkingOff:
+			case Settings::Passive:
 			default:
 				qstiIcon->setIcon(qiTalkingOff);
 				break;
@@ -1619,12 +1619,12 @@ void MainWindow::talkingChanged() {
 	if (g.s.bAttenuateOthersOnTalk) {
 		ClientUser *p=ClientUser::get(g.uiSession);
 		switch (p->tsState) {
-			case ClientUser::Talking:
-			case ClientUser::TalkingWhisper:
-			case ClientUser::TalkingWhisperChannel:
+			case Settings::Talking:
+			case Settings::Whispering:
+			case Settings::Shouting:
 				g.bAttenuateOthers = true;
 				break;
-			case ClientUser::TalkingOff:
+			case Settings::Passive:
 			default:
 				g.bAttenuateOthers = false;
 				break;

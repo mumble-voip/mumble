@@ -126,8 +126,8 @@ OverlaySettings::OverlaySettings() {
 
 	qcUserName[Settings::Passive] = QColor(128, 128, 128);
 	qcUserName[Settings::Talking] = QColor(255, 255, 255);
-	qcUserName[Settings::WhisperPrivate] = QColor(128, 255, 128);
-	qcUserName[Settings::WhisperChannel] = QColor(255, 128, 255);
+	qcUserName[Settings::Whispering] = QColor(128, 255, 128);
+	qcUserName[Settings::Shouting] = QColor(255, 128, 255);
 	qcChannel = QColor(192,192,255,192);
 
 	fUserName = 0.75f;
@@ -151,8 +151,8 @@ OverlaySettings::OverlaySettings() {
 
 	fUser[Settings::Passive] = 0.5f;
 	fUser[Settings::Talking] = (7.0f / 8.0f);
-	fUser[Settings::WhisperPrivate] = (7.0f / 8.0f);
-	fUser[Settings::WhisperChannel] = (7.0f / 8.0f);
+	fUser[Settings::Whispering] = (7.0f / 8.0f);
+	fUser[Settings::Shouting] = (7.0f / 8.0f);
 
 	// Nice and exact float values.
 	qrfUserName = QRectF(-0.0625f, 0.101563f - 0.0625f, 0.125f, 0.023438f);

@@ -40,7 +40,7 @@ QList<ClientUser *> ClientUser::c_qlTalking;
 QReadWriteLock ClientUser::c_qrwlTalking;
 
 ClientUser::ClientUser(QObject *p) : QObject(p) {
-	tsState = TalkingOff;
+	tsState = Settings::Passive;
 	bLocalMute = false;
 	fPowerMin = fPowerMax = 0.0f;
 	fAverageAvailable = 0.0f;
@@ -138,14 +138,14 @@ QString ClientUser::getFlagsString() const {
 	return flags.join(QLatin1String(", "));
 }
 
-void ClientUser::setTalking(TalkState ts) {
+void ClientUser::setTalking(Settings::TalkState ts) {
 	if (tsState == ts)
 		return;
 		
 	bool nstate = false;
-	if (ts == TalkingOff)
+	if (ts == Settings::Passive)
 		nstate = true;
-	else if (tsState == TalkingOff)
+	else if (tsState == Settings::Passive)
 		nstate = true;
 
 	tsState = ts;
@@ -153,7 +153,7 @@ void ClientUser::setTalking(TalkState ts) {
 
 	if (nstate) {
 		QWriteLocker lock(&c_qrwlTalking);
-		if (ts == TalkingOff)
+		if (ts == Settings::Passive)
 			c_qlTalking.removeAll(this);
 		else
 			c_qlTalking << this;

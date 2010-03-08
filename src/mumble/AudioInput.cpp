@@ -740,11 +740,11 @@ void AudioInput::encodeAudioFrame() {
 
 	if (p) {
 		if (! iIsSpeech)
-			p->setTalking(ClientUser::TalkingOff);
+			p->setTalking(Settings::Passive);
 		else if (g.iTarget == 0)
-			p->setTalking(ClientUser::Talking);
+			p->setTalking(Settings::Talking);
 		else
-			p->setTalking(ClientUser::TalkingWhisperChannel);
+			p->setTalking(Settings::Shouting);
 	}
 
 	if (g.s.bPushClick && (g.s.atTransmit == Settings::PushToTalk)) {

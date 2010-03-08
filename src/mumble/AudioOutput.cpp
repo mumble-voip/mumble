@@ -673,21 +673,21 @@ nextframe:
 	}
 
 	if (p) {
-		ClientUser::TalkState ts;
+		Settings::TalkState ts;
 		if (! nextalive)
 			ucFlags = 0xFF;
 		switch (ucFlags) {
 			case 0:
-				ts = ClientUser::Talking;
+				ts = Settings::Talking;
 				break;
 			case 1:
-				ts = ClientUser::TalkingWhisperChannel;
+				ts = Settings::Shouting;
 				break;
 			case 0xFF:
-				ts = ClientUser::TalkingOff;
+				ts = Settings::Passive;
 				break;
 			default:
-				ts = ClientUser::TalkingWhisper;
+				ts = Settings::Whispering;
 				break;
 		}
 		p->setTalking(ts);

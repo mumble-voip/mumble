@@ -80,7 +80,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QMenu *qmChannel;
 		QMenu *qmTray;
 		QIcon qiIcon, qiIconMuteSelf, qiIconMuteServer, qiIconDeafSelf, qiIconDeafServer, qiIconMuteSuppressed;
-		QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingWhisperChannel, qiTalkingOff;
+		QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;

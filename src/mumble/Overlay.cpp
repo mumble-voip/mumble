@@ -267,10 +267,10 @@ void OverlayEditorScene::updateUserName() {
 		case Settings::Talking:
 			qsName = Overlay::tr("Talking");
 			break;
-		case Settings::WhisperPrivate:
+		case Settings::Whispering:
 			qsName = Overlay::tr("Whisper");
 			break;
-		case Settings::WhisperChannel:
+		case Settings::Shouting:
 			qsName = Overlay::tr("Shout");
 			break;
 	}
@@ -964,8 +964,8 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
 		os.fUser[Settings::Passive] = 0.5f;
 		os.fUser[Settings::Talking] = (7.0f / 8.0f);
-		os.fUser[Settings::WhisperPrivate] = (7.0f / 8.0f);
-		os.fUser[Settings::WhisperChannel] = (7.0f / 8.0f);
+		os.fUser[Settings::Whispering] = (7.0f / 8.0f);
+		os.fUser[Settings::Shouting] = (7.0f / 8.0f);
 
 		os.qrfUserName = QRectF(-0.0625f, 0.101563f - 0.0625f, 0.125f, 0.023438f);
 		os.qrfChannel = QRectF(-0.03125f, -0.0625f, 0.09375f, 0.015625f);
@@ -1004,8 +1004,8 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
 		os.fUser[Settings::Passive] = 0.5f;
 		os.fUser[Settings::Talking] = (7.0f / 8.0f);
-		os.fUser[Settings::WhisperPrivate] = (7.0f / 8.0f);
-		os.fUser[Settings::WhisperChannel] = (7.0f / 8.0f);
+		os.fUser[Settings::Whispering] = (7.0f / 8.0f);
+		os.fUser[Settings::Shouting] = (7.0f / 8.0f);
 
 		os.qrfUserName = QRectF(0.0f, -0.015625f, 0.250f, 0.03125f);
 		os.qrfChannel = QRectF(0.03125f, -0.015625f, 0.1875f, 0.015625f);
@@ -1181,12 +1181,12 @@ void OverlayEditor::on_qrbTalking_clicked() {
 }
 
 void OverlayEditor::on_qrbWhisper_clicked() {
-	oes.tsColor = Settings::WhisperPrivate;
+	oes.tsColor = Settings::Whispering;
 	oes.resync();
 }
 
 void OverlayEditor::on_qrbShout_clicked() {
-	oes.tsColor = Settings::WhisperChannel;
+	oes.tsColor = Settings::Shouting;
 	oes.resync();
 }
 
@@ -1342,10 +1342,10 @@ void OverlayUser::updateLayout() {
 			case Settings::Talking:
 				qsName = Overlay::tr("Talking");
 				break;
-			case Settings::WhisperPrivate:
+			case Settings::Whispering:
 				qsName = Overlay::tr("Whisper");
 				break;
-			case Settings::WhisperChannel:
+			case Settings::Shouting:
 				qsName = Overlay::tr("Shout");
 				break;
 		}
@@ -1506,20 +1506,7 @@ void OverlayUser::updateUser() {
 		bool samechannel = self && (self->cChannel == cuUser->cChannel);
 		qgpiChannel->setVisible(os->bChannel && ! samechannel);
 
-		tsColor = Settings::Passive;
-		switch (cuUser->tsState) {
-			case ClientUser::Talking:
-				tsColor = Settings::Talking;
-				break;
-			case ClientUser::TalkingWhisper:
-				tsColor = Settings::WhisperPrivate;
-				break;
-			case ClientUser::TalkingWhisperChannel:
-				tsColor = Settings::WhisperChannel;
-				break;
-			default:
-				break;
-		}
+		tsColor = cuUser->tsState;
 	} else {
 		qgpiChannel->setVisible(os->bChannel && (tsColor != Settings::Passive) && (tsColor != Settings::Talking));
 		qgpiMuted->setVisible(os->bChannel);
@@ -1782,8 +1769,8 @@ void OverlayUserGroup::updateUsers() {
 		if (qlExampleUsers.isEmpty()) {
 			qlExampleUsers << new OverlayUser(Settings::Passive, uiHeight, os);
 			qlExampleUsers << new OverlayUser(Settings::Talking, uiHeight, os);
-			qlExampleUsers << new OverlayUser(Settings::WhisperPrivate, uiHeight, os);
-			qlExampleUsers << new OverlayUser(Settings::WhisperChannel, uiHeight, os);
+			qlExampleUsers << new OverlayUser(Settings::Whispering, uiHeight, os);
+			qlExampleUsers << new OverlayUser(Settings::Shouting, uiHeight, os);
 		}
 
 		users = qlExampleUsers;
@@ -1832,7 +1819,7 @@ void OverlayUserGroup::updateUsers() {
 				break;
 			default:
 				showusers = ClientUser::getTalking();
-				if (os->bAlwaysSelf && (self->tsState == ClientUser::TalkingOff))
+				if (os->bAlwaysSelf && (self->tsState == Settings::Passive)) 
 					showusers << self;
 				break;
 		}

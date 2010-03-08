@@ -319,7 +319,7 @@ void LCD::updateUserView() {
 		foreach(Channel *c, home->allLinks()) {
 			foreach(User *p, c->qlUsers) {
 				ClientUser *u = static_cast<ClientUser *>(p);
-				bool bTalk = (u->tsState != ClientUser::TalkingOff);
+				bool bTalk = (u->tsState != Settings::Passive);
 				if (bTalk) {
 					speaking.insert(p->uiSession, Timer());
 				} else if (qmSpeaking.contains(p->uiSession)) {

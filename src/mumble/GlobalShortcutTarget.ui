@@ -81,7 +81,7 @@
                <string>If checked the whisper will also be transmitted to linked channels.</string>
               </property>
               <property name="text">
-               <string>Whisper to Linked channels</string>
+               <string>Shout to Linked channels</string>
               </property>
              </widget>
             </item>
@@ -91,7 +91,7 @@
                <string>If checked this whisper will also be sent to the subchannels of the channel target.</string>
               </property>
               <property name="text">
-               <string>Whisper to subchannels</string>
+               <string>Shout to subchannels</string>
               </property>
              </widget>
             </item>
@@ -163,7 +163,7 @@
    <item row="1" column="1">
     <widget class="QRadioButton" name="qrbChannel">
      <property name="text">
-      <string>Whisper to Channel</string>
+      <string>Shout to Channel</string>
      </property>
     </widget>
    </item>

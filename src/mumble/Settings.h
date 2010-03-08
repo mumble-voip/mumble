@@ -134,7 +134,7 @@ struct Settings {
 	enum ChannelExpand { NoChannels, ChannelsWithUsers, AllChannels };
 	enum ChannelDrag { Ask, DoNothing, Move };
 	enum ServerShow { ShowPopulated, ShowReachable, ShowAll };
-	enum TalkState { Passive, Talking, WhisperPrivate, WhisperChannel };
+	enum TalkState { Passive, Talking, Whispering, Shouting };
 	typedef QPair<QList<QSslCertificate>, QSslKey> KeyPair;
 
 	AudioTransmit atTransmit;

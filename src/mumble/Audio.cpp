@@ -242,7 +242,7 @@ LoopUser::LoopUser() {
 	iId = 0;
 	bMute = bDeaf = bSuppress = false;
 	bLocalMute = bSelfDeaf = false;
-	tsState = ClientUser::TalkingOff;
+	tsState = Settings::Passive;
 	cChannel = NULL;
 	qtTicker.start();
 }

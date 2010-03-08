@@ -213,7 +213,7 @@ QString ModelItem::hash() const {
 UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiTalkingOff=QIcon(QLatin1String("skin:talking_off.svg"));
 	qiTalkingOn=QIcon(QLatin1String("skin:talking_on.svg"));
-	qiTalkingWhisperChannel=QIcon(QLatin1String("skin:talking_alt.svg"));
+	qiTalkingShout=QIcon(QLatin1String("skin:talking_alt.svg"));
 	qiTalkingWhisper=QIcon(QLatin1String("skin:talking_whisper.svg"));
 	qiMutedSelf=QIcon(QLatin1String("skin:muted_self.svg"));
 	qiMutedServer=QIcon(QLatin1String("skin:muted_server.svg"));
@@ -367,13 +367,13 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 			case Qt::DecorationRole:
 				if (idx.column() == 0)
 					switch (p->tsState) {
-						case ClientUser::Talking:
+						case Settings::Talking:
 							return qiTalkingOn;
-						case ClientUser::TalkingWhisper:
+						case Settings::Whispering:
 							return qiTalkingWhisper;
-						case ClientUser::TalkingWhisperChannel:
-							return qiTalkingWhisperChannel;
-						case ClientUser::TalkingOff:
+						case Settings::Shouting:
+							return qiTalkingShout;
+						case Settings::Passive:
 						default:
 							return qiTalkingOff;
 					}
@@ -576,7 +576,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 						                           "<tr><td><img src=\"skin:talking_off.svg\" width=64 /></td><td valign=\"middle\">%5</td></tr>"
 						                           "</table>").arg(tr("This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:"),
 						                                           tr("Talking to your channel."),
-						                                           tr("Whispering directly to your channel."),
+						                                           tr("Shouting directly to your channel."),
 						                                           tr("Whispering directly to you."),
 						                                           tr("Not talking.")
 						                                          );

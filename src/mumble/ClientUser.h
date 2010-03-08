@@ -33,21 +33,20 @@
 
 #include "User.h"
 #include "Timer.h"
+#include "Settings.h"
 
 class ClientUser : public QObject, public User {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(ClientUser)
 	public:
-		enum TalkState { TalkingOff, Talking, TalkingWhisperChannel, TalkingWhisper };
-
 		struct JitterRecord {
 			int iSequence;
 			int iFrames;
 			quint64 uiElapsed;
 		};
 
-		TalkState tsState;
+		Settings::TalkState tsState;
 		bool bLocalMute;
 
 		float fPowerMin, fPowerMax;
@@ -85,7 +84,7 @@ class ClientUser : public QObject, public User {
 	protected:
 		static bool lessThan(const ClientUser *, const ClientUser *);
 	public slots:
-		void setTalking(TalkState ts);
+		void setTalking(Settings::TalkState ts);
 		void setMute(bool mute);
 		void setDeaf(bool deaf);
 		void setSuppress(bool suppress);
