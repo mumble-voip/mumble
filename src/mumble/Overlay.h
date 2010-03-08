@@ -247,18 +247,6 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		bool expert(bool);
 };
 
-struct OverlayTextLine {
-	enum Decoration { None, Muted, Deafened };
-	QString qsText;
-	unsigned int uiSession;
-	QRgb uiColor;
-	Decoration dDecor;
-	int iPriority;
-	OverlayTextLine() : uiSession(0), uiColor(0), dDecor(None), iPriority(0) { };
-	OverlayTextLine(const QString &t, quint32 c, int priority = 0, unsigned int session = 0, Decoration d = None) : qsText(t), uiSession(session), uiColor(c), dDecor(d), iPriority(priority) { };
-	bool operator <(const OverlayTextLine &o) const;
-};
-
 class OverlayMouse : public QGraphicsPixmapItem {
 	private:
 		Q_DISABLE_COPY(OverlayMouse);
@@ -308,13 +296,13 @@ class OverlayClient : public QObject {
 
 		OverlayClient(QLocalSocket *, QObject *);
 		~OverlayClient();
-		bool setTexts(const QList<OverlayTextLine> &lines);
 		void reset();
 	public slots:
 		void showGui();
 		void hideGui();
 		void scheduleDelete();
 		void updateMouse();
+		bool update();
 		void openEditor();
 };
 
@@ -336,11 +324,10 @@ class Overlay : public QObject {
 	protected:
 		OverlayPrivate *d;
 
-		QList<OverlayTextLine> qlCurrentTexts;
 		QSet<unsigned int> qsQueried;
+		QSet<unsigned int> qsQuery;
 
 		void platformInit();
-		void setTexts(const QList<OverlayTextLine> &lines);
 
 		QLocalServer *qlsServer;
 		QList<OverlayClient *> qlClients;
@@ -353,6 +340,7 @@ class Overlay : public QObject {
 		~Overlay();
 		bool isActive() const;
 		void verifyTexture(ClientUser *cp, bool allowupdate = true);
+		void requestTexture(ClientUser *);
 	public slots:
 		void updateOverlay();
 		void setActive(bool act);

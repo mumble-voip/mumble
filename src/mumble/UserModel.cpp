@@ -848,8 +848,7 @@ ClientUser *UserModel::addUser(unsigned int id, const QString &name) {
 		citem = citem->parent;
 	}
 
-	if (g.uiSession && (p->cChannel == ClientUser::get(g.uiSession)->cChannel))
-		updateOverlay();
+	updateOverlay();
 
 	return p;
 }
@@ -881,8 +880,7 @@ void UserModel::removeUser(ClientUser *p) {
 	if (g.s.ceExpand == Settings::ChannelsWithUsers)
 		collapseEmpty(c);
 
-	if (g.uiSession && (c == ClientUser::get(g.uiSession)->cChannel))
-		updateOverlay();
+	updateOverlay();
 
 	g.mw->uUsage.addJitter(p);
 
@@ -917,11 +915,7 @@ void UserModel::moveUser(ClientUser *p, Channel *np) {
 		collapseEmpty(oc);
 	}
 
-	if (g.uiSession) {
-		Channel *home = ClientUser::get(g.uiSession)->cChannel;
-		if (home==np || home == oc)
-			updateOverlay();
-	}
+	updateOverlay();
 }
 
 void UserModel::renameUser(ClientUser *p, const QString &name) {
@@ -932,8 +926,7 @@ void UserModel::renameUser(ClientUser *p, const QString &name) {
 	ModelItem *item = ModelItem::c_qhUsers.value(p);
 	moveItem(pi, pi, item);
 
-	if (g.uiSession && (p->cChannel == ClientUser::get(g.uiSession)->cChannel))
-		updateOverlay();
+	updateOverlay();
 }
 
 void UserModel::setUserId(ClientUser *p, int id) {
@@ -1296,8 +1289,8 @@ void UserModel::userMuteDeafChanged() {
 	ClientUser *p=static_cast<ClientUser *>(sender());
 	QModelIndex idx = index(p);
 	emit dataChanged(idx, idx);
-	if (g.uiSession && (p->cChannel == ClientUser::get(g.uiSession)->cChannel))
-		updateOverlay();
+
+	updateOverlay();
 }
 
 Qt::DropActions UserModel::supportedDropActions() const {

@@ -1458,7 +1458,10 @@ void OverlayUser::updateUser() {
 			qbaAvatar = cuUser->qbaTextureHash;
 
 		QImage img;
-		if (qbaAvatar.isNull()) {
+
+		if (! qbaAvatar.isNull() && cuUser->qbaTexture.isEmpty()) {
+			g.o->requestTexture(cuUser);
+		} else if (qbaAvatar.isNull()) {
 			QImageReader qir(QLatin1String("skin:default_avatar.svg"));
 			QSize sz = qir.size();
 			sz.scale(SCALESIZE(Avatar), Qt::KeepAspectRatio);
@@ -2288,7 +2291,7 @@ void OverlayClient::setupRender() {
 	reset();
 }
 
-bool OverlayClient::setTexts(const QList<OverlayTextLine> &lines) {
+bool OverlayClient::update() {
 	if (! uiWidth || ! uiHeight || ! smMem)
 		return true;
 		
@@ -2394,16 +2397,6 @@ void OverlayClient::openEditor() {
 	connect(&oe, SIGNAL(applySettings()), this, SLOT(updateLayout()));
 
 	oe.exec();
-}
-
-
-bool OverlayTextLine::operator <(const OverlayTextLine &other) const {
-	if (iPriority < other.iPriority)
-		return true;
-	else if (iPriority > other.iPriority)
-		return false;
-
-	return QString::localeAwareCompare(qsText, other.qsText) < 0;
 }
 
 
@@ -2614,119 +2607,45 @@ void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
 	}
 
 	if (allowupdate)
-		setTexts(qlCurrentTexts);
+		updateOverlay();
 }
 
 typedef QPair<QString, quint32> qpChanCol;
 
 void Overlay::updateOverlay() {
-	quint32 colUser = g.s.os.qcChannel.rgba();
-	quint32 colTalking = g.s.os.qcChannel.rgba();
-	quint32 colWhisper = g.s.os.qcChannel.rgba();
-	quint32 colChannel = g.s.os.qcChannel.rgba();
-	quint32 colChannelTalking = g.s.os.qcChannel.rgba();
-	QString str;
-	QList<qpChanCol> linkchans;
-	QList<OverlayTextLine> lines;
-
-	if (! g.uiSession) {
+	if (! g.uiSession)
 		qsQueried.clear();
-		setTexts(lines);
-		return;
-	}
-
-	Channel *home = ClientUser::get(g.uiSession)->cChannel;
-	foreach(Channel *c, home->allLinks()) {
-		if (home == c)
-			continue;
-
-		bool act = false;
-		foreach(User *p, c->qlUsers) {
-			ClientUser *u = static_cast<ClientUser *>(p);
-			bool talking = (u->tsState != ClientUser::TalkingOff);
-			act = act || talking;
-			if (talking)
-				linkchans << qpChanCol(p->qsName + QString::fromLatin1("[") + c->qsName + QString::fromLatin1("]"), colChannelTalking);
-		}
-		if (! act)
-			linkchans << qpChanCol(c->qsName, colChannel);
-	}
-	qSort(linkchans);
-
-	if (1) {
-		foreach(qpChanCol cc, linkchans) {
-				lines << OverlayTextLine(cc.first, cc.second, 0);
-		}
-		if (linkchans.count() > 0) {
-			lines << OverlayTextLine(QString(), 0, 0);
-		}
-	}
-
-	foreach(User *p, ClientUser::get(g.uiSession)->cChannel->qlUsers) {
-		ClientUser *u = static_cast<ClientUser *>(p);
-		if (1) {
-			QString name = u->qsName;
-			OverlayTextLine::Decoration dec = OverlayTextLine::None;
-			if (u->bDeaf || u->bSelfDeaf)
-				dec = OverlayTextLine::Deafened;
-			else if (u->bMute || u->bSelfMute || u->bLocalMute)
-				dec = OverlayTextLine::Muted;
-			quint32 col;
-			switch (u->tsState) {
-				case ClientUser::TalkingOff:
-					col = colUser;
-					break;
-				case ClientUser::Talking:
-					col = colTalking;
-					break;
-				default:
-					col = colWhisper;
-					break;
-			}
-			lines << OverlayTextLine(name, col, 1, u->uiSession, dec);
-		}
-	}
-
-	qSort(lines);
-	setTexts(lines);
-}
-
-void Overlay::setTexts(const QList<OverlayTextLine> &lines) {
-	qlCurrentTexts = lines;
 
 	if (qlClients.isEmpty())
 		return;
-
-	QSet<unsigned int> query;
-
-	foreach(const OverlayTextLine &e, lines) {
-		ClientUser *cp = ClientUser::get(e.uiSession);
-		if (cp && ! cp->qbaTextureHash.isEmpty()) {
-			if (cp->qbaTexture.isEmpty() && ! qsQueried.contains(cp->uiSession)) {
-				cp->qbaTexture=Database::blob(cp->qbaTextureHash);
-				if (cp->qbaTexture.isEmpty())
-					query.insert(cp->uiSession);
-				else
-					verifyTexture(cp, false);
-			}
-		}
-	}
-
-	if (! query.isEmpty()) {
-		MumbleProto::RequestBlob mprb;
-		foreach(unsigned int session, query) {
-			qsQueried.insert(session);
-			mprb.add_session_texture(session);
-		}
-		g.sh->sendMessage(mprb);
-	}
+		
+	qsQuery.clear();
 
 	foreach(OverlayClient *oc, qlClients) {
-		if (! oc->setTexts(lines)) {
+		if (! oc->update()) {
 			qWarning() << "Overlay: Dead client detected";
 			qlClients.removeAll(oc);
 			oc->scheduleDelete();
 			break;
 		}
+	}
+
+	if (! qsQuery.isEmpty()) {
+		MumbleProto::RequestBlob mprb;
+		foreach(unsigned int session, qsQuery) {
+			qsQueried.insert(session);
+			mprb.add_session_texture(session);
+		}
+		g.sh->sendMessage(mprb);
+	}
+}
+
+void Overlay::requestTexture(ClientUser *cu) {
+	if (cu->qbaTexture.isEmpty() && ! qsQueried.contains(cu->uiSession)) {
+		cu->qbaTexture=Database::blob(cu->qbaTextureHash);
+		if (cu->qbaTexture.isEmpty())
+			qsQuery.insert(cu->uiSession);
+		else
+			verifyTexture(cu, false);
 	}
 }
