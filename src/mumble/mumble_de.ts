@@ -3778,14 +3778,18 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
 <context>
     <name>ChatbarLineEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+71"/>
+        <location filename="CustomElements.cpp" line="+79"/>
         <source>Paste and send</source>
         <translation>Einfügen und senden</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+25"/>
+        <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Type chat message here</source>
-        <translation>Geben Sie die Chatnachricht hier ein</translation>
+        <translation type="obsolete">Geben Sie die Chatnachricht hier ein</translation>
     </message>
 </context>
 <context>
@@ -3818,7 +3822,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
 <context>
     <name>ClientUser</name>
     <message>
-        <location filename="ClientUser.cpp" line="+122"/>
+        <location filename="ClientUser.cpp" line="+124"/>
         <source>Friend</source>
         <translation>Freund</translation>
     </message>
@@ -4857,9 +4861,8 @@ der möglichen Orte initialisieren.</translation>
         <translation>Wenn gewählt wird das Flüstern auch an verknüpfte Kanäle gesandt.</translation>
     </message>
     <message>
-        <location/>
         <source>Whisper to Linked channels</source>
-        <translation>An verbundene Kanäle flüstern</translation>
+        <translation type="obsolete">An verbundene Kanäle flüstern</translation>
     </message>
     <message>
         <location/>
@@ -4868,8 +4871,9 @@ der möglichen Orte initialisieren.</translation>
     </message>
     <message>
         <location/>
-        <source>Whisper to subchannels</source>
-        <translation>An Unterkanäle flüstern</translation>
+        <source>Whisper Target</source>
+        <oldsource>Whisper to subchannels</oldsource>
+        <translation type="unfinished">An Unterkanäle flüstern</translation>
     </message>
     <message>
         <location/>
@@ -4888,8 +4892,9 @@ der möglichen Orte initialisieren.</translation>
     </message>
     <message>
         <location/>
-        <source>Whisper to Channel</source>
-        <translation>An den Kanal flüstern</translation>
+        <source>Whisper Target</source>
+        <oldsource>Whisper to Channel</oldsource>
+        <translation type="unfinished">An den Kanal flüstern</translation>
     </message>
     <message>
         <location/>
@@ -4905,6 +4910,21 @@ der möglichen Orte initialisieren.</translation>
         <location/>
         <source>Ignore positional audio</source>
         <translation>Ignoriere positionsabhängiges Audio</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to Linked channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to subchannels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to Channel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7206,13 +7226,15 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
     </message>
     <message>
         <location line="+115"/>
-        <source>Type message to channel &apos;%1&apos; here</source>
-        <translation>Geben Sie hier Ihre Nachricht an den Kanal &apos;%1&apos; ein</translation>
+        <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
+        <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
+        <translation type="unfinished">Geben Sie hier Ihre Nachricht an den Kanal &apos;%1&apos; ein</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Type message to user &apos;%1&apos; here</source>
-        <translation>Geben Sie hier Ihre Nachricht an den Benutzer &apos;%1&apos; ein</translation>
+        <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
+        <oldsource>Type message to user &apos;%1&apos; here</oldsource>
+        <translation type="unfinished">Geben Sie hier Ihre Nachricht an den Benutzer &apos;%1&apos; ein</translation>
     </message>
     <message>
         <location line="+91"/>
@@ -7561,14 +7583,16 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     </message>
     <message>
         <location line="+30"/>
-        <source>Whisper</source>
-        <translation>Flüstern</translation>
+        <source>Whisper/Shout</source>
+        <oldsource>Whisper</oldsource>
+        <translation type="unfinished">Flüstern</translation>
     </message>
     <message>
         <location line="+58"/>
         <location line="+1959"/>
-        <source>Not connected</source>
-        <translation>Nicht verbunden</translation>
+        <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
+        <oldsource>Not connected</oldsource>
+        <translation type="unfinished">Nicht verbunden</translation>
     </message>
     <message>
         <location line="-1740"/>
@@ -7833,7 +7857,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1382"/>
+        <location filename="UserModel.cpp" line="+1375"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Die Kanal-Ziehen-Aktion wurde auf &quot;Nichts tun&quot; gesetzt. Der Kanal wird also nicht bewegt.</translation>
     </message>
@@ -8302,37 +8326,37 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+167"/>
-        <location line="+1055"/>
+        <location filename="Overlay.cpp" line="+265"/>
+        <location line="+1075"/>
         <source>Silent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Talking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Whisper</source>
         <translation type="unfinished">Flüstern</translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Shout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1035"/>
-        <location line="+928"/>
+        <location line="-1055"/>
+        <location line="+945"/>
         <source>Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1033"/>
+        <location line="+1189"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Kommunikation mit dem Overlay auf %2: %1 fehlgeschlagen. Das Overlay wird nicht verfügbar sein.</translation>
     </message>
@@ -8362,8 +8386,43 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-662"/>
+        <location line="-795"/>
+        <source>Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Only talking</source>
+        <translation type="unfinished">Nur sprechen</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>All in current channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>All in linked channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Always show yourself</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>Edit...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Reset Zoom</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8375,9 +8434,8 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation>Optionen</translation>
     </message>
     <message>
-        <location/>
         <source>Position</source>
-        <translation>Position</translation>
+        <translation type="obsolete">Position</translation>
     </message>
     <message>
         <location/>
@@ -8416,29 +8474,24 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation type="obsolete">Zeige</translation>
     </message>
     <message>
-        <location/>
         <source>Who to show on the overlay</source>
-        <translation>Wer auf dem Overlay angezeigt werden soll</translation>
+        <translation type="obsolete">Wer auf dem Overlay angezeigt werden soll</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>&lt;b&gt;Dies legt fest, wer im Overlay angezeigt werden soll.&lt;/b&gt;&lt;br /&gt;Falls viele Spieler im selben Kanal sind, könnte die Overlayliste sehr lang werden. Benutzen Sie dies um sie zu kürzen.&lt;br /&gt;&lt;i&gt;Niemand&lt;/i&gt; - Zeige niemanden  (aber lass das Overlay laufen).&lt;br /&gt;&lt;i&gt;Nur Sprechende&lt;/i&gt; - Nur sprechende Benutzer zeigen.&lt;br /&gt;&lt;i&gt;Jeder&lt;/i&gt; - Zeige alle.</translation>
+        <translation type="obsolete">&lt;b&gt;Dies legt fest, wer im Overlay angezeigt werden soll.&lt;/b&gt;&lt;br /&gt;Falls viele Spieler im selben Kanal sind, könnte die Overlayliste sehr lang werden. Benutzen Sie dies um sie zu kürzen.&lt;br /&gt;&lt;i&gt;Niemand&lt;/i&gt; - Zeige niemanden  (aber lass das Overlay laufen).&lt;br /&gt;&lt;i&gt;Nur Sprechende&lt;/i&gt; - Nur sprechende Benutzer zeigen.&lt;br /&gt;&lt;i&gt;Jeder&lt;/i&gt; - Zeige alle.</translation>
     </message>
     <message>
-        <location/>
         <source>Always Show Self</source>
-        <translation>Sich selbst immer anzeigen</translation>
+        <translation type="obsolete">Sich selbst immer anzeigen</translation>
     </message>
     <message>
-        <location/>
         <source>Always show yourself on overlay.</source>
-        <translation>Sich selbst immer auf dem Overlay anzeigen.</translation>
+        <translation type="obsolete">Sich selbst immer auf dem Overlay anzeigen.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
-        <translation>Dies legt fest, ob Sie selbst immer angezeigt werden sollen oder nicht. Diese Einstellung ist nützlich, wenn Sie im Overlay nicht jeden anzeigen. In dem Fall würden sie ihren Status nur sehen, wenn Sie sprechen und sie könnten nicht sehen ob sie taub- oder stummgestellt wurden.</translation>
+        <translation type="obsolete">Dies legt fest, ob Sie selbst immer angezeigt werden sollen oder nicht. Diese Einstellung ist nützlich, wenn Sie im Overlay nicht jeden anzeigen. In dem Fall würden sie ihren Status nur sehen, wenn Sie sprechen und sie könnten nicht sehen ob sie taub- oder stummgestellt wurden.</translation>
     </message>
     <message>
         <source>Show User Textures</source>
@@ -8485,19 +8538,16 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation type="obsolete">Das Overlay nach unten wachsen lassen</translation>
     </message>
     <message>
-        <location/>
         <source>X-Position of Overlay</source>
-        <translation>X-Position des Overlays</translation>
+        <translation type="obsolete">X-Position des Overlays</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative X position of the overlay.</source>
-        <translation>Dies legt die relative X-Position des Overlays fest.</translation>
+        <translation type="obsolete">Dies legt die relative X-Position des Overlays fest.</translation>
     </message>
     <message>
-        <location/>
         <source>Y-Position of Overlay</source>
-        <translation>Y-Position des Overlays</translation>
+        <translation type="obsolete">Y-Position des Overlays</translation>
     </message>
     <message>
         <location/>
@@ -8507,9 +8557,8 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
 Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das Overlay deaktivieren während die Applikation läuft gibt es keinen sicheren Weg das Overlay wieder zu starten ohne die Applikation neu zu starten.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative Y position of the overlay.</source>
-        <translation>Dies legt die relative Y-Position des Overlay fest.</translation>
+        <translation type="obsolete">Dies legt die relative Y-Position des Overlay fest.</translation>
     </message>
     <message>
         <source>Current Font</source>
@@ -8556,24 +8605,41 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation type="obsolete">Farbe für aktive Kanäle</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-1426"/>
+        <location filename="Overlay.cpp" line="-1606"/>
+        <source>To move the users, drag the little red dot.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>To resize the users, mousewheel over a user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>For more options, rightclick a user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
     <message>
-        <location line="-19"/>
+        <location line="+59"/>
+        <source>Choose executable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Show no one</source>
-        <translation>Zeige niemanden</translation>
+        <translation type="obsolete">Zeige niemanden</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show only talking</source>
-        <translation>Zeige nur Sprechende</translation>
+        <translation type="obsolete">Zeige nur Sprechende</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show everyone</source>
-        <translation>Zeige Jeden</translation>
+        <translation type="obsolete">Zeige Jeden</translation>
     </message>
     <message>
         <source>Color for users</source>
@@ -8596,11 +8662,6 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation type="obsolete">Farbe für aktive Kanäle</translation>
     </message>
     <message>
-        <location filename="Overlay.ui"/>
-        <source>Form</source>
-        <translation>Formular</translation>
-    </message>
-    <message>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</source>
         <translation type="obsolete">Das Overlay versucht so klein wie möglich und an der Position die Sie gewählt haben zu bleiben. Dies erlaubt dem Overlay notfalls nach oben zu wachsen.</translation>
     </message>
@@ -8619,6 +8680,36 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <source>TextLabel</source>
         <translation type="obsolete">Textlabel</translation>
+    </message>
+    <message>
+        <location filename="Overlay.ui"/>
+        <source>Layout</source>
+        <translation type="unfinished">Anordnung</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Overlay exceptions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Blacklist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Whitelist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Add</source>
+        <translation type="unfinished">Hinzufügen</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Remove</source>
+        <translation type="unfinished">Entfernen</translation>
     </message>
 </context>
 <context>
@@ -8742,7 +8833,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
 <context>
     <name>OverlayEditorScene</name>
     <message>
-        <location filename="Overlay.cpp" line="+540"/>
+        <location filename="Overlay.cpp" line="+522"/>
         <source>Layout preset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9752,7 +9843,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-811"/>
+        <location filename="UserModel.cpp" line="-804"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Dies ist ein zum Server verbundener Benutzer. Das Icon links vom Benutzer zeigt, ob der Benutzer spricht oder nicht:</translation>
     </message>
@@ -9763,8 +9854,9 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     </message>
     <message>
         <location line="+1"/>
-        <source>Whispering directly to your channel.</source>
-        <translation>Flüstert direkt zu Ihrem Kanal.</translation>
+        <source>Shouting directly to your channel.</source>
+        <oldsource>Whispering directly to your channel.</oldsource>
+        <translation type="unfinished">Flüstert direkt zu Ihrem Kanal.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -9852,13 +9944,13 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <translation>Kanal hat einen neuen Kommentar (klicken um anzusehen)</translation>
     </message>
     <message>
-        <location line="+842"/>
+        <location line="+835"/>
         <location line="+20"/>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
         <translation>Kann dieses Verschieben nicht automatisiert ausführen. Bitte setzen Sie die Kanalpositionswert zurück oder setzen Sie sie manuell.</translation>
     </message>
     <message>
-        <location line="-870"/>
+        <location line="-863"/>
         <source>User has a comment set, which you&apos;ve already seen. (click to show)</source>
         <translation>Benutzer hat einen Kommentar gesetzt, welchen Sie schon gesehen haben. (klicken um anzusehen)</translation>
     </message>
@@ -9887,7 +9979,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+728"/>
+        <location line="+721"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Sind Sie sicher, dass Sie den Kanal verschieben möchten?</translation>
     </message>

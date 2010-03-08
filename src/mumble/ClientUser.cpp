@@ -141,7 +141,7 @@ QString ClientUser::getFlagsString() const {
 void ClientUser::setTalking(Settings::TalkState ts) {
 	if (tsState == ts)
 		return;
-		
+
 	bool nstate = false;
 	if (ts == Settings::Passive)
 		nstate = true;

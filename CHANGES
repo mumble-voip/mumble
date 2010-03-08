@@ -1,3 +1,55 @@
+2010-03-08
+  Ilmar Kruis <seaeagle1@users.sourceforge.net>
+    505e046  Update lotro to Vol 3, Book 1
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c27debc  Unify talkstate and s/WhisperChannel/Shouting/
+    c5b6a84  Adjustable column number
+    4ab0a3d  Remove leftover overlay code
+    8f2fddf  Render text to pixmap, not qimage
+    d26b54c  Don't update geometry when only updating state
+    8f0bd7f  Sort overlay users
+    b7bc978  Add filter to overlay
+    e5e7797  Add simple instructions to overlay config
+    9c5086c  Greatly improve rendering quality of overlay preview
+    c06f54b  Reintroduce logic to ensure either avatar or username is
+	     visible
+    94a8d14  Parent UserInformation to g.mw; fixes overlay bug
+    ec6b3c6  Drop additional old triggers when upgrading
+
+2010-03-07
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    10175ef  Windows build fix (warning in gcc -> error on windows...)
+
+2010-03-06
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    47cbf78  Another build fix
+    048ae07  Fix whisper target bitmask
+    3f420f9  Multiline chatbar
+    141488d  Linux build fix
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    5437170  Preserve murmur.ini during upgrades, and switch to Ice 3.4
+
+2010-03-05
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    7f01023  Draggable anchor for overlay
+    ef947aa  Have config-based editor update config settings, not global
+	     settings
+
+2010-03-04
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    4455854  Fix drag and drop into Chatbar
+    4b58f15  Frontend part of "Editable Overlay blacklist" (#2881663)
+    c2397ee  Backend for user controlled overlay Black-/Whitelisting
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    d73b644  Start of config-based editor
+    7efcd52  Move userhandling directly to OverlayUserGroup
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    f0b40a6  Gmod, L4D2 updates
+
 2010-03-03
   arcenciel <arcenciel@users.sourceforge.net>
     9b8d1be  Updated Japanese Translation
@@ -6,6 +58,8 @@
     1e6b573  Do not minimize to tray on windows 7 by default (#2947574)
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    a4d90a9  Mention that we need lsb_release in the INSTALL
+    47ef042  Switch to utf8_bin collate for MySQL
     38f059c  Proper bounding box and padding for overlay painter
     2a9dbee  Save/load overlay
     1e35f54  Refactor overlay config var names and clean up old

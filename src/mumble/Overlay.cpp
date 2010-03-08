@@ -50,24 +50,24 @@ OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 	qgs.setBackgroundBrush(QColor(128, 128, 128, 255));
 
 	qpScreen = QPixmap::grabWindow(QApplication::desktop()->winId());
-	
+
 	qgpiScreen = new QGraphicsPixmapItem();
 	qgpiScreen->setPixmap(qpScreen);
 	qgpiScreen->setOpacity(0.5f);
 	qgpiScreen->setZValue(-10.0f);
-	
+
 	qgtiInstructions = new QGraphicsTextItem();
 	qgtiInstructions->setHtml(QString::fromLatin1("<ul><li>%1</li><li>%2</li><li>%3</li></ul>").arg(
-		tr("To move the users, drag the little red dot."),
-		tr("To resize the users, mousewheel over a user."),
-		tr("For more options, rightclick a user.")
-		));
+	                              tr("To move the users, drag the little red dot."),
+	                              tr("To resize the users, mousewheel over a user."),
+	                              tr("For more options, rightclick a user.")
+	                          ));
 	qgtiInstructions->setOpacity(1.0f);
 	qgtiInstructions->setZValue(-5.0f);
 	qgtiInstructions->setDefaultTextColor(Qt::white);
 
 	qgs.setSceneRect(QRectF(0, 0, qgpiScreen->pixmap().width(), qgpiScreen->pixmap().height()));
-	
+
 	oug = new OverlayUserGroup(& s.os);
 	oug->bShowExamples = true;
 
@@ -76,10 +76,10 @@ OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 
 	qgs.addItem(oug);
 	oug->show();
-	
+
 	qgs.addItem(qgtiInstructions);
 	qgtiInstructions->show();
-	
+
 	qgvView->setScene(&qgs);
 
 	qgvView->installEventFilter(this);
@@ -92,10 +92,10 @@ void OverlayConfig::load(const Settings &r) {
 	qlwWhitelist->clear();
 	qcbWhitelist->setChecked(r.os.bUseWhitelist);
 	qswBlackWhiteList->setCurrentWidget(r.os.bUseWhitelist ? qwWhite : qwBlack);
-	foreach (QString str, r.os.qslWhitelist) {
+	foreach(QString str, r.os.qslWhitelist) {
 		qlwWhitelist->addItem(str);
 	}
-	foreach (QString str, r.os.qslBlacklist) {
+	foreach(QString str, r.os.qslBlacklist) {
 		qlwBlacklist->addItem(str);
 	}
 }
@@ -147,11 +147,11 @@ bool OverlayConfig::eventFilter(QObject *obj, QEvent *evt) {
 
 void OverlayConfig::resizeScene() {
 	QSize sz = qgvView->viewport()->size();
-	
+
 	qgpiScreen->setPixmap(qpScreen.scaled(sz, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 	qgs.setSceneRect(QRectF(0, 0, qgpiScreen->pixmap().width(), qgpiScreen->pixmap().height()));
 
-	
+
 	QFont f = qgtiInstructions->font();
 	f.setPointSizeF(qgs.sceneRect().height() / 20.0f);
 	qgtiInstructions->setFont(f);
@@ -1091,7 +1091,7 @@ Qt::WindowFrameSection OverlayEditorScene::rectSection(const QRectF &qrf, const 
 
 OverlayEditor::OverlayEditor(QWidget *p, QGraphicsItem *qgi, OverlaySettings *osptr) : QDialog(p), qgiPromote(qgi) {
 	setupUi(this);
-	
+
 	os = osptr ? osptr : &g.s.os;
 
 	connect(qdbbBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()), this, SLOT(apply()));
@@ -1272,7 +1272,7 @@ void OverlayUser::setup() {
 
 void OverlayUser::updateLayout() {
 	QPixmap pm;
-	
+
 	if (scene())
 		uiSize = iroundf(scene()->sceneRect().height());
 
@@ -1354,10 +1354,10 @@ void OverlayUser::updateLayout() {
 
 QPixmap OverlayUser::createPixmap(const QString &string, unsigned int height, unsigned int maxwidth, QColor col, const QFont &font, QPainterPath &pp) {
 	float edge = height * 0.05f;
-	
+
 	if (! height || ! maxwidth)
 		return QPixmap();
-	
+
 	if (pp.isEmpty()) {
 		QFont f = font;
 
@@ -1615,7 +1615,7 @@ void OverlayUserGroup::reset() {
 	foreach(OverlayUser *ou, qmUsers)
 		delete ou;
 	qmUsers.clear();
-	
+
 	if (qgeiHandle) {
 		delete qgeiHandle;
 		qgeiHandle = NULL;
@@ -1646,7 +1646,7 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 	qaShowLinked->setCheckable(true);
 	if (os->osShow == OverlaySettings::LinkedChannels)
 		qaShowLinked->setChecked(true);
-		
+
 	qmShow->addSeparator();
 
 	QAction *qaShowSelf = qmShow->addAction(OverlayClient::tr("Always show yourself"));
@@ -1654,15 +1654,15 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 	qaShowSelf->setEnabled(os->osShow == OverlaySettings::Talking);
 	if (os->bAlwaysSelf)
 		qaShowSelf->setChecked(true);
-		
+
 	QMenu *qmColumns = qm.addMenu(OverlayClient::tr("Columns"));
 	QAction *qaColumns[5];
-	for(int i=1;i<=5;++i) {
+	for (int i=1;i<=5;++i) {
 		qaColumns[i] = qmColumns->addAction(QString::number(i));
 		qaColumns[i]->setCheckable(true);
 		qaColumns[i]->setChecked(i == os->uiColumns);
 	}
-	
+
 	QAction *qaEdit = qm.addAction(OverlayClient::tr("Edit..."));
 	QAction *qaZoom = qm.addAction(OverlayClient::tr("Reset Zoom"));
 
@@ -1678,7 +1678,7 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 			OverlayEditor oe(qApp->activeModalWidget(), NULL, os);
 			connect(&oe, SIGNAL(applySettings()), this, SLOT(updateLayout()));
 			oe.exec();
-		}			
+		}
 	} else if (act == qaZoom) {
 		os->fHeight = 1.0f;
 		updateLayout();
@@ -1695,7 +1695,7 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		os->bAlwaysSelf = ! os->bAlwaysSelf;
 		updateUsers();
 	} else {
-		for(int i=0;i<5;++i) {
+		for (int i=0;i<5;++i) {
 			if (act == qaColumns[i]) {
 				os->uiColumns = i;
 				updateLayout();
@@ -1718,7 +1718,7 @@ void OverlayUserGroup::wheelEvent(QGraphicsSceneWheelEvent *event) {
 		return;
 
 	os->fHeight *= scale;
-	
+
 	updateLayout();
 }
 
@@ -1730,7 +1730,7 @@ bool OverlayUserGroup::sceneEventFilter(QGraphicsItem *watched, QEvent *event) {
 			break;
 		default:
 			break;
-			
+
 	}
 	return OverlayGroup::sceneEventFilter(watched, event);
 }
@@ -1741,10 +1741,10 @@ void OverlayUserGroup::moveUsers() {
 
 	const QRectF &sr = scene()->sceneRect();
 	const QPointF &p = qgeiHandle->pos();
-	
+
 	os->fX = qBound<qreal>(0.0f, p.x() / sr.width(), 1.0f);
 	os->fY = qBound<qreal>(0.0f, p.y() / sr.height(), 1.0f);
-	
+
 	qgeiHandle->setPos(os->fX * sr.width(), os->fY * sr.height());
 	updateUsers();
 }
@@ -1757,7 +1757,7 @@ void OverlayUserGroup::updateLayout() {
 
 void OverlayUserGroup::updateUsers() {
 	const QRectF &sr = scene()->sceneRect();
-	
+
 	unsigned int uiHeight = iroundf(sr.height());
 
 	QList<QGraphicsItem *> items;
@@ -1776,7 +1776,7 @@ void OverlayUserGroup::updateUsers() {
 		users = qlExampleUsers;
 		foreach(OverlayUser *ou, users)
 			items.removeAll(ou);
-			
+
 		if (! qgeiHandle) {
 			qgeiHandle = new QGraphicsEllipseItem(QRectF(-4.0f, -4.0f, 8.0f, 8.0f));
 			qgeiHandle->setPen(QPen(Qt::darkRed, 0.0f));
@@ -1795,13 +1795,13 @@ void OverlayUserGroup::updateUsers() {
 			qgeiHandle = NULL;
 		}
 	}
-	
+
 	ClientUser *self = ClientUser::get(g.uiSession);
 	if (self) {
 		QList<ClientUser *> showusers;
 		Channel *home = ClientUser::get(g.uiSession)->cChannel;
 
-		switch(os->osShow) {
+		switch (os->osShow) {
 			case OverlaySettings::LinkedChannels:
 				foreach(Channel *c, home->allLinks())
 					foreach(User *p, c->qlUsers)
@@ -1819,13 +1819,13 @@ void OverlayUserGroup::updateUsers() {
 				break;
 			default:
 				showusers = ClientUser::getTalking();
-				if (os->bAlwaysSelf && (self->tsState == Settings::Passive)) 
+				if (os->bAlwaysSelf && (self->tsState == Settings::Passive))
 					showusers << self;
 				break;
 		}
-		
+
 		ClientUser::sortUsers(showusers);
-		
+
 		foreach(ClientUser *cu, showusers) {
 			OverlayUser *ou = qmUsers.value(cu);
 			if (! ou) {
@@ -1839,7 +1839,7 @@ void OverlayUserGroup::updateUsers() {
 			users << ou;
 		}
 	}
-	
+
 	foreach(QGraphicsItem *qgi, items) {
 		scene()->removeItem(qgi);
 		qgi->hide();
@@ -1929,7 +1929,7 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 
 OverlayClient::~OverlayClient() {
 	qlsSocket->abort();
-	
+
 	ougUsers.reset();
 }
 
@@ -2066,7 +2066,7 @@ void OverlayClient::showGui() {
 	qgv.setAttribute(Qt::WA_WState_Hidden, false);
 	qApp->setActiveWindow(&qgv);
 	qgv.setFocus();
-	
+
 	ougUsers.bShowExamples = true;
 
 	setupScene();
@@ -2232,7 +2232,7 @@ void OverlayClient::reset() {
 		delete qgpiLogo;
 		qgpiLogo = NULL;
 	}
-	
+
 	ougUsers.reset();
 
 	setupScene();
@@ -2296,7 +2296,7 @@ void OverlayClient::setupRender() {
 bool OverlayClient::update() {
 	if (! uiWidth || ! uiHeight || ! smMem)
 		return true;
-		
+
 	ougUsers.updateUsers();
 
 	if (qlsSocket->bytesToWrite() > 1024) {
@@ -2615,7 +2615,7 @@ void Overlay::updateOverlay() {
 
 	if (qlClients.isEmpty())
 		return;
-		
+
 	qsQuery.clear();
 
 	foreach(OverlayClient *oc, qlClients) {

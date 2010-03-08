@@ -70,7 +70,7 @@ class ClientUser : public QObject, public User {
 		static QList<ClientUser *> c_qlTalking;
 		static QReadWriteLock c_qrwlTalking;
 		static QList<ClientUser *> getTalking();
-		
+
 		static void sortUsers(QList<ClientUser *> &list);
 
 		static ClientUser *get(unsigned int);

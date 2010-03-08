@@ -2809,20 +2809,24 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
 <context>
     <name>ChatbarLineEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+71"/>
+        <location filename="CustomElements.cpp" line="+79"/>
         <source>Paste and send</source>
         <translation>Indsæt og send</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+25"/>
+        <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Type chat message here</source>
-        <translation>Skriv chatbesked hér</translation>
+        <translation type="obsolete">Skriv chatbesked hér</translation>
     </message>
 </context>
 <context>
     <name>ClientUser</name>
     <message>
-        <location filename="ClientUser.cpp" line="+122"/>
+        <location filename="ClientUser.cpp" line="+124"/>
         <source>Friend</source>
         <translation>Ven</translation>
     </message>
@@ -3503,9 +3507,8 @@ som helst mulige placeringer.</translation>
         <translation>If denne er markeret vil hvisken også overføres til sammenkædede kanaler.</translation>
     </message>
     <message>
-        <location/>
         <source>Whisper to Linked channels</source>
-        <translation>Hvisk til sammenkædede kanaler</translation>
+        <translation type="obsolete">Hvisk til sammenkædede kanaler</translation>
     </message>
     <message>
         <location/>
@@ -3514,8 +3517,9 @@ som helst mulige placeringer.</translation>
     </message>
     <message>
         <location/>
-        <source>Whisper to subchannels</source>
-        <translation>Hvisk til underkanaler</translation>
+        <source>Whisper Target</source>
+        <oldsource>Whisper to subchannels</oldsource>
+        <translation type="unfinished">Hvisk til underkanaler</translation>
     </message>
     <message>
         <location/>
@@ -3534,8 +3538,9 @@ som helst mulige placeringer.</translation>
     </message>
     <message>
         <location/>
-        <source>Whisper to Channel</source>
-        <translation>Hvisk til kanal</translation>
+        <source>Whisper Target</source>
+        <oldsource>Whisper to Channel</oldsource>
+        <translation type="unfinished">Hvisk til kanal</translation>
     </message>
     <message>
         <location/>
@@ -3551,6 +3556,21 @@ som helst mulige placeringer.</translation>
         <location/>
         <source>Ignore positional audio</source>
         <translation>Ignorér placeringsbestemt lyd</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to Linked channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to subchannels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to Channel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4424,14 +4444,16 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+30"/>
-        <source>Whisper</source>
-        <translation>Hvisk</translation>
+        <source>Whisper/Shout</source>
+        <oldsource>Whisper</oldsource>
+        <translation type="unfinished">Hvisk</translation>
     </message>
     <message>
         <location line="+58"/>
         <location line="+1959"/>
-        <source>Not connected</source>
-        <translation>Ingen forbindelse oprettet</translation>
+        <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
+        <oldsource>Not connected</oldsource>
+        <translation type="unfinished">Ingen forbindelse oprettet</translation>
     </message>
     <message>
         <location line="-1750"/>
@@ -4596,13 +4618,15 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+115"/>
-        <source>Type message to channel &apos;%1&apos; here</source>
-        <translation>Skriv besked til kanalen &apos;%1&apos; hér</translation>
+        <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
+        <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
+        <translation type="unfinished">Skriv besked til kanalen &apos;%1&apos; hér</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Type message to user &apos;%1&apos; here</source>
-        <translation>Skriv besked til brugeren &apos;%1&apos; hér</translation>
+        <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
+        <oldsource>Type message to user &apos;%1&apos; here</oldsource>
+        <translation type="unfinished">Skriv besked til brugeren &apos;%1&apos; hér</translation>
     </message>
     <message>
         <location line="+91"/>
@@ -5863,7 +5887,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Besked fra %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1382"/>
+        <location filename="UserModel.cpp" line="+1375"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Du har kanalflytning sat til &quot;Gør intet&quot;, så kanalen blev ikke flyttet.</translation>
     </message>
@@ -6257,37 +6281,37 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="obsolete">Det mislykkedes at initialisere overlægningshukommelse. Dette betyder som regel at den delte hukommelse er låst af operativsystemet, og du behøver derfor at genstarte for at frigøre den.</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+167"/>
-        <location line="+1055"/>
+        <location filename="Overlay.cpp" line="+265"/>
+        <location line="+1075"/>
         <source>Silent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Talking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Whisper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Shout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1035"/>
-        <location line="+928"/>
+        <location line="-1055"/>
+        <location line="+945"/>
         <source>Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1033"/>
+        <location line="+1189"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Det mislykkedes at oprette kommunikation med overlægningen på %2: %1. Der vil ikke være nogen overlægning tilgængelig.</translation>
     </message>
@@ -6295,27 +6319,59 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-662"/>
+        <location line="-795"/>
+        <source>Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Only talking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>All in current channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>All in linked channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Always show yourself</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>Edit...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Reset Zoom</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-1445"/>
         <source>Show no one</source>
-        <translation>Vis ingen</translation>
+        <translation type="obsolete">Vis ingen</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show only talking</source>
-        <translation>Vis kun talende</translation>
+        <translation type="obsolete">Vis kun talende</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show everyone</source>
-        <translation>Vis alle</translation>
+        <translation type="obsolete">Vis alle</translation>
     </message>
     <message>
         <source>Color for users</source>
@@ -6338,9 +6394,29 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="obsolete">Farve for aktive kanaler</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="-1606"/>
+        <source>To move the users, drag the little red dot.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>To resize the users, mousewheel over a user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>For more options, rightclick a user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
         <source>Overlay</source>
         <translation>Overlægning</translation>
+    </message>
+    <message>
+        <location line="+59"/>
+        <source>Choose executable</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Overlay.ui"/>
@@ -6363,29 +6439,24 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation>Aktivér overlægning</translation>
     </message>
     <message>
-        <location/>
         <source>Who to show on the overlay</source>
-        <translation>Hvem skal vises på overlægningen</translation>
+        <translation type="obsolete">Hvem skal vises på overlægningen</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>&lt;b&gt;Dette indstiller, hvem der skal vises i på overlægning i spillet.&lt;/b&gt;&lt;br /&gt;Hvis der er mange folk i den samme kanal, vil overlægningslisten blive meget lang. Brug disse indstillinger for at gøre den mindre.&lt;br /&gt;&lt;i&gt;Ingen&lt;/i&gt; - Vis ingen (men lad overlægningen være aktiv).&lt;br /&gt;&lt;i&gt;Kun talende&lt;/i&gt; - Vis kun talende folk.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Vis alle.</translation>
+        <translation type="obsolete">&lt;b&gt;Dette indstiller, hvem der skal vises i på overlægning i spillet.&lt;/b&gt;&lt;br /&gt;Hvis der er mange folk i den samme kanal, vil overlægningslisten blive meget lang. Brug disse indstillinger for at gøre den mindre.&lt;br /&gt;&lt;i&gt;Ingen&lt;/i&gt; - Vis ingen (men lad overlægningen være aktiv).&lt;br /&gt;&lt;i&gt;Kun talende&lt;/i&gt; - Vis kun talende folk.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Vis alle.</translation>
     </message>
     <message>
-        <location/>
         <source>Always show yourself on overlay.</source>
-        <translation>Vis altid dig selv på overlægningen.</translation>
+        <translation type="obsolete">Vis altid dig selv på overlægningen.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
-        <translation>Dette indstiller, om du altid selv skal vises eller ej. Denne indstilling er nyttig, hvis du har valgt ikke at se alle i overlægningen, eftersom du da kun vil kunne se din egen status i overlægningen, når du snakker, hvilket ikke gør dig i stand til at se, når du er muted eller gjort døv.</translation>
+        <translation type="obsolete">Dette indstiller, om du altid selv skal vises eller ej. Denne indstilling er nyttig, hvis du har valgt ikke at se alle i overlægningen, eftersom du da kun vil kunne se din egen status i overlægningen, når du snakker, hvilket ikke gør dig i stand til at se, når du er muted eller gjort døv.</translation>
     </message>
     <message>
-        <location/>
         <source>Always Show Self</source>
-        <translation>Vis altid dig selv</translation>
+        <translation type="obsolete">Vis altid dig selv</translation>
     </message>
     <message>
         <source>Show User custom textures instead of text on the overlay.</source>
@@ -6400,9 +6471,8 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="obsolete">Vis brugerteksturer</translation>
     </message>
     <message>
-        <location/>
         <source>Position</source>
-        <translation>Placering</translation>
+        <translation type="obsolete">Placering</translation>
     </message>
     <message>
         <source>Let overlay grow upwards</source>
@@ -6417,14 +6487,12 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="obsolete">Udvid opad</translation>
     </message>
     <message>
-        <location/>
         <source>Y-Position of Overlay</source>
-        <translation>Y-position for overlægning</translation>
+        <translation type="obsolete">Y-position for overlægning</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative Y position of the overlay.</source>
-        <translation>Dette indstiller den relative Y-placering af overlægningen.</translation>
+        <translation type="obsolete">Dette indstiller den relative Y-placering af overlægningen.</translation>
     </message>
     <message>
         <source>Let overlay grow to the left</source>
@@ -6463,20 +6531,12 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="obsolete">Udvid nedad</translation>
     </message>
     <message>
-        <location/>
         <source>X-Position of Overlay</source>
-        <translation>X-position for overlægning</translation>
+        <translation type="obsolete">X-position for overlægning</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative X position of the overlay.</source>
-        <translation>Dette indstiller den relative X-placering af overlægningen.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Form</source>
-        <oldsource>Font</oldsource>
-        <translation type="unfinished">Skrifttype</translation>
+        <translation type="obsolete">Dette indstiller den relative X-placering af overlægningen.</translation>
     </message>
     <message>
         <source>Current Font</source>
@@ -6519,6 +6579,36 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
     <message>
         <source>Color for active Channels</source>
         <translation type="obsolete">Farve for aktive kanaler</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Layout</source>
+        <translation type="unfinished">Layout</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Overlay exceptions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Blacklist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Whitelist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Add</source>
+        <translation type="unfinished">Tilføj</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Remove</source>
+        <translation type="unfinished">Fjern</translation>
     </message>
 </context>
 <context>
@@ -6642,7 +6732,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
 <context>
     <name>OverlayEditorScene</name>
     <message>
-        <location filename="Overlay.cpp" line="+523"/>
+        <location filename="Overlay.cpp" line="+522"/>
         <source>Layout preset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7512,7 +7602,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-811"/>
+        <location filename="UserModel.cpp" line="-804"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Dette er en bruger, der har oprettet forbindelse til serveren. Ikonet til venstre for brugeren viser om vedkommende snakker:</translation>
     </message>
@@ -7523,8 +7613,9 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     </message>
     <message>
         <location line="+1"/>
-        <source>Whispering directly to your channel.</source>
-        <translation>Hvisken direkte til din kanal.</translation>
+        <source>Shouting directly to your channel.</source>
+        <oldsource>Whispering directly to your channel.</oldsource>
+        <translation type="unfinished">Hvisken direkte til din kanal.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7641,7 +7732,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+728"/>
+        <location line="+721"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Er du sikker på, at du vil flytte denne kanal?</translation>
     </message>

@@ -3529,14 +3529,18 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ChatbarLineEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+71"/>
+        <location filename="CustomElements.cpp" line="+79"/>
         <source>Paste and send</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+25"/>
+        <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Type chat message here</source>
-        <translation>Saisir un message ici</translation>
+        <translation type="obsolete">Saisir un message ici</translation>
     </message>
 </context>
 <context>
@@ -3569,7 +3573,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ClientUser</name>
     <message>
-        <location filename="ClientUser.cpp" line="+122"/>
+        <location filename="ClientUser.cpp" line="+124"/>
         <source>Friend</source>
         <translation>Ami</translation>
     </message>
@@ -4563,9 +4567,8 @@ of the possible locations.</source>
         <translation>Si coché, le chuchotement sera aussi transmit aux salons liés.</translation>
     </message>
     <message>
-        <location/>
         <source>Whisper to Linked channels</source>
-        <translation>Chuchoter aux salons liés</translation>
+        <translation type="obsolete">Chuchoter aux salons liés</translation>
     </message>
     <message>
         <location/>
@@ -4574,8 +4577,9 @@ of the possible locations.</source>
     </message>
     <message>
         <location/>
-        <source>Whisper to subchannels</source>
-        <translation>Chuchoter aux sous salons</translation>
+        <source>Whisper Target</source>
+        <oldsource>Whisper to subchannels</oldsource>
+        <translation type="unfinished">Chuchoter aux sous salons</translation>
     </message>
     <message>
         <location/>
@@ -4594,8 +4598,9 @@ of the possible locations.</source>
     </message>
     <message>
         <location/>
-        <source>Whisper to Channel</source>
-        <translation>Chuchoter vers un salon</translation>
+        <source>Whisper Target</source>
+        <oldsource>Whisper to Channel</oldsource>
+        <translation type="unfinished">Chuchoter vers un salon</translation>
     </message>
     <message>
         <location/>
@@ -4611,6 +4616,21 @@ of the possible locations.</source>
         <location/>
         <source>Ignore positional audio</source>
         <translation>Ignorer le positionement audio</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to Linked channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to subchannels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to Channel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6960,13 +6980,15 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+165"/>
-        <source>Type message to channel &apos;%1&apos; here</source>
-        <translation>Saisir un message pour le salon &apos;%1&apos; ici</translation>
+        <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
+        <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
+        <translation type="unfinished">Saisir un message pour le salon &apos;%1&apos; ici</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Type message to user &apos;%1&apos; here</source>
-        <translation>Saisir un message pour l&apos;utilisateur &apos;%1&apos; ici</translation>
+        <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
+        <oldsource>Type message to user &apos;%1&apos; here</oldsource>
+        <translation type="unfinished">Saisir un message pour l&apos;utilisateur &apos;%1&apos; ici</translation>
     </message>
     <message>
         <location line="+91"/>
@@ -7189,8 +7211,9 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+30"/>
-        <source>Whisper</source>
-        <translation>Chuchoter</translation>
+        <source>Whisper/Shout</source>
+        <oldsource>Whisper</oldsource>
+        <translation type="unfinished">Chuchoter</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -7242,8 +7265,9 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+65"/>
         <location line="+1959"/>
-        <source>Not connected</source>
-        <translation>Non connecté</translation>
+        <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
+        <oldsource>Not connected</oldsource>
+        <translation type="unfinished">Non connecté</translation>
     </message>
     <message>
         <location line="-1750"/>
@@ -7256,7 +7280,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Historique</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1382"/>
+        <location filename="UserModel.cpp" line="+1375"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Votre option &apos;Faire glisser le salon&apos; est définie sur &quot;Ne rien faire&quot;, le salon n&apos;a donc pas été déplacé.</translation>
     </message>
@@ -7748,37 +7772,37 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+167"/>
-        <location line="+1055"/>
+        <location filename="Overlay.cpp" line="+265"/>
+        <location line="+1075"/>
         <source>Silent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Talking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Whisper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Shout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1035"/>
-        <location line="+928"/>
+        <location line="-1055"/>
+        <location line="+945"/>
         <source>Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1033"/>
+        <location line="+1189"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7815,9 +7839,44 @@ Empêche le client de télécharger les images intégrées dans les messages de 
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-662"/>
+        <location line="-795"/>
+        <source>Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Only talking</source>
+        <translation type="unfinished">Parlant uniquement</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>All in current channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>All in linked channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Always show yourself</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>Edit...</source>
         <translation type="unfinished">Éditer...</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Reset Zoom</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7828,9 +7887,8 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation>Options</translation>
     </message>
     <message>
-        <location/>
         <source>Position</source>
-        <translation>Position</translation>
+        <translation type="obsolete">Position</translation>
     </message>
     <message>
         <location/>
@@ -7869,29 +7927,24 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation type="obsolete">Afficher</translation>
     </message>
     <message>
-        <location/>
         <source>Who to show on the overlay</source>
-        <translation>Qui montrer sur l&apos;overlay</translation>
+        <translation type="obsolete">Qui montrer sur l&apos;overlay</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>&lt;b&gt;Définis qui montrer en jeu dans l&apos;overlay.&lt;/b&gt;&lt;br /&gt;Si de nombreuses personnes sont connectées sur le même salon, la liste de l&apos;overlay peut être très longue. Utilisez ça pour la raccourcir.&lt;br /&gt;&lt;i&gt;Personne&lt;/i&gt; - Ne montre personne (mais laisse l&apos;overlay fonctionner).&lt;br /&gt;&lt;i&gt;Parlant uniquement&lt;/i&gt; - Ne montre que les gens qui parlent.&lt;br /&gt;&lt;i&gt;Tout le monde&lt;/i&gt; - Montre tout le monde.</translation>
+        <translation type="obsolete">&lt;b&gt;Définis qui montrer en jeu dans l&apos;overlay.&lt;/b&gt;&lt;br /&gt;Si de nombreuses personnes sont connectées sur le même salon, la liste de l&apos;overlay peut être très longue. Utilisez ça pour la raccourcir.&lt;br /&gt;&lt;i&gt;Personne&lt;/i&gt; - Ne montre personne (mais laisse l&apos;overlay fonctionner).&lt;br /&gt;&lt;i&gt;Parlant uniquement&lt;/i&gt; - Ne montre que les gens qui parlent.&lt;br /&gt;&lt;i&gt;Tout le monde&lt;/i&gt; - Montre tout le monde.</translation>
     </message>
     <message>
-        <location/>
         <source>Always Show Self</source>
-        <translation>Toujours s&apos;afficher soi même</translation>
+        <translation type="obsolete">Toujours s&apos;afficher soi même</translation>
     </message>
     <message>
-        <location/>
         <source>Always show yourself on overlay.</source>
-        <translation>Toujours vous montrer sur l&apos;overlay.</translation>
+        <translation type="obsolete">Toujours vous montrer sur l&apos;overlay.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
-        <translation>Spécifie si vous voulez vous affichez dans l&apos;overlay ou non. C&apos;est utile si vous n&apos;êtes pas en train de montrer tout le monde, car vous pourrez voir votre propre status, donc savoir si vous parlez, si vous êtes sourd ou muet.</translation>
+        <translation type="obsolete">Spécifie si vous voulez vous affichez dans l&apos;overlay ou non. C&apos;est utile si vous n&apos;êtes pas en train de montrer tout le monde, car vous pourrez voir votre propre status, donc savoir si vous parlez, si vous êtes sourd ou muet.</translation>
     </message>
     <message>
         <source>Grow Left</source>
@@ -7942,24 +7995,20 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation type="obsolete">L&apos;overlay tente de rester aussi petit que possible à la position que vous avez sélectionné. Autorise l&apos;overlay à s&apos;aggrandir vers le bas si besoin.</translation>
     </message>
     <message>
-        <location/>
         <source>X-Position of Overlay</source>
-        <translation>Position X de l&apos;Overlay</translation>
+        <translation type="obsolete">Position X de l&apos;Overlay</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative X position of the overlay.</source>
-        <translation>Définit la position relative de l&apos;overlay sur l&apos;axe X.</translation>
+        <translation type="obsolete">Définit la position relative de l&apos;overlay sur l&apos;axe X.</translation>
     </message>
     <message>
-        <location/>
         <source>Y-Position of Overlay</source>
-        <translation>Position Y de l&apos;Overlay</translation>
+        <translation type="obsolete">Position Y de l&apos;Overlay</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative Y position of the overlay.</source>
-        <translation>Définit la position relative de l&apos;overlay sur l&apos;axe Y.</translation>
+        <translation type="obsolete">Définit la position relative de l&apos;overlay sur l&apos;axe Y.</translation>
     </message>
     <message>
         <source>Current Font</source>
@@ -8006,9 +8055,29 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation type="obsolete">Couleur des canaux actifs</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-1426"/>
+        <location filename="Overlay.cpp" line="-1606"/>
+        <source>To move the users, drag the little red dot.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>To resize the users, mousewheel over a user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>For more options, rightclick a user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
+    </message>
+    <message>
+        <location line="+59"/>
+        <source>Choose executable</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Maximum height of names.</source>
@@ -8035,19 +8104,16 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation type="obsolete">Ceci définit le téléchargement et l&apos;utilisation des textures personnalisées pour les utilisateurs enregistrés. Si désactivé, l&apos;esquisse de texte ordinaire sera utilisé à sa place.</translation>
     </message>
     <message>
-        <location line="-19"/>
         <source>Show no one</source>
-        <translation>Afficher aucun</translation>
+        <translation type="obsolete">Afficher aucun</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show only talking</source>
-        <translation>Montrer seulement ceux qui parlent</translation>
+        <translation type="obsolete">Montrer seulement ceux qui parlent</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show everyone</source>
-        <translation>Montrer tout le monde</translation>
+        <translation type="obsolete">Montrer tout le monde</translation>
     </message>
     <message>
         <source>Color for users</source>
@@ -8071,11 +8137,6 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     </message>
     <message>
         <location filename="Overlay.ui"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
-        <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
         <translation>Définit si l&apos;overlay est actif ou pas. Cette option est vérifiée au lancement des applications, assurez-vous donc que Mumble fonctionne et que cette option soit activée avant de démarrer l&apos;application.&lt;br/&gt;Veuillez noter que si vous démarrez Mumble après le lancement de l&apos;application, ou si vous désactivez l&apos;overlay pendant que l&apos;application fonctionne, il n&apos;y a pas de manières sûre pour réactiver l&apos;overlay sans redémarrer l&apos;application.</translation>
@@ -8099,6 +8160,36 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <source>TextLabel</source>
         <translation type="obsolete">TextLabel</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Layout</source>
+        <translation type="unfinished">Disposition</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Overlay exceptions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Blacklist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Whitelist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Add</source>
+        <translation type="unfinished">Ajouter</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Remove</source>
+        <translation type="unfinished">Supprimer</translation>
     </message>
 </context>
 <context>
@@ -8222,7 +8313,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
 <context>
     <name>OverlayEditorScene</name>
     <message>
-        <location filename="Overlay.cpp" line="+540"/>
+        <location filename="Overlay.cpp" line="+522"/>
         <source>Layout preset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9223,7 +9314,7 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-811"/>
+        <location filename="UserModel.cpp" line="-804"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>C&apos;est un utilisateur connecté au serveur. L&apos;icône à gauche de l&apos;utilisateur infique si il parle ou pas :</translation>
     </message>
@@ -9234,8 +9325,9 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
     </message>
     <message>
         <location line="+1"/>
-        <source>Whispering directly to your channel.</source>
-        <translation>Chuchotte directement dans votre salon.</translation>
+        <source>Shouting directly to your channel.</source>
+        <oldsource>Whispering directly to your channel.</oldsource>
+        <translation type="unfinished">Chuchotte directement dans votre salon.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -9352,7 +9444,7 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+728"/>
+        <location line="+721"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Etes vous sur de vouloir déplacer ce salon ?</translation>
     </message>

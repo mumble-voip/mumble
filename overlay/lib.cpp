@@ -528,9 +528,9 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 
 					buffsize = sizeof(buffer);
 					success = (RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Mumble\\Mumble\\overlay", NULL, KEY_READ, &key) == ERROR_SUCCESS) &&
-						   (RegQueryValueExA(key, "usewhitelist", NULL, NULL, (LPBYTE)buffer, &buffsize) == ERROR_SUCCESS);
+					          (RegQueryValueExA(key, "usewhitelist", NULL, NULL, (LPBYTE)buffer, &buffsize) == ERROR_SUCCESS);
 
-					if(success) {
+					if (success) {
 						usewhitelist = (_stricmp(buffer, "true") == 0);
 						buffsize = sizeof(buffer);
 						success = (RegQueryValueExA(key, usewhitelist ? "whitelist" : "blacklist", NULL, NULL, (LPBYTE)buffer, &buffsize) == ERROR_SUCCESS);
@@ -554,8 +554,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 								bBlackListed = true;
 								return TRUE;
 							}
-						}
-						else {
+						} else {
 							while (buffer[pos] != 0 && pos < sizeof(buffer)) {
 								if (_stricmp(p+1, buffer + pos) == 0) {
 									bBlackListed = true;

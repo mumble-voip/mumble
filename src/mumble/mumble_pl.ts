@@ -3071,14 +3071,18 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ChatbarLineEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+71"/>
+        <location filename="CustomElements.cpp" line="+79"/>
         <source>Paste and send</source>
         <translation>Wklej i wyślij</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+25"/>
+        <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Type chat message here</source>
-        <translation>Wpisz wiadomość</translation>
+        <translation type="obsolete">Wpisz wiadomość</translation>
     </message>
 </context>
 <context>
@@ -3111,7 +3115,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ClientUser</name>
     <message>
-        <location filename="ClientUser.cpp" line="+122"/>
+        <location filename="ClientUser.cpp" line="+124"/>
         <source>Friend</source>
         <translation>Znajomy</translation>
     </message>
@@ -3931,9 +3935,8 @@ of the possible locations.</source>
         <translation>Gdy zaznaczone, szept będzie również wysyłany do połączonych kanałów.</translation>
     </message>
     <message>
-        <location/>
         <source>Whisper to Linked channels</source>
-        <translation>Szept do połączonych kanałów</translation>
+        <translation type="obsolete">Szept do połączonych kanałów</translation>
     </message>
     <message>
         <location/>
@@ -3942,8 +3945,9 @@ of the possible locations.</source>
     </message>
     <message>
         <location/>
-        <source>Whisper to subchannels</source>
-        <translation>Szept do pod-kanałów</translation>
+        <source>Whisper Target</source>
+        <oldsource>Whisper to subchannels</oldsource>
+        <translation type="unfinished">Szept do pod-kanałów</translation>
     </message>
     <message>
         <location/>
@@ -3962,8 +3966,9 @@ of the possible locations.</source>
     </message>
     <message>
         <location/>
-        <source>Whisper to Channel</source>
-        <translation>Szept do kanału</translation>
+        <source>Whisper Target</source>
+        <oldsource>Whisper to Channel</oldsource>
+        <translation type="unfinished">Szept do kanału</translation>
     </message>
     <message>
         <location/>
@@ -3979,6 +3984,21 @@ of the possible locations.</source>
         <location/>
         <source>Ignore positional audio</source>
         <translation>Ignoruj dźwięk pozycyjny</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to Linked channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to subchannels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to Channel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6002,13 +6022,15 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+806"/>
-        <source>Type message to channel &apos;%1&apos; here</source>
-        <translation>Wiadomość do kanału &quot;%1&quot;</translation>
+        <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
+        <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
+        <translation type="unfinished">Wiadomość do kanału &quot;%1&quot;</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Type message to user &apos;%1&apos; here</source>
-        <translation>Wiadomość do użytkownika &apos;%1&apos;</translation>
+        <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
+        <oldsource>Type message to user &apos;%1&apos; here</oldsource>
+        <translation type="unfinished">Wiadomość do użytkownika &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+91"/>
@@ -6357,14 +6379,16 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+30"/>
-        <source>Whisper</source>
-        <translation>Szept</translation>
+        <source>Whisper/Shout</source>
+        <oldsource>Whisper</oldsource>
+        <translation type="unfinished">Szept</translation>
     </message>
     <message>
         <location line="+58"/>
         <location line="+1959"/>
-        <source>Not connected</source>
-        <translation>Niepołączony</translation>
+        <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
+        <oldsource>Not connected</oldsource>
+        <translation type="unfinished">Niepołączony</translation>
     </message>
     <message>
         <location line="-1740"/>
@@ -6605,7 +6629,7 @@ p, li { white-space: pre-wrap; }
         <translation>Wyczyść</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1382"/>
+        <location filename="UserModel.cpp" line="+1375"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Masz wyłączone przeciąganie kanałów, więc kanał nie został przeniesiony.</translation>
     </message>
@@ -7080,37 +7104,37 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+167"/>
-        <location line="+1055"/>
+        <location filename="Overlay.cpp" line="+265"/>
+        <location line="+1075"/>
         <source>Silent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Talking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Whisper</source>
         <translation type="unfinished">Szept</translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Shout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1035"/>
-        <location line="+928"/>
+        <location line="-1055"/>
+        <location line="+945"/>
         <source>Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1033"/>
+        <location line="+1189"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Tworzenie komunikacji z nakładką nie powiodło się w %2: %1. Nakładka nie będzie dostępna.</translation>
     </message>
@@ -7140,9 +7164,44 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-662"/>
+        <location line="-795"/>
+        <source>Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Only talking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>All in current channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>All in linked channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Always show yourself</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>Edit...</source>
         <translation type="unfinished">Edytuj...</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Reset Zoom</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7153,9 +7212,8 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Opcje</translation>
     </message>
     <message>
-        <location/>
         <source>Position</source>
-        <translation>Pozycja nakładki na ekranie</translation>
+        <translation type="obsolete">Pozycja nakładki na ekranie</translation>
     </message>
     <message>
         <location/>
@@ -7178,29 +7236,24 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">To ustawia czy nakładka jest aktywna, czy nie. Te ustawienia są sprawdzane tylko podczas uruchamiania aplikacji obsługujących D3D9, więc upewnij się czy nakładka jest włączona zanim uruchomisz aplikację.&lt;br /&gt;Należy pamiętać że jeżeli uruchomisz aplikację przed włączeniem Mumble, lub wyłączysz nakładkę podczas jej działania, to nie ma bezpiecznej metody by zrestartować nakładkę bez ponownego uruchomienia aplikacji.</translation>
     </message>
     <message>
-        <location/>
         <source>Who to show on the overlay</source>
-        <translation>Kogo wyświetlać w nakładce</translation>
+        <translation type="obsolete">Kogo wyświetlać w nakładce</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>&lt;b&gt;Określa kogo widać na nakładce podczas gry.&lt;/b&gt;&lt;br /&gt;Jeżeli wiele osób jest podłączonych do tego samego kanału nakładka może stać się bardzo długa. Użyj tej opcji, aby ją skrócić &lt;br /&gt;&lt;i&gt;Nie wyświetlaj nikogo&lt;/i&gt; - Nie wyświetla nikogo (ale pozostawia nakładkę włączoną).&lt;br /&gt;&lt;i&gt;Wyświetlaj tylko mówiących&lt;/i&gt; - Wyświetla tylko mówiących użytkowników.&lt;br /&gt;&lt;i&gt;Wyświetlaj wszystkich&lt;/i&gt; - Wyświetla wszystkich.</translation>
+        <translation type="obsolete">&lt;b&gt;Określa kogo widać na nakładce podczas gry.&lt;/b&gt;&lt;br /&gt;Jeżeli wiele osób jest podłączonych do tego samego kanału nakładka może stać się bardzo długa. Użyj tej opcji, aby ją skrócić &lt;br /&gt;&lt;i&gt;Nie wyświetlaj nikogo&lt;/i&gt; - Nie wyświetla nikogo (ale pozostawia nakładkę włączoną).&lt;br /&gt;&lt;i&gt;Wyświetlaj tylko mówiących&lt;/i&gt; - Wyświetla tylko mówiących użytkowników.&lt;br /&gt;&lt;i&gt;Wyświetlaj wszystkich&lt;/i&gt; - Wyświetla wszystkich.</translation>
     </message>
     <message>
-        <location/>
         <source>Always Show Self</source>
-        <translation>Zawsze wyświetlaj moją nazwę na nakładce</translation>
+        <translation type="obsolete">Zawsze wyświetlaj moją nazwę na nakładce</translation>
     </message>
     <message>
-        <location/>
         <source>Always show yourself on overlay.</source>
-        <translation>Twoja nazwa użytkownika będzie zawsze wyświetlana na nakładce.</translation>
+        <translation type="obsolete">Twoja nazwa użytkownika będzie zawsze wyświetlana na nakładce.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
-        <translation>Ustawia czy zobaczysz swoją nazwę użytkownika na nakładce czy też nie.</translation>
+        <translation type="obsolete">Ustawia czy zobaczysz swoją nazwę użytkownika na nakładce czy też nie.</translation>
     </message>
     <message>
         <source>Show User Textures</source>
@@ -7247,19 +7300,16 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Pozwala nakładce rosnąć do dołu</translation>
     </message>
     <message>
-        <location/>
         <source>X-Position of Overlay</source>
-        <translation>Pozycja X Nakładki</translation>
+        <translation type="obsolete">Pozycja X Nakładki</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative X position of the overlay.</source>
-        <translation>Ustawia pozycję X nakładki.</translation>
+        <translation type="obsolete">Ustawia pozycję X nakładki.</translation>
     </message>
     <message>
-        <location/>
         <source>Y-Position of Overlay</source>
-        <translation>Pozycja Y Nakładki</translation>
+        <translation type="obsolete">Pozycja Y Nakładki</translation>
     </message>
     <message>
         <location/>
@@ -7267,9 +7317,8 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Określa czy nakładka jest włączona czy nie. Ustawienie to jest sprawdzane przed startem aplikacji, a więc upewnij się że Mumble jest uruchomione oraz nakładka włączona przed uruchomieniem aplikacji.&lt;br /&gt;Zwróć uwagę na to, że jeśli uruchomisz Mumble po tym jak uruchomisz aplikację albo jeżeli wyłączysz nakładkę podczas działania apliakcji, nie istnieje żaden sposób, aby uruchomić nakładkę bez ponownego uruchomienia aplikacji.</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative Y position of the overlay.</source>
-        <translation>Ustawia pozycję Y nakładki.</translation>
+        <translation type="obsolete">Ustawia pozycję Y nakładki.</translation>
     </message>
     <message>
         <source>Current Font</source>
@@ -7316,24 +7365,41 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Kolor aktywnych kanałów</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-1426"/>
+        <location filename="Overlay.cpp" line="-1606"/>
+        <source>To move the users, drag the little red dot.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>To resize the users, mousewheel over a user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>For more options, rightclick a user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
         <source>Overlay</source>
         <translation>Nakładka</translation>
     </message>
     <message>
-        <location line="-19"/>
+        <location line="+59"/>
+        <source>Choose executable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Show no one</source>
-        <translation>Nie wyświetlaj nikogo</translation>
+        <translation type="obsolete">Nie wyświetlaj nikogo</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show only talking</source>
-        <translation>Wyświetlaj tylko mówiących</translation>
+        <translation type="obsolete">Wyświetlaj tylko mówiących</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show everyone</source>
-        <translation>Wyświetlaj wszystkich</translation>
+        <translation type="obsolete">Wyświetlaj wszystkich</translation>
     </message>
     <message>
         <source>Color for users</source>
@@ -7356,11 +7422,6 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Kolor dla aktywnych kanałów</translation>
     </message>
     <message>
-        <location filename="Overlay.ui"/>
-        <source>Form</source>
-        <translation>Formularz</translation>
-    </message>
-    <message>
         <source>The overlay tries to stay as small as possible and at the position you have selected. This allows the overlay to grow upwards if needed.</source>
         <translation type="obsolete">Nakładka stara się pozostać najmniejszą jak to tylko możliwe w pozycji, którą ustawiłeś. Pozwala nakładce rosnąć w górę jeżeli trzeba.</translation>
     </message>
@@ -7379,6 +7440,36 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <source>TextLabel</source>
         <translation type="obsolete">Tekst</translation>
+    </message>
+    <message>
+        <location filename="Overlay.ui"/>
+        <source>Layout</source>
+        <translation type="unfinished">Ułożenie</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Overlay exceptions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Blacklist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Whitelist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Add</source>
+        <translation type="unfinished">Dodaj</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Remove</source>
+        <translation type="unfinished">Usuń</translation>
     </message>
 </context>
 <context>
@@ -7502,7 +7593,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayEditorScene</name>
     <message>
-        <location filename="Overlay.cpp" line="+540"/>
+        <location filename="Overlay.cpp" line="+522"/>
         <source>Layout preset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8425,7 +8516,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-811"/>
+        <location filename="UserModel.cpp" line="-804"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>To jest użytkownik podłączony do serwera. Ikona po lewej wskazuje czy w chwili obecnej:</translation>
     </message>
@@ -8436,8 +8527,9 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location line="+1"/>
-        <source>Whispering directly to your channel.</source>
-        <translation>Szepcze bezpośrednio do twojego kanału.</translation>
+        <source>Shouting directly to your channel.</source>
+        <oldsource>Whispering directly to your channel.</oldsource>
+        <translation type="unfinished">Szepcze bezpośrednio do twojego kanału.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8554,7 +8646,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+728"/>
+        <location line="+721"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Czy jesteś pewien, że chcesz przeciągnąć ten kanał?</translation>
     </message>

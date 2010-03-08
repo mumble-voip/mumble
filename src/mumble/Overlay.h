@@ -103,7 +103,7 @@ class OverlayUserGroup : public QObject, public OverlayGroup {
 		enum { Type = UserType + 3 };
 	protected:
 		OverlaySettings *os;
-		
+
 		QMap<QObject *, OverlayUser *> qmUsers;
 		QList<OverlayUser *> qlExampleUsers;
 
@@ -229,7 +229,7 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		QGraphicsScene qgs;
 		OverlayUserGroup *oug;
 		QGraphicsTextItem *qgtiInstructions;
-		
+
 		bool eventFilter(QObject *, QEvent *);
 	protected slots:
 		void on_qpbAdd_clicked();

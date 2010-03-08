@@ -135,7 +135,7 @@ ServerDB::ServerDB() {
 		SQLDO("CREATE TABLE IF NOT EXISTS `%1meta` (`keystring` TEXT PRIMARY KEY, `value` TEXT)");
 	else
 		SQLDO("CREATE TABLE IF NOT EXISTS `%1meta`(`keystring` varchar(255) PRIMARY KEY, `value` varchar(255)) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
-		
+
 	SQLDO("SELECT `value` FROM `%1meta` WHERE `keystring` = 'version'");
 	if (query.next())
 		version = query.value(0).toInt();
@@ -158,7 +158,7 @@ ServerDB::ServerDB() {
 			SQLDO("ALTER TABLE `%1acl` RENAME TO `%1acl_old`");
 			SQLDO("ALTER TABLE `%1channel_links` RENAME TO `%1channel_links_old`");
 			SQLDO("ALTER TABLE `%1bans` RENAME TO `%1bans_old`");
-			
+
 			if (version >= 4) {
 				SQLDO("ALTER TABLE `%1user_info` RENAME TO `%1user_info_old`");
 				SQLDO("ALTER TABLE `%1channel_info` RENAME TO `%1channel_info_old`");
@@ -393,7 +393,7 @@ ServerDB::ServerDB() {
 				}
 				SQLPREP("INSERT INTO `%1bans` (`server_id`, `base`, `mask`) VALUES (?, ?, ?)");
 				foreach(const QList<QVariant> &l, ql) {
-				
+
 					quint32 addr = htonl(l.at(1).toUInt());
 					const char *ptr = reinterpret_cast<const char *>(&addr);
 
@@ -420,7 +420,7 @@ ServerDB::ServerDB() {
 			if (version == 3) {
 				SQLDO("INSERT INTO `%1channel_info` SELECT `server_id`,`channel_id`,0,`description` FROM `%1channels_old` WHERE `description` IS NOT NULL");
 			}
-			
+
 			if (version >= 4) {
 				SQLDO("INSERT INTO `%1user_info` SELECT * FROM `%1user_info_old`");
 				SQLDO("INSERT INTO `%1channel_info` SELECT * FROM `%1channel_info_old`");

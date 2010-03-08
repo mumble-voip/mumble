@@ -60,8 +60,7 @@ void ChatbarLineEdit::inFocus(bool focus) {
 			setPlainText(QString());
 			bDefaultVisible = false;
 		}
-	}
-	else {
+	} else {
 		if (toPlainText().trimmed().isEmpty() || bDefaultVisible) {
 			QFont f = font();
 			f.setItalic(true);

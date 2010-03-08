@@ -2931,13 +2931,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ChatbarLineEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+71"/>
+        <location filename="CustomElements.cpp" line="+79"/>
         <source>Paste and send</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+14"/>
-        <source>Type chat message here</source>
+        <location line="+25"/>
+        <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2971,7 +2971,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ClientUser</name>
     <message>
-        <location filename="ClientUser.cpp" line="+122"/>
+        <location filename="ClientUser.cpp" line="+124"/>
         <source>Friend</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3717,17 +3717,13 @@ of the possible locations.</source>
     </message>
     <message>
         <location/>
-        <source>Whisper to Linked channels</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
         <source>If checked this whisper will also be sent to the subchannels of the channel target.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
-        <source>Whisper to subchannels</source>
+        <source>Whisper Target</source>
+        <oldsource>Whisper to subchannels</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3747,7 +3743,8 @@ of the possible locations.</source>
     </message>
     <message>
         <location/>
-        <source>Whisper to Channel</source>
+        <source>Whisper Target</source>
+        <oldsource>Whisper to Channel</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3763,6 +3760,21 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Ignore positional audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to Linked channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to subchannels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to Channel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4786,13 +4798,15 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+30"/>
-        <source>Whisper</source>
+        <source>Whisper/Shout</source>
+        <oldsource>Whisper</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+58"/>
         <location line="+1959"/>
-        <source>Not connected</source>
+        <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
+        <oldsource>Not connected</oldsource>
         <translation type="unfinished">未連接</translation>
     </message>
     <message>
@@ -4982,12 +4996,14 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+115"/>
-        <source>Type message to channel &apos;%1&apos; here</source>
+        <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
+        <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Type message to user &apos;%1&apos; here</source>
+        <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
+        <oldsource>Type message to user &apos;%1&apos; here</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6267,7 +6283,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>來至 %1 的消息</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1382"/>
+        <location filename="UserModel.cpp" line="+1375"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>你設置頻道拖動為“無動作&quot;因此頻道沒有被移動。</translation>
     </message>
@@ -6707,37 +6723,37 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+167"/>
-        <location line="+1055"/>
+        <location filename="Overlay.cpp" line="+265"/>
+        <location line="+1075"/>
         <source>Silent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Talking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Whisper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Shout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1035"/>
-        <location line="+928"/>
+        <location line="-1055"/>
+        <location line="+945"/>
         <source>Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1033"/>
+        <location line="+1189"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6755,32 +6771,84 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-662"/>
+        <location line="-795"/>
+        <source>Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Only talking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>All in current channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>All in linked channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Always show yourself</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>Edit...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Reset Zoom</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-1445"/>
         <source>Show no one</source>
-        <translation>不顯示任何人</translation>
+        <translation type="obsolete">不顯示任何人</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show only talking</source>
-        <translation>當發言時顯示</translation>
+        <translation type="obsolete">當發言時顯示</translation>
+    </message>
+    <message>
+        <source>Show everyone</source>
+        <translation type="obsolete">顯示所有人</translation>
+    </message>
+    <message>
+        <location line="-1606"/>
+        <source>To move the users, drag the little red dot.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Show everyone</source>
-        <translation>顯示所有人</translation>
+        <source>To resize the users, mousewheel over a user.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+1"/>
+        <source>For more options, rightclick a user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
         <source>Overlay</source>
         <translation></translation>
+    </message>
+    <message>
+        <location line="+59"/>
+        <source>Choose executable</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Overlay.ui"/>
@@ -6807,29 +6875,24 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>啟用 Overlay</translation>
     </message>
     <message>
-        <location/>
         <source>Who to show on the overlay</source>
-        <translation>在 overlay 上顯示誰</translation>
+        <translation type="obsolete">在 overlay 上顯示誰</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>&lt;b&gt;設置在游戲中的 overlay 內顯示誰。&lt;/b&gt;&lt;br /&gt;如果許多玩家已經連接到同一個頻道，overlay 列表可能會非常長。使用該選項來讓列表變短。&lt;br /&gt;&lt;i&gt;無人&lt;/i&gt; - 不顯示任何人（但是讓 overlay 運行).&lt;br /&gt;&lt;i&gt;僅當用戶發言時&lt;/i&gt; - 僅顯示正在發言的人。&lt;br /&gt;&lt;i&gt;所有人&lt;/i&gt; - 顯示所有人。</translation>
+        <translation type="obsolete">&lt;b&gt;設置在游戲中的 overlay 內顯示誰。&lt;/b&gt;&lt;br /&gt;如果許多玩家已經連接到同一個頻道，overlay 列表可能會非常長。使用該選項來讓列表變短。&lt;br /&gt;&lt;i&gt;無人&lt;/i&gt; - 不顯示任何人（但是讓 overlay 運行).&lt;br /&gt;&lt;i&gt;僅當用戶發言時&lt;/i&gt; - 僅顯示正在發言的人。&lt;br /&gt;&lt;i&gt;所有人&lt;/i&gt; - 顯示所有人。</translation>
     </message>
     <message>
-        <location/>
         <source>Always show yourself on overlay.</source>
-        <translation>在 overlay 上總是顯示自己。</translation>
+        <translation type="obsolete">在 overlay 上總是顯示自己。</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
-        <translation>設置是否總是顯示自己。該選項只有當你不在 overlay 中顯示所有人時才有用，你在講話時只能看到自己的狀態，你將看不到自己被禁音或耳聾。</translation>
+        <translation type="obsolete">設置是否總是顯示自己。該選項只有當你不在 overlay 中顯示所有人時才有用，你在講話時只能看到自己的狀態，你將看不到自己被禁音或耳聾。</translation>
     </message>
     <message>
-        <location/>
         <source>Always Show Self</source>
-        <translation>總是顯示自己</translation>
+        <translation type="obsolete">總是顯示自己</translation>
     </message>
     <message>
         <source>Show User custom textures instead of text on the overlay.</source>
@@ -6844,9 +6907,8 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">顯示用戶紋理</translation>
     </message>
     <message>
-        <location/>
         <source>Position</source>
-        <translation>位置</translation>
+        <translation type="obsolete">位置</translation>
     </message>
     <message>
         <source>Let overlay grow upwards</source>
@@ -6861,14 +6923,12 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">往上增長</translation>
     </message>
     <message>
-        <location/>
         <source>Y-Position of Overlay</source>
-        <translation>Overlay 的 Y-坐標</translation>
+        <translation type="obsolete">Overlay 的 Y-坐標</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative Y position of the overlay.</source>
-        <translation>設置 overlay 的相對 Y 坐標。</translation>
+        <translation type="obsolete">設置 overlay 的相對 Y 坐標。</translation>
     </message>
     <message>
         <source>Let overlay grow to the left</source>
@@ -6907,20 +6967,12 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">往下增長</translation>
     </message>
     <message>
-        <location/>
         <source>X-Position of Overlay</source>
-        <translation>Overlay 的 X-坐標</translation>
+        <translation type="obsolete">Overlay 的 X-坐標</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative X position of the overlay.</source>
-        <translation>設置 overlay 的相對 X 坐標。</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Form</source>
-        <oldsource>Font</oldsource>
-        <translation type="unfinished">字體</translation>
+        <translation type="obsolete">設置 overlay 的相對 X 坐標。</translation>
     </message>
     <message>
         <source>Current Font</source>
@@ -6975,6 +7027,36 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <source>Color for active Channels</source>
         <translation type="obsolete">活躍頻道的顏色</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Overlay exceptions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Blacklist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Whitelist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Add</source>
+        <translation type="unfinished">添加</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Remove</source>
+        <translation type="unfinished">刪除</translation>
     </message>
 </context>
 <context>
@@ -7098,7 +7180,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayEditorScene</name>
     <message>
-        <location filename="Overlay.cpp" line="+523"/>
+        <location filename="Overlay.cpp" line="+522"/>
         <source>Layout preset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7990,7 +8072,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-811"/>
+        <location filename="UserModel.cpp" line="-804"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8001,7 +8083,8 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location line="+1"/>
-        <source>Whispering directly to your channel.</source>
+        <source>Shouting directly to your channel.</source>
+        <oldsource>Whispering directly to your channel.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8115,7 +8198,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished">標志</translation>
     </message>
     <message>
-        <location line="+728"/>
+        <location line="+721"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation type="unfinished">你確信要拖動這個頻道嗎？</translation>
     </message>

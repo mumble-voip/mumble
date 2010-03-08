@@ -3724,14 +3724,18 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ChatbarLineEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+71"/>
+        <location filename="CustomElements.cpp" line="+79"/>
         <source>Paste and send</source>
         <translation>貼り付けて送信</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+25"/>
+        <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Type chat message here</source>
-        <translation>ここにメッセージを入力</translation>
+        <translation type="obsolete">ここにメッセージを入力</translation>
     </message>
 </context>
 <context>
@@ -3764,7 +3768,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ClientUser</name>
     <message>
-        <location filename="ClientUser.cpp" line="+122"/>
+        <location filename="ClientUser.cpp" line="+124"/>
         <source>Friend</source>
         <translation>フレンド</translation>
     </message>
@@ -4786,9 +4790,8 @@ of the possible locations.</source>
         <translation>チェックすると、ささやきがリンクしているチャンネルにも転送されます。</translation>
     </message>
     <message>
-        <location/>
         <source>Whisper to Linked channels</source>
-        <translation>リンク済みのチャンネルにささやき</translation>
+        <translation type="obsolete">リンク済みのチャンネルにささやき</translation>
     </message>
     <message>
         <location/>
@@ -4797,8 +4800,9 @@ of the possible locations.</source>
     </message>
     <message>
         <location/>
-        <source>Whisper to subchannels</source>
-        <translation>サブチャンネルにささやき</translation>
+        <source>Whisper Target</source>
+        <oldsource>Whisper to subchannels</oldsource>
+        <translation type="unfinished">サブチャンネルにささやき</translation>
     </message>
     <message>
         <location/>
@@ -4817,8 +4821,9 @@ of the possible locations.</source>
     </message>
     <message>
         <location/>
-        <source>Whisper to Channel</source>
-        <translation>チャンネルにささやき</translation>
+        <source>Whisper Target</source>
+        <oldsource>Whisper to Channel</oldsource>
+        <translation type="unfinished">チャンネルにささやき</translation>
     </message>
     <message>
         <location/>
@@ -4834,6 +4839,21 @@ of the possible locations.</source>
         <location/>
         <source>Ignore positional audio</source>
         <translation>位置音響を無効にする</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to Linked channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to subchannels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Shout to Channel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7258,13 +7278,15 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+1318"/>
-        <source>Type message to channel &apos;%1&apos; here</source>
-        <translation>チャンネル &apos;%1&apos; へのメッセージをここに入力</translation>
+        <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
+        <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
+        <translation type="unfinished">チャンネル &apos;%1&apos; へのメッセージをここに入力</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Type message to user &apos;%1&apos; here</source>
-        <translation>ユーザ &apos;%1&apos; へのメッセージをここに入力</translation>
+        <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
+        <oldsource>Type message to user &apos;%1&apos; here</oldsource>
+        <translation type="unfinished">ユーザ &apos;%1&apos; へのメッセージをここに入力</translation>
     </message>
     <message>
         <location line="+91"/>
@@ -7500,8 +7522,9 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+30"/>
-        <source>Whisper</source>
-        <translation>ささやき</translation>
+        <source>Whisper/Shout</source>
+        <oldsource>Whisper</oldsource>
+        <translation type="unfinished">ささやき</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -7553,8 +7576,9 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+65"/>
         <location line="+1959"/>
-        <source>Not connected</source>
-        <translation>接続されていません</translation>
+        <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
+        <oldsource>Not connected</oldsource>
+        <translation type="unfinished">接続されていません</translation>
     </message>
     <message>
         <location line="-1750"/>
@@ -7567,7 +7591,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>ログ</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1382"/>
+        <location filename="UserModel.cpp" line="+1375"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>チャンネルをドラッグしたときに &quot;何もしない&quot; ようにします; チャンネルが移動しなくなります。</translation>
     </message>
@@ -8084,37 +8108,37 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+167"/>
-        <location line="+1055"/>
+        <location filename="Overlay.cpp" line="+265"/>
+        <location line="+1075"/>
         <source>Silent</source>
         <translation type="unfinished">静か</translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Talking</source>
         <translation type="unfinished">発言中</translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Whisper</source>
         <translation type="unfinished">ささやき</translation>
     </message>
     <message>
-        <location line="-1052"/>
-        <location line="+1055"/>
+        <location line="-1072"/>
+        <location line="+1075"/>
         <source>Shout</source>
         <translation type="unfinished">叫んでいる</translation>
     </message>
     <message>
-        <location line="-1035"/>
-        <location line="+928"/>
+        <location line="-1055"/>
+        <location line="+945"/>
         <source>Channel</source>
         <translation type="unfinished">チャンネル</translation>
     </message>
     <message>
-        <location line="+1033"/>
+        <location line="+1189"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>オーバレイ:  %2: %1 との通信の作成に失敗しました。有効なオーバレイはありません。</translation>
     </message>
@@ -8158,9 +8182,44 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-662"/>
+        <location line="-795"/>
+        <source>Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Only talking</source>
+        <translation type="unfinished">話している人だけ</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>All in current channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>All in linked channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Always show yourself</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>Edit...</source>
         <translation type="unfinished">編集...</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Reset Zoom</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8171,9 +8230,8 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation>オプション</translation>
     </message>
     <message>
-        <location/>
         <source>Position</source>
-        <translation>位置</translation>
+        <translation type="obsolete">位置</translation>
     </message>
     <message>
         <location/>
@@ -8212,29 +8270,24 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation type="obsolete">表示</translation>
     </message>
     <message>
-        <location/>
         <source>Who to show on the overlay</source>
-        <translation>オーバーレイに誰を表示するか</translation>
+        <translation type="obsolete">オーバーレイに誰を表示するか</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;This sets who to show in the in-game overlay.&lt;/b&gt;&lt;br /&gt;If many people are connected to the same channel, the overlay list might be very long. Use this to shorten it.&lt;br /&gt;&lt;i&gt;No one&lt;/i&gt; - Don&apos;t show anyone (but leave overlay running).&lt;br /&gt;&lt;i&gt;Only talking&lt;/i&gt; - Only show talking people.&lt;br /&gt;&lt;i&gt;Everyone&lt;/i&gt; - Show everyone.</source>
-        <translation>&lt;b&gt;ゲーム中のオーバーレイに誰を表示するか決定します。&lt;/b&gt;&lt;br /&gt;多くの人が同じチャンネルにいる場合、リストはとても長くなるでしょう。&lt;br /&gt;&lt;i&gt;なし&lt;/i&gt; - 誰も表示ません。(それでもオーバーレイは動いています)&lt;br /&gt;&lt;i&gt;話している人だけ&lt;/i&gt; - 話している人だけ表示します。&lt;br /&gt;&lt;i&gt;全員&lt;/i&gt; - 全員表示します。</translation>
+        <translation type="obsolete">&lt;b&gt;ゲーム中のオーバーレイに誰を表示するか決定します。&lt;/b&gt;&lt;br /&gt;多くの人が同じチャンネルにいる場合、リストはとても長くなるでしょう。&lt;br /&gt;&lt;i&gt;なし&lt;/i&gt; - 誰も表示ません。(それでもオーバーレイは動いています)&lt;br /&gt;&lt;i&gt;話している人だけ&lt;/i&gt; - 話している人だけ表示します。&lt;br /&gt;&lt;i&gt;全員&lt;/i&gt; - 全員表示します。</translation>
     </message>
     <message>
-        <location/>
         <source>Always Show Self</source>
-        <translation>常に自分を表示する</translation>
+        <translation type="obsolete">常に自分を表示する</translation>
     </message>
     <message>
-        <location/>
         <source>Always show yourself on overlay.</source>
-        <translation>オーバーレイで常に自分を表示します。</translation>
+        <translation type="obsolete">オーバーレイで常に自分を表示します。</translation>
     </message>
     <message>
-        <location/>
         <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
-        <translation>自分自身を常に表示するかどうか決定します。この設定は全員表示にしていない時に効果的です。自分が話しているかの状況だけを確認することができます。あなたが発言禁止や聴取禁止になっている場合には表示されません。</translation>
+        <translation type="obsolete">自分自身を常に表示するかどうか決定します。この設定は全員表示にしていない時に効果的です。自分が話しているかの状況だけを確認することができます。あなたが発言禁止や聴取禁止になっている場合には表示されません。</translation>
     </message>
     <message>
         <source>Grow Left</source>
@@ -8285,24 +8338,20 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation type="obsolete">オーバーレイは選択した位置にできるだけ小さく留まろうとします。この設定は、必要ならオーバーレイが下に伸びることを許可します。</translation>
     </message>
     <message>
-        <location/>
         <source>X-Position of Overlay</source>
-        <translation>オーバーレイの横軸の位置</translation>
+        <translation type="obsolete">オーバーレイの横軸の位置</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative X position of the overlay.</source>
-        <translation>オーバーレイの相対的なX座標を決定します。</translation>
+        <translation type="obsolete">オーバーレイの相対的なX座標を決定します。</translation>
     </message>
     <message>
-        <location/>
         <source>Y-Position of Overlay</source>
-        <translation>オーバーレイの縦軸の位置</translation>
+        <translation type="obsolete">オーバーレイの縦軸の位置</translation>
     </message>
     <message>
-        <location/>
         <source>This sets the relative Y position of the overlay.</source>
-        <translation>オーバーレイの相対的なY座標を決定します。</translation>
+        <translation type="obsolete">オーバーレイの相対的なY座標を決定します。</translation>
     </message>
     <message>
         <source>Current Font</source>
@@ -8349,9 +8398,29 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation type="obsolete">有効なチャンネルの色</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-1426"/>
+        <location filename="Overlay.cpp" line="-1606"/>
+        <source>To move the users, drag the little red dot.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>To resize the users, mousewheel over a user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>For more options, rightclick a user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
         <source>Overlay</source>
         <translation>オーバーレイ</translation>
+    </message>
+    <message>
+        <location line="+59"/>
+        <source>Choose executable</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show User Textures</source>
@@ -8378,19 +8447,16 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation type="obsolete">最大の高さ</translation>
     </message>
     <message>
-        <location line="-19"/>
         <source>Show no one</source>
-        <translation>なし</translation>
+        <translation type="obsolete">なし</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show only talking</source>
-        <translation>話している人だけ</translation>
+        <translation type="obsolete">話している人だけ</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show everyone</source>
-        <translation>全員</translation>
+        <translation type="obsolete">全員</translation>
     </message>
     <message>
         <source>Color for users</source>
@@ -8414,11 +8480,6 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     </message>
     <message>
         <location filename="Overlay.ui"/>
-        <source>Form</source>
-        <translation>フォーム</translation>
-    </message>
-    <message>
-        <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
         <translation>これはオーバレイを有功にするかそうでないかを設定します。この設定はアプリケーションが開始したときにのみチェックされます。Mumble が動作中であることと、アプリケーションが開始する前にこのオプションが有効になっていることを確認してください。&lt;br /&gt;Mumble が開始した後にアプリケーションを開始しても、起動中にオーバレイを無効にしても、アプリケーションを際スタートしないとオーバレイを再開する安全な方法ではありません。</translation>
@@ -8442,6 +8503,36 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <source>TextLabel</source>
         <translation type="obsolete">テキストラベル</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Layout</source>
+        <translation type="unfinished">レイアウト</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Overlay exceptions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Blacklist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Whitelist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Add</source>
+        <translation type="unfinished">追加</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Remove</source>
+        <translation type="unfinished">削除</translation>
     </message>
 </context>
 <context>
@@ -8565,7 +8656,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
 <context>
     <name>OverlayEditorScene</name>
     <message>
-        <location filename="Overlay.cpp" line="+540"/>
+        <location filename="Overlay.cpp" line="+522"/>
         <source>Layout preset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9639,7 +9730,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-811"/>
+        <location filename="UserModel.cpp" line="-804"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>サーバに接続しているユーザです。ユーザの左側のアイコンは彼らが話しているかどうかを意味します:</translation>
     </message>
@@ -9650,8 +9741,9 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location line="+1"/>
-        <source>Whispering directly to your channel.</source>
-        <translation>チャンネルに直接ささやいています。</translation>
+        <source>Shouting directly to your channel.</source>
+        <oldsource>Whispering directly to your channel.</oldsource>
+        <translation type="unfinished">チャンネルに直接ささやいています。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -9764,7 +9856,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>フラグ</translation>
     </message>
     <message>
-        <location line="+728"/>
+        <location line="+721"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>本当にこのチャンネルをドラッグしますか ?</translation>
     </message>
