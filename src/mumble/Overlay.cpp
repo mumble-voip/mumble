@@ -1404,8 +1404,8 @@ QPixmap OverlayUser::createPixmap(const QString &string, unsigned int height, un
 	int w = iroundf(qr.width() + 2 * edge + 0.5f);
 	int h = iroundf(qr.height() + 2 * edge + 0.5f);
 
-	QImage img(w, h, QImage::Format_ARGB32);
-	img.fill(0);
+	QPixmap img(w, h);
+	img.fill(Qt::transparent);
 
 	QPainter imgp(&img);
 	imgp.setRenderHint(QPainter::Antialiasing);
@@ -1423,7 +1423,7 @@ QPixmap OverlayUser::createPixmap(const QString &string, unsigned int height, un
 	imgp.setPen(Qt::NoPen);
 	imgp.drawPath(pp);
 
-	return QPixmap::fromImage(img);
+	return img;
 }
 
 void OverlayUser::updateUser() {
