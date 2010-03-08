@@ -1667,6 +1667,14 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 	qaShowSelf->setEnabled(os->osShow == OverlaySettings::Talking);
 	if (os->bAlwaysSelf)
 		qaShowSelf->setChecked(true);
+		
+	QMenu *qmColumns = qm.addMenu(OverlayClient::tr("Columns"));
+	QAction *qaColumns[5];
+	for(int i=1;i<=5;++i) {
+		qaColumns[i] = qmColumns->addAction(QString::number(i));
+		qaColumns[i]->setCheckable(true);
+		qaColumns[i]->setChecked(i == os->uiColumns);
+	}
 	
 	QAction *qaEdit = qm.addAction(OverlayClient::tr("Edit..."));
 	QAction *qaZoom = qm.addAction(OverlayClient::tr("Reset Zoom"));
@@ -1699,6 +1707,13 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 	} else if (act == qaShowSelf) {
 		os->bAlwaysSelf = ! os->bAlwaysSelf;
 		updateUsers();
+	} else {
+		for(int i=0;i<5;++i) {
+			if (act == qaColumns[i]) {
+				os->uiColumns = i;
+				updateLayout();
+			}
+		}
 	}
 }
 
@@ -1852,8 +1867,8 @@ void OverlayUserGroup::updateUsers() {
 	int xofs = - iroundf(children.left() * uiHeight * os->fHeight) + pad;
 	int yofs = - iroundf(children.top() * uiHeight * os->fHeight) + pad;
 
-	int y = 0;
-	int x = 0;
+	unsigned int y = 0;
+	unsigned int x = 0;
 
 	foreach(OverlayUser *ou, users) {
 		if (ou->parentItem() == NULL)
@@ -1863,11 +1878,11 @@ void OverlayUserGroup::updateUsers() {
 		ou->updateUser();
 		ou->show();
 
-		if (x) {
+		if (x >= (os->uiColumns - 1)) {
 			x = 0;
 			++y;
 		} else {
-			x = 1;
+			++x;
 		}
 	}
 
@@ -2476,11 +2491,6 @@ bool Overlay::isActive() const {
 }
 
 void Overlay::toggleShow() {
-	/*
-		OverlayEditor oe(g.mw);
-		oe.exec();
-		return;
-	*/
 	if (g.ocIntercept) {
 		g.ocIntercept->hideGui();
 	} else {

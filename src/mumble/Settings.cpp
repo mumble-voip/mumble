@@ -122,6 +122,7 @@ OverlaySettings::OverlaySettings() {
 	fX = 0.8f;
 	fY = 0.0f;
 	fHeight = 1.f;
+	uiColumns = 2;
 
 	qcUserName[Settings::Passive] = QColor(128, 128, 128);
 	qcUserName[Settings::Talking] = QColor(255, 255, 255);
@@ -375,6 +376,7 @@ void OverlaySettings::load() {
 	SAVELOAD(fX, "x");
 	SAVELOAD(fY, "y");
 	SAVELOAD(fHeight, "zoom");
+	SAVELOAD(uiColumns, "columns");
 
 	g.qs->beginReadArray(QLatin1String("states"));
 	for (int i=0;i<4;++i) {
@@ -605,6 +607,7 @@ void OverlaySettings::save() {
 	SAVELOAD(fX, "x");
 	SAVELOAD(fY, "y");
 	SAVELOAD(fHeight, "zoom");
+	SAVELOAD(uiColumns, "columns");
 
 	g.qs->beginReadArray(QLatin1String("states"));
 	for (int i=0;i<4;++i) {
