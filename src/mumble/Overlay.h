@@ -224,6 +224,7 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		Q_OBJECT
 		Q_DISABLE_COPY(OverlayConfig)
 	protected:
+		QPixmap qpScreen;
 		QGraphicsPixmapItem *qgpiScreen;
 		QGraphicsScene qgs;
 		OverlayUserGroup *oug;

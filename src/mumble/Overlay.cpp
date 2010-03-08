@@ -52,11 +52,15 @@ OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 	qcbShow->addItem(tr("Show everyone"), Settings::All);
 	
 	qgs.setBackgroundBrush(QColor(128, 128, 128, 255));
+
+	qpScreen = QPixmap::grabWindow(QApplication::desktop()->winId());
 	
 	qgpiScreen = new QGraphicsPixmapItem();
-	qgpiScreen->setPixmap(QPixmap::grabWindow(QApplication::desktop()->winId()));
+	qgpiScreen->setPixmap(qpScreen);
 	qgpiScreen->setOpacity(0.5f);
 	qgpiScreen->setZValue(-10.0f);
+
+	qgs.setSceneRect(QRectF(0, 0, qgpiScreen->pixmap().width(), qgpiScreen->pixmap().height()));
 	
 	oug = new OverlayUserGroup(& s.os);
 	oug->bShowExamples = true;
@@ -67,7 +71,6 @@ OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 	qgs.addItem(oug);
 	oug->show();
 	
-	qgs.setSceneRect(QRectF(0, 0, qgpiScreen->pixmap().width(), qgpiScreen->pixmap().height()));
 	qgvView->setScene(&qgs);
 
 	qgvView->installEventFilter(this);
@@ -138,7 +141,13 @@ bool OverlayConfig::eventFilter(QObject *obj, QEvent *evt) {
 }
 
 void OverlayConfig::resizeScene() {
+	QSize sz = qgvView->viewport()->size();
+	
+	qgpiScreen->setPixmap(qpScreen.scaled(sz, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+	qgs.setSceneRect(QRectF(0, 0, qgpiScreen->pixmap().width(), qgpiScreen->pixmap().height()));
+
 	qgvView->fitInView(qgs.sceneRect(), Qt::KeepAspectRatio);
+	oug->updateLayout();
 	oug->updateUsers();
 }
 
@@ -1250,6 +1259,9 @@ void OverlayUser::setup() {
 
 void OverlayUser::updateLayout() {
 	QPixmap pm;
+	
+	if (scene())
+		uiSize = iroundf(scene()->sceneRect().height());
 
 	prepareGeometryChange();
 
