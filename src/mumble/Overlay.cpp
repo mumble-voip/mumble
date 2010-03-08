@@ -1427,8 +1427,6 @@ QPixmap OverlayUser::createPixmap(const QString &string, unsigned int height, un
 }
 
 void OverlayUser::updateUser() {
-	prepareGeometryChange();
-
 	if (os->bUserName && (qgpiName[0]->pixmap().isNull() || (cuUser && (qsName != cuUser->qsName)))) {
 		if (cuUser)
 			qsName = cuUser->qsName;
