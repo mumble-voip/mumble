@@ -104,12 +104,18 @@ ClientUser *ClientUser::match(const ClientUser *other, bool matchname) {
 void ClientUser::remove(unsigned int uiSession) {
 	QWriteLocker lock(&c_qrwlUsers);
 	ClientUser *p = c_qmUsers.take(uiSession);
-	if (p && p->cChannel)
-		p->cChannel->removeUser(p);
 	if (p) {
+		if (p->cChannel)
+			p->cChannel->removeUser(p);
+
 		AudioOutputPtr ao = g.ao;
 		if (ao)
 			ao->removeBuffer(p);
+
+		if (p->tsState != Settings::Passive) {
+			QWriteLocker lock(&c_qrwlTalking);
+			c_qlTalking.removeAll(p);
+		}
 	}
 }
 
