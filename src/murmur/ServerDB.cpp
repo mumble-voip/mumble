@@ -184,8 +184,10 @@ ServerDB::ServerDB() {
 				SQLDO("DROP TRIGGER IF EXISTS `%1groups_del_channel`");
 				SQLDO("DROP TRIGGER IF EXISTS `%1groups_members_del_group`");
 				SQLDO("DROP TRIGGER IF EXISTS `%1groups_members_del_player`");
+				SQLDO("DROP TRIGGER IF EXISTS `%1groups_members_del_user`");
 				SQLDO("DROP TRIGGER IF EXISTS `%1acl_del_channel`");
 				SQLDO("DROP TRIGGER IF EXISTS `%1acl_del_player`");
+				SQLDO("DROP TRIGGER IF EXISTS `%1acl_del_user`");
 				SQLDO("DROP TRIGGER IF EXISTS `%1channel_links_del_channel`");
 				SQLDO("DROP TRIGGER IF EXISTS `%1bans_del_server`");
 
