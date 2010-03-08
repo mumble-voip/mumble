@@ -1170,11 +1170,21 @@ void OverlayEditor::on_qrbShout_clicked() {
 
 void OverlayEditor::on_qcbAvatar_clicked() {
 	oes.os.bAvatar = qcbAvatar->isChecked();
+	if (! oes.os.bAvatar && ! oes.os.bUserName) {
+		qcbUser->setChecked(true);
+		oes.os.bUserName = true;
+		oes.updateUserName();
+	}
 	oes.updateAvatar();
 }
 
 void OverlayEditor::on_qcbUser_clicked() {
 	oes.os.bUserName = qcbUser->isChecked();
+	if (! oes.os.bAvatar && ! oes.os.bUserName) {
+		qcbAvatar->setChecked(true);
+		oes.os.bAvatar = true;
+		oes.updateAvatar();
+	}
 	oes.updateUserName();
 }
 
