@@ -662,6 +662,9 @@ void AudioInput::encodeAudioFrame() {
 		iArg = iroundf(floorf(20.0f * log10f(v)));
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_MAX_GAIN, &iArg);
 
+		iArg = -60;
+		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_DECREMENT, &iArg);
+
 		iArg = g.s.iNoiseSuppress;
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
 
@@ -678,6 +681,11 @@ void AudioInput::encodeAudioFrame() {
 
 		bResetProcessor = false;
 	}
+
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_AGC_GAIN, &iArg);
+	iArg = g.s.iNoiseSuppress - iArg;
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
+
 
 	int iIsSpeech;
 
@@ -760,7 +768,12 @@ void AudioInput::encodeAudioFrame() {
 			emit doDeaf();
 			tIdle.restart();
 		}
+		spx_int32_t increment = 0;
+		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_INCREMENT, &increment);
 		return;
+	} else {
+		spx_int32_t increment = 12;
+		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_INCREMENT, &increment);
 	}
 
 	tIdle.restart();
