@@ -688,7 +688,7 @@ void MainWindow::msgUserStats(const MumbleProto::UserStats &msg) {
 	if (ui) {
 		ui->update(msg);
 	} else {
-		ui = new UserInformation(msg, g.mw);
+		ui = new UserInformation(msg, g.ocIntercept ? g.mw : NULL);
 		ui->setAttribute(Qt::WA_DeleteOnClose, true);
 		connect(ui, SIGNAL(destroyed()), this, SLOT(destroyUserInformation()));
 
