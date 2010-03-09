@@ -1914,8 +1914,6 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	qgpiCursor->hide();
 	qgpiCursor->setZValue(10.0f);
 
-	qgs.addItem(qgpiCursor);
-
 	ougUsers.setZValue(-1.0f);
 	qgs.addItem(&ougUsers);
 	ougUsers.show();
@@ -1928,6 +1926,12 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 }
 
 OverlayClient::~OverlayClient() {
+	if (qgpiCursor)
+		delete qgpiCursor;
+	
+	if (qgpiLogo)
+		delete qgpiLogo;
+	
 	qlsSocket->abort();
 
 	ougUsers.reset();
@@ -2057,7 +2061,6 @@ void OverlayClient::showGui() {
 	iMouseY = qBound<int>(0, p.y(), uiHeight-1);
 
 	qgpiCursor->setPos(iMouseX, iMouseY);
-	qgpiCursor->show();
 
 	qgs.setFocus();
 	g.mw->qleChat->activateWindow();
@@ -2069,7 +2072,7 @@ void OverlayClient::showGui() {
 
 	ougUsers.bShowExamples = true;
 
-	setupScene();
+	setupScene(true);
 
 #if defined(Q_WS_WIN) || defined(Q_WS_MAC)
 	qt_use_native_dialogs = false;
@@ -2078,8 +2081,6 @@ void OverlayClient::showGui() {
 }
 
 void OverlayClient::hideGui() {
-	qgpiCursor->hide();
-
 #if defined(QT3_SUPPORT) || defined(Q_WS_WIN)
 	if (QCoreApplication::loopLevel() > 1) {
 		QCoreApplication::exit_loop();
@@ -2121,7 +2122,7 @@ void OverlayClient::hideGui() {
 	}
 	g.mw->bNoHide = false;
 
-	setupScene();
+	setupScene(false);
 
 	qgv.setAttribute(Qt::WA_WState_Hidden, true);
 #if defined(Q_WS_WIN) || defined(Q_WS_MAC)
@@ -2235,11 +2236,11 @@ void OverlayClient::reset() {
 
 	ougUsers.reset();
 
-	setupScene();
+	setupScene(g.ocIntercept == this);
 }
 
-void OverlayClient::setupScene() {
-	if (qgpiCursor->isVisible()) {
+void OverlayClient::setupScene(bool show) {
+	if (show) {
 		qgs.setBackgroundBrush(QColor(0,0,0,64));
 
 		if (! qgpiLogo) {
@@ -2259,14 +2260,26 @@ void OverlayClient::setupScene() {
 			QRectF qrf = qgpiLogo->boundingRect();
 			qgpiLogo->setPos(iroundf((uiWidth - qrf.width()) / 2.0f), iroundf((uiHeight - qrf.height()) / 2.0f));
 
-			qgs.addItem(qgpiLogo);
 		}
+
+		qgpiCursor->show();
+		qgs.addItem(qgpiCursor);
+
 		qgpiLogo->show();
+		qgs.addItem(qgpiLogo);
 	} else {
 		qgs.setBackgroundBrush(Qt::NoBrush);
 
-		if (qgpiLogo)
+		if (qgpiCursor->scene())
+			qgs.removeItem(qgpiCursor);
+		qgpiCursor->hide();
+
+		if (qgpiLogo) {
+			if (qgpiLogo->scene())
+				qgs.removeItem(qgpiLogo);
 			qgpiLogo->hide();
+		}
+
 	}
 	ougUsers.updateUsers();
 }

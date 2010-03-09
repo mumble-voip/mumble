@@ -280,7 +280,7 @@ class OverlayClient : public QObject {
 		bool bDelete;
 
 		void setupRender();
-		void setupScene();
+		void setupScene(bool show);
 
 		bool eventFilter(QObject *, QEvent *);
 
