@@ -449,12 +449,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <location line="+22"/>
-        <location line="+162"/>
+        <location line="+165"/>
         <source>Failed: Invalid channel</source>
         <translation>失敗: 無効なチャンネル</translation>
     </message>
     <message>
-        <location line="-150"/>
+        <location line="-153"/>
         <source>Mumble - Edit %1</source>
         <translation>Mumble - %1 の編集</translation>
     </message>
@@ -3768,7 +3768,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ClientUser</name>
     <message>
-        <location filename="ClientUser.cpp" line="+124"/>
+        <location filename="ClientUser.cpp" line="+130"/>
         <source>Friend</source>
         <translation>フレンド</translation>
     </message>
@@ -4800,12 +4800,6 @@ of the possible locations.</source>
     </message>
     <message>
         <location/>
-        <source>Whisper Target</source>
-        <oldsource>Whisper to subchannels</oldsource>
-        <translation type="unfinished">サブチャンネルにささやき</translation>
-    </message>
-    <message>
-        <location/>
         <source>List of users</source>
         <translation>ユーザのリスト</translation>
     </message>
@@ -4818,12 +4812,6 @@ of the possible locations.</source>
         <location/>
         <source>Remove</source>
         <translation>削除</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Whisper Target</source>
-        <oldsource>Whisper to Channel</oldsource>
-        <translation type="unfinished">チャンネルにささやき</translation>
     </message>
     <message>
         <location/>
@@ -5764,7 +5752,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1840"/>
+        <location line="+1833"/>
         <source>Root</source>
         <translation>ルート</translation>
     </message>
@@ -6280,9 +6268,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumbleのウェブページに接続して新しいバージョンが出ているかを確認します。もし新しいのが出ていたら適切なダウンロードURLを通知します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1745"/>
+        <location filename="MainWindow.cpp" line="-1739"/>
         <location line="+12"/>
-        <location line="+1941"/>
+        <location line="+1935"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6304,7 +6292,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">プレイヤー(&amp;P)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2031"/>
+        <location filename="MainWindow.cpp" line="-2025"/>
         <source>&amp;Channel</source>
         <translation>チャンネル(&amp;C)</translation>
     </message>
@@ -6441,7 +6429,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">プレイヤー %1 をキックしました。</translation>
     </message>
     <message>
-        <location line="+963"/>
+        <location line="+957"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>理由を入力してください</translation>
@@ -6954,7 +6942,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>未登録ユーザのパスワードが違います。再度試してください。</translation>
     </message>
     <message>
-        <location line="+183"/>
+        <location line="+184"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation>画像 (*.png *.jpg *.svg)</translation>
     </message>
@@ -6978,7 +6966,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>他のユーザにテキストメッセージを送信します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2199"/>
+        <location filename="MainWindow.cpp" line="-2194"/>
         <source>&amp;User</source>
         <translation>ユーザ(&amp;U)</translation>
     </message>
@@ -7070,7 +7058,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>サウンドハードウェアの設定プロセスに案内します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1926"/>
+        <location filename="MainWindow.cpp" line="+1920"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL検証エラー: %1</translation>
     </message>
@@ -7100,7 +7088,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>サーバとの接続についての詳細な情報を表示します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1578"/>
+        <location filename="MainWindow.cpp" line="-1573"/>
         <source>Opening URL %1</source>
         <translation>URL %1 を開きます</translation>
     </message>
@@ -7141,7 +7129,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+18"/>
-        <location line="+185"/>
+        <location line="+180"/>
         <source>Connecting to server %1.</source>
         <translation>サーバ %1 に接続しています。</translation>
     </message>
@@ -7197,13 +7185,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%1 の名前で自分をユーザ登録します</translation>
     </message>
     <message>
-        <location line="-920"/>
+        <location line="-914"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>ゲームオーバレイの状態を切り替えます。</translation>
     </message>
     <message>
-        <location line="+639"/>
+        <location line="+633"/>
         <location line="+281"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;サーバ上で自分自身をユーザ登録しようとしています。このアクションは取り消せません。このサーバでのあなたのユーザ名をこの操作の後に変更できなくなります。あなたはこのサーバ上で &apos;%1&apos; のユーザ名を使うことになります。&lt;/p&gt;&lt;p&gt;本当に自分自身を登録しますか？&lt;/p&gt;</translation>
@@ -7277,7 +7265,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;h2&gt;制御チャンネル&lt;/h2&gt;&lt;p&gt;%1 bit %2 で暗号化されています。&lt;br /&gt;平均 %3 ms の遅延 (平方偏差 %4)&lt;/p&gt;&lt;p&gt;リモートホスト %5 (ポート %6)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1318"/>
+        <location line="+1319"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
         <translation type="unfinished">チャンネル &apos;%1&apos; へのメッセージをここに入力</translation>
@@ -7318,7 +7306,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;制御チャンネル&lt;/h2&gt;&lt;p&gt;%1 bit %2 で暗号化されています。&lt;br /&gt;平均 %3 ms の遅延 (平方偏差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1427"/>
+        <location line="-1428"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>音声チャンネルは管理チャンネルを通して送信されます。</translation>
     </message>
@@ -7464,7 +7452,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ %1 に接続しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1183"/>
+        <location filename="MainWindow.cpp" line="-1177"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble は現在、サーバに接続しています。接続を閉じるか最小化しますか?</translation>
     </message>
@@ -7575,13 +7563,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+1959"/>
+        <location line="+1954"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished">接続されていません</translation>
     </message>
     <message>
-        <location line="-1750"/>
+        <location line="-1746"/>
         <source>Clear</source>
         <translation>クリア</translation>
     </message>
@@ -8138,7 +8126,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation type="unfinished">チャンネル</translation>
     </message>
     <message>
-        <location line="+1189"/>
+        <location line="+1200"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>オーバレイ:  %2: %1 との通信の作成に失敗しました。有効なオーバレイはありません。</translation>
     </message>
@@ -8182,7 +8170,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-795"/>
+        <location line="-806"/>
         <source>Filter</source>
         <translation type="unfinished"></translation>
     </message>

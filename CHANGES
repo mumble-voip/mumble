@@ -1,8 +1,18 @@
+2010-03-09
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    413ea83  Only give UserInfo parent when in overlay
+    96765f5  Add workaround for creeping gain
+    ab21722  Fix restore to maximize state on tray click
+    2ba4270  Fix inherit/inheritable for groups in editor
+    6d4c13f  Work around QGraphicsScene's boundingrect including invisible
+	     items
+
 2010-03-08
   Ilmar Kruis <seaeagle1@users.sourceforge.net>
     505e046  Update lotro to Vol 3, Book 1
 
   Thorvald Natvig <slicer@users.sourceforge.net>
+    7fa0529  Remove user from talklist on disconnect
     c27debc  Unify talkstate and s/WhisperChannel/Shouting/
     c5b6a84  Adjustable column number
     4ab0a3d  Remove leftover overlay code
@@ -22,6 +32,9 @@
     10175ef  Windows build fix (warning in gcc -> error on windows...)
 
 2010-03-06
+  Natenom <natenom@googlemail.com>
+    49ae4cb  Translation Updates to German
+
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     47cbf78  Another build fix
     048ae07  Fix whisper target bitmask

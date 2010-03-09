@@ -1928,10 +1928,10 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 OverlayClient::~OverlayClient() {
 	if (qgpiCursor)
 		delete qgpiCursor;
-	
+
 	if (qgpiLogo)
 		delete qgpiLogo;
-	
+
 	qlsSocket->abort();
 
 	ougUsers.reset();
