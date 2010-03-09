@@ -180,6 +180,9 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 		const MumbleProto::ACL_ChanGroup &gs = mea.groups(i);
 
 		ACLGroup *gp = new ACLGroup(u8(gs.name()));
+		gp->bInherit = gs.inherit();
+		gp->bInherited = gs.inherited();
+		gp->bInheritable = gs.inheritable();
 		for (int j=0;j<gs.add_size();++j)
 			gp->qsAdd.insert(gs.add(j));
 		for (int j=0;j<gs.remove_size();++j)
@@ -290,6 +293,8 @@ void ACLEditor::accept() {
 				continue;
 			MumbleProto::ACL_ChanGroup *mpg = msg.add_groups();
 			mpg->set_name(u8(gp->qsName));
+			mpg->set_inherit(gp->bInherit);
+			mpg->set_inheritable(gp->bInheritable);
 			foreach(int pid, gp->qsAdd)
 				if (pid >= 0)
 					mpg->add_add(pid);
