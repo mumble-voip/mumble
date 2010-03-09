@@ -98,8 +98,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		bool bSuppressAskOnQuit;
 		bool bAutoUnmute;
 
-		bool bNoHide;
-
 		unsigned int uiContextSession;
 		int iContextChannel;
 

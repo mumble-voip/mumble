@@ -151,7 +151,6 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	banEdit = NULL;
 	userEdit = NULL;
 	tokenEdit = NULL;
-	bNoHide = false;
 
 	uiContextSession = ~0;
 	iContextChannel = -1;
@@ -392,13 +391,12 @@ void MainWindow::hideEvent(QHideEvent *e) {
 		e->ignore();
 		return;
 	}
-
 #ifndef Q_OS_MAC
 #ifdef Q_OS_UNIX
 	if (! qApp->activeModalWidget() && ! qApp->activePopupWidget())
 #endif
-		if (g.s.bHideTray && !bNoHide && qstiIcon->isSystemTrayAvailable())
-			qApp->postEvent(this, new QEvent(static_cast<QEvent::Type>(TI_QEVENT)));
+		if (g.s.bHideTray && qstiIcon->isSystemTrayAvailable() && e->spontaneous())
+			QMetaObject::invokeMethod(this, "hide", Qt::QueuedConnection);
 	QMainWindow::hideEvent(e);
 #endif
 }
@@ -659,17 +657,13 @@ void MainWindow::setOnTop(bool top) {
 			wf |= Qt::WindowStaysOnTopHint;
 		else
 			wf &= ~Qt::WindowStaysOnTopHint;
-		bNoHide = true;
 		setWindowFlags(wf);
 		show();
-		bNoHide = false;
 	}
 }
 
 void MainWindow::setupView(bool toggle_minimize) {
 	bool showit = ! g.s.bMinimalView;
-
-	bNoHide = true;
 
 	// Update window layout
 	Settings::WindowLayout wlTmp = g.s.wlWindowLayout;
@@ -779,7 +773,6 @@ void MainWindow::setupView(bool toggle_minimize) {
 
 	show();
 	activateWindow();
-	bNoHide = false;
 }
 
 void MainWindow::on_qaServerConnect_triggered(bool autoconnect) {
@@ -2245,8 +2238,9 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 
 	if (reason == QSystemTrayIcon::Trigger) {
 		if (! isVisible()) {
-			show();
-			if (isMinimized())
+			if (isMaximized())
+				showMaximized();
+			else
 				showNormal();
 			activateWindow();
 		} else {

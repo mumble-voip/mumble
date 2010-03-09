@@ -2115,12 +2115,10 @@ void OverlayClient::hideGui() {
 	if (g.ocIntercept == this)
 		g.ocIntercept = NULL;
 
-	g.mw->bNoHide = true;
 	foreach(QWidget *w, widgetlist) {
 		if (bWasVisible)
 			w->show();
 	}
-	g.mw->bNoHide = false;
 
 	setupScene(false);
 
