@@ -1569,7 +1569,7 @@ QList<QPair<unsigned int, QString> > ServerDB::getLog(int server_id, unsigned in
 	while (query.next()) {
 		QDateTime qdt = query.value(0).toDateTime();
 		QString msg = query.value(1).toString();
-		ql << QPair<unsigned int, QString>(qdt.toTime_t(), msg);
+		ql << QPair<unsigned int, QString>(qdt.toLocalTime().toTime_t(), msg);
 	}
 	return ql;
 }

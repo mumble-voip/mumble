@@ -142,7 +142,7 @@ static void banToBan(const ::Ban &b, Murmur::Ban &mb) {
 	mb.name = u8(b.qsUsername);
 	mb.hash = u8(b.qsHash);
 	mb.reason = u8(b.qsReason);
-	mb.start = b.qdtStart.toTime_t();
+	mb.start = b.qdtStart.toLocalTime().toTime_t();
 	mb.duration = b.iDuration;
 }
 
@@ -157,7 +157,7 @@ static void banToBan(const ::Murmur::Ban &mb, ::Ban &b) {
 	b.qsUsername = u8(mb.name);
 	b.qsHash = u8(mb.hash);
 	b.qsReason = u8(mb.reason);
-	b.qdtStart = QDateTime::fromTime_t(static_cast<quint32>(mb.start));
+	b.qdtStart = QDateTime::fromTime_t(static_cast<quint32>(mb.start)).toUTC();
 	b.iDuration = mb.duration;
 }
 
