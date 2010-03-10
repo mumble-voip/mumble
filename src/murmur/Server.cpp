@@ -245,8 +245,6 @@ void Server::stopThread() {
 	if (isRunning()) {
 		log("Ending voice thread");
 
-		foreach(QSocketNotifier *qsn, qlUdpNotifier)
-			qsn->setEnabled(true);
 #ifdef Q_OS_UNIX
 		unsigned char val = 0;
 		::write(aiNotify[1], &val, 1);
@@ -254,6 +252,9 @@ void Server::stopThread() {
 		SetEvent(hNotify);
 #endif
 		wait();
+
+		foreach(QSocketNotifier *qsn, qlUdpNotifier)
+			qsn->setEnabled(true);
 	}
 	qtTimeout->stop();
 }
