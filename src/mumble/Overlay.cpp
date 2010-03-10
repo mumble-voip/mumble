@@ -2347,6 +2347,9 @@ void OverlayClient::render() {
 	QRect dirty = dirtyf.toAlignedRect();
 	dirty = dirty.intersected(QRect(0,0,uiWidth, uiHeight));
 
+	if ((dirty.width() <= 0) || (dirty.height() <= 0))
+		return;
+
 	QRect target = dirty;
 	target.moveTo(0,0);
 

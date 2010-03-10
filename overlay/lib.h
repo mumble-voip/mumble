@@ -96,7 +96,6 @@ class Pipe {
 		HANDLE hMemory;
 
 		void release();
-		void disconnect();
 	protected:
 		unsigned int uiWidth, uiHeight;
 		unsigned int uiLeft, uiTop, uiRight, uiBottom;
@@ -111,6 +110,8 @@ class Pipe {
 		virtual void newTexture(unsigned int w, unsigned int h) = 0;
 		Pipe();
 		~Pipe();
+	public:
+		void disconnect();
 };
 
 extern void checkDXGIHook(bool preonly = false);

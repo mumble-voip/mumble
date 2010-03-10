@@ -42,7 +42,7 @@ struct D3DTLVERTEX {
 };
 static const DWORD D3DFVF_TLVERTEX = D3DFVF_XYZRHW | D3DFVF_TEX1;
 
-class DevState : protected Pipe {
+class DevState : public Pipe {
 	public:
 		IDirect3DDevice9 *dev;
 		IDirect3DStateBlock9 *pSB;
@@ -428,6 +428,9 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 		} else {
 			ds->refCount--;
 		}
+
+		if (ds->refCount <= 1)
+			ds->disconnect();
 
 		if (ds->refCount >= 0)
 			return ds->refCount + ds->initRefCount;
