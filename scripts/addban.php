@@ -2,9 +2,18 @@
 
 # This shows how to use structs from PHP.
 
-Ice_loadProfile();
+if (Ice_intversion() >= 30400) {
+  require 'Ice.php';
+  require 'Murmur.php';
+} else {
+  Ice_loadProfile();
+}
 
 try {
+  if (Ice_intversion() >= 30400) {
+    $ICE = Ice_initialize();
+  }
+
   $base = $ICE->stringToProxy("Meta:tcp -h 127.0.0.1 -p 6502");
   $meta = $base->ice_checkedCast("::Murmur::Meta");
 
