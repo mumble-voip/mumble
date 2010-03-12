@@ -2033,6 +2033,17 @@ void OverlayClient::showGui() {
 	g.ocIntercept = this;
 
 	bWasVisible = ! g.mw->isHidden();
+	
+	if (bWasVisible) {
+		if (g.s.bMinimalView) {
+			g.s.qbaMinimalViewGeometry = g.mw->saveGeometry();
+			g.s.qbaMinimalViewState = g.mw->saveState();
+		} else {
+			g.s.qbaMainWindowGeometry = g.mw->saveGeometry();
+			g.s.qbaMainWindowState = g.mw->saveState();
+			g.s.qbaHeaderState = g.mw->qtvUsers->header()->saveState();
+		}
+	}
 
 	foreach(QWidget *w, widgets) {
 		if ((w == g.mw) || (! w->isHidden())) {
@@ -2118,6 +2129,16 @@ void OverlayClient::hideGui() {
 	foreach(QWidget *w, widgetlist) {
 		if (bWasVisible)
 			w->show();
+	}
+
+	if (bWasVisible) {
+		if (g.s.bMinimalView && ! g.s.qbaMinimalViewGeometry.isNull()) {
+			g.mw->restoreGeometry(g.s.qbaMinimalViewGeometry);
+			g.mw->restoreState(g.s.qbaMinimalViewState);
+		} else if (! g.s.bMinimalView && ! g.s.qbaMainWindowGeometry.isNull()) {
+			g.mw->restoreGeometry(g.s.qbaMainWindowGeometry);
+			g.mw->restoreState(g.s.qbaMainWindowState);
+		}
 	}
 
 	setupScene(false);
