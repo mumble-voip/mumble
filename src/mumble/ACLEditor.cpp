@@ -448,18 +448,22 @@ void ACLEditor::refillGroupNames() {
 		qcbGroupList->addItem(name);
 	}
 
-	int wantindex = qcbGroupList->findText(text, Qt::MatchExactly);
+	int wantindex = qcbGroupList->findText(text, Qt::MatchFixedString);
 	qcbGroupList->setCurrentIndex(wantindex);
 }
 
 ACLGroup *ACLEditor::currentGroup() {
-	QString group = qcbGroupList->currentText().toLower();
+	QString group = qcbGroupList->currentText();
 
-	foreach(ACLGroup *gp, qlGroups) {
-		if (gp->qsName == group) {
+	foreach(ACLGroup *gp, qlGroups)
+		if (gp->qsName == group)
 			return gp;
-		}
-	}
+			
+	group = group.toLower();
+
+	foreach(ACLGroup *gp, qlGroups)
+		if (gp->qsName == group)
+			return gp;
 
 	return NULL;
 }
