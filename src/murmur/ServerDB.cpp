@@ -987,7 +987,7 @@ void ServerDB::setSUPW(int srvnum, const QString &pw) {
 	hash.addData(pw.toUtf8());
 
 	QSqlQuery &query = *th.qsqQuery;
-	
+
 	SQLPREP("SELECT `user_id` FROM `%1users` WHERE `server_id` = ? AND `user_id` = ?");
 	query.addBindValue(srvnum);
 	query.addBindValue(0);
@@ -999,7 +999,7 @@ void ServerDB::setSUPW(int srvnum, const QString &pw) {
 		query.addBindValue(QLatin1String("SuperUser"));
 		SQLEXEC();
 	}
-	
+
 	SQLPREP("UPDATE `%1users` SET `pw`=? WHERE `server_id` = ? AND `user_id`=?");
 	query.addBindValue(QString::fromLatin1(hash.result().toHex()));
 	query.addBindValue(srvnum);

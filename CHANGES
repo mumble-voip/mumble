@@ -1,3 +1,21 @@
+2010-03-12
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    b5b0a4d  Handle mixed case groups in group editor
+    710dfb7  Use new slice doc syntax
+    136cac0  Add a few testgroups to the testauth
+    10a069b  Save geometry when embedding in overlay
+    8776329  Create SU account if it doesn't exist yet when setting
+	     password
+    d723a63  Update addban to use new Ice init
+    7a0d75d  Update weblist.php to work with both Ice 3.3 and 3.4
+
+2010-03-10
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c5736e3  QDateTime seems to think time_t should be local time. It's not
+    06fec27  Work around WSAAsyncSelect and WSAEventSelect overlapping on
+	     Win32
+    2b6bad6  Flash in browser workaround
+
 2010-03-09
   Thorvald Natvig <slicer@users.sourceforge.net>
     413ea83  Only give UserInfo parent when in overlay

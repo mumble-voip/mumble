@@ -8323,7 +8323,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1200"/>
+        <location line="+1224"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>No se pudo establecer la comunicación con la sobreimpresión en %2: %1. La sobreimpresión no estará disponible.</translation>
     </message>
@@ -8374,7 +8374,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-806"/>
+        <location line="-830"/>
         <source>Filter</source>
         <translation type="unfinished"></translation>
     </message>

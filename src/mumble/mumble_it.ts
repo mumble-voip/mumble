@@ -7153,7 +7153,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1200"/>
+        <location line="+1224"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Impossibile creare una comunicazione con la sovrapposizione su %2 :%1. La sovrapposizione non sarà disponibile.</translation>
     </message>
@@ -7183,7 +7183,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-806"/>
+        <location line="-830"/>
         <source>Filter</source>
         <translation type="unfinished"></translation>
     </message>

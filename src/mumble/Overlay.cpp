@@ -2033,7 +2033,7 @@ void OverlayClient::showGui() {
 	g.ocIntercept = this;
 
 	bWasVisible = ! g.mw->isHidden();
-	
+
 	if (bWasVisible) {
 		if (g.s.bMinimalView) {
 			g.s.qbaMinimalViewGeometry = g.mw->saveGeometry();

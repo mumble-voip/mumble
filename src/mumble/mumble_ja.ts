@@ -8126,7 +8126,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation type="unfinished">チャンネル</translation>
     </message>
     <message>
-        <location line="+1200"/>
+        <location line="+1224"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>オーバレイ:  %2: %1 との通信の作成に失敗しました。有効なオーバレイはありません。</translation>
     </message>
@@ -8170,7 +8170,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-806"/>
+        <location line="-830"/>
         <source>Filter</source>
         <translation type="unfinished"></translation>
     </message>

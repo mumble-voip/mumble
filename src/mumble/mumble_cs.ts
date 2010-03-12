@@ -7059,7 +7059,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1200"/>
+        <location line="+1224"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7078,7 +7078,7 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-806"/>
+        <location line="-830"/>
         <source>Filter</source>
         <translation type="unfinished"></translation>
     </message>

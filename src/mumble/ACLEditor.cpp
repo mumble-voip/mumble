@@ -458,7 +458,7 @@ ACLGroup *ACLEditor::currentGroup() {
 	foreach(ACLGroup *gp, qlGroups)
 		if (gp->qsName == group)
 			return gp;
-			
+
 	group = group.toLower();
 
 	foreach(ACLGroup *gp, qlGroups)
