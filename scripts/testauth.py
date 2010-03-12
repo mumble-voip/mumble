@@ -14,14 +14,15 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
       for cert in certlist:
         cert = X509.load_cert_der_string(cert)
         print cert.get_subject(), "issued by", cert.get_issuer()
+      groups = ("GroupA", "GroupB");
       if (name == "One"):
         if (pw == "Magic"):
-          return (1, "One", None)
+          return (1, "One", groups)
         else:
           return (-1, None, None)
       elif (name == "Two"):
         if (pw == "Mushroom"):
-          return (2, "twO", None)
+          return (2, "twO", groups)
         else:
           return (-1, None, None)
       return (-2, None, None)
