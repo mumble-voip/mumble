@@ -552,7 +552,7 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
     <message>
         <location/>
         <source>&amp;Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Propriétés</translation>
     </message>
 </context>
 <context>
@@ -701,7 +701,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Interroge le périphérique sélectionné pour connaître ses cannaux. Soyez conscients que beaucoup de pilotes ASIO sont buggés à l&apos;extrême et les interroger peut crasher l&apos;application ou le système.</translation>
+        <translation>Interroge le périphérique sélectionné pour connaître ses cannaux. Soyez conscients que beaucoup de pilotes ASIO sont bogués à l&apos;extrême et les interroger peut crasher l&apos;application ou le système.</translation>
     </message>
     <message>
         <location/>
@@ -716,7 +716,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Configure le périphérique sélectionné. Soyez conscients que les pilotes ASIO sont buggés à l&apos;extrême, et les utiliser pourrait causer le crash de l&apos;application ou du système.</translation>
+        <translation>Configure le périphérique sélectionné. Soyez conscients que les pilotes ASIO sont bogués à l&apos;extrême, et les utiliser pourrait causer le crash de l&apos;application ou du système.</translation>
     </message>
     <message>
         <location/>
@@ -1279,7 +1279,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>DoublePush Time</source>
-        <translation>DoublePush Time</translation>
+        <translation>Temps entre deux pressions</translation>
     </message>
     <message>
         <source>TextLabel</source>
@@ -1288,7 +1288,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>&lt;b&gt;This enables the audio cues for push to talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when push to talk is pressed and released.</source>
-        <translation>&lt;b&gt;Active le bip sonore pour le push to talk&lt;/b&gt;&lt;br/&gt;Si vous activez cette option, vous entendrez un court bip sonore quand le bouton appuyez-pour-parler sera activé ou relaché.</translation>
+        <translation>&lt;b&gt;Active le bip sonore pour le &apos;Appuyer-pour-parler&apos;&lt;/b&gt;&lt;br/&gt;Si vous activez cette option, vous entendrez un court bip sonore quand le bouton appuyez-pour-parler sera enfoncé ou relaché.</translation>
     </message>
     <message>
         <location/>
@@ -1316,7 +1316,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation>&lt;b&gt;Définit la détection pour utiliser l&apos;amplitude.&lt;/b&gt;&lt;br/&gt;Dans ce mode, la force du signal d&apos;entrée sera utilisé pour détecter la voix.</translation>
+        <translation>&lt;b&gt;Définit l&apos;amplitude comme méthode de détection de la voix.&lt;/b&gt;&lt;br/&gt;Dans ce mode, la force du signal d&apos;entrée sera utilisée pour détecter la voix.</translation>
     </message>
     <message>
         <location/>
@@ -1345,7 +1345,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation>&lt;b&gt;Définit la valeur pour la détection de la voix.&lt;/b&gt;&lt;br/&gt;Utilisez ce réglage avec la fenêtre de Statistiques Audio pour régler manuellement la valeur de détection de la voix. Toute valeur d&apos;entrée en dessous de &quot;Silence en deça&quot; sera toujours considéré comme du silence. Les valeurs au delà de &quot;Voix au delà&quot; seront toujours considéré comme de la voix. Les valeurs intermédiaires seront considérées comme étant de la voix si vous êtes en train de parler, mais n&apos;activeront pas une nouvelle détection.</translation>
+        <translation>&lt;b&gt;Définit la valeur pour la détection de la voix.&lt;/b&gt;&lt;br/&gt;Utilisez ce réglage avec la fenêtre de Statistiques Audio pour régler manuellement la valeur de détection de la voix. Toute valeur d&apos;entrée en dessous de &quot;Silence en deça&quot; sera toujours considérée comme du silence. Les valeurs au delà de &quot;Voix au delà&quot; seront toujours considérées comme de la voix. Les valeurs intermédiaires seront considérées comme étant de la voix si vous êtes en train de parler, mais n&apos;activeront pas une nouvelle détection.</translation>
     </message>
     <message>
         <location/>
@@ -1560,12 +1560,12 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>Audible audio cue when push-to-talk is activated or deactivated</source>
-        <translation>Son entendu lorsque la touche appuyez-pour-parler est activée ou reclachée</translation>
+        <translation>Son entendu lorsque la touche appuyez-pour-parler est enfoncée ou reclachée</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation>&lt;b&gt;Définit la détection vocale sur l&apos;utilisation du rapport Signal/Bruit.&lt;/b&gt;&lt;br/&gt;Dans ce mode, l&apos;entrée est analysé pour trouver ce qui ressemble à un signal clair, et la qualité de ce signal est utilisé comme base pour déterminer la détection vocale.</translation>
+        <translation>&lt;b&gt;Définit la détection vocale sur l&apos;utilisation du rapport Signal/Bruit.&lt;/b&gt;&lt;br/&gt;Dans ce mode, l&apos;entrée est analysée pour trouver ce qui ressemble à un signal clair, et la qualité de ce signal est utilisé comme base pour déterminer la détection vocale.</translation>
     </message>
     <message>
         <location/>
@@ -1614,12 +1614,12 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location filename="AudioInput.ui"/>
         <source>Use Amplitude based speech detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser l&apos;amplitude pour la détection de la voix</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Détermine combien de temps la transmission devrait continuer après une pause.&lt;/b&gt;&lt;br /&gt;Choisissez une valeur supérieure si votre voix est coupée lorsque vous parlez (l&apos;icône située a coté de votre nom clignote alors très rapidement).&lt;br /&gt;Cela n&apos;a de sens que si vous utilisez la transmission selon l&apos;Activité Vocale.</translation>
     </message>
 </context>
 <context>
@@ -1676,7 +1676,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <location line="+55"/>
         <source>%1 kbit/s (Audio %2 %5, Position %4, Overhead %3)</source>
         <oldsource>%1kbit/s (Audio %2 %5, Position %4, Overhead %3)</oldsource>
-        <translation type="unfinished">%1kbits/s (Audio %2 %5, Position %4, Entêtes %3)</translation>
+        <translation>%1kbits/s (Audio %2 %5, Position %4, Entêtes %3)</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -1987,47 +1987,47 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>Attenuate applications by...</source>
-        <translation type="unfinished"></translation>
+        <translation>Atténuer les applications de...</translation>
     </message>
     <message>
         <location/>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Atténuation des autes applications lors de l&apos;écoute ou de la parole</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Atténuer le volume des autres applications durant l&apos;écoute ou la parole&lt;/b&gt;&lt;br /&gt;Mumble peut abaisser le volume des autres applications durant l&apos;écoute ou la parole. Ceci règle l&apos;atténuation des autres applications si cette fonction est activée.</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Si cochée, Mumble baisse le volume des autres applications lors de l&apos;écoute</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Atténuer les applications lors de l&apos;écoute&lt;/b&gt;&lt;br /&gt;Mumble peut abaisser le volume des autres applications durant l&apos;écoute ou la parole. Ceci active l&apos;atténuation des autres applications si un utilisateur vous parle.</translation>
     </message>
     <message>
         <location/>
         <source>while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation>lors de l&apos;écoute</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Si cochée, Mumble baisse le volume des autres applications lors de la parole</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Atténuer les applications lors de la parole&lt;/b&gt;&lt;br /&gt;Mumble peut abaisser le volume des autres applications durant l&apos;écoute ou la parole. Ceci active l&apos;atténuation des autres applications dès que vous parlez.</translation>
     </message>
     <message>
         <location/>
         <source>while you talk</source>
-        <translation type="unfinished"></translation>
+        <translation>lors de la parole</translation>
     </message>
 </context>
 <context>
@@ -2066,13 +2066,13 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <location line="+31"/>
         <location line="+4"/>
         <source>%1 %</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %</translation>
     </message>
     <message>
         <location line="-16"/>
         <location line="+6"/>
         <source>%1 m</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 m</translation>
     </message>
     <message>
         <source>%1%</source>
@@ -2247,7 +2247,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <location filename="AudioStats.cpp" line="+405"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
-        <translation type="unfinished">&gt;1000ms</translation>
+        <translation>&gt;1000ms</translation>
     </message>
     <message>
         <location filename="AudioStats.ui"/>
@@ -2526,7 +2526,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <location filename="AudioWizard.cpp" line="+304"/>
         <source>%1 ms</source>
         <oldsource>%1ms</oldsource>
-        <translation type="unfinished">%1ms</translation>
+        <translation>%1ms</translation>
     </message>
     <message>
         <source>%1 s</source>
@@ -2633,42 +2633,42 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Quality &amp; Notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualité &amp; Notifications</translation>
     </message>
     <message>
         <location/>
         <source>Adjust quality and notification settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Changer les paramètres de qualité et de notification.</translation>
     </message>
     <message>
         <location/>
         <source>Quality settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramètres de qualité</translation>
     </message>
     <message>
         <location/>
         <source>Low</source>
-        <translation type="unfinished"></translation>
+        <translation>Bas</translation>
     </message>
     <message>
         <location/>
         <source>Balanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <location/>
         <source>Notification settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramètres de notification</translation>
     </message>
     <message>
         <location/>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
-        <translation></translation>
+        <translation>Utiliser la synthèse vocal pour lire vos notifications et messages.</translation>
     </message>
     <message>
         <location/>
         <source>Disable Text-To-Speech and use sounds instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Désactiver la synthèse vocale et utiliser des sons à la place.</translation>
     </message>
     <message>
         <location/>
@@ -2689,8 +2689,13 @@ Mumble supports positional audio for some games, and will position the voice of 
 The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/font&gt;, the &lt;font color=&quot;yellow&quot;&gt;speakers&lt;/font&gt; and a &lt;font color=&quot;green&quot;&gt;moving sound source&lt;/font&gt; as if seen from above. You should hear the audio move between the channels.
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Mumble supporte le positionnement audio dans certains jeux, et positionne la voix des autres utilisateurs par rapport à leur position dans le jeu. En fonction de leur position, le volume de la voix sera adapté entre les haut-parleurs pour simuler leur direction et leur éloignement. Un tel positionnement dépend d&apos;une bonne configuration de vos haut-parleurs, elle est donc testée ici.&lt;/p&gt;
-&lt;p&gt;Le dessin ci-dessous montre &lt;font color=&quot;red&quot;&gt;votre&lt;/font&gt; position, celle de vos &lt;font color=&quot;yellow&quot;&gt;haut-parleurs&lt;/font&gt; et une &lt;fond color=&quot;green&quot;&gt;source sonore en mouvement&lt;/font&gt; comme si vous étiez vu de dessus. Vous deviez entendre le son se déplacer entre les canaux.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;
+Mumble supporte le positionnement audio dans certains jeux, et positionne la voix des autres utilisateurs par rapport à leur position dans le jeu. En fonction de leur position, le volume de la voix sera adapté entre les haut-parleurs pour simuler leur direction et leur éloignement. Un tel positionnement dépend d&apos;une bonne configuration de vos haut-parleurs, elle est donc testée ici.
+&lt;/p&gt;
+&lt;p&gt;
+Le dessin ci-dessous montre &lt;font color=&quot;red&quot;&gt;votre&lt;/font&gt; position, celle de vos &lt;font color=&quot;yellow&quot;&gt;haut-parleurs&lt;/font&gt; et une &lt;fond color=&quot;green&quot;&gt;source sonore en mouvement&lt;/font&gt; comme si vous étiez vu de dessus. Vous deviez entendre le son se déplacer entre les canaux.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -2740,62 +2745,62 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer l&apos;atténuation des autres applications lors de l&apos;écoute</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate applications while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Atténue les applications lorsque d&apos;autres utilisateurs parlent</translation>
     </message>
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (Speex 16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dans cette configuration, Mumble utilisera &lt;b&gt;peu de bande passante&lt;/b&gt;. Ceci impliquera une forte latence ainsi qu&apos;une mauvaise qualité. Choisissez ceci si votre connexion ne peut supporter l&apos;autre réglage. (Speex 16kbit/s, 60ms par paquet)</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (CELT 40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>C&apos;est la configuration &lt;b&gt;par défaut et recommandée&lt;/b&gt;. Elle apporte un bon équilibre entre qualité, latence et utilisation de bande passante. (CELT 40kbit/s, 20ms par paquet)</translation>
     </message>
     <message>
         <location/>
         <source>High</source>
-        <translation type="unfinished"></translation>
+        <translation>Haut</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (CELT 72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cette configuration n&apos;est recommandée que lorsque la bande passante n&apos;est pas un problème, comme en LAN. Elle apporte la plus faible latence supportée par Mumble et une &lt;b&gt;grande qualité&lt;/b&gt;. (CELT 72kbit/s, 10ms par paquet)</translation>
     </message>
     <message>
         <location/>
         <source>Custom</source>
-        <translation type="unfinished">Personnalisé</translation>
+        <translation>Personnalisé</translation>
     </message>
     <message>
         <location/>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous avez déjà configuré une qualité personnalisée pour Mumble. Sélectionnez ceci pour garder cette configuration.</translation>
     </message>
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation type="unfinished"></translation>
+        <translation>Active l&apos;atténuation des applications lors de l&apos;écoute. Cela signifie que dès que quelqu&apos;un commence à vous parler via Mumble, le son de toutes les autres applications (comme un lecteur audio) sera réduit afin que vous puissiez mieux l&apos;entendre.</translation>
     </message>
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"></translation>
+        <translation>Applique quelques optimisations de contraste pour les utilisateurs malvoyants</translation>
     </message>
     <message>
         <location/>
         <source>Use high contrast graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Augmenter le contraste</translation>
     </message>
     <message>
         <location/>
         <source>Keep custom Text-To-Speech settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Garder les paramètres personnalisés de synthèse vocale.</translation>
     </message>
 </context>
 <context>
@@ -2904,7 +2909,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location line="+7"/>
         <source>Expiry Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Date d&apos;expiration</translation>
     </message>
     <message>
         <location line="+34"/>
@@ -2987,7 +2992,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location filename="main.cpp" line="+409"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Expiration du certificat :&lt;/b&gt; Votre certificat va bientôt expirer. Vous devez le renouveler ou vous ne pourrez plus vous connecter aux serveurs auxquels vous êtes enregistrés.</translation>
     </message>
 </context>
 <context>
@@ -3237,7 +3242,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble va maintenant générer un certificat pour l&apos;authentification forte avec les serveurs.&lt;/p&gt;&lt;p&gt;Si vous voulez, vous pouvez spécifier des informations additionnelles à enregistrer dans le certificat, qui seront présentées aux serveurs leur de vos connections. Si vous fournissez une adresse de courriel valide, vous pouvez demander à une autorité de certification de vous délivrer un certificat courriel plus tard, qui permet une identification forte.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble va maintenant générer un certificat pour l&apos;authentification forte avec les serveurs.&lt;/p&gt;&lt;p&gt;Si vous voulez, vous pouvez spécifier des informations additionnelles à enregistrer dans le certificat, qui seront présentées aux serveurs lors de vos connexions. Si vous fournissez une adresse de courriel valide, vous pouvez demander à une autorité de certification de vous délivrer un certificat courriel plus tard, qui permet une identification forte.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3257,7 +3262,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
-        <translation>C&apos;est votre adresse de courriel. Il est fortement recommandé de fournir une adresse email valide, car cela vous permettra de passer à un certificat d&apos;authentification forte sans problèmes.</translation>
+        <translation>C&apos;est votre adresse de courriel. Il est fortement recommandé de fournir une adresse de courriel valide, car cela vous permettra de passer à un certificat d&apos;authentification forte sans problèmes.</translation>
     </message>
     <message>
         <location/>
@@ -3287,7 +3292,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Automatic certificate creation</source>
-        <translation type="unfinished"></translation>
+        <translation>Création automatique d&apos;un certificat</translation>
     </message>
     <message>
         <location/>
@@ -3296,7 +3301,10 @@ Are you sure you wish to replace your certificate?
 It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Mumble utilise des certificat pour l&apos;authentification avec les serveurs. L&apos;utilisation de certificats permet d&apos;éviter les mots de passe, ainsi, vous n&apos;avez pas besoin de saisir de mot de passe pour vous connecter. Cela permet aussi de simplifier l&apos;enregistrement des utilisateurs.&lt;/p&gt;&lt;p&gt;Mumble peut fonctionner sans certificats, cependant, la majorité des serveurs vous en demanderont un.&lt;/p&gt;
+&lt;p&gt;
+Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;créer un certificat de confiance&lt;/a&gt;.
+&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3531,12 +3539,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="CustomElements.cpp" line="+79"/>
         <source>Paste and send</source>
-        <translation type="unfinished"></translation>
+        <translation>Coller et envoyer</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;center&gt;Saisir un message ici&lt;/center&gt;</translation>
     </message>
     <message>
         <source>Type chat message here</source>
@@ -3735,7 +3743,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialog.cpp" line="+735"/>
         <source>&amp;Connect</source>
-        <translation type="unfinished">&amp;Connexion</translation>
+        <translation>&amp;Connexion</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -3871,13 +3879,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="ConnectDialog.cpp" line="+253"/>
         <source>&amp;Add New...</source>
         <oldsource>Add New...</oldsource>
-        <translation type="unfinished">Ajouter un nouveau...</translation>
+        <translation>&amp;Ajouter un nouveau...</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="+37"/>
         <source>&amp;Filters</source>
         <oldsource>Filters</oldsource>
-        <translation type="unfinished">Filtres</translation>
+        <translation>&amp;Filtres</translation>
     </message>
     <message>
         <source>Mumble</source>
@@ -3907,7 +3915,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialog.ui"/>
         <source>Mumble Server Connect</source>
-        <translation>Connection serveur Mumble</translation>
+        <translation>Connexion au serveur Mumble</translation>
     </message>
     <message>
         <location/>
@@ -4002,32 +4010,32 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>&amp;Edit...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Editer...</translation>
     </message>
     <message>
         <location/>
         <source>Add to &amp;Favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter aux &amp;Favoris</translation>
     </message>
     <message>
         <location/>
         <source>Open &amp;Webpage</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir la page &amp;web</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;Reachable</source>
-        <translation type="unfinished"></translation>
+        <translation>Affiche&amp;r les joignables</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;Populated</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher les &amp;peuplés</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Afficher tous</translation>
     </message>
 </context>
 <context>
@@ -4127,7 +4135,7 @@ Nom d&apos;utilisateur envoyé au serveur. Notez que le serveur peut imposer des
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;Nous sommes vraiment navré, mais il semblerai que Mumble a cessé de fonctionner. Voulez-vous envoyer un rapport de l&apos;incident aux développeurs de Mumble ?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Ce rapport contient une copie partielle de la mémoire de Mumble au moment de son arrêt, et permettra aux développeurs de résoudre le problème.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;&lt;b&gt;Nous sommes vraiment navrés, mais il semblerai que Mumble a cessé de fonctionner. Voulez-vous envoyer un rapport de l&apos;incident aux développeurs de Mumble ?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Ce rapport contient une copie partielle de la mémoire de Mumble au moment de son arrêt, et permettra aux développeurs de résoudre le problème.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -4138,7 +4146,7 @@ Nom d&apos;utilisateur envoyé au serveur. Notez que le serveur peut imposer des
         <location line="+9"/>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation type="unfinished">S&apos;il vous plait, veuillez décrire ce que vous faisiez au moment du plantage</translation>
+        <translation>Veuillez décrire brièvement et en anglais ce que vous faisiez au moment du plantage</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -4153,7 +4161,7 @@ Nom d&apos;utilisateur envoyé au serveur. Notez que le serveur peut imposer des
     <message>
         <location line="+25"/>
         <source>Crash upload successful</source>
-        <translation>Envoie du rapport effectué</translation>
+        <translation>Envoi du rapport effectué</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4164,27 +4172,27 @@ Nom d&apos;utilisateur envoyé au serveur. Notez que le serveur peut imposer des
         <location line="+2"/>
         <location line="+2"/>
         <source>Crash upload failed</source>
-        <translation>Erreur lors de l&apos;envoie du rapport</translation>
+        <translation>Erreur lors de l&apos;envoi du rapport</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
-        <translation>Nous sommes navré, mais l&apos;envoie du rapport d&apos;erreur a échoué avec l&apos;erreur %1 %2. Veuillez en informer un développeur.</translation>
+        <translation>Nous sommes navrés, mais l&apos;envoi du rapport d&apos;erreur a échoué avec l&apos;erreur %1 %2. Veuillez en informer un développeur.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation>Ce n&apos;est vraiment pas drôle, mais il semblerait qu&apos;il y ait un boggue dans le code du rapport d&apos;erreur, et donc, le rapport n&apos;a pu être envoyé. Vous devriez informer un développeur à propos de l&apos;erreur %1</translation>
+        <translation>Ce n&apos;est vraiment pas drôle, mais il semblerait qu&apos;il y ait un bogue dans le code du rapport d&apos;erreur, et donc, le rapport n&apos;a pu être envoyé. Vous devriez informer un développeur à propos de l&apos;erreur %1</translation>
     </message>
     <message>
         <location line="+114"/>
         <source>Uploading crash report</source>
-        <translation>Envoie du rapport d&apos;erreur</translation>
+        <translation>Envoi du rapport d&apos;erreur</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Abort upload</source>
-        <translation>Annuler l&apos;envoie</translation>
+        <translation>Annuler l&apos;envoi</translation>
     </message>
 </context>
 <context>
@@ -4440,7 +4448,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Suppress</source>
-        <translation>Supprime</translation>
+        <translation>Suspend</translation>
     </message>
     <message>
         <location/>
@@ -4513,7 +4521,7 @@ of the possible locations.</source>
         <location line="+1"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
-        <translation type="unfinished">&lt;b&gt;Combinaison de touches du raccourci global.&lt;/b&gt;&lt;br/&gt;Effectuez un double-clic dans ce champ pour le modifier, puis pressez la combinaison de touches/boutons désirées que vous souhaitez attribuer.</translation>
+        <translation>&lt;b&gt;Combinaison de touches du raccourci global.&lt;/b&gt;&lt;br/&gt;Effectuez un clic dans ce champ puis pressez la combinaison de touches/boutons désiré que vous souhaitez attribuer. Double-cliquez pour effacer.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4539,7 +4547,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcutTarget.ui"/>
         <source>Whisper Target</source>
-        <translation>Cible du chuchottement</translation>
+        <translation>Cible du chuchotement</translation>
     </message>
     <message>
         <location/>
@@ -4559,12 +4567,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>If specified, only members of this group will receive the whisper.</source>
-        <translation>Si spécifié, seulement les membres de ce groupe recevront le chuchottement.</translation>
+        <translation>Si spécifié, seulement les membres de ce groupe recevront le chuchotement.</translation>
     </message>
     <message>
         <location/>
         <source>If checked the whisper will also be transmitted to linked channels.</source>
-        <translation>Si coché, le chuchotement sera aussi transmit aux salons liés.</translation>
+        <translation>Si cochée, le chuchotement sera aussi transmit aux salons liés.</translation>
     </message>
     <message>
         <source>Whisper to Linked channels</source>
@@ -4573,7 +4581,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>If checked this whisper will also be sent to the subchannels of the channel target.</source>
-        <translation>Si coché, ce chuchotement sera aussi transmit aux sous salons du salon cible.</translation>
+        <translation>Si cochée, ce chuchotement sera aussi transmit aux sous salons du salon cible.</translation>
     </message>
     <message>
         <location/>
@@ -4608,17 +4616,17 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Shout to Linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Crier aux salons liés</translation>
     </message>
     <message>
         <location/>
         <source>Shout to subchannels</source>
-        <translation type="unfinished"></translation>
+        <translation>Crier aux sous-salons</translation>
     </message>
     <message>
         <location/>
         <source>Shout to Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Crier au salon</translation>
     </message>
 </context>
 <context>
@@ -4780,7 +4788,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Log.cpp" line="+220"/>
         <source>Debug</source>
-        <translation>Deboggage</translation>
+        <translation>Debogage</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4919,7 +4927,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+52"/>
         <source>the server</source>
-        <translation type="unfinished">le serveur</translation>
+        <translation>le serveur</translation>
     </message>
     <message>
         <location line="+117"/>
@@ -4935,27 +4943,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+133"/>
         <source>link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>lien pour %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ftp link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>lien FTP pour %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>player link</source>
-        <translation type="unfinished"></translation>
+        <translation>lien du joueur</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>channel link</source>
-        <translation type="unfinished"></translation>
+        <translation>lien du salon</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 link</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 lien</translation>
     </message>
 </context>
 <context>
@@ -4963,22 +4971,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-511"/>
         <source>Toggle console for %1 events</source>
-        <translation>Active/désactive la console pour les évènements %1</translation>
+        <translation>Active/désactive la console pour les événements %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Toggle pop-up notifications for %1 events</source>
-        <translation>Active/désactive les notifications sous forme de bulle pour les évènements %1</translation>
+        <translation>Active/désactive les notifications sous forme de bulle pour les événements %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Toggle Text-To-Speech for %1 events</source>
-        <translation>Active/désactive la synthèse vocale pour les évènements %1</translation>
+        <translation>Active/désactive la synthèse vocale pour les événements %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Click here to toggle sound notification for %1 events</source>
-        <translation>Cliquer ici pour activer/désactiver les notifications sonores pour les évènements %1</translation>
+        <translation>Cliquez ici pour activer/désactiver les notifications sonores pour les événements %1</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4988,13 +4996,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>Click here to toggle console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
-        <translation>Active/désactive les messages sur la console pour les évènements %1.&lt;br/&gt;Si l&apos;option est activée, Mumble affichera tous les evènements de %1 dans la fenêtre d&apos;historique.</translation>
+        <translation>Active/désactive les messages sur la console pour les événements %1.&lt;br/&gt;Si l&apos;option est activée, Mumble affichera tous les evénements de %1 dans la fenêtre d&apos;historique.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
         <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
-        <translation>Active/désactive les notifications sous forme de bulle  pour les évènements %1.&lt;br/&gt;Si l&apos;option est activée, Mumble affichera tous les evènements de %1 dans une bulle de notification.</translation>
+        <translation>Active/désactive les notifications sous forme de bulle  pour les événements %1.&lt;br/&gt;Si l&apos;option est activée, Mumble affichera tous les evénements de %1 dans une bulle de notification.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5074,17 +5082,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Whisper</source>
-        <translation>Chuchottement</translation>
+        <translation>Chuchotement</translation>
     </message>
     <message>
         <location/>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
-        <translation>Si coché, vous n&apos;entendrez les chuchottements que des utilisateurs que vous avez ajouté à votre liste d&apos;amis.</translation>
+        <translation>Si cochée, vous n&apos;entendrez les chuchotements que des utilisateurs que vous avez ajouté à votre liste d&apos;amis.</translation>
     </message>
     <message>
         <location/>
         <source>Only accept whispers from friends</source>
-        <translation>N&apos;accepter les chuchottements que des amis</translation>
+        <translation>N&apos;accepter les chuchotements que des amis</translation>
     </message>
     <message>
         <location/>
@@ -5406,7 +5414,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Si coché, réduire la fenêtre principale de Mumble la cachera et elle ne sera accessible plus que depuis la barre des tâches. Sinon, il sera minimisé comme toute fenêtre normale.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Si cochée, réduire la fenêtre principale de Mumble la cachera et elle ne sera accessible que depuis la barre des tâches. Sinon, il sera réduit comme toute fenêtre normale.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -5421,7 +5429,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</source>
-        <translation>&lt;b&gt;Si coché, les utilisateurs seront affiché au dessus des sous-salons dans l&apos;arborescence.&lt;/b&gt;&lt;br/&gt;Mumble doit être redémarré pour activer les changements.</translation>
+        <translation>&lt;b&gt;Si cochée, les utilisateurs seront affiché au dessus des sous-salons dans l&apos;arborescence.&lt;/b&gt;&lt;br/&gt;Mumble doit être redémarré pour activer les changements.</translation>
     </message>
     <message>
         <location/>
@@ -5431,12 +5439,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Si coché, vérifie si vous voulez quitter si vous êtes connecté.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Si cochée, vérifie si vous voulez quitter si vous êtes connecté.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Hide in tray when minimized</source>
-        <translation>Caché dans la barre des tâches quand il est réduit</translation>
+        <translation>Réduire dans la barre des tâches</translation>
     </message>
     <message>
         <source>Show all configuration items</source>
@@ -5454,52 +5462,52 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Displays talking status in system tray</source>
-        <translation type="unfinished"></translation>
+        <translation>Affiche mon statut vocal dans la barre des tâches</translation>
     </message>
     <message>
         <location/>
         <source>Show talking status in tray icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher mon statut vocal dans la barre des tâches</translation>
     </message>
     <message>
         <location/>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce paramétrage détermine dans quelle situation l&apos;application restera toujours au dessus. Si vous sélectionnez &lt;i&gt;Jamais&lt;/i&gt;, l&apos;application ne restera jamais au dessus. &lt;i&gt;Toujours&lt;/i&gt; gardera toujours l&apos;application au dessus.&lt;i&gt;En vue minimale&lt;/i&gt; ne gardera l&apos;application au dessus que lorsque la vue minimale est activée / désactivée.</translation>
     </message>
     <message>
         <location/>
         <source>Show context menu in menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Menu contextuel dans la barre de menu</translation>
     </message>
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"></translation>
+        <translation>Applique quelques optimisations de contraste pour les utilisateurs malvoyants</translation>
     </message>
     <message>
         <location/>
         <source>Optimize for high contrast</source>
-        <translation type="unfinished"></translation>
+        <translation>Augmenter le contraste</translation>
     </message>
     <message>
         <location/>
         <source>Application</source>
-        <translation type="unfinished"></translation>
+        <translation>Application</translation>
     </message>
     <message>
         <location/>
         <source>Adds user and channel context menus into the menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajoute les menus contextuels d&apos;utilisateur et de salon dans la barre de menu</translation>
     </message>
     <message>
         <location/>
         <source>Tray Icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Icône de la barre des tâches</translation>
     </message>
     <message>
         <location/>
         <source>Channel Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Arborescence des salons</translation>
     </message>
 </context>
 <context>
@@ -5705,7 +5713,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="-1818"/>
         <source>&amp;User</source>
-        <translation type="unfinished">&amp;Utilisateur</translation>
+        <translation>&amp;Utilisateur</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -6134,7 +6142,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="-2025"/>
         <source>&amp;Channel</source>
-        <translation type="unfinished">&amp;Salon</translation>
+        <translation>&amp;Salon</translation>
     </message>
     <message>
         <source>&amp;Audio</source>
@@ -6160,7 +6168,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+2"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
-        <translation>Pressez en maintenez ce bouton pour parler.</translation>
+        <translation>Pressez et maintenez ce bouton pour parler.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6232,7 +6240,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+2"/>
         <source>Toggle state of in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation>Activer/eésactiver l&apos;affichage de l&apos;overlay.</translation>
+        <translation>Activer/Désactiver l&apos;affichage de l&apos;overlay.</translation>
     </message>
     <message>
         <source>Alt Push-to-Talk</source>
@@ -6265,7 +6273,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+252"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
-        <translation>Etes-vous sûr(e) de vouloir supprimer %1 et tous ses sous-canaux ?</translation>
+        <translation>Etes-vous sûr(e) de vouloir supprimer %1 ainsi que tous ses sous-salons ?</translation>
     </message>
     <message>
         <location line="+191"/>
@@ -6406,12 +6414,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-61"/>
         <location line="+40"/>
         <source>Welcome message: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Message de bienvenue : %1</translation>
     </message>
     <message>
         <location line="-7"/>
         <source>Mumble: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble : %1</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -6451,17 +6459,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+5"/>
         <source>Invalid username: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom d&apos;utilisateur invalide : %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Invalid username.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom d&apos;utilisateur invalide.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Channel is full.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le salon est plein.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -6471,7 +6479,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+37"/>
         <source>%1 connected.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 connecté.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -6486,27 +6494,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+37"/>
         <source>You were unsuppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous avez été rétabli.</translation>
     </message>
     <message>
         <location line="+139"/>
         <source>%1 disconnected.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 déconnecté.</translation>
     </message>
     <message>
         <location line="+91"/>
         <source>(Tree) </source>
-        <translation type="unfinished"></translation>
+        <translation>(Arborescence) </translation>
     </message>
     <message>
         <location line="+2"/>
         <source>(Channel) </source>
-        <translation type="unfinished"></translation>
+        <translation>(Salon) </translation>
     </message>
     <message>
         <location line="+3"/>
         <source>%2%1: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%2%1 : %3</translation>
     </message>
     <message>
         <source>server</source>
@@ -6521,7 +6529,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+13"/>
         <source>You were suppressed.</source>
         <oldsource>You were suppressed by %1.</oldsource>
-        <translation type="unfinished">Vous avez été suspendu par %1.</translation>
+        <translation>Vous avez été suspendu.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6688,18 +6696,18 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-60"/>
         <source>View comment on user %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Voir le commentaire de l&apos;utilisateur %1</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>Êtes-vous sûr(e) de vouloir réinitialiser le commentaire de l&apos;utilisateur %1 ?</translation>
     </message>
     <message>
         <location line="+265"/>
         <source>To %1 (Tree): %2</source>
         <oldsource>(Tree) %1: %2</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>A l&apos;arborescence %1 : %2</translation>
     </message>
     <message>
         <location line="+611"/>
@@ -6739,7 +6747,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+184"/>
         <source>Images (*.png *.jpg *.svg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Images (*.png *.jpg *.svg)</translation>
     </message>
     <message>
         <source>From %1: %2</source>
@@ -6849,7 +6857,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+41"/>
         <source>Change your comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Changer votre commentaire</translation>
     </message>
     <message>
         <location line="+92"/>
@@ -6970,13 +6978,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+166"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
-        <translation type="unfinished">Saisir un message pour le salon &apos;%1&apos; ici</translation>
+        <translation>&lt;center&gt;Saisir un message pour le salon &apos;%1&apos; ici&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to user &apos;%1&apos; here</oldsource>
-        <translation type="unfinished">Saisir un message pour l&apos;utilisateur &apos;%1&apos; ici</translation>
+        <translation>&lt;center&gt;Saisir un message pour l&apos;utilisateur &apos;%1&apos; ici&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="+91"/>
@@ -7012,12 +7020,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-724"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ceci changera l&apos;état de l&apos;overlay.</translation>
     </message>
     <message>
         <location line="+715"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;Canal de contrôle&lt;/h2&gt;&lt;p&gt;Chiffré en %2 %1 bits&lt;br/&gt;%3 ms de latence moyenne (déviation de %4)&lt;/p&gt;&lt;p&gt;Hôte distant %5 (port %6)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -7201,7 +7209,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+30"/>
         <source>Whisper/Shout</source>
         <oldsource>Whisper</oldsource>
-        <translation type="unfinished">Chuchoter</translation>
+        <translation>Chuchoter/Crier</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -7255,7 +7263,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1954"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
-        <translation type="unfinished">Non connecté</translation>
+        <translation>&lt;center&gt;Non connecté&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="-1746"/>
@@ -7293,7 +7301,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished">Serveur</translation>
+        <translation>Serveur</translation>
     </message>
     <message>
         <source>&amp;Quit</source>
@@ -7317,112 +7325,112 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Send &amp;Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Envoyer le &amp;message</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Unlink All</source>
-        <translation type="unfinished"></translation>
+        <translation>Délier to&amp;us</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Certificate Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Assistant &amp;certificat</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Register</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;en&amp;registrer</translation>
     </message>
     <message>
         <location/>
         <source>Reset &amp;Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser le &amp;commentaire</translation>
     </message>
     <message>
         <location/>
         <source>Reset the comment of the selected user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser le commentaire de l&apos;utilisateur sélectionné.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Join Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Re&amp;joindre le salon</translation>
     </message>
     <message>
         <location/>
         <source>View Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Voir commentaire</translation>
     </message>
     <message>
         <location/>
         <source>View comment in editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Voir le commentaire dans l&apos;éditeur</translation>
     </message>
     <message>
         <location/>
         <source>Query server for connection information for user</source>
-        <translation type="unfinished"></translation>
+        <translation>Demander au serveur les informations de connexion pour l&apos;utilisateur</translation>
     </message>
     <message>
         <location/>
         <source>S&amp;erver</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;erveur</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Self</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Soi</translation>
     </message>
     <message>
         <location/>
         <source>Audio S&amp;tatistics</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;tatistiques audio</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Unlink Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Délier les pl&amp;ugins</translation>
     </message>
     <message>
         <location/>
         <source>R&amp;egister</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Enregistrer</translation>
     </message>
     <message>
         <location/>
         <source>Register yourself on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;enregistrer sur le serveur</translation>
     </message>
     <message>
         <location/>
         <source>Change &amp;Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Changer l&apos;&amp;avatar</translation>
     </message>
     <message>
         <location/>
         <source>Change your avatar image on this server</source>
-        <translation type="unfinished"></translation>
+        <translation>Change l&apos;avatar sur ce serveur</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Supp&amp;rimer l&apos;avatar</translation>
     </message>
     <message>
         <location/>
         <source>Remove currently defined avatar image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprime l&apos;avatar défini actuellement.</translation>
     </message>
     <message>
         <location/>
         <source>Icon Toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Icône de la barre d&apos;outils</translation>
     </message>
     <message>
         <location/>
         <source>Change your own comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifier votre commentaire</translation>
     </message>
 </context>
 <context>
@@ -7435,7 +7443,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+36"/>
         <source>Updates are mandatory when using snapshot releases.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les mises à jour sont obligatoires lors de l&apos;utilisation d&apos;une version snapshot.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui"/>
@@ -7690,12 +7698,12 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <location/>
         <source>Reconnect to last used server when starting Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Se reconnecter au dernier serveur utilisé au lancement de Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Reconnect to last server on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Se reconnecter au dernier serveur utilisé au démarrage</translation>
     </message>
 </context>
 <context>
@@ -7763,36 +7771,36 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <location filename="Overlay.cpp" line="+265"/>
         <location line="+1075"/>
         <source>Silent</source>
-        <translation type="unfinished"></translation>
+        <translation>Silenceux</translation>
     </message>
     <message>
         <location line="-1072"/>
         <location line="+1075"/>
         <source>Talking</source>
-        <translation type="unfinished"></translation>
+        <translation>Parle</translation>
     </message>
     <message>
         <location line="-1072"/>
         <location line="+1075"/>
         <source>Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation>Chuchote</translation>
     </message>
     <message>
         <location line="-1072"/>
         <location line="+1075"/>
         <source>Shout</source>
-        <translation type="unfinished"></translation>
+        <translation>Crie</translation>
     </message>
     <message>
         <location line="-1055"/>
         <location line="+945"/>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Salon</translation>
     </message>
     <message>
         <location line="+1224"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec lors de la création de la communication avec l&apos;overlay à %2 : %1. L&apos;overlay ne sera pas disponible.</translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -7829,42 +7837,42 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <location line="-830"/>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtre</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Only talking</source>
-        <translation type="unfinished">Parlant uniquement</translation>
+        <translation>Parlant uniquement</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in current channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Tous dans le salon courant</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Tous dans les salons liés</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Always show yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Toujours s&apos;afficher</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Colonnes</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Edit...</source>
-        <translation type="unfinished">Éditer...</translation>
+        <translation>Éditer...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Reset Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser le zoom</translation>
     </message>
 </context>
 <context>
@@ -7882,7 +7890,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <location/>
         <source>Form</source>
         <oldsource>Font</oldsource>
-        <translation type="unfinished">Police</translation>
+        <translation>Overlay</translation>
     </message>
     <message>
         <location/>
@@ -8045,17 +8053,17 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <location filename="Overlay.cpp" line="-1606"/>
         <source>To move the users, drag the little red dot.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pour déplacer des utilisateurs, glissez-déplacez le petit point rouge.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>To resize the users, mousewheel over a user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pour redimensionner les utilisateurs, utilisez la molette au dessus de l&apos;un d&apos;eux.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>For more options, rightclick a user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pour plus d&apos;options, faites un clic-droit sur un utilisateur.</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -8065,7 +8073,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <location line="+59"/>
         <source>Choose executable</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir le fichier exécutable</translation>
     </message>
     <message>
         <source>Maximum height of names.</source>
@@ -8152,32 +8160,32 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <location/>
         <source>Layout</source>
-        <translation type="unfinished">Disposition</translation>
+        <translation>Disposition</translation>
     </message>
     <message>
         <location/>
         <source>Overlay exceptions</source>
-        <translation type="unfinished"></translation>
+        <translation>Exceptions pour l&apos;overlay</translation>
     </message>
     <message>
         <location/>
         <source>Blacklist</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste noire</translation>
     </message>
     <message>
         <location/>
         <source>Whitelist</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste blanche</translation>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished">Ajouter</translation>
+        <translation>Ajouter</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished">Supprimer</translation>
+        <translation>Supprimer</translation>
     </message>
 </context>
 <context>
@@ -8185,117 +8193,117 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <location filename="OverlayEditor.ui"/>
         <source>Dialog</source>
-        <translation type="unfinished">Dialogue</translation>
+        <translation>Dialogue</translation>
     </message>
     <message>
         <location/>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>État</translation>
     </message>
     <message>
         <location/>
         <source>User is not talking</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;utilisateur ne parle pas</translation>
     </message>
     <message>
         <location/>
         <source>Passive</source>
-        <translation type="unfinished"></translation>
+        <translation>Passif</translation>
     </message>
     <message>
         <location/>
         <source>User is talking in your channel or a linked channel</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;utilisateur parle dans votre salon ou dans un salon lié</translation>
     </message>
     <message>
         <location/>
         <source>Talking</source>
-        <translation type="unfinished"></translation>
+        <translation>Parle</translation>
     </message>
     <message>
         <location/>
         <source>User is whispering to you privately</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;utilisateur vous chuchote en privé</translation>
     </message>
     <message>
         <location/>
         <source>Private Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation>Chuchotement privé</translation>
     </message>
     <message>
         <location/>
         <source>User is shouting to your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;utilisateur crie dans votre salon</translation>
     </message>
     <message>
         <location/>
         <source>Channel Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation>Crie au salon</translation>
     </message>
     <message>
         <location/>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom</translation>
     </message>
     <message>
         <location/>
         <source>Zoom Factor</source>
-        <translation type="unfinished"></translation>
+        <translation>Facteur de zoom</translation>
     </message>
     <message>
         <location/>
         <source>Enabled Elements</source>
-        <translation type="unfinished"></translation>
+        <translation>Éléments activés</translation>
     </message>
     <message>
         <location/>
         <source>User avatar, chosen by each user</source>
-        <translation type="unfinished"></translation>
+        <translation>Avatar d&apos;utilisateur, choisi par chaque utilisateur</translation>
     </message>
     <message>
         <location/>
         <source>Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Avatar</translation>
     </message>
     <message>
         <location/>
         <source>User&apos;s name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom d&apos;utilisateur</translation>
     </message>
     <message>
         <location/>
         <source>Username</source>
-        <translation type="unfinished">Nom d&apos;utilisateur</translation>
+        <translation>Nom d&apos;utilisateur</translation>
     </message>
     <message>
         <location/>
         <source>Name of user&apos;s channel, if outside your current channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom des salons de l&apos;utilisateur, si en dehors de votre salon actuel</translation>
     </message>
     <message>
         <location/>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Salon</translation>
     </message>
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>Sourd(e) ou muet(te)</translation>
     </message>
     <message>
         <location/>
         <source>Mute state</source>
-        <translation type="unfinished"></translation>
+        <translation>Muet</translation>
     </message>
     <message>
         <location/>
         <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
-        <translation type="unfinished"></translation>
+        <translation>Zone de délimitation, réduit automatiquement à la taille minimale pour contenir tout élément visible</translation>
     </message>
     <message>
         <location/>
         <source>Bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>Zone de délimitation</translation>
     </message>
 </context>
 <context>
@@ -8303,119 +8311,121 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <location filename="Overlay.cpp" line="+522"/>
         <source>Layout preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Disposition prédéfinie</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Large square avatar</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Grand avatar carré</translatorcomment>
+        <translation>Grand avatar carré</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Avatar and Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Avatar et nom</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>User Opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>Opacité de l&apos;utilisateur</translation>
     </message>
     <message>
         <location line="+6"/>
         <location line="+31"/>
         <source>%1%</source>
-        <translation type="unfinished">%1 %</translation>
+        <translation>%1 %</translation>
     </message>
     <message>
         <location line="-5"/>
         <source>Object Opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>Opacité de l&apos;objet</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation>Alignement</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Gauche</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+18"/>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Centre</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Droite</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Haut</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Bas</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Color...</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Font...</source>
-        <translation type="unfinished"></translation>
+        <translation>Police...</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>Zone de délimitation</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pen width</source>
-        <translation type="unfinished"></translation>
+        <translation>Largeur du crayon</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Padding</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Is there a way to translate this ? oO</translatorcomment>
+        <translation>Padding</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pen color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur du crayon</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de remplissage</translation>
     </message>
     <message>
         <location line="+87"/>
         <source>Pick pen color</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir la couleur du crayon</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Pick fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir la couleur de remplissage</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Pick color</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir la couleur</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Pick font</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir la police</translation>
     </message>
 </context>
 <context>
@@ -8429,7 +8439,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation type="unfinished">Impossible de charger la librairie d&apos;overlay. Cela signifie que :
+        <translation>Impossible de charger la librairie d&apos;overlay. Cela signifie que :
 - la librairie (mumble_ol.dll) n&apos;a pas été trouvée dans le répertoire depuis lequel vous avez lancé Mumble.
 - vous êtes sur une versions de Windows antérieure à XP SP2</translation>
     </message>
@@ -8590,12 +8600,12 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location/>
         <source>Enabled</source>
-        <translation type="unfinished">Activé</translation>
+        <translation>Activé</translation>
     </message>
 </context>
 <context>
@@ -8603,7 +8613,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <location filename="Plugins.cpp" line="+309"/>
         <source>Skipping plugin update in debug mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Passe la mise à jour des plugins en mode débogage.</translation>
     </message>
     <message>
         <location line="+155"/>
@@ -8734,7 +8744,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <location line="+81"/>
         <source>Message is too long.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le message est trop long.</translation>
     </message>
     <message>
         <source>TabWidget</source>
@@ -8872,7 +8882,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <location line="+6"/>
         <source>Africa</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrique</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -9045,7 +9055,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <location filename="TextMessage.ui"/>
         <source>If checked the message is recursively sent to all subchannels</source>
-        <translation>Si coché, le message sera envoyé récursivement à tous les sous salons</translation>
+        <translation>Si cochée, le message sera envoyé récursivement à tous les sous salons</translation>
     </message>
     <message>
         <location/>
@@ -9116,7 +9126,7 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
     <message>
         <location filename="UserEdit.cpp" line="-5"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommer</translation>
     </message>
 </context>
 <context>
@@ -9124,102 +9134,102 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
     <message>
         <location filename="UserInformation.ui"/>
         <source>User Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Information d&apos;utilisateur</translation>
     </message>
     <message>
         <location/>
         <source>Connection Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Information de connexion</translation>
     </message>
     <message>
         <location/>
         <source>Version</source>
-        <translation type="unfinished">Version</translation>
+        <translation>Version</translation>
     </message>
     <message>
         <location/>
         <source>OS</source>
-        <translation type="unfinished"></translation>
+        <translation>Système d&apos;exploitation</translation>
     </message>
     <message>
         <location/>
         <source>Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Certificat</translation>
     </message>
     <message>
         <location/>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse IP</translation>
     </message>
     <message>
         <location/>
         <source>CELT Versions</source>
-        <translation type="unfinished"></translation>
+        <translation>Versions CELT</translation>
     </message>
     <message>
         <location/>
         <source>Details...</source>
-        <translation type="unfinished"></translation>
+        <translation>Détails...</translation>
     </message>
     <message>
         <location/>
         <source>Ping Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statistiques du ping</translation>
     </message>
     <message>
         <location/>
         <source>Pings recieved</source>
-        <translation type="unfinished"></translation>
+        <translation>Pings reçus</translation>
     </message>
     <message>
         <location/>
         <source>Average ping</source>
-        <translation type="unfinished"></translation>
+        <translation>Moyenne du ping</translation>
     </message>
     <message>
         <location/>
         <source>TCP (Control)</source>
-        <translation type="unfinished"></translation>
+        <translation>TCP (Contrôle)</translation>
     </message>
     <message>
         <location/>
         <source>UDP (Voice)</source>
-        <translation type="unfinished"></translation>
+        <translation>UDP (Voix)</translation>
     </message>
     <message>
         <location/>
         <source>UDP Network statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statistiques réseau UDP</translation>
     </message>
     <message>
         <location/>
         <source>Good</source>
-        <translation type="unfinished">Bon</translation>
+        <translation>Bon</translation>
     </message>
     <message>
         <location/>
         <source>Late</source>
-        <translation type="unfinished">Tardif</translation>
+        <translation>Tardif</translation>
     </message>
     <message>
         <location/>
         <source>Lost</source>
-        <translation type="unfinished">Perdu</translation>
+        <translation>Perdu</translation>
     </message>
     <message>
         <location/>
         <source>Resync</source>
-        <translation type="unfinished">Resynchronise</translation>
+        <translation>Resynchronise</translation>
     </message>
     <message>
         <location/>
         <source>From Client</source>
-        <translation type="unfinished"></translation>
+        <translation>Depuis le Client</translation>
     </message>
     <message>
         <location/>
         <source>To Client</source>
-        <translation type="unfinished"></translation>
+        <translation>Pour le Client</translation>
     </message>
     <message>
         <source>Bandwidth</source>
@@ -9228,75 +9238,75 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
     <message>
         <location/>
         <source>Connection time</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps de connexion</translation>
     </message>
     <message>
         <location filename="UserInformation.cpp" line="+93"/>
         <source>%1w</source>
-        <translation type="unfinished">%1w</translation>
+        <translation>%1sem</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1d</source>
-        <translation type="unfinished">%1d</translation>
+        <translation>%1j</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1h</source>
-        <translation type="unfinished">%1h</translation>
+        <translation>%1h</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1m</source>
-        <translation type="unfinished">%1m</translation>
+        <translation>%1m</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1s</source>
-        <translation type="unfinished">%1s</translation>
+        <translation>%1s</translation>
     </message>
     <message>
         <location line="+29"/>
         <location line="+43"/>
         <source>, </source>
-        <translation type="unfinished">, </translation>
+        <translation>, </translation>
     </message>
     <message>
         <location line="-13"/>
         <source>%1.%2.%3 (%4)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1.%2.%3 (%4)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location line="+45"/>
         <source>%1 online (%2 idle)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 en ligne (%2 au repos)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 online</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 en ligne</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%1 kbit/s</source>
-        <translation type="unfinished">%1 kbits/s</translation>
+        <translation>%1 kbits/s</translation>
     </message>
     <message>
         <location filename="UserInformation.ui"/>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished">Bande passante</translation>
+        <translation>Bande passante</translation>
     </message>
     <message>
         <location/>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished">Bande passante</translation>
+        <translation>Bande passante</translation>
     </message>
 </context>
 <context>
@@ -9315,12 +9325,12 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
         <location line="+1"/>
         <source>Shouting directly to your channel.</source>
         <oldsource>Whispering directly to your channel.</oldsource>
-        <translation type="unfinished">Chuchotte directement dans votre salon.</translation>
+        <translation>Crie directement dans votre salon.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Whispering directly to you.</source>
-        <translation>Vous chuchotte directement.</translation>
+        <translation>Vous chuchote directement.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -9456,37 +9466,37 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
     <message>
         <location filename="VersionCheck.cpp" line="+130"/>
         <source>Upgrade Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Mettre Mumble à jour</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Une nouvelle version de Mumble a été détectée et automatiquement téléchargée. Il est recommandé de mettre à niveau à cette version ou de revenir à la dernière version stable. Voulez-vous lancer l&apos;installateur maintenant ?</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Failed to launch snapshot installer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec dans le lancement de l&apos;installateur du snapshot.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Corrupt download of new version detected. Automatically removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Détection d&apos;un téléchargement corrompu d&apos;une nouvelle version. Suppression automatique.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Downloading new snapshot from %1 to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Téléchargement du nouveau snapshot de %1 à %2</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Failed to write new version to disc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec lors de l&apos;écriture de la nouvelle version sur le disque.</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Mumble failed to retrieve version information from the central server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble ne peut pas retrouver les informations de version depuis le serveur central.</translation>
     </message>
 </context>
 <context>
@@ -9584,12 +9594,12 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
     <message>
         <location line="+4"/>
         <source>Email: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Courriel : %1</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>DNS: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>DNS : %1</translation>
     </message>
     <message>
         <location line="+9"/>
