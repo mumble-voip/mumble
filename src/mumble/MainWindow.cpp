@@ -260,7 +260,6 @@ void MainWindow::setupGui()  {
 	qmWindow->addAction(tr("Minimize"), this, SLOT(showMinimized()), QKeySequence(tr("Ctrl+M")));
 
 	qtvUsers->setAttribute(Qt::WA_MacShowFocusRect, false);
-	qleChat->setFrame(false);
 	qleChat->setAttribute(Qt::WA_MacShowFocusRect, false);
 	qteLog->setFrameStyle(QFrame::NoFrame);
 #endif
