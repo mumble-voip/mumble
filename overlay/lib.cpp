@@ -536,6 +536,9 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 						success = (RegQueryValueExA(key, usewhitelist ? "whitelist" : "blacklist", NULL, NULL, (LPBYTE)buffer, &buffsize) == ERROR_SUCCESS);
 					}
 
+					if (key)
+						RegCloseKey(key);
+
 					if (success) {
 						unsigned int pos = 0;
 
