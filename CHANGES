@@ -1,3 +1,18 @@
+2010-03-16
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    620f169  Make sure the overlay closes its registry handle
+
+2010-03-15
+  Martin Skilnand <cybknight@users.sourceforge.net>
+    55aee09  New default_avatar.svg "Mr.Jibberish" *Work in progress*
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    e97a7a1  QTextEdit doesn't have a setFrame() method.
+
+2010-03-13
+  root <root@DiskStation.(none)>
+    2903d05  Updated French Translation
+
 2010-03-12
   Thorvald Natvig <slicer@users.sourceforge.net>
     b5b0a4d  Handle mixed case groups in group editor
