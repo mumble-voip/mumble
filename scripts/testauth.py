@@ -1,6 +1,6 @@
 ﻿#!/usr/bin/env python
 # -*- coding: utf-8
-import Ice, sys
+import Ice, sys, time
 from M2Crypto import X509;
 Ice.loadSlice('Murmur.ice')
 import Murmur
@@ -25,6 +25,8 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
           return (2, "twO", groups)
         else:
           return (-1, None, None)
+      elif (name == "Fail"):
+        time.sleep(6)
       return (-2, None, None)
 
     def getInfo(self, id, current=None):
@@ -87,7 +89,6 @@ if __name__ == "__main__":
     for server in meta.getBootedServers():
       serverR=Murmur.ServerUpdatingAuthenticatorPrx.uncheckedCast(adapter.addWithUUID(ServerAuthenticatorI(server, adapter)))
       server.setAuthenticator(serverR)
-#      server.registerUser("TestUser")
 
     print "Done"
     
