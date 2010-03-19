@@ -1656,7 +1656,7 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		qaShowSelf->setChecked(true);
 
 	QMenu *qmColumns = qm.addMenu(OverlayClient::tr("Columns"));
-	QAction *qaColumns[5];
+	QAction *qaColumns[6];
 	for (int i=1;i<=5;++i) {
 		qaColumns[i] = qmColumns->addAction(QString::number(i));
 		qaColumns[i]->setCheckable(true);
@@ -1695,7 +1695,7 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		os->bAlwaysSelf = ! os->bAlwaysSelf;
 		updateUsers();
 	} else {
-		for (int i=0;i<5;++i) {
+		for (int i=1;i<=5;++i) {
 			if (act == qaColumns[i]) {
 				os->uiColumns = i;
 				updateLayout();
