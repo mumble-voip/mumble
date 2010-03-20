@@ -329,6 +329,10 @@ class Overlay : public QObject {
 
 		void platformInit();
 
+		static bool isInstalled();
+		static bool needsUpgrade();
+		static void installFiles();
+
 		QLocalServer *qlsServer;
 		QList<OverlayClient *> qlClients;
 	protected slots:
@@ -341,6 +345,7 @@ class Overlay : public QObject {
 		bool isActive() const;
 		void verifyTexture(ClientUser *cp, bool allowupdate = true);
 		void requestTexture(ClientUser *);
+
 	public slots:
 		void updateOverlay();
 		void setActive(bool act);

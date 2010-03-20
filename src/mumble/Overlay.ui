@@ -18,7 +18,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QStackedWidget" name="stackedWidget">
+    <widget class="QStackedWidget" name="qswOverlayPage">
      <property name="currentIndex">
       <number>0</number>
      </property>

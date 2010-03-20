@@ -95,3 +95,14 @@ void Overlay::platformInit() {
 void Overlay::setActive(bool act) {
 	static_cast<OverlayPrivateMac *>(d)->setActive(act);
 }
+
+bool Overlay::isInstalled() {
+	return false;
+}
+
+bool Overlay::needsUpgrade() {
+	return false;
+}
+
+void Overlay::installFiles() {
+}

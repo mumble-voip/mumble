@@ -47,6 +47,14 @@ static ConfigRegistrar registrar(6000, OverlayConfigDialogNew);
 OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
+	if (! Overlay::isInstalled()) {
+		if (Overlay::needsUpgrade()) {
+			qswOverlayPage->setCurrentWidget(qwOverlayUpgrade);
+		} else {
+			qswOverlayPage->setCurrentWidget(qwOverlayInstall);
+		}
+	}
+
 	qgs.setBackgroundBrush(QColor(128, 128, 128, 255));
 
 	qpScreen = QPixmap::grabWindow(QApplication::desktop()->winId());

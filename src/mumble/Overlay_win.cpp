@@ -103,3 +103,14 @@ void Overlay::platformInit() {
 void Overlay::setActive(bool act) {
 	static_cast<OverlayPrivateWin *>(d)->setActive(act);
 }
+
+bool Overlay::isInstalled() {
+	return true;
+}
+
+bool Overlay::needsUpgrade() {
+	return false;
+}
+
+void Overlay::installFiles() {
+}
