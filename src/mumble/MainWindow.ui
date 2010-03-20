@@ -17,7 +17,7 @@
    <set>QMainWindow::AllowNestedDocks|QMainWindow::AnimatedDocks</set>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
-   <bool>false</bool>
+   <bool>true</bool>
   </property>
   <widget class="UserView" name="qtvUsers">
    <property name="contextMenuPolicy">
