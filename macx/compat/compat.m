@@ -40,6 +40,7 @@
 	                          informativeTextWithFormat:@"This version of Mumble only runs on 64-bit Intel Macs.\n\n"
 	                                                     "Please download the Universal version from the Mumble website instead.\n"];
 	[[alert window] makeKeyAndOrderFront:self];
+	[[alert window] center];
 	NSInteger button = [alert runModal];
 	if (button == NSAlertOtherReturn) {
 		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://mumble.info/"]];
