@@ -261,6 +261,7 @@ void MainWindow::setupGui()  {
 
 	qtvUsers->setAttribute(Qt::WA_MacShowFocusRect, false);
 	qleChat->setAttribute(Qt::WA_MacShowFocusRect, false);
+	qleChat->setFrameShape(QFrame::NoFrame);
 	qteLog->setFrameStyle(QFrame::NoFrame);
 #endif
 
