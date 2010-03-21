@@ -143,8 +143,8 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	*/
 
 	// Remember addresses for later
-	posptr = mod_engine + 0x507390;
-	rotptr = mod_engine + 0x507304;
+	posptr = mod_engine + 0x5073A0;
+	rotptr = mod_engine + 0x507314;
 	stateptr = pModule + 0x4ECBF4;
 	hostptr = mod_engine + 0x3C91EC;
 
