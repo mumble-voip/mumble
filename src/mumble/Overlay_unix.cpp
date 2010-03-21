@@ -37,6 +37,10 @@ void Overlay::platformInit() {
 void Overlay::setActive(bool) {
 }
 
+bool Overlay::supportsInstallableOverlay() {
+	return false;
+}
+
 bool Overlay::isInstalled() {
 	return true;
 }
@@ -45,5 +49,10 @@ bool Overlay::needsUpgrade() {
 	return false;
 }
 
-void Overlay::installFiles() {
+bool Overlay::installFiles() {
+	return false;
+}
+
+bool Overlay::uninstallFiles() {
+	return false;
 }

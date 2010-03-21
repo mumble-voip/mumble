@@ -232,6 +232,8 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 
 		bool eventFilter(QObject *, QEvent *);
 	protected slots:
+		void on_qpbInstall_clicked();
+		void on_qpbUninstall_clicked();
 		void on_qpbAdd_clicked();
 		void on_qpbRemove_clicked();
 		void on_qcbBlacklist_toggled(bool);
@@ -329,9 +331,11 @@ class Overlay : public QObject {
 
 		void platformInit();
 
+		static bool supportsInstallableOverlay();
 		static bool isInstalled();
 		static bool needsUpgrade();
-		static void installFiles();
+		static bool installFiles();
+		static bool uninstallFiles();
 
 		QLocalServer *qlsServer;
 		QList<OverlayClient *> qlClients;

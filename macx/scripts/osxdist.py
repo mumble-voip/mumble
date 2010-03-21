@@ -7,7 +7,7 @@
 # by Thomas Keller).
 #
 
-import sys, os, string, re, shutil, plistlib, tempfile, exceptions, datetime
+import sys, os, string, re, shutil, plistlib, tempfile, exceptions, datetime, tarfile
 from subprocess import Popen, PIPE
 from optparse import OptionParser
 
@@ -30,6 +30,30 @@ def codesign(id, path):
 		if retval != 0:
 			return retval
 	return 0
+
+def create_overlay_tarball(sign=None):
+	print '* Creating overlay loader installation tarball'
+
+	bundle = os.path.join('release', 'MumbleOverlay.osax')
+	if sign:
+		codesign(sign, bundle)
+	contents = []
+	for e in os.walk(bundle):
+		root, dirs, files = e
+		contents.extend([root]+[os.path.join(root, f) for f in files])
+
+	tar = tarfile.open(os.path.join('release', 'MumbleOverlay.tar.bz2'), 'w:bz2')
+	for c in contents:
+		info = tar.gettarinfo(c)
+		info.name = c[len('release/'):]
+		info.uname = 'root'
+		info.gname = 'admin'
+		f = None
+		if info.isfile():
+			f = open(c)
+		tar.addfile(info, f)
+	tar.close()
+
 
 class AppBundle(object):
 
@@ -226,6 +250,7 @@ class AppBundle(object):
 		os.makedirs(dst)
 		shutil.copy('release/libmumbleoverlay.dylib', dst)
 		shutil.copy('release/mumble-overlay', dst)
+		shutil.copy('release/MumbleOverlay.tar.bz2', dst)
 
 	def copy_codecs(self):
 		'''
@@ -435,6 +460,9 @@ if __name__ == '__main__':
 	# Fix .ini files
 	os.system('cd scripts && sh mkini.sh')
 
+	# Fix overlay 'installer' tarball
+	create_overlay_tarball(options.codesign)
+
 	# Do the finishing touches to our Application bundle before release
 	a = AppBundle('release/Mumble.app', ver)
 	if not options.universal:
@@ -461,7 +489,6 @@ if __name__ == '__main__':
 	else:
 		c.set_min_macosx_version('10.4.8')
 	c.copy_g15helper()
-	c.copy_overlay()
 	c.copy_plugins()
 	c.copy_qt_plugins()
 	c.handle_libs()
@@ -477,11 +504,11 @@ if __name__ == '__main__':
 			'release/Mumble.app',
 			'release/Mumble.app/Contents/MacOS/murmurd',
 			'release/Mumble.app/Contents/MacOS/mumble-g15-helper',
-			'release/Mumble.app/Contents/Overlay/mumble-overlay',
 			'release/Mumble.app/Contents/Plugins/liblink.dylib',
 			'release/Mumble.app/Contents/Plugins/libmanual.dylib',
-			'release/Mumble.app/Contents/Overlay/libmumbleoverlay.dylib',
 			'release/Mumble.app/Contents/Codecs/libcelt0.0.7.0.dylib',
+			'release/Mumble.app/Contents/Overlay/mumble-overlay',
+			'release/Mumble.app/Contents/Overlay/libmumbleoverlay.dylib',
 			# 1.1.x
 			'release/Mumble11x.app/',
 			'release/Mumble11x.app/Contents/MacOS/mumble-g15-helper',

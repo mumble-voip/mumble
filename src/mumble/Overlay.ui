@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>563</width>
-    <height>777</height>
+    <width>508</width>
+    <height>571</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,7 +29,7 @@
          <property name="title">
           <string>Options</string>
          </property>
-         <layout class="QVBoxLayout">
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>
            <widget class="QCheckBox" name="qcbEnable">
             <property name="toolTip">
@@ -40,6 +40,26 @@
             </property>
             <property name="text">
              <string>Enable Overlay</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="qpbUninstall">
+            <property name="text">
+             <string>Uninstall Overlay</string>
             </property>
            </widget>
           </item>
@@ -328,7 +348,7 @@ To upgrade these files to their latest versions, click the button below.</string
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton">
+             <widget class="QPushButton" name="qpbUpgrade">
               <property name="text">
                <string>Upgrade Mumble Overlay</string>
               </property>

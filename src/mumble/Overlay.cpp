@@ -48,12 +48,14 @@ OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
 	if (! Overlay::isInstalled()) {
-		if (Overlay::needsUpgrade()) {
-			qswOverlayPage->setCurrentWidget(qwOverlayUpgrade);
-		} else {
-			qswOverlayPage->setCurrentWidget(qwOverlayInstall);
-		}
+		qswOverlayPage->setCurrentWidget(qwOverlayInstall);
+	} else if (Overlay::needsUpgrade()) {
+		qswOverlayPage->setCurrentWidget(qwOverlayUpgrade);
+	} else {
+		qswOverlayPage->setCurrentWidget(qwOverlayConfig);
 	}
+
+	qpbUninstall->setVisible(Overlay::supportsInstallableOverlay());
 
 	qgs.setBackgroundBrush(QColor(128, 128, 128, 255));
 
@@ -91,6 +93,11 @@ OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 	qgvView->setScene(&qgs);
 
 	qgvView->installEventFilter(this);
+
+	// Attach the upgrade button to the install click handler. Currently, the
+	// actions they perform are the same. The distinction is only there to inform
+	// users as to what's actually going on.
+	connect(qpbUpgrade, SIGNAL(clicked()), this, SLOT(on_qpbInstall_clicked()));
 }
 
 void OverlayConfig::load(const Settings &r) {
@@ -194,6 +201,26 @@ void OverlayConfig::on_qcbBlacklist_toggled(bool checked) {
 	qswBlackWhiteList->setCurrentWidget(checked ? qwBlack : qwWhite);
 }
 
+void OverlayConfig::on_qpbInstall_clicked() {
+	qpbInstall->setEnabled(false);
+
+	if (Overlay::installFiles()) {
+		qswOverlayPage->setCurrentWidget(qwOverlayConfig);
+	}
+
+	qpbInstall->setEnabled(true);
+}
+
+void OverlayConfig::on_qpbUninstall_clicked() {
+
+	qpbUninstall->setEnabled(false);
+
+	if (Overlay::uninstallFiles()) {
+		qswOverlayPage->setCurrentWidget(qwOverlayInstall);
+	}
+
+	qpbUninstall->setEnabled(true);
+}
 
 
 OverlayEditorScene::OverlayEditorScene(QObject *p, const OverlaySettings &srcos) : QGraphicsScene(p), os(srcos) {
