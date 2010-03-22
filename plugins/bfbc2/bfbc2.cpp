@@ -40,7 +40,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	//char logincheck;
 	bool ok;
 
-	/* 
+	/*
 	ok = peekProc((BYTE *) 0x0, &logincheck, 1);
 	if (! ok)
 		return false;
@@ -62,7 +62,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ok = peekProc((BYTE *) 0x0199D630, avatar_pos, 12) &&
 	     peekProc((BYTE *) 0x0199D620, avatar_front, 12) &&
 	     peekProc((BYTE *) 0x0199D610, avatar_top, 12); // &&
-	     //peekProc((BYTE *) 0x0, ccontext, 128);
+	//peekProc((BYTE *) 0x0, ccontext, 128);
 
 	if (! ok)
 		return false;

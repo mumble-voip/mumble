@@ -4569,12 +4569,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+148"/>
-        <location line="+1832"/>
+        <location line="+1833"/>
         <source>Root</source>
         <translation>根</translation>
     </message>
     <message>
-        <location line="-1782"/>
+        <location line="-1783"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>按鍵通話</translation>
@@ -4713,28 +4713,28 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+1934"/>
+        <location line="+1935"/>
         <source>Mumble -- %1</source>
         <translation></translation>
     </message>
     <message>
-        <location line="-1930"/>
+        <location line="-1931"/>
         <source>&amp;Window</source>
         <translation>&amp;窗口</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+100"/>
+        <location line="+101"/>
         <source>Minimize</source>
         <translation>最小化</translation>
     </message>
     <message>
-        <location line="-100"/>
+        <location line="-101"/>
         <source>Ctrl+M</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+100"/>
         <source>Close</source>
         <translation>關閉</translation>
     </message>
@@ -4744,7 +4744,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumble 現在連接到了一個服務器。你想要關閉還是最小化它？</translation>
     </message>
     <message>
-        <location line="-195"/>
+        <location line="-196"/>
         <source>&amp;User</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4791,7 +4791,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+58"/>
         <location line="+1954"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
@@ -4900,13 +4900,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-913"/>
+        <location line="-914"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+632"/>
+        <location line="+633"/>
         <location line="+281"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
@@ -5251,7 +5251,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;玩家</translation>
     </message>
     <message>
-        <location line="-2008"/>
+        <location line="-2009"/>
         <source>&amp;Channel</source>
         <translation type="unfinished">&amp;頻道</translation>
     </message>
@@ -6711,7 +6711,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+265"/>
+        <location filename="Overlay.cpp" line="+300"/>
         <location line="+1075"/>
         <source>Silent</source>
         <translation type="unfinished"></translation>
@@ -6814,7 +6814,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">顯示所有人</translation>
     </message>
     <message>
-        <location line="-1606"/>
+        <location line="-1631"/>
         <source>To move the users, drag the little red dot.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6829,7 +6829,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+51"/>
         <source>Overlay</source>
         <translation></translation>
     </message>
@@ -7046,6 +7046,45 @@ Prevents the client from downloading images embedded into chat messages with the
         <source>Remove</source>
         <translation type="unfinished">刪除</translation>
     </message>
+    <message>
+        <location/>
+        <source>Uninstall Overlay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Overlay Installation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Mumble has detected that you do not have the Mumble Overlay installed.
+
+Click the button below to install the overlay.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Install Mumble Overlay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Overlay Upgrade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Mumble has detected an old version of the overlay support files installed on your computer.
+
+To upgrade these files to their latest versions, click the button below.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Upgrade Mumble Overlay</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OverlayEditor</name>
@@ -7168,7 +7207,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayEditorScene</name>
     <message>
-        <location filename="Overlay.cpp" line="+522"/>
+        <location filename="Overlay.cpp" line="+542"/>
         <source>Layout preset</source>
         <translation type="unfinished"></translation>
     </message>

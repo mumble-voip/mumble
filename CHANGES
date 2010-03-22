@@ -1,3 +1,38 @@
+2010-03-22
+  Mikkel Krautz <mikkel@krautz.dk>
+    c63cfa0  Installable overlay for OSX.
+
+2010-03-21
+  Tuck Therebelos <snares@users.sourceforge.net>
+    4b426f3  TF2 update
+
+2010-03-20
+  Mikkel Krautz <mikkel@krautz.dk>
+    7fea437  Add stubs needed for new installable overlay on OSX.
+    55992db  Add (Mac OS X specific) overlay installation and overlay
+	     upgrade pages to the Overlay config.
+    a8b96ce  Remove frame from chat QTextEdit box on Mac OS X.
+    9215dbe  Re-enable unified toolbar for OSX.
+    b5ec788  Always center the alert dialog in the Mumble.compat binary.
+    e5e7fed  Remove wrong include in macx.pro.
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    9358a16  Add alpha-testing BFBC2 plugin
+
+2010-03-19
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    52c8931  Fix array index
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    02115d6  MW2 update
+
+2010-03-18
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    69a34a9  Fix copy&paste from the log window
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    0485e2e  Add timeout to authenticators
+
 2010-03-16
   Stefan Hacker <dd0t@users.sourceforge.net>
     620f169  Make sure the overlay closes its registry handle
