@@ -90,7 +90,7 @@ class OverlayUser : public OverlayGroup {
 
 		int type() const;
 
-		static QPixmap createPixmap(const QString &str, unsigned int height, unsigned int maxwidth, QColor col, const QFont &font, QPainterPath &);
+		static QPixmap createPixmap(const QString &str, unsigned int maxwidth, unsigned int height, QColor col, const QFont &font, QPainterPath &);
 		static QRectF scaledRect(const QRectF &qr, qreal scale);
 		static QPointF alignedPosition(const QRectF &box, const QRectF &item, Qt::Alignment a);
 };

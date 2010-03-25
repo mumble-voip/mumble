@@ -1303,7 +1303,7 @@ void OverlayUser::setup() {
 }
 
 #undef SCALESIZE
-#define SCALESIZE(var) iroundf(uiSize * os->fHeight * os->qrf##var .height()), iroundf(uiSize * os->fHeight * os->qrf##var .width())
+#define SCALESIZE(var) iroundf(uiSize * os->fHeight * os->qrf##var .width()), iroundf(uiSize * os->fHeight * os->qrf##var .height())
 
 void OverlayUser::updateLayout() {
 	QPixmap pm;
@@ -1387,7 +1387,7 @@ void OverlayUser::updateLayout() {
 	}
 }
 
-QPixmap OverlayUser::createPixmap(const QString &string, unsigned int height, unsigned int maxwidth, QColor col, const QFont &font, QPainterPath &pp) {
+QPixmap OverlayUser::createPixmap(const QString &string, unsigned int maxwidth, unsigned int height, QColor col, const QFont &font, QPainterPath &pp) {
 	float edge = height * 0.05f;
 
 	if (! height || ! maxwidth)
