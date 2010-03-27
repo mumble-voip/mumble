@@ -59,10 +59,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (! ok)
 		return false;
 	*/
-	ok = peekProc((BYTE *) 0x0199D630, avatar_pos, 12) &&
-	     peekProc((BYTE *) 0x0199D620, avatar_front, 12) &&
-	     peekProc((BYTE *) 0x0199D610, avatar_top, 12); // &&
-	//peekProc((BYTE *) 0x0, ccontext, 128);
+	ok = peekProc((BYTE *) 0x01538C70, avatar_pos, 12) &&
+	     peekProc((BYTE *) 0x01538C60, avatar_front, 12) &&
+	     peekProc((BYTE *) 0x01538C50, avatar_top, 12); // &&
+	     //peekProc((BYTE *) 0x0, ccontext, 128);
 
 	if (! ok)
 		return false;
