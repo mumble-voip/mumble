@@ -189,7 +189,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	connect(this, SIGNAL(tcpTransmit(QByteArray, unsigned int)), this, SLOT(tcpTransmitData(QByteArray, unsigned int)), Qt::QueuedConnection);
 	connect(this, SIGNAL(reqSync(unsigned int)), this, SLOT(doSync(unsigned int)));
 
-	for (int i=1;i<5000;i++)
+	for (int i=1;i<iMaxUsers*2;++i)
 		qqIds.enqueue(i);
 
 	connect(qtTimeout, SIGNAL(timeout()), this, SLOT(checkTimeout()));
@@ -377,8 +377,12 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			mpsc.set_max_bandwidth(length);
 			sendAll(mpsc);
 		}
-	} else if (key == "users")
-		iMaxUsers = i ? i : Meta::mp.iMaxUsers;
+	} else if (key == "users") {
+		int newmax = i ? i : Meta::mp.iMaxUsers;
+		for (int i=iMaxUsers*2;i<newmax*2;++i)
+			qqIds.enqueue(i);
+		iMaxUsers = newmax;
+	}
 	else if (key == "usersperchannel")
 		iMaxUsersPerChannel = i ? i : Meta::mp.iMaxUsersPerChannel;
 	else if (key == "textmessagelength") {
