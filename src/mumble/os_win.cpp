@@ -192,10 +192,10 @@ void os_init() {
 	}
 #else
 	QString console = g.qdBasePath.filePath(QLatin1String("Console.txt"));
-	errno_t res = _wfopen_s(&fConsole, console.utf16(), L"a+");
+	fConsole = _wfsopen(console.utf16(), L"a+", _SH_DENYWR);
 #endif
 
-	if ((res == 0) && fConsole)
+	if (fConsole)
 		qInstallMsgHandler(mumbleMessageOutput);
 
 	QString hash;
