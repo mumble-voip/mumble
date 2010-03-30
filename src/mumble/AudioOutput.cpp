@@ -970,16 +970,24 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	if (g.s.fVolume < 0.01)
 		return false;
 
+	const float adjustFactor = std::pow(10, -18. / 20);
 	const float mul = g.s.fVolume;
 	const unsigned int nchan = iChannels;
 
 	qrwlOutputs.lockForRead();
-	foreach(aop, qmOutputs) {
+	bool needAdjustment = false;
+	QMultiHash<const ClientUser *, AudioOutputUser *>::const_iterator i = qmOutputs.constBegin();
+	while (i != qmOutputs.constEnd()) {
+		AudioOutputUser *aop = i.value();
 		if (! aop->needSamples(nsamp)) {
 			qlDel.append(aop);
 		} else {
 			qlMix.append(aop);
+			// Set a flag if there is a priority speaker
+			if (i.key() && i.key()->bPrioritySpeaker)
+				needAdjustment = true;
 		}
+		++i;
 	}
 
 	if (! qlMix.isEmpty()) {
@@ -1062,6 +1070,18 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 
 		foreach(aop, qlMix) {
 			const float * RESTRICT pfBuffer = aop->pfBuffer;
+			float volumeAdjustment = 1;
+
+			// We have at least one priority speaker
+			if (needAdjustment) {
+				AudioOutputSpeech *aos = qobject_cast<AudioOutputSpeech *>(aop);
+				// Exclude whispering people
+				if (aos && (aos->p->tsState == Settings::Talking || aos->p->tsState == Settings::Shouting)) {
+					// Adjust all non-priority speakers
+					if (!aos->p->bPrioritySpeaker)
+						volumeAdjustment = adjustFactor;
+				}
+			}
 
 			if (validListener && ((aop->fPos[0] != 0.0f) || (aop->fPos[1] != 0.0f) || (aop->fPos[2] != 0.0f))) {
 				float dir[3] = { aop->fPos[0] - g.p->fCameraPosition[0], aop->fPos[1] - g.p->fCameraPosition[1], aop->fPos[2] - g.p->fCameraPosition[2] };
@@ -1082,7 +1102,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 				}
 				for (unsigned int s=0;s<nchan;++s) {
 					const float dot = bSpeakerPositional[s] ? dir[0] * speaker[s*3+0] + dir[1] * speaker[s*3+1] + dir[2] * speaker[s*3+2] : 1.0f;
-					const float str = svol[s] * calcGain(dot, len);
+					const float str = svol[s] * calcGain(dot, len) * volumeAdjustment;
 					float * RESTRICT o = output + s;
 					const float old = (aop->pfVolume[s] >= 0.0) ? aop->pfVolume[s] : str;
 					const float inc = (str - old) / static_cast<float>(nsamp);
@@ -1096,7 +1116,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 				}
 			} else {
 				for (unsigned int s=0;s<nchan;++s) {
-					const float str = svol[s];
+					const float str = svol[s] * volumeAdjustment;
 					float * RESTRICT o = output + s;
 					for (unsigned int i=0;i<nsamp;++i)
 						o[i*nchan] += pfBuffer[i] * str;

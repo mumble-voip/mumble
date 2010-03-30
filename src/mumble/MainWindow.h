@@ -161,6 +161,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaUserBan_triggered();
 		void on_qaUserMute_triggered();
 		void on_qaUserDeaf_triggered();
+		void on_qaSelfPrioritySpeaker_triggered();
+		void on_qaUserPrioritySpeaker_triggered();
 		void on_qaUserLocalMute_triggered();
 		void on_qaUserTextMessage_triggered();
 		void on_qaUserRegister_triggered();

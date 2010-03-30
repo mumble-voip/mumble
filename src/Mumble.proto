@@ -106,6 +106,7 @@ message UserState {
 	optional string hash = 15;
 	optional bytes comment_hash = 16;
 	optional bytes texture_hash = 17;
+	optional bool priority_speaker = 18;
 }
 
 message BanList {

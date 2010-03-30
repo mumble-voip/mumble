@@ -813,6 +813,13 @@ void MainWindow::on_qmSelf_aboutToShow() {
 	qaServerTextureRemove->setEnabled(user && ! user->qbaTextureHash.isEmpty());
 
 	qaSelfRegister->setEnabled(user && (user->iId < 0) && ! user->qsHash.isEmpty() && (g.pPermissions & (ChanACL::SelfRegister | ChanACL::Write)));
+	if (g.sh->uiVersion >= 0x010203) {
+		qaSelfPrioritySpeaker->setEnabled(user && g.pPermissions & (ChanACL::Write | ChanACL::MuteDeafen));
+		qaSelfPrioritySpeaker->setChecked(user && user->bPrioritySpeaker);
+	} else {
+		qaSelfPrioritySpeaker->setEnabled(false);
+		qaSelfPrioritySpeaker->setChecked(false);
+	}
 }
 
 void MainWindow::on_qaSelfComment_triggered() {
@@ -1016,6 +1023,8 @@ void MainWindow::qmUser_aboutToShow() {
 		qmUser->addAction(qaUserBan);
 	qmUser->addAction(qaUserMute);
 	qmUser->addAction(qaUserDeaf);
+	if (g.sh->uiVersion >= 0x010203)
+		qmUser->addAction(qaUserPrioritySpeaker);
 	qmUser->addAction(qaUserLocalMute);
 
 	if (self)
@@ -1084,6 +1093,7 @@ void MainWindow::qmUser_aboutToShow() {
 
 		qaUserMute->setChecked(p->bMute || p->bSuppress);
 		qaUserDeaf->setChecked(p->bDeaf);
+		qaUserPrioritySpeaker->setChecked(p->bPrioritySpeaker);
 		qaUserLocalMute->setChecked(p->bLocalMute);
 	}
 	updateMenuPermissions();
@@ -1127,6 +1137,28 @@ void MainWindow::on_qaUserDeaf_triggered() {
 	MumbleProto::UserState mpus;
 	mpus.set_session(p->uiSession);
 	mpus.set_deaf(! p->bDeaf);
+	g.sh->sendMessage(mpus);
+}
+
+void MainWindow::on_qaSelfPrioritySpeaker_triggered() {
+	ClientUser *p = ClientUser::get(g.uiSession);
+	if (!p)
+		return;
+
+	MumbleProto::UserState mpus;
+	mpus.set_session(p->uiSession);
+	mpus.set_priority_speaker(! p->bPrioritySpeaker);
+	g.sh->sendMessage(mpus);
+}
+
+void MainWindow::on_qaUserPrioritySpeaker_triggered() {
+	ClientUser *p = getContextMenuUser();
+	if (!p)
+		return;
+
+	MumbleProto::UserState mpus;
+	mpus.set_session(p->uiSession);
+	mpus.set_priority_speaker(! p->bPrioritySpeaker);
 	g.sh->sendMessage(mpus);
 }
 
@@ -1585,6 +1617,7 @@ void MainWindow::updateMenuPermissions() {
 	if (cu) {
 		qaUserMute->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen) && ((cu != user) || cu->bMute || cu->bSuppress));
 		qaUserDeaf->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen) && ((cu != user) || cu->bDeaf));
+		qaUserPrioritySpeaker->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen));
 		qaUserTextMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 		qaUserInformation->setEnabled((g.pPermissions & (ChanACL::Write | ChanACL::Register)) || (p & (ChanACL::Write | ChanACL::Enter)) || (cu == user));
 	} else {

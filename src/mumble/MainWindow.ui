@@ -83,6 +83,7 @@
     </property>
     <addaction name="qaAudioMute"/>
     <addaction name="qaAudioDeaf"/>
+    <addaction name="qaSelfPrioritySpeaker"/>
     <addaction name="separator"/>
     <addaction name="qaSelfComment"/>
     <addaction name="qaServerTexture"/>
@@ -765,6 +766,22 @@
    </property>
    <property name="toolTip">
     <string>Register yourself on the server</string>
+   </property>
+  </action>
+  <action name="qaUserPrioritySpeaker">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Priority speaker</string>
+   </property>
+  </action>
+  <action name="qaSelfPrioritySpeaker">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Priority speaker</string>
    </property>
   </action>
  </widget>

@@ -130,6 +130,8 @@ QString ClientUser::getFlagsString() const {
 		flags << ClientUser::tr("Friend");
 	if (iId >= 0)
 		flags << ClientUser::tr("Authenticated");
+	if (bPrioritySpeaker)
+		flags << ClientUser::tr("Priority speaker");
 	if (bMute)
 		flags << ClientUser::tr("Muted (server)");
 	if (bDeaf)
@@ -207,6 +209,13 @@ void ClientUser::setSelfDeaf(bool deaf) {
 	bSelfDeaf = deaf;
 	if (deaf)
 		bSelfMute = true;
+	emit muteDeafChanged();
+}
+
+void ClientUser::setPrioritySpeaker(bool priority) {
+	if (bPrioritySpeaker == priority)
+		return;
+	bPrioritySpeaker = priority;
 	emit muteDeafChanged();
 }
 

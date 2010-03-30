@@ -47,6 +47,7 @@ class User {
 		QString qsHash;
 		bool bMute, bDeaf, bSuppress;
 		bool bSelfMute, bSelfDeaf;
+		bool bPrioritySpeaker;
 		Channel *cChannel;
 		QByteArray qbaTexture;
 		QByteArray qbaTextureHash;

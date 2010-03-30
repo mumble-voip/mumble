@@ -85,6 +85,7 @@ class UserModel : public QAbstractItemModel {
 	protected:
 		QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
 		QIcon qiMutedSelf, qiMutedServer, qiMutedLocal, qiMutedSuppressed;
+		QIcon qiPrioritySpeaker;
 		QIcon qiDeafenedSelf, qiDeafenedServer;
 		QIcon qiAuthenticated, qiChannel, qiLinkedChannel, qiActiveChannel;
 		QIcon qiFriend;

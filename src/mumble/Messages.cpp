@@ -271,13 +271,15 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		}
 	}
 
-	if (msg.has_deaf() || msg.has_mute() || msg.has_suppress()) {
+	if (msg.has_deaf() || msg.has_mute() || msg.has_suppress() || msg.has_priority_speaker()) {
 		if (msg.has_mute())
 			pDst->setMute(msg.mute());
 		if (msg.has_deaf())
 			pDst->setDeaf(msg.deaf());
 		if (msg.has_suppress())
 			pDst->setSuppress(msg.suppress());
+		if (msg.has_priority_speaker())
+			pDst->setPrioritySpeaker(msg.priority_speaker());
 
 		if (pSelf && ((pDst->cChannel == pSelf->cChannel) || (pSrc == pSelf))) {
 			if (pDst == pSelf) {

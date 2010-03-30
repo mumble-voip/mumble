@@ -167,6 +167,8 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 
 			if (cu) {
 				// Calculate pixel offset of comment flag
+				if (cu->bPrioritySpeaker)
+					offset += 18;
 				if (cu->bMute)
 					offset += 18;
 				if (cu->bSuppress)

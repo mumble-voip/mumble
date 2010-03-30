@@ -36,6 +36,7 @@ User::User() {
 	iId = -1;
 	bMute = bDeaf = false;
 	bSelfMute = bSelfDeaf = false;
+	bPrioritySpeaker = false;
 	bSuppress = false;
 	cChannel = 0;
 }
