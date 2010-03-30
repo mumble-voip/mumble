@@ -12,11 +12,11 @@ try:
   slicefile = tempfile.NamedTemporaryFile(suffix = '.ice')
   slicefile.write(slice)
   slicefile.flush()
-  Ice.loadSlice(slicefile.name)
+  Ice.loadSlice('', ['-I' + Ice.getSliceDir(), slicefile.name])
   slicefile.close()
   print 'Using dynamic slice'
 except:
-  Ice.loadSlice('Murmur.ice')
+  Ice.loadSlice('', ['-I' + Ice.getSliceDir(), 'Murmur.ice'])
   print 'Using bundled slice'
 
 import Murmur

@@ -3,7 +3,7 @@
 import Ice, sys, sha
 from M2Crypto import X509;
 
-Ice.loadSlice('Murmur.ice')
+Ice.loadSlice('', ['-I' + Ice.getSliceDir(), 'Murmur.ice'])
 import Murmur
 
 class MetaCallbackI(Murmur.MetaCallback):
