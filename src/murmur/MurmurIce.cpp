@@ -1027,7 +1027,8 @@ static void impl_Server_setState(const ::Murmur::AMD_Server_setStatePtr cb, int 
 	NEED_PLAYER;
 	NEED_CHANNEL_VAR(channel, state.channel);
 
-	server->setUserState(user, channel, state.mute, state.deaf, state.suppress, u8(state.comment));
+	// FIXME: requires Ice struct change...
+	server->setUserState(user, channel, state.mute, state.deaf, state.suppress, user->bPrioritySpeaker, u8(state.comment));
 	cb->ice_response();
 }
 
@@ -1271,7 +1272,7 @@ static void impl_Server_updateRegistration(const ::Murmur::AMD_Server_updateRegi
 	if (info.contains(ServerDB::User_Comment)) {
 		foreach(ServerUser *u, server->qhUsers) {
 			if (u->iId == id)
-				server->setUserState(u, u->cChannel, u->bMute, u->bDeaf, u->bSuppress, info.value(ServerDB::User_Comment));
+				server->setUserState(u, u->cChannel, u->bMute, u->bDeaf, u->bSuppress, u->bPrioritySpeaker, info.value(ServerDB::User_Comment));
 		}
 	}
 

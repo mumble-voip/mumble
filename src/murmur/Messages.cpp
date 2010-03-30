@@ -333,6 +333,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 			mpus.set_mute(true);
 		if (u->bSuppress)
 			mpus.set_suppress(true);
+		if (u->bPrioritySpeaker)
+			mpus.set_priority_speaker(true);
 		if (u->bSelfDeaf)
 			mpus.set_self_deaf(true);
 		else if (u->bSelfMute)
@@ -475,7 +477,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		}
 	}
 
-	if (msg.has_mute() || msg.has_deaf() || msg.has_suppress()) {
+	if (msg.has_mute() || msg.has_deaf() || msg.has_suppress() || msg.has_priority_speaker()) {
 		if (pDstServerUser->iId == 0) {
 			PERM_DENIED_TYPE(SuperUser);
 			return;
@@ -582,7 +584,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 
 
 
-	if (msg.has_mute() || msg.has_deaf() || msg.has_suppress()) {
+	if (msg.has_mute() || msg.has_deaf() || msg.has_suppress() || msg.has_priority_speaker()) {
 		if (msg.has_deaf()) {
 			pDstServerUser->bDeaf = msg.deaf();
 			if (pDstServerUser->bDeaf)
@@ -598,10 +600,14 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		if (msg.has_suppress())
 			pDstServerUser->bSuppress = msg.suppress();
 
-		log(uSource, QString("Changed speak-state of %1 (%2 %3 %4)").arg(QString(*pDstServerUser),
+		if (msg.has_priority_speaker())
+			pDstServerUser->bPrioritySpeaker = msg.priority_speaker();
+
+		log(uSource, QString("Changed speak-state of %1 (%2 %3 %4 %5)").arg(QString(*pDstServerUser),
 		        QString::number(pDstServerUser->bMute),
 		        QString::number(pDstServerUser->bDeaf),
-		        QString::number(pDstServerUser->bSuppress)));
+		        QString::number(pDstServerUser->bSuppress),
+		        QString::number(pDstServerUser->bPrioritySpeaker)));
 	}
 
 	if (msg.has_channel_id()) {

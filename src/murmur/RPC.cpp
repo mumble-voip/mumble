@@ -36,7 +36,7 @@
 #include "ServerDB.h"
 #include "Version.h"
 
-void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, bool suppressed, const QString &comment) {
+void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, bool suppressed, bool prioritySpeaker, const QString &comment) {
 	bool changed = false;
 
 	if (deaf)
@@ -58,6 +58,10 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 		changed = true;
 		mpus.set_suppress(suppressed);
 	}
+	if (prioritySpeaker != pUser->bPrioritySpeaker) {
+		changed = true;
+		mpus.set_priority_speaker(prioritySpeaker);
+	}
 	if (comment != pUser->qsComment) {
 		changed = true;
 		mpus.set_comment(u8(comment));
@@ -71,6 +75,7 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 	pUser->bDeaf = deaf;
 	pUser->bMute = mute;
 	pUser->bSuppress = suppressed;
+	pUser->bPrioritySpeaker = prioritySpeaker;
 	hashAssign(pUser->qsComment, pUser->qbaCommentHash, comment);
 
 	if (cChannel != pUser->cChannel) {
