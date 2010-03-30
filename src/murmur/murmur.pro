@@ -66,7 +66,7 @@ dbus {
 
 ice {
 	slice.target = Murmur.cpp
-	slice.commands = slice2cpp Murmur.ice
+	slice.commands = slice2cpp --checksum -I/usr/share/Ice/slice Murmur.ice
 	slice.depends = Murmur.ice
 	QMAKE_EXTRA_TARGETS *= slice
 	PRE_TARGETDEPS *= Murmur.cpp

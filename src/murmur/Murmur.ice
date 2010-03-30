@@ -6,6 +6,8 @@
  *
  **/
 
+#include <Ice/SliceChecksumDict.ice>
+
 module Murmur
 {
 
@@ -26,6 +28,8 @@ module Murmur
 		bool deaf;
 		/** Is the user suppressed by the server? This means the user is not muted, but does not have speech privileges in the current channel. */
 		bool suppress;
+		/** Is the user a priority speaker? */
+		bool prioritySpeaker;
 		/** Is the user self-muted? */
 		bool selfMute;
 		/** Is the user self-deafened? If true, this implies mute. */
@@ -783,5 +787,10 @@ module Murmur
 		 * @return Contents of the slice file server compiled with.
 		 */
 		idempotent string getSlice();
+
+		/** Returns a checksum dict for the slice file.
+		 * @return Checksum dict
+		 */
+		idempotent Ice::SliceChecksumDict getSliceChecksums();
 	};
 };

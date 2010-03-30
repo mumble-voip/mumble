@@ -183,6 +183,8 @@ namespace Murmur {
 
 	class MetaI : virtual public Meta {
 		public:
+			virtual void getSliceChecksums_async(const ::Murmur::AMD_Meta_getSliceChecksumsPtr&,
+			                                     const ::Ice::Current&);
 
 			virtual void getServer_async(const ::Murmur::AMD_Meta_getServerPtr&,
 			                             ::Ice::Int,

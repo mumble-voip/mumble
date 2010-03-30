@@ -30,6 +30,7 @@
 
 
 #include <Ice/Ice.h>
+#include <Ice/SliceChecksums.h>
 #include <IceUtil/IceUtil.h>
 #include "Meta.h"
 #include "Server.h"
@@ -74,6 +75,7 @@ static void userToUser(const ::User *p, Murmur::User &mp) {
 	mp.mute = p->bMute;
 	mp.deaf = p->bDeaf;
 	mp.suppress = p->bSuppress;
+	mp.prioritySpeaker = p->bPrioritySpeaker;
 	mp.selfMute = p->bSelfMute;
 	mp.selfDeaf = p->bSelfDeaf;
 	mp.channel = p->cChannel->iId;
@@ -1027,8 +1029,7 @@ static void impl_Server_setState(const ::Murmur::AMD_Server_setStatePtr cb, int 
 	NEED_PLAYER;
 	NEED_CHANNEL_VAR(channel, state.channel);
 
-	// FIXME: requires Ice struct change...
-	server->setUserState(user, channel, state.mute, state.deaf, state.suppress, user->bPrioritySpeaker, u8(state.comment));
+	server->setUserState(user, channel, state.mute, state.deaf, state.suppress, state.prioritySpeaker, u8(state.comment));
 	cb->ice_response();
 }
 
@@ -1430,6 +1431,11 @@ static void impl_Server_redirectWhisperGroup(const ::Murmur::AMD_Server_redirect
 	server->clearACLCache(user);
 
 	cb->ice_response();
+}
+
+#define ACCESS_Meta_getSliceChecksums_READ
+static void impl_Meta_getSliceChecksums(const ::Murmur::AMD_Meta_getSliceChecksumsPtr cb, const Ice::ObjectAdapterPtr adapter) {
+	cb->ice_response(::Ice::sliceChecksums());
 }
 
 #define ACCESS_Meta_getServer_READ
