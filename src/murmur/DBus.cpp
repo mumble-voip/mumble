@@ -378,7 +378,7 @@ void MurmurDBus::setPlayerState(const PlayerInfo &npi, const QDBusMessage &msg) 
 	CHANNEL_SETUP_VAR(npi.channel);
 	PlayerInfo pi(pUser);
 
-	server->setUserState(pUser, cChannel, npi.mute, npi.deaf, false, npi.suppressed);
+	server->setUserState(pUser, cChannel, npi.mute, npi.deaf, pUser->bPrioritySpeaker, npi.suppressed);
 }
 
 void MurmurDBus::sendMessage(unsigned int session, const QString &text, const QDBusMessage &msg) {
