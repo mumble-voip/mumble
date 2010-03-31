@@ -86,8 +86,9 @@ ice {
 	}
 
 	macx {
-		INCLUDEPATH *= $$(MUMBLE_PREFIX)/ice-3.3.1/include/
-		LIBPATH *= $$(MUMBLE_PREFIX)/ice-3.3.1/lib/
+		INCLUDEPATH *= $$(MUMBLE_PREFIX)/ice-3.4.0/include/
+		LIBPATH *= $$(MUMBLE_PREFIX)/ice-3.4.0/lib/
+		slice.commands = slice2cpp --checksum -I$$(MUMBLE_PREFIX)/ice-3.4.0/slice/ Murmur.ice
 	}
 
 	unix:CONFIG(static) {
