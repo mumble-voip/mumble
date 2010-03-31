@@ -52,9 +52,9 @@
 #include <AGL/AGL.h>
 
 #include "mach_override.h"
-#include <objc/objc-runtime.h>
 
 #include "../../overlay/overlay.h"
+#include "avail.h"
 
 static bool bDebug = false;
 
@@ -91,6 +91,7 @@ const GLfloat fBorder[] = {0.125f, 0.250f, 0.5f, 0.75f};
 
 static Context *contexts = NULL;
 
+#define AVAIL(name) dlsym(RTLD_DEFAULT,#name)
 #define FDEF(name) static __typeof__(&name) o##name = NULL
 FDEF(CGLFlushDrawable);
 
@@ -552,25 +553,18 @@ void CGLFlushDrawableOverride(CGLContextObj ctx) {
 	oCGLFlushDrawable(ctx);
 }
 
-
 __attribute__ ((visibility("default")))
 __attribute__((constructor))
 void MumbleOverlayEntryPoint() {
-	if (getenv("MUMBLE_OVERLAY_DEBUG"))
-		bDebug = true;
-	else            
-		bDebug = false;
+	bDebug = getenv("MUMBLE_OVERLAY_DEBUG");
 
-	void *cglAvailable = dlsym(RTLD_DEFAULT, "CGLFlushDrawable");
-	if (cglAvailable) {
+	if (AVAIL(CGLFlushDrawable) && AVAIL_ALL_GLSYM) {
 		ods("Attempting to hook CGL");
 		if (mach_override("_CGLFlushDrawable", NULL, CGLFlushDrawableOverride, (void **) &oCGLFlushDrawable) != 0) {
 			ods("CGLFlushDrawable override failed.");
-		}
+		} else
+			ods("Up running.");
 	} else {
-		ods("Unable to hook CGL");
-		return;
+		ods("Required entry points not available in process. Not hooking up overlay.");
 	}
-
-	ods("Up running.");
 }
