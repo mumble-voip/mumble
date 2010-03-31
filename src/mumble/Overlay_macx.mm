@@ -134,10 +134,27 @@ bool Overlay::needsUpgrade() {
 	return curVersion != reqVersion;
 }
 
+static bool authExec(AuthorizationRef ref, const char **argv) {
+	OSStatus err;
+	int pid, status;
+
+	err = AuthorizationExecuteWithPrivileges(ref, argv[0], kAuthorizationFlagDefaults, const_cast<char * const *>(&argv[1]), NULL);
+	if (err == errAuthorizationSuccess) {
+		do {
+			pid = wait(&status);
+		} while (pid == -1 && errno == EINTR);
+		return (pid != -1 && WIFEXITED(status) && WEXITSTATUS(status) == 0);
+	}
+
+	qWarning("Overlay_macx: Failed to AuthorizeExecuteWithPrivileges. (err=%i)", err);
+	qWarning("Overlay_macx: Status: (pid=%i, exited=%u, exitStatus=%u)", pid, WIFEXITED(status), WEXITSTATUS(status));
+
+	return false;
+}
+
 bool Overlay::installFiles() {
 	AuthorizationRef auth;
 	bool ret = false;
-	int pid, status;
 	OSStatus err;
 
 	// Get the tarball that we should install.
@@ -145,7 +162,7 @@ bool Overlay::installFiles() {
 					[[NSBundle mainBundle] objectForInfoDictionaryKey:@"MumbleOverlayInstallPayload"]];
 
 	// And the destination we should install it to.
-	NSString *destination = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MumbleOverlayInstallDestintaion"];
+	NSString *destination = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MumbleOverlayInstallDestination"];
 
 	if (! tarballPath || ! destination) {
 		qWarning("Overlay_macx: Info.plist does not specify installation parameters.");
@@ -159,24 +176,21 @@ bool Overlay::installFiles() {
 	// authorize the launch by logging in with as a user with admin privileges.
 	err = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &auth);
 	if (err == errAuthorizationSuccess) {
-		// This is the tar command that we execute to install our support files.
-		const char *argv[] = { "/usr/bin/tar", "-jxf", [tarballPath UTF8String], "-C", [destination UTF8String], NULL };
-		// Launch the child process.
-		err = AuthorizationExecuteWithPrivileges(auth, argv[0], kAuthorizationFlagDefaults, const_cast<char * const *>(&argv[1]), NULL);
-		if (err == errAuthorizationSuccess) {
-			// And wait until it is dead.
-			do {
-				pid = wait(&status);
-			} while (pid == -1 && errno == EINTR);
-			ret = (pid != -1 && WIFEXITED(status) && WEXITSTATUS(status) == 0);
-		} else
-			qWarning("Overlay_macx: Failed to AuthorizeExecuteWithPrivileges. (err=%i)", err);
+
+		// Make sure the destination directory exists.
+		const char *makedir[] = { "/bin/mkdir", "-p", [destination UTF8String], NULL };
+		// Command to extract our overlay support files.
+		const char *extract[] = { "/usr/bin/tar", "-jxf", [tarballPath UTF8String], "-C", [destination UTF8String], NULL };
+
+		if (ret = authExec(auth, makedir)) {
+			ret = authExec(auth, extract);
+		}
+
 	} else
 		qWarning("Overlay_macx: Failed to acquire AuthorizationRef. (err=%i)", err);
 
 	if (! ret) {
-		qWarning("Overlay_macx: Failure in installer process. (pid=%i, exited=%u, exitStatus=%u)",
-				pid, WIFEXITED(status), WEXITSTATUS(status));
+		qWarning("Overlay_macx: Installation unsuccessful.");
 	}
 
 	// Free the AuthorizationRef that we acquired earlier. We're done launching priviledged children.

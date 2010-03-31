@@ -33,7 +33,7 @@
 	<string>Contents/Overlay/libmumbleoverlay.dylib</string>
 	<key>MumbleOverlayInstallPayload</key>
 	<string>Contents/Overlay/MumbleOverlay.tar.bz2</string>
-	<key>MumbleOverlayInstallDestintaion</key>
+	<key>MumbleOverlayInstallDestination</key>
 	<string>/Library/ScriptingAdditions/</string>
 	<key>MumbleOverlayLoaderBundle</key>
 	<string>/Library/ScriptingAdditions/MumbleOverlay.osax</string>
