@@ -32,39 +32,63 @@
 #import <ScriptingBridge/ScriptingBridge.h>
 #include "Overlay.h"
 
-@interface OverlayInjectorMac : NSObject
+@interface OverlayInjectorMac : NSObject {
+	BOOL active;
+}
+
+ - (id) init;
+ - (void) dealloc;
  - (void) appLaunched:(NSNotification *)notification;
  - (void) setActive:(BOOL)flag;
+
 @end
 
 @implementation OverlayInjectorMac
-- (void) appLaunched:(NSNotification *)notification {
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	NSDictionary *userInfo = [notification userInfo];
-	
-	pid_t pid = [[userInfo objectForKey:@"NSApplicationProcessIdentifier"] intValue];
-	SBApplication *app = [SBApplication applicationWithProcessIdentifier:pid];
 
-	[app setSendMode:kAENoReply];
-	[app sendEvent:kASAppleScriptSuite id:kGetAEUT parameters:0];
-	[app sendEvent:'MUOL' id:'load' parameters:0];
-	[pool release];
-}
+- (id) init {
+	self = [super init];
 
-- (void) setActive:(BOOL)flag {
-	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-
-	if (flag == YES) {
+	if (self) {
+		active = NO;
+		NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 		[[workspace notificationCenter] addObserver:self
 		                                selector:@selector(appLaunched:)
 		                                name:NSWorkspaceDidLaunchApplicationNotification
 		                                object:workspace];
-	} else {
-		[[workspace notificationCenter] removeObserver:self
+		return self;
+	}
+
+	return nil;
+}
+
+- (void) dealloc {
+	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+	[[workspace notificationCenter] removeObserver:self
 		                                name:NSWorkspaceDidLaunchApplicationNotification
 		                                object:workspace];
+
+	[super dealloc];
+}
+
+- (void) appLaunched:(NSNotification *)notification {
+	if (active) {
+		NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+		NSDictionary *userInfo = [notification userInfo];
+
+		pid_t pid = [[userInfo objectForKey:@"NSApplicationProcessIdentifier"] intValue];
+		SBApplication *app = [SBApplication applicationWithProcessIdentifier:pid];
+
+		[app setSendMode:kAENoReply];
+		[app sendEvent:kASAppleScriptSuite id:kGetAEUT parameters:0];
+		[app sendEvent:'MUOL' id:'load' parameters:0];
+		[pool release];
 	}
 }
+
+- (void) setActive:(BOOL)flag {
+	active = flag;
+}
+
 @end
 
 class OverlayPrivateMac : public OverlayPrivate {
@@ -216,7 +240,7 @@ bool Overlay::uninstallFiles() {
 
 	// Execute the script, and hope for the best.
 	NSError *error = nil;
-	NSString *script = [[NSAppleScript alloc] initWithSource:uninstallScript];
+	NSAppleScript *script = [[NSAppleScript alloc] initWithSource:uninstallScript];
 	[script executeAndReturnError:&error];
 	[script release];
 
