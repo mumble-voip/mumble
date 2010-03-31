@@ -18,14 +18,10 @@ def gitrev():
 def codesign(id, path):
 	'''Call the codesign executable.'''
 
-	if type(path) == list or type(path) == tuple:
-		for p in path:
-			p = Popen(('codesign', '-vvvv', '-s', id, p))
-			retval = p.wait()
-			if retval != 0:
-				return retval
-	else:
-		p = Popen(('codesign', '-vvvv', '-s', id, path))
+	if hasattr(path, 'isalpha'):
+		path = (path,)
+	for p in path:
+		p = Popen(('codesign', '--signature-size', '6400', '-vvvv', '-s', id, p))
 		retval = p.wait()
 		if retval != 0:
 			return retval
