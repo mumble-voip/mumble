@@ -37,6 +37,8 @@
 	<string>/Library/ScriptingAdditions/</string>
 	<key>MumbleOverlayLoaderBundle</key>
 	<string>/Library/ScriptingAdditions/MumbleOverlay.osax</string>
+	<key>MumbleOverlayLoaderBundleIdentifier</key>
+	<string>net.sourceforge.mumble.OverlayScriptingAddition</string>
 	<key>MumbleOverlayLoaderRequiredVersion</key>
 	<integer>1</integer>
 </dict>

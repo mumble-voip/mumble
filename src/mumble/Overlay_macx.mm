@@ -130,14 +130,23 @@ bool Overlay::isInstalled() {
 	// Get the path where we expect the overlay loader to be installed.
 	NSString *path = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MumbleOverlayLoaderBundle"];
 	if (! path) {
-		qWarning("Overlay_macx: No MumbleOverlayLoaderPath specified in Info.plist. "
-			 "Pretending overlay is already installed.");
-		return false;
+		qWarning("Overlay_macx: Unable to find path of overlay loader in Mumble plist.");
+		return ret;
 	}
 
 	// Determine if the installed bundle is correctly installed (i.e. it's loadable)
 	NSBundle *bundle = [NSBundle bundleWithPath:path];
-	return [bundle preflightAndReturnError:NULL];
+	ret = [bundle preflightAndReturnError:NULL];
+
+	// Do the bundle identifiers match?
+	if (ret) {
+		NSString *bundleId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MumbleOverlayLoaderBundleIdentifier"];
+		ret = [[bundle bundleIdentifier] isEqualToString:bundleId];
+	}
+
+	[bundle unload];
+
+	return ret;
 }
 
 bool Overlay::needsUpgrade() {
@@ -210,12 +219,8 @@ bool Overlay::installFiles() {
 			ret = authExec(auth, extract);
 		}
 
-	} else
+	} else if (err != errAuthorizationCanceled)
 		qWarning("Overlay_macx: Failed to acquire AuthorizationRef. (err=%i)", err);
-
-	if (! ret) {
-		qWarning("Overlay_macx: Installation unsuccessful.");
-	}
 
 	// Free the AuthorizationRef that we acquired earlier. We're done launching priviledged children.
 	AuthorizationFree(auth, kAuthorizationFlagDefaults);
@@ -223,31 +228,28 @@ bool Overlay::installFiles() {
 }
 
 bool Overlay::uninstallFiles() {
-	// Get the absolute path of our overlay loader bundle.
-	NSString *path = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MumbleOverlayLoaderBundle"];
-	// Make sure it is unloaded, at least from ourselves, before we trash it.
-	[[NSBundle bundleWithPath:path] unload];
+	AuthorizationRef auth;
+	NSString *path, *bundleId;
+	NSBundle *loaderBundle;
+	bool ret = false, bundleOk = false;
+	OSStatus err;
 
-	// This is a tiny AppleScript that kindly asks the Finder to throw
-	// the currently installed loader bundle into the trash.
-	//
-	// This is nice because we don't need to have any privileged code in
-	// Mumble itself that does it, and because it goes into the user's
-	// trash.
-	NSString *uninstallScript = [NSString stringWithFormat:@""
-		"set bundlePath to POSIX file \"%@\"\n"
-		"tell application \"Finder\" to delete bundlePath\n", path];
+	// Load the installed loader bundle and check if it's something we're willing to uninstall.
+	path = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MumbleOverlayLoaderBundle"];
+	bundleId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MumbleOverlayLoaderBundleIdentifier"];
+	loaderBundle = [NSBundle bundleWithPath:path];
+	bundleOk = [[loaderBundle bundleIdentifier] isEqualToString:bundleId];
+	[loaderBundle unload];
 
-	// Execute the script, and hope for the best.
-	NSError *error = nil;
-	NSAppleScript *script = [[NSAppleScript alloc] initWithSource:uninstallScript];
-	[script executeAndReturnError:&error];
-	[script release];
-
-	if (error) {
-		NSLog(@"%@", error);
-		return false;
+	// Perform uninstallation using Authorization Services. (Pops up a dialog asking for admin privileges)
+	if (bundleOk) {
+		err = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &auth);
+		if (err == errAuthorizationSuccess) {
+			const char *remove[] = { "/bin/rm", "-rf", [path UTF8String], NULL };
+			ret = authExec(auth, remove);
+		}
+		AuthorizationFree(auth, kAuthorizationFlagDefaults);
 	}
 
-	return true;
+	return ret;
 }
