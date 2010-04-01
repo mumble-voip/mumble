@@ -29,10 +29,6 @@
 	<string>1.2.3</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright (c) 2005-2010 Thorvald Natvig &lt;slicer@users.sourceforge.net&gt;</string>
-	<key>MumbleOverlayLibrary</key>
-	<string>Contents/Overlay/libmumbleoverlay.dylib</string>
-	<key>MumbleOverlayInstallPayload</key>
-	<string>Contents/Overlay/MumbleOverlay.tar.bz2</string>
 	<key>MumbleOverlayInstallDestination</key>
 	<string>/Library/ScriptingAdditions/</string>
 	<key>MumbleOverlayLoaderBundle</key>
@@ -40,6 +36,6 @@
 	<key>MumbleOverlayLoaderBundleIdentifier</key>
 	<string>net.sourceforge.mumble.OverlayScriptingAddition</string>
 	<key>MumbleOverlayLoaderRequiredVersion</key>
-	<integer>1</integer>
+	<integer>2</integer>
 </dict>
 </plist>

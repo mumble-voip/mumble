@@ -191,14 +191,13 @@ bool Overlay::installFiles() {
 	OSStatus err;
 
 	// Get the tarball that we should install.
-	NSString *tarballPath = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] bundlePath],
-					[[NSBundle mainBundle] objectForInfoDictionaryKey:@"MumbleOverlayInstallPayload"]];
+	NSString *tarballPath = [[NSBundle mainBundle] pathForResource:@"MumbleOverlay" ofType:@"tar.bz2"];
 
 	// And the destination we should install it to.
 	NSString *destination = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MumbleOverlayInstallDestination"];
 
 	if (! tarballPath || ! destination) {
-		qWarning("Overlay_macx: Info.plist does not specify installation parameters.");
+		qWarning("Overlay_macx: Tarball or install destination (in Info.plist) missing.");
 		return false;
 	}
 

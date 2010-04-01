@@ -31,8 +31,11 @@ def create_overlay_tarball(sign=None):
 	print '* Creating overlay loader installation tarball'
 
 	bundle = os.path.join('release', 'MumbleOverlay.osax')
+	overlaylib = os.path.join(bundle, 'Contents', 'MacOS', 'libmumbleoverlay.dylib')
+	shutil.copy('release/libmumbleoverlay.dylib', overlaylib)
 	if sign:
 		codesign(sign, bundle)
+		codesign(sign, overlaylib)
 	contents = []
 	for e in os.walk(bundle):
 		root, dirs, files = e
@@ -229,6 +232,8 @@ class AppBundle(object):
 		rsrcpath = os.path.join(self.bundle, 'Contents', 'Resources')
 		if not os.path.exists(rsrcpath):
 			os.mkdir(rsrcpath)
+
+		# Copy resources already in the bundle
 		for rsrc in rsrcs:
 			b = os.path.basename(rsrc)
 			if os.path.isdir(rsrc):
@@ -236,17 +241,8 @@ class AppBundle(object):
 			elif os.path.isfile(rsrc):
 				shutil.copy(rsrc, os.path.join(rsrcpath, b))
 
-	def copy_overlay(self):
-		'''
-			Copy overlay resources.
-		'''
-		print ' * Copying overlay resources into bundle.'
-
-		dst = os.path.join(self.bundle, 'Contents', 'Overlay')
-		os.makedirs(dst)
-		shutil.copy('release/libmumbleoverlay.dylib', dst)
-		shutil.copy('release/mumble-overlay', dst)
-		shutil.copy('release/MumbleOverlay.tar.bz2', dst)
+		# Extras
+		shutil.copy('release/MumbleOverlay.tar.bz2', os.path.join(rsrcpath, 'MumbleOverlay.tar.bz2'))
 
 	def copy_codecs(self):
 		'''
@@ -468,7 +464,6 @@ if __name__ == '__main__':
 		a.set_min_macosx_version('10.4.8')
 	a.copy_murmur()
 	a.copy_g15helper()
-	a.copy_overlay()
 	a.copy_codecs()
 	a.copy_plugins()
 	a.copy_qt_plugins()

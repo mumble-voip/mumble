@@ -40,51 +40,11 @@ OSErr MumbleOverlayEventHandler(const AppleEvent *ae, AppleEvent *reply, long re
 		return;
 	}
 
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	/*
+	 * Load the overlay lib - hard coded because we're the only consumer, and because we
+	 * can only live in /Library/ScriptingAdditions/
+	 */
+	dlopen("/Library/ScriptingAdditions/MumbleOverlay.osax/Contents/MacOS/libmumbleoverlay.dylib", RTLD_LAZY);
 
-	/* Get a hold of our Mumble process, to find our overlay library. */
-	NSArray *apps = [[NSWorkspace sharedWorkspace] launchedApplications];
-	NSString *mumblePath = nil;
-
-	for (NSDictionary *dict in apps) {
-		if ([[dict objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:@"net.sourceforge.mumble.Mumble"]) {
-			mumblePath = [dict objectForKey:@"NSApplicationPath"];
-			break;
-		}
-		if ([[dict objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:@"net.sourceforge.mumble.Mumble11x"]) {
-			mumblePath = [dict objectForKey:@"NSApplicationPath"];
-			break;
-		}
-	}
-
-	if (! mumblePath) {
-		fprintf(stderr, "MumbleOverlayLoader: Cannot find open Mumble instance. Bailing.\n");
-		goto out;
-	}
-
-	NSBundle *appBundle = [NSBundle bundleWithPath: mumblePath];
-	if (! appBundle) {
-		fprintf(stderr, "MumbleOverlayLoader: Cannot open Mumble app bundle.\n");
-		goto out;
-	}
-
-	NSString *overlayInBundle = [appBundle objectForInfoDictionaryKey:@"MumbleOverlayLibrary"];
-	if (! overlayInBundle) {
-		fprintf(stderr, "MumbleOverlayLoader: No key 'MumbleOverlayLibrary' specified in Mumble's property list. Cannot find overlay library.\n");
-		goto out;
-	}
-
-	NSString *overlayPath = [NSString stringWithFormat:@"%@/%@", mumblePath, overlayInBundle];
-
-	if (! [[NSFileManager defaultManager] fileExistsAtPath:overlayPath]) {
-		fprintf(stderr, "MumbleOverlayLoader: Overlay library non-existant at MumbleOverlayLibrary-specified path.\n");
-		goto out;
-	}
-
-	/* Load the overlay library. */
-	dlopen([overlayPath UTF8String ], RTLD_LAZY);
-
-out:
-	[pool release];
 	return noErr;
 }
