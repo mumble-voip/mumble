@@ -409,10 +409,12 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 			b.qsUsername = u8(be.name());
 			b.qsHash = u8(be.hash());
 			b.qsReason = u8(be.reason());
-			if (be.has_start())
+			if (be.has_start()) {
 				b.qdtStart = QDateTime::fromString(u8(be.start()), Qt::ISODate);
-			else
+				b.qdtStart.setTimeSpec(Qt::UTC);
+			} else {
 				b.qdtStart = QDateTime::currentDateTime().toUTC();
+			}
 			b.iDuration = be.duration();
 			if (b.isValid())
 				qlBans << b;

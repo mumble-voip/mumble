@@ -1477,6 +1477,7 @@ void Server::getBans() {
 		ban.qsHash = query.value(3).toString();
 		ban.qsReason = query.value(4).toString();
 		ban.qdtStart = query.value(5).toDateTime();
+		ban.qdtStart.setTimeSpec(Qt::UTC);
 		ban.iDuration = query.value(6).toInt();
 
 		if (ban.isValid())
