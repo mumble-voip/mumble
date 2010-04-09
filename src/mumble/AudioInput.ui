@@ -164,17 +164,17 @@
       <item row="2" column="0">
        <widget class="QLabel" name="qliIdle">
         <property name="text">
-         <string>Idle AutoMute</string>
+         <string>Idle AutoDeafen</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
        <widget class="QSlider" name="qsIdle">
         <property name="toolTip">
-         <string>How long to remain idle before auto-mute.</string>
+         <string>How long to remain idle before auto-deafen.</string>
         </property>
         <property name="whatsThis">
-         <string>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted.</string>
+         <string>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted and deafened.</string>
         </property>
         <property name="maximum">
          <number>1800</number>
