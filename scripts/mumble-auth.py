@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8
 #
 #    mumble-auth.py - Sample script to show the basics of using server controlled
