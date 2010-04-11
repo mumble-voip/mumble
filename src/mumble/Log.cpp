@@ -424,7 +424,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 	}
 }
 
-void Log::log(MsgType mt, const QString &console, const QString &terse) {
+void Log::log(MsgType mt, const QString &console, const QString &terse, bool console_only) {
 	QDateTime dt = QDateTime::currentDateTime();
 
 	int ignore = qmIgnore.value(mt);
@@ -465,6 +465,9 @@ void Log::log(MsgType mt, const QString &console, const QString &terse) {
 		g.mw->qteLog->setTextCursor(tc);
 		g.mw->qteLog->ensureCursorVisible();
 	}
+
+	if (console_only)
+		return;
 
 	// Message notification with balloon tooltips
 	if ((flags & Settings::LogBalloon) && !(g.mw->isActiveWindow() && g.mw->qdwLog->isVisible()))  {
