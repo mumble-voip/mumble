@@ -754,19 +754,22 @@ QMap<int, QString> Server::getRegistration(int id) {
 	TransactionHolder th;
 
 	QSqlQuery &query = *th.qsqQuery;
-	SQLPREP("SELECT `name` FROM `%1users` WHERE `server_id` = ? AND `user_id` = ?");
+	SQLPREP("SELECT `name`, `last_active` FROM `%1users` WHERE `server_id` = ? AND `user_id` = ?");
 	query.addBindValue(iServerNum);
 	query.addBindValue(id);
 	SQLEXEC();
 	if (query.next()) {
 		info.insert(ServerDB::User_Name, query.value(0).toString());
+		info.insert(ServerDB::User_LastActive, query.value(1).toString());
 
 		SQLPREP("SELECT `key`, `value` FROM `%1user_info` WHERE `server_id` = ? AND `user_id` = ?");
 		query.addBindValue(iServerNum);
 		query.addBindValue(id);
 		SQLEXEC();
 		while (query.next()) {
-			info.insert(query.value(0).toInt(), query.value(1).toString());
+			const int key = query.value(0).toInt();
+			if (!info.contains(key))
+				info.insert(key, query.value(1).toString());
 		}
 	}
 	return info;
@@ -905,6 +908,9 @@ bool Server::setInfo(int id, const QMap<int, QString> &setinfo) {
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
 
+	if (info.contains(ServerDB::User_LastActive)) {
+		info.remove(ServerDB::User_LastActive);
+	}
 	if (info.contains(ServerDB::User_Password)) {
 		const QString &pw = info.value(ServerDB::User_Password);
 		QCryptographicHash hash(QCryptographicHash::Sha1);

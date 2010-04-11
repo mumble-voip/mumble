@@ -187,7 +187,7 @@ module Murmur
 	sequence<Tree> TreeList;
 
 	enum ChannelInfo { ChannelDescription, ChannelPosition };
-	enum UserInfo { UserName, UserEmail, UserComment, UserHash, UserPassword };
+	enum UserInfo { UserName, UserEmail, UserComment, UserHash, UserPassword, UserLastActive };
 
 	dictionary<int, User> UserMap;
 	dictionary<int, Channel> ChannelMap;

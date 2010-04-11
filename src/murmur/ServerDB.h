@@ -41,7 +41,7 @@ class Connection;
 class ServerDB {
 	public:
 		enum ChannelInfo { Channel_Description, Channel_Position };
-		enum UserInfo { User_Name, User_Email, User_Comment, User_Hash, User_Password };
+		enum UserInfo { User_Name, User_Email, User_Comment, User_Hash, User_Password, User_LastActive };
 		ServerDB();
 		~ServerDB();
 		typedef QPair<unsigned int, QString> LogRecord;
