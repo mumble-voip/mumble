@@ -3731,7 +3731,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+25"/>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;center&gt;ここにメッセージを入力&lt;/center&gt;</translation>
     </message>
     <message>
         <source>Type chat message here</source>
@@ -4831,17 +4831,17 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Shout to Linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">リンクしているチャンネルへ叫ぶ</translation>
     </message>
     <message>
         <location/>
         <source>Shout to subchannels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サブチャンネルへ叫ぶ</translation>
     </message>
     <message>
         <location/>
         <source>Shout to Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルへ叫ぶ</translation>
     </message>
 </context>
 <context>
@@ -7268,13 +7268,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1319"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
-        <translation type="unfinished">チャンネル &apos;%1&apos; へのメッセージをここに入力</translation>
+        <translation>チャンネル &apos;%1&apos; へのメッセージをここに入力</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to user &apos;%1&apos; here</oldsource>
-        <translation type="unfinished">ユーザ &apos;%1&apos; へのメッセージをここに入力</translation>
+        <translation>ユーザ &apos;%1&apos; へのメッセージをここに入力</translation>
     </message>
     <message>
         <location line="+91"/>
@@ -7512,7 +7512,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+30"/>
         <source>Whisper/Shout</source>
         <oldsource>Whisper</oldsource>
-        <translation type="unfinished">ささやき</translation>
+        <translation>ささやき</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -7566,7 +7566,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1954"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
-        <translation type="unfinished">接続されていません</translation>
+        <translation>接続されていません</translation>
     </message>
     <message>
         <location line="-1746"/>
@@ -8099,7 +8099,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <location filename="Overlay.cpp" line="+300"/>
         <location line="+1075"/>
         <source>Silent</source>
-        <translation type="unfinished">静か</translation>
+        <translation type="unfinished">発言していない</translation>
     </message>
     <message>
         <location line="-1072"/>
@@ -8117,7 +8117,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <location line="-1072"/>
         <location line="+1075"/>
         <source>Shout</source>
-        <translation type="unfinished">叫んでいる</translation>
+        <translation type="unfinished">発言している</translation>
     </message>
     <message>
         <location line="-1055"/>
@@ -8172,7 +8172,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="-830"/>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">フィルタ</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -8182,22 +8182,22 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+5"/>
         <source>All in current channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">同じチャンネルにいる人全て</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">リンクしているチャンネルにいる人全て</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Always show yourself</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">自分自身を常に表示する</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Columns</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">列</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -8207,7 +8207,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+1"/>
         <source>Reset Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ズームをリセット</translation>
     </message>
 </context>
 <context>
@@ -8225,7 +8225,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <location/>
         <source>Form</source>
         <oldsource>Font</oldsource>
-        <translation type="unfinished">フォント</translation>
+        <translation type="unfinished">フォーム</translation>
     </message>
     <message>
         <location/>
@@ -8388,17 +8388,17 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location filename="Overlay.cpp" line="-1631"/>
         <source>To move the users, drag the little red dot.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザを動かすには、小さな赤い点をドラッグしてください。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>To resize the users, mousewheel over a user.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザのアバターのサイズを変えるには、ユーザの上でマウスホィールを動かしてください。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>For more options, rightclick a user.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">更なる設定をするには、ユーザを右クリックしてください。</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -8408,7 +8408,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+59"/>
         <source>Choose executable</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">実行ファイルを選択</translation>
     </message>
     <message>
         <source>Show User Textures</source>
@@ -8500,17 +8500,17 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location/>
         <source>Overlay exceptions</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">オーバレイの例外設定</translation>
     </message>
     <message>
         <location/>
         <source>Blacklist</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ブラックリスト</translation>
     </message>
     <message>
         <location/>
         <source>Whitelist</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ホワイトリスト</translation>
     </message>
     <message>
         <location/>
@@ -8525,41 +8525,45 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location/>
         <source>Uninstall Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">オーバレイをアンインストール</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Installation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">オーバレイのインストール</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumble は Mumble オーバレイをインストールされていないことを検知しました。
+
+下のボタンをクリックしてオーバレイをインストールしてください。</translation>
     </message>
     <message>
         <location/>
         <source>Install Mumble Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumble オーバレイのインストール</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Upgrade</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">オーバレイのアップグレード</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumble は古いバージョンのオーバレイサポートファイルがインストールされていることを検知しました。
+
+これらのファイルを最新バージョンにアップグレードするために次のボタンを押してください。</translation>
     </message>
     <message>
         <location/>
         <source>Upgrade Mumble Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumble オーバレイのアップグレード</translation>
     </message>
 </context>
 <context>
@@ -8572,22 +8576,22 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">状態</translation>
     </message>
     <message>
         <location/>
         <source>User is not talking</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザは話していない</translation>
     </message>
     <message>
         <location/>
         <source>Passive</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">受身</translation>
     </message>
     <message>
         <location/>
         <source>User is talking in your channel or a linked channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザはあなたのいるチャンネルかリンクしているチャンネルで話しています</translation>
     </message>
     <message>
         <location/>
@@ -8597,52 +8601,52 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>User is whispering to you privately</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザはあなたに個人的にささやいています</translation>
     </message>
     <message>
         <location/>
         <source>Private Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">個人的なささやき</translation>
     </message>
     <message>
         <location/>
         <source>User is shouting to your channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザはあなたのいるチャンネルに叫んでいます</translation>
     </message>
     <message>
         <location/>
         <source>Channel Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルへのささやき</translation>
     </message>
     <message>
         <location/>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ズーム</translation>
     </message>
     <message>
         <location/>
         <source>Zoom Factor</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">拡大する要素</translation>
     </message>
     <message>
         <location/>
         <source>Enabled Elements</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">有効な要素</translation>
     </message>
     <message>
         <location/>
         <source>User avatar, chosen by each user</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザのアバター、それぞれのユーザによって選択されたものです</translation>
     </message>
     <message>
         <location/>
         <source>Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">アバター</translation>
     </message>
     <message>
         <location/>
         <source>User&apos;s name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザの名前</translation>
     </message>
     <message>
         <location/>
@@ -8652,7 +8656,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Name of user&apos;s channel, if outside your current channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザのチャンネルの名前、あなたのいるチャンネルの外にいる場合</translation>
     </message>
     <message>
         <location/>
@@ -8662,22 +8666,22 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">発言禁止か聴取禁止</translation>
     </message>
     <message>
         <location/>
         <source>Mute state</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">発言禁止状態</translation>
     </message>
     <message>
         <location/>
         <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">バウンディグボックス、全ての可視要素を含む最小のサイズに自動的に縮みます</translation>
     </message>
     <message>
         <location/>
         <source>Bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">バウンディングボックス</translation>
     </message>
 </context>
 <context>
@@ -8685,17 +8689,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Overlay.cpp" line="+542"/>
         <source>Layout preset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">レイアウトプリセット</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Large square avatar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">大きな四角のアバター</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Avatar and Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">アバターと名前</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -8716,33 +8720,33 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+13"/>
         <source>Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">位置付け</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">左</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+18"/>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">中央</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">右</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">上</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">下</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -8757,37 +8761,37 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+6"/>
         <source>Bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">バウンディングボックス</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pen width</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ペン幅</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Padding</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">パディング</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pen color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ペンの色</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Fill color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">塗りつぶしの色</translation>
     </message>
     <message>
         <location line="+87"/>
         <source>Pick pen color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ペンの色を取得</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Pick fill color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">塗りつぶしの色を取得</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -9770,7 +9774,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+1"/>
         <source>Shouting directly to your channel.</source>
         <oldsource>Whispering directly to your channel.</oldsource>
-        <translation type="unfinished">チャンネルに直接ささやいています。</translation>
+        <translation>チャンネルに直接ささやいています。</translation>
     </message>
     <message>
         <location line="+1"/>
