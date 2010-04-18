@@ -90,7 +90,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	fViewHor = 269,703369140625;
 	fViewVer = -4,45587635040283;
 */
-
+	cHostAddr[39] = '\0';
 	context = cHostAddr;
 
 	if(!cPlayerState)
@@ -143,12 +143,11 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	std::string context;
 	std::wstring identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)){
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
 		return true;
-	} else {
-		generic_unlock();
-		return false;
-	}
+
+	generic_unlock();
+	return false;
 }
 
 static const std::wstring longdesc() {
