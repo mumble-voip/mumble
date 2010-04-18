@@ -516,16 +516,21 @@ static void drawContext(Context * ctx, int width, int height) {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	int bound = 0;
+	GLint bound = 0, vbobound = 0;
 	glGetIntegerv(GL_PIXEL_UNPACK_BUFFER_BINDING, &bound);
+	glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &vbobound);
 
 	if (bound != 0)
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
+	if (vbobound != 0)
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	drawOverlay(ctx, width, height);
 	
 	if (bound != 0)
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, bound);
+	if (vbobound != 0)
+		glBindBuffer(GL_ARRAY_BUFFER, vbobound);
 
 	glMatrixMode(GL_TEXTURE);
 	glPopMatrix();
