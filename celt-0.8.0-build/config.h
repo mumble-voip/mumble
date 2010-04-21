@@ -17,10 +17,10 @@
 #define CELT_MICRO_VERSION 0
 
 /* Version minor */
-#define CELT_MINOR_VERSION 7
+#define CELT_MINOR_VERSION 8
 
 /* Complete version string */
-#define CELT_VERSION "0.7.0"
+#define CELT_VERSION "0.8.0"
 
 /* Compile as fixed-point */
 /* #undef DOUBLE_PRECISION */
