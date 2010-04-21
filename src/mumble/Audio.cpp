@@ -80,6 +80,21 @@ void CodecInit::initialize() {
 			delete codec;
 		}
 	}
+
+	codec = new CELTCodec070(QLatin1String("0.8.0"));
+	if (codec->isValid()) {
+		codec->report();
+		g.qmCodecs.insert(codec->bitstreamVersion(), codec);
+	} else {
+		delete codec;
+		codec = new CELTCodec070(QLatin1String("0.0.1"));
+		if (codec->isValid()) {
+			codec->report();
+			g.qmCodecs.insert(codec->bitstreamVersion(), codec);
+		} else {
+			delete codec;
+		}
+	}
 }
 
 void CodecInit::destroy() {
