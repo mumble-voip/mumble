@@ -189,6 +189,7 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 		fPosition[i]=fFront[i]=fTop[i]= 0.0;
 	QMetaObject::connectSlotsByName(this);
 
+#ifdef QT_NO_DEBUG
 #ifndef PLUGIN_PATH
 #ifndef Q_OS_MAC
 	qsSystemPlugins=QString::fromLatin1("%1/plugins").arg(qApp->applicationDirPath());
@@ -200,6 +201,10 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 #endif
 
 	qsUserPlugins = g.qdBasePath.absolutePath() + QLatin1String("/Plugins");
+#else
+	qsSystemPlugins = QString::fromLatin1("%1/plugins").arg(qApp->applicationDirPath());
+	qsUserPlugins = QString();
+#endif
 
 #ifdef Q_OS_WIN
 	// According to MS KB Q131065, we need this to OpenProcess()
@@ -254,9 +259,14 @@ void Plugins::rescanPlugins() {
 	prevlocked = locked = NULL;
 	bValid = false;
 
-	QDir qud(qsUserPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
 	QDir qd(qsSystemPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
+#ifdef QT_NO_DEBUG
+	QDir qud(qsUserPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
 	QFileInfoList libs = qud.entryInfoList() + qd.entryInfoList();
+#else
+	QFileInfoList libs = qd.entryInfoList();
+#endif
+
 	QSet<QString> loaded;
 	foreach(const QFileInfo &libinfo, libs) {
 		QString fname = libinfo.fileName();
