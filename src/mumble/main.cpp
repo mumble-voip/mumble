@@ -408,7 +408,8 @@ int main(int argc, char **argv) {
 	if (QDateTime::currentDateTime().daysTo(g.s.kpCertificate.first.first().expiryDate()) < 14)
 		g.l->log(Log::Warning, CertWizard::tr("<b>Certificate Expiry:</b> Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on."));
 
-#if defined(RELEASE_BUILD) || ! defined(QT_NO_DEBUG)
+#ifdef QT_NO_DEBUG
+#ifdef RELEASE_BUILD
 	if (g.s.bUpdateCheck)
 #endif
 		new VersionCheck(true, g.mw);
@@ -416,7 +417,9 @@ int main(int argc, char **argv) {
 #ifdef SNAPSHOT_BUILD
 	new VersionCheck(false, g.mw, true);
 #endif
-
+#else
+	g.mw->msgBox(g.mw->tr("Skipping version check in debug mode."));
+#endif
 	if (g.s.bPluginCheck)
 		g.p->checkUpdates();
 
