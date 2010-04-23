@@ -51,6 +51,14 @@
 */
 
 /*!
+  \fn void UserView::activated(const QModelIndex &idx)
+  Depending on whether idx points to a channel or user this function
+  either moves the player to the channel or opens a message window.
+  This Slot connected to the objects activated signal. The activated
+  signal could, for example, be triggered by doubleclick.
+*/
+
+/*!
   \fn void UserView::keyboardSearch(const QString &search)
   This implementation provides a recursive realtime search over
   the whole channel tree. It also features delayed selection
@@ -137,7 +145,8 @@ UserView::UserView(QWidget *p) : QTreeView(p) {
 	qtSearch->setSingleShot(true);
 
 	connect(this, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(contextMenu(const QPoint &)));
-	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(doubleClick(const QModelIndex &)));
+	connect(this, SIGNAL(activated(const QModelIndex &)), this, SLOT(activated(const QModelIndex &)));
+
 	connect(qtSearch, SIGNAL(timeout()), this, SLOT(selectSearchResult()));
 }
 
@@ -220,7 +229,7 @@ void UserView::contextMenu(const QPoint &mpos) {
 	}
 }
 
-void UserView::doubleClick(const QModelIndex &idx) {
+void UserView::activated(const QModelIndex &idx) {
 	UserModel *um = static_cast<UserModel *>(model());
 	User *p = um->getUser(idx);
 	if (p) {
@@ -230,7 +239,7 @@ void UserView::doubleClick(const QModelIndex &idx) {
 
 	Channel *c = um->getChannel(idx);
 	if (c) {
-		// if a channel is double clicked join it
+		// if a channel is activated join it
 		g.sh->joinChannel(c->iId);
 	}
 }

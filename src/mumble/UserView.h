@@ -63,8 +63,9 @@ class UserView : public QTreeView {
 		void keyboardSearch(const QString &search);
 	public slots:
 		void contextMenu(const QPoint &pos);
-		void doubleClick(const QModelIndex &idx);
+		void activated(const QModelIndex &idx);
 		void selectSearchResult();
+
 };
 
 #else
