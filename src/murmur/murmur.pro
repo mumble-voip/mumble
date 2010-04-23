@@ -101,7 +101,7 @@ ice {
 		LIBPATH *= /opt/Ice-3.3/lib
 		LIBS *= -lbz2
 		QMAKE_CXXFLAGS *= -fPIC
-		slice.commands = /opt/Ice-3.3/bin/slice2cpp Murmur.ice
+		slice.commands = /opt/Ice-3.3/bin/slice2cpp --checksum -I/opt/Ice-3.3/slice Murmur.ice
 	}
 }
 
