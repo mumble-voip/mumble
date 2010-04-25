@@ -252,6 +252,7 @@ class AppBundle(object):
 		dst = os.path.join(self.bundle, 'Contents', 'Codecs')
 		os.makedirs(dst)
 		shutil.copy('release/libcelt0.0.7.0.dylib', dst)
+		shutil.copy('release/libcelt0.0.8.0.dylib', dst)
 
 	def copy_plugins(self):
 		'''
@@ -457,11 +458,6 @@ if __name__ == '__main__':
 
 	# Do the finishing touches to our Application bundle before release
 	a = AppBundle('release/Mumble.app', ver)
-	if not options.universal:
-		a.add_compat_warning()
-		a.set_min_macosx_version('10.5.0')
-	else:
-		a.set_min_macosx_version('10.4.8')
 	a.copy_murmur()
 	a.copy_g15helper()
 	a.copy_codecs()
@@ -470,21 +466,26 @@ if __name__ == '__main__':
 	a.handle_libs()
 	a.copy_resources(['icons/mumble.icns', 'scripts/qt.conf'])
 	a.update_plist()
+	if not options.universal:
+		a.add_compat_warning()
+		a.set_min_macosx_version('10.5.0')
+	else:
+		a.set_min_macosx_version('10.4.8')
 	a.done()
 
 	# Fix Mumble11x
 	c = AppBundle('release/Mumble11x.app', ver)
-	if not options.universal:
-		c.add_compat_warning()
-		c.set_min_macosx_version('10.5.0')
-	else:
-		c.set_min_macosx_version('10.4.8')
 	c.copy_g15helper()
 	c.copy_plugins()
 	c.copy_qt_plugins()
 	c.handle_libs()
 	c.copy_resources(['icons/mumble.icns', 'scripts/qt.conf'])
 	c.update_plist()
+	if not options.universal:
+		c.add_compat_warning()
+		c.set_min_macosx_version('10.5.0')
+	else:
+		c.set_min_macosx_version('10.4.8')
 	c.done()
 
 	# Sign our binaries, etc.
@@ -498,8 +499,7 @@ if __name__ == '__main__':
 			'release/Mumble.app/Contents/Plugins/liblink.dylib',
 			'release/Mumble.app/Contents/Plugins/libmanual.dylib',
 			'release/Mumble.app/Contents/Codecs/libcelt0.0.7.0.dylib',
-			'release/Mumble.app/Contents/Overlay/mumble-overlay',
-			'release/Mumble.app/Contents/Overlay/libmumbleoverlay.dylib',
+			'release/Mumble.app/Contents/Codecs/libcelt0.0.8.0.dylib',
 			# 1.1.x
 			'release/Mumble11x.app/',
 			'release/Mumble11x.app/Contents/MacOS/mumble-g15-helper',
