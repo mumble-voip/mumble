@@ -521,7 +521,16 @@ void CGLFlushDrawableOverride(CGLContextObj ctx) {
 	ods("CGLFlushDrawable()");
 
 	Context *c = contexts;
-	
+
+	GLint viewport[4];
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	int width = viewport[2];
+	int height = viewport[3];
+
+	/* Are the viewport values crazy? Skip them in that case. */
+	if (height < 0 || width < 0 || height > 5000 || width > 5000)
+		goto skip;
+
 	while (c) {
 		if (c->cglctx == ctx)
 			break;
@@ -543,13 +552,9 @@ void CGLFlushDrawableOverride(CGLContextObj ctx) {
 		newContext(c);
 	}
 
-	GLint viewport[4];
-	glGetIntegerv(GL_VIEWPORT, viewport);
-	ods("%i, %i", viewport[0], viewport[1]);
-	int width = viewport[2];
-	int height = viewport[3];
 	drawContext(c, width, height);
 
+skip:
 	oCGLFlushDrawable(ctx);
 }
 
