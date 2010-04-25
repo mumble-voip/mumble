@@ -3776,7 +3776,7 @@ Se le recomienda &lt;b&gt;encarecidamente&lt;/b&gt; que &lt;a href=&quot;http://
     <message>
         <location line="+25"/>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;center&gt;Escriba aquí el mensaje de conversación&lt;/center&gt;</translation>
     </message>
     <message>
         <source>Type chat message here</source>
@@ -4890,17 +4890,17 @@ de las ubicaciones posibles.</translation>
     <message>
         <location/>
         <source>Shout to Linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Gritar en los canales vinculados</translation>
     </message>
     <message>
         <location/>
         <source>Shout to subchannels</source>
-        <translation type="unfinished"></translation>
+        <translation>Gritar en los subcanales</translation>
     </message>
     <message>
         <location/>
         <source>Shout to Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Gritar en el canal</translation>
     </message>
 </context>
 <context>
@@ -7339,7 +7339,7 @@ p, li { white-space: pre-wrap; }
         <location line="-914"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Esto conmutará el estado de la sobreimpresión durante el juego.</translation>
     </message>
     <message>
         <location line="+633"/>
@@ -7381,7 +7381,7 @@ p, li { white-space: pre-wrap; }
         <location line="+265"/>
         <source>To %1 (Tree): %2</source>
         <oldsource>(Tree) %1: %2</oldsource>
-        <translation type="unfinished">(Árbol) %1: %2</translation>
+        <translation>Al (Árbol) %1: %2</translation>
     </message>
     <message>
         <location line="+585"/>
@@ -7406,13 +7406,13 @@ p, li { white-space: pre-wrap; }
         <location line="+116"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
-        <translation type="unfinished">Escriba aquí el mensaje al canal &apos;%1&apos;</translation>
+        <translation>&lt;center&gt;Escriba aquí el mensaje al canal &apos;%1&apos;&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to user &apos;%1&apos; here</oldsource>
-        <translation type="unfinished">Escriba aquí el mensaje al usuario &apos;%1&apos;</translation>
+        <translation>&lt;center&gt;Escriba aquí el mensaje al usuario &apos;%1&apos;&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="+91"/>
@@ -7703,7 +7703,7 @@ p, li { white-space: pre-wrap; }
         <location line="+30"/>
         <source>Whisper/Shout</source>
         <oldsource>Whisper</oldsource>
-        <translation type="unfinished">Susurrar</translation>
+        <translation>Susurrar/Gritar</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -7757,7 +7757,7 @@ p, li { white-space: pre-wrap; }
         <location line="+1954"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
-        <translation type="unfinished">Desconectado</translation>
+        <translation>&lt;center&gt;Desconectado&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="-1746"/>
@@ -7940,7 +7940,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Change your own comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambia su propio comentario</translation>
     </message>
 </context>
 <context>
@@ -7953,7 +7953,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+36"/>
         <source>Updates are mandatory when using snapshot releases.</source>
-        <translation type="unfinished"></translation>
+        <translation>Las actualizaciones son obligatorias cuando se usan versiones en desarrollo.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui"/>
@@ -7982,7 +7982,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Reconnect when disconnected</source>
-        <translation>Volver a conectar cuando sea desconectado</translation>
+        <translation>Vuelve a conectarse cuando sea desconectado</translation>
     </message>
     <message>
         <location/>
@@ -8215,12 +8215,12 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
     <message>
         <location/>
         <source>Reconnect to last used server when starting Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuelve a conectarse al último servidor usado cuando se inicia Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Reconnect to last server on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Reconectar al último servidor al inicio</translation>
     </message>
 </context>
 <context>
@@ -8296,31 +8296,31 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <location filename="Overlay.cpp" line="+300"/>
         <location line="+1075"/>
         <source>Silent</source>
-        <translation type="unfinished"></translation>
+        <translation>Callado</translation>
     </message>
     <message>
         <location line="-1072"/>
         <location line="+1075"/>
         <source>Talking</source>
-        <translation type="unfinished"></translation>
+        <translation>Hablando</translation>
     </message>
     <message>
         <location line="-1072"/>
         <location line="+1075"/>
         <source>Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation>Susurro</translation>
     </message>
     <message>
         <location line="-1072"/>
         <location line="+1075"/>
         <source>Shout</source>
-        <translation type="unfinished"></translation>
+        <translation>Grito</translation>
     </message>
     <message>
         <location line="-1055"/>
         <location line="+945"/>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal</translation>
     </message>
     <message>
         <location line="+1224"/>
@@ -8376,42 +8376,42 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
     <message>
         <location line="-830"/>
         <source>Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtro</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Only talking</source>
-        <translation type="unfinished">Sólo hablando</translation>
+        <translation>Sólo hablando</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in current channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos en el canal actual</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos en los canales vinculados</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Always show yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>Siempre mostrarse a sí mismo</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Columnas</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Edit...</source>
-        <translation type="unfinished">Editar...</translation>
+        <translation>Editar...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Reset Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Restaurar zoom</translation>
     </message>
 </context>
 <context>
@@ -8429,7 +8429,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <location/>
         <source>Form</source>
         <oldsource>Font</oldsource>
-        <translation type="unfinished">Fuente</translation>
+        <translation>Formulario</translation>
     </message>
     <message>
         <location/>
@@ -8588,17 +8588,17 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
     <message>
         <location filename="Overlay.cpp" line="-1631"/>
         <source>To move the users, drag the little red dot.</source>
-        <translation type="unfinished"></translation>
+        <translation>Para mover a los usuarios, arrarstre el punto rojo pequeño.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>To resize the users, mousewheel over a user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Para cambiar el tamaño de los usuarios, use la rueda del ratón sobre un usuario.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>For more options, rightclick a user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Para más opciones, haga click con el botón derecho sobre un usuario.</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -8608,7 +8608,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
     <message>
         <location line="+59"/>
         <source>Choose executable</source>
-        <translation type="unfinished"></translation>
+        <translation>Elija el fichero ejecutable</translation>
     </message>
     <message>
         <source>This sets whether to always show yourself or not. This setting is useful if you aren&apos;t showing everyone in the overlay, as then you would only see your own status if you were talking, which wouldn&apos;t let you see that you were deafened or muted.</source>
@@ -8707,71 +8707,75 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
     <message>
         <location/>
         <source>Layout</source>
-        <translation type="unfinished">Diseño</translation>
+        <translation>Diseño</translation>
     </message>
     <message>
         <location/>
         <source>Overlay exceptions</source>
-        <translation type="unfinished"></translation>
+        <translation>Excepciones para la sobreimpresión</translation>
     </message>
     <message>
         <location/>
         <source>Blacklist</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista negra</translation>
     </message>
     <message>
         <location/>
         <source>Whitelist</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista blanca</translation>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished">Agregar</translation>
+        <translation>Agregar</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished">Eliminar</translation>
+        <translation>Eliminar</translation>
     </message>
     <message>
         <location/>
         <source>Uninstall Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Desinstalar la sobreimpresión</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Installation</source>
-        <translation type="unfinished"></translation>
+        <translation>Instalación de la sobreimpresión</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble ha detectado que no se ha instalado la sobreimpresión de Mumble.
+
+Haga click en el botón inferior para instalar la sobreimpresión.</translation>
     </message>
     <message>
         <location/>
         <source>Install Mumble Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Instalar la sobreimpresión de Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Upgrade</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizar la sobreimpresión</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble ha detectado en su ordenador una versión antigua de los ficheros de soporte a la sobreimpresión.
+
+Para actualizar estos ficheros a la última versión, haga click en el botón inferior.</translation>
     </message>
     <message>
         <location/>
         <source>Upgrade Mumble Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizar la sobreimpresión de Mumble</translation>
     </message>
 </context>
 <context>
@@ -8779,117 +8783,117 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="OverlayEditor.ui"/>
         <source>Dialog</source>
-        <translation type="unfinished">Diálogo</translation>
+        <translation>Diálogo</translation>
     </message>
     <message>
         <location/>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado</translation>
     </message>
     <message>
         <location/>
         <source>User is not talking</source>
-        <translation type="unfinished"></translation>
+        <translation>El usuario no está hablando</translation>
     </message>
     <message>
         <location/>
         <source>Passive</source>
-        <translation type="unfinished"></translation>
+        <translation>Pasivo</translation>
     </message>
     <message>
         <location/>
         <source>User is talking in your channel or a linked channel</source>
-        <translation type="unfinished"></translation>
+        <translation>El usuario está hablando en su canal o en un canal vinculado</translation>
     </message>
     <message>
         <location/>
         <source>Talking</source>
-        <translation type="unfinished"></translation>
+        <translation>Hablando</translation>
     </message>
     <message>
         <location/>
         <source>User is whispering to you privately</source>
-        <translation type="unfinished"></translation>
+        <translation>El usuario está susurrándole en privado</translation>
     </message>
     <message>
         <location/>
         <source>Private Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation>Susurro privado</translation>
     </message>
     <message>
         <location/>
         <source>User is shouting to your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>El usuario está gritando en su canal</translation>
     </message>
     <message>
         <location/>
         <source>Channel Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation>Susurro al canal</translation>
     </message>
     <message>
         <location/>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom</translation>
     </message>
     <message>
         <location/>
         <source>Zoom Factor</source>
-        <translation type="unfinished"></translation>
+        <translation>Factor de zoom</translation>
     </message>
     <message>
         <location/>
         <source>Enabled Elements</source>
-        <translation type="unfinished"></translation>
+        <translation>Elementos habilitados</translation>
     </message>
     <message>
         <location/>
         <source>User avatar, chosen by each user</source>
-        <translation type="unfinished"></translation>
+        <translation>Avatar del usuario, elegido por cada usuario</translation>
     </message>
     <message>
         <location/>
         <source>Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Avatar</translation>
     </message>
     <message>
         <location/>
         <source>User&apos;s name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de usuario</translation>
     </message>
     <message>
         <location/>
         <source>Username</source>
-        <translation type="unfinished">Nombre de usuario</translation>
+        <translation>Nombre de usuario</translation>
     </message>
     <message>
         <location/>
         <source>Name of user&apos;s channel, if outside your current channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del canal del usuario, si está fuera de su canal actual</translation>
     </message>
     <message>
         <location/>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal</translation>
     </message>
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>Mudo o sordo</translation>
     </message>
     <message>
         <location/>
         <source>Mute state</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado mudo</translation>
     </message>
     <message>
         <location/>
         <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
-        <translation type="unfinished"></translation>
+        <translation>Caja circundante, encogida automáticamente al tamaño mínimo que puede contener todos los elementos visibles</translation>
     </message>
     <message>
         <location/>
         <source>Bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>Caja circundante</translation>
     </message>
 </context>
 <context>
@@ -8897,119 +8901,119 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Overlay.cpp" line="+542"/>
         <source>Layout preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Diseño preprogramado</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Large square avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Gran avatar cuadrado</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Avatar and Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Avatar y nombre</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>User Opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>Opacidad del usuario</translation>
     </message>
     <message>
         <location line="+6"/>
         <location line="+31"/>
         <source>%1%</source>
-        <translation type="unfinished">%1%</translation>
+        <translation>%1%</translation>
     </message>
     <message>
         <location line="-5"/>
         <source>Object Opacity</source>
-        <translation type="unfinished"></translation>
+        <translation>Opacidad del objeto</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation>Alineación</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Izquierda</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+18"/>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Centro</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Derecha</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Superior</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Inferior</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Color...</source>
-        <translation type="unfinished"></translation>
+        <translation>Color...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Font...</source>
-        <translation type="unfinished"></translation>
+        <translation>Fuente...</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>Caja circundante</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pen width</source>
-        <translation type="unfinished"></translation>
+        <translation>Ancho de la línea</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Padding</source>
-        <translation type="unfinished"></translation>
+        <translation>Relleno</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pen color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color de la línea</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color de relleno</translation>
     </message>
     <message>
         <location line="+87"/>
         <source>Pick pen color</source>
-        <translation type="unfinished"></translation>
+        <translation>Escoja el color de la línea</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Pick fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Escoja el color de relleno</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Pick color</source>
-        <translation type="unfinished"></translation>
+        <translation>Escoja el color</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Pick font</source>
-        <translation type="unfinished"></translation>
+        <translation>Escoja la fuente</translation>
     </message>
 </context>
 <context>
@@ -9213,7 +9217,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Plugins.cpp" line="+309"/>
         <source>Skipping plugin update in debug mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Omitiendo la actualización de los complementos en el modo de depuración.</translation>
     </message>
     <message>
         <location line="+155"/>
@@ -9943,7 +9947,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
         <location line="+1"/>
         <source>Shouting directly to your channel.</source>
         <oldsource>Whispering directly to your channel.</oldsource>
-        <translation type="unfinished">Susurrando directamente a su canal.</translation>
+        <translation>Susurrando directamente a su canal.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -10088,37 +10092,37 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     <message>
         <location filename="VersionCheck.cpp" line="+130"/>
         <source>Upgrade Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizar Mumble</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Se ha detectado y descargado una nueva versión de Mumble. Se recomienda que se actualice a esta versión o que se desactualice a la última versión estable. ¿Desea iniciar el instalador ahora?</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Failed to launch snapshot installer.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo iniciar el instalador de la versión en desarrollo.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Corrupt download of new version detected. Automatically removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se ha detectado una descarga corrupta de la nueva versión. Se ha eliminado automáticamente.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Downloading new snapshot from %1 to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Descargando nueva versión en desarrollo desde %1 en %2</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Failed to write new version to disc.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo escribir la nueva versión en el disco.</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Mumble failed to retrieve version information from the central server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble no pudo recuperar del servidor central la información de la versión.</translation>
     </message>
 </context>
 <context>
