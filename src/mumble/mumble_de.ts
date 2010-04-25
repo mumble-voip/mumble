@@ -4902,17 +4902,17 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location/>
         <source>Shout to Linked channels</source>
-        <translation type="unfinished">An verknüpfte Kanäle rufen</translation>
+        <translation>An verknüpfte Kanäle rufen</translation>
     </message>
     <message>
         <location/>
         <source>Shout to subchannels</source>
-        <translation type="unfinished">An Unterkanäle rufen</translation>
+        <translation>An Unterkanäle rufen</translation>
     </message>
     <message>
         <location/>
         <source>Shout to Channel</source>
-        <translation type="unfinished">An den Kanal rufen</translation>
+        <translation>An den Kanal rufen</translation>
     </message>
 </context>
 <context>
@@ -7043,7 +7043,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <location line="+12"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation>Ändert den Modus den Ingame-Overlays</translation>
+        <translation>Ändert den Modus den Ingame-Overlays.</translation>
     </message>
     <message>
         <location line="+302"/>
@@ -8682,12 +8682,12 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location/>
         <source>Blacklist</source>
-        <translation type="unfinished"></translation>
+        <translation>Blacklist</translation>
     </message>
     <message>
         <location/>
         <source>Whitelist</source>
-        <translation type="unfinished"></translation>
+        <translation>Whitelist</translation>
     </message>
     <message>
         <location/>
@@ -8702,41 +8702,45 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location/>
         <source>Uninstall Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Overlay deinstallieren</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Installation</source>
-        <translation type="unfinished"></translation>
+        <translation>Overlay Installation</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble hat erkannt, dass Sie kein Mumble Overlay installiert haben.
+
+Klicken Sie den Button unten um das Overlay zu installieren.</translation>
     </message>
     <message>
         <location/>
         <source>Install Mumble Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble Overlay Installieren</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Upgrade</source>
-        <translation type="unfinished"></translation>
+        <translation>Overlay Aktualisierung</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble hat erkannt, dass Sie eine alte Version der Overlay Unterstützungs-Dateien installiert sind.
+
+Um diese Dateien zu aktialisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <location/>
         <source>Upgrade Mumble Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble Overlay Aktualisieren</translation>
     </message>
 </context>
 <context>
@@ -8959,22 +8963,22 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+87"/>
         <source>Pick pen color</source>
-        <translation type="unfinished"></translation>
+        <translation>Pinsel-Farbe wählen</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Pick fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Füll-Farbe wählen</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Pick color</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe wählen</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Pick font</source>
-        <translation type="unfinished"></translation>
+        <translation>Schriftart wählen</translation>
     </message>
 </context>
 <context>
@@ -9883,7 +9887,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <location line="+1"/>
         <source>Shouting directly to your channel.</source>
         <oldsource>Whispering directly to your channel.</oldsource>
-        <translation type="unfinished">Direkt an Ihren Kanal rufen.</translation>
+        <translation>Direkt an Ihren Kanal rufen.</translation>
     </message>
     <message>
         <location line="+1"/>
