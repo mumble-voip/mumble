@@ -36,6 +36,6 @@
 	<key>MumbleOverlayLoaderBundleIdentifier</key>
 	<string>net.sourceforge.mumble.OverlayScriptingAddition</string>
 	<key>MumbleOverlayLoaderRequiredVersion</key>
-	<integer>3</integer>
+	<integer>4</integer>
 </dict>
 </plist>

@@ -522,6 +522,17 @@ void CGLFlushDrawableOverride(CGLContextObj ctx) {
 
 	Context *c = contexts;
 
+	/* Sometimes, we can get a FlushDrawable where the current context is NULL.
+	 * Also, check that the context CGLFlushDrawable was called on is the active context.
+	 * If it isn't, who knows what context we're drawing on?
+	 *
+	 * Maybe we should even use CGLSetCurrentContext() to switch to the context that's being
+	 * flushed?
+	 */
+	CGLContextObj current = CGLGetCurrentContext();
+	if (current == NULL || ctx != current)
+		goto skip;
+
 	GLint viewport[4];
 	glGetIntegerv(GL_VIEWPORT, viewport);
 	int width = viewport[2];
