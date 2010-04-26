@@ -7043,7 +7043,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <location line="+12"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation>Ändert den Modus den Ingame-Overlays.</translation>
+        <translation>Dies wechselt den Modus des Ingame-Overlays.</translation>
     </message>
     <message>
         <location line="+302"/>
