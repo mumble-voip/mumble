@@ -29,6 +29,7 @@
 */
 
 #include "lib.h"
+#include <time.h>
 
 typedef unsigned int    GLenum;
 typedef unsigned char   GLboolean;
@@ -137,6 +138,9 @@ class Context : protected Pipe {
 		HGLRC ctx;
 		GLuint texture;
 
+		clock_t timeT;
+		unsigned int frameCount;
+
 		Context(HDC hdc);
 		void draw(HDC hdc);
 
@@ -146,6 +150,9 @@ class Context : protected Pipe {
 };
 
 Context::Context(HDC hdc) {
+	timeT = clock();
+	frameCount = 0;
+
 	ctx = owglCreateContext(hdc);
 	owglMakeCurrent(hdc, ctx);
 
@@ -232,6 +239,22 @@ void Context::newTexture(unsigned int width, unsigned int height) {
 void Context::draw(HDC hdc) {
 	// DEBUG
 	// sm->bDebug = true;
+
+	clock_t t = clock();
+	float elapsed = static_cast<float>(t - timeT) / CLOCKS_PER_SEC;
+	++frameCount;
+	if (elapsed > 1.0) {
+		OverlayMsg om;
+		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+		om.omh.uiType = OVERLAY_MSGTYPE_FPS;
+		om.omh.iLength = sizeof(OverlayMsgFps);
+		om.omf.fps = static_cast<unsigned int>(frameCount * elapsed);
+
+		sendMessage(om);
+
+		frameCount = 0;
+		timeT = t;
+	}
 
 	unsigned int width, height;
 

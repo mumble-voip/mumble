@@ -65,6 +65,11 @@ struct OverlayMsgPid {
 	unsigned int pid;
 };
 
+#define OVERLAY_MSGTYPE_FPS 5
+struct OverlayMsgFps {
+	unsigned int fps;
+};
+
 struct OverlayMsg {
 	union {
 		char headerbuffer[1];
@@ -77,6 +82,7 @@ struct OverlayMsg {
 		struct OverlayMsgBlit omb;
 		struct OverlayMsgActive oma;
 		struct OverlayMsgPid omp;
+		struct OverlayMsgFps omf;
 	};
 };
 

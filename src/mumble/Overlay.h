@@ -236,7 +236,8 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void on_qpbUninstall_clicked();
 		void on_qpbAdd_clicked();
 		void on_qpbRemove_clicked();
-		void on_qcbBlacklist_toggled(bool);
+		void on_qrbBlacklist_toggled(bool);
+		void on_qcbEnable_stateChanged(int);
 		void resizeScene();
 	public:
 		OverlayConfig(Settings &st);
@@ -270,9 +271,11 @@ class OverlayClient : public QObject {
 		QRect qrLast;
 		Timer t;
 
+		unsigned int uiFps;
 		int iOffsetX, iOffsetY;
 		QGraphicsPixmapItem *qgpiCursor;
 		QGraphicsPixmapItem *qgpiLogo;
+		QGraphicsPixmapItem *qgpiFPS;
 
 		quint64 uiPid;
 		QGraphicsScene qgs;
@@ -304,6 +307,7 @@ class OverlayClient : public QObject {
 		void hideGui();
 		void scheduleDelete();
 		void updateMouse();
+		void updateFPS();
 		bool update();
 		void openEditor();
 };

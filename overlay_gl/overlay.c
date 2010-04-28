@@ -53,6 +53,7 @@
 #include <pwd.h>
 #include <math.h>
 #include <errno.h>
+#include <time.h>
 
 typedef unsigned char bool;
 #define true 1
@@ -85,6 +86,9 @@ typedef struct _Context {
 	bool bGlx;
 
 	GLuint uiProgram;
+
+	clock_t timeT;
+	unsigned int frameCount;
 } Context;
 
 static const char vshader[] = ""
@@ -149,6 +153,8 @@ static void newContext(Context * ctx) {
 	ctx->iSocket = -1;
 	ctx->omMsg.omh.iLength = -1;
 	ctx->texture = ~0;
+	ctx->timeT = clock();
+	ctx->frameCount = 0;
 
 	char *home = getenv("HOME");
 	if (home == NULL) {
@@ -565,6 +571,22 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 
 		if (!c) {
 			ods("Current context is: %p", ctx);
+
+			clock_t t = clock();
+			float elapsed = static_cast<float>(t - ctx->timeT) / CLOCKS_PER_SEC;
+			++(ctx->frameCount);
+			if (elapsed > 1.0) { // Send FPS update every second
+				OverlayMsg om;
+				om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+				om.omh.uiType = OVERLAY_MSGTYPE_FPS;
+				om.omh.iLength = sizeof(OverlayMsgFps);
+				om.omf.fps = static_cast<unsigned int>(ctx->frameCount * elapsed);
+
+				sendMessage(om);
+
+				ctx->frameCount = 0;
+				ctx->timeT = t;
+			}
 
 			c = (Context *) malloc(sizeof(Context));
 			if (!c) {

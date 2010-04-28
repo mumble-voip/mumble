@@ -30,6 +30,7 @@
 
 #include "lib.h"
 #include <d3d9.h>
+#include <time.h>
 
 Direct3D9Data *d3dd = NULL;
 
@@ -54,6 +55,9 @@ class DevState : public Pipe {
 
 		D3DTLVERTEX vertices[4];
 		LPDIRECT3DTEXTURE9 texTexture;
+
+		clock_t timeT;
+		unsigned int frameCount;
 
 		DevState();
 
@@ -80,6 +84,9 @@ DevState::DevState() {
 	refCount = 0;
 	myRefCount = 0;
 	texTexture = NULL;
+
+	timeT = clock();
+	frameCount = 0;
 
 	for (int i=0;i<4;++i) {
 		vertices[i].x = vertices[i].y = 0.0f;
@@ -192,6 +199,22 @@ void DevState::releaseAll() {
 }
 
 void DevState::draw() {
+	clock_t t = clock();
+	float elapsed = static_cast<float>(t - timeT) / CLOCKS_PER_SEC;
+	++frameCount;
+	if (elapsed > 1.0) {
+		OverlayMsg om;
+		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+		om.omh.uiType = OVERLAY_MSGTYPE_FPS;
+		om.omh.iLength = sizeof(OverlayMsgFps);
+		om.omf.fps = static_cast<unsigned int>(frameCount * elapsed);
+
+		sendMessage(om);
+
+		frameCount = 0;
+		timeT = t;
+	}
+
 	D3DVIEWPORT9 vp;
 	dev->GetViewport(&vp);
 

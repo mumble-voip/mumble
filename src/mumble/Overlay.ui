@@ -44,7 +44,7 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_6">
+           <spacer name="horizontalSpacer_7">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -55,6 +55,16 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="qcbShowFps">
+            <property name="toolTip">
+             <string>Display a frame counter in the overlay</string>
+            </property>
+            <property name="text">
+             <string>Show FPS counter</string>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="qpbUninstall">
@@ -103,7 +113,7 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
-             <widget class="QRadioButton" name="qcbBlacklist">
+             <widget class="QRadioButton" name="qrbBlacklist">
               <property name="text">
                <string>Blacklist</string>
               </property>
@@ -113,7 +123,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="qcbWhitelist">
+             <widget class="QRadioButton" name="qrbWhitelist">
               <property name="text">
                <string>Whitelist</string>
               </property>

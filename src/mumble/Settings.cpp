@@ -141,6 +141,10 @@ OverlaySettings::OverlaySettings() {
 	fChannel = 0.75f;
 	qfChannel = qfUserName;
 
+	qcFps = Qt::white;
+	fFps = 0.75f;
+	qfFps = qfUserName;
+
 	fMutedDeafened = 0.5f;
 	fAvatar = 1.0f;
 
@@ -159,12 +163,14 @@ OverlaySettings::OverlaySettings() {
 	qrfChannel = QRectF(-0.03125f, -0.0625f, 0.09375f, 0.015625f);
 	qrfMutedDeafened = QRectF(-0.0625f, -0.0625f, 0.0625f, 0.0625f);
 	qrfAvatar = QRectF(-0.0625f, -0.0625f, 0.125f, 0.125f);
+	qrfFps = QRectF(10, 10, -1, 0.023438f);
 
 	bUserName = true;
 	bChannel = true;
 	bMutedDeafened = true;
 	bAvatar = true;
 	bBox = false;
+	bFps = false;
 
 	qaUserName = Qt::AlignCenter;
 	qaMutedDeafened = Qt::AlignLeft | Qt::AlignTop;
@@ -389,6 +395,8 @@ void OverlaySettings::load() {
 	SAVELOAD(qfUserName, "userfont");
 	SAVELOAD(qfChannel, "channelfont");
 	SAVELOAD(qcChannel, "channelcolor");
+	SAVELOAD(qfFps, "fpsfont");
+	SAVELOAD(qcFps, "fpscolor");
 
 	SAVELOAD(fBoxPad, "padding");
 	SAVELOAD(fBoxPenWidth, "penwidth");
@@ -400,16 +408,19 @@ void OverlaySettings::load() {
 	SAVELOAD(bMutedDeafened, "mutedshow");
 	SAVELOAD(bAvatar, "avatarshow");
 	SAVELOAD(bBox, "boxshow");
+	SAVELOAD(bFps, "fpsshow");
 
 	SAVELOAD(fUserName, "useropacity");
 	SAVELOAD(fChannel, "channelopacity");
 	SAVELOAD(fMutedDeafened, "mutedopacity");
 	SAVELOAD(fAvatar, "avataropacity");
+	SAVELOAD(fFps, "fpsopacity");
 
 	SAVELOAD(qrfUserName, "userrect");
 	SAVELOAD(qrfChannel, "channelrect");
 	SAVELOAD(qrfMutedDeafened, "mutedrect");
 	SAVELOAD(qrfAvatar, "avatarrect");
+	SAVELOAD(qrfFps, "fpsrect");
 
 	LOADFLAG(qaUserName, "useralign");
 	LOADFLAG(qaChannel, "channelalign");
@@ -620,6 +631,8 @@ void OverlaySettings::save() {
 	SAVELOAD(qfUserName, "userfont");
 	SAVELOAD(qfChannel, "channelfont");
 	SAVELOAD(qcChannel, "channelcolor");
+	SAVELOAD(qfFps, "fpsfont");
+	SAVELOAD(qcFps, "fpscolor");
 
 	SAVELOAD(fBoxPad, "padding");
 	SAVELOAD(fBoxPenWidth, "penwidth");
@@ -631,16 +644,19 @@ void OverlaySettings::save() {
 	SAVELOAD(bMutedDeafened, "mutedshow");
 	SAVELOAD(bAvatar, "avatarshow");
 	SAVELOAD(bBox, "boxshow");
+	SAVELOAD(bFps, "fpsshow");
 
 	SAVELOAD(fUserName, "useropacity");
 	SAVELOAD(fChannel, "channelopacity");
 	SAVELOAD(fMutedDeafened, "mutedopacity");
 	SAVELOAD(fAvatar, "avataropacity");
+	SAVELOAD(fFps, "fpsopacity");
 
 	SAVELOAD(qrfUserName, "userrect");
 	SAVELOAD(qrfChannel, "channelrect");
 	SAVELOAD(qrfMutedDeafened, "mutedrect");
 	SAVELOAD(qrfAvatar, "avatarrect");
+	SAVELOAD(qrfFps, "fpsrect");
 
 	SAVEFLAG(qaUserName, "useralign");
 	SAVEFLAG(qaChannel, "channelalign");

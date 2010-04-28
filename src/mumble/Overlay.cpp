@@ -102,10 +102,10 @@ OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 
 void OverlayConfig::load(const Settings &r) {
 	loadCheckBox(qcbEnable, r.bOverlayEnable);
-
+	qcbShowFps->setChecked(r.os.bFps);
 	qlwBlacklist->clear();
 	qlwWhitelist->clear();
-	qcbWhitelist->setChecked(r.os.bUseWhitelist);
+	qrbWhitelist->setChecked(r.os.bUseWhitelist);
 	qswBlackWhiteList->setCurrentWidget(r.os.bUseWhitelist ? qwWhite : qwBlack);
 	foreach(QString str, r.os.qslWhitelist) {
 		qlwWhitelist->addItem(str);
@@ -130,6 +130,7 @@ QIcon OverlayConfig::icon() const {
 
 void OverlayConfig::save() const {
 	s.bOverlayEnable = qcbEnable->isChecked();
+	s.os.bFps = qcbShowFps->isChecked();
 
 	// Directly save overlay config
 	s.os.qslBlacklist.clear();
@@ -142,7 +143,7 @@ void OverlayConfig::save() const {
 		s.os.qslWhitelist << qlwWhitelist->item(i)->text();
 	}
 
-	s.os.bUseWhitelist = qcbWhitelist->isChecked();
+	s.os.bUseWhitelist = qrbWhitelist->isChecked();
 
 	g.qs->beginGroup(QLatin1String("overlay"));
 	s.os.save();
@@ -183,7 +184,7 @@ void OverlayConfig::on_qpbAdd_clicked() {
 	QString file = QFileDialog::getOpenFileName(this, tr("Choose executable"), QString(), QLatin1String("*.exe"));
 	if (! file.isEmpty()) {
 		file = QFileInfo(file).fileName();
-		QListWidget *sel = qcbBlacklist->isChecked() ? qlwBlacklist : qlwWhitelist;
+		QListWidget *sel = qrbBlacklist->isChecked() ? qlwBlacklist : qlwWhitelist;
 
 		if (sel->findItems(file, Qt::MatchExactly).isEmpty())
 			sel->addItem(file);
@@ -191,14 +192,18 @@ void OverlayConfig::on_qpbAdd_clicked() {
 }
 
 void OverlayConfig::on_qpbRemove_clicked() {
-	QListWidget *sel = qcbBlacklist->isChecked() ? qlwBlacklist : qlwWhitelist;
+	QListWidget *sel = qrbBlacklist->isChecked() ? qlwBlacklist : qlwWhitelist;
 	int row = sel->currentRow();
 	if (row != -1)
 		delete sel->takeItem(row);
 }
 
-void OverlayConfig::on_qcbBlacklist_toggled(bool checked) {
+void OverlayConfig::on_qrbBlacklist_toggled(bool checked) {
 	qswBlackWhiteList->setCurrentWidget(checked ? qwBlack : qwWhite);
+}
+
+void OverlayConfig::on_qcbEnable_stateChanged(int state) {
+	qcbShowFps->setEnabled(state == Qt::Checked);
 }
 
 void OverlayConfig::on_qpbInstall_clicked() {
@@ -1413,7 +1418,7 @@ QPixmap OverlayUser::createPixmap(const QString &string, unsigned int maxwidth, 
 
 		QString str;
 
-		if (r.width() < maxwidth) {
+		if (maxwidth < 0 || r.width() < maxwidth) {
 			str = string;
 		} else {
 			QFontMetrics qfm(f);
@@ -1953,6 +1958,11 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 	qgs.addItem(&ougUsers);
 	ougUsers.show();
 
+	qgpiFPS = new QGraphicsPixmapItem();
+	qgs.addItem(qgpiFPS);
+	qgpiFPS->setPos(g.s.os.qrfFps.x(), g.s.os.qrfFps.y());
+	qgpiFPS->show();
+
 	qgpiLogo = NULL;
 
 	iOffsetX = iOffsetY = 0;
@@ -1961,6 +1971,9 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 }
 
 OverlayClient::~OverlayClient() {
+	if (qgpiFPS)
+		delete qgpiFPS;
+
 	if (qgpiCursor)
 		delete qgpiCursor;
 
@@ -1978,6 +1991,18 @@ bool OverlayClient::eventFilter(QObject *o, QEvent *e) {
 		return true;
 	}
 	return QObject::eventFilter(o, e);
+}
+
+void OverlayClient::updateFPS() {
+	if (g.s.os.bFps) {
+		QPainterPath pp;
+		unsigned int uiSize = iroundf(qgs.sceneRect().height());
+		const QPixmap &pm = OverlayUser::createPixmap(tr("FPS: %1").arg(uiFps), -1, iroundf(uiSize * g.s.os.fHeight * g.s.os.qrfFps.height()), g.s.os.qcFps, g.s.os.qfFps, pp);
+		qgpiFPS->setPixmap(pm);
+	}
+	else {
+		qgpiFPS->setPixmap(QPixmap());
+	}
 }
 
 void OverlayClient::updateMouse() {
@@ -2269,6 +2294,18 @@ void OverlayClient::readyRead() {
 						uiPid = omp->pid;
 					}
 					break;
+				case OVERLAY_MSGTYPE_FPS: {
+						if (length != sizeof(OverlayMsgFps))
+							break;
+
+						OverlayMsgFps *omf = & omMsg.omf;
+						uiFps = omf ->fps;
+						//qWarning() << "FPS: " << omf->fps;
+
+						Overlay *o = static_cast<Overlay *>(parent());
+						QTimer::singleShot(0, o, SLOT(updateOverlay()));
+					}
+					break;
 				default:
 					break;
 			}
@@ -2336,6 +2373,7 @@ void OverlayClient::setupScene(bool show) {
 
 	}
 	ougUsers.updateUsers();
+	updateFPS();
 }
 
 void OverlayClient::setupRender() {
@@ -2365,6 +2403,7 @@ bool OverlayClient::update() {
 		return true;
 
 	ougUsers.updateUsers();
+	updateFPS();
 
 	if (qlsSocket->bytesToWrite() > 1024) {
 		return (t.elapsed() <= 5000000ULL);

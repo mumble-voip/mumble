@@ -32,6 +32,7 @@
 #include "overlay.hex"
 #include <d3d10.h>
 #include <d3dx10.h>
+#include <time.h>
 
 DXGIData *dxgi = NULL;
 
@@ -90,6 +91,9 @@ class D10State: protected Pipe {
 		ID3D10Texture2D *pTexture;
 		ID3D10ShaderResourceView *pSRView;
 
+		clock_t timeT;
+		unsigned int frameCount;
+
 		D10State(IDXGISwapChain *, ID3D10Device *);
 		~D10State();
 		void init();
@@ -124,6 +128,9 @@ D10State::D10State(IDXGISwapChain *pSwapChain, ID3D10Device *pDevice) {
 	pBlendState = NULL;
 	pTexture = NULL;
 	pSRView = NULL;
+
+	timeT = clock();
+	frameCount = 0;
 
 	pDevice->AddRef();
 	initRefCount = pDevice->Release();
@@ -377,6 +384,22 @@ D10State::~D10State() {
 }
 
 void D10State::draw() {
+	clock_t t = clock();
+	float elapsed = static_cast<float>(t - timeT) / CLOCKS_PER_SEC;
+	++frameCount;
+	if (elapsed > 1.0) { // Send FPS update every second
+		OverlayMsg om;
+		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+		om.omh.uiType = OVERLAY_MSGTYPE_FPS;
+		om.omh.iLength = sizeof(OverlayMsgFps);
+		om.omf.fps = static_cast<unsigned int>(frameCount * elapsed);
+
+		sendMessage(om);
+
+		frameCount = 0;
+		timeT = t;
+	}
+
 	HRESULT hr;
 	dwMyThread = GetCurrentThreadId();
 

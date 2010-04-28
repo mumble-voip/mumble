@@ -91,6 +91,9 @@ struct OverlaySettings {
 	QColor qcChannel;
 	QFont qfChannel;
 
+	QColor qcFps;
+	QFont qfFps;
+
 	qreal fBoxPad;
 	qreal fBoxPenWidth;
 	QColor qcBoxPen;
@@ -101,17 +104,20 @@ struct OverlaySettings {
 	bool bMutedDeafened;
 	bool bAvatar;
 	bool bBox;
+	bool bFps;
 
 	qreal fUserName;
 	qreal fChannel;
 	qreal fMutedDeafened;
 	qreal fAvatar;
 	qreal fUser[4];
+	qreal fFps;
 
 	QRectF qrfUserName;
 	QRectF qrfChannel;
 	QRectF qrfMutedDeafened;
 	QRectF qrfAvatar;
+	QRectF qrfFps;
 
 	Qt::Alignment qaUserName;
 	Qt::Alignment qaChannel;
