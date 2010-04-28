@@ -59,13 +59,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (! ok)
 		return false;
 	*/
-	ok = peekProc((BYTE *) 0x01998A80, avatar_pos, 12) &&
-	     peekProc((BYTE *) 0x01998A70, avatar_front, 12) &&
-	     peekProc((BYTE *) 0x01998A60, avatar_top, 12); // &&
+	ok = peekProc((BYTE *) 0x01860D00, avatar_pos, 12) &&
+	     peekProc((BYTE *) 0x01860CF0, avatar_front, 12) &&
+	     peekProc((BYTE *) 0x01860CE0, avatar_top, 12); // &&
 	     //peekProc((BYTE *) 0x0, ccontext, 128);
 
 	if (! ok)
 		return false;
+		
+	if (avatar_pos[1] == 9999)
+		return true;
 
 	/*
 	    Get context string; in this plugin this will be an
