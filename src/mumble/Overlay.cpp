@@ -279,7 +279,7 @@ OverlayEditorScene::OverlayEditorScene(QObject *p, const OverlaySettings &srcos)
 	resync();
 }
 
-#define SCALESIZE(var) iroundf(uiSize * uiZoom * os.qrf##var .height()), iroundf(uiSize * uiZoom * os.qrf##var .width())
+#define SCALESIZE(var) iroundf(uiSize * uiZoom * os.qrf##var .width()), iroundf(uiSize * uiZoom * os.qrf##var .height())
 
 void OverlayEditorScene::updateMuted() {
 	QImageReader qir(QLatin1String("skin:muted_self.svg"));
@@ -316,7 +316,6 @@ void OverlayEditorScene::updateUserName() {
 	}
 
 	QPainterPath pp;
-
 	const QPixmap &pm = OverlayUser::createPixmap(qsName, SCALESIZE(UserName), os.qcUserName[tsColor], os.qfUserName, pp);
 	qgpiName->setPixmap(pm);
 
@@ -1308,7 +1307,7 @@ void OverlayUser::setup() {
 }
 
 #undef SCALESIZE
-#define SCALESIZE(var) iroundf(uiSize * os->fHeight * os->qrf##var .width()), iroundf(uiSize * os->fHeight * os->qrf##var .height())
+#define SCALESIZE(var) iroundf(uiSize * os->fZoom * os->qrf##var .width()), iroundf(uiSize * os->fZoom * os->qrf##var .height())
 
 void OverlayUser::updateLayout() {
 	QPixmap pm;
@@ -1340,11 +1339,11 @@ void OverlayUser::updateLayout() {
 		qgpiDeafened->setPixmap(QPixmap::fromImage(qir.read()));
 	}
 
-	qgpiMuted->setPos(alignedPosition(scaledRect(os->qrfMutedDeafened, uiSize * os->fHeight), qgpiMuted->boundingRect(), os->qaMutedDeafened));
+	qgpiMuted->setPos(alignedPosition(scaledRect(os->qrfMutedDeafened, uiSize * os->fZoom), qgpiMuted->boundingRect(), os->qaMutedDeafened));
 	qgpiMuted->setZValue(1.0f);
 	qgpiMuted->setOpacity(os->fMutedDeafened);
 
-	qgpiDeafened->setPos(alignedPosition(scaledRect(os->qrfMutedDeafened, uiSize * os->fHeight), qgpiDeafened->boundingRect(), os->qaMutedDeafened));
+	qgpiDeafened->setPos(alignedPosition(scaledRect(os->qrfMutedDeafened, uiSize * os->fZoom), qgpiDeafened->boundingRect(), os->qaMutedDeafened));
 	qgpiDeafened->setZValue(1.0f);
 	qgpiDeafened->setOpacity(os->fMutedDeafened);
 
@@ -1363,10 +1362,10 @@ void OverlayUser::updateLayout() {
 	QRectF children = os->qrfAvatar | os->qrfChannel | os->qrfMutedDeafened | os->qrfUserName;
 
 	bool haspen = (os->qcBoxPen != os->qcBoxFill) && (! qFuzzyCompare(os->qcBoxPen.alphaF(), static_cast<qreal>(0.0f)));
-	qreal pw = haspen ? qMax<qreal>(1.0f, os->fBoxPenWidth * uiSize * os->fHeight) : 0.0f;
-	qreal pad = os->fBoxPad * uiSize * os->fHeight;
+	qreal pw = haspen ? qMax<qreal>(1.0f, os->fBoxPenWidth * uiSize * os->fZoom) : 0.0f;
+	qreal pad = os->fBoxPad * uiSize * os->fZoom;
 	QPainterPath pp;
-	pp.addRoundedRect(children.x() * uiSize * os->fHeight + -pw / 2.0f - pad, children.y() * uiSize * os->fHeight + -pw / 2.0f - pad, children.width() * uiSize * os->fHeight + pw + 2.0f * pad, children.height() * uiSize * os->fHeight + pw + 2.0f * pad, 2.0f * pw, 2.0f * pw);
+	pp.addRoundedRect(children.x() * uiSize * os->fZoom + -pw / 2.0f - pad, children.y() * uiSize * os->fZoom + -pw / 2.0f - pad, children.width() * uiSize * os->fZoom + pw + 2.0f * pad, children.height() * uiSize * os->fZoom + pw + 2.0f * pad, 2.0f * pw, 2.0f * pw);
 	qgpiBox->setPath(pp);
 	qgpiBox->setPos(0.0f, 0.0f);
 	qgpiBox->setZValue(-1.0f);
@@ -1477,7 +1476,7 @@ void OverlayUser::updateUser() {
 			qgpiName[i]->setPixmap(pm);
 
 			if (i == 0)
-				qgpiName[0]->setPos(alignedPosition(scaledRect(os->qrfUserName, uiSize * os->fHeight), qgpiName[0]->boundingRect(), os->qaUserName));
+				qgpiName[0]->setPos(alignedPosition(scaledRect(os->qrfUserName, uiSize * os->fZoom), qgpiName[0]->boundingRect(), os->qaUserName));
 			else
 				qgpiName[i]->setPos(qgpiName[0]->pos());
 		}
@@ -1490,7 +1489,7 @@ void OverlayUser::updateUser() {
 		QPainterPath pp;
 		const QPixmap &pm = createPixmap(qsChannelName, SCALESIZE(Channel), os->qcChannel, os->qfChannel, pp);
 		qgpiChannel->setPixmap(pm);
-		qgpiChannel->setPos(alignedPosition(scaledRect(os->qrfChannel, uiSize * os->fHeight), qgpiChannel->boundingRect(), os->qaChannel));
+		qgpiChannel->setPos(alignedPosition(scaledRect(os->qrfChannel, uiSize * os->fZoom), qgpiChannel->boundingRect(), os->qaChannel));
 	}
 
 	if (os->bAvatar && (qgpiAvatar->pixmap().isNull() || (cuUser && (qbaAvatar != cuUser->qbaTextureHash)))) {
@@ -1519,7 +1518,7 @@ void OverlayUser::updateUser() {
 		}
 
 		qgpiAvatar->setPixmap(QPixmap::fromImage(img));
-		qgpiAvatar->setPos(alignedPosition(scaledRect(os->qrfAvatar, uiSize * os->fHeight), qgpiAvatar->boundingRect(), os->qaAvatar));
+		qgpiAvatar->setPos(alignedPosition(scaledRect(os->qrfAvatar, uiSize * os->fZoom), qgpiAvatar->boundingRect(), os->qaAvatar));
 	}
 
 	qgpiAvatar->setVisible(os->bAvatar);
@@ -1720,7 +1719,7 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 			oe.exec();
 		}
 	} else if (act == qaZoom) {
-		os->fHeight = 1.0f;
+		os->fZoom = 1.0f;
 		updateLayout();
 	} else if (act == qaShowTalking) {
 		os->osShow = OverlaySettings::Talking;
@@ -1752,12 +1751,12 @@ void OverlayUserGroup::wheelEvent(QGraphicsSceneWheelEvent *event) {
 	if (event->delta() > 0)
 		scale = 1.0f / 0.875f;
 
-	if ((scale < 1.0f) && (os->fHeight <= (1.0f / 4.0f)))
+	if ((scale < 1.0f) && (os->fZoom <= (1.0f / 4.0f)))
 		return;
-	else if ((scale > 1.0f) && (os->fHeight >= 4.0f))
+	else if ((scale > 1.0f) && (os->fZoom >= 4.0f))
 		return;
 
-	os->fHeight *= scale;
+	os->fZoom *= scale;
 
 	updateLayout();
 }
@@ -1887,12 +1886,12 @@ void OverlayUserGroup::updateUsers() {
 
 	QRectF children = os->qrfAvatar | os->qrfChannel | os->qrfMutedDeafened | os->qrfUserName;
 
-	int pad = os->bBox ? iroundf(uiHeight * os->fHeight * (os->fBoxPad + os->fBoxPenWidth)) : 0;
-	int width = iroundf(children.width() * uiHeight * os->fHeight) + 2 * pad;
-	int height = iroundf(children.height() * uiHeight * os->fHeight) + 2 * pad;
+	int pad = os->bBox ? iroundf(uiHeight * os->fZoom * (os->fBoxPad + os->fBoxPenWidth)) : 0;
+	int width = iroundf(children.width() * uiHeight * os->fZoom) + 2 * pad;
+	int height = iroundf(children.height() * uiHeight * os->fZoom) + 2 * pad;
 
-	int xofs = - iroundf(children.left() * uiHeight * os->fHeight) + pad;
-	int yofs = - iroundf(children.top() * uiHeight * os->fHeight) + pad;
+	int xofs = - iroundf(children.left() * uiHeight * os->fZoom) + pad;
+	int yofs = - iroundf(children.top() * uiHeight * os->fZoom) + pad;
 
 	unsigned int y = 0;
 	unsigned int x = 0;
@@ -1997,7 +1996,7 @@ void OverlayClient::updateFPS() {
 	if (g.s.os.bFps) {
 		QPainterPath pp;
 		unsigned int uiSize = iroundf(qgs.sceneRect().height());
-		const QPixmap &pm = OverlayUser::createPixmap(tr("FPS: %1").arg(static_cast<int>(fFps)), -1, iroundf(uiSize * g.s.os.fHeight * g.s.os.qrfFps.height()), g.s.os.qcFps, g.s.os.qfFps, pp);
+		const QPixmap &pm = OverlayUser::createPixmap(tr("FPS: %1").arg(static_cast<int>(fFps)), -1, iroundf(uiSize * g.s.os.fZoom * g.s.os.qrfFps.height()), g.s.os.qcFps, g.s.os.qfFps, pp);
 		qgpiFPS->setPixmap(pm);
 	}
 	else {

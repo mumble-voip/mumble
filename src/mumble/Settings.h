@@ -82,7 +82,7 @@ struct OverlaySettings {
 	float fX;
 	float fY;
 
-	qreal fHeight;
+	qreal fZoom;
 	unsigned int uiColumns;
 
 	QColor qcUserName[4];
