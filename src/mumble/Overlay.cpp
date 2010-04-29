@@ -1997,7 +1997,7 @@ void OverlayClient::updateFPS() {
 	if (g.s.os.bFps) {
 		QPainterPath pp;
 		unsigned int uiSize = iroundf(qgs.sceneRect().height());
-		const QPixmap &pm = OverlayUser::createPixmap(tr("FPS: %1").arg(uiFps), -1, iroundf(uiSize * g.s.os.fHeight * g.s.os.qrfFps.height()), g.s.os.qcFps, g.s.os.qfFps, pp);
+		const QPixmap &pm = OverlayUser::createPixmap(tr("FPS: %1").arg(static_cast<int>(fFps)), -1, iroundf(uiSize * g.s.os.fHeight * g.s.os.qrfFps.height()), g.s.os.qcFps, g.s.os.qfFps, pp);
 		qgpiFPS->setPixmap(pm);
 	}
 	else {
@@ -2299,7 +2299,7 @@ void OverlayClient::readyRead() {
 							break;
 
 						OverlayMsgFps *omf = & omMsg.omf;
-						uiFps = omf ->fps;
+						fFps = omf ->fps;
 						//qWarning() << "FPS: " << omf->fps;
 
 						Overlay *o = static_cast<Overlay *>(parent());

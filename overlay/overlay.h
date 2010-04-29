@@ -67,8 +67,10 @@ struct OverlayMsgPid {
 
 #define OVERLAY_MSGTYPE_FPS 5
 struct OverlayMsgFps {
-	unsigned int fps;
+	float fps;
 };
+#define OVERLAY_FPS_INTERVAL 0.25f
+
 
 struct OverlayMsg {
 	union {

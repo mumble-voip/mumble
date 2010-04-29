@@ -152,7 +152,7 @@ void D10State::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int
 
 	UCHAR* pTexels = (UCHAR*)mappedTex.pData;
 
-	for (int r=0;r< uiHeight; ++r) {
+	for (unsigned int r=0;r< uiHeight; ++r) {
 		unsigned char *sptr = a_ucTexture + r * uiWidth * 4;
 		unsigned char *dptr = reinterpret_cast<unsigned char *>(pTexels) + r * mappedTex.RowPitch;
 		memcpy(dptr, sptr, uiWidth * 4);
@@ -387,12 +387,12 @@ void D10State::draw() {
 	clock_t t = clock();
 	float elapsed = static_cast<float>(t - timeT) / CLOCKS_PER_SEC;
 	++frameCount;
-	if (elapsed > 1.0) { // Send FPS update every second
+	if (elapsed > OVERLAY_FPS_INTERVAL) {
 		OverlayMsg om;
 		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 		om.omh.uiType = OVERLAY_MSGTYPE_FPS;
 		om.omh.iLength = sizeof(OverlayMsgFps);
-		om.omf.fps = static_cast<unsigned int>(frameCount * elapsed);
+		om.omf.fps = frameCount / elapsed;
 
 		sendMessage(om);
 

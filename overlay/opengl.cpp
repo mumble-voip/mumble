@@ -243,12 +243,12 @@ void Context::draw(HDC hdc) {
 	clock_t t = clock();
 	float elapsed = static_cast<float>(t - timeT) / CLOCKS_PER_SEC;
 	++frameCount;
-	if (elapsed > 1.0) {
+	if (elapsed > OVERLAY_FPS_INTERVAL) {
 		OverlayMsg om;
 		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 		om.omh.uiType = OVERLAY_MSGTYPE_FPS;
 		om.omh.iLength = sizeof(OverlayMsgFps);
-		om.omf.fps = static_cast<unsigned int>(frameCount * elapsed);
+		om.omf.fps = frameCount / elapsed;
 
 		sendMessage(om);
 
