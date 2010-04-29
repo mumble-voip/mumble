@@ -40,6 +40,7 @@
 #include <time.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <time.h>
 #include <string.h>
 #include <mach/mach_init.h>
 #include <mach/task.h>
@@ -73,6 +74,9 @@ typedef struct _Context {
 
 	unsigned char *a_ucTexture;
 	unsigned int uiMappedLength;
+	clock_t timeT;
+	unsigned int frameCount;
+	
 } Context;
 
 static const char vshader[] = ""
@@ -115,6 +119,8 @@ static void newContext(Context * ctx) {
 	ctx->iSocket = -1;
 	ctx->omMsg.omh.iLength = -1;
 	ctx->texture = ~0;
+	ctx->timeT = clock();
+	ctx->frameCount = 0;
 
 	char *home = getenv("HOME");
 	if (home == NULL) {
@@ -389,6 +395,22 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 }
 
 static void drawContext(Context * ctx, int width, int height) {
+	clock_t t = clock();
+	float elapsed = (float)(t - ctx->timeT) / CLOCKS_PER_SEC;
+	++(ctx->frameCount);
+	if (elapsed > OVERLAY_FPS_INTERVAL) {
+		struct OverlayMsg om;
+		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+		om.omh.uiType = OVERLAY_MSGTYPE_FPS;
+		om.omh.iLength = sizeof(struct OverlayMsgFps);
+		om.omf.fps = ctx->frameCount / elapsed;
+
+		sendMessage(ctx, &om);
+
+		ctx->frameCount = 0;
+		ctx->timeT = t;
+	}
+
 	GLint program;
 	GLint viewport[4];
 	int i;

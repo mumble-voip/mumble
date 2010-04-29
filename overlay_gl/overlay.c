@@ -422,6 +422,22 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 }
 
 static void drawContext(Context * ctx, int width, int height) {
+	clock_t t = clock();
+	float elapsed = (float)(t - ctx->timeT) / CLOCKS_PER_SEC;
+	++(ctx->frameCount);
+	if (elapsed > OVERLAY_FPS_INTERVAL) {
+		struct OverlayMsg om;
+		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+		om.omh.uiType = OVERLAY_MSGTYPE_FPS;
+		om.omh.iLength = sizeof(struct OverlayMsgFps);
+		om.omf.fps = ctx->frameCount / elapsed;
+
+		sendMessage(ctx, &om);
+
+		ctx->frameCount = 0;
+		ctx->timeT = t;
+	}
+
 	GLint program;
 	GLint viewport[4];
 	int i;
@@ -571,22 +587,6 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 
 		if (!c) {
 			ods("Current context is: %p", ctx);
-
-			clock_t t = clock();
-			float elapsed = static_cast<float>(t - ctx->timeT) / CLOCKS_PER_SEC;
-			++(ctx->frameCount);
-			if (elapsed > OVERLAY_FPS_INTERVAL) {
-				OverlayMsg om;
-				om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
-				om.omh.uiType = OVERLAY_MSGTYPE_FPS;
-				om.omh.iLength = sizeof(OverlayMsgFps);
-				om.omf.fps = ctx->frameCount / elapsed;
-
-				sendMessage(om);
-
-				ctx->frameCount = 0;
-				ctx->timeT = t;
-			}
 
 			c = (Context *) malloc(sizeof(Context));
 			if (!c) {
