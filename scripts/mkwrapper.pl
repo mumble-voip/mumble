@@ -71,7 +71,7 @@ void ::Murmur::${class}I::${func}_async('. join(", ", @{$wrapargs}).qq') {
 
 while(<MH>) {
   chomp();
-  if (/^class AMD_(.+) : virtual public ::IceUtil::Shared/) {
+  if (/^class AMD_(.+) : virtual public ::Ice(?:::AMDCallback|Util::Shared)/) {
     $class = "AMD_".$1;
   }
   if (/virtual void ice_response\((.*)\) = 0;/) {
