@@ -36,6 +36,20 @@
 #include "ServerDB.h"
 #include "Version.h"
 
+/*!
+  \fn void Server::setTempGroups(int userid, Channel *cChannel, const QStringList &groups)
+  Sets the list of temporary groups the given userid is a member of. If no channel is given root will
+  be targeted.
+
+  If userid is negative the absolute value is a session id. If it is positive it is a registration id.
+*/
+
+/*!
+  \fn void Server::clearTempGroups(User *user, Channel *cChannel = NULL, bool recurse = true)
+  Clears temporary group memberships for the given User. If no channel is given root will be targeted.
+  If recursion is activated all temporary memberships in related channels will also be cleared.
+*/
+
 void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, bool suppressed, bool prioritySpeaker, const QString &comment) {
 	bool changed = false;
 
@@ -234,6 +248,27 @@ void Server::setTempGroups(int userid, Channel *cChannel, const QStringList &gro
 		clearACLCache(p);
 }
 
+void Server::clearTempGroups(User *user, Channel *cChannel, bool recurse) {
+	QList<Channel*> qlChans;
+	if (! cChannel)
+		cChannel = qhChannels.value(0);
+
+	qlChans.append(cChannel);
+
+	while (!qlChans.isEmpty()) {
+		Channel *chan = qlChans.takeLast();
+		Group *g;
+		foreach(g, chan->qhGroups) {
+			g->qsTemporary.remove(user->iId);
+			g->qsTemporary.remove(- static_cast<int>(user->uiSession));
+		}
+
+		if (recurse)
+			qlChans.append(chan->qlChannels);
+	}
+
+	clearACLCache(user);
+}
 
 void Server::connectAuthenticator(QObject *obj) {
 	connect(this, SIGNAL(registerUserSig(int &, const QMap<int, QString> &)), obj, SLOT(registerUserSlot(int &, const QMap<int, QString> &)));

@@ -1079,8 +1079,9 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 
 	qqIds.enqueue(u->uiSession);
 
-	if (u->sState == ServerUser::Authenticated)
-		clearACLCache(u);
+	if (u->sState == ServerUser::Authenticated) {
+		clearTempGroups(u); // Also clears ACL cache
+	}
 
 	u->deleteLater();
 
