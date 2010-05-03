@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>508</width>
-    <height>571</height>
+    <width>526</width>
+    <height>574</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,19 +29,49 @@
          <property name="title">
           <string>Options</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
          <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>
-           <widget class="QCheckBox" name="qcbEnable">
-            <property name="toolTip">
-             <string>Enable overlay.</string>
-            </property>
-            <property name="whatsThis">
-             <string>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</string>
-            </property>
-            <property name="text">
-             <string>Enable Overlay</string>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="verticalLayout_9">
+            <item>
+             <widget class="QCheckBox" name="qcbEnable">
+              <property name="toolTip">
+               <string>Enable overlay.</string>
+              </property>
+              <property name="whatsThis">
+               <string>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</string>
+              </property>
+              <property name="text">
+               <string>Enable Overlay</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="qcbShowFps">
+              <property name="toolTip">
+               <string>Display a frame counter in the overlay</string>
+              </property>
+              <property name="text">
+               <string>Show FPS counter</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </item>
           <item>
            <spacer name="horizontalSpacer_7">
@@ -57,21 +87,28 @@
            </spacer>
           </item>
           <item>
-           <widget class="QCheckBox" name="qcbShowFps">
-            <property name="toolTip">
-             <string>Display a frame counter in the overlay</string>
-            </property>
-            <property name="text">
-             <string>Show FPS counter</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="qpbUninstall">
-            <property name="text">
-             <string>Uninstall Overlay</string>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="verticalLayout_10">
+            <item>
+             <widget class="QPushButton" name="qpbUninstall">
+              <property name="text">
+               <string>Uninstall Overlay</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
