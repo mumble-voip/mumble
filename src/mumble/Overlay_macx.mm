@@ -31,6 +31,7 @@
 
 #import <ScriptingBridge/ScriptingBridge.h>
 #include "Overlay.h"
+#include "Global.h"
 
 @interface OverlayInjectorMac : NSObject {
 	BOOL active;
@@ -72,15 +73,30 @@
 
 - (void) appLaunched:(NSNotification *)notification {
 	if (active) {
+		BOOL overlayEnabled = NO;
 		NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 		NSDictionary *userInfo = [notification userInfo];
 
-		pid_t pid = [[userInfo objectForKey:@"NSApplicationProcessIdentifier"] intValue];
-		SBApplication *app = [SBApplication applicationWithProcessIdentifier:pid];
+		NSString *bundleId = [userInfo objectForKey:@"NSApplicationBundleIdentifier"];
+		QString qsBundleIdentifier = QString::fromUtf8([bundleId UTF8String]);
 
-		[app setSendMode:kAENoReply];
-		[app sendEvent:kASAppleScriptSuite id:kGetAEUT parameters:0];
-		[app sendEvent:'MUOL' id:'load' parameters:0];
+		if (g.s.os.bUseWhitelist) {
+			if (g.s.os.qslWhitelist.contains(qsBundleIdentifier))
+				overlayEnabled = YES;
+		} else {
+			if (! g.s.os.qslBlacklist.contains(qsBundleIdentifier))
+				overlayEnabled = YES;
+		}
+
+		if (overlayEnabled) {
+			pid_t pid = [[userInfo objectForKey:@"NSApplicationProcessIdentifier"] intValue];
+			SBApplication *app = [SBApplication applicationWithProcessIdentifier:pid];
+
+			[app setSendMode:kAENoReply];
+			[app sendEvent:kASAppleScriptSuite id:kGetAEUT parameters:0];
+			[app sendEvent:'MUOL' id:'load' parameters:0];
+		}
+
 		[pool release];
 	}
 }
