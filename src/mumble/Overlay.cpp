@@ -38,6 +38,11 @@
 #include "MainWindow.h"
 #include "GlobalShortcut.h"
 
+OverlayAppInfo::OverlayAppInfo(QString name, QIcon icon) {
+	qsDisplayName = name;
+	qiIcon = icon;
+}
+
 static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
 	return new OverlayConfig(st);
 }
@@ -100,6 +105,92 @@ OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 	connect(qpbUpgrade, SIGNAL(clicked()), this, SLOT(on_qpbInstall_clicked()));
 }
 
+OverlayAppInfo OverlayConfig::applicationInfoForId(const QString &identifier) {
+#ifdef Q_OS_MAC
+	CFStringRef bundleId = NULL;
+	CFURLRef bundleUrl = NULL;
+	CFBundleRef bundle = NULL;
+	OSStatus err = noErr;
+	QString qsAppName;
+	QIcon qiAppIcon;
+	char buf[4096];
+
+	bundleId = CFStringCreateWithCharacters(kCFAllocatorDefault, reinterpret_cast<const UniChar *>(identifier.unicode()), identifier.length());
+	err = LSFindApplicationForInfo(kLSUnknownCreator, bundleId, NULL, NULL, &bundleUrl);
+	if (err == noErr) {
+		// Figure out the bundle name of the application.
+		CFStringRef absBundlePath = CFURLCopyFileSystemPath(bundleUrl, kCFURLPOSIXPathStyle);
+		CFStringGetCString(absBundlePath, buf, 4096, kCFStringEncodingUTF8);
+		QString qsBundlePath = QString::fromUtf8(buf);
+		CFRelease(absBundlePath);
+		qsAppName = QFileInfo(qsBundlePath).bundleName();
+
+		// Load the bundle's icon.
+		bundle = CFBundleCreate(NULL, bundleUrl);
+		if (bundle) {
+			CFDictionaryRef info = CFBundleGetInfoDictionary(bundle);
+			if (info) {
+				CFStringRef iconFileName = reinterpret_cast<CFStringRef>(CFDictionaryGetValue(info, CFSTR("CFBundleIconFile")));
+				if (iconFileName) {
+					CFStringGetCString(iconFileName, buf, 4096, kCFStringEncodingUTF8);
+					QString qsIconPath = QString::fromLatin1("%1/Contents/Resources/%2")
+					                        .arg(qsBundlePath, QString::fromUtf8(buf));
+					if (! QFile::exists(qsIconPath))
+						qsIconPath += QString::fromLatin1(".icns");
+					if (QFile::exists(qsIconPath))
+						qiAppIcon = QIcon(qsIconPath);
+				}
+			}
+		}
+	}
+
+	if (bundleId)
+		CFRelease(bundleId);
+	if (bundleUrl)
+		CFRelease(bundleUrl);
+	if (bundle)
+		CFRelease(bundle);
+
+	return OverlayAppInfo(qsAppName, qiAppIcon);
+#else
+	return OverlayAppInfo(qsAppName);
+#endif
+}
+
+QString OverlayConfig::applicationIdentifierForPath(const QString &path) {
+#ifdef Q_OS_MAC
+	QString qsIdentifier;
+	CFDictionaryRef plist = NULL;
+	CFDataRef data = NULL;
+
+	QFile qfAppBundle(QString("%1/Contents/Info.plist").arg(path));
+	if (qfAppBundle.exists()) {
+		qfAppBundle.open(QIODevice::ReadOnly);
+		QByteArray qbaPlistData = qfAppBundle.readAll();
+
+		data = CFDataCreateWithBytesNoCopy(NULL, reinterpret_cast<UInt8 *>(qbaPlistData.data()), qbaPlistData.count(), kCFAllocatorNull);
+		plist = static_cast<CFDictionaryRef>(CFPropertyListCreateFromXMLData(NULL, data, kCFPropertyListImmutable, NULL));
+		if (plist) {
+			CFStringRef ident = static_cast<CFStringRef>(CFDictionaryGetValue(plist, CFSTR("CFBundleIdentifier")));
+			if (ident) {
+				char buf[4096];
+				CFStringGetCString(ident, buf, 4096, kCFStringEncodingUTF8);
+				qsIdentifier = QString::fromUtf8(buf);
+			}
+		}
+	}
+
+	if (data)
+		CFRelease(data);
+	if (plist)
+		CFRelease(plist);
+
+	return qsIdentifier;
+#else
+	return QFileInfo(path).fileName();
+#endif
+}
+
 void OverlayConfig::load(const Settings &r) {
 	loadCheckBox(qcbEnable, r.bOverlayEnable);
 	qcbShowFps->setChecked(r.os.bFps);
@@ -107,11 +198,17 @@ void OverlayConfig::load(const Settings &r) {
 	qlwWhitelist->clear();
 	qrbWhitelist->setChecked(r.os.bUseWhitelist);
 	qswBlackWhiteList->setCurrentWidget(r.os.bUseWhitelist ? qwWhite : qwBlack);
+
 	foreach(QString str, r.os.qslWhitelist) {
-		qlwWhitelist->addItem(str);
+		OverlayAppInfo oai = applicationInfoForId(str);
+		QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwWhitelist);
+		qlwiApplication->setData(Qt::UserRole, QVariant(str));
 	}
+
 	foreach(QString str, r.os.qslBlacklist) {
-		qlwBlacklist->addItem(str);
+		OverlayAppInfo oai = applicationInfoForId(str);
+		QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwBlacklist);
+		qlwiApplication->setData(Qt::UserRole, QVariant(str));
 	}
 }
 
@@ -135,12 +232,14 @@ void OverlayConfig::save() const {
 	// Directly save overlay config
 	s.os.qslBlacklist.clear();
 	for (int i=0;i<qlwBlacklist->count();++i) {
-		s.os.qslBlacklist << qlwBlacklist->item(i)->text();
+		QVariant qvUserData = qlwBlacklist->item(i)->data(Qt::UserRole);
+		s.os.qslBlacklist << qvUserData.toString();
 	}
 
 	s.os.qslWhitelist.clear();
 	for (int i=0;i<qlwWhitelist->count();++i) {
-		s.os.qslWhitelist << qlwWhitelist->item(i)->text();
+		QVariant qvUserData = qlwWhitelist->item(i)->data(Qt::UserRole);
+		s.os.qslWhitelist << qvUserData.toString();
 	}
 
 	s.os.bUseWhitelist = qrbWhitelist->isChecked();
@@ -167,7 +266,6 @@ void OverlayConfig::resizeScene() {
 	qgpiScreen->setPixmap(qpScreen.scaled(sz, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 	qgs.setSceneRect(QRectF(0, 0, qgpiScreen->pixmap().width(), qgpiScreen->pixmap().height()));
 
-
 	QFont f = qgtiInstructions->font();
 	f.setPointSizeF(qgs.sceneRect().height() / 20.0f);
 	qgtiInstructions->setFont(f);
@@ -181,13 +279,25 @@ void OverlayConfig::resizeScene() {
 }
 
 void OverlayConfig::on_qpbAdd_clicked() {
+#if defined(Q_OS_WIN)
 	QString file = QFileDialog::getOpenFileName(this, tr("Choose executable"), QString(), QLatin1String("*.exe"));
-	if (! file.isEmpty()) {
-		file = QFileInfo(file).fileName();
-		QListWidget *sel = qrbBlacklist->isChecked() ? qlwBlacklist : qlwWhitelist;
+#elif defined(Q_OS_MAC)
+	QString file = QFileDialog::getOpenFileName(this, tr("Choose application"), QString(), QLatin1String("*.app"));
+#else
+	QString file = QString();
+#endif
 
-		if (sel->findItems(file, Qt::MatchExactly).isEmpty())
-			sel->addItem(file);
+	if (! file.isEmpty()) {
+		QString qsAppIdentifier = applicationIdentifierForPath(file);
+		QListWidget *sel = qrbBlacklist->isChecked() ? qlwBlacklist : qlwWhitelist;
+		QStringList qslIdentifiers;
+		for (int i = 0; i < sel->count(); i++)
+			qslIdentifiers << sel->item(i)->data(Qt::UserRole).toString();
+		if (! qslIdentifiers.contains(qsAppIdentifier)) {
+			OverlayAppInfo oai = applicationInfoForId(qsAppIdentifier);
+			QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, sel);
+			qlwiApplication->setData(Qt::UserRole, QVariant(qsAppIdentifier));
+		}
 	}
 }
 

@@ -31,6 +31,7 @@
 #ifndef _OVERLAY_H
 #define _OVERLAY_H
 
+#include "mumble_pch.hpp"
 #include "ConfigDialog.h"
 #include "ClientUser.h"
 #include "SharedMemory.h"
@@ -41,6 +42,13 @@
 
 class User;
 class Overlay;
+
+struct OverlayAppInfo {
+	QString qsDisplayName;
+	QIcon qiIcon;
+
+	OverlayAppInfo(QString name, QIcon icon = QIcon());
+};
 
 class OverlayGroup : public QGraphicsItem {
 	private:
@@ -231,6 +239,9 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		QGraphicsTextItem *qgtiInstructions;
 
 		bool eventFilter(QObject *, QEvent *);
+
+		QString applicationIdentifierForPath(const QString &path);
+		OverlayAppInfo applicationInfoForId(const QString &identifier);
 	protected slots:
 		void on_qpbInstall_clicked();
 		void on_qpbUninstall_clicked();
