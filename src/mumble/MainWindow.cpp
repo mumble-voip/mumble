@@ -128,10 +128,13 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	qiTalkingShout.addFile(QLatin1String("skin:talking_alt.svg"));
 	qiTalkingWhisper.addFile(QLatin1String("skin:talking_whisper.svg"));
 
-	qiIcon.addFile(QLatin1String("skin:mumble.svg"));
 #ifdef Q_OS_MAC
-	qiIcon.addFile(QLatin1String("skin:mumble.osx.png"));
+	if (QFile::exists(QLatin1String("skin:mumble.icns")))
+		qiIcon.addFile(QLatin1String("skin:mumble.icns"));
+	else
+		qiIcon.addFile(QLatin1String("skin:mumble.svg"));
 #else
+	qiIcon.addFile(QLatin1String("skin:mumble.svg"));
 	// Set application icon except on MacOSX, where the window-icon
 	// shown in the title-bar usually serves as a draggable version of the
 	// current open document (i.e. you can copy the open document anywhere

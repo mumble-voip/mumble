@@ -46,7 +46,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	QWidget *about=new QWidget(qtwTab);
 
 	QLabel *icon=new QLabel(about);
-	icon->setPixmap(g.mw->qiIcon.pixmap(g.mw->qiIcon.actualSize(QSize(128,128))));
+	icon->setPixmap(g.mw->qiIcon.pixmap(g.mw->qiIcon.actualSize(QSize(128, 128))));
 
 	QLabel *text=new QLabel(about);
 	text->setOpenExternalLinks(true);
