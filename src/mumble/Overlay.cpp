@@ -106,13 +106,13 @@ OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 }
 
 OverlayAppInfo OverlayConfig::applicationInfoForId(const QString &identifier) {
-#ifdef Q_OS_MAC
+	QString qsAppName(identifier);
+	QIcon qiAppIcon;
+#if defined(Q_OS_MAC)
 	CFStringRef bundleId = NULL;
 	CFURLRef bundleUrl = NULL;
 	CFBundleRef bundle = NULL;
 	OSStatus err = noErr;
-	QString qsAppName;
-	QIcon qiAppIcon;
 	char buf[4096];
 
 	bundleId = CFStringCreateWithCharacters(kCFAllocatorDefault, reinterpret_cast<const UniChar *>(identifier.unicode()), identifier.length());
@@ -151,10 +151,14 @@ OverlayAppInfo OverlayConfig::applicationInfoForId(const QString &identifier) {
 	if (bundle)
 		CFRelease(bundle);
 
-	return OverlayAppInfo(qsAppName, qiAppIcon);
-#else
-	return OverlayAppInfo(identifier);
+#elif defined(Q_OS_WIN)
+	HICON icon = ExtractIcon(qWinAppInst(), identifier.utf16(), 0);
+	if (icon) {
+		qiAppIcon = QIcon(QPixmap::fromWinHICON(icon));
+		DestroyIcon(icon);
+	}
 #endif
+	return OverlayAppInfo(qsAppName, qiAppIcon);
 }
 
 QString OverlayConfig::applicationIdentifierForPath(const QString &path) {
@@ -187,7 +191,7 @@ QString OverlayConfig::applicationIdentifierForPath(const QString &path) {
 
 	return qsIdentifier;
 #else
-	return QFileInfo(path).fileName();
+	return QDir::toNativeSeparators(path);
 #endif
 }
 
@@ -297,6 +301,7 @@ void OverlayConfig::on_qpbAdd_clicked() {
 			OverlayAppInfo oai = applicationInfoForId(qsAppIdentifier);
 			QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, sel);
 			qlwiApplication->setData(Qt::UserRole, QVariant(qsAppIdentifier));
+			sel->setCurrentItem(qlwiApplication);
 		}
 	}
 }

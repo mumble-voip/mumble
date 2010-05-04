@@ -545,8 +545,8 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 						if (usewhitelist) {
 							bool onwhitelist = false;
 							while (buffer[pos] != 0 && pos < sizeof(buffer)) {
-								if (_stricmp(p+1, buffer + pos) == 0) {
-									fods("Overlay enabled for whitelisted %s", p+1);
+								if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
+									fods("Overlay enabled for whitelisted '%s'", buffer + pos);
 									onwhitelist = true;
 									break;
 								}
@@ -559,9 +559,9 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 							}
 						} else {
 							while (buffer[pos] != 0 && pos < sizeof(buffer)) {
-								if (_stricmp(p+1, buffer + pos) == 0) {
+								if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
 									bBlackListed = true;
-									fods("Overlay blacklist entry found for %s", p+1);
+									fods("Overlay blacklist entry found for '%s'", buffer + pos);
 									return TRUE;
 								}
 								pos += strlen(buffer + pos) + 1;
@@ -571,8 +571,8 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 						// If there is no list in the registry fallback to using the default blacklist
 						fods("Overlay fallback to default blacklist");
 						while (overlayBlacklist[i]) {
-							if (_stricmp(p+1, overlayBlacklist[i])==0) {
-								fods("Overlay blacklist entry found for %s", p+1);
+							if (_stricmp(procname, overlayBlacklist[i]) == 0 || _stricmp(p+1, overlayBlacklist[i])==0) {
+								fods("Overlay blacklist entry found for %s", overlayBlacklist[i]);
 								bBlackListed = true;
 								return TRUE;
 							}
