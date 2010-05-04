@@ -221,7 +221,11 @@ void OverlayConfig::load(const Settings &r) {
 }
 
 bool OverlayConfig::expert(bool expert) {
+#ifdef Q_OS_LINUX
+	qgbExceptions->setVisible(false);
+#else
 	qgbExceptions->setVisible(expert);
+#endif
 	return true;
 }
 
