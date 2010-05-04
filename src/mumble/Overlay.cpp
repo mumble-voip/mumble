@@ -153,7 +153,7 @@ OverlayAppInfo OverlayConfig::applicationInfoForId(const QString &identifier) {
 
 	return OverlayAppInfo(qsAppName, qiAppIcon);
 #else
-	return OverlayAppInfo(qsAppName);
+	return OverlayAppInfo(identifier);
 #endif
 }
 
