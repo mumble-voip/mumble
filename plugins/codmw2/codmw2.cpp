@@ -54,7 +54,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 			0x007F7A34		byte	Magical state value
 	*/
-	ok = peekProc((BYTE *) 0x007F7AB4, &state, 1); // Magical state value
+	ok = peekProc((BYTE *) 0x007F8AB4, &state, 1); // Magical state value
 	if (! ok)
 		return false;
 	/*
@@ -69,11 +69,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (state != 1)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
-	ok = peekProc((BYTE *) 0x008F0FF8, avatar_pos+2, 4) &&	//Z
-	     peekProc((BYTE *) 0x008F0FFC, avatar_pos, 4) &&	//X
-	     peekProc((BYTE *) 0x008F1000, avatar_pos+1, 4) && //Y
-	     peekProc((BYTE *) 0x008F1008, &viewHor, 4) && //Hor
-	     peekProc((BYTE *) 0x008F1004, &viewVer, 4); //Ver
+	ok = peekProc((BYTE *) 0x008F1FF8, avatar_pos+2, 4) &&	//Z
+	     peekProc((BYTE *) 0x008F1FFC, avatar_pos, 4) &&	//X
+	     peekProc((BYTE *) 0x008F2000, avatar_pos+1, 4) && //Y
+	     peekProc((BYTE *) 0x008F2008, &viewHor, 4) && //Hor
+	     peekProc((BYTE *) 0x008F2004, &viewVer, 4); //Ver
 
 	if (! ok)
 		return false;
@@ -140,10 +140,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 MP v1.0.184 only. No context or identity support yet.");
+	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 MP v1.1.195 only. No context or identity support yet.");
 }
 
-static std::wstring description(L"Call of Duty: Modern Warfare 2 MP v1.0.184");
+static std::wstring description(L"Call of Duty: Modern Warfare 2 MP v1.1.195");
 static std::wstring shortname(L"Call of Duty: Modern Warfare 2 MP");
 
 static int trylock1() {
