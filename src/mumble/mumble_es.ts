@@ -311,12 +311,12 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     <message>
         <location/>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation>Escriba el nombre de un usuario que desee agregar al grupo y haga click en Agregar.</translation>
+        <translation>Escriba el nombre de un usuario que desee agregar al grupo y haga clic en Agregar.</translation>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation>Escriba el nombre de un usuario que desee eliminar del grupo y haga click en Agregar.</translation>
+        <translation>Escriba el nombre de un usuario que desee eliminar del grupo y haga clic en Agregar.</translation>
     </message>
     <message>
         <location/>
@@ -4795,7 +4795,7 @@ de las ubicaciones posibles.</translation>
         <location line="+1"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
-        <translation>&lt;b&gt;Ésta es la combinación de teclas del método abreviado global.&lt;/b&gt;&lt;br /&gt;Haga click en este campo y después presione la combinación de teclas deseada para volver a asociarla.</translation>
+        <translation>&lt;b&gt;Ésta es la combinación de teclas del método abreviado global.&lt;/b&gt;&lt;br /&gt;Haga clic en este campo y después presione la combinación de teclas deseada para volver a asociarla.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5333,27 +5333,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+1"/>
         <source>Click here to toggle sound notification for %1 events</source>
-        <translation>Haga click aquí para conmutar las notificaciones sonoras para eventos &quot;%1&quot;</translation>
+        <translation>Haga clic aquí para conmutar las notificaciones sonoras para eventos &quot;%1&quot;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
-        <translation>Ruta al archivo de sonido usado para notificaciones de sonido en caso de eventos &quot;%1&quot;&lt;br /&gt;Click para reproducir&lt;br /&gt;Doble click para cambiar</translation>
+        <translation>Ruta al archivo de sonido usado para notificaciones de sonido en caso de eventos &quot;%1&quot;&lt;br /&gt;Clic para reproducir&lt;br /&gt;Doble clic para cambiar</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Click here to toggle console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
-        <translation>Haga click aquí para conmutar la salida a consola para los eventos &quot;%1&quot;&lt;br /&gt;Si se activa, esta opción hará que Mumble escriba todos los eventos &quot;%1&quot; en su registro de mensajes.</translation>
+        <translation>Haga clic aquí para conmutar la salida a consola para los eventos &quot;%1&quot;&lt;br /&gt;Si se activa, esta opción hará que Mumble escriba todos los eventos &quot;%1&quot; en su registro de mensajes.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
-        <translation>Haga click aquí para conmutar las notificaciones emergentes para los eventos &quot;%1&quot;&lt;br /&gt;Si se activa, Mumble creará una ventana emergente por cada evento &quot;%1&quot;.</translation>
+        <translation>Haga clic aquí para conmutar las notificaciones emergentes para los eventos &quot;%1&quot;&lt;br /&gt;Si se activa, Mumble creará una ventana emergente por cada evento &quot;%1&quot;.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
-        <translation>Ruta al archivo de sonido usado para notificaciones en caso de eventos &quot;%1&quot;.&lt;br /&gt;Click para reproducir&lt;br /&gt;Doble click para cambiar&lt;br /&gt;Asegúrese de que las notificaciones de sonido para estos eventos están habilitadas o este campo no tendrá efecto.</translation>
+        <translation>Ruta al archivo de sonido usado para notificaciones en caso de eventos &quot;%1&quot;.&lt;br /&gt;Clic para reproducir&lt;br /&gt;Doble clic para cambiar&lt;br /&gt;Asegúrese de que las notificaciones de sonido para estos eventos están habilitadas o este campo no tendrá efecto.</translation>
     </message>
     <message>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for soundfiles. Text-To-Speech and soundfiles cannot be used at the same time.</source>
@@ -5363,13 +5363,13 @@ p, li { white-space: pre-wrap; }
         <location line="-2"/>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation>Haga click aquí para conmutar el Texto-A-Voz para los eventos &quot;%1&quot;&lt;br /&gt;Si se activa, Mumble usa Texto-A-Voz para leer los eventos &quot;%1&quot; en voz alta. El motor de Texto-A-Voz también puede leer el contenido del evento, algo que no puede conseguirse mediante ficheros de sonido. No se pueden usar Texto-A-Voz y archivos de sonido simultáneamente.</translation>
+        <translation>Haga clic aquí para conmutar el Texto-A-Voz para los eventos &quot;%1&quot;&lt;br /&gt;Si se activa, Mumble usa Texto-A-Voz para leer los eventos &quot;%1&quot; en voz alta. El motor de Texto-A-Voz también puede leer el contenido del evento, algo que no puede conseguirse mediante ficheros de sonido. No se pueden usar Texto-A-Voz y archivos de sonido simultáneamente.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
-        <translation>Haga click aquí para conmutar las notificaciones de sonido para los eventos &quot;%1&quot;&lt;br /&gt;Si se activa, Mumble usa un archivo de sonido para indicarle los eventos &quot;%1&quot;. No se pueden usar archivos de sonido y Texto-A-Voz simultáneamente.</translation>
+        <translation>Haga clic aquí para conmutar las notificaciones de sonido para los eventos &quot;%1&quot;&lt;br /&gt;Si se activa, Mumble usa un archivo de sonido para indicarle los eventos &quot;%1&quot;. No se pueden usar archivos de sonido y Texto-A-Voz simultáneamente.</translation>
     </message>
     <message>
         <source>Choose sound file</source>
@@ -6222,7 +6222,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
-        <translation>Haga click en esto para entrar en el modo &quot;¿Qué es esto?&quot;. Su cursor se transformará en una interrogación. Haga click en cualquier botón, opción de menú o área para mostrar una descripción de lo que es.</translation>
+        <translation>Haga clic en esto para entrar en el modo &quot;¿Qué es esto?&quot;. Su cursor se transformará en una interrogación. Haga clic en cualquier botón, opción de menú o área para mostrar una descripción de lo que es.</translation>
     </message>
     <message>
         <location/>
@@ -8598,7 +8598,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
     <message>
         <location line="+1"/>
         <source>For more options, rightclick a user.</source>
-        <translation>Para más opciones, haga click con el botón derecho sobre un usuario.</translation>
+        <translation>Para más opciones, haga clic con el botón derecho sobre un usuario.</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -8751,7 +8751,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
 Click the button below to install the overlay.</source>
         <translation>Mumble ha detectado que no se ha instalado la sobreimpresión de Mumble.
 
-Haga click en el botón inferior para instalar la sobreimpresión.</translation>
+Haga clic en el botón inferior para instalar la sobreimpresión.</translation>
     </message>
     <message>
         <location/>
@@ -8770,7 +8770,7 @@ Haga click en el botón inferior para instalar la sobreimpresión.</translation>
 To upgrade these files to their latest versions, click the button below.</source>
         <translation>Mumble ha detectado en su ordenador una versión antigua de los ficheros de soporte a la sobreimpresión.
 
-Para actualizar estos ficheros a la última versión, haga click en el botón inferior.</translation>
+Para actualizar estos ficheros a la última versión, haga clic en el botón inferior.</translation>
     </message>
     <message>
         <location/>
@@ -10027,12 +10027,12 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     <message>
         <location line="+1"/>
         <source>User has a new comment set (click to show)</source>
-        <translation>El usuario ha recibido un nuevo comentario (click para mostrar)</translation>
+        <translation>El usuario ha recibido un nuevo comentario (clic para mostrar)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation>El usuario tiene un comentario que ya ha visto (click para mostrar)</translation>
+        <translation>El usuario tiene un comentario que ya ha visto (clic para mostrar)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -10042,12 +10042,12 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     <message>
         <location line="+1"/>
         <source>Channel has a new comment set (click to show)</source>
-        <translation>El canal ha recibido un nuevo comentario (click para mostrar)</translation>
+        <translation>El canal ha recibido un nuevo comentario (clic para mostrar)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Channel has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation>El canal tiene un comentario que ya ha visto (click para mostrar)</translation>
+        <translation>El canal tiene un comentario que ya ha visto (clic para mostrar)</translation>
     </message>
     <message>
         <location line="+18"/>
