@@ -127,10 +127,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports L4D2 build 4121. No identity or context support yet.");
+	return std::wstring(L"Supports L4D2 build 4195. No identity or context support yet.");
 }
 
-static std::wstring description(L"Left 4 Dead 2 (Build 4121)");
+static std::wstring description(L"Left 4 Dead 2 (Build 4195)");
 static std::wstring shortname(L"Left 4 Dead 2");
 
 static int trylock1() {

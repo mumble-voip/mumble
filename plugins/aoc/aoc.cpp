@@ -145,7 +145,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	posptr = pModule + 0x748e14;
 	rotptr = pModule + 0x73dc9c;
 	stateptr = pModule + 0x6d4334;
-	hostptr = mod_engine + 0x3C2A04;
+	hostptr = mod_engine + 0x3C2A84;
 
 	//Gamecheck
 	char sMagic[13];
@@ -167,10 +167,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports AOC Build 3943. No identity support yet.");
+	return std::wstring(L"Supports AOC Build 4104. No identity support yet.");
 }
 
-static std::wstring description(L"Age of Chivalry (Build 3943)");
+static std::wstring description(L"Age of Chivalry (Build 4104)");
 static std::wstring shortname(L"Age of Chivalry");
 
 static int trylock1() {
