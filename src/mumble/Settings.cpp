@@ -268,7 +268,7 @@ Settings::Settings() {
 	iPortAudioInput = -1; // default device
 	iPortAudioOutput = -1; // default device
 
-	bPositionalAudio = false;
+	bPositionalAudio = true;
 	bPositionalHeadphone = false;
 	fAudioMinDistance = 1.0f;
 	fAudioMaxDistance = 15.0f;
