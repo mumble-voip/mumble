@@ -38,6 +38,10 @@
 #include "MainWindow.h"
 #include "GlobalShortcut.h"
 
+#if QT_VERSION < 0x040600
+#define toReal toDouble
+#endif
+
 OverlayAppInfo::OverlayAppInfo(QString name, QIcon icon) {
 	qsDisplayName = name;
 	qiIcon = icon;
@@ -1085,7 +1089,9 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 			addItem(qgpw);
 
 			qgpw->setZValue(3.0f);
+#if QT_VERSION >= 0x040600
 			qgpw->setPanelModality(QGraphicsItem::PanelModal);
+#endif
 			qgpw->setPos(- qgpw->boundingRect().width() / 2.0f, - qgpw->boundingRect().height() / 2.0f);
 			qgpw->show();
 
@@ -2234,7 +2240,9 @@ void OverlayClient::showGui() {
 
 			qgs.addItem(qgpw);
 			qgpw->show();
+#if QT_VERSION >= 0x040600
 			qgpw->setActive(true);
+#endif
 		}
 	}
 
