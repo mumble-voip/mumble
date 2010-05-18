@@ -63,13 +63,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char	cHostAddr[40];
 	float	fViewHor, fViewVer;
 
-    /*  Dust2
-        INC         DEC     | Ver               Hor
-    X - long        B       | 0     center      0/360   long
-    Y - CT spawn    T spawn | -89   lookup      90      CT spawn
-    Z - up          down    | 89    lookdown    180     B
-                            |                   270     T spawn
-    */
+	/*  Dust2
+	    INC         DEC     | Ver               Hor
+	X - long        B       | 0     center      0/360   long
+	Y - CT spawn    T spawn | -89   lookup      90      CT spawn
+	Z - up          down    | 89    lookdown    180     B
+	                        |                   270     T spawn
+	*/
 
 	ok = peekProc((BYTE*) pModule + 0x11D470, avatar_pos, 12) &&
 	     peekProc((BYTE*) pModule + 0x11D47C, &fViewHor, 4) &&
@@ -83,17 +83,17 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (!bConnected)
 		return true;
 
-/*	// FOR TEST ONLY - constant position (d2 CT middle, looking T spawn through doorgap)
-	avatar_pos[0] = -380.359375f;
-	avatar_pos[1] = 2188.1328125f;
-	avatar_pos[2] = -91.96875f;
-	fViewHor = 269,703369140625;
-	fViewVer = -4,45587635040283;
-*/
+	/*	// FOR TEST ONLY - constant position (d2 CT middle, looking T spawn through doorgap)
+		avatar_pos[0] = -380.359375f;
+		avatar_pos[1] = 2188.1328125f;
+		avatar_pos[2] = -91.96875f;
+		fViewHor = 269,703369140625;
+		fViewVer = -4,45587635040283;
+	*/
 	cHostAddr[39] = '\0';
 	context = cHostAddr;
 
-	if(!cPlayerState)
+	if (!cPlayerState)
 		return true;
 
 	if ((fViewHor < -360.0f) || (fViewVer > 360.0f) || (fViewHor < -360.0f) || (fViewHor > 360.0f))
@@ -157,7 +157,7 @@ static const std::wstring longdesc() {
 static std::wstring description(L"Counter-Strike 1.6");
 static std::wstring shortname(L"Counter-Strike");
 
-static int trylock1(){
+static int trylock1() {
 	return trylock(std::multimap<std::wstring, unsigned long long int>());
 }
 

@@ -382,8 +382,7 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		for (int i=iMaxUsers*2;i<newmax*2;++i)
 			qqIds.enqueue(i);
 		iMaxUsers = newmax;
-	}
-	else if (key == "usersperchannel")
+	} else if (key == "usersperchannel")
 		iMaxUsersPerChannel = i ? i : Meta::mp.iMaxUsersPerChannel;
 	else if (key == "textmessagelength") {
 		int length = i ? i : Meta::mp.iMaxTextMessageLength;

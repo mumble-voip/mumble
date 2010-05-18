@@ -138,7 +138,7 @@ OverlayAppInfo OverlayConfig::applicationInfoForId(const QString &identifier) {
 				if (iconFileName) {
 					CFStringGetCString(iconFileName, buf, 4096, kCFStringEncodingUTF8);
 					QString qsIconPath = QString::fromLatin1("%1/Contents/Resources/%2")
-					                        .arg(qsBundlePath, QString::fromUtf8(buf));
+					                     .arg(qsBundlePath, QString::fromUtf8(buf));
 					if (! QFile::exists(qsIconPath))
 						qsIconPath += QString::fromLatin1(".icns");
 					if (QFile::exists(qsIconPath))
@@ -2119,8 +2119,7 @@ void OverlayClient::updateFPS() {
 		unsigned int uiSize = iroundf(qgs.sceneRect().height());
 		const QPixmap &pm = OverlayUser::createPixmap(tr("FPS: %1").arg(static_cast<int>(fFps)), -1, iroundf(uiSize * g.s.os.fZoom * g.s.os.qrfFps.height()), g.s.os.qcFps, g.s.os.qfFps, pp);
 		qgpiFPS->setPixmap(pm);
-	}
-	else {
+	} else {
 		qgpiFPS->setPixmap(QPixmap());
 	}
 }

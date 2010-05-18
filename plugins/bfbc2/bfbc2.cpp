@@ -62,7 +62,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ok = peekProc((BYTE *) 0x015467C0, avatar_pos, 12) &&
 	     peekProc((BYTE *) 0x015467B0, avatar_front, 12) &&
 	     peekProc((BYTE *) 0x015467A0, avatar_top, 12); // &&
-	     //peekProc((BYTE *) 0x0, ccontext, 128);
+	//peekProc((BYTE *) 0x0, ccontext, 128);
 
 	if (avatar_pos[1] == 9999)
 		return true;

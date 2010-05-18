@@ -75,7 +75,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (! ok)
 		return false;
 
-	ok = peekProc((BYTE *)(hPtr  + 0x000007FC), &h, 4); 
+	ok = peekProc((BYTE *)(hPtr  + 0x000007FC), &h, 4);
 
 	if (! ok)
 		return false;

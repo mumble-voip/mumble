@@ -1,3 +1,217 @@
+2010-05-18
+  Semion Tsinman <Necromancer3333@gmail.com>
+    91cef12  Hebrew update
+
+  Ludwig Nussel <ludwig.nussel@suse.de>
+    70a528a  fix build for Qt 4.5
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    230c942  Update to new Boost and Bonjour
+
+2010-05-16
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    491de61  Enable multi channel audio by default to prevent problems with
+	     bad audio drivers
+
+2010-05-15
+  Tuck Therebelos <snares@users.sourceforge.net>
+    69aaf67  Plugin updates
+
+2010-05-08
+  Álvaro Manuel Recio Pérez <naproxeno@kepis.(none)>
+    0846a64  Updated Spanish translation
+
+2010-05-06
+  Ilmar Kruis <seaeagle1@users.sourceforge.net>
+    57d55c0  Update lotro to Vol 3, Book 1 patch 1
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    5fe803e  MW2, gmod updates; BFBC2 address fix
+
+2010-05-05
+  Kissaki <kissaki@gmx.de>
+    fb7dbfe  make icesecret comments clearer
+
+2010-05-04
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    ec31de1  Add black/whitelist icon loading for Windows. Make lists match
+	     on full path as well as executable names
+    532c3f2  Fix compile on non OSX systems
+
+2010-05-03
+  Mikkel Krautz <mikkel@krautz.dk>
+    ae4244a  Move FPS counter checkbox below 'Enable Overlay' checkbox.
+    9238e32  Hook up the last missing piece for overlay exclusion on Mac OS
+	     X.
+    a768909  Use mumble.icns instead of mumble.osx.png now that we can load
+	     .icns with QIcon.
+    1f6d202  Bump OSX overlay version because of the FPS counter.
+    28056d1  CFBundleIdentifier-based overlay app-exclusion. Also, show
+	     icons for excluded apps.
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    d8e8909  TF2, DODS update
+
+2010-04-29
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    11fda9b  Fix *nix OpenGL overlay and add FPS counter code to OSX
+	     overlay.m
+    58bf724  Fix mkwrapper.pl for Ice 3.4 and update MurmurIceWrapper.cpp
+    1beb966  Fix SCALESIZE macro for overlay editor. Rename fHeight symbol
+	     to fZoom to prevent confusion.
+    6380a88  Transmit fps more often and represent them as float
+    02811bc  Make sure temporary group memberships of a user are purged
+	     once he disconnects
+
+2010-04-28
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    d8f1ac1  Add an optional FPS counter to the overlay
+    fbb54cb  Set a title for the Overlay Editor
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    6b5b738  L4D2 update
+    ebdcfa1  BFBC2 update; attempt at using position array to determine
+	     gamestate
+
+2010-04-26
+  Kissaki <kissaki@gmx.de>
+    8cfb579  fix string
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    7d8d6cd  Don't try to do overlay stuff if we're in an invalid GL
+	     context. Bump overlay version once again.
+    6d3567b  Sanity check viewport size in overlay. Bump version.
+
+2010-04-25
+  Kissaki <kissaki@gmx.de>
+    9e9fe0a  updated German translation
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    3deff65  Update Mac OS X dist script to build with new Xcode and new
+	     libcelt.
+    a74a0f6  Specify absolute path for slice2cpp for macx.
+
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    e1eacae  Updated Spanish translation
+
+2010-04-23
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    44fb5c9  Fixed misleading label in ConnectDialogEdit.ui (Servername ->
+	     Label) (#2991173)
+    aad4de1  Enter a channel with keyboard (#2981163)
+    974a1ee  Prevent debug version from checking for updates
+    4e57b3a  Limit debug version to only loading PA plugins from
+	     executable/plugins folder
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    e016c4c  Fix ice compile of static server
+
+2010-04-21
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    02071e4  Fix compile of cs plugin
+    0f7a141  Add dynload of CELT 0.8.0
+    e5858a6  Add config.h for 0.8.0 on Win32
+    b6e2574  Add CELT 0.8.0 module
+
+2010-04-18
+  Semion Tsinman <Necromancer3333@gmail.com>
+    5f98de7  [translation] Hebrew
+
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    beb7708  Make sure context string in cs1.6 plugin is zero terminated
+	     before doing anything with it
+    653434f  Add Counterstrike 1.6 plugin to installer
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c365656  Add Hebrew to dist files
+
+  Anton Romanov <theli.ua@gmail.com>
+    ec7e78d  in case GL_ARRAY_BUFFER is bound, store and reset it before
+	     rendering overlay and restore after
+
+  Imre Botos <zokny@users.sourceforge.net>
+    7b77dea  Counter-Strike 1.6 Positional Audio support
+
+2010-04-17
+  arcenciel <arcenciel@users.sourceforge.net>
+    472296f  Updated japanese translation.
+
+  Sergey Ivanov <randomei@users.sourceforge.net>
+    2d3a791  Russian Translation
+
+  Imre Botos <zokny@users.sourceforge.net>
+    fa066e5  Counter-Strike 1.6 Positional Audio support
+
+2010-04-16
+  Kissaki <kissaki@gmx.de>
+    372f763  add some detail to the ini-comment
+
+2010-04-11
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    3c34514  Disable local TTS playback of messages you sent
+    74b56d6  Remove UTF-8 BOM from all python scripting samples as they
+	     mess up the shebang on *nix
+    9019afb  We do not need to rely on ICE env after all. Just use the
+	     relative path.
+    00c1d7d  Make testdynamic.py work on windows systems
+    e6d84a8  Add UserLastActive to UserInfo so it is available over Ice.
+    9d32c71  Make slice include path rely on ICE environment variable on
+	     win32
+
+2010-04-09
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    a21e814  Fix Ice compile on RHEL
+    87e2ba9  Relabel automute to autodeafen
+    61f1cf2  Fix ice compile on Win32
+
+2010-04-04
+  Tuck Therebelos <snares@users.sourceforge.net>
+    e336340  Attempt to fix unreliable BFBC2 addresses
+
+2010-04-02
+  Mikkel Krautz <mikkel@krautz.dk>
+    8e9f260  Move overlay loader from our app bundle to the loader itself.
+	     Bump loader version.
+    4441ccc  Refine overlay uninstall.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    8a3f9ee  Fix changing ban timestamps
+
+2010-03-31
+  Mikkel Krautz <mikkel@krautz.dk>
+    9e15f34  Force single applaunch observer.
+    6354747  Override --signature-size passed to codesign in osxdist.py.
+    6c63e2a  Pass user's current priority speaker flag in DBus. Not false.
+    c982354  Fix OSX overlay installer. Create ScriptingAdditions directory
+	     if needed. Rename destination plist key.
+    6691d62  Pass false for priority speaker on DBus.
+    9e6a3b4  Update OSX Ice path to 3.4.0, fix slice command too.
+    335ab7b  Add GL symbol availability checking to OSX overlay.
+
+2010-03-30
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    9b296bc  Don't require a secret for getSliceChecksums()
+    80a7907  Fix some Ice examples
+    77e70aa  Add Ice checksum and priority speaker flag
+    359d01c  priority speaker - server side
+    d556ca3  priority speaker - client side
+
+2010-03-29
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    8ce81fe  Allow read-only access to the logfile on Windows
+
+2010-03-27
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    e9ed414  Change session queue dynamically
+
+2010-03-26
+  Tuck Therebelos <snares@users.sourceforge.net>
+    a030ee8  BFBC2 update
+
+2010-03-25
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    ee679ba  Fix width/height mixup for scale factors
+
 2010-03-22
   Mikkel Krautz <mikkel@krautz.dk>
     c63cfa0  Installable overlay for OSX.
