@@ -114,7 +114,7 @@ bonjour {
 	win32 {
 		INCLUDEPATH *= /dev/Bonjour/include
 		LIBPATH *= /dev/Bonjour/lib/win32
-		LIBS *= -ldelayimp -lDNSSD -delayload:DNSSD.DLL
+		LIBS *= -lDNSSD
 	}
 	unix:!macx {
 		system(pkg-config --exists avahi-compat-libdns_sd avahi-client) {
