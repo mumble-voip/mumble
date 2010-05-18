@@ -2827,13 +2827,13 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="ConnectDialog.cpp" line="+863"/>
         <source>Connecting to %1</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מתחבר ל %1&lt;/p&gt;</translation>
+        <translation type="unfinished">מתחבר ל %1</translation>
     </message>
     <message>
         <location line="-466"/>
         <location line="+466"/>
         <source>Enter username</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הכנס שם משתמש&lt;/p&gt;</translation>
+        <translation type="unfinished">הכנס שם משתמש</translation>
     </message>
     <message>
         <location line="-466"/>
@@ -3030,34 +3030,35 @@ Are you sure you wish to replace your certificate?
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Edit Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ערוך שרת</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Servername</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;שם השרת</translation>
     </message>
     <message>
         <location/>
         <source>Name of the server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שם השרת&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br/&gt;
 Name of the server. This is what the server will be named like in your serverlist and can be chosen freely.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;שם&lt;/b&gt;&lt;br/&gt;
+שם השרת. זה השם שיופיע ברשימת השרתים שלך ויכול להיות כרצונך.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>A&amp;ddress</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">כ&amp;תובת</translation>
     </message>
     <message>
         <location/>
         <source>Internet address of the server.</source>
         <oldsource>Internet address of the server. </oldsource>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כתובת האינטרנט של השרת.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3065,39 +3066,42 @@ Name of the server. This is what the server will be named like in your serverlis
 Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;כתובת&lt;/b&gt;&lt;br/&gt;
+כתובת האינטרנט של השרת. זה יכול להיות שם מארח רגיל, כתובות IPv4/IPv6 או מזהה של מערכת Bonjour. מזהה של מערכת Bonjour חייב להתחיל ב @ כדי שממבל יזהה אותו.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;פורט</translation>
     </message>
     <message>
         <location/>
         <source>Port on which the server is listening</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הפורט שאליו מאזין השרת.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
 Port on which the server is listening. If the server is identified by a Bonjour service identifier this field will be ignored.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;פורט&lt;/b&gt;&lt;br/&gt;
+הפורט שאליו מאזין השרת. אם השרת מזוהה על ידי מזהה מערכת Bonjour ממבל יתעלם משדה זה.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;שם משתמש</translation>
     </message>
     <message>
         <location/>
         <source>Username to send to the server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שם המשתמש שישלח לשרת&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;שם משתמש&lt;/b&gt;&lt;br/&gt;
+שם המשתמש שישלך לשרת. שים לב שהשרת יכול לאכוף מגבלות על איך שם המשתמש יכול להיראות. כמו כן שם המשתמש שלך עלול ליהיות בשימוש על ידי משתמש אחר.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -4644,7 +4648,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+12"/>
         <source>Invalid username</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שם משתמש לא תקין&lt;/p&gt;</translation>
+        <translation type="unfinished">שם משתמש לא תקין</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4659,7 +4663,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+5"/>
         <source>Wrong password</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;סיסמא שגויה&lt;/p&gt;</translation>
+        <translation type="unfinished">סיסמא שגויה</translation>
     </message>
     <message>
         <location line="+0"/>
