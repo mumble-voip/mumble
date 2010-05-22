@@ -21,9 +21,6 @@ CONFIG *= ordered debug_and_release
 
   win32 {
     SUBDIRS *= overlay
-    !CONFIG(no-g15) {
-      SUBDIRS *= g15helper
-    }
   }
 
   unix:!macx:!CONFIG(no-overlay) {

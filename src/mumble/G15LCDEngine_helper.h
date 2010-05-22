@@ -29,36 +29,43 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef __G15LCDENGINE_LGLCD__
-#define __G15LCDENGINE_LGLCD__
+#ifndef __G15LCDENGINE_HELPER__
+#define __G15LCDENGINE_HELPER__
 
 #include "mumble_pch.hpp"
 #include "LCD.h"
 #include "../../g15helper/g15helper.h"
 
-class G15LCDDeviceLGLCD;
+class G15LCDDeviceHelper;
 
-class G15LCDEngineLGLCD : public LCDEngine {
-		friend class G15LCDDeviceLGLCD;
+class G15LCDEngineHelper : public LCDEngine {
+		friend class G15LCDDeviceHelper;
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(G15LCDEngineLGLCD)
+		Q_DISABLE_COPY(G15LCDEngineHelper)
 	protected:
-		lgLcdConnectContextEx llcceConnect;
-		lgLcdOpenByTypeContext llcContext;
+		bool bUnavailable;
+		bool bRunning;
+		QProcess *qpHelper;
+		QString qsHelperExecutable;
+		bool framebufferReady() const;
+		void submitFrame(bool alert, uchar *buf, size_t len);
+		void setProcessStatus(bool run);
 	public:
-		G15LCDEngineLGLCD();
-		~G15LCDEngineLGLCD();
+		G15LCDEngineHelper();
+		~G15LCDEngineHelper();
 		QList<LCDDevice *> devices() const;
+	public slots:
+		void on_Helper_finished(int exitCode, QProcess::ExitStatus status);
 };
 
-class G15LCDDeviceLGLCD : public LCDDevice {
+class G15LCDDeviceHelper : public LCDDevice {
 	protected:
-		G15LCDEngineLGLCD *engine;
+		G15LCDEngineHelper *engine;
 		bool bEnabled;
 	public:
-		G15LCDDeviceLGLCD(G15LCDEngineLGLCD *e);
-		~G15LCDDeviceLGLCD();
+		G15LCDDeviceHelper(G15LCDEngineHelper *e);
+		~G15LCDDeviceHelper();
 		bool enabled();
 		void setEnabled(bool e);
 		void blitImage(QImage *img, bool alert);
@@ -67,6 +74,6 @@ class G15LCDDeviceLGLCD : public LCDDevice {
 };
 
 #else
-class G15LCDEngineLGLCD;
-class G15LCDDeviceLGLCD;
+class G15LCDEngineHelper;
+class G15LCDDeviceHelper;
 #endif

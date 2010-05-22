@@ -237,13 +237,26 @@ wasapi {
 
 g15 {
 	DEFINES *= USE_G15
+
+	win32 {
+		LIBS *= -llgLcd
+		LIBPATH *= /dev/G15SDK/SDK/Lib/x86
+		INCLUDEPATH *= /dev/G15SDK/SDK/Src
+		DEFINES *= WIN32
+
+		SOURCES *= G15LCDEngine_lglcd.cpp
+		HEADERS *= G15LCDEngine_lglcd.h
+	}
+
 	unix:!macx {
 		SOURCES *= G15LCDEngine_unix.cpp
 		HEADERS *= G15LCDEngine_unix.h
 		LIBS *= -lg15daemon_client
-	} else {
-		SOURCES *= G15LCDEngine_lglcd.cpp
-		HEADERS *= G15LCDEngine_lglcd.h ../../g15helper/g15helper.h
+	}
+
+	macx {
+		SOURCES *= G15LCDEngine_helper.cpp
+		HEADERS *= G15LCDEngine_helper.h ../../g15helper/g15helper.h
 	}
 }
 
