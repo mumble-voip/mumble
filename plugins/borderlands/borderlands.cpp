@@ -28,89 +28,15 @@
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */ 
- 
-#include <stdio.h>
-#include <stdlib.h>
-#include <windows.h>
-#include <tlhelp32.h>
-#include <math.h>
 
-#include "../mumble_plugin.h"  
-
-HANDLE h;
+#include "../mumble_plugin_win32.h"  
 
 BYTE *posptr;
 BYTE *frontptr;
 BYTE *topptr;
 BYTE *contextptr;
 
-static DWORD getProcess(const wchar_t *exename) {
-	PROCESSENTRY32 pe;
-	DWORD pid = 0;
-
-	pe.dwSize = sizeof(pe);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Process32First(hSnap, &pe);
-
-		while (ok) {
-			if (wcscmp(pe.szExeFile, exename)==0) {
-				pid = pe.th32ProcessID;
-				break;
-			}
-			ok = Process32Next(hSnap, &pe);
-		}
-		CloseHandle(hSnap);
-	}
-	return pid;
-}
-
-static BYTE *getModuleAddr(DWORD pid, const wchar_t *modname) {
-	MODULEENTRY32 me;
-	BYTE *addr = NULL;
-	me.dwSize = sizeof(me);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid);
-	if (hSnap != INVALID_HANDLE_VALUE) {
-		BOOL ok = Module32First(hSnap, &me);
-
-		while (ok) {
-			if (wcscmp(me.szModule, modname)==0) {
-				addr = me.modBaseAddr;
-				break;
-			}
-			ok = Module32Next(hSnap, &me);
-		}
-		CloseHandle(hSnap);
-	}
-	return addr;
-}
-
-
-static bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
-	SIZE_T r;
-	BOOL ok=ReadProcessMemory(h, base, dest, len, &r);
-	return (ok && (r == len));
-}
-
-static DWORD peekProc(VOID *base) {
-	DWORD v = 0;
-	peekProc(base, reinterpret_cast<BYTE *>(&v), sizeof(DWORD));
-	return v;
-}
-
-static BYTE *peekProcPtr(VOID *base) {
-	DWORD v = peekProc(base);
-	return reinterpret_cast<BYTE *>(v);
-}
-
-static void about(HWND h) {
-	::MessageBox(h, L"Reads audio position information from Borderlands (v1.30).", L"Mumble Borderlands Plugin", MB_OK);
-}
-
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
-	for (int i=0;i<3;i++)
-		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
-
 	char logincheck;
 	char state;
 	bool ok;
@@ -120,6 +46,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float front_corrector[3];
 	float top_corrector[3];
 
+	for (int i=0;i<3;i++)
+		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
+
 	// When your are not logged in and the context pointer will not work.
 	ok = peekProc((BYTE *) 0x01fce170, &logincheck, 1);
 	if (! ok)
@@ -128,7 +57,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (logincheck == 0)
 		return false;
 	
-	//	State value is not working properly yet
+	//	State value is working most of the time.
 	ok = peekProc((BYTE *) 0x01fb1b99, &state, 1); // Magical state value
 	if (! ok)
 		return false;
@@ -140,7 +69,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ok = peekProc(posptr, &pos_corrector, 12) &&
 	     peekProc(frontptr, &front_corrector, 12) &&
 	     peekProc(topptr, &top_corrector, 12) &&
-		 peekProc(contextptr, ccontext, 64);
+	     peekProc(contextptr, ccontext, 64);
 
 	if (! ok)
 		return false;
@@ -177,34 +106,24 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	return ok;
 }
 
-static int trylock() {
-	h = NULL;
+static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
 	posptr = frontptr = topptr = contextptr = NULL;
 	
-	DWORD pid=getProcess(L"Borderlands.exe");
-	if (!pid)
-	    return false;
-	
-	//BYTE *mod=getModuleAddr(pid, L"fmodex.dll");
-	//if (!mod)
-	//	return false;
-	
-	h=OpenProcess(PROCESS_VM_READ, false, pid);
-	if (!h)
+	if (!initialize(pids, L"Borderlands.exe", L"Borderlands.exe"))
 		return false;
 	
-	BYTE *ptr1 = peekProcPtr((BYTE *) 0x01fba2c8);
-	BYTE *ptr2 = peekProcPtr(ptr1 + 0x34c);
-	BYTE *ptr3 = peekProcPtr(ptr2 + 0x64);
-	BYTE *ptr4 = peekProcPtr(ptr3 + 0xbc);
+	BYTE *ptr1 = peekProc<BYTE *>(pModule +  0x01bba2c8);
+	BYTE *ptr2 = peekProc<BYTE *>(ptr1 + 0x34c);
+	BYTE *ptr3 = peekProc<BYTE *>(ptr2 + 0x64);
+	BYTE *ptr4 = peekProc<BYTE *>(ptr3 + 0xbc);
 	
 	posptr = ptr4 + 0x4;
 	frontptr = ptr4 + 0x28;
 	topptr = ptr4 + 0x10;
 	
-	ptr1 = peekProcPtr((BYTE *) 0x01fcd184);
-	ptr2 = peekProcPtr(ptr1 + 0x28c);
-	ptr3 = peekProcPtr(ptr2 + 0x210);
+	ptr1 = peekProc<BYTE *>(pModule + 0x01bcd184);
+	ptr2 = peekProc<BYTE *>(ptr1 + 0x28c);
+	ptr3 = peekProc<BYTE *>(ptr2 + 0x210);
 	
 	contextptr = ptr3 + 0x2c;
 
@@ -212,20 +131,12 @@ static int trylock() {
 	std::string context;
 	std::wstring identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
 		return true;
-
-	CloseHandle(h);
-	h = NULL;
-	return false;
-}
-
-static void unlock() {
-	if (h) {
-		CloseHandle(h);
-		h = NULL;
+	} else {
+		generic_unlock();
+		return false;
 	}
-	return;
 }
 
 static const std::wstring longdesc() {
@@ -235,18 +146,32 @@ static const std::wstring longdesc() {
 static std::wstring description(L"Borderlands v1.30");
 static std::wstring shortname(L"Borderlands");
 
+static int trylock1() {
+	return trylock(std::multimap<std::wstring, unsigned long long int>());
+	}
+
 static MumblePlugin borderlandsplug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
-	about,
 	NULL,
-	trylock,
-	unlock,
+	NULL,
+	trylock1,
+	generic_unlock,
 	longdesc,
 	fetch
 };
 
+static MumblePlugin2 borderlandsplug2 = {
+	MUMBLE_PLUGIN_MAGIC_2,
+	MUMBLE_PLUGIN_VERSION,
+	trylock
+};
+
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
 	return &borderlandsplug;
+}
+
+extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
+	return &borderlandsplug2;
 }
