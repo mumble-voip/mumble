@@ -701,7 +701,7 @@ module Murmur
 		idempotent int getUptime() throws ServerBootedException, InvalidSecretException;
 	};
 
-	/** Callback interface for Meta. You can supply an implementation of this to recieve notifications
+	/** Callback interface for Meta. You can supply an implementation of this to receive notifications
 	 *  when servers are stopped or started.
 	 *  If an added callback ever throws an exception or goes away, it will be automatically removed.
 	 *  Please note that all callbacks are done asynchronously; murmur does not wait for the callback to

@@ -7543,7 +7543,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     </message>
     <message>
         <location/>
-        <source>Pings recieved</source>
+        <source>Pings received</source>
         <translation>Pings modtaget</translation>
     </message>
     <message>

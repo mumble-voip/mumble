@@ -8410,7 +8410,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location/>
-        <source>Pings recieved</source>
+        <source>Pings received</source>
         <translation>Пинг</translation>
     </message>
     <message>

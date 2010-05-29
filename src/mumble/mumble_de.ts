@@ -9788,7 +9788,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     </message>
     <message>
         <location/>
-        <source>Pings recieved</source>
+        <source>Pings received</source>
         <translation>Empfangen</translation>
     </message>
     <message>

@@ -9853,7 +9853,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     </message>
     <message>
         <location/>
-        <source>Pings recieved</source>
+        <source>Pings received</source>
         <translation>Pings recibidos</translation>
     </message>
     <message>

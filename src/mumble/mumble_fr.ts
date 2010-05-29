@@ -9274,7 +9274,7 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
     </message>
     <message>
         <location/>
-        <source>Pings recieved</source>
+        <source>Pings received</source>
         <translation>Pings reçus</translation>
     </message>
     <message>
