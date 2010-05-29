@@ -93,9 +93,6 @@ CONFIG+=no-portaudio (Mumble, Unix, OSX)
 CONFIG+=no-pulseaudio (Mumble, Unix)
  Don't build support for PulseAudio.
 
-CONFIG+=no-xevie (Mumble, Unix)
- Don't build support for XEvIE. Without this, you can't suppress hotkeys.
-
 CONFIG+=no-oss (Mumble, Linux)
  Don't build support for OSS. Mumble supports OSS4 if you have the correct
  header files.
