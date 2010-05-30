@@ -271,7 +271,6 @@ Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
   SetOutPath "$INSTDIR"
 
   File "..\release\mumble.exe"
-  File "..\release\mumble-g15-helper.exe"
   !insertmacro InstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "..\release\mumble_ol.dll" "$INSTDIR\mumble_ol.dll" "$INSTDIR"
   File "..\release\celt0.*.dll"
   File "..\release\speex*.dll"
@@ -370,10 +369,10 @@ Section /o "$(MUMBLE_SEC_BONJOUR)" SectionBonjour
   SetShellVarContext all
   InitPluginsDir
   SetOutPath $PLUGINSDIR
-  NSISdl::download http://support.apple.com/downloads/DL755/en_US/BonjourSetup.exe "$PLUGINSDIR\BonjourSetup.exe"
+  NSISdl::download http://support.apple.com/downloads/DL999/en_US/BonjourPSSetup.exe "$PLUGINSDIR\BonjourSetup.exe"
   Pop $R0
   StrCmp $R0 "success" 0 end
-  ExecWait '"$PLUGINSDIR\BonjourSetup.exe" /passive /norestart' 
+  ExecWait '"$PLUGINSDIR\BonjourPSSetup.exe" /passive /norestart' 
 end:
 SectionEnd
 
@@ -394,7 +393,6 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   FindProcUnicode::KillProc "$INSTDIR\mumble.exe"
   FindProcUnicode::KillProc "$INSTDIR\mumble11x.exe"
   FindProcUnicode::KillProc "$INSTDIR\murmur.exe"
-  FindProcUnicode::KillProc "$INSTDIR\mumble-g15-helper.exe"
   FindProcUnicode::KillProc "$INSTDIR\dbus-daemon.exe"
 
   DetailPrint "Removing CRT assembly..."
@@ -426,7 +424,6 @@ end:
   Delete "$INSTDIR\mumble.exe"
   Delete "$INSTDIR\mumble11x.exe"
   Delete "$INSTDIR\murmur.exe"
-  Delete "$INSTDIR\mumble-g15-helper.exe"
   Delete "$INSTDIR\celt0.*.dll"
   Delete "$INSTDIR\speex*.dll"
   Delete "$INSTDIR\mumble_ol_old.dll"
