@@ -4064,12 +4064,6 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
     </message>
     <message>
         <location/>
-        <source>Edit Server</source>
-        <oldsource>&amp;Servername</oldsource>
-        <translation type="unfinished">Nom du &amp;serveur</translation>
-    </message>
-    <message>
-        <location/>
         <source>Name of the server</source>
         <translation>Nom du serveur</translation>
     </message>

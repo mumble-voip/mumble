@@ -1,3 +1,28 @@
+2010-05-29
+  rdb <git@rdb.name>
+    68d4371  recieve -> receive
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    502c8ad  Remove mention of deprecated no-xevie in INSTALL
+
+2010-05-28
+  Mark-Willem Jansen <rawnar@users.sourceforge.net>
+    e84fbbb  Updated Borderlands plugin for the new API.
+    2201bdd  Added a postional audio plugin for Borderlands.
+
+2010-05-27
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    e4c5071  Only show tray config if tray exists
+    a8268d7  Add recommended user CAs explicitly
+
+2010-05-22
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    1741e72  Direct G15 support
+
+2010-05-19
+  Tuck Therebelos <snares@users.sourceforge.net>
+    36e3950  DoDS, TF2 updates
+
 2010-05-18
   Semion Tsinman <Necromancer3333@gmail.com>
     91cef12  Hebrew update

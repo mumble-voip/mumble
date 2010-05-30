@@ -3043,12 +3043,6 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location/>
-        <source>Edit Server</source>
-        <oldsource>&amp;Servername</oldsource>
-        <translation type="unfinished">&amp;שם השרת</translation>
-    </message>
-    <message>
-        <location/>
         <source>Name of the server</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שם השרת&lt;/p&gt;</translation>
     </message>
@@ -3401,12 +3395,6 @@ of the possible locations.</source>
     </message>
     <message>
         <location/>
-        <source>Whisper Target</source>
-        <oldsource>Whisper to subchannels</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
         <source>List of users</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3418,12 +3406,6 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Whisper Target</source>
-        <oldsource>Whisper to Channel</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6149,12 +6131,6 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Enable Overlay</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Form</source>
-        <oldsource>Font</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>

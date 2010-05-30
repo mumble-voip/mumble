@@ -3178,12 +3178,6 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
     </message>
     <message>
         <location/>
-        <source>Edit Server</source>
-        <oldsource>&amp;Servername</oldsource>
-        <translation type="unfinished">&amp;Servernavn</translation>
-    </message>
-    <message>
-        <location/>
         <source>Name of the server</source>
         <translation>Navn på serveren</translation>
     </message>

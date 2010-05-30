@@ -4320,12 +4320,6 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
     </message>
     <message>
         <location/>
-        <source>Edit Server</source>
-        <oldsource>&amp;Servername</oldsource>
-        <translation type="unfinished">&amp;Servername</translation>
-    </message>
-    <message>
-        <location/>
         <source>Name of the server</source>
         <translation>Name des Servers</translation>
     </message>

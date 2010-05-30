@@ -4310,12 +4310,6 @@ Se le recomienda &lt;b&gt;encarecidamente&lt;/b&gt; que &lt;a href=&quot;http://
     </message>
     <message>
         <location/>
-        <source>Edit Server</source>
-        <oldsource>&amp;Servername</oldsource>
-        <translation type="unfinished">&amp;Nombre del servidor</translation>
-    </message>
-    <message>
-        <location/>
         <source>Name of the server</source>
         <translation>Nombre del servidor</translation>
     </message>

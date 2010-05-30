@@ -4265,12 +4265,6 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location/>
-        <source>Edit Server</source>
-        <oldsource>&amp;Servername</oldsource>
-        <translation type="unfinished">サーバ名(&amp;S)</translation>
-    </message>
-    <message>
-        <location/>
         <source>Name of the server</source>
         <translation>サーバの名前</translation>
     </message>

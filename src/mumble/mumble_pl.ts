@@ -3592,12 +3592,6 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location/>
-        <source>Edit Server</source>
-        <oldsource>&amp;Servername</oldsource>
-        <translation type="unfinished">&amp;Nazwa serwera</translation>
-    </message>
-    <message>
-        <location/>
         <source>Name of the server</source>
         <translation>Nazwa serwera</translation>
     </message>

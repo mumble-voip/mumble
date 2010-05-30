@@ -112,7 +112,7 @@ bool G15LCDDeviceLGLCD::enabled() {
 
 void G15LCDDeviceLGLCD::setEnabled(bool b) {
 	bEnabled = b;
-	
+
 	if (bEnabled && (engine->llcContext.device == LGLCD_INVALID_DEVICE)) {
 		ZeroMemory(&engine->llcContext, sizeof(engine->llcContext));
 		engine->llcContext.connection = engine->llcceConnect.connection;
@@ -120,7 +120,7 @@ void G15LCDDeviceLGLCD::setEnabled(bool b) {
 		engine->llcContext.deviceType =LGLCD_DEVICE_BW;
 
 		DWORD dwErr = lgLcdOpenByType(&engine->llcContext);
-		
+
 	} else if (! bEnabled && (engine->llcContext.device != LGLCD_INVALID_DEVICE)) {
 		lgLcdClose(engine->llcContext.device);
 		engine->llcContext.device = LGLCD_INVALID_DEVICE;
@@ -168,9 +168,9 @@ void G15LCDDeviceLGLCD::blitImage(QImage *img, bool alert) {
 		buf[idx+1] = tmp[i] & 0x02 ? 0xff : 0x00;
 		buf[idx+0] = tmp[i] & 0x01 ? 0xff : 0x00;
 	}
-	
+
 	bitmap.hdr.Format = LGLCD_BMP_FORMAT_160x43x1;
-	
+
 	DWORD dwErr = lgLcdUpdateBitmap(engine->llcContext.device, &bitmap.hdr, alert ? LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_ALERT) : LGLCD_SYNC_UPDATE(LGLCD_PRIORITY_NORMAL));
 }
 

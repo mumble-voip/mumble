@@ -1,11 +1,11 @@
 /* Copyright (C) 2010, Mark-Willem Jansen <rawnar@users.sourceforge.net>
-   Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com> 
+   Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
- 
+
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions
-   are met: 
+   are met:
 
    - Redistributions of source code must retain the above copyright notice,
      this list of conditions and the following disclaimer.
@@ -27,9 +27,9 @@
    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/ 
+*/
 
-#include "../mumble_plugin_win32.h"  
+#include "../mumble_plugin_win32.h"
 
 BYTE *posptr;
 BYTE *frontptr;
@@ -56,7 +56,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	if (logincheck == 0)
 		return false;
-	
+
 	//	State value is working most of the time.
 	ok = peekProc((BYTE *) 0x01fb1b99, &state, 1); // Magical state value
 	if (! ok)
@@ -65,7 +65,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// When state is 0 your are loaded into a map, when it is 1 your are not in a map.
 	if (state == 1)
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
-	
+
 	ok = peekProc(posptr, &pos_corrector, 12) &&
 	     peekProc(frontptr, &front_corrector, 12) &&
 	     peekProc(topptr, &top_corrector, 12) &&
@@ -73,7 +73,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	if (! ok)
 		return false;
-	
+
 	//	In-game coordinate system:
 	//	x points to the North (z in mumble)
 	//	y points to the East (x in mumble)
@@ -81,7 +81,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_pos[0] = pos_corrector[1];
 	avatar_pos[1] = pos_corrector[2];
 	avatar_pos[2] = pos_corrector[0];
-	
+
 	for (int i=0;i<3;i++)
 		avatar_pos[i]/=100.0f; // Unreal Unit is set to centimeters
 
@@ -92,39 +92,39 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_top[0] = top_corrector[1];
 	avatar_top[1] = top_corrector[2];
 	avatar_top[2] = top_corrector[0];
-	
+
 	for (int i=0;i<3;i++) {
 		camera_pos[i] = avatar_pos[i];
 		camera_front[i] = avatar_front[i];
 		camera_top[i] = avatar_top[i];
 	}
-	
+
 	ccontext[63] = 0;
 	context = std::string(strstr(ccontext,"bderlandspc"));
 	context.erase(context.find(":7777")+5);
-	
+
 	return ok;
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
 	posptr = frontptr = topptr = contextptr = NULL;
-	
+
 	if (!initialize(pids, L"Borderlands.exe", L"Borderlands.exe"))
 		return false;
-	
+
 	BYTE *ptr1 = peekProc<BYTE *>(pModule +  0x01bba2c8);
 	BYTE *ptr2 = peekProc<BYTE *>(ptr1 + 0x34c);
 	BYTE *ptr3 = peekProc<BYTE *>(ptr2 + 0x64);
 	BYTE *ptr4 = peekProc<BYTE *>(ptr3 + 0xbc);
-	
+
 	posptr = ptr4 + 0x4;
 	frontptr = ptr4 + 0x28;
 	topptr = ptr4 + 0x10;
-	
+
 	ptr1 = peekProc<BYTE *>(pModule + 0x01bcd184);
 	ptr2 = peekProc<BYTE *>(ptr1 + 0x28c);
 	ptr3 = peekProc<BYTE *>(ptr2 + 0x210);
-	
+
 	contextptr = ptr3 + 0x2c;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
@@ -148,7 +148,7 @@ static std::wstring shortname(L"Borderlands");
 
 static int trylock1() {
 	return trylock(std::multimap<std::wstring, unsigned long long int>());
-	}
+}
 
 static MumblePlugin borderlandsplug = {
 	MUMBLE_PLUGIN_MAGIC,
