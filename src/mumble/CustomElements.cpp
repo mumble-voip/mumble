@@ -153,8 +153,6 @@ bool ChatbarTextEdit::event(QEvent *event) {
 			g.mw->sendChatbarMessage();
 			return true;
 		}
-// currently broken
-#if 0
 		if (kev->key() == Qt::Key_Tab) {
 			emit tabPressed();
 			return true;
@@ -162,7 +160,6 @@ bool ChatbarTextEdit::event(QEvent *event) {
 			emit ctrlSpacePressed();
 			return true;
 		}
-#endif
 	}
 	return QTextEdit::event(event);
 }
@@ -170,8 +167,7 @@ bool ChatbarTextEdit::event(QEvent *event) {
 unsigned int ChatbarTextEdit::completeAtCursor() {
 	// Get an alphabetically sorted list of usernames
 	unsigned int id = 0;
-// currently  broken
-#if 0
+
 	QList<QString> qlsUsernames;
 
 	if (ClientUser::c_qmUsers.empty()) return id;
@@ -180,18 +176,19 @@ unsigned int ChatbarTextEdit::completeAtCursor() {
 	}
 	qSort(qlsUsernames);
 
-	QString newtext;
-	newtext = toPlainText();
 	QString target = QString();
-	if (newtext.isEmpty()) {
+	QTextCursor tc = textCursor();
+
+	if (toPlainText().isEmpty() || tc.position() == 0) {
 		target = qlsUsernames.first();
-		newtext = target;
+		tc.insertText(target);
 	} else {
-		// Get the word before the cursor
 		bool bBaseIsName = false;
-		int iend = cursorPosition();
-		int istart = newtext.lastIndexOf(QLatin1Char(' '), iend - 1) + 1;
-		QString base = newtext.mid(istart, iend - istart);
+		int iend = tc.position();
+		int istart = toPlainText().lastIndexOf(QLatin1Char(' '), iend - 1) + 1;
+		QString base = toPlainText().mid(istart, iend - istart);
+		tc.setPosition(istart);
+		tc.setPosition(iend, QTextCursor::KeepAnchor);
 
 		if (qlsUsernames.last() == base) {
 			bBaseIsName = true;
@@ -217,20 +214,20 @@ unsigned int ChatbarTextEdit::completeAtCursor() {
 		}
 
 		if (!target.isEmpty()) {
-			newtext.replace(istart, base.length(), target);
+			tc.insertText(target);
 		}
 	}
 
 	if (!target.isEmpty()) {
+		setTextCursor(tc);
+
 		foreach(ClientUser *usr, ClientUser::c_qmUsers) {
 			if (usr->qsName == target) {
 				id = usr->uiSession;
 				break;
 			}
 		}
-		setText(newtext);
 	}
-#endif
 	return id;
 }
 
