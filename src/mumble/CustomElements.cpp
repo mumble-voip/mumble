@@ -34,24 +34,24 @@
 #include "MainWindow.h"
 
 /*!
-  \fn int ChatbarLineEdit::completeAtCursor()
+  \fn int ChatbarTextEdit::completeAtCursor()
   The bar will try to complete the username, if the nickname
   is already complete it will try to find a longer match. If
   there is none it will cycle the nicknames alphabetically.
   Nothing is done on mismatch.
 */
 
-void ChatbarLineEdit::focusInEvent(QFocusEvent *qfe) {
+void ChatbarTextEdit::focusInEvent(QFocusEvent *qfe) {
 	inFocus(true);
 	QTextEdit::focusInEvent(qfe);
 }
 
-void ChatbarLineEdit::focusOutEvent(QFocusEvent *qfe) {
+void ChatbarTextEdit::focusOutEvent(QFocusEvent *qfe) {
 	inFocus(false);
 	QTextEdit::focusOutEvent(qfe);
 }
 
-void ChatbarLineEdit::inFocus(bool focus) {
+void ChatbarTextEdit::inFocus(bool focus) {
 	if (focus) {
 		if (bDefaultVisible) {
 			QFont f = font();
@@ -73,7 +73,7 @@ void ChatbarLineEdit::inFocus(bool focus) {
 	}
 }
 
-void ChatbarLineEdit::contextMenuEvent(QContextMenuEvent *qcme) {
+void ChatbarTextEdit::contextMenuEvent(QContextMenuEvent *qcme) {
 	QMenu *menu = createStandardContextMenu();
 
 	QAction *action = new QAction(tr("Paste and send") + QLatin1Char('\t'), menu);
@@ -88,12 +88,12 @@ void ChatbarLineEdit::contextMenuEvent(QContextMenuEvent *qcme) {
 	delete menu;
 }
 
-void ChatbarLineEdit::dropEvent(QDropEvent *event) {
+void ChatbarTextEdit::dropEvent(QDropEvent *event) {
 	inFocus(true);
 	QTextEdit::dropEvent(event);
 }
 
-ChatbarLineEdit::ChatbarLineEdit(QWidget *p) : QTextEdit(p) {
+ChatbarTextEdit::ChatbarTextEdit(QWidget *p) : QTextEdit(p) {
 	setWordWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -104,33 +104,33 @@ ChatbarLineEdit::ChatbarLineEdit(QWidget *p) : QTextEdit(p) {
 	setDefaultText(tr("<center>Type chat message here</center>"));
 }
 
-QSize ChatbarLineEdit::minimumSizeHint() {
+QSize ChatbarTextEdit::minimumSizeHint() {
 	return QSize(0, fontMetrics().height());
 }
 
-QSize ChatbarLineEdit::sizeHint() {
+QSize ChatbarTextEdit::sizeHint() {
 	QSize sizeHint = QTextEdit::sizeHint();
 	sizeHint.setHeight(document()->documentLayout()->documentSize().height());
 	setMaximumHeight(sizeHint.height());
 	return sizeHint;
 }
 
-void ChatbarLineEdit::resizeEvent(QResizeEvent *e) {
+void ChatbarTextEdit::resizeEvent(QResizeEvent *e) {
 	QTextEdit::resizeEvent(e);
 	doScrollbar();
 }
 
-void ChatbarLineEdit::doResize() {
+void ChatbarTextEdit::doResize() {
 	updateGeometry();
 	doScrollbar();
 }
 
-void ChatbarLineEdit::doScrollbar() {
+void ChatbarTextEdit::doScrollbar() {
 	setVerticalScrollBarPolicy(sizeHint().height() > height() ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
 	ensureCursorVisible();
 }
 
-void ChatbarLineEdit::setDefaultText(const QString &new_default, bool force) {
+void ChatbarTextEdit::setDefaultText(const QString &new_default, bool force) {
 	qsDefaultText = new_default;
 
 	if (bDefaultVisible || force) {
@@ -142,7 +142,7 @@ void ChatbarLineEdit::setDefaultText(const QString &new_default, bool force) {
 	}
 }
 
-bool ChatbarLineEdit::event(QEvent *event) {
+bool ChatbarTextEdit::event(QEvent *event) {
 	if (event->type() == QEvent::ShortcutOverride) {
 		return false;
 	}
@@ -167,7 +167,7 @@ bool ChatbarLineEdit::event(QEvent *event) {
 	return QTextEdit::event(event);
 }
 
-unsigned int ChatbarLineEdit::completeAtCursor() {
+unsigned int ChatbarTextEdit::completeAtCursor() {
 	// Get an alphabetically sorted list of usernames
 	unsigned int id = 0;
 // currently  broken
@@ -234,7 +234,7 @@ unsigned int ChatbarLineEdit::completeAtCursor() {
 	return id;
 }
 
-void ChatbarLineEdit::pasteAndSend_triggered() {
+void ChatbarTextEdit::pasteAndSend_triggered() {
 	paste();
 	g.mw->sendChatbarMessage();
 }

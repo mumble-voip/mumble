@@ -197,8 +197,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaHelpAboutQt_triggered();
 		void on_qaHelpVersionCheck_triggered();
 		void on_qaQuit_triggered();
-		void on_qleChat_tabPressed();
-		void on_qleChat_ctrlSpacePressed();
+		void on_qteChat_tabPressed();
+		void on_qteChat_ctrlSpacePressed();
 		void on_qteLog_customContextMenuRequested(const QPoint &pos);
 		void on_qteLog_anchorClicked(const QUrl &);
 		void on_qteLog_highlighted(const QUrl & link);

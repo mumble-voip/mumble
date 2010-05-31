@@ -70,20 +70,20 @@
 */
 
 /*!
-  \fn void MainWindow::on_qleChat_tabPressed()
+  \fn void MainWindow::on_qteChat_tabPressed()
   Controlls tab username completion for the chatbar.
   \see ChatbarLineEdit::completeAtCursor()
 */
 
 /*!
-  \fn void MainWindow::on_qleChat_ctrlSpacePressed()
+  \fn void MainWindow::on_qteChat_ctrlSpacePressed()
   Controlls ctrl space username completion and selection for the chatbar.
   \see ChatbarLineEdit::completeAtCursor()
 */
 
 /*!
   \fn void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)
-  This function updates the qleChat bar default text according to
+  This function updates the qteChat bar default text according to
   the selected user/channel in the users treeview.
 */
 
@@ -263,8 +263,8 @@ void MainWindow::setupGui()  {
 	qmWindow->addAction(tr("Minimize"), this, SLOT(showMinimized()), QKeySequence(tr("Ctrl+M")));
 
 	qtvUsers->setAttribute(Qt::WA_MacShowFocusRect, false);
-	qleChat->setAttribute(Qt::WA_MacShowFocusRect, false);
-	qleChat->setFrameShape(QFrame::NoFrame);
+	qteChat->setAttribute(Qt::WA_MacShowFocusRect, false);
+	qteChat->setFrameShape(QFrame::NoFrame);
 	qteLog->setFrameStyle(QFrame::NoFrame);
 #endif
 
@@ -303,8 +303,8 @@ void MainWindow::setupGui()  {
 	dtbChatDockTitle = new DockTitleBar();
 	qdwChat->setTitleBarWidget(dtbChatDockTitle);
 	qdwChat->installEventFilter(dtbChatDockTitle);
-	qleChat->setDefaultText(tr("<center>Not connected</center>"), true);
-	qleChat->setEnabled(false);
+	qteChat->setDefaultText(tr("<center>Not connected</center>"), true);
+	qteChat->setEnabled(false);
 
 	connect(qtvUsers->selectionModel(),
 	        SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
@@ -470,7 +470,7 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &_pos, b
 		if (ok && ClientUser::isValid(uiContextSession)) {
 			if (focus) {
 				qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(uiContextSession)));
-				qleChat->setFocus();
+				qteChat->setFocus();
 			} else {
 				qmUser->exec(_pos, NULL);
 			}
@@ -484,7 +484,7 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &_pos, b
 		if (ok) {
 			if (focus) {
 				qtvUsers->setCurrentIndex(pmModel->index(Channel::get(iContextChannel)));
-				qleChat->setFocus();
+				qteChat->setFocus();
 			} else {
 				qmChannel->exec(_pos, NULL);
 			}
@@ -1325,17 +1325,16 @@ void MainWindow::on_qaQuit_triggered() {
 }
 
 void MainWindow::sendChatbarMessage() {
-	if (qleChat->toPlainText().isEmpty() || g.uiSession == 0) return; // Check if text & connection is available
+	if (qteChat->toPlainText().isEmpty() || g.uiSession == 0) return; // Check if text & connection is available
 
 	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
 	QString qsText;
 
-	qsText = qleChat->toPlainText();
-	if (! Qt::mightBeRichText(qsText)) {
-		qsText = TextMessage::autoFormat(qsText);
-	}
+	qsText = qteChat->toPlainText();
+	qsText = Qt::escape(qsText);
+	qsText = TextMessage::autoFormat(qsText);
 
 	if (p == NULL || p->uiSession == g.uiSession) {
 		// Channel message
@@ -1350,15 +1349,15 @@ void MainWindow::sendChatbarMessage() {
 		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsText), tr("Message to %1").arg(p->qsName), true);
 	}
 
-	qleChat->clear();
+	qteChat->clear();
 }
 
-void MainWindow::on_qleChat_tabPressed() {
-	qleChat->completeAtCursor();
+void MainWindow::on_qteChat_tabPressed() {
+	qteChat->completeAtCursor();
 }
 
-void MainWindow::on_qleChat_ctrlSpacePressed() {
-	unsigned int res = qleChat->completeAtCursor();
+void MainWindow::on_qteChat_ctrlSpacePressed() {
+	unsigned int res = qteChat->completeAtCursor();
 	if (res == 0) return;
 	qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(res)));
 }
@@ -1641,7 +1640,7 @@ void MainWindow::updateMenuPermissions() {
 	qaChannelUnlinkAll->setEnabled(p & (ChanACL::Write | ChanACL::LinkChannel));
 
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
-	qleChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
+	qteChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 }
 
 void MainWindow::talkingChanged() {
@@ -2065,7 +2064,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	qaServerInformation->setEnabled(false);
 	qaServerBanList->setEnabled(false);
 	qtvUsers->setCurrentIndex(QModelIndex());
-	qleChat->setEnabled(false);
+	qteChat->setEnabled(false);
 	updateTrayIcon();
 
 	QString uname, pw, host;
@@ -2290,16 +2289,16 @@ void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
 	if (g.uiSession == 0) {
-		qleChat->setDefaultText(tr("<center>Not connected</center>"), true);
+		qteChat->setDefaultText(tr("<center>Not connected</center>"), true);
 	} else if (p == NULL || p->uiSession == g.uiSession) {
 		// Channel tree target
 		if (c == NULL) // If no channel selected fallback to current one
 			c = ClientUser::get(g.uiSession)->cChannel;
 
-		qleChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(c->qsName));
+		qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(c->qsName));
 	} else {
 		// User target
-		qleChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(p->qsName));
+		qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(p->qsName));
 	}
 
 	updateMenuPermissions();

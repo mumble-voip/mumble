@@ -33,10 +33,10 @@
 
 #include "mumble_pch.hpp"
 
-class ChatbarLineEdit : public QTextEdit {
+class ChatbarTextEdit : public QTextEdit {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(ChatbarLineEdit)
+		Q_DISABLE_COPY(ChatbarTextEdit)
 		void inFocus(bool);
 		void doScrollbar();
 	protected:
@@ -60,7 +60,7 @@ class ChatbarLineEdit : public QTextEdit {
 		void pasteAndSend_triggered();
 		void doResize();
 	public:
-		ChatbarLineEdit(QWidget *p = NULL);
+		ChatbarTextEdit(QWidget *p = NULL);
 };
 
 class DockTitleBar : public QWidget {

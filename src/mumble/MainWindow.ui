@@ -141,9 +141,9 @@
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="ChatbarLineEdit" name="qleChat">
+   <widget class="ChatbarTextEdit" name="qteChat">
     <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+     <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
       <horstretch>0</horstretch>
       <verstretch>0</verstretch>
      </sizepolicy>
@@ -153,6 +153,9 @@
       <width>16777215</width>
       <height>16777215</height>
      </size>
+    </property>
+    <property name="acceptRichText">
+     <bool>false</bool>
     </property>
    </widget>
   </widget>
@@ -792,14 +795,14 @@
    <header>UserView.h</header>
   </customwidget>
   <customwidget>
-   <class>ChatbarLineEdit</class>
-   <extends>QLineEdit</extends>
+   <class>ChatbarTextEdit</class>
+   <extends>QTextEdit</extends>
    <header>CustomElements.h</header>
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="mumble_tango.qrc"/>
   <include location="mumble.qrc"/>
+  <include location="mumble_tango.qrc"/>
  </resources>
  <connections/>
 </ui>
