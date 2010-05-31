@@ -115,7 +115,7 @@ OpenURLEvent::OpenURLEvent(QUrl u) : QEvent(static_cast<QEvent::Type>(OU_QEVENT)
 	url = u;
 }
 
-const QString MainWindow::defaultStyleSheet = QLatin1String(".log-channel{text-decoration:none;}.log-user{text-decoration:none;}");
+const QString MainWindow::defaultStyleSheet = QLatin1String(".log-channel{text-decoration:none;}.log-user{text-decoration:none;}p{margin:0;}");
 
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	qiIconMuteSelf.addFile(QLatin1String("skin:muted_self.svg"));
