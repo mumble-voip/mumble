@@ -45,9 +45,9 @@ uint64_t g_playerGUID;
  * To update visit http://www.mmowned.com/forums/wow-memory-editing/
  * and look for a thread called [WoW][TheVersion] Info Dump Thread.
  */
-static uint32_t ptr_ClientConnection=0x00C93410;
-static size_t off_ObjectManager=0x2E04;
-static uint32_t ptr_WorldFrame=0x00B0D578;
+static uint32_t ptr_ClientConnection=0x00BB43F0;
+static size_t off_ObjectManager=0x2EB0;
+static uint32_t ptr_WorldFrame=0x00BF2AF8;
 static size_t off_CameraOffset=0x7E24;
 
 uint32_t getInt32(uint32_t ptr) {
@@ -189,7 +189,7 @@ uint32_t getPlayerBase() {
 	return playerBase;
 }
 
-static const unsigned long nameStorePtr        = 0x00C77068 + 0x8;  // Player name database
+static const unsigned long nameStorePtr        = 0x00BB92A0 + 0x8;  // Player name database
 static const unsigned long nameMaskOffset      = 0x024;  // Offset for the mask used with GUID to select a linked list
 static const unsigned long nameBaseOffset      = 0x01c;  // Offset for the start of the name linked list
 static const unsigned long nameStringOffset    = 0x020;  // Offset to the C string in a name structure
@@ -411,10 +411,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports World of Warcraft 3.3.2 (11403) (Release) (Euro). With identity support.");
+	return std::wstring(L"Supports World of Warcraft 3.3.3a (11723) (Release) (Euro). With identity support.");
 }
 
-static std::wstring description(L"World of Warcraft 3.3.2 (Euro)");
+static std::wstring description(L"World of Warcraft 3.3.3a (Euro)");
 
 static std::wstring shortname(L"World of Warcraft");
 
