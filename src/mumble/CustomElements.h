@@ -63,7 +63,7 @@ class ChatbarTextEdit : public QTextEdit {
 		ChatbarTextEdit(QWidget *p = NULL);
 };
 
-class DockTitleBar : public QWidget {
+class DockTitleBar : public QLabel {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(DockTitleBar)

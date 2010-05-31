@@ -236,7 +236,9 @@ void ChatbarTextEdit::pasteAndSend_triggered() {
 	g.mw->sendChatbarMessage();
 }
 
-DockTitleBar::DockTitleBar() {
+DockTitleBar::DockTitleBar() : QLabel(tr("Drag here")) {
+	setAlignment(Qt::AlignCenter);
+	setEnabled(false);
 	qtTick = new QTimer(this);
 	qtTick->setSingleShot(true);
 	connect(qtTick, SIGNAL(timeout()), this, SLOT(tick()));
