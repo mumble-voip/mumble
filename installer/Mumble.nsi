@@ -369,7 +369,7 @@ Section /o "$(MUMBLE_SEC_BONJOUR)" SectionBonjour
   SetShellVarContext all
   InitPluginsDir
   SetOutPath $PLUGINSDIR
-  NSISdl::download http://support.apple.com/downloads/DL999/en_US/BonjourPSSetup.exe "$PLUGINSDIR\BonjourSetup.exe"
+  NSISdl::download http://support.apple.com/downloads/DL999/en_US/BonjourPSSetup.exe "$PLUGINSDIR\BonjourPSSetup.exe"
   Pop $R0
   StrCmp $R0 "success" 0 end
   ExecWait '"$PLUGINSDIR\BonjourPSSetup.exe" /passive /norestart' 
