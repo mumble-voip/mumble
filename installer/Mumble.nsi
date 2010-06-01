@@ -662,10 +662,6 @@ Function Desktop_Shortcut
     SetOutPath "$INSTDIR"
     CreateShortCut "$DESKTOP\Mumble.lnk" "$INSTDIR\mumble.exe"
   ${EndIf}
-  ${If} ${SectionIsSelected} ${SectionMumble11X}
-    SetOutPath "$INSTDIR"
-    CreateShortCut "$DESKTOP\$(MUMBLE_COMPAT_LNK).lnk" "$INSTDIR\mumble11x.exe"
-  ${EndIf}
 FunctionEnd
 
 Function Run_Mumble
