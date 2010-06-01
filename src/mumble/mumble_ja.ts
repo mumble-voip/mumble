@@ -46,7 +46,7 @@
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>追加(&amp;A)</translation>
+        <translation>追加(&amp;A)a</translation>
     </message>
     <message>
         <location/>
@@ -780,7 +780,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+3"/>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Mumble</source>
@@ -1709,17 +1709,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Idle AutoDeafen</source>
-        <translation type="unfinished"></translation>
+        <translation>自動聴取禁止までの待ち時間</translation>
     </message>
     <message>
         <location/>
         <source>How long to remain idle before auto-deafen.</source>
-        <translation type="unfinished"></translation>
+        <translation>どれだけのアイドル時間が続いたら自動聴取禁止にするか。</translation>
     </message>
     <message>
         <location/>
         <source>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted and deafened.</source>
-        <translation type="unfinished"></translation>
+        <translation>この設定はアイドルタイマーです。サーバに音声を送信しないままこの時間が過ぎると、あなたは発言禁止と聴取禁止状態になります。</translation>
     </message>
 </context>
 <context>
@@ -3792,7 +3792,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Priority speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>優先度スピーカ</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4331,13 +4331,15 @@ Username to send to the server. Be aware that the server can impose restrictions
     <message>
         <location/>
         <source>Label</source>
-        <translation type="unfinished">ラベル</translation>
+        <translation>ラベル</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your serverlist and can be chosen freely.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;ラベル&lt;/b&gt;&lt;br /&gt;
+そのサーバのラベルです。あなたのサーバリスト上でどのようにそのサーバが名前をつけるもので
+自由に選べます。</translation>
     </message>
 </context>
 <context>
@@ -4853,17 +4855,17 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Shout to Linked channels</source>
-        <translation type="unfinished">リンクしているチャンネルへ叫ぶ</translation>
+        <translation>リンクしているチャンネルへ叫ぶ</translation>
     </message>
     <message>
         <location/>
         <source>Shout to subchannels</source>
-        <translation type="unfinished">サブチャンネルへ叫ぶ</translation>
+        <translation>サブチャンネルへ叫ぶ</translation>
     </message>
     <message>
         <location/>
         <source>Shout to Channel</source>
-        <translation type="unfinished">チャンネルへ叫ぶ</translation>
+        <translation>チャンネルへ叫ぶ</translation>
     </message>
 </context>
 <context>
@@ -4975,7 +4977,12 @@ of the possible locations.</source>
 This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;これはあなたのシステム上にある利用可能なLCDデバイスのリストです。名前でデバイスを列挙しますが、ディスプレイのサイズも含んでいます。Mumbleは複数のLCDデバイスへ同時に出力することをサポートしています。&lt;/p&gt;
+&lt;h3&gt;サイズ:&lt;/h3&gt;
+&lt;p&gt;
+このフィールドはLCDデバイスのサイズを示します。そのサイズはピクセル（LCDの画像）か文字数（LCDの文字）で与えられます。&lt;/p&gt;
+&lt;h3&gt;有効化:&lt;/h3&gt;
+&lt;p&gt;これはMumbleが特定のLCDデバイスに描画するべきかを決定します。&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -5002,7 +5009,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;このオプションはユーザビューの中で最小の幅の列を決めます。&lt;/p&gt;
+&lt;p&gt;あまりにも多い人々が同時に喋ったとき、ユーザビューはそれを列に分けます。あなたはLCD上に表示されるユーザの数とユーザ名の幅の間の妥協案を得るためにこのオプションを使えます。&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -7776,7 +7785,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Priority speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>優先度スピーカ</translation>
     </message>
 </context>
 <context>
@@ -8126,31 +8135,31 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <location filename="Overlay.cpp" line="+424"/>
         <location line="+1076"/>
         <source>Silent</source>
-        <translation type="unfinished">発言していない</translation>
+        <translation>発言していない</translation>
     </message>
     <message>
         <location line="-1073"/>
         <location line="+1076"/>
         <source>Talking</source>
-        <translation type="unfinished">発言中</translation>
+        <translation>発言中</translation>
     </message>
     <message>
         <location line="-1073"/>
         <location line="+1076"/>
         <source>Whisper</source>
-        <translation type="unfinished">ささやき</translation>
+        <translation>ささやき</translation>
     </message>
     <message>
         <location line="-1073"/>
         <location line="+1076"/>
         <source>Shout</source>
-        <translation type="unfinished">発言している</translation>
+        <translation>発言している</translation>
     </message>
     <message>
         <location line="-1057"/>
         <location line="+947"/>
         <source>Channel</source>
-        <translation type="unfinished">チャンネル</translation>
+        <translation>チャンネル</translation>
     </message>
     <message>
         <location line="+1259"/>
@@ -8199,47 +8208,47 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="-865"/>
         <source>Filter</source>
-        <translation type="unfinished">フィルタ</translation>
+        <translation>フィルタ</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Only talking</source>
-        <translation type="unfinished">話している人だけ</translation>
+        <translation>話している人だけ</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in current channel</source>
-        <translation type="unfinished">同じチャンネルにいる人全て</translation>
+        <translation>同じチャンネルにいる人全て</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in linked channels</source>
-        <translation type="unfinished">リンクしているチャンネルにいる人全て</translation>
+        <translation>リンクしているチャンネルにいる人全て</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Always show yourself</source>
-        <translation type="unfinished">自分自身を常に表示する</translation>
+        <translation>自分自身を常に表示する</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Columns</source>
-        <translation type="unfinished">列</translation>
+        <translation>列</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Edit...</source>
-        <translation type="unfinished">編集...</translation>
+        <translation>編集...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Reset Zoom</source>
-        <translation type="unfinished">ズームをリセット</translation>
+        <translation>ズームをリセット</translation>
     </message>
     <message>
         <location line="+293"/>
         <source>FPS: %1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -8257,7 +8266,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <location/>
         <source>Form</source>
         <oldsource>Font</oldsource>
-        <translation type="unfinished">フォーム</translation>
+        <translation>フォーム</translation>
     </message>
     <message>
         <location/>
@@ -8420,17 +8429,17 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location filename="Overlay.cpp" line="-2040"/>
         <source>To move the users, drag the little red dot.</source>
-        <translation type="unfinished">ユーザを動かすには、小さな赤い点をドラッグしてください。</translation>
+        <translation>ユーザを動かすには、小さな赤い点をドラッグしてください。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>To resize the users, mousewheel over a user.</source>
-        <translation type="unfinished">ユーザのアバターのサイズを変えるには、ユーザの上でマウスホィールを動かしてください。</translation>
+        <translation>ユーザのアバターのサイズを変えるには、ユーザの上でマウスホィールを動かしてください。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>For more options, rightclick a user.</source>
-        <translation type="unfinished">更なる設定をするには、ユーザを右クリックしてください。</translation>
+        <translation>更なる設定をするには、ユーザを右クリックしてください。</translation>
     </message>
     <message>
         <location line="+147"/>
@@ -8440,12 +8449,12 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+62"/>
         <source>Choose executable</source>
-        <translation type="unfinished">実行ファイルを選択</translation>
+        <translation>実行ファイルを選択</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Choose application</source>
-        <translation type="unfinished"></translation>
+        <translation>アプリケーションを選んでください</translation>
     </message>
     <message>
         <source>Show User Textures</source>
@@ -8532,85 +8541,85 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location/>
         <source>Layout</source>
-        <translation type="unfinished">レイアウト</translation>
+        <translation>レイアウト</translation>
     </message>
     <message>
         <location/>
         <source>Overlay exceptions</source>
-        <translation type="unfinished">オーバレイの例外設定</translation>
+        <translation>オーバレイの例外設定</translation>
     </message>
     <message>
         <location/>
         <source>Blacklist</source>
-        <translation type="unfinished">ブラックリスト</translation>
+        <translation>ブラックリスト</translation>
     </message>
     <message>
         <location/>
         <source>Whitelist</source>
-        <translation type="unfinished">ホワイトリスト</translation>
+        <translation>ホワイトリスト</translation>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished">追加</translation>
+        <translation>追加</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished">削除</translation>
+        <translation>削除</translation>
     </message>
     <message>
         <location/>
         <source>Uninstall Overlay</source>
-        <translation type="unfinished">オーバレイをアンインストール</translation>
+        <translation>オーバレイをアンインストール</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Installation</source>
-        <translation type="unfinished">オーバレイのインストール</translation>
+        <translation>オーバレイのインストール</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</source>
-        <translation type="unfinished">Mumble は Mumble オーバレイをインストールされていないことを検知しました。
+        <translation>Mumble は Mumble オーバレイをインストールされていないことを検知しました。
 
 下のボタンをクリックしてオーバレイをインストールしてください。</translation>
     </message>
     <message>
         <location/>
         <source>Install Mumble Overlay</source>
-        <translation type="unfinished">Mumble オーバレイのインストール</translation>
+        <translation>Mumble オーバレイのインストール</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Upgrade</source>
-        <translation type="unfinished">オーバレイのアップグレード</translation>
+        <translation>オーバレイのアップグレード</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
-        <translation type="unfinished">Mumble は古いバージョンのオーバレイサポートファイルがインストールされていることを検知しました。
+        <translation>Mumble は古いバージョンのオーバレイサポートファイルがインストールされていることを検知しました。
 
 これらのファイルを最新バージョンにアップグレードするために次のボタンを押してください。</translation>
     </message>
     <message>
         <location/>
         <source>Upgrade Mumble Overlay</source>
-        <translation type="unfinished">Mumble オーバレイのアップグレード</translation>
+        <translation>Mumble オーバレイのアップグレード</translation>
     </message>
     <message>
         <location/>
         <source>Display a frame counter in the overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>オーバレイ上にフレームカウンタを表示します</translation>
     </message>
     <message>
         <location/>
         <source>Show FPS counter</source>
-        <translation type="unfinished"></translation>
+        <translation>FPSカウンタを表示する</translation>
     </message>
 </context>
 <context>
@@ -8622,117 +8631,117 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="OverlayEditor.ui"/>
         <source>State</source>
-        <translation type="unfinished">状態</translation>
+        <translation>状態</translation>
     </message>
     <message>
         <location/>
         <source>User is not talking</source>
-        <translation type="unfinished">ユーザは話していない</translation>
+        <translation>ユーザは話していない</translation>
     </message>
     <message>
         <location/>
         <source>Passive</source>
-        <translation type="unfinished">受身</translation>
+        <translation>受身</translation>
     </message>
     <message>
         <location/>
         <source>User is talking in your channel or a linked channel</source>
-        <translation type="unfinished">ユーザはあなたのいるチャンネルかリンクしているチャンネルで話しています</translation>
+        <translation>ユーザはあなたのいるチャンネルかリンクしているチャンネルで話しています</translation>
     </message>
     <message>
         <location/>
         <source>Talking</source>
-        <translation type="unfinished">発言中</translation>
+        <translation>発言中</translation>
     </message>
     <message>
         <location/>
         <source>User is whispering to you privately</source>
-        <translation type="unfinished">ユーザはあなたに個人的にささやいています</translation>
+        <translation>ユーザはあなたに個人的にささやいています</translation>
     </message>
     <message>
         <location/>
         <source>Private Whisper</source>
-        <translation type="unfinished">個人的なささやき</translation>
+        <translation>個人的なささやき</translation>
     </message>
     <message>
         <location/>
         <source>User is shouting to your channel</source>
-        <translation type="unfinished">ユーザはあなたのいるチャンネルに叫んでいます</translation>
+        <translation>ユーザはあなたのいるチャンネルに叫んでいます</translation>
     </message>
     <message>
         <location/>
         <source>Channel Whisper</source>
-        <translation type="unfinished">チャンネルへのささやき</translation>
+        <translation>チャンネルへのささやき</translation>
     </message>
     <message>
         <location/>
         <source>Zoom</source>
-        <translation type="unfinished">ズーム</translation>
+        <translation>ズーム</translation>
     </message>
     <message>
         <location/>
         <source>Zoom Factor</source>
-        <translation type="unfinished">拡大する要素</translation>
+        <translation>拡大する要素</translation>
     </message>
     <message>
         <location/>
         <source>Enabled Elements</source>
-        <translation type="unfinished">有効な要素</translation>
+        <translation>有効な要素</translation>
     </message>
     <message>
         <location/>
         <source>User avatar, chosen by each user</source>
-        <translation type="unfinished">ユーザのアバター、それぞれのユーザによって選択されたものです</translation>
+        <translation>ユーザのアバター、それぞれのユーザによって選択されたものです</translation>
     </message>
     <message>
         <location/>
         <source>Avatar</source>
-        <translation type="unfinished">アバター</translation>
+        <translation>アバター</translation>
     </message>
     <message>
         <location/>
         <source>User&apos;s name</source>
-        <translation type="unfinished">ユーザの名前</translation>
+        <translation>ユーザの名前</translation>
     </message>
     <message>
         <location/>
         <source>Username</source>
-        <translation type="unfinished">ユーザ名</translation>
+        <translation>ユーザ名</translation>
     </message>
     <message>
         <location/>
         <source>Name of user&apos;s channel, if outside your current channel</source>
-        <translation type="unfinished">ユーザのチャンネルの名前、あなたのいるチャンネルの外にいる場合</translation>
+        <translation>ユーザのチャンネルの名前、あなたのいるチャンネルの外にいる場合</translation>
     </message>
     <message>
         <location/>
         <source>Channel</source>
-        <translation type="unfinished">チャンネル</translation>
+        <translation>チャンネル</translation>
     </message>
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation type="unfinished">発言禁止か聴取禁止</translation>
+        <translation>発言禁止か聴取禁止</translation>
     </message>
     <message>
         <location/>
         <source>Mute state</source>
-        <translation type="unfinished">発言禁止状態</translation>
+        <translation>発言禁止状態</translation>
     </message>
     <message>
         <location/>
         <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
-        <translation type="unfinished">バウンディグボックス、全ての可視要素を含む最小のサイズに自動的に縮みます</translation>
+        <translation>バウンディグボックス、全ての可視要素を含む最小のサイズに自動的に縮みます</translation>
     </message>
     <message>
         <location/>
         <source>Bounding box</source>
-        <translation type="unfinished">バウンディングボックス</translation>
+        <translation>バウンディングボックス</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>オーバレイ エディタ</translation>
     </message>
 </context>
 <context>
@@ -8740,119 +8749,119 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Overlay.cpp" line="+555"/>
         <source>Layout preset</source>
-        <translation type="unfinished">レイアウトプリセット</translation>
+        <translation>レイアウトプリセット</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Large square avatar</source>
-        <translation type="unfinished">大きな四角のアバター</translation>
+        <translation>大きな四角のアバター</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Avatar and Name</source>
-        <translation type="unfinished">アバターと名前</translation>
+        <translation>アバターと名前</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>User Opacity</source>
-        <translation type="unfinished">ユーザの不透明度</translation>
+        <translation>ユーザの不透明度</translation>
     </message>
     <message>
         <location line="+6"/>
         <location line="+31"/>
         <source>%1%</source>
-        <translation type="unfinished">%1%</translation>
+        <translation>%1%</translation>
     </message>
     <message>
         <location line="-5"/>
         <source>Object Opacity</source>
-        <translation type="unfinished">オブジェクトの不透明度</translation>
+        <translation>オブジェクトの不透明度</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Alignment</source>
-        <translation type="unfinished">位置付け</translation>
+        <translation>位置付け</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Left</source>
-        <translation type="unfinished">左</translation>
+        <translation>左</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+18"/>
         <source>Center</source>
-        <translation type="unfinished">中央</translation>
+        <translation>中央</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>Right</source>
-        <translation type="unfinished">右</translation>
+        <translation>右</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Top</source>
-        <translation type="unfinished">上</translation>
+        <translation>上</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Bottom</source>
-        <translation type="unfinished">下</translation>
+        <translation>下</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Color...</source>
-        <translation type="unfinished">色...</translation>
+        <translation>色...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Font...</source>
-        <translation type="unfinished">フォント...</translation>
+        <translation>フォント...</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Bounding box</source>
-        <translation type="unfinished">バウンディングボックス</translation>
+        <translation>バウンディングボックス</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pen width</source>
-        <translation type="unfinished">ペン幅</translation>
+        <translation>ペン幅</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Padding</source>
-        <translation type="unfinished">パディング</translation>
+        <translation>パディング</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pen color</source>
-        <translation type="unfinished">ペンの色</translation>
+        <translation>ペンの色</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Fill color</source>
-        <translation type="unfinished">塗りつぶしの色</translation>
+        <translation>塗りつぶしの色</translation>
     </message>
     <message>
         <location line="+87"/>
         <source>Pick pen color</source>
-        <translation type="unfinished">ペンの色を取得</translation>
+        <translation>ペンの色を取得</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Pick fill color</source>
-        <translation type="unfinished">塗りつぶしの色を取得</translation>
+        <translation>塗りつぶしの色を取得</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Pick color</source>
-        <translation type="unfinished">色の選択</translation>
+        <translation>色の選択</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Pick font</source>
-        <translation type="unfinished">フォントの選択</translation>
+        <translation>フォントの選択</translation>
     </message>
 </context>
 <context>

@@ -164,7 +164,7 @@
     <message>
         <location/>
         <source>Inherit ACL of parent?</source>
-        <translation>親チャンネルのACLを継承しますか？</translation>
+        <translation>親チャンネルのACLを継承しますか?</translation>
     </message>
     <message>
         <location/>
@@ -519,7 +519,7 @@
     <message>
         <location/>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>選択されたデバイスの設定を行います。多くのASIOドライバーが極端に不安定であることに注意してください。それらに問い合わせをすることはアプリケーションやシステムのクラッシュを引き起こすかもしれません</translation>
+        <translation>選択されたデバイスの設定を行います。多くのASIOドライバーが極端に不安定であることに注意してください。それらに問い合わせをすることはアプリケーションやシステムのクラッシュを引き起こすかもしれません。</translation>
     </message>
     <message>
         <location/>
@@ -591,7 +591,7 @@
         <location line="-23"/>
         <location line="+27"/>
         <source>Failed to instantiate ASIO driver</source>
-        <translation>ASIOドライバのインスタンス化に失敗しました。</translation>
+        <translation>ASIOドライバのインスタンス化に失敗しました</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -1199,7 +1199,7 @@
     <message>
         <location/>
         <source>Use Amplitude based speech detection.</source>
-        <translation>信号の強さに基づく発言認識を使用</translation>
+        <translation>信号の強さに基づく発言認識を使用。</translation>
     </message>
     <message>
         <location/>
@@ -1369,7 +1369,7 @@
     <message>
         <location/>
         <source>How long to remain idle before auto-mute.</source>
-        <translation>自動ミュートまで必要なアイドル時間</translation>
+        <translation>自動ミュートまで必要なアイドル時間。</translation>
     </message>
     <message>
         <location/>
@@ -1612,7 +1612,7 @@
         <location/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</oldsource>
-        <translation type="unfinished">&lt;b&gt;ループバックテストの為のパケットレイテンシーの値を調整します。&lt;/b&gt;&lt;br /&gt;音声のネットワーク経路は、ほとんどの場合若干のレイテンシーを含んでいます。 この設定はループバックモードでのテスト時、レイテンシーの値を変更できるようにします。例えば、この値を15msにすると、20-35msのレイテンシーや80ms-95msのレイテンシーを持ったネットワークをエミュレートするでしょう。 国内のネット接続ではおよそ5msくらいのレイテンシーがあります。</translation>
+        <translation>&lt;b&gt;ループバックテストの為のパケットレイテンシーの値を調整します。&lt;/b&gt;&lt;br /&gt;音声のネットワーク経路は、ほとんどの場合若干のレイテンシーを含んでいます。 この設定はループバックモードでのテスト時、レイテンシーの値を変更できるようにします。例えば、この値を15msにすると、20-35msのレイテンシーや80ms-95msのレイテンシーを持ったネットワークをエミュレートするでしょう。 国内のネット接続ではおよそ5msくらいのレイテンシーがあります</translation>
     </message>
     <message>
         <location/>
@@ -1627,7 +1627,7 @@
     <message>
         <location/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
-        <translation>&lt;b&gt;ループバックモードでのパケットロスを設定します。&lt;/b&gt;&lt;br /&gt;これはパケットロスの割合です。送信方向の帯域幅のピークに達するか、ネットワーク接続に問題がない限り、これは0%のはずです。</translation>
+        <translation>&lt;b&gt;ループバックモードでのパケットロスを設定します。&lt;/b&gt;&lt;br /&gt;これはパケットロスの割合です。送信方向の帯域幅のピークに達するか、ネットワーク接続に問題がない限り、これは0%のはずです</translation>
     </message>
     <message>
         <location/>
@@ -1652,7 +1652,7 @@
     <message>
         <location/>
         <source>The connected &quot;speakers&quot; are actually headphones.</source>
-        <translation type="unfinished"></translation>
+        <translation>接続している &quot;出力機器&quot; はヘッドホンです。</translation>
     </message>
     <message>
         <location/>
@@ -1662,7 +1662,7 @@
     <message>
         <location/>
         <source>Minimum distance to player before sound volume decreases</source>
-        <translation>サウンドのボリュームが減る前のプレイヤに対する最小の距離です。</translation>
+        <translation>サウンドのボリュームが減る前のプレイヤに対する最小の距離です</translation>
     </message>
     <message>
         <location/>
@@ -1692,7 +1692,7 @@
     <message>
         <location/>
         <source>How much should sound volume increase for sources that are really close?</source>
-        <translation>入力ソースの近さによってどのくらいボリュームを上げるか</translation>
+        <translation>入力ソースの近さによってどのくらいボリュームを上げるか?</translation>
     </message>
     <message>
         <source>Connected &quot;speakers&quot; are actually headphones.</source>
@@ -2154,7 +2154,7 @@
     <message>
         <location line="+5"/>
         <source>Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.</source>
-        <translation>イライラしていたり、興奮していたりする時のように大声で話してみてください。話している間、下にあるバーが青と緑の区域のなるべく赤に近い場所に留まるまでサウンドコントロールパネルの音量を下げてください。(赤い区域には&lt;b&gt;入らない&lt;/b&gt;ようにしましょう)</translation>
+        <translation>イライラしていたり、興奮していたりする時のように大声で話してみてください。話している間、下にあるバーが青と緑の区域のなるべく赤に近い場所に留まるまでサウンドコントロールパネルの音量を下げてください。(赤い区域には&lt;b&gt;入らない&lt;/b&gt;ようにしましょう)。</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -2214,7 +2214,7 @@
     <message>
         <location line="+23"/>
         <source>Amount of data to buffer.</source>
-        <translation>バッファデータの量</translation>
+        <translation>バッファデータの量。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2244,7 +2244,7 @@
     <message>
         <location line="+294"/>
         <source>Audio path is %1ms long.</source>
-        <translation>音声経路は %1ms の長さ</translation>
+        <translation>音声経路は %1ms の長さ。</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2274,7 +2274,7 @@
     <message>
         <location line="+1"/>
         <source>Allows positioning of sound.</source>
-        <translation>音声の位置</translation>
+        <translation>音声の位置。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2289,7 +2289,7 @@
     <message>
         <location line="+1"/>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation>位置音響の減衰効果を調整します</translation>
+        <translation>位置音響の減衰効果を調整します。</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2309,7 +2309,7 @@
     <message>
         <location line="+1"/>
         <source>Use headphones instead of speakers.</source>
-        <translation>スピーカーの代わりにヘッドホンを使う</translation>
+        <translation>スピーカーの代わりにヘッドホンを使う。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2638,7 +2638,7 @@
         <location line="+3"/>
         <location filename="ConfigDialog.mm" line="+3"/>
         <source>Undo changes for current page</source>
-        <translation>このページの変更を元に戻す。</translation>
+        <translation>このページの変更を元に戻す</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2650,7 +2650,7 @@
         <location line="+3"/>
         <location filename="ConfigDialog.mm" line="+3"/>
         <source>Restore defaults for current page</source>
-        <translation>このページをデフォルト設定に戻す。</translation>
+        <translation>このページをデフォルト設定に戻す</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2845,69 +2845,69 @@
     <message>
         <location filename="CrashReporter.cpp" line="+37"/>
         <source>Mumble Crash Report</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Email address (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>クラッシュしたときにあなたが何をしていたかを簡潔に&lt;b&gt;英語で&lt;/b&gt;書いてください</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Send Report</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Don&apos;t send report</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Crash upload successful</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Thank you for helping make Mumble better!</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+2"/>
         <source>Crash upload failed</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="-2"/>
         <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+114"/>
         <source>Uploading crash report</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Abort upload</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -2938,7 +2938,7 @@
     <message>
         <location line="-5"/>
         <source>Lost DirectSound input device.</source>
-        <translation>DirectSound入力デバイスを失いました</translation>
+        <translation>DirectSound入力デバイスを失いました。</translation>
     </message>
 </context>
 <context>
@@ -2965,7 +2965,7 @@
     <message>
         <location line="+325"/>
         <source>Lost DirectSound output device.</source>
-        <translation>DirectSound出力デバイスを失いました</translation>
+        <translation>DirectSound出力デバイスを失いました。</translation>
     </message>
 </context>
 <context>
@@ -3238,7 +3238,7 @@ of the possible locations.</source>
     <message>
         <location line="+1"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;これはグローバルショットカットキーの組み合わせです。&lt;/b&gt;&lt;br /&gt;このフィールドをダブルクリックして、バインドしなおしたいキーかボタンのコンボをダブルクリックしてください。</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3556,7 +3556,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+1"/>
         <source>Path to soundfile used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change</source>
-        <translation type="unfinished"></translation>
+        <translation>イベント「%1」のときに音声通知のために使用するサウンドファイルのパス&lt;br /&gt;シングルクリックで再生&lt;br /&gt;ダブルクリックで変更</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3579,12 +3579,12 @@ p, li { white-space: pre-wrap; }
         <location line="+1"/>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>イベント「%1」のときに音声通知を切り替えるにはここをクリックしてください。&lt;br /&gt; もしチェックしたなら、Mumble はイベント「%1」に設定された音声ファイルを再生します。音声ファイルとTTSは同時に使えません。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>イベント「%1」のときに音声通知のために使用するサウンドファイルのパス&lt;br /&gt;シングルクリックで再生&lt;br /&gt;ダブルクリックで変更&lt;br /&gt;これらのイベントのための音声通知が有効であるか、またはこのフィールドが無効であることを確認してください。</translation>
     </message>
     <message>
         <location line="+93"/>
@@ -3790,7 +3790,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>List players above subchannels (requires restart).</source>
-        <translation>サブチャンネルより上にプレイヤーが表示されるように並べます。(再起動が必要)</translation>
+        <translation>サブチャンネルより上にプレイヤーが表示されるように並べます。(再起動が必要)。</translation>
     </message>
     <message>
         <location/>
@@ -3873,7 +3873,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
-        <translation>終了時に最小化するか閉じるかを確認します</translation>
+        <translation>終了時に最小化するか閉じるかを確認します。</translation>
     </message>
     <message>
         <location/>
@@ -3888,7 +3888,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Make the Mumble window appear on top of other windows.</source>
-        <translation>最前面に表示する</translation>
+        <translation>最前面に表示する。</translation>
     </message>
     <message>
         <location/>
@@ -3925,7 +3925,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
-        <translation>最小化されている時にメインウインドウをタスクトレイに格納します</translation>
+        <translation>最小化されている時にメインウインドウをタスクトレイに格納します。</translation>
     </message>
 </context>
 <context>
@@ -4098,7 +4098,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>&amp;Rename</source>
-        <translation>チャンネル名を変更する</translation>
+        <translation>チャンネル名を変更(&amp;R)</translation>
     </message>
     <message>
         <location/>
@@ -4113,7 +4113,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>This changes the description of a channel.</source>
-        <translation>チャンネルの説明を変更する</translation>
+        <translation>チャンネルの説明を変更する。</translation>
     </message>
     <message>
         <location/>
@@ -4123,7 +4123,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Link your channel to another channel</source>
-        <translation>あなたのいるチャンネルを他のチャンネルとリンクします。</translation>
+        <translation>あなたのいるチャンネルを他のチャンネルとリンクします</translation>
     </message>
     <message>
         <location/>
@@ -4257,7 +4257,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Allows you to change most settings for Mumble.</source>
-        <translation>Mumbleのいろいろな設定をします</translation>
+        <translation>Mumbleのいろいろな設定をします。</translation>
     </message>
     <message>
         <location/>
@@ -4326,7 +4326,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Check for new version of Mumble</source>
-        <translation>Mumbleの新しいバージョンがあるか確認します。</translation>
+        <translation>Mumbleの新しいバージョンがあるか確認します</translation>
     </message>
     <message>
         <location/>
@@ -4411,7 +4411,7 @@ p, li { white-space: pre-wrap; }
         <location line="+2"/>
         <source>Toggle self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation>自分の発言禁止状態を切り替え</translation>
+        <translation>自分の発言禁止状態を切り替え。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4429,7 +4429,7 @@ p, li { white-space: pre-wrap; }
         <location line="+2"/>
         <source>Toggle self-deafen status.</source>
         <comment>Global Shortcut</comment>
-        <translation>自分の聴取禁止状態を切り替える</translation>
+        <translation>自分の聴取禁止状態を切り替える。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4506,7 +4506,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+527"/>
         <source>Kicking player %1</source>
-        <translation>プレイヤー %1 をキックしました。</translation>
+        <translation>プレイヤー %1 をキックしました</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4533,37 +4533,37 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="-21"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
-        <translation>%1 とそのサブチャンネルを全て削除します。よろしいですか？</translation>
+        <translation>%1 とそのサブチャンネルを全て削除します。よろしいですか?</translation>
     </message>
     <message>
         <location line="+183"/>
         <source>Unmuted and undeafened.</source>
-        <translation>発言禁止を解除し、聴取禁止も解除</translation>
+        <translation>発言禁止を解除し、聴取禁止も解除。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unmuted.</source>
-        <translation>発言禁止を解除</translation>
+        <translation>発言禁止を解除。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted.</source>
-        <translation>発言禁止</translation>
+        <translation>発言禁止。</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Muted and deafened.</source>
-        <translation>発言禁止と聴取禁止</translation>
+        <translation>発言禁止と聴取禁止。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened.</source>
-        <translation>聴取禁止</translation>
+        <translation>聴取禁止。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Undeafened.</source>
-        <translation>聴取禁止を解除</translation>
+        <translation>聴取禁止を解除。</translation>
     </message>
     <message>
         <location line="+62"/>
@@ -4573,7 +4573,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+97"/>
         <source>Joining %1.</source>
-        <translation>%1 に入る</translation>
+        <translation>%1 に入る。</translation>
     </message>
     <message>
         <source>Connected to server.</source>
@@ -4693,7 +4693,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+3"/>
         <source>%1 left channel.</source>
-        <translation>%1 がチャンネルから退出しました</translation>
+        <translation>%1 がチャンネルから退出しました。</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4731,7 +4731,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="main.cpp" line="+239"/>
         <source>Welcome to Mumble.</source>
-        <translation>Mumbleへようこそ</translation>
+        <translation>Mumbleへようこそ。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -4746,7 +4746,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Exits the application.</source>
-        <translation>アプリケーションを終了</translation>
+        <translation>アプリケーションを終了。</translation>
     </message>
     <message>
         <location/>
@@ -4761,7 +4761,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="+217"/>
         <source>Sending message to %1</source>
-        <translation>%1 にメッセージを送信しています。</translation>
+        <translation>%1 にメッセージを送信しています</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -4798,7 +4798,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+0"/>
         <source>Wrong password for registered users, please try again.</source>
-        <translation>登録されたユーザのパスワードが違います。再度試してください</translation>
+        <translation>登録されたユーザのパスワードが違います。再度試してください。</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4828,7 +4828,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Start the audio configuration wizard</source>
-        <translation>音声の設定ウィザードを開始します。</translation>
+        <translation>音声の設定ウィザードを開始します</translation>
     </message>
     <message>
         <location/>
@@ -5029,7 +5029,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Sends a text message to all users in a channel.</source>
-        <translation>チャンネル内の全てのユーザにテキストメッセージを送信します</translation>
+        <translation>チャンネル内の全てのユーザにテキストメッセージを送信します。</translation>
     </message>
     <message>
         <location/>
@@ -5039,7 +5039,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Send message to channel tree.</source>
-        <translation>チャンネルツリーにメッセージを送信します</translation>
+        <translation>チャンネルツリーにメッセージを送信します。</translation>
     </message>
     <message>
         <location/>
@@ -5054,7 +5054,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="main.cpp" line="+17"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
-        <translation>初めての起動です。&lt;br /&gt;サウンドカードの設定をするために音声ウィザードに移動しますか？</translation>
+        <translation>初めての起動です。&lt;br /&gt;サウンドカードの設定をするために音声ウィザードに移動しますか?</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="-441"/>
@@ -5069,7 +5069,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="-1001"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
-        <translation>サーバに接続中です。接続を閉じるか最小化するかを選択してください。</translation>
+        <translation>サーバに接続中です。接続を閉じるか最小化したいですか?</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5147,7 +5147,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+6"/>
         <source>Unknown Channel Drag mode in PlayerModel::dropMimeData.</source>
-        <translation>不明なチャンネルドラッグモード, PlayerModel::dropMimeData</translation>
+        <translation>不明なチャンネルドラッグモード, PlayerModel::dropMimeData。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -5743,7 +5743,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+561"/>
         <source>Are you sure you want to drag this channel?</source>
-        <translation>本当にこのチャンネルをドラッグしますか？</translation>
+        <translation>本当にこのチャンネルをドラッグしますか?</translation>
     </message>
 </context>
 <context>
@@ -5767,7 +5767,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Enable plugins and transmit positional information</source>
-        <translation>プラグインを有効にすると位置情報を送信します。</translation>
+        <translation>プラグインを有効にすると位置情報を送信します</translation>
     </message>
     <message>
         <location/>
@@ -5999,22 +5999,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location/>
         <source>Disables html formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>HTML形式を無効にする</translation>
     </message>
     <message>
         <location/>
         <source>Disable text formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>TEXT形式を無効にする</translation>
     </message>
     <message>
         <location/>
         <source>This field reflects how the message will look like in the chat.</source>
-        <translation type="unfinished"></translation>
+        <translation>このフィールドはどのようにメッセージガチャッ途上で表示されるかを反映します。</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br /&gt;This field takes the raw string entered above and renders it like it will look like in the log. For example  &amp;lt;b&amp;gt;Test&amp;lt;/b&amp;gt; will display as: &lt;b&gt;Test&lt;b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;プレビュー&lt;/b&gt;&lt;br /&gt;このフィールドは上で入力された生の文字列をとり、それをログ上で見れる形にレンダリングします。例えば  &amp;lt;b&amp;gt;Test&amp;lt;/b&amp;gt; は次のように表示します :&lt;b&gt;Test&lt;b&gt;。</translation>
     </message>
 </context>
 <context>
@@ -6030,37 +6030,37 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="VersionCheck.cpp" line="+130"/>
         <source>Upgrade Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble のアップグレード</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble の新しいバージョンが見つかり、自動的にダウンロードされました。このバージョンにアップグレードするか、最新の安定リリースにダウングレードすることが推奨されます。このインストーラを起動しますか?</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Failed to launch snapshot installer.</source>
-        <translation type="unfinished"></translation>
+        <translation>snapshot のインストーラの起動に失敗しました。</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Corrupt download of new version detected. Automatically removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>新しいバージョンの破損したダウンロードが検知されました。自動的に削除されました。</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Downloading new snapshot from %1 to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 から %2 に新しい snapshot をダウンロード中です</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Failed to write new version to disc.</source>
-        <translation type="unfinished"></translation>
+        <translation>ディスクに新しいバージョンを書きこむことに失敗しました。</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Mumble failed to retrieve version information from the central server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble は中央サーバからのバージョン情報の取得に失敗しました。</translation>
     </message>
 </context>
 <context>
@@ -6158,12 +6158,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+4"/>
         <source>Email: %1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+4"/>
         <source>DNS: %1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+9"/>
