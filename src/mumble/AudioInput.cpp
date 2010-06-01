@@ -82,6 +82,9 @@ AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 	return AudioInputPtr();
 }
 
+bool AudioInputRegistrar::canExclusive() const {
+	return false;
+}
 
 AudioInput::AudioInput() {
 	adjustBandwidth(g.iMaxBandwidth, iAudioQuality, iAudioFrames);

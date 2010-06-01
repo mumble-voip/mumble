@@ -55,6 +55,7 @@ class WASAPIInputRegistrar : public AudioInputRegistrar {
 		virtual const QList<audioDevice> getDeviceChoices();
 		virtual void setDeviceChoice(const QVariant &, Settings &);
 		virtual bool canEcho(const QString &) const;
+		virtual bool canExclusive() const;
 };
 
 class WASAPIOutputRegistrar : public AudioOutputRegistrar {
@@ -64,6 +65,7 @@ class WASAPIOutputRegistrar : public AudioOutputRegistrar {
 		virtual const QList<audioDevice> getDeviceChoices();
 		virtual void setDeviceChoice(const QVariant &, Settings &);
 		bool canMuteOthers() const;
+		virtual bool canExclusive() const;
 };
 
 class WASAPIInit : public DeferInit {
@@ -125,6 +127,10 @@ bool WASAPIInputRegistrar::canEcho(const QString &outputsys) const {
 	return (outputsys == name);
 }
 
+bool WASAPIInputRegistrar::canExclusive() const {
+	return true;
+}
+
 WASAPIOutputRegistrar::WASAPIOutputRegistrar() : AudioOutputRegistrar(QLatin1String("WASAPI"), 10) {
 }
 
@@ -141,6 +147,10 @@ void WASAPIOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s)
 }
 
 bool WASAPIOutputRegistrar::canMuteOthers() const {
+	return true;
+}
+
+bool WASAPIOutputRegistrar::canExclusive() const {
 	return true;
 }
 
@@ -240,6 +250,7 @@ void WASAPIInput::run() {
 	IAudioCaptureClient *pEchoCaptureClient = NULL;
 	WAVEFORMATEX *micpwfx = NULL, *echopwfx = NULL;
 	WAVEFORMATEXTENSIBLE *micpwfxe = NULL, *echopwfxe = NULL;
+	WAVEFORMATEXTENSIBLE wfe;
 	UINT32 bufferFrameCount;
 	UINT32 numFramesAvailable;
 	UINT32 numFramesLeft;
@@ -253,7 +264,10 @@ void WASAPIInput::run() {
 	DWORD dwTaskIndex = 0;
 	HANDLE hMmThread;
 	float *tbuff = NULL;
+	short *sbuff = NULL;
 	bool doecho = g.s.doEcho();
+	REFERENCE_TIME def, min, latency, want;
+	bool exclusive = false;
 
 	CoInitialize(NULL);
 
@@ -343,19 +357,61 @@ void WASAPIInput::run() {
 		goto cleanup;
 	}
 
-	hr = pMicAudioClient->GetMixFormat(&micpwfx);
-	micpwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(micpwfx);
+	def = min = latency = 0;
+	
+	pMicAudioClient->GetDevicePeriod(&def, &min);
+	
+	want = qMax<REFERENCE_TIME>(min, 100000);
+	qWarning("WASAPIInput: Latencies %lld %lld => %lld", def, min, want);
+	
+	if (g.s.bExclusiveInput && ! doecho) {
+		for(int channels = 1; channels<=2; ++channels) {
+			ZeroMemory(&wfe, sizeof(wfe));
+			wfe.Format.cbSize = 0;
+			wfe.Format.wFormatTag = WAVE_FORMAT_PCM;
+			wfe.Format.nChannels = channels;
+			wfe.Format.nSamplesPerSec = 48000;
+			wfe.Format.wBitsPerSample = 16;
+			wfe.Format.nBlockAlign = wfe.Format.nChannels * wfe.Format.wBitsPerSample / 8;
+			wfe.Format.nAvgBytesPerSec = wfe.Format.nBlockAlign * wfe.Format.nSamplesPerSec;
 
-	if (FAILED(hr) || (micpwfx->wBitsPerSample != (sizeof(float) * 8)) || (micpwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)) {
-		qWarning("WASAPIInput: Mic Subformat is not IEEE Float");
-		goto cleanup;
+			micpwfxe = &wfe;
+			micpwfx = reinterpret_cast<WAVEFORMATEX *>(&wfe);
+
+			hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_EXCLUSIVE, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, want, want, micpwfx, NULL);
+			if (SUCCEEDED(hr)) {
+				eMicFormat = SampleShort;
+				exclusive = true;
+				qWarning("WASAPIInput: Successfully opened exclusive mode");
+				break;
+			}
+			
+			micpwfxe = NULL;
+			micpwfx = NULL;
+		}
+	}
+	
+	if (!  micpwfxe) {
+		if (g.s.bExclusiveInput)
+			qWarning("WASAPIInput: Failed to open exclusive mode.");
+			
+		hr = pMicAudioClient->GetMixFormat(&micpwfx);
+		micpwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(micpwfx);
+
+		if (FAILED(hr) || (micpwfx->wBitsPerSample != (sizeof(float) * 8)) || (micpwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)) {
+			qWarning("WASAPIInput: Mic Subformat is not IEEE Float");
+			goto cleanup;
+		}
+
+		hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, 0, 0, micpwfx, NULL);
+		if (FAILED(hr)) {
+			qWarning("WASAPIInput: Mic Initialize failed");
+			goto cleanup;
+		}
 	}
 
-	hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, 0, 0, micpwfx, NULL);
-	if (FAILED(hr)) {
-		qWarning("WASAPIInput: Mic Initialize failed");
-		goto cleanup;
-	}
+	pMicAudioClient->GetStreamLatency(&latency);
+	qWarning("WASAPIInput: Stream Latency %lld", latency);
 
 	hr = pMicAudioClient->GetBufferSize(&bufferFrameCount);
 	hr = pMicAudioClient->GetService(__uuidof(IAudioCaptureClient), (void**)&pMicCaptureClient);
@@ -426,57 +482,85 @@ void WASAPIInput::run() {
 	initializeMixer();
 
 	allocLength = (iMicLength / 2) * micpwfx->nChannels;
-	tbuff = new float[allocLength];
 
-	while (bRunning && ! FAILED(hr)) {
-		hr = pMicCaptureClient->GetNextPacketSize(&micPacketLength);
-		if (! FAILED(hr) && iEchoChannels)
-			hr = pEchoCaptureClient->GetNextPacketSize(&echoPacketLength);
-		if (FAILED(hr))
-			goto cleanup;
-
-		while ((micPacketLength > 0) || (echoPacketLength > 0)) {
-			if (echoPacketLength > 0) {
-				hr = pEchoCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition, &qpcPosition);
+	if (exclusive) {
+		sbuff = new short[allocLength];
+		while (bRunning && ! FAILED(hr)) {
+			hr = pMicCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition, &qpcPosition);
+			if (hr != AUDCLNT_S_BUFFER_EMPTY) {
+				if (FAILED(hr))
+					goto cleanup;
+			
 				numFramesLeft = numFramesAvailable;
-				if (FAILED(hr))
-					goto cleanup;
-
-				UINT32 nFrames = numFramesAvailable * echopwfx->nChannels;
-				if (nFrames > allocLength) {
-					delete [] tbuff;
-					allocLength = nFrames;
-					tbuff = new float[allocLength];
-				}
-				memcpy(tbuff, pData, nFrames * sizeof(float));
-				hr = pEchoCaptureClient->ReleaseBuffer(numFramesAvailable);
-				if (FAILED(hr))
-					goto cleanup;
-				addEcho(tbuff, numFramesAvailable);
-			} else if (micPacketLength > 0) {
-				hr = pMicCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition, &qpcPosition);
-				numFramesLeft = numFramesAvailable;
-				if (FAILED(hr))
-					goto cleanup;
 
 				UINT32 nFrames = numFramesAvailable * micpwfx->nChannels;
 				if (nFrames > allocLength) {
-					delete [] tbuff;
+					delete [] sbuff;
 					allocLength = nFrames;
-					tbuff = new float[allocLength];
+					sbuff = new short[allocLength];
 				}
-				memcpy(tbuff, pData, nFrames * sizeof(float));
+
+				memcpy(sbuff, pData, nFrames * sizeof(short));
 				hr = pMicCaptureClient->ReleaseBuffer(numFramesAvailable);
 				if (FAILED(hr))
 					goto cleanup;
-				addMic(tbuff, numFramesAvailable);
+				addMic(sbuff, numFramesAvailable);
 			}
+			if (! FAILED(hr))
+				WaitForSingleObject(hEvent, 100);
+		}
+	} else {
+		tbuff = new float[allocLength];
+		while (bRunning && ! FAILED(hr)) {
 			hr = pMicCaptureClient->GetNextPacketSize(&micPacketLength);
 			if (! FAILED(hr) && iEchoChannels)
 				hr = pEchoCaptureClient->GetNextPacketSize(&echoPacketLength);
+			if (FAILED(hr))
+				goto cleanup;
+
+			while ((micPacketLength > 0) || (echoPacketLength > 0)) {
+				if (echoPacketLength > 0) {
+					hr = pEchoCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition, &qpcPosition);
+					numFramesLeft = numFramesAvailable;
+					if (FAILED(hr))
+						goto cleanup;
+
+					UINT32 nFrames = numFramesAvailable * echopwfx->nChannels;
+					if (nFrames > allocLength) {
+						delete [] tbuff;
+						allocLength = nFrames;
+						tbuff = new float[allocLength];
+					}
+					memcpy(tbuff, pData, nFrames * sizeof(float));
+					hr = pEchoCaptureClient->ReleaseBuffer(numFramesAvailable);
+					if (FAILED(hr))
+						goto cleanup;
+					addEcho(tbuff, numFramesAvailable);
+				} else if (micPacketLength > 0) {
+					hr = pMicCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition, &qpcPosition);
+					numFramesLeft = numFramesAvailable;
+					if (FAILED(hr))
+						goto cleanup;
+
+					UINT32 nFrames = numFramesAvailable * micpwfx->nChannels;
+					if (nFrames > allocLength) {
+						delete [] tbuff;
+						allocLength = nFrames;
+						tbuff = new float[allocLength];
+					}
+					memcpy(tbuff, pData, nFrames * sizeof(float));
+					hr = pMicCaptureClient->ReleaseBuffer(numFramesAvailable);
+					if (FAILED(hr))
+						goto cleanup;
+					addMic(tbuff, numFramesAvailable);
+				}
+				hr = pMicCaptureClient->GetNextPacketSize(&micPacketLength);
+				if (! FAILED(hr) && iEchoChannels)
+					hr = pEchoCaptureClient->GetNextPacketSize(&echoPacketLength);
+			}
+			if (! FAILED(hr))
+				WaitForSingleObject(hEvent, 2000);
 		}
-		if (! FAILED(hr))
-			WaitForSingleObject(hEvent, 2000);
 	}
 
 cleanup:
@@ -514,6 +598,9 @@ cleanup:
 
 	if (tbuff)
 		delete [] tbuff;
+		
+	if (sbuff)
+		delete [] sbuff;
 }
 
 WASAPIOutput::WASAPIOutput() {

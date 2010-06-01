@@ -87,6 +87,7 @@ class AudioOutputRegistrar {
 		virtual void setDeviceChoice(const QVariant &, Settings &) = 0;
 		virtual bool canMuteOthers() const;
 		virtual bool usesOutputDelay() const;
+		virtual bool canExclusive() const;
 };
 
 class AudioOutputUser : public QObject {

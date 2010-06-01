@@ -104,6 +104,8 @@ void AudioInputDialog::load(const Settings &r) {
 	i=keys.indexOf(AudioInputRegistrar::current);
 	if (i >= 0)
 		loadComboBox(qcbSystem, i);
+		
+	loadCheckBox(qcbExclusive, r.bExclusiveInput);
 
 	qlePushClickPathOn->setText(r.qsPushClickOn);
 	qlePushClickPathOff->setText(r.qsPushClickOff);
@@ -158,6 +160,7 @@ void AudioInputDialog::save() const {
 	s.qsAudioInput = qcbSystem->currentText();
 	s.bEcho = qcbEcho->currentIndex() > 0;
 	s.bEchoMulti = qcbEcho->currentIndex() == 2;
+	s.bExclusiveInput = qcbExclusive->isChecked();
 
 	if (AudioInputRegistrar::qmNew) {
 		AudioInputRegistrar *air = AudioInputRegistrar::qmNew->value(qcbSystem->currentText());
@@ -355,6 +358,7 @@ void AudioInputDialog::on_qcbSystem_currentIndexChanged(int) {
 		}
 
 		qcbEcho->setEnabled(air->canEcho(s.qsAudioOutput));
+		qcbExclusive->setEnabled(air->canExclusive());
 	}
 
 	qcbDevice->setEnabled(ql.count() > 1);
@@ -418,6 +422,7 @@ void AudioOutputDialog::load(const Settings &r) {
 	if (i >= 0)
 		loadComboBox(qcbSystem, i);
 
+	loadCheckBox(qcbExclusive, r.bExclusiveOutput);
 	loadSlider(qsDelay, r.iOutputDelay);
 	loadSlider(qsVolume, iroundf(r.fVolume * 100.0f));
 	loadSlider(qsOtherVolume, iroundf((1.0f - r.fOtherVolume) * 100.0f));
@@ -455,6 +460,7 @@ void AudioOutputDialog::save() const {
 	s.fAudioBloom = static_cast<float>(qsBloom->value()) / 100.0f;
 	s.bPositionalAudio = qcbPositional->isChecked();
 	s.bPositionalHeadphone = qcbHeadphones->isChecked();
+	s.bExclusiveOutput = qcbExclusive->isChecked();
 
 
 	if (AudioOutputRegistrar::qmNew) {
@@ -495,6 +501,8 @@ void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
 		bool usesdelay = aor->usesOutputDelay();
 		qsDelay->setEnabled(usesdelay);
 		qlDelay->setEnabled(usesdelay);
+		
+		qcbExclusive->setEnabled(aor->canExclusive());
 	}
 
 	qcbDevice->setEnabled(ql.count() > 1);

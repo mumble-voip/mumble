@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>435</width>
-    <height>602</height>
+    <height>544</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <property name="title">
       <string>Interface</string>
      </property>
-     <layout class="QGridLayout">
+     <layout class="QGridLayout" name="gridLayout_3">
       <item row="0" column="0">
        <widget class="QLabel" name="qliSystem">
         <property name="text">
@@ -91,6 +91,19 @@
         </property>
         <property name="minimumContentsLength">
          <number>16</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" colspan="2">
+       <widget class="QCheckBox" name="qcbExclusive">
+        <property name="toolTip">
+         <string>Exclusive mode, not recommended.</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</string>
+        </property>
+        <property name="text">
+         <string>Exclusive</string>
         </property>
        </widget>
       </item>

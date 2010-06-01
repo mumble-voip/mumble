@@ -264,6 +264,9 @@ Settings::Settings() {
 
 	bEcho = false;
 	bEchoMulti = true;
+	
+	bExclusiveInput = true;
+	bExclusiveOutput = false;
 
 	iPortAudioInput = -1; // default device
 	iPortAudioOutput = -1; // default device
@@ -459,6 +462,8 @@ void Settings::load() {
 	SAVELOAD(fAudioBloom, "audio/bloom");
 	SAVELOAD(bEcho, "audio/echo");
 	SAVELOAD(bEchoMulti, "audio/echomulti");
+	SAVELOAD(bExclusiveInput, "audio/exclusiveinput");
+	SAVELOAD(bExclusiveOutput, "audio/exclusiveoutput");
 	SAVELOAD(bPositionalAudio, "audio/positional");
 	SAVELOAD(bPositionalHeadphone, "audio/headphone");
 	SAVELOAD(qsAudioInput, "audio/input");
@@ -697,6 +702,8 @@ void Settings::save() {
 	SAVELOAD(fAudioBloom, "audio/bloom");
 	SAVELOAD(bEcho, "audio/echo");
 	SAVELOAD(bEchoMulti, "audio/echomulti");
+	SAVELOAD(bExclusiveInput, "audio/exclusiveinput");
+	SAVELOAD(bExclusiveOutput, "audio/exclusiveoutput");
 	SAVELOAD(bPositionalAudio, "audio/positional");
 	SAVELOAD(bPositionalHeadphone, "audio/headphone");
 	SAVELOAD(qsAudioInput, "audio/input");

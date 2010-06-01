@@ -126,6 +126,19 @@
         </property>
        </widget>
       </item>
+      <item row="1" column="1">
+       <widget class="QCheckBox" name="qcbExclusive">
+        <property name="toolTip">
+         <string>Exclusive mode</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</string>
+        </property>
+        <property name="text">
+         <string>Exclusive</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>

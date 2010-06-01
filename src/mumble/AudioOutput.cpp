@@ -89,6 +89,10 @@ bool AudioOutputRegistrar::usesOutputDelay() const {
 	return true;
 }
 
+bool AudioOutputRegistrar::canExclusive() const {
+	return false;
+}
+
 AudioOutputUser::AudioOutputUser(const QString name) : qsName(name) {
 	iBufferSize = 0;
 	pfBuffer = NULL;

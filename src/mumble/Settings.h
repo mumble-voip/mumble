@@ -184,6 +184,7 @@ struct Settings {
 	QString qsWASAPIInput, qsWASAPIOutput;
 	QByteArray qbaDXInput, qbaDXOutput;
 
+	bool bExclusiveInput, bExclusiveOutput;
 	bool bEcho;
 	bool bEchoMulti;
 	bool bPositionalAudio;
