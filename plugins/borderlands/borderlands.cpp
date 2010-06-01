@@ -100,8 +100,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	ccontext[63] = 0;
-	context = std::string(strstr(ccontext,"bderlandspc"));
-	context.erase(context.find(":7777")+5);
+	context = std::string ( ccontext );
+	if ( context.find ( "bderlandspc" ) != std::string::npos )
+		context.erase ( 0, context.find ( "bderlandspc" ) );
+	if ( context.find ( ":7777" ) != std::string::npos )
+		context.erase ( context.find ( ":7777") + 5 );
 
 	return ok;
 }
