@@ -398,7 +398,7 @@ void MainWindow::hideEvent(QHideEvent *e) {
 #ifdef Q_OS_UNIX
 	if (! qApp->activeModalWidget() && ! qApp->activePopupWidget())
 #endif
-		if (g.s.bHideTray && qstiIcon->isSystemTrayAvailable() && e->spontaneous())
+		if (g.s.bHideInTray && qstiIcon->isSystemTrayAvailable() && e->spontaneous())
 			QMetaObject::invokeMethod(this, "hide", Qt::QueuedConnection);
 	QMainWindow::hideEvent(e);
 #endif
@@ -2272,14 +2272,17 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 	}
 
 	if (reason == QSystemTrayIcon::Trigger) {
-		if (! isVisible()) {
+		if (!isVisible() || isMinimized()) {
 			if (isMaximized())
 				showMaximized();
 			else
 				showNormal();
 			activateWindow();
 		} else {
-			hide();
+			if (g.s.bHideInTray)
+				hide();
+			else
+				showMinimized();
 		}
 	}
 }
@@ -2305,10 +2308,7 @@ void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)
 }
 
 void MainWindow::customEvent(QEvent *evt) {
-	if (evt->type() == TI_QEVENT) {
-		hide();
-		return;
-	} else if (evt->type() == MB_QEVENT) {
+	if (evt->type() == MB_QEVENT) {
 		MessageBoxEvent *mbe=static_cast<MessageBoxEvent *>(evt);
 		g.l->log(Log::Information, mbe->msg);
 		return;

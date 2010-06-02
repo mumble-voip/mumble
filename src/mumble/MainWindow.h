@@ -34,7 +34,6 @@
 
 #include "mumble_pch.hpp"
 
-#define TI_QEVENT (QEvent::User + 938)
 #define MB_QEVENT (QEvent::User + 939)
 #define OU_QEVENT (QEvent::User + 940)
 

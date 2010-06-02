@@ -220,7 +220,7 @@ struct Settings {
 	enum AlwaysOnTopBehaviour { OnTopNever, OnTopAlways, OnTopInMinimal, OnTopInNormal };
 	AlwaysOnTopBehaviour aotbAlwaysOnTop;
 	bool bAskOnQuit;
-	bool bHideTray;
+	bool bHideInTray;
 	bool bStateInTray;
 	bool bUsage;
 	bool bShowUserCount;

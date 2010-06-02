@@ -245,9 +245,9 @@ Settings::Settings() {
 	bAskOnQuit = true;
 #ifdef Q_OS_WIN
 	// Don't enable minimize to tray by default on win7
-	bHideTray = (QSysInfo::windowsVersion() != QSysInfo::WV_6_1);
+	bHideInTray = (QSysInfo::windowsVersion() != QSysInfo::WV_6_1);
 #else
-	bHideTray = true;
+	bHideInTray = true;
 #endif
 	bStateInTray = true;
 	bUsage = true;
@@ -547,7 +547,7 @@ void Settings::load() {
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 	SAVELOAD(bPluginCheck, "ui/plugincheck");
 #endif
-	SAVELOAD(bHideTray, "ui/hidetray");
+	SAVELOAD(bHideInTray, "ui/hidetray");
 	SAVELOAD(bStateInTray, "ui/stateintray");
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
@@ -786,7 +786,7 @@ void Settings::save() {
 	SAVELOAD(ssFilter, "ui/serverfilter");
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 	SAVELOAD(bPluginCheck, "ui/plugincheck");
-	SAVELOAD(bHideTray, "ui/hidetray");
+	SAVELOAD(bHideInTray, "ui/hidetray");
 	SAVELOAD(bStateInTray, "ui/stateintray");
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
