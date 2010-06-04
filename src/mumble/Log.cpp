@@ -225,6 +225,7 @@ const char *Log::msgNames[] = {
 	QT_TRANSLATE_NOOP("Log", "Server Disconnected"),
 	QT_TRANSLATE_NOOP("Log", "User Joined Server"),
 	QT_TRANSLATE_NOOP("Log", "User Left Server"),
+	QT_TRANSLATE_NOOP("Log", "User change recording mode"),
 	QT_TRANSLATE_NOOP("Log", "User kicked (you or by you)"),
 	QT_TRANSLATE_NOOP("Log", "User kicked"),
 	QT_TRANSLATE_NOOP("Log", "You self-muted/deafened"),

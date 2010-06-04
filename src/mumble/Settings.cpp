@@ -333,6 +333,9 @@ Settings::Settings() {
 	qmMessages[Log::UserKicked] = Settings::LogConsole;
 	qmMessages[Log::OtherSelfMute] = Settings::LogConsole;
 	qmMessages[Log::OtherMutedOther] = Settings::LogConsole;
+
+    // Unnoticed recording has a chance to violate privacy. Make it as obvious as possible.
+	qmMessages[Log::Recording] = Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS;
 }
 
 bool Settings::doEcho() const {

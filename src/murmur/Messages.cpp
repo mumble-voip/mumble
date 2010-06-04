@@ -335,6 +335,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 			mpus.set_suppress(true);
 		if (u->bPrioritySpeaker)
 			mpus.set_priority_speaker(true);
+		if (u->bRecording)
+			mpus.set_recording(true);
 		if (u->bSelfDeaf)
 			mpus.set_self_deaf(true);
 		else if (u->bSelfMute)

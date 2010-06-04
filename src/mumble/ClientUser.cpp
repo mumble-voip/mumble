@@ -132,6 +132,8 @@ QString ClientUser::getFlagsString() const {
 		flags << ClientUser::tr("Authenticated");
 	if (bPrioritySpeaker)
 		flags << ClientUser::tr("Priority speaker");
+	if (bRecording)
+		flags << ClientUser::tr("Recording");
 	if (bMute)
 		flags << ClientUser::tr("Muted (server)");
 	if (bDeaf)
@@ -216,6 +218,13 @@ void ClientUser::setPrioritySpeaker(bool priority) {
 	if (bPrioritySpeaker == priority)
 		return;
 	bPrioritySpeaker = priority;
+	emit muteDeafChanged();
+}
+
+void ClientUser::setRecording(bool recording) {
+	if (bRecording == recording)
+		return;
+	bRecording = recording;
 	emit muteDeafChanged();
 }
 

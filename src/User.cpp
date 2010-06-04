@@ -37,6 +37,7 @@ User::User() {
 	bMute = bDeaf = false;
 	bSelfMute = bSelfDeaf = false;
 	bPrioritySpeaker = false;
+	bRecording = false;
 	bSuppress = false;
 	cChannel = 0;
 }

@@ -48,6 +48,7 @@ class User {
 		bool bMute, bDeaf, bSuppress;
 		bool bSelfMute, bSelfDeaf;
 		bool bPrioritySpeaker;
+		bool bRecording;
 		Channel *cChannel;
 		QByteArray qbaTexture;
 		QByteArray qbaTextureHash;
