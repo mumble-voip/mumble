@@ -123,9 +123,9 @@ void VersionCheck::finished() {
 
 						static GUID guid = WINTRUST_ACTION_GENERIC_VERIFY_V2;
 
-						HRESULT hr = WinVerifyTrust(0, &guid , &data);
+						LONG ts = WinVerifyTrust(0, &guid , &data);
 
-						if (hr == 0) {
+						if (ts == 0) {
 							if (QMessageBox::question(g.mw,
 							                          tr("Upgrade Mumble"),
 							                          tr("A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?"),

@@ -599,11 +599,11 @@ void Plugins::finished() {
 
 						static GUID guid = WINTRUST_ACTION_GENERIC_VERIFY_V2;
 
-						HRESULT hr = WinVerifyTrust(0, &guid , &data);
+						LONG ts = WinVerifyTrust(0, &guid , &data);
 
 						QFile deltemp(tempname);
 						deltemp.remove();
-						verified = (hr == 0);
+						verified = (ts == 0);
 					}
 #endif
 					if (verified) {
