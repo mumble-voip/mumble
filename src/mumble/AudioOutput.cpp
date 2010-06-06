@@ -36,6 +36,8 @@
 #include "Message.h"
 #include "Plugins.h"
 #include "PacketDataStream.h"
+#include "ServerHandler.h"
+#include "VoiceRecorder.h"
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioOutputRegistrar() might be called before they are initialized, as the constructor
@@ -967,6 +969,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	const float adjustFactor = std::pow(10, -18. / 20);
 	const float mul = g.s.fVolume;
 	const unsigned int nchan = iChannels;
+	boost::shared_ptr<VoiceRecorder> recorder(g.sh->recorder);
 
 	qrwlOutputs.lockForRead();
 	bool needAdjustment = false;
@@ -993,6 +996,12 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		bool validListener = false;
 
 		memset(output, 0, sizeof(float) * nsamp * iChannels);
+
+		boost::shared_array<float> recbuff;
+		if (recorder) {
+			recbuff = boost::shared_array<float>(new float[nsamp]);
+			memset(recbuff.get(), 0, sizeof(float) * nsamp);
+		}
 
 		for (unsigned int i=0;i<iChannels;++i)
 			svol[i] = mul * fSpeakerVolume[i];
@@ -1077,6 +1086,22 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 				}
 			}
 
+			if (recorder) {
+				AudioOutputSpeech *aos = qobject_cast<AudioOutputSpeech *>(aop);
+
+				if (aos) {
+					for (unsigned int i = 0; i < nsamp; ++i) {
+						recbuff[i] += pfBuffer[i] * volumeAdjustment;
+					}
+
+					if (!recorder->getMixDown()) {
+						recorder->addBuffer(aos->p, recbuff, nsamp);
+						recbuff = boost::shared_array<float>(new float[nsamp]);
+						memset(recbuff.get(), 0, sizeof(float) * nsamp);
+					}
+				}
+			}
+
 			if (validListener && ((aop->fPos[0] != 0.0f) || (aop->fPos[1] != 0.0f) || (aop->fPos[2] != 0.0f))) {
 				float dir[3] = { aop->fPos[0] - g.p->fCameraPosition[0], aop->fPos[1] - g.p->fCameraPosition[1], aop->fPos[2] - g.p->fCameraPosition[2] };
 				float len = sqrtf(dir[0] * dir[0] + dir[1] * dir[1] + dir[2] * dir[2]);
@@ -1118,6 +1143,10 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			}
 		}
 
+		if (recorder && recorder->getMixDown()) {
+			recorder->addBuffer(NULL, recbuff, nsamp);
+		}
+
 		// Clip
 		if (eSampleFormat == SampleFloat)
 			for (unsigned int i=0;i<nsamp*iChannels;i++)
@@ -1125,6 +1154,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		else
 			for (unsigned int i=0;i<nsamp*iChannels;i++)
 				reinterpret_cast<short *>(outbuff)[i] = static_cast<short>(32768.f * (output[i] < -1.0f ? -1.0f : (output[i] > 1.0f ? 1.0f : output[i])));
+	} else if (recorder) {
+		recorder->addSilence(nsamp);
 	}
 
 	qrwlOutputs.unlock();
@@ -1137,4 +1168,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 
 bool AudioOutput::isAlive() const {
 	return isRunning();
+}
+
+unsigned int AudioOutput::getMixerFreq() const {
+	return iMixerFreq;
 }

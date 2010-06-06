@@ -68,6 +68,7 @@
 #include <boost/accumulators/statistics/variance.hpp>
 #include <boost/accumulators/statistics/extended_p_square.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/shared_array.hpp>
 #include <boost/weak_ptr.hpp>
 #include <boost/bind.hpp>
 #ifdef Q_CC_GNU

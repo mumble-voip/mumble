@@ -40,6 +40,7 @@
 
 class Connection;
 class Message;
+class VoiceRecorder;
 
 class ServerHandlerMessageEvent : public QEvent {
 	public:
@@ -81,6 +82,7 @@ class ServerHandler : public QThread {
 		QSslCipher qscCipher;
 		ConnectionPtr cConnection;
 		QByteArray qbaDigest;
+		boost::shared_ptr<VoiceRecorder> recorder;
 
 		unsigned int uiVersion;
 		QString qsRelease;
