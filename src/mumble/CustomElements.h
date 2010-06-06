@@ -47,8 +47,8 @@ class ChatbarTextEdit : public QTextEdit {
 		void contextMenuEvent(QContextMenuEvent *);
 		void dropEvent(QDropEvent *);
 		bool event(QEvent *);
-		QSize minimumSizeHint();
-		QSize sizeHint();
+		QSize minimumSizeHint() const;
+		QSize sizeHint() const;
 		void resizeEvent(QResizeEvent *e);
 	public:
 		void setDefaultText(const QString &, bool = false);

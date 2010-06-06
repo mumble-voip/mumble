@@ -88,9 +88,9 @@ void ChatbarTextEdit::contextMenuEvent(QContextMenuEvent *qcme) {
 	delete menu;
 }
 
-void ChatbarTextEdit::dropEvent(QDropEvent *event) {
+void ChatbarTextEdit::dropEvent(QDropEvent *evt) {
 	inFocus(true);
-	QTextEdit::dropEvent(event);
+	QTextEdit::dropEvent(evt);
 }
 
 ChatbarTextEdit::ChatbarTextEdit(QWidget *p) : QTextEdit(p) {
@@ -104,15 +104,15 @@ ChatbarTextEdit::ChatbarTextEdit(QWidget *p) : QTextEdit(p) {
 	setDefaultText(tr("<center>Type chat message here</center>"));
 }
 
-QSize ChatbarTextEdit::minimumSizeHint() {
+QSize ChatbarTextEdit::minimumSizeHint() const {
 	return QSize(0, fontMetrics().height());
 }
 
-QSize ChatbarTextEdit::sizeHint() {
-	QSize sizeHint = QTextEdit::sizeHint();
-	sizeHint.setHeight(document()->documentLayout()->documentSize().height());
-	setMaximumHeight(sizeHint.height());
-	return sizeHint;
+QSize ChatbarTextEdit::sizeHint() const {
+	QSize sh = QTextEdit::sizeHint();
+	sh.setHeight(static_cast<qint32>(document()->documentLayout()->documentSize().height()));
+	const_cast<ChatbarTextEdit *>(this)->setMaximumHeight(sh.height());
+	return sh;
 }
 
 void ChatbarTextEdit::resizeEvent(QResizeEvent *e) {
@@ -142,13 +142,13 @@ void ChatbarTextEdit::setDefaultText(const QString &new_default, bool force) {
 	}
 }
 
-bool ChatbarTextEdit::event(QEvent *event) {
-	if (event->type() == QEvent::ShortcutOverride) {
+bool ChatbarTextEdit::event(QEvent *evt) {
+	if (evt->type() == QEvent::ShortcutOverride) {
 		return false;
 	}
 
-	if (event->type() == QEvent::KeyPress) {
-		QKeyEvent *kev = static_cast<QKeyEvent*>(event);
+	if (evt->type() == QEvent::KeyPress) {
+		QKeyEvent *kev = static_cast<QKeyEvent*>(evt);
 		if ((kev->key() == Qt::Key_Enter || kev->key() == Qt::Key_Return) && !(kev->modifiers() & Qt::ShiftModifier)) {
 			g.mw->sendChatbarMessage();
 			return true;
@@ -161,7 +161,7 @@ bool ChatbarTextEdit::event(QEvent *event) {
 			return true;
 		}
 	}
-	return QTextEdit::event(event);
+	return QTextEdit::event(evt);
 }
 
 unsigned int ChatbarTextEdit::completeAtCursor() {
