@@ -87,7 +87,7 @@ ice {
 
 	win32 {
 		INCLUDEPATH *= /dev/Ice/include
-		LIBPATH *= /dev/Ice/lib
+		QMAKE_LIBDIR *= /dev/Ice/lib
 	}
 
 	macx {

@@ -25,12 +25,12 @@ CONFIG(packaged) {
 win32 {
 	INCLUDEPATH *= /dev/protobuf-2.3.0/vsprojects/include /dev/protobuf-2.3.0/src
 	CONFIG(debug, debug|release) {
-		LIBPATH *= /dev/protobuf-2.3.0/vsprojects/Debug
+		QMAKE_LIBDIR *= /dev/protobuf-2.3.0/vsprojects/Debug
 	} else {
-		LIBPATH *= /dev/protobuf-2.3.0/vsprojects/Release
+		QMAKE_LIBDIR *= /dev/protobuf-2.3.0/vsprojects/Release
 	}
 	INCLUDEPATH *= /dev/OpenSSL/include
-	LIBPATH	*= /dev/OpenSSL/lib
+	QMAKE_LIBDIR *= /dev/OpenSSL/lib
 
 	LIBS *= -llibprotobuf -lcrypt32 -lws2_32 -llibeay32
 	LIBS *= -ldelayimp -lQwave -delayload:Qwave.DLL
@@ -53,11 +53,11 @@ QMAKE_EXTRA_COMPILERS *= pb
 
 CONFIG(debug, debug|release) {
   CONFIG += console
-  LIBPATH	+= ../../debug
+  QMAKE_LIBDIR += ../../debug
   DESTDIR	= ../../debug
 }
 
 CONFIG(release, debug|release) {
-  LIBPATH	+= ../../release
+  QMAKE_LIBDIR += ../../release
   DESTDIR	= ../../release
 }

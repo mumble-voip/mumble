@@ -2,7 +2,7 @@ CONFIG *= warn_on
 
 win32 {
 	INCLUDEPATH *= /dev/Boost/include/boost-1_43
-	LIBPATH	*= /dev/OpenSSL/lib /dev/libsndfile
+	QMAKE_LIBDIR *= /dev/OpenSSL/lib /dev/libsndfile
 	INCLUDEPATH *= /dev/OpenSSL/include /dev/libsndfile/include
 
 	CONFIG(intelcpp) {
@@ -69,7 +69,7 @@ win32 {
 			VLD_DIR = /dev/vld
 		}
 		INCLUDEPATH *= "$$VLD_DIR/include"
-		LIBPATH *= "$$VLD_DIR/lib"
+		QMAKE_LIBDIR *= "$$VLD_DIR/lib"
 	}
 }
 
@@ -115,7 +115,7 @@ unix:!macx {
 macx {
 	INCLUDEPATH *= $$(MUMBLE_PREFIX)/boost-1_42_0/include
 	INCLUDEPATH *= $$(MUMBLE_PREFIX)/include
-	LIBPATH *= $$(MUMBLE_PREFIX)/lib
+	QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/lib
 
 	XCODE_PATH=$$system(xcode-select -print-path)
 	QMAKE_MAC_SDK = $${XCODE_PATH}/SDKs/MacOSX10.5.sdk
