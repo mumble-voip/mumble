@@ -99,6 +99,29 @@ static LONG WINAPI MumbleUnhandledExceptionFilter(struct _EXCEPTION_POINTERS* Ex
 	return EXCEPTION_CONTINUE_SEARCH;
 }
 
+BOOL SetHeapOptions() {
+	HMODULE hLib = LoadLibrary(L"kernel32.dll");
+	if (hLib == NULL)
+		return FALSE;
+
+	typedef BOOL (WINAPI *HSI)(HANDLE, HEAP_INFORMATION_CLASS, PVOID, SIZE_T);
+	HSI pHsi = (HSI)GetProcAddress(hLib, "HeapSetInformation");
+	if (!pHsi) {
+		FreeLibrary(hLib);
+		return FALSE;
+	}
+
+#ifndef HeapEnableTerminationOnCorruption
+#define HeapEnableTerminationOnCorruption (HEAP_INFORMATION_CLASS)1
+#endif
+
+	BOOL fRet = (pHsi)(NULL, HeapEnableTerminationOnCorruption, NULL, 0) ? TRUE : FALSE;
+	if (hLib)
+		FreeLibrary(hLib);
+
+	return fRet;
+}
+
 FARPROC WINAPI delayHook(unsigned dliNotify, PDelayLoadInfo pdli) {
 	if (dliNotify != dliNotePreLoadLibrary)
 		return 0;
@@ -170,6 +193,7 @@ void os_init() {
 	unsigned int currentControl = 0;
 	_controlfp_s(&currentControl, _DN_FLUSH, _MCW_DN);
 
+	SetHeapOptions();
 	mumble_speex_init();
 
 #ifdef QT_NO_DEBUG
