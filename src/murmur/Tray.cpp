@@ -70,7 +70,7 @@ void Tray::on_Tray_activated(QSystemTrayIcon::ActivationReason r) {
 }
 
 void Tray::on_Quit_triggered() {
-	if (QMessageBox::question(NULL, tr("Murmur"), tr("Are you sure you wish to quit murmur?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
+	if (QMessageBox::question(NULL, tr("Murmur"), tr("Are you sure you want to quit Murmur?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
 		qApp->quit();
 	}
 }
@@ -79,6 +79,7 @@ void Tray::on_ShowLog_triggered() {
 	QMainWindow *mw = new QMainWindow();
 	mw->setAttribute(Qt::WA_DeleteOnClose);
 	QTextBrowser *tb = new QTextBrowser();
+	mw->resize(675, 300);
 	mw->setCentralWidget(tb);
 	mw->setWindowTitle(QString::fromLatin1("Murmur -- %1").arg(MUMBLE_RELEASE));
 
