@@ -564,7 +564,7 @@ void WASAPIInput::run() {
 	}
 
 cleanup:
-	if (micpwfx)
+	if (micpwfx && !exclusive)
 		CoTaskMemFree(micpwfx);
 	if (echopwfx)
 		CoTaskMemFree(echopwfx);
@@ -710,8 +710,9 @@ void WASAPIOutput::run() {
 	IAudioRenderClient *pRenderClient = NULL;
 	WAVEFORMATEX *pwfx = NULL;
 	WAVEFORMATEXTENSIBLE *pwfxe = NULL;
+	WAVEFORMATEXTENSIBLE wfe;
 	UINT32 bufferFrameCount;
-	REFERENCE_TIME def, min, latency;
+	REFERENCE_TIME def, min, latency, want;
 	UINT32 numFramesAvailable;
 	UINT32 packetLength = 0;
 	UINT32 wantLength;
@@ -724,6 +725,7 @@ void WASAPIOutput::run() {
 	QMap<DWORD, float> qmVolumes;
 	bool lastspoke = false;
 	REFERENCE_TIME bufferDuration = (g.s.iOutputDelay > 1) ? (g.s.iOutputDelay + 1) * 100000 : 0;
+	bool exclusive = false;
 
 	CoInitialize(NULL);
 
@@ -781,27 +783,74 @@ void WASAPIOutput::run() {
 		goto cleanup;
 	}
 
-	hr = pAudioClient->GetMixFormat(&pwfx);
-	if (FAILED(hr)) {
-		qWarning("WASAPIOutput: GetMixFormat failed: %llx", hr);
-		goto cleanup;
-	}
-	pwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(pwfx);
+	pAudioClient->GetDevicePeriod(&def, &min);
+	want = qMax<REFERENCE_TIME>(min, 100000);
+	qWarning("WASAPIOutput: Latencies %lld %lld => %lld", def, min, want);
 
-	if (FAILED(hr) || (pwfx->wBitsPerSample != (sizeof(float) * 8)) || (pwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)) {
-		qWarning("WASAPIOutput: Subformat is not IEEE Float");
-		goto cleanup;
+	if (g.s.bExclusiveOutput) {
+		for(int channels = 1; channels<=8; ++channels) {
+			ZeroMemory(&wfe, sizeof(wfe));
+			wfe.Format.cbSize = 0;
+			wfe.Format.wFormatTag = WAVE_FORMAT_PCM;
+			wfe.Format.nChannels = channels;
+			wfe.Format.nSamplesPerSec = 48000;
+			wfe.Format.wBitsPerSample = 16;
+			wfe.Format.nBlockAlign = wfe.Format.nChannels * wfe.Format.wBitsPerSample / 8;
+			wfe.Format.nAvgBytesPerSec = wfe.Format.nBlockAlign * wfe.Format.nSamplesPerSec;
+
+			pwfxe = &wfe;
+			pwfx = reinterpret_cast<WAVEFORMATEX *>(&wfe);
+
+			hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_EXCLUSIVE, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, want, want, pwfx, NULL);
+			if (SUCCEEDED(hr)) {
+				eSampleFormat = SampleShort;
+				exclusive = true;
+				if (channels == 1)
+					pwfxe ->dwChannelMask = SPEAKER_FRONT_CENTER;
+				else if (channels == 2)
+					pwfxe ->dwChannelMask = SPEAKER_FRONT_LEFT | SPEAKER_FRONT_RIGHT;
+				else if (channels == 6)
+					pwfxe ->dwChannelMask = SPEAKER_FRONT_LEFT | SPEAKER_FRONT_RIGHT | SPEAKER_BACK_LEFT | SPEAKER_BACK_RIGHT | SPEAKER_FRONT_CENTER | SPEAKER_LOW_FREQUENCY;
+				else if (channels == 8)
+					pwfxe ->dwChannelMask = SPEAKER_FRONT_LEFT | SPEAKER_FRONT_RIGHT | SPEAKER_BACK_LEFT | SPEAKER_BACK_RIGHT | SPEAKER_FRONT_CENTER | SPEAKER_LOW_FREQUENCY | SPEAKER_SIDE_LEFT | SPEAKER_SIDE_RIGHT;
+
+				qWarning("WASAPIOutput: Successfully opened exclusive mode");
+				break;
+			}
+			
+			pwfxe = NULL;
+			pwfx = NULL;
+		}
 	}
+	
+	if (!  pwfxe) {
+		if (g.s.bExclusiveInput)
+			qWarning("WASAPIOutput: Failed to open exclusive mode.");
+			
+		hr = pAudioClient->GetMixFormat(&pwfx);
+		if (FAILED(hr)) {
+			qWarning("WASAPIOutput: GetMixFormat failed: %llx", hr);
+			goto cleanup;
+		}
+		pwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(pwfx);
+
+		if (FAILED(hr) || (pwfx->wBitsPerSample != (sizeof(float) * 8)) || (pwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)) {
+			qWarning("WASAPIOutput: Subformat is not IEEE Float");
+			goto cleanup;
+		}
+
+		hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, bufferDuration, 0, pwfx, NULL);
+		if (FAILED(hr)) {
+			qWarning("WASAPIOutput: Initialize failed");
+			goto cleanup;
+		}
+	}
+
+	pAudioClient->GetStreamLatency(&latency);
+	qWarning("WASAPIInput: Stream Latency %lld", latency);
 
 	iMixerFreq = pwfx->nSamplesPerSec;
 
-	hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, bufferDuration, 0, pwfx, NULL);
-	if (FAILED(hr)) {
-		qWarning("WASAPIOutput: Initialize failed");
-		goto cleanup;
-	}
-
-	pAudioClient->GetDevicePeriod(&def, &min);
 	pAudioClient->GetBufferSize(&bufferFrameCount);
 	pAudioClient->GetStreamLatency(&latency);
 
@@ -841,52 +890,73 @@ void WASAPIOutput::run() {
 	initializeMixer(chanmasks);
 
 	bool mixed = false;
-	while (bRunning && ! FAILED(hr)) {
-		hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
-		if (FAILED(hr))
-			goto cleanup;
-
-		packetLength = bufferFrameCount - numFramesAvailable;
-
-		if (lastspoke != (g.bAttenuateOthers || mixed)) {
-			lastspoke = g.bAttenuateOthers || mixed;
-			setVolumes(pDevice, lastspoke);
-		}
-
-		while (packetLength > 0) {
-			hr = pRenderClient->GetBuffer(packetLength, &pData);
+	if (! exclusive) {
+		while (bRunning && ! FAILED(hr)) {
+			hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
 			if (FAILED(hr))
 				goto cleanup;
 
-			mixed = mix(reinterpret_cast<float *>(pData), packetLength);
-			if (mixed)
-				hr = pRenderClient->ReleaseBuffer(packetLength, 0);
-			else
-				hr = pRenderClient->ReleaseBuffer(packetLength, AUDCLNT_BUFFERFLAGS_SILENT);
-			if (FAILED(hr))
-				goto cleanup;
-
-			if (!g.s.bAttenuateOthers && !g.bAttenuateOthers) {
-				mixed = false;
-			}
+			packetLength = bufferFrameCount - numFramesAvailable;
 
 			if (lastspoke != (g.bAttenuateOthers || mixed)) {
 				lastspoke = g.bAttenuateOthers || mixed;
 				setVolumes(pDevice, lastspoke);
 			}
 
-			hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
+			while (packetLength > 0) {
+				hr = pRenderClient->GetBuffer(packetLength, &pData);
+				if (FAILED(hr))
+					goto cleanup;
+
+				mixed = mix(reinterpret_cast<float *>(pData), packetLength);
+				if (mixed)
+					hr = pRenderClient->ReleaseBuffer(packetLength, 0);
+				else
+					hr = pRenderClient->ReleaseBuffer(packetLength, AUDCLNT_BUFFERFLAGS_SILENT);
+				if (FAILED(hr))
+					goto cleanup;
+
+				if (!g.s.bAttenuateOthers && !g.bAttenuateOthers) {
+					mixed = false;
+				}
+
+				if (lastspoke != (g.bAttenuateOthers || mixed)) {
+					lastspoke = g.bAttenuateOthers || mixed;
+					setVolumes(pDevice, lastspoke);
+				}
+
+				hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
+				if (FAILED(hr))
+					goto cleanup;
+
+				packetLength = bufferFrameCount - numFramesAvailable;
+			}
+			if (! FAILED(hr))
+				WaitForSingleObject(hEvent, 2000);
+		}
+	} else {
+		while (bRunning && ! FAILED(hr)) {
+			hr = pRenderClient->GetBuffer(wantLength, &pData);
 			if (FAILED(hr))
 				goto cleanup;
 
-			packetLength = bufferFrameCount - numFramesAvailable;
+			mixed = mix(pData, wantLength);
+			
+			if (mixed)
+				hr = pRenderClient->ReleaseBuffer(wantLength, 0);
+			else
+				hr = pRenderClient->ReleaseBuffer(wantLength, AUDCLNT_BUFFERFLAGS_SILENT);
+
+			if (FAILED(hr))
+				goto cleanup;
+				
+			if (! FAILED(hr))
+				WaitForSingleObject(hEvent, 100);
 		}
-		if (! FAILED(hr))
-			WaitForSingleObject(hEvent, 2000);
 	}
 
 cleanup:
-	if (pwfx)
+	if (pwfx && !exclusive)
 		CoTaskMemFree(pwfx);
 
 	setVolumes(pDevice, false);

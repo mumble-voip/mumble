@@ -77,6 +77,7 @@ struct Settings {
 	bool bAttenuateOthersOnTalk;
 	bool bAttenuateOthers;
 	int iOutputDelay;
+	bool bExclusiveInput, bExclusiveOutput;
 
 	QString qsALSAInput, qsALSAOutput;
 	QString qsPulseAudioInput, qsPulseAudioOutput;
