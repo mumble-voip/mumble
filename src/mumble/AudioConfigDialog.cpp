@@ -104,7 +104,7 @@ void AudioInputDialog::load(const Settings &r) {
 	i=keys.indexOf(AudioInputRegistrar::current);
 	if (i >= 0)
 		loadComboBox(qcbSystem, i);
-		
+
 	loadCheckBox(qcbExclusive, r.bExclusiveInput);
 
 	qlePushClickPathOn->setText(r.qsPushClickOn);
@@ -501,7 +501,7 @@ void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
 		bool usesdelay = aor->usesOutputDelay();
 		qsDelay->setEnabled(usesdelay);
 		qlDelay->setEnabled(usesdelay);
-		
+
 		qcbExclusive->setEnabled(aor->canExclusive());
 	}
 

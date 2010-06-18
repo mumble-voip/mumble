@@ -358,14 +358,14 @@ void WASAPIInput::run() {
 	}
 
 	def = min = latency = 0;
-	
+
 	pMicAudioClient->GetDevicePeriod(&def, &min);
-	
+
 	want = qMax<REFERENCE_TIME>(min, 100000);
 	qWarning("WASAPIInput: Latencies %lld %lld => %lld", def, min, want);
-	
+
 	if (g.s.bExclusiveInput && ! doecho) {
-		for(int channels = 1; channels<=2; ++channels) {
+		for (int channels = 1; channels<=2; ++channels) {
 			ZeroMemory(&wfe, sizeof(wfe));
 			wfe.Format.cbSize = 0;
 			wfe.Format.wFormatTag = WAVE_FORMAT_PCM;
@@ -385,16 +385,16 @@ void WASAPIInput::run() {
 				qWarning("WASAPIInput: Successfully opened exclusive mode");
 				break;
 			}
-			
+
 			micpwfxe = NULL;
 			micpwfx = NULL;
 		}
 	}
-	
+
 	if (!  micpwfxe) {
 		if (g.s.bExclusiveInput)
 			qWarning("WASAPIInput: Failed to open exclusive mode.");
-			
+
 		hr = pMicAudioClient->GetMixFormat(&micpwfx);
 		micpwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(micpwfx);
 
@@ -490,7 +490,7 @@ void WASAPIInput::run() {
 			if (hr != AUDCLNT_S_BUFFER_EMPTY) {
 				if (FAILED(hr))
 					goto cleanup;
-			
+
 				numFramesLeft = numFramesAvailable;
 
 				UINT32 nFrames = numFramesAvailable * micpwfx->nChannels;
@@ -598,7 +598,7 @@ cleanup:
 
 	if (tbuff)
 		delete [] tbuff;
-		
+
 	if (sbuff)
 		delete [] sbuff;
 }
@@ -804,9 +804,9 @@ void WASAPIOutput::run() {
 
 		hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_EXCLUSIVE, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, want, want, pwfx, NULL);
 		if (SUCCEEDED(hr)) {
-				eSampleFormat = SampleShort;
-				exclusive = true;
-				qWarning("WASAPIOutput: Successfully opened exclusive mode");
+			eSampleFormat = SampleShort;
+			exclusive = true;
+			qWarning("WASAPIOutput: Successfully opened exclusive mode");
 		} else {
 			CoTaskMemFree(pwfx);
 
@@ -814,11 +814,11 @@ void WASAPIOutput::run() {
 			pwfx = NULL;
 		}
 	}
-	
+
 	if (!  pwfxe) {
 		if (g.s.bExclusiveOutput)
 			qWarning("WASAPIOutput: Failed to open exclusive mode.");
-			
+
 		hr = pAudioClient->GetMixFormat(&pwfx);
 		if (FAILED(hr)) {
 			qWarning("WASAPIOutput: GetMixFormat failed: %llx", hr);
@@ -933,7 +933,7 @@ void WASAPIOutput::run() {
 				goto cleanup;
 
 			mixed = mix(pData, wantLength);
-			
+
 			if (mixed)
 				hr = pRenderClient->ReleaseBuffer(wantLength, 0);
 			else
@@ -941,7 +941,7 @@ void WASAPIOutput::run() {
 
 			if (FAILED(hr))
 				goto cleanup;
-				
+
 			if (! FAILED(hr))
 				WaitForSingleObject(hEvent, 100);
 		}

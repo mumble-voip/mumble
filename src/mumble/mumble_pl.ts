@@ -1154,7 +1154,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="obsolete">&lt;b&gt;Ta opcja określa wartość tłumienia hałasu.&lt;/b&gt;&lt;br /&gt;Zwiększenie tej wartości powoduje agresywniejsze tłumienie hałasu.</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+528"/>
+        <location filename="AudioInput.cpp" line="+531"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)</source>
         <translation>Maksymalna przepustowość serwera to tylko %1 kbit/s. Jakość mowy została automatycznie dopasowana do %2 kbit/s (%3ms)</translation>
     </message>
@@ -1183,6 +1183,21 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <source>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted and deafened.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Exclusive mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Exclusive</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1207,7 +1222,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>Wejście audio</translation>
     </message>
     <message>
-        <location line="+96"/>
+        <location line="+99"/>
         <location line="+8"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
@@ -1605,11 +1620,26 @@ przechwytywania źródeł dźwięku</translation>
         <source>while you talk</source>
         <translation>gdy ty mówisz</translation>
     </message>
+    <message>
+        <location/>
+        <source>Exclusive mode, not recommended.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Exclusive</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="+167"/>
+        <location filename="AudioConfigDialog.cpp" line="+168"/>
         <source>None</source>
         <translation>Brak</translation>
     </message>
@@ -1629,7 +1659,7 @@ przechwytywania źródeł dźwięku</translation>
         <translation>Wyjście audio</translation>
     </message>
     <message>
-        <location line="+102"/>
+        <location line="+106"/>
         <location line="+19"/>
         <location line="+8"/>
         <source>%1 ms</source>
@@ -1670,7 +1700,7 @@ przechwytywania źródeł dźwięku</translation>
 <context>
     <name>AudioOutputSample</name>
     <message>
-        <location filename="AudioOutput.cpp" line="+295"/>
+        <location filename="AudioOutput.cpp" line="+299"/>
         <source>Choose sound file</source>
         <translation>Wybierz plik dźwiękowy</translation>
     </message>
@@ -3083,18 +3113,25 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ChatbarLineEdit</name>
     <message>
+        <source>Paste and send</source>
+        <translation type="obsolete">Wklej i wyślij</translation>
+    </message>
+    <message>
+        <source>Type chat message here</source>
+        <translation type="obsolete">Wpisz wiadomość</translation>
+    </message>
+</context>
+<context>
+    <name>ChatbarTextEdit</name>
+    <message>
         <location filename="CustomElements.cpp" line="+79"/>
         <source>Paste and send</source>
-        <translation>Wklej i wyślij</translation>
+        <translation type="unfinished">Wklej i wyślij</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Type chat message here</source>
-        <translation type="obsolete">Wpisz wiadomość</translation>
     </message>
 </context>
 <context>
@@ -3799,6 +3836,14 @@ of the possible locations.</source>
         <location line="+7"/>
         <source>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</source>
         <translation>Baza danych &apos;%1&apos; jest tylko do odczytu. Mumble nie może przechowywać ustawień serwera (np. certyfikatów SSL) dopóki nie naprawisz tego problemu.</translation>
+    </message>
+</context>
+<context>
+    <name>DockTitleBar</name>
+    <message>
+        <location filename="CustomElements.cpp" line="+135"/>
+        <source>Drag here</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4877,7 +4922,7 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+151"/>
-        <location line="+1866"/>
+        <location line="+1865"/>
         <source>Root</source>
         <translation>Źródło</translation>
     </message>
@@ -5377,9 +5422,9 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Usuwa obecną teksturę z nakładki.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1772"/>
+        <location filename="MainWindow.cpp" line="-1771"/>
         <location line="+12"/>
-        <location line="+1968"/>
+        <location line="+1967"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -5397,7 +5442,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Użytkownik</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2058"/>
+        <location filename="MainWindow.cpp" line="-2057"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanał</translation>
     </message>
@@ -5481,7 +5526,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Zmień opis kanału %1</translation>
     </message>
     <message>
-        <location line="+1452"/>
+        <location line="+1451"/>
         <source>Unmuted and undeafened.</source>
         <translation>Wyłączono ogłuszenie oraz wyciszenie mikrofonu.</translation>
     </message>
@@ -5530,7 +5575,7 @@ p, li { white-space: pre-wrap; }
         <translation>Rozłączony od serwera.</translation>
     </message>
     <message>
-        <location line="-1384"/>
+        <location line="-1383"/>
         <source>Reconnecting.</source>
         <translation>Ponowne łączenie.</translation>
     </message>
@@ -6020,7 +6065,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Do kanału %1: %2</translation>
     </message>
     <message>
-        <location line="+107"/>
+        <location line="+106"/>
         <location line="+227"/>
         <source>Message to channel %1</source>
         <translation>Wiadomość do kanału %1</translation>
@@ -6031,7 +6076,7 @@ p, li { white-space: pre-wrap; }
         <translation>Czy jesteś pewien, że chcesz usunąć %1 oraz wszystkie pod-kanały?</translation>
     </message>
     <message>
-        <location line="+808"/>
+        <location line="+811"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
         <translation type="unfinished">Wiadomość do kanału &quot;%1&quot;</translation>
@@ -6043,7 +6088,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Wiadomość do użytkownika &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+91"/>
+        <location line="+88"/>
         <source>Choose image file</source>
         <translation>Wybierz plik obrazka</translation>
     </message>
@@ -6092,7 +6137,7 @@ p, li { white-space: pre-wrap; }
         <translation>Wyślij wiadomość tekstową</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1463"/>
+        <location filename="MainWindow.cpp" line="-1462"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Kanał kontrolny&lt;/h2&gt;&lt;p&gt;Szyfrowanie %1 bit %2&lt;br /&gt;Średnie opóźnienie %3 ms (%4 odchylenie)&lt;/p&gt;&lt;p&gt;Zdalny host %5 (port %6)&lt;/p&gt;</translation>
     </message>
@@ -6103,20 +6148,20 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+10"/>
-        <location line="+79"/>
+        <location line="+78"/>
         <location line="+4"/>
         <location line="+223"/>
         <source>To %1: %2</source>
         <translation>Do %1: %2</translation>
     </message>
     <message>
-        <location line="-306"/>
-        <location line="+83"/>
+        <location line="-305"/>
+        <location line="+82"/>
         <source>Message to %1</source>
         <translation>Wiadomość do %1</translation>
     </message>
     <message>
-        <location line="-60"/>
+        <location line="-59"/>
         <source>View comment on user %1</source>
         <translation>Podgląd komentarza użytkownika %1</translation>
     </message>
@@ -6126,7 +6171,7 @@ p, li { white-space: pre-wrap; }
         <translation>Czy jesteś pewny, że chcesz usunąć komentarz użytkownika %1?</translation>
     </message>
     <message>
-        <location line="+265"/>
+        <location line="+264"/>
         <source>To %1 (Tree): %2</source>
         <oldsource>(Tree) %1: %2</oldsource>
         <translation type="unfinished">(Do drzewa akanałów) %1: %2</translation>
@@ -6206,7 +6251,7 @@ p, li { white-space: pre-wrap; }
         <translation>Wysyła wiadomość tekstową do innego użytkownika.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2043"/>
+        <location filename="MainWindow.cpp" line="-2042"/>
         <source>&amp;User</source>
         <translation>&amp;Użytkownik</translation>
     </message>
@@ -6296,7 +6341,7 @@ p, li { white-space: pre-wrap; }
         <translation>Ten kreator poprowadzi cię przez proces konfiguracji ustawień dźwięku.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1953"/>
+        <location filename="MainWindow.cpp" line="+1952"/>
         <source>SSL Verification failed: %1</source>
         <translation>Weryfikacja SSL nie powiodła się: %1</translation>
     </message>
@@ -6331,18 +6376,18 @@ p, li { white-space: pre-wrap; }
         <translation>Wyświetla zaawansowane informacje na temat połączenia z serwerem.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1155"/>
+        <location filename="MainWindow.cpp" line="-1154"/>
         <source>Mumble Server Information</source>
         <translation>Serwer Mumble - Informacje</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1158"/>
+        <location line="+1157"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Zobacz certyfikat</translation>
     </message>
     <message>
-        <location line="-1620"/>
+        <location line="-1619"/>
         <source>Opening URL %1</source>
         <translation>Otwieranie adresu %1</translation>
     </message>
@@ -6395,13 +6440,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1987"/>
+        <location line="+1989"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished">Niepołączony</translation>
     </message>
     <message>
-        <location line="-1769"/>
+        <location line="-1771"/>
         <source>File does not exist</source>
         <translation>Plik nie istnieje</translation>
     </message>
@@ -6519,7 +6564,7 @@ p, li { white-space: pre-wrap; }
         <translation>O &amp;Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+590"/>
+        <location filename="MainWindow.cpp" line="+589"/>
         <source>Sending message to channel %1</source>
         <translation>Wysyłanie wiadomości do kanału: %1</translation>
     </message>
@@ -6566,7 +6611,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Połączony z serwerem %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1209"/>
+        <location filename="MainWindow.cpp" line="-1208"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>&lt;b&gt;UWAGA!&lt;/b&gt; Mumble jest obecnie połączony z serwerem. Chcesz zakończyć czy zminimalizować program?</translation>
     </message>
@@ -6807,7 +6852,7 @@ p, li { white-space: pre-wrap; }
         <translation>Edycja własnego komentarza</translation>
     </message>
     <message>
-        <location line="+1547"/>
+        <location line="+1546"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation>Obrazki (*.png *.jpg *.svg)</translation>
     </message>
@@ -6822,7 +6867,7 @@ p, li { white-space: pre-wrap; }
         <translation>Zmień swój komentarz</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2161"/>
+        <location filename="MainWindow.cpp" line="-2160"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Przełącza stany nakładki.</translation>
@@ -7119,7 +7164,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+424"/>
+        <location filename="Overlay.cpp" line="+428"/>
         <location line="+1076"/>
         <source>Silent</source>
         <translation type="unfinished"></translation>
@@ -7385,7 +7430,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Kolor aktywnych kanałów</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-2040"/>
+        <location filename="Overlay.cpp" line="-2044"/>
         <source>To move the users, drag the little red dot.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7400,7 +7445,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+147"/>
+        <location line="+151"/>
         <source>Overlay</source>
         <translation>Nakładka</translation>
     </message>
@@ -8893,7 +8938,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+172"/>
+        <location filename="WASAPI.cpp" line="+182"/>
         <source>Default Device</source>
         <translation>Urządzenie domyślne</translation>
     </message>

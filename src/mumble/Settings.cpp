@@ -264,7 +264,7 @@ Settings::Settings() {
 
 	bEcho = false;
 	bEchoMulti = true;
-	
+
 	bExclusiveInput = true;
 	bExclusiveOutput = false;
 

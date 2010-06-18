@@ -1031,7 +1031,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+528"/>
+        <location filename="AudioInput.cpp" line="+531"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1060,6 +1060,21 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <source>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted and deafened.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Exclusive mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Exclusive</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1084,7 +1099,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+96"/>
+        <location line="+99"/>
         <location line="+8"/>
         <source>%1 ms</source>
         <translation type="unfinished"></translation>
@@ -1403,11 +1418,26 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <source>while you talk</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Exclusive mode, not recommended.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Exclusive</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="+167"/>
+        <location filename="AudioConfigDialog.cpp" line="+168"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1427,7 +1457,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+102"/>
+        <location line="+106"/>
         <location line="+19"/>
         <location line="+8"/>
         <source>%1 ms</source>
@@ -1452,7 +1482,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>AudioOutputSample</name>
     <message>
-        <location filename="AudioOutput.cpp" line="+295"/>
+        <location filename="AudioOutput.cpp" line="+299"/>
         <source>Choose sound file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2671,7 +2701,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
 </context>
 <context>
-    <name>ChatbarLineEdit</name>
+    <name>ChatbarTextEdit</name>
     <message>
         <location filename="CustomElements.cpp" line="+79"/>
         <source>Paste and send</source>
@@ -3208,6 +3238,14 @@ of the possible locations.</source>
     <message>
         <location line="+7"/>
         <source>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DockTitleBar</name>
+    <message>
+        <location filename="CustomElements.cpp" line="+135"/>
+        <source>Drag here</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4074,12 +4112,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+151"/>
-        <location line="+1866"/>
+        <location line="+1865"/>
         <source>Root</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1816"/>
+        <location line="-1815"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
@@ -4158,12 +4196,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+1968"/>
+        <location line="+1967"/>
         <source>Mumble -- %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1964"/>
+        <location line="-1963"/>
         <source>&amp;Window</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4232,13 +4270,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1987"/>
+        <location line="+1989"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1779"/>
+        <location line="-1781"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4356,7 +4394,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+55"/>
         <location line="+227"/>
         <source>Message to channel %1</source>
         <translation type="unfinished"></translation>
@@ -4382,7 +4420,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+116"/>
+        <location line="+119"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
         <translation type="unfinished"></translation>
@@ -4394,7 +4432,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+91"/>
+        <location line="+88"/>
         <source>Choose image file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4415,7 +4453,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1454"/>
+        <location line="-1453"/>
         <source>Voice channel is sent over control channel.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4487,12 +4525,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1158"/>
+        <location line="+1157"/>
         <source>&amp;View Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-920"/>
+        <location line="-919"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation type="unfinished"></translation>
@@ -4504,25 +4542,25 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+10"/>
-        <location line="+79"/>
+        <location line="+78"/>
         <location line="+4"/>
         <location line="+223"/>
         <source>To %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-306"/>
-        <location line="+83"/>
+        <location line="-305"/>
+        <location line="+82"/>
         <source>Message to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-44"/>
+        <location line="-43"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+184"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5938,7 +5976,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+424"/>
+        <location filename="Overlay.cpp" line="+428"/>
         <location line="+1076"/>
         <source>Silent</source>
         <translation type="unfinished"></translation>
@@ -6024,7 +6062,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-2040"/>
+        <location line="-2044"/>
         <source>To move the users, drag the little red dot.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6039,7 +6077,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+147"/>
+        <location line="+151"/>
         <source>Overlay</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7409,7 +7447,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+172"/>
+        <location filename="WASAPI.cpp" line="+182"/>
         <source>Default Device</source>
         <translation type="unfinished"></translation>
     </message>

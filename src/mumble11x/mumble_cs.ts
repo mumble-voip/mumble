@@ -5609,7 +5609,7 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+172"/>
+        <location filename="WASAPI.cpp" line="+182"/>
         <source>Default Device</source>
         <translation type="unfinished"></translation>
     </message>

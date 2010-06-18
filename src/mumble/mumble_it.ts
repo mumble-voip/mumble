@@ -1165,7 +1165,7 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
         <translation type="obsolete">&lt;b&gt;Questo imposta la quantità di rumore da eliminare.&lt;b&gt;&lt;br /&gt;Più alto sarà questo valore e più rumore sarà eliminato.</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+528"/>
+        <location filename="AudioInput.cpp" line="+531"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)</source>
         <translation>La banda massima del server è solamente %1 kbit/s. Qualità sonora impostata su %2 kbit/s (%3ms)</translation>
     </message>
@@ -1194,6 +1194,21 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
         <source>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted and deafened.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Exclusive mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Exclusive</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1218,7 +1233,7 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
         <translation>Ingresso audio</translation>
     </message>
     <message>
-        <location line="+96"/>
+        <location line="+99"/>
         <location line="+8"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
@@ -1616,11 +1631,26 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
         <source>pl</source>
         <translation type="obsolete">pl</translation>
     </message>
+    <message>
+        <location/>
+        <source>Exclusive mode, not recommended.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Exclusive</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="+167"/>
+        <location filename="AudioConfigDialog.cpp" line="+168"/>
         <source>None</source>
         <translation>Niente</translation>
     </message>
@@ -1640,7 +1670,7 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
         <translation>Uscita Audio</translation>
     </message>
     <message>
-        <location line="+102"/>
+        <location line="+106"/>
         <location line="+19"/>
         <location line="+8"/>
         <source>%1 ms</source>
@@ -1677,7 +1707,7 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
 <context>
     <name>AudioOutputSample</name>
     <message>
-        <location filename="AudioOutput.cpp" line="+295"/>
+        <location filename="AudioOutput.cpp" line="+299"/>
         <source>Choose sound file</source>
         <translation>Scegli il file sonoro</translation>
     </message>
@@ -3120,18 +3150,25 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ChatbarLineEdit</name>
     <message>
+        <source>Paste and send</source>
+        <translation type="obsolete">Incolla e invia</translation>
+    </message>
+    <message>
+        <source>Type chat message here</source>
+        <translation type="obsolete">Inserisci il messaggio di chat qui</translation>
+    </message>
+</context>
+<context>
+    <name>ChatbarTextEdit</name>
+    <message>
         <location filename="CustomElements.cpp" line="+79"/>
         <source>Paste and send</source>
-        <translation>Incolla e invia</translation>
+        <translation type="unfinished">Incolla e invia</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Type chat message here</source>
-        <translation type="obsolete">Inserisci il messaggio di chat qui</translation>
     </message>
 </context>
 <context>
@@ -3833,6 +3870,14 @@ delle possibili posizioni.</translation>
         <location line="+7"/>
         <source>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</source>
         <translation>Il database &apos;%1&apos; è sola-lettura. Mumble non può salvare le impostazioni del server (es. certificati SSl) fino a che non risolverai il problema.</translation>
+    </message>
+</context>
+<context>
+    <name>DockTitleBar</name>
+    <message>
+        <location filename="CustomElements.cpp" line="+135"/>
+        <source>Drag here</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4914,12 +4959,12 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+151"/>
-        <location line="+1866"/>
+        <location line="+1865"/>
         <source>Root</source>
         <translation>Radice</translation>
     </message>
     <message>
-        <location line="-1816"/>
+        <location line="-1815"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Premi-per-parlare</translation>
@@ -5058,12 +5103,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+1968"/>
+        <location line="+1967"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-1964"/>
+        <location line="-1963"/>
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
@@ -5137,13 +5182,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1987"/>
+        <location line="+1989"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished">Non connesso</translation>
     </message>
     <message>
-        <location line="-1779"/>
+        <location line="-1781"/>
         <source>Clear</source>
         <translation>Cancella</translation>
     </message>
@@ -5225,7 +5270,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;&lt;p&gt;Host remoto %5 (porta%6)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1439"/>
+        <location line="+1438"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation>Immagini (*.png *.jpg *.svg)</translation>
     </message>
@@ -5234,7 +5279,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1428"/>
+        <location line="-1427"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canale di voce&lt;/h2&gt;&lt;p&gt;Crittografato con 128 bit OCB-AES128&lt;br/&gt;%1 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
@@ -5300,7 +5345,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Al canale %1: %2</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+39"/>
         <location line="+227"/>
         <source>Message to channel %1</source>
         <translation>Messaggio al canale %1</translation>
@@ -5312,8 +5357,8 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">(Albero) %1:%2</translation>
     </message>
     <message>
-        <location line="-304"/>
-        <location line="+79"/>
+        <location line="-303"/>
+        <location line="+78"/>
         <location line="+4"/>
         <location line="+223"/>
         <source>To %1: %2</source>
@@ -5341,7 +5386,7 @@ p, li { white-space: pre-wrap; }
         <translation>Il client retrocompatibile non è stato trovato, o la sua apertura è fallita.&lt;br /&gt;Nota che il client retrocompatibile è un componente facoltativo in molte installazioni, e potrebbe non esssere installato.</translation>
     </message>
     <message>
-        <location line="+116"/>
+        <location line="+119"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
         <translation type="unfinished">Inserisci qui il messaggio per il canale &apos;%1&apos;</translation>
@@ -5353,7 +5398,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">inserisci qui il messaggio per l&apos;utente &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+91"/>
+        <location line="+88"/>
         <source>Choose image file</source>
         <translation>Scegli file immagine</translation>
     </message>
@@ -5382,7 +5427,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 variazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1454"/>
+        <location line="-1453"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Il canale di voce è trasmesso sul canale di controllo.</translation>
     </message>
@@ -5436,7 +5481,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1158"/>
+        <location line="+1157"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Visualizza certificato</translation>
     </message>
@@ -5445,7 +5490,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Espulsione giocatore %1</translation>
     </message>
     <message>
-        <location line="-920"/>
+        <location line="-919"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Inserisci motivazione</translation>
@@ -5461,7 +5506,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+10"/>
-        <location line="+83"/>
+        <location line="+82"/>
         <source>Message to %1</source>
         <translation>Messaggio a %1</translation>
     </message>
@@ -5613,7 +5658,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Giocatore</translation>
     </message>
     <message>
-        <location line="-2042"/>
+        <location line="-2041"/>
         <source>&amp;Channel</source>
         <translation>&amp;Canale</translation>
     </message>
@@ -7150,7 +7195,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+424"/>
+        <location filename="Overlay.cpp" line="+428"/>
         <location line="+1076"/>
         <source>Silent</source>
         <translation type="unfinished"></translation>
@@ -7290,7 +7335,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation type="obsolete">Colore per i canali attivi</translation>
     </message>
     <message>
-        <location line="-2040"/>
+        <location line="-2044"/>
         <source>To move the users, drag the little red dot.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7305,7 +7350,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+147"/>
+        <location line="+151"/>
         <source>Overlay</source>
         <translation>Sovrapposizione</translation>
     </message>
@@ -8921,7 +8966,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+172"/>
+        <location filename="WASAPI.cpp" line="+182"/>
         <source>Default Device</source>
         <translation>Periferica predefinita</translation>
     </message>

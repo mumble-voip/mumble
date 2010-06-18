@@ -5073,7 +5073,7 @@ Opcja dostępna tylko, gdy ustawisz teksturę na danym serwerze podczas rejestra
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+172"/>
+        <location filename="WASAPI.cpp" line="+182"/>
         <source>Default Device</source>
         <translation>Urządzenie domyślne</translation>
     </message>

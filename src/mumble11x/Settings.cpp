@@ -60,7 +60,7 @@ Settings::Settings() {
 	fVADmin = 0.80f;
 	fVADmax = 0.98f;
 	bPushClick = false;
-	
+
 	bExclusiveInput = bExclusiveOutput = false;
 
 	bPlayerTop = false;

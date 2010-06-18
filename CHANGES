@@ -1,3 +1,64 @@
+2010-06-19
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    73f3ac2  Fix WASAPI exclusive output for some broken drivers
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    a0593c9  s/input/output/ for warning
+
+2010-06-18
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    54f1a03  Fix server compilation on Debian Lenny (Qt 4.4, Ice 3.2)
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    33990fb  Fix output buffer size for exclusive mode WASAPI
+    c3f587b  WASAPI Exclusive Mode output and 11x compile fix
+
+2010-06-14
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    74fc0b0  Increase murmur log window size on windows
+    47af935  Enable Windows security stuff for release builds
+    2493907  Fix qmake 4.7 deprecation warnings
+    6f52a68  Add VS 2010 pdb files to .gitignore
+
+2010-06-06
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    773f05a  Fix some warnings in the chatbar code
+
+2010-06-02
+  arcenciel <arcenciel@users.sourceforge.net>
+    a6d75b5  Updated Japanese Translation
+
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    fe9496d  Fix: Option "Don't hide in tray when minimized" partly broken
+	     (#2975969). Also remove unused custom signal
+
+2010-06-01
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    671a3e3  Remove margins for p tag in the default style to get rid of
+	     unwanted double spacing
+
+  Mark-Willem Jansen <rawnar@users.sourceforge.net>
+    3f353e8  Fixed: Passing zero length string in Borderlands plugin
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    84088f8  Experimental WASAPI exclusive input mode
+    99fb316  Remove desktop shortcut for 1.1.x
+    e5b8627  Fix download path for bonjour
+
+2010-05-31
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    6d7408f  Add text to the DockTitleBar so its purpose is clearer
+    6a2c230  Restore nickname auto-completion for TextEdit based Chatbar
+    2f5db27  Prevent richtext from being pasted into the chatbar and make
+	     sure we escape html entities before sending. Also rename of
+	     ChatbarLineEdit to ChatbarTextEdit.
+
+  Karl Dietz <dekarl@users.sourceforge.net>
+    dc11bc5  wow update plugin to 3.3.3a
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    d10747f  Updated installer
+
 2010-05-29
   rdb <git@rdb.name>
     68d4371  recieve -> receive
@@ -62,6 +123,9 @@
     ec31de1  Add black/whitelist icon loading for Windows. Make lists match
 	     on full path as well as executable names
     532c3f2  Fix compile on non OSX systems
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    e75ec48  Hide overlay black-/whitelist on Linux
 
 2010-05-03
   Mikkel Krautz <mikkel@krautz.dk>

@@ -6383,7 +6383,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+172"/>
+        <location filename="WASAPI.cpp" line="+182"/>
         <source>Default Device</source>
         <translation>Dispositivo por defecto</translation>
     </message>
