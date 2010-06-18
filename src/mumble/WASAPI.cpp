@@ -411,9 +411,9 @@ void WASAPIInput::run() {
 	}
 
 	pMicAudioClient->GetStreamLatency(&latency);
-	qWarning("WASAPIInput: Stream Latency %lld", latency);
-
 	hr = pMicAudioClient->GetBufferSize(&bufferFrameCount);
+	qWarning("WASAPIInput: Stream Latency %lld (%d)", latency, bufferFrameCount);
+
 	hr = pMicAudioClient->GetService(__uuidof(IAudioCaptureClient), (void**)&pMicCaptureClient);
 	if (FAILED(hr)) {
 		qWarning("WASAPIInput: Mic GetService failed");
@@ -847,12 +847,10 @@ void WASAPIOutput::run() {
 	}
 
 	pAudioClient->GetStreamLatency(&latency);
-	qWarning("WASAPIInput: Stream Latency %lld", latency);
+	pAudioClient->GetBufferSize(&bufferFrameCount);
+	qWarning("WASAPIOutput: Stream Latency %lld (%d)", latency, bufferFrameCount);
 
 	iMixerFreq = pwfx->nSamplesPerSec;
-
-	pAudioClient->GetBufferSize(&bufferFrameCount);
-	pAudioClient->GetStreamLatency(&latency);
 
 	qWarning("WASAPIOutput: Periods %lldus %lldus (latency %lldus)", def / 10LL, min / 10LL, latency / 10LL);
 	qWarning("WASAPIOutput: Buffer is %dus (%d)", (bufferFrameCount * 1000000) / iMixerFreq, g.s.iOutputDelay);
@@ -935,6 +933,8 @@ void WASAPIOutput::run() {
 				WaitForSingleObject(hEvent, 2000);
 		}
 	} else {
+		wantLength = bufferFrameCount;
+
 		while (bRunning && ! FAILED(hr)) {
 			hr = pRenderClient->GetBuffer(wantLength, &pData);
 			if (FAILED(hr))
