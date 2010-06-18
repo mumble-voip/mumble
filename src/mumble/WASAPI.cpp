@@ -816,7 +816,7 @@ void WASAPIOutput::run() {
 	}
 	
 	if (!  pwfxe) {
-		if (g.s.bExclusiveInput)
+		if (g.s.bExclusiveOutput)
 			qWarning("WASAPIOutput: Failed to open exclusive mode.");
 			
 		hr = pAudioClient->GetMixFormat(&pwfx);
