@@ -710,7 +710,6 @@ void WASAPIOutput::run() {
 	IAudioRenderClient *pRenderClient = NULL;
 	WAVEFORMATEX *pwfx = NULL;
 	WAVEFORMATEXTENSIBLE *pwfxe = NULL;
-	WAVEFORMATEXTENSIBLE wfe;
 	UINT32 bufferFrameCount;
 	REFERENCE_TIME def, min, latency, want;
 	UINT32 numFramesAvailable;
@@ -788,36 +787,29 @@ void WASAPIOutput::run() {
 	qWarning("WASAPIOutput: Latencies %lld %lld => %lld", def, min, want);
 
 	if (g.s.bExclusiveOutput) {
-		for(int channels = 1; channels<=8; ++channels) {
-			ZeroMemory(&wfe, sizeof(wfe));
-			wfe.Format.cbSize = 0;
-			wfe.Format.wFormatTag = WAVE_FORMAT_PCM;
-			wfe.Format.nChannels = channels;
-			wfe.Format.nSamplesPerSec = 48000;
-			wfe.Format.wBitsPerSample = 16;
-			wfe.Format.nBlockAlign = wfe.Format.nChannels * wfe.Format.wBitsPerSample / 8;
-			wfe.Format.nAvgBytesPerSec = wfe.Format.nBlockAlign * wfe.Format.nSamplesPerSec;
+		hr = pAudioClient->GetMixFormat(&pwfx);
+		if (FAILED(hr)) {
+			qWarning("WASAPIOutput: GetMixFormat failed");
+			goto cleanup;
+		}
 
-			pwfxe = &wfe;
-			pwfx = reinterpret_cast<WAVEFORMATEX *>(&wfe);
+		pwfx->cbSize = 0;
+		pwfx->wFormatTag = WAVE_FORMAT_PCM;
+		pwfx->nSamplesPerSec = 48000;
+		pwfx->wBitsPerSample = 16;
+		pwfx->nBlockAlign = pwfx->nChannels * pwfx->wBitsPerSample / 8;
+		pwfx->nAvgBytesPerSec = pwfx->nBlockAlign * pwfx->nSamplesPerSec;
 
-			hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_EXCLUSIVE, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, want, want, pwfx, NULL);
-			if (SUCCEEDED(hr)) {
+		pwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(pwfx);
+
+		hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_EXCLUSIVE, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, want, want, pwfx, NULL);
+		if (SUCCEEDED(hr)) {
 				eSampleFormat = SampleShort;
 				exclusive = true;
-				if (channels == 1)
-					pwfxe ->dwChannelMask = SPEAKER_FRONT_CENTER;
-				else if (channels == 2)
-					pwfxe ->dwChannelMask = SPEAKER_FRONT_LEFT | SPEAKER_FRONT_RIGHT;
-				else if (channels == 6)
-					pwfxe ->dwChannelMask = SPEAKER_FRONT_LEFT | SPEAKER_FRONT_RIGHT | SPEAKER_BACK_LEFT | SPEAKER_BACK_RIGHT | SPEAKER_FRONT_CENTER | SPEAKER_LOW_FREQUENCY;
-				else if (channels == 8)
-					pwfxe ->dwChannelMask = SPEAKER_FRONT_LEFT | SPEAKER_FRONT_RIGHT | SPEAKER_BACK_LEFT | SPEAKER_BACK_RIGHT | SPEAKER_FRONT_CENTER | SPEAKER_LOW_FREQUENCY | SPEAKER_SIDE_LEFT | SPEAKER_SIDE_RIGHT;
-
 				qWarning("WASAPIOutput: Successfully opened exclusive mode");
-				break;
-			}
-			
+		} else {
+			CoTaskMemFree(pwfx);
+
 			pwfxe = NULL;
 			pwfx = NULL;
 		}
@@ -956,7 +948,7 @@ void WASAPIOutput::run() {
 	}
 
 cleanup:
-	if (pwfx && !exclusive)
+	if (pwfx)
 		CoTaskMemFree(pwfx);
 
 	setVolumes(pDevice, false);
