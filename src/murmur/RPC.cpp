@@ -264,7 +264,7 @@ void Server::clearTempGroups(User *user, Channel *cChannel, bool recurse) {
 		}
 
 		if (recurse)
-			qlChans.append(chan->qlChannels);
+			qlChans << chan->qlChannels;
 	}
 
 	clearACLCache(user);
