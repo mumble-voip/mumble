@@ -389,7 +389,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 			if (qcf.isImageFormat()) {
 				QTextImageFormat qtif = qcf.toImageFormat();
 				QUrl url(qtif.name());
-				if (! url.isValid())
+				if (! qtif.name().isEmpty() && ! url.isValid())
 					valid = false;
 			}
 		}
