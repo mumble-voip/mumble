@@ -52,13 +52,9 @@ class CELTCodec {
 
 	public:
 		void (__cdecl *celt_encoder_destroy)(CELTEncoder *st);
-		int (__cdecl *celt_encode_float)(CELTEncoder *st, const float *pcm, float *optional_synthesis, unsigned char *compressed, int nbCompressedBytes);
-		int (__cdecl *celt_encode)(CELTEncoder *st, const celt_int16 *pcm, celt_int16 *optional_synthesis, unsigned char *compressed, int nbCompressedBytes);
 		int (__cdecl *celt_encoder_ctl)(CELTEncoder * st, int request, ...);
 
 		void (__cdecl *celt_decoder_destroy)(CELTDecoder *st);
-		int (__cdecl *celt_decode_float)(CELTDecoder *st, const unsigned char *data, int len, float *pcm);
-		int (__cdecl *celt_decode)(CELTDecoder *st, const unsigned char *data, int len, celt_int16 *pcm);
 		int (__cdecl *celt_decoder_ctl)(CELTDecoder * st, int request, ...);
 
 		CELTCodec(const QString &version);
@@ -71,17 +67,8 @@ class CELTCodec {
 
 		virtual CELTEncoder *encoderCreate() = 0;
 		virtual CELTDecoder *decoderCreate() = 0;
-};
-
-class CELTCodec061 : public CELTCodec {
-	protected:
-		CELTMode *(*celt_mode_create)(celt_int32 Fs, int channels, int frame_size, int *error);
-		CELTEncoder *(__cdecl *celt_encoder_create)(const CELTMode *mode);
-		CELTDecoder *(__cdecl *celt_decoder_create)(const CELTMode *mode);
-	public:
-		CELTCodec061(const QString &version);
-		virtual CELTEncoder *encoderCreate();
-		virtual CELTDecoder *decoderCreate();
+		virtual int encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed, int nbCompressedBytes) = 0;
+		virtual int decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm) = 0;
 };
 
 class CELTCodec070 : public CELTCodec {
@@ -89,11 +76,35 @@ class CELTCodec070 : public CELTCodec {
 		CELTMode *(*celt_mode_create)(celt_int32 Fs, int frame_size, int *error);
 		CELTEncoder *(__cdecl *celt_encoder_create)(const CELTMode *mode, int channels, int *error);
 		CELTDecoder *(__cdecl *celt_decoder_create)(const CELTMode *mode, int channels, int *error);
+		int (__cdecl *celt_encode_float)(CELTEncoder *st, const float *pcm, float *optional_synthesis, unsigned char *compressed, int nbCompressedBytes);
+		int (__cdecl *celt_encode)(CELTEncoder *st, const celt_int16 *pcm, celt_int16 *optional_synthesis, unsigned char *compressed, int nbCompressedBytes);
+		int (__cdecl *celt_decode_float)(CELTDecoder *st, const unsigned char *data, int len, float *pcm);
+		int (__cdecl *celt_decode)(CELTDecoder *st, const unsigned char *data, int len, celt_int16 *pcm);
 		const char *(__cdecl *celt_strerror)(int error);
 	public:
 		CELTCodec070(const QString &version);
 		virtual CELTEncoder *encoderCreate();
 		virtual CELTDecoder *decoderCreate();
+		virtual int encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed, int nbCompressedBytes);
+		virtual int decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm);
+};
+
+class CELTCodec080 : public CELTCodec {
+	protected:
+		CELTMode *(*celt_mode_create)(celt_int32 Fs, int frame_size, int *error);
+		CELTEncoder *(__cdecl *celt_encoder_create)(const CELTMode *mode, int channels, int *error);
+		CELTDecoder *(__cdecl *celt_decoder_create)(const CELTMode *mode, int channels, int *error);
+		int (__cdecl *celt_encode_float)(CELTEncoder *st, const float *pcm, int frame_size, unsigned char *compressed, int nbCompressedBytes);
+		int (__cdecl *celt_encode)(CELTEncoder *st, const celt_int16 *pcm, int frame_size, unsigned char *compressed, int nbCompressedBytes);
+		int (__cdecl *celt_decode_float)(CELTDecoder *st, const unsigned char *data, int len, float *pcm, int frame_size);
+		int (__cdecl *celt_decode)(CELTDecoder *st, const unsigned char *data, int len, celt_int16 *pcm, int frame_size);
+		const char *(__cdecl *celt_strerror)(int error);
+	public:
+		CELTCodec080(const QString &version);
+		virtual CELTEncoder *encoderCreate();
+		virtual CELTDecoder *decoderCreate();
+		virtual int encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed, int nbCompressedBytes);
+		virtual int decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm);
 };
 
 class LoopUser : public ClientUser {

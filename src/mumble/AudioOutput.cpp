@@ -603,7 +603,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 						}
 					}
 					if (cdDecoder)
-						cCodec->celt_decode_float(cdDecoder, qba.isEmpty() ? NULL : reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut);
+						cCodec->decode_float(cdDecoder, qba.isEmpty() ? NULL : reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut);
 					else
 						memset(pOut, 0, sizeof(float) * iFrameSize);
 				} else {
@@ -648,7 +648,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 			} else {
 				if (umtType != MessageHandler::UDPVoiceSpeex) {
 					if (cdDecoder)
-						cCodec->celt_decode_float(cdDecoder, NULL, 0, pOut);
+						cCodec->decode_float(cdDecoder, NULL, 0, pOut);
 					else
 						memset(pOut, 0, sizeof(float) * iFrameSize);
 				} else {

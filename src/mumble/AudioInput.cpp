@@ -831,7 +831,7 @@ void AudioInput::encodeAudioFrame() {
 		cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_PREDICTION(0));
 
 		cCodec->celt_encoder_ctl(ceEncoder,CELT_SET_VBR_RATE(iAudioQuality));
-		len = cCodec->celt_encode(ceEncoder, psSource, NULL, buffer, qMin(iAudioQuality / 800, 127));
+		len = cCodec->encode(ceEncoder, psSource, buffer, qMin(iAudioQuality / 800, 127));
 		iBitrate = len * 100 * 8;
 	} else {
 		int vbr = 0;

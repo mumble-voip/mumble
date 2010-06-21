@@ -50,22 +50,6 @@ CodecInit ciInit;
 void CodecInit::initialize() {
 	CELTCodec *codec = NULL;
 
-	codec = new CELTCodec061(QLatin1String("0.6.1"));
-	if (codec->isValid()) {
-		codec->report();
-		g.qmCodecs.insert(codec->bitstreamVersion(), codec);
-	} else {
-		delete codec;
-	}
-
-	codec = new CELTCodec061(QLatin1String("0.6.2"));
-	if (codec->isValid()) {
-		codec->report();
-		g.qmCodecs.insert(codec->bitstreamVersion(), codec);
-	} else {
-		delete codec;
-	}
-
 	codec = new CELTCodec070(QLatin1String("0.7.0"));
 	if (codec->isValid()) {
 		codec->report();
@@ -81,13 +65,13 @@ void CodecInit::initialize() {
 		}
 	}
 
-	codec = new CELTCodec070(QLatin1String("0.8.0"));
+	codec = new CELTCodec080(QLatin1String("0.8.0"));
 	if (codec->isValid()) {
 		codec->report();
 		g.qmCodecs.insert(codec->bitstreamVersion(), codec);
 	} else {
 		delete codec;
-		codec = new CELTCodec070(QLatin1String("0.0.1"));
+		codec = new CELTCodec080(QLatin1String("1.0.0"));
 		if (codec->isValid()) {
 			codec->report();
 			g.qmCodecs.insert(codec->bitstreamVersion(), codec);
@@ -177,13 +161,9 @@ CELTCodec::CELTCodec(const QString &version) {
 	RESOLVE(celt_mode_info);
 
 	RESOLVE(celt_encoder_destroy);
-	RESOLVE(celt_encode_float);
-	RESOLVE(celt_encode);
 	RESOLVE(celt_encoder_ctl);
 
 	RESOLVE(celt_decoder_destroy);
-	RESOLVE(celt_decode_float);
-	RESOLVE(celt_decode);
 	RESOLVE(celt_decoder_ctl);
 }
 
@@ -212,30 +192,14 @@ void CELTCodec::report() const {
 	qWarning("CELT bitstream %08x from %s", bitstreamVersion(), qPrintable(qlCELT.fileName()));
 }
 
-CELTCodec061::CELTCodec061(const QString &version) : CELTCodec(version) {
-	RESOLVE(celt_mode_create);
-
-	RESOLVE(celt_encoder_create);
-
-	RESOLVE(celt_decoder_create);
-
-	if (bValid) {
-		cmMode = celt_mode_create(SAMPLE_RATE, 1, SAMPLE_RATE / 100, NULL);
-	}
-}
-
-CELTEncoder *CELTCodec061::encoderCreate() {
-	return celt_encoder_create(cmMode);
-}
-
-CELTDecoder *CELTCodec061::decoderCreate() {
-	return celt_decoder_create(cmMode);
-}
-
 CELTCodec070::CELTCodec070(const QString &version) : CELTCodec(version) {
 	RESOLVE(celt_mode_create);
 	RESOLVE(celt_encoder_create);
 	RESOLVE(celt_decoder_create);
+	RESOLVE(celt_encode_float);
+	RESOLVE(celt_encode);
+	RESOLVE(celt_decode_float);
+	RESOLVE(celt_decode);
 	RESOLVE(celt_strerror);
 
 	if (bValid) {
@@ -249,6 +213,45 @@ CELTEncoder *CELTCodec070::encoderCreate() {
 
 CELTDecoder *CELTCodec070::decoderCreate() {
 	return celt_decoder_create(cmMode, 1, NULL);
+}
+
+int CELTCodec070::encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed, int nbCompressedBytes) {
+	return celt_encode(st, pcm, NULL, compressed, nbCompressedBytes);
+}
+
+int CELTCodec070::decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm) {
+	return celt_decode_float(st, data, len, pcm);
+}
+
+CELTCodec080::CELTCodec080(const QString &version) : CELTCodec(version) {
+	RESOLVE(celt_mode_create);
+	RESOLVE(celt_encoder_create);
+	RESOLVE(celt_decoder_create);
+	RESOLVE(celt_encode_float);
+	RESOLVE(celt_encode);
+	RESOLVE(celt_decode_float);
+	RESOLVE(celt_decode);
+	RESOLVE(celt_strerror);
+
+	if (bValid) {
+		cmMode = celt_mode_create(SAMPLE_RATE, SAMPLE_RATE / 100, NULL);
+	}
+}
+
+CELTEncoder *CELTCodec080::encoderCreate() {
+	return celt_encoder_create(cmMode, 1, NULL);
+}
+
+CELTDecoder *CELTCodec080::decoderCreate() {
+	return celt_decoder_create(cmMode, 1, NULL);
+}
+
+int CELTCodec080::encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed, int nbCompressedBytes) {
+	return celt_encode(st, pcm, SAMPLE_RATE / 100, compressed, nbCompressedBytes);
+}
+
+int CELTCodec080::decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm) {
+	return celt_decode_float(st, data, len, pcm, SAMPLE_RATE / 100);
 }
 
 LoopUser::LoopUser() {
