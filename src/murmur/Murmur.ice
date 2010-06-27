@@ -391,8 +391,8 @@ module Murmur
 		 */
 		idempotent int setInfo(int id, UserInfoMap info);
 
-		/** Set texture of user registration.
-		 *  @param id Userid of registered user.
+		/** Set texture (now called avatar) of user registration.
+		 *  @param id registrationId of registered user.
 		 *  @param tex New texture.
 		 *  @return 1 for successfull update, 0 for unsuccessfull update, -1 to fall through.
 		 */
@@ -689,9 +689,9 @@ module Murmur
 		 */
 		idempotent Texture getTexture(int userid) throws ServerBootedException, InvalidUserException, InvalidSecretException;
 
-		/** Set user texture. The texture is a 600x60 32-bit BGRA raw texture, optionally zlib compress()ed.
+		/** Set a user texture (now called avatar).
 		 * @param userid ID of registered user. See {@link RegisteredUser.userid}.
-		 * @param tex Texture to set for the user, or an empty texture to remove the existing texture.
+		 * @param tex Texture (as a Byte-Array) to set for the user, or an empty texture to remove the existing texture.
 		 */
 		idempotent void setTexture(int userid, Texture tex) throws ServerBootedException, InvalidUserException, InvalidTextureException, InvalidSecretException;
 
