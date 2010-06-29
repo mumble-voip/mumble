@@ -1231,6 +1231,9 @@ void Server::msgQueryUsers(ServerUser *uSource, MumbleProto::QueryUsers &msg) {
 
 	for (int i=0;i<msg.names_size();++i) {
 		QString name = u8(msg.names(i));
+		if (!validateUserName(name)) {
+			continue;
+		}
 		int id = getUserID(name);
 		if (id >= 0) {
 			name = getUserName(id);

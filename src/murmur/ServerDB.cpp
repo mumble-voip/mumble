@@ -810,7 +810,7 @@ int Server::authenticate(QString &name, const QString &pw, const QStringList &em
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
 
-	SQLPREP("SELECT `user_id`,`name`,`pw` FROM `%1users` WHERE `server_id` = ? AND `name` like ?");
+	SQLPREP("SELECT `user_id`,`name`,`pw` FROM `%1users` WHERE `server_id` = ? AND LOWER(`name`) = LOWER(?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(name);
 	SQLEXEC();
@@ -1051,7 +1051,7 @@ int Server::getUserID(const QString &name) {
 	TransactionHolder th;
 
 	QSqlQuery &query = *th.qsqQuery;
-	SQLPREP("SELECT `user_id` FROM `%1users` WHERE `server_id` = ? AND `name` like ?");
+	SQLPREP("SELECT `user_id` FROM `%1users` WHERE `server_id` = ? AND LOWER(`name`) = LOWER(?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(name);
 	SQLEXEC();
