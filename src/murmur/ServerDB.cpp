@@ -1048,6 +1048,11 @@ int Server::getUserID(const QString &name) {
 		qhUserNameCache.insert(id, name);
 		return id;
 	}
+
+	if (!validateUserName(name)) {
+	    return id;
+	}
+
 	TransactionHolder th;
 
 	QSqlQuery &query = *th.qsqQuery;
