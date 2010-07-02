@@ -57,7 +57,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (logincheck == 0)
 		return false;
 
-	//	State value is working most of the time.
+	// State value is working most of the time.
 	ok = peekProc((BYTE *) 0x01fb1b99, &state, 1); // Magical state value
 	if (! ok)
 		return false;
@@ -74,23 +74,24 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (! ok)
 		return false;
 
-	//	In-game coordinate system:
-	//	x points to the North (z in mumble)
-	//	y points to the East (x in mumble)
-	//	z points upwards (y in mumble)
-	avatar_pos[0] = pos_corrector[1];
-	avatar_pos[1] = pos_corrector[2];
+	// coordinate systems:
+	// "ENU"	"Mumble"	"In game"
+	// East		x+ [0]		z+ [2]
+	// North	z+ [2]		x+ [0]
+	// Up		y+ [1]		y+ [1]
+	avatar_pos[0] = pos_corrector[2];
+	avatar_pos[1] = pos_corrector[1];
 	avatar_pos[2] = pos_corrector[0];
 
 	for (int i=0;i<3;i++)
 		avatar_pos[i]/=100.0f; // Unreal Unit is set to centimeters
 
-	avatar_front[0] = front_corrector[1];
-	avatar_front[1] = front_corrector[2];
+	avatar_front[0] = front_corrector[2];
+	avatar_front[1] = front_corrector[1];
 	avatar_front[2] = front_corrector[0];
 
-	avatar_top[0] = top_corrector[1];
-	avatar_top[1] = top_corrector[2];
+	avatar_top[0] = top_corrector[2];
+	avatar_top[1] = top_corrector[1];
 	avatar_top[2] = top_corrector[0];
 
 	for (int i=0;i<3;i++) {
@@ -115,18 +116,15 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (!initialize(pids, L"Borderlands.exe", L"Borderlands.exe"))
 		return false;
 
-	BYTE *ptr1 = peekProc<BYTE *>(pModule +  0x01bba2c8);
-	BYTE *ptr2 = peekProc<BYTE *>(ptr1 + 0x34c);
-	BYTE *ptr3 = peekProc<BYTE *>(ptr2 + 0x64);
-	BYTE *ptr4 = peekProc<BYTE *>(ptr3 + 0xbc);
+	BYTE *ptr1 = peekProc<BYTE *>(pModule +  0x01b69564);
 
-	posptr = ptr4 + 0x4;
-	frontptr = ptr4 + 0x28;
-	topptr = ptr4 + 0x10;
+	posptr = ptr1 + 0x9200;
+	frontptr = ptr1 + 0x9248;
+	topptr = ptr1 + 0x9230;
 
 	ptr1 = peekProc<BYTE *>(pModule + 0x01bcd184);
-	ptr2 = peekProc<BYTE *>(ptr1 + 0x28c);
-	ptr3 = peekProc<BYTE *>(ptr2 + 0x210);
+	BYTE *ptr2 = peekProc<BYTE *>(ptr1 + 0x28c);
+	BYTE *ptr3 = peekProc<BYTE *>(ptr2 + 0x210);
 
 	contextptr = ptr3 + 0x2c;
 
