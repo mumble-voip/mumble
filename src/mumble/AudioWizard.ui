@@ -339,6 +339,22 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
      </widget>
     </item>
     <item>
+     <widget class="QLabel" name="qliVolumeTuningTextHC">
+      <property name="text">
+       <string comment="For high contrast mode">&lt;p&gt;
+Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there's an option to enable a &quot;Microphone boost&quot; make sure it's checked.
+&lt;/p&gt;
+&lt;p&gt;
+Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the striped and the empty but &lt;b&gt;not&lt;/b&gt; the criss-crossed zone while you speak.
+&lt;/p&gt;
+</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="AudioBar" name="abAmplify" native="true">
       <property name="minimumSize">
        <size>
@@ -352,6 +368,19 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
      <widget class="QLabel" name="qliAmpTuningText">
       <property name="text">
        <string>Now talk softly, as you would when talking late at night and you don't want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you're silent.</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="qliAmpTuningTextHC">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string comment="For high contrast mode">Now talk softly, as you would when talking late at night and you don't want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you're silent.</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
@@ -495,6 +524,16 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <widget class="QLabel" name="qliVadTuningText">
          <property name="text">
           <string>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you're not talking, everything should be in the red (definitively not speech).</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="qliVadTuningTextHC">
+         <property name="text">
+          <string comment="For high contrast mode">Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you're not talking, everything should be in the criss-crossed (definitively not speech).</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>

@@ -607,8 +607,17 @@ void AudioWizard::on_qcbAttenuateOthers_clicked(bool checked) {
 	g.s.bAttenuateOthers = checked;
 }
 
-void AudioWizard::on_qcbHighContrast_clicked(bool checked) {
-	g.s.bHighContrast = checked;
+void AudioWizard::on_qcbHighContrast_stateChanged(int state) {
+	g.s.bHighContrast = (state == Qt::Checked);
+
+	qliAmpTuningText->setVisible(!g.s.bHighContrast);
+	qliAmpTuningTextHC->setVisible(g.s.bHighContrast);
+
+	qliVolumeTuningText->setVisible(!g.s.bHighContrast);
+	qliVolumeTuningTextHC->setVisible(g.s.bHighContrast);
+
+	qliVadTuningText->setVisible(!g.s.bHighContrast);
+	qliVadTuningTextHC->setVisible(g.s.bHighContrast);
 }
 
 void AudioWizard::on_qrbQualityLow_clicked() {
