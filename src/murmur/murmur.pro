@@ -69,7 +69,7 @@ ice {
 	win32 {
 		slice.commands = slice2cpp --checksum -I"/dev/Ice/slice" Murmur.ice
 	} else {
-		slice.commands = slice2cpp --checksum -I/usr/share/Ice/slice -I/usr/share/slice -I/usr/share/Ice-3.4.0/slice/ Murmur.ice
+		slice.commands = slice2cpp --checksum -I/usr/local/share/Ice -I/usr/share/Ice/slice -I/usr/share/slice -I/usr/share/Ice-3.4.0/slice/ Murmur.ice
 	}
 
 	slice.depends = Murmur.ice
