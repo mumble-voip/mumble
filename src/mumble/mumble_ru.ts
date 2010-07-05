@@ -25,7 +25,7 @@
     <message>
         <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with a &apos;!&apos;, its membership is negated, and if it starts with a &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with a  &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with a  &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Здесь можно задать группы пользователей, у которых будет доступ к этому каналу.&lt;br /&gt;Обратите внимание, что группа вычисляется в контексте канала, в котором находится этот канал.Например, стандартный ACL (список контроля доступа) для канала Root дает право &lt;i&gt;Записи&lt;/i&gt; для группы &lt;i&gt;admin&lt;/i&gt;. Если права этого канала(1) будут унаследованы каким-либо другим каналом(2), то пользователь, принадлежащий к группе &lt;i&gt;admin&lt;/i&gt; в  канале 2, будет иметь разрешение на запись, даже если он не принодлежит к группе &lt;i&gt;admin&lt;/i&gt; в канале 0, в котором находится канал 1.&lt;br /&gt;Если название группы начинается с &apos;!&apos;, эта группа не будет иметь прав доступа, а если с &apos;~&apos;,то права группы вычисляются в соответствии с каналом 0, вместо канала 1.&lt;br /&gt;Если имя группы начинается с &apos;#&apos;, то оно интерпретируется как маркер доступа.То что идет после &apos;#&apos; в имени группы, должно быть введено в список маркеров доступа пользователем, чтобы он мог войти.Это может быть использовано для очень простого доступа с паролем к каналу для не авторизированных пользователей.&lt;br /&gt; Если имя группы начинается с &apos;$&apos;, доступ будут иметь только пользователи, чей хэш сертификата соответствует тому, что следует в имени группы после &apos;$&apos;.&lt;br /&gt; Несколько предустановленных групп:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Соответствует абсолютно всем пользователям.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Соответствует только авторизированным пользователям.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Соответствует пользователям, которые находятся в подканале не выше &lt;i&gt;a&lt;/i&gt;, и между &lt;i&gt;b&lt;/i&gt; и &lt;i&gt;c&lt;/i&gt; вниз по цепочке. Более подробная документация на вебсайте программы.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Соответствует всем пользователям данного канала (для удобства, вместо &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Соответствует пользователям, которых нет в данном канале (для удобства, вместо &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Одна запись соответствует одному польвателю или группе, но не обоим.</translation>
+        <translation>Здесь можно задать группы пользователей, у которых будет доступ к этому каналу.&lt;br /&gt;Обратите внимание, что группа вычисляется в контексте родительского канала (канала, в котором находится данный канал).Например, стандартный ACL (список контроля доступа) для канала Root дает право &lt;i&gt;Записи&lt;/i&gt; для группы &lt;i&gt;admin&lt;/i&gt;. Если права для этого канала (1 канал), будут унаследованы каким-либо другим каналом (2 канал), то пользователь, принадлежащий к группе &lt;i&gt;admin&lt;/i&gt; в  канале 2, будет иметь разрешение на запись, даже если он не принадлежит к группе &lt;i&gt;admin&lt;/i&gt; в канале 0, в котором находится канал 1.&lt;br /&gt;Если название группы начинается с &apos;!&apos;, то эта группа не будет иметь прав доступа, а если с &apos;~&apos;, то права группы вычисляются в соответствии с каналом 0, вместо канала 1.&lt;br /&gt;Если имя группы начинается с &apos;#&apos;, то оно интерпретируется как маркер доступа. Слово, которое идет после &apos;#&apos; в имени группы, должно быть введено в список маркеров доступа пользователем, чтобы он мог войти. Это может быть использовано для очень простого доступа с паролем к каналу для не авторизированных пользователей.&lt;br /&gt;Если имя группы начинается с &apos;$&apos;, доступ будут иметь только пользователи, чей хэш сертификата соответствует тому, что следует в имени группы после &apos;$&apos;.&lt;br /&gt;Несколько предустановленных групп:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Соответствует абсолютно всем пользователям.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Соответствует только авторизированным пользователям.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Соответствует пользователям, которые находятся в подканале не выше &lt;i&gt;a&lt;/i&gt;, и между &lt;i&gt;b&lt;/i&gt; и &lt;i&gt;c&lt;/i&gt; вниз по цепочке. Более подробная документация на вебсайте программы.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Соответствует всем пользователям данного канала (для удобства, вместо &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Соответствует пользователям, которых нет в данном канале (для удобства, вместо &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Одна запись соответствует одному польвателю или группе, но не обоим.</translation>
     </message>
     <message>
         <location/>
@@ -65,17 +65,17 @@
     <message>
         <location/>
         <source>Inherit ACLs</source>
-        <translation>Наследовать ACL(список контроля доступа)</translation>
+        <translation>Наследовать ACL (список контроля доступа)</translation>
     </message>
     <message>
         <location/>
         <source>Applies to this channel</source>
-        <translation>Примененные к этому каналу</translation>
+        <translation>Применить к этому каналу</translation>
     </message>
     <message>
         <location/>
         <source>Applies to sub-channels</source>
-        <translation>Примененные к подканалам</translation>
+        <translation>Применить к подканалам</translation>
     </message>
     <message>
         <location/>
@@ -85,7 +85,7 @@
     <message>
         <location filename="ACLEditor.cpp" line="+100"/>
         <source>Deny</source>
-        <translation>Отказать</translation>
+        <translation>Запретить</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -95,7 +95,7 @@
     <message>
         <location filename="ACLEditor.ui"/>
         <source>Remove</source>
-        <translation>Убрать</translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <location/>
@@ -158,7 +158,7 @@
     <message>
         <location/>
         <source>List of entries</source>
-        <translation>Список вхождений</translation>
+        <translation>Перечень ACL</translation>
     </message>
     <message>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be show in italics.</source>
@@ -172,27 +172,27 @@
     <message>
         <location/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation>Это унаследует либо нет цепочку списков ACL от каналов-предков для этого объекта. Унаследованы будут только вхождения, помеченные у предков как &quot;Применить к подканалам&quot;.</translation>
+        <translation>Наследовать, или нет, списки ACL от каналов-предков для этого объекта. Унаследованы будут только ACL, помеченные у предков как &quot;Применить к подканалам&quot;.</translation>
     </message>
     <message>
         <location/>
         <source>Add new entry</source>
-        <translation>Добавить новый</translation>
+        <translation>Добавить новый ACL</translation>
     </message>
     <message>
         <location/>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation>Добавляет новое вхождение, по умолчанию без прав доступа иприменяемое ко всем.</translation>
+        <translation>Добавить новый ACL, по умолчанию без прав доступа, и применяемый ко всем пользователям.</translation>
     </message>
     <message>
         <location/>
         <source>Remove entry</source>
-        <translation>Удалить вхождение</translation>
+        <translation>Удалить ACL</translation>
     </message>
     <message>
         <location/>
         <source>This removes the currently selected entry.</source>
-        <translation>Удалит выделенное вхождение.</translation>
+        <translation>Удалить выделенный ACL.</translation>
     </message>
     <message>
         <location/>
@@ -263,7 +263,7 @@ This value enables you to change the way Mumble arranges the channels in the tre
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
         <translation>&lt;b&gt;Позиция&lt;/b&gt;&lt;br/&gt;
-Это значение позволяет изменять порядок следования каналов в списке каналов. Канал с более высоким значением &lt;i&gt;Позиции&lt;/i&gt; всегда будет находится под каналом с более низким значением, и наоборот. Если &lt;i&gt;Позиции&lt;/i&gt; у каналов равны, то они будут отсортированы в алфавитном порядке.</translation>
+Это значение позволяет изменять порядок следования каналов в списке каналов. Канал с большим значением &lt;i&gt;Позиции&lt;/i&gt; всегда будет находиться в списке каналов ниже канала с меньшим значением, и наоборот. Если &lt;i&gt;Позиции&lt;/i&gt; у каналов равны, то они будут отсортированы в алфавитном порядке.</translation>
     </message>
     <message>
         <location/>
@@ -325,8 +325,8 @@ Add a new group.</source>
         <location/>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation>&lt;b&gt;Пользователи&lt;/b&gt;&lt;br&gt;
-Список содержит всех пользователей, которые были добавлены в группу текущим каналом. Имейте ввиду, что он не содержит пользователей, унаследованных из родительских каналов. Список таких пользователей можно найти в &lt;i&gt;Унаследованных пользователях&lt;/i&gt;. Чтобы э тот список не был унаследован дочерними каналами, снимите отметку с &lt;i&gt;Наследуемый&lt;/i&gt;, или вручную добавьте пользователей в список &lt;i&gt;Исключенные пользователи&lt;/i&gt;.</translation>
+        <translation>&lt;b&gt;Члены группы&lt;/b&gt;&lt;br&gt;
+Список содержит всех пользователей, которые были добавлены в группу текущим каналом. Имейте ввиду, что он не содержит пользователей, унаследованных из родительских каналов. Список таких пользователей можно найти в &lt;i&gt;Унаследованных пользователях&lt;/i&gt;. Чтобы этот список не был унаследован дочерними каналами, снимите отметку с &lt;i&gt;Наследуемый&lt;/i&gt;, или вручную добавьте пользователей в список &lt;i&gt;Исключенные члены&lt;/i&gt;.</translation>
     </message>
     <message>
         <location/>
@@ -350,7 +350,7 @@ Contains a list of members whose group membership will not be inherited from the
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
         <translation>&lt;b&gt;Унаследованные пользователи&lt;/b&gt;&lt;br&gt;
-Содержит список пользователей, унаследованных текущим каналом. Снимите отметку с &lt;i&gt;Наследоватьt&lt;/i&gt;, чтобы предотвратить наследование из родительских каналов.</translation>
+Содержит список пользователей, унаследованных текущим каналом. Снимите отметку с &lt;i&gt;Наследовать&lt;/i&gt;, чтобы предотвратить наследование из родительских каналов.</translation>
     </message>
     <message>
         <location/>
@@ -375,7 +375,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation>Перемещает вхождение выше по списку. Так как вхождения упорядочены, это может изменить эффективные привелегии пользователей. Вы не сможете переместить вхождение выше унаследованного, если вы действительно хотите его переместить, вам придется продублировать унаследованое вхождение.</translation>
+        <translation>Переместить ACL вверх по списку.Так как ACL применяются сверху вниз, это может изменить эффективные привелегии пользователей. Вы не сможете переместить ACL выше унаследованного, если вы действительно хотите его переместить, вам придется продублировать унаследованный ACL.</translation>
     </message>
     <message>
         <location/>
@@ -385,18 +385,18 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation>Перемещает вхождение ниже по списку. Так как вхождения упорядочены, это может изменить эффективные привелегии пользователей.</translation>
+        <translation>Переместить ACL вниз по списку. Так как ACL применяются сверху вниз, это может изменить эффективные привелегии пользователей.</translation>
     </message>
     <message>
         <location/>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation>Применять к каналу.</translation>
+        <translation>Применять к этому каналу.</translation>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to this channel.</source>
-        <translation>Применяет вхождение к этому каналу.</translation>
+        <translation>Применить ACL к этому каналу.</translation>
     </message>
     <message>
         <location/>
@@ -406,12 +406,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation>Применяет вхождение ко всем подканалам этого канала.</translation>
+        <translation>Применить ACL ко всем подканалам этого канала.</translation>
     </message>
     <message>
         <location/>
         <source>Group this entry applies to</source>
-        <translation>Применить к группе</translation>
+        <translation>Группа, к которой будет применяться этот ACL</translation>
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with a !, its membership is negated, and if it starts with a ~, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in. Order is important; &lt;i&gt;!~in&lt;/i&gt; is valid, but &lt;i&gt;~!in&lt;/i&gt; is not.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &lt;i&gt;sub,0,0,0&lt;/i&gt;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &lt;i&gt;!sub,0,0,0&lt;/i&gt;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
@@ -425,12 +425,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation>Управляет, к какому пользователю применять вхождение. Просто введите имя пользователя и нажмите Enter, чтобы послать запрос на сервер.</translation>
+        <translation>Управляет, к какому пользователю применять ACL. Просто введите имя пользователя и нажмите Enter, чтобы послать запрос на сервер.</translation>
     </message>
     <message>
         <location filename="ACLEditor.cpp" line="+22"/>
         <source>Allow %1</source>
-        <translation>Позволить %1</translation>
+        <translation>Разрешить %1</translation>
     </message>
     <message>
         <location line="-9"/>
@@ -456,12 +456,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+37"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Это дает привелегию на %1. Если привелегия и позволяет, и запрещает, она запрещает.&lt;br /&gt;%2</translation>
+        <translation>Это дает разрешение на %1. Если отмечено и &quot;разрешить&quot;, и &quot;запретить&quot; - действие будет запрещено.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location line="-9"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Отбирает привелегию на %1. Если привелегия и позволяет, и запрещает, она запрещает.&lt;br /&gt;%2</translation>
+        <translation>Это запрещает %1. Если отмечено и &quot;разрешить&quot;, и &quot;запретить&quot; - действие будет запрещено.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
@@ -534,7 +534,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be show in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation>Список всех пунктов для этого канала. Пункты, унаследованные из родительских каналов обозначены курсивом.&lt;br /&gt;ACLы читаются сверху вниз, то есть нижние имеют более высокий приоритет.</translation>
+        <translation>Перечень всех ACL для этого канала. ACL, унаследованные из родительских каналов обозначены курсивом.&lt;br /&gt;ACLы читаются сверху вниз. Это означает, что  нижние ACL имеют более высокий приоритет.</translation>
     </message>
     <message>
         <location/>
@@ -1424,32 +1424,32 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Idle AutoDeafen</source>
-        <translation type="unfinished"></translation>
+        <translation>Время автоглушения</translation>
     </message>
     <message>
         <location/>
         <source>How long to remain idle before auto-deafen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Длительность бездействия до автоглушения.</translation>
     </message>
     <message>
         <location/>
         <source>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted and deafened.</source>
-        <translation type="unfinished"></translation>
+        <translation>Запускает таймер бездействия. Если за это время не будет отправлено ни какого звука на сервер, Вы будете заглушены.</translation>
     </message>
     <message>
         <location/>
         <source>Exclusive mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Эксклюзивный режим</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Открывает звуковое устройство в эксклюзивном режиме.&lt;/b&gt;&lt;br /&gt;Другие приложения не смогут использовать это устройство.</translation>
     </message>
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation type="unfinished"></translation>
+        <translation>Эксклюзивно</translation>
     </message>
 </context>
 <context>
@@ -1834,17 +1834,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Exclusive mode, not recommended.</source>
-        <translation type="unfinished"></translation>
+        <translation>Эксклюзивный режим (не рекомендуется).</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Открывает звуковое устройство в эксклюзивном режиме.&lt;/b&gt;&lt;br /&gt;Другие приложения не смогут использовать это устройство.</translation>
     </message>
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation type="unfinished"></translation>
+        <translation>Эксклюзивно</translation>
     </message>
 </context>
 <context>
@@ -3303,12 +3303,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="CustomElements.cpp" line="+79"/>
         <source>Paste and send</source>
-        <translation type="unfinished">Вставить и отправить</translation>
+        <translation>Вставить и отправить</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
-        <translation type="unfinished">&lt;center&gt;Напишите здесь сообщение в чат&lt;/center&gt;</translation>
+        <translation>&lt;center&gt;Напишите здесь сообщение в чат&lt;/center&gt;</translation>
     </message>
 </context>
 <context>
@@ -3326,7 +3326,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Priority speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>Ведущий в разговоре</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3757,13 +3757,14 @@ Username to send to the server. Be aware that the server can impose restrictions
     <message>
         <location/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Название</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your serverlist and can be chosen freely.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Название&lt;/b&gt;&lt;br/&gt;
+Название сервера. Под этим названием сервер будет отображаться в списке серверов, это название Вы можете придумать сами.</translation>
     </message>
 </context>
 <context>
@@ -4076,7 +4077,7 @@ of the possible locations.</source>
     <message>
         <location filename="CustomElements.cpp" line="+135"/>
         <source>Drag here</source>
-        <translation type="unfinished"></translation>
+        <translation>Перетащить сюда</translation>
     </message>
 </context>
 <context>
@@ -6829,7 +6830,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Priority speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>Ведущий в разговоре</translation>
     </message>
 </context>
 <context>
@@ -7225,7 +7226,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+293"/>
         <source>FPS: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>FPS: %1</translation>
     </message>
 </context>
 <context>
@@ -7431,7 +7432,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+2"/>
         <source>Choose application</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите приложение</translation>
     </message>
     <message>
         <location filename="Overlay.ui"/>
@@ -7515,12 +7516,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Display a frame counter in the overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Показывать счетчик кадров в наложении</translation>
     </message>
     <message>
         <location/>
         <source>Show FPS counter</source>
-        <translation type="unfinished"></translation>
+        <translation>Показывать счетчик  FPS</translation>
     </message>
 </context>
 <context>
@@ -7642,7 +7643,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Overlay Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактор наложения</translation>
     </message>
 </context>
 <context>
