@@ -532,7 +532,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device selection</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;בחירת התקן&lt;/p&gt;</translation>
+        <translation type="unfinished">בחירת התקן</translation>
     </message>
     <message>
         <location/>
@@ -704,7 +704,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ממשק</translation>
     </message>
     <message>
         <location/>
@@ -729,7 +729,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Input device for audio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;התקן לקלט&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -739,52 +739,52 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Transmission</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">שידור</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Transmit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;שדר</translation>
     </message>
     <message>
         <location/>
         <source>When to transmit your speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מתי לשדר את הדיבור שלך&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;קבע מתי לשדר את הדיבור שלך&lt;/b&gt;&lt;br /&gt;&lt;i&gt;מתמשך&lt;/i&gt; - כל הזמן&lt;br /&gt;&lt;i&gt;זיהוי קול&lt;/i&gt; - מתי שאתה מדבר ברור&lt;br /&gt;&lt;i&gt;לחץ כדי לדבר&lt;/i&gt; - כשאתה לוחץ על מקש הקיצור שנקבע תחת &lt;i&gt;קיצורים&lt;/i&gt;.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>DoublePush Time</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">זמן הלחיצה הכפולה</translation>
     </message>
     <message>
         <location/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אם תלחץ על לחצן הדיבור פעמיים בזמן הזה הוא יינעל.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;זמן הלחיצה הכפולה&lt;/b&gt;&lt;br /&gt;אם תלחץ על לחצן הדיבור פעמיים בטווח הזמן שהוגדר הלחצן יינעל. ממבל ימשיך לשדר עד שתלחץ על הלחצן שוב כדי לשחרר את לחצן הדיבור מחדש.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when the PTT button is pressed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מנוגן כאשר לחצן הדיבור נלחץ&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when the PTT button is released</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מנוגן כאשר לחצן הדיבור משוחרר&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Reset audio cue to default</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אפס סמן קול לברירת מחדל&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -794,7 +794,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">אפס</translation>
     </message>
     <message>
         <location/>
@@ -814,12 +814,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מבוטל</translation>
     </message>
     <message>
         <location/>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לחיצה</translation>
     </message>
     <message>
         <location/>
@@ -844,7 +844,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>PTT Audio cue</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">סמן קול של לחצן הדיבור</translation>
     </message>
     <message>
         <location/>
@@ -899,32 +899,32 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Compression</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">דחיסה</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Quality</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;איכות</translation>
     </message>
     <message>
         <location/>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;איכות הדחיסה (בשיא רוחב הפס)&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;זה קובע את איכות הדחיסה.&lt;/b&gt;&lt;br /&gt;זה קובע באיזה רוחב פס מותר לממבל להשתמש לשידור יוצא.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Audio per packet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">שידור לחבילה</translation>
     </message>
     <message>
         <location/>
         <source>How many audio frames to send per packet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כמה תמונות שידור לשלוח בכל חבילה&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -939,17 +939,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Audio Processing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">עיבוד צלילים</translation>
     </message>
     <message>
         <location/>
         <source>Noise Suppression</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">דיכוי רעש</translation>
     </message>
     <message>
         <location/>
         <source>Noise suppression</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">דיכוי רעש</translation>
     </message>
     <message>
         <location/>
@@ -959,12 +959,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Amplification</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הגברה</translation>
     </message>
     <message>
         <location/>
         <source>Maximum amplification of input sound</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הגברה מקסימלית של הצליל שנכנס&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -979,7 +979,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Cancel echo from speakers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">בטל הד מהרמקולים</translation>
     </message>
     <message>
         <location/>
@@ -989,7 +989,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מבוטל</translation>
     </message>
     <message>
         <location/>
@@ -1004,7 +1004,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Echo</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הד</translation>
     </message>
     <message>
         <location/>
@@ -1032,7 +1032,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+531"/>
+        <location filename="AudioInput.cpp" line="+528"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1054,27 +1054,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>How long to remain idle before auto-deafen.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כמה זמן להמשיך במצב סרק לפני החרשה.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted and deafened.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Exclusive mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Exclusive</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זה קובע שעון סרק. אם הזמן נגמר מבלי ששום צליל יישלך לשרת, אתה מושתק ומוחרש.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -1082,45 +1067,45 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioConfigDialog.cpp" line="+74"/>
         <source>Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מתמשך</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">זיהוי קול</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לחץ כדי לדבר</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Audio Input</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">צליל קלט</translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+96"/>
         <location line="+8"/>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 מ&quot;ש</translation>
     </message>
     <message>
         <location line="-2"/>
         <location line="+20"/>
         <location line="+18"/>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מבוטל</translation>
     </message>
     <message>
         <location line="-30"/>
         <source>%1 s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 ש</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 kb/s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 ק&quot;ב/ש</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1146,7 +1131,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="-42"/>
         <source>%1 min</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 דקות</translation>
     </message>
 </context>
 <context>
@@ -1159,7 +1144,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ממשק</translation>
     </message>
     <message>
         <location/>
@@ -1195,12 +1180,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ממקם צלילים&lt;/p&gt;</translation>
+        <translation type="unfinished">ממקם צלילים</translation>
     </message>
     <message>
         <location/>
         <source>Audio Output</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">צליל פלט</translation>
     </message>
     <message>
         <location/>
@@ -1220,17 +1205,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Minimum distance to user before sound volume decreases</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;המרחק המינימלי למשתמש לפני הורדת עוצמת הקול&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זה קובע את המרחק המינימלי לחישוב קולות. עוצמת הדיבור של משתמשים אחרים לא יופחת עד שהם יהיו לפחות במרחק כזה ממך.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זה קובע את המרחק המקסימלי לחישוב קולות. כשיותר רחוק מזה, עוצמת הדיבור של משתמשים אחרים לא תופחת עוד. &lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1240,17 +1225,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;עוצמה&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;עוצמת הדיבור הנקלט&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;זה מתאם את עוצמת הדיבור הנקלט.&lt;/b&gt;&lt;br /&gt;שים לב שאם אתה מעלה את זה מעל 100%, הקול יעוות.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1266,67 +1251,68 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location/>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ה&quot;רמקולים&quot; המחוברים הם למעשה אוזניות&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Factor for sound volume decrease</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;פקטור להפחתת עוצמת הקול&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Bloom</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>לבלוב?</translatorcomment>
+        <translation type="unfinished">הגברה</translation>
     </message>
     <message>
         <location/>
         <source>Factor for sound volume increase</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;פקטור להעלאת עוצמת הקול&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>How much should sound volume increase for sources that are really close?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כמה עוצמת הקול צריכה לעלות למקורות שנמצאים ממש קרוב?&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הסימון של זה מציין שאין לך רמקולים מחוברים, רק אוזניות. זה חשוב בגלל שרמקולים בדרך כלל מקדימה, ואילו אוזניות ישירות מצד שמאל/ימין.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זה קובע את כמות המידע לעיבוד מקדים במעבד הפלט. התנסה בערכים שונים וקבע את זה בנמוך ביותר שלא גורםריצוד מהיר בצליל.&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זה קובע את כמות המידע לעיבוד מקדים במעבד הפלט. התנסה בערכים שונים וקבע את זה בנמוך ביותר שלא גורם ריצוד מהיר בצליל.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Headphones</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">אוזניות</translation>
     </message>
     <message>
         <location/>
         <source>Minimum Distance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מרחק מינימלי</translation>
     </message>
     <message>
         <location/>
         <source>Maximum Distance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מרחק מקסימלי</translation>
     </message>
     <message>
         <location/>
         <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מרחק מקסימלי, מעבר לזה עוצמת הדיבור לא תפחת&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Minimum Volume</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">עוצמה מינימלית</translation>
     </message>
     <message>
         <location/>
         <source>What should the volume be at the maximum distance?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מה העוצמה שצריכה להיות במרחק המקסימלי?&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1377,68 +1363,53 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Attenuate applications by...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הנמך תוכנות אחרות ב...</translation>
     </message>
     <message>
         <location/>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;החלשת תוכנות אחרות בזמן דיבור&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכנות אחרות בזמן דיבור&lt;/b&gt;&lt;br /&gt;ממבל תומך בהפחתת העוצמה של תוכנות אחרות בזמן קליטה ו/או שידור של דיבור. זה קובע את הנמכת התוכנות האחרות אם התכונה מופעלת.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אם מסומן, ממבל ינמיך את העוצמה של תוכנות אחרות בזמן שמשתמשים אחרים מדברים&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכנות אחרות בזמן דיבור&lt;/b&gt;&lt;br /&gt;ממבל תומך בהפחתת העוצמה של תוכנות אחרות בזמן קליטה ו/או שידור של דיבור. זה גורם לממבל להפעיל את התכונה בזמן שמשתמשים אחרים מדברים אליך.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>while other users talk</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">כשמשתמשים אחרים מדברים</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אם מסומן, ממבל ינמיך את העוצמה של תוכנות אחרות בזמן שאתה מדבר&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכנות אחרות בזמן דיבור&lt;/b&gt;&lt;br /&gt;ממבל תומך בהפחתת העוצמה של תוכנות אחרות בזמן קליטה ו/או שידור של דיבור. זה גורם לממבל להפעיל את התכונה בזמן שאתה מדבר.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>while you talk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Exclusive mode, not recommended.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Exclusive</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">כשאתה מדבר</translation>
     </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="+168"/>
+        <location filename="AudioConfigDialog.cpp" line="+167"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1450,19 +1421,19 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">שרת</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Audio Output</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">צליל פלט</translation>
     </message>
     <message>
-        <location line="+106"/>
+        <location line="+102"/>
         <location line="+19"/>
         <location line="+8"/>
         <source>%1 ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 מ&quot;ש</translation>
     </message>
     <message>
         <location line="-16"/>
@@ -1477,13 +1448,13 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="-16"/>
         <location line="+6"/>
         <source>%1 m</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 מ</translation>
     </message>
 </context>
 <context>
     <name>AudioOutputSample</name>
     <message>
-        <location filename="AudioOutput.cpp" line="+299"/>
+        <location filename="AudioOutput.cpp" line="+295"/>
         <source>Choose sound file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2733,7 +2704,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
 </context>
 <context>
-    <name>ChatbarTextEdit</name>
+    <name>ChatbarLineEdit</name>
     <message>
         <location filename="CustomElements.cpp" line="+79"/>
         <source>Paste and send</source>
@@ -2750,12 +2721,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ClientUser.cpp" line="+130"/>
         <source>Friend</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">חבר</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Authenticated</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">רשום</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2765,27 +2736,27 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Muted (server)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מושתק (שרת)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (server)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מוחרש (שרת)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Local Mute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">השתקה מקומית</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted (self)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מושתק (עצמית)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (self)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מוחרש (עצמית)</translation>
     </message>
 </context>
 <context>
@@ -2794,7 +2765,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="ConfigDialog.cpp" line="+51"/>
         <location filename="ConfigDialog.mm" line="+73"/>
         <source>Accept changes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הסכם לשינויים&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2806,7 +2777,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location line="+4"/>
         <location filename="ConfigDialog.mm" line="+4"/>
         <source>Reject changes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;דחה שינוים&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2818,19 +2789,19 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location line="+4"/>
         <location filename="ConfigDialog.mm" line="+4"/>
         <source>Apply changes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;החל שינויים&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+1"/>
         <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will immediately apply all changes.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כפתור זה יישם את השינויים לאלתר&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
         <location filename="ConfigDialog.mm" line="+3"/>
         <source>Undo changes for current page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;בטל שינויים עבור הדף הנוכחי&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2842,7 +2813,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location line="+3"/>
         <location filename="ConfigDialog.mm" line="+3"/>
         <source>Restore defaults for current page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שחזר הגדרות ברירת מחדל עבור הדף הנוכחי&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2853,13 +2824,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConfigDialog.ui"/>
         <source>Mumble Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הגדרות ממבל</translation>
     </message>
     <message>
         <location/>
         <location filename="ConfigDialogDelegate.mm" line="+135"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מתקדם</translation>
     </message>
 </context>
 <context>
@@ -3036,7 +3007,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location/>
         <location filename="ConnectDialog.cpp" line="-707"/>
         <source>&amp;Add New...</source>
-        <translation type="unfinished">...&amp;הוסף חדש</translation>
+        <translation type="unfinished">&amp;הוסף חדש...</translation>
     </message>
     <message>
         <location/>
@@ -3139,13 +3110,14 @@ Username to send to the server. Be aware that the server can impose restrictions
     <message>
         <location/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">כותרת</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your serverlist and can be chosen freely.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;כותרת&lt;/b&gt;&lt;br/&gt;
+כותרת השרת. ככה יקרא השרת ברשימת השרתים שלך ויכול להיות כרצונך.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3287,19 +3259,11 @@ of the possible locations.</source>
     </message>
 </context>
 <context>
-    <name>DockTitleBar</name>
-    <message>
-        <location filename="CustomElements.cpp" line="+135"/>
-        <source>Drag here</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>GlobalShortcut</name>
     <message>
         <location filename="GlobalShortcut.ui"/>
         <source>Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">קיצורים</translation>
     </message>
     <message>
         <location/>
@@ -3309,32 +3273,32 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Function</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">פעולה</translation>
     </message>
     <message>
         <location/>
         <source>Data</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מידע</translation>
     </message>
     <message>
         <location/>
         <source>Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">קיצור</translation>
     </message>
     <message>
         <location/>
         <source>Suppress</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">דכא</translation>
     </message>
     <message>
         <location/>
         <source>Add new shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הוסף קיצור חדש&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>This will add a new global shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זה יוסיף קיצור גלובלי חדש&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3344,12 +3308,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Remove selected shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הסר קיצור נבחר&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>This will permanently remove a selected shortcut.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זה יסיר לצמיתות את הקיצור שנבחר.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3362,7 +3326,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.cpp" line="+655"/>
         <source>Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">קיצורים</translation>
     </message>
     <message>
         <location line="+38"/>
@@ -3399,52 +3363,52 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcutTarget.ui"/>
         <source>Whisper Target</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">יעד הלחישה</translation>
     </message>
     <message>
         <location/>
         <source>Whisper to list of Users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לחש לרשימת משתמשים</translation>
     </message>
     <message>
         <location/>
         <source>Channel Target</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">חדר יעד</translation>
     </message>
     <message>
         <location/>
         <source>Restrict to Group</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הגבל לקבוצה</translation>
     </message>
     <message>
         <location/>
         <source>If specified, only members of this group will receive the whisper.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אם מצויין, רק החברים בקבוצה הזאת תקבל את הלחישה.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>If checked the whisper will also be transmitted to linked channels.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אם מסומן, הלחיצה תשודר גם לחדרים המקושרים.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>If checked this whisper will also be sent to the subchannels of the channel target.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אם מוסמן, הלחישה תשלח גם לתת-החדרים של חדר היעד.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>List of users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">רשימת משתמשים</translation>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הוסף</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הסר</translation>
     </message>
     <message>
         <location/>
@@ -3454,27 +3418,27 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;לא לשלוח מידע למיקום צלילים כשתמשים בלחישה הזאת.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Ignore positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">התעלם ממיקום צלילים</translation>
     </message>
     <message>
         <location/>
         <source>Shout to Linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">צעק לחדרים מקושרים</translation>
     </message>
     <message>
         <location/>
         <source>Shout to subchannels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">צעק לתת-חדרים</translation>
     </message>
     <message>
         <location/>
         <source>Shout to Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">צעק לחדר</translation>
     </message>
 </context>
 <context>
@@ -3593,12 +3557,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Server Connected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">שרת התחבר</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Server Disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">שרת התנתק</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3613,7 +3577,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+6"/>
         <source>Permission Denied</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הרשאה נדחתה&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3623,12 +3587,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-12"/>
         <source>User Joined Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">משתמש הצטרף לשרת</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">משתמש עזב את השרת</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3638,7 +3602,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User kicked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">משתמש נבעט</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3658,17 +3622,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User Joined Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">משתמש הצטרף לחדר</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">משתמש עזב את החדר</translation>
     </message>
     <message>
         <location line="+54"/>
         <source>the server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">השרת</translation>
     </message>
     <message>
         <location line="+117"/>
@@ -3679,7 +3643,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+42"/>
         <source>[Date changed to %1]
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;[התאריך השתנה ל %1]&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location line="+136"/>
@@ -3859,42 +3824,42 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="LookConfig.cpp" line="+52"/>
         <location line="+11"/>
         <source>System default</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ברירת מחדל</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">בכלל לא</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Only with users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">רק עם משתמשים</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הכל</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Ask</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">שאל</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Do Nothing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">אל תעשה דבר</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הזז</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>User Interface</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ממשק משתמש</translation>
     </message>
     <message>
         <location line="+127"/>
@@ -3914,7 +3879,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>List users above subchannels (requires restart).</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;רשום משתמשים מעל חדרי-משנה (דורש הפעלה מחדש).&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3924,7 +3889,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Users above Channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">משתמשים מעל חדרים</translation>
     </message>
     <message>
         <location/>
@@ -3934,22 +3899,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Show number of users in each channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הראה את מספר המשתמשים בכל חדר&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Show channel user count</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מספר משתמשים</translation>
     </message>
     <message>
         <location/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">שפה</translation>
     </message>
     <message>
         <location/>
         <source>Language to use (requires restart)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;באיזו שפה להשתמש (דורש הפעלה מחדש)&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3959,27 +3924,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Look and Feel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מראה ותחושה</translation>
     </message>
     <message>
         <location/>
         <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">סגנון</translation>
     </message>
     <message>
         <location/>
         <source>Classic</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">טיפוסי</translation>
     </message>
     <message>
         <location/>
         <source>Stacked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מערום</translation>
     </message>
     <message>
         <location/>
         <source>Hybrid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מעורב</translation>
     </message>
     <message>
         <location/>
@@ -3989,7 +3954,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>This changes the behavior when moving channels.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זה משנה את ההתנהגות כאשר מזיזים חדרים.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -4000,7 +3965,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Style</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">עיצוב</translation>
     </message>
     <message>
         <location/>
@@ -4035,32 +4000,32 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Expand</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הרחב</translation>
     </message>
     <message>
         <location/>
         <source>When to automatically expand channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מתי להרחיב חדרים אוטומטית&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Channel Dragging</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">גרירת חדרים</translation>
     </message>
     <message>
         <location/>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שאל האם לסגור או למזער כשיוצאים ממבל.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Ask on quit while connected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">שאל על יציאה כאשר מחובר</translation>
     </message>
     <message>
         <location/>
         <source>Always On Top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">תמיד למעלה</translation>
     </message>
     <message>
         <location/>
@@ -4070,7 +4035,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Hide in tray when minimized</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">החבא בסרגל המשימות כשממזערים</translation>
     </message>
     <message>
         <location/>
@@ -4080,27 +4045,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>This setting controls when the application will be always on top.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הגדרה זו קובעת מתי התוכנה תיהיה תמיד מעל הכל.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">אף פעם</translation>
     </message>
     <message>
         <location/>
         <source>Always</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">תמיד</translation>
     </message>
     <message>
         <location/>
         <source>In minimal view</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">במראה מינימלי</translation>
     </message>
     <message>
         <location/>
         <source>In normal view</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">במראה רגיל</translation>
     </message>
     <message>
         <location/>
@@ -4110,7 +4075,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Show talking status in tray icon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הראה סטטוס דיבור באייקון סרגל המשימות</translation>
     </message>
     <message>
         <location/>
@@ -4125,17 +4090,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;יישם כמה ייעולים לניגודיות גבוהה למשתמשים עם פגמים חזותיים&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Optimize for high contrast</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ייעל לניגודיות גבוהה</translation>
     </message>
     <message>
         <location/>
         <source>Application</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">יישום</translation>
     </message>
     <message>
         <location/>
@@ -4145,24 +4110,24 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Tray Icon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">אייקון סרגל-משימות</translation>
     </message>
     <message>
         <location/>
         <source>Channel Tree</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">עץ חדרים</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+151"/>
-        <location line="+1865"/>
+        <location line="+1866"/>
         <source>Root</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1815"/>
+        <location line="-1816"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished">לחץ-כדי-לדבר</translation>
@@ -4225,13 +4190,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Volume Up (+10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">(+10%) העלה ווליום</translation>
+        <translation type="unfinished">העלה עוצמה (+10%)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Volume Down (-10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">(-10%) הנמך ווליום</translation>
+        <translation type="unfinished">הנמך עוצמה (-10%)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -4241,12 +4206,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+1967"/>
+        <location line="+1968"/>
         <source>Mumble -- %1</source>
         <translation type="unfinished">ממבל -- %1</translation>
     </message>
     <message>
-        <location line="-1963"/>
+        <location line="-1964"/>
         <source>&amp;Window</source>
         <translation type="unfinished">&amp;חלון</translation>
     </message>
@@ -4364,7 +4329,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+18"/>
         <location line="+180"/>
         <source>Connecting to server %1.</source>
-        <translation type="unfinished">התחבר לשרת %1.</translation>
+        <translation type="unfinished">מתחבר לשרת %1.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -4434,7 +4399,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+56"/>
         <location line="+227"/>
         <source>Message to channel %1</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הודעה לחדר %1&lt;/p&gt;</translation>
@@ -4498,7 +4463,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;פורמט התמונה לא מזוהה.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1453"/>
+        <location line="-1454"/>
         <source>Voice channel is sent over control channel.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4521,16 +4486,16 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+16"/>
         <source>Whisper/Shout</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לחש/צעק</translation>
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1989"/>
+        <location line="+1987"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;center&gt;&lt;p dir=&quot;RTL&quot;&gt;לא מחובר&lt;/p&gt;&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1449"/>
+        <location line="-1447"/>
         <source>Change your comment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4581,12 +4546,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1157"/>
+        <location line="+1158"/>
         <source>&amp;View Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-919"/>
+        <location line="-920"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation type="unfinished">הכנס סיבה</translation>
@@ -4598,25 +4563,25 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+10"/>
-        <location line="+78"/>
+        <location line="+79"/>
         <location line="+4"/>
         <location line="+223"/>
         <source>To %1: %2</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ל %1: %2&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-305"/>
-        <location line="+82"/>
+        <location line="-306"/>
+        <location line="+83"/>
         <source>Message to %1</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הודעה ל %1&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-43"/>
+        <location line="-44"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+184"/>
+        <location line="+185"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;האם אתה בטוח שאתה רוצה למחוק %1 ואת כל תת-החדרים שלו?&lt;/p&gt;</translation>
     </message>
@@ -4631,9 +4596,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+731"/>
+        <location line="+728"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;center&gt;&lt;p dir=&quot;RTL&quot;&gt;רשום הודעה לחדר %1 כאן&lt;/p&gt;&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4641,7 +4606,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="+91"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4828,7 +4793,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&amp;Information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;מידע</translation>
     </message>
     <message>
         <location/>
@@ -5030,7 +4995,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&amp;Reset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;אפס</translation>
     </message>
     <message>
         <location/>
@@ -5200,12 +5165,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Check for &amp;Updates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">בדוק לעידכונים</translation>
     </message>
     <message>
         <location/>
         <source>Check for new version of Mumble</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">בדוק לגירסא חדשה של ממבל</translation>
     </message>
     <message>
         <location/>
@@ -5285,7 +5250,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Your friend uses a different name than what is in your database. This will update the name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;החבר שלך משתמש בשם שונה מזה שמופיע במאגר המידע שלך. זה ייעדכן את השם.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -5315,7 +5280,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&amp;Minimal View</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;מראה מינימלי</translation>
     </message>
     <message>
         <location/>
@@ -5370,17 +5335,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+25"/>
         <source>%1 moved to %2.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 הועבר ל %2.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 moved to %2 by %3.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 הועבר ל %2 על ידי %3.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>%1 moved in from %2 by %3.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 הועבר לחדר מ %2 על ידי %3.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="-136"/>
@@ -5391,12 +5356,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-170"/>
         <location line="+40"/>
         <source>Welcome message: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הודעת פתיחה: %1&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="-7"/>
         <source>Mumble: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ממבל: %1</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -5411,22 +5376,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+4"/>
         <source>Denied: Cannot modify SuperUser.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נדחה: לא ניתן לשנות SuperUser.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Invalid channel name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נדחה: שם חדר לא חוקי.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Text message too long.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נדחה: הודעה ארוכה מדי.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נדחה: פעולה לא מורשית בחדר זמני.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5441,27 +5406,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+5"/>
         <source>Invalid username: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שם משתמש לא חוקי: %1.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Invalid username.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שם משתמש לא .חוקי&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Channel is full.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">החדר מלא</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Permission denied.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הרשאה נדחתה&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>%1 connected.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 התחבר.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -5497,7 +5462,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+3"/>
         <source>You were unsuppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5507,14 +5472,14 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+137"/>
         <source>%1 disconnected.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 התנתק.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+87"/>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">שרת</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5585,7 +5550,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+5"/>
         <source>%3 was kicked from the server by %1: %2.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%3 נבעט מהשרת על ידי %1: %2.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="-7"/>
@@ -5600,27 +5565,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-57"/>
         <source>You were moved to %1 by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הועברתה ל %1 על ידי %2.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>%1 entered channel.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 נכנס לחדר.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="-312"/>
         <source>Server connection rejected: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;התקשרות לשרת נדחתה: %1.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+128"/>
         <source>Denied: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נדחה: %1.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+329"/>
         <source>Message from %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הודעה מ %1&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="+1378"/>
@@ -5635,7 +5600,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="main.cpp" line="-46"/>
         <source>Welcome to Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ברוך הבא לממבל.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -5745,22 +5710,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Change &amp;Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">שנה &amp;סמל</translation>
     </message>
     <message>
         <location/>
         <source>Change your avatar image on this server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שנה את הסמל האישי שלך בשרת הזה&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;הסר סמל</translation>
     </message>
     <message>
         <location/>
         <source>Remove currently defined avatar image.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הסר את הסמל האישי הנוכחי שלך.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -6036,7 +6001,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+428"/>
+        <location filename="Overlay.cpp" line="+424"/>
         <location line="+1076"/>
         <source>Silent</source>
         <translation type="unfinished"></translation>
@@ -6122,7 +6087,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-2044"/>
+        <location line="-2040"/>
         <source>To move the users, drag the little red dot.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6137,7 +6102,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+151"/>
+        <location line="+147"/>
         <source>Overlay</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6780,7 +6745,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+29"/>
         <source>Connection timed out</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ה</translation>
     </message>
 </context>
 <context>
@@ -6836,7 +6801,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="GlobalShortcut.cpp" line="-484"/>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לא מוקצה</translation>
     </message>
 </context>
 <context>
@@ -6859,7 +6824,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+6"/>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לא מוקצה</translation>
     </message>
 </context>
 <context>
@@ -6867,7 +6832,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="-434"/>
         <source>Press Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לחץ על מקש הקיצור</translation>
     </message>
 </context>
 <context>
@@ -6880,17 +6845,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+5"/>
         <source>Parent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הורה</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Current</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">נוכחי</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Subchannel #%1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">תת-חדר #%1</translation>
     </message>
 </context>
 <context>
@@ -6913,27 +6878,27 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+2"/>
         <source>Parent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הורה</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Current</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">נוכחי</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Subchannel #%1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">תת-חדר #%1</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Invalid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לא תקין</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&lt;Empty&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;ריק&gt;</translation>
     </message>
 </context>
 <context>
@@ -6977,12 +6942,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Tokens.cpp" line="+69"/>
         <source>Empty Token</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">סיסמא ריקה</translation>
     </message>
     <message>
         <location filename="Tokens.ui"/>
         <source>Mumble - Access Tokens</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ממבל - סיסמאות</translation>
     </message>
     <message>
         <location/>
@@ -7000,7 +6965,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Add a token</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הוסף סיסמא&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -7042,7 +7007,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserInformation.ui"/>
         <source>User Information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מידע משתמש&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -7057,7 +7022,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>OS</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מערכת הפעלה&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -7086,7 +7051,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location/>
-        <source>Pings received</source>
+        <source>Pings recieved</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7142,7 +7107,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Connection time</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זמן חיבור&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="UserInformation.cpp" line="+93"/>
@@ -7198,19 +7163,19 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+5"/>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 ק&quot;ב/ש&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="UserInformation.ui"/>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;רוחב פס&lt;/p&gt;</translation>
+        <translation type="unfinished">רוחב פס</translation>
     </message>
     <message>
         <location/>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;רוחב פס&lt;/p&gt;</translation>
+        <translation type="unfinished">רוחב פס</translation>
     </message>
 </context>
 <context>
@@ -7243,7 +7208,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+8"/>
         <source>This is a channel on the server. The icon indicates the state of the channel:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">f</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7506,7 +7471,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+182"/>
+        <location filename="WASAPI.cpp" line="+172"/>
         <source>Default Device</source>
         <translation type="unfinished"></translation>
     </message>
