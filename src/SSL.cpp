@@ -218,8 +218,12 @@ void MumbleSSL::addSystemCA() {
 #ifdef SYSTEM_CA_BUNDLE
 	qsl << QLatin1String(MUMTEXT(SYSTEM_CA_BUNDLE));
 #else
+#ifdef __FreeBSD__
+	qsl << QLatin1String("/usr/local/share/certs/ca-root-nss.crt");
+#else
 	qsl << QLatin1String("/etc/pki/tls/certs/ca-bundle.crt");
 	qsl << QLatin1String("/etc/ssl/certs/ca-certificates.crt");
+#endif
 #endif
 
 	foreach(const QString &filename, qsl) {
