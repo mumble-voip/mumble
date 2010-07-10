@@ -87,7 +87,7 @@ ServerHandler::ServerHandler() {
 	bStrong = false;
 
 	// For some strange reason, on Win32, we have to call supportsSsl before the cipher list is ready.
-	qWarning("OpenSSL Support: %d", QSslSocket::supportsSsl());
+	qWarning("OpenSSL Support: %d (%s)", QSslSocket::supportsSsl(), SSLeay_version(SSLEAY_VERSION));
 
 	MumbleSSL::addSystemCA();
 

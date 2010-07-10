@@ -375,6 +375,8 @@ void MetaParams::read(QString fname) {
 		qFatal("No SSL ciphers of at least 128 bit found");
 	QSslSocket::setDefaultCiphers(pref);
 
+	qWarning("OpenSSL: %s", SSLeay_version(SSLEAY_VERSION));
+
 	qmConfig.clear();
 	QStringList hosts;
 	foreach(const QHostAddress &qha, qlBind) {
