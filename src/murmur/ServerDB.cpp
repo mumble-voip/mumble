@@ -1050,7 +1050,7 @@ int Server::getUserID(const QString &name) {
 	}
 
 	if (!validateUserName(name)) {
-	    return id;
+		return id;
 	}
 
 	TransactionHolder th;

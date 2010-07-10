@@ -1,3 +1,52 @@
+2010-07-11
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    288dab9  Update to CELT 0.8.1
+    6c61371  Report OpenSSL version to console
+
+2010-07-05
+  Andreas Bibok <biboka@users.sourceforge.net>
+    3c4fe52  Partial translation to Hungarian
+
+  Necromancer <necromancer3@users.sourceforge.net>
+    1d155a1  Hebrew translation update: translated audio input, audio
+	     output, user interface and shortcuts sections.
+
+  Sergey Ivanov <randomei@users.sourceforge.net>
+    e6514f0  Updated russian translation
+
+2010-07-03
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    cb9c5bd  Customize labels for high contrast mode so they talk about
+	     what is actually visible
+
+2010-07-02
+  Karl Dietz <dekarl@users.sourceforge.net>
+    d1dd3e7  wow: update to 3.3.5
+
+  Mark-Willem Jansen <rawnar@users.sourceforge.net>
+    d135236  Plugins: Changed the pointers for the camera information of
+	     Borderlands
+
+2010-06-29
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    5c40cfe  Don't validate the name before we are sure it wasn't already
+	     validated by an authenticator
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    6b33dda  Don't crash on long usernames
+
+2010-06-27
+  Kissaki <kissaki@gmx.de>
+    0c38e42  correct inline-doc and make it clearer
+
+2010-06-21
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    cb223d4  Add a wrapper for the new CELT 0.8.0 API
+
+2010-06-20
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    4d79d80  Allow <img> tags with an empty source url
+
 2010-06-19
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     73f3ac2  Fix WASAPI exclusive output for some broken drivers
@@ -23,6 +72,11 @@
 2010-06-06
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     773f05a  Fix some warnings in the chatbar code
+
+2010-06-04
+  Mark-Willem Jansen <rawnar@users.sourceforge.net>
+    d187857  WINAPI update: WinVerifyTrust() returns a LONG instead of
+	     HRESULT
 
 2010-06-02
   arcenciel <arcenciel@users.sourceforge.net>

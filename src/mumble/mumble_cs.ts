@@ -2537,6 +2537,30 @@ Mumble is under continuous development, and the development team wants to focus 
         <source>Keep custom Text-To-Speech settings.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>&lt;p&gt;
+Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.
+&lt;/p&gt;
+&lt;p&gt;
+Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the striped and the empty but &lt;b&gt;not&lt;/b&gt; the criss-crossed zone while you speak.
+&lt;/p&gt;
+</source>
+        <comment>For high contrast mode</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
+        <comment>For high contrast mode</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the criss-crossed (definitively not speech).</source>
+        <comment>For high contrast mode</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BanEditor</name>
