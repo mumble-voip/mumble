@@ -32,7 +32,7 @@
 
 BYTE *posptr;
 BYTE *rotptr;
-BYTE *stateptr;
+// BYTE *stateptr;
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
@@ -74,7 +74,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	posptr = pModule + 0x62F8AC;
 	rotptr = pModule + 0x62F81C;
-	stateptr = pModule + 0x690A3C;
+	// stateptr = pModule + 0x690A3C;
+	
+	if (avatar_pos[1] == 0)
+		return true;
 
 	float pos[3];
 	float rot[3];
@@ -97,15 +100,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	float ipos[3], rot[3];
 	bool ok;
-	char state;
+	// char state;
 
 	// stateptr returns byte values: 0 when map is not loaded; 8 when loaded
 	ok = peekProc(posptr, ipos, 12) &&
-	     peekProc(rotptr, rot, 12) &&
-	     peekProc(stateptr, &state, 1);
+	     peekProc(rotptr, rot, 12);
+	     // peekProc(stateptr, &state, 1);
 
-	if (state == 0)
-		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+	// if (state == 0)
+	// 	return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 
 	if (ok) {
 		int res = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
