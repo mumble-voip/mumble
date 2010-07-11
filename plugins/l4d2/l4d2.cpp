@@ -76,7 +76,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	rotptr = pModule + 0x62F81C;
 	// stateptr = pModule + 0x690A3C;
 	
-	if (avatar_pos[1] == 0)
+	if (posptr[1] == 0)
 		return true;
 
 	float pos[3];
