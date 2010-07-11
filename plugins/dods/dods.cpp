@@ -139,14 +139,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	*/
 
 	// Remember addresses for later
-	posptr = mod_engine + 0x3917AC;
-	rotptr = mod_engine + 0x3917B8;
-	stateptr = pModule + 0x3F2C3C;
-	hostptr = mod_engine + 0x3CFBAC;
+	posptr = mod_engine + 0x3EE288;
+	rotptr = mod_engine + 0x393838;
+	stateptr = pModule + 0x3FEC3C;
+	hostptr = mod_engine + 0x3D1C7C;
 
 	// Gamecheck
 	char sMagic[17];
-	if (!peekProc(pModule + 0x407171, sMagic, 17) || strncmp("DODSpectatorGUI@@", sMagic, 17)!=0)
+	if (!peekProc(pModule + 0x4131D9, sMagic, 17) || strncmp("DODSpectatorGUI@@", sMagic, 17)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
@@ -164,10 +164,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports DODS build 4209. No identity support yet.");
+	return std::wstring(L"Supports DODS build 4260. No identity support yet.");
 }
 
-static std::wstring description(L"Day of Defeat: Source (Build 4209)");
+static std::wstring description(L"Day of Defeat: Source (Build 4260)");
 static std::wstring shortname(L"Day of Defeat: Source");
 
 static int trylock1() {

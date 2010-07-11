@@ -143,10 +143,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	*/
 
 	// Remember addresses for later
-	posptr = mod_engine + 0x55C300;
-	rotptr = mod_engine + 0x3917B8;
-	stateptr = pModule + 0x4F6BF4;
-	hostptr = mod_engine + 0x3CFBAC;
+	posptr = mod_engine + 0x3EE288;
+	rotptr = mod_engine + 0x393838;
+	stateptr = pModule + 0x57CBF4;
+	hostptr = mod_engine + 0x3D1C7C;
 
 	/*
 	// Gamecheck
@@ -157,7 +157,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	// Gamecheck
 	char sMagic[13];
-	if (!peekProc(mod_engine + 0x546458, sMagic, 13) || strncmp("DemomanTaunts", sMagic, 13)!=0)
+	if (!peekProc(mod_engine + 0x548580, sMagic, 13) || strncmp("DemomanTaunts", sMagic, 13)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it

@@ -39,7 +39,6 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	//char state;
 	//char logincheck;
 	bool ok;
-
 	/*
 	ok = peekProc((BYTE *) 0x0, &logincheck, 1);
 	if (! ok)
@@ -59,11 +58,20 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (! ok)
 		return false;
 	*/
-	ok = peekProc((BYTE *) 0x015467C0, avatar_pos, 12) &&
-	     peekProc((BYTE *) 0x015467B0, avatar_front, 12) &&
-	     peekProc((BYTE *) 0x015467A0, avatar_top, 12); // &&
-	//peekProc((BYTE *) 0x0, ccontext, 128);
-
+	char sMagic[6];
+	peekProc((BYTE *) 0x015460C4, sMagic, 6);
+	if (strncmp("Score:", sMagic, 6)==0) {
+	ok = peekProc((BYTE *) 0x01546980, avatar_pos, 12) &&
+	     peekProc((BYTE *) 0x01546970, avatar_front, 12) &&
+	     peekProc((BYTE *) 0x01546960, avatar_top, 12); // &&
+	}
+		 
+	else {
+	ok = peekProc((BYTE *) 0x01549B70, avatar_pos, 12) &&
+	     peekProc((BYTE *) 0x01549B60, avatar_front, 12) &&
+	     peekProc((BYTE *) 0x01549B50, avatar_top, 12); // &&
+	}
+	
 	if (avatar_pos[1] == 9999)
 		return true;
 
