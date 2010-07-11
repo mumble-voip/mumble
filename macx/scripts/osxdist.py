@@ -219,10 +219,13 @@ class AppBundle(object):
 		'''
 			Copy the Mumble G15 helper daemon into our Mumble app bundle.
 		'''
-		print ' * Copying G15 helper'
-		src = os.path.join(self.bundle, '..', 'mumble-g15-helper')
-		dst = os.path.join(self.bundle, 'Contents', 'MacOS', 'mumble-g15-helper')
-		shutil.copy(src, dst)
+		if os.path.exists(os.path.join(self.bundle, '..', 'mumble-g15-helper')):
+			print ' * Copying G15 helper'
+			src = os.path.join(self.bundle, '..', 'mumble-g15-helper')
+			dst = os.path.join(self.bundle, 'Contents', 'MacOS', 'mumble-g15-helper')
+			shutil.copy(src, dst)
+		else:
+			print ' * No G15 helper found, skipping...'
 
 	def copy_resources(self, rsrcs):
 		'''
