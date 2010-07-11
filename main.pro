@@ -33,6 +33,9 @@ CONFIG *= ordered debug_and_release
       error("Missing $MUMBLE_PREFIX environment variable");
     }
     SUBDIRS *= macx
+    !exists($$(MUMBLE_PREFIX)/lglcd-sdk) {
+      CONFIG *= no-g15
+    }
     !CONFIG(no-g15) {
       SUBDIRS *= g15helper
     }
