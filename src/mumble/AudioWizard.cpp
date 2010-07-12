@@ -94,6 +94,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	}
 
 	qcbHighContrast->setChecked(g.s.bHighContrast);
+	on_qcbHighContrast_clicked(g.s.bHighContrast);
 #ifdef Q_OS_WIN
 	// On windows we can autodetect this
 	qcbHighContrast->setVisible(false);
@@ -607,8 +608,8 @@ void AudioWizard::on_qcbAttenuateOthers_clicked(bool checked) {
 	g.s.bAttenuateOthers = checked;
 }
 
-void AudioWizard::on_qcbHighContrast_stateChanged(int state) {
-	g.s.bHighContrast = (state == Qt::Checked);
+void AudioWizard::on_qcbHighContrast_clicked(bool on) {
+	g.s.bHighContrast = on;
 
 	qliAmpTuningText->setVisible(!g.s.bHighContrast);
 	qliAmpTuningTextHC->setVisible(g.s.bHighContrast);
