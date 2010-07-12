@@ -31,6 +31,8 @@
 
 #include "../mumble_plugin_win32.h"
 
+bool is_steam = false;
+
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
@@ -58,25 +60,24 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (! ok)
 		return false;
 	*/
-	char sMagic[6];
-	peekProc((BYTE *) 0x015460C4, sMagic, 6);
-	if (strncmp("Score:", sMagic, 6)==0) {
-	ok = peekProc((BYTE *) 0x01546980, avatar_pos, 12) &&
-	     peekProc((BYTE *) 0x01546970, avatar_front, 12) &&
-	     peekProc((BYTE *) 0x01546960, avatar_top, 12); // &&
+
+	if (is_steam) {
+		ok = peekProc((BYTE *) 0x01546980, avatar_pos, 12) &&
+			 peekProc((BYTE *) 0x01546970, avatar_front, 12) &&
+			 peekProc((BYTE *) 0x01546960, avatar_top, 12); // &&
 	}
-		 
 	else {
-	ok = peekProc((BYTE *) 0x01549B70, avatar_pos, 12) &&
-	     peekProc((BYTE *) 0x01549B60, avatar_front, 12) &&
-	     peekProc((BYTE *) 0x01549B50, avatar_top, 12); // &&
+		ok = peekProc((BYTE *) 0x01549B70, avatar_pos, 12) &&
+			 peekProc((BYTE *) 0x01549B60, avatar_front, 12) &&
+			 peekProc((BYTE *) 0x01549B50, avatar_top, 12); // &&
 	}
-	
-	if (avatar_pos[1] == 9999)
-		return true;
 
 	if (! ok)
 		return false;
+
+	// Disable when not in game
+	if (avatar_pos[1] == 9999)
+		return true;
 
 	/*
 	    Get context string; in this plugin this will be an
@@ -107,12 +108,21 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	std::string context;
 	std::wstring identity;
 
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
-		return true;
-	} else {
+	// Find out whether this is the steam version
+	char sMagic[6];
+	if (!peekProc((BYTE *) 0x015460C4, sMagic, 6)) {
 		generic_unlock();
 		return false;
 	}
+
+	is_steam = (strncmp("Score:", sMagic, 6) == 0);
+
+	if (!fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
+		generic_unlock();
+		return false;
+	}
+
+	return true;
 }
 
 static const std::wstring longdesc() {
