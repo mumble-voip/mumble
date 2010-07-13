@@ -134,6 +134,8 @@ int main(int argc, char **argv) {
 		for (int i = 1; i < args.count(); ++i) {
 			if (args.at(i) == QLatin1String("-m")) {
 				bAllowMultiple = true;
+			} else if (args.at(i) == QLatin1String("-n")) {
+				g.s.bSuppressIdentity = true;
 			} else {
 				QUrl u = QUrl::fromEncoded(args.at(i).toUtf8());
 				if (u.isValid() && (u.scheme() == QLatin1String("mumble"))) {
