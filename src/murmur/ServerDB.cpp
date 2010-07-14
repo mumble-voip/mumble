@@ -346,7 +346,7 @@ ServerDB::ServerDB() {
 		}
 		if (version == 0) {
 			SQLDO("INSERT INTO `%1servers` (`server_id`) VALUES(1)");
-			SQLDO("INSERT INTO `%1meta` (`keystring`, `value`) VALUES('version','4')");
+			SQLDO("INSERT INTO `%1meta` (`keystring`, `value`) VALUES('version','5')");
 		} else {
 			qWarning("Importing old data...");
 
