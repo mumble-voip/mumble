@@ -49,7 +49,7 @@ unlink("src/murmur/Murmur.h");
 unlink("src/murmur/Murmur.cpp");
 unlink("src/murmur/Mumble.pb.h");
 unlink("src/murmur/Mumble.pb.cc");
-system("/usr/local/Trolltech/Qt-4.6.1/bin/qmake CONFIG+=static CONFIG+=no-client -recursive");
+system("PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/:/usr/lib/pkgconfig:/usr/local/ssl/lib/pkgconfig /usr/local/Trolltech/Qt-4.6.1/bin/qmake CONFIG+=static CONFIG+=no-client -recursive");
 system("make");
 system("strip release/murmurd");
 
