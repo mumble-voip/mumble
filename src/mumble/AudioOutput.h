@@ -155,7 +155,7 @@ class AudioOutputSpeech : public AudioOutputUser {
 class SoundFile : public QObject {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(SoundFile);
+		Q_DISABLE_COPY(SoundFile)
 	protected:
 		SNDFILE *sfFile;
 		SF_INFO siInfo;

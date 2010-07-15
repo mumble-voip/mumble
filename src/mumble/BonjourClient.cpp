@@ -48,8 +48,6 @@ BonjourClient::BonjourClient() {
 }
 
 BonjourClient::~BonjourClient() {
-	if (bsbBrowser)
-		delete bsbBrowser;
-	if (bsrResolver)
-		delete bsrResolver;
+	delete bsbBrowser;
+	delete bsrResolver;
 }

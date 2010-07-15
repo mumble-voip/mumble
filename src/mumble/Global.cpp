@@ -62,6 +62,10 @@ Global::Global() {
 	qs = NULL;
 
 	ocIntercept = NULL;
+	bc = NULL;
+	lcd = NULL;
+	o = NULL;
+	l = NULL;
 
 	bQuit = false;
 

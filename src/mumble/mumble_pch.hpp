@@ -71,6 +71,11 @@
 #include <boost/weak_ptr.hpp>
 #include <boost/bind.hpp>
 #ifdef Q_CC_GNU
+#undef BOOST_TYPEOF
+#undef BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP
+#undef BOOST_TYPEOF_REGISTER_TYPE
+#undef BOOST_TYPEOF_REGISTER_TEMPLATE
+
 #define BOOST_TYPEOF(expr) __typeof__(expr)
 #define BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP() "mumble_pch.hpp"
 #define BOOST_TYPEOF_REGISTER_TYPE(expr)

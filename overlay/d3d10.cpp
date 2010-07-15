@@ -400,12 +400,12 @@ void D10State::draw() {
 		timeT = t;
 	}
 
-	HRESULT hr;
 	dwMyThread = GetCurrentThreadId();
 
 	checkMessage(vp.Width, vp.Height);
 
 	if (a_ucTexture && pSRView && (uiLeft != uiRight)) {
+		HRESULT hr;
 		pOrigStateBlock->Capture();
 		pMyStateBlock->Apply();
 
@@ -606,12 +606,12 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 	if ((ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 6001))) {
 		HMODULE hD3D10 = LoadLibrary("D3D10.DLL");
 		HMODULE hDXGI = LoadLibrary("DXGI.DLL");
-		HRESULT hr;
 
 		if (hDXGI != NULL && hD3D10 != NULL) {
 			CreateDXGIFactoryType pCreateDXGIFactory = reinterpret_cast<CreateDXGIFactoryType>(GetProcAddress(hDXGI, "CreateDXGIFactory"));
 			ods("Got %p", pCreateDXGIFactory);
 			if (pCreateDXGIFactory) {
+				HRESULT hr;
 				IDXGIFactory * pFactory;
 				hr = pCreateDXGIFactory(__uuidof(IDXGIFactory), (void**)(&pFactory));
 				if (pFactory) {

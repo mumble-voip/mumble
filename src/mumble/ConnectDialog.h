@@ -56,7 +56,7 @@ struct PublicInfo {
 
 struct PingStats {
 private:
-	Q_DISABLE_COPY(PingStats);
+	Q_DISABLE_COPY(PingStats)
 protected:
 	void init();
 public:
@@ -83,8 +83,8 @@ public:
 class ServerItem;
 
 class ServerView : public QTreeWidget {
-		Q_OBJECT;
-		Q_DISABLE_COPY(ServerView);
+		Q_OBJECT
+		Q_DISABLE_COPY(ServerView)
 	public:
 		ServerItem *siFavorite, *siLAN, *siPublic;
 		QMap<QString, QString> qmContinentNames;
@@ -108,7 +108,7 @@ class ServerView : public QTreeWidget {
 #include "ui_ConnectDialogEdit.h"
 
 class ServerItem : public QTreeWidgetItem, public PingStats {
-		Q_DISABLE_COPY(ServerItem);
+		Q_DISABLE_COPY(ServerItem)
 	protected:
 		void init();
 	public:
@@ -175,7 +175,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(ConnectDialogEdit);
+		Q_DISABLE_COPY(ConnectDialogEdit)
 	protected:
 		bool bOk;
 	public slots:

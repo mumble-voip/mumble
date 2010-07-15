@@ -222,6 +222,7 @@ void OverlayConfig::load(const Settings &r) {
 
 bool OverlayConfig::expert(bool expert) {
 #ifdef Q_OS_LINUX
+	Q_UNUSED(expert);
 	qgbExceptions->setVisible(false);
 #else
 	qgbExceptions->setVisible(expert);
@@ -1394,12 +1395,12 @@ void OverlayEditor::on_qsZoom_valueChanged(int zoom) {
 	oes.resync();
 }
 
-OverlayUser::OverlayUser(ClientUser *cu, unsigned int height, OverlaySettings *osptr) : OverlayGroup(), cuUser(cu), uiSize(height), tsColor(Settings::Passive), os(osptr) {
+OverlayUser::OverlayUser(ClientUser *cu, unsigned int height, OverlaySettings *osptr) : OverlayGroup(), os(osptr), uiSize(height), cuUser(cu), tsColor(Settings::Passive) {
 	setup();
 	updateLayout();
 }
 
-OverlayUser::OverlayUser(Settings::TalkState ts, unsigned int height, OverlaySettings *osptr) : OverlayGroup(), cuUser(NULL), uiSize(height), tsColor(ts), os(osptr) {
+OverlayUser::OverlayUser(Settings::TalkState ts, unsigned int height, OverlaySettings *osptr) : OverlayGroup(), os(osptr), uiSize(height), cuUser(NULL), tsColor(ts) {
 	qsChannelName = Overlay::tr("Channel");
 
 	setup();
@@ -1764,7 +1765,7 @@ QRectF OverlayGroup::boundingRect() const {
 }
 
 
-OverlayUserGroup::OverlayUserGroup(OverlaySettings *osptr) : OverlayGroup(), os(osptr), bShowExamples(false), qgeiHandle(NULL) {
+OverlayUserGroup::OverlayUserGroup(OverlaySettings *osptr) : OverlayGroup(), os(osptr), qgeiHandle(NULL), bShowExamples(false) {
 }
 
 OverlayUserGroup::~OverlayUserGroup() {
@@ -1780,10 +1781,8 @@ void OverlayUserGroup::reset() {
 		delete ou;
 	qmUsers.clear();
 
-	if (qgeiHandle) {
-		delete qgeiHandle;
-		qgeiHandle = NULL;
-	}
+	delete qgeiHandle;
+	qgeiHandle = NULL;
 }
 
 int OverlayUserGroup::type() const {
@@ -1821,7 +1820,7 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 
 	QMenu *qmColumns = qm.addMenu(OverlayClient::tr("Columns"));
 	QAction *qaColumns[6];
-	for (int i=1;i<=5;++i) {
+	for (unsigned int i=1;i<=5;++i) {
 		qaColumns[i] = qmColumns->addAction(QString::number(i));
 		qaColumns[i]->setCheckable(true);
 		qaColumns[i]->setChecked(i == os->uiColumns);
@@ -1954,10 +1953,8 @@ void OverlayUserGroup::updateUsers() {
 			qgeiHandle->installSceneEventFilter(this);
 		}
 	} else {
-		if (qgeiHandle) {
-			delete qgeiHandle;
-			qgeiHandle = NULL;
-		}
+		delete qgeiHandle;
+		qgeiHandle = NULL;
 	}
 
 	ClientUser *self = ClientUser::get(g.uiSession);
@@ -2047,8 +2044,7 @@ void OverlayUserGroup::updateUsers() {
 
 void OverlayUserGroup::userDestroyed(QObject *obj) {
 	OverlayUser *ou = qmUsers.take(obj);
-	if (ou)
-		delete ou;
+	delete ou;
 }
 
 
@@ -2095,14 +2091,9 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) : QObject(p) {
 }
 
 OverlayClient::~OverlayClient() {
-	if (qgpiFPS)
-		delete qgpiFPS;
-
-	if (qgpiCursor)
-		delete qgpiCursor;
-
-	if (qgpiLogo)
-		delete qgpiLogo;
+	delete qgpiFPS;
+	delete qgpiCursor;
+	delete qgpiLogo;
 
 	qlsSocket->abort();
 
@@ -2380,8 +2371,7 @@ void OverlayClient::readyRead() {
 						uiHeight = omi->uiHeight;
 						qrLast = QRect();
 
-						if (smMem)
-							delete smMem;
+						delete smMem;
 
 						smMem = new SharedMemory2(this, uiWidth * uiHeight * 4);
 						if (! smMem->data()) {
@@ -2445,10 +2435,8 @@ void OverlayClient::reset() {
 	if (! uiWidth || ! uiHeight || ! smMem)
 		return;
 
-	if (qgpiLogo) {
-		delete qgpiLogo;
-		qgpiLogo = NULL;
-	}
+	delete qgpiLogo;
+	qgpiLogo = NULL;
 
 	ougUsers.reset();
 
@@ -2670,8 +2658,7 @@ Overlay::Overlay() : QObject() {
 
 Overlay::~Overlay() {
 	setActive(false);
-	if (d)
-		delete d;
+	delete d;
 
 	// Need to be deleted first, since destructor references lingering QLocalSockets
 	foreach(OverlayClient *oc, qlClients)

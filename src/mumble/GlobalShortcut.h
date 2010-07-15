@@ -113,7 +113,7 @@ class ShortcutToggleWidget : public QComboBox {
 class ShortcutTargetDialog : public QDialog, public Ui::GlobalShortcutTarget {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(ShortcutTargetDialog);
+		Q_DISABLE_COPY(ShortcutTargetDialog)
 	protected:
 		QMap<QString, QString> qmHashNames;
 		ShortcutTarget stTarget;

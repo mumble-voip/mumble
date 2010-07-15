@@ -102,10 +102,8 @@ void DirectSoundInit::initialize() {
 }
 
 void DirectSoundInit::destroy() {
-	if (airReg)
-		delete airReg;
-	if (aorReg)
-		delete aorReg;
+	delete airReg;
+	delete aorReg;
 }
 
 

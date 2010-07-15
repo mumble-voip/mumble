@@ -37,7 +37,7 @@
 
 class UserEdit : public QDialog, public Ui::UserEdit {
 	private:
-		Q_OBJECT;
+		Q_OBJECT
 		Q_DISABLE_COPY(UserEdit)
 	protected:
 		QMap<int, QString> qmUsers;

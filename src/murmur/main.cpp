@@ -435,10 +435,8 @@ int main(int argc, char **argv) {
 	IceStop();
 #endif
 
-	if (qfLog) {
-		delete qfLog;
-		qfLog = NULL;
-	}
+	delete qfLog;
+	qfLog = NULL;
 
 	delete meta;
 

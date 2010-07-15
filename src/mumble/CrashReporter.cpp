@@ -82,8 +82,7 @@ CrashReporter::CrashReporter(QWidget *p) : QDialog(p) {
 
 CrashReporter::~CrashReporter() {
 	g.qs->setValue(QLatin1String("crashemail"), qleEmail->text());
-	if (qnrReply)
-		delete qnrReply;
+	delete qnrReply;
 }
 
 void CrashReporter::uploadFinished() {

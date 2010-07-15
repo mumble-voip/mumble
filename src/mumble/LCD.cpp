@@ -90,8 +90,7 @@ void LCDDeviceManager::destroy() {
 	foreach(LCDEngine *e, qlEngines) {
 		delete e;
 	}
-	if (crLCD)
-		delete crLCD;
+	delete crLCD;
 }
 
 static LCDDeviceManager devmgr;

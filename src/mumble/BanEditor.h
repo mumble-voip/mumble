@@ -38,7 +38,7 @@
 
 class BanEditor : public QDialog, public Ui::BanEditor {
 	private:
-		Q_OBJECT;
+		Q_OBJECT
 		Q_DISABLE_COPY(BanEditor)
 	protected:
 		QList<Ban> qlBans;

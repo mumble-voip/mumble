@@ -40,7 +40,7 @@ class ServerUser;
 class ChanACL : public QObject {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(ChanACL);
+		Q_DISABLE_COPY(ChanACL)
 	public:
 		enum Perm {
 			None = 0x0,

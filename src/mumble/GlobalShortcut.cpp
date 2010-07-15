@@ -443,9 +443,7 @@ void ShortcutTargetDialog::on_qpbAdd_clicked() {
 
 void ShortcutTargetDialog::on_qpbRemove_clicked() {
 	QListWidgetItem *itm = qlwUsers->currentItem();
-	if (itm) {
-		delete itm;
-	}
+	delete itm;
 }
 
 ShortcutTargetWidget::ShortcutTargetWidget(QWidget *p) : QFrame(p) {

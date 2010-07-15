@@ -75,7 +75,6 @@ class ASIOInit : public DeferInit {
 void ASIOInit::initialize() {
 	HKEY hkDevs;
 	HKEY hk;
-	DWORD idx = 0;
 	WCHAR keyname[255];
 	DWORD keynamelen = 255;
 	FILETIME ft;
@@ -94,6 +93,7 @@ void ASIOInit::initialize() {
 	blacklist << QLatin1String("{232685c6-6548-49d8-846d-4141a3ef7560}"); // ASIO4ALL
 #endif
 	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"Software\\ASIO", 0, KEY_READ, &hkDevs) == ERROR_SUCCESS) {
+		DWORD idx = 0;
 		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, NULL, NULL, NULL, &ft)  == ERROR_SUCCESS) {
 			QString name=QString::fromUtf16(reinterpret_cast<ushort *>(keyname),keynamelen);
 			if (RegOpenKeyEx(hkDevs, keyname, 0, KEY_READ, &hk) == ERROR_SUCCESS) {
@@ -125,10 +125,8 @@ void ASIOInit::initialize() {
 }
 
 void ASIOInit::destroy() {
-	if (airASIO)
-		delete airASIO;
-	if (crASIO)
-		delete crASIO;
+	delete airASIO;
+	delete crASIO;
 }
 
 static class ASIOInit asioinit;
@@ -279,14 +277,12 @@ void ASIOConfig::on_qpbConfig_clicked() {
 	CLSID clsid;
 	IASIO *iasio;
 
-	bool ok = false;
-
 	CLSIDFromString(const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsCls.utf16())), &clsid);
 	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iasio)) == S_OK) {
 		SleepEx(10, false);
 		if (iasio->init(winId())) {
 			SleepEx(10, false);
-			ok = (iasio->controlPanel() == ASE_OK);
+			iasio->controlPanel();
 			SleepEx(10, false);
 		} else {
 			SleepEx(10, false);
@@ -531,14 +527,12 @@ ASIOInput::~ASIOInput() {
 		iasio->Release();
 		iasio = NULL;
 	}
-	if (abiInfo) {
-		delete [] abiInfo;
-		abiInfo = NULL;
-	}
-	if (aciInfo) {
-		delete [] aciInfo;
-		aciInfo = NULL;
-	}
+
+	delete [] abiInfo;
+	abiInfo = NULL;
+
+	delete [] aciInfo;
+	aciInfo = NULL;
 }
 
 void ASIOInput::run() {

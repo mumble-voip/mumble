@@ -35,7 +35,7 @@
 
 class MumbleFileEngineHandler : public QAbstractFileEngineHandler {
 	private:
-		Q_DISABLE_COPY(MumbleFileEngineHandler);
+		Q_DISABLE_COPY(MumbleFileEngineHandler)
 	public:
 		MumbleFileEngineHandler();
 		QAbstractFileEngine *create(const QString &) const;
@@ -43,7 +43,7 @@ class MumbleFileEngineHandler : public QAbstractFileEngineHandler {
 
 class MumbleImageFileEngine : public QAbstractFileEngine {
 	private:
-		Q_DISABLE_COPY(MumbleImageFileEngine);
+		Q_DISABLE_COPY(MumbleImageFileEngine)
 	protected:
 		QBuffer qbData;
 		QUrl quUrl;

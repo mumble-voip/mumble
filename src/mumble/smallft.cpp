@@ -1254,8 +1254,8 @@ void mumble_drft_init(drft_lookup *l,int n) {
 
 void mumble_drft_clear(drft_lookup *l) {
 	if (l) {
-		if (l->trigcache)free(l->trigcache);
-		if (l->splitcache)free(l->splitcache);
+		free(l->trigcache);
+		free(l->splitcache);
 		memset(l,0,sizeof(*l));
 	}
 }

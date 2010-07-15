@@ -528,7 +528,6 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 	BIO *mem = NULL;
 	STACK_OF(X509) *certs = sk_X509_new_null();
 	const unsigned char *p;
-	long size;
 	char *data = NULL;
 
 	if (kp.first.isEmpty())
@@ -578,6 +577,7 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 			pkcs = PKCS12_create(SSL_STRING(""), SSL_STRING("Mumble Identity"), pkey, x509, certs, nid, nid, 0, 0, 0);
 
 			if (pkcs) {
+				long size;
 				mem = BIO_new(BIO_s_mem());
 				i2d_PKCS12_bio(mem, pkcs);
 				BIO_flush(mem);

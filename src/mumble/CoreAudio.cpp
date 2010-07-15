@@ -67,10 +67,8 @@ void CoreAudioInit::initialize() {
 }
 
 void CoreAudioInit::destroy() {
-	if (cairReg)
-		delete cairReg;
-	if (caorReg)
-		delete caorReg;
+	delete cairReg;
+	delete caorReg;
 }
 
 CFStringRef CoreAudioSystem::QStringToCFString(const QString &str) {
@@ -132,8 +130,7 @@ const QHash<QString, QString> CoreAudioSystem::getDevices(bool input) {
 		err = AudioDeviceGetProperty(devs[i], 0, input, kAudioDevicePropertyStreamConfiguration, &len, bufs);
 		if (! bufs || err != noErr) {
 			qWarning("CoreAudioSystem: Failed to get AudioStreamConfiguration from device.");
-			if (bufs)
-				free(bufs);
+			free(bufs);
 			continue;
 		}
 

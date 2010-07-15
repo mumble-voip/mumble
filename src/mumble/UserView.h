@@ -49,7 +49,7 @@ class UserDelegate : public QStyledItemDelegate {
 class UserView : public QTreeView {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(UserView);
+		Q_DISABLE_COPY(UserView)
 	protected:
 		void mouseReleaseEvent(QMouseEvent *);
 		bool event(QEvent *);

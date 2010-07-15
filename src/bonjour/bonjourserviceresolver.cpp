@@ -37,8 +37,7 @@ BonjourServiceResolver::ResolveRecord::ResolveRecord(const BonjourRecord &r, Bon
 }
 
 BonjourServiceResolver::ResolveRecord::~ResolveRecord() {
-	if (bonjourSocket)
-		delete bonjourSocket;
+	delete bonjourSocket;
 	if (dnssref)
 		DNSServiceRefDeallocate(dnssref);
 }

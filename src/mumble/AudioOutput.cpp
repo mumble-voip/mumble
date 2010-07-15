@@ -101,10 +101,8 @@ AudioOutputUser::AudioOutputUser(const QString name) : qsName(name) {
 }
 
 AudioOutputUser::~AudioOutputUser() {
-	if (pfBuffer)
-		delete [] pfBuffer;
-	if (pfVolume)
-		delete [] pfVolume;
+	delete [] pfBuffer;
+	delete [] pfVolume;
 }
 
 void AudioOutputUser::resizeBuffer(unsigned int newsize) {
@@ -262,10 +260,8 @@ AudioOutputSample::~AudioOutputSample() {
 	if (srs)
 		speex_resampler_destroy(srs);
 
-	if (sfHandle) {
-		delete sfHandle;
-		sfHandle = NULL;
-	}
+	delete sfHandle;
+	sfHandle = NULL;
 }
 
 SoundFile* AudioOutputSample::loadSndfile(const QString &filename) {
@@ -722,12 +718,9 @@ AudioOutput::~AudioOutput() {
 	wait();
 	wipe();
 
-	if (fSpeakers)
-		delete [] fSpeakers;
-	if (fSpeakerVolume)
-		delete [] fSpeakerVolume;
-	if (bSpeakerPositional)
-		delete [] bSpeakerPositional;
+	delete [] fSpeakers;
+	delete [] fSpeakerVolume;
+	delete [] bSpeakerPositional;
 }
 
 // Here's the theory.
@@ -847,12 +840,9 @@ void AudioOutput::removeBuffer(AudioOutputUser *aop) {
 }
 
 void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadphone) {
-	if (fSpeakers)
-		delete fSpeakers;
-	if (bSpeakerPositional)
-		delete bSpeakerPositional;
-	if (fSpeakerVolume)
-		delete fSpeakerVolume;
+	delete fSpeakers;
+	delete bSpeakerPositional;
+	delete fSpeakerVolume;
 
 	fSpeakers = new float[iChannels * 3];
 	bSpeakerPositional = new bool[iChannels];

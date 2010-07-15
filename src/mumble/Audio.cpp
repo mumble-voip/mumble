@@ -271,10 +271,9 @@ void LoopUser::addFrame(const QByteArray &packet) {
 		return;
 	}
 
-	bool restart = (qtLastFetch.elapsed() > 100);
-
 	{
 		QMutexLocker l(&qmLock);
+		bool restart = (qtLastFetch.elapsed() > 100);
 
 		double time = qtTicker.elapsed();
 

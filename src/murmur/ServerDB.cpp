@@ -69,8 +69,6 @@ ServerDB::ServerDB() {
 		qFatal("ServerDB: Database driver %s not available", qPrintable(Meta::mp.qsDBDriver));
 	}
 	db = new QSqlDatabase(QSqlDatabase::addDatabase(Meta::mp.qsDBDriver));
-	QStringList datapaths;
-	int i;
 
 	bool found = false;
 
@@ -79,6 +77,9 @@ ServerDB::ServerDB() {
 			db->setDatabaseName(Meta::mp.qsDatabase);
 			found = db->open();
 		} else {
+			QStringList datapaths;
+			int i;
+
 			datapaths << Meta::mp.qdBasePath.absolutePath();
 			datapaths << QDir::currentPath();
 			datapaths << QCoreApplication::instance()->applicationDirPath();

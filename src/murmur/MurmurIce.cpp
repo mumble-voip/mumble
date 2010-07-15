@@ -58,8 +58,7 @@ void IceStart() {
 }
 
 void IceStop() {
-	if (mi)
-		delete mi;
+	delete mi;
 	mi = NULL;
 }
 

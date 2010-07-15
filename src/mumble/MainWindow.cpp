@@ -1415,24 +1415,18 @@ void MainWindow::qmChannel_aboutToShow() {
 			qmChannel->addAction(a);
 	}
 
-	bool add, addtemp, remove, acl, rename, descUpdate, link, unlink, unlinkall, msg;
-	add = addtemp = remove = acl = rename = descUpdate = link = unlink = unlinkall = msg = false;
+	bool add, remove, acl, link, unlink, unlinkall, msg;
+	add = remove = acl = link = unlink = unlinkall = msg = false;
 
 	if (g.uiSession != 0) {
 		add = true;
-		addtemp = true;
 		acl = true;
 		msg = true;
-		descUpdate = true;
 
 		Channel *c = getContextMenuChannel();
 		Channel *home = ClientUser::get(g.uiSession)->cChannel;
 
-		if (c && c->bTemporary)
-			addtemp = false;
-
 		if (c && c->iId != 0) {
-			rename = true;
 			remove = true;
 		}
 		if (! c)

@@ -315,7 +315,7 @@ QString GlobalShortcutX::buttonName(const QVariant &v) {
 			return QLatin1String("0x")+QString::number(key,16);
 		} else {
 			const char *str=XKeysymToString(ks);
-			if (strlen(str) == 0) {
+			if (*str == '\0') {
 				return QLatin1String("KS0x")+QString::number(ks, 16);
 			} else {
 				return QLatin1String(str);

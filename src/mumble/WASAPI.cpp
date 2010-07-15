@@ -101,10 +101,8 @@ void WASAPIInit::initialize() {
 }
 
 void WASAPIInit::destroy() {
-	if (wirReg)
-		delete wirReg;
-	if (worReg)
-		delete worReg;
+	delete wirReg;
+	delete worReg;
 }
 
 
@@ -596,11 +594,8 @@ cleanup:
 	if (hEvent != NULL)
 		CloseHandle(hEvent);
 
-	if (tbuff)
-		delete [] tbuff;
-
-	if (sbuff)
-		delete [] sbuff;
+	delete [] tbuff;
+	delete [] sbuff;
 }
 
 WASAPIOutput::WASAPIOutput() {
@@ -713,7 +708,6 @@ void WASAPIOutput::run() {
 	UINT32 bufferFrameCount;
 	REFERENCE_TIME def, min, latency, want;
 	UINT32 numFramesAvailable;
-	UINT32 packetLength = 0;
 	UINT32 wantLength;
 	HANDLE hEvent;
 	BYTE *pData;
@@ -886,7 +880,7 @@ void WASAPIOutput::run() {
 			if (FAILED(hr))
 				goto cleanup;
 
-			packetLength = bufferFrameCount - numFramesAvailable;
+			UINT32 packetLength = bufferFrameCount - numFramesAvailable;
 
 			if (lastspoke != (g.bAttenuateOthers || mixed)) {
 				lastspoke = g.bAttenuateOthers || mixed;

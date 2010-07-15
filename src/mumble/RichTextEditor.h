@@ -36,7 +36,7 @@
 class RichTextHtmlEdit : public QTextEdit {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(RichTextHtmlEdit);
+		Q_DISABLE_COPY(RichTextHtmlEdit)
 	protected:
 		void insertFromMimeData(const QMimeData *source);
 	public:

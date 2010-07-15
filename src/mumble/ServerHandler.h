@@ -59,7 +59,6 @@ class ServerHandler : public QThread {
 		QString qsHostName;
 		QString qsUserName;
 		QString qsPassword;
-		QString qsDigest;
 		unsigned short usPort;
 		bool bUdp;
 		bool bStrong;

@@ -199,11 +199,11 @@ void os_init() {
 #ifdef QT_NO_DEBUG
 #ifdef COMPAT_CLIENT
 	errno_t res = 0;
-	size_t reqSize, bSize;
+	size_t reqSize;
 	_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");
 	if (reqSize > 0) {
 		reqSize += strlen("/Mumble/Console11x.txt");
-		bSize = reqSize;
+		size_t bSize = reqSize;
 
 		STACKVAR(wchar_t, buff, reqSize+1);
 

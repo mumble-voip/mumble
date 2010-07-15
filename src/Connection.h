@@ -84,7 +84,7 @@ class Connection : public QObject {
 #endif
 };
 
-Q_DECLARE_METATYPE(QAbstractSocket::SocketError);
+Q_DECLARE_METATYPE(QAbstractSocket::SocketError)
 
 #else
 class Connection;

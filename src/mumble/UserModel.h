@@ -41,7 +41,7 @@ struct ModelItem {
 	friend class UserModel;
 
 private:
-	Q_DISABLE_COPY(ModelItem);
+	Q_DISABLE_COPY(ModelItem)
 public:
 	Channel *cChan;
 	ClientUser *pUser;

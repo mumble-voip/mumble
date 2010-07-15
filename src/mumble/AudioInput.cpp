@@ -203,15 +203,11 @@ AudioInput::~AudioInput() {
 
 	delete [] psMic;
 	delete [] psClean;
-	if (psSpeaker)
-		delete [] psSpeaker;
+	delete [] psSpeaker;
 
-	if (pfMicInput)
-		delete [] pfMicInput;
-	if (pfEchoInput)
-		delete [] pfEchoInput;
-	if (pfOutput)
-		delete [] pfOutput;
+	delete [] pfMicInput;
+	delete [] pfEchoInput;
+	delete [] pfOutput;
 }
 
 bool AudioInput::isTransmitting() const {
@@ -337,12 +333,9 @@ void AudioInput::initializeMixer() {
 		speex_resampler_destroy(srsMic);
 	if (srsEcho)
 		speex_resampler_destroy(srsEcho);
-	if (pfMicInput)
-		delete [] pfMicInput;
-	if (pfEchoInput)
-		delete [] pfEchoInput;
-	if (pfOutput)
-		delete [] pfOutput;
+	delete [] pfMicInput;
+	delete [] pfEchoInput;
+	delete [] pfOutput;
 
 	if (iMicFreq != iSampleRate)
 		srsMic = speex_resampler_init(1, iMicFreq, iSampleRate, 3, &err);
@@ -427,8 +420,7 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 				}
 
 				if (echo) {
-					if (psSpeaker)
-						delete [] psSpeaker;
+					delete [] psSpeaker;
 					psSpeaker = echo;
 				}
 			}

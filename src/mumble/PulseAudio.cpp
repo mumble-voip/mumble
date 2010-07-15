@@ -80,14 +80,10 @@ class PulseAudioInit : public DeferInit {
 			}
 		};
 		void destroy() {
-			if (airPulseAudio)
-				delete airPulseAudio;
-			if (aorPulseAudio)
-				delete aorPulseAudio;
-			if (pasys) {
-				delete pasys;
-				pasys = NULL;
-			}
+			delete airPulseAudio;
+			delete aorPulseAudio;
+			delete pasys;
+			pasys = NULL;
 		};
 };
 
@@ -645,7 +641,7 @@ PulseAudioInput::PulseAudioInput() {
 	bRunning = true;
 	if (pasys)
 		pasys->wakeup_lock();
-};
+}
 
 PulseAudioInput::~PulseAudioInput() {
 	bRunning = false;

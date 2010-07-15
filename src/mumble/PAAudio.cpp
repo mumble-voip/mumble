@@ -79,10 +79,8 @@ void PAInit::initialize() {
 }
 
 void PAInit::destroy() {
-	if (pairReg)
-		delete pairReg;
-	if (paorReg)
-		delete paorReg;
+	delete pairReg;
+	delete paorReg;
 	if (bInit) {
 		PaError err = Pa_Terminate();
 		if (err != paNoError) {

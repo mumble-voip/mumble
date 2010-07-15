@@ -55,17 +55,14 @@ void AudioInputDialog::showEvent(QShowEvent *) {
 }
 
 AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
-	QList<QString> keys;
-	QString key;
-
 	qtTick = new QTimer(this);
 	qtTick->setObjectName(QLatin1String("Tick"));
 
 	setupUi(this);
 
 	if (AudioInputRegistrar::qmNew) {
-		keys=AudioInputRegistrar::qmNew->keys();
-		foreach(key, keys) {
+		QList<QString> keys = AudioInputRegistrar::qmNew->keys();
+		foreach(QString key, keys) {
 			qcbSystem->addItem(key);
 		}
 	}
@@ -382,14 +379,11 @@ void AudioInputDialog::on_Tick_timeout() {
 }
 
 AudioOutputDialog::AudioOutputDialog(Settings &st) : ConfigWidget(st) {
-	QList<QString> keys;
-	QString key;
-
 	setupUi(this);
 
 	if (AudioOutputRegistrar::qmNew) {
-		keys=AudioOutputRegistrar::qmNew->keys();
-		foreach(key, keys) {
+		QList<QString> keys = AudioOutputRegistrar::qmNew->keys();
+		foreach(QString key, keys) {
 			qcbSystem->addItem(key);
 		}
 	}

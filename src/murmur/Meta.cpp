@@ -79,8 +79,7 @@ MetaParams::MetaParams() {
 }
 
 MetaParams::~MetaParams() {
-	if (qsSettings)
-		delete qsSettings;
+	delete qsSettings;
 }
 
 void MetaParams::read(QString fname) {

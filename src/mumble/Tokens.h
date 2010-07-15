@@ -36,7 +36,7 @@
 
 class Tokens : public QDialog, public Ui::Tokens {
 	private:
-		Q_OBJECT;
+		Q_OBJECT
 		Q_DISABLE_COPY(Tokens)
 	protected:
 		QByteArray qbaDigest;

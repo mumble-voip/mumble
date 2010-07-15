@@ -48,6 +48,5 @@ BonjourServer::BonjourServer() {
 }
 
 BonjourServer::~BonjourServer() {
-	if (bsrRegister)
-		delete bsrRegister;
+	delete bsrRegister;
 }

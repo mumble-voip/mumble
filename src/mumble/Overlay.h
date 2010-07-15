@@ -68,7 +68,7 @@ class OverlayGroup : public QGraphicsItem {
 
 class OverlayUser : public OverlayGroup {
 	private:
-		Q_DISABLE_COPY(OverlayUser);
+		Q_DISABLE_COPY(OverlayUser)
 	public:
 		enum { Type = UserType + 1 };
 	protected:
@@ -263,7 +263,7 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 
 class OverlayMouse : public QGraphicsPixmapItem {
 	private:
-		Q_DISABLE_COPY(OverlayMouse);
+		Q_DISABLE_COPY(OverlayMouse)
 	public:
 		bool contains(const QPointF &) const;
 		bool collidesWithPath(const QPainterPath &, Qt::ItemSelectionMode = Qt::IntersectsItemShape) const;
@@ -274,7 +274,7 @@ class OverlayClient : public QObject {
 		friend class Overlay;
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(OverlayClient);
+		Q_DISABLE_COPY(OverlayClient)
 	protected:
 		OverlayMsg omMsg;
 		QLocalSocket *qlsSocket;
@@ -326,7 +326,7 @@ class OverlayClient : public QObject {
 class OverlayPrivate : public QObject {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(OverlayPrivate);
+		Q_DISABLE_COPY(OverlayPrivate)
 	public:
 		OverlayPrivate(QObject *p) : QObject(p) {};
 };

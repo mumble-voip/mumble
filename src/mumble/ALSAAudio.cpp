@@ -94,12 +94,9 @@ void ALSAInit::initialize() {
 
 void ALSAInit::destroy() {
 	QMutexLocker qml(&qmALSA);
-	if (pairALSA)
-		delete pairALSA;
-	if (paorALSA)
-		delete paorALSA;
-	if (cards)
-		delete cards;
+	delete pairALSA;
+	delete paorALSA;
+	delete cards;
 }
 
 ALSAAudioInputRegistrar::ALSAAudioInputRegistrar() : AudioInputRegistrar(QLatin1String("ALSA"),5) {
@@ -541,8 +538,8 @@ void ALSAAudioOutput::run() {
 			ALSA_ERRCHECK(avail = snd_pcm_avail_update(pcm_handle));
 			while (avail >= static_cast<int>(period_size)) {
 				stillRun = mix(outbuff, static_cast<int>(period_size));
-				snd_pcm_sframes_t w = 0;
 				if (stillRun) {
+					snd_pcm_sframes_t w = 0;
 					ALSA_ERRCHECK(w=snd_pcm_writei(pcm_handle, outbuff, period_size));
 					if (w < 0) {
 						avail = w;

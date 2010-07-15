@@ -71,7 +71,7 @@ quint32 qHash(const QList<ShortcutTarget> &);
 
 QDataStream &operator<<(QDataStream &, const ShortcutTarget &);
 QDataStream &operator>>(QDataStream &, ShortcutTarget &);
-Q_DECLARE_METATYPE(ShortcutTarget);
+Q_DECLARE_METATYPE(ShortcutTarget)
 
 struct OverlaySettings {
 	enum OverlayShow { Talking, HomeChannel, LinkedChannels };

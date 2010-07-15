@@ -100,8 +100,7 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 
 ServerView::~ServerView() {
 	delete siFavorite;
-	if (siLAN)
-		delete siLAN;
+	delete siLAN;
 	delete siPublic;
 }
 

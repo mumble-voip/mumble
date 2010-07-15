@@ -1418,8 +1418,7 @@ void Server::clearACLCache(User *p) {
 
 		if (p) {
 			ChanACL::ChanCache *h = acCache.take(p);
-			if (h)
-				delete h;
+			delete h;
 
 			flushClientPermissionCache(static_cast<ServerUser *>(p), mppq);
 		} else {

@@ -40,7 +40,7 @@ typedef QPair<QString,QVariant> audioDevice;
 
 class CELTCodec {
 	private:
-		Q_DISABLE_COPY(CELTCodec);
+		Q_DISABLE_COPY(CELTCodec)
 	protected:
 		const CELTMode *cmMode;
 		QString qsVersion;
