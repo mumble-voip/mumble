@@ -25,6 +25,8 @@ unix:!CONFIG(bundled-speex):system(pkg-config --atleast-version=1.2 speexdsp) {
 
 CONFIG(no-crash-report) {
   DEFINES	*= NO_CRASH_REPORT
+} else:unix:!macx {
+  DEFINES	*= NO_CRASH_REPORT
 } else {
   HEADERS	*= CrashReporter.h
   SOURCES	*= CrashReporter.cpp
