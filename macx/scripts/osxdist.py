@@ -97,12 +97,12 @@ class AppBundle(object):
 		libs = Popen(['otool', '-L', path], stdout=PIPE).communicate()[0]
 		libs = string.split(libs, '\n')
 		ret = []
+		bn = os.path.basename(path)
 		for line in libs:
 			g = m.match(line)
 			if g is not None:
 				lib = g.groups()[0]
-				bn = os.path.basename(path)
-				if not bn in lib:
+				if lib != bn:
 					ret.append(lib)
 		return ret
 
@@ -140,7 +140,6 @@ class AppBundle(object):
 		'''
 			Fix up dylib depends for a specific binary.
 		'''
-
 		# Does our fwpath exist already? If not, create it.
 		if not self.framework_path:
 			self.framework_path = self.bundle + '/Contents/Frameworks'
@@ -184,9 +183,11 @@ class AppBundle(object):
 						os.remove(dst + '/' + name + '_debug.prl')
 						shutil.rmtree(dst + '/Versions/4/Headers')
 						os.remove(dst + '/Versions/4/' + name + '_debug')
+						os.chmod(abs, 0755)
 						os.system('install_name_tool -id @executable_path/../Frameworks/%s %s' % (rel, abs))
 						self.handled_libs[basename] = True
 						self.handle_binary_libs(abs)
+				os.chmod(macho, 0755)
 				os.system('install_name_tool -change %s @executable_path/../Frameworks/%s %s' % (lib, rel, macho))
 
 			# Regular dylibs
@@ -197,9 +198,11 @@ class AppBundle(object):
 				if not basename in self.handled_libs:
 					shutil.copy(lib, self.framework_path  + '/' + basename)
 					abs = self.framework_path + '/' + rel
+					os.chmod(abs, 0755)
 					os.system('install_name_tool -id @executable_path/../Frameworks/%s %s' % (rel, abs))
 					self.handled_libs[basename] = True
 					self.handle_binary_libs(abs)
+				os.chmod(macho, 0755)
 				os.system('install_name_tool -change %s @executable_path/../Frameworks/%s %s' % (lib, rel, macho))
 
 	def copy_murmur(self):
