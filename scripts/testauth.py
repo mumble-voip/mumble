@@ -25,6 +25,11 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
           return (2, "twO", groups)
         else:
           return (-1, None, None)
+      elif (name == "White Space"):
+        if (pw == "Space White"):
+          return (3, "White Space", groups)
+        else:
+          return (-1, None, None)
       elif (name == "Fail"):
         time.sleep(6)
       return (-2, None, None)

@@ -126,7 +126,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	QString reason;
 	MumbleProto::Reject_RejectType rtType = MumbleProto::Reject_RejectType_None;
 
-	if (! nameok && (uSource->iId == -1)) {
+	if (id==-2 && ! nameok) {
 		reason = "Invalid username";
 		rtType = MumbleProto::Reject_RejectType_InvalidUsername;
 	} else if (id==-1) {
