@@ -791,6 +791,14 @@ void MainWindow::on_qaServerConnect_triggered(bool autoconnect) {
 		QCoreApplication::instance()->processEvents();
 	}
 
+	if (g.sh && g.sh->isFinished()) {
+		delete g.sh;
+		g.sh = new ServerHandler();
+		g.sh->moveToThread(g.sh);
+		connect(g.sh, SIGNAL(connected()), this, SLOT(serverConnected()));
+		connect(g.sh, SIGNAL(disconnected(QAbstractSocket::SocketError, QString)), this, SLOT(serverDisconnected(QAbstractSocket::SocketError, QString)));
+	}
+
 	if (res == QDialog::Accepted) {
 		qsDesiredChannel = QString();
 		rtLast = MumbleProto::Reject_RejectType_None;
