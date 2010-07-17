@@ -144,7 +144,7 @@ static const char *recommended_cas[] = {
 
 
 void MumbleSSL::addSystemCA() {
-#ifndef NO_SYSTEM_CA_OVERRIDE
+#if QT_VERSION < 0x040700 && !defined(NO_SYSTEM_CA_OVERRIDE)
 #if defined(Q_OS_WIN)
 	QStringList qsl;
 	qsl << QLatin1String("Ca");
@@ -240,14 +240,6 @@ void MumbleSSL::addSystemCA() {
 #endif // SYSTEM_CA_DIR
 #endif // Q_OS_UNIX
 
-	for (unsigned int i=0;i<sizeof(recommended_cas)/sizeof(recommended_cas[0]);++i) {
-		QSslCertificate cert(recommended_cas[i]);
-		if (! QSslSocket::defaultCaCertificates().contains(cert)) {
-			qWarning("SSL: Adding recommended CA %s", qPrintable(cert.subjectInfo(QSslCertificate::CommonName)));
-			QSslSocket::addDefaultCaCertificates(QList<QSslCertificate>() << cert);
-		}
-	}
-
 	QSet<QByteArray> digests;
 	QList<QSslCertificate> ql;
 	foreach(const QSslCertificate &crt, QSslSocket::defaultCaCertificates()) {
@@ -259,4 +251,12 @@ void MumbleSSL::addSystemCA() {
 	}
 	QSslSocket::setDefaultCaCertificates(ql);
 #endif // NO_SYSTEM_CA_OVERRIDE
+
+	for (unsigned int i=0;i<sizeof(recommended_cas)/sizeof(recommended_cas[0]);++i) {
+		QSslCertificate cert(recommended_cas[i]);
+		if (! QSslSocket::defaultCaCertificates().contains(cert)) {
+			qWarning("SSL: Adding recommended CA %s", qPrintable(cert.subjectInfo(QSslCertificate::CommonName)));
+			QSslSocket::addDefaultCaCertificates(QList<QSslCertificate>() << cert);
+		}
+	}
 }
