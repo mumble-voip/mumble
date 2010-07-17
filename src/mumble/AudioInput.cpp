@@ -622,7 +622,7 @@ void AudioInput::encodeAudioFrame() {
 	sum=1.0f;
 	for (i=0;i<iFrameSize;i++)
 		sum += static_cast<float>(psMic[i] * psMic[i]);
-	dPeakMic = std::max(20.0f*log10f(sqrtf(sum / static_cast<float>(iFrameSize)) / 32768.0f), -96.0f);
+	dPeakMic = qMax(20.0f*log10f(sqrtf(sum / static_cast<float>(iFrameSize)) / 32768.0f), -96.0f);
 
 	max = 1;
 	for (i=0;i<iFrameSize;i++)
@@ -633,7 +633,7 @@ void AudioInput::encodeAudioFrame() {
 		sum=1.0f;
 		for (i=0;i<iFrameSize;i++)
 			sum += static_cast<float>(psSpeaker[i] * psSpeaker[i]);
-		dPeakSpeaker = std::max(20.0f*log10f(sqrtf(sum / static_cast<float>(iFrameSize)) / 32768.0f), -96.0f);
+		dPeakSpeaker = qMax(20.0f*log10f(sqrtf(sum / static_cast<float>(iFrameSize)) / 32768.0f), -96.0f);
 	} else {
 		dPeakSpeaker = 0.0;
 	}
@@ -702,14 +702,14 @@ void AudioInput::encodeAudioFrame() {
 	for (i=0;i<iFrameSize;i++)
 		sum += static_cast<float>(psSource[i] * psSource[i]);
 	float micLevel = sqrtf(sum / static_cast<float>(iFrameSize));
-	dPeakSignal = std::max(20.0f*log10f(micLevel / 32768.0f), -96.0f);
+	dPeakSignal = qMax(20.0f*log10f(micLevel / 32768.0f), -96.0f);
 
 	spx_int32_t prob = 0;
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_PROB, &prob);
 	fSpeechProb = static_cast<float>(prob) / 100.0f;
 
 	// clean microphone level: peak of filtered signal attenuated by AGC gain
-	dPeakCleanMic = std::max(dPeakSignal - gainValue, -96.0f);
+	dPeakCleanMic = qMax(dPeakSignal - gainValue, -96.0f);
 	float level = (g.s.vsVAD == Settings::SignalToNoise) ? fSpeechProb : (1.0f + dPeakCleanMic / 96.0f);
 
 	if (level > g.s.fVADmax)
