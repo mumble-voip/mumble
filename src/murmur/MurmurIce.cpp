@@ -1280,6 +1280,7 @@ static void impl_Server_updateRegistration(const ::Murmur::AMD_Server_updateRegi
 	cb->ice_response();
 }
 
+#define ACCESS_Server_getRegistration_READ
 static void impl_Server_getRegistration(const ::Murmur::AMD_Server_getRegistrationPtr cb, int server_id,  ::Ice::Int userid) {
 	NEED_SERVER;
 
