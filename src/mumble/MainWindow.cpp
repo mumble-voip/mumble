@@ -1688,7 +1688,9 @@ void MainWindow::on_qaAudioMute_triggered() {
 		g.l->log(Log::SelfMute, tr("Muted."));
 	}
 
-	g.sh->setSelfMuteDeafState(g.s.bMute, g.s.bDeaf);
+	if (g.sh) {
+		g.sh->setSelfMuteDeafState(g.s.bMute, g.s.bDeaf);
+	}
 
 	updateTrayIcon();
 }
@@ -1716,7 +1718,9 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 		g.l->log(Log::SelfMute, tr("Undeafened."));
 	}
 
-	g.sh->setSelfMuteDeafState(g.s.bMute, g.s.bDeaf);
+	if (g.sh) {
+		g.sh->setSelfMuteDeafState(g.s.bMute, g.s.bDeaf);
+	}
 
 	updateTrayIcon();
 }
