@@ -374,7 +374,7 @@ void AudioInputDialog::on_Tick_timeout() {
 	abSpeech->iAbove = qsTransmitMax->value();
 
 	if (qrbAmplitude->isChecked()) {
-		abSpeech->iValue = iroundf((32767.f/96.0f) * (96.0f + ai->dPeakMic));
+		abSpeech->iValue = iroundf((32767.f/96.0f) * (96.0f + ai->dPeakCleanMic));
 	} else {
 		abSpeech->iValue = iroundf(ai->fSpeechProb * 32767.0f);
 	}
