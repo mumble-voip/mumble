@@ -334,10 +334,6 @@ int main(int argc, char **argv) {
 	g.bc = new BonjourClient();
 #endif
 
-	// Initialize the serverhandler
-	g.sh = new ServerHandler();
-	g.sh->moveToThread(g.sh);
-
 	g.o = new Overlay();
 	g.o->setActive(g.s.bOverlayEnable);
 

@@ -173,9 +173,6 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	connect(qmUser, SIGNAL(aboutToShow()), this, SLOT(qmUser_aboutToShow()));
 	connect(qmChannel, SIGNAL(aboutToShow()), this, SLOT(qmChannel_aboutToShow()));
 
-	connect(g.sh, SIGNAL(connected()), this, SLOT(serverConnected()));
-	connect(g.sh, SIGNAL(disconnected(QAbstractSocket::SocketError, QString)), this, SLOT(serverDisconnected(QAbstractSocket::SocketError, QString)));
-
 	// Fix context of all actions.
 	QList<QAction *> qla = findChildren<QAction *>();
 	foreach(QAction *a, qla)
@@ -516,6 +513,20 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 	delete menu;
 }
 
+static void recreateServerHandler() {
+	if (g.sh && g.sh->isRunning()) {
+		g.mw->on_qaServerDisconnect_triggered();
+		g.sh->wait();
+		QCoreApplication::instance()->processEvents();
+	}
+
+	delete g.sh;
+	g.sh = new ServerHandler();
+	g.sh->moveToThread(g.sh);
+	g.mw->connect(g.sh, SIGNAL(connected()), g.mw, SLOT(serverConnected()));
+	g.mw->connect(g.sh, SIGNAL(disconnected(QAbstractSocket::SocketError, QString)), g.mw, SLOT(serverDisconnected(QAbstractSocket::SocketError, QString)));
+}
+
 void MainWindow::openUrl(const QUrl &url) {
 	g.l->log(Log::Information, tr("Opening URL %1").arg(url.toString()));
 	if (url.scheme() == QLatin1String("file")) {
@@ -606,11 +617,7 @@ void MainWindow::openUrl(const QUrl &url) {
 	if (name.isEmpty())
 		name = QString::fromLatin1("%1@%2").arg(user).arg(host);
 
-	if (g.sh && g.sh->isRunning()) {
-		on_qaServerDisconnect_triggered();
-		g.sh->wait();
-		QCoreApplication::instance()->processEvents();
-	}
+	recreateServerHandler();
 
 	g.s.qsLastServer = name;
 	rtLast = MumbleProto::Reject_RejectType_None;
@@ -785,21 +792,8 @@ void MainWindow::on_qaServerConnect_triggered(bool autoconnect) {
 	if (cd->qsServer.isEmpty() || (cd->usPort==0) || cd->qsUsername.isEmpty())
 		res = QDialog::Rejected;
 
-	if (g.sh && g.sh->isRunning() && res == QDialog::Accepted) {
-		on_qaServerDisconnect_triggered();
-		g.sh->wait();
-		QCoreApplication::instance()->processEvents();
-	}
-
-	if (g.sh && g.sh->isFinished()) {
-		delete g.sh;
-		g.sh = new ServerHandler();
-		g.sh->moveToThread(g.sh);
-		connect(g.sh, SIGNAL(connected()), this, SLOT(serverConnected()));
-		connect(g.sh, SIGNAL(disconnected(QAbstractSocket::SocketError, QString)), this, SLOT(serverDisconnected(QAbstractSocket::SocketError, QString)));
-	}
-
 	if (res == QDialog::Accepted) {
+		recreateServerHandler();
 		qsDesiredChannel = QString();
 		rtLast = MumbleProto::Reject_RejectType_None;
 		qaServerDisconnect->setEnabled(true);
@@ -824,7 +818,7 @@ void MainWindow::on_qmSelf_aboutToShow() {
 	qaServerTextureRemove->setEnabled(user && ! user->qbaTextureHash.isEmpty());
 
 	qaSelfRegister->setEnabled(user && (user->iId < 0) && ! user->qsHash.isEmpty() && (g.pPermissions & (ChanACL::SelfRegister | ChanACL::Write)));
-	if (g.sh->uiVersion >= 0x010203) {
+	if (g.sh && g.sh->uiVersion >= 0x010203) {
 		qaSelfPrioritySpeaker->setEnabled(user && g.pPermissions & (ChanACL::Write | ChanACL::MuteDeafen));
 		qaSelfPrioritySpeaker->setChecked(user && user->bPrioritySpeaker);
 	} else {
@@ -1034,7 +1028,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qmUser->addAction(qaUserBan);
 	qmUser->addAction(qaUserMute);
 	qmUser->addAction(qaUserDeaf);
-	if (g.sh->uiVersion >= 0x010203)
+	if (g.sh && g.sh->uiVersion >= 0x010203)
 		qmUser->addAction(qaUserPrioritySpeaker);
 	qmUser->addAction(qaUserLocalMute);
 
@@ -1046,7 +1040,7 @@ void MainWindow::qmUser_aboutToShow() {
 	}
 
 	qmUser->addAction(qaUserTextMessage);
-	if (g.sh->uiVersion >= 0x010202)
+	if (g.sh && g.sh->uiVersion >= 0x010202)
 		qmUser->addAction(qaUserInformation);
 
 	if (p && (p->iId < 0) && ! p->qsHash.isEmpty() && (g.pPermissions & ((self ? ChanACL::SelfRegister : ChanACL::Register) | ChanACL::Write))) {

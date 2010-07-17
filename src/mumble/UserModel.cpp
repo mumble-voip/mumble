@@ -454,7 +454,7 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				}
 				break;
 			case Qt::BackgroundRole:
-				if ((c->iId == 0) && g.sh->isStrong()) {
+				if ((c->iId == 0) && g.sh && g.sh->isStrong()) {
 					QColor qc(Qt::green);
 					qc.setAlpha(32);
 					return qc;
