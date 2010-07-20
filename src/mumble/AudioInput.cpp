@@ -37,6 +37,7 @@
 #include "Message.h"
 #include "Global.h"
 #include "NetworkConfig.h"
+#include "VoiceRecorder.h"
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioInputRegistrar() might be called before they are initialized, as the constructor
@@ -883,6 +884,13 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 		pds << g.p->fPosition[0];
 		pds << g.p->fPosition[1];
 		pds << g.p->fPosition[2];
+	}
+
+	if (g.sh) {
+		VoiceRecorderPtr recorder(g.sh->recorder);
+		if (recorder) {
+			recorder->recordUser->addFrame(QByteArray(data, pds.size() + 1));
+		}
 	}
 
 	if (g.s.lmLoopMode == Settings::Local)

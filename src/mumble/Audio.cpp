@@ -335,6 +335,26 @@ void LoopUser::fetchFrames() {
 	qtLastFetch.restart();
 }
 
+RecordUser::RecordUser() : LoopUser() {
+	qsName = QLatin1String("Recorder");
+}
+
+void RecordUser::addFrame(const QByteArray &packet) {
+	{
+		QMutexLocker l(&qmLock);
+		qmPackets.insert(static_cast<float>(qtTicker.elapsed()), packet);
+	}
+
+	// Restart check
+	if (qtLastFetch.elapsed() > 100) {
+		AudioOutputPtr ao = g.ao;
+		if (ao) {
+			MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((packet.at(0) >> 5) & 0x7);
+			ao->addFrameToBuffer(this, QByteArray(), 0, msgType);
+		}
+	}
+}
+
 void Audio::startOutput(const QString &output) {
 	g.ao = AudioOutputRegistrar::newFromChoice(output);
 	if (g.ao)

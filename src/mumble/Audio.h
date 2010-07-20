@@ -118,8 +118,17 @@ class LoopUser : public ClientUser {
 		LoopUser();
 	public:
 		static LoopUser lpLoopy;
-		void addFrame(const QByteArray &packet);
+		virtual void addFrame(const QByteArray &packet);
 		void fetchFrames();
+};
+
+class RecordUser : public LoopUser {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(RecordUser)
+	public:
+		RecordUser();
+		virtual void addFrame(const QByteArray &packet);
 };
 
 namespace Audio {

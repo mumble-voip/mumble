@@ -31,16 +31,18 @@
 
 #include "VoiceRecorder.h"
 
+#include "Audio.h"
 #include "ClientUser.h"
 
 VoiceRecorder::VoiceRecorder(QObject *p) : QThread(p), iSampleRate(0),
-	bRecording(false), bMixDown(false), uiRecordedSamples(0) {
+	bRecording(false), bMixDown(false), uiRecordedSamples(0), recordUser(new RecordUser()) {
 }
 
 VoiceRecorder::~VoiceRecorder() {
 	stop();
 	wait();
 	clearLists();
+	delete recordUser;
 }
 
 void VoiceRecorder::clearLists() {
