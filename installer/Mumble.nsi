@@ -173,6 +173,9 @@ Section "" SectionCommon
   File "\Program Files (x86)\Intel\Compiler\11.1\054\Bin\ia32\libmmd.dll"
   File "\Program Files (x86)\Debugging Tools for Windows (x86)\dbghelp.dll"
 
+  SetOutPath "$INSTDIR\QtPlugins\accessible"
+  File /x q*d4.dll "\dev\Qt4.6\plugins\accessible\q*4.dll"
+
   SetOutPath "$INSTDIR\QtPlugins\iconengines"
   File /x q*d4.dll "\dev\Qt4.6\plugins\iconengines\q*4.dll"
   
