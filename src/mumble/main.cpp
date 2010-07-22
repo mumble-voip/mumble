@@ -264,6 +264,7 @@ int main(int argc, char **argv) {
 
 	if (! g.s.qsStyle.isEmpty()) {
 		a.setStyle(g.s.qsStyle);
+		g.qsCurrentStyle = g.s.qsStyle;
 	}
 
 	if (! g.s.qsSkin.isEmpty()) {

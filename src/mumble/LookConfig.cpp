@@ -172,12 +172,15 @@ void LookConfig::save() const {
 }
 
 void LookConfig::accept() const {
-	if (! s.qsStyle.isEmpty()) {
+	if (! s.qsStyle.isEmpty() && g.qsCurrentStyle != s.qsStyle) {
 		qApp->setStyle(s.qsStyle);
+		g.qsCurrentStyle = s.qsStyle;
 	}
 	if (s.qsSkin.isEmpty()) {
-		qApp->setStyleSheet(MainWindow::defaultStyleSheet);
-		g.mw->qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
+		if (qApp->styleSheet() != MainWindow::defaultStyleSheet) {
+			qApp->setStyleSheet(MainWindow::defaultStyleSheet);
+			g.mw->qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
+		}
 	} else {
 		QFile file(s.qsSkin);
 		file.open(QFile::ReadOnly);

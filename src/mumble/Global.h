@@ -95,6 +95,7 @@ public:
 	unsigned int uiMessageLength;
 	unsigned int uiImageLength;
 	bool bQuit;
+	QString qsCurrentStyle;
 	Global();
 	~Global();
 };
