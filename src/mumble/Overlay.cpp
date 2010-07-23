@@ -42,6 +42,12 @@
 #define toReal toDouble
 #endif
 
+OverlayTextLine::OverlayTextLine() {
+}
+
+OverlayTextLine::OverlayTextLine(const QPainterPath &qpp) : QPainterPath(qpp), fAscent(0.0f), fDescent(0.0f) {
+}
+
 OverlayAppInfo::OverlayAppInfo(QString name, QIcon icon) {
 	qsDisplayName = name;
 	qiIcon = icon;
@@ -478,8 +484,8 @@ void OverlayEditorScene::updateUserName() {
 			break;
 	}
 
-	QPainterPath pp;
-	const QPixmap &pm = OverlayUser::createPixmap(qsName, SCALESIZE(UserName), os.qcUserName[tsColor], os.qfUserName, pp);
+	OverlayTextLine tl;
+	const QPixmap &pm = OverlayUser::createPixmap(qsName, SCALESIZE(UserName), os.qcUserName[tsColor], os.qfUserName, tl);
 	qgpiName->setPixmap(pm);
 
 	moveUserName();
@@ -492,8 +498,8 @@ void OverlayEditorScene::moveUserName() {
 }
 
 void OverlayEditorScene::updateChannel() {
-	QPainterPath pp;
-	const QPixmap &pm = OverlayUser::createPixmap(Overlay::tr("Channel"), SCALESIZE(Channel), os.qcChannel, os.qfChannel, pp);
+	OverlayTextLine tl;
+	const QPixmap &pm = OverlayUser::createPixmap(Overlay::tr("Channel"), SCALESIZE(Channel), os.qcChannel, os.qfChannel, tl);
 	qgpiChannel->setPixmap(pm);
 
 	moveChannel();
@@ -1556,57 +1562,69 @@ void OverlayUser::updateLayout() {
 	}
 }
 
-QPixmap OverlayUser::createPixmap(const QString &string, unsigned int maxwidth, unsigned int height, QColor col, const QFont &font, QPainterPath &pp) {
-	float edge = height * 0.05f;
+QPixmap OverlayUser::createPixmap(const QString &string, unsigned int maxwidth, unsigned int height, QColor col, const QFont &font, OverlayTextLine &tl) {
+	const float edge = static_cast<float>(height) * 0.05f;
 
 	if (! height || ! maxwidth)
 		return QPixmap();
 
-	if (pp.isEmpty()) {
+	if (tl.isEmpty()) {
 		QFont f = font;
+		QFontMetrics fm(f);
 
-		QRectF r;
-		{
-			QPainterPath qp;
-			qp.addText(0.0f, 0.0f, f, string);
-			r = qp.controlPointRect();
+		// fit the font into a bounding box with padding
+		float pointsize = static_cast<float>(fm.descent()) + static_cast<float>(f.pointSizeF());
+		float edge_correction = ((static_cast<float>(height) - 2.0f * edge) / pointsize);
+
+		f.setPointSizeF(f.pointSizeF() * edge_correction);
+		fm = QFontMetrics(f);
+
+		// strictly speaking cheating by using point size == ascent
+		float ascent = static_cast<float>(f.pointSizeF());
+		float descent = static_cast<float>(fm.descent());
+
+		// calculate text metrics for eliding and scaling
+		QRectF bb;
+		tl.addText(0.0f, 0.0f, f, string);
+		bb = tl.controlPointRect();
+
+		float text_height = static_cast<float>(bb.height()) + 2*edge;
+		float scale = 1.0f;
+		if (bb.bottom() < 0.0f || text_height > static_cast<float>(height)) {
+			qreal scale_ascent = bb.top() < 0.0f ? ascent / (-bb.top() + edge) : 1.0f;
+			qreal scale_descent = bb.bottom() > 0.0f ? descent / (bb.bottom() + edge) : 1.0f;
+			scale = static_cast<float>(qMin(scale_ascent, scale_descent));
 		}
 
-		float fs = f.pointSizeF();
-		float ds = fs * ((height - 2.0f * edge) / r.height());
-
-		f.setPointSizeF(ds);
-
-		pp.addText(0.0f, 0.0f, f, string);
-		r = pp.controlPointRect();
-
-		QString str;
-
-		if (maxwidth < 0 || r.width() < maxwidth) {
-			str = string;
-		} else {
-			QFontMetrics qfm(f);
-			str = qfm.elidedText(string, Qt::ElideRight, iroundf(maxwidth - 2 * edge));
+		// eliding by previously calculated width
+		if ((bb.width()*scale) + 2*edge > maxwidth) {
+			int eliding_width = iroundf((static_cast<float>(maxwidth) / scale) - 2 * edge);
+			QString str = fm.elidedText(string, Qt::ElideRight, eliding_width);
 			if (str.trimmed().isEmpty())
 				str = QLatin1String("...");
 
-			pp = QPainterPath();
-			pp.addText(0.0f, 0.0f, f, str);
+			tl = OverlayTextLine();
+			tl.addText(0.0f, 0.0f, f, str);
+			bb = tl.controlPointRect();
 		}
 
-		QRectF qr = pp.controlPointRect();
+		// translation to "pixmap space":
+		QMatrix correction;
+		//  * adjust left edge
+		correction.translate(-bb.x() + edge, 0.0f);
+		//  * scale overly high text (still on baseline)
+		correction.scale(scale, scale);
+		//  * translate down to baseline
+		correction.translate(0.0f, (ascent + edge) / scale);
 
-#if QT_VERSION >= 0x040600
-		pp.translate(- qr.x() + edge, - qr.y() + edge);
-#else
-		pp = QPainterPath();
-		pp.addText(- qr.x() + edge, - qr.y() + edge, f, str);
-#endif
+		tl = correction.map(tl);
+		tl.fAscent = ascent;
+		tl.fDescent = descent;
 	}
 
-	QRectF qr = pp.controlPointRect();
+	QRectF qr = tl.controlPointRect();
 	int w = iroundf(qr.width() + 2 * edge + 0.5f);
-	int h = iroundf(qr.height() + 2 * edge + 0.5f);
+	int h = iroundf(tl.fAscent + tl.fDescent + 2 * edge + 0.5f);
 
 	QPixmap img(w, h);
 	img.fill(Qt::transparent);
@@ -1622,10 +1640,10 @@ QPixmap OverlayUser::createPixmap(const QString &string, unsigned int maxwidth, 
 
 	imgp.setBrush(qc);
 	imgp.setPen(QPen(Qt::black, edge, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-	imgp.drawPath(pp);
+	imgp.drawPath(tl);
 
 	imgp.setPen(Qt::NoPen);
-	imgp.drawPath(pp);
+	imgp.drawPath(tl);
 
 	return img;
 }
@@ -1635,9 +1653,9 @@ void OverlayUser::updateUser() {
 		if (cuUser)
 			qsName = cuUser->qsName;
 
-		QPainterPath pp;
+		OverlayTextLine tl;
 		for (int i=0; i<4; ++i) {
-			const QPixmap &pm = createPixmap(qsName, SCALESIZE(UserName), os->qcUserName[i], os->qfUserName, pp);
+			const QPixmap &pm = createPixmap(qsName, SCALESIZE(UserName), os->qcUserName[i], os->qfUserName, tl);
 			qgpiName[i]->setPixmap(pm);
 
 			if (i == 0)
@@ -1651,8 +1669,8 @@ void OverlayUser::updateUser() {
 		if (cuUser)
 			qsChannelName = cuUser->cChannel->qsName;
 
-		QPainterPath pp;
-		const QPixmap &pm = createPixmap(qsChannelName, SCALESIZE(Channel), os->qcChannel, os->qfChannel, pp);
+		OverlayTextLine tl;
+		const QPixmap &pm = createPixmap(qsChannelName, SCALESIZE(Channel), os->qcChannel, os->qfChannel, tl);
 		qgpiChannel->setPixmap(pm);
 		qgpiChannel->setPos(alignedPosition(scaledRect(os->qrfChannel, uiSize * os->fZoom), qgpiChannel->boundingRect(), os->qaChannel));
 	}
@@ -2149,9 +2167,9 @@ bool OverlayClient::eventFilter(QObject *o, QEvent *e) {
 
 void OverlayClient::updateFPS() {
 	if (g.s.os.bFps) {
-		QPainterPath pp;
+		OverlayTextLine tl;
 		unsigned int uiSize = iroundf(qgs.sceneRect().height());
-		const QPixmap &pm = OverlayUser::createPixmap(tr("FPS: %1").arg(static_cast<int>(fFps)), -1, iroundf(uiSize * g.s.os.fZoom * g.s.os.qrfFps.height()), g.s.os.qcFps, g.s.os.qfFps, pp);
+		const QPixmap &pm = OverlayUser::createPixmap(tr("FPS: %1").arg(static_cast<int>(fFps)), -1, iroundf(uiSize * g.s.os.fZoom * g.s.os.qrfFps.height()), g.s.os.qcFps, g.s.os.qfFps, tl);
 		qgpiFPS->setPixmap(pm);
 	} else {
 		qgpiFPS->setPixmap(QPixmap());
