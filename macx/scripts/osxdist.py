@@ -196,6 +196,12 @@ class AppBundle(object):
 				rel = basename
 
 				if not basename in self.handled_libs:
+					# Hack to work with non-rpath Ice (for 10.4 compat)
+					if lib.startswith('libIce'):
+						iceprefix = os.environ.get('ICE_PREFIX', None)
+						if not iceprefix:
+							raise Exception('No ICE_PREFIX set')
+						lib = iceprefix + '/lib/' + basename
 					shutil.copy(lib, self.framework_path  + '/' + basename)
 					abs = self.framework_path + '/' + rel
 					os.chmod(abs, 0755)
@@ -436,8 +442,12 @@ if __name__ == '__main__':
 	# Release
 	if options.release:
 		ver = options.release
-		fn = 'release/Mumble-%s.dmg' % ver
-		title = 'Mumble %s' % ver
+		if options.universal:
+			fn = 'release/Mumble-Universal-%s.dmg' % ver
+			title = 'Mumble %s (Universal) ' %ver
+		else:
+			fn = 'release/Mumble-%s.dmg' % ver
+			title = 'Mumble %s ' % ver
 	# Snapshot
 	elif options.snapshot or options.git:
 		n = datetime.datetime.now()
@@ -446,8 +456,12 @@ if __name__ == '__main__':
 			ver = options.snapshot
 		else:
 			ver = gitrev()	
-		fn = 'release/Mumble-Snapshot-%s-%s.dmg' % (d, ver)
-		title = 'Mumble Snapshot %s (%s)' % (ver, d)		
+		if options.universal:
+			fn = 'release/Mumble-Universal-Snapshot-%s-%s.dmg' % (d, ver)
+			title = 'Mumble Snapshot %s (Universal, %s)' % (ver, d)
+		else:
+			fn = 'release/Mumble-Snapshot-%s-%s.dmg' % (d, ver)
+			title = 'Mumble Snapshot %s (%s)' % (ver, d)
 	else:
 		print 'Neither snapshot or release selected. Bailing.'
 		sys.exit(1)
