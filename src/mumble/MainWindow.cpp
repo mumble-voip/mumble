@@ -2280,7 +2280,7 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 	if (reason == QSystemTrayIcon::Trigger) {
 #ifdef Q_OS_WIN
 		if (!isVisible() || isMinimized() || tInactive.elapsed() > 300000UL) {
-#elif
+#else
 		if (!isVisible() || isMinimized() || !isActiveWindow()) {
 #endif
 			if (isMaximized())
