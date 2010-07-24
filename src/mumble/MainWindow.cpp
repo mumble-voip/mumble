@@ -349,6 +349,9 @@ void MainWindow::msgBox(QString msg) {
 bool MainWindow::winEvent(MSG *msg, long *) {
 	if (msg->message == WM_DEVICECHANGE && msg->wParam == DBT_DEVNODES_CHANGED)
 		uiNewHardware++;
+	else if (msg->message == WM_ACTIVATE && msg->wParam == WA_INACTIVE)
+		tInactive.restart();
+
 	return false;
 }
 #endif
@@ -2267,17 +2270,25 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 	if (reason == QSystemTrayIcon::DoubleClick) {
 		bDoubleClick = true;
 		tDoubleClick.restart();
-	} else if (bDoubleClick && (reason == QSystemTrayIcon::Trigger) && !(tDoubleClick.elapsed() > 100000UL)) {
-		return;
+	} else if (bDoubleClick && (reason == QSystemTrayIcon::Trigger)) {
+		if(tDoubleClick.elapsed() > 100000UL)
+			bDoubleClick = false;
+		else
+			return;
 	}
 
 	if (reason == QSystemTrayIcon::Trigger) {
-		if (!isVisible() || isMinimized()) {
+#ifdef Q_OS_WIN
+		if (!isVisible() || isMinimized() || tInactive.elapsed() > 300000UL) {
+#elif
+		if (!isVisible() || isMinimized() || !isActiveWindow()) {
+#endif
 			if (isMaximized())
 				showMaximized();
 			else
 				showNormal();
 			activateWindow();
+			raise();
 		} else {
 			if (g.s.bHideInTray)
 				hide();

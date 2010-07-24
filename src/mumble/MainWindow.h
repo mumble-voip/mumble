@@ -109,6 +109,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		static const QString defaultStyleSheet;
 
 #ifdef Q_OS_WIN
+		Timer tInactive;
 		bool winEvent(MSG *, long *);
 		unsigned int uiNewHardware;
 #endif
