@@ -580,20 +580,25 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 						}
 					}
 
-					strcpy_s(p+1, 64, "nooverlay");
-					HANDLE h = CreateFile(procname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+					char fname[sizeof(procname)];
+					char *fp = fname + (procname - p);
+					strcpy_s(fname, sizeof(procname), procname);
+
+					strcpy_s(fp+1, 64, "nooverlay");
+					HANDLE h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 					if (h != INVALID_HANDLE_VALUE) {
 						CloseHandle(h);
-						fods("Overlay disable %s found", procname);
+						fods("Overlay disable %s found", fname);
+						bBlackListed = true;
 						return TRUE;
 					}
 
-					strcpy_s(p+1, 64, "debugoverlay");
+					strcpy_s(fp+1, 64, "debugoverlay");
 
-					h = CreateFile(procname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+					h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 					if (h != INVALID_HANDLE_VALUE) {
 						CloseHandle(h);
-						fods("Overlay debug %s found", procname);
+						fods("Overlay debug %s found", fname);
 						bDebug = TRUE;
 					}
 				}

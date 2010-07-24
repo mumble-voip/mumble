@@ -97,6 +97,7 @@ static const char *overlayBlacklist[] = {
 	"chrome.exe",
 	"acrord32.exe",
 	"explorer.exe",
+	"wmpnscfg.exe",
 	NULL
 };
 
