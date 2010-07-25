@@ -27,32 +27,15 @@ def codesign(id, path):
 			return retval
 	return 0
 
-def create_overlay_tarball(sign=None):
-	print '* Creating overlay loader installation tarball'
+def create_overlay_package(sign=None):
+	print '* Creating overlay installer'
 
 	bundle = os.path.join('release', 'MumbleOverlay.osax')
-	overlaylib = os.path.join(bundle, 'Contents', 'MacOS', 'libmumbleoverlay.dylib')
-	shutil.copy('release/libmumbleoverlay.dylib', overlaylib)
+	overlaylib = os.path.join('release', 'libmumbleoverlay.dylib')
 	if sign:
 		codesign(sign, bundle)
 		codesign(sign, overlaylib)
-	contents = []
-	for e in os.walk(bundle):
-		root, dirs, files = e
-		contents.extend([root]+[os.path.join(root, f) for f in files])
-
-	tar = tarfile.open(os.path.join('release', 'MumbleOverlay.tar.bz2'), 'w:bz2')
-	for c in contents:
-		info = tar.gettarinfo(c)
-		info.name = c[len('release/'):]
-		info.uname = 'root'
-		info.gname = 'admin'
-		f = None
-		if info.isfile():
-			f = open(c)
-		tar.addfile(info, f)
-	tar.close()
-
+	os.system('/Developer/Applications/Utilities/PackageMaker.app/Contents/MacOS/PackageMaker --doc macx/overlay-installer/MumbleOverlayInstaller.pmdoc --out release/MumbleOverlay.pkg')
 
 class AppBundle(object):
 
@@ -254,7 +237,7 @@ class AppBundle(object):
 				shutil.copy(rsrc, os.path.join(rsrcpath, b))
 
 		# Extras
-		shutil.copy('release/MumbleOverlay.tar.bz2', os.path.join(rsrcpath, 'MumbleOverlay.tar.bz2'))
+		shutil.copy('release/MumbleOverlay.pkg', os.path.join(rsrcpath, 'MumbleOverlay.pkg'))
 
 	def copy_codecs(self):
 		'''
@@ -473,8 +456,8 @@ if __name__ == '__main__':
 	# Fix .ini files
 	os.system('cd scripts && sh mkini.sh')
 
-	# Fix overlay 'installer' tarball
-	create_overlay_tarball(options.codesign)
+	# Fix overlay installer package
+	create_overlay_package(options.codesign)
 
 	# Do the finishing touches to our Application bundle before release
 	a = AppBundle('release/Mumble.app', ver)

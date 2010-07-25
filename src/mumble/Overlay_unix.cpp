@@ -37,22 +37,33 @@ void Overlay::platformInit() {
 void Overlay::setActive(bool) {
 }
 
-bool Overlay::supportsInstallableOverlay() {
+bool OverlayConfig::supportsInstallableOverlay() {
 	return false;
 }
 
-bool Overlay::isInstalled() {
+bool OverlayConfig::isInstalled() {
 	return true;
 }
 
-bool Overlay::needsUpgrade() {
+bool OverlayConfig::needsUpgrade() {
 	return false;
 }
 
-bool Overlay::installFiles() {
+bool OverlayConfig::installFiles() {
 	return false;
 }
 
-bool Overlay::uninstallFiles() {
+bool OverlayConfig::uninstallFiles() {
 	return false;
+}
+
+bool OverlayConfig::supportsCertificates() {
+	return false;
+}
+
+bool OverlayConfig::installerIsValid() {
+	return false;
+}
+
+void OverlayConfig::showCertificates() {
 }

@@ -240,15 +240,26 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 
 		bool eventFilter(QObject *, QEvent *);
 
+		bool supportsInstallableOverlay();
+		bool isInstalled();
+		bool needsUpgrade();
+		bool installFiles();
+		bool uninstallFiles();
+		bool supportsCertificates();
+		bool installerIsValid();
+		void showCertificates();
+
 		QString applicationIdentifierForPath(const QString &path);
 		OverlayAppInfo applicationInfoForId(const QString &identifier);
 	protected slots:
 		void on_qpbInstall_clicked();
 		void on_qpbUninstall_clicked();
+		void on_qpbShowCerts_clicked();
 		void on_qpbAdd_clicked();
 		void on_qpbRemove_clicked();
 		void on_qrbBlacklist_toggled(bool);
 		void on_qcbEnable_stateChanged(int);
+		void on_qswOverlayPage_currentChanged(int idx);
 		void resizeScene();
 	public:
 		OverlayConfig(Settings &st);
@@ -345,12 +356,6 @@ class Overlay : public QObject {
 		QSet<unsigned int> qsQuery;
 
 		void platformInit();
-
-		static bool supportsInstallableOverlay();
-		static bool isInstalled();
-		static bool needsUpgrade();
-		static bool installFiles();
-		static bool uninstallFiles();
 
 		QLocalServer *qlsServer;
 		QList<OverlayClient *> qlClients;
