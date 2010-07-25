@@ -328,7 +328,7 @@
 <context>
     <name>ALSAAudioInput</name>
     <message>
-        <location filename="ALSAAudio.cpp" line="+172"/>
+        <location filename="ALSAAudio.cpp" line="+169"/>
         <source>Default ALSA Card</source>
         <translation type="unfinished"></translation>
     </message>
@@ -354,7 +354,7 @@
 <context>
     <name>ASIOConfig</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+224"/>
+        <location filename="ASIOInput.cpp" line="+222"/>
         <source>%1 (version %2)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -365,13 +365,13 @@
     </message>
     <message>
         <location line="+42"/>
-        <location line="+27"/>
+        <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-23"/>
-        <location line="+27"/>
+        <location line="-21"/>
+        <location line="+25"/>
         <source>Failed to instantiate ASIO driver</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2097,7 +2097,7 @@
 <context>
     <name>CoreAudioSystem</name>
     <message>
-        <location filename="CoreAudio.cpp" line="+85"/>
+        <location filename="CoreAudio.cpp" line="+83"/>
         <source>Default Device</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2136,7 +2136,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+24"/>
         <source>Crash upload successful</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2175,7 +2175,7 @@
 <context>
     <name>DXAudioInput</name>
     <message>
-        <location filename="DirectSound.cpp" line="+174"/>
+        <location filename="DirectSound.cpp" line="+172"/>
         <source>Default DirectSound Voice Input</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4320,7 +4320,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <location filename="PAAudio.cpp" line="+275"/>
+        <location filename="PAAudio.cpp" line="+273"/>
         <source>Default Device</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4328,7 +4328,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+549"/>
+        <location filename="PulseAudio.cpp" line="+545"/>
         <source>Default Input</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4549,7 +4549,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+182"/>
+        <location filename="WASAPI.cpp" line="+180"/>
         <source>Default Device</source>
         <translation type="unfinished"></translation>
     </message>

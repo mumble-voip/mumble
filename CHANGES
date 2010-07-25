@@ -1,7 +1,103 @@
+2010-07-24
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    c8dfd56  Fix typo in last patch
+    f5704a0  Clicking tray icon now activates the window if it is inactive
+	     instead of hiding it
+    c24b79e  Overlay blacklist wmpnscfg.exe and fix the mumble_ol.dll's
+	     debug output
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    9ba3eb3  Dist script fixes for universal build.
+    cbc880e  New LGLCD SDK path on Mac OS X.
+    3c936c2  Make CONFIG+=universal imply no-cocoa
+
+2010-07-22
+  Mikkel Krautz <mikkel@krautz.dk>
+    41f8041  Work around the overlay preview resizing problem by minimizing
+	     the amount of unnecessary style changes we do.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    dcc541a  Add Qt's accessibility dll to the installer
+
+2010-07-20
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    4335312  Add another QThread::yield in the audio output code
+    8bd2060  Added/updated russian installer and client translation,
+	     submitted by B0nuse on #mumble.
+    4315190  Add russian translation file to the resource file.
+
+2010-07-18
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    7208fcc  Fix more crashes if we have no ServerHandler
+    cf3c151  Lazy init the ServerHandler object and don't crash if we have
+	     no ServerHandler
+
+2010-07-17
+  Nicos Gollan <gtdev@spearhead.de>
+    8bd79b6  Use noise-filtered amplitude for VAD
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    1b3d329  Fix AudioStats for compat client.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    bfa01db  Fix reconnecting when using Qt 4.7
+    63b84d3  Disable system CA override in Qt 4.7
+    0dc54d7  Fix MSVC compile errors
+    3b594af  Workaround for the client certificate verification bug in Qt
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    173ebf8  Allow getRegistration with read pw
+
+2010-07-16
+  Mikkel Krautz <mikkel@krautz.dk>
+    932fe13  Fix logic error in osxdist.py. Also make copied libraries
+	     explicitly owner-writable (OpenSSL wasn't).
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    75df5b7  Handle external auth with whitespace
+
+2010-07-15
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    2997897  Fix some gcc and cppcheck warnings
+    fe9ae2d  Disable crash reporter on linux
+    89d30a9  Fix possible fd leak in OSS code
+
+2010-07-14
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c4eefe7  Use local OpenSSL for static build
+    470a089  New servers have DB version 5
+
+2010-07-13
+  Natenom <natenom@googlemail.com>
+    e4615e6  Add -n (suppress certificat) to the command line options.
+
+2010-07-12
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    fe2e3e5  Some minor cleanup in the bfbc2 plugin
+    10e5299  Prevent l4d2 plugin from crashing Mumble on trylock
+    a8efbbf  Fix display bug in Audio Wizard
+
 2010-07-11
+  Mikkel Krautz <mikkel@krautz.dk>
+    0cf351e  Only copy mumble-g15-helper to app bundle if it exists.
+    e925ec6  Update Mac OS X build for Ice-3.4.1, Boost 1.43.0 and detect
+	     the presence of LGLCD SDK (disable g15helper if not present)
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     288dab9  Update to CELT 0.8.1
     6c61371  Report OpenSSL version to console
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    bbd417b  Fix typo in L4D2
+
+2010-07-10
+  Tuck Therebelos <snares@users.sourceforge.net>
+    492ffa4  See if state value causes L4D2 bug
+    25e833b  Source plugin updates; BFBC2 update, works with Steam now
+
+2010-07-09
+  Jamie Fraser <jamie.f@sabrienix.com>
+    9c9983b  Added default root certificate store on FreeBSD.
 
 2010-07-05
   Andreas Bibok <biboka@users.sourceforge.net>
@@ -18,6 +114,9 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     cb9c5bd  Customize labels for high contrast mode so they talk about
 	     what is actually visible
+
+  Jamie Fraser <jamie.f@sabrienix.com>
+    ea20c4c  Fixed Murmur Build on FreeBSD
 
 2010-07-02
   Karl Dietz <dekarl@users.sourceforge.net>

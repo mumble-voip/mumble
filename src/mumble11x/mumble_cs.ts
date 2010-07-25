@@ -360,7 +360,7 @@
 <context>
     <name>ALSAAudioInput</name>
     <message>
-        <location filename="ALSAAudio.cpp" line="+363"/>
+        <location filename="ALSAAudio.cpp" line="+360"/>
         <source>Opening chosen ALSA Input failed: %1</source>
         <translation>Otevírání zvoleného zvukového vstupu selhalo. Nebude tedy snímán zvuk ze žádného mikrofonu,</translation>
     </message>
@@ -532,7 +532,7 @@
         <translation>Bedničky</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="+224"/>
+        <location filename="ASIOInput.cpp" line="+222"/>
         <source>%1 (version %2)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -547,13 +547,13 @@
     </message>
     <message>
         <location line="+42"/>
-        <location line="+27"/>
+        <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-23"/>
-        <location line="+27"/>
+        <location line="-21"/>
+        <location line="+25"/>
         <source>Failed to instantiate ASIO driver</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2519,7 +2519,7 @@
 <context>
     <name>CoreAudioSystem</name>
     <message>
-        <location filename="CoreAudio.cpp" line="+85"/>
+        <location filename="CoreAudio.cpp" line="+83"/>
         <source>Default Device</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2558,7 +2558,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+24"/>
         <source>Crash upload successful</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2605,7 +2605,7 @@
         <translation type="obsolete">Otevírání vybraného vstupu DirectSound selhalo. Nebude prováděn záznam mikrofonu.</translation>
     </message>
     <message>
-        <location filename="DirectSound.cpp" line="+556"/>
+        <location filename="DirectSound.cpp" line="+554"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
         <translation>Otevírání vybraného vstupu DirectSound  selhalo. Bude použito výchozí zařízení.</translation>
     </message>
@@ -5318,7 +5318,7 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <location filename="PAAudio.cpp" line="+275"/>
+        <location filename="PAAudio.cpp" line="+273"/>
         <source>Default Device</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5361,7 +5361,7 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+549"/>
+        <location filename="PulseAudio.cpp" line="+545"/>
         <source>Default Input</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5609,7 +5609,7 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+182"/>
+        <location filename="WASAPI.cpp" line="+180"/>
         <source>Default Device</source>
         <translation type="unfinished"></translation>
     </message>

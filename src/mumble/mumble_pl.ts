@@ -510,7 +510,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>ALSAAudioInput</name>
     <message>
-        <location filename="ALSAAudio.cpp" line="+363"/>
+        <location filename="ALSAAudio.cpp" line="+360"/>
         <source>Opening chosen ALSA Input failed: %1</source>
         <translation>Otwieranie wybranego Wejścia ALSA nie powiodło się: %1</translation>
     </message>
@@ -647,7 +647,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="obsolete">%1 ms -&gt; %2 ms (%3 ms rozdzielczość) %4Hz -- Niemożliwy do wykorzystania</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="+224"/>
+        <location filename="ASIOInput.cpp" line="+222"/>
         <source>%1 (version %2)</source>
         <translation>%1 (wersja %2)</translation>
     </message>
@@ -662,13 +662,13 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <location line="+42"/>
-        <location line="+27"/>
+        <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
         <translation>Inizjalizacja ASIO nie powiodła się: %1</translation>
     </message>
     <message>
-        <location line="-23"/>
-        <location line="+27"/>
+        <location line="-21"/>
+        <location line="+25"/>
         <source>Failed to instantiate ASIO driver</source>
         <translation>Wytwarzanie sterownika ASIO nie powiodło się</translation>
     </message>
@@ -1154,7 +1154,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="obsolete">&lt;b&gt;Ta opcja określa wartość tłumienia hałasu.&lt;/b&gt;&lt;br /&gt;Zwiększenie tej wartości powoduje agresywniejsze tłumienie hałasu.</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+531"/>
+        <location filename="AudioInput.cpp" line="+523"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)</source>
         <translation>Maksymalna przepustowość serwera to tylko %1 kbit/s. Jakość mowy została automatycznie dopasowana do %2 kbit/s (%3ms)</translation>
     </message>
@@ -1202,7 +1202,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>AudioInputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="+74"/>
+        <location filename="AudioConfigDialog.cpp" line="+71"/>
         <source>Continuous</source>
         <translation>Ciągłe nadawanie</translation>
     </message>
@@ -1639,7 +1639,7 @@ przechwytywania źródeł dźwięku</translation>
 <context>
     <name>AudioOutputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="+168"/>
+        <location filename="AudioConfigDialog.cpp" line="+165"/>
         <source>None</source>
         <translation>Brak</translation>
     </message>
@@ -1700,7 +1700,7 @@ przechwytywania źródeł dźwięku</translation>
 <context>
     <name>AudioOutputSample</name>
     <message>
-        <location filename="AudioOutput.cpp" line="+299"/>
+        <location filename="AudioOutput.cpp" line="+295"/>
         <source>Choose sound file</source>
         <translation>Wybierz plik dźwiękowy</translation>
     </message>
@@ -2406,7 +2406,7 @@ Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do p
         <translation>Wyłącz funkcję Tekst-Na-Mowę i zamiast tego używaj powiadomień dźwiękowych.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+304"/>
+        <location filename="AudioWizard.cpp" line="+305"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -2598,7 +2598,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Użytkownik Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+409"/>
+        <location filename="main.cpp" line="+408"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Wygaśnięcie certyfikatu:&lt;/b&gt;Twój certyfikat niedługo straci ważność. Musisz go odnowić, jeżeli tego nie zrobisz nie będziesz w stanie połączyć się z serwerami, na których jesteś zarejestrowany.</translation>
     </message>
@@ -3341,7 +3341,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">&amp;Hasło</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+735"/>
+        <location filename="ConnectDialog.cpp" line="+734"/>
         <source>&amp;Connect</source>
         <translation>&amp;Połącz</translation>
     </message>
@@ -3724,7 +3724,7 @@ Label of the server. This is what the server will be named like in your serverli
 <context>
     <name>CoreAudioSystem</name>
     <message>
-        <location filename="CoreAudio.cpp" line="+85"/>
+        <location filename="CoreAudio.cpp" line="+83"/>
         <source>Default Device</source>
         <translation>Urządzenie domyślne</translation>
     </message>
@@ -3762,7 +3762,7 @@ Label of the server. This is what the server will be named like in your serverli
         <translation>Nie wysyłaj</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+24"/>
         <source>Crash upload successful</source>
         <translation>Raport został przesłany pomyślnie</translation>
     </message>
@@ -3801,7 +3801,7 @@ Label of the server. This is what the server will be named like in your serverli
 <context>
     <name>DXAudioInput</name>
     <message>
-        <location filename="DirectSound.cpp" line="+556"/>
+        <location filename="DirectSound.cpp" line="+554"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
         <translation>Otwieranie wybranego wejścia dźwięku DirectSound nie powiodło się. Zostanie użyte urządzenie domyślne.</translation>
     </message>
@@ -3936,7 +3936,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+655"/>
+        <location filename="GlobalShortcut.cpp" line="+653"/>
         <source>Shortcuts</source>
         <translation>Skróty</translation>
     </message>
@@ -4091,7 +4091,7 @@ of the possible locations.</source>
 <context>
     <name>LCD</name>
     <message>
-        <location filename="LCD.cpp" line="+280"/>
+        <location filename="LCD.cpp" line="+279"/>
         <source>Not connected</source>
         <translation>Niepołączony</translation>
     </message>
@@ -4726,7 +4726,7 @@ p, li { white-space: pre-wrap; }
         <translation>...</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="+127"/>
+        <location filename="LookConfig.cpp" line="+130"/>
         <source>Choose skin file</source>
         <translation>Wybierz plik ze skórką</translation>
     </message>
@@ -4757,7 +4757,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Sprawdzaj, czy istnieje nowsza wersja Mumble przy starcie</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="-137"/>
+        <location filename="LookConfig.cpp" line="-140"/>
         <source>None</source>
         <translation>Żadne</translation>
     </message>
@@ -4946,7 +4946,7 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+151"/>
-        <location line="+1865"/>
+        <location line="+1868"/>
         <source>Root</source>
         <translation>Źródło</translation>
     </message>
@@ -5446,9 +5446,9 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Usuwa obecną teksturę z nakładki.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1771"/>
+        <location filename="MainWindow.cpp" line="-1777"/>
         <location line="+12"/>
-        <location line="+1967"/>
+        <location line="+1973"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -5466,7 +5466,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Użytkownik</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2057"/>
+        <location filename="MainWindow.cpp" line="-2060"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanał</translation>
     </message>
@@ -5489,7 +5489,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Wykopywanie użytkownika %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1053"/>
+        <location filename="MainWindow.cpp" line="+1058"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Podaj powód</translation>
@@ -5504,7 +5504,7 @@ p, li { white-space: pre-wrap; }
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1036"/>
+        <location filename="MainWindow.cpp" line="-1044"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
         <translation>Naciśnij i przytrzymaj ten przycisk, aby transmitować głos.</translation>
@@ -5550,7 +5550,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Zmień opis kanału %1</translation>
     </message>
     <message>
-        <location line="+1451"/>
+        <location line="+1453"/>
         <source>Unmuted and undeafened.</source>
         <translation>Wyłączono ogłuszenie oraz wyciszenie mikrofonu.</translation>
     </message>
@@ -5565,7 +5565,7 @@ p, li { white-space: pre-wrap; }
         <translation>Wyciszono.</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+26"/>
         <source>Muted and deafened.</source>
         <translation>Ogłuszono oraz wyciszono mikrofon.</translation>
     </message>
@@ -5580,7 +5580,7 @@ p, li { white-space: pre-wrap; }
         <translation>Wyłączono ogłuszenie.</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+69"/>
         <source>About Qt</source>
         <translation>O Qt</translation>
     </message>
@@ -5599,7 +5599,7 @@ p, li { white-space: pre-wrap; }
         <translation>Rozłączony od serwera.</translation>
     </message>
     <message>
-        <location line="-1383"/>
+        <location line="-1381"/>
         <source>Reconnecting.</source>
         <translation>Ponowne łączenie.</translation>
     </message>
@@ -5943,7 +5943,7 @@ p, li { white-space: pre-wrap; }
         <translation>Witamy w Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-607"/>
+        <location filename="MainWindow.cpp" line="-615"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Aktywacja przyciskiem</translation>
@@ -6014,8 +6014,8 @@ p, li { white-space: pre-wrap; }
         <translation>Wyłącz wtyczki</translation>
     </message>
     <message>
-        <location line="+398"/>
-        <location line="+180"/>
+        <location line="+411"/>
+        <location line="+175"/>
         <source>Connecting to server %1.</source>
         <translation>Łączenie z serwerem &lt;b&gt;%1&lt;/b&gt;.</translation>
     </message>
@@ -6090,7 +6090,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+106"/>
-        <location line="+227"/>
+        <location line="+221"/>
         <source>Message to channel %1</source>
         <translation>Wiadomość do kanału %1</translation>
     </message>
@@ -6100,7 +6100,7 @@ p, li { white-space: pre-wrap; }
         <translation>Czy jesteś pewien, że chcesz usunąć %1 oraz wszystkie pod-kanały?</translation>
     </message>
     <message>
-        <location line="+811"/>
+        <location line="+823"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
         <translation type="unfinished">Wiadomość do kanału &quot;%1&quot;</translation>
@@ -6161,7 +6161,7 @@ p, li { white-space: pre-wrap; }
         <translation>Wyślij wiadomość tekstową</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1462"/>
+        <location filename="MainWindow.cpp" line="-1468"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Kanał kontrolny&lt;/h2&gt;&lt;p&gt;Szyfrowanie %1 bit %2&lt;br /&gt;Średnie opóźnienie %3 ms (%4 odchylenie)&lt;/p&gt;&lt;p&gt;Zdalny host %5 (port %6)&lt;/p&gt;</translation>
     </message>
@@ -6174,12 +6174,12 @@ p, li { white-space: pre-wrap; }
         <location line="+10"/>
         <location line="+78"/>
         <location line="+4"/>
-        <location line="+223"/>
+        <location line="+217"/>
         <source>To %1: %2</source>
         <translation>Do %1: %2</translation>
     </message>
     <message>
-        <location line="-305"/>
+        <location line="-299"/>
         <location line="+82"/>
         <source>Message to %1</source>
         <translation>Wiadomość do %1</translation>
@@ -6195,13 +6195,13 @@ p, li { white-space: pre-wrap; }
         <translation>Czy jesteś pewny, że chcesz usunąć komentarz użytkownika %1?</translation>
     </message>
     <message>
-        <location line="+264"/>
+        <location line="+258"/>
         <source>To %1 (Tree): %2</source>
         <oldsource>(Tree) %1: %2</oldsource>
         <translation type="unfinished">(Do drzewa akanałów) %1: %2</translation>
     </message>
     <message>
-        <location line="+439"/>
+        <location line="+443"/>
         <source>Connected.</source>
         <translation>Połączono.</translation>
     </message>
@@ -6275,7 +6275,7 @@ p, li { white-space: pre-wrap; }
         <translation>Wysyła wiadomość tekstową do innego użytkownika.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2042"/>
+        <location filename="MainWindow.cpp" line="-2045"/>
         <source>&amp;User</source>
         <translation>&amp;Użytkownik</translation>
     </message>
@@ -6365,7 +6365,7 @@ p, li { white-space: pre-wrap; }
         <translation>Ten kreator poprowadzi cię przez proces konfiguracji ustawień dźwięku.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1952"/>
+        <location filename="MainWindow.cpp" line="+1955"/>
         <source>SSL Verification failed: %1</source>
         <translation>Weryfikacja SSL nie powiodła się: %1</translation>
     </message>
@@ -6400,23 +6400,23 @@ p, li { white-space: pre-wrap; }
         <translation>Wyświetla zaawansowane informacje na temat połączenia z serwerem.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1154"/>
+        <location filename="MainWindow.cpp" line="-1152"/>
         <source>Mumble Server Information</source>
         <translation>Serwer Mumble - Informacje</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1157"/>
+        <location line="+1155"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Zobacz certyfikat</translation>
     </message>
     <message>
-        <location line="-1619"/>
+        <location line="-1608"/>
         <source>Opening URL %1</source>
         <translation>Otwieranie adresu %1</translation>
     </message>
     <message>
-        <location line="-310"/>
+        <location line="-327"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Wyciszenie</translation>
@@ -6464,13 +6464,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+58"/>
-        <location line="+1989"/>
+        <location line="+2003"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished">Niepołączony</translation>
     </message>
     <message>
-        <location line="-1771"/>
+        <location line="-1768"/>
         <source>File does not exist</source>
         <translation>Plik nie istnieje</translation>
     </message>
@@ -6522,7 +6522,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Kanał kontrolny&lt;/h2&gt;&lt;p&gt;Szyfrowanie %1 bit %2&lt;br /&gt;%1 ms przeciętnego opóźnienia (%4 niezgodności)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+363"/>
+        <location filename="MainWindow.cpp" line="+354"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Kanał głosowy jest wysyłany przez kanał kontrolny.</translation>
     </message>
@@ -6588,7 +6588,7 @@ p, li { white-space: pre-wrap; }
         <translation>O &amp;Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+589"/>
+        <location filename="MainWindow.cpp" line="+583"/>
         <source>Sending message to channel %1</source>
         <translation>Wysyłanie wiadomości do kanału: %1</translation>
     </message>
@@ -6635,7 +6635,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Połączony z serwerem %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1208"/>
+        <location filename="MainWindow.cpp" line="-1207"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>&lt;b&gt;UWAGA!&lt;/b&gt; Mumble jest obecnie połączony z serwerem. Chcesz zakończyć czy zminimalizować program?</translation>
     </message>
@@ -6645,13 +6645,13 @@ p, li { white-space: pre-wrap; }
         <translation>Zakończ</translation>
     </message>
     <message>
-        <location line="-100"/>
-        <location line="+101"/>
+        <location line="-103"/>
+        <location line="+104"/>
         <source>Minimize</source>
         <translation>Minimalizuj</translation>
     </message>
     <message>
-        <location line="-103"/>
+        <location line="-106"/>
         <source>&amp;Window</source>
         <translation>&amp;Okno</translation>
     </message>
@@ -6703,7 +6703,7 @@ p, li { white-space: pre-wrap; }
         <translation>Głośność w dół (-10%)</translation>
     </message>
     <message>
-        <location line="+273"/>
+        <location line="+276"/>
         <source>Clear</source>
         <translation>Wyczyść</translation>
     </message>
@@ -6871,12 +6871,12 @@ p, li { white-space: pre-wrap; }
         <translation>Usuwa aktualnie zdefiniowany awatar.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+332"/>
+        <location filename="MainWindow.cpp" line="+337"/>
         <source>Change your comment</source>
         <translation>Edycja własnego komentarza</translation>
     </message>
     <message>
-        <location line="+1546"/>
+        <location line="+1552"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation>Obrazki (*.png *.jpg *.svg)</translation>
     </message>
@@ -6891,7 +6891,7 @@ p, li { white-space: pre-wrap; }
         <translation>Zmień swój komentarz</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2160"/>
+        <location filename="MainWindow.cpp" line="-2174"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Przełącza stany nakładki.</translation>
@@ -7188,7 +7188,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+428"/>
+        <location filename="Overlay.cpp" line="+429"/>
         <location line="+1076"/>
         <source>Silent</source>
         <translation type="unfinished"></translation>
@@ -7218,7 +7218,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1259"/>
+        <location line="+1246"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Tworzenie komunikacji z nakładką nie powiodło się w %2: %1. Nakładka nie będzie dostępna.</translation>
     </message>
@@ -7248,7 +7248,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-865"/>
+        <location line="-854"/>
         <source>Filter</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7288,7 +7288,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+293"/>
+        <location line="+285"/>
         <source>FPS: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7454,7 +7454,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Kolor aktywnych kanałów</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-2044"/>
+        <location filename="Overlay.cpp" line="-2035"/>
         <source>To move the users, drag the little red dot.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7469,7 +7469,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+151"/>
+        <location line="+152"/>
         <source>Overlay</source>
         <translation>Nakładka</translation>
     </message>
@@ -8054,7 +8054,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <location filename="PAAudio.cpp" line="+275"/>
+        <location filename="PAAudio.cpp" line="+273"/>
         <source>Default Device</source>
         <translation>Domyślne urządzenie</translation>
     </message>
@@ -8062,7 +8062,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+549"/>
+        <location filename="PulseAudio.cpp" line="+545"/>
         <source>Default Input</source>
         <translation>Domyślne wejście</translation>
     </message>
@@ -8208,7 +8208,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-664"/>
+        <location filename="ConnectDialog.cpp" line="-663"/>
         <source>Favorite</source>
         <translation>Ulubione</translation>
     </message>
@@ -8256,7 +8256,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-484"/>
+        <location filename="GlobalShortcut.cpp" line="-482"/>
         <source>Unassigned</source>
         <translation>Nieprzypisana</translation>
     </message>
@@ -8264,7 +8264,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+360"/>
+        <location line="+358"/>
         <source>On</source>
         <translation>Włącz</translation>
     </message>
@@ -8287,7 +8287,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-434"/>
+        <location line="-432"/>
         <source>Press Shortcut</source>
         <translation>Naciśnij klawisz</translation>
     </message>
@@ -8318,7 +8318,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutTargetWidget</name>
     <message>
-        <location line="+87"/>
+        <location line="+85"/>
         <source>...</source>
         <translation>...</translation>
     </message>
@@ -8361,7 +8361,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutToggleWidget</name>
     <message>
-        <location line="-261"/>
+        <location line="-259"/>
         <source>Off</source>
         <translation>Wyłącz</translation>
     </message>
@@ -8962,7 +8962,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+182"/>
+        <location filename="WASAPI.cpp" line="+180"/>
         <source>Default Device</source>
         <translation>Urządzenie domyślne</translation>
     </message>

@@ -810,7 +810,7 @@ void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket
 
 		while ((iMixerFreq == 0) && isAlive()) {
 #if QT_VERSION >= 0x040500
-		QThread::yieldCurrentThread();
+			QThread::yieldCurrentThread();
 #endif
 		}
 

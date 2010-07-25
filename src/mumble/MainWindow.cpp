@@ -2271,7 +2271,7 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 		bDoubleClick = true;
 		tDoubleClick.restart();
 	} else if (bDoubleClick && (reason == QSystemTrayIcon::Trigger)) {
-		if(tDoubleClick.elapsed() > 100000UL)
+		if (tDoubleClick.elapsed() > 100000UL)
 			bDoubleClick = false;
 		else
 			return;

@@ -63,13 +63,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	if (is_steam) {
 		ok = peekProc((BYTE *) 0x01546980, avatar_pos, 12) &&
-			 peekProc((BYTE *) 0x01546970, avatar_front, 12) &&
-			 peekProc((BYTE *) 0x01546960, avatar_top, 12); // &&
-	}
-	else {
+		     peekProc((BYTE *) 0x01546970, avatar_front, 12) &&
+		     peekProc((BYTE *) 0x01546960, avatar_top, 12); // &&
+	} else {
 		ok = peekProc((BYTE *) 0x01549B70, avatar_pos, 12) &&
-			 peekProc((BYTE *) 0x01549B60, avatar_front, 12) &&
-			 peekProc((BYTE *) 0x01549B50, avatar_top, 12); // &&
+		     peekProc((BYTE *) 0x01549B60, avatar_front, 12) &&
+		     peekProc((BYTE *) 0x01549B50, avatar_top, 12); // &&
 	}
 
 	if (! ok)
