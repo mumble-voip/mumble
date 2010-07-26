@@ -216,6 +216,8 @@ CoreAudioInput::CoreAudioInput() {
 	CFStringRef devUid = NULL;
 	UInt32 val, len;
 
+	memset(&buflist, 0, sizeof(AudioBufferList));
+
 	if (! g.s.qsCoreAudioInput.isEmpty()) {
 		qWarning("CoreAudioInput: Set device to '%s'.", qPrintable(g.s.qsCoreAudioInput));
 		devUid = CoreAudioSystem::QStringToCFString(g.s.qsCoreAudioInput);
