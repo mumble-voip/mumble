@@ -357,7 +357,7 @@ CoreAudioInput::CoreAudioInput() {
 	len = sizeof(AudioValueRange);
 	err = AudioDeviceGetProperty(devId, 0, true, kAudioDevicePropertyBufferFrameSizeRange, &len, &range);
 	if (err != noErr) {
-		qWarning("CoreAudioInput: Unable to query for allow buffer size ranges.");
+		qWarning("CoreAudioInput: Unable to query for allowed buffer size ranges.");
 		return;
 	}
 
