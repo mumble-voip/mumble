@@ -358,10 +358,9 @@ CoreAudioInput::CoreAudioInput() {
 	err = AudioDeviceGetProperty(devId, 0, true, kAudioDevicePropertyBufferFrameSizeRange, &len, &range);
 	if (err != noErr) {
 		qWarning("CoreAudioInput: Unable to query for allowed buffer size ranges.");
-		return;
+	} else {
+		qWarning("CoreAudioInput: BufferFrameSizeRange = (%.2f, %.2f)", range.mMinimum, range.mMaximum);
 	}
-
-	qWarning("CoreAudioInput: BufferFrameSizeRange = (%.2f, %.2f)", range.mMinimum, range.mMaximum);
 
 	int iActualBufferLength = iMicLength;
 	val = iMicLength;
@@ -566,10 +565,9 @@ CoreAudioOutput::CoreAudioOutput() {
 	err = AudioDeviceGetProperty(devId, 0, false, kAudioDevicePropertyBufferFrameSizeRange, &len, &range);
 	if (err != noErr) {
 		qWarning("CoreAudioOutput: Unable to query for allowed buffer size ranges.");
-		return;
+	} else {
+		qWarning("CoreAudioOutput: BufferFrameSizeRange = (%.2f, %.2f)", range.mMinimum, range.mMaximum);
 	}
-
-	qWarning("CoreAudioOutput: BufferFrameSizeRange = (%.2f, %.2f)", range.mMinimum, range.mMaximum);
 
 	UInt32 val = (iFrameSize * iMixerFreq) / SAMPLE_RATE;
 	err = AudioDeviceSetProperty(devId, NULL, 0, false, kAudioDevicePropertyBufferFrameSize, sizeof(UInt32), &val);
