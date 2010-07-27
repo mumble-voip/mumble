@@ -8413,7 +8413,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+429"/>
+        <location filename="Overlay.cpp" line="+474"/>
         <location line="+1076"/>
         <source>Silent</source>
         <translation>Still</translation>
@@ -8443,7 +8443,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation>Kanal</translation>
     </message>
     <message>
-        <location line="+1246"/>
+        <location line="+1258"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Kommunikation mit dem Overlay auf %2: %1 fehlgeschlagen. Das Overlay wird nicht verfügbar sein.</translation>
     </message>
@@ -8697,7 +8697,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation type="obsolete">Farbe für aktive Kanäle</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-2035"/>
+        <location filename="Overlay.cpp" line="-2087"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Ziehen Sie den kleinen roten Punkt um die Benutzer zu verschieben.</translation>
     </message>
@@ -8712,7 +8712,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation>Rechtsklick auf einen Benutzer für mehr Optionen.</translation>
     </message>
     <message>
-        <location line="+152"/>
+        <location line="+153"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
@@ -8724,6 +8724,16 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location line="+2"/>
         <source>Choose application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>Mumble has deemed the installer valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Mumble was unable to validate authenticity of the installer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8859,6 +8869,11 @@ Um diese Dateien zu aktialisieren, klicken Sie unten den Button.</translation>
     <message>
         <location/>
         <source>Show FPS counter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>View Certificates</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

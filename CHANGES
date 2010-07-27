@@ -1,3 +1,27 @@
+2010-07-26
+  Mikkel Krautz <mikkel@krautz.dk>
+    e0d1de4  Don't stop device initialization in CoreAudio in cases where
+	     reading BufferFrameSizeRange fails.
+    f88ca84  Fix typo in CoreAudio.
+    bf8d005  Zero out AudioBufList in CoreAudioInput constructor. Could
+	     lead to nasty crashes in cases of failing CoreAudio input
+	     initialization.
+    1c39e8d  Bump overlay version to get users to test the new installer.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    385f256  Fix overlay dll debug output
+    8f0a2bd  Revert "Overlay blacklist wmpnscfg.exe and fix the
+	     mumble_ol.dll's debug output" because it breaks the overlay
+
+2010-07-25
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    dd93a58  Prevent Russian language file for installer from overwriting
+	     the English source strings
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    acb93fb  Switch Mac OS X overlay installer to a signed Apple .pkg
+	     installer.
+
 2010-07-24
   Stefan Hacker <dd0t@users.sourceforge.net>
     c8dfd56  Fix typo in last patch
@@ -10,6 +34,10 @@
     9ba3eb3  Dist script fixes for universal build.
     cbc880e  New LGLCD SDK path on Mac OS X.
     3c936c2  Make CONFIG+=universal imply no-cocoa
+
+2010-07-23
+  Nicos Gollan <gtdev@spearhead.de>
+    022772e  More uniform font rendering in overlay
 
 2010-07-22
   Mikkel Krautz <mikkel@krautz.dk>

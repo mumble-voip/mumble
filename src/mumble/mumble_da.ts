@@ -6365,7 +6365,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="obsolete">Det mislykkedes at initialisere overlægningshukommelse. Dette betyder som regel at den delte hukommelse er låst af operativsystemet, og du behøver derfor at genstarte for at frigøre den.</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+429"/>
+        <location filename="Overlay.cpp" line="+474"/>
         <location line="+1076"/>
         <source>Silent</source>
         <translation type="unfinished"></translation>
@@ -6395,7 +6395,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1246"/>
+        <location line="+1258"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Det mislykkedes at oprette kommunikation med overlægningen på %2: %1. Der vil ikke være nogen overlægning tilgængelig.</translation>
     </message>
@@ -6483,7 +6483,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="obsolete">Farve for aktive kanaler</translation>
     </message>
     <message>
-        <location line="-2035"/>
+        <location line="-2087"/>
         <source>To move the users, drag the little red dot.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6498,7 +6498,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+152"/>
+        <location line="+153"/>
         <source>Overlay</source>
         <translation>Overlægning</translation>
     </message>
@@ -6510,6 +6510,16 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
     <message>
         <location line="+2"/>
         <source>Choose application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>Mumble has deemed the installer valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Mumble was unable to validate authenticity of the installer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6751,6 +6761,11 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Show FPS counter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>View Certificates</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

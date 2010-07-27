@@ -7111,7 +7111,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+429"/>
+        <location filename="Overlay.cpp" line="+474"/>
         <location line="+1076"/>
         <source>Silent</source>
         <translation>Молчание</translation>
@@ -7141,7 +7141,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Канал</translation>
     </message>
     <message>
-        <location line="+1246"/>
+        <location line="+1258"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Не возможно соединиться с замещением на %2: %1. Замещение не будет доступно.</translation>
     </message>
@@ -7380,7 +7380,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Цвет для Активных каналов</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-2035"/>
+        <location filename="Overlay.cpp" line="-2087"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Чтобы переместить пользователей, перетащите маленький красный кружок.</translation>
     </message>
@@ -7395,7 +7395,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Для других настроек правый клик на пользователе.</translation>
     </message>
     <message>
-        <location line="+152"/>
+        <location line="+153"/>
         <source>Overlay</source>
         <translation>Замещение</translation>
     </message>
@@ -7408,6 +7408,16 @@ Prevents the client from downloading images embedded into chat messages with the
         <location line="+2"/>
         <source>Choose application</source>
         <translation>Выберите приложение</translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>Mumble has deemed the installer valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Mumble was unable to validate authenticity of the installer.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Overlay.ui"/>
@@ -7497,6 +7507,11 @@ To upgrade these files to their latest versions, click the button below.</source
         <location/>
         <source>Show FPS counter</source>
         <translation>Показывать FPS</translation>
+    </message>
+    <message>
+        <location/>
+        <source>View Certificates</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

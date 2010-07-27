@@ -8393,7 +8393,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+429"/>
+        <location filename="Overlay.cpp" line="+474"/>
         <location line="+1076"/>
         <source>Silent</source>
         <translation>Callado</translation>
@@ -8423,7 +8423,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation>Canal</translation>
     </message>
     <message>
-        <location line="+1246"/>
+        <location line="+1258"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>No se pudo establecer la comunicación con la sobreimpresión en %2: %1. La sobreimpresión no estará disponible.</translation>
     </message>
@@ -8691,7 +8691,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation type="obsolete">Color de los canales activos</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-2035"/>
+        <location filename="Overlay.cpp" line="-2087"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Para mover a los usuarios, arrarstre el punto rojo pequeño.</translation>
     </message>
@@ -8706,7 +8706,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation>Para más opciones, haga clic con el botón derecho sobre un usuario.</translation>
     </message>
     <message>
-        <location line="+152"/>
+        <location line="+153"/>
         <source>Overlay</source>
         <translation>Sobreimpresión</translation>
     </message>
@@ -8718,6 +8718,16 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
     <message>
         <location line="+2"/>
         <source>Choose application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>Mumble has deemed the installer valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Mumble was unable to validate authenticity of the installer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8895,6 +8905,11 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     <message>
         <location/>
         <source>Show FPS counter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>View Certificates</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

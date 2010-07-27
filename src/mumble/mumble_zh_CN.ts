@@ -6795,7 +6795,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+429"/>
+        <location filename="Overlay.cpp" line="+474"/>
         <location line="+1076"/>
         <source>Silent</source>
         <translation type="unfinished"></translation>
@@ -6825,7 +6825,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1246"/>
+        <location line="+1258"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6903,7 +6903,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">显示所有人</translation>
     </message>
     <message>
-        <location line="-2035"/>
+        <location line="-2087"/>
         <source>To move the users, drag the little red dot.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6918,7 +6918,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+152"/>
+        <location line="+153"/>
         <source>Overlay</source>
         <translation></translation>
     </message>
@@ -6930,6 +6930,16 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+2"/>
         <source>Choose application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>Mumble has deemed the installer valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Mumble was unable to validate authenticity of the installer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7187,6 +7197,11 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Show FPS counter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>View Certificates</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
