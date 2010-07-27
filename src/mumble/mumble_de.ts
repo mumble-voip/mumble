@@ -1537,7 +1537,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <message>
         <location/>
         <source>Echo</source>
-        <translation>Echo</translation>
+        <translation>Echounterdrückung</translation>
     </message>
     <message>
         <location/>
@@ -1687,12 +1687,12 @@ Setzt die Pfade zu den Dateien auf die Standardwerte zurück.</translation>
     <message>
         <location/>
         <source>Idle AutoDeafen</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisch taub stellen</translation>
     </message>
     <message>
         <location/>
         <source>How long to remain idle before auto-deafen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Zeit nach der man automatisch stumm und taub gestellt wird.</translation>
     </message>
     <message>
         <location/>
@@ -1702,17 +1702,17 @@ Setzt die Pfade zu den Dateien auf die Standardwerte zurück.</translation>
     <message>
         <location/>
         <source>Exclusive mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Exklusiv-Modus</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Öffnet das Gerät im Exklusiv-Modus.&lt;/b&gt;&lt;br /&gt;Keine andere Anwendung wird das Gerät verwenden können.</translation>
     </message>
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation type="unfinished"></translation>
+        <translation>Exklusiv</translation>
     </message>
 </context>
 <context>
@@ -2190,17 +2190,17 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
     <message>
         <location/>
         <source>Exclusive mode, not recommended.</source>
-        <translation type="unfinished"></translation>
+        <translation>Exklusiv-Modus, nicht empfohlen.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Verwendet das Gerät im Exklusiv-Modus.&lt;/b&gt;&lt;br /&gt;Keine andere Anwendung wird das Gerät verwenden können.</translation>
     </message>
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation type="unfinished"></translation>
+        <translation>Exklusiv</translation>
     </message>
 </context>
 <context>
@@ -3861,12 +3861,12 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     <message>
         <location filename="CustomElements.cpp" line="+79"/>
         <source>Paste and send</source>
-        <translation type="unfinished">Einfügen und senden</translation>
+        <translation>Einfügen und senden</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
-        <translation type="unfinished">&lt;center&gt;Textnachricht hier eingeben&lt;/center&gt;</translation>
+        <translation>&lt;center&gt;Textnachricht hier eingeben&lt;/center&gt;</translation>
     </message>
 </context>
 <context>
@@ -4452,13 +4452,14 @@ Benutzername, welcher an den Server gesendet wird. Beachten Sie, dass jeder Serv
     <message>
         <location/>
         <source>Label</source>
-        <translation type="unfinished">Bezeichnung</translation>
+        <translation>Bezeichnung</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your serverlist and can be chosen freely.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Bezeichnung&lt;/b&gt;&lt;br/&gt;
+Dies ist die Bezeichnung des Servers, welche in der Serverliste erscheint und frei gewählt werden kann.</translation>
     </message>
 </context>
 <context>
@@ -4795,7 +4796,7 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location filename="CustomElements.cpp" line="+135"/>
         <source>Drag here</source>
-        <translation type="unfinished"></translation>
+        <translation>Hier ziehen</translation>
     </message>
 </context>
 <context>
@@ -5281,7 +5282,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+1"/>
         <source>Other self-muted/deafened</source>
-        <translation>Anderer stumm-/taub gestellt</translation>
+        <translation>Anderer stumm/taub gestellt</translation>
     </message>
     <message>
         <location line="-3"/>
@@ -7689,7 +7690,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location line="+108"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Kontrollkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit %1 bit %2&lt;br /&gt;%3 ms Durchschnittslatenz (%4 Abweichung)&lt;/p&gt;&lt;p&gt;Gegenstelle %5 (Port %6)&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Steuerkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit %1 bit %2&lt;br /&gt;%3 ms Durchschnittslatenz (%4 Abweichung)&lt;/p&gt;&lt;p&gt;Gegenstelle %5 (Port %6)&lt;/p&gt;</translation>
     </message>
     <message>
         <source>File is not a config file.</source>
@@ -8515,7 +8516,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location line="+285"/>
         <source>FPS: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>FPS: %1</translation>
     </message>
 </context>
 <context>
@@ -8724,17 +8725,17 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location line="+2"/>
         <source>Choose application</source>
-        <translation type="unfinished"></translation>
+        <translation>Anwendung auswählen</translation>
     </message>
     <message>
         <location line="+38"/>
         <source>Mumble has deemed the installer valid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble hat den Installer als gültig erachtet.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mumble was unable to validate authenticity of the installer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble konnte die Echtheit des Installers nicht überprüfen.</translation>
     </message>
     <message>
         <source>Show no one</source>
@@ -8854,7 +8855,7 @@ Klicken Sie den Button unten um das Overlay zu installieren.</translation>
 To upgrade these files to their latest versions, click the button below.</source>
         <translation>Mumble hat erkannt, dass Sie eine alte Version der Overlay Unterstützungs-Dateien installiert sind.
 
-Um diese Dateien zu aktialisieren, klicken Sie unten den Button.</translation>
+Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <location/>
@@ -8864,17 +8865,17 @@ Um diese Dateien zu aktialisieren, klicken Sie unten den Button.</translation>
     <message>
         <location/>
         <source>Display a frame counter in the overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige die FPS im Overlay an</translation>
     </message>
     <message>
         <location/>
         <source>Show FPS counter</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige FPS Zähler</translation>
     </message>
     <message>
         <location/>
         <source>View Certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Zertifikate ansehen</translation>
     </message>
 </context>
 <context>
