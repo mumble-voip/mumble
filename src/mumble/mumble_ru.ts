@@ -6650,7 +6650,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-1792"/>
         <source>Clear</source>
-        <translation>Отчистить</translation>
+        <translation>Очистить</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -7412,12 +7412,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+38"/>
         <source>Mumble has deemed the installer valid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble счел установку подлинной.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mumble was unable to validate authenticity of the installer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble был не в состоянии проверить подлинность установки.</translation>
     </message>
     <message>
         <location filename="Overlay.ui"/>
@@ -7511,7 +7511,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>View Certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Поcмотреть сертификаты</translation>
     </message>
 </context>
 <context>
