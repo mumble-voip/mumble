@@ -1563,7 +1563,8 @@ void OverlayUser::updateLayout() {
 }
 
 QPixmap OverlayUser::createPixmap(const QString &string, unsigned int maxwidth, unsigned int height, QColor col, const QFont &font, OverlayTextLine &tl) {
-	const float edge = static_cast<float>(height) * 0.05f;
+	const float edge = qMax(static_cast<float>(height) * 0.05f, 1.0f);
+	const float baselining_threshold = 0.5f;
 
 	if (! height || ! maxwidth)
 		return QPixmap();
@@ -1572,33 +1573,45 @@ QPixmap OverlayUser::createPixmap(const QString &string, unsigned int maxwidth, 
 		QFont f = font;
 		QFontMetrics fm(f);
 
-		// fit the font into a bounding box with padding
-		float pointsize = static_cast<float>(fm.descent()) + static_cast<float>(f.pointSizeF());
-		float edge_correction = ((static_cast<float>(height) - 2.0f * edge) / pointsize);
+		// fit the font into a bounding box with padding (calculate point size with slack)
+		float pointsize = static_cast<float>(fm.descent()+fm.ascent()+2);
+		float edge_correction = ((static_cast<float>(height) - 2.0f*edge) / pointsize);
+
+		if (f.pointSizeF() * edge_correction <= 0.0f) {
+			return QPixmap();
+		}
 
 		f.setPointSizeF(f.pointSizeF() * edge_correction);
 		fm = QFontMetrics(f);
 
-		// strictly speaking cheating by using point size == ascent
-		float ascent = static_cast<float>(f.pointSizeF());
-		float descent = static_cast<float>(fm.descent());
+		// try to use most of the slack introduced in pointsize
+		float ascent = static_cast<float>(fm.ascent()) + edge_correction;
+		float descent = static_cast<float>(fm.descent()) + edge_correction;
 
 		// calculate text metrics for eliding and scaling
 		QRectF bb;
 		tl.addText(0.0f, 0.0f, f, string);
 		bb = tl.controlPointRect();
 
-		float text_height = static_cast<float>(bb.height()) + 2*edge;
+		qreal effective_ascent = -bb.top();
+		qreal effective_descent = bb.bottom();
 		float scale = 1.0f;
-		if (bb.bottom() < 0.0f || text_height > static_cast<float>(height)) {
-			qreal scale_ascent = bb.top() < 0.0f ? ascent / (-bb.top() + edge) : 1.0f;
-			qreal scale_descent = bb.bottom() > 0.0f ? descent / (bb.bottom() + edge) : 1.0f;
+		bool keep_baseline = true;
+		if (effective_descent > descent || effective_ascent > ascent) {
+			qreal scale_ascent = effective_ascent > 0.0f ? ascent / effective_ascent : 1.0f;
+			qreal scale_descent = effective_descent > 0.0f ? descent / effective_descent : 1.0f;
 			scale = static_cast<float>(qMin(scale_ascent, scale_descent));
+
+			if (scale < baselining_threshold) {
+				float text_height = static_cast<float>(bb.height()) + 2.0f*edge;
+				scale = static_cast<float>(height) / text_height;
+				keep_baseline = false;
+			}
 		}
 
 		// eliding by previously calculated width
 		if ((bb.width()*scale) + 2*edge > maxwidth) {
-			int eliding_width = iroundf((static_cast<float>(maxwidth) / scale) - 2 * edge);
+			int eliding_width = iroundf((static_cast<float>(maxwidth) / scale) - 2.0f*edge);
 			QString str = fm.elidedText(string, Qt::ElideRight, eliding_width);
 			if (str.trimmed().isEmpty())
 				str = QLatin1String("...");
@@ -1614,8 +1627,14 @@ QPixmap OverlayUser::createPixmap(const QString &string, unsigned int maxwidth, 
 		correction.translate(-bb.x() + edge, 0.0f);
 		//  * scale overly high text (still on baseline)
 		correction.scale(scale, scale);
-		//  * translate down to baseline
-		correction.translate(0.0f, (ascent + edge) / scale);
+
+		if (keep_baseline) {
+			//  * translate down to baseline
+			correction.translate(0.0f, (ascent + edge) / scale);
+		} else {
+			//  * translate into bounding box
+			correction.translate(0.0f, -bb.top() + edge);
+		}
 
 		tl = correction.map(tl);
 		tl.fAscent = ascent;
@@ -1623,8 +1642,8 @@ QPixmap OverlayUser::createPixmap(const QString &string, unsigned int maxwidth, 
 	}
 
 	QRectF qr = tl.controlPointRect();
-	int w = iroundf(qr.width() + 2 * edge + 0.5f);
-	int h = iroundf(tl.fAscent + tl.fDescent + 2 * edge + 0.5f);
+	int w = iroundf(qr.width() + 2.0f*edge + 0.5f);
+	int h = iroundf(tl.fAscent + tl.fDescent + 2.0f*edge + 0.5f);
 
 	QPixmap img(w, h);
 	img.fill(Qt::transparent);
