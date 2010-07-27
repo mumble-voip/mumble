@@ -340,7 +340,7 @@ void OverlayConfig::on_qswOverlayPage_currentChanged(int) {
 	QLatin1String qsStyleSheetInvalid("QLabel { color: red; }");
 	QLatin1String qsStyleSheetValid("QLabel { color: green; }");
 	QString qsValidInstaller = tr("Mumble has deemed the installer valid.");
-	QString qsInvalidInstaller = tr("Mumble was unable to validate authenticity of the installer.");
+	QString qsInvalidInstaller = tr("Mumble was unable to verify the authenticity of the installer.");
 
 	if (qswOverlayPage->currentWidget() == qwOverlayInstall) {
 		qpbShowCerts->setVisible(supportsCertificates());

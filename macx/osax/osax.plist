@@ -35,7 +35,7 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>MumbleOverlayLoaderVersion</key>
-	<integer>6</integer>
+	<key>MumbleOverlayVersion</key>
+	<integer>7</integer>
 </dict>
 </plist>

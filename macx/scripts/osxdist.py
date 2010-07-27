@@ -35,7 +35,7 @@ def create_overlay_package(sign=None):
 	if sign:
 		codesign(sign, bundle)
 		codesign(sign, overlaylib)
-	os.system('/Developer/Applications/Utilities/PackageMaker.app/Contents/MacOS/PackageMaker --doc macx/overlay-installer/MumbleOverlayInstaller.pmdoc --out release/MumbleOverlay.pkg')
+	os.system('/Developer/Applications/Utilities/PackageMaker.app/Contents/MacOS/PackageMaker --doc macx/overlay-installer/MumbleOverlayInstaller.pmdoc --info macx/overlay-installer/PackageInfo --out release/MumbleOverlay.pkg')
 
 class AppBundle(object):
 

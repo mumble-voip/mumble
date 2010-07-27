@@ -39,6 +39,9 @@ extern "C" {
 #include <xar/xar.h>
 }
 
+static const NSString *MumbleOverlayLoaderBundle = @"/Library/ScriptingAdditions/MumbleOverlay.osax";
+static const NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.mumble.OverlayScriptingAddition";
+
 @interface OverlayInjectorMac : NSObject {
 	BOOL active;
 }
@@ -153,21 +156,13 @@ bool OverlayConfig::supportsCertificates() {
 bool OverlayConfig::isInstalled() {
 	bool ret = false;
 
-	// Get the path where we expect the overlay loader to be installed.
-	NSString *path = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MumbleOverlayLoaderBundle"];
-	if (! path) {
-		qWarning("Overlay_macx: Unable to find path of overlay loader in Mumble plist.");
-		return ret;
-	}
-
 	// Determine if the installed bundle is correctly installed (i.e. it's loadable)
-	NSBundle *bundle = [NSBundle bundleWithPath:path];
+	NSBundle *bundle = [NSBundle bundleWithPath:MumbleOverlayLoaderBundle];
 	ret = [bundle preflightAndReturnError:NULL];
 
 	// Do the bundle identifiers match?
 	if (ret) {
-		NSString *bundleId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MumbleOverlayLoaderBundleIdentifier"];
-		ret = [[bundle bundleIdentifier] isEqualToString:bundleId];
+		ret = [[bundle bundleIdentifier] isEqualToString:MumbleOverlayLoaderBundleIdentifier];
 	}
 
 	[bundle unload];
@@ -175,22 +170,100 @@ bool OverlayConfig::isInstalled() {
 	return ret;
 }
 
-bool OverlayConfig::needsUpgrade() {
-	// Get required version from our own Info.plist
-	NSUInteger reqVersion = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"MumbleOverlayLoaderRequiredVersion"] unsignedIntegerValue];
+// Check whether this installer installs something 'newer' than what we already have.
+// Also checks whether the new installer is compatiable with the current version of
+// Mumble.
+static bool isInstallerNewer(const char *path, NSUInteger curVer) {
+	xar_t pkg = NULL;
+	xar_iter_t iter = NULL;
+	xar_file_t file = NULL;
+	char *data = NULL;
+	size_t size = 0;
+	bool ret = false;
+	QString qsMinVer, qsOverlayVer;
 
+	pkg = xar_open(path, READ);
+	if (pkg == NULL) {
+		qWarning("isInstallerNewer: Unable to open pkg.");
+		goto out;
+	}
+
+	iter = xar_iter_new();
+	if (iter == NULL) {
+		qWarning("isInstallerNewer: Unable to allocate iter");
+		goto out;
+	}
+
+	file = xar_file_first(pkg, iter);
+	while (file != NULL) {
+		if (!strcmp(xar_get_path(file), "mumbleoverlay.pkg/PackageInfo"))
+			break;
+		file = xar_file_next(iter);
+	}
+
+	if (file != NULL) {
+		if (xar_extract_tobuffersz(pkg, file, &data, &size) == -1) {
+			goto out;
+		}
+
+		QXmlStreamReader reader(QByteArray::fromRawData(data, size));
+		while (! reader.atEnd()) {
+			QXmlStreamReader::TokenType tok = reader.readNext();
+			if (tok == QXmlStreamReader::StartElement) {
+				if (reader.name() == QLatin1String("pkg-info")) {
+					qsOverlayVer = reader.attributes().value(QLatin1String("version")).toString();
+				} else if (reader.name() == QLatin1String("mumble")) {
+					qsMinVer = reader.attributes().value(QLatin1String("minclient")).toString();
+				}
+			}
+		}
+
+		if (reader.hasError() || qsMinVer.isNull() || qsOverlayVer.isNull()) {
+			qWarning("isInstallerNewer: Error while parsing XML version info.");
+			goto out;
+		}
+
+		NSUInteger newVer = qsOverlayVer.toUInt();
+
+		QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)"));
+		int major, minor, patch;
+		int minmajor, minminor, minpatch;
+		if (! rx.exactMatch(QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING))))
+			goto out;
+		major = rx.cap(1).toInt();
+		minor = rx.cap(2).toInt();
+		patch = rx.cap(3).toInt();
+		if (! rx.exactMatch(qsMinVer))
+			goto out;
+		minmajor = rx.cap(1).toInt();
+		minminor = rx.cap(2).toInt();
+		minpatch = rx.cap(3).toInt();
+
+		ret = (major >= minmajor) && (minor >= minminor) && (patch >= minpatch) && (newVer > curVer);
+	}
+
+out:
+	xar_close(pkg);
+	xar_iter_free(iter);
+	free(data);
+	return ret;
+}
+
+bool OverlayConfig::needsUpgrade() {
 	// Load the overlay loader bundle.
-	NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"MumbleOverlayLoaderBundle"]];
+	NSBundle *bundle = [NSBundle bundleWithPath:MumbleOverlayLoaderBundle];
 	if (! bundle) {
 		qWarning("Overlay_macx: Unable to load the installed OSAX bundle. This shouldn't happen.");
 		return false;
 	}
 
 	// Get its version.
-	NSUInteger curVersion = [[bundle objectForInfoDictionaryKey:@"MumbleOverlayLoaderVersion"] unsignedIntegerValue];
+	NSUInteger curVersion = [[bundle objectForInfoDictionaryKey:@"MumbleOverlayVersion"] unsignedIntegerValue];
+	NSString *installerPath = [[NSBundle mainBundle] pathForResource:@"MumbleOverlay" ofType:@"pkg"];
+	if (! installerPath)
+		return false;
 
-	// If the two versions do not match up, we need to upgrade.
-	return curVersion != reqVersion;
+	return isInstallerNewer([installerPath UTF8String], curVersion);
 }
 
 static bool authExec(AuthorizationRef ref, const char **argv) {
@@ -270,7 +343,6 @@ static bool validateInstallerSignature(const char *path) {
 	uint32_t len = 0;
 	uint8_t *plaindata = NULL, *signdata = NULL;
 	uint32_t plainlen = 0, signlen = 0;
-	off_t signoff = 0;
 	bool ret = false;
 	int success = 0;
 	RSA *rsa = NULL;
@@ -495,23 +567,20 @@ bool OverlayConfig::installFiles() {
 
 bool OverlayConfig::uninstallFiles() {
 	AuthorizationRef auth;
-	NSString *path, *bundleId;
 	NSBundle *loaderBundle;
 	bool ret = false, bundleOk = false;
 	OSStatus err;
 
 	// Load the installed loader bundle and check if it's something we're willing to uninstall.
-	path = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MumbleOverlayLoaderBundle"];
-	bundleId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MumbleOverlayLoaderBundleIdentifier"];
-	loaderBundle = [NSBundle bundleWithPath:path];
-	bundleOk = [[loaderBundle bundleIdentifier] isEqualToString:bundleId];
+	loaderBundle = [NSBundle bundleWithPath:MumbleOverlayLoaderBundle];
+	bundleOk = [[loaderBundle bundleIdentifier] isEqualToString:MumbleOverlayLoaderBundleIdentifier];
 	[loaderBundle unload];
 
 	// Perform uninstallation using Authorization Services. (Pops up a dialog asking for admin privileges)
 	if (bundleOk) {
 		err = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &auth);
 		if (err == errAuthorizationSuccess) {
-			const char *remove[] = { "/bin/rm", "-rf", [path UTF8String], NULL };
+			const char *remove[] = { "/bin/rm", "-rf", [MumbleOverlayLoaderBundle UTF8String], NULL };
 			ret = authExec(auth, remove);
 		}
 		AuthorizationFree(auth, kAuthorizationFlagDefaults);
