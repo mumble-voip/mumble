@@ -517,17 +517,21 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 }
 
 static void recreateServerHandler() {
-	if (g.sh && g.sh->isRunning()) {
+	ServerHandler *sh = g.sh;
+	g.sh = NULL;
+	if (sh && sh->isRunning()) {
 		g.mw->on_qaServerDisconnect_triggered();
-		g.sh->wait();
+		sh->disconnect();
+		sh->wait();
 		QCoreApplication::instance()->processEvents();
 	}
 
-	delete g.sh;
-	g.sh = new ServerHandler();
-	g.sh->moveToThread(g.sh);
-	g.mw->connect(g.sh, SIGNAL(connected()), g.mw, SLOT(serverConnected()));
-	g.mw->connect(g.sh, SIGNAL(disconnected(QAbstractSocket::SocketError, QString)), g.mw, SLOT(serverDisconnected(QAbstractSocket::SocketError, QString)));
+	delete sh;
+	sh = new ServerHandler();
+	sh->moveToThread(sh);
+	g.sh = sh;
+	g.mw->connect(sh, SIGNAL(connected()), g.mw, SLOT(serverConnected()));
+	g.mw->connect(sh, SIGNAL(disconnected(QAbstractSocket::SocketError, QString)), g.mw, SLOT(serverDisconnected(QAbstractSocket::SocketError, QString)));
 }
 
 void MainWindow::openUrl(const QUrl &url) {
