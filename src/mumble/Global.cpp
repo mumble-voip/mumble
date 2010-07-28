@@ -32,6 +32,31 @@
 
 Global *Global::g_global_struct;
 
+static void migrateDataDir() {
+#ifdef Q_OS_MAC
+	QString olddir = QDir::homePath() + QLatin1String("/Library/Preferences/Mumble");
+	QString newdir = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+	QString linksTo = QFile::readLink(olddir);
+	if (!QFile::exists(newdir) && QFile::exists(olddir) && linksTo.isEmpty()) {
+		QDir d;
+		if (d.rename(olddir, newdir)) {
+			if (d.cd(QDir::homePath() + QLatin1String("/Library/Preferences"))) {
+				if (QFile::link(d.relativeFilePath(newdir), olddir)) {
+					qWarning("Migrated application data directory from '%s' to '%s'",
+					             qPrintable(olddir), qPrintable(newdir));
+					return;
+				}
+			}
+		}
+	} else {
+		/* Data dir has already been migrated. */
+		return;
+	}
+
+	qWarning("Application data migration failed.");
+#endif
+}
+
 Global::Global() {
 	mw = 0;
 	sh = 0;
@@ -97,9 +122,8 @@ Global::Global() {
 #if defined(Q_OS_WIN)
 		if (! appdata.isEmpty())
 			qdBasePath.setPath(appdata);
-#elif defined(Q_OS_MAC)
-		qdBasePath.setPath(QDir::homePath() + QLatin1String("/Library/Preferences/Mumble/"));
 #else
+		migrateDataDir();
 		qdBasePath = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 #endif
 		if (! qdBasePath.exists()) {

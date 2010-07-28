@@ -99,12 +99,16 @@ void MetaParams::read(QString fname) {
 
 			datapaths << appdir.absolutePath() + QLatin1String("/Mumble");
 		}
-#elif defined(Q_OS_MAC)
-		datapaths << QDir::homePath() + QLatin1String("/Library/Preferences/Mumble/");
 #else
 		datapaths << QDir::homePath() + QLatin1String("/.murmurd");
 		datapaths << QDir::homePath() + QLatin1String("/.config/Mumble");
 #endif
+
+#if defined(Q_OS_MAC)
+		/* Old Mac data path. */
+		datapaths << QDir::homePath() + QLatin1String("/Library/Preferences/Mumble/");
+#endif
+
 		datapaths << QDir::homePath();
 		datapaths << QDir::currentPath();
 		datapaths << QCoreApplication::instance()->applicationDirPath();
