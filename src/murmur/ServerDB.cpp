@@ -1560,6 +1560,10 @@ void Server::dblog(const QString &str) {
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
 
+	// Is logging disabled?
+	if (Meta::mp.iLogDays < 0)
+		return;
+
 	// Once per hour
 	if (Meta::mp.iLogDays > 0) {
 		if (ServerDB::tLogClean.isElapsed(3600ULL * 1000000ULL)) {
