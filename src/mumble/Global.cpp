@@ -39,6 +39,7 @@ static void migrateDataDir() {
 	QString linksTo = QFile::readLink(olddir);
 	if (!QFile::exists(newdir) && QFile::exists(olddir) && linksTo.isEmpty()) {
 		QDir d;
+		d.mkpath(newdir + QLatin1String("/.."));
 		if (d.rename(olddir, newdir)) {
 			if (d.cd(QDir::homePath() + QLatin1String("/Library/Preferences"))) {
 				if (QFile::link(d.relativeFilePath(newdir), olddir)) {
