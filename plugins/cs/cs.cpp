@@ -96,7 +96,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (!cPlayerState)
 		return true;
 
-	if ((fViewHor < -360.0f) || (fViewVer > 360.0f) || (fViewHor < -360.0f) || (fViewHor > 360.0f))
+	if ((fViewVer < -720.0f) || (fViewVer > 720.0f) || (fViewHor < -720.0f) || (fViewHor > 720.0f))
 		return false;
 
 	fViewHor *= static_cast<float>(M_PI / 180.0f);
