@@ -30,11 +30,10 @@
 
 #include "../mumble_plugin_win32.h"
 
-BYTE *cacheaddr;
 BYTE *posptr;
 BYTE *faceptr;
 BYTE *topptr;
-	
+
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
@@ -60,11 +59,6 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ok = peekProc((BYTE *) 0x00A1D0A8, &state, 1); // Magical state value
 	if (! ok)
 		return false;
-		
-	BYTE *cache = peekProc<BYTE *>(cacheaddr);
-	posptr = peekProc<BYTE *>(cache + 0xb4);
-	faceptr = peekProc<BYTE *>(cache + 0xb8);
-	topptr = peekProc<BYTE *>(cache + 0xbc);
 
 	ok = peekProc(posptr, avatar_pos, 12) &&
 	     peekProc(faceptr, avatar_front, 12) &&
@@ -99,7 +93,12 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"BF2.exe", L"BF2Audio.dll"))
 		return false;
 
-	cacheaddr = pModule + 0x4645c;
+	BYTE *cacheaddr = pModule + 0x4645c;
+	BYTE *cache = peekProc<BYTE *>(cacheaddr);
+
+	posptr = peekProc<BYTE *>(cache + 0xb4);
+	faceptr = peekProc<BYTE *>(cache + 0xb8);
+	topptr = peekProc<BYTE *>(cache + 0xbc);
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;

@@ -37,24 +37,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
-	//char ccontext[128];
+	char ccontext[128];
 	//char state;
-	//char logincheck;
 	bool ok;
-	/*
-	ok = peekProc((BYTE *) 0x0, &logincheck, 1);
-	if (! ok)
-		return false;
-
-	if (logincheck == 0)
-		return false;
-	*/
-	/*
-		state value is:
-		0						while not in game
-		usually 1, never 0		if you create your own server ingame; this value will switch to 1 the instant you click "Join Game"
-		usually 3, never 0		if you load into a server; this value will switch to 3 the instant you click "Join Game"
-	*/
+	
 	/*
 	ok = peekProc((BYTE *) 0x0, &state, 1); // Magical state value
 	if (! ok)
@@ -64,11 +50,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (is_steam) {
 		ok = peekProc((BYTE *) 0x01546980, avatar_pos, 12) &&
 		     peekProc((BYTE *) 0x01546970, avatar_front, 12) &&
-		     peekProc((BYTE *) 0x01546960, avatar_top, 12); // &&
+		     peekProc((BYTE *) 0x01546960, avatar_top, 12) &&
+			 peekProc((BYTE *) 0x014DB9A8, ccontext, 128);
 	} else {
 		ok = peekProc((BYTE *) 0x01549B70, avatar_pos, 12) &&
 		     peekProc((BYTE *) 0x01549B60, avatar_front, 12) &&
-		     peekProc((BYTE *) 0x01549B50, avatar_top, 12); // &&
+		     peekProc((BYTE *) 0x01549B50, avatar_top, 12)&&
+			 peekProc((BYTE *) 0x014E2428, ccontext, 128);
 	}
 
 	if (! ok)
@@ -82,13 +70,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	    Get context string; in this plugin this will be an
 	    ip:port (char 256 bytes) string
 	*/
-	/*
 	ccontext[127] = 0;
 	context = std::string(ccontext);
 
+	/*
 	if (state == 0)
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 	*/
+	
 	for (int i=0;i<3;i++) {
 		camera_pos[i] = avatar_pos[i];
 		camera_front[i] = avatar_front[i];
