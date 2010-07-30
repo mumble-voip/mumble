@@ -5856,7 +5856,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+151"/>
-        <location line="+1868"/>
+        <location line="+1872"/>
         <source>Root</source>
         <translation>ルート</translation>
     </message>
@@ -6372,9 +6372,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumbleのウェブページに接続して新しいバージョンが出ているかを確認します。もし新しいのが出ていたら適切なダウンロードURLを通知します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1777"/>
+        <location filename="MainWindow.cpp" line="-1781"/>
         <location line="+12"/>
-        <location line="+1973"/>
+        <location line="+1977"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6396,7 +6396,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">プレイヤー(&amp;P)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2060"/>
+        <location filename="MainWindow.cpp" line="-2064"/>
         <source>&amp;Channel</source>
         <translation>チャンネル(&amp;C)</translation>
     </message>
@@ -6533,7 +6533,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">プレイヤー %1 をキックしました。</translation>
     </message>
     <message>
-        <location line="+997"/>
+        <location line="+1001"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>理由を入力してください</translation>
@@ -7070,7 +7070,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>他のユーザにテキストメッセージを送信します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2237"/>
+        <location filename="MainWindow.cpp" line="-2241"/>
         <source>&amp;User</source>
         <translation>ユーザ(&amp;U)</translation>
     </message>
@@ -7162,7 +7162,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>サウンドハードウェアの設定プロセスに案内します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1955"/>
+        <location filename="MainWindow.cpp" line="+1959"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL検証エラー: %1</translation>
     </message>
@@ -7289,13 +7289,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%1 の名前で自分をユーザ登録します</translation>
     </message>
     <message>
-        <location line="-954"/>
+        <location line="-958"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>ゲームオーバレイの状態を切り替えます。</translation>
     </message>
     <message>
-        <location line="+648"/>
+        <location line="+652"/>
         <location line="+306"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;サーバ上で自分自身をユーザ登録しようとしています。このアクションは取り消せません。このサーバでのあなたのユーザ名をこの操作の後に変更できなくなります。あなたはこのサーバ上で &apos;%1&apos; のユーザ名を使うことになります。&lt;/p&gt;&lt;p&gt;本当に自分自身を登録しますか？&lt;/p&gt;</translation>
@@ -7556,7 +7556,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ %1 に接続しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1207"/>
+        <location filename="MainWindow.cpp" line="-1211"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble は現在、サーバに接続しています。接続を閉じるか最小化しますか?</translation>
     </message>
@@ -7667,13 +7667,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+2003"/>
+        <location line="+2007"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>接続されていません</translation>
     </message>
     <message>
-        <location line="-1792"/>
+        <location line="-1796"/>
         <source>Clear</source>
         <translation>クリア</translation>
     </message>
@@ -8235,7 +8235,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation>チャンネル</translation>
     </message>
     <message>
-        <location line="+1258"/>
+        <location line="+1277"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>オーバレイ:  %2: %1 との通信の作成に失敗しました。有効なオーバレイはありません。</translation>
     </message>
@@ -8500,7 +8500,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation type="obsolete">有効なチャンネルの色</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-2087"/>
+        <location filename="Overlay.cpp" line="-2106"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>ユーザを動かすには、小さな赤い点をドラッグしてください。</translation>
     </message>
@@ -8536,7 +8536,8 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     </message>
     <message>
         <location line="+1"/>
-        <source>Mumble was unable to validate authenticity of the installer.</source>
+        <source>Mumble was unable to verify the authenticity of the installer.</source>
+        <oldsource>Mumble was unable to validate authenticity of the installer.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>

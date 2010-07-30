@@ -1,3 +1,46 @@
+2010-07-30
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    a2e2a82  Fix crash when connecting to a different server
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    1a2ea89  Fix last commit
+    aa0fc95  Add context support to BFBC2
+    0c69d52  Gmod update
+
+2010-07-29
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    e681802  Add Qt's russian translation
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    d0a6627  Source plugin updates; clarify regName parameter usage in
+	     Murmur.ini
+
+2010-07-28
+  Jamie Fraser <jamie.f@sabrienix.com>
+    85feea3  Added ability to disable logging to DB
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    6422f37  Fix appdata migration when no ~/Library/Application
+	     Support/Mumble exists.
+    8aeda4d  Move Mac OS X data dir to ~/Library/Application Support/[...]
+
+2010-07-27
+  Nicos Gollan <gtdev@spearhead.de>
+    2debbf0  Refining overlay font rendering
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    8f63e4d  Check overlay installer for version info instead of the Mumble
+	     app bundle.
+
+  B0nuse <mumble@mumble.ru>
+    b8f14d8  Translation fixes (Russian)
+
+  Natenom <natenom@googlemail.com>
+    e0163bd  Updated German translations
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    8f73beb  Fix a possible race condition on reconnect
+
 2010-07-26
   Mikkel Krautz <mikkel@krautz.dk>
     e0d1de4  Don't stop device initialization in CoreAudio in cases where
@@ -12,6 +55,9 @@
     385f256  Fix overlay dll debug output
     8f0a2bd  Revert "Overlay blacklist wmpnscfg.exe and fix the
 	     mumble_ol.dll's debug output" because it breaks the overlay
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    f5f526d  Fix multiple issues with ArmA 2 plugin, and update it to 1.07
 
 2010-07-25
   Stefan Hacker <dd0t@users.sourceforge.net>

@@ -44,7 +44,7 @@ static void migrateDataDir() {
 			if (d.cd(QDir::homePath() + QLatin1String("/Library/Preferences"))) {
 				if (QFile::link(d.relativeFilePath(newdir), olddir)) {
 					qWarning("Migrated application data directory from '%s' to '%s'",
-					             qPrintable(olddir), qPrintable(newdir));
+					         qPrintable(olddir), qPrintable(newdir));
 					return;
 				}
 			}

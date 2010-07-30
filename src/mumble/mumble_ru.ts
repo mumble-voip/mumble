@@ -5039,7 +5039,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+151"/>
-        <location line="+1868"/>
+        <location line="+1872"/>
         <source>Root</source>
         <translation>Корень</translation>
     </message>
@@ -5503,9 +5503,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Присоединиться к веб-странице Mumble, чтобы проверить доступность новой версии и уведомить Вас о ссылке для ее закачки.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1777"/>
+        <location filename="MainWindow.cpp" line="-1781"/>
         <location line="+12"/>
-        <location line="+1973"/>
+        <location line="+1977"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -5527,7 +5527,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Игрок</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2060"/>
+        <location filename="MainWindow.cpp" line="-2064"/>
         <source>&amp;Channel</source>
         <translation>&amp;Канал</translation>
     </message>
@@ -5640,7 +5640,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Выкидывание игрока %1</translation>
     </message>
     <message>
-        <location line="+997"/>
+        <location line="+1001"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Введите причину</translation>
@@ -6359,13 +6359,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Зарегистрироваться как %1</translation>
     </message>
     <message>
-        <location line="-954"/>
+        <location line="-958"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Переключает состояние Замещения в игре.</translation>
     </message>
     <message>
-        <location line="+648"/>
+        <location line="+652"/>
         <location line="+306"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Вы собираетесь зарегистрироваться на этом сервере. Невозможно будет отметить данное действие и изменить Ваше имя для данного сертификата. Вы всегда будете известны как &lt;b&gt;&apos;%1&apos;&lt;/b&gt; на этом сервере.&lt;/p&gt;&lt;p&gt;Вы действительно желаете зарегистрироваться?&lt;/p&gt;</translation>
@@ -6465,12 +6465,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Голосовой канал отправлен через канал управления.</translation>
     </message>
     <message>
-        <location line="-802"/>
+        <location line="-806"/>
         <source>&amp;User</source>
         <translation>&amp;Пользователь</translation>
     </message>
     <message>
-        <location line="+793"/>
+        <location line="+797"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Канал управления&lt;/h2&gt;&lt;p&gt;Шифрование %1 бит %2&lt;br /&gt;%3 мс среднее время задержки (%4 отклонение)&lt;/p&gt;&lt;p&gt;Адрес %5 (порт %6)&lt;/p&gt;</translation>
     </message>
@@ -6540,7 +6540,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Это Ваш первый запуск Mumble.&lt;br /&gt;Вы желаете воспользоваться Мастером, чтобы настроить Вашу звуковую карту?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1207"/>
+        <location filename="MainWindow.cpp" line="-1211"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>В настоящий момент Mumble подключен к серверу.&lt;br /&gt;Вы хотите Закрыть его или Свернуть в трей?</translation>
     </message>
@@ -6642,13 +6642,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+2003"/>
+        <location line="+2007"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Нет соединения с сервером&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1792"/>
+        <location line="-1796"/>
         <source>Clear</source>
         <translation>Очистить</translation>
     </message>
@@ -7141,7 +7141,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Канал</translation>
     </message>
     <message>
-        <location line="+1258"/>
+        <location line="+1277"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Не возможно соединиться с замещением на %2: %1. Замещение не будет доступно.</translation>
     </message>
@@ -7380,7 +7380,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Цвет для Активных каналов</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-2087"/>
+        <location filename="Overlay.cpp" line="-2106"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Чтобы переместить пользователей, перетащите маленький красный кружок.</translation>
     </message>
@@ -7416,8 +7416,9 @@ Prevents the client from downloading images embedded into chat messages with the
     </message>
     <message>
         <location line="+1"/>
-        <source>Mumble was unable to validate authenticity of the installer.</source>
-        <translation>Mumble был не в состоянии проверить подлинность установки.</translation>
+        <source>Mumble was unable to verify the authenticity of the installer.</source>
+        <oldsource>Mumble was unable to validate authenticity of the installer.</oldsource>
+        <translation type="unfinished">Mumble был не в состоянии проверить подлинность установки.</translation>
     </message>
     <message>
         <location filename="Overlay.ui"/>

@@ -40,7 +40,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char ccontext[128];
 	//char state;
 	bool ok;
-	
+
 	/*
 	ok = peekProc((BYTE *) 0x0, &state, 1); // Magical state value
 	if (! ok)
@@ -51,12 +51,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		ok = peekProc((BYTE *) 0x01546980, avatar_pos, 12) &&
 		     peekProc((BYTE *) 0x01546970, avatar_front, 12) &&
 		     peekProc((BYTE *) 0x01546960, avatar_top, 12) &&
-			 peekProc((BYTE *) 0x014DB9A8, ccontext, 128);
+		     peekProc((BYTE *) 0x014DB9A8, ccontext, 128);
 	} else {
 		ok = peekProc((BYTE *) 0x01549B70, avatar_pos, 12) &&
 		     peekProc((BYTE *) 0x01549B60, avatar_front, 12) &&
 		     peekProc((BYTE *) 0x01549B50, avatar_top, 12)&&
-			 peekProc((BYTE *) 0x014E2428, ccontext, 128);
+		     peekProc((BYTE *) 0x014E2428, ccontext, 128);
 	}
 
 	if (! ok)
@@ -77,7 +77,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (state == 0)
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 	*/
-	
+
 	for (int i=0;i<3;i++) {
 		camera_pos[i] = avatar_pos[i];
 		camera_front[i] = avatar_front[i];

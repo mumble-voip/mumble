@@ -54,7 +54,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	/*
 		value is 0 when one is not in a game, 4 when one is
-	
+
 	   ok = peekProc((BYTE *) 0x, &state, 1); // Magical state value
 	   if (! ok)
 	 	return false;
@@ -62,19 +62,19 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	   if (state == 0)
 	          return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 	*/
-	
+
 	ok = peekProc(posptr, avatar_pos, 12) &&
 	     peekProc(frontptr, avatar_front, 12) &&
-		 peekProc(topptr, avatar_top, 12);
-		 
-		 /*
-		 peekProc(frontptr, &front_corrector1, 4) &&
-	     peekProc(frontptr + 0xC, &front_corrector2, 4) &&
-	     peekProc(frontptr + 0x18, &front_corrector3, 4) &&
-	     peekProc(topptr, &top_corrector1, 4) &&
-	     peekProc(topptr + 0xC, &top_corrector2, 4) &&
-	     peekProc(topptr + 0x18, &top_corrector3, 4);
-		 */
+	     peekProc(topptr, avatar_top, 12);
+
+	/*
+	peekProc(frontptr, &front_corrector1, 4) &&
+	peekProc(frontptr + 0xC, &front_corrector2, 4) &&
+	peekProc(frontptr + 0x18, &front_corrector3, 4) &&
+	peekProc(topptr, &top_corrector1, 4) &&
+	peekProc(topptr + 0xC, &top_corrector2, 4) &&
+	peekProc(topptr + 0x18, &top_corrector3, 4);
+	*/
 
 	if (! ok)
 		return false;
@@ -100,32 +100,32 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
 	posptr = NULL;
-	
+
 
 	if (! initialize(pids, L"arma2.exe"))
 		return false;
-	
+
 	/*
 	BYTE bState;
 	peekProc((BYTE *) 0x00BF64D0, &bState, 1);
 	if (bState == 0)
 		return false;
 	*/
-		
-	/* 
+
+	/*
 	   Comment out code we don't need
 	   BYTE *pModule=getModuleAddr(L"<module name, if you need it>.dll");
 	   if (!pModule)
 	*/
-	
+
 	BYTE *ptr1 = peekProc<BYTE *>((BYTE *) 0x00BF2C28);
-	
+
 	BYTE *base = ptr1 + 0x80;
 
 	posptr = base + 0x18;
 	frontptr = base;
 	topptr = base + 0xC;
-	
+
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;
 	std::wstring identity;
