@@ -58,7 +58,9 @@ static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
 	return new OverlayConfig(st);
 }
 
+#ifndef MACOSX_UNIVERSAL_BUILD
 static ConfigRegistrar registrar(6000, OverlayConfigDialogNew);
+#endif
 
 OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
