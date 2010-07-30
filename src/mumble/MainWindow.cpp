@@ -518,7 +518,6 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 
 static void recreateServerHandler() {
 	ServerHandler *sh = g.sh;
-	g.sh = NULL;
 	if (sh && sh->isRunning()) {
 		g.mw->on_qaServerDisconnect_triggered();
 		sh->disconnect();
@@ -526,6 +525,7 @@ static void recreateServerHandler() {
 		QCoreApplication::instance()->processEvents();
 	}
 
+	g.sh = NULL;
 	delete sh;
 	sh = new ServerHandler();
 	sh->moveToThread(sh);
