@@ -419,8 +419,10 @@ int main(int argc, char **argv) {
 #else
 	g.mw->msgBox(g.mw->tr("Skipping version check in debug mode."));
 #endif
-	if (g.s.bPluginCheck)
+	if (g.s.bPluginOverlayCheck) {
 		g.p->checkUpdates();
+		g.o->checkUpdates();
+	}
 
 	if (url.isValid()) {
 		OpenURLEvent *oue = new OpenURLEvent(url);

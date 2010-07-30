@@ -418,6 +418,7 @@ if __name__ == '__main__':
 	parser.add_option('', '--git', dest='git', help='Build a snapshot release. Use the git revision number as the \'snapshot version\'.', action='store_true', default=False)
 	parser.add_option('', '--universal', dest='universal', help='Build an universal snapshot.', action='store_true', default=False)
 	parser.add_option('', '--only-appbundle', dest='only_appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
+	parser.add_option('', '--only-overlay', dest='only_overlay', help='Only create the overlay installer.', action='store_true', default=False)
 	parser.add_option('', '--codesign', dest='codesign', help='Create a codesigned build.')
 
 	options, args = parser.parse_args()
@@ -453,11 +454,13 @@ if __name__ == '__main__':
 		print 'This script needs to be run from the root of the Mumble source tree.'
 		sys.exit(1)
 
-	# Fix .ini files
-	os.system('cd scripts && sh mkini.sh')
-
 	# Fix overlay installer package
 	create_overlay_package(options.codesign)
+	if options.only_overlay:
+		sys.exit(0)
+
+	# Fix .ini files
+	os.system('cd scripts && sh mkini.sh')
 
 	# Do the finishing touches to our Application bundle before release
 	a = AppBundle('release/Mumble.app', ver)

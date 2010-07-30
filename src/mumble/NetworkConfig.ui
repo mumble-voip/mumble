@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>283</width>
-    <height>438</height>
+    <width>576</width>
+    <height>567</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -323,7 +323,7 @@ Prevents the client from downloading images embedded into chat messages with the
          <string>This will check for new releases of plugins every time you start the program, and download them automatically.</string>
         </property>
         <property name="text">
-         <string>Download plugin updates on startup</string>
+         <string>Download plugin and overlay updates on startup</string>
         </property>
        </widget>
       </item>

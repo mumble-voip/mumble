@@ -234,7 +234,7 @@ struct Settings {
 	QString qsImagePath;
 
 	bool bUpdateCheck;
-	bool bPluginCheck;
+	bool bPluginOverlayCheck;
 
 	// Network settings
 	enum ProxyType { NoProxy, HttpProxy, Socks5Proxy };

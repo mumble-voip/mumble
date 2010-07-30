@@ -153,6 +153,20 @@ bool OverlayConfig::supportsCertificates() {
 	return true;
 }
 
+QByteArray preferedInstallerPath() {
+	QString userinstall = g.qdBasePath.absolutePath() + QLatin1String("/Overlay/MumbleOverlay.pkg");
+	if (QFile::exists(userinstall)) {
+		return userinstall.toUtf8();
+	}
+
+	NSString *installerPath = [[NSBundle mainBundle] pathForResource:@"MumbleOverlay" ofType:@"pkg"];
+	if (installerPath) {
+		return QByteArray([installerPath UTF8String]);
+	}
+
+	return QByteArray();
+}
+
 bool OverlayConfig::isInstalled() {
 	bool ret = false;
 
@@ -250,20 +264,19 @@ out:
 }
 
 bool OverlayConfig::needsUpgrade() {
-	// Load the overlay loader bundle.
 	NSBundle *bundle = [NSBundle bundleWithPath:MumbleOverlayLoaderBundle];
 	if (! bundle) {
 		qWarning("Overlay_macx: Unable to load the installed OSAX bundle. This shouldn't happen.");
 		return false;
 	}
-
-	// Get its version.
 	NSUInteger curVersion = [[bundle objectForInfoDictionaryKey:@"MumbleOverlayVersion"] unsignedIntegerValue];
-	NSString *installerPath = [[NSBundle mainBundle] pathForResource:@"MumbleOverlay" ofType:@"pkg"];
-	if (! installerPath)
+	[bundle unload];
+
+	QByteArray prefer = preferedInstallerPath();
+	if (prefer.isNull())
 		return false;
 
-	return isInstallerNewer([installerPath UTF8String], curVersion);
+	return isInstallerNewer(prefer.constData(), curVersion);
 }
 
 static bool authExec(AuthorizationRef ref, const char **argv) {
@@ -509,19 +522,19 @@ err:
 }
 
 bool OverlayConfig::installerIsValid() {
-	NSString *installerPath = [[NSBundle mainBundle] pathForResource:@"MumbleOverlay" ofType:@"pkg"];
-	if (! installerPath)
+	QByteArray prefer = preferedInstallerPath();
+	if (prefer.isNull())
 		return false;
-	return validateInstaller([installerPath UTF8String]);
+	return validateInstaller(prefer.constData());
 }
 
 void OverlayConfig::showCertificates() {
-	NSString *installerPath = [[NSBundle mainBundle] pathForResource:@"MumbleOverlay" ofType:@"pkg"];
-	if (! installerPath)
+	QByteArray prefer = preferedInstallerPath();
+	if (prefer.isNull())
 		return;
 
 	NSArray *certs;
-	if (! getInstallerCerts([installerPath UTF8String], &certs)) {
+	if (! getInstallerCerts(prefer.constData(), &certs)) {
 		qWarning("OverlayConfig: could not fetch certificates");
 		return;
 	}
@@ -537,10 +550,9 @@ bool OverlayConfig::installFiles() {
 	bool ret = false;
 	OSStatus err;
 
-	// Get the tarball that we should install.
-	NSString *installerPath = [[NSBundle mainBundle] pathForResource:@"MumbleOverlay" ofType:@"pkg"];
-	if (! installerPath) {
-		qWarning("OverlayConfig: Installer path (in Info.plist) missing.");
+	QByteArray prefer = preferedInstallerPath();
+	if (prefer.isNull()) {
+		qWarning("OverlayConfig: No installers found in search paths.");
 		return false;
 	}
 
@@ -555,7 +567,7 @@ bool OverlayConfig::installFiles() {
 	err = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &auth);
 	if (err == errAuthorizationSuccess) {
 		// Do the install...
-		const char *installer[] = { "/usr/sbin/installer", "-pkg", [installerPath UTF8String], "-target", "LocalSystem", NULL };
+		const char *installer[] = { "/usr/sbin/installer", "-pkg", prefer.constData(), "-target", "LocalSystem", NULL };
 		ret = authExec(auth, installer);
 	} else if (err != errAuthorizationCanceled) {
 		qWarning("OverlayConfig: Failed to acquire AuthorizationRef. (err=%i)", err);

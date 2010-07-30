@@ -364,6 +364,7 @@ class Overlay : public QObject {
 
 		void platformInit();
 
+		QMap<QString, QString> qmOverlayHash;
 		QLocalServer *qlsServer;
 		QList<OverlayClient *> qlClients;
 	protected slots:
@@ -382,6 +383,8 @@ class Overlay : public QObject {
 		void setActive(bool act);
 		void toggleShow();
 		void forceSettings();
+		void checkUpdates();
+		void finished();
 };
 
 #endif
