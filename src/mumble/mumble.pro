@@ -125,7 +125,7 @@ unix {
     LIBS += -framework Security -framework SecurityInterface -framework ScriptingBridge -framework ApplicationServices
 
     HEADERS *= GlobalShortcut_macx.h ConfigDialogDelegate.h
-    SOURCES *= TextToSpeech_macx.cpp SharedMemory_unix.cpp GlobalShortcut_macx.cpp os_macx.cpp
+    SOURCES *= TextToSpeech_macx.cpp SharedMemory_unix.cpp GlobalShortcut_macx.cpp os_macx.mm
 
     !CONFIG(no-cocoa) {
         # Link against libxar so we can inspect Mac OS X installer packages.

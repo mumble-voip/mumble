@@ -30,6 +30,9 @@
 */
 
 #include "GlobalShortcut_macx.h"
+#ifndef COMPAT_CLIENT
+#include "Overlay.h"
+#endif
 
 #define MOD_OFFSET   0x10000
 #define MOUSE_OFFSET 0x20000
@@ -92,13 +95,44 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			down = true;
 		case kCGEventLeftMouseUp:
 		case kCGEventRightMouseUp:
-		case kCGEventOtherMouseUp:
+		case kCGEventOtherMouseUp: {
 			keycode = static_cast<unsigned int>(CGEventGetIntegerValueField(event, kCGMouseEventButtonNumber));
 			suppress = gs->handleButton(MOUSE_OFFSET+keycode, down);
 			/* Suppressing "the" mouse button is probably not a good idea :-) */
 			if (keycode == 0)
 				suppress = false;
+#ifndef COMPAT_CLIENT
+			if (! suppress && g.ocIntercept) {
+				suppress = true;
+				ProcessSerialNumber psn;
+				if (GetCurrentProcess(&psn) == noErr) {
+					CGEventPostToPSN(&psn, event);
+				}
+			}
+#endif
 			break;
+		}
+
+		case kCGEventMouseMoved:
+		case kCGEventLeftMouseDragged:
+		case kCGEventRightMouseDragged:
+		case kCGEventOtherMouseDragged: {
+#ifndef COMPAT_CLIENT
+			if (g.ocIntercept) {
+				int64_t dx = CGEventGetIntegerValueField(event, kCGMouseEventDeltaX);
+				int64_t dy = CGEventGetIntegerValueField(event, kCGMouseEventDeltaY);
+				g.ocIntercept->iMouseX = qBound<int>(0, g.ocIntercept->iMouseX + static_cast<int>(dx), g.ocIntercept->uiWidth - 1);
+				g.ocIntercept->iMouseY = qBound<int>(0, g.ocIntercept->iMouseY + static_cast<int>(dy), g.ocIntercept->uiHeight - 1);
+				QMetaObject::invokeMethod(g.ocIntercept, "updateMouse", Qt::QueuedConnection);
+				suppress = true;
+				ProcessSerialNumber psn;
+				if (GetCurrentProcess(&psn) == noErr) {
+					CGEventPostToPSN(&psn, event);
+				}
+			}
+#endif
+			break;
+		}
 
 		case kCGEventKeyDown:
 			down = true;
@@ -131,7 +165,6 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			break;
 
 		default:
-			qWarning("GlobalShortcutMac: Unknown event intercepted.");
 			break;
 	}
 
@@ -144,18 +177,7 @@ GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
 	return;
 #endif
 
-	static const CGEventType evmask = CGEventMaskBit(kCGEventLeftMouseDown) |
-	                                  CGEventMaskBit(kCGEventLeftMouseUp) |
-	                                  CGEventMaskBit(kCGEventRightMouseDown) |
-	                                  CGEventMaskBit(kCGEventRightMouseUp) |
-	                                  CGEventMaskBit(kCGEventOtherMouseDown) |
-	                                  CGEventMaskBit(kCGEventOtherMouseUp) |
-	                                  CGEventMaskBit(kCGEventKeyDown) |
-	                                  CGEventMaskBit(kCGEventKeyUp) |
-	                                  CGEventMaskBit(kCGEventFlagsChanged) |
-	                                  CGEventMaskBit(kCGEventTapDisabledByTimeout) |
-	                                  CGEventMaskBit(kCGEventTapDisabledByUserInput);
-
+	CGEventMask evmask = kCGEventMaskForAllEvents;
 	port = CGEventTapCreate(kCGSessionEventTap,
 	                        kCGHeadInsertEventTap,
 	                        0, evmask, GlobalShortcutMac::callback,

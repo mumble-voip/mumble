@@ -31,6 +31,9 @@
 
 #include "mumble_pch.hpp"
 #include "Global.h"
+#ifndef COMPAT_CLIENT
+#include "Overlay.h"
+#endif
 #include "MainWindow.h"
 
 char *os_url = NULL;
@@ -48,6 +51,112 @@ static char crashhandler_fn[PATH_MAX];
 
 static void crashhandler_signals_restore();
 static void crashhandler_handle_crash();
+
+#ifndef COMPAT_CLIENT
+@interface MumbleNSApplication : NSApplication
+- (void) sendEvent:(NSEvent *)evt;
+- (NSEvent *) fixMouseEvent:(NSEvent *)orig;
+@end
+
+@implementation MumbleNSApplication
+- (NSEvent *) fixMouseEvent:(NSEvent *)evt {
+	NSPoint p;
+	p.x = (CGFloat) g.ocIntercept->iMouseX;
+	p.y = (CGFloat) (g.ocIntercept->uiHeight - g.ocIntercept->iMouseY);
+	return [NSEvent mouseEventWithType:[evt type] location:p modifierFlags:[evt modifierFlags] timestamp:[evt timestamp]
+	              windowNumber:0 context:nil eventNumber:[evt eventNumber] clickCount:[evt clickCount] pressure:[evt pressure]];
+}
+
+- (void) sendEvent:(NSEvent *)evt {
+	NSEvent *newEvt = nil;
+
+	if (g.ocIntercept) {
+		NSView *view = (NSView *) g.ocIntercept->qgv.winId();
+		NSWindow *win = (NSWindow *)[view window];
+		SEL sel = nil;
+
+		switch ([evt type]) {
+			case NSLeftMouseDown:
+				NSLog(@"mouseDown");
+				sel = @selector(mouseDown:);
+				if ([view respondsToSelector:sel])
+					[view performSelector:sel withObject:[self fixMouseEvent:evt]];
+				break;
+			case NSLeftMouseUp:
+				NSLog(@"leftMouseUp");
+				sel = @selector(mouseUp:);
+				if ([view respondsToSelector:sel])
+					[view performSelector:sel withObject:[self fixMouseEvent:evt]];
+				break;
+			case NSLeftMouseDragged:
+				NSLog(@"leftMouseDragged");
+				sel = @selector(mouseDragged:);
+				if ([view respondsToSelector:sel])
+					[view performSelector:sel withObject:[self fixMouseEvent:evt]];
+				break;
+			case NSRightMouseDown:
+				NSLog(@"rightMouseDown");
+				sel = @selector(rightMouseDown:);
+				if ([view respondsToSelector:sel])
+					[view performSelector:sel withObject:[self fixMouseEvent:evt]];
+				break;
+			case NSRightMouseUp:
+				NSLog(@"rightMouseUp");
+				sel = @selector(rightMouseUp:);
+				if ([view respondsToSelector:sel])
+					[view performSelector:sel withObject:[self fixMouseEvent:evt]];
+				break;
+			case NSRightMouseDragged:
+				NSLog(@"rightMouseDragged");
+				sel = @selector(rightMouseDragged:);
+				if ([view respondsToSelector:sel])
+					[view performSelector:sel withObject:[self fixMouseEvent:evt]];
+				break;
+			case NSOtherMouseDown:
+				NSLog(@"otherMouseDown");
+				sel = @selector(otherMouseDown:);
+				if ([view respondsToSelector:sel])
+					[view performSelector:sel withObject:[self fixMouseEvent:evt]];
+				break;
+			case NSOtherMouseUp:
+				NSLog(@"otherMouseUp");
+				sel = @selector(otherMouseUp:);
+				if ([view respondsToSelector:sel])
+					[view performSelector:sel withObject:[self fixMouseEvent:evt]];
+				break;
+			case NSOtherMouseDragged:
+				NSLog(@"otherMouseDragged");
+				sel = @selector(otherMouseDragged:);
+				if ([view respondsToSelector:sel])
+					[view performSelector:sel withObject:[self fixMouseEvent:evt]];
+				break;
+			case NSMouseEntered:
+				NSLog(@"mouseEntered");
+				sel = @selector(mouseEntered:);
+				if ([view respondsToSelector:sel])
+					[view performSelector:sel withObject:[self fixMouseEvent:evt]];
+				break;
+			case NSMouseExited:
+				NSLog(@"mouseExited");
+				sel = @selector(mouseExited:);
+				if ([view respondsToSelector:sel])
+					[view performSelector:sel withObject:[self fixMouseEvent:evt]];
+				break;
+			case NSMouseMoved:
+				NSLog(@"mouseMoved");
+				sel = @selector(mouseMoved:);
+				if ([view respondsToSelector:sel])
+					[view performSelector:sel withObject:[self fixMouseEvent:evt]];
+				break;
+			default:
+				break;
+		}
+	} else {
+		[super sendEvent:evt];
+	}
+}
+@end
+#endif
 
 static OSErr urlCallback(const AppleEvent *ae, AppleEvent *, SCREWAPPLE) {
 	OSErr err;
@@ -207,4 +316,10 @@ void os_init() {
 
 	/* Install Apple Event handler for GURL events. This intercepts any URLs set in Mumble's Info.plist. */
 	AEInstallEventHandler(kInternetEventClass, kAEGetURL, NewAEEventHandlerUPP(urlCallback), 0, false);
+}
+
+void os_preinit() {
+#ifndef COMPAT_CLIENT
+	MumbleNSApplication *ma = [MumbleNSApplication sharedApplication];
+#endif
 }

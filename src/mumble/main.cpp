@@ -109,6 +109,10 @@ bool QAppMumble::winEventFilter(MSG *msg, long *result) {
 int main(int argc, char **argv) {
 	int res;
 
+#ifdef Q_OS_MAC
+	extern void os_preinit();
+	os_preinit();
+#endif
 
 	QT_REQUIRE_VERSION(argc, argv, "4.4.0");
 

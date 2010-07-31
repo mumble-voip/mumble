@@ -2247,6 +2247,8 @@ void OverlayClient::updateMouse() {
 	}
 
 	qgpiCursor->setPixmap(pm);
+#elif defined(Q_OS_MAC)
+	qgpiCursor->setPixmap(QPixmap(QLatin1String(":/config_lcd.png")));
 #else
 #endif
 
