@@ -71,8 +71,8 @@ static void crashhandler_handle_crash();
 	NSEvent *newEvt = nil;
 
 	if (g.ocIntercept) {
-		NSView *view = (NSView *) g.ocIntercept->qgv.winId();
-		NSWindow *win = (NSWindow *)[view window];
+		QWidget *vp = g.ocIntercept->qgv.viewport();
+		NSView *view = (NSView *) vp->winId();
 		SEL sel = nil;
 
 		switch ([evt type]) {
