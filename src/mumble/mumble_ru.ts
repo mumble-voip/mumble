@@ -1327,12 +1327,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Maximum amplification of input sound</source>
-        <translation>Максимальное усиление входящего звука</translation>
+        <translation>Максимальное усиление исходящего звука</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation>&lt;b&gt;Максимальное усиление входящего сигнала.&lt;/b&gt;&lt;br /&gt;Mumble нормализует входящую громкость до сжатия и эта опция устанавливает на сколько можно его усилить.&lt;br /&gt;Актуальный уровень постоянно обновляется на основе текущего образца речи, но никогда не будет выше установленного здесь уровня.&lt;br /&gt;Если уровень &lt;i&gt;Громкости микрофона&lt;/i&gt; аудиостатистики держится на уровне 100%, вы можете установить его на 2.0 или выше, но если, как многие люди, Вы не можете достичь 100%, установите его на чуть более высоком уровне.&lt;br /&gt;В идеале, установите его так, чтобы &lt;i&gt;Громкость микрофона * Фактор усиления &gt;= 100&lt;/i&gt;, даже если Вы говорите слишком мягко.&lt;br /&gt;&lt;br /&gt;Заметьте, что ничего плохого не случится, если Вы установите его на максимум, но Mumble начнет передавать другие переговоры, если Вы оставите это значение по умолчанию.</translation>
+        <translation>&lt;b&gt;Максимальное усиление исходящего сигнала.&lt;/b&gt;&lt;br /&gt;Mumble нормализует исходящую громкость до сжатия и эта опция устанавливает на сколько можно его усилить.&lt;br /&gt;Актуальный уровень постоянно обновляется на основе текущего образца речи, но никогда не будет выше установленного здесь уровня.&lt;br /&gt;Если уровень &lt;i&gt;Громкости микрофона&lt;/i&gt; аудиостатистики держится на уровне 100%, Вы можете установить его на 2.0 или выше, но если, как многие люди, Вы не можете достичь 100%, установите его на чуть более высоком уровне.&lt;br /&gt;В идеале, установите его так, чтобы &lt;i&gt;Громкость микрофона * Фактор усиления &gt;= 100&lt;/i&gt;, даже если Вы говорите слишком мягко.&lt;br /&gt;&lt;br /&gt;Заметьте, что ничего плохого не случится, если Вы установите его на максимум, но Mumble начнет передавать другие переговоры, если Вы оставите это значение по умолчанию.</translation>
     </message>
     <message>
         <location/>
@@ -1439,7 +1439,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Exclusive mode</source>
-        <translation>Иксклюзивные режим</translation>
+        <translation>Эксклюзивный режим</translation>
     </message>
     <message>
         <location/>
@@ -2316,7 +2316,7 @@ This is the audio tuning wizard for Mumble. This will help you correctly set the
 &lt;p&gt;
 Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.
 &lt;/p&gt;</source>
-        <translation>&lt;p&gt;Вас приветствует мастер настройки звука Mumble. Он поможет Вам правильно настроить Вашу звуковую карту, а также установить наилучшие параметры для обработки звука.&lt;/p&gt;&lt;p&gt;Пожалуйста, обратите внимание, что пока Мастер активен, звук будет передаваться локально (т.е. он не будет передаваться на сервер), что позволит Вам слышать его. При этом звук НЕ БУДЕТ передаваться на сервер.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Вас приветствует мастер настройки звука Mumble. Он поможет Вам правильно настроить Вашу звуковую карту, а также установить наилучшие параметры для обработки звука.&lt;/p&gt;&lt;p&gt;Пожалуйста, обратите внимание, что пока Мастер активен, звук будет передаваться локально, что позволит Вам слышать его. При этом звук НЕ БУДЕТ передаваться на сервер.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -7418,7 +7418,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <location line="+1"/>
         <source>Mumble was unable to verify the authenticity of the installer.</source>
         <oldsource>Mumble was unable to validate authenticity of the installer.</oldsource>
-        <translation type="unfinished">Mumble был не в состоянии проверить подлинность установки.</translation>
+        <translation>Mumble был не в состоянии проверить подлинность установки.</translation>
     </message>
     <message>
         <location filename="Overlay.ui"/>
