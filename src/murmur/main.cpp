@@ -85,7 +85,7 @@ static void murmurMessageOutput(QtMsgType type, const char *msg) {
 	if (! qfLog || ! qfLog->isOpen()) {
 #ifdef Q_OS_UNIX
 		if (! detach)
-			fprintf(stderr, "%s\n", msg);
+			fprintf(stderr, "%s\n", qPrintable(m));
 		else
 			qlErrors << m;
 #else
