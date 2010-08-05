@@ -51,6 +51,7 @@ MetaParams::MetaParams() {
 	iMaxImageMessageLength = 131072;
 	bAllowHTML = true;
 	iDefaultChan = 0;
+	bRememberChan = true;
 	qsWelcomeText = QString("Welcome to this server");
 	qsDatabase = QString();
 	iDBPort = 0;
@@ -223,6 +224,7 @@ void MetaParams::read(QString fname) {
 	bAllowHTML = qsSettings->value("allowhtml", bAllowHTML).toBool();
 	iMaxBandwidth = qsSettings->value("bandwidth", iMaxBandwidth).toInt();
 	iDefaultChan = qsSettings->value("defaultchannel", iDefaultChan).toInt();
+	bRememberChan = qsSettings->value("rememberchannel", bRememberChan).toBool();
 	iMaxUsers = qsSettings->value("users", iMaxUsers).toInt();
 	iMaxUsersPerChannel = qsSettings->value("usersperchannel", iMaxUsersPerChannel).toInt();
 	qsWelcomeText = qsSettings->value("welcometext", qsWelcomeText).toString();
@@ -394,6 +396,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("bandwidth"),QString::number(iMaxBandwidth));
 	qmConfig.insert(QLatin1String("users"),QString::number(iMaxUsers));
 	qmConfig.insert(QLatin1String("defaultchannel"),QString::number(iDefaultChan));
+	qmConfig.insert(QLatin1String("rememberchannel"),bRememberChan ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("welcometext"),qsWelcomeText);
 	qmConfig.insert(QLatin1String("registername"),qsRegName);
 	qmConfig.insert(QLatin1String("registerpassword"),qsRegPassword);

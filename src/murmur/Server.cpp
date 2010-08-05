@@ -299,6 +299,7 @@ void Server::readParams() {
 	iMaxImageMessageLength = Meta::mp.iMaxImageMessageLength;
 	bAllowHTML = Meta::mp.bAllowHTML;
 	iDefaultChan = Meta::mp.iDefaultChan;
+	bRememberChan = Meta::mp.bRememberChan;
 	qsWelcomeText = Meta::mp.qsWelcomeText;
 	qlBind = Meta::mp.qlBind;
 	qsRegName = Meta::mp.qsRegName;
@@ -348,6 +349,7 @@ void Server::readParams() {
 	iMaxImageMessageLength = getConf("imagemessagelength", iMaxImageMessageLength).toInt();
 	bAllowHTML = getConf("allowhtml", bAllowHTML).toBool();
 	iDefaultChan = getConf("defaultchannel", iDefaultChan).toInt();
+	bRememberChan = getConf("rememberchannel", bRememberChan).toBool();
 	qsWelcomeText = getConf("welcometext", qsWelcomeText).toString();
 
 	qsRegName = getConf("registername", qsRegName).toString();
@@ -410,6 +412,8 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		}
 	} else if (key == "defaultchannel")
 		iDefaultChan = i ? i : Meta::mp.iDefaultChan;
+	else if (key == "rememberchannel")
+		bRememberChan = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bRememberChan;
 	else if (key == "welcometext") {
 		QString text = !v.isNull() ? v : Meta::mp.qsWelcomeText;
 		if (text != qsWelcomeText) {
