@@ -1397,6 +1397,9 @@ void ConnectDialog::udpReply() {
 
 		qint64 len = sock->readDatagram(blob+4, 24, &host, &port);
 		if (len == 24) {
+			if (host.scopeId() == QLatin1String("0"))
+				host.setScopeId(QLatin1String(""));
+
 			qpAddress address(host, port);
 			if (qhPings.contains(address)) {
 				quint32 *ping = reinterpret_cast<quint32 *>(blob+4);
