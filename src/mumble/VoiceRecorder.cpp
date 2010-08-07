@@ -34,31 +34,28 @@
 #include "Audio.h"
 #include "ClientUser.h"
 
+VoiceRecorder::RecordBuffer::RecordBuffer(const ClientUser *cu,
+	boost::shared_array<float> buffer, int samples) :
+	cuUser(cu), fBuffer(buffer), iSamples(samples) {
+}
+
+VoiceRecorder::RecordInfo::RecordInfo() : sf(NULL), uiLastPosition(0) {
+}
+
+VoiceRecorder::RecordInfo::~RecordInfo() {
+	if (sf) {
+		sf_close(sf);
+	}
+}
+
 VoiceRecorder::VoiceRecorder(QObject *p) : QThread(p), iSampleRate(0),
-	bRecording(false), bMixDown(false), uiRecordedSamples(0), recordUser(new RecordUser()) {
+	bRecording(false), bMixDown(false), uiRecordedSamples(0),
+	recordUser(new RecordUser()) {
 }
 
 VoiceRecorder::~VoiceRecorder() {
 	stop();
 	wait();
-	clearLists();
-	delete recordUser;
-}
-
-void VoiceRecorder::clearLists() {
-	while (!qhRecordBuffer.isEmpty()) {
-		delete qhRecordBuffer.takeFirst();
-	}
-
-	QHash<int, RecordInfo *>::iterator it = qhRecordInfo.begin();
-	while (it != qhRecordInfo.end()) {
-		RecordInfo *ri = it.value();
-		if (ri->sf) {
-			sf_close(ri->sf);
-		}
-		delete ri;
-		it = qhRecordInfo.erase(it);
-	}
 }
 
 void VoiceRecorder::run() {
@@ -84,7 +81,7 @@ void VoiceRecorder::run() {
 		}
 
 		while (!qlRecordBuffer.isEmpty()) {
-			RecordBuffer *rb;
+			boost::shared_ptr<RecordBuffer> rb;
 			{
 				QMutexLocker l(&qmBufferLock);
 				rb = qlRecordBuffer.takeFirst();
@@ -93,7 +90,7 @@ void VoiceRecorder::run() {
 			int index = bMixDown ? 0 : rb->cuUser->uiSession;
 			Q_ASSERT(qhRecordInfo.contains(index));
 
-			RecordInfo *ri = qhRecordInfo.value(index);
+			boost::shared_ptr<RecordInfo> ri = qhRecordInfo.value(index);
 			if (!ri->sf) {
 				ri->sf = sf_open(qPrintable(qsFileName.arg(index)), SFM_WRITE, &sfinfo);
 				//sf_command(ri->sf, SFC_SET_UPDATE_HEADER_AUTO, NULL, SF_TRUE);
@@ -103,22 +100,20 @@ void VoiceRecorder::run() {
 
 			if (ri->uiLastPosition != uiRecordedSamples) {
 				// write silence until we reach our current sample value
-				float *buffer = new float[1024];
-				memset(buffer, 0, sizeof(float) * 1024);
+				boost::scoped_array<float> buffer(new float[1024]);
+				memset(buffer.get(), 0, sizeof(float) * 1024);
 				int rest = (uiRecordedSamples - ri->uiLastPosition) % 1024;
 				quint64 steps = (uiRecordedSamples - ri->uiLastPosition) / 1024;
 				for (quint64 i = 0; i < steps; ++i) {
-					sf_write_float(ri->sf, buffer, 1024);
+					sf_write_float(ri->sf, buffer.get(), 1024);
 				}
 				if (rest > 0)
-					sf_write_float(ri->sf, buffer, rest);
-				delete [] buffer;
+					sf_write_float(ri->sf, buffer.get(), rest);
 			}
 
 			sf_write_float(ri->sf, rb->fBuffer.get(), rb->iSamples);
 			uiRecordedSamples += rb->iSamples;
 			ri->uiLastPosition = uiRecordedSamples;
-			delete rb;
 		}
 
 		qmSleepLock.unlock();
@@ -136,11 +131,13 @@ void VoiceRecorder::addBuffer(const ClientUser *cu, boost::shared_array<float> b
 
 	{
 		QMutexLocker l(&qmBufferLock);
-		qlRecordBuffer << new RecordBuffer(cu, buffer, samples);
+		boost::shared_ptr<RecordBuffer> rb(new RecordBuffer(cu, buffer, samples));
+		qlRecordBuffer << rb;
 	}
 	int index = bMixDown ? 0 : cu->uiSession;
 	if (!qhRecordInfo.contains(index)) {
-		qhRecordInfo.insert(index, new RecordInfo());
+		boost::shared_ptr<RecordInfo> ri(new RecordInfo());
+		qhRecordInfo.insert(index, ri);
 	}
 	qwcSleep.wakeAll();
 }

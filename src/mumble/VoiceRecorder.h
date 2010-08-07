@@ -37,25 +37,24 @@ class RecordUser;
 
 class VoiceRecorder : public QThread {
   private:
-	class RecordBuffer {
-	public:
+	struct RecordBuffer {
 		const ClientUser *cuUser;
 		boost::shared_array<float> fBuffer;
 		int iSamples;
 
-		RecordBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples) : cuUser(cu), fBuffer(buffer), iSamples(samples) {}
+		explicit RecordBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples);
 	};
 
-	class RecordInfo {
-	public:
+	struct RecordInfo {
 		SNDFILE *sf;
 		quint64 uiLastPosition;
 
-		RecordInfo() : sf(NULL), uiLastPosition(0) {}
+		explicit RecordInfo();
+		~RecordInfo();
 	};
 
-	QHash<int, RecordInfo *> qhRecordInfo;
-	QList<RecordBuffer *> qlRecordBuffer;
+	QHash< int, boost::shared_ptr<RecordInfo> > qhRecordInfo;
+	QList< boost::shared_ptr<RecordBuffer> > qlRecordBuffer;
 
 	QMutex qmBufferLock;
 	QMutex qmSleepLock;
@@ -66,19 +65,18 @@ class VoiceRecorder : public QThread {
 	QString qsFileName;
 	bool bMixDown;
 	quint64 uiRecordedSamples;
-	void clearLists();
 
   public:
-	VoiceRecorder(QObject *p);
+	explicit VoiceRecorder(QObject *p);
 	~VoiceRecorder();
-	RecordUser *recordUser;
+	boost::scoped_ptr<RecordUser> recordUser;
 
 	void run();
 	void stop();
 	void addBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples);
 	void addSilence(int samples);
 	void setSampleRate(int sampleRate);
-        void setFileName(QString fn);
+	void setFileName(QString fn);
 	void setMixDown(bool mixDown);
 	bool getMixDown();
 };
