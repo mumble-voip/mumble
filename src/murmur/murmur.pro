@@ -23,7 +23,7 @@ PRECOMPILED_HEADER = murmur_pch.h
 	CONFIG *= ice
 }
 
-!CONFIG(no-dbus) {
+!CONFIG(no-dbus):!win32 {
 	CONFIG *= dbus
 }
 
@@ -87,7 +87,7 @@ ice {
 
 	win32 {
 		INCLUDEPATH *= /dev/Ice/include
-		QMAKE_LIBDIR *= /dev/Ice/lib
+		QMAKE_LIBDIR *= /dev/Ice/lib/vc100
 	}
 
 	macx {
