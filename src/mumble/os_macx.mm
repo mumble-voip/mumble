@@ -54,93 +54,19 @@ static void crashhandler_handle_crash();
 
 #ifndef COMPAT_CLIENT
 @interface MumbleNSApplication : NSApplication
-- (void) sendEvent:(NSEvent *)evt;
-- (NSEvent *) fixMouseEvent:(NSEvent *)orig;
+- (void) forwardEvent:(NSDictionary *)dict;
 @end
 
 @implementation MumbleNSApplication
-- (NSEvent *) fixMouseEvent:(NSEvent *)evt {
-	NSPoint p;
-	p.x = (CGFloat) g.ocIntercept->iMouseX;
-	p.y = (CGFloat) (g.ocIntercept->uiHeight - g.ocIntercept->iMouseY);
-	return [NSEvent mouseEventWithType:[evt type] location:p modifierFlags:[evt modifierFlags] timestamp:[evt timestamp]
-	              windowNumber:0 context:nil eventNumber:[evt eventNumber] clickCount:[evt clickCount] pressure:[evt pressure]];
-}
+- (void) forwardEvent:(NSDictionary *)dict {
+	QWidget *vp = g.ocIntercept->qgv.viewport();
+	NSView *view = (NSView *) vp->winId();
 
-- (void) sendEvent:(NSEvent *)evt {
-	NSEvent *newEvt = nil;
+	SEL selector = NSSelectorFromString([dict objectForKey:@"selector"]);
+	NSEvent *evt = [dict objectForKey:@"event"];
 
-	if (g.ocIntercept) {
-		QWidget *vp = g.ocIntercept->qgv.viewport();
-		NSView *view = (NSView *) vp->winId();
-		SEL sel = nil;
-
-		switch ([evt type]) {
-			case NSLeftMouseDown:
-				sel = @selector(mouseDown:);
-				break;
-			case NSLeftMouseUp:
-				sel = @selector(mouseUp:);
-				break;
-			case NSLeftMouseDragged:
-				sel = @selector(mouseDragged:);
-				break;
-			case NSRightMouseDown:
-				sel = @selector(rightMouseDown:);
-				break;
-			case NSRightMouseUp:
-				sel = @selector(rightMouseUp:);
-				break;
-			case NSRightMouseDragged:
-				sel = @selector(rightMouseDragged:);
-				break;
-			case NSOtherMouseDown:
-				sel = @selector(otherMouseDown:);
-				break;
-			case NSOtherMouseUp:
-				sel = @selector(otherMouseUp:);
-				break;
-			case NSOtherMouseDragged:
-				sel = @selector(otherMouseDragged:);
-				break;
-			case NSMouseEntered:
-				sel = @selector(mouseEntered:);
-				break;
-			case NSMouseExited:
-				sel = @selector(mouseExited:);
-				break;
-			case NSMouseMoved:
-				sel = @selector(mouseMoved:);
-				break;
-		}
-
-		if (sel && [view respondsToSelector:sel]) {
-			[view performSelector:sel withObject:[self fixMouseEvent:evt]];
-			return;
-		}
-
-		switch ([evt type]) {
-			case NSKeyDown:
-				sel = @selector(keyDown:);
-				break;
-			case NSKeyUp:
-				sel = @selector(keyUp:);
-				break;
-			case NSFlagsChanged:
-				sel = @selector(flagsChanged:);
-				break;
-			case NSScrollWheel:
-				sel = @selector(scrollWheel:);
-				break;
-			default:
-				break;
-		}
-
-		if (sel && [view respondsToSelector:sel])
-			[view performSelector:sel withObject:evt];
-	} else {
-		[super sendEvent:evt];
-	}
+	if ([view respondsToSelector:selector])
+		[view performSelector:selector withObject:evt];
 }
 @end
 #endif
