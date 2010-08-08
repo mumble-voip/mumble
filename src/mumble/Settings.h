@@ -256,6 +256,13 @@ struct Settings {
 	// Accessibility
 	bool bHighContrast;
 
+	// Recording
+	QString qsRecordingPath;
+	QString qsRecordingFile;
+	enum RecordingMode { RecordingMixdown, RecordingMultichannel };
+	RecordingMode rmRecordingMode;
+	int iRecordingFormat;
+
 	// Nonsaved
 	LoopMode lmLoopMode;
 	float dPacketLoss;
