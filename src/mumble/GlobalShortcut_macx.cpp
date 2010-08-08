@@ -85,6 +85,7 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 	GlobalShortcutMac *gs = reinterpret_cast<GlobalShortcutMac *>(udata);
 	unsigned int keycode;
 	bool suppress = false;
+	bool forward = false;
 	bool down = false;
 	int64_t repeat = 0;
 
@@ -102,37 +103,31 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			if (keycode == 0)
 				suppress = false;
 #ifndef COMPAT_CLIENT
-			if (! suppress && g.ocIntercept) {
-				suppress = true;
-				ProcessSerialNumber psn;
-				if (GetCurrentProcess(&psn) == noErr) {
-					CGEventPostToPSN(&psn, event);
-				}
-			}
+			forward = !suppress;
 #endif
 			break;
 		}
 
+#ifndef COMPAT_CLIENT
 		case kCGEventMouseMoved:
 		case kCGEventLeftMouseDragged:
 		case kCGEventRightMouseDragged:
 		case kCGEventOtherMouseDragged: {
-#ifndef COMPAT_CLIENT
 			if (g.ocIntercept) {
 				int64_t dx = CGEventGetIntegerValueField(event, kCGMouseEventDeltaX);
 				int64_t dy = CGEventGetIntegerValueField(event, kCGMouseEventDeltaY);
 				g.ocIntercept->iMouseX = qBound<int>(0, g.ocIntercept->iMouseX + static_cast<int>(dx), g.ocIntercept->uiWidth - 1);
 				g.ocIntercept->iMouseY = qBound<int>(0, g.ocIntercept->iMouseY + static_cast<int>(dy), g.ocIntercept->uiHeight - 1);
 				QMetaObject::invokeMethod(g.ocIntercept, "updateMouse", Qt::QueuedConnection);
-				suppress = true;
-				ProcessSerialNumber psn;
-				if (GetCurrentProcess(&psn) == noErr) {
-					CGEventPostToPSN(&psn, event);
-				}
+				forward = true;
 			}
-#endif
 			break;
 		}
+
+		case kCGEventScrollWheel:
+			forward = true;
+			break;
+#endif
 
 		case kCGEventKeyDown:
 			down = true;
@@ -142,10 +137,12 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 				keycode = static_cast<unsigned int>(CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode));
 				suppress = gs->handleButton(keycode, down);
 			}
+			forward = true;
 			break;
 
 		case kCGEventFlagsChanged:
 			suppress = gs->handleModButton(CGEventGetFlags(event));
+			forward = !suppress;
 			break;
 
 		case kCGEventTapDisabledByTimeout:
@@ -167,6 +164,14 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 		default:
 			break;
 	}
+
+#ifndef COMPAT_CLIENT
+		ProcessSerialNumber psn;
+		if (forward && g.ocIntercept && GetCurrentProcess(&psn) == noErr) {
+			CGEventPostToPSN(&psn, event);
+			return NULL;
+		}
+#endif
 
 	return suppress ? NULL : event;
 }
