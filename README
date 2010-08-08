@@ -1,10 +1,9 @@
 
-
-           M U M B L E
+         M U M B L E
 
  A voicechat utility for gamers
 
-  http://mumble.sourcforge.net/
+      http://mumble.info/
 
       #mumble on freenode
 
@@ -22,8 +21,8 @@ Running Mumble
 On Windows, after installation, you should have a new Mumble folder in your
 Start Menu, from which you can start Mumble.
 
-On Mac OS X, after installation, you can launch Mumble from your Applications
-folder.
+On Mac OS X, to install Mumble, drag the application from the downloaded
+disk image into your /Applications folder.
 
 Once Mumble is launched, you need a server to connect to. Either create your
 own or join a friend's.
