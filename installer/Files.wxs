@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include "Settings.wxi" ?>
+
+  <!-- Mumble -->
+  <Fragment>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="mumble.exe" Guid="A08F7909-1116-4AC8-9422-051FA1A1BE19">
+        <File Id="mumble.exe" Source="$(var.SourceDir)\release\mumble.exe" KeyPath="yes">
+          <Shortcut Id="MumbleShortcut" Directory="ApplicationProgramsFolder" Name="Mumble" WorkingDirectory="INSTALLDIR" Icon="mumble.ico" IconIndex="0" Advertise="yes">
+            <ShortcutProperty Id="startMenu.ApplicationId" Key="System.AppUserModel.ID" Value="net.sourceforge.mumble.Mumble" />
+          </Shortcut>
+          <Shortcut Id="MumbleDesktopShortcut" Directory="DesktopFolder" Name="Mumble" WorkingDirectory="INSTALLDIR" Icon="mumble.ico" IconIndex="0" Advertise="yes">
+            <ShortcutProperty Id="desktop.ApplicationId" Key="System.AppUserModel.ID" Value="net.sourceforge.mumble.Mumble" />
+          </Shortcut>
+        </File>
+
+        <RegistryValue Root="HKCR" Key="mumble" Value="URL:Mumble" Type="string" />
+        <RegistryValue Root="HKCR" Key="mumble" Name="URL Protocol" Value="" Type="string" />
+        <RegistryValue Root="HKCR" Key="mumble\DefaultIcon" Value="[#mumble.exe]" Type="string" />
+        <RegistryValue Root="HKCR" Key="mumble\shell\open\command" Value="[#mumble.exe] &quot;%1&quot;" Type="string" />
+      </Component>
+      <?if $(var.CompatClient) = true ?>
+      <Component Id="mumble11x.exe">
+        <File Id="mumble11x.exe" Source="$(var.SourceDir)\release\mumble11x.exe" KeyPath="yes">
+          <Shortcut Id="Mumble11xShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_COMPAT_LNK)" WorkingDirectory="INSTALLDIR" Icon="mumble.ico" IconIndex="0" Advertise="yes" />
+        </File>
+      </Component>
+      <?endif ?>
+      <Component Id="mumble_ol.dll">
+        <File Source="$(var.SourceDir)\release\mumble_ol.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="celt0.0.7.0.dll">
+        <File Source="$(var.SourceDir)\release\celt0.0.7.0.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="celt0.0.8.0.dll">
+        <File Source="$(var.SourceDir)\release\celt0.0.8.0.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="speex.dll">
+        <File Source="$(var.SourceDir)\release\speex.dll" KeyPath="yes" />
+      </Component>
+
+      <Component Id="murmur.exe">
+        <File Id="murmur.exe" Source="$(var.SourceDir)\release\murmur.exe" KeyPath="yes">
+          <Shortcut Id="MurmurShortcut" Directory="ApplicationProgramsFolder" Name="Murmur" WorkingDirectory="INSTALLDIR" Icon="murmur.ico" IconIndex="0" Advertise="yes" />
+        </File>
+      </Component>
+      <Component Id="murmur.ini" NeverOverwrite="yes">
+        <File Source="$(var.SourceDir)\scripts\murmur.ini.win32" Name="murmur.ini" KeyPath="yes" />
+      </Component>
+      <Component Id="Murmur.ice">
+        <File Source="$(var.SourceDir)\src\murmur\Murmur.ice" KeyPath="yes" />
+      </Component>
+
+      <Component Id="qt.conf">
+        <File Source="$(var.SourceDir)\scripts\qt.conf" KeyPath="yes" />
+      </Component>
+
+      <Component Id="licence.txt">
+        <File Source="$(var.SourceDir)\installer\gpl.txt" Name="licence.txt" KeyPath="yes">
+          <Shortcut Id="LicenceShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_LICENSE_LNK)" Icon="Readme.txt" Advertise="yes" />
+        </File>
+      </Component>
+      <Component Id="Readme.txt">
+        <File Source="$(var.SourceDir)\README" Name="Readme.txt" KeyPath="yes">
+          <Shortcut Id="ReadmeShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_README_LNK)" Icon="Readme.txt" Advertise="yes" />
+        </File>
+      </Component>
+      <Component Id="Changes.txt">
+        <File Source="$(var.SourceDir)\CHANGES" Name="Changes.txt" KeyPath="yes" />
+      </Component>
+      <Component Id="speex.txt">
+        <File Source="$(var.SourceDir)\installer\speex.txt" KeyPath="yes">
+          <Shortcut Id="SpeexLicenceShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_SPEEX_LNK)" Icon="Readme.txt" Advertise="yes" />
+        </File>
+      </Component>
+      <Component Id="qt.txt">
+        <File Source="$(var.SourceDir)\installer\qt.txt" KeyPath="yes">
+          <Shortcut Id="QtLicenceShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_QT_LNK)" Icon="Readme.txt" Advertise="yes" />
+        </File>
+      </Component>
+
+      <Component Id="dbghelp.dll">
+        <File Source="$(var.DebugToolsDir)\dbghelp.dll" KeyPath="yes" />
+      </Component>
+
+      <?ifdef IntelCppDir ?>
+      <Component Id="libmmd.dll">
+        <File Source="$(var.IntelCppDir)\libmmd.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="celt0.0.7.0.sse.dll">
+        <File Source="$(var.SourceDir)\release\celt0.0.7.0.sse.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="celt0.0.8.0.sse.dll">
+        <File Source="$(var.SourceDir)\release\celt0.0.8.0.sse.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="celt0.0.7.0.sse2.dll">
+        <File Source="$(var.SourceDir)\release\celt0.0.7.0.sse2.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="celt0.0.8.0.sse2.dll">
+        <File Source="$(var.SourceDir)\release\celt0.0.8.0.sse2.dll" KeyPath="yes" />
+      </Component>
+      <?endif ?>
+
+      <?ifdef ProtoBufDir ?>
+      <Component Id="libprotobuf.dll">
+        <File Source="$(var.ProtoBufDir)\vsprojects\Release\libprotobuf.dll" KeyPath="yes" />
+      </Component>
+      <?endif?>
+
+      <?ifdef RedistDirVC10 ?>
+      <Component Id="msvcp100.dll">
+        <File Source="$(var.RedistDirVC10)\msvcp100.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="msvcr100.dll">
+        <File Source="$(var.RedistDirVC10)\msvcr100.dll" KeyPath="yes" />
+      </Component>
+      <?endif ?>
+    </DirectoryRef>
+  </Fragment>
+
+  <!-- DBus -->
+  <?ifdef DBusDir ?>
+  <Fragment>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="dbus1.dll">
+        <File Source="$(var.DBusDir)\bin\dbus-1.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="libxml2.dll">
+        <File Source="$(var.DBusDir)\bin\libxml2.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="iconv.dll">
+        <File Source="$(var.DBusDir)\bin\iconv.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="dbusdaemon.exe">
+        <File Source="$(var.DBusDir)\bin\dbus-daemon.exe" KeyPath="yes" />
+      </Component>
+      <Component Id="session.conf">
+        <File Source="$(var.DBusDir)\etc\session.conf" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+    <ComponentGroup Id="DBus">
+      <ComponentRef Id="dbus1.dll" />
+      <ComponentRef Id="libxml2.dll" />
+      <ComponentRef Id="iconv.dll" />
+      <ComponentRef Id="dbusdaemon.exe" />
+      <ComponentRef Id="session.conf" />
+    </ComponentGroup>
+  </Fragment>
+  <?endif ?>
+
+  <!-- libsndfile -->
+  <?ifdef SndFileDir ?>
+  <Fragment>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="libsndfile1.dll">
+        <File Source="$(var.SndFileDir)\libsndfile-1.dll" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+  <?endif ?>
+
+  <!-- MySQL -->
+  <?ifdef MySQLDir ?>
+  <Fragment>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="libmysql.dll">
+        <File Source="$(var.MySQLDir)\lib\opt\libmysql.dll" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+  <?endif ?>
+
+  <!-- Ice -->
+  <?ifdef IceDir ?>
+  <Fragment>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="bzip2.dll">
+        <File Source="$(var.IceDir)\bzip2.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="ice34.dll">
+        <File Source="$(var.IceDir)\ice34.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="iceutil34.dll">
+        <File Source="$(var.IceDir)\iceutil34.dll" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+  <?endif ?>
+
+  <!-- OpenSSL -->
+  <Fragment>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="libeay32.dll">
+        <File Source="$(var.OpenSslDir)\bin\libeay32.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="ssleay32.dll">
+        <File Source="$(var.OpenSslDir)\bin\ssleay32.dll" KeyPath="yes" />
+      </Component>
+      <?ifdef ZlibDir ?>
+      <Component Id="zlib1.dll">
+        <File Source="$(var.ZlibDir)\zlib1.dll" KeyPath="yes" />
+      </Component>
+      <?endif ?>
+    </DirectoryRef>
+  </Fragment>
+
+  <!-- Qt -->
+  <Fragment>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="QtCore4.dll">
+        <File Source="$(var.QtDir)\bin\QtCore4.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="QtGui4.dll">
+        <File Source="$(var.QtDir)\bin\QtGui4.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="QtNetwork4.dll">
+        <File Source="$(var.QtDir)\bin\QtNetwork4.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="QtOpenGL4.dll">
+        <File Source="$(var.QtDir)\bin\QtOpenGL4.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="QtSql4.dll">
+        <File Source="$(var.QtDir)\bin\QtSql4.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="QtSvg4.dll">
+        <File Source="$(var.QtDir)\bin\QtSvg4.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="QtXml4.dll">
+        <File Source="$(var.QtDir)\bin\QtXml4.dll" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+    <DirectoryRef Id="QtPluginAccessibleFolder">
+      <Component Id="qtaccessiblewidgets4.dll">
+        <File Source="$(var.QtDir)\plugins\accessible\qtaccessiblewidgets4.dll" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+    <DirectoryRef Id="QtPluginIconEnginesFolder">
+      <Component Id="qsvgicon4.dll">
+        <File Source="$(var.QtDir)\plugins\iconengines\qsvgicon4.dll" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+    <DirectoryRef Id="QtPluginImageFormatsFolder">
+      <Component Id="qgif4.dll">
+        <File Source="$(var.QtDir)\plugins\imageformats\qgif4.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="qico4.dll">
+        <File Source="$(var.QtDir)\plugins\imageformats\qico4.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="qjpeg4.dll">
+        <File Source="$(var.QtDir)\plugins\imageformats\qjpeg4.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="qmng4.dll">
+        <File Source="$(var.QtDir)\plugins\imageformats\qmng4.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="qsvg4.dll">
+        <File Source="$(var.QtDir)\plugins\imageformats\qsvg4.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="qtiff4.dll">
+        <File Source="$(var.QtDir)\plugins\imageformats\qtiff4.dll" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+    <DirectoryRef Id="QtPluginCodecsFolder">
+      <Component Id="qcncodecs4.dll">
+        <File Source="$(var.QtDir)\plugins\codecs\qcncodecs4.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="qjpcodecs4.dll">
+        <File Source="$(var.QtDir)\plugins\codecs\qjpcodecs4.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="qkrcodecs4.dll">
+        <File Source="$(var.QtDir)\plugins\codecs\qkrcodecs4.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="qtwcodecs4.dll">
+        <File Source="$(var.QtDir)\plugins\codecs\qtwcodecs4.dll" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="Qt">
+      <ComponentRef Id="QtCore4.dll" />
+      <ComponentRef Id="QtGui4.dll" />
+      <ComponentRef Id="QtNetwork4.dll" />
+      <ComponentRef Id="QtOpenGL4.dll" />
+      <ComponentRef Id="QtSql4.dll" />
+      <ComponentRef Id="QtSvg4.dll" />
+      <ComponentRef Id="QtXml4.dll" />
+
+      <ComponentRef Id="qtaccessiblewidgets4.dll" />
+      <ComponentRef Id="qsvgicon4.dll" />
+      <ComponentRef Id="qgif4.dll" />
+      <ComponentRef Id="qico4.dll" />
+      <ComponentRef Id="qjpeg4.dll" />
+      <ComponentRef Id="qmng4.dll" />
+      <ComponentRef Id="qsvg4.dll" />
+      <ComponentRef Id="qtiff4.dll" />
+      <ComponentRef Id="qcncodecs4.dll" />
+      <ComponentRef Id="qjpcodecs4.dll" />
+      <ComponentRef Id="qkrcodecs4.dll" />
+      <ComponentRef Id="qtwcodecs4.dll" />
+    </ComponentGroup>
+  </Fragment>
+
+  <!-- Directory tree -->
+  <Fragment>
+    <DirectoryRef Id="INSTALLDIR">
+      <Directory Id="PluginFolder" Name="plugins" />
+      <Directory Id="QtPluginFolder" Name="QtPlugins">
+        <Directory Id="QtPluginIconEnginesFolder" Name="iconengines" />
+        <Directory Id="QtPluginImageFormatsFolder" Name="imageformats" />
+        <Directory Id="QtPluginAccessibleFolder" Name="accessible" />
+        <Directory Id="QtPluginCodecsFolder" Name="codecs" />
+      </Directory>
+    </DirectoryRef>
+  </Fragment>
+</Wix>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <!-- For the start menu -->
+  <String Id="MUMBLE_README_LNK">Mumble Readme</String>
+  <String Id="MUMBLE_LICENSE_LNK">Mumble License</String>
+  <String Id="MUMBLE_QT_LNK">Qt License</String>
+  <String Id="MUMBLE_SPEEX_LNK">Speex License</String>
+  <String Id="MUMBLE_UNINSTALL_LNK">Uninstall Mumble</String>
+  <String Id="MUMBLE_COMPAT_LNK">Mumble (Backwards Compatible)</String>
+
+  <!-- Install sections -->
+  <String Id="MUMBLE_SEC_MUMBLE">Mumble (client)</String>
+  <String Id="MUMBLE_SEC_MUMBLE11X">Mumble (backwards compatible client)</String>
+  <String Id="MUMBLE_SEC_MURMUR">Murmur (server)</String>
+  <String Id="DESC_SectionMumble">The Mumble client, which you will need to connect to a server.</String>
+  <String Id="DESC_SectionMumble11X">The Mumble client for connecting to older servers.</String>
+  <String Id="DESC_SectionMurmur">The server for Mumble. Includes everything needed to run your own server.</String>
+</WixLocalization>

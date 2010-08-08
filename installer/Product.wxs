@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include "Settings.wxi" ?>
+
+  <Product Id="*" Name="$(var.ProductName) $(var.ProductVersion)" Language="1033" Version="$(var.ProductVersion)" Manufacturer="$(var.ProductManufacturer)" UpgradeCode="B0EEFCC7-8A9c-4471-AB10-CBD35BE3161D">
+    <Package Id="*" InstallerVersion="200" Compressed="yes" />
+
+    <Property Id='NSISINSTALL'>
+      <RegistrySearch Id='NSISSearch' Win64='no' Root='HKLM' Key='SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Mumble' Type='directory' Name='InstallLocation' />
+    </Property>
+
+    <CustomAction Id="SetNSISPath" Property="NSISPath" Value="[NSISINSTALL]Uninstall.exe" />
+    <CustomAction Id="NSISUninstall" Property="NSISPath" ExeCommand="/S _?=[NSISINSTALL]" Execute="deferred" Impersonate="no" Return="check" />
+    <UI>
+      <ProgressText Action="NSISUninstall">Uninstalling old version</ProgressText>
+    </UI>
+
+    <Property Id='INSTALLDIR'>
+      <ComponentSearch Id='SearchMumbleComponent' Guid='A08F7909-1116-4AC8-9422-051FA1A1BE19' />
+    </Property>
+
+ <!--
+    <Condition Message="Uninstall [NSISINSTALL] before installing this package.">
+      Installed OR NOT NSISINSTALL
+    </Condition>
+-->
+    <Condition Message='$(var.ProductName) requires Windows XP or higher'>
+      VersionNT >= 501
+    </Condition>
+
+    <MajorUpgrade AllowDowngrades='no' AllowSameVersionUpgrades='yes' MigrateFeatures='yes' Schedule='afterInstallInitialize' DowngradeErrorMessage='A later version of [ProductName] is already installed.' />
+
+    <Media Id="1" Cabinet="$(var.ProductName).cab" EmbedCab="yes" CompressionLevel="high" />
+
+    <UIRef Id="WixUI_FeatureTree" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+    <Property Id="ALLUSERS" Value="2" />
+    <Property Id="ARPURLINFOABOUT" Value="http://mumble.sourceforge.net/" />
+    <Property Id="ARPURLUPDATEINFO" Value="http://mumble.sourceforge.net/" />
+    <Property Id='ARPPRODUCTICON'>mumble.ico</Property>
+
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.SourceDir)\installer\gpl.rtf" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLDIR" Name="$(var.ProductName)">
+        </Directory>
+
+        <?ifdef RedistDirVC9 ?>
+          <Merge Id="VCRedist" SourceFile="$(var.RedistDirVC9)\Microsoft_VC90_CRT_x86.msm" DiskId="1" Language="0" />
+          <Merge Id='VCRedistPolicy' SourceFile='$(var.RedistDirVC9)\policy.x.xx.microsoft.vcxx.crt.x86_msm.msm' DiskId='1' Language='0' />
+        <?endif ?>
+      </Directory>
+
+      <Directory Id="DesktopFolder" />
+
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)" />
+      </Directory>
+
+      <Directory Id="AppDataFolder">
+        <Directory Id="AppDataProgramFolder" Name="$(var.ProductName)">
+          <Directory Id="AppDataPluginFolder" Name="Plugins" />
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Icon Id="mumble.ico" SourceFile="$(var.SourceDir)\icons\mumble.ico"/>
+    <Icon Id="murmur.ico" SourceFile="$(var.SourceDir)\icons\murmur.ico"/>
+    <Icon Id="Readme.txt" SourceFile="$(var.SourceDir)\installer\speex.txt"/>
+
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="UninstallShortcut" Guid="AFCE8451-06BF-4BD0-A25A-3F9832B39A0F">
+        <Shortcut Id="UninstallMumble" Name="!(loc.MUMBLE_UNINSTALL_LNK)" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" Directory="ApplicationProgramsFolder" />
+        <RegistryValue Key="Software\Mumble\Uninstall" Root="HKCU" Value="1" Type="integer" KeyPath="yes" />
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="AppDataPluginFolder">
+      <Component Id="NSISUninstall" Guid="3116B7EF-CBA3-4E0B-A2C5-0F0608038905">
+        <Condition>NOT Installed AND NSISINSTALL</Condition>
+        <RegistryValue Key="Software\Mumble\Uninstall" Root="HKCU" Value="1" Type="integer" KeyPath="yes" />
+        <RemoveFile Id="NSISUninstaller" Property="NSISINSTALL" Name="Uninstall.exe" On="install"/>
+        <RemoveFile Id="DownloadedPlugins" Directory="AppDataPluginFolder" Name="*.dll" On="install" />
+        <RemoveFolder Id="AppDataPluginFolder" On="uninstall" />
+        <RemoveFolder Id="AppDataProgramFolder" Directory="AppDataProgramFolder" On="uninstall" />
+      </Component>
+    </DirectoryRef>
+
+    <ComponentGroup Id="LibrariesCommon">
+      <ComponentGroupRef Id="Qt"/>
+
+      <ComponentRef Id="libeay32.dll" />
+      <ComponentRef Id="ssleay32.dll" />
+      <?ifdef ZlibDir ?>
+      <ComponentRef Id="zlib1.dll" />
+      <?endif ?>
+
+      <ComponentRef Id="qt.conf"/>
+
+      <ComponentRef Id="licence.txt" />
+      <ComponentRef Id="Readme.txt" />
+      <ComponentRef Id="Changes.txt" />
+      <ComponentRef Id="qt.txt" />
+
+      <ComponentRef Id="dbghelp.dll" />
+
+      <?ifdef ProtoBufDir ?>
+      <ComponentRef Id="libprotobuf.dll" />
+      <?endif ?>
+
+      <?ifdef IntelCppDir ?>
+      <ComponentRef Id="libmmd.dll"/>
+      <?endif ?>
+
+      <?ifdef RedistDirVC10 ?>
+      <ComponentRef Id="msvcp100.dll" />
+      <ComponentRef Id="msvcr100.dll" />
+      <?endif ?>
+    </ComponentGroup>
+
+    <ComponentGroup Id="ClientCommon">
+      <?ifdef SndFileDir ?>
+      <ComponentRef Id="libsndfile1.dll" />
+      <?endif ?>
+      <ComponentRef Id="speex.dll" />
+      <ComponentRef Id="speex.txt" />
+    </ComponentGroup>
+
+    <Feature Id="Mumble" Title="$(var.ProductName)" Description="!(loc.DESC_SectionMumble)" Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
+      <Feature Id="MumbleClient" Title="!(loc.MUMBLE_SEC_MUMBLE)" Description="!(loc.DESC_SectionMumble)" Level="1">
+        <ComponentGroupRef Id="ClientCommon" />
+
+        <ComponentGroupRef Id="Plugins"/>
+        <ComponentRef Id="celt0.0.7.0.dll" />
+        <ComponentRef Id="celt0.0.8.0.dll" />
+        <?ifdef IntelCppDir ?>
+        <ComponentRef Id="celt0.0.7.0.sse.dll" />
+        <ComponentRef Id="celt0.0.8.0.sse.dll" />
+        <ComponentRef Id="celt0.0.7.0.sse2.dll" />
+        <ComponentRef Id="celt0.0.8.0.sse2.dll" />
+        <?endif ?>
+        <ComponentRef Id="mumble.exe" />
+        <ComponentRef Id="mumble_ol.dll" />
+
+      </Feature>
+
+      <?if $(var.CompatClient) = true ?>
+      <Feature Id="Mumble11x" Title="!(loc.MUMBLE_SEC_MUMBLE11X)" Description="!(loc.DESC_SectionMumble11X)" Level="1000">
+        <ComponentGroupRef Id="ClientCommon" />
+
+        <ComponentRef Id="mumble11x.exe" />
+      </Feature>
+      <?endif ?>
+    </Feature>
+
+    <Feature Id="Murmur" Title="!(loc.MUMBLE_SEC_MURMUR)" Description="!(loc.DESC_SectionMurmur)" Level="1000">
+      <?ifdef IceDir ?>
+      <ComponentRef Id="bzip2.dll" />
+      <ComponentRef Id="ice34.dll" />
+      <ComponentRef Id="iceutil34.dll" />
+      <?endif ?>
+      <?ifdef MySQLDir ?>
+      <ComponentRef Id="libmysql.dll" />
+      <?endif ?>
+      <?ifdef DBusDir ?>
+      <ComponentGroupRef Id="DBus" />
+      <?endif ?>
+
+      <ComponentRef Id="murmur.exe" />
+      <ComponentRef Id="murmur.ini" />
+      <ComponentRef Id="Murmur.ice" />
+    </Feature>
+
+    <Feature Id="Libraries" Title="Required Libraries" Display="hidden" AllowAdvertise="no" Absent="disallow" Level="1">
+      <ComponentGroupRef Id="LibrariesCommon" />
+      <ComponentRef Id="UninstallShortcut" />
+      <ComponentRef Id="NSISUninstall" />
+    </Feature>
+
+    <?ifdef RedistDirVC9 ?>
+    <Feature Id="VCRedist" Title="Visual C++ 9.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
+      <MergeRef Id="VCRedist"/>
+      <MergeRef Id='VCRedistPolicy' />
+    </Feature>
+    <?endif ?>
+
+    <InstallExecuteSequence>
+      <AppSearch Sequence='1' />
+      <Custom Action="SetNSISPath" After="AppSearch">NSISINSTALL</Custom>
+      <Custom Action='NSISUninstall' After='RemoveExistingProducts'>NSISINSTALL AND NOT Installed</Custom>
+    </InstallExecuteSequence>
+  </Product>
+</Wix>
