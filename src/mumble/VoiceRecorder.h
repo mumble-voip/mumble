@@ -36,6 +36,16 @@ class ClientUser;
 class RecordUser;
 
 class VoiceRecorder : public QThread {
+  public:
+	enum Format
+	{
+		WAV = 0,
+		VORBIS,
+		AU,
+		FLAC,
+		formatEnumEnd
+	};
+
   private:
 	struct RecordBuffer {
 		const ClientUser *cuUser;
@@ -65,6 +75,7 @@ class VoiceRecorder : public QThread {
 	QString qsFileName;
 	bool bMixDown;
 	quint64 uiRecordedSamples;
+	Format fmFormat;
 
   public:
 	explicit VoiceRecorder(QObject *p);
@@ -76,9 +87,17 @@ class VoiceRecorder : public QThread {
 	void addBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples);
 	void addSilence(int samples);
 	void setSampleRate(int sampleRate);
+	int getSampleRate();
 	void setFileName(QString fn);
 	void setMixDown(bool mixDown);
 	bool getMixDown();
+	quint64 getRecordedSamples();
+	void setFormat(Format fm);
+	VoiceRecorder::Format getFormat();
+	static QString getFormatDescription(Format fm);
+	static QString getFormatDefaultExtension(Format fm);
+	static VoiceRecorder::Format getFormatFromId(QString id);
+	static QString getFormatId(QString id);
 };
 
 typedef boost::shared_ptr<VoiceRecorder> VoiceRecorderPtr;

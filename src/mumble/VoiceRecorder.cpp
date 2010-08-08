@@ -50,7 +50,7 @@ VoiceRecorder::RecordInfo::~RecordInfo() {
 
 VoiceRecorder::VoiceRecorder(QObject *p) : QThread(p), iSampleRate(0),
 	bRecording(false), bMixDown(false), uiRecordedSamples(0),
-	recordUser(new RecordUser()) {
+	recordUser(new RecordUser()), fmFormat(WAV) {
 }
 
 VoiceRecorder::~VoiceRecorder() {
@@ -64,10 +64,47 @@ void VoiceRecorder::run() {
 	if (iSampleRate == 0)
 		return;
 
-	qWarning() << "VoiceRecorder: recording started to" << qsFileName << "@" << iSampleRate << "hz";
+	SF_INFO sfinfo;
+	switch (fmFormat) {
+		case WAV:
+		default:
+			sfinfo.frames = 0;
+			sfinfo.samplerate = iSampleRate;
+			sfinfo.channels = 1;
+			sfinfo.format = SF_FORMAT_WAV | SF_FORMAT_PCM_24;
+			sfinfo.sections = 0;
+			sfinfo.seekable = 0;
+			qWarning() << "VoiceRecorder: recording started to" << qsFileName << "@" << iSampleRate << "hz in WAV format";
+			break;
+		case VORBIS:
+			sfinfo.frames = 0;
+			sfinfo.samplerate = iSampleRate;
+			sfinfo.channels = 1;
+			sfinfo.format = SF_FORMAT_OGG | SF_FORMAT_VORBIS;
+			sfinfo.sections = 0;
+			sfinfo.seekable = 0;
+			qWarning() << "VoiceRecorder: recording started to" << qsFileName << "@" << iSampleRate << "hz in OGG/Vorbis format";
+			break;
+		case AU:
+			sfinfo.frames = 0;
+			sfinfo.samplerate = iSampleRate;
+			sfinfo.channels = 1;
+			sfinfo.format = SF_ENDIAN_CPU | SF_FORMAT_AU | SF_FORMAT_FLOAT;
+			sfinfo.sections = 0;
+			sfinfo.seekable = 0;
+			qWarning() << "VoiceRecorder: recording started to" << qsFileName << "@" << iSampleRate << "hz in AU format";
+			break;
+		case FLAC:
+			sfinfo.frames = 0;
+			sfinfo.samplerate = iSampleRate;
+			sfinfo.channels = 1;
+			sfinfo.format = SF_FORMAT_FLAC | SF_FORMAT_PCM_24;
+			sfinfo.sections = 0;
+			sfinfo.seekable = 0;
+			qWarning() << "VoiceRecorder: recording started to" << qsFileName << "@" << iSampleRate << "hz in FLAC format";
+			break;
+	}
 
-	//	SF_INFO sfinfo = {0, sampleRate, 1, SF_FORMAT_FLAC | SF_FORMAT_PCM_24, 0, 0};
-	SF_INFO sfinfo = {0, iSampleRate, 1, SF_ENDIAN_CPU | SF_FORMAT_AU | SF_FORMAT_FLOAT, 0, 0};
 	Q_ASSERT(sf_format_check(&sfinfo));
 
 	bRecording = true;
@@ -153,6 +190,10 @@ void VoiceRecorder::setSampleRate(int sampleRate) {
 	iSampleRate = sampleRate;
 }
 
+int VoiceRecorder::getSampleRate() {
+	return iSampleRate;
+}
+
 void VoiceRecorder::setFileName(QString fn) {
 	Q_ASSERT(!bRecording);
 	Q_ASSERT(fn.indexOf(QLatin1String("%1"))!=-1);
@@ -168,4 +209,47 @@ void VoiceRecorder::setMixDown(bool mixDown) {
 
 bool VoiceRecorder::getMixDown() {
 	return bMixDown;
+}
+
+quint64 VoiceRecorder::getRecordedSamples() {
+	return uiRecordedSamples;
+}
+
+void VoiceRecorder::setFormat(Format fm) {
+	Q_ASSERT(!bRecording);
+	fmFormat = fm;
+}
+
+VoiceRecorder::Format VoiceRecorder::getFormat() {
+	return fmFormat;
+}
+
+QString VoiceRecorder::getFormatDescription(Format fm) {
+	switch (fm) {
+		case WAV:
+			return tr(".wav - Uncompressed");
+		case VORBIS:
+			return tr(".ogg (Vorbis) - Compressed");
+		case AU:
+			return tr(".au - Uncompressed");
+		case FLAC:
+			return tr(".flac - Lossless compressed");
+		default:
+			return QString();
+	}
+}
+
+QString VoiceRecorder::getFormatDefaultExtension(Format fm) {
+	switch (fm) {
+		case WAV:
+			return QLatin1String("wav");
+		case VORBIS:
+			return QLatin1String("ogg");
+		case AU:
+			return QLatin1String("au");
+		case FLAC:
+			return QLatin1String("flac");
+		default:
+			return QString();
+	}
 }
