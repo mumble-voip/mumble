@@ -48,9 +48,9 @@ VoiceRecorder::RecordInfo::~RecordInfo() {
 	}
 }
 
-VoiceRecorder::VoiceRecorder(QObject *p) : QThread(p), iSampleRate(0),
-	bRecording(false), bMixDown(false), uiRecordedSamples(0),
-	recordUser(new RecordUser()), fmFormat(WAV) {
+VoiceRecorder::VoiceRecorder(QObject *p) : QThread(p), recordUser(new RecordUser()),
+	iSampleRate(0), bRecording(false), bMixDown(false),
+	uiRecordedSamples(0), fmFormat(WAV) {
 }
 
 VoiceRecorder::~VoiceRecorder() {
@@ -112,7 +112,7 @@ void VoiceRecorder::run() {
 		qmSleepLock.lock();
 		qwcSleep.wait(&qmSleepLock);
 
-		if (!bRecording)  {
+		if (!bRecording) {
 			qmSleepLock.unlock();
 			break;
 		}
@@ -222,6 +222,10 @@ void VoiceRecorder::setFormat(Format fm) {
 
 VoiceRecorder::Format VoiceRecorder::getFormat() {
 	return fmFormat;
+}
+
+RecordUser &VoiceRecorder::getRecordUser() {
+	return *recordUser;
 }
 
 QString VoiceRecorder::getFormatDescription(Format fm) {

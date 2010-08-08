@@ -889,7 +889,7 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 	if (g.sh) {
 		VoiceRecorderPtr recorder(g.sh->recorder);
 		if (recorder) {
-			recorder->recordUser->addFrame(QByteArray(data, pds.size() + 1));
+			recorder->getRecordUser().addFrame(QByteArray(data, pds.size() + 1));
 		}
 	}
 

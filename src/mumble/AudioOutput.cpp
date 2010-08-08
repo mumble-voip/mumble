@@ -515,10 +515,11 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 			if (p == &LoopUser::lpLoopy) {
 				LoopUser::lpLoopy.fetchFrames();
 			} else {
-				// LoopUser is not not a typo
-				LoopUser *ru = qobject_cast<RecordUser *>(p);
-				if (ru) {
-					ru->fetchFrames();
+				if (g.sh) {
+					VoiceRecorderPtr vc(g.sh->recorder);
+					if (vc) {
+						vc->getRecordUser().fetchFrames();
+					}
 				}
 			}
 

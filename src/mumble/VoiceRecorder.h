@@ -66,6 +66,8 @@ class VoiceRecorder : public QThread {
 	QHash< int, boost::shared_ptr<RecordInfo> > qhRecordInfo;
 	QList< boost::shared_ptr<RecordBuffer> > qlRecordBuffer;
 
+	boost::scoped_ptr<RecordUser> recordUser;
+
 	QMutex qmBufferLock;
 	QMutex qmSleepLock;
 	QWaitCondition qwcSleep;
@@ -80,7 +82,6 @@ class VoiceRecorder : public QThread {
   public:
 	explicit VoiceRecorder(QObject *p);
 	~VoiceRecorder();
-	boost::scoped_ptr<RecordUser> recordUser;
 
 	void run();
 	void stop();
@@ -98,6 +99,7 @@ class VoiceRecorder : public QThread {
 	static QString getFormatDefaultExtension(Format fm);
 	static VoiceRecorder::Format getFormatFromId(QString id);
 	static QString getFormatId(QString id);
+	RecordUser &getRecordUser();
 };
 
 typedef boost::shared_ptr<VoiceRecorder> VoiceRecorderPtr;
