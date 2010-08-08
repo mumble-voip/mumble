@@ -122,6 +122,7 @@ class ServerHandler : public QThread {
 		void removeChannelLink(unsigned int channel, unsigned int link);
 		void requestChannelPermissions(unsigned int channel);
 		void setSelfMuteDeafState(bool mute, bool deaf);
+		void announceRecordingState(bool recording);
 
 		void disconnect();
 		void run();

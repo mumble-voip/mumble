@@ -51,7 +51,7 @@
      <x>0</x>
      <y>0</y>
      <width>671</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="qmConfig">
@@ -84,6 +84,8 @@
     <addaction name="qaAudioMute"/>
     <addaction name="qaAudioDeaf"/>
     <addaction name="qaSelfPrioritySpeaker"/>
+    <addaction name="separator"/>
+    <addaction name="qaRecording"/>
     <addaction name="separator"/>
     <addaction name="qaSelfComment"/>
     <addaction name="qaServerTexture"/>
@@ -174,6 +176,7 @@
    <addaction name="separator"/>
    <addaction name="qaAudioMute"/>
    <addaction name="qaAudioDeaf"/>
+   <addaction name="qaRecording"/>
    <addaction name="separator"/>
    <addaction name="qaSelfComment"/>
    <addaction name="separator"/>
@@ -508,9 +511,6 @@
    <property name="whatsThis">
     <string>Allows you to change most settings for Mumble.</string>
    </property>
-   <property name="menuRole">
-    <enum>QAction::PreferencesRole</enum>
-   </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>
    </property>
@@ -546,9 +546,6 @@
    </property>
    <property name="whatsThis">
     <string>Shows a small dialog with information and license for Mumble.</string>
-   </property>
-   <property name="menuRole">
-    <enum>QAction::AboutRole</enum>
    </property>
   </action>
   <action name="qaHelpAboutSpeex">
@@ -785,6 +782,15 @@
    </property>
    <property name="text">
     <string>Priority speaker</string>
+   </property>
+  </action>
+  <action name="qaRecording">
+   <property name="icon">
+    <iconset resource="mumble_tango.qrc">
+     <normaloff>:/actions/media-record.svg</normaloff>:/actions/media-record.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Recording</string>
    </property>
   </action>
  </widget>
