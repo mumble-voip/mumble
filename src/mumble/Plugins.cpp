@@ -449,6 +449,7 @@ void Plugins::checkUpdates() {
 	url.addQueryItem(QLatin1String("ver"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
 #if defined(Q_OS_WIN)
 	url.addQueryItem(QLatin1String("os"), QLatin1String("Win32"));
+	url.addQueryItem(QLatin1String("abi"), QLatin1String(MUMTEXT(_MSC_VER)));
 #elif defined(Q_OS_MAC)
 	url.addQueryItem(QLatin1String("os"), QLatin1String("MacOSX"));
 #else
