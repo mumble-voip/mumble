@@ -1041,11 +1041,13 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	for (int i=0;i < msg.session_size(); ++i) {
 		unsigned int session = msg.session(i);
 		ServerUser *u = qhUsers.value(session);
-		if (! ChanACL::hasPermission(uSource, u->cChannel, ChanACL::TextMessage, acCache)) {
-			PERM_DENIED(uSource, u->cChannel, ChanACL::TextMessage);
-			return;
+		if (u) {
+			if (! ChanACL::hasPermission(uSource, u->cChannel, ChanACL::TextMessage, acCache)) {
+				PERM_DENIED(uSource, u->cChannel, ChanACL::TextMessage);
+				return;
+			}
+			users.insert(u);
 		}
-		users.insert(u);
 	}
 
 	users.remove(uSource);
