@@ -94,7 +94,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	new_context << "<context>"
 	<< "<game>tf2</game>"
-	<< "<hostport>" << chHostStr << "</hostport>"
+	<< "<hostport>" << sHost << "</hostport>"
 	<< "</context>";
 	context = new_context.str();
 

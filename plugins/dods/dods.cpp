@@ -89,6 +89,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	sHost.assign(chHostStr);
 	if (sHost.find(':')==string::npos)
+		sHost.append(":27015");
 
 		new_context << "<context>"
 		<< "<game>dods</game>"

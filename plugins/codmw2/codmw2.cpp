@@ -140,10 +140,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 MP v1.1.195 only. No context or identity support yet.");
+	return std::wstring(L"Supports Call of Duty: Modern Warfare 2 MP v1.2.208 only. No context or identity support yet.");
 }
 
-static std::wstring description(L"Call of Duty: Modern Warfare 2 MP v1.1.195");
+static std::wstring description(L"Call of Duty: Modern Warfare 2 MP v1.2.208");
 static std::wstring shortname(L"Call of Duty: Modern Warfare 2 MP");
 
 static int trylock1() {
