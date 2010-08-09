@@ -50,7 +50,7 @@ VoiceRecorder::RecordInfo::~RecordInfo() {
 
 VoiceRecorder::VoiceRecorder(QObject *p) : QThread(p), recordUser(new RecordUser()),
 	iSampleRate(0), bRecording(false), bMixDown(false),
-	uiRecordedSamples(0), fmFormat(WAV) {
+	uiRecordedSamples(0), fmFormat(VoiceRecorderFormat::WAV) {
 }
 
 VoiceRecorder::~VoiceRecorder() {
@@ -66,7 +66,7 @@ void VoiceRecorder::run() {
 
 	SF_INFO sfinfo;
 	switch (fmFormat) {
-		case WAV:
+		case VoiceRecorderFormat::WAV:
 		default:
 			sfinfo.frames = 0;
 			sfinfo.samplerate = iSampleRate;
@@ -76,7 +76,7 @@ void VoiceRecorder::run() {
 			sfinfo.seekable = 0;
 			qWarning() << "VoiceRecorder: recording started to" << qsFileName << "@" << iSampleRate << "hz in WAV format";
 			break;
-		case VORBIS:
+		case VoiceRecorderFormat::VORBIS:
 			sfinfo.frames = 0;
 			sfinfo.samplerate = iSampleRate;
 			sfinfo.channels = 1;
@@ -85,7 +85,7 @@ void VoiceRecorder::run() {
 			sfinfo.seekable = 0;
 			qWarning() << "VoiceRecorder: recording started to" << qsFileName << "@" << iSampleRate << "hz in OGG/Vorbis format";
 			break;
-		case AU:
+		case VoiceRecorderFormat::AU:
 			sfinfo.frames = 0;
 			sfinfo.samplerate = iSampleRate;
 			sfinfo.channels = 1;
@@ -94,7 +94,7 @@ void VoiceRecorder::run() {
 			sfinfo.seekable = 0;
 			qWarning() << "VoiceRecorder: recording started to" << qsFileName << "@" << iSampleRate << "hz in AU format";
 			break;
-		case FLAC:
+		case VoiceRecorderFormat::FLAC:
 			sfinfo.frames = 0;
 			sfinfo.samplerate = iSampleRate;
 			sfinfo.channels = 1;
@@ -190,7 +190,7 @@ void VoiceRecorder::setSampleRate(int sampleRate) {
 	iSampleRate = sampleRate;
 }
 
-int VoiceRecorder::getSampleRate() {
+int VoiceRecorder::getSampleRate() const {
 	return iSampleRate;
 }
 
@@ -207,51 +207,51 @@ void VoiceRecorder::setMixDown(bool mixDown) {
 	bMixDown = mixDown;
 }
 
-bool VoiceRecorder::getMixDown() {
+bool VoiceRecorder::getMixDown() const {
 	return bMixDown;
 }
 
-quint64 VoiceRecorder::getRecordedSamples() {
+quint64 VoiceRecorder::getRecordedSamples() const {
 	return uiRecordedSamples;
 }
 
-void VoiceRecorder::setFormat(Format fm) {
+RecordUser &VoiceRecorder::getRecordUser() const {
+	return *recordUser;
+}
+
+void VoiceRecorder::setFormat(VoiceRecorderFormat::Format fm) {
 	Q_ASSERT(!bRecording);
 	fmFormat = fm;
 }
 
-VoiceRecorder::Format VoiceRecorder::getFormat() {
+VoiceRecorderFormat::Format VoiceRecorder::getFormat() const {
 	return fmFormat;
 }
 
-RecordUser &VoiceRecorder::getRecordUser() {
-	return *recordUser;
-}
-
-QString VoiceRecorder::getFormatDescription(Format fm) {
+QString VoiceRecorder::getFormatDescription(VoiceRecorderFormat::Format fm) {
 	switch (fm) {
-		case WAV:
+		case VoiceRecorderFormat::WAV:
 			return tr(".wav - Uncompressed");
-		case VORBIS:
+		case VoiceRecorderFormat::VORBIS:
 			return tr(".ogg (Vorbis) - Compressed");
-		case AU:
+		case VoiceRecorderFormat::AU:
 			return tr(".au - Uncompressed");
-		case FLAC:
+		case VoiceRecorderFormat::FLAC:
 			return tr(".flac - Lossless compressed");
 		default:
 			return QString();
 	}
 }
 
-QString VoiceRecorder::getFormatDefaultExtension(Format fm) {
+QString VoiceRecorder::getFormatDefaultExtension(VoiceRecorderFormat::Format fm) {
 	switch (fm) {
-		case WAV:
+		case VoiceRecorderFormat::WAV:
 			return QLatin1String("wav");
-		case VORBIS:
+		case VoiceRecorderFormat::VORBIS:
 			return QLatin1String("ogg");
-		case AU:
+		case VoiceRecorderFormat::AU:
 			return QLatin1String("au");
-		case FLAC:
+		case VoiceRecorderFormat::FLAC:
 			return QLatin1String("flac");
 		default:
 			return QString();

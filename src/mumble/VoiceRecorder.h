@@ -35,10 +35,8 @@
 class ClientUser;
 class RecordUser;
 
-class VoiceRecorder : public QThread {
-  public:
-	enum Format
-	{
+namespace VoiceRecorderFormat {
+	enum Format {
 		WAV = 0,
 		VORBIS,
 		AU,
@@ -46,6 +44,9 @@ class VoiceRecorder : public QThread {
 		formatEnumEnd
 	};
 
+};
+
+class VoiceRecorder : public QThread {
   private:
 	struct RecordBuffer {
 		const ClientUser *cuUser;
@@ -77,7 +78,7 @@ class VoiceRecorder : public QThread {
 	QString qsFileName;
 	bool bMixDown;
 	quint64 uiRecordedSamples;
-	Format fmFormat;
+	VoiceRecorderFormat::Format fmFormat;
 
   public:
 	explicit VoiceRecorder(QObject *p);
@@ -88,18 +89,19 @@ class VoiceRecorder : public QThread {
 	void addBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples);
 	void addSilence(int samples);
 	void setSampleRate(int sampleRate);
-	int getSampleRate();
+	int getSampleRate() const;
 	void setFileName(QString fn);
 	void setMixDown(bool mixDown);
-	bool getMixDown();
-	quint64 getRecordedSamples();
-	void setFormat(Format fm);
-	VoiceRecorder::Format getFormat();
-	static QString getFormatDescription(Format fm);
-	static QString getFormatDefaultExtension(Format fm);
-	static VoiceRecorder::Format getFormatFromId(QString id);
-	static QString getFormatId(QString id);
-	RecordUser &getRecordUser();
+	bool getMixDown() const;
+	quint64 getRecordedSamples() const;
+	RecordUser &getRecordUser() const;
+
+	void setFormat(VoiceRecorderFormat::Format fm);
+	VoiceRecorderFormat::Format getFormat() const;
+	static QString getFormatDescription(VoiceRecorderFormat::Format fm);
+	static QString getFormatDefaultExtension(VoiceRecorderFormat::Format fm);
+	static VoiceRecorderFormat::Format getFormatFromId(QString &id);
+	static QString getFormatId(QString &id);
 };
 
 typedef boost::shared_ptr<VoiceRecorder> VoiceRecorderPtr;

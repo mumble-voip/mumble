@@ -14,12 +14,12 @@ VoiceRecorderDialog::VoiceRecorderDialog(QWidget *p = NULL) : QDialog(p), qtTime
 	qrbMixdown->setChecked(g.s.rmRecordingMode == Settings::RecordingMixdown);
 
 	// Populate available codecs
-	Q_ASSERT(VoiceRecorder::formatEnumEnd != 0);
-	for (int fm = 0; fm < VoiceRecorder::formatEnumEnd; fm++) {
-		qcbFormat->addItem(VoiceRecorder::getFormatDescription((VoiceRecorder::Format) fm));
+	Q_ASSERT(VoiceRecorderFormat::formatEnumEnd != 0);
+	for (int fm = 0; fm < VoiceRecorderFormat::formatEnumEnd; fm++) {
+		qcbFormat->addItem(VoiceRecorder::getFormatDescription(static_cast<VoiceRecorderFormat::Format>(fm)));
 	}
 
-	if (g.s.iRecordingFormat < 0 || g.s.iRecordingFormat > VoiceRecorder::formatEnumEnd)
+	if (g.s.iRecordingFormat < 0 || g.s.iRecordingFormat > VoiceRecorderFormat::formatEnumEnd)
 		g.s.iRecordingFormat = 0;
 
 	qcbFormat->setCurrentIndex(g.s.iRecordingFormat);
@@ -116,7 +116,7 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 	QString basename(fi.baseName());
 	QString suffix(fi.completeSuffix());
 	if (suffix.isEmpty())
-		suffix = VoiceRecorder::getFormatDefaultExtension((VoiceRecorder::Format) ifm);
+		suffix = VoiceRecorder::getFormatDefaultExtension(static_cast<VoiceRecorderFormat::Format>(ifm));
 
 
 	if (basename.indexOf(QLatin1String("%1")) == -1) {
@@ -138,7 +138,7 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 	recorder->setSampleRate(ao->getMixerFreq());
 	recorder->setFileName(dir.absoluteFilePath(qleFilename->text()));
 	recorder->setMixDown(qrbMixdown->isChecked());
-	recorder->setFormat((VoiceRecorder::Format) ifm);
+	recorder->setFormat(static_cast<VoiceRecorderFormat::Format>(ifm));
 
 	recorder->start();
 	qtTimer->start();
