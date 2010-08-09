@@ -123,7 +123,7 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 		basename += QLatin1String("%1");
 	}
 
-	qleFilename->setText(basename + QLatin1Char('.') + suffix);
+	qleFilename->setText(basename);
 
 	AudioOutputPtr ao(g.ao);
 	if (!ao)
@@ -136,7 +136,7 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 
 	// Configure it
 	recorder->setSampleRate(ao->getMixerFreq());
-	recorder->setFileName(dir.absoluteFilePath(qleFilename->text()));
+	recorder->setFileName(dir.absoluteFilePath(basename + QLatin1Char('.') + suffix));
 	recorder->setMixDown(qrbMixdown->isChecked());
 	recorder->setFormat(static_cast<VoiceRecorderFormat::Format>(ifm));
 
@@ -165,6 +165,12 @@ void VoiceRecorderDialog::on_qpbStop_clicked() {
 	recorder->stop();
 	g.sh->recorder.reset();
 	g.sh->announceRecordingState(false);
+
+	qpbStart->setEnabled(true);
+	qpbStop->setDisabled(true);
+
+	qgbMode->setEnabled(true);
+	qgbOutput->setEnabled(true);
 }
 
 void VoiceRecorderDialog::on_qtTimer_timeout() {

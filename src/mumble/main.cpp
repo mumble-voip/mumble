@@ -449,6 +449,7 @@ int main(int argc, char **argv) {
 	delete srpc;
 
 	delete g.sh;
+	g.sh = NULL;
 	delete g.mw;
 
 	delete g.nam;
