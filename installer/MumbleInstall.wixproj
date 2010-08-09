@@ -22,8 +22,9 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>
     </DefineConstants>
-    <LinkerAdditionalOptions>-ext WixUIExtension</LinkerAdditionalOptions>
-    <VerboseOutput>False</VerboseOutput>
+    <LinkerAdditionalOptions>-ext WixUIExtension -cc obj -reusecab</LinkerAdditionalOptions>
+    <VerboseOutput>True</VerboseOutput>
+    <SuppressValidation>True</SuppressValidation>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Files.wxs" />
@@ -31,10 +32,26 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="English.wxl" />
+    <EmbeddedResource Include="Translations\Czech.wxl" />
+    <EmbeddedResource Include="Translations\Danish.wxl" />
+    <EmbeddedResource Include="Translations\Dutch.wxl" />
+    <EmbeddedResource Include="Translations\English.wxl" />
+    <EmbeddedResource Include="Translations\French.wxl" />
+    <EmbeddedResource Include="Translations\German.wxl" />
+    <EmbeddedResource Include="Translations\Italian.wxl" />
+    <EmbeddedResource Include="Translations\Japanese.wxl" />
+    <EmbeddedResource Include="Translations\Norwegian.wxl" />
+    <EmbeddedResource Include="Translations\Polish.wxl" />
+    <EmbeddedResource Include="Translations\Russian.wxl" />
+    <EmbeddedResource Include="Translations\SimpChinese.wxl" />
+    <EmbeddedResource Include="Translations\Spanish.wxl" />
+    <EmbeddedResource Include="Translations\TradChinese.wxl" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Settings.wxi" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Translations" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--

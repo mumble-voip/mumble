@@ -11,11 +11,11 @@
   <?define OpenSslDir = "\dev\openssl" ?>
   <?define DebugToolsDir = "\Program Files (x86)\Debugging Tools for Windows (x86)" ?>
   <?define DebugToolsDir = "C:\Windows\System32" ?>
-  <?define RedistDirVC10 = "$(var.DevEnvDir)\..\..\VC\redist\x86\Microsoft.VC100.CRT" ?>
+  <?define MergeModuleDir = "C:\Program Files (x86)\Common Files\Merge Modules" ?>
   <?define ZlibDir = "\dev\zlib" ?>
 
   <!--
-  <?define RedistDirVC9 = "$(var.DevEnvDir)\..\..\VC\redist\x86" ?>
+  <?define RedistDirVC10 = "$(var.DevEnvDir)\..\..\VC\redist\x86\Microsoft.VC100.CRT" ?>
   <?define IntelCppDir = "\Program Files (x86)\Intel\Compiler\11.1\054\Bin\ia32" ?>
   <?define SndFileDir = "\dev\libsndfile" ?>
   <?define DBusDir = "\dev\dbus" ?>

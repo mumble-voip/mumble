@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="zh-cn" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="LANG">4</String>
+
+  <String Id="MUMBLE_CREATE_SHORTCUT">创建桌面快捷图标</String>
+  <String Id="MUMBLE_DONATE">向 Mumble 项目捐款</String>
+  <String Id="MUMBLE_TERMINATE_DBUS">Mumble 依赖的 DBus 守护进程目前正在运行。 终止该进程然后继续升级？</String>
+  <String Id="MUMBLE_NO_SSE">Mumble 需要 SSE，该功能被 Intel Pentium III， AMD Athlon XP 或者较新的 CPU 所支持。 您的 CPU 不支持 SSE， Mumble 不能正常工作。您依然要继续安装 Mumble 吗？</String>
+  <String Id="MUMBLE_NO_XP">Mumble 只能运行在 Windows XP SP2 或较新的操作系统上。 现在检测到了一个老的或者不兼容的操作系统，Mumble 不能正常工作。您依然要继续安装 Mumble 吗?</String>
+  <String Id="MUMBLE_START">启动 Mumble</String>
+
+  <!-- For the start menu -->
+  <String Id="MUMBLE_README_LNK">Mumble 自我描叙</String>
+  <String Id="MUMBLE_LICENSE_LNK">Mumble 许可</String>
+  <String Id="MUMBLE_QT_LNK">Qt 许可</String>
+  <String Id="MUMBLE_SPEEX_LNK">Speex 许可</String>
+  <String Id="MUMBLE_UNINSTALL_LNK">卸载 Mumble</String>
+  <String Id="MUMBLE_COMPAT_LNK">Mumble（与老版本兼容）</String>
+
+  <!-- Install types -->
+  <String Id="INSTALL_FULL">完全</String>
+  <String Id="INSTALL_CLIENT">仅客户端</String>
+  <String Id="INSTALL_SERVER">仅服务器端</String>
+
+  <!-- Install sections -->
+  <String Id="MUMBLE_SEC_MUMBLE">Mumble（客户端）</String>
+  <String Id="MUMBLE_SEC_MUMBLE11X">Mumble（与老版本兼容的客户端）</String>
+  <String Id="MUMBLE_SEC_MURMUR">Murmur（服务器端）</String>
+  <String Id="MUMBLE_SEC_BONJOUR">Bonjour for Windows</String>
+  <String Id="DESC_SectionMumble">该 Mumble 客户端用于连接到一个服务器。</String>
+  <String Id="DESC_SectionMumble11X">该 Mumble 客户端用于连接到一个老的服务器。</String>
+  <String Id="DESC_SectionMurmur">Mumble 服务器端包含所有您运行个人服务器所必须的文件。</String>
+  <String Id="DESC_SectionBonjour">Bonjour enables announcement and discovery of Murmur servers on your LAN. This will download and run the Bonjour installer.</String>
+
+  <!-- Uninstall sections -->
+  <String Id="MUMBLE_UNSEC_BASE">Mumble 和 Murmur</String>
+  <String Id="MUMBLE_UNSEC_ALL">个人偏好和数据库</String>
+  <String Id="DESC_SectionUninstBase">卸载 Mumble 和 Murmur 应用程序</String>
+  <String Id="DESC_SectionUninstAll">完全卸载 Mumble 和 Murmur， 包括个人偏好和数据库。</String>
+
+  <!-- Already installed -->
+  <String Id="MUMBLE_ALREADY_INSTALLED">Mumble 已经安装。 我们建议您安装之前卸载现有版本。 选择您想要进行的操作然后点下一步。</String>
+  <String Id="MUMBLE_ALREADY_INSTALLED_HEAD">已安装</String>
+  <String Id="MUMBLE_ALREADY_INSTALLED_SUBTEXT">选择怎样安装 Mumble。</String>
+  <String Id="MUMBLE_UNINSTALL">安装前卸载现有版本</String>
+  <String Id="MUMBLE_NO_UNINSTALL">不要卸载现有版本</String>
+</WixLocalization>

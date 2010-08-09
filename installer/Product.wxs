@@ -2,8 +2,8 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?include "Settings.wxi" ?>
 
-  <Product Id="*" Name="$(var.ProductName) $(var.ProductVersion)" Language="1033" Version="$(var.ProductVersion)" Manufacturer="$(var.ProductManufacturer)" UpgradeCode="B0EEFCC7-8A9c-4471-AB10-CBD35BE3161D">
-    <Package Id="*" InstallerVersion="200" Compressed="yes" />
+  <Product Id="*" Name="$(var.ProductName) $(var.ProductVersion)" Language="!(loc.LANG)" Version="$(var.ProductVersion)" Manufacturer="$(var.ProductManufacturer)" UpgradeCode="B0EEFCC7-8A9c-4471-AB10-CBD35BE3161D">
+    <Package Id="*" InstallerVersion="300" Compressed="yes" Languages="0,1033,4,1029,1030,1031,1034,1036,1040,1041,1043,1044,1045,1049,31748" />
 
     <Property Id='NSISINSTALL'>
       <RegistrySearch Id='NSISSearch' Win64='no' Root='HKLM' Key='SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Mumble' Type='directory' Name='InstallLocation' />
@@ -35,7 +35,7 @@
     <UIRef Id="WixUI_FeatureTree" />
     <UIRef Id="WixUI_ErrorProgressText" />
 
-    <Property Id="ALLUSERS" Value="2" />
+    <Property Id="ALLUSERS" Value="1" />
     <Property Id="ARPURLINFOABOUT" Value="http://mumble.sourceforge.net/" />
     <Property Id="ARPURLUPDATEINFO" Value="http://mumble.sourceforge.net/" />
     <Property Id='ARPPRODUCTICON'>mumble.ico</Property>
@@ -47,9 +47,8 @@
         <Directory Id="INSTALLDIR" Name="$(var.ProductName)">
         </Directory>
 
-        <?ifdef RedistDirVC9 ?>
-          <Merge Id="VCRedist" SourceFile="$(var.RedistDirVC9)\Microsoft_VC90_CRT_x86.msm" DiskId="1" Language="0" />
-          <Merge Id='VCRedistPolicy' SourceFile='$(var.RedistDirVC9)\policy.x.xx.microsoft.vcxx.crt.x86_msm.msm' DiskId='1' Language='0' />
+        <?ifdef MergeModuleDir ?>
+          <Merge Id="VCRedist" SourceFile="$(var.MergeModuleDir)\Microsoft_VC100_CRT_x86.msm" DiskId="1" Language="1033" />
         <?endif ?>
       </Directory>
 
@@ -180,10 +179,9 @@
       <ComponentRef Id="NSISUninstall" />
     </Feature>
 
-    <?ifdef RedistDirVC9 ?>
-    <Feature Id="VCRedist" Title="Visual C++ 9.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
+    <?ifdef MergeModuleDir ?>
+    <Feature Id="VCRedist" Title="Visual C++ 10.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
       <MergeRef Id="VCRedist"/>
-      <MergeRef Id='VCRedistPolicy' />
     </Feature>
     <?endif ?>
 

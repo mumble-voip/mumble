@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="nl-nl" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="LANG">1043</String>
+
+  <!-- Dutch Translation <meanracoon@users.sourceforge.net> or <racoon@meanclan.org> -->
+  <String Id="MUMBLE_CREATE_SHORTCUT">Maak bureaublad snelkoppeling aan</String>
+  <String Id="MUMBLE_DONATE">Donateer aan het Mumble project</String>
+  <String Id="MUMBLE_TERMINATE_DBUS">De DBus daemon die wordt gebruikt door Mumble is op dit moment actief. Sluit de daemon af zodat hij kan worden geupdate?</String>
+  <String Id="MUMBLE_NO_SSE">Mumble vereist SSE, dit is een eigenschap alleen gevonden op Intel Pentium III, AMD Athlon XP of nieuwere processoren. SSE is niet op deze processor gevonden, het is daarom onwaarschijnlijk dat Mumble werkt. Wilt u nog steeds Mumble installeren?</String>
+  <String Id="MUMBLE_NO_XP">Mumble werkt alleen op Windows XP SP2 of nieuwer. Een ouder en niet compatibel besturingsysteeem is gedetecteerd, het is daarom onwaarschijnlijk dat Mumble werkt. Wilt u nog steeds Mumble installeren?</String>
+  <String Id="MUMBLE_START">Start Mumble</String>
+
+  <!-- For the start menu -->
+  <String Id="MUMBLE_README_LNK">Mumble Leesmij</String>
+  <String Id="MUMBLE_LICENSE_LNK">Mumble Licentie</String>
+  <String Id="MUMBLE_QT_LNK">Qt Licentie</String>
+  <String Id="MUMBLE_SPEEX_LNK">Speex Licentie</String>
+  <String Id="MUMBLE_UNINSTALL_LNK">Deinstalleer Mumble</String>
+  <String Id="MUMBLE_COMPAT_LNK">Mumble (Achterwaarts compatibel)</String>
+
+  <!-- Install types -->
+  <String Id="INSTALL_FULL">Compleet</String>
+  <String Id="INSTALL_CLIENT">Alleen client</String>
+  <String Id="INSTALL_SERVER">Alleen server</String>
+
+  <!-- Install sections -->
+  <String Id="MUMBLE_SEC_MUMBLE">Mumble (client)</String>
+  <String Id="MUMBLE_SEC_MUMBLE11X">Mumble (achterwaarts compatibele client)</String>
+  <String Id="MUMBLE_SEC_MURMUR">Murmur (server)</String>
+  <String Id="MUMBLE_SEC_BONJOUR">Bonjour voor windows</String>
+  <String Id="DESC_SectionMumble">De Mumble client, die u nodig heeft om verbinding te maken met een server.</String>
+  <String Id="DESC_SectionMumble11X">De Mumble client om verbinding te maken met oudere (versie)servers.</String>
+  <String Id="DESC_SectionMurmur">De server voor Mumble. Bevat alles om je eigen server te maken.</String>
+  <String Id="DESC_SectionBonjour">Bonjour ontdekt en geeft aan of er Murmur servers op uw netwerk aanwezig zijn. Dit downloadt en installeert de Bonjour installatie.</String>
+
+  <!-- Uninstall sections -->
+  <String Id="MUMBLE_UNSEC_BASE">Mumble en Murmur</String>
+  <String Id="MUMBLE_UNSEC_ALL">Voorkeuren en databases</String>
+  <String Id="DESC_SectionUninstBase">Verwijder Mumble en Murmur programmas</String>
+  <String Id="DESC_SectionUninstAll">Verwijder alle sporen van Mumble of Murmur, inclusief voorkeuren en databases.</String>
+
+  <!-- Already installed -->
+  <String Id="MUMBLE_ALREADY_INSTALLED">Mumble is reeds geinstalleerd. Het is aanbevolen dat u de reeds geinstalleerde versie verwijdert voordat u verder gaat met de installatie. Selecteer de bewerking die u wilt uitvoeren en klik op Volgende om verder te gaan.</String>
+  <String Id="MUMBLE_ALREADY_INSTALLED_HEAD">Reeds geinstalleerd</String>
+  <String Id="MUMBLE_ALREADY_INSTALLED_SUBTEXT">Kies hoe u Mumble wilt installeren.</String>
+  <String Id="MUMBLE_UNINSTALL">Verwijder voor installeren</String>
+  <String Id="MUMBLE_NO_UNINSTALL">Niet verwijderen</String>
+</WixLocalization>

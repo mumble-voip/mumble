@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="cs-cz" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="LANG">1029</String>
+
+  <!-- Czech translation by Phrag <info@clanwars.cz> -->
+  <String Id="MUMBLE_CREATE_SHORTCUT">Vytvořit zástupce na ploše</String>
+  <String Id="MUMBLE_DONATE">Přispět na projekt Mumble</String>
+  <String Id="MUMBLE_TERMINATE_DBUS">DBus daemon,který Mumble používá je právě spuštěn. Ukončit daemon aby mohl být aktualizován?</String>
+  <String Id="MUMBLE_NO_SSE">Mumble potřebuje SSE, což je funkce processorů Intel Pentium III, AMD Athlon XP nebo novějších. SSE nebylo nalezeno na vašem processoru, a Mumble asi nebude fungovat. Chcete i přes to nainstalovat Mumble?</String>
+  <String Id="MUMBLE_NO_XP">Mumble bude fungovat jen na Windows XP SP2 nebo novějších. Byl nalezen starši, nebo nekompatibilní operační systém, a Mumble asi nebude fungovat. Chcete i přes to nainstalovat Mumble?</String>
+  <String Id="MUMBLE_START">Spustit Mumble</String>
+
+  <!-- For the start menu -->
+  <String Id="MUMBLE_README_LNK">Mumble Čti Mě</String>
+  <String Id="MUMBLE_LICENSE_LNK">Mumble Licence</String>
+  <String Id="MUMBLE_QT_LNK">Qt Licence</String>
+  <String Id="MUMBLE_SPEEX_LNK">Speex Licence</String>
+  <String Id="MUMBLE_UNINSTALL_LNK">Odninstalovat Mumble</String>
+  <String Id="MUMBLE_COMPAT_LNK">Mumble (Zpětně Kompatibilní)</String>
+
+  <!-- Install types -->
+  <String Id="INSTALL_FULL">Plná instalace</String>
+  <String Id="INSTALL_CLIENT">Jen Klient</String>
+  <String Id="INSTALL_SERVER">Jen Server</String>
+
+  <!-- Install sections -->
+  <String Id="MUMBLE_SEC_MUMBLE">Mumble (klient)</String>
+  <String Id="MUMBLE_SEC_MUMBLE11X">Mumble (zpětně kompatibilní klient)</String>
+  <String Id="MUMBLE_SEC_MURMUR">Murmur (server)</String>
+  <String Id="MUMBLE_SEC_BONJOUR">Bonjour pro Windows</String>
+  <String Id="DESC_SectionMumble">Mumble klient, je potřeba k připojení na server.</String>
+  <String Id="DESC_SectionMumble11X">Mumble klient k připojení na starší servery.</String>
+  <String Id="DESC_SectionMurmur">Server pro Mumble. Obsahuje všechno co je třeba k rozběhnutí vlastního serveru.</String>
+  <String Id="DESC_SectionBonjour">Bonjour zapne ohlášení a zpřístupění Murmur serverů na vaší LAN. Toto stáhne a spustí Bonjour instalátor.</String>
+
+  <!-- Uninstall sections -->
+  <String Id="MUMBLE_UNSEC_BASE">Mumble a Murmur</String>
+  <String Id="MUMBLE_UNSEC_ALL">Nastavení a Databáze</String>
+  <String Id="DESC_SectionUninstBase">Odinstalování programů Mumble a Murmur.</String>
+  <String Id="DESC_SectionUninstAll">Odinstaluje všechny stopy po Mumble a Murmur, včetně nastavení a databází.</String>
+
+  <!-- Already installed -->
+  <String Id="MUMBLE_ALREADY_INSTALLED">Mumble je již nainstalováno. Je doporučena odinstalace stávájící verze před instalováním nové. Vyberte operaci kterou chcete uskutečnit a stiskněte Další.</String>
+  <String Id="MUMBLE_ALREADY_INSTALLED_HEAD">Již Nainstalováno</String>
+  <String Id="MUMBLE_ALREADY_INSTALLED_SUBTEXT">Zvolte, jak chcete odinstalovat Mumble.</String>
+  <String Id="MUMBLE_UNINSTALL">Odinstalovat před instalací</String>
+  <String Id="MUMBLE_NO_UNINSTALL">Neodinstalovat</String>
+</WixLocalization>

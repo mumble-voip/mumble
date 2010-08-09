@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="ja-jp" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="LANG">1041</String>
+
+  <!-- Japanese translation by arcenciel <code@s278.xrea.com> -->
+  <String Id="MUMBLE_CREATE_SHORTCUT">デスクトップへショートカットを作成する</String>
+  <String Id="MUMBLE_DONATE">Mumble プロジェクトに寄付する</String>
+  <String Id="MUMBLE_TERMINATE_DBUS">Mumble で使われている DBus デーモンが起動中です。アップデートのために DBus デーモンを停止させますか？</String>
+  <String Id="MUMBLE_NO_SSE">Mumble の実行には SSE が必要です。Intel Pentium III、AMD Athlon XP、またはそれより新しいプロセッサである必要があります。SSE はあなたのプロセッサで検出されませんでした。Mumble は正常に動作しないかもしれません。 あなたはそれでも Mumble をインストールしますか？</String>
+  <String Id="MUMBLE_NO_XP">Mumble は Windows XP SP2 以上の環境でのみ動作します。古いか互換性のないOSが検出されました。Mumble は正常に動作しないかもしれません。 あなたはそれでも Mumble をインストールしますか？</String>
+  <String Id="MUMBLE_START">Mumbleを起動</String>
+
+  <!-- For the start menu -->
+  <String Id="MUMBLE_README_LNK">Mumble Readme</String>
+  <String Id="MUMBLE_LICENSE_LNK">Mumble License</String>
+  <String Id="MUMBLE_QT_LNK">Qt License</String>
+  <String Id="MUMBLE_SPEEX_LNK">Speex License</String>
+  <String Id="MUMBLE_UNINSTALL_LNK">Mumble のアンインストール</String>
+  <String Id="MUMBLE_COMPAT_LNK">Mumble (1.1.x 互換)</String>
+
+  <!-- Install types -->
+  <String Id="INSTALL_FULL">すべて</String>
+  <String Id="INSTALL_CLIENT">クライアントのみ</String>
+  <String Id="INSTALL_SERVER">サーバのみ</String>
+
+  <!-- Install sections -->
+  <String Id="MUMBLE_SEC_MUMBLE">Mumble (クライアント)</String>
+  <String Id="MUMBLE_SEC_MUMBLE11X">Mumble (1.1.x 互換クライアント)</String>
+  <String Id="MUMBLE_SEC_MURMUR">Murmur (サーバ)</String>
+  <String Id="MUMBLE_SEC_BONJOUR">Bonjour for Windows</String>
+  <String Id="DESC_SectionMumble">サーバに接続するために必要な Mumble クライアントです。</String>
+  <String Id="DESC_SectionMumble11X">古いサーバに接続するための Mumble クライアントです。</String>
+  <String Id="DESC_SectionMurmur">Mumbe のためのサーバ。サーバを実行するために必要なファイルを含みます。</String>
+  <String Id="DESC_SectionBonjour">Bonjour を使用すると LAN 上の Murmur サーバの通知と探索が可能です。これを選択すると Bonjour のインストーラがダウンロードされ実行されます。</String>
+
+  <!-- Uninstall sections -->
+  <String Id="MUMBLE_UNSEC_BASE">Mumble と Murmur</String>
+  <String Id="MUMBLE_UNSEC_ALL">設定 と データベース</String>
+  <String Id="DESC_SectionUninstBase">Mumble と Murmur をアンイストールする</String>
+  <String Id="DESC_SectionUninstAll">設定 と データベースを含む Mumble と Murmur のすべての痕跡をアンインストールします。</String>
+
+  <!-- Already installed -->
+  <String Id="MUMBLE_ALREADY_INSTALLED">Mumble はすでにインストールされています。インストールを行う前に古いバージョンを削除することが推奨されます。あなたが実行したい操作を選択し、次へをクリックしてください。</String>
+  <String Id="MUMBLE_ALREADY_INSTALLED_HEAD">すでにインストールされています。</String>
+  <String Id="MUMBLE_ALREADY_INSTALLED_SUBTEXT">Mumble のインストール方法を選択してください。</String>
+  <String Id="MUMBLE_UNINSTALL">インストール前に古いバージョンを削除する</String>
+  <String Id="MUMBLE_NO_UNINSTALL">古いバージョンを削除しない</String>
+</WixLocalization>

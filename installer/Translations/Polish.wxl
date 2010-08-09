@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="pl-pl" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="LANG">1045</String>
+
+  <!-- Polish translation by Bartek "stranded" Sumowski <sumowski@gmail.com> -->
+  <!-- Translation update by Michał "Zuko" Żukowski <zuczeq@gmail.com> -->
+  <String Id="MUMBLE_CREATE_SHORTCUT">Utwórz skrót na pulpicie</String>
+  <String Id="MUMBLE_DONATE">Wesprzyj projekt Mumble</String>
+  <String Id="MUMBLE_TERMINATE_DBUS">Proces DBus jest w tej chwili uruchomiony. Czy chcesz zakończyć działanie procesu, aby dokonać aktualizacji?</String>
+  <String Id="MUMBLE_NO_SSE">Mumble wymaga SSE, jest to funkcja którą posiadają Intel Pentium III, AMD Athlon XP oraz nowsze procesory. SSE nie zostało wykryte w twoim procesorze więc jest małe prawdopodobieństwo, aby Mumble działało. Czy nadal chcesz zainstalować Mumble?</String>
+  <String Id="MUMBLE_NO_XP">Mumble działa tylko na Windows XP SP2 lub nowszym. Wykryto starszy lub niekompatybilny system operacyjny więc jest małe prawdopodobieństwo, aby Mumble działało. Czy nadal chcesz zainstalować Mumble?</String>
+  <String Id="MUMBLE_START">Uruchom Mumble</String>
+
+  <!-- For the start men -->
+  <String Id="MUMBLE_README_LNK">Plik Czytaj To</String>
+  <String Id="MUMBLE_LICENSE_LNK">Licencja Mumble</String>
+  <String Id="MUMBLE_COMPAT_LNK">Mumble (Klient Kompatybilny Wstecz)</String>
+  <String Id="MUMBLE_QT_LNK">Licencja Qt</String>
+  <String Id="MUMBLE_SPEEX_LNK">Licencja Speex</String>
+  <String Id="MUMBLE_UNINSTALL_LNK">Deinstalacja Mumble</String>
+
+  <!-- Install types -->
+  <String Id="INSTALL_FULL">Pełny</String>
+  <String Id="INSTALL_CLIENT">Tylko Klient</String>
+  <String Id="INSTALL_SERVER">Tylko Serwer</String>
+
+  <!-- Install sections -->
+  <String Id="MUMBLE_SEC_MUMBLE">Mumble (Klient)</String>
+  <String Id="MUMBLE_SEC_MUMBLE11X">Mumble (Klient Kompatybilny Wstecz)</String>
+  <String Id="MUMBLE_SEC_MURMUR">Murmur (Serwer)</String>
+  <String Id="MUMBLE_SEC_BONJOUR">Bonjour dla Windows</String>
+  <String Id="DESC_SectionMumble">Klient Mumble, pozwalający na połączenia do serwerów.</String>
+  <String Id="DESC_SectionMumble11X">Klient Mumble, pozwalający na połączenia do starszych serwerów.</String>
+  <String Id="DESC_SectionMurmur">Serwer Mumble. Zawiera wszystko czego potrzebujesz by uruchomić swój własny serwer.</String>
+  <String Id="DESC_SectionBonjour">Bonjour pozwala na automatyczne rozgłaszanie i wykrywanie serwerów Murmur w sieci LAN. Zaznaczając tę opcję instalator Bonjour zostanie pobrany i uruchomiony.</String>
+
+  <!-- Uninstall sections -->
+  <String Id="MUMBLE_UNSEC_BASE">Mumble i Murmur</String>
+  <String Id="MUMBLE_UNSEC_ALL">Preferencje i bazy danych</String>
+  <String Id="DESC_SectionUninstBase">Usuwa Mumble oraz Murmur.</String>
+  <String Id="DESC_SectionUninstAll">Usuwa wszystkie pliki programu, ustawienia oraz bazy danych (adresy serwerów, loginy, hasła).</String>
+
+  <!-- Already installed -->
+  <String Id="MUMBLE_ALREADY_INSTALLED">Mumble jest już zainstalowany na tym komputerze. Zalecane jest usunięcie poprzedniej wersji programu przed instalacją nowej. Wskaż żądaną akcję i kliknij 'Dalej', aby kontynuować.</String>
+  <String Id="MUMBLE_ALREADY_INSTALLED_HEAD">Program jest już zainstalowany</String>
+  <String Id="MUMBLE_ALREADY_INSTALLED_SUBTEXT">Wybierz sposób zainstalacji Mumble.</String>
+  <String Id="MUMBLE_UNINSTALL">Usuń poprzednią wersję Mumble</String>
+  <String Id="MUMBLE_NO_UNINSTALL">Nie usuwaj</String>
+</WixLocalization>
