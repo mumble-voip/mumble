@@ -50,7 +50,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	// When your are not logged in and the context pointer will not work.
-	ok = peekProc((BYTE *) 0x01fce170, &logincheck, 1);
+	ok = peekProc((BYTE *) 0x01fdb388, &logincheck, 1);
 	if (! ok)
 		return false;
 
@@ -58,12 +58,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return false;
 
 	// State value is working most of the time.
-	ok = peekProc((BYTE *) 0x01fb1b99, &state, 1); // Magical state value
+	ok = peekProc((BYTE *) 0x01f9eaf8, &state, 1); // Magical state value
 	if (! ok)
 		return false;
 
-	// When state is 0 your are loaded into a map, when it is 1 your are not in a map.
-	if (state == 1)
+	// State is 0 when you are in the main menu and 1 when your are not.
+	if (state == 0)
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 
 	ok = peekProc(posptr, &pos_corrector, 12) &&
@@ -116,13 +116,13 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (!initialize(pids, L"Borderlands.exe", L"Borderlands.exe"))
 		return false;
 
-	BYTE *ptr1 = peekProc<BYTE *>(pModule +  0x01b69564);
+	BYTE *ptr1 = peekProc<BYTE *>(pModule +  0x01b76724);
 
 	posptr = ptr1 + 0x9200;
 	frontptr = ptr1 + 0x9248;
 	topptr = ptr1 + 0x9230;
 
-	ptr1 = peekProc<BYTE *>(pModule + 0x01bcd184);
+	ptr1 = peekProc<BYTE *>(pModule + 0x01bad044);
 	BYTE *ptr2 = peekProc<BYTE *>(ptr1 + 0x28c);
 	BYTE *ptr3 = peekProc<BYTE *>(ptr2 + 0x210);
 
@@ -141,10 +141,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Borderlands v1.30. No identity support, but is also not needed.");
+	return std::wstring(L"Supports Borderlands v1.31. No identity support, but is also not needed.");
 }
 
-static std::wstring description(L"Borderlands v1.30");
+static std::wstring description(L"Borderlands v1.31");
 static std::wstring shortname(L"Borderlands");
 
 static int trylock1() {
