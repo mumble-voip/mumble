@@ -39,9 +39,6 @@
 class QWidgetPrivate {
 	public:
 		void updateFrameStrut();
-#if QT_VERSION >= 0x040600
-		void createWinId(WId id = 0);
-#endif
 };
 
 /*
@@ -174,9 +171,7 @@ void ConfigDialog::on_dialogButtonBox_clicked(QAbstractButton *b) {
 }
 
 void ConfigDialog::setupMacToolbar(bool expert) {
-#if QT_VERSION >= 0x040600
-	qt_widget_private(reinterpret_cast<QWidget *>(this))->createWinId();
-#endif
+	this->winId();
 	NSWindow *window = qt_mac_window_for(this);
 
 	/* Allocate a NSToolbar for our Config Dialog. Most programs on Mac OS X use Preferences dialogs
