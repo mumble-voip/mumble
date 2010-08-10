@@ -53,9 +53,16 @@ static NSImage *ConfigDialogDelegate_QIcon_to_NSImage(const QIcon &icon) {
 
 static NSMutableDictionary *toolbarItemCache = nil;
 
+@interface ConfigDialogDelegate (Private)
+- (NSToolbarItem *) toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)identifier willBeInsertedIntoToolbar:(BOOL)flag;
+- (BOOL) validateToolbarItem:(NSToolbarItem *)toolbarItem;
+- (void) itemSelected:(NSToolbarItem *)toolbarItem;
+- (void) expertSelected:(NSButton *)button;
+@end
+
 @implementation ConfigDialogDelegate
 
-- (id)initWithConfigDialog: (ConfigDialog *)dialog andWidgetMap: (QMap<unsigned int, ConfigWidget *> *)map inExpertMode: (BOOL)flag
+- (id)initWithConfigDialog: (ConfigDialogMac *)dialog andWidgetMap: (QMap<unsigned int, ConfigWidget *> *)map inExpertMode: (BOOL)flag
 {
 	self = [super init];
 

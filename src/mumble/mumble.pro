@@ -131,8 +131,8 @@ unix {
         # Link against libxar so we can inspect Mac OS X installer packages.
         LIBS += -lxar
         # Native feeling config dialog.
-        SOURCES -= ConfigDialog.cpp
-        SOURCES += ConfigDialog.mm ConfigDialogDelegate.mm Overlay_macx.mm
+        SOURCES += ConfigDialog_macx.mm ConfigDialogDelegate.mm Overlay_macx.mm
+        HEADERS += ConfigDialog_macx.h
     } else {
         SOURCES += Overlay_unix.cpp
     }

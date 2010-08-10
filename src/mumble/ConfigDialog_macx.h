@@ -1,4 +1,3 @@
-
 /* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
@@ -29,51 +28,43 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CONFIGWIDGET_H
-#define _CONFIGWIDGET_H
+#ifndef _CONFIGDIALOG_MACX_H
+#define _CONFIGDIALOG_MACX_H
 
+#include "mumble_pch.hpp"
+#include "ui_ConfigDialog.h"
+#include "ConfigWidget.h"
 #include "Settings.h"
 
-class ConfigDialog;
-
-class ConfigWidget : public QWidget {
+class ConfigDialogMac : public QDialog, public Ui::ConfigDialog {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(ConfigWidget)
+		Q_DISABLE_COPY(ConfigDialogMac)
 	protected:
-		void loadSlider(QSlider *, int);
-		void loadCheckBox(QAbstractButton *, bool);
-		void loadComboBox(QComboBox *, int);
-	signals:
-		void intSignal(int);
+		QHash<ConfigWidget *, QWidget *> qhPages;
+		QMap<unsigned int, ConfigWidget *> qmWidgets;
+		QMap<QListWidgetItem *, ConfigWidget *> qmIconWidgets;
+		void addPage(ConfigWidget *aw, unsigned int idx);
+		Settings s;
+
 	public:
-		Settings &s;
-		ConfigWidget(Settings &st);
-		virtual QString title() const = 0;
-		virtual QIcon icon() const;
+		ConfigDialogMac(QWidget *p = NULL);
+		~ConfigDialogMac();
+	protected:
+		void setupMacToolbar(bool expert);
+		void removeMacToolbar();
+	public:
+		void updateExpert(bool expert);
+		void on_widgetSelected(ConfigWidget *);
 	public slots:
-		virtual void accept() const;
-		virtual void save() const = 0;
-		virtual void load(const Settings &r) = 0;
-		virtual bool expert(bool) = 0;
-};
-
-typedef ConfigWidget *(*ConfigWidgetNew)(Settings &st);
-
-class ConfigRegistrar {
-		friend class ConfigDialog;
-		friend class ConfigDialogMac;
-	private:
-		Q_DISABLE_COPY(ConfigRegistrar)
-	protected:
-		int iPriority;
-		static QMap<int, ConfigWidgetNew> *c_qmNew;
-	public:
-		ConfigRegistrar(int priority, ConfigWidgetNew n);
-		~ConfigRegistrar();
+		void on_pageButtonBox_clicked(QAbstractButton *);
+		void on_dialogButtonBox_clicked(QAbstractButton *);
+		void on_qlwIcons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+		void on_qcbExpert_clicked(bool);
+		void apply();
+		void accept();
 };
 
 #else
-class ConfigWidget;
-class ConfigRegistrar;
+class ConfigDialogMac;
 #endif

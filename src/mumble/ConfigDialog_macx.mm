@@ -29,7 +29,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "ConfigDialog.h"
+#include "ConfigDialog_macx.h"
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "Global.h"
@@ -49,7 +49,7 @@ class QWidgetPrivate {
  * allows each item to be selected independently.)
  */
 
-ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
+ConfigDialogMac::ConfigDialogMac(QWidget *p) : QDialog(p) {
 	setupUi(this);
 
 	s = g.s;
@@ -94,7 +94,7 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 		restoreGeometry(g.s.qbaConfigGeometry);
 }
 
-void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
+void ConfigDialogMac::addPage(ConfigWidget *cw, unsigned int idx) {
 	QDesktopWidget dw;
 
 	int w = INT_MAX, h = INT_MAX;
@@ -128,14 +128,14 @@ void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 	cw->load(g.s);
 }
 
-ConfigDialog::~ConfigDialog() {
+ConfigDialogMac::~ConfigDialogMac() {
 	foreach(QWidget *qw, qhPages)
 		delete qw;
 
 	removeMacToolbar();
 }
 
-void ConfigDialog::on_pageButtonBox_clicked(QAbstractButton *b) {
+void ConfigDialogMac::on_pageButtonBox_clicked(QAbstractButton *b) {
 	ConfigWidget *conf = qobject_cast<ConfigWidget *>(qswPages->currentWidget());
 	if (! conf) {
 		QScrollArea *qsa = qobject_cast<QScrollArea *>(qswPages->currentWidget());
@@ -159,7 +159,7 @@ void ConfigDialog::on_pageButtonBox_clicked(QAbstractButton *b) {
 	}
 }
 
-void ConfigDialog::on_dialogButtonBox_clicked(QAbstractButton *b) {
+void ConfigDialogMac::on_dialogButtonBox_clicked(QAbstractButton *b) {
 	switch (dialogButtonBox->standardButton(b)) {
 		case QDialogButtonBox::Apply: {
 				apply();
@@ -170,7 +170,7 @@ void ConfigDialog::on_dialogButtonBox_clicked(QAbstractButton *b) {
 	}
 }
 
-void ConfigDialog::setupMacToolbar(bool expert) {
+void ConfigDialogMac::setupMacToolbar(bool expert) {
 	this->winId();
 	NSWindow *window = qt_mac_window_for(this);
 
@@ -198,7 +198,7 @@ void ConfigDialog::setupMacToolbar(bool expert) {
 	qt_widget_private(reinterpret_cast<QWidget *>(this))->updateFrameStrut();
 }
 
-void ConfigDialog::removeMacToolbar() {
+void ConfigDialogMac::removeMacToolbar() {
 	NSWindow *window = qt_mac_window_for(this);
 	NSToolbar *toolbar = [window toolbar];
 
@@ -209,7 +209,7 @@ void ConfigDialog::removeMacToolbar() {
 	}
 }
 
-void ConfigDialog::on_widgetSelected(ConfigWidget *cw) {
+void ConfigDialogMac::on_widgetSelected(ConfigWidget *cw) {
 	QWidget *w = qhPages.value(cw);
 	if (w) {
 		setWindowTitle(cw->title());
@@ -217,7 +217,7 @@ void ConfigDialog::on_widgetSelected(ConfigWidget *cw) {
 	}
 }
 
-void ConfigDialog::updateExpert(bool b) {
+void ConfigDialogMac::updateExpert(bool b) {
 	removeMacToolbar();
 	setupMacToolbar(b);
 
@@ -240,7 +240,7 @@ void ConfigDialog::updateExpert(bool b) {
 	}
 }
 
-void ConfigDialog::apply() {
+void ConfigDialogMac::apply() {
 	foreach(ConfigWidget *cw, qmWidgets)
 		cw->save();
 
@@ -274,15 +274,15 @@ void ConfigDialog::apply() {
 	g.s.bExpert = [delegate expertMode];
 }
 
-void ConfigDialog::accept() {
+void ConfigDialogMac::accept() {
 	apply();
 	g.s.qbaConfigGeometry=saveGeometry();
 	QDialog::accept();
 }
 
-void ConfigDialog::on_qlwIcons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous) {
+void ConfigDialogMac::on_qlwIcons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous) {
 }
 
-void ConfigDialog::on_qcbExpert_clicked(bool b) {
+void ConfigDialogMac::on_qcbExpert_clicked(bool) {
 }
 

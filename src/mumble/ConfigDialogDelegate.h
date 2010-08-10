@@ -31,14 +31,14 @@
 #ifndef _CONFIGDIALOG_DELEGATE
 #define _CONFIGDIALOG_DELEGATE
 
-#include "ConfigDialog.h"
+#include "ConfigDialog_macx.h"
 #include "ConfigWidget.h"
 #import <Cocoa/Cocoa.h>
 
 @class NSToolbarItem;
 
 @interface ConfigDialogDelegate : NSObject {
-    ConfigDialog *configDialog;
+    ConfigDialogMac *configDialog;
     QMap<unsigned int, ConfigWidget *> *widgetMap;
 
     BOOL inExpertMode;
@@ -47,41 +47,9 @@
     NSToolbar *toolbarCache;
 }
 
-- (id) initWithConfigDialog:
-(ConfigDialog *)dialog andWidgetMap:
-(QMap<unsigned int, ConfigWidget *> *) map inExpertMode:
-(BOOL)flag;
-
-- (NSArray *) toolbarAllowedItemIdentifiers:
-(NSToolbar *)toolbar;
-- (NSArray *) toolbarDefaultItemIdentifiers:
-(NSToolbar *)toolbar;
-- (NSArray *) toolbarSelectableItemIdentifiers:
-(NSToolbar *)toolbar;
-
-- (void) toolbarWillAddItem:
-(NSNotification*)notification;
-- (void) toolbarDidRemoveItem:
-(NSNotification *)notification;
-
-- (NSToolbarItem *) toolbar:
-(NSToolbar *)toolbar itemForItemIdentifier:
-(NSString *)identifier willBeInsertedIntoToolbar:
-(BOOL)flag;
-
-- (BOOL) validateToolbarItem:
-(NSToolbarItem *)toolbarItem;
-
-- (void) selectItem:
-(ConfigWidget *)cw;
-- (void) itemSelected:
-(NSToolbarItem *)toolbarItem;
-
-- (void) expertSelected:
-(NSButton *)button;
+- (id) initWithConfigDialog:(ConfigDialogMac *)dialog andWidgetMap:(QMap<unsigned int, ConfigWidget *> *) map inExpertMode:(BOOL)flag;
+- (void) selectItem:(ConfigWidget *)cw;
 - (BOOL) expertMode;
-
-- (void) dealloc;
 
 @end
 
