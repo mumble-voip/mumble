@@ -19,7 +19,6 @@
 
   <?define OpenSslDir = "\dev\openssl" ?>
   <?define DebugToolsDir = "\Program Files (x86)\Debugging Tools for Windows (x86)" ?>
-  <?define DebugToolsDir = "C:\Windows\System32" ?>
   <?define MergeModuleDir = "C:\Program Files (x86)\Common Files\Merge Modules" ?>
   <?define ZlibDir = "\dev\zlib" ?>
 
@@ -29,7 +28,7 @@
   <?define DBusDir = "\dev\dbus" ?>
   -->
 
-  <?ifdef RedistDirVC10 ?>
+  <?ifdef MergeModuleDir ?>
   <?define IceDir = "\dev\Ice\bin\vc100" ?>
   <?else ?>
   <?define IceDir = "\dev\Ice\bin" ?>
