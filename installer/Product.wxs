@@ -89,7 +89,7 @@
     </DirectoryRef>
 
     <ComponentGroup Id="LibrariesCommon">
-      <ComponentGroupRef Id="Qt"/>
+      <ComponentGroupRef Id="Qt" />
 
       <ComponentRef Id="libeay32.dll" />
       <ComponentRef Id="ssleay32.dll" />
@@ -97,7 +97,7 @@
       <ComponentRef Id="zlib1.dll" />
       <?endif ?>
 
-      <ComponentRef Id="qt.conf"/>
+      <ComponentRef Id="qt.conf" />
 
       <ComponentRef Id="licence.txt" />
       <ComponentRef Id="Readme.txt" />
@@ -108,6 +108,9 @@
 
       <?ifdef ProtoBufDir ?>
       <ComponentRef Id="libprotobuf.dll" />
+      <?endif ?>
+      <?ifdef MySQLDir ?>
+      <ComponentRef Id="libmysql.dll" />
       <?endif ?>
 
       <?ifdef IntelCppDir ?>
@@ -143,7 +146,6 @@
         <?endif ?>
         <ComponentRef Id="mumble.exe" />
         <ComponentRef Id="mumble_ol.dll" />
-
       </Feature>
 
       <?if $(var.CompatClient) = true ?>
@@ -160,9 +162,6 @@
       <ComponentRef Id="bzip2.dll" />
       <ComponentRef Id="ice34.dll" />
       <ComponentRef Id="iceutil34.dll" />
-      <?endif ?>
-      <?ifdef MySQLDir ?>
-      <ComponentRef Id="libmysql.dll" />
       <?endif ?>
       <?ifdef DBusDir ?>
       <ComponentGroupRef Id="DBus" />
