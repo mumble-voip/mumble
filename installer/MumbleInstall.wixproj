@@ -15,14 +15,15 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>Debug</DefineConstants>
-    <LinkerAdditionalOptions>-ext WixUIExtension</LinkerAdditionalOptions>
+    <LinkerAdditionalOptions>
+    </LinkerAdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>
     </DefineConstants>
-    <LinkerAdditionalOptions>-ext WixUIExtension -cc obj -reusecab</LinkerAdditionalOptions>
+    <LinkerAdditionalOptions>-cc obj -reusecab</LinkerAdditionalOptions>
     <VerboseOutput>True</VerboseOutput>
     <SuppressValidation>True</SuppressValidation>
   </PropertyGroup>
@@ -52,6 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Translations" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WIX)\bin\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
