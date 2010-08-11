@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?include "Settings.wxi" ?>
 
@@ -88,12 +88,18 @@
       <Component Id="libmmd.dll">
         <File Source="$(var.IntelCppDir)\libmmd.dll" KeyPath="yes" />
       </Component>
+      <?endif ?>
+
+      <?ifdef SSE ?>
       <Component Id="celt0.0.7.0.sse.dll">
         <File Source="$(var.SourceDir)\release\celt0.0.7.0.sse.dll" KeyPath="yes" />
       </Component>
       <Component Id="celt0.0.8.0.sse.dll">
         <File Source="$(var.SourceDir)\release\celt0.0.8.0.sse.dll" KeyPath="yes" />
       </Component>
+      <?endif ?>
+
+      <?ifdef SSE2 ?>
       <Component Id="celt0.0.7.0.sse2.dll">
         <File Source="$(var.SourceDir)\release\celt0.0.7.0.sse2.dll" KeyPath="yes" />
       </Component>
