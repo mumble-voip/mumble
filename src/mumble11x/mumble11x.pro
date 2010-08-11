@@ -120,13 +120,8 @@ unix {
     QMAKE_INFO_PLIST = mumble11x.plist
     QMAKE_PKGINFO_TYPEINFO = MBLE
 
-    HEADERS *= GlobalShortcut_macx.h ConfigDialogDelegate.h
+    HEADERS *= GlobalShortcut_macx.h
     SOURCES *= TextToSpeech_macx.cpp GlobalShortcut_macx.cpp os_macx.cpp
-
-    !CONFIG(no-cocoa) {
-        SOURCES -= ConfigDialog.cpp
-        SOURCES *= ConfigDialog.mm ConfigDialogDelegate.mm
-    }
 
     # CoreAudio
     !isEmpty(HAVE_PORTAUDIO) {
