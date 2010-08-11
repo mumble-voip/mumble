@@ -333,7 +333,6 @@ module Murmur
 		/** Fetch information about a user. This is used to retrieve information like email address, keyhash etc. If you
 		 *  want murmur to take care of this information itself, simply return false to fall through.
 		 *  @param id User id.
-		 *  @param key Key of information to be retrieved.
 		 *  @param info Information about user. This needs to include at least "name".
 		 *  @return true if information is present, false to fall through.
 		 */
