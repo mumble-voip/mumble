@@ -138,9 +138,11 @@
         <ComponentGroupRef Id="Plugins"/>
         <ComponentRef Id="celt0.0.7.0.dll" />
         <ComponentRef Id="celt0.0.8.0.dll" />
-        <?ifdef IntelCppDir ?>
+        <?ifdef SSE ?>
         <ComponentRef Id="celt0.0.7.0.sse.dll" />
         <ComponentRef Id="celt0.0.8.0.sse.dll" />
+        <?endif ?>
+        <?ifdef SSE2 ?>
         <ComponentRef Id="celt0.0.7.0.sse2.dll" />
         <ComponentRef Id="celt0.0.8.0.sse2.dll" />
         <?endif ?>

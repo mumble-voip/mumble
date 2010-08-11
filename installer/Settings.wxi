@@ -8,6 +8,7 @@
   <?define SourceDir = "\dev\mumble" ?>
   <?if $(env.COMPUTERNAME) = "DRYDOCK4" ?>
     <?define CompatClient = true ?>
+    <?define SSE2 = true ?>
     <?define QtDir = "\dev\qt4.7" ?>
     <?define ProtoBufDir = "\dev\protobuf-2.3.0" ?>
     <?define SndFileDir = "\dev\libsndfile" ?>
