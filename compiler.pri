@@ -49,6 +49,11 @@ win32 {
 			QMAKE_CXXFLAGS_DEBUG *= /analyze
 		}
 		DEFINES *= RESTRICT=
+		CONFIG(sse2) {
+		      QMAKE_CFLAGS_RELEASE -= -arch:SSE
+		      QMAKE_CFLAGS_DEBUG -= -arch:SSE
+		      QMAKE_CFLAGS += -arch:SSE2
+		}
 	}
 
 	CONFIG(symbols) {
