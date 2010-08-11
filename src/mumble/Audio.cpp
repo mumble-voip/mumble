@@ -339,6 +339,12 @@ RecordUser::RecordUser() : LoopUser() {
 	qsName = QLatin1String("Recorder");
 }
 
+RecordUser::~RecordUser() {
+	AudioOutputPtr ao = g.ao;
+	if (ao)
+		ao->removeBuffer(this);
+}
+
 void RecordUser::addFrame(const QByteArray &packet) {
 	{
 		QMutexLocker l(&qmLock);

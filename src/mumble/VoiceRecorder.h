@@ -32,6 +32,8 @@
 #ifndef _VOICERECORDER_H
 #define _VOICERECORDER_H
 
+#include "mumble_pch.hpp"
+
 class ClientUser;
 class RecordUser;
 

@@ -128,6 +128,7 @@ class RecordUser : public LoopUser {
 		Q_DISABLE_COPY(RecordUser)
 	public:
 		RecordUser();
+		~RecordUser();
 		virtual void addFrame(const QByteArray &packet);
 };
 

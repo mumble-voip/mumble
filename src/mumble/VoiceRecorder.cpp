@@ -31,7 +31,7 @@
 
 #include "VoiceRecorder.h"
 
-#include "Audio.h"
+#include "AudioOutput.h"
 #include "ClientUser.h"
 
 VoiceRecorder::RecordBuffer::RecordBuffer(const ClientUser *cu,
