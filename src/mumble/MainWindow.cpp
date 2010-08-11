@@ -1019,7 +1019,7 @@ void MainWindow::on_qaServerTokens_triggered() {
 }
 
 void MainWindow::voiceRecorderDialog_finished(int) {
-	delete voiceRecorderDialog;
+	voiceRecorderDialog->deleteLater();
 	voiceRecorderDialog = NULL;
 }
 
@@ -1728,11 +1728,11 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 }
 
 void MainWindow::on_qaRecording_triggered() {
-	if(voiceRecorderDialog) {
+	if (voiceRecorderDialog) {
 		voiceRecorderDialog->show();
 		voiceRecorderDialog->raise();
-	}
-	else {
+		voiceRecorderDialog->activateWindow();
+	} else {
 		voiceRecorderDialog = new VoiceRecorderDialog(this);
 		connect(voiceRecorderDialog, SIGNAL(finished(int)), this, SLOT(voiceRecorderDialog_finished(int)));
 		voiceRecorderDialog->show();

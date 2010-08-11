@@ -58,6 +58,8 @@ void VoiceRecorderDialog::closeEvent(QCloseEvent *evt) {
 
 	reset();
 	evt->accept();
+
+	QDialog::closeEvent(evt);
 }
 
 void VoiceRecorderDialog::on_qpbStart_clicked() {
@@ -162,7 +164,6 @@ void VoiceRecorderDialog::on_qpbStop_clicked() {
 	}
 
 	qtTimer->stop();
-	recorder->stop();
 	g.sh->recorder.reset();
 	g.sh->announceRecordingState(false);
 
@@ -208,7 +209,6 @@ void VoiceRecorderDialog::reset() {
 	if (g.sh) {
 		VoiceRecorderPtr recorder(g.sh->recorder);
 		if (recorder) {
-			recorder->stop();
 			g.sh->recorder.reset();
 			g.sh->announceRecordingState(false);
 		}
