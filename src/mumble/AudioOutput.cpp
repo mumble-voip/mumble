@@ -514,13 +514,6 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 		} else {
 			if (p == &LoopUser::lpLoopy) {
 				LoopUser::lpLoopy.fetchFrames();
-			} else {
-				if (g.sh) {
-					VoiceRecorderPtr vc(g.sh->recorder);
-					if (vc) {
-						vc->getRecordUser().fetchFrames();
-					}
-				}
 			}
 
 			int avail = 0;
@@ -825,7 +818,7 @@ void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket
 
 		qrwlOutputs.lockForWrite();
 		aop = new AudioOutputSpeech(user, iMixerFreq, type);
-		qmOutputs.replace(user,aop);
+		qmOutputs.replace(user, aop);
 	}
 
 	aop->addFrameToBuffer(qbaPacket, iSeq);
