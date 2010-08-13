@@ -31,6 +31,7 @@
 
 #include "../mumble_plugin_win32.h"
 
+unsigned int offset = 0;
 BYTE *posptr;
 BYTE *frontptr;
 BYTE *topptr;
@@ -50,7 +51,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	// When your are not logged in and the context pointer will not work.
-	ok = peekProc((BYTE *) 0x01fdb388, &logincheck, 1);
+	ok = peekProc((BYTE *) 0x01fdb388 - offset, &logincheck, 1);
 	if (! ok)
 		return false;
 
@@ -58,7 +59,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return false;
 
 	// State value is working most of the time.
-	ok = peekProc((BYTE *) 0x01f9eaf8, &state, 1); // Magical state value
+	ok = peekProc((BYTE *) 0x01f9eaf8 - offset, &state, 1); // Magical state value
 	if (! ok)
 		return false;
 
@@ -69,7 +70,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ok = peekProc(posptr, &pos_corrector, 12) &&
 	     peekProc(frontptr, &front_corrector, 12) &&
 	     peekProc(topptr, &top_corrector, 12) &&
-	     peekProc(contextptr, ccontext, 64);
+	     peekProc(contextptr, &ccontext, 64);
 
 	if (! ok)
 		return false;
@@ -111,18 +112,23 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+	char german[6];
 	posptr = frontptr = topptr = contextptr = NULL;
 
-	if (!initialize(pids, L"Borderlands.exe", L"Borderlands.exe"))
+	if (!initialize(pids, L"Borderlands.exe"))
 		return false;
 
-	BYTE *ptr1 = peekProc<BYTE *>(pModule +  0x01b76724);
+	peekProc((BYTE *) 0x01f19cd8, &german, sizeof(german));
+	if (strncmp("german", german, sizeof(german)) == 0)
+		offset = 0x1000;
+
+	BYTE *ptr1 = peekProc<BYTE *>(pModule + 0x01b76724 - offset);
 
 	posptr = ptr1 + 0x9200;
 	frontptr = ptr1 + 0x9248;
 	topptr = ptr1 + 0x9230;
 
-	ptr1 = peekProc<BYTE *>(pModule + 0x01bad044);
+	ptr1 = peekProc<BYTE *>(pModule + 0x01bda378 - offset);
 	BYTE *ptr2 = peekProc<BYTE *>(ptr1 + 0x28c);
 	BYTE *ptr3 = peekProc<BYTE *>(ptr2 + 0x210);
 
