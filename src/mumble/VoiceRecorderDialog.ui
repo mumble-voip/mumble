@@ -171,19 +171,7 @@
          <widget class="QLineEdit" name="qleTargetDirectory"/>
         </item>
         <item>
-         <widget class="QToolButton" name="qtbTargetDirectoryBrowse">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>73</width>
-            <height>21</height>
-           </size>
-          </property>
+         <widget class="QPushButton" name="qpbTargetDirectoryBrowse">
           <property name="text">
            <string>&amp;Browse...</string>
           </property>

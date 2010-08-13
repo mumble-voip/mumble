@@ -89,7 +89,7 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 
 	QString dstr = qleTargetDirectory->text();
 	if (dstr.isEmpty()) {
-		on_qtbTargetDirectoryBrowse_triggered(NULL);
+		on_qpbTargetDirectoryBrowse_clicked();
 		dstr = qleTargetDirectory->text();
 		if (dstr.isEmpty())
 			return;
@@ -194,7 +194,7 @@ void VoiceRecorderDialog::on_qtTimer_timeout() {
 	qlTime->setText(n.toString(QLatin1String("hh:mm:ss")));
 }
 
-void VoiceRecorderDialog::on_qtbTargetDirectoryBrowse_triggered(QAction*) {
+void VoiceRecorderDialog::on_qpbTargetDirectoryBrowse_clicked() {
 	QString dir = QFileDialog::getExistingDirectory(this,
 													tr("Select target directory"),
 													QString(),

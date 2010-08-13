@@ -18,7 +18,7 @@ class VoiceRecorderDialog : public QDialog, private Ui::VoiceRecorderDialog {
 		void on_qpbStart_clicked();
 		void on_qpbStop_clicked();
 		void on_qtTimer_timeout();
-		void on_qtbTargetDirectoryBrowse_triggered(QAction*);
+		void on_qpbTargetDirectoryBrowse_clicked();
 		void reset();
 };
 
