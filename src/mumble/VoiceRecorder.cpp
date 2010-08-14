@@ -37,9 +37,11 @@
 #include "Global.h"
 #include "ServerHandler.h"
 
+#include "../Timer.h"
+
 VoiceRecorder::RecordBuffer::RecordBuffer(const ClientUser *cu,
-	boost::shared_array<float> buffer, int samples) :
-	cuUser(cu), fBuffer(buffer), iSamples(samples) {
+	boost::shared_array<float> buffer, int samples, quint64 timestamp) :
+	cuUser(cu), fBuffer(buffer), iSamples(samples), uiTimestamp(timestamp) {
 }
 
 VoiceRecorder::RecordInfo::RecordInfo() : sf(NULL), uiLastPosition(0) {
@@ -52,8 +54,8 @@ VoiceRecorder::RecordInfo::~RecordInfo() {
 }
 
 VoiceRecorder::VoiceRecorder(QObject *p) : QThread(p), recordUser(new RecordUser()),
-	iSampleRate(0), bRecording(false), bMixDown(false),
-	uiRecordedSamples(0), fmFormat(VoiceRecorderFormat::WAV), qdtRecordingStart(QDateTime::currentDateTime()) {
+	tTimestamp(new Timer()), iSampleRate(0), bRecording(false), bMixDown(false),
+	fmFormat(VoiceRecorderFormat::WAV), qdtRecordingStart(QDateTime::currentDateTime()) {
 }
 
 VoiceRecorder::~VoiceRecorder() {
@@ -280,22 +282,21 @@ void VoiceRecorder::run() {
 					sf_set_string(ri->sf, SF_STR_TITLE, qPrintable(rb->cuUser->qsName));
 			}
 
-			if (ri->uiLastPosition != uiRecordedSamples) {
+			qint64 missingSamples = ((rb->uiTimestamp - ri->uiLastPosition) * iSampleRate) / 1000000 - rb->iSamples;
+			if (missingSamples > iSampleRate / 10) {
 				// write silence until we reach our current sample value
 				boost::scoped_array<float> buffer(new float[1024]);
 				memset(buffer.get(), 0, sizeof(float) * 1024);
-				int rest = (uiRecordedSamples - ri->uiLastPosition) % 1024;
-				quint64 steps = (uiRecordedSamples - ri->uiLastPosition) / 1024;
-				for (quint64 i = 0; i < steps; ++i) {
+				qint64 rest = missingSamples;
+				for (; rest > 1024; rest -= 1024)
 					sf_write_float(ri->sf, buffer.get(), 1024);
-				}
+
 				if (rest > 0)
 					sf_write_float(ri->sf, buffer.get(), rest);
 			}
 
 			sf_write_float(ri->sf, rb->fBuffer.get(), rb->iSamples);
-			uiRecordedSamples += rb->iSamples;
-			ri->uiLastPosition = uiRecordedSamples;
+			ri->uiLastPosition = rb->uiTimestamp;
 		}
 
 		qmSleepLock.unlock();
@@ -313,7 +314,7 @@ void VoiceRecorder::addBuffer(const ClientUser *cu, boost::shared_array<float> b
 
 	{
 		QMutexLocker l(&qmBufferLock);
-		boost::shared_ptr<RecordBuffer> rb(new RecordBuffer(cu, buffer, samples));
+		boost::shared_ptr<RecordBuffer> rb(new RecordBuffer(cu, buffer, samples, tTimestamp->elapsed()));
 		qlRecordBuffer << rb;
 	}
 	int index = bMixDown ? 0 : cu->uiSession;
@@ -322,11 +323,6 @@ void VoiceRecorder::addBuffer(const ClientUser *cu, boost::shared_array<float> b
 		qhRecordInfo.insert(index, ri);
 	}
 	qwcSleep.wakeAll();
-}
-
-void VoiceRecorder::addSilence(int samples) {
-	// FIXME: locking?
-	uiRecordedSamples += samples;
 }
 
 void VoiceRecorder::setSampleRate(int sampleRate) {
@@ -354,8 +350,8 @@ bool VoiceRecorder::getMixDown() const {
 	return bMixDown;
 }
 
-quint64 VoiceRecorder::getRecordedSamples() const {
-	return uiRecordedSamples;
+quint64 VoiceRecorder::getElapsedTime() const {
+	return tTimestamp->elapsed();
 }
 
 RecordUser &VoiceRecorder::getRecordUser() const {

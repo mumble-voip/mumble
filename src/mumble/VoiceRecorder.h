@@ -37,6 +37,7 @@
 
 class ClientUser;
 class RecordUser;
+struct Timer;
 
 namespace VoiceRecorderFormat {
 	enum Format {
@@ -55,8 +56,9 @@ class VoiceRecorder : public QThread {
 		const ClientUser *cuUser;
 		boost::shared_array<float> fBuffer;
 		int iSamples;
+		quint64 uiTimestamp;
 
-		explicit RecordBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples);
+		explicit RecordBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples, quint64 timestamp);
 	};
 
 	struct RecordInfo {
@@ -71,6 +73,7 @@ class VoiceRecorder : public QThread {
 	QList< boost::shared_ptr<RecordBuffer> > qlRecordBuffer;
 
 	boost::scoped_ptr<RecordUser> recordUser;
+	boost::scoped_ptr<Timer> tTimestamp;
 
 	QMutex qmBufferLock;
 	QMutex qmSleepLock;
@@ -80,7 +83,6 @@ class VoiceRecorder : public QThread {
 	bool bRecording;
 	QString qsFileName;
 	bool bMixDown;
-	quint64 uiRecordedSamples;
 	VoiceRecorderFormat::Format fmFormat;
 	const QDateTime qdtRecordingStart;
 
@@ -94,13 +96,12 @@ class VoiceRecorder : public QThread {
 	void run();
 	void stop();
 	void addBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples);
-	void addSilence(int samples);
 	void setSampleRate(int sampleRate);
 	int getSampleRate() const;
 	void setFileName(QString fn);
 	void setMixDown(bool mixDown);
 	bool getMixDown() const;
-	quint64 getRecordedSamples() const;
+	quint64 getElapsedTime() const;
 	RecordUser &getRecordUser() const;
 
 	void setFormat(VoiceRecorderFormat::Format fm);

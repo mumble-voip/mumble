@@ -204,15 +204,12 @@ void VoiceRecorderDialog::on_qtTimer_timeout() {
 		reset();
 		return;
 	}
-	QTime t, n;
-	quint64 samples = recorder->getRecordedSamples();
 
-	if (samples != 0)
-		n = t.addSecs(recorder->getRecordedSamples() / recorder->getSampleRate());
+	QTime t, n;
+	n = t.addMSecs(recorder->getElapsedTime() / 1000);
 
 	qlTime->setText(n.toString(QLatin1String("hh:mm:ss")));
 }
-
 void VoiceRecorderDialog::on_qpbTargetDirectoryBrowse_clicked() {
 	QString dir = QFileDialog::getExistingDirectory(this,
 													tr("Select target directory"),
