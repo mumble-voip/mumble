@@ -1,5 +1,6 @@
 /* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
    Copyright (C) 2010, Benjamin Jemlich <pcgod@users.sourceforge.net>
+   Copyright (C) 2010, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -33,6 +34,8 @@
 
 #include "AudioOutput.h"
 #include "ClientUser.h"
+#include "Global.h"
+#include "ServerHandler.h"
 
 VoiceRecorder::RecordBuffer::RecordBuffer(const ClientUser *cu,
 	boost::shared_array<float> buffer, int samples) :
@@ -50,12 +53,124 @@ VoiceRecorder::RecordInfo::~RecordInfo() {
 
 VoiceRecorder::VoiceRecorder(QObject *p) : QThread(p), recordUser(new RecordUser()),
 	iSampleRate(0), bRecording(false), bMixDown(false),
-	uiRecordedSamples(0), fmFormat(VoiceRecorderFormat::WAV) {
+	uiRecordedSamples(0), fmFormat(VoiceRecorderFormat::WAV), qdtRecordingStart(QDateTime::currentDateTime()) {
 }
 
 VoiceRecorder::~VoiceRecorder() {
 	stop();
 	wait();
+}
+
+QString VoiceRecorder::sanitizeFilenameOrPathComponent(const QString &str) const {
+	// Trim leading/trailing whitespaces
+	QString res = str.trimmed();
+	if (res.isEmpty())
+		return QLatin1String("_");
+
+#ifdef Q_OS_WIN
+	// Rules according to http://en.wikipedia.org/wiki/Filename#Comparison_of_file_name_limitations
+	// and http://msdn.microsoft.com/en-us/library/aa365247(VS.85).aspx
+
+	// Make sure name doesn't end in "."
+	if (res.at(res.size() - 1) == QLatin1Char('.'))
+		res = res.append(QLatin1Char('_'));
+
+	// Replace < > : " / \ | ? * as well as chr(0) to chr(31)
+	res = res.replace(QRegExp(QLatin1String("[<>:\"/\\\\|\\?\\*\\x00-\\x1F]")), QLatin1String("_"));
+
+	// Prepend reserved filenames CON, PRN, AUX, NUL, COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, and LPT9
+	res = res.replace(QRegExp(QLatin1String("^((CON|PRN|AUX|NUL|COM[1-9]|LPT1[1-9])(\\.|$))"), Qt::CaseInsensitive), QLatin1String("_\\1"));
+
+	// Make sure we do not exceed 255 characters
+	if (res.length() > 255) {
+		res.truncate(255);
+		// Call ourselves recursively to make sure we do not end up violating any of our rules because of this
+		res = sanitizeFilenameOrPathComponent(res);
+	}
+#else
+	// For the rest just make sure the string doesn't contain a \0 or any forward-slashes
+	res = res.replace(QRegExp(QLatin1String("\\x00|/")), QLatin1String("_"));
+#endif
+	return res;
+}
+
+QString VoiceRecorder::expandTemplateVariables(const QString &path, boost::shared_ptr<RecordBuffer> rb) const {
+	// Split path into components
+	QString res;
+	QStringList comp = path.split(QLatin1Char('/'), QString::SkipEmptyParts);
+	Q_ASSERT(!comp.isEmpty());
+
+	QString username(QLatin1String("Mixdown"));
+	if (rb->cuUser)
+		username = rb->cuUser->qsName;
+
+	QString date(qdtRecordingStart.date().toString(Qt::ISODate));
+	QString time(qdtRecordingStart.time().toString(QLatin1String("hh-mm-ss")));
+
+	QString hostname(QLatin1String("Unknown"));
+	if (g.sh && g.uiSession != 0) {
+		unsigned short port;
+		QString uname, pw;
+		g.sh->getConnectionInfo(hostname, port, uname, pw);
+	}
+
+	QHash<const QString, QString> vars;
+	vars.insert(QLatin1String("user"), username);
+	vars.insert(QLatin1String("date"), date);
+	vars.insert(QLatin1String("time"), time);
+	vars.insert(QLatin1String("host"), hostname);
+
+	// Reassemble and expand
+	bool first = true;
+	foreach (QString str, comp) {
+
+		/*
+		Valid variables are:
+			%user		Inserts the users name
+			%date		Inserts the current date
+			%time		Inserts the current time
+			%host		Inserts the hostname
+		*/
+
+		bool replacements = false;
+		{
+			QString tmp;
+
+			tmp.reserve(str.length() * 2);
+			for (int i = 0; i < str.size(); ++i) {
+				bool replaced = false;
+				if (str[i] == QLatin1Char('%')) {
+					QHashIterator<const QString, QString> it(vars);
+					while (it.hasNext()) {
+						it.next();
+						if (str.midRef(i + 1, it.key().length()) == it.key()) {
+							i += it.key().length();
+							tmp += it.value();
+							replaced = true;
+							replacements = true;
+							break;
+						}
+					}
+				}
+
+				if (!replaced)
+					tmp += str[i];
+			}
+
+			str = tmp;
+		}
+
+		if (replacements)
+			str = sanitizeFilenameOrPathComponent(str);
+
+		if (first) {
+			res.append(str);
+			first = false;
+		} else {
+			res.append(QLatin1Char('/') + str);
+		}
+	}
+	return res;
 }
 
 void VoiceRecorder::run() {
@@ -129,8 +244,38 @@ void VoiceRecorder::run() {
 
 			boost::shared_ptr<RecordInfo> ri = qhRecordInfo.value(index);
 			if (!ri->sf) {
-				ri->sf = sf_open(qPrintable(qsFileName.arg(index)), SFM_WRITE, &sfinfo);
-				//sf_command(ri->sf, SFC_SET_UPDATE_HEADER_AUTO, NULL, SF_TRUE);
+				QString filename = expandTemplateVariables(qsFileName, rb);
+
+				{
+					int cnt = 1;
+					QString nf(filename);
+					QFileInfo tfi(filename);
+					while (QFile::exists(nf)) {
+						nf = tfi.path() + QLatin1Char('/') + tfi.completeBaseName() + QString(QLatin1String(" (%1).")).arg(cnt) +  tfi.suffix();
+						++cnt;
+					}
+					filename = nf;
+				}
+				qWarning() << "Recorder opens file" << filename;
+				QFileInfo fi(filename);
+
+				if (!QDir().mkpath(fi.absolutePath())) {
+					qWarning() << "Failed to create target directory: " << fi.absolutePath();
+					return;
+				}
+
+#ifdef Q_OS_WIN
+				// This is need to get utf characters in filenames right
+				ri->sf = sf_wchar_open(filename.utf16(), SFM_WRITE, &sfinfo);
+#else
+				ri->sf = sf_open(qPrintable(filename), SFM_WRITE, &sfinfo);
+#endif
+				if (ri->sf == NULL) {
+					qWarning() << "Failed to open file for recorder: "<< sf_strerror(NULL);
+					bRecording = false;
+					return;
+				}
+
 				if (rb->cuUser)
 					sf_set_string(ri->sf, SF_STR_TITLE, qPrintable(rb->cuUser->qsName));
 			}
@@ -196,9 +341,7 @@ int VoiceRecorder::getSampleRate() const {
 
 void VoiceRecorder::setFileName(QString fn) {
 	Q_ASSERT(!bRecording);
-	Q_ASSERT(fn.indexOf(QLatin1String("%1"))!=-1);
-
-	qsFileName = fn;
+	qsFileName = QDir::fromNativeSeparators(fn);
 }
 
 void VoiceRecorder::setMixDown(bool mixDown) {

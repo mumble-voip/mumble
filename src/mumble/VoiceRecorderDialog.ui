@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>450</width>
-    <height>212</height>
+    <height>214</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -168,7 +168,17 @@
       <item row="2" column="1">
        <layout class="QHBoxLayout" name="qhblTargetDirectory">
         <item>
-         <widget class="QLineEdit" name="qleTargetDirectory"/>
+         <widget class="QLineEdit" name="qleTargetDirectory">
+          <property name="toolTip">
+           <string>&lt;pre&gt;
+Valid variables are:
+%user	Inserts the users name
+%date	Inserts the current date
+%time	Inserts the current time
+%host	Inserts the hostname
+&lt;/pre&gt;</string>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QPushButton" name="qpbTargetDirectoryBrowse">
@@ -180,11 +190,17 @@
        </layout>
       </item>
       <item row="4" column="1">
-       <layout class="QHBoxLayout" name="qhblFilename">
-        <item>
-         <widget class="QLineEdit" name="qleFilename"/>
-        </item>
-       </layout>
+       <widget class="QLineEdit" name="qleFilename">
+        <property name="toolTip">
+         <string>&lt;pre&gt;
+Valid variables are:
+%user	Inserts the users name
+%date	Inserts the current date
+%time	Inserts the current time
+%host	Inserts the hostname
+&lt;/pre&gt;</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

@@ -45,6 +45,9 @@
 #undef set_key
 
 #ifndef COMPAT_CLIENT
+#ifdef Q_OS_WIN
+#define ENABLE_SNDFILE_WINDOWS_PROTOTYPES 1
+#endif
 #define __int64_t __int64
 #include <sndfile.h>
 #undef __int64_t

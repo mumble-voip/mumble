@@ -1,3 +1,34 @@
+/* Copyright (C) 2010, Stefan Hacker <dd0t@users.sourceforge.net>
+   Copyright (C) 2010, Benjamin Jemlich <pcgod@users.sourceforge.net>
+
+   All rights reserved.
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+
+   - Redistributions of source code must retain the above copyright notice,
+	 this list of conditions and the following disclaimer.
+   - Redistributions in binary form must reproduce the above copyright notice,
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
+   - Neither the name of the Mumble Developers nor the names of its
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
+
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+   A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR
+   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+   EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+   PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+   PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
 #include "VoiceRecorderDialog.h"
 #include "AudioOutput.h"
 #include "Global.h"
@@ -12,6 +43,7 @@ VoiceRecorderDialog::VoiceRecorderDialog(QWidget *p = NULL) : QDialog(p), qtTime
 	qleTargetDirectory->setText(g.s.qsRecordingPath);
 	qleFilename->setText(g.s.qsRecordingFile);
 	qrbMixdown->setChecked(g.s.rmRecordingMode == Settings::RecordingMixdown);
+	qrbMultichannel->setChecked(g.s.rmRecordingMode == Settings::RecordingMultichannel);
 
 	// Populate available codecs
 	Q_ASSERT(VoiceRecorderFormat::formatEnumEnd != 0);
@@ -94,25 +126,7 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 		if (dstr.isEmpty())
 			return;
 	}
-
 	QDir dir(dstr);
-	if (!dir.exists()) {
-		int ret = QMessageBox::question(this,
-							  tr("Directory does not exist"),
-							  tr("The directory '%1' does not exist, should Mumble try to create it?").arg(dir.absolutePath()),
-							  QMessageBox::Yes | QMessageBox::Abort,
-							  QMessageBox::Yes);
-
-		if (ret == QMessageBox::Abort)
-			return;
-
-		if(!dir.mkpath(dir.absolutePath())) {
-			QMessageBox::critical(this,
-								  tr("Unable to start recording"),
-								  tr("Target directory '%1' could not be created. Please check that this path is valid and accessible to Mumble.").arg(dir.absolutePath()));
-			return;
-		}
-	}
 
 	QFileInfo fi(qleFilename->text());
 	QString basename(fi.baseName());
@@ -121,8 +135,8 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 		suffix = VoiceRecorder::getFormatDefaultExtension(static_cast<VoiceRecorderFormat::Format>(ifm));
 
 
-	if (basename.indexOf(QLatin1String("%1")) == -1) {
-		basename += QLatin1String("%1");
+	if (basename.isEmpty()) {
+		basename = QLatin1String("%name");
 	}
 
 	qleFilename->setText(basename);

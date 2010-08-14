@@ -301,7 +301,7 @@ Settings::Settings() {
 
 	// Recording
 	qsRecordingPath = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
-	qsRecordingFile = QLatin1String("MumbleRecording-%1");
+	qsRecordingFile = QLatin1String("Mumble-%date-%time-%host-%user");
 	rmRecordingMode = RecordingMixdown;
 	iRecordingFormat = 0;
 
