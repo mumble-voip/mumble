@@ -1937,7 +1937,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Peak clean level</source>
-        <translation>Пиковый уровень отчистки</translation>
+        <translation>Пиковый уровень очистки</translation>
     </message>
     <message>
         <source>Microphone loudness</source>
@@ -2750,12 +2750,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="Cert.ui"/>
         <source>Certificate Management</source>
-        <translation>Менеджер Сертификатов</translation>
+        <translation>Мастер Сертификатов</translation>
     </message>
     <message>
         <location/>
         <source>Certificate Authentication</source>
-        <translation>Авторизация сертификатов</translation>
+        <translation>Авторизация по сертификату</translation>
     </message>
     <message>
         <location/>
@@ -3015,7 +3015,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Finish</source>
-        <translation>Заврешить</translation>
+        <translation>Завершить</translation>
     </message>
     <message>
         <location/>
@@ -4917,7 +4917,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Always On Top</source>
-        <translation>Всегда на переднем плане</translation>
+        <translation>Отображать на переднем плане</translation>
     </message>
     <message>
         <location/>
@@ -5116,7 +5116,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&amp;Mute</source>
-        <translation>Сделать &amp;немым</translation>
+        <translation>Наложить о&amp;немение</translation>
     </message>
     <message>
         <source>Mute player</source>
@@ -5247,7 +5247,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
-        <translation>Сбросит аудио препроцессор, включая подавление шумов, автоматическое получение и определение голосовой активности. Если что-то внезапно вмешается в звуковую среду (например падение микрофона) на короткое время, используйте это, чтобы не ждать приспособления препроцессора.</translation>
+        <translation>Сбросить аудио препроцессор, включая подавление шумов, автоматическое получение и определение голосовой активности. Если что-то внезапно вмешается в звуковую среду (например падение микрофона) на короткое время, используйте это, чтобы не ждать приспособления препроцессора.</translation>
     </message>
     <message>
         <location/>
@@ -5500,7 +5500,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
-        <translation>Присоединиться к веб-странице Mumble, чтобы проверить доступность новой версии и уведомить Вас о ссылке для ее закачки.</translation>
+        <translation>Соединиться с веб-страницей Mumble, чтобы проверить доступность новой версии и уведомить Вас о ссылке для ее закачки.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="-1781"/>
@@ -5950,7 +5950,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+25"/>
         <source>%1 muted by %2.</source>
-        <translation>%2 заглушил %1.</translation>
+        <translation>%2 наложил онемение на %1.</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -7387,7 +7387,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+1"/>
         <source>To resize the users, mousewheel over a user.</source>
-        <translation>Чтобы изменть размер пользователей - покрутите колесом мыши над ними.</translation>
+        <translation>Чтобы изменить размер пользователей - покрутите колесом мыши над ними.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7614,12 +7614,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation>Заглушен или нем</translation>
+        <translation>Наложено онемение или заглушен</translation>
     </message>
     <message>
         <location/>
         <source>Mute state</source>
-        <translation>Нем</translation>
+        <translation>Наложено онемение</translation>
     </message>
     <message>
         <location/>
