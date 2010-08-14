@@ -46,12 +46,12 @@ VoiceRecorderDialog::VoiceRecorderDialog(QWidget *p = NULL) : QDialog(p), qtTime
 	qrbMultichannel->setChecked(g.s.rmRecordingMode == Settings::RecordingMultichannel);
 
 	// Populate available codecs
-	Q_ASSERT(VoiceRecorderFormat::formatEnumEnd != 0);
-	for (int fm = 0; fm < VoiceRecorderFormat::formatEnumEnd; fm++) {
-		qcbFormat->addItem(VoiceRecorder::getFormatDescription(static_cast<VoiceRecorderFormat::Format>(fm)));
+	Q_ASSERT(VoiceRecorderFormat::kEnd != 0);
+	for (int fm = 0; fm < VoiceRecorderFormat::kEnd; fm++) {
+		qcbFormat->addItem(VoiceRecorderFormat::getFormatDescription(static_cast<VoiceRecorderFormat::Format>(fm)));
 	}
 
-	if (g.s.iRecordingFormat < 0 || g.s.iRecordingFormat > VoiceRecorderFormat::formatEnumEnd)
+	if (g.s.iRecordingFormat < 0 || g.s.iRecordingFormat > VoiceRecorderFormat::kEnd)
 		g.s.iRecordingFormat = 0;
 
 	qcbFormat->setCurrentIndex(g.s.iRecordingFormat);
@@ -132,7 +132,7 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 	QString basename(fi.baseName());
 	QString suffix(fi.completeSuffix());
 	if (suffix.isEmpty())
-		suffix = VoiceRecorder::getFormatDefaultExtension(static_cast<VoiceRecorderFormat::Format>(ifm));
+		suffix = VoiceRecorderFormat::getFormatDefaultExtension(static_cast<VoiceRecorderFormat::Format>(ifm));
 
 
 	if (basename.isEmpty()) {

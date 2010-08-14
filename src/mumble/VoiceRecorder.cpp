@@ -367,22 +367,22 @@ VoiceRecorderFormat::Format VoiceRecorder::getFormat() const {
 	return fmFormat;
 }
 
-QString VoiceRecorder::getFormatDescription(VoiceRecorderFormat::Format fm) {
+QString VoiceRecorderFormat::getFormatDescription(VoiceRecorderFormat::Format fm) {
 	switch (fm) {
 		case VoiceRecorderFormat::WAV:
-			return tr(".wav - Uncompressed");
+			return VoiceRecorder::tr(".wav - Uncompressed");
 		case VoiceRecorderFormat::VORBIS:
-			return tr(".ogg (Vorbis) - Compressed");
+			return VoiceRecorder::tr(".ogg (Vorbis) - Compressed");
 		case VoiceRecorderFormat::AU:
-			return tr(".au - Uncompressed");
+			return VoiceRecorder::tr(".au - Uncompressed");
 		case VoiceRecorderFormat::FLAC:
-			return tr(".flac - Lossless compressed");
+			return VoiceRecorder::tr(".flac - Lossless compressed");
 		default:
 			return QString();
 	}
 }
 
-QString VoiceRecorder::getFormatDefaultExtension(VoiceRecorderFormat::Format fm) {
+QString VoiceRecorderFormat::getFormatDefaultExtension(VoiceRecorderFormat::Format fm) {
 	switch (fm) {
 		case VoiceRecorderFormat::WAV:
 			return QLatin1String("wav");
