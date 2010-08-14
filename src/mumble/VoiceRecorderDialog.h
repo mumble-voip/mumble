@@ -32,6 +32,10 @@
 #ifndef _VOICERECORDERDIALOG_H
 #define _VOICERECORDERDIALOG_H
 
+#pragma once
+
+#include "mumble_pch.hpp"
+
 #include "ui_VoiceRecorderDialog.h"
 
 class VoiceRecorderDialog : public QDialog, private Ui::VoiceRecorderDialog {
