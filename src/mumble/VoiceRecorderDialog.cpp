@@ -63,7 +63,7 @@ void VoiceRecorderDialog::closeEvent(QCloseEvent *evt) {
 }
 
 void VoiceRecorderDialog::on_qpbStart_clicked() {
-	if (!g.sh) {
+	if (!g.uiSession || !g.sh) {
 		QMessageBox::critical(this,
 							  tr("Unable to start recording"),
 							  tr("Not connected to server"));
@@ -177,6 +177,11 @@ void VoiceRecorderDialog::on_qpbStop_clicked() {
 void VoiceRecorderDialog::on_qtTimer_timeout() {
 	if (!g.sh) {
 		reset();
+		return;
+	}
+
+	if (!g.uiSession) {
+		on_qpbStop_clicked();
 		return;
 	}
 

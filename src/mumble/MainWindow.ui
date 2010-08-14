@@ -792,6 +792,9 @@
    <property name="text">
     <string>Recording</string>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
   </action>
  </widget>
  <customwidgets>
