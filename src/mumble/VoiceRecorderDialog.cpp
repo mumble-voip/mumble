@@ -136,7 +136,7 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 
 
 	if (basename.isEmpty()) {
-		basename = QLatin1String("%name");
+		basename = QLatin1String("%user");
 	}
 
 	qleFilename->setText(basename);

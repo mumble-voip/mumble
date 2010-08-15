@@ -99,7 +99,7 @@ QString VoiceRecorder::sanitizeFilenameOrPathComponent(const QString &str) const
 QString VoiceRecorder::expandTemplateVariables(const QString &path, boost::shared_ptr<RecordBuffer> rb) const {
 	// Split path into components
 	QString res;
-	QStringList comp = path.split(QLatin1Char('/'), QString::SkipEmptyParts);
+	QStringList comp = path.split(QLatin1Char('/'));
 	Q_ASSERT(!comp.isEmpty());
 
 	QString username(QLatin1String("Mixdown"));
@@ -135,42 +135,40 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, boost::share
 		*/
 
 		bool replacements = false;
-		{
-			QString tmp;
+		QString tmp;
 
-			tmp.reserve(str.length() * 2);
-			for (int i = 0; i < str.size(); ++i) {
-				bool replaced = false;
-				if (str[i] == QLatin1Char('%')) {
-					QHashIterator<const QString, QString> it(vars);
-					while (it.hasNext()) {
-						it.next();
-						if (str.midRef(i + 1, it.key().length()) == it.key()) {
-							i += it.key().length();
-							tmp += it.value();
-							replaced = true;
-							replacements = true;
-							break;
-						}
+		tmp.reserve(str.length() * 2);
+		for (int i = 0; i < str.size(); ++i) {
+			bool replaced = false;
+			if (str[i] == QLatin1Char('%')) {
+				QHashIterator<const QString, QString> it(vars);
+				while (it.hasNext()) {
+					it.next();
+					if (str.midRef(i + 1, it.key().length()) == it.key()) {
+						i += it.key().length();
+						tmp += it.value();
+						replaced = true;
+						replacements = true;
+						break;
 					}
 				}
-
-				if (!replaced)
-					tmp += str[i];
 			}
 
-			str = tmp;
+			if (!replaced)
+				tmp += str[i];
 		}
+
+		str = tmp;
 
 		if (replacements)
 			str = sanitizeFilenameOrPathComponent(str);
 
-		if (first) {
+		if (first && !str.isEmpty()) {
 			res.append(str);
-			first = false;
 		} else {
 			res.append(QLatin1Char('/') + str);
 		}
+		first = false;
 	}
 	return res;
 }
