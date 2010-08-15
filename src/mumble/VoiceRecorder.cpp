@@ -163,12 +163,12 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, boost::share
 		if (replacements)
 			str = sanitizeFilenameOrPathComponent(str);
 
-		if (first && !str.isEmpty()) {
+		if (first) {
+			first = false;
 			res.append(str);
 		} else {
 			res.append(QLatin1Char('/') + str);
 		}
-		first = false;
 	}
 	return res;
 }
