@@ -227,7 +227,7 @@ void MainWindow::msgUDPTunnel(const MumbleProto::UDPTunnel &) {
 void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	ACTOR_INIT;
 	SELF_INIT;
-	ClientUser *pDst=ClientUser::get(msg.session());
+	ClientUser *pDst = ClientUser::get(msg.session());
 	bool bNewUser = false;
 
 	if (! pDst) {
@@ -268,6 +268,27 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 				g.l->log(Log::OtherSelfMute, tr("%1 is now muted.").arg(Log::formatClientUser(pDst, Log::Target)));
 			else
 				g.l->log(Log::OtherSelfMute, tr("%1 is now unmuted.").arg(Log::formatClientUser(pDst, Log::Target)));
+		}
+	}
+
+	if (msg.has_recording()) {
+		pDst->setRecording(msg.recording());
+
+		// Do nothing during initial sync
+		if (pSelf) {
+			if (pDst == pSelf) {
+				if (pDst->bRecording) {
+					g.l->log(Log::Recording, tr("Recording started"));
+				} else {
+					g.l->log(Log::Recording, tr("Recording stopped"));
+				}
+			} else if (pDst->cChannel == pSelf->cChannel) {
+				if (pDst->bRecording) {
+					g.l->log(Log::Recording, tr("%1 started recording.").arg(Log::formatClientUser(pDst, Log::Source)));
+				} else {
+					g.l->log(Log::Recording, tr("%1 stopped recording.").arg(Log::formatClientUser(pDst, Log::Source)));
+				}
+			}
 		}
 	}
 
@@ -385,7 +406,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			if (log) {
 				if (pDst == pSelf) {
 					g.l->log(Log::ChannelJoin, tr("You were moved to %1 by %2.").arg(Log::formatChannel(c)).arg(Log::formatClientUser(pSrc, Log::Source)));
-				} else if (pDst->cChannel == ClientUser::get(g.uiSession)->cChannel) {
+				} else if (pDst->cChannel == pSelf->cChannel) {
 					if (pDst == pSrc)
 						g.l->log(Log::ChannelLeave, tr("%1 moved to %2.").arg(Log::formatClientUser(pDst, Log::Target)).arg(Log::formatChannel(c)));
 					else
@@ -400,6 +421,9 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 					g.l->log(Log::ChannelJoin, tr("%1 entered channel.").arg(Log::formatClientUser(pDst, Log::Target)));
 				else
 					g.l->log(Log::ChannelJoin, tr("%1 moved in from %2 by %3.").arg(Log::formatClientUser(pDst, Log::Target)).arg(Log::formatChannel(old)).arg(Log::formatClientUser(pSrc, Log::Source)));
+
+				if (pDst->bRecording)
+					g.l->log(Log::Recording, tr("%1 is recording").arg(Log::formatClientUser(pDst, Log::Target)));
 			}
 		}
 	}
@@ -542,7 +566,7 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 	}
 
 	g.l->log(Log::TextMessage, tr("%2%1: %3").arg(name).arg(target).arg(u8(msg.message())),
-	         tr("Message from %1").arg(plainName));
+			tr("Message from %1").arg(plainName));
 }
 
 void MainWindow::msgACL(const MumbleProto::ACL &msg) {

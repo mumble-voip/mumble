@@ -216,7 +216,7 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiTalkingShout=QIcon(QLatin1String("skin:talking_alt.svg"));
 	qiTalkingWhisper=QIcon(QLatin1String("skin:talking_whisper.svg"));
 	qiPrioritySpeaker=QIcon(QLatin1String("skin:actions/audio-input-microphone.svg"));
-	qiRecording=QIcon(QLatin1String("skin:rec.svg"));
+	qiRecording=QIcon(QLatin1String("skin:actions/media-record.svg"));
 	qiMutedSelf=QIcon(QLatin1String("skin:muted_self.svg"));
 	qiMutedServer=QIcon(QLatin1String("skin:muted_server.svg"));
 	qiMutedLocal=QIcon(QLatin1String("skin:muted_local.svg"));

@@ -537,7 +537,8 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		}
 	}
 
-	if ((pDstServerUser != uSource) && (msg.has_self_deaf() || msg.has_self_mute() || msg.has_texture() || msg.has_plugin_context() || msg.has_plugin_identity()))
+	// Prevent self-targeting state changes from being applied to others
+	if ((pDstServerUser != uSource) && (msg.has_self_deaf() || msg.has_self_mute() || msg.has_texture() || msg.has_plugin_context() || msg.has_plugin_identity() || msg.has_recording()))
 		return;
 
 	// Permission checks done. Now enact this.
@@ -612,6 +613,10 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		        QString::number(pDstServerUser->bDeaf),
 		        QString::number(pDstServerUser->bSuppress),
 		        QString::number(pDstServerUser->bPrioritySpeaker)));
+	}
+
+	if (msg.has_recording()) {
+		pDstServerUser->bRecording = msg.recording();
 	}
 
 	if (msg.has_channel_id()) {
