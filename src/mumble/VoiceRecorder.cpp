@@ -221,13 +221,15 @@ void VoiceRecorder::run() {
 	}
 
 	Q_ASSERT(sf_format_check(&sfinfo));
+	if (g.sh && g.sh->uiVersion < 0201003)
+		return;
 
 	bRecording = true;
 	forever {
 		qmSleepLock.lock();
 		qwcSleep.wait(&qmSleepLock);
 
-		if (!bRecording) {
+		if (!bRecording || (g.sh && g.sh->uiVersion < 0201003)) {
 			qmSleepLock.unlock();
 			break;
 		}
@@ -299,6 +301,7 @@ void VoiceRecorder::run() {
 
 		qmSleepLock.unlock();
 	}
+	bRecording = false;
 	qWarning() << "VoiceRecorder: recording stopped";
 }
 

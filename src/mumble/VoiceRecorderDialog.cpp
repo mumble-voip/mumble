@@ -103,6 +103,16 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 		return;
 	}
 
+	if (g.sh->uiVersion < 0x010203) {
+		QMessageBox::critical(this,
+							  tr("Unable to start recording"),
+							  tr("The server you are currently connected to is version 1.2.2 or older. "
+								 "For privacy reasons recording on servers of versions older than 1.2.3 "
+								 "is not possible.\nPlease contact your server administrator for further "
+								 "information."));
+		return;
+	}
+
 	if (g.sh->recorder) {
 		QMessageBox::information(this,
 								 tr("Unable to start recording"),
