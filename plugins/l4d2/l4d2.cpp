@@ -72,8 +72,8 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"left4dead2.exe", L"client.dll"))
 		return false;
 
-	posptr = pModule + 0x6E4E70;
-	rotptr = pModule + 0x6E79B4;
+	posptr = pModule + 0x6E4E58;
+	rotptr = pModule + 0x6E4E70;
 	// stateptr = pModule + 0x690A3C;
 
 	float pos[3];
