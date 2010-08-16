@@ -49,6 +49,7 @@ VoiceRecorder::RecordInfo::RecordInfo() : sf(NULL), uiLastPosition(0) {
 
 VoiceRecorder::RecordInfo::~RecordInfo() {
 	if (sf) {
+		// Close libsndfile's handle if we have one.
 		sf_close(sf);
 	}
 }
@@ -103,9 +104,11 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, boost::share
 	Q_ASSERT(!comp.isEmpty());
 
 	QString username(QLatin1String("Mixdown"));
+	// In mixdown mode |cuUser| is always NULL.
 	if (rb->cuUser)
 		username = rb->cuUser->qsName;
 
+	// Create a readable representation of the start date.
 	QString date(qdtRecordingStart.date().toString(Qt::ISODate));
 	QString time(qdtRecordingStart.time().toString(QLatin1String("hh-mm-ss")));
 
@@ -116,6 +119,12 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, boost::share
 		g.sh->getConnectionInfo(hostname, port, uname, pw);
 	}
 
+	// Create hash which stores the names of the variables with the corresponding values.
+	// Valid variables are:
+	//		%user		Inserts the users name
+	//		%date		Inserts the current date
+	//		%time		Inserts the current time
+	//		%host		Inserts the hostname
 	QHash<const QString, QString> vars;
 	vars.insert(QLatin1String("user"), username);
 	vars.insert(QLatin1String("date"), date);
@@ -125,15 +134,6 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, boost::share
 	// Reassemble and expand
 	bool first = true;
 	foreach (QString str, comp) {
-
-		/*
-		Valid variables are:
-			%user		Inserts the users name
-			%date		Inserts the current date
-			%time		Inserts the current time
-			%host		Inserts the hostname
-		*/
-
 		bool replacements = false;
 		QString tmp;
 
@@ -179,6 +179,7 @@ void VoiceRecorder::run() {
 	if (iSampleRate == 0)
 		return;
 
+	// Convert |fmFormat| to a SF_INFO structure for libsndfile.
 	SF_INFO sfinfo;
 	switch (fmFormat) {
 		case VoiceRecorderFormat::WAV:
@@ -226,6 +227,7 @@ void VoiceRecorder::run() {
 
 	bRecording = true;
 	forever {
+		// Sleep until there is new data for us to process.
 		qmSleepLock.lock();
 		qwcSleep.wait(&qmSleepLock);
 
@@ -241,13 +243,16 @@ void VoiceRecorder::run() {
 				rb = qlRecordBuffer.takeFirst();
 			}
 
+			// Use 0 as the |index| if multi channel recording is disabled.
 			int index = bMixDown ? 0 : rb->cuUser->uiSession;
 			Q_ASSERT(qhRecordInfo.contains(index));
 
+			// Create the file for this RecordInfo instance if it's not yet open.
 			boost::shared_ptr<RecordInfo> ri = qhRecordInfo.value(index);
 			if (!ri->sf) {
 				QString filename = expandTemplateVariables(qsFileName, rb);
 
+				// Try to find a unique filename.
 				{
 					int cnt = 1;
 					QString nf(filename);
@@ -261,13 +266,14 @@ void VoiceRecorder::run() {
 				qWarning() << "Recorder opens file" << filename;
 				QFileInfo fi(filename);
 
+				// Create the target path.
 				if (!QDir().mkpath(fi.absolutePath())) {
 					qWarning() << "Failed to create target directory: " << fi.absolutePath();
 					return;
 				}
 
 #ifdef Q_OS_WIN
-				// This is need to get utf characters in filenames right
+				// This is needed for unicode filenames on Windows.
 				ri->sf = sf_wchar_open(filename.utf16(), SFM_WRITE, &sfinfo);
 #else
 				ri->sf = sf_open(qPrintable(filename), SFM_WRITE, &sfinfo);
@@ -278,13 +284,16 @@ void VoiceRecorder::run() {
 					return;
 				}
 
+				// Store the username in the title attribute of the file (if supported by the format).
 				if (rb->cuUser)
 					sf_set_string(ri->sf, SF_STR_TITLE, qPrintable(rb->cuUser->qsName));
 			}
 
+			// Calculate the difference between the time of the current buffer and the time where we last wrote audio data for that user.
+			// Writes silence if the number of |missingSamples| is larger than a threshold of 100ms (to account for processing delay).
 			qint64 missingSamples = ((rb->uiTimestamp - ri->uiLastPosition) * iSampleRate) / 1000000 - rb->iSamples;
 			if (missingSamples > iSampleRate / 10) {
-				// write silence until we reach our current sample value
+				// Write |missingSamples| samples of silence.
 				boost::scoped_array<float> buffer(new float[1024]);
 				memset(buffer.get(), 0, sizeof(float) * 1024);
 				qint64 rest = missingSamples;
@@ -295,6 +304,7 @@ void VoiceRecorder::run() {
 					sf_write_float(ri->sf, buffer.get(), rest);
 			}
 
+			// Write the audio buffer and update the timestamp in |ri|.
 			sf_write_float(ri->sf, rb->fBuffer.get(), rb->iSamples);
 			ri->uiLastPosition = rb->uiTimestamp;
 		}
@@ -306,6 +316,7 @@ void VoiceRecorder::run() {
 }
 
 void VoiceRecorder::stop() {
+	// Tell the main loop to terminate and wake up the sleep lock.
 	bRecording = false;
 	qwcSleep.wakeAll();
 }
@@ -314,15 +325,20 @@ void VoiceRecorder::addBuffer(const ClientUser *cu, boost::shared_array<float> b
 	Q_ASSERT(!bMixDown || cu == NULL);
 
 	{
+		// Save the buffer in |qlRecordBuffer|.
 		QMutexLocker l(&qmBufferLock);
 		boost::shared_ptr<RecordBuffer> rb(new RecordBuffer(cu, buffer, samples, tTimestamp->elapsed()));
 		qlRecordBuffer << rb;
 	}
+
+	// Create a new RecordInfo object if this is a new user.
 	int index = bMixDown ? 0 : cu->uiSession;
 	if (!qhRecordInfo.contains(index)) {
 		boost::shared_ptr<RecordInfo> ri(new RecordInfo());
 		qhRecordInfo.insert(index, ri);
 	}
+
+	// Tell the main loop that we have new audio data.
 	qwcSleep.wakeAll();
 }
 
