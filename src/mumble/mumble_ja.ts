@@ -232,7 +232,7 @@
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation>チャンネルに入るためのパスワードをここに入力してください。</translation>
+        <translation type="unfinished">チャンネルに参加するためのパスワードをここに入力してください。</translation>
     </message>
     <message>
         <location/>
@@ -1724,17 +1724,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Exclusive mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">排他モード</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;これによりデバイスを排他モードで開きます。&lt;/b&gt;&lt;br /&gt;他のアプリケーションがデバイスを使えなくなります。</translation>
     </message>
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">排他モード</translation>
     </message>
 </context>
 <context>
@@ -2167,17 +2167,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Exclusive mode, not recommended.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">排他モード、推奨されません。</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;これによりデバイスを排他モードで開きます。&lt;/b&gt;&lt;br /&gt;他のアプリケーションがデバイスを使えなくなります。</translation>
     </message>
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">排他モード</translation>
     </message>
 </context>
 <context>
@@ -3032,19 +3032,24 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;
+ボリュームコントロールパネルを開き、録音設定画面に移動しましょう。そして、マイクが選択されていて、音量が最大になっている事を確認してください。もし&quot;マイクブースト&quot;を有効にするオプションがあるなら、それもチェックされているか確認してください。
+&lt;/p&gt;
+&lt;p&gt;
+イライラしていたり、興奮していたりする時のように大声で話してみてください。話している間、下にあるバーが青と緑の区域のなるべく空の領域に近い場所に留まるまでサウンドコントロールパネルの音量を下げてください。(赤い区域には&lt;b&gt;入らない&lt;/b&gt;ようにしましょう)
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">次に、誰も起こさないようにしている夜中のようにそっと話してみましょう。話している間、バーが空の領域にかかり、静かにしている時は青に留まるように下のスライダーを調整してください。</translation>
     </message>
     <message>
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the criss-crossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">次に、以下の2つのスライダーを調節しましょう。最初の発声は空の領域(確実に発言と判定)になると良いでしょう。話している最中は黄色(発言だろうと判定)の中に収まり、話していない時はすべて赤(発言ではないと判定)に入っているようにしてください。</translation>
     </message>
 </context>
 <context>
@@ -3684,7 +3689,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
-        <translation>他の人を別のチャンネルに移動させたり、サーバからキックしたりする権限を表します。実際にユーザを動かすには、実行する人が移動先のチャンネルの移動/キック権限を持っているか、ユーザが移動先チャンネルに入る権限を持っていなければなりません。この権限を持っている人は、対象のユーザが通常参加を許可されていないチャンネルに移動させることができます。</translation>
+        <translation type="unfinished">他の人を別のチャンネルに移動させたり、サーバからキックしたりする権限を表します。実際にユーザを動かすには、実行する人が移動先のチャンネルの移動/キック権限を持っているか、ユーザが移動先チャンネルに参加する権限を持っていなければなりません。この権限を持っている人は、対象のユーザが通常参加を許可されていないチャンネルに移動させることができます。</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3807,12 +3812,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="CustomElements.cpp" line="+79"/>
         <source>Paste and send</source>
-        <translation type="unfinished">貼り付けて送信</translation>
+        <translation>貼り付けて送信</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
-        <translation type="unfinished">&lt;center&gt;ここにメッセージを入力&lt;/center&gt;</translation>
+        <translation>&lt;center&gt;ここにメッセージを入力&lt;/center&gt;</translation>
     </message>
 </context>
 <context>
@@ -4727,7 +4732,7 @@ of the possible locations.</source>
     <message>
         <location filename="CustomElements.cpp" line="+135"/>
         <source>Drag here</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ここにドラッグ</translation>
     </message>
 </context>
 <context>
@@ -6504,7 +6509,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Join Channel</source>
         <comment>Global Shortcut</comment>
-        <translation>チャンネルに入る</translation>
+        <translation type="unfinished">チャンネルへの参加</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -7575,7 +7580,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-157"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation>自分を発言禁止にする</translation>
+        <translation type="unfinished">発言禁止状態</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -7593,7 +7598,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+2"/>
         <source>Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation>自身を聴取禁止にする</translation>
+        <translation type="unfinished">聴取禁止状態</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -8532,13 +8537,13 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+38"/>
         <source>Mumble has deemed the installer valid.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumbleはインストーラが有効であると認識しました。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mumble was unable to verify the authenticity of the installer.</source>
         <oldsource>Mumble was unable to validate authenticity of the installer.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumbleはインストーラの信頼性を検証できません。</translation>
     </message>
     <message>
         <source>Show User Textures</source>
@@ -8708,7 +8713,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>View Certificates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書を見る</translation>
     </message>
 </context>
 <context>
