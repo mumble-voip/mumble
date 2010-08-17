@@ -288,7 +288,7 @@
              <string>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</string>
             </property>
             <property name="text">
-             <string>Reset</string>
+             <string>R&amp;eset</string>
             </property>
            </widget>
           </item>
@@ -298,7 +298,7 @@
              <string>Browse for on audio file</string>
             </property>
             <property name="text">
-             <string>Browse</string>
+             <string>&amp;Browse...</string>
             </property>
            </widget>
           </item>
@@ -308,7 +308,7 @@
              <string>Browse for off audio file</string>
             </property>
             <property name="text">
-             <string>Browse</string>
+             <string>B&amp;rowse...</string>
             </property>
            </widget>
           </item>
@@ -341,7 +341,7 @@
              <string>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; soundfile followed by the current &lt;i&gt;off&lt;/i&gt; soundfile.</string>
             </property>
             <property name="text">
-             <string>Preview</string>
+             <string>&amp;Preview</string>
             </property>
            </widget>
           </item>

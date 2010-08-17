@@ -225,14 +225,14 @@
             <item>
              <widget class="QPushButton" name="qpbAdd">
               <property name="text">
-               <string>Add</string>
+               <string>&amp;Add...</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QPushButton" name="qpbRemove">
               <property name="text">
-               <string>Remove</string>
+               <string>&amp;Remove</string>
               </property>
              </widget>
             </item>
