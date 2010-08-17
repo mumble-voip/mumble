@@ -1714,22 +1714,22 @@ Setzt die Pfade zu den Dateien auf die Standardwerte zurück.</translation>
     <message>
         <location/>
         <source>R&amp;eset</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurücks&amp;etzen</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Durchsuchen...</translation>
     </message>
     <message>
         <location/>
         <source>B&amp;rowse...</source>
-        <translation type="unfinished"></translation>
+        <translation>D&amp;urchsuchen...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vorschau</translation>
     </message>
 </context>
 <context>
@@ -3933,7 +3933,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     <message>
         <location line="+2"/>
         <source>Recording</source>
-        <translation type="unfinished"></translation>
+        <translation>Aufnahme</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6054,7 +6054,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Durchsuchen...</translation>
     </message>
 </context>
 <context>
@@ -6913,22 +6913,22 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location line="+11"/>
         <source>Recording started</source>
-        <translation type="unfinished"></translation>
+        <translation>Aufnahme gestartet</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Recording stopped</source>
-        <translation type="unfinished"></translation>
+        <translation>Aufnahme beendet</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 started recording.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 nimmt jetzt auf.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 stopped recording.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 nimmt nicht mehr auf.</translation>
     </message>
     <message>
         <location line="+41"/>
@@ -6938,7 +6938,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location line="+96"/>
         <source>%1 is recording</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 nimmt auf</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -8162,7 +8162,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location/>
         <source>Recording</source>
-        <translation type="unfinished"></translation>
+        <translation>Aufnahme</translation>
     </message>
 </context>
 <context>
@@ -8448,7 +8448,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location/>
         <source>Download plugin and overlay updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Plugin und Overlay Updates beim Starten herunterladen</translation>
     </message>
 </context>
 <context>
@@ -8554,7 +8554,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location line="+244"/>
         <source>Skipping overlay update in debug mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Überspringe Overlay-Aktualisierung im Debug Modus.</translation>
     </message>
     <message>
         <location line="+66"/>
@@ -8849,7 +8849,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <location line="+1"/>
         <source>Mumble was unable to verify the authenticity of the installer.</source>
         <oldsource>Mumble was unable to validate authenticity of the installer.</oldsource>
-        <translation type="unfinished">Mumble konnte die Echtheit des Installers nicht überprüfen.</translation>
+        <translation>Mumble konnte die Echtheit des Installers nicht überprüfen.</translation>
     </message>
     <message>
         <source>Show no one</source>
@@ -8992,12 +8992,12 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     <message>
         <location/>
         <source>&amp;Add...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hinzufügen...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished">&amp;Entfernen</translation>
+        <translation>&amp;Entfernen</translation>
     </message>
 </context>
 <context>
@@ -10440,22 +10440,22 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <location filename="VoiceRecorder.cpp" line="+390"/>
         <source>.wav - Uncompressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.wav - Unkomprimiert</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>.ogg (Vorbis) - Compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.ogg (Vorbis) - Komprimiert</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>.au - Uncompressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.au - Unkomprimiert</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>.flac - Lossless compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.flac - Verlustfrei komprimiert</translation>
     </message>
 </context>
 <context>
@@ -10467,32 +10467,32 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <location line="+10"/>
         <location line="+9"/>
         <source>Recorder</source>
-        <translation type="unfinished"></translation>
+        <translation>Aufnahme</translation>
     </message>
     <message>
         <location/>
         <source>Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Steuerung</translation>
     </message>
     <message>
         <location/>
         <source>00:00:00</source>
-        <translation type="unfinished">00:00:00</translation>
+        <translation>00:00:00</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Start</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Start</translation>
     </message>
     <message>
         <location/>
         <source>S&amp;top</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;top</translation>
     </message>
     <message>
         <location/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus</translation>
     </message>
     <message>
         <location/>
@@ -10502,27 +10502,27 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation type="unfinished">Mehrkanal</translation>
+        <translation>Mehrkanal</translation>
     </message>
     <message>
         <location/>
         <source>Output</source>
-        <translation type="unfinished">Ausgabe</translation>
+        <translation>Ausgabe</translation>
     </message>
     <message>
         <location/>
         <source>Output format</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgabeformat</translation>
     </message>
     <message>
         <location/>
         <source>Target directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Zielverzeichnis</translation>
     </message>
     <message>
         <location/>
         <source>Filename</source>
-        <translation type="unfinished"></translation>
+        <translation>Dateiname</translation>
     </message>
     <message>
         <location/>
@@ -10533,48 +10533,54 @@ Valid variables are:
 %time	Inserts the current time
 %host	Inserts the hostname
 &lt;/pre&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;pre&gt;
+Gültige Variablen sind:
+%user	Fügt den Benutzernamen ein
+%date	Fügt das aktuelle Datum ein
+%time	Fügt die aktuelle Uhrzeit ein
+%host	Fügt den Hostnamen ein
+&lt;/pre&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Durchsuchen...</translation>
     </message>
     <message>
         <location filename="VoiceRecorderDialog.cpp" line="-57"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn Sie den Aufnahmedialog schließen wird die Aufnahme beendet. Sind sie sicher?</translation>
     </message>
     <message>
         <location line="+30"/>
         <source>Recoder</source>
-        <translation type="unfinished"></translation>
+        <translation>Aufnahme</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Unable to start recording. Not connected to a server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aufnahme kann nicht gestartet werden, da keine Verbindung zu einem Server besteht.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
 Please contact your server administrator for further information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Server mit dem Sie aktuell verbunden sind hat die Version 1.2.2 oder älter. Aus Gründen der Privatsphäre sind Aufnahmen auf Servern älter als 1.2.3 nicht möglich.</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>There is already a recorder active for this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Es läuft bereits eine Aufnahme für diesen Server.</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Please select a recording format.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte wählen Sie ein Aufnahmeformat aus.</translation>
     </message>
     <message>
         <location line="+97"/>
         <source>Select target directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Zielverzeichnis auswählen</translation>
     </message>
 </context>
 <context>
