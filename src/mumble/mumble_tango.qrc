@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file alias="actions/media-record.svg" >../../icons/tango/actions/media-record.svg</file>
     <file alias="actions/audio-input-microphone.svg" >../../icons/tango/actions/audio-input-microphone.svg</file>
     <file alias="actions/audio-input-microphone-muted.svg" >../../icons/tango/actions/audio-input-microphone-muted.svg</file>
     <file alias="actions/bookmark-new.svg" >../../icons/tango/actions/bookmark-new.svg</file>

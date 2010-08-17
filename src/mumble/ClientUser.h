@@ -92,6 +92,7 @@ class ClientUser : public QObject, public User {
 		void setSelfMute(bool mute);
 		void setSelfDeaf(bool deaf);
 		void setPrioritySpeaker(bool priority);
+		void setRecording(bool recording);
 	signals:
 		void talkingChanged();
 		void muteDeafChanged();

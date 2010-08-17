@@ -239,6 +239,7 @@ class AudioOutput : public QThread {
 		virtual bool isAlive() const;
 		const float *getSpeakerPos(unsigned int &nspeakers);
 		static float calcGain(float dotproduct, float distance);
+		unsigned int getMixerFreq() const;
 };
 
 #else

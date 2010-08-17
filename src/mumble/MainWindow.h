@@ -47,6 +47,7 @@ class UserModel;
 class Tokens;
 class Channel;
 class UserInformation;
+class VoiceRecorderDialog;
 
 struct ShortcutTarget;
 
@@ -90,6 +91,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		BanEditor *banEdit;
 		UserEdit *userEdit;
 		Tokens *tokenEdit;
+
+		VoiceRecorderDialog *voiceRecorderDialog;
 
 		MumbleProto::Reject_RejectType rtLast;
 		QString qsDesiredChannel;
@@ -182,6 +185,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaAudioReset_triggered();
 		void on_qaAudioMute_triggered();
 		void on_qaAudioDeaf_triggered();
+		void on_qaRecording_triggered();
 		void on_qaAudioTTS_triggered();
 		void on_qaAudioUnlink_triggered();
 		void on_qaAudioStats_triggered();
@@ -213,6 +217,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_gsWhisper_triggered(bool, QVariant);
 		void on_Reconnect_timeout();
 		void on_Icon_activated(QSystemTrayIcon::ActivationReason);
+		void voiceRecorderDialog_finished(int);
 		void qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &);
 		void serverConnected();
 		void serverDisconnected(QAbstractSocket::SocketError, QString reason);

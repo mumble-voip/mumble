@@ -5,6 +5,8 @@
 #define QT_NO_DEBUG_STREAM
 #define QT_ASCII_CAST_WARNINGS
 #define QT_NO_CAST_TO_ASCII
+#define QT_USE_FAST_CONCATENATION
+#define QT_USE_FAST_OPERATOR_PLUS
 
 #define _WINSOCKAPI_
 
@@ -45,6 +47,9 @@
 #undef set_key
 
 #ifndef COMPAT_CLIENT
+#ifdef Q_OS_WIN
+#define ENABLE_SNDFILE_WINDOWS_PROTOTYPES 1
+#endif
 #define __int64_t __int64
 #include <sndfile.h>
 #undef __int64_t
@@ -68,6 +73,9 @@
 #include <boost/accumulators/statistics/variance.hpp>
 #include <boost/accumulators/statistics/extended_p_square.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/shared_array.hpp>
+#include <boost/scoped_ptr.hpp>
+#include <boost/scoped_array.hpp>
 #include <boost/weak_ptr.hpp>
 #include <boost/bind.hpp>
 #ifdef Q_CC_GNU
@@ -100,7 +108,9 @@
 #define lroundf(x) ( static_cast<long int>( (x) + ((x) >= 0.0f ? 0.5f : -0.5f) ) )
 #define lround(x) ( static_cast<long int>( (x) + ((x) >= 0.0 ? 0.5 : -0.5) ) )
 #endif
+#ifndef M_PI
 #define M_PI 3.14159265358979323846
+#endif
 #define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(_alloca(sizeof(type) * (count)))
 #else
 #include <math.h>

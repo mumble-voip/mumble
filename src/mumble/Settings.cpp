@@ -299,6 +299,12 @@ Settings::Settings() {
 	// Accessibility
 	bHighContrast = false;
 
+	// Recording
+	qsRecordingPath = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+	qsRecordingFile = QLatin1String("Mumble-%date-%time-%host-%user");
+	rmRecordingMode = RecordingMixdown;
+	iRecordingFormat = 0;
+
 #if defined(AUDIO_TEST)
 	lmLoopMode = Server;
 #else
@@ -333,6 +339,9 @@ Settings::Settings() {
 	qmMessages[Log::UserKicked] = Settings::LogConsole;
 	qmMessages[Log::OtherSelfMute] = Settings::LogConsole;
 	qmMessages[Log::OtherMutedOther] = Settings::LogConsole;
+
+    // Unnoticed recording has a chance to violate privacy. Make it as obvious as possible.
+	qmMessages[Log::Recording] = Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS;
 }
 
 bool Settings::doEcho() const {
@@ -367,6 +376,7 @@ BOOST_TYPEOF_REGISTER_TYPE(Settings::ChannelDrag)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::ServerShow)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::WindowLayout)
 BOOST_TYPEOF_REGISTER_TYPE(Settings::AlwaysOnTopBehaviour)
+BOOST_TYPEOF_REGISTER_TYPE(Settings::RecordingMode)
 BOOST_TYPEOF_REGISTER_TYPE(QString)
 BOOST_TYPEOF_REGISTER_TYPE(QByteArray)
 BOOST_TYPEOF_REGISTER_TYPE(QColor)
@@ -557,6 +567,13 @@ void Settings::load() {
 	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 
+	// Recording
+	SAVELOAD(qsRecordingPath, "recording/path");
+	SAVELOAD(qsRecordingFile, "recording/file");
+	LOADENUM(rmRecordingMode, "recording/mode");
+	SAVELOAD(iRecordingFormat, "recording/format");
+
+	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
 
@@ -796,6 +813,13 @@ void Settings::save() {
 	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 
+	// Recording
+	SAVELOAD(qsRecordingPath, "recording/path");
+	SAVELOAD(qsRecordingFile, "recording/file");
+	SAVELOAD(rmRecordingMode, "recording/mode");
+	SAVELOAD(iRecordingFormat, "recording/format");
+
+	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
 

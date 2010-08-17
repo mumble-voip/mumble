@@ -715,3 +715,10 @@ void ServerHandler::setSelfMuteDeafState(bool mute, bool deaf) {
 	mpus.set_self_deaf(deaf);
 	sendMessage(mpus);
 }
+
+void ServerHandler::announceRecordingState(bool recording) {
+	MumbleProto::UserState mpus;
+	mpus.set_recording(recording);
+	sendMessage(mpus);
+}
+

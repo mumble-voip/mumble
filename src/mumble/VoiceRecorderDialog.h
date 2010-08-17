@@ -1,4 +1,5 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2010, Stefan Hacker <dd0t@users.sourceforge.net>
+   Copyright (C) 2010, Benjamin Jemlich <pcgod@users.sourceforge.net>
 
    All rights reserved.
 
@@ -7,13 +8,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,16 +29,32 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "User.h"
-#include "Channel.h"
+#ifndef _VOICERECORDERDIALOG_H
+#define _VOICERECORDERDIALOG_H
 
-User::User() {
-	uiSession = 0;
-	iId = -1;
-	bMute = bDeaf = false;
-	bSelfMute = bSelfDeaf = false;
-	bPrioritySpeaker = false;
-	bRecording = false;
-	bSuppress = false;
-	cChannel = 0;
-}
+#pragma once
+
+#include "mumble_pch.hpp"
+
+#include "ui_VoiceRecorderDialog.h"
+
+class VoiceRecorderDialog : public QDialog, private Ui::VoiceRecorderDialog {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(VoiceRecorderDialog)
+
+		QTimer *qtTimer;
+	public:
+		explicit VoiceRecorderDialog(QWidget *p);
+		~VoiceRecorderDialog();
+
+		void closeEvent(QCloseEvent *evt);
+	public slots:
+		void on_qpbStart_clicked();
+		void on_qpbStop_clicked();
+		void on_qtTimer_timeout();
+		void on_qpbTargetDirectoryBrowse_clicked();
+		void reset();
+};
+
+#endif // _VOICERECORDERDIALOG_H

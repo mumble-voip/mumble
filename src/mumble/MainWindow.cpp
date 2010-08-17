@@ -57,6 +57,7 @@
 #include "NetworkConfig.h"
 #include "ACL.h"
 #include "UserInformation.h"
+#include "VoiceRecorderDialog.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -158,6 +159,8 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	banEdit = NULL;
 	userEdit = NULL;
 	tokenEdit = NULL;
+
+	voiceRecorderDialog = NULL;
 
 	uiContextSession = ~0;
 	iContextChannel = -1;
@@ -1026,6 +1029,11 @@ void MainWindow::on_qaServerTokens_triggered() {
 	tokenEdit->show();
 }
 
+void MainWindow::voiceRecorderDialog_finished(int) {
+	voiceRecorderDialog->deleteLater();
+	voiceRecorderDialog = NULL;
+}
+
 void MainWindow::qmUser_aboutToShow() {
 	ClientUser *p = getContextMenuUser();
 
@@ -1728,6 +1736,18 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 	}
 
 	updateTrayIcon();
+}
+
+void MainWindow::on_qaRecording_triggered() {
+	if (voiceRecorderDialog) {
+		voiceRecorderDialog->show();
+		voiceRecorderDialog->raise();
+		voiceRecorderDialog->activateWindow();
+	} else {
+		voiceRecorderDialog = new VoiceRecorderDialog(this);
+		connect(voiceRecorderDialog, SIGNAL(finished(int)), this, SLOT(voiceRecorderDialog_finished(int)));
+		voiceRecorderDialog->show();
+	}
 }
 
 void MainWindow::on_qaAudioTTS_triggered() {
