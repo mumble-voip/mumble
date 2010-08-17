@@ -157,6 +157,8 @@ void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, co
 	QDomElement tag;
 	QDomText t;
 	bool bIs64;
+	bool bSSE2 = false;
+	QString cpu_id, cpu_extid;
 
 	tag=doc.createElement(QLatin1String("machash"));
 	root.appendChild(tag);
@@ -200,4 +202,46 @@ void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, co
 	t=doc.createTextNode(QString::number(bIs64 ? 1 : 0));
 	tag.appendChild(t);
 
+#if defined(Q_WS_WIN)
+#define regstr(x) QString::fromLatin1(reinterpret_cast<const char *>(& x), 4)
+	int chop;
+	int cpuinfo[4];
+	
+	__cpuid(cpuinfo, 1);
+	bSSE2 = (cpuinfo[3] & 0x04000000);
+	
+	__cpuid(cpuinfo, 0);
+
+	cpu_id = regstr(cpuinfo[1]) + regstr(cpuinfo[3]) + regstr(cpuinfo[2]);
+
+	for (unsigned int j=2; j<=4;++j) {
+		__cpuid(cpuinfo, 0x80000000 + j);
+		cpu_extid += regstr(cpuinfo[0]) + regstr(cpuinfo[1]) + regstr(cpuinfo[2]) + regstr(cpuinfo[3]);
+	}
+
+	cpu_id = cpu_id.trimmed();
+	chop = cpu_id.indexOf(QLatin1Char('\0'));
+	if (chop != -1)
+		cpu_id.truncate(chop);
+
+	cpu_extid = cpu_extid.trimmed();
+	chop = cpu_extid.indexOf(QLatin1Char('\0'));
+	if (chop != -1)
+		cpu_extid.truncate(chop);
+#endif
+
+	tag=doc.createElement(QLatin1String("cpu_id"));
+	root.appendChild(tag);
+	t=doc.createTextNode(cpu_id);
+	tag.appendChild(t);
+		
+	tag=doc.createElement(QLatin1String("cpu_extid"));
+	root.appendChild(tag);
+	t=doc.createTextNode(cpu_extid);
+	tag.appendChild(t);
+
+	tag=doc.createElement(QLatin1String("cpu_sse2"));
+	root.appendChild(tag);
+	t=doc.createTextNode(QString::number(bSSE2 ? 1 : 0));
+	tag.appendChild(t);
 }
