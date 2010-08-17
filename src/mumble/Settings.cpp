@@ -340,7 +340,7 @@ Settings::Settings() {
 	qmMessages[Log::OtherSelfMute] = Settings::LogConsole;
 	qmMessages[Log::OtherMutedOther] = Settings::LogConsole;
 
-    // Unnoticed recording has a chance to violate privacy. Make it as obvious as possible.
+	// Unnoticed recording has a chance to violate privacy. Make it as obvious as possible.
 	qmMessages[Log::Recording] = Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS;
 }
 

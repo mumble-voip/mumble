@@ -1601,9 +1601,8 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>&lt;b&gt;リセット&lt;/b&gt;&lt;br /&gt;デフォルトにファイルへのパスをリセットします。</translation>
     </message>
     <message>
-        <location/>
         <source>Reset</source>
-        <translation>リセット</translation>
+        <translation type="obsolete">リセット</translation>
     </message>
     <message>
         <location/>
@@ -1611,9 +1610,8 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>オン時の音声ファイルを参照</translation>
     </message>
     <message>
-        <location/>
         <source>Browse</source>
-        <translation>参照</translation>
+        <translation type="obsolete">参照</translation>
     </message>
     <message>
         <location/>
@@ -1641,9 +1639,8 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>&lt;b&gt;プレビュー&lt;/b&gt;&lt;br /&gt;現在のオンのときのサウンドファイルを再生しそのあとにオフのときのサウンドファイルを再生する。</translation>
     </message>
     <message>
-        <location/>
         <source>Preview</source>
-        <translation>プレビュー</translation>
+        <translation type="obsolete">プレビュー</translation>
     </message>
     <message>
         <location/>
@@ -1692,7 +1689,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="obsolete">&lt;b&gt;ノイズ抑制の量を設定します。&lt;/b&gt;&lt;br /&gt;値を大きくすると、より積極的に定常ノイズを抑制しようとします。</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+523"/>
+        <location filename="AudioInput.cpp" line="+524"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)</source>
         <translation>サーバの最大ネットワーク帯域は %1 kbit/s しかありません。音質を自動的に %2 kbit/s (%3ms) に調整します</translation>
     </message>
@@ -1735,6 +1732,26 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location/>
         <source>Exclusive</source>
         <translation type="unfinished">排他モード</translation>
+    </message>
+    <message>
+        <location/>
+        <source>R&amp;eset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Browse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>B&amp;rowse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2244,7 +2261,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>AudioOutputSample</name>
     <message>
-        <location filename="AudioOutput.cpp" line="+295"/>
+        <location filename="AudioOutput.cpp" line="+297"/>
         <source>Choose sound file</source>
         <translation>サウンドファイルを選択してください</translation>
     </message>
@@ -3239,7 +3256,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Mumble ユーザ</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+408"/>
+        <location filename="main.cpp" line="+412"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;証明書の有効期限:&lt;/b&gt;あなたの証明書の有効期限がもうすぐ切れます。証明書を更新する必要があります。さもないとあなたはユーザ登録したサーバに接続できなくなるでしょう。</translation>
     </message>
@@ -3866,6 +3883,11 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location line="+2"/>
+        <source>Recording</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Muted (server)</source>
         <translation>発言禁止 (server)</translation>
     </message>
@@ -3899,7 +3921,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location/>
-        <location filename="ConfigDialogDelegate.mm" line="+135"/>
+        <location filename="ConfigDialogDelegate.mm" line="+142"/>
         <source>Advanced</source>
         <translation>高度な設定を表示する</translation>
     </message>
@@ -3909,13 +3931,11 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="+51"/>
-        <location filename="ConfigDialog.mm" line="+73"/>
         <source>Accept changes</source>
         <translation>変更を確定</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
         <translation>このボタンは現在の設定を適用してアプリケーションに戻ります。&lt;br /&gt;この設定はアプリケーションを終了してもディスクに保存されます。</translation>
     </message>
@@ -3925,13 +3945,11 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location line="+4"/>
-        <location filename="ConfigDialog.mm" line="+4"/>
         <source>Reject changes</source>
         <translation>変更を破棄</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
         <translation>このボタンは変更を破棄してアプリケーションに戻ります。&lt;br /&gt;設定は前の状態に戻ります。</translation>
     </message>
@@ -3941,37 +3959,31 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location line="+4"/>
-        <location filename="ConfigDialog.mm" line="+4"/>
         <source>Apply changes</source>
         <translation>変更を適用</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will immediately apply all changes.</source>
         <translation>全ての変更を、すぐに適用します。</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location filename="ConfigDialog.mm" line="+3"/>
         <source>Undo changes for current page</source>
         <translation>このページの変更を元に戻す</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
         <translation>このボタンは、現在のページで最後に適用した変更を元に戻します。</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location filename="ConfigDialog.mm" line="+3"/>
         <source>Restore defaults for current page</source>
         <translation>このページをデフォルト設定に戻す</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <translation>このボタンは現在のページの設定をデフォルトに戻します。他のページは変更されません。&lt;br /&gt;全ての設定をデフォルト戻すには、各ページでこのボタンを使わなければなりません。</translation>
     </message>
@@ -3994,6 +4006,59 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <source>Tab 1</source>
         <translation type="obsolete">Tab 1</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigDialogMac</name>
+    <message>
+        <location filename="ConfigDialog_macx.mm" line="+70"/>
+        <source>Accept changes</source>
+        <translation type="unfinished">変更を確定</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
+        <translation type="unfinished">このボタンは現在の設定を適用してアプリケーションに戻ります。&lt;br /&gt;この設定はアプリケーションを終了してもディスクに保存されます。</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Reject changes</source>
+        <translation type="unfinished">変更を破棄</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
+        <translation type="unfinished">このボタンは変更を破棄してアプリケーションに戻ります。&lt;br /&gt;設定は前の状態に戻ります。</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Apply changes</source>
+        <translation type="unfinished">変更を適用</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will immediately apply all changes.</source>
+        <translation type="unfinished">全ての変更を、すぐに適用します。</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Undo changes for current page</source>
+        <translation type="unfinished">このページの変更を元に戻す</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
+        <translation type="unfinished">このボタンは、現在のページで最後に適用した変更を元に戻します。</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Restore defaults for current page</source>
+        <translation type="unfinished">このページをデフォルト設定に戻す</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
+        <translation type="unfinished">このボタンは現在のページの設定をデフォルトに戻します。他のページは変更されません。&lt;br /&gt;全ての設定をデフォルト戻すには、各ページでこのボタンを使わなければなりません。</translation>
     </message>
 </context>
 <context>
@@ -4174,7 +4239,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+960"/>
+        <location line="+963"/>
         <source>Failed to fetch server list</source>
         <translation>サーバリストを取得出来ませんでした</translation>
     </message>
@@ -4296,7 +4361,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location/>
-        <location filename="ConnectDialog.cpp" line="-707"/>
+        <location filename="ConnectDialog.cpp" line="-710"/>
         <source>&amp;Add New...</source>
         <translation>新しく追加(&amp;A) ...</translation>
     </message>
@@ -4854,7 +4919,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutMacInit</name>
     <message>
-        <location filename="GlobalShortcut_macx.cpp" line="+60"/>
+        <location filename="GlobalShortcut_macx.mm" line="+63"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
         <translation>バックグラウンドでグローバルなショートカットイベントが発生し、受け入れることができませんでした。&lt;br /&gt;&lt;br /&gt;&apos;補助デバイスへのアクセス&apos; のようなユニバーサルアクセス機能が無効になっているのが原因です。&lt;br /&gt;&lt;br /&gt;&lt;a href=&quot; &quot;&gt;この設定を有効にして&lt;/a&gt; その後、再び設定してください。 </translation>
     </message>
@@ -5155,7 +5220,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">誰かがキックされた時</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+6"/>
         <source>You self-muted/deafened</source>
         <translation>自分を発言禁止/聴取禁止にした時</translation>
     </message>
@@ -5199,7 +5264,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>テキストメッセージ</translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="-13"/>
         <source>User Joined Server</source>
         <translation>ユーザがサーバに参加</translation>
     </message>
@@ -5209,7 +5274,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>ユーザがサーバから退出</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>User kicked (you or by you)</source>
         <translation>ユーザがキックされた時 (あなた自身、またはあなたによって)</translation>
     </message>
@@ -5288,7 +5353,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-514"/>
+        <location line="-515"/>
         <source>Toggle console for %1 events</source>
         <translation>イベント「%1」 のためのコンソールを切り替える</translation>
     </message>
@@ -5545,9 +5610,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>スキン</translation>
     </message>
     <message>
-        <location/>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="obsolete">...</translation>
     </message>
     <message>
         <source>Check to show chat bar</source>
@@ -5625,9 +5689,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;b&gt;Mumbleで使用するスキンを設定します。&lt;/b&gt;&lt;br /&gt;スキンは基本的なウィジェットスタイルで用いられるスタイルファイルです。アイコンがスタイルシートと同じディレクトリにあるなら、デフォルトのアイコンを置き換えます。</translation>
     </message>
     <message>
-        <location/>
         <source>Form</source>
-        <translation>フォーム</translation>
+        <translation type="obsolete">フォーム</translation>
     </message>
     <message>
         <source>New version check</source>
@@ -5856,12 +5919,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>Channel Tree</source>
         <translation>チャンネルツリー</translation>
     </message>
+    <message>
+        <location/>
+        <source>&amp;Browse...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+151"/>
-        <location line="+1872"/>
+        <location filename="MainWindow.cpp" line="+156"/>
+        <location line="+1904"/>
         <source>Root</source>
         <translation>ルート</translation>
     </message>
@@ -6377,9 +6445,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumbleのウェブページに接続して新しいバージョンが出ているかを確認します。もし新しいのが出ていたら適切なダウンロードURLを通知します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1781"/>
+        <location filename="MainWindow.cpp" line="-1811"/>
         <location line="+12"/>
-        <location line="+1977"/>
+        <location line="+2007"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6401,7 +6469,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">プレイヤー(&amp;P)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2064"/>
+        <location filename="MainWindow.cpp" line="-2094"/>
         <source>&amp;Channel</source>
         <translation>チャンネル(&amp;C)</translation>
     </message>
@@ -6538,7 +6606,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">プレイヤー %1 をキックしました。</translation>
     </message>
     <message>
-        <location line="+1001"/>
+        <location line="+1006"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>理由を入力してください</translation>
@@ -6592,7 +6660,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>聴取禁止を解除する。</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+94"/>
         <source>About Qt</source>
         <translation>Qtについて</translation>
     </message>
@@ -6615,7 +6683,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>サーバから切断しました。</translation>
     </message>
     <message>
-        <location line="-1381"/>
+        <location line="-1411"/>
         <source>Reconnecting.</source>
         <translation>再接続中.</translation>
     </message>
@@ -6628,7 +6696,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+289"/>
+        <location filename="Messages.cpp" line="+310"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>%1 があなたを発言・聴取を禁止しました。</translation>
     </message>
@@ -6687,7 +6755,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバから切断しました: %1.</translation>
     </message>
     <message>
-        <location line="-136"/>
+        <location line="-157"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 が発言禁止/聴取禁止状態になりました。</translation>
     </message>
@@ -6778,12 +6846,37 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%1 の発言禁止状態が解除されました。</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+11"/>
+        <source>Recording started</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Recording stopped</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>%1 started recording.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 stopped recording.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+41"/>
         <source>You were unsuppressed.</source>
         <translation>あなたの発言禁止が解除されました。</translation>
     </message>
     <message>
-        <location line="+139"/>
+        <location line="+96"/>
+        <source>%1 is recording</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
         <source>%1 disconnected.</source>
         <translation>%1 が切断しました。</translation>
     </message>
@@ -6807,7 +6900,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ</translation>
     </message>
     <message>
-        <location line="-251"/>
+        <location line="-254"/>
         <source>You were muted by %1.</source>
         <translation>%1 があなたの発言を禁止しました。</translation>
     </message>
@@ -6867,12 +6960,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ</translation>
     </message>
     <message>
-        <location line="+327"/>
+        <location line="+330"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>他のクライアントとマッチするCELTコーデックが見つかりません。あなたは全てのユーザとは話せないでしょう。</translation>
     </message>
     <message>
-        <location line="-393"/>
+        <location line="-396"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>%1 があなたの聴取を禁止しました。</translation>
@@ -6892,7 +6985,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%2 が %1 の聴取禁止を解除しました。</translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+86"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>あなたは %1 によってサーバからキックされました: %2.</translation>
     </message>
@@ -6912,7 +7005,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%3 は %1 によってキックされ、サーバからBANされました: %2.</translation>
     </message>
     <message>
-        <location line="-57"/>
+        <location line="-60"/>
         <source>You were moved to %1 by %2.</source>
         <translation>%2 があなたを %1 に移動させました。</translation>
     </message>
@@ -6942,7 +7035,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">%1 は %2 によって移動させられました。</translation>
     </message>
     <message>
-        <location line="-312"/>
+        <location line="-333"/>
         <source>Server connection rejected: %1.</source>
         <translation>サーバへの接続は拒否されました: %1.</translation>
     </message>
@@ -6981,7 +7074,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>テキストメッセージを送信</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+449"/>
+        <location filename="MainWindow.cpp" line="+454"/>
         <source>Sending message to %1</source>
         <translation>%1 にメッセージを送信しています</translation>
     </message>
@@ -7016,7 +7109,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>(ツリー） %1宛: %2</translation>
     </message>
     <message>
-        <location line="+616"/>
+        <location line="+641"/>
         <source>Failed to launch compatibility client</source>
         <translation>互換クライアントの起動に失敗しました</translation>
     </message>
@@ -7060,7 +7153,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">%1 より: %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+329"/>
+        <location filename="Messages.cpp" line="+353"/>
         <source>Message from %1</source>
         <translation>%1 からのメッセージ</translation>
     </message>
@@ -7075,7 +7168,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>他のユーザにテキストメッセージを送信します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2241"/>
+        <location filename="MainWindow.cpp" line="-2271"/>
         <source>&amp;User</source>
         <translation>ユーザ(&amp;U)</translation>
     </message>
@@ -7167,7 +7260,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>サウンドハードウェアの設定プロセスに案内します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1959"/>
+        <location filename="MainWindow.cpp" line="+1989"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL検証エラー: %1</translation>
     </message>
@@ -7197,7 +7290,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>サーバとの接続についての詳細な情報を表示します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1594"/>
+        <location filename="MainWindow.cpp" line="-1624"/>
         <source>Opening URL %1</source>
         <translation>URL %1 を開きます</translation>
     </message>
@@ -7283,25 +7376,25 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1155"/>
+        <location line="+1185"/>
         <source>&amp;View Certificate</source>
         <translation>証明書を見る(&amp;V)</translation>
     </message>
     <message>
-        <location line="-1265"/>
-        <location line="+306"/>
+        <location line="-1295"/>
+        <location line="+311"/>
         <source>Register yourself as %1</source>
         <translation>%1 の名前で自分をユーザ登録します</translation>
     </message>
     <message>
-        <location line="-958"/>
+        <location line="-963"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>ゲームオーバレイの状態を切り替えます。</translation>
     </message>
     <message>
         <location line="+652"/>
-        <location line="+306"/>
+        <location line="+311"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;サーバ上で自分自身をユーザ登録しようとしています。このアクションは取り消せません。このサーバでのあなたのユーザ名をこの操作の後に変更できなくなります。あなたはこのサーバ上で &apos;%1&apos; のユーザ名を使うことになります。&lt;/p&gt;&lt;p&gt;本当に自分自身を登録しますか？&lt;/p&gt;</translation>
     </message>
@@ -7340,7 +7433,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>チャンネル %1 へのメッセージ</translation>
     </message>
     <message>
-        <location line="+441"/>
+        <location line="+466"/>
         <source>Connected.</source>
         <translation>接続完了しました。</translation>
     </message>
@@ -7369,12 +7462,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;p&gt;%1.&lt;br /&gt;詳細な証明書エラーの内容: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;この証明書を受け入れますか？&lt;br /&gt;(同時に証明書を保存するので、今後この質問は表示されません。)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1176"/>
+        <location line="-1206"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;制御チャンネル&lt;/h2&gt;&lt;p&gt;%1 bit %2 で暗号化されています。&lt;br /&gt;平均 %3 ms の遅延 (平方偏差 %4)&lt;/p&gt;&lt;p&gt;リモートホスト %5 (ポート %6)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1353"/>
+        <location line="+1383"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
         <translation>チャンネル &apos;%1&apos; へのメッセージをここに入力</translation>
@@ -7415,7 +7508,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;制御チャンネル&lt;/h2&gt;&lt;p&gt;%1 bit %2 で暗号化されています。&lt;br /&gt;平均 %3 ms の遅延 (平方偏差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1459"/>
+        <location line="-1489"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>音声チャンネルは管理チャンネルを通して送信されます。</translation>
     </message>
@@ -7463,7 +7556,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">チャンネル 「%1」 の説明を変更する</translation>
     </message>
     <message>
-        <location line="+583"/>
+        <location line="+588"/>
         <source>Sending message to channel %1</source>
         <translation>チャンネル %1 に送信するメッセージ</translation>
     </message>
@@ -7561,7 +7654,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ %1 に接続しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1211"/>
+        <location filename="MainWindow.cpp" line="-1216"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble は現在、サーバに接続しています。接続を閉じるか最小化しますか?</translation>
     </message>
@@ -7672,13 +7765,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+2007"/>
+        <location line="+2037"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>接続されていません</translation>
     </message>
     <message>
-        <location line="-1796"/>
+        <location line="-1826"/>
         <source>Clear</source>
         <translation>クリア</translation>
     </message>
@@ -7688,7 +7781,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>ログ</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1378"/>
+        <location filename="UserModel.cpp" line="+1381"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>チャンネルをドラッグしたときに &quot;何もしない&quot; ようにします; チャンネルが移動しなくなります。</translation>
     </message>
@@ -7865,6 +7958,11 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>Priority speaker</source>
         <translation>優先度スピーカ</translation>
     </message>
+    <message>
+        <location/>
+        <source>Recording</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NetworkConfig</name>
@@ -7879,12 +7977,11 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>snapshot がリリースされたときはアップデートが必須です。</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui"/>
         <source>Form</source>
-        <translation>フォーム</translation>
+        <translation type="obsolete">フォーム</translation>
     </message>
     <message>
-        <location/>
+        <location filename="NetworkConfig.ui"/>
         <source>Connection</source>
         <translation>接続</translation>
     </message>
@@ -8110,9 +8207,8 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation>プログラムが開始する度に新しいプラグインを確認し、存在すれば自動的にダウンロードする。</translation>
     </message>
     <message>
-        <location/>
         <source>Download plugin updates on startup</source>
-        <translation>開始時にプラグインのアップデートをダウンロードする</translation>
+        <translation type="obsolete">開始時にプラグインのアップデートをダウンロードする</translation>
     </message>
     <message>
         <location/>
@@ -8146,6 +8242,11 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <location/>
         <source>Reconnect to last server on startup</source>
         <translation>起動時に最後に接続したサーバに再接続する</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Download plugin and overlay updates on startup</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8210,7 +8311,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+474"/>
+        <location filename="Overlay.cpp" line="+477"/>
         <location line="+1076"/>
         <source>Silent</source>
         <translation>発言していない</translation>
@@ -8240,9 +8341,19 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation>チャンネル</translation>
     </message>
     <message>
-        <location line="+1277"/>
+        <location line="+1279"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>オーバレイ:  %2: %1 との通信の作成に失敗しました。有効なオーバレイはありません。</translation>
+    </message>
+    <message>
+        <location line="+244"/>
+        <source>Skipping overlay update in debug mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+66"/>
+        <source>Downloaded new or updated overlay support file to %1.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -8284,7 +8395,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-854"/>
+        <location line="-1166"/>
         <source>Filter</source>
         <translation>フィルタ</translation>
     </message>
@@ -8648,14 +8759,12 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation>ホワイトリスト</translation>
     </message>
     <message>
-        <location/>
         <source>Add</source>
-        <translation>追加</translation>
+        <translation type="obsolete">追加</translation>
     </message>
     <message>
-        <location/>
         <source>Remove</source>
-        <translation>削除</translation>
+        <translation type="obsolete">削除</translation>
     </message>
     <message>
         <location/>
@@ -8714,6 +8823,16 @@ To upgrade these files to their latest versions, click the button below.</source
         <location/>
         <source>View Certificates</source>
         <translation type="unfinished">証明書を見る</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Add...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Remove</source>
+        <translation type="unfinished">削除(&amp;R)</translation>
     </message>
 </context>
 <context>
@@ -9201,7 +9320,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+319"/>
+        <location filename="Plugins.cpp" line="+320"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>デバッグモードではプラグインのアップデートはスキップします。</translation>
     </message>
@@ -9221,7 +9340,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="obsolete">プラグイン %1 はリンクを失いました。</translation>
     </message>
     <message>
-        <location line="-258"/>
+        <location line="-259"/>
         <source>%1 lost link.</source>
         <translation>%1 はリンクを失いました。</translation>
     </message>
@@ -10209,6 +10328,148 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+3"/>
         <source>Unit Name: %1</source>
         <translation>部門名: %1</translation>
+    </message>
+</context>
+<context>
+    <name>VoiceRecorder</name>
+    <message>
+        <location filename="VoiceRecorder.cpp" line="+390"/>
+        <source>.wav - Uncompressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>.ogg (Vorbis) - Compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>.au - Uncompressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>.flac - Lossless compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>VoiceRecorderDialog</name>
+    <message>
+        <location filename="VoiceRecorderDialog.ui"/>
+        <location filename="VoiceRecorderDialog.cpp" line="+69"/>
+        <location line="+39"/>
+        <location line="+10"/>
+        <location line="+9"/>
+        <source>Recorder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>00:00:00</source>
+        <translation type="unfinished">00:00:00</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>S&amp;top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Mixdown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Multichannel</source>
+        <translation type="unfinished">マルチチャンネル</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Output</source>
+        <translation type="unfinished">出力</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Output format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Target directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;pre&gt;
+Valid variables are:
+%user	Inserts the users name
+%date	Inserts the current date
+%time	Inserts the current time
+%host	Inserts the hostname
+&lt;/pre&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Browse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="VoiceRecorderDialog.cpp" line="-57"/>
+        <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Recoder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Unable to start recording. Not connected to a server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
+Please contact your server administrator for further information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>There is already a recorder active for this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Please select a recording format.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+97"/>
+        <source>Select target directory</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -47,8 +47,12 @@
     NSToolbar *toolbarCache;
 }
 
-- (id) initWithConfigDialog:(ConfigDialogMac *)dialog andWidgetMap:(QMap<unsigned int, ConfigWidget *> *) map inExpertMode:(BOOL)flag;
-- (void) selectItem:(ConfigWidget *)cw;
+- (id) initWithConfigDialog:
+(ConfigDialogMac *)dialog andWidgetMap:
+(QMap<unsigned int, ConfigWidget *> *) map inExpertMode:
+(BOOL)flag;
+- (void) selectItem:
+(ConfigWidget *)cw;
 - (BOOL) expertMode;
 
 @end

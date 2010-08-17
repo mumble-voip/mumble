@@ -66,10 +66,10 @@ void VoiceRecorderDialog::closeEvent(QCloseEvent *evt) {
 		VoiceRecorderPtr recorder(g.sh->recorder);
 		if (recorder && recorder->isRunning()) {
 			int ret = QMessageBox::warning(this,
-								 tr("Recorder"),
-								 tr("Closing the recorder will stop your current recording. Do you really want to close the recorder?"),
-								 QMessageBox::Yes | QMessageBox::No,
-								 QMessageBox::No);
+			                               tr("Recorder"),
+			                               tr("Closing the recorder will stop your current recording. Do you really want to close the recorder?"),
+			                               QMessageBox::Yes | QMessageBox::No,
+			                               QMessageBox::No);
 
 			if (ret == QMessageBox::No) {
 				evt->ignore();
@@ -97,26 +97,26 @@ void VoiceRecorderDialog::closeEvent(QCloseEvent *evt) {
 void VoiceRecorderDialog::on_qpbStart_clicked() {
 	if (!g.uiSession || !g.sh) {
 		QMessageBox::critical(this,
-							  tr("Recoder"),
-							  tr("Unable to start recording. Not connected to a server."));
+		                      tr("Recoder"),
+		                      tr("Unable to start recording. Not connected to a server."));
 		reset();
 		return;
 	}
 
 	if (g.sh->uiVersion < 0x010203) {
 		QMessageBox::critical(this,
-							  tr("Recorder"),
-							  tr("The server you are currently connected to is version 1.2.2 or older. "
-								 "For privacy reasons, recording on servers of versions older than 1.2.3 "
-								 "is not possible.\nPlease contact your server administrator for further "
-								 "information."));
+		                      tr("Recorder"),
+		                      tr("The server you are currently connected to is version 1.2.2 or older. "
+		                         "For privacy reasons, recording on servers of versions older than 1.2.3 "
+		                         "is not possible.\nPlease contact your server administrator for further "
+		                         "information."));
 		return;
 	}
 
 	if (g.sh->recorder) {
 		QMessageBox::information(this,
-								 tr("Recorder"),
-								 tr("There is already a recorder active for this server."));
+		                         tr("Recorder"),
+		                         tr("There is already a recorder active for this server."));
 		return;
 	}
 
@@ -124,8 +124,8 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 	int ifm = qcbFormat->currentIndex();
 	if (ifm == -1) {
 		QMessageBox::critical(this,
-					tr("Recorder"),
-					tr("Please select a recording format."));
+		                      tr("Recorder"),
+		                      tr("Please select a recording format."));
 		return;
 	}
 
@@ -222,9 +222,9 @@ void VoiceRecorderDialog::on_qtTimer_timeout() {
 }
 void VoiceRecorderDialog::on_qpbTargetDirectoryBrowse_clicked() {
 	QString dir = QFileDialog::getExistingDirectory(this,
-													tr("Select target directory"),
-													QString(),
-													QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	              tr("Select target directory"),
+	              QString(),
+	              QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 	if (!dir.isEmpty())
 		qleTargetDirectory->setText(dir);
 }

@@ -44,138 +44,138 @@ struct Timer;
 namespace VoiceRecorderFormat {
 
 // List of all formats currently supported by the recorder.
-enum Format {
-	WAV = 0,	// WAVE Format
-	VORBIS,		// Ogg Vorbis Format
-	AU,			// AU Format
-	FLAC,		// FLAC Format
-	kEnd
-};
+	enum Format {
+		WAV = 0,	// WAVE Format
+		VORBIS,		// Ogg Vorbis Format
+		AU,			// AU Format
+		FLAC,		// FLAC Format
+		kEnd
+	};
 
 // Returns a human readable description of the format id.
-QString getFormatDescription(VoiceRecorderFormat::Format fm);
+	QString getFormatDescription(VoiceRecorderFormat::Format fm);
 
 // Returns the default extension for the given format.
-QString getFormatDefaultExtension(VoiceRecorderFormat::Format fm);
+	QString getFormatDefaultExtension(VoiceRecorderFormat::Format fm);
 
 };
 
 class VoiceRecorder : public QThread {
-  private:
-	// Stores information about a recording buffer.
-	struct RecordBuffer {
-		// Constructs a new RecordBuffer object.
-		explicit RecordBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples, quint64 timestamp);
+	private:
+		// Stores information about a recording buffer.
+		struct RecordBuffer {
+			// Constructs a new RecordBuffer object.
+			explicit RecordBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples, quint64 timestamp);
 
-		// The user to which this buffer belongs.
-		const ClientUser *cuUser;
+			// The user to which this buffer belongs.
+			const ClientUser *cuUser;
 
-		// The buffer.
-		boost::shared_array<float> fBuffer;
+			// The buffer.
+			boost::shared_array<float> fBuffer;
 
-		// The number of samples in the buffer.
-		int iSamples;
+			// The number of samples in the buffer.
+			int iSamples;
 
-		// Timestamp for the buffer.
-		quint64 uiTimestamp;
-	};
+			// Timestamp for the buffer.
+			quint64 uiTimestamp;
+		};
 
-	// Keep the recording state for one user.
-	struct RecordInfo {
-		explicit RecordInfo();
-		~RecordInfo();
+		// Keep the recording state for one user.
+		struct RecordInfo {
+			explicit RecordInfo();
+			~RecordInfo();
 
-		// libsndfile's handle.
-		SNDFILE *sf;
+			// libsndfile's handle.
+			SNDFILE *sf;
 
-		// The timestamp where we last wrote audio data for this user.
-		quint64 uiLastPosition;
-	};
+			// The timestamp where we last wrote audio data for this user.
+			quint64 uiLastPosition;
+		};
 
-	// Hash which maps the |uiSession| of all users for which we have to keep a recording state to the corresponding RecordInfo object.
-	QHash< int, boost::shared_ptr<RecordInfo> > qhRecordInfo;
+		// Hash which maps the |uiSession| of all users for which we have to keep a recording state to the corresponding RecordInfo object.
+		QHash< int, boost::shared_ptr<RecordInfo> > qhRecordInfo;
 
-	// List containing all unprocessed RecordBuffer objects.
-	QList< boost::shared_ptr<RecordBuffer> > qlRecordBuffer;
+		// List containing all unprocessed RecordBuffer objects.
+		QList< boost::shared_ptr<RecordBuffer> > qlRecordBuffer;
 
-	// The user which is used to record local audio.
-	boost::scoped_ptr<RecordUser> recordUser;
+		// The user which is used to record local audio.
+		boost::scoped_ptr<RecordUser> recordUser;
 
-	// High precision timer for buffer timestamps.
-	boost::scoped_ptr<Timer> tTimestamp;
+		// High precision timer for buffer timestamps.
+		boost::scoped_ptr<Timer> tTimestamp;
 
-	// Protects the buffer list |qlRecordBuffer|.
-	QMutex qmBufferLock;
+		// Protects the buffer list |qlRecordBuffer|.
+		QMutex qmBufferLock;
 
-	// Wait condition and mutex to block until there is new data.
-	QMutex qmSleepLock;
-	QWaitCondition qwcSleep;
+		// Wait condition and mutex to block until there is new data.
+		QMutex qmSleepLock;
+		QWaitCondition qwcSleep;
 
-	// The current sample rate of the recorder.
-	int iSampleRate;
+		// The current sample rate of the recorder.
+		int iSampleRate;
 
-	// True if the main loop is active.
-	bool bRecording;
+		// True if the main loop is active.
+		bool bRecording;
 
-	// The path to store recordings.
-	QString qsFileName;
+		// The path to store recordings.
+		QString qsFileName;
 
-	// True if multi channel recording is disabled.
-	bool bMixDown;
-	
-	// The current recording format.
-	VoiceRecorderFormat::Format fmFormat;
+		// True if multi channel recording is disabled.
+		bool bMixDown;
 
-	// The timestamp where the recording started.
-	const QDateTime qdtRecordingStart;
+		// The current recording format.
+		VoiceRecorderFormat::Format fmFormat;
+
+		// The timestamp where the recording started.
+		const QDateTime qdtRecordingStart;
 
 
-	// Removes invalid characters in a path component.
-	QString sanitizeFilenameOrPathComponent(const QString &str) const;
+		// Removes invalid characters in a path component.
+		QString sanitizeFilenameOrPathComponent(const QString &str) const;
 
-	// Expands the template variables in |path| using the information contained in |rb|.
-	QString expandTemplateVariables(const QString &path, boost::shared_ptr<RecordBuffer> rb) const;
+		// Expands the template variables in |path| using the information contained in |rb|.
+		QString expandTemplateVariables(const QString &path, boost::shared_ptr<RecordBuffer> rb) const;
 
-  public:
-	// Creates a new VoiceRecorder instance.
-	explicit VoiceRecorder(QObject *p);
-	~VoiceRecorder();
+	public:
+		// Creates a new VoiceRecorder instance.
+		explicit VoiceRecorder(QObject *p);
+		~VoiceRecorder();
 
-	// The main event loop of the thread, which writes all buffers to files.
-	void run();
+		// The main event loop of the thread, which writes all buffers to files.
+		void run();
 
-	// Stops the main loop.
-	void stop();
+		// Stops the main loop.
+		void stop();
 
-	// Adds an audio buffer which contains |samples| audio samples to the recorder.
-	void addBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples);
+		// Adds an audio buffer which contains |samples| audio samples to the recorder.
+		void addBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples);
 
-	// Sets the sample rate of the recorder. The sample rate can't change while the recoder is active.
-	void setSampleRate(int sampleRate);
+		// Sets the sample rate of the recorder. The sample rate can't change while the recoder is active.
+		void setSampleRate(int sampleRate);
 
-	// Returns the current sample rate of the encoder.
-	int getSampleRate() const;
+		// Returns the current sample rate of the encoder.
+		int getSampleRate() const;
 
-	// Sets the path and filename for recordings.
-	void setFileName(QString fn);
+		// Sets the path and filename for recordings.
+		void setFileName(QString fn);
 
-	// Sets the state of multi channel recording. This can't change while the recorder is active.
-	void setMixDown(bool mixDown);
+		// Sets the state of multi channel recording. This can't change while the recorder is active.
+		void setMixDown(bool mixDown);
 
-	// Returns the multi channel recording state of the recorder.
-	bool getMixDown() const;
+		// Returns the multi channel recording state of the recorder.
+		bool getMixDown() const;
 
-	// Returns the elapsed time since the recording started.
-	quint64 getElapsedTime() const;
+		// Returns the elapsed time since the recording started.
+		quint64 getElapsedTime() const;
 
-	// Returns a refence to the record user which is used to record local audio.
-	RecordUser &getRecordUser() const;
+		// Returns a refence to the record user which is used to record local audio.
+		RecordUser &getRecordUser() const;
 
-	// Sets the storage format for recordings. Can't change while the recorder is active.
-	void setFormat(VoiceRecorderFormat::Format fm);
+		// Sets the storage format for recordings. Can't change while the recorder is active.
+		void setFormat(VoiceRecorderFormat::Format fm);
 
-	// Returns the current recording format.
-	VoiceRecorderFormat::Format getFormat() const;
+		// Returns the current recording format.
+		VoiceRecorderFormat::Format getFormat() const;
 };
 
 typedef boost::shared_ptr<VoiceRecorder> VoiceRecorderPtr;

@@ -206,10 +206,10 @@ void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, co
 #define regstr(x) QString::fromLatin1(reinterpret_cast<const char *>(& x), 4)
 	int chop;
 	int cpuinfo[4];
-	
+
 	__cpuid(cpuinfo, 1);
 	bSSE2 = (cpuinfo[3] & 0x04000000);
-	
+
 	__cpuid(cpuinfo, 0);
 
 	cpu_id = regstr(cpuinfo[1]) + regstr(cpuinfo[3]) + regstr(cpuinfo[2]);
@@ -234,7 +234,7 @@ void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, co
 	root.appendChild(tag);
 	t=doc.createTextNode(cpu_id);
 	tag.appendChild(t);
-		
+
 	tag=doc.createElement(QLatin1String("cpu_extid"));
 	root.appendChild(tag);
 	t=doc.createTextNode(cpu_extid);

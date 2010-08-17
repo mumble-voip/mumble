@@ -1955,61 +1955,51 @@
     <name>ConfigDialog</name>
     <message>
         <location filename="ConfigDialog.cpp" line="+51"/>
-        <location filename="ConfigDialog.mm" line="+73"/>
         <source>Accept changes</source>
         <translation>Applicare i cambiamenti</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
         <translation>Il bottone attiverà le impostazioni correnti e tornerà all&apos;applicazione.&lt;br /&gt;Le impostazioni saranno salvate sul disco quando esci dall&apos;applicazione.</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location filename="ConfigDialog.mm" line="+4"/>
         <source>Reject changes</source>
         <translation>Annulla i cambiamenti</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
         <translation>Il bottone annullerà tutti i cambiamenti e tornerà all&apos;applicazione.&lt;br /&gt;Le impostazioni saranno riimpostate al valore precedente.</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location filename="ConfigDialog.mm" line="+4"/>
         <source>Apply changes</source>
         <translation>Appllica i cambiamenti</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will immediately apply all changes.</source>
         <translation>Il bottone applicherà tutti i cambiamenti.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location filename="ConfigDialog.mm" line="+3"/>
         <source>Undo changes for current page</source>
         <translation>Annulla i cambiamenti per la pagina corrente</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
         <translation>Il bottone annullerà tutti i cambiamenti fatti sulla pagina corrente al valore precedente.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location filename="ConfigDialog.mm" line="+3"/>
         <source>Restore defaults for current page</source>
         <translation>Ricarica il valore predefinito per la pagina corrente</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2028,7 +2018,6 @@
     </message>
     <message>
         <location/>
-        <location filename="ConfigDialogDelegate.mm" line="+135"/>
         <source>Advanced</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2399,7 +2388,7 @@ delle possibili posizioni.</translation>
 <context>
     <name>GlobalShortcutMacInit</name>
     <message>
-        <location filename="GlobalShortcut_macx.cpp" line="+60"/>
+        <location filename="GlobalShortcut_macx.cpp" line="+63"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
         <translation>Mumble ha rilevato che non è in grado di ricevere i segnali delle Scorciatoie Globali quando è in background.&lt;br /&gt;&lt;br /&gt;Questo è dovuto alla funzione di Accesso Universale chiamata &apos;Abilita accesso per i dispositivi di assistenza&apos; che è attualmente disattiva.&lt;br /&gt;&lt;br /&gt;Si prega &lt;a href=&quot;&quot;&gt;abilitare questa impostazione&lt;/a&gt; e proseguire quando terminato.</translation>
     </message>

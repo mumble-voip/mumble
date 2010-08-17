@@ -1566,9 +1566,8 @@ Wenn Sie die PTT-Taste zweimal innerhalb der Doppeldruck-Zeit drücken wird die 
         <translation>Audio-Hinweis auf Standard zurücksetzen</translation>
     </message>
     <message>
-        <location/>
         <source>Reset</source>
-        <translation>Zurücksetzen</translation>
+        <translation type="obsolete">Zurücksetzen</translation>
     </message>
     <message>
         <location/>
@@ -1576,9 +1575,8 @@ Wenn Sie die PTT-Taste zweimal innerhalb der Doppeldruck-Zeit drücken wird die 
         <translation>Nach einer Datei für den Beginn der Audioübertragung suchen</translation>
     </message>
     <message>
-        <location/>
         <source>Browse</source>
-        <translation>Durchsuchen</translation>
+        <translation type="obsolete">Durchsuchen</translation>
     </message>
     <message>
         <location/>
@@ -1607,9 +1605,8 @@ Wenn Sie die PTT-Taste zweimal innerhalb der Doppeldruck-Zeit drücken wird die 
 Spielt den aktuellen &lt;i&gt;An&lt;/i&gt;-Audio-Hinweis gefolgt vom aktuellen &lt;i&gt;Aus&lt;/i&gt;-Hinweis ab.</translation>
     </message>
     <message>
-        <location/>
         <source>Preview</source>
-        <translation>Vorschau</translation>
+        <translation type="obsolete">Vorschau</translation>
     </message>
     <message>
         <location/>
@@ -1670,7 +1667,7 @@ Setzt die Pfade zu den Dateien auf die Standardwerte zurück.</translation>
         <translation type="obsolete">&lt;b&gt;Dies legt die Menge an Rauschunterdrückung fest, die verwendet werden soll.&lt;/b&gt;&lt;br /&gt;Je höher dieser Wert, desto aggressiver wird stationäres Rauschen unterdrückt.</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+523"/>
+        <location filename="AudioInput.cpp" line="+524"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)</source>
         <translation>Die maximal mögliche Bandbreite des Servers beträgt nur %1 kbit/s. Die Audio-Qualität wurde automatisch auf %2 kbit/s (%3ms) gesetzt</translation>
     </message>
@@ -1713,6 +1710,26 @@ Setzt die Pfade zu den Dateien auf die Standardwerte zurück.</translation>
         <location/>
         <source>Exclusive</source>
         <translation>Exklusiv</translation>
+    </message>
+    <message>
+        <location/>
+        <source>R&amp;eset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Browse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>B&amp;rowse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2257,7 +2274,7 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
 <context>
     <name>AudioOutputSample</name>
     <message>
-        <location filename="AudioOutput.cpp" line="+295"/>
+        <location filename="AudioOutput.cpp" line="+297"/>
         <source>Choose sound file</source>
         <translation>Wählen Sie eine Sounddatei</translation>
     </message>
@@ -3251,7 +3268,7 @@ Bitte verwenden Sie eine andere Datei.</translation>
         <translation>Mumble-Benutzer</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+408"/>
+        <location filename="main.cpp" line="+412"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Ablauf des Zertifikats:&lt;/b&gt; Ihr Zertifikat wird bald ablaufen. Sie müssen es erneuern oder Sie werden nicht mehr in der Lage sein sich auf Server zu verbinden auf denen Sie registriert sind.</translation>
     </message>
@@ -3915,6 +3932,11 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     </message>
     <message>
         <location line="+2"/>
+        <source>Recording</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Muted (server)</source>
         <translation>Stumm (Server)</translation>
     </message>
@@ -3948,7 +3970,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     </message>
     <message>
         <location/>
-        <location filename="ConfigDialogDelegate.mm" line="+135"/>
+        <location filename="ConfigDialogDelegate.mm" line="+142"/>
         <source>Advanced</source>
         <translation>Erweitert</translation>
     </message>
@@ -3958,13 +3980,11 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="+51"/>
-        <location filename="ConfigDialog.mm" line="+73"/>
         <source>Accept changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
         <translation>Dieser Knopf übernimmt die aktuellen Einstellungen und kehrt zur Anwendung zurück.&lt;br /&gt;Die Einstellungen werden beim Beenden der Anwendung gespeichert.</translation>
     </message>
@@ -3974,13 +3994,11 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     </message>
     <message>
         <location line="+4"/>
-        <location filename="ConfigDialog.mm" line="+4"/>
         <source>Reject changes</source>
         <translation>Änderungen verwerfen</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
         <translation>Der Knopf verwirft alle Änderungen und kehrt zur Anwendung zurück.&lt;br /&gt;Die Einstellungen werden auf die vorherigen Werte zurückgesetzt.</translation>
     </message>
@@ -3990,37 +4008,31 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     </message>
     <message>
         <location line="+4"/>
-        <location filename="ConfigDialog.mm" line="+4"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will immediately apply all changes.</source>
         <translation>Dieser Button übernimmt alle Änderungen sofort.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location filename="ConfigDialog.mm" line="+3"/>
         <source>Undo changes for current page</source>
         <translation>Änderungen der aktuellen Seite rückgängig machen</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
         <translation>Dieser Knopf setzt alle Änderunge auf der aktuellen Seite auf die zuletzt angewandten Einstellung zurück.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location filename="ConfigDialog.mm" line="+3"/>
         <source>Restore defaults for current page</source>
         <translation>Standardeinstellungen für die aktuelle Seite wiederherstellen</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <translation>Dieser Knopf setzt die Einstellungen der aktuellen Seite auf die Standardwerte zurück.
 Andere Seiten werden nicht geändert.&lt;br/&gt;
@@ -4045,6 +4057,61 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
     <message>
         <source>Tab 1</source>
         <translation type="obsolete">Tab 1</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigDialogMac</name>
+    <message>
+        <location filename="ConfigDialog_macx.mm" line="+70"/>
+        <source>Accept changes</source>
+        <translation type="unfinished">Änderungen übernehmen</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
+        <translation type="unfinished">Dieser Knopf übernimmt die aktuellen Einstellungen und kehrt zur Anwendung zurück.&lt;br /&gt;Die Einstellungen werden beim Beenden der Anwendung gespeichert.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Reject changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
+        <translation type="unfinished">Der Knopf verwirft alle Änderungen und kehrt zur Anwendung zurück.&lt;br /&gt;Die Einstellungen werden auf die vorherigen Werte zurückgesetzt.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Apply changes</source>
+        <translation type="unfinished">Änderungen übernehmen</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will immediately apply all changes.</source>
+        <translation type="unfinished">Dieser Button übernimmt alle Änderungen sofort.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Undo changes for current page</source>
+        <translation type="unfinished">Änderungen der aktuellen Seite rückgängig machen</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
+        <translation type="unfinished">Dieser Knopf setzt alle Änderunge auf der aktuellen Seite auf die zuletzt angewandten Einstellung zurück.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Restore defaults for current page</source>
+        <translation type="unfinished">Standardeinstellungen für die aktuelle Seite wiederherstellen</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
+        <translation type="unfinished">Dieser Knopf setzt die Einstellungen der aktuellen Seite auf die Standardwerte zurück.
+Andere Seiten werden nicht geändert.&lt;br/&gt;
+Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen Knopf auf allen Seiten verwenden.</translation>
     </message>
 </context>
 <context>
@@ -4236,7 +4303,7 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+670"/>
+        <location line="+673"/>
         <source>Failed to fetch server list</source>
         <translation>Serverliste konnte nicht geladen werden</translation>
     </message>
@@ -4918,7 +4985,7 @@ der möglichen Orte initialisieren.</translation>
 <context>
     <name>GlobalShortcutMacInit</name>
     <message>
-        <location filename="GlobalShortcut_macx.cpp" line="+60"/>
+        <location filename="GlobalShortcut_macx.mm" line="+63"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
         <translation>Mumble hat festgestellt, dass es keine globalen Tastenkürzel Ereignisse erhalten kann, wenn es im Hintergrund läuft.&lt;br /&gt;&lt;br /&gt;Dies wird durch die Deaktivierung des Universal Access Features &quot;Enable access for assitive devices&quot; verursacht.&lt;br /&gt;&lt;br /&gt;Bitte &lt;a href=&quot;&quot;&gt;aktivieren sie diese Einstellung&lt;/a&gt;.</translation>
     </message>
@@ -5275,7 +5342,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Benutzer gekickt</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+6"/>
         <source>You self-muted/deafened</source>
         <translation>Selbst stumm/taub gestellt</translation>
     </message>
@@ -5321,7 +5388,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Skript Fehler</translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="-13"/>
         <source>User Joined Server</source>
         <translation>Benutzer betrat den Server</translation>
     </message>
@@ -5331,7 +5398,7 @@ p, li { white-space: pre-wrap; }
         <translation>Benutzer verließ den Server</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>User kicked</source>
         <translation>Benutzer gekickt</translation>
     </message>
@@ -5406,7 +5473,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-514"/>
+        <location line="-515"/>
         <source>Toggle console for %1 events</source>
         <translation>Wechsle Einstellung für Konsole für %1 Ereignisse</translation>
     </message>
@@ -5756,12 +5823,11 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation>Benutzerinterface</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui"/>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="obsolete">...</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="+130"/>
+        <location line="+130"/>
         <source>Choose skin file</source>
         <translation>Wähle Skindatei</translation>
     </message>
@@ -5791,9 +5857,8 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation>&lt;b&gt;Dies legt fest, welchen Skin Mumble verwenden soll.&lt;/b&gt;&lt;br /&gt;Der Skin ist eine Stildatei, die über den einfachen Widgetstil gelegt wird. Wenn Icons im selben Verzeichnis wie die Stilvorlage liegen, so werden die Standard-Icons ausgetauscht.</translation>
     </message>
     <message>
-        <location/>
         <source>Form</source>
-        <translation>Formular</translation>
+        <translation type="obsolete">Formular</translation>
     </message>
     <message>
         <source>New version check</source>
@@ -5986,12 +6051,17 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <source>Channel Tree</source>
         <translation>Kanalbaum</translation>
     </message>
+    <message>
+        <location/>
+        <source>&amp;Browse...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+151"/>
-        <location line="+1872"/>
+        <location filename="MainWindow.cpp" line="+156"/>
+        <location line="+1904"/>
         <source>Root</source>
         <translation>Hauptkanal</translation>
     </message>
@@ -6555,9 +6625,9 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Verbindet sich mit der Mumble-Webseite um zu überprüfen ob eine neue Version verfügbar ist. Ist eine neue Version verfügbar wird mit einer passenden Download-URL darauf hingewiesen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1781"/>
+        <location filename="MainWindow.cpp" line="-1811"/>
         <location line="+12"/>
-        <location line="+1977"/>
+        <location line="+2007"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6579,7 +6649,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">B&amp;enutzer</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2064"/>
+        <location filename="MainWindow.cpp" line="-2094"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanal</translation>
     </message>
@@ -6602,7 +6672,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Kicke Benutzer %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1062"/>
+        <location filename="MainWindow.cpp" line="+1067"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Grund eingeben</translation>
@@ -6655,7 +6725,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Taubstellen deaktiviert.</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+94"/>
         <source>About Qt</source>
         <translation>Über Qt</translation>
     </message>
@@ -6678,7 +6748,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Verbindung zum Server unterbrochen.</translation>
     </message>
     <message>
-        <location line="-1381"/>
+        <location line="-1411"/>
         <source>Reconnecting.</source>
         <translation>Neuverbindung.</translation>
     </message>
@@ -6691,7 +6761,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">den Server</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+289"/>
+        <location filename="Messages.cpp" line="+310"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>Stumm-/Taubstellen wurde deaktiviert durch %1.</translation>
     </message>
@@ -6750,7 +6820,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Server verlassen: %1.</translation>
     </message>
     <message>
-        <location line="-136"/>
+        <location line="-157"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 hat sich stumm und taub gestellt.</translation>
     </message>
@@ -6841,12 +6911,37 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>%1 ist jetzt nicht mehr stumm gestellt.</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+11"/>
+        <source>Recording started</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Recording stopped</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>%1 started recording.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 stopped recording.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+41"/>
         <source>You were unsuppressed.</source>
         <translation>Ihre Sprachunterdrückung wurde deaktiviert.</translation>
     </message>
     <message>
-        <location line="+139"/>
+        <location line="+96"/>
+        <source>%1 is recording</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
         <source>%1 disconnected.</source>
         <translation>%1 hat den Server verlassen.</translation>
     </message>
@@ -6870,7 +6965,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Server</translation>
     </message>
     <message>
-        <location line="-251"/>
+        <location line="-254"/>
         <source>You were muted by %1.</source>
         <translation>Stummstellung wurde aktiviert durch %1.</translation>
     </message>
@@ -6930,12 +7025,12 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Server</translation>
     </message>
     <message>
-        <location line="+327"/>
+        <location line="+330"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Es wurde kein für alle Benutzer passender CELT-Codec gefunden. Sie werden nicht zu allen Benutzern sprechen können.</translation>
     </message>
     <message>
-        <location line="-393"/>
+        <location line="-396"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Sie wurden taub gestellt durch %1.</translation>
@@ -6955,7 +7050,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Taubstellen von %1 wurde durch %2 deaktiviert.</translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+86"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Sie wurden vom Server gekickt durch %1: %2.</translation>
     </message>
@@ -6975,7 +7070,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>%3 wurde vom Server gekickt und gebannt durch %1: %2.</translation>
     </message>
     <message>
-        <location line="-57"/>
+        <location line="-60"/>
         <source>You were moved to %1 by %2.</source>
         <translation>Sie wurden nach %1 verschoben durch %2.</translation>
     </message>
@@ -7005,7 +7100,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">%1 wurde von %2 reingeschoben.</translation>
     </message>
     <message>
-        <location line="-312"/>
+        <location line="-333"/>
         <source>Server connection rejected: %1.</source>
         <translation>Serververbindung abgelehnt : %1.</translation>
     </message>
@@ -7186,7 +7281,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>&lt;h2&gt;Audio-Bandbreite&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Derzeit %2 kbit/s&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+314"/>
+        <location line="+319"/>
         <source>View comment on user %1</source>
         <translation>Zeige den Kommentar des Benutzers %1</translation>
     </message>
@@ -7211,7 +7306,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>An %1: %2</translation>
     </message>
     <message>
-        <location line="+614"/>
+        <location line="+639"/>
         <source>Failed to launch compatibility client</source>
         <translation>Starten des Kompatibilitätsclienten fehlgeschlagen</translation>
     </message>
@@ -7228,14 +7323,14 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Öffnen der Bilddatei fehlgeschlagen.</translation>
     </message>
     <message>
-        <location line="-1308"/>
-        <location line="+306"/>
+        <location line="-1338"/>
+        <location line="+311"/>
         <source>Register yourself as %1</source>
         <translation>Sich selbst als %1 registrieren</translation>
     </message>
     <message>
-        <location line="-306"/>
-        <location line="+306"/>
+        <location line="-311"/>
+        <location line="+311"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Sie sind dabei sich auf dem Server zu registrieren. Diese Aktion kann nicht rückgängig gemacht werden und Ihr Benutzername &apos;%1&apos; auf diesem Server kann von Ihnen selbst nicht mehr geändert werden.&lt;/p&gt;&lt;p&gt;Sind Sie sicher, dass Sie sich selbst registrieren möchten?&lt;/p&gt;</translation>
     </message>
@@ -7281,7 +7376,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Sind Sie sicher, dass Sie %1 und alle Unterkanäle löschen möchten?</translation>
     </message>
     <message>
-        <location line="+523"/>
+        <location line="+548"/>
         <source>Connected.</source>
         <translation>Verbunden.</translation>
     </message>
@@ -7379,7 +7474,7 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
         <translation type="obsolete">Sende eine Text-Nachricht an einen anderen Benutzer.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1165"/>
+        <location filename="MainWindow.cpp" line="-1190"/>
         <source>Sending message to %1</source>
         <translation>Sende Nachricht an %1</translation>
     </message>
@@ -7394,7 +7489,7 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
         <translation type="obsolete">Ändere Beschreibung von Kanal %1</translation>
     </message>
     <message>
-        <location line="+852"/>
+        <location line="+877"/>
         <source>Invalid username</source>
         <translation>Ungültiger Benutzername</translation>
     </message>
@@ -7428,7 +7523,7 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
         <translation type="obsolete">Von %1: %2</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+329"/>
+        <location filename="Messages.cpp" line="+353"/>
         <source>Message from %1</source>
         <translation>Nachricht von %1</translation>
     </message>
@@ -7443,7 +7538,7 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
         <translation>Schickt eine Textnachricht an einen anderen Benutzer.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2049"/>
+        <location filename="MainWindow.cpp" line="-2079"/>
         <source>&amp;User</source>
         <translation>&amp;Benutzer</translation>
     </message>
@@ -7545,7 +7640,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Dies leitet Sie durch den Hardware-Konfigurationsprozess.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1959"/>
+        <location filename="MainWindow.cpp" line="+1989"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL-Überprüfung fehlgeschlagen: %1</translation>
     </message>
@@ -7604,7 +7699,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Dies zeigt erweitertete Informationen über die Verbindung zum Server an.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1152"/>
+        <location filename="MainWindow.cpp" line="-1182"/>
         <source>Mumble Server Information</source>
         <translation>Mumble - Server Informationen</translation>
     </message>
@@ -7614,12 +7709,12 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1155"/>
+        <location line="+1185"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Zertifikat zeigen</translation>
     </message>
     <message>
-        <location line="-1608"/>
+        <location line="-1638"/>
         <source>Opening URL %1</source>
         <translation>Öffne URL %1</translation>
     </message>
@@ -7672,13 +7767,13 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2007"/>
+        <location line="+2037"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Nicht verbunden&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1768"/>
+        <location line="-1798"/>
         <source>File does not exist</source>
         <translation>Datei existiert nicht</translation>
     </message>
@@ -7820,7 +7915,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Über &amp;Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+583"/>
+        <location filename="MainWindow.cpp" line="+588"/>
         <source>Sending message to channel %1</source>
         <translation>Sende Nachricht an den Kanal %1</translation>
     </message>
@@ -7867,7 +7962,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">Mit Server %1 verbunden.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1211"/>
+        <location filename="MainWindow.cpp" line="-1216"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble ist gerade zu einem Server verbunden. Möchten Sie es schließen oder minimieren?</translation>
     </message>
@@ -7940,7 +8035,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1378"/>
+        <location filename="UserModel.cpp" line="+1381"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Die Kanal-Ziehen-Aktion wurde auf &quot;Nichts tun&quot; gesetzt. Der Kanal wird also nicht bewegt.</translation>
     </message>
@@ -8064,6 +8159,11 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <source>Priority speaker</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Recording</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NetworkConfig</name>
@@ -8078,12 +8178,11 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Aktualisierungen sind verpflichtend wenn Sie Snapshots verwenden.</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui"/>
         <source>Form</source>
-        <translation>Formular</translation>
+        <translation type="obsolete">Formular</translation>
     </message>
     <message>
-        <location/>
+        <location filename="NetworkConfig.ui"/>
         <source>Connection</source>
         <translation>Verbindung</translation>
     </message>
@@ -8202,9 +8301,8 @@ Dieses Feld legt den Hostnamen des Proxys, durch welchen Sie die Netzwerk Daten 
         <translation>Dies veranlasst Mumble bei jedem Programmstart auf neue Plugin-Versionen zu prüfen und diese gegebenenfalls automatisch herunterzuladen.</translation>
     </message>
     <message>
-        <location/>
         <source>Download plugin updates on startup</source>
-        <translation>Plugin Updates beim Starten herunterladen</translation>
+        <translation type="obsolete">Plugin Updates beim Starten herunterladen</translation>
     </message>
     <message>
         <location/>
@@ -8347,6 +8445,11 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <source>Reconnect to last server on startup</source>
         <translation>Verbinde beim Start zum zuletzt benutzen Server</translation>
     </message>
+    <message>
+        <location/>
+        <source>Download plugin and overlay updates on startup</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OSSConfig</name>
@@ -8414,7 +8517,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+474"/>
+        <location filename="Overlay.cpp" line="+477"/>
         <location line="+1076"/>
         <source>Silent</source>
         <translation>Still</translation>
@@ -8444,9 +8547,19 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation>Kanal</translation>
     </message>
     <message>
-        <location line="+1277"/>
+        <location line="+1279"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Kommunikation mit dem Overlay auf %2: %1 fehlgeschlagen. Das Overlay wird nicht verfügbar sein.</translation>
+    </message>
+    <message>
+        <location line="+244"/>
+        <source>Skipping overlay update in debug mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+66"/>
+        <source>Downloaded new or updated overlay support file to %1.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -8474,7 +8587,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-854"/>
+        <location line="-1166"/>
         <source>Filter</source>
         <translation>Filter</translation>
     </message>
@@ -8811,14 +8924,12 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation>Whitelist</translation>
     </message>
     <message>
-        <location/>
         <source>Add</source>
-        <translation>Hinzufügen</translation>
+        <translation type="obsolete">Hinzufügen</translation>
     </message>
     <message>
-        <location/>
         <source>Remove</source>
-        <translation>Entfernen</translation>
+        <translation type="obsolete">Entfernen</translation>
     </message>
     <message>
         <location/>
@@ -8877,6 +8988,16 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
         <location/>
         <source>View Certificates</source>
         <translation>Zertifikate ansehen</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Add...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Remove</source>
+        <translation type="unfinished">&amp;Entfernen</translation>
     </message>
 </context>
 <context>
@@ -9317,7 +9438,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+319"/>
+        <location filename="Plugins.cpp" line="+320"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>Überspringe Plugin-Aktualisierung im Debug-Modus.</translation>
     </message>
@@ -9337,7 +9458,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
         <translation type="obsolete">Plugin %1 hat Verbindung verloren.</translation>
     </message>
     <message>
-        <location line="-258"/>
+        <location line="-259"/>
         <source>%1 lost link.</source>
         <translation>%1 hat Verbindung verloren.</translation>
     </message>
@@ -9547,7 +9668,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-1370"/>
+        <location filename="ConnectDialog.cpp" line="-1373"/>
         <source>Favorite</source>
         <translation>Favoriten</translation>
     </message>
@@ -10312,6 +10433,148 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <location line="+3"/>
         <source>Unit Name: %1</source>
         <translation>Einheitname: %1</translation>
+    </message>
+</context>
+<context>
+    <name>VoiceRecorder</name>
+    <message>
+        <location filename="VoiceRecorder.cpp" line="+390"/>
+        <source>.wav - Uncompressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>.ogg (Vorbis) - Compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>.au - Uncompressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>.flac - Lossless compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>VoiceRecorderDialog</name>
+    <message>
+        <location filename="VoiceRecorderDialog.ui"/>
+        <location filename="VoiceRecorderDialog.cpp" line="+69"/>
+        <location line="+39"/>
+        <location line="+10"/>
+        <location line="+9"/>
+        <source>Recorder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>00:00:00</source>
+        <translation type="unfinished">00:00:00</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>S&amp;top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Mixdown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Multichannel</source>
+        <translation type="unfinished">Mehrkanal</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Output</source>
+        <translation type="unfinished">Ausgabe</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Output format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Target directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;pre&gt;
+Valid variables are:
+%user	Inserts the users name
+%date	Inserts the current date
+%time	Inserts the current time
+%host	Inserts the hostname
+&lt;/pre&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Browse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="VoiceRecorderDialog.cpp" line="-57"/>
+        <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Recoder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Unable to start recording. Not connected to a server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
+Please contact your server administrator for further information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>There is already a recorder active for this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Please select a recording format.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+97"/>
+        <source>Select target directory</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

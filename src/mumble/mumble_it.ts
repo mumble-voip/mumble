@@ -887,9 +887,8 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
         <translation>&lt;b&gt;Reimposta&lt;/b&gt;&lt;br/&gt;Reimposta il percorso dei file al loro valore predefinito.</translation>
     </message>
     <message>
-        <location/>
         <source>Reset</source>
-        <translation>Reimposta</translation>
+        <translation type="obsolete">Reimposta</translation>
     </message>
     <message>
         <location/>
@@ -897,9 +896,8 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
         <translation>Sfoglia le cartelle per impostare un file sonoro per On</translation>
     </message>
     <message>
-        <location/>
         <source>Browse</source>
-        <translation>Sfoglia</translation>
+        <translation type="obsolete">Sfoglia</translation>
     </message>
     <message>
         <location/>
@@ -927,9 +925,8 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
         <translation>&lt;b&gt;Anteprima&lt;/b&gt;&lt;br/&gt;Riproduce un&apos;anteprima dei file attuali per &lt;i&gt;on&lt;/i&gt; e di seguito&lt;i&gt;off&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location/>
         <source>Preview</source>
-        <translation>Anteprima</translation>
+        <translation type="obsolete">Anteprima</translation>
     </message>
     <message>
         <location/>
@@ -1165,7 +1162,7 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
         <translation type="obsolete">&lt;b&gt;Questo imposta la quantità di rumore da eliminare.&lt;b&gt;&lt;br /&gt;Più alto sarà questo valore e più rumore sarà eliminato.</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+523"/>
+        <location filename="AudioInput.cpp" line="+524"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)</source>
         <translation>La banda massima del server è solamente %1 kbit/s. Qualità sonora impostata su %2 kbit/s (%3ms)</translation>
     </message>
@@ -1207,6 +1204,26 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
     <message>
         <location/>
         <source>Exclusive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>R&amp;eset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Browse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>B&amp;rowse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Preview</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1707,7 +1724,7 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
 <context>
     <name>AudioOutputSample</name>
     <message>
-        <location filename="AudioOutput.cpp" line="+295"/>
+        <location filename="AudioOutput.cpp" line="+297"/>
         <source>Choose sound file</source>
         <translation>Scegli il file sonoro</translation>
     </message>
@@ -2621,7 +2638,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Utente Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+408"/>
+        <location filename="main.cpp" line="+412"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Scadenza certificato:&lt;/b&gt; Il tuo certificato stà per scadere. Devi rinnovarlo, o non sarai più in grado di connetterti ai server a cui ti sei registrato.</translation>
     </message>
@@ -3241,6 +3258,11 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location line="+2"/>
+        <source>Recording</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Muted (server)</source>
         <translation>Microfono disattivato (server)</translation>
     </message>
@@ -3269,61 +3291,51 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <name>ConfigDialog</name>
     <message>
         <location filename="ConfigDialog.cpp" line="+51"/>
-        <location filename="ConfigDialog.mm" line="+73"/>
         <source>Accept changes</source>
         <translation>Accetta i cambiamenti</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
         <translation>Il pulsante accetterà le impostazioni attuali e tornerà all&apos;applicazione.&lt;br /&gt;Le impostazioni saranno salvate su disco quando uscirai dall&apos;applicazione.</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location filename="ConfigDialog.mm" line="+4"/>
         <source>Reject changes</source>
         <translation>Rifiuta i cambiamenti</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
         <translation>Il pulsante rifiuterà tutti i cambiamenti e tornerà all&apos;applicazione.&lt;br /&gt;Le impostazioni saranno reimpostate al valore precedente.</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location filename="ConfigDialog.mm" line="+4"/>
         <source>Apply changes</source>
         <translation>Applica i cambiamenti</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will immediately apply all changes.</source>
         <translation>Il pulsante applicherà immediatamente tutti i cambiamenti.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location filename="ConfigDialog.mm" line="+3"/>
         <source>Undo changes for current page</source>
         <translation>Annulla i cambiamenti per la pagina corrente</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
         <translation>Il pulsante annullerà tutti i cambiamenti fatti sulla pagina corrente al valore precedente.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location filename="ConfigDialog.mm" line="+3"/>
         <source>Restore defaults for current page</source>
         <translation>Ricarica il valore predefinito per la pagina corrente</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <translation>Questo pulsante riporta le impostazioni della pagina corrente ai loro valori predefiniti. Le altre pagine non saranno cambiate.&lt;br /&gt;Per reimpostare tutte le impostazioni ai loro valori predefiniti devi usare questo pulsante su tutte le pagine.</translation>
     </message>
@@ -3338,13 +3350,66 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location/>
-        <location filename="ConfigDialogDelegate.mm" line="+135"/>
+        <location filename="ConfigDialogDelegate.mm" line="+142"/>
         <source>Advanced</source>
         <translation>Avanzato</translation>
     </message>
     <message>
         <source>Tab 1</source>
         <translation type="obsolete">Tab 1</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigDialogMac</name>
+    <message>
+        <location filename="ConfigDialog_macx.mm" line="+70"/>
+        <source>Accept changes</source>
+        <translation type="unfinished">Accetta i cambiamenti</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
+        <translation type="unfinished">Il pulsante accetterà le impostazioni attuali e tornerà all&apos;applicazione.&lt;br /&gt;Le impostazioni saranno salvate su disco quando uscirai dall&apos;applicazione.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Reject changes</source>
+        <translation type="unfinished">Rifiuta i cambiamenti</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
+        <translation type="unfinished">Il pulsante rifiuterà tutti i cambiamenti e tornerà all&apos;applicazione.&lt;br /&gt;Le impostazioni saranno reimpostate al valore precedente.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Apply changes</source>
+        <translation type="unfinished">Applica i cambiamenti</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will immediately apply all changes.</source>
+        <translation type="unfinished">Il pulsante applicherà immediatamente tutti i cambiamenti.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Undo changes for current page</source>
+        <translation type="unfinished">Annulla i cambiamenti per la pagina corrente</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
+        <translation type="unfinished">Il pulsante annullerà tutti i cambiamenti fatti sulla pagina corrente al valore precedente.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Restore defaults for current page</source>
+        <translation type="unfinished">Ricarica il valore predefinito per la pagina corrente</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
+        <translation type="unfinished">Questo pulsante riporta le impostazioni della pagina corrente ai loro valori predefiniti. Le altre pagine non saranno cambiate.&lt;br /&gt;Per reimpostare tutte le impostazioni ai loro valori predefiniti devi usare questo pulsante su tutte le pagine.</translation>
     </message>
 </context>
 <context>
@@ -3464,7 +3529,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+960"/>
+        <location line="+963"/>
         <source>Failed to fetch server list</source>
         <translation>Scaricamento della lista dei server fallita</translation>
     </message>
@@ -3588,7 +3653,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">&amp;Password</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-709"/>
+        <location filename="ConnectDialog.cpp" line="-712"/>
         <source>&amp;Connect</source>
         <translation>&amp;Connetti</translation>
     </message>
@@ -3999,7 +4064,7 @@ delle possibili posizioni.</translation>
 <context>
     <name>GlobalShortcutMacInit</name>
     <message>
-        <location filename="GlobalShortcut_macx.cpp" line="+60"/>
+        <location filename="GlobalShortcut_macx.mm" line="+63"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
         <translation>Mumble ha rilevato che non è in grado di ricevere i segnali delle Scorciatoie Globali quando è in background.&lt;br /&gt;&lt;br /&gt;Questo è dovuto alla funzione di Accesso Universale chiamata &apos;Abilita accesso per i dispositivi di assistenza&apos; che è attualmente disattiva.&lt;br /&gt;&lt;br /&gt;Si prega di &lt;a href=&quot;&quot;&gt;abilitare questa impostazione&lt;/a&gt; e proseguire quando terminato.</translation>
     </message>
@@ -4318,7 +4383,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Giocatore espulso</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+6"/>
         <source>You self-muted/deafened</source>
         <translation>Microfono/audio disattivati (auto)</translation>
     </message>
@@ -4362,7 +4427,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Errori di script</translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="-13"/>
         <source>User Joined Server</source>
         <translation>Utente entrato nel server</translation>
     </message>
@@ -4372,7 +4437,7 @@ p, li { white-space: pre-wrap; }
         <translation>Utente ha lasciato il server</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>User kicked (you or by you)</source>
         <translation>Utente espulso (tu o da te)</translation>
     </message>
@@ -4452,7 +4517,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-514"/>
+        <location line="-515"/>
         <source>Toggle console for %1 events</source>
         <translation>Imposta console per gli eventi %1</translation>
     </message>
@@ -4663,12 +4728,11 @@ p, li { white-space: pre-wrap; }
         <translation>Scegli file delle skin</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui"/>
         <source>Form</source>
-        <translation>Modulo</translation>
+        <translation type="obsolete">Modulo</translation>
     </message>
     <message>
-        <location/>
+        <location filename="LookConfig.ui"/>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
         <translation>Imposta quali canali saranno automaticamente espansi. &lt;i&gt;Nessuno&lt;/i&gt; e &lt;i&gt;Tutti&lt;/i&gt; espanderanno o no tutti i canali, mentre &lt;i&gt;Solo con utenti&lt;/i&gt; espanderà e comprimerà i canali quando gli utenti entreranno o lasceranno i canali.</translation>
     </message>
@@ -4802,9 +4866,8 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;b&gt;Stabilisce quale skin dovrebbe usare Mumble.&lt;/b&gt;&lt;br /&gt;La skin è un file di stile applicato sopra allo stile base dei widget. Se ci sono icone nella stessa directory del foglio di stile, sostituiranno le icone predefinite.</translation>
     </message>
     <message>
-        <location/>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="obsolete">...</translation>
     </message>
     <message>
         <location/>
@@ -4978,17 +5041,22 @@ p, li { white-space: pre-wrap; }
         <source>Channel Tree</source>
         <translation>Albero del canale</translation>
     </message>
+    <message>
+        <location/>
+        <source>&amp;Browse...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+151"/>
-        <location line="+1872"/>
+        <location filename="MainWindow.cpp" line="+156"/>
+        <location line="+1904"/>
         <source>Root</source>
         <translation>Radice</translation>
     </message>
     <message>
-        <location line="-1825"/>
+        <location line="-1855"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Premi-per-parlare</translation>
@@ -5127,12 +5195,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+1977"/>
+        <location line="+2007"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-1973"/>
+        <location line="-2003"/>
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
@@ -5206,13 +5274,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2007"/>
+        <location line="+2037"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished">Non connesso</translation>
     </message>
     <message>
-        <location line="-1796"/>
+        <location line="-1826"/>
         <source>Clear</source>
         <translation>Cancella</translation>
     </message>
@@ -5294,7 +5362,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;&lt;p&gt;Host remoto %5 (porta%6)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1444"/>
+        <location line="+1474"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation>Immagini (*.png *.jpg *.svg)</translation>
     </message>
@@ -5303,7 +5371,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1433"/>
+        <location line="-1463"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canale di voce&lt;/h2&gt;&lt;p&gt;Crittografato con 128 bit OCB-AES128&lt;br/&gt;%1 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
@@ -5314,19 +5382,19 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="-104"/>
-        <location line="+306"/>
+        <location line="+311"/>
         <source>Register yourself as %1</source>
         <translation>Registrati come %1</translation>
     </message>
     <message>
-        <location line="-958"/>
+        <location line="-963"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+652"/>
-        <location line="+306"/>
+        <location line="+311"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Stai per registrarti sul server. Quest&apos;azione non può essere annullata, il tuo nome utente non potrà essere cambiato. Sarai per sempre conosciuto come &apos;%1&apos; su questo server.&lt;p&gt;Se sicuro di volerti registrare?&lt;/p&gt;</translation>
     </message>
@@ -5390,7 +5458,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">%1: %2</translation>
     </message>
     <message>
-        <location line="+441"/>
+        <location line="+466"/>
         <source>Connected.</source>
         <translation>Connesso.</translation>
     </message>
@@ -5451,7 +5519,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 variazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1459"/>
+        <location line="-1489"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Il canale di voce è trasmesso sul canale di controllo.</translation>
     </message>
@@ -5505,7 +5573,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1155"/>
+        <location line="+1185"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Visualizza certificato</translation>
     </message>
@@ -5514,7 +5582,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Espulsione giocatore %1</translation>
     </message>
     <message>
-        <location line="-917"/>
+        <location line="-942"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Inserisci motivazione</translation>
@@ -5596,7 +5664,7 @@ p, li { white-space: pre-wrap; }
         <translation>Audio riattivato.</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+94"/>
         <source>About Qt</source>
         <translation>Informazioni su Qt</translation>
     </message>
@@ -5682,7 +5750,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Giocatore</translation>
     </message>
     <message>
-        <location line="-2048"/>
+        <location line="-2078"/>
         <source>&amp;Channel</source>
         <translation>&amp;Canale</translation>
     </message>
@@ -6427,7 +6495,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">il server</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+289"/>
+        <location filename="Messages.cpp" line="+310"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>Microfono e audio riattivati da %1.</translation>
     </message>
@@ -6486,7 +6554,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">%1 ha lasciato il server.</translation>
     </message>
     <message>
-        <location line="-136"/>
+        <location line="-157"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 ha disattivato il suo audio e microfono.</translation>
     </message>
@@ -6577,12 +6645,37 @@ p, li { white-space: pre-wrap; }
         <translation>%1 ha riattivato il microfono.</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+11"/>
+        <source>Recording started</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Recording stopped</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>%1 started recording.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 stopped recording.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+41"/>
         <source>You were unsuppressed.</source>
         <translation>Sei stato riattivato.</translation>
     </message>
     <message>
-        <location line="+139"/>
+        <location line="+96"/>
+        <source>%1 is recording</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
         <source>%1 disconnected.</source>
         <translation>%1 disconnesso.</translation>
     </message>
@@ -6606,7 +6699,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">server</translation>
     </message>
     <message>
-        <location line="-251"/>
+        <location line="-254"/>
         <source>You were muted by %1.</source>
         <translation>Microfono disattivato da %1.</translation>
     </message>
@@ -6666,12 +6759,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">messaggio dal server</translation>
     </message>
     <message>
-        <location line="+327"/>
+        <location line="+330"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Impossibile trovare codec CELT uguali a quelli degli altri utenti. Non sarai in grado di parlare con gli altri utenti.</translation>
     </message>
     <message>
-        <location line="-393"/>
+        <location line="-396"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Microfono e audio disattivati da %1.</translation>
@@ -6691,7 +6784,7 @@ p, li { white-space: pre-wrap; }
         <translation>Microfono e audio di%1 riattivati da %2.</translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+86"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Sei stato espulso dal server da %1 per la seguente motivazione: %2.</translation>
     </message>
@@ -6711,7 +6804,7 @@ p, li { white-space: pre-wrap; }
         <translation>%3 è stato espulto e bandito dal server da %1 per la seguente motivazione: %2.</translation>
     </message>
     <message>
-        <location line="-57"/>
+        <location line="-60"/>
         <source>You were moved to %1 by %2.</source>
         <translation>Sei stato spostato da %2 sul canale %1.</translation>
     </message>
@@ -6733,7 +6826,7 @@ p, li { white-space: pre-wrap; }
         <translation>%1 è entrato nel canale.</translation>
     </message>
     <message>
-        <location line="-312"/>
+        <location line="-333"/>
         <source>Server connection rejected: %1.</source>
         <translation>Connessione al server respinta: %1.</translation>
     </message>
@@ -6751,12 +6844,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Da %1: %2</translation>
     </message>
     <message>
-        <location line="+329"/>
+        <location line="+353"/>
         <source>Message from %1</source>
         <translation>Messaggio da %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1378"/>
+        <location filename="UserModel.cpp" line="+1381"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Hai selezionato &quot;non fare niente&quot; sulle impostazioni del trascinamento del canale, quindi il canale non sarà spostato.</translation>
     </message>
@@ -6929,6 +7022,11 @@ p, li { white-space: pre-wrap; }
         <source>Priority speaker</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Recording</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NetworkConfig</name>
@@ -6943,12 +7041,11 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui"/>
         <source>Form</source>
-        <translation>Modulo</translation>
+        <translation type="obsolete">Modulo</translation>
     </message>
     <message>
-        <location/>
+        <location filename="NetworkConfig.ui"/>
         <source>Connection</source>
         <translation>Connessione</translation>
     </message>
@@ -7174,9 +7271,8 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation>Cercherà nuove versioni dei plugin ogni volta che aprirai il programma, e li scaricherà automaticamente.</translation>
     </message>
     <message>
-        <location/>
         <source>Download plugin updates on startup</source>
-        <translation>Cerca aggiornamenti plugin all&apos;avvio</translation>
+        <translation type="obsolete">Cerca aggiornamenti plugin all&apos;avvio</translation>
     </message>
     <message>
         <location/>
@@ -7211,6 +7307,11 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <source>Reconnect to last server on startup</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Download plugin and overlay updates on startup</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Overlay</name>
@@ -7219,7 +7320,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+474"/>
+        <location filename="Overlay.cpp" line="+477"/>
         <location line="+1076"/>
         <source>Silent</source>
         <translation type="unfinished"></translation>
@@ -7249,9 +7350,19 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1277"/>
+        <location line="+1279"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Impossibile creare una comunicazione con la sovrapposizione su %2 :%1. La sovrapposizione non sarà disponibile.</translation>
+    </message>
+    <message>
+        <location line="+244"/>
+        <source>Skipping overlay update in debug mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+66"/>
+        <source>Downloaded new or updated overlay support file to %1.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -7279,7 +7390,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-854"/>
+        <location line="-1166"/>
         <source>Filter</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7598,14 +7709,12 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location/>
         <source>Add</source>
-        <translation type="unfinished">Aggiungi</translation>
+        <translation type="obsolete">Aggiungi</translation>
     </message>
     <message>
-        <location/>
         <source>Remove</source>
-        <translation type="unfinished">Rimuovi</translation>
+        <translation type="obsolete">Rimuovi</translation>
     </message>
     <message>
         <location/>
@@ -7659,6 +7768,16 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>View Certificates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Add...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Remove</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8072,7 +8191,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+319"/>
+        <location filename="Plugins.cpp" line="+320"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8088,7 +8207,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>Installazione fallita del nouvo plugin a %1.</translation>
     </message>
     <message>
-        <location line="-258"/>
+        <location line="-259"/>
         <source>%1 lost link.</source>
         <translation>Collegamento perso con %1.</translation>
     </message>
@@ -9001,6 +9120,148 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+3"/>
         <source>Unit Name: %1</source>
         <translation>Nome Unità: %1</translation>
+    </message>
+</context>
+<context>
+    <name>VoiceRecorder</name>
+    <message>
+        <location filename="VoiceRecorder.cpp" line="+390"/>
+        <source>.wav - Uncompressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>.ogg (Vorbis) - Compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>.au - Uncompressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>.flac - Lossless compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>VoiceRecorderDialog</name>
+    <message>
+        <location filename="VoiceRecorderDialog.ui"/>
+        <location filename="VoiceRecorderDialog.cpp" line="+69"/>
+        <location line="+39"/>
+        <location line="+10"/>
+        <location line="+9"/>
+        <source>Recorder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>00:00:00</source>
+        <translation type="unfinished">00:00:00</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>S&amp;top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Mixdown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Multichannel</source>
+        <translation type="unfinished">Multicanale</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Output format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Target directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;pre&gt;
+Valid variables are:
+%user	Inserts the users name
+%date	Inserts the current date
+%time	Inserts the current time
+%host	Inserts the hostname
+&lt;/pre&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Browse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="VoiceRecorderDialog.cpp" line="-57"/>
+        <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Recoder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Unable to start recording. Not connected to a server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
+Please contact your server administrator for further information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>There is already a recorder active for this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Please select a recording format.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+97"/>
+        <source>Select target directory</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

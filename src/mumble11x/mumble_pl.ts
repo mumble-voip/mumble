@@ -2017,61 +2017,51 @@ Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do p
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="+51"/>
-        <location filename="ConfigDialog.mm" line="+73"/>
         <source>Accept changes</source>
         <translation>Akceptuj zmiany</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
         <translation>Ten przycisk zaakceptuje zmiany i powróci do aplikacji.&lt;br /&gt;Ustawienia zostaną zapisane na dysku jak zamkniesz program.</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location filename="ConfigDialog.mm" line="+4"/>
         <source>Reject changes</source>
         <translation>Odrzuć zmiany</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
         <translation>Ten przycisk odrzuca zmiany i powraca do aplikacji.</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location filename="ConfigDialog.mm" line="+4"/>
         <source>Apply changes</source>
         <translation>Zastosuj zmiany</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will immediately apply all changes.</source>
         <translation>Ten przycisk natychmiastowo uwzględnia zmiany.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location filename="ConfigDialog.mm" line="+3"/>
         <source>Undo changes for current page</source>
         <translation>Cofnij zmiany na danej stronie</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
         <translation>Cofa zmiany na danej stronie.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location filename="ConfigDialog.mm" line="+3"/>
         <source>Restore defaults for current page</source>
         <translation>Przywróć domyślne dla danej strony</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2097,7 +2087,6 @@ Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do p
     </message>
     <message>
         <location filename="ConfigDialog.ui"/>
-        <location filename="ConfigDialogDelegate.mm" line="+135"/>
         <source>Advanced</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2492,7 +2481,7 @@ w żadnej z podanych lokacji.</translation>
 <context>
     <name>GlobalShortcutMacInit</name>
     <message>
-        <location filename="GlobalShortcut_macx.cpp" line="+60"/>
+        <location filename="GlobalShortcut_macx.cpp" line="+63"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
         <translation>&lt;b&gt;Ta opcja pozwala na ustalenie wstrzymań pomiędzy nadawaniem głosu.&lt;/b&gt;&lt;br /&gt;Ustaw tę opcję wyżej jeśli twój głos jest niewyraźny..&lt;br /&gt;Ta opcja ma sens tyko, gdy używasz aktywacji głosowej!</translation>
     </message>

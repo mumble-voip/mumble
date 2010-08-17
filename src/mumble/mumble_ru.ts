@@ -1139,9 +1139,8 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>&lt;b&gt;Сбросить&lt;/b&gt;&lt;br/&gt;Вернуть значения путей файлов по умолчанию.</translation>
     </message>
     <message>
-        <location/>
         <source>Reset</source>
-        <translation>Сбросить</translation>
+        <translation type="obsolete">Сбросить</translation>
     </message>
     <message>
         <location/>
@@ -1149,9 +1148,8 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>Открыть аудиофайл, который будет проигрываться в начале передачи речи</translation>
     </message>
     <message>
-        <location/>
         <source>Browse</source>
-        <translation>Обзор</translation>
+        <translation type="obsolete">Обзор</translation>
     </message>
     <message>
         <location/>
@@ -1179,9 +1177,8 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>&lt;b&gt;Проиграть&lt;/b&gt;&lt;br/&gt;Проигрывает подряд текущие звуки для &lt;i&gt;начала&lt;/i&gt; и &lt;i&gt;окончания&lt;/i&gt; передачи речи.</translation>
     </message>
     <message>
-        <location/>
         <source>Preview</source>
-        <translation>Проиграть</translation>
+        <translation type="obsolete">Проиграть</translation>
     </message>
     <message>
         <location/>
@@ -1407,7 +1404,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>Максимально используемая ширина канала для передачи звука</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+523"/>
+        <location filename="AudioInput.cpp" line="+524"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)</source>
         <translation>Максимальная пропускная способность сервера только %1 Кбит/с. Качество звука автоматически установлено на %2 Кбит/с (%3 мс)</translation>
     </message>
@@ -1450,6 +1447,26 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location/>
         <source>Exclusive</source>
         <translation>Эксклюзивно</translation>
+    </message>
+    <message>
+        <location/>
+        <source>R&amp;eset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Browse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>B&amp;rowse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1907,7 +1924,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>AudioOutputSample</name>
     <message>
-        <location filename="AudioOutput.cpp" line="+295"/>
+        <location filename="AudioOutput.cpp" line="+297"/>
         <source>Choose sound file</source>
         <translation>Выберите звуковой файл</translation>
     </message>
@@ -2740,7 +2757,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Пользователь Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+408"/>
+        <location filename="main.cpp" line="+412"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Сертификат просрочен:&lt;/b&gt; Срок действия Вашего сертификата скоро истечет. Вам необходимо обновить его, иначе Вы не сможете подключиться к серверам, на которых зарегистрированы.</translation>
     </message>
@@ -3316,6 +3333,11 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location line="+2"/>
+        <source>Recording</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Muted (server)</source>
         <translation>В онемении (сервером)</translation>
     </message>
@@ -3349,7 +3371,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location/>
-        <location filename="ConfigDialogDelegate.mm" line="+135"/>
+        <location filename="ConfigDialogDelegate.mm" line="+142"/>
         <source>Advanced</source>
         <translation>Экспертные настройки</translation>
     </message>
@@ -3359,13 +3381,11 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="+51"/>
-        <location filename="ConfigDialog.mm" line="+73"/>
         <source>Accept changes</source>
         <translation>Принять изменения</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
         <translation>Применить текущие настройки и вернуться в приложение.&lt;br /&gt;Настройки будут сохранены на диск при выходе из приложения.</translation>
     </message>
@@ -3375,13 +3395,11 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location line="+4"/>
-        <location filename="ConfigDialog.mm" line="+4"/>
         <source>Reject changes</source>
         <translation>Отменить изменения</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
         <translation>Отменить все изменения и вернуться в приложение.&lt;br /&gt;Настройки будут сброшены до предыдущих значений.</translation>
     </message>
@@ -3391,39 +3409,86 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location line="+4"/>
-        <location filename="ConfigDialog.mm" line="+4"/>
         <source>Apply changes</source>
         <translation>Применить изменения</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will immediately apply all changes.</source>
         <translation>Немедленно применяет все изменения.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location filename="ConfigDialog.mm" line="+3"/>
         <source>Undo changes for current page</source>
         <translation>Отменить изменения на текущей странице</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
         <translation>Отменить любые изменения, совершенные на этой странице.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location filename="ConfigDialog.mm" line="+3"/>
         <source>Restore defaults for current page</source>
         <translation>Восстановить стандартные настройки на этой странице</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <translation>Вернуть стандартные настройки для этой страницы. Другие страницы не будут изменены.&lt;br /&gt;Чтобы вернуть все настройки на стандартные, вы должны нажать эту кнопку на всех страницах.</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigDialogMac</name>
+    <message>
+        <location filename="ConfigDialog_macx.mm" line="+70"/>
+        <source>Accept changes</source>
+        <translation type="unfinished">Принять изменения</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
+        <translation type="unfinished">Применить текущие настройки и вернуться в приложение.&lt;br /&gt;Настройки будут сохранены на диск при выходе из приложения.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Reject changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
+        <translation type="unfinished">Отменить все изменения и вернуться в приложение.&lt;br /&gt;Настройки будут сброшены до предыдущих значений.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Apply changes</source>
+        <translation type="unfinished">Применить изменения</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will immediately apply all changes.</source>
+        <translation type="unfinished">Немедленно применяет все изменения.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Undo changes for current page</source>
+        <translation type="unfinished">Отменить изменения на текущей странице</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
+        <translation type="unfinished">Отменить любые изменения, совершенные на этой странице.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Restore defaults for current page</source>
+        <translation type="unfinished">Восстановить стандартные настройки на этой странице</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
+        <translation type="unfinished">Вернуть стандартные настройки для этой страницы. Другие страницы не будут изменены.&lt;br /&gt;Чтобы вернуть все настройки на стандартные, вы должны нажать эту кнопку на всех страницах.</translation>
     </message>
 </context>
 <context>
@@ -3568,7 +3633,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+960"/>
+        <location line="+963"/>
         <source>Failed to fetch server list</source>
         <translation>Ошибка при получении списка серверов</translation>
     </message>
@@ -3638,7 +3703,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location/>
-        <location filename="ConnectDialog.cpp" line="-707"/>
+        <location filename="ConnectDialog.cpp" line="-710"/>
         <source>&amp;Add New...</source>
         <translation>&amp;Добавить новый...</translation>
     </message>
@@ -4173,7 +4238,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutMacInit</name>
     <message>
-        <location filename="GlobalShortcut_macx.cpp" line="+60"/>
+        <location filename="GlobalShortcut_macx.mm" line="+63"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
         <translation>Mumble обнаружил, что не может распознавать Ярлыки, когда свернут.&lt;br /&gt;&lt;br /&gt;Это происходит потому, что функция Универсального Доступа, называемая &quot;Включить доступ для вспомогательных устройств&quot;, в настоящее время отключена.&lt;br /&gt;&lt;br /&gt;Пожалуйста, &lt;a href=&quot; &quot;&gt;включите эту настройку&lt;/a&gt; и продолжите, когда это будет сделано.</translation>
     </message>
@@ -4447,7 +4512,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Игрок выброшен</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+6"/>
         <source>You self-muted/deafened</source>
         <translation>Вы заглушили сами себя</translation>
     </message>
@@ -4491,7 +4556,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Сообщение</translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="-13"/>
         <source>User Joined Server</source>
         <translation>Пользователь присоединился к серверу</translation>
     </message>
@@ -4501,7 +4566,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Пользователь покинул сервер</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>User kicked (you or by you)</source>
         <translation>Пользователь выкинул/выкинут (Вас или Вами)</translation>
     </message>
@@ -4580,7 +4645,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-514"/>
+        <location line="-515"/>
         <source>Toggle console for %1 events</source>
         <translation>Включение/выключение лога для событий &quot;%1&quot;</translation>
     </message>
@@ -4820,9 +4885,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Скин</translation>
     </message>
     <message>
-        <location/>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="obsolete">...</translation>
     </message>
     <message>
         <location/>
@@ -4855,9 +4919,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;b&gt;Устанавливает скин для Mumble.&lt;/b&gt;&lt;br /&gt;Скин - это файл стиля, накладываемый поверх основного стиля. Если иконки стиля находятся в одной папке с ним, то они заменят иконки по умолчанию.</translation>
     </message>
     <message>
-        <location/>
         <source>Form</source>
-        <translation>Форма</translation>
+        <translation type="obsolete">Форма</translation>
     </message>
     <message>
         <location filename="LookConfig.cpp" line="-140"/>
@@ -5034,12 +5097,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>Channel Tree</source>
         <translation>Дерево каналов</translation>
     </message>
+    <message>
+        <location/>
+        <source>&amp;Browse...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+151"/>
-        <location line="+1872"/>
+        <location filename="MainWindow.cpp" line="+156"/>
+        <location line="+1904"/>
         <source>Root</source>
         <translation>Корень</translation>
     </message>
@@ -5503,9 +5571,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Соединиться с веб-страницей Mumble, чтобы проверить доступность новой версии и уведомить Вас о ссылке для ее закачки.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1781"/>
+        <location filename="MainWindow.cpp" line="-1811"/>
         <location line="+12"/>
-        <location line="+1977"/>
+        <location line="+2007"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -5527,7 +5595,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Игрок</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2064"/>
+        <location filename="MainWindow.cpp" line="-2094"/>
         <source>&amp;Channel</source>
         <translation>&amp;Канал</translation>
     </message>
@@ -5640,7 +5708,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Выкидывание игрока %1</translation>
     </message>
     <message>
-        <location line="+1001"/>
+        <location line="+1006"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Введите причину</translation>
@@ -5694,7 +5762,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Глушение снято.</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+94"/>
         <source>About Qt</source>
         <translation>О Qt</translation>
     </message>
@@ -5717,7 +5785,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Отключен от сервера.</translation>
     </message>
     <message>
-        <location line="-1381"/>
+        <location line="-1411"/>
         <source>Reconnecting.</source>
         <translation>Повтор связи.</translation>
     </message>
@@ -5726,7 +5794,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Присединились к серверу: %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+289"/>
+        <location filename="Messages.cpp" line="+310"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>%1 снял с Вас глушение и онемение.</translation>
     </message>
@@ -5785,7 +5853,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Покинут сервер: %1.</translation>
     </message>
     <message>
-        <location line="-136"/>
+        <location line="-157"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 сейчас в онемении и заглушен.</translation>
     </message>
@@ -5876,12 +5944,37 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Снято глушение с %1.</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+11"/>
+        <source>Recording started</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Recording stopped</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>%1 started recording.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 stopped recording.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+41"/>
         <source>You were unsuppressed.</source>
         <translation>Онемение снято с Вас.</translation>
     </message>
     <message>
-        <location line="+139"/>
+        <location line="+96"/>
+        <source>%1 is recording</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
         <source>%1 disconnected.</source>
         <translation>%1 покинул сервер.</translation>
     </message>
@@ -5912,7 +6005,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">сервер</translation>
     </message>
     <message>
-        <location line="-251"/>
+        <location line="-254"/>
         <source>You were muted by %1.</source>
         <translation>%1 наложил на Вас онемение.</translation>
     </message>
@@ -5963,12 +6056,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%2 снял онемение с %1.</translation>
     </message>
     <message>
-        <location line="+327"/>
+        <location line="+330"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Не найдены соответствующие CELT-кодеки у других пользователей. Вы не сможете говорить со всеми пользователями.</translation>
     </message>
     <message>
-        <location line="-393"/>
+        <location line="-396"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>%1 наложил на Вас онемение и глушение.</translation>
@@ -5988,7 +6081,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%2 снял глушение с %1.</translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+86"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>%1 выкинул Вас с сервера: %2.</translation>
     </message>
@@ -6008,7 +6101,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%1 выкинул %3 с сервера и забанил: %2.</translation>
     </message>
     <message>
-        <location line="-57"/>
+        <location line="-60"/>
         <source>You were moved to %1 by %2.</source>
         <translation>%2 переместил Вас в %1.</translation>
     </message>
@@ -6030,7 +6123,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">%1 перемещен сюда %2.</translation>
     </message>
     <message>
-        <location line="-312"/>
+        <location line="-333"/>
         <source>Server connection rejected: %1.</source>
         <translation>Попытка подключения отклонена: %1.</translation>
     </message>
@@ -6065,7 +6158,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Отправить текстовое сообщение</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+449"/>
+        <location filename="MainWindow.cpp" line="+454"/>
         <source>Sending message to %1</source>
         <translation>Отправка сообщения пользователю %1</translation>
     </message>
@@ -6095,7 +6188,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Для %1 (Дерево): %2</translation>
     </message>
     <message>
-        <location line="+616"/>
+        <location line="+641"/>
         <source>Failed to launch compatibility client</source>
         <translation>Ошибка при запуске совместимого клиента</translation>
     </message>
@@ -6130,7 +6223,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Неверный пароль для подключения к серверу. Попробуйте еще раз.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+329"/>
+        <location filename="Messages.cpp" line="+353"/>
         <source>Message from %1</source>
         <translation>Сообщение от %1</translation>
     </message>
@@ -6261,7 +6354,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Показывает расширенную информацию о соединении с сервером.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1594"/>
+        <location filename="MainWindow.cpp" line="-1624"/>
         <source>Opening URL %1</source>
         <translation>Открывается URL %1</translation>
     </message>
@@ -6343,7 +6436,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1155"/>
+        <location line="+1185"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Посмотреть сертификат</translation>
     </message>
@@ -6353,20 +6446,20 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Картинки (*.png *.jpg *.svg)</translation>
     </message>
     <message>
-        <location line="-1526"/>
-        <location line="+306"/>
+        <location line="-1556"/>
+        <location line="+311"/>
         <source>Register yourself as %1</source>
         <translation>Зарегистрироваться как %1</translation>
     </message>
     <message>
-        <location line="-958"/>
+        <location line="-963"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Переключает состояние Замещения в игре.</translation>
     </message>
     <message>
         <location line="+652"/>
-        <location line="+306"/>
+        <location line="+311"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Вы собираетесь зарегистрироваться на этом сервере. Невозможно будет отметить данное действие и изменить Ваше имя для данного сертификата. Вы всегда будете известны как &lt;b&gt;&apos;%1&apos;&lt;/b&gt; на этом сервере.&lt;/p&gt;&lt;p&gt;Вы действительно желаете зарегистрироваться?&lt;/p&gt;</translation>
     </message>
@@ -6402,7 +6495,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Сообщение в канал %1</translation>
     </message>
     <message>
-        <location line="+441"/>
+        <location line="+466"/>
         <source>Connected.</source>
         <translation>Подключено.</translation>
     </message>
@@ -6460,7 +6553,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Формат изображения не поддерживается.</translation>
     </message>
     <message>
-        <location line="-1459"/>
+        <location line="-1489"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Голосовой канал отправлен через канал управления.</translation>
     </message>
@@ -6510,7 +6603,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Реcинхронизированные</translation>
     </message>
     <message>
-        <location line="+583"/>
+        <location line="+588"/>
         <source>Sending message to channel %1</source>
         <translation>Отправка сообщения в канал %1</translation>
     </message>
@@ -6540,7 +6633,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Это Ваш первый запуск Mumble.&lt;br /&gt;Вы желаете воспользоваться Мастером, чтобы настроить Вашу звуковую карту?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1211"/>
+        <location filename="MainWindow.cpp" line="-1216"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>В настоящий момент Mumble подключен к серверу.&lt;br /&gt;Вы хотите Закрыть его или Свернуть в трей?</translation>
     </message>
@@ -6642,13 +6735,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+2007"/>
+        <location line="+2037"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Нет соединения с сервером&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1796"/>
+        <location line="-1826"/>
         <source>Clear</source>
         <translation>Очистить</translation>
     </message>
@@ -6658,7 +6751,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Лог</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1378"/>
+        <location filename="UserModel.cpp" line="+1381"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Вы установили режим &quot;Не перетаскивать&quot; в настройках, поэтому канал не может быть перемещен.</translation>
     </message>
@@ -6808,6 +6901,11 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>Priority speaker</source>
         <translation>Приоритетный разговор</translation>
     </message>
+    <message>
+        <location/>
+        <source>Recording</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NetworkConfig</name>
@@ -6822,12 +6920,11 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Обновления обязательны при использовании тестовых релизов.</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui"/>
         <source>Form</source>
-        <translation>Форма</translation>
+        <translation type="obsolete">Форма</translation>
     </message>
     <message>
-        <location/>
+        <location filename="NetworkConfig.ui"/>
         <source>Connection</source>
         <translation>Подключение</translation>
     </message>
@@ -7043,9 +7140,8 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Проверять наличие новых версий плагинов каждый раз при запуске программы и автоматически скачивать их.</translation>
     </message>
     <message>
-        <location/>
         <source>Download plugin updates on startup</source>
-        <translation>Загружать обновленые плагины при запуске</translation>
+        <translation type="obsolete">Загружать обновленые плагины при запуске</translation>
     </message>
     <message>
         <location/>
@@ -7071,6 +7167,11 @@ Prevents the client from downloading images embedded into chat messages with the
         <location/>
         <source>Reconnect to last server on startup</source>
         <translation>Подключаться к последнему серверу при запуске</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Download plugin and overlay updates on startup</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7111,7 +7212,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+474"/>
+        <location filename="Overlay.cpp" line="+477"/>
         <location line="+1076"/>
         <source>Silent</source>
         <translation>Молчание</translation>
@@ -7141,9 +7242,19 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Канал</translation>
     </message>
     <message>
-        <location line="+1277"/>
+        <location line="+1279"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Не возможно соединиться с замещением на %2: %1. Замещение не будет доступно.</translation>
+    </message>
+    <message>
+        <location line="+244"/>
+        <source>Skipping overlay update in debug mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+66"/>
+        <source>Downloaded new or updated overlay support file to %1.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -7159,7 +7270,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-854"/>
+        <location line="-1166"/>
         <source>Filter</source>
         <translation>Фильтр</translation>
     </message>
@@ -7447,14 +7558,12 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Белый список</translation>
     </message>
     <message>
-        <location/>
         <source>Add</source>
-        <translation>Добавить</translation>
+        <translation type="obsolete">Добавить</translation>
     </message>
     <message>
-        <location/>
         <source>Remove</source>
-        <translation>Удалить</translation>
+        <translation type="obsolete">Удалить</translation>
     </message>
     <message>
         <location/>
@@ -7513,6 +7622,16 @@ To upgrade these files to their latest versions, click the button below.</source
         <location/>
         <source>View Certificates</source>
         <translation>Поcмотреть сертификаты</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Add...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Remove</source>
+        <translation type="unfinished">&amp;Удалить</translation>
     </message>
 </context>
 <context>
@@ -7929,7 +8048,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+319"/>
+        <location filename="Plugins.cpp" line="+320"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>Пропустить обновление плагина в режиме отладки.</translation>
     </message>
@@ -7949,7 +8068,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="obsolete">Плагин %1 потерял связь.</translation>
     </message>
     <message>
-        <location line="-258"/>
+        <location line="-259"/>
         <source>%1 lost link.</source>
         <translation>%1 потерял связь.</translation>
     </message>
@@ -8873,6 +8992,148 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+3"/>
         <source>Unit Name: %1</source>
         <translation>Отдел: %1</translation>
+    </message>
+</context>
+<context>
+    <name>VoiceRecorder</name>
+    <message>
+        <location filename="VoiceRecorder.cpp" line="+390"/>
+        <source>.wav - Uncompressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>.ogg (Vorbis) - Compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>.au - Uncompressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>.flac - Lossless compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>VoiceRecorderDialog</name>
+    <message>
+        <location filename="VoiceRecorderDialog.ui"/>
+        <location filename="VoiceRecorderDialog.cpp" line="+69"/>
+        <location line="+39"/>
+        <location line="+10"/>
+        <location line="+9"/>
+        <source>Recorder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>00:00:00</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>S&amp;top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Mixdown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Multichannel</source>
+        <translation type="unfinished">Мультиканальный</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Output</source>
+        <translation type="unfinished">Вывод</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Output format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Target directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;pre&gt;
+Valid variables are:
+%user	Inserts the users name
+%date	Inserts the current date
+%time	Inserts the current time
+%host	Inserts the hostname
+&lt;/pre&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Browse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="VoiceRecorderDialog.cpp" line="-57"/>
+        <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Recoder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Unable to start recording. Not connected to a server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
+Please contact your server administrator for further information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>There is already a recorder active for this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Please select a recording format.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+97"/>
+        <source>Select target directory</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

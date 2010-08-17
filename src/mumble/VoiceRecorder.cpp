@@ -40,8 +40,8 @@
 #include "../Timer.h"
 
 VoiceRecorder::RecordBuffer::RecordBuffer(const ClientUser *cu,
-	boost::shared_array<float> buffer, int samples, quint64 timestamp) :
-	cuUser(cu), fBuffer(buffer), iSamples(samples), uiTimestamp(timestamp) {
+        boost::shared_array<float> buffer, int samples, quint64 timestamp) :
+		cuUser(cu), fBuffer(buffer), iSamples(samples), uiTimestamp(timestamp) {
 }
 
 VoiceRecorder::RecordInfo::RecordInfo() : sf(NULL), uiLastPosition(0) {
@@ -55,8 +55,8 @@ VoiceRecorder::RecordInfo::~RecordInfo() {
 }
 
 VoiceRecorder::VoiceRecorder(QObject *p) : QThread(p), recordUser(new RecordUser()),
-	tTimestamp(new Timer()), iSampleRate(0), bRecording(false), bMixDown(false),
-	fmFormat(VoiceRecorderFormat::WAV), qdtRecordingStart(QDateTime::currentDateTime()) {
+		tTimestamp(new Timer()), iSampleRate(0), bRecording(false), bMixDown(false),
+		fmFormat(VoiceRecorderFormat::WAV), qdtRecordingStart(QDateTime::currentDateTime()) {
 }
 
 VoiceRecorder::~VoiceRecorder() {
@@ -133,7 +133,7 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, boost::share
 
 	// Reassemble and expand
 	bool first = true;
-	foreach (QString str, comp) {
+	foreach(QString str, comp) {
 		bool replacements = false;
 		QString tmp;
 

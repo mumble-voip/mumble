@@ -69,7 +69,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	if (avatar_pos[1] > 999000000.0)
 		return false;
-		
+
 	/*
 	peekProc(frontptr, &front_corrector1, 4) &&
 	peekProc(frontptr + 0xC, &front_corrector2, 4) &&
@@ -78,7 +78,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	peekProc(topptr + 0xC, &top_corrector2, 4) &&
 	peekProc(topptr + 0x18, &top_corrector3, 4);
 	*/
-	
+
 	if (! ok)
 		return false;
 

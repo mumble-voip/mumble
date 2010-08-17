@@ -1,8 +1,164 @@
+2010-08-17
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    fb784a5  Merge branch 'recording-clean' of
+	     git://github.com/arrai/mumble-record
+    e5c668f  Add more keyboard shortcuts in the settings dialog
+    1a51db9  Installer fixes
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    ccf4b33  Use .mm ending in 11x as well
+    f6a3e82  Add cpu type and SSE2 state to usage stats
+
+2010-08-16
+  arcenciel <arcenciel@users.sourceforge.net>
+    1d32a33  Japanese translation for current git
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    4518147  Fix recorder error messages.
+    3870798  Add comments in VoiceRecorder
+
+2010-08-15
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    22a74ac  Add log messages/notifications for recording state changes
+    66ef598  Add vcheck
+    163ae5a  Prevent turning / into // at the beginning of filenames (d'oh)
+    3c4fbd5  Maybe fix linux absolute paths + Minor stuff.
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    a4b5217  Arma2 conditional to prevent premature linking; L4D2 update
+
+2010-08-14
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    7b9ca2c  Add path and filename templating. Fix recording mode restore.
+	     Add missing licensing headers.
+    324d43e  Make sure recorder is aware of connection state. Don't show
+	     recorder icon in menu.
+    d876cab  Fix browse button
+    2622533  Fix deadlock on codec change while recording. Various minor
+	     style fixes.
+
+  B0nuse <mumble@mumble.ru>
+    172d060  More fixes for mumble_ru.ts file
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    2926e6f  Use Qt's StringBuilder where available and add pch include
+    7732ca1  Add a namespace for VoiceRecorder format functions
+    7301003  Fix multichannel recording
+
+2010-08-13
+  Mikkel Krautz <mikkel@krautz.dk>
+    8376c46  Fix permission issue with OSX overay installer when no
+	     /Library/ScriptingAdditions/ directory exists prior to
+	     install.
+
+  Mark-Willem Jansen <rawnar@users.sourceforge.net>
+    95cdca8  Borderlands plugin: added support for german version of
+	     Borderlands
+
+2010-08-11
+  Mikkel Krautz <mikkel@krautz.dk>
+    40c04a1  Don't use ConfigDialog_macx for compat client.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    a6423d9  Delete dialog and possible crash fixes
+    3a29bdc  Possible crash fix
+    7e18e35  Use the correct way to add the WIX UI extension
+    c333198  Always install libmysql.dll
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    a40cd34  Fix a few more SSE/SSE2 installer issues
+    00f405c  Add SSE2 export to installer
+    ff47838  SSE2 build using MSVC
+    6cf5ac9  Update Ice embedded doc
+
+2010-08-10
+  Mikkel Krautz <mikkel@krautz.dk>
+    0bd663f  Split out native-looking OSX ConfigDialog into a fully
+	     separate class. Allows us to pick which one to use at runtime.
+    1db53c6  Call winId() in MacOS ConfigDialog to ensure is backed by a
+	     native window.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    331da15  Correct debug path and Ice version in installer
+    d6f8076  Machine-dependent installer settings
+
+2010-08-09
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    03009a9  Fix crash on close + recording dialog behavior when stop is
+	     pressed
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    e555a83  Add a namespace for the enum
+    fad3790  Fix crash on recording stop
+    4ad437a  Use the MSVCRT 2010 merge module and readd the translation
+	     files
+    4bb0bf2  Add MSI-based installer
+
+  Mark-Willem Jansen <rawnar@users.sourceforge.net>
+    1a0e643  Borderlands plugin updated to version 1.31
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    1009e97  Include MSVC version in plugin query
+    38ffcfb  Avoid NULL on sendmessage to invalid sessions
+    dac82c9  VS 2010 build
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    06dd3ab  Gmod update; minor plugin fixes/updates
+
+2010-08-08
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    598b7c3  Add recording UI
+    4a2d48d  VoiceRecorder backend extension for UI needs
+    32017ea  Settings load and restore for recording feature
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    a34f73a  Fix URL and Mac OS X install instructions in README.
+    451c11d  Fix mumble11x GlobalShortcut_macx symlink.
+    8b298ba  Forward intercepted events directly to NSView rather than
+	     going through NSApplication first...
+    f9f142f  Forward more events to ocIntercept.
+
+2010-08-07
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    2e99628  Style fixes and safer pointer handling
+    0321c24  Add recording icon
+
+2010-08-05
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    3d6ef0f  Ignore zero scopeId in ping replies
+
+2010-08-04
+  Jamie Fraser <jamie.f@sabrienix.com>
+    bf561d3  Toggle setting (rememberchannel) for remembering a registered
+	     users last channel.
+
+2010-08-03
+  Jamie Fraser <jamie.f@sabrienix.com>
+    ab31fc2  added timestamps to foreground log output
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    b4dc0e6  Forward ocIntercept events on Mac OS X to viewport instead of
+	     QGraphicsView. QAbstractScrollArea does not propagate
+	     QEvent::Mouse* events.
+
+  B0nuse <mumble@mumble.ru>
+    ff56005  Updated Russian translations.
+
+2010-07-31
+  Mikkel Krautz <mikkel@krautz.dk>
+    6a05cd6  Attempt at forwarding Mac OS X mosue events to QGraphicsView
+	     during ocIntercept.
+
 2010-07-30
+  Mikkel Krautz <mikkel@krautz.dk>
+    41cdc04  Diable overlay for universal Mac OS X builds.
+    ba654a5  Auto-updating overlay installer on Mac OS X.
+
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     a2e2a82  Fix crash when connecting to a different server
 
   Tuck Therebelos <snares@users.sourceforge.net>
+    019c47a  l4d2 update
     1a2ea89  Fix last commit
     aa0fc95  Add context support to BFBC2
     0c69d52  Gmod update
@@ -14,6 +170,9 @@
   Tuck Therebelos <snares@users.sourceforge.net>
     d0a6627  Source plugin updates; clarify regName parameter usage in
 	     Murmur.ini
+
+  Imre Botos <zokny@users.sourceforge.net>
+    3e91919  Counter-Strike 1.6 plugin fix
 
 2010-07-28
   Jamie Fraser <jamie.f@sabrienix.com>
@@ -95,6 +254,7 @@
 
 2010-07-20
   Benjamin Jemlich <pcgod@users.sourceforge.net>
+    0a880fe  Add local voice recording
     4335312  Add another QThread::yield in the audio output code
     8bd2060  Added/updated russian installer and client translation,
 	     submitted by B0nuse on #mumble.
@@ -244,9 +404,13 @@
 
 2010-06-06
   Benjamin Jemlich <pcgod@users.sourceforge.net>
+    1f56580  Add basic recording logic
     773f05a  Fix some warnings in the chatbar code
 
 2010-06-04
+  arrai <array.of.intellect@gmail.com>
+    3ef3ea8  Add recording state handling to the client
+
   Mark-Willem Jansen <rawnar@users.sourceforge.net>
     d187857  WINAPI update: WinVerifyTrust() returns a LONG instead of
 	     HRESULT

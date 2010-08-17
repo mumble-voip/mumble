@@ -91,10 +91,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (sHost.find(':')==string::npos)
 		sHost.append(":27015");
 
-		new_context << "<context>"
-		<< "<game>dods</game>"
-		<< "<hostport>" << sHost << "</hostport>"
-		<< "</context>";
+	new_context << "<context>"
+	<< "<game>dods</game>"
+	<< "<hostport>" << sHost << "</hostport>"
+	<< "</context>";
 	context = new_context.str();
 
 	/* TODO
