@@ -121,7 +121,7 @@ unix {
     QMAKE_PKGINFO_TYPEINFO = MBLE
 
     HEADERS *= GlobalShortcut_macx.h
-    SOURCES *= TextToSpeech_macx.cpp GlobalShortcut_macx.cpp os_macx.cpp
+    SOURCES *= TextToSpeech_macx.cpp GlobalShortcut_macx.cpp os_macx.mm
 
     # CoreAudio
     !isEmpty(HAVE_PORTAUDIO) {
