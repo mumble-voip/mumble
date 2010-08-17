@@ -19,16 +19,11 @@
       <ComponentSearch Id='SearchMumbleComponent' Guid='A08F7909-1116-4AC8-9422-051FA1A1BE19' />
     </Property>
 
- <!--
-    <Condition Message="Uninstall [NSISINSTALL] before installing this package.">
-      Installed OR NOT NSISINSTALL
-    </Condition>
--->
-    <Condition Message='$(var.ProductName) requires Windows XP or higher'>
-      VersionNT >= 501
+    <Condition Message='$(var.ProductName) requires at least Windows XP SP2 or Windows Server 2003 SP1'>
+      VersionNT > 501 OR (VersionNT = 501 AND ServicePackLevel >= 2) OR (VersionNT = 502 AND ServicePackLevel >= 1)
     </Condition>
 
-    <MajorUpgrade AllowDowngrades='no' AllowSameVersionUpgrades='yes' MigrateFeatures='yes' Schedule='afterInstallInitialize' DowngradeErrorMessage='A later version of [ProductName] is already installed.' />
+    <MajorUpgrade AllowDowngrades='no' AllowSameVersionUpgrades='yes' MigrateFeatures='yes' Schedule='afterInstallExecute' DowngradeErrorMessage='A later version of [ProductName] is already installed.' />
 
     <Media Id="1" Cabinet="$(var.ProductName).cab" EmbedCab="yes" CompressionLevel="high" />
 
@@ -36,6 +31,7 @@
     <UIRef Id="WixUI_ErrorProgressText" />
 
     <Property Id="ALLUSERS" Value="1" />
+    <Property Id="REINSTALLMODE" Value="amus" />
     <Property Id="ARPURLINFOABOUT" Value="http://mumble.sourceforge.net/" />
     <Property Id="ARPURLUPDATEINFO" Value="http://mumble.sourceforge.net/" />
     <Property Id='ARPPRODUCTICON'>mumble.ico</Property>
@@ -67,7 +63,6 @@
 
     <Icon Id="mumble.ico" SourceFile="$(var.SourceDir)\icons\mumble.ico"/>
     <Icon Id="murmur.ico" SourceFile="$(var.SourceDir)\icons\murmur.ico"/>
-    <Icon Id="Readme.txt" SourceFile="$(var.SourceDir)\installer\speex.txt"/>
 
     <DirectoryRef Id="ApplicationProgramsFolder">
       <Component Id="UninstallShortcut" Guid="AFCE8451-06BF-4BD0-A25A-3F9832B39A0F">
@@ -132,7 +127,7 @@
     </ComponentGroup>
 
     <Feature Id="Mumble" Title="$(var.ProductName)" Description="!(loc.DESC_SectionMumble)" Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
-      <Feature Id="MumbleClient" Title="!(loc.MUMBLE_SEC_MUMBLE)" Description="!(loc.DESC_SectionMumble)" Level="1">
+      <Feature Id="MumbleClient" Title="!(loc.MUMBLE_SEC_MUMBLE)" Description="!(loc.DESC_SectionMumble)" Level="1" AllowAdvertise="no">
         <ComponentGroupRef Id="ClientCommon" />
 
         <ComponentGroupRef Id="Plugins"/>
@@ -151,7 +146,7 @@
       </Feature>
 
       <?if $(var.CompatClient) = true ?>
-      <Feature Id="Mumble11x" Title="!(loc.MUMBLE_SEC_MUMBLE11X)" Description="!(loc.DESC_SectionMumble11X)" Level="1000">
+      <Feature Id="Mumble11x" Title="!(loc.MUMBLE_SEC_MUMBLE11X)" Description="!(loc.DESC_SectionMumble11X)" Level="1">
         <ComponentGroupRef Id="ClientCommon" />
 
         <ComponentRef Id="mumble11x.exe" />

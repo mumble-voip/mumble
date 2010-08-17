@@ -7,11 +7,11 @@
     <DirectoryRef Id="INSTALLDIR">
       <Component Id="mumble.exe" Guid="A08F7909-1116-4AC8-9422-051FA1A1BE19">
         <File Id="mumble.exe" Source="$(var.SourceDir)\release\mumble.exe" KeyPath="yes">
-          <Shortcut Id="MumbleShortcut" Directory="ApplicationProgramsFolder" Name="Mumble" WorkingDirectory="INSTALLDIR" Icon="mumble.ico" IconIndex="0" Advertise="yes">
-            <ShortcutProperty Id="startMenu.ApplicationId" Key="System.AppUserModel.ID" Value="net.sourceforge.mumble.Mumble" />
+          <Shortcut Id="MumbleShortcut" Directory="ApplicationProgramsFolder" Name="Mumble" WorkingDirectory="INSTALLDIR">
+            <ShortcutProperty Key="System.AppUserModel.ID" Value="net.sourceforge.mumble.Mumble" />
           </Shortcut>
-          <Shortcut Id="MumbleDesktopShortcut" Directory="DesktopFolder" Name="Mumble" WorkingDirectory="INSTALLDIR" Icon="mumble.ico" IconIndex="0" Advertise="yes">
-            <ShortcutProperty Id="desktop.ApplicationId" Key="System.AppUserModel.ID" Value="net.sourceforge.mumble.Mumble" />
+          <Shortcut Id="MumbleDesktopShortcut" Directory="DesktopFolder" Name="Mumble" WorkingDirectory="INSTALLDIR">
+            <ShortcutProperty Key="System.AppUserModel.ID" Value="net.sourceforge.mumble.Mumble" />
           </Shortcut>
         </File>
 
@@ -58,12 +58,16 @@
 
       <Component Id="licence.txt">
         <File Source="$(var.SourceDir)\installer\gpl.txt" Name="licence.txt" KeyPath="yes">
-          <Shortcut Id="LicenceShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_LICENSE_LNK)" Icon="Readme.txt" Advertise="yes" />
+          <Shortcut Id="LicenceShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_LICENSE_LNK)">
+            <ShortcutProperty Key="System.AppUserModel.ExcludeFromShowInNewInstall" Value="1" />
+          </Shortcut>
         </File>
       </Component>
       <Component Id="Readme.txt">
         <File Source="$(var.SourceDir)\README" Name="Readme.txt" KeyPath="yes">
-          <Shortcut Id="ReadmeShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_README_LNK)" Icon="Readme.txt" Advertise="yes" />
+          <Shortcut Id="ReadmeShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_README_LNK)">
+            <ShortcutProperty Key="System.AppUserModel.ExcludeFromShowInNewInstall" Value="1" />
+          </Shortcut>
         </File>
       </Component>
       <Component Id="Changes.txt">
@@ -71,12 +75,16 @@
       </Component>
       <Component Id="speex.txt">
         <File Source="$(var.SourceDir)\installer\speex.txt" KeyPath="yes">
-          <Shortcut Id="SpeexLicenceShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_SPEEX_LNK)" Icon="Readme.txt" Advertise="yes" />
+          <Shortcut Id="SpeexLicenceShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_SPEEX_LNK)">
+            <ShortcutProperty Key="System.AppUserModel.ExcludeFromShowInNewInstall" Value="1" />
+          </Shortcut>
         </File>
       </Component>
       <Component Id="qt.txt">
         <File Source="$(var.SourceDir)\installer\qt.txt" KeyPath="yes">
-          <Shortcut Id="QtLicenceShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_QT_LNK)" Icon="Readme.txt" Advertise="yes" />
+          <Shortcut Id="QtLicenceShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_QT_LNK)">
+            <ShortcutProperty Key="System.AppUserModel.ExcludeFromShowInNewInstall" Value="1" />
+          </Shortcut>
         </File>
       </Component>
 
