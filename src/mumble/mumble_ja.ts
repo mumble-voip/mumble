@@ -1691,7 +1691,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.cpp" line="+524"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)</source>
-        <translation>サーバの最大ネットワーク帯域は %1 kbit/s しかありません。音質を自動的に %2 kbit/s (%3ms) に調整します</translation>
+        <translation type="unfinished">サーバの最大ネットワーク帯域は%1kbit/s しかありません。音質を自動的に%2kbit/s (%3ms) に調整します</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
@@ -1736,22 +1736,22 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>R&amp;eset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">リセット(&amp;R)</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">参照(&amp;B)...</translation>
     </message>
     <message>
         <location/>
         <source>B&amp;rowse...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">参照(&amp;R)...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Preview</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">プレビュー(&amp;P)</translation>
     </message>
 </context>
 <context>
@@ -2973,7 +2973,7 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
     <message>
         <location filename="AudioWizard.cpp" line="+305"/>
         <source>%1 ms</source>
-        <translation></translation>
+        <translation type="unfinished">%1ms</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui"/>
@@ -3884,7 +3884,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Recording</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">録音</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5922,7 +5922,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">参照(&amp;B)...</translation>
     </message>
 </context>
 <context>
@@ -6723,32 +6723,32 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+7"/>
         <source>%1 muted and deafened by %2.</source>
-        <translation>%2 が %1 の発言・聴取を禁止しました。</translation>
+        <translation type="unfinished">%2が%1の発言・聴取を禁止しました。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 unmuted and undeafened by %2.</source>
-        <translation>%2 が %1 の発言・聴取の禁止を解除しました。</translation>
+        <translation type="unfinished">%2が%1の発言・聴取の禁止を解除しました。</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>%1 suppressed by %2.</source>
-        <translation>%2 が %1 の発言を禁止しました。</translation>
+        <translation type="unfinished">%2が%1の発言を禁止しました。</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>%1 moved to %2.</source>
-        <translation>%1 は %2 に移動しました。</translation>
+        <translation type="unfinished">%1は%2に移動しました。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 moved to %2 by %3.</source>
-        <translation>%1 は %3 によって %2 に移動させられました。</translation>
+        <translation type="unfinished">%1は%3によって%2に移動させられました。</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>%1 moved in from %2 by %3.</source>
-        <translation>%1 は %3 によって %2 から移動させられました。</translation>
+        <translation type="unfinished">%1は%3によって%2から移動させられました。</translation>
     </message>
     <message>
         <source>Left server: %1.</source>
@@ -6757,7 +6757,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-157"/>
         <source>%1 is now muted and deafened.</source>
-        <translation>%1 が発言禁止/聴取禁止状態になりました。</translation>
+        <translation type="unfinished">%1が発言禁止/聴取禁止状態になりました。</translation>
     </message>
     <message>
         <location line="-109"/>
@@ -6778,7 +6778,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+30"/>
         <source>%3 was denied %1 privileges in %2.</source>
-        <translation>%3 は %2 で %1 の権限がありません。</translation>
+        <translation type="unfinished">%3は%2で%1の権限がありません。</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -6808,7 +6808,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>%1 does not have a certificate.</source>
-        <translation>%1 は証明書を持っていません。</translation>
+        <translation type="unfinished">%1は証明書を持っていません。</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6833,37 +6833,37 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+37"/>
         <source>%1 connected.</source>
-        <translation>%1 が接続しました。</translation>
+        <translation type="unfinished">%1が接続しました。</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>%1 is now muted.</source>
-        <translation>%1 が発言禁止状態になりました。</translation>
+        <translation type="unfinished">%1が発言禁止状態になりました。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 is now unmuted.</source>
-        <translation>%1 の発言禁止状態が解除されました。</translation>
+        <translation type="unfinished">%1の発言禁止状態が解除されました。</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Recording started</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">録音開始</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Recording stopped</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">録音停止</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 started recording.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1が録音を開始しました。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 stopped recording.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1が録音を停止しました。</translation>
     </message>
     <message>
         <location line="+41"/>
@@ -6873,12 +6873,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+96"/>
         <source>%1 is recording</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1は録音しています</translation>
     </message>
     <message>
         <location line="+46"/>
         <source>%1 disconnected.</source>
-        <translation>%1 が切断しました。</translation>
+        <translation type="unfinished">%1が切断しました。</translation>
     </message>
     <message>
         <location line="+91"/>
@@ -6942,17 +6942,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+25"/>
         <source>%1 muted by %2.</source>
-        <translation>%1 は %2 によって発言禁止にされました。</translation>
+        <translation type="unfinished">%2が%1を発言禁止にしました。</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>%1 unsuppressed by %2.</source>
-        <translation>%1 が %2 によって発言禁止を解除されました。</translation>
+        <translation type="unfinished">%1が%2によって発言禁止を解除されました。</translation>
     </message>
     <message>
         <location line="-14"/>
         <source>%1 unmuted by %2.</source>
-        <translation>%1 は %2 によって発言禁止を解除されました。</translation>
+        <translation type="unfinished">%1は%2によって発言禁止を解除されました。</translation>
     </message>
     <message>
         <source>the server</source>
@@ -6982,7 +6982,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+58"/>
         <source>%1 undeafened by %2.</source>
-        <translation>%2 が %1 の聴取禁止を解除しました。</translation>
+        <translation type="unfinished">%2が%1の聴取禁止を解除しました。</translation>
     </message>
     <message>
         <location line="+86"/>
@@ -6992,7 +6992,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+5"/>
         <source>%3 was kicked from the server by %1: %2.</source>
-        <translation>%3 は %1 によってサーバからキックされました: %2.</translation>
+        <translation type="unfinished">%3は%1によってサーバからキックされました: %2.</translation>
     </message>
     <message>
         <location line="-7"/>
@@ -7002,7 +7002,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+5"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation>%3 は %1 によってキックされ、サーバからBANされました: %2.</translation>
+        <translation type="unfinished">%3は%1によってキックされ、サーバからBANされました: %2.</translation>
     </message>
     <message>
         <location line="-60"/>
@@ -7028,7 +7028,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+13"/>
         <source>%1 entered channel.</source>
-        <translation>%1 がチャンネルに入りました。</translation>
+        <translation type="unfinished">%1がチャンネルに入りました。</translation>
     </message>
     <message>
         <source>%1 moved in by %2.</source>
@@ -7961,7 +7961,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Recording</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">録音</translation>
     </message>
 </context>
 <context>
@@ -8194,7 +8194,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location/>
         <source>Check for application updates on startup</source>
-        <translation>開始時に Mumble のアップデートをチェックする</translation>
+        <translation type="unfinished">開始時に Mumble の更新をチェックする</translation>
     </message>
     <message>
         <location/>
@@ -8246,7 +8246,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location/>
         <source>Download plugin and overlay updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">開始時にプラグインとオーバレイの更新をダウンロードする</translation>
     </message>
 </context>
 <context>
@@ -8348,12 +8348,12 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+244"/>
         <source>Skipping overlay update in debug mode.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">デバッグモードではオーバレイの更新をスキップします。</translation>
     </message>
     <message>
         <location line="+66"/>
         <source>Downloaded new or updated overlay support file to %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1に新規か更新されたオーバレイサポートファイルをダウンロードしました。</translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -8827,7 +8827,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>&amp;Add...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">追加(&amp;A)...</translation>
     </message>
     <message>
         <location/>
@@ -10335,22 +10335,22 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VoiceRecorder.cpp" line="+390"/>
         <source>.wav - Uncompressed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">.wav - 無圧縮</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>.ogg (Vorbis) - Compressed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">.ogg (Vorbis) - 圧縮</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>.au - Uncompressed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">.au - 無圧縮</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>.flac - Lossless compressed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">.flac - ロスレス圧縮</translation>
     </message>
 </context>
 <context>
@@ -10362,12 +10362,12 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+10"/>
         <location line="+9"/>
         <source>Recorder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">レコーダ</translation>
     </message>
     <message>
         <location/>
         <source>Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">制御</translation>
     </message>
     <message>
         <location/>
@@ -10377,22 +10377,22 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>&amp;Start</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">開始(&amp;S)</translation>
     </message>
     <message>
         <location/>
         <source>S&amp;top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">停止(&amp;T)</translation>
     </message>
     <message>
         <location/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">モード</translation>
     </message>
     <message>
         <location/>
         <source>Mixdown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ミックスダウン</translation>
     </message>
     <message>
         <location/>
@@ -10407,17 +10407,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Output format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">出力形式</translation>
     </message>
     <message>
         <location/>
         <source>Target directory</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">対象のディレクトリ</translation>
     </message>
     <message>
         <location/>
         <source>Filename</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ファイル名</translation>
     </message>
     <message>
         <location/>
@@ -10428,48 +10428,55 @@ Valid variables are:
 %time	Inserts the current time
 %host	Inserts the hostname
 &lt;/pre&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;pre&gt;
+有効な変数は:
+%user	ユーザ名を追加します
+%date	現在の日付を追加します
+%time	現在の時間を追加します
+%host	ホスト名を追加します
+&lt;/pre&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">参照(&amp;B)...</translation>
     </message>
     <message>
         <location filename="VoiceRecorderDialog.cpp" line="-57"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">レコーダを閉じると現在の録音が停止します。本当にレコーダを閉じますか?</translation>
     </message>
     <message>
         <location line="+30"/>
         <source>Recoder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">レコーダ</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Unable to start recording. Not connected to a server.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">録音を開始できません。サーバに接続していません。</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
 Please contact your server administrator for further information.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">現在接続しているサーバは1.2.2以前のバージョンです。プライバシーの問題で、1.2.3より古いバージョンのサーバ上では録音できません。
+詳しくはサーバ管理者に連絡してください。</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>There is already a recorder active for this server.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このサーバのレコーダがすでに有効です。</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Please select a recording format.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">録音形式を選択してください。</translation>
     </message>
     <message>
         <location line="+97"/>
         <source>Select target directory</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">対象のディレクトリを選択</translation>
     </message>
 </context>
 <context>
