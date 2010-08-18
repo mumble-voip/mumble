@@ -184,7 +184,7 @@
     <InstallExecuteSequence>
       <AppSearch Sequence='1' />
       <Custom Action="SetNSISPath" After="AppSearch">NSISINSTALL</Custom>
-      <Custom Action='NSISUninstall' After='RemoveExistingProducts'>NSISINSTALL AND NOT Installed</Custom>
+      <Custom Action='NSISUninstall' After='InstallInitialize'>NSISINSTALL AND NOT Installed</Custom>
     </InstallExecuteSequence>
   </Product>
 </Wix>
