@@ -136,7 +136,7 @@ void CrashReporter::run() {
 	QDateTime qdtModification = qfiDump.lastModified();
 
 	/* Find the real crash report. */
-	QDir qdCrashReports = QDir::home().absolutePath() + QLatin1String("/Library/Logs/DiagnosticReports/");
+	QDir qdCrashReports(QDir::home().absolutePath() + QLatin1String("/Library/Logs/DiagnosticReports/"));
 	if (! qdCrashReports.exists()) {
 		qdCrashReports = QDir::home().absolutePath() + QLatin1String("/Library/Logs/CrashReporter/");
 	}
