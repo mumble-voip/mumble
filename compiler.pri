@@ -119,7 +119,7 @@ unix:!macx {
 }
 
 macx {
-	INCLUDEPATH *= $$(MUMBLE_PREFIX)/include/boost_1_43_0/
+	INCLUDEPATH *= $$(MUMBLE_PREFIX)/include/boost_1_44_0/
 	INCLUDEPATH *= $$(MUMBLE_PREFIX)/include
 	QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/lib
 
