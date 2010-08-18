@@ -435,7 +435,7 @@ static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
 	HMODULE h = oLoadLibrary(lpFileName);
 //	ods("Library %s loaded to %p", lpFileName, h);
 
-	if (! bMumble) {
+	if (! bMumble && ! bBlackListed) {
 		checkD3D9Hook();
 		checkDXGIHook();
 		checkOpenGLHook();
@@ -453,7 +453,11 @@ static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
 	HMODULE h = oLoadLibrary(lpFileName);
 	ods("Library %ls wloaded to %p", lpFileName, h);
 
-	if (! bMumble) {
+	if (GetModuleHandleW(L"wpfgfx_v0300.dll") || GetModuleHandleW(L"wpfgfx_v0400.dll")) {
+		bBlackListed = TRUE;
+	}
+
+	if (! bMumble && ! bBlackListed) {
 		checkD3D9Hook();
 		checkDXGIHook();
 		checkOpenGLHook();
@@ -504,7 +508,7 @@ extern "C" __declspec(dllexport) unsigned int __cdecl GetOverlayMagicVersion() {
 	return OVERLAY_MAGIC_NUMBER;
 }
 
-extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
+extern "C" BOOL WINAPI DllMain(HINSTANCE hMod, DWORD fdwReason, LPVOID) {
 	char procname[1024+64];
 	GetModuleFileName(NULL, procname, 1024);
 
@@ -645,10 +649,9 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					ods("Injected");
 				}
 			}
+			DisableThreadLibraryCalls(hMod);
 			break;
 		case DLL_PROCESS_DETACH: {
-				if (bBlackListed)
-					return TRUE;
 				ods("Lib: ProcDetach: %s", procname);
 				hhLoad.restore(true);
 				hhLoadW.restore(true);
@@ -658,16 +661,6 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					CloseHandle(hMapObject);
 				if (hHookMutex)
 					CloseHandle(hHookMutex);
-			}
-			break;
-		case DLL_THREAD_ATTACH: {
-				static bool bTriedHook = false;
-				if (sd && ! bTriedHook && ! bMumble) {
-					bTriedHook = true;
-					checkD3D9Hook();
-					checkDXGIHook();
-					checkOpenGLHook();
-				}
 			}
 			break;
 		default:
