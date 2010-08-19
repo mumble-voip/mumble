@@ -1,7 +1,7 @@
 CONFIG *= warn_on
 
 win32 {
-	INCLUDEPATH *= /dev/Boost/include/boost-1_43
+	INCLUDEPATH *= /dev/Boost/include/boost-1_44
 	QMAKE_LIBDIR *= /dev/OpenSSL/lib /dev/libsndfile
 	INCLUDEPATH *= /dev/OpenSSL/include /dev/libsndfile/include
 
