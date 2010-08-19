@@ -140,6 +140,8 @@ class ServerHandler : public QThread {
 		void sendPing();
 };
 
+typedef boost::shared_ptr<ServerHandler> ServerHandlerPtr;
+
 #else
 class ServerHandler;
 #endif

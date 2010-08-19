@@ -886,17 +886,17 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 		pds << g.p->fPosition[2];
 	}
 
-	if (g.sh) {
-		VoiceRecorderPtr recorder(g.sh->recorder);
-		if (recorder) {
+	ServerHandlerPtr sh = g.sh;
+	if (sh) {
+		VoiceRecorderPtr recorder(sh->recorder);
+		if (recorder)
 			recorder->getRecordUser().addFrame(QByteArray(data, pds.size() + 1));
-		}
 	}
 
 	if (g.s.lmLoopMode == Settings::Local)
 		LoopUser::lpLoopy.addFrame(QByteArray(data, pds.size() + 1));
-	else if (g.sh)
-		g.sh->sendMessage(data, pds.size() + 1);
+	else if (sh)
+		sh->sendMessage(data, pds.size() + 1);
 
 	qlFrames.clear();
 }

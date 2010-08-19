@@ -391,7 +391,8 @@ void Plugins::on_Timer_timeout() {
 			swsIdentitySent.assign(swsIdentity);
 			mpus.set_plugin_identity(u8(QString::fromStdWString(swsIdentitySent)));
 		}
-		g.sh->sendMessage(mpus);
+		if (g.sh)
+			g.sh->sendMessage(mpus);
 	}
 
 	if (locked) {

@@ -60,7 +60,6 @@ static void migrateDataDir() {
 
 Global::Global() {
 	mw = 0;
-	sh = 0;
 	db = 0;
 	p = 0;
 	nam = 0;

@@ -365,7 +365,8 @@ bool MainWindow::winEvent(MSG *msg, long *) {
 
 void MainWindow::closeEvent(QCloseEvent *e) {
 #ifndef Q_OS_MAC
-	if (g.sh && g.sh->isRunning() && g.s.bAskOnQuit && !bSuppressAskOnQuit) {
+	ServerHandlerPtr sh = g.sh;
+	if (sh && sh->isRunning() && g.s.bAskOnQuit && !bSuppressAskOnQuit) {
 		QMessageBox mb(QMessageBox::Warning, QLatin1String("Mumble"), tr("Mumble is currently connected to a server. Do you want to Close or Minimize it?"), QMessageBox::NoButton, this);
 		QPushButton *qpbClose = mb.addButton(tr("Close"), QMessageBox::YesRole);
 		QPushButton *qpbMinimize = mb.addButton(tr("Minimize"), QMessageBox::NoRole);
@@ -377,6 +378,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 			return;
 		}
 	}
+	sh.reset();
 #endif
 	g.uiSession = 0;
 	g.pPermissions = ChanACL::None;
@@ -472,7 +474,8 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &_pos, b
 		} else {
 			QByteArray qbaServerDigest = QByteArray::fromBase64(url.path().remove(0, 1).toLatin1());
 			uiContextSession = url.host().toInt(&ok, 10);
-			ok = ok && (qbaServerDigest == g.sh->qbaDigest);
+			ServerHandlerPtr sh = g.sh;
+			ok = ok && sh && (qbaServerDigest == sh->qbaDigest);
 		}
 		if (ok && ClientUser::isValid(uiContextSession)) {
 			if (focus) {
@@ -487,7 +490,8 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &_pos, b
 		bool ok;
 		QByteArray qbaServerDigest = QByteArray::fromBase64(url.path().remove(0, 1).toLatin1());
 		iContextChannel = url.host().toInt(&ok, 10);
-		ok = ok && (qbaServerDigest == g.sh->qbaDigest);
+		ServerHandlerPtr sh = g.sh;
+		ok = ok && sh && (qbaServerDigest == sh->qbaDigest);
 		if (ok) {
 			if (focus) {
 				qtvUsers->setCurrentIndex(pmModel->index(Channel::get(iContextChannel)));
@@ -524,7 +528,7 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 }
 
 static void recreateServerHandler() {
-	ServerHandler *sh = g.sh;
+	ServerHandlerPtr sh = g.sh;
 	if (sh && sh->isRunning()) {
 		g.mw->on_qaServerDisconnect_triggered();
 		sh->disconnect();
@@ -532,13 +536,16 @@ static void recreateServerHandler() {
 		QCoreApplication::instance()->processEvents();
 	}
 
-	g.sh = NULL;
-	delete sh;
-	sh = new ServerHandler();
-	sh->moveToThread(sh);
+	g.sh.reset();
+	while (sh && ! sh.unique())
+		QThread::yieldCurrentThread();
+	sh.reset();
+
+	sh = ServerHandlerPtr(new ServerHandler());
+	sh->moveToThread(sh.get());
 	g.sh = sh;
-	g.mw->connect(sh, SIGNAL(connected()), g.mw, SLOT(serverConnected()));
-	g.mw->connect(sh, SIGNAL(disconnected(QAbstractSocket::SocketError, QString)), g.mw, SLOT(serverDisconnected(QAbstractSocket::SocketError, QString)));
+	g.mw->connect(sh.get(), SIGNAL(connected()), g.mw, SLOT(serverConnected()));
+	g.mw->connect(sh.get(), SIGNAL(disconnected(QAbstractSocket::SocketError, QString)), g.mw, SLOT(serverDisconnected(QAbstractSocket::SocketError, QString)));
 }
 
 void MainWindow::openUrl(const QUrl &url) {

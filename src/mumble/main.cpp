@@ -444,19 +444,26 @@ int main(int argc, char **argv) {
 		res=a.exec();
 
 	g.s.save();
-	if (g.sh && g.sh->isRunning())
+
+	ServerHandlerPtr sh = g.sh;
+
+	if (sh && sh->isRunning())
 		Database::setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts);
 
 	Audio::stop();
 
-	g.sh->disconnect();
+	if (sh)
+		sh->disconnect();
 
 	delete mfeh;
 
 	delete srpc;
 
-	delete g.sh;
-	g.sh = NULL;
+	g.sh.reset();
+	while (sh && ! sh.unique())
+		QThread::yieldCurrentThread();
+	sh.reset();
+
 	delete g.mw;
 
 	delete g.nam;
