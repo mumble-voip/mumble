@@ -54,7 +54,12 @@ class VoiceRecorderDialog : public QDialog, private Ui::VoiceRecorderDialog {
 		void on_qpbStop_clicked();
 		void on_qtTimer_timeout();
 		void on_qpbTargetDirectoryBrowse_clicked();
-		void reset();
+
+		void onRecorderStopped();
+		void onRecorderStarted();
+		void onRecorderError(int err, QString strerr);
+
+		void reset(bool resettimer=true);
 };
 
 #endif // _VOICERECORDERDIALOG_H

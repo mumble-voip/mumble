@@ -174,10 +174,13 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, boost::share
 }
 
 void VoiceRecorder::run() {
+	Q_ASSERT(!bRecording);
 	Q_ASSERT(iSampleRate != 0);
 
-	if (iSampleRate == 0)
+	if (iSampleRate == 0) {
+		emit error(InvalidSampleRate, tr("Invalid sample rate given to recorder"));
 		return;
+	}
 
 	// Convert |fmFormat| to a SF_INFO structure for libsndfile.
 	SF_INFO sfinfo;
@@ -226,6 +229,7 @@ void VoiceRecorder::run() {
 		return;
 
 	bRecording = true;
+	emit recording_started();
 	forever {
 		// Sleep until there is new data for us to process.
 		qmSleepLock.lock();
@@ -269,6 +273,9 @@ void VoiceRecorder::run() {
 				// Create the target path.
 				if (!QDir().mkpath(fi.absolutePath())) {
 					qWarning() << "Failed to create target directory: " << fi.absolutePath();
+					bRecording = false;
+					emit error(CreateDirectoryFailed, tr("Recorder failed to create directory '%1'").arg(fi.absolutePath()));
+					emit recording_stopped();
 					return;
 				}
 
@@ -281,6 +288,8 @@ void VoiceRecorder::run() {
 				if (ri->sf == NULL) {
 					qWarning() << "Failed to open file for recorder: "<< sf_strerror(NULL);
 					bRecording = false;
+					emit error(CreateFileFailed, tr("Recorder failed to open file '%s'").arg(filename));
+					emit recording_stopped();
 					return;
 				}
 
@@ -312,6 +321,7 @@ void VoiceRecorder::run() {
 		qmSleepLock.unlock();
 	}
 	bRecording = false;
+	emit recording_stopped();
 	qWarning() << "VoiceRecorder: recording stopped";
 }
 

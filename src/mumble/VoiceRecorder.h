@@ -61,6 +61,7 @@ namespace VoiceRecorderFormat {
 };
 
 class VoiceRecorder : public QThread {
+	Q_OBJECT
 	private:
 		// Stores information about a recording buffer.
 		struct RecordBuffer {
@@ -137,6 +138,9 @@ class VoiceRecorder : public QThread {
 		QString expandTemplateVariables(const QString &path, boost::shared_ptr<RecordBuffer> rb) const;
 
 	public:
+		// Error enum
+		enum Error { Unspecified, CreateDirectoryFailed, CreateFileFailed, InvalidSampleRate };
+
 		// Creates a new VoiceRecorder instance.
 		explicit VoiceRecorder(QObject *p);
 		~VoiceRecorder();
@@ -176,6 +180,10 @@ class VoiceRecorder : public QThread {
 
 		// Returns the current recording format.
 		VoiceRecorderFormat::Format getFormat() const;
+	signals:
+		void error(int err, QString strerr);
+		void recording_started();
+		void recording_stopped();
 };
 
 typedef boost::shared_ptr<VoiceRecorder> VoiceRecorderPtr;

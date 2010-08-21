@@ -75,6 +75,8 @@ void VoiceRecorderDialog::closeEvent(QCloseEvent *evt) {
 				evt->ignore();
 				return;
 			}
+
+			recorder->stop();
 		}
 	}
 
@@ -157,8 +159,14 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 
 	g.sh->announceRecordingState(true);
 
+	// Create the recorder
 	g.sh->recorder.reset(new VoiceRecorder(this));
 	VoiceRecorderPtr recorder(g.sh->recorder);
+
+	// Wire it up
+	connect(&*recorder, SIGNAL(recording_started()), this, SLOT(onRecorderStarted()));
+	connect(&*recorder, SIGNAL(recording_stopped()), this, SLOT(onRecorderStopped()));
+	connect(&*recorder, SIGNAL(error(int, QString)), this, SLOT(onRecorderError(int, QString)));
 
 	// Configure it
 	recorder->setSampleRate(ao->getMixerFreq());
@@ -167,7 +175,6 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 	recorder->setFormat(static_cast<VoiceRecorderFormat::Format>(ifm));
 
 	recorder->start();
-	qtTimer->start();
 
 	qpbStart->setDisabled(true);
 	qpbStop->setEnabled(true);
@@ -187,15 +194,7 @@ void VoiceRecorderDialog::on_qpbStop_clicked() {
 		return;
 	}
 
-	qtTimer->stop();
-	g.sh->recorder.reset();
-	g.sh->announceRecordingState(false);
-
-	qpbStart->setEnabled(true);
-	qpbStop->setDisabled(true);
-
-	qgbMode->setEnabled(true);
-	qgbOutput->setEnabled(true);
+	recorder->stop();
 }
 
 void VoiceRecorderDialog::on_qtTimer_timeout() {
@@ -205,7 +204,7 @@ void VoiceRecorderDialog::on_qtTimer_timeout() {
 	}
 
 	if (!g.uiSession) {
-		on_qpbStop_clicked();
+		reset(false);
 		return;
 	}
 
@@ -220,6 +219,7 @@ void VoiceRecorderDialog::on_qtTimer_timeout() {
 
 	qlTime->setText(n.toString(QLatin1String("hh:mm:ss")));
 }
+
 void VoiceRecorderDialog::on_qpbTargetDirectoryBrowse_clicked() {
 	QString dir = QFileDialog::getExistingDirectory(this,
 	              tr("Select target directory"),
@@ -229,7 +229,7 @@ void VoiceRecorderDialog::on_qpbTargetDirectoryBrowse_clicked() {
 		qleTargetDirectory->setText(dir);
 }
 
-void VoiceRecorderDialog::reset() {
+void VoiceRecorderDialog::reset(bool resettimer) {
 	qtTimer->stop();
 
 	if (g.sh) {
@@ -246,5 +246,23 @@ void VoiceRecorderDialog::reset() {
 	qgbMode->setEnabled(true);
 	qgbOutput->setEnabled(true);
 
-	qlTime->setText(QLatin1String("00:00:00"));
+	if (resettimer)
+		qlTime->setText(QLatin1String("00:00:00"));
 }
+
+void VoiceRecorderDialog::onRecorderStopped() {
+	reset(false);
+}
+
+void VoiceRecorderDialog::onRecorderStarted() {
+	qlTime->setText(QLatin1String("00:00:00"));
+	qtTimer->start();
+}
+
+void VoiceRecorderDialog::onRecorderError(int err, QString strerr) {
+	QMessageBox::critical(this,
+						  tr("Recorder"),
+						  strerr);
+	reset(false);
+}
+
