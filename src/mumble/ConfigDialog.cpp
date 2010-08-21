@@ -31,6 +31,9 @@
 #include "ConfigDialog.h"
 #include "AudioInput.h"
 #include "AudioOutput.h"
+#ifndef COMPAT_CLIENT
+#include "Overlay.h"
+#endif
 #include "Global.h"
 
 ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
@@ -71,8 +74,12 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	                               "To restore all settings to their defaults, you will have to use this button on every page."
 	                              ));
 
-	if (! g.s.qbaConfigGeometry.isEmpty())
-		restoreGeometry(g.s.qbaConfigGeometry);
+	if (! g.s.qbaConfigGeometry.isEmpty()) {
+#ifndef COMPAT_CLIENT
+		if (! g.ocIntercept)
+#endif
+			restoreGeometry(g.s.qbaConfigGeometry);
+	}
 }
 
 void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
@@ -221,6 +228,11 @@ void ConfigDialog::apply() {
 
 void ConfigDialog::accept() {
 	apply();
-	g.s.qbaConfigGeometry=saveGeometry();
+
+#ifndef COMPAT_CLIENT
+	if (! g.ocIntercept)
+#endif
+		g.s.qbaConfigGeometry=saveGeometry();
+
 	QDialog::accept();
 }
