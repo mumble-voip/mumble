@@ -29,54 +29,152 @@
 */
 
 #include "../mumble_plugin_win32.h"
+using namespace std;
 
-BYTE *posptr;
-BYTE *faceptr;
-BYTE *topptr;
+
+bool ptr_chain_valid = false;
+
+// Modules
+BYTE *pmodule_bf2;
+BYTE *pmodule_renddx9;
+
+// Magic ptrs
+BYTE* const login_ptr = (BYTE*)0x30058642;
+BYTE* const state_ptr = (BYTE*)0x00A1D0A8;
+
+// Vector ptrs
+BYTE *pos_ptr;
+BYTE *face_ptr;
+BYTE *top_ptr;
+
+// Context ptrs
+BYTE* const ipport_ptr = (BYTE*)0x009A80B8;
+
+// Identity ptrs
+BYTE *commander_ptr;
+BYTE *squad_leader_ptr;
+BYTE *squad_state_ptr;
+BYTE *team_state_ptr;
+
+inline bool resolve_ptrs() {
+	pos_ptr = face_ptr = top_ptr = commander_ptr = squad_leader_ptr = squad_state_ptr = team_state_ptr = NULL;
+	//
+	// Resolve all pointer chains to the values we want to fetch
+	//
+
+	BYTE *base_bf2audio = pModule + 0x4645c;
+	BYTE *base_bf2audio_2 = peekProc<BYTE *>(base_bf2audio);
+	if (!base_bf2audio_2) return false;
+
+	pos_ptr = peekProc<BYTE *>(base_bf2audio_2 + 0xb4);
+	face_ptr = peekProc<BYTE *>(base_bf2audio_2 + 0xb8);
+	top_ptr = peekProc<BYTE *>(base_bf2audio_2 + 0xbc);
+	if (!pos_ptr || !face_ptr || !top_ptr) return false;
+
+	/*
+	Magic:
+		Logincheck : 0x30058642										BYTE		0 means not logged in
+		state : 0x00A1D0A8											BYTE		0 while not in game
+																				usually 1, never 0		if you create your own server ingame; this value will switch to 1 the instant you click "Join Game"
+																				usually 3, never 0		if you load into a server; this value will switch to 3 the instant you click "Join Game"
+
+	Context:
+		IP:Port of server: 0x009A80B8								char[128]	ip:port of the server
+
+	Identity:
+		Commander: RendDX9.dll+00244AE0 +0x60 -> + 0x113			BYTE		0 means not commander
+		Squad leader state: RendDX9.dll+00244AE0 + 0x60 -> + 0x111	BYTE		0 is not squad leader
+		Squad state: RendDX9.dll+00244AE0 + 0x60 -> 10C				BYTE		0 is not in squad; 1 is in Alpha squad, 2 Bravo, ... , 9 India
+		Team state: BF2.exe+0058734C + 0x239						BYTE		0 is blufor (US team, for example), 1 is opfor (Insurgents)
+	*/
+	BYTE *base_renddx9 = peekProc<BYTE *>(pmodule_renddx9 + 0x00244AE0);
+	if (!base_renddx9) return false;
+
+	BYTE *base_renddx9_2 = peekProc<BYTE *>(base_renddx9 + 0x60);
+	if (!base_renddx9_2) return false;
+
+	commander_ptr = base_renddx9_2 + 0x113;
+	squad_leader_ptr = base_renddx9_2 + 0x111;
+	squad_state_ptr = base_renddx9_2 + 0x10C;
+
+	BYTE *base_bf2 = peekProc<BYTE *>(pmodule_bf2 + 0x0058734C);
+	if (!base_bf2) return false;
+
+	team_state_ptr = base_bf2 + 0x239;
+	return true;
+}
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
-	char ccontext[128];
-	char state;
-	char logincheck;
 	bool ok;
-
-	ok = peekProc((BYTE *) 0x30058642, &logincheck, 1);
+	BYTE logincheck;
+	ok = peekProc(login_ptr, &logincheck, 1);
 	if (! ok)
 		return false;
 
 	if (logincheck == 0)
 		return false;
 
-	/*
-		state value is:
-		0						while not in game
-		usually 1, never 0		if you create your own server ingame; this value will switch to 1 the instant you click "Join Game"
-		usually 3, never 0		if you load into a server; this value will switch to 3 the instant you click "Join Game"
-	*/
-	ok = peekProc((BYTE *) 0x00A1D0A8, &state, 1); // Magical state value
+	BYTE state;
+	ok = peekProc(state_ptr , &state, 1); // Magical state value
 	if (! ok)
 		return false;
 
-	ok = peekProc(posptr, avatar_pos, 12) &&
-	     peekProc(faceptr, avatar_front, 12) &&
-	     peekProc(topptr, avatar_top, 12) &&
-	     peekProc((BYTE *) 0x009A80B8, ccontext, 128);
+	if (state == 0) {
+		ptr_chain_valid = false;
+		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+	}
+	else if (!ptr_chain_valid){
+		if(!resolve_ptrs())
+			return false;
+		ptr_chain_valid = true;
+	}
+
+
+	char ccontext[128];
+	BYTE is_commander;
+	BYTE is_squad_leader;
+	BYTE is_in_squad;
+	BYTE is_opfor;
+
+	ok = peekProc(pos_ptr, avatar_pos, 12) &&
+		 peekProc(face_ptr, avatar_front, 12) &&
+		 peekProc(top_ptr, avatar_top, 12) &&
+		 peekProc(ipport_ptr, ccontext, 128) &&
+		 peekProc(commander_ptr, &is_commander, 1) &&
+		 peekProc(squad_leader_ptr, &is_squad_leader, 1) &&
+		 peekProc(squad_state_ptr, &is_in_squad, 1) &&
+		 peekProc(team_state_ptr, &is_opfor, 1);
 
 	if (! ok)
 		return false;
 
 	/*
 	    Get context string; in this plugin this will be an
-	    ip:port (char 256 bytes) string
+		ip:port (char 128 bytes) string
 	*/
 	ccontext[127] = 0;
-	context = std::string(ccontext);
+	ostringstream ocontext;
+	ocontext << "<context>\n"
+					<< "<ipport>" << ccontext << "</ipport>\n"
+				"</context>";
 
-	if (state == 0)
-		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+	context = ocontext.str();
+
+	/*
+		Get identity string.
+	*/
+	wostringstream oidentity;
+	oidentity << "<identity>\n"
+				<< "<commander>" << (is_commander ? "true" : "false") << "</commander>\n"
+				<< "<squad_leader>" << (is_squad_leader ? "true" : "false") << "</squad_leader>\n"
+				<< "<squad>" << static_cast<unsigned int>(is_in_squad) << "</squad>\n"
+				<< "<team>" << (is_opfor ? "opfor" : "blufor") << "</team>\n"
+			  << "</identity>";
+
+	identity = oidentity.str();
 
 	for (int i=0;i<3;i++) {
 		camera_pos[i] = avatar_pos[i];
@@ -88,17 +186,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	posptr = faceptr = topptr = NULL;
-
 	if (! initialize(pids, L"BF2.exe", L"BF2Audio.dll"))
 		return false;
 
-	BYTE *cacheaddr = pModule + 0x4645c;
-	BYTE *cache = peekProc<BYTE *>(cacheaddr);
+	pmodule_bf2		= getModuleAddr(L"BF2.exe");
+	if (!pmodule_bf2) return false;
 
-	posptr = peekProc<BYTE *>(cache + 0xb4);
-	faceptr = peekProc<BYTE *>(cache + 0xb8);
-	topptr = peekProc<BYTE *>(cache + 0xbc);
+	pmodule_renddx9 = getModuleAddr(L"RendDX9.dll");
+	if (!pmodule_renddx9) return false;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;
@@ -110,10 +205,12 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		generic_unlock();
 		return false;
 	}
+
+
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Battlefield 2 v1.50. No identity support yet.");
+	return std::wstring(L"Supports Battlefield 2 v1.50");
 }
 
 static std::wstring description(L"Battlefield 2 v1.50");
