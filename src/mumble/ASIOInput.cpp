@@ -242,6 +242,7 @@ void ASIOConfig::on_qpbQuery_clicked() {
 				switch (aci.type) {
 					case ASIOSTFloat32LSB:
 					case ASIOSTInt32LSB:
+					case ASIOSTInt24LSB:
 					case ASIOSTInt16LSB: {
 							QListWidget *widget = qlwUnused;
 							QVariant v = static_cast<int>(cnum);
@@ -407,7 +408,7 @@ ASIOInput::ASIOInput() {
 	// Sanity check things first.
 
 	iNumMic=g.s.qlASIOmic.count();
-	iNumSpeaker=g.s.qlASIOspeaker.count();
+	NumSpeaker=g.s.qlASIOspeaker.count();
 
 	if ((iNumMic == 0) || (iNumSpeaker == 0)) {
 		QMessageBox::warning(NULL, QLatin1String("Mumble"), tr("You need to select at least one microphone and one speaker source to use ASIO. "
@@ -565,6 +566,13 @@ ASIOInput::addBuffer(ASIOSampleType sampType, int interleave, void *src, float *
 				const int * RESTRICT buf=static_cast<int *>(src);
 				for (int i=0;i<lBufSize;i++)
 					dst[i*interleave]=buf[i] * m;
+			}
+			break;
+		case ASIOSTInt24LSB: {
+				const float m = 1.0f / static_cast<float>(0x7FFFFFFF - 0xFF);
+				const unsigned char * RESTRICT buf=static_cast<unsigned char *>(src);
+				for (int i=0;i<lBufSize;i++)
+					dst[i * interleave] = (buf[i*3] << 24 | buf[i*3+1] << 16 | buf[i*3+2] << 8) * m;
 			}
 			break;
 		case ASIOSTFloat32LSB: {
