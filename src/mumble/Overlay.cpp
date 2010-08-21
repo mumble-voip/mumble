@@ -2198,6 +2198,9 @@ void OverlayClient::updateFPS() {
 	}
 }
 
+#ifndef Q_OS_MAC
+// Mac OS X implementation of this function is in Overlay_macx.mm because we
+// need to access ObjC APIs.
 void OverlayClient::updateMouse() {
 #ifdef Q_OS_WIN
 	QPixmap pm;
@@ -2247,13 +2250,12 @@ void OverlayClient::updateMouse() {
 	}
 
 	qgpiCursor->setPixmap(pm);
-#elif defined(Q_OS_MAC)
-	qgpiCursor->setPixmap(QPixmap(QLatin1String(":/config_lcd.png")));
 #else
 #endif
 
 	qgpiCursor->setPos(iMouseX - iOffsetX, iMouseY - iOffsetY);
 }
+#endif
 
 #if defined(Q_WS_WIN) || defined(Q_WS_MAC)
 extern bool Q_GUI_EXPORT qt_use_native_dialogs;
@@ -2300,13 +2302,22 @@ void OverlayClient::showGui() {
 		}
 	}
 
+#ifdef Q_OS_MAC
+	qApp->setAttribute(Qt::AA_DontUseNativeMenuBar);
+	g.mw->setUnifiedTitleAndToolBarOnMac(false);
+#endif
+
 	foreach(QWidget *w, widgets) {
 		if ((w == g.mw) || (! w->isHidden())) {
 			QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(NULL, Qt::Window);
 
-			qgpw->setOpacity(0.90f);
+#ifdef Q_OS_MAC
+			// fixme(mkrautz): Translucent windows produce graphics artifacts on OSX.
+			qgpw->setOpacity(1.0f);
+#else
+			qgpw->setOpacity(0.9f);
+#endif
 			qgpw->setWidget(w);
-
 
 			if (w == g.mw) {
 				qgpw->setPos(uiWidth / 10, uiHeight / 10);
@@ -2360,6 +2371,11 @@ void OverlayClient::hideGui() {
 	ougUsers.bShowExamples = false;
 
 	QList<QWidget *> widgetlist;
+
+#ifdef Q_OS_MAC
+	qApp->setAttribute(Qt::AA_DontUseNativeMenuBar, false);
+	g.mw->setUnifiedTitleAndToolBarOnMac(true);
+#endif
 
 	foreach(QGraphicsItem *qgi, qgs.items(Qt::DescendingOrder)) {
 		QGraphicsProxyWidget *qgpw = qgraphicsitem_cast<QGraphicsProxyWidget *>(qgi);
@@ -2785,10 +2801,17 @@ void Overlay::toggleShow() {
 	} else {
 		foreach(OverlayClient *oc, qlClients) {
 			if (oc->uiPid) {
-#ifdef Q_OS_WIN
+#if defined(Q_OS_WIN)
 				HWND hwnd = GetForegroundWindow();
 				DWORD pid = 0;
 				GetWindowThreadProcessId(hwnd, &pid);
+				if (pid != oc->uiPid)
+					continue;
+#elif defined(Q_OS_MAC)
+				pid_t pid = 0;
+				ProcessSerialNumber psn;
+				GetFrontProcess(&psn);
+				GetProcessPID(&psn, &pid);
 				if (pid != oc->uiPid)
 					continue;
 #endif

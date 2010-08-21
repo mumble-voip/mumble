@@ -34,6 +34,7 @@
 #import <SecurityInterface/SFCertificatePanel.h>
 #include "Overlay.h"
 #include "Global.h"
+#include "MainWindow.h"
 
 extern "C" {
 #include <xar/xar.h>
@@ -151,6 +152,51 @@ bool OverlayConfig::supportsInstallableOverlay() {
 
 bool OverlayConfig::supportsCertificates() {
 	return true;
+}
+
+void OverlayClient::updateMouse() {
+	QCursor c = qgv.viewport()->cursor();
+	NSCursor *cursor = nil;
+
+	csShape = c.shape();
+
+	switch (csShape) {
+		case Qt::IBeamCursor:        cursor = [NSCursor IBeamCursor]; break;
+		case Qt::CrossCursor:        cursor = [NSCursor crossCursor]; break;
+		case Qt::ClosedHandCursor:   cursor = [NSCursor closedHandCursor]; break;
+		case Qt::OpenHandCursor:     cursor = [NSCursor openHandCursor]; break;
+		case Qt::PointingHandCursor: cursor = [NSCursor pointingHandCursor]; break;
+		case Qt::SizeVerCursor:      cursor = [NSCursor resizeUpDownCursor]; break;
+		case Qt::SplitVCursor:       cursor = [NSCursor resizeUpDownCursor]; break;
+		case Qt::SizeHorCursor:      cursor = [NSCursor resizeLeftRightCursor]; break;
+		case Qt::SplitHCursor:       cursor = [NSCursor resizeLeftRightCursor]; break;
+		default:                     cursor = [NSCursor arrowCursor]; break;
+	}
+
+	QPixmap pm = qmCursors.value(csShape);
+	if (pm.isNull()) {
+		NSImage *img = [cursor image];
+		CGImageRef cgimg = NULL;
+		NSArray *reps = [img representations];
+		for (int i = 0; i < [reps count]; i++) {
+			NSImageRep *rep = [reps objectAtIndex:i];
+			if ([rep class] == [NSBitmapImageRep class]) {
+				cgimg = [(NSBitmapImageRep *)rep CGImage];
+			}
+		}
+
+		if (cgimg) {
+			pm = QPixmap::fromMacCGImageRef(cgimg);
+			qmCursors.insert(csShape, pm);
+		}
+	}
+
+	NSPoint p = [cursor hotSpot];
+	iOffsetX = (int) p.x;
+	iOffsetY = (int) p.y;
+
+	qgpiCursor->setPixmap(pm);
+	qgpiCursor->setPos(iMouseX - iOffsetX, iMouseY - iOffsetY);
 }
 
 QByteArray preferedInstallerPath() {
