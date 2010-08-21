@@ -157,8 +157,7 @@ bool OverlayConfig::supportsCertificates() {
 void OverlayClient::updateMouse() {
 	QCursor c = qgv.viewport()->cursor();
 	NSCursor *cursor = nil;
-
-	csShape = c.shape();
+	Qt::CursorShape csShape = c.shape();
 
 	switch (csShape) {
 		case Qt::IBeamCursor:        cursor = [NSCursor IBeamCursor]; break;
