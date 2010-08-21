@@ -59,6 +59,9 @@ static void crashhandler_handle_crash();
 
 @implementation MumbleNSApplication
 - (void) forwardEvent:(NSDictionary *)dict {
+	if (! g.ocIntercept)
+		return;
+
 	QWidget *vp = g.ocIntercept->qgv.viewport();
 	NSView *view = (NSView *) vp->winId();
 
