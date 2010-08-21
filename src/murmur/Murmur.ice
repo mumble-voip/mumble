@@ -474,6 +474,11 @@ module Murmur
 		 */
 		idempotent LogList getLog(int first, int last) throws InvalidSecretException;
 
+		/** Fetch length of log
+		 * @return Number of entries in log
+		 */
+		idempotent int getLogLen() throws InvalidSecretException;
+
 		/** Fetch all users. This returns all currently connected users on the server.
 		 * @return List of connected users.
 		 * @see getState

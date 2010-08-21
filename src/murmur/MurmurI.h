@@ -49,6 +49,9 @@ namespace Murmur {
 			                          ::Ice::Int,
 			                          const Ice::Current&);
 
+			virtual void getLogLen_async(const ::Murmur::AMD_Server_getLogLenPtr&,
+			                          const Ice::Current&);
+
 			virtual void getUsers_async(const ::Murmur::AMD_Server_getUsersPtr&,
 			                            const Ice::Current&);
 

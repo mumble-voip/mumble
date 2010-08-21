@@ -1603,6 +1603,21 @@ QList<QPair<unsigned int, QString> > ServerDB::getLog(int server_id, unsigned in
 	return ql;
 }
 
+int ServerDB::getLogLen(int server_id) {
+	TransactionHolder th;
+	QSqlQuery &query = *th.qsqQuery;
+
+	SQLPREP("SELECT COUNT(`msgtime`) FROM `%1slog` WHERE `server_id` = ?");
+	query.addBindValue(server_id);
+	SQLEXEC();
+
+	while (query.next()) {
+		return query.value(0).toInt();
+	}
+
+	return -1;
+}
+
 void ServerDB::setConf(int server_id, const QString &k, const QVariant &value) {
 	TransactionHolder th;
 

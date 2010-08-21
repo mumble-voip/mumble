@@ -828,6 +828,13 @@ static void impl_Server_getLog(const ::Murmur::AMD_Server_getLogPtr cb, int serv
 	cb->ice_response(ll);
 }
 
+static void impl_Server_getLogLen(const ::Murmur::AMD_Server_getLogLenPtr cb, int server_id) {
+	NEED_SERVER_EXISTS;
+
+	int len = ServerDB::getLogLen(server_id);
+	cb->ice_response(len);
+}
+
 #define ACCESS_Server_getUsers_READ
 static void impl_Server_getUsers(const ::Murmur::AMD_Server_getUsersPtr cb, int server_id) {
 	NEED_SERVER;
