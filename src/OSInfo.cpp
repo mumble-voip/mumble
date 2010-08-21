@@ -31,6 +31,10 @@
 #include "OSInfo.h"
 #include "Version.h"
 
+#ifdef Q_WS_WIN
+#include <intrin.h>
+#endif
+
 #ifdef Q_WS_X11
 #include <sys/utsname.h>
 #endif
