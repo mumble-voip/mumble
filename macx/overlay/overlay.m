@@ -46,6 +46,7 @@
 #include <mach/task.h>
 #include <dlfcn.h>
 #include <pwd.h>
+#include <unistd.h>
 
 #include <OpenGL/OpenGL.h>
 #include <Carbon/Carbon.h>
@@ -225,6 +226,17 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 			return;
 		}
 		ods("Connected");
+
+		struct OverlayMsg om;
+		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+		om.omh.uiType = OVERLAY_MSGTYPE_PID;
+		om.omh.iLength = sizeof(struct OverlayMsgPid);
+		om.omp.pid = getpid();
+
+		if (!sendMessage(ctx, &om))
+			return;
+
+		ods("SentPid");
 	}
 
 	if ((ctx->uiWidth != width) || (ctx->uiHeight != height)) {
