@@ -161,7 +161,7 @@ void ClientUser::setTalking(Settings::TalkState ts) {
 	tsState = ts;
 	emit talkingChanged();
 
-	if (nstate) {
+	if (nstate && cChannel) {
 		QWriteLocker lock(&c_qrwlTalking);
 		if (ts == Settings::Passive)
 			c_qlTalking.removeAll(this);
