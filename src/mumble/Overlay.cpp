@@ -2302,11 +2302,6 @@ void OverlayClient::showGui() {
 		}
 	}
 
-#ifdef Q_OS_MAC
-	qApp->setAttribute(Qt::AA_DontUseNativeMenuBar);
-	g.mw->setUnifiedTitleAndToolBarOnMac(false);
-#endif
-
 	foreach(QWidget *w, widgets) {
 		if ((w == g.mw) || (! w->isHidden())) {
 			QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(NULL, Qt::Window);
@@ -2351,6 +2346,11 @@ void OverlayClient::showGui() {
 
 	ougUsers.bShowExamples = true;
 
+#ifdef Q_OS_MAC
+	qApp->setAttribute(Qt::AA_DontUseNativeMenuBar);
+	g.mw->setUnifiedTitleAndToolBarOnMac(false);
+#endif
+
 	setupScene(true);
 
 #if defined(Q_WS_WIN) || defined(Q_WS_MAC)
@@ -2371,11 +2371,6 @@ void OverlayClient::hideGui() {
 	ougUsers.bShowExamples = false;
 
 	QList<QWidget *> widgetlist;
-
-#ifdef Q_OS_MAC
-	qApp->setAttribute(Qt::AA_DontUseNativeMenuBar, false);
-	g.mw->setUnifiedTitleAndToolBarOnMac(true);
-#endif
 
 	foreach(QGraphicsItem *qgi, qgs.items(Qt::DescendingOrder)) {
 		QGraphicsProxyWidget *qgpw = qgraphicsitem_cast<QGraphicsProxyWidget *>(qgi);
@@ -2413,6 +2408,11 @@ void OverlayClient::hideGui() {
 			g.mw->restoreState(g.s.qbaMainWindowState);
 		}
 	}
+
+#ifdef Q_OS_MAC
+	qApp->setAttribute(Qt::AA_DontUseNativeMenuBar, false);
+	g.mw->setUnifiedTitleAndToolBarOnMac(true);
+#endif
 
 	setupScene(false);
 
