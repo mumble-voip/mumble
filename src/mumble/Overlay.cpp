@@ -58,7 +58,8 @@ static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
 	return new OverlayConfig(st);
 }
 
-#ifndef QT_MAC_USE_COCOA
+// Hide overlay config for Mac OS X universal builds
+#if !(defined(Q_OS_MAC) && !defined(QT_MAC_USE_COCOA))
 static ConfigRegistrar registrar(6000, OverlayConfigDialogNew);
 #endif
 
