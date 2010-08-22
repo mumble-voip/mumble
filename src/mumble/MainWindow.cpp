@@ -310,6 +310,17 @@ void MainWindow::setupGui()  {
 	qteChat->setDefaultText(tr("<center>Not connected</center>"), true);
 	qteChat->setEnabled(false);
 
+#ifdef QT_MAC_USE_COCOA
+	// Workaround for QTBUG-3116 -- using a unified toolbar on Mac OS X
+	// and using restoreGeometry before the window has updated its frameStrut
+	// causes the MainWindow to jump around on screen on launch.  Workaround
+	// is to call show() to update the frameStrut and set the windowOpacity to
+	// 0 to hide any graphical glitches that occur when we add stuff to the
+	// window.
+	setWindowOpacity(0.0f);
+	show();
+#endif
+
 	connect(qtvUsers->selectionModel(),
 	        SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
 	        SLOT(qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)));
@@ -338,6 +349,14 @@ void MainWindow::setupGui()  {
 	qstiIcon->setContextMenu(qmTray);
 
 	updateTrayIcon();
+
+#ifdef QT_MAC_USE_COCOA
+	setWindowOpacity(1.0f);
+	// Process pending events.  This is done to force the unified
+	// toolbar to show up as soon as possible (and not wait until
+	// we are back into the Cocoa mainloop)
+	qApp->processEvents();
+#endif
 }
 
 MainWindow::~MainWindow() {
