@@ -58,7 +58,7 @@ static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
 	return new OverlayConfig(st);
 }
 
-#ifndef MACOSX_UNIVERSAL_BUILD
+#ifndef QT_MAC_USE_COCOA
 static ConfigRegistrar registrar(6000, OverlayConfigDialogNew);
 #endif
 
@@ -2198,7 +2198,7 @@ void OverlayClient::updateFPS() {
 	}
 }
 
-#ifndef Q_OS_MAC
+#ifndef QT_MAC_USE_COCOA
 // Mac OS X implementation of this function is in Overlay_macx.mm because we
 // need to access ObjC APIs.
 void OverlayClient::updateMouse() {

@@ -63,7 +63,7 @@
 #include "TaskList.h"
 #endif
 
-#ifdef Q_OS_MAC
+#ifdef QT_MAC_USE_COCOA
 #include "ConfigDialog_macx.h"
 #endif
 
@@ -1791,7 +1791,7 @@ void MainWindow::on_qaAudioUnlink_triggered() {
 
 void MainWindow::on_qaConfigDialog_triggered() {
 	QDialog *dlg = NULL;
-#ifdef Q_OS_MAC
+#ifdef QT_MAC_USE_COCOA
 	// To fit in with Mumble skins, we'll only use the Mac OS X
 	// config dialog when we're using the Aqua skin with no external
 	// stylesheet set.  Also, the Mac dialog doesn't work when embedded
