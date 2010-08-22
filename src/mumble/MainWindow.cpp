@@ -1797,7 +1797,7 @@ void MainWindow::on_qaConfigDialog_triggered() {
 	// stylesheet set.  Also, the Mac dialog doesn't work when embedded
 	// inside the interactive overlay, so there we always force a regular
 	// ConfigDialog.
-	if (! g.ocIntercept && g.qsCurrentStyle == QLatin1String("Macintosh (aqua)") && g.s.qsSkin.isEmpty())
+	if (! g.ocIntercept && (g.qsCurrentStyle == QLatin1String("Macintosh (aqua)") || g.qsCurrentStyle.isEmpty())  && g.s.qsSkin.isEmpty())
 		dlg = new ConfigDialogMac(this);
 #endif
 	if (! dlg)
