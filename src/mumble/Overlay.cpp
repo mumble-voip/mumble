@@ -75,15 +75,6 @@ QRectF OverlayGroup::boundingRect() const {
 	return qr;
 }
 
-QRectF OverlayGroup::boundingRect_impl(const int T) const {
-	QRectF qr;
-	foreach(const QGraphicsItem *item, childItems())
-		if (item->isVisible())
-			qr |= item->boundingRect().translated(item->pos());
-
-	return qr;
-}
-
 Overlay::Overlay() : QObject() {
 	d = NULL;
 

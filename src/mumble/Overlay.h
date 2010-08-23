@@ -53,8 +53,6 @@ struct OverlayAppInfo {
 class OverlayGroup : public QGraphicsItem {
 	private:
 		Q_DISABLE_COPY(OverlayGroup);
-
-		QRectF boundingRect_impl(const int) const;
 	public:
 		enum { Type = UserType + 5 };
 	public:
@@ -64,10 +62,8 @@ class OverlayGroup : public QGraphicsItem {
 		void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
 		int type() const;
 
-		template<int T>
-		inline QRectF boundingRect() const {
-			return boundingRect_impl(T);
-		}
+		template <typename T>
+		QRectF boundingRect() const;
 };
 
 class OverlayUser : public OverlayGroup {

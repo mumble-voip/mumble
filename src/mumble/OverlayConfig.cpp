@@ -85,7 +85,7 @@ void OverlayConfig::initDisplay() {
 
 	qgs.clear();
 	qgs.setSceneRect(QRectF(0, 0, qgpiScreen->pixmap().width(), qgpiScreen->pixmap().height()));
-	qgs.setBackgroundBrush(QColor(128, 128, 128, 255));
+	qgs.setBackgroundBrush(qgvView->backgroundBrush());
 
 	qgs.addItem(qgpiScreen);
 	qgpiScreen->show();
@@ -290,11 +290,13 @@ void OverlayConfig::load(const Settings &r) {
 }
 
 bool OverlayConfig::expert(bool show_expert) {
+	int idx = qtwSetup->indexOf(qwExceptions);
+
 #ifdef Q_OS_LINUX
 	Q_UNUSED(show_expert);
-	qgbExceptions->setVisible(false);
+	qtwSetup->setTabEnabled(idx, show_expert);
 #else
-	qgbExceptions->setVisible(show_expert);
+	qtwSetup->setTabEnabled(idx, show_expert);
 #endif
 	return true;
 }
@@ -513,7 +515,7 @@ void OverlayConfig::on_qpbLoadPreset_clicked() {
 	load_preset.load(&qs);
 	qs.endGroup();
 
-#if Q_OS_WIN
+#ifdef Q_OS_WIN
 	load_preset.qslBlacklist = s.os.qslBlacklist;
 	load_preset.qslWhitelist = s.os.qslWhitelist;
 #endif

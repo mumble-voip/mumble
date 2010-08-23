@@ -40,6 +40,16 @@
 #include "MainWindow.h"
 #include "GlobalShortcut.h"
 
+template <typename T>
+QRectF OverlayGroup::boundingRect() const {
+	QRectF qr;
+	foreach(const QGraphicsItem *item, childItems())
+		if (item->isVisible() && (item->type() == T::Type))
+			qr |= item->boundingRect().translated(item->pos());
+
+	return qr;
+}
+
 OverlayUserGroup::OverlayUserGroup(OverlaySettings *osptr) :
 	OverlayGroup(),
 	os(osptr),
@@ -313,7 +323,7 @@ void OverlayUserGroup::updateUsers() {
 		}
 	}
 
-	QRectF br = boundingRect<OverlayUser::Type>();
+	QRectF br = boundingRect<OverlayUser>();
 
 	int basex = qBound<int>(0, iroundf(sr.width() * os->fX), iroundf(sr.width() - br.width()));
 	int basey = qBound<int>(0, iroundf(sr.height() * os->fY), iroundf(sr.height() - br.height()));
