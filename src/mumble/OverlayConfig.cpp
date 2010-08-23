@@ -294,7 +294,7 @@ bool OverlayConfig::expert(bool show_expert) {
 
 #ifdef Q_OS_LINUX
 	Q_UNUSED(show_expert);
-	qtwSetup->setTabEnabled(idx, show_expert);
+	qtwSetup->setTabEnabled(idx, false);
 #else
 	qtwSetup->setTabEnabled(idx, show_expert);
 #endif
