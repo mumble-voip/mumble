@@ -22,6 +22,9 @@ class OverlayWidget : public QWidget {
 		QTimer *qtTimer;
 		QRect qrActive;
 
+		clock_t cLastFpsUpdate;
+		unsigned int iFrameCount;
+
 		unsigned int uiWidth, uiHeight;
 
 		void resizeEvent(QResizeEvent *);
@@ -35,6 +38,7 @@ class OverlayWidget : public QWidget {
 		void disconnected();
 		void readyRead();
 		void error(QLocalSocket::LocalSocketError);
+		void update();
 	public:
 		OverlayWidget(QWidget *p = NULL);
 };
@@ -91,6 +95,9 @@ void OverlayWidget::paintEvent(QPaintEvent *) {
 void OverlayWidget::init(const QSize &sz) {
 	qWarning() << "Init" << sz.width() << sz.height();
 
+	cLastFpsUpdate = clock();
+	iFrameCount = 0;
+
 	OverlayMsg m;
 	m.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 	m.omh.uiType = OVERLAY_MSGTYPE_INIT;
@@ -146,6 +153,30 @@ void OverlayWidget::disconnected() {
 void OverlayWidget::error(QLocalSocket::LocalSocketError) {
 	qWarning() << "error";
 	disconnected();
+}
+
+void OverlayWidget::update() {
+	++iFrameCount;
+
+	clock_t t = clock();
+	float elapsed = (float)(t - cLastFpsUpdate) / CLOCKS_PER_SEC;
+
+	if (elapsed > OVERLAY_FPS_INTERVAL) {
+		struct OverlayMsg om;
+		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+		om.omh.uiType = OVERLAY_MSGTYPE_FPS;
+		om.omh.iLength = sizeof(struct OverlayMsgFps);
+		om.omf.fps = iFrameCount / elapsed;
+
+		if (qlsSocket && qlsSocket->state() == QLocalSocket::ConnectedState) {
+			qlsSocket->write(reinterpret_cast<char*>(&om), sizeof(OverlayMsgHeader) + om.omh.iLength);
+		}
+
+		iFrameCount = 0.0f;
+		cLastFpsUpdate = t;
+	}
+
+	QWidget::update();
 }
 
 void OverlayWidget::readyRead() {
