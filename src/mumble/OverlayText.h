@@ -32,8 +32,6 @@
 #define _OVERLAYTEXT_H
 
 #include "mumble_pch.hpp"
-#include "Global.h"
-#include "../../overlay/overlay.h"
 
 //! Annotated QPixmap supplying a basepoint.
 class BasepointPixmap : public QPixmap {

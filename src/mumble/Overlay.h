@@ -35,7 +35,6 @@
 #include "ConfigDialog.h"
 #include "ClientUser.h"
 #include "SharedMemory.h"
-#include "Global.h"
 #include "ui_Overlay.h"
 #include "ui_OverlayEditor.h"
 #include "../../overlay/overlay.h"
@@ -53,17 +52,21 @@ struct OverlayAppInfo {
 class OverlayGroup : public QGraphicsItem {
 	private:
 		Q_DISABLE_COPY(OverlayGroup);
+
+		QRectF boundingRect_impl(const int) const;
 	public:
 		enum { Type = UserType + 5 };
 	public:
 		OverlayGroup();
 
 		QRectF boundingRect() const;
-		template<class T>
-		QRectF boundingRect() const;
 		void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
-
 		int type() const;
+
+		template<int T>
+		inline QRectF boundingRect() const {
+			return boundingRect_impl(T);
+		}
 };
 
 class OverlayUser : public OverlayGroup {
@@ -124,7 +127,7 @@ class OverlayUserGroup : public QObject, public OverlayGroup {
 	public:
 		bool bShowExamples;
 
-		OverlayUserGroup(OverlaySettings *osptr = &g.s.os);
+		OverlayUserGroup(OverlaySettings *);
 		~OverlayUserGroup();
 
 		int type() const;
@@ -138,6 +141,7 @@ class OverlayEditorScene : public QGraphicsScene {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(OverlayEditorScene)
+
 	protected:
 		QGraphicsItem *qgiGroup;
 
@@ -173,7 +177,7 @@ class OverlayEditorScene : public QGraphicsScene {
 		unsigned int uiZoom;
 		OverlaySettings os;
 
-		OverlayEditorScene(QObject *p = NULL, const OverlaySettings &srcos = g.s.os);
+		OverlayEditorScene(const OverlaySettings &, QObject *p = NULL);
 	public slots:
 		void resync();
 		void updateSelected();
