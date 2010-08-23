@@ -267,7 +267,7 @@ Settings::Settings() {
 	bEcho = false;
 	bEchoMulti = true;
 
-	bExclusiveInput = true;
+	bExclusiveInput = false;
 	bExclusiveOutput = false;
 
 	iPortAudioInput = -1; // default device
