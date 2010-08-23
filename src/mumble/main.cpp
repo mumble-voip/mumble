@@ -340,7 +340,7 @@ int main(int argc, char **argv) {
 #endif
 
 	g.o = new Overlay();
-	g.o->setActive(g.s.bOverlayEnable);
+	g.o->setActive(g.s.os.bEnable);
 
 	g.lcd = new LCD();
 

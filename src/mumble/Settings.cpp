@@ -116,6 +116,8 @@ const QString Settings::cqsDefaultPushClickOn = QLatin1String(":/on.ogg");
 const QString Settings::cqsDefaultPushClickOff = QLatin1String(":/off.ogg");
 
 OverlaySettings::OverlaySettings() {
+	bEnable = true;
+
 	osShow = LinkedChannels;
 	bAlwaysSelf = true;
 
@@ -278,8 +280,6 @@ Settings::Settings() {
 	fAudioMaxDistVolume = 0.80f;
 	fAudioBloom = 0.5f;
 
-	bOverlayEnable = true;
-
 	iLCDUserViewMinColWidth = 50;
 	iLCDUserViewSplitterWidth = 2;
 
@@ -393,6 +393,8 @@ void OverlaySettings::load() {
 }
 
 void OverlaySettings::load(QSettings* settings_ptr) {
+	SAVELOAD(bEnable, "enable");
+
 	LOADENUM(osShow, "show");
 	SAVELOAD(bAlwaysSelf, "alwaysself");
 
@@ -521,8 +523,6 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iTTSVolume, "tts/volume");
 	SAVELOAD(iTTSThreshold, "tts/threshold");
 
-	SAVELOAD(bOverlayEnable, "overlay/enable");
-
 	// Network settings
 	SAVELOAD(bTCPCompat, "net/tcponly");
 	SAVELOAD(bQoS, "net/qos");
@@ -646,6 +646,8 @@ void OverlaySettings::save() {
 
 void OverlaySettings::save(QSettings* settings_ptr) {
 	OverlaySettings def;
+
+	SAVELOAD(bEnable, "enable");
 
 	SAVELOAD(osShow, "show");
 	SAVELOAD(bAlwaysSelf, "alwaysself");
@@ -772,10 +774,6 @@ void Settings::save() {
 	SAVELOAD(bTTS, "tts/enable");
 	SAVELOAD(iTTSVolume, "tts/volume");
 	SAVELOAD(iTTSThreshold, "tts/threshold");
-
-	SAVELOAD(bOverlayEnable, "overlay/enable");
-
-	SAVELOAD(bOverlayEnable, "overlay/enable");
 
 	// Network settings
 	SAVELOAD(bTCPCompat, "net/tcponly");

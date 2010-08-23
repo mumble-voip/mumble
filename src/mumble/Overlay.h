@@ -276,7 +276,6 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void on_qcbShowFps_stateChanged(int);
 		void on_qpbFpsFont_clicked();
 		void on_qpbFpsColor_clicked();
-		void on_qpbReset_clicked();
 		void on_qpbLoadPreset_clicked();
 		void on_qpbSavePreset_clicked();
 		void resizeScene(bool force=false);

@@ -76,6 +76,8 @@ Q_DECLARE_METATYPE(ShortcutTarget)
 struct OverlaySettings {
 	enum OverlayShow { Talking, HomeChannel, LinkedChannels };
 
+	bool bEnable;
+
 	OverlayShow osShow;
 	bool bAlwaysSelf;
 
@@ -194,7 +196,6 @@ struct Settings {
 	float fAudioMinDistance, fAudioMaxDistance, fAudioMaxDistVolume, fAudioBloom;
 	QMap<QString, bool> qmPositionalAudioPlugins;
 
-	bool bOverlayEnable;
 	OverlaySettings os;
 
 	int iLCDUserViewMinColWidth;

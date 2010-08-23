@@ -260,24 +260,33 @@ QString OverlayConfig::applicationIdentifierForPath(const QString &path) {
 }
 
 void OverlayConfig::load(const Settings &r) {
-	loadCheckBox(qcbEnable, r.bOverlayEnable);
-	qcbShowFps->setChecked(r.os.bFps);
+	s.os = r.os;
+
+	loadCheckBox(qcbEnable, s.os.bEnable);
+	qcbShowFps->setChecked(s.os.bFps);
+	qgpFps->setEnabled(s.os.bEnable);
+
 	qlwBlacklist->clear();
 	qlwWhitelist->clear();
-	qrbWhitelist->setChecked(r.os.bUseWhitelist);
-	qswBlackWhiteList->setCurrentWidget(r.os.bUseWhitelist ? qwWhite : qwBlack);
 
-	foreach(QString str, r.os.qslWhitelist) {
+	qrbWhitelist->setChecked(s.os.bUseWhitelist);
+	qswBlackWhiteList->setCurrentWidget(s.os.bUseWhitelist ? qwWhite : qwBlack);
+
+	foreach(QString str, s.os.qslWhitelist) {
 		OverlayAppInfo oai = applicationInfoForId(str);
 		QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwWhitelist);
 		qlwiApplication->setData(Qt::UserRole, QVariant(str));
 	}
 
-	foreach(QString str, r.os.qslBlacklist) {
+	foreach(QString str, s.os.qslBlacklist) {
 		OverlayAppInfo oai = applicationInfoForId(str);
 		QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwBlacklist);
 		qlwiApplication->setData(Qt::UserRole, QVariant(str));
 	}
+
+	initDisplay();
+	resizeScene(true);
+	update();
 }
 
 bool OverlayConfig::expert(bool show_expert) {
@@ -299,7 +308,7 @@ QIcon OverlayConfig::icon() const {
 }
 
 void OverlayConfig::save() const {
-	s.bOverlayEnable = qcbEnable->isChecked();
+	s.os.bEnable = qcbEnable->isChecked();
 	s.os.bFps = qcbShowFps->isChecked();
 
 	// Directly save overlay config
@@ -324,7 +333,7 @@ void OverlayConfig::save() const {
 
 void OverlayConfig::accept() const {
 	g.o->forceSettings();
-	g.o->setActive(s.bOverlayEnable);
+	g.o->setActive(s.os.bEnable);
 }
 
 bool OverlayConfig::eventFilter(QObject *obj, QEvent *evt) {
@@ -487,23 +496,6 @@ void OverlayConfig::on_qpbFpsColor_clicked() {
 	}
 }
 
-void OverlayConfig::on_qpbReset_clicked() {
-	QMessageBox warning;
-	warning.setIcon(QMessageBox::Question);
-	warning.setText(tr("<b>Reset all overlay settings?</b>"));
-	warning.setInformativeText(tr("Clicking \"Yes\" below will overwrite all your overlay settings, and restore the defaults. If you are not sure that you want to do this, click \"No\". In any case, the reset will not become effective before you exit the configuration dialog. Cancelling the configuration dialog will revert the reset."));
-	warning.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-	warning.setDefaultButton(QMessageBox::No);
-
-	if(warning.exec() == QMessageBox::Yes) {
-		qWarning() << "Resetting overlay";
-		s.os = OverlaySettings();
-
-		initDisplay();
-		resizeScene(true);
-	}
-}
-
 void OverlayConfig::on_qpbLoadPreset_clicked() {
 	QString fn = QFileDialog::getOpenFileName(this,
 			tr("Load Overlay Presets"),
@@ -526,10 +518,10 @@ void OverlayConfig::on_qpbLoadPreset_clicked() {
 	load_preset.qslWhitelist = s.os.qslWhitelist;
 #endif
 	load_preset.bUseWhitelist = s.os.bUseWhitelist;
+	load_preset.bEnable = s.os.bEnable;
 	s.os = load_preset;
 
-	initDisplay();
-	resizeScene(true);
+	load(s);
 }
 
 void OverlayConfig::on_qpbSavePreset_clicked() {
@@ -551,6 +543,7 @@ void OverlayConfig::on_qpbSavePreset_clicked() {
 
 	qs.beginGroup(QLatin1String("overlay"));
 	s.os.save(&qs);
+	qs.remove(QLatin1String("enable"));
 	qs.remove(QLatin1String("usewhitelist"));
 	qs.remove(QLatin1String("blacklist"));
 	qs.remove(QLatin1String("whitelist"));
