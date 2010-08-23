@@ -29,6 +29,7 @@
 */
 
 #include "Overlay.h"
+#include "OverlayText.h"
 #include "User.h"
 #include "Channel.h"
 #include "Global.h"
@@ -42,12 +43,6 @@
 #if QT_VERSION < 0x040600
 #define toReal toDouble
 #endif
-
-OverlayTextLine::OverlayTextLine() {
-}
-
-OverlayTextLine::OverlayTextLine(const QPainterPath &qpp) : QPainterPath(qpp), fAscent(0.0f), fDescent(0.0f) {
-}
 
 OverlayAppInfo::OverlayAppInfo(QString name, QIcon icon) {
 	qsDisplayName = name;
@@ -488,8 +483,7 @@ void OverlayEditorScene::updateUserName() {
 			break;
 	}
 
-	OverlayTextLine tl;
-	const QPixmap &pm = OverlayUser::createPixmap(qsName, SCALESIZE(UserName), os.qcUserName[tsColor], os.qfUserName, tl);
+	const QPixmap &pm = OverlayTextLine(qsName, os.qfUserName).createPixmap(SCALESIZE(UserName), os.qcUserName[tsColor]);
 	qgpiName->setPixmap(pm);
 
 	moveUserName();
@@ -502,8 +496,7 @@ void OverlayEditorScene::moveUserName() {
 }
 
 void OverlayEditorScene::updateChannel() {
-	OverlayTextLine tl;
-	const QPixmap &pm = OverlayUser::createPixmap(Overlay::tr("Channel"), SCALESIZE(Channel), os.qcChannel, os.qfChannel, tl);
+	const QPixmap &pm = OverlayTextLine(Overlay::tr("Channel"), os.qfChannel).createPixmap(SCALESIZE(Channel), os.qcChannel);
 	qgpiChannel->setPixmap(pm);
 
 	moveChannel();
@@ -1566,119 +1559,14 @@ void OverlayUser::updateLayout() {
 	}
 }
 
-QPixmap OverlayUser::createPixmap(const QString &string, unsigned int maxwidth, unsigned int height, QColor col, const QFont &font, OverlayTextLine &tl) {
-	const float edge = qMax(static_cast<float>(height) * 0.05f, 1.0f);
-	const float baselining_threshold = 0.5f;
-
-	if (! height || ! maxwidth)
-		return QPixmap();
-
-	if (tl.isEmpty()) {
-		QFont f = font;
-		QFontMetrics fm(f);
-
-		// fit the font into a bounding box with padding (calculate point size with slack)
-		float pointsize = static_cast<float>(fm.descent()+fm.ascent()+2);
-		float edge_correction = ((static_cast<float>(height) - 2.0f*edge) / pointsize);
-
-		if (f.pointSizeF() * edge_correction <= 0.0f) {
-			return QPixmap();
-		}
-
-		f.setPointSizeF(f.pointSizeF() * edge_correction);
-		fm = QFontMetrics(f);
-
-		// try to use most of the slack introduced in pointsize
-		float ascent = static_cast<float>(fm.ascent()) + edge_correction;
-		float descent = static_cast<float>(fm.descent()) + edge_correction;
-
-		// calculate text metrics for eliding and scaling
-		QRectF bb;
-		tl.addText(0.0f, 0.0f, f, string);
-		bb = tl.controlPointRect();
-
-		qreal effective_ascent = -bb.top();
-		qreal effective_descent = bb.bottom();
-		float scale = 1.0f;
-		bool keep_baseline = true;
-		if (effective_descent > descent || effective_ascent > ascent) {
-			qreal scale_ascent = effective_ascent > 0.0f ? ascent / effective_ascent : 1.0f;
-			qreal scale_descent = effective_descent > 0.0f ? descent / effective_descent : 1.0f;
-			scale = static_cast<float>(qMin(scale_ascent, scale_descent));
-
-			if (scale < baselining_threshold) {
-				float text_height = static_cast<float>(bb.height()) + 2.0f*edge;
-				scale = static_cast<float>(height) / text_height;
-				keep_baseline = false;
-			}
-		}
-
-		// eliding by previously calculated width
-		if ((bb.width()*scale) + 2*edge > maxwidth) {
-			int eliding_width = iroundf((static_cast<float>(maxwidth) / scale) - 2.0f*edge);
-			QString str = fm.elidedText(string, Qt::ElideRight, eliding_width);
-			if (str.trimmed().isEmpty())
-				str = QLatin1String("...");
-
-			tl = OverlayTextLine();
-			tl.addText(0.0f, 0.0f, f, str);
-			bb = tl.controlPointRect();
-		}
-
-		// translation to "pixmap space":
-		QMatrix correction;
-		//  * adjust left edge
-		correction.translate(-bb.x() + edge, 0.0f);
-		//  * scale overly high text (still on baseline)
-		correction.scale(scale, scale);
-
-		if (keep_baseline) {
-			//  * translate down to baseline
-			correction.translate(0.0f, (ascent + edge) / scale);
-		} else {
-			//  * translate into bounding box
-			correction.translate(0.0f, -bb.top() + edge);
-		}
-
-		tl = correction.map(tl);
-		tl.fAscent = ascent;
-		tl.fDescent = descent;
-	}
-
-	QRectF qr = tl.controlPointRect();
-	int w = iroundf(qr.width() + 2.0f*edge + 0.5f);
-	int h = iroundf(tl.fAscent + tl.fDescent + 2.0f*edge + 0.5f);
-
-	QPixmap img(w, h);
-	img.fill(Qt::transparent);
-
-	QPainter imgp(&img);
-	imgp.setRenderHint(QPainter::Antialiasing);
-	imgp.setRenderHint(QPainter::TextAntialiasing);
-	imgp.setBackground(QColor(0,0,0,0));
-	imgp.setCompositionMode(QPainter::CompositionMode_Source);
-
-	QColor qc(col);
-	qc.setAlpha(255);
-
-	imgp.setBrush(qc);
-	imgp.setPen(QPen(Qt::black, edge, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-	imgp.drawPath(tl);
-
-	imgp.setPen(Qt::NoPen);
-	imgp.drawPath(tl);
-
-	return img;
-}
-
 void OverlayUser::updateUser() {
 	if (os->bUserName && (qgpiName[0]->pixmap().isNull() || (cuUser && (qsName != cuUser->qsName)))) {
 		if (cuUser)
 			qsName = cuUser->qsName;
 
-		OverlayTextLine tl;
+		OverlayTextLine tl(qsName, os->qfUserName);
 		for (int i=0; i<4; ++i) {
-			const QPixmap &pm = createPixmap(qsName, SCALESIZE(UserName), os->qcUserName[i], os->qfUserName, tl);
+			const QPixmap &pm = tl.createPixmap(SCALESIZE(UserName), os->qcUserName[i]);
 			qgpiName[i]->setPixmap(pm);
 
 			if (i == 0)
@@ -1692,8 +1580,7 @@ void OverlayUser::updateUser() {
 		if (cuUser)
 			qsChannelName = cuUser->cChannel->qsName;
 
-		OverlayTextLine tl;
-		const QPixmap &pm = createPixmap(qsChannelName, SCALESIZE(Channel), os->qcChannel, os->qfChannel, tl);
+		const QPixmap &pm = OverlayTextLine(qsChannelName, os->qfChannel).createPixmap(SCALESIZE(Channel), os->qcChannel);
 		qgpiChannel->setPixmap(pm);
 		qgpiChannel->setPos(alignedPosition(scaledRect(os->qrfChannel, uiSize * os->fZoom), qgpiChannel->boundingRect(), os->qaChannel));
 	}
@@ -2190,10 +2077,12 @@ bool OverlayClient::eventFilter(QObject *o, QEvent *e) {
 
 void OverlayClient::updateFPS() {
 	if (g.s.os.bFps) {
-		OverlayTextLine tl;
 		unsigned int uiSize = iroundf(qgs.sceneRect().height());
-		const QPixmap &pm = OverlayUser::createPixmap(tr("FPS: %1").arg(static_cast<int>(fFps)), -1, iroundf(uiSize * g.s.os.fZoom * g.s.os.qrfFps.height()), g.s.os.qcFps, g.s.os.qfFps, tl);
+		const BasepointPixmap &pm = OverlayTextLine(tr("FPS: %1").arg(static_cast<int>(fFps)), g.s.os.qfFps).createPixmap(g.s.os.qcFps);
 		qgpiFPS->setPixmap(pm);
+		// offset to use basepoint
+		//TODO: settings are providing a top left anchor, so shift down by ascent
+		qgpiFPS->setOffset(-pm.qpBasePoint + QPoint(0, pm.iAscent));
 	} else {
 		qgpiFPS->setPixmap(QPixmap());
 	}

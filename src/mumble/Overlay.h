@@ -66,13 +66,6 @@ class OverlayGroup : public QGraphicsItem {
 		int type() const;
 };
 
-class OverlayTextLine : public QPainterPath {
-	public:
-		float fAscent, fDescent;
-		OverlayTextLine();
-		OverlayTextLine(const QPainterPath&);
-};
-
 class OverlayUser : public OverlayGroup {
 	private:
 		Q_DISABLE_COPY(OverlayUser)
@@ -104,8 +97,6 @@ class OverlayUser : public OverlayGroup {
 		void updateLayout();
 
 		int type() const;
-
-		static QPixmap createPixmap(const QString &str, unsigned int maxwidth, unsigned int height, QColor col, const QFont &font, OverlayTextLine &);
 		static QRectF scaledRect(const QRectF &qr, qreal scale);
 		static QPointF alignedPosition(const QRectF &box, const QRectF &item, Qt::Alignment a);
 };
