@@ -333,12 +333,12 @@ bool OverlayConfig::eventFilter(QObject *obj, QEvent *evt) {
 	return ConfigWidget::eventFilter(obj, evt);
 }
 
-void OverlayConfig::resizeScene() {
+void OverlayConfig::resizeScene(bool force) {
 	QSize sz = qgvView->viewport()->size();
 
 	int ph = qgpiScreen->pixmap().height();
 	int pw = qgpiScreen->pixmap().width();
-	if (( (ph == sz.height() && pw <= sz.width()) || (ph <= sz.height() && pw == sz.width()) )) {
+	if (!force && ( (ph == sz.height() && pw <= sz.width()) || (ph <= sz.height() && pw == sz.width()) )) {
 		return;
 	}
 
@@ -500,6 +500,59 @@ void OverlayConfig::on_qpbReset_clicked() {
 		s.os = OverlaySettings();
 
 		initDisplay();
-		resizeScene();
+		resizeScene(true);
 	}
+}
+
+void OverlayConfig::on_qpbLoadPreset_clicked() {
+	QString fn = QFileDialog::getOpenFileName(this,
+			tr("Load Overlay Presets"),
+			QDir::homePath(),
+			tr("Mumble overlay presets (*.mumblelay)"));
+
+	if (fn.isEmpty()) {
+		return;
+	}
+
+	QSettings qs(fn, QSettings::IniFormat);
+	OverlaySettings load_preset;
+
+	qs.beginGroup(QLatin1String("overlay"));
+	load_preset.load(&qs);
+	qs.endGroup();
+
+#if Q_OS_WIN
+	load_preset.qslBlacklist = s.os.qslBlacklist;
+	load_preset.qslWhitelist = s.os.qslWhitelist;
+#endif
+	load_preset.bUseWhitelist = s.os.bUseWhitelist;
+	s.os = load_preset;
+
+	initDisplay();
+	resizeScene(true);
+}
+
+void OverlayConfig::on_qpbSavePreset_clicked() {
+	QString fn = QFileDialog::getSaveFileName(this,
+			tr("Save Overlay Presets"),
+			QDir::homePath(),
+			tr("Mumble overlay presets (*.mumblelay)"));
+
+	if (fn.isEmpty()) {
+		return;
+	}
+
+	QSettings qs(fn, QSettings::IniFormat);
+
+	if (!qs.isWritable()) {
+		qWarning() << __FUNCTION__ << "preset save file" << fn << "is not writable!";
+		return;
+	}
+
+	qs.beginGroup(QLatin1String("overlay"));
+	s.os.save(&qs);
+	qs.remove(QLatin1String("usewhitelist"));
+	qs.remove(QLatin1String("blacklist"));
+	qs.remove(QLatin1String("whitelist"));
+	qs.endGroup();
 }

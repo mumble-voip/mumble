@@ -130,7 +130,9 @@ struct OverlaySettings {
 
 	OverlaySettings();
 	void load();
+	void load(QSettings*);
 	void save();
+	void save(QSettings*);
 };
 
 struct Settings {
@@ -273,6 +275,7 @@ struct Settings {
 
 	Settings();
 	void load();
+	void load(QSettings*);
 	void save();
 };
 

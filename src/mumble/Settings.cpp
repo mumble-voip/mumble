@@ -384,11 +384,15 @@ BOOST_TYPEOF_REGISTER_TYPE(QVariant)
 BOOST_TYPEOF_REGISTER_TYPE(QFont)
 BOOST_TYPEOF_REGISTER_TEMPLATE(QList, 1)
 
-#define SAVELOAD(var,name) var = qvariant_cast<BOOST_TYPEOF(var)>(g.qs->value(QLatin1String(name), var))
-#define LOADENUM(var, name) var = static_cast<BOOST_TYPEOF(var)>(g.qs->value(QLatin1String(name), var).toInt())
-#define LOADFLAG(var, name) var = static_cast<BOOST_TYPEOF(var)>(g.qs->value(QLatin1String(name), static_cast<int>(var)).toInt())
+#define SAVELOAD(var,name) var = qvariant_cast<BOOST_TYPEOF(var)>(settings_ptr->value(QLatin1String(name), var))
+#define LOADENUM(var, name) var = static_cast<BOOST_TYPEOF(var)>(settings_ptr->value(QLatin1String(name), var).toInt())
+#define LOADFLAG(var, name) var = static_cast<BOOST_TYPEOF(var)>(settings_ptr->value(QLatin1String(name), static_cast<int>(var)).toInt())
 
 void OverlaySettings::load() {
+	load(g.qs);
+}
+
+void OverlaySettings::load(QSettings* settings_ptr) {
 	LOADENUM(osShow, "show");
 	SAVELOAD(bAlwaysSelf, "alwaysself");
 
@@ -397,13 +401,13 @@ void OverlaySettings::load() {
 	SAVELOAD(fZoom, "zoom");
 	SAVELOAD(uiColumns, "columns");
 
-	g.qs->beginReadArray(QLatin1String("states"));
+	settings_ptr->beginReadArray(QLatin1String("states"));
 	for (int i=0;i<4;++i) {
-		g.qs->setArrayIndex(i);
+		settings_ptr->setArrayIndex(i);
 		SAVELOAD(qcUserName[i], "color");
 		SAVELOAD(fUser[i], "opacity");
 	}
-	g.qs->endArray();
+	settings_ptr->endArray();
 
 	SAVELOAD(qfUserName, "userfont");
 	SAVELOAD(qfChannel, "channelfont");
@@ -446,6 +450,10 @@ void OverlaySettings::load() {
 }
 
 void Settings::load() {
+	load(g.qs);
+}
+
+void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bMute, "audio/mute");
 	SAVELOAD(bDeaf, "audio/deaf");
 	LOADENUM(atTransmit, "audio/transmit");
@@ -577,13 +585,13 @@ void Settings::load() {
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
 
-	QByteArray qba = qvariant_cast<QByteArray>(g.qs->value(QLatin1String("net/certificate")));
+	QByteArray qba = qvariant_cast<QByteArray>(settings_ptr->value(QLatin1String("net/certificate")));
 	if (! qba.isEmpty())
 		kpCertificate = CertWizard::importCert(qba);
 
-	int nshorts = g.qs->beginReadArray(QLatin1String("shortcuts"));
+	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
 	for (int i=0;i<nshorts;i++) {
-		g.qs->setArrayIndex(i);
+		settings_ptr->setArrayIndex(i);
 		Shortcut s;
 
 		s.iIndex = -2;
@@ -591,48 +599,52 @@ void Settings::load() {
 		SAVELOAD(s.iIndex, "index");
 		SAVELOAD(s.qlButtons, "keys");
 		SAVELOAD(s.bSuppress, "suppress");
-		s.qvData = g.qs->value(QLatin1String("data"));
+		s.qvData = settings_ptr->value(QLatin1String("data"));
 		if (s.iIndex >= -1)
 			qlShortcuts << s;
 	}
-	g.qs->endArray();
+	settings_ptr->endArray();
 
-	g.qs->beginReadArray(QLatin1String("messages"));
+	settings_ptr->beginReadArray(QLatin1String("messages"));
 	for (QMap<int, quint32>::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
-		g.qs->setArrayIndex(it.key());
+		settings_ptr->setArrayIndex(it.key());
 		SAVELOAD(qmMessages[it.key()], "log");
 	}
-	g.qs->endArray();
+	settings_ptr->endArray();
 
-	g.qs->beginReadArray(QLatin1String("messagesounds"));
+	settings_ptr->beginReadArray(QLatin1String("messagesounds"));
 	for (QMap<int, QString>::const_iterator it = qmMessageSounds.constBegin(); it != qmMessageSounds.constEnd(); ++it) {
-		g.qs->setArrayIndex(it.key());
+		settings_ptr->setArrayIndex(it.key());
 		SAVELOAD(qmMessageSounds[it.key()], "logsound");
 	}
-	g.qs->endArray();
+	settings_ptr->endArray();
 
-	g.qs->beginGroup(QLatin1String("lcd/devices"));
-	foreach(const QString &d, g.qs->childKeys()) {
-		qmLCDDevices.insert(d, g.qs->value(d, true).toBool());
+	settings_ptr->beginGroup(QLatin1String("lcd/devices"));
+	foreach(const QString &d, settings_ptr->childKeys()) {
+		qmLCDDevices.insert(d, settings_ptr->value(d, true).toBool());
 	}
-	g.qs->endGroup();
+	settings_ptr->endGroup();
 
-	g.qs->beginGroup(QLatin1String("audio/plugins"));
-	foreach(const QString &d, g.qs->childKeys()) {
-		qmPositionalAudioPlugins.insert(d, g.qs->value(d, true).toBool());
+	settings_ptr->beginGroup(QLatin1String("audio/plugins"));
+	foreach(const QString &d, settings_ptr->childKeys()) {
+		qmPositionalAudioPlugins.insert(d, settings_ptr->value(d, true).toBool());
 	}
-	g.qs->endGroup();
+	settings_ptr->endGroup();
 
-	g.qs->beginGroup(QLatin1String("overlay"));
-	os.load();
-	g.qs->endGroup();
+	settings_ptr->beginGroup(QLatin1String("overlay"));
+	os.load(settings_ptr);
+	settings_ptr->endGroup();
 }
 
 #undef SAVELOAD
-#define SAVELOAD(var,name) if (var != def.var) g.qs->setValue(QLatin1String(name), var); else g.qs->remove(QLatin1String(name))
-#define SAVEFLAG(var,name) if (var != def.var) g.qs->setValue(QLatin1String(name), static_cast<int>(var)); else g.qs->remove(QLatin1String(name))
+#define SAVELOAD(var,name) if (var != def.var) settings_ptr->setValue(QLatin1String(name), var); else settings_ptr->remove(QLatin1String(name))
+#define SAVEFLAG(var,name) if (var != def.var) settings_ptr->setValue(QLatin1String(name), static_cast<int>(var)); else settings_ptr->remove(QLatin1String(name))
 
 void OverlaySettings::save() {
+	save(g.qs);
+}
+
+void OverlaySettings::save(QSettings* settings_ptr) {
 	OverlaySettings def;
 
 	SAVELOAD(osShow, "show");
@@ -642,13 +654,13 @@ void OverlaySettings::save() {
 	SAVELOAD(fZoom, "zoom");
 	SAVELOAD(uiColumns, "columns");
 
-	g.qs->beginReadArray(QLatin1String("states"));
+	settings_ptr->beginReadArray(QLatin1String("states"));
 	for (int i=0;i<4;++i) {
-		g.qs->setArrayIndex(i);
+		settings_ptr->setArrayIndex(i);
 		SAVELOAD(qcUserName[i], "color");
 		SAVELOAD(fUser[i], "opacity");
 	}
-	g.qs->endArray();
+	settings_ptr->endArray();
 
 	SAVELOAD(qfUserName, "userfont");
 	SAVELOAD(qfChannel, "channelfont");
@@ -685,12 +697,13 @@ void OverlaySettings::save() {
 	SAVEFLAG(qaMutedDeafened, "mutedalign");
 	SAVEFLAG(qaAvatar, "avataralign");
 
-	g.qs->setValue(QLatin1String("usewhitelist"), bUseWhitelist);
-	g.qs->setValue(QLatin1String("blacklist"), qslBlacklist);
-	g.qs->setValue(QLatin1String("whitelist"), qslWhitelist);
+	settings_ptr->setValue(QLatin1String("usewhitelist"), bUseWhitelist);
+	settings_ptr->setValue(QLatin1String("blacklist"), qslBlacklist);
+	settings_ptr->setValue(QLatin1String("whitelist"), qslWhitelist);
 }
 
 void Settings::save() {
+	QSettings* settings_ptr = g.qs;
 	Settings def;
 
 	SAVELOAD(bMute, "audio/mute");
@@ -824,56 +837,56 @@ void Settings::save() {
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
 
 	QByteArray qba = CertWizard::exportCert(kpCertificate);
-	g.qs->setValue(QLatin1String("net/certificate"), qba);
+	settings_ptr->setValue(QLatin1String("net/certificate"), qba);
 
-	g.qs->beginWriteArray(QLatin1String("shortcuts"));
+	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;
 	foreach(const Shortcut &s, qlShortcuts) {
 		if (! s.isServerSpecific()) {
-			g.qs->setArrayIndex(idx++);
-			g.qs->setValue(QLatin1String("index"), s.iIndex);
-			g.qs->setValue(QLatin1String("keys"), s.qlButtons);
-			g.qs->setValue(QLatin1String("suppress"), s.bSuppress);
-			g.qs->setValue(QLatin1String("data"), s.qvData);
+			settings_ptr->setArrayIndex(idx++);
+			settings_ptr->setValue(QLatin1String("index"), s.iIndex);
+			settings_ptr->setValue(QLatin1String("keys"), s.qlButtons);
+			settings_ptr->setValue(QLatin1String("suppress"), s.bSuppress);
+			settings_ptr->setValue(QLatin1String("data"), s.qvData);
 		}
 	}
-	g.qs->endArray();
+	settings_ptr->endArray();
 
-	g.qs->beginWriteArray(QLatin1String("messages"));
+	settings_ptr->beginWriteArray(QLatin1String("messages"));
 	for (QMap<int, quint32>::const_iterator it = qmMessages.constBegin(); it != qmMessages.constEnd(); ++it) {
-		g.qs->setArrayIndex(it.key());
+		settings_ptr->setArrayIndex(it.key());
 		SAVELOAD(qmMessages[it.key()], "log");
 	}
-	g.qs->endArray();
+	settings_ptr->endArray();
 
-	g.qs->beginWriteArray(QLatin1String("messagesounds"));
+	settings_ptr->beginWriteArray(QLatin1String("messagesounds"));
 	for (QMap<int, QString>::const_iterator it = qmMessageSounds.constBegin(); it != qmMessageSounds.constEnd(); ++it) {
-		g.qs->setArrayIndex(it.key());
+		settings_ptr->setArrayIndex(it.key());
 		SAVELOAD(qmMessageSounds[it.key()], "logsound");
 	}
-	g.qs->endArray();
+	settings_ptr->endArray();
 
-	g.qs->beginGroup(QLatin1String("lcd/devices"));
+	settings_ptr->beginGroup(QLatin1String("lcd/devices"));
 	foreach(const QString &d, qmLCDDevices.keys()) {
 		bool v = qmLCDDevices.value(d);
 		if (!v)
-			g.qs->setValue(d, v);
+			settings_ptr->setValue(d, v);
 		else
-			g.qs->remove(d);
+			settings_ptr->remove(d);
 	}
-	g.qs->endGroup();
+	settings_ptr->endGroup();
 
-	g.qs->beginGroup(QLatin1String("audio/plugins"));
+	settings_ptr->beginGroup(QLatin1String("audio/plugins"));
 	foreach(const QString &d, qmPositionalAudioPlugins.keys()) {
 		bool v = qmPositionalAudioPlugins.value(d);
 		if (!v)
-			g.qs->setValue(d, v);
+			settings_ptr->setValue(d, v);
 		else
-			g.qs->remove(d);
+			settings_ptr->remove(d);
 	}
-	g.qs->endGroup();
+	settings_ptr->endGroup();
 
-	g.qs->beginGroup(QLatin1String("overlay"));
-	os.save();
-	g.qs->endGroup();
+	settings_ptr->beginGroup(QLatin1String("overlay"));
+	os.save(settings_ptr);
+	settings_ptr->endGroup();
 }
