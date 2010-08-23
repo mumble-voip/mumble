@@ -38,6 +38,7 @@
 #include "ui_Overlay.h"
 #include "ui_OverlayEditor.h"
 #include "../../overlay/overlay.h"
+#include "OverlayText.h"
 
 class User;
 class Overlay;
@@ -233,12 +234,22 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(OverlayConfig)
+
+		void initDisplay();
+		void refreshFpsDemo();
+		void refreshFpsLive();
 	protected:
 		QPixmap qpScreen;
 		QGraphicsPixmapItem *qgpiScreen;
 		QGraphicsScene qgs;
+		QGraphicsScene qgsFpsPreview;
+		BasepointPixmap bpFpsDemo;
+		QGraphicsPixmapItem *qgpiFpsDemo;
+		QGraphicsPixmapItem *qgpiFpsLive;
 		OverlayUserGroup *oug;
 		QGraphicsTextItem *qgtiInstructions;
+
+		float fViewScale;
 
 		bool eventFilter(QObject *, QEvent *);
 
@@ -262,6 +273,10 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void on_qrbBlacklist_toggled(bool);
 		void on_qcbEnable_stateChanged(int);
 		void on_qswOverlayPage_currentChanged(int idx);
+		void on_qcbShowFps_stateChanged(int);
+		void on_qpbFpsFont_clicked();
+		void on_qpbFpsColor_clicked();
+		void on_qpbReset_clicked();
 		void resizeScene();
 	public:
 		OverlayConfig(Settings &st);

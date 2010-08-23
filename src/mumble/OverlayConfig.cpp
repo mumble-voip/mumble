@@ -49,26 +49,29 @@ static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
 static ConfigRegistrar registrar(6000, OverlayConfigDialogNew);
 #endif
 
-OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
-	setupUi(this);
+void OverlayConfig::initDisplay() {
+	// set up FPS preview
+	qgsFpsPreview.clear();
+	qgsFpsPreview.setBackgroundBrush(qgvFpsPreview->backgroundBrush());
 
-	if (! isInstalled()) {
-		qswOverlayPage->setCurrentWidget(qwOverlayInstall);
-	} else if (needsUpgrade()) {
-		qswOverlayPage->setCurrentWidget(qwOverlayUpgrade);
-	} else {
-		qswOverlayPage->setCurrentWidget(qwOverlayConfig);
-	}
-	on_qswOverlayPage_currentChanged(qswOverlayPage->currentIndex());
+	qgpiFpsDemo = new QGraphicsPixmapItem();
+	refreshFpsDemo();
 
-	qgs.setBackgroundBrush(QColor(128, 128, 128, 255));
+	qgsFpsPreview.addItem(qgpiFpsDemo);
+	qgpiFpsDemo->show();
 
-	qpScreen = QPixmap::grabWindow(QApplication::desktop()->winId());
+	qgvFpsPreview->setScene(&qgsFpsPreview);
+	qgvFpsPreview->centerOn(qgpiFpsDemo);
 
+	// set up overlay preview
 	qgpiScreen = new QGraphicsPixmapItem();
 	qgpiScreen->setPixmap(qpScreen);
 	qgpiScreen->setOpacity(0.5f);
 	qgpiScreen->setZValue(-10.0f);
+
+	qgpiFpsLive = new QGraphicsPixmapItem();
+	qgpiFpsLive->setZValue(-2.0f);
+	refreshFpsLive();
 
 	qgtiInstructions = new QGraphicsTextItem();
 	qgtiInstructions->setHtml(QString::fromLatin1("<ul><li>%1</li><li>%2</li><li>%3</li></ul>").arg(
@@ -80,14 +83,18 @@ OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 	qgtiInstructions->setZValue(-5.0f);
 	qgtiInstructions->setDefaultTextColor(Qt::white);
 
+	qgs.clear();
 	qgs.setSceneRect(QRectF(0, 0, qgpiScreen->pixmap().width(), qgpiScreen->pixmap().height()));
-
-	oug = new OverlayUserGroup(& s.os);
-	oug->bShowExamples = true;
+	qgs.setBackgroundBrush(QColor(128, 128, 128, 255));
 
 	qgs.addItem(qgpiScreen);
 	qgpiScreen->show();
 
+	qgs.addItem(qgpiFpsLive);
+	qgpiFpsLive->show();
+
+	oug = new OverlayUserGroup(&s.os);
+	oug->bShowExamples = true;
 	qgs.addItem(oug);
 	oug->show();
 
@@ -97,6 +104,63 @@ OverlayConfig::OverlayConfig(Settings &st) : ConfigWidget(st) {
 	qgvView->setScene(&qgs);
 
 	qgvView->installEventFilter(this);
+}
+
+void OverlayConfig::refreshFpsDemo() {
+	bpFpsDemo = OverlayTextLine(tr("FPS: %1").arg(42), s.os.qfFps).createPixmap(s.os.qcFps);
+	qgpiFpsDemo->setPixmap(bpFpsDemo);
+	qgvFpsPreview->centerOn(qgpiFpsDemo);
+}
+
+void OverlayConfig::refreshFpsLive() {
+	if (s.os.bFps) {
+		qgpiFpsLive->setPos(s.os.qrfFps.topLeft() * fViewScale);
+		qgpiFpsLive->setPixmap(bpFpsDemo.scaled(bpFpsDemo.size() * fViewScale));
+		qgpiFpsLive->setOffset((-bpFpsDemo.qpBasePoint + QPoint(0, bpFpsDemo.iAscent)) * fViewScale);
+	} else {
+		qgpiFpsLive->setPixmap(QPixmap());
+	}
+}
+
+OverlayConfig::OverlayConfig(Settings &st) :
+	ConfigWidget(st),
+	qgpiScreen(NULL),
+	qgs(),
+	qgsFpsPreview(),
+	qgpiFpsDemo(NULL),
+	oug(NULL),
+	qgtiInstructions(NULL),
+	fViewScale(1.0f)
+{
+	setupUi(this);
+
+	if (! isInstalled()) {
+		qswOverlayPage->setCurrentWidget(qwOverlayInstall);
+	} else if (needsUpgrade()) {
+		qswOverlayPage->setCurrentWidget(qwOverlayUpgrade);
+	} else {
+		qswOverlayPage->setCurrentWidget(qwOverlayConfig);
+	}
+	on_qswOverlayPage_currentChanged(qswOverlayPage->currentIndex());
+
+	// grab a desktop screenshot as background
+	QRect dsg = QApplication::desktop()->screenGeometry();
+	qpScreen = QPixmap::grabWindow(QApplication::desktop()->winId(), dsg.x(), dsg.y(), dsg.width(), dsg.height());
+	if (qpScreen.size().isEmpty()) {
+		qWarning() << __FUNCTION__ << "failed to grab desktop image, trying desktop widget...";
+
+		qpScreen = QPixmap::grabWidget(QApplication::desktop(), dsg);
+
+		if(qpScreen.size().isEmpty()) {
+			qWarning() << __FUNCTION__ << "failed to grab desktop widget image, falling back.";
+
+			QRect desktop_size = QApplication::desktop()->screenGeometry();
+			qpScreen = QPixmap(desktop_size.width(), desktop_size.height());
+			qpScreen.fill(Qt::darkGreen);
+		}
+	}
+
+	initDisplay();
 
 	// Attach the upgrade button to the install click handler. Currently, the
 	// actions they perform are the same. The distinction is only there to inform
@@ -216,12 +280,12 @@ void OverlayConfig::load(const Settings &r) {
 	}
 }
 
-bool OverlayConfig::expert(bool expert) {
+bool OverlayConfig::expert(bool show_expert) {
 #ifdef Q_OS_LINUX
-	Q_UNUSED(expert);
+	Q_UNUSED(show_expert);
 	qgbExceptions->setVisible(false);
 #else
-	qgbExceptions->setVisible(expert);
+	qgbExceptions->setVisible(show_expert);
 #endif
 	return true;
 }
@@ -272,8 +336,17 @@ bool OverlayConfig::eventFilter(QObject *obj, QEvent *evt) {
 void OverlayConfig::resizeScene() {
 	QSize sz = qgvView->viewport()->size();
 
+	int ph = qgpiScreen->pixmap().height();
+	int pw = qgpiScreen->pixmap().width();
+	if (( (ph == sz.height() && pw <= sz.width()) || (ph <= sz.height() && pw == sz.width()) )) {
+		return;
+	}
+
 	qgpiScreen->setPixmap(qpScreen.scaled(sz, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 	qgs.setSceneRect(QRectF(0, 0, qgpiScreen->pixmap().width(), qgpiScreen->pixmap().height()));
+
+	fViewScale = static_cast<float>(qgpiScreen->pixmap().height()) / static_cast<float>(qpScreen.height());
+	refreshFpsLive();
 
 	QFont f = qgtiInstructions->font();
 	f.setPointSizeF(qgs.sceneRect().height() / 20.0f);
@@ -323,7 +396,7 @@ void OverlayConfig::on_qrbBlacklist_toggled(bool checked) {
 }
 
 void OverlayConfig::on_qcbEnable_stateChanged(int state) {
-	qcbShowFps->setEnabled(state == Qt::Checked);
+	qgpFps->setEnabled(state == Qt::Checked);
 }
 
 void OverlayConfig::on_qswOverlayPage_currentChanged(int) {
@@ -384,4 +457,49 @@ void OverlayConfig::on_qpbUninstall_clicked() {
 
 void OverlayConfig::on_qpbShowCerts_clicked() {
 	showCertificates();
+}
+
+void OverlayConfig::on_qcbShowFps_stateChanged(int state) {
+	s.os.bFps = qcbShowFps->isChecked();
+	refreshFpsLive();
+}
+
+void OverlayConfig::on_qpbFpsFont_clicked() {
+	bool ok;
+	QFont new_font = QFontDialog::getFont(&ok, s.os.qfFps);
+
+	if(ok) {
+		s.os.qfFps = new_font;
+
+		refreshFpsDemo();
+		refreshFpsLive();
+	}
+}
+
+void OverlayConfig::on_qpbFpsColor_clicked() {
+	QColor color = QColorDialog::getColor(s.os.qcFps);
+
+	if(color.isValid()) {
+		s.os.qcFps = color;
+
+		refreshFpsDemo();
+		refreshFpsLive();
+	}
+}
+
+void OverlayConfig::on_qpbReset_clicked() {
+	QMessageBox warning;
+	warning.setIcon(QMessageBox::Question);
+	warning.setText(tr("<b>Reset all overlay settings?</b>"));
+	warning.setInformativeText(tr("Clicking \"Yes\" below will overwrite all your overlay settings, and restore the defaults. If you are not sure that you want to do this, click \"No\". In any case, the reset will not become effective before you exit the configuration dialog. Cancelling the configuration dialog will revert the reset."));
+	warning.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+	warning.setDefaultButton(QMessageBox::No);
+
+	if(warning.exec() == QMessageBox::Yes) {
+		qWarning() << "Resetting overlay";
+		s.os = OverlaySettings();
+
+		initDisplay();
+		resizeScene();
+	}
 }
