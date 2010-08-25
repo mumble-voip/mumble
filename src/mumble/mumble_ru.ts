@@ -137,7 +137,7 @@
     </message>
     <message>
         <source>Accept changes</source>
-        <translation type="obsolete">Принять изменения</translation>
+        <translation type="obsolete">Применить изменения</translation>
     </message>
     <message>
         <source>This button will accept current groups/ACLs and send them to the server. Note that if you mistakenly remove write permission from yourself, the server will add it.</source>
@@ -149,7 +149,7 @@
     </message>
     <message>
         <source>Reject changes</source>
-        <translation type="obsolete">Отклонить изменения</translation>
+        <translation type="obsolete">Отменить изменения</translation>
     </message>
     <message>
         <source>This button will cancel all changes and closes the dialog without updating the ACLs or groups on the server.</source>
@@ -1359,7 +1359,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation>Мультиканальный</translation>
+        <translation>Многоканальный</translation>
     </message>
     <message>
         <location/>
@@ -1451,22 +1451,22 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>R&amp;eset</source>
-        <translation type="unfinished"></translation>
+        <translation>С&amp;бросить</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Обзор...</translation>
     </message>
     <message>
         <location/>
         <source>B&amp;rowse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Об&amp;зор...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Про&amp;играть</translation>
     </message>
 </context>
 <context>
@@ -2627,7 +2627,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Accept changes</source>
-        <translation type="obsolete">Принять изменения</translation>
+        <translation type="obsolete">Применить изменения</translation>
     </message>
     <message>
         <source>This button will accept current groups/ACLs and send them to the server. Note that if you mistakenly remove write permission from yourself, the server will add it.</source>
@@ -3334,7 +3334,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Recording</source>
-        <translation type="unfinished"></translation>
+        <translation>Запись</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3382,7 +3382,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConfigDialog.cpp" line="+54"/>
         <source>Accept changes</source>
-        <translation>Принять изменения</translation>
+        <translation>Применить изменения</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3435,7 +3435,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+1"/>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <translation>Вернуть стандартные настройки для этой страницы. Другие страницы не будут изменены.&lt;br /&gt;Чтобы вернуть все настройки на стандартные, вы должны нажать эту кнопку на всех страницах.</translation>
+        <translation>Вернуть настройки по-умолчанию для данной страницы. Другие страницы не будут изменены.&lt;br /&gt;Чтобы вернуть все настройки по-умолчанию, Вы должны нажать эту кнопку на всех страницах.</translation>
     </message>
 </context>
 <context>
@@ -3443,52 +3443,52 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConfigDialog_macx.mm" line="+70"/>
         <source>Accept changes</source>
-        <translation type="unfinished">Принять изменения</translation>
+        <translation>Применить изменения</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
-        <translation type="unfinished">Применить текущие настройки и вернуться в приложение.&lt;br /&gt;Настройки будут сохранены на диск при выходе из приложения.</translation>
+        <translation>Применить текущие настройки и вернуться в приложение.&lt;br /&gt;Настройки будут сохранены на диск при выходе из приложения.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Reject changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Отменить изменения</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
-        <translation type="unfinished">Отменить все изменения и вернуться в приложение.&lt;br /&gt;Настройки будут сброшены до предыдущих значений.</translation>
+        <translation>Отменить все изменения и вернуться в приложение.&lt;br /&gt;Настройки будут сброшены до предыдущих значений.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Apply changes</source>
-        <translation type="unfinished">Применить изменения</translation>
+        <translation>Применить изменения</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will immediately apply all changes.</source>
-        <translation type="unfinished">Немедленно применяет все изменения.</translation>
+        <translation>Немедленно применяет все изменения.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Undo changes for current page</source>
-        <translation type="unfinished">Отменить изменения на текущей странице</translation>
+        <translation>Отменить изменения на текущей странице</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
-        <translation type="unfinished">Отменить любые изменения, совершенные на этой странице.</translation>
+        <translation>Отменить любые изменения, совершенные на этой странице.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Restore defaults for current page</source>
-        <translation type="unfinished">Восстановить стандартные настройки на этой странице</translation>
+        <translation>Восстановить стандартные настройки на этой странице</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <translation type="unfinished">Вернуть стандартные настройки для этой страницы. Другие страницы не будут изменены.&lt;br /&gt;Чтобы вернуть все настройки на стандартные, вы должны нажать эту кнопку на всех страницах.</translation>
+        <translation>Вернуть настройки по-умолчанию для данной страницы. Другие страницы не будут изменены.&lt;br /&gt;Чтобы вернуть все настройки по-умолчанию, Вы должны нажать эту кнопку на всех страницах.</translation>
     </message>
 </context>
 <context>
@@ -4752,12 +4752,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Length threshold</source>
-        <translation>Макс. длинна</translation>
+        <translation>Макс. длина</translation>
     </message>
     <message>
         <location/>
         <source>Message length threshold for Text-To-Speech Engine</source>
-        <translation>Максимальная длинна текста, который будет прочитан функцией Текст-в-речь</translation>
+        <translation>Максимальная длина текста, который будет прочитан функцией Текст-в-речь</translation>
     </message>
     <message>
         <location/>
@@ -4985,7 +4985,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Ask on quit while connected</source>
-        <translation>Спрашивать о выходе, когда подлключен к серверу</translation>
+        <translation>Спрашивать о выходе, когда подключен к серверу</translation>
     </message>
     <message>
         <location/>
@@ -5110,7 +5110,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Обзор...</translation>
     </message>
 </context>
 <context>
@@ -5956,22 +5956,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+11"/>
         <source>Recording started</source>
-        <translation type="unfinished"></translation>
+        <translation>Началась запись</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Recording stopped</source>
-        <translation type="unfinished"></translation>
+        <translation>Запись остановилась</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 started recording.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 начал запись.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 stopped recording.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 остановил запись.</translation>
     </message>
     <message>
         <location line="+41"/>
@@ -5981,7 +5981,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+96"/>
         <source>%1 is recording</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 записывает</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -6914,7 +6914,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Recording</source>
-        <translation type="unfinished"></translation>
+        <translation>Запись</translation>
     </message>
 </context>
 <context>
@@ -7151,7 +7151,7 @@ Prevents the client from downloading images embedded into chat messages with the
     </message>
     <message>
         <source>Download plugin updates on startup</source>
-        <translation type="obsolete">Загружать обновленые плагины при запуске</translation>
+        <translation type="obsolete">Загружать обновленные плагины при запуске</translation>
     </message>
     <message>
         <location/>
@@ -7181,7 +7181,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Download plugin and overlay updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Загружать обновления плагинов и замещения при запуске</translation>
     </message>
 </context>
 <context>
@@ -7259,12 +7259,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+256"/>
         <source>Skipping overlay update in debug mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Пропускать обновление замещения в режиме отладки.</translation>
     </message>
     <message>
         <location line="+66"/>
         <source>Downloaded new or updated overlay support file to %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Загружен новый или обновленный файл поддержки замещения в %1.</translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -7706,7 +7706,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Add...</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить...</translation>
     </message>
 </context>
 <context>
@@ -9089,22 +9089,22 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+109"/>
         <source>.wav - Uncompressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.wav - Несжатый</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>.ogg (Vorbis) - Compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.ogg (Vorbis) - Сжатый</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>.au - Uncompressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.au - Несжатый</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>.flac - Lossless compressed</source>
-        <translation type="unfinished"></translation>
+        <translation>.flac - Сжатый без потерь</translation>
     </message>
 </context>
 <context>
@@ -9117,62 +9117,62 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+9"/>
         <location line="+135"/>
         <source>Recorder</source>
-        <translation type="unfinished"></translation>
+        <translation>Запись</translation>
     </message>
     <message>
         <location/>
         <source>Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Управление</translation>
     </message>
     <message>
         <location/>
         <source>00:00:00</source>
-        <translation type="unfinished"></translation>
+        <translation>00:00:00</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Start</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Старт</translation>
     </message>
     <message>
         <location/>
         <source>S&amp;top</source>
-        <translation type="unfinished"></translation>
+        <translation>С&amp;топ</translation>
     </message>
     <message>
         <location/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим</translation>
     </message>
     <message>
         <location/>
         <source>Mixdown</source>
-        <translation type="unfinished"></translation>
+        <translation>Сведеный</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation type="unfinished">Мультиканальный</translation>
+        <translation>Многоканальный</translation>
     </message>
     <message>
         <location/>
         <source>Output</source>
-        <translation type="unfinished">Вывод</translation>
+        <translation>Вывод</translation>
     </message>
     <message>
         <location/>
         <source>Output format</source>
-        <translation type="unfinished"></translation>
+        <translation>Исходящий формат</translation>
     </message>
     <message>
         <location/>
         <source>Target directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Целевая папка</translation>
     </message>
     <message>
         <location/>
         <source>Filename</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя файла</translation>
     </message>
     <message>
         <location/>
@@ -9183,48 +9183,54 @@ Valid variables are:
 %time	Inserts the current time
 %host	Inserts the hostname
 &lt;/pre&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;pre&gt;
+Доcтупные варианты:
+%user	Вставляет имя пользователя
+%date	Вставляет текущую дату
+%time	Вставляет текущее время
+%host	Вставляет адрес сервера
+&lt;pre&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Обзор...</translation>
     </message>
     <message>
         <location filename="VoiceRecorderDialog.cpp" line="-194"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыв запись, Вы остановите текущую запись. Вы уверены, что хотите закрыть запись?</translation>
     </message>
     <message>
         <location line="+32"/>
         <source>Recoder</source>
-        <translation type="unfinished"></translation>
+        <translation>Кодировщик</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Unable to start recording. Not connected to a server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно начать запись. Нет подключения к серверу.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
 Please contact your server administrator for further information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер, к которому Вы подключены в данный момент версии 1.2.2 или ниже. По соображениям конфиденциальности, запись на серверах версий ниже 1.2.3 невозможна.&lt;br /&gt;Пожалуйста, свяжитесь с Вашим Администратором для дополнительной информации.</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>There is already a recorder active for this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Запись уже производится на данном сервере.</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Please select a recording format.</source>
-        <translation type="unfinished"></translation>
+        <translation>Пожалуйста, установите формат записи.</translation>
     </message>
     <message>
         <location line="+95"/>
         <source>Select target directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите целевую папку</translation>
     </message>
 </context>
 <context>
