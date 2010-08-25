@@ -50,6 +50,7 @@
  <file alias="UserKickedYouOrByYou.ogg">../../samples/UserKickedYouOrByYou.ogg</file>
  <file alias="UserLeftChannel.ogg">../../samples/UserLeftChannel.ogg</file>
  <file alias="UserMutedYouOrByYou.ogg">../../samples/UserMutedYouOrByYou.ogg</file>
+ <file alias="RecordingStateChanged.ogg">../../samples/RecordingStateChanged.ogg</file>
  <file>mumble_en.qm</file>
  <file>mumble_es.qm</file>
  <file>mumble_fr.qm</file>
