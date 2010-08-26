@@ -49,6 +49,7 @@ Usage::Usage(QObject *p) : QObject(p) {
 	QTimer::singleShot(60 * 10 * 1000, this, SLOT(reportJitter()));
 }
 
+#ifdef REPORT_JITTER
 void Usage::addJitter(ClientUser *cu) {
 	QMutexLocker qml(& cu->qmTiming);
 	if (! cu->qlTiming.isEmpty()) {
@@ -56,6 +57,7 @@ void Usage::addJitter(ClientUser *cu) {
 		qdsReport << cu->qlTiming;
 	}
 }
+#endif
 
 void Usage::registerUsage() {
 	if (! g.s.bUsage || g.s.bFirstTime)
@@ -100,6 +102,7 @@ void Usage::registerUsage() {
 }
 
 void Usage::reportJitter() {
+#ifdef REPORT_JITTER
 	QTimer::singleShot(60 * 10 * 1000, this, SLOT(reportJitter()));
 
 	if (qbReport.size() < 1024)
@@ -119,4 +122,5 @@ void Usage::reportJitter() {
 	qdsReport.setDevice(&qbReport);
 	qdsReport.setVersion(QDataStream::Qt_4_4);
 	qdsReport << static_cast<unsigned int>(2);
+#endif
 }

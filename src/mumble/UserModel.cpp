@@ -888,7 +888,9 @@ void UserModel::removeUser(ClientUser *p) {
 
 	updateOverlay();
 
+#ifdef REPORT_JITTER
 	g.mw->uUsage.addJitter(p);
+#endif
 
 	delete p;
 	delete item;
