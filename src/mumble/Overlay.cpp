@@ -167,6 +167,11 @@ void Overlay::toggleShow() {
 				GetProcessPID(&psn, &pid);
 				if (pid != oc->uiPid)
 					continue;
+				// On Mac OS X the interactive overlay only works reliably
+				// if we're in a fullscreen app. Otherwise, the Mumble window
+				// might pop up in front, hiding the application and overlay.
+				if (! CGDisplayIsCaptured(CGMainDisplayID()))
+					continue;
 #endif
 				oc->showGui();
 				return;
