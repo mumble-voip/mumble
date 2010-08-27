@@ -52,28 +52,6 @@ static char crashhandler_fn[PATH_MAX];
 static void crashhandler_signals_restore();
 static void crashhandler_handle_crash();
 
-#ifndef COMPAT_CLIENT
-@interface MumbleNSApplication : NSApplication
-- (void) forwardEvent:(NSDictionary *)dict;
-@end
-
-@implementation MumbleNSApplication
-- (void) forwardEvent:(NSDictionary *)dict {
-	if (! g.ocIntercept)
-		return;
-
-	QWidget *vp = g.ocIntercept->qgv.viewport();
-	NSView *view = (NSView *) vp->winId();
-
-	SEL selector = NSSelectorFromString([dict objectForKey:@"selector"]);
-	NSEvent *evt = [dict objectForKey:@"event"];
-
-	if ([view respondsToSelector:selector])
-		[view performSelector:selector withObject:evt];
-}
-@end
-#endif
-
 static OSErr urlCallback(const AppleEvent *ae, AppleEvent *, SCREWAPPLE) {
 	OSErr err;
 	DescType type;
@@ -232,10 +210,4 @@ void os_init() {
 
 	/* Install Apple Event handler for GURL events. This intercepts any URLs set in Mumble's Info.plist. */
 	AEInstallEventHandler(kInternetEventClass, kAEGetURL, NewAEEventHandlerUPP(urlCallback), 0, false);
-}
-
-void os_preinit() {
-#ifndef COMPAT_CLIENT
-	MumbleNSApplication *ma = [MumbleNSApplication sharedApplication];
-#endif
 }

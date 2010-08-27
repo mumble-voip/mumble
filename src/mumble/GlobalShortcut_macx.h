@@ -59,6 +59,11 @@ class GlobalShortcutMac : public GlobalShortcutEngine {
 		bool handleModButton(CGEventFlags newmask);
 		virtual bool canSuppress();
 
+#ifndef COMPAT_CLIENT
+	public slots:
+		void forwardEvent(void *evt);
+#endif
+
 	protected:
 		CFRunLoopRef loop;
 		CFMachPortRef port;

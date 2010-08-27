@@ -34,6 +34,8 @@
 #include "Overlay.h"
 #endif
 
+#import <AppKit/AppKit.h>
+
 #define MOD_OFFSET   0x10000
 #define MOUSE_OFFSET 0x20000
 
@@ -79,92 +81,6 @@ static GlobalShortcutMacInit gsminit;
 GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutMac();
 }
-
-#ifndef COMPAT_CLIENT
-static void forwardEvent(NSEvent *evt) {
-	SEL sel = nil;
-
-	switch ([evt type]) {
-		case NSLeftMouseDown:
-			sel = @selector(mouseDown:);
-			break;
-		case NSLeftMouseUp:
-			sel = @selector(mouseUp:);
-			break;
-		case NSLeftMouseDragged:
-			sel = @selector(mouseDragged:);
-			break;
-		case NSRightMouseDown:
-			sel = @selector(rightMouseDown:);
-			break;
-		case NSRightMouseUp:
-			sel = @selector(rightMouseUp:);
-			break;
-		case NSRightMouseDragged:
-			sel = @selector(rightMouseDragged:);
-			break;
-		case NSOtherMouseDown:
-			sel = @selector(otherMouseDown:);
-			break;
-		case NSOtherMouseUp:
-			sel = @selector(otherMouseUp:);
-			break;
-		case NSOtherMouseDragged:
-			sel = @selector(otherMouseDragged:);
-			break;
-		case NSMouseEntered:
-			sel = @selector(mouseEntered:);
-			break;
-		case NSMouseExited:
-			sel = @selector(mouseExited:);
-			break;
-		case NSMouseMoved:
-			sel = @selector(mouseMoved:);
-			break;
-	}
-
-	if (sel) {
-		NSPoint p; p.x = (CGFloat) g.ocIntercept->iMouseX;
-		p.y = (CGFloat) (g.ocIntercept->uiHeight - g.ocIntercept->iMouseY);
-		NSEvent *mouseEvent = [NSEvent mouseEventWithType:[evt type] location:p modifierFlags:[evt modifierFlags] timestamp:[evt timestamp]
-		                               windowNumber:0 context:nil eventNumber:[evt eventNumber] clickCount:[evt clickCount]
-		                               pressure:[evt pressure]];
-		NSApplication *app = [NSApplication sharedApplication];
-		NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-		[dict setObject:NSStringFromSelector(sel) forKey:@"selector"];
-		[dict setObject:mouseEvent forKey:@"event"];
-		[app performSelector:@selector(forwardEvent:) onThread:[NSThread mainThread] withObject:dict waitUntilDone:NO];
-		[dict release];
-		return;
-	}
-
-	switch ([evt type]) {
-		case NSKeyDown:
-			sel = @selector(keyDown:);
-			break;
-		case NSKeyUp:
-			sel = @selector(keyUp:);
-			break;
-		case NSFlagsChanged:
-			sel = @selector(flagsChanged:);
-			break;
-		case NSScrollWheel:
-			sel = @selector(scrollWheel:);
-			break;
-		default:
-			break;
-	}
-
-	if (sel) {
-		NSApplication *app = [NSApplication sharedApplication];
-		NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-		[dict setObject:NSStringFromSelector(sel) forKey:@"selector"];
-		[dict setObject:evt forKey:@"event"];
-		[app performSelector:@selector(forwardEvent:) onThread:[NSThread mainThread] withObject:dict waitUntilDone:NO];
-		[dict release];
-	}
-}
-#endif
 
 CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
                                        CGEventRef event, void *udata) {
@@ -254,8 +170,8 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 #ifndef COMPAT_CLIENT
 		if (forward && g.ocIntercept) {
 			NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-			NSEvent *evt = [NSEvent eventWithCGEvent:event];
-			forwardEvent(evt);
+			NSEvent *evt = [[NSEvent eventWithCGEvent:event] retain];
+			QMetaObject::invokeMethod(gs, "forwardEvent", Qt::QueuedConnection, Q_ARG(void *, evt));
 			[pool release];
 			return NULL;
 		}
@@ -315,6 +231,92 @@ GlobalShortcutMac::~GlobalShortcutMac() {
 	CFRunLoopStop(loop);
 	loop = NULL;
 	wait();
+}
+
+void GlobalShortcutMac::forwardEvent(void *evt) {
+	NSEvent *event = (NSEvent *)evt;
+	SEL sel = nil;
+
+	if (! g.ocIntercept)
+		return;
+
+	QWidget *vp = g.ocIntercept->qgv.viewport();
+	NSView *view = (NSView *) vp->winId();
+
+	switch ([event type]) {
+		case NSLeftMouseDown:
+			sel = @selector(mouseDown:);
+			break;
+		case NSLeftMouseUp:
+			sel = @selector(mouseUp:);
+			break;
+		case NSLeftMouseDragged:
+			sel = @selector(mouseDragged:);
+			break;
+		case NSRightMouseDown:
+			sel = @selector(rightMouseDown:);
+			break;
+		case NSRightMouseUp:
+			sel = @selector(rightMouseUp:);
+			break;
+		case NSRightMouseDragged:
+			sel = @selector(rightMouseDragged:);
+			break;
+		case NSOtherMouseDown:
+			sel = @selector(otherMouseDown:);
+			break;
+		case NSOtherMouseUp:
+			sel = @selector(otherMouseUp:);
+			break;
+		case NSOtherMouseDragged:
+			sel = @selector(otherMouseDragged:);
+			break;
+		case NSMouseEntered:
+			sel = @selector(mouseEntered:);
+			break;
+		case NSMouseExited:
+			sel = @selector(mouseExited:);
+			break;
+		case NSMouseMoved:
+			sel = @selector(mouseMoved:);
+			break;
+	}
+
+	if (sel) {
+		NSPoint p; p.x = (CGFloat) g.ocIntercept->iMouseX;
+		p.y = (CGFloat) (g.ocIntercept->uiHeight - g.ocIntercept->iMouseY);
+		NSEvent *mouseEvent = [NSEvent mouseEventWithType:[event type] location:p modifierFlags:[event modifierFlags] timestamp:[event timestamp]
+		                               windowNumber:0 context:nil eventNumber:[event eventNumber] clickCount:[event clickCount]
+		                               pressure:[event pressure]];
+		if ([view respondsToSelector:sel])
+				[view performSelector:sel withObject:mouseEvent];
+		[event release];
+		return;
+	}
+
+	switch ([event type]) {
+		case NSKeyDown:
+			sel = @selector(keyDown:);
+			break;
+		case NSKeyUp:
+			sel = @selector(keyUp:);
+			break;
+		case NSFlagsChanged:
+			sel = @selector(flagsChanged:);
+			break;
+		case NSScrollWheel:
+			sel = @selector(scrollWheel:);
+			break;
+		default:
+			break;
+	}
+
+	if (sel) {
+		if ([view respondsToSelector:sel])
+				[view performSelector:sel withObject:event];
+	}
+
+	[event release];
 }
 
 void GlobalShortcutMac::run() {
