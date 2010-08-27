@@ -252,7 +252,9 @@ void OverlayClient::showGui() {
 	qgpiCursor->setPos(iMouseX, iMouseY);
 
 	qgs.setFocus();
+#ifndef Q_OS_MAC
 	g.mw->qteChat->activateWindow();
+#endif
 	g.mw->qteChat->setFocus();
 
 	qgv.setAttribute(Qt::WA_WState_Hidden, false);
