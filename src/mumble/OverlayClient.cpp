@@ -219,16 +219,8 @@ void OverlayClient::showGui() {
 	foreach(QWidget *w, widgets) {
 		if ((w == g.mw) || (! w->isHidden())) {
 			QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(NULL, Qt::Window);
-
-			// fixme(mkrautz): Translucent windows produce graphical artifacts on OSX QGraphicsView.
-#ifdef Q_OS_MAC
-			qgpw->setOpacity(1.0f);
-#else
 			qgpw->setOpacity(0.90f);
-#endif
 			qgpw->setWidget(w);
-
-
 			if (w == g.mw) {
 				qgpw->setPos(uiWidth / 10, uiHeight / 10);
 				qgpw->resize((uiWidth * 8) / 10, (uiHeight * 8) / 10);
