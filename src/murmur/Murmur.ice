@@ -34,6 +34,8 @@ module Murmur
 		bool selfMute;
 		/** Is the user self-deafened? If true, this implies mute. */
 		bool selfDeaf;
+		/** Is the User recording? (This flag is read-only and cannot be changed using setState().) **/
+		bool recording;
 		/** Channel ID the user is in. Matches {@link Channel.id}. */
 		int channel;
 		/** The name of the user. */

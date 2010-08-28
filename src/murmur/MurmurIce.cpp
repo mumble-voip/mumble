@@ -74,6 +74,7 @@ static void userToUser(const ::User *p, Murmur::User &mp) {
 	mp.mute = p->bMute;
 	mp.deaf = p->bDeaf;
 	mp.suppress = p->bSuppress;
+	mp.recording = p->bRecording;
 	mp.prioritySpeaker = p->bPrioritySpeaker;
 	mp.selfMute = p->bSelfMute;
 	mp.selfDeaf = p->bSelfDeaf;
