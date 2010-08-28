@@ -111,6 +111,10 @@ int main(int argc, char **argv) {
 
 	QT_REQUIRE_VERSION(argc, argv, "4.4.0");
 
+#if defined(Q_OS_WIN)
+	SetDllDirectory(L"");
+#endif
+
 	// Initialize application object.
 	QAppMumble a(argc, argv);
 	a.setApplicationName(QLatin1String("Mumble"));

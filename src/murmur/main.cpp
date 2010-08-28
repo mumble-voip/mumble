@@ -140,8 +140,9 @@ int main(int argc, char **argv) {
 		::MessageBoxA(NULL, "Mumble requires a SSE capable processor (Pentium 3 / Ahtlon-XP)", "Mumble", MB_OK | MB_ICONERROR);
 		exit(0);
 	}
-#endif
 
+	SetDllDirectory(L"");
+#endif
 	int res;
 
 #ifdef USE_ICE
