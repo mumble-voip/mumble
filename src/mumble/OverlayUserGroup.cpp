@@ -81,7 +81,17 @@ int OverlayUserGroup::type() const {
 void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 	event->accept();
 
+#ifdef Q_OS_MAC
+	bool embed = g.ocIntercept != NULL;
+	QMenu qm(embed ? NULL : event->widget());
+	if (embed) {
+		QGraphicsScene *scene = g.ocIntercept->qgv.scene();
+		scene->addWidget(&qm);
+	}
+#else
 	QMenu qm(g.ocIntercept ? g.mw : event->widget());
+#endif
+
 	QMenu *qmShow = qm.addMenu(OverlayClient::tr("Filter"));
 
 	QAction *qaShowTalking = qmShow->addAction(OverlayClient::tr("Only talking"));
