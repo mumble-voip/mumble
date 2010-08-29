@@ -352,10 +352,12 @@ void MainWindow::setupGui()  {
 
 #ifdef QT_MAC_USE_COCOA
 	setWindowOpacity(1.0f);
+#if QT_VERSION < 0x040700
 	// Process pending events.  This is done to force the unified
 	// toolbar to show up as soon as possible (and not wait until
 	// we are back into the Cocoa mainloop)
 	qApp->processEvents();
+#endif
 #endif
 }
 
