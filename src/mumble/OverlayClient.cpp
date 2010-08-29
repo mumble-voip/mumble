@@ -258,6 +258,8 @@ void OverlayClient::showGui() {
 #ifdef Q_OS_MAC
 	qApp->setAttribute(Qt::AA_DontUseNativeMenuBar);
 	g.mw->setUnifiedTitleAndToolBarOnMac(false);
+	if (! g.s.os.qsStyle.isEmpty())
+		qApp->setStyle(g.s.os.qsStyle);
 #endif
 
 	setupScene(true);
@@ -321,6 +323,14 @@ void OverlayClient::hideGui() {
 #ifdef Q_OS_MAC
 	qApp->setAttribute(Qt::AA_DontUseNativeMenuBar, false);
 	g.mw->setUnifiedTitleAndToolBarOnMac(true);
+	if (! g.qsCurrentStyle.isEmpty()) {
+		qApp->setStyle(g.qsCurrentStyle);
+	} else {
+		// Assume that an empty qsCurrentStyle means "use the aqua theme".
+		// This might not always be the case (for example, the default style
+		// can be changed via the Qt command line argument "-style".
+		qApp->setStyle(QLatin1String("Macintosh (aqua)"));
+	}
 #endif
 
 	setupScene(false);

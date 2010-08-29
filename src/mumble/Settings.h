@@ -78,6 +78,8 @@ struct OverlaySettings {
 
 	bool bEnable;
 
+	QString qsStyle;
+
 	OverlayShow osShow;
 	bool bAlwaysSelf;
 

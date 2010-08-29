@@ -118,6 +118,10 @@ const QString Settings::cqsDefaultPushClickOff = QLatin1String(":/off.ogg");
 OverlaySettings::OverlaySettings() {
 	bEnable = true;
 
+#ifdef Q_OS_MAC
+	qsStyle = QLatin1String("Cleanlooks");
+#endif
+
 	osShow = LinkedChannels;
 	bAlwaysSelf = true;
 
