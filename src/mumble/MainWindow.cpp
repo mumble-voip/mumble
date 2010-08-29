@@ -2427,7 +2427,7 @@ void MainWindow::on_qteLog_anchorClicked(const QUrl &url) {
 	// we're intercepting all events. This can be very confusing (because
 	// the user can't click on anything before they dismiss the overlay
 	// by hitting their toggle hotkey), so let's disallow clicking links
-	//when embedded into the overlay for now.
+	// when embedded into the overlay for now.
 	if (g.ocIntercept)
 		return;
 #endif
