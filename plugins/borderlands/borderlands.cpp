@@ -31,35 +31,41 @@
 
 #include "../mumble_plugin_win32.h"
 
-unsigned int offset = 0;
 BYTE *posptr;
 BYTE *frontptr;
 BYTE *topptr;
-BYTE *contextptr;
+BYTE *contextptraddress;
+BYTE *stateaddress;
+BYTE *loginaddress;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
-	char logincheck;
-	char state;
+	static bool loggedin = false;
+	static BYTE *contextptr;
 	bool ok;
-	// containers that will hold raw unedited data.
-	char ccontext[64];
-	float pos_corrector[3];
-	float front_corrector[3];
-	float top_corrector[3];
 
+	// Zeroing the floats
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
-	// When your are not logged in and the context pointer will not work.
-	ok = peekProc((BYTE *) 0x01fdb388 - offset, &logincheck, 1);
+	// When you log in the context pointer needs to be set.
+	char login;
+	ok = peekProc(loginaddress, &login, sizeof(login));
 	if (! ok)
 		return false;
 
-	if (logincheck == 0)
-		return false;
+	if (login == 0) {
+		loggedin = false;
+	} else if (!loggedin) {
+		BYTE *ptr1 = peekProc<BYTE *>(contextptraddress);
+		BYTE *ptr2 = peekProc<BYTE *>(ptr1 + 0x28c);
+		BYTE *ptr3 = peekProc<BYTE *>(ptr2 + 0x210);
+		if (ptr3 != 0) loggedin = true; //pointer set
+		contextptr = ptr3 + 0x2c;
+	}
 
-	// State value is working most of the time.
-	ok = peekProc((BYTE *) 0x01f9eaf8 - offset, &state, 1); // Magical state value
+	// Magic State value
+	char state;
+	ok = peekProc(stateaddress, &state, sizeof(state));
 	if (! ok)
 		return false;
 
@@ -67,11 +73,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (state == 0)
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 
+	float pos_corrector[3];
+	float front_corrector[3];
+	float top_corrector[3];
 	ok = peekProc(posptr, &pos_corrector, 12) &&
 	     peekProc(frontptr, &front_corrector, 12) &&
-	     peekProc(topptr, &top_corrector, 12) &&
-	     peekProc(contextptr, &ccontext, 64);
-
+	     peekProc(topptr, &top_corrector, 12);
 	if (! ok)
 		return false;
 
@@ -101,38 +108,65 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		camera_top[i] = avatar_top[i];
 	}
 
-	ccontext[63] = 0;
-	context = std::string(ccontext);
-	if (context.find("bderlandspc") != std::string::npos)
-		context.erase(0, context.find("bderlandspc"));
-	if (context.find(":7777") != std::string::npos)
-		context.erase(context.find(":7777") + 5);
+	if (loggedin) {
+		char ccontext[64];
+		ok = peekProc(contextptr, &ccontext, sizeof(ccontext));
+		if (! ok)
+			return false;
+
+		context.assign(ccontext, sizeof(ccontext));
+		if (context.find("bderlandspc") != std::string::npos)
+			context.erase(0, context.find("bderlandspc"));
+		if (context.find(":7777") != std::string::npos)
+			context.erase(context.find(":7777") + 5);
+	}
 
 	return ok;
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	char german[6];
-	posptr = frontptr = topptr = contextptr = NULL;
+	posptr = frontptr = topptr = contextptraddress = stateaddress = loginaddress = NULL;
 
 	if (!initialize(pids, L"Borderlands.exe"))
 		return false;
 
-	peekProc((BYTE *) 0x01f19cd8, &german, sizeof(german));
-	if (strncmp("german", german, sizeof(german)) == 0)
-		offset = 0x1000;
+	// Trying to assess which version of Borderlands is running.
+	char version[6];
+	if (!peekProc((BYTE *) 0x01f19cd8, &version, sizeof(version))) {
+		generic_unlock();
+		return false;
+	}
 
-	BYTE *ptr1 = peekProc<BYTE *>(pModule + 0x01b76724 - offset);
+	BYTE *ptraddress;
+	if (strncmp("the cl", version, sizeof(version)) == 0) { // retail version
+		ptraddress = (BYTE *) 0x01f76724;
+		stateaddress = (BYTE *) 0x01f9eaf8;
+		contextptraddress = (BYTE *) 0x01fda378;
+		loginaddress = (BYTE *) 0x01fdb388;
+	} else if (strncmp("Tir-ku", version, sizeof(version)) == 0) { // steam version
+		ptraddress = (BYTE *) 0x01f735c4;
+		stateaddress = (BYTE *) 0x01f9b998;
+		contextptraddress = (BYTE *) 0x01fd7218;
+		loginaddress = (BYTE *) 0x01fd8220;
+	} else if (strncmp("german", version, sizeof(version)) == 0) { // german version
+		ptraddress = (BYTE *) 0x01f75724;
+		stateaddress = (BYTE *) 0x01f9daf8;
+		contextptraddress = (BYTE *) 0x01fd9378;
+		loginaddress = (BYTE *) 0x01fda388;
+	} else { // unknown version
+		generic_unlock();
+		return false;
+	}
+
+	BYTE *ptr1 = peekProc<BYTE *>(ptraddress);
+	if (ptr1 == 0) {
+		generic_unlock();
+		return false;
+	}
 
 	posptr = ptr1 + 0x9200;
 	frontptr = ptr1 + 0x9248;
 	topptr = ptr1 + 0x9230;
-
-	ptr1 = peekProc<BYTE *>(pModule + 0x01bda378 - offset);
-	BYTE *ptr2 = peekProc<BYTE *>(ptr1 + 0x28c);
-	BYTE *ptr3 = peekProc<BYTE *>(ptr2 + 0x210);
-
-	contextptr = ptr3 + 0x2c;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;
@@ -147,7 +181,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Borderlands v1.31. No identity support, but is also not needed.");
+	return std::wstring(L"Supports Borderlands v1.31, including german and steam version. Context string is used with online games.");
 }
 
 static std::wstring description(L"Borderlands v1.31");
