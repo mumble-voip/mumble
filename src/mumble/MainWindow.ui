@@ -199,7 +199,7 @@
   <action name="qaServerConnect">
    <property name="icon">
     <iconset resource="mumble_tango.qrc">
-     <normaloff>:/categories/applications-internet.svg</normaloff>:/categories/applications-internet.svg</iconset>
+     <normaloff>skin:categories/applications-internet.svg</normaloff>skin:categories/applications-internet.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Connect</string>
@@ -248,7 +248,7 @@
    </property>
    <property name="icon">
     <iconset resource="mumble.qrc">
-     <normaloff>:/Information_icon.svg</normaloff>:/Information_icon.svg</iconset>
+     <normaloff>skin:Information_icon.svg</normaloff>skin:Information_icon.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Information</string>
@@ -421,9 +421,9 @@
    </property>
    <property name="icon">
     <iconset resource="mumble_tango.qrc">
-     <normaloff>:/actions/audio-input-microphone.svg</normaloff>
-     <normalon>:/actions/audio-input-microphone-muted.svg</normalon>
-     <activeon>:/actions/audio-input-microphone-muted.svg</activeon>:/actions/audio-input-microphone.svg</iconset>
+     <normaloff>skin:actions/audio-input-microphone.svg</normaloff>
+     <normalon>skin:actions/audio-input-microphone-muted.svg</normalon>
+     <activeon>skin:actions/audio-input-microphone-muted.svg</activeon>skin:actions/audio-input-microphone.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Mute Self</string>
@@ -444,9 +444,9 @@
    </property>
    <property name="icon">
     <iconset resource="mumble.qrc">
-     <normaloff>:/self_undeafened.svg</normaloff>
-     <normalon>:/deafened_self.svg</normalon>
-     <activeon>:/deafened_self.svg</activeon>:/self_undeafened.svg</iconset>
+     <normaloff>skin:self_undeafened.svg</normaloff>
+     <normalon>skin:deafened_self.svg</normalon>
+     <activeon>skin:deafened_self.svg</activeon>skin:self_undeafened.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Deafen Self</string>
@@ -500,7 +500,7 @@
   <action name="qaConfigDialog">
    <property name="icon">
     <iconset resource="mumble.qrc">
-     <normaloff>:/config_basic.png</normaloff>:/config_basic.png</iconset>
+     <normaloff>skin:config_basic.png</normaloff>skin:config_basic.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Settings</string>
@@ -748,7 +748,7 @@
   <action name="qaSelfComment">
    <property name="icon">
     <iconset resource="mumble.qrc">
-     <normaloff>:/comment.svg</normaloff>:/comment.svg</iconset>
+     <normaloff>skin:comment.svg</normaloff>skin:comment.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Change Comment</string>
@@ -787,7 +787,7 @@
   <action name="qaRecording">
    <property name="icon">
     <iconset resource="mumble_tango.qrc">
-     <normaloff>:/actions/media-record.svg</normaloff>:/actions/media-record.svg</iconset>
+     <normaloff>skin:actions/media-record.svg</normaloff>skin:actions/media-record.svg</iconset>
    </property>
    <property name="text">
     <string>Recording</string>
