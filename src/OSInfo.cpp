@@ -40,6 +40,8 @@
 #endif
 
 #ifdef Q_WS_MAC
+#include <sys/types.h>
+#include <sys/sysctl.h>
 #include <mach-o/arch.h>
 #endif
 
@@ -198,6 +200,9 @@ void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, co
 	BOOL bIsWow64 = FALSE;
 	IsWow64Process(GetCurrentProcess(), &bIsWow64);
 	bIs64 = bIsWow64;
+#elif defined(Q_WS_MAC)
+	size_t len = sizeof(bool);
+	sysctlbyname("hw.cpu64bit_capable", &bIs64, &len, NULL, 0);
 #else
 	bIs64 = (QSysInfo::WordSize == 64);
 #endif
