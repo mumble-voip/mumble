@@ -1,4 +1,4 @@
 TEMPLATE = subdirs
 
 CONFIG += debug_and_release
-SUBDIRS = overlay launcher compat osax
+SUBDIRS = overlay compat osax

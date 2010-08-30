@@ -107,10 +107,6 @@ class AppBundle(object):
 		if os.path.exists(murmurd):
 			self.handle_binary_libs(murmurd)
 
-		ol = os.path.join(os.path.abspath(self.bundle), 'Contents', 'MacOS', 'mumble-overlay')
-		if os.path.exists(ol):
-			self.handle_binary_libs(ol)
-
 		g15 = os.path.join(os.path.abspath(self.bundle), 'Contents', 'MacOS', 'mumble-g15-helper')
 		if os.path.exists(g15):
 			self.handle_binary_libs(g15)
