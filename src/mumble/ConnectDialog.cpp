@@ -678,8 +678,11 @@ QIcon ServerItem::loadIcon(const QString &name) {
 	return qmIcons.value(name);
 }
 
-ConnectDialogEdit::ConnectDialogEdit(QWidget *p, const QString &name, const QString &host, const QString &user, unsigned short port) : QDialog(p) {
+ConnectDialogEdit::ConnectDialogEdit(QWidget *p, const QString &name, const QString &host, const QString &user, unsigned short port, bool add) : QDialog(p) {
 	setupUi(this);
+	if (add)
+		setWindowTitle(tr("Add Server"));
+
 	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
 
 	qleName->setText(name);
@@ -914,7 +917,7 @@ void ConnectDialog::on_qaFavoriteAddNew_triggered() {
 	} else
 		user = g.s.qsUsername;
 
-	ConnectDialogEdit *cde = new ConnectDialogEdit(this, name, host, user, port);
+	ConnectDialogEdit *cde = new ConnectDialogEdit(this, name, host, user, port, true);
 
 	if (cde->exec() == QDialog::Accepted) {
 		ServerItem *si = new ServerItem(cde->qsName, cde->qsHostname, cde->usPort, cde->qsUsername);

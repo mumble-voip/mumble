@@ -186,7 +186,7 @@ class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
 	public:
 		QString qsName, qsHostname, qsUsername;
 		unsigned short usPort;
-		ConnectDialogEdit(QWidget *parent, const QString &name = QString(), const QString &host = QString(), const QString &user = QString(), unsigned short port = 64738);
+		ConnectDialogEdit(QWidget *parent, const QString &name = QString(), const QString &host = QString(), const QString &user = QString(), unsigned short port = 64738, bool add = false);
 };
 
 class ConnectDialog : public QDialog, public Ui::ConnectDialog {
