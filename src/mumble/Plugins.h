@@ -64,6 +64,7 @@ class Plugins : public QObject {
 		Q_DISABLE_COPY(Plugins)
 	protected:
 		QReadWriteLock qrwlPlugins;
+		QMutex qmPluginStrings;
 		QList<PluginInfo *> qlPlugins;
 		PluginInfo *locked;
 		PluginInfo *prevlocked;

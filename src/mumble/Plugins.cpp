@@ -340,7 +340,11 @@ bool Plugins::fetch() {
 	if (!locked->enabled)
 		bUnlink = true;
 
-	bool ok = locked->p->fetch(fPosition, fFront, fTop, fCameraPosition, fCameraFront, fCameraTop, ssContext, swsIdentity);
+	bool ok;
+	{
+		QMutexLocker mlock(&qmPluginStrings);
+		ok = locked->p->fetch(fPosition, fFront, fTop, fCameraPosition, fCameraFront, fCameraTop, ssContext, swsIdentity);
+	}
 	if (! ok || bUnlink) {
 		lock.unlock();
 		QWriteLocker wlock(&qrwlPlugins);
@@ -368,31 +372,36 @@ void Plugins::on_Timer_timeout() {
 		prevlocked = NULL;
 	}
 
-	if (! locked) {
-		ssContext.clear();
-		swsIdentity.clear();
-	}
 
-	std::string context;
-	if (locked)
-		context.assign(u8(QString::fromStdWString(locked->p->shortname)) + static_cast<char>(0) + ssContext);
+	{
+		QMutexLocker mlock(&qmPluginStrings);
 
-	if (! g.uiSession) {
-		ssContextSent.clear();
-		swsIdentitySent.clear();
-	} else if ((context != ssContextSent) || (swsIdentity != swsIdentitySent)) {
-		MumbleProto::UserState mpus;
-		mpus.set_session(g.uiSession);
-		if (context != ssContextSent) {
-			ssContextSent.assign(context);
-			mpus.set_plugin_context(context);
+		if (! locked) {
+			ssContext.clear();
+			swsIdentity.clear();
 		}
-		if (swsIdentity != swsIdentitySent) {
-			swsIdentitySent.assign(swsIdentity);
-			mpus.set_plugin_identity(u8(QString::fromStdWString(swsIdentitySent)));
+
+		std::string context;
+		if (locked)
+			context.assign(u8(QString::fromStdWString(locked->p->shortname)) + static_cast<char>(0) + ssContext);
+
+		if (! g.uiSession) {
+			ssContextSent.clear();
+			swsIdentitySent.clear();
+		} else if ((context != ssContextSent) || (swsIdentity != swsIdentitySent)) {
+			MumbleProto::UserState mpus;
+			mpus.set_session(g.uiSession);
+			if (context != ssContextSent) {
+				ssContextSent.assign(context);
+				mpus.set_plugin_context(context);
+			}
+			if (swsIdentity != swsIdentitySent) {
+				swsIdentitySent.assign(swsIdentity);
+				mpus.set_plugin_identity(u8(QString::fromStdWString(swsIdentitySent)));
+			}
+			if (g.sh)
+				g.sh->sendMessage(mpus);
 		}
-		if (g.sh)
-			g.sh->sendMessage(mpus);
 	}
 
 	if (locked) {
