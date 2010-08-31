@@ -297,6 +297,14 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 								ctx->uiMappedLength = buf.st_size;
 								ctx->a_ucTexture = mmap(NULL, buf.st_size, PROT_READ, MAP_SHARED, fd, 0);
 								if (ctx->a_ucTexture != (unsigned char *) -1) {
+									struct OverlayMsg om;
+									om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+									om.omh.uiType = OVERLAY_MSGTYPE_SHMEM;
+									om.omh.iLength = 0;
+
+									if (! sendMessage(ctx, &om))
+										return;
+
 									regenTexture(ctx);
 									continue;
 								}
