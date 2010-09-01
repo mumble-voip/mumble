@@ -47,11 +47,11 @@ static const NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.m
 	BOOL active;
 }
 
- - (id) init;
- - (void) dealloc;
- - (void) appLaunched:(NSNotification *)notification;
- - (void) setActive:(BOOL)flag;
-
+- (id) init;
+- (void) dealloc;
+- (void) appLaunched:(NSNotification *)notification;
+- (void) setActive:(BOOL)flag;
+- (void) eventDidFail:(const AppleEvent *)event withError:(NSError *)error;
 @end
 
 @implementation OverlayInjectorMac
@@ -101,10 +101,17 @@ static const NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.m
 		if (overlayEnabled) {
 			pid_t pid = [[userInfo objectForKey:@"NSApplicationProcessIdentifier"] intValue];
 			SBApplication *app = [SBApplication applicationWithProcessIdentifier:pid];
+			[app setDelegate:self];
+
+			[app setSendMode:kAEWaitReply];
+			[app sendEvent:kASAppleScriptSuite id:kGetAEUT parameters:0];
 
 			[app setSendMode:kAENoReply];
-			[app sendEvent:kASAppleScriptSuite id:kGetAEUT parameters:0];
-			[app sendEvent:'MUOL' id:'load' parameters:0];
+			if (QSysInfo::MacintoshVersion == QSysInfo::MV_LEOPARD) {
+				[app sendEvent:'MUOL' id:'daol' parameters:0];
+			} else if (QSysInfo::MacintoshVersion >= QSysInfo::MV_SNOWLEOPARD) {
+				[app sendEvent:'MUOL' id:'load' parameters:0];
+			}
 		}
 
 		[pool release];
@@ -113,6 +120,11 @@ static const NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.m
 
 - (void) setActive:(BOOL)flag {
 	active = flag;
+}
+
+// SBApplication delegate method
+- (void)eventDidFail:(const AppleEvent *)event withError:(NSError *)error {
+	// Do nothing. This method is only here to avoid an exception.
 }
 
 @end
