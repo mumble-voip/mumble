@@ -7378,6 +7378,11 @@ To upgrade these files to their latest versions, click the button below.</source
         <source>Add...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OverlayEditor</name>

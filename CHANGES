@@ -1,6 +1,12 @@
 2010-09-02
+  arcenciel <arcenciel@users.sourceforge.net>
+    f78a58b  Updated Japanese Translation (#3058069)
+
   Mikkel Krautz <mikkel@krautz.dk>
     518b2aa  Make overlay injection work on Mac OS X Leopard.
+
+  zuczeq <zuczeq@users.sourceforge.net>
+    a3518d4  Translation update - Polish (#3054197)
 
 2010-08-31
   Mikkel Krautz <mikkel@krautz.dk>
@@ -36,6 +42,10 @@
 	     menu when not embedded (fixes non-embedded OverlayConfig menu
 	     on OSX)
     c477395  Disable unifiedToolbar hack for Qt >= 4.7.
+
+  Mark-Willem Jansen <rawnar@users.sourceforge.net>
+    8b3dee1  Plugins: Borderlands extended support and changed context
+	     handling.
 
 2010-08-28
   Mikkel Krautz <mikkel@krautz.dk>
@@ -75,6 +85,9 @@
   Mikkel Krautz <mikkel@krautz.dk>
     f7aa9be  Add no-crash-report to INSTALL. Fix wording for
 	     CONFIG+=universal.
+
+  B0nuse <mumble@mumble.ru>
+    81005bf  Update of Russian translation with Fixes.
 
 2010-08-23
   Stefan Hacker <dd0t@users.sourceforge.net>

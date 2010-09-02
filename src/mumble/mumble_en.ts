@@ -6385,6 +6385,11 @@ To upgrade these files to their latest versions, click the button below.</source
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OverlayEditor</name>
