@@ -1694,7 +1694,7 @@ Setzt die Pfade zu den Dateien auf die Standardwerte zurück.</translation>
     <message>
         <location/>
         <source>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted and deafened.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies setzt den Untätigkeits-Timer. Wenn der Timer ausläuft, ohne dass Ton-Daten an den Server gesendet werden, werden Sie stumm und taub geschaltet.</translation>
     </message>
     <message>
         <location/>
@@ -3058,19 +3058,27 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;
+Öffnen Sie Ihre Ton-Einstellungen (des Betriebssystems oder Ihrer Soundkarte) und wechseln Sie zu den Aufnahme-Einstellungen.
+Stellen Sie sicher, dass das Mikrofon als aktives Aufnahmegerät gewählt ist und mit maximaler Lautstärke aufnimmt.
+Sofern es eine Option für “Mikrofon-Boost” gibt stellen Sie sicher, dass diese ebenfalls gewählt ist (Diese Option finden Sie ggf. unter den erweiterten Einstellungen).
+&lt;/p&gt;
+&lt;p&gt;
+Sprechen Sie so laut als wären Sie wütend oder aufgeregt.
+Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass der Balken unten so weit oben wie möglich im gestreiften und leeren, aber &lt;b&gt;nicht&lt;/b&gt; im karierten Bereich ist, so lange Sie sprechen.
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sprechen Sie jetzt so laut, als würden Sie spät nachts sprechen und niemanden stören wollen. Bewegen Sie den Schieber so, dass der Balken im leeren Bereich ist während Sie sprechen, aber im gestreiften Bereich bleibt wenn Sie nichts sagen.</translation>
     </message>
     <message>
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the criss-crossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"></translation>
+        <translation>Als nächstes müssen Sie den folgenden Schieber anpassen. Die ersten paar Geräusche die Sie beim Sprechen machen sollten im leeren Bereich (definitv Sprache) landen. Während Sie sprechen sollten Sie im gestreiften Bereich (könnte Sprache sein) bleiben und wenn Sie nicht sprechen, sollte alles im karierten Bereich (definitiv keine Sprache) bleiben.</translation>
     </message>
 </context>
 <context>
@@ -3504,7 +3512,7 @@ Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
         <translation>&lt;p&gt;
 Wenn Sie Ihr aktuelles Zertifikat verlieren, was etwa passiert wenn in ihrem Computer Hardware kaputt geht und Sie Ihr System neu installieren müssen, können Sie sich nicht mehr gegenüber Servern authentifizieren, auf welchen Sie sich registriert haben.
-Deshalb ist es &lt;b&gt;notwendig&lt;/p&gt;, dass Sie eine Sicherung Ihres Zertifikats erstellen.
+Deshalb ist es &lt;b&gt;notwendig&lt;/b&gt;, dass Sie eine Sicherung Ihres Zertifikats erstellen.
 Diese Sicherung sollte auf jeden Fall auf einem externen Datenträger, etwa einem USB Stick, gespeichert werden.
 &lt;/p&gt;
 &lt;p&gt;
@@ -3928,7 +3936,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     <message>
         <location line="+2"/>
         <source>Priority speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>Bevorzugter Sprecher</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4074,7 +4082,7 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
     <message>
         <location line="+4"/>
         <source>Reject changes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Änderungen verwerfen</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4531,7 +4539,7 @@ Dies ist die Bezeichnung des Servers, welche in der Serverliste erscheint und fr
     <message>
         <location filename="ConnectDialog.cpp" line="-765"/>
         <source>Add Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Server hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -5405,7 +5413,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+1"/>
         <source>User recording state changed</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzer Aufnahmestatus geändert</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6933,12 +6941,12 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location line="+4"/>
         <source>%1 started recording.</source>
-        <translation type="unfinished">%1 nimmt jetzt auf.</translation>
+        <translation>%1 nimmt jetzt auf.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 stopped recording.</source>
-        <translation type="unfinished">%1 nimmt nicht mehr auf.</translation>
+        <translation>%1 nimmt nicht mehr auf.</translation>
     </message>
     <message>
         <location line="+41"/>
@@ -8167,7 +8175,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location/>
         <source>Priority speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>Bevorzugter Sprecher</translation>
     </message>
     <message>
         <location/>
@@ -8569,7 +8577,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location line="+66"/>
         <source>Downloaded new or updated overlay support file to %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue oder aktualisierte Support Datei heruntergeladen nach %1.</translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -8837,7 +8845,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location line="+30"/>
         <source>FPS: %1</source>
-        <translation type="unfinished">FPS: %1</translation>
+        <translation>FPS: %1</translation>
     </message>
     <message>
         <location line="+194"/>
@@ -8868,18 +8876,18 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location line="+86"/>
         <source>Load Overlay Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Lade Overlay Vorlage</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+28"/>
         <source>Mumble overlay presets (*.mumblelay)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble Overlay Vorlage (*mumblelay)</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Save Overlay Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Overlay Vorlage abspeichern</translation>
     </message>
     <message>
         <source>Show no one</source>
@@ -8960,7 +8968,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished">Entfernen</translation>
+        <translation>Entfernen</translation>
     </message>
     <message>
         <location/>
@@ -9031,52 +9039,52 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     <message>
         <location/>
         <source>Load an overlay preset from file</source>
-        <translation type="unfinished"></translation>
+        <translation>Lädt eine Overlay Vorlage aus einer Datei</translation>
     </message>
     <message utf8="true">
         <location/>
         <source>Load…</source>
-        <translation type="unfinished"></translation>
+        <translation>Laden...</translation>
     </message>
     <message>
         <location/>
         <source>Save your overlay settings to file</source>
-        <translation type="unfinished"></translation>
+        <translation>Sichert Ihre Overlay Einstellungen in eine Datei</translation>
     </message>
     <message utf8="true">
         <location/>
         <source>Save…</source>
-        <translation type="unfinished"></translation>
+        <translation>Sichern...</translation>
     </message>
     <message>
         <location/>
         <source>FPS Display</source>
-        <translation type="unfinished"></translation>
+        <translation>FPS Anzeige</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay font.</source>
-        <translation type="unfinished"></translation>
+        <translation>Setzt die Overlay Schrift.</translation>
     </message>
     <message>
         <location/>
         <source>Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Schrift</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay text color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Setzt die Overlay Textfarbe.</translation>
     </message>
     <message>
         <location/>
         <source>Color</source>
-        <translation type="unfinished">Farbe</translation>
+        <translation>Farbe</translation>
     </message>
     <message>
         <location/>
         <source>Add...</source>
-        <translation type="unfinished"></translation>
+        <translation>Hinzufügen...</translation>
     </message>
 </context>
 <context>
@@ -10519,17 +10527,17 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <location filename="VoiceRecorder.cpp" line="+181"/>
         <source>Invalid sample rate given to recorder</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungültige Abtastrate wurde an den Recorder übergeben</translation>
     </message>
     <message>
         <location line="+96"/>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Recorder konnte Verzeichnis &apos;%1&apos; nicht erstellen</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%s&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Recorder konnte Datei &apos;%s&apos; nicht öffnen</translation>
     </message>
     <message>
         <location line="+109"/>
