@@ -41,9 +41,8 @@
 #include "GlobalShortcut.h"
 
 OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) :
-	QObject(p),
-	ougUsers(&g.s.os)
-{
+		QObject(p),
+		ougUsers(&g.s.os) {
 	qlsSocket = socket;
 	connect(qlsSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 

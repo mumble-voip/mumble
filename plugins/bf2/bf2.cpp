@@ -125,9 +125,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (state == 0) {
 		ptr_chain_valid = false;
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
-	}
-	else if (!ptr_chain_valid){
-		if(!resolve_ptrs())
+	} else if (!ptr_chain_valid) {
+		if (!resolve_ptrs())
 			return false;
 		ptr_chain_valid = true;
 	}
@@ -140,13 +139,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	BYTE is_opfor;
 
 	ok = peekProc(pos_ptr, avatar_pos, 12) &&
-		 peekProc(face_ptr, avatar_front, 12) &&
-		 peekProc(top_ptr, avatar_top, 12) &&
-		 peekProc(ipport_ptr, ccontext, 128) &&
-		 peekProc(commander_ptr, &is_commander, 1) &&
-		 peekProc(squad_leader_ptr, &is_squad_leader, 1) &&
-		 peekProc(squad_state_ptr, &is_in_squad, 1) &&
-		 peekProc(team_state_ptr, &is_opfor, 1);
+	     peekProc(face_ptr, avatar_front, 12) &&
+	     peekProc(top_ptr, avatar_top, 12) &&
+	     peekProc(ipport_ptr, ccontext, 128) &&
+	     peekProc(commander_ptr, &is_commander, 1) &&
+	     peekProc(squad_leader_ptr, &is_squad_leader, 1) &&
+	     peekProc(squad_state_ptr, &is_in_squad, 1) &&
+	     peekProc(team_state_ptr, &is_opfor, 1);
 
 	if (! ok)
 		return false;
@@ -158,8 +157,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ccontext[127] = 0;
 	ostringstream ocontext;
 	ocontext << "<context>\n"
-					<< "<ipport>" << ccontext << "</ipport>\n"
-				"</context>";
+	<< "<ipport>" << ccontext << "</ipport>\n"
+	"</context>";
 
 	context = ocontext.str();
 
@@ -168,11 +167,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	*/
 	wostringstream oidentity;
 	oidentity << "<identity>\n"
-				<< "<commander>" << (is_commander ? "true" : "false") << "</commander>\n"
-				<< "<squad_leader>" << (is_squad_leader ? "true" : "false") << "</squad_leader>\n"
-				<< "<squad>" << static_cast<unsigned int>(is_in_squad) << "</squad>\n"
-				<< "<team>" << (is_opfor ? "opfor" : "blufor") << "</team>\n"
-			  << "</identity>";
+	<< "<commander>" << (is_commander ? "true" : "false") << "</commander>\n"
+	<< "<squad_leader>" << (is_squad_leader ? "true" : "false") << "</squad_leader>\n"
+	<< "<squad>" << static_cast<unsigned int>(is_in_squad) << "</squad>\n"
+	<< "<team>" << (is_opfor ? "opfor" : "blufor") << "</team>\n"
+	<< "</identity>";
 
 	identity = oidentity.str();
 

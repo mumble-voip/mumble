@@ -519,7 +519,7 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+43"/>
         <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
         <translation>ASIO initialisering mislykkedes: %1</translation>
@@ -2408,7 +2408,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Mumble bruger</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+412"/>
+        <location filename="main.cpp" line="+411"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Certifikat Udløb:&lt;/b&gt; Dit certifikat er ved at udløbe. Du skal fornye det, ellers vil du ikke længere være i stand til at forbinde til servere du registreret på.</translation>
     </message>
@@ -2964,7 +2964,7 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+51"/>
+        <location filename="ConfigDialog.cpp" line="+54"/>
         <source>Accept changes</source>
         <translation>Acceptér ændringer</translation>
     </message>
@@ -3081,18 +3081,18 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+867"/>
+        <location filename="ConnectDialog.cpp" line="+870"/>
         <source>Connecting to %1</source>
         <translation>Opretter forbindelse til %1</translation>
     </message>
     <message>
-        <location line="-470"/>
-        <location line="+470"/>
+        <location line="-473"/>
+        <location line="+473"/>
         <source>Enter username</source>
         <translation>Skriv brugernavn</translation>
     </message>
     <message>
-        <location line="-470"/>
+        <location line="-473"/>
         <source>Adding host %1</source>
         <translation>Tilføjer vært %1</translation>
     </message>
@@ -3159,7 +3159,7 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
         <translation>%1 kbit/s</translation>
     </message>
     <message>
-        <location line="+253"/>
+        <location line="+256"/>
         <source>&amp;Connect</source>
         <translation>&amp;Opret forbindelse</translation>
     </message>
@@ -3170,7 +3170,7 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-291"/>
+        <location filename="ConnectDialog.cpp" line="-294"/>
         <source>Users</source>
         <translation>Brugere</translation>
     </message>
@@ -3185,7 +3185,7 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="+253"/>
+        <location filename="ConnectDialog.cpp" line="+256"/>
         <source>&amp;Add New...</source>
         <oldsource>Add New...</oldsource>
         <translation>&amp;Tilføj ny...</translation>
@@ -3376,6 +3376,11 @@ Brugernavn der skal sendes til serveren. Vær opmærksom på at serveren kan hav
         <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your serverlist and can be chosen freely.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="-765"/>
+        <source>Add Server</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3625,7 +3630,7 @@ som helst mulige placeringer.</translation>
 <context>
     <name>GlobalShortcutMacInit</name>
     <message>
-        <location filename="GlobalShortcut_macx.mm" line="+63"/>
+        <location filename="GlobalShortcut_macx.mm" line="+65"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
         <translation>Mumble har detekteret at det ikke er i stand til at modtage globale genvejshændelser, når det er i baggrunden.&lt;br /&gt;&lt;br /&gt;Dette er fordi at Universaladgangs-egenskaben &apos;Aktivér adgang for hjælpeenheder&apos; i øjeblikket er deaktiveret&lt;br /&gt;&lt;br /&gt;Aktivér venligst &lt;a href=&quot; &quot;&gt;denne indstilling&lt;/a&gt; og fortsæt når du er færdig.</translation>
     </message>
@@ -3878,7 +3883,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Bruger forlader server</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
+        <source>User recording state changed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>User kicked (you or by you)</source>
         <translation>Bruger kicked (dig eller af dig)</translation>
     </message>
@@ -4434,12 +4444,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1904"/>
+        <location line="+1932"/>
         <source>Root</source>
         <translation>Rod</translation>
     </message>
     <message>
-        <location line="-1855"/>
+        <location line="-1883"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryk-for-snak</translation>
@@ -4518,28 +4528,28 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2007"/>
+        <location line="+2035"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2003"/>
+        <location line="-2031"/>
         <source>&amp;Window</source>
         <translation>&amp;Vindue</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+104"/>
+        <location line="+126"/>
         <source>Minimize</source>
         <translation>Minimér</translation>
     </message>
     <message>
-        <location line="-104"/>
+        <location line="-126"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+125"/>
         <source>Close</source>
         <translation>Luk</translation>
     </message>
@@ -4549,7 +4559,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Mumble har i øjeblikket forbindelse til en server. Vil du lukke eller minimere det?</translation>
     </message>
     <message>
-        <location line="-155"/>
+        <location line="-177"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Mute dig selv</translation>
@@ -4597,18 +4607,18 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2037"/>
+        <location line="+2065"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished">Ingen forbindelse oprettet</translation>
     </message>
     <message>
-        <location line="-1826"/>
+        <location line="-1829"/>
         <source>Clear</source>
         <translation>Ryd</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+27"/>
         <source>Opening URL %1</source>
         <translation>Åbner URL %1</translation>
     </message>
@@ -4679,7 +4689,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1483"/>
+        <location line="+1492"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation>Billeder (*.png *.jpg *.svg)</translation>
     </message>
@@ -4688,7 +4698,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">&lt;h2&gt;Kontrolkanal&lt;/h2&gt;&lt;p&gt;Krypteret med %1 bit %2&lt;br /&gt;%3 ms gennemsnitlig forsinkelse (%4 afvigelse)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1463"/>
+        <location line="-1472"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Stemmekanal&lt;/h2&gt;&lt;p&gt;Krypteret med 128 bit OCB-AES128&lt;br /&gt;%1 ms gennemsnitlig forsinkelse (%4 afvigelse)&lt;/p&gt;</translation>
     </message>
@@ -4776,7 +4786,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="unfinished">Skriv besked til brugeren &apos;%1&apos; hér</translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="+97"/>
         <source>Choose image file</source>
         <translation>Vælg billedfil</translation>
     </message>
@@ -4801,18 +4811,18 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Billedformatet blev ikke genkendt.</translation>
     </message>
     <message>
-        <location line="-1489"/>
+        <location line="-1498"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Lydkanal er sendt over kontrolkanal.</translation>
     </message>
     <message>
-        <location line="-743"/>
+        <location line="-771"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+734"/>
+        <location line="+762"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Kontrol kanal&lt;/h2&gt;&lt;p&gt;Krypteret med %1 bit %2&lt;br /&gt;%3 ms gennemsnitlig forsinkelse (%4 deviation)&lt;/p&gt;&lt;p&gt;Ekstern vært %5 (port %6)&lt;/p&gt;</translation>
     </message>
@@ -5027,7 +5037,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">&amp;Server</translation>
     </message>
     <message>
-        <location line="-2078"/>
+        <location line="-2106"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanal</translation>
     </message>
@@ -6059,7 +6069,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Besked fra %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1381"/>
+        <location filename="UserModel.cpp" line="+1383"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Du har kanalflytning sat til &quot;Gør intet&quot;, så kanalen blev ikke flyttet.</translation>
     </message>
@@ -6466,42 +6476,42 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="obsolete">Det mislykkedes at initialisere overlægningshukommelse. Dette betyder som regel at den delte hukommelse er låst af operativsystemet, og du behøver derfor at genstarte for at frigøre den.</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+477"/>
-        <location line="+1076"/>
+        <location filename="OverlayEditorScene.cpp" line="+121"/>
+        <location filename="OverlayUser.cpp" line="+150"/>
         <source>Silent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Talking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Whisper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Shout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1057"/>
-        <location line="+947"/>
+        <location line="+17"/>
+        <location filename="OverlayUser.cpp" line="-110"/>
         <source>Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1279"/>
+        <location filename="Overlay.cpp" line="+100"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Det mislykkedes at oprette kommunikation med overlægningen på %2: %1. Der vil ikke være nogen overlægning tilgængelig.</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+256"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6514,7 +6524,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-1166"/>
+        <location filename="OverlayUserGroup.cpp" line="+94"/>
         <source>Filter</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6554,7 +6564,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+285"/>
+        <location filename="OverlayClient.cpp" line="+106"/>
         <source>FPS: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6594,7 +6604,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="obsolete">Farve for aktive kanaler</translation>
     </message>
     <message>
-        <location line="-2106"/>
+        <location filename="OverlayConfig.cpp" line="+78"/>
         <source>To move the users, drag the little red dot.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6609,12 +6619,17 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+153"/>
+        <location line="+30"/>
+        <source>FPS: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+194"/>
         <source>Overlay</source>
         <translation>Overlægning</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+71"/>
         <source>Choose executable</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6635,12 +6650,27 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Overlay.ui"/>
-        <source>Form</source>
-        <translation>Form</translation>
+        <location line="+86"/>
+        <source>Load Overlay Presets</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location/>
+        <location line="+2"/>
+        <location line="+28"/>
+        <source>Mumble overlay presets (*.mumblelay)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-2"/>
+        <source>Save Overlay Presets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Form</source>
+        <translation type="obsolete">Form</translation>
+    </message>
+    <message>
+        <location filename="Overlay.ui"/>
         <source>Options</source>
         <translation>Valgmuligheder</translation>
     </message>
@@ -6821,8 +6851,9 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation type="obsolete">Tilføj</translation>
     </message>
     <message>
+        <location/>
         <source>Remove</source>
-        <translation type="obsolete">Fjern</translation>
+        <translation type="unfinished">Fjern</translation>
     </message>
     <message>
         <location/>
@@ -6879,14 +6910,53 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>&amp;Remove</source>
+        <translation type="obsolete">&amp;Fjern</translation>
+    </message>
+    <message>
         <location/>
-        <source>&amp;Add...</source>
+        <source>Load an overlay preset from file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location/>
+        <source>Load…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
-        <source>&amp;Remove</source>
-        <translation type="unfinished">&amp;Fjern</translation>
+        <source>Save your overlay settings to file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location/>
+        <source>Save…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>FPS Display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Set the overlay font.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Set the overlay text color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Color</source>
+        <translation type="unfinished">Farve</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Add...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7014,7 +7084,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>OverlayEditorScene</name>
     <message>
-        <location filename="Overlay.cpp" line="+555"/>
+        <location filename="OverlayEditorScene.cpp" line="+396"/>
         <source>Layout preset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7256,7 +7326,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+320"/>
+        <location filename="Plugins.cpp" line="+330"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7272,12 +7342,12 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>Installation af nyt plugin til %1 mislykkedes.</translation>
     </message>
     <message>
-        <location line="-259"/>
+        <location line="-265"/>
         <source>%1 lost link.</source>
         <translation>%1 mistede link.</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+74"/>
         <source>%1 linked.</source>
         <translation>%1 er linket.</translation>
     </message>
@@ -7439,7 +7509,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-1373"/>
+        <location filename="ConnectDialog.cpp" line="-611"/>
         <source>Favorite</source>
         <translation>Favoritter</translation>
     </message>
@@ -7884,7 +7954,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-804"/>
+        <location filename="UserModel.cpp" line="-806"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Dette er en bruger, der har oprettet forbindelse til serveren. Ikonet til venstre for brugeren viser om vedkommende snakker:</translation>
     </message>
@@ -8014,7 +8084,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+721"/>
+        <location line="+723"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Er du sikker på, at du vil flytte denne kanal?</translation>
     </message>
@@ -8183,7 +8253,22 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <location filename="VoiceRecorder.cpp" line="+390"/>
+        <location filename="VoiceRecorder.cpp" line="+181"/>
+        <source>Invalid sample rate given to recorder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+96"/>
+        <source>Recorder failed to create directory &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Recorder failed to open file &apos;%s&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+109"/>
         <source>.wav - Uncompressed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8208,9 +8293,10 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
         <location filename="VoiceRecorderDialog.cpp" line="+69"/>
-        <location line="+39"/>
+        <location line="+41"/>
         <location line="+10"/>
         <location line="+9"/>
+        <location line="+135"/>
         <source>Recorder</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8286,12 +8372,12 @@ Valid variables are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-57"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-194"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+32"/>
         <source>Recoder</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8317,7 +8403,7 @@ Please contact your server administrator for further information.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+97"/>
+        <location line="+95"/>
         <source>Select target directory</source>
         <translation type="unfinished"></translation>
     </message>

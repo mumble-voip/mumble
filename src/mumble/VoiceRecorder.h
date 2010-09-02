@@ -61,7 +61,7 @@ namespace VoiceRecorderFormat {
 };
 
 class VoiceRecorder : public QThread {
-	Q_OBJECT
+		Q_OBJECT
 	private:
 		// Stores information about a recording buffer.
 		struct RecordBuffer {

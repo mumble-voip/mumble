@@ -782,7 +782,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+43"/>
         <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
         <translation>ASIO-Initialisierung fehlgeschlagen: %1</translation>
@@ -3268,7 +3268,7 @@ Bitte verwenden Sie eine andere Datei.</translation>
         <translation>Mumble-Benutzer</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+412"/>
+        <location filename="main.cpp" line="+411"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Ablauf des Zertifikats:&lt;/b&gt; Ihr Zertifikat wird bald ablaufen. Sie müssen es erneuern oder Sie werden nicht mehr in der Lage sein sich auf Server zu verbinden auf denen Sie registriert sind.</translation>
     </message>
@@ -3979,7 +3979,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
         <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="+51"/>
+        <location filename="ConfigDialog.cpp" line="+54"/>
         <source>Accept changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
@@ -4137,7 +4137,7 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
         <translation type="obsolete">&amp;Passwort</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+734"/>
+        <location filename="ConnectDialog.cpp" line="+737"/>
         <source>&amp;Connect</source>
         <translation>&amp;Verbinden</translation>
     </message>
@@ -4190,7 +4190,7 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
         <translation type="obsolete">LAN</translation>
     </message>
     <message>
-        <location line="-273"/>
+        <location line="-276"/>
         <source>Hostname</source>
         <translation>Hostname</translation>
     </message>
@@ -4262,7 +4262,7 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="+253"/>
+        <location filename="ConnectDialog.cpp" line="+256"/>
         <source>&amp;Add New...</source>
         <oldsource>Add New...</oldsource>
         <translation>&amp;Server hinzufügen...</translation>
@@ -4277,13 +4277,13 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
         <translation>Verbinde zu %1</translation>
     </message>
     <message>
-        <location line="-470"/>
-        <location line="+470"/>
+        <location line="-473"/>
+        <location line="+473"/>
         <source>Enter username</source>
         <translation>Benutzername eingeben</translation>
     </message>
     <message>
-        <location line="-470"/>
+        <location line="-473"/>
         <source>Adding host %1</source>
         <translation>Host %1 hinzufügen</translation>
     </message>
@@ -4294,7 +4294,7 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
         <translation>Servername</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+313"/>
+        <location filename="ConnectDialog.cpp" line="+316"/>
         <source>&amp;Filters</source>
         <translation>&amp;Filter</translation>
     </message>
@@ -4527,6 +4527,11 @@ Benutzername, welcher an den Server gesendet wird. Beachten Sie, dass jeder Serv
 Label of the server. This is what the server will be named like in your serverlist and can be chosen freely.</source>
         <translation>&lt;b&gt;Bezeichnung&lt;/b&gt;&lt;br/&gt;
 Dies ist die Bezeichnung des Servers, welche in der Serverliste erscheint und frei gewählt werden kann.</translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="-765"/>
+        <source>Add Server</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4985,7 +4990,7 @@ der möglichen Orte initialisieren.</translation>
 <context>
     <name>GlobalShortcutMacInit</name>
     <message>
-        <location filename="GlobalShortcut_macx.mm" line="+63"/>
+        <location filename="GlobalShortcut_macx.mm" line="+65"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
         <translation>Mumble hat festgestellt, dass es keine globalen Tastenkürzel Ereignisse erhalten kann, wenn es im Hintergrund läuft.&lt;br /&gt;&lt;br /&gt;Dies wird durch die Deaktivierung des Universal Access Features &quot;Enable access for assitive devices&quot; verursacht.&lt;br /&gt;&lt;br /&gt;Bitte &lt;a href=&quot;&quot;&gt;aktivieren sie diese Einstellung&lt;/a&gt;.</translation>
     </message>
@@ -5398,7 +5403,12 @@ p, li { white-space: pre-wrap; }
         <translation>Benutzer verließ den Server</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+1"/>
+        <source>User recording state changed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>User kicked</source>
         <translation>Benutzer gekickt</translation>
     </message>
@@ -6061,7 +6071,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1904"/>
+        <location line="+1932"/>
         <source>Root</source>
         <translation>Hauptkanal</translation>
     </message>
@@ -6625,9 +6635,9 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Verbindet sich mit der Mumble-Webseite um zu überprüfen ob eine neue Version verfügbar ist. Ist eine neue Version verfügbar wird mit einer passenden Download-URL darauf hingewiesen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1811"/>
+        <location filename="MainWindow.cpp" line="-1839"/>
         <location line="+12"/>
-        <location line="+2007"/>
+        <location line="+2035"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6649,7 +6659,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">B&amp;enutzer</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2094"/>
+        <location filename="MainWindow.cpp" line="-2122"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanal</translation>
     </message>
@@ -6672,7 +6682,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Kicke Benutzer %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1067"/>
+        <location filename="MainWindow.cpp" line="+1095"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Grund eingeben</translation>
@@ -7115,7 +7125,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Willkommen in Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-619"/>
+        <location filename="MainWindow.cpp" line="-647"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Push-To-Talk</translation>
@@ -7236,7 +7246,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Dies wechselt den Modus des Ingame-Overlays.</translation>
     </message>
     <message>
-        <location line="+323"/>
+        <location line="+351"/>
         <source>File is not a configuration file.</source>
         <translation>Die Datei ist keine Konfigurationsdatei.</translation>
     </message>
@@ -7415,7 +7425,7 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
         <translation>&lt;center&gt;Nachricht an den Benutzer &apos;%1&apos; hier eingeben&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="+97"/>
         <source>Choose image file</source>
         <translation>Bilddatei wählen</translation>
     </message>
@@ -7474,7 +7484,7 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
         <translation type="obsolete">Sende eine Text-Nachricht an einen anderen Benutzer.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1190"/>
+        <location filename="MainWindow.cpp" line="-1199"/>
         <source>Sending message to %1</source>
         <translation>Sende Nachricht an %1</translation>
     </message>
@@ -7538,7 +7548,7 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
         <translation>Schickt eine Textnachricht an einen anderen Benutzer.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2079"/>
+        <location filename="MainWindow.cpp" line="-2107"/>
         <source>&amp;User</source>
         <translation>&amp;Benutzer</translation>
     </message>
@@ -7640,7 +7650,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Dies leitet Sie durch den Hardware-Konfigurationsprozess.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1989"/>
+        <location filename="MainWindow.cpp" line="+2017"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL-Überprüfung fehlgeschlagen: %1</translation>
     </message>
@@ -7719,7 +7729,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Öffne URL %1</translation>
     </message>
     <message>
-        <location line="-331"/>
+        <location line="-359"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Selbst stumm stellen</translation>
@@ -7767,7 +7777,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2037"/>
+        <location line="+2065"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Nicht verbunden&lt;/center&gt;</translation>
@@ -7962,7 +7972,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">Mit Server %1 verbunden.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1216"/>
+        <location filename="MainWindow.cpp" line="-1222"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble ist gerade zu einem Server verbunden. Möchten Sie es schließen oder minimieren?</translation>
     </message>
@@ -7972,13 +7982,13 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Schließen</translation>
     </message>
     <message>
-        <location line="-103"/>
-        <location line="+104"/>
+        <location line="-125"/>
+        <location line="+126"/>
         <source>Minimize</source>
         <translation>Minimieren</translation>
     </message>
     <message>
-        <location line="-106"/>
+        <location line="-128"/>
         <source>&amp;Window</source>
         <translation>&amp;Fenster</translation>
     </message>
@@ -8030,12 +8040,12 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Leiser (-10%)</translation>
     </message>
     <message>
-        <location line="+276"/>
+        <location line="+301"/>
         <source>Clear</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1381"/>
+        <location filename="UserModel.cpp" line="+1383"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Die Kanal-Ziehen-Aktion wurde auf &quot;Nichts tun&quot; gesetzt. Der Kanal wird also nicht bewegt.</translation>
     </message>
@@ -8517,42 +8527,42 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+477"/>
-        <location line="+1076"/>
+        <location filename="OverlayEditorScene.cpp" line="+121"/>
+        <location filename="OverlayUser.cpp" line="+150"/>
         <source>Silent</source>
         <translation>Still</translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Talking</source>
         <translation>Sprechen</translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Whisper</source>
         <translation>Flüstern</translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Shout</source>
         <translation>Rufen</translation>
     </message>
     <message>
-        <location line="-1057"/>
-        <location line="+947"/>
+        <location line="+17"/>
+        <location filename="OverlayUser.cpp" line="-110"/>
         <source>Channel</source>
         <translation>Kanal</translation>
     </message>
     <message>
-        <location line="+1279"/>
+        <location filename="Overlay.cpp" line="+100"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Kommunikation mit dem Overlay auf %2: %1 fehlgeschlagen. Das Overlay wird nicht verfügbar sein.</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+256"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation>Überspringe Overlay-Aktualisierung im Debug Modus.</translation>
     </message>
@@ -8587,7 +8597,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-1166"/>
+        <location filename="OverlayUserGroup.cpp" line="+94"/>
         <source>Filter</source>
         <translation>Filter</translation>
     </message>
@@ -8627,7 +8637,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation>Zoom zurücksetzen</translation>
     </message>
     <message>
-        <location line="+285"/>
+        <location filename="OverlayClient.cpp" line="+106"/>
         <source>FPS: %1</source>
         <translation>FPS: %1</translation>
     </message>
@@ -8644,10 +8654,9 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation type="obsolete">Position</translation>
     </message>
     <message>
-        <location/>
         <source>Form</source>
         <oldsource>Font</oldsource>
-        <translation type="unfinished">Schriftart</translation>
+        <translation type="obsolete">Schriftart</translation>
     </message>
     <message>
         <location/>
@@ -8811,7 +8820,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation type="obsolete">Farbe für aktive Kanäle</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-2106"/>
+        <location filename="OverlayConfig.cpp" line="+78"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Ziehen Sie den kleinen roten Punkt um die Benutzer zu verschieben.</translation>
     </message>
@@ -8826,12 +8835,17 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation>Rechtsklick auf einen Benutzer für mehr Optionen.</translation>
     </message>
     <message>
-        <location line="+153"/>
+        <location line="+30"/>
+        <source>FPS: %1</source>
+        <translation type="unfinished">FPS: %1</translation>
+    </message>
+    <message>
+        <location line="+194"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+71"/>
         <source>Choose executable</source>
         <translation>Anwendung auswählen</translation>
     </message>
@@ -8850,6 +8864,22 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <source>Mumble was unable to verify the authenticity of the installer.</source>
         <oldsource>Mumble was unable to validate authenticity of the installer.</oldsource>
         <translation>Mumble konnte die Echtheit des Installers nicht überprüfen.</translation>
+    </message>
+    <message>
+        <location line="+86"/>
+        <source>Load Overlay Presets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <location line="+28"/>
+        <source>Mumble overlay presets (*.mumblelay)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-2"/>
+        <source>Save Overlay Presets</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show no one</source>
@@ -8928,8 +8958,9 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation type="obsolete">Hinzufügen</translation>
     </message>
     <message>
+        <location/>
         <source>Remove</source>
-        <translation type="obsolete">Entfernen</translation>
+        <translation type="unfinished">Entfernen</translation>
     </message>
     <message>
         <location/>
@@ -8990,14 +9021,62 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
         <translation>Zertifikate ansehen</translation>
     </message>
     <message>
-        <location/>
         <source>&amp;Add...</source>
-        <translation>&amp;Hinzufügen...</translation>
+        <translation type="obsolete">&amp;Hinzufügen...</translation>
+    </message>
+    <message>
+        <source>&amp;Remove</source>
+        <translation type="obsolete">&amp;Entfernen</translation>
     </message>
     <message>
         <location/>
-        <source>&amp;Remove</source>
-        <translation>&amp;Entfernen</translation>
+        <source>Load an overlay preset from file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location/>
+        <source>Load…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Save your overlay settings to file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location/>
+        <source>Save…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>FPS Display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Set the overlay font.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Set the overlay text color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Color</source>
+        <translation type="unfinished">Farbe</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Add...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9125,7 +9204,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>OverlayEditorScene</name>
     <message>
-        <location filename="Overlay.cpp" line="+555"/>
+        <location filename="OverlayEditorScene.cpp" line="+396"/>
         <source>Layout preset</source>
         <translation>Layout Vorlage</translation>
     </message>
@@ -9438,7 +9517,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+320"/>
+        <location filename="Plugins.cpp" line="+330"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>Überspringe Plugin-Aktualisierung im Debug-Modus.</translation>
     </message>
@@ -9458,7 +9537,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
         <translation type="obsolete">Plugin %1 hat Verbindung verloren.</translation>
     </message>
     <message>
-        <location line="-259"/>
+        <location line="-265"/>
         <source>%1 lost link.</source>
         <translation>%1 hat Verbindung verloren.</translation>
     </message>
@@ -9467,7 +9546,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
         <translation type="obsolete">Plugin %1 hat sich verbunden.</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+74"/>
         <source>%1 linked.</source>
         <translation>%1 verbunden.</translation>
     </message>
@@ -9668,7 +9747,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-1373"/>
+        <location filename="ConnectDialog.cpp" line="-611"/>
         <source>Favorite</source>
         <translation>Favoriten</translation>
     </message>
@@ -10135,7 +10214,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-804"/>
+        <location filename="UserModel.cpp" line="-806"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Dies ist ein zum Server verbundener Benutzer. Das Icon links vom Benutzer zeigt, ob der Benutzer spricht oder nicht:</translation>
     </message>
@@ -10236,13 +10315,13 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <translation>Kanal hat einen neuen Kommentar (klicken um anzusehen)</translation>
     </message>
     <message>
-        <location line="+835"/>
+        <location line="+837"/>
         <location line="+20"/>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
         <translation>Kann dieses Verschieben nicht automatisiert ausführen. Bitte setzen Sie die Kanalpositionswert zurück oder setzen Sie sie manuell.</translation>
     </message>
     <message>
-        <location line="-863"/>
+        <location line="-865"/>
         <source>User has a comment set, which you&apos;ve already seen. (click to show)</source>
         <translation>Benutzer hat einen Kommentar gesetzt, welchen Sie schon gesehen haben. (klicken um anzusehen)</translation>
     </message>
@@ -10271,7 +10350,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+721"/>
+        <location line="+723"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Sind Sie sicher, dass Sie den Kanal verschieben möchten?</translation>
     </message>
@@ -10438,7 +10517,22 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <location filename="VoiceRecorder.cpp" line="+390"/>
+        <location filename="VoiceRecorder.cpp" line="+181"/>
+        <source>Invalid sample rate given to recorder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+96"/>
+        <source>Recorder failed to create directory &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Recorder failed to open file &apos;%s&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+109"/>
         <source>.wav - Uncompressed</source>
         <translation>.wav - Unkomprimiert</translation>
     </message>
@@ -10463,9 +10557,10 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
         <location filename="VoiceRecorderDialog.cpp" line="+69"/>
-        <location line="+39"/>
+        <location line="+41"/>
         <location line="+10"/>
         <location line="+9"/>
+        <location line="+135"/>
         <source>Recorder</source>
         <translation>Aufnahme</translation>
     </message>
@@ -10547,12 +10642,12 @@ Gültige Variablen sind:
         <translation>&amp;Durchsuchen...</translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-57"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-194"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
         <translation>Wenn Sie den Aufnahmedialog schließen wird die Aufnahme beendet. Sind sie sicher?</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+32"/>
         <source>Recoder</source>
         <translation>Aufnahme</translation>
     </message>
@@ -10578,7 +10673,7 @@ Please contact your server administrator for further information.</source>
         <translation>Bitte wählen Sie ein Aufnahmeformat aus.</translation>
     </message>
     <message>
-        <location line="+97"/>
+        <location line="+95"/>
         <source>Select target directory</source>
         <translation>Zielverzeichnis auswählen</translation>
     </message>

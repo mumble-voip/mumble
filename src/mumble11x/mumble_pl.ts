@@ -473,7 +473,7 @@
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+43"/>
         <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
         <translation>Inizjalizacja ASIO nie powiodła się: %1</translation>
@@ -2016,7 +2016,7 @@ Dane te zawierają konfigurację twojego klienta i są nam bardzo potrzebne do p
         <translation>Konfiguracja Mumble</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="+51"/>
+        <location filename="ConfigDialog.cpp" line="+54"/>
         <source>Accept changes</source>
         <translation>Akceptuj zmiany</translation>
     </message>

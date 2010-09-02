@@ -41,10 +41,9 @@
 #include "GlobalShortcut.h"
 
 OverlayEditor::OverlayEditor(QWidget *p, QGraphicsItem *qgi, OverlaySettings *osptr) :
-	QDialog(p),
-	qgiPromote(qgi),
-	oes(g.s.os)
-{
+		QDialog(p),
+		qgiPromote(qgi),
+		oes(g.s.os) {
 	setupUi(this);
 
 	os = osptr ? osptr : &g.s.os;

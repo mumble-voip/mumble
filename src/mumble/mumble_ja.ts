@@ -787,7 +787,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+43"/>
         <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
         <translation>ASIOの初期化に失敗しました: %1</translation>
@@ -3256,7 +3256,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Mumble ユーザ</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+412"/>
+        <location filename="main.cpp" line="+411"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;証明書の有効期限:&lt;/b&gt;あなたの証明書の有効期限がもうすぐ切れます。証明書を更新する必要があります。さもないとあなたはユーザ登録したサーバに接続できなくなるでしょう。</translation>
     </message>
@@ -3930,7 +3930,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="+51"/>
+        <location filename="ConfigDialog.cpp" line="+54"/>
         <source>Accept changes</source>
         <translation>変更を確定</translation>
     </message>
@@ -4084,7 +4084,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">パスワード(&amp;P)</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+734"/>
+        <location filename="ConnectDialog.cpp" line="+737"/>
         <source>&amp;Connect</source>
         <translation>接続(&amp;C)</translation>
     </message>
@@ -4134,13 +4134,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation>%1に接続中</translation>
     </message>
     <message>
-        <location line="-470"/>
-        <location line="+470"/>
+        <location line="-473"/>
+        <location line="+473"/>
         <source>Enter username</source>
         <translation>ユーザ名を入力してください</translation>
     </message>
     <message>
-        <location line="-470"/>
+        <location line="-473"/>
         <source>Adding host %1</source>
         <translation>ホスト %1 を追加中</translation>
     </message>
@@ -4207,13 +4207,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation></translation>
     </message>
     <message>
-        <location line="+292"/>
+        <location line="+295"/>
         <source>&amp;Filters</source>
         <translation>フィルタ(&amp;F)</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-291"/>
+        <location filename="ConnectDialog.cpp" line="-294"/>
         <source>Users</source>
         <translation>ユーザ</translation>
     </message>
@@ -4239,7 +4239,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+963"/>
+        <location line="+966"/>
         <source>Failed to fetch server list</source>
         <translation>サーバリストを取得出来ませんでした</translation>
     </message>
@@ -4475,6 +4475,11 @@ Label of the server. This is what the server will be named like in your serverli
         <translation>&lt;b&gt;ラベル&lt;/b&gt;&lt;br /&gt;
 そのサーバのラベルです。あなたのサーバリスト上でどのようにそのサーバが名前をつけるもので
 自由に選べます。</translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="-55"/>
+        <source>Add Server</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4919,7 +4924,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutMacInit</name>
     <message>
-        <location filename="GlobalShortcut_macx.mm" line="+63"/>
+        <location filename="GlobalShortcut_macx.mm" line="+65"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
         <translation>バックグラウンドでグローバルなショートカットイベントが発生し、受け入れることができませんでした。&lt;br /&gt;&lt;br /&gt;&apos;補助デバイスへのアクセス&apos; のようなユニバーサルアクセス機能が無効になっているのが原因です。&lt;br /&gt;&lt;br /&gt;&lt;a href=&quot; &quot;&gt;この設定を有効にして&lt;/a&gt; その後、再び設定してください。 </translation>
     </message>
@@ -5274,7 +5279,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>ユーザがサーバから退出</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
+        <source>User recording state changed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>User kicked (you or by you)</source>
         <translation>ユーザがキックされた時 (あなた自身、またはあなたによって)</translation>
     </message>
@@ -5929,7 +5939,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1904"/>
+        <location line="+1932"/>
         <source>Root</source>
         <translation>ルート</translation>
     </message>
@@ -6445,9 +6455,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumbleのウェブページに接続して新しいバージョンが出ているかを確認します。もし新しいのが出ていたら適切なダウンロードURLを通知します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1811"/>
+        <location filename="MainWindow.cpp" line="-1839"/>
         <location line="+12"/>
-        <location line="+2007"/>
+        <location line="+2035"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6469,7 +6479,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">プレイヤー(&amp;P)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2094"/>
+        <location filename="MainWindow.cpp" line="-2122"/>
         <source>&amp;Channel</source>
         <translation>チャンネル(&amp;C)</translation>
     </message>
@@ -6606,7 +6616,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">プレイヤー %1 をキックしました。</translation>
     </message>
     <message>
-        <location line="+1006"/>
+        <location line="+1034"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>理由を入力してください</translation>
@@ -7144,7 +7154,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>未登録ユーザのパスワードが違います。再度試してください。</translation>
     </message>
     <message>
-        <location line="+192"/>
+        <location line="+201"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation>画像 (*.png *.jpg *.svg)</translation>
     </message>
@@ -7168,7 +7178,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>他のユーザにテキストメッセージを送信します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2271"/>
+        <location filename="MainWindow.cpp" line="-2308"/>
         <source>&amp;User</source>
         <translation>ユーザ(&amp;U)</translation>
     </message>
@@ -7260,7 +7270,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>サウンドハードウェアの設定プロセスに案内します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1989"/>
+        <location filename="MainWindow.cpp" line="+2017"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL検証エラー: %1</translation>
     </message>
@@ -7387,13 +7397,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%1 の名前で自分をユーザ登録します</translation>
     </message>
     <message>
-        <location line="-963"/>
+        <location line="-991"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>ゲームオーバレイの状態を切り替えます。</translation>
     </message>
     <message>
-        <location line="+652"/>
+        <location line="+680"/>
         <location line="+311"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;サーバ上で自分自身をユーザ登録しようとしています。このアクションは取り消せません。このサーバでのあなたのユーザ名をこの操作の後に変更できなくなります。あなたはこのサーバ上で &apos;%1&apos; のユーザ名を使うことになります。&lt;/p&gt;&lt;p&gt;本当に自分自身を登録しますか？&lt;/p&gt;</translation>
@@ -7479,7 +7489,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>ユーザ &apos;%1&apos; へのメッセージをここに入力</translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="+97"/>
         <source>Choose image file</source>
         <translation>イメージファイルを選択</translation>
     </message>
@@ -7508,7 +7518,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;制御チャンネル&lt;/h2&gt;&lt;p&gt;%1 bit %2 で暗号化されています。&lt;br /&gt;平均 %3 ms の遅延 (平方偏差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1489"/>
+        <location line="-1498"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>音声チャンネルは管理チャンネルを通して送信されます。</translation>
     </message>
@@ -7654,7 +7664,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ %1 に接続しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1216"/>
+        <location filename="MainWindow.cpp" line="-1222"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble は現在、サーバに接続しています。接続を閉じるか最小化しますか?</translation>
     </message>
@@ -7664,13 +7674,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>閉じる</translation>
     </message>
     <message>
-        <location line="-103"/>
-        <location line="+104"/>
+        <location line="-125"/>
+        <location line="+126"/>
         <source>Minimize</source>
         <translation>最小化</translation>
     </message>
     <message>
-        <location line="-157"/>
+        <location line="-179"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished">発言禁止状態</translation>
@@ -7765,13 +7775,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+2037"/>
+        <location line="+2065"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>接続されていません</translation>
     </message>
     <message>
-        <location line="-1826"/>
+        <location line="-1829"/>
         <source>Clear</source>
         <translation>クリア</translation>
     </message>
@@ -7781,7 +7791,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>ログ</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1381"/>
+        <location filename="UserModel.cpp" line="+1383"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>チャンネルをドラッグしたときに &quot;何もしない&quot; ようにします; チャンネルが移動しなくなります。</translation>
     </message>
@@ -8311,42 +8321,42 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+477"/>
-        <location line="+1076"/>
+        <location filename="OverlayEditorScene.cpp" line="+121"/>
+        <location filename="OverlayUser.cpp" line="+150"/>
         <source>Silent</source>
         <translation>発言していない</translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Talking</source>
         <translation>発言中</translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Whisper</source>
         <translation>ささやき</translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Shout</source>
         <translation>発言している</translation>
     </message>
     <message>
-        <location line="-1057"/>
-        <location line="+947"/>
+        <location line="+17"/>
+        <location filename="OverlayUser.cpp" line="-110"/>
         <source>Channel</source>
         <translation>チャンネル</translation>
     </message>
     <message>
-        <location line="+1279"/>
+        <location filename="Overlay.cpp" line="+100"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>オーバレイ:  %2: %1 との通信の作成に失敗しました。有効なオーバレイはありません。</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+256"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation type="unfinished">デバッグモードではオーバレイの更新をスキップします。</translation>
     </message>
@@ -8395,7 +8405,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-1166"/>
+        <location filename="OverlayUserGroup.cpp" line="+94"/>
         <source>Filter</source>
         <translation>フィルタ</translation>
     </message>
@@ -8435,7 +8445,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation>ズームをリセット</translation>
     </message>
     <message>
-        <location line="+285"/>
+        <location filename="OverlayClient.cpp" line="+106"/>
         <source>FPS: %1</source>
         <translation></translation>
     </message>
@@ -8452,10 +8462,9 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation type="obsolete">位置</translation>
     </message>
     <message>
-        <location/>
         <source>Form</source>
         <oldsource>Font</oldsource>
-        <translation>フォーム</translation>
+        <translation type="obsolete">フォーム</translation>
     </message>
     <message>
         <location/>
@@ -8616,7 +8625,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation type="obsolete">有効なチャンネルの色</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-2106"/>
+        <location filename="OverlayConfig.cpp" line="+78"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>ユーザを動かすには、小さな赤い点をドラッグしてください。</translation>
     </message>
@@ -8631,12 +8640,17 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation>更なる設定をするには、ユーザを右クリックしてください。</translation>
     </message>
     <message>
-        <location line="+153"/>
+        <location line="+30"/>
+        <source>FPS: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+194"/>
         <source>Overlay</source>
         <translation>オーバーレイ</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+71"/>
         <source>Choose executable</source>
         <translation>実行ファイルを選択</translation>
     </message>
@@ -8655,6 +8669,22 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <source>Mumble was unable to verify the authenticity of the installer.</source>
         <oldsource>Mumble was unable to validate authenticity of the installer.</oldsource>
         <translation type="unfinished">Mumbleはインストーラの信頼性を検証できません。</translation>
+    </message>
+    <message>
+        <location line="+86"/>
+        <source>Load Overlay Presets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <location line="+28"/>
+        <source>Mumble overlay presets (*.mumblelay)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-2"/>
+        <source>Save Overlay Presets</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show User Textures</source>
@@ -8763,8 +8793,9 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation type="obsolete">追加</translation>
     </message>
     <message>
+        <location/>
         <source>Remove</source>
-        <translation type="obsolete">削除</translation>
+        <translation type="unfinished">削除</translation>
     </message>
     <message>
         <location/>
@@ -8825,14 +8856,62 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="unfinished">証明書を見る</translation>
     </message>
     <message>
-        <location/>
         <source>&amp;Add...</source>
-        <translation type="unfinished">追加(&amp;A)...</translation>
+        <translation type="obsolete">追加(&amp;A)...</translation>
+    </message>
+    <message>
+        <source>&amp;Remove</source>
+        <translation type="obsolete">削除(&amp;R)</translation>
     </message>
     <message>
         <location/>
-        <source>&amp;Remove</source>
-        <translation type="unfinished">削除(&amp;R)</translation>
+        <source>Load an overlay preset from file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location/>
+        <source>Load…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Save your overlay settings to file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location/>
+        <source>Save…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>FPS Display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Set the overlay font.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Set the overlay text color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Color</source>
+        <translation type="unfinished">色</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Add...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8960,7 +9039,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>OverlayEditorScene</name>
     <message>
-        <location filename="Overlay.cpp" line="+555"/>
+        <location filename="OverlayEditorScene.cpp" line="+396"/>
         <source>Layout preset</source>
         <translation>レイアウトプリセット</translation>
     </message>
@@ -9320,7 +9399,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+320"/>
+        <location filename="Plugins.cpp" line="+330"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>デバッグモードではプラグインのアップデートはスキップします。</translation>
     </message>
@@ -9340,7 +9419,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="obsolete">プラグイン %1 はリンクを失いました。</translation>
     </message>
     <message>
-        <location line="-259"/>
+        <location line="-265"/>
         <source>%1 lost link.</source>
         <translation>%1 はリンクを失いました。</translation>
     </message>
@@ -9349,7 +9428,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="obsolete">プラグイン %1 はリンクされました。</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+74"/>
         <source>%1 linked.</source>
         <translation>%1 はリンクされました。</translation>
     </message>
@@ -9582,7 +9661,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-663"/>
+        <location filename="ConnectDialog.cpp" line="-611"/>
         <source>Favorite</source>
         <translation>お気に入り</translation>
     </message>
@@ -10034,7 +10113,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-804"/>
+        <location filename="UserModel.cpp" line="-806"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>サーバに接続しているユーザです。ユーザの左側のアイコンは彼らが話しているかどうかを意味します:</translation>
     </message>
@@ -10160,7 +10239,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>フラグ</translation>
     </message>
     <message>
-        <location line="+721"/>
+        <location line="+723"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>本当にこのチャンネルをドラッグしますか ?</translation>
     </message>
@@ -10333,7 +10412,22 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <location filename="VoiceRecorder.cpp" line="+390"/>
+        <location filename="VoiceRecorder.cpp" line="+181"/>
+        <source>Invalid sample rate given to recorder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+96"/>
+        <source>Recorder failed to create directory &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Recorder failed to open file &apos;%s&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+109"/>
         <source>.wav - Uncompressed</source>
         <translation type="unfinished">.wav - 無圧縮</translation>
     </message>
@@ -10358,9 +10452,10 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
         <location filename="VoiceRecorderDialog.cpp" line="+69"/>
-        <location line="+39"/>
+        <location line="+41"/>
         <location line="+10"/>
         <location line="+9"/>
+        <location line="+135"/>
         <source>Recorder</source>
         <translation type="unfinished">レコーダ</translation>
     </message>
@@ -10442,12 +10537,12 @@ Valid variables are:
         <translation type="unfinished">参照(&amp;B)...</translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-57"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-194"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
         <translation type="unfinished">レコーダを閉じると現在の録音が停止します。本当にレコーダを閉じますか?</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+32"/>
         <source>Recoder</source>
         <translation type="unfinished">レコーダ</translation>
     </message>
@@ -10474,7 +10569,7 @@ Please contact your server administrator for further information.</source>
         <translation type="unfinished">録音形式を選択してください。</translation>
     </message>
     <message>
-        <location line="+97"/>
+        <location line="+95"/>
         <source>Select target directory</source>
         <translation type="unfinished">対象のディレクトリを選択</translation>
     </message>

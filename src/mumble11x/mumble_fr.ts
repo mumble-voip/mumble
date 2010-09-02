@@ -574,7 +574,7 @@
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+43"/>
         <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
         <translation>L&apos;initialisation de ASIO a échoué: %1</translation>
@@ -2494,7 +2494,7 @@
         <translation type="obsolete">&amp;Valider</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="+51"/>
+        <location filename="ConfigDialog.cpp" line="+54"/>
         <source>Accept changes</source>
         <translation>Accepter les modifications</translation>
     </message>

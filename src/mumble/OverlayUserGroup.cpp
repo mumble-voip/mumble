@@ -51,11 +51,10 @@ QRectF OverlayGroup::boundingRect() const {
 }
 
 OverlayUserGroup::OverlayUserGroup(OverlaySettings *osptr) :
-	OverlayGroup(),
-	os(osptr),
-	qgeiHandle(NULL),
-	bShowExamples(false)
-{ }
+		OverlayGroup(),
+		os(osptr),
+		qgeiHandle(NULL),
+		bShowExamples(false) { }
 
 OverlayUserGroup::~OverlayUserGroup() {
 	reset();

@@ -261,8 +261,8 @@ void VoiceRecorderDialog::onRecorderStarted() {
 
 void VoiceRecorderDialog::onRecorderError(int err, QString strerr) {
 	QMessageBox::critical(this,
-						  tr("Recorder"),
-						  strerr);
+	                      tr("Recorder"),
+	                      strerr);
 	reset(false);
 }
 

@@ -32,33 +32,28 @@
 #include "Global.h"
 
 BasepointPixmap::BasepointPixmap() :
-	qpBasePoint(0, 0)
-{ }
+		qpBasePoint(0, 0) { }
 
 BasepointPixmap::BasepointPixmap(const QPixmap& pm) :
-	QPixmap(pm),
-	qpBasePoint(0, pm.height())
-{ }
+		QPixmap(pm),
+		qpBasePoint(0, pm.height()) { }
 
 BasepointPixmap::BasepointPixmap(int w, int h) :
-	QPixmap(w, h),
-	qpBasePoint(0, h)
-{ }
+		QPixmap(w, h),
+		qpBasePoint(0, h) { }
 
 BasepointPixmap::BasepointPixmap(int w, int h, const QPoint& bp) :
-	QPixmap(w, h),
-	qpBasePoint(bp)
-{ }
+		QPixmap(w, h),
+		qpBasePoint(bp) { }
 
 OverlayTextLine::OverlayTextLine(const QString& s, const QFont& f) :
-	fEdgeFactor(0.05f),
-	qsText(s),
-	qfFont(f),
-	iCurWidth(-1),
-	iCurHeight(-1),
-	fBaseliningThreshold(0.5f),
-	bElided(false)
-{
+		fEdgeFactor(0.05f),
+		qsText(s),
+		qfFont(f),
+		iCurWidth(-1),
+		iCurHeight(-1),
+		fBaseliningThreshold(0.5f),
+		bElided(false) {
 	QFontMetrics fm(f);
 	fAscent = static_cast<float>(fm.ascent());
 	fDescent = static_cast<float>(fm.descent());
@@ -120,11 +115,11 @@ BasepointPixmap OverlayTextLine::createPixmap(QColor col) {
 	qr = qpp.controlPointRect();
 
 	return render(
-			iroundf(qr.right() + 2.0f*fEdge + 0.5f),
-			iroundf(qr.bottom() + 2.0f*fEdge + 0.5f),
-			col,
-			QPoint(iroundf(fXCorrection), iroundf(fYCorrection + fAscent))
-			);
+	           iroundf(qr.right() + 2.0f*fEdge + 0.5f),
+	           iroundf(qr.bottom() + 2.0f*fEdge + 0.5f),
+	           col,
+	           QPoint(iroundf(fXCorrection), iroundf(fYCorrection + fAscent))
+	       );
 }
 
 BasepointPixmap OverlayTextLine::createPixmap(unsigned int maxwidth, unsigned int height, QColor col) {
@@ -222,11 +217,11 @@ BasepointPixmap OverlayTextLine::createPixmap(unsigned int maxwidth, unsigned in
 	QRectF qr = qpp.controlPointRect();
 
 	return render(
-			iroundf(qr.width() + twice_edge + 0.5f),
-			iroundf(fAscent + fDescent + twice_edge + 0.5f),
-			col,
-			QPoint(0, iroundf(fAscent + fEdge + 0.5f))
-			);
+	           iroundf(qr.width() + twice_edge + 0.5f),
+	           iroundf(fAscent + fDescent + twice_edge + 0.5f),
+	           col,
+	           QPoint(0, iroundf(fAscent + fEdge + 0.5f))
+	       );
 }
 
 void OverlayTextLine::setFont(const QFont& font) {

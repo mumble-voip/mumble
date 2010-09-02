@@ -123,15 +123,14 @@ void OverlayConfig::refreshFpsLive() {
 }
 
 OverlayConfig::OverlayConfig(Settings &st) :
-	ConfigWidget(st),
-	qgpiScreen(NULL),
-	qgs(),
-	qgsFpsPreview(),
-	qgpiFpsDemo(NULL),
-	oug(NULL),
-	qgtiInstructions(NULL),
-	fViewScale(1.0f)
-{
+		ConfigWidget(st),
+		qgpiScreen(NULL),
+		qgs(),
+		qgsFpsPreview(),
+		qgpiFpsDemo(NULL),
+		oug(NULL),
+		qgtiInstructions(NULL),
+		fViewScale(1.0f) {
 	setupUi(this);
 
 	if (! isInstalled()) {
@@ -151,7 +150,7 @@ OverlayConfig::OverlayConfig(Settings &st) :
 
 		qpScreen = QPixmap::grabWidget(QApplication::desktop(), dsg);
 
-		if(qpScreen.size().isEmpty()) {
+		if (qpScreen.size().isEmpty()) {
 			qWarning() << __FUNCTION__ << "failed to grab desktop widget image, falling back.";
 
 			QRect desktop_size = QApplication::desktop()->screenGeometry();
@@ -349,7 +348,7 @@ void OverlayConfig::resizeScene(bool force) {
 
 	int ph = qgpiScreen->pixmap().height();
 	int pw = qgpiScreen->pixmap().width();
-	if (!force && ( (ph == sz.height() && pw <= sz.width()) || (ph <= sz.height() && pw == sz.width()) )) {
+	if (!force && ((ph == sz.height() && pw <= sz.width()) || (ph <= sz.height() && pw == sz.width()))) {
 		return;
 	}
 
@@ -479,7 +478,7 @@ void OverlayConfig::on_qpbFpsFont_clicked() {
 	bool ok;
 	QFont new_font = QFontDialog::getFont(&ok, s.os.qfFps);
 
-	if(ok) {
+	if (ok) {
 		s.os.qfFps = new_font;
 
 		refreshFpsDemo();
@@ -490,7 +489,7 @@ void OverlayConfig::on_qpbFpsFont_clicked() {
 void OverlayConfig::on_qpbFpsColor_clicked() {
 	QColor color = QColorDialog::getColor(s.os.qcFps);
 
-	if(color.isValid()) {
+	if (color.isValid()) {
 		s.os.qcFps = color;
 
 		refreshFpsDemo();
@@ -500,9 +499,9 @@ void OverlayConfig::on_qpbFpsColor_clicked() {
 
 void OverlayConfig::on_qpbLoadPreset_clicked() {
 	QString fn = QFileDialog::getOpenFileName(this,
-			tr("Load Overlay Presets"),
-			QDir::homePath(),
-			tr("Mumble overlay presets (*.mumblelay)"));
+	             tr("Load Overlay Presets"),
+	             QDir::homePath(),
+	             tr("Mumble overlay presets (*.mumblelay)"));
 
 	if (fn.isEmpty()) {
 		return;
@@ -528,9 +527,9 @@ void OverlayConfig::on_qpbLoadPreset_clicked() {
 
 void OverlayConfig::on_qpbSavePreset_clicked() {
 	QString fn = QFileDialog::getSaveFileName(this,
-			tr("Save Overlay Presets"),
-			QDir::homePath(),
-			tr("Mumble overlay presets (*.mumblelay)"));
+	             tr("Save Overlay Presets"),
+	             QDir::homePath(),
+	             tr("Mumble overlay presets (*.mumblelay)"));
 
 	if (fn.isEmpty()) {
 		return;

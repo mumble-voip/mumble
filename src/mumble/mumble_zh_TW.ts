@@ -558,7 +558,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+43"/>
         <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
         <translation>ASIO初始化失敗: %1</translation>
@@ -2530,7 +2530,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+412"/>
+        <location filename="main.cpp" line="+411"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3094,7 +3094,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+51"/>
+        <location filename="ConfigDialog.cpp" line="+54"/>
         <source>Accept changes</source>
         <translation>確定</translation>
     </message>
@@ -3219,13 +3219,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+867"/>
+        <location filename="ConnectDialog.cpp" line="+870"/>
         <source>Connecting to %1</source>
         <translation>正在連接到 %1</translation>
     </message>
     <message>
-        <location line="-470"/>
-        <location line="+470"/>
+        <location line="-473"/>
+        <location line="+473"/>
         <source>Enter username</source>
         <translation>輸入用戶名</translation>
     </message>
@@ -3234,7 +3234,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">未知</translation>
     </message>
     <message>
-        <location line="-470"/>
+        <location line="-473"/>
         <source>Adding host %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3301,13 +3301,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+292"/>
+        <location line="+295"/>
         <source>&amp;Filters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-291"/>
+        <location filename="ConnectDialog.cpp" line="-294"/>
         <source>Users</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3317,7 +3317,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+963"/>
+        <location line="+966"/>
         <source>Failed to fetch server list</source>
         <translation>無法獲取服務器列表</translation>
     </message>
@@ -3572,6 +3572,11 @@ Username to send to the server. Be aware that the server can impose restrictions
 Label of the server. This is what the server will be named like in your serverlist and can be chosen freely.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="-55"/>
+        <source>Add Server</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CoreAudioSystem</name>
@@ -3814,7 +3819,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutMacInit</name>
     <message>
-        <location filename="GlobalShortcut_macx.mm" line="+63"/>
+        <location filename="GlobalShortcut_macx.mm" line="+65"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
         <translation>Mumble 檢測到當它位于后台時它不能接收到全局快捷鍵事件。&lt;br /&gt;&lt;br /&gt;這是因為被稱為‘允許輔助設備的使用’的輔助使用功能當前被禁用。&lt;br /&gt;&lt;br /&gt;請&lt;a href=&quot; &quot;&gt;啟用該選項&lt;/a&gt;然后繼續。</translation>
     </message>
@@ -4112,7 +4117,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
+        <source>User recording state changed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>User kicked (you or by you)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4704,12 +4714,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1904"/>
+        <location line="+1932"/>
         <source>Root</source>
         <translation>根</translation>
     </message>
     <message>
-        <location line="-1855"/>
+        <location line="-1883"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>按鍵通話</translation>
@@ -4848,28 +4858,28 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2007"/>
+        <location line="+2035"/>
         <source>Mumble -- %1</source>
         <translation></translation>
     </message>
     <message>
-        <location line="-2003"/>
+        <location line="-2031"/>
         <source>&amp;Window</source>
         <translation>&amp;窗口</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+104"/>
+        <location line="+126"/>
         <source>Minimize</source>
         <translation>最小化</translation>
     </message>
     <message>
-        <location line="-104"/>
+        <location line="-126"/>
         <source>Ctrl+M</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+125"/>
         <source>Close</source>
         <translation>關閉</translation>
     </message>
@@ -4879,7 +4889,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumble 現在連接到了一個服務器。你想要關閉還是最小化它？</translation>
     </message>
     <message>
-        <location line="-196"/>
+        <location line="-218"/>
         <source>&amp;User</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4927,18 +4937,18 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2037"/>
+        <location line="+2065"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished">未連接</translation>
     </message>
     <message>
-        <location line="-1826"/>
+        <location line="-1829"/>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+27"/>
         <source>Opening URL %1</source>
         <translation>打開網址 %1</translation>
     </message>
@@ -5024,24 +5034,24 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1452"/>
+        <location line="+1461"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1556"/>
+        <location line="-1565"/>
         <location line="+311"/>
         <source>Register yourself as %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-963"/>
+        <location line="-991"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+652"/>
+        <location line="+680"/>
         <location line="+311"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
@@ -5130,7 +5140,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="+97"/>
         <source>Choose image file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5155,7 +5165,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;控制信道&lt;/h2&gt;&lt;p&gt;使用 %1 比特 %2 加密&lt;br /&gt;平均延遲 %3 毫秒（%4 方差）&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1489"/>
+        <location line="-1498"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>語音頻道通過控制信道發送。</translation>
     </message>
@@ -5386,7 +5396,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;玩家</translation>
     </message>
     <message>
-        <location line="-2078"/>
+        <location line="-2106"/>
         <source>&amp;Channel</source>
         <translation type="unfinished">&amp;頻道</translation>
     </message>
@@ -6431,7 +6441,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>來至 %1 的消息</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1381"/>
+        <location filename="UserModel.cpp" line="+1383"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>你設置頻道拖動為“無動作&quot;因此頻道沒有被移動。</translation>
     </message>
@@ -6880,42 +6890,42 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+477"/>
-        <location line="+1076"/>
+        <location filename="OverlayEditorScene.cpp" line="+121"/>
+        <location filename="OverlayUser.cpp" line="+150"/>
         <source>Silent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Talking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Whisper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Shout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1057"/>
-        <location line="+947"/>
+        <location line="+17"/>
+        <location filename="OverlayUser.cpp" line="-110"/>
         <source>Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1279"/>
+        <location filename="Overlay.cpp" line="+100"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+256"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6938,7 +6948,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-1166"/>
+        <location filename="OverlayUserGroup.cpp" line="+94"/>
         <source>Filter</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6978,7 +6988,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+285"/>
+        <location filename="OverlayClient.cpp" line="+106"/>
         <source>FPS: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6998,7 +7008,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">顯示所有人</translation>
     </message>
     <message>
-        <location line="-2106"/>
+        <location filename="OverlayConfig.cpp" line="+78"/>
         <source>To move the users, drag the little red dot.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7013,12 +7023,17 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+153"/>
+        <location line="+30"/>
+        <source>FPS: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+194"/>
         <source>Overlay</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+71"/>
         <source>Choose executable</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7039,12 +7054,27 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Overlay.ui"/>
-        <source>Form</source>
-        <translation>表單</translation>
+        <location line="+86"/>
+        <source>Load Overlay Presets</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location/>
+        <location line="+2"/>
+        <location line="+28"/>
+        <source>Mumble overlay presets (*.mumblelay)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-2"/>
+        <source>Save Overlay Presets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Form</source>
+        <translation type="obsolete">表單</translation>
+    </message>
+    <message>
+        <location filename="Overlay.ui"/>
         <source>Options</source>
         <translation>選項</translation>
     </message>
@@ -7241,8 +7271,9 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="obsolete">添加</translation>
     </message>
     <message>
+        <location/>
         <source>Remove</source>
-        <translation type="obsolete">刪除</translation>
+        <translation type="unfinished">刪除</translation>
     </message>
     <message>
         <location/>
@@ -7299,14 +7330,53 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>&amp;Remove</source>
+        <translation type="obsolete">&amp;刪除</translation>
+    </message>
+    <message>
         <location/>
-        <source>&amp;Add...</source>
+        <source>Load an overlay preset from file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location/>
+        <source>Load…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
-        <source>&amp;Remove</source>
-        <translation type="unfinished">&amp;刪除</translation>
+        <source>Save your overlay settings to file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location/>
+        <source>Save…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>FPS Display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Set the overlay font.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Set the overlay text color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Add...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7434,7 +7504,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>OverlayEditorScene</name>
     <message>
-        <location filename="Overlay.cpp" line="+555"/>
+        <location filename="OverlayEditorScene.cpp" line="+396"/>
         <source>Layout preset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7701,7 +7771,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+320"/>
+        <location filename="Plugins.cpp" line="+330"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7717,12 +7787,12 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-259"/>
+        <location line="-265"/>
         <source>%1 lost link.</source>
         <translation>%1 的鏈接丟失。</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+74"/>
         <source>%1 linked.</source>
         <translation>%1 已鏈接上。</translation>
     </message>
@@ -7880,7 +7950,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-663"/>
+        <location filename="ConnectDialog.cpp" line="-611"/>
         <source>Favorite</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8326,7 +8396,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-804"/>
+        <location filename="UserModel.cpp" line="-806"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8452,7 +8522,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished">標志</translation>
     </message>
     <message>
-        <location line="+721"/>
+        <location line="+723"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation type="unfinished">你確信要拖動這個頻道嗎？</translation>
     </message>
@@ -8621,7 +8691,22 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <location filename="VoiceRecorder.cpp" line="+390"/>
+        <location filename="VoiceRecorder.cpp" line="+181"/>
+        <source>Invalid sample rate given to recorder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+96"/>
+        <source>Recorder failed to create directory &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Recorder failed to open file &apos;%s&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+109"/>
         <source>.wav - Uncompressed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8646,9 +8731,10 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
         <location filename="VoiceRecorderDialog.cpp" line="+69"/>
-        <location line="+39"/>
+        <location line="+41"/>
         <location line="+10"/>
         <location line="+9"/>
+        <location line="+135"/>
         <source>Recorder</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8724,12 +8810,12 @@ Valid variables are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-57"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-194"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+32"/>
         <source>Recoder</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8755,7 +8841,7 @@ Please contact your server administrator for further information.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+97"/>
+        <location line="+95"/>
         <source>Select target directory</source>
         <translation type="unfinished"></translation>
     </message>

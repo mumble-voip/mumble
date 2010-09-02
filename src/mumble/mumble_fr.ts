@@ -780,7 +780,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+43"/>
         <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
         <translation>L&apos;initialisation de ASIO a échoué: %1</translation>
@@ -3073,7 +3073,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Utilisateur Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+412"/>
+        <location filename="main.cpp" line="+411"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Expiration du certificat :&lt;/b&gt; Votre certificat va bientôt expirer. Vous devez le renouveler ou vous ne pourrez plus vous connecter aux serveurs auxquels vous êtes enregistrés.</translation>
     </message>
@@ -3738,7 +3738,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
         <translation type="obsolete">&amp;Valider</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="+51"/>
+        <location filename="ConfigDialog.cpp" line="+54"/>
         <source>Accept changes</source>
         <translation>Accepter les modifications</translation>
     </message>
@@ -3888,7 +3888,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
         <translation type="obsolete">Mot de &amp;passe</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+734"/>
+        <location filename="ConnectDialog.cpp" line="+737"/>
         <source>&amp;Connect</source>
         <translation>&amp;Connexion</translation>
     </message>
@@ -3938,13 +3938,13 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
         <translation>Connexion à %1</translation>
     </message>
     <message>
-        <location line="-470"/>
-        <location line="+470"/>
+        <location line="-473"/>
+        <location line="+473"/>
         <source>Enter username</source>
         <translation>Entrer le nom d&apos;utilisateur</translation>
     </message>
     <message>
-        <location line="-470"/>
+        <location line="-473"/>
         <source>Adding host %1</source>
         <translation>Ajout de l&apos;hôte %1</translation>
     </message>
@@ -4023,7 +4023,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="+253"/>
+        <location filename="ConnectDialog.cpp" line="+256"/>
         <source>&amp;Add New...</source>
         <oldsource>Add New...</oldsource>
         <translation>&amp;Ajouter un nouveau...</translation>
@@ -4266,6 +4266,11 @@ Nom d&apos;utilisateur envoyé au serveur. Notez que le serveur peut imposer des
         <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your serverlist and can be chosen freely.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="-765"/>
+        <source>Add Server</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4697,7 +4702,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutMacInit</name>
     <message>
-        <location filename="GlobalShortcut_macx.mm" line="+63"/>
+        <location filename="GlobalShortcut_macx.mm" line="+65"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
         <translation>Mumble a détecté qu&apos;il n&apos;est pas capable de recevoir l&apos;évènements de raccourcis global quand il est en arrière plan.&lt;br/&gt;&lt;br/&gt;C&apos;est parce que la fonction d&apos;Accès Universel nommée &apos;Activer l&apos;accès pour les périphériques d&apos;aide&apos; est actuellement désactivée.&lt;br/&gt;&lt;br/&gt;Veuillez &lt;a href=&quot; &quot;&gt;activer ce paramètre&lt;/a&gt; et continuer quand c&apos;est fait.</translation>
     </message>
@@ -5045,7 +5050,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Un utilisateur quitte le serveur</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
+        <source>User recording state changed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>User kicked (you or by you)</source>
         <translation>Un utilisateur expulsé (vous ou par vous)</translation>
     </message>
@@ -5682,7 +5692,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1904"/>
+        <location line="+1932"/>
         <source>Root</source>
         <translation>Racine</translation>
     </message>
@@ -5874,7 +5884,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Délier</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1887"/>
+        <location filename="MainWindow.cpp" line="-1915"/>
         <source>&amp;User</source>
         <translation>&amp;Utilisateur</translation>
     </message>
@@ -6281,7 +6291,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+76"/>
         <location line="+12"/>
-        <location line="+2007"/>
+        <location line="+2035"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6303,7 +6313,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Joueur</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2094"/>
+        <location filename="MainWindow.cpp" line="-2122"/>
         <source>&amp;Channel</source>
         <translation>&amp;Salon</translation>
     </message>
@@ -6415,7 +6425,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Expulsion du joueur %1</translation>
     </message>
     <message>
-        <location line="+1006"/>
+        <location line="+1034"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Entrez la raison</translation>
@@ -6933,7 +6943,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mauvais mot de passe de serveur pour un utilisateur non enregistré, veuillez essayer à nouveau.</translation>
     </message>
     <message>
-        <location line="+192"/>
+        <location line="+201"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation>Images (*.png *.jpg *.svg)</translation>
     </message>
@@ -6967,7 +6977,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Ceci vous guidera dans la configuration de votre matériel audio.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-282"/>
+        <location filename="MainWindow.cpp" line="-291"/>
         <source>SSL Verification failed: %1</source>
         <translation>Vérification SSL échoué: %1</translation>
     </message>
@@ -7175,7 +7185,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;center&gt;Saisir un message pour l&apos;utilisateur &apos;%1&apos; ici&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="+97"/>
         <source>Choose image file</source>
         <translation>Choisir un fichier image</translation>
     </message>
@@ -7200,18 +7210,18 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Format d&apos;image non reconnu.</translation>
     </message>
     <message>
-        <location line="-1489"/>
+        <location line="-1498"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>La voix est envoyée au dessus du canal de contrôle.</translation>
     </message>
     <message>
-        <location line="-743"/>
+        <location line="-771"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Ceci changera l&apos;état de l&apos;overlay.</translation>
     </message>
     <message>
-        <location line="+734"/>
+        <location line="+762"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canal de contrôle&lt;/h2&gt;&lt;p&gt;Chiffré en %2 %1 bits&lt;br/&gt;%3 ms de latence moyenne (déviation de %4)&lt;/p&gt;&lt;p&gt;Hôte distant %5 (port %6)&lt;/p&gt;</translation>
     </message>
@@ -7337,7 +7347,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Connecté au serveur %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1216"/>
+        <location filename="MainWindow.cpp" line="-1222"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble est actuellement connecté à un serveur. Voulez-vous le fermer ou le réduire dans la barre des tâches?</translation>
     </message>
@@ -7347,13 +7357,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Fermer</translation>
     </message>
     <message>
-        <location line="-103"/>
-        <location line="+104"/>
+        <location line="-125"/>
+        <location line="+126"/>
         <source>Minimize</source>
         <translation>Réduire</translation>
     </message>
     <message>
-        <location line="-157"/>
+        <location line="-179"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Se rendre muet(te)</translation>
@@ -7448,13 +7458,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+2037"/>
+        <location line="+2065"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Non connecté&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1826"/>
+        <location line="-1829"/>
         <source>Clear</source>
         <translation>Effacer</translation>
     </message>
@@ -7464,7 +7474,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Historique</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1381"/>
+        <location filename="UserModel.cpp" line="+1383"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Votre option &apos;Faire glisser le salon&apos; est définie sur &quot;Ne rien faire&quot;, le salon n&apos;a donc pas été déplacé.</translation>
     </message>
@@ -7969,42 +7979,42 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+477"/>
-        <location line="+1076"/>
+        <location filename="OverlayEditorScene.cpp" line="+121"/>
+        <location filename="OverlayUser.cpp" line="+150"/>
         <source>Silent</source>
         <translation>Silenceux</translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Talking</source>
         <translation>Parle</translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Whisper</source>
         <translation>Chuchote</translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Shout</source>
         <translation>Crie</translation>
     </message>
     <message>
-        <location line="-1057"/>
-        <location line="+947"/>
+        <location line="+17"/>
+        <location filename="OverlayUser.cpp" line="-110"/>
         <source>Channel</source>
         <translation>Salon</translation>
     </message>
     <message>
-        <location line="+1279"/>
+        <location filename="Overlay.cpp" line="+100"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Échec lors de la création de la communication avec l&apos;overlay à %2 : %1. L&apos;overlay ne sera pas disponible.</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+256"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8046,7 +8056,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-1166"/>
+        <location filename="OverlayUserGroup.cpp" line="+94"/>
         <source>Filter</source>
         <translation>Filtre</translation>
     </message>
@@ -8086,7 +8096,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation>Réinitialiser le zoom</translation>
     </message>
     <message>
-        <location line="+285"/>
+        <location filename="OverlayClient.cpp" line="+106"/>
         <source>FPS: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8103,10 +8113,9 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation type="obsolete">Position</translation>
     </message>
     <message>
-        <location/>
         <source>Form</source>
         <oldsource>Font</oldsource>
-        <translation>Overlay</translation>
+        <translation type="obsolete">Overlay</translation>
     </message>
     <message>
         <location/>
@@ -8267,7 +8276,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation type="obsolete">Couleur des canaux actifs</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="-2106"/>
+        <location filename="OverlayConfig.cpp" line="+78"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Pour déplacer des utilisateurs, glissez-déplacez le petit point rouge.</translation>
     </message>
@@ -8282,12 +8291,17 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation>Pour plus d&apos;options, faites un clic-droit sur un utilisateur.</translation>
     </message>
     <message>
-        <location line="+153"/>
+        <location line="+30"/>
+        <source>FPS: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+194"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+71"/>
         <source>Choose executable</source>
         <translation>Choisir le fichier exécutable</translation>
     </message>
@@ -8305,6 +8319,22 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <location line="+1"/>
         <source>Mumble was unable to verify the authenticity of the installer.</source>
         <oldsource>Mumble was unable to validate authenticity of the installer.</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+86"/>
+        <source>Load Overlay Presets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <location line="+28"/>
+        <source>Mumble overlay presets (*.mumblelay)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-2"/>
+        <source>Save Overlay Presets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8414,8 +8444,9 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation type="obsolete">Ajouter</translation>
     </message>
     <message>
+        <location/>
         <source>Remove</source>
-        <translation type="obsolete">Supprimer</translation>
+        <translation type="unfinished">Supprimer</translation>
     </message>
     <message>
         <location/>
@@ -8473,12 +8504,52 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <location/>
-        <source>&amp;Add...</source>
+        <source>Load an overlay preset from file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location/>
+        <source>Load…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
-        <source>&amp;Remove</source>
+        <source>Save your overlay settings to file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location/>
+        <source>Save…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>FPS Display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Set the overlay font.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Set the overlay text color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Color</source>
+        <translation type="unfinished">Couleur</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Add...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8607,7 +8678,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>OverlayEditorScene</name>
     <message>
-        <location filename="Overlay.cpp" line="+555"/>
+        <location filename="OverlayEditorScene.cpp" line="+396"/>
         <source>Layout preset</source>
         <translation>Disposition prédéfinie</translation>
     </message>
@@ -8909,7 +8980,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+320"/>
+        <location filename="Plugins.cpp" line="+330"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>Passe la mise à jour des plugins en mode débogage.</translation>
     </message>
@@ -8929,7 +9000,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="obsolete">Le plugin %1 est désactivé.</translation>
     </message>
     <message>
-        <location line="-259"/>
+        <location line="-265"/>
         <source>%1 lost link.</source>
         <translation>%1 est désactivé.</translation>
     </message>
@@ -8938,7 +9009,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="obsolete">Le plugin %1 est activé.</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+74"/>
         <source>%1 linked.</source>
         <translation>%1 est activé.</translation>
     </message>
@@ -9163,7 +9234,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-1373"/>
+        <location filename="ConnectDialog.cpp" line="-611"/>
         <source>Favorite</source>
         <translation>Favoris</translation>
     </message>
@@ -9610,7 +9681,7 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-804"/>
+        <location filename="UserModel.cpp" line="-806"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>C&apos;est un utilisateur connecté au serveur. L&apos;icône à gauche de l&apos;utilisateur infique si il parle ou pas :</translation>
     </message>
@@ -9740,7 +9811,7 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+721"/>
+        <location line="+723"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Etes vous sur de vouloir déplacer ce salon ?</translation>
     </message>
@@ -9913,7 +9984,22 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <location filename="VoiceRecorder.cpp" line="+390"/>
+        <location filename="VoiceRecorder.cpp" line="+181"/>
+        <source>Invalid sample rate given to recorder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+96"/>
+        <source>Recorder failed to create directory &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Recorder failed to open file &apos;%s&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+109"/>
         <source>.wav - Uncompressed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9938,9 +10024,10 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
         <location filename="VoiceRecorderDialog.cpp" line="+69"/>
-        <location line="+39"/>
+        <location line="+41"/>
         <location line="+10"/>
         <location line="+9"/>
+        <location line="+135"/>
         <source>Recorder</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10016,12 +10103,12 @@ Valid variables are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-57"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-194"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+32"/>
         <source>Recoder</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10047,7 +10134,7 @@ Please contact your server administrator for further information.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+97"/>
+        <location line="+95"/>
         <source>Select target directory</source>
         <translation type="unfinished"></translation>
     </message>
