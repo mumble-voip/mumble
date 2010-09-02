@@ -4479,7 +4479,7 @@ Label of the server. This is what the server will be named like in your serverli
     <message>
         <location filename="ConnectDialog.cpp" line="-55"/>
         <source>Add Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバの追加</translation>
     </message>
 </context>
 <context>
@@ -5281,7 +5281,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User recording state changed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザの録音状態の変更</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8642,7 +8642,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+30"/>
         <source>FPS: %1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+194"/>
@@ -8673,18 +8673,18 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+86"/>
         <source>Load Overlay Presets</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">オーバレイプリセットを読み込み</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+28"/>
         <source>Mumble overlay presets (*.mumblelay)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumbleオーバレイプリセット (*.mumblelay)</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Save Overlay Presets</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">オーバレイのプリセットを保存</translation>
     </message>
     <message>
         <source>Show User Textures</source>
@@ -8866,42 +8866,42 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Load an overlay preset from file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ファイルからオーバレイのプリセットを読み込みます</translation>
     </message>
     <message utf8="true">
         <location/>
         <source>Load…</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">読込…</translation>
     </message>
     <message>
         <location/>
         <source>Save your overlay settings to file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ファイルにオーバレイの設定を保存します</translation>
     </message>
     <message utf8="true">
         <location/>
         <source>Save…</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">保存…</translation>
     </message>
     <message>
         <location/>
         <source>FPS Display</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">FPS表示</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay font.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">オーバレイのフォントを設定します。</translation>
     </message>
     <message>
         <location/>
         <source>Font</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">フォント</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay text color.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">オーバレイテキストの色を設定します。</translation>
     </message>
     <message>
         <location/>
@@ -8911,7 +8911,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Add...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">追加...</translation>
     </message>
 </context>
 <context>
@@ -10414,17 +10414,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VoiceRecorder.cpp" line="+181"/>
         <source>Invalid sample rate given to recorder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">レコーダに与えられたサンプルレートは無効です</translation>
     </message>
     <message>
         <location line="+96"/>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">レコーダはディレクトリ&apos;%1&apos;の作成に失敗しました</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%s&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">レコーダはファイル &apos;%s&apos; のオープンに失敗しました</translation>
     </message>
     <message>
         <location line="+109"/>
