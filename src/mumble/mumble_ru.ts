@@ -3816,7 +3816,7 @@ Label of the server. This is what the server will be named like in your serverli
     <message>
         <location filename="ConnectDialog.cpp" line="-55"/>
         <source>Add Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить сервер</translation>
     </message>
 </context>
 <context>
@@ -4573,7 +4573,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User recording state changed</source>
-        <translation type="unfinished"></translation>
+        <translation>Пользователь изменил состояние записи</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7517,7 +7517,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+30"/>
         <source>FPS: %1</source>
-        <translation type="unfinished">FPS: %1</translation>
+        <translation>FPS: %1</translation>
     </message>
     <message>
         <location line="+194"/>
@@ -7548,18 +7548,18 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+86"/>
         <source>Load Overlay Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузить предустановки Замещения</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+28"/>
         <source>Mumble overlay presets (*.mumblelay)</source>
-        <translation type="unfinished"></translation>
+        <translation>Предустановки Замещения Mumble (*.mumblelay)</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Save Overlay Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить предустановки Замещения</translation>
     </message>
     <message>
         <location filename="Overlay.ui"/>
@@ -7594,7 +7594,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished">Удалить</translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <location/>
@@ -7661,47 +7661,47 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Load an overlay preset from file</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузить предустановки Замещения из файла</translation>
     </message>
     <message utf8="true">
         <location/>
         <source>Load…</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузить...</translation>
     </message>
     <message>
         <location/>
         <source>Save your overlay settings to file</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить Ваши настройки Замещения в файл</translation>
     </message>
     <message utf8="true">
         <location/>
         <source>Save…</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить...</translation>
     </message>
     <message>
         <location/>
         <source>FPS Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Дисплей FPS</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay font.</source>
-        <translation type="unfinished"></translation>
+        <translation>Установить шрифт в Замещении.</translation>
     </message>
     <message>
         <location/>
         <source>Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay text color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Установить цвет текста в Замещении.</translation>
     </message>
     <message>
         <location/>
         <source>Color</source>
-        <translation type="unfinished">Цвет</translation>
+        <translation>Цвет</translation>
     </message>
     <message>
         <location/>
@@ -9074,17 +9074,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VoiceRecorder.cpp" line="+181"/>
         <source>Invalid sample rate given to recorder</source>
-        <translation type="unfinished"></translation>
+        <translation>Неверная частота дискретизации для записи</translation>
     </message>
     <message>
         <location line="+96"/>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно создать директорию &apos;%1&apos; для записи</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%s&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно открыть файл &apos;%s&apos; для записи</translation>
     </message>
     <message>
         <location line="+109"/>
