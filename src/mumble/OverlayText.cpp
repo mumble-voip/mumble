@@ -174,6 +174,8 @@ BasepointPixmap OverlayTextLine::createPixmap(unsigned int maxwidth, unsigned in
 				scale = static_cast<float>(height) / text_height;
 				keep_baseline = false;
 			}
+
+			qWarning() << QString("Text \"%1\" did not fit (+%2/-%3): (+%4/-%5). Scaling to %6.").arg(qsText).arg(fAscent).arg(fDescent).arg(effective_ascent).arg(effective_descent).arg(scale);
 		}
 
 		// eliding by previously calculated width
@@ -228,8 +230,8 @@ void OverlayTextLine::setFont(const QFont& font) {
 	qfFont = font;
 	qpp = QPainterPath();
 	QFontMetrics fm(font);
-	fAscent = static_cast<float>(fm.ascent());
-	fDescent = static_cast<float>(fm.descent());
+	fAscent = static_cast<float>(fm.ascent()+1);
+	fDescent = static_cast<float>(fm.descent()+1);
 	fEdge = qMax(static_cast<float>(font.pointSizeF()) * fEdgeFactor, 1.0f);
 }
 
