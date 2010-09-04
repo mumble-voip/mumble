@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
   <?define ProductName = "Mumble" ?>
-  <?define ProductManufacturer = "Mumble" ?>
+  <?define ProductManufacturer = "Thorvald Natvig" ?>
   <?define ProductVersion = "1.2.3" ?>
 
 

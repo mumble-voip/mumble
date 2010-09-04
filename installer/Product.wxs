@@ -15,6 +15,11 @@
       <ProgressText Action="NSISUninstall">Uninstalling old version</ProgressText>
     </UI>
 
+    <CustomAction Id="LaunchApplication" FileKey="mumble.exe" ExeCommand="" Execute="immediate" Impersonate="yes" Return="asyncNoWait" />
+    <UI>
+      <Publish Dialog="MumbleExitDialog" Control="Finish" Order="1" Event="DoAction" Value="LaunchApplication">LAUNCHAPPONEXIT</Publish>
+    </UI>
+
     <Property Id='INSTALLDIR'>
       <ComponentSearch Id='SearchMumbleComponent' Guid='A08F7909-1116-4AC8-9422-051FA1A1BE19' />
     </Property>
@@ -27,7 +32,7 @@
 
     <Media Id="1" Cabinet="$(var.ProductName).cab" EmbedCab="yes" CompressionLevel="high" />
 
-    <UIRef Id="WixUI_FeatureTree" />
+    <UIRef Id="MumbleUI_FeatureTree" />
     <UIRef Id="WixUI_ErrorProgressText" />
 
     <Property Id="ALLUSERS" Value="1" />
@@ -37,6 +42,8 @@
     <Property Id='ARPPRODUCTICON'>mumble.ico</Property>
 
     <WixVariable Id="WixUILicenseRtf" Value="$(var.SourceDir)\installer\gpl.rtf" />
+    <WixVariable Id="WixUIBannerBmp" Value="$(var.SourceDir)\installer\bannrbmp.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="$(var.SourceDir)\installer\dlgbmp.bmp" />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
@@ -154,7 +161,7 @@
       <?endif ?>
     </Feature>
 
-    <Feature Id="Murmur" Title="!(loc.MUMBLE_SEC_MURMUR)" Description="!(loc.DESC_SectionMurmur)" Level="1000">
+    <Feature Id="Murmur" Title="!(loc.MUMBLE_SEC_MURMUR)" Description="!(loc.DESC_SectionMurmur)" Level="1000" ConfigurableDirectory="INSTALLDIR">
       <?ifdef IceDir ?>
       <ComponentRef Id="bzip2.dll" />
       <ComponentRef Id="ice34.dll" />

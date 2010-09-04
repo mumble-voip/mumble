@@ -33,6 +33,7 @@
     <Compile Include="Files.wxs" />
     <Compile Include="Plugins.wxs" />
     <Compile Include="Product.wxs" />
+    <Compile Include="UI.wxs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Translations\Czech.wxl" />
