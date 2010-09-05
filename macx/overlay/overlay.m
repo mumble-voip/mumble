@@ -47,6 +47,7 @@
 #include <dlfcn.h>
 #include <pwd.h>
 #include <unistd.h>
+#include <objc/objc-runtime.h>
 
 #include <OpenGL/OpenGL.h>
 #include <Carbon/Carbon.h>
@@ -62,8 +63,10 @@ static bool bDebug = false;
 
 typedef struct _Context {
 	struct _Context *next;
-	CGLContextObj cglctx;
 	GLuint uiProgram;
+
+	CGLContextObj cglctx;
+	NSOpenGLContext *nsctx;
 
 	unsigned int uiWidth, uiHeight;
 	unsigned int uiLeft, uiRight, uiTop, uiBottom;
@@ -106,13 +109,15 @@ static void ods(const char *format, ...) {
 		return;
 	}
 
-	fprintf(stderr, "MumbleOverlay: ");
+	char fmt[1024] = { 0, };
+	strlcat(fmt, "MumbleOverlay: ", 1024);
+	strlcat(fmt, format, 1024);
+	strlcat(fmt, "\n", 1024);
 
 	va_list args;
 	va_start(args, format);
-	vfprintf(stderr, format, args);
+	vfprintf(stderr, fmt, args);
 	va_end(args);
-	fprintf(stderr, "\n");
 	fflush(stderr);
 }
 
@@ -559,8 +564,49 @@ static void drawContext(Context * ctx, int width, int height) {
 	while (glGetError() != GL_NO_ERROR);
 }
 
+@implementation NSOpenGLContext (MumbleOverlay)
+- (void) overlayFlushBuffer {
+	ods("[NSOpenGLContext flushBuffer] %p", self);
+
+	Context *c = contexts;
+	while (c) {
+		if (c->nsctx == self && c->cglctx == [self CGLContextObj])
+			break;
+		c = c->next;
+	}
+
+	if (!c) {
+		ods("Current context is: %p", self);
+		c = malloc(sizeof(Context));
+		if (!c) {
+			ods("malloc failure");
+			return;
+		}
+		c->next = contexts;
+		c->nsctx = (NSOpenGLContext *)self;
+		c->cglctx = (CGLContextObj)[self CGLContextObj];
+		contexts = c;
+		newContext(c);
+	}
+
+	NSView *v = [c->nsctx view];
+	NSRect r = [v bounds];
+	int width = (int)r.size.width;
+	int height = (int)r.size.height;
+	if (!(width > 0 && height > 0)) {
+		GLint viewport[4];
+		glGetIntegerv(GL_VIEWPORT, viewport);
+		width = viewport[2];
+		height = viewport[3];
+	}
+
+	drawContext(c, width, height);
+	[self overlayFlushBuffer];
+}
+@end
+
 void CGLFlushDrawableOverride(CGLContextObj ctx) {
-	ods("CGLFlushDrawable()");
+	ods("CGLFlushDrawable() %p", ctx);
 
 	Context *c = contexts;
 
@@ -577,6 +623,7 @@ void CGLFlushDrawableOverride(CGLContextObj ctx) {
 
 	GLint viewport[4];
 	glGetIntegerv(GL_VIEWPORT, viewport);
+
 	int width = viewport[2];
 	int height = viewport[3];
 
@@ -585,8 +632,14 @@ void CGLFlushDrawableOverride(CGLContextObj ctx) {
 		goto skip;
 
 	while (c) {
-		if (c->cglctx == ctx)
-			break;
+		if (c->cglctx == ctx) {
+			/* There is no NSOpenGLContext for this CGLContext, so we should draw. */
+			if (c->nsctx == NULL)
+				break;
+			/* This context is coupled with a NSOpenGLContext, so skip. */
+			else
+				goto skip;
+		}
 		c = c->next;
 	}
 
@@ -601,6 +654,7 @@ void CGLFlushDrawableOverride(CGLContextObj ctx) {
 		memset(c, 0, sizeof(Context));
 		c->next = contexts;
 		c->cglctx = ctx;
+		c->nsctx = NULL;
 		contexts = c;
 		newContext(c);
 	}
@@ -616,7 +670,32 @@ __attribute__((constructor))
 void MumbleOverlayEntryPoint() {
 	bDebug = getenv("MUMBLE_OVERLAY_DEBUG");
 
-	if (AVAIL(CGLFlushDrawable) && AVAIL_ALL_GLSYM) {
+	void *nsgl = NULL, *cgl = NULL;
+	nsgl = dlsym(RTLD_DEFAULT, "NSClassFromString");
+	cgl = dlsym(RTLD_DEFAULT, "CGLFlushDrawable");
+
+	/* Check for GL symbol availability */
+	if (!(AVAIL_ALL_GLSYM)) {
+		ods("Missing GL symbols. Disabling overlay.");
+		return;
+	}
+
+	/* NSOpenGL */
+	if (nsgl) {
+		ods("Attempting to hook NSOpenGL");
+		Class c = NSClassFromString(@"NSOpenGLContext");
+		if (c) {
+			Method orig = class_getInstanceMethod(c, @selector(flushBuffer));
+			Method new = class_getInstanceMethod(c, @selector(overlayFlushBuffer));
+			if (class_addMethod(c, @selector(flushBuffer), method_getImplementation(new), method_getTypeEncoding(new)))
+				class_replaceMethod(c, @selector(overlayFlushBuffer), method_getImplementation(orig), method_getTypeEncoding(orig));
+			else
+				method_exchangeImplementations(orig, new);
+		}
+	}
+
+	/* CGL */
+	if (AVAIL(CGLFlushDrawable)) {
 		ods("Attempting to hook CGL");
 		if (mach_override("_CGLFlushDrawable", NULL, CGLFlushDrawableOverride, (void **) &oCGLFlushDrawable) != 0) {
 			ods("CGLFlushDrawable override failed.");
