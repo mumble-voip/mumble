@@ -455,9 +455,11 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	MSG_SETUP(ServerUser::Authenticated);
 	VICTIM_SETUP;
 
-	bool bNoBroadcast = false;
 	Channel *root = qhChannels.value(0);
 
+	/*
+		First check all permissions involved
+	*/
 	if ((pDstServerUser->iId == 0) && (uSource->iId != 0)) {
 		PERM_DENIED_TYPE(SuperUser);
 		return;
@@ -546,22 +548,31 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	if ((pDstServerUser != uSource) && (msg.has_self_deaf() || msg.has_self_mute() || msg.has_texture() || msg.has_plugin_context() || msg.has_plugin_identity() || msg.has_recording()))
 		return;
 
-	// Permission checks done. Now enact this.
+	/*
+		-------------------- Permission checks done. Now act --------------------
+	*/
+	bool bBroadcast = false;
 
 	if (msg.has_texture()) {
 		QByteArray qba = blob(msg.texture());
 		if (uSource->iId > 0) {
+			// For registered users store the texture we just received in the database
 			if (! setTexture(uSource->iId, qba))
 				return;
 		} else {
+			// For unregistered users or SuperUser only get the hash
 			hashAssign(uSource->qbaTexture, uSource->qbaTextureHash, qba);
 		}
+
+		// The texture will be sent out later in this function
+		bBroadcast = true;
 	}
 
 	if (msg.has_self_deaf()) {
 		uSource->bSelfDeaf = msg.self_deaf();
 		if (uSource->bSelfDeaf)
 			msg.set_self_mute(true);
+		bBroadcast = true;
 	}
 
 	if (msg.has_self_mute()) {
@@ -570,16 +581,19 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			msg.set_self_deaf(false);
 			uSource->bSelfDeaf = false;
 		}
+		bBroadcast = true;
 	}
 
 	if (msg.has_plugin_context()) {
-		bNoBroadcast = true;
 		uSource->ssContext = msg.plugin_context();
+		// Make sure to clear this from the packet so we don't broadcast it
+		msg.clear_plugin_context();
 	}
 
 	if (msg.has_plugin_identity()) {
-		bNoBroadcast = true;
 		uSource->qsIdentity = u8(msg.plugin_identity());
+		// Make sure to clear this from the packet so we don't broadcast it
+		msg.clear_plugin_identity();
 	}
 
 	if (! comment.isNull()) {
@@ -590,6 +604,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			info.insert(ServerDB::User_Comment, pDstServerUser->qsComment);
 			setInfo(pDstServerUser->iId, info);
 		}
+		bBroadcast = true;
 	}
 
 
@@ -618,10 +633,23 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		        QString::number(pDstServerUser->bDeaf),
 		        QString::number(pDstServerUser->bSuppress),
 		        QString::number(pDstServerUser->bPrioritySpeaker)));
+
+		bBroadcast = true;
 	}
 
-	if (msg.has_recording()) {
+	if (msg.has_recording() && (pDstServerUser->bRecording != msg.recording())) {
 		pDstServerUser->bRecording = msg.recording();
+
+		MumbleProto::TextMessage mptm;
+		mptm.add_tree_id(0);
+		if (pDstServerUser->bRecording)
+			mptm.set_message(u8(QString(QLatin1String("User '%1' started recording")).arg(pDstServerUser->qsName)));
+		else
+			mptm.set_message(u8(QString(QLatin1String("User '%1' stopped recording")).arg(pDstServerUser->qsName)));
+
+		sendAll(mptm, ~ 0x010203);
+
+		bBroadcast = true;
 	}
 
 	if (msg.has_channel_id()) {
@@ -629,9 +657,11 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 
 		userEnterChannel(pDstServerUser, c, msg);
 		log(uSource, QString("Moved %1 to %2").arg(QString(*pDstServerUser), QString(*c)));
+		bBroadcast = true;
 	}
 
 	if (msg.has_user_id()) {
+		// Handle user (Self-)Registration
 		QMap<int, QString> info;
 
 		info.insert(ServerDB::User_Name, pDstServerUser->qsName);
@@ -643,28 +673,36 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			pDstServerUser->iId = id;
 			msg.set_user_id(id);
 		} else {
+			// Registration failed
 			msg.clear_user_id();
 		}
+		bBroadcast = true;
 	}
 
-	if (! bNoBroadcast) {
-		if (msg.has_texture() && (pDstServerUser->qbaTexture.length() >= 4) && (qFromBigEndian<unsigned int>(reinterpret_cast<const unsigned char *>(pDstServerUser->qbaTexture.constData())) != 600 * 60 * 4)) {
-			msg.clear_texture();
-			sendAll(msg, ~ 0x010202);
-			msg.set_texture(blob(pDstServerUser->qbaTexture));
-		} else {
-			sendAll(msg, ~ 0x010202);
-		}
-		if (msg.has_texture() && ! pDstServerUser->qbaTextureHash.isEmpty()) {
-			msg.clear_texture();
-			msg.set_texture_hash(blob(pDstServerUser->qbaTextureHash));
-		}
-		if (msg.has_comment() && ! pDstServerUser->qbaCommentHash.isEmpty()) {
-			msg.clear_comment();
-			msg.set_comment_hash(blob(pDstServerUser->qbaCommentHash));
-		}
-		sendAll(msg, 0x010202);
+	if (msg.has_texture() && (pDstServerUser->qbaTexture.length() >= 4) && (qFromBigEndian<unsigned int>(reinterpret_cast<const unsigned char *>(pDstServerUser->qbaTexture.constData())) != 600 * 60 * 4)) {
+		// If this is a new style texture don't send it to old clients
+		msg.clear_texture();
+		sendAll(msg, ~ 0x010202);
+		msg.set_texture(blob(pDstServerUser->qbaTexture));
+	} else if (bBroadcast) {
+		// If this is an old style texture, empty texture or there was no texture in this packet
+		// send the message unchanged
+		sendAll(msg, ~ 0x010202);
 	}
+
+	if (msg.has_texture() && ! pDstServerUser->qbaTextureHash.isEmpty()) {
+		// For the >=1.2.2 clients only send the texture hash
+		msg.clear_texture();
+		msg.set_texture_hash(blob(pDstServerUser->qbaTextureHash));
+	}
+	if (msg.has_comment() && ! pDstServerUser->qbaCommentHash.isEmpty()) {
+		// For the >=1.2.2 clients only send the comment hash
+		msg.clear_comment();
+		msg.set_comment_hash(blob(pDstServerUser->qbaCommentHash));
+	}
+
+	if (bBroadcast)
+		sendAll(msg, 0x010202);
 
 	emit userStateChanged(pDstServerUser);
 }

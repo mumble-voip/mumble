@@ -218,6 +218,8 @@ class Server : public QThread {
 		void sendProtoExcept(ServerUser *, const ::google::protobuf::Message &msg, unsigned int msgType, unsigned int minversion);
 		void sendProtoMessage(ServerUser *, const ::google::protobuf::Message &msg, unsigned int msgType);
 
+		// sendAll sends a protobuf message to all users on the server whose version is either bigger than v or
+		// lower than ~v. If v == 0 the message is sent to everyone.
 #define MUMBLE_MH_MSG(x) \
 		void sendAll(const MumbleProto:: x &msg, unsigned int v = 0) { sendProtoAll(msg, MessageHandler:: x, v); } \
 		void sendExcept(ServerUser *u, const MumbleProto:: x &msg, unsigned int v = 0) { sendProtoExcept(u, msg, MessageHandler:: x, v); } \
@@ -239,7 +241,7 @@ class Server : public QThread {
 
 		void removeChannel(int id);
 		void removeChannel(Channel *c, Channel *dest = NULL);
-		void userEnterChannel(User *u, Channel *c, MumbleProto::UserState &mpus, bool quiet = false);
+		void userEnterChannel(User *u, Channel *c, MumbleProto::UserState &mpus);
 		bool unregisterUser(int id);
 
 		Server(int snum, QObject *parent = NULL);

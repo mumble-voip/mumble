@@ -1198,15 +1198,15 @@ void Server::sendProtoMessage(ServerUser *u, const ::google::protobuf::Message &
 	u->sendMessage(msg, msgType, cache);
 }
 
-void Server::sendProtoAll(const ::google::protobuf::Message &msg, unsigned int msgType, unsigned int minversion) {
-	sendProtoExcept(NULL, msg, msgType, minversion);
+void Server::sendProtoAll(const ::google::protobuf::Message &msg, unsigned int msgType, unsigned int version) {
+	sendProtoExcept(NULL, msg, msgType, version);
 }
 
-void Server::sendProtoExcept(ServerUser *u, const ::google::protobuf::Message &msg, unsigned int msgType, unsigned int minversion) {
+void Server::sendProtoExcept(ServerUser *u, const ::google::protobuf::Message &msg, unsigned int msgType, unsigned int version) {
 	QByteArray cache;
 	foreach(ServerUser *usr, qhUsers)
 		if ((usr != u) && (usr->sState == ServerUser::Authenticated))
-			if ((minversion == 0) || (usr->uiVersion >= minversion) || ((minversion & 0x80000000) && (usr->uiVersion < (~minversion))))
+			if ((version == 0) || (usr->uiVersion >= version) || ((version & 0x80000000) && (usr->uiVersion < (~version))))
 				usr->sendMessage(msg, msgType, cache);
 }
 
@@ -1301,8 +1301,8 @@ bool Server::unregisterUser(int id) {
 	return true;
 }
 
-void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus, bool quiet) {
-	if (quiet && (p->cChannel == c))
+void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus) {
+	if (p->cChannel == c)
 		return;
 
 	Channel *old = p->cChannel;
@@ -1313,9 +1313,6 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus,
 	}
 
 	clearACLCache(p);
-
-	if (quiet)
-		return;
 
 	setLastChannel(p);
 
