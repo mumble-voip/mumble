@@ -695,7 +695,10 @@ skip:
 __attribute__ ((visibility("default")))
 __attribute__((constructor))
 void MumbleOverlayEntryPoint() {
-	bDebug = getenv("MUMBLE_OVERLAY_DEBUG");
+	struct stat buf;
+	bDebug = (stat("/Library/Application Support/.mumble_overlay_debug", &buf) == 0);
+
+	ods("!");
 
 	void *nsgl = NULL, *cgl = NULL;
 	nsgl = dlsym(RTLD_DEFAULT, "NSClassFromString");
