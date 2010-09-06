@@ -553,8 +553,8 @@ bool validateInstaller(const char *path) {
 		goto err;
 	}
 
-	 // Good documentation on the values of SecTrustResultType:
-	 // http://lists.apple.com/archives/apple-cdsa/2006/Apr/msg00013.html
+	// Good documentation on the values of SecTrustResultType:
+	// http://lists.apple.com/archives/apple-cdsa/2006/Apr/msg00013.html
 	switch (result) {
 		case kSecTrustResultProceed:     // User trusts this certificate (as well as the system)
 		case kSecTrustResultConfirm:     // Check with the user before proceeding (which we're already doing by giving them a choice).

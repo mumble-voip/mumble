@@ -262,7 +262,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 	}
 
 	if ((ctx->uiWidth != width) || (ctx->uiHeight != height)) {
-		ods("Sent init");
+		ods("Sent init %i %i", width, height);
 		releaseMem(ctx);
 
 		ctx->uiWidth = width;
@@ -470,7 +470,6 @@ static void drawContext(Context * ctx, int width, int height) {
 	glPushMatrix();
 	glLoadIdentity();
 
-
 	glDisable(GL_ALPHA_TEST);
 	glDisable(GL_AUTO_NORMAL);
 	// Skip clip planes, there are thousands of them.
@@ -493,10 +492,20 @@ static void drawContext(Context * ctx, int width, int height) {
 	glDisable(GL_SEPARABLE_2D);
 	glDisable(GL_SCISSOR_TEST);
 	glDisable(GL_STENCIL_TEST);
-	glDisable(GL_TEXTURE_GEN_Q);
-	glDisable(GL_TEXTURE_GEN_R);
-	glDisable(GL_TEXTURE_GEN_S);
-	glDisable(GL_TEXTURE_GEN_T);
+
+	GLboolean b = 0;
+	glGetBooleanv(GL_TEXTURE_GEN_Q, &b);
+	if (b)
+		glDisable(GL_TEXTURE_GEN_Q);
+	glGetBooleanv(GL_TEXTURE_GEN_R, &b);
+	if (b)
+		glDisable(GL_TEXTURE_GEN_R);
+	glGetBooleanv(GL_TEXTURE_GEN_S, &b);
+	if (b)
+		glDisable(GL_TEXTURE_GEN_S);
+	glGetBooleanv(GL_TEXTURE_GEN_T, &b);
+	if (b)
+		glDisable(GL_TEXTURE_GEN_T);
 
 	glRenderMode(GL_RENDER);
 

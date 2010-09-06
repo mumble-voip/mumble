@@ -13,6 +13,7 @@
 	AVAIL(glPushClientAttrib) && \
 	AVAIL(glAttachShader) && \
 	AVAIL(glEnd) && \
+	AVAIL(glGetBooleanv) && \
 	AVAIL(glDisableClientState) && \
 	AVAIL(glUniform1i) && \
 	AVAIL(glRenderMode) && \

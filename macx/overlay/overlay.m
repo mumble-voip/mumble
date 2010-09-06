@@ -245,7 +245,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 	}
 
 	if ((ctx->uiWidth != width) || (ctx->uiHeight != height)) {
-		ods("Sent init");
+		ods("Sent init %i %i", width, height);
 		releaseMem(ctx);
 
 		ctx->uiWidth = width;
@@ -460,7 +460,6 @@ static void drawContext(Context * ctx, int width, int height) {
 	glPushMatrix();
 	glLoadIdentity();
 
-
 	glDisable(GL_ALPHA_TEST);
 	glDisable(GL_AUTO_NORMAL);
 	// Skip clip planes, there are thousands of them.
@@ -483,10 +482,20 @@ static void drawContext(Context * ctx, int width, int height) {
 	glDisable(GL_SEPARABLE_2D);
 	glDisable(GL_SCISSOR_TEST);
 	glDisable(GL_STENCIL_TEST);
-	glDisable(GL_TEXTURE_GEN_Q);
-	glDisable(GL_TEXTURE_GEN_R);
-	glDisable(GL_TEXTURE_GEN_S);
-	glDisable(GL_TEXTURE_GEN_T);
+
+	GLboolean b = 0;
+	glGetBooleanv(GL_TEXTURE_GEN_Q, &b);
+	if (b)
+		glDisable(GL_TEXTURE_GEN_Q);
+	glGetBooleanv(GL_TEXTURE_GEN_R, &b);
+	if (b)
+		glDisable(GL_TEXTURE_GEN_R);
+	glGetBooleanv(GL_TEXTURE_GEN_S, &b);
+	if (b)
+		glDisable(GL_TEXTURE_GEN_S);
+	glGetBooleanv(GL_TEXTURE_GEN_T, &b);
+	if (b)
+		glDisable(GL_TEXTURE_GEN_T);
 
 	glRenderMode(GL_RENDER);
 
@@ -566,7 +575,7 @@ static void drawContext(Context * ctx, int width, int height) {
 
 @implementation NSOpenGLContext (MumbleOverlay)
 - (void) overlayFlushBuffer {
-	ods("[NSOpenGLContext flushBuffer] %p", self);
+	ods("[NSOpenGLContext flushBuffer] %p %p", self, [self CGLContextObj]);
 
 	Context *c = contexts;
 	while (c) {
@@ -590,14 +599,25 @@ static void drawContext(Context * ctx, int width, int height) {
 	}
 
 	NSView *v = [c->nsctx view];
-	NSRect r = [v bounds];
-	int width = (int)r.size.width;
-	int height = (int)r.size.height;
-	if (!(width > 0 && height > 0)) {
-		GLint viewport[4];
-		glGetIntegerv(GL_VIEWPORT, viewport);
-		width = viewport[2];
-		height = viewport[3];
+	int width = 0, height = 0;
+	if (v) {
+		NSRect r = [v bounds];
+		width = (int)r.size.width;
+		height = (int)r.size.height;
+	} else {
+		if (AVAIL(CGMainDisplayID)) {
+			CGDirectDisplayID md = CGMainDisplayID();
+			if (CGDisplayIsCaptured(md)) {
+				width = CGDisplayPixelsWide(md);
+				height = CGDisplayPixelsHigh(md);
+			}
+		}
+		if (!width && !height) {
+			GLint viewport[4];
+			glGetIntegerv(GL_VIEWPORT, viewport);
+			width = viewport[2];
+			height = viewport[3];
+		}
 	}
 
 	drawContext(c, width, height);
@@ -606,8 +626,7 @@ static void drawContext(Context * ctx, int width, int height) {
 @end
 
 void CGLFlushDrawableOverride(CGLContextObj ctx) {
-	ods("CGLFlushDrawable() %p", ctx);
-
+	ods("CGLFlushDrawableOverride %p", ctx);
 	Context *c = contexts;
 
 	/* Sometimes, we can get a FlushDrawable where the current context is NULL.
@@ -619,16 +638,6 @@ void CGLFlushDrawableOverride(CGLContextObj ctx) {
 	 */
 	CGLContextObj current = CGLGetCurrentContext();
 	if (current == NULL || ctx != current)
-		goto skip;
-
-	GLint viewport[4];
-	glGetIntegerv(GL_VIEWPORT, viewport);
-
-	int width = viewport[2];
-	int height = viewport[3];
-
-	/* Are the viewport values crazy? Skip them in that case. */
-	if (height < 0 || width < 0 || height > 5000 || width > 5000)
 		goto skip;
 
 	while (c) {
@@ -657,6 +666,24 @@ void CGLFlushDrawableOverride(CGLContextObj ctx) {
 		c->nsctx = NULL;
 		contexts = c;
 		newContext(c);
+	}
+
+	int width = 0, height = 0;
+	if (AVAIL(CGMainDisplayID)) {
+		CGDirectDisplayID md = CGMainDisplayID();
+		if (CGDisplayIsCaptured(md)) {
+			width = CGDisplayPixelsWide(md);
+			height = CGDisplayPixelsHigh(md);
+		}
+	}
+	if (!width && !height) {
+		GLint viewport[4];
+		glGetIntegerv(GL_VIEWPORT, viewport);
+		width = viewport[2];
+		height = viewport[3];
+		/* Are the viewport values crazy? Skip them in that case. */
+		if (height < 0 || width < 0 || height > 5000 || width > 5000)
+			goto skip;
 	}
 
 	drawContext(c, width, height);
