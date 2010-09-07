@@ -266,6 +266,14 @@ void OverlayClient::showGui() {
 #if defined(Q_WS_WIN) || defined(Q_WS_MAC)
 	qt_use_native_dialogs = false;
 #endif
+
+	OverlayMsg om;
+	om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+	om.omh.uiType = OVERLAY_MSGTYPE_INTERACTIVE;
+	om.omh.iLength = sizeof(struct OverlayMsgInteractive);
+	om.omin.state = true;
+	qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + om.omh.iLength);
+
 	g.o->updateOverlay();
 }
 
@@ -338,6 +346,13 @@ void OverlayClient::hideGui() {
 #if defined(Q_WS_WIN) || defined(Q_WS_MAC)
 	qt_use_native_dialogs = true;
 #endif
+
+	OverlayMsg om;
+	om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+	om.omh.uiType = OVERLAY_MSGTYPE_INTERACTIVE;
+	om.omh.iLength = sizeof(struct OverlayMsgInteractive);
+	om.omin.state = false;
+	qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + om.omh.iLength);
 
 	g.o->updateOverlay();
 

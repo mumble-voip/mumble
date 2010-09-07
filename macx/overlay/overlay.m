@@ -60,6 +60,7 @@
 #include "avail.h"
 
 static bool bDebug = false;
+static bool bCursorAvail = false;
 
 typedef struct _Context {
 	struct _Context *next;
@@ -102,6 +103,8 @@ static Context *contexts = NULL;
 #define AVAIL(name) dlsym(RTLD_DEFAULT,#name)
 #define FDEF(name) static __typeof__(&name) o##name = NULL
 FDEF(CGLFlushDrawable);
+FDEF(CGDisplayHideCursor);
+FDEF(CGDisplayShowCursor);
 
 __attribute__((format(printf, 1, 2)))
 static void ods(const char *format, ...) {
@@ -360,6 +363,17 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 						ctx->uiBottom = oma->y + oma->h;
 					}
 					break;
+				case OVERLAY_MSGTYPE_INTERACTIVE: {
+						struct OverlayMsgInteractive *omin = & ctx->omMsg.omin;
+						ods("Interactive %d", omin->state);
+						if (bCursorAvail) {
+							if (omin->state) {
+								oCGDisplayHideCursor(kCGNullDirectDisplay);
+							} else {
+								oCGDisplayShowCursor(kCGNullDirectDisplay);
+							}
+						}
+				}
 				default:
 					break;
 			}
@@ -692,6 +706,16 @@ skip:
 	oCGLFlushDrawable(ctx);
 }
 
+CGError CGDisplayShowCursorOverride(CGDirectDisplayID display) {
+	ods("CGDisplayShowCursor()");
+	return oCGDisplayShowCursor(display);
+}
+
+CGError CGDisplayHideCursorOverride(CGDirectDisplayID display) {
+	ods("CGDisplayHideCursor()");
+	return oCGDisplayHideCursor(display);
+}
+
 __attribute__ ((visibility("default")))
 __attribute__((constructor))
 void MumbleOverlayEntryPoint() {
@@ -733,5 +757,16 @@ void MumbleOverlayEntryPoint() {
 			ods("Up running.");
 	} else {
 		ods("Required entry points not available in process. Not hooking up overlay.");
+	}
+
+	if (AVAIL(CGDisplayHideCursor) && AVAIL(CGDisplayShowCursor)) {
+		if (mach_override("_CGDisplayHideCursor", NULL, CGDisplayHideCursorOverride, (void **) &oCGDisplayHideCursor) != 0) {
+			ods("CGDisplayHideCursor override failed");
+		}
+		if (mach_override("_CGDisplayShowCursor", NULL, CGDisplayShowCursorOverride, (void **) &oCGDisplayShowCursor) != 0) {
+			ods("CGDisplayShowCursor override failed");
+		}
+		ods("Hooked CGDisplayShowCursor and CGDisplayHideCursor");
+		bCursorAvail = true;
 	}
 }

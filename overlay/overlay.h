@@ -71,6 +71,10 @@ struct OverlayMsgFps {
 };
 #define OVERLAY_FPS_INTERVAL 0.25f
 
+#define OVERLAY_MSGTYPE_INTERACTIVE 6
+struct OverlayMsgInteractive {
+	bool state;
+};
 
 struct OverlayMsg {
 	union {
@@ -85,6 +89,7 @@ struct OverlayMsg {
 		struct OverlayMsgActive oma;
 		struct OverlayMsgPid omp;
 		struct OverlayMsgFps omf;
+		struct OverlayMsgInteractive omin;
 	};
 };
 
