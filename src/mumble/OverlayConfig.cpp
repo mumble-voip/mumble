@@ -362,8 +362,8 @@ void OverlayConfig::resizeScene(bool force) {
 	f.setPointSizeF(qgs.sceneRect().height() / 20.0f);
 	qgtiInstructions->setFont(f);
 
-	qgtiInstructions->setPos(qgs.sceneRect().width() / 5.0f, qgs.sceneRect().height() / 5.0f);
-	qgtiInstructions->setTextWidth(qgs.sceneRect().width() * 6.0f / 10.0f);
+	qgtiInstructions->setPos(qgs.sceneRect().width() / 20.0f, qgs.sceneRect().height() / 10.0f);
+	qgtiInstructions->setTextWidth(qgs.sceneRect().width() * 18.0f / 20.0f);
 
 	qgvView->fitInView(qgs.sceneRect(), Qt::KeepAspectRatio);
 	oug->updateLayout();
