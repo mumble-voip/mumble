@@ -207,7 +207,7 @@ bonjour {
 	SOURCES *= ../bonjour/bonjourserviceresolver.cpp ../bonjour/bonjourservicebrowser.cpp BonjourClient.cpp
 	win32 {
 		INCLUDEPATH *= /dev/Bonjour/include
-		LIBPATH *= /dev/Bonjour/lib/win32
+		QMAKE_LIBDIR *= /dev/Bonjour/lib/win32
 		LIBS *= -lDNSSD
 	}
 	unix:!macx {
@@ -250,7 +250,7 @@ g15 {
 
 	win32 {
 		LIBS *= -llgLcd
-		LIBPATH *= /dev/G15SDK/SDK/Lib/x86
+		QMAKE_LIBDIR *= /dev/G15SDK/SDK/Lib/x86
 		INCLUDEPATH *= /dev/G15SDK/SDK/Src
 		DEFINES *= WIN32
 
@@ -278,7 +278,14 @@ CONFIG(no-update) {
 	QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
 	QT_TRANSDIR = $$replace(QT_TRANSDIR,/,$${DIR_SEPARATOR})
 
-	QT_TRANSLATION_FILES *= qt_de.qm qt_es.qm qt_fr.qm qt_ru.qm qt_pl.qm qt_ja.qm qt_zh_CN.qm qt_zh_TW.qm
+	QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
+	QT_TRANSDIR = $$replace(QT_TRANSDIR,/,$${DIR_SEPARATOR})
+
+	QT_TRANSLATION_FILES_SRC *= qt_de.qm qt_es.qm qt_fr.qm qt_ja.qm qt_ja_JP.qm qt_ru.qm qt_pl.qm qt_zh_CN.qm qt_zh_TW.qm
+	
+	for(lang, QT_TRANSLATION_FILES_SRC):exists($$[QT_INSTALL_TRANSLATIONS]/$${lang}) {
+		QT_TRANSLATION_FILES *= $${lang}
+	}
 
 	copytrans.output = ${QMAKE_FILE_NAME}
 	copytrans.commands = $$QMAKE_COPY $${QT_TRANSDIR}${QMAKE_FILE_NAME} ${QMAKE_FILE_OUT}

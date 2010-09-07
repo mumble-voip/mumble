@@ -25,12 +25,12 @@ INCLUDEPATH	+= ..
 
 CONFIG(debug, debug|release) {
   CONFIG += console
-  LIBPATH	+= ../../debug
+  QMAKE_LIBDIR	+= ../../debug
   DESTDIR	= ../../debug
 }
 
 CONFIG(release, debug|release) {
-  LIBPATH	+= ../../release
+  QMAKE_LIBDIR	+= ../../release
   DESTDIR	= ../../release
 }
 
@@ -75,7 +75,7 @@ win32 {
   LIBS		*= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -l"$$(DXSDK_DIR)Lib/x86/dinput8" -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32 -llibogg -ldbghelp
   LIBS		*= -ldelayimp -lQwave -delayload:Qwave.DLL
 
-  LIBPATH	*= /dev/OpenSSL/lib /dev/libogg/lib
+  QMAKE_LIBDIR	*= /dev/OpenSSL/lib /dev/libogg/lib
   DEFINES	*= WIN32
   INCLUDEPATH	*= /dev/OpenSSL/include /dev/libogg/include
   !CONFIG(no-asio) {
@@ -219,8 +219,12 @@ DEFINES *= NO_UPDATE_CHECK
 	QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
 	QT_TRANSDIR = $$replace(QT_TRANSDIR,/,$${DIR_SEPARATOR})
 
-	QT_TRANSLATION_FILES *= qt_de.qm qt_es.qm qt_fr.qm qt_ru.qm qt_pl.qm qt_ja.qm qt_zh_CN.qm qt_zh_TW.qm
-
+	QT_TRANSLATION_FILES_SRC *= qt_de.qm qt_es.qm qt_fr.qm qt_ja.qm qt_ja_JP.qm qt_ru.qm qt_pl.qm qt_zh_CN.qm qt_zh_TW.qm
+	
+	for(lang, QT_TRANSLATION_FILES_SRC):exists($$[QT_INSTALL_TRANSLATIONS]/$${lang}) {
+		QT_TRANSLATION_FILES *= $${lang}
+	}
+	
 	copytrans.output = ${QMAKE_FILE_NAME}
 	copytrans.commands = $$QMAKE_COPY $${QT_TRANSDIR}${QMAKE_FILE_NAME} ${QMAKE_FILE_OUT}
 	copytrans.input = QT_TRANSLATION_FILES

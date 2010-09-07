@@ -92,13 +92,13 @@ ice {
 
 	macx {
 		INCLUDEPATH *= $$(MUMBLE_PREFIX)/ice-3.4.1/include/
-		LIBPATH *= $$(MUMBLE_PREFIX)/ice-3.4.1/lib/
+		QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/ice-3.4.1/lib/
 		slice.commands = $$(MUMBLE_PREFIX)/ice-3.4.1/bin/slice2cpp --checksum -I$$(MUMBLE_PREFIX)/ice-3.4.1/slice/ Murmur.ice
 	}
 
 	unix:CONFIG(static) {
 		INCLUDEPATH *= /opt/Ice-3.3/include
-		LIBPATH *= /opt/Ice-3.3/lib
+		QMAKE_LIBDIR *= /opt/Ice-3.3/lib
 		LIBS *= -lbz2
 		QMAKE_CXXFLAGS *= -fPIC
 		slice.commands = /opt/Ice-3.3/bin/slice2cpp --checksum -I/opt/Ice-3.3/slice Murmur.ice
@@ -113,7 +113,7 @@ bonjour {
 	INCLUDEPATH *= ../bonjour
 	win32 {
 		INCLUDEPATH *= /dev/Bonjour/include
-		LIBPATH *= /dev/Bonjour/lib/win32
+		QMAKE_LIBDIR *= /dev/Bonjour/lib/win32
 		LIBS *= -lDNSSD
 	}
 	unix:!macx {
