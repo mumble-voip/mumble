@@ -679,30 +679,33 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		bBroadcast = true;
 	}
 
-	if (msg.has_texture() && (pDstServerUser->qbaTexture.length() >= 4) && (qFromBigEndian<unsigned int>(reinterpret_cast<const unsigned char *>(pDstServerUser->qbaTexture.constData())) != 600 * 60 * 4)) {
-		// If this is a new style texture don't send it to old clients
-		msg.clear_texture();
-		sendAll(msg, ~ 0x010202);
-		msg.set_texture(blob(pDstServerUser->qbaTexture));
-	} else if (bBroadcast) {
-		// If this is an old style texture, empty texture or there was no texture in this packet
-		// send the message unchanged
-		sendAll(msg, ~ 0x010202);
-	}
+	if (bBroadcast) {
+		// Texture handling for clients < 1.2.2.
+		// Send the texture data in the message.
+		if (msg.has_texture() && (pDstServerUser->qbaTexture.length() >= 4) && (qFromBigEndian<unsigned int>(reinterpret_cast<const unsigned char *>(pDstServerUser->qbaTexture.constData())) != 600 * 60 * 4)) {
+			// This is a new style texture, don't send it because the client doesn't handle it correctly / crashes.
+			msg.clear_texture();
+			sendAll(msg, ~ 0x010202);
+			msg.set_texture(blob(pDstServerUser->qbaTexture));
+		} else {
+			// This is an old style texture, empty texture or there was no texture in this packet,
+			// send the message unchanged.
+			sendAll(msg, ~ 0x010202);
+		}
 
-	if (msg.has_texture() && ! pDstServerUser->qbaTextureHash.isEmpty()) {
-		// For the >=1.2.2 clients only send the texture hash
-		msg.clear_texture();
-		msg.set_texture_hash(blob(pDstServerUser->qbaTextureHash));
-	}
-	if (msg.has_comment() && ! pDstServerUser->qbaCommentHash.isEmpty()) {
-		// For the >=1.2.2 clients only send the comment hash
-		msg.clear_comment();
-		msg.set_comment_hash(blob(pDstServerUser->qbaCommentHash));
-	}
+		// Texture / comment handling for clients >= 1.2.2.
+		// Send only a hash of the texture / comment text. The client will request the actual data if necessary.
+		if (msg.has_texture() && ! pDstServerUser->qbaTextureHash.isEmpty()) {
+			msg.clear_texture();
+			msg.set_texture_hash(blob(pDstServerUser->qbaTextureHash));
+		}
+		if (msg.has_comment() && ! pDstServerUser->qbaCommentHash.isEmpty()) {
+			msg.clear_comment();
+			msg.set_comment_hash(blob(pDstServerUser->qbaCommentHash));
+		}
 
-	if (bBroadcast)
 		sendAll(msg, 0x010202);
+	}
 
 	emit userStateChanged(pDstServerUser);
 }
