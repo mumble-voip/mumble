@@ -2139,7 +2139,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 
 	g.uiSession = 0;
 	g.pPermissions = ChanACL::None;
-	qaSelfComment->setEnabled(false);
+	qaServerDisconnect->setEnabled(false);
 	qaServerInformation->setEnabled(false);
 	qaServerBanList->setEnabled(false);
 	qtvUsers->setCurrentIndex(QModelIndex());
