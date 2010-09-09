@@ -854,9 +854,11 @@ void MainWindow::on_Reconnect_timeout() {
 }
 
 void MainWindow::on_qmSelf_aboutToShow() {
-	qaServerTexture->setEnabled(g.uiSession != 0);
-
 	ClientUser *user = ClientUser::get(g.uiSession);
+
+	qaServerTexture->setEnabled(user != NULL);
+	qaSelfComment->setEnabled(user != NULL);
+
 	qaServerTextureRemove->setEnabled(user && ! user->qbaTextureHash.isEmpty());
 
 	qaSelfRegister->setEnabled(user && (user->iId < 0) && ! user->qsHash.isEmpty() && (g.pPermissions & (ChanACL::SelfRegister | ChanACL::Write)));
@@ -2079,7 +2081,6 @@ void MainWindow::serverConnected() {
 	unsigned short port;
 	g.sh->getConnectionInfo(host, port, uname, pw);
 	g.l->log(Log::ServerConnected, tr("Connected."));
-	qaSelfComment->setEnabled(true);
 	qaServerDisconnect->setEnabled(true);
 	qaServerInformation->setEnabled(true);
 	qaServerBanList->setEnabled(true);
@@ -2098,6 +2099,13 @@ void MainWindow::serverConnected() {
 	if (g.s.bMute || g.s.bDeaf) {
 		g.sh->setSelfMuteDeafState(g.s.bMute, g.s.bDeaf);
 	}
+
+	// Update QActions and menues
+	on_qmServer_aboutToShow();
+	on_qmSelf_aboutToShow();
+	qmChannel_aboutToShow();
+	qmUser_aboutToShow();
+	on_qmConfig_aboutToShow();
 
 #ifdef Q_OS_WIN
 	TaskList::addToRecentList(g.s.qsLastServer, uname, host, port);
@@ -2132,7 +2140,6 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	g.uiSession = 0;
 	g.pPermissions = ChanACL::None;
 	qaSelfComment->setEnabled(false);
-	qaServerDisconnect->setEnabled(false);
 	qaServerInformation->setEnabled(false);
 	qaServerBanList->setEnabled(false);
 	qtvUsers->setCurrentIndex(QModelIndex());
@@ -2184,6 +2191,12 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	pmModel->removeAll();
 	qtvUsers->setRowHidden(0, QModelIndex(), true);
 
+	// Update QActions and menues
+	on_qmServer_aboutToShow();
+	on_qmSelf_aboutToShow();
+	qmChannel_aboutToShow();
+	qmUser_aboutToShow();
+	on_qmConfig_aboutToShow();
 
 	if (! g.sh->qlErrors.isEmpty()) {
 		foreach(QSslError e, g.sh->qlErrors)

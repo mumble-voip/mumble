@@ -127,6 +127,14 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	connect(p, SIGNAL(talkingChanged()), this, SLOT(talkingChanged()));
 
 	qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(0)->qsName));
+
+	// Update QActions and menues
+	on_qmServer_aboutToShow();
+	on_qmSelf_aboutToShow();
+	qmChannel_aboutToShow();
+	qmUser_aboutToShow();
+	on_qmConfig_aboutToShow();
+
 	updateTrayIcon();
 }
 
