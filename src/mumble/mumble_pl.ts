@@ -743,7 +743,35 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+16"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Mumble v%1&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Polskie tłumaczenie:&lt;/b&gt;&lt;br&gt;Bartek Sumowski&lt;br /&gt; &lt;a href=http://mumble.stranded.eu&gt;mumble.stranded.eu&lt;/a&gt;&lt;br /&gt; Michał Żukowski&lt;br&gt;&lt;/p&gt;&lt;p&gt;Błędy oraz sugestie odnośnie tłumaczenia &lt;br /&gt;prosimy zgłaszać na &lt;a href=http://sourceforge.net/apps/phpbb/mumble/index.php&gt;forum Mumble&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Komunikator głosowy dla graczy&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble v%1&lt;/h3&gt; 
+
+&lt;p&gt;Copyright %3 Thorvald Natvig 
+
+  &lt;br /&gt;e-mail: &lt;a href=&quot;mailto:slicer@users.sourceforge.net?subject=Mumble&quot;&gt;slicer@users.sourceforge.net&lt;/a&gt;&lt;br /&gt;
+ &lt;/p&gt; 
+
+&lt;p&gt;&lt;b&gt;Polskie tłumaczenie:&lt;/b&gt; 
+
+  &lt;br /&gt;Bartek Sumowski 
+
+  &lt;br /&gt;&lt;a href=&quot;http://mumble.stranded.eu&quot;&gt;mumble.stranded.eu&lt;/a&gt;&lt;br /&gt;
+e-mail: &lt;a href=&quot;mailto:bartek@sumowski.com?subject=Tłumaczenie Mumble&quot;&gt;bartek@sumowski.com&lt;/a&gt;&lt;br /&gt;
+
+  &lt;br /&gt;Michał Żukowski 
+  &lt;br /&gt;&lt;a href=&quot;http://zuko.steamunpowered.eu&quot;&gt;zuko.steamunpowered.eu&lt;/a&gt;&lt;br /&gt; 
+e-mail: &lt;a href=&quot;mailto:zuczeq@gmail.com?subject=Tłumaczenie Mumble&quot;&gt;zuczeq@gmail.com&lt;/a&gt;
+
+  &lt;br /&gt;&lt;/p&gt; 
+
+&lt;p&gt;Najnowsze tłumaczenia znajdziecie &lt;a href=&quot;http://code.google.com/p/mumblepolishtranslation/&quot;&gt;tutaj&lt;/a&gt;. &lt;/p&gt; 
+
+&lt;p&gt;Błędy oraz sugestie odnośnie tłumaczenia 
+
+  &lt;br /&gt;prosimy zgłaszać na &lt;a href=&quot;http://sourceforge.net/apps/phpbb/mumble/index.php&quot;&gt;forum Mumble&lt;/a&gt;.&lt;/p&gt; 
+
+&lt;p&gt;&lt;b&gt;Komunikator głosowy dla graczy&lt;/b&gt;&lt;/p&gt; 
+
+&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt; </translation>
     </message>
 </context>
 <context>
@@ -3788,7 +3816,7 @@ Label of the server. This is what the server will be named like in your serverli
     <message>
         <location filename="ConnectDialog.cpp" line="-55"/>
         <source>Add Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj serwer</translation>
     </message>
 </context>
 <context>
@@ -4404,7 +4432,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+1"/>
         <source>User recording state changed</source>
-        <translation type="unfinished"></translation>
+        <translation>Użytkownik zmienił stan nagrywania</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7591,7 +7619,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+30"/>
         <source>FPS: %1</source>
-        <translation type="unfinished">FPS: %1</translation>
+        <translation>FPS: %1</translation>
     </message>
     <message>
         <location line="+194"/>
@@ -7622,18 +7650,18 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+86"/>
         <source>Load Overlay Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Wczytaj konfigurację nakładki</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+28"/>
         <source>Mumble overlay presets (*.mumblelay)</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfiguracja nakładki (*.mumblelay)</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Save Overlay Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz konfigurację nakładki</translation>
     </message>
     <message>
         <source>Show no one</source>
@@ -7714,7 +7742,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished">Usuń</translation>
+        <translation>Usuń</translation>
     </message>
     <message>
         <location/>
@@ -7762,7 +7790,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
     <message>
         <location/>
         <source>Display a frame counter in the overlay</source>
-        <translation>Wyświetlaj licznik klatek w nakładce</translation>
+        <translation>Wyświetla licznik klatek w nakładce</translation>
     </message>
     <message>
         <location/>
@@ -7785,52 +7813,52 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
     <message>
         <location/>
         <source>Load an overlay preset from file</source>
-        <translation type="unfinished"></translation>
+        <translation>Wczytaj ustawienia nakładki z pliku</translation>
     </message>
     <message utf8="true">
         <location/>
         <source>Load…</source>
-        <translation type="unfinished"></translation>
+        <translation>Wczytaj...</translation>
     </message>
     <message>
         <location/>
         <source>Save your overlay settings to file</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz swoje ustawienia nakładki do pliku</translation>
     </message>
     <message utf8="true">
         <location/>
         <source>Save…</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz...</translation>
     </message>
     <message>
         <location/>
         <source>FPS Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Licznik FPS</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay font.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz czcionkę nakładki.</translation>
     </message>
     <message>
         <location/>
         <source>Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Czcionka</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay text color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz kolor tekstu w nakładce.</translation>
     </message>
     <message>
         <location/>
         <source>Color</source>
-        <translation type="unfinished">Kolor</translation>
+        <translation>Kolor</translation>
     </message>
     <message>
         <location/>
         <source>Add...</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj...</translation>
     </message>
 </context>
 <context>
@@ -9183,17 +9211,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VoiceRecorder.cpp" line="+181"/>
         <source>Invalid sample rate given to recorder</source>
-        <translation type="unfinished"></translation>
+        <translation>Podano nieprawidłowe częstotliwości próbkowania</translation>
     </message>
     <message>
         <location line="+96"/>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Rejestrator nie może utworzyć katalogu &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%s&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Rejestrator nie może otworzyć pliku &apos;%s&apos;</translation>
     </message>
     <message>
         <location line="+109"/>
