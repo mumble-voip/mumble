@@ -8882,7 +8882,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <location line="+2"/>
         <location line="+28"/>
         <source>Mumble overlay presets (*.mumblelay)</source>
-        <translation>Mumble Overlay Vorlage (*mumblelay)</translation>
+        <translation>Mumble Overlay Vorlage (*.mumblelay)</translation>
     </message>
     <message>
         <location line="-2"/>
