@@ -144,7 +144,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 
 		ServerItem(const FavoriteServer &fs);
 		ServerItem(const PublicInfo &pi);
-		ServerItem(const QString &name, const QString &host, unsigned short port, const QString &uname);
+		ServerItem(const QString &name, const QString &host, unsigned short port, const QString &uname, const QString &password = QString());
 		ServerItem(const BonjourRecord &br);
 		ServerItem(const QString &name, ItemType itype, const QString &continent = QString(), const QString &country = QString());
 		ServerItem(const ServerItem *si);
@@ -182,11 +182,11 @@ class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
 		void validate();
 		void accept();
 
-		void on_qleServer_textChanged(const QString&);
+		void on_qcbShowPassword_toggled(bool);
 	public:
-		QString qsName, qsHostname, qsUsername;
+		QString qsName, qsHostname, qsUsername, qsPassword;
 		unsigned short usPort;
-		ConnectDialogEdit(QWidget *parent, const QString &name = QString(), const QString &host = QString(), const QString &user = QString(), unsigned short port = 64738, bool add = false);
+		ConnectDialogEdit(QWidget *parent, const QString &name = QString(), const QString &host = QString(), const QString &user = QString(), unsigned short port = 64738, const QString &password = QString(), bool add = false);
 };
 
 class ConnectDialog : public QDialog, public Ui::ConnectDialog {

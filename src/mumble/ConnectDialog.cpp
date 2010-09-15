@@ -274,13 +274,15 @@ ServerItem::ServerItem(const PublicInfo &pi) : QTreeWidgetItem(QTreeWidgetItem::
 	init();
 }
 
-ServerItem::ServerItem(const QString &name, const QString &host, unsigned short port, const QString &username) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
+ServerItem::ServerItem(const QString &name, const QString &host, unsigned short port, const QString &username, const QString &password) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
 	siParent = NULL;
 	bParent = false;
 	itType = FavoriteType;
 	qsName = name;
 	usPort = port;
 	qsUsername = username;
+	qsPassword = password;
+
 	bCA = false;
 
 	if (host.startsWith(QLatin1Char('@'))) {
@@ -407,9 +409,7 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
 	if (! url.hasQueryItem(QLatin1String("title")))
 		url.addQueryItem(QLatin1String("title"), url.host());
 
-	ServerItem *si = new ServerItem(url.queryItemValue(QLatin1String("title")), url.host(), static_cast<unsigned short>(url.port()), url.userName());
-	if (! url.password().isEmpty())
-		si->qsPassword = url.password();
+	ServerItem *si = new ServerItem(url.queryItemValue(QLatin1String("title")), url.host(), static_cast<unsigned short>(url.port()), url.userName(), url.password());
 
 	if (url.hasQueryItem(QLatin1String("url")))
 		si->qsUrl = url.queryItemValue(QLatin1String("url"));
@@ -678,7 +678,7 @@ QIcon ServerItem::loadIcon(const QString &name) {
 	return qmIcons.value(name);
 }
 
-ConnectDialogEdit::ConnectDialogEdit(QWidget *p, const QString &name, const QString &host, const QString &user, unsigned short port, bool add) : QDialog(p) {
+ConnectDialogEdit::ConnectDialogEdit(QWidget *p, const QString &name, const QString &host, const QString &user, unsigned short port, const QString &password, bool add) : QDialog(p) {
 	setupUi(this);
 	if (add)
 		setWindowTitle(tr("Add Server"));
@@ -689,6 +689,8 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *p, const QString &name, const QStr
 	qleServer->setText(host);
 	qleUsername->setText(user.isEmpty() ? g.s.qsUsername : user);
 	qlePort->setText(QString::number(port));
+	qlePassword->setEchoMode(QLineEdit::Password);
+	qlePassword->setText(password);
 
 	usPort = 0;
 	bOk = true;
@@ -697,6 +699,7 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *p, const QString &name, const QStr
 	connect(qleServer, SIGNAL(textChanged(const QString &)), this, SLOT(validate()));
 	connect(qlePort, SIGNAL(textChanged(const QString &)), this, SLOT(validate()));
 	connect(qleUsername, SIGNAL(textChanged(const QString &)), this, SLOT(validate()));
+	connect(qlePassword, SIGNAL(textChanged(const QString &)), this, SLOT(validate()));
 
 	validate();
 }
@@ -706,6 +709,24 @@ void ConnectDialogEdit::validate() {
 	qsHostname = qleServer->text().simplified();
 	usPort = qlePort->text().toUShort();
 	qsUsername = qleUsername->text().simplified();
+	qsPassword = qlePassword->text();
+
+	// For bonjour hosts disable the port field as it's auto-detected
+	qlePort->setDisabled(!qsHostname.isEmpty() && qsHostname.startsWith(QLatin1Char('@')));
+
+	// For SuperUser show password edit
+	if (qsUsername == QLatin1String("SuperUser")) {
+		qliPassword->setVisible(true);
+		qlePassword->setVisible(true);
+		qcbShowPassword->setVisible(true);
+		adjustSize();
+	}
+	else if (qsPassword.isEmpty()) {
+		qliPassword->setVisible(false);
+		qlePassword->setVisible(false);
+		qcbShowPassword->setVisible(false);
+		adjustSize();
+	}
 
 	bOk = ! qsName.isEmpty() && ! qsHostname.isEmpty() && ! qsUsername.isEmpty() && usPort;
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(bOk);
@@ -717,8 +738,8 @@ void ConnectDialogEdit::accept() {
 		QDialog::accept();
 }
 
-void ConnectDialogEdit::on_qleServer_textChanged(const QString &text) {
-	qlePort->setDisabled(!text.isEmpty() && text.startsWith(QLatin1Char('@')));
+void ConnectDialogEdit::on_qcbShowPassword_toggled(bool checked) {
+	qlePassword->setEchoMode(checked ? QLineEdit::Normal : QLineEdit::Password);
 }
 
 ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoConnect(autoconnect) {
@@ -907,20 +928,39 @@ void ConnectDialog::on_qaFavoriteAddNew_triggered() {
 	QString name;
 	unsigned short port = 64738;
 
-	if (g.sh && g.sh->isRunning()) {
-		g.sh->getConnectionInfo(host, port, user, pw);
-		Channel *c = Channel::get(0);
-		if (c) {
-			if (c->qsName != QLatin1String("Root"))
-				name = c->qsName;
-		}
-	} else
-		user = g.s.qsUsername;
+	// Try to fill out fields if possible
+	{
+		ServerItem *si = ServerItem::fromMimeData(QApplication::clipboard()->mimeData());
+		if (si) {
+			// If there is server information in the clipboard assume user wants to add it
+			name = si->qsName;
 
-	ConnectDialogEdit *cde = new ConnectDialogEdit(this, name, host, user, port, true);
+			if (! si->qsBonjourHost.isEmpty())
+				host = QLatin1Char('@') + si->qsBonjourHost;
+			else
+				host = si->qsHostname;
+
+			port = si->usPort;
+			pw = si->qsPassword;
+		}
+		else {
+			// If connected to a server assume the user wants to add it
+			if (g.sh && g.sh->isRunning()) {
+				g.sh->getConnectionInfo(host, port, user, pw);
+				Channel *c = Channel::get(0);
+				if (c) {
+					if (c->qsName != QLatin1String("Root"))
+						name = c->qsName;
+				}
+			} else
+				user = g.s.qsUsername;
+		}
+	}
+
+	ConnectDialogEdit *cde = new ConnectDialogEdit(this, name, host, user, port, pw, true);
 
 	if (cde->exec() == QDialog::Accepted) {
-		ServerItem *si = new ServerItem(cde->qsName, cde->qsHostname, cde->usPort, cde->qsUsername);
+		ServerItem *si = new ServerItem(cde->qsName, cde->qsHostname, cde->usPort, cde->qsUsername, cde->qsPassword);
 		qlItems << si;
 		qtwServers->siFavorite->addServerItem(si);
 		qtwServers->setCurrentItem(si);
@@ -940,12 +980,13 @@ void ConnectDialog::on_qaFavoriteEdit_triggered() {
 	else
 		host = si->qsHostname;
 
-	ConnectDialogEdit *cde = new ConnectDialogEdit(this, si->qsName, host, si->qsUsername, si->usPort);
+	ConnectDialogEdit *cde = new ConnectDialogEdit(this, si->qsName, host, si->qsUsername, si->usPort, si->qsPassword);
 
 	if (cde->exec() == QDialog::Accepted) {
 
 		si->qsName = cde->qsName;
 		si->qsUsername = cde->qsUsername;
+		si->qsPassword = cde->qsPassword;
 		if ((cde->qsHostname != host) || (cde->usPort != si->usPort)) {
 			stopDns(si);
 

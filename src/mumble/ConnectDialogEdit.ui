@@ -7,8 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>243</width>
-    <height>147</height>
+    <height>194</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Edit Server</string>
@@ -98,10 +104,38 @@ Username to send to the server. Be aware that the server can impose restrictions
      </property>
     </widget>
    </item>
-   <item row="4" column="1">
+   <item row="6" column="1">
     <widget class="QDialogButtonBox" name="qdbbButtonBox">
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="qliPassword">
+     <property name="text">
+      <string>Password</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLineEdit" name="qlePassword">
+     <property name="toolTip">
+      <string>Password to send to the server</string>
+     </property>
+     <property name="whatsThis">
+      <string>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
+Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QCheckBox" name="qcbShowPassword">
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="text">
+      <string>Show password</string>
      </property>
     </widget>
    </item>
