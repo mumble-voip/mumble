@@ -38,7 +38,7 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
+        <translation>&lt;b&gt;Position&lt;/b&gt;&lt;br /&gt;
 Dieser Wert erlaubt es Ihnen die Reihenfolge der Kanäle innerhalb des Baumes festzulegen. Ein Kanal mit einem höheren &lt;i&gt;Positionswert&lt;/i&gt; wird immer unter einem Kanal mit einem niedrigeren &lt;i&gt;Positionswert&lt;/i&gt; platziert und umgekehrt. Wenn der &lt;i&gt;Positionswert&lt;/i&gt; zweier Kanäle gleich ist, dann werden diese ihrem Namen nach alphabetisch sortiert.</translation>
     </message>
     <message>
@@ -299,7 +299,7 @@ Dies sind alle für diesen Kanal definierten Gruppen. Um eine neue Gruppe zu ers
         <location/>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation>&lt;b&gt;Hinzufügen&lt;/b&gt;&lt;br/&gt;
+        <translation>&lt;b&gt;Hinzufügen&lt;/b&gt;&lt;br /&gt;
 Fügt eine neue Gruppe hinzu.</translation>
     </message>
     <message>
@@ -551,67 +551,72 @@ Enthält die Liste von Mitgliedern, welche vom aktuellen Kanal geerbt wurden. De
     <message>
         <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Geben Sie den Kanalnamen in dieses Feld ein. Der Name darf keine vom Server unerlaubten Zeichen enthalten.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. In the background it uses Mumble&apos;s access tokens feature. To allow more fine grained and powerful access control directly, use ACLs and groups instead (&lt;i&gt;Advanced configuration&lt;/i&gt; has to be checked to be able to see these settings).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Passwort&lt;/b&gt;&lt;br /&gt;Dieses Feld erlaubt es Ihnen auf einfache Weise ein Passwort für den Kanal zu setzen und zu ändern. Im Hintergrund werden dazu die Zugriffscodes verwendet. Für noch genauere und feiner justierbarere Einstellungen verwenden Sie die ACLs und Gruppen.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Temporär&lt;/b&gt;&lt;br /&gt;
+Dieses Feld markiert den Kanal als temporär. Das heißt, dass er automatisch gelöscht wird, sobald der letzte Benutzer den Kanal verlässt.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Gruppe&lt;/b&gt;&lt;br /&gt;
+Dies sind alle für diesen Kanal definierten Gruppen. Um eine neue Gruppe zu erstellen geben Sie einfach deren Namen ein und drücken Enter.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Entfernen&lt;/b&gt;&lt;br /&gt;Dies löscht die aktuell ausgewählte Gruppe. Wenn die Gruppe von einem übergeordneten Kanal geerbt wurde wird sie nicht aus der Liste gelöscht, aber alle lokalen Informationen für diese Gruppe werden entfernt.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Erben&lt;/b&gt;&lt;br /&gt;Dies erbt alle Mitglieder der Gruppe von übergeordneten Kanälen, sofern die Gruppe in übergeordneten Kanälen als &lt;i&gt;vererbbar&lt;/i&gt; markiert ist.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Vererbbar&lt;/b&gt;&lt;br /&gt;Dies macht die Gruppe an Unterkanäle vererbbar. Wenn die Gruppe nicht vererbbar ist können die Unterkanäle trotzdem eine Gruppe mit dem gleichen Namen erstellen.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Vererbt&lt;/b&gt;&lt;br /&gt;Dies gibt an, ob die Gruppe von einem übergeordneten Kanal geerbt wurde. Sie können diese Option hier nicht ändern, sie dient nur der Information.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Mitglieder&lt;/b&gt;&lt;br /&gt;
+Diese Liste enthält alle Mitglieder welche der Gruppe in diesem Kanal hinzugefügt wurden. Beachten Sie, dass dies nicht vererbte Mitglieder von höheren Kanälen einschließt. Diese werden in der Liste &lt;i&gt;Vererbte Mitglieder&lt;/i&gt; angezeigt. Um zu verhindern, dass diese Liste in Unterkanäle vererbt wird deaktivieren Sie die Option &lt;i&gt;Vererbbar&lt;/i&gt; oder fügen Sie die Mitglieder manuell zur Liste &lt;i&gt;Mitglieder ausschließen&lt;/i&gt; hinzu.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ausgeschlossene Mitglieder&lt;/b&gt;&lt;br /&gt;
+Enthält eine Liste von Mitgliedern, deren Gruppenmitgliedschaft nicht vom übergeordneten Kanal geerbt wird.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Geerbte Mitglieder&lt;/b&gt;&lt;br /&gt;
+Enthält die Liste von Mitgliedern, welche vom aktuellen Kanal geerbt wurden. Deaktivieren Sie die Option &lt;i&gt;Erben&lt;/i&gt; um zu verhindern, dass von übergeordneten Kanälen geerbt wird.</translation>
     </message>
     <message>
         <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Feld legt fest, für welche Gruppe dieser Eintrag gilt.&lt;br /&gt;Beachten Sie, dass diese Gruppe im Kontext des Kanals des Eintrags evaluiert wird. Zum Beispiel gibt die Standardberechtigung der admin-Gruppe im Wurzel-Kanal &lt;i&gt;Schreib&lt;/i&gt;rechte. Dieser Eintrag, wenn von einem Kanal geerbt, gibt einem Benutzer Schreibrechte wenn er in diesem Kanal zur &lt;i&gt;admin&lt;/i&gt;-Gruppe gehört, selbst wenn er nicht zur &lt;i&gt;admin&lt;/i&gt;-Gruppe des Kanals, in welchem die Berechtigung ursprünglich definiert wurde, gehört.&lt;br /&gt;Wenn ein Gruppenname mit &apos;!&apos; beginnt, werden seine Mitgliedschaften umgekehrt und wenn sie mit einem &apos;~&apos; beginnt werden die Mitgliedschaften im Kanal, in welchem die Berechtigung definiert wurde, geprüft statt in jenem, in dem die Berechtigung gerade aktiv ist.&lt;br /&gt;Wenn ein Gruppenname mit einem &apos;#&apos;-Zeichen beginnt wird dieser als Zugriffscode interpretiert. Benutzer müssen das was hinter dem &apos;#&apos;-Zeichen stehen in ihre Zugriffscode-Liste eingegeben haben um die entsprechende Berechtigung zu erhalten. Dies kann für einen einfachen Passwortschutz, auch für nicht authentifizierte Benutzer, verwendet werden.&lt;br /&gt;Wenn ein Gruppenname mit &apos;$&apos; beginnt gilt der Eintrag nur für Benutzer deren Zertifikat-Hash mit dem dem &apos;$&apos;-Zeichen folgenden übereinstimmt.&lt;br /&gt;Einige spezielle, vordefinierte Gruppen sind:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt;: Trifft auf jeden Benutzer zu.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt;: Trifft auf alle authentifizierten Benutzer.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt;: Benutzer in einem Unterkanal mit mindestens &lt;i&gt;a&lt;/i&gt; gemeinsamen übgeordneten Kanälen und zwischen &lt;i&gt;b&lt;/i&gt; und &lt;i&gt;c&lt;/i&gt; Kanälen dazwischen (zwischen gemeinsamem übergeordneten Kanal und aktuellem Kanal). Auf der Webseite gibt es hierzu eine weiterführende Dokumentation.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt;: Trifft auf Benutzer im aktuellen Kanal zu (Kurzform für &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt;: Trifft auf Benutzer die nicht im aktuellen Kanal sind zu (Kurzform für &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Beachten Sie, dass ein Eintrag entweder für einen bestimmten Benutzer oder eine Gruppe zutrifft, nicht für beide gleichzeitig.</translation>
     </message>
 </context>
 <context>
@@ -723,7 +728,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation>Dies konfiguriert die Eingangskanäle für ASIO. Stellen Sie sicher, dass Sie mindestens einen Kanal für Mikrofon und Lautsprecher wählen. &lt;i&gt;Mikrofon&lt;/i&gt; sollte jener sein, wo an dem Ihr Mikrofon hängt und &lt;i&gt;Lautsprecher&lt;/b&gt; sollte ein Kanal sein, welcher ausgibt &apos;&lt;i&gt;was Sie hören&lt;/i&gt;&apos;.&lt;br/&gt;
+        <translation>Dies konfiguriert die Eingangskanäle für ASIO. Stellen Sie sicher, dass Sie mindestens einen Kanal für Mikrofon und Lautsprecher wählen. &lt;i&gt;Mikrofon&lt;/i&gt; sollte jener sein, wo an dem Ihr Mikrofon hängt und &lt;i&gt;Lautsprecher&lt;/b&gt; sollte ein Kanal sein, welcher ausgibt &apos;&lt;i&gt;was Sie hören&lt;/i&gt;&apos;.&lt;br /&gt;
 Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; eine gute Wahl für Mikrofon und &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; und &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos; für Lautsprecher.</translation>
     </message>
     <message>
@@ -1600,8 +1605,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <message>
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;Doppeldruck-Zeit&lt;/b&gt;&lt;br/&gt;
-Wenn Sie die PTT-Taste zweimal innerhalb der Doppeldruck-Zeit drücken wird die Sprachübertragung dauerhaft aktiviert. Diese wird beendet wenn sie die Taste ein weiteres mal drücken.</translation>
+        <translation>&lt;b&gt;Doppeldruck-Zeit&lt;/b&gt;&lt;br /&gt;Wenn Sie die PTT-Taste zweimal innerhalb der Doppeldruck-Zeit drücken wird die Sprachübertragung dauerhaft aktiviert. Diese wird beendet wenn sie die Taste ein weiteres mal drücken.</translation>
     </message>
     <message>
         <location/>
@@ -1683,8 +1687,7 @@ Spielt den aktuellen &lt;i&gt;An&lt;/i&gt;-Audio-Hinweis gefolgt vom aktuellen &
     <message>
         <location/>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation>&lt;b&gt;Dies setzt die Stärke der Rauschunterdrückung die angewandt werden soll&lt;/b&gt;&lt;br/&gt;
-Je höher der Wert, desto aggressiver wird Rauschen unterdrückt.</translation>
+        <translation>&lt;b&gt;Dies setzt die Stärke der Rauschunterdrückung die angewandt werden soll&lt;/b&gt;&lt;br /&gt;Je höher der Wert, desto aggressiver wird Rauschen unterdrückt.</translation>
     </message>
     <message>
         <source>Idle AutoMute</source>
@@ -1701,8 +1704,7 @@ Je höher der Wert, desto aggressiver wird Rauschen unterdrückt.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation>&lt;b&gt;Zurücksetzen&lt;/b&gt;&lt;br/&gt;
-Setzt die Pfade zu den Dateien auf die Standardwerte zurück.</translation>
+        <translation>&lt;b&gt;Zurücksetzen&lt;/b&gt;&lt;br /&gt;Setzt die Pfade zu den Dateien auf die Standardwerte zurück.</translation>
     </message>
     <message>
         <location/>
@@ -1786,7 +1788,7 @@ Setzt die Pfade zu den Dateien auf die Standardwerte zurück.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Vorschau&lt;/b&gt;&lt;br /&gt;Spielt den aktuellen&lt;i&gt;on&lt;/i&gt; Sound gefolgt vom aktuellen &lt;i&gt;off&lt;/i&gt; sound.</translation>
     </message>
 </context>
 <context>
@@ -2579,7 +2581,7 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
     <message>
         <location/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies ist die Audiobitrate des letzten komprimierten Paketes (20ms). Aus diesem Grund springt sie auf und ab während die VBR die Qualität anpasst. Die Spitzenbandbreite kann in den Einstellungen angepasst werden.</translation>
     </message>
 </context>
 <context>
@@ -2842,11 +2844,11 @@ This is the audio tuning wizard for Mumble. This will help you correctly set the
 &lt;p&gt;
 Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.
 &lt;/p&gt;</source>
-        <translation>&lt;p&gt;
+        <translation type="unfinished">&lt;p&gt;
 Dies ist Mumbles Assistent zum konfigurieren Ihrer Audio-Einstellungen. Er wird Ihnen helfen die korrekte Eingangslautstärke Ihrer Soundkarte und die korrekten Parameter für die Tonverarbeitung in Mumble zu wählen.
 &lt;/p&gt;
 &lt;p&gt;
-Bitte beachten Sie, dass, so lange dieser Assistent aktiv ist, der Ton lokal ausgegeben wird damit Sie ihn hören können und kein Ton an den Server gesandt wird.
+Bitte beachten Sie, dass, so lange dieser Assistent aktiv ist, der Ton lokal ausgegeben wird damit Sie ihn hören können und kein Ton an den Server gesendet wird.
 &lt;/p&gt;</translation>
     </message>
     <message>
@@ -3151,7 +3153,7 @@ Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass 
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"></translation>
+        <translation>Als nächstes müssen Sie den folgenden Schieber anpassen. Die ersten paar Geräusche die Sie beim Sprechen machen sollten im leeren Bereich (definitiv Sprache) landen. Während Sie sprechen sollten Sie im gestreiften Bereich (könnte Sprache sein) bleiben und wenn Sie nicht sprechen, sollte alles im karierten Bereich (definitiv keine Sprache) bleiben.</translation>
     </message>
 </context>
 <context>
@@ -3283,14 +3285,13 @@ Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass 
     <message>
         <location line="+6"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation>Email konnte nicht validiert werden.&lt;br/&gt;
+        <translation>Email konnte nicht validiert werden.&lt;br /&gt;
 Geben Sie eine korrekte (oder leere) E-Mail Adresse an um fortzufahren.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
-        <translation>Beim generieren Ihres Zertifikats ist ein Fehler aufgetreten.&lt;br/&gt;
-Bitte versuchen Sie es erneut.</translation>
+        <translation>Beim generieren Ihres Zertifikats ist ein Fehler aufgetreten.&lt;br /&gt;Bitte versuchen Sie es erneut.</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -4115,9 +4116,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     <message>
         <location line="+1"/>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <translation>Dieser Knopf setzt die Einstellungen der aktuellen Seite auf die Standardwerte zurück.
-Andere Seiten werden nicht geändert.&lt;br/&gt;
-Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen Knopf auf allen Seiten verwenden.</translation>
+        <translation>Dieser Knopf setzt die Einstellungen der aktuellen Seite auf die Standardwerte zurück. Andere Seiten werden nicht geändert.&lt;br /&gt;Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen Knopf auf allen Seiten verwenden.</translation>
     </message>
     <message>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will be not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
@@ -4190,9 +4189,7 @@ Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen K
     <message>
         <location line="+1"/>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <translation type="unfinished">Dieser Knopf setzt die Einstellungen der aktuellen Seite auf die Standardwerte zurück.
-Andere Seiten werden nicht geändert.&lt;br/&gt;
-Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen Knopf auf allen Seiten verwenden.</translation>
+        <translation>Dieser Knopf setzt die Einstellungen der aktuellen Seite auf die Standardwerte zurück. Andere Seiten werden nicht geändert.&lt;br /&gt;Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen Knopf auf allen Seiten verwenden.</translation>
     </message>
 </context>
 <context>
@@ -4560,7 +4557,7 @@ Internet address of the server. This can be a normal hostname, an IPv4/IPv6 addr
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</oldsource>
         <translatorcomment>Bonjour Service Idenfitier</translatorcomment>
-        <translation>&lt;b&gt;Adresse&lt;/b&gt;&lt;br/&gt;
+        <translation>&lt;b&gt;Adresse&lt;/b&gt;&lt;br /&gt;
 Internet-Adresse des Servers. Dies kann ein normaler Hostname, eine IPv4/IPv6 Adresse oder eine Bonjour-Service-Identifikation sein. Bonjour-Service-Identifikationen müssen mit einem &apos;@&apos; beginnen um von Mumble erkannt zu werden.</translation>
     </message>
     <message>
@@ -4577,7 +4574,7 @@ Internet-Adresse des Servers. Dies kann ein normaler Hostname, eine IPv4/IPv6 Ad
         <location/>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
 Port on which the server is listening. If the server is identified by a Bonjour service identifier this field will be ignored.</source>
-        <translation>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
+        <translation>&lt;b&gt;Port&lt;/b&gt;&lt;br /&gt;
 Port auf welchem der Server hört. Wenn eine Bonjour-Service-Identifikation verwendet wird, wird dieses Feld ignoriert.</translation>
     </message>
     <message>
@@ -4594,7 +4591,7 @@ Port auf welchem der Server hört. Wenn eine Bonjour-Service-Identifikation verw
         <location/>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
-        <translation>&lt;b&gt;Benutzername&lt;/b&gt;&lt;br/&gt;
+        <translation>&lt;b&gt;Benutzername&lt;/b&gt;&lt;br /&gt;
 Benutzername, welcher an den Server gesendet wird. Beachten Sie, dass jeder Serveradminstrator eigenen Einschränkungen für Benutzernamen festlegen kann. Ihr Benutzername kann außerdem bereits von einem anderen Benutzer belegt sein.</translation>
     </message>
     <message>
@@ -4616,29 +4613,31 @@ Dies ist die Bezeichnung des Servers, welche in der Serverliste erscheint und fr
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Password</source>
-        <translation type="unfinished">Passwort</translation>
+        <translation>Passwort</translation>
     </message>
     <message>
         <location/>
         <source>Password to send to the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Passwort, welches an den Server gesendet wird</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Passwort&lt;/b&gt;&lt;br /&gt;
+Passwort, das an den Server gesendet wird. Dieses Passwort wird benötigt wenn man sich als &lt;i&gt;SuperUser&lt;/i&gt; oder zu einem Server mit Passwort-Authentifizierung verbindet. Falls nicht angegeben so wird das Passwort beim Verbinden abgefragt.</translation>
     </message>
     <message>
         <location/>
         <source>Show password</source>
-        <translation type="unfinished"></translation>
+        <translation>Passwort anzeigen</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Bezeichnung&lt;/b&gt;&lt;br/&gt;
+Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann frei gewählt werden.</translation>
     </message>
 </context>
 <context>
@@ -4961,7 +4960,7 @@ der möglichen Orte initialisieren.</translation>
         <location line="+7"/>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
         <oldsource>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
-        <translation type="unfinished">Der Schreibzugriff auf die Datenbank &apos;%1&apos; ist nicht möglich. Mumble kann ohne Schreibzugriff keine Servereinstellungen (z.B. SSL-Zertifikate) speichern.</translation>
+        <translation>Auf die Datenbank &apos;%1&apos; kann nicht schreibend zugegriffen werden. Mumble kann keine Servereinstellungen (z.B. SSL-Zertifikate) speichern.</translation>
     </message>
 </context>
 <context>
@@ -5190,12 +5189,12 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location/>
         <source>The whisper will also be transmitted to linked channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Flüstern wird auch an verknüpfte Kanäle gesendet.</translation>
     </message>
     <message>
         <location/>
         <source>The whisper will also be sent to the subchannels of the channel target.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Flüstern wird auch an die Unterkanäle des Zielkanals gesendet.</translation>
     </message>
 </context>
 <context>
@@ -6426,7 +6425,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
     <message>
         <location/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>Stellen Sie sich selbst stumm oder deaktivieren es. Wenn Sie stummgestellt sind werden keine Daten von Ihnen an den Server gesandt. Deaktivieren Sie das Stummstellen während Sie taubgestellt sind, wird dieses auch deaktiviert.</translation>
+        <translation>Stellen Sie sich selbst stumm oder deaktivieren es. Wenn Sie stummgestellt sind werden keine Daten von Ihnen an den Server gesendet. Deaktivieren Sie das Stummstellen während Sie taubgestellt sind, wird dieses auch deaktiviert.</translation>
     </message>
     <message>
         <location/>
@@ -8292,7 +8291,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>Bevorzugter Sprecher</translation>
     </message>
 </context>
 <context>
@@ -8396,8 +8395,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location/>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
-        <translation>&lt;b&gt;Proxytyp über den verbunden wird.&lt;/b&gt;&lt;br/&gt;
-Dies lässt Mumble für alle ausgehenden Verbindungen über einen Proxy verbinden. Beachten Sie: Proxy tunneling zwingt Mumble in den TCP-Kompatibilitätsmodus was zur Folge hat, dass alle Sprach-Daten über den Kontrollkanal gesandt werden.</translation>
+        <translation>&lt;b&gt;Proxytyp über den verbunden wird.&lt;/b&gt;&lt;br /&gt;Dies lässt Mumble für alle ausgehenden Verbindungen über einen Proxy verbinden. Beachten Sie: Proxy tunneling zwingt Mumble in den TCP-Kompatibilitätsmodus was zur Folge hat, dass alle Sprach-Daten über den Kontrollkanal gesendet werden.</translation>
     </message>
     <message>
         <location/>
@@ -8568,12 +8566,12 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location/>
         <source>Reconnect to last used server when starting Mumble</source>
-        <translation>Verbinde beim Start zum zuletzt verwendeten Server</translation>
+        <translation>Beim Start zum zuletzt benutzten Server verbinden</translation>
     </message>
     <message>
         <location/>
         <source>Reconnect to last server on startup</source>
-        <translation>Verbinde beim Start zum zuletzt benutzen Server</translation>
+        <translation>Beim Start zum zuletzt benutzten Server verbinden</translation>
     </message>
     <message>
         <location/>
@@ -8948,13 +8946,13 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <location line="+1"/>
         <source>To resize the users, mouse wheel over a user.</source>
         <oldsource>To resize the users, mousewheel over a user.</oldsource>
-        <translation type="unfinished">Benutzen Sie das Mausrad über einem Benutzer um seine Größe zu ändern.</translation>
+        <translation>Um die Größe der Benutzer zu ändern benutzen Sie die Scrollfunktion des Mausrads.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>For more options, right click a user.</source>
         <oldsource>For more options, rightclick a user.</oldsource>
-        <translation type="unfinished">Rechtsklick auf einen Benutzer für mehr Optionen.</translation>
+        <translation>Für mehr Optionen klicken Sie mit der rechten Maustaste auf einen Benutzer.</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -10017,7 +10015,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
         <location line="+3"/>
         <source>Empty</source>
         <oldsource>&lt;Empty&gt;</oldsource>
-        <translation type="unfinished">&lt;Leer&gt;</translation>
+        <translation>Leer</translation>
     </message>
 </context>
 <context>
@@ -10072,7 +10070,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     <message>
         <location filename="TextMessage.ui"/>
         <source>If checked the message is recursively sent to all subchannels</source>
-        <translation>Wenn aktiviert wird die Nachricht rekursiv auch an alle Unterkanäle gesandt</translation>
+        <translation>Wenn aktiviert wird die Nachricht rekursiv auch an alle Unterkanäle gesendet</translation>
     </message>
     <message>
         <location/>
@@ -10103,7 +10101,8 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 &lt;br /&gt;
 An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you&apos;ve used and resend them to the server next time you reconnect, so you don&apos;t have to enter these every time.
 </source>
-        <translation>&lt;b&gt;Dies ist eine editierbare Liste von Zugriffscodes auf dem verbundenen Server.&lt;/b&gt;&lt;br/&gt;
+        <translation>&lt;b&gt;Dies ist eine editierbare Liste von Zugriffscodes auf dem verbundenen Server.&lt;/b&gt;
+&lt;br /&gt;
 Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches Zugriffsmanagement für Kanäle verwendet werden kann. Mumble merkt sich die von Ihnen verwendeten Zugriffscodes und sendet diese das nächste Mal automatisch an den Server, damit Sie sie nicht jedes Mal eingeben müssen.</translation>
     </message>
     <message>
@@ -10771,27 +10770,27 @@ Gültige Variablen sind:
     <message>
         <location line="-31"/>
         <source>Valid variables are:</source>
-        <translation type="unfinished"></translation>
+        <translation>Gültige Variablen sind:</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the user&apos;s name</source>
-        <translation type="unfinished"></translation>
+        <translation>Fügt den Namen des Benutzers ein</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the current date</source>
-        <translation type="unfinished"></translation>
+        <translation>Fügt das aktuelle Datum ein</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the current time</source>
-        <translation type="unfinished"></translation>
+        <translation>Fügt die aktuelle Uhrzeit ein</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Fügt den Hostnamen ein</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -10822,7 +10821,7 @@ Please contact your server administrator for further information.</source>
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
         <source>Downmix</source>
-        <translation type="unfinished"></translation>
+        <translation>Gemischt</translation>
     </message>
 </context>
 <context>
