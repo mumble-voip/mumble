@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="sv-se" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="LANG">1053</String>
+
+  <String Id="MUMBLE_CREATE_SHORTCUT">Skapa genväg på skrivbordet</String>
+  <String Id="MUMBLE_DONATE">Donera till projektet för Mumble</String>
+  <String Id="MUMBLE_TERMINATE_DBUS">DBus-demonen som används av Mumble körs för närvarande. Avsluta demonen så att den kan uppdateras?</String>
+  <String Id="MUMBLE_NO_SSE">Mumble kräver SSE som är en funktion hittad på processorer såsom Intel Pentium III, AMD Athlon XP eller nyare. SSE hittades inte på din processor och Mumble verkar inte fungera. Vill du fortfarande installera Mumble?</String>
+  <String Id="MUMBLE_NO_XP">Mumble fungerar bara på Windows XP SP2 eller senare. Ett äldre och inkompatibelt operativsystem hittades och Mumble verkar inte fungera. Vill du fortfarande installera Mumble?</String>
+  <String Id="MUMBLE_START">Starta Mumble</String>
+
+  <!-- For the start menu -->
+  <String Id="MUMBLE_README_LNK">Läs mig för Mumble</String>
+  <String Id="MUMBLE_LICENSE_LNK">Licens för Mumble</String>
+  <String Id="MUMBLE_QT_LNK">Licens för Qt</String>
+  <String Id="MUMBLE_SPEEX_LNK">Licens för Speex</String>
+  <String Id="MUMBLE_UNINSTALL_LNK">Avinstallera Mumble</String>
+  <String Id="MUMBLE_COMPAT_LNK">Mumble (Bakåtkompatibel)</String>
+
+  <!-- Install types -->
+  <String Id="INSTALL_FULL">Fullständig</String>
+  <String Id="INSTALL_CLIENT">Endast klient</String>
+  <String Id="INSTALL_SERVER">Endast server</String>
+
+  <!-- Install sections -->
+  <String Id="MUMBLE_SEC_MUMBLE">Mumble (klient)</String>
+  <String Id="MUMBLE_SEC_MUMBLE11X">Mumble (bakåtkompatibel klient)</String>
+  <String Id="MUMBLE_SEC_MURMUR">Murmur (server)</String>
+  <String Id="MUMBLE_SEC_BONJOUR">Bonjour för Windows</String>
+  <String Id="DESC_SectionMumble">Klienten för Mumble, som du behöver för att ansluta till servrar.</String>
+  <String Id="DESC_SectionMumble11X">Klienten för Mumble att ansluta till äldre servrar.</String>
+  <String Id="DESC_SectionMurmur">Servern för Mumble. Inkluderar allt du behöver för att köra din egen server.</String>
+  <String Id="DESC_SectionBonjour">Bonjour tillåter annonsering och upptäckning av Murmur servrar på ditt LAN. Detta kommer att ladda ner och köra installationen för Bonjour.</String>
+
+  <!-- Uninstall sections -->
+  <String Id="MUMBLE_UNSEC_BASE">Mumble och Murmur</String>
+  <String Id="MUMBLE_UNSEC_ALL">Inställningar och databaser</String>
+  <String Id="DESC_SectionUninstBase">Avinstallera program för Mumble och Murmur</String>
+  <String Id="DESC_SectionUninstAll">Avinstallera Mumble och Murmur fullständigt, vilket inkluderar inställningar och databaser.</String>
+
+  <!-- Already installed -->
+  <String Id="MUMBLE_ALREADY_INSTALLED">Mumble är redan installerat. Det är rekommenderat att du avinstallerar den nuvarande versionen innan du påbörjar den nya installation. Välj vad du vill utföra och tryck på Nästa för att fortsätta.</String>
+  <String Id="MUMBLE_ALREADY_INSTALLED_HEAD">Redan installerat</String>
+  <String Id="MUMBLE_ALREADY_INSTALLED_SUBTEXT">Välj hur du vill installera Mumble.</String>
+  <String Id="MUMBLE_UNINSTALL">Avinstallera före installation</String>
+  <String Id="MUMBLE_NO_UNINSTALL">Avinstallera inte</String>
+</WixLocalization>
