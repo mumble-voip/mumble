@@ -186,7 +186,20 @@ GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
 	return;
 #endif
 
-	CGEventMask evmask = kCGEventMaskForAllEvents;
+	CGEventMask evmask = CGEventMaskBit(kCGEventLeftMouseDown) |
+	                     CGEventMaskBit(kCGEventLeftMouseUp) |
+	                     CGEventMaskBit(kCGEventRightMouseDown) |
+	                     CGEventMaskBit(kCGEventRightMouseUp) |
+	                     CGEventMaskBit(kCGEventOtherMouseDown) |
+	                     CGEventMaskBit(kCGEventOtherMouseUp) |
+	                     CGEventMaskBit(kCGEventKeyDown) |
+	                     CGEventMaskBit(kCGEventKeyUp) |
+	                     CGEventMaskBit(kCGEventFlagsChanged) |
+	                     CGEventMaskBit(kCGEventMouseMoved) |
+	                     CGEventMaskBit(kCGEventLeftMouseDragged) |
+	                     CGEventMaskBit(kCGEventRightMouseDragged) |
+	                     CGEventMaskBit(kCGEventOtherMouseDragged) |
+	                     CGEventMaskBit(kCGEventScrollWheel);
 	port = CGEventTapCreate(kCGSessionEventTap,
 	                        kCGHeadInsertEventTap,
 	                        0, evmask, GlobalShortcutMac::callback,
