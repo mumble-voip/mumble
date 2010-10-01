@@ -632,14 +632,14 @@ void ACLEditor::updatePasswordField() {
 	QList<ChanACL *>::iterator i = qlACLs.end();
 	while (i != qlACLs.begin()) {
 		i--;
-
 		// Check for sth that applies to '#<something>' AND grants 'Enter' AND may grant 'Speak', 'Whisper',
 		// 'TextMessage', 'Link' but NOTHING else AND does not deny anything, then '<something>' is the password.
 		if ((*i)->qsGroup.startsWith(QLatin1Char('#')) &&
 		        (*i)->bApplyHere &&
 		        !(*i)->bInherited &&
 		        ((*i)->pAllow & ChanACL::Enter) &&
-		        0 == ((*i)->pAllow & (~(ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel))) &&
+				((*i)->pAllow == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel) || // Backwards compat with old behaviour that didn't deny traverse
+				 (*i)->pAllow == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel | ChanACL::Traverse)) &&
 		        (*i)->pDeny == ChanACL::None) {
 			qleChannelPassword->setText((*i)->qsGroup.mid(1));
 			pcaPassword = (*i);
@@ -655,15 +655,16 @@ void ACLEditor::updatePasswordACL() {
 		// Remove the password if we had one to begin with
 		if (pcaPassword && qlACLs.removeOne(pcaPassword)) {
 			delete pcaPassword;
+			// Search and remove the @all deny ACL
 			QList<ChanACL *>::iterator i = qlACLs.end();
 			while (i != qlACLs.begin()) {
 				i--;
 				if ((*i)->qsGroup == QLatin1String("all") &&
 				        (*i)->bInherited == false &&
 				        (*i)->bApplyHere == true &&
-				        (*i)->bApplySubs == true &&
 				        (*i)->pAllow == ChanACL::None &&
-				        (*i)->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel)) {
+						((*i)->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel) || // Backwards compat with old behaviour that didn't deny traverse
+						 (*i)->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel | ChanACL::Traverse))) {
 					qlACLs.removeOne(*i);
 					delete(*i);
 					break;
@@ -675,18 +676,18 @@ void ACLEditor::updatePasswordACL() {
 		if (pcaPassword == NULL || !qlACLs.contains(pcaPassword)) {
 			pcaPassword = new ChanACL(NULL);
 			pcaPassword->bApplyHere = true;
-			pcaPassword->bApplySubs = true;
+			pcaPassword->bApplySubs = false;
 			pcaPassword->bInherited = false;
 			pcaPassword->pAllow = ChanACL::None;
-			pcaPassword->pDeny = ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel;
+			pcaPassword->pDeny = ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel | ChanACL::Traverse;
 			pcaPassword->qsGroup = QLatin1String("all");
 			qlACLs << pcaPassword;
 
 			pcaPassword = new ChanACL(NULL);
 			pcaPassword->bApplyHere = true;
-			pcaPassword->bApplySubs = true;
+			pcaPassword->bApplySubs = false;
 			pcaPassword->bInherited = false;
-			pcaPassword->pAllow = ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel;
+			pcaPassword->pAllow = ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel | ChanACL::Traverse;
 			pcaPassword->pDeny = ChanACL::None;
 			pcaPassword->qsGroup = QString(QLatin1String("#%1")).arg(qleChannelPassword->text());
 			qlACLs << pcaPassword;
