@@ -3081,24 +3081,24 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+870"/>
+        <location filename="ConnectDialog.cpp" line="+890"/>
         <source>Connecting to %1</source>
         <translation>Opretter forbindelse til %1</translation>
     </message>
     <message>
-        <location line="-473"/>
-        <location line="+473"/>
+        <location line="-491"/>
+        <location line="+491"/>
         <source>Enter username</source>
         <translation>Skriv brugernavn</translation>
     </message>
     <message>
-        <location line="-473"/>
+        <location line="-491"/>
         <source>Adding host %1</source>
         <translation>Tilføjer vært %1</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="+63"/>
+        <location filename="ConnectDialog.cpp" line="+61"/>
         <source>Servername</source>
         <translation>Servernavn</translation>
     </message>
@@ -3159,7 +3159,7 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
         <translation>%1 kbit/s</translation>
     </message>
     <message>
-        <location line="+256"/>
+        <location line="+276"/>
         <source>&amp;Connect</source>
         <translation>&amp;Opret forbindelse</translation>
     </message>
@@ -3170,7 +3170,7 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-294"/>
+        <location filename="ConnectDialog.cpp" line="-314"/>
         <source>Users</source>
         <translation>Brugere</translation>
     </message>
@@ -3185,7 +3185,7 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="+256"/>
+        <location filename="ConnectDialog.cpp" line="+276"/>
         <source>&amp;Add New...</source>
         <oldsource>Add New...</oldsource>
         <translation>&amp;Tilføj ny...</translation>
@@ -3199,7 +3199,7 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+710"/>
+        <location filename="ConnectDialog.cpp" line="+729"/>
         <source>Failed to fetch server list</source>
         <translation>Hentning af serverliste mislykkedes</translation>
     </message>
@@ -3379,8 +3379,29 @@ Label of the server. This is what the server will be named like in your serverli
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-765"/>
+        <location filename="ConnectDialog.cpp" line="-804"/>
         <source>Add Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialogEdit.ui"/>
+        <source>Password</source>
+        <translation type="unfinished">Adgangskode</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Password to send to the server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
+Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Show password</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4444,12 +4465,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1932"/>
+        <location line="+1933"/>
         <source>Root</source>
         <translation>Rod</translation>
     </message>
     <message>
-        <location line="-1883"/>
+        <location line="-1884"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryk-for-snak</translation>
@@ -4528,12 +4549,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2035"/>
+        <location line="+2048"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2031"/>
+        <location line="-2044"/>
         <source>&amp;Window</source>
         <translation>&amp;Vindue</translation>
     </message>
@@ -4607,13 +4628,13 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2065"/>
+        <location line="+2078"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished">Ingen forbindelse oprettet</translation>
     </message>
     <message>
-        <location line="-1829"/>
+        <location line="-1842"/>
         <source>Clear</source>
         <translation>Ryd</translation>
     </message>
@@ -4669,7 +4690,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Opretter forbindelse  igen.</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+40"/>
         <source>Change your comment</source>
         <translation>Skift din kommentar</translation>
     </message>
@@ -4689,7 +4710,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1492"/>
+        <location line="+1503"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation>Billeder (*.png *.jpg *.svg)</translation>
     </message>
@@ -4698,7 +4719,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">&lt;h2&gt;Kontrolkanal&lt;/h2&gt;&lt;p&gt;Krypteret med %1 bit %2&lt;br /&gt;%3 ms gennemsnitlig forsinkelse (%4 afvigelse)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1472"/>
+        <location line="-1483"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Stemmekanal&lt;/h2&gt;&lt;p&gt;Krypteret med 128 bit OCB-AES128&lt;br /&gt;%1 ms gennemsnitlig forsinkelse (%4 afvigelse)&lt;/p&gt;</translation>
     </message>
@@ -4759,7 +4780,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Forbindelse oprettet.</translation>
     </message>
     <message>
-        <location line="+147"/>
+        <location line="+158"/>
         <source>SSL Version mismatch</source>
         <translation>SSL-version uoverenstemmelse</translation>
     </message>
@@ -4811,18 +4832,18 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Billedformatet blev ikke genkendt.</translation>
     </message>
     <message>
-        <location line="-1498"/>
+        <location line="-1509"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Lydkanal er sendt over kontrolkanal.</translation>
     </message>
     <message>
-        <location line="-771"/>
+        <location line="-773"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+762"/>
+        <location line="+764"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Kontrol kanal&lt;/h2&gt;&lt;p&gt;Krypteret med %1 bit %2&lt;br /&gt;%3 ms gennemsnitlig forsinkelse (%4 deviation)&lt;/p&gt;&lt;p&gt;Ekstern vært %5 (port %6)&lt;/p&gt;</translation>
     </message>
@@ -4868,12 +4889,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1185"/>
+        <location line="+1196"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Se certifikat</translation>
     </message>
     <message>
-        <location line="-942"/>
+        <location line="-953"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Skriv begrundelse</translation>
@@ -4968,7 +4989,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Om Qt</translation>
     </message>
     <message>
-        <location line="+337"/>
+        <location line="+348"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL-verificering mislykkedes: %1</translation>
     </message>
@@ -5037,7 +5058,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">&amp;Server</translation>
     </message>
     <message>
-        <location line="-2106"/>
+        <location line="-2119"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanal</translation>
     </message>
@@ -5733,7 +5754,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">serveren</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+339"/>
+        <location filename="Messages.cpp" line="+347"/>
         <source>You muted and deafened %1.</source>
         <translation>Du muted og gjorde %1 døv.</translation>
     </message>
@@ -5802,18 +5823,18 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Du blev nægtet &lt;i&gt;%1&lt;/i&gt;-privilegier i %2.</translation>
     </message>
     <message>
-        <location line="-61"/>
-        <location line="+40"/>
+        <location line="-69"/>
+        <location line="+48"/>
         <source>Welcome message: %1</source>
         <translation>Velkomstbesked: %1</translation>
     </message>
     <message>
-        <location line="-7"/>
+        <location line="-15"/>
         <source>Mumble: %1</source>
         <translation>Mumble: %1</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+38"/>
         <source>%3 was denied %1 privileges in %2.</source>
         <translation>%3 blev nægtet %1-privilegier i %2.</translation>
     </message>
@@ -6050,12 +6071,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>%1 kom ind i kanalen.</translation>
     </message>
     <message>
-        <location line="-333"/>
+        <location line="-341"/>
         <source>Server connection rejected: %1.</source>
         <translation>Forbindelse til server afvist: %1.</translation>
     </message>
     <message>
-        <location line="+128"/>
+        <location line="+136"/>
         <source>Denied: %1.</source>
         <translation>Nægtet. %1.</translation>
     </message>

@@ -3440,90 +3440,109 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Log</name>
     <message>
+        <location filename="Log.cpp" line="+220"/>
         <source>Debug</source>
-        <translation type="obsolete">デバッグ</translation>
+        <translation type="unfinished">デバッグ</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Critical</source>
-        <translation type="obsolete">致命的</translation>
+        <translation type="unfinished">致命的</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Warning</source>
-        <translation type="obsolete">警告</translation>
+        <translation type="unfinished">警告</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Information</source>
-        <translation type="obsolete">情報</translation>
+        <translation type="unfinished">情報</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Server Connected</source>
-        <translation type="obsolete">サーバー接続</translation>
+        <translation type="unfinished">サーバー接続</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Server Disconnected</source>
-        <translation type="obsolete">サーバー切断</translation>
+        <translation type="unfinished">サーバー切断</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Joined Server</source>
-        <translation type="obsolete">誰かがサーバーに参加</translation>
+        <translation type="unfinished">誰かがサーバーに参加</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Left Server</source>
-        <translation type="obsolete">誰かがサーバーから退出</translation>
+        <translation type="unfinished">誰かがサーバーから退出</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player kicked (you or by you)</source>
-        <translation type="obsolete">誰かがキックされた時(あなた自身、またはあなたによって)</translation>
+        <translation type="unfinished">誰かがキックされた時(あなた自身、またはあなたによって)</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player kicked</source>
-        <translation type="obsolete">誰かがキックされた時</translation>
+        <translation type="unfinished">誰かがキックされた時</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>You self-muted/deafened</source>
-        <translation type="obsolete">自分を発言禁止/聴取禁止にした時</translation>
+        <translation type="unfinished">自分を発言禁止/聴取禁止にした時</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Other self-muted/deafened</source>
-        <translation type="obsolete">他の人が発言禁止/聴取禁止になった時</translation>
+        <translation type="unfinished">他の人が発言禁止/聴取禁止になった時</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player muted (you)</source>
-        <translation type="obsolete">誰かがあなたを発言禁止にした時</translation>
+        <translation type="unfinished">誰かがあなたを発言禁止にした時</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player muted (by you)</source>
-        <translation type="obsolete">(あなたによって)誰かが発言禁止になった時</translation>
+        <translation type="unfinished">(あなたによって)誰かが発言禁止になった時</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player muted (other)</source>
-        <translation type="obsolete">(他の人によって)誰かが発言禁止になった時</translation>
+        <translation type="unfinished">(他の人によって)誰かが発言禁止になった時</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Joined Channel</source>
-        <translation type="obsolete">誰かがチャンネルに参加</translation>
+        <translation type="unfinished">誰かがチャンネルに参加</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Left Channel</source>
-        <translation type="obsolete">誰かがチャンネルから退出</translation>
+        <translation type="unfinished">誰かがチャンネルから退出</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Permission Denied</source>
-        <translation type="obsolete">権限がない場合</translation>
+        <translation type="unfinished">権限がない場合</translation>
     </message>
     <message>
         <source>[%2] %1</source>
         <translation type="obsolete">[%2] %1</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Text Message</source>
-        <translation type="obsolete">テキストメッセージ</translation>
+        <translation type="unfinished">テキストメッセージ</translation>
     </message>
 </context>
 <context>
     <name>LogConfig</name>
     <message>
-        <location filename="Log.cpp" line="+74"/>
+        <location line="-164"/>
         <source>Toggle console for %1 events</source>
         <translation>イベント「%1」 のためのコンソールを切り替える</translation>
     </message>

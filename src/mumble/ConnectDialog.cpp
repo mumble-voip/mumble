@@ -720,8 +720,7 @@ void ConnectDialogEdit::validate() {
 		qlePassword->setVisible(true);
 		qcbShowPassword->setVisible(true);
 		adjustSize();
-	}
-	else if (qsPassword.isEmpty()) {
+	} else if (qsPassword.isEmpty()) {
 		qliPassword->setVisible(false);
 		qlePassword->setVisible(false);
 		qcbShowPassword->setVisible(false);
@@ -942,8 +941,7 @@ void ConnectDialog::on_qaFavoriteAddNew_triggered() {
 
 			port = si->usPort;
 			pw = si->qsPassword;
-		}
-		else {
+		} else {
 			// If connected to a server assume the user wants to add it
 			if (g.sh && g.sh->isRunning()) {
 				g.sh->getConnectionInfo(host, port, user, pw);

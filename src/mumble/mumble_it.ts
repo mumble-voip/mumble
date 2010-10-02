@@ -3415,13 +3415,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+870"/>
+        <location filename="ConnectDialog.cpp" line="+890"/>
         <source>Connecting to %1</source>
         <translation>Connessione a %1</translation>
     </message>
     <message>
-        <location line="-473"/>
-        <location line="+473"/>
+        <location line="-491"/>
+        <location line="+491"/>
         <source>Enter username</source>
         <translation>Inserire il nome utente</translation>
     </message>
@@ -3430,13 +3430,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">Sconosciuto</translation>
     </message>
     <message>
-        <location line="-473"/>
+        <location line="-491"/>
         <source>Adding host %1</source>
         <translation>Aggiunta host %1</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="+63"/>
+        <location filename="ConnectDialog.cpp" line="+61"/>
         <source>Servername</source>
         <translation>Nome server</translation>
     </message>
@@ -3497,13 +3497,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation>%1 kbit/s</translation>
     </message>
     <message>
-        <location line="+295"/>
+        <location line="+315"/>
         <source>&amp;Filters</source>
         <translation>&amp;Filtri</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-294"/>
+        <location filename="ConnectDialog.cpp" line="-314"/>
         <source>Users</source>
         <translation>Utenti</translation>
     </message>
@@ -3529,7 +3529,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+966"/>
+        <location line="+1005"/>
         <source>Failed to fetch server list</source>
         <translation>Scaricamento della lista dei server fallita</translation>
     </message>
@@ -3653,7 +3653,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">&amp;Password</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-712"/>
+        <location filename="ConnectDialog.cpp" line="-731"/>
         <source>&amp;Connect</source>
         <translation>&amp;Connetti</translation>
     </message>
@@ -3818,8 +3818,29 @@ Label of the server. This is what the server will be named like in your serverli
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-55"/>
+        <location filename="ConnectDialog.cpp" line="-75"/>
         <source>Add Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialogEdit.ui"/>
+        <source>Password</source>
+        <translation type="unfinished">Password</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Password to send to the server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
+Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Show password</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5061,12 +5082,12 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1932"/>
+        <location line="+1933"/>
         <source>Root</source>
         <translation>Radice</translation>
     </message>
     <message>
-        <location line="-1883"/>
+        <location line="-1884"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Premi-per-parlare</translation>
@@ -5205,12 +5226,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2035"/>
+        <location line="+2048"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2031"/>
+        <location line="-2044"/>
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
@@ -5284,13 +5305,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2065"/>
+        <location line="+2078"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished">Non connesso</translation>
     </message>
     <message>
-        <location line="-1829"/>
+        <location line="-1842"/>
         <source>Clear</source>
         <translation>Cancella</translation>
     </message>
@@ -5347,7 +5368,7 @@ p, li { white-space: pre-wrap; }
         <translation>Riconnessione.</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+40"/>
         <source>Change your comment</source>
         <translation>Cambia il tuo commento</translation>
     </message>
@@ -5372,7 +5393,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;&lt;p&gt;Host remoto %5 (porta%6)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1483"/>
+        <location line="+1494"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation>Immagini (*.png *.jpg *.svg)</translation>
     </message>
@@ -5381,7 +5402,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1472"/>
+        <location line="-1483"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canale di voce&lt;/h2&gt;&lt;p&gt;Crittografato con 128 bit OCB-AES128&lt;br/&gt;%1 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
@@ -5397,13 +5418,13 @@ p, li { white-space: pre-wrap; }
         <translation>Registrati come %1</translation>
     </message>
     <message>
-        <location line="-991"/>
+        <location line="-993"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+680"/>
+        <location line="+682"/>
         <location line="+311"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Stai per registrarti sul server. Quest&apos;azione non può essere annullata, il tuo nome utente non potrà essere cambiato. Sarai per sempre conosciuto come &apos;%1&apos; su questo server.&lt;p&gt;Se sicuro di volerti registrare?&lt;/p&gt;</translation>
@@ -5473,7 +5494,7 @@ p, li { white-space: pre-wrap; }
         <translation>Connesso.</translation>
     </message>
     <message>
-        <location line="+147"/>
+        <location line="+158"/>
         <source>SSL Version mismatch</source>
         <translation>Versione SSL diversa</translation>
     </message>
@@ -5529,7 +5550,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 variazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1498"/>
+        <location line="-1509"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Il canale di voce è trasmesso sul canale di controllo.</translation>
     </message>
@@ -5583,7 +5604,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1185"/>
+        <location line="+1196"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Visualizza certificato</translation>
     </message>
@@ -5592,7 +5613,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Espulsione giocatore %1</translation>
     </message>
     <message>
-        <location line="-942"/>
+        <location line="-953"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Inserisci motivazione</translation>
@@ -5687,7 +5708,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Connessione al server %1.</translation>
     </message>
     <message>
-        <location line="+337"/>
+        <location line="+348"/>
         <source>SSL Verification failed: %1</source>
         <translation>Verifica SSL fallita: %1</translation>
     </message>
@@ -5760,7 +5781,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Giocatore</translation>
     </message>
     <message>
-        <location line="-2106"/>
+        <location line="-2119"/>
         <source>&amp;Channel</source>
         <translation>&amp;Canale</translation>
     </message>
@@ -6505,7 +6526,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">il server</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+310"/>
+        <location filename="Messages.cpp" line="+318"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>Microfono e audio riattivati da %1.</translation>
     </message>
@@ -6574,18 +6595,18 @@ p, li { white-space: pre-wrap; }
         <translation>Ti è stato negato il privilegio %1 su %2.</translation>
     </message>
     <message>
-        <location line="-61"/>
-        <location line="+40"/>
+        <location line="-69"/>
+        <location line="+48"/>
         <source>Welcome message: %1</source>
         <translation>Messaggio di benvenuto: %1</translation>
     </message>
     <message>
-        <location line="-7"/>
+        <location line="-15"/>
         <source>Mumble: %1</source>
         <translation>Mumble: %1</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+38"/>
         <source>%3 was denied %1 privileges in %2.</source>
         <translation>A %3 è stato negato il privilegio %1 su %2.</translation>
     </message>
@@ -6836,12 +6857,12 @@ p, li { white-space: pre-wrap; }
         <translation>%1 è entrato nel canale.</translation>
     </message>
     <message>
-        <location line="-333"/>
+        <location line="-341"/>
         <source>Server connection rejected: %1.</source>
         <translation>Connessione al server respinta: %1.</translation>
     </message>
     <message>
-        <location line="+128"/>
+        <location line="+136"/>
         <source>Denied: %1.</source>
         <translation>Negato: %1.</translation>
     </message>

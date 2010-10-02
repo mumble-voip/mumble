@@ -3019,80 +3019,99 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Log</name>
     <message>
+        <location filename="Log.cpp" line="+220"/>
         <source>Debug</source>
-        <translation type="obsolete">Debug</translation>
+        <translation type="unfinished">Debug</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Critical</source>
-        <translation type="obsolete">Critical</translation>
+        <translation type="unfinished">Critical</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Warning</source>
-        <translation type="obsolete">Warning</translation>
+        <translation type="unfinished">Warning</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Information</source>
-        <translation type="obsolete">Information</translation>
+        <translation type="unfinished">Information</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Server Connected</source>
-        <translation type="obsolete">Server připojen</translation>
+        <translation type="unfinished">Server připojen</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Server Disconnected</source>
-        <translation type="obsolete">Server odpojen</translation>
+        <translation type="unfinished">Server odpojen</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Joined Server</source>
-        <translation type="obsolete">Uživatel se připojil k serveru</translation>
+        <translation type="unfinished">Uživatel se připojil k serveru</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Left Server</source>
-        <translation type="obsolete">Uživatel opustil server</translation>
+        <translation type="unfinished">Uživatel opustil server</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player kicked (you or by you)</source>
-        <translation type="obsolete">Uživatel byl vykopnut</translation>
+        <translation type="unfinished">Uživatel byl vykopnut</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player kicked</source>
-        <translation type="obsolete">Uživatel vykopnut</translation>
+        <translation type="unfinished">Uživatel vykopnut</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>You self-muted/deafened</source>
-        <translation type="obsolete">Zakázal jste si možnost hovoru/poslechu</translation>
+        <translation type="unfinished">Zakázal jste si možnost hovoru/poslechu</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Other self-muted/deafened</source>
-        <translation type="obsolete">Uživatel si vypnul mluvení/poslech</translation>
+        <translation type="unfinished">Uživatel si vypnul mluvení/poslech</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player muted (you)</source>
-        <translation type="obsolete">Bylo zakázáno mluvení</translation>
+        <translation type="unfinished">Bylo zakázáno mluvení</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player muted (by you)</source>
-        <translation type="obsolete">Uživateli bylo Vámi zakázano mluvit</translation>
+        <translation type="unfinished">Uživateli bylo Vámi zakázano mluvit</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player muted (other)</source>
-        <translation type="obsolete">Uživatelovi bylo zakázáno mluvit</translation>
+        <translation type="unfinished">Uživatelovi bylo zakázáno mluvit</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Joined Channel</source>
-        <translation type="obsolete">Uživatel vstoupil do kanálu</translation>
+        <translation type="unfinished">Uživatel vstoupil do kanálu</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Left Channel</source>
-        <translation type="obsolete">Uživatel opustil kanál</translation>
+        <translation type="unfinished">Uživatel opustil kanál</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Permission Denied</source>
-        <translation type="obsolete">K provedení akce chybí potřebné oprávnění</translation>
+        <translation type="unfinished">K provedení akce chybí potřebné oprávnění</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Text Message</source>
-        <translation type="obsolete">Textová zpráva</translation>
+        <translation type="unfinished">Textová zpráva</translation>
     </message>
     <message>
         <source>[%2] %1</source>
@@ -3102,7 +3121,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LogConfig</name>
     <message>
-        <location filename="Log.cpp" line="+74"/>
+        <location line="-164"/>
         <source>Toggle console for %1 events</source>
         <translation type="unfinished"></translation>
     </message>

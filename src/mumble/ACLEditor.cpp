@@ -638,8 +638,8 @@ void ACLEditor::updatePasswordField() {
 		        (*i)->bApplyHere &&
 		        !(*i)->bInherited &&
 		        ((*i)->pAllow & ChanACL::Enter) &&
-				((*i)->pAllow == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel) || // Backwards compat with old behaviour that didn't deny traverse
-				 (*i)->pAllow == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel | ChanACL::Traverse)) &&
+		        ((*i)->pAllow == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel) || // Backwards compat with old behaviour that didn't deny traverse
+		         (*i)->pAllow == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel | ChanACL::Traverse)) &&
 		        (*i)->pDeny == ChanACL::None) {
 			qleChannelPassword->setText((*i)->qsGroup.mid(1));
 			pcaPassword = (*i);
@@ -663,8 +663,8 @@ void ACLEditor::updatePasswordACL() {
 				        (*i)->bInherited == false &&
 				        (*i)->bApplyHere == true &&
 				        (*i)->pAllow == ChanACL::None &&
-						((*i)->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel) || // Backwards compat with old behaviour that didn't deny traverse
-						 (*i)->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel | ChanACL::Traverse))) {
+				        ((*i)->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel) || // Backwards compat with old behaviour that didn't deny traverse
+				         (*i)->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel | ChanACL::Traverse))) {
 					qlACLs.removeOne(*i);
 					delete(*i);
 					break;

@@ -514,7 +514,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
         <translation>%1 -&gt; %2 sample buffert, med %3 sample upplösning (%4 föredras) vid %5 Hz</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+43"/>
         <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
         <translation>ASIO kunde inte initieras: %1</translation>
@@ -2306,7 +2306,7 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
         <translation>Mumbleanvändare</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+412"/>
+        <location filename="main.cpp" line="+411"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Centrifikatsutgång:&lt;/b&gt; Ditt centrifikat håller på att gå ut. Du måste förnya det, annars kan du inte längre ansluta till servrar du är registrerad på.</translation>
     </message>
@@ -2848,7 +2848,7 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+51"/>
+        <location filename="ConfigDialog.cpp" line="+54"/>
         <source>Accept changes</source>
         <translation>Acceptera ändringar</translation>
     </message>
@@ -2965,24 +2965,24 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+867"/>
+        <location filename="ConnectDialog.cpp" line="+890"/>
         <source>Connecting to %1</source>
         <translation>Ansluten till %1</translation>
     </message>
     <message>
-        <location line="-470"/>
-        <location line="+470"/>
+        <location line="-491"/>
+        <location line="+491"/>
         <source>Enter username</source>
         <translation>Ange användarnamn</translation>
     </message>
     <message>
-        <location line="-470"/>
+        <location line="-491"/>
         <source>Adding host %1</source>
         <translation>Lägger till värd %1</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="+63"/>
+        <location filename="ConnectDialog.cpp" line="+61"/>
         <source>Servername</source>
         <translation>Servernamn</translation>
     </message>
@@ -3043,7 +3043,7 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
         <translation>%1 kbit/s</translation>
     </message>
     <message>
-        <location line="+253"/>
+        <location line="+276"/>
         <source>&amp;Connect</source>
         <translation>&amp;Anslut</translation>
     </message>
@@ -3054,7 +3054,7 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-291"/>
+        <location filename="ConnectDialog.cpp" line="-314"/>
         <source>Users</source>
         <translation>Användare</translation>
     </message>
@@ -3064,7 +3064,7 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
         <translation>Version</translation>
     </message>
     <message>
-        <location line="+963"/>
+        <location line="+1005"/>
         <source>Failed to fetch server list</source>
         <translation>Serverlistan kunde inte hämtas</translation>
     </message>
@@ -3130,7 +3130,7 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
     </message>
     <message>
         <location/>
-        <location filename="ConnectDialog.cpp" line="-710"/>
+        <location filename="ConnectDialog.cpp" line="-729"/>
         <source>&amp;Add New...</source>
         <translation>&amp;Lägg till ny...</translation>
     </message>
@@ -3237,6 +3237,32 @@ Användarnamnet skickas till servern. Var medveten om att servern kan införa be
 Label of the server. This is what the server will be named like in your serverlist and can be chosen freely.</source>
         <translation>&lt;b&gt;Etikett&lt;/b&gt;&lt;br/&gt;
 Serverns etikett. Detta är det servern kommer att kallas i din serverlista, som du väljer själv.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Password</source>
+        <translation type="unfinished">Lösenord</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Password to send to the server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
+Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Show password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="-75"/>
+        <source>Add Server</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3369,7 +3395,7 @@ Serverns etikett. Detta är det servern kommer att kallas i din serverlista, som
         <location filename="Database.cpp" line="+84"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
-        <translation>Mumble kunde inte initiera en databas i någon 
+        <translation>Mumble kunde inte initiera en databas i någon
 av dessa möjliga platser.</translation>
     </message>
     <message>
@@ -3481,7 +3507,7 @@ av dessa möjliga platser.</translation>
 <context>
     <name>GlobalShortcutMacInit</name>
     <message>
-        <location filename="GlobalShortcut_macx.mm" line="+63"/>
+        <location filename="GlobalShortcut_macx.mm" line="+65"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
         <translation>Mumble har hittat att globala genvägar i bakgrunden inte kan tas emot.&lt;br /&gt;&lt;br /&gt;Detta är på grund av att funktionen &quot;Universell tillgång&quot; som kallas &quot;Aktivera tillgång för hjälpenheter&quot; för närvarande är avaktiverad.&lt;br /&gt;&lt;br /&gt;&lt;a href=&quot; &quot;&gt;Aktivera den här inställningen&lt;/a&gt; och fortsätt vid avslut.</translation>
     </message>
@@ -3730,7 +3756,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Användare lämnade servern</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
+        <source>User recording state changed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>User kicked (you or by you)</source>
         <translation>Användare utslängd (du eller av dig)</translation>
     </message>
@@ -4252,12 +4283,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1904"/>
+        <location line="+1933"/>
         <source>Root</source>
         <translation>Rot</translation>
     </message>
     <message>
-        <location line="-1855"/>
+        <location line="-1884"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryck-för-att-Tala</translation>
@@ -4336,28 +4367,28 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2007"/>
+        <location line="+2048"/>
         <source>Mumble -- %1</source>
         <translation>Mumble - %1</translation>
     </message>
     <message>
-        <location line="-2003"/>
+        <location line="-2044"/>
         <source>&amp;Window</source>
         <translation>&amp;Fönster</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+104"/>
+        <location line="+126"/>
         <source>Minimize</source>
         <translation>Minimera</translation>
     </message>
     <message>
-        <location line="-104"/>
+        <location line="-126"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+125"/>
         <source>Close</source>
         <translation>Stäng</translation>
     </message>
@@ -4367,7 +4398,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Mumble är för närvarande ansluten till en server. Vill du stänga eller minimera?</translation>
     </message>
     <message>
-        <location line="-155"/>
+        <location line="-177"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Avaktivera mikrofon</translation>
@@ -4410,18 +4441,18 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2037"/>
+        <location line="+2078"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Ej ansluten&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1826"/>
+        <location line="-1842"/>
         <source>Clear</source>
         <translation>Rensa</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+27"/>
         <source>Opening URL %1</source>
         <translation>Öppnar URL %1</translation>
     </message>
@@ -4472,7 +4503,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Återansluter.</translation>
     </message>
     <message>
-        <location line="+130"/>
+        <location line="+132"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protokoll %1.%2.%3.&lt;/p&gt;</translation>
     </message>
@@ -4545,7 +4576,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Ansluten.</translation>
     </message>
     <message>
-        <location line="+147"/>
+        <location line="+158"/>
         <source>SSL Version mismatch</source>
         <translation>SSL version matchar inte</translation>
     </message>
@@ -4572,7 +4603,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>&lt;center&gt;Skriv ett meddelande till användaren &quot;%1&quot; här&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="+97"/>
         <source>Choose image file</source>
         <translation>Välj bildfil</translation>
     </message>
@@ -4593,12 +4624,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Bildformatet stöds ej.</translation>
     </message>
     <message>
-        <location line="-1489"/>
+        <location line="-1509"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Röstkanal skickas över kontrollkanal.</translation>
     </message>
     <message>
-        <location line="-806"/>
+        <location line="-836"/>
         <source>&amp;User</source>
         <translation>&amp;Användare</translation>
     </message>
@@ -4614,7 +4645,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Detta kommer ändra i-spelet läget.</translation>
     </message>
     <message>
-        <location line="+626"/>
+        <location line="+656"/>
         <source>Change your comment</source>
         <translation>Ändra din kommentar</translation>
     </message>
@@ -4665,12 +4696,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1185"/>
+        <location line="+1196"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Visa centrifikat</translation>
     </message>
     <message>
-        <location line="-942"/>
+        <location line="-953"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Ange anledning</translation>
@@ -4756,7 +4787,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Om Qt</translation>
     </message>
     <message>
-        <location line="+337"/>
+        <location line="+348"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL verifiering misslyckades: %1</translation>
     </message>
@@ -4821,7 +4852,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Felaktigt serverlösenord för oregistrerat användarkonto, försök igen.</translation>
     </message>
     <message>
-        <location line="+192"/>
+        <location line="+201"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation>Bilder (*.png *.jpg *.svg)</translation>
     </message>
@@ -5408,7 +5439,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Detta kommer växla minimalt läge när loggfönstret och menyn är gömd.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+339"/>
+        <location filename="Messages.cpp" line="+347"/>
         <source>You muted and deafened %1.</source>
         <translation>Du avaktiverade mikrofon och ljud för %1.</translation>
     </message>
@@ -5468,18 +5499,18 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>%1 har nu avaktiverat sin mikrofon och  sitt ljud.</translation>
     </message>
     <message>
-        <location line="-170"/>
-        <location line="+40"/>
+        <location line="-178"/>
+        <location line="+48"/>
         <source>Welcome message: %1</source>
         <translation>Välkomstmeddelande: %1</translation>
     </message>
     <message>
-        <location line="-7"/>
+        <location line="-15"/>
         <source>Mumble: %1</source>
         <translation>Mumble: %1</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+36"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation>Du nekades behörigheten &quot;%1&quot; i %2.</translation>
     </message>
@@ -5713,12 +5744,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>%1 gick med i kanalen.</translation>
     </message>
     <message>
-        <location line="-333"/>
+        <location line="-341"/>
         <source>Server connection rejected: %1.</source>
         <translation>Serveranslutning avbröts: %1.</translation>
     </message>
     <message>
-        <location line="+128"/>
+        <location line="+136"/>
         <source>Denied: %1.</source>
         <translation>Nekad: %1.</translation>
     </message>
@@ -5728,7 +5759,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Meddelande från %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1381"/>
+        <location filename="UserModel.cpp" line="+1383"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Du har kanaldragning inställd på &quot;Gör ingenting&quot; så kanalen flyttades inte.</translation>
     </message>
@@ -6142,42 +6173,42 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="Overlay.cpp" line="+477"/>
-        <location line="+1076"/>
+        <location filename="OverlayEditorScene.cpp" line="+121"/>
+        <location filename="OverlayUser.cpp" line="+150"/>
         <source>Silent</source>
         <translation>Tyst</translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Talking</source>
         <translation>Pratar</translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Whisper</source>
         <translation>Viskar</translation>
     </message>
     <message>
-        <location line="-1073"/>
-        <location line="+1076"/>
+        <location line="+3"/>
+        <location filename="OverlayUser.cpp" line="+3"/>
         <source>Shout</source>
         <translation>Skriker</translation>
     </message>
     <message>
-        <location line="-1057"/>
-        <location line="+947"/>
+        <location line="+17"/>
+        <location filename="OverlayUser.cpp" line="-110"/>
         <source>Channel</source>
         <translation>Kanal</translation>
     </message>
     <message>
-        <location line="+1279"/>
+        <location filename="Overlay.cpp" line="+100"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Kunde inte skapa kommunikation med överlag på %2: %1. Inget överlag kommer att vara tillgängligt.</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+256"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation>Hoppar över uppdatering för överlag i felsökningsläge.</translation>
     </message>
@@ -6190,7 +6221,7 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
 <context>
     <name>OverlayClient</name>
     <message>
-        <location line="-1166"/>
+        <location filename="OverlayUserGroup.cpp" line="+94"/>
         <source>Filter</source>
         <translation>Filter</translation>
     </message>
@@ -6230,7 +6261,7 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
         <translation>Återställ zoom</translation>
     </message>
     <message>
-        <location line="+285"/>
+        <location filename="OverlayClient.cpp" line="+106"/>
         <source>FPS: %1</source>
         <translation>FPS: %1</translation>
     </message>
@@ -6238,7 +6269,7 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location line="-2106"/>
+        <location filename="OverlayConfig.cpp" line="+78"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Drag i den lilla röda punkten för att flytta användare.</translation>
     </message>
@@ -6253,12 +6284,17 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
         <translation>Högerklicka på en användare för att få fler alternativ.</translation>
     </message>
     <message>
-        <location line="+153"/>
+        <location line="+30"/>
+        <source>FPS: %1</source>
+        <translation type="unfinished">FPS: %1</translation>
+    </message>
+    <message>
+        <location line="+194"/>
         <source>Overlay</source>
         <translation>Överlag</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+71"/>
         <source>Choose executable</source>
         <translation>Välj körbar fil</translation>
     </message>
@@ -6279,12 +6315,27 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
         <translation>Mumble kunde inte verifiera om installeraren var äkta.</translation>
     </message>
     <message>
-        <location filename="Overlay.ui"/>
-        <source>Form</source>
-        <translation>Formulär</translation>
+        <location line="+86"/>
+        <source>Load Overlay Presets</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location/>
+        <location line="+2"/>
+        <location line="+28"/>
+        <source>Mumble overlay presets (*.mumblelay)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-2"/>
+        <source>Save Overlay Presets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Form</source>
+        <translation type="obsolete">Formulär</translation>
+    </message>
+    <message>
+        <location filename="Overlay.ui"/>
         <source>Options</source>
         <translation>Alternativ</translation>
     </message>
@@ -6383,14 +6434,62 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
         <translation>Visa centrifikat</translation>
     </message>
     <message>
-        <location/>
         <source>&amp;Add...</source>
-        <translation>&amp;Lägg till...</translation>
+        <translation type="obsolete">&amp;Lägg till...</translation>
+    </message>
+    <message>
+        <source>&amp;Remove</source>
+        <translation type="obsolete">&amp;Ta bort</translation>
     </message>
     <message>
         <location/>
-        <source>&amp;Remove</source>
-        <translation>&amp;Ta bort</translation>
+        <source>Load an overlay preset from file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location/>
+        <source>Load…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Save your overlay settings to file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location/>
+        <source>Save…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>FPS Display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Set the overlay font.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Set the overlay text color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Color</source>
+        <translation type="unfinished">Färg</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Add...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Remove</source>
+        <translation type="unfinished">Ta bort</translation>
     </message>
 </context>
 <context>
@@ -6514,7 +6613,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
 <context>
     <name>OverlayEditorScene</name>
     <message>
-        <location filename="Overlay.cpp" line="+555"/>
+        <location filename="OverlayEditorScene.cpp" line="+396"/>
         <source>Layout preset</source>
         <translation>Förinställd layout</translation>
     </message>
@@ -6745,7 +6844,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+320"/>
+        <location filename="Plugins.cpp" line="+330"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>Hoppar över uppdatering för insticksmoduler i felsökningsläge.</translation>
     </message>
@@ -6761,12 +6860,12 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
         <translation>Kude inte installera ny insticksmodul till %1.</translation>
     </message>
     <message>
-        <location line="-259"/>
+        <location line="-265"/>
         <source>%1 lost link.</source>
         <translation>%1 förlorade länk.</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+74"/>
         <source>%1 linked.</source>
         <translation>%1 länkad.</translation>
     </message>
@@ -6924,7 +7023,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-663"/>
+        <location filename="ConnectDialog.cpp" line="-611"/>
         <source>Favorite</source>
         <translation>Favorit</translation>
     </message>
@@ -7357,7 +7456,7 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-804"/>
+        <location filename="UserModel.cpp" line="-806"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Detta är en användare som är ansluten till servern. Ikonen till vänster om användaren visar om de pratar eller ej:</translation>
     </message>
@@ -7483,7 +7582,7 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
         <translation>Flaggor</translation>
     </message>
     <message>
-        <location line="+721"/>
+        <location line="+723"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Är du säker på att du vill dra den här kanalen?</translation>
     </message>
@@ -7648,7 +7747,22 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <location filename="VoiceRecorder.cpp" line="+390"/>
+        <location filename="VoiceRecorder.cpp" line="+181"/>
+        <source>Invalid sample rate given to recorder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+96"/>
+        <source>Recorder failed to create directory &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Recorder failed to open file &apos;%s&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+109"/>
         <source>.wav - Uncompressed</source>
         <translation>.wav - Okomprimerad</translation>
     </message>
@@ -7673,9 +7787,10 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
         <location filename="VoiceRecorderDialog.cpp" line="+69"/>
-        <location line="+39"/>
+        <location line="+41"/>
         <location line="+10"/>
         <location line="+9"/>
+        <location line="+135"/>
         <source>Recorder</source>
         <translation>Inspelare</translation>
     </message>
@@ -7757,12 +7872,12 @@ Giltiga variabler är:
         <translation>&amp;Bläddra...</translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-57"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-194"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
         <translation>Stängning av inspelaren kommer att avsluta din nuvarande inspelning. Vill du verkligen stänga inspelaren?</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+32"/>
         <source>Recoder</source>
         <translation>Omkodare</translation>
     </message>
@@ -7789,7 +7904,7 @@ Kontakta din serveradministratör för mer information.</translation>
         <translation>Välj ett annat inspelningsformat.</translation>
     </message>
     <message>
-        <location line="+97"/>
+        <location line="+95"/>
         <source>Select target directory</source>
         <translation>Välj målmapp</translation>
     </message>

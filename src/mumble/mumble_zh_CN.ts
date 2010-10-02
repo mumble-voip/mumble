@@ -3219,13 +3219,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+870"/>
+        <location filename="ConnectDialog.cpp" line="+890"/>
         <source>Connecting to %1</source>
         <translation>正在连接到 %1</translation>
     </message>
     <message>
-        <location line="-473"/>
-        <location line="+473"/>
+        <location line="-491"/>
+        <location line="+491"/>
         <source>Enter username</source>
         <translation>输入用户名</translation>
     </message>
@@ -3234,13 +3234,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">未知</translation>
     </message>
     <message>
-        <location line="-473"/>
+        <location line="-491"/>
         <source>Adding host %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="+63"/>
+        <location filename="ConnectDialog.cpp" line="+61"/>
         <source>Servername</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3301,13 +3301,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+295"/>
+        <location line="+315"/>
         <source>&amp;Filters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-294"/>
+        <location filename="ConnectDialog.cpp" line="-314"/>
         <source>Users</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3317,7 +3317,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+966"/>
+        <location line="+1005"/>
         <source>Failed to fetch server list</source>
         <translation>无法获取服务器列表</translation>
     </message>
@@ -3417,7 +3417,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">&amp;密码</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-712"/>
+        <location filename="ConnectDialog.cpp" line="-731"/>
         <source>&amp;Connect</source>
         <translation type="unfinished">&amp;连接</translation>
     </message>
@@ -3573,8 +3573,29 @@ Label of the server. This is what the server will be named like in your serverli
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-55"/>
+        <location filename="ConnectDialog.cpp" line="-75"/>
         <source>Add Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialogEdit.ui"/>
+        <source>Password</source>
+        <translation type="unfinished">密码</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Password to send to the server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
+Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Show password</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4714,12 +4735,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1932"/>
+        <location line="+1933"/>
         <source>Root</source>
         <translation>根</translation>
     </message>
     <message>
-        <location line="-1883"/>
+        <location line="-1884"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>按键通话</translation>
@@ -4858,12 +4879,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2035"/>
+        <location line="+2048"/>
         <source>Mumble -- %1</source>
         <translation></translation>
     </message>
     <message>
-        <location line="-2031"/>
+        <location line="-2044"/>
         <source>&amp;Window</source>
         <translation>&amp;窗口</translation>
     </message>
@@ -4937,13 +4958,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2065"/>
+        <location line="+2078"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished">未连接</translation>
     </message>
     <message>
-        <location line="-1829"/>
+        <location line="-1842"/>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
@@ -4999,7 +5020,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>正在重新连接中。</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+40"/>
         <source>Change your comment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5034,24 +5055,24 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1461"/>
+        <location line="+1472"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1565"/>
+        <location line="-1576"/>
         <location line="+311"/>
         <source>Register yourself as %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-991"/>
+        <location line="-993"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+680"/>
+        <location line="+682"/>
         <location line="+311"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
@@ -5113,7 +5134,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+147"/>
+        <location line="+158"/>
         <source>SSL Version mismatch</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5165,7 +5186,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;控制信道&lt;/h2&gt;&lt;p&gt;使用 %1 比特 %2 加密&lt;br /&gt;平均延迟 %3 毫秒（%4 方差）&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1498"/>
+        <location line="-1509"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>语音频道通过控制信道发送。</translation>
     </message>
@@ -5219,7 +5240,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1185"/>
+        <location line="+1196"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;查看认证</translation>
     </message>
@@ -5228,7 +5249,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">踢出玩家 %1</translation>
     </message>
     <message>
-        <location line="-942"/>
+        <location line="-953"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>输入原因</translation>
@@ -5323,7 +5344,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">已连接到服务器 %1.</translation>
     </message>
     <message>
-        <location line="+337"/>
+        <location line="+348"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL 认证失败: %1</translation>
     </message>
@@ -5396,7 +5417,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;玩家</translation>
     </message>
     <message>
-        <location line="-2106"/>
+        <location line="-2119"/>
         <source>&amp;Channel</source>
         <translation type="unfinished">&amp;频道</translation>
     </message>
@@ -6096,7 +6117,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">加入服务器: %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+310"/>
+        <location filename="Messages.cpp" line="+318"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6165,18 +6186,18 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-61"/>
-        <location line="+40"/>
+        <location line="-69"/>
+        <location line="+48"/>
         <source>Welcome message: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-7"/>
+        <location line="-15"/>
         <source>Mumble: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+38"/>
         <source>%3 was denied %1 privileges in %2.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6418,12 +6439,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%1 进入频道。</translation>
     </message>
     <message>
-        <location line="-333"/>
+        <location line="-341"/>
         <source>Server connection rejected: %1.</source>
         <translation>服务器拒绝连接: %1。</translation>
     </message>
     <message>
-        <location line="+128"/>
+        <location line="+136"/>
         <source>Denied: %1.</source>
         <translation>拒绝: %1。</translation>
     </message>

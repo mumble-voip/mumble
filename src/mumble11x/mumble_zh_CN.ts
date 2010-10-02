@@ -2518,80 +2518,99 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Log</name>
     <message>
+        <location filename="Log.cpp" line="+220"/>
         <source>Debug</source>
-        <translation type="obsolete">调试</translation>
+        <translation type="unfinished">调试</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Critical</source>
-        <translation type="obsolete">紧急</translation>
+        <translation type="unfinished">紧急</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Warning</source>
-        <translation type="obsolete">警告</translation>
+        <translation type="unfinished">警告</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Information</source>
-        <translation type="obsolete">信息</translation>
+        <translation type="unfinished">信息</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Server Connected</source>
-        <translation type="obsolete">服务器已连接</translation>
+        <translation type="unfinished">服务器已连接</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Server Disconnected</source>
-        <translation type="obsolete">服务器已断开连接</translation>
+        <translation type="unfinished">服务器已断开连接</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Joined Server</source>
-        <translation type="obsolete">玩家加入服务器</translation>
+        <translation type="unfinished">玩家加入服务器</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Left Server</source>
-        <translation type="obsolete">玩家离开服务器</translation>
+        <translation type="unfinished">玩家离开服务器</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player kicked (you or by you)</source>
-        <translation type="obsolete">玩家踢出你（或被你踢出）</translation>
+        <translation type="unfinished">玩家踢出你（或被你踢出）</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player kicked</source>
-        <translation type="obsolete">玩家被踢出</translation>
+        <translation type="unfinished">玩家被踢出</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>You self-muted/deafened</source>
-        <translation type="obsolete">你自我静音/耳聋</translation>
+        <translation type="unfinished">你自我静音/耳聋</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Other self-muted/deafened</source>
-        <translation type="obsolete">其他人自我静音/耳聋</translation>
+        <translation type="unfinished">其他人自我静音/耳聋</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player muted (you)</source>
-        <translation type="obsolete">玩家对你静音</translation>
+        <translation type="unfinished">玩家对你静音</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player muted (by you)</source>
-        <translation type="obsolete">玩家被你静音</translation>
+        <translation type="unfinished">玩家被你静音</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player muted (other)</source>
-        <translation type="obsolete">玩家静音其他人</translation>
+        <translation type="unfinished">玩家静音其他人</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Joined Channel</source>
-        <translation type="obsolete">玩家加入频道</translation>
+        <translation type="unfinished">玩家加入频道</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Left Channel</source>
-        <translation type="obsolete">玩家离开频道</translation>
+        <translation type="unfinished">玩家离开频道</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Permission Denied</source>
-        <translation type="obsolete">没有权限</translation>
+        <translation type="unfinished">没有权限</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Text Message</source>
-        <translation type="obsolete">文本消息</translation>
+        <translation type="unfinished">文本消息</translation>
     </message>
     <message>
         <source>Script Errors</source>
@@ -2601,7 +2620,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LogConfig</name>
     <message>
-        <location filename="Log.cpp" line="+74"/>
+        <location line="-164"/>
         <source>Toggle console for %1 events</source>
         <translation>为 %1 事件启用控制台</translation>
     </message>

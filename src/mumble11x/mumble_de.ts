@@ -3426,80 +3426,99 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">[%2] %1</translation>
     </message>
     <message>
+        <location filename="Log.cpp" line="+220"/>
         <source>Debug</source>
-        <translation type="obsolete">Debug</translation>
+        <translation type="unfinished">Debug</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Critical</source>
-        <translation type="obsolete">Kritisch</translation>
+        <translation type="unfinished">Kritisch</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Warning</source>
-        <translation type="obsolete">Warnung</translation>
+        <translation type="unfinished">Warnung</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Information</source>
-        <translation type="obsolete">Information</translation>
+        <translation type="unfinished">Information</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Server Connected</source>
-        <translation type="obsolete">Server verbunden</translation>
+        <translation type="unfinished">Server verbunden</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Server Disconnected</source>
-        <translation type="obsolete">Serververbindung abgebrochen</translation>
+        <translation type="unfinished">Serververbindung abgebrochen</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Joined Server</source>
-        <translation type="obsolete">Benutzer betrat Server</translation>
+        <translation type="unfinished">Benutzer betrat Server</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Left Server</source>
-        <translation type="obsolete">Benutzer verließ Server</translation>
+        <translation type="unfinished">Benutzer verließ Server</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player kicked (you or by you)</source>
-        <translation type="obsolete">Benutzer gekickt (du oder von dir)</translation>
+        <translation type="unfinished">Benutzer gekickt (du oder von dir)</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player kicked</source>
-        <translation type="obsolete">Benutzer gekickt</translation>
+        <translation type="unfinished">Benutzer gekickt</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>You self-muted/deafened</source>
-        <translation type="obsolete">Selbst stumm-/taubgestellt</translation>
+        <translation type="unfinished">Selbst stumm-/taubgestellt</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Other self-muted/deafened</source>
-        <translation type="obsolete">Anderer stumm-/taubgestellt</translation>
+        <translation type="unfinished">Anderer stumm-/taubgestellt</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player muted (you)</source>
-        <translation type="obsolete">Benutzer stummgestellt (dich)</translation>
+        <translation type="unfinished">Benutzer stummgestellt (dich)</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player muted (by you)</source>
-        <translation type="obsolete">Benutzer stummgestellt (durch dich)</translation>
+        <translation type="unfinished">Benutzer stummgestellt (durch dich)</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player muted (other)</source>
-        <translation type="obsolete">Benutzer stummgestellt (jemand anderes)</translation>
+        <translation type="unfinished">Benutzer stummgestellt (jemand anderes)</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Joined Channel</source>
-        <translation type="obsolete">Benutzer betrat Kanal</translation>
+        <translation type="unfinished">Benutzer betrat Kanal</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Left Channel</source>
-        <translation type="obsolete">Benutzer verließ Kanal</translation>
+        <translation type="unfinished">Benutzer verließ Kanal</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Permission Denied</source>
-        <translation type="obsolete">Erlaubnis verweigert</translation>
+        <translation type="unfinished">Erlaubnis verweigert</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Text Message</source>
-        <translation type="obsolete">Textnachricht</translation>
+        <translation type="unfinished">Textnachricht</translation>
     </message>
     <message>
         <source>Script Errors</source>
@@ -3509,7 +3528,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LogConfig</name>
     <message>
-        <location filename="Log.cpp" line="+74"/>
+        <location line="-164"/>
         <source>Toggle console for %1 events</source>
         <translation>Wechsle Einstellung für Konsole für %1 Ereignisse</translation>
     </message>

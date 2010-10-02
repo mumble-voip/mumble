@@ -1,9 +1,91 @@
+2010-10-02
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    ac49c60  Prevent GUI password editor from leaking token ACLs into
+	     inherited channels.
+
+2010-09-29
+  Mikkel Krautz <mikkel@krautz.dk>
+    a72dfa8  Explicitly specify which events to intercept via EventTap.
+	     Fixes random crashes on Leopard.
+
+2010-09-27
+  svenne33 <svenne33@users.sourceforge.net>
+    8a5998f  Swedish Translation (#3071209 & #3071223)
+
+2010-09-15
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    9374b51  Adding new favourite server now completes from clipboard.
+	     Added password edit field to favourite edit dialog (only shown
+	     for SuperUser or favourites which already have a password)
+
+2010-09-12
+  Natenom <natenom@googlemail.com>
+    fe52c22  Fixed a German translation typo which caused the overlay
+	     editor to save mumblelay files without extension. Submitted by
+	     Thomas <moes_taverne@gmx.li> via email.
+
+2010-09-09
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    979c415  Fix typo in qaSelfComment patch
+    4c739e9  Fix qaSelfComment not disabled on startup
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    f4b7ff2  Reformat this block and reword the comments
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    25e7ebb  Move qmake profile lines to single line to work with release
+	     script
+
+  Zukowski Michal <zuczeq@gmail.com>
+    10625c9  Update polish translation
+
+2010-09-07
+  Mikkel Krautz <mikkel@krautz.dk>
+    0b34efb  Hide system cursor when in interactive overlay on Mac OS X.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    6e3fc04  Give the overlay text a bit more space
+    eb3479b  Disallow suppressing left mouse button
+    1f4be58  Use slice path for Ice 3.4.1
+    ccb9350  4.7.0 cross-compatible qmake
+
+2010-09-06
+  Mikkel Krautz <mikkel@krautz.dk>
+    07b7533  Alternative way to enable overlay debugging on OSX.
+    0f355bd  Only disable GL_TEXTURE_GEN_* if they're already enabled.
+	     Fixes black screen issue with EVE on OSX (via Cider)
+
+2010-09-05
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    a8a2129  TextMessage recording warning for pre 1.2.3 clients + Comments
+	     + minor refactoring
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    dba101a  Re-add NSOpenGLContext awareness to Mac OS X overlay to
+	     improve resolution detection in SC2 and Source Engine games.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    c8bfedb  Added launch checkbox and new bitmaps for the installer
+
+2010-09-03
+  Mikkel Krautz <mikkel@krautz.dk>
+    803a6d5  Update jp filenames for mumble11x as well.
+
+  B0nuse <mumble@mumble.ru>
+    09c23f8  Russian translation update.
+
 2010-09-02
   arcenciel <arcenciel@users.sourceforge.net>
     f78a58b  Updated Japanese Translation (#3058069)
 
+  Nicos Gollan <gtdev@spearhead.de>
+    8dccb14  Improve Overlay Font Resizing
+
   Mikkel Krautz <mikkel@krautz.dk>
     518b2aa  Make overlay injection work on Mac OS X Leopard.
+
+  Natenom <natenom@googlemail.com>
+    83d2ee8  Updated German translations
 
   zuczeq <zuczeq@users.sourceforge.net>
     a3518d4  Translation update - Polish (#3054197)
@@ -52,7 +134,7 @@
     fb9f982  Allow semi-transparent windows on our overlay for Mac OS X
 	     again. Fixed in mumble-developers-qt.
 
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     4f1ff20  This patch adds a read-only recording flag to the User object
 	     that is returned by getState() over Ice. Polished by Svedrin
 	     (Michael Ziegler <diese-addy@funzt-halt.net>)
@@ -142,6 +224,9 @@
     ab81d38  Add player-specific context information to BF2
 
 2010-08-19
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    ab2ed68  Blacklist WPF apps in the overlay
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     92fe3c7  ServerHandler as shared_ptr
     81f9d9f  Boost 1.44
@@ -158,7 +243,7 @@
     1a88c2e  Fix old version uninstall
 
 2010-08-17
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     f5eeaaf  Updated German translations.
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -356,7 +441,7 @@
   B0nuse <mumble@mumble.ru>
     b8f14d8  Translation fixes (Russian)
 
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     e0163bd  Updated German translations
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -464,7 +549,7 @@
     470a089  New servers have DB version 5
 
 2010-07-13
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     e4615e6  Add -n (suppress certificat) to the command line options.
 
 2010-07-12
@@ -956,7 +1041,7 @@
     10175ef  Windows build fix (warning in gcc -> error on windows...)
 
 2010-03-06
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     49ae4cb  Translation Updates to German
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -1199,7 +1284,7 @@
     d97d55c  Remove period in tooltip
 
 2010-02-11
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     c067589  Add few German translations strings
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -1354,7 +1439,7 @@
   Jamie Fraser <jamie.f@sabrienix.com>
     a9e9922  Added a crappy example of an auto idle-move written in PHP.
 
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     11e4cec  Added some new strings to German translations
 
   Ilmar Kruis <seaeagle1@users.sourceforge.net>
@@ -1431,7 +1516,7 @@
 	     WriteACL grants all rights by graying out the others if it is
 	     set.
 
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     82e3d5c  German Strings updated
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -1490,7 +1575,7 @@
   arcenciel <arcenciel@users.sourceforge.net>
     8bd520e  Updated Japanese Translation
 
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     b502e7f  Updated German Translations
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -1525,7 +1610,7 @@
     2322bec  Clean up texture assignment
 
 2010-01-23
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     b1884ac  Updated German Translations
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -1665,7 +1750,7 @@
     c12f127  Fix focus tracking hiccup on disconnect in chat bar
     09dd4a3  Fix mumble-auth.py for 1.2.0 (#2926521)
 
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     759480f  Updated German Translations
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -1792,7 +1877,7 @@
     064969a  Allow setChannelState on root channel
 
 2009-12-30
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     c9f7a54  Updated German Translations
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -1893,7 +1978,7 @@
     98cd01e  Update MW2; remove useless context
 
 2009-12-25
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     60ca8ee  Added some new translations for 1.2.1
 
 2009-12-24
@@ -2170,7 +2255,7 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     1c8d127  Fix mistake in previous message patch
 
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     f392cb6  Updated German translations for 1.2.0
 
 2009-11-27
@@ -2833,7 +2918,7 @@
     da6e842  Use service.name instead of :x.y in DBus calls
 
 2009-09-29
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     9a1ec81  Rename Name to Servername
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -2860,7 +2945,7 @@
     e9b84b4  Don't do TextMessage symlinks in mklinks.sh
 
 2009-09-26
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     c54a7ed  Dont use always muted_self icon in tray. Show wether muted
 	     self or by server or suppressed.
 
@@ -2986,7 +3071,7 @@
   Mikkel Krautz <mikkel@krautz.dk>
     fa95e61  Update OSX license script.
 
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     6c90415  Updated German translations.
 
 2009-09-04
@@ -2996,7 +3081,7 @@
 	     disk image (for now).
     345852e  Switch to new manual overlay injector on OSX.
 
-  Michael Ziegler and Natenom <natenom@googlemail.com>
+  Natenom <natenom@googlemail.com>
     a74e859  Changed translations and fixed errors.
 
   Thorvald Natvig <slicer@users.sourceforge.net>

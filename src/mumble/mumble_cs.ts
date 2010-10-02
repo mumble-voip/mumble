@@ -3508,7 +3508,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">&amp;Heslo</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+737"/>
+        <location filename="ConnectDialog.cpp" line="+757"/>
         <source>&amp;Connect</source>
         <translation type="unfinished">&amp;Připojit</translation>
     </message>
@@ -3550,19 +3550,19 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation>Připojování k %1</translation>
     </message>
     <message>
-        <location line="-473"/>
-        <location line="+473"/>
+        <location line="-491"/>
+        <location line="+491"/>
         <source>Enter username</source>
         <translation>Zadejte jmého uživatele</translation>
     </message>
     <message>
-        <location line="-473"/>
+        <location line="-491"/>
         <source>Adding host %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="+63"/>
+        <location filename="ConnectDialog.cpp" line="+61"/>
         <source>Servername</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3623,13 +3623,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+295"/>
+        <location line="+315"/>
         <source>&amp;Filters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-294"/>
+        <location filename="ConnectDialog.cpp" line="-314"/>
         <source>Users</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3643,7 +3643,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+966"/>
+        <location line="+1005"/>
         <source>Failed to fetch server list</source>
         <translation>Selhalo stažení seznamu dostupných serverů</translation>
     </message>
@@ -3713,7 +3713,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location/>
-        <location filename="ConnectDialog.cpp" line="-710"/>
+        <location filename="ConnectDialog.cpp" line="-729"/>
         <source>&amp;Add New...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3818,8 +3818,29 @@ Label of the server. This is what the server will be named like in your serverli
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-55"/>
+        <location filename="ConnectDialog.cpp" line="-75"/>
         <source>Add Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConnectDialogEdit.ui"/>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Password to send to the server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
+Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Show password</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5074,7 +5095,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1932"/>
+        <location line="+1933"/>
         <source>Root</source>
         <translation>Kořen</translation>
     </message>
@@ -5666,9 +5687,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Připojí se k webové stránce Mumble pro zjištění případné dostupnosti novějších verzí a vypíše vhodný odkaz na stažení, pokud je nová verze k dispozici.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1839"/>
+        <location filename="MainWindow.cpp" line="-1840"/>
         <location line="+12"/>
-        <location line="+2035"/>
+        <location line="+2048"/>
         <source>Mumble -- %1</source>
         <translation>Mumble =- %1 </translation>
     </message>
@@ -5690,7 +5711,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Uživatel</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2122"/>
+        <location filename="MainWindow.cpp" line="-2135"/>
         <source>&amp;Channel</source>
         <translation type="unfinished">&amp;Kanál</translation>
     </message>
@@ -5802,7 +5823,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Vykopnutí uživaetele %1</translation>
     </message>
     <message>
-        <location line="+417"/>
+        <location line="+419"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Zadejte důvod</translation>
@@ -5892,7 +5913,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Připojen k serveru.</translation>
     </message>
     <message>
-        <location line="+408"/>
+        <location line="+419"/>
         <source>Server connection failed: %1.</source>
         <translation>Připojování k serveru selhalo: %1.</translation>
     </message>
@@ -5940,7 +5961,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Uživatel %1 opustil server.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+266"/>
+        <location filename="Messages.cpp" line="+274"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 má zakázáno mluvit a poslouchat.</translation>
     </message>
@@ -6041,23 +6062,23 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">%1 byl přesunut do kanálu zásahem uživatele %2.</translation>
     </message>
     <message>
-        <location line="-333"/>
+        <location line="-341"/>
         <source>Server connection rejected: %1.</source>
         <translation>Spojení se serverem bylo odmítnuto: %1.</translation>
     </message>
     <message>
         <location line="+8"/>
-        <location line="+40"/>
+        <location line="+48"/>
         <source>Welcome message: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-7"/>
+        <location line="-15"/>
         <source>Mumble: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+36"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6292,7 +6313,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1690"/>
+        <location filename="MainWindow.cpp" line="-1703"/>
         <source>Opening URL %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6338,7 +6359,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+50"/>
         <source>Change your comment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6374,7 +6395,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1185"/>
+        <location line="+1196"/>
         <source>&amp;View Certificate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6384,7 +6405,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1565"/>
+        <location line="-1576"/>
         <location line="+311"/>
         <source>Register yourself as %1</source>
         <translation type="unfinished"></translation>
@@ -6432,7 +6453,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+147"/>
+        <location line="+158"/>
         <source>SSL Version mismatch</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6452,7 +6473,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2017"/>
+        <location line="-2030"/>
         <source>&amp;User</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6463,7 +6484,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+762"/>
+        <location line="+764"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6479,7 +6500,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+582"/>
+        <location line="+593"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6532,7 +6553,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1498"/>
+        <location line="-1509"/>
         <source>Voice channel is sent over control channel.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6602,7 +6623,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1222"/>
+        <location filename="MainWindow.cpp" line="-1224"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6704,13 +6725,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+2065"/>
+        <location line="+2078"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1829"/>
+        <location line="-1842"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>

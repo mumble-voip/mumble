@@ -3325,94 +3325,113 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Log</name>
     <message>
+        <location filename="Log.cpp" line="+220"/>
         <source>Debug</source>
-        <translation type="obsolete">Debuggage</translation>
+        <translation type="unfinished">Debuggage</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Critical</source>
-        <translation type="obsolete">Critique</translation>
+        <translation type="unfinished">Critique</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Warning</source>
-        <translation type="obsolete">Avertissement</translation>
+        <translation type="unfinished">Avertissement</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Information</source>
-        <translation type="obsolete">Information</translation>
+        <translation type="unfinished">Information</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Server Connected</source>
-        <translation type="obsolete">Serveur Connecté</translation>
+        <translation type="unfinished">Serveur Connecté</translation>
     </message>
     <message>
         <source>Server Deconnected</source>
         <translation type="obsolete">Serveur Déconnecté</translation>
     </message>
     <message>
+        <location line="+2"/>
         <source>Player Joined Server</source>
-        <translation type="obsolete">Joueur arrive sur Le Serveur</translation>
+        <translation type="unfinished">Joueur arrive sur Le Serveur</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Left Server</source>
-        <translation type="obsolete">Joueur quitte le serveur</translation>
+        <translation type="unfinished">Joueur quitte le serveur</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player kicked (you or by you)</source>
-        <translation type="obsolete">Joueur expulsé (vous ou par vous)</translation>
+        <translation type="unfinished">Joueur expulsé (vous ou par vous)</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player kicked</source>
-        <translation type="obsolete">Joueur expulsé</translation>
+        <translation type="unfinished">Joueur expulsé</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>You self-muted/deafened</source>
-        <translation type="obsolete">Vous êtes rendu sourd/muet</translation>
+        <translation type="unfinished">Vous êtes rendu sourd/muet</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Other self-muted/deafened</source>
-        <translation type="obsolete">Les autres sont rendu sourd/muet</translation>
+        <translation type="unfinished">Les autres sont rendu sourd/muet</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player muted (you)</source>
-        <translation type="obsolete">Joueur muet (vous)</translation>
+        <translation type="unfinished">Joueur muet (vous)</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player muted (by you)</source>
-        <translation type="obsolete">Joueur muet (par vous)</translation>
+        <translation type="unfinished">Joueur muet (par vous)</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player muted (other)</source>
-        <translation type="obsolete">Joueur muet (autre)</translation>
+        <translation type="unfinished">Joueur muet (autre)</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Joined Channel</source>
-        <translation type="obsolete">Joueur arrive sur le canal</translation>
+        <translation type="unfinished">Joueur arrive sur le canal</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Player Left Channel</source>
-        <translation type="obsolete">Joueur quitte le canal</translation>
+        <translation type="unfinished">Joueur quitte le canal</translation>
     </message>
     <message>
+        <location line="+1"/>
         <source>Permission Denied</source>
-        <translation type="obsolete">Permission refusée</translation>
+        <translation type="unfinished">Permission refusée</translation>
     </message>
     <message>
         <source>[%2] %1</source>
         <translation type="obsolete">[%2] %1</translation>
     </message>
     <message>
+        <location line="-12"/>
         <source>Server Disconnected</source>
-        <translation type="obsolete">Déconnecté du serveur</translation>
+        <translation type="unfinished">Déconnecté du serveur</translation>
     </message>
     <message>
+        <location line="+13"/>
         <source>Text Message</source>
-        <translation type="obsolete">Message Texte</translation>
+        <translation type="unfinished">Message Texte</translation>
     </message>
 </context>
 <context>
     <name>LogConfig</name>
     <message>
-        <location filename="Log.cpp" line="+74"/>
+        <location line="-164"/>
         <source>Toggle console for %1 events</source>
         <translation type="unfinished"></translation>
     </message>
