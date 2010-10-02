@@ -773,7 +773,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Priority speaker</string>
+    <string>Priority Speaker</string>
    </property>
   </action>
   <action name="qaSelfPrioritySpeaker">
@@ -781,7 +781,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Priority speaker</string>
+    <string>Priority Speaker</string>
    </property>
   </action>
   <action name="qaRecording">

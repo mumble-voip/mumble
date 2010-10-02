@@ -42,8 +42,37 @@ VoiceRecorderDialog::VoiceRecorderDialog(QWidget *p = NULL) : QDialog(p), qtTime
 
 	qleTargetDirectory->setText(g.s.qsRecordingPath);
 	qleFilename->setText(g.s.qsRecordingFile);
-	qrbMixdown->setChecked(g.s.rmRecordingMode == Settings::RecordingMixdown);
+	qrbDownmix->setChecked(g.s.rmRecordingMode == Settings::RecordingMixdown);
 	qrbMultichannel->setChecked(g.s.rmRecordingMode == Settings::RecordingMultichannel);
+
+	QString qsTooltip = QString::fromLatin1(
+		"%1"
+		"<table>"
+		"  <tr>"
+		"    <td width=\"25%\">%user</td>"
+		"    <td>%2</td>"
+		"  </tr>"
+		"  <tr>"
+		"    <td>%date</td>"
+		"    <td>%3</td>"
+		"  </tr>"
+		"  <tr>"
+		"    <td>%time</td>"
+		"    <td>%4</td>"
+		"  </tr>"
+		"  <tr>"
+		"    <td>%host</td>"
+		"    <td>%5</td>"
+		"  </tr>"
+		"</table>").
+			arg(tr("Valid variables are:")).
+			arg(tr("Inserts the users name")).
+			arg(tr("Inserts the current date")).
+			arg(tr("Inserts the current time")).
+			arg(tr("Inserts the hostname"));
+
+	qleTargetDirectory->setToolTip(qsTooltip);
+	qleFilename->setToolTip(qsTooltip);
 
 	// Populate available codecs
 	Q_ASSERT(VoiceRecorderFormat::kEnd != 0);
@@ -82,7 +111,7 @@ void VoiceRecorderDialog::closeEvent(QCloseEvent *evt) {
 
 	g.s.qsRecordingPath = qleTargetDirectory->text();
 	g.s.qsRecordingFile = qleFilename->text();
-	if (qrbMixdown->isChecked())
+	if (qrbDownmix->isChecked())
 		g.s.rmRecordingMode = Settings::RecordingMixdown;
 	else
 		g.s.rmRecordingMode = Settings::RecordingMultichannel;
@@ -99,7 +128,7 @@ void VoiceRecorderDialog::closeEvent(QCloseEvent *evt) {
 void VoiceRecorderDialog::on_qpbStart_clicked() {
 	if (!g.uiSession || !g.sh) {
 		QMessageBox::critical(this,
-		                      tr("Recoder"),
+		                      tr("Recorder"),
 		                      tr("Unable to start recording. Not connected to a server."));
 		reset();
 		return;
@@ -171,7 +200,7 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 	// Configure it
 	recorder->setSampleRate(ao->getMixerFreq());
 	recorder->setFileName(dir.absoluteFilePath(basename + QLatin1Char('.') + suffix));
-	recorder->setMixDown(qrbMixdown->isChecked());
+	recorder->setMixDown(qrbDownmix->isChecked());
 	recorder->setFormat(static_cast<VoiceRecorderFormat::Format>(ifm));
 
 	recorder->start();

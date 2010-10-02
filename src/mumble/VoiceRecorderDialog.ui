@@ -97,12 +97,12 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QRadioButton" name="qrbMixdown">
+       <widget class="QRadioButton" name="qrbDownmix">
         <property name="enabled">
          <bool>true</bool>
         </property>
         <property name="text">
-         <string>Mixdown</string>
+         <string>Downmix</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -169,15 +169,6 @@
        <layout class="QHBoxLayout" name="qhblTargetDirectory">
         <item>
          <widget class="QLineEdit" name="qleTargetDirectory">
-          <property name="toolTip">
-           <string>&lt;pre&gt;
-Valid variables are:
-%user	Inserts the users name
-%date	Inserts the current date
-%time	Inserts the current time
-%host	Inserts the hostname
-&lt;/pre&gt;</string>
-          </property>
          </widget>
         </item>
         <item>
@@ -191,15 +182,6 @@ Valid variables are:
       </item>
       <item row="4" column="1">
        <widget class="QLineEdit" name="qleFilename">
-        <property name="toolTip">
-         <string>&lt;pre&gt;
-Valid variables are:
-%user	Inserts the users name
-%date	Inserts the current date
-%time	Inserts the current time
-%host	Inserts the hostname
-&lt;/pre&gt;</string>
-        </property>
        </widget>
       </item>
      </layout>
