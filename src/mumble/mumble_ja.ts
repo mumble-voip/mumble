@@ -232,7 +232,7 @@
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation type="unfinished">チャンネルに参加するためのパスワードをここに入力してください。</translation>
+        <translation>チャンネルに参加するためのパスワードをここに入力してください。</translation>
     </message>
     <message>
         <location/>
@@ -1691,7 +1691,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.cpp" line="+524"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)</source>
-        <translation type="unfinished">サーバの最大ネットワーク帯域は%1kbit/s しかありません。音質を自動的に%2kbit/s (%3ms) に調整します</translation>
+        <translation>サーバの最大ネットワーク帯域は%1kbit/s しかありません。音質を自動的に%2kbit/s (%3ms) に調整します</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
@@ -1721,37 +1721,37 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Exclusive mode</source>
-        <translation type="unfinished">排他モード</translation>
+        <translation>排他モード</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished">&lt;b&gt;これによりデバイスを排他モードで開きます。&lt;/b&gt;&lt;br /&gt;他のアプリケーションがデバイスを使えなくなります。</translation>
+        <translation>&lt;b&gt;これによりデバイスを排他モードで開きます。&lt;/b&gt;&lt;br /&gt;他のアプリケーションがデバイスを使えなくなります。</translation>
     </message>
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation type="unfinished">排他モード</translation>
+        <translation>排他モード</translation>
     </message>
     <message>
         <location/>
         <source>R&amp;eset</source>
-        <translation type="unfinished">リセット(&amp;R)</translation>
+        <translation>リセット(&amp;R)</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished">参照(&amp;B)...</translation>
+        <translation>参照(&amp;B)...</translation>
     </message>
     <message>
         <location/>
         <source>B&amp;rowse...</source>
-        <translation type="unfinished">参照(&amp;R)...</translation>
+        <translation>参照(&amp;R)...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Preview</source>
-        <translation type="unfinished">プレビュー(&amp;P)</translation>
+        <translation>プレビュー(&amp;P)</translation>
     </message>
 </context>
 <context>
@@ -2184,17 +2184,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Exclusive mode, not recommended.</source>
-        <translation type="unfinished">排他モード、推奨されません。</translation>
+        <translation>排他モード、推奨されません。</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished">&lt;b&gt;これによりデバイスを排他モードで開きます。&lt;/b&gt;&lt;br /&gt;他のアプリケーションがデバイスを使えなくなります。</translation>
+        <translation>&lt;b&gt;これによりデバイスを排他モードで開きます。&lt;/b&gt;&lt;br /&gt;他のアプリケーションがデバイスを使えなくなります。</translation>
     </message>
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation type="unfinished">排他モード</translation>
+        <translation>排他モード</translation>
     </message>
 </context>
 <context>
@@ -2973,7 +2973,7 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
     <message>
         <location filename="AudioWizard.cpp" line="+305"/>
         <source>%1 ms</source>
-        <translation type="unfinished">%1ms</translation>
+        <translation>%1ms</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui"/>
@@ -3049,7 +3049,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished">&lt;p&gt;
+        <translation>&lt;p&gt;
 ボリュームコントロールパネルを開き、録音設定画面に移動しましょう。そして、マイクが選択されていて、音量が最大になっている事を確認してください。もし&quot;マイクブースト&quot;を有効にするオプションがあるなら、それもチェックされているか確認してください。
 &lt;/p&gt;
 &lt;p&gt;
@@ -3060,13 +3060,13 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished">次に、誰も起こさないようにしている夜中のようにそっと話してみましょう。話している間、バーが空の領域にかかり、静かにしている時は青に留まるように下のスライダーを調整してください。</translation>
+        <translation>次に、誰も起こさないようにしている夜中のようにそっと話してみましょう。話している間、バーが空の領域にかかり、静かにしている時は青に留まるように下のスライダーを調整してください。</translation>
     </message>
     <message>
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the criss-crossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished">次に、以下の2つのスライダーを調節しましょう。最初の発声は空の領域(確実に発言と判定)になると良いでしょう。話している最中は黄色(発言だろうと判定)の中に収まり、話していない時はすべて赤(発言ではないと判定)に入っているようにしてください。</translation>
+        <translation>次に、以下の2つのスライダーを調節しましょう。最初の発声は空の領域(確実に発言と判定)になると良いでしょう。話している最中は黄色(発言だろうと判定)の中に収まり、話していない時はすべて赤(発言ではないと判定)に入っているようにしてください。</translation>
     </message>
 </context>
 <context>
@@ -3706,7 +3706,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
-        <translation type="unfinished">他の人を別のチャンネルに移動させたり、サーバからキックしたりする権限を表します。実際にユーザを動かすには、実行する人が移動先のチャンネルの移動/キック権限を持っているか、ユーザが移動先チャンネルに参加する権限を持っていなければなりません。この権限を持っている人は、対象のユーザが通常参加を許可されていないチャンネルに移動させることができます。</translation>
+        <translation>他の人を別のチャンネルに移動させたり、サーバからキックしたりする権限を表します。実際にユーザを動かすには、実行する人が移動先のチャンネルの移動/キック権限を持っているか、ユーザが移動先チャンネルに参加する権限を持っていなければなりません。この権限を持っている人は、対象のユーザが通常参加を許可されていないチャンネルに移動させることができます。</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3884,7 +3884,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Recording</source>
-        <translation type="unfinished">録音</translation>
+        <translation>録音</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4013,52 +4013,52 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConfigDialog_macx.mm" line="+70"/>
         <source>Accept changes</source>
-        <translation type="unfinished">変更を確定</translation>
+        <translation>変更を確定</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
-        <translation type="unfinished">このボタンは現在の設定を適用してアプリケーションに戻ります。&lt;br /&gt;この設定はアプリケーションを終了してもディスクに保存されます。</translation>
+        <translation>このボタンは現在の設定を適用してアプリケーションに戻ります。&lt;br /&gt;この設定はアプリケーションを終了してもディスクに保存されます。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Reject changes</source>
-        <translation type="unfinished">変更を破棄</translation>
+        <translation>変更を破棄</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
-        <translation type="unfinished">このボタンは変更を破棄してアプリケーションに戻ります。&lt;br /&gt;設定は前の状態に戻ります。</translation>
+        <translation>このボタンは変更を破棄してアプリケーションに戻ります。&lt;br /&gt;設定は前の状態に戻ります。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Apply changes</source>
-        <translation type="unfinished">変更を適用</translation>
+        <translation>変更を適用</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will immediately apply all changes.</source>
-        <translation type="unfinished">全ての変更を、すぐに適用します。</translation>
+        <translation>全ての変更を、すぐに適用します。</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Undo changes for current page</source>
-        <translation type="unfinished">このページの変更を元に戻す</translation>
+        <translation>このページの変更を元に戻す</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
-        <translation type="unfinished">このボタンは、現在のページで最後に適用した変更を元に戻します。</translation>
+        <translation>このボタンは、現在のページで最後に適用した変更を元に戻します。</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Restore defaults for current page</source>
-        <translation type="unfinished">このページをデフォルト設定に戻す</translation>
+        <translation>このページをデフォルト設定に戻す</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <translation type="unfinished">このボタンは現在のページの設定をデフォルトに戻します。他のページは変更されません。&lt;br /&gt;全ての設定をデフォルト戻すには、各ページでこのボタンを使わなければなりません。</translation>
+        <translation>このボタンは現在のページの設定をデフォルトに戻します。他のページは変更されません。&lt;br /&gt;全ての設定をデフォルト戻すには、各ページでこのボタンを使わなければなりません。</translation>
     </message>
 </context>
 <context>
@@ -4479,28 +4479,29 @@ Label of the server. This is what the server will be named like in your serverli
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
         <source>Add Server</source>
-        <translation type="unfinished">サーバの追加</translation>
+        <translation>サーバの追加</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Password</source>
-        <translation type="unfinished">パスワード</translation>
+        <translation>パスワード</translation>
     </message>
     <message>
         <location/>
         <source>Password to send to the server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバに送信するパスワード</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;
+接続したサーバに送信されるパスワードです。このパスワードはSuperUserとして接続するときやパスワード認証を使うサーバに接続するとき必要です。パスワードをここに入力しなければ接続時に要求されます。</translation>
     </message>
     <message>
         <location/>
         <source>Show password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">パスワードを表示する</translation>
     </message>
 </context>
 <context>
@@ -4823,7 +4824,7 @@ of the possible locations.</source>
     <message>
         <location filename="CustomElements.cpp" line="+135"/>
         <source>Drag here</source>
-        <translation type="unfinished">ここにドラッグ</translation>
+        <translation>ここにドラッグ</translation>
     </message>
 </context>
 <context>
@@ -5302,7 +5303,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User recording state changed</source>
-        <translation type="unfinished">ユーザの録音状態の変更</translation>
+        <translation>ユーザの録音状態の変更</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5953,7 +5954,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished">参照(&amp;B)...</translation>
+        <translation>参照(&amp;B)...</translation>
     </message>
 </context>
 <context>
@@ -8225,7 +8226,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location/>
         <source>Check for application updates on startup</source>
-        <translation type="unfinished">開始時に Mumble の更新をチェックする</translation>
+        <translation>開始時に Mumble の更新をチェックする</translation>
     </message>
     <message>
         <location/>
@@ -8277,7 +8278,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location/>
         <source>Download plugin and overlay updates on startup</source>
-        <translation type="unfinished">開始時にプラグインとオーバレイの更新をダウンロードする</translation>
+        <translation>開始時にプラグインとオーバレイの更新をダウンロードする</translation>
     </message>
 </context>
 <context>
@@ -8379,12 +8380,12 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+256"/>
         <source>Skipping overlay update in debug mode.</source>
-        <translation type="unfinished">デバッグモードではオーバレイの更新をスキップします。</translation>
+        <translation>デバッグモードではオーバレイの更新をスキップします。</translation>
     </message>
     <message>
         <location line="+66"/>
         <source>Downloaded new or updated overlay support file to %1.</source>
-        <translation type="unfinished">%1に新規か更新されたオーバレイサポートファイルをダウンロードしました。</translation>
+        <translation>%1に新規か更新されたオーバレイサポートファイルをダウンロードしました。</translation>
     </message>
     <message>
         <source>Failed to load overlay library. This means either that:
@@ -8683,29 +8684,29 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+38"/>
         <source>Mumble has deemed the installer valid.</source>
-        <translation type="unfinished">Mumbleはインストーラが有効であると認識しました。</translation>
+        <translation>Mumbleはインストーラが有効であると認識しました。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mumble was unable to verify the authenticity of the installer.</source>
         <oldsource>Mumble was unable to validate authenticity of the installer.</oldsource>
-        <translation type="unfinished">Mumbleはインストーラの信頼性を検証できません。</translation>
+        <translation>Mumbleはインストーラの信頼性を検証できません。</translation>
     </message>
     <message>
         <location line="+86"/>
         <source>Load Overlay Presets</source>
-        <translation type="unfinished">オーバレイプリセットを読み込み</translation>
+        <translation>オーバレイプリセットを読み込み</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+28"/>
         <source>Mumble overlay presets (*.mumblelay)</source>
-        <translation type="unfinished">Mumbleオーバレイプリセット (*.mumblelay)</translation>
+        <translation>Mumbleオーバレイプリセット (*.mumblelay)</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Save Overlay Presets</source>
-        <translation type="unfinished">オーバレイのプリセットを保存</translation>
+        <translation>オーバレイのプリセットを保存</translation>
     </message>
     <message>
         <source>Show User Textures</source>
@@ -8816,7 +8817,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished">削除</translation>
+        <translation>削除</translation>
     </message>
     <message>
         <location/>
@@ -8874,7 +8875,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>View Certificates</source>
-        <translation type="unfinished">証明書を見る</translation>
+        <translation>証明書を見る</translation>
     </message>
     <message>
         <source>&amp;Add...</source>
@@ -8887,52 +8888,52 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Load an overlay preset from file</source>
-        <translation type="unfinished">ファイルからオーバレイのプリセットを読み込みます</translation>
+        <translation>ファイルからオーバレイのプリセットを読み込みます</translation>
     </message>
     <message utf8="true">
         <location/>
         <source>Load…</source>
-        <translation type="unfinished">読込…</translation>
+        <translation>読込…</translation>
     </message>
     <message>
         <location/>
         <source>Save your overlay settings to file</source>
-        <translation type="unfinished">ファイルにオーバレイの設定を保存します</translation>
+        <translation>ファイルにオーバレイの設定を保存します</translation>
     </message>
     <message utf8="true">
         <location/>
         <source>Save…</source>
-        <translation type="unfinished">保存…</translation>
+        <translation>保存…</translation>
     </message>
     <message>
         <location/>
         <source>FPS Display</source>
-        <translation type="unfinished">FPS表示</translation>
+        <translation>FPS表示</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay font.</source>
-        <translation type="unfinished">オーバレイのフォントを設定します。</translation>
+        <translation>オーバレイのフォントを設定します。</translation>
     </message>
     <message>
         <location/>
         <source>Font</source>
-        <translation type="unfinished">フォント</translation>
+        <translation>フォント</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay text color.</source>
-        <translation type="unfinished">オーバレイテキストの色を設定します。</translation>
+        <translation>オーバレイテキストの色を設定します。</translation>
     </message>
     <message>
         <location/>
         <source>Color</source>
-        <translation type="unfinished">色</translation>
+        <translation>色</translation>
     </message>
     <message>
         <location/>
         <source>Add...</source>
-        <translation type="unfinished">追加...</translation>
+        <translation>追加...</translation>
     </message>
 </context>
 <context>
@@ -10435,37 +10436,37 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VoiceRecorder.cpp" line="+181"/>
         <source>Invalid sample rate given to recorder</source>
-        <translation type="unfinished">レコーダに与えられたサンプルレートは無効です</translation>
+        <translation>レコーダに与えられたサンプルレートは無効です</translation>
     </message>
     <message>
         <location line="+96"/>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished">レコーダはディレクトリ&apos;%1&apos;の作成に失敗しました</translation>
+        <translation>レコーダはディレクトリ&apos;%1&apos;の作成に失敗しました</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%s&apos;</source>
-        <translation type="unfinished">レコーダはファイル &apos;%s&apos; のオープンに失敗しました</translation>
+        <translation>レコーダはファイル &apos;%s&apos; のオープンに失敗しました</translation>
     </message>
     <message>
         <location line="+109"/>
         <source>.wav - Uncompressed</source>
-        <translation type="unfinished">.wav - 無圧縮</translation>
+        <translation>.wav - 無圧縮</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>.ogg (Vorbis) - Compressed</source>
-        <translation type="unfinished">.ogg (Vorbis) - 圧縮</translation>
+        <translation>.ogg (Vorbis) - 圧縮</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>.au - Uncompressed</source>
-        <translation type="unfinished">.au - 無圧縮</translation>
+        <translation>.au - 無圧縮</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>.flac - Lossless compressed</source>
-        <translation type="unfinished">.flac - ロスレス圧縮</translation>
+        <translation>.flac - ロスレス圧縮</translation>
     </message>
 </context>
 <context>
@@ -10478,62 +10479,62 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+9"/>
         <location line="+135"/>
         <source>Recorder</source>
-        <translation type="unfinished">レコーダ</translation>
+        <translation>レコーダ</translation>
     </message>
     <message>
         <location/>
         <source>Control</source>
-        <translation type="unfinished">制御</translation>
+        <translation>制御</translation>
     </message>
     <message>
         <location/>
         <source>00:00:00</source>
-        <translation type="unfinished">00:00:00</translation>
+        <translation>00:00:00</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Start</source>
-        <translation type="unfinished">開始(&amp;S)</translation>
+        <translation>開始(&amp;S)</translation>
     </message>
     <message>
         <location/>
         <source>S&amp;top</source>
-        <translation type="unfinished">停止(&amp;T)</translation>
+        <translation>停止(&amp;T)</translation>
     </message>
     <message>
         <location/>
         <source>Mode</source>
-        <translation type="unfinished">モード</translation>
+        <translation>モード</translation>
     </message>
     <message>
         <location/>
         <source>Mixdown</source>
-        <translation type="unfinished">ミックスダウン</translation>
+        <translation>ミックスダウン</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation type="unfinished">マルチチャンネル</translation>
+        <translation>マルチチャンネル</translation>
     </message>
     <message>
         <location/>
         <source>Output</source>
-        <translation type="unfinished">出力</translation>
+        <translation>出力</translation>
     </message>
     <message>
         <location/>
         <source>Output format</source>
-        <translation type="unfinished">出力形式</translation>
+        <translation>出力形式</translation>
     </message>
     <message>
         <location/>
         <source>Target directory</source>
-        <translation type="unfinished">対象のディレクトリ</translation>
+        <translation>対象のディレクトリ</translation>
     </message>
     <message>
         <location/>
         <source>Filename</source>
-        <translation type="unfinished">ファイル名</translation>
+        <translation>ファイル名</translation>
     </message>
     <message>
         <location/>
@@ -10544,7 +10545,7 @@ Valid variables are:
 %time	Inserts the current time
 %host	Inserts the hostname
 &lt;/pre&gt;</source>
-        <translation type="unfinished">&lt;pre&gt;
+        <translation>&lt;pre&gt;
 有効な変数は:
 %user	ユーザ名を追加します
 %date	現在の日付を追加します
@@ -10555,44 +10556,44 @@ Valid variables are:
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished">参照(&amp;B)...</translation>
+        <translation>参照(&amp;B)...</translation>
     </message>
     <message>
         <location filename="VoiceRecorderDialog.cpp" line="-194"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
-        <translation type="unfinished">レコーダを閉じると現在の録音が停止します。本当にレコーダを閉じますか?</translation>
+        <translation>レコーダを閉じると現在の録音が停止します。本当にレコーダを閉じますか?</translation>
     </message>
     <message>
         <location line="+32"/>
         <source>Recoder</source>
-        <translation type="unfinished">レコーダ</translation>
+        <translation>レコーダ</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Unable to start recording. Not connected to a server.</source>
-        <translation type="unfinished">録音を開始できません。サーバに接続していません。</translation>
+        <translation>録音を開始できません。サーバに接続していません。</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
 Please contact your server administrator for further information.</source>
-        <translation type="unfinished">現在接続しているサーバは1.2.2以前のバージョンです。プライバシーの問題で、1.2.3より古いバージョンのサーバ上では録音できません。
+        <translation>現在接続しているサーバは1.2.2以前のバージョンです。プライバシーの問題で、1.2.3より古いバージョンのサーバ上では録音できません。
 詳しくはサーバ管理者に連絡してください。</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>There is already a recorder active for this server.</source>
-        <translation type="unfinished">このサーバのレコーダがすでに有効です。</translation>
+        <translation>このサーバのレコーダがすでに有効です。</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Please select a recording format.</source>
-        <translation type="unfinished">録音形式を選択してください。</translation>
+        <translation>録音形式を選択してください。</translation>
     </message>
     <message>
         <location line="+95"/>
         <source>Select target directory</source>
-        <translation type="unfinished">対象のディレクトリを選択</translation>
+        <translation>対象のディレクトリを選択</translation>
     </message>
 </context>
 <context>
