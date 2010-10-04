@@ -511,7 +511,7 @@ QString ShortcutTargetWidget::targetString(const ShortcutTarget &st) {
 				return tr("Invalid");
 		}
 	}
-	return tr("<Empty>");
+	return tr("Empty");
 }
 
 ShortcutTarget ShortcutTargetWidget::target() const {

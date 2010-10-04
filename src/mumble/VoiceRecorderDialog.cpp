@@ -66,7 +66,7 @@ VoiceRecorderDialog::VoiceRecorderDialog(QWidget *p = NULL) : QDialog(p), qtTime
 		"  </tr>"
 		"</table>").
 			arg(tr("Valid variables are:")).
-			arg(tr("Inserts the users name")).
+			arg(tr("Inserts the user's name")).
 			arg(tr("Inserts the current date")).
 			arg(tr("Inserts the current time")).
 			arg(tr("Inserts the hostname"));

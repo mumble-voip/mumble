@@ -78,7 +78,7 @@
             <item>
              <widget class="QCheckBox" name="qcbLinks">
               <property name="toolTip">
-               <string>If checked the whisper will also be transmitted to linked channels.</string>
+               <string>The whisper will also be transmitted to linked channels.</string>
               </property>
               <property name="text">
                <string>Shout to Linked channels</string>
@@ -88,7 +88,7 @@
             <item>
              <widget class="QCheckBox" name="qcbChildren">
               <property name="toolTip">
-               <string>If checked this whisper will also be sent to the subchannels of the channel target.</string>
+               <string>The whisper will also be sent to the subchannels of the channel target.</string>
               </property>
               <property name="text">
                <string>Shout to subchannels</string>

@@ -338,7 +338,7 @@
              <string>Preview the audio cues</string>
             </property>
             <property name="whatsThis">
-             <string>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; soundfile followed by the current &lt;i&gt;off&lt;/i&gt; soundfile.</string>
+             <string>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</string>
             </property>
             <property name="text">
              <string>&amp;Preview</string>

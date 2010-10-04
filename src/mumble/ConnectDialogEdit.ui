@@ -37,7 +37,7 @@
      </property>
      <property name="whatsThis">
       <string>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
-Label of the server. This is what the server will be named like in your serverlist and can be chosen freely.</string>
+Label of the server. This is what the server will be named like in your server list and can be chosen freely.</string>
      </property>
     </widget>
    </item>

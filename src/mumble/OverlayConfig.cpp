@@ -76,8 +76,8 @@ void OverlayConfig::initDisplay() {
 	qgtiInstructions = new QGraphicsTextItem();
 	qgtiInstructions->setHtml(QString::fromLatin1("<ul><li>%1</li><li>%2</li><li>%3</li></ul>").arg(
 	                              tr("To move the users, drag the little red dot."),
-	                              tr("To resize the users, mousewheel over a user."),
-	                              tr("For more options, rightclick a user.")
+	                              tr("To resize the users, mouse wheel over a user."),
+	                              tr("For more options, right click a user.")
 	                          ));
 	qgtiInstructions->setOpacity(1.0f);
 	qgtiInstructions->setZValue(-5.0f);
