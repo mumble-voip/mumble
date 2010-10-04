@@ -114,11 +114,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		if (! ok)
 			return false;
 
-		context.assign(ccontext, sizeof(ccontext));
-		if (context.find("bderlandspc") != std::string::npos)
-			context.erase(0, context.find("bderlandspc"));
-		if (context.find(":7777") != std::string::npos)
-			context.erase(context.find(":7777") + 5);
+		std::string new_context;
+		new_context.assign(ccontext, sizeof(ccontext));
+		if (new_context.find("bderlandspc") != std::string::npos)
+			new_context.erase(0, new_context.find("bderlandspc"));
+		if (new_context.find(":7777") != std::string::npos)
+			new_context.erase(new_context.find(":7777") + 5);
+		context = new_context;
 	}
 
 	return ok;
@@ -132,27 +134,27 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	// Trying to assess which version of Borderlands is running.
 	char version[6];
-	if (!peekProc((BYTE *) 0x01f19cd8, &version, sizeof(version))) {
+	if (!peekProc((BYTE *) 0x01f16ce8, &version, sizeof(version))) {
 		generic_unlock();
 		return false;
 	}
 
 	BYTE *ptraddress;
 	if (strncmp("the cl", version, sizeof(version)) == 0) { // retail version
-		ptraddress = (BYTE *) 0x01f76724;
-		stateaddress = (BYTE *) 0x01f9eaf8;
-		contextptraddress = (BYTE *) 0x01fda378;
-		loginaddress = (BYTE *) 0x01fdb388;
+		ptraddress = (BYTE *) 0x01f73744;
+		stateaddress = (BYTE *) 0x01f9bb18;
+		contextptraddress = (BYTE *) 0x01fd7398;
+		loginaddress = (BYTE *) 0x01fd83a8;
 	} else if (strncmp("Tir-ku", version, sizeof(version)) == 0) { // steam version
-		ptraddress = (BYTE *) 0x01f735c4;
-		stateaddress = (BYTE *) 0x01f9b998;
-		contextptraddress = (BYTE *) 0x01fd7218;
-		loginaddress = (BYTE *) 0x01fd8220;
+		ptraddress = (BYTE *) 0x01f705c4;
+		stateaddress = (BYTE *) 0x01f98998;
+		contextptraddress = (BYTE *) 0x01fd4218;
+		loginaddress = (BYTE *) 0x01fd5220;
 	} else if (strncmp("german", version, sizeof(version)) == 0) { // german version
-		ptraddress = (BYTE *) 0x01f75724;
-		stateaddress = (BYTE *) 0x01f9daf8;
-		contextptraddress = (BYTE *) 0x01fd9378;
-		loginaddress = (BYTE *) 0x01fda388;
+		ptraddress = (BYTE *) 0x01f72744;
+		stateaddress = (BYTE *) 0x01f9ab18;
+		contextptraddress = (BYTE *) 0x01fd6398;
+		loginaddress = (BYTE *) 0x01fd73a8;
 	} else { // unknown version
 		generic_unlock();
 		return false;
@@ -181,10 +183,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Borderlands v1.31, including german and steam version. Context string is used with online games.");
+	return std::wstring(L"Supports Borderlands v1.40, including german and steam version. Context string is used with online games.");
 }
 
-static std::wstring description(L"Borderlands v1.31");
+static std::wstring description(L"Borderlands v1.40");
 static std::wstring shortname(L"Borderlands");
 
 static int trylock1() {
