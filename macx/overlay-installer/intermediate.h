@@ -1,5 +1,5 @@
 static const char *intermediate_cas[] = {
-	/* StartCom Class 2 Primary Intermediate Object CA */ 
+	/* StartCom Class 2 Primary Intermediate Object CA */
 	"-----BEGIN CERTIFICATE-----\n"
 	"MIIGcDCCBFigAwIBAgIBJDANBgkqhkiG9w0BAQUFADB9MQswCQYDVQQGEwJJTDEW\n"
 	"MBQGA1UEChMNU3RhcnRDb20gTHRkLjErMCkGA1UECxMiU2VjdXJlIERpZ2l0YWwg\n"

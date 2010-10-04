@@ -46,30 +46,30 @@ VoiceRecorderDialog::VoiceRecorderDialog(QWidget *p = NULL) : QDialog(p), qtTime
 	qrbMultichannel->setChecked(g.s.rmRecordingMode == Settings::RecordingMultichannel);
 
 	QString qsTooltip = QString::fromLatin1(
-		"%1"
-		"<table>"
-		"  <tr>"
-		"    <td width=\"25%\">%user</td>"
-		"    <td>%2</td>"
-		"  </tr>"
-		"  <tr>"
-		"    <td>%date</td>"
-		"    <td>%3</td>"
-		"  </tr>"
-		"  <tr>"
-		"    <td>%time</td>"
-		"    <td>%4</td>"
-		"  </tr>"
-		"  <tr>"
-		"    <td>%host</td>"
-		"    <td>%5</td>"
-		"  </tr>"
-		"</table>").
-			arg(tr("Valid variables are:")).
-			arg(tr("Inserts the user's name")).
-			arg(tr("Inserts the current date")).
-			arg(tr("Inserts the current time")).
-			arg(tr("Inserts the hostname"));
+	                        "%1"
+	                        "<table>"
+	                        "  <tr>"
+	                        "    <td width=\"25%\">%user</td>"
+	                        "    <td>%2</td>"
+	                        "  </tr>"
+	                        "  <tr>"
+	                        "    <td>%date</td>"
+	                        "    <td>%3</td>"
+	                        "  </tr>"
+	                        "  <tr>"
+	                        "    <td>%time</td>"
+	                        "    <td>%4</td>"
+	                        "  </tr>"
+	                        "  <tr>"
+	                        "    <td>%host</td>"
+	                        "    <td>%5</td>"
+	                        "  </tr>"
+	                        "</table>").
+	                    arg(tr("Valid variables are:")).
+	                    arg(tr("Inserts the user's name")).
+	                    arg(tr("Inserts the current date")).
+	                    arg(tr("Inserts the current time")).
+	                    arg(tr("Inserts the hostname"));
 
 	qleTargetDirectory->setToolTip(qsTooltip);
 	qleFilename->setToolTip(qsTooltip);

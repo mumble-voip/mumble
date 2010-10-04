@@ -23,9 +23,8 @@
         <translation>ユーザ/グループ</translation>
     </message>
     <message>
-        <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with a &apos;!&apos;, its membership is negated, and if it starts with a &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with a  &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with a  &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>この項目がどのユーザのグループに適用されるかを制御します。グループはそのエントリが使用されるチャンネルのコンテキストそして評価されます。たとえば、Root チャンネル上のデフォルトのACL は &lt;i&gt;書き込み&lt;/i&gt;権限を&lt;i&gt;admin&lt;/i&gt;グループに与えています。このエントリは、もしチャンネルで継承済みでなければ、たとえそのACLに由来するチャンネルの&lt;i&gt;admin&lt;/i&gt;グループに属していなくても&lt;i&gt;admin&lt;/i&gt;グループがそのチャンネルに所属するならユーザに書き込み権限を与えます。グループの名前が ! で始まっていれば、そのメンバは否定されます。そして ~ で始まるなら　そのチャンネルで有効なACLよりもそのチャンネルのACLが定義された方が優先されます。グループの名前が # で始まる場合は、それはアクセストークンとして解釈されます。ユーザはアクセストークンのリストの中に # の後に続く文字列を持っている必要があります。これはとても非認証ユーザにたいして非常に単純なシンプルなパスワードアクセスの方法として使えます。グループの名前が $ で始まる場合、それは $ に続く文字列がユーザの証明書のハッシュにマッチする場合です。特別な定義済みグループは次のとおりです。&lt;br/&gt;&lt;b&gt;all&lt;/b&gt; - すべてにマッチ。&lt;br/&gt;&lt;b&gt;auth&lt;/b&gt; - 認証済みのすべてのユーザにマッチ。&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - サブチャンネル &lt;i&gt;a&lt;/i&gt; &lt;i&gt;b&lt;/i&gt;&lt;i&gt;c&lt;/i&gt;最小で&lt;i&gt;a&lt;/i&gt;個の共通の両親を持ち、チェーンの下側へ&lt;i&gt;b&lt;/i&gt;個から&lt;i&gt;c個&lt;/i&gt;の間のサブチャンネルのユーザにマッチします。この項目についてのより多くのドキュメントを見るには公式サイトを確認してください。&lt;b&gt;in&lt;/b&gt; - 現在のチャンネルにいるすべてのユーザにマッチ。（これは &lt;i&gt;sub,0,0,0&lt;/i&gt;の簡易的な表記です。）&lt;b&gt;out&lt;/b&gt; - 現在のチャンネルの外にいるすべてのユーザにマッチ。（これは &lt;i&gt;！sub,0,0,0&lt;/i&gt;の簡易的な表記です。）
+        <translation type="obsolete">この項目がどのユーザのグループに適用されるかを制御します。グループはそのエントリが使用されるチャンネルのコンテキストそして評価されます。たとえば、Root チャンネル上のデフォルトのACL は &lt;i&gt;書き込み&lt;/i&gt;権限を&lt;i&gt;admin&lt;/i&gt;グループに与えています。このエントリは、もしチャンネルで継承済みでなければ、たとえそのACLに由来するチャンネルの&lt;i&gt;admin&lt;/i&gt;グループに属していなくても&lt;i&gt;admin&lt;/i&gt;グループがそのチャンネルに所属するならユーザに書き込み権限を与えます。グループの名前が ! で始まっていれば、そのメンバは否定されます。そして ~ で始まるなら　そのチャンネルで有効なACLよりもそのチャンネルのACLが定義された方が優先されます。グループの名前が # で始まる場合は、それはアクセストークンとして解釈されます。ユーザはアクセストークンのリストの中に # の後に続く文字列を持っている必要があります。これはとても非認証ユーザにたいして非常に単純なシンプルなパスワードアクセスの方法として使えます。グループの名前が $ で始まる場合、それは $ に続く文字列がユーザの証明書のハッシュにマッチする場合です。特別な定義済みグループは次のとおりです。&lt;br/&gt;&lt;b&gt;all&lt;/b&gt; - すべてにマッチ。&lt;br/&gt;&lt;b&gt;auth&lt;/b&gt; - 認証済みのすべてのユーザにマッチ。&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - サブチャンネル &lt;i&gt;a&lt;/i&gt; &lt;i&gt;b&lt;/i&gt;&lt;i&gt;c&lt;/i&gt;最小で&lt;i&gt;a&lt;/i&gt;個の共通の両親を持ち、チェーンの下側へ&lt;i&gt;b&lt;/i&gt;個から&lt;i&gt;c個&lt;/i&gt;の間のサブチャンネルのユーザにマッチします。この項目についてのより多くのドキュメントを見るには公式サイトを確認してください。&lt;b&gt;in&lt;/b&gt; - 現在のチャンネルにいるすべてのユーザにマッチ。（これは &lt;i&gt;sub,0,0,0&lt;/i&gt;の簡易的な表記です。）&lt;b&gt;out&lt;/b&gt; - 現在のチャンネルの外にいるすべてのユーザにマッチ。（これは &lt;i&gt;！sub,0,0,0&lt;/i&gt;の簡易的な表記です。）
 エントリはユーザかグループのどちらかに適用され、両方には適用されません。</translation>
     </message>
     <message>
@@ -215,9 +214,8 @@
         <translation>チャンネル名をここに入力してください。</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation>&lt;b&gt;チャンネル名&lt;/b&gt;&lt;br&gt;このフィールドにチャンネル名を入力してください。チャンネル名は接続しているサーバの制限に従う必要があります。</translation>
+        <translation type="obsolete">&lt;b&gt;チャンネル名&lt;/b&gt;&lt;br&gt;このフィールドにチャンネル名を入力してください。チャンネル名は接続しているサーバの制限に従う必要があります。</translation>
     </message>
     <message>
         <location/>
@@ -235,9 +233,8 @@
         <translation>チャンネルに参加するためのパスワードをここに入力してください。</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br&gt;This field allows you to easily set and change the password of a channel. In the background it uses Mumble&apos;s access tokens feature. To allow more fine grained and powerful access control directly use ACLs and groups instead (&lt;i&gt;Advanced configuration&lt;/i&gt; has to be checked to be able to see these settings).</source>
-        <translation>&lt;b&gt;パスワード&lt;/b&gt;&lt;br&gt;このフィールドで簡単にチャンネルのパスワードを設定・変更できます。 背景にはMumble のアクセストークンの機能の使用があります。より細やかで協力なアクセス制御をするには、ACLとおグループを直接に使用してください。（&lt;i&gt;高度な設定&lt;/i&gt;はこれらの設定を見るためにチェックする必要があります）。</translation>
+        <translation type="obsolete">&lt;b&gt;パスワード&lt;/b&gt;&lt;br&gt;このフィールドで簡単にチャンネルのパスワードを設定・変更できます。 背景にはMumble のアクセストークンの機能の使用があります。より細やかで協力なアクセス制御をするには、ACLとおグループを直接に使用してください。（&lt;i&gt;高度な設定&lt;/i&gt;はこれらの設定を見るためにチェックする必要があります）。</translation>
     </message>
     <message>
         <location/>
@@ -245,10 +242,9 @@
         <translation>一時チャンネルを作る場合はチェックしてください。</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation>&lt;b&gt;一時チャンネルとして設定する&lt;/b&gt;&lt;br&gt;
+        <translation type="obsolete">&lt;b&gt;一時チャンネルとして設定する&lt;/b&gt;&lt;br&gt;
 チェックしてチャンネルを作ると一時としてマークされます。最後に残っていたユーザがチャンネルから離れるとサーバによって自動的にそのチャンネルが削除されます。</translation>
     </message>
     <message>
@@ -276,12 +272,11 @@ This value enables you to change the way mumble arranges the channels in the tre
         <translation>ポジション</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
         <oldsource>&lt;b&gt;Group&lt;/b&gt;&lt;br&gt;
 This is all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</oldsource>
-        <translation>&lt;b&gt;グループ&lt;/b&gt;&lt;br /&gt;
+        <translation type="obsolete">&lt;b&gt;グループ&lt;/b&gt;&lt;br /&gt;
 このチャンネルで現在定義されている全てのグループです。新しいグループを作るには、グループ名を入力してEnterキーを押してください。</translation>
     </message>
     <message>
@@ -297,24 +292,20 @@ Add a new group.</source>
 新しいグループを追加する。</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation>&lt;b&gt;削除&lt;/b&gt;&lt;br /&gt;現在選択されているグループを削除します。もし、グループが継承されているなら、それはリストから削除されません。しかし、グループについての全ての局所情報はクリアされます。</translation>
+        <translation type="obsolete">&lt;b&gt;削除&lt;/b&gt;&lt;br /&gt;現在選択されているグループを削除します。もし、グループが継承されているなら、それはリストから削除されません。しかし、グループについての全ての局所情報はクリアされます。</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation>&lt;b&gt;継承&lt;/b&gt;&lt;br /&gt;そのグループが親チャンネルで&lt;i&gt;継承可能&lt;/i&gt;と設定されているなら、そのグループの全てのメンバを継承します。</translation>
+        <translation type="obsolete">&lt;b&gt;継承&lt;/b&gt;&lt;br /&gt;そのグループが親チャンネルで&lt;i&gt;継承可能&lt;/i&gt;と設定されているなら、そのグループの全てのメンバを継承します。</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation>&lt;b&gt;継承可能&lt;/b&gt;&lt;br /&gt;このグループがサブチャンネルに継承可能であることを意味します。グループが継承不可能であれば、サブチャンネルは同じ名前の新しいグループを自由に作ることが可能です。</translation>
+        <translation type="obsolete">&lt;b&gt;継承可能&lt;/b&gt;&lt;br /&gt;このグループがサブチャンネルに継承可能であることを意味します。グループが継承不可能であれば、サブチャンネルは同じ名前の新しいグループを自由に作ることが可能です。</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation>&lt;b&gt;継承済み&lt;/b&gt;これはグループが親チャンネルから継承されたことを意味します。このフラグはただの情報なので編集できません。</translation>
+        <translation type="obsolete">&lt;b&gt;継承済み&lt;/b&gt;これはグループが親チャンネルから継承されたことを意味します。このフラグはただの情報なので編集できません。</translation>
     </message>
     <message>
         <location/>
@@ -327,10 +318,9 @@ Add a new group.</source>
         <translation>このチャンネルのグループに追加されたメンバのリスト。</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation>&lt;b&gt;メンバ&lt;/b&gt;&lt;br /&gt;
+        <translation type="obsolete">&lt;b&gt;メンバ&lt;/b&gt;&lt;br /&gt;
 このリストは現在のチャンネルのグループに追加された全てのメンバーを含みます。より高い階層のチャンネルツリーから継承されたメンバは含まないことに注意してください。それらのメンバは&lt;i&gt;継承済みメンバー&lt;/i&gt;のリストで確認できます。より低い階層のチャンネルでこのリストを継承させたくない場合は&lt;i&gt;継承可能&lt;/i&gt;のチェックを外すか、手動で&lt;i&gt;除外メンバ&lt;/i&gt;のリストにメンバを追加してください。</translation>
     </message>
     <message>
@@ -339,10 +329,9 @@ This list contains all members that were added to the group by the current chann
         <translation>親チャンネルから継承されないグループのメンバーのリスト。</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>&lt;b&gt;除外メンバ&lt;/b&gt;&lt;br /&gt;
+        <translation type="obsolete">&lt;b&gt;除外メンバ&lt;/b&gt;&lt;br /&gt;
 親チャンネルに継承されないグループのメンバーのリストを含む。</translation>
     </message>
     <message>
@@ -351,10 +340,9 @@ Contains a list of members whose group membership will not be inherited from the
         <translation>他のチャンネルから継承されたメンバのリストです。</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation>&lt;b&gt;継承済みメンバ&lt;/b&gt;&lt;br /&gt;
+        <translation type="obsolete">&lt;b&gt;継承済みメンバ&lt;/b&gt;&lt;br /&gt;
 現在のチャンネルで継承済みのメンバのリストです。より高い階層のチャンネルからの継承を防ぐには&lt;i&gt;継承&lt;/i&gt;のチェックを外してください。</translation>
     </message>
     <message>
@@ -553,6 +541,71 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location/>
         <source>&amp;Properties</source>
         <translation>プロパティ(&amp;P)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. In the background it uses Mumble&apos;s access tokens feature. To allow more fine grained and powerful access control directly, use ACLs and groups instead (&lt;i&gt;Advanced configuration&lt;/i&gt; has to be checked to be able to see these settings).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
+When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
+These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
+This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
+Contains a list of members whose group membership will not be inherited from the parent channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
+Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1634,9 +1687,8 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>オーディオキューをプレビュー</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; soundfile followed by the current &lt;i&gt;off&lt;/i&gt; soundfile.</source>
-        <translation>&lt;b&gt;プレビュー&lt;/b&gt;&lt;br /&gt;現在のオンのときのサウンドファイルを再生しそのあとにオフのときのサウンドファイルを再生する。</translation>
+        <translation type="obsolete">&lt;b&gt;プレビュー&lt;/b&gt;&lt;br /&gt;現在のオンのときのサウンドファイルを再生しそのあとにオフのときのサウンドファイルを再生する。</translation>
     </message>
     <message>
         <source>Preview</source>
@@ -1752,6 +1804,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location/>
         <source>&amp;Preview</source>
         <translation>プレビュー(&amp;P)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2369,9 +2426,8 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>直近フレームのビットレート</translation>
     </message>
     <message>
-        <location/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. To adjust the peak bitrate, adjust &lt;b&gt;Compression Complexity&lt;/b&gt; in the Settings dialog.</source>
-        <translation>直近の圧縮されたフレーム(20 ms)における音声ビットレートです。VBRが品質を調整するので値は上下します。最大ビットレートを調整するには、設定ダイアログで&lt;b&gt;圧縮 計算量&lt;/b&gt;を調整してください。</translation>
+        <translation type="obsolete">直近の圧縮されたフレーム(20 ms)における音声ビットレートです。VBRが品質を調整するので値は上下します。最大ビットレートを調整するには、設定ダイアログで&lt;b&gt;圧縮 計算量&lt;/b&gt;を調整してください。</translation>
     </message>
     <message>
         <location/>
@@ -2506,6 +2562,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location/>
         <source>Echo Analysis</source>
         <translation>反響分析</translation>
+    </message>
+    <message>
+        <location/>
+        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3045,11 +3106,18 @@ Mumbleは現在開発中であり、開発チームはより多くのユーザ�
 Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.
 &lt;/p&gt;
 &lt;p&gt;
-Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the striped and the empty but &lt;b&gt;not&lt;/b&gt; the criss-crossed zone while you speak.
+Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the striped and the empty but &lt;b&gt;not&lt;/b&gt; the crisscrossed zone while you speak.
 &lt;/p&gt;
 </source>
+        <oldsource>&lt;p&gt;
+Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.
+&lt;/p&gt;
+&lt;p&gt;
+Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the striped and the empty but &lt;b&gt;not&lt;/b&gt; the criss-crossed zone while you speak.
+&lt;/p&gt;
+</oldsource>
         <comment>For high contrast mode</comment>
-        <translation>&lt;p&gt;
+        <translation type="unfinished">&lt;p&gt;
 ボリュームコントロールパネルを開き、録音設定画面に移動しましょう。そして、マイクが選択されていて、音量が最大になっている事を確認してください。もし&quot;マイクブースト&quot;を有効にするオプションがあるなら、それもチェックされているか確認してください。
 &lt;/p&gt;
 &lt;p&gt;
@@ -3063,10 +3131,15 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>次に、誰も起こさないようにしている夜中のようにそっと話してみましょう。話している間、バーが空の領域にかかり、静かにしている時は青に留まるように下のスライダーを調整してください。</translation>
     </message>
     <message>
-        <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the criss-crossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation>次に、以下の2つのスライダーを調節しましょう。最初の発声は空の領域(確実に発言と判定)になると良いでしょう。話している最中は黄色(発言だろうと判定)の中に収まり、話していない時はすべて赤(発言ではないと判定)に入っているようにしてください。</translation>
+        <translation type="obsolete">次に、以下の2つのスライダーを調節しましょう。最初の発声は空の領域(確実に発言と判定)になると良いでしょう。話している最中は黄色(発言だろうと判定)の中に収まり、話していない時はすべて赤(発言ではないと判定)に入っているようにしてください。</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
+        <comment>For high contrast mode</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4469,10 +4542,9 @@ Username to send to the server. Be aware that the server can impose restrictions
         <translation>ラベル</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your serverlist and can be chosen freely.</source>
-        <translation>&lt;b&gt;ラベル&lt;/b&gt;&lt;br /&gt;
+        <translation type="obsolete">&lt;b&gt;ラベル&lt;/b&gt;&lt;br /&gt;
 そのサーバのラベルです。あなたのサーバリスト上でどのようにそのサーバが名前をつけるもので
 自由に選べます。</translation>
     </message>
@@ -4502,6 +4574,12 @@ Password to be sent to the server on connect. This password is needed when conne
         <location/>
         <source>Show password</source>
         <translation type="unfinished">パスワードを表示する</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
+Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4808,8 +4886,9 @@ of the possible locations.</source>
     </message>
     <message>
         <location line="+7"/>
-        <source>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</source>
-        <translation>データベース &quot;%1&quot; は読み込み専用です。 この問題を修正するまで、Mumble はサーバの設定（例えばSSL証明書）を保存できません。</translation>
+        <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
+        <oldsource>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
+        <translation type="unfinished">データベース &quot;%1&quot; は読み込み専用です。 この問題を修正するまで、Mumble はサーバの設定（例えばSSL証明書）を保存できません。</translation>
     </message>
 </context>
 <context>
@@ -4979,18 +5058,16 @@ of the possible locations.</source>
         <translation>設定すると、このグループのメンバーのみがささやきを受けとります。</translation>
     </message>
     <message>
-        <location/>
         <source>If checked the whisper will also be transmitted to linked channels.</source>
-        <translation>チェックすると、ささやきがリンクしているチャンネルにも転送されます。</translation>
+        <translation type="obsolete">チェックすると、ささやきがリンクしているチャンネルにも転送されます。</translation>
     </message>
     <message>
         <source>Whisper to Linked channels</source>
         <translation type="obsolete">リンク済みのチャンネルにささやき</translation>
     </message>
     <message>
-        <location/>
         <source>If checked this whisper will also be sent to the subchannels of the channel target.</source>
-        <translation>チェックすると対象チャンネルのサブチャンネルにもささやきが送信されます。</translation>
+        <translation type="obsolete">チェックすると対象チャンネルのサブチャンネルにもささやきが送信されます。</translation>
     </message>
     <message>
         <location/>
@@ -5036,6 +5113,16 @@ of the possible locations.</source>
         <location/>
         <source>Shout to Channel</source>
         <translation>チャンネルへ叫ぶ</translation>
+    </message>
+    <message>
+        <location/>
+        <source>The whisper will also be transmitted to linked channels.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>The whisper will also be sent to the subchannels of the channel target.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7986,14 +8073,18 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>自分のコメントを変更</translation>
     </message>
     <message>
-        <location/>
         <source>Priority speaker</source>
-        <translation>優先度スピーカ</translation>
+        <translation type="obsolete">優先度スピーカ</translation>
     </message>
     <message>
         <location/>
         <source>Recording</source>
         <translation type="unfinished">録音</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Priority Speaker</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8653,13 +8744,15 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     </message>
     <message>
         <location line="+1"/>
-        <source>To resize the users, mousewheel over a user.</source>
-        <translation>ユーザのアバターのサイズを変えるには、ユーザの上でマウスホィールを動かしてください。</translation>
+        <source>To resize the users, mouse wheel over a user.</source>
+        <oldsource>To resize the users, mousewheel over a user.</oldsource>
+        <translation type="unfinished">ユーザのアバターのサイズを変えるには、ユーザの上でマウスホィールを動かしてください。</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>For more options, rightclick a user.</source>
-        <translation>更なる設定をするには、ユーザを右クリックしてください。</translation>
+        <source>For more options, right click a user.</source>
+        <oldsource>For more options, rightclick a user.</oldsource>
+        <translation type="unfinished">更なる設定をするには、ユーザを右クリックしてください。</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -9829,8 +9922,9 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <location line="+3"/>
-        <source>&lt;Empty&gt;</source>
-        <translation>&lt;空欄&gt;</translation>
+        <source>Empty</source>
+        <oldsource>&lt;Empty&gt;</oldsource>
+        <translation type="unfinished">&lt;空欄&gt;</translation>
     </message>
 </context>
 <context>
@@ -10473,8 +10567,9 @@ An access token is a text string, which can be used as a password for very simpl
     <name>VoiceRecorderDialog</name>
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
-        <location filename="VoiceRecorderDialog.cpp" line="+69"/>
-        <location line="+41"/>
+        <location filename="VoiceRecorderDialog.cpp" line="+98"/>
+        <location line="+33"/>
+        <location line="+8"/>
         <location line="+10"/>
         <location line="+9"/>
         <location line="+135"/>
@@ -10507,9 +10602,8 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>モード</translation>
     </message>
     <message>
-        <location/>
         <source>Mixdown</source>
-        <translation>ミックスダウン</translation>
+        <translation type="obsolete">ミックスダウン</translation>
     </message>
     <message>
         <location/>
@@ -10537,7 +10631,6 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>ファイル名</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;pre&gt;
 Valid variables are:
 %user	Inserts the users name
@@ -10545,7 +10638,7 @@ Valid variables are:
 %time	Inserts the current time
 %host	Inserts the hostname
 &lt;/pre&gt;</source>
-        <translation>&lt;pre&gt;
+        <translation type="obsolete">&lt;pre&gt;
 有効な変数は:
 %user	ユーザ名を追加します
 %date	現在の日付を追加します
@@ -10564,12 +10657,36 @@ Valid variables are:
         <translation>レコーダを閉じると現在の録音が停止します。本当にレコーダを閉じますか?</translation>
     </message>
     <message>
-        <location line="+32"/>
         <source>Recoder</source>
-        <translation>レコーダ</translation>
+        <translation type="obsolete">レコーダ</translation>
+    </message>
+    <message>
+        <location line="-31"/>
+        <source>Valid variables are:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>Inserts the user&apos;s name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Inserts the current date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Inserts the current time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Inserts the hostname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+60"/>
         <source>Unable to start recording. Not connected to a server.</source>
         <translation>録音を開始できません。サーバに接続していません。</translation>
     </message>
@@ -10594,6 +10711,11 @@ Please contact your server administrator for further information.</source>
         <location line="+95"/>
         <source>Select target directory</source>
         <translation>対象のディレクトリを選択</translation>
+    </message>
+    <message>
+        <location filename="VoiceRecorderDialog.ui"/>
+        <source>Downmix</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

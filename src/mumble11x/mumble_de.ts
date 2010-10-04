@@ -1825,9 +1825,8 @@
         <translation>Bitrate des letzten Paketes</translation>
     </message>
     <message>
-        <location/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. To adjust the peak bitrate, adjust &lt;b&gt;Compression Complexity&lt;/b&gt; in the Settings dialog.</source>
-        <translation>Dies ist die Audiobitrate des letzten komprimierten Paketes (20ms). Deshalb wird sie auch hoch und runter springen, da VBR die Qualität anpasst. Um die Spitzenbitrate einzustellen muss &lt;b&gt;Kompressionsqualität&lt;/b&gt; im Einstellungsdialog angepasst werden.</translation>
+        <translation type="obsolete">Dies ist die Audiobitrate des letzten komprimierten Paketes (20ms). Deshalb wird sie auch hoch und runter springen, da VBR die Qualität anpasst. Um die Spitzenbitrate einzustellen muss &lt;b&gt;Kompressionsqualität&lt;/b&gt; im Einstellungsdialog angepasst werden.</translation>
     </message>
     <message>
         <location/>
@@ -1973,6 +1972,11 @@
     <message>
         <location filename="AudioStats.cpp" line="+405"/>
         <source>&gt;1000 ms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioStats.ui"/>
+        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

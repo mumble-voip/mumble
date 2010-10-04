@@ -73,9 +73,8 @@
         <translation>Inserisci qui il nome del canale.</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation>&lt;b&gt;Nome&lt;/b&gt;&lt;br&gt;Inserisci il nome del canale in questo campo. Il nome deve attenersi alle restrizioni imposte dal server a cui sei connesso.</translation>
+        <translation type="obsolete">&lt;b&gt;Nome&lt;/b&gt;&lt;br&gt;Inserisci il nome del canale in questo campo. Il nome deve attenersi alle restrizioni imposte dal server a cui sei connesso.</translation>
     </message>
     <message>
         <location/>
@@ -93,9 +92,8 @@
         <translation>Inserisci qui la password del canale.</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br&gt;This field allows you to easily set and change the password of a channel. In the background it uses Mumble&apos;s access tokens feature. To allow more fine grained and powerful access control directly use ACLs and groups instead (&lt;i&gt;Advanced configuration&lt;/i&gt; has to be checked to be able to see these settings).</source>
-        <translation>&lt;b&gt;Password&lt;/b&gt;&lt;br&gt;Questo campo ti permette di impostare e cambiare facilmente la password del canale. Come base usa il sistema dei Token d&apos;accesso di Mumble. Per consentire un controllo più forte e raffinato usa le ACL ed i gruppi (&lt;i&gt;Configurazione avanzata&lt;/i&gt; deve essere selezionata per poter vedere queste impostazioni).</translation>
+        <translation type="obsolete">&lt;b&gt;Password&lt;/b&gt;&lt;br&gt;Questo campo ti permette di impostare e cambiare facilmente la password del canale. Come base usa il sistema dei Token d&apos;accesso di Mumble. Per consentire un controllo più forte e raffinato usa le ACL ed i gruppi (&lt;i&gt;Configurazione avanzata&lt;/i&gt; deve essere selezionata per poter vedere queste impostazioni).</translation>
     </message>
     <message>
         <location/>
@@ -103,10 +101,9 @@
         <translation>Seleziona per creare un canale temporaneo.</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation>&lt;b&gt;Temporaneo&lt;/b&gt;&lt;br&gt;
+        <translation type="obsolete">&lt;b&gt;Temporaneo&lt;/b&gt;&lt;br&gt;
 Quando selezionato il canale creato sarà segnato come temporaneo. Questo vuol dire che quando l&apos;ultimo utente uscirà dal canale, questo verrà automaticamente cancellato dal server.</translation>
     </message>
     <message>
@@ -360,12 +357,11 @@ Questo valore ti dà la possibilità di cambiare il modo in cui Mumble organizza
         <translation>La voce dovrebbe applicarsi ai sottocanali.</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
         <oldsource>&lt;b&gt;Group&lt;/b&gt;&lt;br&gt;
 This is all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</oldsource>
-        <translation>&lt;b&gt;Gruppo&lt;/b&gt;&lt;br&gt;
+        <translation type="obsolete">&lt;b&gt;Gruppo&lt;/b&gt;&lt;br&gt;
 Questi sono tutti i gruppi attualmente definiti per il canale. Per creare un nuovo gruppo basta inserire il nome e premere invio.</translation>
     </message>
     <message>
@@ -381,24 +377,20 @@ Add a new group.</source>
 Aggiunge un nuovo gruppo.</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation>&lt;b&gt;Rimuovi&lt;/b&gt;&lt;br&gt;Rimuove il gruppo selezionato. Se il gruppo è stato ereditato, questo non sarà rimosso dalla lista, ma tutte le informazioni locali saranno rimosse.</translation>
+        <translation type="obsolete">&lt;b&gt;Rimuovi&lt;/b&gt;&lt;br&gt;Rimuove il gruppo selezionato. Se il gruppo è stato ereditato, questo non sarà rimosso dalla lista, ma tutte le informazioni locali saranno rimosse.</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation>&lt;b&gt;Eredita&lt;/b&gt;&lt;br&gt;Eredita tutti i membri nel gruppo dal canale genitore, se il gruppo è segnato come &lt;i&gt;Ereditabile&lt;/i&gt; nel canale genitore.</translation>
+        <translation type="obsolete">&lt;b&gt;Eredita&lt;/b&gt;&lt;br&gt;Eredita tutti i membri nel gruppo dal canale genitore, se il gruppo è segnato come &lt;i&gt;Ereditabile&lt;/i&gt; nel canale genitore.</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation>&lt;b&gt;Ereditabile&lt;/b&gt;&lt;br&gt;Permette al gruppo di essere ereditato ai sottocanali. Se il gruppo non è ereditabile i sottocanali sono ancora liberi di creare un gruppo con lo stesso nome.</translation>
+        <translation type="obsolete">&lt;b&gt;Ereditabile&lt;/b&gt;&lt;br&gt;Permette al gruppo di essere ereditato ai sottocanali. Se il gruppo non è ereditabile i sottocanali sono ancora liberi di creare un gruppo con lo stesso nome.</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation>&lt;b&gt;Ereditato&lt;/b&gt;&lt;br&gt;Indica che il gruppo è stato ereditato dal canale genitore. Non puoi cambiare questa selezione, è solamente un&apos;informazione.</translation>
+        <translation type="obsolete">&lt;b&gt;Ereditato&lt;/b&gt;&lt;br&gt;Indica che il gruppo è stato ereditato dal canale genitore. Non puoi cambiare questa selezione, è solamente un&apos;informazione.</translation>
     </message>
     <message>
         <location/>
@@ -411,10 +403,9 @@ Aggiunge un nuovo gruppo.</translation>
         <translation>Contiene la lista dei membri aggiunti al gruppo da questo canale.</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation>&lt;b&gt;Membri&lt;/b&gt;&lt;br&gt;
+        <translation type="obsolete">&lt;b&gt;Membri&lt;/b&gt;&lt;br&gt;
 Questa lista contiene tutti i membri che sono stati aggiunti al gruppo dal canale attuale. Attenzione, non incude i membri ereditati da livelli superiori dell&apos;albero dei canali. Questi possono essere trovati nella lista dei &lt;i&gt;Membri ereditati&lt;/i&gt;. Per prevenire che questa lista sia ereditata dai canali inferiori deseleziona &lt;i&gt;Ereditabile&lt;/i&gt; o aggiungi manualmente i membri alla lista dei &lt;i&gt;Membri esclusi dall&apos;eredità&lt;/i&gt;.</translation>
     </message>
     <message>
@@ -423,10 +414,9 @@ Questa lista contiene tutti i membri che sono stati aggiunti al gruppo dal canal
         <translation>Contiene una lista dei membri che non saranno ereditati ai canali inferiori.</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>&lt;b&gt;Membri esclusi dall&apos;eredità&lt;/b&gt;&lt;br&gt;
+        <translation type="obsolete">&lt;b&gt;Membri esclusi dall&apos;eredità&lt;/b&gt;&lt;br&gt;
 Contiene una lista dei membri che non saranno ereditati ai canali inferiori.</translation>
     </message>
     <message>
@@ -435,10 +425,9 @@ Contiene una lista dei membri che non saranno ereditati ai canali inferiori.</tr
         <translation>Contiene la lista degli utenti ereditati dagli altri canali.</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation>&lt;b&gt;Membri ereditati&lt;/b&gt;&lt;br&gt;
+        <translation type="obsolete">&lt;b&gt;Membri ereditati&lt;/b&gt;&lt;br&gt;
 Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;Eredita&lt;/i&gt; per prevenire l&apos;ereditazione da canali di livello più alto.</translation>
     </message>
     <message>
@@ -477,9 +466,8 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
         <translation>Voci che dovrebbero essere applicate a questo canale.</translation>
     </message>
     <message>
-        <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with a &apos;!&apos;, its membership is negated, and if it starts with a &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with a  &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with a  &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Controlla a quale gruppo di utenti si applica questa voce.&lt;br /&gt;Si noti che il gruppo è valutato nel contesto del canale in cui la voce è inserita. Ad esempio, il valore predefinito ACL sul canale Root dà il permesso &lt;i&gt;Scrivi&lt;/i&gt; al gruppo &lt;i&gt;admin&lt;/i&gt;. Questa voce, se ereditata da un canale, darà ad un utente i privilegi di scrittura se egli appartiene al gruppo &lt;i&gt;admin&lt;/i&gt; in quel canale, anche se non apparteneva al gruppo &lt;i&gt;admin&lt;/i&gt; nel canale in cui è nato l&apos;ACL.&lt;br /&gt;Se il nome di un gruppo inizia con un !, è negata ai suoi membri, e se inizia con una ~, è valutata nel canale in cui l&apos;ACL è stata definita, al posto che nel canale in cui è stata attivata l&apos;ACL.&lt;br /&gt;Se il nome di un gruppo inizia con &apos;#&apos; questo viene interpretato come un Token di accesso. Gli utenti devono aver inserito qualcosa dopo &apos;#&apos; nella loro lista dei Token di accessoper essere riconosciuto. Questo può essere usato come semplice accesso con password ai canali, per utenti non autenticati.&lt;br /&gt;Se il nome di un gruppo inizia con &apos;$&apos;, questo accetta solo utenti con nome del certificato che inizia con &apos;$&apos;.&lt;br /&gt; Pochi particolari gruppi predefiniti sono i seguenti:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Corrisponderà a tutti.&lt;b&gt;auth&lt;/b&gt; - Corrisponderanno tutti gli utenti autenticati.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Utenti in a sotto-canali minimo &lt;i&gt;a&lt;/i&gt; genitori comuni, e tra &lt;i&gt;b&lt;/i&gt; e &lt;i&gt;c&lt;/i&gt; canali verso il basso nella catena. Vedere il sito web per una documentazione più estesa su questo punto.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Utenti attualmente nel canale (scorciatoia di &lt;i&gt;sub,0,0,0&lt;/i&gt;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Gli utenti al di fuori del canale (scorciatoia di &lt;i&gt;!sub,0,0,0&lt;/i&gt;).&lt;br /&gt;Si noti che una voce si applica ad un utente o ad un gruppo, non a entrambi.</translation>
+        <translation type="obsolete">Controlla a quale gruppo di utenti si applica questa voce.&lt;br /&gt;Si noti che il gruppo è valutato nel contesto del canale in cui la voce è inserita. Ad esempio, il valore predefinito ACL sul canale Root dà il permesso &lt;i&gt;Scrivi&lt;/i&gt; al gruppo &lt;i&gt;admin&lt;/i&gt;. Questa voce, se ereditata da un canale, darà ad un utente i privilegi di scrittura se egli appartiene al gruppo &lt;i&gt;admin&lt;/i&gt; in quel canale, anche se non apparteneva al gruppo &lt;i&gt;admin&lt;/i&gt; nel canale in cui è nato l&apos;ACL.&lt;br /&gt;Se il nome di un gruppo inizia con un !, è negata ai suoi membri, e se inizia con una ~, è valutata nel canale in cui l&apos;ACL è stata definita, al posto che nel canale in cui è stata attivata l&apos;ACL.&lt;br /&gt;Se il nome di un gruppo inizia con &apos;#&apos; questo viene interpretato come un Token di accesso. Gli utenti devono aver inserito qualcosa dopo &apos;#&apos; nella loro lista dei Token di accessoper essere riconosciuto. Questo può essere usato come semplice accesso con password ai canali, per utenti non autenticati.&lt;br /&gt;Se il nome di un gruppo inizia con &apos;$&apos;, questo accetta solo utenti con nome del certificato che inizia con &apos;$&apos;.&lt;br /&gt; Pochi particolari gruppi predefiniti sono i seguenti:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Corrisponderà a tutti.&lt;b&gt;auth&lt;/b&gt; - Corrisponderanno tutti gli utenti autenticati.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Utenti in a sotto-canali minimo &lt;i&gt;a&lt;/i&gt; genitori comuni, e tra &lt;i&gt;b&lt;/i&gt; e &lt;i&gt;c&lt;/i&gt; canali verso il basso nella catena. Vedere il sito web per una documentazione più estesa su questo punto.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Utenti attualmente nel canale (scorciatoia di &lt;i&gt;sub,0,0,0&lt;/i&gt;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Gli utenti al di fuori del canale (scorciatoia di &lt;i&gt;!sub,0,0,0&lt;/i&gt;).&lt;br /&gt;Si noti che una voce si applica ad un utente o ad un gruppo, non a entrambi.</translation>
     </message>
     <message>
         <location/>
@@ -519,6 +507,71 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
         <location/>
         <source>&amp;Properties</source>
         <translation>&amp;Proprietà</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. In the background it uses Mumble&apos;s access tokens feature. To allow more fine grained and powerful access control directly, use ACLs and groups instead (&lt;i&gt;Advanced configuration&lt;/i&gt; has to be checked to be able to see these settings).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
+When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
+These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
+This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
+Contains a list of members whose group membership will not be inherited from the parent channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
+Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -920,9 +973,8 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
         <translation>Riproduce un&apos;anteprima del segnale sonoro</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; soundfile followed by the current &lt;i&gt;off&lt;/i&gt; soundfile.</source>
-        <translation>&lt;b&gt;Anteprima&lt;/b&gt;&lt;br/&gt;Riproduce un&apos;anteprima dei file attuali per &lt;i&gt;on&lt;/i&gt; e di seguito&lt;i&gt;off&lt;/i&gt;.</translation>
+        <translation type="obsolete">&lt;b&gt;Anteprima&lt;/b&gt;&lt;br/&gt;Riproduce un&apos;anteprima dei file attuali per &lt;i&gt;on&lt;/i&gt; e di seguito&lt;i&gt;off&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>Preview</source>
@@ -1224,6 +1276,11 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
     <message>
         <location/>
         <source>&amp;Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1867,9 +1924,8 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
         <translation>Banda dell&apos;ultima parte</translation>
     </message>
     <message>
-        <location/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. To adjust the peak bitrate, adjust &lt;b&gt;Compression Complexity&lt;/b&gt; in the Settings dialog.</source>
-        <translation>E&apos; il bitrate audio dell&apos;ultima parte compressa (20 ms), e come tale, si muove su e giù mentre il VBR regola la qualità. Per regolare il bitrate di picco, regolare &lt;b&gt;Complessità della Compressione&lt;/b&gt; nella finestra di dialogo Impostazioni.</translation>
+        <translation type="obsolete">E&apos; il bitrate audio dell&apos;ultima parte compressa (20 ms), e come tale, si muove su e giù mentre il VBR regola la qualità. Per regolare il bitrate di picco, regolare &lt;b&gt;Complessità della Compressione&lt;/b&gt; nella finestra di dialogo Impostazioni.</translation>
     </message>
     <message>
         <location/>
@@ -1929,6 +1985,11 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
         <location/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
         <translation>Mostra il peso del cancellatore di eco, con il tempo crescente verso il basso e la frequenza crescente a destra.&lt;br /&gt;In teoria, dovrebbe essere nero, cioè che non esiste eco. Più comunemente, otterrai una o più strisce orizzontali di colore bluastro che rappresentano l&apos;eco  in ritardo. Si dovrebbe poter vedere i pesi aggiornati in tempo reale.&lt;br /&gt;Notare che finché l&apos;eco è nullo, qui non sarà possibile visualizzare dati molto utili. Riproduci un po&apos; di musica e le cose dovrebbero stabilizzarsi.&lt;br /&gt;Puoi scegliere di visualizzare la parte reale o immaginaria dei pesi nel dominio della frequenza, o alternativamente il modulo e la fase calcolati. Il più utile di questi sarà probabilmente il modulo, che è l&apos;ampiezza dell&apos;eco, e mostra quanta parte del segnale in uscita è stata rimossa in quel momento. Le altre modalità di visualizzazione sono per lo più utili per le persone che vogliono affinare gli algoritmi per la cancellazione dell&apos;eco.&lt;br /&gt;Notare: Se l&apos;intera immagine oscilla molto mentre si è in modalità modulo, il cancellatore di echo non sta fallendo nel trovare una correlazione tra le due sorgenti di ingresso (altoparlanti e microfono). O hai un ritardo di eco veramente lungo, o una delle sorgenti di ingresso è configurata male.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2456,9 +2517,16 @@ Mumble è in continuo sviluppo, e gli sviluppatori cercano di concentrarsi sulle
 Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.
 &lt;/p&gt;
 &lt;p&gt;
-Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the striped and the empty but &lt;b&gt;not&lt;/b&gt; the criss-crossed zone while you speak.
+Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the striped and the empty but &lt;b&gt;not&lt;/b&gt; the crisscrossed zone while you speak.
 &lt;/p&gt;
 </source>
+        <oldsource>&lt;p&gt;
+Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.
+&lt;/p&gt;
+&lt;p&gt;
+Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the striped and the empty but &lt;b&gt;not&lt;/b&gt; the criss-crossed zone while you speak.
+&lt;/p&gt;
+</oldsource>
         <comment>For high contrast mode</comment>
         <translation type="unfinished"></translation>
     </message>
@@ -2470,7 +2538,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <location/>
-        <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the criss-crossed (definitively not speech).</source>
+        <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
         <translation type="unfinished"></translation>
     </message>
@@ -3812,12 +3880,6 @@ Nome utente da mandare al server. ll server potrebbe avere delle restrizioni su 
         <translation type="unfinished">Etichetta</translation>
     </message>
     <message>
-        <location/>
-        <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
-Label of the server. This is what the server will be named like in your serverlist and can be chosen freely.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
         <source>Add Server</source>
         <translation type="unfinished"></translation>
@@ -3841,6 +3903,12 @@ Password to be sent to the server on connect. This password is needed when conne
     <message>
         <location/>
         <source>Show password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
+Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3983,8 +4051,9 @@ delle possibili posizioni.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</source>
-        <translation>Il database &apos;%1&apos; è sola-lettura. Mumble non può salvare le impostazioni del server (es. certificati SSl) fino a che non risolverai il problema.</translation>
+        <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
+        <oldsource>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
+        <translation type="unfinished">Il database &apos;%1&apos; è sola-lettura. Mumble non può salvare le impostazioni del server (es. certificati SSl) fino a che non risolverai il problema.</translation>
     </message>
 </context>
 <context>
@@ -4123,18 +4192,16 @@ delle possibili posizioni.</translation>
         <translation>Se specificato, solo i membri di questo gruppo riceveranno il sussurro.</translation>
     </message>
     <message>
-        <location/>
         <source>If checked the whisper will also be transmitted to linked channels.</source>
-        <translation>Se selezionato il sussurro sarà trasmesso anche ai canali collegati.</translation>
+        <translation type="obsolete">Se selezionato il sussurro sarà trasmesso anche ai canali collegati.</translation>
     </message>
     <message>
         <source>Whisper to Linked channels</source>
         <translation type="obsolete">Sussurra ai canali collegati</translation>
     </message>
     <message>
-        <location/>
         <source>If checked this whisper will also be sent to the subchannels of the channel target.</source>
-        <translation>Se selezionato il sussurro sarà trasmesso anche ai sottocanali del canale destinatario.</translation>
+        <translation type="obsolete">Se selezionato il sussurro sarà trasmesso anche ai sottocanali del canale destinatario.</translation>
     </message>
     <message>
         <location/>
@@ -4179,6 +4246,16 @@ delle possibili posizioni.</translation>
     <message>
         <location/>
         <source>Shout to Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>The whisper will also be transmitted to linked channels.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>The whisper will also be sent to the subchannels of the channel target.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7050,12 +7127,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location/>
-        <source>Priority speaker</source>
+        <source>Recording</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
-        <source>Recording</source>
+        <source>Priority Speaker</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7507,12 +7584,14 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
     </message>
     <message>
         <location line="+1"/>
-        <source>To resize the users, mousewheel over a user.</source>
+        <source>To resize the users, mouse wheel over a user.</source>
+        <oldsource>To resize the users, mousewheel over a user.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>For more options, rightclick a user.</source>
+        <source>For more options, right click a user.</source>
+        <oldsource>For more options, rightclick a user.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8612,8 +8691,9 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <location line="+3"/>
-        <source>&lt;Empty&gt;</source>
-        <translation>&lt;Vuoto&gt;</translation>
+        <source>Empty</source>
+        <oldsource>&lt;Empty&gt;</oldsource>
+        <translation type="unfinished">&lt;Vuoto&gt;</translation>
     </message>
 </context>
 <context>
@@ -9256,8 +9336,9 @@ An access token is a text string, which can be used as a password for very simpl
     <name>VoiceRecorderDialog</name>
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
-        <location filename="VoiceRecorderDialog.cpp" line="+69"/>
-        <location line="+41"/>
+        <location filename="VoiceRecorderDialog.cpp" line="+98"/>
+        <location line="+33"/>
+        <location line="+8"/>
         <location line="+10"/>
         <location line="+9"/>
         <location line="+135"/>
@@ -9291,11 +9372,6 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location/>
-        <source>Mixdown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
         <source>Multichannel</source>
         <translation type="unfinished">Multicanale</translation>
     </message>
@@ -9321,17 +9397,6 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location/>
-        <source>&lt;pre&gt;
-Valid variables are:
-%user	Inserts the users name
-%date	Inserts the current date
-%time	Inserts the current time
-%host	Inserts the hostname
-&lt;/pre&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Browse...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9341,12 +9406,32 @@ Valid variables are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+32"/>
-        <source>Recoder</source>
+        <location line="-31"/>
+        <source>Valid variables are:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>Inserts the user&apos;s name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Inserts the current date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Inserts the current time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Inserts the hostname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+60"/>
         <source>Unable to start recording. Not connected to a server.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9369,6 +9454,11 @@ Please contact your server administrator for further information.</source>
     <message>
         <location line="+95"/>
         <source>Select target directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="VoiceRecorderDialog.ui"/>
+        <source>Downmix</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

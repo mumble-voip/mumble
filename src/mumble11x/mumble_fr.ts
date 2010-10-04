@@ -1792,9 +1792,8 @@
         <translation>Débit binaire de la dernière frame</translation>
     </message>
     <message>
-        <location/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. To adjust the peak bitrate, adjust &lt;b&gt;Compression Complexity&lt;/b&gt; in the Settings dialog.</source>
-        <translation>Il s&apos;agit du débit binaire de la dernière trame compressée ( 20 ms ). Ceci va varier de haut en bas puisque nous utilisons un bitrate variable pour ajuster la qualité. Pour ajuster le bitrate maximal, ajustez &lt;b&gt;Complexité de la compression&lt;/b&gt; dans les Préférences.</translation>
+        <translation type="obsolete">Il s&apos;agit du débit binaire de la dernière trame compressée ( 20 ms ). Ceci va varier de haut en bas puisque nous utilisons un bitrate variable pour ajuster la qualité. Pour ajuster le bitrate maximal, ajustez &lt;b&gt;Complexité de la compression&lt;/b&gt; dans les Préférences.</translation>
     </message>
     <message>
         <location/>
@@ -1912,6 +1911,11 @@
     <message>
         <location filename="AudioStats.cpp" line="+405"/>
         <source>&gt;1000 ms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioStats.ui"/>
+        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

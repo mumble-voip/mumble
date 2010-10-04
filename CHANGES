@@ -1,7 +1,22 @@
+2010-10-04
+  arcenciel <arcenciel@users.sourceforge.net>
+    3a703dd  Updated Japanese Translation
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    0369e8e  Fix English source strings
+
+2010-10-03
+  Mikkel Krautz <mikkel@krautz.dk>
+    bd2f257  Bundle intermediate CAs for the overlay installer to make Mac
+	     OS X 10.5 play along nicely.
+
 2010-10-02
   Stefan Hacker <dd0t@users.sourceforge.net>
     ac49c60  Prevent GUI password editor from leaking token ACLs into
 	     inherited channels.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    f0b3af6  Recorder string fixes
 
 2010-09-29
   Mikkel Krautz <mikkel@krautz.dk>
