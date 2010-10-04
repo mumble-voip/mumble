@@ -660,6 +660,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		bBroadcast = true;
 	}
 
+	bool bDstAclChanged = false;
 	if (msg.has_user_id()) {
 		// Handle user (Self-)Registration
 		QMap<int, QString> info;
@@ -672,6 +673,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		if (id > 0) {
 			pDstServerUser->iId = id;
 			msg.set_user_id(id);
+			bDstAclChanged = true;
 		} else {
 			// Registration failed
 			msg.clear_user_id();
@@ -705,6 +707,9 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		}
 
 		sendAll(msg, 0x010202);
+
+		if (bDstAclChanged)
+			clearACLCache(pDstServerUser);
 	}
 
 	emit userStateChanged(pDstServerUser);
