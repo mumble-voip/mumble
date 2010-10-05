@@ -1502,7 +1502,7 @@ void Server::recheckCodecVersions() {
 	// it as alpha and announce it. If another codec now got the
 	// majority set it as the opposite of the currently valid bPreferAlpha
 	// and announce it.
-	if (version == static_cast<qint32>(0x8000000a))
+	if (version == static_cast<qint32>(0x8000000b))
 		bPreferAlpha = true;
 	else
 		bPreferAlpha = ! bPreferAlpha;
@@ -1512,8 +1512,8 @@ void Server::recheckCodecVersions() {
 	else
 		iCodecBeta = version;
 
-	mpcv.set_alpha(version);
-	mpcv.set_beta(version);
+	mpcv.set_alpha(iCodecAlpha);
+	mpcv.set_beta(iCodecBeta);
 	mpcv.set_prefer_alpha(bPreferAlpha);
 	sendAll(mpcv);
 

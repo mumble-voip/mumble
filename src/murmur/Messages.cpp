@@ -202,7 +202,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		for (int i=0;i < msg.celt_versions_size(); ++i)
 			uSource->qlCodecs.append(msg.celt_versions(i));
 	} else {
-		uSource->qlCodecs.append(static_cast<qint32>(0x8000000a));
+		uSource->qlCodecs.append(static_cast<qint32>(0x8000000b));
 	}
 	recheckCodecVersions();
 
