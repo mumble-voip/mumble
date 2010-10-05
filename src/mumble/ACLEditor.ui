@@ -64,7 +64,7 @@
           <string>Enter the channel password here.</string>
          </property>
          <property name="whatsThis">
-          <string>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. In the background it uses Mumble's access tokens feature. To allow more fine grained and powerful access control directly, use ACLs and groups instead (&lt;i&gt;Advanced configuration&lt;/i&gt; has to be checked to be able to see these settings).</string>
+          <string>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble's access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</string>
          </property>
         </widget>
        </item>
@@ -417,7 +417,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
                <string>List of entries</string>
               </property>
               <property name="whatsThis">
-               <string>This shows all the entries active on this channel. Entries inherited from parent channels will be show in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</string>
+               <string>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</string>
               </property>
              </widget>
             </item>
