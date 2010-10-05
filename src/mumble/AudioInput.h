@@ -110,8 +110,6 @@ class AudioInput : public QThread {
 		int iAudioQuality;
 		int iAudioFrames;
 
-		drft_lookup fftTable;
-
 		short *psMic;
 		short *psSpeaker;
 		short *psClean;

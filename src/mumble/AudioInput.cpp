@@ -134,8 +134,6 @@ AudioInput::AudioInput() {
 	}
 	iEchoFreq = iMicFreq = iSampleRate;
 
-	mumble_drft_init(&fftTable, iFrameSize);
-
 	iFrameCounter = 0;
 	iSilentFrames = 0;
 	iHoldFrames = 0;
@@ -186,8 +184,6 @@ AudioInput::~AudioInput() {
 		speex_bits_destroy(&sbBits);
 		speex_encoder_destroy(esSpeex);
 	}
-
-	mumble_drft_clear(&fftTable);
 
 	foreach(short *buf, qlEchoFrames)
 		delete [] buf;
