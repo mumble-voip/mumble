@@ -1,6 +1,32 @@
+2010-10-06
+  arcenciel <arcenciel@users.sourceforge.net>
+    3556898  Updated Japanese Translation
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    392333a  String fixes in the ACL edit dialog found by fwaggle
+    ba6bd1e  Fix codec selection and outdated bitstream constants
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    bd121b5  Support older libsndfile
+    31488de  Experimentally switch back to "real" boost typeof
+
+2010-10-05
+  Natenom <natenom@googlemail.com>
+    e8810bf  Limit name label width in ban editor to 500 to not break the
+	     UI with very long names.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    ac2b6ca  Remove unused code, spotted by rawnar
+
 2010-10-04
   arcenciel <arcenciel@users.sourceforge.net>
     3a703dd  Updated Japanese Translation
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    343510e  Flush client ACL cache after registration
+
+  Mark-Willem Jansen <rawnar@users.sourceforge.net>
+    87f3c8c  Plugins: Borderlands updated to version 1.40.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
     0369e8e  Fix English source strings
@@ -26,6 +52,11 @@
 2010-09-27
   svenne33 <svenne33@users.sourceforge.net>
     8a5998f  Swedish Translation (#3071209 & #3071223)
+
+2010-09-18
+  Natenom <natenom@googlemail.com>
+    5f774af  Fixed a translation typo submitted by Radioactiveman in IRC on
+	     #mumble, German translation updates
 
 2010-09-15
   Stefan Hacker <dd0t@users.sourceforge.net>
