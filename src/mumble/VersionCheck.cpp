@@ -169,7 +169,7 @@ void VersionCheck::finished() {
 					qf.close();
 					new VersionCheck(true, g.mw);
 				} else {
-					g.mw->msgBox(tr("Failed to write new version to disc."));
+					g.mw->msgBox(tr("Failed to write new version to disk."));
 				}
 #endif
 			}
