@@ -5477,7 +5477,8 @@ To může být způsobeno například těmito důvody:
     </message>
     <message>
         <location line="+18"/>
-        <source>Failed to write new version to disc.</source>
+        <source>Failed to write new version to disk.</source>
+        <oldsource>Failed to write new version to disc.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>

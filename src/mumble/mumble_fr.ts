@@ -3358,10 +3358,9 @@ Are you sure you wish to replace your certificate?
         <translation>Faire une sauvegarde de votre certificat</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Si vous perdez votre certificat, ce qui peut se produire si votre ordinateur est victime d&apos;une panne matérielle ou si vous réinstallez votre machine, vous ne pourrez plus vous authentifier sur aucun des serveurs sur lesquels vous vous étiez enregistré. Il est donc &lt;b&gt;obligatoire&lt;/b&gt; de faire une sauvegarde de votre certificat. Nous recommandons fortement de le sauvegarder sur un stockage amovible, tel une clé USB.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;Si vous perdez votre certificat, ce qui peut se produire si votre ordinateur est victime d&apos;une panne matérielle ou si vous réinstallez votre machine, vous ne pourrez plus vous authentifier sur aucun des serveurs sur lesquels vous vous étiez enregistré. Il est donc &lt;b&gt;obligatoire&lt;/b&gt; de faire une sauvegarde de votre certificat. Nous recommandons fortement de le sauvegarder sur un stockage amovible, tel une clé USB.&lt;/p&gt;
 &lt;p&gt;Notez que ce fichier ne sera pas chiffré, et que toute personne qui mettra la main dessus pourra se faire passer pour vous, prenez donc ceci en considération.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -3460,6 +3459,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 &lt;p&gt;
 Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;créer un certificat de confiance&lt;/a&gt;.
 &lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
+&lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5793,8 +5798,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Bienvenue sur Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1933"/>
+        <location filename="MainWindow.cpp" line="+171"/>
+        <location line="+1934"/>
         <source>Root</source>
         <translation>Racine</translation>
     </message>
@@ -5986,7 +5991,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Délier</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1916"/>
+        <location filename="MainWindow.cpp" line="-1917"/>
         <source>&amp;User</source>
         <translation>&amp;Utilisateur</translation>
     </message>
@@ -6393,7 +6398,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+76"/>
         <location line="+12"/>
-        <location line="+2048"/>
+        <location line="+2049"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6415,7 +6420,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Joueur</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2135"/>
+        <location filename="MainWindow.cpp" line="-2136"/>
         <source>&amp;Channel</source>
         <translation>&amp;Salon</translation>
     </message>
@@ -6527,7 +6532,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Expulsion du joueur %1</translation>
     </message>
     <message>
-        <location line="+1036"/>
+        <location line="+1037"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Entrez la raison</translation>
@@ -7317,13 +7322,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>La voix est envoyée au dessus du canal de contrôle.</translation>
     </message>
     <message>
-        <location line="-773"/>
+        <location line="-774"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Ceci changera l&apos;état de l&apos;overlay.</translation>
     </message>
     <message>
-        <location line="+764"/>
+        <location line="+765"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canal de contrôle&lt;/h2&gt;&lt;p&gt;Chiffré en %2 %1 bits&lt;br/&gt;%3 ms de latence moyenne (déviation de %4)&lt;/p&gt;&lt;p&gt;Hôte distant %5 (port %6)&lt;/p&gt;</translation>
     </message>
@@ -7449,7 +7454,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Connecté au serveur %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1224"/>
+        <location filename="MainWindow.cpp" line="-1225"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble est actuellement connecté à un serveur. Voulez-vous le fermer ou le réduire dans la barre des tâches?</translation>
     </message>
@@ -7560,7 +7565,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+2078"/>
+        <location line="+2079"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Non connecté&lt;/center&gt;</translation>
@@ -9964,8 +9969,9 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
     </message>
     <message>
         <location line="+18"/>
-        <source>Failed to write new version to disc.</source>
-        <translation>Échec lors de l&apos;écriture de la nouvelle version sur le disque.</translation>
+        <source>Failed to write new version to disk.</source>
+        <oldsource>Failed to write new version to disc.</oldsource>
+        <translation type="unfinished">Échec lors de l&apos;écriture de la nouvelle version sur le disque.</translation>
     </message>
     <message>
         <location line="+17"/>

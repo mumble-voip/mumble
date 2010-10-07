@@ -3581,10 +3581,9 @@ Are you sure you wish to replace your certificate?
         <translation>Hacer una copia de seguridad de su certificado</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Si alguna vez pierde su certificado actual, lo que ocurrirá si su ordenador sufre un fallo de hardware o si reinstala su máquina, no podrá autenticarse con ningún servidor en el que se haya registrado. Es por tanto &lt;b&gt;obligatorio&lt;/b&gt; que haga una copia de seguridad de su certificado. Recomendamos encarecidamente que almacene esta copia de seguridad en almacenamiento extraíble, como una memoria USB.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;Si alguna vez pierde su certificado actual, lo que ocurrirá si su ordenador sufre un fallo de hardware o si reinstala su máquina, no podrá autenticarse con ningún servidor en el que se haya registrado. Es por tanto &lt;b&gt;obligatorio&lt;/b&gt; que haga una copia de seguridad de su certificado. Recomendamos encarecidamente que almacene esta copia de seguridad en almacenamiento extraíble, como una memoria USB.&lt;/p&gt;
 &lt;p&gt;Fíjese en que este archivo no se encriptará, y si alguien consigue acceder a él, podrá hacerse pasar por usted, así que tenga cuidado con él.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -3684,6 +3683,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 Se le recomienda &lt;b&gt;encarecidamente&lt;/b&gt; que &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;cree un certificado de confianza&lt;/a&gt;.
 &lt;/p&gt;
 </translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
+&lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6178,8 +6183,8 @@ p, li { white-space: pre-wrap; }
         <translation>Bienvenido a Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1933"/>
+        <location filename="MainWindow.cpp" line="+171"/>
+        <location line="+1934"/>
         <source>Root</source>
         <translation>Root</translation>
     </message>
@@ -6686,9 +6691,9 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Elimina la textura actual definida por el usuario.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1840"/>
+        <location filename="MainWindow.cpp" line="-1841"/>
         <location line="+12"/>
-        <location line="+2048"/>
+        <location line="+2049"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6705,7 +6710,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Jugador</translation>
     </message>
     <message>
-        <location line="-2135"/>
+        <location line="-2136"/>
         <source>&amp;Channel</source>
         <translation>&amp;Canal</translation>
     </message>
@@ -6728,7 +6733,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Expulsando al jugador %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1097"/>
+        <location filename="MainWindow.cpp" line="+1098"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Introduzca el motivo</translation>
@@ -7176,7 +7181,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">%1 ensordecido por %2.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-647"/>
+        <location filename="MainWindow.cpp" line="-648"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Presionar-para-Hablar (PTT)</translation>
@@ -7255,7 +7260,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">%2 mudó a %1.</translation>
     </message>
     <message>
-        <location line="+1302"/>
+        <location line="+1303"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>¿Está seguro de que desa borrar %1 y todos sus subcanales?</translation>
     </message>
@@ -7385,7 +7390,7 @@ p, li { white-space: pre-wrap; }
         <translation>Envía un mensaje de texto a otro usuario.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2120"/>
+        <location filename="MainWindow.cpp" line="-2121"/>
         <source>&amp;User</source>
         <translation>&amp;Usuario</translation>
     </message>
@@ -7476,7 +7481,7 @@ p, li { white-space: pre-wrap; }
         <translation>Le guiará a través del proceso de configuración de su hardware de audio.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+2030"/>
+        <location filename="MainWindow.cpp" line="+2031"/>
         <source>SSL Verification failed: %1</source>
         <translation>Falló la verificación SSL: %1</translation>
     </message>
@@ -7636,13 +7641,13 @@ p, li { white-space: pre-wrap; }
         <translation>Registrarse como %1</translation>
     </message>
     <message>
-        <location line="-993"/>
+        <location line="-994"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Esto conmutará el estado de la sobreimpresión durante el juego.</translation>
     </message>
     <message>
-        <location line="+682"/>
+        <location line="+683"/>
         <location line="+311"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Está a punto de registrarse en este servidor. Esta acción no puede deshacerse, y su nombre de usuario no puede cambiarse una vez que se complete. Será conocido para siempre como &apos;%1&apos; en este servidor.&lt;/p&gt;&lt;p&gt;¿Está seguro de que desea registrarse?&lt;/p&gt;</translation>
@@ -7754,7 +7759,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bits&lt;br /&gt;%3 ms de latencia media (%4 de varianza)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-2017"/>
+        <location line="-2018"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
         <translation>Mantenga pulsado este botón para enviar la voz.</translation>
@@ -7797,7 +7802,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Esto conmutará el estado de la sobreimpresión durante el juego entre mostrar a todos, sólo mostrar los jugadores que están hablando, y no mostrar a nadie.</translation>
     </message>
     <message>
-        <location line="+774"/>
+        <location line="+775"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>El canal de voz se envía a través del canal de control.</translation>
     </message>
@@ -7943,7 +7948,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Conectado al servidor %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1224"/>
+        <location filename="MainWindow.cpp" line="-1225"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble está conectado a un servidor actualmente. ¿Desea cerrarlo o minimizarlo?</translation>
     </message>
@@ -8054,7 +8059,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+65"/>
-        <location line="+2078"/>
+        <location line="+2079"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Desconectado&lt;/center&gt;</translation>
@@ -10555,8 +10560,9 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     </message>
     <message>
         <location line="+18"/>
-        <source>Failed to write new version to disc.</source>
-        <translation>No se pudo escribir la nueva versión en el disco.</translation>
+        <source>Failed to write new version to disk.</source>
+        <oldsource>Failed to write new version to disc.</oldsource>
+        <translation type="unfinished">No se pudo escribir la nueva versión en el disco.</translation>
     </message>
     <message>
         <location line="+17"/>

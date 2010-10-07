@@ -2928,10 +2928,9 @@ Sei sicuro di voler sostituire il tuo certificato?
         <translation>Crea un backup del tuo certificato</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Se mai perderai il tuo certificato attuale, che potrebbe accadere nel caso in cui l&apos;hardware del tuo PC si rompa o se reinstalli il tuo SO, in questo caso non sarai più in grado di autenticarti a nessuno dei server in cui ti eri registrato. E&apos; quindi &lt;b&gt;necessario&lt;/b&gt; fare una copia di backup del tuo certificato. Noi raccomandiamo fortemente di tenere questo backup in un dispositivo rimovibile, come una memoria USB.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;Se mai perderai il tuo certificato attuale, che potrebbe accadere nel caso in cui l&apos;hardware del tuo PC si rompa o se reinstalli il tuo SO, in questo caso non sarai più in grado di autenticarti a nessuno dei server in cui ti eri registrato. E&apos; quindi &lt;b&gt;necessario&lt;/b&gt; fare una copia di backup del tuo certificato. Noi raccomandiamo fortemente di tenere questo backup in un dispositivo rimovibile, come una memoria USB.&lt;/p&gt;
 &lt;p&gt;Nota che questo file non sarà criptato, e se qualcuno ne avrà l&apos;accesso, questo sarà in grado di impersonare te, quindi abbine cura.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -3031,6 +3030,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;Creare un certificato&lt;/a&gt; è &lt;b&gt;vivamente&lt;/b&gt; raccomandato.
 &lt;/p&gt;
 </translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
+&lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5162,13 +5167,13 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1933"/>
+        <location filename="MainWindow.cpp" line="+171"/>
+        <location line="+1934"/>
         <source>Root</source>
         <translation>Radice</translation>
     </message>
     <message>
-        <location line="-1884"/>
+        <location line="-1885"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Premi-per-parlare</translation>
@@ -5307,12 +5312,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2048"/>
+        <location line="+2049"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2044"/>
+        <location line="-2045"/>
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
@@ -5386,7 +5391,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2078"/>
+        <location line="+2079"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished">Non connesso</translation>
@@ -5499,13 +5504,13 @@ p, li { white-space: pre-wrap; }
         <translation>Registrati come %1</translation>
     </message>
     <message>
-        <location line="-993"/>
+        <location line="-994"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+682"/>
+        <location line="+683"/>
         <location line="+311"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Stai per registrarti sul server. Quest&apos;azione non può essere annullata, il tuo nome utente non potrà essere cambiato. Sarai per sempre conosciuto come &apos;%1&apos; su questo server.&lt;p&gt;Se sicuro di volerti registrare?&lt;/p&gt;</translation>
@@ -5862,7 +5867,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Giocatore</translation>
     </message>
     <message>
-        <location line="-2119"/>
+        <location line="-2120"/>
         <source>&amp;Channel</source>
         <translation>&amp;Canale</translation>
     </message>
@@ -9176,7 +9181,8 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location line="+18"/>
-        <source>Failed to write new version to disc.</source>
+        <source>Failed to write new version to disk.</source>
+        <oldsource>Failed to write new version to disc.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>

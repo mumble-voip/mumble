@@ -3589,10 +3589,9 @@ Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
         <translation>Erstelle eine Sicherheitskopie des Zertifikats</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;
+        <translation type="obsolete">&lt;p&gt;
 Wenn Sie Ihr aktuelles Zertifikat verlieren, was etwa passiert wenn in ihrem Computer Hardware kaputt geht und Sie Ihr System neu installieren müssen, können Sie sich nicht mehr gegenüber Servern authentifizieren, auf welchen Sie sich registriert haben.
 Deshalb ist es &lt;b&gt;notwendig&lt;/b&gt;, dass Sie eine Sicherung Ihres Zertifikats erstellen.
 Diese Sicherung sollte auf jeden Fall auf einem externen Datenträger, etwa einem USB Stick, gespeichert werden.
@@ -3706,6 +3705,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 Es wird &lt;b&gt;sehr&lt;/b&gt; empfohlen, dass Sie &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;ihr eigenes Zertifikat erstellen&lt;/a&gt;.
 &lt;/p&gt;
 </translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
+&lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6193,8 +6198,8 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1933"/>
+        <location filename="MainWindow.cpp" line="+171"/>
+        <location line="+1934"/>
         <source>Root</source>
         <translation>Hauptkanal</translation>
     </message>
@@ -6758,9 +6763,9 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Verbindet sich mit der Mumble-Webseite um zu überprüfen ob eine neue Version verfügbar ist. Ist eine neue Version verfügbar wird mit einer passenden Download-URL darauf hingewiesen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1840"/>
+        <location filename="MainWindow.cpp" line="-1841"/>
         <location line="+12"/>
-        <location line="+2048"/>
+        <location line="+2049"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6782,7 +6787,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">B&amp;enutzer</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2135"/>
+        <location filename="MainWindow.cpp" line="-2136"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanal</translation>
     </message>
@@ -6805,7 +6810,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation type="obsolete">Kicke Benutzer %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1097"/>
+        <location filename="MainWindow.cpp" line="+1098"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Grund eingeben</translation>
@@ -7248,7 +7253,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Willkommen in Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-647"/>
+        <location filename="MainWindow.cpp" line="-648"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Push-To-Talk</translation>
@@ -7369,7 +7374,7 @@ Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</transla
         <translation>Dies wechselt den Modus des Ingame-Overlays.</translation>
     </message>
     <message>
-        <location line="+351"/>
+        <location line="+352"/>
         <source>File is not a configuration file.</source>
         <translation>Die Datei ist keine Konfigurationsdatei.</translation>
     </message>
@@ -7671,7 +7676,7 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
         <translation>Schickt eine Textnachricht an einen anderen Benutzer.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2120"/>
+        <location filename="MainWindow.cpp" line="-2121"/>
         <source>&amp;User</source>
         <translation>&amp;Benutzer</translation>
     </message>
@@ -7773,7 +7778,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Dies leitet Sie durch den Hardware-Konfigurationsprozess.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+2030"/>
+        <location filename="MainWindow.cpp" line="+2031"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL-Überprüfung fehlgeschlagen: %1</translation>
     </message>
@@ -7852,7 +7857,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Öffne URL %1</translation>
     </message>
     <message>
-        <location line="-359"/>
+        <location line="-360"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Selbst stumm stellen</translation>
@@ -7900,7 +7905,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2078"/>
+        <location line="+2079"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Nicht verbunden&lt;/center&gt;</translation>
@@ -8095,7 +8100,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">Mit Server %1 verbunden.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1224"/>
+        <location filename="MainWindow.cpp" line="-1225"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble ist gerade zu einem Server verbunden. Möchten Sie es schließen oder minimieren?</translation>
     </message>
@@ -8163,7 +8168,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Leiser (-10%)</translation>
     </message>
     <message>
-        <location line="+301"/>
+        <location line="+302"/>
         <source>Clear</source>
         <translation>Löschen</translation>
     </message>
@@ -10522,8 +10527,9 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     </message>
     <message>
         <location line="+18"/>
-        <source>Failed to write new version to disc.</source>
-        <translation>Neue Version konnte nicht gespeichert werden.</translation>
+        <source>Failed to write new version to disk.</source>
+        <oldsource>Failed to write new version to disc.</oldsource>
+        <translation type="unfinished">Neue Version konnte nicht gespeichert werden.</translation>
     </message>
     <message>
         <location line="+17"/>

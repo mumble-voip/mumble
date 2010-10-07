@@ -3560,10 +3560,9 @@ Are you sure you wish to replace your certificate?
         <translation>証明書のバックアップを作成</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;現在の証明書をハードウェアの故障やマシンの再インストールなどで失ったなら、登録したサーバから認証を受けることが出来なくなります。そのため、証明書のバックアップを作成することは&lt;b&gt;必須&lt;/b&gt;です。USBメモリのようなリムーバブルストレージに証明書のバックアップを保存することを強く推奨します。&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;現在の証明書をハードウェアの故障やマシンの再インストールなどで失ったなら、登録したサーバから認証を受けることが出来なくなります。そのため、証明書のバックアップを作成することは&lt;b&gt;必須&lt;/b&gt;です。USBメモリのようなリムーバブルストレージに証明書のバックアップを保存することを強く推奨します。&lt;/p&gt;
 &lt;p&gt;このファイルは暗号化されておらず、もし、誰かがアクセスしたら、あなたに成りすます可能性があります。十分に気をつけてください。&lt;/p&gt;</translation>
     </message>
     <message>
@@ -3663,6 +3662,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 &lt;p&gt;
 &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;信頼された証明書&lt;/a&gt;を作ることが&lt;b&gt;強く&lt;/b&gt; 推奨されます。
 &lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
+&lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6063,8 +6068,8 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1933"/>
+        <location filename="MainWindow.cpp" line="+171"/>
+        <location line="+1934"/>
         <source>Root</source>
         <translation>ルート</translation>
     </message>
@@ -6580,9 +6585,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumbleのウェブページに接続して新しいバージョンが出ているかを確認します。もし新しいのが出ていたら適切なダウンロードURLを通知します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1840"/>
+        <location filename="MainWindow.cpp" line="-1841"/>
         <location line="+12"/>
-        <location line="+2048"/>
+        <location line="+2049"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6604,7 +6609,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">プレイヤー(&amp;P)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2135"/>
+        <location filename="MainWindow.cpp" line="-2136"/>
         <source>&amp;Channel</source>
         <translation>チャンネル(&amp;C)</translation>
     </message>
@@ -6741,7 +6746,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">プレイヤー %1 をキックしました。</translation>
     </message>
     <message>
-        <location line="+1036"/>
+        <location line="+1037"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>理由を入力してください</translation>
@@ -7303,7 +7308,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>他のユーザにテキストメッセージを送信します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2321"/>
+        <location filename="MainWindow.cpp" line="-2322"/>
         <source>&amp;User</source>
         <translation>ユーザ(&amp;U)</translation>
     </message>
@@ -7395,7 +7400,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>サウンドハードウェアの設定プロセスに案内します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+2030"/>
+        <location filename="MainWindow.cpp" line="+2031"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL検証エラー: %1</translation>
     </message>
@@ -7522,13 +7527,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%1 の名前で自分をユーザ登録します</translation>
     </message>
     <message>
-        <location line="-993"/>
+        <location line="-994"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>ゲームオーバレイの状態を切り替えます。</translation>
     </message>
     <message>
-        <location line="+682"/>
+        <location line="+683"/>
         <location line="+311"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;サーバ上で自分自身をユーザ登録しようとしています。このアクションは取り消せません。このサーバでのあなたのユーザ名をこの操作の後に変更できなくなります。あなたはこのサーバ上で &apos;%1&apos; のユーザ名を使うことになります。&lt;/p&gt;&lt;p&gt;本当に自分自身を登録しますか？&lt;/p&gt;</translation>
@@ -7789,7 +7794,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ %1 に接続しました。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1224"/>
+        <location filename="MainWindow.cpp" line="-1225"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble は現在、サーバに接続しています。接続を閉じるか最小化しますか?</translation>
     </message>
@@ -7900,7 +7905,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+2078"/>
+        <location line="+2079"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>接続されていません</translation>
@@ -10419,8 +10424,9 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location line="+18"/>
-        <source>Failed to write new version to disc.</source>
-        <translation>ディスクに新しいバージョンを書きこむことに失敗しました。</translation>
+        <source>Failed to write new version to disk.</source>
+        <oldsource>Failed to write new version to disc.</oldsource>
+        <translation type="unfinished">ディスクに新しいバージョンを書きこむことに失敗しました。</translation>
     </message>
     <message>
         <location line="+17"/>

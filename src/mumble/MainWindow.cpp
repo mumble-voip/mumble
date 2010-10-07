@@ -150,8 +150,8 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 		painter.setRenderHint(QPainter::SmoothPixmapTransform);
 		painter.setRenderHint(QPainter::HighQualityAntialiasing);
 		svg.render(&painter);
-	
-		for(int sz=8;sz<=256;sz+=8)
+
+		for (int sz=8;sz<=256;sz+=8)
 			qiIcon.addPixmap(original.scaled(sz,sz, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 	}
 

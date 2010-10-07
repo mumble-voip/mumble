@@ -2694,10 +2694,9 @@ Er du sikker på du vil erstatte dit certifikat?
         <translation>Lav en backup af dit certifikat</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Hvis du nogensinde mister dit nuværende certifikat, hvilket vil ske hvis din computer udsættes for et hardware-nedbrud, eller hvis du geninstallerer dit system, vil du ikke længere være i stand til at autentificere på nogen server, som du er registreret på. Det er derfor &lt;b&gt;påkrævet&lt;/b&gt; at du opretter en backup af dit certifikat. Vi anbefaler dig kraftigt at gemme denne backup på en flytbar opbevaring, fx en USB-nøgle.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;Hvis du nogensinde mister dit nuværende certifikat, hvilket vil ske hvis din computer udsættes for et hardware-nedbrud, eller hvis du geninstallerer dit system, vil du ikke længere være i stand til at autentificere på nogen server, som du er registreret på. Det er derfor &lt;b&gt;påkrævet&lt;/b&gt; at du opretter en backup af dit certifikat. Vi anbefaler dig kraftigt at gemme denne backup på en flytbar opbevaring, fx en USB-nøgle.&lt;/p&gt;
 &lt;p&gt;Vær opmærksom på at denne fil ikke vil blive krypteret, og hvis nogen får adgang til den, vil de være i stand til at udgive sig for at være dig, så pas godt på den.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -2796,6 +2795,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 &lt;p&gt;
 Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;opretter et betroet certifikat&lt;/a&gt;.
 &lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
+&lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4545,13 +4550,13 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1933"/>
+        <location filename="MainWindow.cpp" line="+171"/>
+        <location line="+1934"/>
         <source>Root</source>
         <translation>Rod</translation>
     </message>
     <message>
-        <location line="-1884"/>
+        <location line="-1885"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryk-for-snak</translation>
@@ -4630,12 +4635,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2048"/>
+        <location line="+2049"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2044"/>
+        <location line="-2045"/>
         <source>&amp;Window</source>
         <translation>&amp;Vindue</translation>
     </message>
@@ -4709,7 +4714,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2078"/>
+        <location line="+2079"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished">Ingen forbindelse oprettet</translation>
@@ -4918,13 +4923,13 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Lydkanal er sendt over kontrolkanal.</translation>
     </message>
     <message>
-        <location line="-773"/>
+        <location line="-774"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+764"/>
+        <location line="+765"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Kontrol kanal&lt;/h2&gt;&lt;p&gt;Krypteret med %1 bit %2&lt;br /&gt;%3 ms gennemsnitlig forsinkelse (%4 deviation)&lt;/p&gt;&lt;p&gt;Ekstern vært %5 (port %6)&lt;/p&gt;</translation>
     </message>
@@ -5139,7 +5144,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">&amp;Server</translation>
     </message>
     <message>
-        <location line="-2119"/>
+        <location line="-2120"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanal</translation>
     </message>
@@ -8238,7 +8243,8 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     </message>
     <message>
         <location line="+18"/>
-        <source>Failed to write new version to disc.</source>
+        <source>Failed to write new version to disk.</source>
+        <oldsource>Failed to write new version to disc.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -3036,10 +3036,9 @@ Are you sure you wish to replace your certificate?
         <translation>Сделайте резервную копию Вашего сертификата</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Если Вы потеряете свой сертификат, что случается при неполадках Вашего компьютера или при переустановке системы, то Вы больше не сможете авторизироваться на серверах где зарегистрированы. Что бы этого не случилось, &lt;b&gt;обязательно&lt;/b&gt; создайте резервную копию сертификата. Мы настоятельно рекомендуем хранить резервную копию на сменных носителях, таких как USB-флешка.&lt;/p&gt;&lt;p&gt;Имейте ввиду, файл сертификата не зашифрован и если кто-то кроме Вас получит к нему доступ - он сможет авторизироваться на серверах под Вашим именем! Храните сертификат в надежном месте!&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Если Вы потеряете свой сертификат, что случается при неполадках Вашего компьютера или при переустановке системы, то Вы больше не сможете авторизироваться на серверах где зарегистрированы. Что бы этого не случилось, &lt;b&gt;обязательно&lt;/b&gt; создайте резервную копию сертификата. Мы настоятельно рекомендуем хранить резервную копию на сменных носителях, таких как USB-флешка.&lt;/p&gt;&lt;p&gt;Имейте ввиду, файл сертификата не зашифрован и если кто-то кроме Вас получит к нему доступ - он сможет авторизироваться на серверах под Вашим именем! Храните сертификат в надежном месте!&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3134,6 +3133,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;Mumble может использовать сертификаты для авторизации на серверах. Использование сертификатов исключает пароли, а также необходимость их ввода на удаленных сайтах. Данная система делает регистрацию для пользователя очень простой.&lt;/p&gt;&lt;p&gt;На данный момент, Mumble работает без сертификатов, однако, большинство серверов ожидают наличия у Вас сертификата.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Настоятельно&lt;/b&gt; рекомендуется &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;создать доверенный сертификат&lt;/a&gt;.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
+&lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5228,8 +5233,8 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1933"/>
+        <location filename="MainWindow.cpp" line="+171"/>
+        <location line="+1934"/>
         <source>Root</source>
         <translation>Корень</translation>
     </message>
@@ -5693,9 +5698,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Соединиться с веб-страницей Mumble, чтобы проверить доступность новой версии и уведомить Вас о ссылке для ее закачки.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1840"/>
+        <location filename="MainWindow.cpp" line="-1841"/>
         <location line="+12"/>
-        <location line="+2048"/>
+        <location line="+2049"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -5717,7 +5722,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Игрок</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2135"/>
+        <location filename="MainWindow.cpp" line="-2136"/>
         <source>&amp;Channel</source>
         <translation>&amp;Канал</translation>
     </message>
@@ -5830,7 +5835,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Выкидывание игрока %1</translation>
     </message>
     <message>
-        <location line="+1036"/>
+        <location line="+1037"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Введите причину</translation>
@@ -6574,13 +6579,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Зарегистрироваться как %1</translation>
     </message>
     <message>
-        <location line="-993"/>
+        <location line="-994"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Переключает состояние Замещения в игре.</translation>
     </message>
     <message>
-        <location line="+682"/>
+        <location line="+683"/>
         <location line="+311"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Вы собираетесь зарегистрироваться на этом сервере. Невозможно будет отметить данное действие и изменить Ваше имя для данного сертификата. Вы всегда будете известны как &lt;b&gt;&apos;%1&apos;&lt;/b&gt; на этом сервере.&lt;/p&gt;&lt;p&gt;Вы действительно желаете зарегистрироваться?&lt;/p&gt;</translation>
@@ -6680,12 +6685,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Голосовой канал отправлен через канал управления.</translation>
     </message>
     <message>
-        <location line="-836"/>
+        <location line="-837"/>
         <source>&amp;User</source>
         <translation>&amp;Пользователь</translation>
     </message>
     <message>
-        <location line="+827"/>
+        <location line="+828"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Канал управления&lt;/h2&gt;&lt;p&gt;Шифрование %1 бит %2&lt;br /&gt;%3 мс среднее время задержки (%4 отклонение)&lt;/p&gt;&lt;p&gt;Адрес %5 (порт %6)&lt;/p&gt;</translation>
     </message>
@@ -6755,7 +6760,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Это Ваш первый запуск Mumble.&lt;br /&gt;Вы желаете воспользоваться Мастером, чтобы настроить Вашу звуковую карту?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1224"/>
+        <location filename="MainWindow.cpp" line="-1225"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>В настоящий момент Mumble подключен к серверу.&lt;br /&gt;Вы хотите Закрыть его или Свернуть в трей?</translation>
     </message>
@@ -6857,7 +6862,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+2078"/>
+        <location line="+2079"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Нет соединения с сервером&lt;/center&gt;</translation>
@@ -9066,8 +9071,9 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location line="+18"/>
-        <source>Failed to write new version to disc.</source>
-        <translation>Невозможно записать новую версию на диск.</translation>
+        <source>Failed to write new version to disk.</source>
+        <oldsource>Failed to write new version to disc.</oldsource>
+        <translation type="unfinished">Невозможно записать новую версию на диск.</translation>
     </message>
     <message>
         <location line="+17"/>

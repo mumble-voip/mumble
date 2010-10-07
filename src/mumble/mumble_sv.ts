@@ -2593,10 +2593,9 @@ Are you sure you wish to replace your certificate?
         <translation>Skapa en säkerhetskopia av ditt centrifikat</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Om du någonsin förlorar ditt nuvarande centrifikat, som kommer att hända om din hårdvara går sönder eller du installerar om din dator kommer du ej längre att kunna autentisera till gånon server du varit registrerad på. Det är därför &lt;b&gt;obligatoriskt&lt;/b&gt; att du skapar en säkerhetskopia av dina centrifikat. Vi rekommenderar starkt att du lagrar denna säkerhetskopia på borttagbar lagring, som ett USB minne.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;Om du någonsin förlorar ditt nuvarande centrifikat, som kommer att hända om din hårdvara går sönder eller du installerar om din dator kommer du ej längre att kunna autentisera till gånon server du varit registrerad på. Det är därför &lt;b&gt;obligatoriskt&lt;/b&gt; att du skapar en säkerhetskopia av dina centrifikat. Vi rekommenderar starkt att du lagrar denna säkerhetskopia på borttagbar lagring, som ett USB minne.&lt;/p&gt;
 &lt;p&gt;Kom ihåg att den här filen inte kommer att krypteras så om någon får tillgång till den kommer de kunna identifiera dig, så ta hand om det.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -2696,6 +2695,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;skapar ett pålitligt centrifikat &lt;/a&gt;.
 &lt;/p&gt;
 </translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
+&lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4373,13 +4378,13 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+156"/>
-        <location line="+1933"/>
+        <location filename="MainWindow.cpp" line="+171"/>
+        <location line="+1934"/>
         <source>Root</source>
         <translation>Rot</translation>
     </message>
     <message>
-        <location line="-1884"/>
+        <location line="-1885"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryck-för-att-Tala</translation>
@@ -4458,12 +4463,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2048"/>
+        <location line="+2049"/>
         <source>Mumble -- %1</source>
         <translation>Mumble - %1</translation>
     </message>
     <message>
-        <location line="-2044"/>
+        <location line="-2045"/>
         <source>&amp;Window</source>
         <translation>&amp;Fönster</translation>
     </message>
@@ -4532,7 +4537,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2078"/>
+        <location line="+2079"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Ej ansluten&lt;/center&gt;</translation>
@@ -4720,7 +4725,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Röstkanal skickas över kontrollkanal.</translation>
     </message>
     <message>
-        <location line="-836"/>
+        <location line="-837"/>
         <source>&amp;User</source>
         <translation>&amp;Användare</translation>
     </message>
@@ -4736,7 +4741,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Detta kommer ändra i-spelet läget.</translation>
     </message>
     <message>
-        <location line="+656"/>
+        <location line="+657"/>
         <source>Change your comment</source>
         <translation>Ändra din kommentar</translation>
     </message>
@@ -7725,8 +7730,9 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
     </message>
     <message>
         <location line="+18"/>
-        <source>Failed to write new version to disc.</source>
-        <translation>Kunde inte skriva ny version till disk.</translation>
+        <source>Failed to write new version to disk.</source>
+        <oldsource>Failed to write new version to disc.</oldsource>
+        <translation type="unfinished">Kunde inte skriva ny version till disk.</translation>
     </message>
     <message>
         <location line="+17"/>
