@@ -69,6 +69,10 @@ CONFIG(no-bundled-celt) {
   CONFIG *= bonjour
 }
 
+CONFIG(no-vorbis-recording) {
+  DEFINES *= NO_VORBIS_RECORDING
+}
+
 win32 {
   RC_FILE	= mumble.rc
   HEADERS	*= GlobalShortcut_win.h TaskList.h
