@@ -139,7 +139,22 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	else
 		qiIcon.addFile(QLatin1String("skin:mumble.svg"));
 #else
-	qiIcon.addFile(QLatin1String("skin:mumble.svg"));
+	{
+		QSvgRenderer svg(QLatin1String("skin:mumble.svg"));
+		QPixmap original(512,512);
+		original.fill(Qt::transparent);
+
+		QPainter painter(&original);
+		painter.setRenderHint(QPainter::Antialiasing);
+		painter.setRenderHint(QPainter::TextAntialiasing);
+		painter.setRenderHint(QPainter::SmoothPixmapTransform);
+		painter.setRenderHint(QPainter::HighQualityAntialiasing);
+		svg.render(&painter);
+	
+		for(int sz=8;sz<=256;sz+=8)
+			qiIcon.addPixmap(original.scaled(sz,sz, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	}
+
 	// Set application icon except on MacOSX, where the window-icon
 	// shown in the title-bar usually serves as a draggable version of the
 	// current open document (i.e. you can copy the open document anywhere
