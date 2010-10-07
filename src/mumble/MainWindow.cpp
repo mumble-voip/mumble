@@ -538,7 +538,8 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 	}
 
 #if QT_VERSION >= 0x040400
-	QMenu *menu = qteLog->createStandardContextMenu(mpos);
+	QPoint contentPosition = QPoint(QApplication::isRightToLeft() ? (qteLog->horizontalScrollBar()->maximum() - qteLog->horizontalScrollBar()->value()) : qteLog->horizontalScrollBar()->value(), qteLog->verticalScrollBar()->value());
+	QMenu *menu = qteLog->createStandardContextMenu(mpos + contentPosition);
 #else
 	QMenu *menu = qteLog->createStandardContextMenu();
 #endif
