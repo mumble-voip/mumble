@@ -1,9 +1,21 @@
 #include <QtCore>
 #include <QtNetwork>
 #include <QtGui>
+#include <QtSvg>
 
 int main(int argc, char **argv) {
-	QApplication a(argc, argv);
+	QCoreApplication a(argc, argv);
+
+	QSvgRenderer svg(QLatin1String("../../icons/mumble.svg"));
+	QImage original(512,512,QImage::Format_ARGB32);
+	original.fill(Qt::transparent);
+
+	QPainter painter(&original);
+	painter.setRenderHint(QPainter::Antialiasing);
+	painter.setRenderHint(QPainter::TextAntialiasing);
+	painter.setRenderHint(QPainter::SmoothPixmapTransform);
+	painter.setRenderHint(QPainter::HighQualityAntialiasing);
+	svg.render(&painter);
 
 	QList<int> sizes;
 	sizes << 16;
@@ -17,10 +29,7 @@ int main(int argc, char **argv) {
 	QStringList qslImages;
 
 	foreach(int size, sizes) {
-		QImageReader svg("../../icons/mumble.svg");
-		svg.setScaledSize(QSize(size, size));
-		QImage img = svg.read().convertToFormat(QImage::Format_Indexed8);
-
+		QImage img = original.scaled(size,size,Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		QString png = QDir::temp().absoluteFilePath(QString::fromLatin1("mumble.%1.png").arg(size));
 
 		QImageWriter qiw(png);
