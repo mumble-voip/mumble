@@ -46,7 +46,9 @@ namespace VoiceRecorderFormat {
 // List of all formats currently supported by the recorder.
 	enum Format {
 		WAV = 0,	// WAVE Format
+#ifndef SF_FORMAT_VORBIS		// When switching between a non vorbis capable lib and a vorbis capable one this can mess up the selection stored in the config
 		VORBIS,		// Ogg Vorbis Format
+#endif
 		AU,			// AU Format
 		FLAC,		// FLAC Format
 		kEnd

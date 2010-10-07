@@ -195,7 +195,7 @@ void VoiceRecorder::run() {
 			sfinfo.seekable = 0;
 			qWarning() << "VoiceRecorder: recording started to" << qsFileName << "@" << iSampleRate << "hz in WAV format";
 			break;
-#ifdef SF_FORMAT_VORBIS
+#ifndef SF_FORMAT_VORBIS
 		case VoiceRecorderFormat::VORBIS:
 			sfinfo.frames = 0;
 			sfinfo.samplerate = iSampleRate;
@@ -400,7 +400,7 @@ QString VoiceRecorderFormat::getFormatDescription(VoiceRecorderFormat::Format fm
 	switch (fm) {
 		case VoiceRecorderFormat::WAV:
 			return VoiceRecorder::tr(".wav - Uncompressed");
-#ifdef SF_FORMAT_VORBIS
+#ifndef SF_FORMAT_VORBIS
 		case VoiceRecorderFormat::VORBIS:
 			return VoiceRecorder::tr(".ogg (Vorbis) - Compressed");
 #endif
@@ -417,7 +417,7 @@ QString VoiceRecorderFormat::getFormatDefaultExtension(VoiceRecorderFormat::Form
 	switch (fm) {
 		case VoiceRecorderFormat::WAV:
 			return QLatin1String("wav");
-#ifdef SF_FORMAT_VORBIS
+#ifndef SF_FORMAT_VORBIS
 		case VoiceRecorderFormat::VORBIS:
 			return QLatin1String("ogg");
 #endif
