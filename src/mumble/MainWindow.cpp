@@ -2507,7 +2507,7 @@ QPair<QByteArray, QImage> MainWindow::openImageFile() {
 	if (g.s.qsImagePath.isEmpty() || ! QDir::root().exists(g.s.qsImagePath))
 		g.s.qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
 
-	QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file"), g.s.qsImagePath, tr("Images (*.png *.jpg *.svg)"));
+        QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file"), g.s.qsImagePath, tr("Images (*.png *.jpg *.jpeg *.svg)"));
 
 	if (fname.isNull())
 		return retval;
