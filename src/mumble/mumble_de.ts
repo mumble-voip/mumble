@@ -619,12 +619,12 @@ Enthält die Liste von Mitgliedern, welche vom aktuellen Kanal geerbt wurden. De
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Passwort&lt;/b&gt;&lt;br /&gt;Dieses Feld ermöglicht das Setzen und Entfernen eines Passworts für einen Kanal. Es verwendet im Hintergrund die Zugriffscode-Funktion von Mumble. Verwenden Sie Berechtigungen (ACL) und Gruppen für eine feiner abgestufte und mächtige Zugriffsteuerung.</translation>
     </message>
     <message>
         <location/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Feld zeigt alle aktiven Einträge in diesem Kanal an. Von übergeordneten Kanälen geerbte Einträge werden kursiv angezeigt.&lt;br /&gt;Berechtigungen werden von oben nach unten ausgewertet. Das bedeutet, dass sich die Priorität nach unten hin erhöht.</translation>
     </message>
 </context>
 <context>
@@ -1796,7 +1796,7 @@ Spielt den aktuellen &lt;i&gt;An&lt;/i&gt;-Audio-Hinweis gefolgt vom aktuellen &
     <message>
         <location/>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
-        <translation>&lt;b&gt;Vorschau&lt;/b&gt;&lt;br /&gt;Spielt den aktuellen&lt;i&gt;on&lt;/i&gt; Sound gefolgt vom aktuellen &lt;i&gt;off&lt;/i&gt; sound.</translation>
+        <translation>&lt;b&gt;Vorschau&lt;/b&gt;&lt;br /&gt;Spielt den aktuellen &lt;i&gt;An&lt;/i&gt; Sound gefolgt vom aktuellen &lt;i&gt;Aus&lt;/i&gt; Sound.</translation>
     </message>
 </context>
 <context>
@@ -1976,11 +1976,7 @@ Spielt den aktuellen &lt;i&gt;An&lt;/i&gt;-Audio-Hinweis gefolgt vom aktuellen &
     <message>
         <location/>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt;Dies aktiviert einen der Rückkopplungs-Testmodi.&lt;/b&gt;&lt;br/&gt;
-&lt;i&gt;Keine&lt;/i&gt;: Rückkopplung deaktiviert&lt;br/&gt;
-&lt;i&gt;Lokal&lt;/i&gt;: Emuliere einen lokalen Server.&lt;br/&gt;
-&lt;i&gt;Server&lt;/i&gt;: Rückkopplung vom Server (Anfrage).&lt;br/&gt;
-Bitte beachten Sie, dass, so lange die Rückkopplung aktiv ist, Sie kein anderer Benutzer hören kann. Diese Einstellung wird beim Beenden des Programms nicht gespeichert.</translation>
+        <translation>&lt;b&gt;Dies aktiviert einen der Rückkopplungs-Testmodi.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Keine&lt;/i&gt; - Rückkopplung deaktiviert&lt;br /&gt;&lt;i&gt;Lokal&lt;/i&gt; - Emuliere einen lokalen Server.&lt;br/&gt;&lt;i&gt;Server&lt;/i&gt; - Rückkopplung vom Server (Anfrage).&lt;br/&gt;Bitte beachten Sie, dass, so lange die Rückkopplung aktiv ist, Sie kein anderer Benutzer hören kann. Diese Einstellung wird beim Beenden des Programms nicht gespeichert.</translation>
     </message>
     <message>
         <source>TextLabel</source>
@@ -3710,7 +3706,8 @@ Es wird &lt;b&gt;sehr&lt;/b&gt; empfohlen, dass Sie &lt;a href=&quot;http://mumb
         <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Wenn Sie Ihr aktuelles Zertifikat verlieren, was etwa passiert wenn in ihrem Computer Hardware kaputt geht und Sie Ihr System neu installieren müssen, können Sie sich nicht mehr gegenüber Servern authentifizieren, auf welchen Sie sich registriert haben. Deshalb ist es &lt;b&gt;notwendig&lt;/b&gt;, dass Sie eine Sicherung Ihres Zertifikats erstellen. Diese Sicherung sollte auf jeden Fall auf einem externen Datenträger, z.B. einem USB Stick, gespeichert werden.&lt;/p&gt;
+&lt;p&gt;Beachten Sie, dass die Datei nicht verschlüsselt wird. Jeder der Zugriff auf diese Datei hat kann ihre Identität annehmen. Stellen Sie also sicher, dass nur Sie Zugriff auf diese Datei haben.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -4130,7 +4127,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
         <location line="+1"/>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation type="unfinished">Dieser Knopf setzt die Einstellungen der aktuellen Seite auf die Standardwerte zurück. Andere Seiten werden nicht geändert.&lt;br /&gt;Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen Knopf auf allen Seiten verwenden.</translation>
+        <translation>Dieser Knopf setzt die Einstellungen der aktuellen Seite auf die Standardwerte zurück. Andere Seiten werden nicht geändert.&lt;br /&gt;Um alle Einstellungen auf die Standardwerte zurückzusetzen müssen Sie diesen Knopf auf allen Seiten verwenden.</translation>
     </message>
     <message>
         <source>This button will restore the settings for the current page only to their defaults. Other pages will be not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
@@ -4651,7 +4648,7 @@ Passwort, das an den Server gesendet wird. Dieses Passwort wird benötigt wenn m
         <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation>&lt;b&gt;Bezeichnung&lt;/b&gt;&lt;br/&gt;
+        <translation>&lt;b&gt;Bezeichnung&lt;/b&gt;&lt;br /&gt;
 Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann frei gewählt werden.</translation>
     </message>
 </context>
@@ -5575,7 +5572,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+117"/>
         <source>[[ Text object too large to display ]]</source>
-        <translation>[[ Text zu gross um dargestellt zu werden ]]</translation>
+        <translation>[[ Text zu groß um dargestellt zu werden ]]</translation>
     </message>
     <message>
         <location line="+42"/>
@@ -5666,10 +5663,7 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location line="+1"/>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
-        <translation>Pfad zur Sounddatei zur Wiedergabe von Sound-Hinweisen im Falle von %1 Ereignissen.&lt;br/&gt;
-Einfaches Klicken zum Abspielen&lt;br/&gt;
-Doppelklicken zum Ändern&lt;br/&gt;
-Stellen Sie sicher, dass die Sound-Hinweise für diesen Ereignistyp aktiviert sind, ansonsten hat diese Einstellung keinen Effekt.</translation>
+        <translation>Pfad zur Sounddatei zur Wiedergabe von Sound-Hinweisen im Falle von %1 Ereignissen.&lt;br /&gt;Einfaches Klicken zum Abspielen&lt;br /&gt;Doppelklicken zum Ändern&lt;br /&gt;Stellen Sie sicher, dass die Sound-Hinweise für diesen Ereignistyp aktiviert sind, ansonsten hat diese Einstellung keinen Effekt.</translation>
     </message>
     <message>
         <source>Choose sound file</source>
@@ -6111,8 +6105,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</source>
-        <translation>&lt;b&gt;Wenn gesetzt werden Benutzer über den Unterkanälen angezeigt.&lt;/b&gt;&lt;br/&gt;
-Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</translation>
+        <translation>&lt;b&gt;Wenn gesetzt, werden Benutzer über den Unterkanälen angezeigt.&lt;/b&gt;&lt;br /&gt;Ein Neustart von Mumble ist notwendig damit die Änderung wirksam wird.</translation>
     </message>
     <message>
         <location/>
