@@ -364,6 +364,8 @@ Settings::Settings() {
 	dPacketLoss = 0;
 	dMaxPacketDelay = 0.0f;
 
+	iMaxLogBlocks = 0;
+
 	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i)
 		qmMessages.insert(i, Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS);
 
@@ -625,6 +627,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
 	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
 	SAVELOAD(bHighContrast, "ui/HighContrast");
+	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
 
 	// Recording
 	SAVELOAD(qsRecordingPath, "recording/path");
@@ -876,6 +879,7 @@ void Settings::save() {
 	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
 	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
 	SAVELOAD(bHighContrast, "ui/HighContrast");
+	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
 
 	// Recording
 	SAVELOAD(qsRecordingPath, "recording/path");

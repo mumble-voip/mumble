@@ -110,6 +110,7 @@ void LogConfig::load(const Settings &r) {
 		i->setCheckState(ColStaticSound, (ml & Settings::LogSoundfile) ? Qt::Checked : Qt::Unchecked);
 		i->setText(ColStaticSoundPath, r.qmMessageSounds.value(mt));
 	}
+	qsbMaxBlocks->setValue(r.iMaxLogBlocks);
 
 	loadSlider(qsVolume, r.iTTSVolume);
 	qsbThreshold->setValue(r.iTTSThreshold);
@@ -133,6 +134,7 @@ void LogConfig::save() const {
 		s.qmMessages[mt] = v;
 		s.qmMessageSounds[mt] = i->text(ColStaticSoundPath);
 	}
+	s.iMaxLogBlocks = qsbMaxBlocks->value();
 
 	s.iTTSVolume=qsVolume->value();
 	s.iTTSThreshold=qsbThreshold->value();
@@ -141,6 +143,7 @@ void LogConfig::save() const {
 
 void LogConfig::accept() const {
 	g.l->tts->setVolume(s.iTTSVolume);
+	g.mw->qteLog->document()->setMaximumBlockCount(s.iMaxLogBlocks);
 }
 
 bool LogConfig::expert(bool) {

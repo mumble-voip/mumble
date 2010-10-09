@@ -295,6 +295,7 @@ void MainWindow::setupGui()  {
 	LogDocument *ld = new LogDocument(qteLog);
 	qteLog->setDocument(ld);
 
+	qteLog->document()->setMaximumBlockCount(g.s.iMaxLogBlocks);
 	qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
 
 	pmModel = new UserModel(qtvUsers);
