@@ -46,6 +46,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (! ok)
 		return false;
 	*/
+	
+	// Find out whether this is the steam version
+	char sMagic[6];
+	if (!peekProc((BYTE *) 0x015460C4, sMagic, 6)) {
+		generic_unlock();
+		return false;
+	}
+
+	is_steam = (strncmp("Score:", sMagic, 6) == 0);
 
 	if (is_steam) {
 		ok = peekProc((BYTE *) 0x01546980, avatar_pos, 12) &&
@@ -95,15 +104,6 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;
 	std::wstring identity;
-
-	// Find out whether this is the steam version
-	char sMagic[6];
-	if (!peekProc((BYTE *) 0x015460C4, sMagic, 6)) {
-		generic_unlock();
-		return false;
-	}
-
-	is_steam = (strncmp("Score:", sMagic, 6) == 0);
 
 	if (!fetch(apos, afront, atop, cpos, cfront, ctop, context, identity)) {
 		generic_unlock();
