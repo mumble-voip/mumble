@@ -47,7 +47,7 @@ class AudioBar : public QWidget {
 		QColor qcBelow, qcInside, qcAbove;
 
 		QList<QColor> qlReplacableColors;
-		QList<QBrush> qlReplacementBrushes;
+		QList<Qt::BrushStyle> qlReplacementBrushes;
 };
 
 class AudioEchoWidget : public QGLWidget {

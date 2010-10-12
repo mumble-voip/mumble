@@ -83,12 +83,12 @@ void AudioBar::paintEvent(QPaintEvent *) {
 
 	if (g.s.bHighContrast) {
 		// Draw b/w representation
-		p.setPen(Qt::black);
+		QColor fg = QPalette().foreground().color();
 
-		p.fillRect(0, 0, below, h, qlReplacementBrushes.value(qlReplacableColors.indexOf(qcBelow), Qt::CrossPattern));
-		p.fillRect(below, 0, above - below, h, qlReplacementBrushes.value(qlReplacableColors.indexOf(qcInside), Qt::NoBrush));
-		p.fillRect(above, 0, max - above, h, qlReplacementBrushes.value(qlReplacableColors.indexOf(qcAbove), Qt::CrossPattern));
-		p.fillRect(0, 0, val, h, Qt::black);
+		p.fillRect(0, 0, below, h, QBrush(fg, qlReplacementBrushes.value(qlReplacableColors.indexOf(qcBelow), Qt::CrossPattern)));
+		p.fillRect(below, 0, above - below, h, QBrush(fg, qlReplacementBrushes.value(qlReplacableColors.indexOf(qcInside), Qt::NoBrush)));
+		p.fillRect(above, 0, max - above, h, QBrush(fg, qlReplacementBrushes.value(qlReplacableColors.indexOf(qcAbove), Qt::CrossPattern)));
+		p.fillRect(0, 0, val, h, QBrush(fg, Qt::SolidPattern));
 
 		p.drawRect(0, 0, max - 1, h - 1);
 		p.drawLine(below, 0, below, h);
