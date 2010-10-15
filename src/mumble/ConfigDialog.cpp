@@ -70,7 +70,7 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 
 	QPushButton *restoreButton = pageButtonBox->button(QDialogButtonBox::RestoreDefaults);
 	restoreButton->setToolTip(tr("Restore defaults for current page"));
-	restoreButton->setWhatsThis(tr("This button will restore the settings for the current page only to their defaults. Other pages will not be changed.<br />"
+	restoreButton->setWhatsThis(tr("This button will restore the defaults for the settings on the current page. Other pages will not be changed.<br />"
 	                               "To restore all settings to their defaults, you will have to use this button on every page."
 	                              ));
 
