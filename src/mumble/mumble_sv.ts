@@ -2976,8 +2976,9 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
     </message>
     <message>
         <location line="+1"/>
-        <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <translation>Den här knappen kommer endast att återställa inställningarna för den nuvarande sidan till sitt ursprung. Andra sidor kommer inte att ändras.&lt;br /&gt;För att återställa alla inställningar till sitt ursprung behöver du använda den här knappen på alla sidor.</translation>
+        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
+        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
+        <translation type="unfinished">Den här knappen kommer endast att återställa inställningarna för den nuvarande sidan till sitt ursprung. Andra sidor kommer inte att ändras.&lt;br /&gt;För att återställa alla inställningar till sitt ursprung behöver du använda den här knappen på alla sidor.</translation>
     </message>
     <message>
         <location filename="ConfigDialog.ui"/>
@@ -3040,8 +3041,9 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
     </message>
     <message>
         <location line="+1"/>
-        <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <translation>Den här knappen kommer endast att återställa inställningarna för den nuvarande sidan till sitt ursprung. Andra sidor kommer inte att ändras.&lt;br /&gt;För att återställa alla inställningar till sitt ursprung behöver du använda den här knappen på alla sidor.</translation>
+        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
+        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
+        <translation type="unfinished">Den här knappen kommer endast att återställa inställningarna för den nuvarande sidan till sitt ursprung. Andra sidor kommer inte att ändras.&lt;br /&gt;För att återställa alla inställningar till sitt ursprung behöver du använda den här knappen på alla sidor.</translation>
     </message>
 </context>
 <context>

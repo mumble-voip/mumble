@@ -3087,8 +3087,9 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
     </message>
     <message>
         <location line="+1"/>
-        <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <translation>Denne knap vil genskabe indstillingerne for den nuværende side til deres oprindelige standardindstilling. Der vil ikke blive ændret på andre sider.&lt;br /&gt;For at genskabe &lt;i&gt;alle&lt;/i&gt; standardindstillinger skal du bruge denne knap på hver enkelt side.</translation>
+        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
+        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
+        <translation type="unfinished">Denne knap vil genskabe indstillingerne for den nuværende side til deres oprindelige standardindstilling. Der vil ikke blive ændret på andre sider.&lt;br /&gt;For at genskabe &lt;i&gt;alle&lt;/i&gt; standardindstillinger skal du bruge denne knap på hver enkelt side.</translation>
     </message>
     <message>
         <location filename="ConfigDialog.ui"/>
@@ -3151,7 +3152,8 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
     </message>
     <message>
         <location line="+1"/>
-        <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
+        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
+        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
         <translation type="unfinished">Denne knap vil genskabe indstillingerne for den nuværende side til deres oprindelige standardindstilling. Der vil ikke blive ændret på andre sider.&lt;br /&gt;For at genskabe &lt;i&gt;alle&lt;/i&gt; standardindstillinger skal du bruge denne knap på hver enkelt side.</translation>
     </message>
 </context>

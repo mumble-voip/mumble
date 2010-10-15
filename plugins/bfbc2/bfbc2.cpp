@@ -46,7 +46,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (! ok)
 		return false;
 	*/
-	
+
 	// Find out whether this is the steam version
 	char sMagic[6];
 	if (!peekProc((BYTE *) 0x015460C4, sMagic, 6)) {

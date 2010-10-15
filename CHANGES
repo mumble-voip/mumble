@@ -1,3 +1,21 @@
+2010-10-15
+  Arie <allochtoon@zonnet.nl>
+    f4b0278  Better Engrish for button
+
+2010-10-14
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    9fee66e  Speed up SQLite for client even more
+    8eef3c0  Speed up SQLite for client
+
+2010-10-12
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    8d97167  Fix "Optimize for high contrast" makes volume bars disappear
+	     (#3085154)
+
+2010-10-09
+  Tuck Therebelos <snares@users.sourceforge.net>
+    bdd383c  Fixed unreliable Steam linking for BFBC2
+
 2010-10-07
   DK <davidk@mail.org>
     52f7090  String fixes
