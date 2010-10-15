@@ -463,72 +463,76 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Namn&lt;/b&gt;&lt;br /&gt;Ange kanalens namn i detta fält. Namnet måste följa reglerna på den servern du är ansluten till.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Temporär&lt;/b&gt;&lt;br /&gt;Vid markering kommer den nuvarande kanalen markeras som temporär. Detta betyder att när den sista användaren som lämnar kanalen kommer den automatiskt tas bort från servern.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Grupp&lt;/b&gt;&lt;br /&gt;
+Alla dessa är de grupper som som för närvarande definieras för kanalen. För att skapa en ny grupp behöver du bara skriva in namnet och trycka på enter.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ta bort&lt;/b&gt;&lt;br /&gt;Detta tar bort den valda gruppen. Om gruppen var ärvd kommer den inte tas bort från listan, men all lokal information om gruppen kommer att rensas.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ärv&lt;/b&gt;&lt;br /&gt;Detta ärver alla medlemmar i gruppen från föräldern om gruppen är markerad som &lt;i&gt;ärvd&lt;/i&gt; i föräldrakanalen.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ärftlig&lt;/b&gt;&lt;br /&gt;Detta gör gruppen ärftlig till underkanaler. Om gruppen ej är ärftlig kan fortfarande undergrupper skapa en ny grupp med samma namn.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ärftlig&lt;/b&gt;&lt;br /&gt;Detta indikerar om gruppen ärvdes av en föräldrakanal. Du kan inte ändra den här flaggan, den är endast till för information.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
+This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Exkluderade medlemmar&lt;/b&gt;&lt;br /&gt;
+Innehåller en lista med medlemmar, vars gruppmedlemsskap inte kommer att ärvas från föräldrakanalen.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ärvda medlemmar&lt;/b&gt;&lt;br /&gt;
+Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;i&gt;Ärv&lt;/i&gt; för att förhindra arv från kanaler med högre nivå.</translation>
     </message>
     <message>
         <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation type="unfinished"></translation>
+        <translation>Detta kontrollerar vilken grupp användare denna post verkställs till.&lt;br /&gt;Kom ihåg att gruppen är utvärderad i samband av kanalen posten används i. T.ex. standard-ACL på Rotkanalen ger &lt;i&gt;Skrivbehörighet&lt;/i&gt; till &lt;i&gt;administratörsgruppen&lt;/i&gt;. Om denna post är ärvd av en kanal kommer den att ge en användare skrivbehörigheter, om den tillhör &lt;i&gt;administratörsgruppen&lt;/i&gt; i kanalen, även om den inte tillhör &lt;i&gt;admininistratörsgruppen&lt;/i&gt; i kanalen för ACLens ursprung.&lt;br /&gt;Om ett gruppnamn börjar med ett &apos;!&apos;, är dess medlemsskap upphävt. Om det börjar med ett &apos;~&apos;, är det utvärderat i kanalen där ACLen definierades, istället för kanlendär ACLen är aktiv i.&lt;br /&gt;Om ett gruppnamn börjar med ett &apos;#&apos;, tolkas det som en tillgångstoken. Användare måste ha angett det som följer &apos;#&apos; i deras lista med tillgångstokens för att matchas. Detta kan användas som enkel lösenordstillgång till kanalerför ej autentiserade användare.&lt;br /&gt;Om ett gruppnamn börjar med ett &apos;$&apos;, kommer det endast att matcha användare vars certrifikat matchar det som följer &apos;$&apos;.&lt;br /&gt;Ett par speciella fördefinierade grupper är:&lt;br /&gt;&lt;b&gt;alla&lt;/b&gt; - Alla kommer att matchas.&lt;br /&gt;&lt;b&gt;ver&lt;/b&gt; - Alla autentiserade användare kommer att matchas.&lt;br /&gt;&lt;b&gt;under,a,b,c&lt;/b&gt; - Användare för närvarande i en underkanal minst &lt;i&gt;a&lt;/i&gt; gemensamma föräldrar och mellan &lt;i&gt;b&lt;/i&gt; och &lt;i&gt;c&lt;/i&gt; kanaler under kedjan. Se hemsidan för mer omfattande dokumentation för detta.&lt;br /&gt;&lt;b&gt;i&lt;/b&gt; - Användare som för närvarande är i kanalen kommer (förmån för &apos;&lt;i&gt;under,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;ut&lt;/b&gt; - Användare utanför kanalen kommer matcha (förmån för &apos;&lt;i&gt;!under,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Kom ihåg att en post verkställs till antingen en användare eller en grupp, inte båda.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Lösenord&lt;/b&gt;&lt;br /&gt;Detta fält tillåter dig att lätt ändra lösenordet för en kanal. I bakgrunden används tillgångs token-funktionen. Använd ACLer och grupper om du behöver bättre och mer kraftfull tillgångskontroll.</translation>
     </message>
     <message>
         <location/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Detta visar alla poster aktiva i den här kanalen. Poster ärvda från föräldrakanaler kommer att visas kursivt.&lt;br /&gt;ACLer utvärderas från topp till botten, vilket betyder att prioriteten ökar om du flyttar nedåt i listan.</translation>
     </message>
 </context>
 <context>
@@ -1036,7 +1040,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Disabled</source>
-        <translation>Avaktiverad</translation>
+        <translation>Avaktiverat</translation>
     </message>
     <message>
         <location/>
@@ -1146,7 +1150,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Förhandsgranska&lt;/b&gt;&lt;br/&gt;Spelar upp det nuvarande &lt;i&gt;på-ljudet&lt;/i&gt; följt av det nuvarande &lt;i&gt;av-ljudet&lt;/i&gt;.</translation>
     </message>
 </context>
 <context>
@@ -1751,7 +1755,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Detta är ljudbitraten av den senast komprimerade rutan (20 ms) och som kommer att hoppa upp och ner så länge VBR justerar kvaliteten. Den högsta bitraten kan justeras i inställningsdialogen.</translation>
     </message>
 </context>
 <context>
@@ -1774,7 +1778,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Finished</source>
-        <translation>Slutförd</translation>
+        <translation>Slutfört</translation>
     </message>
     <message>
         <location/>
@@ -1917,7 +1921,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-För att hålla latensen så låg som möjligt, är det viktigt att buffra så lite ljud som möjligt på ljudkortet. Många ljudkort rapporterar att de kräver en mindre buffert än vad de kan jobba med. Den enda vägen för att ställa in detta värdet är att försöka eller misslyckasl.
+För att hålla latensen så låg som möjligt, är det viktigt att buffra så lite ljud som möjligt på ljudkortet. Många ljudkort rapporterar att de kräver en mindre buffert än vad de kan jobba med. Den enda vägen för att ställa in detta värdet är att försöka eller misslyckas.
 &lt;/p&gt;
 &lt;p&gt;
 Du kommer att höra ett rösttest. Ställ in inställningen nedan till det lägsta värdet som &lt;b&gt;inte&lt;/b&gt; ger dig några stärningar eller jitter i ljudet. Kom ihåg att lokalt ljud är avaktiverat under detta test.
@@ -1947,7 +1951,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 Öppna din kontrollpanel för ljud och gå till inspelningsinställningar. Se till att mikrofonen är vald som aktiv ingång, med högsta inspelningsvolym. Om det finns ett alternativ för att aktivera &quot;Mikrofonförstärkning&quot;, se till att det är markerat.
 &lt;/p&gt;
 &lt;p&gt;
-Prata högljutt , som om att du är irriterad eller nyfiken. Sänk volymen i kontrollpanelen för ljud tills baren under stannar så högt som möjligt i den gröna och blåa, men &lt;b&gt;inte&lt;/b&gt; i det röda området medan du pratar.
+Prata högljutt, som om att du är irriterad eller nyfiken. Sänk volymen i kontrollpanelen för ljud tills baren under stannar så högt som möjligt i den gröna och blåa, men &lt;b&gt;inte&lt;/b&gt; i det röda området medan du pratar.
 &lt;/p&gt;
 </translation>
     </message>
@@ -2198,7 +2202,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </oldsource>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished">&lt;p&gt;
+        <translation>&lt;p&gt;
 Öppna din kontrollpanel och gå till inspelningsinställningarna. Var säker på att mikrofonen är vald som aktiv ingång med högsta inspelningsvolym. Om det finns ett alternativ för att aktivera &quot;Mikrofonförstärkning&quot;, se till att det är markerat.
 &lt;/p&gt;
 &lt;p&gt;
@@ -2221,7 +2225,7 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nu behöver du justera följande inställning. De första yttranden du säger borde hamna i det tomma området (slutgiltigt tal). Vid tal borde du stanna inom det randiga (kan vara tal) och när du inte pratar ska allt vara i det genomkorsade (definitivt inte tal).</translation>
     </message>
 </context>
 <context>
@@ -2595,7 +2599,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Om du någonsin förlorar ditt nuvarande centrifikat, som kommer att hända om din hårdvara går sönder eller du installerar om din dator kommer du ej längre att kunna autentisera till gånon server du varit registrerad på. Det är därför &lt;b&gt;obligatoriskt&lt;/b&gt; att du skapar en säkerhetskopia av dina centrifikat. Vi rekommenderar starkt att du lagrar denna säkerhetskopia på borttagbar lagring, som ett USB minne.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;Om du någonsin förlorar ditt nuvarande centrifikat, som kommer att hända om din hårdvara går sönder eller du installerar om din dator kommer du ej längre att kunna autentisera till gånon server du varit registrerad på. Det är därför &lt;b&gt;obligatoriskt&lt;/b&gt; att du skapar en säkerhetskopia av dina centrifikat. Vi rekommenderar starkt att du lagrar denna säkerhetskopia på borttagningsbar lagring, som ett USB minne.&lt;/p&gt;
 &lt;p&gt;Kom ihåg att den här filen inte kommer att krypteras så om någon får tillgång till den kommer de kunna identifiera dig, så ta hand om det.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -2700,7 +2704,8 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
         <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Om du någonsin förlorar ditt nuvarande centrifikat, som kommer att hända om din hårdvara går sönder eller du installerar om din dator kommer du ej längre att kunna autentisera till gånon server du varit registrerad på. Det är därför &lt;b&gt;obligatoriskt&lt;/b&gt; att du skapar en säkerhetskopia av dina centrifikat. Vi rekommenderar starkt att du lagrar denna säkerhetskopia på borttagningsbar lagring, som ett USB minne.&lt;/p&gt;
+&lt;p&gt;Kom ihåg att den här filen inte kommer att krypteras så om någon får tillgång till den kommer de kunna identifiera dig, så ta hand om det.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3226,7 +3231,7 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Open &amp;Webpage</source>
-        <translation>Öppna &amp;Webbsida</translation>
+        <translation>Öppna &amp;hemsida</translation>
     </message>
     <message>
         <location/>
@@ -3324,34 +3329,36 @@ Serverns etikett. Detta är det servern kommer att kallas i din serverlista, som
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished">Lösenord</translation>
+        <translation>Lösenord</translation>
     </message>
     <message>
         <location/>
         <source>Password to send to the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Lösenord att skicka till servern</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Lösenord&lt;/b&gt;&lt;br/&gt;
+Lösenordet som kommer att skickas till servern vid anslutning. Lösenordet behövs när du ansluter som &lt;i&gt;SuperUser&lt;/i&gt; eller till en server med lösenordsautentisering. Om inget är angivet, kommer du att förfrågas vid anslutning.</translation>
     </message>
     <message>
         <location/>
         <source>Show password</source>
-        <translation type="unfinished"></translation>
+        <translation>Visa lösenord</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
         <source>Add Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Lägg till server</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Etikett&lt;/b&gt;&lt;br/&gt;
+Serverns etikett. Detta är det servern kommer att kallas i din serverlista, som du väljer själv.</translation>
     </message>
 </context>
 <context>
@@ -3491,7 +3498,7 @@ av dessa möjliga platser.</translation>
         <location line="+7"/>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
         <oldsource>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
-        <translation type="unfinished">Databasen &apos;%1&apos; är skrivskyddad. Mumble kan inte lagra serverinställningar (t.ex. SSL centrifikat) tills du fixat detta problem.</translation>
+        <translation>Databasen &apos;%1&apos; är skrivskyddad. Mumble kan inte lagra serverinställningar (t.ex. SSL centrifikat) tills du fixat detta problem.</translation>
     </message>
 </context>
 <context>
@@ -3685,12 +3692,12 @@ av dessa möjliga platser.</translation>
     <message>
         <location/>
         <source>The whisper will also be transmitted to linked channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Viskningen kommer också att överföras till länkade kanaler.</translation>
     </message>
     <message>
         <location/>
         <source>The whisper will also be sent to the subchannels of the channel target.</source>
-        <translation type="unfinished"></translation>
+        <translation>Viskningen kommer också att skickas till underkanalerna för den valda kanalen.</translation>
     </message>
 </context>
 <context>
@@ -3856,7 +3863,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+1"/>
         <source>User recording state changed</source>
-        <translation type="unfinished"></translation>
+        <translation>Användares inspelningsstatus ändrades</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4148,7 +4155,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>Users above Channels</source>
-        <translation>Användare ovan kanaler</translation>
+        <translation>Visa användare ovan kanaler</translation>
     </message>
     <message>
         <location/>
@@ -4208,7 +4215,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>Custom</source>
-        <translation>Anpassad</translation>
+        <translation>Anpassat</translation>
     </message>
     <message>
         <location/>
@@ -4259,7 +4266,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>When to automatically expand channels</source>
-        <translation>När att automatiskt expandera kanaler</translation>
+        <translation>Expandera automatiskt kanaler</translation>
     </message>
     <message>
         <location/>
@@ -4274,7 +4281,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>Ask on quit while connected</source>
-        <translation>Fråga vid avslut om ansluten</translation>
+        <translation>Fråga vid avslut om stängning</translation>
     </message>
     <message>
         <location/>
@@ -5454,7 +5461,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>Add &amp;Friend</source>
-        <translation>Lägg till &amp;Vän</translation>
+        <translation>Lägg till &amp;vän</translation>
     </message>
     <message>
         <location/>
@@ -6013,7 +6020,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>Prioritetshögtalare</translation>
     </message>
 </context>
 <context>
@@ -6379,18 +6386,18 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
         <location line="+1"/>
         <source>To resize the users, mouse wheel over a user.</source>
         <oldsource>To resize the users, mousewheel over a user.</oldsource>
-        <translation type="unfinished">Skrolla över en användare för att ändra storleken för den.</translation>
+        <translation>Skrolla över en användare för att ändra storleken för den.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>For more options, right click a user.</source>
         <oldsource>For more options, rightclick a user.</oldsource>
-        <translation type="unfinished">Högerklicka på en användare för att få fler alternativ.</translation>
+        <translation>Högerklicka på en användare för att få fler alternativ.</translation>
     </message>
     <message>
         <location line="+30"/>
         <source>FPS: %1</source>
-        <translation type="unfinished">FPS: %1</translation>
+        <translation>FPS: %1</translation>
     </message>
     <message>
         <location line="+194"/>
@@ -6421,18 +6428,18 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
     <message>
         <location line="+86"/>
         <source>Load Overlay Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Ladda förinställningar till överlag</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+28"/>
         <source>Mumble overlay presets (*.mumblelay)</source>
-        <translation type="unfinished"></translation>
+        <translation>Förinställningar till överlag för Mumble (*.mumblelay)</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Save Overlay Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Spara förinställningar till överlag</translation>
     </message>
     <message>
         <source>Form</source>
@@ -6548,57 +6555,57 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     <message>
         <location/>
         <source>Load an overlay preset from file</source>
-        <translation type="unfinished"></translation>
+        <translation>Ladda förinställningar för överlag från en fil</translation>
     </message>
     <message utf8="true">
         <location/>
         <source>Load…</source>
-        <translation type="unfinished"></translation>
+        <translation>Ladda...</translation>
     </message>
     <message>
         <location/>
         <source>Save your overlay settings to file</source>
-        <translation type="unfinished"></translation>
+        <translation>Spara dina inställningar för överlag till en fil</translation>
     </message>
     <message utf8="true">
         <location/>
         <source>Save…</source>
-        <translation type="unfinished"></translation>
+        <translation>Spara...</translation>
     </message>
     <message>
         <location/>
         <source>FPS Display</source>
-        <translation type="unfinished"></translation>
+        <translation>FPS</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay font.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ställ in typsnittet för överlag.</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay text color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ställ in textfärgen för överlag.</translation>
     </message>
     <message>
         <location/>
         <source>Color</source>
-        <translation type="unfinished">Färg</translation>
+        <translation>Färg</translation>
     </message>
     <message>
         <location/>
         <source>Add...</source>
-        <translation type="unfinished"></translation>
+        <translation>Lägg till...</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished">Ta bort</translation>
+        <translation>Ta bort</translation>
     </message>
     <message>
         <location/>
         <source>Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Typsnitt</translation>
     </message>
 </context>
 <context>
@@ -7005,7 +7012,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     <message>
         <location filename="RichTextEditor.cpp" line="+241"/>
         <source>Failed to load image</source>
-        <translation>Misslyckades med att ladda bild</translation>
+        <translation>Kunde inte ladda ladda bild</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -7280,7 +7287,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
         <location line="+3"/>
         <source>Empty</source>
         <oldsource>&lt;Empty&gt;</oldsource>
-        <translation type="unfinished">&lt;Tom&gt;</translation>
+        <translation>Tom</translation>
     </message>
 </context>
 <context>
@@ -7311,7 +7318,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     <message>
         <location filename="TextMessage.ui"/>
         <source>If checked the message is recursively sent to all subchannels</source>
-        <translation>Om markerad skickas meddelandet rekursivt till alla underkanaler</translation>
+        <translation>Vid markering skickas meddelandet rekursivt till alla underkanaler</translation>
     </message>
     <message>
         <location/>
@@ -7734,7 +7741,7 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
         <location line="+18"/>
         <source>Failed to write new version to disk.</source>
         <oldsource>Failed to write new version to disc.</oldsource>
-        <translation type="unfinished">Kunde inte skriva ny version till disk.</translation>
+        <translation>Kunde inte skriva ny version till disk.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -7860,17 +7867,17 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
     <message>
         <location filename="VoiceRecorder.cpp" line="+181"/>
         <source>Invalid sample rate given to recorder</source>
-        <translation type="unfinished"></translation>
+        <translation>Ogiltig hastighet given till inspelare</translation>
     </message>
     <message>
         <location line="+98"/>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Inspelare kunde inte skapa mappen &quot;%1&quot;</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%s&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Inspelare kunde inte öppna filen &quot;%s&quot;</translation>
     </message>
     <message>
         <location line="+109"/>
@@ -7993,27 +8000,27 @@ Giltiga variabler är:
     <message>
         <location line="-31"/>
         <source>Valid variables are:</source>
-        <translation type="unfinished"></translation>
+        <translation>Giltiga variabler är:</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the user&apos;s name</source>
-        <translation type="unfinished"></translation>
+        <translation>Lägg till användarens namn</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the current date</source>
-        <translation type="unfinished"></translation>
+        <translation>Lägg till dagens datum</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the current time</source>
-        <translation type="unfinished"></translation>
+        <translation>Lägg till den nuvarande tiden</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Lägg till värdnamnet</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -8045,7 +8052,7 @@ Kontakta din serveradministratör för mer information.</translation>
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
         <source>Downmix</source>
-        <translation type="unfinished"></translation>
+        <translation>Nedmixning</translation>
     </message>
 </context>
 <context>
