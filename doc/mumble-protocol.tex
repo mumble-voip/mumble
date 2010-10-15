@@ -228,7 +228,9 @@ If the client wishes to maintain the connection to the server it is required to 
 \subsection{Enabling the UDP channel}
 \label{sect:udpping}
 
-By default the voice data is transmitted by tunneling the UDP packets through the TCP connection as it is not certain if the client can be reached with UDP. The tunneling packets are described below in section \ref{sect:tcptunnel}. The server enables the UDP connection when it receives the first UDP transmission (Or must it be UDP Ping?) from the client and continues it while it keeps receiving these packets. For this reason the client should start implementing the UDP voice data transmission by implementing an UDP ping to the server. The UDP ping packet is described below in figure \ref{fig:udpping}.
+Before the UDP channel can reliably be used both sides should be certain that the connection works. Before the server may use the UDP connection to the client the client must first open a UDP socket and communicate its address to the server by sending a packet over UDP. Once the server has received an UDP transmission the server should start using the UDP channel for the voice packets. Respectively the client should not use the UDP channel for voice data until it is certain that the packets go through to the server.
+
+In practice these requirements are filled with UDP ping. When the server receives a UDP ping packet (See figure \ref{fig:udpping}) from the client it echoes the packet back. When the client receives this packet it can ascertain that the UDP channel works for two-way communication.
 
 \begin{figure}[htp]\begin{center}\begin{tabular}{|rcl|p{0.3\textwidth}}
 
@@ -242,9 +244,11 @@ varint &:& timestamp & Timestamp for the client. \\
 \caption{UDP Ping packet}\label{fig:udpping}
 \end{center}\end{figure}
 
+If the client stops receiving replies to the UDP packets at some point or never receives the first one it should immediately start tunneling the voice communication through TCP as described in section \ref{sect:tcptunnel}. When the server receives a tunneled packet over the TCP connection it must also stop using the UDP for communication. The client may continue sending UDP ping packets over the UDP channel and the server must echo these if it receives them. If the client later receives these echoes it may switch back to the UDP channel for voice communication. When the server receives a UDP voice communication packet from the client it should stop tunneling the packets as well.
+
 \subsection{Data}
 
-The voice packets consist of header portion, followed by repeated data segments and an optional position part. The full packet structure is shown in figure \ref{fig:udpvoice}. The protocol transfers 64 bit integers using variable length encoding. This encoding is specified in section \ref{sect:varint}.
+The voice data is transmitted in variable length packets that consist of header portion, followed by repeated data segments and an optional position part. The full packet structure is shown in figure \ref{fig:udpvoice}. The protocol transfers 64-bit integers using variable length encoding. This encoding is specified in section \ref{sect:varint}.
 
 \begin{figure}[htp]\begin{center}\begin{tabular}{l|rcl|p{0.5\textwidth}}
 
@@ -275,7 +279,7 @@ Optional		& float &:& Pos 2 & Uses PacketDataStream encoding \\
 \caption{UDP Voice packet}\label{fig:udpvoice}
 \end{center}\end{figure}
 
-The first byte of the header contains the packet type and additional target specifier. The current types are listed in table \ref{tbl:udptypes} and the targets are listed in table \ref{tbl:udptargets}.
+The first byte of the header contains the packet type and additional target specifier. The type is stored in the first three bits and specifies the type and encoding of the packet. Current types are listed in table \ref{bl:udptypes}. The remaining 5 bits specify additional packet-wide options. For voice packets the values specify the voice target as listed in table \ref{tbl:udptargets}.
 
 \begin{table}[htp]\begin{center}
 	\caption{UDP Types}\label{tbl:udptypes}
@@ -286,7 +290,8 @@ The first byte of the header contains the packet type and additional target spec
 		0	& CELT Alpha encoded voice data \\
 		1	& Ping packet (See section \ref{sect:udpping}) \\
 		2	& Speex encoded voice data \\
-		3	& CELT Beta encoded voice data
+		3	& CELT Beta encoded voice data \\
+		4-8 & Unused
 	\end{tabular}
 \end{center}\end{table}
 
@@ -304,7 +309,7 @@ The first byte of the header contains the packet type and additional target spec
 	\end{tabular}
 \end{center}\end{table}
 
-The audio frames consist of one byte long header and up to 127 bytes long data portion. The first bit in the header is the \texttt{Terminator bit} that informs the receiver whether there are more audio frames after this one. The last audio frame in the UDP packet has the terminator bit turned off. All the preceeding frames have the terminator bit on. Rest of the seven bits in the header specify the length of the data portion. The data portion is encoded using one of the supported codecs. The exact codec is specified in the type portion of the whole packet (See table \ref{tbl:udptypes}). \emph{The data in each frame is encoded separately.}
+The audio frames consist of one byte long header and up to 127 bytes long data portion. The first bit in the header is the \texttt{Terminator bit} which informs the receiver whether there are more audio frames after this one. This bit is turned on (value \texttt{1}) for all but the last frame in the current UDP packet. Rest of the seven bits in the header specify the length of the data portion. The data portion is encoded using one of the supported codecs. The exact codec is specified in the type portion of the whole packet (See table \ref{tbl:udptypes}). \emph{The data in each frame is encoded separately.}
 
 \subsection{TCP tunnel}
 \label{sect:tcptunnel}
@@ -326,7 +331,7 @@ Type	& Length	& UDP Packet \\
 
 All the voice packets are encrypted once during transfer. The actual encryption depends on the used transport layer. If the packets are tunneled through TCP they are encrypted using the TLS that encrypts the whole TCP connection and if they are sent directly using UDP they must be encrypted using the OCB-AES128 encryption. The OCB-AES128 encryption is described in section \ref{sect:cryptostate}.
 
-\vspace{2cm}
+\subsection{Implementation notes}
 
 \emph{\small{When implementing the protocol it is easier to ignore the UDP transfer layer at first and just tunnel the UDP data through the TCP tunnel. The TCP layer must be implemented for authentication in any case. Making sure that the voice transmission works before implementing the UDP protocol simplifies debugging greatly. The UDP protocol is a required part of the specification though.}}
 
