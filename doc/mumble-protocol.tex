@@ -32,6 +32,10 @@
 \usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
 % These packages are all incorporated in the memoir class to one degree or another...
 
+% Colored tables
+\usepackage{color}
+\usepackage{colortbl}
+
 % Configure fancyvrb for our listings
 \usepackage{fancyvrb}
 \fvset{frame=leftline, framesep=5mm, tabsize=8, numbers=left}
@@ -62,6 +66,23 @@
 \author{Stefan Hacker}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
+
+\newenvironment{mumbleMessage}[1]
+{%
+\begin{center}
+	\begin{tabular}{|p{0.2\textwidth}|p{0.15\textwidth}|}
+	%\begin{tabular}{|l|l|}
+	\hline
+	\multicolumn{2}{|>{\columncolor[rgb]{0.5,0.75,1}}l|}{\textbf{#1}} \\
+	\hline
+}
+{%
+	\\ \hline
+	\end{tabular}
+\end{center}
+}
+
+% \newcommand{\mumbleMessage}[2]{ #1 & #2 \\ }
 
 \begin{document}
 \maketitle
@@ -139,21 +160,42 @@ As a basis for the synchronization procedure you first have to establish the TCP
 \subsection{Version exchange}
 Once the TLS handshake is completed the server will send a Version packet to the client containing following information:
 
-%FIGURE GOES HERE
+\begin{mumbleMessage}{Version}
+	version		& uint32 \\
+	release		& string \\
+	os			& string \\
+	os\_version	& string
+\end{mumbleMessage}
 
-The client is supposed to send a Version packet with his information before any other messages. The version field of the packet  contains the (major, minor, patch) tuple (e.g. 1.2.0) encoded like described in the following figure.
 
-%FIGURE GOES HERE
+The client is supposed to send a Version packet with his information before any other messages. The version field of the packet contains the (major, minor, patch) tuple (e.g. 1.2.0) encoded like described in the following figure.
+
+\begin{center}\begin{tabular}{|@{\hspace{0.5cm}}c@{\hspace{0.5cm}}|c|c|}
+\hline
+Major	& Minor	& Patch \\
+2B		& 1B	& 1B \\
+\hline
+\end{tabular}\end{center}
 
 The release, os and os\_version fields are common strings containing additional information about the client. This information is not interpreted in any way at the moment.
 
 \subsection{Crypt setup}
 Once the Version packets are exchanged the server will send a CryptSetup packet to the client. It contains the necessary cryptographic information to establish the OCB-AES128 encrypted UDP Voice channel. This will be described later in the section.
 
+\begin{mumbleMessage}{CryptSetup}
+	Key			& ByteString \\
+	ServerNonce	& ByteString \\
+	ClientNonce	& ByteString
+\end{mumbleMessage}
+
 \subsection{Authenticate}
 Before the client can be synchronized with the server state it has to authenticate itself to the server. This is done by sending an Authenticate packet.
 
-%FIGURE GOES HERE
+\begin{mumbleMessage}{Authenticate}
+	username	& string \\
+	password	& string \\
+	tokens		& repeated string
+\end{mumbleMessage}
 
 The username and password are encoded as simple strings. Be aware that the server can impose restrictions on the username, also once the client registered a certificate with the server this field is only displayed in brackets behind the name the client posessed when he registered, for more information see the server documentation. The password must only be provided if the server is passworded, the client provided no certificate but wants to authenticate to an account which has a password set, or to access the SuperUser account. The third field called tokens contains a list of zero or more strings called tokens which are basically password which can give you access to a certain ACL group without actually being a registered member in them, again see the server documentation for more information.
 
@@ -177,6 +219,117 @@ The client has now received a copy of the parts of the server state he needs to 
 %FIGURE GOES HERE
 For more information pease refer to \nameref{appendix:mumble_proto} in the appendix.
 
+\subsection {Ping}
+
+If the client wishes to maintain the connection to the server it is required to ping the server. If the server does not receive a ping for TODO seconds it will disconnect the client.
+
+\section {Voice data}
+
+\subsection{Enabling the UDP channel}
+\label{sect:udpping}
+
+By default the voice data is transmitted by tunneling the UDP packets through the TCP connection as it is not certain if the client can be reached with UDP. The tunneling packets are described below in section \ref{sect:tcptunnel}. The server enables the UDP connection when it receives the first UDP transmission (Or must it be UDP Ping?) from the client and continues it while it keeps receiving these packets. For this reason the client should start implementing the UDP voice data transmission by implementing an UDP ping to the server. The UDP ping packet is described below in figure \ref{fig:udpping}.
+
+\begin{figure}[htp]\begin{center}\begin{tabular}{|rcl|p{0.3\textwidth}}
+
+\cline{1-3}
+byte &:& type/flags & \texttt{0010 0000} for Ping \\
+\cline{1-3}
+varint &:& timestamp & Timestamp for the client. \\
+\cline{1-3}
+
+\end{tabular}
+\caption{UDP Ping packet}\label{fig:udpping}
+\end{center}\end{figure}
+
+\subsection{Data}
+
+The voice packets consist of header portion, followed by repeated data segments and an optional position part. The full packet structure is shown in figure \ref{fig:udpvoice}. The protocol transfers 64 bit integers using variable length encoding. This encoding is specified in section \ref{sect:varint}.
+
+\begin{figure}[htp]\begin{center}\begin{tabular}{l|rcl|p{0.5\textwidth}}
+
+\cline{2-4}
+\textbf{Header} & byte &:& type/target & Bit 1-3: Type, Bit 4-8: Target \\
+				\cline{2-4}
+				& varint &:& session & The session number of the source user \\
+				\cline{2-4}
+				& varint &:& sequence & \\
+				\cline{2-4}
+\multicolumn{5}{c}{} \\
+				\cline{2-4}
+\textbf{Audio}	& byte &:& header & Bit 1: Terminator, Bit 2-8: Data length \\
+				\cline{2-4}
+Repeated		& byte[] &:& data & Encoded voice frames\\
+				\cline{2-4}
+\multicolumn{5}{c}{} \\
+				\cline{2-4}
+
+\textbf{Position} & float &:& Pos 1 & Positional audio positions \\
+				\cline{2-4}
+Optional		& float &:& Pos 2 & Uses PacketDataStream encoding \\
+				\cline{2-4}
+				& float &:& Pos 3 & \\
+				\cline{2-4}
+
+\end{tabular}
+\caption{UDP Voice packet}\label{fig:udpvoice}
+\end{center}\end{figure}
+
+The first byte of the header contains the packet type and additional target specifier. The current types are listed in table \ref{tbl:udptypes} and the targets are listed in table \ref{tbl:udptargets}.
+
+\begin{table}[htp]\begin{center}
+	\caption{UDP Types}\label{tbl:udptypes}
+
+	\begin{tabular}{ll}
+		Type & Description \\
+		\hline
+		0	& CELT Alpha encoded voice data \\
+		1	& Ping packet (See section \ref{sect:udpping}) \\
+		2	& Speex encoded voice data \\
+		3	& CELT Beta encoded voice data
+	\end{tabular}
+\end{center}\end{table}
+
+\begin{table}[htp]\begin{center}
+	\caption{UDP targets}\label{tbl:udptargets}
+
+	\begin{tabular}{ll}
+		Target & Description \\
+		\hline
+		0	& Normal talking \\
+		1	& Whisper to channel \\
+		2-30	& Direct whisper (Refer to VoiceTarget, \ref{msg:VoiceTarget}). \\
+			& Always 2 for incoming whisper. \\
+		31	& Server loopback
+	\end{tabular}
+\end{center}\end{table}
+
+The audio frames consist of one byte long header and up to 127 bytes long data portion. The first bit in the header is the \texttt{Terminator bit} that informs the receiver whether there are more audio frames after this one. The last audio frame in the UDP packet has the terminator bit turned off. All the preceeding frames have the terminator bit on. Rest of the seven bits in the header specify the length of the data portion. The data portion is encoded using one of the supported codecs. The exact codec is specified in the type portion of the whole packet (See table \ref{tbl:udptypes}). \emph{The data in each frame is encoded separately.}
+
+\subsection{TCP tunnel}
+\label{sect:tcptunnel}
+
+When the UDP packets are tunneled through the TCP tunnel they are prefixed with the TCP protocol header that contains the packet type and length and sent through the connection. (Figure \ref{fig:udptunnel})
+
+\begin{figure}[htp]\begin{center}\begin{tabular}{|c|@{\hspace{0.5cm}}c@{\hspace{0.5cm}}|@{\hspace{3cm}}c@{\hspace{3cm}}|}
+
+\hline
+Type	& Length	& UDP Packet \\
+1B		& 3B		& 0-2048 KiB \\
+\hline
+
+\end{tabular}
+\caption{UDP Voice packet}\label{fig:udptunnel}
+\end{center}\end{figure}
+
+\subsection{Encryption}
+
+All the voice packets are encrypted once during transfer. The actual encryption depends on the used transport layer. If the packets are tunneled through TCP they are encrypted using the TLS that encrypts the whole TCP connection and if they are sent directly using UDP they must be encrypted using the OCB-AES128 encryption. The OCB-AES128 encryption is described in section \ref{sect:cryptostate}.
+
+\vspace{2cm}
+
+\emph{\small{When implementing the protocol it is easier to ignore the UDP transfer layer at first and just tunnel the UDP data through the TCP tunnel. The TCP layer must be implemented for authentication in any case. Making sure that the voice transmission works before implementing the UDP protocol simplifies debugging greatly. The UDP protocol is a required part of the specification though.}}
+
 \subsection {PacketDataStream}
 The PacketDataStream class is used to serialize/deserialize the data packets received on the UDP connection or via the TCP-Tunneling. As the name implies it provides a stream based access to the data it contains. To pull data from it the user has to know what is located on the current position in the stream (e.g. a uint32, utf8 string and so on), the class itself is not aware of it's contents.
 
@@ -190,3 +343,5 @@ SORRY BUT THIS DOCUMENT IS WORK IN PROGRESS. AT THE MOMENT IT LACKS A LOT OF IMP
 \VerbatimInput{../src/Mumble.proto}
 
 \end{document}
+
+% vim: ts=4 sw=4 noexpandtab
