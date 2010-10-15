@@ -132,7 +132,7 @@ Database::Database() {
 
 	query.exec(QLatin1String("VACUUM"));
 
-	query.exec(QLatin1String("PRAGMA synchronous = NORMAL"));
+	query.exec(QLatin1String("PRAGMA synchronous = OFF"));
 	query.exec(QLatin1String("PRAGMA journal_mode = TRUNCATE"));
 
 	query.exec(QLatin1String("SELECT sqlite_version()"));
