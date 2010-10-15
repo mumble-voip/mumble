@@ -49,6 +49,7 @@ class Database : public QObject {
 		Q_DISABLE_COPY(Database)
 	public:
 		Database();
+		~Database();
 		static QList<FavoriteServer> getFavorites();
 		static void setFavorites(const QList<FavoriteServer> &servers);
 		static void setPassword(const QString &host, unsigned short port, const QString &user, const QString &pw);

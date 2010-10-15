@@ -131,6 +131,19 @@ Database::Database() {
 	query.exec(QLatin1String("DELETE FROM `blobs` WHERE `seen` < datetime('now', '-1 months')"));
 
 	query.exec(QLatin1String("VACUUM"));
+
+	query.exec(QLatin1String("PRAGMA synchronous = NORMAL"));
+	query.exec(QLatin1String("PRAGMA journal_mode = TRUNCATE"));
+
+	query.exec(QLatin1String("SELECT sqlite_version()"));
+	while (query.next())
+		qWarning() << "Database SQLite:" << query.value(0).toString();
+}
+
+Database::~Database() {
+	QSqlQuery query;
+	query.exec(QLatin1String("PRAGMA journal_mode = DELETE"));
+	query.exec(QLatin1String("VACUUM"));
 }
 
 QList<FavoriteServer> Database::getFavorites() {
