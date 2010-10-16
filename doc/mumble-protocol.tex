@@ -63,14 +63,14 @@
 %%% The "real" document content comes below...
 
 \title{Mumble protocol 1.2.X reference (WIP)}
-\author{Stefan Hacker}
+\author{Stefan Hacker, Mikko Rantanen}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
 
 \newenvironment{mumbleMessage}[1]
 {%
 \begin{center}
-	\begin{tabular}{|p{0.2\textwidth}|p{0.15\textwidth}|}
+	\begin{tabular}{|p{0.2\textwidth}|p{0.2\textwidth}|}
 	%\begin{tabular}{|l|l|}
 	\hline
 	\multicolumn{2}{|>{\columncolor[rgb]{0.5,0.75,1}}l|}{\textbf{#1}} \\
@@ -82,7 +82,20 @@
 \end{center}
 }
 
-% \newcommand{\mumbleMessage}[2]{ #1 & #2 \\ }
+\newenvironment{mumbleMessageEx}
+{%
+	\small
+	\renewcommand\arraystretch{1.5}
+	\begin{tabular}{p{0.25\linewidth}p{0.13\linewidth}p{0.05\linewidth}p{0.35\linewidth}}
+	Field & Type & Rule & Description \\
+	\hline
+}
+{%
+	\end{tabular}
+	\renewcommand\arraystretch{1.0}
+}
+
+\newcommand{\mumbleMessageExItem}[4]{ \texttt{#1} & \texttt{#2} & #3 & #4 \\ }
 
 \begin{document}
 \maketitle
@@ -129,7 +142,7 @@ While the TCP connection is mandatory the UDP connection can be compensated by t
 	\label{fig:mumble_protocol_stack}
 \end{figure}
 
-Mumble has a shallow and easy to understand stack. Basically it uses Googles Protocol Buffers\footnote{\url{http://code.google.com/p/protobuf/}} with simple prefixing to distinguish the different kinds of packets sent through an TLSv1 encrypted connection. This makes the protocol very easily expandable.
+Mumble has a shallow and easy to understand stack. Basically it uses Google's Protocol Buffers\footnote{\url{http://code.google.com/p/protobuf/}} with simple prefixing to distinguish the different kinds of packets sent through an TLSv1 encrypted connection. This makes the protocol very easily expandable.
 
 \begin{figure}[ht]
 	\centering
@@ -145,7 +158,7 @@ The prefix consists out of the two bytes defining the type of the packet in the 
 For raw representation of each packet type see the attached Mumble.proto file.
 
 \section{Establishing a connection}
-The following section is going to describe the communication between the server and the client during connection establishing, note that the first part of this section only contains the procedures for the TCP connection. After this the client will be visible to the other clients on the server and able to send other types of messages.
+This section describes the communication between the server and the client during connection establishing, note that only the TCP connection needs to be established for the client to be connected. After this the client will be visible to the other clients on the server and able to send other types of messages.
 
 \begin{figure}[ht]
 	\centering
@@ -155,10 +168,12 @@ The following section is going to describe the communication between the server 
 \end{figure}
 
 \subsection{Connect}
-As a basis for the synchronization procedure you first have to establish the TCP connection to the server and do a common TLSv1 handshake. To be able to use the complete feature set of the Mumble protocol it is recommended that your client provides a strong certificate to the server. This however is not mandatory, you can connect to the server without providing a certificate, we do recommend to check the servers certificate though.
+As the basis for the synchronization procedure the client has to first establish the TCP connection to the server and do a common TLSv1 handshake. To be able to use the complete feature set of the Mumble protocol it is recommended that the client provides a strong certificate to the server. This however is not mandatory as you can connect to the server without providing a certificate. However the server must provide the client with its certificate and it is recommended that the client checks this.
 
 \subsection{Version exchange}
-Once the TLS handshake is completed the server will send a Version packet to the client containing following information:
+Once the TLS handshake is completed both sides should transmit their version information using the Version message. The message structure is described below.
+
+\begin{figure}[htp]\begin{center}
 
 \begin{mumbleMessage}{Version}
 	version		& uint32 \\
@@ -167,51 +182,107 @@ Once the TLS handshake is completed the server will send a Version packet to the
 	os\_version	& string
 \end{mumbleMessage}
 
+\caption{Version message}\label{msg:conn:version}
+\end{center}\end{figure}
 
-The client is supposed to send a Version packet with his information before any other messages. The version field of the packet contains the (major, minor, patch) tuple (e.g. 1.2.0) encoded like described in the following figure.
+The version field is a combination of major, minor and patch version numbers (e.g. 1.2.0) so that major number takes two bytes and minor and patch numbers take one byte each. The structure is shown in figure \ref{fig:versionEncoding}. The release, os and os\_version fields are common strings containing additional information. This information is not interpreted in any way at the moment.
 
-\begin{center}\begin{tabular}{|@{\hspace{0.5cm}}c@{\hspace{0.5cm}}|c|c|}
+\begin{figure}[htp]\begin{center}\begin{tabular}{|@{\hspace{0.5cm}}c@{\hspace{0.5cm}}|c|c|}
+
 \hline
 Major	& Minor	& Patch \\
 2B		& 1B	& 1B \\
 \hline
-\end{tabular}\end{center}
 
-The release, os and os\_version fields are common strings containing additional information about the client. This information is not interpreted in any way at the moment.
+\end{tabular}
 
-\subsection{Crypt setup}
-Once the Version packets are exchanged the server will send a CryptSetup packet to the client. It contains the necessary cryptographic information to establish the OCB-AES128 encrypted UDP Voice channel. This will be described later in the section.
+\caption{\texttt{version} field structure}\label{fig:versionEncoding}
 
-\begin{mumbleMessage}{CryptSetup}
-	Key			& ByteString \\
-	ServerNonce	& ByteString \\
-	ClientNonce	& ByteString
-\end{mumbleMessage}
+\end{center}\end{figure}
 
 \subsection{Authenticate}
-Before the client can be synchronized with the server state it has to authenticate itself to the server. This is done by sending an Authenticate packet.
+Once the client has sent the version it should follow this with the Authenticate message. The message structure is described below in figure \ref{msg:conn:authenticate}. This message may be sent immediately after sending the version message. The client does not need to wait for the server version message.
 
+\begin{figure}[htp]\begin{center}
 \begin{mumbleMessage}{Authenticate}
 	username	& string \\
 	password	& string \\
 	tokens		& repeated string
 \end{mumbleMessage}
+\caption{Authenticate message}\label{msg:conn:authenticate}
+\end{center}\end{figure}
 
-The username and password are encoded as simple strings. Be aware that the server can impose restrictions on the username, also once the client registered a certificate with the server this field is only displayed in brackets behind the name the client posessed when he registered, for more information see the server documentation. The password must only be provided if the server is passworded, the client provided no certificate but wants to authenticate to an account which has a password set, or to access the SuperUser account. The third field called tokens contains a list of zero or more strings called tokens which are basically password which can give you access to a certain ACL group without actually being a registered member in them, again see the server documentation for more information.
+The username and password are UTF-8 encoded strings. While the client is free to accept any username from the user the server is allowed to impose further restrictions. Furthermore if the client certificate has been registered with the server the client is primarily known with the username they had when the certificate was registered. For more information see the server documentation.
+
+The password must only be provided if the server is passworded, the client provided no certificate but wants to authenticate to an account which has a password set, or to access the SuperUser account.
+
+The third field contains a list of zero or more token strings which act as passwords that may give the client access to certain ACL groups without actually being a registered member in them, again see the server documentation for more information.
+
+\subsection{Crypt setup}
+Once the Version packets are exchanged the server will send a CryptSetup packet to the client. It contains the necessary cryptographic information for the OCB-AES128 encryption used in the UDP Voice channel. The packet is described in figure \label{msg:conn:cryptSetup}. The encryption itself is described later in section \ref{sect:udpEncryption}.
+
+\begin{figure}[htp]\begin{center}
+\begin{mumbleMessage}{CryptSetup}
+	key				& bytes \\
+	client\_nonce	& bytes \\
+	server\_nonce	& bytes
+\end{mumbleMessage}
+
+\caption{CryptSetup message}\label{msg:conn:cryptSetup}
+\end{center}\end{figure}
 
 \subsection{Channel states}
+\label{sect:conn:channels}
 
-After the client is successfully authenticated the server starts synchronizing the state by transmitting a ChannelState message for every channel on this server. Note that these do not yet contain channel links. These are transmitted as updated directly after every channel has been transmitted. It contains the following information:
+After the client has successfully authenticated the server starts listing the channels by transmitting partial ChannelState message for every channel on this server. These messages lack the channel link information as the client does not yet have full picture of all the channels. Once the initial ChannelState has been transmitted for all channels the server updates the linked channels by sending new packets for these. The full structure of these ChanneLState messages is shown in \ref{msg:conn:channelState}.
 
-%FIGURE GOES HERE
-For more information pease refer to \nameref{appendix:mumble_proto} in the appendix.
+\begin{figure}[htp]\begin{center}
+\begin{mumbleMessage}{ChannelState}
+	channel\_id	& uint32 \\
+	parent		& uint32 \\
+	name		& string \\
+	links		& uint32, repeated \\
+	description	& string \\
+	links\_add	& uint32, repeated \\
+	links\_remove	& uint32, repeated \\
+	temporary	& bool, optional \\
+	position	& int32, optional
+\end{mumbleMessage}
+\caption{ChannelState message}\label{msg:conn:channelState}
+\end{center}\end{figure}
+
+\emph{The server must send a ChannelState for the root channel identified with ID 0.}
 
 \subsection{User states}
+\label{sect:conn:users}
 
-When the channels are synchronized the server send a UserState message for every user connected to the client containing the following data:
+After the channels have been synchronized the server continues by listing the connected users. This is done by sending a UserState message for each user currently on the server, including the user that is currently connecting. The message structure is shown in figure \ref{msg:conn:userState}.
 
-%FIGURE GOES HERE
-For more information pease refer to \nameref{appendix:mumble_proto} in the appendix.
+\begin{figure}[htp]\begin{center}
+\begin{mumbleMessage}{ChannelState}
+session			& uint32 \\
+actor			& uint32 \\
+name			& string \\
+user\_id		& uint32 \\
+channel\_id		& uint32 \\
+mute			& bool \\
+deaf			& bool \\
+suppress		& bool \\
+self\_mute		& bool \\
+self\_deaf		& bool \\
+texture			& bytes \\
+plugin\_context	& bytes \\
+plugin\_identity	& string \\
+comment			& string \\
+hash			& string \\
+comment\_hash	& bytes \\
+texture\_hash	& bytes \\
+priority\_speaker	& bool \\
+recording		& bool
+\end{mumbleMessage}
+\caption{UserState message}\label{msg:conn:userState}
+\end{center}\end{figure}
+
 
 \subsection {Server sync}
 The client has now received a copy of the parts of the server state he needs to know about. To complete the synchronization the server transmits a ServerSync message containing the session id of the clients session, the maximum bandwidth allowed on this server, the servers welcome text as well as the permissions the client has in the channel he ended up.
@@ -221,7 +292,7 @@ For more information pease refer to \nameref{appendix:mumble_proto} in the appen
 
 \subsection {Ping}
 
-If the client wishes to maintain the connection to the server it is required to ping the server. If the server does not receive a ping for TODO seconds it will disconnect the client.
+If the client wishes to maintain the connection to the server it is required to ping the server. If the server does not receive a ping for 30 seconds it will disconnect the client.
 
 \section {Voice data}
 
@@ -291,7 +362,7 @@ The first byte of the header contains the packet type and additional target spec
 		1	& Ping packet (See section \ref{sect:udpping}) \\
 		2	& Speex encoded voice data \\
 		3	& CELT Beta encoded voice data \\
-		4-8 & Unused
+		4-7 & Unused
 	\end{tabular}
 \end{center}\end{table}
 
@@ -337,6 +408,377 @@ All the voice packets are encrypted once during transfer. The actual encryption 
 
 \subsection {PacketDataStream}
 The PacketDataStream class is used to serialize/deserialize the data packets received on the UDP connection or via the TCP-Tunneling. As the name implies it provides a stream based access to the data it contains. To pull data from it the user has to know what is located on the current position in the stream (e.g. a uint32, utf8 string and so on), the class itself is not aware of it's contents.
+
+\section{Messages}
+
+\subsection{ACL}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{channel\_id}{uint32}{Req.}{TODO}
+\mumbleMessageExItem{inherit\_acls}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{groups}{ChanGroup}{Rep.}{TODO}
+\mumbleMessageExItem{acls}{ChanACL}{Rep.}{TODO}
+\mumbleMessageExItem{query}{bool}{Opt.}{TODO}
+\end{mumbleMessageEx}
+
+\subsubsection{ChanACL}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{apply\_here}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{apply\_subs}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{inherited}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{user\_id}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{group}{string}{Opt.}{TODO}
+\mumbleMessageExItem{grant}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{deny}{uint32}{Opt.}{TODO}
+\end{mumbleMessageEx}
+
+\subsubsection{ChanGroup}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{name}{string}{Req.}{TODO}
+\mumbleMessageExItem{inherited}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{inherit}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{inheritable}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{add}{uint32}{Rep.}{TODO}
+\mumbleMessageExItem{remove}{uint32}{Rep.}{TODO}
+\mumbleMessageExItem{inherited\_members}{uint32}{Rep.}{TODO}
+\end{mumbleMessageEx}
+
+
+\subsection{Authenticate}
+\label{msg:authenticate}
+
+Used by the client to send the authentication credentials to the server.
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{username}{string}{Opt.}{UTF-8 encoded username}
+\mumbleMessageExItem{password}{string}{Opt.}{Server or user password}
+\mumbleMessageExItem{tokens}{string}{Rep.}{Additional access tokens for server ACL groups}
+\mumbleMessageExItem{celt\_versions}{int32}{Rep.}{TODO ??}
+\end{mumbleMessageEx}
+
+\subsection{BanEntry}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{bans}{BanEntry}{Rep.}{TODO}
+\mumbleMessageExItem{query}{bool}{Opt.}{TODO}
+\end{mumbleMessageEx}
+
+\subsubsection{BanList}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{address}{bytes}{Req.}{TODO}
+\mumbleMessageExItem{mask}{uint32}{Req.}{TODO}
+\mumbleMessageExItem{name}{string}{Opt.}{TODO}
+\mumbleMessageExItem{hash}{string}{Opt.}{TODO}
+\mumbleMessageExItem{reason}{string}{Opt.}{TODO}
+\mumbleMessageExItem{start}{string}{Opt.}{TODO}
+\mumbleMessageExItem{duration}{uint32}{Opt.}{TODO}
+\end{mumbleMessageEx}
+
+\subsection{ChannelRemove}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{channel\_id}{uint32}{Req.}{TODO}
+\end{mumbleMessageEx}
+
+\subsection{ChannelState}
+\label{msg:channelState}
+
+Used to communicate channel properties between the client and the server. Sent by the server during the login process (See \ref{sect:conn:channels}) or when channel states are updated. TODO: Sent by users if they modify channels?
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{Unique ID for the channel within the server.}
+\mumbleMessageExItem{parent}{uint32}{Opt.}{\texttt{channel\_id} of the parent channel.}
+\mumbleMessageExItem{name}{string}{Opt.}{Channel name, UTF-8 encoded.}
+\mumbleMessageExItem{links}{uint32}{Rep.}{A collection of \texttt{channel\_id} values of the linked channels. Absent during the first channel listing (See \ref{ect:conn:channels}).}
+\mumbleMessageExItem{description}{string}{Opt.}{Channel description, UTF-8 encoded.}
+\mumbleMessageExItem{links\_add}{uint32}{Rep.}{A collection of \texttt{channel\_id} values that should be added to \texttt{links}.}
+\mumbleMessageExItem{links\_remove}{uint32}{Rep.}{A collection of \texttt{channel\_id} values that should be removed from \texttt{links}.}
+\mumbleMessageExItem{temporary}{bool}{Opt.}{True if the channel is temporary. \textbf{Default: false}}
+\mumbleMessageExItem{position}{uint32}{Opt.}{TODO ??. \textbf{Default: 0}}
+% Is this right?
+%\mumbleMessageExItem{position}{uint32}{Opt.}{Position weight to tweak the channel position in the channel list. \textbf{Default: 0}}
+\mumbleMessageExItem{description\_hash}{bytes}{Opt.}{TODO ??}
+\end{mumbleMessageEx}
+
+\subsection{CodecVersion}
+
+Used to communicate the available codec version.
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{alpha}{int32}{Req.}{TODO}
+\mumbleMessageExItem{beta}{int32}{Req.}{TODO}
+\mumbleMessageExItem{prefer\_alpha}{bool}{Req.}{TODO}
+\end{mumbleMessageEx}
+
+\subsection{ContextAction}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{session}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{action}{string}{Req.}{TODO}
+\end{mumbleMessageEx}
+
+\subsection{ContextActionAdd}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{action}{string}{Req.}{TODO}
+\mumbleMessageExItem{text}{string}{Req.}{TODO}
+\mumbleMessageExItem{context}{uint32}{Opt.}{TODO}
+\end{mumbleMessageEx}
+
+\subsubsection{Context}
+%  enum Context {
+%  		Server = 0x01;
+%  		Channel = 0x02;
+%  		User = 0x04;
+%  }
+
+\subsection{CryptSetup}
+
+Used to initialize and resync the UDP encryption. See section \ref{sect:encryption} for more information.
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{key}{bytes}{Opt.}{TODO}
+\mumbleMessageExItem{client\_nonce}{bytes}{Opt.}{TODO}
+\mumbleMessageExItem{server\_nonce}{bytes}{Opt.}{TODO}
+\end{mumbleMessageEx}
+
+\subsection{PermissionDenied}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{permission}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{session}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{reason}{string}{Opt.}{TODO}
+\mumbleMessageExItem{type}{DenyType}{Opt.}{TODO}
+\mumbleMessageExItem{name}{string}{Opt.}{TODO}
+\end{mumbleMessageEx}
+
+\subsubsection{DenyType}
+
+%  enum DenyType {
+%  		Text = 0;
+%  		Permission = 1;
+%  		SuperUser = 2;
+%  		ChannelName = 3;
+%  		TextTooLong = 4;
+%  		H9K = 5;
+%  		TemporaryChannel = 6;
+%  		MissingCertificate = 7;
+%  		UserName = 8;
+%  		ChannelFull = 9;
+%  }
+
+\subsection{PermissionQuery}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{permissions}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{flush}{bool}{Opt.}{TODO}
+\end{mumbleMessageEx}
+
+\subsection{Ping}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{timestamp}{uint64}{Opt.}{TODO}
+\mumbleMessageExItem{good}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{late}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{lost}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{resync}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{udp\_packets}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{tcp\_packets}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{udp\_ping\_avg}{float}{Opt.}{TODO}
+\mumbleMessageExItem{udp\_ping\_var}{float}{Opt.}{TODO}
+\mumbleMessageExItem{tcp\_ping\_avg}{float}{Opt.}{TODO}
+\mumbleMessageExItem{tcp\_ping\_var}{float}{Opt.}{TODO}
+\end{mumbleMessageEx}
+
+\subsection{QueryUsers}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{ids}{uint32}{Rep.}{TODO}
+\mumbleMessageExItem{names}{string}{Rep.}{TODO}
+\end{mumbleMessageEx}
+
+\subsection{Reject}
+
+Sent by the server when it rejects the user connection.
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{type}{RejectType}{Opt.}{Rejection type}
+\mumbleMessageExItem{reason}{string}{Opt.}{Human readable rejection reason}
+\end{mumbleMessageEx}
+
+\subsubsection{RejectType}
+%  enum RejectType {
+%  		None = 0;
+%  		WrongVersion = 1;
+%  		InvalidUsername = 2;
+%  		WrongUserPW = 3;
+%  		WrongServerPW = 4;
+%  		UsernameInUse = 5;
+%  		ServerFull = 6;
+%  		NoCertificate = 7;
+%  }
+
+\subsection{RequestBlob}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{session\_texture}{uint32}{Rep.}{TODO}
+\mumbleMessageExItem{session\_comment}{uint32}{Rep.}{TODO}
+\mumbleMessageExItem{channel\_description}{uint32}{Rep.}{TODO}
+\end{mumbleMessageEx}
+
+\subsection{ServerConfig}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{max\_bandwidth}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{welcome\_text}{string}{Opt.}{TODO}
+\mumbleMessageExItem{allow\_html}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{message\_length}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{image\_message\_length}{uint32}{Opt.}{TODO}
+\end{mumbleMessageEx}
+
+\subsection{ServerSync}
+
+ServerSync message is sent by the server when it has authenticated the user and finished synchronizing the server state. See section \ref{sect:serverSync} for more information on the initial connection exchange.
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{session}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{max\_bandwidth}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{welcome\_text}{string}{Opt.}{TODO}
+\mumbleMessageExItem{permissions}{uint64}{Opt.}{TODO}
+\end{mumbleMessageEx}
+
+\subsection{TextMessage}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{actor}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{session}{uint32}{Rep.}{TODO}
+\mumbleMessageExItem{channel\_id}{uint32}{Rep.}{TODO}
+\mumbleMessageExItem{tree\_id}{uint32}{Rep.}{TODO}
+\mumbleMessageExItem{message}{string}{Req.}{TODO}
+\end{mumbleMessageEx}
+
+\subsection{UDPTunnel}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{packet}{bytes}{Req.}{TODO}
+\end{mumbleMessageEx}
+
+\subsection{UserList}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{users}{User}{Rep.}{TODO}
+\end{mumbleMessageEx}
+
+\subsubsection{User}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{user\_id}{uint32}{Req.}{TODO}
+\mumbleMessageExItem{name}{string}{Opt.}{TODO}
+\end{mumbleMessageEx}
+
+\subsection{UserRemove}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{session}{uint32}{Req.}{TODO}
+\mumbleMessageExItem{actor}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{reason}{string}{Opt.}{TODO}
+\mumbleMessageExItem{ban}{bool}{Opt.}{TODO}
+\end{mumbleMessageEx}
+
+\subsection{UserState}
+\label{msg:userState}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{session}{uint32}{Opt.}{Unique user session ID}
+\mumbleMessageExItem{actor}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{name}{string}{Opt.}{User name, UTF-8 encoded}
+\mumbleMessageExItem{user\_id}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{mute}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{deaf}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{suppress}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{self\_mute}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{self\_deaf}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{texture}{bytes}{Opt.}{TODO}
+\mumbleMessageExItem{plugin\_context}{bytes}{Opt.}{TODO}
+\mumbleMessageExItem{plugin\_identity}{string}{Opt.}{TODO}
+\mumbleMessageExItem{comment}{string}{Opt.}{TODO}
+\mumbleMessageExItem{hash}{string}{Opt.}{TODO}
+\mumbleMessageExItem{comment\_hash}{bytes}{Opt.}{TODO}
+\mumbleMessageExItem{texture\_hash}{bytes}{Opt.}{TODO}
+\mumbleMessageExItem{priority\_speaker}{bool}{Opt.}{Is the user a priority speaker?}
+\mumbleMessageExItem{recording}{bool}{Opt.}{Is the user currently recording?}
+\end{mumbleMessageEx}
+
+\subsection{UserStats}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{session}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{stats\_only}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{certificates}{bytes}{Rep.}{TODO}
+\mumbleMessageExItem{from\_client}{Stats}{Opt.}{TODO}
+\mumbleMessageExItem{from\_server}{Stats}{Opt.}{TODO}
+\\
+\mumbleMessageExItem{udp\_packets}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{tcp\_packets}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{udp\_ping\_avg}{float}{Opt.}{TODO}
+\mumbleMessageExItem{udp\_ping\_var}{float}{Opt.}{TODO}
+\mumbleMessageExItem{tcp\_ping\_avg}{float}{Opt.}{TODO}
+\mumbleMessageExItem{tcp\_ping\_var}{float}{Opt.}{TODO}
+\\
+\mumbleMessageExItem{version}{Version}{Opt.}{TODO}
+\mumbleMessageExItem{celt\_versions}{int32}{Rep.}{TODO}
+\mumbleMessageExItem{address}{bytes}{Opt.}{TODO}
+\mumbleMessageExItem{bandwidth}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{onlinesecs}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{idlesecs}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{strong\_certificate}{bool}{Opt.}{TODO}
+\end{mumbleMessageEx}
+
+\subsubsection{Stats}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{good}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{late}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{lost}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{resync}{uint32}{Opt.}{TODO}
+\end{mumbleMessageEx}
+
+\subsection{Version}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{version}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{release}{string}{Opt.}{TODO}
+\mumbleMessageExItem{os}{string}{Opt.}{TODO}
+\mumbleMessageExItem{os\_version}{string}{Opt.}{TODO}
+\end{mumbleMessageEx}
+
+\subsection{VoiceTarget}
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{id}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{targets}{Target}{Rep.}{TODO}
+\end{mumbleMessageEx}
+
+\subsubsection{Target}
+
+\begin{mumbleMessageEx}
+%\mumbleMessageExItem{session}{uint32}{Rep.}{TODO}
+%\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{TODO}
+%\mumbleMessageExItem{group}{string}{Opt.}{TODO}
+%\mumbleMessageExItem{links}{bool}{Opt.}{TODO}
+%\mumbleMessageExItem{children}{bool}{Opt.}{TODO}
+\end{mumbleMessageEx}
+
+
+% Right place?
+
 
 \section {This document is WIP}
 SORRY BUT THIS DOCUMENT IS WORK IN PROGRESS. AT THE MOMENT IT LACKS A LOT OF IMPORTANT INFORMATION BUT WE HOPE TO BE ABLE TO FINISH THIS DOCUMENT SOMEDAY :-)
