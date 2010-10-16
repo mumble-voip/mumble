@@ -1951,7 +1951,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 Öppna din kontrollpanel för ljud och gå till inspelningsinställningar. Se till att mikrofonen är vald som aktiv ingång, med högsta inspelningsvolym. Om det finns ett alternativ för att aktivera &quot;Mikrofonförstärkning&quot;, se till att det är markerat.
 &lt;/p&gt;
 &lt;p&gt;
-Prata högljutt, som om att du är irriterad eller nyfiken. Sänk volymen i kontrollpanelen för ljud tills baren under stannar så högt som möjligt i den gröna och blåa, men &lt;b&gt;inte&lt;/b&gt; i det röda området medan du pratar.
+Prata högljutt , som om att du är irriterad eller nyfiken. Sänk volymen i kontrollpanelen för ljud tills baren under stannar så högt som möjligt i den gröna och blåa, men &lt;b&gt;inte&lt;/b&gt; i det röda området medan du pratar.
 &lt;/p&gt;
 </translation>
     </message>
@@ -2599,7 +2599,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Om du någonsin förlorar ditt nuvarande centrifikat, som kommer att hända om din hårdvara går sönder eller du installerar om din dator kommer du ej längre att kunna autentisera till gånon server du varit registrerad på. Det är därför &lt;b&gt;obligatoriskt&lt;/b&gt; att du skapar en säkerhetskopia av dina centrifikat. Vi rekommenderar starkt att du lagrar denna säkerhetskopia på borttagningsbar lagring, som ett USB minne.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;Om du någonsin förlorar ditt nuvarande centrifikat, som kommer att hända om din hårdvara går sönder eller du installerar om din dator kommer du ej längre att kunna autentisera till gånon server du varit registrerad på. Det är därför &lt;b&gt;obligatoriskt&lt;/b&gt; att du skapar en säkerhetskopia av dina centrifikat. Vi rekommenderar starkt att du lagrar denna säkerhetskopia på borttagbar lagring, som ett USB minne.&lt;/p&gt;
 &lt;p&gt;Kom ihåg att den här filen inte kommer att krypteras så om någon får tillgång till den kommer de kunna identifiera dig, så ta hand om det.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -2983,7 +2983,7 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
         <location line="+1"/>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation type="unfinished">Den här knappen kommer endast att återställa inställningarna för den nuvarande sidan till sitt ursprung. Andra sidor kommer inte att ändras.&lt;br /&gt;För att återställa alla inställningar till sitt ursprung behöver du använda den här knappen på alla sidor.</translation>
+        <translation>Den här knappen kommer endast att återställa inställningarna för den nuvarande sidan till sitt ursprung. Andra sidor kommer inte att ändras.&lt;br /&gt;För att återställa alla inställningar till sitt ursprung behöver du använda den här knappen på alla sidor.</translation>
     </message>
     <message>
         <location filename="ConfigDialog.ui"/>
@@ -3048,7 +3048,7 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
         <location line="+1"/>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation type="unfinished">Den här knappen kommer endast att återställa inställningarna för den nuvarande sidan till sitt ursprung. Andra sidor kommer inte att ändras.&lt;br /&gt;För att återställa alla inställningar till sitt ursprung behöver du använda den här knappen på alla sidor.</translation>
+        <translation>Den här knappen kommer endast att återställa inställningarna för den nuvarande sidan till sitt ursprung. Andra sidor kommer inte att ändras.&lt;br /&gt;För att återställa alla inställningar till sitt ursprung behöver du använda den här knappen på alla sidor.</translation>
     </message>
 </context>
 <context>
@@ -3098,7 +3098,7 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Website</source>
-        <translation>Webbsida</translation>
+        <translation>Hemsida</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4215,7 +4215,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>Custom</source>
-        <translation>Anpassat</translation>
+        <translation>Anpassad</translation>
     </message>
     <message>
         <location/>
@@ -4999,7 +4999,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>Ctrl+Q</source>
-        <translation>Ctrl+A</translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <location/>
@@ -5426,7 +5426,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
-        <translation>Ansluter till webbsidan för Mumble för att kolla om en ny version finns tillgänglig och notifierar dig med en lämplig nedladdningslänk om det finns en uppdatering tillgänglig.</translation>
+        <translation>Ansluter till Mumbles hemsida för att kolla om en ny version finns tillgänglig och notifierar dig med en lämplig nedladdningslänk om det finns en uppdatering tillgänglig.</translation>
     </message>
     <message>
         <location/>
@@ -5586,7 +5586,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+25"/>
         <source>%1 moved to %2.</source>
-        <translation>%1 fyttade till %2.</translation>
+        <translation>%1 flyttade till %2.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -7720,7 +7720,7 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
     <message>
         <location line="+1"/>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation>En ny version av Mumble har hittats och nedladdats automatiskt. Det är rekommenderat att du antingen uppgraderar till den senaste versionen, eller nedgraderar till den senaste stabila utgåvan. Vill du starta installationen nu?</translation>
+        <translation>En ny version av Mumble har hittats och laddats ner automatiskt. Det är rekommenderat att du uppgraderar till den senaste versionen, eller nedgraderar till den senaste stabila utgåvan. Vill du starta installationen nu?</translation>
     </message>
     <message>
         <location line="+13"/>
