@@ -86,7 +86,7 @@
 {%
 	\small
 	\renewcommand\arraystretch{1.5}
-	\begin{tabular}{p{0.25\linewidth}p{0.13\linewidth}p{0.05\linewidth}p{0.35\linewidth}}
+	\begin{tabular}{p{0.25\linewidth}p{0.13\linewidth}p{0.05\linewidth}p{0.45\linewidth}}
 	Field & Type & Rule & Description \\
 	\hline
 }
@@ -331,7 +331,7 @@ varint &:& timestamp & Timestamp for the client. \\
 \caption{UDP Ping packet}\label{fig:udpping}
 \end{center}\end{figure}
 
-If the client stops receiving replies to the UDP packets at some point or never receives the first one it should immediately start tunneling the voice communication through TCP as described in section \ref{sect:tcptunnel}. When the server receives a tunneled packet over the TCP connection it must also stop using the UDP for communication. The client may continue sending UDP ping packets over the UDP channel and the server must echo these if it receives them. If the client later receives these echoes it may switch back to the UDP channel for voice communication. When the server receives a UDP voice communication packet from the client it should stop tunneling the packets as well.
+If the client stops receiving replies to the UDP packets at some point or never receives the first one it should immediately start tunneling the voice communication through TCP as described in section \ref{sect:udptunnel}. When the server receives a tunneled packet over the TCP connection it must also stop using the UDP for communication. The client may continue sending UDP ping packets over the UDP channel and the server must echo these if it receives them. If the client later receives these echoes it may switch back to the UDP channel for voice communication. When the server receives a UDP voice communication packet from the client it should stop tunneling the packets as well.
 
 \subsection{Data}
 
@@ -399,7 +399,7 @@ The first byte of the header contains the packet type and additional target spec
 The audio frames consist of one byte long header and up to 127 bytes long data portion. The first bit in the header is the \texttt{Terminator bit} which informs the receiver whether there are more audio frames after this one. This bit is turned on (value \texttt{1}) for all but the last frame in the current UDP packet. Rest of the seven bits in the header specify the length of the data portion. The data portion is encoded using one of the supported codecs. The exact codec is specified in the type portion of the whole packet (See table \ref{tbl:udptypes}). \emph{The data in each frame is encoded separately.}
 
 \subsection{TCP tunnel}
-\label{sect:tcptunnel}
+\label{sect:udptunnel}
 
 When the UDP packets are tunneled through the TCP tunnel they are prefixed with the TCP protocol header that contains the packet type and length and sent through the connection. (Figure \ref{fig:udptunnel})
 
@@ -432,19 +432,19 @@ The PacketDataStream class is used to serialize/deserialize the data packets rec
 
 \begin{mumbleMessageEx}
 \mumbleMessageExItem{channel\_id}{uint32}{Req.}{Channel ID of the channel this message affects}
-\mumbleMessageExItem{inherit\_acls}{bool}{Opt.}{True if the channel inherits its parent's ACLs}
+\mumbleMessageExItem{inherit\_acls}{bool}{Opt.}{True if the channel inherits its parent's ACLs, \textbf{Default: true}}
 \mumbleMessageExItem{groups}{ChanGroup}{Rep.}{User group specifications}
 \mumbleMessageExItem{acls}{ChanACL}{Rep.}{ACL specifications}
-\mumbleMessageExItem{query}{bool}{Opt.}{True if the message is a query for ACLs instead of setting them}
+\mumbleMessageExItem{query}{bool}{Opt.}{True if the message is a query for ACLs instead of setting them, \textbf{Default: false}}
 \end{mumbleMessageEx}
 
 \subsubsection{ChanACL}
 \label{msg:chanACL}
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{apply\_here}{bool}{Opt.}{True if this ACL applies to the current channel}
-\mumbleMessageExItem{apply\_subs}{bool}{Opt.}{True if this ACL applies to the sub channels}
-\mumbleMessageExItem{inherited}{bool}{Opt.}{True if the ACL has been inherited from the parent}
+\mumbleMessageExItem{apply\_here}{bool}{Opt.}{True if this ACL applies to the current channel, \textbf{Default: true}}
+\mumbleMessageExItem{apply\_subs}{bool}{Opt.}{True if this ACL applies to the sub channels, \textbf{Default: true}}
+\mumbleMessageExItem{inherited}{bool}{Opt.}{True if the ACL has been inherited from the parent, \textbf{Default: true}}
 \mumbleMessageExItem{user\_id}{uint32}{Opt.}{ID of the user that is affected by this ACL}
 \mumbleMessageExItem{group}{string}{Opt.}{ID of the group that is affected by this group}
 \mumbleMessageExItem{grant}{uint32}{Opt.}{Bit flag field of the permissions granted by this ACL}
@@ -456,9 +456,9 @@ The PacketDataStream class is used to serialize/deserialize the data packets rec
 
 \begin{mumbleMessageEx}
 \mumbleMessageExItem{name}{string}{Req.}{Name of the channel group, UTF-8 enccoded}
-\mumbleMessageExItem{inherited}{bool}{Opt.}{True if the group has been inherited from the parent. \textbf{Read only}}
-\mumbleMessageExItem{inherit}{bool}{Opt.}{True if the group members are inherited}
-\mumbleMessageExItem{inheritable}{bool}{Opt.}{True if the group can be inherited by sub channels}
+\mumbleMessageExItem{inherited}{bool}{Opt.}{True if the group has been inherited from the parent. \textbf{Read only, Default: true}}
+\mumbleMessageExItem{inherit}{bool}{Opt.}{True if the group members are inherited, \textbf{Default: true}}
+\mumbleMessageExItem{inheritable}{bool}{Opt.}{True if the group can be inherited by sub channels, \textbf{Default: true}}
 \mumbleMessageExItem{add}{uint32}{Rep.}{Users explicitly included in this group, identified by \texttt{user\_id}}
 \mumbleMessageExItem{remove}{uint32}{Rep.}{Users explicitly removed from this group in this channel if the group has been inherited, identified by \texttt{user\_id}}
 \mumbleMessageExItem{inherited\_members}{uint32}{Rep.}{Users inherited, identified by \texttt{user\_id}}
@@ -484,7 +484,7 @@ Relays information on the bans. The client may send the BanList message to eithe
 
 \begin{mumbleMessageEx}
 \mumbleMessageExItem{bans}{BanEntry}{Rep.}{List of ban entries currently in place}
-\mumbleMessageExItem{query}{bool}{Opt.}{True if the server should return the list, False if it should replace old ban list with this one}
+\mumbleMessageExItem{query}{bool}{Opt.}{True if the server should return the list, False if it should replace old ban list with this one, \textbf{Default: false}}
 \end{mumbleMessageEx}
 
 \subsubsection{BanEntry}
@@ -523,9 +523,7 @@ Used to communicate channel properties between the client and the server. Sent b
 \mumbleMessageExItem{links\_add}{uint32}{Rep.}{A collection of \texttt{channel\_id} values that should be added to \texttt{links}.}
 \mumbleMessageExItem{links\_remove}{uint32}{Rep.}{A collection of \texttt{channel\_id} values that should be removed from \texttt{links}.}
 \mumbleMessageExItem{temporary}{bool}{Opt.}{True if the channel is temporary. \textbf{Default: false}}
-\mumbleMessageExItem{position}{uint32}{Opt.}{TODO ??. \textbf{Default: 0}}
-% Is this right?
-%\mumbleMessageExItem{position}{uint32}{Opt.}{Position weight to tweak the channel position in the channel list. \textbf{Default: 0}}
+\mumbleMessageExItem{position}{uint32}{Opt.}{Position weight to tweak the channel position in the channel list. \textbf{Default: 0}}
 \mumbleMessageExItem{description\_hash}{bytes}{Opt.}{TODO ??}
 \end{mumbleMessageEx}
 
@@ -537,7 +535,7 @@ Sent by the server to notify the users of the version of the CELT codec they sho
 \begin{mumbleMessageEx}
 \mumbleMessageExItem{alpha}{int32}{Req.}{The version of the CELT Alpha codec}
 \mumbleMessageExItem{beta}{int32}{Req.}{The version of the CELT Beta codec}
-\mumbleMessageExItem{prefer\_alpha}{bool}{Req.}{True if the user should prefer Alpha over Beta}
+\mumbleMessageExItem{prefer\_alpha}{bool}{Req.}{True if the user should prefer Alpha over Beta, \textbf{Default: true}}
 \end{mumbleMessageEx}
 
 \subsection{ContextAction}
@@ -586,12 +584,12 @@ Used to initialize and resync the UDP encryption. See section \ref{sect:encrypti
 \label{msg:permissionDenied}
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{permission}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{session}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{reason}{string}{Opt.}{TODO}
-\mumbleMessageExItem{type}{DenyType}{Opt.}{TODO}
-\mumbleMessageExItem{name}{string}{Opt.}{TODO}
+\mumbleMessageExItem{permission}{uint32}{Opt.}{The denied permission when type is \texttt{Permission}}
+\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{\texttt{channel\_id} for the channel where the permission was denied when type is \texttt{Permission}}
+\mumbleMessageExItem{session}{uint32}{Opt.}{TODO: Client never reads this, what is it?}
+\mumbleMessageExItem{reason}{string}{Opt.}{Textual reason for the denial}
+\mumbleMessageExItem{type}{DenyType}{Opt.}{Type of the denial}
+\mumbleMessageExItem{name}{string}{Opt.}{The name that is invalid when type is \texttt{UserName}}
 \end{mumbleMessageEx}
 
 \subsubsection{DenyType}
@@ -612,33 +610,39 @@ Used to initialize and resync the UDP encryption. See section \ref{sect:encrypti
 
 \subsection{PermissionQuery}
 
+Sent by the client when it wants permissions for a certain channel. Sent by the server when it replies to the query or wants the user to resync all channel permissions.
+
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{permissions}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{flush}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{\texttt{channel\_id} of the channel for which the permissions are queried}
+\mumbleMessageExItem{permissions}{uint32}{Opt.}{Channel permissions. TODO: Encoded how?}
+\mumbleMessageExItem{flush}{bool}{Opt.}{True if the client should drop its current permission information for \textbf{all} channels, \textbf{Default: false}}
 \end{mumbleMessageEx}
 
 \subsection{Ping}
 
+Sent by the client to notify the server that the client is still alive. Server must reply to the packet with the same timestamp and its own good/late/lost/resync numbers. None of the fields is strictly required.
+
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{timestamp}{uint64}{Opt.}{TODO}
-\mumbleMessageExItem{good}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{late}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{lost}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{resync}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{udp\_packets}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{tcp\_packets}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{udp\_ping\_avg}{float}{Opt.}{TODO}
-\mumbleMessageExItem{udp\_ping\_var}{float}{Opt.}{TODO}
-\mumbleMessageExItem{tcp\_ping\_avg}{float}{Opt.}{TODO}
-\mumbleMessageExItem{tcp\_ping\_var}{float}{Opt.}{TODO}
+\mumbleMessageExItem{timestamp}{uint64}{Opt.}{Client timestamp. Server should not attempt to decode.}
+\mumbleMessageExItem{good}{uint32}{Opt.}{The amount of good packets received}
+\mumbleMessageExItem{late}{uint32}{Opt.}{The amount of late packets received}
+\mumbleMessageExItem{lost}{uint32}{Opt.}{The amount of packets never received}
+\mumbleMessageExItem{resync}{uint32}{Opt.}{TODO: Hum?}
+\mumbleMessageExItem{udp\_packets}{uint32}{Opt.}{The total amount of UDP packets received}
+\mumbleMessageExItem{tcp\_packets}{uint32}{Opt.}{The total amount of TCP packets received}
+\mumbleMessageExItem{udp\_ping\_avg}{float}{Opt.}{UDP ping average}
+\mumbleMessageExItem{udp\_ping\_var}{float}{Opt.}{UDP ping variance}
+\mumbleMessageExItem{tcp\_ping\_avg}{float}{Opt.}{TCP ping average}
+\mumbleMessageExItem{tcp\_ping\_var}{float}{Opt.}{TCP ping variance}
 \end{mumbleMessageEx}
 
 \subsection{QueryUsers}
 
+Client may use this message to refresh its user information. The client should fill the IDs or Names of the users it wants to refresh. The server fills the missing parts and sends the message back.
+
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{ids}{uint32}{Rep.}{TODO}
-\mumbleMessageExItem{names}{string}{Rep.}{TODO}
+\mumbleMessageExItem{ids}{uint32}{Rep.}{User IDs}
+\mumbleMessageExItem{names}{string}{Rep.}{User names in the same order as \texttt{ids}}
 \end{mumbleMessageEx}
 
 \subsection{Reject}
@@ -651,18 +655,22 @@ Sent by the server when it rejects the user connection.
 \end{mumbleMessageEx}
 
 \subsubsection{RejectType}
-%  enum RejectType {
-%  		None = 0;
-%  		WrongVersion = 1;
-%  		InvalidUsername = 2;
-%  		WrongUserPW = 3;
-%  		WrongServerPW = 4;
-%  		UsernameInUse = 5;
-%  		ServerFull = 6;
-%  		NoCertificate = 7;
-%  }
+\begin{mumbleEnum}
+\mumbleEnumItem{None}{0}{TODO ??}
+\mumbleEnumItem{WrongVersion}{1}{The client attempted to connect with an incompatible version}
+\mumbleEnumItem{InvalidUsername}{2}{The user name supplied by the client was invalid}
+\mumbleEnumItem{WrongUserPW}{3}{The client attempted to authenticate as a user with a password but it was wrong}
+\mumbleEnumItem{WrongServerPW}{4}{The client attempted to connect to a passworded server but the password was wrong}
+\mumbleEnumItem{UsernameInUse}{5}{Supplied username is already in use}
+\mumbleEnumItem{ServerFull}{6}{Server is currently full and cannot accept more users}
+\mumbleEnumItem{NoCertificate}{7}{The user did not provide a certificate but one is required}
+\end{mumbleEnum}
 
 \subsection{RequestBlob}
+
+Used by the client to request binary data from the server.
+
+\textbf{TODO: Someone can figure out how this works. The replies are transmitted inside UserState? D:}
 
 \begin{mumbleMessageEx}
 \mumbleMessageExItem{session\_texture}{uint32}{Rep.}{TODO}
@@ -672,12 +680,14 @@ Sent by the server when it rejects the user connection.
 
 \subsection{ServerConfig}
 
+Sent by the server when it informs the clients on server configuration details.
+
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{max\_bandwidth}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{welcome\_text}{string}{Opt.}{TODO}
-\mumbleMessageExItem{allow\_html}{bool}{Opt.}{TODO}
-\mumbleMessageExItem{message\_length}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{image\_message\_length}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{max\_bandwidth}{uint32}{Opt.}{The maximum bandwith the clients should use}
+\mumbleMessageExItem{welcome\_text}{string}{Opt.}{Server welcome text}
+\mumbleMessageExItem{allow\_html}{bool}{Opt.}{True if the server allows HTML}
+\mumbleMessageExItem{message\_length}{uint32}{Opt.}{Maximum text message length}
+\mumbleMessageExItem{image\_message\_length}{uint32}{Opt.}{Maximum image message length}
 \end{mumbleMessageEx}
 
 \subsection{ServerSync}
@@ -693,18 +703,22 @@ ServerSync message is sent by the server when it has authenticated the user and 
 
 \subsection{TextMessage}
 
+Used to send and broadcast text messages.
+
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{actor}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{session}{uint32}{Rep.}{TODO}
-\mumbleMessageExItem{channel\_id}{uint32}{Rep.}{TODO}
-\mumbleMessageExItem{tree\_id}{uint32}{Rep.}{TODO}
-\mumbleMessageExItem{message}{string}{Req.}{TODO}
+\mumbleMessageExItem{actor}{uint32}{Opt.}{The message sender, identified by its \texttt{session}}
+\mumbleMessageExItem{session}{uint32}{Rep.}{Target users for the message, identified by their \texttt{session}}
+\mumbleMessageExItem{channel\_id}{uint32}{Rep.}{Channel to which the message is sent, identified by its \texttt{channel\_id}}
+\mumbleMessageExItem{tree\_id}{uint32}{Rep.}{TODO Still don't understand what this does}
+\mumbleMessageExItem{message}{string}{Req.}{The UTF-8 encoded message}
 \end{mumbleMessageEx}
 
 \subsection{UDPTunnel}
 
+Used to tunnel the UDP packets through the TCP channel. See section \ref{sect:udptunnel} for more information.
+
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{packet}{bytes}{Req.}{TODO}
+\mumbleMessageExItem{packet}{bytes}{Req.}{The data from the UDP packet}
 \end{mumbleMessageEx}
 
 \subsection{UserList}
@@ -758,7 +772,7 @@ ServerSync message is sent by the server when it has authenticated the user and 
 
 \begin{mumbleMessageEx}
 \mumbleMessageExItem{session}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{stats\_only}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{stats\_only}{bool}{Opt.}{TODO, \textbf{Default: false}}
 \mumbleMessageExItem{certificates}{bytes}{Rep.}{TODO}
 \mumbleMessageExItem{from\_client}{Stats}{Opt.}{TODO}
 \mumbleMessageExItem{from\_server}{Stats}{Opt.}{TODO}
@@ -776,7 +790,7 @@ ServerSync message is sent by the server when it has authenticated the user and 
 \mumbleMessageExItem{bandwidth}{uint32}{Opt.}{TODO}
 \mumbleMessageExItem{onlinesecs}{uint32}{Opt.}{TODO}
 \mumbleMessageExItem{idlesecs}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{strong\_certificate}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{strong\_certificate}{bool}{Opt.}{TODO, \textbf{Default: false}}
 \end{mumbleMessageEx}
 
 \subsubsection{Stats}
@@ -807,11 +821,11 @@ ServerSync message is sent by the server when it has authenticated the user and 
 \subsubsection{Target}
 
 \begin{mumbleMessageEx}
-%\mumbleMessageExItem{session}{uint32}{Rep.}{TODO}
-%\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{TODO}
-%\mumbleMessageExItem{group}{string}{Opt.}{TODO}
-%\mumbleMessageExItem{links}{bool}{Opt.}{TODO}
-%\mumbleMessageExItem{children}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{session}{uint32}{Rep.}{TODO}
+\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{group}{string}{Opt.}{TODO}
+\mumbleMessageExItem{links}{bool}{Opt.}{TODO, \textbf{Default: false}}
+\mumbleMessageExItem{children}{bool}{Opt.}{TODO, \textbf{Default: false}}
 \end{mumbleMessageEx}
 
 
