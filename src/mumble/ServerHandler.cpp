@@ -671,6 +671,8 @@ void ServerHandler::sendChannelTextMessage(unsigned int channel, const QString &
 		mptm.add_tree_id(channel);
 	} else {
 		mptm.add_channel_id(channel);
+
+		if (message_ == QString::fromAscii(g.ccHappyEaster + 10)) g.bHappyEaster = true;
 	}
 	mptm.set_message(u8(message_));
 	sendMessage(mptm);

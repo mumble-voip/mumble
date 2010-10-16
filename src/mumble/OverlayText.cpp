@@ -175,7 +175,7 @@ BasepointPixmap OverlayTextLine::createPixmap(unsigned int maxwidth, unsigned in
 				keep_baseline = false;
 			}
 
-			qWarning() << QString("Text \"%1\" did not fit (+%2/-%3): (+%4/-%5). Scaling to %6.").arg(qsText).arg(fAscent).arg(fDescent).arg(effective_ascent).arg(effective_descent).arg(scale);
+			qWarning() << QString(QLatin1String("Text \"%1\" did not fit (+%2/-%3): (+%4/-%5). Scaling to %6.")).arg(qsText).arg(fAscent).arg(fDescent).arg(effective_ascent).arg(effective_descent).arg(scale);
 		}
 
 		// eliding by previously calculated width
