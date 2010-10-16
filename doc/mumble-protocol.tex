@@ -97,6 +97,22 @@
 
 \newcommand{\mumbleMessageExItem}[4]{ \texttt{#1} & \texttt{#2} & #3 & #4 \\ }
 
+\newenvironment{mumbleEnum}
+{%
+	\small
+	\renewcommand\arraystretch{1.5}
+	\begin{tabular}{p{0.25\linewidth}p{0.13\linewidth}p{0.4\linewidth}}
+	Name & Value & Description \\
+	\hline
+}
+{%
+	\end{tabular}
+	\renewcommand\arraystretch{1.0}
+}
+
+\newcommand{\mumbleEnumItem}[3]{ \texttt{#1} & \texttt{#2} & #3 \\ }
+
+
 \begin{document}
 \maketitle
 
@@ -412,37 +428,40 @@ The PacketDataStream class is used to serialize/deserialize the data packets rec
 \section{Messages}
 
 \subsection{ACL}
+\label{msg:acl}
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{channel\_id}{uint32}{Req.}{TODO}
-\mumbleMessageExItem{inherit\_acls}{bool}{Opt.}{TODO}
-\mumbleMessageExItem{groups}{ChanGroup}{Rep.}{TODO}
-\mumbleMessageExItem{acls}{ChanACL}{Rep.}{TODO}
-\mumbleMessageExItem{query}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{channel\_id}{uint32}{Req.}{Channel ID of the channel this message affects}
+\mumbleMessageExItem{inherit\_acls}{bool}{Opt.}{True if the channel inherits its parent's ACLs}
+\mumbleMessageExItem{groups}{ChanGroup}{Rep.}{User group specifications}
+\mumbleMessageExItem{acls}{ChanACL}{Rep.}{ACL specifications}
+\mumbleMessageExItem{query}{bool}{Opt.}{True if the message is a query for ACLs instead of setting them}
 \end{mumbleMessageEx}
 
 \subsubsection{ChanACL}
+\label{msg:chanACL}
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{apply\_here}{bool}{Opt.}{TODO}
-\mumbleMessageExItem{apply\_subs}{bool}{Opt.}{TODO}
-\mumbleMessageExItem{inherited}{bool}{Opt.}{TODO}
-\mumbleMessageExItem{user\_id}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{group}{string}{Opt.}{TODO}
-\mumbleMessageExItem{grant}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{deny}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{apply\_here}{bool}{Opt.}{True if this ACL applies to the current channel}
+\mumbleMessageExItem{apply\_subs}{bool}{Opt.}{True if this ACL applies to the sub channels}
+\mumbleMessageExItem{inherited}{bool}{Opt.}{True if the ACL has been inherited from the parent}
+\mumbleMessageExItem{user\_id}{uint32}{Opt.}{ID of the user that is affected by this ACL}
+\mumbleMessageExItem{group}{string}{Opt.}{ID of the group that is affected by this group}
+\mumbleMessageExItem{grant}{uint32}{Opt.}{Bit flag field of the permissions granted by this ACL}
+\mumbleMessageExItem{deny}{uint32}{Opt.}{Bit flag field of the permissions denied by this ACL}
 \end{mumbleMessageEx}
 
 \subsubsection{ChanGroup}
+\label{msg:chanGroup}
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{name}{string}{Req.}{TODO}
-\mumbleMessageExItem{inherited}{bool}{Opt.}{TODO}
-\mumbleMessageExItem{inherit}{bool}{Opt.}{TODO}
-\mumbleMessageExItem{inheritable}{bool}{Opt.}{TODO}
-\mumbleMessageExItem{add}{uint32}{Rep.}{TODO}
-\mumbleMessageExItem{remove}{uint32}{Rep.}{TODO}
-\mumbleMessageExItem{inherited\_members}{uint32}{Rep.}{TODO}
+\mumbleMessageExItem{name}{string}{Req.}{Name of the channel group, UTF-8 enccoded}
+\mumbleMessageExItem{inherited}{bool}{Opt.}{True if the group has been inherited from the parent. \textbf{Read only}}
+\mumbleMessageExItem{inherit}{bool}{Opt.}{True if the group members are inherited}
+\mumbleMessageExItem{inheritable}{bool}{Opt.}{True if the group can be inherited by sub channels}
+\mumbleMessageExItem{add}{uint32}{Rep.}{Users explicitly included in this group, identified by \texttt{user\_id}}
+\mumbleMessageExItem{remove}{uint32}{Rep.}{Users explicitly removed from this group in this channel if the group has been inherited, identified by \texttt{user\_id}}
+\mumbleMessageExItem{inherited\_members}{uint32}{Rep.}{Users inherited, identified by \texttt{user\_id}}
 \end{mumbleMessageEx}
 
 
@@ -455,32 +474,39 @@ Used by the client to send the authentication credentials to the server.
 \mumbleMessageExItem{username}{string}{Opt.}{UTF-8 encoded username}
 \mumbleMessageExItem{password}{string}{Opt.}{Server or user password}
 \mumbleMessageExItem{tokens}{string}{Rep.}{Additional access tokens for server ACL groups}
-\mumbleMessageExItem{celt\_versions}{int32}{Rep.}{TODO ??}
+\mumbleMessageExItem{celt\_versions}{int32}{Rep.}{TODO ??: Currently unused (mumble\\Messages.cpp does not write)}
 \end{mumbleMessageEx}
 
-\subsection{BanEntry}
+\subsection{BanList} 
+\label{msg:banList}
+
+Relays information on the bans. The client may send the BanList message to either modify the list of bans or query them from the server. The server sends this list only after a client queries for it.
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{bans}{BanEntry}{Rep.}{TODO}
-\mumbleMessageExItem{query}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{bans}{BanEntry}{Rep.}{List of ban entries currently in place}
+\mumbleMessageExItem{query}{bool}{Opt.}{True if the server should return the list, False if it should replace old ban list with this one}
 \end{mumbleMessageEx}
 
-\subsubsection{BanList}
+\subsubsection{BanEntry}
+\label{msg:banEntry}
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{address}{bytes}{Req.}{TODO}
-\mumbleMessageExItem{mask}{uint32}{Req.}{TODO}
-\mumbleMessageExItem{name}{string}{Opt.}{TODO}
-\mumbleMessageExItem{hash}{string}{Opt.}{TODO}
-\mumbleMessageExItem{reason}{string}{Opt.}{TODO}
-\mumbleMessageExItem{start}{string}{Opt.}{TODO}
-\mumbleMessageExItem{duration}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{address}{bytes}{Req.}{Banned IP address}
+\mumbleMessageExItem{mask}{uint32}{Req.}{The length of the subnet mask for the ban}
+\mumbleMessageExItem{name}{string}{Opt.}{User name for identification purposes, does not affect the ban}
+\mumbleMessageExItem{hash}{string}{Opt.}{TODO ??}
+\mumbleMessageExItem{reason}{string}{Opt.}{Reason for the ban, does not affect the ban}
+\mumbleMessageExItem{start}{string}{Opt.}{Ban start time}
+\mumbleMessageExItem{duration}{uint32}{Opt.}{Ban duration in seconds}
 \end{mumbleMessageEx}
 
 \subsection{ChannelRemove}
+\label{msg:channelRemove}
+
+Sent by the client when it wants a channel removed. Sent by the server when a channel has been removed and clients should be notified.
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{channel\_id}{uint32}{Req.}{TODO}
+\mumbleMessageExItem{channel\_id}{uint32}{Req.}{The \texttt{channel\_id} of the channel to be removed}
 \end{mumbleMessageEx}
 
 \subsection{ChannelState}
@@ -504,49 +530,60 @@ Used to communicate channel properties between the client and the server. Sent b
 \end{mumbleMessageEx}
 
 \subsection{CodecVersion}
+\label{msg:codecVersion}
 
-Used to communicate the available codec version.
+Sent by the server to notify the users of the version of the CELT codec they should use. This may change during the connection when new users join.
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{alpha}{int32}{Req.}{TODO}
-\mumbleMessageExItem{beta}{int32}{Req.}{TODO}
-\mumbleMessageExItem{prefer\_alpha}{bool}{Req.}{TODO}
+\mumbleMessageExItem{alpha}{int32}{Req.}{The version of the CELT Alpha codec}
+\mumbleMessageExItem{beta}{int32}{Req.}{The version of the CELT Beta codec}
+\mumbleMessageExItem{prefer\_alpha}{bool}{Req.}{True if the user should prefer Alpha over Beta}
 \end{mumbleMessageEx}
 
 \subsection{ContextAction}
+\label{msg:contextAction}
+
+Sent by the client when it wants to initiate a Context action. Refer to Mumble documentation (TODO Context action source) for more information.
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{session}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{action}{string}{Req.}{TODO}
+\mumbleMessageExItem{session}{uint32}{Opt.}{The target User for the action, identified by \texttt{session}}
+\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{The target Channel for the action, identified by \texttt{channel\_id}}
+\mumbleMessageExItem{action}{string}{Req.}{The action that should be executed}
 \end{mumbleMessageEx}
 
 \subsection{ContextActionAdd}
+\label{msg:contextActionAdd}
+
+Sent by the server to inform the client of available context actions.
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{action}{string}{Req.}{TODO}
-\mumbleMessageExItem{text}{string}{Req.}{TODO}
-\mumbleMessageExItem{context}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{action}{string}{Req.}{The action name}
+\mumbleMessageExItem{text}{string}{Req.}{The display name of the action}
+\mumbleMessageExItem{context}{uint32}{Opt.}{Context bit flags defining where the action should be displayed, see \ref{msg:contextActionAdd:context}}
 \end{mumbleMessageEx}
 
-\subsubsection{Context}
-%  enum Context {
-%  		Server = 0x01;
-%  		Channel = 0x02;
-%  		User = 0x04;
-%  }
+\subsubsection{Enumeration: Context}
+\label{msg:contextActionAdd:context}
+
+\begin{mumbleEnum}
+\mumbleEnumItem{Server}{0x01}{Action is applicable to the server}
+\mumbleEnumItem{Channel}{0x02}{Action can target a Channel}
+\mumbleEnumItem{User}{0x04}{Action can target a User}
+\end{mumbleEnum}
 
 \subsection{CryptSetup}
+\label{msg:cryptSetup}
 
-Used to initialize and resync the UDP encryption. See section \ref{sect:encryption} for more information.
+Used to initialize and resync the UDP encryption. See section \ref{sect:encryption} for more information. Either side may request a resync by sending the message without any values filled. The resync is performed by sending the message with only the client or server nonce filled.
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{key}{bytes}{Opt.}{TODO}
-\mumbleMessageExItem{client\_nonce}{bytes}{Opt.}{TODO}
-\mumbleMessageExItem{server\_nonce}{bytes}{Opt.}{TODO}
+\mumbleMessageExItem{key}{bytes}{Opt.}{Encryption key}
+\mumbleMessageExItem{client\_nonce}{bytes}{Opt.}{Client nonce}
+\mumbleMessageExItem{server\_nonce}{bytes}{Opt.}{Server nonce}
 \end{mumbleMessageEx}
 
 \subsection{PermissionDenied}
+\label{msg:permissionDenied}
 
 \begin{mumbleMessageEx}
 \mumbleMessageExItem{permission}{uint32}{Opt.}{TODO}
@@ -558,19 +595,20 @@ Used to initialize and resync the UDP encryption. See section \ref{sect:encrypti
 \end{mumbleMessageEx}
 
 \subsubsection{DenyType}
+\label{msg:permissionDenied:denyType}
 
-%  enum DenyType {
-%  		Text = 0;
-%  		Permission = 1;
-%  		SuperUser = 2;
-%  		ChannelName = 3;
-%  		TextTooLong = 4;
-%  		H9K = 5;
-%  		TemporaryChannel = 6;
-%  		MissingCertificate = 7;
-%  		UserName = 8;
-%  		ChannelFull = 9;
-%  }
+\begin{mumbleEnum}
+\mumbleEnumItem{Text}{0}{Operation denied for other reason, see reason field}
+\mumbleEnumItem{Permission}{1}{Permissions were denied}
+\mumbleEnumItem{SuperUser}{2}{Cannot modify SuperUser}
+\mumbleEnumItem{ChannelName}{3}{Invalid channel name}
+\mumbleEnumItem{TextTooLong}{4}{Text message too long}
+\mumbleEnumItem{H9K}{5}{The flux capacitor was spelled wrong.}
+\mumbleEnumItem{TemporaryChannel}{6}{Operation not permitted in temporary channel}
+\mumbleEnumItem{MissingCertificate}{7}{Operation requires certificate}
+\mumbleEnumItem{UserName}{8}{Invalid username}
+\mumbleEnumItem{ChannelFull}{9}{Channel is full}
+\end{mumbleEnum}
 
 \subsection{PermissionQuery}
 
