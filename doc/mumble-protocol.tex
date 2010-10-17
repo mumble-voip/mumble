@@ -4,6 +4,8 @@
 % This is a simple template for a LaTeX document using the "article" class.
 % See "book", "report", "letter" for other types of document.
 
+% Rantanen: Might prefer 'report' document type. Mainly for the use of Chapters.
+
 \documentclass[11pt]{article} % use larger type; default would be 10pt
 
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
@@ -390,13 +392,17 @@ The first byte of the header contains the packet type and additional target spec
 		\hline
 		0	& Normal talking \\
 		1	& Whisper to channel \\
-		2-30	& Direct whisper (Refer to VoiceTarget, \ref{msg:VoiceTarget}). \\
+		2-30	& Direct whisper \\
 			& Always 2 for incoming whisper. \\
 		31	& Server loopback
 	\end{tabular}
 \end{center}\end{table}
 
 The audio frames consist of one byte long header and up to 127 bytes long data portion. The first bit in the header is the \texttt{Terminator bit} which informs the receiver whether there are more audio frames after this one. This bit is turned on (value \texttt{1}) for all but the last frame in the current UDP packet. Rest of the seven bits in the header specify the length of the data portion. The data portion is encoded using one of the supported codecs. The exact codec is specified in the type portion of the whole packet (See table \ref{tbl:udptypes}). \emph{The data in each frame is encoded separately.}
+
+\subsubsection{Whispering}
+
+Normal talking can be heard by the users of the current channel and all linked channels as long as the speaker has Talk permission on these channels. If the speaker wishes to broadcast the voice to specific users or channels, he may use whispering. This is achieved by registering a voice target using the VoiceTarget message (See \ref{msg:VoiceTarget}) and specifying the target ID as the target in the first byte of the UDP packet.
 
 \subsection{TCP tunnel}
 \label{sect:udptunnel}
@@ -438,7 +444,7 @@ The PacketDataStream class is used to serialize/deserialize the data packets rec
 \mumbleMessageExItem{query}{bool}{Opt.}{True if the message is a query for ACLs instead of setting them, \textbf{Default: false}}
 \end{mumbleMessageEx}
 
-\subsubsection{ChanACL}
+\subsubsection{ACL\_ChanACL}
 \label{msg:chanACL}
 
 \begin{mumbleMessageEx}
@@ -451,7 +457,7 @@ The PacketDataStream class is used to serialize/deserialize the data packets rec
 \mumbleMessageExItem{deny}{uint32}{Opt.}{Bit flag field of the permissions denied by this ACL}
 \end{mumbleMessageEx}
 
-\subsubsection{ChanGroup}
+\subsubsection{ACL\_ChanGroup}
 \label{msg:chanGroup}
 
 \begin{mumbleMessageEx}
@@ -487,7 +493,7 @@ Relays information on the bans. The client may send the BanList message to eithe
 \mumbleMessageExItem{query}{bool}{Opt.}{True if the server should return the list, False if it should replace old ban list with this one, \textbf{Default: false}}
 \end{mumbleMessageEx}
 
-\subsubsection{BanEntry}
+\subsubsection{BanList\_BanEntry}
 \label{msg:banEntry}
 
 \begin{mumbleMessageEx}
@@ -560,7 +566,7 @@ Sent by the server to inform the client of available context actions.
 \mumbleMessageExItem{context}{uint32}{Opt.}{Context bit flags defining where the action should be displayed, see \ref{msg:contextActionAdd:context}}
 \end{mumbleMessageEx}
 
-\subsubsection{Enumeration: Context}
+\subsubsection{Enumeration: ContextActionAdd\_Context}
 \label{msg:contextActionAdd:context}
 
 \begin{mumbleEnum}
@@ -592,7 +598,7 @@ Used to initialize and resync the UDP encryption. See section \ref{sect:encrypti
 \mumbleMessageExItem{name}{string}{Opt.}{The name that is invalid when type is \texttt{UserName}}
 \end{mumbleMessageEx}
 
-\subsubsection{DenyType}
+\subsubsection{Enumeration: PermissionDenied\_DenyType}
 \label{msg:permissionDenied:denyType}
 
 \begin{mumbleEnum}
@@ -609,6 +615,7 @@ Used to initialize and resync the UDP encryption. See section \ref{sect:encrypti
 \end{mumbleEnum}
 
 \subsection{PermissionQuery}
+\label{msg:permissionQuery}
 
 Sent by the client when it wants permissions for a certain channel. Sent by the server when it replies to the query or wants the user to resync all channel permissions.
 
@@ -619,6 +626,7 @@ Sent by the client when it wants permissions for a certain channel. Sent by the 
 \end{mumbleMessageEx}
 
 \subsection{Ping}
+\label{msg:ping}
 
 Sent by the client to notify the server that the client is still alive. Server must reply to the packet with the same timestamp and its own good/late/lost/resync numbers. None of the fields is strictly required.
 
@@ -637,6 +645,7 @@ Sent by the client to notify the server that the client is still alive. Server m
 \end{mumbleMessageEx}
 
 \subsection{QueryUsers}
+\label{msg:queryUsers}
 
 Client may use this message to refresh its user information. The client should fill the IDs or Names of the users it wants to refresh. The server fills the missing parts and sends the message back.
 
@@ -646,6 +655,7 @@ Client may use this message to refresh its user information. The client should f
 \end{mumbleMessageEx}
 
 \subsection{Reject}
+\label{msg:reject}
 
 Sent by the server when it rejects the user connection.
 
@@ -654,7 +664,9 @@ Sent by the server when it rejects the user connection.
 \mumbleMessageExItem{reason}{string}{Opt.}{Human readable rejection reason}
 \end{mumbleMessageEx}
 
-\subsubsection{RejectType}
+\subsubsection{Enumeration: Reject\_RejectType}
+\label{msg:reject:rejectType}
+
 \begin{mumbleEnum}
 \mumbleEnumItem{None}{0}{TODO ??}
 \mumbleEnumItem{WrongVersion}{1}{The client attempted to connect with an incompatible version}
@@ -667,6 +679,7 @@ Sent by the server when it rejects the user connection.
 \end{mumbleEnum}
 
 \subsection{RequestBlob}
+\label{msg:requestBlob}
 
 Used by the client to request binary data from the server.
 
@@ -679,6 +692,7 @@ Used by the client to request binary data from the server.
 \end{mumbleMessageEx}
 
 \subsection{ServerConfig}
+\label{msg:serverConfig}
 
 Sent by the server when it informs the clients on server configuration details.
 
@@ -691,29 +705,32 @@ Sent by the server when it informs the clients on server configuration details.
 \end{mumbleMessageEx}
 
 \subsection{ServerSync}
+\label{msg:serverSync}
 
 ServerSync message is sent by the server when it has authenticated the user and finished synchronizing the server state. See section \ref{sect:serverSync} for more information on the initial connection exchange.
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{session}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{max\_bandwidth}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{welcome\_text}{string}{Opt.}{TODO}
-\mumbleMessageExItem{permissions}{uint64}{Opt.}{TODO}
+\mumbleMessageExItem{session}{uint32}{Opt.}{The \texttt{session} of the current user}
+\mumbleMessageExItem{max\_bandwidth}{uint32}{Opt.}{Maximum bandwith that the user should use}
+\mumbleMessageExItem{welcome\_text}{string}{Opt.}{Server welcome text}
+\mumbleMessageExItem{permissions}{uint64}{Opt.}{Current user permissions TODO: Confirm??}
 \end{mumbleMessageEx}
 
 \subsection{TextMessage}
+\label{msg:textMessage}
 
 Used to send and broadcast text messages.
 
 \begin{mumbleMessageEx}
 \mumbleMessageExItem{actor}{uint32}{Opt.}{The message sender, identified by its \texttt{session}}
 \mumbleMessageExItem{session}{uint32}{Rep.}{Target users for the message, identified by their \texttt{session}}
-\mumbleMessageExItem{channel\_id}{uint32}{Rep.}{Channel to which the message is sent, identified by its \texttt{channel\_id}}
-\mumbleMessageExItem{tree\_id}{uint32}{Rep.}{TODO Still don't understand what this does}
-\mumbleMessageExItem{message}{string}{Req.}{The UTF-8 encoded message}
+\mumbleMessageExItem{channel\_id}{uint32}{Rep.}{The channels to which the message is sent, identified by their \texttt{channel\_id}s}
+\mumbleMessageExItem{tree\_id}{uint32}{Rep.}{The root channels when sending message recursively to several channels, identified by their \texttt{channel\_id}s}
+\mumbleMessageExItem{message}{string}{Req.}{The UTF-8 encoded message. May be HTML if the server allows.}
 \end{mumbleMessageEx}
 
 \subsection{UDPTunnel}
+\label{msg:udpTunnel}
 
 Used to tunnel the UDP packets through the TCP channel. See section \ref{sect:udptunnel} for more information.
 
@@ -722,12 +739,14 @@ Used to tunnel the UDP packets through the TCP channel. See section \ref{sect:ud
 \end{mumbleMessageEx}
 
 \subsection{UserList}
+\label{msg:userList}
 
 \begin{mumbleMessageEx}
 \mumbleMessageExItem{users}{User}{Rep.}{TODO}
 \end{mumbleMessageEx}
 
-\subsubsection{User}
+\subsubsection{UserList\_User}
+\label{msg:userList:user}
 
 \begin{mumbleMessageEx}
 \mumbleMessageExItem{user\_id}{uint32}{Req.}{TODO}
@@ -735,97 +754,109 @@ Used to tunnel the UDP packets through the TCP channel. See section \ref{sect:ud
 \end{mumbleMessageEx}
 
 \subsection{UserRemove}
+\label{msg:userRemove}
+
+Used to communicate user leaving or being kicked. May be sent by the client when it attempts to kick a user. Sent by the server when it informs the clients that a user is not present anymore.
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{session}{uint32}{Req.}{TODO}
-\mumbleMessageExItem{actor}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{reason}{string}{Opt.}{TODO}
-\mumbleMessageExItem{ban}{bool}{Opt.}{TODO}
+\mumbleMessageExItem{session}{uint32}{Req.}{The user who is being kicked, identified by their \texttt{session}, not present when no one is being kicked}
+\mumbleMessageExItem{actor}{uint32}{Opt.}{The user who initiated the removal. Either the user who performs the kick or the user who is currently leaving}
+\mumbleMessageExItem{reason}{string}{Opt.}{Reason for the kick, stored as the ban reason if the user is banned}
+\mumbleMessageExItem{ban}{bool}{Opt.}{True if the kick should result in a ban}
 \end{mumbleMessageEx}
 
 \subsection{UserState}
 \label{msg:userState}
 
+Sent by the server when it communicates new and changed users to client. First seen during login procedure (See \ref{sect:conn:users}). May be sent by the client when it wishes to alter its state.
+
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{session}{uint32}{Opt.}{Unique user session ID}
-\mumbleMessageExItem{actor}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{session}{uint32}{Opt.}{Unique user session ID of the user whose state this is, may change on reconnect}
+\mumbleMessageExItem{actor}{uint32}{Opt.}{The \texttt{session} of the user who is updating this user}
 \mumbleMessageExItem{name}{string}{Opt.}{User name, UTF-8 encoded}
-\mumbleMessageExItem{user\_id}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{mute}{bool}{Opt.}{TODO}
-\mumbleMessageExItem{deaf}{bool}{Opt.}{TODO}
-\mumbleMessageExItem{suppress}{bool}{Opt.}{TODO}
-\mumbleMessageExItem{self\_mute}{bool}{Opt.}{TODO}
-\mumbleMessageExItem{self\_deaf}{bool}{Opt.}{TODO}
-\mumbleMessageExItem{texture}{bytes}{Opt.}{TODO}
-\mumbleMessageExItem{plugin\_context}{bytes}{Opt.}{TODO}
-\mumbleMessageExItem{plugin\_identity}{string}{Opt.}{TODO}
-\mumbleMessageExItem{comment}{string}{Opt.}{TODO}
-\mumbleMessageExItem{hash}{string}{Opt.}{TODO}
-\mumbleMessageExItem{comment\_hash}{bytes}{Opt.}{TODO}
-\mumbleMessageExItem{texture\_hash}{bytes}{Opt.}{TODO}
-\mumbleMessageExItem{priority\_speaker}{bool}{Opt.}{Is the user a priority speaker?}
-\mumbleMessageExItem{recording}{bool}{Opt.}{Is the user currently recording?}
+\mumbleMessageExItem{user\_id}{uint32}{Opt.}{Registered user ID if the user is registered}
+\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{Channel on which the user is}
+\mumbleMessageExItem{mute}{bool}{Opt.}{True if the user is muted by admin}
+\mumbleMessageExItem{deaf}{bool}{Opt.}{True if the user is deafened by admin}
+\mumbleMessageExItem{suppress}{bool}{Opt.}{TODO: ??}
+\mumbleMessageExItem{self\_mute}{bool}{Opt.}{True if the user has muted self}
+\mumbleMessageExItem{self\_deaf}{bool}{Opt.}{True if the user has deafened self}
+\mumbleMessageExItem{texture}{bytes}{Opt.}{TODO ??}
+\mumbleMessageExItem{plugin\_context}{bytes}{Opt.}{TODO ??}
+\mumbleMessageExItem{plugin\_identity}{string}{Opt.}{TODO ??}
+\mumbleMessageExItem{comment}{string}{Opt.}{User comment}
+\mumbleMessageExItem{hash}{string}{Opt.}{TODO ??}
+\mumbleMessageExItem{comment\_hash}{bytes}{Opt.}{TODO ??}
+\mumbleMessageExItem{texture\_hash}{bytes}{Opt.}{TODO ??}
+\mumbleMessageExItem{priority\_speaker}{bool}{Opt.}{True if the user is a priority speaker}
+\mumbleMessageExItem{recording}{bool}{Opt.}{True if the user is currently recording}
 \end{mumbleMessageEx}
 
 \subsection{UserStats}
+\label{msg:userStats}
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{session}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{stats\_only}{bool}{Opt.}{TODO, \textbf{Default: false}}
-\mumbleMessageExItem{certificates}{bytes}{Rep.}{TODO}
-\mumbleMessageExItem{from\_client}{Stats}{Opt.}{TODO}
-\mumbleMessageExItem{from\_server}{Stats}{Opt.}{TODO}
+\mumbleMessageExItem{session}{uint32}{Opt.}{User whose stats these are}
+\mumbleMessageExItem{stats\_only}{bool}{Opt.}{True if the message contains only mutable stats (packets, ping), \textbf{Default: false}}
+\mumbleMessageExItem{certificates}{bytes}{Rep.}{User certificates, TODO ??}
+\mumbleMessageExItem{from\_client}{Stats}{Opt.}{Packet statistics for packets received from the client}
+\mumbleMessageExItem{from\_server}{Stats}{Opt.}{Packet statistics for packets sent by the server}
 \\
-\mumbleMessageExItem{udp\_packets}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{tcp\_packets}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{udp\_ping\_avg}{float}{Opt.}{TODO}
-\mumbleMessageExItem{udp\_ping\_var}{float}{Opt.}{TODO}
-\mumbleMessageExItem{tcp\_ping\_avg}{float}{Opt.}{TODO}
-\mumbleMessageExItem{tcp\_ping\_var}{float}{Opt.}{TODO}
+\mumbleMessageExItem{udp\_packets}{uint32}{Opt.}{Amount of UDP packets sent}
+\mumbleMessageExItem{tcp\_packets}{uint32}{Opt.}{Amount of TCP packets sent}
+\mumbleMessageExItem{udp\_ping\_avg}{float}{Opt.}{UDP ping average}
+\mumbleMessageExItem{udp\_ping\_var}{float}{Opt.}{UDP ping variance}
+\mumbleMessageExItem{tcp\_ping\_avg}{float}{Opt.}{TCP ping average}
+\mumbleMessageExItem{tcp\_ping\_var}{float}{Opt.}{TCP ping variance}
 \\
-\mumbleMessageExItem{version}{Version}{Opt.}{TODO}
-\mumbleMessageExItem{celt\_versions}{int32}{Rep.}{TODO}
-\mumbleMessageExItem{address}{bytes}{Opt.}{TODO}
-\mumbleMessageExItem{bandwidth}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{onlinesecs}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{idlesecs}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{strong\_certificate}{bool}{Opt.}{TODO, \textbf{Default: false}}
+\mumbleMessageExItem{version}{Version}{Opt.}{Client version, see \ref{msg:version}}
+\mumbleMessageExItem{celt\_versions}{int32}{Rep.}{Celt versions, TODO ??}
+\mumbleMessageExItem{address}{bytes}{Opt.}{Client IP address}
+\mumbleMessageExItem{bandwidth}{uint32}{Opt.}{Bandwith used by this client}
+\mumbleMessageExItem{onlinesecs}{uint32}{Opt.}{Connection duration}
+\mumbleMessageExItem{idlesecs}{uint32}{Opt.}{Duration since last activity}
+\mumbleMessageExItem{strong\_certificate}{bool}{Opt.}{True if the user has a strong certificate, \textbf{Default: false}}
 \end{mumbleMessageEx}
 
-\subsubsection{Stats}
+\subsubsection{UserStats\_Stats}
+\label{msg:userStats:stats}
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{good}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{late}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{lost}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{resync}{uint32}{Opt.}{TODO}
+\mumbleMessageExItem{good}{uint32}{Opt.}{The amount of good packets received}
+\mumbleMessageExItem{late}{uint32}{Opt.}{The amount of late packets received}
+\mumbleMessageExItem{lost}{uint32}{Opt.}{The amount of packets never received}
+\mumbleMessageExItem{resync}{uint32}{Opt.}{TODO: Hum?}
 \end{mumbleMessageEx}
 
 \subsection{Version}
+\label{msg:version}
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{version}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{release}{string}{Opt.}{TODO}
-\mumbleMessageExItem{os}{string}{Opt.}{TODO}
-\mumbleMessageExItem{os\_version}{string}{Opt.}{TODO}
+\mumbleMessageExItem{version}{uint32}{Opt.}{2-byte Major, 1-byte Minor and 1-byte Patch version number}
+\mumbleMessageExItem{release}{string}{Opt.}{Client release name}
+\mumbleMessageExItem{os}{string}{Opt.}{Client OS name}
+\mumbleMessageExItem{os\_version}{string}{Opt.}{Client OS version}
 \end{mumbleMessageEx}
 
 \subsection{VoiceTarget}
+\label{msg:voiceTarget}
+
+Sent by the client when it wants to register or clear whisper targets. See \ref{sect:whispering} for more information. \textbf{Note: The first available target ID is 1 as 0 is reserved for normal talking. Maximum channel ID is 30}
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{id}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{targets}{Target}{Rep.}{TODO}
+\mumbleMessageExItem{id}{uint32}{Opt.}{Voice target ID}
+\mumbleMessageExItem{targets}{Target}{Rep.}{The receivers that this voice target includes}
 \end{mumbleMessageEx}
 
-\subsubsection{Target}
+\subsubsection{VoiceTarget\_Target}
+\label{msg:voiceTarget:target}
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{session}{uint32}{Rep.}{TODO}
-\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{TODO}
-\mumbleMessageExItem{group}{string}{Opt.}{TODO}
-\mumbleMessageExItem{links}{bool}{Opt.}{TODO, \textbf{Default: false}}
-\mumbleMessageExItem{children}{bool}{Opt.}{TODO, \textbf{Default: false}}
+\mumbleMessageExItem{session}{uint32}{Rep.}{Users that are included as targets}
+\mumbleMessageExItem{channel\_id}{uint32}{Opt.}{Channels that are included as targets}
+\mumbleMessageExItem{group}{string}{Opt.}{TODO ??}
+\mumbleMessageExItem{links}{bool}{Opt.}{True if the voice should follow links from the specified channel, \textbf{Default: false}}
+\mumbleMessageExItem{children}{bool}{Opt.}{True if the voice should also be sent to children of the specifiec channel, \textbf{Default: false}}
 \end{mumbleMessageEx}
 
 
