@@ -370,7 +370,7 @@ Optional		& float &:& Pos 2 & Uses PacketDataStream encoding \\
 \caption{UDP Voice packet}\label{fig:udpvoice}
 \end{center}\end{figure}
 
-The first byte of the header contains the packet type and additional target specifier. The type is stored in the first three bits and specifies the type and encoding of the packet. Current types are listed in table \ref{bl:udptypes}. The remaining 5 bits specify additional packet-wide options. For voice packets the values specify the voice target as listed in table \ref{tbl:udptargets}.
+The first byte of the header contains the packet type and additional target specifier. The type is stored in the first three bits and specifies the type and encoding of the packet. Current types are listed in table \ref{tbl:udptypes}. The remaining 5 bits specify additional packet-wide options. For voice packets the values specify the voice target as listed in table \ref{tbl:udptargets}.
 
 \begin{table}[htp]\begin{center}
 	\caption{UDP Types}\label{tbl:udptypes}
@@ -416,7 +416,7 @@ When the UDP packets are tunneled through the TCP tunnel they are prefixed with 
 
 \hline
 Type	& Length	& UDP Packet \\
-1B		& 3B		& 0-1020 KiB \\
+1B		& 3B		& 0-1020B \\
 \hline
 
 \end{tabular}
