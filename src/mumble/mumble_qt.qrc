@@ -4,6 +4,7 @@
  <file>qt_es.qm</file>
  <file>qt_fr.qm</file>
  <file>qt_pl.qm</file>
+ <file>qt_pt.qm</file>
  <file>qt_ru.qm</file>
  <file>qt_ja.qm</file>
 </qresource>
