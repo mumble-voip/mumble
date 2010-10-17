@@ -38,6 +38,14 @@
 \usepackage{color}
 \usepackage{colortbl}
 
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+\DeclareMathOperator{\bit}{bit}
+\DeclareMathOperator{\band}{and}
+\DeclareMathOperator{\lshift}{<<}
+\DeclareMathOperator{\rshift}{>>}
+
 % Configure fancyvrb for our listings
 \usepackage{fancyvrb}
 \fvset{frame=leftline, framesep=5mm, tabsize=8, numbers=left}
@@ -407,6 +415,31 @@ The audio frames consist of one byte long header and up to 127 bytes long data p
 
 Normal talking can be heard by the users of the current channel and all linked channels as long as the speaker has Talk permission on these channels. If the speaker wishes to broadcast the voice to specific users or channels, he may use whispering. This is achieved by registering a voice target using the VoiceTarget message (See \ref{msg:voiceTarget}) and specifying the target ID as the target in the first byte of the UDP packet.
 
+\subsection {64-bit integer encoding}
+\label{sect:varint}
+
+The variable length integer encoding is used to encode long (64-bit) integers so that short values do not need 4 bytes to be transferred.
+
+%\begin{displaymath}
+\begin{align*}
+	e &: \mathbb{N} \rightarrow \mathbb{N}_{\geq0} \\
+	e(x) &= \begin{dcases*}
+			e_+(x, 1, x)					& when $ 0 \leq x \leq \text{0xFFFFFFF} $ \\
+			x + \text{0xF0} \cdot {2^8}^4	& when $ \text{0xFFFFFFF} < x \leq \text{0xFFFFFFFF} $ \\
+			x + \text{0xF4} \cdot {2^8}^8	& when $ \text{0xFFFFFFFFF} < x $ \\
+			\text{0xFC} - x					& when $ 0 < -x \leq \text{0x03} $ \\
+			\text{0xF8} 2^{\lfloor \log_2 e(-x) \rfloor + 1} + e(-x)					& when $ \text{0x03} < -x $
+		\end{dcases*} \\
+%
+	e_+(x, b, r) &= \begin{dcases*}
+			p_+(b) + x									& when $ r < 2^(8-b) $ \\
+			e_+(x, b_l + 1, \lfloor r / 2^8 \rfloor)	& when $ r \geq 2^(8-b) $
+		\end{dcases*} \\
+%
+	p_+(b) &= 2^{8b} \frac{(2^{b-1} - 1)}{2^{b-1}} \\
+\end{align*}
+%\end{displaymath}
+
 \subsection{TCP tunnel}
 \label{sect:udptunnel}
 
@@ -430,9 +463,6 @@ All the voice packets are encrypted once during transfer. The actual encryption 
 \subsection{Implementation notes}
 
 \emph{\small{When implementing the protocol it is easier to ignore the UDP transfer layer at first and just tunnel the UDP data through the TCP tunnel. The TCP layer must be implemented for authentication in any case. Making sure that the voice transmission works before implementing the UDP protocol simplifies debugging greatly. The UDP protocol is a required part of the specification though.}}
-
-\subsection {PacketDataStream}
-The PacketDataStream class is used to serialize/deserialize the data packets received on the UDP connection or via the TCP-Tunneling. As the name implies it provides a stream based access to the data it contains. To pull data from it the user has to know what is located on the current position in the stream (e.g. a uint32, utf8 string and so on), the class itself is not aware of it's contents.
 
 \section{Messages}
 
