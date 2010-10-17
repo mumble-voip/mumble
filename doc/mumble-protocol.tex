@@ -303,6 +303,8 @@ recording		& bool
 
 
 \subsection {Server sync}
+\label{sect:serverSync}
+
 The client has now received a copy of the parts of the server state he needs to know about. To complete the synchronization the server transmits a ServerSync message containing the session id of the clients session, the maximum bandwidth allowed on this server, the servers welcome text as well as the permissions the client has in the channel he ended up.
 
 %FIGURE GOES HERE
@@ -337,7 +339,7 @@ If the client stops receiving replies to the UDP packets at some point or never 
 
 \subsection{Data}
 
-The voice data is transmitted in variable length packets that consist of header portion, followed by repeated data segments and an optional position part. The full packet structure is shown in figure \ref{fig:udpvoice}. The protocol transfers 64-bit integers using variable length encoding. This encoding is specified in section \ref{sect:varint}.
+The voice data is transmitted in variable length packets that consist of header portion, followed by repeated data segments and an optional position part. The full packet structure is shown in figure \ref{fig:udpvoice}. The decrypted data should never be longer than 1020 bytes, this allows the use of 1024 byte UDP buffer even after the 4-byte encryption header is added to the packet during the encryption. The protocol transfers 64-bit integers using variable length encoding. This encoding is specified in section \ref{sect:varint}.
 
 \begin{figure}[htp]\begin{center}\begin{tabular}{l|rcl|p{0.5\textwidth}}
 
@@ -401,8 +403,9 @@ The first byte of the header contains the packet type and additional target spec
 The audio frames consist of one byte long header and up to 127 bytes long data portion. The first bit in the header is the \texttt{Terminator bit} which informs the receiver whether there are more audio frames after this one. This bit is turned on (value \texttt{1}) for all but the last frame in the current UDP packet. Rest of the seven bits in the header specify the length of the data portion. The data portion is encoded using one of the supported codecs. The exact codec is specified in the type portion of the whole packet (See table \ref{tbl:udptypes}). \emph{The data in each frame is encoded separately.}
 
 \subsubsection{Whispering}
+\label{sect:whispering}
 
-Normal talking can be heard by the users of the current channel and all linked channels as long as the speaker has Talk permission on these channels. If the speaker wishes to broadcast the voice to specific users or channels, he may use whispering. This is achieved by registering a voice target using the VoiceTarget message (See \ref{msg:VoiceTarget}) and specifying the target ID as the target in the first byte of the UDP packet.
+Normal talking can be heard by the users of the current channel and all linked channels as long as the speaker has Talk permission on these channels. If the speaker wishes to broadcast the voice to specific users or channels, he may use whispering. This is achieved by registering a voice target using the VoiceTarget message (See \ref{msg:voiceTarget}) and specifying the target ID as the target in the first byte of the UDP packet.
 
 \subsection{TCP tunnel}
 \label{sect:udptunnel}
@@ -413,7 +416,7 @@ When the UDP packets are tunneled through the TCP tunnel they are prefixed with 
 
 \hline
 Type	& Length	& UDP Packet \\
-1B		& 3B		& 0-2048 KiB \\
+1B		& 3B		& 0-1020 KiB \\
 \hline
 
 \end{tabular}
@@ -480,7 +483,7 @@ Used by the client to send the authentication credentials to the server.
 \mumbleMessageExItem{username}{string}{Opt.}{UTF-8 encoded username}
 \mumbleMessageExItem{password}{string}{Opt.}{Server or user password}
 \mumbleMessageExItem{tokens}{string}{Rep.}{Additional access tokens for server ACL groups}
-\mumbleMessageExItem{celt\_versions}{int32}{Rep.}{TODO ??: Currently unused (mumble\\Messages.cpp does not write)}
+\mumbleMessageExItem{celt\_versions}{int32}{Rep.}{A list of CELT bitstream version constants supported by the client.}
 \end{mumbleMessageEx}
 
 \subsection{BanList} 
@@ -518,19 +521,19 @@ Sent by the client when it wants a channel removed. Sent by the server when a ch
 \subsection{ChannelState}
 \label{msg:channelState}
 
-Used to communicate channel properties between the client and the server. Sent by the server during the login process (See \ref{sect:conn:channels}) or when channel states are updated. TODO: Sent by users if they modify channels?
+Used to communicate channel properties between the client and the server. Sent by the server during the login process (See \ref{sect:conn:channels}) or when channel properties are updated. Client may use this message to update said channel properties.
 
 \begin{mumbleMessageEx}
 \mumbleMessageExItem{channel\_id}{uint32}{Opt.}{Unique ID for the channel within the server.}
 \mumbleMessageExItem{parent}{uint32}{Opt.}{\texttt{channel\_id} of the parent channel.}
 \mumbleMessageExItem{name}{string}{Opt.}{Channel name, UTF-8 encoded.}
-\mumbleMessageExItem{links}{uint32}{Rep.}{A collection of \texttt{channel\_id} values of the linked channels. Absent during the first channel listing (See \ref{ect:conn:channels}).}
-\mumbleMessageExItem{description}{string}{Opt.}{Channel description, UTF-8 encoded.}
+\mumbleMessageExItem{links}{uint32}{Rep.}{A collection of \texttt{channel\_id} values of the linked channels. Absent during the first channel listing (See \ref{sect:conn:channels}).}
+\mumbleMessageExItem{description}{string}{Opt.}{Channel description, UTF-8 encoded. Only if the description is less than 128 bytes}
 \mumbleMessageExItem{links\_add}{uint32}{Rep.}{A collection of \texttt{channel\_id} values that should be added to \texttt{links}.}
 \mumbleMessageExItem{links\_remove}{uint32}{Rep.}{A collection of \texttt{channel\_id} values that should be removed from \texttt{links}.}
 \mumbleMessageExItem{temporary}{bool}{Opt.}{True if the channel is temporary. \textbf{Default: false}}
 \mumbleMessageExItem{position}{uint32}{Opt.}{Position weight to tweak the channel position in the channel list. \textbf{Default: 0}}
-\mumbleMessageExItem{description\_hash}{bytes}{Opt.}{TODO ??}
+\mumbleMessageExItem{description\_hash}{bytes}{Opt.}{SHA1 hash of the description if the description is 128 bytes or more. See \ref{msg:requestBlob}}
 \end{mumbleMessageEx}
 
 \subsection{CodecVersion}
@@ -592,7 +595,7 @@ Used to initialize and resync the UDP encryption. See section \ref{sect:encrypti
 \begin{mumbleMessageEx}
 \mumbleMessageExItem{permission}{uint32}{Opt.}{The denied permission when type is \texttt{Permission}}
 \mumbleMessageExItem{channel\_id}{uint32}{Opt.}{\texttt{channel\_id} for the channel where the permission was denied when type is \texttt{Permission}}
-\mumbleMessageExItem{session}{uint32}{Opt.}{TODO: Client never reads this, what is it?}
+\mumbleMessageExItem{session}{uint32}{Opt.}{The user who was denied permissions, identified by \texttt{session}}
 \mumbleMessageExItem{reason}{string}{Opt.}{Textual reason for the denial}
 \mumbleMessageExItem{type}{DenyType}{Opt.}{Type of the denial}
 \mumbleMessageExItem{name}{string}{Opt.}{The name that is invalid when type is \texttt{UserName}}
@@ -635,7 +638,7 @@ Sent by the client to notify the server that the client is still alive. Server m
 \mumbleMessageExItem{good}{uint32}{Opt.}{The amount of good packets received}
 \mumbleMessageExItem{late}{uint32}{Opt.}{The amount of late packets received}
 \mumbleMessageExItem{lost}{uint32}{Opt.}{The amount of packets never received}
-\mumbleMessageExItem{resync}{uint32}{Opt.}{TODO: Hum?}
+\mumbleMessageExItem{resync}{uint32}{Opt.}{The amount of nonce resyncs}
 \mumbleMessageExItem{udp\_packets}{uint32}{Opt.}{The total amount of UDP packets received}
 \mumbleMessageExItem{tcp\_packets}{uint32}{Opt.}{The total amount of TCP packets received}
 \mumbleMessageExItem{udp\_ping\_avg}{float}{Opt.}{UDP ping average}
@@ -647,7 +650,7 @@ Sent by the client to notify the server that the client is still alive. Server m
 \subsection{QueryUsers}
 \label{msg:queryUsers}
 
-Client may use this message to refresh its user information. The client should fill the IDs or Names of the users it wants to refresh. The server fills the missing parts and sends the message back.
+Client may use this message to refresh its registered user information. The client should fill the IDs or Names of the users it wants to refresh. The server fills the missing parts and sends the message back.
 
 \begin{mumbleMessageEx}
 \mumbleMessageExItem{ids}{uint32}{Rep.}{User IDs}
@@ -681,14 +684,12 @@ Sent by the server when it rejects the user connection.
 \subsection{RequestBlob}
 \label{msg:requestBlob}
 
-Used by the client to request binary data from the server.
-
-\textbf{TODO: Someone can figure out how this works. The replies are transmitted inside UserState? D:}
+Used by the client to request binary data from the server. By default large comments or textures are not sent within standard messages but instead the hash is. If the client does not recognize the hash it may request the resource when it needs it. The client does so by sending a RequestBlob message with the correct fields filled with the hashes it wants to receive. The server replies to this by sending a new UserState/ChannelState message with the resources filled even if they would normally be transmitted as hashes.
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{session\_texture}{uint32}{Rep.}{TODO}
-\mumbleMessageExItem{session\_comment}{uint32}{Rep.}{TODO}
-\mumbleMessageExItem{channel\_description}{uint32}{Rep.}{TODO}
+\mumbleMessageExItem{session\_texture}{uint32}{Rep.}{Hashes of the requested UserState textures}
+\mumbleMessageExItem{session\_comment}{uint32}{Rep.}{Hashes of the requested UserState comments}
+\mumbleMessageExItem{channel\_description}{uint32}{Rep.}{Hashes of the requested ChannelState descriptions}
 \end{mumbleMessageEx}
 
 \subsection{ServerConfig}
@@ -741,16 +742,18 @@ Used to tunnel the UDP packets through the TCP channel. See section \ref{sect:ud
 \subsection{UserList}
 \label{msg:userList}
 
+Lists the registered users
+
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{users}{User}{Rep.}{TODO}
+\mumbleMessageExItem{users}{User}{Rep.}{A list of registered users}
 \end{mumbleMessageEx}
 
 \subsubsection{UserList\_User}
 \label{msg:userList:user}
 
 \begin{mumbleMessageEx}
-\mumbleMessageExItem{user\_id}{uint32}{Req.}{TODO}
-\mumbleMessageExItem{name}{string}{Opt.}{TODO}
+\mumbleMessageExItem{user\_id}{uint32}{Req.}{Registered user ID}
+\mumbleMessageExItem{name}{string}{Opt.}{Registered user name}
 \end{mumbleMessageEx}
 
 \subsection{UserRemove}
@@ -778,16 +781,16 @@ Sent by the server when it communicates new and changed users to client. First s
 \mumbleMessageExItem{channel\_id}{uint32}{Opt.}{Channel on which the user is}
 \mumbleMessageExItem{mute}{bool}{Opt.}{True if the user is muted by admin}
 \mumbleMessageExItem{deaf}{bool}{Opt.}{True if the user is deafened by admin}
-\mumbleMessageExItem{suppress}{bool}{Opt.}{TODO: ??}
+\mumbleMessageExItem{suppress}{bool}{Opt.}{True if the user has been suppressed from talking by a reason other than being muted}
 \mumbleMessageExItem{self\_mute}{bool}{Opt.}{True if the user has muted self}
 \mumbleMessageExItem{self\_deaf}{bool}{Opt.}{True if the user has deafened self}
-\mumbleMessageExItem{texture}{bytes}{Opt.}{TODO ??}
+\mumbleMessageExItem{texture}{bytes}{Opt.}{User image if it is less than 128 bytes}
 \mumbleMessageExItem{plugin\_context}{bytes}{Opt.}{TODO ??}
 \mumbleMessageExItem{plugin\_identity}{string}{Opt.}{TODO ??}
-\mumbleMessageExItem{comment}{string}{Opt.}{User comment}
-\mumbleMessageExItem{hash}{string}{Opt.}{TODO ??}
-\mumbleMessageExItem{comment\_hash}{bytes}{Opt.}{TODO ??}
-\mumbleMessageExItem{texture\_hash}{bytes}{Opt.}{TODO ??}
+\mumbleMessageExItem{comment}{string}{Opt.}{User comment if it is less than 128 bytes}
+\mumbleMessageExItem{hash}{string}{Opt.}{The hash of the user certificate}
+\mumbleMessageExItem{comment\_hash}{bytes}{Opt.}{SHA1 hash of the user comment if it 128 bytes or more. See \ref{msg:requestBlob}}
+\mumbleMessageExItem{texture\_hash}{bytes}{Opt.}{SHA1 hash of the user picture if it 128 bytes or more. See \ref{msg:requestBlob}}
 \mumbleMessageExItem{priority\_speaker}{bool}{Opt.}{True if the user is a priority speaker}
 \mumbleMessageExItem{recording}{bool}{Opt.}{True if the user is currently recording}
 \end{mumbleMessageEx}
@@ -795,10 +798,12 @@ Sent by the server when it communicates new and changed users to client. First s
 \subsection{UserStats}
 \label{msg:userStats}
 
+Used to communicate user stats between the server and clients.
+
 \begin{mumbleMessageEx}
 \mumbleMessageExItem{session}{uint32}{Opt.}{User whose stats these are}
 \mumbleMessageExItem{stats\_only}{bool}{Opt.}{True if the message contains only mutable stats (packets, ping), \textbf{Default: false}}
-\mumbleMessageExItem{certificates}{bytes}{Rep.}{User certificates, TODO ??}
+\mumbleMessageExItem{certificates}{bytes}{Rep.}{Full user certificate chain of the user certificate in DER format} % TODO: DER format reference
 \mumbleMessageExItem{from\_client}{Stats}{Opt.}{Packet statistics for packets received from the client}
 \mumbleMessageExItem{from\_server}{Stats}{Opt.}{Packet statistics for packets sent by the server}
 \\
@@ -810,7 +815,7 @@ Sent by the server when it communicates new and changed users to client. First s
 \mumbleMessageExItem{tcp\_ping\_var}{float}{Opt.}{TCP ping variance}
 \\
 \mumbleMessageExItem{version}{Version}{Opt.}{Client version, see \ref{msg:version}}
-\mumbleMessageExItem{celt\_versions}{int32}{Rep.}{Celt versions, TODO ??}
+\mumbleMessageExItem{celt\_versions}{int32}{Rep.}{A list of CELT bitstream version constants supported by the client of this user.}
 \mumbleMessageExItem{address}{bytes}{Opt.}{Client IP address}
 \mumbleMessageExItem{bandwidth}{uint32}{Opt.}{Bandwith used by this client}
 \mumbleMessageExItem{onlinesecs}{uint32}{Opt.}{Connection duration}
@@ -825,7 +830,7 @@ Sent by the server when it communicates new and changed users to client. First s
 \mumbleMessageExItem{good}{uint32}{Opt.}{The amount of good packets received}
 \mumbleMessageExItem{late}{uint32}{Opt.}{The amount of late packets received}
 \mumbleMessageExItem{lost}{uint32}{Opt.}{The amount of packets never received}
-\mumbleMessageExItem{resync}{uint32}{Opt.}{TODO: Hum?}
+\mumbleMessageExItem{resync}{uint32}{Opt.}{The amount of nonce resyncs}
 \end{mumbleMessageEx}
 
 \subsection{Version}
@@ -841,7 +846,7 @@ Sent by the server when it communicates new and changed users to client. First s
 \subsection{VoiceTarget}
 \label{msg:voiceTarget}
 
-Sent by the client when it wants to register or clear whisper targets. See \ref{sect:whispering} for more information. \textbf{Note: The first available target ID is 1 as 0 is reserved for normal talking. Maximum channel ID is 30}
+Sent by the client when it wants to register or clear whisper targets. See \ref{sect:whispering} for more information. \textbf{Note: The first available target ID is 1 as 0 is reserved for normal talking. Maximum target ID is 30}
 
 \begin{mumbleMessageEx}
 \mumbleMessageExItem{id}{uint32}{Opt.}{Voice target ID}
