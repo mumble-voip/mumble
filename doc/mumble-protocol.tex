@@ -45,6 +45,7 @@
 \DeclareMathOperator{\band}{and}
 \DeclareMathOperator{\lshift}{<<}
 \DeclareMathOperator{\rshift}{>>}
+\DeclareMathOperator{\append}{\triangleright}
 
 % Configure fancyvrb for our listings
 \usepackage{fancyvrb}
@@ -418,27 +419,47 @@ Normal talking can be heard by the users of the current channel and all linked c
 \subsection {64-bit integer encoding}
 \label{sect:varint}
 
-The variable length integer encoding is used to encode long (64-bit) integers so that short values do not need 4 bytes to be transferred.
+The variable length integer encoding is used to encode long (64-bit) integers so that short values do not need the full 8 bytes to be transferred. The encoding function is given below. While it might seem complex it is worth noting that the $(a_v, a_p) \append (b_v, b_p)$ function equals appending the $a_p$ bits long value $a_v$ to a byte stream that already has the $b_p$ bits long value $b_v$.
 
-%\begin{displaymath}
 \begin{align*}
-	e &: \mathbb{N} \rightarrow \mathbb{N}_{\geq0} \\
+	(a_v, a_p) \append (b_v, b_p) &= (2^{b_p} a_v + b_v, a_p + b_p) \\
+%
+	e &: \mathbb{N} \rightarrow \mathbb{N}_{\geq0}^2 \\
 	e(x) &= \begin{dcases*}
-			e_+(x, 1, x)					& when $ 0 \leq x \leq \text{0xFFFFFFF} $ \\
-			x + \text{0xF0} \cdot {2^8}^4	& when $ \text{0xFFFFFFF} < x \leq \text{0xFFFFFFFF} $ \\
-			x + \text{0xF4} \cdot {2^8}^8	& when $ \text{0xFFFFFFFFF} < x $ \\
-			\text{0xFC} - x					& when $ 0 < -x \leq \text{0x03} $ \\
-			\text{0xF8} 2^{\lfloor \log_2 e(-x) \rfloor + 1} + e(-x)					& when $ \text{0x03} < -x $
+			e_+(x, 1)										& when $ 0 \leq x < 2^{28} $ \\
+			\left((2^8 - 2^4) \cdot {2^8}^4 + x, 2^{40}\right)			& when $ 2^{28} \leq x < 2^{32} $ \\
+			\left((2^8 - 2^4 + 2^2) \cdot {2^8}^8 + x, 2^{72}\right)	& when $ 2^{32} \leq x $ \\
+			(2^8 - 2^2 - x, 8)								& when $ -4 < x < 0 $ \\
+			(2^8 - 2^3, 8) \append e(-x)					& when $ x \leq -4 $ \\
 		\end{dcases*} \\
 %
-	e_+(x, b, r) &= \begin{dcases*}
-			p_+(b) + x									& when $ r < 2^(8-b) $ \\
-			e_+(x, b_l + 1, \lfloor r / 2^8 \rfloor)	& when $ r \geq 2^(8-b) $
+	e_+(x, b) &= \begin{dcases*}
+			(p(b) + x, 8)												& when $ r < 2^(8-b) $ \\
+			e_+\left(\left\lfloor \frac{x}{2^8} \right\rfloor, b + 1\right) \append (x \bmod 2^8, 8)	& when $ r \geq 2^(8-b) $
 		\end{dcases*} \\
 %
-	p_+(b) &= 2^{8b} \frac{(2^{b-1} - 1)}{2^{b-1}} \\
+	p(b) &= 2^8 - 2^{9-b}
 \end{align*}
-%\end{displaymath}
+
+Essentially the first byte contains the number range information. For positive numbers this tells how many bytes the number takes. For numbers in the range $[0, 2^{28})$ the header bits keep growing steadily, starting from 1 and growing by one each time the number that should be encoded does not fit in the free space, as shown by $e_+(x, b)$. Numbers in the range $[2^{28}, 2^{32})$ have header byte \texttt{1111 0000} followed by the full 4 bytes long binary presentation of the number. Numbers greater than $2^{32}$ have header byte \texttt{1111 0100} followed by the full 8 bytes long binary presentation of the number. Negative numbers in the range $(-4, 0)$ are encoded by performing a bitwise or operation between \texttt{1111 1100} and the positive presentation of the number. Negative numbers less or equal to $-4$ have a header byte \texttt{1111 1000} followed by the varint encoding of their opposite number.
+
+Decoding is performed by analyzing the first byte after which the rest of the number can be read from the byte stream.
+
+\begin{align*}
+	s_0(x) &= 8 - \left\lfloor log_2(2^8-1 - x) \right\rfloor \\
+%
+	f_x &: \mathbb{N}_{\geq0} \rightarrow [0, 2^8) \\
+	d &: f \rightarrow \mathbb{N}, f = \{ f_1, f_2, f_3, ... \} \\
+	d(f) &= \begin{dcases*}
+			d_+\Big(f, s_0\big(f(0)\big)\Big)													& when $f(0) \leq 2^8 - 2^4 $ \\
+			\sum_{i=0}^4 2^{32-8i}f(i)								& when $f(0) = 2^8 - 2^4 $ \\
+			\sum_{i=0}^8 2^{64-8i}f(i)								& when $f(0) = 2^8 - 2^4 + 2^2 $ \\
+			-d(g : g(n) = f(n+1))									& when $f(0) = 2^8 - 2^3 $ \\
+			(2^8 - 2^2) - f(0)										& when $f(0) \geq 2^8 - 2^2 $ \\
+		\end{dcases*} \\
+%
+	d_+(f, z) &= -2^{8z - 7z} + \sum_{i=1}^z 2^{8z-8i}f(i-1)
+\end{align*}
 
 \subsection{TCP tunnel}
 \label{sect:udptunnel}
