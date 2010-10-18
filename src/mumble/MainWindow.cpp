@@ -622,13 +622,7 @@ void MainWindow::openUrl(const QUrl &url) {
 	patch = 0;
 
 	QString version = url.queryItemValue(QLatin1String("version"));
-
-	QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)"));
-	if (rx.exactMatch(version)) {
-		major = rx.cap(1).toInt();
-		minor = rx.cap(2).toInt();
-		patch = rx.cap(3).toInt();
-	}
+	MumbleVersion::get(&major, &minor, &patch, version);
 
 #ifdef Q_OS_MAC
 	if ((major == 1) && (minor == 1)) {

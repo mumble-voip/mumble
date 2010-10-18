@@ -185,13 +185,7 @@ int main(int argc, char **argv) {
 			QMap<QString, QVariant> param;
 			param.insert(QLatin1String("href"), url);
 #endif
-
-			QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)"));
-			if (rx.exactMatch(version)) {
-				major = rx.cap(1).toInt();
-				minor = rx.cap(2).toInt();
-				patch = rx.cap(3).toInt();
-			}
+			MumbleVersion::get(&major, &minor, &patch, version);
 
 			if ((major == 1) && (minor == 1)) {
 				bool sent = false;
@@ -249,7 +243,7 @@ int main(int argc, char **argv) {
 	// Load preferences
 	g.s.load();
 
-	// Check wheter we need to enable accessbility features
+	// Check wheter we need to enable accessibility features
 #ifdef Q_OS_WIN
 	// Only windows for now. Could not find any information on how to query this for osx or linux
 	{
@@ -374,14 +368,20 @@ int main(int argc, char **argv) {
 
 	a.setQuitOnLastWindowClosed(false);
 
-	if (g.s.bFirstTime) {
-		if (QMessageBox::question(g.mw, QLatin1String("Mumble"), MainWindow::tr("This is the first time you're starting Mumble.<br />Would you like to go through the Audio Wizard to configure your soundcard?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes) {
-			AudioWizard *aw = new AudioWizard(g.mw);
-			aw->exec();
-			delete aw;
-		}
-		g.s.bFirstTime = false;
+	// Configuration updates
+	bool runaudiowizard = false;
+	if (g.s.uiUpdateCounter == 0) {
+		// Previous version was an pre 1.2.3 release or this is the first run
+		runaudiowizard = true;
 	}
+
+	if (runaudiowizard) {
+		AudioWizard *aw = new AudioWizard(g.mw);
+		aw->exec();
+		delete aw;
+	}
+
+	g.s.uiUpdateCounter = 1;
 
 	if (! CertWizard::validateCert(g.s.kpCertificate)) {
 		QDir qd(QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation));

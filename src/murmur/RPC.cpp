@@ -322,10 +322,5 @@ void Meta::connectListener(QObject *obj) {
 void Meta::getVersion(int &major, int &minor, int &patch, QString &string) {
 	string = QLatin1String(MUMBLE_RELEASE);
 	major = minor = patch = 0;
-	QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)"));
-	if (rx.exactMatch(QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)))) {
-		major = rx.cap(1).toInt();
-		minor = rx.cap(2).toInt();
-		patch = rx.cap(3).toInt();
-	}
+	MumbleVersion::get(&major, &minor, &patch);
 }

@@ -464,13 +464,11 @@ void ServerHandler::serverConnectionConnected() {
 	MumbleProto::Version mpv;
 	mpv.set_release(u8(QLatin1String(MUMBLE_RELEASE)));
 
-	QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)"));
-	if (rx.exactMatch(QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)))) {
-		int major = rx.cap(1).toInt();
-		int minor = rx.cap(2).toInt();
-		int patch = rx.cap(3).toInt();
-		mpv.set_version((major << 16) | (minor << 8) | patch);
+	unsigned int version = MumbleVersion::getRaw();
+	if (version) {
+		mpv.set_version(version);
 	}
+
 	mpv.set_os(u8(OSInfo::getOS()));
 	mpv.set_os_version(u8(OSInfo::getOSVersion()));
 	sendMessage(mpv);

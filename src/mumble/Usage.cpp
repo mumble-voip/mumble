@@ -60,7 +60,7 @@ void Usage::addJitter(ClientUser *cu) {
 #endif
 
 void Usage::registerUsage() {
-	if (! g.s.bUsage || g.s.bFirstTime)
+	if (! g.s.bUsage || g.s.uiUpdateCounter == 0) // Only register usage if allowed by the user and first wizard run has finished
 		return;
 
 	QDomDocument doc;

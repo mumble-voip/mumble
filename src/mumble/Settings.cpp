@@ -217,7 +217,7 @@ Settings::Settings() {
 	iFramesPerPacket = 2;
 	iNoiseSuppress = -30;
 	iIdleTime = 0;
-	vsVAD = SignalToNoise;
+	vsVAD = Amplitude;
 	fVADmin = 0.80f;
 	fVADmax = 0.98f;
 
@@ -242,7 +242,6 @@ Settings::Settings() {
 
 	qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
 
-	bFirstTime = true;
 	ceExpand = ChannelsWithUsers;
 	ceChannelDrag = Ask;
 	bMinimalView = false;
@@ -308,6 +307,9 @@ Settings::Settings() {
 	qsRecordingFile = QLatin1String("Mumble-%date-%time-%host-%user");
 	rmRecordingMode = RecordingMixdown;
 	iRecordingFormat = 0;
+
+	// Config updates
+	uiUpdateCounter = 0;
 
 #if defined(AUDIO_TEST)
 	lmLoopMode = Server;
@@ -458,6 +460,9 @@ void Settings::load() {
 }
 
 void Settings::load(QSettings* settings_ptr) {
+	// Config updates
+	SAVELOAD(uiUpdateCounter, "lastupdate");
+
 	SAVELOAD(bMute, "audio/mute");
 	SAVELOAD(bDeaf, "audio/deaf");
 	LOADENUM(atTransmit, "audio/transmit");
@@ -551,7 +556,6 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bHideFrame, "ui/hideframe");
 	SAVELOAD(bUserTop, "ui/usertop");
-	SAVELOAD(bFirstTime, "ui/firsttime120");
 	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");
 	SAVELOAD(qbaMainWindowState, "ui/state");
 	SAVELOAD(qbaMinimalViewGeometry, "ui/minimalviewgeometry");
@@ -710,6 +714,9 @@ void Settings::save() {
 	QSettings* settings_ptr = g.qs;
 	Settings def;
 
+	// Config updates
+	SAVELOAD(uiUpdateCounter, "lastupdate");
+
 	SAVELOAD(bMute, "audio/mute");
 	SAVELOAD(bDeaf, "audio/deaf");
 	SAVELOAD(atTransmit, "audio/transmit");
@@ -802,7 +809,6 @@ void Settings::save() {
 	SAVELOAD(bMinimalView, "ui/minimalview");
 	SAVELOAD(bHideFrame, "ui/hideframe");
 	SAVELOAD(bUserTop, "ui/usertop");
-	SAVELOAD(bFirstTime, "ui/firsttime120");
 	SAVELOAD(qbaMainWindowGeometry, "ui/geometry");
 	SAVELOAD(qbaMainWindowState, "ui/state");
 	SAVELOAD(qbaMinimalViewGeometry, "ui/minimalviewgeometry");

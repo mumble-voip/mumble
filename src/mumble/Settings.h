@@ -213,7 +213,6 @@ struct Settings {
 	QString qsLanguage;
 	QString qsStyle;
 	QString qsSkin;
-	bool bFirstTime;
 	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaMinimalViewGeometry, qbaMinimalViewState, qbaSplitterState, qbaHeaderState;
 	QByteArray qbaConfigGeometry;
 	enum WindowLayout { LayoutClassic, LayoutStacked, LayoutHybrid, LayoutCustom };
@@ -267,6 +266,9 @@ struct Settings {
 	enum RecordingMode { RecordingMixdown, RecordingMultichannel };
 	RecordingMode rmRecordingMode;
 	int iRecordingFormat;
+
+	// Config updates
+	unsigned int uiUpdateCounter;
 
 	// Nonsaved
 	LoopMode lmLoopMode;

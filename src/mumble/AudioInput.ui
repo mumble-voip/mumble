@@ -365,19 +365,6 @@
           <item row="0" column="0" colspan="3">
            <layout class="QHBoxLayout">
             <item>
-             <widget class="QRadioButton" name="qrbSNR">
-              <property name="toolTip">
-               <string>Use SNR based speech detection</string>
-              </property>
-              <property name="whatsThis">
-               <string>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</string>
-              </property>
-              <property name="text">
-               <string>Signal to Noise</string>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QRadioButton" name="qrbAmplitude">
               <property name="toolTip">
                <string>Use Amplitude based speech detection</string>
@@ -387,6 +374,19 @@
               </property>
               <property name="text">
                <string>Amplitude</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="qrbSNR">
+              <property name="toolTip">
+               <string>Use SNR based speech detection</string>
+              </property>
+              <property name="whatsThis">
+               <string>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</string>
+              </property>
+              <property name="text">
+               <string>Signal to Noise</string>
               </property>
              </widget>
             </item>
@@ -784,7 +784,6 @@
   <tabstop>qlePushClickPathOff</tabstop>
   <tabstop>qpbPushClickBrowseOff</tabstop>
   <tabstop>qrbSNR</tabstop>
-  <tabstop>qrbAmplitude</tabstop>
   <tabstop>qsTransmitHold</tabstop>
   <tabstop>qsTransmitMin</tabstop>
   <tabstop>qsTransmitMax</tabstop>

@@ -8,13 +8,13 @@
    are met:
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,28 +29,40 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _VERSION_H
-#define _VERSION_H
+#include "Version.h"
+#include "murmur_pch.h"
 
-#define MUMXTEXT(X) #X
-#define MUMTEXT(X) MUMXTEXT(X)
+unsigned int MumbleVersion::getRaw(const QString &version) {
+	int major, minor, patch;
 
-#ifndef MUMBLE_VERSION
-#define MUMBLE_RELEASE "Compiled " __DATE__ " " __TIME__
-#else
-#define MUMBLE_RELEASE MUMTEXT(MUMBLE_VERSION)
-#endif
+	if (get(&major, &minor, &patch, version))
+		return toRaw(major, minor, patch);
 
-class QString;
-class QLatin1String;
+	return 0;
+}
 
-class MumbleVersion {
-public:
-	static unsigned int getRaw(const QString &version = QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
-	static bool get(int *major, int *minor, int *patch, const QString &version = QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
+bool MumbleVersion::get(int *major, int *minor, int *patch, const QString &version) {
+	QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)"));
 
-	static unsigned int toRaw(int major, int minor, int patch);
-	static void fromRaw(unsigned int version, int *major, int *minor, int *patch);
-};
+	if (rx.exactMatch(version)) {
+		if (major)
+			*major = rx.cap(1).toInt();
+		if (minor)
+			*minor = rx.cap(2).toInt();
+		if (patch)
+			*patch = rx.cap(3).toInt();
 
-#endif
+		return true;
+	}
+	return false;
+}
+
+unsigned int MumbleVersion::toRaw(int major, int minor, int patch) {
+	return (major << 16) | (minor << 8) | patch;
+}
+
+void MumbleVersion::fromRaw(unsigned int version, int *major, int *minor, int *patch) {
+	*major = (version & 0xFFFF0000) >> 16;
+	*minor = (version & 0xFF00) >> 8;
+	*patch = (version & 0xFF);
+}
