@@ -4405,7 +4405,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <location line="-177"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Emudever-se</translation>
+        <translation>Ficar mudo</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4423,7 +4423,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <location line="+2"/>
         <source>Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Ensurdecer-se</translation>
+        <translation>Ficar surdo</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4614,7 +4614,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+0"/>
         <source>Images (*.png *.jpg *.jpeg *.svg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Imagens (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5112,7 +5112,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>&amp;Edit</source>
-        <translation>&amp;editar</translation>
+        <translation>&amp;Editar</translation>
     </message>
     <message>
         <location/>
@@ -5164,7 +5164,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>&amp;Mute Self</source>
-        <translation>E&amp;mudecer-se</translation>
+        <translation>Ficar &amp;mudo</translation>
     </message>
     <message>
         <location/>
@@ -5179,7 +5179,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>&amp;Deafen Self</source>
-        <translation>Ensur&amp;decer-se</translation>
+        <translation>Ficar sur&amp;do</translation>
     </message>
     <message>
         <location/>
@@ -5914,12 +5914,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>Recording</source>
-        <translation>Gravando</translation>
+        <translation>Gravar</translation>
     </message>
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation>Alto-falante prioritário</translation>
+        <translation>Falante prioritário</translation>
     </message>
 </context>
 <context>
