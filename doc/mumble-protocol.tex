@@ -416,50 +416,70 @@ The audio frames consist of one byte long header and up to 127 bytes long data p
 
 Normal talking can be heard by the users of the current channel and all linked channels as long as the speaker has Talk permission on these channels. If the speaker wishes to broadcast the voice to specific users or channels, he may use whispering. This is achieved by registering a voice target using the VoiceTarget message (See \ref{msg:voiceTarget}) and specifying the target ID as the target in the first byte of the UDP packet.
 
-\subsection {64-bit integer encoding}
+\subsection {\texttt{varint}, 64-bit integer encoding}
 \label{sect:varint}
 
-The variable length integer encoding is used to encode long (64-bit) integers so that short values do not need the full 8 bytes to be transferred. The encoding function is given below. While it might seem complex it is worth noting that the $(a_v, a_p) \append (b_v, b_p)$ function equals appending the $a_p$ bits long value $a_v$ to a byte stream that already has the $b_p$ bits long value $b_v$.
+The variable length integer encoding is used to encode long, 64-bit, integers so that short values do not need the full 8 bytes to be transferred. The basic idea behind the encoding is prefixing the value with a length prefix and then removing the leading zeroes from the value. The positive numbers are always right justified. That is to say that the least significant bit in the encoded presentation matches the least significant bit in the decoded presentation. Table \ref{tbl:varint} contains the definitions of the different length prefixes. The encoded \texttt{x} bits are part of the decoded number while the \texttt{\_} signifies a unused bit. Encoding should be done by searching the first decoded description that fits the number that should be decoded, truncating it to the required bytes and combining it with the defined encoding prefix. 
 
-\begin{align*}
-	(a_v, a_p) \append (b_v, b_p) &= (2^{b_p} a_v + b_v, a_p + b_p) \\
-%
-	e &: \mathbb{N} \rightarrow \mathbb{N}_{\geq0}^2 \\
-	e(x) &= \begin{dcases*}
-			e_+(x, 1)										& when $ 0 \leq x < 2^{28} $ \\
-			\left((2^8 - 2^4) \cdot {2^8}^4 + x, 2^{40}\right)			& when $ 2^{28} \leq x < 2^{32} $ \\
-			\left((2^8 - 2^4 + 2^2) \cdot {2^8}^8 + x, 2^{72}\right)	& when $ 2^{32} \leq x $ \\
-			(2^8 - 2^2 - x, 8)								& when $ -4 < x < 0 $ \\
-			(2^8 - 2^3, 8) \append e(-x)					& when $ x \leq -4 $ \\
-		\end{dcases*} \\
-%
-	e_+(x, b) &= \begin{dcases*}
-			(p(b) + x, 8)												& when $ r < 2^(8-b) $ \\
-			e_+\left(\left\lfloor \frac{x}{2^8} \right\rfloor, b + 1\right) \append (x \bmod 2^8, 8)	& when $ r \geq 2^(8-b) $
-		\end{dcases*} \\
-%
-	p(b) &= 2^8 - 2^{9-b}
-\end{align*}
+\begin{table}[htp]\begin{center}
+	\caption{\texttt{varint} prefixes}\label{tbl:varint}
 
-Essentially the first byte contains the number range information. For positive numbers this tells how many bytes the number takes. For numbers in the range $[0, 2^{28})$ the header bits keep growing steadily, starting from 1 and growing by one each time the number that should be encoded does not fit in the free space, as shown by $e_+(x, b)$. Numbers in the range $[2^{28}, 2^{32})$ have header byte \texttt{1111 0000} followed by the full 4 bytes long binary presentation of the number. Numbers greater than $2^{32}$ have header byte \texttt{1111 0100} followed by the full 8 bytes long binary presentation of the number. Negative numbers in the range $(-4, 0)$ are encoded by performing a bitwise or operation between \texttt{1111 1100} and the positive presentation of the number. Negative numbers less or equal to $-4$ have a header byte \texttt{1111 1000} followed by the varint encoding of their opposite number.
+	\begin{tabular}{ll}
+		Encoded & Decoded \\
+		\hline
+		\texttt{0xxxxxxx} & 1 byte with $7 \cdot 8 + 1$ leading zeroes \\
+		\texttt{10xxxxxx} + 1 byte & 2 bytes with $6 \cdot 8 + 2$ leading zeroes \\
+		\texttt{110xxxxx} + 2 bytes & 3 bytes with $5 \cdot 8 + 3$ leading zeroes \\
+		\texttt{1110xxxx} + 3 bytes & 4 bytes with $4 \cdot 8 + 4$ leading zeroes \\
+		\texttt{111100\_\_} + \texttt{int} (4 bytes) & 32-bit positive number \\
+		\texttt{111101\_\_} + \texttt{long} (8 bytes) & 64-bit number \\
+\\
+		\texttt{111110\_\_} + \texttt{varint} & Negative \texttt{varint} \\
+		\texttt{111111xx} & Negative two byte number (-xx) \\
+	\end{tabular}
+\end{center}\end{table}
 
-Decoding is performed by analyzing the first byte after which the rest of the number can be read from the byte stream.
+% The variable length integer encoding is used to encode long (64-bit) integers so that short values do not need the full 8 bytes to be transferred. The encoding function is given below. While it might seem complex it is worth noting that the $(a_v, a_p) \append (b_v, b_p)$ function equals appending the $a_p$ bits long value $a_v$ to a byte stream that already has the $b_p$ bits long value $b_v$.
 
-\begin{align*}
-	s_0(x) &= 8 - \left\lfloor log_2(2^8-1 - x) \right\rfloor \\
-%
-	f_x &: \mathbb{N}_{\geq0} \rightarrow [0, 2^8) \\
-	d &: f \rightarrow \mathbb{N}, f = \{ f_1, f_2, f_3, ... \} \\
-	d(f) &= \begin{dcases*}
-			d_+\Big(f, s_0\big(f(0)\big)\Big)													& when $f(0) \leq 2^8 - 2^4 $ \\
-			\sum_{i=0}^4 2^{32-8i}f(i)								& when $f(0) = 2^8 - 2^4 $ \\
-			\sum_{i=0}^8 2^{64-8i}f(i)								& when $f(0) = 2^8 - 2^4 + 2^2 $ \\
-			-d(g : g(n) = f(n+1))									& when $f(0) = 2^8 - 2^3 $ \\
-			(2^8 - 2^2) - f(0)										& when $f(0) \geq 2^8 - 2^2 $ \\
-		\end{dcases*} \\
-%
-	d_+(f, z) &= -2^{8z - 7z} + \sum_{i=1}^z 2^{8z-8i}f(i-1)
-\end{align*}
+% Encoding function
+% \begin{align*}
+% 	(a_v, a_p) \append (b_v, b_p) &= (2^{b_p} a_v + b_v, a_p + b_p) \\
+% %
+% 	e &: \mathbb{N} \rightarrow \mathbb{N}_{\geq0}^2 \\
+% 	e(x) &= \begin{dcases*}
+% 			e_+(x, 1)										& when $ 0 \leq x < 2^{28} $ \\
+% 			\left((2^8 - 2^4) \cdot {2^8}^4 + x, 2^{40}\right)			& when $ 2^{28} \leq x < 2^{32} $ \\
+% 			\left((2^8 - 2^4 + 2^2) \cdot {2^8}^8 + x, 2^{72}\right)	& when $ 2^{32} \leq x $ \\
+% 			(2^8 - 2^2 - x, 8)								& when $ -4 < x < 0 $ \\
+% 			(2^8 - 2^3, 8) \append e(-x)					& when $ x \leq -4 $ \\
+% 		\end{dcases*} \\
+% %
+% 	e_+(x, b) &= \begin{dcases*}
+% 			(p(b) + x, 8)												& when $ r < 2^(8-b) $ \\
+% 			e_+\left(\left\lfloor \frac{x}{2^8} \right\rfloor, b + 1\right) \append (x \bmod 2^8, 8)	& when $ r \geq 2^(8-b) $
+% 		\end{dcases*} \\
+% %
+% 	p(b) &= 2^8 - 2^{9-b}
+% \end{align*}
+
+% Decoding is performed by analyzing the first byte after which the rest of the number can be read from the byte stream.
+
+% Decoding function
+% \begin{align*}
+% 	s_0(x) &= 8 - \left\lfloor log_2(2^8-1 - x) \right\rfloor \\
+% %
+% 	f_x &: \mathbb{N}_{\geq0} \rightarrow [0, 2^8) \\
+% 	d &: f \rightarrow \mathbb{N}, f = \{ f_1, f_2, f_3, ... \} \\
+% 	d(f) &= \begin{dcases*}
+% 			d_+\Big(f, s_0\big(f(0)\big)\Big)													& when $f(0) \leq 2^8 - 2^4 $ \\
+% 			\sum_{i=0}^4 2^{32-8i}f(i)								& when $f(0) = 2^8 - 2^4 $ \\
+% 			\sum_{i=0}^8 2^{64-8i}f(i)								& when $f(0) = 2^8 - 2^4 + 2^2 $ \\
+% 			-d(g : g(n) = f(n+1))									& when $f(0) = 2^8 - 2^3 $ \\
+% 			(2^8 - 2^2) - f(0)										& when $f(0) \geq 2^8 - 2^2 $ \\
+% 		\end{dcases*} \\
+% %
+% 	d_+(f, z) &= -2^{8z - 7z} + \sum_{i=1}^z 2^{8z-8i}f(i-1)
+% \end{align*}
 
 \subsection{TCP tunnel}
 \label{sect:udptunnel}
