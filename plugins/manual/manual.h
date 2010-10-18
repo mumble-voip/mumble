@@ -18,10 +18,10 @@ class Manual : public QDialog, public Ui::Manual {
 		void on_qdsbX_valueChanged(double);
 		void on_qdsbY_valueChanged(double);
 		void on_qdsbZ_valueChanged(double);
-		void on_qsbOrientation_valueChanged(int);
-		void on_qsbAzimut_valueChanged(int);
-		void on_qdOrientation_valueChanged(int);
-		void on_qdAzimut_valueChanged(int);
+		void on_qsbAzimuth_valueChanged(int);
+		void on_qsbElevation_valueChanged(int);
+		void on_qdAzimuth_valueChanged(int);
+		void on_qdElevation_valueChanged(int);
 		void on_qleContext_editingFinished();
 		void on_qleIdentity_editingFinished();
 		void on_buttonBox_clicked(QAbstractButton *);

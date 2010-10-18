@@ -53,8 +53,8 @@ static QPointer<Manual> mDlg = NULL;
 static bool bLinkable = false;
 static bool bActive = true;
 
-static int iOrientation = 0;
-static int iAzimut = 0;
+static int iAzimuth = 0;
+static int iElevation = 0;
 
 static struct {
 	float avatar_pos[3];
@@ -93,9 +93,9 @@ Manual::Manual(QWidget *p) : QDialog(p) {
 	qpbActivated->setChecked(bActive);
 	qpbLinked->setChecked(bLinkable);
 
-	qsbOrientation->setValue(iOrientation);
-	qsbAzimut->setValue(iAzimut);
-	updateTopAndFront(iOrientation, iAzimut);
+	qsbAzimuth->setValue(iAzimuth);
+	qsbElevation->setValue(iElevation);
+	updateTopAndFront(iAzimuth, iElevation);
 }
 
 bool Manual::eventFilter(QObject *obj, QEvent *evt) {
@@ -152,34 +152,34 @@ void Manual::on_qdsbZ_valueChanged(double d) {
 	qgiPosition->setPos(-my.avatar_pos[0], -my.avatar_pos[2]);
 }
 
-void Manual::on_qsbOrientation_valueChanged(int i) {
+void Manual::on_qsbAzimuth_valueChanged(int i) {
 	if (i > 180)
-		qdOrientation->setValue(-360 + i);
+		qdAzimuth->setValue(-360 + i);
 	else
-		qdOrientation->setValue(i);
+		qdAzimuth->setValue(i);
 
-	updateTopAndFront(i, qsbAzimut->value());
+	updateTopAndFront(i, qsbElevation->value());
 }
 
-void Manual::on_qsbAzimut_valueChanged(int i) {
-	qdAzimut->setValue(i + 90);
-	updateTopAndFront(qsbOrientation->value(), i);
+void Manual::on_qsbElevation_valueChanged(int i) {
+	qdElevation->setValue(90 - i);
+	updateTopAndFront(qsbAzimuth->value(), i);
 }
 
-void Manual::on_qdOrientation_valueChanged(int i) {
+void Manual::on_qdAzimuth_valueChanged(int i) {
 	if (i < 0)
-		qsbOrientation->setValue(360 + i);
+		qsbAzimuth->setValue(360 + i);
 	else
-		qsbOrientation->setValue(i);
+		qsbAzimuth->setValue(i);
 }
 
-void Manual::on_qdAzimut_valueChanged(int i) {
-	if (i > 180)
-		qdAzimut->setValue(180);
+void Manual::on_qdElevation_valueChanged(int i) {
+	if (i < -90)
+		qdElevation->setValue(180);
 	else if (i < 0)
-		qdAzimut->setValue(0);
+		qdElevation->setValue(0);
 	else
-		qsbAzimut->setValue(i - 90);
+		qsbElevation->setValue(90 - i);
 }
 
 void Manual::on_qleContext_editingFinished() {
@@ -205,25 +205,25 @@ void Manual::on_buttonBox_clicked(QAbstractButton *button) {
 		qleContext->clear();
 		qleIdentity->clear();
 
-		qsbAzimut->setValue(0);
-		qsbOrientation->setValue(0);
+		qsbElevation->setValue(0);
+		qsbAzimuth->setValue(0);
 	}
 }
 
-void Manual::updateTopAndFront(int orient, int azimut) {
-	iOrientation = orient;
-	iAzimut = azimut;
+void Manual::updateTopAndFront(int azimuth, int elevation) {
+	iAzimuth = azimuth;
+	iElevation = elevation;
 
-	double ori = orient * M_PI / 180.;
-	double azi = azimut * M_PI / 180.;
+	double azim = azimuth * M_PI / 180.;
+	double elev = elevation * M_PI / 180.;
 
-	my.avatar_front[0]	= static_cast<float>(- cos(azi) * sin(ori));
-	my.avatar_front[1]	= static_cast<float>(sin(azi));
-	my.avatar_front[2]	= static_cast<float>(cos(azi) * cos(ori));
+	my.avatar_front[0]	= static_cast<float>(cos(elev) * sin(azim));
+	my.avatar_front[1]	= static_cast<float>(sin(elev));
+	my.avatar_front[2]	= static_cast<float>(cos(elev) * cos(azim));
 
-	my.avatar_top[0]	= static_cast<float>(- sin(azi) * sin(ori));
-	my.avatar_top[1]	= static_cast<float>(sin(azi - M_PI_2));
-	my.avatar_top[2]	= static_cast<float>(sin(azi) * cos(ori));
+	my.avatar_top[0]	= static_cast<float>(-sin(elev) * sin(azim));
+	my.avatar_top[1]	= static_cast<float>(cos(elev));
+	my.avatar_top[2]	= static_cast<float>(-sin(elev) * cos(azim));
 
 	memcpy(my.camera_top, my.avatar_top, sizeof(float) * 3);
 	memcpy(my.camera_front, my.avatar_front, sizeof(float) * 3);
