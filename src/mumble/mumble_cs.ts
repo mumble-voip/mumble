@@ -5973,7 +5973,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Uživatel %1 opustil server.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+274"/>
+        <location filename="Messages.cpp" line="+279"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 má zakázáno mluvit a poslouchat.</translation>
     </message>
@@ -6074,7 +6074,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">%1 byl přesunut do kanálu zásahem uživatele %2.</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-346"/>
         <source>Server connection rejected: %1.</source>
         <translation>Spojení se serverem bylo odmítnuto: %1.</translation>
     </message>
@@ -6115,7 +6115,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+25"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6412,12 +6412,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+270"/>
-        <source>Images (*.png *.jpg *.svg)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-1576"/>
+        <location line="-1306"/>
         <location line="+311"/>
         <source>Register yourself as %1</source>
         <translation type="unfinished"></translation>

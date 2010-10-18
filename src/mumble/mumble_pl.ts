@@ -5841,7 +5841,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">serwer</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+316"/>
+        <location filename="Messages.cpp" line="+321"/>
         <source>You were muted and deafened by %1.</source>
         <translation>Zostałeś ogłuszony oraz wyciszony przez %1.</translation>
     </message>
@@ -5974,7 +5974,7 @@ p, li { white-space: pre-wrap; }
         <translation>%1 jest teraz ogłuszony oraz wyciszony.</translation>
     </message>
     <message>
-        <location line="-178"/>
+        <location line="-183"/>
         <location line="+48"/>
         <source>Welcome message: %1</source>
         <translation>Wiadomość powitalna: %1</translation>
@@ -6010,7 +6010,7 @@ p, li { white-space: pre-wrap; }
         <translation>Odmowa: Wiadomość tekstowa jest zbyt długa.</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+25"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
         <translation>Odmowa: Operacja niedozwolona na kanale tymczasowym.</translation>
     </message>
@@ -6182,12 +6182,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">%2 przeniósł %1.</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-346"/>
         <source>Server connection rejected: %1.</source>
         <translation>Połączenie odrzucone: %1.</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+141"/>
         <source>Denied: %1.</source>
         <translation>Zabroniono: %1.</translation>
     </message>
@@ -6510,6 +6510,11 @@ p, li { white-space: pre-wrap; }
         <translation>Podałeś złe hasło dla niezarejestrowanych użytkowników, spróbuj jeszcze raz.</translation>
     </message>
     <message>
+        <location line="+201"/>
+        <source>Images (*.png *.jpg *.jpeg *.svg)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>From %1: %2</source>
         <translation type="obsolete">Od %1: %2</translation>
     </message>
@@ -6529,7 +6534,7 @@ p, li { white-space: pre-wrap; }
         <translation>Wysyła wiadomość tekstową do innego użytkownika.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2121"/>
+        <location filename="MainWindow.cpp" line="-2322"/>
         <source>&amp;User</source>
         <translation>&amp;Użytkownik</translation>
     </message>
@@ -7130,9 +7135,8 @@ p, li { white-space: pre-wrap; }
         <translation>Edycja własnego komentarza</translation>
     </message>
     <message>
-        <location line="+1602"/>
         <source>Images (*.png *.jpg *.svg)</source>
-        <translation>Obrazki (*.png *.jpg *.svg)</translation>
+        <translation type="obsolete">Obrazki (*.png *.jpg *.svg)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -7145,7 +7149,7 @@ p, li { white-space: pre-wrap; }
         <translation>Zmień swój komentarz</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2259"/>
+        <location filename="MainWindow.cpp" line="-657"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Przełącza stany nakładki.</translation>

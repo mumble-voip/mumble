@@ -5923,7 +5923,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Присединились к серверу: %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+318"/>
+        <location filename="Messages.cpp" line="+323"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>%1 снял с Вас глушение и онемение.</translation>
     </message>
@@ -5987,7 +5987,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%1 сейчас в онемении и заглушен.</translation>
     </message>
     <message>
-        <location line="-109"/>
+        <location line="-114"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation>Привилегия %1 была запрещена для Вас в %2.</translation>
     </message>
@@ -6023,7 +6023,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Ошибка: сообщение слишком длинное.</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+25"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
         <translation>Ошибка: данная операция запрещена во временном канале.</translation>
     </message>
@@ -6252,12 +6252,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">%1 перемещен сюда %2.</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-346"/>
         <source>Server connection rejected: %1.</source>
         <translation>Попытка подключения отклонена: %1.</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+141"/>
         <source>Denied: %1.</source>
         <translation>Ошибка: %1.</translation>
     </message>
@@ -6570,12 +6570,11 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&amp;Посмотреть сертификат</translation>
     </message>
     <message>
-        <location line="+270"/>
         <source>Images (*.png *.jpg *.svg)</source>
-        <translation>Картинки (*.png *.jpg *.svg)</translation>
+        <translation type="obsolete">Картинки (*.png *.jpg *.svg)</translation>
     </message>
     <message>
-        <location line="-1576"/>
+        <location line="-1306"/>
         <location line="+311"/>
         <source>Register yourself as %1</source>
         <translation>Зарегистрироваться как %1</translation>

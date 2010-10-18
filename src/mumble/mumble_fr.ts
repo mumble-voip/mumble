@@ -6624,7 +6624,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">le serveur</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+318"/>
+        <location filename="Messages.cpp" line="+323"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>%1 vous a rendu la parole et l&apos;ouïe.</translation>
     </message>
@@ -6688,7 +6688,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%1 est maintenant sourd(e) et muet(te).</translation>
     </message>
     <message>
-        <location line="-109"/>
+        <location line="-114"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation>Le privilège %1 vous est refusé dans %2.</translation>
     </message>
@@ -6724,7 +6724,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Refusé: Message texte trop long.</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+25"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
         <translation>Refusé: Opération non permise dans les salons temporaires.</translation>
     </message>
@@ -6955,12 +6955,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">%1 a été déplacé(e) dans le canal par %2.</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-346"/>
         <source>Server connection rejected: %1.</source>
         <translation>Connexion au serveur rejetée : %1.</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+141"/>
         <source>Denied: %1.</source>
         <translation>Refusé : %1.</translation>
     </message>
@@ -7052,9 +7052,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mauvais mot de passe de serveur pour un utilisateur non enregistré, veuillez essayer à nouveau.</translation>
     </message>
     <message>
-        <location line="+201"/>
         <source>Images (*.png *.jpg *.svg)</source>
-        <translation>Images (*.png *.jpg *.svg)</translation>
+        <translation type="obsolete">Images (*.png *.jpg *.svg)</translation>
     </message>
     <message>
         <source>From %1: %2</source>
@@ -7086,7 +7085,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Ceci vous guidera dans la configuration de votre matériel audio.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-291"/>
+        <location filename="MainWindow.cpp" line="-90"/>
         <source>SSL Verification failed: %1</source>
         <translation>Vérification SSL échoué: %1</translation>
     </message>

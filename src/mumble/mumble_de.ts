@@ -6894,7 +6894,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation type="obsolete">den Server</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+318"/>
+        <location filename="Messages.cpp" line="+323"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>Stumm-/Taubstellen wurde deaktiviert durch %1.</translation>
     </message>
@@ -6958,7 +6958,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation>%1 hat sich stumm und taub gestellt.</translation>
     </message>
     <message>
-        <location line="-109"/>
+        <location line="-114"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation>Ihnen wurden die Rechte %1 in %2 verweigert.</translation>
     </message>
@@ -6994,7 +6994,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation>Abgelehnt: Text-Nachricht zu lang.</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+25"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
         <translation>Abgelehnt: Operation in temporärem Kanal nicht erlaubt.</translation>
     </message>
@@ -7233,12 +7233,12 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation type="obsolete">%1 wurde von %2 reingeschoben.</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-346"/>
         <source>Server connection rejected: %1.</source>
         <translation>Serververbindung abgelehnt : %1.</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+141"/>
         <source>Denied: %1.</source>
         <translation>Abgelehnt: %1.</translation>
     </message>
@@ -7400,11 +7400,16 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
+        <location line="+1503"/>
+        <source>Images (*.png *.jpg *.jpeg *.svg)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation type="obsolete">&lt;h2&gt;Kontrollkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit %1 bit %2&lt;br /&gt;%3 ms Durchschnittslatenz (%4 Abweichung)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="-1483"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Sprachkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit 128 bit OCB-AES128&lt;br /&gt;%1 ms Durchschnittslatenz (%4 Abweichung)&lt;/p&gt;</translation>
     </message>
@@ -7553,9 +7558,8 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
         <translation>Bilddatei wählen</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Images (*.png *.jpg *.svg)</source>
-        <translation>Bilder (*.png *.jpg *.svg)</translation>
+        <translation type="obsolete">Bilder (*.png *.jpg *.svg)</translation>
     </message>
     <message>
         <location line="+7"/>

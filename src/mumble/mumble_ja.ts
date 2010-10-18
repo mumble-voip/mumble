@@ -6838,7 +6838,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">サーバ</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+318"/>
+        <location filename="Messages.cpp" line="+323"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>%1 があなたを発言・聴取を禁止しました。</translation>
     </message>
@@ -6902,7 +6902,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">%1が発言禁止/聴取禁止状態になりました。</translation>
     </message>
     <message>
-        <location line="-109"/>
+        <location line="-114"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation>あなたは %2 で %1 の権限を拒否されました。</translation>
     </message>
@@ -6938,7 +6938,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>拒否: テキストメッセージが長すぎます。</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+25"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
         <translation>拒否: 一時チャンネル上では許可されない操作です。</translation>
     </message>
@@ -7177,12 +7177,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">%1 は %2 によって移動させられました。</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-346"/>
         <source>Server connection rejected: %1.</source>
         <translation>サーバへの接続は拒否されました: %1.</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+141"/>
         <source>Denied: %1.</source>
         <translation>拒否されました: %1.</translation>
     </message>
@@ -7286,9 +7286,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>未登録ユーザのパスワードが違います。再度試してください。</translation>
     </message>
     <message>
-        <location line="+201"/>
         <source>Images (*.png *.jpg *.svg)</source>
-        <translation>画像 (*.png *.jpg *.svg)</translation>
+        <translation type="obsolete">画像 (*.png *.jpg *.svg)</translation>
     </message>
     <message>
         <source>From %1: %2</source>
@@ -7310,7 +7309,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>他のユーザにテキストメッセージを送信します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2322"/>
+        <location filename="MainWindow.cpp" line="-2121"/>
         <source>&amp;User</source>
         <translation>ユーザ(&amp;U)</translation>
     </message>

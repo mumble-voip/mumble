@@ -4713,6 +4713,11 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Välj bildfil</translation>
     </message>
     <message>
+        <location line="+0"/>
+        <source>Images (*.png *.jpg *.jpeg *.svg)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+7"/>
         <location line="+17"/>
         <source>Failed to load image</source>
@@ -4957,9 +4962,8 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Felaktigt serverlösenord för oregistrerat användarkonto, försök igen.</translation>
     </message>
     <message>
-        <location line="+201"/>
         <source>Images (*.png *.jpg *.svg)</source>
-        <translation>Bilder (*.png *.jpg *.svg)</translation>
+        <translation type="obsolete">Bilder (*.png *.jpg *.svg)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -5544,7 +5548,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Detta kommer växla minimalt läge när loggfönstret och menyn är gömd.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+347"/>
+        <location filename="Messages.cpp" line="+352"/>
         <source>You muted and deafened %1.</source>
         <translation>Du avaktiverade mikrofon och ljud för %1.</translation>
     </message>
@@ -5604,7 +5608,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>%1 har nu avaktiverat sin mikrofon och  sitt ljud.</translation>
     </message>
     <message>
-        <location line="-178"/>
+        <location line="-183"/>
         <location line="+48"/>
         <source>Welcome message: %1</source>
         <translation>Välkomstmeddelande: %1</translation>
@@ -5640,7 +5644,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Nekad: Textmeddelande för långt.</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+25"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
         <translation>Nekad: Åtgärden tillåts inte i temporär kanal.</translation>
     </message>
@@ -5849,12 +5853,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>%1 gick med i kanalen.</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-346"/>
         <source>Server connection rejected: %1.</source>
         <translation>Serveranslutning avbröts: %1.</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+141"/>
         <source>Denied: %1.</source>
         <translation>Nekad: %1.</translation>
     </message>

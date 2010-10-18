@@ -1,6 +1,20 @@
+2010-10-17
+  morris <tkmorris@users.sourceforge.net>
+    4731d82  Brazilian Portuguese Translation
+
+2010-10-16
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    ce79583  Fix easter time and a compiler warning
+
+  svenne33 <svenne33@users.sourceforge.net>
+    854f5da  New update of Swedish translation
+
 2010-10-15
   Arie <allochtoon@zonnet.nl>
     f4b0278  Better Engrish for button
+
+  svenne33 <svenne33@users.sourceforge.net>
+    4a684df  Swedish translation updated
 
 2010-10-14
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -13,8 +27,15 @@
 	     (#3085154)
 
 2010-10-09
+  B0nuse <mumble@mumble.ru>
+    fd6faf1  Updated mumble_ru.ts with fixes.
+
   Tuck Therebelos <snares@users.sourceforge.net>
     bdd383c  Fixed unreliable Steam linking for BFBC2
+
+2010-10-08
+  Natenom <natenom@googlemail.com>
+    1eaee4b  Updated German translations.
 
 2010-10-07
   DK <davidk@mail.org>
@@ -24,6 +45,10 @@
     2a1bd18  Add no-vorbis-recording buildflag for disabling vorbis for
 	     older libsndfile versions
     9fd2611  Fix support for older libsndfile
+
+  Justin McGrath <justin.m.mcgrath@gmail.com>
+    4170dc7  Added *.jpeg to image filter for avatars as per Feature
+	     Request 2998995
 
   Thorvald Natvig <slicer@users.sourceforge.net>
     1a8da34  Make the icon valid
@@ -38,7 +63,7 @@
   arcenciel <arcenciel@users.sourceforge.net>
     3556898  Updated Japanese Translation
 
-  Justin M <justin.m.mcgrath@gmail.com>
+  Justin McGrath <justin.m.mcgrath@gmail.com>
     8ac8b45  Fixed bug #3062825
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>

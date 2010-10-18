@@ -5481,16 +5481,15 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;&lt;p&gt;Host remoto %5 (porta%6)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1494"/>
         <source>Images (*.png *.jpg *.svg)</source>
-        <translation>Immagini (*.png *.jpg *.svg)</translation>
+        <translation type="obsolete">Immagini (*.png *.jpg *.svg)</translation>
     </message>
     <message>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1483"/>
+        <location line="+11"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canale di voce&lt;/h2&gt;&lt;p&gt;Crittografato con 128 bit OCB-AES128&lt;br/&gt;%1 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
@@ -6614,7 +6613,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">il server</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+318"/>
+        <location filename="Messages.cpp" line="+323"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>Microfono e audio riattivati da %1.</translation>
     </message>
@@ -6678,7 +6677,7 @@ p, li { white-space: pre-wrap; }
         <translation>%1 ha disattivato il suo audio e microfono.</translation>
     </message>
     <message>
-        <location line="-109"/>
+        <location line="-114"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation>Ti è stato negato il privilegio %1 su %2.</translation>
     </message>
@@ -6714,7 +6713,7 @@ p, li { white-space: pre-wrap; }
         <translation>Negato: Messaggio di testo troppo lungo.</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+25"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
         <translation>Negato: Operazione non permessa in un canale temporaneo.</translation>
     </message>
@@ -6945,12 +6944,12 @@ p, li { white-space: pre-wrap; }
         <translation>%1 è entrato nel canale.</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-346"/>
         <source>Server connection rejected: %1.</source>
         <translation>Connessione al server respinta: %1.</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+141"/>
         <source>Denied: %1.</source>
         <translation>Negato: %1.</translation>
     </message>

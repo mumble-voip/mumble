@@ -4773,7 +4773,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+97"/>
-        <source>Images (*.png *.jpg *.svg)</source>
+        <source>Images (*.png *.jpg *.jpeg *.svg)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5459,7 +5459,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+347"/>
+        <location filename="Messages.cpp" line="+352"/>
         <source>You muted and deafened %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5519,7 +5519,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-178"/>
+        <location line="-183"/>
         <location line="+48"/>
         <source>Welcome message: %1</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הודעת פתיחה: %1&lt;/p&gt;</translation>
@@ -5555,7 +5555,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נדחה: הודעה ארוכה מדי.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+25"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נדחה: פעולה לא מורשית בחדר זמני.&lt;/p&gt;</translation>
     </message>
@@ -5764,12 +5764,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 נכנס לחדר.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-346"/>
         <source>Server connection rejected: %1.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;התקשרות לשרת נדחתה: %1.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+141"/>
         <source>Denied: %1.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נדחה: %1.&lt;/p&gt;</translation>
     </message>

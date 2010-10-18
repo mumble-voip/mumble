@@ -4548,6 +4548,11 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+0"/>
+        <source>Images (*.png *.jpg *.jpeg *.svg)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+7"/>
         <location line="+17"/>
         <source>Failed to load image</source>
@@ -4789,11 +4794,6 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+0"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+201"/>
-        <source>Images (*.png *.jpg *.svg)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5379,7 +5379,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+347"/>
+        <location filename="Messages.cpp" line="+352"/>
         <source>You muted and deafened %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5439,7 +5439,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-178"/>
+        <location line="-183"/>
         <location line="+48"/>
         <source>Welcome message: %1</source>
         <translation type="unfinished"></translation>
@@ -5475,7 +5475,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+25"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5684,12 +5684,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-346"/>
         <source>Server connection rejected: %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+141"/>
         <source>Denied: %1.</source>
         <translation type="unfinished"></translation>
     </message>

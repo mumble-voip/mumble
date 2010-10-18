@@ -5067,12 +5067,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1472"/>
-        <source>Images (*.png *.jpg *.svg)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-1576"/>
+        <location line="-104"/>
         <location line="+311"/>
         <source>Register yourself as %1</source>
         <translation type="unfinished"></translation>
@@ -6129,7 +6124,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">加入服务器: %1.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+318"/>
+        <location filename="Messages.cpp" line="+323"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6193,7 +6188,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%1 现在被静音和耳聋.</translation>
     </message>
     <message>
-        <location line="-109"/>
+        <location line="-114"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6229,7 +6224,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+25"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6451,12 +6446,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%1 进入频道。</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-346"/>
         <source>Server connection rejected: %1.</source>
         <translation>服务器拒绝连接: %1。</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+141"/>
         <source>Denied: %1.</source>
         <translation>拒绝: %1。</translation>
     </message>

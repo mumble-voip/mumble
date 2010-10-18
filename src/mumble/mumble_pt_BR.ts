@@ -4612,6 +4612,11 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Escolher um arquivo de imagem</translation>
     </message>
     <message>
+        <location line="+0"/>
+        <source>Images (*.png *.jpg *.jpeg *.svg)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+7"/>
         <location line="+17"/>
         <source>Failed to load image</source>
@@ -4856,9 +4861,8 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Senha de servidor errada para conta de usuário não registrada, por favor tente novamente.</translation>
     </message>
     <message>
-        <location line="+201"/>
         <source>Images (*.png *.jpg *.svg)</source>
-        <translation>Imagens (*.png *.jpg *.svg)</translation>
+        <translation type="obsolete">Imagens (*.png *.jpg *.svg)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -5443,7 +5447,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Alterna o modo mínimo, em que a janela de registro e o menu são escondidos.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+347"/>
+        <location filename="Messages.cpp" line="+352"/>
         <source>You muted and deafened %1.</source>
         <translation>Você emudeceu e ensurdeceu %1.</translation>
     </message>
@@ -5503,7 +5507,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>%1 agora está mudo e surdo.</translation>
     </message>
     <message>
-        <location line="-178"/>
+        <location line="-183"/>
         <location line="+48"/>
         <source>Welcome message: %1</source>
         <translation>Mensagem de boas-vindas: %1</translation>
@@ -5539,7 +5543,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Negado: mensagem de texto longa demais.</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+25"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
         <translation>Negado: operação não permitida em um canal temporário.</translation>
     </message>
@@ -5748,12 +5752,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>%1 entrou no canal.</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-346"/>
         <source>Server connection rejected: %1.</source>
         <translation>Conexão com o servidor rejeitada: %1.</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+141"/>
         <source>Denied: %1.</source>
         <translation>Negado: %1.</translation>
     </message>

@@ -6824,7 +6824,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">el servidor</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+318"/>
+        <location filename="Messages.cpp" line="+323"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>%1 le dio voz y escucha.</translation>
     </message>
@@ -6888,7 +6888,7 @@ p, li { white-space: pre-wrap; }
         <translation>%1 está ahora mudo y sordo.</translation>
     </message>
     <message>
-        <location line="-109"/>
+        <location line="-114"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation>Se le denegó el privilegio %1 en %2.</translation>
     </message>
@@ -6924,7 +6924,7 @@ p, li { white-space: pre-wrap; }
         <translation>Denegado: Mensaje de texto demasiado largo.</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+25"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
         <translation>Denegado: Operación no permitida en un canal temporal.</translation>
     </message>
@@ -7159,12 +7159,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">%2 trajo a %1.</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-346"/>
         <source>Server connection rejected: %1.</source>
         <translation>Conexión con el servidor rechazada: %1.</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+141"/>
         <source>Denied: %1.</source>
         <translation>Denegado: %1.</translation>
     </message>
@@ -7608,16 +7608,15 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1503"/>
         <source>Images (*.png *.jpg *.svg)</source>
-        <translation>Imágenes (*.png *.jpg *.svg)</translation>
+        <translation type="obsolete">Imágenes (*.png *.jpg *.svg)</translation>
     </message>
     <message>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation type="obsolete">&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bit&lt;br /&gt;%3 ms de latencia media (desviación %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1494"/>
+        <location line="+9"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bit&lt;br /&gt;%3 ms de latencia media (desviación %4)&lt;/p&gt;&lt;p&gt;Anfitrión remoto %5 (puerto %6)&lt;/p&gt;</translation>
     </message>

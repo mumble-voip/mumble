@@ -4798,16 +4798,15 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1503"/>
         <source>Images (*.png *.jpg *.svg)</source>
-        <translation>Billeder (*.png *.jpg *.svg)</translation>
+        <translation type="obsolete">Billeder (*.png *.jpg *.svg)</translation>
     </message>
     <message>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation type="obsolete">&lt;h2&gt;Kontrolkanal&lt;/h2&gt;&lt;p&gt;Krypteret med %1 bit %2&lt;br /&gt;%3 ms gennemsnitlig forsinkelse (%4 afvigelse)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1483"/>
+        <location line="+20"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Stemmekanal&lt;/h2&gt;&lt;p&gt;Krypteret med 128 bit OCB-AES128&lt;br /&gt;%1 ms gennemsnitlig forsinkelse (%4 afvigelse)&lt;/p&gt;</translation>
     </message>
@@ -5842,7 +5841,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">serveren</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+347"/>
+        <location filename="Messages.cpp" line="+352"/>
         <source>You muted and deafened %1.</source>
         <translation>Du muted og gjorde %1 døv.</translation>
     </message>
@@ -5906,7 +5905,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>%1 er nu muted og gjort døv.</translation>
     </message>
     <message>
-        <location line="-109"/>
+        <location line="-114"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation>Du blev nægtet &lt;i&gt;%1&lt;/i&gt;-privilegier i %2.</translation>
     </message>
@@ -5942,7 +5941,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Nægtet: Tekstbesked for lang.</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+25"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
         <translation>Nægtet: Handling ikke tilladt i midlertidig kanal.</translation>
     </message>
@@ -6159,12 +6158,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>%1 kom ind i kanalen.</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-346"/>
         <source>Server connection rejected: %1.</source>
         <translation>Forbindelse til server afvist: %1.</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+141"/>
         <source>Denied: %1.</source>
         <translation>Nægtet. %1.</translation>
     </message>
