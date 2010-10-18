@@ -433,7 +433,7 @@ void ALSAAudioOutput::run() {
 	if (g.s.doPositionalAudio()) {
 		iChannels = 1;
 		ALSA_ERRBAIL(snd_pcm_hw_params_get_channels_max(hw_params, &iChannels));
-		if (iChannels > 8) {
+		if (iChannels > 9) {
 			qWarning("ALSAAudioOutput: ALSA reports %d output channels. Clamping to 2.",iChannels);
 			iChannels = 2;
 		}
@@ -508,7 +508,8 @@ void ALSAAudioOutput::run() {
 		SPEAKER_FRONT_CENTER,
 		SPEAKER_LOW_FREQUENCY,
 		SPEAKER_SIDE_LEFT,
-		SPEAKER_SIDE_RIGHT
+		SPEAKER_SIDE_RIGHT,
+		SPEAKER_BACK_CENTER
 	};
 
 	ALSA_ERRBAIL(snd_pcm_hw_params_current(pcm_handle, hw_params));
