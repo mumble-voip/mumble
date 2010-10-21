@@ -198,7 +198,7 @@ asio {
 	HEADERS *= ASIOInput.h
 	SOURCES	*= ASIOInput.cpp
 	FORMS *= ASIOInput.ui
-	INCLUDEPATH *= ../../asio/common ../../asio/host ../../asio/host/pc
+	INCLUDEPATH *= "$$ASIO_PATH/common" "$$ASIO_PATH/host" "$$ASIO_PATH/host/pc"
 }
 
 bonjour {
@@ -207,8 +207,8 @@ bonjour {
 	HEADERS *= ../bonjour/bonjourrecord.h ../bonjour/bonjourserviceresolver.h ../bonjour/bonjourservicebrowser.h BonjourClient.h
 	SOURCES *= ../bonjour/bonjourserviceresolver.cpp ../bonjour/bonjourservicebrowser.cpp BonjourClient.cpp
 	win32 {
-		INCLUDEPATH *= /dev/Bonjour/include
-		QMAKE_LIBDIR *= /dev/Bonjour/lib/win32
+		INCLUDEPATH *= "$$BONJOUR_PATH/include"
+		QMAKE_LIBDIR *= "$$BONJOUR_PATH/lib/win32"
 		LIBS *= -lDNSSD
 	}
 	unix:!macx {
@@ -251,8 +251,8 @@ g15 {
 
 	win32 {
 		LIBS *= -llgLcd
-		QMAKE_LIBDIR *= /dev/G15SDK/SDK/Libs/x86
-		INCLUDEPATH *= /dev/G15SDK/SDK/Src
+		QMAKE_LIBDIR *= "$$G15SDK_PATH/SDK/Libs/x86"
+		INCLUDEPATH *= "$$G15SDK_PATH/SDK/Src"
 		DEFINES *= WIN32
 
 		SOURCES *= G15LCDEngine_lglcd.cpp

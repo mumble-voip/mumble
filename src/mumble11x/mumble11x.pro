@@ -75,9 +75,9 @@ win32 {
   LIBS		*= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -l"$$(DXSDK_DIR)Lib/x86/dinput8" -lsapi -lole32 -lws2_32 -llibeay32 -ladvapi32 -llibogg -ldbghelp
   LIBS		*= -ldelayimp -lQwave -delayload:Qwave.DLL
 
-  QMAKE_LIBDIR	*= /dev/OpenSSL/lib /dev/libogg/lib
+  QMAKE_LIBDIR	*= "$$OPENSSL_PATH/lib" "$$LIBOGG_PATH/lib"
   DEFINES	*= WIN32
-  INCLUDEPATH	*= /dev/OpenSSL/include /dev/libogg/include
+  INCLUDEPATH	*= "$$OPENSSL_PATH/include" "$$LIBOGG_PATH/include"
   !CONFIG(no-asio) {
     CONFIG	*= asio
   }

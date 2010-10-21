@@ -1,10 +1,12 @@
 CONFIG *= warn_on
 
 win32 {
-	INCLUDEPATH *= /dev/Boost/include/boost-1_44
-	QMAKE_LIBDIR *= /dev/OpenSSL/lib /dev/libsndfile
-	INCLUDEPATH *= /dev/OpenSSL/include /dev/libsndfile/include
+	# Import dependency paths for windows
+	include(winpaths_default.pri)
 
+	INCLUDEPATH *= "$$BOOST_PATH/include/boost-1_44/"
+	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib" "$$LIBSNDFILE_PATH"
+	INCLUDEPATH *= "$$OPENSSL_PATH/include" "$$LIBSNDFILE_PATH/include"
 	CONFIG(intelcpp) {
 		DEFINES *= USE_INTEL_IPP
 		DEFINES *= RESTRICT=restrict
@@ -68,14 +70,8 @@ win32 {
 	}
 
 	CONFIG(debug, debug|release) {
-		exists($$(VLD_DIR)) {
-			VLD_DIR = $$(VLD_DIR)
-		}
-		else {
-			VLD_DIR = /dev/vld
-		}
-		INCLUDEPATH *= "$$VLD_DIR/include"
-		QMAKE_LIBDIR *= "$$VLD_DIR/lib"
+		INCLUDEPATH *= "$$VLD_PATH/include"
+		QMAKE_LIBDIR *= "$$VLD_PATH/lib"
 	}
 }
 

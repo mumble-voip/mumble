@@ -23,14 +23,14 @@ CONFIG(packaged) {
 }
 
 win32 {
-	INCLUDEPATH *= /dev/protobuf-2.3.0/vsprojects/include /dev/protobuf-2.3.0/src
+	INCLUDEPATH *= "$$PROTOBUF_PATH/vsprojects/include" "$$PROTOBUF_PATH/src"
 	CONFIG(debug, debug|release) {
-		QMAKE_LIBDIR *= /dev/protobuf-2.3.0/vsprojects/Debug
+		QMAKE_LIBDIR *= "$$PROTOBUF_PATH/vsprojects/Debug"
 	} else {
-		QMAKE_LIBDIR *= /dev/protobuf-2.3.0/vsprojects/Release
+		QMAKE_LIBDIR *= "$$PROTOBUF_PATH/vsprojects/Release"
 	}
-	INCLUDEPATH *= /dev/OpenSSL/include
-	QMAKE_LIBDIR *= /dev/OpenSSL/lib
+	INCLUDEPATH *= "$$OPENSSL_PATH/include"
+	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib"
 
 	LIBS *= -llibprotobuf -lcrypt32 -lws2_32 -llibeay32
 	LIBS *= -ldelayimp -lQwave -delayload:Qwave.DLL

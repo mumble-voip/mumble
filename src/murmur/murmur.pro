@@ -67,7 +67,7 @@ dbus {
 ice {
 	slice.target = Murmur.cpp
 	win32 {
-		slice.commands = slice2cpp --checksum -I"/dev/Ice/slice" Murmur.ice
+		slice.commands = slice2cpp --checksum -I\"$$ICE_PATH/slice\" Murmur.ice
 	} else {
 		slice.commands = slice2cpp --checksum -I/usr/local/share/Ice -I/usr/share/Ice/slice -I/usr/share/slice -I/usr/share/Ice-3.4.1/slice/ Murmur.ice
 	}
@@ -86,8 +86,8 @@ ice {
 	DEFINES *= USE_ICE
 
 	win32 {
-		INCLUDEPATH *= /dev/Ice/include
-		QMAKE_LIBDIR *= /dev/Ice/lib/vc100
+		INCLUDEPATH *= "$$ICE_PATH/include"
+		QMAKE_LIBDIR *= "$$ICE_PATH/lib/vc100"
 	}
 
 	macx {
@@ -112,8 +112,8 @@ bonjour {
 	SOURCES *= ../bonjour/bonjourserviceregister.cpp BonjourServer.cpp
 	INCLUDEPATH *= ../bonjour
 	win32 {
-		INCLUDEPATH *= /dev/Bonjour/include
-		QMAKE_LIBDIR *= /dev/Bonjour/lib/win32
+		INCLUDEPATH *= "$$BONJOUR_PATH/include"
+		QMAKE_LIBDIR *= "$$BONJOUR_PATH/lib/win32"
 		LIBS *= -lDNSSD
 	}
 	unix:!macx {
