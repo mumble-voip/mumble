@@ -614,12 +614,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;パスワード&lt;/b&gt;&lt;br&gt;このフィールドで簡単にチャンネルのパスワードを設定・変更できます。基礎としてMumbleのアクセストークンの機能を使っています。より細やかで協力なアクセス制御をするには、ACLとグループを使ってください。</translation>
     </message>
     <message>
         <location/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このチャンネルで有効な項目を全て表示します。親チャンネルから継承した項目はイタリック(斜字)体で表示されます。&lt;br /&gt;ACLは上から順に評価されます。つまり、リストの順位を下げる事は優先度が上がる事を意味します。</translation>
     </message>
 </context>
 <context>
@@ -3667,7 +3667,8 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;現在の証明書をハードウェアの故障やマシンの再インストールなどで失ったなら、登録したサーバから認証を受けることが出来なくなります。そのため、証明書のバックアップを作成することは&lt;b&gt;必須&lt;/b&gt;です。USBメモリのようなリムーバブルストレージに証明書のバックアップを保存することを強く推奨します。&lt;/p&gt;
+&lt;p&gt;このファイルは暗号化されておらず、もし、誰かがアクセスしたら、あなたに成りすます可能性があります。十分に気をつけてください。&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
