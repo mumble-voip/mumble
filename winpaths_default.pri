@@ -14,8 +14,8 @@ LIBSNDFILE_PATH = /dev/libsndfile
 BOOST_PATH = /dev/Boost
 VLD_PATH = /dev/vld
 BONJOUR_PATH = /dev/Bonjour
-ASIO_PATH = /dev/asio
-G15_PATH = /dev/G15SDK
+ASIO_PATH = /dev/mumble/asio
+G15SDK_PATH = /dev/G15SDK/SDK
 LIBOGG_PATH = /dev/libogg
 
 # Include custom file if it exists
