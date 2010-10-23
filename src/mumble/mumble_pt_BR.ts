@@ -4287,12 +4287,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+1934"/>
+        <location line="+1928"/>
         <source>Root</source>
         <translation>Raíz</translation>
     </message>
     <message>
-        <location line="-1885"/>
+        <location line="-1879"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Pressionar-para-Falar</translation>
@@ -4371,12 +4371,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2049"/>
+        <location line="+2043"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2045"/>
+        <location line="-2039"/>
         <source>&amp;Window</source>
         <translation>&amp;Janela</translation>
     </message>
@@ -4445,13 +4445,13 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2079"/>
+        <location line="+2073"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Não conectado&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1842"/>
+        <location line="-1836"/>
         <source>Clear</source>
         <translation>Limpar</translation>
     </message>
@@ -4481,7 +4481,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Forma de URL não é &apos;mumble&apos;</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+19"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
         <translation>Esta versão do Mumble não pode lidar com URLs para o Mumble versão %1.%2.%3</translation>
     </message>
@@ -4638,7 +4638,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Vanal de voz é enviado pelo canal de controle.</translation>
     </message>
     <message>
-        <location line="-837"/>
+        <location line="-831"/>
         <source>&amp;User</source>
         <translation>&amp;Usuário</translation>
     </message>
@@ -4654,7 +4654,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Alterna os estados da sobreimpressão em-jogo.</translation>
     </message>
     <message>
-        <location line="+657"/>
+        <location line="+651"/>
         <source>Change your comment</source>
         <translation>Alterar seu comentário</translation>
     </message>
@@ -5777,14 +5777,13 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Modo de moção de canal desconhecido em UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-46"/>
+        <location filename="main.cpp" line="-52"/>
         <source>Welcome to Mumble.</source>
         <translation>Bem-vindo ao Mumble.</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
-        <translation>Esta é a primeira vez que você inicia o Mumble.&lt;br /&gt;Você gostaria de iniciar o Assistente de Áudio para configurar sua placa de som?</translation>
+        <translation type="obsolete">Esta é a primeira vez que você inicia o Mumble.&lt;br /&gt;Você gostaria de iniciar o Assistente de Áudio para configurar sua placa de som?</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>

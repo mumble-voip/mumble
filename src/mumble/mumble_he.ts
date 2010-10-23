@@ -4288,12 +4288,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+1934"/>
+        <location line="+1928"/>
         <source>Root</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1885"/>
+        <location line="-1879"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished">לחץ-כדי-לדבר</translation>
@@ -4372,12 +4372,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2049"/>
+        <location line="+2043"/>
         <source>Mumble -- %1</source>
         <translation type="unfinished">ממבל -- %1</translation>
     </message>
     <message>
-        <location line="-2045"/>
+        <location line="-2039"/>
         <source>&amp;Window</source>
         <translation type="unfinished">&amp;חלון</translation>
     </message>
@@ -4477,7 +4477,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;צורת הכתובת היא לא &apos;ממבל&apos;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+19"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הגירסא הזאת של ממבל לא יכולה לטפל בכתובות לממבל מגירסא %1.%2.%3&lt;/p&gt;</translation>
     </message>
@@ -4634,7 +4634,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-837"/>
+        <location line="-831"/>
         <source>&amp;User</source>
         <translation type="unfinished">&amp;משתמש</translation>
     </message>
@@ -4656,7 +4656,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2079"/>
+        <location line="+2073"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <translation type="unfinished">&lt;center&gt;&lt;p dir=&quot;RTL&quot;&gt;לא מחובר&lt;/p&gt;&lt;/center&gt;</translation>
     </message>
@@ -5789,14 +5789,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-46"/>
+        <location filename="main.cpp" line="-52"/>
         <source>Welcome to Mumble.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ברוך הבא לממבל.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זאת הפעם הראשונה שאתה מפעיל את ממבל.&lt;br /&gt;האם תרצה לעבור על אשף כיוון הצלילים כדי להגדיר את כרטיס הקול שלך?&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p dir=&quot;RTL&quot;&gt;זאת הפעם הראשונה שאתה מפעיל את ממבל.&lt;br /&gt;האם תרצה לעבור על אשף כיוון הצלילים כדי להגדיר את כרטיס הקול שלך?&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>

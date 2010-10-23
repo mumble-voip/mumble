@@ -1,4 +1,60 @@
+2010-10-22
+  arcenciel <arcenciel@users.sourceforge.net>
+    ec2b987  Updated Japanese Translation
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    1d05e6e  Patch build patch
+
+2010-10-21
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    d84fa5d  Add a winpaths_default.pri to contain all windows dependency
+	     paths and make them easily overridable by a custom
+	     winpaths_custom.pri
+
+2010-10-19
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    c4211c1  Merge remote branch 'rantanen/master'
+
+  Mikko Rantanen <jubjub@jubjubnest.net>
+    0b14cb3  Clarified varint encoding
+
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    99ddd8f  Updated Spanish translation for 1.2.3
+
+  morris <tkmorris@users.sourceforge.net>
+    7f3d833  Brazilian Portuguese translation update
+
+  Jonathan <zentriple@users.sourceforge.net>
+    aca189b  Updated Danish translation for 1.2.3
+
+2010-10-18
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    65e4071  Switch VAD default from SnR to Amplitude and adjust UI
+	     accordingly. Run audio wizard without asking first. Add update
+	     counter to config for future updates. Add abstraction for
+	     Version query/parsing.
+
+  Mikko Rantanen <jubjub@jubjubnest.net>
+    e90d14f  Described varint decode function in documentation
+
+  Kissaki <kissaki@gmx.de>
+    4bb38b8  updated german translation
+
+  Mark-Willem Jansen <rawnar@users.sourceforge.net>
+    848d242  ALSA: added Rear Center and boosted the channel count to 9
+    66fa813  Plugins: Manual plugin corrected.
+
+  =?UTF-8 Michał Żukowski?= <zuczeq@gmail.com>
+    84c611c  Updated Polish translation
+
 2010-10-17
+  Mikko Rantanen <jubjub@jubjubnest.net>
+    90b46fc  Boredom?
+    23408f8  Fixed a reference and UDP packet size unit
+    594f950  Updated message documentation and fixed some errors based on
+	     pcgod's input. Fixed some references as well.
+    4b71e41  Rather complete documentation of Messages
+
   morris <tkmorris@users.sourceforge.net>
     4731d82  Brazilian Portuguese Translation
 
@@ -6,12 +62,26 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     ce79583  Fix easter time and a compiler warning
 
+  Mikko Rantanen <jubjub@jubjubnest.net>
+    00fb3c6  More additions to the packet descriptions
+    4606a71  Further documented some of the Messages in the reference
+    96c80d0  More documentation. - Some tweaks to TCP connecting, mainly in
+	     form of figures. - Initial Proto buffer message descriptions
+	     as tables that contain field descriptions. Most descriptions
+	     missing.
+
   svenne33 <svenne33@users.sourceforge.net>
     854f5da  New update of Swedish translation
 
 2010-10-15
   Arie <allochtoon@zonnet.nl>
     f4b0278  Better Engrish for button
+
+  Mikko Rantanen <jubjub@jubjubnest.net>
+    b4cdc19  Further enhancements to the documentation
+    cc5137e  Why not include the updated pdf as well?
+    46f27d7  - Added message structure env/command - Added initial
+	     description on UDP protocol
 
   svenne33 <svenne33@users.sourceforge.net>
     4a684df  Swedish translation updated
@@ -25,6 +95,10 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     8d97167  Fix "Optimize for high contrast" makes volume bars disappear
 	     (#3085154)
+
+2010-10-11
+  Mark-Willem Jansen <rawnar@users.sourceforge.net>
+    45ea514  ALSA:re-ordered the speaker mapping to ALSA standards.
 
 2010-10-09
   B0nuse <mumble@mumble.ru>
@@ -56,7 +130,7 @@
     7df254a  Sync alternate icon render
     f52fb66  Update to new G15 SDK
 
-  Michał Żukowski <zuczeq@gmail.com>
+  =?UTF-8 Michał Żukowski?= <zuczeq@gmail.com>
     bb3cb7f  Updated Polish translation
 
 2010-10-06
@@ -146,7 +220,7 @@
     25e7ebb  Move qmake profile lines to single line to work with release
 	     script
 
-  Michał Żukowski <zuczeq@gmail.com>
+  =?UTF-8 Michał Żukowski?= <zuczeq@gmail.com>
     10625c9  Update polish translation
 
 2010-09-07
@@ -1286,7 +1360,7 @@
     e4c7724  Grab cursor from Win32 directly
     3b38ac2  Override DoDragDrop's window detection
 
-  Michał Żukowski <zuczeq@gmail.com>
+  =?UTF-8 Michał Żukowski?= <zuczeq@gmail.com>
     952a837  Some fixes in Polish translation
 
 2010-02-22
@@ -1359,7 +1433,7 @@
     a2b4f85  Example of on-the-fly slice-fetch for Python
     7ba42b7  Split icesecret in icesecretread and icesecretwrite
 
-  Michał Żukowski <zuczeq@gmail.com>
+  =?UTF-8 Michał Żukowski?= <zuczeq@gmail.com>
     aa6250d  Updated Polish translation
 
 2010-02-14
@@ -1459,7 +1533,7 @@
 	     on-demand loaded avatars, so always on
     8a1705d  Work around colors lost when application style lost
 
-  Michał Żukowski <zuczeq@gmail.com>
+  =?UTF-8 Michał Żukowski?= <zuczeq@gmail.com>
     1ec8726  Small fixes in Polish translation
 
 2010-02-06
@@ -1505,7 +1579,7 @@
     7a0d844  Only send texture if it changed.
     cd6667b  Boost 1.42 for Win32
 
-  Jonathan E. Hansen <zentriple@users.sourceforge.net>
+  Jonathan <zentriple@users.sourceforge.net>
     0f630bf  Updated Danish translation for 1.2.2.
 
 2010-02-03
@@ -1529,7 +1603,7 @@
   Tuck Therebelos <snares@users.sourceforge.net>
     936779d  MW2 updates
 
-  Michał Żukowski <zuczeq@gmail.com>
+  =?UTF-8 Michał Żukowski?= <zuczeq@gmail.com>
     2becf4f  Updated Polish translation
 
 2010-02-02
@@ -1567,7 +1641,7 @@
     1afffff  Fix unstable TF2 state address
     7ef0e7f  TF2 update; hopefully more update-friendly arrays now
 
-  Michał Żukowski <zuczeq@gmail.com>
+  =?UTF-8 Michał Żukowski?= <zuczeq@gmail.com>
     7925624  Polish translation
 
 2010-02-01
@@ -1593,7 +1667,7 @@
 	     memoryblob://avatar/ and expand the fileengine slightly
     07e0d90  Send only the avatar hash on login
 
-  Michał Żukowski <zuczeq@gmail.com>
+  =?UTF-8 Michał Żukowski?= <zuczeq@gmail.com>
     3ca49eb  Polish translation
 
 2010-01-31
@@ -1698,7 +1772,7 @@
     63568fd  Client-side blob cache for comments
     e51a048  Make Win32 OGL overlay work in windowed mode
 
-  Michał Żukowski <zuczeq@gmail.com>
+  =?UTF-8 Michał Żukowski?= <zuczeq@gmail.com>
     8b56834  Polish translation
 
 2010-01-25
@@ -1943,7 +2017,7 @@
     58081c6  Update licenses; add UT3, 2004, 1942 plugins; update some
 	     Source plugins
 
-  Jonathan E. Hansen <zentriple@users.sourceforge.net>
+  Jonathan <zentriple@users.sourceforge.net>
     2e2652b  Update Danish translation for 1.2.1.
 
 2010-01-06
@@ -1979,7 +2053,7 @@
   Spaccaossi <spaccaossi@users.sourceforge.net>
     9019991  Italian translation for 1.2.1 and 1.1.x
 
-  Michał Żukowski <zuczeq@gmail.com>
+  =?UTF-8 Michał Żukowski?= <zuczeq@gmail.com>
     336d02d  Updated Polish translation
 
 2009-12-31
@@ -2032,7 +2106,7 @@
     bef7408  Show and react immediately to tranmission changes in
 	     audiowizard
 
-  Michał Żukowski <zuczeq@gmail.com>
+  =?UTF-8 Michał Żukowski?= <zuczeq@gmail.com>
     243f5c7  Update Polish installer
 
 2009-12-27
@@ -2077,7 +2151,7 @@
     417ae98  Unified string messages; added ETQW plugin; various plugin
 	     fixes, improvements and updates
 
-  Jonathan E. Hansen <zentriple@users.sourceforge.net>
+  Jonathan <zentriple@users.sourceforge.net>
     48646e1  Update Danish translation
     b24f793  Danish translation for 1.2
 
