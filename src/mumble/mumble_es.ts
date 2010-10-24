@@ -7624,7 +7624,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+1503"/>
         <source>Images (*.png *.jpg *.jpeg *.svg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Imágenes (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
     <message>
         <source>Images (*.png *.jpg *.svg)</source>
