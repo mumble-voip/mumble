@@ -69,16 +69,32 @@ GlobalShortcutX::GlobalShortcutX() {
 
 	XExtensionVersion *version = XGetExtensionVersion(display, INAME);
 	if (version && (version != reinterpret_cast<XExtensionVersion *>(NoSuchExtension))) {
+		bool bReturn = false;
 		qWarning("GlobalShortcutX: Using XInput %d.%d", version->major_version, version->minor_version);
+
 		bXInput = true;
 		XFree(version);
-		initXInput();
-		if (qmXDevices.isEmpty()) {
-			qWarning("GlobalShortcutX: No XInput devices");
-		} else {
-			connect(new QSocketNotifier(ConnectionNumber(display), QSocketNotifier::Read, this), SIGNAL(activated(int)), this, SLOT(displayReadyRead(int)));
-			return;
+
+		qmXDevices.clear();
+
+		qmConnections = startScreensConnection(display);
+		foreach(QSocketNotifier *qsNotif, qmConnections.keys()) {
+			Display *dpy = qmConnections.value(qsNotif);
+			initXInput(dpy);
+
+			QMap<XID, XDevice *> *qmDisplayXDevices = qmXDevices.value(dpy);
+
+			qWarning("GlobalShortcutX: TOTAL %ld ---  %ld ", qmDisplayXDevices->count(), qmXDevices.count());
+
+			if (qmDisplayXDevices->isEmpty()) {
+				qWarning("GlobalShortcutX: No XInput devices");
+			} else {
+				connect(qsNotif, SIGNAL(activated(int)), this, SLOT(displayReadyRead(int)));
+				bReturn = true;
+			}
 		}
+		if (bReturn)
+			return;
 	} else {
 		qWarning("GlobalShortcutX: No XInput support, falling back to polled input. This wastes a lot of CPU resources, so please enable one of the other methods.");
 		bRunning=true;
@@ -89,25 +105,57 @@ GlobalShortcutX::GlobalShortcutX() {
 GlobalShortcutX::~GlobalShortcutX() {
 	bRunning = false;
 	wait();
-	foreach(XDevice *dev, qmXDevices)
-		XCloseDevice(display, dev);
+
+	foreach(Display *dpy, qmXDevices.keys()) {
+		QMap<XID, XDevice *> *qmDisplayXDevices = qmXDevices.value(dpy);
+		foreach(XDevice *dev, *qmDisplayXDevices) {
+			XCloseDevice(dpy, dev);
+		}
+
+	}
+
+
 	if (display)
 		XCloseDisplay(display);
 }
 
-void GlobalShortcutX::initXInput() {
-	foreach(XDevice *dev, qmXDevices)
-		XCloseDevice(display, dev);
+QMap<QSocketNotifier *, Display *>GlobalShortcutX::startScreensConnection(Display *dpy) {
+	int iScreens = ScreenCount(display);
+	QMap<QSocketNotifier *, Display *>connections;
+	QString sDisplayPrefix = QString::fromAscii(DisplayString(dpy));
 
-	qmXDevices.clear();
+	// get the dpy prefix
+	int iDotPos = sDisplayPrefix.indexOf(QString::fromAscii("."));
+	sDisplayPrefix = sDisplayPrefix.left(iDotPos + 1);
+
+	connections.insert(new QSocketNotifier(ConnectionNumber(dpy), QSocketNotifier::Read, this), dpy);
+
+	for (int i=0; i < iScreens; i++) {
+		QString sDpyTmp = sDisplayPrefix + QString::number(i);
+
+		if(sDpyTmp !=  QString::fromAscii(DisplayString(dpy))) {
+			Display *dpyconn = XOpenDisplay(sDpyTmp.toAscii());
+			connections.insert(new QSocketNotifier(ConnectionNumber(dpyconn), QSocketNotifier::Read, this), dpyconn);
+		}
+	}
+
+	return connections;
+}
+
+
+
+void GlobalShortcutX::initXInput(Display *dpy) {
 
 	int numdev;
-	XDeviceInfo *infolist = XListInputDevices(display, &numdev);
+	XDeviceInfo *infolist = XListInputDevices(dpy, &numdev);
 	if (! infolist)
 		return;
+
+	QMap<XID, XDevice *> *qmDisplayXDevices = new QMap<XID, XDevice *>();
+	qmXDevices.insert(dpy, qmDisplayXDevices);
 	for (int i=0;i<numdev;++i) {
 		XDeviceInfo *info = infolist + i;
-		XDevice *dev = XOpenDevice(display, info->id);
+		XDevice *dev = XOpenDevice(dpy, info->id);
 		if (dev) {
 			bool key = false, button = false;
 			for (int j=0;j<dev->num_classes;++j) {
@@ -131,16 +179,18 @@ void GlobalShortcutX::initXInput() {
 				++nevents;
 			}
 
-			if ((nevents != 0) && ! XSelectExtensionEvent(display, XDefaultRootWindow(display), events, nevents)) {
+			if ((nevents != 0) && ! XSelectExtensionEvent(dpy, XDefaultRootWindow(dpy), events, nevents)) {
 				qWarning("GlobalShortcutX: XInput %ld:%s", info->id, info->name);
-				qmXDevices.insert(info->id, dev);
+				qmDisplayXDevices->insert(info->id, dev);
 			} else {
-				XCloseDevice(display, dev);
+				XCloseDevice(dpy, dev);
 			}
 		}
 	}
+
 	XFree(infolist);
 }
+
 
 void GlobalShortcutX::run() {
 	Window root = XDefaultRootWindow(display);
@@ -191,21 +241,26 @@ void GlobalShortcutX::displayReadyRead(int) {
 	if (bNeedRemap)
 		remap();
 
-	while (XPending(display)) {
-		XNextEvent(display, &evt);
+	QSocketNotifier *source = (QSocketNotifier *)this->sender();
+
+	Display *dpy = qmConnections.value(source);
+
+	while (XPending(dpy)) {
+		XNextEvent(dpy, &evt);
 		if ((evt.type == iButtonPress) || (evt.type == iButtonRelease)) {
 			XDeviceButtonEvent *be = reinterpret_cast<XDeviceButtonEvent *>(&evt);
 			handleButton(be->button + 0x117, evt.type == iButtonPress);
 		} else if ((evt.type == iKeyPress) || (evt.type == iKeyRelease)) {
 			XDeviceKeyEvent *ke = reinterpret_cast<XDeviceKeyEvent *>(&evt);
-			if ((evt.type == iKeyRelease) && XPending(display)) {
+
+			if ((evt.type == iKeyRelease) && XPending(dpy)) {
 				// Is it a silly key repeat?
 				XEvent nxt;
-				XPeekEvent(display, &nxt);
+				XPeekEvent(dpy, &nxt);
 				if (nxt.type == iKeyPress) {
 					XDeviceKeyEvent *ne = reinterpret_cast<XDeviceKeyEvent *>(&nxt);
 					if (ke->keycode == ne->keycode) {
-						XNextEvent(display, &nxt);
+						XNextEvent(dpy, &nxt);
 						continue;
 					}
 				}

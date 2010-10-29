@@ -48,13 +48,15 @@ class GlobalShortcutX : public GlobalShortcutEngine {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(GlobalShortcutX)
+		QMap<QSocketNotifier *, Display *> startScreensConnection(Display *);
 	public:
 		Display *display;
 		volatile bool bRunning;
+		QMap<QSocketNotifier *, Display *> qmConnections;
 		bool bXInput;
 		QSet<QString> qsKeyboards;
 		QMap<QString, QFile *> qmInputDevices;
-		QMap<XID, XDevice *> qmXDevices;
+		QMap<Display *, QMap<XID, XDevice *> *> qmXDevices;
 
 		GlobalShortcutX();
 		~GlobalShortcutX();
@@ -63,7 +65,7 @@ class GlobalShortcutX : public GlobalShortcutEngine {
 
 		int iKeyPress, iKeyRelease, iButtonPress, iButtonRelease;
 
-		void initXInput();
+		void initXInput(Display *);
 	public slots:
 		void displayReadyRead(int);
 		void inputReadyRead(int);
