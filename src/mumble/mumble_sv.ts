@@ -1301,7 +1301,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation>Detta ställer in det lägsta avståndet att använda för ljudberäkningar. Volymen för andra användares tal kommer inte att sänkas förrän de är så här långt ifrån dig.</translation>
+        <translation>Detta ställer in det lägsta avståndet att använda för ljudberäkningar. Volymen för andra användares tal kommer inte att sänkas tills de är så här långt ifrån dig.</translation>
     </message>
     <message>
         <location/>
@@ -1710,7 +1710,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>Speech Detection</source>
-        <translation>Uppptäckning av talaktivitet</translation>
+        <translation>Upptäckning av talaktivitet</translation>
     </message>
     <message>
         <location/>
@@ -1921,10 +1921,10 @@ You should hear a voice sample. Change the slider below to the lowest value whic
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-För att hålla latensen så låg som möjligt, är det viktigt att buffra så lite ljud som möjligt på ljudkortet. Många ljudkort rapporterar att de kräver en mindre buffert än vad de kan jobba med. Den enda vägen för att ställa in detta värdet är att försöka eller misslyckas.
+För att hålla latensen så låg som möjligt, är det viktigt att buffra så lite ljud som möjligt på ljudkortet. Många ljudkort rapporterar att de kräver en mindre buffert än vad de kan jobba med. Den enda vägen för att ställa in detta värdet är att testa sig fram själv.
 &lt;/p&gt;
 &lt;p&gt;
-Du kommer att höra ett rösttest. Ställ in inställningen nedan till det lägsta värdet som &lt;b&gt;inte&lt;/b&gt; ger dig några stärningar eller jitter i ljudet. Kom ihåg att lokalt ljud är avaktiverat under detta test.
+Du kommer att höra ett rösttest. Ställ in inställningen nedan till det lägsta värdet som &lt;b&gt;inte&lt;/b&gt; ger dig några störningar eller jitter i ljudet. Kom ihåg att lokalt ljud är avaktiverat under detta test.
 &lt;/p&gt;
 </translation>
     </message>
@@ -1951,7 +1951,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 Öppna din kontrollpanel för ljud och gå till inspelningsinställningar. Se till att mikrofonen är vald som aktiv ingång, med högsta inspelningsvolym. Om det finns ett alternativ för att aktivera &quot;Mikrofonförstärkning&quot;, se till att det är markerat.
 &lt;/p&gt;
 &lt;p&gt;
-Prata högljutt , som om att du är irriterad eller nyfiken. Sänk volymen i kontrollpanelen för ljud tills baren under stannar så högt som möjligt i den gröna och blåa, men &lt;b&gt;inte&lt;/b&gt; i det röda området medan du pratar.
+Prata högljutt, som om att du är irriterad eller nyfiken. Sänk volymen i kontrollpanelen för ljud tills baren under stannar så högt som möjligt i den gröna och blåa, men &lt;b&gt;inte&lt;/b&gt; i det röda området medan du pratar.
 &lt;/p&gt;
 </translation>
     </message>
@@ -1997,10 +1997,7 @@ Mumble is under continuous development, and the development team wants to focus 
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Grattis! Nu borde du få en bättre ljudupplevelse med Mumble.
-&lt;/p&gt;
-&lt;p&gt;
-Mumble är under utveckling och utvecklingslaget vill fokusera på funktionerna som flest användare vill ha. I slutändan stödjer Mumble inskickning av anonym statistik om din konfiguration till utvecklarna. Denna statistik är nödvändig för framtid utveckling samt att se till att funtionerna du använder inte föråldras.
+Mumble är under utveckling och utvecklingslaget vill fokusera på funktionerna som flest användare vill ha. I slutändan stödjer Mumble inskickning av anonym statistik om din konfiguration till utvecklarna. Denna statistik är nödvändig för framtid utveckling, samt att se till att funtionerna du använder inte föråldras.
 &lt;/p&gt;
 </translation>
     </message>
@@ -2027,7 +2024,7 @@ Mumble är under utveckling och utvecklingslaget vill fokusera på funktionerna 
     <message>
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation>Prata lugnt, som om du skulle prata mitt i natten och inte vill störa någon. Justera inställningen nedan så att baren flyttas till grönt när du pratar, men förblir blå när du är tyst.</translation>
+        <translation>Prata lugnt, som om du pratar mitt i natten och inte vill störa någon. Justera inställningen nedan så att baren flyttas till grönt när du pratar, men förblir blå när du är tyst.</translation>
     </message>
     <message>
         <location/>
@@ -2138,12 +2135,12 @@ Mumble är under utveckling och utvecklingslaget vill fokusera på funktionerna 
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (Speex 16kbit/s, 60ms per packet)</source>
-        <translation>Med denna konfiguration kommer Mumble att använda en &lt;b&gt;låg mängd bandbredd&lt;/b&gt;. Detta kommer oundvikligen att sluta med hög latens och dålig kvalitet. Välj endast detta om din anslutning inte kan hantera andra inställningar. (Speex 16kbit/s, 60ms per paket)</translation>
+        <translation>Med den här konfiguration kommer Mumble att använda en &lt;b&gt;låg mängd bandbredd&lt;/b&gt;. Detta kommer oundvikligen att sluta med hög latens och dålig kvalitet. Välj endast detta om din anslutning inte kan hantera andra inställningar. (Speex 16kbit/s, 60ms per paket)</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (CELT 40kbit/s, 20ms per packet)</source>
-        <translation>Detta är den &lt;b&gt;rekommenderade&lt;/b&gt; standardkonfigurationen. Den tillhandahåller en god balans mellan kvalitet, latens och bredbandsanvändning. (CELT 40kbit/s, 20ms per paket)</translation>
+        <translation>Detta är den &lt;b&gt;rekommenderade&lt;/b&gt; standardkonfigurationen. Den tillhandahåller en god balans mellan kvalitet, latens och bandbredd. (CELT 40kbit/s, 20ms per paket)</translation>
     </message>
     <message>
         <location/>
@@ -2153,7 +2150,7 @@ Mumble är under utveckling och utvecklingslaget vill fokusera på funktionerna 
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (CELT 72kbit/s, 10ms per packet)</source>
-        <translation>Detta konfiguration rekommenderas endast för användning i uppsättningar där bandbredd inte är något problem, som ett LAN. Det tillhandahåller den lägsta latensen som stöds av Mumble och &lt;b&gt;hög kvalitet&lt;/b&gt;. (CELT 72kbit/s, 10ms per paket)</translation>
+        <translation>Dennaa konfiguration rekommenderas endast för användning i uppsättningar där bandbredd inte är något problem, som ett LAN. Det tillhandahåller den lägsta latensen som stöds av Mumble och &lt;b&gt;hög kvalitet&lt;/b&gt;. (CELT 72kbit/s, 10ms per paket)</translation>
     </message>
     <message>
         <location/>
@@ -2316,7 +2313,7 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
     <message>
         <location line="+11"/>
         <source>Self-signed</source>
-        <translation>Självsignerad</translation>
+        <translation>Självsignerat</translation>
     </message>
 </context>
 <context>
@@ -2334,12 +2331,12 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
     <message>
         <location line="+8"/>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
-        <translation>Det blev ett fel vid generering av ditt centrifikat.&lt;br /&gt;Försök igen.</translation>
+        <translation>Det blev ett fel vid generering av ditt certifikat.&lt;br /&gt;Försök igen.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
-        <translation>Ditt centrifikat och nyckel kundei nte exporteras till PKCS#12 formatet. Det kan finnas ett fel i ditt centrifikat.</translation>
+        <translation>Ditt certifikat och nyckel kunde inte exporteras till PKCS#12 formatet. Det kan finnas ett fel i ditt certifikat.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2364,17 +2361,17 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
     <message>
         <location line="+5"/>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
-        <translation>Filen innehöll inte ett giltigt centrifikat och nyckel. Använd en annan fil.</translation>
+        <translation>Filen innehöll inte ett giltigt certifikat och nyckel. Använd en annan fil.</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Select file to export certificate to</source>
-        <translation>Välj fil att exportera centrifikat till</translation>
+        <translation>Välj fil att exportera certifikat till</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>Select file to import certificate from</source>
-        <translation>Välj fil att importera centrifikat från</translation>
+        <translation>Välj fil att importera certifikat från</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -2389,7 +2386,7 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
     <message>
         <location filename="main.cpp" line="+411"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation>&lt;b&gt;Centrifikatsutgång:&lt;/b&gt; Ditt centrifikat håller på att gå ut. Du måste förnya det, annars kan du inte längre ansluta till servrar du är registrerad på.</translation>
+        <translation>&lt;b&gt;Certifikatutgång:&lt;/b&gt; Ditt certifikat håller på att gå ut. Du måste förnya det, annars kan du inte längre ansluta till servrar du är registrerad på.</translation>
     </message>
 </context>
 <context>
@@ -2397,12 +2394,12 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
     <message>
         <location filename="Cert.ui"/>
         <source>Certificate Management</source>
-        <translation>Centrifikathantering</translation>
+        <translation>Certifikathantering</translation>
     </message>
     <message>
         <location/>
         <source>Certificate Authentication</source>
-        <translation>Centrifikatsautentisering</translation>
+        <translation>Certifikatautentisering</translation>
     </message>
     <message>
         <location/>
@@ -2412,73 +2409,73 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
     <message>
         <location/>
         <source>Current certificate</source>
-        <translation>Nuvaramde centrifikat</translation>
+        <translation>Nuvarande certifikat</translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses.</source>
-        <translation>Detta är centrifikatet som Mumble för närvarande använder.</translation>
+        <translation>Detta är det certifikat som Mumble för närvarande använder.</translation>
     </message>
     <message>
         <location/>
         <source>Current Certificate</source>
-        <translation>Nuvarande centrifikat</translation>
+        <translation>Nuvarande certifikat</translation>
     </message>
     <message>
         <location/>
         <source>Create a new certificate</source>
-        <translation>Skapa ett nytt centrifikat</translation>
+        <translation>Skapa ett nytt certifikat</translation>
     </message>
     <message>
         <location/>
         <source>This will create a new certificate.</source>
-        <translation>Detta kommer att skapa ett nytt centrifikat.</translation>
+        <translation>Detta kommer att skapa ett nytt certifikat.</translation>
     </message>
     <message>
         <location/>
         <source>Import certificate from file</source>
-        <translation>Importera ett centrifikat från en fil</translation>
+        <translation>Importera ett certifikat från en fil</translation>
     </message>
     <message>
         <location/>
         <source>This will import a certificate from file.</source>
-        <translation>Detta kommer att importera ett centrifikat från en fil.</translation>
+        <translation>Detta kommer att importera ett certifikat från en fil.</translation>
     </message>
     <message>
         <location/>
         <source>Import a certificate</source>
-        <translation>Importera ett centrifikat</translation>
+        <translation>Importera ett certifikat</translation>
     </message>
     <message>
         <location/>
         <source>Export Certificate</source>
-        <translation>Exportera centrifikat</translation>
+        <translation>Exportera certifikat</translation>
     </message>
     <message>
         <location/>
         <source>This will export a certificate to file.</source>
-        <translation>Detta kommer att exportera ett centrifikat till en fil.</translation>
+        <translation>Detta kommer att exportera ett certifikat till en fil.</translation>
     </message>
     <message>
         <location/>
         <source>Export current certificate</source>
-        <translation>Exportera nuvarande centrifikat</translation>
+        <translation>Exportera det nuvarande certifikatet</translation>
     </message>
     <message>
         <location/>
         <source>Import Certificate</source>
-        <translation>Importera centrifikat</translation>
+        <translation>Importera certifikat</translation>
     </message>
     <message>
         <location/>
         <source>PKCS #12 Certificate import</source>
-        <translation>PKCS #12 Centrifikatimportering</translation>
+        <translation>PKCS #12 Certifikatimportering</translation>
     </message>
     <message>
         <location/>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation>&lt;p&gt;Mumble kan importera centrifikat lagrade i PKCS #12 formatet. Detta är formatet som används vid exportering av en nyckel från Mumble, men också vid exportering av nycklar från t.ex. Firefox, Internet Explorer, Opera.&lt;/p&gt;&lt;p&gt;Om filen är lösenordsskyddad kommer du att behöva lösenordet för att kunna importera centrifikatet.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble kan importera certifikat lagrade i PKCS #12-formatet. Detta är det format som används vid exportering av en nyckel från Mumble, men också vid exportering av nycklar från t.ex. Firefox, Internet Explorer eller Opera.&lt;/p&gt;&lt;p&gt;Om filen är lösenordsskyddad kommer du att behöva lösenordet för att kunna importera ditt certifikat.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2493,7 +2490,7 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
     <message>
         <location/>
         <source>This is the filename you wish to import a certificate from.</source>
-        <translation>Detta är filnamnet du vill importera ett centrifikat från.</translation>
+        <translation>Detta är filnamnet du vill importera ett certifikat från.</translation>
     </message>
     <message>
         <location/>
@@ -2503,7 +2500,7 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
     <message>
         <location/>
         <source>This opens a file selection dialog to choose a file to import a certificate from.</source>
-        <translation>Detta öppnar en dialog för att välja en fil att importera ett centrifikat från.</translation>
+        <translation>Detta öppnar en dialog för att välja en fil att importera ett certifikat från.</translation>
     </message>
     <message>
         <location/>
@@ -2523,32 +2520,32 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
     <message>
         <location/>
         <source>This is the password for the PKCS#12 file containing your certificate.</source>
-        <translation>Detta är lösenordet för PKCS#12 filen som innehåller ditt centrifikat.</translation>
+        <translation>Detta är lösenordet för PKCS#12-filen som innehåller ditt certifikat.</translation>
     </message>
     <message>
         <location/>
         <source>Certificate to import</source>
-        <translation>Centrifikat att importera</translation>
+        <translation>Certifikat att importera</translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate you are importing.</source>
-        <translation>Detta är centrifikatet du importerar.</translation>
+        <translation>Detta är det certifikat du importerar.</translation>
     </message>
     <message>
         <location/>
         <source>Certificate Details</source>
-        <translation>Centrifikatdetaljer</translation>
+        <translation>Certifikatdetaljer</translation>
     </message>
     <message>
         <location/>
         <source>Replace Certificate</source>
-        <translation>Ersätt centrifikat</translation>
+        <translation>Ersätt certifikat</translation>
     </message>
     <message>
         <location/>
         <source>Replace existing certificate with new certificate?</source>
-        <translation>Ersätt existerande centrifikat med ett nytt centrifikat?</translation>
+        <translation>Vill du ersätta det existerande certifikatet med ett nytt certifikat?</translation>
     </message>
     <message>
         <location/>
@@ -2561,40 +2558,40 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
 Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Du har redan ett centrifikat lagrat i Mumble Mumble som du försöker att ersätta.&lt;/p&gt;
-&lt;p&gt;Om du uppgraderar till ett centrifikat utfärdat till dig av ett pålitligt CA och e-post adresserna matchar ditt nuvarande centrifikat är det fullt säkert och servrar du automatiskt ansluter till kommer att känna igen det starka centrifikatet för din e-post adress.
+        <translation>&lt;p&gt;Du har redan ett certifikat lagrat i Mumble, som du nu försöker att ersätta.&lt;/p&gt;
+&lt;p&gt;Om du uppgraderar till ett certifikat utfärdat till dig av ett pålitligt CA och e-postadresserna matchar ditt nuvarande certifikat är det fullt säkert att byta. Servrar du automatiskt ansluter till kommer att känna igen det starka certifikatet för din e-postadress.
 &lt;/p&gt;
-&lt;p&gt;Om så inte är fallet, kommer du inte längre att kännas igen av någon server du tidigare varit autentiserad med. Om du inte varit registrerad på någon server än, är detta inget att oroa sig för.
+&lt;p&gt;Om så inte är fallet, kommer du inte längre att kännas igen av någon server du tidigare varit autentiserad till. Om du inte varit registrerad på någon server än, är detta inget att oroa sig för.
 &lt;/p&gt;
 &lt;p&gt;
-Är du säker på att du vill ersätta ditt centrifikat?
+Är du säker på att du vill ersätta ditt certifikat?
 &lt;/p&gt;
 </translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses. It will be replaced.</source>
-        <translation>Detta är centrifikater som Mumble för närvarande använder. Det kommer att ersättas.</translation>
+        <translation>Detta är certifikatet som Mumble för närvarande använder. Det kommer att ersättas.</translation>
     </message>
     <message>
         <location/>
         <source>New certificate</source>
-        <translation>Nytt centrifikat</translation>
+        <translation>Nytt certifikat</translation>
     </message>
     <message>
         <location/>
         <source>This is the new certificate that will replace the old one.</source>
-        <translation>Detta är det nya centrifikatet som kommer att ersätta det gamla.</translation>
+        <translation>Detta är det nya certifikat som kommer att ersätta det gamla.</translation>
     </message>
     <message>
         <location/>
         <source>New Certificate</source>
-        <translation>Nytt centrifikat</translation>
+        <translation>Nytt certifikat</translation>
     </message>
     <message>
         <location/>
         <source>Make a backup of your certificate</source>
-        <translation>Skapa en säkerhetskopia av ditt centrifikat</translation>
+        <translation>Skapa en säkerhetskopia av ditt certifikat</translation>
     </message>
     <message>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
@@ -2615,7 +2612,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>This is the filename you wish to export a certificate to.</source>
-        <translation>Detta är filnamnet du vill exportera ett centrifikat till.</translation>
+        <translation>Detta är filnamnet du vill exportera ett certifikat till.</translation>
     </message>
     <message>
         <location/>
@@ -2625,17 +2622,17 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
-        <translation>Detta är centrifikatet Mumble för närvarande använder. Det kommer att exporteras.</translation>
+        <translation>Detta är certifikatet som Mumble för närvarande använder. Det kommer att exporteras.</translation>
     </message>
     <message>
         <location/>
         <source>Generate a new certificate for strong authentication</source>
-        <translation>Generera ett nytt centrifikat för stark autentisering</translation>
+        <translation>Generera ett nytt certifikat för stark autentisering</translation>
     </message>
     <message>
         <location/>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble kommer du att generera ett starkt centrifikat för autentisering till servrar.&lt;/p&gt;&lt;p&gt;Om du vill kan du ange extra information att lagra i centrifikatet, som kommer att presenteras till servrar när du ansluter.Om du anger en giltig e-postadress kan du uppgradera till ett CA utfärdat e-postcentrifikat senare, som ger stark identifiering.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble kommer nu att generera ett starkt certifikat för autentisering till servrar.&lt;/p&gt;&lt;p&gt;Om du vill kan du ange extra information att lagra i certifikatet, som kommer att presenteras till servrar du ansluter till. Om du anger en giltig e-postadress kan du uppgradera till ett CA-utfärdat e-postcertifikat senare, som ger stark identifiering.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2650,12 +2647,12 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation>Din e-post adress (t.ex. johndoe@mumble.info)</translation>
+        <translation>Din e-postadress (t.ex. johndoe@mumble.info)</translation>
     </message>
     <message>
         <location/>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
-        <translation>Detta är din e-postadress. Det är starkt rekommmenderat att ange en giltig e-postadress, då detta tillåter dig att uppgradera till ett starkt centrifikat utan autentiserings problem.</translation>
+        <translation>Detta är din e-postadress. Det är starkt rekommmenderat att ange en giltig e-postadress, då detta tillåter dig att uppgradera till ett starkt certifikat utan autentiseringsproblem.</translation>
     </message>
     <message>
         <location/>
@@ -2665,7 +2662,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>This is your name, and will be filled out in the certificate. This field is entirely optional.</source>
-        <translation>Detta är ditt namn som kommer att fyllas in i centrifikatet. Detta fält är helt frivilligt.</translation>
+        <translation>Detta är ditt namn som kommer att fyllas in i certifikatet. Detta fält är helt frivilligt.</translation>
     </message>
     <message>
         <location/>
@@ -2675,7 +2672,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Certificate-based authentication is ready for use</source>
-        <translation>Centrifikatsbaserad autentisiering redo att användas</translation>
+        <translation>Certifikatbaserad autentisiering är redo att användas</translation>
     </message>
     <message>
         <location/>
@@ -2685,7 +2682,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Automatic certificate creation</source>
-        <translation>Automatisk skapning av centrifikat</translation>
+        <translation>Automatisk skapning av certifikat</translation>
     </message>
     <message>
         <location/>
@@ -2694,9 +2691,9 @@ Are you sure you wish to replace your certificate?
 It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Mumble kan använda centrifikat för att autentisera med servrar. Använd centrifikat för att undvika lösenord, vilket betyder att du inte behöver avslöja några lösenord till fjärrsidan. Det tillåter även mycket enkel användarregistrering.&lt;/p&gt;&lt;p&gt;Även om Mumble kan fungera utan centrifikat, väntar de flesta servrar att du har ett.&lt;/p&gt;
+        <translation>&lt;p&gt;Mumble kan använda certifikat för att autentisera till servrar. Använd certifikat för att undvika lösenord, vilket betyder att du inte behöver avslöja några lösenord till fjärrsidan. Det tillåter även mycket enkel användarregistrering.&lt;/p&gt;&lt;p&gt;Även om Mumble kan fungera utan certifikat, tror de flesta servrar att du har ett.&lt;/p&gt;
 &lt;p&gt;
-Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;skapar ett pålitligt centrifikat &lt;/a&gt;.
+Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;skapar ett pålitligt certifikat &lt;/a&gt;.
 &lt;/p&gt;
 </translation>
     </message>
@@ -2704,8 +2701,8 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
         <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Om du någonsin förlorar ditt nuvarande centrifikat, som kommer att hända om din hårdvara går sönder eller du installerar om din dator kommer du ej längre att kunna autentisera till gånon server du varit registrerad på. Det är därför &lt;b&gt;obligatoriskt&lt;/b&gt; att du skapar en säkerhetskopia av dina centrifikat. Vi rekommenderar starkt att du lagrar denna säkerhetskopia på borttagningsbar lagring, som ett USB minne.&lt;/p&gt;
-&lt;p&gt;Kom ihåg att den här filen inte kommer att krypteras så om någon får tillgång till den kommer de kunna identifiera dig, så ta hand om det.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Om du någonsin förlorar ditt nuvarande certifikat, som kommer att hända om din hårdvara går sönder eller du installerar om din dator kommer du ej längre att kunna autentisera till någon server du varit registrerad på. Det är därför &lt;b&gt;obligatoriskt&lt;/b&gt; att du skapar en säkerhetskopia av dina certifikat. Vi rekommenderar starkt att du lagrar denna säkerhetskopia på borttagningsbar lagring, såsom ett USB minne.&lt;/p&gt;
+&lt;p&gt;Kom ihåg att den här filen inte kommer att krypteras, så om någon får tillgång till den kommer de kunna identifiera dig. Ta därför väl hand om det.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -2773,7 +2770,7 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation>Detta motsvarar behörigheten för att prata i en kanal. Användare utan denna bbehörighet kommer att tystas av servern (visas som avaktiverad mikrofon) och kommer inte att kunna prata förrän deras mikrofon aktiveras av någon med behörigheter att göra det.</translation>
+        <translation>Detta motsvarar behörigheten för att prata i en kanal. Användare utan denna bbehörighet kommer att tystas av servern (visas som avaktiverad mikrofon) och kommer inte att kunna prata tills deras mikrofon aktiveras av någon med behörigheter att göra det.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2899,7 +2896,7 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Priority speaker</source>
-        <translation>Prioriterad högtalare</translation>
+        <translation>Prioritetstalare</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3498,7 +3495,7 @@ av dessa möjliga platser.</translation>
         <location line="+7"/>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
         <oldsource>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
-        <translation>Databasen &apos;%1&apos; är skrivskyddad. Mumble kan inte lagra serverinställningar (t.ex. SSL centrifikat) tills du fixat detta problem.</translation>
+        <translation>Databasen &apos;%1&apos; är skrivskyddad. Mumble kan inte lagra serverinställningar (t.ex. SSL certifikat) tills du fixat detta problem.</translation>
     </message>
 </context>
 <context>
@@ -3863,7 +3860,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+1"/>
         <source>User recording state changed</source>
-        <translation>Användares inspelningsstatus ändrades</translation>
+        <translation>Inspelningsstatus för användare ändrad</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4388,12 +4385,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+1928"/>
+        <location line="+1934"/>
         <source>Root</source>
         <translation>Rot</translation>
     </message>
     <message>
-        <location line="-1879"/>
+        <location line="-1885"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryck-för-att-Tala</translation>
@@ -4472,12 +4469,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2043"/>
+        <location line="+2049"/>
         <source>Mumble -- %1</source>
         <translation>Mumble - %1</translation>
     </message>
     <message>
-        <location line="-2039"/>
+        <location line="-2045"/>
         <source>&amp;Window</source>
         <translation>&amp;Fönster</translation>
     </message>
@@ -4546,13 +4543,13 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2073"/>
+        <location line="+2079"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Ej ansluten&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1836"/>
+        <location line="-1842"/>
         <source>Clear</source>
         <translation>Rensa</translation>
     </message>
@@ -4582,7 +4579,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>URL schemat kan inte användas av Mumble</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+25"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
         <translation>Den här versionen av Mumble kan inte hantera URLer för Mumble version %1.%2.%3</translation>
     </message>
@@ -4652,7 +4649,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+0"/>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Du kommer registrera %1 på servern. Denna åtgärd kan inte ångras. Användarnamnet kan inte ändras. Som registrerad användare kommer %1 ha tillgång till servern även om du ändrar lösenordet.&lt;/p&gt;&lt;p&gt;Från och med nu kommer %1 bli autentisierad med det nuvarande centrifikatet som används.&lt;/p&gt;&lt;p&gt;Är du säker på att du vill registrera %1?&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Du kommer registrera %1 på servern. Denna åtgärd kan inte ångras. Användarnamnet kan inte ändras. Som registrerad användare kommer %1 ha tillgång till servern även om du ändrar lösenordet.&lt;/p&gt;&lt;p&gt;Från och med nu kommer %1 att bli autentisierad med det certifikat som för närvarande används.&lt;/p&gt;&lt;p&gt;Är du säker på att du vill registrera %1?&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+40"/>
@@ -4715,7 +4712,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+0"/>
         <source>Images (*.png *.jpg *.jpeg *.svg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -4739,7 +4736,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Röstkanal skickas över kontrollkanal.</translation>
     </message>
     <message>
-        <location line="-831"/>
+        <location line="-837"/>
         <source>&amp;User</source>
         <translation>&amp;Användare</translation>
     </message>
@@ -4755,7 +4752,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Detta kommer ändra i-spelet läget.</translation>
     </message>
     <message>
-        <location line="+651"/>
+        <location line="+657"/>
         <source>Change your comment</source>
         <translation>Ändra din kommentar</translation>
     </message>
@@ -4808,7 +4805,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <location line="+4"/>
         <location line="+1196"/>
         <source>&amp;View Certificate</source>
-        <translation>&amp;Visa centrifikat</translation>
+        <translation>&amp;Visa certifikat</translation>
     </message>
     <message>
         <location line="-953"/>
@@ -4904,17 +4901,17 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+5"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
-        <translation>&lt;b&gt;VARNING:&lt;/b&gt; Servern använder ett centrifikat som inte är samma som det lagrade.</translation>
+        <translation>&lt;b&gt;VARNING:&lt;/b&gt; Servern använder ett certifikat som inte är samma som det lagrade.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Sever presented a certificate which failed verification.</source>
-        <translation>Servern använder ett centrifikat som inte kan verifieras.</translation>
+        <translation>Servern använder ett certifikat som inte kan verifieras.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1.&lt;br /&gt;Detaljerad information om centrifikatet är: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Vill du acceptera detta centrifikat ändån?&lt;br /&gt;(Det kommer även att lagras, så du kommer inte att bli tillfrågad igen.)&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;%1.&lt;br /&gt;Detaljerad felinformation om detta certifikat är: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Vill du acceptera detta certifikat ändå?&lt;br /&gt;(Det kommer även att lagras, så du kommer inte att bli tillfrågad igen.)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+50"/>
@@ -5445,12 +5442,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>Configure certificates for strong authentication</source>
-        <translation>Konfigurera centrifikat för stark autentisering</translation>
+        <translation>Konfigurera certifikat för stark autentisering</translation>
     </message>
     <message>
         <location/>
         <source>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</source>
-        <translation>Detta startar guiden för att skapa, importera eller exportera centrifikat för autentisering mot servrar.</translation>
+        <translation>Detta startar guiden för att skapa, importera eller exportera certifikat för autentisering mot servrar.</translation>
     </message>
     <message>
         <location/>
@@ -5605,7 +5602,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="-157"/>
         <source>%1 is now muted and deafened.</source>
-        <translation>%1 har nu avaktiverat sin mikrofon och  sitt ljud.</translation>
+        <translation>%1 har avaktiverat sin mikrofon och sitt ljud.</translation>
     </message>
     <message>
         <location line="-183"/>
@@ -5651,12 +5648,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+7"/>
         <source>You need a certificate to perform this operation.</source>
-        <translation>Du behöver ett centrifikat för att utföra den här åtgärden.</translation>
+        <translation>Du behöver ett certifikat för att utföra den här åtgärden.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 does not have a certificate.</source>
-        <translation>%1 har ej ett centrifikat.</translation>
+        <translation>%1 har ej något certifikat.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -5878,13 +5875,14 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Okänd kanaldragnings läge i Användarmodell::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-52"/>
+        <location filename="main.cpp" line="-46"/>
         <source>Welcome to Mumble.</source>
         <translation>Välkommen till Mumble.</translation>
     </message>
     <message>
+        <location line="+13"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
-        <translation type="obsolete">Detta är den första gången du startar Mumble.&lt;br /&gt;Vill du gå igenom &quot;Ljudkonfiguration&quot; för att konfigurera ditt ljudkort?</translation>
+        <translation>Detta är den första gången du startar Mumble.&lt;br /&gt;Vill du gå igenom &quot;Ljudkonfiguration&quot; för att konfigurera ditt ljudkort?</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -5914,7 +5912,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>&amp;Certificate Wizard</source>
-        <translation>&amp;Centrifikatskonfiguration</translation>
+        <translation>&amp;Certifikatkonfiguration</translation>
     </message>
     <message>
         <location/>
@@ -6023,7 +6021,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation>Prioritetshögtalare</translation>
+        <translation>Prioritetstalare</translation>
     </message>
 </context>
 <context>
@@ -6132,17 +6130,17 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
-        <translation>Skicka inte centrifikat till servern eller spara lösenord. (Inte sparat).</translation>
+        <translation>Skicka inte certifikat till servern eller spara lösenord. (Inte sparat).</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation>&lt;b&gt;Detta kommer att avlägsna information om indentitet från klienten.&lt;/b&gt;&lt;p&gt;Klienten kommer inte att identifiera sig själv utan ett centrifikat, eller lagra lösenord för anslutningar. Detta är primärt ett testalternativ  och kommer inte att sparas.&lt;/p&gt;</translation>
+        <translation>&lt;b&gt;Detta kommer att avlägsna information om indentitet från klienten.&lt;/b&gt;&lt;p&gt;Klienten kommer inte att identifiera sig själv utan något certifikat, eller lagra lösenord för anslutningar. Detta är primärt ett testalternativ och kommer inte att sparas.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Suppress certificate and password storage</source>
-        <translation>Avaktivera centrifikats- och lösenordslagring</translation>
+        <translation>Avaktivera certifikat- och lösenordslagring</translation>
     </message>
     <message>
         <location/>
@@ -6545,7 +6543,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     <message>
         <location/>
         <source>View Certificates</source>
-        <translation>Visa centrifikat</translation>
+        <translation>Visa certifikat</translation>
     </message>
     <message>
         <source>&amp;Add...</source>
@@ -7070,7 +7068,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     <message>
         <location/>
         <source>Ctrl+U</source>
-        <translation>Underline</translation>
+        <translation>Ctrl+U</translation>
     </message>
     <message>
         <location/>
@@ -7422,7 +7420,7 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
     <message>
         <location/>
         <source>Certificate</source>
-        <translation>Centrifikat</translation>
+        <translation>certifikat</translation>
     </message>
     <message>
         <location/>
@@ -7757,12 +7755,12 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
     <message>
         <location filename="ViewCert.cpp" line="+41"/>
         <source>Certificate Chain Details</source>
-        <translation>Centrifikatsdetaljer</translation>
+        <translation>Certifikatdetaljer</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Certificate chain</source>
-        <translation>Centrifikatskedja</translation>
+        <translation>Certifikatkedja</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -7772,7 +7770,7 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
     <message>
         <location line="+3"/>
         <source>Certificate details</source>
-        <translation>Centrifikatdetaljer</translation>
+        <translation>Certifikatdetaljer</translation>
     </message>
     <message>
         <location line="+28"/>
