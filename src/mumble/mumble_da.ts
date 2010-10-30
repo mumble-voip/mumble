@@ -836,7 +836,7 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     <message>
         <location/>
         <source>DoublePush Time</source>
-        <translation>Dobbelttryk tid</translation>
+        <translation>Dobbelttryk-tid</translation>
     </message>
     <message>
         <location/>
@@ -846,7 +846,7 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     <message>
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;Dobbelttryk tid&lt;/b&gt;&lt;br /&gt;Hvis du trykker tryk-for-snak-knappen to gange i løbet af af det konfigurerede tidsinterval, vil den blive låst. Mumble vil fortsætte med at transmittere lyd, indtil du trykker knappen én gang mere, hvilket låser tryk-for-snak-knappen op igen.</translation>
+        <translation>&lt;b&gt;Dobbelttryk-tid&lt;/b&gt;&lt;br /&gt;Hvis du trykker tryk-for-snak-knappen to gange i løbet af af det konfigurerede tidsinterval, vil den blive låst. Mumble vil fortsætte med at transmittere lyd, indtil du trykker knappen én gang mere, hvilket låser tryk-for-snak-knappen op igen.</translation>
     </message>
     <message>
         <source>TextLabel</source>
@@ -3981,12 +3981,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+6"/>
         <source>You self-muted/deafened</source>
-        <translation>Du deaktiverede selv din mikrofon/lyd</translation>
+        <translation>Du (de)aktiverede selv din mikrofon/lyd</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Other self-muted/deafened</source>
-        <translation>Andre deaktiverede deres mikrofon eller lyd</translation>
+        <translation>Andre (de)aktiverede deres mikrofon/lyd</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -4006,12 +4006,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+1"/>
         <source>User Left Server</source>
-        <translation>Bruger forlader server</translation>
+        <translation>Bruger forlod server</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User recording state changed</source>
-        <translation>Brugerens optagelse-tilstand ændret</translation>
+        <translation>Brugers optagelse-tilstand ændret</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4046,7 +4046,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+1"/>
         <source>User Left Channel</source>
-        <translation>Bruger forlader kanal</translation>
+        <translation>Bruger forlod kanal</translation>
     </message>
     <message>
         <location line="+54"/>
@@ -4430,7 +4430,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <location/>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation>Dette indstiller opførslen af kanalflytning; det kan bruges til at forhindre uønsket flytning. &lt;i&gt;Flyt&lt;/i&gt; flytter kanalen uden at spørge. &lt;i&gt;Gør ingenting&lt;/i&gt; gør ingenting og skriver en fejlbesked i loggen. &lt;i&gt;Spørg&lt;/i&gt; viser en dialogboks hvor du skal bekræfte, om du virkelig ønsker at flytte kanalen.</translation>
+        <translation>Dette indstiller opførslen ved flytning af kanaler; det kan bruges til at forhindre uønsket flytning. &lt;i&gt;Flyt&lt;/i&gt; flytter kanalen uden at spørge. &lt;i&gt;Gør ingenting&lt;/i&gt; gør ingenting og skriver en fejlbesked i loggen. &lt;i&gt;Spørg&lt;/i&gt; viser en dialogboks hvor du skal bekræfte, om du virkelig ønsker at flytte kanalen.</translation>
     </message>
     <message>
         <location/>
@@ -4479,7 +4479,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location/>
         <source>Channel Dragging</source>
-        <translation>Kanalflytning</translation>
+        <translation>Flytning af kanaler</translation>
     </message>
     <message>
         <location/>
@@ -5160,7 +5160,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+201"/>
         <source>Images (*.png *.jpg *.jpeg *.svg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Billeder (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
     <message>
         <source>&amp;Server</source>
@@ -6201,12 +6201,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location filename="UserModel.cpp" line="+1383"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
-        <translation>Du har kanalflytning sat til &quot;Gør intet&quot;, så kanalen blev ikke flyttet.</translation>
+        <translation>Du har &quot;Flytning af kanaler&quot; sat til &quot;Gør intet&quot;, så kanalen blev ikke flyttet.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Unknown Channel Drag mode in UserModel::dropMimeData.</source>
-        <translation>Ukendt kanalflytning-tilstand i UserModel::dropMimeData.</translation>
+        <translation>Ukendt tilstand for flytning af kanaler i UserModel::dropMimeData.</translation>
     </message>
     <message>
         <location filename="main.cpp" line="-52"/>
