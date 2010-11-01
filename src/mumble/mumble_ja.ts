@@ -45,7 +45,7 @@
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>追加(&amp;A)a</translation>
+        <translation type="unfinished">追加(&amp;A)</translation>
     </message>
     <message>
         <location/>
@@ -6775,17 +6775,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+192"/>
         <source>Unmuted and undeafened.</source>
-        <translation>発言禁止を解除し、聴取禁止も解除する。</translation>
+        <translation type="unfinished">発言禁止と聴取禁止も解除しました。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unmuted.</source>
-        <translation>発言禁止を解除する。</translation>
+        <translation type="unfinished">発言禁止を解除しました。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted.</source>
-        <translation>発言禁止になりました。</translation>
+        <translation type="unfinished">発言を禁止しました。</translation>
     </message>
     <message>
         <location line="+26"/>
@@ -6795,12 +6795,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>Deafened.</source>
-        <translation>聴取禁止する。</translation>
+        <translation type="unfinished">聴取を禁止しました。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Undeafened.</source>
-        <translation>聴取禁止を解除する。</translation>
+        <translation type="unfinished">聴取禁止を解除しました。</translation>
     </message>
     <message>
         <location line="+94"/>
@@ -6828,7 +6828,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-1424"/>
         <source>Reconnecting.</source>
-        <translation>再接続中.</translation>
+        <translation type="unfinished">再接続中です。</translation>
     </message>
     <message>
         <source>Joined server: %1.</source>
@@ -7289,7 +7289,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+201"/>
         <source>Images (*.png *.jpg *.jpeg *.svg)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">画像ファイル (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
     <message>
         <source>Images (*.png *.jpg *.svg)</source>
@@ -7582,7 +7582,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+466"/>
         <source>Connected.</source>
-        <translation>接続完了しました。</translation>
+        <translation type="unfinished">サーバに接続しました。</translation>
     </message>
     <message>
         <location line="+158"/>
