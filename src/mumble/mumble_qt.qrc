@@ -6,6 +6,7 @@
  <file>qt_pl.qm</file>
  <file>qt_pt.qm</file>
  <file>qt_ru.qm</file>
+ <file>qt_sv.qm</file>
  <file>qt_ja.qm</file>
 </qresource>
 </RCC>
