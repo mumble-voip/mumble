@@ -15,7 +15,8 @@
       <ProgressText Action="NSISUninstall">Uninstalling old version</ProgressText>
     </UI>
 
-    <CustomAction Id="LaunchApplication" FileKey="mumble.exe" ExeCommand="" Execute="immediate" Impersonate="yes" Return="asyncNoWait" />
+    <Property Id="WixShellExecTarget" Value="[#mumble.exe]" />
+    <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
     <UI>
       <Publish Dialog="MumbleExitDialog" Control="Finish" Order="1" Event="DoAction" Value="LaunchApplication">LAUNCHAPPONEXIT</Publish>
     </UI>
