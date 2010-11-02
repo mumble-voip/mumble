@@ -963,7 +963,7 @@ void UserModel::setComment(ClientUser *cu, const QString &comment) {
 	if (comment != cu->qsComment) {
 		ModelItem *item = ModelItem::c_qhUsers.value(cu);
 		int oldstate = (cu->qsComment.isEmpty() && cu->qbaCommentHash.isEmpty()) ? 0 : (item->bCommentSeen ? 2 : 1);
-		int newstate;
+		int newstate = 0;
 
 		cu->qsComment = comment;
 
@@ -992,7 +992,6 @@ void UserModel::setComment(ClientUser *cu, const QString &comment) {
 			}
 		} else {
 			item->bCommentSeen = true;
-			newstate = 0;
 		}
 
 		if (oldstate != newstate) {
@@ -1027,7 +1026,7 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 	if (comment != c->qsDesc) {
 		ModelItem *item = ModelItem::c_qhChannels.value(c);
 		int oldstate = c->qsDesc.isEmpty() ? 0 : (item->bCommentSeen ? 2 : 1);
-		int newstate;
+		int newstate = 0;
 
 		c->qsDesc = comment;
 
@@ -1049,7 +1048,6 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 			}
 		} else {
 			item->bCommentSeen = true;
-			newstate = 0;
 		}
 
 		if (oldstate != newstate) {

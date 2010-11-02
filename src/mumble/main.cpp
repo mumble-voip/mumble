@@ -107,7 +107,7 @@ bool QAppMumble::winEventFilter(MSG *msg, long *result) {
 #endif
 
 int main(int argc, char **argv) {
-	int res;
+	int res = 0;
 
 	QT_REQUIRE_VERSION(argc, argv, "4.4.0");
 

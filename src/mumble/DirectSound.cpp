@@ -491,7 +491,7 @@ void DXAudioInput::run() {
 
 	DWORD dwBufferSize;
 	bool bOk;
-	DWORD dwReadyBytes;
+	DWORD dwReadyBytes = 0;
 	DWORD dwLastReadPos = 0;
 	DWORD dwReadPosition;
 	DWORD dwCapturePosition;

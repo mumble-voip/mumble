@@ -102,7 +102,6 @@ bool OverlayClient::eventFilter(QObject *o, QEvent *e) {
 
 void OverlayClient::updateFPS() {
 	if (g.s.os.bFps) {
-		unsigned int uiSize = iroundf(qgs.sceneRect().height());
 		const BasepointPixmap &pm = OverlayTextLine(tr("FPS: %1").arg(static_cast<int>(fFps)), g.s.os.qfFps).createPixmap(g.s.os.qcFps);
 		qgpiFPS->setPixmap(pm);
 		// offset to use basepoint
