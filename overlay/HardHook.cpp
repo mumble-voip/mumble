@@ -46,7 +46,7 @@ static void __cdecl ods(const char *format, ...) {
 
 	p += len;
 
-	while (p > buf  &&  isspace(p[-1]))
+	while (p > buf  &&  isspace(static_cast<unsigned char>(p[-1])))
 		*--p = '\0';
 
 	*p++ = '\r';

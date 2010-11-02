@@ -649,7 +649,6 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hMod, DWORD fdwReason, LPVOID) {
 					ods("Injected");
 				}
 			}
-			DisableThreadLibraryCalls(hMod);
 			break;
 		case DLL_PROCESS_DETACH: {
 				ods("Lib: ProcDetach: %s", procname);
@@ -661,6 +660,16 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hMod, DWORD fdwReason, LPVOID) {
 					CloseHandle(hMapObject);
 				if (hHookMutex)
 					CloseHandle(hHookMutex);
+			}
+			break;
+		case DLL_THREAD_ATTACH: {
+				static bool bTriedHook = false;
+				if (sd && ! bTriedHook && ! bMumble) {
+					bTriedHook = true;
+					checkD3D9Hook();
+					checkDXGIHook();
+					checkOpenGLHook();
+				}
 			}
 			break;
 		default:

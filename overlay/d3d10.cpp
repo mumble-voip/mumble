@@ -682,7 +682,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 								unsigned char *b = (unsigned char *) pResize;
 								unsigned char *a = (unsigned char *) hRef;
 								dxgi->iOffsetResize = b-a;
-								ods("DXGI: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
+								ods("DXGI: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetResize);
 							}
 						}
 
