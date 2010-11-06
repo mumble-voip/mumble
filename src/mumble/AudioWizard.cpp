@@ -156,7 +156,7 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	abVAD->qcInside = Qt::yellow;
 	abVAD->qcAbove = Qt::green;
 
-	qsVAD->setValue(static_cast<int>(g.s.fVADmax * 32767.f));
+	qsVAD->setValue(iroundf(g.s.fVADmax * 32767.f + 0.5f));
 
 	// Positional
 	qcbHeadphone->setChecked(g.s.bPositionalHeadphone);
@@ -462,13 +462,13 @@ void AudioWizard::on_Ticker_timeout() {
 	abAmplify->iPeak = iMaxPeak;
 	abAmplify->update();
 
-	abVAD->iBelow = static_cast<int>(g.s.fVADmin * 32767.0f);
-	abVAD->iAbove = static_cast<int>(g.s.fVADmax * 32767.0f);
+	abVAD->iBelow = iroundf(g.s.fVADmin * 32767.0f + 0.5f);
+	abVAD->iAbove = iroundf(g.s.fVADmax * 32767.0f + 0.5f);
 
 	if (g.s.vsVAD == Settings::Amplitude) {
-		abVAD->iValue = iroundf((32767.f/96.0f) * (96.0f + ai->dPeakCleanMic));
+		abVAD->iValue = iroundf((32767.f/96.0f) * (96.0f + ai->dPeakCleanMic) + 0.5f);
 	} else {
-		abVAD->iValue = static_cast<int>(ai->fSpeechProb * 32767.0f);
+		abVAD->iValue = iroundf(ai->fSpeechProb * 32767.0f + 0.5f);
 	}
 	abVAD->update();
 

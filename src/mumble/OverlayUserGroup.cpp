@@ -219,7 +219,7 @@ void OverlayUserGroup::updateLayout() {
 void OverlayUserGroup::updateUsers() {
 	const QRectF &sr = scene()->sceneRect();
 
-	unsigned int uiHeight = iroundf(sr.height());
+	unsigned int uiHeight = iroundf(sr.height() + 0.5f);
 
 	QList<QGraphicsItem *> items;
 	foreach(QGraphicsItem *qgi, childItems())
@@ -306,12 +306,12 @@ void OverlayUserGroup::updateUsers() {
 
 	QRectF children = os->qrfAvatar | os->qrfChannel | os->qrfMutedDeafened | os->qrfUserName;
 
-	int pad = os->bBox ? iroundf(uiHeight * os->fZoom * (os->fBoxPad + os->fBoxPenWidth)) : 0;
-	int width = iroundf(children.width() * uiHeight * os->fZoom) + 2 * pad;
-	int height = iroundf(children.height() * uiHeight * os->fZoom) + 2 * pad;
+	int pad = os->bBox ? iroundf(uiHeight * os->fZoom * (os->fBoxPad + os->fBoxPenWidth) + 0.5f) : 0;
+	int width = iroundf(children.width() * uiHeight * os->fZoom + 0.5f) + 2 * pad;
+	int height = iroundf(children.height() * uiHeight * os->fZoom + 0.5f) + 2 * pad;
 
-	int xofs = - iroundf(children.left() * uiHeight * os->fZoom) + pad;
-	int yofs = - iroundf(children.top() * uiHeight * os->fZoom) + pad;
+	int xofs = - iroundf(children.left() * uiHeight * os->fZoom + 0.5f) + pad;
+	int yofs = - iroundf(children.top() * uiHeight * os->fZoom + 0.5f) + pad;
 
 	unsigned int y = 0;
 	unsigned int x = 0;
@@ -334,8 +334,8 @@ void OverlayUserGroup::updateUsers() {
 
 	QRectF br = boundingRect<OverlayUser>();
 
-	int basex = qBound<int>(0, iroundf(sr.width() * os->fX), iroundf(sr.width() - br.width()));
-	int basey = qBound<int>(0, iroundf(sr.height() * os->fY), iroundf(sr.height() - br.height()));
+	int basex = qBound<int>(0, iroundf(sr.width() * os->fX + 0.5f), iroundf(sr.width() - br.width() + 0.5f));
+	int basey = qBound<int>(0, iroundf(sr.height() * os->fY + 0.5f), iroundf(sr.height() - br.height() + 0.5f));
 
 	setPos(basex, basey);
 }

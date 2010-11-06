@@ -78,13 +78,13 @@ void OverlayUser::setup() {
 }
 
 #undef SCALESIZE
-#define SCALESIZE(var) iroundf(uiSize * os->fZoom * os->qrf##var .width()), iroundf(uiSize * os->fZoom * os->qrf##var .height())
+#define SCALESIZE(var) iroundf(uiSize * os->fZoom * os->qrf##var .width() + 0.5f), iroundf(uiSize * os->fZoom * os->qrf##var .height() + 0.5f)
 
 void OverlayUser::updateLayout() {
 	QPixmap pm;
 
 	if (scene())
-		uiSize = iroundf(scene()->sceneRect().height());
+		uiSize = iroundf(scene()->sceneRect().height() + 0.5);
 
 	prepareGeometryChange();
 
@@ -287,6 +287,6 @@ QPointF OverlayUser::alignedPosition(const QRectF &box, const QRectF &item, Qt::
 	else if (a & Qt::AlignVCenter)
 		yofs += hdiff * 0.5f;
 
-	return QPointF(iroundf(xofs), iroundf(yofs));
+	return QPointF(iroundf(xofs + 0.5f), iroundf(yofs + 0.5f));
 }
 

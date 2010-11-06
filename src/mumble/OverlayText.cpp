@@ -118,7 +118,7 @@ BasepointPixmap OverlayTextLine::createPixmap(QColor col) {
 	           iroundf(qr.right() + 2.0f*fEdge + 0.5f),
 	           iroundf(qr.bottom() + 2.0f*fEdge + 0.5f),
 	           col,
-	           QPoint(iroundf(fXCorrection), iroundf(fYCorrection + fAscent))
+		   QPoint(iroundf(fXCorrection + 0.5f), iroundf(fYCorrection + fAscent + 0.5f))
 	       );
 }
 
@@ -180,7 +180,7 @@ BasepointPixmap OverlayTextLine::createPixmap(unsigned int maxwidth, unsigned in
 
 		// eliding by previously calculated width
 		if ((bb.width()*scale) + twice_edge > maxwidth) {
-			int eliding_width = iroundf((static_cast<float>(maxwidth) / scale) - twice_edge);
+			int eliding_width = iroundf((static_cast<float>(maxwidth) / scale) - twice_edge + 0.5f);
 			QString str = fm.elidedText(qsText, Qt::ElideRight, eliding_width);
 
 			// use ellipsis as shortest possible string

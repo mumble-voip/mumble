@@ -470,6 +470,7 @@ void OverlayConfig::on_qpbShowCerts_clicked() {
 }
 
 void OverlayConfig::on_qcbShowFps_stateChanged(int state) {
+	Q_UNUSED(state);
 	s.os.bFps = qcbShowFps->isChecked();
 	refreshFpsLive();
 }

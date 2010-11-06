@@ -263,7 +263,7 @@ bool DockTitleBar::eventFilter(QObject *, QEvent *evt) {
 		case QEvent::MouseButtonRelease: {
 				newsize = 0;
 				QPoint p = qdw->mapFromGlobal(QCursor::pos());
-				if ((p.x() >= iroundf(static_cast<float>(qdw->width()) * 0.1f)) && (p.x() < iroundf(static_cast<float>(qdw->width()) * 0.9f))  && (p.y() >= 0) && (p.y() < 15))
+				if ((p.x() >= iroundf(static_cast<float>(qdw->width()) * 0.1f + 0.5f)) && (p.x() < iroundf(static_cast<float>(qdw->width()) * 0.9f + 0.5f))  && (p.y() >= 0) && (p.y() < 15))
 					newsize = 15;
 				if (newsize > 0 && !qtTick->isActive())
 					qtTick->start(500);

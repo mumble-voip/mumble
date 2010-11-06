@@ -320,7 +320,7 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 		return true;
 
 	// Calculate the required buffersize to hold the results
-	unsigned int iInputFrames = iroundf(ceilf(static_cast<float>(snum * sfHandle->samplerate()) / static_cast<float>(iOutSampleRate)));
+	unsigned int iInputFrames = static_cast<unsigned int>(ceilf(static_cast<float>(snum * sfHandle->samplerate()) / static_cast<float>(iOutSampleRate)));
 	unsigned int iInputSamples = iInputFrames * sfHandle->channels();
 
 	float *pOut;
@@ -403,7 +403,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	else
 		srs = NULL;
 
-	iOutputSize = iroundf(ceilf(static_cast<float>(iFrameSize * freq) / static_cast<float>(srate)));
+	iOutputSize = static_cast<unsigned int>(ceilf(static_cast<float>(iFrameSize * freq) / static_cast<float>(srate)));
 
 	iBufferOffset = iBufferFilled = iLastConsume = 0;
 	bLastAlive = true;

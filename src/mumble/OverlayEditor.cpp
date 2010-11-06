@@ -55,8 +55,8 @@ OverlayEditor::OverlayEditor(QWidget *p, QGraphicsItem *qgi, OverlaySettings *os
 	if (qgpw) {
 		qgpw->setFlag(QGraphicsItem::ItemIgnoresParentOpacity);
 		if (g.ocIntercept) {
-			qgpw->setPos(iroundf(g.ocIntercept->uiWidth / 16.0f), iroundf(g.ocIntercept->uiHeight / 16.0f));
-			qgpw->resize(iroundf(g.ocIntercept->uiWidth * 14.0f / 16.0f), iroundf(g.ocIntercept->uiHeight * 14.0f / 16.0f));
+			qgpw->setPos(iroundf(g.ocIntercept->uiWidth / 16.0f + 0.5f), iroundf(g.ocIntercept->uiHeight / 16.0f + 0.5f));
+			qgpw->resize(iroundf(g.ocIntercept->uiWidth * 14.0f / 16.0f + 0.5f), iroundf(g.ocIntercept->uiHeight * 14.0f / 16.0f + 0.5f));
 		}
 	}
 

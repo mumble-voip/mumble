@@ -95,7 +95,7 @@ OverlayEditorScene::OverlayEditorScene(const OverlaySettings &srcos, QObject *p)
 	resync();
 }
 
-#define SCALESIZE(var) iroundf(uiSize * uiZoom * os.qrf##var .width()), iroundf(uiSize * uiZoom * os.qrf##var .height())
+#define SCALESIZE(var) iroundf(uiSize * uiZoom * os.qrf##var .width() + 0.5f), iroundf(uiSize * uiZoom * os.qrf##var .height() + 0.5f)
 
 void OverlayEditorScene::updateMuted() {
 	QImageReader qir(QLatin1String("skin:muted_self.svg"));
@@ -239,8 +239,8 @@ void OverlayEditorScene::drawBackground(QPainter *p, const QRectF &rect) {
 	QRectF upscaled = OverlayUser::scaledRect(rect, 128.f / (uiSize * uiZoom));
 
 	{
-		int min = iroundf(upscaled.left() - 0.5f);
-		int max = iroundf(upscaled.right() + 0.5f);
+		int min = iroundf(upscaled.left());
+		int max = iroundf(ceil(upscaled.right()));
 
 		for (int i=min;i<=max;++i) {
 			qreal v = (i / 128.f) * uiSize * uiZoom;
@@ -255,8 +255,8 @@ void OverlayEditorScene::drawBackground(QPainter *p, const QRectF &rect) {
 	}
 
 	{
-		int min = iroundf(upscaled.top() - 0.5f);
-		int max = iroundf(upscaled.bottom() + 0.5f);
+		int min = iroundf(upscaled.top());
+		int max = iroundf(ceil(upscaled.bottom()));
 
 		for (int i=min;i<=max;++i) {
 			qreal v = (i / 128.f) * uiSize * uiZoom;

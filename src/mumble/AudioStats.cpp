@@ -74,12 +74,12 @@ void AudioBar::paintEvent(QPaintEvent *) {
 	float scale = static_cast<float>(width()) / static_cast<float>(iMax - iMin);
 	int h = height();
 
-	int val = iroundf(static_cast<float>(iValue) * scale);
-	int below = iroundf(static_cast<float>(iBelow) * scale);
-	int above = iroundf(static_cast<float>(iAbove) * scale);
-	int max = iroundf(static_cast<float>(iMax) * scale);
-	int min = iroundf(static_cast<float>(iMin) * scale);
-	int peak = iroundf(static_cast<float>(iPeak) * scale);
+	int val = iroundf(static_cast<float>(iValue) * scale + 0.5f);
+	int below = iroundf(static_cast<float>(iBelow) * scale + 0.5f);
+	int above = iroundf(static_cast<float>(iAbove) * scale  + 0.5f);
+	int max = iroundf(static_cast<float>(iMax) * scale + 0.5f);
+	int min = iroundf(static_cast<float>(iMin) * scale + 0.5f);
+	int peak = iroundf(static_cast<float>(iPeak) * scale + 0.5f);
 
 	if (g.s.bHighContrast) {
 		// Draw monochrome representation
@@ -407,17 +407,17 @@ void AudioStats::on_Tick_timeout() {
 		txt.sprintf("%04llu ms",g.uiDoublePush / 1000);
 	qlDoublePush->setText(txt);
 
-	abSpeech->iBelow = iroundf(g.s.fVADmin * 32767.0f);
-	abSpeech->iAbove = iroundf(g.s.fVADmax * 32767.0f);
+	abSpeech->iBelow = iroundf(g.s.fVADmin * 32767.0f + 0.5f);
+	abSpeech->iAbove = iroundf(g.s.fVADmax * 32767.0f + 0.5f);
 
 	if (g.s.vsVAD == Settings::Amplitude) {
 #ifndef COMPAT_CLIENT
-		abSpeech->iValue = iroundf((32767.f/96.0f) * (96.0f + ai->dPeakCleanMic));
+		abSpeech->iValue = iroundf((32767.f/96.0f) * (96.0f + ai->dPeakCleanMic) + 0.5f);
 #else
-		abSpeech->iValue = iroundf((32767.f/96.0f) * (96.0f + ai->dPeakMic));
+		abSpeech->iValue = iroundf((32767.f/96.0f) * (96.0f + ai->dPeakMic) + 0.5f);
 #endif
 	} else {
-		abSpeech->iValue = iroundf(ai->fSpeechProb * 32767.0f);
+		abSpeech->iValue = iroundf(ai->fSpeechProb * 32767.0f + 0.5f);
 	}
 
 	abSpeech->update();

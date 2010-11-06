@@ -102,7 +102,7 @@ bool OverlayClient::eventFilter(QObject *o, QEvent *e) {
 
 void OverlayClient::updateFPS() {
 	if (g.s.os.bFps) {
-		const BasepointPixmap &pm = OverlayTextLine(tr("FPS: %1").arg(static_cast<int>(fFps)), g.s.os.qfFps).createPixmap(g.s.os.qcFps);
+		const BasepointPixmap &pm = OverlayTextLine(tr("FPS: %1").arg(iroundf(fFps + 0.5f)), g.s.os.qfFps).createPixmap(g.s.os.qcFps);
 		qgpiFPS->setPixmap(pm);
 		// offset to use basepoint
 		//TODO: settings are providing a top left anchor, so shift down by ascent
@@ -491,7 +491,7 @@ void OverlayClient::setupScene(bool show) {
 			qgpiLogo->setPixmap(QPixmap::fromImage(qir.read()));
 
 			QRectF qrf = qgpiLogo->boundingRect();
-			qgpiLogo->setPos(iroundf((uiWidth - qrf.width()) / 2.0f), iroundf((uiHeight - qrf.height()) / 2.0f));
+			qgpiLogo->setPos(iroundf((uiWidth - qrf.width()) / 2.0f + 0.5f), iroundf((uiHeight - qrf.height()) / 2.0f) + 0.5f);
 
 		}
 
