@@ -6966,7 +6966,7 @@ p, li { white-space: pre-wrap; }
         <translation>Wyczyść</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1383"/>
+        <location filename="UserModel.cpp" line="+1381"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Masz wyłączone przeciąganie kanałów, więc kanał nie został przeniesiony.</translation>
     </message>
@@ -7567,7 +7567,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Resetuj powiekszenie</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+106"/>
+        <location filename="OverlayClient.cpp" line="+105"/>
         <source>FPS: %1</source>
         <translation>FPS: %1</translation>
     </message>
@@ -7780,7 +7780,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Mumble nie jest w stanie zweryfikować autentycznośc instalatora.</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+87"/>
         <source>Load Overlay Presets</source>
         <translation>Wczytaj konfigurację nakładki</translation>
     </message>
@@ -9043,7 +9043,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-806"/>
+        <location filename="UserModel.cpp" line="-804"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>To jest użytkownik podłączony do serwera. Ikona po lewej wskazuje czy w chwili obecnej:</translation>
     </message>
@@ -9173,7 +9173,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+723"/>
+        <location line="+721"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Czy jesteś pewien, że chcesz przeciągnąć ten kanał?</translation>
     </message>
@@ -9343,7 +9343,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <location filename="VoiceRecorder.cpp" line="+181"/>
+        <location filename="VoiceRecorder.cpp" line="+184"/>
         <source>Invalid sample rate given to recorder</source>
         <translation>Podano nieprawidłowe częstotliwości próbkowania</translation>
     </message>
@@ -9387,7 +9387,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+8"/>
         <location line="+10"/>
         <location line="+9"/>
-        <location line="+135"/>
+        <location line="+136"/>
         <source>Recorder</source>
         <translation>Rejestrator</translation>
     </message>
@@ -9467,7 +9467,7 @@ Valid variables are:
         <translation>&amp;Przeglądaj...</translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-194"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-195"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
         <translation>Zamknięcie rejestratora zakończy nagrywanie. Czy na pewno chcesz zamknąć rejestrator?</translation>
     </message>

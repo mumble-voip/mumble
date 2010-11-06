@@ -5767,7 +5767,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Mesangem de %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1383"/>
+        <location filename="UserModel.cpp" line="+1381"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Você possui moção de canais configurado em &quot;Não fazer nada&quot;, então o canal não foi movido.</translation>
     </message>
@@ -6268,7 +6268,7 @@ Evita que o cliente baixe imagens embutidas em mensagens de bate-papo com a marc
         <translation>Resetar aproximação</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+106"/>
+        <location filename="OverlayClient.cpp" line="+105"/>
         <source>FPS: %1</source>
         <translation>FPS: %1</translation>
     </message>
@@ -6324,7 +6324,7 @@ Evita que o cliente baixe imagens embutidas em mensagens de bate-papo com a marc
         <translation>O Mumble não foi capaz de verificar a autenticidade do instalador.</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+87"/>
         <source>Load Overlay Presets</source>
         <translation>Carregar predefinições de sobreimpressão</translation>
     </message>
@@ -7458,7 +7458,7 @@ Uma credencial de acesso é uma cadeia de caractéres de texto, que podem ser us
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-806"/>
+        <location filename="UserModel.cpp" line="-804"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Este é um usuário conectado ao servidor. O ícone a esquerda do usuário indica se ele está ou não falando:</translation>
     </message>
@@ -7584,7 +7584,7 @@ Uma credencial de acesso é uma cadeia de caractéres de texto, que podem ser us
         <translation>Marcações</translation>
     </message>
     <message>
-        <location line="+723"/>
+        <location line="+721"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Você tem certeza de que quer mover este canal?</translation>
     </message>
@@ -7750,7 +7750,7 @@ Uma credencial de acesso é uma cadeia de caractéres de texto, que podem ser us
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <location filename="VoiceRecorder.cpp" line="+181"/>
+        <location filename="VoiceRecorder.cpp" line="+184"/>
         <source>Invalid sample rate given to recorder</source>
         <translation>Taxa de amostragem inválida fornecida ao gravador</translation>
     </message>
@@ -7794,7 +7794,7 @@ Uma credencial de acesso é uma cadeia de caractéres de texto, que podem ser us
         <location line="+8"/>
         <location line="+10"/>
         <location line="+9"/>
-        <location line="+135"/>
+        <location line="+136"/>
         <source>Recorder</source>
         <translation>Gravador</translation>
     </message>
@@ -7854,7 +7854,7 @@ Uma credencial de acesso é uma cadeia de caractéres de texto, que podem ser us
         <translation>&amp;Navegar...</translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-194"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-195"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
         <translation>Fechar o gravador vai parar sua gravação atual. Você realmente quer fechar o gravador?</translation>
     </message>

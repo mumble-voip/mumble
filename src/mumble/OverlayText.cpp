@@ -118,7 +118,7 @@ BasepointPixmap OverlayTextLine::createPixmap(QColor col) {
 	           iroundf(qr.right() + 2.0f*fEdge + 0.5f),
 	           iroundf(qr.bottom() + 2.0f*fEdge + 0.5f),
 	           col,
-		   QPoint(iroundf(fXCorrection + 0.5f), iroundf(fYCorrection + fAscent + 0.5f))
+	           QPoint(iroundf(fXCorrection + 0.5f), iroundf(fYCorrection + fAscent + 0.5f))
 	       );
 }
 

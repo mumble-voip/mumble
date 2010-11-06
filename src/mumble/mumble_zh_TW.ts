@@ -6474,7 +6474,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>來至 %1 的消息</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1383"/>
+        <location filename="UserModel.cpp" line="+1381"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>你設置頻道拖動為“無動作&quot;因此頻道沒有被移動。</translation>
     </message>
@@ -7020,7 +7020,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+106"/>
+        <location filename="OverlayClient.cpp" line="+105"/>
         <source>FPS: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7088,7 +7088,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+87"/>
         <source>Load Overlay Presets</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8436,7 +8436,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-806"/>
+        <location filename="UserModel.cpp" line="-804"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8562,7 +8562,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished">標志</translation>
     </message>
     <message>
-        <location line="+723"/>
+        <location line="+721"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation type="unfinished">你確信要拖動這個頻道嗎？</translation>
     </message>
@@ -8732,7 +8732,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <location filename="VoiceRecorder.cpp" line="+181"/>
+        <location filename="VoiceRecorder.cpp" line="+184"/>
         <source>Invalid sample rate given to recorder</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8776,7 +8776,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+8"/>
         <location line="+10"/>
         <location line="+9"/>
-        <location line="+135"/>
+        <location line="+136"/>
         <source>Recorder</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8836,7 +8836,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-194"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-195"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
         <translation type="unfinished"></translation>
     </message>

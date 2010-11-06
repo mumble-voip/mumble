@@ -6199,7 +6199,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Besked fra %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1383"/>
+        <location filename="UserModel.cpp" line="+1381"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Du har &quot;Flytning af kanaler&quot; sat til &quot;Gør intet&quot;, så kanalen blev ikke flyttet.</translation>
     </message>
@@ -6693,7 +6693,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation>Nulstil zoom</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+106"/>
+        <location filename="OverlayClient.cpp" line="+105"/>
         <source>FPS: %1</source>
         <translation>FPS: %1</translation>
     </message>
@@ -6781,7 +6781,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation>Mumble var ikke i stand til at verificere gyldigheden af installationsprogrammet.</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+87"/>
         <source>Load Overlay Presets</source>
         <translation>Indlæs forudindstillede overlægninger</translation>
     </message>
@@ -8096,7 +8096,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-806"/>
+        <location filename="UserModel.cpp" line="-804"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Dette er en bruger, der har oprettet forbindelse til serveren. Ikonet til venstre for brugeren viser om vedkommende snakker:</translation>
     </message>
@@ -8226,7 +8226,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+723"/>
+        <location line="+721"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Er du sikker på, at du vil flytte denne kanal?</translation>
     </message>
@@ -8396,7 +8396,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <location filename="VoiceRecorder.cpp" line="+181"/>
+        <location filename="VoiceRecorder.cpp" line="+184"/>
         <source>Invalid sample rate given to recorder</source>
         <translation>Ugyldig samplingfrekvens givet til optageren</translation>
     </message>
@@ -8440,7 +8440,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <location line="+8"/>
         <location line="+10"/>
         <location line="+9"/>
-        <location line="+135"/>
+        <location line="+136"/>
         <source>Recorder</source>
         <translation>Optager</translation>
     </message>
@@ -8500,7 +8500,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <translation>&amp;Gennemse...</translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-194"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-195"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
         <translation>Lukning af optageren vil stoppe din nuværende optagelse. Er du sikker på, at du vil lukke optageren?</translation>
     </message>

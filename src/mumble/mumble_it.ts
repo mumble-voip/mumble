@@ -5184,12 +5184,12 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+1934"/>
+        <location line="+1928"/>
         <source>Root</source>
         <translation>Radice</translation>
     </message>
     <message>
-        <location line="-1885"/>
+        <location line="-1879"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Premi-per-parlare</translation>
@@ -5328,12 +5328,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2049"/>
+        <location line="+2043"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2045"/>
+        <location line="-2039"/>
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
@@ -5407,13 +5407,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2079"/>
+        <location line="+2073"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Disconnesso&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1842"/>
+        <location line="-1836"/>
         <source>Clear</source>
         <translation>Cancella</translation>
     </message>
@@ -5443,7 +5443,7 @@ p, li { white-space: pre-wrap; }
         <translation>Lo schema dell&apos;URL non è &apos;mumble&apos;</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+19"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
         <translatorcomment>Questa versione di Mumble non può utilizzare gli URL di Mumble versione %1.%2.%3</translatorcomment>
         <translation></translation>
@@ -5495,6 +5495,11 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;&lt;p&gt;Host remoto %5 (porta%6)&lt;/p&gt;</translation>
     </message>
     <message>
+        <location line="+1494"/>
+        <source>Images (*.png *.jpg *.jpeg *.svg)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation type="obsolete">Immagini (*.png *.jpg *.svg)</translation>
     </message>
@@ -5503,7 +5508,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="-1483"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canale di voce&lt;/h2&gt;&lt;p&gt;Crittografato con 128 bit OCB-AES128&lt;br/&gt;%1 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
@@ -5519,13 +5524,13 @@ p, li { white-space: pre-wrap; }
         <translation>Registrati come %1</translation>
     </message>
     <message>
-        <location line="-994"/>
+        <location line="-988"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Cambia lo stato della sovrapposizione in gioco.</translation>
     </message>
     <message>
-        <location line="+683"/>
+        <location line="+677"/>
         <location line="+311"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Stai per registrarti sul server. Quest&apos;azione non può essere annullata, il tuo nome utente non potrà essere cambiato. Sarai per sempre conosciuto come &apos;%1&apos; su questo server.&lt;p&gt;Se sicuro di volerti registrare?&lt;/p&gt;</translation>
@@ -5882,7 +5887,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Giocatore</translation>
     </message>
     <message>
-        <location line="-2120"/>
+        <location line="-2114"/>
         <source>&amp;Channel</source>
         <translation>&amp;Canale</translation>
     </message>
@@ -6981,7 +6986,7 @@ p, li { white-space: pre-wrap; }
         <translation>Messaggio da %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1383"/>
+        <location filename="UserModel.cpp" line="+1381"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Hai selezionato &quot;non fare niente&quot; sulle impostazioni del trascinamento del canale, quindi il canale non sarà spostato.</translation>
     </message>
@@ -6995,14 +7000,13 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Modalità trascianamento canale sconosciuta in PlayerModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-46"/>
+        <location filename="main.cpp" line="-52"/>
         <source>Welcome to Mumble.</source>
         <translation>Benvenuto su Mumble.</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
-        <translation>Questa è la prima volta che avvii Mumble.&lt;br /&gt;Vorresti essere aiutato dall&apos;Audio Wizard per configurare la tua scheda audio e le impostazioni audio?</translation>
+        <translation type="obsolete">Questa è la prima volta che avvii Mumble.&lt;br /&gt;Vorresti essere aiutato dall&apos;Audio Wizard per configurare la tua scheda audio e le impostazioni audio?</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="-10"/>
@@ -7562,7 +7566,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation>Reimposta zoom</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+106"/>
+        <location filename="OverlayClient.cpp" line="+105"/>
         <source>FPS: %1</source>
         <translation>FPS: %1</translation>
     </message>
@@ -7650,7 +7654,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation>Mumble non è riuscito a verificare l&apos;autenticità del file di configurazione.</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+87"/>
         <source>Load Overlay Presets</source>
         <translation>Carica configurazione per la sovrapposizione</translation>
     </message>
@@ -9026,7 +9030,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-806"/>
+        <location filename="UserModel.cpp" line="-804"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Questo è un utente connesso al server. L&apos;icona sulla sinistra dell&apos;utente indica se stà parlando o no:</translation>
     </message>
@@ -9156,7 +9160,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+723"/>
+        <location line="+721"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Sei sicuro di voler spostare questo canale?</translation>
     </message>
@@ -9326,7 +9330,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <location filename="VoiceRecorder.cpp" line="+181"/>
+        <location filename="VoiceRecorder.cpp" line="+184"/>
         <source>Invalid sample rate given to recorder</source>
         <translation>Al registratore è stata data una frequenza di campionamento non valida</translation>
     </message>
@@ -9370,7 +9374,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+8"/>
         <location line="+10"/>
         <location line="+9"/>
-        <location line="+135"/>
+        <location line="+136"/>
         <source>Recorder</source>
         <translation>Registratore</translation>
     </message>
@@ -9430,7 +9434,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>&amp;Sfoglia...</translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-194"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-195"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
         <translation>Chiudere il registratore interromperà la registrazione attuale. Vuoi veramente chiuderlo?</translation>
     </message>

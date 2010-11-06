@@ -4385,12 +4385,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+1934"/>
+        <location line="+1928"/>
         <source>Root</source>
         <translation>Rot</translation>
     </message>
     <message>
-        <location line="-1885"/>
+        <location line="-1879"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryck-för-att-Tala</translation>
@@ -4469,12 +4469,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2049"/>
+        <location line="+2043"/>
         <source>Mumble -- %1</source>
         <translation>Mumble - %1</translation>
     </message>
     <message>
-        <location line="-2045"/>
+        <location line="-2039"/>
         <source>&amp;Window</source>
         <translation>&amp;Fönster</translation>
     </message>
@@ -4543,13 +4543,13 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2079"/>
+        <location line="+2073"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Ej ansluten&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1842"/>
+        <location line="-1836"/>
         <source>Clear</source>
         <translation>Rensa</translation>
     </message>
@@ -4579,7 +4579,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>URL schemat kan inte användas av Mumble</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+19"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
         <translation>Den här versionen av Mumble kan inte hantera URLer för Mumble version %1.%2.%3</translation>
     </message>
@@ -4736,7 +4736,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Röstkanal skickas över kontrollkanal.</translation>
     </message>
     <message>
-        <location line="-837"/>
+        <location line="-831"/>
         <source>&amp;User</source>
         <translation>&amp;Användare</translation>
     </message>
@@ -4752,7 +4752,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Detta kommer ändra i-spelet läget.</translation>
     </message>
     <message>
-        <location line="+657"/>
+        <location line="+651"/>
         <source>Change your comment</source>
         <translation>Ändra din kommentar</translation>
     </message>
@@ -5865,7 +5865,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Meddelande från %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1383"/>
+        <location filename="UserModel.cpp" line="+1381"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Du har kanaldragning inställd på &quot;Gör ingenting&quot; så kanalen flyttades inte.</translation>
     </message>
@@ -5875,14 +5875,13 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Okänd kanaldragnings läge i Användarmodell::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-46"/>
+        <location filename="main.cpp" line="-52"/>
         <source>Welcome to Mumble.</source>
         <translation>Välkommen till Mumble.</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
-        <translation>Detta är den första gången du startar Mumble.&lt;br /&gt;Vill du gå igenom &quot;Ljudkonfiguration&quot; för att konfigurera ditt ljudkort?</translation>
+        <translation type="obsolete">Detta är den första gången du startar Mumble.&lt;br /&gt;Vill du gå igenom &quot;Ljudkonfiguration&quot; för att konfigurera ditt ljudkort?</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -6371,7 +6370,7 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
         <translation>Återställ zoom</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+106"/>
+        <location filename="OverlayClient.cpp" line="+105"/>
         <source>FPS: %1</source>
         <translation>FPS: %1</translation>
     </message>
@@ -6427,7 +6426,7 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
         <translation>Mumble kunde inte verifiera om installeraren var äkta.</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+87"/>
         <source>Load Overlay Presets</source>
         <translation>Ladda förinställningar till överlag</translation>
     </message>
@@ -7574,7 +7573,7 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-806"/>
+        <location filename="UserModel.cpp" line="-804"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Detta är en användare som är ansluten till servern. Ikonen till vänster om användaren visar om de pratar eller ej:</translation>
     </message>
@@ -7700,7 +7699,7 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
         <translation>Flaggor</translation>
     </message>
     <message>
-        <location line="+723"/>
+        <location line="+721"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Är du säker på att du vill dra den här kanalen?</translation>
     </message>
@@ -7866,7 +7865,7 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <location filename="VoiceRecorder.cpp" line="+181"/>
+        <location filename="VoiceRecorder.cpp" line="+184"/>
         <source>Invalid sample rate given to recorder</source>
         <translation>Ogiltig hastighet given till inspelare</translation>
     </message>
@@ -7910,7 +7909,7 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
         <location line="+8"/>
         <location line="+10"/>
         <location line="+9"/>
-        <location line="+135"/>
+        <location line="+136"/>
         <source>Recorder</source>
         <translation>Inspelare</translation>
     </message>
@@ -7990,7 +7989,7 @@ Giltiga variabler är:
         <translation>&amp;Bläddra...</translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-194"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-195"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
         <translation>Stängning av inspelaren kommer att avsluta din nuvarande inspelning. Vill du verkligen stänga inspelaren?</translation>
     </message>

@@ -8173,7 +8173,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1383"/>
+        <location filename="UserModel.cpp" line="+1381"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Die Kanal-Ziehen-Aktion wurde auf &quot;Nichts tun&quot; gesetzt. Der Kanal wird also nicht bewegt.</translation>
     </message>
@@ -8768,7 +8768,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation>Zoom zurücksetzen</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+106"/>
+        <location filename="OverlayClient.cpp" line="+105"/>
         <source>FPS: %1</source>
         <translation>FPS: %1</translation>
     </message>
@@ -8999,7 +8999,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation>Mumble konnte die Echtheit des Installers nicht überprüfen.</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+87"/>
         <source>Load Overlay Presets</source>
         <translation>Lade Overlay Vorlage</translation>
     </message>
@@ -10349,7 +10349,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-806"/>
+        <location filename="UserModel.cpp" line="-804"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Dies ist ein zum Server verbundener Benutzer. Das Icon links vom Benutzer zeigt, ob der Benutzer spricht oder nicht:</translation>
     </message>
@@ -10450,13 +10450,13 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <translation>Kanal hat einen neuen Kommentar (klicken um anzusehen)</translation>
     </message>
     <message>
-        <location line="+837"/>
+        <location line="+835"/>
         <location line="+20"/>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
         <translation>Kann dieses Verschieben nicht automatisiert ausführen. Bitte setzen Sie die Kanalpositionswert zurück oder setzen Sie sie manuell.</translation>
     </message>
     <message>
-        <location line="-865"/>
+        <location line="-863"/>
         <source>User has a comment set, which you&apos;ve already seen. (click to show)</source>
         <translation>Benutzer hat einen Kommentar gesetzt, welchen Sie schon gesehen haben. (klicken um anzusehen)</translation>
     </message>
@@ -10485,7 +10485,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+723"/>
+        <location line="+721"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Sind Sie sicher, dass Sie den Kanal verschieben möchten?</translation>
     </message>
@@ -10653,7 +10653,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <location filename="VoiceRecorder.cpp" line="+181"/>
+        <location filename="VoiceRecorder.cpp" line="+184"/>
         <source>Invalid sample rate given to recorder</source>
         <translation>Ungültige Abtastrate wurde an den Recorder übergeben</translation>
     </message>
@@ -10697,7 +10697,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <location line="+8"/>
         <location line="+10"/>
         <location line="+9"/>
-        <location line="+135"/>
+        <location line="+136"/>
         <source>Recorder</source>
         <translation>Aufnahme</translation>
     </message>
@@ -10773,7 +10773,7 @@ Gültige Variablen sind:
         <translation>&amp;Durchsuchen...</translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-194"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-195"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
         <translation>Wenn Sie den Aufnahmedialog schließen wird die Aufnahme beendet. Sind sie sicher?</translation>
     </message>

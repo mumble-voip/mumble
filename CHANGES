@@ -1,5 +1,43 @@
+2010-11-06
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    01e2247  Fix rounding behavior in conjunction with iroundf macro in
+	     lots of places.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    7186e61  Replace CELT 0.8.1 with 0.9.0
+
+2010-11-03
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    f7aec20  Fix VoiceRecorder::sanitizeFilenameOrPathComponent: When a 255
+	     character filename/path-component ends on '.' infinite
+	     recursion might have occurred on windows machines.
+
+2010-11-02
+  Arcenciel <arcenciel@users.sourceforge.net>
+    b1340c3  Updated Japanese Translation for 1.2.3
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    f21ecfa  Use the Wix custom action to launch Mumble
+    7139599  Fix use of uninitialized variables and unused assignments
+    c865e05  Add swedish Qt translation
+    bee5338  Readd overlay hook on DLL_THREAD_ATTACH
+
+2010-10-30
+  Spaccaossi <spaccaossi@users.sourceforge.net>
+    2a26a18  Italian translation for 1.2.3
+
+  Svenne33 <svenne33@users.sourceforge.net>
+    97e4bd6  Swedish translation for 1.2.3
+
+  Jonathan <zentriple@users.sourceforge.net>
+    6f7435f  Danish translation: small update
+
+2010-10-24
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    f913b99  Updated Spanish translation for 1.2.3
+
 2010-10-22
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     ec2b987  Updated Japanese Translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -70,7 +108,7 @@
 	     as tables that contain field descriptions. Most descriptions
 	     missing.
 
-  svenne33 <svenne33@users.sourceforge.net>
+  Svenne33 <svenne33@users.sourceforge.net>
     854f5da  New update of Swedish translation
 
 2010-10-15
@@ -83,7 +121,7 @@
     46f27d7  - Added message structure env/command - Added initial
 	     description on UDP protocol
 
-  svenne33 <svenne33@users.sourceforge.net>
+  Svenne33 <svenne33@users.sourceforge.net>
     4a684df  Swedish translation updated
 
 2010-10-14
@@ -134,7 +172,7 @@
     bb3cb7f  Updated Polish translation
 
 2010-10-06
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     3556898  Updated Japanese Translation
 
   Justin McGrath <justin.m.mcgrath@gmail.com>
@@ -157,7 +195,7 @@
     ac2b6ca  Remove unused code, spotted by rawnar
 
 2010-10-04
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     3a703dd  Updated Japanese Translation
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -188,7 +226,7 @@
 	     Fixes random crashes on Leopard.
 
 2010-09-27
-  svenne33 <svenne33@users.sourceforge.net>
+  Svenne33 <svenne33@users.sourceforge.net>
     8a5998f  Swedish Translation (#3071209 & #3071223)
 
 2010-09-18
@@ -259,7 +297,7 @@
     09c23f8  Russian translation update.
 
 2010-09-02
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     f78a58b  Updated Japanese Translation (#3058069)
 
   Nicos Gollan <gtdev@spearhead.de>
@@ -416,7 +454,7 @@
     81f9d9f  Boost 1.44
 
 2010-08-18
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     c19821c  Updated Japanese Translation
 
   Mikkel Krautz <mikkel@krautz.dk>
@@ -441,7 +479,7 @@
     f6a3e82  Add cpu type and SSE2 state to usage stats
 
 2010-08-16
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     1d32a33  Japanese translation for current git
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -847,7 +885,7 @@
 	     HRESULT
 
 2010-06-02
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     a6d75b5  Updated Japanese Translation
 
   Stefan Hacker <dd0t@users.sourceforge.net>
@@ -1044,7 +1082,7 @@
     7b77dea  Counter-Strike 1.6 Positional Audio support
 
 2010-04-17
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     472296f  Updated japanese translation.
 
   Sergey Ivanov <randomei@users.sourceforge.net>
@@ -1257,7 +1295,7 @@
     f0b40a6  Gmod, L4D2 updates
 
 2010-03-03
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     9b8d1be  Updated Japanese Translation
 
   Stefan Hacker <dd0t@users.sourceforge.net>
@@ -1345,7 +1383,7 @@
     add15dc  Assume input URLs are valid-ish
 
 2010-02-23
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     eda6b17  Updated Japanese Translations for 1.2.2
 
   Kissaki <kissaki@gmx.de>
@@ -1724,7 +1762,7 @@
     75fc50a  User avatars
 
 2010-01-28
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     f816fe6  Updated and fixed japanese translation
 
   Erik Bouvin Pedersen <erikbp@users.sourceforge.net>
@@ -1756,7 +1794,7 @@
     af4ac7a  Fix enable-state for mute/deafen
 
 2010-01-26
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     8bd520e  Updated Japanese Translation
 
   Natenom <natenom@googlemail.com>
@@ -1949,7 +1987,7 @@
     cbee6c8  Only show userinformation if server >= 1.2.2
 
 2010-01-10
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     5eed139  Fixed Japanese Translation for 1.2.1
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -2021,7 +2059,7 @@
     2e2652b  Update Danish translation for 1.2.1.
 
 2010-01-06
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     a8d4b61  Updated Japanese Translations
 
 2010-01-05
@@ -2034,7 +2072,7 @@
     85e5429  Add licenses to plugins
 
 2010-01-03
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     b9a647b  Updated Japanese Translations for 1.2.1
 
   Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
@@ -2110,7 +2148,7 @@
     243f5c7  Update Polish installer
 
 2009-12-27
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     6364d67  Updated Japanese Translations for 1.2.1
 
   Stefan Hacker <dd0t@users.sourceforge.net>
@@ -2318,7 +2356,7 @@
     867da14  Order channels when importing to MySQL
 
 2009-12-10
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     d5e0afb  Japanese Translation for 1.2.0
 
   Mikkel Krautz <mikkel@krautz.dk>
@@ -2577,7 +2615,7 @@
     da18c1f  Make sure G15 works on OSX.
 
 2009-11-18
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     a8a25e9  Japanese Translation
 
   Mikkel Krautz <mikkel@krautz.dk>
@@ -2751,7 +2789,7 @@
     3a6e97a  pass commandline arguments to Ice
 
 2009-11-05
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     cd3e90f  fixed japanese translation
 
 2009-11-04
@@ -2759,7 +2797,7 @@
     bf23ffc  Show client versions in the log
 
 2009-11-03
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     26d77a2  Japanese Installer Translation
     48d03a5  Japanese Translation
 
@@ -4351,7 +4389,7 @@
     ffe7929  Add CELT submodule
 
 2009-03-29
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     1399c24  Updated Japanese Translation
 
   Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
@@ -4757,7 +4795,7 @@
 	     threads
 
 2009-02-25
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     9f8f3cd  Patch #2637281: NSIS Japanese Translation update
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -4803,7 +4841,7 @@
     35f52a9  Team Fortress 2 PA plugin
 
 2009-02-20
-  arcenciel <arcenciel@users.sourceforge.net>
+  Arcenciel <arcenciel@users.sourceforge.net>
     4fd1812  Patch #2620308: NSIS Japanese Translation
     17a6814  Patch #2620179: NSIS Japanese Translation
 
