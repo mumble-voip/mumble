@@ -243,7 +243,7 @@ class AppBundle(object):
 		dst = os.path.join(self.bundle, 'Contents', 'Codecs')
 		os.makedirs(dst)
 		shutil.copy('release/libcelt0.0.7.0.dylib', dst)
-		shutil.copy('release/libcelt0.0.8.0.dylib', dst)
+		shutil.copy('release/libcelt0.0.9.0.dylib', dst)
 
 	def copy_plugins(self):
 		'''
@@ -501,7 +501,7 @@ if __name__ == '__main__':
 			'release/Mumble.app/Contents/Plugins/liblink.dylib',
 			'release/Mumble.app/Contents/Plugins/libmanual.dylib',
 			'release/Mumble.app/Contents/Codecs/libcelt0.0.7.0.dylib',
-			'release/Mumble.app/Contents/Codecs/libcelt0.0.8.0.dylib',
+			'release/Mumble.app/Contents/Codecs/libcelt0.0.9.0.dylib',
 			# 1.1.x
 			'release/Mumble11x.app/',
 			'release/Mumble11x.app/Contents/MacOS/mumble-g15-helper',
