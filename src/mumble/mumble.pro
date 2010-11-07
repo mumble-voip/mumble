@@ -57,7 +57,7 @@ CONFIG(no-bundled-celt) {
   QMAKE_CXXFLAGS	*= -Wall -Wextra
 }
 
-!win32:!CONFIG(no-dbus) {
+!win32:!macx:!CONFIG(no-dbus) {
   CONFIG		*= dbus
 }
 
