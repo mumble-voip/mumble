@@ -55,7 +55,12 @@ CONFIG+=no-client
 CONFIG+=no-server
  Don't build the server (Murmur)
 
-CONFIG+=no-bundled-speex
+CONFIG+=no-bundled-celt (Mumble)
+ Don't use the included version of CELT, but look for one on the system.
+ Note that this requires that you have CELT 0.7.0 or 0.7.1 installed on
+ your system as CELT does not maintain bitstream compatibility.
+
+CONFIG+=no-bundled-speex (Mumble)
  Don't use the included version of Speex, but look for one on the system.
  Note that this requires your system-installed Speex to be at least version
  1.2.0.
