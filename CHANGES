@@ -1,9 +1,22 @@
+2010-11-08
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    42930a7  Update CELT 0.9 submodule to get the PLC fixes
+
+2010-11-07
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    ec0e463  Add firefox.exe to overlay blacklist
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    42fc791  Don't use DBus for the client on OS X.
+    409aaa7  Use CELT 0.9 in osxdist script.
+
 2010-11-06
   Stefan Hacker <dd0t@users.sourceforge.net>
     01e2247  Fix rounding behavior in conjunction with iroundf macro in
 	     lots of places.
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
+    11ff9b1  Remove more unused files
     7186e61  Replace CELT 0.8.1 with 0.9.0
 
 2010-11-03
