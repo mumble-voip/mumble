@@ -17,7 +17,12 @@ CONFIG *= ordered debug_and_release
   !CONFIG(no-11x) {
     SUBDIRS *= src/mumble11x
   }
-  SUBDIRS *= src/mumble plugins
+
+  SUBDIRS *= src/mumble
+
+  !CONFIG(no-plugins) {
+    SUBDIRS *= plugins
+  }
 
   win32 {
     SUBDIRS *= overlay
