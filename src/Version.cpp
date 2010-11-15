@@ -30,7 +30,6 @@
 */
 
 #include "Version.h"
-#include "murmur_pch.h"
 
 unsigned int MumbleVersion::getRaw(const QString &version) {
 	int major, minor, patch;

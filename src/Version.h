@@ -32,6 +32,8 @@
 #ifndef _VERSION_H
 #define _VERSION_H
 
+#include "murmur_pch.h"
+
 #define MUMXTEXT(X) #X
 #define MUMTEXT(X) MUMXTEXT(X)
 
@@ -40,9 +42,6 @@
 #else
 #define MUMBLE_RELEASE MUMTEXT(MUMBLE_VERSION)
 #endif
-
-class QString;
-class QLatin1String;
 
 class MumbleVersion {
 	public:
