@@ -5058,7 +5058,7 @@ der möglichen Orte initialisieren.</translation>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+653"/>
+        <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
         <translation>Tastenkürzel</translation>
     </message>
@@ -9928,7 +9928,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-482"/>
+        <location filename="GlobalShortcut.cpp" line="-483"/>
         <source>Unassigned</source>
         <translation>Nicht zugewiesen</translation>
     </message>
@@ -9936,7 +9936,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+358"/>
+        <location line="+359"/>
         <source>On</source>
         <translation>An</translation>
     </message>
@@ -9959,7 +9959,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-432"/>
+        <location line="-433"/>
         <source>Press Shortcut</source>
         <translation>Tastenkürzel drücken</translation>
     </message>
@@ -9967,7 +9967,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>ShortcutTargetDialog</name>
     <message>
-        <location line="+203"/>
+        <location line="+204"/>
         <source>Root</source>
         <translation>Hauptkanal</translation>
     </message>

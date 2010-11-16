@@ -4155,7 +4155,7 @@ delle possibili posizioni.</translation>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+653"/>
+        <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
         <translation>Scorciatoie</translation>
     </message>
@@ -8625,7 +8625,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-482"/>
+        <location filename="GlobalShortcut.cpp" line="-483"/>
         <source>Unassigned</source>
         <translation>Non assegnato</translation>
     </message>
@@ -8633,7 +8633,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+358"/>
+        <location line="+359"/>
         <source>On</source>
         <translation>On</translation>
     </message>
@@ -8656,7 +8656,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-432"/>
+        <location line="-433"/>
         <source>Press Shortcut</source>
         <translation>Premi scorciatoia</translation>
     </message>
@@ -8664,7 +8664,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
 <context>
     <name>ShortcutTargetDialog</name>
     <message>
-        <location line="+203"/>
+        <location line="+204"/>
         <source>Root</source>
         <translation>Radice</translation>
     </message>

@@ -3426,7 +3426,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+653"/>
+        <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6994,7 +6994,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-482"/>
+        <location filename="GlobalShortcut.cpp" line="-483"/>
         <source>Unassigned</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7002,7 +7002,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+358"/>
+        <location line="+359"/>
         <source>On</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7025,7 +7025,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-432"/>
+        <location line="-433"/>
         <source>Press Shortcut</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7033,7 +7033,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutTargetDialog</name>
     <message>
-        <location line="+203"/>
+        <location line="+204"/>
         <source>Root</source>
         <translation type="unfinished"></translation>
     </message>

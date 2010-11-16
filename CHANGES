@@ -1,4 +1,23 @@
+2010-11-15
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    c2f0c53  Fix mumble packet image in documentation
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    907c41f  Fix compile without PCH
+    3994350  Fix #3090083
+
+2010-11-09
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    ca23daf  Add no-vld and no-plugin qmake flags
+
 2010-11-08
+  Mikko Rantanen <jubjub@jubjubnest.net>
+    77827af  Documented no-bundled-celt option in INSTALL with a note
+	     concerning CELT 0.7.x
+    2131364  Documentation: Added a note concerning the codec requirements
+	     and clarified UDP tunneling. Also some minor float/margin
+	     tweaks.
+
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     42930a7  Update CELT 0.9 submodule to get the PLC fixes
 
