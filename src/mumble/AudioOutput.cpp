@@ -805,7 +805,7 @@ void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket
 	if (iChannels == 0)
 		return;
 	qrwlOutputs.lockForRead();
-	AudioOutputSpeech *aop = dynamic_cast<AudioOutputSpeech *>(qmOutputs.value(user));
+	AudioOutputSpeech *aop = qobject_cast<AudioOutputSpeech *>(qmOutputs.value(user));
 
 	if (! aop || (aop->umtType != type)) {
 		qrwlOutputs.unlock();
@@ -966,7 +966,6 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 }
 
 bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
-	AudioOutputUser *aop;
 	QList<AudioOutputUser *> qlMix;
 	QList<AudioOutputUser *> qlDel;
 
@@ -1081,7 +1080,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			validListener = true;
 		}
 
-		foreach(aop, qlMix) {
+		foreach(AudioOutputUser *aop, qlMix) {
 			const float * RESTRICT pfBuffer = aop->pfBuffer;
 			float volumeAdjustment = 1;
 
@@ -1178,7 +1177,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 
 	qrwlOutputs.unlock();
 
-	foreach(aop, qlDel)
+	foreach(AudioOutputUser *aop, qlDel)
 		removeBuffer(aop);
 
 	return (! qlMix.isEmpty());
