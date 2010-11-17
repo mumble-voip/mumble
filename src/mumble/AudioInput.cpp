@@ -675,15 +675,12 @@ void AudioInput::encodeAudioFrame() {
 	iArg = g.s.iNoiseSuppress - iArg;
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
 
-
-	int iIsSpeech;
-
 	if (sesEcho && psSpeaker) {
 		speex_echo_cancellation(sesEcho, psMic, psSpeaker, psClean);
-		iIsSpeech=speex_preprocess_run(sppPreprocess, psClean);
+		speex_preprocess_run(sppPreprocess, psClean);
 		psSource = psClean;
 	} else {
-		iIsSpeech=speex_preprocess_run(sppPreprocess, psMic);
+		speex_preprocess_run(sppPreprocess, psMic);
 		psSource = psMic;
 	}
 
@@ -701,33 +698,31 @@ void AudioInput::encodeAudioFrame() {
 	dPeakCleanMic = qMax(dPeakSignal - gainValue, -96.0f);
 	float level = (g.s.vsVAD == Settings::SignalToNoise) ? fSpeechProb : (1.0f + dPeakCleanMic / 96.0f);
 
-	if (level > g.s.fVADmax)
-		iIsSpeech = 1;
-	else if (level > g.s.fVADmin && bPreviousVoice)
-		iIsSpeech = 1;
-	else
-		iIsSpeech = 0;
+	bool bIsSpeech = false;
 
-	if (! iIsSpeech) {
+	if (level > g.s.fVADmax)
+		bIsSpeech = true;
+
+	if (! bIsSpeech) {
 		iHoldFrames++;
 		if (iHoldFrames < g.s.iVoiceHold)
-			iIsSpeech=1;
+			bIsSpeech = true;
 	} else {
 		iHoldFrames = 0;
 	}
 
 	if (g.s.atTransmit == Settings::Continous)
-		iIsSpeech = 1;
+		bIsSpeech = true;
 	else if (g.s.atTransmit == Settings::PushToTalk)
-		iIsSpeech = g.s.uiDoublePush && ((g.uiDoublePush < g.s.uiDoublePush) || (g.tDoublePush.elapsed() < g.s.uiDoublePush));
+		bIsSpeech = g.s.uiDoublePush && ((g.uiDoublePush < g.s.uiDoublePush) || (g.tDoublePush.elapsed() < g.s.uiDoublePush));
 
-	iIsSpeech = iIsSpeech || (g.iPushToTalk > 0);
+	bIsSpeech = bIsSpeech || (g.iPushToTalk > 0);
 
 	if (g.s.bMute || ((g.s.lmLoopMode != Settings::Local) && p && (p->bMute || p->bSuppress)) || g.bPushToMute || (g.iTarget < 0)) {
-		iIsSpeech = 0;
+		bIsSpeech = false;
 	}
 
-	if (iIsSpeech) {
+	if (bIsSpeech) {
 		iSilentFrames = 0;
 	} else {
 		iSilentFrames++;
@@ -736,7 +731,7 @@ void AudioInput::encodeAudioFrame() {
 	}
 
 	if (p) {
-		if (! iIsSpeech)
+		if (! bIsSpeech)
 			p->setTalking(Settings::Passive);
 		else if (g.iTarget == 0)
 			p->setTalking(Settings::Talking);
@@ -746,12 +741,12 @@ void AudioInput::encodeAudioFrame() {
 
 	if (g.s.bPushClick && (g.s.atTransmit == Settings::PushToTalk)) {
 		AudioOutputPtr ao = g.ao;
-		if (iIsSpeech && ! bPreviousVoice && ao)
+		if (bIsSpeech && ! bPreviousVoice && ao)
 			ao->playSample(g.s.qsPushClickOn);
-		else if (ao && !iIsSpeech && bPreviousVoice && ao)
+		else if (ao && !bIsSpeech && bPreviousVoice && ao)
 			ao->playSample(g.s.qsPushClickOff);
 	}
-	if (! iIsSpeech && ! bPreviousVoice) {
+	if (! bIsSpeech && ! bPreviousVoice) {
 		iBitrate = 0;
 		if (g.s.iIdleTime && ! g.s.bDeaf && ((tIdle.elapsed() / 1000000ULL) > g.s.iIdleTime)) {
 			emit doDeaf();
@@ -846,12 +841,12 @@ void AudioInput::encodeAudioFrame() {
 		speex_bits_reset(&sbBits);
 	}
 
-	flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len), ! iIsSpeech);
+	flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len), ! bIsSpeech);
 
-	if (! iIsSpeech)
+	if (! bIsSpeech)
 		iBitrate = 0;
 
-	bPreviousVoice = iIsSpeech;
+	bPreviousVoice = bIsSpeech;
 }
 
 void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
