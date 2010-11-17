@@ -33,7 +33,6 @@
 #include <QtDBus/QtDBus>
 #endif
 #include <QtNetwork/QtNetwork>
-#include <QtOpenGL/QtOpenGL>
 #include <QtSql/QtSql>
 #include <QtXml/QtXml>
 

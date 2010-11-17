@@ -218,9 +218,6 @@
       <Component Id="QtNetwork4.dll">
         <File Source="$(var.QtDir)\bin\QtNetwork4.dll" KeyPath="yes" />
       </Component>
-      <Component Id="QtOpenGL4.dll">
-        <File Source="$(var.QtDir)\bin\QtOpenGL4.dll" KeyPath="yes" />
-      </Component>
       <Component Id="QtSql4.dll">
         <File Source="$(var.QtDir)\bin\QtSql4.dll" KeyPath="yes" />
       </Component>
@@ -294,7 +291,6 @@
       <ComponentRef Id="QtCore4.dll" />
       <ComponentRef Id="QtGui4.dll" />
       <ComponentRef Id="QtNetwork4.dll" />
-      <ComponentRef Id="QtOpenGL4.dll" />
       <ComponentRef Id="QtSql4.dll" />
       <ComponentRef Id="QtSvg4.dll" />
       <ComponentRef Id="QtXml4.dll" />

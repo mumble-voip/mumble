@@ -124,30 +124,11 @@ void AudioBar::paintEvent(QPaintEvent *) {
 
 }
 
-AudioEchoWidget::AudioEchoWidget(QWidget *p) : QGLWidget(p) {
+AudioEchoWidget::AudioEchoWidget(QWidget *p) : QWidget(p) {
 	setMinimumSize(100, 60);
 }
 
-void AudioEchoWidget::initializeGL() {
-	glDisable(GL_LIGHTING);
-
-	glClearColor(0,0,0,0);
-	glShadeModel(GL_SMOOTH);
-
-	glEnable(GL_COLOR_MATERIAL);
-	glDisable(GL_CULL_FACE);
-}
-
-void AudioEchoWidget::resizeGL(int w, int h) {
-	glViewport(0, 0, w, h);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-}
-
-static inline void mapEchoToColor(float echo) {
+static inline const QColor mapEchoToColor(float echo) {
 	bool neg = (echo < 0.0f);
 	echo = fabsf(echo);
 
@@ -162,21 +143,26 @@ static inline void mapEchoToColor(float echo) {
 
 	if (echo < 0.5f) {
 		a = echo * 2.0f;
-		b = 0;
+		b = 0.0f;
 	} else {
-		a = 1;
+		a = 1.0f;
 		b = (echo - 0.5f) * 2.0f;
 	}
 
 	if (neg)
-		glColor3f(a, b, c);
+		return QColor::fromRgbF(a, b, c);
 	else
-		glColor3f(c, b, a);
+		return QColor::fromRgbF(c, b, a);
 }
 
 #define WGT(x,y) st->W[(y)*N + 2*(x)+1]
 
-void AudioEchoWidget::paintGL() {
+void AudioEchoWidget::paintEvent(QPaintEvent *) {
+	QPainter paint(this);
+
+	paint.scale(width(), height());
+	paint.fillRect(rect(), Qt::black);
+
 	AudioInputPtr ai = g.ai;
 	if (! ai || ! ai->sesEcho)
 		return;
@@ -211,8 +197,6 @@ void AudioEchoWidget::paintGL() {
 	float xscale = 1.0f / static_cast<float>(N);
 	float yscale = 1.0f / static_cast<float>(M);
 
-	glBegin(GL_QUADS);
-
 	for (int j = 0; j < M; j++) {
 		for (int i=1;i < N; i++) {
 			float xa = static_cast<float>(i) * xscale;
@@ -221,24 +205,19 @@ void AudioEchoWidget::paintGL() {
 			float xb = xa + xscale;
 			float yb = ya + yscale;
 
-			mapEchoToColor(sqrtf(W[j*n+2*i]*W[j*n+2*i]+W[j*n+2*i-1]*W[j*n+2*i-1]) / 65536.f);
-			glVertex2f(xa, ya);
-			glVertex2f(xb, ya);
-			glVertex2f(xb, yb);
-			glVertex2f(xa, yb);
+			const QColor &c = mapEchoToColor(sqrtf(W[j*n+2*i]*W[j*n+2*i]+W[j*n+2*i-1]*W[j*n+2*i-1]) / 65536.f);
+			paint.fillRect(QRectF(QPointF(xa, ya), QPointF(xb, yb)), c);
 		}
 	}
 
-	glEnd();
-
-	glBegin(GL_LINE_STRIP);
-	glColor3f(1.0f, 0.0f, 1.0f);
-	xscale = 1.0f / (2.0f*static_cast<float>(n));
+	QPolygonF poly;
+	xscale = 1.0f / (2.0f * static_cast<float>(n));
 	yscale = 1.0f / (200.0f * 32767.0f);
-	for (int i=0;i<2*n;i++) {
-		glVertex2f(static_cast<float>(i)*xscale, 0.5f + static_cast<float>(w[i]) * yscale);
+	for (int i = 0; i < 2 * n; i++) {
+		poly << QPointF(static_cast<float>(i) * xscale, 0.5f + static_cast<float>(w[i]) * yscale);
 	}
-	glEnd();
+	paint.setPen(QColor::fromRgbF(1.0f, 0.0f, 1.0f));
+	paint.drawPolyline(poly);
 }
 
 AudioNoiseWidget::AudioNoiseWidget(QWidget *p) : QWidget(p) {
@@ -420,5 +399,5 @@ void AudioStats::on_Tick_timeout() {
 
 	anwNoise->update();
 	if (aewEcho)
-		aewEcho->updateGL();
+		aewEcho->update();
 }
