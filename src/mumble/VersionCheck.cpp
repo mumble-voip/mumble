@@ -99,12 +99,12 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 
 					QFile qf(filename);
 					if (qf.exists()) {
-						QString	native = QDir::toNativeSeparators(filename);
+						std::wstring native = QDir::toNativeSeparators(filename).toStdWString();
 
 						WINTRUST_FILE_INFO file;
 						ZeroMemory(&file, sizeof(file));
 						file.cbStruct = sizeof(file);
-						file.pcwszFilePath = native.utf16();
+						file.pcwszFilePath = native.c_str();
 
 						WINTRUST_DATA data;
 						ZeroMemory(&data, sizeof(data));
@@ -126,10 +126,12 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 							                          tr("A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?"),
 							                          QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes) {
 								SHELLEXECUTEINFOW execinfo;
+								std::wstring filenative = filename.toStdWString();
+								std::wstring dirnative = QDir::toNativeSeparators(QDir::tempPath()).toStdWString();
 								ZeroMemory(&execinfo, sizeof(execinfo));
 								execinfo.cbSize = sizeof(execinfo);
-								execinfo.lpFile = filename.utf16();
-								execinfo.lpDirectory = QDir::toNativeSeparators(QDir::tempPath()).utf16();
+								execinfo.lpFile = filenative.c_str();
+								execinfo.lpDirectory = dirnative.c_str();
 								execinfo.nShow = SW_NORMAL;
 
 								if (ShellExecuteExW(&execinfo)) {

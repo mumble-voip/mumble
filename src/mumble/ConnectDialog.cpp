@@ -621,10 +621,10 @@ QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsi
 	fgdw.cItems = 1;
 	fgdw.fgd[0].dwFlags = FD_LINKUI | FD_FILESIZE;
 	fgdw.fgd[0].nFileSizeLow=contents.length();
-	wcscpy_s(fgdw.fgd[0].cFileName, MAX_PATH, urlname.utf16());
+	wcscpy_s(fgdw.fgd[0].cFileName, MAX_PATH, urlname.toStdWString().c_str());
 	mime->setData(QLatin1String("FileGroupDescriptorW"), QByteArray(reinterpret_cast<const char *>(&fgdw), sizeof(fgdw)));
 
-	mime->setData(QString::fromUtf16(CFSTR_FILECONTENTS), contents.toLocal8Bit());
+	mime->setData(QString::fromWCharArray(CFSTR_FILECONTENTS), contents.toLocal8Bit());
 
 	DWORD context[4];
 	context[0] = 0;
@@ -635,7 +635,7 @@ QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsi
 
 	DWORD dropaction;
 	dropaction = DROPEFFECT_LINK;
-	mime->setData(QString::fromUtf16(CFSTR_PREFERREDDROPEFFECT), QByteArray(reinterpret_cast<const char *>(&dropaction), sizeof(dropaction)));
+	mime->setData(QString::fromWCharArray(CFSTR_PREFERREDDROPEFFECT), QByteArray(reinterpret_cast<const char *>(&dropaction), sizeof(dropaction)));
 #endif
 	QList<QUrl> urls;
 	urls << url;

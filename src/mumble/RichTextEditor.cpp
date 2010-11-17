@@ -130,7 +130,7 @@ void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
 		QByteArray qba = source->data(QLatin1String("application/x-qt-windows-mime;value=\"FileGroupDescriptorW\""));
 		if (qba.length() == sizeof(FILEGROUPDESCRIPTORW)) {
 			const FILEGROUPDESCRIPTORW *ptr = reinterpret_cast<const FILEGROUPDESCRIPTORW *>(qba.constData());
-			title = QString::fromUtf16(ptr->fgd[0].cFileName);
+			title = QString::fromWCharArray(ptr->fgd[0].cFileName);
 			if (title.endsWith(QLatin1String(".url"), Qt::CaseInsensitive))
 				title = title.left(title.length() - 4);
 		}

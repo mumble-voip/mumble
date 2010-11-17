@@ -64,8 +64,8 @@ void TaskList::addToRecentList(QString name, QString user, QString host, int por
 	if (app.isEmpty() || ! QFileInfo(app).exists())
 		app = QCoreApplication::applicationFilePath();
 
-	link->SetPath(app.utf16());
-	link->SetArguments(QString::fromLatin1(url.toEncoded()).utf16());
+	link->SetPath(app.toStdWString().c_str());
+	link->SetArguments(QString::fromLatin1(url.toEncoded()).toStdWString().c_str());
 
 	hr = link->QueryInterface(__uuidof(IPropertyStore), reinterpret_cast<void **>(&ps));
 	if (FAILED(hr)) {
@@ -73,7 +73,7 @@ void TaskList::addToRecentList(QString name, QString user, QString host, int por
 		goto cleanup;
 	}
 
-	InitPropVariantFromString(name.utf16(), &pt);
+	InitPropVariantFromString(name.toStdWString().c_str(), &pt);
 	hr = ps->SetValue(PKEY_Title, pt);
 	PropVariantClear(&pt);
 

@@ -286,7 +286,7 @@ void VoiceRecorder::run() {
 
 #ifdef Q_OS_WIN
 				// This is needed for unicode filenames on Windows.
-				ri->sf = sf_wchar_open(filename.utf16(), SFM_WRITE, &sfinfo);
+				ri->sf = sf_wchar_open(filename.toStdWString().c_str(), SFM_WRITE, &sfinfo);
 #else
 				ri->sf = sf_open(qPrintable(filename), SFM_WRITE, &sfinfo);
 #endif
