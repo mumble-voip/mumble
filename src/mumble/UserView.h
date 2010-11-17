@@ -68,6 +68,4 @@ class UserView : public QTreeView {
 
 };
 
-#else
-class UserView;
 #endif

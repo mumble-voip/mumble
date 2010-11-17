@@ -59,6 +59,4 @@ class Group {
 #endif
 };
 
-#else
-class Group;
 #endif

@@ -295,6 +295,4 @@ struct Settings {
 	void save();
 };
 
-#else
-struct Settings;
 #endif

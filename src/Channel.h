@@ -95,6 +95,4 @@ class Channel : public QObject {
 		operator const QString() const;
 };
 
-#else
-class Channel;
 #endif

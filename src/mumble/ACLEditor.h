@@ -133,7 +133,4 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		void on_qpbGroupInheritRemove_clicked();
 };
 
-#else
-class ACLEditor;
-class ACLTabWidget;
 #endif

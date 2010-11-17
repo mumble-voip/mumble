@@ -249,6 +249,4 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void removeContextAction(const MumbleProto::ContextActionModify &msg);
 };
 
-#else
-class MainWindow;
 #endif

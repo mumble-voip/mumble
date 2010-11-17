@@ -120,10 +120,4 @@ class LCD : public QObject {
 
 uint qHash(const QSize &size);
 
-#else
-class LCDConfig;
-class LCDDevice;
-class LCDEngine;
-class LCDEngineRegistrar;
-class LCD;
 #endif

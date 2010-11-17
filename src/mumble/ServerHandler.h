@@ -142,6 +142,4 @@ class ServerHandler : public QThread {
 
 typedef boost::shared_ptr<ServerHandler> ServerHandlerPtr;
 
-#else
-class ServerHandler;
 #endif

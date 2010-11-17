@@ -45,6 +45,4 @@ class VersionCheck : public QObject {
 		VersionCheck(bool autocheck, QObject *parent = NULL, bool focus = false);
 };
 
-#else
-class VersionCheck;
 #endif

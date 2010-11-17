@@ -94,6 +94,4 @@ class ChanACL : public QObject {
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ChanACL::Permissions)
 
-#else
-class ChanACL;
 #endif

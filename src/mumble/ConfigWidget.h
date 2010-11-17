@@ -32,8 +32,7 @@
 #ifndef _CONFIGWIDGET_H
 #define _CONFIGWIDGET_H
 
-#include "Settings.h"
-
+struct Settings;
 class ConfigDialog;
 
 class ConfigWidget : public QWidget {
@@ -73,7 +72,4 @@ class ConfigRegistrar {
 		~ConfigRegistrar();
 };
 
-#else
-class ConfigWidget;
-class ConfigRegistrar;
 #endif

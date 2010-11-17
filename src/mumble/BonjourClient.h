@@ -30,8 +30,8 @@
 #ifndef _BONJOURCLIENT_H
 #define _BONJOURCLIENT_H
 
-#include "bonjourservicebrowser.h"
-#include "bonjourserviceresolver.h"
+class BonjourServiceBrowser;
+class BonjourServiceResolver;
 
 class BonjourClient : public QObject {
 	private:

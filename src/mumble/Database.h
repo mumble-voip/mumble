@@ -85,6 +85,4 @@ class Database : public QObject {
 		static void setUdp(const QByteArray &digest, bool udp);
 };
 
-#else
-class Database;
 #endif

@@ -30,7 +30,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef BONJOURSERVICEBROWSER_H
 #define BONJOURSERVICEBROWSER_H
 
-#include <QtCore/QObject>
 #include <dns_sd.h>
 #include "bonjourrecord.h"
 

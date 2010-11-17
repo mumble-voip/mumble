@@ -29,9 +29,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef BONJOURRECORD_H
 #define BONJOURRECORD_H
 
-#include <QtCore/QMetaType>
-#include <QtCore/QString>
-
 class BonjourRecord {
 	public:
 		BonjourRecord() {}

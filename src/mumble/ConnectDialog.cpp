@@ -35,6 +35,12 @@
 #include "Database.h"
 #include "WebFetch.h"
 
+#ifdef USE_BONJOUR
+#include "bonjourclient.h"
+#include "bonjourservicebrowser.h"
+#include "bonjourserviceresolver.h"
+#endif
+
 QMap<QString, QIcon> ServerItem::qmIcons;
 QList<PublicInfo> ConnectDialog::qlPublicServers;
 QString ConnectDialog::qsUserCountry, ConnectDialog::qsUserCountryCode, ConnectDialog::qsUserContinentCode;

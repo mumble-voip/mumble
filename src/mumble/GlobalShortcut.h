@@ -225,7 +225,4 @@ class GlobalShortcutEngine : public QThread {
 		void buttonPressed(bool last);
 };
 
-
-#else
-class GlobalShortcut;
 #endif

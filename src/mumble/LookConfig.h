@@ -51,6 +51,4 @@ class LookConfig : public ConfigWidget, Ui::LookConfig {
 		void on_qpbSkinFile_clicked(bool);
 };
 
-#else
-class LookConfig;
 #endif
