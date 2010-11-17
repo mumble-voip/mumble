@@ -107,7 +107,7 @@ void DevState::releaseData() {
 void DevState::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h) {
 	ods("D3D9: Blit %d %d %d %d", x, y, w, h);
 
-	if (! texTexture)
+	if (! texTexture || !a_ucTexture)
 		return;
 
 	D3DLOCKED_RECT lr;
