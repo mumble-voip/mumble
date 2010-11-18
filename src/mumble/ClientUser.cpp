@@ -228,23 +228,29 @@ void ClientUser::setRecording(bool recording) {
 	emit muteDeafChanged();
 }
 
-bool ClientUser::lessThan(const ClientUser *first, const ClientUser *second) {
-	if (first->cChannel == second->cChannel)
-		return (QString::localeAwareCompare(first->qsName, second->qsName) < 0);
+bool ClientUser::lessThanOverlay(const ClientUser *first, const ClientUser *second) {
+	if (first->cChannel == second->cChannel || first->cChannel == NULL || second->cChannel == NULL)
+		return lessThan(first, second);
 
+	// When sorting for the overlay always place the local users
+	// channel above the others
 	ClientUser *self = c_qmUsers.value(g.uiSession);
-	if (self && (self->cChannel == first->cChannel))
-		return true;
+	if (self) {
+		if (self->cChannel == first->cChannel)
+			return true;
+		else if (self->cChannel == second->cChannel)
+			return false;
+	}
 
-	return (QString::localeAwareCompare(first->cChannel->qsName, second->cChannel->qsName) < 0);
+	return Channel::lessThan(first->cChannel, second->cChannel);
 }
 
 
 
-void ClientUser::sortUsers(QList<ClientUser *> &list) {
+void ClientUser::sortUsersOverlay(QList<ClientUser *> &list) {
 	QReadLocker lock(&c_qrwlUsers);
 
-	qSort(list.begin(), list.end(), ClientUser::lessThan);
+	qSort(list.begin(), list.end(), ClientUser::lessThanOverlay);
 }
 
 /* From Channel.h

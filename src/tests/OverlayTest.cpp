@@ -6,7 +6,7 @@
 #include "../../overlay/overlay.h"
 
 #include "Timer.h"
-
+#include <ctime>
 #ifdef Q_OS_WIN
 #include <windows.h>
 #endif

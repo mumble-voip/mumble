@@ -283,7 +283,7 @@ void OverlayUserGroup::updateUsers() {
 				break;
 		}
 
-		ClientUser::sortUsers(showusers);
+		ClientUser::sortUsersOverlay(showusers);
 
 		foreach(ClientUser *cu, showusers) {
 			OverlayUser *ou = qmUsers.value(cu);

@@ -169,7 +169,7 @@ int ModelItem::insertIndex(Channel *c) const {
 }
 
 int ModelItem::insertIndex(ClientUser *p) const {
-	QList<QString> qls;
+	QList<ClientUser*> qlclientuser;
 	ModelItem *item;
 
 	int ocount = 0;
@@ -177,15 +177,15 @@ int ModelItem::insertIndex(ClientUser *p) const {
 	foreach(item, qlChildren) {
 		if (item->pUser) {
 			if (item->pUser != p)
-				qls << item->pUser->qsName;
+				qlclientuser << item->pUser;
 		} else
 			ocount++;
 	}
 
-	qls << p->qsName;
-	qSort(qls);
+	qlclientuser << p;
+	qSort(qlclientuser.begin(), qlclientuser.end(), ClientUser::lessThan);
 
-	return qls.indexOf(p->qsName) + (bUsersTop ? 0 : ocount);
+	return qlclientuser.indexOf(p) + (bUsersTop ? 0 : ocount);
 }
 
 QString ModelItem::hash() const {

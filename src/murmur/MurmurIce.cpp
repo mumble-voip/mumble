@@ -863,7 +863,7 @@ static void impl_Server_getChannels(const ::Murmur::AMD_Server_getChannelsPtr cb
 }
 
 static bool userSort(const ::User *a, const ::User *b) {
-	return a->qsName < b->qsName;
+	return ::User::lessThan(a, b);
 }
 
 static bool channelSort(const ::Channel *a, const ::Channel *b) {

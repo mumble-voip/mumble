@@ -55,6 +55,8 @@ class User {
 
 		User();
 		virtual ~User() {};
+
+		static bool lessThan(const User *, const User *);
 };
 
 #else
