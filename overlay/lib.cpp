@@ -364,6 +364,7 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 						ods("Pipe: Failed to map memory");
 						CloseHandle(hMemory);
 						hMemory = NULL;
+						break;
 					}
 
 					MEMORY_BASIC_INFORMATION mbi;
@@ -420,6 +421,9 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 		}
 		omMsg.omh.iLength = -1;
 	}
+
+	if (!a_ucTexture)
+		return;
 
 	for (std::vector<RECT>::iterator i = blits.begin(); i != blits.end(); ++i)
 		blit((*i).left, (*i).top, (*i).right - (*i).left, (*i).bottom - (*i).top);
