@@ -306,7 +306,7 @@ void MetaParams::read(QString fname) {
 				QSslSocket::addDefaultCaCertificates(ql);
 			}
 		} else {
-			qCritical("Failed to read %s", qPrintable(qsSSLCert));
+			qCritical("Failed to read %s", qPrintable(qsSSLCA));
 		}
 	}
 
