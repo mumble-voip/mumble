@@ -74,6 +74,8 @@ QDataStream &operator>>(QDataStream &, ShortcutTarget &);
 Q_DECLARE_METATYPE(ShortcutTarget)
 
 struct OverlaySettings {
+	enum OverlayPresets { AvatarAndName, LargeSquareAvatar };
+
 	enum OverlayShow { Talking, HomeChannel, LinkedChannels };
 
 	bool bEnable;
@@ -133,6 +135,8 @@ struct OverlaySettings {
 	QStringList qslWhitelist;
 
 	OverlaySettings();
+	void setPreset(const OverlayPresets preset = AvatarAndName);
+
 	void load();
 	void load(QSettings*);
 	void save();

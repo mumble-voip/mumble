@@ -805,84 +805,10 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
 		resync();
 	} else if (act == qaLayoutLargeAvatar) {
-		os.fUserName = 0.75f;
-		os.fChannel = 0.75f;
-		os.fMutedDeafened = 0.5f;
-		os.fAvatar = 1.0f;
-
-#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
-		os.qfUserName = QFont(QLatin1String("Verdana"), 20);
-#else
-		os.qfUserName = QFont(QLatin1String("Arial"), 20);
-#endif
-		os.qfChannel = os.qfUserName;
-
-		os.fUser[Settings::Passive] = 0.5f;
-		os.fUser[Settings::Talking] = (7.0f / 8.0f);
-		os.fUser[Settings::Whispering] = (7.0f / 8.0f);
-		os.fUser[Settings::Shouting] = (7.0f / 8.0f);
-
-		os.qrfUserName = QRectF(-0.0625f, 0.101563f - 0.0625f, 0.125f, 0.023438f);
-		os.qrfChannel = QRectF(-0.03125f, -0.0625f, 0.09375f, 0.015625f);
-		os.qrfMutedDeafened = QRectF(-0.0625f, -0.0625f, 0.0625f, 0.0625f);
-		os.qrfAvatar = QRectF(-0.0625f, -0.0625f, 0.125f, 0.125f);
-
-		os.qcBoxPen = QColor(0, 0, 0, 224);
-		os.qcBoxFill = QColor(128, 128, 128, 128);
-		os.fBoxPenWidth = (1.f / 256.0f);
-		os.fBoxPad = (1.f / 256.0f);
-
-		os.bUserName = true;
-		os.bChannel = true;
-		os.bMutedDeafened = true;
-		os.bAvatar = true;
-		os.bBox = false;
-
-		os.qaUserName = Qt::AlignCenter;
-		os.qaMutedDeafened = Qt::AlignLeft | Qt::AlignTop;
-		os.qaAvatar = Qt::AlignCenter;
-		os.qaChannel = Qt::AlignCenter;
-
+		os.setPreset(OverlaySettings::LargeSquareAvatar);
 		resync();
 	} else if (act == qaLayoutText) {
-		os.fUserName = 1.0f;
-		os.fChannel = (7.0f / 8.0f);
-		os.fMutedDeafened = (7.0f / 8.0f);
-		os.fAvatar = 1.0f;
-
-#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
-		os.qfUserName = QFont(QLatin1String("Verdana"), 20);
-#else
-		os.qfUserName = QFont(QLatin1String("Arial"), 20);
-#endif
-		os.qfChannel = os.qfUserName;
-
-		os.fUser[Settings::Passive] = 0.5f;
-		os.fUser[Settings::Talking] = (7.0f / 8.0f);
-		os.fUser[Settings::Whispering] = (7.0f / 8.0f);
-		os.fUser[Settings::Shouting] = (7.0f / 8.0f);
-
-		os.qrfUserName = QRectF(0.0f, -0.015625f, 0.250f, 0.03125f);
-		os.qrfChannel = QRectF(0.03125f, -0.015625f, 0.1875f, 0.015625f);
-		os.qrfMutedDeafened = QRectF(-0.03125f, -0.015625f, 0.03125f, 0.03125f);
-		os.qrfAvatar = QRectF(-0.03125f, -0.015625f, 0.03125f, 0.03125f);
-
-		os.qcBoxPen = QColor(0, 0, 0, 224);
-		os.qcBoxFill = QColor(128, 128, 128, 128);
-		os.fBoxPenWidth = 0.0f;
-		os.fBoxPad = (1.f / 512.0f);
-
-		os.bUserName = true;
-		os.bChannel = false;
-		os.bMutedDeafened = true;
-		os.bAvatar = true;
-		os.bBox = true;
-
-		os.qaUserName = Qt::AlignLeft | Qt::AlignVCenter;
-		os.qaMutedDeafened = Qt::AlignRight | Qt::AlignVCenter;
-		os.qaAvatar = Qt::AlignRight | Qt::AlignVCenter;
-		os.qaChannel = Qt::AlignLeft | Qt::AlignTop;
-
+		os.setPreset(OverlaySettings::AvatarAndName);
 		resync();
 	}
 }
