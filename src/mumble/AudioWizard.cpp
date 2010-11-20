@@ -115,11 +115,11 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 		iMessage |= (g.s.qmMessages[i] & (Settings::LogSoundfile | Settings::LogTTS));
 	}
 
-	if (iMessage == Settings::LogTTS)
+	if (iMessage == Settings::LogTTS && g.s.bTTS)
 		qrbNotificationTTS->setChecked(true);
 	else if (iMessage == Settings::LogSoundfile)
 		qrbNotificationSounds->setChecked(true);
-	else
+	else // If we find mixed message types or only tts with main tts disable assume custom
 		qrbNotificationCustom->setChecked(true);
 
 	qrbNotificationCustom->setVisible(qrbNotificationCustom->isChecked());
@@ -422,10 +422,18 @@ void AudioWizard::accept() {
 	g.s.lmLoopMode = Settings::None;
 
 	// Switch TTS<->Sounds according to user selection
-	Settings::MessageLog mlReplace = qrbNotificationTTS->isChecked() ? Settings::LogSoundfile : Settings::LogTTS;
-	for (int i = Log::firstMsgType;i <= Log::lastMsgType; ++i) {
-		if (g.s.qmMessages[i] & mlReplace)
-			g.s.qmMessages[i] ^= Settings::LogSoundfile | Settings::LogTTS;
+	if (!qrbNotificationCustom->isChecked()) {
+		Settings::MessageLog mlReplace = qrbNotificationTTS->isChecked() ? Settings::LogSoundfile : Settings::LogTTS;
+
+		for (int i = Log::firstMsgType;i <= Log::lastMsgType; ++i) {
+			if (g.s.qmMessages[i] & mlReplace)
+				g.s.qmMessages[i] ^= Settings::LogSoundfile | Settings::LogTTS;
+		}
+
+		if (qrbNotificationTTS->isChecked()) {
+			g.s.bTTS = true;
+			g.mw->qaAudioTTS->setChecked(true);
+		}
 	}
 
 	g.s.bUsage = qcbUsage->isChecked();
