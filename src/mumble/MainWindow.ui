@@ -100,6 +100,12 @@
    <addaction name="qmHelp"/>
   </widget>
   <widget class="QDockWidget" name="qdwLog">
+   <property name="minimumSize">
+    <size>
+     <width>250</width>
+     <height>50</height>
+    </size>
+   </property>
    <property name="features">
     <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable</set>
    </property>
