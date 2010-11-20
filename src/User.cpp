@@ -43,8 +43,5 @@ User::User() {
 }
 
 bool User::lessThan(const User *first, const User *second) {
-	if (first->cChannel == second->cChannel || first->cChannel == NULL || second->cChannel == NULL)
-		return (QString::localeAwareCompare(first->qsName, second->qsName) < 0);
-
-	return Channel::lessThan(first->cChannel, second->cChannel);
+	return (QString::localeAwareCompare(first->qsName, second->qsName) < 0);
 }
