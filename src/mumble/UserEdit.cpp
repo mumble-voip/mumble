@@ -31,6 +31,7 @@
 #include "UserEdit.h"
 #include "ServerHandler.h"
 #include "Global.h"
+#include "User.h"
 
 UserEdit::UserEdit(const MumbleProto::UserList &msg, QWidget *p) : QDialog(p) {
 	setupUi(this);
@@ -42,10 +43,9 @@ UserEdit::UserEdit(const MumbleProto::UserList &msg, QWidget *p) : QDialog(p) {
 		int id = u.user_id();
 		const QString &name = u8(u.name());
 
-		QListWidgetItem *qlwi = new QListWidgetItem(name);
-		qlwi->setFlags(qlwi->flags() | Qt::ItemIsEditable);
-		qlwi->setData(Qt::UserRole, id);
-		qlwUserList->addItem(qlwi);
+		UserEditListItem *ueli = new UserEditListItem(name, id);
+
+		qlwUserList->addItem(ueli);
 		qmUsers.insert(id, name);
 	}
 }
@@ -105,4 +105,17 @@ void UserEdit::renameTriggered() {
 	if (item) {
 		qlwUserList->editItem(item);
 	}
+}
+
+UserEditListItem::UserEditListItem(const QString &username, const int userid) : QListWidgetItem(username) {
+	setFlags(flags() | Qt::ItemIsEditable);
+	setData(Qt::UserRole, userid);
+}
+
+bool UserEditListItem::operator<(const QListWidgetItem &other) const {
+	// Avoid duplicating the User sorting code for a little more complexity
+	User first, second;
+	first.qsName = text();
+	second.qsName = other.text();
+	return User::lessThan(&first, &second);
 }

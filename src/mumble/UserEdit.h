@@ -35,6 +35,12 @@
 #include "ui_UserEdit.h"
 #include "Message.h"
 
+class UserEditListItem : public QListWidgetItem {
+	public:
+		UserEditListItem(const QString &username, const int userid);
+		bool operator<(const QListWidgetItem & other) const;
+};
+
 class UserEdit : public QDialog, public Ui::UserEdit {
 	private:
 		Q_OBJECT
