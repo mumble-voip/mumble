@@ -136,7 +136,7 @@ OverlaySettings::OverlaySettings() {
 	qcChannel = QColor(255, 255, 128);
 	qcBoxPen = QColor(0, 0, 0, 224);
 	qcBoxFill = QColor(0, 0, 0);
-	
+
 	setPreset();
 
 	// FPS display settings
@@ -159,84 +159,84 @@ OverlaySettings::OverlaySettings() {
 }
 
 void OverlaySettings::setPreset(const OverlayPresets preset) {
-	switch(preset) {
-	case LargeSquareAvatar:
-		uiColumns = 2;
-		fUserName = 0.75f;
-		fChannel = 0.75f;
-		fMutedDeafened = 0.5f;
-		fAvatar = 1.0f;
+	switch (preset) {
+		case LargeSquareAvatar:
+			uiColumns = 2;
+			fUserName = 0.75f;
+			fChannel = 0.75f;
+			fMutedDeafened = 0.5f;
+			fAvatar = 1.0f;
 
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
-		qfUserName = QFont(QLatin1String("Verdana"), 20);
+			qfUserName = QFont(QLatin1String("Verdana"), 20);
 #else
-		qfUserName = QFont(QLatin1String("Arial"), 20);
+			qfUserName = QFont(QLatin1String("Arial"), 20);
 #endif
-		qfChannel = qfUserName;
+			qfChannel = qfUserName;
 
-		fUser[Settings::Passive] = 0.5f;
-		fUser[Settings::Talking] = (7.0f / 8.0f);
-		fUser[Settings::Whispering] = (7.0f / 8.0f);
-		fUser[Settings::Shouting] = (7.0f / 8.0f);
+			fUser[Settings::Passive] = 0.5f;
+			fUser[Settings::Talking] = (7.0f / 8.0f);
+			fUser[Settings::Whispering] = (7.0f / 8.0f);
+			fUser[Settings::Shouting] = (7.0f / 8.0f);
 
-		qrfUserName = QRectF(-0.0625f, 0.101563f - 0.0625f, 0.125f, 0.023438f);
-		qrfChannel = QRectF(-0.03125f, -0.0625f, 0.09375f, 0.015625f);
-		qrfMutedDeafened = QRectF(-0.0625f, -0.0625f, 0.0625f, 0.0625f);
-		qrfAvatar = QRectF(-0.0625f, -0.0625f, 0.125f, 0.125f);
+			qrfUserName = QRectF(-0.0625f, 0.101563f - 0.0625f, 0.125f, 0.023438f);
+			qrfChannel = QRectF(-0.03125f, -0.0625f, 0.09375f, 0.015625f);
+			qrfMutedDeafened = QRectF(-0.0625f, -0.0625f, 0.0625f, 0.0625f);
+			qrfAvatar = QRectF(-0.0625f, -0.0625f, 0.125f, 0.125f);
 
-		fBoxPenWidth = (1.f / 256.0f);
-		fBoxPad = (1.f / 256.0f);
+			fBoxPenWidth = (1.f / 256.0f);
+			fBoxPad = (1.f / 256.0f);
 
-		bUserName = true;
-		bChannel = true;
-		bMutedDeafened = true;
-		bAvatar = true;
-		bBox = false;
+			bUserName = true;
+			bChannel = true;
+			bMutedDeafened = true;
+			bAvatar = true;
+			bBox = false;
 
-		qaUserName = Qt::AlignCenter;
-		qaMutedDeafened = Qt::AlignLeft | Qt::AlignTop;
-		qaAvatar = Qt::AlignCenter;
-		qaChannel = Qt::AlignCenter;
-		break;
-	case AvatarAndName:
-	default:
-		uiColumns = 1;
-		fUserName = 1.0f;
-		fChannel = (7.0f / 8.0f);
-		fMutedDeafened = (7.0f / 8.0f);
-		fAvatar = 1.0f;
+			qaUserName = Qt::AlignCenter;
+			qaMutedDeafened = Qt::AlignLeft | Qt::AlignTop;
+			qaAvatar = Qt::AlignCenter;
+			qaChannel = Qt::AlignCenter;
+			break;
+		case AvatarAndName:
+		default:
+			uiColumns = 1;
+			fUserName = 1.0f;
+			fChannel = (7.0f / 8.0f);
+			fMutedDeafened = (7.0f / 8.0f);
+			fAvatar = 1.0f;
 
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
-		qfUserName = QFont(QLatin1String("Verdana"), 20);
+			qfUserName = QFont(QLatin1String("Verdana"), 20);
 #else
-		qfUserName = QFont(QLatin1String("Arial"), 20);
+			qfUserName = QFont(QLatin1String("Arial"), 20);
 #endif
-		qfChannel = qfUserName;
+			qfChannel = qfUserName;
 
-		fUser[Settings::Passive] = 0.5f;
-		fUser[Settings::Talking] = (7.0f / 8.0f);
-		fUser[Settings::Whispering] = (7.0f / 8.0f);
-		fUser[Settings::Shouting] = (7.0f / 8.0f);
+			fUser[Settings::Passive] = 0.5f;
+			fUser[Settings::Talking] = (7.0f / 8.0f);
+			fUser[Settings::Whispering] = (7.0f / 8.0f);
+			fUser[Settings::Shouting] = (7.0f / 8.0f);
 
-		qrfUserName = QRectF(0.015625f, -0.015625f, 0.250f, 0.03125f);
-		qrfChannel = QRectF(0.03125f, -0.015625f, 0.1875f, 0.015625f);
-		qrfMutedDeafened = QRectF(0.234375f, -0.015625f, 0.03125f, 0.03125f);
-		qrfAvatar = QRectF(-0.03125f, -0.015625f, 0.03125f, 0.03125f);
+			qrfUserName = QRectF(0.015625f, -0.015625f, 0.250f, 0.03125f);
+			qrfChannel = QRectF(0.03125f, -0.015625f, 0.1875f, 0.015625f);
+			qrfMutedDeafened = QRectF(0.234375f, -0.015625f, 0.03125f, 0.03125f);
+			qrfAvatar = QRectF(-0.03125f, -0.015625f, 0.03125f, 0.03125f);
 
-		fBoxPenWidth = 0.0f;
-		fBoxPad = (1.f / 256.0f);
+			fBoxPenWidth = 0.0f;
+			fBoxPad = (1.f / 256.0f);
 
-		bUserName = true;
-		bChannel = false;
-		bMutedDeafened = true;
-		bAvatar = true;
-		bBox = true;
+			bUserName = true;
+			bChannel = false;
+			bMutedDeafened = true;
+			bAvatar = true;
+			bBox = true;
 
-		qaUserName = Qt::AlignLeft | Qt::AlignVCenter;
-		qaMutedDeafened = Qt::AlignRight | Qt::AlignVCenter;
-		qaAvatar = Qt::AlignRight | Qt::AlignVCenter;
-		qaChannel = Qt::AlignLeft | Qt::AlignTop;
-		break;
+			qaUserName = Qt::AlignLeft | Qt::AlignVCenter;
+			qaMutedDeafened = Qt::AlignRight | Qt::AlignVCenter;
+			qaAvatar = Qt::AlignRight | Qt::AlignVCenter;
+			qaChannel = Qt::AlignLeft | Qt::AlignTop;
+			break;
 	}
 }
 

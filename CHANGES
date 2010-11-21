@@ -1,3 +1,35 @@
+2010-11-21
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    ac10fe4  Fix muted/deafen indicator offset in overlay default
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    933a9dd  Don't reset the connection timeout until the user is
+	     authenticated
+
+2010-11-20
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    1fa0c3c  Refactor overlay preset code. Switch default layout. Try to
+	     make new default look better.
+    ecff17a  Set min width for log as first aid to #3109452
+    cb9dee6  Fix custom TTS setting saving in wizard and make switching to
+	     TTS always enable main TTS switch.
+    576c9ee  Fix regression in user sorting
+
+2010-11-19
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    6c78711  Print the correct filename in the error message
+    34ff2e7  More potential a_ucTexture == NULL crash fixes
+
+2010-11-18
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    ce8cedf  Unify User/ClientUser sorting. Fix "usernames in overlay are
+	     in different order" #3110572 . Fix other sorting issues. Fix
+	     OverlayTest compilation.
+
+2010-11-17
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    c644952  Fix a crash in the overlay if a_ucTexture is NULL
+
 2010-11-15
   Stefan Hacker <dd0t@users.sourceforge.net>
     c2f0c53  Fix mumble packet image in documentation
