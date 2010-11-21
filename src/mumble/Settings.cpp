@@ -220,7 +220,7 @@ void OverlaySettings::setPreset(const OverlayPresets preset) {
 
 		qrfUserName = QRectF(0.015625f, -0.015625f, 0.250f, 0.03125f);
 		qrfChannel = QRectF(0.03125f, -0.015625f, 0.1875f, 0.015625f);
-		qrfMutedDeafened = QRectF(0.1875f, -0.015625f, 0.03125f, 0.03125f);
+		qrfMutedDeafened = QRectF(0.234375f, -0.015625f, 0.03125f, 0.03125f);
 		qrfAvatar = QRectF(-0.03125f, -0.015625f, 0.03125f, 0.03125f);
 
 		fBoxPenWidth = 0.0f;
