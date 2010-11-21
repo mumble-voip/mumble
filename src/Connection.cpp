@@ -121,6 +121,10 @@ int Connection::activityTime() const {
 	return qtLastPacket.elapsed();
 }
 
+void Connection::resetActivityTime() {
+	qtLastPacket.restart();
+}
+
 void Connection::socketRead() {
 	while (true) {
 		qint64 iAvailable = qtsSocket->bytesAvailable();
@@ -141,7 +145,6 @@ void Connection::socketRead() {
 
 		QByteArray qbaBuffer = qtsSocket->read(iPacketLength);
 		iPacketLength = -1;
-		qtLastPacket.restart();
 		iAvailable -= iPacketLength;
 
 		emit message(uiType, qbaBuffer);

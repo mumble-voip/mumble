@@ -1097,6 +1097,10 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 		u = static_cast<ServerUser *>(sender());
 	}
 
+	if (u->sState == ServerUser::Authenticated) {
+		u->resetActivityTime();
+	}
+
 	if (uiType == MessageHandler::UDPTunnel) {
 		int l = qbaMsg.size();
 		if (l < 2)

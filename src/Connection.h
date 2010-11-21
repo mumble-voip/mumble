@@ -70,6 +70,7 @@ class Connection : public QObject {
 		void disconnectSocket(bool force=false);
 		void forceFlush();
 		int activityTime() const;
+		void resetActivityTime();
 
 		CryptState csCrypt;
 
