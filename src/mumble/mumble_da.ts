@@ -7969,7 +7969,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     <message>
         <location/>
         <source>TCP (Control)</source>
-        <translation>TCD (Kontrol)</translation>
+        <translation>TCP (Kontrol)</translation>
     </message>
     <message>
         <location/>
