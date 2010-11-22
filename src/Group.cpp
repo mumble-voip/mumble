@@ -56,8 +56,6 @@ QSet<int> Group::members() {
 	p = c;
 	while (p) {
 		g = p->qhGroups.value(qsName);
-		p = p->cParent;
-
 		if (g) {
 			if ((p != c) && ! g->bInheritable)
 				break;
@@ -65,6 +63,7 @@ QSet<int> Group::members() {
 			if (! g->bInherit)
 				break;
 		}
+		p = p->cParent;
 	}
 
 	while (! s.isEmpty()) {
