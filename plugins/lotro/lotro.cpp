@@ -66,11 +66,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		nPtr = pointer to character name (unique on a server)
 	*/
 
-	ok = peekProc((BYTE *) 0x010A9DC0, o, 12) &&
-	     peekProc((BYTE *) 0x010A9DB8, l, 2) &&
-	     peekProc((BYTE *) 0x010A9DB4, &r, 1) &&
-	     peekProc((BYTE *) 0x010A9DBC, &i, 1) &&
-	     peekProc((BYTE *)(pModule + 0x00DA084c), &hPtr, 4);
+	ok = peekProc((BYTE *) 0x010D0890, o, 12) &&
+	     peekProc((BYTE *) 0x010D0888, l, 2) &&
+	     peekProc((BYTE *) 0x010D0884, &r, 1) &&
+	     peekProc((BYTE *) 0x010D088C, &i, 1) &&
+	     peekProc((BYTE *)(pModule + 0x00CE7228), &hPtr, 4);
 
 	if (! ok)
 		return false;
@@ -146,10 +146,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Lord of the Rings Online (Codemasters Edition, Vol III Book 1 patch 1, v3.1.1.8036). Context support based on region and instance. No Identity support.");
+	return std::wstring(L"Supports Lord of the Rings Online (Codemasters Edition, Vol III Book 2, v3.2.4.8010). Context support based on region and instance. No Identity support.");
 }
 
-static std::wstring description(L"Lord of the Rings Online (EU), Vol III Book 1 patch 1");
+static std::wstring description(L"Lord of the Rings Online (EU), Vol III Book 2");
 static std::wstring shortname(L"Lord of the Rings Online");
 
 static int trylock1() {
