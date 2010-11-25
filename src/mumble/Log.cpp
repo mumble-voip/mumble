@@ -573,8 +573,10 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool con
 		return;
 
 	// Apply simplifications to spoken text
-	QRegExp identifyURL(QLatin1String("\\b(([\\w-]+://?|www[.])[^\\s()<>]+(?:\\([\\w\\d]+\\)|([^!\"#$%&'()*+,-./:;<=>?@\\[\\\\\\]^_`{|}~\\s]|/)))"));
+	QRegExp identifyURL(QLatin1String("[a-z-]+://[^ <$]*"));
+	identifyURL.setMinimal(false);
 	QStringList qslAllowed = allowedSchemes();
+
 	int pos = 0;
 	while ((pos = identifyURL.indexIn(plain, pos)) != -1) {
 		QUrl url(identifyURL.cap(0));
@@ -582,10 +584,12 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool con
 		if (url.isValid() && qslAllowed.contains(url.scheme())) {
 			// Replace it appropriatly
 			QString replacement;
+			QString host = url.host().replace(QRegExp(QLatin1String("^www.")), QString());
+			
 			if (url.scheme() == QLatin1String("http") || url.scheme() == QLatin1String("https"))
-				replacement = tr("link to %1").arg(url.host());
+				replacement = tr("link to %1").arg(host);
 			else if (url.scheme() == QLatin1String("ftp"))
-				replacement = tr("ftp link to %1").arg(url.host());
+				replacement = tr("ftp link to %1").arg(host);
 			else if (url.scheme() == QLatin1String("clientid"))
 				replacement = tr("player link");
 			else if (url.scheme() == QLatin1String("channelid"))
