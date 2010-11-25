@@ -3915,7 +3915,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
 </translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+140"/>
         <source>link to %1</source>
         <translation>länk till %1</translation>
     </message>
@@ -3943,7 +3943,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-515"/>
+        <location line="-519"/>
         <source>Toggle console for %1 events</source>
         <translation>Växla konsoll för %1 händelser</translation>
     </message>

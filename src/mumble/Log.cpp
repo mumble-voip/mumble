@@ -585,7 +585,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool con
 			// Replace it appropriatly
 			QString replacement;
 			QString host = url.host().replace(QRegExp(QLatin1String("^www.")), QString());
-			
+
 			if (url.scheme() == QLatin1String("http") || url.scheme() == QLatin1String("https"))
 				replacement = tr("link to %1").arg(host);
 			else if (url.scheme() == QLatin1String("ftp"))

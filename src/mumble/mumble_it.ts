@@ -4622,7 +4622,7 @@ p, li { white-space: pre-wrap; }
 </translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+140"/>
         <source>link to %1</source>
         <translation>collegamento con %1</translation>
     </message>
@@ -4650,7 +4650,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-515"/>
+        <location line="-519"/>
         <source>Toggle console for %1 events</source>
         <translation>Imposta console per gli eventi %1</translation>
     </message>

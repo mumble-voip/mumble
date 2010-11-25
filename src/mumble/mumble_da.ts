@@ -4066,7 +4066,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
 </translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+140"/>
         <source>link to %1</source>
         <translation>link til %1</translation>
     </message>
@@ -4094,7 +4094,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-515"/>
+        <location line="-519"/>
         <source>Toggle console for %1 events</source>
         <translation>Slå konsol til/fra for %1-hændelser</translation>
     </message>

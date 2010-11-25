@@ -5220,7 +5220,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>[Date changée en %1]</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+140"/>
         <source>link to %1</source>
         <translation>lien pour %1</translation>
     </message>
@@ -5248,7 +5248,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-515"/>
+        <location line="-519"/>
         <source>Toggle console for %1 events</source>
         <translation>Active/désactive la console pour les événements %1</translation>
     </message>

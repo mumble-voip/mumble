@@ -3817,7 +3817,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
 </translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+140"/>
         <source>link to %1</source>
         <translation>link para %1</translation>
     </message>
@@ -3845,7 +3845,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-515"/>
+        <location line="-519"/>
         <source>Toggle console for %1 events</source>
         <translation>Alternar console para eventos %1</translation>
     </message>

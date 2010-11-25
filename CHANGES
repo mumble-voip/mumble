@@ -1,5 +1,32 @@
+2010-11-25
+  Necromancer <necromancer3@users.sourceforge.net>
+    03b5df8  [translation] Hebrew update
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    df7dc3a  Don't crash if someone tries to add an ACE for an unknown user
+	     id
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    a085d26  Use git describe for server snapshots
+
+2010-11-24
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    35c6e03  Unify link detection regexps
+    84884ba  Boost 1.45
+
+2010-11-23
+  Ilmar Kruis <seaeagle1@users.sourceforge.net>
+    c435d5c  Update Lotro plugin to Vol III Book 2
+
+2010-11-22
+  Mikkel Krautz <mikkel@krautz.dk>
+    07c0813  TCD -> TCP in Danish translation.
+    091d9be  Fix Group::members() to include members of the channel that
+	     the group is defined on even if it's marked as inheritable.
+
 2010-11-21
   Stefan Hacker <dd0t@users.sourceforge.net>
+    8eb1b7e  Fix user sorting in UserEdit form
     ac10fe4  Fix muted/deafen indicator offset in overlay default
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -14,6 +41,9 @@
     cb9dee6  Fix custom TTS setting saving in wizard and make switching to
 	     TTS always enable main TTS switch.
     576c9ee  Fix regression in user sorting
+
+  Kissaki <kissaki@gmx.de>
+    2a48fa0  correct ice-doc description for auth-callback idToName()
 
 2010-11-19
   Benjamin Jemlich <pcgod@users.sourceforge.net>
