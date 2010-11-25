@@ -67,6 +67,11 @@
     </message>
     <message>
         <location/>
+        <source>&lt;b&gt;Name&lt;/b&gt;&lt;br&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
@@ -82,7 +87,18 @@
     </message>
     <message>
         <location/>
+        <source>&lt;b&gt;Password&lt;/b&gt;&lt;br&gt;This field allows you to easily set and change the password of a channel. In the background it uses Mumble&apos;s access tokens feature. To allow more fine grained and powerful access control directly use ACLs and groups instead (&lt;i&gt;Advanced configuration&lt;/i&gt; has to be checked to be able to see these settings).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
         <source>Check to create a temporary channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br&gt;
+When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -131,7 +147,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished">הסר</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
@@ -171,7 +187,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished">הוסף</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
@@ -196,6 +212,11 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>List of entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This shows all the entries active on this channel. Entries inherited from parent channels will be show in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -301,6 +322,14 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <location/>
+        <source>&lt;b&gt;Group&lt;/b&gt;&lt;br&gt;
+These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
+        <oldsource>&lt;b&gt;Group&lt;/b&gt;&lt;br&gt;
+This is all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
         <source>Add new group</source>
         <translation type="unfinished"></translation>
     </message>
@@ -308,6 +337,26 @@ This value enables you to change the way mumble arranges the channels in the tre
         <location/>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -322,12 +371,30 @@ Add a new group.</source>
     </message>
     <message>
         <location/>
+        <source>&lt;b&gt;Members&lt;/b&gt;&lt;br&gt;
+This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
+        <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br&gt;
+Contains a list of members whose group membership will not be inherited from the parent channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
         <source>Contains the list of members inherited by other channels.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br&gt;
+Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -358,6 +425,11 @@ Add a new group.</source>
     <message>
         <location/>
         <source>Applies to sub-channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with a &apos;!&apos;, its membership is negated, and if it starts with a &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with a  &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with a  &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -395,81 +467,11 @@ Add a new group.</source>
         <source>&amp;Properties</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
-When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
-These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
-This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
-Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
-Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
     <message>
-        <location filename="ALSAAudio.cpp" line="+169"/>
+        <location filename="ALSAAudio.cpp" line="+172"/>
         <source>Default ALSA Card</source>
         <translation type="unfinished"></translation>
     </message>
@@ -495,7 +497,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>ASIOConfig</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+222"/>
+        <location filename="ASIOInput.cpp" line="+224"/>
         <source>%1 (version %2)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -506,14 +508,14 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+43"/>
-        <location line="+25"/>
+        <location line="+42"/>
+        <location line="+27"/>
         <source>ASIO Initialization failed: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-21"/>
-        <location line="+25"/>
+        <location line="-23"/>
+        <location line="+27"/>
         <source>Failed to instantiate ASIO driver</source>
         <translation type="unfinished"></translation>
     </message>
@@ -790,12 +792,18 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location/>
         <source>Reset</source>
-        <translation type="obsolete">אפס</translation>
+        <translation type="unfinished">אפס</translation>
     </message>
     <message>
         <location/>
         <source>Browse for on audio file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Browse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -816,6 +824,16 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Preview the audio cues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; soundfile followed by the current &lt;i&gt;off&lt;/i&gt; soundfile.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1014,7 +1032,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+520"/>
+        <location filename="AudioInput.cpp" line="+528"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1043,51 +1061,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <source>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted and deafened.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זה קובע שעון סרק. אם הזמן נגמר מבלי ששום צליל יישלך לשרת, אתה מושתק ומוחרש.&lt;/p&gt;</translation>
     </message>
-    <message>
-        <location/>
-        <source>Exclusive mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Exclusive</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>R&amp;eset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>B&amp;rowse...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Preview</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="+71"/>
+        <location filename="AudioConfigDialog.cpp" line="+74"/>
         <source>Continuous</source>
         <translation type="unfinished">מתמשך</translation>
     </message>
@@ -1107,7 +1085,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished">צליל קלט</translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+96"/>
         <location line="+8"/>
         <source>%1 ms</source>
         <translation type="unfinished">%1 מ&quot;ש</translation>
@@ -1427,28 +1405,13 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <source>while you talk</source>
         <translation type="unfinished">כשאתה מדבר</translation>
     </message>
-    <message>
-        <location/>
-        <source>Exclusive mode, not recommended.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Exclusive</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="+165"/>
+        <location filename="AudioConfigDialog.cpp" line="+167"/>
         <source>None</source>
-        <translation type="unfinished">בכלל לא</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1466,7 +1429,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished">צליל פלט</translation>
     </message>
     <message>
-        <location line="+106"/>
+        <location line="+102"/>
         <location line="+19"/>
         <location line="+8"/>
         <source>%1 ms</source>
@@ -1491,7 +1454,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>AudioOutputSample</name>
     <message>
-        <location filename="AudioOutput.cpp" line="+297"/>
+        <location filename="AudioOutput.cpp" line="+295"/>
         <source>Choose sound file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1627,6 +1590,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <location/>
+        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. To adjust the peak bitrate, adjust &lt;b&gt;Compression Complexity&lt;/b&gt; in the Settings dialog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
         <source>DoublePush interval</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1678,11 +1646,6 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2050,9 +2013,9 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation type="unfinished">בטל טקסט-לדיבור והשתמש בצלילים במקום.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+305"/>
+        <location filename="AudioWizard.cpp" line="+304"/>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 מ&quot;ש</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="AudioWizard.ui"/>
@@ -2103,7 +2066,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;יישם כמה ייעולים לניגודיות גבוהה למשתמשים עם פגמים חזותיים&lt;/p&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
@@ -2115,49 +2078,18 @@ Mumble is under continuous development, and the development team wants to focus 
         <source>Keep custom Text-To-Speech settings.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location/>
-        <source>&lt;p&gt;
-Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.
-&lt;/p&gt;
-&lt;p&gt;
-Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the striped and the empty but &lt;b&gt;not&lt;/b&gt; the crisscrossed zone while you speak.
-&lt;/p&gt;
-</source>
-        <oldsource>&lt;p&gt;
-Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.
-&lt;/p&gt;
-&lt;p&gt;
-Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the striped and the empty but &lt;b&gt;not&lt;/b&gt; the criss-crossed zone while you speak.
-&lt;/p&gt;
-</oldsource>
-        <comment>For high contrast mode</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
-        <comment>For high contrast mode</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
-        <comment>For high contrast mode</comment>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>BanEditor</name>
     <message>
         <location filename="BanEditor.ui"/>
         <source>Mumble - Edit Bans</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ממבל - ערוך מנודים</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;כתובת</translation>
     </message>
     <message>
         <location/>
@@ -2167,22 +2099,22 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Reason</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;סיבה&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;התחל&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>End</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;סיום&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>User</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;משתמש&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2197,7 +2129,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>&amp;Update</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;עדכן</translation>
     </message>
     <message>
         <location/>
@@ -2306,7 +2238,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+411"/>
+        <location filename="main.cpp" line="+409"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2509,6 +2441,12 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <location/>
+        <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as an USB memory stick.&lt;/p&gt;
+&lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
         <source>Export to</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2601,19 +2539,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 </source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location/>
-        <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
-&lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ChanACL</name>
     <message>
         <location filename="../ACL.cpp" line="+214"/>
         <source>None</source>
-        <translation type="unfinished">בכלל לא</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2738,7 +2670,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Move</source>
-        <translation type="unfinished">הזז</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2772,7 +2704,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
 </context>
 <context>
-    <name>ChatbarTextEdit</name>
+    <name>ChatbarLineEdit</name>
     <message>
         <location filename="CustomElements.cpp" line="+79"/>
         <source>Paste and send</source>
@@ -2799,11 +2731,6 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Priority speaker</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Recording</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2835,54 +2762,63 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+54"/>
+        <location filename="ConfigDialog.cpp" line="+51"/>
+        <location filename="ConfigDialog.mm" line="+73"/>
         <source>Accept changes</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הסכם לשינויים&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+1"/>
+        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
+        <location filename="ConfigDialog.mm" line="+4"/>
         <source>Reject changes</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;דחה שינוים&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+1"/>
+        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
+        <location filename="ConfigDialog.mm" line="+4"/>
         <source>Apply changes</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;החל שינויים&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+1"/>
+        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will immediately apply all changes.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כפתור זה יישם את השינויים לאלתר&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
+        <location filename="ConfigDialog.mm" line="+3"/>
         <source>Undo changes for current page</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;בטל שינויים עבור הדף הנוכחי&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+1"/>
+        <location filename="ConfigDialog.mm" line="+1"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
+        <location filename="ConfigDialog.mm" line="+3"/>
         <source>Restore defaults for current page</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שחזר הגדרות ברירת מחדל עבור הדף הנוכחי&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
+        <location filename="ConfigDialog.mm" line="+1"/>
+        <source>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2892,86 +2828,32 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location/>
-        <location filename="ConfigDialogDelegate.mm" line="+142"/>
+        <location filename="ConfigDialogDelegate.mm" line="+135"/>
         <source>Advanced</source>
         <translation type="unfinished">מתקדם</translation>
     </message>
 </context>
 <context>
-    <name>ConfigDialogMac</name>
-    <message>
-        <location filename="ConfigDialog_macx.mm" line="+70"/>
-        <source>Accept changes</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הסכם לשינויים&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Reject changes</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;דחה שינוים&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Apply changes</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;החל שינויים&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will immediately apply all changes.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כפתור זה יישם את השינויים לאלתר&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Undo changes for current page</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;בטל שינויים עבור הדף הנוכחי&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Restore defaults for current page</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שחזר הגדרות ברירת מחדל עבור הדף הנוכחי&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+890"/>
+        <location filename="ConnectDialog.cpp" line="+868"/>
         <source>Connecting to %1</source>
         <translation type="unfinished">מתחבר ל %1</translation>
     </message>
     <message>
-        <location line="-491"/>
-        <location line="+491"/>
+        <location line="-470"/>
+        <location line="+470"/>
         <source>Enter username</source>
         <translation type="unfinished">הכנס שם משתמש</translation>
     </message>
     <message>
-        <location line="-491"/>
+        <location line="-470"/>
         <source>Adding host %1</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הוספת מארח %1&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="+61"/>
+        <location filename="ConnectDialog.cpp" line="+63"/>
         <source>Servername</source>
         <translation type="unfinished">שם השרת</translation>
     </message>
@@ -3014,7 +2896,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location line="+0"/>
         <location line="+2"/>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 מ&quot;ש</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
@@ -3029,10 +2911,10 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+0"/>
         <source>%1 kbit/s</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 ק&quot;ב/ש&lt;/p&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+276"/>
+        <location line="+253"/>
         <source>&amp;Connect</source>
         <translation type="unfinished">&amp;התחבר</translation>
     </message>
@@ -3043,7 +2925,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-314"/>
+        <location filename="ConnectDialog.cpp" line="-291"/>
         <source>Users</source>
         <translation type="unfinished">משתמשים</translation>
     </message>
@@ -3057,7 +2939,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">&lt;p dir=&quot;RTL&quot;&gt;ממבל&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1005"/>
+        <location line="+960"/>
         <source>Failed to fetch server list</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;השגת רשימת שרתים נכשלה&lt;/p&gt;</translation>
     </message>
@@ -3123,7 +3005,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location/>
-        <location filename="ConnectDialog.cpp" line="-729"/>
+        <location filename="ConnectDialog.cpp" line="-707"/>
         <source>&amp;Add New...</source>
         <translation type="unfinished">&amp;הוסף חדש...</translation>
     </message>
@@ -3231,48 +3113,17 @@ Username to send to the server. Be aware that the server can impose restrictions
         <translation type="unfinished">כותרת</translation>
     </message>
     <message>
+        <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your serverlist and can be chosen freely.</source>
-        <translation type="obsolete">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;כותרת&lt;/b&gt;&lt;br/&gt;
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;כותרת&lt;/b&gt;&lt;br/&gt;
 כותרת השרת. ככה יקרא השרת ברשימת השרתים שלך ויכול להיות כרצונך.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="ConnectDialog.cpp" line="-75"/>
-        <source>Add Server</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ConnectDialogEdit.ui"/>
-        <source>Password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Password to send to the server</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
-Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Show password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
-Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>CoreAudioSystem</name>
     <message>
-        <location filename="CoreAudio.cpp" line="+83"/>
+        <location filename="CoreAudio.cpp" line="+85"/>
         <source>Default Device</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3311,7 +3162,7 @@ Label of the server. This is what the server will be named like in your server l
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+25"/>
         <source>Crash upload successful</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3350,7 +3201,7 @@ Label of the server. This is what the server will be named like in your server l
 <context>
     <name>DXAudioInput</name>
     <message>
-        <location filename="DirectSound.cpp" line="+172"/>
+        <location filename="DirectSound.cpp" line="+174"/>
         <source>Default DirectSound Voice Input</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3403,16 +3254,7 @@ of the possible locations.</source>
     </message>
     <message>
         <location line="+7"/>
-        <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
-        <oldsource>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>DockTitleBar</name>
-    <message>
-        <location filename="CustomElements.cpp" line="+135"/>
-        <source>Drag here</source>
+        <source>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3482,7 +3324,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+654"/>
+        <location filename="GlobalShortcut.cpp" line="+655"/>
         <source>Shortcuts</source>
         <translation type="unfinished">קיצורים</translation>
     </message>
@@ -3511,7 +3353,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutMacInit</name>
     <message>
-        <location filename="GlobalShortcut_macx.mm" line="+65"/>
+        <location filename="GlobalShortcut_macx.cpp" line="+60"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3544,12 +3386,14 @@ of the possible locations.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אם מצויין, רק החברים בקבוצה הזאת תקבל את הלחישה.&lt;/p&gt;</translation>
     </message>
     <message>
+        <location/>
         <source>If checked the whisper will also be transmitted to linked channels.</source>
-        <translation type="obsolete">&lt;p dir=&quot;RTL&quot;&gt;אם מסומן, הלחיצה תשודר גם לחדרים המקושרים.&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אם מסומן, הלחיצה תשודר גם לחדרים המקושרים.&lt;/p&gt;</translation>
     </message>
     <message>
+        <location/>
         <source>If checked this whisper will also be sent to the subchannels of the channel target.</source>
-        <translation type="obsolete">&lt;p dir=&quot;RTL&quot;&gt;אם מוסמן, הלחישה תשלח גם לתת-החדרים של חדר היעד.&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אם מוסמן, הלחישה תשלח גם לתת-החדרים של חדר היעד.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3596,16 +3440,6 @@ of the possible locations.</source>
         <source>Shout to Channel</source>
         <translation type="unfinished">צעק לחדר</translation>
     </message>
-    <message>
-        <location/>
-        <source>The whisper will also be transmitted to linked channels.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>The whisper will also be sent to the subchannels of the channel target.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
@@ -3618,7 +3452,7 @@ of the possible locations.</source>
 <context>
     <name>LCD</name>
     <message>
-        <location filename="LCD.cpp" line="+279"/>
+        <location filename="LCD.cpp" line="+280"/>
         <source>Not connected</source>
         <translation type="unfinished">לא מחובר</translation>
     </message>
@@ -3731,7 +3565,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">שרת התנתק</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+5"/>
         <source>You self-muted/deafened</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3743,7 +3577,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+6"/>
         <source>Permission Denied</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הרשאה נדחתה&lt;/p&gt;</translation>
+        <translation type="unfinished">הרשאה נדחתה</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3751,7 +3585,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-13"/>
+        <location line="-12"/>
         <source>User Joined Server</source>
         <translation type="unfinished">משתמש הצטרף לשרת</translation>
     </message>
@@ -3759,11 +3593,6 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1"/>
         <source>User Left Server</source>
         <translation type="unfinished">משתמש עזב את השרת</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>User recording state changed</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3846,7 +3675,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-515"/>
+        <location line="-514"/>
         <source>Toggle console for %1 events</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3941,7 +3770,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Volume</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;עוצמה&lt;/p&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
@@ -4033,12 +3862,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">ממשק משתמש</translation>
     </message>
     <message>
-        <location line="+130"/>
+        <location line="+127"/>
         <source>Choose skin file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="LookConfig.ui"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4156,6 +3990,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;This sets which skin Mumble should use.&lt;/b&gt;&lt;br /&gt;The skin is a style file applied on top of the basic widget style. If there are icons in the same directory as the style sheet, those will replace the default icons.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4278,22 +4117,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>Channel Tree</source>
         <translation type="unfinished">עץ חדרים</translation>
     </message>
-    <message>
-        <location/>
-        <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+1928"/>
+        <location filename="MainWindow.cpp" line="+151"/>
+        <location line="+1866"/>
         <source>Root</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1879"/>
+        <location line="-1816"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished">לחץ-כדי-לדבר</translation>
@@ -4372,28 +4206,28 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2043"/>
+        <location line="+1968"/>
         <source>Mumble -- %1</source>
         <translation type="unfinished">ממבל -- %1</translation>
     </message>
     <message>
-        <location line="-2039"/>
+        <location line="-1964"/>
         <source>&amp;Window</source>
         <translation type="unfinished">&amp;חלון</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+126"/>
+        <location line="+101"/>
         <source>Minimize</source>
         <translation type="unfinished">מזער</translation>
     </message>
     <message>
-        <location line="-126"/>
+        <location line="-101"/>
         <source>Ctrl+M</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+125"/>
+        <location line="+100"/>
         <source>Close</source>
         <translation type="unfinished">סגור</translation>
     </message>
@@ -4403,7 +4237,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ממבל מחובר כרגע לשרת, האם אתה רוצה לסגור או למזער אותו?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-177"/>
+        <location line="-152"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished">השתק את עצמך</translation>
@@ -4447,12 +4281,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">לא מחובר</translation>
     </message>
     <message>
-        <location line="+325"/>
+        <location line="+296"/>
         <source>Clear</source>
         <translation type="unfinished">נקה</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+6"/>
         <source>Opening URL %1</source>
         <translation type="unfinished">פתח אתר %1</translation>
     </message>
@@ -4477,7 +4311,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;צורת הכתובת היא לא &apos;ממבל&apos;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+25"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הגירסא הזאת של ממבל לא יכולה לטפל בכתובות לממבל מגירסא %1.%2.%3&lt;/p&gt;</translation>
     </message>
@@ -4492,8 +4326,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">הכנס שם משתמש</translation>
     </message>
     <message>
-        <location line="+14"/>
-        <location line="+175"/>
+        <location line="+18"/>
+        <location line="+180"/>
         <source>Connecting to server %1.</source>
         <translation type="unfinished">מתחבר לשרת %1.</translation>
     </message>
@@ -4503,9 +4337,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">מתחבר מחדש.</translation>
     </message>
     <message>
-        <location line="+132"/>
+        <location line="+130"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;h2&gt;גירסא&lt;/h2&gt;&lt;p&gt;פרוטוקול %1.%2.%3.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -4529,13 +4363,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="-104"/>
-        <location line="+311"/>
+        <location line="+306"/>
         <source>Register yourself as %1</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;רשום את עצמך בשם %1&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-311"/>
-        <location line="+311"/>
+        <location line="-306"/>
+        <location line="+306"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אתה עומד לרשום את עצמך לשרת. אי אפשר לבטל פעולה זו, ואי אפשר לשנות את שם המשתמש ברגע שזה בוצע. אתה תמיד תיוודע בשם &apos;%1&apos; בשרת הזה. &lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;אתה בטוח שאתה רוצה להרשם?&lt;/p&gt;</translation>
     </message>
@@ -4565,8 +4399,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+55"/>
-        <location line="+221"/>
+        <location line="+56"/>
+        <location line="+227"/>
         <source>Message to channel %1</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הודעה לחדר %1&lt;/p&gt;</translation>
     </message>
@@ -4576,12 +4410,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+468"/>
+        <location line="+439"/>
         <source>Connected.</source>
         <translation type="unfinished">מחובר.</translation>
     </message>
     <message>
-        <location line="+158"/>
+        <location line="+147"/>
         <source>SSL Version mismatch</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;גירסאת SSL לא תואמת&lt;/p&gt;</translation>
     </message>
@@ -4604,7 +4438,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;p dir=&quot;RTL&quot;&gt;רשום הודעה למשתמש %1 כאן&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+227"/>
+        <location line="+210"/>
         <source>Choose image file</source>
         <translation type="unfinished">בחר קובץ תמונה</translation>
     </message>
@@ -4629,12 +4463,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;פורמט התמונה לא מזוהה.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1509"/>
+        <location line="-1454"/>
         <source>Voice channel is sent over control channel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-831"/>
+        <location line="-797"/>
         <source>&amp;User</source>
         <translation type="unfinished">&amp;משתמש</translation>
     </message>
@@ -4644,7 +4478,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">&amp;חדר</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+65"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
@@ -4656,12 +4490,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2073"/>
+        <location line="+1987"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <translation type="unfinished">&lt;center&gt;&lt;p dir=&quot;RTL&quot;&gt;לא מחובר&lt;/p&gt;&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1496"/>
+        <location line="-1447"/>
         <source>Change your comment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4712,12 +4546,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1196"/>
+        <location line="+1158"/>
         <source>&amp;View Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-953"/>
+        <location line="-920"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation type="unfinished">הכנס סיבה</translation>
@@ -4729,25 +4563,25 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+10"/>
-        <location line="+78"/>
+        <location line="+79"/>
         <location line="+4"/>
-        <location line="+217"/>
+        <location line="+223"/>
         <source>To %1: %2</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ל %1: %2&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-299"/>
-        <location line="+82"/>
+        <location line="-306"/>
+        <location line="+83"/>
         <source>Message to %1</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הודעה ל %1&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-43"/>
+        <location line="-44"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+185"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;האם אתה בטוח שאתה רוצה למחוק %1 ואת כל תת-החדרים שלו?&lt;/p&gt;</translation>
     </message>
@@ -4762,7 +4596,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+779"/>
+        <location line="+728"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <translation type="unfinished">&lt;center&gt;&lt;p dir=&quot;RTL&quot;&gt;רשום הודעה לחדר %1 כאן&lt;/p&gt;&lt;/center&gt;</translation>
     </message>
@@ -4772,12 +4606,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+97"/>
-        <source>Images (*.png *.jpg *.jpeg *.svg)</source>
+        <location line="+91"/>
+        <source>Images (*.png *.jpg *.svg)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-767"/>
+        <location line="-710"/>
         <source>Unmuted and undeafened.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4792,7 +4626,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+24"/>
         <source>Muted and deafened.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4807,12 +4641,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+94"/>
+        <location line="+67"/>
         <source>About Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+348"/>
+        <location line="+337"/>
         <source>SSL Verification failed: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4944,7 +4778,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&amp;Ban lists</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;רשימת מנודים</translation>
     </message>
     <message>
         <location/>
@@ -5459,7 +5293,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+352"/>
+        <location filename="Messages.cpp" line="+318"/>
         <source>You muted and deafened %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5514,23 +5348,23 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 הועבר לחדר מ %2 על ידי %3.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-157"/>
+        <location line="-136"/>
         <source>%1 is now muted and deafened.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-183"/>
-        <location line="+48"/>
+        <location line="-170"/>
+        <location line="+40"/>
         <source>Welcome message: %1</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הודעת פתיחה: %1&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-7"/>
         <source>Mumble: %1</source>
         <translation type="unfinished">ממבל: %1</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+28"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5555,7 +5389,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נדחה: הודעה ארוכה מדי.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+20"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נדחה: פעולה לא מורשית בחדר זמני.&lt;/p&gt;</translation>
     </message>
@@ -5597,7 +5431,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+13"/>
         <source>%1 is now muted.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 הושתק.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5605,34 +5439,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+11"/>
-        <source>Recording started</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Recording stopped</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>%1 started recording.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>%1 stopped recording.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+21"/>
+        <location line="+19"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You were muted by %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הושתקת על ידי %1.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5656,12 +5470,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+94"/>
-        <source>%1 is recording</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+46"/>
+        <location line="+137"/>
         <source>%1 disconnected.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 התנתק.&lt;/p&gt;</translation>
     </message>
@@ -5688,14 +5497,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-252"/>
+        <location line="-249"/>
         <source>You were unmuted by %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+29"/>
         <source>You muted %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;השתקת את %1.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -5723,20 +5532,20 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+330"/>
+        <location line="+327"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-396"/>
+        <location line="-393"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הושתקת והוחרשת על ידי %1.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+154"/>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נבעטת מהשרת על ידי %1: %2.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -5746,15 +5555,15 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-7"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נבעטת והוחרמת מהשרת על ידי %1: %2.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%3 נבעט והוחרם מהשרת על ידי %1: %2.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-60"/>
+        <location line="-57"/>
         <source>You were moved to %1 by %2.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הועברתה ל %1 על ידי %2.&lt;/p&gt;</translation>
     </message>
@@ -5764,22 +5573,22 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 נכנס לחדר.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-346"/>
+        <location line="-312"/>
         <source>Server connection rejected: %1.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;התקשרות לשרת נדחתה: %1.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+141"/>
+        <location line="+128"/>
         <source>Denied: %1.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נדחה: %1.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+353"/>
+        <location line="+329"/>
         <source>Message from %1</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הודעה מ %1&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1381"/>
+        <location filename="UserModel.cpp" line="+1378"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5789,13 +5598,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-52"/>
+        <location filename="main.cpp" line="-46"/>
         <source>Welcome to Mumble.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ברוך הבא לממבל.&lt;/p&gt;</translation>
     </message>
     <message>
+        <location line="+13"/>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
-        <translation type="obsolete">&lt;p dir=&quot;RTL&quot;&gt;זאת הפעם הראשונה שאתה מפעיל את ממבל.&lt;br /&gt;האם תרצה לעבור על אשף כיוון הצלילים כדי להגדיר את כרטיס הקול שלך?&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זאת הפעם הראשונה שאתה מפעיל את ממבל.&lt;br /&gt;האם תרצה לעבור על אשף כיוון הצלילים כדי להגדיר את כרטיס הקול שלך?&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -5924,12 +5734,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location/>
-        <source>Recording</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Priority Speaker</source>
+        <source>Priority speaker</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5947,6 +5752,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="NetworkConfig.ui"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
         <source>Connection</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6159,6 +5969,11 @@ Prevents the client from downloading images embedded into chat messages with the
     </message>
     <message>
         <location/>
+        <source>Download plugin updates on startup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6182,64 +5997,49 @@ Prevents the client from downloading images embedded into chat messages with the
         <source>Reconnect to last server on startup</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location/>
-        <source>Download plugin and overlay updates on startup</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="OverlayEditorScene.cpp" line="+121"/>
-        <location filename="OverlayUser.cpp" line="+150"/>
+        <location filename="Overlay.cpp" line="+424"/>
+        <location line="+1076"/>
         <source>Silent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <location filename="OverlayUser.cpp" line="+3"/>
+        <location line="-1073"/>
+        <location line="+1076"/>
         <source>Talking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <location filename="OverlayUser.cpp" line="+3"/>
+        <location line="-1073"/>
+        <location line="+1076"/>
         <source>Whisper</source>
         <translation type="unfinished">לחש</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <location filename="OverlayUser.cpp" line="+3"/>
+        <location line="-1073"/>
+        <location line="+1076"/>
         <source>Shout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+17"/>
-        <location filename="OverlayUser.cpp" line="-110"/>
+        <location line="-1057"/>
+        <location line="+947"/>
         <source>Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+100"/>
+        <location line="+1259"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+256"/>
-        <source>Skipping overlay update in debug mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+66"/>
-        <source>Downloaded new or updated overlay support file to %1.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OverlayClient</name>
     <message>
-        <location filename="OverlayUserGroup.cpp" line="+94"/>
+        <location line="-865"/>
         <source>Filter</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6279,7 +6079,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+105"/>
+        <location line="+293"/>
         <source>FPS: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6287,34 +6087,27 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+78"/>
+        <location line="-2040"/>
         <source>To move the users, drag the little red dot.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>To resize the users, mouse wheel over a user.</source>
-        <oldsource>To resize the users, mousewheel over a user.</oldsource>
+        <source>To resize the users, mousewheel over a user.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>For more options, right click a user.</source>
-        <oldsource>For more options, rightclick a user.</oldsource>
+        <source>For more options, rightclick a user.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+30"/>
-        <source>FPS: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+194"/>
+        <location line="+147"/>
         <source>Overlay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+62"/>
         <source>Choose executable</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6324,34 +6117,12 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+38"/>
-        <source>Mumble has deemed the installer valid.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Mumble was unable to verify the authenticity of the installer.</source>
-        <oldsource>Mumble was unable to validate authenticity of the installer.</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+87"/>
-        <source>Load Overlay Presets</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <location line="+28"/>
-        <source>Mumble overlay presets (*.mumblelay)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-2"/>
-        <source>Save Overlay Presets</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="Overlay.ui"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6389,7 +6160,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Layout</source>
-        <translation type="unfinished">סגנון</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
@@ -6407,13 +6178,14 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location/>
         <source>Add</source>
-        <translation type="obsolete">הוסף</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished">הסר</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
@@ -6447,65 +6219,6 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Upgrade Mumble Overlay</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>View Certificates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Remove</source>
-        <translation type="obsolete">&amp;הסר</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Load an overlay preset from file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location/>
-        <source>Load…</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Save your overlay settings to file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location/>
-        <source>Save…</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>FPS Display</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Set the overlay font.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Set the overlay text color.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Add...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Font</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6630,7 +6343,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>OverlayEditorScene</name>
     <message>
-        <location filename="OverlayEditorScene.cpp" line="+396"/>
+        <location filename="Overlay.cpp" line="+555"/>
         <source>Layout preset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6859,7 +6572,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+330"/>
+        <location filename="Plugins.cpp" line="+319"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6875,12 +6588,12 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-265"/>
+        <location line="-258"/>
         <source>%1 lost link.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+68"/>
         <source>%1 linked.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6888,7 +6601,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PortAudioSystem</name>
     <message>
-        <location filename="PAAudio.cpp" line="+273"/>
+        <location filename="PAAudio.cpp" line="+275"/>
         <source>Default Device</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6896,7 +6609,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+545"/>
+        <location filename="PulseAudio.cpp" line="+549"/>
         <source>Default Input</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7038,7 +6751,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-611"/>
+        <location filename="ConnectDialog.cpp" line="-664"/>
         <source>Favorite</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7086,7 +6799,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-483"/>
+        <location filename="GlobalShortcut.cpp" line="-484"/>
         <source>Unassigned</source>
         <translation type="unfinished">לא מוקצה</translation>
     </message>
@@ -7094,14 +6807,14 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+359"/>
+        <location line="+360"/>
         <source>On</source>
-        <translation type="unfinished">לחיצה</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Off</source>
-        <translation type="unfinished">מבוטל</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -7117,7 +6830,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-433"/>
+        <location line="-434"/>
         <source>Press Shortcut</source>
         <translation type="unfinished">לחץ על מקש הקיצור</translation>
     </message>
@@ -7125,7 +6838,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutTargetDialog</name>
     <message>
-        <location line="+204"/>
+        <location line="+203"/>
         <source>Root</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7148,7 +6861,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutTargetWidget</name>
     <message>
-        <location line="+85"/>
+        <location line="+87"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7184,17 +6897,16 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <location line="+3"/>
-        <source>Empty</source>
-        <oldsource>&lt;Empty&gt;</oldsource>
+        <source>&lt;Empty&gt;</source>
         <translation type="unfinished">&lt;ריק&gt;</translation>
     </message>
 </context>
 <context>
     <name>ShortcutToggleWidget</name>
     <message>
-        <location line="-259"/>
+        <location line="-261"/>
         <source>Off</source>
-        <translation type="unfinished">מבוטל</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
@@ -7204,7 +6916,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+4"/>
         <source>On</source>
-        <translation type="unfinished">לחיצה</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7282,7 +6994,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location/>
         <location filename="UserEdit.cpp" line="+96"/>
         <source>Remove</source>
-        <translation type="unfinished">הסר</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="UserEdit.cpp" line="-5"/>
@@ -7335,6 +7047,11 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Ping Statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Pings recieved</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7459,11 +7176,6 @@ An access token is a text string, which can be used as a password for very simpl
         <source>Bandwidth</source>
         <comment>Label</comment>
         <translation type="unfinished">רוחב פס</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Pings received</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7634,8 +7346,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location line="+18"/>
-        <source>Failed to write new version to disk.</source>
-        <oldsource>Failed to write new version to disc.</oldsource>
+        <source>Failed to write new version to disc.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7758,177 +7469,9 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
 </context>
 <context>
-    <name>VoiceRecorder</name>
-    <message>
-        <location filename="VoiceRecorder.cpp" line="+184"/>
-        <source>Invalid sample rate given to recorder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+98"/>
-        <source>Recorder failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+14"/>
-        <source>Recorder failed to open file &apos;%s&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+109"/>
-        <source>.wav - Uncompressed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>.ogg (Vorbis) - Compressed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>.au - Uncompressed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>.flac - Lossless compressed</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>VoiceRecorderDialog</name>
-    <message>
-        <location filename="VoiceRecorderDialog.ui"/>
-        <location filename="VoiceRecorderDialog.cpp" line="+98"/>
-        <location line="+33"/>
-        <location line="+8"/>
-        <location line="+10"/>
-        <location line="+9"/>
-        <location line="+136"/>
-        <source>Recorder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Control</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>00:00:00</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Start</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>S&amp;top</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Multichannel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Output</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Output format</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Target directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Filename</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Browse...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-195"/>
-        <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-31"/>
-        <source>Valid variables are:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Inserts the user&apos;s name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Inserts the current date</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Inserts the current time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Inserts the hostname</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+60"/>
-        <source>Unable to start recording. Not connected to a server.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+8"/>
-        <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
-Please contact your server administrator for further information.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+10"/>
-        <source>There is already a recorder active for this server.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <source>Please select a recording format.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+95"/>
-        <source>Select target directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="VoiceRecorderDialog.ui"/>
-        <source>Downmix</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+180"/>
+        <location filename="WASAPI.cpp" line="+172"/>
         <source>Default Device</source>
         <translation type="unfinished"></translation>
     </message>
