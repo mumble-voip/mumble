@@ -1232,14 +1232,19 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 			g->bInherit = group.inherit();
 			g->bInheritable = group.inheritable();
 			for (int j=0;j<group.add_size();++j)
-				g->qsAdd << group.add(j);
+				if (!getUserName(group.add(j)).isEmpty())
+					g->qsAdd << group.add(j);
 			for (int j=0;j<group.remove_size();++j)
-				g->qsRemove << group.remove(j);
+				if (!getUserName(group.remove(j)).isEmpty())
+					g->qsRemove << group.remove(j);
 			g->qsTemporary = hOldTemp.value(g->qsName);
 		}
 
 		for (int i=0;i<msg.acls_size(); ++i) {
 			const MumbleProto::ACL_ChanACL &mpacl = msg.acls(i);
+			if (mpacl.has_user_id() && getUserName(mpacl.user_id()).isEmpty())
+				continue;
+
 			a = new ChanACL(c);
 			a->bApplyHere=mpacl.apply_here();
 			a->bApplySubs=mpacl.apply_subs();
