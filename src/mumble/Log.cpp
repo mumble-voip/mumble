@@ -573,13 +573,15 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool con
 		return;
 
 	// Apply simplifications to spoken text
-	QRegExp identifyURL(QLatin1String("[a-z-]+://[^ <$]*"));
-	identifyURL.setMinimal(false);
+	QRegExp identifyURL(QLatin1String("[a-z-]+://[^ <$]*"),
+			    Qt::CaseInsensitive,
+			    QRegExp::RegExp2);
+
 	QStringList qslAllowed = allowedSchemes();
 
 	int pos = 0;
 	while ((pos = identifyURL.indexIn(plain, pos)) != -1) {
-		QUrl url(identifyURL.cap(0));
+		QUrl url(identifyURL.cap(0).toLower());
 		int len = identifyURL.matchedLength();
 		if (url.isValid() && qslAllowed.contains(url.scheme())) {
 			// Replace it appropriatly
