@@ -144,7 +144,7 @@ UserView::UserView(QWidget *p) : QTreeView(p) {
 	qtSearch->setInterval(QApplication::keyboardInputInterval());
 	qtSearch->setSingleShot(true);
 
-	connect(this, SIGNAL(activated(const QModelIndex &)), this, SLOT(activated(const QModelIndex &)));
+	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(nodeActivated(const QModelIndex &)));
 
 	connect(qtSearch, SIGNAL(timeout()), this, SLOT(selectSearchResult()));
 }
@@ -214,7 +214,13 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 	QTreeView::mouseReleaseEvent(evt);
 }
 
-void UserView::activated(const QModelIndex &idx) {
+void UserView::keyPressEvent(QKeyEvent *ev){
+	if (ev->key() == Qt::Key_Return || ev->key() == Qt::Key_Enter)
+		UserView::nodeActivated(currentIndex());
+	QTreeView::keyPressEvent(ev);
+}
+
+void UserView::nodeActivated(const QModelIndex &idx) {
 	UserModel *um = static_cast<UserModel *>(model());
 	User *p = um->getUser(idx);
 	if (p) {

@@ -52,6 +52,7 @@ class UserView : public QTreeView {
 		Q_DISABLE_COPY(UserView)
 	protected:
 		void mouseReleaseEvent(QMouseEvent *);
+		void keyPressEvent(QKeyEvent *);
 		bool event(QEvent *);
 
 		QTimer *qtSearch;
@@ -62,7 +63,7 @@ class UserView : public QTreeView {
 		UserView(QWidget *);
 		void keyboardSearch(const QString &search);
 	public slots:
-		void activated(const QModelIndex &idx);
+		void nodeActivated(const QModelIndex &idx);
 		void selectSearchResult();
 
 };
