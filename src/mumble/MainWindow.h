@@ -100,8 +100,9 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		bool bSuppressAskOnQuit;
 		bool bAutoUnmute;
 
-		unsigned int uiContextSession;
-		int iContextChannel;
+		QWeakPointer<Channel> cContextChannel;
+		QWeakPointer<ClientUser> cuContextUser;
+		QPoint qpContextPosition;
 
 		void recheckTTS();
 		void msgBox(QString msg);
@@ -140,7 +141,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		virtual void closeEvent(QCloseEvent *e);
 		virtual void hideEvent(QHideEvent *e);
 
-		bool handleSpecialContextMenu(const QUrl &url, const QPoint &_pos, bool focus = false);
+		bool handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, bool focus = false);
 		Channel* getContextMenuChannel();
 		ClientUser* getContextMenuUser();
 
@@ -203,6 +204,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaQuit_triggered();
 		void on_qteChat_tabPressed();
 		void on_qteChat_ctrlSpacePressed();
+		void on_qtvUsers_customContextMenuRequested(const QPoint &mpos);
 		void on_qteLog_customContextMenuRequested(const QPoint &pos);
 		void on_qteLog_anchorClicked(const QUrl &);
 		void on_qteLog_highlighted(const QUrl & link);

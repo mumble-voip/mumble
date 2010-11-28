@@ -177,8 +177,8 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	voiceRecorderDialog = NULL;
 
-	uiContextSession = ~0;
-	iContextChannel = -1;
+	cuContextUser = QWeakPointer<ClientUser>();
+	cContextChannel = QWeakPointer<Channel>();
 
 	qtReconnect = new QTimer(this);
 	qtReconnect->setInterval(10000);
@@ -484,63 +484,86 @@ void MainWindow::updateTrayIcon() {
 }
 
 Channel *MainWindow::getContextMenuChannel() {
-	if (iContextChannel >= 0)
-		return Channel::get(iContextChannel);
+	if (cContextChannel)
+		return cContextChannel.data();
 
-	return pmModel->getChannel(qtvUsers->currentIndex());
+	return NULL;
 }
 
 ClientUser *MainWindow::getContextMenuUser() {
-	if (uiContextSession != ~0)
-		return ClientUser::get(uiContextSession);
+	if (cuContextUser)
+		return cuContextUser.data();
 
-	return pmModel->getUser(qtvUsers->currentIndex());
+	return NULL;
 }
 
-bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &_pos, bool focus) {
+bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, bool focus) {
 	if (url.scheme() == QString::fromLatin1("clientid")) {
 		bool ok = false;
 		QString x(url.host());
 		if (x.length() == 40) {
 			ClientUser *cu = ClientUser::getByHash(x);
 			if (cu) {
-				uiContextSession = cu->uiSession;
+				cuContextUser = cu;
 				ok = true;
 			}
 		} else {
 			QByteArray qbaServerDigest = QByteArray::fromBase64(url.path().remove(0, 1).toLatin1());
-			uiContextSession = url.host().toInt(&ok, 10);
+			cuContextUser = ClientUser::get(url.host().toInt(&ok, 10));
 			ServerHandlerPtr sh = g.sh;
 			ok = ok && sh && (qbaServerDigest == sh->qbaDigest);
 		}
-		if (ok && ClientUser::isValid(uiContextSession)) {
+		if (ok && cuContextUser) {
 			if (focus) {
-				qtvUsers->setCurrentIndex(pmModel->index(ClientUser::get(uiContextSession)));
+				qtvUsers->setCurrentIndex(pmModel->index(cuContextUser.data()));
 				qteChat->setFocus();
 			} else {
-				qmUser->exec(_pos, NULL);
+				qpContextPosition = QPoint();
+				qmUser->exec(pos_, NULL);
 			}
 		}
-		uiContextSession = ~0;
+		cuContextUser.clear();
 	} else if (url.scheme() == QString::fromLatin1("channelid")) {
 		bool ok;
 		QByteArray qbaServerDigest = QByteArray::fromBase64(url.path().remove(0, 1).toLatin1());
-		iContextChannel = url.host().toInt(&ok, 10);
+		cContextChannel = Channel::get(url.host().toInt(&ok, 10));
 		ServerHandlerPtr sh = g.sh;
 		ok = ok && sh && (qbaServerDigest == sh->qbaDigest);
 		if (ok) {
 			if (focus) {
-				qtvUsers->setCurrentIndex(pmModel->index(Channel::get(iContextChannel)));
+				qtvUsers->setCurrentIndex(pmModel->index(cContextChannel.data()));
 				qteChat->setFocus();
 			} else {
-				qmChannel->exec(_pos, NULL);
+				qpContextPosition = QPoint();
+				qmChannel->exec(pos_, NULL);
 			}
 		}
-		iContextChannel = -1;
+		cContextChannel.clear();
 	} else {
 		return false;
 	}
 	return true;
+}
+
+void MainWindow::on_qtvUsers_customContextMenuRequested(const QPoint &mpos) {
+	QModelIndex idx = qtvUsers->indexAt(mpos);
+	if (! idx.isValid())
+		idx = qtvUsers->currentIndex();
+	else
+		qtvUsers->setCurrentIndex(idx);
+	ClientUser *p = pmModel->getUser(idx);
+
+	qpContextPosition = mpos;
+	if (p) {
+		cuContextUser.clear();
+		qmUser->exec(qtvUsers->mapToGlobal(mpos), qaUserMute);
+		cuContextUser.clear();
+	} else {
+		cContextChannel.clear();
+		qmChannel->exec(qtvUsers->mapToGlobal(mpos), NULL);
+		cContextChannel.clear();
+	}
+	qpContextPosition = QPoint();
 }
 
 void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
@@ -1075,7 +1098,23 @@ void MainWindow::voiceRecorderDialog_finished(int) {
 }
 
 void MainWindow::qmUser_aboutToShow() {
-	ClientUser *p = getContextMenuUser();
+	ClientUser *p = NULL;
+	if (g.uiSession != 0) {
+		QModelIndex idx;
+		if (! qpContextPosition.isNull())
+			idx = qtvUsers->indexAt(qpContextPosition);
+
+		if (! idx.isValid())
+			idx = qtvUsers->currentIndex();
+
+		p = pmModel->getUser(idx);
+
+		if (cuContextUser)
+			p = cuContextUser.data();
+	}
+
+	cuContextUser = p;
+	qpContextPosition = QPoint();
 
 	bool self = p && (p->uiSession == g.uiSession);
 
@@ -1333,6 +1372,8 @@ void MainWindow::on_qaUserTextMessage_triggered() {
 
 void MainWindow::on_qaUserCommentView_triggered() {
 	ClientUser *p = getContextMenuUser();
+	// This has to be done here because UserModel could've set it.
+	cuContextUser.clear();
 
 	if (!p)
 		return;
@@ -1441,13 +1482,29 @@ void MainWindow::on_qmConfig_aboutToShow() {
 void MainWindow::qmChannel_aboutToShow() {
 	qmChannel->clear();
 
+	Channel *c = NULL;
 	if (g.uiSession != 0) {
-		Channel *c = getContextMenuChannel();
-		if (c && c->iId != ClientUser::get(g.uiSession)->cChannel->iId) {
-			qmChannel->addAction(qaChannelJoin);
-			qmChannel->addSeparator();
-		}
+		QModelIndex idx;
+		if (! qpContextPosition.isNull())
+			 idx = qtvUsers->indexAt(qpContextPosition);
+
+		if (! idx.isValid())
+			idx = qtvUsers->currentIndex();
+
+		c = pmModel->getChannel(idx);
+
+		if (cContextChannel)
+			c = cContextChannel.data();
 	}
+
+	cContextChannel = c;
+	qpContextPosition = QPoint();
+
+	if (c && c->iId != ClientUser::get(g.uiSession)->cChannel->iId) {
+		qmChannel->addAction(qaChannelJoin);
+		qmChannel->addSeparator();
+	}
+
 	qmChannel->addAction(qaChannelAdd);
 	qmChannel->addAction(qaChannelACL);
 	qmChannel->addAction(qaChannelRemove);
@@ -1482,7 +1539,6 @@ void MainWindow::qmChannel_aboutToShow() {
 		acl = true;
 		msg = true;
 
-		Channel *c = getContextMenuChannel();
 		Channel *home = ClientUser::get(g.uiSession)->cChannel;
 
 		if (c && c->iId != 0) {

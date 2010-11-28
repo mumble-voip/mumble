@@ -983,7 +983,7 @@ void UserModel::setComment(ClientUser *cu, const QString &comment) {
 				if (cu->uiSession == g.uiSession) {
 					QTimer::singleShot(0, g.mw, SLOT(on_qaSelfComment_triggered()));
 				} else {
-					g.mw->uiContextSession = cu->uiSession;
+					g.mw->cuContextUser = cu;
 					QTimer::singleShot(0, g.mw, SLOT(on_qaUserCommentView_triggered()));
 				}
 			} else {
