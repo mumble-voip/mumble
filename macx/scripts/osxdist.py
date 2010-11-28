@@ -13,7 +13,7 @@ from optparse import OptionParser
 
 def gitrev():
 	'''Get git revision of the current Mumble build.'''
-	return os.popen('git show HEAD | grep commit | sed \'s,commit\ ,,\' | head -c6').read()
+	return os.popen('git describe').read()
 
 def codesign(id, path):
 	'''Call the codesign executable.'''
