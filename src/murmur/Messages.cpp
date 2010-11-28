@@ -1570,6 +1570,8 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 }
 
 void Server::msgRequestBlob(ServerUser *uSource, MumbleProto::RequestBlob &msg) {
+	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
+
 	int ntextures = msg.session_texture_size();
 	int ncomments = msg.session_comment_size();
 	int ndescriptions = msg.channel_description_size();
