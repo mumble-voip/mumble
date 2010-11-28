@@ -268,7 +268,8 @@ ServerDB::ServerDB() {
 					qlForeignKeys << qsp(query.value(0).toString(), query.value(1).toString());
 
 				foreach(const qsp &key, qlForeignKeys) {
-					ServerDB::exec(query, QString::fromLatin1("ALTER TABLE `%1` DROP FOREIGN KEY `%2`").arg(key.first).arg(key.second), true);
+					if (key.first.startsWith(Meta::mp.qsDBPrefix))
+						ServerDB::exec(query, QString::fromLatin1("ALTER TABLE `%1` DROP FOREIGN KEY `%2`").arg(key.first).arg(key.second), true);
 				}
 
 
@@ -279,7 +280,8 @@ ServerDB::ServerDB() {
 					qlIndexes << qsp(query.value(0).toString(), query.value(1).toString());
 
 				foreach(const qsp &key, qlIndexes) {
-					ServerDB::exec(query, QString::fromLatin1("ALTER TABLE `%1` DROP INDEX `%2`").arg(key.first).arg(key.second), true);
+					if (key.first.startsWith(Meta::mp.qsDBPrefix))
+						ServerDB::exec(query, QString::fromLatin1("ALTER TABLE `%1` DROP INDEX `%2`").arg(key.first).arg(key.second), true);
 				}
 
 				qlIndexes.clear();
@@ -291,7 +293,8 @@ ServerDB::ServerDB() {
 					qlIndexes << qsp(query.value(0).toString(), query.value(1).toString());
 
 				foreach(const qsp &key, qlIndexes) {
-					ServerDB::exec(query, QString::fromLatin1("ALTER TABLE `%1` DROP INDEX `%2`").arg(key.first).arg(key.second), true);
+					if (key.first.startsWith(Meta::mp.qsDBPrefix))
+						ServerDB::exec(query, QString::fromLatin1("ALTER TABLE `%1` DROP INDEX `%2`").arg(key.first).arg(key.second), true);
 				}
 			}
 			SQLDO("CREATE TABLE `%1servers`(`server_id` INTEGER PRIMARY KEY AUTO_INCREMENT) Type=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
