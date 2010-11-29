@@ -430,18 +430,16 @@ if __name__ == '__main__':
 			title = 'Mumble %s ' % ver
 	# Snapshot
 	elif options.snapshot or options.git:
-		n = datetime.datetime.now()
-		d = n.strftime('%F-%H%M')
 		if not options.git:
 			ver = options.snapshot
 		else:
 			ver = gitrev()	
 		if options.universal:
-			fn = 'release/Mumble-Universal-Snapshot-%s-%s.dmg' % (d, ver)
-			title = 'Mumble Snapshot %s (Universal, %s)' % (ver, d)
+			fn = 'release/Mumble-Universal-Snapshot-%s.dmg' % ver
+			title = 'Mumble Snapshot %s (Universal)' % ver
 		else:
-			fn = 'release/Mumble-Snapshot-%s-%s.dmg' % (d, ver)
-			title = 'Mumble Snapshot %s (%s)' % (ver, d)
+			fn = 'release/Mumble-Snapshot-%s.dmg' % ver
+			title = 'Mumble Snapshot %s' % ver
 	else:
 		print 'Neither snapshot or release selected. Bailing.'
 		sys.exit(1)
