@@ -126,7 +126,6 @@ void ChatbarTextEdit::doResize() {
 }
 
 void ChatbarTextEdit::doScrollbar() {
-	setVerticalScrollBarPolicy(sizeHint().height() > height() ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
 	ensureCursorVisible();
 }
 
