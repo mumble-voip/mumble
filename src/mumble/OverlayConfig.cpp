@@ -330,6 +330,10 @@ void OverlayConfig::save() const {
 	g.qs->beginGroup(QLatin1String("overlay"));
 	s.os.save();
 	g.qs->endGroup();
+#ifdef Q_OS_WIN
+	// On MS windows force sync so the registry is updated.
+	g.qs->sync();
+#endif
 }
 
 void OverlayConfig::accept() const {
