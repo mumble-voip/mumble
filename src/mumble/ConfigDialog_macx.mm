@@ -241,30 +241,18 @@ void ConfigDialogMac::updateExpert(bool b) {
 }
 
 void ConfigDialogMac::apply() {
+	Audio::stop();
+
 	foreach(ConfigWidget *cw, qmWidgets)
 		cw->save();
-
-	boost::weak_ptr<AudioInput> wai(g.ai);
-	boost::weak_ptr<AudioOutput> wao(g.ao);
-
-	g.ai.reset();
-	g.ao.reset();
-
-	while (! wai.expired() || ! wao.expired()) {
-		// Where is QThread::yield() ?
-	}
 
 	g.s = s;
 
 	foreach(ConfigWidget *cw, qmWidgets)
 		cw->accept();
 
-	g.ai = AudioInputRegistrar::newFromChoice(g.s.qsAudioInput);
-	if (g.ai)
-		g.ai->start(QThread::HighestPriority);
-	g.ao = AudioOutputRegistrar::newFromChoice(g.s.qsAudioOutput);
-	if (g.ao)
-		g.ao->start(QThread::HighPriority);
+	if (!g.s.bAttenuateOthersOnTalk)
+		g.bAttenuateOthers = false;
 
 	// They might have changed their keys.
 	g.iPushToTalk = 0;
@@ -272,6 +260,8 @@ void ConfigDialogMac::apply() {
 	NSWindow *window = qt_mac_window_for(this);
 	ConfigDialogDelegate *delegate = [[window toolbar] delegate];
 	g.s.bExpert = [delegate expertMode];
+
+	Audio::start();
 }
 
 void ConfigDialogMac::accept() {
