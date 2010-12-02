@@ -242,8 +242,6 @@ bool OverlayConfig::isInstalled() {
 		ret = [[bundle bundleIdentifier] isEqualToString:MumbleOverlayLoaderBundleIdentifier];
 	}
 
-	[bundle unload];
-
 	return ret;
 }
 
@@ -327,19 +325,18 @@ out:
 }
 
 bool OverlayConfig::needsUpgrade() {
-	NSBundle *bundle = [NSBundle bundleWithPath:MumbleOverlayLoaderBundle];
-	if (! bundle) {
-		qWarning("Overlay_macx: Unable to load the installed OSAX bundle. This shouldn't happen.");
-		return false;
+	NSDictionary *infoPlist = [NSDictionary dictionaryWithContentsOfFile:[NSString stringWithFormat:@"%@/Contents/Info.plist", MumbleOverlayLoaderBundle]];
+	if (infoPlist) {
+		NSUInteger curVersion = [[infoPlist objectForKey:@"MumbleOverlayVersion"] unsignedIntegerValue];
+
+		QByteArray prefer = preferedInstallerPath();
+		if (prefer.isNull())
+			return false;
+
+		return isInstallerNewer(prefer.constData(), curVersion);
 	}
-	NSUInteger curVersion = [[bundle objectForInfoDictionaryKey:@"MumbleOverlayVersion"] unsignedIntegerValue];
-	[bundle unload];
 
-	QByteArray prefer = preferedInstallerPath();
-	if (prefer.isNull())
-		return false;
-
-	return isInstallerNewer(prefer.constData(), curVersion);
+	return false;
 }
 
 static bool authExec(AuthorizationRef ref, const char **argv) {
@@ -713,7 +710,6 @@ bool OverlayConfig::uninstallFiles() {
 	// Load the installed loader bundle and check if it's something we're willing to uninstall.
 	loaderBundle = [NSBundle bundleWithPath:MumbleOverlayLoaderBundle];
 	bundleOk = [[loaderBundle bundleIdentifier] isEqualToString:MumbleOverlayLoaderBundleIdentifier];
-	[loaderBundle unload];
 
 	// Perform uninstallation using Authorization Services. (Pops up a dialog asking for admin privileges)
 	if (bundleOk) {
