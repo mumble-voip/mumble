@@ -305,6 +305,7 @@ void Server::readParams() {
 	qsRegName = Meta::mp.qsRegName;
 	qsRegPassword = Meta::mp.qsRegPassword;
 	qsRegHost = Meta::mp.qsRegHost;
+	qsRegLocation = Meta::mp.qsRegLocation;
 	qurlRegWeb = Meta::mp.qurlRegWeb;
 	bBonjour = Meta::mp.bBonjour;
 	bAllowPing = Meta::mp.bAllowPing;
@@ -355,6 +356,7 @@ void Server::readParams() {
 	qsRegName = getConf("registername", qsRegName).toString();
 	qsRegPassword = getConf("registerpassword", qsRegPassword).toString();
 	qsRegHost = getConf("registerhostname", qsRegHost).toString();
+	qsRegLocation = getConf("registerlocation", qsRegLocation).toString();
 	qurlRegWeb = QUrl(getConf("registerurl", qurlRegWeb.toString()).toString());
 	bBonjour = getConf("bonjour", bBonjour).toBool();
 	bAllowPing = getConf("allowping", bAllowPing).toBool();
@@ -439,6 +441,8 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		qsRegPassword = !v.isNull() ? v : Meta::mp.qsRegPassword;
 	else if (key == "registerhostname")
 		qsRegHost = !v.isNull() ? v : Meta::mp.qsRegHost;
+	else if (key == "registerlocation")
+		qsRegLocation = !v.isNull() ? v : Meta::mp.qsRegLocation;
 	else if (key == "registerurl")
 		qurlRegWeb = !v.isNull() ? v : Meta::mp.qurlRegWeb;
 	else if (key == "certrequired")
@@ -951,6 +955,7 @@ void Server::newClient() {
 		sock->addCaCertificates(qlCA);
 
 		if (qqIds.isEmpty()) {
+			log(QString("Session ID pool (%1) empty, rejecting connection").arg(iMaxUsers));
 			sock->disconnectFromHost();
 			sock->deleteLater();
 			return;
@@ -1080,7 +1085,7 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 	if (old && old->bTemporary && old->qlUsers.isEmpty())
 		QCoreApplication::instance()->postEvent(this, new ExecEvent(boost::bind(&Server::removeChannel, this, old->iId)));
 
-	qqIds.enqueue(u->uiSession);
+	qqIds.enqueue(u->uiSession); // Reinsert session id into pool
 
 	if (u->sState == ServerUser::Authenticated) {
 		clearTempGroups(u); // Also clears ACL cache

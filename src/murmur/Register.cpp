@@ -105,6 +105,13 @@ void Server::update() {
 	t=doc.createTextNode(QString::number(qhChannels.count()));
 	tag.appendChild(t);
 
+	if (!qsRegLocation.isEmpty()) {
+		tag=doc.createElement(QLatin1String("location"));
+		root.appendChild(tag);
+		t=doc.createTextNode(qsRegLocation);
+		tag.appendChild(t);
+	}
+
 	QNetworkRequest qnr(QUrl(QLatin1String("https://mumble.hive.no/register.cgi")));
 	qnr.setHeader(QNetworkRequest::ContentTypeHeader, QLatin1String("text/xml"));
 

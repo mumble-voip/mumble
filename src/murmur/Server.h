@@ -119,6 +119,7 @@ class Server : public QThread {
 		QString qsRegName;
 		QString qsRegPassword;
 		QString qsRegHost;
+		QString qsRegLocation;
 		QUrl qurlRegWeb;
 		bool bBonjour;
 		bool bAllowPing;

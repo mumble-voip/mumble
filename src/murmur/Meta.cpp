@@ -255,6 +255,7 @@ void MetaParams::read(QString fname) {
 	qsRegName = qsSettings->value("registerName", qsRegName).toString();
 	qsRegPassword = qsSettings->value("registerPassword", qsRegPassword).toString();
 	qsRegHost = qsSettings->value("registerHostname", qsRegHost).toString();
+	qsRegLocation = qsSettings->value("registerLocation", qsRegLocation).toString();
 	qurlRegWeb = QUrl(qsSettings->value("registerUrl", qurlRegWeb.toString()).toString());
 	bBonjour = qsSettings->value("bonjour", bBonjour).toBool();
 
@@ -401,6 +402,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("registername"),qsRegName);
 	qmConfig.insert(QLatin1String("registerpassword"),qsRegPassword);
 	qmConfig.insert(QLatin1String("registerhostname"),qsRegHost);
+	qmConfig.insert(QLatin1String("registerlocation"), qsRegLocation);
 	qmConfig.insert(QLatin1String("registerurl"),qurlRegWeb.toString());
 	qmConfig.insert(QLatin1String("bonjour"), bBonjour ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("certificate"),qscCert.toPem());
