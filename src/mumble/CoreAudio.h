@@ -55,7 +55,7 @@ class CoreAudioInput : public AudioInput {
 		AudioUnit au;
 		AUEventListenerRef el;
 		AudioBufferList buflist;
-		static void propertyChange(void *udata, void *obj, const AudioUnitEvent *evt, UInt64 time, AudioUnitParameterValue val);
+		static void propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope, AudioUnitElement element);
 		static OSStatus inputCallback(void *udata, AudioUnitRenderActionFlags *flags, const AudioTimeStamp *ts,
 		                              UInt32 busnum, UInt32 npackets, AudioBufferList *buflist);
 	public:
@@ -71,7 +71,7 @@ class CoreAudioOutput : public AudioOutput {
 	protected:
 		AudioUnit au;
 		AUEventListenerRef el;
-		static void propertyChange(void *udata, void *obj, const AudioUnitEvent *evt, UInt64 time, AudioUnitParameterValue val);
+		static void propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope, AudioUnitElement element);
 		static OSStatus outputCallback(void *udata, AudioUnitRenderActionFlags *flags, const AudioTimeStamp *ts,
 		                               UInt32 busnum, UInt32 npackets, AudioBufferList *buflist);
 	public:

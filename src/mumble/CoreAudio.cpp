@@ -343,20 +343,9 @@ CoreAudioInput::CoreAudioInput() {
 		return;
 	}
 
-	err = AUEventListenerCreate(CoreAudioInput::propertyChange, this, CFRunLoopGetMain(), kCFRunLoopDefaultMode, 0.f, 0.f, &el);
+	err = AudioUnitAddPropertyListener(au, kAudioUnitProperty_StreamFormat, CoreAudioInput::propertyChange, this);
 	if (err != noErr) {
 		qWarning("CoreAudioInput: Unable to create input property change listener. Unable to listen to property change events.");
-	} else {
-		AudioUnitEvent evt;
-		evt.mEventType = kAudioUnitEvent_PropertyChange;
-		evt.mArgument.mProperty.mPropertyID = kAudioUnitProperty_StreamFormat;
-		evt.mArgument.mProperty.mAudioUnit = au;
-		evt.mArgument.mProperty.mScope = kAudioUnitScope_Output;
-		evt.mArgument.mProperty.mElement = 1;
-		err = AUEventListenerAddEventType(el, this, &evt);
-		if (err != noErr) {
-			qWarning("CoreAudioInput: Unable to subscribe to stream format change events.");
-		}
 	}
 
 	AURenderCallbackStruct cb;
@@ -425,8 +414,6 @@ CoreAudioInput::~CoreAudioInput() {
 	if (b && b->mData)
 		free(b->mData);
 
-	AUListenerDispose(el);
-
 	qWarning("CoreAudioInput: Shutting down.");
 }
 
@@ -446,8 +433,8 @@ OSStatus CoreAudioInput::inputCallback(void *udata, AudioUnitRenderActionFlags *
 	return noErr;
 }
 
-void CoreAudioInput::propertyChange(void *udata, void *obj, const AudioUnitEvent *evt, UInt64 time, AudioUnitParameterValue val) {
-	if (evt && evt->mEventType == kAudioUnitEvent_PropertyChange && evt->mArgument.mProperty.mPropertyID == kAudioUnitProperty_StreamFormat) {
+void CoreAudioInput::propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope, AudioUnitElement element) {
+	if (prop == kAudioUnitProperty_StreamFormat) {
 		qWarning("CoreAudioInput: Stream format change detected. Restarting AudioInput.");
 		Audio::stopInput();
 		Audio::startInput();
@@ -578,20 +565,9 @@ CoreAudioOutput::CoreAudioOutput() {
 		return;
 	}
 
-	err = AUEventListenerCreate(CoreAudioOutput::propertyChange, this, CFRunLoopGetMain(), kCFRunLoopDefaultMode, 0.f, 0.f, &el);
+	err = AudioUnitAddPropertyListener(au, kAudioUnitProperty_StreamFormat, CoreAudioOutput::propertyChange, this);
 	if (err != noErr) {
 		qWarning("CoreAudioOutput: Unable to create output property change listener. Unable to listen to property change events.");
-	} else {
-		AudioUnitEvent evt;
-		evt.mEventType = kAudioUnitEvent_PropertyChange;
-		evt.mArgument.mProperty.mPropertyID = kAudioUnitProperty_StreamFormat;
-		evt.mArgument.mProperty.mAudioUnit = au;
-		evt.mArgument.mProperty.mScope = kAudioUnitScope_Input;
-		evt.mArgument.mProperty.mElement = 0;
-		err = AUEventListenerAddEventType(el, this, &evt);
-		if (err != noErr) {
-			qWarning("CoreAudioOutput: Unable to subscribe to stream format change events.");
-		}
 	}
 
 	AURenderCallbackStruct cb;
@@ -641,8 +617,6 @@ CoreAudioOutput::~CoreAudioOutput() {
 		}
 	}
 
-	AUListenerDispose(el);
-
 	qWarning("CoreAudioOutput: Shutting down.");
 }
 
@@ -661,8 +635,8 @@ OSStatus CoreAudioOutput::outputCallback(void *udata, AudioUnitRenderActionFlags
 	return noErr;
 }
 
-void CoreAudioOutput::propertyChange(void *udata, void *obj, const AudioUnitEvent *evt, UInt64 time, AudioUnitParameterValue val) {
-	if (evt && evt->mEventType == kAudioUnitEvent_PropertyChange && evt->mArgument.mProperty.mPropertyID == kAudioUnitProperty_StreamFormat) {
+void CoreAudioOutput::propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope, AudioUnitElement element) {
+	if (prop == kAudioUnitProperty_StreamFormat) {
 		qWarning("CoreAudioOuptut: Stream format change detected. Restarting AudioOutput.");
 		Audio::stopOutput();
 		Audio::startOutput();
