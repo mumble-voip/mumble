@@ -1472,8 +1472,8 @@ bool Server::validateChannelName(const QString &name) {
 }
 
 void Server::recheckCodecVersions() {
-	QMap<int, unsigned int> qmCodecUsercount;
-	QMap<int, unsigned int>::const_iterator i;
+	QMap<int, int> qmCodecUsercount;
+	QMap<int, int>::const_iterator i;
 	int users = 0;
 
 	// Count how many users use which codec
