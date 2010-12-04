@@ -117,15 +117,16 @@ QSize ChatbarTextEdit::sizeHint() const {
 
 void ChatbarTextEdit::resizeEvent(QResizeEvent *e) {
 	QTextEdit::resizeEvent(e);
-	doScrollbar();
+	QTimer::singleShot(0, this, SLOT(doScrollbar()));
 }
 
 void ChatbarTextEdit::doResize() {
 	updateGeometry();
-	doScrollbar();
+	QTimer::singleShot(0, this, SLOT(doScrollbar()));
 }
 
 void ChatbarTextEdit::doScrollbar() {
+	setVerticalScrollBarPolicy(sizeHint().height() > height() ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
 	ensureCursorVisible();
 }
 

@@ -38,7 +38,6 @@ class ChatbarTextEdit : public QTextEdit {
 		Q_OBJECT
 		Q_DISABLE_COPY(ChatbarTextEdit)
 		void inFocus(bool);
-		void doScrollbar();
 	protected:
 		QString qsDefaultText;
 		bool bDefaultVisible;
@@ -59,6 +58,7 @@ class ChatbarTextEdit : public QTextEdit {
 	public slots:
 		void pasteAndSend_triggered();
 		void doResize();
+		void doScrollbar();
 	public:
 		ChatbarTextEdit(QWidget *p = NULL);
 };
