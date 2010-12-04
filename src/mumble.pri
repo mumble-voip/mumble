@@ -7,7 +7,7 @@ DEFINES		*= MUMBLE_VERSION_STRING=$$VERSION
 INCLUDEPATH	+= $$PWD .
 VPATH		+= $$PWD
 HEADERS		*= ACL.h Group.h Channel.h Connection.h User.h Net.h
-SOURCES 	*= Mumble.pb.cc ACL.cpp Group.cpp Channel.cpp Connection.cpp User.cpp Timer.cpp CryptState.cpp OSInfo.cpp Net.cpp SSL.cpp ../Version.cpp
+SOURCES 	*= Mumble.pb.cc ACL.cpp Group.cpp Channel.cpp Connection.cpp User.cpp Timer.cpp CryptState.cpp OSInfo.cpp Net.cpp SSL.cpp Version.cpp
 PROTOBUF	*= ../Mumble.proto
 
 pb.output = ${QMAKE_FILE_BASE}.pb.cc

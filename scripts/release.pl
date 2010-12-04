@@ -75,7 +75,7 @@ while (my $pro = shift @pro) {
             $vdir =~ s/-build/-src/;
             push @vpath, $vdir.'libcelt/';
           } else {
-            push @vpath,map { "$basedir$_/"} split(/\s/, $value);
+            push @vpath,map { "$basedir$_/"} map { s/\$\$PWD/./; $_;} split(/\s/, $value);
           }
         }
         case "subdirs" {
@@ -132,7 +132,7 @@ foreach my $resfile (@resources) {
 }
 
 my @fulldirs = ('speex','speex/include/speex','speex/libspeex','man');
-foreach my $cver ('0.7.0') {
+foreach my $cver ('0.7.0', '0.9.0') {
   push @fulldirs, "celt-$cver-src";
   push @fulldirs, "celt-$cver-src/libcelt";
 }
@@ -152,10 +152,10 @@ foreach my $dir (@fulldirs) {
 delete($files{'LICENSE'});
 
 if ($#ARGV < 0) {
-  open(F, "git rev-parse --short=6 origin|"); 
+  open(F, "git describe origin|"); 
   while (<F>) {
     chomp();   
-    $ver .= "~" . strftime("%Y%m%d%H%M",gmtime()) . "-" . $_;
+    $ver = $_;
   }
   close(F);
   print "REVISION $ver\n";
