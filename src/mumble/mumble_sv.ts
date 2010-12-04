@@ -3501,7 +3501,7 @@ av dessa möjliga platser.</translation>
 <context>
     <name>DockTitleBar</name>
     <message>
-        <location filename="CustomElements.cpp" line="+135"/>
+        <location filename="CustomElements.cpp" line="+134"/>
         <source>Drag here</source>
         <translation>Dra här</translation>
     </message>
@@ -3572,7 +3572,7 @@ av dessa möjliga platser.</translation>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+654"/>
+        <location filename="GlobalShortcut.cpp" line="+652"/>
         <source>Shortcuts</source>
         <translation>Genvägar</translation>
     </message>
@@ -3915,7 +3915,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
 </translation>
     </message>
     <message>
-        <location line="+140"/>
+        <location line="+142"/>
         <source>link to %1</source>
         <translation>länk till %1</translation>
     </message>
@@ -3943,7 +3943,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-519"/>
+        <location line="-521"/>
         <source>Toggle console for %1 events</source>
         <translation>Växla konsoll för %1 händelser</translation>
     </message>
@@ -4385,12 +4385,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+1928"/>
+        <location line="+1984"/>
         <source>Root</source>
         <translation>Rot</translation>
     </message>
     <message>
-        <location line="-1879"/>
+        <location line="-1935"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryck-för-att-Tala</translation>
@@ -4469,12 +4469,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2043"/>
+        <location line="+2099"/>
         <source>Mumble -- %1</source>
         <translation>Mumble - %1</translation>
     </message>
     <message>
-        <location line="-2039"/>
+        <location line="-2095"/>
         <source>&amp;Window</source>
         <translation>&amp;Fönster</translation>
     </message>
@@ -4543,13 +4543,13 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2073"/>
+        <location line="+2129"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Ej ansluten&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1836"/>
+        <location line="-1869"/>
         <source>Clear</source>
         <translation>Rensa</translation>
     </message>
@@ -4631,13 +4631,13 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="-104"/>
-        <location line="+311"/>
+        <location line="+327"/>
         <source>Register yourself as %1</source>
         <translation>Registrera dig som %1</translation>
     </message>
     <message>
-        <location line="-311"/>
-        <location line="+311"/>
+        <location line="-327"/>
+        <location line="+327"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Du kommer registrera dig på den här servern. Denna åtgärd kan inte ångras. Ditt användarnamn kan inte heller ändras när detta är gjort. Du kommer vara känd som &quot;%1&quot; på den här servern.&lt;/p&gt;&lt;p&gt;Är du säker på att du vill registrera dig?&lt;/p&gt;</translation>
     </message>
@@ -4662,13 +4662,13 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Bannlyser %1</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+53"/>
         <source>View comment on user %1</source>
         <translation>Visa kommentar på %1</translation>
     </message>
     <message>
         <location line="+55"/>
-        <location line="+221"/>
+        <location line="+236"/>
         <source>Message to channel %1</source>
         <translation>Meddelande till kanalen %1</translation>
     </message>
@@ -4731,12 +4731,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Bildformatet stöds ej.</translation>
     </message>
     <message>
-        <location line="-1509"/>
+        <location line="-1542"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Röstkanal skickas över kontrollkanal.</translation>
     </message>
     <message>
-        <location line="-831"/>
+        <location line="-854"/>
         <source>&amp;User</source>
         <translation>&amp;Användare</translation>
     </message>
@@ -4752,7 +4752,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Detta kommer ändra i-spelet läget.</translation>
     </message>
     <message>
-        <location line="+651"/>
+        <location line="+674"/>
         <source>Change your comment</source>
         <translation>Ändra din kommentar</translation>
     </message>
@@ -4803,12 +4803,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1196"/>
+        <location line="+1229"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Visa certifikat</translation>
     </message>
     <message>
-        <location line="-953"/>
+        <location line="-970"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Ange anledning</translation>
@@ -4820,15 +4820,15 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+10"/>
-        <location line="+78"/>
+        <location line="+80"/>
         <location line="+4"/>
-        <location line="+217"/>
+        <location line="+232"/>
         <source>To %1: %2</source>
         <translation>Till %1: %2</translation>
     </message>
     <message>
-        <location line="-299"/>
-        <location line="+82"/>
+        <location line="-316"/>
+        <location line="+84"/>
         <source>Message to %1</source>
         <translation>Meddelande till %1</translation>
     </message>
@@ -4838,7 +4838,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Är du säker på att du vill återställa kommentaren av användaren %1?</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+193"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Är du säker på att du vill ta bort %1 och alla dess underkanaler?</translation>
     </message>
@@ -6405,7 +6405,7 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
         <translation>Överlag</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+75"/>
         <source>Choose executable</source>
         <translation>Välj körbar fil</translation>
     </message>
@@ -7187,7 +7187,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-483"/>
+        <location filename="GlobalShortcut.cpp" line="-481"/>
         <source>Unassigned</source>
         <translation>Otilldelad</translation>
     </message>

@@ -4084,7 +4084,7 @@ delle possibili posizioni.</translation>
 <context>
     <name>DockTitleBar</name>
     <message>
-        <location filename="CustomElements.cpp" line="+135"/>
+        <location filename="CustomElements.cpp" line="+134"/>
         <source>Drag here</source>
         <translation>Trascina qui</translation>
     </message>
@@ -4155,7 +4155,7 @@ delle possibili posizioni.</translation>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+654"/>
+        <location filename="GlobalShortcut.cpp" line="+652"/>
         <source>Shortcuts</source>
         <translation>Scorciatoie</translation>
     </message>
@@ -4622,7 +4622,7 @@ p, li { white-space: pre-wrap; }
 </translation>
     </message>
     <message>
-        <location line="+140"/>
+        <location line="+142"/>
         <source>link to %1</source>
         <translation>collegamento con %1</translation>
     </message>
@@ -4650,7 +4650,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-519"/>
+        <location line="-521"/>
         <source>Toggle console for %1 events</source>
         <translation>Imposta console per gli eventi %1</translation>
     </message>
@@ -5184,12 +5184,12 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+1928"/>
+        <location line="+1984"/>
         <source>Root</source>
         <translation>Radice</translation>
     </message>
     <message>
-        <location line="-1879"/>
+        <location line="-1935"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Premi-per-parlare</translation>
@@ -5328,12 +5328,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2043"/>
+        <location line="+2099"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2039"/>
+        <location line="-2095"/>
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
@@ -5407,13 +5407,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2073"/>
+        <location line="+2129"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Disconnesso&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1836"/>
+        <location line="-1869"/>
         <source>Clear</source>
         <translation>Cancella</translation>
     </message>
@@ -5495,7 +5495,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;&lt;p&gt;Host remoto %5 (porta%6)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1494"/>
+        <location line="+1527"/>
         <source>Images (*.png *.jpg *.jpeg *.svg)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5508,7 +5508,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1483"/>
+        <location line="-1516"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canale di voce&lt;/h2&gt;&lt;p&gt;Crittografato con 128 bit OCB-AES128&lt;br/&gt;%1 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
@@ -5519,19 +5519,19 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="-104"/>
-        <location line="+311"/>
+        <location line="+327"/>
         <source>Register yourself as %1</source>
         <translation>Registrati come %1</translation>
     </message>
     <message>
-        <location line="-988"/>
+        <location line="-1027"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Cambia lo stato della sovrapposizione in gioco.</translation>
     </message>
     <message>
-        <location line="+677"/>
-        <location line="+311"/>
+        <location line="+700"/>
+        <location line="+327"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Stai per registrarti sul server. Quest&apos;azione non può essere annullata, il tuo nome utente non potrà essere cambiato. Sarai per sempre conosciuto come &apos;%1&apos; su questo server.&lt;p&gt;Se sicuro di volerti registrare?&lt;/p&gt;</translation>
     </message>
@@ -5560,7 +5560,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Cambia commento sull&apos;utente %1</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+53"/>
         <source>View comment on user %1</source>
         <translation>Visualizza commento dell&apos;utente %1</translation>
     </message>
@@ -5575,7 +5575,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+39"/>
-        <location line="+221"/>
+        <location line="+236"/>
         <source>Message to channel %1</source>
         <translation>Messaggio al canale %1</translation>
     </message>
@@ -5586,10 +5586,10 @@ p, li { white-space: pre-wrap; }
         <translation>Al canale %1 e ai suoi sottocanali:%2</translation>
     </message>
     <message>
-        <location line="-297"/>
-        <location line="+78"/>
+        <location line="-314"/>
+        <location line="+80"/>
         <location line="+4"/>
-        <location line="+217"/>
+        <location line="+232"/>
         <source>To %1: %2</source>
         <oldsource>%1: %2</oldsource>
         <translation>Per %1: %2</translation>
@@ -5656,7 +5656,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 variazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1509"/>
+        <location line="-1542"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Il canale di voce è trasmesso sul canale di controllo.</translation>
     </message>
@@ -5710,7 +5710,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1196"/>
+        <location line="+1229"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Visualizza certificato</translation>
     </message>
@@ -5719,7 +5719,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Espulsione giocatore %1</translation>
     </message>
     <message>
-        <location line="-953"/>
+        <location line="-970"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Inserisci motivazione</translation>
@@ -5735,7 +5735,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+10"/>
-        <location line="+82"/>
+        <location line="+84"/>
         <source>Message to %1</source>
         <translation>Messaggio a %1</translation>
     </message>
@@ -5744,7 +5744,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Nome canale</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+150"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Sei sicuro di voler cancellare %1 e tutti i suoi sottocanali?</translation>
     </message>
@@ -5887,7 +5887,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Giocatore</translation>
     </message>
     <message>
-        <location line="-2114"/>
+        <location line="-2170"/>
         <source>&amp;Channel</source>
         <translation>&amp;Canale</translation>
     </message>
@@ -7633,7 +7633,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation>Sovrapposizione</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+75"/>
         <source>Choose executable</source>
         <translation>Seleziona eseguibile</translation>
     </message>
@@ -8625,7 +8625,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-483"/>
+        <location filename="GlobalShortcut.cpp" line="-481"/>
         <source>Unassigned</source>
         <translation>Non assegnato</translation>
     </message>

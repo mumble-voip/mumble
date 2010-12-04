@@ -1,4 +1,63 @@
+2010-12-04
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c0bf2c2  Update release script
+    012dfc6  Use bzip2 for static build
+
+2010-12-03
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    b8a2745  Fix two signed|unsigned comparison warnings
+    e8a2bb5  Prepare murmur for user defined server locations
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    c857a99  CoreAudio: Use AudioUnitPropertyListener instead of
+	     AUEventListener to listen for AudioUnit stream format changes.
+    405ef1a  OverlayMac: Don't use NSBundle#objectForInfoDictionaryKey to
+	     determine whether we're up to date.
+
+2010-12-02
+  Mikkel Krautz <mikkel@krautz.dk>
+    c85be07  Use Audio::start() and Audio::stop() in ConfigDialogMac.
+    8366832  CoreAudio: Restart AudioInput/AudioOutput on stream format
+	     changes.
+
+2010-12-01
+  Mark-Willem Jansen <rawnar@users.sourceforge.net>
+    da83cdd  Overlay: On windows sync the settings to registry when overlay
+	     config is changed
+
+2010-11-29
+  Finessi Manuel <fino.manu@gmail.com>
+    ef07a72  Patch for bug: 3117145
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    acf85af  Drop the date from Mac OS X snapshots.
+    2ffa671  Don't include newline character from 'git describe' in
+	     osxdist.py.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    8c4abd2  Use default indentation in the treeview
+    39039c2  Disallow RequestBlob for unauthenticated users
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    1893804  Changing scrollbars in chatbar causes infinite loops. Remove
+	     it for now.
+
+2010-11-28
+  Mikkel Krautz <mikkel@krautz.dk>
+    b8cb9d0  Update Boost path for OSX to 1.45.0.
+    a0207d5  Use 'git describe' in osxdist.py.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    4f5089f  Fix context menu handling for disconnected users
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    5dfd1f0  Try to be slightly more tolerant of third-party tables in the
+	     DB
+
 2010-11-25
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    b38e264  Make TTS link simplification case insensitive
+
   Necromancer <necromancer3@users.sourceforge.net>
     03b5df8  [translation] Hebrew update
 

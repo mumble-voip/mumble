@@ -3412,7 +3412,7 @@ dos locais possíveis.</translation>
 <context>
     <name>DockTitleBar</name>
     <message>
-        <location filename="CustomElements.cpp" line="+135"/>
+        <location filename="CustomElements.cpp" line="+134"/>
         <source>Drag here</source>
         <translation>Arrastar aqui</translation>
     </message>
@@ -3483,7 +3483,7 @@ dos locais possíveis.</translation>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+654"/>
+        <location filename="GlobalShortcut.cpp" line="+652"/>
         <source>Shortcuts</source>
         <translation>Atalhos</translation>
     </message>
@@ -3817,7 +3817,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
 </translation>
     </message>
     <message>
-        <location line="+140"/>
+        <location line="+142"/>
         <source>link to %1</source>
         <translation>link para %1</translation>
     </message>
@@ -3845,7 +3845,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-519"/>
+        <location line="-521"/>
         <source>Toggle console for %1 events</source>
         <translation>Alternar console para eventos %1</translation>
     </message>
@@ -4287,12 +4287,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+1928"/>
+        <location line="+1984"/>
         <source>Root</source>
         <translation>Raíz</translation>
     </message>
     <message>
-        <location line="-1879"/>
+        <location line="-1935"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Pressionar-para-Falar</translation>
@@ -4371,12 +4371,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2043"/>
+        <location line="+2099"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2039"/>
+        <location line="-2095"/>
         <source>&amp;Window</source>
         <translation>&amp;Janela</translation>
     </message>
@@ -4445,13 +4445,13 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2073"/>
+        <location line="+2129"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Não conectado&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1836"/>
+        <location line="-1869"/>
         <source>Clear</source>
         <translation>Limpar</translation>
     </message>
@@ -4533,13 +4533,13 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="-104"/>
-        <location line="+311"/>
+        <location line="+327"/>
         <source>Register yourself as %1</source>
         <translation>Registrar-se como %1</translation>
     </message>
     <message>
-        <location line="-311"/>
-        <location line="+311"/>
+        <location line="-327"/>
+        <location line="+327"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Você está para se registrar neste servidor. Está ação não pode ser desfeita, e seu nome de usuário não pode ser alterado uma vez que esta ação se complete. Você será conhecido para sempre como &apos;%1&apos; neste servidor.&lt;/p&gt;&lt;p&gt;Você tem certeza de que você quer se registrar?&lt;/p&gt;</translation>
     </message>
@@ -4564,13 +4564,13 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Banindo usuário %1</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+53"/>
         <source>View comment on user %1</source>
         <translation>Ver comentário no usuário %1</translation>
     </message>
     <message>
         <location line="+55"/>
-        <location line="+221"/>
+        <location line="+236"/>
         <source>Message to channel %1</source>
         <translation>Mensagem para canal %1</translation>
     </message>
@@ -4633,12 +4633,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Formato de imagem não reconhecido.</translation>
     </message>
     <message>
-        <location line="-1509"/>
+        <location line="-1542"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Vanal de voz é enviado pelo canal de controle.</translation>
     </message>
     <message>
-        <location line="-831"/>
+        <location line="-854"/>
         <source>&amp;User</source>
         <translation>&amp;Usuário</translation>
     </message>
@@ -4654,7 +4654,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Alterna os estados da sobreimpressão em-jogo.</translation>
     </message>
     <message>
-        <location line="+651"/>
+        <location line="+674"/>
         <source>Change your comment</source>
         <translation>Alterar seu comentário</translation>
     </message>
@@ -4705,12 +4705,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1196"/>
+        <location line="+1229"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Ver certificado</translation>
     </message>
     <message>
-        <location line="-953"/>
+        <location line="-970"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Especifique a razão</translation>
@@ -4722,15 +4722,15 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="+10"/>
-        <location line="+78"/>
+        <location line="+80"/>
         <location line="+4"/>
-        <location line="+217"/>
+        <location line="+232"/>
         <source>To %1: %2</source>
         <translation>Para %1: %2</translation>
     </message>
     <message>
-        <location line="-299"/>
-        <location line="+82"/>
+        <location line="-316"/>
+        <location line="+84"/>
         <source>Message to %1</source>
         <translation>Mensagem para %1</translation>
     </message>
@@ -4740,7 +4740,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Você tem certeza de que quer resetar o comentário do usuário %1?</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+193"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Você tem certeza de que quer eliminar %1 e todos os seus subcanais?</translation>
     </message>
@@ -6303,7 +6303,7 @@ Evita que o cliente baixe imagens embutidas em mensagens de bate-papo com a marc
         <translation>Sobreimpressão</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+75"/>
         <source>Choose executable</source>
         <translation>Escolher executivo</translation>
     </message>
@@ -7073,7 +7073,7 @@ Para atualizar estes arquivos para suas últimes versões, clique no botão abai
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-483"/>
+        <location filename="GlobalShortcut.cpp" line="-481"/>
         <source>Unassigned</source>
         <translation>Não designado</translation>
     </message>

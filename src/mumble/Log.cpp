@@ -574,8 +574,8 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool con
 
 	// Apply simplifications to spoken text
 	QRegExp identifyURL(QLatin1String("[a-z-]+://[^ <$]*"),
-			    Qt::CaseInsensitive,
-			    QRegExp::RegExp2);
+	                    Qt::CaseInsensitive,
+	                    QRegExp::RegExp2);
 
 	QStringList qslAllowed = allowedSchemes();
 

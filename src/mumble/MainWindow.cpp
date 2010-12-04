@@ -1486,7 +1486,7 @@ void MainWindow::qmChannel_aboutToShow() {
 	if (g.uiSession != 0) {
 		QModelIndex idx;
 		if (! qpContextPosition.isNull())
-			 idx = qtvUsers->indexAt(qpContextPosition);
+			idx = qtvUsers->indexAt(qpContextPosition);
 
 		if (! idx.isValid())
 			idx = qtvUsers->currentIndex();

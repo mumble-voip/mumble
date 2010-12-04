@@ -4238,7 +4238,7 @@ of the possible locations.</source>
 <context>
     <name>DockTitleBar</name>
     <message>
-        <location filename="CustomElements.cpp" line="+135"/>
+        <location filename="CustomElements.cpp" line="+134"/>
         <source>Drag here</source>
         <translation>Перетащить сюда</translation>
     </message>
@@ -4309,7 +4309,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+654"/>
+        <location filename="GlobalShortcut.cpp" line="+652"/>
         <source>Shortcuts</source>
         <translation>Горячие клавиши</translation>
     </message>
@@ -4746,7 +4746,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>[Дата сменилась на %1]</translation>
     </message>
     <message>
-        <location line="+140"/>
+        <location line="+142"/>
         <source>link to %1</source>
         <translation>ссылка на %1</translation>
     </message>
@@ -4774,7 +4774,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-519"/>
+        <location line="-521"/>
         <source>Toggle console for %1 events</source>
         <translation>Включение/выключение лога для событий &quot;%1&quot;</translation>
     </message>
@@ -5236,7 +5236,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+1928"/>
+        <location line="+1984"/>
         <source>Root</source>
         <translation>Корень</translation>
     </message>
@@ -5700,9 +5700,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Соединиться с веб-страницей Mumble, чтобы проверить доступность новой версии и уведомить Вас о ссылке для ее закачки.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1835"/>
+        <location filename="MainWindow.cpp" line="-1891"/>
         <location line="+12"/>
-        <location line="+2043"/>
+        <location line="+2099"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -5724,7 +5724,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Игрок</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2130"/>
+        <location filename="MainWindow.cpp" line="-2186"/>
         <source>&amp;Channel</source>
         <translation>&amp;Канал</translation>
     </message>
@@ -5837,7 +5837,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Выкидывание игрока %1</translation>
     </message>
     <message>
-        <location line="+1031"/>
+        <location line="+1070"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Введите причину</translation>
@@ -5856,7 +5856,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Имя канала</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+245"/>
+        <location filename="MainWindow.cpp" line="+262"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Вы уверены, что хотите удалить %1 и все его подканалы?</translation>
     </message>
@@ -5914,7 +5914,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Отключен от сервера.</translation>
     </message>
     <message>
-        <location line="-1424"/>
+        <location line="-1457"/>
         <source>Reconnecting.</source>
         <translation>Повтор связи.</translation>
     </message>
@@ -6287,21 +6287,21 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Отправить текстовое сообщение</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+456"/>
+        <location filename="MainWindow.cpp" line="+472"/>
         <source>Sending message to %1</source>
         <translation>Отправка сообщения пользователю %1</translation>
     </message>
     <message>
         <location line="+10"/>
-        <location line="+78"/>
+        <location line="+80"/>
         <location line="+4"/>
-        <location line="+217"/>
+        <location line="+232"/>
         <source>To %1: %2</source>
         <translation>Для %1: %2</translation>
     </message>
     <message>
-        <location line="-299"/>
-        <location line="+82"/>
+        <location line="-316"/>
+        <location line="+84"/>
         <source>Message to %1</source>
         <translation>Сообщение для %1</translation>
     </message>
@@ -6311,7 +6311,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Вы уверены, что хотите очистить комментарий пользователя %1?</translation>
     </message>
     <message>
-        <location line="+258"/>
+        <location line="+273"/>
         <source>To %1 (Tree): %2</source>
         <oldsource>(Tree) %1: %2</oldsource>
         <translation>Для %1 (Дерево): %2</translation>
@@ -6483,7 +6483,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Показывает расширенную информацию о соединении с сервером.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1631"/>
+        <location filename="MainWindow.cpp" line="-1664"/>
         <source>Opening URL %1</source>
         <translation>Открывается URL %1</translation>
     </message>
@@ -6565,7 +6565,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1196"/>
+        <location line="+1229"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Посмотреть сертификат</translation>
     </message>
@@ -6574,20 +6574,20 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Картинки (*.png *.jpg *.svg)</translation>
     </message>
     <message>
-        <location line="-1306"/>
-        <location line="+311"/>
+        <location line="-1339"/>
+        <location line="+327"/>
         <source>Register yourself as %1</source>
         <translation>Зарегистрироваться как %1</translation>
     </message>
     <message>
-        <location line="-988"/>
+        <location line="-1027"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Переключает состояние Замещения в игре.</translation>
     </message>
     <message>
-        <location line="+677"/>
-        <location line="+311"/>
+        <location line="+700"/>
+        <location line="+327"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Вы собираетесь зарегистрироваться на этом сервере. Невозможно будет отметить данное действие и изменить Ваше имя для данного сертификата. Вы всегда будете известны как &lt;b&gt;&apos;%1&apos;&lt;/b&gt; на этом сервере.&lt;/p&gt;&lt;p&gt;Вы действительно желаете зарегистрироваться?&lt;/p&gt;</translation>
     </message>
@@ -6612,13 +6612,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Забанить пользователя %1</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+53"/>
         <source>View comment on user %1</source>
         <translation>Посмотреть комментарий пользователя %1</translation>
     </message>
     <message>
         <location line="+55"/>
-        <location line="+221"/>
+        <location line="+236"/>
         <source>Message to channel %1</source>
         <translation>Сообщение в канал %1</translation>
     </message>
@@ -6686,17 +6686,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Формат изображения не поддерживается.</translation>
     </message>
     <message>
-        <location line="-1509"/>
+        <location line="-1542"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Голосовой канал отправлен через канал управления.</translation>
     </message>
     <message>
-        <location line="-831"/>
+        <location line="-854"/>
         <source>&amp;User</source>
         <translation>&amp;Пользователь</translation>
     </message>
     <message>
-        <location line="+822"/>
+        <location line="+845"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Канал управления&lt;/h2&gt;&lt;p&gt;Шифрование %1 бит %2&lt;br /&gt;%3 мс среднее время задержки (%4 отклонение)&lt;/p&gt;&lt;p&gt;Адрес %5 (порт %6)&lt;/p&gt;</translation>
     </message>
@@ -6736,7 +6736,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Реcинхронизированные</translation>
     </message>
     <message>
-        <location line="+588"/>
+        <location line="+621"/>
         <source>Sending message to channel %1</source>
         <translation>Отправка сообщения в канал %1</translation>
     </message>
@@ -6765,7 +6765,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Это Ваш первый запуск Mumble.&lt;br /&gt;Вы желаете воспользоваться Мастером, чтобы настроить Вашу звуковую карту?</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1219"/>
+        <location filename="MainWindow.cpp" line="-1275"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>В настоящий момент Mumble подключен к серверу.&lt;br /&gt;Вы хотите Закрыть его или Свернуть в трей?</translation>
     </message>
@@ -6867,13 +6867,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+2073"/>
+        <location line="+2129"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Нет соединения с сервером&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1836"/>
+        <location line="-1869"/>
         <source>Clear</source>
         <translation>Очистить</translation>
     </message>
@@ -7653,7 +7653,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Замещение</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+75"/>
         <source>Choose executable</source>
         <translation>Выберите выполняемый файл</translation>
     </message>
@@ -8513,7 +8513,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-483"/>
+        <location filename="GlobalShortcut.cpp" line="-481"/>
         <source>Unassigned</source>
         <translation>Не назначено</translation>
     </message>
