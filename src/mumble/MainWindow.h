@@ -112,6 +112,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void sendChatbarMessage();
 		static const QString defaultStyleSheet;
 
+		void openTextMessageDialog(ClientUser *p);
+
 #ifdef Q_OS_WIN
 		Timer tInactive;
 		bool winEvent(MSG *, long *);

@@ -1353,14 +1353,20 @@ void MainWindow::on_qaUserTextMessage_triggered() {
 	if (!p)
 		return;
 
+	openTextMessageDialog(p);
+}
+
+void MainWindow::openTextMessageDialog(ClientUser *p) {
 	unsigned int session = p->uiSession;
 
 	::TextMessage *texm = new ::TextMessage(this, tr("Sending message to %1").arg(p->qsName));
 	int res = texm->exec();
 
+	// Try to get find the user using the session id.
+	// This will return NULL if the user disconnected while typing the message.
 	p = ClientUser::get(session);
 
-	if (p && (res==QDialog::Accepted)) {
+	if (p && (res == QDialog::Accepted)) {
 		QString msg = texm->message();
 
 		if (! msg.isEmpty()) {

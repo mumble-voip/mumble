@@ -222,9 +222,9 @@ void UserView::keyPressEvent(QKeyEvent *ev){
 
 void UserView::nodeActivated(const QModelIndex &idx) {
 	UserModel *um = static_cast<UserModel *>(model());
-	User *p = um->getUser(idx);
+	ClientUser *p = um->getUser(idx);
 	if (p) {
-		g.mw->on_qaUserTextMessage_triggered();
+		g.mw->openTextMessageDialog(p);
 		return;
 	}
 
