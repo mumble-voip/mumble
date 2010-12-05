@@ -779,6 +779,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 			wlTmp = Settings::LayoutCustom;
 			break;
 	}
+	qteChat->updateGeometry();
 	g.s.wlWindowLayout = wlTmp;
 
 	QRect geom = frameGeometry();
