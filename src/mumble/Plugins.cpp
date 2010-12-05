@@ -116,9 +116,11 @@ PluginInfo *PluginConfig::pluginForItem(QTreeWidgetItem *i) const {
 }
 
 void PluginConfig::on_qpbConfig_clicked() {
-	QReadLocker lock(&g.p->qrwlPlugins);
-
-	PluginInfo *pi=pluginForItem(qtwPlugins->currentItem());
+	PluginInfo *pi;
+	{
+		QReadLocker lock(&g.p->qrwlPlugins);
+		pi = pluginForItem(qtwPlugins->currentItem());
+	}
 
 	if (! pi)
 		return;
@@ -130,9 +132,11 @@ void PluginConfig::on_qpbConfig_clicked() {
 }
 
 void PluginConfig::on_qpbAbout_clicked() {
-	QReadLocker lock(&g.p->qrwlPlugins);
-
-	PluginInfo *pi=pluginForItem(qtwPlugins->currentItem());
+	PluginInfo *pi;
+	{
+		QReadLocker lock(&g.p->qrwlPlugins);
+		pi = pluginForItem(qtwPlugins->currentItem());
+	}
 
 	if (! pi)
 		return;
