@@ -1686,8 +1686,19 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 }
 
 void MainWindow::updateMenuPermissions() {
-	ClientUser *cu = getContextMenuUser();
-	Channel *c = g.uiSession ? (cu ? cu->cChannel : getContextMenuChannel()) : NULL;
+	ClientUser *cu = NULL;
+	Channel *c = NULL;
+
+	if (g.uiSession) {
+		cu = getContextMenuUser();
+		if (!cu)
+			cu = pmModel->getUser(qtvUsers->currentIndex());
+
+		c = cu ? cu->cChannel : getContextMenuChannel();
+		if (!c)
+			c = pmModel->getChannel(qtvUsers->currentIndex());
+	}
+
 	ChanACL::Permissions p = static_cast<ChanACL::Permissions>(c ? c->uiPermissions : ChanACL::None);
 
 	if (c && ! p) {
