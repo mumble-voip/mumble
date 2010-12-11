@@ -55,8 +55,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 		0 < ox < 160
 
-		x = west
-		y = north
+		x = west->east
+		y = south->north
 		z = altitude
 
 		r = region
@@ -65,16 +65,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		nPtr = pointer to character name (unique on a server)
 	*/
 
-	ok = peekProc((BYTE *) 0x010D0890, o, 12) &&
-	     peekProc((BYTE *) 0x010D0888, l, 2) &&
-	     peekProc((BYTE *) 0x010D0884, &r, 1) &&
-	     peekProc((BYTE *) 0x010D088C, &i, 1) &&
-	     peekProc((BYTE *)(pModule + 0x00CE7228), &hPtr, 4);
+	ok = peekProc((BYTE *) 0x00F2D45C, o, 12) &&
+	     peekProc((BYTE *) 0x00F2D454, l, 2) &&
+	     peekProc((BYTE *) 0x00F2D450, &r, 1) &&
+	     peekProc((BYTE *) 0x00F2D458, &i, 1) &&
+	     peekProc((BYTE *)(pModule + 0x00C0F150), &hPtr, 4);
 
 	if (! ok)
 		return false;
 
-	ok = peekProc((BYTE *)(hPtr  + 0x000007FC), &h, 4);
+	ok = peekProc((BYTE *)(hPtr  + 0x000007E0), &h, 4);
 
 	if (! ok)
 		return false;
@@ -142,10 +142,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Lord of the Rings Online (Codemasters Edition, Vol III Book 2, v3.2.4.8010). Context support based on region and instance. No Identity support.");
+	return std::wstring(L"Supports Lord of the Rings Online (Codemasters Edition, Vol III Update 1, v3.2.5.8031). Context support based on region and instance. No Identity support.");
 }
 
-static std::wstring description(L"Lord of the Rings Online (EU), Vol III Book 2");
+static std::wstring description(L"Lord of the Rings Online (EU), Vol III Update 1");
 static std::wstring shortname(L"Lord of the Rings Online");
 
 static int trylock1() {
