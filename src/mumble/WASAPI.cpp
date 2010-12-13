@@ -171,11 +171,11 @@ const QHash<QString, QString> WASAPISystem::getDevices(EDataFlow dataflow) {
 	hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
 
 	if (! pEnumerator || FAILED(hr)) {
-		qWarning("WASAPI: Failed to instatiate enumerator");
+		qWarning("WASAPI: Failed to instatiate enumerator: hr=0x%08lx", hr);
 	} else {
 		hr = pEnumerator->EnumAudioEndpoints(dataflow, DEVICE_STATE_ACTIVE, &pCollection);
 		if (! pCollection || FAILED(hr)) {
-			qWarning("WASAPI: Failed to enumerate");
+			qWarning("WASAPI: Failed to enumerate: hr=0x%08lx", hr);
 		} else {
 			devices.insert(QString(), tr("Default Device"));
 
@@ -279,7 +279,7 @@ void WASAPIInput::run() {
 	hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
 
 	if (! pEnumerator || FAILED(hr)) {
-		qWarning("WASAPIInput: Failed to instatiate enumerator");
+		qWarning("WASAPIInput: Failed to instatiate enumerator: hr=0x%08lx", hr);
 		return;
 	}
 
@@ -289,26 +289,26 @@ void WASAPIInput::run() {
 		devname[len] = 0;
 		hr = pEnumerator->GetDevice(devname, &pMicDevice);
 		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Failed to open selected input device %s %ls, falling back to default", qPrintable(g.s.qsWASAPIInput), devname);
+			qWarning("WASAPIInput: Failed to open selected input device %s %ls (hr=0x%08lx), falling back to default", qPrintable(g.s.qsWASAPIInput), devname, hr);
 		}
 	}
 
 	if (! pMicDevice) {
 		hr = pEnumerator->GetDefaultAudioEndpoint(eCapture, eCommunications, &pMicDevice);
 		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Failed to open input device");
+			qWarning("WASAPIInput: Failed to open input device: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 		wchar_t *devname = NULL;
 		hr = pMicDevice->GetId(&devname);
 		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Failed to query input device");
+			qWarning("WASAPIInput: Failed to query input device: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 		pMicDevice->Release();
 		hr = pEnumerator->GetDevice(devname, &pMicDevice);
 		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Failed to reopen default input device");
+			qWarning("WASAPIInput: Failed to reopen default input device: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 		CoTaskMemFree(devname);
@@ -320,26 +320,26 @@ void WASAPIInput::run() {
 			g.s.qsWASAPIOutput.toWCharArray(devname);
 			hr = pEnumerator->GetDevice(devname, &pEchoDevice);
 			if (FAILED(hr)) {
-				qWarning("WASAPIInput: Failed to open selected echo device, falling back to default");
+				qWarning("WASAPIInput: Failed to open selected echo device (hr=0x%08lx), falling back to default", hr);
 			}
 		}
 
 		if (! pEchoDevice) {
 			hr = pEnumerator->GetDefaultAudioEndpoint(eRender, eCommunications, &pEchoDevice);
 			if (FAILED(hr)) {
-				qWarning("WASAPIInput: Failed to open echo device");
+				qWarning("WASAPIInput: Failed to open echo device: hr=0x%08lx", hr);
 				goto cleanup;
 			}
 			wchar_t *devname = NULL;
 			hr = pEchoDevice->GetId(&devname);
 			if (FAILED(hr)) {
-				qWarning("WASAPIInput: Failed to query echo device");
+				qWarning("WASAPIInput: Failed to query echo device: hr=0x%08lx", hr);
 				goto cleanup;
 			}
 			pEchoDevice->Release();
 			hr = pEnumerator->GetDevice(devname, &pEchoDevice);
 			if (FAILED(hr)) {
-				qWarning("WASAPIInput: Failed to reopen default echo device");
+				qWarning("WASAPIInput: Failed to reopen default echo device: hr=0x%08lx", hr);
 				goto cleanup;
 			}
 			CoTaskMemFree(devname);
@@ -351,7 +351,7 @@ void WASAPIInput::run() {
 
 	hr = pMicDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void **) &pMicAudioClient);
 	if (FAILED(hr)) {
-		qWarning("WASAPIInput: Activate Mic AudioClient failed");
+		qWarning("WASAPIInput: Activate Mic AudioClient failed: hr=0x%08lx", hr);
 		goto cleanup;
 	}
 
@@ -397,13 +397,13 @@ void WASAPIInput::run() {
 		micpwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(micpwfx);
 
 		if (FAILED(hr) || (micpwfx->wBitsPerSample != (sizeof(float) * 8)) || (micpwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)) {
-			qWarning("WASAPIInput: Mic Subformat is not IEEE Float");
+			qWarning("WASAPIInput: Mic Subformat is not IEEE Float: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 
 		hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, 0, 0, micpwfx, NULL);
 		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Mic Initialize failed");
+			qWarning("WASAPIInput: Mic Initialize failed: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 	}
@@ -414,19 +414,19 @@ void WASAPIInput::run() {
 
 	hr = pMicAudioClient->GetService(__uuidof(IAudioCaptureClient), (void**)&pMicCaptureClient);
 	if (FAILED(hr)) {
-		qWarning("WASAPIInput: Mic GetService failed");
+		qWarning("WASAPIInput: Mic GetService failed: hr=0x%08lx", hr);
 		goto cleanup;
 	}
 
 	pMicAudioClient->SetEventHandle(hEvent);
 	if (FAILED(hr)) {
-		qWarning("WASAPIInput: Failed to set mic event");
+		qWarning("WASAPIInput: Failed to set mic event: hr=0x%08lx", hr);
 		goto cleanup;
 	}
 
 	hr = pMicAudioClient->Start();
 	if (FAILED(hr)) {
-		qWarning("WASAPIInput: Failed to start mic");
+		qWarning("WASAPIInput: Failed to start mic: hr=0x%08lx", hr);
 		goto cleanup;
 	}
 
@@ -436,7 +436,7 @@ void WASAPIInput::run() {
 	if (doecho) {
 		hr = pEchoDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void **) &pEchoAudioClient);
 		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Activate Echo AudioClient failed");
+			qWarning("WASAPIInput: Activate Echo AudioClient failed: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 
@@ -444,32 +444,32 @@ void WASAPIInput::run() {
 		echopwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(echopwfx);
 
 		if (FAILED(hr) || (echopwfx->wBitsPerSample != (sizeof(float) * 8)) || (echopwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)) {
-			qWarning("WASAPIInput: Echo Subformat is not IEEE Float");
+			qWarning("WASAPIInput: Echo Subformat is not IEEE Float: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 
 		hr = pEchoAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK | AUDCLNT_STREAMFLAGS_LOOPBACK, 0, 0, echopwfx, NULL);
 		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Echo Initialize failed");
+			qWarning("WASAPIInput: Echo Initialize failed: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 
 		hr = pEchoAudioClient->GetBufferSize(&bufferFrameCount);
 		hr = pEchoAudioClient->GetService(__uuidof(IAudioCaptureClient), (void**)&pEchoCaptureClient);
 		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Echo GetService failed");
+			qWarning("WASAPIInput: Echo GetService failed: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 
 		pEchoAudioClient->SetEventHandle(hEvent);
 		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Failed to set echo event");
+			qWarning("WASAPIInput: Failed to set echo event: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 
 		hr = pEchoAudioClient->Start();
 		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Failed to start Echo");
+			qWarning("WASAPIInput: Failed to start Echo: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 
@@ -732,7 +732,7 @@ void WASAPIOutput::run() {
 	hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
 
 	if (! pEnumerator || FAILED(hr)) {
-		qWarning("WASAPIOutput: Failed to instatiate enumerator");
+		qWarning("WASAPIOutput: Failed to instatiate enumerator: hr=0x%08lx", hr);
 		return;
 	}
 
@@ -742,26 +742,26 @@ void WASAPIOutput::run() {
 		devname[len] = 0;
 		hr = pEnumerator->GetDevice(devname, &pDevice);
 		if (FAILED(hr)) {
-			qWarning("WASAPIOutput: Failed to open selected input device, falling back to default");
+			qWarning("WASAPIOutput: Failed to open selected input device (hr=0x%08lx), falling back to default", hr);
 		}
 	}
 
 	if (! pDevice) {
 		hr = pEnumerator->GetDefaultAudioEndpoint(eRender, eCommunications, &pDevice);
 		if (FAILED(hr)) {
-			qWarning("WASAPIOutput: Failed to open output device");
+			qWarning("WASAPIOutput: Failed to open output device: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 		wchar_t *devname = NULL;
 		hr = pDevice->GetId(&devname);
 		if (FAILED(hr)) {
-			qWarning("WASAPIOutput: Failed to query output device");
+			qWarning("WASAPIOutput: Failed to query output device: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 		pDevice->Release();
 		hr = pEnumerator->GetDevice(devname, &pDevice);
 		if (FAILED(hr)) {
-			qWarning("WASAPIOutput: Failed to reopen default output device");
+			qWarning("WASAPIOutput: Failed to reopen default output device: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 		CoTaskMemFree(devname);
@@ -772,7 +772,7 @@ void WASAPIOutput::run() {
 
 	hr = pDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void **) &pAudioClient);
 	if (FAILED(hr)) {
-		qWarning("WASAPIOutput: Activate AudioClient failed");
+		qWarning("WASAPIOutput: Activate AudioClient failed: hr=0x%08lx", hr);
 		goto cleanup;
 	}
 
@@ -783,7 +783,7 @@ void WASAPIOutput::run() {
 	if (g.s.bExclusiveOutput) {
 		hr = pAudioClient->GetMixFormat(&pwfx);
 		if (FAILED(hr)) {
-			qWarning("WASAPIOutput: GetMixFormat failed");
+			qWarning("WASAPIOutput: GetMixFormat failed: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 
@@ -815,19 +815,19 @@ void WASAPIOutput::run() {
 
 		hr = pAudioClient->GetMixFormat(&pwfx);
 		if (FAILED(hr)) {
-			qWarning("WASAPIOutput: GetMixFormat failed: %llx", hr);
+			qWarning("WASAPIOutput: GetMixFormat failed: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 		pwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(pwfx);
 
 		if (FAILED(hr) || (pwfx->wBitsPerSample != (sizeof(float) * 8)) || (pwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)) {
-			qWarning("WASAPIOutput: Subformat is not IEEE Float");
+			qWarning("WASAPIOutput: Subformat is not IEEE Float: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 
 		hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, bufferDuration, 0, pwfx, NULL);
 		if (FAILED(hr)) {
-			qWarning("WASAPIOutput: Initialize failed");
+			qWarning("WASAPIOutput: Initialize failed: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 	}
@@ -843,7 +843,7 @@ void WASAPIOutput::run() {
 
 	hr = pAudioClient->GetService(__uuidof(IAudioRenderClient), (void**)&pRenderClient);
 	if (FAILED(hr)) {
-		qWarning("WASAPIOutput: GetService failed");
+		qWarning("WASAPIOutput: GetService failed: hr=0x%08lx", hr);
 		goto cleanup;
 	}
 
@@ -851,13 +851,13 @@ void WASAPIOutput::run() {
 
 	pAudioClient->SetEventHandle(hEvent);
 	if (FAILED(hr)) {
-		qWarning("WASAPIOutput: Failed to set event");
+		qWarning("WASAPIOutput: Failed to set event: hr=0x%08lx", hr);
 		goto cleanup;
 	}
 
 	hr = pAudioClient->Start();
 	if (FAILED(hr)) {
-		qWarning("WASAPIOutput: Failed to start");
+		qWarning("WASAPIOutput: Failed to start: hr=0x%08lx", hr);
 		goto cleanup;
 	}
 

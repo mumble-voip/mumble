@@ -259,13 +259,13 @@ void DXAudioOutput::run() {
 	}
 
 	if (! pDS && FAILED(hr = DirectSoundCreate8(&DSDEVID_DefaultVoicePlayback, &pDS, NULL))) {
-		qWarning("DXAudioOutput: DirectSoundCreate");
+		qWarning("DXAudioOutput: DirectSoundCreate failed: hr=0x%08lx", hr);
 		goto cleanup;
 	} else if (FAILED(hr = pDS->SetCooperativeLevel(g.mw->winId(), DSSCL_PRIORITY))) {
-		qWarning("DXAudioOutput: SetCooperativeLevel");
+		qWarning("DXAudioOutput: SetCooperativeLevel failed: hr=0x%08lx", hr);
 		goto cleanup;
 	} else if (FAILED(hr = pDS->CreateSoundBuffer(&dsbdesc, &pDSBPrimary, NULL))) {
-		qWarning("DXAudioOutput: CreateSoundBuffer (Primary) : 0x%08lx", hr);
+		qWarning("DXAudioOutput: CreateSoundBuffer (Primary) failed: hr=0x%08lx", hr);
 		goto cleanup;
 	}
 
@@ -333,11 +333,11 @@ void DXAudioOutput::run() {
 	wfx.Format.wBitsPerSample = 16;
 
 	if (FAILED(hr = pDSBPrimary->SetFormat(reinterpret_cast<WAVEFORMATEX *>(&wfx)))) {
-		qWarning("DXAudioOutput: SetFormat");
+		qWarning("DXAudioOutput: SetFormat failed: hr=0x%08lx", hr);
 		goto cleanup;
 	}
 	if (FAILED(hr = pDSBPrimary->GetFormat(reinterpret_cast<WAVEFORMATEX *>(&wfxSet), sizeof(wfxSet), NULL))) {
-		qWarning("DXAudioOutput: GetFormat");
+		qWarning("DXAudioOutput: GetFormat failed: hr=0x%08lx", hr);
 		goto cleanup;
 	}
 
@@ -363,13 +363,13 @@ void DXAudioOutput::run() {
 	dsbdesc.lpwfxFormat     = reinterpret_cast<WAVEFORMATEX *>(&wfx);
 
 	if (FAILED(hr = pDS->CreateSoundBuffer(&dsbdesc, &pDSBOutput, NULL))) {
-		qWarning("DXAudioOutputUser: CreateSoundBuffer (Secondary): 0x%08lx", hr);
+		qWarning("DXAudioOutputUser: CreateSoundBuffer (Secondary) failed: hr=0x%08lx", hr);
 		goto cleanup;
 	}
 
 
 	if (FAILED(hr = pDSBOutput->QueryInterface(IID_IDirectSoundNotify, reinterpret_cast<void **>(&pDSNotify)))) {
-		qWarning("DXAudioOutputUser: QueryInterface (Notify)");
+		qWarning("DXAudioOutputUser: QueryInterface (Notify) failed: hr=0x%08lx", hr);
 		goto cleanup;
 	}
 
@@ -381,7 +381,7 @@ void DXAudioOutput::run() {
 	initializeMixer(chanmasks, bHead);
 
 	if (FAILED(hr = pDSBOutput->Lock(0, 0, &aptr1, &nbytes1, &aptr2, &nbytes2, DSBLOCK_ENTIREBUFFER))) {
-		qWarning("DXAudioOutputUser: Initial Lock");
+		qWarning("DXAudioOutputUser: Initial Lock failed: hr=0x%08lx", hr);
 		goto cleanup;
 	}
 
@@ -392,12 +392,12 @@ void DXAudioOutput::run() {
 		ZeroMemory(aptr2, nbytes2);
 
 	if (FAILED(hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2))) {
-		qWarning("DXAudioOutputUser: Initial Unlock");
+		qWarning("DXAudioOutputUser: Initial Unlock failed: hr=0x%08lx", hr);
 		goto cleanup;
 	}
 
 	if (FAILED(hr = pDSBOutput->Play(0, 0, DSBPLAY_LOOPING))) {
-		qWarning("DXAudioOutputUser: Play");
+		qWarning("DXAudioOutputUser: Play failed: hr=0x%08lx", hr);
 		goto cleanup;
 	}
 
@@ -411,7 +411,7 @@ void DXAudioOutput::run() {
 
 	while (bRunning && ! FAILED(hr)) {
 		if (FAILED(hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition))) {
-			qWarning("DXAudioOutputUser: GetCurrentPosition");
+			qWarning("DXAudioOutputUser: GetCurrentPosition failed: hr=0x%08lx", hr);
 			break;
 		}
 
@@ -422,7 +422,7 @@ void DXAudioOutput::run() {
 			iLastwriteblock = block;
 
 			if (FAILED(hr = pDSBOutput->Lock(block * iByteSize, iByteSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0))) {
-				qWarning("DXAudioOutput: Lock block %u (%d bytes)",block, iByteSize);
+				qWarning("DXAudioOutput: Lock block %u (%d bytes) failed: hr=0x%08lx",block, iByteSize, hr);
 				break;
 			}
 			if (aptr2 || nbytes2) {
@@ -437,12 +437,12 @@ void DXAudioOutput::run() {
 				ZeroMemory(aptr1, iByteSize);
 
 			if (FAILED(hr = pDSBOutput->Unlock(aptr1, nbytes1, aptr2, nbytes2))) {
-				qWarning("DXAudioOutput: Unlock %p(%lu) %p(%lu)",aptr1,nbytes1,aptr2,nbytes2);
+				qWarning("DXAudioOutput: Unlock %p(%lu) %p(%lu) failed: hr=0x%08lx",aptr1,nbytes1,aptr2,nbytes2,hr);
 				break;
 			}
 
 			if (FAILED(hr = pDSBOutput->GetCurrentPosition(&dwPlayPosition, &dwWritePosition))) {
-				qWarning("DXAudioOutputUser: GetCurrentPosition");
+				qWarning("DXAudioOutputUser: GetCurrentPosition failed: hr=0x%08lx", hr);
 				break;
 			}
 
@@ -540,11 +540,11 @@ void DXAudioInput::run() {
 	}
 
 	if (! pDSCapture && FAILED(hr = DirectSoundCaptureCreate8(&DSDEVID_DefaultVoiceCapture, &pDSCapture, NULL)))
-		qWarning("DXAudioInput: DirectSoundCaptureCreate");
+		qWarning("DXAudioInput: DirectSoundCaptureCreate failed: hr=0x%08lx", hr);
 	else if (FAILED(hr = pDSCapture->CreateCaptureBuffer(&dscbd, &pDSCaptureBuffer, NULL)))
-		qWarning("DXAudioInput: CreateCaptureBuffer");
+		qWarning("DXAudioInput: CreateCaptureBuffer failed: hr=0x%08lx", hr);
 	else if (FAILED(hr = pDSCaptureBuffer->QueryInterface(IID_IDirectSoundNotify, reinterpret_cast<void **>(&pDSNotify))))
-		qWarning("DXAudioInput: QueryInterface (Notify)");
+		qWarning("DXAudioInput: QueryInterface (Notify) failed: hr=0x%08lx", hr);
 	else
 		bOk = true;
 
@@ -559,7 +559,7 @@ void DXAudioInput::run() {
 		goto cleanup;
 
 	if (FAILED(hr = pDSCaptureBuffer->Start(DSCBSTART_LOOPING))) {
-		qWarning("DXAudioInput: Start failed");
+		qWarning("DXAudioInput: Start failed: hr=0x%08lx", hr);
 	} else {
 		while (bRunning) {
 			firstsleep = true;
@@ -567,7 +567,7 @@ void DXAudioInput::run() {
 
 			do {
 				if (FAILED(hr = pDSCaptureBuffer->GetCurrentPosition(&dwCapturePosition, &dwReadPosition))) {
-					qWarning("DXAudioInput: GetCurrentPosition");
+					qWarning("DXAudioInput: GetCurrentPosition failed: hr=0x%08lx", hr);
 					bRunning = false;
 					break;
 				}
@@ -599,7 +599,7 @@ void DXAudioInput::run() {
 				dwLastReadPos = dwReadPosition;
 			} else if (bRunning) {
 				if (FAILED(hr = pDSCaptureBuffer->Lock(dwLastReadPos, sizeof(short) * iFrameSize, &aptr1, &nbytes1, &aptr2, &nbytes2, 0))) {
-					qWarning("DXAudioInput: Lock from %ld (%d bytes)",dwLastReadPos, sizeof(short) * iFrameSize);
+					qWarning("DXAudioInput: Lock from %ld (%d bytes) failed: hr=0x%08lx",dwLastReadPos, sizeof(short) * iFrameSize, hr);
 					bRunning = false;
 					break;
 				}
@@ -611,7 +611,7 @@ void DXAudioInput::run() {
 					CopyMemory(psMic+nbytes1/2, aptr2, nbytes2);
 
 				if (FAILED(hr = pDSCaptureBuffer->Unlock(aptr1, nbytes1, aptr2, nbytes2))) {
-					qWarning("DXAudioInput: Unlock");
+					qWarning("DXAudioInput: Unlock failed: hr=0x%08lx", hr);
 					bRunning = false;
 					break;
 				}

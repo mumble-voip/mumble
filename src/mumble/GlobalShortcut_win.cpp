@@ -473,7 +473,7 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 		dipdw.dwData            = DX_SAMPLE_BUFFER_SIZE;
 
 		if (FAILED(hr = id->pDID->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph)))
-			qFatal("GlobalShortcutWin::SetProperty");
+			qFatal("GlobalShortcutWin: SetProperty: %lx", hr);
 
 		qWarning("Adding device %s %s %s:%d", qPrintable(QUuid(id->guid).toString()),qPrintable(name),qPrintable(sname),id->qhNames.count());
 		cbgsw->qhInputDevices[id->guid] = id;
