@@ -3501,7 +3501,7 @@ av dessa möjliga platser.</translation>
 <context>
     <name>DockTitleBar</name>
     <message>
-        <location filename="CustomElements.cpp" line="+134"/>
+        <location filename="CustomElements.cpp" line="+135"/>
         <source>Drag here</source>
         <translation>Dra här</translation>
     </message>
@@ -4385,12 +4385,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+1984"/>
+        <location line="+2002"/>
         <source>Root</source>
         <translation>Rot</translation>
     </message>
     <message>
-        <location line="-1935"/>
+        <location line="-1953"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryck-för-att-Tala</translation>
@@ -4469,12 +4469,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2099"/>
+        <location line="+2117"/>
         <source>Mumble -- %1</source>
         <translation>Mumble - %1</translation>
     </message>
     <message>
-        <location line="-2095"/>
+        <location line="-2113"/>
         <source>&amp;Window</source>
         <translation>&amp;Fönster</translation>
     </message>
@@ -4543,13 +4543,13 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2129"/>
+        <location line="+2147"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Ej ansluten&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1869"/>
+        <location line="-1887"/>
         <source>Clear</source>
         <translation>Rensa</translation>
     </message>
@@ -4595,7 +4595,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+14"/>
-        <location line="+175"/>
+        <location line="+176"/>
         <source>Connecting to server %1.</source>
         <translation>Ansluter till servern %1.</translation>
     </message>
@@ -4662,7 +4662,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Bannlyser %1</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+59"/>
         <source>View comment on user %1</source>
         <translation>Visa kommentar på %1</translation>
     </message>
@@ -4673,7 +4673,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Meddelande till kanalen %1</translation>
     </message>
     <message>
-        <location line="+466"/>
+        <location line="+477"/>
         <source>Connected.</source>
         <translation>Ansluten.</translation>
     </message>
@@ -4731,12 +4731,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Bildformatet stöds ej.</translation>
     </message>
     <message>
-        <location line="-1542"/>
+        <location line="-1559"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Röstkanal skickas över kontrollkanal.</translation>
     </message>
     <message>
-        <location line="-854"/>
+        <location line="-855"/>
         <source>&amp;User</source>
         <translation>&amp;Användare</translation>
     </message>
@@ -4752,7 +4752,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Detta kommer ändra i-spelet läget.</translation>
     </message>
     <message>
-        <location line="+674"/>
+        <location line="+675"/>
         <source>Change your comment</source>
         <translation>Ändra din kommentar</translation>
     </message>
@@ -4803,23 +4803,23 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1229"/>
+        <location line="+1246"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Visa certifikat</translation>
     </message>
     <message>
-        <location line="-970"/>
+        <location line="-987"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Ange anledning</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+22"/>
         <source>Sending message to %1</source>
         <translation>Skickar meddelande till %1</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <location line="+80"/>
         <location line="+4"/>
         <location line="+232"/>
@@ -4859,7 +4859,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Till %1 (Träd): %2</translation>
     </message>
     <message>
-        <location line="+112"/>
+        <location line="+123"/>
         <source>Unmuted and undeafened.</source>
         <translation>Ljud och mikrofon aktiverad.</translation>
     </message>
@@ -6867,12 +6867,12 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
         <translation>Insticksmoduler</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+54"/>
+        <location filename="Plugins.cpp" line="+56"/>
         <source>Plugin has no configure function.</source>
         <translation>Insticksmodulen har ingen konfigurationsfunktion.</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+16"/>
         <source>Plugin has no about function.</source>
         <translation>Insticksmodulen har ingen om-funktion.</translation>
     </message>

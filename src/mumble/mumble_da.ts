@@ -3648,7 +3648,7 @@ som helst mulige placeringer.</translation>
 <context>
     <name>DockTitleBar</name>
     <message>
-        <location filename="CustomElements.cpp" line="+134"/>
+        <location filename="CustomElements.cpp" line="+135"/>
         <source>Drag here</source>
         <translation>Træk hér</translation>
     </message>
@@ -4570,12 +4570,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+1984"/>
+        <location line="+2002"/>
         <source>Root</source>
         <translation>Rod</translation>
     </message>
     <message>
-        <location line="-1935"/>
+        <location line="-1953"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryk-for-snak</translation>
@@ -4654,12 +4654,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2099"/>
+        <location line="+2117"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2095"/>
+        <location line="-2113"/>
         <source>&amp;Window</source>
         <translation>&amp;Vindue</translation>
     </message>
@@ -4733,13 +4733,13 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2129"/>
+        <location line="+2147"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Ingen forbindelse oprettet&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1869"/>
+        <location line="-1887"/>
         <source>Clear</source>
         <translation>Ryd</translation>
     </message>
@@ -4785,7 +4785,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+14"/>
-        <location line="+175"/>
+        <location line="+176"/>
         <source>Connecting to server %1.</source>
         <translation>Opretter forbindelse til server %1.</translation>
     </message>
@@ -4873,13 +4873,13 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">Til kanal %1: %2</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+114"/>
         <location line="+236"/>
         <source>Message to channel %1</source>
         <translation>Besked til kanal %1</translation>
     </message>
     <message>
-        <location line="+466"/>
+        <location line="+477"/>
         <source>Connected.</source>
         <translation>Forbindelse oprettet.</translation>
     </message>
@@ -4936,18 +4936,18 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Billedformatet blev ikke genkendt.</translation>
     </message>
     <message>
-        <location line="-1542"/>
+        <location line="-1559"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Lydkanal er sendt over kontrolkanal.</translation>
     </message>
     <message>
-        <location line="-791"/>
+        <location line="-792"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Dette vil skifte tilstanden for overlægningen i spillet.</translation>
     </message>
     <message>
-        <location line="+782"/>
+        <location line="+783"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Kontrol kanal&lt;/h2&gt;&lt;p&gt;Krypteret med %1 bit %2&lt;br /&gt;%3 ms gennemsnitlig forsinkelse (%4 deviation)&lt;/p&gt;&lt;p&gt;Ekstern vært %5 (port %6)&lt;/p&gt;</translation>
     </message>
@@ -4993,23 +4993,23 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1229"/>
+        <location line="+1246"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Se certifikat</translation>
     </message>
     <message>
-        <location line="-970"/>
+        <location line="-987"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Skriv begrundelse</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+22"/>
         <source>Sending message to %1</source>
         <translation>Sender besked til %1</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <location line="+80"/>
         <location line="+4"/>
         <location line="+232"/>
@@ -5058,7 +5058,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Til %1 (træ): %2</translation>
     </message>
     <message>
-        <location line="+112"/>
+        <location line="+123"/>
         <source>Unmuted and undeafened.</source>
         <translation>Mikrofon og lyd aktiveret.</translation>
     </message>
@@ -5167,7 +5167,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">&amp;Server</translation>
     </message>
     <message>
-        <location line="-2371"/>
+        <location line="-2389"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanal</translation>
     </message>
@@ -7374,12 +7374,12 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+54"/>
+        <location filename="Plugins.cpp" line="+56"/>
         <source>Plugin has no configure function.</source>
         <translation>Plugin&apos;et har ingen konfigurationsfunktioner.</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+16"/>
         <source>Plugin has no about function.</source>
         <translation>Plugin&apos;et har ingen om-funktion.</translation>
     </message>

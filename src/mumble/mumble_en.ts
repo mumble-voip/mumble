@@ -3355,7 +3355,7 @@ of the possible locations.</source>
 <context>
     <name>DockTitleBar</name>
     <message>
-        <location filename="CustomElements.cpp" line="+134"/>
+        <location filename="CustomElements.cpp" line="+135"/>
         <source>Drag here</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4223,12 +4223,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+1984"/>
+        <location line="+2002"/>
         <source>Root</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1935"/>
+        <location line="-1953"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
@@ -4307,12 +4307,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2099"/>
+        <location line="+2117"/>
         <source>Mumble -- %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2095"/>
+        <location line="-2113"/>
         <source>&amp;Window</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4381,13 +4381,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2129"/>
+        <location line="+2147"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1869"/>
+        <location line="-1887"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4433,7 +4433,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+14"/>
-        <location line="+175"/>
+        <location line="+176"/>
         <source>Connecting to server %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4500,7 +4500,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+59"/>
         <source>View comment on user %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4511,7 +4511,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+466"/>
+        <location line="+477"/>
         <source>Connected.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4569,12 +4569,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1542"/>
+        <location line="-1559"/>
         <source>Voice channel is sent over control channel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-854"/>
+        <location line="-855"/>
         <source>&amp;User</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4590,7 +4590,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+674"/>
+        <location line="+675"/>
         <source>Change your comment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4641,23 +4641,23 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1229"/>
+        <location line="+1246"/>
         <source>&amp;View Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-970"/>
+        <location line="-987"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+22"/>
         <source>Sending message to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <location line="+80"/>
         <location line="+4"/>
         <location line="+232"/>
@@ -4697,7 +4697,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+112"/>
+        <location line="+123"/>
         <source>Unmuted and undeafened.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6674,12 +6674,12 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+54"/>
+        <location filename="Plugins.cpp" line="+56"/>
         <source>Plugin has no configure function.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+16"/>
         <source>Plugin has no about function.</source>
         <translation type="unfinished"></translation>
     </message>

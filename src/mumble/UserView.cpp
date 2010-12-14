@@ -214,7 +214,7 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 	QTreeView::mouseReleaseEvent(evt);
 }
 
-void UserView::keyPressEvent(QKeyEvent *ev){
+void UserView::keyPressEvent(QKeyEvent *ev) {
 	if (ev->key() == Qt::Key_Return || ev->key() == Qt::Key_Enter)
 		UserView::nodeActivated(currentIndex());
 	QTreeView::keyPressEvent(ev);

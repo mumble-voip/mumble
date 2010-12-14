@@ -4078,7 +4078,7 @@ of the possible locations.</source>
 <context>
     <name>DockTitleBar</name>
     <message>
-        <location filename="CustomElements.cpp" line="+134"/>
+        <location filename="CustomElements.cpp" line="+135"/>
         <source>Drag here</source>
         <translation>Przeciągnij tutaj</translation>
     </message>
@@ -5175,7 +5175,7 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+1984"/>
+        <location line="+2002"/>
         <source>Root</source>
         <translation>Źródło</translation>
     </message>
@@ -5675,9 +5675,9 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Usuwa obecną teksturę z nakładki.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1891"/>
+        <location filename="MainWindow.cpp" line="-1909"/>
         <location line="+12"/>
-        <location line="+2099"/>
+        <location line="+2117"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -5695,7 +5695,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Użytkownik</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2186"/>
+        <location filename="MainWindow.cpp" line="-2204"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanał</translation>
     </message>
@@ -5718,7 +5718,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Wykopywanie użytkownika %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1131"/>
+        <location filename="MainWindow.cpp" line="+1132"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Podaj powód</translation>
@@ -5733,7 +5733,7 @@ p, li { white-space: pre-wrap; }
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1117"/>
+        <location filename="MainWindow.cpp" line="-1118"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
         <translation>Naciśnij i przytrzymaj ten przycisk, aby transmitować głos.</translation>
@@ -5779,7 +5779,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Zmień opis kanału %1</translation>
     </message>
     <message>
-        <location line="+1543"/>
+        <location line="+1561"/>
         <source>Unmuted and undeafened.</source>
         <translation>Wyłączono ogłuszenie oraz wyciszenie mikrofonu.</translation>
     </message>
@@ -5828,7 +5828,7 @@ p, li { white-space: pre-wrap; }
         <translation>Rozłączony od serwera.</translation>
     </message>
     <message>
-        <location line="-1457"/>
+        <location line="-1474"/>
         <source>Reconnecting.</source>
         <translation>Ponowne łączenie.</translation>
     </message>
@@ -6197,7 +6197,7 @@ p, li { white-space: pre-wrap; }
         <translation>Witamy w Mumble.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-665"/>
+        <location filename="MainWindow.cpp" line="-666"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Aktywacja przyciskiem</translation>
@@ -6269,7 +6269,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+461"/>
-        <location line="+175"/>
+        <location line="+176"/>
         <source>Connecting to server %1.</source>
         <translation>Łączenie z serwerem &lt;b&gt;%1&lt;/b&gt;.</translation>
     </message>
@@ -6343,7 +6343,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Do kanału %1: %2</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+114"/>
         <location line="+236"/>
         <source>Message to channel %1</source>
         <translation>Wiadomość do kanału %1</translation>
@@ -6354,7 +6354,7 @@ p, li { white-space: pre-wrap; }
         <translation>Czy jesteś pewien, że chcesz usunąć %1 oraz wszystkie pod-kanały?</translation>
     </message>
     <message>
-        <location line="+859"/>
+        <location line="+870"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
         <translation>&lt;center&gt;Wiadomość do kanału &apos;%1&apos;&lt;/center&gt;</translation>
@@ -6415,17 +6415,17 @@ p, li { white-space: pre-wrap; }
         <translation>Wyślij wiadomość tekstową</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1551"/>
+        <location filename="MainWindow.cpp" line="-1568"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Kanał kontrolny&lt;/h2&gt;&lt;p&gt;Szyfrowanie %1 bit %2&lt;br /&gt;Średnie opóźnienie %3 ms (%4 odchylenie)&lt;/p&gt;&lt;p&gt;Zdalny host %5 (port %6)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+324"/>
+        <location line="+328"/>
         <source>Sending message to %1</source>
         <translation>Wysyłanie wiadomości do %1</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <location line="+80"/>
         <location line="+4"/>
         <location line="+232"/>
@@ -6455,7 +6455,7 @@ p, li { white-space: pre-wrap; }
         <translation>(Do drzewa kanałów) %1: %2</translation>
     </message>
     <message>
-        <location line="+468"/>
+        <location line="+479"/>
         <source>Connected.</source>
         <translation>Połączono.</translation>
     </message>
@@ -6534,7 +6534,7 @@ p, li { white-space: pre-wrap; }
         <translation>Wysyła wiadomość tekstową do innego użytkownika.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2372"/>
+        <location filename="MainWindow.cpp" line="-2390"/>
         <source>&amp;User</source>
         <translation>&amp;Użytkownik</translation>
     </message>
@@ -6624,7 +6624,7 @@ p, li { white-space: pre-wrap; }
         <translation>Ten kreator poprowadzi cię przez proces konfiguracji ustawień dźwięku.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+2081"/>
+        <location filename="MainWindow.cpp" line="+2099"/>
         <source>SSL Verification failed: %1</source>
         <translation>Weryfikacja SSL nie powiodła się: %1</translation>
     </message>
@@ -6659,18 +6659,18 @@ p, li { white-space: pre-wrap; }
         <translation>Wyświetla zaawansowane informacje na temat połączenia z serwerem.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1226"/>
+        <location filename="MainWindow.cpp" line="-1243"/>
         <source>Mumble Server Information</source>
         <translation>Serwer Mumble - Informacje</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1229"/>
+        <location line="+1246"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Zobacz certyfikat</translation>
     </message>
     <message>
-        <location line="-1678"/>
+        <location line="-1696"/>
         <source>Opening URL %1</source>
         <translation>Otwieranie adresu %1</translation>
     </message>
@@ -6723,13 +6723,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2129"/>
+        <location line="+2147"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Niepołączony&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1838"/>
+        <location line="-1856"/>
         <source>File does not exist</source>
         <translation>Plik nie istnieje</translation>
     </message>
@@ -6780,7 +6780,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Kanał kontrolny&lt;/h2&gt;&lt;p&gt;Szyfrowanie %1 bit %2&lt;br /&gt;%1 ms przeciętnego opóźnienia (%4 niezgodności)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+356"/>
+        <location line="+357"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Kanał głosowy jest wysyłany przez kanał kontrolny.</translation>
     </message>
@@ -6846,7 +6846,7 @@ p, li { white-space: pre-wrap; }
         <translation>O &amp;Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+621"/>
+        <location filename="MainWindow.cpp" line="+627"/>
         <source>Sending message to channel %1</source>
         <translation>Wysyłanie wiadomości do kanału: %1</translation>
     </message>
@@ -6893,7 +6893,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Połączony z serwerem %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1275"/>
+        <location filename="MainWindow.cpp" line="-1282"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>&lt;b&gt;UWAGA!&lt;/b&gt; Mumble jest obecnie połączony z serwerem. Chcesz zakończyć czy zminimalizować program?</translation>
     </message>
@@ -7129,7 +7129,7 @@ p, li { white-space: pre-wrap; }
         <translation>Usuwa aktualnie zdefiniowany awatar.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+340"/>
+        <location filename="MainWindow.cpp" line="+341"/>
         <source>Change your comment</source>
         <translation>Edycja własnego komentarza</translation>
     </message>
@@ -7148,7 +7148,7 @@ p, li { white-space: pre-wrap; }
         <translation>Zmień swój komentarz</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-674"/>
+        <location filename="MainWindow.cpp" line="-675"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Przełącza stany nakładki.</translation>
@@ -8376,12 +8376,12 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+54"/>
+        <location filename="Plugins.cpp" line="+56"/>
         <source>Plugin has no configure function.</source>
         <translation>Wtyczka nie posiada konfiguracji.</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+16"/>
         <source>Plugin has no about function.</source>
         <translation>Brak informacji o wtyczce.</translation>
     </message>

@@ -3752,7 +3752,7 @@ of the possible locations.</source>
 <context>
     <name>DockTitleBar</name>
     <message>
-        <location filename="CustomElements.cpp" line="+134"/>
+        <location filename="CustomElements.cpp" line="+135"/>
         <source>Drag here</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4747,12 +4747,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+1984"/>
+        <location line="+2002"/>
         <source>Root</source>
         <translation>根</translation>
     </message>
     <message>
-        <location line="-1935"/>
+        <location line="-1953"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>按鍵通話</translation>
@@ -4891,12 +4891,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2099"/>
+        <location line="+2117"/>
         <source>Mumble -- %1</source>
         <translation></translation>
     </message>
     <message>
-        <location line="-2095"/>
+        <location line="-2113"/>
         <source>&amp;Window</source>
         <translation>&amp;窗口</translation>
     </message>
@@ -4970,13 +4970,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2129"/>
+        <location line="+2147"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished">未連接</translation>
     </message>
     <message>
-        <location line="-1869"/>
+        <location line="-1887"/>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
@@ -5022,7 +5022,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+14"/>
-        <location line="+175"/>
+        <location line="+176"/>
         <source>Connecting to server %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5073,13 +5073,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1027"/>
+        <location line="-1028"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+700"/>
+        <location line="+701"/>
         <location line="+327"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
@@ -5105,7 +5105,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+59"/>
         <source>View comment on user %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5136,7 +5136,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">發送給 %1: %2</translation>
     </message>
     <message>
-        <location line="+466"/>
+        <location line="+477"/>
         <source>Connected.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5198,7 +5198,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;控制信道&lt;/h2&gt;&lt;p&gt;使用 %1 比特 %2 加密&lt;br /&gt;平均延遲 %3 毫秒（%4 方差）&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1542"/>
+        <location line="-1559"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>語音頻道通過控制信道發送。</translation>
     </message>
@@ -5252,7 +5252,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1229"/>
+        <location line="+1246"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;查看認証</translation>
     </message>
@@ -5261,7 +5261,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">踢出玩家 %1</translation>
     </message>
     <message>
-        <location line="-970"/>
+        <location line="-987"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>輸入原因</translation>
@@ -5271,12 +5271,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">封禁玩家 %1</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+22"/>
         <source>Sending message to %1</source>
         <translation>發送消息給 %1</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <location line="+84"/>
         <source>Message to %1</source>
         <translation>發送消息給 %1</translation>
@@ -5313,7 +5313,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>發送消息給樹 %1</translation>
     </message>
     <message>
-        <location line="+112"/>
+        <location line="+123"/>
         <source>Unmuted and undeafened.</source>
         <translation>解除靜音并解除耳聾。</translation>
     </message>
@@ -5429,7 +5429,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;玩家</translation>
     </message>
     <message>
-        <location line="-2170"/>
+        <location line="-2188"/>
         <source>&amp;Channel</source>
         <translation type="unfinished">&amp;頻道</translation>
     </message>
@@ -7713,12 +7713,12 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>插件</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+54"/>
+        <location filename="Plugins.cpp" line="+56"/>
         <source>Plugin has no configure function.</source>
         <translation>插件沒有配置選項。</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+16"/>
         <source>Plugin has no about function.</source>
         <translation>插件沒有關于選項.</translation>
     </message>

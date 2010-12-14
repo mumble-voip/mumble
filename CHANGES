@@ -1,4 +1,17 @@
+2010-12-05
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    223d0a9  Unbreak send message on double click
+    fcb681c  Fix another chatbar size bug
+    be86148  Release the plugin lock before calling about/config on a
+	     plugin
+    be7ad39  Fix updateMenuPermissions() after context menu change
+
 2010-12-04
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    079f1ad  Remove local variable in getOSVersion
+    ece6a89  Readd the scrollbar changing to the chatbar in way that
+	     doesn't crash and doesn't break everything
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     c0bf2c2  Update release script
     012dfc6  Use bzip2 for static build
@@ -53,6 +66,11 @@
   Thorvald Natvig <slicer@users.sourceforge.net>
     5dfd1f0  Try to be slightly more tolerant of third-party tables in the
 	     DB
+
+2010-11-26
+  Michael Ziegler <diese-addy@funzt-halt.net>
+    5072837  work around linux (that is, kde) switching channels on a
+	     single click
 
 2010-11-25
   Stefan Hacker <dd0t@users.sourceforge.net>
