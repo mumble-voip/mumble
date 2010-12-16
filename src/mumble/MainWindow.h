@@ -100,8 +100,13 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		bool bSuppressAskOnQuit;
 		bool bAutoUnmute;
 
+#if QT_VERSION >= 0x040600
 		QWeakPointer<Channel> cContextChannel;
 		QWeakPointer<ClientUser> cuContextUser;
+#else
+		QPointer<Channel> cContextChannel;
+		QPointer<ClientUser> cuContextUser;
+#endif
 		QPoint qpContextPosition;
 
 		void recheckTTS();
