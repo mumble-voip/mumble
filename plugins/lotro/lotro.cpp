@@ -30,7 +30,6 @@
 */
 
 #include "../mumble_plugin_win32.h"
-#include <QtCore/QtCore>
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++)
@@ -122,9 +121,6 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		camera_front[i] = avatar_front[i];
 		camera_top[i] = avatar_top[i];
 	}
-
-	//qDebug("I %s", identity);
-	//qDebug("P %f %f %f -- %f %f %f -- h %f \n", avatar_pos[0], avatar_pos[1], avatar_pos[2], avatar_front[0], avatar_front[1], avatar_front[2], h);
 
 	return true;
 }
