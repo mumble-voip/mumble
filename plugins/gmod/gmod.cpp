@@ -98,7 +98,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	context = new_context.str();
 
 	// Check to see if you are spawned
-	if (state != 15)
+	if (state != 18)
 		return true; // Deactivate plugin
 
 	ok = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
@@ -134,14 +134,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	*/
 
 	// Remember addresses for later
-	posptr = pModule + 0x502398;
-	rotptr = pModule + 0x49E274;
-	stateptr = pModule + 0x495C5C;
-	hostptr = mod_engine + 0x3D1CCC;
+	posptr = pModule + 0x509088;
+	rotptr = pModule + 0x509154;
+	stateptr = pModule + 0x49EC44;
+	hostptr = mod_engine + 0x3D3E94;
 
 	// Gamecheck
-	char sMagic[9];
-	if (!peekProc(pModule + 0x4C6198, sMagic, 9) || strncmp("garrysmod", sMagic, 9)!=0)
+	char sMagic[18];
+	if (!peekProc(pModule + 0x4B1515, sMagic, 18) || strncmp("?AVCSpectatorGUI@@", sMagic, 18)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it

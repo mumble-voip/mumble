@@ -59,13 +59,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (is_steam) {
 		ok = peekProc((BYTE *) 0x01546980, avatar_pos, 12) &&
 		     peekProc((BYTE *) 0x01546970, avatar_front, 12) &&
-		     peekProc((BYTE *) 0x01546960, avatar_top, 12) &&
-		     peekProc((BYTE *) 0x014DB9A8, ccontext, 128);
+		     peekProc((BYTE *) 0x01546960, avatar_top, 12);
 	} else {
-		ok = peekProc((BYTE *) 0x01549B70, avatar_pos, 12) &&
-		     peekProc((BYTE *) 0x01549B60, avatar_front, 12) &&
-		     peekProc((BYTE *) 0x01549B50, avatar_top, 12)&&
-		     peekProc((BYTE *) 0x014E2428, ccontext, 128);
+		ok = peekProc((BYTE *) 0x0156F0E0, avatar_pos, 12) &&
+		     peekProc((BYTE *) 0x0156F0D0, avatar_front, 12) &&
+		     peekProc((BYTE *) 0x0156F0C0, avatar_top, 12);
 	}
 
 	if (! ok)
@@ -78,10 +76,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	/*
 	    Get context string; in this plugin this will be an
 	    ip:port (char 256 bytes) string
-	*/
+	
 	ccontext[127] = 0;
 	context = std::string(ccontext);
-
+	*/
 	/*
 	if (state == 0)
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
@@ -114,7 +112,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Battlefield Bad Company 2. No identity or context support yet; Steam version support is unknown.");
+	return std::wstring(L"Supports Battlefield Bad Company 2. No identity or context support; Steam version support is unknown.");
 }
 
 static std::wstring description(L"Battlefield Bad Company 2");

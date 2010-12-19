@@ -140,14 +140,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	*/
 
 	// Remember addresses for later
-	posptr = pModule + 0x423990;
-	rotptr = pModule + 0x423924;
-	stateptr = pModule + 0x3c6270;
-	hostptr = mod_engine + 0x3909c4;
+	posptr = pModule + 0x4A3330;
+	rotptr = pModule + 0x454E04;
+	stateptr = pModule + 0x4518A0;
+	hostptr = mod_engine + 0x3C2A84;
 
 	//Gamecheck
 	char sMagic[14];
-	if (!peekProc(pModule + 0x3c948e, sMagic, 14) || strncmp("DysObjective@@", sMagic, 14)!=0)
+	if (!peekProc(pModule + 0x463726, sMagic, 14) || strncmp("DysObjective@@", sMagic, 14)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
@@ -165,10 +165,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Dystopia build 3945. No identity support yet.");
+	return std::wstring(L"Supports Dystopia build 4104. No identity support yet.");
 }
 
-static std::wstring description(L"Dystopia (Build 3945)");
+static std::wstring description(L"Dystopia (Build 4104)");
 static std::wstring shortname(L"Dystopia");
 
 static int trylock1() {

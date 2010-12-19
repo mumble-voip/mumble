@@ -31,8 +31,7 @@
 #include "../mumble_plugin_win32.h"
 
 BYTE *posptr;
-BYTE *rotptr;
-BYTE *stateptr;
+BYTE *rotptr
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
@@ -72,9 +71,8 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"left4dead.exe", L"client.dll"))
 		return false;
 
-	posptr = pModule + 0x580588;
-	rotptr = pModule + 0x4FF024;
-	stateptr = pModule + 0x4F8E34;
+	posptr = pModule + 0x596DF0;
+	rotptr = pModule + 0x5943B0;
 
 	float pos[3];
 	float rot[3];
@@ -97,14 +95,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	float ipos[3], rot[3];
 	bool ok;
-	char state;
 
 	ok = peekProc(posptr, ipos, 12) &&
-	     peekProc(rotptr, rot, 12) &&
-	     peekProc(stateptr, &state, 1);
-
-	if (state == 0)
-		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+	     peekProc(rotptr, rot, 12);
 
 	if (ok) {
 		int res = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
@@ -126,10 +119,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports L4D version 4023 only. Supports no fancy stuff.");
+	return std::wstring(L"Supports L4D version 4364 only. Supports no fancy stuff.");
 }
 
-static std::wstring description(L"Left 4 Dead (Build 4023)");
+static std::wstring description(L"Left 4 Dead (Build 4364)");
 static std::wstring shortname(L"Left 4 Dead");
 
 static int trylock1() {

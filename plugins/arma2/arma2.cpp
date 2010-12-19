@@ -120,9 +120,11 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	   if (!pModule)
 	*/
 
-	BYTE *ptr1 = peekProc<BYTE *>((BYTE *) 0x00BF2C28);
+	BYTE *ptr1 = peekProc<BYTE *>((BYTE *) 0x00C500FC);
 
-	BYTE *base = ptr1 + 0x80;
+	BYTE *ptr2 = peekProc<BYTE *>(ptr1 + 0x88);
+	
+	BYTE *base = ptr2 + 0x10;
 
 	posptr = base + 0x18;
 	frontptr = base;
@@ -141,10 +143,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Armed Assault 2 v1.07. No identity or context support yet.");
+	return std::wstring(L"Supports Armed Assault 2 v1.08. No identity or context support yet.");
 }
 
-static std::wstring description(L"ArmA 2 v1.07");
+static std::wstring description(L"ArmA 2 v1.08");
 static std::wstring shortname(L"ArmA 2");
 
 static int trylock1() {

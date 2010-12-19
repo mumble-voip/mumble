@@ -138,14 +138,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		ip:port string		engine.dll+0x3909c4  (zero terminated ip:port, string)
 	*/
 	// Remember addresses for later
-	posptr = pModule + 0x3dcad4;
-	rotptr = pModule + 0x3dcae0;
-	stateptr = pModule + 0x37e180;
-	hostptr = mod_engine + 0x3909c4;
+	posptr = pModule + 0x445820;
+	rotptr = pModule + 0x3F6E34;
+	stateptr = pModule + 0x3E3ACC;
+	hostptr = mod_engine + 0x383C8E;
 
 	// Check if we are really running hl2dm
-	char sMagic[4];
-	if (!peekProc(pModule + 0x3a5674, sMagic, 4) || strncmp("Dm/$", sMagic, 4) !=0)
+	char sMagic[17];
+	if (!peekProc(mod_engine + 0x3782D0, sMagic, 17) || strncmp(".?AVIEngineVGui@@", sMagic, 17) !=0)
 		return false;
 
 	// Check if we can get meaningfull data from it
@@ -163,10 +163,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const wstring longdesc() {
-	return wstring(L"Supports HL2DM build 3945. No identity support yet.");
+	return wstring(L"Supports HL2DM build 4421. No identity support yet.");
 }
 
-static wstring description(L"Half-Life 2: Deathmatch (Build 3945)");
+static wstring description(L"Half-Life 2: Deathmatch (Build 4421)");
 static wstring shortname(L"Half-Life 2: Deathmatch");
 
 static int trylock1() {
