@@ -31,7 +31,7 @@
 #include "../mumble_plugin_win32.h"
 
 BYTE *posptr;
-BYTE *rotptr
+BYTE *rotptr;
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
