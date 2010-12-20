@@ -406,6 +406,7 @@ void AudioWizard::reject() {
 	if (ao)
 		ao->wipe();
 	aosSource = NULL;
+	g.bInAudioWizard = false;
 
 	QWizard::reject();
 }
