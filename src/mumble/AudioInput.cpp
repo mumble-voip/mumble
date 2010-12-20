@@ -854,7 +854,7 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 		flags = g.iPrevTarget;
 
 	if (g.s.lmLoopMode == Settings::Server)
-		flags = 0x1f;
+		flags = 0x1f; // Server loopback
 
 	flags |= (umtType << 5);
 

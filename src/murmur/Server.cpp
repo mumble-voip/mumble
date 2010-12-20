@@ -748,7 +748,7 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 		}
 
 void Server::processMsg(ServerUser *u, const char *data, int len) {
-	if (u->sState != ServerUser::Authenticated || u->bMute || u->bSuppress)
+	if (u->sState != ServerUser::Authenticated || u->bMute || u->bSuppress || u->bSelfMute)
 		return;
 
 	User *p;
@@ -785,11 +785,11 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 
 	len = pds.size() + 1;
 
-	if (target == 0x1f) {
+	if (target == 0x1f) { // Server loopback
 		buffer[0] = static_cast<char>(type | 0);
 		sendMessage(u, buffer, len, qba);
 		return;
-	} else if (target == 0) {
+	} else if (target == 0) { // Normal speech
 		buffer[0] = static_cast<char>(type | 0);
 		foreach(p, c->qlUsers) {
 			ServerUser *pDst = static_cast<ServerUser *>(p);
@@ -811,7 +811,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 				}
 			}
 		}
-	} else if (u->qmTargets.contains(target)) {
+	} else if (u->qmTargets.contains(target)) { // Whisper
 		QSet<ServerUser *> channel;
 		QSet<ServerUser *> direct;
 
