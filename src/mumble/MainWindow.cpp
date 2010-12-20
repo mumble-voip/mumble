@@ -2259,6 +2259,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 
 	g.uiSession = 0;
 	g.pPermissions = ChanACL::None;
+	g.bAttenuateOthers = false;
 	qaServerDisconnect->setEnabled(false);
 	qaServerInformation->setEnabled(false);
 	qaServerBanList->setEnabled(false);
