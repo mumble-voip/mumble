@@ -1806,8 +1806,8 @@ void MainWindow::updateMenuPermissions() {
 }
 
 void MainWindow::talkingChanged() {
-	if (g.s.bAttenuateOthersOnTalk) {
-		ClientUser *p=ClientUser::get(g.uiSession);
+	ClientUser *p = ClientUser::get(g.uiSession);
+	if (p && g.s.bAttenuateOthersOnTalk) {
 		switch (p->tsState) {
 			case Settings::Talking:
 			case Settings::Whispering:
@@ -1819,6 +1819,9 @@ void MainWindow::talkingChanged() {
 				g.bAttenuateOthers = false;
 				break;
 		}
+	}
+	else {
+		g.bAttenuateOthers = false;
 	}
 
 	if (g.s.bStateInTray)
