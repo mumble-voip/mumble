@@ -71,6 +71,7 @@ Global::Global() {
 	bPushToMute = false;
 	bCenterPosition = false;
 	bPosTest = false;
+	bInAudioWizard = false;
 	iAudioPathTime = 0;
 	iMaxBandwidth = -1;
 

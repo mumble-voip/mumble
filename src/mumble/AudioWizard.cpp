@@ -51,6 +51,7 @@ bool CompletablePage::isComplete() const {
 AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	bInit = true;
 	bLastActive = false;
+	g.bInAudioWizard = true;
 
 	ticker = new QTimer(this);
 	ticker->setObjectName(QLatin1String("Ticker"));
@@ -439,6 +440,7 @@ void AudioWizard::accept() {
 	g.s.bUsage = qcbUsage->isChecked();
 	g.bPosTest = false;
 	restartAudio();
+	g.bInAudioWizard = false;
 	QWizard::accept();
 }
 

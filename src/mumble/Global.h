@@ -79,6 +79,7 @@ public:
 	bool bPushToMute;
 	bool bCenterPosition;
 	bool bPosTest;
+	bool bInAudioWizard;
 	OverlayClient *ocIntercept;
 	int iAudioPathTime;
 	unsigned int uiSession;
