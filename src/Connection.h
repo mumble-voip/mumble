@@ -41,7 +41,11 @@ class Connection : public QObject {
 		Q_DISABLE_COPY(Connection)
 	protected:
 		QSslSocket *qtsSocket;
+#if QT_VERSION >= 0x040700
+		QElapsedTimer qtLastPacket;
+#else
 		QTime qtLastPacket;
+#endif
 		unsigned int uiType;
 		int iPacketLength;
 		bool bDisconnectedEmitted;
