@@ -71,6 +71,14 @@ void CodecInit::initialize() {
 		g.qmCodecs.insert(codec->bitstreamVersion(), codec);
 	} else {
 		delete codec;
+	}
+
+	codec = new CELTCodec080(QLatin1String("0.10.0"));
+	if (codec->isValid()) {
+		codec->report();
+		g.qmCodecs.insert(codec->bitstreamVersion(), codec);
+	} else {
+		delete codec;
 		codec = new CELTCodec080(QLatin1String("1.0.0"));
 		if (codec->isValid()) {
 			codec->report();

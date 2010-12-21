@@ -17,13 +17,10 @@
 #define CELT_MICRO_VERSION 0
 
 /* Version minor */
-#define CELT_MINOR_VERSION 8
+#define CELT_MINOR_VERSION 10
 
 /* Complete version string */
-#define CELT_VERSION "0.9.0"
-
-/* Compile as fixed-point */
-/* #undef DOUBLE_PRECISION */
+#define CELT_VERSION "0.10.0"
 
 /* Assertions */
 /* #undef ENABLE_ASSERTIONS */
@@ -56,7 +53,7 @@
 #define HAVE_GETOPT_LONG 1
 
 /* Define to 1 if you have the <inttypes.h> header file. */
-#define HAVE_INTTYPES_H 1
+// #define HAVE_INTTYPES_H 1
 
 /* Define to 1 if you have the `m' library (-lm). */
 #define HAVE_LIBM 1
@@ -65,16 +62,16 @@
 /* #undef HAVE_LIBWINMM */
 
 /* Define if you have C99's lrint function. */
-#define HAVE_LRINT 1
+// #define HAVE_LRINT 1
 
 /* Define if you have C99's lrintf function. */
-#define HAVE_LRINTF 1
+// #define HAVE_LRINTF 1
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
-#define HAVE_STDINT_H 1
+// #define HAVE_STDINT_H 1
 
 /* Define to 1 if you have the <stdlib.h> header file. */
 #define HAVE_STDLIB_H 1
@@ -104,9 +101,6 @@
    */
 #define LT_OBJDIR ".libs/"
 
-/* Compile as fixed-point */
-/* #undef MIXED_PRECISION */
-
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT ""
 
@@ -126,7 +120,7 @@
 #define SIZEOF_INT 4
 
 /* The size of `long', as computed by sizeof. */
-#define SIZEOF_LONG 8
+#define SIZEOF_LONG 4
 
 /* The size of `long long', as computed by sizeof. */
 #define SIZEOF_LONG_LONG 8
@@ -142,9 +136,10 @@
 
 /* Make use of alloca */
 /* #undef USE_ALLOCA */
+#define USE_ALLOCA 1
 
 /* Use C99 variable-size arrays */
-#define VAR_ARRAYS /**/
+// #define VAR_ARRAYS /**/
 
 /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
    significant byte first (like Motorola and SPARC, unlike Intel). */
@@ -164,18 +159,10 @@
 /* Define to `__inline__' or `__inline' if that's what the C compiler
    calls it, or to nothing if 'inline' is not supported under any name.  */
 #ifndef __cplusplus
-/* #undef inline */
+#define inline __inline
 #endif
 
 /* Define to the equivalent of the C99 'restrict' keyword, or to
    nothing if this is not supported.  Do not define if restrict is
    supported directly.  */
-#define restrict __restrict
-/* Work around a bug in Sun C++: it does not support _Restrict, even
-   though the corresponding Sun C compiler does, which causes
-   "#define restrict _Restrict" in the previous line.  Perhaps some future
-   version of Sun C++ will work with _Restrict; if so, it'll probably
-   define __RESTRICT, just as Sun C does.  */
-#if defined __SUNPRO_CC && !defined __RESTRICT
-# define _Restrict
-#endif
+#define restrict
