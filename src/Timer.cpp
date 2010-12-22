@@ -58,19 +58,19 @@ quint64 Timer::restart() {
 #include <windows.h>
 
 quint64 Timer::now() {
-	static quint64 f = 0LL;
+	static double scale = 0;
 
-	if (f == 0LL) {
+	if (scale == 0) {
 		LARGE_INTEGER freq;
 		QueryPerformanceFrequency(&freq);
-		f = freq.QuadPart;
+		scale = 1000000. / freq.QuadPart;
 	}
 
 	LARGE_INTEGER li;
 	QueryPerformanceCounter(&li);
 	quint64 e = li.QuadPart;
 
-	return (e * 1000000LL) / f;
+	return static_cast<quint64>(e * scale);
 }
 #elif defined(Q_OS_UNIX)
 #include <sys/time.h>
