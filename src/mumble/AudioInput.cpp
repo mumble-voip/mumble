@@ -792,10 +792,8 @@ void AudioInput::encodeAudioFrame() {
 		}
 		if (! switchto) {
 			switchto = g.qmCodecs.value(g.bPreferAlpha ? g.iCodecAlpha : g.iCodecBeta);
-			umtType = g.bPreferAlpha ? MessageHandler::UDPVoiceCELTAlpha : MessageHandler::UDPVoiceCELTBeta;
 			if (! switchto) {
 				switchto = g.qmCodecs.value(g.bPreferAlpha ? g.iCodecBeta : g.iCodecAlpha);
-				umtType = g.bPreferAlpha ? MessageHandler::UDPVoiceCELTBeta : MessageHandler::UDPVoiceCELTAlpha;
 			}
 		}
 		if (switchto != cCodec) {
@@ -813,6 +811,18 @@ void AudioInput::encodeAudioFrame() {
 
 		if (! cCodec)
 			return;
+
+		if (g.uiSession && g.s.lmLoopMode != Settings::Local) {
+			int v = cCodec->bitstreamVersion();
+			if (v == g.iCodecAlpha)
+				umtType = MessageHandler::UDPVoiceCELTAlpha;
+			else if (v == g.iCodecBeta)
+				umtType = MessageHandler::UDPVoiceCELTBeta;
+			else {
+				qWarning() << "Couldn't find message type for codec version" << v;
+				return;
+			}
+		}
 
 		cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_PREDICTION(0));
 

@@ -46,6 +46,7 @@ class CELTCodec {
 		QString qsVersion;
 		QLibrary qlCELT;
 		bool bValid;
+		mutable int iBitstreamVersion;
 
 		void (*celt_mode_destroy)(CELTMode *mode);
 		int (__cdecl *celt_mode_info)(const CELTMode *mode, int request, celt_int32 *value);

@@ -108,6 +108,7 @@ CELTCodec::CELTCodec(const QString &version) {
 	bValid = false;
 	cmMode = NULL;
 	qsVersion = version;
+	iBitstreamVersion = INT_MIN;
 	qlCELT.setLoadHints(QLibrary::ResolveAllSymbolsHint);
 
 	QStringList alternatives;
@@ -185,11 +186,10 @@ bool CELTCodec::isValid() const {
 }
 
 int CELTCodec::bitstreamVersion() const {
-	int v = INT_MIN;
+	if (cmMode && iBitstreamVersion == INT_MIN)
+		celt_mode_info(cmMode, CELT_GET_BITSTREAM_VERSION, reinterpret_cast<celt_int32 *>(&iBitstreamVersion));
 
-	if (cmMode)
-		celt_mode_info(cmMode, CELT_GET_BITSTREAM_VERSION, reinterpret_cast<celt_int32 *>(&v));
-	return v;
+	return iBitstreamVersion;
 }
 
 QString CELTCodec::version() const {

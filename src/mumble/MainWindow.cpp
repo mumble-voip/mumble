@@ -2200,7 +2200,7 @@ void MainWindow::viewCertificate(bool) {
 void MainWindow::serverConnected() {
 	g.uiSession = 0;
 	g.pPermissions = ChanACL::None;
-	g.iCodecAlpha = 0x8000000a;
+	g.iCodecAlpha = 0x8000000b;
 	g.bPreferAlpha = true;
 	g.iCodecBeta = 0;
 
