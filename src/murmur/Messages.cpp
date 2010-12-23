@@ -672,6 +672,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		int id = registerUser(info);
 		if (id > 0) {
 			pDstServerUser->iId = id;
+			setLastChannel(pDstServerUser);
 			msg.set_user_id(id);
 			bDstAclChanged = true;
 		} else {
