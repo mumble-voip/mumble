@@ -37,6 +37,7 @@ static HHOOK hhookWnd = 0;
 HMODULE hSelf = NULL;
 static BOOL bMumble = FALSE;
 static BOOL bDebug = FALSE;
+static BOOL bBlackListed = FALSE;
 
 static HardHook hhLoad;
 static HardHook hhLoadW;
@@ -177,6 +178,12 @@ void __cdecl ods(const char *format, ...) {
 	va_end(args);
 }
 
+void __cdecl checkForWPF() {
+	if (!bBlackListed && (GetModuleHandleW(L"wpfgfx_v0300.dll") || GetModuleHandleW(L"wpfgfx_v0400.dll"))) {
+		ods("Blacklisted for loading WPF library");
+		bBlackListed = TRUE;
+	}
+}
 
 Pipe::Pipe() {
 	hSocket = INVALID_HANDLE_VALUE;
@@ -429,8 +436,6 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 		blit((*i).left, (*i).top, (*i).right - (*i).left, (*i).bottom - (*i).top);
 }
 
-static bool bBlackListed = false;
-
 typedef HMODULE(__stdcall *LoadLibraryAType)(const char *);
 static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
 	LoadLibraryAType oLoadLibrary = (LoadLibraryAType) hhLoad.call;
@@ -457,9 +462,7 @@ static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
 	HMODULE h = oLoadLibrary(lpFileName);
 	ods("Library %ls wloaded to %p", lpFileName, h);
 
-	if (GetModuleHandleW(L"wpfgfx_v0300.dll") || GetModuleHandleW(L"wpfgfx_v0400.dll")) {
-		bBlackListed = TRUE;
-	}
+	checkForWPF();
 
 	if (! bMumble && ! bBlackListed) {
 		checkD3D9Hook();
@@ -562,13 +565,13 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hMod, DWORD fdwReason, LPVOID) {
 							}
 
 							if (!onwhitelist) {
-								bBlackListed = true;
+								bBlackListed = TRUE;
 								return TRUE;
 							}
 						} else {
 							while (buffer[pos] != 0 && pos < sizeof(buffer)) {
 								if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
-									bBlackListed = true;
+									bBlackListed = TRUE;
 									fods("Overlay blacklist entry found for '%s'", buffer + pos);
 									return TRUE;
 								}
@@ -581,7 +584,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hMod, DWORD fdwReason, LPVOID) {
 						while (overlayBlacklist[i]) {
 							if (_stricmp(procname, overlayBlacklist[i]) == 0 || _stricmp(p+1, overlayBlacklist[i])==0) {
 								fods("Overlay blacklist entry found for %s", overlayBlacklist[i]);
-								bBlackListed = true;
+								bBlackListed = TRUE;
 								return TRUE;
 							}
 							i++;
@@ -597,6 +600,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hMod, DWORD fdwReason, LPVOID) {
 					if (h != INVALID_HANDLE_VALUE) {
 						CloseHandle(h);
 						fods("Overlay disable %s found", fname);
+						bBlackListed = TRUE;
 						return TRUE;
 					}
 
@@ -608,6 +612,10 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hMod, DWORD fdwReason, LPVOID) {
 						bDebug = TRUE;
 					}
 				}
+
+				checkForWPF();
+				if (bBlackListed)
+					return TRUE;
 
 				ods("Lib: ProcAttach: %s", procname);
 
@@ -668,11 +676,15 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hMod, DWORD fdwReason, LPVOID) {
 			break;
 		case DLL_THREAD_ATTACH: {
 				static bool bTriedHook = false;
-				if (sd && ! bTriedHook && ! bMumble) {
+				if (!bMumble && sd && ! bTriedHook) {
 					bTriedHook = true;
-					checkD3D9Hook();
-					checkDXGIHook();
-					checkOpenGLHook();
+					checkForWPF();
+
+					if (!bBlackListed) {
+						checkD3D9Hook();
+						checkDXGIHook();
+						checkOpenGLHook();
+					}
 				}
 			}
 			break;
