@@ -82,7 +82,7 @@ inline bool resolve_ptrs() {
 		IP:Port of server: 0x009A80B8								char[128]	ip:port of the server
 
 	Identity:
-		Commander: RendDX9.dll+00244AE0 +0x60 -> + 0x113			BYTE		0 means not commander
+		Commander: RendDX9.dll+00244AE0 +0x60 -> + 0x110			BYTE		0 means not commander
 		Squad leader state: RendDX9.dll+00244AE0 + 0x60 -> + 0x111	BYTE		0 is not squad leader
 		Squad state: RendDX9.dll+00244AE0 + 0x60 -> 10C				BYTE		0 is not in squad; 1 is in Alpha squad, 2 Bravo, ... , 9 India
 		Team state: BF2.exe+0058734C + 0x239						BYTE		0 is blufor (US team, for example), 1 is opfor (Insurgents)
@@ -93,7 +93,7 @@ inline bool resolve_ptrs() {
 	BYTE *base_renddx9_2 = peekProc<BYTE *>(base_renddx9 + 0x60);
 	if (!base_renddx9_2) return false;
 
-	commander_ptr = base_renddx9_2 + 0x113;
+	commander_ptr = base_renddx9_2 + 0x110;
 	squad_leader_ptr = base_renddx9_2 + 0x111;
 	squad_state_ptr = base_renddx9_2 + 0x10C;
 
