@@ -127,22 +127,29 @@ Mutex::~Mutex() {
 	LeaveCriticalSection(&cs);
 }
 
-void __cdecl fods(const char *format, ...) {
-	char    buf[4096], *p = buf;
-	va_list args;
+void __cdecl _ods_out(const char *format, va_list *args) {
+	char buf[4096], *p = buf + 2;
 
-	va_start(args, format);
-	int len = _vsnprintf_s(p, sizeof(buf) - 1, _TRUNCATE, format, args);
-	va_end(args);
+	buf[0] = 'M'; // Add a prefix
+	buf[1] = ':';
+
+	// Format but be aware of space taken by prefix
+	int len = _vsnprintf_s(p, sizeof(buf) - 3, _TRUNCATE, format, *args);
+
 
 	if (len <= 0)
 		return;
 
 	p += len;
 
-	while (p > buf  &&  isspace(p[-1]))
+	// Truncate trailing spaces
+	while (p > (buf + 2) && isspace(p[-1]))
 		*--p = '\0';
 
+	// Add custom termination
+	if (p > (buf + sizeof(buf) - 3)) { // Make sure there's space
+		p = buf + sizeof(buf) - 3;
+	}
 	*p++ = '\r';
 	*p++ = '\n';
 	*p   = '\0';
@@ -150,33 +157,26 @@ void __cdecl fods(const char *format, ...) {
 	OutputDebugStringA(buf);
 }
 
+void __cdecl fods(const char *format, ...) {
+	va_list args;
+
+	va_start(args, format);
+	_ods_out(format, &args);
+	va_end(args);
+}
 
 void __cdecl ods(const char *format, ...) {
 #ifndef DEBUG
 	if (!bDebug)
 		return;
 #endif
-	char    buf[4096], *p = buf;
 	va_list args;
 
 	va_start(args, format);
-	int len = _vsnprintf_s(p, sizeof(buf) - 1, _TRUNCATE, format, args);
+	_ods_out(format, &args);
 	va_end(args);
-
-	if (len <= 0)
-		return;
-
-	p += len;
-
-	while (p > buf  &&  isspace(p[-1]))
-		*--p = '\0';
-
-	*p++ = '\r';
-	*p++ = '\n';
-	*p   = '\0';
-
-	OutputDebugStringA(buf);
 }
+
 
 Pipe::Pipe() {
 	hSocket = INVALID_HANDLE_VALUE;
