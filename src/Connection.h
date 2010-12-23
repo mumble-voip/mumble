@@ -48,7 +48,6 @@ class Connection : public QObject {
 #endif
 		unsigned int uiType;
 		int iPacketLength;
-		bool bDisconnectedEmitted;
 #ifdef Q_OS_WIN
 		static HANDLE hQoS;
 		DWORD dwFlow;
@@ -82,6 +81,7 @@ class Connection : public QObject {
 		QSslCipher sessionCipher() const;
 		QHostAddress peerAddress() const;
 		quint16 peerPort() const;
+		bool bDisconnectedEmitted;
 
 		void setToS();
 #ifdef Q_OS_WIN

@@ -1054,6 +1054,10 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 	Connection *c = qobject_cast<Connection *>(sender());
 	if (! c)
 		return;
+	if (c->bDisconnectedEmitted)
+		return;
+	c->bDisconnectedEmitted = true;
+
 	ServerUser *u = static_cast<ServerUser *>(c);
 
 	log(u, QString("Connection closed: %1 [%2]").arg(reason).arg(err));

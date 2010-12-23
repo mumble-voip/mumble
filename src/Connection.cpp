@@ -152,10 +152,7 @@ void Connection::socketRead() {
 }
 
 void Connection::socketError(QAbstractSocket::SocketError err) {
-	if (! bDisconnectedEmitted) {
-		bDisconnectedEmitted = true;
-		emit connectionClosed(err, qtsSocket->errorString());
-	}
+	emit connectionClosed(err, qtsSocket->errorString());
 }
 
 void Connection::socketSslErrors(const QList<QSslError> &qlErr) {
@@ -167,10 +164,7 @@ void Connection::proceedAnyway() {
 }
 
 void Connection::socketDisconnected() {
-	if (! bDisconnectedEmitted) {
-		bDisconnectedEmitted = true;
-		emit connectionClosed(QAbstractSocket::UnknownSocketError, QString());
-	}
+	emit connectionClosed(QAbstractSocket::UnknownSocketError, QString());
 }
 
 void Connection::messageToNetwork(const ::google::protobuf::Message &msg, unsigned int msgType, QByteArray &cache) {
