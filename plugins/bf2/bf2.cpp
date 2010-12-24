@@ -156,9 +156,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	*/
 	ccontext[127] = 0;
 	ostringstream ocontext;
-	ocontext << "<context>\n"
-	<< "<ipport>" << ccontext << "</ipport>\n"
-	"</context>";
+	ocontext << "{ \"ipport\": \"" << ccontext << "\"}";
 
 	context = ocontext.str();
 
@@ -166,12 +164,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		Get identity string.
 	*/
 	wostringstream oidentity;
-	oidentity << "<identity>\n"
-	<< "<commander>" << (is_commander ? "true" : "false") << "</commander>\n"
-	<< "<squad_leader>" << (is_squad_leader ? "true" : "false") << "</squad_leader>\n"
-	<< "<squad>" << static_cast<unsigned int>(is_in_squad) << "</squad>\n"
-	<< "<team>" << (is_opfor ? "opfor" : "blufor") << "</team>\n"
-	<< "</identity>";
+	oidentity << "{"
+	<< "\"commander\":" << (is_commander ? "true" : "false") << ","
+	<< "\"squad_leader\":" << (is_squad_leader ? "true" : "false") << ","
+	<< "\"squad\":" << static_cast<unsigned int>(is_in_squad) << ","
+	<< "\"team\":\"" << (is_opfor ? "opfor" : "blufor") << "\""
+	<< "}";
 
 	identity = oidentity.str();
 
