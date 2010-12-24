@@ -561,7 +561,7 @@ void AudioWizard::on_skwPTT_keySet(bool valid, bool last) {
 	if (valid)
 		qrPTT->setChecked(true);
 	else if (qrPTT->isChecked())
-		qrSNR->setChecked(true);
+		qrAmplitude->setChecked(true);
 	updateTriggerWidgets(valid);
 	bTransmitChanged = true;
 
