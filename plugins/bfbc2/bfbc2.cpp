@@ -76,7 +76,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	/*
 	    Get context string; in this plugin this will be an
 	    ip:port (char 256 bytes) string
-	
+
 	ccontext[127] = 0;
 	context = std::string(ccontext);
 	*/

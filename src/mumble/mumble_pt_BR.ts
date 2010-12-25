@@ -2048,7 +2048,7 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
         <translation>Desativar Texto-para-Fala e usar sons em seu lugar.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+305"/>
+        <location filename="AudioWizard.cpp" line="+306"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -4287,12 +4287,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+2002"/>
+        <location line="+2047"/>
         <source>Root</source>
         <translation>Raíz</translation>
     </message>
     <message>
-        <location line="-1953"/>
+        <location line="-1993"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Pressionar-para-Falar</translation>
@@ -4371,12 +4371,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2117"/>
+        <location line="+2158"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2113"/>
+        <location line="-2154"/>
         <source>&amp;Window</source>
         <translation>&amp;Janela</translation>
     </message>
@@ -4445,13 +4445,13 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2147"/>
+        <location line="+2188"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Não conectado&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1887"/>
+        <location line="-1904"/>
         <source>Clear</source>
         <translation>Limpar</translation>
     </message>
@@ -4564,7 +4564,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Banindo usuário %1</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+63"/>
         <source>View comment on user %1</source>
         <translation>Ver comentário no usuário %1</translation>
     </message>
@@ -4575,12 +4575,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Mensagem para canal %1</translation>
     </message>
     <message>
-        <location line="+477"/>
+        <location line="+489"/>
         <source>Connected.</source>
         <translation>Conectado.</translation>
     </message>
     <message>
-        <location line="+158"/>
+        <location line="+159"/>
         <source>SSL Version mismatch</source>
         <translation>Versões SSL não coincidem</translation>
     </message>
@@ -4633,12 +4633,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Formato de imagem não reconhecido.</translation>
     </message>
     <message>
-        <location line="-1559"/>
+        <location line="-1576"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Vanal de voz é enviado pelo canal de controle.</translation>
     </message>
     <message>
-        <location line="-855"/>
+        <location line="-879"/>
         <source>&amp;User</source>
         <translation>&amp;Usuário</translation>
     </message>
@@ -4654,7 +4654,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Alterna os estados da sobreimpressão em-jogo.</translation>
     </message>
     <message>
-        <location line="+675"/>
+        <location line="+699"/>
         <source>Change your comment</source>
         <translation>Alterar seu comentário</translation>
     </message>
@@ -4705,12 +4705,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1246"/>
+        <location line="+1263"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Ver certificado</translation>
     </message>
     <message>
-        <location line="-987"/>
+        <location line="-1004"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Especifique a razão</translation>
@@ -4722,15 +4722,15 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="+12"/>
-        <location line="+80"/>
+        <location line="+84"/>
         <location line="+4"/>
         <location line="+232"/>
         <source>To %1: %2</source>
         <translation>Para %1: %2</translation>
     </message>
     <message>
-        <location line="-316"/>
-        <location line="+84"/>
+        <location line="-320"/>
+        <location line="+88"/>
         <source>Message to %1</source>
         <translation>Mensagem para %1</translation>
     </message>
@@ -4761,7 +4761,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Para %1 (Árvore): %2</translation>
     </message>
     <message>
-        <location line="+123"/>
+        <location line="+130"/>
         <source>Unmuted and undeafened.</source>
         <translation>Desmudecido e desensurdecido.</translation>
     </message>
@@ -4776,7 +4776,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Mudo.</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+31"/>
         <source>Muted and deafened.</source>
         <translation>Mudo e surdo.</translation>
     </message>
@@ -4796,7 +4796,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Sobre Qt</translation>
     </message>
     <message>
-        <location line="+348"/>
+        <location line="+349"/>
         <source>SSL Verification failed: %1</source>
         <translation>Verificação SSL falhou: %1</translation>
     </message>

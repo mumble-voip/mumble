@@ -1,3 +1,56 @@
+2010-12-24
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    b50a0ac  Update bf2 plugin to use json instead of xml for
+	     context/identity representation
+    357725a  Fix AudioWizard focus after invalid shortcut entry
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    87f41f4  Add CELT 0.10.0 DLLs to the installer
+    03a8634  Change MySQL table creation statements to work with 5.5.x
+    ecf3bdd  Save last channel on user registration
+    606658e  Always set umtType to the correct version
+    7c66886  Move bDisconnectEmitted down by one level
+
+2010-12-23
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    ee8dcd8  Fix some problems with overlay backlisting not preventing dx
+	     hooking. Improve checking for WPF.
+    0813b58  Add 'M:' prefix to fods/ods overlay debugging function output
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    90e1f7e  Fix unreliable commander state memory address
+
+2010-12-22
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    50a136c  Fix Timer class for systems with unusually high performance
+	     frequency numbers or long uptime
+
+2010-12-21
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    2077aa0  Fix previous wizard patch
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    83dcdc3  Add CELT 0.10.0
+    d82a608  Use QElapsedTimer if it's available
+
+2010-12-20
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    f642271  Prevent server from forward audio from muted clients
+    90f5f78  Fix possible client/server mute state mismatch
+    b36c879  Fix attenuation not being disabled on disconnect
+    04a5b5c  Fix possible crash in MainWindow::talkingChanged()
+
+2010-12-19
+  Tuck Therebelos <snares@users.sourceforge.net>
+    6d332cb  Update Steam support for BC2
+    09008e6  Fix semicolon omission
+    120fa9e  Plugin updates for release
+
+2010-12-16
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    4c1e473  Restore Qt < 4.6 compatibility
+    495c8c3  Remove Qt dependency in the LOTRO plugin
+
 2010-12-05
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     223d0a9  Unbreak send message on double click

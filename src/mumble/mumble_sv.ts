@@ -2118,7 +2118,7 @@ Mumble är under utveckling och utvecklingslaget vill fokusera på funktionerna 
         <translation>Avaktivera Text-till-Tal och använd ljud istället.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+305"/>
+        <location filename="AudioWizard.cpp" line="+306"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -4385,12 +4385,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+2002"/>
+        <location line="+2047"/>
         <source>Root</source>
         <translation>Rot</translation>
     </message>
     <message>
-        <location line="-1953"/>
+        <location line="-1993"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryck-för-att-Tala</translation>
@@ -4469,12 +4469,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2117"/>
+        <location line="+2158"/>
         <source>Mumble -- %1</source>
         <translation>Mumble - %1</translation>
     </message>
     <message>
-        <location line="-2113"/>
+        <location line="-2154"/>
         <source>&amp;Window</source>
         <translation>&amp;Fönster</translation>
     </message>
@@ -4543,13 +4543,13 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2147"/>
+        <location line="+2188"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Ej ansluten&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1887"/>
+        <location line="-1904"/>
         <source>Clear</source>
         <translation>Rensa</translation>
     </message>
@@ -4662,7 +4662,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Bannlyser %1</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+63"/>
         <source>View comment on user %1</source>
         <translation>Visa kommentar på %1</translation>
     </message>
@@ -4673,12 +4673,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Meddelande till kanalen %1</translation>
     </message>
     <message>
-        <location line="+477"/>
+        <location line="+489"/>
         <source>Connected.</source>
         <translation>Ansluten.</translation>
     </message>
     <message>
-        <location line="+158"/>
+        <location line="+159"/>
         <source>SSL Version mismatch</source>
         <translation>SSL version matchar inte</translation>
     </message>
@@ -4731,12 +4731,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Bildformatet stöds ej.</translation>
     </message>
     <message>
-        <location line="-1559"/>
+        <location line="-1576"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Röstkanal skickas över kontrollkanal.</translation>
     </message>
     <message>
-        <location line="-855"/>
+        <location line="-879"/>
         <source>&amp;User</source>
         <translation>&amp;Användare</translation>
     </message>
@@ -4752,7 +4752,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Detta kommer ändra i-spelet läget.</translation>
     </message>
     <message>
-        <location line="+675"/>
+        <location line="+699"/>
         <source>Change your comment</source>
         <translation>Ändra din kommentar</translation>
     </message>
@@ -4803,12 +4803,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1246"/>
+        <location line="+1263"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Visa certifikat</translation>
     </message>
     <message>
-        <location line="-987"/>
+        <location line="-1004"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Ange anledning</translation>
@@ -4820,15 +4820,15 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+12"/>
-        <location line="+80"/>
+        <location line="+84"/>
         <location line="+4"/>
         <location line="+232"/>
         <source>To %1: %2</source>
         <translation>Till %1: %2</translation>
     </message>
     <message>
-        <location line="-316"/>
-        <location line="+84"/>
+        <location line="-320"/>
+        <location line="+88"/>
         <source>Message to %1</source>
         <translation>Meddelande till %1</translation>
     </message>
@@ -4859,7 +4859,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Till %1 (Träd): %2</translation>
     </message>
     <message>
-        <location line="+123"/>
+        <location line="+130"/>
         <source>Unmuted and undeafened.</source>
         <translation>Ljud och mikrofon aktiverad.</translation>
     </message>
@@ -4874,7 +4874,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Mikrofon avaktiverad.</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+31"/>
         <source>Muted and deafened.</source>
         <translation>Mikrofon och ljud avaktiverat.</translation>
     </message>
@@ -4894,7 +4894,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Om Qt</translation>
     </message>
     <message>
-        <location line="+348"/>
+        <location line="+349"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL verifiering misslyckades: %1</translation>
     </message>

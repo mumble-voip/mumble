@@ -2014,7 +2014,7 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+305"/>
+        <location filename="AudioWizard.cpp" line="+306"/>
         <source>%1 ms</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4223,12 +4223,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+2002"/>
+        <location line="+2047"/>
         <source>Root</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1953"/>
+        <location line="-1993"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
@@ -4307,12 +4307,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2117"/>
+        <location line="+2158"/>
         <source>Mumble -- %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2113"/>
+        <location line="-2154"/>
         <source>&amp;Window</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4381,13 +4381,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2147"/>
+        <location line="+2188"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1887"/>
+        <location line="-1904"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4500,7 +4500,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+63"/>
         <source>View comment on user %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4511,12 +4511,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+477"/>
+        <location line="+489"/>
         <source>Connected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+158"/>
+        <location line="+159"/>
         <source>SSL Version mismatch</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4569,12 +4569,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1559"/>
+        <location line="-1576"/>
         <source>Voice channel is sent over control channel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-855"/>
+        <location line="-879"/>
         <source>&amp;User</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4590,7 +4590,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+675"/>
+        <location line="+699"/>
         <source>Change your comment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4641,12 +4641,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1246"/>
+        <location line="+1263"/>
         <source>&amp;View Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-987"/>
+        <location line="-1004"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation type="unfinished"></translation>
@@ -4658,15 +4658,15 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+12"/>
-        <location line="+80"/>
+        <location line="+84"/>
         <location line="+4"/>
         <location line="+232"/>
         <source>To %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-316"/>
-        <location line="+84"/>
+        <location line="-320"/>
+        <location line="+88"/>
         <source>Message to %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4697,7 +4697,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+123"/>
+        <location line="+130"/>
         <source>Unmuted and undeafened.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4712,7 +4712,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+31"/>
         <source>Muted and deafened.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4732,7 +4732,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+348"/>
+        <location line="+349"/>
         <source>SSL Verification failed: %1</source>
         <translation type="unfinished"></translation>
     </message>

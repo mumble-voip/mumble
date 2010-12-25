@@ -1819,8 +1819,7 @@ void MainWindow::talkingChanged() {
 				g.bAttenuateOthers = false;
 				break;
 		}
-	}
-	else {
+	} else {
 		g.bAttenuateOthers = false;
 	}
 

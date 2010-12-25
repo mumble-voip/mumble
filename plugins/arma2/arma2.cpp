@@ -123,7 +123,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	BYTE *ptr1 = peekProc<BYTE *>((BYTE *) 0x00C500FC);
 
 	BYTE *ptr2 = peekProc<BYTE *>(ptr1 + 0x88);
-	
+
 	BYTE *base = ptr2 + 0x10;
 
 	posptr = base + 0x18;
