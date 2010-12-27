@@ -63,12 +63,15 @@ class TransactionHolder {
 
 QSqlDatabase *ServerDB::db;
 Timer ServerDB::tLogClean;
+QString ServerDB::qsUpgradeSuffix;
 
 ServerDB::ServerDB() {
 	if (! QSqlDatabase::isDriverAvailable(Meta::mp.qsDBDriver)) {
 		qFatal("ServerDB: Database driver %s not available", qPrintable(Meta::mp.qsDBDriver));
 	}
 	db = new QSqlDatabase(QSqlDatabase::addDatabase(Meta::mp.qsDBDriver));
+	
+	qsUpgradeSuffix = QString::fromLatin1("_old_%1").arg(QDateTime::currentDateTime().toTime_t());
 
 	bool found = false;
 
@@ -144,25 +147,25 @@ ServerDB::ServerDB() {
 	if (version < 5) {
 		if (version > 0) {
 			qWarning("Renaming old tables...");
-			SQLDO("ALTER TABLE `%1servers` RENAME TO `%1servers_old`");
+			SQLDO("ALTER TABLE `%1servers` RENAME TO `%1servers%2`");
 			if (version < 2)
 				SQLMAY("ALTER TABLE `%1log` RENAME TO `%1slog`");
-			SQLDO("ALTER TABLE `%1slog` RENAME TO `%1slog_old`");
-			SQLDO("ALTER TABLE `%1config` RENAME TO `%1config_old`");
-			SQLDO("ALTER TABLE `%1channels` RENAME TO `%1channels_old`");
+			SQLDO("ALTER TABLE `%1slog` RENAME TO `%1slog%2`");
+			SQLDO("ALTER TABLE `%1config` RENAME TO `%1config%2`");
+			SQLDO("ALTER TABLE `%1channels` RENAME TO `%1channels%2`");
 			if (version < 4)
-				SQLDO("ALTER TABLE `%1players` RENAME TO `%1players_old`");
+				SQLDO("ALTER TABLE `%1players` RENAME TO `%1players%2`");
 			else
-				SQLDO("ALTER TABLE `%1users` RENAME TO `%1users_old`");
-			SQLDO("ALTER TABLE `%1groups` RENAME TO `%1groups_old`");
-			SQLDO("ALTER TABLE `%1group_members` RENAME TO `%1group_members_old`");
-			SQLDO("ALTER TABLE `%1acl` RENAME TO `%1acl_old`");
-			SQLDO("ALTER TABLE `%1channel_links` RENAME TO `%1channel_links_old`");
-			SQLDO("ALTER TABLE `%1bans` RENAME TO `%1bans_old`");
+				SQLDO("ALTER TABLE `%1users` RENAME TO `%1users%2`");
+			SQLDO("ALTER TABLE `%1groups` RENAME TO `%1groups%2`");
+			SQLDO("ALTER TABLE `%1group_members` RENAME TO `%1group_members%2`");
+			SQLDO("ALTER TABLE `%1acl` RENAME TO `%1acl%2`");
+			SQLDO("ALTER TABLE `%1channel_links` RENAME TO `%1channel_links%2`");
+			SQLDO("ALTER TABLE `%1bans` RENAME TO `%1bans%2`");
 
 			if (version >= 4) {
-				SQLDO("ALTER TABLE `%1user_info` RENAME TO `%1user_info_old`");
-				SQLDO("ALTER TABLE `%1channel_info` RENAME TO `%1channel_info_old`");
+				SQLDO("ALTER TABLE `%1user_info` RENAME TO `%1user_info%2`");
+				SQLDO("ALTER TABLE `%1channel_info` RENAME TO `%1channel_info%2`");
 			}
 		}
 
@@ -356,37 +359,37 @@ ServerDB::ServerDB() {
 
 			if (Meta::mp.qsDBDriver != "QSQLITE")
 				SQLDO("SET FOREIGN_KEY_CHECKS = 0;");
-			SQLDO("INSERT INTO `%1servers` (`server_id`) SELECT `server_id` FROM `%1servers_old`");
-			SQLDO("INSERT INTO `%1slog` (`server_id`, `msg`, `msgtime`) SELECT `server_id`, `msg`, `msgtime` FROM `%1slog_old`");
+			SQLDO("INSERT INTO `%1servers` (`server_id`) SELECT `server_id` FROM `%1servers%2`");
+			SQLDO("INSERT INTO `%1slog` (`server_id`, `msg`, `msgtime`) SELECT `server_id`, `msg`, `msgtime` FROM `%1slog%2`");
 
 			if (version < 4)
-				SQLDO("INSERT INTO `%1config` (`server_id`, `key`, `value`) SELECT `server_id`, `keystring`, `value` FROM `%1config_old`");
+				SQLDO("INSERT INTO `%1config` (`server_id`, `key`, `value`) SELECT `server_id`, `keystring`, `value` FROM `%1config%2`");
 			else
-				SQLDO("INSERT INTO `%1config` (`server_id`, `key`, `value`) SELECT `server_id`, `key`, `value` FROM `%1config_old`");
+				SQLDO("INSERT INTO `%1config` (`server_id`, `key`, `value`) SELECT `server_id`, `key`, `value` FROM `%1config%2`");
 
-			SQLDO("INSERT INTO `%1channels` (`server_id`, `channel_id`, `parent_id`, `name`, `inheritacl`) SELECT `server_id`, `channel_id`, `parent_id`, `name`, `inheritacl` FROM `%1channels_old` ORDER BY `parent_id`, `channel_id`");
+			SQLDO("INSERT INTO `%1channels` (`server_id`, `channel_id`, `parent_id`, `name`, `inheritacl`) SELECT `server_id`, `channel_id`, `parent_id`, `name`, `inheritacl` FROM `%1channels%2` ORDER BY `parent_id`, `channel_id`");
 
 			if (version < 4)
-				SQLDO("INSERT INTO `%1users` (`server_id`, `user_id`, `name`, `pw`, `lastchannel`, `texture`, `last_active`) SELECT `server_id`, `player_id`, `name`, `pw`, `lastchannel`, `texture`, `last_active` FROM `%1players_old`");
+				SQLDO("INSERT INTO `%1users` (`server_id`, `user_id`, `name`, `pw`, `lastchannel`, `texture`, `last_active`) SELECT `server_id`, `player_id`, `name`, `pw`, `lastchannel`, `texture`, `last_active` FROM `%1players%2`");
 			else
-				SQLDO("INSERT INTO `%1users` (`server_id`, `user_id`, `name`, `pw`, `lastchannel`, `texture`, `last_active`) SELECT `server_id`, `user_id`, `name`, `pw`, `lastchannel`, `texture`, `last_active` FROM `%1users_old`");
+				SQLDO("INSERT INTO `%1users` (`server_id`, `user_id`, `name`, `pw`, `lastchannel`, `texture`, `last_active`) SELECT `server_id`, `user_id`, `name`, `pw`, `lastchannel`, `texture`, `last_active` FROM `%1users%2`");
 
-			SQLDO("INSERT INTO `%1groups` (`group_id`, `server_id`, `name`, `channel_id`, `inherit`, `inheritable`) SELECT `group_id`, `server_id`, `name`, `channel_id`, `inherit`, `inheritable` FROM `%1groups_old`");
+			SQLDO("INSERT INTO `%1groups` (`group_id`, `server_id`, `name`, `channel_id`, `inherit`, `inheritable`) SELECT `group_id`, `server_id`, `name`, `channel_id`, `inherit`, `inheritable` FROM `%1groups%2`");
 
 			if (version < 4)
-				SQLDO("INSERT INTO `%1group_members` (`group_id`, `server_id`, `user_id`, `addit`) SELECT `group_id`, `server_id`, `player_id`, `addit` FROM `%1group_members_old`");
+				SQLDO("INSERT INTO `%1group_members` (`group_id`, `server_id`, `user_id`, `addit`) SELECT `group_id`, `server_id`, `player_id`, `addit` FROM `%1group_members%2`");
 			else
-				SQLDO("INSERT INTO `%1group_members` (`group_id`, `server_id`, `user_id`, `addit`) SELECT `group_id`, `server_id`, `user_id`, `addit` FROM `%1group_members_old`");
+				SQLDO("INSERT INTO `%1group_members` (`group_id`, `server_id`, `user_id`, `addit`) SELECT `group_id`, `server_id`, `user_id`, `addit` FROM `%1group_members%2`");
 
 			if (version < 4)
-				SQLDO("INSERT INTO `%1acl` (`server_id`, `channel_id`, `priority`, `user_id`, `group_name`, `apply_here`, `apply_sub`, `grantpriv`, `revokepriv`) SELECT `server_id`, `channel_id`, `priority`, `player_id`, `group_name`, `apply_here`, `apply_sub`, `grantpriv`, `revokepriv` FROM `%1acl_old`");
+				SQLDO("INSERT INTO `%1acl` (`server_id`, `channel_id`, `priority`, `user_id`, `group_name`, `apply_here`, `apply_sub`, `grantpriv`, `revokepriv`) SELECT `server_id`, `channel_id`, `priority`, `player_id`, `group_name`, `apply_here`, `apply_sub`, `grantpriv`, `revokepriv` FROM `%1acl%2`");
 			else
-				SQLDO("INSERT INTO `%1acl` (`server_id`, `channel_id`, `priority`, `user_id`, `group_name`, `apply_here`, `apply_sub`, `grantpriv`, `revokepriv`) SELECT `server_id`, `channel_id`, `priority`, `user_id`, `group_name`, `apply_here`, `apply_sub`, `grantpriv`, `revokepriv` FROM `%1acl_old`");
+				SQLDO("INSERT INTO `%1acl` (`server_id`, `channel_id`, `priority`, `user_id`, `group_name`, `apply_here`, `apply_sub`, `grantpriv`, `revokepriv`) SELECT `server_id`, `channel_id`, `priority`, `user_id`, `group_name`, `apply_here`, `apply_sub`, `grantpriv`, `revokepriv` FROM `%1acl%2`");
 
-			SQLDO("INSERT INTO `%1channel_links` (`server_id`, `channel_id`, `link_id`) SELECT `server_id`, `channel_id`, `link_id` FROM `%1channel_links_old`");
+			SQLDO("INSERT INTO `%1channel_links` (`server_id`, `channel_id`, `link_id`) SELECT `server_id`, `channel_id`, `link_id` FROM `%1channel_links%2`");
 			if (version < 4) {
 				QList<QList<QVariant> > ql;
-				SQLPREP("SELECT `server_id`, `base`, `mask` FROM `%1bans_old`");
+				SQLPREP("SELECT `server_id`, `base`, `mask` FROM `%1bans%2`");
 				SQLEXEC();
 				while (query.next()) {
 					QList<QVariant> l;
@@ -415,38 +418,38 @@ ServerDB::ServerDB() {
 					SQLEXEC();
 				}
 			} else {
-				SQLDO("INSERT INTO `%1bans` (`server_id`, `base`, `mask`) SELECT `server_id`, `base`, `mask` FROM `%1bans_old`");
+				SQLDO("INSERT INTO `%1bans` (`server_id`, `base`, `mask`) SELECT `server_id`, `base`, `mask` FROM `%1bans%2`");
 			}
 
 			if (version < 4)
-				SQLDO("INSERT INTO `%1user_info` SELECT `server_id`,`player_id`,1,`email` FROM `%1players_old` WHERE `email` IS NOT NULL");
+				SQLDO("INSERT INTO `%1user_info` SELECT `server_id`,`player_id`,1,`email` FROM `%1players%2` WHERE `email` IS NOT NULL");
 
 			if (version == 3) {
-				SQLDO("INSERT INTO `%1channel_info` SELECT `server_id`,`channel_id`,0,`description` FROM `%1channels_old` WHERE `description` IS NOT NULL");
+				SQLDO("INSERT INTO `%1channel_info` SELECT `server_id`,`channel_id`,0,`description` FROM `%1channels%2` WHERE `description` IS NOT NULL");
 			}
 
 			if (version >= 4) {
-				SQLDO("INSERT INTO `%1user_info` SELECT * FROM `%1user_info_old`");
-				SQLDO("INSERT INTO `%1channel_info` SELECT * FROM `%1channel_info_old`");
+				SQLDO("INSERT INTO `%1user_info` SELECT * FROM `%1user_info%2`");
+				SQLDO("INSERT INTO `%1channel_info` SELECT * FROM `%1channel_info%2`");
 			}
 
 			if (Meta::mp.qsDBDriver != "QSQLITE")
 				SQLDO("SET FOREIGN_KEY_CHECKS = 1;");
 
 			qWarning("Removing old tables...");
-			SQLDO("DROP TABLE IF EXISTS `%1slog_old`");
-			SQLDO("DROP TABLE IF EXISTS `%1config_old`");
-			SQLDO("DROP TABLE IF EXISTS `%1channel_info_old`");
-			SQLDO("DROP TABLE IF EXISTS `%1channels_old`");
-			SQLDO("DROP TABLE IF EXISTS `%1user_info_old`");
-			SQLDO("DROP TABLE IF EXISTS `%1users_old`");
-			SQLDO("DROP TABLE IF EXISTS `%1players_old`");
-			SQLDO("DROP TABLE IF EXISTS `%1groups_old`");
-			SQLDO("DROP TABLE IF EXISTS `%1group_members_old`");
-			SQLDO("DROP TABLE IF EXISTS `%1acl_old`");
-			SQLDO("DROP TABLE IF EXISTS `%1channel_links_old`");
-			SQLDO("DROP TABLE IF EXISTS `%1bans_old`");
-			SQLDO("DROP TABLE IF EXISTS `%1servers_old`");
+			SQLDO("DROP TABLE IF EXISTS `%1slog%2`");
+			SQLDO("DROP TABLE IF EXISTS `%1config%2`");
+			SQLDO("DROP TABLE IF EXISTS `%1channel_info%2`");
+			SQLDO("DROP TABLE IF EXISTS `%1channels%2`");
+			SQLDO("DROP TABLE IF EXISTS `%1user_info%2`");
+			SQLDO("DROP TABLE IF EXISTS `%1users%2`");
+			SQLDO("DROP TABLE IF EXISTS `%1players%2`");
+			SQLDO("DROP TABLE IF EXISTS `%1groups%2`");
+			SQLDO("DROP TABLE IF EXISTS `%1group_members%2`");
+			SQLDO("DROP TABLE IF EXISTS `%1acl%2`");
+			SQLDO("DROP TABLE IF EXISTS `%1channel_links%2`");
+			SQLDO("DROP TABLE IF EXISTS `%1bans%2`");
+			SQLDO("DROP TABLE IF EXISTS `%1servers%2`");
 
 			SQLDO("UPDATE `%1meta` SET `value` = '5' WHERE `keystring` = 'version'");
 		}
@@ -466,10 +469,14 @@ bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal, bool wa
 		return false;
 	}
 	QString q;
-	if (str.contains(QLatin1String("%1")))
-		q = str.arg(Meta::mp.qsDBPrefix);
-	else
+	if (str.contains(QLatin1String("%1"))) {
+		if (str.contains(QLatin1String("%2"))) 
+			q = str.arg(Meta::mp.qsDBPrefix, qsUpgradeSuffix);
+		else
+			q = str.arg(Meta::mp.qsDBPrefix);
+	} else {
 		q = str;
+	}
 
 	if (query.prepare(q)) {
 		return true;
