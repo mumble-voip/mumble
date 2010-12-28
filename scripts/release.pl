@@ -154,7 +154,8 @@ delete($files{'LICENSE'});
 if ($#ARGV < 0) {
   open(F, "git describe origin|"); 
   while (<F>) {
-    chomp();   
+    chomp();
+    s/-/~/;
     $ver = $_;
   }
   close(F);
