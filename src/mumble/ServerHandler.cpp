@@ -422,6 +422,13 @@ void ServerHandler::disconnect() {
 }
 
 void ServerHandler::serverConnectionClosed(QAbstractSocket::SocketError err, const QString &reason) {
+	Connection *c = cConnection.get();
+	if (! c)
+		return;
+	if (c->bDisconnectedEmitted)
+		return;
+	c->bDisconnectedEmitted = true;
+
 	AudioOutputPtr ao = g.ao;
 	if (ao)
 		ao->wipe();
