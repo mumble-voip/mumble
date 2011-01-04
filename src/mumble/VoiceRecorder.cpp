@@ -339,18 +339,18 @@ void VoiceRecorder::stop() {
 void VoiceRecorder::addBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples) {
 	Q_ASSERT(!bMixDown || cu == NULL);
 
-	{
-		// Save the buffer in |qlRecordBuffer|.
-		QMutexLocker l(&qmBufferLock);
-		boost::shared_ptr<RecordBuffer> rb(new RecordBuffer(cu, buffer, samples, tTimestamp->elapsed()));
-		qlRecordBuffer << rb;
-	}
-
 	// Create a new RecordInfo object if this is a new user.
 	int index = bMixDown ? 0 : cu->uiSession;
 	if (!qhRecordInfo.contains(index)) {
 		boost::shared_ptr<RecordInfo> ri(new RecordInfo());
 		qhRecordInfo.insert(index, ri);
+	}
+
+	{
+		// Save the buffer in |qlRecordBuffer|.
+		QMutexLocker l(&qmBufferLock);
+		boost::shared_ptr<RecordBuffer> rb(new RecordBuffer(cu, buffer, samples, tTimestamp->elapsed()));
+		qlRecordBuffer << rb;
 	}
 
 	// Tell the main loop that we have new audio data.
