@@ -3518,7 +3518,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location line="+1"/>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation type="unfinished">Вернуть настройки по-умолчанию для данной страницы. Другие страницы не будут изменены.&lt;br /&gt;Чтобы вернуть все настройки по-умолчанию, Вы должны нажать эту кнопку на всех страницах.</translation>
+        <translation>Вернуть настройки по-умолчанию для данной страницы. Другие страницы не будут изменены.&lt;br /&gt;Чтобы вернуть все настройки по-умолчанию, Вы должны нажать эту кнопку на каждой странице.</translation>
     </message>
 </context>
 <context>
@@ -3572,7 +3572,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location line="+1"/>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation type="unfinished">Вернуть настройки по-умолчанию для данной страницы. Другие страницы не будут изменены.&lt;br /&gt;Чтобы вернуть все настройки по-умолчанию, Вы должны нажать эту кнопку на всех страницах.</translation>
+        <translation>Вернуть настройки по-умолчанию для данной страницы. Другие страницы не будут изменены.&lt;br /&gt;Чтобы вернуть все настройки по-умолчанию, Вы должны нажать эту кнопку на каждой странице.</translation>
     </message>
 </context>
 <context>
@@ -6667,7 +6667,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+0"/>
         <source>Images (*.png *.jpg *.jpeg *.svg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Изображения (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
     <message>
         <location line="+7"/>
