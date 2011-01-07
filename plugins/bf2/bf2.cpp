@@ -155,23 +155,28 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		ip:port (char 128 bytes) string
 	*/
 	ccontext[127] = 0;
-	ostringstream ocontext;
-	ocontext << "{ \"ipport\": \"" << ccontext << "\"}";
+	if(ccontext[0] != '0') {
+		// With the current plugin ipport can switch to "0" sometimes.
+		// As this is only transitory and switches back quickly just
+		// keep on reporting the previous state as long as this happens.
+		ostringstream ocontext;
+		ocontext << "{ \"ipport\": \"" << ccontext << "\"}";
 
-	context = ocontext.str();
+		context = ocontext.str();
 
-	/*
-		Get identity string.
-	*/
-	wostringstream oidentity;
-	oidentity << "{"
-	<< "\"commander\":" << (is_commander ? "true" : "false") << ","
-	<< "\"squad_leader\":" << (is_squad_leader ? "true" : "false") << ","
-	<< "\"squad\":" << static_cast<unsigned int>(is_in_squad) << ","
-	<< "\"team\":\"" << (is_opfor ? "opfor" : "blufor") << "\""
-	<< "}";
+		/*
+			Get identity string.
+		*/
+		wostringstream oidentity;
+		oidentity << "{"
+		<< "\"commander\":" << (is_commander ? "true" : "false") << ","
+		<< "\"squad_leader\":" << (is_squad_leader ? "true" : "false") << ","
+		<< "\"squad\":" << static_cast<unsigned int>(is_in_squad) << ","
+		<< "\"team\":\"" << (is_opfor ? "opfor" : "blufor") << "\""
+		<< "}";
 
-	identity = oidentity.str();
+		identity = oidentity.str();
+	}
 
 	for (int i=0;i<3;i++) {
 		camera_pos[i] = avatar_pos[i];
