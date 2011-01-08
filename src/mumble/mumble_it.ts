@@ -8569,7 +8569,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
         <translation>I pacchetti UDP possono essere inviati e ricevuti dal server. Ritorno a modalità UDP.</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+36"/>
         <source>Connection timed out</source>
         <translation>Tempo per la connessione esaurito</translation>
     </message>

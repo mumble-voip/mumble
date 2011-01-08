@@ -8457,7 +8457,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>UDP пакеты могут быть посланы или получены от сервера. Включен UDP режим.</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+36"/>
         <source>Connection timed out</source>
         <translation>Время соединения вышло</translation>
     </message>

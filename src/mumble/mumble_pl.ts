@@ -8579,7 +8579,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
         <translation>Pakiety UDP mogą zostać wysłane i odebrane z serwera. Przywrócono tryb UDP.</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+36"/>
         <source>Connection timed out</source>
         <translation>Przekroczono limit czasu połączenia</translation>
     </message>

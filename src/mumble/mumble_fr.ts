@@ -9359,7 +9359,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
         <translation>Les paquets UDP  peuvent être envoyés et reçus du serveur. Retour en mode UDP.</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+36"/>
         <source>Connection timed out</source>
         <translation>Délai de connexion dépassé</translation>
     </message>

@@ -1,3 +1,30 @@
+2011-01-06
+  B0nuse <mumble@mumble.ru>
+    032546b  Updated mumble_ru.ts
+
+2011-01-04
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    c30e964  Create the RecordInfo object before adding a new RecordBuffer
+
+2011-01-03
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    48c3c07  Set bDisconnectEmitted in the client code
+
+2010-12-30
+  Antoine Bertin <diaoulael@users.sourceforge.net>
+    d90cf06  Updated french translation for Mumble
+
+2010-12-28
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    f9089d8  Auto-rename tarfiles
+
+2010-12-27
+  Mikkel Krautz <mikkel@krautz.dk>
+    f38d1ad  Add CELT 0.10 to osxdist.py.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    5bdf525  Timestamp table upgrades
+
 2010-12-24
   Stefan Hacker <dd0t@users.sourceforge.net>
     b50a0ac  Update bf2 plugin to use json instead of xml for
@@ -50,6 +77,15 @@
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     4c1e473  Restore Qt < 4.6 compatibility
     495c8c3  Remove Qt dependency in the LOTRO plugin
+
+2010-12-13
+  Mark-Willem Jansen <rawnar@users.sourceforge.net>
+    283b935  Added information to the warnings, to help trace problems on
+	     windows systems
+
+2010-12-11
+  Ilmar Kruis <seaeagle1@users.sourceforge.net>
+    f8d393c  'November Update' for Lord of the Rings Online plugin
 
 2010-12-05
   Benjamin Jemlich <pcgod@users.sourceforge.net>

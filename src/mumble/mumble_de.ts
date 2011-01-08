@@ -9872,7 +9872,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
         <translation>UDP Pakete können zum Server gesendet und vom Server empfangen werden. Wechsle zurück in den UDP-Modus.</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+36"/>
         <source>Connection timed out</source>
         <translation>Verbindung wegen Zeitüberschreitung unterbrochen</translation>
     </message>

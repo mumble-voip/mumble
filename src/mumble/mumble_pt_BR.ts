@@ -7017,7 +7017,7 @@ Para atualizar estes arquivos para suas últimes versões, clique no botão abai
         <translation>Pacotes UDP podem ser enviados e recebidos do servidor. Alternando de volta para o modo UDP.</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+36"/>
         <source>Connection timed out</source>
         <translation>Tempo de conexão esgotado</translation>
     </message>

@@ -70,7 +70,7 @@ ServerDB::ServerDB() {
 		qFatal("ServerDB: Database driver %s not available", qPrintable(Meta::mp.qsDBDriver));
 	}
 	db = new QSqlDatabase(QSqlDatabase::addDatabase(Meta::mp.qsDBDriver));
-	
+
 	qsUpgradeSuffix = QString::fromLatin1("_old_%1").arg(QDateTime::currentDateTime().toTime_t());
 
 	bool found = false;
@@ -470,7 +470,7 @@ bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal, bool wa
 	}
 	QString q;
 	if (str.contains(QLatin1String("%1"))) {
-		if (str.contains(QLatin1String("%2"))) 
+		if (str.contains(QLatin1String("%2")))
 			q = str.arg(Meta::mp.qsDBPrefix, qsUpgradeSuffix);
 		else
 			q = str.arg(Meta::mp.qsDBPrefix);

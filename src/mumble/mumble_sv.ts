@@ -7131,7 +7131,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
         <translation>UDP-paket kan skickas till och tas emot från servern. Bytar tillbaka till UDP-läge.</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+36"/>
         <source>Connection timed out</source>
         <translation>Anslutningstiden överskreds</translation>
     </message>

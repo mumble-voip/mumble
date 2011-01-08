@@ -9931,7 +9931,7 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
         <translation>Se pueden enviar y recibir paquetes UDP del servidor. Volviendo al modo UDP.</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+36"/>
         <source>Connection timed out</source>
         <translation>Expiró el tiempo de espera para la conexión</translation>
     </message>

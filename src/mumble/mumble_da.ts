@@ -7642,7 +7642,7 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
         <translation>UDP-pakker kan igen blive sendt og modtaget fra serveren. Skifter tilbage til UDP-tilstand.</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+36"/>
         <source>Connection timed out</source>
         <translation>Forbindelse fik timeout</translation>
     </message>
