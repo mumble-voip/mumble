@@ -826,9 +826,9 @@ bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 					suppress = true;
 					qlSuppressed << button;
 				}
-				if (! gs->bActive) {
-					gs->bActive = true;
-					emit gs->triggered(sk->gs->bActive, sk->s.qvData);
+				if (! gs->qlActive.contains(sk->s.qvData)) {
+					gs->qlActive << sk->s.qvData;
+					emit gs->triggered(true, sk->s.qvData);
 					emit gs->down(sk->s.qvData);
 				}
 			} else if (sk->iNumUp < 0) {
@@ -842,9 +842,9 @@ bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 			sk->iNumUp++;
 			if (sk->iNumUp == 1) {
 				GlobalShortcut *gs = sk->gs;
-				if (gs->bActive) {
-					gs->bActive = false;
-					emit gs->triggered(sk->gs->bActive, sk->s.qvData);
+				if (gs->qlActive.contains(sk->s.qvData)) {
+					gs->qlActive.removeAll(sk->s.qvData);
+					emit gs->triggered(false, sk->s.qvData);
 				}
 			} else if (sk->iNumUp > sk->s.qlButtons.count()) {
 				sk->iNumUp = sk->s.qlButtons.count();
@@ -891,7 +891,6 @@ GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName, bool exper
 	idx = index;
 	name=qsName;
 	bExpert = expert;
-	bActive = false;
 	qvDefault = def;
 	GlobalShortcutEngine::add(this);
 }

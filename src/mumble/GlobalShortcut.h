@@ -45,7 +45,7 @@ class GlobalShortcut : public QObject {
 		Q_OBJECT
 		Q_DISABLE_COPY(GlobalShortcut)
 	protected:
-		bool bActive;
+		QList<QVariant> qlActive;
 	signals:
 		void down(QVariant);
 		void triggered(bool, QVariant);
@@ -61,7 +61,7 @@ class GlobalShortcut : public QObject {
 		~GlobalShortcut();
 
 		bool active() const {
-			return bActive;
+			return ! qlActive.isEmpty();
 		};
 };
 
