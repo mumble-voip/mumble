@@ -57,6 +57,7 @@ Client::Client(QObject *p, QHostAddress qha, unsigned short prt, bool send, bool
 	connect(ssl, SIGNAL(readyRead()), this, SLOT(readyRead()));
 	connect(ssl, SIGNAL(disconnected()), this, SLOT(disconnected()));
 
+	ssl->setProtocol(QSsl::TlsV1);
 	ssl->connectToHostEncrypted(qha.toString(), prt);
 	ssl->ignoreSslErrors();
 	if (! ssl->waitForEncrypted())
