@@ -94,6 +94,9 @@ static const NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.m
 		NSDictionary *userInfo = [notification userInfo];
 
 		NSString *bundleId = [userInfo objectForKey:@"NSApplicationBundleIdentifier"];
+		if ([bundleId isEqualToString:[[NSBundle mainBundle] bundleIdentifier]])
+			return;
+
 		QString qsBundleIdentifier = QString::fromUtf8([bundleId UTF8String]);
 
 		if (g.s.os.bUseWhitelist) {
@@ -108,6 +111,12 @@ static const NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.m
 			pid_t pid = [[userInfo objectForKey:@"NSApplicationProcessIdentifier"] intValue];
 			SBApplication *app = [SBApplication applicationWithProcessIdentifier:pid];
 			[app setDelegate:self];
+
+			// This timeout is specified in 'ticks'.
+			// A tick defined as: "[...] (a tick is approximately 1/60 of a second) [...]" in the
+			// Apple Event Manager Refernce documentation:
+			// http://developer.apple.com/legacy/mac/library/documentation/Carbon/reference/Event_Manager/Event_Manager.pdf
+			[app setTimeout:10*60];
 
 			[app setSendMode:kAEWaitReply];
 			[app sendEvent:kASAppleScriptSuite id:kGetAEUT parameters:0];
