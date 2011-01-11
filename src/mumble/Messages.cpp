@@ -696,6 +696,14 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 	int beta = msg.has_beta() ? msg.beta() : -1;
 	bool pref = msg.prefer_alpha();
 
+	// Workaround for broken 1.2.2 servers
+	if (g.sh && g.sh->uiVersion == 0x010202 && alpha != -1 && alpha == beta) {
+		if (pref)
+			beta = g.iCodecBeta;
+		else
+			alpha = g.iCodecAlpha;
+	}
+
 	if ((alpha != -1) && (alpha != g.iCodecAlpha)) {
 		g.iCodecAlpha = alpha;
 		if (pref && ! g.qmCodecs.contains(alpha))
