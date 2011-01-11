@@ -40,12 +40,6 @@ char *os_url = NULL; // fixme(mkrautz): Remove this when mumble11x is gone.
 char *os_lang = NULL;
 static FILE *fConsole = NULL;
 
-#ifdef __x86_64__
-#define SCREWAPPLE  void *
-#else
-#define SCREWAPPLE  long
-#endif
-
 #define PATH_MAX 1024
 static char crashhandler_fn[PATH_MAX];
 
