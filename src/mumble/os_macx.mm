@@ -36,7 +36,7 @@
 #endif
 #include "MainWindow.h"
 
-char *os_url = NULL;
+char *os_url = NULL; // fixme(mkrautz): Remove this when mumble11x is gone.
 char *os_lang = NULL;
 static FILE *fConsole = NULL;
 
@@ -51,36 +51,6 @@ static char crashhandler_fn[PATH_MAX];
 
 static void crashhandler_signals_restore();
 static void crashhandler_handle_crash();
-
-static OSErr urlCallback(const AppleEvent *ae, AppleEvent *, SCREWAPPLE) {
-	OSErr err;
-	DescType type;
-	Size dataSize, size;
-	static char url[1024];
-
-	err = AESizeOfParam(ae, keyDirectObject, &type, &dataSize);
-	if (err != noErr)
-		return err;
-
-	memset(url, 0, 1024);
-	if (dataSize > 1023)
-		dataSize = 1023;
-
-	err = AEGetParamPtr(ae, keyDirectObject, typeChar, &type, url, dataSize, &size);
-	if (err != noErr)
-		return err;
-
-	/*
-	 * Determine whether a mumble:// URL invoked a Mumble launch
-	 * of if we were already running beforehand.
-	 */
-	if (g.mw)
-		g.mw->openUrl(QUrl::fromEncoded(QByteArray(url)));
-	else
-		os_url = url;
-
-	return noErr;
-}
 
 static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 	char c;
@@ -207,7 +177,4 @@ void os_init() {
 	 * in SystemPrefs -> International -> Formats -> Region instead of the system language. We override this
 	 * by always using the system langauge, to get rid of all sorts of nasty langauge inconsistencies. */
 	query_language();
-
-	/* Install Apple Event handler for GURL events. This intercepts any URLs set in Mumble's Info.plist. */
-	AEInstallEventHandler(kInternetEventClass, kAEGetURL, NewAEEventHandlerUPP(urlCallback), 0, false);
 }

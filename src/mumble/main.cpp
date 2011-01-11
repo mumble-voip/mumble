@@ -64,13 +64,14 @@ namespace boost {
 #endif
 
 extern void os_init();
-extern char *os_url;
 extern char *os_lang;
 
-class QAppMumble:public QApplication {
+class QAppMumble : public QApplication {
 	public:
+		QUrl quLaunchURL;
 		QAppMumble(int &pargc, char **pargv) : QApplication(pargc, pargv) {}
 		void commitData(QSessionManager&);
+		bool event(QEvent *e);
 #ifdef Q_OS_WIN
 		bool winEventFilter(MSG *msg, long *result);
 #endif
@@ -82,6 +83,19 @@ void QAppMumble::commitData(QSessionManager &) {
 		g.s.save();
 		g.mw->bSuppressAskOnQuit = true;
 	}
+}
+
+bool QAppMumble::event(QEvent *e) {
+	if (e->type() == QEvent::FileOpen) {
+		QFileOpenEvent *foe = static_cast<QFileOpenEvent *>(e);
+		if (! g.mw) {
+			this->quLaunchURL = foe->url();
+		} else {
+			g.mw->openUrl(foe->url());
+		}
+		return true;
+	}
+	return QApplication::event(e);
 }
 
 #ifdef Q_OS_WIN
@@ -339,9 +353,7 @@ int main(int argc, char **argv) {
 
 	// Process any waiting events before initializing our MainWindow.
 	// The mumble:// URL support for Mac OS X happens through AppleEvents,
-	// so we need to loop a little before we begin.  If we were launched
-	// through a URL, this should call a platform specific callback
-	// (in os_macx.cpp) and point the `os_url' global to a valid URL.
+	// so we need to loop a little before we begin.
 	a.processEvents();
 
 	// Main Window
@@ -431,8 +443,8 @@ int main(int argc, char **argv) {
 		OpenURLEvent *oue = new OpenURLEvent(url);
 		qApp->postEvent(g.mw, oue);
 #ifdef Q_OS_MAC
-	} else if (os_url) {
-		OpenURLEvent *oue = new OpenURLEvent(QUrl::fromEncoded(QByteArray(os_url)));
+	} else if (! a.quLaunchURL.isEmpty()) {
+		OpenURLEvent *oue = new OpenURLEvent(a.quLaunchURL);
 		qApp->postEvent(g.mw, oue);
 #endif
 	} else {
