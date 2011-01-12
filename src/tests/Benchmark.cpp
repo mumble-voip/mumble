@@ -1,15 +1,19 @@
 #include <QtCore>
 #include <QtNetwork>
 
+#ifndef Q_OS_WIN
 #include <unistd.h>
+#endif
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <sys/types.h>
+#ifndef Q_OS_WIN
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <sys/utsname.h>
+#endif
 #include <errno.h>
 
 #include "PacketDataStream.h"
@@ -63,12 +67,21 @@ Client::Client(QObject *p, QHostAddress qha, unsigned short prt, bool send, bool
 	if (! ssl->waitForEncrypted())
 		qFatal("Connection failure");
 
+	static int ctr = 1;
+
+#ifdef Q_OS_WIN
+	DWORD pid = GetCurrentProcessId();
+	wchar_t buf[64];
+	DWORD bufsize = 64;
+	GetComputerName(buf, &bufsize);
+
+	QString name = QString("%1.%2").arg(QString::fromWCharArray(buf)).arg(pid * 1000 + ctr);
+#else
 	struct utsname uts;
 	uname(&uts);
 
-	static int ctr = 1;
-
 	QString name = QString("%1.%2").arg(uts.nodename).arg(getpid() * 1000 + ctr);
+#endif
 
 	ctr++;
 
@@ -144,7 +157,7 @@ void Client::doUdp(const unsigned char *buffer, int size) {
 	unsigned char crypted[2048];
 
 	crypt.encrypt(reinterpret_cast<const unsigned char *>(buffer), crypted, size);
-	::sendto(socket, crypted, size+4, 0, reinterpret_cast<struct sockaddr *>(&srv), sizeof(srv));
+	::sendto(socket, reinterpret_cast<const char *>(crypted), size+4, 0, reinterpret_cast<struct sockaddr *>(&srv), sizeof(srv));
 }
 
 
