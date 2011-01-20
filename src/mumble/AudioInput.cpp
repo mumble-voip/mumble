@@ -477,7 +477,7 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 }
 
 bool AudioInput::preferCELT(int bitrate, int frames) {
-	return ((bitrate >= 32000) || (frames == 1));
+	return true;
 }
 
 void AudioInput::adjustBandwidth(int bitspersec, int &bitrate, int &frames) {
