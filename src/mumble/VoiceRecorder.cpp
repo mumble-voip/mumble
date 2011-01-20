@@ -342,14 +342,14 @@ void VoiceRecorder::addBuffer(const ClientUser *cu, boost::shared_array<float> b
 	// Create a new RecordInfo object if this is a new user.
 	int index = bMixDown ? 0 : cu->uiSession;
 	if (!qhRecordInfo.contains(index)) {
-		boost::shared_ptr<RecordInfo> ri(new RecordInfo());
+		boost::shared_ptr<RecordInfo> ri = boost::make_shared<RecordInfo>();
 		qhRecordInfo.insert(index, ri);
 	}
 
 	{
 		// Save the buffer in |qlRecordBuffer|.
 		QMutexLocker l(&qmBufferLock);
-		boost::shared_ptr<RecordBuffer> rb(new RecordBuffer(cu, buffer, samples, tTimestamp->elapsed()));
+		boost::shared_ptr<RecordBuffer> rb = boost::make_shared<RecordBuffer>(cu, buffer, samples, tTimestamp->elapsed());
 		qlRecordBuffer << rb;
 	}
 
