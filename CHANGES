@@ -1,3 +1,47 @@
+2011-01-21
+  Spaccaossi <spaccaossi@users.sourceforge.net>
+    a7f91b7  Updated italian translation
+
+2011-01-20
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    1cafc8b  Add overly verbose proxy widget adding.
+    e1b24d2  Clean up a few compiler warnings.
+    832f5aa  Include ancient ice path as well
+
+2011-01-12
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    1e5cd08  Fix benchmark client to compile on Windows
+
+2011-01-11
+  Mikkel Krautz <mikkel@krautz.dk>
+    51223e9  Remove unused AppleEvent parameter hack from os_mac.mm.
+    db1b92a  Update Mac OS X URL handling to be compatible with current Qt.
+    eeac069  Fix "freeze on launch" issue on OS X. It turns out that
+	     sending blocking AppleEvents to oneself is not such a good
+	     idea.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    cd1f4b3  Add a workaround for broken CodecVersion messages on 1.2.2
+	     servers
+
+2011-01-10
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    08904af  Use TLSv1 in the benchmark client
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    82879ed  Re-add 0.9.0 to package script
+    ce85721  Change CELT 0.9.0 to 0.10.0 in package script
+
+2011-01-08
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    41af016  Make active-state of shortcuts be data-dependent
+
+2011-01-07
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    194ab56  Fix overlay causing stack overflow when closing vs2010
+	     solution
+    ce51f28  Prevent random fluke in ip/port readout in bf2 plugin
+
 2011-01-06
   B0nuse <mumble@mumble.ru>
     032546b  Updated mumble_ru.ts

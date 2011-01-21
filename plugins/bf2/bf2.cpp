@@ -155,7 +155,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		ip:port (char 128 bytes) string
 	*/
 	ccontext[127] = 0;
-	if(ccontext[0] != '0') {
+	if (ccontext[0] != '0') {
 		// With the current plugin ipport can switch to "0" sometimes.
 		// As this is only transitory and switches back quickly just
 		// keep on reporting the previous state as long as this happens.

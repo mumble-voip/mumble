@@ -185,16 +185,16 @@ void OverlayClient::showGui() {
 	int count = 0;
 
 	{
-	    QWidgetList widgets = qApp->topLevelWidgets();
-	    widgets.removeAll(g.mw);
-	    widgets.prepend(g.mw);
+		QWidgetList widgets = qApp->topLevelWidgets();
+		widgets.removeAll(g.mw);
+		widgets.prepend(g.mw);
 
 
-	    foreach(QWidget *w, widgets) {
-		if (w->isHidden() && (w != g.mw))
-		    continue;
-		count++;
-	    }
+		foreach(QWidget *w, widgets) {
+			if (w->isHidden() && (w != g.mw))
+				continue;
+			count++;
+		}
 	}
 	// If there's more than one window up, we're likely deep in a message loop.
 	if (count > 1)
@@ -217,31 +217,31 @@ void OverlayClient::showGui() {
 	}
 
 	{
-	    outer:
+outer:
 		QWidgetList widgets = qApp->topLevelWidgets();
-	    widgets.removeAll(g.mw);
-	    widgets.prepend(g.mw);
+		widgets.removeAll(g.mw);
+		widgets.prepend(g.mw);
 
-	    foreach(QWidget *w, widgets) {
-		if (w->graphicsProxyWidget() == NULL) {
-		    if ((w == g.mw) || (! w->isHidden())) {
-			QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(NULL, Qt::Window);
-			qgpw->setOpacity(0.90f);
-			qgpw->setWidget(w);
-			if (w == g.mw) {
-			    qgpw->setPos(uiWidth / 10, uiHeight / 10);
-			    qgpw->resize((uiWidth * 8) / 10, (uiHeight * 8) / 10);
-			}
+		foreach(QWidget *w, widgets) {
+			if (w->graphicsProxyWidget() == NULL) {
+				if ((w == g.mw) || (! w->isHidden())) {
+					QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(NULL, Qt::Window);
+					qgpw->setOpacity(0.90f);
+					qgpw->setWidget(w);
+					if (w == g.mw) {
+						qgpw->setPos(uiWidth / 10, uiHeight / 10);
+						qgpw->resize((uiWidth * 8) / 10, (uiHeight * 8) / 10);
+					}
 
-			qgs.addItem(qgpw);
-			qgpw->show();
+					qgs.addItem(qgpw);
+					qgpw->show();
 #if QT_VERSION >= 0x040600
-			qgpw->setActive(true);
+					qgpw->setActive(true);
 #endif
-			goto outer;
-		    }
+					goto outer;
+				}
+			}
 		}
-	    }
 	}
 
 	QEvent event(QEvent::WindowActivate);

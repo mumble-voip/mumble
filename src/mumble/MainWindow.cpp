@@ -2167,7 +2167,7 @@ void MainWindow::updateTarget() {
 
 void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 	ShortcutTarget st = scdata.value<ShortcutTarget>();
-	
+
 	if (down) {
 		if (gsMetaChannel->active()) {
 			if (! st.bUsers) {
