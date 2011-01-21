@@ -272,7 +272,6 @@ typedef class WowData {
 		void WowData::updateAvatarName() {
 			getPlayerName(nameAvatar);
 			if (!nameAvatar.empty()) {
-				int temp = nameAvatar.length();
 				nameAvatarValid = true;
 			} else {
 				nameAvatarValid = false;

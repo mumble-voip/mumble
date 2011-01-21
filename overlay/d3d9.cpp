@@ -727,7 +727,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 					ods("Direct3DCreate9Ex is not in D3D9 library");
 				} else {
 					IDirect3D9Ex *id3d9 = NULL;
-					HRESULT hr = d3dc9ex(D3D_SDK_VERSION, &id3d9);
+					d3dc9ex(D3D_SDK_VERSION, &id3d9);
 					if (id3d9) {
 						void ***vtbl = (void ***) id3d9;
 						void *pCreateEx = (*vtbl)[20];

@@ -515,7 +515,7 @@ extern "C" __declspec(dllexport) unsigned int __cdecl GetOverlayMagicVersion() {
 	return OVERLAY_MAGIC_NUMBER;
 }
 
-extern "C" BOOL WINAPI DllMain(HINSTANCE hMod, DWORD fdwReason, LPVOID) {
+extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	char procname[1024+64];
 	GetModuleFileNameA(NULL, procname, 1024);
 	switch (fdwReason) {

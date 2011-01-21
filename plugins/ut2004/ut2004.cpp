@@ -40,7 +40,7 @@ BYTE *pos2ptr;
 BYTE *faceptr;
 BYTE *topptr;
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &) {
 	//char ccontext[128];
 	float face_corrector[3];
 	float top_corrector[3];

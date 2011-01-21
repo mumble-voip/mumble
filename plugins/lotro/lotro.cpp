@@ -31,7 +31,7 @@
 
 #include "../mumble_plugin_win32.h"
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
@@ -42,10 +42,6 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float o[3];
 	BYTE *hPtr;
 	float h;
-	BYTE *nPtr;
-	BYTE *nPtr2;
-	wchar_t* nPtr3;
-
 
 	/*
 		Position as represented by /loc command
@@ -107,9 +103,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_pos[1] = o[2];
 	avatar_pos[2] = (float)l[1] * 160.0f + o[1];
 
-	avatar_front[0] = sinf(h * M_PI / 180.0f);
+	avatar_front[0] = sinf(h * static_cast<float>(M_PI) / 180.0f);
 	avatar_front[1] = 0.0f;
-	avatar_front[2] = cosf(h * M_PI / 180.0f);
+	avatar_front[2] = cosf(h * static_cast<float>(M_PI) / 180.0f);
 
 	avatar_top[0] = 0.0;
 	avatar_top[1] = 1.0;

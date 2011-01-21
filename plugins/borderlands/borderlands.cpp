@@ -38,7 +38,7 @@ BYTE *contextptraddress;
 BYTE *stateaddress;
 BYTE *loginaddress;
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
 	static bool loggedin = false;
 	static BYTE *contextptr;
 	bool ok;
