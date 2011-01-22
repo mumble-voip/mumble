@@ -629,25 +629,24 @@ void ACLEditor::on_qtwTab_currentChanged(int index) {
 
 void ACLEditor::updatePasswordField() {
 	pcaPassword = NULL;
-	QList<ChanACL *>::iterator i = qlACLs.end();
-	while (i != qlACLs.begin()) {
-		i--;
+	foreach(ChanACL *acl, qlACLs) {
 		// Check for sth that applies to '#<something>' AND grants 'Enter' AND may grant 'Speak', 'Whisper',
 		// 'TextMessage', 'Link' but NOTHING else AND does not deny anything, then '<something>' is the password.
-		if ((*i)->qsGroup.startsWith(QLatin1Char('#')) &&
-		        (*i)->bApplyHere &&
-		        !(*i)->bInherited &&
-		        ((*i)->pAllow & ChanACL::Enter) &&
-		        ((*i)->pAllow == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel) || // Backwards compat with old behaviour that didn't deny traverse
-		         (*i)->pAllow == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel | ChanACL::Traverse)) &&
-		        (*i)->pDeny == ChanACL::None) {
-			qleChannelPassword->setText((*i)->qsGroup.mid(1));
-			pcaPassword = (*i);
-			break;
+		if (acl->qsGroup.startsWith(QLatin1Char('#')) &&
+				acl->bApplyHere &&
+				!acl->bInherited &&
+				(acl->pAllow & ChanACL::Enter) &&
+				(acl->pAllow == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel) || // Backwards compat with old behaviour that didn't deny traverse
+				 acl->pAllow == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel | ChanACL::Traverse)) &&
+				acl->pDeny == ChanACL::None) {
+			pcaPassword = acl;
 		}
 	}
-	if (!pcaPassword)
+	if (pcaPassword)
+		qleChannelPassword->setText(pcaPassword->qsGroup.mid(1));
+	else
 		qleChannelPassword->clear();
+
 }
 
 void ACLEditor::updatePasswordACL() {
@@ -655,20 +654,22 @@ void ACLEditor::updatePasswordACL() {
 		// Remove the password if we had one to begin with
 		if (pcaPassword && qlACLs.removeOne(pcaPassword)) {
 			delete pcaPassword;
+
 			// Search and remove the @all deny ACL
-			QList<ChanACL *>::iterator i = qlACLs.end();
-			while (i != qlACLs.begin()) {
-				i--;
-				if ((*i)->qsGroup == QLatin1String("all") &&
-				        (*i)->bInherited == false &&
-				        (*i)->bApplyHere == true &&
-				        (*i)->pAllow == ChanACL::None &&
-				        ((*i)->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel) || // Backwards compat with old behaviour that didn't deny traverse
-				         (*i)->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel | ChanACL::Traverse))) {
-					qlACLs.removeOne(*i);
-					delete(*i);
-					break;
+			ChanACL *denyall = NULL;
+			foreach(ChanACL *acl, qlACLs) {
+				if (acl->qsGroup == QLatin1String("all") &&
+					acl->bInherited == false &&
+					acl->bApplyHere == true &&
+					acl->pAllow == ChanACL::None &&
+					(acl->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel) || // Backwards compat with old behaviour that didn't deny traverse
+					 acl->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel | ChanACL::Traverse))) {
+					denyall = acl;
 				}
+			}
+			if (denyall) {
+				qlACLs.removeOne(denyall);
+				delete denyall;
 			}
 		}
 	} else {
