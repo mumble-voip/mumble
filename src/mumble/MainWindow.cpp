@@ -1886,6 +1886,7 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 		g.l->log(Log::SelfMute, tr("Muted and deafened."));
 	} else if (g.s.bDeaf) {
 		g.l->log(Log::SelfMute, tr("Deafened."));
+		bAutoUnmute = false;
 	} else {
 		g.l->log(Log::SelfMute, tr("Undeafened."));
 	}
