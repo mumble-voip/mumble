@@ -186,10 +186,6 @@ void OverlayClient::showGui() {
 
 	{
 		QWidgetList widgets = qApp->topLevelWidgets();
-		widgets.removeAll(g.mw);
-		widgets.prepend(g.mw);
-
-
 		foreach(QWidget *w, widgets) {
 			if (w->isHidden() && (w != g.mw))
 				continue;
