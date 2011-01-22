@@ -702,6 +702,8 @@ void AudioInput::encodeAudioFrame() {
 
 	if (level > g.s.fVADmax)
 		bIsSpeech = true;
+	else if (level > g.s.fVADmin && bPreviousVoice)
+		bIsSpeech = true;
 
 	if (! bIsSpeech) {
 		iHoldFrames++;
