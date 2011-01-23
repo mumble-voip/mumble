@@ -1423,7 +1423,11 @@ void Server::setLastChannel(const User *p) {
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
 
-	SQLPREP("UPDATE `%1users` SET `lastchannel`=? WHERE `server_id` = ? AND `user_id` = ?");
+	if (Meta::mp.qsDBDriver == "QSQLITE") {
+		SQLPREP("UPDATE `%1users` SET `lastchannel`=? WHERE `server_id` = ? AND `user_id` = ?");
+	} else {
+		SQLPREP("UPDATE `%1users` SET `lastchannel`=?, `last_active` = now() WHERE `server_id` = ? AND `user_id` = ?");
+	}
 	query.addBindValue(p->cChannel->iId);
 	query.addBindValue(iServerNum);
 	query.addBindValue(p->iId);
