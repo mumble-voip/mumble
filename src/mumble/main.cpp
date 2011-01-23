@@ -86,6 +86,7 @@ void QAppMumble::commitData(QSessionManager &) {
 }
 
 bool QAppMumble::event(QEvent *e) {
+#if QT_VERSION >= 0x040600
 	if (e->type() == QEvent::FileOpen) {
 		QFileOpenEvent *foe = static_cast<QFileOpenEvent *>(e);
 		if (! g.mw) {
@@ -95,6 +96,7 @@ bool QAppMumble::event(QEvent *e) {
 		}
 		return true;
 	}
+#endif
 	return QApplication::event(e);
 }
 
