@@ -8,7 +8,7 @@
         <translation type="obsolete">Mumble - 编辑 访问控制列表 %1</translation>
     </message>
     <message>
-        <location filename="ACLEditor.cpp" line="+100"/>
+        <location filename="ACLEditor.cpp" line="+101"/>
         <source>Deny</source>
         <translation>拒绝</translation>
     </message>
@@ -18,17 +18,17 @@
         <translation>允许</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+21"/>
         <source>Allow %1</source>
         <translation>允许 %1</translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-8"/>
         <source>Deny %1</source>
         <translation>拒绝 %1</translation>
     </message>
     <message>
-        <location line="-61"/>
+        <location line="-62"/>
         <source>Mumble - Add channel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -49,7 +49,7 @@
         <translation>授予 %1 权限.如果一个权限同时被拒绝和允许，则被视为拒绝。&lt;br /&gt;%2</translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-8"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
         <translation>撤销 %1 权限.如果一个权限同时被拒绝和允许，则被视为拒绝。&lt;br /&gt;%2</translation>
     </message>
@@ -4747,12 +4747,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+2047"/>
+        <location line="+2048"/>
         <source>Root</source>
         <translation>根</translation>
     </message>
     <message>
-        <location line="-1993"/>
+        <location line="-1994"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>按键通话</translation>
@@ -4891,12 +4891,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2158"/>
+        <location line="+2159"/>
         <source>Mumble -- %1</source>
         <translation></translation>
     </message>
     <message>
-        <location line="-2154"/>
+        <location line="-2155"/>
         <source>&amp;Window</source>
         <translation>&amp;窗口</translation>
     </message>
@@ -4970,13 +4970,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2188"/>
+        <location line="+2189"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished">未连接</translation>
     </message>
     <message>
-        <location line="-1904"/>
+        <location line="-1905"/>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
@@ -5136,7 +5136,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">发送给 %1: %2</translation>
     </message>
     <message>
-        <location line="+489"/>
+        <location line="+490"/>
         <source>Connected.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5198,7 +5198,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;控制信道&lt;/h2&gt;&lt;p&gt;使用 %1 比特 %2 加密&lt;br /&gt;平均延迟 %3 毫秒（%4 方差）&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1576"/>
+        <location line="-1577"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>语音频道通过控制信道发送。</translation>
     </message>
@@ -5252,7 +5252,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1263"/>
+        <location line="+1264"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;查看认证</translation>
     </message>
@@ -5261,7 +5261,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">踢出玩家 %1</translation>
     </message>
     <message>
-        <location line="-1004"/>
+        <location line="-1005"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>输入原因</translation>
@@ -5338,7 +5338,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>耳聋.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>Undeafened.</source>
         <translation>解除耳聋。</translation>
     </message>
@@ -5429,7 +5429,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;玩家</translation>
     </message>
     <message>
-        <location line="-2229"/>
+        <location line="-2230"/>
         <source>&amp;Channel</source>
         <translation type="unfinished">&amp;频道</translation>
     </message>

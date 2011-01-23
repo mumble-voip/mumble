@@ -74,7 +74,7 @@
         <translation>ID de usuario</translation>
     </message>
     <message>
-        <location filename="ACLEditor.cpp" line="+100"/>
+        <location filename="ACLEditor.cpp" line="+101"/>
         <source>Deny</source>
         <translation>Denegar</translation>
     </message>
@@ -407,17 +407,17 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
         <translation>Controla a qué usuario se le aplica esta entrada. Tan sólo escriba el nombre del usuario y pulse intro para buscar una correspondencia en el servidor.</translation>
     </message>
     <message>
-        <location filename="ACLEditor.cpp" line="+22"/>
+        <location filename="ACLEditor.cpp" line="+21"/>
         <source>Allow %1</source>
         <translation>Permitir %1</translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-8"/>
         <source>Deny %1</source>
         <translation>Denegar %1</translation>
     </message>
     <message>
-        <location line="-61"/>
+        <location line="-62"/>
         <source>Mumble - Add channel</source>
         <translation>Mumble - Agregar canal</translation>
     </message>
@@ -438,7 +438,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
         <translation>Concede el privilegio %1. Si un privilegio es permitido y denegado a la vez, entonces es denegado.&lt;br /&gt;%2</translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-8"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
         <translation>Revoca el privilegio %1. Si un privilegio es permitido y denegado a la vez, entonces es denegado.&lt;br /&gt;%2</translation>
     </message>
@@ -6200,7 +6200,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+2047"/>
+        <location line="+2048"/>
         <source>Root</source>
         <translation>Root</translation>
     </message>
@@ -6707,9 +6707,9 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Elimina la textura actual definida por el usuario.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1949"/>
+        <location filename="MainWindow.cpp" line="-1950"/>
         <location line="+12"/>
-        <location line="+2158"/>
+        <location line="+2159"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6726,7 +6726,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Jugador</translation>
     </message>
     <message>
-        <location line="-2245"/>
+        <location line="-2246"/>
         <source>&amp;Channel</source>
         <translation>&amp;Canal</translation>
     </message>
@@ -6797,7 +6797,7 @@ p, li { white-space: pre-wrap; }
         <translation>Sordo.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>Undeafened.</source>
         <translation>Con escucha.</translation>
     </message>
@@ -6825,7 +6825,7 @@ p, li { white-space: pre-wrap; }
         <translation>Desconectado del servidor.</translation>
     </message>
     <message>
-        <location line="-1491"/>
+        <location line="-1492"/>
         <source>Reconnecting.</source>
         <translation>Volviendo a conectar.</translation>
     </message>
@@ -7347,7 +7347,7 @@ p, li { white-space: pre-wrap; }
         <translation>Mensaje al canal %1</translation>
     </message>
     <message>
-        <location line="+489"/>
+        <location line="+490"/>
         <source>Connected.</source>
         <translation>Conectado.</translation>
     </message>
@@ -7406,7 +7406,7 @@ p, li { white-space: pre-wrap; }
         <translation>Envía un mensaje de texto a otro usuario.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2230"/>
+        <location filename="MainWindow.cpp" line="-2231"/>
         <source>&amp;User</source>
         <translation>&amp;Usuario</translation>
     </message>
@@ -7497,7 +7497,7 @@ p, li { white-space: pre-wrap; }
         <translation>Le guiará a través del proceso de configuración de su hardware de audio.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+2140"/>
+        <location filename="MainWindow.cpp" line="+2141"/>
         <source>SSL Verification failed: %1</source>
         <translation>Falló la verificación SSL: %1</translation>
     </message>
@@ -7556,7 +7556,7 @@ p, li { white-space: pre-wrap; }
         <translation>Muestra información extendida acerca de la conexión con el servidor.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1706"/>
+        <location filename="MainWindow.cpp" line="-1707"/>
         <source>Opening URL %1</source>
         <translation>Abriendo URL %1</translation>
     </message>
@@ -7622,7 +7622,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1570"/>
+        <location line="+1571"/>
         <source>Images (*.png *.jpg *.jpeg *.svg)</source>
         <translation>Imágenes (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
@@ -7635,7 +7635,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bit&lt;br /&gt;%3 ms de latencia media (desviación %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1561"/>
+        <location line="-1562"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bit&lt;br /&gt;%3 ms de latencia media (desviación %4)&lt;/p&gt;&lt;p&gt;Anfitrión remoto %5 (puerto %6)&lt;/p&gt;</translation>
     </message>
@@ -7709,7 +7709,7 @@ p, li { white-space: pre-wrap; }
         <translation>Al (Árbol) %1: %2</translation>
     </message>
     <message>
-        <location line="+650"/>
+        <location line="+651"/>
         <source>SSL Version mismatch</source>
         <translation>Las versiones de SSL no coinciden</translation>
     </message>
@@ -7769,8 +7769,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Canal de control: latencia %1 ms, Cifrado con %3 bit %4&lt;br /&gt;Canal de voz: latencia %2 ms, Sin cifrar</translation>
     </message>
     <message>
-        <location line="-1557"/>
-        <location line="+1263"/>
+        <location line="-1558"/>
+        <location line="+1264"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Ver certificado</translation>
     </message>
@@ -7779,7 +7779,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canal de control&lt;/h2&gt;&lt;p&gt;Cifrado con %2 de %1 bits&lt;br /&gt;%3 ms de latencia media (%4 de varianza)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-2127"/>
+        <location line="-2128"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
         <translation>Mantenga pulsado este botón para enviar la voz.</translation>
@@ -8078,13 +8078,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+65"/>
-        <location line="+2188"/>
+        <location line="+2189"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Desconectado&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1904"/>
+        <location line="-1905"/>
         <source>Clear</source>
         <translation>Borrar</translation>
     </message>

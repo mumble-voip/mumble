@@ -83,7 +83,7 @@
         <translation>ユーザID</translation>
     </message>
     <message>
-        <location filename="ACLEditor.cpp" line="+100"/>
+        <location filename="ACLEditor.cpp" line="+101"/>
         <source>Deny</source>
         <translation>禁止</translation>
     </message>
@@ -421,17 +421,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>この項目がどのユーザに適用されるかを制御します。検索するにはユーザ名を入力してEnterキーを押してください。</translation>
     </message>
     <message>
-        <location filename="ACLEditor.cpp" line="+22"/>
+        <location filename="ACLEditor.cpp" line="+21"/>
         <source>Allow %1</source>
         <translation>%1を許可する</translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-8"/>
         <source>Deny %1</source>
         <translation>%1を禁止する</translation>
     </message>
     <message>
-        <location line="-61"/>
+        <location line="-62"/>
         <source>Mumble - Add channel</source>
         <translation>Mumble - チャンネル追加</translation>
     </message>
@@ -452,7 +452,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>%1に特権を付与します。特権の許可と禁止の両方が設定されている場合、禁止になります。&lt;br /&gt;%2</translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-8"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
         <translation>%1から特権を剥奪します。特権の許可と禁止の両方が設定されている場合、禁止になります。&lt;br /&gt;%2</translation>
     </message>
@@ -6072,7 +6072,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+2047"/>
+        <location line="+2048"/>
         <source>Root</source>
         <translation>ルート</translation>
     </message>
@@ -6588,9 +6588,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumbleのウェブページに接続して新しいバージョンが出ているかを確認します。もし新しいのが出ていたら適切なダウンロードURLを通知します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1949"/>
+        <location filename="MainWindow.cpp" line="-1950"/>
         <location line="+12"/>
-        <location line="+2158"/>
+        <location line="+2159"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6612,7 +6612,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">プレイヤー(&amp;P)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2245"/>
+        <location filename="MainWindow.cpp" line="-2246"/>
         <source>&amp;Channel</source>
         <translation>チャンネル(&amp;C)</translation>
     </message>
@@ -6798,7 +6798,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">聴取を禁止しました。</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>Undeafened.</source>
         <translation type="unfinished">聴取禁止を解除しました。</translation>
     </message>
@@ -6826,7 +6826,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>サーバから切断しました。</translation>
     </message>
     <message>
-        <location line="-1491"/>
+        <location line="-1492"/>
         <source>Reconnecting.</source>
         <translation type="unfinished">再接続中です。</translation>
     </message>
@@ -7252,7 +7252,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>(ツリー） %1宛: %2</translation>
     </message>
     <message>
-        <location line="+676"/>
+        <location line="+677"/>
         <source>Failed to launch compatibility client</source>
         <translation>互換クライアントの起動に失敗しました</translation>
     </message>
@@ -7315,7 +7315,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>他のユーザにテキストメッセージを送信します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2431"/>
+        <location filename="MainWindow.cpp" line="-2432"/>
         <source>&amp;User</source>
         <translation>ユーザ(&amp;U)</translation>
     </message>
@@ -7407,7 +7407,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>サウンドハードウェアの設定プロセスに案内します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+2140"/>
+        <location filename="MainWindow.cpp" line="+2141"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL検証エラー: %1</translation>
     </message>
@@ -7437,7 +7437,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>サーバとの接続についての詳細な情報を表示します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1699"/>
+        <location filename="MainWindow.cpp" line="-1700"/>
         <source>Opening URL %1</source>
         <translation>URL %1 を開きます</translation>
     </message>
@@ -7523,12 +7523,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1263"/>
+        <location line="+1264"/>
         <source>&amp;View Certificate</source>
         <translation>証明書を見る(&amp;V)</translation>
     </message>
     <message>
-        <location line="-1373"/>
+        <location line="-1374"/>
         <location line="+327"/>
         <source>Register yourself as %1</source>
         <translation>%1 の名前で自分をユーザ登録します</translation>
@@ -7580,7 +7580,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>チャンネル %1 へのメッセージ</translation>
     </message>
     <message>
-        <location line="+489"/>
+        <location line="+490"/>
         <source>Connected.</source>
         <translation type="unfinished">サーバに接続しました。</translation>
     </message>
@@ -7609,12 +7609,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;p&gt;%1.&lt;br /&gt;詳細な証明書エラーの内容: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;この証明書を受け入れますか？&lt;br /&gt;(同時に証明書を保存するので、今後この質問は表示されません。)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1284"/>
+        <location line="-1285"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;制御チャンネル&lt;/h2&gt;&lt;p&gt;%1 bit %2 で暗号化されています。&lt;br /&gt;平均 %3 ms の遅延 (平方偏差 %4)&lt;/p&gt;&lt;p&gt;リモートホスト %5 (ポート %6)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1461"/>
+        <location line="+1462"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
         <translation>チャンネル &apos;%1&apos; へのメッセージをここに入力</translation>
@@ -7655,7 +7655,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;制御チャンネル&lt;/h2&gt;&lt;p&gt;%1 bit %2 で暗号化されています。&lt;br /&gt;平均 %3 ms の遅延 (平方偏差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1576"/>
+        <location line="-1577"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>音声チャンネルは管理チャンネルを通して送信されます。</translation>
     </message>
@@ -7911,13 +7911,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+65"/>
-        <location line="+2188"/>
+        <location line="+2189"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>接続されていません</translation>
     </message>
     <message>
-        <location line="-1904"/>
+        <location line="-1905"/>
         <source>Clear</source>
         <translation>クリア</translation>
     </message>

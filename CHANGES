@@ -1,4 +1,20 @@
+2011-01-23
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c61522e  Remove older CELT 0.9.0
+
+2011-01-22
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    421833e  Fix bIsSpeech logic
+    95d13a5  Style fixes in ACLEditor.cpp
+
 2011-01-21
+  Joshua Kocinski <git@cl0secall.net>
+    dc662e0  Set bAutoUnmute flag properly when deafening while muted.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    324338f  Iterator oddness in ACL Editor
+    460e489  Ok, slightly less verbose, then
+
   Spaccaossi <spaccaossi@users.sourceforge.net>
     a7f91b7  Updated italian translation
 
@@ -268,6 +284,7 @@
 
 2010-11-17
   Benjamin Jemlich <pcgod@users.sourceforge.net>
+    426c411  Simplify iIsSpeech logic
     c644952  Fix a crash in the overlay if a_ucTexture is NULL
 
 2010-11-15

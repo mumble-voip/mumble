@@ -636,12 +636,12 @@ void ACLEditor::updatePasswordField() {
 		// Check for sth that applies to '#<something>' AND grants 'Enter' AND may grant 'Speak', 'Whisper',
 		// 'TextMessage', 'Link' but NOTHING else AND does not deny anything, then '<something>' is the password.
 		if (acl->qsGroup.startsWith(QLatin1Char('#')) &&
-				acl->bApplyHere &&
-				!acl->bInherited &&
-				(acl->pAllow & ChanACL::Enter) &&
-				(acl->pAllow == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel) || // Backwards compat with old behaviour that didn't deny traverse
-				 acl->pAllow == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel | ChanACL::Traverse)) &&
-				acl->pDeny == ChanACL::None) {
+		        acl->bApplyHere &&
+		        !acl->bInherited &&
+		        (acl->pAllow & ChanACL::Enter) &&
+		        (acl->pAllow == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel) || // Backwards compat with old behaviour that didn't deny traverse
+		         acl->pAllow == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel | ChanACL::Traverse)) &&
+		        acl->pDeny == ChanACL::None) {
 			pcaPassword = acl;
 		}
 	}
@@ -662,11 +662,11 @@ void ACLEditor::updatePasswordACL() {
 			ChanACL *denyall = NULL;
 			foreach(ChanACL *acl, qlACLs) {
 				if (acl->qsGroup == QLatin1String("all") &&
-					acl->bInherited == false &&
-					acl->bApplyHere == true &&
-					acl->pAllow == ChanACL::None &&
-					(acl->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel) || // Backwards compat with old behaviour that didn't deny traverse
-					 acl->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel | ChanACL::Traverse))) {
+				        acl->bInherited == false &&
+				        acl->bApplyHere == true &&
+				        acl->pAllow == ChanACL::None &&
+				        (acl->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel) || // Backwards compat with old behaviour that didn't deny traverse
+				         acl->pDeny == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel | ChanACL::Traverse))) {
 					denyall = acl;
 				}
 			}
