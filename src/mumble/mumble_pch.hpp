@@ -8,6 +8,7 @@
 #define QT_USE_FAST_CONCATENATION
 #define QT_USE_FAST_OPERATOR_PLUS
 
+#define NOMINMAX
 #define _WINSOCKAPI_
 
 #if defined(__INTEL_COMPILER)
