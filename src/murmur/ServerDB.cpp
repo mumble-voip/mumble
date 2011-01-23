@@ -1696,7 +1696,7 @@ int ServerDB::addServer() {
 	SQLEXEC();
 	int id = 0;
 	if (query.next())
-		id = query.value(0).toInt();
+		id = qMax(1, query.value(0).toInt());
 	SQLPREP("INSERT INTO `%1servers` (`server_id`) VALUES (?)");
 	query.addBindValue(id);
 	SQLEXEC();
