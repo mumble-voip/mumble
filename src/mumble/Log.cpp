@@ -263,6 +263,11 @@ const QStringList Log::allowedSchemes() {
 	qslAllowedSchemeNames << QLatin1String("spotify");
 	qslAllowedSchemeNames << QLatin1String("steam");
 	qslAllowedSchemeNames << QLatin1String("irc");
+	qslAllowedSchemeNames << QLatin1String("gg"); // Gadu-Gadu http://gg.pl - Polish instant massager
+	qslAllowedSchemeNames << QLatin1String("mailto");
+	qslAllowedSchemeNames << QLatin1String("xmpp");
+	qslAllowedSchemeNames << QLatin1String("skype");
+
 	return qslAllowedSchemeNames;
 }
 
