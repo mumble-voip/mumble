@@ -326,7 +326,7 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="3">
+      <item row="0" column="4">
        <widget class="QLabel" name="qliLost">
         <property name="text">
          <string>Lost</string>
@@ -336,7 +336,7 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="4">
+      <item row="0" column="6">
        <widget class="QLabel" name="qliResync">
         <property name="text">
          <string>Resync</string>
@@ -379,7 +379,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="3">
+      <item row="1" column="4">
        <widget class="QLabel" name="qlFromLost">
         <property name="text">
          <string/>
@@ -392,7 +392,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="4">
+      <item row="1" column="6">
        <widget class="QLabel" name="qlFromResync">
         <property name="text">
          <string/>
@@ -438,7 +438,7 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="3">
+      <item row="2" column="4">
        <widget class="QLabel" name="qlToLost">
         <property name="text">
          <string/>
@@ -451,7 +451,7 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="4">
+      <item row="2" column="6">
        <widget class="QLabel" name="qlToResync">
         <property name="text">
          <string/>
@@ -461,6 +461,66 @@
         </property>
         <property name="textInteractionFlags">
          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLabel" name="qliLate_percent">
+        <property name="text">
+         <string notr="true">%</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QLabel" name="qliLost_percent">
+        <property name="text">
+         <string notr="true">%</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLabel" name="qlFromLate_percent">
+        <property name="text">
+         <string notr="true">0.00</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLabel" name="qlToLate_percent">
+        <property name="text">
+         <string notr="true">0.00</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="5">
+       <widget class="QLabel" name="qlFromLost_percent">
+        <property name="text">
+         <string notr="true">0.00</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5">
+       <widget class="QLabel" name="qlToLost_percent">
+        <property name="text">
+         <string notr="true">0.00</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>

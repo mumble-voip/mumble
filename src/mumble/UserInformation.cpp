@@ -196,6 +196,17 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 		qlToLate->setText(QString::number(to.late()));
 		qlToLost->setText(QString::number(to.lost()));
 		qlToResync->setText(QString::number(to.resync()));
+
+		float allFromPackets = (from.good() + from.late() + from.lost());
+		float allToPackets = (to.good() + to.late() + to.lost());
+		if (allFromPackets != 0.0f) {
+			qlFromLate_percent->setText(QString::number(from.late() * 100.0f / allFromPackets, 'f', 2));
+			qlFromLost_percent->setText(QString::number(from.lost() * 100.0f / allFromPackets, 'f', 2));
+		}
+		if (allToPackets != 0.0f) {
+			qlToLate_percent->setText(QString::number(to.late() * 100.0f / allToPackets, 'f', 2));
+			qlToLost_percent->setText(QString::number(to.lost() * 100.0f / allToPackets, 'f', 2));
+		}
 	} else {
 		qgbUDP->setVisible(false);
 	}
