@@ -349,12 +349,18 @@ void ServerHandler::sendPing() {
 	mpp.set_lost(cs.uiLost);
 	mpp.set_resync(cs.uiResync);
 
-	mpp.set_udp_ping_avg(static_cast<float>(boost::accumulators::mean(accUDP)));
-	mpp.set_udp_ping_var(static_cast<float>(boost::accumulators::variance(accUDP)));
-	mpp.set_udp_packets(static_cast<int>(boost::accumulators::count(accUDP)));
-	mpp.set_tcp_ping_avg(static_cast<float>(boost::accumulators::mean(accTCP)));
-	mpp.set_tcp_ping_var(static_cast<float>(boost::accumulators::variance(accTCP)));
+	if (boost::accumulators::count(accTCP) != 0) {
+	    mpp.set_tcp_ping_avg(static_cast<float>(boost::accumulators::mean(accTCP)));
+	}
 	mpp.set_tcp_packets(static_cast<int>(boost::accumulators::count(accTCP)));
+	mpp.set_tcp_ping_var(static_cast<float>(boost::accumulators::variance(accTCP)));
+
+	if (boost::accumulators::count(accUDP) != 0) {
+	    mpp.set_udp_ping_avg(static_cast<float>(boost::accumulators::mean(accUDP)));
+	}
+	mpp.set_udp_packets(static_cast<int>(boost::accumulators::count(accUDP)));
+	mpp.set_udp_ping_var(static_cast<float>(boost::accumulators::variance(accUDP)));
+
 	sendMessage(mpp);
 }
 
