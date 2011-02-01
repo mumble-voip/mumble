@@ -214,7 +214,9 @@ ShortcutActionWidget::ShortcutActionWidget(QWidget *p) : QComboBox(p) {
 
 	insertItem(idx, tr("Unassigned"));
 	setItemData(idx, -1);
+#ifndef Q_OS_MAC
 	setSizeAdjustPolicy(AdjustToContents);
+#endif
 
 	idx++;
 
