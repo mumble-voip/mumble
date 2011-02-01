@@ -514,6 +514,9 @@
    <property name="whatsThis">
     <string>Allows you to change most settings for Mumble.</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::PreferencesRole</enum>
+   </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>
    </property>
@@ -549,6 +552,9 @@
    </property>
    <property name="whatsThis">
     <string>Shows a small dialog with information and license for Mumble.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutRole</enum>
    </property>
   </action>
   <action name="qaHelpAboutSpeex">
