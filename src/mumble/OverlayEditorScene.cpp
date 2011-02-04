@@ -796,6 +796,9 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 			qgpw->setWidget(NULL);
 			delete qgpw;
 		} else {
+			Qt::WindowFlags wf = g.mw->windowFlags();
+			if (wf.testFlag(Qt::WindowStaysOnTopHint))
+				qfd.setWindowFlags(qfd.windowFlags() | Qt::WindowStaysOnTopHint);
 			ret = qfd.exec();
 		}
 
