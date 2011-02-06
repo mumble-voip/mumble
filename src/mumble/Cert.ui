@@ -221,6 +221,9 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
       <property name="whatsThis">
        <string>This is the password for the PKCS#12 file containing your certificate.</string>
       </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Password</enum>
+      </property>
      </widget>
     </item>
     <item row="4" column="0" colspan="3">
