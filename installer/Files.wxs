@@ -33,9 +33,6 @@
       <Component Id="celt0.0.7.0.dll">
         <File Source="$(var.SourceDir)\release\celt0.0.7.0.dll" KeyPath="yes" />
       </Component>
-      <Component Id="celt0.0.10.0.dll">
-        <File Source="$(var.SourceDir)\release\celt0.0.10.0.dll" KeyPath="yes" />
-      </Component>
       <Component Id="celt0.0.11.0.dll">
         <File Source="$(var.SourceDir)\release\celt0.0.11.0.dll" KeyPath="yes" />
       </Component>
@@ -105,9 +102,6 @@
       <Component Id="celt0.0.7.0.sse.dll">
         <File Source="$(var.SourceDir)\release\celt0.0.7.0.sse.dll" KeyPath="yes" />
       </Component>
-      <Component Id="celt0.0.10.0.sse.dll">
-        <File Source="$(var.SourceDir)\release\celt0.0.10.0.sse.dll" KeyPath="yes" />
-      </Component>
       <Component Id="celt0.0.11.0.sse.dll">
         <File Source="$(var.SourceDir)\release\celt0.0.11.0.sse.dll" KeyPath="yes" />
       </Component>
@@ -116,9 +110,6 @@
       <?ifdef SSE2 ?>
       <Component Id="celt0.0.7.0.sse2.dll">
         <File Source="$(var.SourceDir)\release\celt0.0.7.0.sse2.dll" KeyPath="yes" />
-      </Component>
-      <Component Id="celt0.0.10.0.sse2.dll">
-        <File Source="$(var.SourceDir)\release\celt0.0.10.0.sse2.dll" KeyPath="yes" />
       </Component>
       <Component Id="celt0.0.11.0.sse2.dll">
         <File Source="$(var.SourceDir)\release\celt0.0.11.0.sse2.dll" KeyPath="yes" />
