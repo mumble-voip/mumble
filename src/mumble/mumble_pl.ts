@@ -2724,7 +2724,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Użytkownik Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+423"/>
+        <location filename="main.cpp" line="+425"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Wygaśnięcie certyfikatu:&lt;/b&gt;Twój certyfikat niedługo straci ważność. Musisz go odnowić, jeżeli tego nie zrobisz nie będziesz w stanie połączyć się z serwerami, na których jesteś zarejestrowany.</translation>
     </message>
@@ -4149,7 +4149,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+652"/>
+        <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
         <translation>Skróty</translation>
     </message>
@@ -8635,7 +8635,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-481"/>
+        <location filename="GlobalShortcut.cpp" line="-483"/>
         <source>Unassigned</source>
         <translation>Nieprzypisana</translation>
     </message>
@@ -8643,7 +8643,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+359"/>
+        <location line="+361"/>
         <source>On</source>
         <translation>Włącz</translation>
     </message>
@@ -8666,7 +8666,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-433"/>
+        <location line="-435"/>
         <source>Press Shortcut</source>
         <translation>Naciśnij klawisz</translation>
     </message>
@@ -8674,7 +8674,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
 <context>
     <name>ShortcutTargetDialog</name>
     <message>
-        <location line="+204"/>
+        <location line="+206"/>
         <source>Root</source>
         <translation>Źródło</translation>
     </message>

@@ -2384,7 +2384,7 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
         <translation>Mumbleanvändare</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+423"/>
+        <location filename="main.cpp" line="+425"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Certifikatutgång:&lt;/b&gt; Ditt certifikat håller på att gå ut. Du måste förnya det, annars kan du inte längre ansluta till servrar du är registrerad på.</translation>
     </message>
@@ -3572,7 +3572,7 @@ av dessa möjliga platser.</translation>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+652"/>
+        <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
         <translation>Genvägar</translation>
     </message>
@@ -7187,7 +7187,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-481"/>
+        <location filename="GlobalShortcut.cpp" line="-483"/>
         <source>Unassigned</source>
         <translation>Otilldelad</translation>
     </message>
@@ -7195,7 +7195,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+359"/>
+        <location line="+361"/>
         <source>On</source>
         <translation>På</translation>
     </message>
@@ -7218,7 +7218,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-433"/>
+        <location line="-435"/>
         <source>Press Shortcut</source>
         <translation>Tryck på en eller flera knappar att använda som genväg</translation>
     </message>
@@ -7226,7 +7226,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
 <context>
     <name>ShortcutTargetDialog</name>
     <message>
-        <location line="+204"/>
+        <location line="+206"/>
         <source>Root</source>
         <translation>Rot</translation>
     </message>

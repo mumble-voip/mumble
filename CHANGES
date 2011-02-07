@@ -1,5 +1,32 @@
+2011-02-07
+  karokatona <karokatona@users.sourceforge.net>
+    3c1d24c  Hungarian Translation
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    685809c  Remove CELT 0.10.0
+
+2011-02-04
+  Mikkel Krautz <mikkel@krautz.dk>
+    775165f  Add CELT 0.11.0 to OS X dist script.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    d256a9f  Add missing celt-0.11.0-build dir
+    04a3fcd  Fix overlay editor font dialog opens behind MainWindow
+    58aba64  Add CELT 0.11.0 support
+
+2011-02-01
+  Mikkel Krautz <mikkel@krautz.dk>
+    cd52bf6  Re-add menu roles to Settings and About menu items. The
+	     default (text heuristic) only yields the correct result when
+	     the texts are in English.
+    4199de4  ShortcutActionWidget: Use default size for OS X. With
+	     AdjustToContents, the QComboBox *is* bigger than the contents.
+
 2011-01-23
   Thorvald Natvig <slicer@users.sourceforge.net>
+    e0ba383  Work around timestamp update for mysql
+    53e5c75  Fix ID of new server if all servers deleted
+    4559674  Add Qt 4.6 Guard to QAppMumble::event
     c61522e  Remove older CELT 0.9.0
 
 2011-01-22

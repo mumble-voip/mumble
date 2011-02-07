@@ -3374,7 +3374,7 @@ Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volu
         <translation>Usuario Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+423"/>
+        <location filename="main.cpp" line="+425"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Vencimiento del certificado:&lt;/b&gt; Su certificado está a punto de caducar. Debe renovarlo, o de lo contrario no podrá conectarse a los servidores en los que se haya registrado.</translation>
     </message>
@@ -5038,7 +5038,7 @@ de las ubicaciones posibles.</translation>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+652"/>
+        <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
         <translation>Métodos abreviados</translation>
     </message>
@@ -9987,7 +9987,7 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-481"/>
+        <location filename="GlobalShortcut.cpp" line="-483"/>
         <source>Unassigned</source>
         <translation>Sin asignar</translation>
     </message>
@@ -9995,7 +9995,7 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+359"/>
+        <location line="+361"/>
         <source>On</source>
         <translation>Activado</translation>
     </message>
@@ -10018,7 +10018,7 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-433"/>
+        <location line="-435"/>
         <source>Press Shortcut</source>
         <translation>Presione la tecla de método abreviado</translation>
     </message>
@@ -10026,7 +10026,7 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
 <context>
     <name>ShortcutTargetDialog</name>
     <message>
-        <location line="+204"/>
+        <location line="+206"/>
         <source>Root</source>
         <translation>Raíz</translation>
     </message>

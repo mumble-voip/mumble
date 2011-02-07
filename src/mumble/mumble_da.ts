@@ -2493,7 +2493,7 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
         <translation>Mumble bruger</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+423"/>
+        <location filename="main.cpp" line="+425"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Certifikat Udløb:&lt;/b&gt; Dit certifikat er ved at udløbe. Du skal fornye det, ellers vil du ikke længere være i stand til at forbinde til servere du registreret på.</translation>
     </message>
@@ -3719,7 +3719,7 @@ som helst mulige placeringer.</translation>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+652"/>
+        <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
         <translation>Genveje</translation>
     </message>
@@ -7698,7 +7698,7 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-481"/>
+        <location filename="GlobalShortcut.cpp" line="-483"/>
         <source>Unassigned</source>
         <translation>Ubenyttet</translation>
     </message>
@@ -7706,7 +7706,7 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+359"/>
+        <location line="+361"/>
         <source>On</source>
         <translation>Til</translation>
     </message>
@@ -7729,7 +7729,7 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-433"/>
+        <location line="-435"/>
         <source>Press Shortcut</source>
         <translation>Tryk genvej</translation>
     </message>
@@ -7737,7 +7737,7 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
 <context>
     <name>ShortcutTargetDialog</name>
     <message>
-        <location line="+204"/>
+        <location line="+206"/>
         <source>Root</source>
         <translation>Rod</translation>
     </message>

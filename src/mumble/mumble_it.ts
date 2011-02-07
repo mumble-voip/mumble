@@ -2721,7 +2721,7 @@ Parla ad alta voce, come quando sei infastidito o eccitato. Poi diminuisci il vo
         <translation>Utente Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+423"/>
+        <location filename="main.cpp" line="+425"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Scadenza certificato:&lt;/b&gt; Il tuo certificato sta per scadere. Devi rinnovarlo, o non sarai più in grado di connetterti ai server a cui ti sei registrato.</translation>
     </message>
@@ -4155,7 +4155,7 @@ delle possibili posizioni.</translation>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+652"/>
+        <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
         <translation>Scorciatoie</translation>
     </message>
@@ -8625,7 +8625,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-481"/>
+        <location filename="GlobalShortcut.cpp" line="-483"/>
         <source>Unassigned</source>
         <translation>Non assegnato</translation>
     </message>
@@ -8633,7 +8633,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+359"/>
+        <location line="+361"/>
         <source>On</source>
         <translation>On</translation>
     </message>
@@ -8656,7 +8656,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-433"/>
+        <location line="-435"/>
         <source>Press Shortcut</source>
         <translation>Premi scorciatoia</translation>
     </message>
@@ -8664,7 +8664,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
 <context>
     <name>ShortcutTargetDialog</name>
     <message>
-        <location line="+204"/>
+        <location line="+206"/>
         <source>Root</source>
         <translation>Radice</translation>
     </message>

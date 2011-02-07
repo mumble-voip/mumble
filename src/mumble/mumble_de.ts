@@ -3354,7 +3354,7 @@ Bitte verwenden Sie eine andere Datei.</translation>
         <translation>Mumble-Benutzer</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+423"/>
+        <location filename="main.cpp" line="+425"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Ablauf des Zertifikats:&lt;/b&gt; Ihr Zertifikat wird bald ablaufen. Sie müssen es erneuern oder Sie werden nicht mehr in der Lage sein sich auf Server zu verbinden auf denen Sie registriert sind.</translation>
     </message>
@@ -5058,7 +5058,7 @@ der möglichen Orte initialisieren.</translation>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+652"/>
+        <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
         <translation>Tastenkürzel</translation>
     </message>
@@ -9928,7 +9928,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-481"/>
+        <location filename="GlobalShortcut.cpp" line="-483"/>
         <source>Unassigned</source>
         <translation>Nicht zugewiesen</translation>
     </message>
@@ -9936,7 +9936,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+359"/>
+        <location line="+361"/>
         <source>On</source>
         <translation>An</translation>
     </message>
@@ -9959,7 +9959,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-433"/>
+        <location line="-435"/>
         <source>Press Shortcut</source>
         <translation>Tastenkürzel drücken</translation>
     </message>
@@ -9967,7 +9967,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>ShortcutTargetDialog</name>
     <message>
-        <location line="+204"/>
+        <location line="+206"/>
         <source>Root</source>
         <translation>Hauptkanal</translation>
     </message>

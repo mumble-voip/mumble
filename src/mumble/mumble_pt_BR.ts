@@ -2308,7 +2308,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
         <translation>Usuário do Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+423"/>
+        <location filename="main.cpp" line="+425"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Expiração do certificado:&lt;/b&gt; Seu certificado está para expirar. Você precisa renová-lo, ou você não será mais capaz de conectar aos servidores em que está registrado.</translation>
     </message>
@@ -3483,7 +3483,7 @@ dos locais possíveis.</translation>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+652"/>
+        <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
         <translation>Atalhos</translation>
     </message>
@@ -7073,7 +7073,7 @@ Para atualizar estes arquivos para suas últimes versões, clique no botão abai
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-481"/>
+        <location filename="GlobalShortcut.cpp" line="-483"/>
         <source>Unassigned</source>
         <translation>Não designado</translation>
     </message>
@@ -7081,7 +7081,7 @@ Para atualizar estes arquivos para suas últimes versões, clique no botão abai
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+359"/>
+        <location line="+361"/>
         <source>On</source>
         <translation>Ativo</translation>
     </message>
@@ -7104,7 +7104,7 @@ Para atualizar estes arquivos para suas últimes versões, clique no botão abai
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-433"/>
+        <location line="-435"/>
         <source>Press Shortcut</source>
         <translation>Pressione atalho</translation>
     </message>
@@ -7112,7 +7112,7 @@ Para atualizar estes arquivos para suas últimes versões, clique no botão abai
 <context>
     <name>ShortcutTargetDialog</name>
     <message>
-        <location line="+204"/>
+        <location line="+206"/>
         <source>Root</source>
         <translation>Raíz</translation>
     </message>
