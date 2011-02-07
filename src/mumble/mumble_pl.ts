@@ -2586,7 +2586,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Hash</source>
-        <translation>Wartość</translation>
+        <translation>Certyfikat</translation>
     </message>
     <message>
         <location/>
@@ -2666,7 +2666,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+6"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation>Nie można potwierdzić adresu email.&lt;br /&gt;Podaj właściwy (lub żadnego) adres email, aby kontynuować.</translation>
+        <translation>Nie można zweryfikować adresu email.&lt;br /&gt;Podaj właściwy (lub żaden) adres email, aby kontynuować.</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3012,12 +3012,12 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Certificate-based authentication is ready for use</source>
-        <translation>Autoryzacja bazująca na certyfikatach jest gotowa do użytkowania</translation>
+        <translation>Autoryzacja bazująca na certyfikatach jest gotowa do pracy</translation>
     </message>
     <message>
         <location/>
         <source>Enjoy using Mumble with strong authentication.</source>
-        <translation>Miłej zabawy z Mumble i silnymi certyfikatami.</translation>
+        <translation>Miłej zabawy z Mumble i silnymi certyfikatami.&lt;br&gt;&lt;br&gt;&lt;b&gt;Pamiętaj aby wykonać kopię zapasową certyfikatu!&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -8890,7 +8890,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>CELT Versions</source>
-        <translation>Wersja CELT</translation>
+        <translation>Wersje CELT</translation>
     </message>
     <message>
         <location/>
@@ -8945,7 +8945,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Resync</source>
-        <translation>Re-synchronizowane</translation>
+        <translation>Re-synch.</translation>
     </message>
     <message>
         <location/>
