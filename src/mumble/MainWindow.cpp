@@ -2546,6 +2546,14 @@ void MainWindow::customEvent(QEvent *evt) {
 
 	ServerHandlerMessageEvent *shme=static_cast<ServerHandlerMessageEvent *>(evt);
 
+#ifdef QT_NO_DEBUG
+#define MUMBLE_MH_MSG(x) case MessageHandler:: x : { \
+		MumbleProto:: x msg; \
+		if (msg.ParseFromArray(shme->qbaMsg.constData(), shme->qbaMsg.size())) \
+			msg##x(msg); \
+		break; \
+	}
+#else
 #define MUMBLE_MH_MSG(x) case MessageHandler:: x : { \
 		MumbleProto:: x msg; \
 		if (msg.ParseFromArray(shme->qbaMsg.constData(), shme->qbaMsg.size())) { \
@@ -2555,7 +2563,7 @@ void MainWindow::customEvent(QEvent *evt) {
 		} \
 		break; \
 	}
-
+#endif
 	switch (shme->uiType) {
 			MUMBLE_MH_ALL
 	}
