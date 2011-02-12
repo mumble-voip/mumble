@@ -5,33 +5,16 @@ if [ -z "$1" -o "$1" = '--help' ]; then
 	exit 1
 fi
 
-if [ -d /usr/lib64 ]; then
-  libdir_64=/usr/lib64
-  if [ -d "$libdir_64/mumble" ]; then
-    libdir_64="$libdir_64/mumble";
+for libpath in /usr/lib /usr/lib/mumble /usr/lib32 /usr/lib32/mumble /usr/lib64 /usr/lib64/mumble; do
+  if [ -d "$libpath" ]; then
+    if [ -f "$libpath/libmumble.so.1" ]; then
+      case $(file -L "$libpath/libmumble.so.1") in
+        *64-bit*) MUMBLE_OVERLAY_PATH_64="$libpath" ; echo set ;;
+        *32-bit*) MUMBLE_OVERLAY_PATH_32="$libpath" ;;
+      esac
+    fi
   fi
-fi
-if [ -d /usr/lib32 ]; then
-  libdir_32=/usr/lib32
-  if [ -d "$libdir_32/mumble" ]; then
-    libdir_32="$libdir_32/mumble";
-  fi
-fi
-if [ -z "$libdir_32" -o -z "$libdir_64" ]; then
-  tlibdir=/usr/lib
-  if [ -d "$tlibdir/mumble" ]; then
-    tlibdir="$tlibdir/mumble"
-  fi
-  if [ -f "$tlibdir/libmumble.so.1" ]; then
-    case $(file -L "$tlibdir/libmumble.so.1") in
-      *64-bit*)	libdir_64=$tlibdir ;;
-      *32-bit*) libdir_32=$tlibdir ;;
-    esac
-  fi
-fi
-
-MUMBLE_OVERLAY_PATH_32=$libdir_32
-MUMBLE_OVERLAY_PATH_64=$libdir_64
+done
 
 if [ -f /etc/sysconfig/mumble ]; then
   . /etc/sysconfig/mumble
@@ -51,24 +34,24 @@ is32=no
 
 case $(file -L "$binary") in
 	*64-bit*)
-		if [ ! -f "${MUMBLE_OVERLAY_PATH_64}/libmumble.so.1" ]; then
-			echo "64-bit libmumble.so.1 not found in ${MUMBLE_OVERLAY_PATH_64}" >&2
+		if [ -z "${MUMBLE_OVERLAY_PATH_64}" ]; then
+			echo "64-bit libmumble.so.1 not found" >&2
 			exit 1
 		fi
 		MUMBLE_PRELOAD="${MUMBLE_OVERLAY_PATH_64}/libmumble.so.1"
 		;;
 	*32-bit*)
-		if [ ! -f "${MUMBLE_OVERLAY_PATH_32}/libmumble.so.1" ]; then
-			echo "32-bit libmumble.so.1 not found in ${MUMBLE_OVERLAY_PATH_32}" >&2
+		if [ -z "${MUMBLE_OVERLAY_PATH_32}" ]; then
+			echo "32-bit libmumble.so.1 not found" >&2
 			exit 1
 		fi
 		MUMBLE_PRELOAD="${MUMBLE_OVERLAY_PATH_32}/libmumble.so.1"
 		;;
 	*)
-		if [ -f "${MUMBLE_OVERLAY_PATH_64}/libmumble.so.1" ]; then
+		if [ -n "${MUMBLE_OVERLAY_PATH_64}" ]; then
 			MUMBLE_PRELOAD="${MUMBLE_OVERLAY_PATH_64}/libmumble.so.1"
 		fi
-		if [ -f "${MUMBLE_OVERLAY_PATH_32}/libmumble.so.1" ]; then
+		if [ -n "${MUMBLE_OVERLAY_PATH_32}" ]; then
 			MUMBLE_PRELOAD="${MUMBLE_PRELOAD} ${MUMBLE_OVERLAY_PATH_32}/libmumble.so.1"
 		fi
 		if [ -z "${MUMBLE_PRELOAD}" ]; then
