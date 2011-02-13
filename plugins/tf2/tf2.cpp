@@ -143,15 +143,15 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	*/
 
 	// Remember addresses for later
-	posptr = pModule + 0x67742C;
-	rotptr = pModule + 0x677438;
-	stateptr = pModule + 0x603C64;
+	posptr = pModule + 0x6EFCC0;
+	rotptr = pModule + 0x6F6544;
+	stateptr = pModule + 0x606C64;
 	hostptr = mod_engine + 0x3D3E94;
 
 	/*
 	// Gamecheck
 	char sMagic[9];
-	if (!peekProc(pModule + 0x4FB3E3, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
+	if (!peekProc(pModule + 0x617DE3, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
 		return false;
 	*/
 

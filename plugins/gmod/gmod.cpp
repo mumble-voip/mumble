@@ -134,14 +134,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	*/
 
 	// Remember addresses for later
-	posptr = pModule + 0x509088;
-	rotptr = pModule + 0x509154;
-	stateptr = pModule + 0x49EC44;
+	posptr = pModule + 0x50A2B0;
+	rotptr = pModule + 0x50A16C;
+	stateptr = mod_engine + 0x375565;
 	hostptr = mod_engine + 0x3D3E94;
 
 	// Gamecheck
 	char sMagic[18];
-	if (!peekProc(pModule + 0x4B1515, sMagic, 18) || strncmp("?AVCSpectatorGUI@@", sMagic, 18)!=0)
+	if (!peekProc(pModule + 0x4B2515, sMagic, 18) || strncmp("?AVCSpectatorGUI@@", sMagic, 18)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
@@ -159,10 +159,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Gmod 11 build 4260. No identity support yet.");
+	return std::wstring(L"Supports Gmod 11 build 4426. No identity support yet.");
 }
 
-static std::wstring description(L"Garry's Mod 11 (Build 4260)");
+static std::wstring description(L"Garry's Mod 11 (Build 4426)");
 static std::wstring shortname(L"Garry's Mod 11");
 
 static int trylock1() {

@@ -140,8 +140,8 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	*/
 
 	// Remember addresses for later
-	posptr = pModule + 0x476808;
-	rotptr = pModule + 0x4789F4;
+	posptr = pModule + 0x4183F8;
+	rotptr = pModule + 0x4183B8;
 	stateptr = pModule + 0x404C24;
 	hostptr = mod_engine + 0x3D3E94;
 
@@ -165,10 +165,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports DODS build 4421. No identity support yet.");
+	return std::wstring(L"Supports DODS build 4426. No identity support yet.");
 }
 
-static std::wstring description(L"Day of Defeat: Source (Build 4421)");
+static std::wstring description(L"Day of Defeat: Source (Build 4426)");
 static std::wstring shortname(L"Day of Defeat: Source");
 
 static int trylock1() {

@@ -159,8 +159,8 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		team state:			client.dll+0x3aa133  (60 when T, 61 when CT, byte)
 	*/
 	// Remember addresses for later
-	posptr = pModule + 0x51FDC8;
-	rotptr = pModule + 0x521BCC;
+	posptr = pModule + 0x5084FC;
+	rotptr = pModule + 0x4B0004;
 	stateptr = pModule + 0x499DAC;
 	hostptr = mod_engine + 0x3D3E94;
 	//teamptr = pModule + 0x3aa133;
@@ -185,10 +185,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports CSS build 4421. No identity support yet.");
+	return std::wstring(L"Supports CSS build 4426. No identity support yet.");
 }
 
-static std::wstring description(L"Counter-Strike: Source (Build 4421)");
+static std::wstring description(L"Counter-Strike: Source (Build 4426)");
 static std::wstring shortname(L"Counter-Strike: Source");
 
 static int trylock1() {
