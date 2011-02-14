@@ -5168,7 +5168,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+97"/>
+        <location line="+105"/>
         <source>Choose image file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5198,7 +5198,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;控制信道&lt;/h2&gt;&lt;p&gt;使用 %1 比特 %2 加密&lt;br /&gt;平均延遲 %3 毫秒（%4 方差）&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1577"/>
+        <location line="-1585"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>語音頻道通過控制信道發送。</translation>
     </message>
@@ -7961,7 +7961,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+394"/>
+        <location filename="ServerHandler.cpp" line="+401"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation type="unfinished"></translation>
     </message>

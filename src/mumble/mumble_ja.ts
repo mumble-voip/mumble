@@ -7287,7 +7287,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>未登録ユーザのパスワードが違います。再度試してください。</translation>
     </message>
     <message>
-        <location line="+201"/>
+        <location line="+209"/>
         <source>Images (*.png *.jpg *.jpeg *.svg)</source>
         <translation type="unfinished">画像ファイル (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
@@ -7315,7 +7315,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>他のユーザにテキストメッセージを送信します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2432"/>
+        <location filename="MainWindow.cpp" line="-2440"/>
         <source>&amp;User</source>
         <translation>ユーザ(&amp;U)</translation>
     </message>
@@ -7626,7 +7626,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>ユーザ &apos;%1&apos; へのメッセージをここに入力</translation>
     </message>
     <message>
-        <location line="+97"/>
+        <location line="+105"/>
         <source>Choose image file</source>
         <translation>イメージファイルを選択</translation>
     </message>
@@ -7655,7 +7655,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;制御チャンネル&lt;/h2&gt;&lt;p&gt;%1 bit %2 で暗号化されています。&lt;br /&gt;平均 %3 ms の遅延 (平方偏差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1577"/>
+        <location line="-1585"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>音声チャンネルは管理チャンネルを通して送信されます。</translation>
     </message>
@@ -9775,7 +9775,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+394"/>
+        <location filename="ServerHandler.cpp" line="+401"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>UDP パケットをサーバに送ることができないか、サーバから受けとることができません。TCPモードに切り替えます。</translation>
     </message>

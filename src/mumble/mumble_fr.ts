@@ -7196,7 +7196,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1571"/>
+        <location line="+1579"/>
         <source>Images (*.png *.jpg *.jpeg *.svg)</source>
         <translation>Images (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
@@ -7205,7 +7205,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;Canal de contrôle&lt;/h2&gt;&lt;p&gt;Chiffré en %2 %1 bits&lt;br/&gt;%3 ms de latence moyenne (déviation de %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1551"/>
+        <location line="-1559"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canal de voix&lt;/h2&gt;&lt;p&gt;Chiffré en OCB-AES128 128 bits&lt;br/&gt;%1 ms de latence moyenne (déviation de %4)&lt;/p&gt;</translation>
     </message>
@@ -7313,7 +7313,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;center&gt;Saisir un message pour l&apos;utilisateur &apos;%1&apos; ici&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="+97"/>
+        <location line="+105"/>
         <source>Choose image file</source>
         <translation>Choisir un fichier image</translation>
     </message>
@@ -7338,7 +7338,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Format d&apos;image non reconnu.</translation>
     </message>
     <message>
-        <location line="-1577"/>
+        <location line="-1585"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>La voix est envoyée au dessus du canal de contrôle.</translation>
     </message>
@@ -9339,7 +9339,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+394"/>
+        <location filename="ServerHandler.cpp" line="+401"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>Les paquets UDP ne peuvent pas être envoyés ni reçus du serveur. Passage en mode TCP.</translation>
     </message>

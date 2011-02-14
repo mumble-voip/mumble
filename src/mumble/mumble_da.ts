@@ -4911,7 +4911,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>&lt;center&gt;Skriv besked til brugeren &apos;%1&apos; hér&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="+97"/>
+        <location line="+105"/>
         <source>Choose image file</source>
         <translation>Vælg billedfil</translation>
     </message>
@@ -4936,7 +4936,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Billedformatet blev ikke genkendt.</translation>
     </message>
     <message>
-        <location line="-1577"/>
+        <location line="-1585"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Lydkanal er sendt over kontrolkanal.</translation>
     </message>
@@ -5158,7 +5158,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Forkert serveradgangskode for uregistreret brugerkonto, prøv venligst igen.</translation>
     </message>
     <message>
-        <location line="+201"/>
+        <location line="+209"/>
         <source>Images (*.png *.jpg *.jpeg *.svg)</source>
         <translation>Billeder (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
@@ -5167,7 +5167,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation type="obsolete">&amp;Server</translation>
     </message>
     <message>
-        <location line="-2431"/>
+        <location line="-2439"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanal</translation>
     </message>
@@ -7622,7 +7622,7 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+394"/>
+        <location filename="ServerHandler.cpp" line="+401"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>UDP-pakker kan ikke blive sendt eller modtaget fra serveren. Skifter til TCP-tilstand.</translation>
     </message>

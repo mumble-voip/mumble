@@ -4607,7 +4607,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>&lt;center&gt;Digite a mensagem para o usuário &apos;%1&apos; aqui&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="+97"/>
+        <location line="+105"/>
         <source>Choose image file</source>
         <translation>Escolher um arquivo de imagem</translation>
     </message>
@@ -4633,7 +4633,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Formato de imagem não reconhecido.</translation>
     </message>
     <message>
-        <location line="-1577"/>
+        <location line="-1585"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Vanal de voz é enviado pelo canal de controle.</translation>
     </message>
@@ -6997,7 +6997,7 @@ Para atualizar estes arquivos para suas últimes versões, clique no botão abai
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+394"/>
+        <location filename="ServerHandler.cpp" line="+401"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>Pacotes UDP não podem ser enviados ou recebidos do servidor. Alternando para modo TCP.</translation>
     </message>
