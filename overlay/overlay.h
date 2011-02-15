@@ -104,6 +104,11 @@ static const char *overlayBlacklist[] = {
 	"explorer.exe",
 	"wmpnscfg.exe",
 	"firefox.exe",
+	"wlmail.exe",	// Windows Live Suite (mshtml.dll)
+	"msnmsgr.exe",
+	"MovieMaker.exe",
+	"WLXPhotoGallery.exe",
+	"psi.exe", // Secunia PSI (uses mshtml.dll)
 	NULL
 };
 
