@@ -44,7 +44,7 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) :
 		QObject(p),
 		ougUsers(&g.s.os) {
 	qlsSocket = socket;
-	qlsSocket->setParent(this);
+	qlsSocket->setParent(NULL);
 	connect(qlsSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 
 	omMsg.omh.iLength = -1;
@@ -88,7 +88,9 @@ OverlayClient::~OverlayClient() {
 	delete qgpiCursor;
 	delete qgpiLogo;
 
+	qlsSocket->disconnect();
 	qlsSocket->abort();
+	qlsSocket->deleteLater();
 
 	ougUsers.reset();
 }
