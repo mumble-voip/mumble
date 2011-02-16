@@ -133,11 +133,10 @@ void Overlay::disconnected() {
 	foreach(OverlayClient *oc, qlClients) {
 		if (oc->qlsSocket == qls) {
 			qlClients.removeAll(oc);
-			oc->deleteLater();
+			delete oc;
 			return;
 		}
 	}
-	qls->deleteLater();
 }
 
 void Overlay::error(QLocalSocket::LocalSocketError) {

@@ -44,6 +44,7 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) :
 		QObject(p),
 		ougUsers(&g.s.os) {
 	qlsSocket = socket;
+	qlsSocket->setParent(this);
 	connect(qlsSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 
 	omMsg.omh.iLength = -1;
