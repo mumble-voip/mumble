@@ -109,6 +109,9 @@ static const char *overlayBlacklist[] = {
 	"MovieMaker.exe",
 	"WLXPhotoGallery.exe",
 	"psi.exe", // Secunia PSI (uses mshtml.dll)
+	"Photoshop.exe",
+	"blender.exe",
+	"googleearth.exe",
 	NULL
 };
 
