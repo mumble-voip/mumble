@@ -112,6 +112,11 @@ static const char *overlayBlacklist[] = {
 	"Photoshop.exe",
 	"blender.exe",
 	"googleearth.exe",
+	"XBMC.exe", // http://xbmc.org/
+	"BOXEE.exe", // http://www.boxee.tv/
+	"hammer.exe", // VALVE Hammer Editor
+	"hlmv.exe", // Half-Life Model Viewer
+	"hlfaceposer.exe", // Face Poser (from Source SDK)
 	NULL
 };
 
