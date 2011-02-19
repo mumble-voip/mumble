@@ -6317,7 +6317,7 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
         <translation>Kunde inte skapa kommunikation med överlag på %2: %1. Inget överlag kommer att vara tillgängligt.</translation>
     </message>
     <message>
-        <location line="+256"/>
+        <location line="+255"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation>Hoppar över uppdatering för överlag i felsökningsläge.</translation>
     </message>
@@ -6370,7 +6370,7 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
         <translation>Återställ zoom</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+105"/>
+        <location filename="OverlayClient.cpp" line="+108"/>
         <source>FPS: %1</source>
         <translation>FPS: %1</translation>
     </message>

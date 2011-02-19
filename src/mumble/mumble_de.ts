@@ -8693,7 +8693,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation>Kommunikation mit dem Overlay auf %2: %1 fehlgeschlagen. Das Overlay wird nicht verfügbar sein.</translation>
     </message>
     <message>
-        <location line="+256"/>
+        <location line="+255"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation>Überspringe Overlay-Aktualisierung im Debug Modus.</translation>
     </message>
@@ -8768,7 +8768,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation>Zoom zurücksetzen</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+105"/>
+        <location filename="OverlayClient.cpp" line="+108"/>
         <source>FPS: %1</source>
         <translation>FPS: %1</translation>
     </message>

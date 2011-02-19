@@ -8496,7 +8496,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation>オーバレイ:  %2: %1 との通信の作成に失敗しました。有効なオーバレイはありません。</translation>
     </message>
     <message>
-        <location line="+256"/>
+        <location line="+255"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation>デバッグモードではオーバレイの更新をスキップします。</translation>
     </message>
@@ -8585,7 +8585,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation>ズームをリセット</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+105"/>
+        <location filename="OverlayClient.cpp" line="+108"/>
         <source>FPS: %1</source>
         <translation></translation>
     </message>

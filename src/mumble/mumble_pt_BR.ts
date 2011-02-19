@@ -6215,7 +6215,7 @@ Evita que o cliente baixe imagens embutidas em mensagens de bate-papo com a marc
         <translation>Falha ao cruar comunicação com sobreimpressão em %2: %1. Nenhuma sobreimpressão estará disponível.</translation>
     </message>
     <message>
-        <location line="+256"/>
+        <location line="+255"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation>Pulando atualizações de sobreimpressão no modo de depuração.</translation>
     </message>
@@ -6268,7 +6268,7 @@ Evita que o cliente baixe imagens embutidas em mensagens de bate-papo com a marc
         <translation>Resetar aproximação</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+105"/>
+        <location filename="OverlayClient.cpp" line="+108"/>
         <source>FPS: %1</source>
         <translation>FPS: %1</translation>
     </message>

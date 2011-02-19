@@ -8665,7 +8665,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation>No se pudo establecer la comunicación con la sobreimpresión en %2: %1. La sobreimpresión no estará disponible.</translation>
     </message>
     <message>
-        <location line="+256"/>
+        <location line="+255"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation>Omitiendo la actualización de ls superposición en el modo de depuración</translation>
     </message>
@@ -8761,7 +8761,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation>Restaurar zoom</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+105"/>
+        <location filename="OverlayClient.cpp" line="+108"/>
         <source>FPS: %1</source>
         <translation>FPS: %1</translation>
     </message>

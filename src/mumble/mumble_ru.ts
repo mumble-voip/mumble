@@ -7383,7 +7383,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Не возможно соединиться с замещением на %2: %1. Замещение не будет доступно.</translation>
     </message>
     <message>
-        <location line="+256"/>
+        <location line="+255"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation>Пропускать обновление замещения в режиме отладки.</translation>
     </message>
@@ -7446,7 +7446,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Сбросить масштаб</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+105"/>
+        <location filename="OverlayClient.cpp" line="+108"/>
         <source>FPS: %1</source>
         <translation>FPS: %1</translation>
     </message>

@@ -6640,7 +6640,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation>Det mislykkedes at oprette kommunikation med overlægningen på %2: %1. Der vil ikke være nogen overlægning tilgængelig.</translation>
     </message>
     <message>
-        <location line="+256"/>
+        <location line="+255"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation>Springer over opdateringer for overlægning i fejlfindingstilstand.</translation>
     </message>
@@ -6693,7 +6693,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation>Nulstil zoom</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+105"/>
+        <location filename="OverlayClient.cpp" line="+108"/>
         <source>FPS: %1</source>
         <translation>FPS: %1</translation>
     </message>

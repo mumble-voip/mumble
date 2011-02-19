@@ -7492,7 +7492,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Tworzenie komunikacji z nakładką nie powiodło się w %2: %1. Nakładka nie będzie dostępna.</translation>
     </message>
     <message>
-        <location line="+256"/>
+        <location line="+255"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation>Pomijanie aktualizacji wtyczek w trybie debugowania.</translation>
     </message>
@@ -7567,7 +7567,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Resetuj powiekszenie</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+105"/>
+        <location filename="OverlayClient.cpp" line="+108"/>
         <source>FPS: %1</source>
         <translation>FPS: %1</translation>
     </message>

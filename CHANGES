@@ -1,3 +1,25 @@
+2011-02-18
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    df0f290  Add some other applications to the overlay blacklist
+
+2011-02-17
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    520ad96  Add Photoshop, Blender and GoogleEarth to the overlay
+	     blacklist
+
+2011-02-16
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    3ccbe53  Experiment with immediate overlay delete
+
+2011-02-15
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    263338e  Add Windows Live Suite and Secunia PSI to default overlay
+	     blacklist
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    ed8ab35  No, events from deleted objects are really not ok.
+    1e74ee5  Upgrade to CELT 0.11.1 in-place
+
 2011-02-12
   Thorvald Natvig <slicer@users.sourceforge.net>
     f6b6f21  Don't spam console for release build

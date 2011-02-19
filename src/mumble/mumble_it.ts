@@ -7491,7 +7491,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation>Impossibile creare una comunicazione con la sovrapposizione su %2 :%1. La sovrapposizione non sarà disponibile.</translation>
     </message>
     <message>
-        <location line="+256"/>
+        <location line="+255"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation>Salta gli aggiornamenti della sovrapposizione in modalità Debug.</translation>
     </message>
@@ -7566,7 +7566,7 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation>Reimposta zoom</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+105"/>
+        <location filename="OverlayClient.cpp" line="+108"/>
         <source>FPS: %1</source>
         <translation>FPS: %1</translation>
     </message>

@@ -8141,7 +8141,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation>Échec lors de la création de la communication avec l&apos;overlay à %2 : %1. L&apos;overlay ne sera pas disponible.</translation>
     </message>
     <message>
-        <location line="+256"/>
+        <location line="+255"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation>Passe la mise à jour de l&apos;overlay en mode débogage.</translation>
     </message>
@@ -8223,7 +8223,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation>Réinitialiser le zoom</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+105"/>
+        <location filename="OverlayClient.cpp" line="+108"/>
         <source>FPS: %1</source>
         <translation>FPS : %1</translation>
     </message>
