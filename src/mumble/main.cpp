@@ -401,12 +401,10 @@ int main(int argc, char **argv) {
 		g.l->log(Log::Warning, CertWizard::tr("<b>Certificate Expiry:</b> Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on."));
 
 #ifdef QT_NO_DEBUG
-#ifdef RELEASE_BUILD
+#ifndef SNAPSHOT_BUILD
 	if (g.s.bUpdateCheck)
-#endif
 		new VersionCheck(true, g.mw);
-
-#ifdef SNAPSHOT_BUILD
+#else
 	new VersionCheck(false, g.mw, true);
 #endif
 #else

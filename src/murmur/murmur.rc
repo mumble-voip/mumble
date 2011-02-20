@@ -8,7 +8,7 @@ IDI_ICON1               ICON    DISCARDABLE     "..\\..\\icons\\murmur.ico"
 #define VER_DEBUG                   VS_FF_DEBUG
 #endif
 
-#ifndef RELEASE_BUILD
+#ifdef SNAPSHOT_BUILD
 #define	VER_RELEASE	VS_FF_SPECIALBUILD|VS_FF_PRERELEASE
 #else
 #define VER_RELEASE 0L
@@ -34,7 +34,7 @@ VS_VERSION_INFO VERSIONINFO
 				VALUE "LegalCopyright", "Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>"
 				VALUE "OriginalFilename", "murmur.exe"
 				VALUE "ProductName", "Mumble"
-#ifndef RELEASE_BUILD
+#ifdef SNAPSHOT_BUILD
 				VALUE "SpecialBuild", "Snapshot development release"
 #endif
 			END
