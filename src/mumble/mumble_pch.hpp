@@ -46,7 +46,6 @@
 /* OpenSSL defines set_key. This breaks our protobuf-generated setters. */
 #undef set_key
 
-#ifndef COMPAT_CLIENT
 #ifdef Q_OS_WIN
 #define ENABLE_SNDFILE_WINDOWS_PROTOTYPES 1
 #endif
@@ -58,7 +57,6 @@
 #else
 #include <ogg/ogg.h>
 #include <speex/speex_callbacks.h>
-#endif
 #include <speex/speex.h>
 #include <speex/speex_header.h>
 #include <speex/speex_jitter.h>

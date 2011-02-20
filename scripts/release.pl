@@ -63,10 +63,8 @@ while (my $pro = shift @pro) {
       switch ($var) {
         case "version" {
           if ($value !~ /\$\$/) {
-            if ($basedir !~ /mumble11x/) {
               croak "Versions don't match" if (defined($ver) && ($ver ne $value));
               $ver=$value;
-            }
           }
         }
         case "vpath" {

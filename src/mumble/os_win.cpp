@@ -197,27 +197,8 @@ void os_init() {
 	mumble_speex_init();
 
 #ifdef QT_NO_DEBUG
-#ifdef COMPAT_CLIENT
-	errno_t res = 0;
-	size_t reqSize;
-	_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");
-	if (reqSize > 0) {
-		reqSize += strlen("/Mumble/Console11x.txt");
-		size_t bSize = reqSize;
-
-		STACKVAR(wchar_t, buff, reqSize+1);
-
-		_wgetenv_s(&reqSize, buff, bSize, L"APPDATA");
-		wcscat_s(buff, bSize, L"/Mumble/Console11x.txt");
-		res = _wfopen_s(&fConsole, buff, L"a+");
-	}
-	if ((res != 0) || (! fConsole)) {
-		res=_wfopen_s(&fConsole, L"Console11x.txt", L"a+");
-	}
-#else
 	QString console = g.qdBasePath.filePath(QLatin1String("Console.txt"));
 	fConsole = _wfsopen(console.utf16(), L"a+", _SH_DENYWR);
-#endif
 
 	if (fConsole)
 		qInstallMsgHandler(mumbleMessageOutput);
@@ -242,11 +223,7 @@ void os_init() {
 	musComment.Buffer = wcComment;
 	musComment.BufferSize = wcslen(wcComment) * sizeof(wchar_t);
 
-#ifdef COMPAT_CLIENT
-	QString dump = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QLatin1String("\\mumble11x.dmp");
-#else
 	QString dump = g.qdBasePath.filePath(QLatin1String("mumble.dmp"));
-#endif
 
 	QFileInfo fi(dump);
 	QDir::root().mkpath(fi.absolutePath());
@@ -259,10 +236,8 @@ void os_init() {
 		qWarning("Application: Failed to set priority!");
 #endif
 
-#ifndef COMPAT_CLIENT
 	g.qdBasePath.mkpath(QLatin1String("Snapshots"));
 	if (bIsWin7)
 		SetCurrentProcessExplicitAppUserModelID(QString::fromLatin1("net.sourceforge.mumble.Mumble").utf16());
-#endif
 }
 

@@ -105,15 +105,7 @@ void CrashReporter::uploadProgress(qint64 sent, qint64 total) {
 
 void CrashReporter::run() {
 	QByteArray qbaDumpContents;
-#ifdef COMPAT_CLIENT
-#ifdef Q_OS_MAC
-	QFile qfCrashDump(QDir::homePath() + QLatin1String("/Library/Preferences/Mumble/mumble11x.dmp"));
-#else
-	QFile qfCrashDump(QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QLatin1String("/mumble11x.dmp"));
-#endif
-#else
 	QFile qfCrashDump(g.qdBasePath.filePath(QLatin1String("mumble.dmp")));
-#endif
 	if (! qfCrashDump.exists())
 		return;
 
@@ -142,11 +134,7 @@ void CrashReporter::run() {
 	}
 
 	QStringList qslFilters;
-#ifdef COMPAT_CLIENT
-	qslFilters << QString::fromLatin1("Mumble11x_*.crash");
-#else
 	qslFilters << QString::fromLatin1("Mumble_*.crash");
-#endif
 	qdCrashReports.setNameFilters(qslFilters);
 	qdCrashReports.setSorting(QDir::Time);
 	QFileInfoList qfilEntries = qdCrashReports.entryInfoList();

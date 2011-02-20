@@ -31,9 +31,7 @@
 #include "ConfigDialog.h"
 #include "AudioInput.h"
 #include "AudioOutput.h"
-#ifndef COMPAT_CLIENT
 #include "Overlay.h"
-#endif
 #include "Global.h"
 
 ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
@@ -75,9 +73,7 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	                              ));
 
 	if (! g.s.qbaConfigGeometry.isEmpty()) {
-#ifndef COMPAT_CLIENT
 		if (! g.ocIntercept)
-#endif
 			restoreGeometry(g.s.qbaConfigGeometry);
 	}
 }
@@ -229,9 +225,7 @@ void ConfigDialog::apply() {
 void ConfigDialog::accept() {
 	apply();
 
-#ifndef COMPAT_CLIENT
 	if (! g.ocIntercept)
-#endif
 		g.s.qbaConfigGeometry=saveGeometry();
 
 	QDialog::accept();

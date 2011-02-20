@@ -411,11 +411,7 @@ void AudioStats::on_Tick_timeout() {
 	abSpeech->iAbove = iroundf(g.s.fVADmax * 32767.0f + 0.5f);
 
 	if (g.s.vsVAD == Settings::Amplitude) {
-#ifndef COMPAT_CLIENT
 		abSpeech->iValue = iroundf((32767.f/96.0f) * (96.0f + ai->dPeakCleanMic) + 0.5f);
-#else
-		abSpeech->iValue = iroundf((32767.f/96.0f) * (96.0f + ai->dPeakMic) + 0.5f);
-#endif
 	} else {
 		abSpeech->iValue = iroundf(ai->fSpeechProb * 32767.0f + 0.5f);
 	}

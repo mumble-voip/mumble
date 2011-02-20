@@ -76,7 +76,6 @@ for my $key (keys %styles) {
 # file info
 my %iconpos = (
 	"Mumble.app" => [ 54, 40 ],
-	"Mumble11x.app" => [ 157, 40 ],
 	"Applications" => [ 466, 40 ],
 	"ReadMe.txt" => [ 54, 416 ],
 	"Changes.txt" => [ 157, 416 ],

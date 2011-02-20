@@ -83,7 +83,7 @@ void VersionCheck::finished() {
 	if (rep->error() == QNetworkReply::NoError) {
 		const QByteArray &a=rep->readAll();
 		if (! a.isEmpty()) {
-#if defined(SNAPSHOT_BUILD) && ! defined(COMPAT_CLIENT)
+#ifdef SNAPSHOT_BUILD
 			if (url.path() == QLatin1String("/focus.php")) {
 				g.mw->msgBox(QString::fromUtf8(a));
 			} else if (url.path() == QLatin1String("/ver.php")) {

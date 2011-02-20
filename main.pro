@@ -14,9 +14,6 @@ CONFIG *= ordered debug_and_release
   !CONFIG(no-bundled-celt) {
     SUBDIRS *= celt-0.7.0-build celt-0.11.0-build
   }
-  !CONFIG(no-11x) {
-    SUBDIRS *= src/mumble11x
-  }
 
   SUBDIRS *= src/mumble
 

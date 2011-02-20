@@ -153,13 +153,6 @@
         <ComponentRef Id="mumble_ol.dll" />
       </Feature>
 
-      <?if $(var.CompatClient) = true ?>
-      <Feature Id="Mumble11x" Title="!(loc.MUMBLE_SEC_MUMBLE11X)" Description="!(loc.DESC_SectionMumble11X)" Level="1">
-        <ComponentGroupRef Id="ClientCommon" />
-
-        <ComponentRef Id="mumble11x.exe" />
-      </Feature>
-      <?endif ?>
     </Feature>
 
     <Feature Id="Murmur" Title="!(loc.MUMBLE_SEC_MURMUR)" Description="!(loc.DESC_SectionMurmur)" Level="1000" ConfigurableDirectory="INSTALLDIR">

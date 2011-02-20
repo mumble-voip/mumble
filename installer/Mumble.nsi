@@ -328,22 +328,6 @@ Section "!$(MUMBLE_SEC_MUMBLE)" SectionMumble
 
 SectionEnd
 
-Section "$(MUMBLE_SEC_MUMBLE11X)" SectionMumble11X
-  SectionIn 1 2
-  SetShellVarContext all
-
-  SetOutPath "$INSTDIR"
-
-  File "..\release\mumble11x.exe"
-  File "..\release\speex.dll"
-
-  !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
-    ;Create shortcuts
-    CreateShortCut "$SMPROGRAMS\$STARTMENU_FOLDER\$(MUMBLE_COMPAT_LNK).lnk" "$INSTDIR\mumble11x.exe"
-  !insertmacro MUI_STARTMENU_WRITE_END
-
-SectionEnd
-
 Section /o "$(MUMBLE_SEC_MURMUR)" SectionMurmur
   SectionIn 1 3
   SetShellVarContext all
@@ -383,7 +367,6 @@ SectionEnd
 
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${SectionMumble} $(DESC_SectionMumble)
-  !insertmacro MUI_DESCRIPTION_TEXT ${SectionMumble11X} $(DESC_SectionMumble11X)
   !insertmacro MUI_DESCRIPTION_TEXT ${SectionMurmur} $(DESC_SectionMurmur)
   !insertmacro MUI_DESCRIPTION_TEXT ${SectionBonjour} $(DESC_SectionBonjour)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
@@ -396,7 +379,6 @@ Section "un.$(MUMBLE_UNSEC_BASE)" SectionUninstBase
   SetShellVarContext all
 
   FindProcUnicode::KillProc "$INSTDIR\mumble.exe"
-  FindProcUnicode::KillProc "$INSTDIR\mumble11x.exe"
   FindProcUnicode::KillProc "$INSTDIR\murmur.exe"
   FindProcUnicode::KillProc "$INSTDIR\dbus-daemon.exe"
 
@@ -427,7 +409,6 @@ fail2:
 end:
 
   Delete "$INSTDIR\mumble.exe"
-  Delete "$INSTDIR\mumble11x.exe"
   Delete "$INSTDIR\murmur.exe"
   Delete "$INSTDIR\celt0.*.dll"
   Delete "$INSTDIR\speex*.dll"

@@ -30,9 +30,7 @@
 */
 
 #include "GlobalShortcut_macx.h"
-#ifndef COMPAT_CLIENT
 #include "Overlay.h"
-#endif
 
 #import <AppKit/AppKit.h>
 
@@ -104,13 +102,10 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			/* Suppressing "the" mouse button is probably not a good idea :-) */
 			if (keycode == 0)
 				suppress = false;
-#ifndef COMPAT_CLIENT
 			forward = !suppress;
-#endif
 			break;
 		}
 
-#ifndef COMPAT_CLIENT
 		case kCGEventMouseMoved:
 		case kCGEventLeftMouseDragged:
 		case kCGEventRightMouseDragged:
@@ -129,7 +124,6 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 		case kCGEventScrollWheel:
 			forward = true;
 			break;
-#endif
 
 		case kCGEventKeyDown:
 			down = true;
@@ -167,7 +161,6 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			break;
 	}
 
-#ifndef COMPAT_CLIENT
 		if (forward && g.ocIntercept) {
 			NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 			NSEvent *evt = [[NSEvent eventWithCGEvent:event] retain];
@@ -175,7 +168,6 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			[pool release];
 			return NULL;
 		}
-#endif
 
 	return suppress ? NULL : event;
 }

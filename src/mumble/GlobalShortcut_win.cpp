@@ -30,9 +30,7 @@
 
 #include "GlobalShortcut_win.h"
 #include "MainWindow.h"
-#ifndef COMPAT_CLIENT
 #include "Overlay.h"
-#endif
 #include "Global.h"
 #include "../../overlay/HardHook.h"
 
@@ -47,8 +45,6 @@ static uint qHash(const GUID &a) {
 		val += a.Data4[i];
 	return val;
 }
-
-#ifndef COMPAT_CLIENT
 
 static HWND WINAPI HookWindowFromPoint(POINT p);
 static BOOL WINAPI HookSetForegroundWindow(HWND hwnd);
@@ -83,8 +79,6 @@ static BOOL WINAPI HookSetForegroundWindow(HWND hwnd) {
 	hhSetForegroundWindow.inject();
 	return ret;
 }
-
-#endif
 
 GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutWin();
@@ -127,7 +121,6 @@ void GlobalShortcutWin::run() {
 
 	hhKeyboard = SetWindowsHookEx(WH_KEYBOARD_LL, HookKeyboard, hSelf, 0);
 	hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
-
 #ifdef QT_NO_DEBUG
 #endif
 
@@ -240,7 +233,6 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 		ql << QVariant(QUuid(GUID_SysKeyboard));
 		bool suppress = gsw->handleButton(ql, !(key->flags & LLKHF_UP));
 
-#ifndef COMPAT_CLIENT
 		if (! suppress && g.ocIntercept) {
 			HWND hwnd = g.ocIntercept->qgv.winId();
 
@@ -257,7 +249,6 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 
 			suppress = true;
 		}
-#endif
 
 		if (suppress)
 			return 1;
@@ -312,7 +303,6 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 				break;
 		}
 
-#ifndef COMPAT_CLIENT
 		if (g.ocIntercept) {
 			POINT p;
 			GetCursorPos(&p);
@@ -359,7 +349,6 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 
 			suppress = true;
 		}
-#endif
 
 		bool down = false;
 		unsigned int btn = 0;

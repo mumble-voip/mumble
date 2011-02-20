@@ -473,21 +473,6 @@ if __name__ == '__main__':
 		a.set_min_macosx_version('10.4.8')
 	a.done()
 
-	# Fix Mumble11x
-	c = AppBundle('release/Mumble11x.app', ver)
-	c.copy_g15helper()
-	c.copy_plugins()
-	c.copy_qt_plugins()
-	c.handle_libs()
-	c.copy_resources(['icons/mumble.icns', 'scripts/qt.conf'])
-	c.update_plist()
-	if not options.universal:
-		c.add_compat_warning()
-		c.set_min_macosx_version('10.5.0')
-	else:
-		c.set_min_macosx_version('10.4.8')
-	c.done()
-
 	# Sign our binaries, etc.
 	if options.codesign:
 		print ' * Signing binaries with identity `%s\'' % options.codesign
@@ -500,11 +485,6 @@ if __name__ == '__main__':
 			'release/Mumble.app/Contents/Plugins/libmanual.dylib',
 			'release/Mumble.app/Contents/Codecs/libcelt0.0.7.0.dylib',
 			'release/Mumble.app/Contents/Codecs/libcelt0.0.11.0.dylib',
-			# 1.1.x
-			'release/Mumble11x.app/',
-			'release/Mumble11x.app/Contents/MacOS/mumble-g15-helper',
-			'release/Mumble11x.app/Contents/Plugins/liblink.dylib',
-			'release/Mumble11x.app/Contents/Plugins/libmanual.dylib',
 		)
 
 		codesign(options.codesign, binaries)
@@ -520,7 +500,6 @@ if __name__ == '__main__':
 	d.copy('icons/mumble.osx.installer.png', '/.background/background.png')
 	d.symlink('/Applications', '/Applications')
 	d.copy('release/Mumble.app')
-	d.copy('release/Mumble11x.app')
 	d.copy('README', '/ReadMe.txt')
 	d.copy('CHANGES', '/Changes.txt')
 	d.mkdir('Licenses')

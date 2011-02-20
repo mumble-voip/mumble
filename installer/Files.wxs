@@ -20,13 +20,6 @@
         <RegistryValue Root="HKCR" Key="mumble\DefaultIcon" Value="[#mumble.exe]" Type="string" />
         <RegistryValue Root="HKCR" Key="mumble\shell\open\command" Value="[#mumble.exe] &quot;%1&quot;" Type="string" />
       </Component>
-      <?if $(var.CompatClient) = true ?>
-      <Component Id="mumble11x.exe">
-        <File Id="mumble11x.exe" Source="$(var.SourceDir)\release\mumble11x.exe" KeyPath="yes">
-          <Shortcut Id="Mumble11xShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_COMPAT_LNK)" WorkingDirectory="INSTALLDIR" Icon="mumble.ico" IconIndex="0" Advertise="yes" />
-        </File>
-      </Component>
-      <?endif ?>
       <Component Id="mumble_ol.dll">
         <File Source="$(var.SourceDir)\release\mumble_ol.dll" KeyPath="yes" />
       </Component>
