@@ -93,7 +93,7 @@ void ChatbarTextEdit::dropEvent(QDropEvent *evt) {
 	QTextEdit::dropEvent(evt);
 }
 
-ChatbarTextEdit::ChatbarTextEdit(QWidget *p) : QTextEdit(p) {
+ChatbarTextEdit::ChatbarTextEdit(QWidget *p) : QTextEdit(p), iHistoryIndex(-1) {
 	setWordWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -150,6 +150,7 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 	if (evt->type() == QEvent::KeyPress) {
 		QKeyEvent *kev = static_cast<QKeyEvent*>(evt);
 		if ((kev->key() == Qt::Key_Enter || kev->key() == Qt::Key_Return) && !(kev->modifiers() & Qt::ShiftModifier)) {
+			addToHistory(toPlainText());
 			g.mw->sendChatbarMessage();
 			return true;
 		}
@@ -158,6 +159,12 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 			return true;
 		} else if (kev->key() == Qt::Key_Space && kev->modifiers() == Qt::ControlModifier) {
 			emit ctrlSpacePressed();
+			return true;
+		} else if (kev->key() == Qt::Key_Up) {
+			historyUp();
+			return true;
+		} else if (kev->key() == Qt::Key_Down) {
+			historyDown();
 			return true;
 		}
 	}
@@ -231,8 +238,38 @@ unsigned int ChatbarTextEdit::completeAtCursor() {
 	return id;
 }
 
+void ChatbarTextEdit::addToHistory(const QString &str) {
+	if (!str.isEmpty()) {
+		iHistoryIndex = -1;
+		qslHistory.push_front(str);
+		if (qslHistory.length() > MAX_HISTORY) {
+			qslHistory.pop_back();
+		}
+	}
+}
+
+void ChatbarTextEdit::historyUp() {
+	if (qslHistory.length() == 0)
+		return;
+
+	if (iHistoryIndex < qslHistory.length() - 1) {
+		setPlainText(qslHistory[++iHistoryIndex]);
+		moveCursor(QTextCursor::End);
+
+	}
+}
+
+void ChatbarTextEdit::historyDown() {
+	if (iHistoryIndex <= 0)
+		return;
+
+	setPlainText(qslHistory[--iHistoryIndex]);
+	moveCursor(QTextCursor::End);
+}
+
 void ChatbarTextEdit::pasteAndSend_triggered() {
 	paste();
+	addToHistory(toPlainText());
 	g.mw->sendChatbarMessage();
 }
 

@@ -38,6 +38,9 @@ class ChatbarTextEdit : public QTextEdit {
 		Q_OBJECT
 		Q_DISABLE_COPY(ChatbarTextEdit)
 		void inFocus(bool);
+		QStringList qslHistory;
+		int iHistoryIndex;
+		static const int MAX_HISTORY = 50;
 	protected:
 		QString qsDefaultText;
 		bool bDefaultVisible;
@@ -59,6 +62,9 @@ class ChatbarTextEdit : public QTextEdit {
 		void pasteAndSend_triggered();
 		void doResize();
 		void doScrollbar();
+		void addToHistory(const QString &str);
+		void historyUp();
+		void historyDown();
 	public:
 		ChatbarTextEdit(QWidget *p = NULL);
 };
