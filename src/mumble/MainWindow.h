@@ -114,7 +114,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void setOnTop(bool top);
 		void updateTrayIcon();
 		QPair<QByteArray, QImage> openImageFile();
-		void sendChatbarMessage();
 		static const QString defaultStyleSheet;
 
 		void openTextMessageDialog(ClientUser *p);
@@ -238,6 +237,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void talkingChanged();
 		void destroyUserInformation();
 		void trayAboutToShow();
+		void sendChatbarMessage(QString msg);
 	public:
 		MainWindow(QWidget *parent);
 		~MainWindow();

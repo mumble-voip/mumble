@@ -199,6 +199,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	connect(qmUser, SIGNAL(aboutToShow()), this, SLOT(qmUser_aboutToShow()));
 	connect(qmChannel, SIGNAL(aboutToShow()), this, SLOT(qmChannel_aboutToShow()));
+	connect(qteChat, SIGNAL(entered(QString)), this, SLOT(sendChatbarMessage(QString)));
 
 	// Fix context of all actions.
 	QList<QAction *> qla = findChildren<QAction *>();
@@ -1467,15 +1468,12 @@ void MainWindow::on_qaQuit_triggered() {
 	this->close();
 }
 
-void MainWindow::sendChatbarMessage() {
-	if (qteChat->toPlainText().isEmpty() || g.uiSession == 0) return; // Check if text & connection is available
+void MainWindow::sendChatbarMessage(QString qsText) {
+	if (g.uiSession == 0) return; // Check if text & connection is available
 
 	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
-	QString qsText;
-
-	qsText = qteChat->toPlainText();
 	qsText = Qt::escape(qsText);
 	qsText = TextMessage::autoFormat(qsText);
 

@@ -150,8 +150,9 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 	if (evt->type() == QEvent::KeyPress) {
 		QKeyEvent *kev = static_cast<QKeyEvent*>(evt);
 		if ((kev->key() == Qt::Key_Enter || kev->key() == Qt::Key_Return) && !(kev->modifiers() & Qt::ShiftModifier)) {
-			addToHistory(toPlainText());
-			g.mw->sendChatbarMessage();
+			const QString msg = toPlainText();
+			addToHistory(msg);
+			emit entered(msg);
 			return true;
 		}
 		if (kev->key() == Qt::Key_Tab) {
@@ -270,7 +271,7 @@ void ChatbarTextEdit::historyDown() {
 void ChatbarTextEdit::pasteAndSend_triggered() {
 	paste();
 	addToHistory(toPlainText());
-	g.mw->sendChatbarMessage();
+	emit entered(toPlainText());
 }
 
 DockTitleBar::DockTitleBar() : QLabel(tr("Drag here")) {

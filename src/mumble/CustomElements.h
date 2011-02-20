@@ -58,6 +58,7 @@ class ChatbarTextEdit : public QTextEdit {
 	signals:
 		void tabPressed(void);
 		void ctrlSpacePressed(void);
+		void entered(QString);
 	public slots:
 		void pasteAndSend_triggered();
 		void doResize();
