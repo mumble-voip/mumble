@@ -149,6 +149,20 @@ void VersionCheck::finished() {
 							g.mw->msgBox(tr("Corrupt download of new version detected. Automatically removed."));
 							qf.remove();
 						}
+
+						// Delete snapshots older than 30 days
+						QDir snapdir(g.qdBasePath.absolutePath() + QLatin1String("/Snapshots/"),
+									 QString(),
+									 QDir::Name,
+									 QDir::Files);
+
+						foreach (const QFileInfo fileInfo, snapdir.entryInfoList()) {
+							if (fileInfo.created().daysTo(QDateTime::currentDateTime()) > 30) {
+								qWarning() << "Purging old snapshot" << fileInfo.fileName();
+								QFile file(fileInfo.absoluteFilePath());
+								file.remove();
+							}
+						}
 					} else {
 						fetch.setHost(g.qsRegionalHost);
 						g.mw->msgBox(tr("Downloading new snapshot from %1 to %2").arg(fetch.toString(), filename));
