@@ -39,6 +39,7 @@ class ChatbarTextEdit : public QTextEdit {
 		Q_DISABLE_COPY(ChatbarTextEdit)
 		void inFocus(bool);
 		QStringList qslHistory;
+		QString qsHistoryTemp;
 		int iHistoryIndex;
 		static const int MAX_HISTORY = 50;
 	protected:

@@ -253,18 +253,27 @@ void ChatbarTextEdit::historyUp() {
 	if (qslHistory.length() == 0)
 		return;
 
+	if (iHistoryIndex == -1) {
+		qsHistoryTemp = toPlainText();
+	}
+
 	if (iHistoryIndex < qslHistory.length() - 1) {
 		setPlainText(qslHistory[++iHistoryIndex]);
 		moveCursor(QTextCursor::End);
-
 	}
 }
 
 void ChatbarTextEdit::historyDown() {
-	if (iHistoryIndex <= 0)
+	if (iHistoryIndex < 0) {
 		return;
-
-	setPlainText(qslHistory[--iHistoryIndex]);
+	}
+	else if (iHistoryIndex == 0) {
+		setPlainText(qsHistoryTemp);
+		iHistoryIndex--;
+	}
+	else {
+		setPlainText(qslHistory[--iHistoryIndex]);
+	}
 	moveCursor(QTextCursor::End);
 }
 
