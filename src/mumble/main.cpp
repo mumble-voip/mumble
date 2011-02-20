@@ -130,7 +130,10 @@ int main(int argc, char **argv) {
 #if defined(Q_OS_WIN)
 	SetDllDirectory(L"");
 #endif
-
+#ifndef Q_OS_MAC
+        setenv("AVAHI_COMPAT_NOWARN", "1", 1);
+#endif
+        
 	// Initialize application object.
 	QAppMumble a(argc, argv);
 	a.setApplicationName(QLatin1String("Mumble"));
