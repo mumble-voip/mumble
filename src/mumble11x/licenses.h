@@ -1,1 +1,0 @@
-../mumble/licenses.h
