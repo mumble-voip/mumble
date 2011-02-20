@@ -671,14 +671,22 @@ void MainWindow::openUrl(const QUrl &url) {
 	}
 
 	int major, minor, patch;
+	int thismajor, thisminor, thispatch;
+	MumbleVersion::get(&thismajor, &thisminor, &thispatch);
+
+	// With no version parameter given assume the link refers to our version
 	major = 1;
-	minor = 1;
+	minor = 2;
 	patch = 0;
 
 	QString version = url.queryItemValue(QLatin1String("version"));
 	MumbleVersion::get(&major, &minor, &patch, version);
 
-	if ((major != 1) || (minor != 2) || (patch > 3)) {
+	if ((major < 1) || // No pre 1.2.0
+		(major == 1 && minor <= 1) ||
+		(major > thismajor) || // No future version
+		(major == thismajor && minor > thisminor) ||
+		(major == thismajor && minor == thisminor && patch > thispatch)) {
 		g.l->log(Log::Warning, tr("This version of Mumble can't handle URLs for Mumble version %1.%2.%3").arg(major).arg(minor).arg(patch));
 		return;
 	}
