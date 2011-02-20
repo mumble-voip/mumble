@@ -54,9 +54,6 @@
 #undef __int64_t
 #include <celt.h>
 #include <celt_header.h>
-#else
-#include <ogg/ogg.h>
-#include <speex/speex_callbacks.h>
 #include <speex/speex.h>
 #include <speex/speex_header.h>
 #include <speex/speex_jitter.h>
