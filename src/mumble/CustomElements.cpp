@@ -161,10 +161,10 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 		} else if (kev->key() == Qt::Key_Space && kev->modifiers() == Qt::ControlModifier) {
 			emit ctrlSpacePressed();
 			return true;
-		} else if (kev->key() == Qt::Key_Up) {
+		} else if (kev->key() == Qt::Key_Up && kev->modifiers() == Qt::ControlModifier) {
 			historyUp();
 			return true;
-		} else if (kev->key() == Qt::Key_Down) {
+		} else if (kev->key() == Qt::Key_Down && kev->modifiers() == Qt::ControlModifier) {
 			historyDown();
 			return true;
 		}
