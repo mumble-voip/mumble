@@ -107,7 +107,7 @@ void OverlayConfig::initDisplay() {
 }
 
 void OverlayConfig::refreshFpsDemo() {
-	bpFpsDemo = OverlayTextLine(tr("FPS: %1").arg(42), s.os.qfFps).createPixmap(s.os.qcFps);
+	bpFpsDemo = OverlayTextLine(QString(QLatin1String("%1")).arg(42), s.os.qfFps).createPixmap(s.os.qcFps);
 	qgpiFpsDemo->setPixmap(bpFpsDemo);
 	qgvFpsPreview->centerOn(qgpiFpsDemo);
 }
