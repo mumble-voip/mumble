@@ -8,7 +8,7 @@
 #
 
 ICE_PATH = /dev/Ice
-PROTOBUF_PATH = /dev/protobuf-2.3.0
+PROTOBUF_PATH = /dev/protobuf-2.4.0a
 OPENSSL_PATH = /dev/OpenSSL
 LIBSNDFILE_PATH = /dev/libsndfile
 BOOST_PATH = /dev/Boost

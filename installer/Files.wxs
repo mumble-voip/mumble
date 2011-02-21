@@ -109,12 +109,6 @@
       </Component>
       <?endif ?>
 
-      <?ifdef ProtoBufDir ?>
-      <Component Id="libprotobuf.dll">
-        <File Source="$(var.ProtoBufDir)\vsprojects\Release\libprotobuf.dll" KeyPath="yes" />
-      </Component>
-      <?endif?>
-
       <?ifdef RedistDirVC10 ?>
       <Component Id="msvcp100.dll">
         <File Source="$(var.RedistDirVC10)\msvcp100.dll" KeyPath="yes" />
