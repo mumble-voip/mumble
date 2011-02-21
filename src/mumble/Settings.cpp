@@ -249,6 +249,7 @@ Settings::Settings() {
 	bTransmitPosition = false;
 	bMute = bDeaf = false;
 	bTTS = true;
+	bTTSMessageReadBack = false;
 	iTTSVolume = 75;
 	iTTSThreshold = 250;
 	iQuality = 40000;
@@ -576,6 +577,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bTTS, "tts/enable");
 	SAVELOAD(iTTSVolume, "tts/volume");
 	SAVELOAD(iTTSThreshold, "tts/threshold");
+	SAVELOAD(bTTSMessageReadBack, "tts/readback");
 
 	// Network settings
 	SAVELOAD(bTCPCompat, "net/tcponly");
@@ -831,6 +833,7 @@ void Settings::save() {
 	SAVELOAD(bTTS, "tts/enable");
 	SAVELOAD(iTTSVolume, "tts/volume");
 	SAVELOAD(iTTSThreshold, "tts/threshold");
+	SAVELOAD(bTTSMessageReadBack, "tts/readback");
 
 	// Network settings
 	SAVELOAD(bTCPCompat, "net/tcponly");

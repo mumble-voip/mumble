@@ -114,6 +114,7 @@ void LogConfig::load(const Settings &r) {
 
 	loadSlider(qsVolume, r.iTTSVolume);
 	qsbThreshold->setValue(r.iTTSThreshold);
+	qcbReadBackOwn->setChecked(r.bTTSMessageReadBack);
 	qcbWhisperFriends->setChecked(r.bWhisperFriends);
 }
 
@@ -138,6 +139,7 @@ void LogConfig::save() const {
 
 	s.iTTSVolume=qsVolume->value();
 	s.iTTSThreshold=qsbThreshold->value();
+	s.bTTSMessageReadBack = qcbReadBackOwn->isChecked();
 	s.bWhisperFriends = qcbWhisperFriends->isChecked();
 }
 
@@ -433,7 +435,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 	}
 }
 
-void Log::log(MsgType mt, const QString &console, const QString &terse, bool console_only) {
+void Log::log(MsgType mt, const QString &console, const QString &terse, bool ownMessage) {
 	QDateTime dt = QDateTime::currentDateTime();
 
 	int ignore = qmIgnore.value(mt);
@@ -475,7 +477,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool con
 		g.mw->qteLog->ensureCursorVisible();
 	}
 
-	if (console_only)
+	if (!g.s.bTTSMessageReadBack && ownMessage)
 		return;
 
 	// Message notification with balloon tooltips

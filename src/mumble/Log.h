@@ -93,7 +93,7 @@ class Log : public QObject {
 		static QString formatClientUser(ClientUser *cu, LogColorType t);
 		static QString formatChannel(::Channel *c);
 	public slots:
-		void log(MsgType t, const QString &console, const QString &terse=QString(), bool console_only = false);
+		void log(MsgType t, const QString &console, const QString &terse=QString(), bool ownMessage = false);
 };
 
 class ValidDocument : public QTextDocument {
