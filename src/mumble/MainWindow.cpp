@@ -274,6 +274,9 @@ void MainWindow::createActions() {
 	gsWhisper = new GlobalShortcut(this, idx++, tr("Whisper/Shout"), false, QVariant::fromValue(ShortcutTarget()));
 	gsWhisper->setObjectName(QLatin1String("gsWhisper"));
 
+	gsMetaLink=new GlobalShortcut(this, idx++, tr("Link Channel", "Global Shortcut"));
+	gsMetaLink->setObjectName(QLatin1String("MetaLink"));
+
 #ifndef Q_OS_MAC
 	qstiIcon->show();
 #endif
@@ -2198,6 +2201,21 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 				Channel *c = mapChannel(st.iChannel);
 				if (c) {
 					g.sh->joinChannel(c->iId);
+				}
+				return;
+			}
+		}
+		
+		if (gsMetaLink->active()) {
+			if (! st.bUsers) {
+				Channel *c = ClientUser::get(g.uiSession)->cChannel;
+				Channel *l = mapChannel(st.iChannel);
+				if (l) {
+					if (c->qsPermLinks.contains(l)) {
+						g.sh->removeChannelLink(c->iId, l->iId);
+					} else {
+						g.sh->addChannelLink(c->iId, l->iId);
+					}
 				}
 				return;
 			}
