@@ -10,6 +10,8 @@
       <Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
       <Property Id="WixUI_Mode" Value="FeatureTree" />
 
+      <Property Id="LAUNCHAPPONEXIT" Value="1" />
+
       <DialogRef Id="ErrorDlg" />
       <DialogRef Id="FatalError" />
       <DialogRef Id="FilesInUse" />
