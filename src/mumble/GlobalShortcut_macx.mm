@@ -37,45 +37,6 @@
 #define MOD_OFFSET   0x10000
 #define MOUSE_OFFSET 0x20000
 
-/*
- * We use DeferInit in here to pop up a dialog box if their system isn't
- * properly set up to receieve global keyboard/mouse events.
- */
-
-GlobalShortcutMacInit::GlobalShortcutMacInit() : QObject(NULL) {
-}
-
-void GlobalShortcutMacInit::initialize() {
-	if (!accessibilityApiEnabled())
-		accessibilityDialog();
-}
-
-bool GlobalShortcutMacInit::accessibilityApiEnabled() const {
-	return QFile::exists("/private/var/db/.AccessibilityAPIEnabled");
-}
-
-void GlobalShortcutMacInit::openPrefsPane(const QString &) const {
-	system("open /Applications/System\\ Preferences.app/ /System/Library/PreferencePanes/UniversalAccessPref.prefPane/");
-}
-
-void GlobalShortcutMacInit::accessibilityDialog() const {
-	QMessageBox mb("Mumble",
-	               tr("Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.<br /><br />"
-	                  "This is because the Universal Access feature called 'Enable access for assistive devices' is currently disabled.<br /><br />"
-	                  "Please <a href=\" \">enable this setting</a> and continue when done."),
-	               QMessageBox::Question, QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton, QMessageBox::NoButton);
-
-	QLabel *label = mb.findChild<QLabel *>(QLatin1String("qt_msgbox_label"));
-	label->setOpenExternalLinks(false);
-	connect(label, SIGNAL(linkActivated(const QString &)), this, SLOT(openPrefsPane(const QString &)));
-
-	mb.exec();
-}
-
-static GlobalShortcutMacInit gsminit;
-
-/* --- */
-
 GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutMac();
 }

@@ -33,20 +33,6 @@
 #include "GlobalShortcut.h"
 #include "Global.h"
 
-class GlobalShortcutMacInit : public QObject, public DeferInit {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(GlobalShortcutMacInit)
-	public:
-		GlobalShortcutMacInit();
-		void initialize();
-	public slots:
-		void openPrefsPane(const QString &) const;
-	protected:
-		bool accessibilityApiEnabled() const;
-		void accessibilityDialog() const;
-};
-
 class GlobalShortcutMac : public GlobalShortcutEngine {
 	private:
 		Q_OBJECT
