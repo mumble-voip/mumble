@@ -35,7 +35,7 @@
 #include <QX11Info>
 #include <X11/X.h>
 #include <X11/Xlib.h>
-#include <X11/extensions/XInput.h>
+#include <X11/extensions/XInput2.h>
 #include <X11/Xutil.h>
 #ifdef Q_OS_LINUX
 #include <linux/input.h>
@@ -48,15 +48,13 @@ class GlobalShortcutX : public GlobalShortcutEngine {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(GlobalShortcutX)
-		QMap<QSocketNotifier *, Display *> startScreensConnection(Display *);
 	public:
 		Display *display;
+		QSet<Window> qsRootWindows;
+		int iXIopcode;
 		volatile bool bRunning;
-		QMap<QSocketNotifier *, Display *> qmConnections;
-		bool bXInput;
 		QSet<QString> qsKeyboards;
 		QMap<QString, QFile *> qmInputDevices;
-		QMap<Display *, QMap<XID, XDevice *> *> qmXDevices;
 
 		GlobalShortcutX();
 		~GlobalShortcutX();
