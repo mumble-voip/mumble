@@ -1,3 +1,44 @@
+2011-02-26
+  Mikkel Krautz <mikkel@krautz.dk>
+    ad3926a  Kill the nagging accessibility dialog from GlobalShortcutMac.
+
+2011-02-22
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    ddd9c97  Add no-elevation build-flag to prevent the need of signing
+	     win32 release builds during testing
+
+2011-02-21
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    a65bb68  Make message read back user configurable
+
+2011-02-20
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    859d7a4  Remove leftover launchCompatibilityClient signature
+    4188575  mumble:// links without or with invalid version parameter now
+	     refer to 1.2.0 by default. Also remove version hardcoding in
+	     checker and fix version check in general.
+    cb39dc6  Save current input when using the history
+    8fa3b10  User ctrl+up/down for chatbar history
+    ee21456  Fix violation of abstraction in ChatbarTextEdit
+    127a09c  Fix setenv called on windows build
+    f07d33b  Add history to chatbar
+    ae024c8  Remove obvious "FPS:" text from overlay leaving only the
+	     number
+    0e155a5  After downloading a new snapshot delete all snapshots older
+	     than 30 days from the snapshot folder
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    91a4fe6  Don't try launch compatibility client anymore.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    f11d097  Protobuf 2.4.0a on Win32 (and static)
+    873282b  Update ASIO path
+    064a5a3  Bump version to 1.2.4
+    d294ccd  Fix pch
+    2b84bd7  Suppress vendor lockin suggestions
+    2400cae  Unify snapshot/release defines
+    1161c9a  Remove 1.1.x - no longer maintained
+
 2011-02-18
   Stefan Hacker <dd0t@users.sourceforge.net>
     df0f290  Add some other applications to the overlay blacklist
@@ -67,6 +108,11 @@
   Zuko <zuczeq@gmail.com>
     cebb2dd  Fixed 'nan' in user information (average ping) for newly
 	     connected users
+
+2011-01-26
+  Zuko <zuczeq@gmail.com>
+    e067269  User Information improvements
+    6755b81  Added gg, xmpp, skype and mailto to allowedSchemes
 
 2011-01-23
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -426,6 +472,11 @@
   Jonathan <zentriple@users.sourceforge.net>
     6f7435f  Danish translation: small update
 
+2010-10-29
+  Rafael Correia <rafaeljpc@gmail.com>
+    99cc86d  rework to improve the quality of the code of the patch (bug
+	     3067616 - DUAL Head PTT)
+
 2010-10-24
   Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     f913b99  Updated Spanish translation for 1.2.3
@@ -540,6 +591,9 @@
     bdd383c  Fixed unreliable Steam linking for BFBC2
 
 2010-10-08
+  Justin McGrath <justin.m.mcgrath@gmail.com>
+    52a8f39  Added FR 2109227: limit the chat log size.
+
   Natenom <natenom@googlemail.com>
     1eaee4b  Updated German translations.
 

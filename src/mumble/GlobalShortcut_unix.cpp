@@ -133,7 +133,7 @@ QMap<QSocketNotifier *, Display *>GlobalShortcutX::startScreensConnection(Displa
 	for (int i=0; i < iScreens; i++) {
 		QString sDpyTmp = sDisplayPrefix + QString::number(i);
 
-		if(sDpyTmp !=  QString::fromAscii(DisplayString(dpy))) {
+		if (sDpyTmp !=  QString::fromAscii(DisplayString(dpy))) {
 			Display *dpyconn = XOpenDisplay(sDpyTmp.toAscii());
 			connections.insert(new QSocketNotifier(ConnectionNumber(dpyconn), QSocketNotifier::Read, this), dpyconn);
 		}

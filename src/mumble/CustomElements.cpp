@@ -266,12 +266,10 @@ void ChatbarTextEdit::historyUp() {
 void ChatbarTextEdit::historyDown() {
 	if (iHistoryIndex < 0) {
 		return;
-	}
-	else if (iHistoryIndex == 0) {
+	} else if (iHistoryIndex == 0) {
 		setPlainText(qsHistoryTemp);
 		iHistoryIndex--;
-	}
-	else {
+	} else {
 		setPlainText(qslHistory[--iHistoryIndex]);
 	}
 	moveCursor(QTextCursor::End);

@@ -2308,7 +2308,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
         <translation>Usuário do Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+425"/>
+        <location filename="main.cpp" line="+405"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Expiração do certificado:&lt;/b&gt; Seu certificado está para expirar. Você precisa renová-lo, ou você não será mais capaz de conectar aos servidores em que está registrado.</translation>
     </message>
@@ -2849,7 +2849,7 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+54"/>
+        <location filename="ConfigDialog.cpp" line="+52"/>
         <source>Accept changes</source>
         <translation>Aceitar alterações</translation>
     </message>
@@ -3337,7 +3337,7 @@ Etiqueta do servidor. Será como o servidor será nomeado na lista de servidor e
         <translation>Isto realmente não é nada divertido, mas aparentemente há uma falha no código para reportar falhas, e nós não pudemos enviar o informe. Você pode informar um desenvolver sobre o erro %1</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+102"/>
         <source>Uploading crash report</source>
         <translation>Enviando informe de erro</translation>
     </message>
@@ -3412,7 +3412,7 @@ dos locais possíveis.</translation>
 <context>
     <name>DockTitleBar</name>
     <message>
-        <location filename="CustomElements.cpp" line="+135"/>
+        <location filename="CustomElements.cpp" line="+180"/>
         <source>Drag here</source>
         <translation>Arrastar aqui</translation>
     </message>
@@ -3512,9 +3512,8 @@ dos locais possíveis.</translation>
 <context>
     <name>GlobalShortcutMacInit</name>
     <message>
-        <location filename="GlobalShortcut_macx.mm" line="+65"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
-        <translation>O Mumble detectou que é incapaz de receber eventos de Atalhos Globais quendo esta em segundo plano.&lt;br /&gt;&lt;br /&gt;Isto é devido ao recurso de Acesso Universao chamada &apos;Permitir acesso para dispositivos de assistência&apos; está atualmente desativada.&lt;br /&gt;&lt;br /&gt;Por favor &lt;a href=&quot; &quot;&gt;ative esta configuração&lt;/a&gt; e prossiga quando o tiver feito.</translation>
+        <translation type="obsolete">O Mumble detectou que é incapaz de receber eventos de Atalhos Globais quendo esta em segundo plano.&lt;br /&gt;&lt;br /&gt;Isto é devido ao recurso de Acesso Universao chamada &apos;Permitir acesso para dispositivos de assistência&apos; está atualmente desativada.&lt;br /&gt;&lt;br /&gt;Por favor &lt;a href=&quot; &quot;&gt;ative esta configuração&lt;/a&gt; e prossiga quando o tiver feito.</translation>
     </message>
 </context>
 <context>
@@ -3603,7 +3602,7 @@ dos locais possíveis.</translation>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+325"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+380"/>
         <source>Mouse %1</source>
         <translation>Mouse %1</translation>
     </message>
@@ -3700,7 +3699,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+220"/>
+        <location filename="Log.cpp" line="+225"/>
         <source>Debug</source>
         <translation>Depuração</translation>
     </message>
@@ -3800,7 +3799,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Usuário deixou o canal</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+59"/>
         <source>the server</source>
         <translation>o servidor</translation>
     </message>
@@ -3845,7 +3844,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-521"/>
+        <location line="-531"/>
         <source>Toggle console for %1 events</source>
         <translation>Alternar console para eventos %1</translation>
     </message>
@@ -3986,6 +3985,36 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <location/>
         <source>Only accept whispers from friends</source>
         <translation>Só aceitar sussurros de amigos</translation>
+    </message>
+    <message>
+        <location/>
+        <source>If enabled text messages you send will be read back to you with TTS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Read back own messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Chat Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Maximum chat length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Unlimited</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source> Lines</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4287,7 +4316,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+2048"/>
+        <location line="+2049"/>
         <source>Root</source>
         <translation>Raíz</translation>
     </message>
@@ -4371,28 +4400,28 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2159"/>
+        <location line="+2132"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2155"/>
+        <location line="-2128"/>
         <source>&amp;Window</source>
         <translation>&amp;Janela</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+126"/>
+        <location line="+127"/>
         <source>Minimize</source>
         <translation>Minimizar</translation>
     </message>
     <message>
-        <location line="-126"/>
+        <location line="-127"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+125"/>
+        <location line="+126"/>
         <source>Close</source>
         <translation>Fechar</translation>
     </message>
@@ -4402,7 +4431,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>O Mumble está conectado a um servidor atualmente. Você gostaria de fechá-lo ou minimizá-lo?</translation>
     </message>
     <message>
-        <location line="-177"/>
+        <location line="-178"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Ficar mudo</translation>
@@ -4444,14 +4473,14 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Sussurrar/Gritar</translation>
     </message>
     <message>
-        <location line="+58"/>
-        <location line="+2189"/>
+        <location line="+59"/>
+        <location line="+2161"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Não conectado&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1905"/>
+        <location line="-1877"/>
         <source>Clear</source>
         <translation>Limpar</translation>
     </message>
@@ -4481,7 +4510,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Forma de URL não é &apos;mumble&apos;</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+21"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
         <translation>Esta versão do Mumble não pode lidar com URLs para o Mumble versão %1.%2.%3</translation>
     </message>
@@ -4569,7 +4598,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Ver comentário no usuário %1</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+52"/>
         <location line="+236"/>
         <source>Message to channel %1</source>
         <translation>Mensagem para canal %1</translation>
@@ -4585,17 +4614,15 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Versões SSL não coincidem</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>This server is using an older encryption standard. It might be an older 1.1 based Mumble server.&lt;br /&gt;Would you like to launch the compatibility client to connect to it?</source>
-        <translation>Este servidor está usando um padrão mais velho de criptografia. Ele pode ser um servidor mais antigo baseado no Mumble 1.1.&lt;br /&gt;Você gostaria de executar o cliente de compatibilidade para conectar a ele?</translation>
+        <translation type="obsolete">Este servidor está usando um padrão mais velho de criptografia. Ele pode ser um servidor mais antigo baseado no Mumble 1.1.&lt;br /&gt;Você gostaria de executar o cliente de compatibilidade para conectar a ele?</translation>
     </message>
     <message>
-        <location line="+26"/>
         <source>The compatibility client could not be found, or failed to start.&lt;br /&gt;Note that the compatibility client is an optional component for most installations, and might not be installed.</source>
-        <translation>O cliente de compatibilidade não pôde ser encontrado, ou falhou ao iniciar.&lt;br /&gt;Note que o cliente de compatibilidade é um componente opcional para a maioria das instalações, e pode não ter sido instalado.</translation>
+        <translation type="obsolete">O cliente de compatibilidade não pôde ser encontrado, ou falhou ao iniciar.&lt;br /&gt;Note que o cliente de compatibilidade é um componente opcional para a maioria das instalações, e pode não ter sido instalado.</translation>
     </message>
     <message>
-        <location line="+127"/>
+        <location line="+126"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
         <translation>&lt;center&gt;Digite a mensagem para o canal &apos;%1&apos; aqui&lt;/center&gt;</translation>
@@ -4633,12 +4660,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Formato de imagem não reconhecido.</translation>
     </message>
     <message>
-        <location line="-1585"/>
+        <location line="-1555"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Vanal de voz é enviado pelo canal de controle.</translation>
     </message>
     <message>
-        <location line="-879"/>
+        <location line="-883"/>
         <source>&amp;User</source>
         <translation>&amp;Usuário</translation>
     </message>
@@ -4648,13 +4675,13 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>&amp;Canal</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+63"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Alterna os estados da sobreimpressão em-jogo.</translation>
     </message>
     <message>
-        <location line="+699"/>
+        <location line="+702"/>
         <source>Change your comment</source>
         <translation>Alterar seu comentário</translation>
     </message>
@@ -4705,12 +4732,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1264"/>
+        <location line="+1261"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Ver certificado</translation>
     </message>
     <message>
-        <location line="-1005"/>
+        <location line="-1002"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Especifique a razão</translation>
@@ -4722,25 +4749,25 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="+12"/>
-        <location line="+84"/>
+        <location line="+81"/>
         <location line="+4"/>
         <location line="+232"/>
         <source>To %1: %2</source>
         <translation>Para %1: %2</translation>
     </message>
     <message>
-        <location line="-320"/>
-        <location line="+88"/>
+        <location line="-317"/>
+        <location line="+85"/>
         <source>Message to %1</source>
         <translation>Mensagem para %1</translation>
     </message>
     <message>
-        <location line="-43"/>
+        <location line="-40"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
         <translation>Você tem certeza de que quer resetar o comentário do usuário %1?</translation>
     </message>
     <message>
-        <location line="+193"/>
+        <location line="+190"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Você tem certeza de que quer eliminar %1 e todos os seus subcanais?</translation>
     </message>
@@ -4816,12 +4843,16 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>&lt;p&gt;%1.&lt;br /&gt;Os erros específicos com este certificado são: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Você quer aceitar este certificado mesmo assim?&lt;br /&gt;(Ele também será armazenado e você nãos erá perguntado novamente.)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <source>Failed to launch compatibility client</source>
-        <translation>Falha ao executar o cliente de compatibilidade</translation>
+        <location line="+24"/>
+        <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <source>Failed to launch compatibility client</source>
+        <translation type="obsolete">Falha ao executar o cliente de compatibilidade</translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Server connection failed: %1.</source>
         <translation>Conexão com o servidor falhou: %1.</translation>
     </message>
@@ -6268,9 +6299,8 @@ Evita que o cliente baixe imagens embutidas em mensagens de bate-papo com a marc
         <translation>Resetar aproximação</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+108"/>
         <source>FPS: %1</source>
-        <translation>FPS: %1</translation>
+        <translation type="obsolete">FPS: %1</translation>
     </message>
 </context>
 <context>
@@ -6293,12 +6323,11 @@ Evita que o cliente baixe imagens embutidas em mensagens de bate-papo com a marc
         <translation>Para mais opções, clique com o botão inverso em um usuário.</translation>
     </message>
     <message>
-        <location line="+30"/>
         <source>FPS: %1</source>
-        <translation>FPS: %1</translation>
+        <translation type="obsolete">FPS: %1</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+224"/>
         <source>Overlay</source>
         <translation>Sobreimpressão</translation>
     </message>
@@ -7428,7 +7457,7 @@ Uma credencial de acesso é uma cadeia de caractéres de texto, que podem ser us
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+56"/>
         <source>%1 online (%2 idle)</source>
         <translation>%1 conectado (%2 inativo)</translation>
     </message>
@@ -7618,7 +7647,7 @@ Uma credencial de acesso é uma cadeia de caractéres de texto, que podem ser us
         <translation>Download corrupto da nova versão detectada. Eliminada automaticamente.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+19"/>
         <source>Downloading new snapshot from %1 to %2</source>
         <translation>Baixando nova versão de %1 em %2</translation>
     </message>

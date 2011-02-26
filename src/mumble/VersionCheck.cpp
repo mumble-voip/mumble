@@ -152,11 +152,11 @@ void VersionCheck::finished() {
 
 						// Delete snapshots older than 30 days
 						QDir snapdir(g.qdBasePath.absolutePath() + QLatin1String("/Snapshots/"),
-									 QString(),
-									 QDir::Name,
-									 QDir::Files);
+						             QString(),
+						             QDir::Name,
+						             QDir::Files);
 
-						foreach (const QFileInfo fileInfo, snapdir.entryInfoList()) {
+						foreach(const QFileInfo fileInfo, snapdir.entryInfoList()) {
 							if (fileInfo.created().daysTo(QDateTime::currentDateTime()) > 30) {
 								qWarning() << "Purging old snapshot" << fileInfo.fileName();
 								QFile file(fileInfo.absoluteFilePath());

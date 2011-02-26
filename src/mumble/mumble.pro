@@ -90,7 +90,7 @@ win32 {
   !CONFIG(no-wasapi) {
     CONFIG	*= wasapi
   }
-  
+
   !CONFIG(no-elevation) {
     CONFIG(release, debug|release) {
       QMAKE_LFLAGS *= /MANIFESTUAC:\"level=\'asInvoker\' uiAccess=\'true\'\"
