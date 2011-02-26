@@ -465,7 +465,7 @@
        </widget>
       </item>
       <item row="0" column="3">
-       <widget class="QLabel" name="qliLate_percent">
+       <widget class="QLabel" name="qliLatePercent">
         <property name="text">
          <string notr="true">%</string>
         </property>
@@ -475,7 +475,7 @@
        </widget>
       </item>
       <item row="0" column="5">
-       <widget class="QLabel" name="qliLost_percent">
+       <widget class="QLabel" name="qliLostPercent">
         <property name="text">
          <string notr="true">%</string>
         </property>
@@ -485,9 +485,9 @@
        </widget>
       </item>
       <item row="1" column="3">
-       <widget class="QLabel" name="qlFromLate_percent">
+       <widget class="QLabel" name="qlFromLatePercent">
         <property name="text">
-         <string notr="true">0.00</string>
+         <string notr="true"/>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -495,9 +495,9 @@
        </widget>
       </item>
       <item row="2" column="3">
-       <widget class="QLabel" name="qlToLate_percent">
+       <widget class="QLabel" name="qlToLatePercent">
         <property name="text">
-         <string notr="true">0.00</string>
+         <string notr="true"/>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -505,9 +505,9 @@
        </widget>
       </item>
       <item row="1" column="5">
-       <widget class="QLabel" name="qlFromLost_percent">
+       <widget class="QLabel" name="qlFromLostPercent">
         <property name="text">
-         <string notr="true">0.00</string>
+         <string notr="true"/>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -515,9 +515,9 @@
        </widget>
       </item>
       <item row="2" column="5">
-       <widget class="QLabel" name="qlToLost_percent">
+       <widget class="QLabel" name="qlToLostPercent">
         <property name="text">
-         <string notr="true">0.00</string>
+         <string notr="true"/>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
