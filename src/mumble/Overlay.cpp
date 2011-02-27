@@ -40,11 +40,6 @@
 #include "MainWindow.h"
 #include "GlobalShortcut.h"
 
-#ifdef Q_OS_WIN
-// Used by the overlay to detect whether we injected into ourselves
-extern "C" __declspec(dllexport) void mumbleSelfDetection() {};
-#endif
-
 OverlayAppInfo::OverlayAppInfo(QString name, QIcon icon) {
 	qsDisplayName = name;
 	qiIcon = icon;
