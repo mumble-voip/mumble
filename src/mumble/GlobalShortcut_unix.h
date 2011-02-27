@@ -52,6 +52,8 @@ class GlobalShortcutX : public GlobalShortcutEngine {
 		Display *display;
 		QSet<Window> qsRootWindows;
 		int iXIopcode;
+		QSet<int> qsMasterDevices;
+
 		volatile bool bRunning;
 		QSet<QString> qsKeyboards;
 		QMap<QString, QFile *> qmInputDevices;
@@ -61,9 +63,7 @@ class GlobalShortcutX : public GlobalShortcutEngine {
 		void run();
 		QString buttonName(const QVariant &);
 
-		int iKeyPress, iKeyRelease, iButtonPress, iButtonRelease;
-
-		void initXInput(Display *);
+		void queryXIMasterList();
 	public slots:
 		void displayReadyRead(int);
 		void inputReadyRead(int);

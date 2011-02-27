@@ -39,8 +39,6 @@ GlobalShortcutX::GlobalShortcutX() {
 
 	display = NULL;
 
-	iKeyPress = iKeyRelease = iButtonPress = iButtonRelease = -1;
-
 #ifdef Q_OS_LINUX
 	QString dir = QLatin1String("/dev/input");
 	QFileSystemWatcher *fsw = new QFileSystemWatcher(QStringList(dir), this);
@@ -78,6 +76,8 @@ GlobalShortcutX::GlobalShortcutX() {
 		if (rc != BadRequest) {
 			qWarning("GlobalShortcutX: Using XI2 %d.%d", major, minor);
 			
+			queryXIMasterList();
+			
 			XIEventMask evmask;
 			unsigned char mask[(XI_LASTEVENT + 7)/8];
 			
@@ -88,8 +88,9 @@ GlobalShortcutX::GlobalShortcutX() {
 			XISetMask(mask, XI_RawButtonRelease);
 			XISetMask(mask, XI_RawKeyPress);
 			XISetMask(mask, XI_RawKeyRelease);
+			XISetMask(mask, XI_HierarchyChanged);
 			
-			evmask.deviceid = XIAllMasterDevices;
+			evmask.deviceid = XIAllDevices;
 			evmask.mask_len = sizeof(mask);
 			evmask.mask = mask;
 			
@@ -160,6 +161,29 @@ void GlobalShortcutX::run() {
 	}
 }
 
+// Find XI2 master devices so they can be ignored.
+void GlobalShortcutX::queryXIMasterList() {
+	XIDeviceInfo *info, *dev;
+	int ndevices;
+	
+	qsMasterDevices.clear();
+	
+	dev = info = XIQueryDevice(display, XIAllDevices, &ndevices);
+	for(int i=0;i<ndevices;++i) {
+		switch (dev->use) {
+			case XIMasterPointer:
+			case XIMasterKeyboard:
+				qsMasterDevices.insert(dev->deviceid);
+				break;
+			default:
+				break;
+		}
+	
+		++dev;
+	}
+	XIFreeDeviceInfo(info);
+}
+
 // XInput2 event is ready on socketnotifier.
 void GlobalShortcutX::displayReadyRead(int) {
 	XEvent evt;
@@ -175,15 +199,20 @@ void GlobalShortcutX::displayReadyRead(int) {
 			continue;
 			
 		XIDeviceEvent *xide = reinterpret_cast<XIDeviceEvent *>(cookie->data);
+		
 		switch(cookie->evtype) {
 			case XI_RawKeyPress:
 			case XI_RawKeyRelease:
-				handleButton(xide->detail, cookie->evtype == XI_RawKeyPress);
+				if (! qsMasterDevices.contains(xide->deviceid))
+					handleButton(xide->detail, cookie->evtype == XI_RawKeyPress);
 				break;
 			case XI_RawButtonPress:
 			case XI_RawButtonRelease:
-				handleButton(xide->detail + 0x117, cookie->evtype == XI_RawButtonPress);
+				if (! qsMasterDevices.contains(xide->deviceid))
+					handleButton(xide->detail + 0x117, cookie->evtype == XI_RawButtonPress);
 				break;
+			case XI_HierarchyChanged:
+				queryXIMasterList();
 		}
 		
 		XFreeEventData(display, cookie);
