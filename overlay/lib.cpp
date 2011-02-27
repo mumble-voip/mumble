@@ -524,7 +524,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 				char *p = strrchr(procname, '\\');
 				if (!p) {
 					// No blacklisting if the file has no path
-				} else if (_stricmp(p+1, "mumble.exe")==0) {
+				} else if (GetProcAddress(NULL, "mumbleSelfDetection") != NULL) {
 					ods("Attached to self");
 					bBlackListed = TRUE;
 					bMumble = TRUE;
