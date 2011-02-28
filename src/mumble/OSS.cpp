@@ -237,7 +237,7 @@ void OSSInput::run() {
 	}
 	iMicFreq = ival;
 
-	qWarning("OSSInput: Staring audio capture from %s", device.constData());
+	qWarning("OSSInput: Starting audio capture from %s", device.constData());
 
 	eMicFormat = SampleShort;
 	initializeMixer();
@@ -342,7 +342,7 @@ void OSSOutput::run() {
 
 	int iOutputBlock = (iFrameSize * iMixerFreq) / SAMPLE_RATE;
 
-	qWarning("OSSOutput: Staring audio playback to %s", device.constData());
+	qWarning("OSSOutput: Starting audio playback to %s", device.constData());
 
 	ssize_t blocklen = iOutputBlock * iChannels * sizeof(short);
 	short mbuffer[iOutputBlock * iChannels];
