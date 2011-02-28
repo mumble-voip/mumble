@@ -162,14 +162,17 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 				case PA_STREAM_TERMINATED: {
 						if (pasOutput)
 							pa_stream_unref(pasOutput);
+
 						pa_sample_spec pss = qhSpecMap.value(odev);
+						pa_channel_map pcm = qhChanMap.value(odev);
 						if (pss.rate == 0)
 							pss.rate = SAMPLE_RATE;
-						if ((pss.channels == 0) || (! g.s.doPositionalAudio()))
-							pss.channels = 1;
 						if ((pss.format != PA_SAMPLE_FLOAT32NE) && (pss.format != PA_SAMPLE_S16NE))
 							pss.format = PA_SAMPLE_FLOAT32NE;
-						pasOutput = pa_stream_new(pacContext, "Mumble Speakers", &pss, NULL);
+						if ((pss.channels == 0) || (! g.s.doPositionalAudio())) 
+							pss.channels = 1;
+
+						pasOutput = pa_stream_new(pacContext, "Mumble Speakers", &pss, (pss.channels == 1) ? NULL : &pcm);
 						pa_stream_set_state_callback(pasOutput, stream_callback, this);
 						pa_stream_set_write_callback(pasOutput, write_callback, this);
 					}
@@ -229,9 +232,9 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 						pa_sample_spec pss = qhSpecMap.value(idev);
 						if (pss.rate == 0)
 							pss.rate = SAMPLE_RATE;
-						pss.channels = 1;
 						if ((pss.format != PA_SAMPLE_FLOAT32NE) && (pss.format != PA_SAMPLE_S16NE))
 							pss.format = PA_SAMPLE_FLOAT32NE;
+						pss.channels = 1;
 
 						pasInput = pa_stream_new(pacContext, "Microphone", &pss, NULL);
 						pa_stream_set_state_callback(pasInput, stream_callback, this);
@@ -288,9 +291,10 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 						pa_sample_spec pss = qhSpecMap.value(edev);
 						if (pss.rate == 0)
 							pss.rate = SAMPLE_RATE;
-						pss.channels = 1;
 						if ((pss.format != PA_SAMPLE_FLOAT32NE) && (pss.format != PA_SAMPLE_S16NE))
 							pss.format = PA_SAMPLE_FLOAT32NE;
+						pss.channels = 1;
+
 						pasSpeaker = pa_stream_new(pacContext, "Mumble Speakers (Echo)", &pss, NULL);
 						pa_stream_set_state_callback(pasSpeaker, stream_callback, this);
 						pa_stream_set_read_callback(pasSpeaker, read_callback, this);
@@ -364,8 +368,8 @@ void PulseAudioSystem::sink_callback(pa_context *, const pa_sink_info *i, int eo
 
 	const QString name = QLatin1String(i->name);
 
-	pas->qhIndexMap.insert(name, i->index);
 	pas->qhSpecMap.insert(name, i->sample_spec);
+	pas->qhChanMap.insert(name, i->channel_map);
 	pas->qhOutput.insert(name, QLatin1String(i->description));
 	pas->qhEchoMap.insert(name, QLatin1String(i->monitor_source_name));
 }
@@ -380,7 +384,6 @@ void PulseAudioSystem::source_callback(pa_context *, const pa_source_info *i, in
 
 	const QString name = QLatin1String(i->name);
 
-	pas->qhIndexMap.insert(name, i->index);
 	pas->qhSpecMap.insert(name, i->sample_spec);
 
 	if (i->monitor_of_sink == PA_INVALID_INDEX)
@@ -542,6 +545,8 @@ void PulseAudioSystem::query() {
 	qhInput.clear();
 	qhOutput.clear();
 	qhEchoMap.clear();
+	qhSpecMap.clear();
+	qhChanMap.clear();
 	qhInput.insert(QString(), tr("Default Input"));
 	qhOutput.insert(QString(), tr("Default Output"));
 	pa_operation_unref(pa_context_get_server_info(pacContext, server_callback, this));

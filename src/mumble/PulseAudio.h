@@ -58,7 +58,7 @@ class PulseAudioSystem : public QObject {
 		bool bPositionalCache;
 		QHash<QString, QString> qhEchoMap;
 		QHash<QString, pa_sample_spec> qhSpecMap;
-		QHash<QString, int> qhIndexMap;
+		QHash<QString, pa_channel_map> qhChanMap;
 
 		static void defer_event_callback(pa_mainloop_api *a, pa_defer_event *e, void *userdata);
 		static void context_state_callback(pa_context *c, void *userdata);
