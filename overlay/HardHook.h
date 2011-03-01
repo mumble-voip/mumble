@@ -47,13 +47,19 @@
 typedef void *(*voidFunc)();
 
 struct HardHook {
+	// Pointer to the place in the original code where replacements happen
 	unsigned char *baseptr;
 	unsigned char orig[6];
 	unsigned char replace[6];
+	// Remembers whether there is a trampoline in place in the target code or
+	// whether restore -> call orig. -> replace has to be used for every intercepted call
 	bool bTrampoline;
+	// Points to the (rest of the) original function when used from the injected function
 	voidFunc call;
 
+	// Pointer to executable code page that holds all trampoline codes
 	static void *pCode;
+	// Offset to next unused addr in pCode
 	static unsigned int uiCode;
 
 	HardHook();

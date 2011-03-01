@@ -110,8 +110,11 @@ void *HardHook::cloneCode(void **porig) {
 	n += uiCode;
 	unsigned int idx = 0;
 
-	while (*o == 0xe9) {
+	while (*o == 0xe9) { // JMP
 		int *iptr = reinterpret_cast<int *>(o+1);
+		// Follow jmp relative to next command. It doesn't make a difference
+		// if we actually perform all the jumps or directly jump after the
+		// chain.
 		o += *iptr + 5;
 
 		ods("HardHook: Chaining from %p to %p", *porig, o);
@@ -145,7 +148,7 @@ void *HardHook::cloneCode(void **porig) {
 			case 0x5e:
 			case 0x5f:
 				break;
-			case 0x68:
+			case 0x68: // PUSH immediate
 				extra = 4;
 				break;
 			case 0x81: // CMP immediate
@@ -168,7 +171,7 @@ void *HardHook::cloneCode(void **porig) {
 
 	} while (idx < 6);
 
-	n[idx++] = 0xe9;
+	n[idx++] = 0xe9; // Add a relative jmp back to the original code
 	int offs = o - n - 5;
 
 	int *iptr = reinterpret_cast<int *>(&n[idx]);
@@ -205,8 +208,8 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 
 		unsigned char **iptr = reinterpret_cast<unsigned char **>(&replace[1]);
 		*iptr = nptr;
-		replace[0] = 0x68;
-		replace[5] = 0xc3;
+		replace[0] = 0x68; // PUSH (immediate) nptr
+		replace[5] = 0xc3; // RETN
 
 		for (i=0;i<6;i++)
 			orig[i]=fptr[i];
@@ -238,7 +241,7 @@ void HardHook::inject(bool force) {
 
 	if (VirtualProtect(baseptr, 6, PAGE_EXECUTE_READWRITE, &oldProtect)) {
 		for (i=0;i<6;i++)
-			baseptr[i] = replace[i];
+			baseptr[i] = replace[i]; // Replace with jump to new code
 		VirtualProtect(baseptr, 6, oldProtect, &restoreProtect);
 		FlushInstructionCache(GetCurrentProcess(),baseptr, 6);
 	}
