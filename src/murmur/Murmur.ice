@@ -64,6 +64,9 @@ module Murmur
 		bool tcponly;
 		/** Idle time. This is how many seconds it is since the user last spoke. Other activity is not counted. */
 		int idlesecs;
+		/** Ping values */
+		float udpPing;
+		float tcpPing;
 	};
 
 	sequence<int> IntList;
