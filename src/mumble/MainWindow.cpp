@@ -1555,6 +1555,7 @@ void MainWindow::qmChannel_aboutToShow() {
 	qmChannel->addAction(qaChannelUnlinkAll);
 	qmChannel->addSeparator();
 	qmChannel->addAction(qaChannelSendMessage);
+	qmChannel->addAction(qaChannelCopyURL);
 
 #ifndef Q_OS_MAC
 	if (g.s.bMinimalView) {
@@ -1724,6 +1725,26 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), texm->message()), tr("Message to channel %1").arg(c->qsName), true);
 	}
 	delete texm;
+}
+
+void MainWindow::on_qaChannelCopyURL_triggered() {
+	Channel *c = getContextMenuChannel();
+	QString host, uname, pw, channel;
+	unsigned short port;
+	
+	if (!c)
+		return;
+
+	g.sh->getConnectionInfo(host, port, uname, pw);
+	
+	// walk back up the channel list to build the URL.
+	while (c->cParent != NULL) {
+		channel.prepend(c->qsName);
+		channel.prepend(QLatin1String("/"));
+		c = c->cParent;
+	}
+	
+	QApplication::clipboard()->setMimeData(ServerItem::toMimeData(c->qsName, host, port, channel), QClipboard::Clipboard);
 }
 
 void MainWindow::updateMenuPermissions() {
