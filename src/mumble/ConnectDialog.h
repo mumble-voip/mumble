@@ -134,6 +134,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		QString qsContinentCode;
 
 		QString qsUrl;
+		QString qsChannel;
 
 		QString qsBonjourHost;
 		BonjourRecord brRecord;
@@ -145,6 +146,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		ServerItem(const FavoriteServer &fs);
 		ServerItem(const PublicInfo &pi);
 		ServerItem(const QString &name, const QString &host, unsigned short port, const QString &uname, const QString &password = QString());
+		ServerItem(const QString &name, const QString &host, unsigned short port, const QString &uname, const QString &password, const QString &channel);
 		ServerItem(const BonjourRecord &br);
 		ServerItem(const QString &name, ItemType itype, const QString &continent = QString(), const QString &country = QString());
 		ServerItem(const ServerItem *si);

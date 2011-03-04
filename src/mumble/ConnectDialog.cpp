@@ -295,6 +295,28 @@ ServerItem::ServerItem(const QString &name, const QString &host, unsigned short 
 	init();
 }
 
+ServerItem::ServerItem(const QString &name, const QString &host, unsigned short port, const QString &username, const QString &password, const QString &channel) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
+	siParent = NULL;
+	bParent = false;
+	itType = FavoriteType;
+	qsName = name;
+	usPort = port;
+	qsUsername = username;
+	qsPassword = password;
+	qsChannel = channel;
+
+	bCA = false;
+
+	if (host.startsWith(QLatin1Char('@'))) {
+		qsBonjourHost = host.mid(1);
+		brRecord = BonjourRecord(qsBonjourHost, QLatin1String("_mumble._tcp."), QLatin1String("local."));
+	} else {
+		qsHostname = host;
+	}
+
+	init();
+}
+
 ServerItem::ServerItem(const BonjourRecord &br) : QTreeWidgetItem(QTreeWidgetItem::UserType) {
 	siParent = NULL;
 	bParent = false;
@@ -575,6 +597,7 @@ QMimeData *ServerItem::toMimeData() const {
 	url.setScheme(QLatin1String("mumble"));
 	url.setHost(qsHostname);
 	url.setPort(usPort);
+	url.setPath(qsChannel);
 	url.addQueryItem(QLatin1String("title"), qsName);
 	if (! qsUrl.isEmpty())
 		url.addQueryItem(QLatin1String("url"), qsUrl);
