@@ -27,7 +27,6 @@
 #endif
 
 #include <QtCore/QtCore>
-#include <QtGui/QClipboard>
 #include <QtGui/QtGui>
 #include <QtSvg/QtSvg>
 #ifdef USE_DBUS
