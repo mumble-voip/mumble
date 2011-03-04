@@ -1555,6 +1555,7 @@ void MainWindow::qmChannel_aboutToShow() {
 	qmChannel->addAction(qaChannelUnlinkAll);
 	qmChannel->addSeparator();
 	qmChannel->addAction(qaChannelSendMessage);
+	qmChannel->addAction(qaChannelCopyURL);
 
 #ifndef Q_OS_MAC
 	if (g.s.bMinimalView) {
@@ -1700,6 +1701,28 @@ void MainWindow::on_qaChannelUnlinkAll_triggered() {
 	foreach(Channel *l, c->qsPermLinks)
 		mpcs.add_links_remove(l->iId);
 	g.sh->sendMessage(mpcs);
+}
+
+void MainWindow::on_qaChannelCopyURL_triggered() {
+	QClipboard *clipboard = QApplication::clipboard();
+	Channel *tc = NULL;
+	Channel *c = getContextMenuChannel();
+	QString host, uname, pw, url, channel;
+	unsigned short port;
+	
+	channel="?version=1.2.0"; // ugly hack, not where i wanted to start
+	g.sh->getConnectionInfo(host, port, uname, pw);
+	
+	// walk back up the channel list to build the URL.
+	tc = c;
+	while (tc->cParent != NULL) {
+		channel.prepend(tc->qsName);
+		channel.prepend("/");
+		tc = tc->cParent;
+	}
+	
+	url = QString::fromLatin1("mumble://%1:%2%3").arg(host).arg(port).arg(channel);
+	clipboard->setText(url);
 }
 
 void MainWindow::on_qaChannelSendMessage_triggered() {

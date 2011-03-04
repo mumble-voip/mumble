@@ -407,7 +407,17 @@
     <string>This unlinks your current channel (not the selected one) from all linked channels.</string>
    </property>
   </action>
-  <action name="qaAudioReset">
+  <action name="qaChannelCopyURL">
+   <property name="text">
+    <string>&amp;Copy URL</string>
+   </property>
+   <property name="toolTip">
+    <string>Copies a complete mumble:// URL to the clipboard.</string>
+   </property>
+   <property name="whatsThis">
+    <string>Copies a complete mumble:// URL to the clipboard.</string>
+   </property>
+  </action>  <action name="qaAudioReset">
    <property name="text">
     <string>&amp;Reset</string>
    </property>
