@@ -100,6 +100,7 @@ static unsigned int modrmbytes(unsigned char a, unsigned char b) {
 }
 
 void *HardHook::cloneCode(void **porig) {
+	DWORD oldProtect, restoreProtect;
 	if (! pCode || uiCode > 4000) {
 		uiCode = 0;
 		pCode = VirtualAlloc(NULL, 4096, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
@@ -110,12 +111,28 @@ void *HardHook::cloneCode(void **porig) {
 	n += uiCode;
 	unsigned int idx = 0;
 
-	while (*o == 0xe9) {
+	if(!VirtualProtect(o, 16, PAGE_EXECUTE_READ, &oldProtect)) {
+		ods("HardHook: Failed vprotect (1)");
+		return NULL;
+	}
+
+	while (*o == 0xe9) { // JMP
+		unsigned char *tmp = o;
 		int *iptr = reinterpret_cast<int *>(o+1);
+		// Follow jmp relative to next command. It doesn't make a difference
+		// if we actually perform all the jumps or directly jump after the
+		// chain.
 		o += *iptr + 5;
 
 		ods("HardHook: Chaining from %p to %p", *porig, o);
 		*porig = o;
+
+		// Assume jump took us out of our read enabled zone, get rights for the new one
+		VirtualProtect(tmp, 16, oldProtect, &restoreProtect);
+		if(!VirtualProtect(o, 16, PAGE_EXECUTE_READ, &oldProtect)) {
+			ods("HardHook: Failed vprotect (2)");
+			return NULL;
+		}
 	}
 
 	do {
@@ -145,7 +162,7 @@ void *HardHook::cloneCode(void **porig) {
 			case 0x5e:
 			case 0x5f:
 				break;
-			case 0x68:
+			case 0x68: // PUSH immediate
 				extra = 4;
 				break;
 			case 0x81: // CMP immediate
@@ -159,6 +176,7 @@ void *HardHook::cloneCode(void **porig) {
 				break;
 			default:
 				ods("HardHook: Unknown opcode at %d: %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x", idx-1, o[0], o[1], o[2], o[3], o[4], o[5], o[6], o[7], o[8], o[9], o[10], o[11]);
+				VirtualProtect(o, 16, oldProtect, &restoreProtect);
 				return NULL;
 				break;
 		}
@@ -167,8 +185,9 @@ void *HardHook::cloneCode(void **porig) {
 		idx += extra;
 
 	} while (idx < 6);
+	VirtualProtect(o, 16, oldProtect, &restoreProtect);
 
-	n[idx++] = 0xe9;
+	n[idx++] = 0xe9; // Add a relative jmp back to the original code
 	int offs = o - n - 5;
 
 	int *iptr = reinterpret_cast<int *>(&n[idx]);
@@ -193,20 +212,20 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 
 	ods("HardHook: Asked to replace %p with %p", func, replacement);
 
+	call = (voidFunc) cloneCode((void **) &fptr);
+
+	if (call) {
+		bTrampoline = true;
+	} else {
+		bTrampoline = false;
+		call = func;
+	}
+
 	if (VirtualProtect(fptr, 16, PAGE_EXECUTE_READ, &oldProtect)) {
-		call = (voidFunc) cloneCode((void **) &fptr);
-
-		if (call) {
-			bTrampoline = true;
-		} else {
-			bTrampoline = false;
-			call = func;
-		}
-
 		unsigned char **iptr = reinterpret_cast<unsigned char **>(&replace[1]);
 		*iptr = nptr;
-		replace[0] = 0x68;
-		replace[5] = 0xc3;
+		replace[0] = 0x68; // PUSH (immediate) nptr
+		replace[5] = 0xc3; // RETN
 
 		for (i=0;i<6;i++)
 			orig[i]=fptr[i];
@@ -216,7 +235,7 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 
 		VirtualProtect(fptr, 16, oldProtect, &restoreProtect);
 	} else {
-		ods("Failed initial vprotect");
+		ods("HardHook: Failed vprotect");
 	}
 }
 
@@ -238,7 +257,7 @@ void HardHook::inject(bool force) {
 
 	if (VirtualProtect(baseptr, 6, PAGE_EXECUTE_READWRITE, &oldProtect)) {
 		for (i=0;i<6;i++)
-			baseptr[i] = replace[i];
+			baseptr[i] = replace[i]; // Replace with jump to new code
 		VirtualProtect(baseptr, 6, oldProtect, &restoreProtect);
 		FlushInstructionCache(GetCurrentProcess(),baseptr, 6);
 	}
