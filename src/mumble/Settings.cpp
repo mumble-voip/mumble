@@ -130,6 +130,7 @@ OverlaySettings::OverlaySettings() {
 	bAlwaysSelf = true;
 	iActiveTime = 5;
 	osSort = Alphabetical;
+	bSortTalkersAbovePassive = false;
 
 	qcUserName[Settings::Passive] = QColor(170, 170, 170);
 	qcUserName[Settings::Talking] = QColor(255, 255, 255);

@@ -242,14 +242,17 @@ void ClientUser::setRecording(bool recording) {
 
 bool ClientUser::lessThanOverlay(const ClientUser *first, const ClientUser *second) {
 
-	if (g.s.os.osSort == OverlaySettings::LastStateChange)
+	if (g.s.os.bSortTalkersAbovePassive)
 	{
 		// Talkers above non-talkers
 		if (first->tsState != Settings::Passive && second->tsState == Settings::Passive)
 			return true;
 		if (first->tsState == Settings::Passive && second->tsState != Settings::Passive)
 			return false;
+	}
 
+	if (g.s.os.osSort == OverlaySettings::LastStateChange)
+	{
 		// Valid dates above invalid dates (possible when there wasn't a state-change yet)
 		if (first->qdtLastTalkStateChange.isValid() && !second->qdtLastTalkStateChange.isValid())
 			return true;

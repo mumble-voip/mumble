@@ -88,6 +88,7 @@ struct OverlaySettings {
 	bool bAlwaysSelf;
 	int iActiveTime; // Time in seconds for a user to appear active after state change
 	OverlaySort osSort;
+	bool bSortTalkersAbovePassive;
 
 	float fX;
 	float fY;

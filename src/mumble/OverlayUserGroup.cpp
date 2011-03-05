@@ -146,6 +146,13 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 	if (os->osSort == OverlaySettings::LastStateChange)
 		qaSortLastStateChange->setChecked(true);
 
+	qmSort->addSeparator();
+
+	QAction *qaSortTalkersAbovePassive = qmSort->addAction(OverlayClient::tr("Always move talkers to top"));
+	qaSortTalkersAbovePassive->setCheckable(true);
+	if (os->bSortTalkersAbovePassive)
+		qaSortTalkersAbovePassive->setChecked(true);
+
 	QAction *qaEdit = qm.addAction(OverlayClient::tr("Edit..."));
 	QAction *qaZoom = qm.addAction(OverlayClient::tr("Reset Zoom"));
 
@@ -196,6 +203,9 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		updateUsers();
 	} else if (act == qaSortLastStateChange) {
 		os->osSort = OverlaySettings::LastStateChange;
+		updateUsers();
+	} else if (act == qaSortTalkersAbovePassive) {
+		os->bSortTalkersAbovePassive = ! os->bSortTalkersAbovePassive;
 		updateUsers();
 	} else {
 		for (int i=1;i<=5;++i) {
