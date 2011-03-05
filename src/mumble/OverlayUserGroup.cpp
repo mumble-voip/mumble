@@ -134,6 +134,18 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		qaColumns[i]->setChecked(i == os->uiColumns);
 	}
 
+	QMenu *qmSort = qm.addMenu(OverlayClient::tr("Sort"));
+
+	QAction *qaSortAlphabetically = qmSort->addAction(OverlayClient::tr("Alphabetically"));
+	qaSortAlphabetically->setCheckable(true);
+	if (os->osSort == OverlaySettings::Alphabetical)
+		qaSortAlphabetically->setChecked(true);
+
+	QAction *qaSortLastStateChange = qmSort->addAction(OverlayClient::tr("Last state change"));
+	qaSortLastStateChange->setCheckable(true);
+	if (os->osSort == OverlaySettings::LastStateChange)
+		qaSortLastStateChange->setChecked(true);
+
 	QAction *qaEdit = qm.addAction(OverlayClient::tr("Edit..."));
 	QAction *qaZoom = qm.addAction(OverlayClient::tr("Reset Zoom"));
 
@@ -178,6 +190,12 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		if (ok) {
 			os->iActiveTime = newValue;
 		}
+		updateUsers();
+	} else if (act == qaSortAlphabetically) {
+		os->osSort = OverlaySettings::Alphabetical;
+		updateUsers();
+	} else if (act == qaSortLastStateChange) {
+		os->osSort = OverlaySettings::LastStateChange;
 		updateUsers();
 	} else {
 		for (int i=1;i<=5;++i) {
