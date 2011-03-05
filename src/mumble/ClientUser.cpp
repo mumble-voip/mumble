@@ -71,6 +71,17 @@ QList<ClientUser *> ClientUser::getTalking() {
 	return c_qlTalking;
 }
 
+QList<ClientUser *> ClientUser::getRecentlyActive() {
+	QReadLocker lock(&c_qrwlUsers);
+	QList<ClientUser *> recentlyActiveUsers;
+	ClientUser *p;
+	foreach (p, c_qmUsers) {
+		if (p->wasRecentlyActive())
+			recentlyActiveUsers << p;
+	}
+	return recentlyActiveUsers;
+}
+
 bool ClientUser::isValid(unsigned int uiSession) {
 	QReadLocker lock(&c_qrwlUsers);
 
@@ -159,6 +170,7 @@ void ClientUser::setTalking(Settings::TalkState ts) {
 		nstate = true;
 
 	tsState = ts;
+	qdtLastTalkStateChange = QDateTime::currentDateTime();
 	emit talkingChanged();
 
 	if (nstate && cChannel) {
@@ -245,12 +257,19 @@ bool ClientUser::lessThanOverlay(const ClientUser *first, const ClientUser *seco
 	return Channel::lessThan(first->cChannel, second->cChannel);
 }
 
-
-
 void ClientUser::sortUsersOverlay(QList<ClientUser *> &list) {
 	QReadLocker lock(&c_qrwlUsers);
 
 	qSort(list.begin(), list.end(), ClientUser::lessThanOverlay);
+}
+
+bool ClientUser::wasRecentlyActive() {
+	if (!qdtLastTalkStateChange.isValid())
+		return false;
+
+	QDateTime qdtNow = QDateTime::currentDateTime();
+	int secondsNoActivity = qdtLastTalkStateChange.secsTo(qdtNow);
+	return secondsNoActivity < g.s.os.iActiveTime;
 }
 
 /* From Channel.h
