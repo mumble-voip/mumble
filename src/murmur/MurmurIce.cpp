@@ -91,6 +91,8 @@ static void userToUser(const ::User *p, Murmur::User &mp) {
 	mp.identity = u8(u->qsIdentity);
 	mp.context = u->ssContext;
 	mp.idlesecs = u->bwr.idleSeconds();
+	mp.udpPing = u->dUDPPingAvg;
+	mp.tcpPing = u->dTCPPingAvg;
 
 	mp.tcponly = ! u->bUdp;
 

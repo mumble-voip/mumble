@@ -64,6 +64,10 @@ module Murmur
 		bool tcponly;
 		/** Idle time. This is how many seconds it is since the user last spoke. Other activity is not counted. */
 		int idlesecs;
+		/** UDP Ping Average. This is the average ping for the user via UDP over the duration of the connection. */
+		float udpPing;
+		/** TCP Ping Average. This is the average ping for the user via TCP over the duration of the connection. */
+		float tcpPing;
 	};
 
 	sequence<int> IntList;
