@@ -46,6 +46,7 @@ ClientUser::ClientUser(QObject *p) : QObject(p) {
 	fAverageAvailable = 0.0f;
 	iFrames = 0;
 	iSequence = 0;
+	tLastTalkStateChange = Timer(false);
 }
 
 ClientUser *ClientUser::get(unsigned int uiSession) {
@@ -69,6 +70,16 @@ ClientUser *ClientUser::getByHash(const QString &hash) {
 QList<ClientUser *> ClientUser::getTalking() {
 	QReadLocker lock(&c_qrwlTalking);
 	return c_qlTalking;
+}
+
+QList<ClientUser *> ClientUser::getRecentlyActive() {
+	QReadLocker lock(&c_qrwlUsers);
+	QList<ClientUser *> recentlyActiveUsers;
+	foreach (ClientUser *cu, c_qmUsers) {
+		if (cu->wasRecentlyActive())
+			recentlyActiveUsers << cu;
+	}
+	return recentlyActiveUsers;
 }
 
 bool ClientUser::isValid(unsigned int uiSession) {
@@ -159,6 +170,10 @@ void ClientUser::setTalking(Settings::TalkState ts) {
 		nstate = true;
 
 	tsState = ts;
+	if (!tLastTalkStateChange.isStarted())
+		tLastTalkStateChange.start();
+	else
+		tLastTalkStateChange.restart();
 	emit talkingChanged();
 
 	if (nstate && cChannel) {
@@ -245,12 +260,17 @@ bool ClientUser::lessThanOverlay(const ClientUser *first, const ClientUser *seco
 	return Channel::lessThan(first->cChannel, second->cChannel);
 }
 
-
-
 void ClientUser::sortUsersOverlay(QList<ClientUser *> &list) {
 	QReadLocker lock(&c_qrwlUsers);
 
 	qSort(list.begin(), list.end(), ClientUser::lessThanOverlay);
+}
+
+bool ClientUser::wasRecentlyActive() {
+	if (!tLastTalkStateChange.isStarted())
+		return false;
+
+	return tLastTalkStateChange.elapsed() < g.s.os.iActiveTime * 1000000;
 }
 
 /* From Channel.h

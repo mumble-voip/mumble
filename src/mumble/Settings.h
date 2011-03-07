@@ -76,7 +76,7 @@ Q_DECLARE_METATYPE(ShortcutTarget)
 struct OverlaySettings {
 	enum OverlayPresets { AvatarAndName, LargeSquareAvatar };
 
-	enum OverlayShow { Talking, HomeChannel, LinkedChannels };
+	enum OverlayShow { Talking, Active, HomeChannel, LinkedChannels };
 
 	bool bEnable;
 
@@ -84,6 +84,7 @@ struct OverlaySettings {
 
 	OverlayShow osShow;
 	bool bAlwaysSelf;
+	int iActiveTime; // Time in seconds for a user to appear active after state change
 
 	float fX;
 	float fY;

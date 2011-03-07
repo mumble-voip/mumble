@@ -38,10 +38,12 @@ protected:
 	quint64 uiStart;
 	static quint64 now();
 public:
-	Timer();
+	Timer(bool bStart = true);
 	bool isElapsed(quint64 us);
 	quint64 elapsed() const;
 	quint64 restart();
+	void start();
+	bool isStarted();
 };
 
 #endif

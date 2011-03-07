@@ -98,6 +98,11 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 	if (os->osShow == OverlaySettings::Talking)
 		qaShowTalking->setChecked(true);
 
+	QAction *qaShowActive = qmShow->addAction(OverlayClient::tr("Talking and recently active"));
+	qaShowActive->setCheckable(true);
+	if (os->osShow == OverlaySettings::Active)
+		qaShowActive->setChecked(true);
+
 	QAction *qaShowHome = qmShow->addAction(OverlayClient::tr("All in current channel"));
 	qaShowHome->setCheckable(true);
 	if (os->osShow == OverlaySettings::HomeChannel)
@@ -112,9 +117,14 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 
 	QAction *qaShowSelf = qmShow->addAction(OverlayClient::tr("Always show yourself"));
 	qaShowSelf->setCheckable(true);
-	qaShowSelf->setEnabled(os->osShow == OverlaySettings::Talking);
+	qaShowSelf->setEnabled(os->osShow == OverlaySettings::Talking || os->osShow == OverlaySettings::Active);
 	if (os->bAlwaysSelf)
 		qaShowSelf->setChecked(true);
+
+	qmShow->addSeparator();
+
+	QAction *qaConfigureRecentlyActiveTime = qmShow->addAction(OverlayClient::tr("Configure recently active time (%1 seconds)...").arg(os->iActiveTime));
+	qaConfigureRecentlyActiveTime->setEnabled(os->osShow == OverlaySettings::Active);
 
 	QMenu *qmColumns = qm.addMenu(OverlayClient::tr("Columns"));
 	QAction *qaColumns[6];
@@ -146,6 +156,9 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 	} else if (act == qaShowTalking) {
 		os->osShow = OverlaySettings::Talking;
 		updateUsers();
+	} else if (act == qaShowActive) {
+		os->osShow = OverlaySettings::Active;
+		updateUsers();
 	} else if (act == qaShowHome) {
 		os->osShow = OverlaySettings::HomeChannel;
 		updateUsers();
@@ -154,6 +167,20 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		updateUsers();
 	} else if (act == qaShowSelf) {
 		os->bAlwaysSelf = ! os->bAlwaysSelf;
+		updateUsers();
+	} else if (act == qaConfigureRecentlyActiveTime) {
+		// This might not be the best place to configure this setting, but currently there's
+		// not really a suitable place to put this. In the future an additional tab might
+		// be added for some advanced overlay options, which could then include this setting.
+		bool ok;
+		int newValue = QInputDialog::getInt(
+			qm.parentWidget(),
+			OverlayClient::tr("Configure recently active time"),
+			OverlayClient::tr("Amount of seconds users remain active after talking:"),
+			os->iActiveTime, 1, 2147483647, 1, &ok);
+		if (ok) {
+			os->iActiveTime = newValue;
+		}
 		updateUsers();
 	} else {
 		for (int i=1;i<=5;++i) {
@@ -275,6 +302,14 @@ void OverlayUserGroup::updateUsers() {
 				foreach(ClientUser *cu, ClientUser::getTalking())
 					if (! showusers.contains(cu))
 						showusers << cu;
+				break;
+			case OverlaySettings::Active:
+				showusers = ClientUser::getTalking();
+				foreach(ClientUser *cu, ClientUser::getRecentlyActive())
+					if (! showusers.contains(cu))
+						showusers << cu;
+				if (os->bAlwaysSelf && !showusers.contains(self))
+					showusers << self;
 				break;
 			default:
 				showusers = ClientUser::getTalking();

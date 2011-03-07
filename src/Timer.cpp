@@ -31,15 +31,17 @@
 #include <QtCore>
 #include "Timer.h"
 
-Timer::Timer() {
-	uiStart = now();
+Timer::Timer(bool bStart) {
+	uiStart = bStart ? now() : 0;
 }
 
 quint64 Timer::elapsed() const {
+	Q_ASSERT(uiStart != 0);
 	return now() - uiStart;
 }
 
 bool Timer::isElapsed(quint64 us) {
+	Q_ASSERT(uiStart != 0);
 	if (elapsed() > us) {
 		uiStart += us;
 		return true;
@@ -48,10 +50,20 @@ bool Timer::isElapsed(quint64 us) {
 }
 
 quint64 Timer::restart() {
+	Q_ASSERT(uiStart != 0);
 	quint64 n = now();
 	quint64 e = n - uiStart;
 	uiStart = n;
 	return e;
+}
+
+void Timer::start() {
+	Q_ASSERT(uiStart == 0);
+	uiStart = now();
+}
+
+bool Timer::isStarted() {
+	return uiStart > 0;
 }
 
 #if defined(Q_OS_WIN)
