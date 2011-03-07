@@ -78,6 +78,8 @@ struct OverlaySettings {
 
 	enum OverlayShow { Talking, Active, HomeChannel, LinkedChannels };
 
+	enum OverlaySort { Alphabetical, LastStateChange };
+
 	bool bEnable;
 
 	QString qsStyle;
@@ -85,6 +87,7 @@ struct OverlaySettings {
 	OverlayShow osShow;
 	bool bAlwaysSelf;
 	int iActiveTime; // Time in seconds for a user to appear active after state change
+	OverlaySort osSort;
 
 	float fX;
 	float fY;

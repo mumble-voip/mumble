@@ -43,7 +43,9 @@ public:
 	quint64 elapsed() const;
 	quint64 restart();
 	void start();
-	bool isStarted();
+	bool isStarted() const;
+	bool before(const Timer *other) const;
+	bool after(const Timer *other) const;
 };
 
 #endif

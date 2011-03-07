@@ -244,6 +244,35 @@ void ClientUser::setRecording(bool recording) {
 }
 
 bool ClientUser::lessThanOverlay(const ClientUser *first, const ClientUser *second) {
+	if (g.s.os.osSort == OverlaySettings::LastStateChange) {
+		// Talkers above non-talkers
+		if (first->tsState != Settings::Passive && second->tsState == Settings::Passive)
+			return true;
+		if (first->tsState == Settings::Passive && second->tsState != Settings::Passive)
+			return false;
+
+		// Valid time above invalid time (possible when there wasn't a state-change yet)
+		if (first->tLastTalkStateChange.isStarted() && !second->tLastTalkStateChange.isStarted())
+			return true;
+		if (!first->tLastTalkStateChange.isStarted() && second->tLastTalkStateChange.isStarted())
+			return false;
+
+		// If both have a valid time
+		if (first->tLastTalkStateChange.isStarted() && second->tLastTalkStateChange.isStarted()) {
+			// Among talkers, long > short
+			// (if two clients are talking, the client that started first is above the other)
+			if (first->tsState != Settings::Passive && second->tsState != Settings::Passive)
+				return first->tLastTalkStateChange.before(&second->tLastTalkStateChange);
+
+			// Among non-talkers, short -> long
+			// (if two clients are passive, the client that most recently stopped talking is above)
+			if (first->tsState == Settings::Passive && second->tsState == Settings::Passive)
+				return first->tLastTalkStateChange.after(&second->tLastTalkStateChange);
+		}
+
+		// If both times are invalid, fall back to alphabetically (continuing below)
+	}
+
 	if (first->cChannel == second->cChannel || first->cChannel == NULL || second->cChannel == NULL)
 		return lessThan(first, second);
 

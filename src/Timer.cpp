@@ -62,8 +62,16 @@ void Timer::start() {
 	uiStart = now();
 }
 
-bool Timer::isStarted() {
+bool Timer::isStarted() const {
 	return uiStart > 0;
+}
+
+bool Timer::before(const Timer *other) const {
+	return uiStart < other->uiStart;
+}
+
+bool Timer::after(const Timer *other) const {
+	return uiStart > other->uiStart;
 }
 
 #if defined(Q_OS_WIN)
