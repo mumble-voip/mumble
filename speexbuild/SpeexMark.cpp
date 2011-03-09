@@ -178,5 +178,3 @@ int main(int argc, char **argv) {
 	qWarning("%.2f times realtime", (20000ULL * nframes * iter) / (e * 1.0));
 	return 0;
 }
-
-#include "Timer.cpp"

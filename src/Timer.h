@@ -33,7 +33,7 @@
 
 // All timer resolutions are in microseconds.
 
-struct Timer {
+class Timer {
 protected:
 	quint64 uiStart;
 	static quint64 now();

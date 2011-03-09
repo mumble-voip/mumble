@@ -20,7 +20,7 @@ void TestTimer::accuracy() {
 	do {
 	} while (a.elapsed() < 1000);
 
-	QVERIFY(abs(t.elapsed() / 1000ULL - a.elapsed()) < 10);
+	QVERIFY(abs((int)(t.elapsed() / 1000ULL - a.elapsed())) < 10);
 }
 
 void TestTimer::resolution() {
@@ -64,7 +64,7 @@ void TestTimer::atomicity() {
 		ttime += a.restart();
 	} while (t.elapsed() < 10);
 
-	QCOMPARE(ttime, b.elapsed());
+	QVERIFY(abs(ttime - b.elapsed()) < 100);
 }
 
 QTEST_MAIN(TestTimer)
