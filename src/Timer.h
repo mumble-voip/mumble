@@ -43,6 +43,14 @@ public:
 	quint64 elapsed() const;
 	quint64 restart();
 	bool isStarted() const;
+
+	/*! Compares the elapsed time, not the start time
+	 */
+	bool operator<(const Timer &other) const;
+
+	/*! Compares the elapsed time, not the start time
+	 */
+	bool operator>(const Timer &other) const;
 };
 
 #endif
