@@ -2384,7 +2384,7 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
         <translation>Mumbleanvändare</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+425"/>
+        <location filename="main.cpp" line="+405"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Certifikatutgång:&lt;/b&gt; Ditt certifikat håller på att gå ut. Du måste förnya det, annars kan du inte längre ansluta till servrar du är registrerad på.</translation>
     </message>
@@ -2932,7 +2932,7 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+54"/>
+        <location filename="ConfigDialog.cpp" line="+52"/>
         <source>Accept changes</source>
         <translation>Acceptera ändringar</translation>
     </message>
@@ -3426,7 +3426,7 @@ Serverns etikett. Detta är det servern kommer att kallas i din serverlista, som
         <translation>Det finns tydligen en bugg i koden för att rapportera krascher, vi kunde heller inte ladda upp rapporten. Du borde informera en utvecklare om felet %1</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+102"/>
         <source>Uploading crash report</source>
         <translation>Laddar upp kraschrapportering</translation>
     </message>
@@ -3501,7 +3501,7 @@ av dessa möjliga platser.</translation>
 <context>
     <name>DockTitleBar</name>
     <message>
-        <location filename="CustomElements.cpp" line="+135"/>
+        <location filename="CustomElements.cpp" line="+180"/>
         <source>Drag here</source>
         <translation>Dra här</translation>
     </message>
@@ -3601,9 +3601,8 @@ av dessa möjliga platser.</translation>
 <context>
     <name>GlobalShortcutMacInit</name>
     <message>
-        <location filename="GlobalShortcut_macx.mm" line="+65"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
-        <translation>Mumble har hittat att globala genvägar i bakgrunden inte kan tas emot.&lt;br /&gt;&lt;br /&gt;Detta är på grund av att funktionen &quot;Universell tillgång&quot; som kallas &quot;Aktivera tillgång för hjälpenheter&quot; för närvarande är avaktiverad.&lt;br /&gt;&lt;br /&gt;&lt;a href=&quot; &quot;&gt;Aktivera den här inställningen&lt;/a&gt; och fortsätt vid avslut.</translation>
+        <translation type="obsolete">Mumble har hittat att globala genvägar i bakgrunden inte kan tas emot.&lt;br /&gt;&lt;br /&gt;Detta är på grund av att funktionen &quot;Universell tillgång&quot; som kallas &quot;Aktivera tillgång för hjälpenheter&quot; för närvarande är avaktiverad.&lt;br /&gt;&lt;br /&gt;&lt;a href=&quot; &quot;&gt;Aktivera den här inställningen&lt;/a&gt; och fortsätt vid avslut.</translation>
     </message>
 </context>
 <context>
@@ -3700,7 +3699,7 @@ av dessa möjliga platser.</translation>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+325"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+380"/>
         <source>Mouse %1</source>
         <translation>Mus %1</translation>
     </message>
@@ -3798,7 +3797,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+220"/>
+        <location filename="Log.cpp" line="+225"/>
         <source>Debug</source>
         <translation>Felsök</translation>
     </message>
@@ -3898,7 +3897,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Användare lämnade kanalen</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+59"/>
         <source>the server</source>
         <translation>servern</translation>
     </message>
@@ -3943,7 +3942,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-521"/>
+        <location line="-531"/>
         <source>Toggle console for %1 events</source>
         <translation>Växla konsoll för %1 händelser</translation>
     </message>
@@ -4084,6 +4083,36 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <location/>
         <source>Only accept whispers from friends</source>
         <translation>Acceptera endast viskningar från vänner</translation>
+    </message>
+    <message>
+        <location/>
+        <source>If enabled text messages you send will be read back to you with TTS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Read back own messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Chat Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Maximum chat length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Unlimited</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source> Lines</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4385,7 +4414,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+2048"/>
+        <location line="+2049"/>
         <source>Root</source>
         <translation>Rot</translation>
     </message>
@@ -4469,28 +4498,28 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2159"/>
+        <location line="+2132"/>
         <source>Mumble -- %1</source>
         <translation>Mumble - %1</translation>
     </message>
     <message>
-        <location line="-2155"/>
+        <location line="-2128"/>
         <source>&amp;Window</source>
         <translation>&amp;Fönster</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+126"/>
+        <location line="+127"/>
         <source>Minimize</source>
         <translation>Minimera</translation>
     </message>
     <message>
-        <location line="-126"/>
+        <location line="-127"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+125"/>
+        <location line="+126"/>
         <source>Close</source>
         <translation>Stäng</translation>
     </message>
@@ -4500,7 +4529,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Mumble är för närvarande ansluten till en server. Vill du stänga eller minimera?</translation>
     </message>
     <message>
-        <location line="-177"/>
+        <location line="-178"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Avaktivera mikrofon</translation>
@@ -4542,14 +4571,14 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Viska/Skrik</translation>
     </message>
     <message>
-        <location line="+58"/>
-        <location line="+2189"/>
+        <location line="+59"/>
+        <location line="+2161"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Ej ansluten&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1905"/>
+        <location line="-1877"/>
         <source>Clear</source>
         <translation>Rensa</translation>
     </message>
@@ -4579,7 +4608,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>URL schemat kan inte användas av Mumble</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+21"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
         <translation>Den här versionen av Mumble kan inte hantera URLer för Mumble version %1.%2.%3</translation>
     </message>
@@ -4667,7 +4696,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Visa kommentar på %1</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+52"/>
         <location line="+236"/>
         <source>Message to channel %1</source>
         <translation>Meddelande till kanalen %1</translation>
@@ -4683,17 +4712,15 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>SSL version matchar inte</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>This server is using an older encryption standard. It might be an older 1.1 based Mumble server.&lt;br /&gt;Would you like to launch the compatibility client to connect to it?</source>
-        <translation>Den här servern använder en äldre krypteringsstandard. Det kan vara en äldre 1.1-baserad Mumble server.&lt;br /&gt;Vill du starta kompatibilitetsklienten för att ansluta till den?</translation>
+        <translation type="obsolete">Den här servern använder en äldre krypteringsstandard. Det kan vara en äldre 1.1-baserad Mumble server.&lt;br /&gt;Vill du starta kompatibilitetsklienten för att ansluta till den?</translation>
     </message>
     <message>
-        <location line="+26"/>
         <source>The compatibility client could not be found, or failed to start.&lt;br /&gt;Note that the compatibility client is an optional component for most installations, and might not be installed.</source>
-        <translation>Kompatibilitetsklienten hittades inte eller kunde inte startas.&lt;br /&gt;Notera att kompatibilitetsklienten är en frivillig komponent fö de flesta installationer och kanske inte installerats.</translation>
+        <translation type="obsolete">Kompatibilitetsklienten hittades inte eller kunde inte startas.&lt;br /&gt;Notera att kompatibilitetsklienten är en frivillig komponent fö de flesta installationer och kanske inte installerats.</translation>
     </message>
     <message>
-        <location line="+127"/>
+        <location line="+126"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
         <translation>&lt;center&gt;Skicka ett meddelande till kanalen &quot;%1&quot; här&lt;/center&gt;</translation>
@@ -4731,12 +4758,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Bildformatet stöds ej.</translation>
     </message>
     <message>
-        <location line="-1585"/>
+        <location line="-1555"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Röstkanal skickas över kontrollkanal.</translation>
     </message>
     <message>
-        <location line="-879"/>
+        <location line="-883"/>
         <source>&amp;User</source>
         <translation>&amp;Användare</translation>
     </message>
@@ -4746,13 +4773,13 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>&amp;Kanal</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+63"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Detta kommer ändra i-spelet läget.</translation>
     </message>
     <message>
-        <location line="+699"/>
+        <location line="+702"/>
         <source>Change your comment</source>
         <translation>Ändra din kommentar</translation>
     </message>
@@ -4803,12 +4830,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1264"/>
+        <location line="+1261"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Visa certifikat</translation>
     </message>
     <message>
-        <location line="-1005"/>
+        <location line="-1002"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Ange anledning</translation>
@@ -4820,25 +4847,25 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+12"/>
-        <location line="+84"/>
+        <location line="+81"/>
         <location line="+4"/>
         <location line="+232"/>
         <source>To %1: %2</source>
         <translation>Till %1: %2</translation>
     </message>
     <message>
-        <location line="-320"/>
-        <location line="+88"/>
+        <location line="-317"/>
+        <location line="+85"/>
         <source>Message to %1</source>
         <translation>Meddelande till %1</translation>
     </message>
     <message>
-        <location line="-43"/>
+        <location line="-40"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
         <translation>Är du säker på att du vill återställa kommentaren av användaren %1?</translation>
     </message>
     <message>
-        <location line="+193"/>
+        <location line="+190"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Är du säker på att du vill ta bort %1 och alla dess underkanaler?</translation>
     </message>
@@ -4914,12 +4941,16 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>&lt;p&gt;%1.&lt;br /&gt;Detaljerad felinformation om detta certifikat är: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Vill du acceptera detta certifikat ändå?&lt;br /&gt;(Det kommer även att lagras, så du kommer inte att bli tillfrågad igen.)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <source>Failed to launch compatibility client</source>
-        <translation>Kunde inte starta kompatibilitetsklient</translation>
+        <location line="+24"/>
+        <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <source>Failed to launch compatibility client</source>
+        <translation type="obsolete">Kunde inte starta kompatibilitetsklient</translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Server connection failed: %1.</source>
         <translation>Serveranslutning misslyckades: %1.</translation>
     </message>
@@ -6370,9 +6401,8 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
         <translation>Återställ zoom</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+108"/>
         <source>FPS: %1</source>
-        <translation>FPS: %1</translation>
+        <translation type="obsolete">FPS: %1</translation>
     </message>
 </context>
 <context>
@@ -6395,12 +6425,11 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
         <translation>Högerklicka på en användare för att få fler alternativ.</translation>
     </message>
     <message>
-        <location line="+30"/>
         <source>FPS: %1</source>
-        <translation>FPS: %1</translation>
+        <translation type="obsolete">FPS: %1</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+224"/>
         <source>Overlay</source>
         <translation>Överlag</translation>
     </message>
@@ -7543,7 +7572,7 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+56"/>
         <source>%1 online (%2 idle)</source>
         <translation>%1 tillgänglig (%2 inaktiv)</translation>
     </message>
@@ -7733,7 +7762,7 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
         <translation>Korrupt nedladdning av ny version upptäckt. Automatiskt borttagen.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+19"/>
         <source>Downloading new snapshot from %1 to %2</source>
         <translation>Laddar ner ny utvecklarversion från %1 till %2</translation>
     </message>

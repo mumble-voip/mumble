@@ -43,12 +43,12 @@
 #include <string>
 #include "overlay.h"
 #include "HardHook.h"
+#include "ods.h"
 
 #define lround(x) static_cast<long int>((x) + (((x) >= 0.0) ? 0.5 : -0.5))
 
 using namespace std;
 
-void __cdecl fods(const char *format, ...);
 void __cdecl ods(const char *format, ...);
 
 struct Direct3D9Data {

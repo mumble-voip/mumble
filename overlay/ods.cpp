@@ -1,5 +1,5 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2008-2009, Mikkel Krautz <mikkel@krautz.dk>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2011, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -29,35 +29,45 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <stdlib.h>
-#include "GlobalShortcut.h"
-#include "Global.h"
+#include <stdio.h>
+#include <ctype.h>
+#include <windows.h>
+#include "ods.h"
 
-class GlobalShortcutMac : public GlobalShortcutEngine {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(GlobalShortcutMac)
-	public:
-		GlobalShortcutMac();
-		~GlobalShortcutMac();
-		QString buttonName(const QVariant &);
-		void needRemap();
-		bool handleModButton(CGEventFlags newmask);
-		virtual bool canSuppress();
+void __cdecl _ods_out(const char *format, va_list *args) {
+	char buf[4096], *p = buf + 2;
 
-	public slots:
-		void forwardEvent(void *evt);
+	buf[0] = 'M'; // Add a prefix
+	buf[1] = ':';
 
-	protected:
-		CFRunLoopRef loop;
-		CFMachPortRef port;
-		CGEventFlags modmask;
-		UCKeyboardLayout *kbdLayout;
+	// Format but be aware of space taken by prefix
+	int len = _vsnprintf_s(p, sizeof(buf) - 3, _TRUNCATE, format, *args);
 
-		void run();
 
-		static CGEventRef callback(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *udata);
-		QString translateMouseButton(const unsigned int keycode) const;
-		QString translateModifierKey(const unsigned int keycode) const;
-		QString translateKeyName(const unsigned int keycode) const;
-};
+	if (len <= 0)
+		return;
+
+	p += len;
+
+	// Truncate trailing spaces
+	while (p > (buf + 2) && isspace(p[-1]))
+		*--p = '\0';
+
+	// Add custom termination
+	if (p > (buf + sizeof(buf) - 3)) { // Make sure there's space
+		p = buf + sizeof(buf) - 3;
+	}
+	*p++ = '\r';
+	*p++ = '\n';
+	*p   = '\0';
+
+	OutputDebugStringA(buf);
+}
+
+void __cdecl fods(const char *format, ...) {
+	va_list args;
+
+	va_start(args, format);
+	_ods_out(format, &args);
+	va_end(args);
+}

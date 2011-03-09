@@ -1,5 +1,5 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2008-2009, Mikkel Krautz <mikkel@krautz.dk>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2011, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -28,36 +28,12 @@
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+#ifndef ODS_H
+#define ODS_H
 
-#include <stdlib.h>
-#include "GlobalShortcut.h"
-#include "Global.h"
+#include <stdarg.h>
 
-class GlobalShortcutMac : public GlobalShortcutEngine {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(GlobalShortcutMac)
-	public:
-		GlobalShortcutMac();
-		~GlobalShortcutMac();
-		QString buttonName(const QVariant &);
-		void needRemap();
-		bool handleModButton(CGEventFlags newmask);
-		virtual bool canSuppress();
+void __cdecl _ods_out(const char *format, va_list *args);
+void __cdecl fods(const char *format, ...);
 
-	public slots:
-		void forwardEvent(void *evt);
-
-	protected:
-		CFRunLoopRef loop;
-		CFMachPortRef port;
-		CGEventFlags modmask;
-		UCKeyboardLayout *kbdLayout;
-
-		void run();
-
-		static CGEventRef callback(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *udata);
-		QString translateMouseButton(const unsigned int keycode) const;
-		QString translateModifierKey(const unsigned int keycode) const;
-		QString translateKeyName(const unsigned int keycode) const;
-};
+#endif // ODS_H

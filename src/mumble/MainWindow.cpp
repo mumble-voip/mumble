@@ -683,10 +683,10 @@ void MainWindow::openUrl(const QUrl &url) {
 	MumbleVersion::get(&major, &minor, &patch, version);
 
 	if ((major < 1) || // No pre 1.2.0
-		(major == 1 && minor <= 1) ||
-		(major > thismajor) || // No future version
-		(major == thismajor && minor > thisminor) ||
-		(major == thismajor && minor == thisminor && patch > thispatch)) {
+	        (major == 1 && minor <= 1) ||
+	        (major > thismajor) || // No future version
+	        (major == thismajor && minor > thisminor) ||
+	        (major == thismajor && minor == thisminor && patch > thispatch)) {
 		g.l->log(Log::Warning, tr("This version of Mumble can't handle URLs for Mumble version %1.%2.%3").arg(major).arg(minor).arg(patch));
 		return;
 	}

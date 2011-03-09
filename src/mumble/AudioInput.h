@@ -83,6 +83,9 @@ class AudioInput : public QThread {
 		unsigned int iMicFilled, iEchoFilled;
 		inMixerFunc imfMic, imfEcho;
 		inMixerFunc chooseMixer(const unsigned int nchan, SampleFormat sf);
+		void resetAudioProcessor();
+		int encodeSpeexFrame(short *pSource, unsigned char *buffer);
+		int encodeCELTFrame(short *pSource, unsigned char *buffer);
 	protected:
 		MessageHandler::UDPMessageType umtType;
 		SampleFormat eMicFormat, eEchoFormat;

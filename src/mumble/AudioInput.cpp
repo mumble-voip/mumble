@@ -594,6 +594,130 @@ celt_int32_t celtBack(CELTEncoder *enc, void *rawdata, celt_int32_t format, celt
 }
  */
 
+void AudioInput::resetAudioProcessor() {
+	if (!bResetProcessor)
+		return;
+
+	int iArg;
+
+	if (sppPreprocess)
+		speex_preprocess_state_destroy(sppPreprocess);
+	if (sesEcho)
+		speex_echo_state_destroy(sesEcho);
+
+	sppPreprocess = speex_preprocess_state_init(iFrameSize, iSampleRate);
+
+	iArg = 1;
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_VAD, &iArg);
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC, &iArg);
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DENOISE, &iArg);
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DEREVERB, &iArg);
+
+	iArg = 30000;
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_TARGET, &iArg);
+
+	float v = 30000.0f / static_cast<float>(g.s.iMinLoudness);
+	iArg = iroundf(floorf(20.0f * log10f(v)));
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_MAX_GAIN, &iArg);
+
+	iArg = -60;
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_DECREMENT, &iArg);
+
+	iArg = g.s.iNoiseSuppress;
+	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
+
+	if (iEchoChannels > 0) {
+		sesEcho = speex_echo_state_init_mc(iFrameSize, iFrameSize * 10, 1, bEchoMulti ? iEchoChannels : 1);
+		iArg = iSampleRate;
+		speex_echo_ctl(sesEcho, SPEEX_ECHO_SET_SAMPLING_RATE, &iArg);
+		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_ECHO_STATE, sesEcho);
+
+		qWarning("AudioInput: ECHO CANCELLER ACTIVE");
+	} else {
+		sesEcho = NULL;
+	}
+
+	bResetProcessor = false;
+}
+
+int AudioInput::encodeCELTFrame(short *psSource, unsigned char *buffer) {
+	CELTCodec *switchto = NULL;
+
+	if ((! g.uiSession || (g.s.lmLoopMode == Settings::Local)) && (! g.qmCodecs.isEmpty())) {
+		// Use latest for local loopback
+		QMap<int, CELTCodec *>::const_iterator i = g.qmCodecs.constEnd();
+		--i;
+		switchto = i.value();
+	} else {
+		if (cCodec && bPreviousVoice) {
+			// Currently talking, don't switch unless you must.
+			int v = cCodec->bitstreamVersion();
+			if ((v == g.iCodecAlpha) || (v == g.iCodecBeta))
+				switchto = cCodec;
+		}
+	}
+	if (! switchto) {
+		switchto = g.qmCodecs.value(g.bPreferAlpha ? g.iCodecAlpha : g.iCodecBeta);
+		if (! switchto) {
+			switchto = g.qmCodecs.value(g.bPreferAlpha ? g.iCodecBeta : g.iCodecAlpha);
+		}
+	}
+	if (switchto != cCodec) {
+		if (cCodec && ceEncoder) {
+			cCodec->celt_encoder_destroy(ceEncoder);
+			ceEncoder = NULL;
+		}
+		cCodec = switchto;
+		if (cCodec) {
+			ceEncoder = cCodec->encoderCreate();
+		}
+	} else if (cCodec && ! bPreviousVoice) {
+		cCodec->celt_encoder_ctl(ceEncoder, CELT_RESET_STATE);
+	}
+
+	if (! cCodec)
+		return 0;
+
+	if (g.uiSession && g.s.lmLoopMode != Settings::Local) {
+		int v = cCodec->bitstreamVersion();
+		if (v == g.iCodecAlpha)
+			umtType = MessageHandler::UDPVoiceCELTAlpha;
+		else if (v == g.iCodecBeta)
+			umtType = MessageHandler::UDPVoiceCELTBeta;
+		else {
+			qWarning() << "Couldn't find message type for codec version" << v;
+			return 0;
+		}
+	}
+
+	cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_PREDICTION(0));
+
+	cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_VBR_RATE(iAudioQuality));
+	int len = cCodec->encode(ceEncoder, psSource, buffer, qMin(iAudioQuality / (8 * 100), 127));
+	iBitrate = len * 100 * 8;
+
+	return len;
+}
+
+int AudioInput::encodeSpeexFrame(short *psSource, unsigned char *buffer) {
+	int vbr = 0;
+	speex_encoder_ctl(esSpeex, SPEEX_GET_VBR_MAX_BITRATE, &vbr);
+	if (vbr != iAudioQuality) {
+		vbr = iAudioQuality;
+		speex_encoder_ctl(esSpeex, SPEEX_SET_VBR_MAX_BITRATE, &vbr);
+	}
+
+	if (! bPreviousVoice)
+		speex_encoder_ctl(esSpeex, SPEEX_RESET_STATE, NULL);
+
+	speex_encode_int(esSpeex, psSource, &sbBits);
+	int len = speex_bits_write(&sbBits, reinterpret_cast<char *>(buffer), 127);
+	iBitrate = len * 50 * 8;
+	speex_bits_reset(&sbBits);
+
+	return len;
+}
+
 void AudioInput::encodeAudioFrame() {
 	int iArg;
 	ClientUser *p=ClientUser::get(g.uiSession);
@@ -628,47 +752,7 @@ void AudioInput::encodeAudioFrame() {
 	}
 
 	QMutexLocker l(&qmSpeex);
-
-	if (bResetProcessor) {
-		if (sppPreprocess)
-			speex_preprocess_state_destroy(sppPreprocess);
-		if (sesEcho)
-			speex_echo_state_destroy(sesEcho);
-
-		sppPreprocess = speex_preprocess_state_init(iFrameSize, iSampleRate);
-
-		iArg = 1;
-		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_VAD, &iArg);
-		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC, &iArg);
-		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DENOISE, &iArg);
-		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_DEREVERB, &iArg);
-
-		iArg = 30000;
-		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_TARGET, &iArg);
-
-		float v = 30000.0f / static_cast<float>(g.s.iMinLoudness);
-		iArg = iroundf(floorf(20.0f * log10f(v)));
-		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_MAX_GAIN, &iArg);
-
-		iArg = -60;
-		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_DECREMENT, &iArg);
-
-		iArg = g.s.iNoiseSuppress;
-		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_NOISE_SUPPRESS, &iArg);
-
-		if (iEchoChannels > 0) {
-			sesEcho = speex_echo_state_init_mc(iFrameSize, iFrameSize*10, 1, bEchoMulti ? iEchoChannels : 1);
-			iArg = iSampleRate;
-			speex_echo_ctl(sesEcho, SPEEX_ECHO_SET_SAMPLING_RATE, &iArg);
-			speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_ECHO_STATE, sesEcho);
-
-			qWarning("AudioInput: ECHO CANCELLER ACTIVE");
-		} else {
-			sesEcho = NULL;
-		}
-
-		bResetProcessor = false;
-	}
+	resetAudioProcessor();
 
 	speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_GET_AGC_GAIN, &iArg);
 	float gainValue = static_cast<float>(iArg);
@@ -772,75 +856,11 @@ void AudioInput::encodeAudioFrame() {
 	int len;
 
 	if (umtType != MessageHandler::UDPVoiceSpeex) {
-		CELTCodec *switchto = NULL;
-
-		if ((! g.uiSession || (g.s.lmLoopMode == Settings::Local)) && (! g.qmCodecs.isEmpty())) {
-			// Use latest for local loopback
-			QMap<int, CELTCodec *>::const_iterator i = g.qmCodecs.constEnd();
-			--i;
-			switchto = i.value();
-		} else {
-			if (cCodec && bPreviousVoice) {
-				// Currently talking, don't switch unless you must.
-				int v = cCodec->bitstreamVersion();
-				if ((v == g.iCodecAlpha) || (v == g.iCodecBeta))
-					switchto = cCodec;
-			}
-		}
-		if (! switchto) {
-			switchto = g.qmCodecs.value(g.bPreferAlpha ? g.iCodecAlpha : g.iCodecBeta);
-			if (! switchto) {
-				switchto = g.qmCodecs.value(g.bPreferAlpha ? g.iCodecBeta : g.iCodecAlpha);
-			}
-		}
-		if (switchto != cCodec) {
-			if (cCodec && ceEncoder) {
-				cCodec->celt_encoder_destroy(ceEncoder);
-				ceEncoder = NULL;
-			}
-			cCodec = switchto;
-			if (cCodec) {
-				ceEncoder = cCodec->encoderCreate();
-			}
-		} else if (cCodec && ! bPreviousVoice) {
-			cCodec->celt_encoder_ctl(ceEncoder, CELT_RESET_STATE);
-		}
-
-		if (! cCodec)
+		len = encodeCELTFrame(psSource, buffer);
+		if (len == 0)
 			return;
-
-		if (g.uiSession && g.s.lmLoopMode != Settings::Local) {
-			int v = cCodec->bitstreamVersion();
-			if (v == g.iCodecAlpha)
-				umtType = MessageHandler::UDPVoiceCELTAlpha;
-			else if (v == g.iCodecBeta)
-				umtType = MessageHandler::UDPVoiceCELTBeta;
-			else {
-				qWarning() << "Couldn't find message type for codec version" << v;
-				return;
-			}
-		}
-
-		cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_PREDICTION(0));
-
-		cCodec->celt_encoder_ctl(ceEncoder,CELT_SET_VBR_RATE(iAudioQuality));
-		len = cCodec->encode(ceEncoder, psSource, buffer, qMin(iAudioQuality / 800, 127));
-		iBitrate = len * 100 * 8;
 	} else {
-		int vbr = 0;
-		speex_encoder_ctl(esSpeex, SPEEX_GET_VBR_MAX_BITRATE, &vbr);
-		if (vbr != iAudioQuality) {
-			vbr = iAudioQuality;
-			speex_encoder_ctl(esSpeex, SPEEX_SET_VBR_MAX_BITRATE, &vbr);
-		}
-
-		if (! bPreviousVoice)
-			speex_encoder_ctl(esSpeex, SPEEX_RESET_STATE, NULL);
-
-		speex_encode_int(esSpeex, psSource, &sbBits);
-		len = speex_bits_write(&sbBits, reinterpret_cast<char *>(buffer), 127);
-		iBitrate = len * 50 * 8;
-		speex_bits_reset(&sbBits);
+		len = encodeSpeexFrame(psSource, buffer);
 	}
 
 	flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len), ! bIsSpeech);

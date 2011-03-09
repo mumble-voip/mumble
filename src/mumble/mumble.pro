@@ -76,7 +76,7 @@ CONFIG(no-vorbis-recording) {
 win32 {
   RC_FILE	= mumble.rc
   HEADERS	*= GlobalShortcut_win.h TaskList.h
-  SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp SharedMemory_win.cpp os_win.cpp TaskList.cpp ../../overlay/HardHook.cpp
+  SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp SharedMemory_win.cpp os_win.cpp TaskList.cpp ../../overlay/HardHook.cpp ../../overlay/ods.cpp
   LIBS		*= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -l"$$(DXSDK_DIR)Lib/x86/dinput8" -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -llibsndfile-1 -lshell32 -lshlwapi
   LIBS		*= -ldelayimp -delayload:speex.dll -delayload:shell32.dll
 
@@ -90,7 +90,7 @@ win32 {
   !CONFIG(no-wasapi) {
     CONFIG	*= wasapi
   }
-  
+
   !CONFIG(no-elevation) {
     CONFIG(release, debug|release) {
       QMAKE_LFLAGS *= /MANIFESTUAC:\"level=\'asInvoker\' uiAccess=\'true\'\"

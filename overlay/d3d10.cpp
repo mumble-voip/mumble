@@ -587,6 +587,11 @@ void checkDXGIHook(bool preonly) {
 }
 
 extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
+	// This function is called by the Mumble client in Mumble's scope
+	// mainly to extract the offsets of various functions in the IDXGISwapChain
+	// and IDXGIObject interfaces that need to be hooked in target
+	// applications. The data is stored in the dxgi shared memory structure.
+
 	if (! dxgi)
 		return;
 
@@ -603,7 +608,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 	memset(&ovi, 0, sizeof(ovi));
 	ovi.dwOSVersionInfoSize = sizeof(ovi);
 	GetVersionExW(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
-	if ((ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 6001))) {
+	if ((ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 6001))) { // Make sure this is vista or greater as quite a number of <=WinXP users have fake DX10 libs installed
 		HMODULE hD3D10 = LoadLibrary("D3D10.DLL");
 		HMODULE hDXGI = LoadLibrary("DXGI.DLL");
 
@@ -660,6 +665,8 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 
 					if (pDevice && pSwapChain) {
 						HMODULE hRef;
+						// For VC++ the vtable is located at the base addr. of the object and each function entry is a single pointer. Since p.e. the base classes
+						// of IDXGISwapChain have a total of 8 functions the 8+Xth entry points to the Xth added function in the derived interface.
 						void ***vtbl = (void ***) pSwapChain;
 						void *pPresent = (*vtbl)[8];
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pPresent, &hRef)) {

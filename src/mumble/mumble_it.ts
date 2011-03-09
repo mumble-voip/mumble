@@ -2721,7 +2721,7 @@ Parla ad alta voce, come quando sei infastidito o eccitato. Poi diminuisci il vo
         <translation>Utente Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+425"/>
+        <location filename="main.cpp" line="+405"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Scadenza certificato:&lt;/b&gt; Il tuo certificato sta per scadere. Devi rinnovarlo, o non sarai più in grado di connetterti ai server a cui ti sei registrato.</translation>
     </message>
@@ -3379,7 +3379,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+54"/>
+        <location filename="ConfigDialog.cpp" line="+52"/>
         <source>Accept changes</source>
         <translation>Accetta i cambiamenti</translation>
     </message>
@@ -4005,7 +4005,7 @@ Nome del server. Questo è il nome che apparirà sulla tua lista dei server pref
         <translation>Questo veramente non è divertente, ma apparentemente c&apos;è un bug nel codice del rapporto, e abbiamo fallito ad inviare il rapporto. Puoi informare uno sviluppatore sull&apos;errore %1</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+102"/>
         <source>Uploading crash report</source>
         <translation>Invio rapporto errore in corso</translation>
     </message>
@@ -4084,7 +4084,7 @@ delle possibili posizioni.</translation>
 <context>
     <name>DockTitleBar</name>
     <message>
-        <location filename="CustomElements.cpp" line="+135"/>
+        <location filename="CustomElements.cpp" line="+180"/>
         <source>Drag here</source>
         <translation>Trascina qui</translation>
     </message>
@@ -4184,9 +4184,8 @@ delle possibili posizioni.</translation>
 <context>
     <name>GlobalShortcutMacInit</name>
     <message>
-        <location filename="GlobalShortcut_macx.mm" line="+65"/>
         <source>Mumble has detected that it is unable to receive Global Shortcut events when it is in the background.&lt;br /&gt;&lt;br /&gt;This is because the Universal Access feature called &apos;Enable access for assistive devices&apos; is currently disabled.&lt;br /&gt;&lt;br /&gt;Please &lt;a href=&quot; &quot;&gt;enable this setting&lt;/a&gt; and continue when done.</source>
-        <translation>Mumble ha rilevato che non è in grado di ricevere i segnali delle Scorciatoie Globali quando è in background.&lt;br /&gt;&lt;br /&gt;Questo è dovuto alla funzione di Accesso Universale chiamata &apos;Abilita accesso per i dispositivi di assistenza&apos; che è attualmente disattivata.&lt;br /&gt;&lt;br /&gt;Si prega di &lt;a href=&quot;&quot;&gt;abilitare questa impostazione&lt;/a&gt; e proseguire quando terminato.</translation>
+        <translation type="obsolete">Mumble ha rilevato che non è in grado di ricevere i segnali delle Scorciatoie Globali quando è in background.&lt;br /&gt;&lt;br /&gt;Questo è dovuto alla funzione di Accesso Universale chiamata &apos;Abilita accesso per i dispositivi di assistenza&apos; che è attualmente disattivata.&lt;br /&gt;&lt;br /&gt;Si prega di &lt;a href=&quot;&quot;&gt;abilitare questa impostazione&lt;/a&gt; e proseguire quando terminato.</translation>
     </message>
 </context>
 <context>
@@ -4287,7 +4286,7 @@ delle possibili posizioni.</translation>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+325"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+380"/>
         <source>Mouse %1</source>
         <translation>Mouse %1</translation>
     </message>
@@ -4465,7 +4464,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+220"/>
+        <location filename="Log.cpp" line="+225"/>
         <source>Debug</source>
         <translation>Debug</translation>
     </message>
@@ -4605,7 +4604,7 @@ p, li { white-space: pre-wrap; }
         <translation>Utente uscito dal canale</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+59"/>
         <source>the server</source>
         <translation>il server</translation>
     </message>
@@ -4650,7 +4649,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-521"/>
+        <location line="-531"/>
         <source>Toggle console for %1 events</source>
         <translation>Imposta console per gli eventi %1</translation>
     </message>
@@ -4806,6 +4805,36 @@ p, li { white-space: pre-wrap; }
         <location/>
         <source>Only accept whispers from friends</source>
         <translation>Accetta sussurri solo dagli amici</translation>
+    </message>
+    <message>
+        <location/>
+        <source>If enabled text messages you send will be read back to you with TTS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Read back own messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Chat Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Maximum chat length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Unlimited</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source> Lines</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5184,7 +5213,7 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+2048"/>
+        <location line="+2049"/>
         <source>Root</source>
         <translation>Radice</translation>
     </message>
@@ -5328,28 +5357,28 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2159"/>
+        <location line="+2132"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2155"/>
+        <location line="-2128"/>
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+126"/>
+        <location line="+127"/>
         <source>Minimize</source>
         <translation>Minimizza</translation>
     </message>
     <message>
-        <location line="-126"/>
+        <location line="-127"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+125"/>
+        <location line="+126"/>
         <source>Close</source>
         <translation>Chiudi</translation>
     </message>
@@ -5359,7 +5388,7 @@ p, li { white-space: pre-wrap; }
         <translation>Mumble è attualmente connesso ad un server. Vuoi Chiuderlo o Minimizzarlo?</translation>
     </message>
     <message>
-        <location line="-177"/>
+        <location line="-178"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Mutati</translation>
@@ -5406,14 +5435,14 @@ p, li { white-space: pre-wrap; }
         <translation>Sussurra/Urla</translation>
     </message>
     <message>
-        <location line="+58"/>
-        <location line="+2189"/>
+        <location line="+59"/>
+        <location line="+2161"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Disconnesso&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1905"/>
+        <location line="-1877"/>
         <source>Clear</source>
         <translation>Cancella</translation>
     </message>
@@ -5443,7 +5472,7 @@ p, li { white-space: pre-wrap; }
         <translation>Lo schema dell&apos;URL non è &apos;mumble&apos;</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+21"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
         <translatorcomment>Questa versione di Mumble non può utilizzare gli URL di Mumble versione %1.%2.%3</translatorcomment>
         <translation></translation>
@@ -5495,7 +5524,12 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;&lt;p&gt;Host remoto %5 (porta%6)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1570"/>
+        <location line="+1306"/>
+        <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+234"/>
         <source>Images (*.png *.jpg *.jpeg *.svg)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5508,7 +5542,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1559"/>
+        <location line="-1529"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canale di voce&lt;/h2&gt;&lt;p&gt;Crittografato con 128 bit OCB-AES128&lt;br/&gt;%1 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
@@ -5524,13 +5558,13 @@ p, li { white-space: pre-wrap; }
         <translation>Registrati come %1</translation>
     </message>
     <message>
-        <location line="-1052"/>
+        <location line="-1055"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Cambia lo stato della sovrapposizione in gioco.</translation>
     </message>
     <message>
-        <location line="+725"/>
+        <location line="+728"/>
         <location line="+327"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Stai per registrarti sul server. Quest&apos;azione non può essere annullata, il tuo nome utente non potrà essere cambiato. Sarai per sempre conosciuto come &apos;%1&apos; su questo server.&lt;p&gt;Se sicuro di volerti registrare?&lt;/p&gt;</translation>
@@ -5574,7 +5608,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Al canale %1: %2</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+36"/>
         <location line="+236"/>
         <source>Message to channel %1</source>
         <translation>Messaggio al canale %1</translation>
@@ -5586,8 +5620,8 @@ p, li { white-space: pre-wrap; }
         <translation>Al canale %1 e ai suoi sottocanali:%2</translation>
     </message>
     <message>
-        <location line="-318"/>
-        <location line="+84"/>
+        <location line="-315"/>
+        <location line="+81"/>
         <location line="+4"/>
         <location line="+232"/>
         <source>To %1: %2</source>
@@ -5605,17 +5639,15 @@ p, li { white-space: pre-wrap; }
         <translation>Versione SSL diversa</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>This server is using an older encryption standard. It might be an older 1.1 based Mumble server.&lt;br /&gt;Would you like to launch the compatibility client to connect to it?</source>
-        <translation>Questo server utilizza un vecchio standard di cifratura. Potrebbe essere un vecchio server basato su Mumble 1.1 .&lt;br /&gt;Vorresti aprire il client retrocompatibile per connetterti a questo server?</translation>
+        <translation type="obsolete">Questo server utilizza un vecchio standard di cifratura. Potrebbe essere un vecchio server basato su Mumble 1.1 .&lt;br /&gt;Vorresti aprire il client retrocompatibile per connetterti a questo server?</translation>
     </message>
     <message>
-        <location line="+26"/>
         <source>The compatibility client could not be found, or failed to start.&lt;br /&gt;Note that the compatibility client is an optional component for most installations, and might not be installed.</source>
-        <translation>Il client retrocompatibile non è stato trovato, o la sua apertura è fallita.&lt;br /&gt;Nota che il client retrocompatibile è un componente facoltativo in molte installazioni, e potrebbe non essere installato.</translation>
+        <translation type="obsolete">Il client retrocompatibile non è stato trovato, o la sua apertura è fallita.&lt;br /&gt;Nota che il client retrocompatibile è un componente facoltativo in molte installazioni, e potrebbe non essere installato.</translation>
     </message>
     <message>
-        <location line="+127"/>
+        <location line="+126"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
         <translation>&lt;center&gt;Inserisci qui il messaggio per il canale &apos;%1&apos;&lt;/center&gt;</translation>
@@ -5656,7 +5688,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 variazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1585"/>
+        <location line="-1555"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Il canale di voce è trasmesso sul canale di controllo.</translation>
     </message>
@@ -5710,7 +5742,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1264"/>
+        <location line="+1261"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Visualizza certificato</translation>
     </message>
@@ -5719,7 +5751,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Espulsione giocatore %1</translation>
     </message>
     <message>
-        <location line="-1005"/>
+        <location line="-1002"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Inserisci motivazione</translation>
@@ -5735,7 +5767,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+12"/>
-        <location line="+88"/>
+        <location line="+85"/>
         <source>Message to %1</source>
         <translation>Messaggio a %1</translation>
     </message>
@@ -5834,12 +5866,11 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;p&gt;%1.&lt;br /&gt;L&apos;errore specifico con il certificato è: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Vuoi accettare questo certificato ugualmente?&lt;br /&gt;(Questo sarà anche salvato quindi non ti sarà chiesto di nuovo.)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+50"/>
         <source>Failed to launch compatibility client</source>
-        <translation>Apertura client retrocompatibile fallita</translation>
+        <translation type="obsolete">Apertura client retrocompatibile fallita</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+30"/>
         <source>Server connection failed: %1.</source>
         <translation>Connessione al server fallita: %1.</translation>
     </message>
@@ -5887,7 +5918,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Giocatore</translation>
     </message>
     <message>
-        <location line="-2230"/>
+        <location line="-2204"/>
         <source>&amp;Channel</source>
         <translation>&amp;Canale</translation>
     </message>
@@ -7566,9 +7597,8 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation>Reimposta zoom</translation>
     </message>
     <message>
-        <location filename="OverlayClient.cpp" line="+108"/>
         <source>FPS: %1</source>
-        <translation>FPS: %1</translation>
+        <translation type="obsolete">FPS: %1</translation>
     </message>
 </context>
 <context>
@@ -7623,12 +7653,11 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation>Per le impostazioni avanzate, fare click con il pulsante destro su di un utente.</translation>
     </message>
     <message>
-        <location line="+30"/>
         <source>FPS: %1</source>
-        <translation>FPS: %1</translation>
+        <translation type="obsolete">FPS: %1</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+224"/>
         <source>Overlay</source>
         <translation>Sovrapposizione</translation>
     </message>
@@ -9000,7 +9029,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+56"/>
         <source>%1 online (%2 idle)</source>
         <translation>%1 online (%2 inattivo)</translation>
     </message>
@@ -9198,7 +9227,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>La nuova versione scaricata si è rivelata corrotta ed è quindi stata automaticamente rimossa.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+19"/>
         <source>Downloading new snapshot from %1 to %2</source>
         <translation>Download in corso della Snapshot %2 (attuale %1)</translation>
     </message>

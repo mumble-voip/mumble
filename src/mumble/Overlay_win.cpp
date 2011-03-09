@@ -39,6 +39,9 @@ typedef unsigned int (__cdecl *GetOverlayMagicVersionProc)();
 typedef void (__cdecl *PrepProc)();
 typedef void (__cdecl *PrepDXGIProc)();
 
+// Used by the overlay to detect whether we injected into ourselve
+extern "C" __declspec(dllexport) void mumbleSelfDetection() {};
+
 class OverlayPrivateWin : public OverlayPrivate {
 	protected:
 		QLibrary *qlOverlay;
