@@ -4,6 +4,7 @@ CONFIG  += qt thread warn_on release qtestlib no_keywords console
 LANGUAGE	= C++
 TARGET = Resample
 SOURCES = Resample.cpp Timer.cpp
+HEADERS = Timer.h
 VPATH += ..
 INCLUDEPATH	*= .. ../../speex/include ../../speex/libspeex ../../speexbuild
 LIBS 		*= -lspeex

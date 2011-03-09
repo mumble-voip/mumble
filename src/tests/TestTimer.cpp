@@ -20,7 +20,7 @@ void TestTimer::accuracy() {
 	do {
 	} while (a.elapsed() < 1000);
 
-	QVERIFY(abs(t.elapsed() / 1000ULL - a.elapsed()) < 10);
+	QVERIFY(abs((int)(t.elapsed() / 1000ULL - a.elapsed())) < 10);
 }
 
 void TestTimer::resolution() {
