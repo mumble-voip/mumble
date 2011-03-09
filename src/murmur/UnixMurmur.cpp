@@ -255,7 +255,7 @@ void UnixMurmur::setuid() {
 
 void UnixMurmur::initialcap() {
 #ifdef Q_OS_LINUX
-	cap_value_t caps[] = {CAP_NET_ADMIN, CAP_SETUID, CAP_SETGID, CAP_SYS_RESOURCE, CAP_DAC_OVERRIDE };
+	cap_value_t caps[] = {CAP_NET_ADMIN, CAP_SETUID, CAP_SETGID, CAP_CHOWN, CAP_SYS_RESOURCE, CAP_DAC_OVERRIDE };
 
 	if (! bRoot)
 		return;

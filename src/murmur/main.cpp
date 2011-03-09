@@ -273,6 +273,33 @@ int main(int argc, char **argv) {
 
 	Meta::mp.read(inifile);
 
+	// need to open log file early so log dir can be root owned:
+	// http://article.gmane.org/gmane.comp.security.oss.general/4404
+	if (detach && ! Meta::mp.qsLogfile.isEmpty()) {
+		qfLog = new QFile(Meta::mp.qsLogfile);
+		if (! qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+			delete qfLog;
+			qfLog = NULL;
+#ifdef Q_OS_UNIX
+			fprintf(stderr, "murmurd: failed to open logfile %s: no logging will be done\n",qPrintable(Meta::mp.qsLogfile));
+#else
+			qWarning("Failed to open logfile %s. Will not detach.",qPrintable(Meta::mp.qsLogfile));
+			detach = false;
+#endif
+		} else {
+			qfLog->setTextModeEnabled(true);
+			QFileInfo qfi(*qfLog);
+			Meta::mp.qsLogfile = qfi.absoluteFilePath();
+#ifdef Q_OS_UNIX
+			if (Meta::mp.uiUid != 0 && fchown(qfLog->handle(), Meta::mp.uiUid, Meta::mp.uiGid) == -1) {
+				qFatal("can't change log file owner to %d %d:%d - %s", qfLog->handle(), Meta::mp.uiUid, Meta::mp.uiGid, strerror(errno));
+			}
+#endif
+		}
+	} else {
+		detach = false;
+	}
+
 #ifdef Q_OS_UNIX
 	unixhandler.setuid();
 #endif
@@ -318,25 +345,6 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	if (detach && ! Meta::mp.qsLogfile.isEmpty()) {
-		qfLog = new QFile(Meta::mp.qsLogfile);
-		if (! qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
-			delete qfLog;
-			qfLog = NULL;
-#ifdef Q_OS_UNIX
-			fprintf(stderr, "murmurd: failed to open logfile %s: no logging will be done\n",qPrintable(Meta::mp.qsLogfile));
-#else
-			qWarning("Failed to open logfile %s. Will not detach.",qPrintable(Meta::mp.qsLogfile));
-			detach = false;
-#endif
-		} else {
-			qfLog->setTextModeEnabled(true);
-			QFileInfo qfi(*qfLog);
-			Meta::mp.qsLogfile = qfi.absoluteFilePath();
-		}
-	} else {
-		detach = false;
-	}
 #ifdef Q_OS_UNIX
 	if (detach) {
 		if (fork() != 0) {
