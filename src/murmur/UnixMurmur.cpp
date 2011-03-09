@@ -231,13 +231,21 @@ void UnixMurmur::setuid() {
 		} else
 			qFatal("Couldn't switch uid/gid.");
 #else
-		if (setregid(Meta::mp.uiGid, Meta::mp.uiGid) != 0)
+		if (::initgroups(qPrintable(Meta::mp.qsName), Meta::mp.uiGid) != 0)
+			qCritical("Can't initialize supplementary groups");
+		if (::setgid(Meta::mp.uiGid) != 0)
 			qCritical("Failed to switch to gid %d", Meta::mp.uiGid);
-		if (setresuid(Meta::mp.uiUid, Meta::mp.uiUid, 0) != 0) {
+		if (::setuid(Meta::mp.uiUid) != 0) {
 			qFatal("Failed to become uid %d", Meta::mp.uiUid);
 		} else {
 			qCritical("Successfully switched to uid %d", Meta::mp.uiUid);
 			initialcap();
+		}
+		if (!Meta::mp.qsHome.isEmpty()) {
+			// QDir::homePath is broken. It only looks at $HOME
+			// instead of getpwuid() so we have to set our home
+			// ourselves
+			::setenv("HOME", qPrintable(Meta::mp.qsHome), 1);
 		}
 #endif
 	} else if (bRoot) {

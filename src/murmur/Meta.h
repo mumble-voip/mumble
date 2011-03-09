@@ -96,7 +96,11 @@ struct MetaParams {
 
 	QMap<QString, QString> qmConfig;
 
+#ifdef Q_OS_UNIX
 	unsigned int uiUid, uiGid;
+	QString qsHome;
+	QString qsName;
+#endif
 
 	QSettings *qsSettings;
 

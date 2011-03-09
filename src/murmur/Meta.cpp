@@ -264,15 +264,22 @@ void MetaParams::read(QString fname) {
 	iBanTime = qsSettings->value("autobanTime", iBanTime).toInt();
 
 #ifdef Q_OS_UNIX
-	const QString uname = qsSettings->value("uname").toString();
-	if (! uname.isEmpty() && (geteuid() == 0)) {
-		struct passwd *pw = getpwnam(qPrintable(uname));
+	qsName = qsSettings->value("uname").toString();
+	if (geteuid() == 0) {
+		// TODO: remove this silent fallback to enforce running as non-root
+		bool requested = true;
+		if (qsName.isEmpty()) {
+			// default server user name
+			qsName = "mumble-server";
+			requested = false;
+		}
+		struct passwd *pw = getpwnam(qPrintable(qsName));
 		if (pw) {
 			uiUid = pw->pw_uid;
 			uiGid = pw->pw_gid;
-		}
-		if (uiUid == 0) {
-			qFatal("Cannot find username %s", qPrintable(uname));
+			qsHome = pw->pw_dir;
+		} else if (requested) {
+			qFatal("Cannot find username %s", qPrintable(qsName));
 		}
 		endpwent();
 	}

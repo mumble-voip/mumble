@@ -272,11 +272,13 @@ int main(int argc, char **argv) {
 
 
 	Meta::mp.read(inifile);
-	MumbleSSL::addSystemCA();
 
 #ifdef Q_OS_UNIX
 	unixhandler.setuid();
 #endif
+
+	MumbleSSL::addSystemCA();
+
 	ServerDB db;
 
 	meta = new Meta();
