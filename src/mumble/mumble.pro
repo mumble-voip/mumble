@@ -253,7 +253,7 @@ g15 {
 
 	win32 {
 		LIBS *= -llgLcd
-		QMAKE_LIBDIR *= "$$G15SDK_PATH/Libs/x86"
+		QMAKE_LIBDIR *= "$$G15SDK_PATH/Lib/x86"
 		INCLUDEPATH *= "$$G15SDK_PATH/Src"
 		DEFINES *= WIN32
 
