@@ -5198,7 +5198,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     <message>
         <location line="+62"/>
         <source>Skipping version check in debug mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>V režimu ladění přeskakuji kontrolu verze.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
@@ -6995,12 +6995,12 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     <message>
         <location/>
         <source>&amp;Copy URL</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kopírovat URL</translation>
     </message>
     <message>
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zkopíruje odkaz na tento kanál do schránky.</translation>
     </message>
 </context>
 <context>
@@ -7388,7 +7388,7 @@ To může být způsobeno například těmito důvody:
     <message>
         <location line="+5"/>
         <source>Talking and recently active</source>
-        <translation type="unfinished"></translation>
+        <translation>Mluvící a nedávno aktivní</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -7408,7 +7408,7 @@ To může být způsobeno například těmito důvody:
     <message>
         <location line="+8"/>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit čas pro nedávnou aktivitu (%1 sekund)...</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -7418,17 +7418,17 @@ To může být způsobeno například těmito důvody:
     <message>
         <location line="+8"/>
         <source>Sort</source>
-        <translation type="unfinished"></translation>
+        <translation>Seřadit</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Alphabetically</source>
-        <translation type="unfinished"></translation>
+        <translation>Podle abecedy</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Last state change</source>
-        <translation type="unfinished"></translation>
+        <translation>Podle poslední změny stavu</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -7443,12 +7443,12 @@ To může být způsobeno například těmito důvody:
     <message>
         <location line="+41"/>
         <source>Configure recently active time</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit čas pro nedávnou aktivitu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Amount of seconds users remain active after talking:</source>
-        <translation type="unfinished"></translation>
+        <translation>Počet sekund, kdy poté, co uživatelé domluví zůstanou aktivní:</translation>
     </message>
 </context>
 <context>
@@ -7715,7 +7715,7 @@ To může být způsobeno například těmito důvody:
     <message>
         <location/>
         <source>Blacklist</source>
-        <translation>Nikdy Zobrazit</translation>
+        <translation>Nikdy Nezobrazit</translation>
     </message>
     <message>
         <location/>
