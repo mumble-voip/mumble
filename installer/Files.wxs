@@ -166,7 +166,7 @@
   <Fragment>
     <DirectoryRef Id="INSTALLDIR">
       <Component Id="libmysql.dll">
-        <File Source="$(var.MySQLDir)\lib\opt\libmysql.dll" KeyPath="yes" />
+        <File Source="$(var.MySQLDir)\lib\libmysql.dll" KeyPath="yes" />
       </Component>
     </DirectoryRef>
   </Fragment>
