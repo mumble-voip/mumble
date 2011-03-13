@@ -8,74 +8,72 @@
         <translation type="obsolete">Mumble - upravit ACL pro %1</translation>
     </message>
     <message>
-        <location filename="ACLEditor.ui" line="+411"/>
+        <location filename="ACLEditor.ui"/>
         <source>Active ACLs</source>
         <translation>Aktivní ACL</translation>
     </message>
     <message>
-        <location line="+102"/>
+        <location/>
         <source>Context</source>
         <translation>Kontext</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location/>
         <source>User/Group</source>
         <translation>Uživatel/skupina</translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location/>
         <source>Permissions</source>
         <translation>Oprávnění</translation>
     </message>
     <message>
-        <location line="-494"/>
-        <location line="+428"/>
+        <location/>
         <source>Group</source>
         <translation>Skupina</translation>
     </message>
     <message>
-        <location line="-315"/>
-        <location line="+6"/>
+        <location/>
         <source>Members</source>
         <translation>Členové</translation>
     </message>
     <message>
-        <location line="+227"/>
+        <location/>
         <source>&amp;Add</source>
         <translation>Přid&amp;at</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>&amp;Remove</source>
         <translation>Odst&amp;ranit</translation>
     </message>
     <message>
-        <location line="-48"/>
+        <location/>
         <source>&amp;Up</source>
         <translation>Nahor&amp;u</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>&amp;Down</source>
         <translation>&amp;Dolů</translation>
     </message>
     <message>
-        <location line="-29"/>
+        <location/>
         <source>Inherit ACLs</source>
         <translation>Zdědit ACL</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location/>
         <source>Applies to this channel</source>
         <translation>Použít pro tento kanál</translation>
     </message>
     <message>
-        <location line="-13"/>
+        <location/>
         <source>Applies to sub-channels</source>
         <translation>Použít pro podkanály</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location/>
         <source>User ID</source>
         <translation>ID Uživatele</translation>
     </message>
@@ -90,31 +88,27 @@
         <translation>Povolit</translation>
     </message>
     <message>
-        <location filename="ACLEditor.ui" line="-399"/>
-        <location line="+178"/>
-        <location line="+7"/>
+        <location filename="ACLEditor.ui"/>
         <source>Remove</source>
         <translation>Odstranit</translation>
     </message>
     <message>
-        <location line="-169"/>
+        <location/>
         <source>Inherit</source>
         <translation>Zdědit</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location/>
         <source>Inheritable</source>
         <translation>Děditelné</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>Inherited</source>
         <translation>Zděděno</translation>
     </message>
     <message>
-        <location line="-58"/>
-        <location line="+152"/>
-        <location line="+32"/>
+        <location/>
         <source>Add</source>
         <translation>Přidat</translation>
     </message>
@@ -123,12 +117,12 @@
         <translation type="obsolete">Přidat k odstranění</translation>
     </message>
     <message>
-        <location line="-235"/>
+        <location/>
         <source>&amp;Groups</source>
         <translation>S&amp;kupiny</translation>
     </message>
     <message>
-        <location line="+277"/>
+        <location/>
         <source>&amp;ACL</source>
         <translation>&amp;ACL</translation>
     </message>
@@ -157,87 +151,87 @@
         <translation type="obsolete">Toto tlačítko způsobí, že okno bude zavřeno, aniž by se upravily záznamy ACL nebo skupin na serveru.</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location/>
         <source>List of entries</source>
         <translation>Seznam záznamů</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Inherit ACL of parent?</source>
         <translation>Zdědit ACL nadřazeného?</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
         <translation>Toto nastaví, jestli ACL, v řetězu nadřazených kanálů, budou aplikovány na tento objekt. Zděděny mohou být pouze záznamy označené v nadřazeném kanálu jako &quot;použit na podkanály&quot;.</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location/>
         <source>Add new entry</source>
         <translation>Přidat nový záznam</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
         <translation>Toto přidá nový záznam, ze záčátku nastaven bez jakýchkoli oprávnění a  použitý na vše.</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location/>
         <source>Remove entry</source>
         <translation>Odstranit záznam</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This removes the currently selected entry.</source>
         <translation>Odstraní vybraný záznam.</translation>
     </message>
     <message>
-        <location line="-51"/>
+        <location/>
         <source>Move entry up</source>
         <translation>Přesunout záznam nahoru</translation>
     </message>
     <message>
-        <location line="-407"/>
+        <location/>
         <source>Name</source>
         <translation>Jméno</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Enter the channel name here.</source>
         <translation>Zde zdejte jméno kanálu.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Description</source>
         <translation>Popis</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Password</source>
         <translation>Heslo</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Enter the channel password here.</source>
         <translation>Zde zadejte heslo kanálu.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Check to create a temporary channel.</source>
         <translation>Zaškrtněte pro vytvoření dočasného kanálu.</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Temporary</source>
         <translation>Dočasný</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location/>
         <source>Channel positioning facility value</source>
         <translation>Hodnota prostředku umístění kanálu</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
@@ -246,110 +240,110 @@ This value enables you to change the way mumble arranges the channels in the tre
 Tato hodnota Vám umožní změnit způsob, jakým Mumble uspořádá kanály ve stromu. Kanál s vyšší hodnotou &lt;i&gt;Umístění&lt;/i&gt; bude vždy umístěn pod kanálem s nižší hodnotou a naopak. Pokud hodnota &lt;i&gt;Umístění&lt;/i&gt; dvou kanálů je shodná, budou seřazeny abecedně podle jejích jména.</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>Position</source>
         <translation>Umístění</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location/>
         <source>Add new group</source>
         <translation>Přidat novou skupinu</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
         <translation>&lt;b&gt;Přidat&lt;/b&gt;&lt;br/&gt;
 Přidat novou skupinu.</translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location/>
         <source>Inherited members</source>
         <translation>Zdědění členové</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Contains the list of members added to the group by this channel.</source>
         <translation>Obsahuje seznam členů přidaných do skupiny tímto kanálem.</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
         <translation>Obsahuje seznam členů, jejichž členství ve skupině nebude zděděno z nadřazeného kanálu.</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>Contains the list of members inherited by other channels.</source>
         <translation>Obsahuje seznam členů zděděných z jiných kanálů.</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location/>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
         <translation>Zadejte jméno uživatele, kterého chcete do skupiny přidat a klikněte na Přidat.</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location/>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
         <translation>Zadejte jméno uživatele, kterého chcete ze skupiny odstranit a klikněte na Přidat.</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location/>
         <source>Exclude</source>
         <translation>Vyřadit</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Excluded members</source>
         <translation>Vyřazení členové</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location/>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
         <translation>Přesune záznam nahoru v seznamu. Protože záznamy pravidel jsou vyhodnocovány postupně, to může změnit privilegia přidělená uživateli. Nemůžete přesunout záznam nad zděděný záznam -- pokud je to opravdu potřeba pak musíte duplikovat zděděný záznam.</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location/>
         <source>Move entry down</source>
         <translation>Přesunout záznam dolů</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
         <translation>Přesune záznam dolů v seznamu. Protože záznamy pravidel jsou vyhodnocovány postupně, může to změnit privilegia přidělená uživateli.</translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location/>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
         <translation>Záznam by měl být použit pro tento kanál.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This makes the entry apply to this channel.</source>
         <translation>Tímto se daná položka použije pro tento kanál.</translation>
     </message>
     <message>
-        <location line="-16"/>
+        <location/>
         <source>Entry should apply to sub-channels.</source>
         <translation>Záznam by měl být použit v podkanálech.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This makes the entry apply to sub-channels of this channel.</source>
         <translation>Tímto se daná položka stane platnou pro podkanály tohoto kanálu.</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location/>
         <source>Group this entry applies to</source>
         <translation>Skupina, na kterou je záznam použit</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location/>
         <source>User this entry applies to</source>
         <translation>Uživatel, na kterého je záznam použit</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
         <translation>Toto kontroluje, na kterého uživatele se záznam použije. Jednoduše napište jméno uživatele a stiskněte enter k prohledání serveru pro shodu.</translation>
     </message>
@@ -390,7 +384,7 @@ Přidat novou skupinu.</translation>
         <translation>Toto odebere privilegium %1. Pokud je privilegium zároveň povoleno i zakázáno, považuje se za odepřené.&lt;br /&gt;%2</translation>
     </message>
     <message>
-        <location filename="ACLEditor.ui" line="-452"/>
+        <location filename="ACLEditor.ui"/>
         <source>List of groups</source>
         <translation>Seznam skupin</translation>
     </message>
@@ -399,7 +393,7 @@ Přidat novou skupinu.</translation>
         <translation type="obsolete">Toto je seznam skupin definovaných pro tento kanál. Pro vytvoření nové skupiny jen napište její jméno a zmáčkněte klávesu Enter.</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location/>
         <source>Remove selected group</source>
         <translation>Odstranit vybranou skupinu</translation>
     </message>
@@ -408,7 +402,7 @@ Přidat novou skupinu.</translation>
         <translation type="obsolete">Odstraní vybranou skupinu. Pokud byla skupina zděděna, nebude odstraněna ze seznamu, ale všechny místní informace o skupině budou smazány. </translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>Inherit group members from parent</source>
         <translation>Zdědit členy skupiny od nadřazené</translation>
     </message>
@@ -417,7 +411,7 @@ Přidat novou skupinu.</translation>
         <translation type="obsolete">Tímto se zdědí všichni členové skupiny z rodiče, pokud je skupina označena jako &lt;i&gt;děditelná&lt;/i&gt; v nadřazeném kanálu.</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location/>
         <source>Make group inheritable to sub-channels</source>
         <translation>Učiní skupinu děditelnou pro podkanály</translation>
     </message>
@@ -426,12 +420,12 @@ Přidat novou skupinu.</translation>
         <translation type="obsolete">Učiní tuto skupinu děditelnou do podkanálů. Pokud je skupina neděditelná, podkanály mohou zvovy vytvořit stejně pojmenovanou skupinu.</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>Group was inherited from parent channel</source>
         <translation>Skupina byla zděděna od nadřazeného kanálu</translation>
     </message>
     <message>
-        <location line="+81"/>
+        <location/>
         <source>Add member to group</source>
         <translation>Přidat člena do skupiny</translation>
     </message>
@@ -440,7 +434,7 @@ Přidat novou skupinu.</translation>
         <translation type="obsolete">Napište jméno uživatele, kterého chcete přidat do skupiny a zmáčkněte enter.</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location/>
         <source>Remove member from group</source>
         <translation>Odebrat uživatele ze skupiny</translation>
     </message>
@@ -449,87 +443,87 @@ Přidat novou skupinu.</translation>
         <translation type="obsolete">Napište jméno uživatele, kterého chcete odstranit ze skupiny a zmáčkněte enter.</translation>
     </message>
     <message>
-        <location line="-328"/>
+        <location/>
         <source>Dialog</source>
         <translation>Dialogové Okno</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>&amp;Properties</source>
         <translation>&amp;Vlastnosti</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
         <translation>&lt;b&gt;Jméno&lt;/b&gt;&lt;br /&gt;Zadejte do pole jméno kanálu. Jméno musí souhlasit s omezeními předepsaná serverem, ke kterému jste připojeni.</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
         <translation>&lt;b&gt;Dočasný&lt;/b&gt;&lt;br /&gt;
 Když je zaškrtnuto, kanál, který je vytvořen bude označen jako dočasný. To znamená, že když poslední hráč z kanálu odejde, bude automaticky ze serveru smazán.</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location/>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
         <translation>&lt;b&gt;Skupina&lt;/b&gt;&lt;br /&gt;
 Toto jsou všechny skupiny v současnosti definované pro kanál. Pro vytvoření nové skupiny, jednoduše zadejte jméno a stiskněte enter.</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location/>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
         <translation>&lt;b&gt;Odstranit&lt;/b&gt;&lt;br /&gt;Toto odstraní právě zvolenou skupinu. Pokud skupina byla zděděna, nebude ze seznamu odstraněna, ale všechny místní informace o ní budou vyčištěny.</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
         <translation>&lt;b&gt;Zdědit&lt;/b&gt;&lt;br /&gt;Toto zdědí všechny členy ve skupině z nadřazené, pokud je skupina v nadřazeném kanálu označena jako &lt;i&gt;Nezděditelná&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location/>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
         <translation>&lt;b&gt;Děditelná&lt;/b&gt;&lt;br /&gt;Toto dělá skupinu děditelnou do podkanálů. Pokud je skupina neděditelná, podkanály stále můžou vytvořit nové skupiny se stejným jménem.</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
         <translation>&lt;b&gt;Zděděno&lt;/b&gt;&lt;br /&gt;Toto označuje, že skupina byla zděděna z nadřazeného kanálu. Tuto možnost nemůžete upravit, je zde pouze pro informaci.</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location/>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
         <translation>&lt;b&gt;Členové&lt;/b&gt;&lt;br /&gt;
 Tento seznam obsahuje všechny členy, kteří byli do skupiny přidáni současným kanálem. Nezapomeňte, že toto nezahrnuje členy zděděné vyššími úrovněmi stromu kanálů. Ti můžou být nalezeni v seznamu &lt;i&gt;Zdědění členové&lt;/i&gt;. Aby se zabránilo zdědění tohoto seznamu kanály nižší úrovně, odškrtněte &lt;i&gt;Děditelné&lt;/i&gt; nebo ručně členy přidejte do  seznamu &lt;i&gt;Vyřazení členové&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
         <translation>&lt;b&gt;Vyřazení členové&lt;/b&gt;&lt;br /&gt;
 Obsahuje seznam členů, jejichž členství ve skupině nebude zděděno z nadřazeného kanálu.</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
         <translation>&lt;b&gt;Zdědění členové&lt;/b&gt;&lt;br /&gt;
 Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&gt;Zdědit&lt;/i&gt;, abyste zabránili dědění z kanálů vyšší úrovně.</translation>
     </message>
     <message>
-        <location line="+283"/>
+        <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
         <translation>Toto kontroluje, na kterou skupinu uživatelů se tento záznam použije.&lt;br /&gt;Nezapomeňte, že skupina je vyhodnocena v kontextu kanálu, v kterém je záznam použit. Například, výchozí ACL v Kořenovém kanálu dává oprávnění k &lt;i&gt;Zápisu&lt;/i&gt; skupině &lt;i&gt;admin&lt;/i&gt;. Tento záznam, pokud je zděděn kanálem, dá uživateli oprávnění k zápisu, pokud patři do skupiny &lt;i&gt;admin&lt;/i&gt; v onom kanálu, i když do skupiny &lt;i&gt;admin&lt;/i&gt; nepatří v kanále kde ACL vznikl.&lt;br /&gt;Pokud jméno skupiny začíná &apos;!&apos;, její členství je znegováno, a pokud začíná &apos;~&apos;, je vyhodnoceno v kanále, kde byl ACL definováno, spíše než kde je ACL aktivní.&lt;br /&gt;Pokud jméno skupiny začíná &apos;#&apos;,je vyloženo jako znak přístupu. Uživatelé musí zadat cokoliv, co následuje po &apos;#&apos; v jejich seznamu znaků přístupu ke shodě. Toto může být použito pro velmi jednoduchý přístup heslem do kanálů pro neověřené uživatele.&lt;br &gt;Pokud jméno skupiny začíná &apos;$&apos;, skupina se bude shodovat pouze s uživateli, jejichž haš certifikátu se shoduje s tím co následuje po &apos;$&apos;.&lt;br /&gt;Několik speciálních přednastavených skupin je:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt;- Shoda se všemi.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Všichni ověření uživatelé se budou shodovat.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Uživatel současně v podkanále minimum &lt;i&gt;a&lt;/i&gt; společných nadřazených, a mezi &lt;i&gt;b&lt;/i&gt; a &lt;i&gt;c&lt;/i&gt; kanály níže v řetězci. Navštivte stránku pro rozsáhlejší dokumentaci této skupiny.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Uživatelé, kteří jsou nyní v kanále se budou shodovat (nemusíte psát &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Uživatelé mimo kanál se budou shodovat (nemusíte psát  &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Nezapomeňte, že záznam bude použit buď na skupinu, nebo na uživatele, ne na obojí.</translation>
     </message>
     <message>
-        <location line="-512"/>
+        <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
         <translation>&lt;b&gt;Heslo&lt;/b&gt;&lt;br /&gt;Toto pole Vám dovolí jednoduše nastavit a změnit heslo kanálu. Používá funkci Mumble znaků přístupu v pozadí. Použijte ACL a skupiny, pokud potřebujete podrobnější a silnější kontrolu přístupu.</translation>
     </message>
     <message>
-        <location line="+353"/>
+        <location/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
         <translation>Toto zobrazí všechny aktivní záznamy v tomto kanále. Záznamy zděděné z nadřazených kanálů budou zobrazeny kurzívou.&lt;br /&gt;AACL jsou vyhodnocovány od shora dolů, což znamená, že se priorita zvyšuje, jak postupujete seznamem dolů.</translation>
     </message>
@@ -614,109 +608,107 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
 <context>
     <name>ASIOConfig</name>
     <message>
-        <location filename="ASIOInput.ui" line="+20"/>
+        <location filename="ASIOInput.ui"/>
         <source>Device selection</source>
         <translation>Výběr zařízení</translation>
     </message>
     <message>
-        <location line="+61"/>
+        <location/>
         <source>Capabilities</source>
         <translation>Schopnosti</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location/>
         <source>Buffer size</source>
         <translation>Velikost vyrovnávací paměti</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location/>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
         <translation>Toto nastaví kanály vstupu pro ASIO. Ujistěte se, že vyberete alespoň jeden kanál jako mikrofon a reproduktor. &lt;i&gt;Mikrofon&lt;/i&gt; by měl být tam, kde je Váš mikrofon připojen, a &lt;i&gt;Reproduktor&lt;/i&gt; by měl být kanál, který vzorkuje &apos;&lt;i&gt;To co slyšíte&lt;/i&gt;&apos;.&lt;br /&gt;Například, na Audigy 2 ZS, dobrý výběr pro mikrofon by mohl být &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; zatímco Reproduktor by mohl být  &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; a &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Channels</source>
         <translation>Kanály</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location/>
         <source>Configure input channels</source>
         <translation>Nastavit kanály vstupu</translation>
     </message>
     <message>
-        <location line="-88"/>
+        <location/>
         <source>Device to use for microphone</source>
         <translation>Zařízení, které použít jako mikrofon</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
         <translation>Toto zvolí, které zařízení má být dotázáno. Stále se musíte zařízení dotázat a vybrat, které kanály použít.</translation>
     </message>
     <message>
-        <location line="-19"/>
+        <location/>
         <source>Device</source>
         <translation>Zařízení</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location/>
         <source>&amp;Query</source>
         <translation>&amp;Dotázat</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location/>
         <source>Query selected device</source>
         <translation>Dotázat se zvoleného zařízení</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
         <translation>Toto se dotáže zvoleného zařízení pro kanály. Berte na vědomí, že mnoho ovladačů ASIO má mnoho chyb, a dotazovat se jich může způsobit pád aplikace nebo systému.</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>&amp;Configure</source>
         <translation>&amp;Nastavit</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location/>
         <source>Configure selected device</source>
         <translation>Nastavit zvolené zařízení</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
         <translation>Toto nastaví zvolené zařízení. Berte na vědomí, že mnoho ovladačů ASIO má mnoho chyb, a dotazovat se jich může způsobit pád aplikace nebo systému.</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location/>
         <source>Driver name</source>
         <translation>Jméno ovladače</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location/>
         <source>Microphone</source>
         <translation>Mikrofon</translation>
     </message>
     <message>
-        <location line="+49"/>
-        <location line="+99"/>
+        <location/>
         <source>&lt;-</source>
         <translation>&lt;-</translation>
     </message>
     <message>
-        <location line="-86"/>
-        <location line="+73"/>
+        <location/>
         <source>-&gt;</source>
         <translation>-&gt;</translation>
     </message>
     <message>
-        <location line="-49"/>
+        <location/>
         <source>Unused</source>
         <translation>Nepoužité</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location/>
         <source>Speakers</source>
         <translation>Reproduktory</translation>
     </message>
@@ -753,7 +745,7 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation>ASIO</translation>
     </message>
     <message>
-        <location filename="ASIOInput.ui" line="-315"/>
+        <location filename="ASIOInput.ui"/>
         <source>Form</source>
         <translation>Tiskopis</translation>
     </message>
@@ -1056,69 +1048,69 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
 <context>
     <name>AudioInput</name>
     <message>
-        <location filename="AudioInput.ui" line="+14"/>
+        <location filename="AudioInput.ui"/>
         <source>Form</source>
         <translation>Formulář</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Interface</source>
         <translation>Rozhraní</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>System</source>
         <translation>Systém</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>Input method for audio</source>
         <translation>Vstupní metoda pro zvuk</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation>&lt;b&gt;Toto je metoda vstupu pro zvuk.&lt;/b&gt;&lt;br /&gt;Pravděpododně budete chtít použít DirectSound.</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location/>
         <source>Device</source>
         <translation>Zařízení</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>Input device for audio</source>
         <oldsource>Output method for audio</oldsource>
         <translation>Vstupní metoda pro zvuk</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
         <oldsource>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</oldsource>
         <translation>&lt;b&gt;Toto je vstupní zařízení, použité pro zvuk.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location/>
         <source>Transmission</source>
         <translation>Vysílání</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>&amp;Transmit</source>
         <translation>Vysíla&amp;t</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>When to transmit your speech</source>
         <translation>Kdy vysílat Vaši řeč</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
         <translation>Nastaví, kdy bude Vaše řeč vysílána.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Průběžně&lt;/i&gt; - neustále&lt;br /&gt;&lt;i&gt;Při aktivitě hlasu&lt;/i&gt; - když je zjištěna aktivita hlasu .&lt;br /&gt;&lt;i&gt;Mluvení při stisku tlačítka&lt;/i&gt; - mluvení je vysíláno, pouze když držíte stisknutou určenou klávesu pro mluvení.</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location/>
         <source>DoublePush Time</source>
         <translation>Čas pro opětovné stisknutí</translation>
     </message>
@@ -1127,42 +1119,42 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">Slyšitelný zvuk signalizující každý začátek a konec vysílání</translation>
     </message>
     <message>
-        <location line="+122"/>
+        <location/>
         <source>&lt;b&gt;This enables the audio cues for push to talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when push to talk is pressed and released.</source>
         <translation>&lt;b&gt;Toto povolí zvukový signál pro mluvení při stisknutí.&lt;/b&gt;&lt;br /&gt; Toto nastavení Vám přehraje krátké pípnutí, když je klávesa pro mluvení stisknuta a uvolněna.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>PTT Audio cue</source>
         <translation>PTT Zvukový signál</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location/>
         <source>Use SNR based speech detection</source>
         <translation>Použít zjištění hlasu na základě poměru signál-šum</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Signal to Noise</source>
         <translation>Signál-Šum</translation>
     </message>
     <message>
-        <location line="-16"/>
+        <location/>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
         <translation>&lt;b&gt;Toto nastaví zjištění hlasu, aby používalo Amplitudu.&lt;/b&gt;&lt;br /&gt; V tomto režimu, je čistá síla vstupního signálu použita pro zjištění hlasu.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Amplitude</source>
         <translation>Amplituda</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location/>
         <source>Voice &amp;Hold</source>
         <translation>Podržení &amp;Hlasu</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>How long to keep transmitting after silence</source>
         <translation>Jak dlouho se ještě vysílá po ukončení hlasové aktivity</translation>
     </message>
@@ -1171,43 +1163,42 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">&lt;b&gt;Nastaví, jak dlouho po ukončení hlasových aktivit zůstane vysílání aktivní.&lt;/b&gt;&lt;br /&gt; Nastavte na vyšší hodnotu, pokud je vaše vysílání přerušováno mezi větami (což je vidět i vizuálně na ikonce vedle vašeho jména).&lt;br /&gt;Toto nastavení má smysl pouze pokud je použito vysílání při hlasové aktivitě.</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location/>
         <source>Silence Below</source>
         <translation>Ticho Pod</translation>
     </message>
     <message>
-        <location line="+10"/>
-        <location line="+32"/>
+        <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
         <translation>&lt;b&gt;Toto nastaví spouštěcí hodnoty pro zjištění hlasu&lt;/b&gt;&lt;br /&gt;Použijte toto spolu s oknem Statistika Zvuku, pro ruční ladění spouštěcích hodnot pro zjištění hlasu. Vstupní hodnoty níže než &quot;Ticho Pod&quot; jsou vždy brány jako ticho. Hodnoty výše než &quot;Řeč Nad&quot; jsou vždy brány jako hlas. Hodnoty mezi budou brány jako hlas, pokud již mluvíte, ale nespustí nové zjišťování.</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location/>
         <source>Speech Above</source>
         <translation>Řeč Nad</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Signal values above this count as voice</source>
         <translation>Hodnoty signálu výše než tato hodnota jsou brány jako hlas</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location/>
         <source>Compression</source>
         <translation>Komprimace</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>&amp;Quality</source>
         <translation>&amp;Kvalita</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Quality of compression (peak bandwidth)</source>
         <translation>Kvalita komprimace (maximální šířka pásma)</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
         <translation>&lt;b&gt;Toto nastaví kvalitu komprimace.&lt;/b&gt;&lt;br /&gt; To určí jakou šířku pásma může Mumble použít pro výstupní zvuk.</translation>
     </message>
@@ -1216,17 +1207,17 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">Síla komprese (zvedne zatížení CPU)</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location/>
         <source>Audio per packet</source>
         <translation>Zvuk na paket</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>How many audio frames to send per packet</source>
         <translation>Kolik zvukových rámců poslat přes jeden paket</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
         <translation>&lt;b&gt;Vybere kolik zvukových rámců by mělo být dáno do jednoho paketu.&lt;/b&gt;&lt;br /&gt;Zvětšením této hodnoty se zvětší zpoždění ve Vašem hlase, ale také sníží využití šířky pásma.</translation>
     </message>
@@ -1235,157 +1226,157 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">Maximální šířka pásma pro zasílané audio</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation>&lt;b&gt;Toto zobrazuje špičku využití odchozí šírky pásma.&lt;/b&gt;&lt;br /&gt; Toto zobrazuje špičku množství šírky pásma odeslané z Vašeho stroje. Bitový tok zvuku je nejvyšší (protože používáme VBR) pro samotná zvuková data. Pozice je bitový tok, používaný pro informace o pozici. Čas zpracování se skládá z našeho rámečkování a hlavičky paketů IP( IP a UDP tvoří 75% z tohoto času).</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>Audio Processing</source>
         <translation>Zpracování Zvuku</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Noise Suppression</source>
         <translation>Potlačení Šumu</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Noise suppression</source>
         <translation>Potlačení šumu</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
         <translation>&lt;b&gt;Toto nastaví jak moc potlačení šumu použít.&lt;/b&gt;&lt;br /&gt;Čím vyšší je hodnota, tím agresivněji bude neměnný hluk potlačen.</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location/>
         <source>Amplification</source>
         <translation>Zesílení</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Maximum amplification of input sound</source>
         <translation>Maximální zesílení vstupního zvuku</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
         <translation>&lt;b&gt;Maximální zesílení vstupu.&lt;/b&gt;&lt;br /&gt;Mumble normalizuje hlasitost vstupu před komprimací, a toto nastavuje jak moc je dovoleno zesilovat.&lt;br /&gt;Skutečná úroveň je neustále aktualizována podle Vaši současné řeči, ale nikdy nepřesáhne úroveň zadanou zde.&lt;br /&gt;Pokud  úroveň&lt;i&gt;Hlasitosti Mikrofonu&lt;/i&gt; statistiky zvuku se pohybuje okol 100%, pravděpodobně budete toto chtít nastavit na 2.0 nebo tak nějak, ale pokud, jako většina lidí, nemůžete 100% dosáhnout, tak toto nastavte na mnohem větší úroveň.&lt;br /&gt; Ideálně to nastavte na &lt;i&gt;Hlasitost Mikrofonu * Faktor Zesílení &gt;= 100&lt;/i&gt;, i když mluvíte velmi jemně.&lt;br /&gt;&lt;br /&gt;Nezapomeňte, že neuškodí toto nastavit na maximum, ale Mumble začne zachycovat jiné konverzace, pokud ho necháte toto automaticky nastavit na tuto úroveň.</translation>
     </message>
     <message>
-        <location line="-272"/>
+        <location/>
         <source>Current speech detection chance</source>
         <translation>Současná šance zjištění řeči</translation>
     </message>
     <message>
-        <location line="-346"/>
+        <location/>
         <source>Cancel echo from speakers</source>
         <translation>Vyrušit ozvěnu z reproduktorů</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
         <translation>Povolením tohoto zrušíte ozvěnu z Vašich reproduktorů. Smíšená má malý dopad na procesor, ale funguje dobře pouze, pokud mají reproduktory stejnou hlasitost a jsou ve stejné vzdálenosti od mikrofonu. Vícekanálové rušení ozvěny poskytuje mnohem lepší rušení ozvěny, ale za vyšší požadavky na procesor.</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location/>
         <source>Disabled</source>
         <translation>Vypnuto</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Mixed</source>
         <translation>Smíšené</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Multichannel</source>
         <translation>Vícekanálové</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Echo</source>
         <translation>Ozvěna</translation>
     </message>
     <message>
-        <location line="+117"/>
+        <location/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
         <translation>Pokud v tomto čase stisknete klávesu pro mluvení dvakrát, bude uzamčena.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
         <translation>&lt;b&gt;Čas pro opětovné stisknutí&lt;/b&gt;&lt;br /&gt; Pokud dvakrát zmáčknete klávesu pro mluvení během nastaveného intervalu, bude uzamčena. Mumble bude stále přenášet, dokud klávesu nestisknete ještě jednou pro znovu odemčení.</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location/>
         <source>Gets played when the PTT button is pressed</source>
         <translation>Bude přehrán při stisku klávesy pro mluvení</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Gets played when the PTT button is released</source>
         <translation>Bude přehrán při uvolnění klávesy pro mluvení</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Reset audio cue to default</source>
         <translation>Resetovat zvukový signál na výchozí</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
         <translation>&lt;b&gt;Resetovat&lt;/b&gt;&lt;br/&gt;Nastaví cesty k souborům na výchozí.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Browse for on audio file</source>
         <translation>Procházet pro soubor zvuku při zapnutí</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Browse for off audio file</source>
         <translation>Procházet pro soubor zvuku při vypnutí</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Off</source>
         <translation>Vypnuto</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>On</source>
         <translation>Zapnuto</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Preview the audio cues</source>
         <translation>Náhled zvukových signálů</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location/>
         <source>Audible audio cue when push-to-talk is activated or deactivated</source>
         <translation>Slišitelný zvukový signál při spuštění či vypnutí mluvení při stisku tlačítka</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
         <translation>&lt;b&gt;Toto nastaví zjištění řeči, aby používalo poměr Signál-Šum.&lt;/b&gt;&lt;br /&gt;V tomto režimu je vstup analyzován pro něco připomínající čistý signál, a čistota tohoto signálu je použita při spuštění zjištění řeči.</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
         <translation>&lt;b&gt;Toto zobrazuje současné nastavení zjištění řeči.&lt;/b&gt;&lt;br /&gt;Tato nastavení můžete měnit z dialogového okna Nastavení nebo z Průvodce Zvukem.</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location/>
         <source>Signal values below this count as silence</source>
         <translation>Hodnoty signálu nížší než tento počet jsou brány jako ticho</translation>
     </message>
     <message>
-        <location line="+172"/>
+        <location/>
         <source>Maximum bandwidth used for sending audio</source>
         <translation>Maximální šířka pásma použitá pro odesílání zvuku</translation>
     </message>
@@ -1395,67 +1386,67 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation>Maximální šířka pásma sítě serveru je pouze %1 kbit/s. Kvalita zvuku automaticky přizpůsobena na %2 kbit/s (%3ms)</translation>
     </message>
     <message>
-        <location filename="AudioInput.ui" line="-265"/>
+        <location filename="AudioInput.ui"/>
         <source>Use Amplitude based speech detection</source>
         <translation>Použít zjištění řeči na základě Amplitudy</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
         <translation>&lt;b&gt;Toto zvolí, jak dlouho po domnělém zastavení by mělo odesílání pokračovat.&lt;/b&gt;&lt;br /&gt;Nastavte toto výše, pokud se Váš hlas při mluvení láme (jak můžete vidět díky rychle blikající ikoně zvuku vedle Vašeho jména).</translation>
     </message>
     <message>
-        <location line="-231"/>
+        <location/>
         <source>Idle AutoDeafen</source>
         <translation>AutoOhlušení při nečinosti</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>How long to remain idle before auto-deafen.</source>
         <translation>Jak dlouho zůstat nečinný před autoohluchnutím.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted and deafened.</source>
         <translation>Toto nastaví časovač nečinnosti. Pokud časovač vyprší bez jakéhokoliv vysílaného zvuku na server, jste ztlumeni a ohlušeni.</translation>
     </message>
     <message>
-        <location line="-58"/>
+        <location/>
         <source>Exclusive mode</source>
         <translation>Výhradní režim</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
         <translation>&lt;b&gt;Toto otevře zařízení ve výhradním režimu.&lt;/b&gt;&lt;br /&gt; Žádná jiná aplikace nebude schopna toto zařízení použít.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Exclusive</source>
         <translation>Výhradně</translation>
     </message>
     <message>
-        <location line="+153"/>
+        <location/>
         <source>R&amp;eset</source>
         <translation>R&amp;esetovat</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>&amp;Browse...</source>
         <translation>&amp;Procházet...</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>B&amp;rowse...</source>
         <translation>P&amp;rocházet...</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location/>
         <source>&amp;Preview</source>
         <translation>&amp;Náhled</translation>
     </message>
     <message>
-        <location line="-3"/>
+        <location/>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
         <translation>&lt;b&gt;Náhled&lt;/b&gt;&lt;br/&gt;Přehraje aktuální zvuk &lt;i&gt;zapnutí&lt;/i&gt; následován aktuálním zvukem &lt;i&gt;vypnutí&lt;/i&gt;.</translation>
     </message>
@@ -1539,287 +1530,286 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
 <context>
     <name>AudioOutput</name>
     <message>
-        <location filename="AudioOutput.ui" line="+14"/>
+        <location filename="AudioOutput.ui"/>
         <source>Form</source>
         <translation>Formulář</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Interface</source>
         <translation>Rozhraní</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>System</source>
         <translation>Systém</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>Output method for audio</source>
         <oldsource>Input method for audio</oldsource>
         <translation>Vstupní metoda pro zvuk</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <oldsource>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</oldsource>
         <translation>&lt;b&gt;Toto je výstupní metoda k použití pro zvuk.&lt;/b&gt;&lt;br /&gt; Pravděpodobně budete chtít použít DirectSound.</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location/>
         <source>Device</source>
         <translation>Zařízení</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>Output device for audio</source>
         <translation>Výstupní zařízení pro zvuk</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Toto je výstupní zařízení k použití pro zvuk.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+26"/>
-        <location line="+220"/>
+        <location/>
         <source>Positional Audio</source>
         <translation>Poziční Zvuk</translation>
     </message>
     <message>
-        <location line="-210"/>
+        <location/>
         <source>Audio Output</source>
         <translation>Výstup Zvuku</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Default &amp;Jitter Buffer</source>
         <translation>&amp;Výchozí vyr. pam. chvění</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Safety margin for jitter buffer</source>
         <translation>Bezpečnostní hranice pro vyrovnávací pamět chvění</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
         <translation>&lt;b&gt;Toto nastaví minimální bezpečnostní hranici pro vyrovnávací paměť chvění.&lt;/b&gt;&lt;br /&gt;Veškerý příchozí zvuk je uložen, a vyrovnávací paměť chvění se neustále snaží vyrovnávací paměť dotlačit na minimum udržitelné Vaší sítí, aby bylo zpoždění co nejmenší. Toto nastaví minimální velikost vyrovnávací paměti, kterou použít. Pokud je začátek vět, které slyšíte velmi roztřesený, tuto hodnotu zvyšte.</translation>
     </message>
     <message>
-        <location line="+220"/>
+        <location/>
         <source>Minimum distance to user before sound volume decreases</source>
         <translation>Minimální vzdálenost od uživatele před snížením hlasitosti zvuku</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
         <translation>Toto nastaví minimální vzdálenost pro kalkulace zvuku. Hlasitost řeči ostatních uživatelů se nesníží, dokud nebudou mít alespoň tuto vzdálenost.</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
         <translation>Toto nastaví maximálníí vzdálenost pro kalkulace zvuku. Když mají uživatelé vzdálenost větší než toto, jejich hlasitost řeči se již nebude dále snižovat.</translation>
     </message>
     <message>
-        <location line="+216"/>
+        <location/>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
         <translation>&lt;b&gt; Toto povolí jeden z testovacích režimů zpětné smyčky.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Žádná&lt;/i&gt; - Zpětná smyčka zakázána&lt;br /&gt;&lt;i&gt;Místní&lt;/i&gt; - Emulovat místní server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Požádat o zpětnou smyčku ze serveru.&lt;/br&gt; Uvědomte si, prosím, že když je zpětná smyčka zapnuta, ostatní uživatelé neuslyší Váš hlas. Toto nastavení se při ukončení aplikace neukládá.</translation>
     </message>
     <message>
-        <location line="-452"/>
+        <location/>
         <source>Volume</source>
         <translation>Hlasitost</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Volume of incoming speech</source>
         <translation>Hlasitost příchozí řeči</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
         <translation>&lt;b&gt;Toto upraví hlasitost příchozí řeči.&lt;/b&gt;&lt;br /&gt;Nezapomeňte , že pokud toto zvýšíte nad 100%, bude zvuk zkreslený.</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location/>
         <source>Output Delay</source>
         <translation>Spoždění výstupu</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Amount of data to buffer</source>
         <translation>Množství dat k uložení do vyrovnávací paměti</translation>
     </message>
     <message>
-        <location line="+226"/>
+        <location/>
         <source>Factor for sound volume decrease</source>
         <translation>Faktor pro snížení hlasitosti zvuku</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location/>
         <source>Bloom</source>
         <translation>Bloom</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location/>
         <source>Loopback Test</source>
         <translation>Testování zpětné smyčky</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Delay Variance</source>
         <translation>Variace Zpoždění</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Variance in packet latency</source>
         <translation>Variace ve zpoždění paketů</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
         <translation>&lt;b&gt;Toto nastaví variaci zpoždění paketů pro testování zpětné smyčky.&lt;/b&gt;&lt;br /&gt;Většina zvukových cest obsahuje nějakou variaci zpoždění. Tímto je Vám umožněno tuto variaci nastavit pro test zpětné smyčky. Například, pokud ji nastavite na 15ms, tak bude síť emulována s 20-35ms zpožděním pingu nebo síť se zpožděním 80-95ms. Většina domácích síťových připojení má variaci okolo 5ms.</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location/>
         <source>Packet Loss</source>
         <translation>Ztráta paketů</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Packet loss for loopback mode</source>
         <translation>Ztráta paketů pro režim zpětné smyčky</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
         <translation>&lt;b&gt;Toto nastaví ztrátu paketů do režimu zpětné smyčky.&lt;/b&gt;&lt;br /&gt;</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location/>
         <source>&amp;Loopback</source>
         <translation>&amp;Zpětná smyčka</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Desired loopback mode</source>
         <translation>Požadovaný režim zpětné smyčky</translation>
     </message>
     <message>
-        <location line="-122"/>
+        <location/>
         <source>Factor for sound volume increase</source>
         <translation>Faktor pro zvýšení hlasitosti</translation>
     </message>
     <message>
-        <location line="-162"/>
+        <location/>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
         <translation>Připojené &quot;reproduktory&quot; jsou vlastně sluchátka</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location/>
         <source>Minimum Distance</source>
         <translation>Minimální Vzdálenost</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location/>
         <source>Maximum Distance</source>
         <translation>Maximální Vzdálenost</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
         <translation>Maximální vzdálenost, za níž se hlasitost řeči nebude zvyšovat</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location/>
         <source>Minimum Volume</source>
         <translation>Minimální Hlasitost</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location/>
         <source>What should the volume be at the maximum distance?</source>
         <translation>Jaká by měla být hlasitost při maximálni vzdálenosti?</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location/>
         <source>How much should sound volume increase for sources that are really close?</source>
         <translation>Jak moc by se měla hlasitost zvuku zvyšovat pro zdroje, které jsou velmi blízko?</translation>
     </message>
     <message>
-        <location line="-162"/>
+        <location/>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
         <translation>Když toto zaškrtnete, označujete tím, že nemáte připojené reproduktory, ale pouze sluchátka. To je důležité, protože reproduktory jsou většinou přímo před Vámi, zatímco sluchátka jsou od Vás přímo nalevo/napravo.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Headphones</source>
         <translation>Sluchátka</translation>
     </message>
     <message>
-        <location line="-119"/>
+        <location/>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
         <translation>Toto nastaví množství dat pro před uložení do vyrovnávací paměti výstupu. Zkoušejte různé hodnoty a nastavte toto na nejnižší hodnotu, která ve zvuku nezpůsobuje rychlé chvění.</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location/>
         <source>Attenuate applications by...</source>
         <translation>Ztišit aplikace o...</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>Attenuation of other applications during speech</source>
         <translation>Ztišení ostatních aplikací během mluvení</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
         <translation>&lt;b&gt;Ztišit hlasitost ostatních aplikací během mluvení&lt;/b&gt;&lt;br /&gt;Mumble podporuje zmenšení hlasitosti jiných aplikací při příchozí a/nebo odchozí řeči. Toto nastaví ztišení ostatních aplikací, je-li funkce zapnuta.</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location/>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
         <translation>Pokud toto zaškrtnete, Mumble sníží hlasitost ostatních aplikací, když mluví ostatní</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
         <translation>&lt;b&gt;Ztišit aplikace, když ostatní uživatelé mluví&lt;/b&gt;&lt;br /&gt;Mumble podporuje zmenšení hlasitosti jiných aplikací při příchozí a/nebo odchozí řeči. Tímto Mumble funkci aktivuje, když ostatní uživatelé mluví k Vám.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>while other users talk</source>
         <translation>když ostatní mluví</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
         <translation>Pokud je zaškrtnuto, Mumble sníží hlasitost ostatních plikací, když Vy mluvíte</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
         <translation>&lt;b&gt;Ztišit aplikace, když Vy mluvíte.&lt;/b&gt;&lt;br /&gt;Mumble podporuje zmenšení hlasitosti jiných aplikací při příchozí a/nebo odchozí řeči. Tímto Mumble funkci aktivuje, když Vy mluvíte.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>while you talk</source>
         <translation>když Vy mluvíte</translation>
     </message>
     <message>
-        <location line="-218"/>
+        <location/>
         <source>Exclusive mode, not recommended.</source>
         <translation>Výhradní režim, nedoporučuje se.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
         <translation>&lt;b&gt;Toto otevře zařízení ve výhradním režimu.&lt;/b&gt;&lt;br /&gt; Žádná jiná aplikace nebude schopna toto zařízení použít.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Exclusive</source>
         <translation>Výhradně</translation>
     </message>
@@ -1902,17 +1892,17 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="AudioStats.ui" line="+28"/>
+        <location filename="AudioStats.ui"/>
         <source>Peak microphone level</source>
         <translation>Nejvyšší úroveň mikrofonu</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location/>
         <source>Peak speaker level</source>
         <translation>Nejvyšší úroveň výstupu</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location/>
         <source>Peak clean level</source>
         <translation>Nejnižší klidová úroveň</translation>
     </message>
@@ -1925,7 +1915,7 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">Poměr signál/šum</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location/>
         <source>Speech Probability</source>
         <translation>Pravděpodobnost řeči</translation>
     </message>
@@ -1934,9 +1924,7 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">Šířka datového pásma</translation>
     </message>
     <message>
-        <location line="-102"/>
-        <location line="+20"/>
-        <location line="+20"/>
+        <location/>
         <source>Peak power in last frame</source>
         <translation>Max. výkon v posledním rámci</translation>
     </message>
@@ -1945,7 +1933,7 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">Ukazuje maximální výkon v poslením úseku zvuku (20 ms). Této hodnoty si nemusíte všímat, pravděpodobně bude lepší sledovat &lt;b&gt;Hlasitost&lt;/b&gt;, jejíž hodnota se nemění tak rychle.</translation>
     </message>
     <message>
-        <location line="-17"/>
+        <location/>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</oldsource>
         <translation>Ukazuje maximální výkon reproduktorů za poslední snímek (20 ms). Pokud nepoužíváte vícekanálovou vzorkovací metodu (jako např. ASIO) s nastavenými kanály reproduktoru, pak tato hodnota bude rovna 0. Pokud máte takové nastavení a stále vidíte 0 zatímco jiné aplikace hrají zvuk, Vaše nastavení asi není v pořádku.</translation>
@@ -1955,7 +1943,7 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">Ukazuje hodnotu maximálního výkonu za poslední časový úsek (20ms) po veškerém zpracování. Ideálně tato hodnota bude -96 dB když nemluvíte. V realném světě tato hodnota může být např. -60 dB ve zvukovém studiu jinak běžně asi 20 dB. Pokud mluvíte, tato hodnota stoupne na asi -10 až -5 dB.&lt;br /&gt; Pokud používáte používáte potlačení ozvěny a tato hodnota stoupne na více než -15 dB když nemluvíte, pak Vaše nastavení nefunguje správně a dozajista budete obtěžovat ostatní uživatele ozvěnou.</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location/>
         <source>How close the current input level is to ideal</source>
         <translation>Jak blízko je současná hlasitost vstupu k ideální hlasitosti</translation>
     </message>
@@ -1964,32 +1952,32 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">Ukazuje, jak blízko je současná úroveň hlasitosti k ideální. Pro nastavení úrovně mikrofonu, otevřete svou oblíbenou aplikaci pro nastavení zvuku, upravte úroveň záznamu a sledujte změny této hodnoty během mluvení.&lt;br /&gt;&lt;b&gt;Mluvte nahlas podobně jako při nadšení nebo rozčilení&lt;/b&gt;&lt;br /&gt; Upravte hlasitost tak, aby byla hodnota blízká 100 %, ale aby nepřesahovala. Přesahování vede k degradaci kvality zvuku (limitací) a možnému cvakání.</translation>
     </message>
     <message>
-        <location line="-26"/>
+        <location/>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
         <translation>Toto zobrazuje nejvyšší výkon v posledním rámci (20 ms) po veškerém zpracování. Ideálně by toto mělo být -96 dB, když nemluvíte. Ve skutečnosti by hodnota ve zvukovém studiu měla být -60 dB, a Vy byste měli mít něco okolo -20 dB. Když mluvíte, tak by měla vzrůst na něco mezi -5 a -10 dB.&lt;br /&gt;Pokud používáte vyrušení ozvěny a hodnota vzroste na více než -15 dB, když nemluvíte, Vaše nastavení nefunguje, a Vy budete ostatní uživatele otravovat ozvěnami.</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location/>
         <source>Signal-To-Noise ratio from the microphone</source>
         <translation>Poměr Signál-Šum z mikrofonu</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
         <translation>Toto je poměr signál-šum mikrofonu v posledním snímku (20 ms). Ukazuje jak je čistý hlas v porovnání s hlukem.&lt;br /&gt;  Pokud je tato hodnota pod 1.0, je šum silnější než hlas a kvalita je tedy snížena. &lt;br /&gt; Neexistuje žádný horní limit pro tuto hodnotu, ale neočekávejte hodnoty větší než 40 nebo 50 bez zvukového studia.</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location/>
         <source>Probability of speech</source>
         <translation>Pravděpodobnost, že se mluví</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
         <translation>Toto je pravděpodobnost, že poslední  zvukový rámec (20 ms) byla řeč, ne jenom šum okolního prostředí.&lt;br /&gt; Přenos při hlasová aktivitě ns tomto závisí. Trik je v tom, že prostředek věty je vždy rozpoznána jako řeč; problémem jsou pauzy mezi slovy a začátek mluvení. Je obtížné rozpoznat povzdech od slova, začínajícího na &apos;h&apos;.&lt;br /&gt; Pokud je toto zobrazeno tučně, znamená to, že nyní probíhá přenos.</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location/>
         <source>Bitrate of last frame</source>
         <translation>Šířka zvukového pásma </translation>
     </message>
@@ -1998,27 +1986,27 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">Šířka zvukového pásma pro poslední časový úsek (20 ms). Tato hodnota se prúběžně automaticky mění, aby se ideálně přizpůsobila potřebám kvality. V nastavení je možno upravit šířku pásma.</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location/>
         <source>Time between last two Push-To-Talk presses</source>
         <translation>Čas mezi posledními dvěma stisknutími klávesy pro mluvení</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location/>
         <source>Power spectrum of input signal and noise estimate</source>
         <translation>Výkonové spektrum vstupního signálu a odhad šumu</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
         <translation>Ukazuje výkonové spektrum aktuálního vstupního signálu (červená čára) a aktuální odhad šumu (vyplněno modře).&lt;br /&gt;Všechny amplitudy jsou vynásobeny 30x aby byly vidět zajímavé části (jak moc je signál větší než hluk, přítomný v každém vlnovém pásmu).&lt;br /&gt; Toto je pravděpodobně zajímavé pouze, pokud zkoušíte vyladit šumové podmínky Vašeho mikrofonu. V dobrých podmínkách bude dole pouze malé chvění modré. Pokud modrá oblast dosahuje do poloviny výšky grafu, znamená to, že máte velmi rušné prostředí.</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location/>
         <source>Weights of the echo canceller</source>
         <translation>Intenzita snahy o odstranění ozvěny</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
         <translation>Toto zobrazuje  váhy rušitele ozvěny s časem zvyšujícím se dolů a frekvencí zvyšující se doprava.&lt;br /&gt; Ideálně by toto mělo být černé, což znamená, že neexistuje žádná ozvěna. Běžně budete mít jednu nebo více vodorovných modrých čar, označující časově zpožděnou ozvěnu. Měli byste vidět, jak jsou váhy aktualizovány ve  skutečném čase.&lt;br /&gt;Uvědomte si, prosím, že dokud nebudete mít něco, od čeho ozvěnu odrážet, tak zde moc užitečná data neuvidíte. Přehrajte nějakou hudbu a věci by se měli ustálit. &lt;br /&gt; Můžete si zvolit k zobrazení skutečné nebo domnělé části vah kmitočtového pásma, nebo jinak vypočítaná modulace a fáze. Z těchto bude asi nejužitečnější modulace, což je amplituda ozvěny, a ukazuje kolik výstupního signálu je v onom časovém kroku odstraněno. Ostatní režimy zobrazení jsou většinou užitečné pro lidi, kteří si chtějí vyladit jejich algoritmy vyrušení ozvěny.&lt;br /&gt; Uvědomte si, prosím, že pokud se celý obrázek hodně mění, když je v režimu modulace, rušitel ozvěny nemůže najít žádnou souvztažnost mezi dvěma vstupními zdroji (reproduktory a mikrofon). Buď máte velmi dlouhou prodlevu ozvěny, nebo jeden ze vstupních zdrojů není správně nastaven.</translation>
     </message>
@@ -2029,82 +2017,82 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation>&gt;1000 ms</translation>
     </message>
     <message>
-        <location filename="AudioStats.ui" line="-282"/>
+        <location filename="AudioStats.ui"/>
         <source>Audio Statistics</source>
         <translation>Statistiky Zvuku</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Input Levels</source>
         <translation>Hladiny Vstupu</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
         <translation>Toto zobrazuje nejvyšší výkon v posledním rámci (20 ms), a je to stejné měření, které byste normálně našli pojmenované jako &quot;síla vstupu&quot;. Tohoto si, prosím, nevšímejte a podívejte se místo toho na &lt;b&gt;Sílu mikrofonu&lt;/b&gt;, které je mnohem stabilnější a nevšímá si extrémních výchylek.</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location/>
         <source>Signal Analysis</source>
         <translation>Analýza Signálu</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Microphone power</source>
         <translation>Síla mikrofonu</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
         <translation>Toto zobrazuje jak blízo je současný vstup k ideálnímu. Pro úpravu hladiny Vašeho mikrofonu, otevřete jakýkoli program, který používáte pro úpravu hlasitosti nahrávání,a podívejte na hodnotu zde, když mluvíte&lt;br /&gt;&lt;b&gt; Mluvte tak hlasitě, jako když jste rozčílení, že Vás nějaká lama zastřelila.&lt;/b&gt;&lt;br /&gt;Upravte hlasitost dokud hodnota nebude blízko ke 100%, ale ujistěte se, že nebude vyšší. Pokud bude výš, pravděpodobně budou části Vaši řeči oříznuty, což sníží kvalitu zvuku.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Signal-To-Noise ratio</source>
         <translation>Poměr zvuku k šumu</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location/>
         <source>Configuration feedback</source>
         <translation>Zpětná vazba nastavení</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Current audio bitrate</source>
         <translation>Současný bitový tok zvuku</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location/>
         <source>DoublePush interval</source>
         <translation>Interval Opětovného stisknutí</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location/>
         <source>Speech Detection</source>
         <translation>Detekce Řeči</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Current speech detection chance</source>
         <translation>Současná šance zjištění řeči</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
         <translation>&lt;b&gt;Toto zobrazuje současná nastavení zjištění řeči.&lt;/b&gt;&lt;br /&gt;Tato nastavení můžete změnit v dialogovém okně Nastavení nebo z Průvodce Zvukem.</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location/>
         <source>Signal and noise power spectrum</source>
         <translation>Výkonové spektrum signálu a šumu</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location/>
         <source>Echo Analysis</source>
         <translation>Analýza ozvěny</translation>
     </message>
     <message>
-        <location line="-97"/>
+        <location/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
         <translation>Toto je bitový tok posledního komprimovaného rámce (20ms), a jako takový bude skákat nahoru a dolů jak VBR upravuje kvalitu. Nejvyšší bitový tok může být upraven v dialogovém okně Nastavení.</translation>
     </message>
@@ -2112,17 +2100,17 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
 <context>
     <name>AudioWizard</name>
     <message>
-        <location filename="AudioWizard.ui" line="+14"/>
+        <location filename="AudioWizard.ui"/>
         <source>Audio Tuning Wizard</source>
         <translation>Průvodce Laděním Zvuku</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location/>
         <source>Introduction</source>
         <translation>Úvod</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Welcome to the Mumble Audio Wizard</source>
         <translation>Vítejte v průvodci nastavením zvuku pro aplikaci Mumble</translation>
     </message>
@@ -2135,12 +2123,12 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">Prosím všimněte si, že dokud je průvodce aktivní, zvuk bude používán pouze místně, abyste si jej mohli poslechnout - žádné zvuky se nepřenesou na případně připojený server.</translation>
     </message>
     <message>
-        <location line="+779"/>
+        <location/>
         <source>Finished</source>
         <translation>Dokončeno</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Enjoy using Mumble</source>
         <translation>Užijte si používání Mumble</translation>
     </message>
@@ -2149,12 +2137,12 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">Blahopřejeme. Nyní si můžete plně užít zvukovou komunikaci s Mumble.</translation>
     </message>
     <message>
-        <location line="-747"/>
+        <location/>
         <source>Device selection</source>
         <translation>Výběr zařízení</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Selecting the input and output device to use with Mumble.</source>
         <translation>Vyberte vstupní a výstupní zařízení pro použití v Mumble.</translation>
     </message>
@@ -2163,39 +2151,37 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">Vstupní zařízení</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location/>
         <source>This is the device your microphone is connected to.</source>
         <translation>Toto je zařízení, do kterého je Váš mikrofon připojen.</translation>
     </message>
     <message>
-        <location line="+10"/>
-        <location line="+72"/>
+        <location/>
         <source>System</source>
         <translation>Systém</translation>
     </message>
     <message>
-        <location line="-62"/>
+        <location/>
         <source>Input method for audio</source>
         <translation>Vstupní metoda pro zvuk</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation>&lt;b&gt;Toto je vstupní metoda k použíti pro zvuk.&lt;/b&gt;&lt;br /&gt; Pravděpodobně budete chtít použít DirectSound.</translation>
     </message>
     <message>
-        <location line="+7"/>
-        <location line="+72"/>
+        <location/>
         <source>Device</source>
         <translation>Zařízení</translation>
     </message>
     <message>
-        <location line="-62"/>
+        <location/>
         <source>Input device to use</source>
         <translation>Které vstupní zařízení použít</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Vybere, která zvuková karta bude použita pro zvukový vstup.&lt;/b&gt;</translation>
     </message>
@@ -2204,37 +2190,37 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">Výstupní zařízení</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location/>
         <source>This is the device your speakers or headphones are connected to.</source>
         <translation>Zařízení, ke kterému jsou připojeny Vaše reproduktory nebo sluchátka.</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location/>
         <source>Output method for audio</source>
         <translation>Výstupní metoda pro zvuk</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <translation>&lt;b&gt;Toto je výstupní metoda k použíti pro zvuk&lt;/b&gt;&lt;br /&gt; Pravděpodobně budete chtít použít DirectSound.</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location/>
         <source>Output device to use</source>
         <translation>Které výstupní zařízení použít</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Vybere, která zvuková karta bude použita pro Výstup zvuku.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+133"/>
+        <location/>
         <source>Volume tuning</source>
         <translation>Vyladění hlasitosti</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Tuning microphone hardware volume to optimal settings.</source>
         <translation>Ladění hardwarové hlasitosti mikrofonu na optimální nastavení.</translation>
     </message>
@@ -2247,37 +2233,37 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">Mluvte nahlas, jako kdybyste byl podrážděn nebo nadšen. Během mluvení nastavte hlasitost v ovladacim panelu zvuku tak, aby monitorovaný zvuk byl co možná nejvýše v modré a zelené oblastí, ale aby &lt;b&gt;nezasahoval&lt;/b&gt; do oblasti rudé.</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
         <translation>Nyní mluvte potichu, jako kdybyste mluvili pozdě v noci a nechtěli nikoho rušit. Nastavte táhlo níže tak, aby se při mluvení lišta pohybovala v zelené oblasti, ale aby zůstala v modré oblasti, když jste potichu.</translation>
     </message>
     <message>
-        <location line="+80"/>
+        <location/>
         <source>Voice Activity Detection</source>
         <translation>Zjištění hlasové aktivity</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
         <translation>Nechat na Mumble, aby rozpoznal, kdy mluvíte a kdy jste potichu.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
         <translation>Toto pomůže aplikaci Mumble rozpoznat, kdy mluvíte. První krok je výběr, podle které hodnoty dat se má rozpoznání provádět.</translation>
     </message>
     <message>
-        <location line="+115"/>
+        <location/>
         <source>Raw amplitude from input</source>
         <translation>Čistá amplituda ze vstupu</translation>
     </message>
     <message>
-        <location line="-78"/>
+        <location/>
         <source>Signal-To-Noise ratio</source>
         <translation>Poměr zvuku k šumu</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</oldsource>
         <translation>Nyní je potřeba nastavit následující dvě hodnoty. Prvních několik Vašich slabik by mělo skončit v zelené oblasti (určitě řeč). Pokud mluvíte, měli byste zůstávat ve žluté (pravděpodobně řeč)a když nemluvíte, vše by mělo být v červené oblasti (určitě není řeč).</translation>
@@ -2287,12 +2273,12 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">Nakonec je potřeba nastavit čas prodlevy, kdy je po skončení řeči stále ješte mikrofon zapnut a můžete tak během řeči udělat malou pauzu, aniž by byl přenos ukončen.</translation>
     </message>
     <message>
-        <location line="-283"/>
+        <location/>
         <source>Device tuning</source>
         <translation>Vyladění zařízení</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Changing hardware output delays to their minimum value.</source>
         <translation>Změna zpoždění výstupu hardwaru na jeho minimální hodnotu.</translation>
     </message>
@@ -2321,28 +2307,28 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">%1 s</translation>
     </message>
     <message>
-        <location line="-112"/>
+        <location/>
         <source>Use echo cancellation</source>
         <translation>Použít vyrušení ozvěny</translation>
     </message>
     <message>
-        <location line="-3"/>
+        <location/>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
         <translation>Toto povolí vyrušení ozvěny ve výstupním zvuku, což pomáhá jak na reproduktorech, tak na sluchátcích.</translation>
     </message>
     <message>
-        <location line="+75"/>
+        <location/>
         <source>Enable positional audio</source>
         <translation>Zapnout poziční zvuk</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location/>
         <source>Allows positioning of sound</source>
         <oldsource>Allows positioning of sound.</oldsource>
         <translation>Povolí umísťování zvuku</translation>
     </message>
     <message>
-        <location line="-166"/>
+        <location/>
         <source>&lt;p&gt;
 This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble.
 &lt;/p&gt;
@@ -2357,27 +2343,27 @@ Uvědomte si, prosím, že dokud bude tento průvodce spuštěn, zvuk bude ve sm
 &lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location/>
         <source>Input Device</source>
         <translation>Vstupní Zařízení</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location/>
         <source>Cancel echo from headset or speakers</source>
         <translation>Zrušit ozvěnu z reproduktorů nebo sluchátek</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>Output Device</source>
         <translation>Výstupní Zařízení</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location/>
         <source>This allows Mumble to use positional audio to place voices.</source>
         <translation>Toto povolí Mumble používat poziční zvuk pro umístění hlasů.</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location/>
         <source>&lt;p&gt;
 To keep latency to an absolute minimum, it&apos;s important to buffer as little audio as possible on the soundcard. However, many soundcards report that they require a much smaller buffer than what they can actually work with, so the only way to set this value is to try and fail.
 &lt;/p&gt;
@@ -2394,17 +2380,17 @@ Měli byste slyšet ukázku hlasu. Změňte šoupátko pod nejnižší hodnotu, 
 </translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location/>
         <source>Amount of data to buffer</source>
         <translation>Množství dat k uložení</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
         <translation>Toto nastaví množství dat pro před uložení do vyrovnávací paměti výstupu. Zkoušejte různé hodnoty a nastavte toto na nejnižší hodnotu, která ve zvuku nezpůsobuje rychlé chvění.</translation>
     </message>
     <message>
-        <location line="+58"/>
+        <location/>
         <source>&lt;p&gt;
 Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.
 &lt;/p&gt;
@@ -2421,17 +2407,17 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
 </translation>
     </message>
     <message>
-        <location line="+417"/>
+        <location/>
         <source>Positional Audio</source>
         <translation>Poziční Zvuk</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Adjusting attenuation of positional audio.</source>
         <translation>Úprava ztišení pozičního zvuku.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>&lt;p&gt;
 Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here.
 &lt;/p&gt;
@@ -2448,12 +2434,12 @@ Graf níže zobrazuje &lt;font color=&quot;red&quot;&gt;Vaši&lt;/font&gt; pozic
 </translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>Use headphones instead of speakers</source>
         <translation>Použít sluchátka místo reproduktorů</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location/>
         <source>&lt;p&gt;
 Congratulations. You should now be ready to enjoy a richer sound experience with Mumble.
 &lt;/p&gt;
@@ -2470,62 +2456,62 @@ Mumble je pod neustálým vývojem, a tým vývojářů se chce zaměřit na fun
 </translation>
     </message>
     <message>
-        <location line="-33"/>
+        <location/>
         <source>Use headphones</source>
         <translation>Použít sluchátka</translation>
     </message>
     <message>
-        <location line="-3"/>
+        <location/>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
         <translation>Toto ignoruje nastavení reproduktorů v OS a místo toho nastaví umístění sluchátek.</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
         <translation>Posílat anonymní statistiky projektu Mumble</translation>
     </message>
     <message>
-        <location line="-354"/>
+        <location/>
         <source>Push To Talk:</source>
         <translation>Klávesa Pro Mluvení:</translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location/>
         <source>Quality &amp; Notifications</source>
         <translation>Kvalita &amp; oznámení</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Adjust quality and notification settings.</source>
         <translation>Upraví kvalitu a nastavení oznamení.</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location/>
         <source>Quality settings</source>
         <translation>Nastavení kvality</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location/>
         <source>Low</source>
         <translation>Nízké</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location/>
         <source>Balanced</source>
         <translation>Vyrovnané</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location/>
         <source>Notification settings</source>
         <translation>Nastavení oznamení</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
         <translation>Použít Text-Na-Řeč pro čtení oznámení a zpráv pro Vás.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Disable Text-To-Speech and use sounds instead.</source>
         <translation>Vypnout Text-Na-Řeč a míst toho použít zvuky.</translation>
     </message>
@@ -2535,67 +2521,67 @@ Mumble je pod neustálým vývojem, a tým vývojářů se chce zaměřit na fun
         <translation>%1 ms</translation>
     </message>
     <message>
-        <location filename="AudioWizard.ui" line="-508"/>
+        <location filename="AudioWizard.ui"/>
         <source>Enables attenuation of other applications while users talk to you</source>
         <translation>Povolí ztišení ostatních aplikací, když uživatelé mluví k Vám</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Attenuate applications while other users talk</source>
         <translation>Ztiší aplikace, když ostatní uživatelé mluví</translation>
     </message>
     <message>
-        <location line="+410"/>
+        <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (Speex 16kbit/s, 60ms per packet)</source>
         <translation>V tomto nastavení Mumble použije &lt;b&gt;malé množství šířky pásma&lt;/b&gt;. Toto nevyhnutelně vyústí ve vysoké zpoždění a špatnou kvalitu. Toto si zvolte pouze, pokud Vaše připojení ostatní nastavení nezvládne. (Speex 16kbit/s, 60ms na paket)</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (CELT 40kbit/s, 20ms per packet)</source>
         <translation>Toto je &lt;b&gt;výchozí doporučené&lt;/b&gt; nastavení. Poskytuje dobrou rovnováhu mezi kvalitou, zpožděním a využití šířky pásma. (CELT 40kbit/s, 20ms na paket)</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>High</source>
         <translation>Vysoké</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (CELT 72kbit/s, 10ms per packet)</source>
         <translation>Toto nastavení je doporučené pouze v systému, kde šířka pásma není problém, jako například LAN. Poskytuje nejnižší zpoždění, které Mumble podporuje a &lt;b&gt;vysokou kvalitu&lt;/b&gt;. (CELT 72kbit/s, 10ms na paket)</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Custom</source>
         <translation>Vlastní</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
         <translation>Již jste nastavili vlastní nastavení kvality v Mumble. Vyberte toto nastavení pro jeho uchování.</translation>
     </message>
     <message>
-        <location line="-479"/>
+        <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
         <translation>Zapne ztišení jiných aplikací, když uživatelé mluví k Vám. To znamená, že jakmile někdo začne v Mumble mluvit k Vám, zvuk ostatních aplikací (jako hudební přehrávače), bude ztišen, abyste je mohli lépe slyšet.</translation>
     </message>
     <message>
-        <location line="+228"/>
+        <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
         <translation>Použít některé vysoko kontrastní optimalizace pro zrakově postižené uživatele</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Use high contrast graphics</source>
         <translation>Použít grafiku s vysokým kontrastem</translation>
     </message>
     <message>
-        <location line="+281"/>
+        <location/>
         <source>Keep custom Text-To-Speech settings.</source>
         <translation>Ponechat vlastní nastavení Text-Na-Řeč.</translation>
     </message>
     <message>
-        <location line="-377"/>
+        <location/>
         <source>&lt;p&gt;
 Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.
 &lt;/p&gt;
@@ -2620,13 +2606,13 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
 </translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
         <comment>For high contrast mode</comment>
         <translation>Nyní mluvte potichu, jako kdybyste mluvili pozdě v noci a nechtěli nikoho rušit. Nastavte šoupátko níže tak, aby se při mluvení lišta posunula do prázdné oblasti, ale zůstala v pruhované, když jste potichu.</translation>
     </message>
     <message>
-        <location line="+146"/>
+        <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
         <translation>Nyní je potřeba nastavit následující dvě hodnoty. Prvních několik Vašich slabik by mělo skončit v prázdné oblasti (určitě řeč). Pokud mluvíte, měli byste zůstávat v pruhované (pravděpodobně řeč)a když nemluvíte, vše by mělo být v křížkované oblasti (určitě není řeč).</translation>
@@ -2635,7 +2621,7 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
 <context>
     <name>BanEditor</name>
     <message>
-        <location filename="BanEditor.ui" line="+14"/>
+        <location filename="BanEditor.ui"/>
         <source>Mumble - Edit Bans</source>
         <translation>Mumble - Upravit zákazy</translation>
     </message>
@@ -2644,42 +2630,42 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
         <translation type="obsolete">0.0.0.0</translation>
     </message>
     <message>
-        <location line="+58"/>
+        <location/>
         <source>Reason</source>
         <translation>Důvod</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location/>
         <source>Start</source>
         <translation>Začátek</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>End</source>
         <translation>Konec</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location/>
         <source>User</source>
         <translation>Uživatel</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location/>
         <source>Hash</source>
         <translation>Hash</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location/>
         <source>&amp;Add</source>
         <translation>Přid&amp;at</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>&amp;Update</source>
         <translation>Akt&amp;ualizovat</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>&amp;Remove</source>
         <translation>Odst&amp;ranit</translation>
     </message>
@@ -2708,12 +2694,12 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
         <translation type="obsolete">Toto tlačítko zruší veškeré právě provedené změny a uzavře dialog bez úpravy skupin a ACL na serveru.</translation>
     </message>
     <message>
-        <location line="-136"/>
+        <location/>
         <source>&amp;Address</source>
         <translation>&amp;Adresa</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>&amp;Mask</source>
         <translation>&amp;Maska</translation>
     </message>
@@ -2827,169 +2813,163 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
 <context>
     <name>Certificates</name>
     <message>
-        <location filename="Cert.ui" line="+14"/>
+        <location filename="Cert.ui"/>
         <source>Certificate Management</source>
         <translation>Správce Certifikátů</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location/>
         <source>Certificate Authentication</source>
         <translation>Ověření Certifikátů</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Authenticating to servers without using passwords</source>
         <translation>Ověřování pomocí serveru bez použití hesel</translation>
     </message>
     <message>
-        <location line="+23"/>
-        <location line="+241"/>
-        <location line="+87"/>
+        <location/>
         <source>Current certificate</source>
         <translation>Současný Certifikát</translation>
     </message>
     <message>
-        <location line="-325"/>
+        <location/>
         <source>This is the certificate Mumble currently uses.</source>
         <translation>Toto je certifikát, který Mumble v současnosti používá.</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <location line="+241"/>
+        <location/>
         <source>Current Certificate</source>
         <translation>Současný Certifikát</translation>
     </message>
     <message>
-        <location line="-217"/>
-        <location line="+6"/>
+        <location/>
         <source>Create a new certificate</source>
         <translation>Vytvořit nový certifikát</translation>
     </message>
     <message>
-        <location line="-3"/>
+        <location/>
         <source>This will create a new certificate.</source>
         <translation>Toto vytvoří nový certifikát.</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location/>
         <source>Import certificate from file</source>
         <translation>Importovat certifikát ze souboru</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This will import a certificate from file.</source>
         <translation>Toto importuje certifikát ze souboru.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Import a certificate</source>
         <translation>Importovat certifikát</translation>
     </message>
     <message>
-        <location line="+20"/>
-        <location line="+192"/>
+        <location/>
         <source>Export Certificate</source>
         <translation>Exportovat certifikát</translation>
     </message>
     <message>
-        <location line="-189"/>
+        <location/>
         <source>This will export a certificate to file.</source>
         <translation>Toto exportuje certifikát do souboru.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Export current certificate</source>
         <translation>Exportovat současný certifikát</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location/>
         <source>Import Certificate</source>
         <translation>Importovat Certifikát</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>PKCS #12 Certificate import</source>
         <translation>Import Certifikátu PKCS #12</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location/>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
         <translation>&lt;p&gt;Mumble může importovat certifikáty uložené ve formátu PKCS #12. Toto je formát používaný při exportu klíče z Mumble, a také při exportu klíčů z Firefox, Internet Explorer, Opera atd.&lt;/p&gt;&lt;p&gt;Pokud soubor je chráněn heslem, budete toto heslo potřebovat při importu certifikátu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Import from</source>
         <translation>Importovat z</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Filename to import from</source>
         <translation>Jméno souboru, z kterého importovat</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This is the filename you wish to import a certificate from.</source>
         <translation>Toto je název souboru, z kterého chcete certifikát importovat.</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Select file to import from</source>
         <translation>Vyberte soubor z kterého importovat</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This opens a file selection dialog to choose a file to import a certificate from.</source>
         <translation>Toto otevře dialogové okno výběru souboru ke zvolení souboru, z kterého certifikát importovat.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Open...</source>
         <translation>Otevřít...</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>Password</source>
         <translation>Heslo</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Password for PKCS#12 file</source>
         <translation>Heslo pro soubor PKCS#12</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This is the password for the PKCS#12 file containing your certificate.</source>
         <translation>Toto je heslo pro soubor PKCS#12, obsahující Váš certifikát.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Certificate to import</source>
         <translation>Který certifikát importovat</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This is the certificate you are importing.</source>
         <translation>Toto je certifikát, který importujete.</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <location line="+140"/>
+        <location/>
         <source>Certificate Details</source>
         <translation>Podrobnosti Certifikátu</translation>
     </message>
     <message>
-        <location line="-132"/>
+        <location/>
         <source>Replace Certificate</source>
         <translation>Nahradit Certifikát</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Replace existing certificate with new certificate?</source>
         <translation>Nahradit existující certifikát novým certifikátem?</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location/>
         <source>&lt;p&gt;You already have a certificate stored in Mumble, and you are about to replace it.&lt;/p&gt;
 &lt;p&gt;If you are upgrading to a certificate issued to you by a trusted CA and the email addresses match your current certificate, this is completely safe, and servers you connect to will automatically recognize the strong certificate for your email address.
 &lt;/p&gt;
@@ -3010,118 +2990,117 @@ Jste si jisti, že chcete certifikát nahradit?
 </translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location/>
         <source>This is the certificate Mumble currently uses. It will be replaced.</source>
         <translation>Toto je certifikát, který Mumble nyní používá. Bude nahrazen.</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>New certificate</source>
         <translation>Nový certifikát</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This is the new certificate that will replace the old one.</source>
         <translation>Toto je nový certifikát, který nahradí starý.</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <location line="+76"/>
+        <location/>
         <source>New Certificate</source>
         <translation>Nový Certifikát</translation>
     </message>
     <message>
-        <location line="-65"/>
+        <location/>
         <source>Make a backup of your certificate</source>
         <translation>Vytvořit zálohu Vašeho certifikátu</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location/>
         <source>Export to</source>
         <translation>Exportovat do</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Filename to export to</source>
         <translation>Jméno souboru, do kterého exportovat</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This is the filename you wish to export a certificate to.</source>
         <translation>Toto je jméno souboru, do kterého chcete certifikát exportovat.</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Save As...</source>
         <translation>Uložit Jako...</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location/>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
         <translation>Toto je certifikát, který Mumble nyní používá. Bude exportován.</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location/>
         <source>Generate a new certificate for strong authentication</source>
         <translation>Vytvořit nový certifikát, pro silné ověření</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location/>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Mumble nyní vytvoří silný certifikát pro ověření serverem.&lt;/p&gt;&lt;p&gt;Pokud chcete, můžete zadat další dodatečné informace, které budou uloženy do certifikátu, který bude při připojení k serverům prezentován. Pokud zadáte platnou e-mailovou adresu, můžete později aktualizovat na e-mailový certifikát vydaný CA, který poskytuje silný průkaz totožnosti.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Name</source>
         <translation>Jméno</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Email</source>
         <translation>E-mail</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
         <translation>Vaše e-mailová adresa (např. jannovak@mumble.info)</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
         <translation>Toto je Vaše e-mailová adresa. Je výrazně doporučeno, abyste zadali platnou e-mailovou adresu, protože Vám umožní aktualizovat na silný certifikát bez problémů s ověřením.</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location/>
         <source>Your name (e.g. John Doe)</source>
         <translation>Vaše jméno (např. Jan Novák)</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This is your name, and will be filled out in the certificate. This field is entirely optional.</source>
         <translation>Toto je Vaše jméno, které bude v certifikátu vyplněno. Toto pole je nepovinné.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Finish</source>
         <translation>Dokončit</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Certificate-based authentication is ready for use</source>
         <translation>Ověření pomocí certifikátů je připraveno k použití</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location/>
         <source>Enjoy using Mumble with strong authentication.</source>
         <translation>Užijte si použivání Mumble se silným ověřením.</translation>
     </message>
     <message>
-        <location line="-411"/>
+        <location/>
         <source>Automatic certificate creation</source>
         <translation>Vytvořit certifikát automaticky</translation>
     </message>
     <message>
-        <location line="-27"/>
+        <location/>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;
 &lt;p&gt;
 It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
@@ -3134,7 +3113,7 @@ Je &lt;b&gt;výrazně&lt;/b&gt; doporučeno, abyste si &lt;a href=&quot;http://m
 </translation>
     </message>
     <message>
-        <location line="+300"/>
+        <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Pokud někdy certifikát ztratíte, což se může stát, pokud Váš počítač utrpí chybu hardwaru, nebo přeinstalujete počítač, nebudete se už moci na jakémkoliv serveru, na kterém jste registrován ověřit. Je tedy &lt;b&gt;nutné&lt;/b&gt;, abyste si udělali zálohu Vašeho certifikátu. Výrazně doporučujeme si tuto zálohu uložit na vyměnitelném úložišti, jako například USB flash disk.&lt;/p&gt;
@@ -3388,7 +3367,7 @@ Je &lt;b&gt;výrazně&lt;/b&gt; doporučeno, abyste si &lt;a href=&quot;http://m
 <context>
     <name>ClientUser</name>
     <message>
-        <location filename="ClientUser.cpp" line="+130"/>
+        <location filename="ClientUser.cpp" line="+142"/>
         <source>Friend</source>
         <translation>Přítel</translation>
     </message>
@@ -3436,12 +3415,12 @@ Je &lt;b&gt;výrazně&lt;/b&gt; doporučeno, abyste si &lt;a href=&quot;http://m
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.ui" line="+14"/>
+        <location filename="ConfigDialog.ui"/>
         <source>Mumble Configuration</source>
         <translation>Nastavení Mumble</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location/>
         <location filename="ConfigDialogDelegate.mm" line="+142"/>
         <source>Advanced</source>
         <translation>Pokročilé</translation>
@@ -3595,7 +3574,7 @@ Je &lt;b&gt;výrazně&lt;/b&gt; doporučeno, abyste si &lt;a href=&quot;http://m
         <translation type="obsolete">&amp;Heslo</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+757"/>
+        <location filename="ConnectDialog.cpp" line="+774"/>
         <source>&amp;Connect</source>
         <translation>&amp;Připojit</translation>
     </message>
@@ -3637,18 +3616,18 @@ Je &lt;b&gt;výrazně&lt;/b&gt; doporučeno, abyste si &lt;a href=&quot;http://m
         <translation>Připojuji se k %1</translation>
     </message>
     <message>
-        <location line="-491"/>
-        <location line="+491"/>
+        <location line="-508"/>
+        <location line="+508"/>
         <source>Enter username</source>
         <translation>Zadejte jméno uživatele</translation>
     </message>
     <message>
-        <location line="-491"/>
+        <location line="-508"/>
         <source>Adding host %1</source>
         <translation>Přidávám hostitele %1</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="+48"/>
+        <location filename="ConnectDialog.ui"/>
         <location filename="ConnectDialog.cpp" line="+61"/>
         <source>Servername</source>
         <translation>Jméno serveru</translation>
@@ -3710,13 +3689,13 @@ Je &lt;b&gt;výrazně&lt;/b&gt; doporučeno, abyste si &lt;a href=&quot;http://m
         <translation>%1 kbit/s</translation>
     </message>
     <message>
-        <location line="+315"/>
+        <location line="+332"/>
         <source>&amp;Filters</source>
         <translation>&amp;Filtry</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="+10"/>
-        <location filename="ConnectDialog.cpp" line="-314"/>
+        <location filename="ConnectDialog.ui"/>
+        <location filename="ConnectDialog.cpp" line="-331"/>
         <source>Users</source>
         <translation>Uživatelé</translation>
     </message>
@@ -3730,62 +3709,62 @@ Je &lt;b&gt;výrazně&lt;/b&gt; doporučeno, abyste si &lt;a href=&quot;http://m
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+1005"/>
+        <location line="+1022"/>
         <source>Failed to fetch server list</source>
         <translation>Stažení seznamu serverů selhalo</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="-44"/>
+        <location filename="ConnectDialog.ui"/>
         <source>Mumble Server Connect</source>
         <translation>Připojení k Serveru Mumble</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location/>
         <source>Ping</source>
         <translation>Ping</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location/>
         <source>Remove from Favorites</source>
         <translation>Odstranit z Oblíbených</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location/>
         <source>Add custom server</source>
         <translation>Přidat vlastní server</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location/>
         <source>Show all servers that respond to ping</source>
         <translation>Zobrazit všechny servery, které odpovídají na ping</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location/>
         <source>Show all servers with users</source>
         <translation>Zobrazit všechny servery s uživateli</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>Show all servers</source>
         <translation>Zobrazit všechny servery</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopírovat</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Copy favorite link to clipboard</source>
         <translation>Zkopírovat oblíbený odkaz do schránky</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>&amp;Paste</source>
         <translation>&amp;Vložit</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Paste favorite from clipboard</source>
         <translation>Vložit oblíbený odkaz ze schránky</translation>
     </message>
@@ -3794,38 +3773,38 @@ Je &lt;b&gt;výrazně&lt;/b&gt; doporučeno, abyste si &lt;a href=&quot;http://m
         <translation type="obsolete">Přidat</translation>
     </message>
     <message>
-        <location line="-73"/>
+        <location/>
         <source>&amp;Edit...</source>
         <translation>&amp;Upravit...</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <location filename="ConnectDialog.cpp" line="-729"/>
         <source>&amp;Add New...</source>
         <translation>Přid&amp;at Nový...</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Add to &amp;Favorites</source>
         <translation>Přidat do &amp;Oblíbených</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Open &amp;Webpage</source>
         <translation>Otevřít &amp;Internetovou stránku</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>Show &amp;Reachable</source>
         <translation>Zobrazit &amp;Dosažitelné</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location/>
         <source>Show &amp;Populated</source>
         <translation>Zobrazit &amp;Zalidněné</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>Show &amp;All</source>
         <translation>Zobrazit &amp;Vše</translation>
     </message>
@@ -3833,28 +3812,28 @@ Je &lt;b&gt;výrazně&lt;/b&gt; doporučeno, abyste si &lt;a href=&quot;http://m
 <context>
     <name>ConnectDialogEdit</name>
     <message>
-        <location filename="ConnectDialogEdit.ui" line="+20"/>
+        <location filename="ConnectDialogEdit.ui"/>
         <source>Edit Server</source>
         <translation>Upravit Server</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>Name of the server</source>
         <translation>Jméno Serveru</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>A&amp;ddress</source>
         <translation>A&amp;dresa</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Internet address of the server.</source>
         <oldsource>Internet address of the server. </oldsource>
         <translation>Internetová adresa serveru.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Address&lt;/b&gt;&lt;br/&gt;
 Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
@@ -3863,41 +3842,41 @@ Internet address of the server. This can be a normal hostname, an ipv4/6 address
 Internetová adresa serveru. To může být normální jméno hostitele, adresa IPv4/IPv6 nebo identifikátor služby Bonjour. Identifikátory služby Bonjour musí mít předponu @, aby je Mumble rozpoznal.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>&amp;Port</source>
         <translation>&amp;Port</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Port on which the server is listening</source>
         <translation>Port, na kterém server posluchá</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
 Port on which the server is listening. If the server is identified by a Bonjour service identifier this field will be ignored.</source>
         <translation>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
 Port, na kterém server poslouchá. Pokud server je identifikován identifikátorem služby Bonjour, toto pole je ignorováno.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>&amp;Username</source>
         <translation>&amp;Uživatelské jméno</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Username to send to the server</source>
         <translation>Uživatelské jméno, které bude odesláno na server</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
         <translation>&lt;b&gt;Uživatelské jméno&lt;/b&gt;&lt;br/&gt;
 Uživatelské jméno k odeslání na server. Nezapomeňte, že server může předepisovat, jak má uživatelské jméno vypadat. Také může být Vaše uživatelské jméno zabráno jiným uživatelem.</translation>
     </message>
     <message>
-        <location line="-76"/>
+        <location/>
         <source>Label</source>
         <translation>Jmenovka</translation>
     </message>
@@ -3907,29 +3886,29 @@ Uživatelské jméno k odeslání na server. Nezapomeňte, že server může př
         <translation>Přidat Server</translation>
     </message>
     <message>
-        <location filename="ConnectDialogEdit.ui" line="+91"/>
+        <location filename="ConnectDialogEdit.ui"/>
         <source>Password</source>
         <translation>Heslo</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Password to send to the server</source>
         <translation>Heslo, které bude odesláno na server</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
         <translation>&lt;b&gt;Heslo&lt;/b&gt;&lt;br/&gt;
 Heslo, které má být odesláno při připojení na server. Toto heslo je potřeba při připojování jako &lt;i&gt;SuperUživatel&lt;/i&gt; nebo na server používající ověření heslem. Pokud nezadáno zde, bude o heslo požádáno při připojení.</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>Show password</source>
         <translation>Zobrazit heslo</translation>
     </message>
     <message>
-        <location line="-99"/>
+        <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
         <translation>&lt;b&gt;Jmenovka&lt;/b&gt;&lt;br/&gt;
@@ -4169,62 +4148,62 @@ v žádném z možných míst.</translation>
 <context>
     <name>GlobalShortcut</name>
     <message>
-        <location filename="GlobalShortcut.ui" line="+17"/>
+        <location filename="GlobalShortcut.ui"/>
         <source>Shortcuts</source>
         <translation>Zkratky</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location/>
         <source>List of configured shortcuts</source>
         <translation>Seznam nastavených zkratek</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location/>
         <source>Function</source>
         <translation>Funkce</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Data</source>
         <translation>Data</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Shortcut</source>
         <translation>Zkratka</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Suppress</source>
         <translation>Potlačit</translation>
     </message>
     <message>
-        <location line="-91"/>
+        <location/>
         <source>Add new shortcut</source>
         <translation>Přidá novou zkratku</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This will add a new global shortcut</source>
         <translation>Toto přidá novou globální zkratku</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&amp;Add</source>
         <translation>Přid&amp;at</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Remove selected shortcut</source>
         <translation>Odstraní vybranou zkratku</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This will permanently remove a selected shortcut.</source>
         <translation>Toto navždy odstraní vybranou zkratku.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&amp;Remove</source>
         <translation>Odst&amp;ranit</translation>
     </message>
@@ -4273,82 +4252,82 @@ v žádném z možných míst.</translation>
 <context>
     <name>GlobalShortcutTarget</name>
     <message>
-        <location filename="GlobalShortcutTarget.ui" line="+14"/>
+        <location filename="GlobalShortcutTarget.ui"/>
         <source>Whisper Target</source>
         <translation>Šeptat Cíl</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Whisper to list of Users</source>
         <translation>Šeptat seznamu Uživatelů</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location/>
         <source>Channel Target</source>
         <translation>Cílový Kanál</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location/>
         <source>Restrict to Group</source>
         <translation>Omezit na Skupinu</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>If specified, only members of this group will receive the whisper.</source>
         <translation>Pokud zadáno, pouze členové této skupiny šepot dostanou.</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location/>
         <source>List of users</source>
         <translation>Seznam Uživatelů</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location/>
         <source>Add</source>
         <translation>Přidat</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Remove</source>
         <translation>Odstranit</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location/>
         <source>Modifiers</source>
         <translation>Modifikátory</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
         <translation>Neposílat informace pozičního zvuku, když používáte zkratku šeptání.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Ignore positional audio</source>
         <translation>Ignorovat poziční zvuk</translation>
     </message>
     <message>
-        <location line="-98"/>
+        <location/>
         <source>Shout to Linked channels</source>
         <translation>Křičet do propojených kanálů</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Shout to subchannels</source>
         <translation>Křičet do podkanálů</translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location/>
         <source>Shout to Channel</source>
         <translation>Křičet do Kanálu</translation>
     </message>
     <message>
-        <location line="-85"/>
+        <location/>
         <source>The whisper will also be transmitted to linked channels.</source>
         <translation>Šepot bude také vysílán do propojených kanálů.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>The whisper will also be sent to the subchannels of the channel target.</source>
         <translation>Šepot bude také odeslán do podkanálů cílového kanálu.</translation>
     </message>
@@ -4379,7 +4358,7 @@ v žádném z možných míst.</translation>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+302"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+331"/>
         <source>Mouse %1</source>
         <translation>Myš %1</translation>
     </message>
@@ -4428,22 +4407,22 @@ v žádném z možných míst.</translation>
         <translation>LCD</translation>
     </message>
     <message>
-        <location filename="LCD.ui" line="+14"/>
+        <location filename="LCD.ui"/>
         <source>Form</source>
         <translation>Formulář</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location/>
         <source>Devices</source>
         <translation>Zařízení</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>Name</source>
         <translation>Jméno</translation>
     </message>
     <message>
-        <location line="-24"/>
+        <location/>
         <source>&lt;p&gt;This is the list of available LCD devices on your system.  It lists devices by name, but also includes the size of the display. Mumble supports outputting to several LCD devices at a time.&lt;/p&gt;
 &lt;h3&gt;Size:&lt;/h3&gt;
 &lt;p&gt;
@@ -4458,27 +4437,27 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
 &lt;p&gt;Toto rozhoduje, zda-li má Mumble do konkrétního LCD zařízení vykreslovat.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location/>
         <source>Size</source>
         <translation>Velikost</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Enabled</source>
         <translation>Povoleno</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location/>
         <source>Views</source>
         <translation>Zobrazení</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Minimum Column Width</source>
         <translation>Minimální Šířka Sloupce</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
@@ -4487,12 +4466,12 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
 </translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location/>
         <source>This setting decides the width of column splitter.</source>
         <translation>Toto nastavení rozhoduje o šířce separátoru sloupce.</translation>
     </message>
     <message>
-        <location line="-7"/>
+        <location/>
         <source>Splitter Width</source>
         <translation>Šířka Separátoru</translation>
     </message>
@@ -4738,12 +4717,12 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>klikněte zde pro zapnutí oznámení zvukem pro události %1.&lt;br /&gt;Je-li zaškrtnuto, Mumble použije zvukový soubor Vámi přednastavený, pro signalizaci událostí %1. Zvukové soubory a Text-Na-Řeč nemůžou být použity najednou.</translation>
     </message>
     <message>
-        <location filename="Log.ui" line="+14"/>
+        <location filename="Log.ui"/>
         <source>Messages</source>
         <translation>Zprávy</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location/>
         <source>Console</source>
         <translation>Konzole</translation>
     </message>
@@ -4760,112 +4739,112 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">Povolit čtení textu nahlas pro %1</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location/>
         <source>Text To Speech</source>
         <translation>Text na Řeč</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Volume</source>
         <translation>Hlasitost</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Volume of Text-To-Speech Engine</source>
         <translation>Hlasitost Textu-Na-Řeč</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This is the volume used for the speech synthesis.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Toto je hlasitost použitá pro syntézu hlasu.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location/>
         <source>Length threshold</source>
         <translation>Maximální Délka</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Message length threshold for Text-To-Speech Engine</source>
         <translation>Maximální délka zprávy pro Text-Na-Řeč</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</source>
         <translation>&lt;b&gt;Toto je maximální délka zprávy použitá Textem-Na-Řeč.&lt;/b&gt;&lt;br /&gt;Zprávy delší než tento limit nebudou nahlas přečteny v celé svojí délce.</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location/>
         <source>If enabled text messages you send will be read back to you with TTS</source>
         <translation>Pokud zapnuto, textové zprávy, které odesíláte, Vám budou přečteny zpátky pomocí Textu-Na-Řeč</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Read back own messages</source>
         <translation>Vlastní zprávy přečíst zpět</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Whisper</source>
         <translation>Šepot</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
         <translation>Je-li zaškrtnuto, šepoty budete slyšet pouze od uživatelů, které jste přidali na seznam přátel.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Only accept whispers from friends</source>
         <translation>Šepoty přijímat pouze od přátel</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Chat Log</source>
         <translation>Záznam chatu</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Maximum chat length</source>
         <translation>Maximální délka chatu</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Unlimited</source>
         <translation>Neomezená</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source> Lines</source>
         <translation> Řádků</translation>
     </message>
     <message>
-        <location line="-160"/>
+        <location/>
         <source>Message</source>
         <translation>Zpráva</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Notification</source>
         <translation>Oznámení</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Text-To-Speech</source>
         <translation>Text-Na-Řeč</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Soundfile</source>
         <translation>Zvukový soubor</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Path</source>
         <translation>Cesta</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location/>
         <source> Characters</source>
         <translation> Znaků</translation>
     </message>
@@ -4873,12 +4852,12 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
 <context>
     <name>LookConfig</name>
     <message>
-        <location filename="LookConfig.ui" line="+204"/>
+        <location filename="LookConfig.ui"/>
         <source>Language</source>
         <translation>Jazyk</translation>
     </message>
     <message>
-        <location line="-47"/>
+        <location/>
         <source>Look and Feel</source>
         <translation>Styl vzhledu</translation>
     </message>
@@ -4889,68 +4868,68 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Výchozí nastavení systému</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="+57"/>
+        <location filename="LookConfig.ui"/>
         <source>Language to use (requires restart)</source>
         <translation>Který jazyk použít (vyžaduje restart)</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
         <translation>&lt;b&gt;Nastaví jazyk, který má aplikace Mumble použít.&lt;/b&gt;&lt;br /&gt;Pro použití nového jazyka musíte Mumble restartovat.</translation>
     </message>
     <message>
-        <location line="-54"/>
+        <location/>
         <source>Style</source>
         <translation>Styl</translation>
     </message>
     <message>
-        <location line="-143"/>
+        <location/>
         <source>Layout</source>
         <translation>Rozvržení</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location/>
         <source>Classic</source>
         <translation>Klasické</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location/>
         <source>Stacked</source>
         <translation>Na sobě</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location/>
         <source>Hybrid</source>
         <translation>Smíšené</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location/>
         <source>Custom</source>
         <translation>Vlastní</translation>
     </message>
     <message>
-        <location line="+243"/>
+        <location/>
         <source>This changes the behavior when moving channels.</source>
         <translation>Toto změní chování při přesunu kanálů.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
         <translation>Toto nastavuje chování při táhnutí kanálů; může být použito pro zabránění neúmyslného táhnutí. &lt;i&gt;Přesunout&lt;/i&gt; přesune kanály bez potvrzení. &lt;i&gt;Nedělat nic&lt;/i&gt; nic neudělá a vypíše chybovou zprávu. &lt;i&gt;Zeptat se&lt;/i&gt; použije rámeček se zprávou pro potvrzení, jetli opravdu chcete kanál přesunout.</translation>
     </message>
     <message>
-        <location line="-200"/>
+        <location/>
         <source>Basic widget style</source>
         <translation>Základní styl prvků grafického prostředí</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This sets the basic look and feel to use.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Toto nastaví základní styl vzhledu aplikace.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Skin</source>
         <translation>Motiv</translation>
     </message>
@@ -4959,17 +4938,17 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">...</translation>
     </message>
     <message>
-        <location line="+227"/>
+        <location/>
         <source>Show number of users in each channel</source>
         <translation>Zobrazí počet uživatelů v každém kanále</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Show channel user count</source>
         <translation>Zobrazit počet uživatelů kanálu</translation>
     </message>
     <message>
-        <location line="-223"/>
+        <location/>
         <source>Skin file to use</source>
         <translation>Soubor motivu, který má být použit</translation>
     </message>
@@ -5020,7 +4999,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Vyberte soubor s motivem</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="+3"/>
+        <location filename="LookConfig.ui"/>
         <source>&lt;b&gt;This sets which skin Mumble should use.&lt;/b&gt;&lt;br /&gt;The skin is a style file applied on top of the basic widget style. If there are icons in the same directory as the style sheet, those will replace the default icons.</source>
         <translation>&lt;b&gt;Toto nastaví, který motiv by měl Mumble použít.&lt;/b&gt;&lt;br /&gt;Motiv je soubor se stylem použitý navrch základního stylu grafické komponenty. Pokud ve stejném adresáři jako stylopis existují ikony, tak nahradí výchozí ikony.</translation>
     </message>
@@ -5039,12 +5018,12 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Všechny</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="+187"/>
+        <location filename="LookConfig.ui"/>
         <source>Expand</source>
         <translation>Zvětšit</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>When to automatically expand channels</source>
         <translation>Kdy automaticky zvětšit kanály</translation>
     </message>
@@ -5069,142 +5048,142 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Přesunout</translation>
     </message>
     <message>
-        <location filename="LookConfig.ui" line="-24"/>
+        <location filename="LookConfig.ui"/>
         <source>Channel Dragging</source>
         <translation>Táhnutí Kanálů</translation>
     </message>
     <message>
-        <location line="-57"/>
+        <location/>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
         <translation>Zeptat se, jestli zavřít či minimalizovat při ukončení Mumble.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Ask on quit while connected</source>
         <translation>Zeptat se na ukončení, je-li připojeno</translation>
     </message>
     <message>
-        <location line="-53"/>
+        <location/>
         <source>Always On Top</source>
         <translation>Vždy Nahoře</translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location/>
         <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Je-li nastaveno, minimalizováním hlavního okna Mumble, způsobí, že je skryt a přístupný pouze z hlavního panelu. Jinak bude minimalizován jako normální okno.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location/>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
         <translation>Toto nastavuje, který kanál má být automaticky rozšířen. &lt;i&gt;Žádný&lt;i/&gt; a &lt;i&gt;Všechny&lt;/i&gt; rozšíří žádný nebo všechny kanály, zatímco &lt;i&gt;Pouze s uživateli&lt;/i&gt; rozšíří a zúží kanály, jak uživatelé přicházejí a odcházejí.</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>List users above subchannels (requires restart).</source>
         <translation>Zobrazí uživatele nad podkanály (vyžaduje restart).</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</source>
         <translation>&lt;b&gt;Je-li nastaveno, uživatelé budou zobrazeni nad podkanály v zobrazení kanálů.&lt;/b&gt;&lt;br /&gt;Pro zobrazení změny je vyžadován restart Mumble.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Users above Channels</source>
         <translation>Uživatelé nad Kanály</translation>
     </message>
     <message>
-        <location line="-94"/>
+        <location/>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Je-li nastaveno, potvrdí, zda chcete odejít, pokud jste připojeni.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location/>
         <source>Hide in tray when minimized</source>
         <translation>Při minimalizaci skrýt do hlavního panelu</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location/>
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
         <translation>Skryje hlavní okno Mumble při minimalizaci do hlavního panelu.</translation>
     </message>
     <message>
-        <location line="-62"/>
+        <location/>
         <source>This setting controls when the application will be always on top.</source>
         <translation>Toto nastavení kontroluje kdy je aplikace vždy nahoře.</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Never</source>
         <translation>Nikdy</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Always</source>
         <translation>Vždy</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>In minimal view</source>
         <translation>V minimálním zobrazení</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>In normal view</source>
         <translation>V normálním zobrazení</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location/>
         <source>Displays talking status in system tray</source>
         <translation>Zobrazí stav mluvení v hlavním panelu</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Show talking status in tray icon</source>
         <translation>Zobrazit stav mluvení v ikoně hlavního panelu</translation>
     </message>
     <message>
-        <location line="-78"/>
+        <location/>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
         <translation>Toto nastavení kontroluje, v kterých situacích aplikace zůstane vždy nahoře. Pokud zvolíte &lt;i&gt;Nikdy&lt;/i&gt; aplikace nikdy nezůstane nahoře. &lt;i&gt;Vždy&lt;/i&gt; zůstane aplikace nahoře vždycky. &lt;i&gt;V minimálním zobrazení&lt;/i&gt; / &lt;i&gt;V normálním zobrazení&lt;/i&gt; ponechá aplikaci vždy nahoře, když minimální zobrazení je zapnuto / vypnuto.</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location/>
         <source>Show context menu in menu bar</source>
         <translation>Zobrazit kontextové menu v liště menu</translation>
     </message>
     <message>
-        <location line="-72"/>
+        <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
         <translation>Použít některé vysoko kontrastní optimalizace pro zrakově postižené uživatele</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Optimize for high contrast</source>
         <translation>Optimalizovat pro vysoký kontrast</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location/>
         <source>Application</source>
         <translation>Aplikace</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location/>
         <source>Adds user and channel context menus into the menu bar</source>
         <translation>Přidá kontextové menu uživatel a kanál do lišty s menu</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location/>
         <source>Tray Icon</source>
         <translation>Ikona hlavního panelu</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location/>
         <source>Channel Tree</source>
         <translation>Strom kanálů</translation>
     </message>
     <message>
-        <location line="-157"/>
+        <location/>
         <source>&amp;Browse...</source>
         <translation>&amp;Procházet...</translation>
     </message>
@@ -5217,23 +5196,28 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Vítejte v aplikaci Mumble.</translation>
     </message>
     <message>
+        <location line="+62"/>
+        <source>Skipping version check in debug mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+2049"/>
+        <location line="+2070"/>
         <source>Root</source>
         <translation>Kořen</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="+190"/>
+        <location filename="MainWindow.ui"/>
         <source>&amp;Quit Mumble</source>
         <translation>&amp;Ukončit Mumble</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Closes the program</source>
         <translation>Uzavře aplikaci</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Exits the application.</source>
         <translation>Ukončí aplikaci.</translation>
     </message>
@@ -5243,12 +5227,12 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">Ukončit</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location/>
         <source>&amp;Connect</source>
         <translation>&amp;Připojit</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Open the server connection dialog</source>
         <translation>Otevřít dialogové okno spojení se serverem</translation>
     </message>
@@ -5257,37 +5241,37 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">Ukáže dialog registrovaných serverů a umožňuje tak rychlé a snadné připojení k nim.</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location/>
         <source>&amp;Disconnect</source>
         <translation>O&amp;dpojit</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Disconnect from server</source>
         <translation>Odpojit od serveru</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Disconnects you from the server.</source>
         <translation>Odpojí Vás od serveru.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>&amp;Ban lists</source>
         <translation>Seznam &amp;zákazů</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Edit ban lists on server</source>
         <translation>Upravit seznam zákazů na serveru</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This lets you edit the server-side IP ban lists.</source>
         <translation>Toto Vám umožní upravit seznamy zakázaných IP adres na straně serveru.</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location/>
         <source>&amp;Kick</source>
         <translation>Vy&amp;kopnout</translation>
     </message>
@@ -5300,7 +5284,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">Vykopne vybraného uživatele ze serveru. Budete dotázán na důvod.</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location/>
         <source>&amp;Ban</source>
         <translation>Z&amp;akázat</translation>
     </message>
@@ -5313,7 +5297,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">Vykopne a zakáže vybraného uživatele. Budete požádání o doplnění důvodu.</translation>
     </message>
     <message>
-        <location line="-11"/>
+        <location/>
         <source>&amp;Mute</source>
         <translation>Ztlu&amp;mit</translation>
     </message>
@@ -5326,7 +5310,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">Zakáže vybranému uživateli na serveru schopost mluvit, nebo mu ji opět vrátí. Vrácením práva mluvit uživateli s vypnutým poslechem se mu zároveň zapne poslech.</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location/>
         <source>&amp;Deafen</source>
         <translation>O&amp;hlušit</translation>
     </message>
@@ -5339,7 +5323,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">Vypnout/zapnout poslech uživateli.  Vypnutím poslechu se uživateli zároveň zakáže mluvit.</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location/>
         <source>&amp;Local Mute</source>
         <translation>Místní Zt&amp;lumení</translation>
     </message>
@@ -5352,43 +5336,42 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">&amp;Odeslat zprávu</translation>
     </message>
     <message>
-        <location line="+14"/>
-        <location line="+266"/>
+        <location/>
         <source>Send a Text Message</source>
         <translation>Poslat textovou zprávu</translation>
     </message>
     <message>
-        <location line="-263"/>
+        <location/>
         <source>Sends a text message to another user.</source>
         <translation>Pošle textovou zprávu jinému uživateli.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>&amp;Add</source>
         <translation>Přid&amp;at</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Add new channel</source>
         <translation>Přidat nový kanál</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This adds a new sub-channel to the currently selected channel.</source>
         <translation>Toto přidá nový podkanál do současně vybraného kanálu.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>&amp;Remove</source>
         <translation>Odst&amp;ranit</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Remove channel</source>
         <translation>Odstranit kanál</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This removes a channel and all sub-channels.</source>
         <translation>Toto odstraní kanál a všechny podkanály.</translation>
     </message>
@@ -5397,22 +5380,22 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">Uprav&amp;it ACL</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Edit Groups and ACL for channel</source>
         <translation>Upravit Skupiny a ACL pro kanál</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This opens the Group and ACL dialog for the channel, to control permissions.</source>
         <translation>Toto otevře dialogové okno skupin a ACL daného kanálu, pro kontrolu oprávnění.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>&amp;Link</source>
         <translation>&amp;Propojit</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Link your channel to another channel</source>
         <translation>Propojí současný kanál s jiným kanálem</translation>
     </message>
@@ -5425,88 +5408,88 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">O&amp;dpojit</translation>
     </message>
     <message>
-        <location line="-244"/>
+        <location/>
         <source>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</source>
         <translation>Toto je chatová lišta&lt;br /&gt;Pokud zde zadáte text a pak zmáčknete enter, tex je poslán zvolenému uživateli nebo kanálu. Pokud nic není zvoleno, zpráva bude poslána do současného kanálu.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Chatbar</source>
         <translation>Chatová lišta</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location/>
         <source>Shows a dialog of registered servers, and also allows quick-connect.</source>
         <translation>Zobrazí dialogové okno registrovaných serverů, a také umožňuje rychlé připojení.</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location/>
         <source>Kick user (with reason)</source>
         <translation>Vykopnout uživatele (s důvodem)</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Kick selected user off server. You&apos;ll be asked to specify a reason.</source>
         <translation>Vykopne vybraného uživatele ze serveru. Budete požádáni o udání důvodu.</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>Mute user</source>
         <translation>Zeslabit uživatele</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
         <translation>Ztlumit nebo zesílit uživatele na serveru. Zesílení ohlušeného uživatele také zruší jejich ohlušení.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Kick and ban user (with reason)</source>
         <translation>Vykopnout a zakázat uživatele (s důvodem)</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Kick and ban selected user from server. You&apos;ll be asked to specify a reason.</source>
         <translation>Vykopnout a zakázat uživatele na serveru. Budete požádáni o udání důvodu.</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>Deafen user</source>
         <translation>Ohlušit uživatele</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Deafen or undeafen user on server. Deafening a user will also mute them.</source>
         <translation>Ohluší nebo zruší ohlušení uživatele na serveru. Ohlušením jsou uživatelé také ztlumeni.</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>Mute user locally</source>
         <translation>Ztlumit uživatele místně</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
         <translation>Ztlumit nebo zesílit uživatele místně. Toto použijte na ostatní uživatele ve stejné místnosti.</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location/>
         <source>&amp;Edit</source>
         <translation>&amp;Upravit</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location/>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
         <translation>Toto propojí Váš současný kanál s vybraným. Pokud mají uživatelé v kanálu oprávnění mluvit v druhém kanálu, mohou se teď navzájem sloučit. Toto je trvalé propojení, a bude trvat do doby, než budou ručně rozpojeni nebo server restartován. Prohlédněte si, prosím, zkratky pro zmáčknutí k propojení.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Unlink your channel from another channel</source>
         <translation>Rozpojit Váš kanálu od jiného kanálu</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This unlinks your current channel from the selected channel.</source>
         <translation>Rozpojí Váš současný kanál od vybraného kanálu.</translation>
     </message>
@@ -5515,72 +5498,72 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">Odpoj&amp;it vše</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Unlinks your channel from all linked channels.</source>
         <translation>Rozpojí Váš kanál od všech propojených kanálů.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This unlinks your current channel (not the selected one) from all linked channels.</source>
         <translation>Toto rozpojí Váš současný kanál (ne ten vybraný) od všech propojených kanálů.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>&amp;Reset</source>
         <translation>&amp;Resetovat</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Reset audio preprocessor</source>
         <translation>Resetovat preprocesor</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
         <translation>Toto resetuje zvukový preprocesor, včetně rušení šumu, automatického získání hlasitosti a detekce hlasové aktivity. Pokud něco náhle zhorší zvukové prostředí (například mikrofon upadne) a je to pouze dočasné, použijte toto, abyste se vyhnuli čekáním, až se preprocesor přizpůsobí.</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location/>
         <source>&amp;Mute Self</source>
         <translation>&amp;Zeslabit se</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Mute yourself</source>
         <translation>Zeslabit se</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
         <translation>Zeslabit/zesílit sám sebe.  Když jste zeslabeni, neposíláte žádná data na server. Zesílením při ohlušení zároveň ohlušení zrušíte.</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location/>
         <source>&amp;Deafen Self</source>
         <translation>&amp;Ohlušit se</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Deafen yourself</source>
         <translation>Ohlušit se</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
         <translation>Ohlušit sám sebe nebo zrušit ohlušení. Když jste ohlušeni, tak nic neuslyšíte. Ohlušením se také zeslabíte.</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>&amp;Text-To-Speech</source>
         <translation>&amp;Text-Na-Řeč</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Toggle Text-To-Speech</source>
         <translation>Zapnout Text-Na-Řeč</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
         <translation>Zapnout nebo vypnout text-na-řeč. Pouze zprávy povolené pro text-na-řeč v dialogovém okně nastavení budou přečteny.</translation>
     </message>
@@ -5589,192 +5572,192 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">S&amp;tatistika</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Display audio statistics</source>
         <translation>Zobrazit statistiku zvuku</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Pops up a small dialog with information about your current audio input.</source>
         <translation>Vyskočí malé dialogové okno s informacemi o současném zvukovém vstupu.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Forcibly unlink plugin</source>
         <translation>Násilně odpojit zásuvný modul</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</source>
         <translation>Toto násilně donutí zásuvný modul k odpojení, což je užitečné, pokud načítá naprosto špatná data.</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location/>
         <source>&amp;Settings</source>
         <translation>Na&amp;stavení</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Configure Mumble</source>
         <translation>Nastavit Mumble</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Allows you to change most settings for Mumble.</source>
         <translation>Umožňuje Vám změnit většinu nastavení Mumble.</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>&amp;Audio Wizard</source>
         <translation>&amp;Průvodce Zvukem</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Start the audio configuration wizard</source>
         <translation>Spustit průvodce nastavením zvuku</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This will guide you through the process of configuring your audio hardware.</source>
         <translation>Toto Vás provede skrz proces nastavení Vašeho hardware zvuku.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>&amp;What&apos;s This?</source>
         <translation>&amp;Co je to?</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Enter What&apos;s This? mode</source>
         <translation>Vstoupit do režimu &quot;Co je To?&quot;</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
         <translation>Klikněte pro vstoupení do režimu &quot;Co je To?&quot; Váš kurzor se změní na otazník. Klikněte na jakékoli tlačítko, volbu menu nebo oblast pro zobrazení popisu co je to zač.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>&amp;About</source>
         <translation>O &amp;aplikaci</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Information about Mumble</source>
         <translation>Informace o Mumble</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Shows a small dialog with information and license for Mumble.</source>
         <translation>Zobrazí malé dialogové okno s informacemi a licencí pro Mumble.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>About &amp;Speex</source>
         <translation>O &amp;Speex</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Information about Speex</source>
         <translation>Informace o Speex</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Shows a small dialog with information about Speex.</source>
         <translation>Zobrazí malé dialogové okno s informacemi o Speex.</translation>
     </message>
     <message>
-        <location line="+195"/>
+        <location/>
         <source>&amp;Change Comment</source>
         <translation>Změnit &amp;Komentář</translation>
     </message>
     <message>
-        <location line="-120"/>
+        <location/>
         <source>Configure certificates for strong authentication</source>
         <translation>Nastavit certifiákaty pro silné ověření</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</source>
         <translation>Toto spustí průvodce pro vytvoření, importování a exportování certifikátu pro ověření pomocí serverů.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Register user on server</source>
         <translation>Registrovat uživatele na serveru</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This will permanently register the user on the server.</source>
         <translation>Toto natrvalo registruje uživatele na serveru.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Add &amp;Friend</source>
         <translation>&amp;Přidat Přítele</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Adds a user as your friend.</source>
         <translation>Přidá uživatele jako Vašeho přítele.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This will add the user as a friend, so you can recognize him on this and other servers.</source>
         <translation>Toto přidá uživatele jako přítele, takže ho můžete rozpoznat na tomto a dalších serverech.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>&amp;Remove Friend</source>
         <translation>Odst&amp;ranit Přítele</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Removes a user from your friends.</source>
         <translation>Odstraní uživatele z Vašich přátel.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This will remove a user from your friends list.</source>
         <translation>Toto odstraní uživatele ze seznamu Vašich přátel.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>&amp;Update Friend</source>
         <translation>Akt&amp;ualizovat Přítele</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Update name of your friend.</source>
         <translation>Aktualizovat jméno Vašeho přítele.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Your friend uses a different name than what is in your database. This will update the name.</source>
         <translation>Váš přítel používá jiné jméno, než jaké je ve Vaši databázi. Toto jméno aktualizuje.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Registered &amp;Users</source>
         <translation>Registrovaní &amp;Uživatelé</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Edit registered users list</source>
         <translation>Upravit seznam registrovaných uživatelů</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This opens the editor for registered users, which allow you to change their name or unregister them.</source>
         <translation>Toto otevře editor pro registrované uživatele, což Vám dovolí měnit jejich jména nebo zrušit jejich registraci.</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location/>
         <source>&amp;Access Tokens</source>
         <translation>Zn&amp;aky Přístupu</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Add or remove text-based access tokens</source>
         <translation>Přidá nebo odstraní textové znaky přístupu</translation>
     </message>
@@ -5783,34 +5766,34 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">O &amp;knihovně Qt</translation>
     </message>
     <message>
-        <location line="-138"/>
+        <location/>
         <source>Information about Qt</source>
         <translation>Informace o Qt</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Shows a small dialog with information about Qt.</source>
         <translation>Zobrazí malé dialogové okno s informacemi o QT.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Check for &amp;Updates</source>
         <translation>Zkontrolovat akt&amp;ualizace</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Check for new version of Mumble</source>
         <translation>Zkontroluje aktualizace Mumble</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
         <translation>Připojí se k webové stránce Mumble pro zjištění, je-li nová verze dostupná, a oznámí Vám to vhodným odkazem na stažení, pokud tomu opravdu tak je.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1950"/>
+        <location filename="MainWindow.cpp" line="-1971"/>
         <location line="+12"/>
-        <location line="+2132"/>
+        <location line="+2153"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1 </translation>
     </message>
@@ -5819,7 +5802,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">Záznam zpráv</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="-476"/>
+        <location filename="MainWindow.ui"/>
         <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
         <translation>Toto zobrazí nedávnou aktivitu. Připojování k serverům, chyby a informační zprávy jsou všechny zobrazeny zde.&lt;br /&gt; Abyste přesně nastavili, které zprávy se zde zobrazí, použijte z menu příkaz &lt;b&gt;Nastavení&lt;/b&gt;.</translation>
     </message>
@@ -5832,7 +5815,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">&amp;Uživatel</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2220"/>
+        <location filename="MainWindow.cpp" line="-2241"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanál</translation>
     </message>
@@ -5841,12 +5824,12 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">&amp;Zvuk</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="-64"/>
+        <location filename="MainWindow.ui"/>
         <source>C&amp;onfigure</source>
         <translation>&amp;Nastavit</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>&amp;Help</source>
         <translation>&amp;Nápověda</translation>
     </message>
@@ -5966,18 +5949,18 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <location line="+12"/>
         <location line="+81"/>
         <location line="+4"/>
-        <location line="+232"/>
+        <location line="+233"/>
         <source>To %1: %2</source>
         <translation>Pro %1: %2</translation>
     </message>
     <message>
-        <location line="-317"/>
+        <location line="-318"/>
         <location line="+85"/>
         <source>Message to %1</source>
         <translation>Zpráva pro %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="-48"/>
+        <location filename="MainWindow.ui"/>
         <source>Mumble</source>
         <translation>Mumble</translation>
     </message>
@@ -5986,12 +5969,12 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">Název kanálu</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+150"/>
+        <location filename="MainWindow.cpp" line="+151"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Jste si jisti, že chcete odstranit kanál %1 a všechny jeho podkanály?</translation>
     </message>
     <message>
-        <location line="+210"/>
+        <location line="+230"/>
         <source>Unmuted and undeafened.</source>
         <translation>Zrušeno ohlušení a zesílen.</translation>
     </message>
@@ -6419,23 +6402,22 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Nelze nalézt odpovídající kodeky CELT s ostatními klienty. Nebudete schopni mluvit ke všem uživatelům.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="+243"/>
-        <location line="+494"/>
+        <location filename="MainWindow.ui"/>
         <source>&amp;Information</source>
         <translation>&amp;Informace</translation>
     </message>
     <message>
-        <location line="-491"/>
+        <location/>
         <source>Show information about the server connection</source>
         <translation>Zobrazit informace o připojení k serveru</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This will show extended information about the connection to the server.</source>
         <translation>Toto zobrazí podrobné informace o připojení k serveru.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1738"/>
+        <location filename="MainWindow.cpp" line="-1759"/>
         <source>Opening URL %1</source>
         <translation>Otevírám URL %1</translation>
     </message>
@@ -6517,7 +6499,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1261"/>
+        <location line="+1282"/>
         <source>&amp;View Certificate</source>
         <translation>Zobrazit &amp;Certifikát</translation>
     </message>
@@ -6527,7 +6509,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Tento server používá starý šifrovací standard, a nebude nadále podporován novými verzemi Mumble.</translation>
     </message>
     <message>
-        <location line="-1388"/>
+        <location line="-1409"/>
         <location line="+327"/>
         <source>Register yourself as %1</source>
         <translation>Registrovat se jako %1</translation>
@@ -6565,12 +6547,12 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     </message>
     <message>
         <location line="+52"/>
-        <location line="+236"/>
+        <location line="+237"/>
         <source>Message to channel %1</source>
         <translation>Zpráva do kanálu %1</translation>
     </message>
     <message>
-        <location line="+490"/>
+        <location line="+510"/>
         <source>Connected.</source>
         <translation>Připojen.</translation>
     </message>
@@ -6585,7 +6567,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Ověření SSL selhalo: %1</translation>
     </message>
     <message>
-        <location line="-2142"/>
+        <location line="-2163"/>
         <source>&amp;User</source>
         <translation>&amp;Uživatel</translation>
     </message>
@@ -6606,13 +6588,13 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Jste si jisti, že chcete resetovat komentář uživatele %1?</translation>
     </message>
     <message>
-        <location line="+270"/>
+        <location line="+271"/>
         <source>To %1 (Tree): %2</source>
         <oldsource>(Tree) %1: %2</oldsource>
         <translation>Do %1 (Strom): %2</translation>
     </message>
     <message>
-        <location line="+618"/>
+        <location line="+638"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;VAROVÁNÍ:&lt;/b&gt; Server předložil certifikát, který se liší od uloženého.</translation>
     </message>
@@ -6665,7 +6647,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Formát obrázku nerozpoznán.</translation>
     </message>
     <message>
-        <location line="-1555"/>
+        <location line="-1576"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Zvukový kanál je posílán přes kontrolní kanál.</translation>
     </message>
@@ -6705,7 +6687,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Resynch</translation>
     </message>
     <message>
-        <location line="+628"/>
+        <location line="+629"/>
         <source>Sending message to channel %1</source>
         <translation>Odesílám zprávu do kanálu %1</translation>
     </message>
@@ -6715,22 +6697,22 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Zpráva pro strom %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="-64"/>
+        <location filename="MainWindow.ui"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location line="+377"/>
+        <location/>
         <source>About &amp;Qt</source>
         <translation>O &amp;Qt</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location/>
         <source>Sends a text message to all users in a channel.</source>
         <translation>Pošle textovou zprávu všem uživatelům v kanálu.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1309"/>
+        <location filename="MainWindow.cpp" line="-1310"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble je nyní připojen k serveru. Opravdu ho chcete Zavřit nebo Minimalizovat?</translation>
     </message>
@@ -6804,17 +6786,17 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Zapnout Minimálni Zobrazení</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="+8"/>
+        <location filename="MainWindow.ui"/>
         <source>&amp;Minimal View</source>
         <translation>&amp;Minimální Zobrazení</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Toggle minimal window modes</source>
         <translation>Zapnout režim minimálního okna</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This will toggle minimal mode, where the log window and menu is hidden.</source>
         <translation>Toto zapne minimální zobrazení, kde jsou okna záznamu a menu skryta.</translation>
     </message>
@@ -6832,18 +6814,18 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     </message>
     <message>
         <location line="+66"/>
-        <location line="+2161"/>
+        <location line="+2182"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Nepřipojen&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1877"/>
+        <location line="-1898"/>
         <source>Clear</source>
         <translation>Vyčistit</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="-511"/>
+        <location filename="MainWindow.ui"/>
         <source>Log</source>
         <translation>Záznam</translation>
     </message>
@@ -6858,7 +6840,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Neznámý režim Táhnutí Kanálů v UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="+280"/>
+        <location filename="MainWindow.ui"/>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
         <translation>O&amp;dpojit</translation>
@@ -6876,141 +6858,149 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Serveru</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="+239"/>
+        <location filename="MainWindow.ui"/>
         <source>Hide Frame</source>
         <translation>Skrýt Rámeček</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Toggle showing frame on minimal window</source>
         <translation>Přepne zobrazení rámečku v minimálním okně</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
         <translation>Toto nastaví, zda-li okno minimálního zobrazení by mělo mít rámeček pro přesunování a změny velikosti.</translation>
     </message>
     <message>
-        <location line="-300"/>
-        <location line="+266"/>
+        <location/>
         <source>Send &amp;Message</source>
         <translation>Poslat &amp;Zprávu</translation>
     </message>
     <message>
-        <location line="-200"/>
+        <location/>
         <source>&amp;Unlink All</source>
         <translation>Odpojit &amp;Vše</translation>
     </message>
     <message>
-        <location line="+239"/>
+        <location/>
         <source>&amp;Certificate Wizard</source>
         <translation>Průvodce &amp;Certifikátem</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>&amp;Register</source>
         <translation>&amp;Registrovat</translation>
     </message>
     <message>
-        <location line="+79"/>
+        <location/>
         <source>Reset &amp;Comment</source>
         <translation>Resetovat &amp;Komentář</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Reset the comment of the selected user.</source>
         <translation>Resetuje komentář zvoleného uřživatele.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>&amp;Join Channel</source>
         <translation>&amp;Vstoupit do Kanálu</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>View Comment</source>
         <translation>Zobrazit Komentář</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>View comment in editor</source>
         <translation>Zobrazit komentář v editoru</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Query server for connection information for user</source>
         <translation>Požádat server o informace o připojení uživatele</translation>
     </message>
     <message>
-        <location line="-680"/>
+        <location/>
         <source>S&amp;erver</source>
         <translation>S&amp;erver</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>&amp;Self</source>
         <translation>&amp;Sebe</translation>
     </message>
     <message>
-        <location line="+404"/>
+        <location/>
         <source>Audio S&amp;tatistics</source>
         <translation>S&amp;tatistiky Zvuku</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location/>
         <source>&amp;Unlink Plugins</source>
         <translation>Odpojit Zás&amp;uvné Moduly</translation>
     </message>
     <message>
-        <location line="+280"/>
+        <location/>
         <source>R&amp;egister</source>
         <translation>R&amp;egistrovat</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Register yourself on the server</source>
         <translation>Registrovat se na serveru</translation>
     </message>
     <message>
-        <location line="-71"/>
+        <location/>
         <source>Change &amp;Avatar</source>
         <translation>Změnit &amp;Avatara</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Change your avatar image on this server</source>
         <translation>Změnit obrázek avatara na tomto serveru</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location/>
         <source>&amp;Remove Avatar</source>
         <translation>Odst&amp;ranit Avatara</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Remove currently defined avatar image.</source>
         <translation>Odstranit současně nastavený obrázek avatara.</translation>
     </message>
     <message>
-        <location line="-556"/>
+        <location/>
         <source>Icon Toolbar</source>
         <translation>Panel nástrojů s Ikonami</translation>
     </message>
     <message>
-        <location line="+597"/>
+        <location/>
         <source>Change your own comment</source>
         <translation>Změnit Váš vlastní komentář</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location/>
         <source>Recording</source>
         <translation>Nahrávání</translation>
     </message>
     <message>
-        <location line="-17"/>
-        <location line="+8"/>
+        <location/>
         <source>Priority Speaker</source>
         <translation>Přednostní Řečník</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Copy URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Copies a link to this channel to the clipboard.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7030,18 +7020,18 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">Písmo</translation>
     </message>
     <message>
-        <location filename="NetworkConfig.ui" line="+26"/>
+        <location filename="NetworkConfig.ui"/>
         <source>Connection</source>
         <translation>Připojení</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Use TCP compatibility mode</source>
         <oldsource>Use TCP compatability mode</oldsource>
         <translation>Použít kompatibilní režim TCP</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
         <translation>&lt;b&gt;Zapnout Kompatibilní režim TCP&lt;/b&gt;.&lt;br /&gt;Toto donutí Mumble použít pouze TCP při komunikaci se serverem. Tím se zvýší čas zpracování a způsobuje, že ztracené pakety vytvářejí nápadné pauzy v komunikaci, takže toto by mělo být použito pouze, když nemůžete použít výchozí nastavení (které používá UDP pro hlas a TCP pro kontrolu).</translation>
     </message>
@@ -7050,229 +7040,229 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">Použít TCP režim</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location/>
         <source>Reconnect when disconnected</source>
         <translation>Po odpojení se znovu připojit</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
         <translation>&lt;b&gt;Při odpojení se znovu připojit&lt;b&gt;.&lt;br /&gt;Toto donutí Mumble se automaticky znovu pokusit o připojení po 10 sekundách od selhání připojení k serveru.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Reconnect automatically</source>
         <translation>Připojit se znovu automaticky</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location/>
         <source>Proxy</source>
         <translation>Proxy</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location/>
         <source>Type of proxy to connect through</source>
         <translation>Typ proxy, přes které se připojit</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Direct connection</source>
         <translation>Přímé spojení</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>HTTP(S) proxy</source>
         <translation>HTTP(S) proxy</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>SOCKS5 proxy</source>
         <translation>SOCKS5 proxy</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Hostname</source>
         <translation>Jméno hostitele</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>Hostname of the proxy</source>
         <translation>Jméno hostitele proxy</translation>
     </message>
     <message>
-        <location line="-125"/>
+        <location/>
         <source>Force TCP mode</source>
         <translation>Vynutit režim TCP</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Enable QoS to prioritize packets</source>
         <translation>Zapnout QoS pro upřednostňování paketů</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</source>
         <translation>Toto zapne QoS, které se pokusí upřednostňovat hlasové pakety před jinými připojeními.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Use Quality of Service</source>
         <translation>Použít Quality of Service</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location/>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
         <translation>Neposílat certifikáty na server a neukládat hesla. (Neukládá se).</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
         <translation>&lt;b&gt;Toto potlačí identifikační informace od klientu&lt;/b&gt;&lt;p&gt;Klient se certifikátem nebude identifikovat, i když je nastaven, a nebude ukládat hesla pro připojení. Toto je zejména volba pro testování a nebude ukládána.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Suppress certificate and password storage</source>
         <translation>Potlačit ukládání certifikátů a hesel</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location/>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
         <translation>&lt;b&gt;Typ proxy, přes které se připojit.&lt;/b&gt;&lt;br /&gt;Toto donutí Mumble se připojit přes proxy pro všechna odchozí připojení. Poznámka: Tunelování přes proxy donutí Mumble použít kompatibilní režim TCP, což způsobí, že všechna hlasová data budou posílána přes kontrolní kanál.</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location/>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
         <translation>&lt;b&gt;Jméno hostitele proxy.&lt;/b&gt;&lt;br /&gt;Toto pole určuje jméno hostitele proxy, přes které chcete tunelovat připojení.</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location/>
         <source>Port</source>
         <translation>Port</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location/>
         <source>Port number of the proxy</source>
         <translation>Číslo portu proxy</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
         <translation>&lt;b&gt;Číslo portu proxy.&lt;/b&gt;&lt;br /&gt;Toto pole určuje číslo portu, na kterém proxy očekává spojení.</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>Username</source>
         <translation>Uživatelské jméno</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Username for proxy authentication</source>
         <translation>Uživatelské jméno pro ověření na proxy</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
         <translation>&lt;b&gt;Uživatelské jméno pro ověření na proxy.&lt;/b&gt;&lt;br /&gt;Toto určuje uživatelské jméno, které se použije pro Vaše ověření na proxy. V případě, že proxy ověření na proxy, nebo se chcete připojit anonymně, jednoduše nechte toto pole prázdné.</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Password</source>
         <translation>Heslo</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Password for proxy authentication</source>
         <translation>Heslo pro ověření na proxy</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
         <translation>&lt;b&gt;Heslo pro ověření na proxy.&lt;/b&gt;&lt;br /&gt;Toto určuje heslo, které má být použito pro Vaše ověření na proxy. V případě, že proxy ověření na proxy, nebo se chcete připojit anonymně, jednoduše nechte toto pole prázdné.</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location/>
         <source>Misc</source>
         <translation>Ostatní</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Prevent log from downloading images</source>
         <translation>Zakáže záznamu stahovat obrázky</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;Disable image download&lt;/b&gt;&lt;br/&gt;
 Prevents the client from downloading images embedded into chat messages with the img tag.</source>
         <translation>&lt;b&gt;Zakázat stahování obrázků&lt;/b&gt;&lt;br/&gt;
 Zakáže klientu stahovat obrázky vnořené do zpráv chatu pomocí tagu img.</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location/>
         <source>Disable image download</source>
         <translation>Zakázat stahování obrázků</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Mumble services</source>
         <translation>Služby Mumble</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Check for new releases of Mumble automatically.</source>
         <translation>Automaticky zkontrolovat, jestli jsou nové verze Mumble k dispozici.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</source>
         <translation>Toto zkontroluje nové verze Mumble pokaždé, když spustíte program, a upozorní Vás, je-li nová verze dostupná.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Check for application updates on startup</source>
         <translation>Při startu zkontrolovat aktualizace aplikace</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Check for new releases of plugins automatically.</source>
         <translation>Automaticky zkontrolovat nové verze zásuvných modulů.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
         <translation>Toto zkontroluje nové verze zásuvných modulů pokaždé, když spustíte program, a automaticky je stáhne.</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location/>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
         <translation>&lt;b&gt;Posílat anonymní statistiky.&lt;/b&gt;&lt;br /&gt;Mumble má malý tým vývojářů, a tak potřebuje svůj vývoj soustředit tam, kde je ho nejvíc třeba. Posíláním trošky statistiky pomáháte projektu rozhodnout, kam zaměřit svůj vývoj.</translation>
     </message>
     <message>
-        <location line="-3"/>
+        <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
         <translation>Posílat anonymní statistiky projektu Mumble</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Submit anonymous statistics</source>
         <translation>Posílat anonymní statistiky</translation>
     </message>
     <message>
-        <location line="-268"/>
+        <location/>
         <source>Reconnect to last used server when starting Mumble</source>
         <translation>Při spuštení Mumble se znovu připojit na poslední server</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Reconnect to last server on startup</source>
         <translation>Při startu se znovu připojit na poslední server</translation>
     </message>
     <message>
-        <location line="+252"/>
+        <location/>
         <source>Download plugin and overlay updates on startup</source>
         <translation>Při startu stáhnout aktualizace zásuvných modulů a překryvů</translation>
     </message>
@@ -7397,6 +7387,11 @@ To může být způsobeno například těmito důvody:
     </message>
     <message>
         <location line="+5"/>
+        <source>Talking and recently active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>All in current channel</source>
         <translation>Všichni v současném kanálu</translation>
     </message>
@@ -7411,12 +7406,32 @@ To může být způsobeno například těmito důvody:
         <translation>Sebe zobrazovat vždy</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+8"/>
+        <source>Configure recently active time (%1 seconds)...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Columns</source>
         <translation>Sloupce</translation>
     </message>
     <message>
         <location line="+8"/>
+        <source>Sort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Alphabetically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Last state change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>Edit...</source>
         <translation>Upravit...</translation>
     </message>
@@ -7425,11 +7440,21 @@ To může být způsobeno například těmito důvody:
         <source>Reset Zoom</source>
         <translation>Resetovat Přiblížení</translation>
     </message>
+    <message>
+        <location line="+41"/>
+        <source>Configure recently active time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Amount of seconds users remain active after talking:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="Overlay.ui" line="+54"/>
+        <location filename="Overlay.ui"/>
         <source>Options</source>
         <translation>Volby</translation>
     </message>
@@ -7443,12 +7468,12 @@ To může být způsobeno například těmito důvody:
         <translation type="obsolete">Písmo</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location/>
         <source>Enable Overlay</source>
         <translation>Zapnout Překryv</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location/>
         <source>Enable overlay.</source>
         <translation>Zapnout překryv.</translation>
     </message>
@@ -7565,7 +7590,7 @@ To může být způsobeno například těmito důvody:
         <translation type="obsolete">Pozice overlay na ose Y</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
         <translation>Toto nastavuje, zda je překryv zapnut či nikoliv. Toto nastavení se kontroluje pouze při startu aplikací, takže se ujistěte, že Mumble běží a tato volba je zapnuta předtím, než aplikaci spustíte.&lt;br /&gt;Uvědomte si, prosím, že pokud spustíte Mumble až po spuštění aplikace, nebo překryv vypnete, zatímco aplikace běží, není žádný bezpečný způsob, jak překryv restartovat, aniž byste restartovali aplikaci.</translation>
@@ -7678,22 +7703,22 @@ To může být způsobeno například těmito důvody:
         <translation>Uložit Předvolby Překryvu</translation>
     </message>
     <message>
-        <location filename="Overlay.ui" line="+193"/>
+        <location filename="Overlay.ui"/>
         <source>Layout</source>
         <translation>Rozvržení</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location/>
         <source>Overlay exceptions</source>
         <translation>Výjimky překryvu</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location/>
         <source>Blacklist</source>
         <translation>Nikdy Zobrazit</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Whitelist</source>
         <translation>Vždy Zobrazit</translation>
     </message>
@@ -7702,22 +7727,22 @@ To může být způsobeno například těmito důvody:
         <translation type="obsolete">Přidat</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location/>
         <source>Remove</source>
         <translation>Odstranit</translation>
     </message>
     <message>
-        <location line="-268"/>
+        <location/>
         <source>Uninstall Overlay</source>
         <translation>Odinstalovat Překryv</translation>
     </message>
     <message>
-        <location line="+289"/>
+        <location/>
         <source>Overlay Installation</source>
         <translation>Instalace Překryvu</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location/>
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</source>
@@ -7726,17 +7751,17 @@ Click the button below to install the overlay.</source>
 klikněte na tlačítko níže pro instalaci překryvu.</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location/>
         <source>Install Mumble Overlay</source>
         <translation>Instalovat Překryv Mumble</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location/>
         <source>Overlay Upgrade</source>
         <translation>Aktualizace Překryvu</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location/>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
@@ -7745,23 +7770,22 @@ To upgrade these files to their latest versions, click the button below.</source
 Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačítko níže.</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location/>
         <source>Upgrade Mumble Overlay</source>
         <translation>Aktualizovat Překryv Mumble</translation>
     </message>
     <message>
-        <location line="-422"/>
+        <location/>
         <source>Display a frame counter in the overlay</source>
         <translation>Zobrazí v překryvu počítadlo snímků</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Show FPS counter</source>
         <translation>Zobrazit počítadlo FPS</translation>
     </message>
     <message>
-        <location line="+319"/>
-        <location line="+107"/>
+        <location/>
         <source>View Certificates</source>
         <translation>Zobrazit Certifikáty</translation>
     </message>
@@ -7770,52 +7794,52 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
         <translation type="obsolete">Odst&amp;ranit</translation>
     </message>
     <message>
-        <location line="-481"/>
+        <location/>
         <source>Load an overlay preset from file</source>
         <translation>Nahrát předvolby překryvu ze souboru</translation>
     </message>
     <message utf8="true">
-        <location line="+3"/>
+        <location/>
         <source>Load…</source>
         <translation>Nahrát...</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Save your overlay settings to file</source>
         <translation>Uložit předvolby překryvu do souboru</translation>
     </message>
     <message utf8="true">
-        <location line="+3"/>
+        <location/>
         <source>Save…</source>
         <translation>Uložit...</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location/>
         <source>FPS Display</source>
         <translation>Displej FPS</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location/>
         <source>Set the overlay font.</source>
         <translation>Nastavit typ písma překryvu.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Font</source>
         <translation>Písmo</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Set the overlay text color.</source>
         <translation>Nastavit barvu textu překryvu.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Color</source>
         <translation>Barva</translation>
     </message>
     <message>
-        <location line="+200"/>
+        <location/>
         <source>Add...</source>
         <translation>Přidat...</translation>
     </message>
@@ -7823,117 +7847,117 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
 <context>
     <name>OverlayEditor</name>
     <message>
-        <location filename="OverlayEditor.ui" line="+20"/>
+        <location filename="OverlayEditor.ui"/>
         <source>State</source>
         <translation>Stav</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>User is not talking</source>
         <translation>Uživtel nemluví</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Passive</source>
         <translation>Pasivní</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>User is talking in your channel or a linked channel</source>
         <translation>Uživatel mluví ve Vašem nebo propojeném kanálu</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Talking</source>
         <translation>Mluví</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>User is whispering to you privately</source>
         <translation>Uživatel k Vám soukromě šeptá</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Private Whisper</source>
         <translation>Soukromý Šepot</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>User is shouting to your channel</source>
         <translation>Uživatel křiči do Vašeho kanálu</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Channel Whisper</source>
         <translation>Šepot v Kanálu</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location/>
         <source>Zoom</source>
         <translation>Přiblížit</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Zoom Factor</source>
         <translation>Faktor Přiblížení</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location/>
         <source>Enabled Elements</source>
         <translation>Povolené Prvky</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>User avatar, chosen by each user</source>
         <translation>Avatar uživatele, zvolen každým uživatelem</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Avatar</source>
         <translation>Avatar</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>User&apos;s name</source>
         <translation>Jméno uživatele</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Username</source>
         <translation>Uživatelské jméno</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Name of user&apos;s channel, if outside your current channel</source>
         <translation>Jméno kanálu uživatele, je-li mimo Váš současný kanál</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Channel</source>
         <translation>Kanál</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Muted or deafened</source>
         <translation>Zeslaben nebo ohlušen</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Mute state</source>
         <translation>Stav zeslabení</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
         <translation>Ohraničující rámeček, automaticky zmenšen na minimální velikost pro obsažení všech viditelných prvků</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Bounding box</source>
         <translation>Ohraničující rámeček</translation>
     </message>
     <message>
-        <location line="-154"/>
+        <location/>
         <source>Overlay Editor</source>
         <translation>Editor Překryvu</translation>
     </message>
@@ -8065,7 +8089,7 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay_win.cpp" line="+62"/>
+        <location filename="Overlay_win.cpp" line="+68"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
@@ -8123,73 +8147,73 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
 <context>
     <name>PluginConfig</name>
     <message>
-        <location filename="Plugins.ui" line="+20"/>
+        <location filename="Plugins.ui"/>
         <source>Options</source>
         <translation>Volby</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location/>
         <location filename="Plugins.cpp" line="+75"/>
         <source>Plugins</source>
         <translation>Zásuvné Moduly</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location/>
         <source>Link to Game and Transmit Position</source>
         <translation>Propojit s Hrou a Vysílat Pozici</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location/>
         <source>Enable plugins and transmit positional information</source>
         <translation>Zapne zásuvné moduly a vysílá informace o pozici</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location/>
         <source>&amp;Reload plugins</source>
         <translation>Znovu nahrát &amp;zásuvné moduly</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location/>
         <source>Reloads all plugins</source>
         <translation>Znovu nahraje všechny zásuvné moduly</translation>
     </message>
     <message>
-        <location line="-47"/>
+        <location/>
         <source>This allows plugins for supported games to fetch your in-game position and transmit it with each voice packet. This enables other users to hear your voice in-game from the direction your character is in relation to their own.</source>
         <translation>Toto umožňuje zásuvným modulům pro podporované hry získat Vaši pozici ve hře a vysílat ji s každým hlasovým paketem. Tím můžou ostatní uživatelé slyšet Váš hlas ve hře ze směru, ve kterém se Vaše postava nachází v souvislosti jejich vlastní pozicí.</translation>
     </message>
     <message>
-        <location line="+50"/>
+        <location/>
         <source>This rescans and reloads plugins. Use this if you just added or changed a plugin to the plugins directory.</source>
         <translation>Toto opětovně skenuje a znovu nahraje zásuvné moduly. Toto použijte, pokud jste právě přidali nebo změnili zásuvné moduly v jejich adresáři.</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location/>
         <source>&amp;About</source>
         <translation>O &amp;modulu</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location/>
         <source>Information about plugin</source>
         <translation>Informace o zásuvném modulu</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This shows a small information message about the plugin.</source>
         <translation>Toto zobrazí malou informační zprávu o zásuvném modulu.</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>&amp;Configure</source>
         <translation>&amp;Nastavit</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location/>
         <source>Show configuration page of plugin</source>
         <translation>Zobrazit stránku nastavení zásuvného modulu</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>This shows the configuration page of the plugin, if any.</source>
         <translation>Toto zobrazí informační stránku zásuvného modulu, pokud existuje.</translation>
     </message>
@@ -8208,17 +8232,17 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
         <translation>Zásuvný modul nemá žádnou funkci O modul.</translation>
     </message>
     <message>
-        <location filename="Plugins.ui" line="-104"/>
+        <location filename="Plugins.ui"/>
         <source>Form</source>
         <translation>Formulář</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location/>
         <source>Name</source>
         <translation>Jméno</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Enabled</source>
         <translation>Povoleno</translation>
     </message>
@@ -8298,7 +8322,7 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+545"/>
+        <location filename="PulseAudio.cpp" line="+556"/>
         <source>Default Input</source>
         <translation>Výchozí Vstup</translation>
     </message>
@@ -8326,67 +8350,67 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
         <translation>Zpráva je příliš dlouhá.</translation>
     </message>
     <message>
-        <location filename="RichTextEditor.ui" line="+24"/>
+        <location filename="RichTextEditor.ui"/>
         <source>Display</source>
         <translation>Zobrazení</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location/>
         <source>Source Text</source>
         <translation>Zdrojový Text</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location/>
         <source>&amp;Bold</source>
         <translation>&amp;Tučné</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Ctrl+B</source>
         <translation>Ctrl+B</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location/>
         <source>&amp;Italic</source>
         <translation>&amp;Kurzíva</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Italic</source>
         <translation>Kurzíva</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Ctrl+I</source>
         <translation>Ctrl+I</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location/>
         <source>Underline</source>
         <translation>Podtržení</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Ctrl+U</source>
         <translation>Ctrl+U</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location/>
         <source>Color</source>
         <translation>Barva</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location/>
         <source>Insert Link</source>
         <translation>Vložit odkaz</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Ctrl+L</source>
         <translation>Ctrl+L</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location/>
         <source>Insert Image</source>
         <translation>Vložit Obrázek</translation>
     </message>
@@ -8394,17 +8418,17 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
 <context>
     <name>RichTextEditorLink</name>
     <message>
-        <location filename="RichTextEditorLink.ui" line="+14"/>
+        <location filename="RichTextEditorLink.ui"/>
         <source>Add Link</source>
         <translation>Přidat Odkaz</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location/>
         <source>Text</source>
         <translation>Text</translation>
     </message>
@@ -8440,7 +8464,7 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-611"/>
+        <location filename="ConnectDialog.cpp" line="-628"/>
         <source>Favorite</source>
         <translation>Oblíbené</translation>
     </message>
@@ -8617,12 +8641,12 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
         <translation>Zadat text</translation>
     </message>
     <message>
-        <location filename="TextMessage.ui" line="+24"/>
+        <location filename="TextMessage.ui"/>
         <source>If checked the message is recursively sent to all subchannels</source>
         <translation>Je-li zaškrtnuto, zpráva bude rekurzivně poslána do všech podkanálů</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>Send recursively to subchannels</source>
         <translation>Poslat rekurzivně do podkanálů</translation>
     </message>
@@ -8635,17 +8659,17 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
         <translation>Prázdný Znak</translation>
     </message>
     <message>
-        <location filename="Tokens.ui" line="+14"/>
+        <location filename="Tokens.ui"/>
         <source>Mumble - Access Tokens</source>
         <translation>Mumble - Znaky Přístupu</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>List of access tokens on current server</source>
         <translation>Seznam znaků přístupu na současném serveru</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&lt;b&gt;This is an editable list of access tokens on the connected server.&lt;/b&gt;
 &lt;br /&gt;
 An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you&apos;ve used and resend them to the server next time you reconnect, so you don&apos;t have to enter these every time.
@@ -8656,22 +8680,22 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
 </translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location/>
         <source>Add a token</source>
         <translation>Přidat znak</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&amp;Add</source>
         <translation>&amp;Přidat</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Remove a token</source>
         <translation>Odstranit znak</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location/>
         <source>&amp;Remove</source>
         <translation>&amp;Odstranit</translation>
     </message>
@@ -8679,13 +8703,12 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
 <context>
     <name>UserEdit</name>
     <message>
-        <location filename="UserEdit.ui" line="+14"/>
-        <location line="+6"/>
+        <location filename="UserEdit.ui"/>
         <source>Registered Users</source>
         <translation>Registrovaní Uživatelé</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <location filename="UserEdit.cpp" line="+96"/>
         <source>Remove</source>
         <translation>Odstranit</translation>
@@ -8699,112 +8722,112 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
 <context>
     <name>UserInformation</name>
     <message>
-        <location filename="UserInformation.ui" line="+14"/>
+        <location filename="UserInformation.ui"/>
         <source>User Information</source>
         <translation>Informace O Uživateli</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Connection Information</source>
         <translation>Informace O Připojení</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Version</source>
         <translation>Verze</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location/>
         <source>OS</source>
         <translation>OS</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location/>
         <source>Certificate</source>
         <translation>Certifikáty</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location/>
         <source>IP Address</source>
         <translation>IP Adresa</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location/>
         <source>CELT Versions</source>
         <translation>Verze CELT</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location/>
         <source>Details...</source>
         <translation>Podrobnosti...</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Ping Statistics</source>
         <translation>Statistiky Ping</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Pings received</source>
         <translation>Přijaté pingy</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Average ping</source>
         <translation>Průmerný ping</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Ping deviation</source>
         <translation>Odchylka pingu</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>TCP (Control)</source>
         <translation>TCP (Kontrola)</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location/>
         <source>UDP (Voice)</source>
         <translation>UDP (Hlas)</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location/>
         <source>UDP Network statistics</source>
         <translation>Statistiky Sítě UDP</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Good</source>
         <translation>Dobré</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Late</source>
         <translation>Ztracené</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Lost</source>
         <translation>Zpožděné</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Resync</source>
         <translation>Resynch</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>From Client</source>
         <translation>Od Klientu</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location/>
         <source>To Client</source>
         <translation>Ke Klientu</translation>
     </message>
     <message>
-        <location line="+128"/>
+        <location/>
         <source>Connection time</source>
         <translation>Čas připojení</translation>
     </message>
@@ -8865,13 +8888,13 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
         <translation>%1 kbit/s</translation>
     </message>
     <message>
-        <location filename="UserInformation.ui" line="-6"/>
+        <location filename="UserInformation.ui"/>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
         <translation>Šířka pásma</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location/>
         <source>Bandwidth</source>
         <comment>Label</comment>
         <translation>Šířka pásma</translation>
@@ -9222,7 +9245,7 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
 <context>
     <name>VoiceRecorderDialog</name>
     <message>
-        <location filename="VoiceRecorderDialog.ui" line="+14"/>
+        <location filename="VoiceRecorderDialog.ui"/>
         <location filename="VoiceRecorderDialog.cpp" line="+98"/>
         <location line="+33"/>
         <location line="+8"/>
@@ -9233,57 +9256,57 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
         <translation>Nahrávač</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Control</source>
         <translation>Ovládání</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location/>
         <source>00:00:00</source>
         <translation>00:00:00</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location/>
         <source>&amp;Start</source>
         <translation>&amp;Spustit</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location/>
         <source>S&amp;top</source>
         <translation>&amp;Zastavit</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Mode</source>
         <translation>Režim</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location/>
         <source>Multichannel</source>
         <translation>Vícekanálové</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location/>
         <source>Output</source>
         <translation>Výstup</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location/>
         <source>Output format</source>
         <translation>Výstupní formát</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location/>
         <source>Target directory</source>
         <translation>Cílový adresář</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location/>
         <source>Filename</source>
         <translation>Jméno souboru</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location/>
         <source>&amp;Browse...</source>
         <translation>&amp;Procházet...</translation>
     </message>
@@ -9345,7 +9368,7 @@ Prosím kontaktujte Vašeho administrátora serveru pro další informace.</tran
         <translation>Zvolte cílový adresář</translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.ui" line="-72"/>
+        <location filename="VoiceRecorderDialog.ui"/>
         <source>Downmix</source>
         <translation>Smíšení Kanálů</translation>
     </message>

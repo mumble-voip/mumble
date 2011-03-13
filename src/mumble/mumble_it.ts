@@ -3331,7 +3331,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ClientUser</name>
     <message>
-        <location filename="ClientUser.cpp" line="+130"/>
+        <location filename="ClientUser.cpp" line="+142"/>
         <source>Friend</source>
         <translation>Amico</translation>
     </message>
@@ -3506,13 +3506,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+890"/>
+        <location filename="ConnectDialog.cpp" line="+907"/>
         <source>Connecting to %1</source>
         <translation>Connessione a %1</translation>
     </message>
     <message>
-        <location line="-491"/>
-        <location line="+491"/>
+        <location line="-508"/>
+        <location line="+508"/>
         <source>Enter username</source>
         <translation>Inserisci il nome utente</translation>
     </message>
@@ -3521,7 +3521,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">Sconosciuto</translation>
     </message>
     <message>
-        <location line="-491"/>
+        <location line="-508"/>
         <source>Adding host %1</source>
         <translation>Aggiunta host %1</translation>
     </message>
@@ -3588,13 +3588,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation>%1 kbit/s</translation>
     </message>
     <message>
-        <location line="+315"/>
+        <location line="+332"/>
         <source>&amp;Filters</source>
         <translation>&amp;Filtri</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-314"/>
+        <location filename="ConnectDialog.cpp" line="-331"/>
         <source>Users</source>
         <translation>Utenti</translation>
     </message>
@@ -3620,7 +3620,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+1005"/>
+        <location line="+1022"/>
         <source>Failed to fetch server list</source>
         <translation>Errore nello scaricamento della lista dei server</translation>
     </message>
@@ -4286,7 +4286,7 @@ delle possibili posizioni.</translation>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+380"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+331"/>
         <source>Mouse %1</source>
         <translation>Mouse %1</translation>
     </message>
@@ -5213,12 +5213,12 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+2049"/>
+        <location line="+2070"/>
         <source>Root</source>
         <translation>Radice</translation>
     </message>
     <message>
-        <location line="-1994"/>
+        <location line="-2015"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Premi-per-parlare</translation>
@@ -5357,12 +5357,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2132"/>
+        <location line="+2153"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2128"/>
+        <location line="-2149"/>
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
@@ -5436,13 +5436,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+59"/>
-        <location line="+2161"/>
+        <location line="+2182"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Disconnesso&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1877"/>
+        <location line="-1898"/>
         <source>Clear</source>
         <translation>Cancella</translation>
     </message>
@@ -5524,7 +5524,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;&lt;p&gt;Host remoto %5 (porta%6)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1306"/>
+        <location line="+1327"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5542,7 +5542,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1529"/>
+        <location line="-1550"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canale di voce&lt;/h2&gt;&lt;p&gt;Crittografato con 128 bit OCB-AES128&lt;br/&gt;%1 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
@@ -5609,7 +5609,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+36"/>
-        <location line="+236"/>
+        <location line="+237"/>
         <source>Message to channel %1</source>
         <translation>Messaggio al canale %1</translation>
     </message>
@@ -5620,16 +5620,16 @@ p, li { white-space: pre-wrap; }
         <translation>Al canale %1 e ai suoi sottocanali:%2</translation>
     </message>
     <message>
-        <location line="-315"/>
+        <location line="-316"/>
         <location line="+81"/>
         <location line="+4"/>
-        <location line="+232"/>
+        <location line="+233"/>
         <source>To %1: %2</source>
         <oldsource>%1: %2</oldsource>
         <translation>Per %1: %2</translation>
     </message>
     <message>
-        <location line="+490"/>
+        <location line="+510"/>
         <source>Connected.</source>
         <translation>Connesso.</translation>
     </message>
@@ -5688,7 +5688,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 variazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1555"/>
+        <location line="-1576"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Il canale di voce è trasmesso sul canale di controllo.</translation>
     </message>
@@ -5742,7 +5742,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1261"/>
+        <location line="+1282"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Visualizza certificato</translation>
     </message>
@@ -5751,7 +5751,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Espulsione giocatore %1</translation>
     </message>
     <message>
-        <location line="-1002"/>
+        <location line="-1023"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Inserisci motivazione</translation>
@@ -5776,7 +5776,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Nome canale</translation>
     </message>
     <message>
-        <location line="+150"/>
+        <location line="+151"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Sei sicuro di voler cancellare %1 e tutti i suoi sottocanali?</translation>
     </message>
@@ -5803,7 +5803,7 @@ p, li { white-space: pre-wrap; }
         <translation>Messaggio al canale %1 ed ai suoi sottocanali</translation>
     </message>
     <message>
-        <location line="+130"/>
+        <location line="+150"/>
         <source>Unmuted and undeafened.</source>
         <translation>Ti sei riattivato.</translation>
     </message>
@@ -5918,7 +5918,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Giocatore</translation>
     </message>
     <message>
-        <location line="-2204"/>
+        <location line="-2225"/>
         <source>&amp;Channel</source>
         <translation>&amp;Canale</translation>
     </message>
@@ -7036,6 +7036,11 @@ p, li { white-space: pre-wrap; }
         <translation>Benvenuto su Mumble.</translation>
     </message>
     <message>
+        <location line="+62"/>
+        <source>Skipping version check in debug mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation type="obsolete">Questa è la prima volta che avvii Mumble.&lt;br /&gt;Vorresti essere aiutato dall&apos;Audio Wizard per configurare la tua scheda audio e le impostazioni audio?</translation>
     </message>
@@ -7193,6 +7198,16 @@ p, li { white-space: pre-wrap; }
         <location/>
         <source>Priority Speaker</source>
         <translation>Priorità sugli altri</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Copy URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Copies a link to this channel to the clipboard.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7568,6 +7583,11 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
     </message>
     <message>
         <location line="+5"/>
+        <source>Talking and recently active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>All in current channel</source>
         <translation>Tutti quelli nel canale attuale</translation>
     </message>
@@ -7582,12 +7602,32 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <translation>Visualizza sempre se stessi</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+8"/>
+        <source>Configure recently active time (%1 seconds)...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Columns</source>
         <translation>Colonne</translation>
     </message>
     <message>
         <location line="+8"/>
+        <source>Sort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Alphabetically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Last state change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>Edit...</source>
         <translation>Modifica...</translation>
     </message>
@@ -7595,6 +7635,16 @@ Impedisce il download delle immagini incorporate nei messaggi di chat con il tag
         <location line="+1"/>
         <source>Reset Zoom</source>
         <translation>Reimposta zoom</translation>
+    </message>
+    <message>
+        <location line="+41"/>
+        <source>Configure recently active time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Amount of seconds users remain active after talking:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>FPS: %1</source>
@@ -8262,7 +8312,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay_win.cpp" line="+62"/>
+        <location filename="Overlay_win.cpp" line="+68"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
@@ -8460,7 +8510,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+545"/>
+        <location filename="PulseAudio.cpp" line="+556"/>
         <source>Default Input</source>
         <translation>Ingresso predefinito</translation>
     </message>
@@ -8606,7 +8656,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-611"/>
+        <location filename="ConnectDialog.cpp" line="-628"/>
         <source>Favorite</source>
         <translation>Preferiti</translation>
     </message>

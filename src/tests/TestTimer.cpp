@@ -69,16 +69,16 @@ void TestTimer::atomicity() {
 }
 
 void TestTimer::order() {
-    Timer a;
+	Timer a;
 
-    while (a.elapsed() == 0) {};
+	while (a.elapsed() == 0) {};
 
-    Timer b;
+	Timer b;
 
-    QVERIFY(a > b);
-    QVERIFY(!(b > a));
-    QVERIFY(!(a < b));
-    QVERIFY(b < a);
+	QVERIFY(a > b);
+	QVERIFY(!(b > a));
+	QVERIFY(!(a < b));
+	QVERIFY(b < a);
 }
 
 QTEST_MAIN(TestTimer)

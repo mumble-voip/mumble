@@ -40,14 +40,14 @@ QList<ClientUser *> ClientUser::c_qlTalking;
 QReadWriteLock ClientUser::c_qrwlTalking;
 
 ClientUser::ClientUser(QObject *p) : QObject(p),
-	tsState(Settings::Passive),
-	bLocalMute(false),
-	fPowerMin(0.0f),
-	fPowerMax(0.0f),
-	fAverageAvailable(0.0f),
-	iFrames(0),
-	iSequence(0),
-	tLastTalkStateChange(false) {
+		tsState(Settings::Passive),
+		bLocalMute(false),
+		fPowerMin(0.0f),
+		fPowerMax(0.0f),
+		fAverageAvailable(0.0f),
+		iFrames(0),
+		iSequence(0),
+		tLastTalkStateChange(false) {
 }
 
 ClientUser *ClientUser::get(unsigned int uiSession) {
@@ -76,7 +76,7 @@ QList<ClientUser *> ClientUser::getTalking() {
 QList<ClientUser *> ClientUser::getActive() {
 	QReadLocker lock(&c_qrwlUsers);
 	QList<ClientUser *> activeUsers;
-	foreach (ClientUser *cu, c_qmUsers) {
+	foreach(ClientUser *cu, c_qmUsers) {
 		if (cu->isActive())
 			activeUsers << cu;
 	}

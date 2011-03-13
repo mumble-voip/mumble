@@ -2801,7 +2801,7 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
 <context>
     <name>ClientUser</name>
     <message>
-        <location filename="ClientUser.cpp" line="+130"/>
+        <location filename="ClientUser.cpp" line="+142"/>
         <source>Friend</source>
         <translation>Amigo</translation>
     </message>
@@ -2968,18 +2968,18 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+890"/>
+        <location filename="ConnectDialog.cpp" line="+907"/>
         <source>Connecting to %1</source>
         <translation>Conectando a %1</translation>
     </message>
     <message>
-        <location line="-491"/>
-        <location line="+491"/>
+        <location line="-508"/>
+        <location line="+508"/>
         <source>Enter username</source>
         <translation>Especifique um nome de usuário</translation>
     </message>
     <message>
-        <location line="-491"/>
+        <location line="-508"/>
         <source>Adding host %1</source>
         <translation>Adicionando servidor %1</translation>
     </message>
@@ -3046,7 +3046,7 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
         <translation>%1 kbit/s</translation>
     </message>
     <message>
-        <location line="+276"/>
+        <location line="+293"/>
         <source>&amp;Connect</source>
         <translation>&amp;Connectar</translation>
     </message>
@@ -3057,7 +3057,7 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-314"/>
+        <location filename="ConnectDialog.cpp" line="-331"/>
         <source>Users</source>
         <translation>Usuários</translation>
     </message>
@@ -3067,7 +3067,7 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
         <translation>Versão</translation>
     </message>
     <message>
-        <location line="+1005"/>
+        <location line="+1022"/>
         <source>Failed to fetch server list</source>
         <translation>Falha ao obter lista de servidores</translation>
     </message>
@@ -3602,7 +3602,7 @@ dos locais possíveis.</translation>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+380"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+331"/>
         <source>Mouse %1</source>
         <translation>Mouse %1</translation>
     </message>
@@ -4316,12 +4316,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+2049"/>
+        <location line="+2070"/>
         <source>Root</source>
         <translation>Raíz</translation>
     </message>
     <message>
-        <location line="-1994"/>
+        <location line="-2015"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Pressionar-para-Falar</translation>
@@ -4400,12 +4400,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+12"/>
-        <location line="+2132"/>
+        <location line="+2153"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2128"/>
+        <location line="-2149"/>
         <source>&amp;Window</source>
         <translation>&amp;Janela</translation>
     </message>
@@ -4474,13 +4474,13 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="+59"/>
-        <location line="+2161"/>
+        <location line="+2182"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Não conectado&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1877"/>
+        <location line="-1898"/>
         <source>Clear</source>
         <translation>Limpar</translation>
     </message>
@@ -4599,12 +4599,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="+52"/>
-        <location line="+236"/>
+        <location line="+237"/>
         <source>Message to channel %1</source>
         <translation>Mensagem para canal %1</translation>
     </message>
     <message>
-        <location line="+490"/>
+        <location line="+510"/>
         <source>Connected.</source>
         <translation>Conectado.</translation>
     </message>
@@ -4660,7 +4660,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Formato de imagem não reconhecido.</translation>
     </message>
     <message>
-        <location line="-1555"/>
+        <location line="-1576"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Vanal de voz é enviado pelo canal de controle.</translation>
     </message>
@@ -4732,12 +4732,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1261"/>
+        <location line="+1282"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Ver certificado</translation>
     </message>
     <message>
-        <location line="-1002"/>
+        <location line="-1023"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Especifique a razão</translation>
@@ -4751,12 +4751,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <location line="+12"/>
         <location line="+81"/>
         <location line="+4"/>
-        <location line="+232"/>
+        <location line="+233"/>
         <source>To %1: %2</source>
         <translation>Para %1: %2</translation>
     </message>
     <message>
-        <location line="-317"/>
+        <location line="-318"/>
         <location line="+85"/>
         <source>Message to %1</source>
         <translation>Mensagem para %1</translation>
@@ -4767,7 +4767,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Você tem certeza de que quer resetar o comentário do usuário %1?</translation>
     </message>
     <message>
-        <location line="+190"/>
+        <location line="+191"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Você tem certeza de que quer eliminar %1 e todos os seus subcanais?</translation>
     </message>
@@ -4788,7 +4788,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Para %1 (Árvore): %2</translation>
     </message>
     <message>
-        <location line="+130"/>
+        <location line="+150"/>
         <source>Unmuted and undeafened.</source>
         <translation>Desmudecido e desensurdecido.</translation>
     </message>
@@ -5813,6 +5813,11 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Bem-vindo ao Mumble.</translation>
     </message>
     <message>
+        <location line="+62"/>
+        <source>Skipping version check in debug mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
         <translation type="obsolete">Esta é a primeira vez que você inicia o Mumble.&lt;br /&gt;Você gostaria de iniciar o Assistente de Áudio para configurar sua placa de som?</translation>
     </message>
@@ -5950,6 +5955,16 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <location/>
         <source>Priority Speaker</source>
         <translation>Falante prioritário</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Copy URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Copies a link to this channel to the clipboard.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6270,6 +6285,11 @@ Evita que o cliente baixe imagens embutidas em mensagens de bate-papo com a marc
     </message>
     <message>
         <location line="+5"/>
+        <source>Talking and recently active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>All in current channel</source>
         <translation>Todos no canal atual</translation>
     </message>
@@ -6284,12 +6304,32 @@ Evita que o cliente baixe imagens embutidas em mensagens de bate-papo com a marc
         <translation>Sempre mostrar a si</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+8"/>
+        <source>Configure recently active time (%1 seconds)...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Columns</source>
         <translation>Colunas</translation>
     </message>
     <message>
         <location line="+8"/>
+        <source>Sort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Alphabetically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Last state change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>Edit...</source>
         <translation>Editar...</translation>
     </message>
@@ -6297,6 +6337,16 @@ Evita que o cliente baixe imagens embutidas em mensagens de bate-papo com a marc
         <location line="+1"/>
         <source>Reset Zoom</source>
         <translation>Resetar aproximação</translation>
+    </message>
+    <message>
+        <location line="+41"/>
+        <source>Configure recently active time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Amount of seconds users remain active after talking:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>FPS: %1</source>
@@ -6764,7 +6814,7 @@ Para atualizar estes arquivos para suas últimes versões, clique no botão abai
 <context>
     <name>OverlayPrivateWin</name>
     <message>
-        <location filename="Overlay_win.cpp" line="+62"/>
+        <location filename="Overlay_win.cpp" line="+68"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
@@ -6912,7 +6962,7 @@ Para atualizar estes arquivos para suas últimes versões, clique no botão abai
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+545"/>
+        <location filename="PulseAudio.cpp" line="+556"/>
         <source>Default Input</source>
         <translation>Entrada padrão</translation>
     </message>
@@ -7054,7 +7104,7 @@ Para atualizar estes arquivos para suas últimes versões, clique no botão abai
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-611"/>
+        <location filename="ConnectDialog.cpp" line="-628"/>
         <source>Favorite</source>
         <translation>Favorito</translation>
     </message>

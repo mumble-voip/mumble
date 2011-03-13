@@ -1,6 +1,76 @@
+2011-03-12
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    ee6bccf  Fix speexbuild pro and mysql installer path
+    973790f  Update win32 build paths
+
+2011-03-09
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    fb61d50  Fix Timer includes all over the codebase and fix some pro/pri
+	     buildfiles.
+
+  Martijn Stolk <github@netripper.nl>
+    db2538f  Overlay: add sorting options, including ability to sort on
+	     last state change
+    6d62ae7  Overlay: add support for displaying active users
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    9682d7d  Allow some leeway in the timer atomicity test
+
+2011-03-07
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    e83cec0  Instead of warning when casting from ASCII to QString in the
+	     client disable it completely.
+
+2011-03-06
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    8c952c3  Remove duplicate overlay debug output code.
+
+2011-03-04
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    b986e84  Fix possible access violation in Overlay
+
+  Jamie Fraser <jamie.f@sabrienix.com>
+    d2a023e  Added "Copy URL" to channel context menu.
+    e83173c  ICE: Add udpPing and tcpPing to User
+
+2011-03-03
+  Tsbook <tsbook@users.sourceforge.net>
+    630d712  Czech Translation Update
+
+2011-03-01
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    05096f7  Add some comments to hooking code
+
+  Jamie Fraser <jamie.f@sabrienix.com>
+    188b652  Fixed Ice method getLogLen() requiring write secret instead of
+	     read secret.
+
+2011-02-28
+  Mark-Willem Jansen <rawnar@users.sourceforge.net>
+    c245e2d  PulseAudio: Fix multi speakers configuration.
+
+2011-02-27
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    4774dab  Moved windows self detection mechanism into Windows specific
+	     Overlay code instead of special casing it in generic one
+    3db23e6  Make mumble overlay able to detect mumble independent of
+	     executable name
+
+  Jamie Fraser <jamie.f@sabrienix.com>
+    296ee6f  Fixed typo: "staring" -> "starting" in OSS.cpp
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    2cd9863  Work around broken XI2 master devices
+
 2011-02-26
   Mikkel Krautz <mikkel@krautz.dk>
     ad3926a  Kill the nagging accessibility dialog from GlobalShortcutMac.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    fcc8c2b  Split AudioInput::encodeAudioFrame
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    ffbeaa2  XInput 2.0 support
 
 2011-02-22
   Stefan Hacker <dd0t@users.sourceforge.net>

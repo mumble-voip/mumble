@@ -187,10 +187,10 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		// setting.
 		bool ok;
 		int newValue = QInputDialog::getInt(
-			qm.parentWidget(),
-			OverlayClient::tr("Configure recently active time"),
-			OverlayClient::tr("Amount of seconds users remain active after talking:"),
-			os->iActiveTime, 1, 2147483647, 1, &ok);
+		                   qm.parentWidget(),
+		                   OverlayClient::tr("Configure recently active time"),
+		                   OverlayClient::tr("Amount of seconds users remain active after talking:"),
+		                   os->iActiveTime, 1, 2147483647, 1, &ok);
 		if (ok) {
 			os->iActiveTime = newValue;
 		}

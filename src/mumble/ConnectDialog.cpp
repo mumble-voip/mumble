@@ -586,8 +586,8 @@ QMimeData *ServerItem::toMimeData() const {
 
 /*!
   \fn QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsigned short port, const QString &channel)
-  This function creates a QMimeData object containing a URL to the server at \a host and \a port. \a name is passed in the 
-  query string as "title", which is used for adding a server to favorites. \a channel may be omitted, but if specified it 
+  This function creates a QMimeData object containing a URL to the server at \a host and \a port. \a name is passed in the
+  query string as "title", which is used for adding a server to favorites. \a channel may be omitted, but if specified it
   should be in the format of "/path/to/channel".
 */
 QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsigned short port, const QString &channel) {
@@ -599,11 +599,11 @@ QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsi
 	url.setPath(channel);
 	url.addQueryItem(QLatin1String("title"), name);
 	url.addQueryItem(QLatin1String("version"), QLatin1String("1.2.0"));
-	
+
 	QString qs = QLatin1String(url.toEncoded());
 
 	QMimeData *mime = new QMimeData;
-	
+
 #ifdef Q_OS_WIN
 	QString contents = QString::fromLatin1("[InternetShortcut]\r\nURL=%1\r\n").arg(qs);
 	QString urlname = QString::fromLatin1("%1.url").arg(name);

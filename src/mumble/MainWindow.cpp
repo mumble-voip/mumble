@@ -1731,19 +1731,19 @@ void MainWindow::on_qaChannelCopyURL_triggered() {
 	Channel *c = getContextMenuChannel();
 	QString host, uname, pw, channel;
 	unsigned short port;
-	
+
 	if (!c)
 		return;
 
 	g.sh->getConnectionInfo(host, port, uname, pw);
-	
+
 	// walk back up the channel list to build the URL.
 	while (c->cParent != NULL) {
 		channel.prepend(c->qsName);
 		channel.prepend(QLatin1String("/"));
 		c = c->cParent;
 	}
-	
+
 	QApplication::clipboard()->setMimeData(ServerItem::toMimeData(c->qsName, host, port, channel), QClipboard::Clipboard);
 }
 
