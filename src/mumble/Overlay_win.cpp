@@ -43,6 +43,9 @@ typedef void (__cdecl *PrepDXGIProc)();
 extern "C" __declspec(dllexport) void mumbleSelfDetection() {};
 
 class OverlayPrivateWin : public OverlayPrivate {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(OverlayPrivateWin)
 	protected:
 		QLibrary *qlOverlay;
 	public:

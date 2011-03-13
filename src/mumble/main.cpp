@@ -412,7 +412,7 @@ int main(int argc, char **argv) {
 	new VersionCheck(false, g.mw, true);
 #endif
 #else
-	g.mw->msgBox(g.mw->tr("Skipping version check in debug mode."));
+	g.mw->msgBox(MainWindow::tr("Skipping version check in debug mode."));
 #endif
 	if (g.s.bPluginOverlayCheck) {
 		g.p->checkUpdates();
