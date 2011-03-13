@@ -34,27 +34,12 @@
 #include "MainWindow.h"
 #include "Global.h"
 
-typedef void (__cdecl *HooksProc)();
 typedef unsigned int (__cdecl *GetOverlayMagicVersionProc)();
 typedef void (__cdecl *PrepProc)();
 typedef void (__cdecl *PrepDXGIProc)();
 
 // Used by the overlay to detect whether we injected into ourselve
 extern "C" __declspec(dllexport) void mumbleSelfDetection() {};
-
-class OverlayPrivateWin : public OverlayPrivate {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(OverlayPrivateWin)
-	protected:
-		QLibrary *qlOverlay;
-	public:
-		HooksProc hpInstall, hpRemove;
-
-		void setActive(bool);
-		OverlayPrivateWin(QObject *);
-		~OverlayPrivateWin();
-};
 
 OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	QString path=QString::fromLatin1("%1/mumble_ol.dll").arg(qApp->applicationDirPath());
