@@ -31,7 +31,7 @@ foreach my $pro ("main.pro", "speexbuild/speexbuild.pro", "src/mumble/mumble.pro
 }
 
 if ($#ARGV < 0) {
-  open(F, "git describe origin|");
+  open(F, "git describe origin/master|");
   $ver = "";
   while (<F>) {
     chomp();
