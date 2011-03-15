@@ -58,6 +58,9 @@ class Database : public QObject {
 		static bool isLocalMuted(const QString &hash);
 		static void setLocalMuted(const QString &hash, bool muted);
 
+		static bool isLocalIgnored(const QString &hash);
+		static void setLocalIgnored(const QString &hash, bool ignored);
+
 		static QMap<QPair<QString, unsigned short>, unsigned int> getPingCache();
 		static void setPingCache(const QMap<QPair<QString, unsigned short>, unsigned int> &cache);
 

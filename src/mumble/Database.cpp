@@ -124,6 +124,9 @@ Database::Database() {
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `muted` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `muted_hash` ON `muted`(`hash`)"));
 
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `ignored` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
+	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `ignored_hash` ON `ignored`(`hash`)"));
+
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `pingcache` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `ping` INTEGER)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `pingcache_host_port` ON `pingcache`(`hostname`,`port`)"));
 
@@ -205,6 +208,29 @@ void Database::setLocalMuted(const QString &hash, bool muted) {
 		query.prepare(QLatin1String("INSERT INTO `muted` (`hash`) VALUES (?)"));
 	else
 		query.prepare(QLatin1String("DELETE FROM `muted` WHERE `hash` = ?"));
+	query.addBindValue(hash);
+	query.exec();
+}
+
+bool Database::isLocalIgnored(const QString &hash) {
+	QSqlQuery query;
+
+	query.prepare(QLatin1String("SELECT `hash` FROM `ignored` WHERE `hash` = ?"));
+	query.addBindValue(hash);
+	query.exec();
+	while (query.next()) {
+		return true;
+	}
+	return false;
+}
+
+void Database::setLocalIgnored(const QString &hash, bool ignored) {
+	QSqlQuery query;
+
+	if (ignored)
+		query.prepare(QLatin1String("INSERT INTO `ignored` (`hash`) VALUES (?)"));
+	else
+		query.prepare(QLatin1String("DELETE FROM `ignored` WHERE `hash` = ?"));
 	query.addBindValue(hash);
 	query.exec();
 }

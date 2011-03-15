@@ -49,6 +49,7 @@ class ClientUser : public QObject, public User {
 		Settings::TalkState tsState;
 		Timer tLastTalkStateChange;
 		bool bLocalMute;
+		bool bLocalIgnore;
 
 		float fPowerMin, fPowerMax;
 		float fAverageAvailable;
@@ -98,6 +99,7 @@ class ClientUser : public QObject, public User {
 		void setDeaf(bool deaf);
 		void setSuppress(bool suppress);
 		void setLocalMute(bool mute);
+		void setLocalIgnore(bool ignore);
 		void setSelfMute(bool mute);
 		void setSelfDeaf(bool deaf);
 		void setPrioritySpeaker(bool priority);

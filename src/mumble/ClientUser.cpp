@@ -42,6 +42,7 @@ QReadWriteLock ClientUser::c_qrwlTalking;
 ClientUser::ClientUser(QObject *p) : QObject(p),
 		tsState(Settings::Passive),
 		bLocalMute(false),
+		bLocalIgnore(false),
 		fPowerMin(0.0f),
 		fPowerMax(0.0f),
 		fAverageAvailable(0.0f),
@@ -152,6 +153,8 @@ QString ClientUser::getFlagsString() const {
 		flags << ClientUser::tr("Deafened (server)");
 	if (bLocalMute)
 		flags << ClientUser::tr("Local Mute");
+	if (bLocalIgnore)
+		flags << ClientUser::tr("Local Ignore");
 	if (bSelfMute)
 		flags << ClientUser::tr("Muted (self)");
 	if (bSelfDeaf)
@@ -203,6 +206,13 @@ void ClientUser::setLocalMute(bool mute) {
 	if (bLocalMute == mute)
 		return;
 	bLocalMute = mute;
+	emit muteDeafChanged();
+}
+
+void ClientUser::setLocalIgnore(bool ignore) {
+	if (bLocalIgnore == ignore)
+		return;
+	bLocalIgnore = ignore;
 	emit muteDeafChanged();
 }
 

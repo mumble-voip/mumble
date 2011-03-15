@@ -1163,6 +1163,7 @@ void MainWindow::qmUser_aboutToShow() {
 	if (g.sh && g.sh->uiVersion >= 0x010203)
 		qmUser->addAction(qaUserPrioritySpeaker);
 	qmUser->addAction(qaUserLocalMute);
+	qmUser->addAction(qaUserLocalIgnore);
 
 	if (self)
 		qmUser->addAction(qaSelfComment);
@@ -1218,6 +1219,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserBan->setEnabled(false);
 		qaUserTextMessage->setEnabled(false);
 		qaUserLocalMute->setEnabled(false);
+		qaUserLocalIgnore->setEnabled(false);
 		qaUserCommentReset->setEnabled(false);
 		qaUserCommentView->setEnabled(false);
 	} else {
@@ -1225,6 +1227,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserBan->setEnabled(! self);
 		qaUserTextMessage->setEnabled(true);
 		qaUserLocalMute->setEnabled(! self);
+		qaUserLocalIgnore->setEnabled(! self);
 		qaUserCommentReset->setEnabled(! p->qbaCommentHash.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
 		qaUserCommentView->setEnabled(! p->qbaCommentHash.isEmpty());
 
@@ -1232,6 +1235,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserDeaf->setChecked(p->bDeaf);
 		qaUserPrioritySpeaker->setChecked(p->bPrioritySpeaker);
 		qaUserLocalMute->setChecked(p->bLocalMute);
+		qaUserLocalIgnore->setChecked(p->bLocalIgnore);
 	}
 	updateMenuPermissions();
 }
@@ -1264,6 +1268,18 @@ void MainWindow::on_qaUserLocalMute_triggered() {
 	p->setLocalMute(muted);
 	if (! p->qsHash.isEmpty())
 		Database::setLocalMuted(p->qsHash, muted);
+}
+
+void MainWindow::on_qaUserLocalIgnore_triggered() {
+	ClientUser *p = getContextMenuUser();
+	if (!p)
+		return;
+
+	bool ignored = qaUserLocalIgnore->isChecked();
+
+	p->setLocalIgnore(ignored);
+	if (! p->qsHash.isEmpty())
+		Database::setLocalIgnored(p->qsHash, ignored);
 }
 
 void MainWindow::on_qaUserDeaf_triggered() {

@@ -330,6 +330,20 @@
     <string>Mute or unmute user locally. Use this on other users in the same room.</string>
    </property>
   </action>
+  <action name="qaUserLocalIgnore">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Local &amp;Ignore</string>
+   </property>
+   <property name="toolTip">
+    <string>Locally ignore this user's text chat messages.</string>
+   </property>
+   <property name="whatsThis">
+    <string>Locally ignore this user's text chat messages. Use this on other users in the same room.</string>
+   </property>
+  </action>
   <action name="qaUserTextMessage">
    <property name="text">
     <string>Send &amp;Message</string>
