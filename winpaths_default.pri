@@ -13,10 +13,9 @@ OPENSSL_PATH = /dev/OpenSSL
 LIBSNDFILE_PATH = /dev/libsndfile
 BOOST_PATH = /dev/Boost
 VLD_PATH = /dev/vld
-BONJOUR_PATH = /dev/Bonjour
+BONJOUR_PATH = /Program Files/Bonjour SDK
 ASIO_PATH = /dev/asio
-G15SDK_PATH = /dev/G15SDK/SDK
-LIBOGG_PATH = /dev/libogg
+G15SDK_PATH = /dev/G15SDK/LCDSDK
 
 # Include custom file if it exists
 exists(winpaths_custom.pri) {

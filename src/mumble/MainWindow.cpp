@@ -1728,30 +1728,22 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 }
 
 void MainWindow::on_qaChannelCopyURL_triggered() {
-	QClipboard *clipboard = QApplication::clipboard();
-	QMimeData *mimeUrl;
-	ServerItem *s;
 	Channel *c = getContextMenuChannel();
 	QString host, uname, pw, channel;
 	unsigned short port;
-	
+
 	if (!c)
 		return;
 
 	g.sh->getConnectionInfo(host, port, uname, pw);
-	
 	// walk back up the channel list to build the URL.
 	while (c->cParent != NULL) {
 		channel.prepend(c->qsName);
 		channel.prepend(QLatin1String("/"));
 		c = c->cParent;
 	}
-	
-	// start constructing the url
-	s = new ServerItem(c->qsName, host, port, NULL, NULL, channel);
-	s->itType = ServerItem::PublicType;
-	mimeUrl = s->toMimeData();
-	clipboard->setMimeData(mimeUrl, QClipboard::Clipboard);
+
+	QApplication::clipboard()->setMimeData(ServerItem::toMimeData(c->qsName, host, port, channel), QClipboard::Clipboard);
 }
 
 void MainWindow::updateMenuPermissions() {

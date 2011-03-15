@@ -157,6 +157,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 
 		FavoriteServer toFavoriteServer() const;
 		QMimeData *toMimeData() const;
+		static QMimeData *toMimeData(const QString &name, const QString &host, unsigned short port, const QString &channel = QString());
 
 		static QIcon loadIcon(const QString &name);
 

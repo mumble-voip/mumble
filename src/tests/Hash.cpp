@@ -1,5 +1,4 @@
 #include <QtCore>
-#include <QtNetwork>
 
 #include "Timer.h"
 

@@ -4,7 +4,7 @@ win32 {
 	# Import dependency paths for windows
 	include(winpaths_default.pri)
 
-	INCLUDEPATH *= "$$BOOST_PATH/include/boost-1_45/"
+	INCLUDEPATH *= "$$BOOST_PATH/include/boost-1_46/"
 	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib" "$$LIBSNDFILE_PATH"
 	INCLUDEPATH *= "$$OPENSSL_PATH/include" "$$LIBSNDFILE_PATH/include"
 	CONFIG(intelcpp) {

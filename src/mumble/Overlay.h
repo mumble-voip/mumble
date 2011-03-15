@@ -398,4 +398,21 @@ class Overlay : public QObject {
 		void finished();
 };
 
+#ifdef Q_OS_WIN
+typedef void (__cdecl *HooksProc)();
+class OverlayPrivateWin : public OverlayPrivate {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(OverlayPrivateWin)
+	protected:
+		QLibrary *qlOverlay;
+	public:
+		HooksProc hpInstall, hpRemove;
+
+		void setActive(bool);
+		OverlayPrivateWin(QObject *);
+		~OverlayPrivateWin();
+};
+#endif
+
 #endif

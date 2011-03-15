@@ -592,15 +592,34 @@ FavoriteServer ServerItem::toFavoriteServer() const {
 	return fs;
 }
 
+
+/*!
+  \fn QMimeData *ServerItem::toMimeData() const
+  This function turns a ServerItem object into a QMimeData object holding a URL to the server.
+*/
 QMimeData *ServerItem::toMimeData() const {
+	QMimeData *mime = ServerItem::toMimeData(qsName, qsHostname, usPort);
+
+	if (itType == FavoriteType)
+		mime->setData(QLatin1String("OriginatedInMumble"), QByteArray());
+
+	return mime;
+}
+
+/*!
+  \fn QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsigned short port, const QString &channel)
+  This function creates a QMimeData object containing a URL to the server at \a host and \a port. \a name is passed in the
+  query string as "title", which is used for adding a server to favorites. \a channel may be omitted, but if specified it
+  should be in the format of "/path/to/channel".
+*/
+QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsigned short port, const QString &channel) {
 	QUrl url;
 	url.setScheme(QLatin1String("mumble"));
-	url.setHost(qsHostname);
-	url.setPort(usPort);
-	url.setPath(qsChannel);
-	url.addQueryItem(QLatin1String("title"), qsName);
-	if (! qsUrl.isEmpty())
-		url.addQueryItem(QLatin1String("url"), qsUrl);
+	url.setHost(host);
+	if (port != 64738)
+		url.setPort(port);
+	url.setPath(channel);
+	url.addQueryItem(QLatin1String("title"), name);
 	url.addQueryItem(QLatin1String("version"), QLatin1String("1.2.0"));
 
 	QString qs = QLatin1String(url.toEncoded());
@@ -609,7 +628,7 @@ QMimeData *ServerItem::toMimeData() const {
 
 #ifdef Q_OS_WIN
 	QString contents = QString::fromLatin1("[InternetShortcut]\r\nURL=%1\r\n").arg(qs);
-	QString urlname = QString::fromLatin1("%1.url").arg(qsName);
+	QString urlname = QString::fromLatin1("%1.url").arg(name);
 
 	FILEGROUPDESCRIPTORA fgda;
 	ZeroMemory(&fgda, sizeof(fgda));
@@ -645,10 +664,7 @@ QMimeData *ServerItem::toMimeData() const {
 	mime->setUrls(urls);
 
 	mime->setText(qs);
-	mime->setHtml(QString::fromLatin1("<a href=\"%1\">%2</a>").arg(qs).arg(qsName));
-
-	if (itType == FavoriteType)
-		mime->setData(QLatin1String("OriginatedInMumble"), QByteArray());
+	mime->setHtml(QString::fromLatin1("<a href=\"%1\">%2</a>").arg(qs).arg(name));
 
 	return mime;
 }
