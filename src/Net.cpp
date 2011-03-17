@@ -151,7 +151,10 @@ bool Ban::isExpired() const {
 }
 
 bool Ban::operator <(const Ban &other) const {
-	return haAddress < other.haAddress;
+	if (qsUsername == other.qsUsername)
+		return haAddress < other.haAddress;
+	else
+		return qsUsername.localeAwareCompare(other.qsUsername) < 0;
 }
 
 bool Ban::operator ==(const Ban &other) const {
