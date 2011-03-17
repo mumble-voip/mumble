@@ -161,12 +161,14 @@ UnixMurmur::~UnixMurmur() {
 
 void UnixMurmur::hupSignalHandler(int) {
 	char a = 1;
-	::write(iHupFd[0], &a, sizeof(a));
+	ssize_t len = ::write(iHupFd[0], &a, sizeof(a));
+	Q_UNUSED(len);
 }
 
 void UnixMurmur::termSignalHandler(int) {
 	char a = 1;
-	::write(iTermFd[0], &a, sizeof(a));
+	ssize_t len = ::write(iTermFd[0], &a, sizeof(a));
+	Q_UNUSED(len);
 }
 
 
@@ -175,25 +177,29 @@ void UnixMurmur::termSignalHandler(int) {
 void UnixMurmur::handleSigHup() {
 	qsnHup->setEnabled(false);
 	char tmp;
-	::read(iHupFd[1], &tmp, sizeof(tmp));
+	ssize_t len = ::read(iHupFd[1], &tmp, sizeof(tmp));
+	Q_UNUSED(len);
 
-	if (! qfLog || ! qfLog->isOpen()) {
-		if (qfLog) {
-			qWarning("Caught SIGHUP, but logfile not in use -- interpreting as hint to quit");
-			QCoreApplication::instance()->quit();
-		} else {
-			qWarning("Caught SIGHUP, but logfile not in use");
-		}
+	if (! qfLog) {
+		qWarning("Caught SIGHUP, but logfile not in use");
+	} else if (! qfLog->isOpen()) {
+		qWarning("Caught SIGHUP, but logfile not in use -- interpreting as hint to quit");
+		QCoreApplication::instance()->quit();
 	} else {
 		qWarning("Caught SIGHUP, will reopen %s", qPrintable(Meta::mp.qsLogfile));
-		qfLog->close();
-		qfLog->setFileName(Meta::mp.qsLogfile);
-		bool result = qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
+
+		QFile *newlog = new QFile(Meta::mp.qsLogfile);
+		bool result = newlog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
 		if (! result) {
-			delete qfLog;
-			qfLog = NULL;
+			delete newlog;
+			qCritical("Failed to reopen logfile for writing, keeping old log");
 		} else {
-			qfLog->setTextModeEnabled(true);
+			QFile *oldlog = qfLog;
+
+			newlog->setTextModeEnabled(true);
+			qfLog = newlog;
+			oldlog->close();
+			delete oldlog;
 			qWarning("Log rotated successfully");
 		}
 	}
@@ -203,7 +209,8 @@ void UnixMurmur::handleSigHup() {
 void UnixMurmur::handleSigTerm() {
 	qsnTerm->setEnabled(false);
 	char tmp;
-	::read(iTermFd[1], &tmp, sizeof(tmp));
+	ssize_t len = ::read(iTermFd[1], &tmp, sizeof(tmp));
+	Q_UNUSED(len);
 
 	qCritical("Caught SIGTERM, exiting");
 
