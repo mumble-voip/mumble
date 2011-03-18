@@ -409,7 +409,7 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
 	if (! url.hasQueryItem(QLatin1String("title")))
 		url.addQueryItem(QLatin1String("title"), url.host());
 
-	ServerItem *si = new ServerItem(url.queryItemValue(QLatin1String("title")), url.host(), static_cast<unsigned short>(url.port()), url.userName(), url.password());
+	ServerItem *si = new ServerItem(url.queryItemValue(QLatin1String("title")), url.host(), static_cast<unsigned short>(url.port(64738)), url.userName(), url.password());
 
 	if (url.hasQueryItem(QLatin1String("url")))
 		si->qsUrl = url.queryItemValue(QLatin1String("url"));
