@@ -71,7 +71,9 @@ MetaParams::MetaParams() {
 	iBanTimeframe = 120;
 	iBanTime = 300;
 
+#ifdef Q_OS_UNIX
 	uiUid = uiGid = 0;
+#endif
 
 	qrUserName = QRegExp(QLatin1String("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
 	qrChannelName = QRegExp(QLatin1String("[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
