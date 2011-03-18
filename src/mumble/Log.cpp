@@ -451,7 +451,12 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 	// Message output on console
 	if ((flags & Settings::LogConsole)) {
-		QTextCursor tc=g.mw->qteLog->textCursor();
+		QTextCursor tc = g.mw->qteLog->textCursor();
+
+		QScrollBar *vscroll = g.mw->qteLog->verticalScrollBar();
+		const int oldscrollvalue = vscroll->value();
+		const bool scroll = oldscrollvalue == vscroll->maximum();
+
 		tc.movePosition(QTextCursor::End);
 
 		if (qdDate != dt.date()) {
@@ -474,7 +479,11 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		validHtml(console, true, &tc);
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);
-		g.mw->qteLog->ensureCursorVisible();
+
+		if (scroll)
+			vscroll->setValue(vscroll->maximum());
+		else
+			vscroll->setValue(oldscrollvalue);
 	}
 
 	if (!g.s.bTTSMessageReadBack && ownMessage)
