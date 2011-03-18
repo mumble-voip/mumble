@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
    Copyright (C) 2008, Andreas Messer <andi@bupfen.de>
 
    All rights reserved.

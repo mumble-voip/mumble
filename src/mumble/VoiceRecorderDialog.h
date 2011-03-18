@@ -1,5 +1,5 @@
-/* Copyright (C) 2010, Stefan Hacker <dd0t@users.sourceforge.net>
-   Copyright (C) 2010, Benjamin Jemlich <pcgod@users.sourceforge.net>
+/* Copyright (C) 2010-2011, Stefan Hacker <dd0t@users.sourceforge.net>
+   Copyright (C) 2010-2011, Benjamin Jemlich <pcgod@users.sourceforge.net>
 
    All rights reserved.
 

@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2007, Trenton Schulz
-Copyright (c) 2009, Stefan Hacker
+Copyright (c) 2009-2011, Stefan Hacker
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:

@@ -31,7 +31,7 @@ VS_VERSION_INFO VERSIONINFO
 				VALUE "FileDescription", "Murmur - Low-latency VoIP server"
 				VALUE "FileVersion", "1.2.4"
 				VALUE "ProductVersion", "1.2.4"
-				VALUE "LegalCopyright", "Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>"
+				VALUE "LegalCopyright", "Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>"
 				VALUE "OriginalFilename", "murmur.exe"
 				VALUE "ProductName", "Mumble"
 #ifdef SNAPSHOT_BUILD

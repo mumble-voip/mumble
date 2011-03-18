@@ -31,7 +31,7 @@ VS_VERSION_INFO VERSIONINFO
 				VALUE "FileDescription", "Mumble G15 LCD Helper"
 				VALUE "FileVersion", "1.2.4"
 				VALUE "ProductVersion", "1.2.4"
-				VALUE "LegalCopyright", "Copyright (C) 2008-2009, Mikkel Krautz <mikkel@krautz.dk>"
+				VALUE "LegalCopyright", "Copyright (C) 2008-2011, Mikkel Krautz <mikkel@krautz.dk>"
 				VALUE "OriginalFilename", "mumble-g15-helper.exe"
 				VALUE "ProductName", "Mumble G15 LCD Helper"
 #ifdef SNAPSHOT_BUILD
