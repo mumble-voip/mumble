@@ -28,9 +28,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QtNetwork>
 #include "SSL.h"
 #include "Version.h"
+#include <QtNetwork>
 
 /* CAs we recommend to end users, so support these */
 
@@ -213,7 +213,7 @@ void MumbleSSL::addSystemCA() {
 	QStringList qsl;
 
 #ifdef SYSTEM_CA_DIR
-	QSslSocket::addDefaultCaCertificates(MUMTEXT(SYSTEM_CA_DIR));
+	QSslSocket::addDefaultCaCertificates(QLatin1String(MUMTEXT(SYSTEM_CA_DIR)));
 #else
 #ifdef SYSTEM_CA_BUNDLE
 	qsl << QLatin1String(MUMTEXT(SYSTEM_CA_BUNDLE));
