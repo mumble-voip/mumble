@@ -31,6 +31,10 @@
 #ifndef _NET_H
 #define _NET_H
 
+#ifndef DEFAULT_MUMBLE_PORT 
+#define DEFAULT_MUMBLE_PORT 64738
+#endif
+
 #include "murmur_pch.h"
 
 struct HostAddress {

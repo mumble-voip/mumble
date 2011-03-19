@@ -49,6 +49,7 @@
 #include "AudioStats.h"
 #include "Plugins.h"
 #include "Log.h"
+#include "Net.h"
 #include "Overlay.h"
 #include "Global.h"
 #include "Database.h"
@@ -692,7 +693,7 @@ void MainWindow::openUrl(const QUrl &url) {
 	}
 
 	QString host = url.host();
-	unsigned short port = static_cast<unsigned short>(url.port(64738));
+	unsigned short port = static_cast<unsigned short>(url.port(DEFAULT_MUMBLE_PORT));
 	QString user = url.userName();
 	QString pw = url.password();
 	qsDesiredChannel = url.path();

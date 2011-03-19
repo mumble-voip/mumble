@@ -34,6 +34,7 @@
 #include "mumble_pch.hpp"
 #include "Timer.h"
 #include "Database.h"
+#include "Net.h"
 
 #ifdef USE_BONJOUR
 #include "BonjourClient.h"
@@ -187,7 +188,7 @@ class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
 	public:
 		QString qsName, qsHostname, qsUsername, qsPassword;
 		unsigned short usPort;
-		ConnectDialogEdit(QWidget *parent, const QString &name = QString(), const QString &host = QString(), const QString &user = QString(), unsigned short port = 64738, const QString &password = QString(), bool add = false);
+		ConnectDialogEdit(QWidget *parent, const QString &name = QString(), const QString &host = QString(), const QString &user = QString(), unsigned short port = DEFAULT_MUMBLE_PORT, const QString &password = QString(), bool add = false);
 };
 
 class ConnectDialog : public QDialog, public Ui::ConnectDialog {

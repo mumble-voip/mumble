@@ -409,7 +409,7 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
 	if (! url.hasQueryItem(QLatin1String("title")))
 		url.addQueryItem(QLatin1String("title"), url.host());
 
-	ServerItem *si = new ServerItem(url.queryItemValue(QLatin1String("title")), url.host(), static_cast<unsigned short>(url.port(64738)), url.userName(), url.password());
+	ServerItem *si = new ServerItem(url.queryItemValue(QLatin1String("title")), url.host(), static_cast<unsigned short>(url.port(DEFAULT_MUMBLE_PORT)), url.userName(), url.password());
 
 	if (url.hasQueryItem(QLatin1String("url")))
 		si->qsUrl = url.queryItemValue(QLatin1String("url"));
@@ -594,7 +594,7 @@ QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsi
 	QUrl url;
 	url.setScheme(QLatin1String("mumble"));
 	url.setHost(host);
-	if (port != 64738)
+	if (port != DEFAULT_MUMBLE_PORT)
 		url.setPort(port);
 	url.setPath(channel);
 	url.addQueryItem(QLatin1String("title"), name);
@@ -942,7 +942,7 @@ void ConnectDialog::on_qaFavoriteAdd_triggered() {
 void ConnectDialog::on_qaFavoriteAddNew_triggered() {
 	QString host, user, pw;
 	QString name;
-	unsigned short port = 64738;
+	unsigned short port = DEFAULT_MUMBLE_PORT;
 
 	// Try to fill out fields if possible
 	{

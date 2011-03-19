@@ -31,6 +31,7 @@
 #include "ServerDB.h"
 #include "Server.h"
 #include "Meta.h"
+#include "Net.h"
 #include "DBus.h"
 #include "OSInfo.h"
 
@@ -42,7 +43,7 @@ HANDLE Meta::hQoS = NULL;
 
 MetaParams::MetaParams() {
 	qsPassword = QString();
-	usPort = 64738;
+	usPort = DEFAULT_MUMBLE_PORT;
 	iTimeout = 30;
 	iMaxBandwidth = 72000;
 	iMaxUsers = 1000;

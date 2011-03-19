@@ -31,6 +31,8 @@
 #include "Database.h"
 #include "Global.h"
 #include "Message.h"
+#include "Net.h"
+#include "Version.h"
 
 Database::Database() {
 	QSqlDatabase db = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"));
@@ -94,7 +96,7 @@ Database::Database() {
 
 	QSqlQuery query;
 
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `servers` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hostname` TEXT, `port` INTEGER DEFAULT 64738, `username` TEXT, `password` TEXT)"));
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `servers` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hostname` TEXT, `port` INTEGER DEFAULT " MUMTEXT(DEFAULT_MUMBLE_PORT) ", `username` TEXT, `password` TEXT)"));
 	query.exec(QLatin1String("ALTER TABLE `servers` ADD COLUMN `url` TEXT"));
 
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `comments` (`who` TEXT, `comment` BLOB, `seen` DATE)"));
