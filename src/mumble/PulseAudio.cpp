@@ -99,16 +99,16 @@ PulseAudioSystem::PulseAudioSystem() {
 	pam = pa_threaded_mainloop_new();
 	pa_mainloop_api *api = pa_threaded_mainloop_get_api(pam);
 
-	pa_proplist     *proplist;
+	pa_proplist *proplist;
 
-	proplist = pa_proplist_new ();
-	pa_proplist_sets (proplist, PA_PROP_APPLICATION_NAME, "Mumble");
-	pa_proplist_sets (proplist, PA_PROP_APPLICATION_ID, "net.sourceforge.mumble.mumble");
-	pa_proplist_sets (proplist, PA_PROP_APPLICATION_ICON_NAME, "mumble");
-	pa_proplist_sets (proplist, PA_PROP_MEDIA_ROLE, "phone");
+	proplist = pa_proplist_new();
+	pa_proplist_sets(proplist, PA_PROP_APPLICATION_NAME, "Mumble");
+	pa_proplist_sets(proplist, PA_PROP_APPLICATION_ID, "net.sourceforge.mumble.mumble");
+	pa_proplist_sets(proplist, PA_PROP_APPLICATION_ICON_NAME, "mumble");
+	pa_proplist_sets(proplist, PA_PROP_MEDIA_ROLE, "phone");
 
-	pacContext = pa_context_new_with_proplist (api, NULL, proplist);
-	pa_proplist_free (proplist);
+	pacContext = pa_context_new_with_proplist(api, NULL, proplist);
+	pa_proplist_free(proplist);
 
 	pa_context_set_subscribe_callback(pacContext, subscribe_callback, this);
 
