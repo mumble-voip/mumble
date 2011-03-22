@@ -31,14 +31,12 @@
 #include "VersionCheck.h"
 #include "Global.h"
 #include "MainWindow.h"
-#include "NetworkConfig.h"
+#include "WebFetch.h"
 
 VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) {
 	bSilent = autocheck;
 
 	QUrl url;
-	url.setScheme(QLatin1String("http"));
-	url.setHost(g.qsRegionalHost);
 	url.setPath(focus ? QLatin1String("/focus.php") : QLatin1String("/ver.php"));
 
 	url.addQueryItem(QLatin1String("ver"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
@@ -72,16 +70,11 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) 
 		}
 	}
 
-	QNetworkReply *rep = Network::get(url);
-	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
+	WebFetch::fetch(url, this, SLOT(fetched(QByteArray,QUrl)));
 }
 
-void VersionCheck::finished() {
-	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
-	QUrl url = rep->request().url();
-
-	if (rep->error() == QNetworkReply::NoError) {
-		const QByteArray &a=rep->readAll();
+void VersionCheck::fetched(QByteArray a, QUrl url) {
+	if (! a.isNull()) {
 		if (! a.isEmpty()) {
 #ifdef SNAPSHOT_BUILD
 			if (url.path() == QLatin1String("/focus.php")) {
@@ -97,6 +90,8 @@ void VersionCheck::finished() {
 				elem = elem.firstChildElement(QLatin1String("a"));
 
 				QUrl fetch = QUrl(elem.attribute(QLatin1String("href")));
+				fetch.setHost(QString());
+				fetch.setScheme(QString());
 				if (! fetch.isValid()) {
 					g.mw->msgBox(QString::fromUtf8(a));
 				} else {
@@ -164,13 +159,8 @@ void VersionCheck::finished() {
 							}
 						}
 					} else {
-						fetch.setHost(g.qsRegionalHost);
 						g.mw->msgBox(tr("Downloading new snapshot from %1 to %2").arg(fetch.toString(), filename));
-
-						QNetworkReply *nrep = Network::get(fetch);
-						connect(nrep, SIGNAL(finished()), this, SLOT(finished()));
-
-						rep->deleteLater();
+						WebFetch::fetch(fetch, this, SLOT(fetched(QByteArray,QUrl)));
 						return;
 					}
 				}
@@ -191,19 +181,9 @@ void VersionCheck::finished() {
 			g.mw->msgBox(QString::fromUtf8(a));
 #endif
 		}
-	} else {
-		if (url.host() == g.qsRegionalHost) {
-			url.setHost(QLatin1String("mumble.info"));
-			QNetworkReply *nrep = Network::get(url);
-			connect(nrep, SIGNAL(finished()), this, SLOT(finished()));
-
-			rep->deleteLater();
-			return;
-		} else if (bSilent) {
-			g.mw->msgBox(tr("Mumble failed to retrieve version information from the central server."));
-		}
+	} else if (bSilent) {
+		g.mw->msgBox(tr("Mumble failed to retrieve version information from the central server."));
 	}
 
-	rep->deleteLater();
 	deleteLater();
 }

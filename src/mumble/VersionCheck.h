@@ -40,7 +40,7 @@ class VersionCheck : public QObject {
 	protected:
 		bool bSilent;
 	public slots:
-		void finished();
+		void fetched(QByteArray data, QUrl url);
 	public:
 		VersionCheck(bool autocheck, QObject *parent = NULL, bool focus = false);
 };

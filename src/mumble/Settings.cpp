@@ -597,6 +597,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iMaxImageSize, "net/maximagesize");
 	SAVELOAD(iMaxImageWidth, "net/maximagewidth");
 	SAVELOAD(iMaxImageHeight, "net/maximageheight");
+	SAVELOAD(qsRegionalHost, "net/region");
 
 	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");
@@ -854,6 +855,7 @@ void Settings::save() {
 	SAVELOAD(iMaxImageSize, "net/maximagesize");
 	SAVELOAD(iMaxImageWidth, "net/maximagewidth");
 	SAVELOAD(iMaxImageHeight, "net/maximageheight");
+	SAVELOAD(qsRegionalHost, "net/region");
 
 	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");

@@ -35,7 +35,7 @@
 #include "Global.h"
 #include "Message.h"
 #include "Database.h"
-#include "NetworkConfig.h"
+#include "WebFetch.h"
 #include "ServerHandler.h"
 #include "MainWindow.h"
 #include "GlobalShortcut.h"
@@ -335,8 +335,6 @@ void Overlay::checkUpdates() {
 #endif
 
 	QUrl url;
-	url.setScheme(QLatin1String("http"));
-	url.setHost(g.qsRegionalHost);
 	url.setPath(QLatin1String("/overlay.php"));
 
 	url.addQueryItem(QLatin1String("ver"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
@@ -349,89 +347,74 @@ void Overlay::checkUpdates() {
 #endif
 
 #ifdef QT_NO_DEBUG
-	QNetworkReply *rep = Network::get(url);
-	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
+	WebFetch::fetch(url, this, SLOT(fetched(QByteArray,QUrl)));
 #else
 	g.mw->msgBox(tr("Skipping overlay update in debug mode."));
 #endif
 }
 
-void Overlay::finished() {
-	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
-	QUrl url = rep->request().url();
+void Overlay::fetched(QByteArray data, QUrl url) {
+	if (data.isEmpty())
+		return;
 
-	if (rep->error() == QNetworkReply::NoError) {
-		const QString &path = url.path();
-		if (path == QLatin1String("/overlay.php")) {
-			qmOverlayHash.clear();
-			QDomDocument doc;
-			doc.setContent(rep->readAll());
+	const QString &path = url.path();
+	if (path == QLatin1String("/overlay.php")) {
+		qmOverlayHash.clear();
+		QDomDocument doc;
+		doc.setContent(data);
 
-			QDomElement root=doc.documentElement();
-			QDomNode n = root.firstChild();
-			while (!n.isNull()) {
-				QDomElement e = n.toElement();
-				if (!e.isNull()) {
-					if (e.tagName() == QLatin1String("file")) {
-						QString name = QFileInfo(e.attribute(QLatin1String("name"))).fileName();
-						QString hash = e.attribute(QLatin1String("hash"));
-						qmOverlayHash.insert(name, hash);
-					}
-				}
-				n = n.nextSibling();
-			}
-
-#ifdef Q_OS_MAC
-			QMap<QString, QString>::const_iterator i;
-			for (i = qmOverlayHash.constBegin(); i != qmOverlayHash.constEnd(); ++i) {
-				QString val = i.value();
-				QString key = i.key();
-				if (! val.isEmpty() && key.startsWith(QLatin1String("MumbleOverlay")) && key.endsWith(QLatin1String(".pkg"))) {
-					bool update = true;
-					QFile f(g.qdBasePath.absolutePath() + QLatin1String("/Overlay/MumbleOverlay.pkg"));
-					if (f.exists() && f.open(QIODevice::ReadOnly)) {
-						QString h = QLatin1String(sha1(f.readAll()).toHex());
-						if (val == qmOverlayHash.value(QLatin1String("MumbleOverlay.pkg")))
-							update = false;
-					}
-					if (update) {
-						QUrl url;
-						url.setScheme(QLatin1String("http"));
-						url.setHost(rep->url().host());
-						url.setPath(QString::fromLatin1("overlay/%1").arg(key));
-
-						QNetworkReply *r = Network::get(url);
-						connect(r, SIGNAL(finished()), this, SLOT(finished()));
-					}
+		QDomElement root=doc.documentElement();
+		QDomNode n = root.firstChild();
+		while (!n.isNull()) {
+			QDomElement e = n.toElement();
+			if (!e.isNull()) {
+				if (e.tagName() == QLatin1String("file")) {
+					QString name = QFileInfo(e.attribute(QLatin1String("name"))).fileName();
+					QString hash = e.attribute(QLatin1String("hash"));
+					qmOverlayHash.insert(name, hash);
 				}
 			}
-#endif
-		} else {
-			QString fname = QFileInfo(path).fileName();
-			if (qmOverlayHash.contains(fname)) {
-				QByteArray qba = rep->readAll();
-				if (qmOverlayHash.value(fname) == QLatin1String(sha1(qba).toHex())) {
+			n = n.nextSibling();
+		}
+
 #ifdef Q_OS_MAC
-					if (fname.startsWith(QLatin1String("MumbleOverlay")) && fname.endsWith(QLatin1String(".pkg"))) {
-						QFile f;
-						f.setFileName(g.qdBasePath.absolutePath() + QLatin1String("/Overlay/MumbleOverlay.pkg"));
-						if (f.open(QIODevice::WriteOnly)) {
-							f.write(qba);
-							f.close();
-							g.mw->msgBox(tr("Downloaded new or updated overlay support file to %1.").arg(f.fileName()));
-						}
-					}
-#endif
+		QMap<QString, QString>::const_iterator i;
+		for (i = qmOverlayHash.constBegin(); i != qmOverlayHash.constEnd(); ++i) {
+			QString val = i.value();
+			QString key = i.key();
+			if (! val.isEmpty() && key.startsWith(QLatin1String("MumbleOverlay")) && key.endsWith(QLatin1String(".pkg"))) {
+				bool update = true;
+				QFile f(g.qdBasePath.absolutePath() + QLatin1String("/Overlay/MumbleOverlay.pkg"));
+				if (f.exists() && f.open(QIODevice::ReadOnly)) {
+					QString h = QLatin1String(sha1(f.readAll()).toHex());
+					if (val == qmOverlayHash.value(QLatin1String("MumbleOverlay.pkg")))
+						update = false;
+				}
+				if (update) {
+					QUrl url;
+					url.setPath(QString::fromLatin1("overlay/%1").arg(key));
+
+					WebFetch::fetch(url, this, SLOT(fetched(QByteArray,QUrl)));
 				}
 			}
 		}
+#endif
 	} else {
-		if (url.host() == g.qsRegionalHost) {
-			url.setHost(QLatin1String("mumble.info"));
-			QNetworkReply *nrep = Network::get(url);
-			connect(nrep, SIGNAL(finished()), this, SLOT(finished()));
+		QString fname = QFileInfo(path).fileName();
+		if (qmOverlayHash.contains(fname)) {
+			if (qmOverlayHash.value(fname) == QLatin1String(sha1(data).toHex())) {
+#ifdef Q_OS_MAC
+				if (fname.startsWith(QLatin1String("MumbleOverlay")) && fname.endsWith(QLatin1String(".pkg"))) {
+					QFile f;
+					f.setFileName(g.qdBasePath.absolutePath() + QLatin1String("/Overlay/MumbleOverlay.pkg"));
+					if (f.open(QIODevice::WriteOnly)) {
+						f.write(data);
+						f.close();
+						g.mw->msgBox(tr("Downloaded new or updated overlay support file to %1.").arg(f.fileName()));
+					}
+				}
+#endif
+			}
 		}
 	}
-
-	rep->deleteLater();
 }

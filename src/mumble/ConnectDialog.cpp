@@ -33,7 +33,7 @@
 #include "ServerHandler.h"
 #include "Channel.h"
 #include "Database.h"
-#include "NetworkConfig.h"
+#include "WebFetch.h"
 
 QMap<QString, QIcon> ServerItem::qmIcons;
 QList<PublicInfo> ConnectDialog::qlPublicServers;
@@ -1131,13 +1131,10 @@ void ConnectDialog::initList() {
 	bPublicInit = true;
 
 	QUrl url;
-	url.setScheme(QLatin1String("http"));
-	url.setHost(g.qsRegionalHost);
 	url.setPath(QLatin1String("/list2.cgi"));
 	url.addQueryItem(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
 
-	QNetworkReply *rep = Network::get(url);
-	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
+	WebFetch::fetch(url, this, SLOT(fetched(QByteArray,QUrl,QMap<QString,QString>)));
 }
 
 #ifdef USE_BONJOUR
@@ -1483,36 +1480,19 @@ void ConnectDialog::udpReply() {
 	}
 }
 
-static QString fromUtf8(const QByteArray &qba) {
-	if (qba.isEmpty())
-		return QString();
-	return QString::fromUtf8(qba.constData(), qba.length());
-}
-
-void ConnectDialog::finished() {
-	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
-	if (rep->error() != QNetworkReply::NoError) {
-		QUrl url = rep->request().url();
-		if (url.host() == g.qsRegionalHost) {
-			url.setHost(QLatin1String("mumble.info"));
-			QNetworkReply *nrep = Network::get(url);
-			connect(nrep, SIGNAL(finished()), this, SLOT(finished()));
-
-			rep->deleteLater();
-			return;
-		}
-
+void ConnectDialog::fetched(QByteArray data, QUrl url, QMap<QString, QString> headers) {
+	if (data.isNull()) {
 		QMessageBox::warning(this, QLatin1String("Mumble"), tr("Failed to fetch server list"), QMessageBox::Ok);
 		return;
 	}
 
 	QDomDocument doc;
-	doc.setContent(rep->readAll());
+	doc.setContent(data);
 
 	qlPublicServers.clear();
-	qsUserCountry = fromUtf8(rep->rawHeader("Geo-Country"));
-	qsUserCountryCode = fromUtf8(rep->rawHeader("Geo-Country-Code")).toLower();
-	qsUserContinentCode = fromUtf8(rep->rawHeader("Geo-Continent-Code")).toLower();
+	qsUserCountry = headers.value(QLatin1String("Geo-Country"));
+	qsUserCountryCode = headers.value(QLatin1String("Geo-Country-Code")).toLower();
+	qsUserContinentCode = headers.value(QLatin1String("Geo-Continent-Code")).toLower();
 
 	QDomElement root=doc.documentElement();
 	QDomNode n = root.firstChild();
@@ -1539,6 +1519,4 @@ void ConnectDialog::finished() {
 	tPublicServers.restart();
 
 	fillList();
-
-	rep->deleteLater();
 }

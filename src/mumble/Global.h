@@ -87,7 +87,6 @@ public:
 	int iMaxBandwidth;
 	int iAudioBandwidth;
 	QDir qdBasePath;
-	QString qsRegionalHost;
 	QMap<int, CELTCodec *> qmCodecs;
 	int iCodecAlpha, iCodecBeta;
 	bool bPreferAlpha;

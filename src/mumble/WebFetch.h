@@ -28,74 +28,29 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _PLUGINS_H
-#define _PLUGINS_H
+#ifndef _WEBFETCH_H
+#define _WEBFETCH_H
 
-#include "ConfigDialog.h"
-#include "ui_Plugins.h"
-
-struct PluginInfo;
-
-class PluginConfig : public ConfigWidget, public Ui::PluginConfig {
+/*!
+ * Utility class to fetch data from mumble servers. This prefers regional servers, followed
+ * by the global server, then finally the global backup server.
+ */
+class WebFetch : public QObject {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(PluginConfig)
+		Q_DISABLE_COPY(WebFetch)
 	protected:
-		void refillPluginList();
-		PluginInfo *pluginForItem(QTreeWidgetItem *) const;
+		QObject *qoObject;
+		const char *cpSlot;
+		QNetworkReply *qnr;
+	
+		WebFetch(QUrl url, QObject *obj, const char *slot);
+	signals:
+		void fetched(QByteArray data, QUrl url, QMap<QString, QString> headers);
+	protected slots:
+		void finished();
 	public:
-		PluginConfig(Settings &st);
-		virtual QString title() const;
-		virtual QIcon icon() const;
-	public slots:
-		void save() const;
-		void load(const Settings &r);
-		bool expert(bool);
-		void on_qpbConfig_clicked();
-		void on_qpbAbout_clicked();
-		void on_qpbReload_clicked();
-		void on_qtwPlugins_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
+		static void fetch(const QUrl &url, QObject *obj, const char *slot);
 };
 
-class Plugins : public QObject {
-		friend class PluginConfig;
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(Plugins)
-	protected:
-		QReadWriteLock qrwlPlugins;
-		QMutex qmPluginStrings;
-		QList<PluginInfo *> qlPlugins;
-		PluginInfo *locked;
-		PluginInfo *prevlocked;
-		void clearPlugins();
-		int iPluginTry;
-		QMap<QString, QString> qmPluginHash;
-		QString qsSystemPlugins;
-		QString qsUserPlugins;
-#ifdef Q_OS_WIN
-		HANDLE hToken;
-		TOKEN_PRIVILEGES tpPrevious;
-		DWORD cbPrevious;
-#endif
-	public:
-		std::string ssContext, ssContextSent;
-		std::wstring swsIdentity, swsIdentitySent;
-		bool bValid;
-		bool bUnlink;
-		float fPosition[3], fFront[3], fTop[3];
-		float fCameraPosition[3], fCameraFront[3], fCameraTop[3];
-
-		Plugins(QObject *p = NULL);
-		~Plugins();
-	public slots:
-		void on_Timer_timeout();
-		void rescanPlugins();
-		bool fetch();
-		void checkUpdates();
-		void fetched(QByteArray, QUrl);
-};
-
-#else
-class Log;
 #endif
