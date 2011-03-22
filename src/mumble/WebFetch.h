@@ -32,7 +32,9 @@
 #define _WEBFETCH_H
 
 /*!
- * Utility class to fetch data from mumble servers. This prefers regional servers, followed
+ * \brief Utility class to fetch data from mumble servers.
+ *
+ * This prefers regional servers, followed
  * by the global server, then finally the global backup server.
  */
 class WebFetch : public QObject {

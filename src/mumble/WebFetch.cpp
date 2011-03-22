@@ -93,7 +93,9 @@ void WebFetch::finished() {
 }
 
 /*!
- * Fetch URL from mumble servers.
+ * \brief Fetch URL from mumble servers.
+ *
+ * If fetching fails, the slot is invoked with a null QByteArray.
  * \param url URL to fetch. Hostname and scheme must be blank.
  * \param obj Object to invoke slot on.
  * \param slot Slot to be triggered, invoked with the signature of \link fetched.
