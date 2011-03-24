@@ -53,7 +53,9 @@ void BonjourServiceRegister::registerService(const BonjourRecord &record, quint1
 	}
 #endif
 
-	DNSServiceErrorType err = DNSServiceRegister(&dnssref, 0, 0, record.serviceName.toUtf8().constData(),
+	DNSServiceErrorType err = DNSServiceRegister(&dnssref, 0, 0,
+	                          record.serviceName.isEmpty() ? 0
+	                          : record.serviceName.toUtf8().constData(),
 	                          record.registeredType.toUtf8().constData(),
 	                          record.replyDomain.isEmpty() ? 0
 	                          : record.replyDomain.toUtf8().constData(), 0,
