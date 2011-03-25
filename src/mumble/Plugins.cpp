@@ -469,7 +469,7 @@ void Plugins::checkUpdates() {
 #endif
 
 #ifdef QT_NO_DEBUG
-	WebFetch::fetch(url, this, SLOT(fetched(QByteArray,QUrl)))
+	WebFetch::fetch(url, this, SLOT(fetched(QByteArray,QUrl)));
 #else
 	g.mw->msgBox(tr("Skipping plugin update in debug mode."));
 #endif
