@@ -281,7 +281,7 @@ int main(int argc, char **argv) {
 #ifdef Q_OS_MAC
 	if (os_lang) {
 		qWarning("Using Mac OS X system langauge as locale name");
-		qsSystemLocale = QString(os_lang);
+		qsSystemLocale = QLatin1String(os_lang);
 	}
 #endif
 

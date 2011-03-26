@@ -204,18 +204,17 @@ Log::Log(QObject *p) : QObject(p) {
 	QStringList qslAllEvents;
 	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
 		Log::MsgType t = static_cast<Log::MsgType>(i);
-		qslAllEvents << QString("\"%1\"").arg(g.l->msgName(t));
+		qslAllEvents << QString::fromLatin1("\"%1\"").arg(g.l->msgName(t));
 	}
-	QString qsGrowlEvents = QString("{%1}").arg(qslAllEvents.join(","));
-	QString qsScript = QString(
+	QString qsScript = QString::fromLatin1(
 	                       "tell application \"GrowlHelperApp\"\n"
-	                       "	set the allNotificationsList to %1\n"
-	                       "	set the enabledNotificationsList to %1\n"
+	                       "	set the allNotificationsList to {%1}\n"
+	                       "	set the enabledNotificationsList to {%1}\n"
 	                       "	register as application \"Mumble\""
 	                       "		all notifications allNotificationsList"
 	                       "		default notifications enabledNotificationsList"
 	                       "		icon of application \"Mumble\"\n"
-	                       "end tell\n").arg(qsGrowlEvents);
+	                       "end tell\n").arg(qslAllEvents.join(QLatin1String(",")));
 	if (growl_available())
 		qt_mac_execute_apple_script(qsScript, NULL);
 #endif
@@ -564,7 +563,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			}
 		}
 #ifdef Q_OS_MAC
-		QString qsScript = QString(
+		QString qsScript = QString::fromLatin1(
 		                       "tell application \"GrowlHelperApp\"\n"
 		                       "	notify with name \"%1\" title \"%1\" description \"%2\" application name \"Mumble\"\n"
 		                       "end tell\n").arg(msgName(mt)).arg(plain);

@@ -107,7 +107,7 @@ void OverlayConfig::initDisplay() {
 }
 
 void OverlayConfig::refreshFpsDemo() {
-	bpFpsDemo = OverlayTextLine(QString(QLatin1String("%1")).arg(42), s.os.qfFps).createPixmap(s.os.qcFps);
+	bpFpsDemo = OverlayTextLine(QString::fromLatin1("%1").arg(42), s.os.qfFps).createPixmap(s.os.qcFps);
 	qgpiFpsDemo->setPixmap(bpFpsDemo);
 	qgvFpsPreview->centerOn(qgpiFpsDemo);
 }
@@ -230,7 +230,7 @@ QString OverlayConfig::applicationIdentifierForPath(const QString &path) {
 	CFDictionaryRef plist = NULL;
 	CFDataRef data = NULL;
 
-	QFile qfAppBundle(QString("%1/Contents/Info.plist").arg(path));
+	QFile qfAppBundle(QString::fromLatin1("%1/Contents/Info.plist").arg(path));
 	if (qfAppBundle.exists()) {
 		qfAppBundle.open(QIODevice::ReadOnly);
 		QByteArray qbaPlistData = qfAppBundle.readAll();
