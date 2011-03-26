@@ -267,7 +267,7 @@ void MetaParams::read(QString fname) {
 	iBanTimeframe = qsSettings->value("autobanTimeframe", iBanTimeframe).toInt();
 	iBanTime = qsSettings->value("autobanTime", iBanTime).toInt();
 
-	qvSuggestVersion = qsSettings->value("suggestVersion");
+	qvSuggestVersion = MumbleVersion::getRaw(qsSettings->value("suggestVersion").toString());
 	if (qvSuggestVersion.toUInt() == 0)
 		qvSuggestVersion = QVariant();
 
@@ -434,7 +434,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("username"),qrUserName.pattern());
 	qmConfig.insert(QLatin1String("channelname"),qrChannelName.pattern());
 	qmConfig.insert(QLatin1String("certrequired"), bCertRequired ? QLatin1String("true") : QLatin1String("false"));
-	qmConfig.insert(QLatin1String("suggestversion"), qvSuggestVersion.isNull() ? QString() : MumbleVersion::toString(qvSuggestVersion.toUInt()));
+	qmConfig.insert(QLatin1String("suggestversion"), qvSuggestVersion.isNull() ? QString() : qvSuggestVersion.toString());
 	qmConfig.insert(QLatin1String("suggestpositional"), qvSuggestPositional.isNull() ? QString() : qvSuggestPositional.toString());
 	qmConfig.insert(QLatin1String("suggestpushtotalk"), qvSuggestPushToTalk.isNull() ? QString() : qvSuggestPushToTalk.toString());
 }
