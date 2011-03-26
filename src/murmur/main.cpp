@@ -208,15 +208,23 @@ int main(int argc, char **argv) {
 	for (int i=1;i<argc;i++) {
 		bool bLast = false;
 		QString arg = QString(argv[i]).toLower();
-		if ((arg == "-supw") && (i+1 < argc)) {
-			i++;
-			supw = argv[i];
+		if ((arg == "-supw")) {
 			detach = false;
 			if (i+1 < argc) {
 				i++;
-				sunum = QString::fromLatin1(argv[i]).toInt();
+				supw = argv[i];
+				if (i+1 < argc) {
+					i++;
+					sunum = QString::fromLatin1(argv[i]).toInt();
+				}
+				bLast = true;
+			} else {
+#ifdef Q_OS_UNIX
+				qFatal("-supw expects the password on the command line - maybe you meant -readsupw?");
+#else
+				qFatal("-supw expects the password on the command line");
+#endif			
 			}
-			bLast = true;
 #ifdef Q_OS_UNIX
 		} else if ((arg == "-readsupw")) {
 			detach = false;
