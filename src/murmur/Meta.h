@@ -102,6 +102,10 @@ struct MetaParams {
 	QString qsName;
 #endif
 
+	QVariant qvSuggestVersion;
+	QVariant qvSuggestPositional;
+	QVariant qvSuggestPushToTalk;
+
 	QSettings *qsSettings;
 
 	MetaParams();

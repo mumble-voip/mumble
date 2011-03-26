@@ -127,6 +127,10 @@ class Server : public QThread {
 		QRegExp qrUserName;
 		QRegExp qrChannelName;
 
+		QVariant qvSuggestVersion;
+		QVariant qvSuggestPositional;
+		QVariant qvSuggestPushToTalk;
+
 		QList<QSslCertificate> qlCA;
 		QSslCertificate qscCert;
 		QSslKey qskKey;

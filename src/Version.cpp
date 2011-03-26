@@ -40,6 +40,12 @@ unsigned int MumbleVersion::getRaw(const QString &version) {
 	return 0;
 }
 
+QString MumbleVersion::toString(unsigned int v) {
+	int major, minor, patch;
+	fromRaw(v, &major, &minor, &patch);
+	return QString::fromLatin1("%1.%2.%3").arg(major).arg(minor).arg(patch);
+}
+
 bool MumbleVersion::get(int *major, int *minor, int *patch, const QString &version) {
 	QRegExp rx(QLatin1String("(\\d+)\\.(\\d+)\\.(\\d+)"));
 

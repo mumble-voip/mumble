@@ -379,6 +379,15 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	mpsc.set_image_message_length(iMaxImageMessageLength);
 	sendMessage(uSource, mpsc);
 
+	MumbleProto::SuggestConfig mpsug;
+	if (! qvSuggestVersion.isNull())
+		mpsug.set_version(qvSuggestVersion.toUInt());
+	if (! qvSuggestPositional.isNull())
+		mpsug.set_positional(qvSuggestPositional.toBool());
+	if (! qvSuggestPushToTalk.isNull())
+		mpsug.set_push_to_talk(qvSuggestPushToTalk.toBool());
+	sendMessage(uSource, mpsug);
+
 	log(uSource, "Authenticated");
 
 	emit userConnected(uSource);
@@ -1615,4 +1624,7 @@ void Server::msgRequestBlob(ServerUser *uSource, MumbleProto::RequestBlob &msg) 
 }
 
 void Server::msgServerConfig(ServerUser *, MumbleProto::ServerConfig &) {
+}
+
+void Server::msgSuggestConfig(ServerUser *, MumbleProto::SuggestConfig &) {
 }

@@ -34,6 +34,7 @@
 #include "Net.h"
 #include "DBus.h"
 #include "OSInfo.h"
+#include "Version.h"
 
 MetaParams Meta::mp;
 
@@ -266,6 +267,18 @@ void MetaParams::read(QString fname) {
 	iBanTimeframe = qsSettings->value("autobanTimeframe", iBanTimeframe).toInt();
 	iBanTime = qsSettings->value("autobanTime", iBanTime).toInt();
 
+	qvSuggestVersion = qsSettings->value("suggestVersion");
+	if (qvSuggestVersion.toUInt() == 0)
+		qvSuggestVersion = QVariant();
+
+	qvSuggestPositional = qsSettings->value("suggestPositional");
+	if (qvSuggestPositional.toString().trimmed().isEmpty())
+		qvSuggestPositional = QVariant();
+
+	qvSuggestPushToTalk = qsSettings->value("suggestPushToTalk");
+	if (qvSuggestPushToTalk.toString().trimmed().isEmpty())
+		qvSuggestPushToTalk = QVariant();
+
 #ifdef Q_OS_UNIX
 	qsName = qsSettings->value("uname").toString();
 	if (geteuid() == 0) {
@@ -421,6 +434,9 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("username"),qrUserName.pattern());
 	qmConfig.insert(QLatin1String("channelname"),qrChannelName.pattern());
 	qmConfig.insert(QLatin1String("certrequired"), bCertRequired ? QLatin1String("true") : QLatin1String("false"));
+	qmConfig.insert(QLatin1String("suggestversion"), qvSuggestVersion.isNull() ? QString() : MumbleVersion::toString(qvSuggestVersion.toUInt()));
+	qmConfig.insert(QLatin1String("suggestpositional"), qvSuggestPositional.isNull() ? QString() : qvSuggestPositional.toString());
+	qmConfig.insert(QLatin1String("suggestpushtotalk"), qvSuggestPushToTalk.isNull() ? QString() : qvSuggestPushToTalk.toString());
 }
 
 Meta::Meta() {

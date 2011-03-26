@@ -312,6 +312,9 @@ void Server::readParams() {
 	bCertRequired = Meta::mp.bCertRequired;
 	qrUserName = Meta::mp.qrUserName;
 	qrChannelName = Meta::mp.qrChannelName;
+	qvSuggestVersion = Meta::mp.qvSuggestVersion;
+	qvSuggestPositional = Meta::mp.qvSuggestPositional;
+	qvSuggestPushToTalk = Meta::mp.qvSuggestPushToTalk;
 
 	QString qsHost = getConf("host", QString()).toString();
 	if (! qsHost.isEmpty()) {
@@ -361,6 +364,18 @@ void Server::readParams() {
 	bBonjour = getConf("bonjour", bBonjour).toBool();
 	bAllowPing = getConf("allowping", bAllowPing).toBool();
 	bCertRequired = getConf("certrequired", bCertRequired).toBool();
+
+	qvSuggestVersion = getConf("suggestversion", qvSuggestVersion);
+	if (qvSuggestVersion.toUInt() == 0)
+		qvSuggestVersion = QVariant();
+
+	qvSuggestPositional = getConf("suggestpositional", qvSuggestPositional);
+	if (qvSuggestPositional.toString().trimmed().isEmpty())
+		qvSuggestPositional = QVariant();
+
+	qvSuggestPushToTalk = getConf("suggestpushtotalk", qvSuggestPushToTalk);
+	if (qvSuggestPushToTalk.toString().trimmed().isEmpty())
+		qvSuggestPushToTalk = QVariant();
 
 	qrUserName=QRegExp(getConf("username", qrUserName.pattern()).toString());
 	qrChannelName=QRegExp(getConf("channelname", qrChannelName.pattern()).toString());
@@ -461,6 +476,12 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		qrUserName=!v.isNull() ? QRegExp(v) : Meta::mp.qrUserName;
 	else if (key == "channelname")
 		qrChannelName=!v.isNull() ? QRegExp(v) : Meta::mp.qrChannelName;
+	else if (key == "suggestversion")
+		qvSuggestVersion = ! v.isNull() ? (v.isEmpty() ? QVariant() : v ) : Meta::mp.qvSuggestVersion;
+	else if (key == "suggestpositional")
+		qvSuggestPositional = ! v.isNull() ? (v.isEmpty() ? QVariant() : v ) : Meta::mp.qvSuggestPositional;
+	else if (key == "suggestpushtotalk")
+		qvSuggestPushToTalk = ! v.isNull() ? (v.isEmpty() ? QVariant() : v ) : Meta::mp.qvSuggestPushToTalk;
 }
 
 #ifdef USE_BONJOUR

@@ -746,3 +746,21 @@ void MainWindow::msgUserStats(const MumbleProto::UserStats &msg) {
 
 void MainWindow::msgRequestBlob(const MumbleProto::RequestBlob &) {
 }
+
+void MainWindow::msgSuggestConfig(const MumbleProto::SuggestConfig &msg) {
+	if (msg.has_version() && (msg.version() > MumbleVersion::getRaw())) {
+		g.l->log(Log::Warning, tr("The server requests minimum client version %1").arg(MumbleVersion::toString(msg.version())));
+	}
+	if (msg.has_positional() && (msg.positional() != g.s.doPositionalAudio())) {
+		if (msg.positional())
+			g.l->log(Log::Warning, tr("The server requests positional audio be enabled."));
+		else
+			g.l->log(Log::Warning, tr("The server requests positional audio be disabled."));
+	}
+	if (msg.has_push_to_talk() && (msg.push_to_talk() != (g.s.atTransmit == Settings::PushToTalk))) {
+		if (msg.push_to_talk())
+			g.l->log(Log::Warning, tr("The server requests Push-to-Talk be enabled."));
+		else
+			g.l->log(Log::Warning, tr("The server requests Push-to-Talk be disabled."));
+	}
+}
