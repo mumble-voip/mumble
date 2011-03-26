@@ -40,12 +40,6 @@ extern "C" {
 #include <xar/xar.h>
 }
 
-// This is a temporary solution. We don't want the list of our trusted
-// intermediate certificates to be tampered with, and the easiest way
-// to achieve that is to embed them into the binary (since it gets
-// codesigned.)
-#include "../../macx/overlay-installer/intermediate.h"
-
 static const NSString *MumbleOverlayLoaderBundle = @"/Library/ScriptingAdditions/MumbleOverlay.osax";
 static const NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.mumble.OverlayScriptingAddition";
 
@@ -517,42 +511,24 @@ err:
 	return ret;
 }
 
-// Get an NSArray of the system anchors + our bundled intermediate certs.
+// Get an NSArray of the system anchors.
 static bool getAnchorCerts(NSArray **anchors) {
-	bool ret = false;
 	OSStatus err = noErr;
 	CFArrayRef systemAnchors = NULL;
 
 	if (anchors == NULL) {
 		qWarning("getAnchorCerts: Invalid argument.");
-		goto err;
+		return false;
 	}
 
 	err = SecTrustCopyAnchorCertificates(&systemAnchors);
 	if (err != noErr) {
 		qWarning("Unable to copy system anchor certificates");
-		goto err;
+		return false;
 	}
 
-	*anchors = [[NSMutableArray alloc] initWithArray:(NSArray *)systemAnchors];
-	for (int i = 0; i < sizeof(intermediate_cas)/sizeof(intermediate_cas[0]); i++) {
-		QSslCertificate cert(intermediate_cas[i]);
-		QByteArray qbaIntermediate = cert.toDer();
-
-		SecCertificateRef tmp = NULL;
-		const CSSM_DATA crt = { (CSSM_SIZE) qbaIntermediate.length(), (uint8_t *) qbaIntermediate.constData() };
-		err = SecCertificateCreateFromData(&crt, CSSM_CERT_X_509v3, CSSM_CERT_ENCODING_DER, &tmp);
-		if (err != noErr) {
-			qWarning("getAnchorCerts: Couldn't SecCertificateCreateFromData(). Skipping.");
-			continue;
-		}
-
-		[(NSMutableArray *) *anchors addObject:(id)tmp];
-	}
-
-	ret = true;
-err:
-	return ret;
+	*anchors = (NSArray *) systemAnchors;
+	return true;
 }
 
 // First, validate the signature of the installer XAR archive. Then, check
@@ -595,30 +571,6 @@ bool validateInstaller(const char *path) {
 	if (err != noErr) {
 		qWarning("validateInstaller: Unable to create trust with certs...");
 		goto err;
-	}
-
-	if (QSysInfo::MacintoshVersion < QSysInfo::MV_SNOWLEOPARD) {
-		qWarning("validateInstaller: Non-Snow Leopard install detected. Including bundled intermediate certificates when "
-		         "verifying installer.");
-
-		// Get system anchors with our bundled intermediate certificates included.
-		if (! getAnchorCerts(&anchors)) {
-			qWarning("validateInstaller: Unable to fetch anchors.");
-			goto err;
-		}
-
-		// Set the anchors for the trust object
-		//
-		// Note: By doing this, we're actually circumventing the user trust settings for the system anchors.
-		//
-		// There's only really a way around this for Snow Leopard, where a `SecTrustSetAnchorCertificatesOnly'
-		// function was introduced. With this, you can trust the anchor certificates set for the trust object
-		// AND trust the system anchors using the user's *own* trust settings for them.
-		err = SecTrustSetAnchorCertificates(trust, (CFArrayRef)anchors);
-		if (err != noErr) {
-			qWarning("validateInstaller: Unable to set bundled anchor certificates.");
-			goto err;
-		}
 	}
 
 	// Do we trust this certificate?
