@@ -31,6 +31,8 @@
 #ifndef _WEBFETCH_H
 #define _WEBFETCH_H
 
+#include "mumble_pch.hpp"
+
 /*!
  * \brief Utility class to fetch data from mumble servers.
  *
