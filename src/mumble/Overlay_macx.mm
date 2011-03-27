@@ -511,26 +511,6 @@ err:
 	return ret;
 }
 
-// Get an NSArray of the system anchors.
-static bool getAnchorCerts(NSArray **anchors) {
-	OSStatus err = noErr;
-	CFArrayRef systemAnchors = NULL;
-
-	if (anchors == NULL) {
-		qWarning("getAnchorCerts: Invalid argument.");
-		return false;
-	}
-
-	err = SecTrustCopyAnchorCertificates(&systemAnchors);
-	if (err != noErr) {
-		qWarning("Unable to copy system anchor certificates");
-		return false;
-	}
-
-	*anchors = (NSArray *) systemAnchors;
-	return true;
-}
-
 // First, validate the signature of the installer XAR archive. Then, check
 // that the certificate chain is trusted by the system.
 bool validateInstaller(const char *path) {
@@ -596,7 +576,6 @@ bool validateInstaller(const char *path) {
 
 err:
 	[certs release];
-	[anchors release];
 	if (search)
 		CFRelease(search);
 	if (policy)
