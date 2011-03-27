@@ -468,7 +468,7 @@ static bool validateInstallerSignature(const char *path) {
 	}
 
 	// Extract the TOC signed data
-	if (xar_signature_copy_signed_data(sig, &plaindata, &plainlen, &signdata, &signlen) != 0) {
+	if (xar_signature_copy_signed_data(sig, &plaindata, &plainlen, &signdata, &signlen, NULL) != 0) {
 		qWarning("validateInstallerSignature: Could not get signed data from XARchive.");
 		goto err;
 	}
