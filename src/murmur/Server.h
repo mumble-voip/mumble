@@ -49,6 +49,13 @@ class Channel;
 class PacketDataStream;
 class ServerUser;
 
+struct TextMessage {
+	QList<int> sessions;
+	QList<int> channels;
+	QList<int> trees;
+	QString text;
+};
+
 class LogEmitter : public QObject {
 	private:
 		Q_OBJECT
@@ -272,6 +279,7 @@ class Server : public QThread {
 		void idToTextureSig(QByteArray &, int);
 
 		void userStateChanged(const User *);
+		void userTextMessage(const User *, const TextMessage &);
 		void userConnected(const User *);
 		void userDisconnected(const User *);
 		void channelStateChanged(const Channel *);

@@ -177,6 +177,24 @@ static void infoToInfo(const Murmur::UserInfoMap &im, QMap<int, QString> &info) 
 		info.insert((*i).first, u8((*i).second));
 }
 
+static void textmessageToTextmessage(const ::TextMessage &tm, Murmur::TextMessage &tmdst) {
+	tmdst.text = u8(tm.text);
+
+	QList<int>::const_iterator i;
+
+	for (i = tm.sessions.begin(); i != tm.sessions.end(); ++i) {
+		tmdst.sessions.push_back(*i);
+	}
+	
+	for (i = tm.channels.begin(); i != tm.channels.end(); ++i) {
+		tmdst.channels.push_back(*i);
+	}
+
+	for (i = tm.trees.begin(); i != tm.trees.end(); ++i) {
+		tmdst.trees.push_back(*i);
+	}
+}
+
 class ServerLocator : public virtual Ice::ServantLocator {
 	public:
 		virtual Ice::ObjectPtr locate(const Ice::Current &, Ice::LocalObjectPtr &);
@@ -368,6 +386,29 @@ void MurmurIce::userStateChanged(const ::User *p) {
 	foreach(const ::Murmur::ServerCallbackPrx &prx, qmList) {
 		try {
 			prx->userStateChanged(mp);
+		} catch (...) {
+			badServerProxy(prx, s->iServerNum);
+		}
+	}
+}
+
+void MurmurIce::userTextMessage(const ::User *p, const ::TextMessage &message) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+
+	const QList< ::Murmur::ServerCallbackPrx> &qmList = qmServerCallbacks[s->iServerNum];
+
+	if (qmList.isEmpty())
+		return;
+
+	::Murmur::User mp;
+	userToUser(p, mp);
+
+	::Murmur::TextMessage textMessage;
+	textmessageToTextmessage(message, textMessage);
+
+	foreach(const ::Murmur::ServerCallbackPrx &prx, qmList) {
+		try {
+			prx->userTextMessage(mp, textMessage);
 		} catch (...) {
 			badServerProxy(prx, s->iServerNum);
 		}
