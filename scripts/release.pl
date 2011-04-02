@@ -150,10 +150,12 @@ foreach my $dir (@fulldirs) {
 delete($files{'LICENSE'});
 
 if ($#ARGV < 0) {
-  open(F, "git describe origin|"); 
+  open(F, "git describe origin/master|");
   while (<F>) {
     chomp();
+    s/^(.+)-([0-9]+)-(g.+)$/$1|$2|$3/;
     s/-/~/;
+    s/\|/-/g;
     $ver = $_;
   }
   close(F);
