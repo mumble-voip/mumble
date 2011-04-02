@@ -93,22 +93,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	std::string sHost;
 	sHost.assign(chHostStr);
-	if (sHost.find(':')==std::string::npos)
-		sHost.append(":27015");
+	if (!sHost.empty()) {
+		if (sHost.find(':') == std::string::npos)
+			sHost.append(":27015");
 
-	std::ostringstream new_context;
-	new_context << "<context>"
-	<< "<game>tf2</game>"
-	<< "<hostport>" << sHost << "</hostport>"
-	<< "</context>";
-	context = new_context.str();
+		std::ostringstream new_context;
+		new_context << "{ \"ipport\": \"" << sHost << "\"}";
+		context = new_context.str();
+	}
 
-	/* TODO
-	std::wostringstream new_identity;
-	new_identity << "<identity>"
-			<< "<name>" << "SAS" << "</name>"
-		     << "</identity>";
-	identity = new_identity.str(); */
+	//TODO: Implement identity
 
 	// Check to see if you are in a server and spawned
 	if (state == 0 || state == 1 || state == 3)
