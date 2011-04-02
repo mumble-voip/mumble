@@ -151,8 +151,10 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 		QKeyEvent *kev = static_cast<QKeyEvent*>(evt);
 		if ((kev->key() == Qt::Key_Enter || kev->key() == Qt::Key_Return) && !(kev->modifiers() & Qt::ShiftModifier)) {
 			const QString msg = toPlainText();
-			addToHistory(msg);
-			emit entered(msg);
+			if (!msg.isEmpty()) {
+				addToHistory(msg);
+				emit entered(msg);
+			}
 			return true;
 		}
 		if (kev->key() == Qt::Key_Tab) {
@@ -240,12 +242,10 @@ unsigned int ChatbarTextEdit::completeAtCursor() {
 }
 
 void ChatbarTextEdit::addToHistory(const QString &str) {
-	if (!str.isEmpty()) {
-		iHistoryIndex = -1;
-		qslHistory.push_front(str);
-		if (qslHistory.length() > MAX_HISTORY) {
-			qslHistory.pop_back();
-		}
+	iHistoryIndex = -1;
+	qslHistory.push_front(str);
+	if (qslHistory.length() > MAX_HISTORY) {
+		qslHistory.pop_back();
 	}
 }
 
