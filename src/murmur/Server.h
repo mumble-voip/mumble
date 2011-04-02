@@ -50,10 +50,10 @@ class PacketDataStream;
 class ServerUser;
 
 struct TextMessage {
-	QList<int> sessions;
-	QList<int> channels;
-	QList<int> trees;
-	QString text;
+	QList<unsigned int> qlSessions;
+	QList<unsigned int> qlChannels;
+	QList<unsigned int> qlTrees;
+	QString qsText;
 };
 
 class LogEmitter : public QObject {

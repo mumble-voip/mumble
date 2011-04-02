@@ -1058,7 +1058,7 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	if (changed)
 		msg.set_message(u8(text));
 
-	tm.text = text;
+	tm.qsText = text;
 
 	{ // Happy easter
 		char m[29] = {0117, 0160, 0145, 0156, 040, 0164, 0150, 0145, 040, 0160, 0157, 0144, 040, 0142, 0141, 0171, 040, 0144, 0157, 0157, 0162, 0163, 054, 040, 0110, 0101, 0114, 056, 0};
@@ -1084,7 +1084,7 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		foreach(User *p, c->qlUsers)
 			users.insert(static_cast<ServerUser *>(p));
 
-		tm.channels.append(id);
+		tm.qlChannels.append(id);
 	}
 
 	for (int i=0;i<msg.tree_id_size(); ++i) {
@@ -1101,7 +1101,7 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 
 		q.enqueue(c);
 
-		tm.trees.append(id);
+		tm.qlTrees.append(id);
 	}
 
 	while (! q.isEmpty()) {
@@ -1125,7 +1125,7 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 			users.insert(u);
 		}
 
-		tm.sessions.append(session);
+		tm.qlSessions.append(session);
 	}
 
 	users.remove(uSource);

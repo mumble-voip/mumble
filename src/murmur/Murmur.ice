@@ -72,10 +72,16 @@ module Murmur
 
 	sequence<int> IntList;
 
+	/** A text message between users.
+	 **/
 	struct TextMessage {
+		/** Sessions (connected users) who were sent this message. */
 		IntList sessions;
+		/** Channels who were sent this message. */
 		IntList channels;
+		/** Trees of channels who were sent this message. */
 		IntList trees;
+		/** The contents of the message. */
 		string text;
 	};
 
@@ -281,13 +287,13 @@ module Murmur
 		 *  @param state New state of user.
 		 */
 		idempotent void userStateChanged(User state);
-		/** Called when a new channel is created. 
-		 *  @param state State of new channel.
-		 */
-		idempotent void userTextMessage(User state, TextMessage message);
 		/** Called when user writes a text message
 		 *  @param state the User sending the message
 		 *  @param message the TextMessage the user has sent
+		 */
+		idempotent void userTextMessage(User state, TextMessage message);
+		/** Called when a new channel is created. 
+		 *  @param state State of new channel.
 		 */
 		idempotent void channelCreated(Channel state);
 		/** Called when a channel is removed. The channel has already been removed, you can no longer use methods like {@link Server.getChannelState}

@@ -178,21 +178,16 @@ static void infoToInfo(const Murmur::UserInfoMap &im, QMap<int, QString> &info) 
 }
 
 static void textmessageToTextmessage(const ::TextMessage &tm, Murmur::TextMessage &tmdst) {
-	tmdst.text = u8(tm.text);
+	tmdst.text = u8(tm.qsText);
 
-	QList<int>::const_iterator i;
-
-	for (i = tm.sessions.begin(); i != tm.sessions.end(); ++i) {
-		tmdst.sessions.push_back(*i);
-	}
+	foreach (unsigned int i, tm.qlSessions)
+		tmdst.sessions.push_back(i);
 	
-	for (i = tm.channels.begin(); i != tm.channels.end(); ++i) {
-		tmdst.channels.push_back(*i);
-	}
-
-	for (i = tm.trees.begin(); i != tm.trees.end(); ++i) {
-		tmdst.trees.push_back(*i);
-	}
+	foreach (unsigned int i, tm.qlChannels)
+		tmdst.channels.push_back(i);
+	
+	foreach (unsigned int i, tm.qlTrees)
+		tmdst.trees.push_back(i);
 }
 
 class ServerLocator : public virtual Ice::ServantLocator {
