@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 # -*- coding: utf-8
 import Ice, sys, sha
 from M2Crypto import X509;
