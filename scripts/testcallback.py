@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 # -*- coding: utf-8
 import Ice, sys, sha
 from M2Crypto import X509;
@@ -43,6 +43,12 @@ class ServerCallbackI(Murmur.ServerCallback):
       print "stateChanged"
       print self.server
       print p
+
+    def userTextMessage(self, p, msg, current=None):
+      print "userTextMessage"
+      print self.server
+      print p
+      print msg
 
     def channelCreated(self, c, current=None):
       print "created"

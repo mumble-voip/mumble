@@ -76,6 +76,7 @@ class MurmurIce : public QObject {
 		void idToTextureSlot(QByteArray &res, int id);
 
 		void userStateChanged(const User *p);
+		void userTextMessage(const User *p, const TextMessage &);
 		void userConnected(const User *p);
 		void userDisconnected(const User *p);
 
