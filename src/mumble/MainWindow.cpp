@@ -1016,8 +1016,10 @@ void MainWindow::on_qmServer_aboutToShow() {
 }
 
 void MainWindow::on_qaServerDisconnect_triggered() {
-	if (qtReconnect->isActive())
+	if (qtReconnect->isActive()) {
 		qtReconnect->stop();
+		qaServerDisconnect->setEnabled(false);
+	}
 	if (g.sh && g.sh->isRunning())
 		g.sh->disconnect();
 }
