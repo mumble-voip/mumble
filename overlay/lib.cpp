@@ -431,6 +431,7 @@ static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
 	if (! bBlackListed) {
 		checkD3D9Hook();
 		checkDXGIHook();
+		checkDXGI11Hook();
 		checkOpenGLHook();
 	}
 
@@ -639,6 +640,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					// Hm. Don't check D3D9 as apparantly it's creation causes problems in some applications.
 					checkD3D9Hook(true);
 					checkDXGIHook(true);
+					checkDXGI11Hook(true);
 					checkOpenGLHook();
 					ods("Injected into %s", procname);
 				}
@@ -665,6 +667,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					if (!bBlackListed) {
 						checkD3D9Hook();
 						checkDXGIHook();
+						checkDXGI11Hook();
 						checkOpenGLHook();
 						ods("Injected to thread of %s", procname);
 					}
