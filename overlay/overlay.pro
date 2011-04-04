@@ -5,7 +5,7 @@ CONFIG -= qt
 CONFIG *= dll shared debug_and_release warn_on
 CONFIG -= embed_manifest_dll
 TARGET = mumble_ol
-SOURCES = lib.cpp d3d9.cpp d3d10.cpp ods.cpp opengl.cpp HardHook.cpp
+SOURCES = lib.cpp d3d9.cpp d3d10.cpp d3d11.cpp ods.cpp opengl.cpp HardHook.cpp
 HEADERS = lib.h ods.h HardHook.h
 EFFECTS = overlay.fx
 DIST = overlay.h overlay.fx HardHook.h
@@ -29,6 +29,18 @@ CONFIG(release, debug|release) {
 CONFIG(debug, debug|release) {
   DESTDIR       = ../release
   DEFINES	*= DEBUG
+}
+
+CONFIG(release, debug|release) {
+  #QMAKE_LIBDIR *= $$(DXSDK_DIR)/Samples/C++/Effects11/Release
+  QMAKE_LIBDIR *= Effects11/Release
+  LIBS *= -lEffects11 -l"$$(DXSDK_DIR)Lib/x86/d3dcompiler"
+}
+
+CONFIG(debug, debug|release) {
+  #QMAKE_LIBDIR *= $$(DXSDK_DIR)/Samples/C++/Effects11/Debug
+  QMAKE_LIBDIR *= Effects11/Debug
+  LIBS *= -lEffects11 -l"$$(DXSDK_DIR)Lib/x86/d3dcompiler"
 }
 
 fxc.output = ${QMAKE_FILE_BASE}.hex
