@@ -30,6 +30,7 @@
 
 #include "lib.h"
 #include "overlay11.hex"
+#include "Effects11/Inc/d3dx11effect.h"
 #include <d3d11.h>
 #include <d3dx10math.h>
 #include <d3dx11.h>
@@ -72,7 +73,7 @@ class D11State: protected Pipe {
                 IDXGISwapChain *pSwapChain;
 
                 ID3D11RenderTargetView *pRTV;
-                ID3DX11Effect *pEffect;
+				ID3DX11Effect *pEffect;
                 ID3DX11EffectTechnique *pTechnique;
                 ID3DX11EffectShaderResourceVariable * pDiffuseTexture;
                 ID3D11InputLayout *pVertexLayout;
@@ -259,8 +260,8 @@ void D11State::init() {
         pBackBuffer->GetDesc(&backBufferSurfaceDesc);
 
         ZeroMemory(&vp, sizeof(vp));
-        vp.Width = backBufferSurfaceDesc.Width;
-        vp.Height = backBufferSurfaceDesc.Height;
+		vp.Width = (FLOAT) backBufferSurfaceDesc.Width;
+		vp.Height = (FLOAT) backBufferSurfaceDesc.Height;
         vp.MinDepth = 0;
         vp.MaxDepth = 1;
         vp.TopLeftX = 0;
@@ -286,7 +287,7 @@ void D11State::init() {
         float bf[4];
         pDeviceContext->OMSetBlendState(pBlendState, bf, 0xffffffff);
 
-        hr = D3DX11CreateEffectFromMemory((void *) g_main, sizeof(g_main), 0, pDevice, &pEffect);
+		hr = D3DX11CreateEffectFromMemory((void *) g_main, sizeof(g_main), 0, pDevice, &pEffect);
 
         pTechnique = pEffect->GetTechniqueByName("Render");
         pDiffuseTexture = pEffect->GetVariableByName("txDiffuse")->AsShaderResource();
@@ -378,7 +379,7 @@ void D11State::draw() {
 
         dwMyThread = GetCurrentThreadId();
 
-        checkMessage(vp.Width, vp.Height);
+		checkMessage((unsigned int)vp.Width, (unsigned int)vp.Height);
 
         if (a_ucTexture && pSRView && (uiLeft != uiRight)) {
                 HRESULT hr;
