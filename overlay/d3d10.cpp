@@ -435,7 +435,6 @@ void D10State::draw() {
 
 static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval, UINT Flags) {
 	HRESULT hr;
-//	ods("DXGI: Device Present");
 
 	ID3D10Device *pDevice = NULL;
 
@@ -446,8 +445,8 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 		D10State *ds = chains[pSwapChain];
 		if (ds && ds->pDevice != pDevice) {
 			ods("DXGI: SwapChain device changed");
-			delete ds;
 			devices.erase(ds->pDevice);
+			delete ds;
 			ds = NULL;
 		}
 		if (! ds) {

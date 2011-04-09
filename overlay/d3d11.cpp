@@ -415,39 +415,39 @@ void D11State::draw() {
 
 
 static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval, UINT Flags) {
-        HRESULT hr;
+	HRESULT hr;
 
-        ID3D11Device *pDevice = NULL;
+	ID3D11Device *pDevice = NULL;
 
-        ods("DXGI1: DrawBegin");
+	ods("DXGI11: DrawBegin");
 
-        hr = pSwapChain->GetDevice(__uuidof(ID3D11Device), (void **) &pDevice);
-        if (pDevice) {
-                D11State *ds = chains[pSwapChain];
-                if (ds && ds->pDevice != pDevice) {
-                        ods("DXGI11: SwapChain device changed");
-                        delete ds;
-                        devices.erase(ds->pDevice);
-                        ds = NULL;
-                }
-                if (! ds) {
-                        ods("DXGI1: New state");
-                        ds = new D11State(pSwapChain, pDevice);
-                        chains[pSwapChain] = ds;
-                        devices[pDevice] = ds;
-                        ds->init();
-                }
+	hr = pSwapChain->GetDevice(__uuidof(ID3D11Device), (void **) &pDevice);
+	if (pDevice) {
+		D11State *ds = chains[pSwapChain];
+		if (ds && ds->pDevice != pDevice) {
+			ods("DXGI11: SwapChain device changed");
+			devices.erase(ds->pDevice);
+						delete ds;
+			ds = NULL;
+		}
+		if (! ds) {
+			ods("DXGI11: New state");
+			ds = new D11State(pSwapChain, pDevice);
+			chains[pSwapChain] = ds;
+			devices[pDevice] = ds;
+			ds->init();
+		}
 
-                ds->draw();
-                pDevice->Release();
-                ods("DXGI11: DrawEnd");
-        }
+		ds->draw();
+		pDevice->Release();
+		ods("DXGI11: DrawEnd");
+	}
 
-        PresentType oPresent = (PresentType) hhPresent.call;
-        hhPresent.restore();
-        hr = oPresent(pSwapChain, SyncInterval, Flags);
-        hhPresent.inject();
-        return hr;
+	PresentType oPresent = (PresentType) hhPresent.call;
+	hhPresent.restore();
+	hr = oPresent(pSwapChain, SyncInterval, Flags);
+	hhPresent.inject();
+	return hr;
 }
 
 static HRESULT __stdcall myResize(IDXGISwapChain *pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags) {
