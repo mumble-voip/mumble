@@ -435,7 +435,6 @@ void D10State::draw() {
 
 static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval, UINT Flags) {
 	HRESULT hr;
-//	ods("DXGI: Device Present");
 
 	ID3D10Device *pDevice = NULL;
 
