@@ -64,6 +64,7 @@ struct DXGIData {
 	int iOffsetRelease;
 	wchar_t wcDXGIFileName[2048];
 	wchar_t wcD3D10FileName[2048];
+	wchar_t wcD3D11FileName[2048];
 };
 
 struct SharedData {
