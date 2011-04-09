@@ -114,8 +114,8 @@ class Pipe {
 		void disconnect();
 };
 
-extern void checkDXGIHook(bool preonly = false);
 extern void checkDXGI11Hook(bool preonly = false);
+extern void checkDXGIHook(bool preonly = false);
 extern void checkD3D9Hook(bool preonly = false);
 extern void checkOpenGLHook();
 
