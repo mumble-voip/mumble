@@ -406,7 +406,7 @@ static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
 	hhLoad.restore();
 
 	HMODULE h = oLoadLibrary(lpFileName);
-//	ods("Library %s loaded to %p", lpFileName, h);
+//	ods("Lib: Library %s loaded to %p", lpFileName, h);
 
 	if (! bBlackListed) {
 		checkD3D9Hook();
@@ -425,7 +425,7 @@ static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
 	hhLoadW.restore();
 
 	HMODULE h = oLoadLibrary(lpFileName);
-	ods("Library %ls wloaded to %p", lpFileName, h);
+	ods("Lib: Library %ls wloaded to %p", lpFileName, h);
 
 	checkForWPF();
 
@@ -491,7 +491,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 				if (!p) {
 					// No blacklisting if the file has no path
 				} else if (GetProcAddress(NULL, "mumbleSelfDetection") != NULL) {
-					ods("Attached to self");
+					ods("Lib: Attached to self");
 					bBlackListed = TRUE;
 					bMumble = TRUE;
 				} else {
@@ -535,7 +535,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 							bool onwhitelist = false;
 							while (buffer[pos] != 0 && pos < buffsize) {
 								if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
-									fods("Overlay enabled for whitelisted '%s'", buffer + pos);
+									fods("Lib: Overlay enabled for whitelisted '%s'", buffer + pos);
 									onwhitelist = true;
 									break;
 								}
@@ -543,14 +543,14 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 							}
 
 							if (!onwhitelist) {
-								ods("No whitelist entry found for '%s', auto-blacklisted", procname);
+								ods("Lib: No whitelist entry found for '%s', auto-blacklisted", procname);
 								bBlackListed = TRUE;
 								break;
 							}
 						} else {
 							while (buffer[pos] != 0 && pos < buffsize) {
 								if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
-									fods("Overlay blacklist entry found for '%s'", buffer + pos);
+									fods("Lib: Overlay blacklist entry found for '%s'", buffer + pos);
 									bBlackListed = TRUE;
 									break;
 								}
@@ -559,10 +559,10 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 						}
 					} else {
 						// If there is no list in the registry fallback to using the default blacklist
-						fods("Overlay fallback to default blacklist");
+						fods("Lib: Overlay fallback to default blacklist");
 						while (overlayBlacklist[i]) {
 							if (_stricmp(procname, overlayBlacklist[i]) == 0 || _stricmp(p+1, overlayBlacklist[i])==0) {
-								fods("Overlay default blacklist entry found for '%s'", overlayBlacklist[i]);
+								fods("Lib: Overlay default blacklist entry found for '%s'", overlayBlacklist[i]);
 								bBlackListed = TRUE;
 								break;
 							}
@@ -584,7 +584,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					HANDLE h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 					if (h != INVALID_HANDLE_VALUE) {
 						CloseHandle(h);
-						fods("Overlay disable %s found", fname);
+						fods("Lib: Overlay disable %s found", fname);
 						bBlackListed = TRUE;
 						return TRUE;
 					}
@@ -593,7 +593,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 					if (h != INVALID_HANDLE_VALUE) {
 						CloseHandle(h);
-						fods("Overlay debug %s found", fname);
+						fods("Lib: Overlay debug %s found", fname);
 						bDebug = TRUE;
 					}
 
@@ -622,7 +622,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 				sd = (SharedData *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize);
 
 				if (sd == NULL) {
-					ods("MapViewOfFile Failed");
+					ods("Lib: MapViewOfFile Failed");
 					return TRUE;
 				}
 
@@ -644,7 +644,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					checkDXGIHook(true);
 					checkDXGI11Hook(true);
 					checkOpenGLHook();
-					ods("Injected into %s", procname);
+					ods("Lib: Injected into %s", procname);
 				}
 			}
 			break;
