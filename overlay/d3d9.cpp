@@ -630,7 +630,7 @@ void checkD3D9Hook(bool preonly) {
 		if (! bHooked) {
 			char procname[2048];
 			GetModuleFileName(NULL, procname, 2048);
-			fods("D3D9: CreateWnd in unhooked D3D App %s", procname);
+			fods("D3D9: Hookcheck in unhooked D3D App %s", procname);
 			bHooked = true;
 
 			// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
