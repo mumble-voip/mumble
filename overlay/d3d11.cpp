@@ -531,7 +531,7 @@ void checkDXGI11Hook(bool preonly) {
 	bChaining = true;
 
 	HMODULE hDXGI = GetModuleHandleW(L"DXGI.DLL");
-	HMODULE hD3D11 = GetModuleHandleW(L"D3D11CORE.DLL");
+	HMODULE hD3D11 = GetModuleHandleW(L"D3D11.DLL");
 
 	if (hDXGI && hD3D11) {
 		if (! bHooked) {
@@ -556,7 +556,7 @@ void checkDXGI11Hook(bool preonly) {
 					HookAddRelease((voidFunc)(raw + dxgi->iOffsetAddRef), (voidFunc)(raw + dxgi->iOffsetRelease));
 				}
 			} else if (! preonly) {
-				fods("DXGI Interface changed, can't rawpatch");
+				fods("DXGI11: DXGI Interface changed, can't rawpatch");
 			} else {
 				bHooked = false;
 			}
@@ -570,7 +570,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 	if (! dxgi)
 		return;
 
-	ods("Preparing static data for DXGI11 Injection");
+	ods("DXGI11: Preparing static data for Injection");
 
 	dxgi->wcDXGIFileName[0] = 0;
 	dxgi->wcD3D11FileName[0] = 0;
@@ -589,7 +589,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 
 		if (hDXGI != NULL && hD3D11 != NULL) {
 			CreateDXGIFactory1Type pCreateDXGIFactory1 = reinterpret_cast<CreateDXGIFactory1Type>(GetProcAddress(hDXGI, "CreateDXGIFactory1"));
-			ods("Got %p", pCreateDXGIFactory1);
+			ods("DXGI11: Got %p", pCreateDXGIFactory1);
 			if (pCreateDXGIFactory1) {
 				HRESULT hr;
 				IDXGIFactory1 * pFactory;
@@ -616,7 +616,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 					desc.BufferDesc.Width = rcWnd.right - rcWnd.left;
 					desc.BufferDesc.Height = rcWnd.bottom - rcWnd.top;
 
-					ods("W %d H %d", desc.BufferDesc.Width, desc.BufferDesc.Height);
+					ods("DXGI11: W %d H %d", desc.BufferDesc.Width, desc.BufferDesc.Height);
 
 					desc.BufferDesc.RefreshRate.Numerator = 60;
 					desc.BufferDesc.RefreshRate.Denominator = 1;
@@ -645,18 +645,18 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 						void ***vtbl = (void ***) pSwapChain;
 						void *pPresent = (*vtbl)[8];
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pPresent, &hRef)) {
-							ods("DXGI1: Failed to get module for Present");
+							ods("DXGI11: Failed to get module for Present");
 						} else {
 							GetModuleFileNameW(hRef, dxgi->wcDXGIFileName, 2048);
 							unsigned char *b = (unsigned char *) pPresent;
 							unsigned char *a = (unsigned char *) hRef;
 							dxgi->iOffsetPresent = b-a;
-							ods("DXGI1: Successfully found Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
+							ods("DXGI11: Successfully found Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
 						}
 
 						void *pResize = (*vtbl)[13];
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pResize, &hRef)) {
-							ods("DXGI1: Failed to get module for ResizeBuffers");
+							ods("DXGI11: Failed to get module for ResizeBuffers");
 						} else {
 							wchar_t buff[2048];
 							GetModuleFileNameW(hRef, buff, 2048);
@@ -664,7 +664,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 								unsigned char *b = (unsigned char *) pResize;
 								unsigned char *a = (unsigned char *) hRef;
 								dxgi->iOffsetResize = b-a;
-								ods("DXGI1: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetResize);
+								ods("DXGI11: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetResize);
 							}
 						}
 
