@@ -495,7 +495,6 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					bBlackListed = TRUE;
 					bMumble = TRUE;
 				} else {
-					int i = 0;
 					DWORD buffsize = MAX_PATH * 20; // Initial buffer size for registry operation
 
 					bool usewhitelist;
@@ -504,6 +503,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					bool success = true;
 					char *buffer = new char[buffsize];
 
+					// check if we're using a whitelist or a blacklist
 					DWORD tmpsize = buffsize - 1;
 					success = (RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Mumble\\Mumble\\overlay", NULL, KEY_READ, &key) == ERROR_SUCCESS) &&
 					          (RegQueryValueExA(key, "usewhitelist", NULL, NULL, (LPBYTE)buffer, &tmpsize) == ERROR_SUCCESS);
@@ -511,11 +511,13 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					if (success) {
 						buffer[tmpsize] = '\0';
 						usewhitelist = (_stricmp(buffer, "true") == 0);
+						// reset tmpsize to the buffers size (minus 1 char for str-termination), as it was changed by RegQuery
 						tmpsize = buffsize - 1;
 
+						// read the whitelist or blacklist (depending on which one we use)
 						DWORD ret;
 						while ((ret = RegQueryValueExA(key, usewhitelist ? "whitelist" : "blacklist", NULL, NULL, (LPBYTE)buffer, &tmpsize)) == ERROR_MORE_DATA) {
-							// Increase the buffsize according to the required size RegQuery wrote into tmpszie so we can read the whole value
+							// Increase the buffsize according to the required size RegQuery wrote into tmpsize, so we can read the whole value
 							delete []buffer;
 							buffsize = tmpsize + 1;
 							buffer = new char[buffsize];
@@ -532,6 +534,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 						unsigned int pos = 0;
 
 						if (usewhitelist) {
+							// check if process is whitelisted
 							bool onwhitelist = false;
 							while (buffer[pos] != 0 && pos < buffsize) {
 								if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
@@ -548,6 +551,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 								break;
 							}
 						} else {
+							// check if process is blacklisted
 							while (buffer[pos] != 0 && pos < buffsize) {
 								if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
 									fods("Lib: Overlay blacklist entry found for '%s'", buffer + pos);
@@ -558,8 +562,9 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 							}
 						}
 					} else {
-						// If there is no list in the registry fallback to using the default blacklist
+						// If there is no list in the registry, fallback to using the default blacklist
 						fods("Lib: Overlay fallback to default blacklist");
+						int i = 0;
 						while (overlayBlacklist[i]) {
 							if (_stricmp(procname, overlayBlacklist[i]) == 0 || _stricmp(p+1, overlayBlacklist[i])==0) {
 								fods("Lib: Overlay default blacklist entry found for '%s'", overlayBlacklist[i]);
@@ -573,9 +578,11 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					// Make sure to always free/destroy buffer & heap
 					delete []buffer;
 
+					// if the processname is already found to be blacklisted, we can stop here
 					if (bBlackListed)
 						return TRUE;
 
+					// check if there is a "nooverlay" file in the executables folder, which would disable/blacklist the overlay
 					char fname[sizeof(procname)];
 					p = fname + (p - procname);
 					strncpy_s(fname, sizeof(fname), procname, p - procname + 1);
@@ -589,6 +596,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 						return TRUE;
 					}
 
+					// check for "debugoverlay" file to enable overlay debugging
 					strcpy_s(p+1, 64, "debugoverlay");
 					h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 					if (h != INVALID_HANDLE_VALUE) {
@@ -597,6 +605,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 						bDebug = TRUE;
 					}
 
+					// check for blacklisting for loading WPF library
 					checkForWPF();
 					if (bBlackListed)
 						return TRUE;
@@ -661,6 +670,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 			}
 			break;
 		case DLL_THREAD_ATTACH: {
+				ods("Lib: ThreadAttach: %s", procname);
 				static bool bTriedHook = false;
 				if (!bBlackListed && sd && ! bTriedHook) {
 					bTriedHook = true;
