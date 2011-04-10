@@ -164,7 +164,7 @@ void D10State::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int
 void D10State::setRect() {
 	HRESULT hr;
 
-	ods("D3D10: Setrect");
+	ods("D3D10: SetRect");
 
 	float w = static_cast<float>(uiWidth);
 	float h = static_cast<float>(uiHeight);
@@ -402,7 +402,7 @@ void D10State::draw() {
 
 	dwMyThread = GetCurrentThreadId();
 
-	checkMessage(vp.Width, vp.Height);
+	checkMessage((unsigned int)vp.Width, (unsigned int)vp.Height);
 
 	if (a_ucTexture && pSRView && (uiLeft != uiRight)) {
 		HRESULT hr;
