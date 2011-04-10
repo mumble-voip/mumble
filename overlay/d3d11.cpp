@@ -427,7 +427,7 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 		if (ds && ds->pDevice != pDevice) {
 			ods("DXGI11: SwapChain device changed");
 			devices.erase(ds->pDevice);
-						delete ds;
+			delete ds;
 			ds = NULL;
 		}
 		if (! ds) {
