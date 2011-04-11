@@ -194,6 +194,7 @@ int main(int argc, char **argv) {
 	QString inifile;
 	QString supw;
 	bool wipeSsl = false;
+	bool wipeLogs = false;
 	int sunum = 1;
 #ifndef Q_OS_WIN
 	bool readPw = false;
@@ -240,6 +241,8 @@ int main(int argc, char **argv) {
 			inifile=argv[i];
 		} else if ((arg == "-wipessl")) {
 			wipeSsl = true;
+		} else if ((arg == "-wipelogs")) {
+			wipeLogs = true;
 		} else if ((arg == "-fg")) {
 			detach = false;
 		} else if ((arg == "-v")) {
@@ -258,6 +261,7 @@ int main(int argc, char **argv) {
 			       "  -v               Add verbose output.\n"
 			       "  -fg              Don't detach from console [Unix-like systems only].\n"
 			       "  -wipessl         Remove SSL certificates from database.\n"
+			       "  -wipelogs        Remove all log entries from database.\n"
 			       "  -version         Show version information.\n"
 			       "If no inifile is provided, murmur will search for one in \n"
 			       "default locations.", argv[0]);
@@ -351,6 +355,11 @@ int main(int argc, char **argv) {
 			ServerDB::setConf(sid, "certificate");
 			ServerDB::setConf(sid, "passphrase");
 		}
+	}
+
+	if (wipeLogs) {
+		qWarning("Removing all log entries from the database.");
+		ServerDB::wipeLogs();
 	}
 
 #ifdef Q_OS_UNIX
