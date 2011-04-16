@@ -217,6 +217,7 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 		uiWidth = 0;
 		uiHeight = 0;
 
+		// initially, instantiate and send an OverlayMessage with the current process id
 		OverlayMsg om;
 		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 		om.omh.uiType = OVERLAY_MSGTYPE_PID;
@@ -226,7 +227,7 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 		if (!sendMessage(om))
 			return;
 
-		ods("Pipe: SentPid");
+		ods("Pipe: Process ID sent");
 	}
 
 	if ((uiWidth != w) || (uiHeight != h)) {
