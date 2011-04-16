@@ -204,8 +204,8 @@ bool Pipe::sendMessage(const OverlayMsg &om) {
 	return false;
 }
 
-void Pipe::checkMessage(unsigned int w, unsigned int h) {
-	if (!w || ! h)
+void Pipe::checkMessage(unsigned int width, unsigned int height) {
+	if (!width || ! height)
 		return;
 
 	if (hSocket == INVALID_HANDLE_VALUE) {
@@ -232,12 +232,15 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 		ods("Pipe: Process ID sent");
 	}
 
-	if ((uiWidth != w) || (uiHeight != h)) {
+	// if the passed width and height do not match the current overlays uiWidth and uiHeight, re-initialize
+	if ((uiWidth != width) || (uiHeight != height)) {
+		// release the old data
 		release();
 
-		uiWidth = w;
-		uiHeight = h;
+		uiWidth = width;
+		uiHeight = height;
 
+		// instantiate and send an initialization-OverlayMessage
 		OverlayMsg om;
 		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 		om.omh.uiType = OVERLAY_MSGTYPE_INIT;
@@ -248,7 +251,7 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 		if (!sendMessage(om))
 			return;
 
-		ods("Pipe: SentInit %d %d", w, h);
+		ods("Pipe: SentInitMsg with w h %d %d", uiWidth, uiHeight);
 	}
 
 	std::vector<RECT> blits;
