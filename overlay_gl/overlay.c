@@ -100,7 +100,7 @@ static const char vshader[] = ""
 static const char fshader[] = ""
                               "uniform sampler2D tex;"
                               "void main() {"
-			      "gl_FragColor = texture2D(tex, gl_TexCoord[0].st);"
+                              "gl_FragColor = texture2D(tex, gl_TexCoord[0].st);"
                               "}";
 
 const GLfloat fBorder[] = {0.125f, 0.250f, 0.5f, 0.75f};
