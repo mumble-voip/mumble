@@ -191,7 +191,7 @@ void Pipe::disconnect() {
 
 bool Pipe::sendMessage(const OverlayMsg &om) {
 	DWORD dwBytesToWrite = sizeof(OverlayMsgHeader) + om.omh.iLength;
-	DWORD dwBytesWritten = dwBytesToWrite;
+	DWORD dwBytesWritten = 0;
 
 	if (WriteFile(hSocket, om.headerbuffer, sizeof(OverlayMsgHeader) + om.omh.iLength, &dwBytesWritten, NULL))
 		if (dwBytesToWrite == dwBytesWritten)
