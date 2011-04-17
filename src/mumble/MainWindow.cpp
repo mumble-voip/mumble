@@ -2415,7 +2415,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 		QMessageBox::warning(this, tr("SSL Version mismatch"), tr("This server is using an older encryption standard, and is no longer supported by modern versions of Mumble."), QMessageBox::Ok);
 	} else {
 		bool ok = false;
-		bool matched = false;
+
 
 		if (! reason.isEmpty()) {
 			g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(reason));
@@ -2428,18 +2428,34 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 		wf = Qt::Sheet;
 #endif
 
+		bool matched = true;
 		switch (rtLast) {
 			case MumbleProto::Reject_RejectType_InvalidUsername:
+				uname = QInputDialog::getText(this, tr("Invalid username"),
+											  tr("You connected with an invalid username, please try another one."),
+											  QLineEdit::Normal, uname, &ok, wf);
+				break;
 			case MumbleProto::Reject_RejectType_UsernameInUse:
-				matched = true;
-				uname = QInputDialog::getText(this, tr("Invalid username"), (rtLast == MumbleProto::Reject_RejectType_InvalidUsername) ? tr("You connected with an invalid username, please try another one.") : tr("That username is already in use, please try another username."), QLineEdit::Normal, uname, &ok, wf);
+				uname = QInputDialog::getText(this, tr("Username in use"),
+											  tr("That username is already in use, please try another username."),
+											  QLineEdit::Normal, uname, &ok, wf);
 				break;
 			case MumbleProto::Reject_RejectType_WrongUserPW:
+				pw = QInputDialog::getText(this,
+										   tr("Wrong certificate or password"),
+										   tr("Wrong certificate or password for registered user. If you are\n"
+											  "certain this user is protected by a password please retry.\n"
+											  "Otherwise abort and check your certificate and username."),
+										   QLineEdit::Password, pw, &ok, wf);
+				break;
 			case MumbleProto::Reject_RejectType_WrongServerPW:
-				matched = true;
-				pw = QInputDialog::getText(this, tr("Wrong password"), (rtLast == MumbleProto::Reject_RejectType_WrongUserPW) ? tr("Wrong password for registered users, please try again.") : tr("Wrong server password for unregistered user account, please try again."), QLineEdit::Password, pw, &ok, wf);
+				pw = QInputDialog::getText(this,
+										   tr("Wrong password"),
+										   tr("Wrong server password for unregistered user account, please try again."),
+										   QLineEdit::Password, pw, &ok, wf);
 				break;
 			default:
+				matched = false;
 				break;
 		}
 		if (ok && matched) {
