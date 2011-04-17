@@ -243,6 +243,7 @@ static void regenTexture(Context *ctx) {
 }
 
 static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
+	// if no socket is active, initialize and connect to socket
 	if (ctx->iSocket == -1) {
 		releaseMem(ctx);
 		if (! ctx->saName.sun_path[0])
@@ -259,7 +260,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 			ods("connect() failure %s", ctx->saName.sun_path);
 			return;
 		}
-		ods("Connected");
+		ods("Socket connected");
 	}
 
 	if ((ctx->uiWidth != width) || (ctx->uiHeight != height)) {
