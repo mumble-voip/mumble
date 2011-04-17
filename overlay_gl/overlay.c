@@ -221,7 +221,7 @@ static bool sendMessage(Context *ctx, struct OverlayMsg *om) {
 		ssize_t sent = send(ctx->iSocket, om, wantsend, MSG_DONTWAIT);
 		if (wantsend == sent)
 			return true;
-		ods("Short write");
+		ods("Short write. Disconnecting pipe.");
 	}
 	disconnect(ctx);
 	return false;
