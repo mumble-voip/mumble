@@ -263,8 +263,9 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 		ods("Socket connected");
 	}
 
+	// if overlay size (width or height) is not up-to-date create and send an overlay initialization message
 	if ((ctx->uiWidth != width) || (ctx->uiHeight != height)) {
-		ods("Sent init %i %i", width, height);
+		ods("Sending init overlay msg with w h %i %i", width, height);
 		releaseMem(ctx);
 
 		ctx->uiWidth = width;
