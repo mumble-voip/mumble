@@ -77,9 +77,12 @@ typedef struct _Context {
 
 	struct sockaddr_un saName;
 	int iSocket;
+	// overlay message, temporary variable for processing from socket
 	struct OverlayMsg omMsg;
+	// opengl overlay texture
 	GLuint texture;
 
+	// overlay texture in shared memory
 	unsigned char *a_ucTexture;
 	unsigned int uiMappedLength;
 
@@ -282,8 +285,10 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 			return;
 	}
 
+	// receive and process overlay message
 	while (1) {
 		if (ctx->omMsg.omh.iLength == -1) {
+			// receive the overlay message header
 			ssize_t length = recv(ctx->iSocket, ctx->omMsg.headerbuffer, sizeof(struct OverlayMsgHeader), 0);
 			if (length < 0) {
 				if ((errno == EAGAIN) || (errno == EWOULDBLOCK))
@@ -291,11 +296,12 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 				disconnect(ctx);
 				return;
 			} else if (length != sizeof(struct OverlayMsgHeader)) {
-				ods("Short header read");
+				ods("Short header read on overlay message");
 				disconnect(ctx);
 				return;
 			}
 		} else {
+			// receive the overlay message body
 			ssize_t  length = recv(ctx->iSocket, ctx->omMsg.msgbuffer, ctx->omMsg.omh.iLength, 0);
 			if (length < 0) {
 				if ((errno == EAGAIN) || (errno == EWOULDBLOCK))
@@ -303,17 +309,22 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 				disconnect(ctx);
 				return;
 			} else if (length != ctx->omMsg.omh.iLength) {
-				ods("Short message read %x %ld/%d", ctx->omMsg.omh.uiType, length, ctx->omMsg.omh.iLength);
+				ods("Short overlay message read %x %ld/%d", ctx->omMsg.omh.uiType, length, ctx->omMsg.omh.iLength);
 				disconnect(ctx);
 				return;
 			}
+			// set len to -1 again for next recv
 			ctx->omMsg.omh.iLength = -1;
 
 			switch (ctx->omMsg.omh.uiType) {
+				// shared memory overlay message
 				case OVERLAY_MSGTYPE_SHMEM: {
+						//TODO [Kissaki] omi? oms! (I previously changed this to oms. Check again.)
 						struct OverlayMsgShmem *oms = (struct OverlayMsgShmem *) & ctx->omMsg.omi;
 						ods("SHMEM %s", oms->a_cName);
+						// as we're initializing new shared memory, release the current shared memory
 						releaseMem(ctx);
+						// open shared memory
 						int fd = shm_open(oms->a_cName, O_RDONLY, 0600);
 						if (fd != -1) {
 							struct stat buf;
@@ -321,7 +332,10 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 							if (buf.st_size >= ctx->uiWidth * ctx->uiHeight * 4) {
 								ctx->uiMappedLength = buf.st_size;
 								ctx->a_ucTexture = mmap(NULL, buf.st_size, PROT_READ, MAP_SHARED, fd, 0);
+								//TODO shouldn't -1 be MAP_FAILED ?
 								if (ctx->a_ucTexture != (unsigned char *) -1) {
+									// mmap successfull, send a new bodyless sharedmemory overlay message and regernate the overlay texture
+									//TODO This will send a sharedmemory msg, which will end up in this type-switch case again, release memory and open shared memory from a name which is not set in the overlay msg body, thus failing! Right? Isn't that an unneccessary and dangerous (there may be msgs in-between? if not, it will try to just open the open-failed shmem(name) again -> loop!?) further message?
 									struct OverlayMsg om;
 									om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 									om.omh.uiType = OVERLAY_MSGTYPE_SHMEM;
@@ -341,6 +355,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 						ods("Failed to map memory");
 					}
 					break;
+				// blit overlay message, blit overlay texture from shared memory to gl-texture var
 				case OVERLAY_MSGTYPE_BLIT: {
 						struct OverlayMsgBlit *omb = & ctx->omMsg.omb;
 						ods("BLIT %d %d %d %d", omb->x, omb->y, omb->w, omb->h);
@@ -351,6 +366,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 								ods("Optimzied fullscreen blit");
 								glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ctx->uiWidth, ctx->uiHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, ctx->a_ucTexture);
 							} else {
+								// allocate temporary memory
 								unsigned int x = omb->x;
 								unsigned int y = omb->y;
 								unsigned int w = omb->w;
@@ -359,18 +375,21 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 								unsigned int r;
 								memset(ptr, 0, w * h * 4);
 
-								for (r = 0; r < h; ++r) {
-									const unsigned char *sptr = ctx->a_ucTexture + 4 * ((y+r) * ctx->uiWidth + x);
-									unsigned char *dptr = ptr + 4 * w * r;
+								// copy overlay texture to temporary memory to adapt to full opengl ui size (overlay at correct place)
+								for (row = 0; row < h; ++row) {
+									const unsigned char *sptr = ctx->a_ucTexture + 4 * ((y+row) * ctx->uiWidth + x);
+									unsigned char *dptr = ptr + 4 * w * row;
 									memcpy(dptr, sptr, w * 4);
 								}
 
+								// copy temporary texture to opengl
 								glTexSubImage2D(GL_TEXTURE_2D, 0, x, y, w, h, GL_BGRA, GL_UNSIGNED_BYTE, ptr);
 								free(ptr);
 							}
 						}
 					}
 					break;
+				// active overlay message
 				case OVERLAY_MSGTYPE_ACTIVE: {
 						struct OverlayMsgActive *oma = & ctx->omMsg.oma;
 						ods("ACTIVE %d %d %d %d", oma->x, oma->y, oma->w, oma->h);
@@ -389,6 +408,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 	if ((ctx->a_ucTexture == NULL) || (ctx->texture == ~0U))
 		return;
 
+	// textzre ckecks, that our gltexture is still valid and sane
 	if (! glIsTexture(ctx->texture)) {
 		ctx->texture = ~0;
 		ods("Lost texture");
@@ -398,7 +418,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 		GLfloat bordercolor[4];
 		glGetTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, bordercolor);
 		if (bordercolor[0] != fBorder[0] || bordercolor[1] != fBorder[1] || bordercolor[2] != fBorder[2] || bordercolor[3] != fBorder[3]) {
-			ods("Texture hijacked");
+			ods("Texture was hijacked!, gonna regenerate");
 			regenTexture(ctx);
 		}
 	}
@@ -414,10 +434,10 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 	float right  = (float)(ctx->uiRight);
 	float bottom = (float)(ctx->uiBottom);
 
-	float xm = (left) / w;
-	float ym = (top) / h;
-	float xmx = (right) / w;
-	float ymx = (bottom) / h;
+	float xm  = left   / w;
+	float ym  = top    / h;
+	float xmx = right  / w;
+	float ymx = bottom / h;
 
 
 	GLfloat vertex[] = {left, bottom,
@@ -433,6 +453,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 }
 
 static void drawContext(Context * ctx, int width, int height) {
+	// calculate FPS and send it as an overlay message
 	clock_t t = clock();
 	float elapsed = (float)(t - ctx->timeT) / CLOCKS_PER_SEC;
 	++(ctx->frameCount);
