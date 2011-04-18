@@ -609,6 +609,7 @@ static void drawContext(Context * ctx, int width, int height) {
 	glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
 	glUseProgram(program);
 	
+	//TODO eh, what? This is supposed to produce an endless loop with no body?
 	while (glGetError() != GL_NO_ERROR);
 }
 
