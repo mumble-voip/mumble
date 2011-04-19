@@ -45,6 +45,7 @@ class Channel : public QObject {
 		Q_DISABLE_COPY(Channel)
 	private:
 		QSet<Channel *> qsUnseen;
+		QDateTime qdtLastUsed;
 	public:
 		int iId;
 		int iPosition;
@@ -88,6 +89,8 @@ class Channel : public QObject {
 		bool isLinked(Channel *c) const;
 		void link(Channel *c);
 		void unlink(Channel *c = NULL);
+		
+		QDateTime getLastUsed() const;
 
 		QSet<Channel *> allLinks();
 		QSet<Channel *> allChildren();

@@ -102,6 +102,8 @@ module Murmur
 		bool temporary;
 		/** Position of the channel which is used in Client for sorting. */
 		int position;
+		/** Seconds since the channel was last used. Will return 0 if channel has users in it. */
+		int lastUsed;
 	};
 
 	/** A group. Groups are defined per channel, and can inherit members from parent channels.

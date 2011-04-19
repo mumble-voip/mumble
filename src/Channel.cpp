@@ -44,6 +44,7 @@ Channel::Channel(int id, const QString &name, QObject *p) : QObject(p) {
 	qsName = name;
 	bInheritACL = true;
 	bTemporary = false;
+	qdtLastUsed = QDateTime::currentDateTime();
 	cParent = qobject_cast<Channel *>(p);
 	if (cParent)
 		cParent->addChannel(this);
@@ -182,10 +183,22 @@ void Channel::addUser(User *p) {
 		p->cChannel->removeUser(p);
 	p->cChannel = this;
 	qlUsers << p;
+	
+	qWarning("Channel was last used: %d seconds ago", QDateTime::currentDateTime().toTime_t() - qdtLastUsed.toTime_t());
 }
 
 void Channel::removeUser(User *p) {
 	qlUsers.removeAll(p);
+	
+	if (qlUsers.isEmpty())
+	        qdtLastUsed = QDateTime::currentDateTime();
+}
+
+QDateTime Channel::getLastUsed() const {
+        if (qlUsers.isEmpty())
+                return qdtLastUsed;
+        else
+                return QDateTime::currentDateTime();
 }
 
 Channel::operator const QString() const {
