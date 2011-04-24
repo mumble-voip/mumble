@@ -67,6 +67,7 @@ GlobalShortcutX::GlobalShortcutX() {
 	for (int i=0; i < ScreenCount(display); ++i)
 		qsRootWindows.insert(RootWindow(display, i));
 
+#ifndef NO_XINPUT2
 	int evt, error;
 
 	if (XQueryExtension(display, "XInputExtension", &iXIopcode, &evt, &error)) {
@@ -103,7 +104,7 @@ GlobalShortcutX::GlobalShortcutX() {
 			return;
 		}
 	}
-
+#endif
 	qWarning("GlobalShortcutX: No XInput support, falling back to polled input. This wastes a lot of CPU resources, so please enable one of the other methods.");
 	bRunning=true;
 	start(QThread::TimeCriticalPriority);
@@ -163,6 +164,7 @@ void GlobalShortcutX::run() {
 
 // Find XI2 master devices so they can be ignored.
 void GlobalShortcutX::queryXIMasterList() {
+#ifndef NO_XINPUT2
 	XIDeviceInfo *info, *dev;
 	int ndevices;
 
@@ -182,10 +184,12 @@ void GlobalShortcutX::queryXIMasterList() {
 		++dev;
 	}
 	XIFreeDeviceInfo(info);
+#endif
 }
 
 // XInput2 event is ready on socketnotifier.
 void GlobalShortcutX::displayReadyRead(int) {
+#ifndef NO_XINPUT2
 	XEvent evt;
 
 	if (bNeedRemap)
@@ -217,6 +221,7 @@ void GlobalShortcutX::displayReadyRead(int) {
 
 		XFreeEventData(display, cookie);
 	}
+#endif
 }
 
 // One of the raw /dev/input devices has ready input

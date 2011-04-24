@@ -32,6 +32,10 @@ CONFIG(no-crash-report) {
   SOURCES	*= CrashReporter.cpp
 }
 
+CONFIG(no-xinput2) {
+  DEFINES	*= NO_XINPUT2
+}
+
 CONFIG(no-bundled-speex) {
   PKGCONFIG	*= speex speexdsp
 }
