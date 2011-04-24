@@ -269,9 +269,9 @@ Settings::Settings() {
 	fVADmin = 0.80f;
 	fVADmax = 0.98f;
 
-	bPushClick = false;
-	qsPushClickOn = cqsDefaultPushClickOn;
-	qsPushClickOff = cqsDefaultPushClickOff;
+	bTxAudioCue = false;
+	qsTxAudioCueOn = cqsDefaultPushClickOn;
+	qsTxAudioCueOff = cqsDefaultPushClickOff;
 
 	bUserTop = false;
 
@@ -519,9 +519,9 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bDeaf, "audio/deaf");
 	LOADENUM(atTransmit, "audio/transmit");
 	SAVELOAD(uiDoublePush, "audio/doublepush");
-	SAVELOAD(bPushClick, "audio/pushclick");
-	SAVELOAD(qsPushClickOn, "audio/pushclickon");
-	SAVELOAD(qsPushClickOff, "audio/pushclickoff");
+	SAVELOAD(bTxAudioCue, "audio/pushclick");
+	SAVELOAD(qsTxAudioCueOn, "audio/pushclickon");
+	SAVELOAD(qsTxAudioCueOff, "audio/pushclickoff");
 	SAVELOAD(iQuality, "audio/quality");
 	SAVELOAD(iMinLoudness, "audio/loudness");
 	SAVELOAD(fVolume, "audio/volume");
@@ -778,9 +778,9 @@ void Settings::save() {
 	SAVELOAD(bDeaf, "audio/deaf");
 	SAVELOAD(atTransmit, "audio/transmit");
 	SAVELOAD(uiDoublePush, "audio/doublepush");
-	SAVELOAD(bPushClick, "audio/pushclick");
-	SAVELOAD(qsPushClickOn, "audio/pushclickon");
-	SAVELOAD(qsPushClickOff, "audio/pushclickoff");
+	SAVELOAD(bTxAudioCue, "audio/pushclick");
+	SAVELOAD(qsTxAudioCueOn, "audio/pushclickon");
+	SAVELOAD(qsTxAudioCueOff, "audio/pushclickoff");
 	SAVELOAD(iQuality, "audio/quality");
 	SAVELOAD(iMinLoudness, "audio/loudness");
 	SAVELOAD(fVolume, "audio/volume");

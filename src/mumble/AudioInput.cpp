@@ -825,13 +825,14 @@ void AudioInput::encodeAudioFrame() {
 			p->setTalking(Settings::Shouting);
 	}
 
-	if (g.s.bPushClick && (g.s.atTransmit == Settings::PushToTalk)) {
+	if (g.s.bTxAudioCue && g.uiSession != 0) {
 		AudioOutputPtr ao = g.ao;
 		if (bIsSpeech && ! bPreviousVoice && ao)
-			ao->playSample(g.s.qsPushClickOn);
+			ao->playSample(g.s.qsTxAudioCueOn);
 		else if (ao && !bIsSpeech && bPreviousVoice && ao)
-			ao->playSample(g.s.qsPushClickOff);
+			ao->playSample(g.s.qsTxAudioCueOff);
 	}
+
 	if (! bIsSpeech && ! bPreviousVoice) {
 		iBitrate = 0;
 		if (g.s.iIdleTime && ! g.s.bDeaf && ((tIdle.elapsed() / 1000000ULL) > g.s.iIdleTime)) {

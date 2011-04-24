@@ -162,11 +162,11 @@ struct Settings {
 
 	bool bExpert;
 
-	bool bPushClick;
+	bool bTxAudioCue;
 	static const QString cqsDefaultPushClickOn;
 	static const QString cqsDefaultPushClickOff;
-	QString qsPushClickOn;
-	QString qsPushClickOff;
+	QString qsTxAudioCueOn;
+	QString qsTxAudioCueOff;
 
 	bool bTransmitPosition;
 	bool bMute, bDeaf;
