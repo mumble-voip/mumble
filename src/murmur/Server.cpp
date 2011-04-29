@@ -759,7 +759,8 @@ void Server::run() {
 				switch (msgType) {
 					case MessageHandler::UDPVoiceSpeex:
 					case MessageHandler::UDPVoiceCELTAlpha:
-					case MessageHandler::UDPVoiceCELTBeta: {
+					case MessageHandler::UDPVoiceCELTBeta:
+					case MessageHandler::UDPVoiceOpus: {
 							u->bUdp = true;
 							processMsg(u, buffer, len);
 							break;
@@ -882,6 +883,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	char buffer[UDP_PACKET_SIZE];
 	PacketDataStream pdi(data + 1, len - 1);
 	PacketDataStream pds(buffer+1, UDP_PACKET_SIZE-1);
+	MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((buffer[0] >> 5) & 0x7);
 	unsigned int type = data[0] & 0xe0;
 	unsigned int target = data[0] & 0x1f;
 	unsigned int poslen;
@@ -896,10 +898,16 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 
 	pdi >> counter;
 
-	do {
-		counter = pdi.next8();
-		pdi.skip(counter & 0x7f);
-	} while ((counter & 0x80) && pdi.isValid());
+	if (msgType != MessageHandler::UDPVoiceOpus) {
+		do {
+			counter = pdi.next8();
+			pdi.skip(counter & 0x7f);
+		} while ((counter & 0x80) && pdi.isValid());
+	} else {
+		unsigned int voicelen;
+		pds >> voicelen;
+		pds.skip(voicelen);
+	}
 
 	poslen = pdi.left();
 
@@ -1252,6 +1260,7 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 			case MessageHandler::UDPVoiceCELTAlpha:
 			case MessageHandler::UDPVoiceCELTBeta:
 			case MessageHandler::UDPVoiceSpeex:
+			case MessageHandler::UDPVoiceOpus:
 				processMsg(u, buffer, l);
 				break;
 			default:
