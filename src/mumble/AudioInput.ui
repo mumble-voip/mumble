@@ -640,7 +640,7 @@
       <string>Misc</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
+      <item row="1" column="0">
        <widget class="QCheckBox" name="qcbPushClick">
         <property name="toolTip">
          <string>Audible audio cue when starting or stopping to transmit</string>
@@ -653,7 +653,7 @@
         </property>
        </widget>
       </item>
-      <item row="10" column="5" colspan="2">
+      <item row="11" column="5" colspan="2">
        <widget class="QSlider" name="qsIdle">
         <property name="toolTip">
          <string>How long to remain idle before auto-deafen.</string>
@@ -678,14 +678,14 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="5">
+      <item row="1" column="5">
        <widget class="QLineEdit" name="qlePushClickPathOn">
         <property name="toolTip">
          <string>Gets played when starting to transmit</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="3">
+      <item row="1" column="3">
        <widget class="QLabel" name="qlPushClickOn">
         <property name="text">
          <string>On</string>
@@ -695,20 +695,76 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="6">
+      <item row="2" column="5">
+       <widget class="QLineEdit" name="qlePushClickPathOff">
+        <property name="toolTip">
+         <string>Gets played when stopping to transmit</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLabel" name="qlPushClickOff">
+        <property name="text">
+         <string>Off</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="7">
+       <widget class="QPushButton" name="qpbPushClickPreview">
+        <property name="toolTip">
+         <string>Preview the audio cues</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</string>
+        </property>
+        <property name="text">
+         <string>&amp;Preview</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="7">
+       <widget class="QPushButton" name="qpbPushClickReset">
+        <property name="toolTip">
+         <string>Reset audio cue to default</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</string>
+        </property>
+        <property name="text">
+         <string>R&amp;eset</string>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="0">
+       <widget class="QLabel" name="qliIdle">
+        <property name="text">
+         <string>Idle AutoDeafen</string>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="7">
+       <widget class="QLabel" name="qlIdle">
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="6">
        <widget class="QPushButton" name="qpbPushClickBrowseOff">
         <property name="toolTip">
          <string>Browse for off audio file</string>
         </property>
         <property name="text">
          <string>B&amp;rowse...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="5">
-       <widget class="QLineEdit" name="qlePushClickPathOff">
-        <property name="toolTip">
-         <string>Gets played when stopping to transmit</string>
         </property>
        </widget>
       </item>
@@ -722,76 +778,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="3">
-       <widget class="QLabel" name="qlPushClickOff">
-        <property name="text">
-         <string>Off</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="7">
-       <widget class="QPushButton" name="qpbPushClickPreview">
-        <property name="toolTip">
-         <string>Preview the audio cues</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</string>
-        </property>
-        <property name="text">
-         <string>&amp;Preview</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="7">
-       <widget class="QPushButton" name="qpbPushClickReset">
-        <property name="toolTip">
-         <string>Reset audio cue to default</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</string>
-        </property>
-        <property name="text">
-         <string>R&amp;eset</string>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="0">
-       <widget class="QLabel" name="qliIdle">
-        <property name="text">
-         <string>Idle AutoDeafen</string>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="7">
-       <widget class="QLabel" name="qlIdle">
-        <property name="minimumSize">
-         <size>
-          <width>30</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
      </layout>
-     <zorder>qgbTransmission</zorder>
-     <zorder>qcbPushClick</zorder>
-     <zorder>qsIdle</zorder>
-     <zorder>qlePushClickPathOn</zorder>
-     <zorder>qlPushClickOn</zorder>
-     <zorder>qpbPushClickBrowseOff</zorder>
-     <zorder>qlePushClickPathOff</zorder>
-     <zorder>qpbPushClickBrowseOn</zorder>
-     <zorder>qlPushClickOff</zorder>
-     <zorder>qpbPushClickPreview</zorder>
-     <zorder>qpbPushClickReset</zorder>
-     <zorder>qliIdle</zorder>
-     <zorder>qlIdle</zorder>
     </widget>
    </item>
    <item>
