@@ -206,20 +206,18 @@ int main(int argc, char **argv) {
 			param.insert(QLatin1String("href"), url);
 #endif
 			MumbleVersion::get(&major, &minor, &patch, version);
-
-			if ((major == 1) && (minor == 2)) {
-				bool sent = false;
+			
+			bool sent = false;
 #ifdef USE_DBUS
-				QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
+			QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
 
-				QDBusMessage reply=qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
-				sent = (reply.type() == QDBusMessage::ReplyMessage);
+			QDBusMessage reply=qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
+			sent = (reply.type() == QDBusMessage::ReplyMessage);
 #else
-				sent = SocketRPC::send(QLatin1String("Mumble"), QLatin1String("url"), param);
+			sent = SocketRPC::send(QLatin1String("Mumble"), QLatin1String("url"), param);
 #endif
-				if (sent)
-					return 0;
-			}
+			if (sent)
+				return 0;
 		} else {
 			bool sent = false;
 #ifdef USE_DBUS
