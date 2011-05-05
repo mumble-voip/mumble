@@ -5,13 +5,20 @@
   <?define ProductVersion = "1.2.4" ?>
 
   <?define SourceDir = "\dev\mumble" ?>
-  <?if $(env.COMPUTERNAME) = "DRYDOCK4" ?>
+  <?if $(env.COMPUTERNAME) = "MUMBLEBUILD" ?>
     <?define SSE2 = true ?>
     <?define QtDir = "\dev\qt4.7" ?>
-    <?define SndFileDir = "\dev\libsndfile" ?>
+    <?define SndFileDir = "\Program Files (x86)\Mega-Nerd\libsndfile\bin" ?>
     <?define MySQLDir = "\dev\MySQL" ?>
   <?else?>
-    <?define QtDir = "\dev\qt" ?>
+    <?if $(env.COMPUTERNAME) = "DRYDOCK4" ?>
+      <?define SSE2 = true ?>
+      <?define QtDir = "\dev\qt4.7" ?>
+      <?define SndFileDir = "\dev\libsndfile" ?>
+      <?define MySQLDir = "\dev\MySQL" ?>
+    <?else?>
+      <?define QtDir = "\dev\qt" ?>
+    <?endif ?>
   <?endif ?>
 
   <?define OpenSslDir = "\dev\openssl" ?>
@@ -25,9 +32,14 @@
   <?define DBusDir = "\dev\dbus" ?>
   -->
 
-  <?ifdef MergeModuleDir ?>
-  <?define IceDir = "\dev\Ice\bin\vc100" ?>
-  <?else ?>
-  <?define IceDir = "\dev\Ice\bin" ?>
+  <?if $(env.COMPUTERNAME) = "MUMBLEBUILD" ?>
+    <?define IceDir = "\Program Files (x86)\ZeroC\Ice-3.4.1\bin\vc100" ?>
+  <?else?>
+    <?ifdef MergeModuleDir ?>
+      <?define IceDir = "\dev\Ice\bin\vc100" ?>
+    <?else ?>
+      <?define IceDir = "\dev\Ice\bin" ?>
+    <?endif ?>
   <?endif ?>
+
 </Include>
