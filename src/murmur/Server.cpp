@@ -128,6 +128,11 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 		getsockname(tcpsock, reinterpret_cast<struct sockaddr *>(&addr), &len);
 #ifdef Q_OS_UNIX
 		int sock = ::socket(addr.ss_family, SOCK_DGRAM, 0);
+#ifdef Q_OS_LINUX
+		int sockopt = 1;
+		if (setsockopt(sock, IPPROTO_IP, IP_PKTINFO, &sockopt, sizeof(sockopt)))
+			log(QString("Failed to set IP_PKTINFO for %1").arg(addressToString(ss->serverAddress(), usPort)));
+#endif
 #else
 #ifndef SIO_UDP_CONNRESET
 #define SIO_UDP_CONNRESET _WSAIOW(IOC_VENDOR,12)
@@ -513,9 +518,30 @@ void Server::udpActivated(int socket) {
 	char encrypt[UDP_PACKET_SIZE];
 	sockaddr_storage from;
 #ifdef Q_OS_UNIX
+#ifdef Q_OS_LINUX
+	struct msghdr msg;
+	struct iovec iov[1];
+
+	iov[0].iov_base = encrypt;
+	iov[0].iov_len = UDP_PACKET_SIZE;
+
+	u_char controldata[CMSG_SPACE(sizeof(struct in_pktinfo))];
+
+	memset(&msg, 0, sizeof(msg));
+	msg.msg_name = reinterpret_cast<struct sockaddr *>(&from);
+	msg.msg_namelen = sizeof(from);
+	msg.msg_iov = iov;
+	msg.msg_iovlen = 1;
+	msg.msg_control = controldata;
+	msg.msg_controllen = sizeof(controldata);
+
+	int &sock = socket;
+	len=static_cast<quint32>(::recvmsg(sock, &msg, MSG_TRUNC));
+#else
 	socklen_t fromlen = sizeof(from);
 	int &sock = socket;
 	len=static_cast<qint32>(::recvfrom(sock, encrypt, UDP_PACKET_SIZE, MSG_TRUNC, reinterpret_cast<struct sockaddr *>(&from), &fromlen));
+#endif
 #else
 	int fromlen = sizeof(from);
 	SOCKET sock = static_cast<SOCKET>(socket);
@@ -530,7 +556,14 @@ void Server::udpActivated(int socket) {
 		ping[4] = qToBigEndian(static_cast<quint32>(iMaxUsers));
 		ping[5] = qToBigEndian(static_cast<quint32>(iMaxBandwidth));
 
+#ifdef Q_OS_LINUX
+		// There will be space for only one header, and the only data we have asked for is the incoming
+		// address. So we can reuse most of the same msg and control data.
+		iov[0].iov_len = 6 * sizeof(quint32);
+		::sendmsg(sock, &msg, 0);
+#else
 		::sendto(sock, encrypt, 6 * sizeof(quint32), 0, reinterpret_cast<struct sockaddr *>(&from), fromlen);
+#endif
 	}
 }
 
