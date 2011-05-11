@@ -405,11 +405,15 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			sendAll(mpsc);
 		}
 	} else if (key == "users") {
-		// FIXME: And what if it goes down, then up again?
 		int newmax = i ? i : Meta::mp.iMaxUsers;
-		for (int id=iMaxUsers*2;id<newmax*2;++id)
-			qqIds.enqueue(id);
+		if (iMaxUsers == newmax)
+			return;
+
 		iMaxUsers = newmax;
+		qqIds.clear();
+		for (int id = 1; id < iMaxUsers * 2; ++id)
+			if (!qhUsers.contains(id))
+				qqIds.enqueue(id);
 	} else if (key == "usersperchannel")
 		iMaxUsersPerChannel = i ? i : Meta::mp.iMaxUsersPerChannel;
 	else if (key == "textmessagelength") {
@@ -832,7 +836,6 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 			struct in6_pktinfo *pktinfo = reinterpret_cast<struct in6_pktinfo *>(CMSG_DATA(cmsg));
 			memset(pktinfo, 0, sizeof(*pktinfo));
 			pktinfo->ipi6_addr =  reinterpret_cast<struct sockaddr_in6 *>(& u->saiTcpLocalAddress)->sin6_addr;
-			qWarning() << pktinfo->ipi6_addr.s6_addr32[0];
 		} else {
 			cmsg->cmsg_level = IPPROTO_IP;
 			cmsg->cmsg_type = IP_PKTINFO;
@@ -1210,7 +1213,8 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 	if (old && old->bTemporary && old->qlUsers.isEmpty())
 		QCoreApplication::instance()->postEvent(this, new ExecEvent(boost::bind(&Server::removeChannel, this, old->iId)));
 
-	qqIds.enqueue(u->uiSession); // Reinsert session id into pool
+	if (u->uiSession < iMaxUsers * 2)
+		qqIds.enqueue(u->uiSession); // Reinsert session id into pool
 
 	if (u->sState == ServerUser::Authenticated) {
 		clearTempGroups(u); // Also clears ACL cache
