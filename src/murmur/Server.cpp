@@ -132,6 +132,9 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 		int sockopt = 1;
 		if (setsockopt(sock, IPPROTO_IP, IP_PKTINFO, &sockopt, sizeof(sockopt)))
 			log(QString("Failed to set IP_PKTINFO for %1").arg(addressToString(ss->serverAddress(), usPort)));
+		sockopt = 1;
+		if (setsockopt(sock, IPPROTO_IPV6, IPV6_RECVPKTINFO, &sockopt, sizeof(sockopt)))
+			log(QString("Failed to set IPV6_RECVPKTINFO for %1").arg(addressToString(ss->serverAddress(), usPort)));
 #endif
 #else
 #ifndef SIO_UDP_CONNRESET
@@ -402,9 +405,10 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			sendAll(mpsc);
 		}
 	} else if (key == "users") {
+		// FIXME: And what if it goes down, then up again?
 		int newmax = i ? i : Meta::mp.iMaxUsers;
-		for (int i=iMaxUsers*2;i<newmax*2;++i)
-			qqIds.enqueue(i);
+		for (int id=iMaxUsers*2;id<newmax*2;++id)
+			qqIds.enqueue(id);
 		iMaxUsers = newmax;
 	} else if (key == "usersperchannel")
 		iMaxUsersPerChannel = i ? i : Meta::mp.iMaxUsersPerChannel;
@@ -482,11 +486,11 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 	else if (key == "channelname")
 		qrChannelName=!v.isNull() ? QRegExp(v) : Meta::mp.qrChannelName;
 	else if (key == "suggestversion")
-		qvSuggestVersion = ! v.isNull() ? (v.isEmpty() ? QVariant() : v ) : Meta::mp.qvSuggestVersion;
+		qvSuggestVersion = ! v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestVersion;
 	else if (key == "suggestpositional")
-		qvSuggestPositional = ! v.isNull() ? (v.isEmpty() ? QVariant() : v ) : Meta::mp.qvSuggestPositional;
+		qvSuggestPositional = ! v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestPositional;
 	else if (key == "suggestpushtotalk")
-		qvSuggestPushToTalk = ! v.isNull() ? (v.isEmpty() ? QVariant() : v ) : Meta::mp.qvSuggestPushToTalk;
+		qvSuggestPushToTalk = ! v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestPushToTalk;
 }
 
 #ifdef USE_BONJOUR
@@ -525,7 +529,7 @@ void Server::udpActivated(int socket) {
 	iov[0].iov_base = encrypt;
 	iov[0].iov_len = UDP_PACKET_SIZE;
 
-	u_char controldata[CMSG_SPACE(sizeof(struct in_pktinfo))];
+	u_char controldata[CMSG_SPACE(MAX(sizeof(struct in6_pktinfo),sizeof(struct in_pktinfo)))];
 
 	memset(&msg, 0, sizeof(msg));
 	msg.msg_name = reinterpret_cast<struct sockaddr *>(&from);
@@ -653,7 +657,27 @@ void Server::run() {
 #ifdef Q_OS_WIN
 				len=::recvfrom(sock, encrypt, UDP_PACKET_SIZE, 0, reinterpret_cast<struct sockaddr *>(&from), &fromlen);
 #else
+#ifdef Q_OS_LINUX
+				struct msghdr msg;
+				struct iovec iov[1];
+
+				iov[0].iov_base = encrypt;
+				iov[0].iov_len = UDP_PACKET_SIZE;
+
+	u_char controldata[CMSG_SPACE(MAX(sizeof(struct in6_pktinfo),sizeof(struct in_pktinfo)))];
+
+				memset(&msg, 0, sizeof(msg));
+				msg.msg_name = reinterpret_cast<struct sockaddr *>(&from);
+				msg.msg_namelen = sizeof(from);
+				msg.msg_iov = iov;
+				msg.msg_iovlen = 1;
+				msg.msg_control = controldata;
+				msg.msg_controllen = sizeof(controldata);
+
+				len=static_cast<quint32>(::recvmsg(sock, &msg, MSG_TRUNC));
+#else
 				len=static_cast<qint32>(::recvfrom(sock, encrypt, UDP_PACKET_SIZE, MSG_TRUNC, reinterpret_cast<struct sockaddr *>(&from), &fromlen));
+#endif
 #endif
 				if (len == 0) {
 					break;
@@ -677,7 +701,12 @@ void Server::run() {
 					ping[4] = qToBigEndian(static_cast<quint32>(iMaxUsers));
 					ping[5] = qToBigEndian(static_cast<quint32>(iMaxBandwidth));
 
+#ifdef Q_OS_LINUX
+					iov[0].iov_len = 6 * sizeof(quint32);
+					::sendmsg(sock, &msg, 0);
+#else
 					::sendto(sock, encrypt, 6 * sizeof(quint32), 0, reinterpret_cast<struct sockaddr *>(&from), fromlen);
+#endif
 					continue;
 				}
 
@@ -720,7 +749,6 @@ void Server::run() {
 					}
 				}
 				len -= 4;
-
 
 				MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((buffer[0] >> 5) & 0x7);
 
@@ -778,14 +806,52 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 		if (Meta::hQoS)
 			QOSAddSocketToFlow(Meta::hQoS, u->sUdpSocket, reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress), QOSTrafficTypeVoice, QOS_NON_ADAPTIVE_FLOW, &dwFlow);
 #endif
+#ifdef Q_OS_LINUX
+		struct msghdr msg;
+		struct iovec iov[1];
+
+		iov[0].iov_base = buffer;
+		iov[0].iov_len = len+4;
+
+		u_char controldata[CMSG_SPACE(MAX(sizeof(struct in6_pktinfo),sizeof(struct in_pktinfo)))];
+		memset(controldata, 0, sizeof(controldata));
+
+		memset(&msg, 0, sizeof(msg));
+		msg.msg_name = reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress);
+		msg.msg_namelen = (u->saiUdpAddress.ss_family == AF_INET6) ? sizeof(struct sockaddr_in6) : sizeof(struct sockaddr_in);
+		msg.msg_iov = iov;
+		msg.msg_iovlen = 1;
+		msg.msg_control = controldata;
+		msg.msg_controllen = sizeof(controldata);
+
+		struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
+		if (u->saiTcpLocalAddress.ss_family == AF_INET6) {
+			cmsg->cmsg_level = IPPROTO_IPV6;
+			cmsg->cmsg_type = IPV6_PKTINFO;
+			cmsg->cmsg_len = CMSG_LEN(sizeof(struct in6_pktinfo));
+			struct in6_pktinfo *pktinfo = reinterpret_cast<struct in6_pktinfo *>(CMSG_DATA(cmsg));
+			memset(pktinfo, 0, sizeof(*pktinfo));
+			pktinfo->ipi6_addr =  reinterpret_cast<struct sockaddr_in6 *>(& u->saiTcpLocalAddress)->sin6_addr;
+			qWarning() << pktinfo->ipi6_addr.s6_addr32[0];
+		} else {
+			cmsg->cmsg_level = IPPROTO_IP;
+			cmsg->cmsg_type = IP_PKTINFO;
+			cmsg->cmsg_len = CMSG_LEN(sizeof(struct in_pktinfo));
+			struct in_pktinfo *pktinfo = reinterpret_cast<struct in_pktinfo *>(CMSG_DATA(cmsg));
+			memset(pktinfo, 0, sizeof(*pktinfo));
+			pktinfo->ipi_spec_dst =  reinterpret_cast<struct sockaddr_in *>(& u->saiTcpLocalAddress)->sin_addr;
+		}
+
+
+		::sendmsg(u->sUdpSocket, &msg, 0);
+#else
 		::sendto(u->sUdpSocket, buffer, len+4, 0, reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress), (u->saiUdpAddress.ss_family == AF_INET6) ? sizeof(struct sockaddr_in6) : sizeof(struct sockaddr_in));
+#endif
 #ifdef Q_OS_WIN
 		if (Meta::hQoS && dwFlow)
 			QOSRemoveSocketFromFlow(Meta::hQoS, 0, dwFlow, 0);
 #else
 #endif
-
-
 	} else {
 		if (cache.isEmpty())
 			cache = QByteArray(data, len);
@@ -1018,6 +1084,7 @@ void Server::newClient() {
 		ServerUser *u = new ServerUser(this, sock);
 		u->uiSession = qqIds.dequeue();
 		u->haAddress = ha;
+		HostAddress(sock->localAddress()).toSockaddr(& u->saiTcpLocalAddress);
 
 		{
 			QWriteLocker wl(&qrwlUsers);

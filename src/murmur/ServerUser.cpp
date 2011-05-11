@@ -39,6 +39,7 @@ ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), U
 	sUdpSocket = INVALID_SOCKET;
 
 	memset(&saiUdpAddress, 0, sizeof(saiUdpAddress));
+	memset(&saiTcpLocalAddress, 0, sizeof(saiTcpLocalAddress));
 
 	dUDPPingAvg = dUDPPingVar = 0.0f;
 	dTCPPingAvg = dTCPPingVar = 0.0f;

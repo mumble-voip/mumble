@@ -65,6 +65,7 @@ struct HostAddress {
 	std::string toStdString() const;
 	QHostAddress toAddress() const;
 	QByteArray toByteArray() const;
+	void toSockaddr(struct sockaddr_storage *dst) const;
 };
 
 Q_DECLARE_TYPEINFO(HostAddress, Q_MOVABLE_TYPE);

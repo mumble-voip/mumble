@@ -120,6 +120,7 @@ class ServerUser : public Connection, public User {
 #endif
 		BandwidthRecord bwr;
 		struct sockaddr_storage saiUdpAddress;
+		struct sockaddr_storage saiTcpLocalAddress;
 		ServerUser(Server *parent, QSslSocket *socket);
 };
 
