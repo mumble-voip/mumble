@@ -10,6 +10,11 @@ use LWP::UserAgent;
 my %files;
 my $ver;
 
+sub schroot($) {
+  my ($cmd) = @_;
+  system("schroot --chroot natty_i386 --preserve-environment -- $cmd");
+}
+
 system("rm murmur-*");
 
 foreach my $pro ("main.pro", "speexbuild/speexbuild.pro", "src/mumble/mumble.pro", "src/murmur/murmur.pro", "src/mumble.pri") {
@@ -43,17 +48,19 @@ if ($#ARGV < 0) {
   $ver=$ARGV[0];
 }
 
-system("/usr/local/Trolltech/Qt-4.6.1/bin/qmake CONFIG+=static CONFIG+=no-client -recursive");
-system("make distclean");
+schroot("qmake CONFIG+=release CONFIG+=no-client -recursive");
+schroot("make distclean");
 unlink("src/murmur/Murmur.h");
 unlink("src/murmur/Murmur.cpp");
 unlink("src/murmur/Mumble.pb.h");
 unlink("src/murmur/Mumble.pb.cc");
-system("PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/:/usr/lib/pkgconfig:/usr/local/ssl/lib/pkgconfig /usr/local/Trolltech/Qt-4.6.1/bin/qmake CONFIG+=static CONFIG+=no-client -recursive");
-system("make");
+unlink("murmur.x86");
+schroot("qmake CONFIG+=release CONFIG+=no-client DEFINES+=MUMBLE_VERSION=\"$ver-ermine\" -recursive");
+schroot("make");
 system("strip release/murmurd");
+schroot("\$HOME/.ermine/ErminePro.i386 --ld_assume_kernel=2.6.15 --output=murmur.x86 --with-gconv=noentry --with-locale=noentry --with-xlocale=noentry --with-nss=internal --config=scripts/ermine.conf release/murmurd");
 
-$files{"murmur.x86"}="release/murmurd";
+$files{"murmur.x86"}="murmur.x86";
 $files{"LICENSE"}="installer/gpl.txt";
 $files{"README"}="README";
 $files{"CHANGES"}="CHANGES";
