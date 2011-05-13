@@ -33,6 +33,31 @@
 #include "Global.h"
 #include "MainWindow.h"
 
+
+LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {}
+
+void LogTextBrowser::resizeEvent(QResizeEvent *e) {
+	scrollLogToBottom();
+	e->accept();
+}
+
+int LogTextBrowser::getLogScroll() {
+	return verticalScrollBar()->value();
+}
+
+int LogTextBrowser::getLogScrollMaximum() {
+	return verticalScrollBar()->maximum();
+}
+
+void LogTextBrowser::setLogScroll(int pos) {
+	verticalScrollBar()->setValue(pos);
+}
+
+void LogTextBrowser::scrollLogToBottom() {
+	verticalScrollBar()->setValue(verticalScrollBar()->maximum());
+}
+
+
 /*!
   \fn int ChatbarTextEdit::completeAtCursor()
   The bar will try to complete the username, if the nickname
