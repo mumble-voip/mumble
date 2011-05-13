@@ -1375,6 +1375,9 @@ void Server::msgCryptSetup(ServerUser *uSource, MumbleProto::CryptSetup &msg) {
 void Server::msgContextActionAdd(ServerUser *, MumbleProto::ContextActionAdd &) {
 }
 
+void Server::msgContextActionRemove(ServerUser *, MumbleProto::ContextActionRemove &) {
+}
+
 void Server::msgContextAction(ServerUser *uSource, MumbleProto::ContextAction &msg) {
 	MSG_SETUP(ServerUser::Authenticated);
 

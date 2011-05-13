@@ -495,6 +495,13 @@ void MurmurIce::contextAction(const ::User *pSrc, const QString &action, unsigne
 	} catch (...) {
 		qCritical("Registered Ice ServerContextCallback %s on server %d, session %d, action %s failed", qPrintable(QString::fromStdString(communicator->proxyToString(prx))), s->iServerNum, pSrc->uiSession, qPrintable(action));
 		qmUser.remove(action);
+
+		// Remove clientside entry
+		MumbleProto::ContextActionRemove mpcar;
+		mpcar.set_action(u8(action));
+		ServerUser *su = s->qhUsers.value(session);
+		if (su)
+			s->sendMessage(su, mpcar);
 	}
 }
 
@@ -1024,6 +1031,13 @@ static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCa
 
 	try {
 		const Murmur::ServerContextCallbackPrx &oneway = Murmur::ServerContextCallbackPrx::checkedCast(cbptr->ice_oneway()->ice_connectionCached(false)->ice_timeout(5000));
+		if (qmPrx.contains(u8(action))) {
+			// Since the server has no notion of the ctx part of the context action
+			// make sure we remove them all clientside when overriding an old callback
+			MumbleProto::ContextActionRemove mpcar;
+			mpcar.set_action(action);
+			server->sendMessage(user, mpcar);
+		}
 		qmPrx.insert(u8(action), oneway);
 		cb->ice_response();
 	} catch (...) {
@@ -1047,9 +1061,18 @@ static void impl_Server_removeContextCallback(const Murmur::AMD_Server_removeCon
 		const Murmur::ServerContextCallbackPrx &oneway = Murmur::ServerContextCallbackPrx::uncheckedCast(cbptr->ice_oneway()->ice_connectionCached(false)->ice_timeout(5000));
 
 		foreach(int session, qmPrx.keys()) {
-			QMap<QString, ::Murmur::ServerContextCallbackPrx> qm = qmPrx[session];
-			foreach(const QString &act, qm.keys(oneway))
+			ServerUser *user = server->qhUsers.value(session);
+			QMap<QString, ::Murmur::ServerContextCallbackPrx> &qm = qmPrx[session];
+			foreach(const QString &act, qm.keys(oneway)) {
 				qm.remove(act);
+
+				// Ask clients to remove the clientside callbacks
+				if (user) {
+					MumbleProto::ContextActionRemove mpcar;
+					mpcar.set_action(u8(act));
+					server->sendMessage(user, mpcar);
+				}
+			}
 		}
 
 		cb->ice_response();

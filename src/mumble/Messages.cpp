@@ -641,6 +641,24 @@ void MainWindow::msgContextActionAdd(const MumbleProto::ContextActionAdd &msg) {
 		qlChannelActions.append(a);
 }
 
+void MainWindow::msgContextActionRemove(const MumbleProto::ContextActionRemove &msg) {
+	QString action = u8(msg.action());
+
+	QSet<QAction *> qs;
+	qs += qlServerActions.toSet();
+	qs += qlChannelActions.toSet();
+	qs += qlUserActions.toSet();
+
+	foreach(QAction *a, qs) {
+		if (a->data() == action) {
+			qlServerActions.removeOne(a);
+			qlChannelActions.removeOne(a);
+			qlUserActions.removeOne(a);
+			delete a;
+		}
+	}
+}
+
 void MainWindow::msgVersion(const MumbleProto::Version &msg) {
 	if (msg.has_version())
 		g.sh->uiVersion = msg.version();

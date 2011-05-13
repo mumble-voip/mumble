@@ -201,6 +201,10 @@ message ContextActionAdd {
 	optional uint32 context = 3;
 }
 
+message ContextActionRemove {
+	required string action = 1;
+}
+
 message ContextAction {
 	optional uint32 session = 1;
 	optional uint32 channel_id = 2;

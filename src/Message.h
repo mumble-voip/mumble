@@ -52,6 +52,7 @@
 	MUMBLE_MH_MSG(QueryUsers) \
 	MUMBLE_MH_MSG(CryptSetup) \
 	MUMBLE_MH_MSG(ContextActionAdd) \
+	MUMBLE_MH_MSG(ContextActionRemove) \
 	MUMBLE_MH_MSG(ContextAction) \
 	MUMBLE_MH_MSG(UserList) \
 	MUMBLE_MH_MSG(VoiceTarget) \
