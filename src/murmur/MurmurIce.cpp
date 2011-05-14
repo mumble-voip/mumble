@@ -497,11 +497,12 @@ void MurmurIce::contextAction(const ::User *pSrc, const QString &action, unsigne
 		qmUser.remove(action);
 
 		// Remove clientside entry
-		MumbleProto::ContextActionRemove mpcar;
-		mpcar.set_action(u8(action));
+		MumbleProto::ContextActionModify mpcam;
+		mpcam.set_action(u8(action));
+		mpcam.set_operation(MumbleProto::ContextActionModify_Operation_Remove);
 		ServerUser *su = s->qhUsers.value(session);
 		if (su)
-			s->sendMessage(su, mpcar);
+			s->sendMessage(su, mpcam);
 	}
 }
 
@@ -1024,7 +1025,7 @@ static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCa
 
 	QMap<QString, ::Murmur::ServerContextCallbackPrx> & qmPrx = mi->qmServerContextCallbacks[server_id][session];
 
-	if (!(ctx & (MumbleProto::ContextActionAdd_Context_Server | MumbleProto::ContextActionAdd_Context_Channel | MumbleProto::ContextActionAdd_Context_User))) {
+	if (!(ctx & (MumbleProto::ContextActionModify_Context_Server | MumbleProto::ContextActionModify_Context_Channel | MumbleProto::ContextActionModify_Context_User))) {
 		cb->ice_exception(InvalidCallbackException());
 		return;
 	}
@@ -1034,9 +1035,10 @@ static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCa
 		if (qmPrx.contains(u8(action))) {
 			// Since the server has no notion of the ctx part of the context action
 			// make sure we remove them all clientside when overriding an old callback
-			MumbleProto::ContextActionRemove mpcar;
-			mpcar.set_action(action);
-			server->sendMessage(user, mpcar);
+			MumbleProto::ContextActionModify mpcam;
+			mpcam.set_action(action);
+			mpcam.set_operation(MumbleProto::ContextActionModify_Operation_Remove);
+			server->sendMessage(user, mpcam);
 		}
 		qmPrx.insert(u8(action), oneway);
 		cb->ice_response();
@@ -1045,11 +1047,12 @@ static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCa
 		return;
 	}
 
-	MumbleProto::ContextActionAdd mpcaa;
-	mpcaa.set_action(action);
-	mpcaa.set_text(text);
-	mpcaa.set_context(ctx);
-	server->sendMessage(user, mpcaa);
+	MumbleProto::ContextActionModify mpcam;
+	mpcam.set_action(action);
+	mpcam.set_text(text);
+	mpcam.set_context(ctx);
+	mpcam.set_operation(MumbleProto::ContextActionModify_Operation_Add);
+	server->sendMessage(user, mpcam);
 }
 
 static void impl_Server_removeContextCallback(const Murmur::AMD_Server_removeContextCallbackPtr cb, int server_id, const Murmur::ServerContextCallbackPrx& cbptr) {
@@ -1068,9 +1071,10 @@ static void impl_Server_removeContextCallback(const Murmur::AMD_Server_removeCon
 
 				// Ask clients to remove the clientside callbacks
 				if (user) {
-					MumbleProto::ContextActionRemove mpcar;
-					mpcar.set_action(u8(act));
-					server->sendMessage(user, mpcar);
+					MumbleProto::ContextActionModify mpcam;
+					mpcam.set_action(u8(act));
+					mpcam.set_operation(MumbleProto::ContextActionModify_Operation_Remove);
+					server->sendMessage(user, mpcam);
 				}
 			}
 		}

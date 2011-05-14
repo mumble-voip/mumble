@@ -56,7 +56,7 @@
 	MUMBLE_MH_MSG(ACL) \
 	MUMBLE_MH_MSG(QueryUsers) \
 	MUMBLE_MH_MSG(CryptSetup) \
-	MUMBLE_MH_MSG(ContextActionAdd) \
+	MUMBLE_MH_MSG(ContextActionModify) \
 	MUMBLE_MH_MSG(ContextAction) \
 	MUMBLE_MH_MSG(UserList) \
 	MUMBLE_MH_MSG(VoiceTarget) \
@@ -65,8 +65,7 @@
 	MUMBLE_MH_MSG(UserStats) \
 	MUMBLE_MH_MSG(RequestBlob) \
 	MUMBLE_MH_MSG(ServerConfig) \
-	MUMBLE_MH_MSG(SuggestConfig) \
-	MUMBLE_MH_MSG(ContextActionRemove)
+	MUMBLE_MH_MSG(SuggestConfig)
 
 class MessageHandler {
 	public:
