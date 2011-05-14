@@ -67,13 +67,15 @@
 #include <boost/accumulators/statistics/mean.hpp>
 #include <boost/accumulators/statistics/variance.hpp>
 #include <boost/accumulators/statistics/extended_p_square.hpp>
+#include <boost/bind.hpp>
+#include <boost/enable_shared_from_this.hpp>
+#include <boost/make_shared.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/shared_array.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/scoped_array.hpp>
-#include <boost/weak_ptr.hpp>
-#include <boost/bind.hpp>
 #include <boost/typeof/typeof.hpp>
+#include <boost/weak_ptr.hpp>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
