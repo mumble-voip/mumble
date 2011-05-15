@@ -31,6 +31,7 @@
 
 #include "murmur_pch.h"
 
+#include "Server.h"
 #include "ServerUser.h"
 #include "Meta.h"
 

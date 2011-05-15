@@ -30,7 +30,6 @@
 
 #include "SSL.h"
 #include "Version.h"
-#include <QtNetwork>
 
 /* CAs we recommend to end users, so support these */
 

@@ -124,6 +124,4 @@ class ServerUser : public Connection, public User {
 		ServerUser(Server *parent, QSslSocket *socket);
 };
 
-#else
-class ServerUser;
 #endif

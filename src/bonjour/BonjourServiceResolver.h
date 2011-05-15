@@ -33,10 +33,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <dns_sd.h>
 
-#include "bonjourrecord.h"
-
-class QSocketNotifier;
-class QHostInfo;
+#include "BonjourRecord.h"
 
 class BonjourServiceResolver : public QObject {
 		Q_OBJECT

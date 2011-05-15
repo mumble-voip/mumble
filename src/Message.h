@@ -107,6 +107,4 @@ inline QByteArray sha1(const QString &str) {
 	return QCryptographicHash::hash(str.toUtf8(), QCryptographicHash::Sha1);
 }
 
-#else
-class Message;
 #endif

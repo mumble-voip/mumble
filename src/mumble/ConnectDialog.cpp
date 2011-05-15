@@ -36,9 +36,9 @@
 #include "WebFetch.h"
 
 #ifdef USE_BONJOUR
-#include "bonjourclient.h"
-#include "bonjourservicebrowser.h"
-#include "bonjourserviceresolver.h"
+#include "BonjourClient.h"
+#include "BonjourServiceBrowser.h"
+#include "BonjourServiceResolver.h"
 #endif
 
 QMap<QString, QIcon> ServerItem::qmIcons;

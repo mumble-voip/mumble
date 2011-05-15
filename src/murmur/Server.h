@@ -35,11 +35,8 @@
 #include "murmur_pch.h"
 #include "Message.h"
 #include "Timer.h"
-#include "User.h"
-#include "Connection.h"
 #include "Net.h"
 #include "ACL.h"
-#include "DBus.h"
 
 #ifdef USE_BONJOUR
 #include "BonjourServer.h"
@@ -48,6 +45,7 @@
 class Channel;
 class PacketDataStream;
 class ServerUser;
+class User;
 
 struct TextMessage {
 	QList<unsigned int> qlSessions;
@@ -328,6 +326,4 @@ class Server : public QThread {
 #undef MUMBLE_MH_MSG
 };
 
-#else
-class Server;
 #endif

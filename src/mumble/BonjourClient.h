@@ -30,6 +30,8 @@
 #ifndef _BONJOURCLIENT_H
 #define _BONJOURCLIENT_H
 
+#include "mumble_pch.hpp"
+
 class BonjourServiceBrowser;
 class BonjourServiceResolver;
 
@@ -45,6 +47,4 @@ class BonjourClient : public QObject {
 		BonjourServiceResolver *bsrResolver;
 };
 
-#else
-class BonjourClient;
 #endif

@@ -27,47 +27,41 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef BONJOURSERVICEREGISTER_H
-#define BONJOURSERVICEREGISTER_H
+#ifndef BONJOURSERVICEBROWSER_H
+#define BONJOURSERVICEBROWSER_H
 
-#include <QtCore/QObject>
-
-#include "bonjourrecord.h"
-class QSocketNotifier;
-
-// Bonjour flags
 #include <dns_sd.h>
 
-typedef uint32_t DNSServiceFlags;
-typedef int32_t DNSServiceErrorType;
-typedef struct _DNSServiceRef_t *DNSServiceRef;
+#include "BonjourRecord.h"
 
-class BonjourServiceRegister : public QObject {
+class BonjourServiceBrowser : public QObject {
 		Q_OBJECT
 	public:
-		BonjourServiceRegister(QObject *parent = 0);
-		~BonjourServiceRegister();
-
-		void registerService(const BonjourRecord &record, quint16 servicePort);
-		inline BonjourRecord registeredRecord() const {
-			return finalRecord;
+		BonjourServiceBrowser(QObject *parent = 0);
+		~BonjourServiceBrowser();
+		void browseForServiceType(const QString &serviceType);
+		inline QList<BonjourRecord> currentRecords() const {
+			return bonjourRecords;
+		}
+		inline QString serviceType() const {
+			return browsingType;
 		}
 
 	signals:
-		void error(DNSServiceErrorType error);
-		void serviceRegistered(const BonjourRecord &record);
+		void currentBonjourRecordsChanged(const QList<BonjourRecord> &list);
+		void error(DNSServiceErrorType err);
 
 	private slots:
 		void bonjourSocketReadyRead();
 
 	private:
-		static void DNSSD_API bonjourRegisterService(DNSServiceRef sdRef, DNSServiceFlags,
-		        DNSServiceErrorType errorCode, const char *name,
-		        const char *regtype, const char *domain,
-		        void *context);
+		static void DNSSD_API bonjourBrowseReply(DNSServiceRef , DNSServiceFlags flags, quint32,
+		        DNSServiceErrorType errorCode, const char *serviceName,
+		        const char *regType, const char *replyDomain, void *context);
 		DNSServiceRef dnssref;
 		QSocketNotifier *bonjourSocket;
-		BonjourRecord finalRecord;
+		QList<BonjourRecord> bonjourRecords;
+		QString browsingType;
 };
 
-#endif // BONJOURSERVICEREGISTER_H
+#endif // BONJOURSERVICEBROWSER_H

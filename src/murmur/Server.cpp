@@ -44,6 +44,10 @@
 #include "PacketDataStream.h"
 #include "ServerUser.h"
 
+#ifdef USE_BONJOUR
+#include "BonjourServiceRegister.h"
+#endif
+
 #define UDP_PACKET_SIZE 1024
 
 LogEmitter::LogEmitter(QObject *p) : QObject(p) {

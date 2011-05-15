@@ -31,6 +31,8 @@
 #ifndef _TIMER_H
 #define _TIMER_H
 
+#include "murmur_pch.h"
+
 // All timer resolutions are in microseconds.
 
 class Timer {

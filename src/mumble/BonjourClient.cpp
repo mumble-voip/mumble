@@ -30,8 +30,8 @@
 
 #include "BonjourClient.h"
 
-#include "bonjourservicebrowser.h"
-#include "bonjourserviceresolver.h"
+#include "BonjourServiceBrowser.h"
+#include "BonjourServiceResolver.h"
 
 BonjourClient::BonjourClient() {
 	bsrResolver = NULL;

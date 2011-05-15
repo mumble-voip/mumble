@@ -34,7 +34,7 @@
 #include "mumble_pch.hpp"
 #include "Timer.h"
 #include "Net.h"
-#include "bonjourrecord.h"
+#include "BonjourRecord.h"
 
 struct FavoriteServer;
 

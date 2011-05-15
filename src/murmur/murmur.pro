@@ -108,8 +108,8 @@ ice {
 bonjour {
 	DEFINES *= USE_BONJOUR
 
-	HEADERS *= ../bonjour/bonjourrecord.h ../bonjour/bonjourserviceregister.h BonjourServer.h
-	SOURCES *= ../bonjour/bonjourserviceregister.cpp BonjourServer.cpp
+	HEADERS *= ../bonjour/BonjourRecord.h ../bonjour/BonjourServiceRegister.h BonjourServer.h
+	SOURCES *= ../bonjour/BonjourServiceRegister.cpp BonjourServer.cpp
 	INCLUDEPATH *= ../bonjour
 	win32 {
 		INCLUDEPATH *= "$$BONJOUR_PATH/include"

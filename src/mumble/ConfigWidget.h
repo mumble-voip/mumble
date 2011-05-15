@@ -32,6 +32,8 @@
 #ifndef _CONFIGWIDGET_H
 #define _CONFIGWIDGET_H
 
+#include "mumble_pch.hpp"
+
 struct Settings;
 class ConfigDialog;
 

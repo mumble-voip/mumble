@@ -29,6 +29,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef BONJOURRECORD_H
 #define BONJOURRECORD_H
 
+#include "murmur_pch.h"
+
 class BonjourRecord {
 	public:
 		BonjourRecord() {}

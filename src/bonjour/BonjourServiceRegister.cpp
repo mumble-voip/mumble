@@ -27,8 +27,7 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "bonjourserviceregister.h"
-#include <QtCore/QSocketNotifier>
+#include "BonjourServiceRegister.h"
 
 BonjourServiceRegister::BonjourServiceRegister(QObject *parent)
 		: QObject(parent), dnssref(0), bonjourSocket(0) {
