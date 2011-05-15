@@ -65,16 +65,18 @@ dbus {
 }
 
 ice {
-	slice.target = Murmur.cpp
+	SLICEFILES = Murmur.ice
+	slice.output = ${QMAKE_FILE_BASE}.cpp
+	slice.clean = ${QMAKE_FILE_OUT} ${QMAKE_FILE_BASE}.h
 	win32 {
-		slice.commands = slice2cpp --checksum -I\"$$ICE_PATH/slice\" Murmur.ice
+		slice.commands = slice2cpp --checksum -I\"$$ICE_PATH/slice\" ${QMAKE_FILE_NAME}
 	} else {
-		slice.commands = slice2cpp --checksum -I/usr/local/share/Ice -I/usr/share/Ice/slice -I/usr/share/slice -I/usr/share/Ice-3.4.1/slice/ -I/usr/share/Ice-3.3.1/slice/ Murmur.ice
+		slice.commands = slice2cpp --checksum -I/usr/local/share/Ice -I/usr/share/Ice/slice -I/usr/share/slice -I/usr/share/Ice-3.4.1/slice/ -I/usr/share/Ice-3.3.1/slice/ ${QMAKE_FILE_NAME}
 	}
+	slice.input = SLICEFILES
+	slice.CONFIG *= no_link
 
-	slice.depends = Murmur.ice
-	QMAKE_EXTRA_TARGETS *= slice
-	PRE_TARGETDEPS *= Murmur.cpp
+	QMAKE_EXTRA_COMPILERS *= slice
 
 	SOURCES *= Murmur.cpp MurmurIce.cpp
 	HEADERS *= MurmurIce.h

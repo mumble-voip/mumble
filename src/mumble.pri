@@ -11,6 +11,7 @@ SOURCES 	*= Mumble.pb.cc ACL.cpp Group.cpp Channel.cpp Connection.cpp User.cpp T
 PROTOBUF	*= ../Mumble.proto
 
 pb.output = ${QMAKE_FILE_BASE}.pb.cc
+pb.clean = ${QMAKE_FILE_OUT} ${QMAKE_FILE_BASE}.pb.h
 pb.commands = protoc --cpp_out=. -I. -I.. ${QMAKE_FILE_NAME}
 pb.input = PROTOBUF
 pb.CONFIG *= no_link
