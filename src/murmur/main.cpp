@@ -329,7 +329,8 @@ int main(int argc, char **argv) {
 
 		printf("Password: ");
 		fflush(NULL);
-		fgets(password, 255, stdin);
+		if (fgets(password, 255, stdin) != password)
+			qFatal("No password provided");
 		p = strchr(password, '\r');
 		if (p)
 			*p = 0;
@@ -384,7 +385,8 @@ int main(int argc, char **argv) {
 			}
 		}
 
-		chdir("/");
+		if (chdir("/") != 0)
+			fprintf(stderr, "Failed to chdir to /");
 		int fd;
 
 		fd = open("/dev/null", O_RDONLY);

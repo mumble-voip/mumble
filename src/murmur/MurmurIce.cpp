@@ -1508,7 +1508,7 @@ static void impl_Server_redirectWhisperGroup(const ::Murmur::AMD_Server_redirect
 }
 
 #define ACCESS_Meta_getSliceChecksums_ALL
-static void impl_Meta_getSliceChecksums(const ::Murmur::AMD_Meta_getSliceChecksumsPtr cb, const Ice::ObjectAdapterPtr adapter) {
+static void impl_Meta_getSliceChecksums(const ::Murmur::AMD_Meta_getSliceChecksumsPtr cb, const Ice::ObjectAdapterPtr) {
 	cb->ice_response(::Ice::sliceChecksums());
 }
 

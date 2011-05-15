@@ -494,7 +494,7 @@ bool Meta::boot(int srvnum) {
 	emit started(s);
 
 #ifdef Q_OS_UNIX
-	int sockets = 19; // Base
+	unsigned int sockets = 19; // Base
 	foreach(s, qhServers) {
 		sockets += 11; // Listen sockets, signal pipes etc.
 		sockets += s->iMaxUsers; // One per user
@@ -516,7 +516,7 @@ bool Meta::boot(int srvnum) {
 			}
 		}
 		if (r.rlim_cur < sockets)
-			qCritical("Current booted servers require minimum %d file descriptors when all slots are full, but only %d file descriptors are allowed for this process. Your server will crash and burn; read the FAQ for details.", sockets, r.rlim_cur);
+			qCritical("Current booted servers require minimum %d file descriptors when all slots are full, but only %ld file descriptors are allowed for this process. Your server will crash and burn; read the FAQ for details.", sockets, r.rlim_cur);
 	}
 #endif
 

@@ -259,7 +259,8 @@ void Server::stopThread() {
 
 #ifdef Q_OS_UNIX
 		unsigned char val = 0;
-		::write(aiNotify[1], &val, 1);
+		if (::write(aiNotify[1], &val, 1) != 1)
+			log("Failed to signal voice thread");
 #else
 		SetEvent(hNotify);
 #endif
@@ -1225,7 +1226,7 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 	if (old && old->bTemporary && old->qlUsers.isEmpty())
 		QCoreApplication::instance()->postEvent(this, new ExecEvent(boost::bind(&Server::removeChannel, this, old->iId)));
 
-	if (u->uiSession < iMaxUsers * 2)
+	if (static_cast<int>(u->uiSession) < iMaxUsers * 2)
 		qqIds.enqueue(u->uiSession); // Reinsert session id into pool
 
 	if (u->sState == ServerUser::Authenticated) {
