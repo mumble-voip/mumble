@@ -128,7 +128,7 @@ OverlaySettings::OverlaySettings() {
 
 	osShow = LinkedChannels;
 	bAlwaysSelf = true;
-	iActiveTime = 5;
+	uiActiveTime = 5;
 	osSort = Alphabetical;
 
 	qcUserName[Settings::Passive] = QColor(170, 170, 170);
@@ -451,7 +451,7 @@ void OverlaySettings::load(QSettings* settings_ptr) {
 
 	LOADENUM(osShow, "show");
 	SAVELOAD(bAlwaysSelf, "alwaysself");
-	SAVELOAD(iActiveTime, "activetime");
+	SAVELOAD(uiActiveTime, "activetime");
 	LOADENUM(osSort, "sort");
 
 	SAVELOAD(fX, "x");
@@ -712,7 +712,7 @@ void OverlaySettings::save(QSettings* settings_ptr) {
 
 	SAVELOAD(osShow, "show");
 	SAVELOAD(bAlwaysSelf, "alwaysself");
-	SAVELOAD(iActiveTime, "activetime");
+	SAVELOAD(uiActiveTime, "activetime");
 	SAVELOAD(osSort, "sort");
 	SAVELOAD(fX, "x");
 	SAVELOAD(fY, "y");

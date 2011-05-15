@@ -86,7 +86,7 @@ struct OverlaySettings {
 
 	OverlayShow osShow;
 	bool bAlwaysSelf;
-	int iActiveTime; // Time in seconds for a user to stay active after talking
+	int uiActiveTime; // Time in seconds for a user to stay active after talking
 	OverlaySort osSort;
 
 	float fX;

@@ -476,7 +476,7 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 	}
 }
 
-bool AudioInput::preferCELT(int bitrate, int frames) {
+bool AudioInput::preferCELT(int, int) {
 	return true;
 }
 

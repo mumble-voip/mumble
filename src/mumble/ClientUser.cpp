@@ -41,13 +41,13 @@ QReadWriteLock ClientUser::c_qrwlTalking;
 
 ClientUser::ClientUser(QObject *p) : QObject(p),
 		tsState(Settings::Passive),
+		tLastTalkStateChange(false),
 		bLocalMute(false),
 		fPowerMin(0.0f),
 		fPowerMax(0.0f),
 		fAverageAvailable(0.0f),
 		iFrames(0),
-		iSequence(0),
-		tLastTalkStateChange(false) {
+		iSequence(0) {
 }
 
 ClientUser *ClientUser::get(unsigned int uiSession) {
@@ -300,7 +300,7 @@ bool ClientUser::isActive() {
 	if (!tLastTalkStateChange.isStarted())
 		return false;
 
-	return tLastTalkStateChange.elapsed() < g.s.os.iActiveTime * 1000000;
+	return tLastTalkStateChange.elapsed() < g.s.os.uiActiveTime * 1000000U;
 }
 
 /* From Channel.h

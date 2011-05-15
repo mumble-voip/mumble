@@ -1767,7 +1767,7 @@ void MainWindow::updateMenuPermissions() {
 			c = pmModel->getChannel(qtvUsers->currentIndex());
 	}
 
-	ChanACL::Permissions p = static_cast<ChanACL::Permissions>(c ? c->uiPermissions : ChanACL::None);
+	ChanACL::Permissions p = c ? static_cast<ChanACL::Permissions>(c->uiPermissions) : ChanACL::None;
 
 	if (c && ! p) {
 		g.sh->requestChannelPermissions(c->iId);
@@ -1780,7 +1780,7 @@ void MainWindow::updateMenuPermissions() {
 	}
 
 	Channel *cparent = c ? c->cParent : NULL;
-	ChanACL::Permissions pparent = static_cast<ChanACL::Permissions>(cparent ? cparent->uiPermissions : ChanACL::None);
+	ChanACL::Permissions pparent = cparent ? static_cast<ChanACL::Permissions>(cparent->uiPermissions) : ChanACL::None;
 
 	if (cparent && ! pparent) {
 		g.sh->requestChannelPermissions(cparent->iId);
@@ -1794,7 +1794,7 @@ void MainWindow::updateMenuPermissions() {
 
 	ClientUser *user = g.uiSession ? ClientUser::get(g.uiSession) : NULL;
 	Channel *homec = user ? user->cChannel : NULL;
-	ChanACL::Permissions homep = static_cast<ChanACL::Permissions>(homec ? homec->uiPermissions : ChanACL::None);
+	ChanACL::Permissions homep = homec ? static_cast<ChanACL::Permissions>(homec->uiPermissions) : ChanACL::None;
 
 	if (homec && ! homep) {
 		g.sh->requestChannelPermissions(homec->iId);

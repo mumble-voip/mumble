@@ -466,6 +466,9 @@ void OverlayEditorScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 					orig.setBottomRight(orig.topLeft() + sz);
 				}
 				break;
+			case Qt::NoSection:
+				// Handled above, but this makes the compiler happy.
+				return;
 		}
 
 		qgriSelected->setRect(orig);

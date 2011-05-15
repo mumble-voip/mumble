@@ -69,7 +69,7 @@ class ClientUser : public QObject, public User {
 
 		/*! Determines whether a user is active or not
 		 * A user is active when it is currently speaking or when the user has
-		 * spoken within Settings::iActiveTime amount of seconds.
+		 * spoken within Settings::uiActiveTime amount of seconds.
 		 */
 		bool isActive();
 

@@ -200,7 +200,7 @@ void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
 	if (! cp->qbaTexture.isEmpty()) {
 		bool valid = true;
 
-		if (cp->qbaTexture.length() < sizeof(unsigned int)) {
+		if (cp->qbaTexture.length() < static_cast<int>(sizeof(unsigned int))) {
 			valid = false;
 		} else if (qFromBigEndian<unsigned int>(reinterpret_cast<const unsigned char *>(cp->qbaTexture.constData())) == 600 * 60 * 4) {
 			QByteArray qba = qUncompress(cp->qbaTexture);

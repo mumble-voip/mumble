@@ -355,7 +355,11 @@ void OSSOutput::run() {
 		} else {
 			while (! mix(mbuffer, iOutputBlock) && bRunning)
 				this->msleep(20);
-			write(fd, mbuffer, blocklen);
+			ssize_t l = write(fd, mbuffer, blocklen);
+			if (l != blocklen) {
+				qWarning("OSSOutput: Write %ld != %ld", l, blocklen);
+				break;
+			}
 		}
 	}
 	qWarning("OSSOutput: Releasing device");

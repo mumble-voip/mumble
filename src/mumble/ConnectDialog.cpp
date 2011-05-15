@@ -1486,7 +1486,7 @@ void ConnectDialog::udpReply() {
 	}
 }
 
-void ConnectDialog::fetched(QByteArray data, QUrl url, QMap<QString, QString> headers) {
+void ConnectDialog::fetched(QByteArray data, QUrl, QMap<QString, QString> headers) {
 	if (data.isNull()) {
 		QMessageBox::warning(this, QLatin1String("Mumble"), tr("Failed to fetch server list"), QMessageBox::Ok);
 		return;
