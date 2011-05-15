@@ -93,31 +93,4 @@ struct OverlayMsg {
 	};
 };
 
-static const char *overlayBlacklist[] = {
-	"iexplore.exe",
-	"ieuser.exe",
-	"vlc.exe",
-	"dbgview.exe",
-	"opera.exe",
-	"chrome.exe",
-	"acrord32.exe",
-	"explorer.exe",
-	"wmpnscfg.exe",
-	"firefox.exe",
-	"wlmail.exe",	// Windows Live Suite (mshtml.dll)
-	"msnmsgr.exe",
-	"MovieMaker.exe",
-	"WLXPhotoGallery.exe",
-	"psi.exe", // Secunia PSI (uses mshtml.dll)
-	"Photoshop.exe",
-	"blender.exe",
-	"googleearth.exe",
-	"XBMC.exe", // http://xbmc.org/
-	"BOXEE.exe", // http://www.boxee.tv/
-	"hammer.exe", // VALVE Hammer Editor
-	"hlmv.exe", // Half-Life Model Viewer
-	"hlfaceposer.exe", // Face Poser (from Source SDK)
-	NULL
-};
-
 #endif

@@ -36,19 +36,47 @@
 #include "Cert.h"
 #include "../../overlay/overlay.h"
 
+static const char *overlayBlacklist[] = {
+	"iexplore.exe",
+	"ieuser.exe",
+	"vlc.exe",
+	"dbgview.exe",
+	"opera.exe",
+	"chrome.exe",
+	"acrord32.exe",
+	"explorer.exe",
+	"wmpnscfg.exe",
+	"firefox.exe",
+	"wlmail.exe",   // Windows Live Suite (mshtml.dll)
+	"msnmsgr.exe",
+	"MovieMaker.exe",
+	"WLXPhotoGallery.exe",
+	"psi.exe", // Secunia PSI (uses mshtml.dll)
+	"Photoshop.exe",
+	"blender.exe",
+	"googleearth.exe",
+	"XBMC.exe", // http://xbmc.org/
+	"BOXEE.exe", // http://www.boxee.tv/
+	"hammer.exe", // VALVE Hammer Editor
+	"hlmv.exe", // Half-Life Model Viewer
+	"hlfaceposer.exe", // Face Poser (from Source SDK)
+	NULL
+};
+
+
 bool Shortcut::isServerSpecific() const {
 	if (qvData.canConvert<ShortcutTarget>()) {
-		const ShortcutTarget &sc = qvariant_cast<ShortcutTarget>(qvData);
+		const ShortcutTarget &sc = qvariant_cast<ShortcutTarget> (qvData);
 		return sc.isServerSpecific();
 	}
 	return false;
 }
 
-bool Shortcut::operator <(const Shortcut &other) const {
+bool Shortcut::operator < (const Shortcut &other) const {
 	return (iIndex < other.iIndex);
 }
 
-bool Shortcut::operator ==(const Shortcut &other) const {
+bool Shortcut::operator == (const Shortcut &other) const {
 	return (iIndex == other.iIndex) && (qlButtons == other.qlButtons) && (qvData == other.qvData) && (bSuppress == other.bSuppress);
 }
 
@@ -62,7 +90,7 @@ bool ShortcutTarget::isServerSpecific() const {
 	return (! bUsers && (iChannel >= 0));
 }
 
-bool ShortcutTarget::operator ==(const ShortcutTarget &o) const {
+bool ShortcutTarget::operator == (const ShortcutTarget &o) const {
 	if ((bUsers != o.bUsers) || (bForceCenter != o.bForceCenter))
 		return false;
 	if (bUsers)
@@ -75,7 +103,7 @@ quint32 qHash(const ShortcutTarget &t) {
 	quint32 h = t.bForceCenter ? 0x55555555 : 0xaaaaaaaa;
 	if (t.bUsers) {
 		foreach(unsigned int u, t.qlSessions)
-			h ^= u;
+		h ^= u;
 	} else {
 		h ^= t.iChannel;
 		if (t.bLinks)
@@ -91,11 +119,11 @@ quint32 qHash(const ShortcutTarget &t) {
 quint32 qHash(const QList<ShortcutTarget> &l) {
 	quint32 h = l.count();
 	foreach(const ShortcutTarget &st, l)
-		h ^= qHash(st);
+	h ^= qHash(st);
 	return h;
 }
 
-QDataStream &operator<<(QDataStream &qds, const ShortcutTarget &st) {
+QDataStream &operator<< (QDataStream &qds, const ShortcutTarget &st) {
 	qds << st.bUsers << st.bForceCenter;
 
 	if (st.bUsers)
@@ -104,7 +132,7 @@ QDataStream &operator<<(QDataStream &qds, const ShortcutTarget &st) {
 		return qds << st.iChannel << st.qsGroup << st.bLinks << st.bChildren;
 }
 
-QDataStream &operator>>(QDataStream &qds, ShortcutTarget &st) {
+QDataStream &operator>> (QDataStream &qds, ShortcutTarget &st) {
 	qds >> st.bUsers >> st.bForceCenter;
 	if (st.bUsers)
 		return qds >> st.qlUsers;
@@ -243,9 +271,9 @@ void OverlaySettings::setPreset(const OverlayPresets preset) {
 }
 
 Settings::Settings() {
-	qRegisterMetaType<ShortcutTarget>("ShortcutTarget");
-	qRegisterMetaTypeStreamOperators<ShortcutTarget>("ShortcutTarget");
-	qRegisterMetaType<QVariant>("QVariant");
+	qRegisterMetaType<ShortcutTarget> ("ShortcutTarget");
+	qRegisterMetaTypeStreamOperators<ShortcutTarget> ("ShortcutTarget");
+	qRegisterMetaType<QVariant> ("QVariant");
 
 	atTransmit = VAD;
 	bTransmitPosition = false;
@@ -369,10 +397,10 @@ Settings::Settings() {
 
 	iMaxLogBlocks = 0;
 
-	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i)
+	for (int i=Log::firstMsgType; i<=Log::lastMsgType; ++i)
 		qmMessages.insert(i, Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS);
 
-	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i)
+	for (int i=Log::firstMsgType; i<=Log::lastMsgType; ++i)
 		qmMessageSounds.insert(i, QString());
 
 	qmMessageSounds[Log::CriticalError] = QLatin1String(":/Critical.ogg");
@@ -460,7 +488,7 @@ void OverlaySettings::load(QSettings* settings_ptr) {
 	SAVELOAD(uiColumns, "columns");
 
 	settings_ptr->beginReadArray(QLatin1String("states"));
-	for (int i=0;i<4;++i) {
+	for (int i=0; i<4; ++i) {
 		settings_ptr->setArrayIndex(i);
 		SAVELOAD(qcUserName[i], "color");
 		SAVELOAD(fUser[i], "opacity");
@@ -646,12 +674,12 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
 
-	QByteArray qba = qvariant_cast<QByteArray>(settings_ptr->value(QLatin1String("net/certificate")));
+	QByteArray qba = qvariant_cast<QByteArray> (settings_ptr->value(QLatin1String("net/certificate")));
 	if (! qba.isEmpty())
 		kpCertificate = CertWizard::importCert(qba);
 
 	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
-	for (int i=0;i<nshorts;i++) {
+	for (int i=0; i<nshorts; i++) {
 		settings_ptr->setArrayIndex(i);
 		Shortcut s;
 
@@ -720,7 +748,7 @@ void OverlaySettings::save(QSettings* settings_ptr) {
 	SAVELOAD(uiColumns, "columns");
 
 	settings_ptr->beginReadArray(QLatin1String("states"));
-	for (int i=0;i<4;++i) {
+	for (int i=0; i<4; ++i) {
 		settings_ptr->setArrayIndex(i);
 		SAVELOAD(qcUserName[i], "color");
 		SAVELOAD(fUser[i], "opacity");
