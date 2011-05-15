@@ -66,19 +66,26 @@ dbus {
 
 ice {
 	SLICEFILES = Murmur.ice
+
 	slice.output = ${QMAKE_FILE_BASE}.cpp
-	slice.clean = ${QMAKE_FILE_OUT} ${QMAKE_FILE_BASE}.h
 	win32 {
 		slice.commands = slice2cpp --checksum -I\"$$ICE_PATH/slice\" ${QMAKE_FILE_NAME}
 	} else {
 		slice.commands = slice2cpp --checksum -I/usr/local/share/Ice -I/usr/share/Ice/slice -I/usr/share/slice -I/usr/share/Ice-3.4.1/slice/ -I/usr/share/Ice-3.3.1/slice/ ${QMAKE_FILE_NAME}
 	}
 	slice.input = SLICEFILES
-	slice.CONFIG *= no_link
+	slice.CONFIG *= no_link explicit_dependencies
+	slice.variable_out = SOURCES
 
-	QMAKE_EXTRA_COMPILERS *= slice
+	sliceh.output = ${QMAKE_FILE_BASE}.h
+	sliceh.depends = ${QMAKE_FILE_BASE}.cpp
+	sliceh.commands = @true
+	sliceh.input = SLICEFILES
+	sliceh.config = no_link explicit_dependencies
 
-	SOURCES *= Murmur.cpp MurmurIce.cpp
+	QMAKE_EXTRA_COMPILERS *= slice sliceh
+
+	SOURCES *= MurmurIce.cpp
 	HEADERS *= MurmurIce.h
 	win32:CONFIG(debug, debug|release) {
 		LIBS *= -lIceD -lIceUtilD
