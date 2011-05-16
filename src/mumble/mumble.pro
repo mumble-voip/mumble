@@ -297,7 +297,8 @@ CONFIG(no-update) {
 	copytrans.output = ${QMAKE_FILE_NAME}
 	copytrans.commands = $$QMAKE_COPY $${QT_TRANSDIR}${QMAKE_FILE_NAME} ${QMAKE_FILE_OUT}
 	copytrans.input = QT_TRANSLATION_FILES
-	copytrans.CONFIG *= no_link target_predeps
+	copytrans.CONFIG *= no_link
+	copytrans.variable_out = rcc.depends
 
 	QMAKE_EXTRA_COMPILERS *= copytrans
 
@@ -311,7 +312,8 @@ CONFIG(no-update) {
 lrel.output = ${QMAKE_FILE_BASE}.qm
 lrel.commands = $${QMAKE_LRELEASE} ${QMAKE_FILE_NAME}
 lrel.input = TRANSLATIONS
-lrel.CONFIG *= no_link target_predeps
+lrel.CONFIG *= no_link
+lrel.variable_out = rcc.depends
 
 QMAKE_EXTRA_COMPILERS *= lrel
 
