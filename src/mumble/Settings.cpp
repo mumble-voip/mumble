@@ -35,6 +35,7 @@
 #include "AudioInput.h"
 #include "Cert.h"
 #include "../../overlay/overlay.h"
+#include "../../overlay/overlay_blacklist.h"
 
 bool Shortcut::isServerSpecific() const {
 	if (qvData.canConvert<ShortcutTarget>()) {

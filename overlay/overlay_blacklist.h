@@ -28,69 +28,35 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _INTERNAL_OVERLAY_H
-#define _INTERNAL_OVERLAY_H
+#ifndef _OVERLAY_BLACKLIST_H
+#define _OVERLAY_BLACKLIST_H
 
-#define OVERLAY_MAGIC_NUMBER 0x00000005
-
-struct OverlayMsgHeader {
-	unsigned int uiMagic;
-	int iLength;
-	unsigned int uiType;
+static const char *overlayBlacklist[] = {
+	"iexplore.exe",
+	"ieuser.exe",
+	"vlc.exe",
+	"dbgview.exe",
+	"opera.exe",
+	"chrome.exe",
+	"acrord32.exe",
+	"explorer.exe",
+	"wmpnscfg.exe",
+	"firefox.exe",
+	"wlmail.exe",   // Windows Live Suite (mshtml.dll)
+	"msnmsgr.exe",
+	"MovieMaker.exe",
+	"WLXPhotoGallery.exe",
+	"psi.exe", // Secunia PSI (uses mshtml.dll)
+	"Photoshop.exe",
+	"blender.exe",
+	"googleearth.exe",
+	"XBMC.exe", // http://xbmc.org/
+	"BOXEE.exe", // http://www.boxee.tv/
+	"hammer.exe", // VALVE Hammer Editor
+	"hlmv.exe", // Half-Life Model Viewer
+	"hlfaceposer.exe", // Face Poser (from Source SDK)
+	NULL
 };
 
-#define OVERLAY_MSGTYPE_INIT 0
-struct OverlayMsgInit {
-	unsigned int uiWidth;
-	unsigned int uiHeight;
-};
+#endif  // _OVERLAY_BLACKLIST_H
 
-#define OVERLAY_MSGTYPE_SHMEM 1
-struct OverlayMsgShmem {
-	char a_cName[2048];
-};
-
-#define OVERLAY_MSGTYPE_BLIT 2
-struct OverlayMsgBlit {
-	unsigned int x, y, w, h;
-};
-
-#define OVERLAY_MSGTYPE_ACTIVE 3
-struct OverlayMsgActive {
-	unsigned int x, y, w, h;
-};
-
-#define OVERLAY_MSGTYPE_PID 4
-struct OverlayMsgPid {
-	unsigned int pid;
-};
-
-#define OVERLAY_MSGTYPE_FPS 5
-struct OverlayMsgFps {
-	float fps;
-};
-#define OVERLAY_FPS_INTERVAL 0.25f
-
-#define OVERLAY_MSGTYPE_INTERACTIVE 6
-struct OverlayMsgInteractive {
-	bool state;
-};
-
-struct OverlayMsg {
-	union {
-		char headerbuffer[1];
-		struct OverlayMsgHeader omh;
-	};
-	union {
-		char msgbuffer[1];
-		struct OverlayMsgShmem oms;
-		struct OverlayMsgInit omi;
-		struct OverlayMsgBlit omb;
-		struct OverlayMsgActive oma;
-		struct OverlayMsgPid omp;
-		struct OverlayMsgFps omf;
-		struct OverlayMsgInteractive omin;
-	};
-};
-
-#endif

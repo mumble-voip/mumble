@@ -30,6 +30,8 @@
 
 #include "lib.h"
 
+#include "overlay_blacklist.h"
+
 static HANDLE hMapObject = NULL;
 static HANDLE hHookMutex = NULL;
 static HHOOK hhookWnd = 0;
