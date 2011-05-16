@@ -1596,14 +1596,19 @@ void Server::clearACLCache(User *p) {
 QString Server::addressToString(const QHostAddress &adr, unsigned short port) {
 	HostAddress ha(adr);
 
-	if ((Meta::mp.iObfuscate != 0) && adr.protocol() == QAbstractSocket::IPv4Protocol) {
-		quint32 num = adr.toIPv4Address() ^ Meta::mp.iObfuscate;
-
-		QHostAddress n(num);
-		ha = HostAddress(n);
+	if ((Meta::mp.iObfuscate != 0)) {
+		QCryptographicHash h(QCryptographicHash::Sha1);
+		h.addData(reinterpret_cast<const char *>(&Meta::mp.iObfuscate), sizeof(Meta::mp.iObfuscate));
+		if (adr.protocol() == QAbstractSocket::IPv4Protocol) {
+			quint32 num = adr.toIPv4Address();
+			h.addData(reinterpret_cast<const char *>(&num), sizeof(num));
+		} else if (adr.protocol() == QAbstractSocket::IPv6Protocol) {
+			Q_IPV6ADDR num = adr.toIPv6Address();
+			h.addData(reinterpret_cast<const char *>(num.c), sizeof(num.c));
+		}
+		return QString("<<%1:%2>>").arg(QString(h.result().toHex()), QString::number(port));
 	}
-	QString p = QString::number(port);
-	return QString("%1:%2").arg(ha.toString(), p);
+	return QString("%1:%2").arg(ha.toString(), QString::number(port));
 }
 
 bool Server::validateUserName(const QString &name) {
