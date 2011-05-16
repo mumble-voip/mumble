@@ -14,7 +14,7 @@ pbh.output = ${QMAKE_FILE_BASE}.pb.h
 pbh.depends = ${QMAKE_FILE_BASE}.pb.cc
 pbh.commands = @true
 pbh.input = PROTOBUF
-pbh.CONFIG *= no_link explicit_dependencies
+pbh.CONFIG *= no_link explicit_dependencies target_predeps
 
 pb.output = ${QMAKE_FILE_BASE}.pb.cc
 pb.commands = protoc --cpp_out=. -I. -I.. ${QMAKE_FILE_NAME}
