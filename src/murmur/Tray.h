@@ -32,6 +32,7 @@
 #define _TRAY_H
 
 #include "murmur_pch.h"
+#include "Server.h"
 
 class Tray : public QObject {
 	private:

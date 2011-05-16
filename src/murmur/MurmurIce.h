@@ -40,8 +40,8 @@
 
 class Channel;
 class Server;
-class TextMessage;
 class User;
+struct TextMessage;
 
 class MurmurIce : public QObject {
 		friend class MurmurLocker;

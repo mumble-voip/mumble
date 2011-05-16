@@ -73,7 +73,7 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) 
 	WebFetch::fetch(url, this, SLOT(fetched(QByteArray,QUrl)));
 }
 
-void VersionCheck::fetched(QByteArray a, QUrl) {
+void VersionCheck::fetched(QByteArray a, QUrl url) {
 	if (! a.isNull()) {
 		if (! a.isEmpty()) {
 #ifdef SNAPSHOT_BUILD
@@ -180,6 +180,7 @@ void VersionCheck::fetched(QByteArray a, QUrl) {
 #endif
 			}
 #else
+			Q_UNUSED(url);
 			g.mw->msgBox(QString::fromUtf8(a));
 #endif
 		}

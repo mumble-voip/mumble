@@ -81,7 +81,7 @@ ice {
 	sliceh.depends = ${QMAKE_FILE_BASE}.cpp
 	sliceh.commands = @true
 	sliceh.input = SLICEFILES
-	sliceh.config = no_link explicit_dependencies target_predeps
+	sliceh.CONFIG *= no_link explicit_dependencies target_predeps
 
 	QMAKE_EXTRA_COMPILERS *= slice sliceh
 
