@@ -12,7 +12,7 @@ PROTOBUF	*= ../Mumble.proto
 
 pbh.output = ${QMAKE_FILE_BASE}.pb.h
 pbh.depends = ${QMAKE_FILE_BASE}.pb.cc
-pbh.commands = @true
+pbh.commands = $$escape_expand(\\n)
 pbh.input = PROTOBUF
 pbh.CONFIG *= no_link explicit_dependencies target_predeps
 

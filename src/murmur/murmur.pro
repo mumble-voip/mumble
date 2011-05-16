@@ -79,7 +79,7 @@ ice {
 
 	sliceh.output = ${QMAKE_FILE_BASE}.h
 	sliceh.depends = ${QMAKE_FILE_BASE}.cpp
-	sliceh.commands = @true
+	sliceh.commands = $$escape_expand(\\n)
 	sliceh.input = SLICEFILES
 	sliceh.CONFIG *= no_link explicit_dependencies target_predeps
 
