@@ -177,7 +177,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	}
 
 	if (! ok) {
-		log(uSource, QString("Rejected connection: %1").arg(reason));
+		log(uSource, QString("Rejected connection from %1: %2")
+			.arg(addressToString(uSource->peerAddress(), uSource->peerPort()), reason));
 		MumbleProto::Reject mpr;
 		mpr.set_reason(u8(reason));
 		mpr.set_type(rtType);
