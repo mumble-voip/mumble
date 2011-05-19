@@ -16,6 +16,7 @@ sub schroot($) {
 }
 
 system("rm murmur-*");
+unlink("murmur.x86");
 
 foreach my $pro ("main.pro", "speexbuild/speexbuild.pro", "src/mumble/mumble.pro", "src/murmur/murmur.pro", "src/mumble.pri") {
   open(F, $pro) or croak "Failed to open $pro";
