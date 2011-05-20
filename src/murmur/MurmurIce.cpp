@@ -1179,7 +1179,7 @@ static void impl_Server_setState(const ::Murmur::AMD_Server_setStatePtr cb, int 
 	NEED_PLAYER;
 	NEED_CHANNEL_VAR(channel, state.channel);
 
-	server->setUserState(user, channel, state.mute, state.deaf, state.suppress, state.prioritySpeaker, u8(state.comment));
+	server->setUserState(user, channel, state.mute, state.deaf, state.suppress, state.prioritySpeaker, u8(state.name), u8(state.comment));
 	cb->ice_response();
 }
 
@@ -1423,7 +1423,7 @@ static void impl_Server_updateRegistration(const ::Murmur::AMD_Server_updateRegi
 	if (info.contains(ServerDB::User_Comment)) {
 		foreach(ServerUser *u, server->qhUsers) {
 			if (u->iId == id)
-				server->setUserState(u, u->cChannel, u->bMute, u->bDeaf, u->bSuppress, u->bPrioritySpeaker, info.value(ServerDB::User_Comment));
+				server->setUserState(u, u->cChannel, u->bMute, u->bDeaf, u->bSuppress, u->bPrioritySpeaker, u->qsName, info.value(ServerDB::User_Comment));
 		}
 	}
 
