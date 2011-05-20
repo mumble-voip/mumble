@@ -38,7 +38,7 @@ LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {}
 
 void LogTextBrowser::resizeEvent(QResizeEvent *e) {
 	scrollLogToBottom();
-	e->accept();
+	QTextBrowser::resizeEvent(e);
 }
 
 int LogTextBrowser::getLogScroll() {
