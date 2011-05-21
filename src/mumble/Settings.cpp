@@ -335,6 +335,9 @@ Settings::Settings() {
 	iLCDUserViewMinColWidth = 50;
 	iLCDUserViewSplitterWidth = 2;
 
+	// PTT Button window
+	bShowPTTButtonWindow = false;
+
 	// Network settings
 	bTCPCompat = false;
 	bQoS = true;
@@ -637,6 +640,10 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
 
+	// PTT Button window
+	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");
+	SAVELOAD(qbaPTTButtonWindowGeometry, "ui/pttbuttonwindowgeometry");
+
 	// Recording
 	SAVELOAD(qsRecordingPath, "recording/path");
 	SAVELOAD(qsRecordingFile, "recording/file");
@@ -892,6 +899,10 @@ void Settings::save() {
 	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
+
+	// PTT Button window
+	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");
+	SAVELOAD(qbaPTTButtonWindowGeometry, "ui/pttbuttonwindowgeometry");
 
 	// Recording
 	SAVELOAD(qsRecordingPath, "recording/path");

@@ -119,6 +119,7 @@ void AudioInputDialog::load(const Settings &r) {
 	else
 		qrbSNR->setChecked(true);
 
+	loadCheckBox(qcbPushWindow, r.bShowPTTButtonWindow);
 	loadCheckBox(qcbPushClick, r.bTxAudioCue);
 	loadSlider(qsQuality, r.iQuality);
 	if (r.iNoiseSuppress != 0)
@@ -150,6 +151,7 @@ void AudioInputDialog::save() const {
 	s.atTransmit = static_cast<Settings::AudioTransmit>(qcbTransmit->currentIndex());
 	s.iIdleTime = qsIdle->value();
 
+	s.bShowPTTButtonWindow = qcbPushWindow->isChecked();
 	s.bTxAudioCue = qcbPushClick->isChecked();
 	s.qsTxAudioCueOn = qlePushClickPathOn->text();
 	s.qsTxAudioCueOff = qlePushClickPathOff->text();

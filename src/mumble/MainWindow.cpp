@@ -59,6 +59,7 @@
 #include "ACL.h"
 #include "UserInformation.h"
 #include "VoiceRecorderDialog.h"
+#include "PTTButtonWidget.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -177,6 +178,8 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	tokenEdit = NULL;
 
 	voiceRecorderDialog = NULL;
+
+	qwPTTButtonWidget = NULL;
 
 #if QT_VERSION >= 0x040600
 	cuContextUser = QWeakPointer<ClientUser>();
@@ -437,6 +440,12 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		g.s.qbaMainWindowGeometry = saveGeometry();
 		g.s.qbaMainWindowState = saveState();
 		g.s.qbaHeaderState = qtvUsers->header()->saveState();
+	}
+
+	if (qwPTTButtonWidget) {
+		qwPTTButtonWidget->close();
+		qwPTTButtonWidget->deleteLater();
+		qwPTTButtonWidget = NULL;
 	}
 	g.bQuit = true;
 
@@ -896,6 +905,22 @@ void MainWindow::setupView(bool toggle_minimize) {
 
 	show();
 	activateWindow();
+
+	// If activated show the PTT window
+	if (g.s.bShowPTTButtonWindow) {
+		if (qwPTTButtonWidget) {
+			qwPTTButtonWidget->show();
+		} else {
+			qwPTTButtonWidget = new PTTButtonWidget(this);
+			qwPTTButtonWidget->show();
+			connect(qwPTTButtonWidget, SIGNAL(triggered(bool,QVariant)), SLOT(on_PushToTalk_triggered(bool,QVariant)));
+		}
+	} else {
+		if (qwPTTButtonWidget) {
+			qwPTTButtonWidget->deleteLater();
+			qwPTTButtonWidget = NULL;
+		}
+	}
 }
 
 void MainWindow::on_qaServerConnect_triggered(bool autoconnect) {

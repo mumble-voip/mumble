@@ -48,6 +48,7 @@ class Tokens;
 class Channel;
 class UserInformation;
 class VoiceRecorderDialog;
+class PTTButtonWidget;
 
 struct ShortcutTarget;
 
@@ -137,6 +138,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		Channel *mapChannel(int idx) const;
 		int iTargetCounter;
 		QMap<unsigned int, UserInformation *> qmUserInformations;
+
+		PTTButtonWidget *qwPTTButtonWidget;
 
 		void createActions();
 		void setupGui();

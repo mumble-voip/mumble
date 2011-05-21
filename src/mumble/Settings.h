@@ -250,6 +250,10 @@ struct Settings {
 	bool bUpdateCheck;
 	bool bPluginOverlayCheck;
 
+	// PTT Button window
+	bool bShowPTTButtonWindow;
+	QByteArray qbaPTTButtonWindowGeometry;
+
 	// Network settings
 	enum ProxyType { NoProxy, HttpProxy, Socks5Proxy };
 	bool bTCPCompat;
