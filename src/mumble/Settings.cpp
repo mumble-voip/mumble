@@ -716,6 +716,17 @@ void OverlaySettings::save() {
 void OverlaySettings::save(QSettings* settings_ptr) {
 	OverlaySettings def;
 
+	settings_ptr->setValue(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
+	settings_ptr->sync();
+
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+	if (settings_ptr->format() == QSettings::IniFormat)
+#endif
+        {
+               QFile f(settings_ptr->fileName());
+               f.setPermissions(f.permissions() & ~(QFile::ReadGroup | QFile::WriteGroup | QFile::ExeGroup | QFile::ReadOther | QFile::WriteOther | QFile::ExeOther));
+        }
+
 	SAVELOAD(bEnable, "enable");
 
 	SAVELOAD(osShow, "show");
