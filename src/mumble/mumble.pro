@@ -132,14 +132,14 @@ unix {
     QMAKE_INFO_PLIST = mumble.plist
     QMAKE_PKGINFO_TYPEINFO = MBLE
 
-    LIBS += -framework Security -framework SecurityInterface -framework ScriptingBridge -framework ApplicationServices
+    LIBS += -framework Security -framework SecurityInterface -framework ApplicationServices
 
     HEADERS *= GlobalShortcut_macx.h ConfigDialogDelegate.h
     SOURCES *= TextToSpeech_macx.cpp SharedMemory_unix.cpp GlobalShortcut_macx.mm os_macx.mm
 
     !CONFIG(no-cocoa) {
         # Link against libxar so we can inspect Mac OS X installer packages.
-        LIBS += -lxar
+        LIBS += -lxar -framework ScriptingBridge
         # Native feeling config dialog.
         SOURCES += ConfigDialog_macx.mm ConfigDialogDelegate.mm Overlay_macx.mm
         HEADERS += ConfigDialog_macx.h
