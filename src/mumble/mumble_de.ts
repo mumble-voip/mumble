@@ -5787,32 +5787,32 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location/>
         <source>If enabled text messages you send will be read back to you with TTS</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn aktiviert, werden auch eigene Nachrichten mittels Text-zu-Sprache vorgelesen</translation>
     </message>
     <message>
         <location/>
         <source>Read back own messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigene Nachrichten vorlesen</translation>
     </message>
     <message>
         <location/>
         <source>Chat Log</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Chat-Log</translation>
     </message>
     <message>
         <location/>
         <source>Maximum chat length</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maximale Länge des Chat-Logs</translation>
     </message>
     <message>
         <location/>
         <source>Unlimited</source>
-        <translation type="unfinished"></translation>
+        <translation>Unbegrenzt</translation>
     </message>
     <message>
         <location/>
         <source> Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeilen</translation>
     </message>
 </context>
 <context>
@@ -7281,7 +7281,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
     <message>
         <location line="+62"/>
         <source>Skipping version check in debug mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Überspringe Versionsüberprüfung im Debug-Modus.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="-693"/>
@@ -7438,7 +7438,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
     <message>
         <location line="+1336"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Server verwendet einen älteren Standard zur Verschlüsselung und wird von modernen Versionen von Mumble nicht mehr unterstützt.</translation>
     </message>
     <message>
         <location line="+234"/>
@@ -8345,7 +8345,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiert einen Link zu diesem Kanal in die Zwischenablage.</translation>
     </message>
 </context>
 <context>
@@ -8776,12 +8776,12 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location line="+2"/>
         <source>Only talking</source>
-        <translation>Nur sprechen</translation>
+        <translation>Nur Sprechende</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Talking and recently active</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprechend und kürzlich aktiv</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -8801,7 +8801,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location line="+8"/>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zeitspanne bearbeiten, in der Benutzer als aktiv gelten (%1 Sekunden)...</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -8811,17 +8811,17 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location line="+8"/>
         <source>Sort</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortierung</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Alphabetically</source>
-        <translation type="unfinished"></translation>
+        <translation>Alphabetisch</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Last state change</source>
-        <translation type="unfinished"></translation>
+        <translation>Nach letzter Statusänderung</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -8836,12 +8836,12 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location line="+41"/>
         <source>Configure recently active time</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zeitspanne, in der Benutzer als aktiv gelten</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Amount of seconds users remain active after talking:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dauer in Sekunden innerhalb der ein Benutzer nach dem Sprechen noch als aktiv gilt:</translation>
     </message>
     <message>
         <source>FPS: %1</source>
@@ -10162,7 +10162,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     <message>
         <location/>
         <source>Send recursively to subchannels</source>
-        <translation>Sende rekursiv zu Unterkanälen</translation>
+        <translation>Sende rekursiv an Unterkanäle</translation>
     </message>
 </context>
 <context>
