@@ -11,31 +11,35 @@ import sys, os, string, re, shutil, plistlib, tempfile, exceptions, datetime, ta
 from subprocess import Popen, PIPE
 from optparse import OptionParser
 
+options = None
+
 def gitrev():
 	'''Get git revision of the current Mumble build.'''
 	return os.popen('git describe').read()[:-1]
 
-def codesign(id, path):
+def codesign(path):
 	'''Call the codesign executable.'''
 
 	if hasattr(path, 'isalpha'):
 		path = (path,)
 	for p in path:
-		p = Popen(('codesign', '--signature-size', '6400', '-vvvv', '-s', id, p))
+		p = Popen(('codesign', '--keychain', options.codesign_keychain, '--signature-size', '6400', '-vvvv', '-s', options.codesign, p))
 		retval = p.wait()
 		if retval != 0:
 			return retval
 	return 0
 
-def create_overlay_package(sign=None):
+def create_overlay_package():
 	print '* Creating overlay installer'
 
 	bundle = os.path.join('release', 'MumbleOverlay.osax')
 	overlaylib = os.path.join('release', 'libmumbleoverlay.dylib')
-	if sign:
-		codesign(sign, bundle)
-		codesign(sign, overlaylib)
+	if options.codesign:
+		codesign(bundle)
+		codesign(overlaylib)
 	os.system('/Developer/Applications/Utilities/PackageMaker.app/Contents/MacOS/PackageMaker --doc macx/overlay-installer/MumbleOverlayInstaller.pmdoc --info macx/overlay-installer/PackageInfo --out release/MumbleOverlay.pkg')
+	if options.codesign:
+		os.system('xar-sign release/MumbleOverlay.pkg')
 
 class AppBundle(object):
 
@@ -407,7 +411,6 @@ class DiskImage(FolderObject):
 
 
 if __name__ == '__main__':
-
 	parser = OptionParser()
 	parser.add_option('', '--release', dest='release', help='Build a release. This determines the version number of the release.')
 	parser.add_option('', '--snapshot', dest='snapshot', help='Build a snapshot release. This determines the \'snapshot version\'.')
@@ -415,7 +418,8 @@ if __name__ == '__main__':
 	parser.add_option('', '--universal', dest='universal', help='Build an universal snapshot.', action='store_true', default=False)
 	parser.add_option('', '--only-appbundle', dest='only_appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
 	parser.add_option('', '--only-overlay', dest='only_overlay', help='Only create the overlay installer.', action='store_true', default=False)
-	parser.add_option('', '--codesign', dest='codesign', help='Create a codesigned build.')
+	parser.add_option('', '--codesign', dest='codesign', help='Identity to use for code signing. (If not set, no code signing will occur)')
+	parser.add_option('', '--codesign-keychain', dest='codesign_keychain', help='The keychain to use when invoking the codesign utility.')
 
 	options, args = parser.parse_args()
 
@@ -449,7 +453,7 @@ if __name__ == '__main__':
 		sys.exit(1)
 
 	# Fix overlay installer package
-	create_overlay_package(options.codesign)
+	create_overlay_package()
 	if options.only_overlay:
 		sys.exit(0)
 
@@ -487,7 +491,7 @@ if __name__ == '__main__':
 			'release/Mumble.app/Contents/Codecs/libcelt0.0.11.0.dylib',
 		)
 
-		codesign(options.codesign, binaries)
+		codesign(binaries)
 		print ''
 
 	if options.only_appbundle:

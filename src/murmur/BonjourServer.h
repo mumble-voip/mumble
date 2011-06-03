@@ -1,4 +1,4 @@
-/* Copyright (C) 2009, Stefan Hacker
+/* Copyright (C) 2009-2011, Stefan Hacker
 
    All rights reserved.
 
@@ -30,7 +30,9 @@
 #ifndef _BONJOURSERVER_H
 #define _BONJOURSERVER_H
 
-#include "bonjourserviceregister.h"
+#include "murmur_pch.h"
+
+class BonjourServiceRegister;
 
 class BonjourServer : public QObject {
 	private:
@@ -43,6 +45,4 @@ class BonjourServer : public QObject {
 		BonjourServiceRegister *bsrRegister;
 };
 
-#else
-class BonjourServer;
 #endif

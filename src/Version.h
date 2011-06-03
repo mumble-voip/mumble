@@ -1,5 +1,5 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2010, Stefan Hacker <dd0t@users.sourceforge.net>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2010-2011, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -46,6 +46,7 @@
 class MumbleVersion {
 	public:
 		static unsigned int getRaw(const QString &version = QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
+		static QString toString(unsigned int version);
 		static bool get(int *major, int *minor, int *patch, const QString &version = QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
 
 		static unsigned int toRaw(int major, int minor, int patch);

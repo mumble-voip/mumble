@@ -1,5 +1,5 @@
-/* Copyright (C) 2009, Stefan Hacker <dd0t@users.sourceforge.net>
-   Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
+   Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -32,6 +32,21 @@
 #define CUSTOMELEMENTS_H
 
 #include "mumble_pch.hpp"
+
+class LogTextBrowser : public QTextBrowser {
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(LogTextBrowser)
+protected:
+	virtual void resizeEvent(QResizeEvent *e);
+public:
+	LogTextBrowser(QWidget *p = NULL);
+
+	int getLogScroll();
+	int getLogScrollMaximum();
+	void setLogScroll(int pos);
+	void scrollLogToBottom();
+};
 
 class ChatbarTextEdit : public QTextEdit {
 	private:

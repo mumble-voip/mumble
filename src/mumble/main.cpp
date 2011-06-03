@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -206,20 +206,18 @@ int main(int argc, char **argv) {
 			param.insert(QLatin1String("href"), url);
 #endif
 			MumbleVersion::get(&major, &minor, &patch, version);
-
-			if ((major == 1) && (minor == 2)) {
-				bool sent = false;
+			
+			bool sent = false;
 #ifdef USE_DBUS
-				QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
+			QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
 
-				QDBusMessage reply=qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
-				sent = (reply.type() == QDBusMessage::ReplyMessage);
+			QDBusMessage reply=qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
+			sent = (reply.type() == QDBusMessage::ReplyMessage);
 #else
-				sent = SocketRPC::send(QLatin1String("Mumble"), QLatin1String("url"), param);
+			sent = SocketRPC::send(QLatin1String("Mumble"), QLatin1String("url"), param);
 #endif
-				if (sent)
-					return 0;
-			}
+			if (sent)
+				return 0;
 		} else {
 			bool sent = false;
 #ifdef USE_DBUS
@@ -281,7 +279,7 @@ int main(int argc, char **argv) {
 #ifdef Q_OS_MAC
 	if (os_lang) {
 		qWarning("Using Mac OS X system langauge as locale name");
-		qsSystemLocale = QString(os_lang);
+		qsSystemLocale = QLatin1String(os_lang);
 	}
 #endif
 
@@ -303,8 +301,10 @@ int main(int argc, char **argv) {
 	else if (qttranslator.load(QLatin1String("translation:qt_") + locale))
 		a.installTranslator(&qttranslator);
 
-	g.qsRegionalHost = qsSystemLocale;
-	g.qsRegionalHost = g.qsRegionalHost.remove(QRegExp(QLatin1String("^.+_"))).toLower() + QLatin1String(".mumble.info");
+	if (g.s.qsRegionalHost.isEmpty()) {
+		g.s.qsRegionalHost = qsSystemLocale;
+		g.s.qsRegionalHost = g.s.qsRegionalHost.remove(QRegExp(QLatin1String("^.+_"))).toLower() + QLatin1String(".mumble.info");
+	}
 
 	// Initialize proxy settings
 	NetworkConfig::SetupProxy();
@@ -412,7 +412,7 @@ int main(int argc, char **argv) {
 	new VersionCheck(false, g.mw, true);
 #endif
 #else
-	g.mw->msgBox(g.mw->tr("Skipping version check in debug mode."));
+	g.mw->msgBox(MainWindow::tr("Skipping version check in debug mode."));
 #endif
 	if (g.s.bPluginOverlayCheck) {
 		g.p->checkUpdates();

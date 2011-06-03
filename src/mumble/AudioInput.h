@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -35,7 +35,6 @@
 #include "Settings.h"
 #include "Timer.h"
 #include "Message.h"
-#include "smallft.h"
 
 class AudioInput;
 typedef boost::shared_ptr<AudioInput> AudioInputPtr;

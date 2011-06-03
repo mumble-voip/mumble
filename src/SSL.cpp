@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -28,7 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QtNetwork>
 #include "SSL.h"
 #include "Version.h"
 
@@ -213,7 +212,7 @@ void MumbleSSL::addSystemCA() {
 	QStringList qsl;
 
 #ifdef SYSTEM_CA_DIR
-	QSslSocket::addDefaultCaCertificates(MUMTEXT(SYSTEM_CA_DIR));
+	QSslSocket::addDefaultCaCertificates(QLatin1String(MUMTEXT(SYSTEM_CA_DIR)));
 #else
 #ifdef SYSTEM_CA_BUNDLE
 	qsl << QLatin1String(MUMTEXT(SYSTEM_CA_BUNDLE));

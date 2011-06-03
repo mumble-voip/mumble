@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -40,10 +40,7 @@
 // #define MY_DEFERRED DS3D_DEFERRED
 #define MY_DEFERRED DS3D_IMMEDIATE
 
-
 #define NBLOCKS 50
-#define MAX(a,b)        ( (a) > (b) ? (a) : (b) )
-#define MIN(a,b)        ( (a) < (b) ? (a) : (b) )
 
 class DXAudioOutputRegistrar : public AudioOutputRegistrar {
 	public:

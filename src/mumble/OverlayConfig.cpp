@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -107,7 +107,7 @@ void OverlayConfig::initDisplay() {
 }
 
 void OverlayConfig::refreshFpsDemo() {
-	bpFpsDemo = OverlayTextLine(QString(QLatin1String("%1")).arg(42), s.os.qfFps).createPixmap(s.os.qcFps);
+	bpFpsDemo = OverlayTextLine(QString::fromLatin1("%1").arg(42), s.os.qfFps).createPixmap(s.os.qcFps);
 	qgpiFpsDemo->setPixmap(bpFpsDemo);
 	qgvFpsPreview->centerOn(qgpiFpsDemo);
 }
@@ -215,7 +215,7 @@ OverlayAppInfo OverlayConfig::applicationInfoForId(const QString &identifier) {
 		CFRelease(bundle);
 
 #elif defined(Q_OS_WIN)
-	HICON icon = ExtractIcon(qWinAppInst(), identifier.utf16(), 0);
+	HICON icon = ExtractIcon(qWinAppInst(), identifier.toStdWString().c_str(), 0);
 	if (icon) {
 		qiAppIcon = QIcon(QPixmap::fromWinHICON(icon));
 		DestroyIcon(icon);
@@ -230,7 +230,7 @@ QString OverlayConfig::applicationIdentifierForPath(const QString &path) {
 	CFDictionaryRef plist = NULL;
 	CFDataRef data = NULL;
 
-	QFile qfAppBundle(QString("%1/Contents/Info.plist").arg(path));
+	QFile qfAppBundle(QString::fromLatin1("%1/Contents/Info.plist").arg(path));
 	if (qfAppBundle.exists()) {
 		qfAppBundle.open(QIODevice::ReadOnly);
 		QByteArray qbaPlistData = qfAppBundle.readAll();

@@ -1,5 +1,5 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2009, Stefan Hacker <dd0t@users.sourceforge.net>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -62,7 +62,6 @@
 #include "Audio.h"
 #include "Settings.h"
 #include "Message.h"
-#include "smallft.h"
 
 class AudioOutput;
 class ClientUser;
@@ -242,6 +241,4 @@ class AudioOutput : public QThread {
 		unsigned int getMixerFreq() const;
 };
 
-#else
-class AudioInput;
 #endif

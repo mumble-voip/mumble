@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -466,6 +466,9 @@ void OverlayEditorScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 					orig.setBottomRight(orig.topLeft() + sz);
 				}
 				break;
+			case Qt::NoSection:
+				// Handled above, but this makes the compiler happy.
+				return;
 		}
 
 		qgriSelected->setRect(orig);

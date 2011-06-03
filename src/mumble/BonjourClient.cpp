@@ -1,4 +1,4 @@
-/* Copyright (C) 2009, Stefan Hacker
+/* Copyright (C) 2009-2011, Stefan Hacker
 
    All rights reserved.
 
@@ -29,6 +29,9 @@
 */
 
 #include "BonjourClient.h"
+
+#include "BonjourServiceBrowser.h"
+#include "BonjourServiceResolver.h"
 
 BonjourClient::BonjourClient() {
 	bsrResolver = NULL;

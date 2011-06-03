@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -32,6 +32,7 @@
 #include "OverlayText.h"
 #include "User.h"
 #include "Channel.h"
+#include "ClientUser.h"
 #include "Global.h"
 #include "Message.h"
 #include "Database.h"

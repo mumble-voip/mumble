@@ -1,4 +1,4 @@
-/* Copyright (C) 2009, Stefan Hacker
+/* Copyright (C) 2009-2011, Stefan Hacker
 
    All rights reserved.
 
@@ -27,7 +27,9 @@
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
 #include "BonjourServer.h"
+#include "BonjourServiceRegister.h"
 
 BonjourServer::BonjourServer() {
 	bsrRegister = NULL;

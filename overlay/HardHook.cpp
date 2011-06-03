@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -88,7 +88,7 @@ void *HardHook::cloneCode(void **porig) {
 	n += uiCode;
 	unsigned int idx = 0;
 
-	if(!VirtualProtect(o, 16, PAGE_EXECUTE_READ, &oldProtect)) {
+	if (!VirtualProtect(o, 16, PAGE_EXECUTE_READ, &oldProtect)) {
 		fods("HardHook: Failed vprotect (1)");
 		return NULL;
 	}
@@ -106,7 +106,7 @@ void *HardHook::cloneCode(void **porig) {
 
 		// Assume jump took us out of our read enabled zone, get rights for the new one
 		VirtualProtect(tmp, 16, oldProtect, &restoreProtect);
-		if(!VirtualProtect(o, 16, PAGE_EXECUTE_READ, &oldProtect)) {
+		if (!VirtualProtect(o, 16, PAGE_EXECUTE_READ, &oldProtect)) {
 			fods("HardHook: Failed vprotect (2)");
 			return NULL;
 		}
@@ -262,9 +262,9 @@ void HardHook::restore(bool force) {
 
 void HardHook::print() {
 	fods("HardHook: %02x %02x %02x %02x %02x => %02x %02x %02x %02x %02x (%02x %02x %02x %02x %02x)",
-	    orig[0], orig[1], orig[2], orig[3], orig[4],
-	    replace[0], replace[1], replace[2], replace[3], replace[4],
-	    baseptr[0], baseptr[1], baseptr[2], baseptr[3], baseptr[4]);
+	     orig[0], orig[1], orig[2], orig[3], orig[4],
+	     replace[0], replace[1], replace[2], replace[3], replace[4],
+	     baseptr[0], baseptr[1], baseptr[2], baseptr[3], baseptr[4]);
 }
 
 void HardHook::check() {

@@ -44,6 +44,12 @@ class ServerCallbackI(Murmur.ServerCallback):
       print self.server
       print p
 
+    def userTextMessage(self, p, msg, current=None):
+      print "userTextMessage"
+      print self.server
+      print p
+      print msg
+
     def channelCreated(self, c, current=None):
       print "created"
       print c

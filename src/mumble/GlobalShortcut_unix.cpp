@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -64,46 +64,47 @@ GlobalShortcutX::GlobalShortcutX() {
 		return;
 	}
 
-	for(int i=0; i < ScreenCount(display); ++i)
+	for (int i=0; i < ScreenCount(display); ++i)
 		qsRootWindows.insert(RootWindow(display, i));
-	
+
+#ifndef NO_XINPUT2
 	int evt, error;
-	
+
 	if (XQueryExtension(display, "XInputExtension", &iXIopcode, &evt, &error)) {
 		int major = 2;
 		int minor = 0;
 		int rc = XIQueryVersion(display, &major, &minor);
 		if (rc != BadRequest) {
 			qWarning("GlobalShortcutX: Using XI2 %d.%d", major, minor);
-			
+
 			queryXIMasterList();
-			
+
 			XIEventMask evmask;
 			unsigned char mask[(XI_LASTEVENT + 7)/8];
-			
+
 			memset(&evmask, 0, sizeof(evmask));
 			memset(mask, 0, sizeof(mask));
-			
+
 			XISetMask(mask, XI_RawButtonPress);
 			XISetMask(mask, XI_RawButtonRelease);
 			XISetMask(mask, XI_RawKeyPress);
 			XISetMask(mask, XI_RawKeyRelease);
 			XISetMask(mask, XI_HierarchyChanged);
-			
+
 			evmask.deviceid = XIAllDevices;
 			evmask.mask_len = sizeof(mask);
 			evmask.mask = mask;
-			
+
 			foreach(Window w, qsRootWindows)
 				XISelectEvents(display, w, &evmask, 1);
 			XFlush(display);
-			
+
 			connect(new QSocketNotifier(ConnectionNumber(display), QSocketNotifier::Read, this), SIGNAL(activated(int)), this, SLOT(displayReadyRead(int)));
-			
+
 			return;
 		}
 	}
-
+#endif
 	qWarning("GlobalShortcutX: No XInput support, falling back to polled input. This wastes a lot of CPU resources, so please enable one of the other methods.");
 	bRunning=true;
 	start(QThread::TimeCriticalPriority);
@@ -163,13 +164,14 @@ void GlobalShortcutX::run() {
 
 // Find XI2 master devices so they can be ignored.
 void GlobalShortcutX::queryXIMasterList() {
+#ifndef NO_XINPUT2
 	XIDeviceInfo *info, *dev;
 	int ndevices;
-	
+
 	qsMasterDevices.clear();
-	
+
 	dev = info = XIQueryDevice(display, XIAllDevices, &ndevices);
-	for(int i=0;i<ndevices;++i) {
+	for (int i=0;i<ndevices;++i) {
 		switch (dev->use) {
 			case XIMasterPointer:
 			case XIMasterKeyboard:
@@ -178,14 +180,16 @@ void GlobalShortcutX::queryXIMasterList() {
 			default:
 				break;
 		}
-	
+
 		++dev;
 	}
 	XIFreeDeviceInfo(info);
+#endif
 }
 
 // XInput2 event is ready on socketnotifier.
 void GlobalShortcutX::displayReadyRead(int) {
+#ifndef NO_XINPUT2
 	XEvent evt;
 
 	if (bNeedRemap)
@@ -197,10 +201,10 @@ void GlobalShortcutX::displayReadyRead(int) {
 
 		if ((cookie->type != GenericEvent) || (cookie->extension != iXIopcode) || !XGetEventData(display, cookie))
 			continue;
-			
+
 		XIDeviceEvent *xide = reinterpret_cast<XIDeviceEvent *>(cookie->data);
-		
-		switch(cookie->evtype) {
+
+		switch (cookie->evtype) {
 			case XI_RawKeyPress:
 			case XI_RawKeyRelease:
 				if (! qsMasterDevices.contains(xide->deviceid))
@@ -214,9 +218,10 @@ void GlobalShortcutX::displayReadyRead(int) {
 			case XI_HierarchyChanged:
 				queryXIMasterList();
 		}
-		
+
 		XFreeEventData(display, cookie);
 	}
+#endif
 }
 
 // One of the raw /dev/input devices has ready input

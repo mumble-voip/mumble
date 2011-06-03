@@ -1,5 +1,5 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2009, Stefan Hacker <dd0t@users.sourceforge.net>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -49,6 +49,7 @@
 #include "AudioStats.h"
 #include "Plugins.h"
 #include "Log.h"
+#include "Net.h"
 #include "Overlay.h"
 #include "Global.h"
 #include "Database.h"
@@ -58,6 +59,7 @@
 #include "ACL.h"
 #include "UserInformation.h"
 #include "VoiceRecorderDialog.h"
+#include "PTTButtonWidget.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -177,6 +179,8 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	voiceRecorderDialog = NULL;
 
+	qwPTTButtonWidget = NULL;
+
 #if QT_VERSION >= 0x040600
 	cuContextUser = QWeakPointer<ClientUser>();
 	cContextChannel = QWeakPointer<Channel>();
@@ -272,6 +276,9 @@ void MainWindow::createActions() {
 
 	gsWhisper = new GlobalShortcut(this, idx++, tr("Whisper/Shout"), false, QVariant::fromValue(ShortcutTarget()));
 	gsWhisper->setObjectName(QLatin1String("gsWhisper"));
+
+	gsMetaLink=new GlobalShortcut(this, idx++, tr("Link Channel", "Global Shortcut"));
+	gsMetaLink->setObjectName(QLatin1String("MetaLink"));
 
 #ifndef Q_OS_MAC
 	qstiIcon->show();
@@ -433,6 +440,12 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		g.s.qbaMainWindowGeometry = saveGeometry();
 		g.s.qbaMainWindowState = saveState();
 		g.s.qbaHeaderState = qtvUsers->header()->saveState();
+	}
+
+	if (qwPTTButtonWidget) {
+		qwPTTButtonWidget->close();
+		qwPTTButtonWidget->deleteLater();
+		qwPTTButtonWidget = NULL;
 	}
 	g.bQuit = true;
 
@@ -692,7 +705,7 @@ void MainWindow::openUrl(const QUrl &url) {
 	}
 
 	QString host = url.host();
-	unsigned short port = static_cast<unsigned short>(url.port(64738));
+	unsigned short port = static_cast<unsigned short>(url.port(DEFAULT_MUMBLE_PORT));
 	QString user = url.userName();
 	QString pw = url.password();
 	qsDesiredChannel = url.path();
@@ -892,6 +905,22 @@ void MainWindow::setupView(bool toggle_minimize) {
 
 	show();
 	activateWindow();
+
+	// If activated show the PTT window
+	if (g.s.bShowPTTButtonWindow) {
+		if (qwPTTButtonWidget) {
+			qwPTTButtonWidget->show();
+		} else {
+			qwPTTButtonWidget = new PTTButtonWidget(this);
+			qwPTTButtonWidget->show();
+			connect(qwPTTButtonWidget, SIGNAL(triggered(bool,QVariant)), SLOT(on_PushToTalk_triggered(bool,QVariant)));
+		}
+	} else {
+		if (qwPTTButtonWidget) {
+			qwPTTButtonWidget->deleteLater();
+			qwPTTButtonWidget = NULL;
+		}
+	}
 }
 
 void MainWindow::on_qaServerConnect_triggered(bool autoconnect) {
@@ -1012,8 +1041,10 @@ void MainWindow::on_qmServer_aboutToShow() {
 }
 
 void MainWindow::on_qaServerDisconnect_triggered() {
-	if (qtReconnect->isActive())
+	if (qtReconnect->isActive()) {
 		qtReconnect->stop();
+		qaServerDisconnect->setEnabled(false);
+	}
 	if (g.sh && g.sh->isRunning())
 		g.sh->disconnect();
 }
@@ -1555,6 +1586,7 @@ void MainWindow::qmChannel_aboutToShow() {
 	qmChannel->addAction(qaChannelUnlinkAll);
 	qmChannel->addSeparator();
 	qmChannel->addAction(qaChannelSendMessage);
+	qmChannel->addAction(qaChannelCopyURL);
 
 #ifndef Q_OS_MAC
 	if (g.s.bMinimalView) {
@@ -1726,6 +1758,26 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 	delete texm;
 }
 
+void MainWindow::on_qaChannelCopyURL_triggered() {
+	Channel *c = getContextMenuChannel();
+	QString host, uname, pw, channel;
+	unsigned short port;
+
+	if (!c)
+		return;
+
+	g.sh->getConnectionInfo(host, port, uname, pw);
+
+	// walk back up the channel list to build the URL.
+	while (c->cParent != NULL) {
+		channel.prepend(c->qsName);
+		channel.prepend(QLatin1String("/"));
+		c = c->cParent;
+	}
+
+	QApplication::clipboard()->setMimeData(ServerItem::toMimeData(c->qsName, host, port, channel), QClipboard::Clipboard);
+}
+
 void MainWindow::updateMenuPermissions() {
 	ClientUser *cu = NULL;
 	Channel *c = NULL;
@@ -1740,7 +1792,7 @@ void MainWindow::updateMenuPermissions() {
 			c = pmModel->getChannel(qtvUsers->currentIndex());
 	}
 
-	ChanACL::Permissions p = static_cast<ChanACL::Permissions>(c ? c->uiPermissions : ChanACL::None);
+	ChanACL::Permissions p = c ? static_cast<ChanACL::Permissions>(c->uiPermissions) : ChanACL::None;
 
 	if (c && ! p) {
 		g.sh->requestChannelPermissions(c->iId);
@@ -1753,7 +1805,7 @@ void MainWindow::updateMenuPermissions() {
 	}
 
 	Channel *cparent = c ? c->cParent : NULL;
-	ChanACL::Permissions pparent = static_cast<ChanACL::Permissions>(cparent ? cparent->uiPermissions : ChanACL::None);
+	ChanACL::Permissions pparent = cparent ? static_cast<ChanACL::Permissions>(cparent->uiPermissions) : ChanACL::None;
 
 	if (cparent && ! pparent) {
 		g.sh->requestChannelPermissions(cparent->iId);
@@ -1767,7 +1819,7 @@ void MainWindow::updateMenuPermissions() {
 
 	ClientUser *user = g.uiSession ? ClientUser::get(g.uiSession) : NULL;
 	Channel *homec = user ? user->cChannel : NULL;
-	ChanACL::Permissions homep = static_cast<ChanACL::Permissions>(homec ? homec->uiPermissions : ChanACL::None);
+	ChanACL::Permissions homep = homec ? static_cast<ChanACL::Permissions>(homec->uiPermissions) : ChanACL::None;
 
 	if (homec && ! homep) {
 		g.sh->requestChannelPermissions(homec->iId);
@@ -2180,6 +2232,21 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 				return;
 			}
 		}
+		
+		if (gsMetaLink->active()) {
+			if (! st.bUsers) {
+				Channel *c = ClientUser::get(g.uiSession)->cChannel;
+				Channel *l = mapChannel(st.iChannel);
+				if (l) {
+					if (c->qsPermLinks.contains(l)) {
+						g.sh->removeChannelLink(c->iId, l->iId);
+					} else {
+						g.sh->addChannelLink(c->iId, l->iId);
+					}
+				}
+				return;
+			}
+		}
 
 		qsCurrentTargets.insert(st);
 		updateTarget();
@@ -2373,7 +2440,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 		QMessageBox::warning(this, tr("SSL Version mismatch"), tr("This server is using an older encryption standard, and is no longer supported by modern versions of Mumble."), QMessageBox::Ok);
 	} else {
 		bool ok = false;
-		bool matched = false;
+
 
 		if (! reason.isEmpty()) {
 			g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(reason));
@@ -2386,18 +2453,34 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 		wf = Qt::Sheet;
 #endif
 
+		bool matched = true;
 		switch (rtLast) {
 			case MumbleProto::Reject_RejectType_InvalidUsername:
+				uname = QInputDialog::getText(this, tr("Invalid username"),
+											  tr("You connected with an invalid username, please try another one."),
+											  QLineEdit::Normal, uname, &ok, wf);
+				break;
 			case MumbleProto::Reject_RejectType_UsernameInUse:
-				matched = true;
-				uname = QInputDialog::getText(this, tr("Invalid username"), (rtLast == MumbleProto::Reject_RejectType_InvalidUsername) ? tr("You connected with an invalid username, please try another one.") : tr("That username is already in use, please try another username."), QLineEdit::Normal, uname, &ok, wf);
+				uname = QInputDialog::getText(this, tr("Username in use"),
+											  tr("That username is already in use, please try another username."),
+											  QLineEdit::Normal, uname, &ok, wf);
 				break;
 			case MumbleProto::Reject_RejectType_WrongUserPW:
+				pw = QInputDialog::getText(this,
+										   tr("Wrong certificate or password"),
+										   tr("Wrong certificate or password for registered user. If you are\n"
+											  "certain this user is protected by a password please retry.\n"
+											  "Otherwise abort and check your certificate and username."),
+										   QLineEdit::Password, pw, &ok, wf);
+				break;
 			case MumbleProto::Reject_RejectType_WrongServerPW:
-				matched = true;
-				pw = QInputDialog::getText(this, tr("Wrong password"), (rtLast == MumbleProto::Reject_RejectType_WrongUserPW) ? tr("Wrong password for registered users, please try again.") : tr("Wrong server password for unregistered user account, please try again."), QLineEdit::Password, pw, &ok, wf);
+				pw = QInputDialog::getText(this,
+										   tr("Wrong password"),
+										   tr("Wrong server password for unregistered user account, please try again."),
+										   QLineEdit::Password, pw, &ok, wf);
 				break;
 			default:
+				matched = false;
 				break;
 		}
 		if (ok && matched) {

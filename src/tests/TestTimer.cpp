@@ -9,6 +9,7 @@ class TestTimer : public QObject {
 		void resolution();
 		void accuracy();
 		void atomicity();
+		void order();
 };
 
 void TestTimer::accuracy() {
@@ -64,7 +65,20 @@ void TestTimer::atomicity() {
 		ttime += a.restart();
 	} while (t.elapsed() < 10);
 
-	QVERIFY(abs(ttime - b.elapsed()) < 100);
+	QVERIFY(abs((long)(ttime - b.elapsed())) < 100);
+}
+
+void TestTimer::order() {
+	Timer a;
+
+	while (a.elapsed() == 0) {};
+
+	Timer b;
+
+	QVERIFY(a > b);
+	QVERIFY(!(b > a));
+	QVERIFY(!(a < b));
+	QVERIFY(b < a);
 }
 
 QTEST_MAIN(TestTimer)

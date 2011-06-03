@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -1596,6 +1596,13 @@ void Server::dblog(const QString &str) {
 	query.addBindValue(iServerNum);
 	query.addBindValue(str);
 	SQLEXEC();
+}
+
+void ServerDB::wipeLogs() {
+	TransactionHolder th;
+	QSqlQuery &query = *th.qsqQuery;
+
+	SQLDO("DELETE FROM %1slog");
 }
 
 QList<QPair<unsigned int, QString> > ServerDB::getLog(int server_id, unsigned int offs_min, unsigned int offs_max) {

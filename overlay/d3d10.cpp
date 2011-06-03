@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -446,8 +446,8 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 		D10State *ds = chains[pSwapChain];
 		if (ds && ds->pDevice != pDevice) {
 			ods("DXGI: SwapChain device changed");
-			delete ds;
 			devices.erase(ds->pDevice);
+			delete ds;
 			ds = NULL;
 		}
 		if (! ds) {

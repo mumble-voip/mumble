@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -31,17 +31,28 @@
 #ifndef _TIMER_H
 #define _TIMER_H
 
+#include "murmur_pch.h"
+
 // All timer resolutions are in microseconds.
 
 class Timer {
-protected:
-	quint64 uiStart;
-	static quint64 now();
-public:
-	Timer();
-	bool isElapsed(quint64 us);
-	quint64 elapsed() const;
-	quint64 restart();
+	protected:
+		quint64 uiStart;
+		static quint64 now();
+	public:
+		Timer(bool start = true);
+		bool isElapsed(quint64 us);
+		quint64 elapsed() const;
+		quint64 restart();
+		bool isStarted() const;
+
+		/*! Compares the elapsed time, not the start time
+		 */
+		bool operator<(const Timer &other) const;
+
+		/*! Compares the elapsed time, not the start time
+		 */
+		bool operator>(const Timer &other) const;
 };
 
 #endif

@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -91,6 +91,4 @@ class Connection : public QObject {
 
 Q_DECLARE_METATYPE(QAbstractSocket::SocketError)
 
-#else
-class Connection;
 #endif

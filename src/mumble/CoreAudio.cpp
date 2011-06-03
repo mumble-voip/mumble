@@ -1,5 +1,5 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2009-2010, Mikkel Krautz <mikkel@krautz.dk>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2009-2011, Mikkel Krautz <mikkel@krautz.dk>
 
    All rights reserved.
 

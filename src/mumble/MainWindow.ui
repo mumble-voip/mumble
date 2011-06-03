@@ -112,7 +112,7 @@
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="QTextBrowser" name="qteLog">
+   <widget class="LogTextBrowser" name="qteLog">
     <property name="contextMenuPolicy">
      <enum>Qt::CustomContextMenu</enum>
     </property>
@@ -607,6 +607,17 @@
     <string>Sends a text message to all users in a channel.</string>
    </property>
   </action>
+  <action name="qaChannelCopyURL">
+   <property name="text">
+    <string>&amp;Copy URL</string>
+   </property>
+   <property name="toolTip">
+    <string>Copies a link to this channel to the clipboard.</string>
+   </property>
+   <property name="whatsThis">
+    <string>Copies a link to this channel to the clipboard.</string>
+   </property>
+  </action>
   <action name="qaConfigMinimal">
    <property name="checkable">
     <bool>true</bool>
@@ -815,6 +826,11 @@
   <customwidget>
    <class>ChatbarTextEdit</class>
    <extends>QTextEdit</extends>
+   <header>CustomElements.h</header>
+  </customwidget>
+  <customwidget>
+   <class>LogTextBrowser</class>
+   <extends>QTextBrowser</extends>
    <header>CustomElements.h</header>
   </customwidget>
  </customwidgets>

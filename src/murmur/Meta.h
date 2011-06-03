@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -33,8 +33,8 @@
 
 #include "murmur_pch.h"
 #include "Timer.h"
-#include "Server.h"
-#include "DBus.h"
+
+class Server;
 
 struct MetaParams {
 	QDir qdBasePath;
@@ -96,7 +96,15 @@ struct MetaParams {
 
 	QMap<QString, QString> qmConfig;
 
+#ifdef Q_OS_UNIX
 	unsigned int uiUid, uiGid;
+	QString qsHome;
+	QString qsName;
+#endif
+
+	QVariant qvSuggestVersion;
+	QVariant qvSuggestPositional;
+	QVariant qvSuggestPushToTalk;
 
 	QSettings *qsSettings;
 
@@ -138,6 +146,4 @@ class Meta : public QObject {
 
 extern Meta *meta;
 
-#else
-class Meta;
 #endif

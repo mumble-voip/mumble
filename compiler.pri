@@ -4,8 +4,8 @@ win32 {
 	# Import dependency paths for windows
 	include(winpaths_default.pri)
 
-	INCLUDEPATH *= "$$BOOST_PATH/include/boost-1_45/"
-	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib" "$$LIBSNDFILE_PATH"
+	INCLUDEPATH *= "$$BOOST_PATH/include/boost-1_46_1/"
+	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib" "$$LIBSNDFILE_PATH/lib"
 	INCLUDEPATH *= "$$OPENSSL_PATH/include" "$$LIBSNDFILE_PATH/include"
 	CONFIG(intelcpp) {
 		DEFINES *= USE_INTEL_IPP
@@ -80,8 +80,12 @@ win32 {
 
 unix {
 	DEFINES *= RESTRICT=__restrict__
-	QMAKE_CFLAGS *= -Wfatal-errors -Wshadow -Wconversion -Wsign-compare -fvisibility=hidden
-	QMAKE_CXXFLAGS *= -Wfatal-errors -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare -fvisibility=hidden
+	QMAKE_CFLAGS *= -Wfatal-errors -fvisibility=hidden
+	QMAKE_CXXFLAGS *= -Wfatal-errors -fvisibility=hidden
+	!CONFIG(quiet-build-log) {
+		QMAKE_CFLAGS *= -Wshadow -Wconversion -Wsign-compare
+		QMAKE_CXXFLAGS *= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
+	}
 
 	CONFIG(opt-gcc) {
 		QMAKE_CC = /opt/gcc/bin/gcc

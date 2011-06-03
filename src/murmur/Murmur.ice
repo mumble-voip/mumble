@@ -72,6 +72,19 @@ module Murmur
 
 	sequence<int> IntList;
 
+	/** A text message between users.
+	 **/
+	struct TextMessage {
+		/** Sessions (connected users) who were sent this message. */
+		IntList sessions;
+		/** Channels who were sent this message. */
+		IntList channels;
+		/** Trees of channels who were sent this message. */
+		IntList trees;
+		/** The contents of the message. */
+		string text;
+	};
+
 	/** A channel.
 	 **/
 	struct Channel {
@@ -274,6 +287,11 @@ module Murmur
 		 *  @param state New state of user.
 		 */
 		idempotent void userStateChanged(User state);
+		/** Called when user writes a text message
+		 *  @param state the User sending the message
+		 *  @param message the TextMessage the user has sent
+		 */
+		idempotent void userTextMessage(User state, TextMessage message);
 		/** Called when a new channel is created. 
 		 *  @param state State of new channel.
 		 */
@@ -418,7 +436,10 @@ module Murmur
 		/** Start server. */
 		void start() throws ServerBootedException, ServerFailureException, InvalidSecretException;
 
-		/** Stop server. */
+		/** Stop server.
+		 * Note: Server will be restarted on Murmur restart unless explicitly disabled
+		 *       with setConf("boot", false)
+		 */
 		void stop() throws ServerBootedException, InvalidSecretException;
 
 		/** Delete server and all it's configuration. */

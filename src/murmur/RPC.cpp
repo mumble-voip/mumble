@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -298,6 +298,7 @@ void Server::disconnectAuthenticator(QObject *obj) {
 
 void Server::connectListener(QObject *obj) {
 	connect(this, SIGNAL(userStateChanged(const User *)), obj, SLOT(userStateChanged(const User *)));
+	connect(this, SIGNAL(userTextMessage(const User *, const TextMessage &)), obj, SLOT(userTextMessage(const User *, const TextMessage &)));
 	connect(this, SIGNAL(userConnected(const User *)), obj, SLOT(userConnected(const User *)));
 	connect(this, SIGNAL(userDisconnected(const User *)), obj, SLOT(userDisconnected(const User *)));
 	connect(this, SIGNAL(channelStateChanged(const Channel *)), obj, SLOT(channelStateChanged(const Channel *)));
@@ -307,6 +308,7 @@ void Server::connectListener(QObject *obj) {
 
 void Server::disconnectListener(QObject *obj) {
 	disconnect(this, SIGNAL(userStateChanged(const User *)), obj, SLOT(userStateChanged(const User *)));
+	disconnect(this, SIGNAL(userTextMessage(const User *, const TextMessage &)), obj, SLOT(userTextMessage(const User *, const TextMessage &)));
 	disconnect(this, SIGNAL(userConnected(const User *)), obj, SLOT(userConnected(const User *)));
 	disconnect(this, SIGNAL(userDisconnected(const User *)), obj, SLOT(userDisconnected(const User *)));
 	disconnect(this, SIGNAL(channelStateChanged(const Channel *)), obj, SLOT(channelStateChanged(const Channel *)));

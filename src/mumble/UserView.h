@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -68,6 +68,4 @@ class UserView : public QTreeView {
 
 };
 
-#else
-class UserView;
 #endif

@@ -190,15 +190,20 @@ message CryptSetup {
 	optional bytes server_nonce = 3;
 }
 
-message ContextActionAdd {
+message ContextActionModify {
 	enum Context {
 		Server = 0x01;
 		Channel = 0x02;
 		User = 0x04;
 	}
+	enum Operation {
+		Add = 0;
+		Remove = 1;
+	}
 	required string action = 1;
-	required string text = 2;
+	optional string text = 2;
 	optional uint32 context = 3;
+	optional Operation operation = 4;
 }
 
 message ContextAction {
@@ -267,6 +272,12 @@ message UserStats {
 	optional uint32 onlinesecs = 16;
 	optional uint32 idlesecs = 17;
 	optional bool strong_certificate = 18 [default = false];
+}
+
+message SuggestConfig {
+	optional uint32 version = 1;
+	optional bool positional = 2;
+	optional bool push_to_talk = 3;
 }
 
 message RequestBlob {

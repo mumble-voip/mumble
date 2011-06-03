@@ -1,5 +1,5 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2009, Stefan Hacker <dd0t@users.sourceforge.net>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -87,7 +87,6 @@ public:
 	int iMaxBandwidth;
 	int iAudioBandwidth;
 	QDir qdBasePath;
-	QString qsRegionalHost;
 	QMap<int, CELTCodec *> qmCodecs;
 	int iCodecAlpha, iCodecBeta;
 	bool bPreferAlpha;

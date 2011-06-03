@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -142,6 +142,4 @@ class ServerHandler : public QThread {
 
 typedef boost::shared_ptr<ServerHandler> ServerHandlerPtr;
 
-#else
-class ServerHandler;
 #endif

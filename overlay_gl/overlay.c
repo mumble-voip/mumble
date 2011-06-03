@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -46,6 +46,7 @@
 #include <sys/time.h>
 #include <sys/socket.h>
 #include <sys/un.h>
+#include <sys/stat.h>
 #include <time.h>
 #include <semaphore.h>
 #include <fcntl.h>
@@ -197,7 +198,7 @@ static void releaseMem(Context *ctx) {
 		ctx->a_ucTexture = NULL;
 		ctx->uiMappedLength = 0;
 	}
-	if (ctx->texture != ~0) {
+	if (ctx->texture != ~0U) {
 		glDeleteTextures(1, &ctx->texture);
 		ctx->texture = ~0;
 	}
@@ -227,7 +228,7 @@ static bool sendMessage(Context *ctx, struct OverlayMsg *om) {
 }
 
 static void regenTexture(Context *ctx) {
-	if (ctx->texture != ~0)
+	if (ctx->texture != ~0U)
 		glDeleteTextures(1, & ctx->texture);
 	glGenTextures(1, &ctx->texture);
 
@@ -300,7 +301,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 				disconnect(ctx);
 				return;
 			} else if (length != ctx->omMsg.omh.iLength) {
-				ods("Short message read %x %d/%d", ctx->omMsg.omh.uiType, length, ctx->omMsg.omh.iLength);
+				ods("Short message read %x %ld/%d", ctx->omMsg.omh.uiType, length, ctx->omMsg.omh.iLength);
 				disconnect(ctx);
 				return;
 			}
@@ -308,7 +309,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 
 			switch (ctx->omMsg.omh.uiType) {
 				case OVERLAY_MSGTYPE_SHMEM: {
-						struct OverlayMsgShmem *oms = & ctx->omMsg.omi;
+						struct OverlayMsgShmem *oms = (struct OverlayMsgShmem *) & ctx->omMsg.omi;
 						ods("SHMEM %s", oms->a_cName);
 						releaseMem(ctx);
 						int fd = shm_open(oms->a_cName, O_RDONLY, 0600);
@@ -341,7 +342,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 				case OVERLAY_MSGTYPE_BLIT: {
 						struct OverlayMsgBlit *omb = & ctx->omMsg.omb;
 						ods("BLIT %d %d %d %d", omb->x, omb->y, omb->w, omb->h);
-						if ((ctx->a_ucTexture != NULL) && (ctx->texture != ~0)) {
+						if ((ctx->a_ucTexture != NULL) && (ctx->texture != ~0U)) {
 							glBindTexture(GL_TEXTURE_2D, ctx->texture);
 
 							if ((omb->x == 0) && (omb->y == 0) && (omb->w == ctx->uiWidth) && (omb->h == ctx->uiHeight)) {
@@ -353,7 +354,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 								unsigned int w = omb->w;
 								unsigned int h = omb->h;
 								unsigned char *ptr = (unsigned char *) malloc(w*h*4);
-								int r;
+								unsigned int r;
 								memset(ptr, 0, w * h * 4);
 
 								for (r = 0; r < h; ++r) {
@@ -383,7 +384,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 		}
 	}
 
-	if ((ctx->a_ucTexture == NULL) || (ctx->texture == ~0))
+	if ((ctx->a_ucTexture == NULL) || (ctx->texture == ~0U))
 		return;
 
 	if (! glIsTexture(ctx->texture)) {

@@ -1,6 +1,5 @@
 /*
 Copyright (c) 2007, Trenton Schulz
-Copyright (c) 2009, Stefan Hacker
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -27,47 +26,31 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef BONJOURSERVICEREGISTER_H
-#define BONJOURSERVICEREGISTER_H
+#ifndef BONJOURRECORD_H
+#define BONJOURRECORD_H
 
-#include <QtCore/QObject>
+#include "murmur_pch.h"
 
-#include "bonjourrecord.h"
-class QSocketNotifier;
-
-// Bonjour flags
-#include <dns_sd.h>
-
-typedef uint32_t DNSServiceFlags;
-typedef int32_t DNSServiceErrorType;
-typedef struct _DNSServiceRef_t *DNSServiceRef;
-
-class BonjourServiceRegister : public QObject {
-		Q_OBJECT
+class BonjourRecord {
 	public:
-		BonjourServiceRegister(QObject *parent = 0);
-		~BonjourServiceRegister();
-
-		void registerService(const BonjourRecord &record, quint16 servicePort);
-		inline BonjourRecord registeredRecord() const {
-			return finalRecord;
+		BonjourRecord() {}
+		BonjourRecord(const QString &name, const QString &regType, const QString &domain)
+				: serviceName(name), registeredType(regType), replyDomain(domain) {}
+		BonjourRecord(const char *name, const char *regType, const char *domain) {
+			serviceName = QString::fromUtf8(name);
+			registeredType = QString::fromUtf8(regType);
+			replyDomain = QString::fromUtf8(domain);
 		}
-
-	signals:
-		void error(DNSServiceErrorType error);
-		void serviceRegistered(const BonjourRecord &record);
-
-	private slots:
-		void bonjourSocketReadyRead();
-
-	private:
-		static void DNSSD_API bonjourRegisterService(DNSServiceRef sdRef, DNSServiceFlags,
-		        DNSServiceErrorType errorCode, const char *name,
-		        const char *regtype, const char *domain,
-		        void *context);
-		DNSServiceRef dnssref;
-		QSocketNotifier *bonjourSocket;
-		BonjourRecord finalRecord;
+		QString serviceName;
+		QString registeredType;
+		QString replyDomain;
+		bool operator==(const BonjourRecord &other) const {
+			return serviceName == other.serviceName
+			       && registeredType == other.registeredType
+			       && replyDomain == other.replyDomain;
+		}
 };
 
-#endif // BONJOURSERVICEREGISTER_H
+Q_DECLARE_METATYPE(BonjourRecord)
+
+#endif // BONJOURRECORD_H

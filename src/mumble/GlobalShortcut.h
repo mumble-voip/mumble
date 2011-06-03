@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -225,7 +225,4 @@ class GlobalShortcutEngine : public QThread {
 		void buttonPressed(bool last);
 };
 
-
-#else
-class GlobalShortcut;
 #endif

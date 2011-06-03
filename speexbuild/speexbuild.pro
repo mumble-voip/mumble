@@ -48,9 +48,9 @@ win32 {
   !CONFIG(intelcpp) {
     DEFINES+=USE_SMALLFT
   } else {
-    LIBS	*= -l"\Program Files (x86)\Intel/Compiler\11.1\054\ipp\ia32\lib\ippsemerged"
-    LIBS	*= -l"\Program Files (x86)\Intel/Compiler\11.1\054\ipp\ia32\lib\ippsmerged"
-    LIBS	*= -l"\Program Files (x86)\Intel/Compiler\11.1\054\ipp\ia32\lib\ippcorel"
+    LIBS	*= -l"\\Program Files (x86)\\Intel/Compiler\\11.1\\054\\ipp\\ia32\\lib\\ippsemerged"
+    LIBS	*= -l"\\Program Files (x86)\\Intel/Compiler\\11.1\\054\\ipp\\ia32\\lib\\ippsmerged"
+    LIBS	*= -l"\\Program Files (x86)\\Intel/Compiler\\11.1\\054\\ipp\\ia32\\lib\\ippcorel"
   }
 } else {
   CONFIG += staticlib

@@ -1,5 +1,5 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2009, Stefan Hacker <dd0t@users.sourceforge.net>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -130,7 +130,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		reason = "Invalid username";
 		rtType = MumbleProto::Reject_RejectType_InvalidUsername;
 	} else if (id==-1) {
-		reason = "Wrong password for user";
+		reason = "Wrong certificate or password for existing user";
 		rtType = MumbleProto::Reject_RejectType_WrongUserPW;
 	} else if (id==-2 && ! qsPassword.isEmpty() && qsPassword != pw) {
 		reason = "Invalid server password";
@@ -378,6 +378,15 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	mpsc.set_message_length(iMaxTextMessageLength);
 	mpsc.set_image_message_length(iMaxImageMessageLength);
 	sendMessage(uSource, mpsc);
+
+	MumbleProto::SuggestConfig mpsug;
+	if (! qvSuggestVersion.isNull())
+		mpsug.set_version(qvSuggestVersion.toUInt());
+	if (! qvSuggestPositional.isNull())
+		mpsug.set_positional(qvSuggestPositional.toBool());
+	if (! qvSuggestPushToTalk.isNull())
+		mpsug.set_push_to_talk(qvSuggestPushToTalk.toBool());
+	sendMessage(uSource, mpsug);
 
 	log(uSource, "Authenticated");
 
@@ -1032,6 +1041,8 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	MSG_SETUP(ServerUser::Authenticated);
 	QMutexLocker qml(&qmCache);
 
+	TextMessage tm; // for signal userTextMessage
+
 	QSet<ServerUser *> users;
 	QQueue<Channel *> q;
 
@@ -1046,6 +1057,8 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		return;
 	if (changed)
 		msg.set_message(u8(text));
+
+	tm.qsText = text;
 
 	{ // Happy easter
 		char m[29] = {0117, 0160, 0145, 0156, 040, 0164, 0150, 0145, 040, 0160, 0157, 0144, 040, 0142, 0141, 0171, 040, 0144, 0157, 0157, 0162, 0163, 054, 040, 0110, 0101, 0114, 056, 0};
@@ -1070,6 +1083,8 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 
 		foreach(User *p, c->qlUsers)
 			users.insert(static_cast<ServerUser *>(p));
+
+		tm.qlChannels.append(id);
 	}
 
 	for (int i=0;i<msg.tree_id_size(); ++i) {
@@ -1085,6 +1100,8 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		}
 
 		q.enqueue(c);
+
+		tm.qlTrees.append(id);
 	}
 
 	while (! q.isEmpty()) {
@@ -1107,12 +1124,16 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 			}
 			users.insert(u);
 		}
+
+		tm.qlSessions.append(session);
 	}
 
 	users.remove(uSource);
 
 	foreach(ServerUser *u, users)
 		sendMessage(u, msg);
+
+	emit userTextMessage(uSource, tm);
 }
 
 void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
@@ -1351,7 +1372,7 @@ void Server::msgCryptSetup(ServerUser *uSource, MumbleProto::CryptSetup &msg) {
 	}
 }
 
-void Server::msgContextActionAdd(ServerUser *, MumbleProto::ContextActionAdd &) {
+void Server::msgContextActionModify(ServerUser *, MumbleProto::ContextActionModify &) {
 }
 
 void Server::msgContextAction(ServerUser *uSource, MumbleProto::ContextAction &msg) {
@@ -1615,4 +1636,7 @@ void Server::msgRequestBlob(ServerUser *uSource, MumbleProto::RequestBlob &msg) 
 }
 
 void Server::msgServerConfig(ServerUser *, MumbleProto::ServerConfig &) {
+}
+
+void Server::msgSuggestConfig(ServerUser *, MumbleProto::SuggestConfig &) {
 }

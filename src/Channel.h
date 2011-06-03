@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -95,6 +95,4 @@ class Channel : public QObject {
 		operator const QString() const;
 };
 
-#else
-class Channel;
 #endif

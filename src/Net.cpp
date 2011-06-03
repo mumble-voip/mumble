@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -126,6 +126,19 @@ QHostAddress HostAddress::toAddress() const {
 
 QByteArray HostAddress::toByteArray() const {
 	return QByteArray(reinterpret_cast<const char *>(qip6.c), 16);
+}
+
+void HostAddress::toSockaddr(sockaddr_storage *dst) const {
+	memset(dst, 0, sizeof(*dst));
+	if(isV6()) {
+		struct sockaddr_in6 *in6 = reinterpret_cast<struct sockaddr_in6 *>(dst);
+		dst->ss_family = AF_INET6;
+		memcpy(in6->sin6_addr.s6_addr, qip6.c, 16);
+	} else {
+		struct sockaddr_in *in = reinterpret_cast<struct sockaddr_in *>(dst);
+		dst->ss_family = AF_INET;
+		in->sin_addr.s_addr = hash[3];
+	}
 }
 
 quint32 qHash(const HostAddress &ha) {

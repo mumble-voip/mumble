@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -33,14 +33,14 @@
 
 #include "mumble_pch.hpp"
 #include "ConfigDialog.h"
-#include "ClientUser.h"
 #include "SharedMemory.h"
 #include "ui_Overlay.h"
 #include "ui_OverlayEditor.h"
 #include "../../overlay/overlay.h"
 #include "OverlayText.h"
+#include "Timer.h"
 
-class User;
+class ClientUser;
 class Overlay;
 
 struct OverlayAppInfo {
@@ -395,7 +395,24 @@ class Overlay : public QObject {
 		void toggleShow();
 		void forceSettings();
 		void checkUpdates();
-		void finished();
+		void fetched(QByteArray, QUrl);
 };
+
+#ifdef Q_OS_WIN
+typedef void (__cdecl *HooksProc)();
+class OverlayPrivateWin : public OverlayPrivate {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(OverlayPrivateWin)
+	protected:
+		QLibrary *qlOverlay;
+	public:
+		HooksProc hpInstall, hpRemove;
+
+		void setActive(bool);
+		OverlayPrivateWin(QObject *);
+		~OverlayPrivateWin();
+};
+#endif
 
 #endif

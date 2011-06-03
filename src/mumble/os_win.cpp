@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -198,7 +198,7 @@ void os_init() {
 
 #ifdef QT_NO_DEBUG
 	QString console = g.qdBasePath.filePath(QLatin1String("Console.txt"));
-	fConsole = _wfsopen(console.utf16(), L"a+", _SH_DENYWR);
+	fConsole = _wfsopen(console.toStdWString().c_str(), L"a+", _SH_DENYWR);
 
 	if (fConsole)
 		qInstallMsgHandler(mumbleMessageOutput);
@@ -218,7 +218,7 @@ void os_init() {
 
 	QString comment = QString::fromLatin1("%1\n%2\n%3").arg(QString::fromLatin1(MUMBLE_RELEASE), QString::fromLatin1(MUMTEXT(MUMBLE_VERSION_STRING)), hash);
 
-	wcscpy_s(wcComment, PATH_MAX, comment.utf16());
+	wcscpy_s(wcComment, PATH_MAX, comment.toStdWString().c_str());
 	musComment.Type = CommentStreamW;
 	musComment.Buffer = wcComment;
 	musComment.BufferSize = wcslen(wcComment) * sizeof(wchar_t);
@@ -228,7 +228,7 @@ void os_init() {
 	QFileInfo fi(dump);
 	QDir::root().mkpath(fi.absolutePath());
 
-	if (wcscpy_s(wcCrashDumpPath, PATH_MAX, dump.utf16()) == 0)
+	if (wcscpy_s(wcCrashDumpPath, PATH_MAX, dump.toStdWString().c_str()) == 0)
 		SetUnhandledExceptionFilter(MumbleUnhandledExceptionFilter);
 
 	// Increase our priority class to live alongside games.
@@ -238,6 +238,6 @@ void os_init() {
 
 	g.qdBasePath.mkpath(QLatin1String("Snapshots"));
 	if (bIsWin7)
-		SetCurrentProcessExplicitAppUserModelID(QString::fromLatin1("net.sourceforge.mumble.Mumble").utf16());
+		SetCurrentProcessExplicitAppUserModelID(L"net.sourceforge.mumble.Mumble");
 }
 

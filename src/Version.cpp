@@ -1,5 +1,5 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2010, Stefan Hacker <dd0t@users.sourceforge.net>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2010-2011, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -38,6 +38,12 @@ unsigned int MumbleVersion::getRaw(const QString &version) {
 		return toRaw(major, minor, patch);
 
 	return 0;
+}
+
+QString MumbleVersion::toString(unsigned int v) {
+	int major, minor, patch;
+	fromRaw(v, &major, &minor, &patch);
+	return QString::fromLatin1("%1.%2.%3").arg(major).arg(minor).arg(patch);
 }
 
 bool MumbleVersion::get(int *major, int *minor, int *patch, const QString &version) {

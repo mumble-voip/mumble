@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -34,6 +34,11 @@
 #include "Connection.h"
 #include "Mumble.pb.h"
 
+/**
+  Protobuf packet type enumeration for message handler generation.
+
+  Warning: Only append to the end.
+ */
 #define MUMBLE_MH_ALL \
 	MUMBLE_MH_MSG(Version) \
 	MUMBLE_MH_MSG(UDPTunnel) \
@@ -51,7 +56,7 @@
 	MUMBLE_MH_MSG(ACL) \
 	MUMBLE_MH_MSG(QueryUsers) \
 	MUMBLE_MH_MSG(CryptSetup) \
-	MUMBLE_MH_MSG(ContextActionAdd) \
+	MUMBLE_MH_MSG(ContextActionModify) \
 	MUMBLE_MH_MSG(ContextAction) \
 	MUMBLE_MH_MSG(UserList) \
 	MUMBLE_MH_MSG(VoiceTarget) \
@@ -59,11 +64,12 @@
 	MUMBLE_MH_MSG(CodecVersion) \
 	MUMBLE_MH_MSG(UserStats) \
 	MUMBLE_MH_MSG(RequestBlob) \
-	MUMBLE_MH_MSG(ServerConfig)
+	MUMBLE_MH_MSG(ServerConfig) \
+	MUMBLE_MH_MSG(SuggestConfig)
 
 class MessageHandler {
 	public:
-		enum UDPMessageType { UDPVoiceCELTAlpha, UDPPing, UDPVoiceSpeex, UDPVoiceCELTBeta };
+		enum UDPMessageType { UDPVoiceCELTAlpha, UDPPing, UDPVoiceSpeex, UDPVoiceCELTBeta, UDPVoiceOpus };
 
 #define MUMBLE_MH_MSG(x) x,
 		enum MessageType {
@@ -101,6 +107,4 @@ inline QByteArray sha1(const QString &str) {
 	return QCryptographicHash::hash(str.toUtf8(), QCryptographicHash::Sha1);
 }
 
-#else
-class Message;
 #endif

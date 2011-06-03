@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -175,6 +175,19 @@ static void infoToInfo(const Murmur::UserInfoMap &im, QMap<int, QString> &info) 
 	Murmur::UserInfoMap::const_iterator i;
 	for (i = im.begin(); i != im.end(); ++i)
 		info.insert((*i).first, u8((*i).second));
+}
+
+static void textmessageToTextmessage(const ::TextMessage &tm, Murmur::TextMessage &tmdst) {
+	tmdst.text = u8(tm.qsText);
+
+	foreach (unsigned int i, tm.qlSessions)
+		tmdst.sessions.push_back(i);
+	
+	foreach (unsigned int i, tm.qlChannels)
+		tmdst.channels.push_back(i);
+	
+	foreach (unsigned int i, tm.qlTrees)
+		tmdst.trees.push_back(i);
 }
 
 class ServerLocator : public virtual Ice::ServantLocator {
@@ -374,6 +387,29 @@ void MurmurIce::userStateChanged(const ::User *p) {
 	}
 }
 
+void MurmurIce::userTextMessage(const ::User *p, const ::TextMessage &message) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+
+	const QList< ::Murmur::ServerCallbackPrx> &qmList = qmServerCallbacks[s->iServerNum];
+
+	if (qmList.isEmpty())
+		return;
+
+	::Murmur::User mp;
+	userToUser(p, mp);
+
+	::Murmur::TextMessage textMessage;
+	textmessageToTextmessage(message, textMessage);
+
+	foreach(const ::Murmur::ServerCallbackPrx &prx, qmList) {
+		try {
+			prx->userTextMessage(mp, textMessage);
+		} catch (...) {
+			badServerProxy(prx, s->iServerNum);
+		}
+	}
+}
+
 void MurmurIce::channelCreated(const ::Channel *c) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 
@@ -459,6 +495,14 @@ void MurmurIce::contextAction(const ::User *pSrc, const QString &action, unsigne
 	} catch (...) {
 		qCritical("Registered Ice ServerContextCallback %s on server %d, session %d, action %s failed", qPrintable(QString::fromStdString(communicator->proxyToString(prx))), s->iServerNum, pSrc->uiSession, qPrintable(action));
 		qmUser.remove(action);
+
+		// Remove clientside entry
+		MumbleProto::ContextActionModify mpcam;
+		mpcam.set_action(u8(action));
+		mpcam.set_operation(MumbleProto::ContextActionModify_Operation_Remove);
+		ServerUser *su = s->qhUsers.value(session);
+		if (su)
+			s->sendMessage(su, mpcam);
 	}
 }
 
@@ -981,13 +1025,21 @@ static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCa
 
 	QMap<QString, ::Murmur::ServerContextCallbackPrx> & qmPrx = mi->qmServerContextCallbacks[server_id][session];
 
-	if (!(ctx & (MumbleProto::ContextActionAdd_Context_Server | MumbleProto::ContextActionAdd_Context_Channel | MumbleProto::ContextActionAdd_Context_User))) {
+	if (!(ctx & (MumbleProto::ContextActionModify_Context_Server | MumbleProto::ContextActionModify_Context_Channel | MumbleProto::ContextActionModify_Context_User))) {
 		cb->ice_exception(InvalidCallbackException());
 		return;
 	}
 
 	try {
 		const Murmur::ServerContextCallbackPrx &oneway = Murmur::ServerContextCallbackPrx::checkedCast(cbptr->ice_oneway()->ice_connectionCached(false)->ice_timeout(5000));
+		if (qmPrx.contains(u8(action))) {
+			// Since the server has no notion of the ctx part of the context action
+			// make sure we remove them all clientside when overriding an old callback
+			MumbleProto::ContextActionModify mpcam;
+			mpcam.set_action(action);
+			mpcam.set_operation(MumbleProto::ContextActionModify_Operation_Remove);
+			server->sendMessage(user, mpcam);
+		}
 		qmPrx.insert(u8(action), oneway);
 		cb->ice_response();
 	} catch (...) {
@@ -995,11 +1047,12 @@ static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCa
 		return;
 	}
 
-	MumbleProto::ContextActionAdd mpcaa;
-	mpcaa.set_action(action);
-	mpcaa.set_text(text);
-	mpcaa.set_context(ctx);
-	server->sendMessage(user, mpcaa);
+	MumbleProto::ContextActionModify mpcam;
+	mpcam.set_action(action);
+	mpcam.set_text(text);
+	mpcam.set_context(ctx);
+	mpcam.set_operation(MumbleProto::ContextActionModify_Operation_Add);
+	server->sendMessage(user, mpcam);
 }
 
 static void impl_Server_removeContextCallback(const Murmur::AMD_Server_removeContextCallbackPtr cb, int server_id, const Murmur::ServerContextCallbackPrx& cbptr) {
@@ -1011,9 +1064,19 @@ static void impl_Server_removeContextCallback(const Murmur::AMD_Server_removeCon
 		const Murmur::ServerContextCallbackPrx &oneway = Murmur::ServerContextCallbackPrx::uncheckedCast(cbptr->ice_oneway()->ice_connectionCached(false)->ice_timeout(5000));
 
 		foreach(int session, qmPrx.keys()) {
-			QMap<QString, ::Murmur::ServerContextCallbackPrx> qm = qmPrx[session];
-			foreach(const QString &act, qm.keys(oneway))
+			ServerUser *user = server->qhUsers.value(session);
+			QMap<QString, ::Murmur::ServerContextCallbackPrx> &qm = qmPrx[session];
+			foreach(const QString &act, qm.keys(oneway)) {
 				qm.remove(act);
+
+				// Ask clients to remove the clientside callbacks
+				if (user) {
+					MumbleProto::ContextActionModify mpcam;
+					mpcam.set_action(u8(act));
+					mpcam.set_operation(MumbleProto::ContextActionModify_Operation_Remove);
+					server->sendMessage(user, mpcam);
+				}
+			}
 		}
 
 		cb->ice_response();
@@ -1445,7 +1508,7 @@ static void impl_Server_redirectWhisperGroup(const ::Murmur::AMD_Server_redirect
 }
 
 #define ACCESS_Meta_getSliceChecksums_ALL
-static void impl_Meta_getSliceChecksums(const ::Murmur::AMD_Meta_getSliceChecksumsPtr cb, const Ice::ObjectAdapterPtr adapter) {
+static void impl_Meta_getSliceChecksums(const ::Murmur::AMD_Meta_getSliceChecksumsPtr cb, const Ice::ObjectAdapterPtr) {
 	cb->ice_response(::Ice::sliceChecksums());
 }
 

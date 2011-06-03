@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -32,7 +32,8 @@
 #define _TRAY_H
 
 #include "murmur_pch.h"
-#include "Server.h"
+
+class LogEmitter;
 
 class Tray : public QObject {
 	private:

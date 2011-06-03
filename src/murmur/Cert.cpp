@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -59,12 +59,12 @@ bool Server::isKeyForCert(const QSslKey &key, const QSslCertificate &cert) {
 	BIO *mem = NULL;
 
 	mem = BIO_new_mem_buf(qbaKey.data(), qbaKey.size());
-	BIO_set_close(mem, BIO_NOCLOSE);
+	Q_UNUSED(BIO_set_close(mem, BIO_NOCLOSE));
 	pkey = d2i_PrivateKey_bio(mem, NULL);
 	BIO_free(mem);
 
 	mem = BIO_new_mem_buf(qbaCert.data(), qbaCert.size());
-	BIO_set_close(mem, BIO_NOCLOSE);
+	Q_UNUSED(BIO_set_close(mem, BIO_NOCLOSE));
 	x509 = d2i_X509_bio(mem, NULL);
 	BIO_free(mem);
 	mem = NULL;

@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -35,7 +35,9 @@
 #include <QX11Info>
 #include <X11/X.h>
 #include <X11/Xlib.h>
+#ifndef NO_XINPUT2
 #include <X11/extensions/XInput2.h>
+#endif
 #include <X11/Xutil.h>
 #ifdef Q_OS_LINUX
 #include <linux/input.h>

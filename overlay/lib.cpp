@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -29,6 +29,8 @@
 */
 
 #include "lib.h"
+
+#include "overlay_blacklist.h"
 
 static HANDLE hMapObject = NULL;
 static HANDLE hHookMutex = NULL;

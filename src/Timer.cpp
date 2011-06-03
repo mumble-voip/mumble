@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -28,18 +28,19 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QtCore>
 #include "Timer.h"
 
-Timer::Timer() {
-	uiStart = now();
+Timer::Timer(bool start) {
+	uiStart = start ? now() : 0;
 }
 
 quint64 Timer::elapsed() const {
+	Q_ASSERT(uiStart != 0);
 	return now() - uiStart;
 }
 
 bool Timer::isElapsed(quint64 us) {
+	Q_ASSERT(uiStart != 0);
 	if (elapsed() > us) {
 		uiStart += us;
 		return true;
@@ -52,6 +53,18 @@ quint64 Timer::restart() {
 	quint64 e = n - uiStart;
 	uiStart = n;
 	return e;
+}
+
+bool Timer::isStarted() const {
+	return uiStart != 0;
+}
+
+bool Timer::operator<(const Timer &other) const {
+	return uiStart > other.uiStart;
+}
+
+bool Timer::operator>(const Timer &other) const {
+	return uiStart < other.uiStart;
 }
 
 #if defined(Q_OS_WIN)

@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -31,8 +31,10 @@
 #include "ServerDB.h"
 #include "Server.h"
 #include "Meta.h"
+#include "Net.h"
 #include "DBus.h"
 #include "OSInfo.h"
+#include "Version.h"
 
 MetaParams Meta::mp;
 
@@ -42,7 +44,7 @@ HANDLE Meta::hQoS = NULL;
 
 MetaParams::MetaParams() {
 	qsPassword = QString();
-	usPort = 64738;
+	usPort = DEFAULT_MUMBLE_PORT;
 	iTimeout = 30;
 	iMaxBandwidth = 72000;
 	iMaxUsers = 1000;
@@ -71,7 +73,9 @@ MetaParams::MetaParams() {
 	iBanTimeframe = 120;
 	iBanTime = 300;
 
+#ifdef Q_OS_UNIX
 	uiUid = uiGid = 0;
+#endif
 
 	qrUserName = QRegExp(QLatin1String("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
 	qrChannelName = QRegExp(QLatin1String("[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
@@ -263,16 +267,35 @@ void MetaParams::read(QString fname) {
 	iBanTimeframe = qsSettings->value("autobanTimeframe", iBanTimeframe).toInt();
 	iBanTime = qsSettings->value("autobanTime", iBanTime).toInt();
 
+	qvSuggestVersion = MumbleVersion::getRaw(qsSettings->value("suggestVersion").toString());
+	if (qvSuggestVersion.toUInt() == 0)
+		qvSuggestVersion = QVariant();
+
+	qvSuggestPositional = qsSettings->value("suggestPositional");
+	if (qvSuggestPositional.toString().trimmed().isEmpty())
+		qvSuggestPositional = QVariant();
+
+	qvSuggestPushToTalk = qsSettings->value("suggestPushToTalk");
+	if (qvSuggestPushToTalk.toString().trimmed().isEmpty())
+		qvSuggestPushToTalk = QVariant();
+
 #ifdef Q_OS_UNIX
-	const QString uname = qsSettings->value("uname").toString();
-	if (! uname.isEmpty() && (geteuid() == 0)) {
-		struct passwd *pw = getpwnam(qPrintable(uname));
+	qsName = qsSettings->value("uname").toString();
+	if (geteuid() == 0) {
+		// TODO: remove this silent fallback to enforce running as non-root
+		bool requested = true;
+		if (qsName.isEmpty()) {
+			// default server user name
+			qsName = "mumble-server";
+			requested = false;
+		}
+		struct passwd *pw = getpwnam(qPrintable(qsName));
 		if (pw) {
 			uiUid = pw->pw_uid;
 			uiGid = pw->pw_gid;
-		}
-		if (uiUid == 0) {
-			qFatal("Cannot find username %s", qPrintable(uname));
+			qsHome = pw->pw_dir;
+		} else if (requested) {
+			qFatal("Cannot find username %s", qPrintable(qsName));
 		}
 		endpwent();
 	}
@@ -411,6 +434,9 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("username"),qrUserName.pattern());
 	qmConfig.insert(QLatin1String("channelname"),qrChannelName.pattern());
 	qmConfig.insert(QLatin1String("certrequired"), bCertRequired ? QLatin1String("true") : QLatin1String("false"));
+	qmConfig.insert(QLatin1String("suggestversion"), qvSuggestVersion.isNull() ? QString() : qvSuggestVersion.toString());
+	qmConfig.insert(QLatin1String("suggestpositional"), qvSuggestPositional.isNull() ? QString() : qvSuggestPositional.toString());
+	qmConfig.insert(QLatin1String("suggestpushtotalk"), qvSuggestPushToTalk.isNull() ? QString() : qvSuggestPushToTalk.toString());
 }
 
 Meta::Meta() {
@@ -468,7 +494,7 @@ bool Meta::boot(int srvnum) {
 	emit started(s);
 
 #ifdef Q_OS_UNIX
-	int sockets = 19; // Base
+	unsigned int sockets = 19; // Base
 	foreach(s, qhServers) {
 		sockets += 11; // Listen sockets, signal pipes etc.
 		sockets += s->iMaxUsers; // One per user
@@ -490,7 +516,7 @@ bool Meta::boot(int srvnum) {
 			}
 		}
 		if (r.rlim_cur < sockets)
-			qCritical("Current booted servers require minimum %d file descriptors when all slots are full, but only %d file descriptors are allowed for this process. Your server will crash and burn; read the FAQ for details.", sockets, r.rlim_cur);
+			qCritical("Current booted servers require minimum %d file descriptors when all slots are full, but only %ld file descriptors are allowed for this process. Your server will crash and burn; read the FAQ for details.", sockets, r.rlim_cur);
 	}
 #endif
 

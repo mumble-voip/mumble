@@ -1,5 +1,5 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2009, Stefan Hacker <dd0t@users.sourceforge.net>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -48,6 +48,7 @@ class Tokens;
 class Channel;
 class UserInformation;
 class VoiceRecorderDialog;
+class PTTButtonWidget;
 
 struct ShortcutTarget;
 
@@ -84,7 +85,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;
-		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper;
+		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsMetaLink;
 		DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
 		ACLEditor *aclEdit;
@@ -138,6 +139,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		int iTargetCounter;
 		QMap<unsigned int, UserInformation *> qmUserInformations;
 
+		PTTButtonWidget *qwPTTButtonWidget;
+
 		void createActions();
 		void setupGui();
 		void customEvent(QEvent *evt);
@@ -188,6 +191,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaChannelUnlink_triggered();
 		void on_qaChannelUnlinkAll_triggered();
 		void on_qaChannelSendMessage_triggered();
+		void on_qaChannelCopyURL_triggered();
 		void on_qaAudioReset_triggered();
 		void on_qaAudioMute_triggered();
 		void on_qaAudioDeaf_triggered();
@@ -245,8 +249,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 #define MUMBLE_MH_MSG(x) void msg##x(const MumbleProto:: x &);
 		MUMBLE_MH_ALL
 #undef MUMBLE_MH_MSG
+		void removeContextAction(const MumbleProto::ContextActionModify &msg);
 };
 
-#else
-class MainWindow;
 #endif

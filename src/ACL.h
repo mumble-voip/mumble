@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -94,6 +94,4 @@ class ChanACL : public QObject {
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ChanACL::Permissions)
 
-#else
-class ChanACL;
 #endif

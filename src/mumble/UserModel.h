@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -169,6 +169,4 @@ class UserModel : public QAbstractItemModel {
 		void updateOverlay() const;
 };
 
-#else
-class UserModel;
 #endif

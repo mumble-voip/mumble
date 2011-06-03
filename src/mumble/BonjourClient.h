@@ -1,4 +1,4 @@
-/* Copyright (C) 2009, Stefan Hacker
+/* Copyright (C) 2009-2011, Stefan Hacker
 
    All rights reserved.
 
@@ -30,8 +30,10 @@
 #ifndef _BONJOURCLIENT_H
 #define _BONJOURCLIENT_H
 
-#include "bonjourservicebrowser.h"
-#include "bonjourserviceresolver.h"
+#include "mumble_pch.hpp"
+
+class BonjourServiceBrowser;
+class BonjourServiceResolver;
 
 class BonjourClient : public QObject {
 	private:
@@ -45,6 +47,4 @@ class BonjourClient : public QObject {
 		BonjourServiceResolver *bsrResolver;
 };
 
-#else
-class BonjourClient;
 #endif

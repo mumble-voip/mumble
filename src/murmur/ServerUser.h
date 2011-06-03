@@ -1,5 +1,5 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2009, Stefan Hacker <dd0t@users.sourceforge.net>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -120,9 +120,8 @@ class ServerUser : public Connection, public User {
 #endif
 		BandwidthRecord bwr;
 		struct sockaddr_storage saiUdpAddress;
+		struct sockaddr_storage saiTcpLocalAddress;
 		ServerUser(Server *parent, QSslSocket *socket);
 };
 
-#else
-class ServerUser;
 #endif

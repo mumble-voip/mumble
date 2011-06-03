@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -703,6 +703,9 @@ void WASAPIOutput::run() {
 	IMMDevice *pDevice = NULL;
 	IAudioClient *pAudioClient = NULL;
 	IAudioRenderClient *pRenderClient = NULL;
+	IAudioSessionManager2 *pSessionManager2 = NULL;
+	IAudioSessionControl *pSessionControl = NULL;
+	IAudioSessionControl2 *pSessionControl2 = NULL;
 	WAVEFORMATEX *pwfx = NULL;
 	WAVEFORMATEXTENSIBLE *pwfxe = NULL;
 	UINT32 bufferFrameCount;
@@ -769,6 +772,35 @@ void WASAPIOutput::run() {
 
 	pEnumerator->Release();
 	pEnumerator = NULL;
+
+
+	if (bIsWin7) {
+		// Get session manager & control1+2 to disable ducking
+		hr = pDevice->Activate(__uuidof(IAudioSessionManager2), CLSCTX_ALL, NULL, reinterpret_cast<void**>(&pSessionManager2));
+		if (FAILED(hr)) {
+			qWarning("WASAPIOutput: Activate AudioSessionManager2 failed: hr=0x%08lx", hr);
+			goto cleanup;
+		}
+
+		hr = pSessionManager2->GetAudioSessionControl(NULL, 0, &pSessionControl);
+		if (FAILED(hr)) {
+			qWarning("WASAPIOutput: GetAudioSessionControl failed: hr=0x%08lx", hr);
+			goto cleanup;
+		}
+
+		hr = pSessionControl->QueryInterface(__uuidof(IAudioSessionControl2), reinterpret_cast<void**>(&pSessionControl2));
+		if (FAILED(hr)) {
+			qWarning("WASAPIOutput: Querying SessionControl2 failed: hr=0x%08lx", hr);
+			goto cleanup;
+		}
+
+		hr = pSessionControl2->SetDuckingPreference(TRUE);
+		if (FAILED(hr)) {
+			qWarning("WASAPIOutput: Failed to set ducking preference: hr=0x%08lx", hr);
+			goto cleanup;
+		}
+	}
+
 
 	hr = pDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void **) &pAudioClient);
 	if (FAILED(hr)) {
@@ -946,6 +978,15 @@ cleanup:
 		CoTaskMemFree(pwfx);
 
 	setVolumes(pDevice, false);
+
+	if (pSessionControl2)
+		pSessionControl2->Release();
+
+	if (pSessionControl)
+		pSessionControl->Release();
+
+	if (pSessionManager2)
+		pSessionManager2->Release();
 
 	if (pAudioClient) {
 		pAudioClient->Stop();

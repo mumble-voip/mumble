@@ -1,6 +1,5 @@
 /*
 Copyright (c) 2007, Trenton Schulz
-Copyright (c) 2009, Stefan Hacker
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -27,37 +26,22 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "bonjourserviceregister.h"
-#include <QtCore/QSocketNotifier>
+#include "BonjourServiceBrowser.h"
 
-BonjourServiceRegister::BonjourServiceRegister(QObject *parent)
+BonjourServiceBrowser::BonjourServiceBrowser(QObject *parent)
 		: QObject(parent), dnssref(0), bonjourSocket(0) {
 }
 
-BonjourServiceRegister::~BonjourServiceRegister() {
+BonjourServiceBrowser::~BonjourServiceBrowser() {
 	if (dnssref) {
 		DNSServiceRefDeallocate(dnssref);
 		dnssref = 0;
 	}
 }
 
-void BonjourServiceRegister::registerService(const BonjourRecord &record, quint16 servicePort) {
-	if (dnssref) {
-		qWarning("Warning: Already registered a service for this object, aborting new register");
-		return;
-	}
-	quint16 bigEndianPort = servicePort;
-#if Q_BYTE_ORDER == Q_LITTLE_ENDIAN
-	{
-		bigEndianPort =  0 | ((servicePort & 0x00ff) << 8) | ((servicePort & 0xff00) >> 8);
-	}
-#endif
-
-	DNSServiceErrorType err = DNSServiceRegister(&dnssref, 0, 0, record.serviceName.toUtf8().constData(),
-	                          record.registeredType.toUtf8().constData(),
-	                          record.replyDomain.isEmpty() ? 0
-	                          : record.replyDomain.toUtf8().constData(), 0,
-	                          bigEndianPort, 0, 0, bonjourRegisterService, this);
+void BonjourServiceBrowser::browseForServiceType(const QString &serviceType) {
+	DNSServiceErrorType err = DNSServiceBrowse(&dnssref, 0, 0, serviceType.toUtf8().constData(), 0,
+	                          bonjourBrowseReply, this);
 	if (err != kDNSServiceErr_NoError) {
 		emit error(err);
 	} else {
@@ -71,25 +55,29 @@ void BonjourServiceRegister::registerService(const BonjourRecord &record, quint1
 	}
 }
 
-
-void BonjourServiceRegister::bonjourSocketReadyRead() {
+void BonjourServiceBrowser::bonjourSocketReadyRead() {
 	DNSServiceErrorType err = DNSServiceProcessResult(dnssref);
 	if (err != kDNSServiceErr_NoError)
 		emit error(err);
 }
 
-
-void DNSSD_API BonjourServiceRegister::bonjourRegisterService(DNSServiceRef, DNSServiceFlags,
-        DNSServiceErrorType errorCode, const char *name,
-        const char *regtype, const char *domain,
-        void *data) {
-	BonjourServiceRegister *serviceRegister = static_cast<BonjourServiceRegister *>(data);
+void BonjourServiceBrowser::bonjourBrowseReply(DNSServiceRef , DNSServiceFlags flags,
+        quint32 , DNSServiceErrorType errorCode,
+        const char *serviceName, const char *regType,
+        const char *replyDomain, void *context) {
+	BonjourServiceBrowser *serviceBrowser = static_cast<BonjourServiceBrowser *>(context);
 	if (errorCode != kDNSServiceErr_NoError) {
-		emit serviceRegister->error(errorCode);
+		emit serviceBrowser->error(errorCode);
 	} else {
-		serviceRegister->finalRecord = BonjourRecord(QString::fromUtf8(name),
-		                               QString::fromUtf8(regtype),
-		                               QString::fromUtf8(domain));
-		emit serviceRegister->serviceRegistered(serviceRegister->finalRecord);
+		BonjourRecord bonjourRecord(serviceName, regType, replyDomain);
+		if (flags & kDNSServiceFlagsAdd) {
+			if (!serviceBrowser->bonjourRecords.contains(bonjourRecord))
+				serviceBrowser->bonjourRecords.append(bonjourRecord);
+		} else {
+			serviceBrowser->bonjourRecords.removeAll(bonjourRecord);
+		}
+		if (!(flags & kDNSServiceFlagsMoreComing)) {
+			emit serviceBrowser->currentBonjourRecordsChanged(serviceBrowser->bonjourRecords);
+		}
 	}
 }

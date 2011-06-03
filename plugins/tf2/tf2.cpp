@@ -1,5 +1,5 @@
-/* Copyright (C) 2009-2010, Snares <snares@users.sourceforge.net>
-   Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2009-2011, Snares <snares@users.sourceforge.net>
+   Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -31,12 +31,19 @@
 
 #include "../mumble_plugin_win32.h"
 
-using namespace std;
-
-BYTE *posptr;
-BYTE *rotptr;
+BYTE *posrotptr;
 BYTE *stateptr;
 BYTE *hostptr;
+
+/*
+	note that these are just examples of memory values, and may not be updated or correct
+	position tuple:		client.dll+0x6F76C0  (x,y,z, float)
+	orientation tuple:	client.dll+0x6F76CC  (v,h float)
+	spawn state:        client.dll+0x607C64  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (depending on the team side and gamemode), byte)
+	host string: 		engine.dll+0x3D3E94  (ip:port zero-terminated string; localhost:27015 if create a server ingame)
+	ID string:			engine.dll+0x54E668 = "DemomanTaunts" (13 characters, text)
+	note that memory addresses in this comment are for example only; the real ones are defined below
+*/
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
@@ -53,62 +60,55 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 	opos[1] = pos[2] / 39.37f;
 	opos[2] = pos[1] / 39.37f;
 
-	front[0] = cos(v) * cos(h);
-	front[1] = -sin(h);
-	front[2] = sin(v) * cos(h);
-
-	h -= static_cast<float>(M_PI / 2.0f);
-
-	top[0] = cos(v) * cos(h);
-	top[1] = -sin(h);
-	top[2] = sin(v) * cos(h);
+	// h rotation angle up-down, positive in down direction starting from x-axis
+	// v rotation angle left-right, positive to the left starting from x-axis
+	front[0] = cosf(h) * cosf(v);
+	front[1] = -sinf(h);
+	front[2] = cosf(h) * sinf(v);
+	// sin(h - 1/2pi) = -cos(h) and cos(h - 1/2pi) = sin(h)
+	top[0] = sinf(h) * cosf(v);
+	top[1] = cosf(h);
+	top[2] = sinf(h) * sinf(v);
 
 	return true;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, string &context, wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
-	float ipos[3], rot[3];
 	bool ok;
+	float posrot[5];
 	char state;
 	char chHostStr[40];
-	string sHost;
-	wostringstream new_identity;
-	ostringstream new_context;
 
-	ok = peekProc(posptr, ipos, 12) &&
-	     peekProc(rotptr, rot, 12) &&
-	     peekProc(stateptr, &state, 1) &&
-	     peekProc(hostptr, chHostStr, 40);
+	ok = peekProc(posrotptr, posrot) &&
+	     peekProc(stateptr, state) &&
+	     peekProc(hostptr, chHostStr);
 
 	if (!ok)
 		return false;
 
 	chHostStr[39] = 0;
 
+	std::string sHost;
 	sHost.assign(chHostStr);
-	if (sHost.find(':')==string::npos)
-		sHost.append(":27015");
+	if (!sHost.empty()) {
+		if (sHost.find(':') == std::string::npos)
+			sHost.append(":27015");
 
-	new_context << "<context>"
-	<< "<game>tf2</game>"
-	<< "<hostport>" << sHost << "</hostport>"
-	<< "</context>";
-	context = new_context.str();
+		std::ostringstream new_context;
+		new_context << "{ \"ipport\": \"" << sHost << "\"}";
+		context = new_context.str();
+	}
 
-	/* TODO
-	new_identity << "<identity>"
-			<< "<name>" << "SAS" << "</name>"
-		     << "</identity>";
-	identity = new_identity.str(); */
+	//TODO: Implement identity
 
 	// Check to see if you are in a server and spawned
 	if (state == 0 || state == 1 || state == 3)
 		return true; // Deactivate plugin
 
-	ok = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
+	ok = calcout(posrot, posrot+3, avatar_pos, avatar_front, avatar_top);
 	if (ok) {
 		for (int i=0;i<3;++i) {
 			camera_pos[i] = avatar_pos[i];
@@ -122,7 +122,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	posptr = rotptr = NULL;
+	posrotptr = NULL;
 
 	if (! initialize(pids, L"hl2.exe", L"client.dll"))
 		return false;
@@ -131,40 +131,21 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (!mod_engine)
 		return false;
 
-	// Check if we really have TF2 running
-	/*
-		note that these are just examples of memory values, and may not be updated or correct
-		position tuple:		client.dll+0x5753d8  (x,y,z, float)
-		orientation tuple:	client.dll+0x4b691c  (v,h float)
-		ID string:			client.dll+0x4eb30b = "teamJet@@" (9 characters, text)
-		spawn state:        client.dll+0x4EABCC; (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (depending on the team side and gamemode), byte)
-		host string: 		engine.dll+0x3c8124  (ip:port zero-terminated string; localhost:27015 if create a server ingame)
-			note that memory addresses in this comment are for example only; the real ones are defined below
-	*/
-
 	// Remember addresses for later
-	posptr = pModule + 0x6EFCC0;
-	rotptr = pModule + 0x6F6544;
-	stateptr = pModule + 0x606C64;
-	hostptr = mod_engine + 0x3D3E94;
-
-	/*
-	// Gamecheck
-	char sMagic[9];
-	if (!peekProc(pModule + 0x617DE3, sMagic, 9) || strncmp("teamJet@@", sMagic, 9)!=0)
-		return false;
-	*/
+	posrotptr = pModule + 0x779724;
+	stateptr = pModule + 0x6F3C54;
+	hostptr = mod_engine + 0x3DEBA4;
 
 	// Gamecheck
 	char sMagic[13];
-	if (!peekProc(mod_engine + 0x54A670, sMagic, 13) || strncmp("DemomanTaunts", sMagic, 13)!=0)
+	if (!peekProc(mod_engine + 0x5593F8, sMagic) || strncmp("DemomanTaunts", sMagic, sizeof(sMagic))!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3];
 	float cpos[3], cfront[3], ctop[3];
-	wstring sidentity;
-	string scontext;
+	std::wstring sidentity;
+	std::string scontext;
 
 	if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
 		return true;
@@ -175,10 +156,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports TF2 build 4421. No identity support yet.");
+	return std::wstring(L"Supports TF2 build 4539. No identity support yet.");
 }
 
-static std::wstring description(L"Team Fortress 2 (Build 4421)");
+static std::wstring description(L"Team Fortress 2 (Build 4539)");
 static std::wstring shortname(L"Team Fortress 2");
 
 static int trylock1() {

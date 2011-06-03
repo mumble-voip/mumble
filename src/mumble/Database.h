@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -85,6 +85,4 @@ class Database : public QObject {
 		static void setUdp(const QByteArray &digest, bool udp);
 };
 
-#else
-class Database;
 #endif

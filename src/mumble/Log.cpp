@@ -1,5 +1,5 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2009, Stefan Hacker <dd0t@users.sourceforge.net>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -204,18 +204,17 @@ Log::Log(QObject *p) : QObject(p) {
 	QStringList qslAllEvents;
 	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
 		Log::MsgType t = static_cast<Log::MsgType>(i);
-		qslAllEvents << QString("\"%1\"").arg(g.l->msgName(t));
+		qslAllEvents << QString::fromLatin1("\"%1\"").arg(g.l->msgName(t));
 	}
-	QString qsGrowlEvents = QString("{%1}").arg(qslAllEvents.join(","));
-	QString qsScript = QString(
+	QString qsScript = QString::fromLatin1(
 	                       "tell application \"GrowlHelperApp\"\n"
-	                       "	set the allNotificationsList to %1\n"
-	                       "	set the enabledNotificationsList to %1\n"
+	                       "	set the allNotificationsList to {%1}\n"
+	                       "	set the enabledNotificationsList to {%1}\n"
 	                       "	register as application \"Mumble\""
 	                       "		all notifications allNotificationsList"
 	                       "		default notifications enabledNotificationsList"
 	                       "		icon of application \"Mumble\"\n"
-	                       "end tell\n").arg(qsGrowlEvents);
+	                       "end tell\n").arg(qslAllEvents.join(QLatin1String(",")));
 	if (growl_available())
 		qt_mac_execute_apple_script(qsScript, NULL);
 #endif
@@ -451,7 +450,12 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 	// Message output on console
 	if ((flags & Settings::LogConsole)) {
-		QTextCursor tc=g.mw->qteLog->textCursor();
+		QTextCursor tc = g.mw->qteLog->textCursor();
+
+		LogTextBrowser *tlog = g.mw->qteLog;
+		const int oldscrollvalue = tlog->getLogScroll();
+		const bool scroll = (oldscrollvalue == tlog->getLogScrollMaximum());
+
 		tc.movePosition(QTextCursor::End);
 
 		if (qdDate != dt.date()) {
@@ -474,7 +478,11 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		validHtml(console, true, &tc);
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);
-		g.mw->qteLog->ensureCursorVisible();
+
+		if (scroll || ownMessage)
+			tlog->scrollLogToBottom();
+		else
+			tlog->setLogScroll(oldscrollvalue);
 	}
 
 	if (!g.s.bTTSMessageReadBack && ownMessage)
@@ -555,7 +563,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			}
 		}
 #ifdef Q_OS_MAC
-		QString qsScript = QString(
+		QString qsScript = QString::fromLatin1(
 		                       "tell application \"GrowlHelperApp\"\n"
 		                       "	notify with name \"%1\" title \"%1\" description \"%2\" application name \"Mumble\"\n"
 		                       "end tell\n").arg(msgName(mt)).arg(plain);

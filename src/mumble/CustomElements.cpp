@@ -1,5 +1,5 @@
-/* Copyright (C) 2009, Stefan Hacker <dd0t@users.sourceforge.net>
-   Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
+   Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -32,6 +32,31 @@
 #include "ClientUser.h"
 #include "Global.h"
 #include "MainWindow.h"
+
+
+LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {}
+
+void LogTextBrowser::resizeEvent(QResizeEvent *e) {
+	scrollLogToBottom();
+	QTextBrowser::resizeEvent(e);
+}
+
+int LogTextBrowser::getLogScroll() {
+	return verticalScrollBar()->value();
+}
+
+int LogTextBrowser::getLogScrollMaximum() {
+	return verticalScrollBar()->maximum();
+}
+
+void LogTextBrowser::setLogScroll(int pos) {
+	verticalScrollBar()->setValue(pos);
+}
+
+void LogTextBrowser::scrollLogToBottom() {
+	verticalScrollBar()->setValue(verticalScrollBar()->maximum());
+}
+
 
 /*!
   \fn int ChatbarTextEdit::completeAtCursor()
@@ -151,8 +176,10 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 		QKeyEvent *kev = static_cast<QKeyEvent*>(evt);
 		if ((kev->key() == Qt::Key_Enter || kev->key() == Qt::Key_Return) && !(kev->modifiers() & Qt::ShiftModifier)) {
 			const QString msg = toPlainText();
-			addToHistory(msg);
-			emit entered(msg);
+			if (!msg.isEmpty()) {
+				addToHistory(msg);
+				emit entered(msg);
+			}
 			return true;
 		}
 		if (kev->key() == Qt::Key_Tab) {
@@ -240,12 +267,10 @@ unsigned int ChatbarTextEdit::completeAtCursor() {
 }
 
 void ChatbarTextEdit::addToHistory(const QString &str) {
-	if (!str.isEmpty()) {
-		iHistoryIndex = -1;
-		qslHistory.push_front(str);
-		if (qslHistory.length() > MAX_HISTORY) {
-			qslHistory.pop_back();
-		}
+	iHistoryIndex = -1;
+	qslHistory.push_front(str);
+	if (qslHistory.length() > MAX_HISTORY) {
+		qslHistory.pop_back();
 	}
 }
 

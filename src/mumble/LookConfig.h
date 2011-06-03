@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -51,6 +51,4 @@ class LookConfig : public ConfigWidget, Ui::LookConfig {
 		void on_qpbSkinFile_clicked(bool);
 };
 
-#else
-class LookConfig;
 #endif

@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2007, Trenton Schulz
-Copyright (c) 2009, Stefan Hacker
+Copyright (c) 2009-2011, Stefan Hacker
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -27,42 +27,44 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef BONJOURSERVICEBROWSER_H
-#define BONJOURSERVICEBROWSER_H
+#ifndef BONJOURSERVICEREGISTER_H
+#define BONJOURSERVICEREGISTER_H
 
-#include <QtCore/QObject>
+// Bonjour flags
 #include <dns_sd.h>
-#include "bonjourrecord.h"
 
-class QSocketNotifier;
-class BonjourServiceBrowser : public QObject {
+#include "BonjourRecord.h"
+
+typedef uint32_t DNSServiceFlags;
+typedef int32_t DNSServiceErrorType;
+typedef struct _DNSServiceRef_t *DNSServiceRef;
+
+class BonjourServiceRegister : public QObject {
 		Q_OBJECT
 	public:
-		BonjourServiceBrowser(QObject *parent = 0);
-		~BonjourServiceBrowser();
-		void browseForServiceType(const QString &serviceType);
-		inline QList<BonjourRecord> currentRecords() const {
-			return bonjourRecords;
-		}
-		inline QString serviceType() const {
-			return browsingType;
+		BonjourServiceRegister(QObject *parent = 0);
+		~BonjourServiceRegister();
+
+		void registerService(const BonjourRecord &record, quint16 servicePort);
+		inline BonjourRecord registeredRecord() const {
+			return finalRecord;
 		}
 
 	signals:
-		void currentBonjourRecordsChanged(const QList<BonjourRecord> &list);
-		void error(DNSServiceErrorType err);
+		void error(DNSServiceErrorType error);
+		void serviceRegistered(const BonjourRecord &record);
 
 	private slots:
 		void bonjourSocketReadyRead();
 
 	private:
-		static void DNSSD_API bonjourBrowseReply(DNSServiceRef , DNSServiceFlags flags, quint32,
-		        DNSServiceErrorType errorCode, const char *serviceName,
-		        const char *regType, const char *replyDomain, void *context);
+		static void DNSSD_API bonjourRegisterService(DNSServiceRef sdRef, DNSServiceFlags,
+		        DNSServiceErrorType errorCode, const char *name,
+		        const char *regtype, const char *domain,
+		        void *context);
 		DNSServiceRef dnssref;
 		QSocketNotifier *bonjourSocket;
-		QList<BonjourRecord> bonjourRecords;
-		QString browsingType;
+		BonjourRecord finalRecord;
 };
 
-#endif // BONJOURSERVICEBROWSER_H
+#endif // BONJOURSERVICEREGISTER_H

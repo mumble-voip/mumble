@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -194,6 +194,7 @@ int main(int argc, char **argv) {
 	QString inifile;
 	QString supw;
 	bool wipeSsl = false;
+	bool wipeLogs = false;
 	int sunum = 1;
 #ifndef Q_OS_WIN
 	bool readPw = false;
@@ -208,15 +209,23 @@ int main(int argc, char **argv) {
 	for (int i=1;i<argc;i++) {
 		bool bLast = false;
 		QString arg = QString(argv[i]).toLower();
-		if ((arg == "-supw") && (i+1 < argc)) {
-			i++;
-			supw = argv[i];
+		if ((arg == "-supw")) {
 			detach = false;
 			if (i+1 < argc) {
 				i++;
-				sunum = QString::fromLatin1(argv[i]).toInt();
+				supw = argv[i];
+				if (i+1 < argc) {
+					i++;
+					sunum = QString::fromLatin1(argv[i]).toInt();
+				}
+				bLast = true;
+			} else {
+#ifdef Q_OS_UNIX
+				qFatal("-supw expects the password on the command line - maybe you meant -readsupw?");
+#else
+				qFatal("-supw expects the password on the command line");
+#endif			
 			}
-			bLast = true;
 #ifdef Q_OS_UNIX
 		} else if ((arg == "-readsupw")) {
 			detach = false;
@@ -232,6 +241,8 @@ int main(int argc, char **argv) {
 			inifile=argv[i];
 		} else if ((arg == "-wipessl")) {
 			wipeSsl = true;
+		} else if ((arg == "-wipelogs")) {
+			wipeLogs = true;
 		} else if ((arg == "-fg")) {
 			detach = false;
 		} else if ((arg == "-v")) {
@@ -250,6 +261,7 @@ int main(int argc, char **argv) {
 			       "  -v               Add verbose output.\n"
 			       "  -fg              Don't detach from console [Unix-like systems only].\n"
 			       "  -wipessl         Remove SSL certificates from database.\n"
+			       "  -wipelogs        Remove all log entries from database.\n"
 			       "  -version         Show version information.\n"
 			       "If no inifile is provided, murmur will search for one in \n"
 			       "default locations.", argv[0]);
@@ -272,11 +284,40 @@ int main(int argc, char **argv) {
 
 
 	Meta::mp.read(inifile);
-	MumbleSSL::addSystemCA();
+
+	// need to open log file early so log dir can be root owned:
+	// http://article.gmane.org/gmane.comp.security.oss.general/4404
+	if (detach && ! Meta::mp.qsLogfile.isEmpty()) {
+		qfLog = new QFile(Meta::mp.qsLogfile);
+		if (! qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+			delete qfLog;
+			qfLog = NULL;
+#ifdef Q_OS_UNIX
+			fprintf(stderr, "murmurd: failed to open logfile %s: no logging will be done\n",qPrintable(Meta::mp.qsLogfile));
+#else
+			qWarning("Failed to open logfile %s. Will not detach.",qPrintable(Meta::mp.qsLogfile));
+			detach = false;
+#endif
+		} else {
+			qfLog->setTextModeEnabled(true);
+			QFileInfo qfi(*qfLog);
+			Meta::mp.qsLogfile = qfi.absoluteFilePath();
+#ifdef Q_OS_UNIX
+			if (Meta::mp.uiUid != 0 && fchown(qfLog->handle(), Meta::mp.uiUid, Meta::mp.uiGid) == -1) {
+				qFatal("can't change log file owner to %d %d:%d - %s", qfLog->handle(), Meta::mp.uiUid, Meta::mp.uiGid, strerror(errno));
+			}
+#endif
+		}
+	} else {
+		detach = false;
+	}
 
 #ifdef Q_OS_UNIX
 	unixhandler.setuid();
 #endif
+
+	MumbleSSL::addSystemCA();
+
 	ServerDB db;
 
 	meta = new Meta();
@@ -288,7 +329,8 @@ int main(int argc, char **argv) {
 
 		printf("Password: ");
 		fflush(NULL);
-		fgets(password, 255, stdin);
+		if (fgets(password, 255, stdin) != password)
+			qFatal("No password provided");
 		p = strchr(password, '\r');
 		if (p)
 			*p = 0;
@@ -316,25 +358,11 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	if (detach && ! Meta::mp.qsLogfile.isEmpty()) {
-		qfLog = new QFile(Meta::mp.qsLogfile);
-		if (! qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
-			delete qfLog;
-			qfLog = NULL;
-#ifdef Q_OS_UNIX
-			fprintf(stderr, "murmurd: failed to open logfile %s: no logging will be done\n",qPrintable(Meta::mp.qsLogfile));
-#else
-			qWarning("Failed to open logfile %s. Will not detach.",qPrintable(Meta::mp.qsLogfile));
-			detach = false;
-#endif
-		} else {
-			qfLog->setTextModeEnabled(true);
-			QFileInfo qfi(*qfLog);
-			Meta::mp.qsLogfile = qfi.absoluteFilePath();
-		}
-	} else {
-		detach = false;
+	if (wipeLogs) {
+		qWarning("Removing all log entries from the database.");
+		ServerDB::wipeLogs();
 	}
+
 #ifdef Q_OS_UNIX
 	if (detach) {
 		if (fork() != 0) {
@@ -357,7 +385,8 @@ int main(int argc, char **argv) {
 			}
 		}
 
-		chdir("/");
+		if (chdir("/") != 0)
+			fprintf(stderr, "Failed to chdir to /");
 		int fd;
 
 		fd = open("/dev/null", O_RDONLY);

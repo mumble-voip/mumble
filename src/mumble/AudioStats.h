@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -50,16 +50,14 @@ class AudioBar : public QWidget {
 		QList<Qt::BrushStyle> qlReplacementBrushes;
 };
 
-class AudioEchoWidget : public QGLWidget {
+class AudioEchoWidget : public QWidget {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(AudioEchoWidget)
 	public:
 		AudioEchoWidget(QWidget *parent);
-	protected:
-		void initializeGL();
-		void resizeGL(int w, int h);
-		void paintGL();
+	protected slots:
+		void paintEvent(QPaintEvent *event);
 };
 
 class AudioNoiseWidget : public QWidget {

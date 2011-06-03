@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -181,8 +181,14 @@ static void load_plugin() {
 		return;
 	}
 
-	if (bCreated)
-		ftruncate(shmfd, sizeof(struct LinkedMem));
+	if (bCreated) {
+		if (ftruncate(shmfd, sizeof(struct LinkedMem)) != 0) {
+                        fprintf(stderr, "Mumble Link plugin: failed to resize shared memory\n");
+                        close(shmfd);
+                        shmfd = -1;
+                        return;
+                }
+        }
 
 	lm = static_cast<struct LinkedMem*>(
 	         mmap(NULL, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd,0));

@@ -7,13 +7,20 @@ DEFINES		*= MUMBLE_VERSION_STRING=$$VERSION
 INCLUDEPATH	+= $$PWD .
 VPATH		+= $$PWD
 HEADERS		*= ACL.h Channel.h CryptState.h Connection.h Group.h User.h Net.h OSInfo.h Timer.h SSL.h Version.h
-SOURCES 	*= Mumble.pb.cc ACL.cpp Group.cpp Channel.cpp Connection.cpp User.cpp Timer.cpp CryptState.cpp OSInfo.cpp Net.cpp SSL.cpp Version.cpp
+SOURCES 	*= ACL.cpp Group.cpp Channel.cpp Connection.cpp User.cpp Timer.cpp CryptState.cpp OSInfo.cpp Net.cpp SSL.cpp Version.cpp
 PROTOBUF	*= ../Mumble.proto
+
+pbh.output = ${QMAKE_FILE_BASE}.pb.h
+pbh.depends = ${QMAKE_FILE_BASE}.pb.cc
+pbh.commands = $$escape_expand(\\n)
+pbh.input = PROTOBUF
+pbh.CONFIG *= no_link explicit_dependencies target_predeps
 
 pb.output = ${QMAKE_FILE_BASE}.pb.cc
 pb.commands = protoc --cpp_out=. -I. -I.. ${QMAKE_FILE_NAME}
 pb.input = PROTOBUF
-pb.CONFIG *= no_link
+pb.CONFIG *= no_link explicit_dependencies
+pb.variable_out = SOURCES
 
 CONFIG(packaged) {
 	MUMDEFVER = $$find(DEFINES, "MUMBLE_VERSION=")
@@ -49,7 +56,7 @@ unix {
 	}
 }
 
-QMAKE_EXTRA_COMPILERS *= pb
+QMAKE_EXTRA_COMPILERS *= pb pbh
 
 CONFIG(debug, debug|release) {
   CONFIG += console

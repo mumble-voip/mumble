@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -33,13 +33,10 @@
 
 #include "mumble_pch.hpp"
 #include "Timer.h"
-#include "Database.h"
+#include "Net.h"
+#include "BonjourRecord.h"
 
-#ifdef USE_BONJOUR
-#include "BonjourClient.h"
-#else
-#include "bonjourrecord.h"
-#endif
+struct FavoriteServer;
 
 typedef QPair<QHostAddress, unsigned short> qpAddress;
 
@@ -155,6 +152,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 
 		FavoriteServer toFavoriteServer() const;
 		QMimeData *toMimeData() const;
+		static QMimeData *toMimeData(const QString &name, const QString &host, unsigned short port, const QString &channel = QString());
 
 		static QIcon loadIcon(const QString &name);
 
@@ -186,7 +184,7 @@ class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
 	public:
 		QString qsName, qsHostname, qsUsername, qsPassword;
 		unsigned short usPort;
-		ConnectDialogEdit(QWidget *parent, const QString &name = QString(), const QString &host = QString(), const QString &user = QString(), unsigned short port = 64738, const QString &password = QString(), bool add = false);
+		ConnectDialogEdit(QWidget *parent, const QString &name = QString(), const QString &host = QString(), const QString &user = QString(), unsigned short port = DEFAULT_MUMBLE_PORT, const QString &password = QString(), bool add = false);
 };
 
 class ConnectDialog : public QDialog, public Ui::ConnectDialog {
@@ -241,7 +239,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void stopDns(ServerItem *);
 	public slots:
 		void accept();
-		void finished();
+		void fetched(QByteArray, QUrl, QMap<QString, QString>);
 
 		void udpReply();
 		void lookedUp(QHostInfo);
@@ -278,6 +276,4 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 #endif
 };
 
-#else
-class ConnectDialog;
 #endif

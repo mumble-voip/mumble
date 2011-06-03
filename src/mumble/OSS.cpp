@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -38,9 +38,6 @@
 #include <sys/ioctl.h>
 
 #define NBLOCKS 8
-
-#define MAX(a,b)        ( (a) > (b) ? (a) : (b) )
-#define MIN(a,b)        ( (a) < (b) ? (a) : (b) )
 
 class OSSEnumerator {
 	public:
@@ -358,7 +355,11 @@ void OSSOutput::run() {
 		} else {
 			while (! mix(mbuffer, iOutputBlock) && bRunning)
 				this->msleep(20);
-			write(fd, mbuffer, blocklen);
+			ssize_t l = write(fd, mbuffer, blocklen);
+			if (l != blocklen) {
+				qWarning("OSSOutput: Write %ld != %ld", l, blocklen);
+				break;
+			}
 		}
 	}
 	qWarning("OSSOutput: Releasing device");

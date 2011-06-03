@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -37,7 +37,11 @@
 #include <Ice/Ice.h>
 #include <IceUtil/IceUtil.h>
 #include "MurmurI.h"
-#include "Server.h"
+
+class Channel;
+class Server;
+class User;
+struct TextMessage;
 
 class MurmurIce : public QObject {
 		friend class MurmurLocker;
@@ -76,6 +80,7 @@ class MurmurIce : public QObject {
 		void idToTextureSlot(QByteArray &res, int id);
 
 		void userStateChanged(const User *p);
+		void userTextMessage(const User *p, const TextMessage &);
 		void userConnected(const User *p);
 		void userDisconnected(const User *p);
 

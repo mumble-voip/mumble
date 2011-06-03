@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2007, Trenton Schulz
-Copyright (C) 2009-2010, Thorvald Natvig <thorvald@natvig.com>
+Copyright (C) 2009-2011, Thorvald Natvig <thorvald@natvig.com>
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -27,11 +27,7 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QtCore/QSocketNotifier>
-#include <QtNetwork/QHostInfo>
-#include <QtCore/QtEndian>
-
-#include "bonjourserviceresolver.h"
+#include "BonjourServiceResolver.h"
 
 BonjourServiceResolver::ResolveRecord::ResolveRecord(const BonjourRecord &r, BonjourServiceResolver *p) : record(r), bsr(p), dnssref(NULL), bonjourSocket(NULL), bonjourPort(-1) {
 }
@@ -77,7 +73,6 @@ void BonjourServiceResolver::resolveBonjourRecord(const BonjourRecord &record) {
 
 void BonjourServiceResolver::bonjourSocketReadyRead(int sockfd) {
 	ResolveRecord *rr = qmResolvers.value(sockfd);
-	qmResolvers.remove(sockfd);
 
 	if (! rr)
 		return;
@@ -86,7 +81,6 @@ void BonjourServiceResolver::bonjourSocketReadyRead(int sockfd) {
 	if (err != kDNSServiceErr_NoError)
 		emit error(rr->record, err);
 
-	delete rr;
 }
 
 
@@ -95,6 +89,7 @@ void BonjourServiceResolver::bonjourResolveReply(DNSServiceRef, DNSServiceFlags 
         const char *, const char *hosttarget, quint16 port,
         quint16 , const char *, void *context) {
 	ResolveRecord *rr = static_cast<ResolveRecord *>(context);
+	rr->bsr->qmResolvers.remove(DNSServiceRefSockFD(rr->dnssref));
 
 	if (errorCode != kDNSServiceErr_NoError) {
 		emit rr->bsr->error(rr->record, errorCode);
@@ -102,4 +97,5 @@ void BonjourServiceResolver::bonjourResolveReply(DNSServiceRef, DNSServiceFlags 
 	}
 	rr->bonjourPort = qFromBigEndian<quint16>(port);
 	emit rr->bsr->bonjourRecordResolved(rr->record, QString::fromUtf8(hosttarget), rr->bonjourPort);
+	delete rr;
 }

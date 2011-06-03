@@ -1,5 +1,5 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2009, Stefan Hacker <dd0t@users.sourceforge.net>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -35,11 +35,8 @@
 #include "murmur_pch.h"
 #include "Message.h"
 #include "Timer.h"
-#include "User.h"
-#include "Connection.h"
 #include "Net.h"
 #include "ACL.h"
-#include "DBus.h"
 
 #ifdef USE_BONJOUR
 #include "BonjourServer.h"
@@ -48,6 +45,14 @@
 class Channel;
 class PacketDataStream;
 class ServerUser;
+class User;
+
+struct TextMessage {
+	QList<unsigned int> qlSessions;
+	QList<unsigned int> qlChannels;
+	QList<unsigned int> qlTrees;
+	QString qsText;
+};
 
 class LogEmitter : public QObject {
 	private:
@@ -126,6 +131,10 @@ class Server : public QThread {
 
 		QRegExp qrUserName;
 		QRegExp qrChannelName;
+
+		QVariant qvSuggestVersion;
+		QVariant qvSuggestPositional;
+		QVariant qvSuggestPushToTalk;
 
 		QList<QSslCertificate> qlCA;
 		QSslCertificate qscCert;
@@ -268,6 +277,7 @@ class Server : public QThread {
 		void idToTextureSig(QByteArray &, int);
 
 		void userStateChanged(const User *);
+		void userTextMessage(const User *, const TextMessage &);
 		void userConnected(const User *);
 		void userDisconnected(const User *);
 		void channelStateChanged(const Channel *);
@@ -316,6 +326,4 @@ class Server : public QThread {
 #undef MUMBLE_MH_MSG
 };
 
-#else
-class Server;
 #endif

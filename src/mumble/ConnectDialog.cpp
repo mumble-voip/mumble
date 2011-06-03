@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -33,7 +33,13 @@
 #include "ServerHandler.h"
 #include "Channel.h"
 #include "Database.h"
-#include "NetworkConfig.h"
+#include "WebFetch.h"
+
+#ifdef USE_BONJOUR
+#include "BonjourClient.h"
+#include "BonjourServiceBrowser.h"
+#include "BonjourServiceResolver.h"
+#endif
 
 QMap<QString, QIcon> ServerItem::qmIcons;
 QList<PublicInfo> ConnectDialog::qlPublicServers;
@@ -409,7 +415,7 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
 	if (! url.hasQueryItem(QLatin1String("title")))
 		url.addQueryItem(QLatin1String("title"), url.host());
 
-	ServerItem *si = new ServerItem(url.queryItemValue(QLatin1String("title")), url.host(), static_cast<unsigned short>(url.port()), url.userName(), url.password());
+	ServerItem *si = new ServerItem(url.queryItemValue(QLatin1String("title")), url.host(), static_cast<unsigned short>(url.port(DEFAULT_MUMBLE_PORT)), url.userName(), url.password());
 
 	if (url.hasQueryItem(QLatin1String("url")))
 		si->qsUrl = url.queryItemValue(QLatin1String("url"));
@@ -570,14 +576,34 @@ FavoriteServer ServerItem::toFavoriteServer() const {
 	return fs;
 }
 
+
+/*!
+  \fn QMimeData *ServerItem::toMimeData() const
+  This function turns a ServerItem object into a QMimeData object holding a URL to the server.
+*/
 QMimeData *ServerItem::toMimeData() const {
+	QMimeData *mime = ServerItem::toMimeData(qsName, qsHostname, usPort);
+
+	if (itType == FavoriteType)
+		mime->setData(QLatin1String("OriginatedInMumble"), QByteArray());
+
+	return mime;
+}
+
+/*!
+  \fn QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsigned short port, const QString &channel)
+  This function creates a QMimeData object containing a URL to the server at \a host and \a port. \a name is passed in the
+  query string as "title", which is used for adding a server to favorites. \a channel may be omitted, but if specified it
+  should be in the format of "/path/to/channel".
+*/
+QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsigned short port, const QString &channel) {
 	QUrl url;
 	url.setScheme(QLatin1String("mumble"));
-	url.setHost(qsHostname);
-	url.setPort(usPort);
-	url.addQueryItem(QLatin1String("title"), qsName);
-	if (! qsUrl.isEmpty())
-		url.addQueryItem(QLatin1String("url"), qsUrl);
+	url.setHost(host);
+	if (port != DEFAULT_MUMBLE_PORT)
+		url.setPort(port);
+	url.setPath(channel);
+	url.addQueryItem(QLatin1String("title"), name);
 	url.addQueryItem(QLatin1String("version"), QLatin1String("1.2.0"));
 
 	QString qs = QLatin1String(url.toEncoded());
@@ -586,7 +612,7 @@ QMimeData *ServerItem::toMimeData() const {
 
 #ifdef Q_OS_WIN
 	QString contents = QString::fromLatin1("[InternetShortcut]\r\nURL=%1\r\n").arg(qs);
-	QString urlname = QString::fromLatin1("%1.url").arg(qsName);
+	QString urlname = QString::fromLatin1("%1.url").arg(name);
 
 	FILEGROUPDESCRIPTORA fgda;
 	ZeroMemory(&fgda, sizeof(fgda));
@@ -601,10 +627,10 @@ QMimeData *ServerItem::toMimeData() const {
 	fgdw.cItems = 1;
 	fgdw.fgd[0].dwFlags = FD_LINKUI | FD_FILESIZE;
 	fgdw.fgd[0].nFileSizeLow=contents.length();
-	wcscpy_s(fgdw.fgd[0].cFileName, MAX_PATH, urlname.utf16());
+	wcscpy_s(fgdw.fgd[0].cFileName, MAX_PATH, urlname.toStdWString().c_str());
 	mime->setData(QLatin1String("FileGroupDescriptorW"), QByteArray(reinterpret_cast<const char *>(&fgdw), sizeof(fgdw)));
 
-	mime->setData(QString::fromUtf16(CFSTR_FILECONTENTS), contents.toLocal8Bit());
+	mime->setData(QString::fromWCharArray(CFSTR_FILECONTENTS), contents.toLocal8Bit());
 
 	DWORD context[4];
 	context[0] = 0;
@@ -615,17 +641,14 @@ QMimeData *ServerItem::toMimeData() const {
 
 	DWORD dropaction;
 	dropaction = DROPEFFECT_LINK;
-	mime->setData(QString::fromUtf16(CFSTR_PREFERREDDROPEFFECT), QByteArray(reinterpret_cast<const char *>(&dropaction), sizeof(dropaction)));
+	mime->setData(QString::fromWCharArray(CFSTR_PREFERREDDROPEFFECT), QByteArray(reinterpret_cast<const char *>(&dropaction), sizeof(dropaction)));
 #endif
 	QList<QUrl> urls;
 	urls << url;
 	mime->setUrls(urls);
 
 	mime->setText(qs);
-	mime->setHtml(QString::fromLatin1("<a href=\"%1\">%2</a>").arg(qs).arg(qsName));
-
-	if (itType == FavoriteType)
-		mime->setData(QLatin1String("OriginatedInMumble"), QByteArray());
+	mime->setHtml(QString::fromLatin1("<a href=\"%1\">%2</a>").arg(qs).arg(name));
 
 	return mime;
 }
@@ -925,7 +948,7 @@ void ConnectDialog::on_qaFavoriteAdd_triggered() {
 void ConnectDialog::on_qaFavoriteAddNew_triggered() {
 	QString host, user, pw;
 	QString name;
-	unsigned short port = 64738;
+	unsigned short port = DEFAULT_MUMBLE_PORT;
 
 	// Try to fill out fields if possible
 	{
@@ -1114,13 +1137,10 @@ void ConnectDialog::initList() {
 	bPublicInit = true;
 
 	QUrl url;
-	url.setScheme(QLatin1String("http"));
-	url.setHost(g.qsRegionalHost);
 	url.setPath(QLatin1String("/list2.cgi"));
 	url.addQueryItem(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
 
-	QNetworkReply *rep = Network::get(url);
-	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
+	WebFetch::fetch(url, this, SLOT(fetched(QByteArray,QUrl,QMap<QString,QString>)));
 }
 
 #ifdef USE_BONJOUR
@@ -1466,36 +1486,19 @@ void ConnectDialog::udpReply() {
 	}
 }
 
-static QString fromUtf8(const QByteArray &qba) {
-	if (qba.isEmpty())
-		return QString();
-	return QString::fromUtf8(qba.constData(), qba.length());
-}
-
-void ConnectDialog::finished() {
-	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
-	if (rep->error() != QNetworkReply::NoError) {
-		QUrl url = rep->request().url();
-		if (url.host() == g.qsRegionalHost) {
-			url.setHost(QLatin1String("mumble.info"));
-			QNetworkReply *nrep = Network::get(url);
-			connect(nrep, SIGNAL(finished()), this, SLOT(finished()));
-
-			rep->deleteLater();
-			return;
-		}
-
+void ConnectDialog::fetched(QByteArray data, QUrl, QMap<QString, QString> headers) {
+	if (data.isNull()) {
 		QMessageBox::warning(this, QLatin1String("Mumble"), tr("Failed to fetch server list"), QMessageBox::Ok);
 		return;
 	}
 
 	QDomDocument doc;
-	doc.setContent(rep->readAll());
+	doc.setContent(data);
 
 	qlPublicServers.clear();
-	qsUserCountry = fromUtf8(rep->rawHeader("Geo-Country"));
-	qsUserCountryCode = fromUtf8(rep->rawHeader("Geo-Country-Code")).toLower();
-	qsUserContinentCode = fromUtf8(rep->rawHeader("Geo-Continent-Code")).toLower();
+	qsUserCountry = headers.value(QLatin1String("Geo-Country"));
+	qsUserCountryCode = headers.value(QLatin1String("Geo-Country-Code")).toLower();
+	qsUserContinentCode = headers.value(QLatin1String("Geo-Continent-Code")).toLower();
 
 	QDomElement root=doc.documentElement();
 	QDomNode n = root.firstChild();
@@ -1522,6 +1525,4 @@ void ConnectDialog::finished() {
 	tPublicServers.restart();
 
 	fillList();
-
-	rep->deleteLater();
 }

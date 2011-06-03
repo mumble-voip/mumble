@@ -1,5 +1,5 @@
-/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2008-2009, Mikkel Krautz <mikkel@krautz.dk>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2008-2011, Mikkel Krautz <mikkel@krautz.dk>
 
    All rights reserved.
 
@@ -319,30 +319,30 @@ bool GlobalShortcutMac::handleModButton(const CGEventFlags newmask) {
 }
 
 QString GlobalShortcutMac::translateMouseButton(const unsigned int keycode) const {
-	return QString("Mouse Button %1").arg(keycode-MOUSE_OFFSET+1);
+	return QString::fromLatin1("Mouse Button %1").arg(keycode-MOUSE_OFFSET+1);
 }
 
 QString GlobalShortcutMac::translateModifierKey(const unsigned int keycode) const {
 	unsigned int key = keycode - MOD_OFFSET;
 	switch (key) {
 		case 0:
-			return QString("Caps Lock");
+			return QLatin1String("Caps Lock");
 		case 1:
-			return QString("Shift");
+			return QLatin1String("Shift");
 		case 2:
-			return QString("Control");
+			return QLatin1String("Control");
 		case 3:
-			return QString("Alt/Option");
+			return QLatin1String("Alt/Option");
 		case 4:
-			return QString("Command");
+			return QLatin1String("Command");
 		case 5:
-			return QString("Help");
+			return QLatin1String("Help");
 		case 6:
-			return QString("Fn");
+			return QLatin1String("Fn");
 		case 7:
-			return QString("Num Lock");
+			return QLatin1String("Num Lock");
 	}
-	return QString("Modifier %1").arg(key);
+	return QString::fromLatin1("Modifier %1").arg(key);
 }
 
 QString GlobalShortcutMac::translateKeyName(const unsigned int keycode) const {
@@ -363,23 +363,23 @@ QString GlobalShortcutMac::translateKeyName(const unsigned int keycode) const {
 	if (len == 1) {
 		switch (unicodeString[0]) {
 			case '\t':
-				return QString("Tab");
+				return QLatin1String("Tab");
 			case '\r':
-				return QString("Enter");
+				return QLatin1String("Enter");
 			case '\b':
-				return QString("Backspace");
+				return QLatin1String("Backspace");
 			case '\e':
-				return QString("Escape");
+				return QLatin1String("Escape");
 			case ' ':
-				return QString("Space");
+				return QLatin1String("Space");
 			case 28:
-				return QString("Left");
+				return QLatin1String("Left");
 			case 29:
-				return QString("Right");
+				return QLatin1String("Right");
 			case 30:
-				return QString("Up");
+				return QLatin1String("Up");
 			case 31:
-				return QString("Down");
+				return QLatin1String("Down");
 		}
 
 		if (unicodeString[0] < ' ') {
@@ -388,7 +388,7 @@ QString GlobalShortcutMac::translateKeyName(const unsigned int keycode) const {
 		}
 	}
 
-	return QString(reinterpret_cast<const QChar *>(unicodeString), len).toUpper();
+	return QString::fromRawData(reinterpret_cast<const QChar *>(unicodeString), len).toUpper();
 }
 
 QString GlobalShortcutMac::buttonName(const QVariant &v) {
@@ -407,7 +407,7 @@ QString GlobalShortcutMac::buttonName(const QVariant &v) {
 			return str;
 	}
 
-	return QString("Keycode %1").arg(key);
+	return QString::fromLatin1("Keycode %1").arg(key);
 }
 
 bool GlobalShortcutMac::canSuppress() {
