@@ -985,7 +985,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Detta visar höjdpunkten för använd utgående bandbredd.&lt;/b&gt;&lt;br /&gt;Detta visar höjdpunkten för mängden bandbredd utsänd från dig. Ljudbitraten är den maximala bitraten (som vi kallar VBR) för själva ljuddatan. Positionen är bitraten som används för platsinformation. Totalt är våran inramning IP-paketet (IP och UDP är 75% av detta totalt).</translation>
+        <translation>&lt;b&gt;Detta visar höjdpunkten för använd utgående bandbredd.&lt;/b&gt;&lt;br /&gt;Detta visar höjdpunkten för mängden bandbredd utsänd från dig. Ljudbitraten är den högsta bitraten (som vi kallar VBR) för själva ljuddatan. Positionen är bitraten som används för platsinformation. Totalt är våran inramning IP-paketet (IP och UDP är 75% av detta totalt).</translation>
     </message>
     <message>
         <location/>
@@ -4087,32 +4087,32 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>If enabled text messages you send will be read back to you with TTS</source>
-        <translation type="unfinished"></translation>
+        <translation>Vid aktivering kommer textmeddelanden du skickar läsas tillbaka till dig med TTS</translation>
     </message>
     <message>
         <location/>
         <source>Read back own messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Läs upp egna meddelanden</translation>
     </message>
     <message>
         <location/>
         <source>Chat Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Chattlogg</translation>
     </message>
     <message>
         <location/>
         <source>Maximum chat length</source>
-        <translation type="unfinished"></translation>
+        <translation>Högsta chattlängd</translation>
     </message>
     <message>
         <location/>
         <source>Unlimited</source>
-        <translation type="unfinished"></translation>
+        <translation>Obegränsat</translation>
     </message>
     <message>
         <location/>
         <source> Lines</source>
-        <translation type="unfinished"></translation>
+        <translation> rader</translation>
     </message>
 </context>
 <context>
@@ -4656,7 +4656,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+11"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Ljudbandbredd&lt;/h2&gt;&lt;p&gt;Maximalt %1 kbit/s&lt;br /&gt;För närvarande %2 kbit/s&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Ljudbandbredd&lt;/h2&gt;&lt;p&gt;Högst %1 kbit/s&lt;br /&gt;För närvarande %2 kbit/s&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="-104"/>
@@ -4943,7 +4943,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+24"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation>Den här servern använder en äldre krypteringsstandard och stöds ej längre av nyare versioner av Mumble.</translation>
     </message>
     <message>
         <source>Failed to launch compatibility client</source>
@@ -5318,7 +5318,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
-        <translation>Aktivera eller avaktivera ditt ljud. När det är avaktiverat kan du inte höra något.Avaktivering av ljud kommer också att avaktivera din mikrofon.</translation>
+        <translation>Aktivera eller avaktivera ditt ljud. När det är avaktiverat kan du inte höra något. Avaktivering av ljud kommer också att avaktivera din mikrofon.</translation>
     </message>
     <message>
         <location/>
@@ -5913,7 +5913,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+62"/>
         <source>Skipping version check in debug mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoppar över kontroll av uppdatering i felsökningsläge.</translation>
     </message>
     <message>
         <source>This is the first time you&apos;re starting Mumble.&lt;br /&gt;Would you like to go through the Audio Wizard to configure your soundcard?</source>
@@ -6061,12 +6061,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>&amp;Copy URL</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kopiera URL</translation>
     </message>
     <message>
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopierar en länk till den här kanalen till urklipp.</translation>
     </message>
 </context>
 <context>
@@ -6388,7 +6388,7 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
     <message>
         <location line="+5"/>
         <source>Talking and recently active</source>
-        <translation type="unfinished"></translation>
+        <translation>Pratar och nyligen aktiv</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6408,7 +6408,7 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
     <message>
         <location line="+8"/>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigurera senast aktiva tid (%1 sekunder)...</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6418,17 +6418,17 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
     <message>
         <location line="+8"/>
         <source>Sort</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortera</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Alphabetically</source>
-        <translation type="unfinished"></translation>
+        <translation>Alfabetiskt</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Last state change</source>
-        <translation type="unfinished"></translation>
+        <translation>Senaste statusändring</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6443,12 +6443,12 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
     <message>
         <location line="+41"/>
         <source>Configure recently active time</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigurera senast aktiva tid</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Amount of seconds users remain active after talking:</source>
-        <translation type="unfinished"></translation>
+        <translation>Antalet sekunder användare förblir aktiva efter prat:</translation>
     </message>
     <message>
         <source>FPS: %1</source>
@@ -7192,22 +7192,22 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     <message>
         <location filename="ServerHandler.cpp" line="+401"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
-        <translation>UDP-paket kan inte skickas till ellet tas emot från servern. Bytar till TCP-läge.</translation>
+        <translation>UDP-paket kan inte skickas till ellet tas emot från servern. Byter till TCP-läge.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>UDP packets cannot be sent to the server. Switching to TCP mode.</source>
-        <translation>UDP-paket kan inte skickas till servern. Bytar till TCP-läge.</translation>
+        <translation>UDP-paket kan inte skickas till servern. Byter till TCP-läge.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>UDP packets cannot be received from the server. Switching to TCP mode.</source>
-        <translation>UDP-paket kan inte skickas från servern. Bytar till TCP-läge.</translation>
+        <translation>UDP-paket kan inte skickas från servern. Byter till TCP-läge.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>UDP packets can be sent to and received from the server. Switching back to UDP mode.</source>
-        <translation>UDP-paket kan skickas till och tas emot från servern. Bytar tillbaka till UDP-läge.</translation>
+        <translation>UDP-paket kan skickas till och tas emot från servern. Byter tillbaka till UDP-läge.</translation>
     </message>
     <message>
         <location line="+36"/>
