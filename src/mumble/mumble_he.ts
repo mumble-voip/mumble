@@ -3236,12 +3236,12 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">סיסמא</translation>
     </message>
     <message>
         <location/>
         <source>Password to send to the server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">סיסמא לשלוח לשרת</translation>
     </message>
     <message>
         <location/>
@@ -3252,12 +3252,12 @@ Password to be sent to the server on connect. This password is needed when conne
     <message>
         <location/>
         <source>Show password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הראה סיסמא</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
         <source>Add Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הוסף שרת</translation>
     </message>
 </context>
 <context>
@@ -7064,7 +7064,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+36"/>
         <source>Connection timed out</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ה</translation>
+        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הזמן להתחברות עבר.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
