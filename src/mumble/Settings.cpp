@@ -76,7 +76,7 @@ quint32 qHash(const ShortcutTarget &t) {
 	quint32 h = t.bForceCenter ? 0x55555555 : 0xaaaaaaaa;
 	if (t.bUsers) {
 		foreach(unsigned int u, t.qlSessions)
-		h ^= u;
+			h ^= u;
 	} else {
 		h ^= t.iChannel;
 		if (t.bLinks)
@@ -92,7 +92,7 @@ quint32 qHash(const ShortcutTarget &t) {
 quint32 qHash(const QList<ShortcutTarget> &l) {
 	quint32 h = l.count();
 	foreach(const ShortcutTarget &st, l)
-	h ^= qHash(st);
+		h ^= qHash(st);
 	return h;
 }
 
@@ -722,10 +722,10 @@ void OverlaySettings::save(QSettings* settings_ptr) {
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
 	if (settings_ptr->format() == QSettings::IniFormat)
 #endif
-        {
-               QFile f(settings_ptr->fileName());
-               f.setPermissions(f.permissions() & ~(QFile::ReadGroup | QFile::WriteGroup | QFile::ExeGroup | QFile::ReadOther | QFile::WriteOther | QFile::ExeOther));
-        }
+	{
+		QFile f(settings_ptr->fileName());
+		f.setPermissions(f.permissions() & ~(QFile::ReadGroup | QFile::WriteGroup | QFile::ExeGroup | QFile::ReadOther | QFile::WriteOther | QFile::ExeOther));
+	}
 
 	SAVELOAD(bEnable, "enable");
 

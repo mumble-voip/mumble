@@ -379,7 +379,12 @@ Přidat novou skupinu.</translation>
         <translation>Toto uděli privilegium %1. Pokud je privilegium zároveň povoleno i zakázáno, považuje se za odepřené.&lt;br /&gt;%2</translation>
     </message>
     <message>
-        <location line="-8"/>
+        <location line="+123"/>
+        <source>Channel must have a name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
         <translation>Toto odebere privilegium %1. Pokud je privilegium zároveň povoleno i zakázáno, považuje se za odepřené.&lt;br /&gt;%2</translation>
     </message>
@@ -1119,14 +1124,12 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation type="obsolete">Slyšitelný zvuk signalizující každý začátek a konec vysílání</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;This enables the audio cues for push to talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when push to talk is pressed and released.</source>
-        <translation>&lt;b&gt;Toto povolí zvukový signál pro mluvení při stisknutí.&lt;/b&gt;&lt;br /&gt; Toto nastavení Vám přehraje krátké pípnutí, když je klávesa pro mluvení stisknuta a uvolněna.</translation>
+        <translation type="obsolete">&lt;b&gt;Toto povolí zvukový signál pro mluvení při stisknutí.&lt;/b&gt;&lt;br /&gt; Toto nastavení Vám přehraje krátké pípnutí, když je klávesa pro mluvení stisknuta a uvolněna.</translation>
     </message>
     <message>
-        <location/>
         <source>PTT Audio cue</source>
-        <translation>PTT Zvukový signál</translation>
+        <translation type="obsolete">PTT Zvukový signál</translation>
     </message>
     <message>
         <location/>
@@ -1311,14 +1314,12 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation>&lt;b&gt;Čas pro opětovné stisknutí&lt;/b&gt;&lt;br /&gt; Pokud dvakrát zmáčknete klávesu pro mluvení během nastaveného intervalu, bude uzamčena. Mumble bude stále přenášet, dokud klávesu nestisknete ještě jednou pro znovu odemčení.</translation>
     </message>
     <message>
-        <location/>
         <source>Gets played when the PTT button is pressed</source>
-        <translation>Bude přehrán při stisku klávesy pro mluvení</translation>
+        <translation type="obsolete">Bude přehrán při stisku klávesy pro mluvení</translation>
     </message>
     <message>
-        <location/>
         <source>Gets played when the PTT button is released</source>
-        <translation>Bude přehrán při uvolnění klávesy pro mluvení</translation>
+        <translation type="obsolete">Bude přehrán při uvolnění klávesy pro mluvení</translation>
     </message>
     <message>
         <location/>
@@ -1356,9 +1357,8 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation>Náhled zvukových signálů</translation>
     </message>
     <message>
-        <location/>
         <source>Audible audio cue when push-to-talk is activated or deactivated</source>
-        <translation>Slišitelný zvukový signál při spuštění či vypnutí mluvení při stisku tlačítka</translation>
+        <translation type="obsolete">Slišitelný zvukový signál při spuštění či vypnutí mluvení při stisku tlačítka</translation>
     </message>
     <message>
         <location/>
@@ -1450,6 +1450,46 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
         <translation>&lt;b&gt;Náhled&lt;/b&gt;&lt;br/&gt;Přehraje aktuální zvuk &lt;i&gt;zapnutí&lt;/i&gt; následován aktuálním zvukem &lt;i&gt;vypnutí&lt;/i&gt;.</translation>
     </message>
+    <message>
+        <location/>
+        <source>Displays an always on top window with a push to talk button in it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Display push to talk window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Misc</source>
+        <translation type="unfinished">Ostatní</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Audible audio cue when starting or stopping to transmit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Audio cue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Gets played when starting to transmit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Gets played when stopping to transmit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1474,7 +1514,7 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation>Vstup Zvuku</translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+101"/>
         <location line="+8"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
@@ -2011,7 +2051,7 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation>Toto zobrazuje  váhy rušitele ozvěny s časem zvyšujícím se dolů a frekvencí zvyšující se doprava.&lt;br /&gt; Ideálně by toto mělo být černé, což znamená, že neexistuje žádná ozvěna. Běžně budete mít jednu nebo více vodorovných modrých čar, označující časově zpožděnou ozvěnu. Měli byste vidět, jak jsou váhy aktualizovány ve  skutečném čase.&lt;br /&gt;Uvědomte si, prosím, že dokud nebudete mít něco, od čeho ozvěnu odrážet, tak zde moc užitečná data neuvidíte. Přehrajte nějakou hudbu a věci by se měli ustálit. &lt;br /&gt; Můžete si zvolit k zobrazení skutečné nebo domnělé části vah kmitočtového pásma, nebo jinak vypočítaná modulace a fáze. Z těchto bude asi nejužitečnější modulace, což je amplituda ozvěny, a ukazuje kolik výstupního signálu je v onom časovém kroku odstraněno. Ostatní režimy zobrazení jsou většinou užitečné pro lidi, kteří si chtějí vyladit jejich algoritmy vyrušení ozvěny.&lt;br /&gt; Uvědomte si, prosím, že pokud se celý obrázek hodně mění, když je v režimu modulace, rušitel ozvěny nemůže najít žádnou souvztažnost mezi dvěma vstupními zdroji (reproduktory a mikrofon). Buď máte velmi dlouhou prodlevu ozvěny, nebo jeden ze vstupních zdrojů není správně nastaven.</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="+405"/>
+        <location filename="AudioStats.cpp" line="+384"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000 ms</translation>
@@ -3354,7 +3394,7 @@ Je &lt;b&gt;výrazně&lt;/b&gt; doporučeno, abyste si &lt;a href=&quot;http://m
 <context>
     <name>ChatbarTextEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+79"/>
+        <location filename="CustomElements.cpp" line="+104"/>
         <source>Paste and send</source>
         <translation>Vložit a odeslat</translation>
     </message>
@@ -3574,7 +3614,7 @@ Je &lt;b&gt;výrazně&lt;/b&gt; doporučeno, abyste si &lt;a href=&quot;http://m
         <translation type="obsolete">&amp;Heslo</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+774"/>
+        <location filename="ConnectDialog.cpp" line="+780"/>
         <source>&amp;Connect</source>
         <translation>&amp;Připojit</translation>
     </message>
@@ -3709,7 +3749,7 @@ Je &lt;b&gt;výrazně&lt;/b&gt; doporučeno, abyste si &lt;a href=&quot;http://m
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+1022"/>
+        <location line="+1002"/>
         <source>Failed to fetch server list</source>
         <translation>Stažení seznamu serverů selhalo</translation>
     </message>
@@ -3779,7 +3819,7 @@ Je &lt;b&gt;výrazně&lt;/b&gt; doporučeno, abyste si &lt;a href=&quot;http://m
     </message>
     <message>
         <location/>
-        <location filename="ConnectDialog.cpp" line="-729"/>
+        <location filename="ConnectDialog.cpp" line="-709"/>
         <source>&amp;Add New...</source>
         <translation>Přid&amp;at Nový...</translation>
     </message>
@@ -4004,7 +4044,7 @@ Jmenovka serveru. Takto se bude server jmenovat ve Vašem seznamu serverů a mů
         <translation type="obsolete">Otevírání vybraného vstupu DirectSound selhalo. Nebude prováděn záznam mikrofonu.</translation>
     </message>
     <message>
-        <location filename="DirectSound.cpp" line="+554"/>
+        <location filename="DirectSound.cpp" line="+551"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
         <translation>Otevření vybraného vstupu DirectSound selhalo. Bude použito výchozí zařízení.</translation>
     </message>
@@ -4117,7 +4157,7 @@ Jmenovka serveru. Takto se bude server jmenovat ve Vašem seznamu serverů a mů
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Database.cpp" line="+84"/>
+        <location filename="Database.cpp" line="+86"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Mumble nedokázalo spustit databázi
@@ -4358,7 +4398,7 @@ v žádném z možných míst.</translation>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+331"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+336"/>
         <source>Mouse %1</source>
         <translation>Myš %1</translation>
     </message>
@@ -4479,7 +4519,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+225"/>
+        <location filename="Log.cpp" line="+224"/>
         <source>Debug</source>
         <translation>Ladění</translation>
     </message>
@@ -4629,14 +4669,14 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>[[ Textový objekt je příliš velký pro zobrazení ]]</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+47"/>
         <source>[Date changed to %1]
 </source>
         <translation>[Datum změněno na %1]
 </translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+146"/>
         <source>link to %1</source>
         <translation>odkaz na %1</translation>
     </message>
@@ -4664,7 +4704,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-531"/>
+        <location line="-539"/>
         <source>Toggle console for %1 events</source>
         <translation>Zapnout konzoli pro události %1</translation>
     </message>
@@ -5201,8 +5241,8 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>V režimu ladění přeskakuji kontrolu verze.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+2070"/>
+        <location filename="MainWindow.cpp" line="+173"/>
+        <location line="+2114"/>
         <source>Root</source>
         <translation>Kořen</translation>
     </message>
@@ -5791,9 +5831,9 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Připojí se k webové stránce Mumble pro zjištění, je-li nová verze dostupná, a oznámí Vám to vhodným odkazem na stažení, pokud tomu opravdu tak je.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1971"/>
-        <location line="+12"/>
-        <location line="+2153"/>
+        <location filename="MainWindow.cpp" line="-2013"/>
+        <location line="+15"/>
+        <location line="+2208"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1 </translation>
     </message>
@@ -5815,7 +5855,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">&amp;Uživatel</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2241"/>
+        <location filename="MainWindow.cpp" line="-2299"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanál</translation>
     </message>
@@ -5918,7 +5958,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">Alternativní klávesa pro mluvení</translation>
     </message>
     <message>
-        <location line="+663"/>
+        <location line="+688"/>
         <source>Reconnecting.</source>
         <translation>Znovu se připojuji.</translation>
     </message>
@@ -5927,7 +5967,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">Vykopnutí uživaetele %1</translation>
     </message>
     <message>
-        <location line="+435"/>
+        <location line="+437"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Zadejte důvod</translation>
@@ -6017,42 +6057,41 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">Připojen k serveru.</translation>
     </message>
     <message>
-        <location line="+393"/>
+        <location line="+408"/>
         <source>Server connection failed: %1.</source>
         <translation>Připojování k serveru selhalo: %1.</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+13"/>
         <source>Invalid username</source>
         <translation>Neplatné jméno uživatele</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>Připojili jste se s neplatným uživatelským jménem, zkuste jiné, prosím.</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+5"/>
         <source>That username is already in use, please try another username.</source>
         <translation>Toto uživatelské jméno se již používá, zkuste jiné, prosím.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+13"/>
         <source>Wrong password</source>
         <translation>Špatné heslo</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Wrong password for registered users, please try again.</source>
-        <translation>Špatné heslo registrovaného uživatele, prosím zkuste znovu.</translation>
+        <translation type="obsolete">Špatné heslo registrovaného uživatele, prosím zkuste znovu.</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Špatné heslo serveru pro účet neregistrovaného uživatele, prosím zkuste znovu.</translation>
     </message>
     <message>
-        <location line="-17"/>
+        <location line="-31"/>
         <source>Disconnected from server.</source>
         <translation>Odpojeno od serveru.</translation>
     </message>
@@ -6303,7 +6342,32 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Zrušili jste potlačení uživatele %1.</translation>
     </message>
     <message>
-        <location line="-14"/>
+        <location line="+404"/>
+        <source>The server requests minimum client version %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The server requests positional audio be enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The server requests positional audio be disabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The server requests Push-to-Talk be enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The server requests Push-to-Talk be disabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-430"/>
         <source>You unmuted %1.</source>
         <translation>Zesílili jste %1.</translation>
     </message>
@@ -6397,7 +6461,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Zpráva od %1</translation>
     </message>
     <message>
-        <location line="+143"/>
+        <location line="+169"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Nelze nalézt odpovídající kodeky CELT s ostatními klienty. Nebudete schopni mluvit ke všem uživatelům.</translation>
     </message>
@@ -6417,7 +6481,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Toto zobrazí podrobné informace o připojení k serveru.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1759"/>
+        <location filename="MainWindow.cpp" line="-1792"/>
         <source>Opening URL %1</source>
         <translation>Otevírám URL %1</translation>
     </message>
@@ -6458,7 +6522,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     </message>
     <message>
         <location line="+14"/>
-        <location line="+176"/>
+        <location line="+192"/>
         <source>Connecting to server %1.</source>
         <translation>Připojuji se k serveru %1.</translation>
     </message>
@@ -6468,7 +6532,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Změnit Váš komentář</translation>
     </message>
     <message>
-        <location line="+92"/>
+        <location line="+94"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Verze&lt;/h2&gt;&lt;p&gt;Protokol %1.%2.%3.&lt;/p&gt;</translation>
     </message>
@@ -6499,7 +6563,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1282"/>
+        <location line="+1297"/>
         <source>&amp;View Certificate</source>
         <translation>Zobrazit &amp;Certifikát</translation>
     </message>
@@ -6509,14 +6573,14 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Tento server používá starý šifrovací standard, a nebude nadále podporován novými verzemi Mumble.</translation>
     </message>
     <message>
-        <location line="-1409"/>
-        <location line="+327"/>
+        <location line="-1426"/>
+        <location line="+329"/>
         <source>Register yourself as %1</source>
         <translation>Registrovat se jako %1</translation>
     </message>
     <message>
-        <location line="-327"/>
-        <location line="+327"/>
+        <location line="-329"/>
+        <location line="+329"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Chystáte se k registraci na tomto serveru. Tuto činnost nelze vrátit zpět, a jakmile je toto provedeno, Vaše uživatelské jméno nelze změnit. Na tomto serveru budete navždy známi jako &apos;%1&apos;.&lt;/p&gt;&lt;p&gt;Jste si jisti, že se chcete zaregistrovat?&lt;/p&gt;</translation>
     </message>
@@ -6552,7 +6616,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Zpráva do kanálu %1</translation>
     </message>
     <message>
-        <location line="+510"/>
+        <location line="+525"/>
         <source>Connected.</source>
         <translation>Připojen.</translation>
     </message>
@@ -6567,7 +6631,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Ověření SSL selhalo: %1</translation>
     </message>
     <message>
-        <location line="-2163"/>
+        <location line="-2205"/>
         <source>&amp;User</source>
         <translation>&amp;Uživatel</translation>
     </message>
@@ -6578,7 +6642,13 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Toto přepne stavy překryvu ve hře.</translation>
     </message>
     <message>
-        <location line="+810"/>
+        <location line="+19"/>
+        <source>Link Channel</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+818"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Kontrolní kanál&lt;/h2&gt;&lt;p&gt;Šifrován pomocí %1 bit %2&lt;br /&gt;průměrné zpoždění %3 ms (odchylka %4)&lt;/p&gt;&lt;p&gt;Vzdálený hostitel %5 (port %6)&lt;/p&gt;</translation>
     </message>
@@ -6594,7 +6664,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Do %1 (Strom): %2</translation>
     </message>
     <message>
-        <location line="+638"/>
+        <location line="+653"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
         <translation>&lt;b&gt;VAROVÁNÍ:&lt;/b&gt; Server předložil certifikát, který se liší od uloženého.</translation>
     </message>
@@ -6609,7 +6679,24 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>&lt;p&gt;%1.&lt;br /&gt;Specifické chyby v certifikátu jsou: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Chcete přesto tento certifikát přijmout?&lt;br /&gt;(Bude zároveň uložen, takže už na toto nebudete tázáni.)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+150"/>
+        <location line="+48"/>
+        <source>Username in use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Wrong certificate or password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Wrong certificate or password for registered user. If you are
+certain this user is protected by a password please retry.
+Otherwise abort and check your certificate and username.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+111"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
         <translation>&lt;center&gt;Zde napište zprávu pro kanál &apos;%1&apos;&lt;/center&gt;</translation>
@@ -6647,7 +6734,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Formát obrázku nerozpoznán.</translation>
     </message>
     <message>
-        <location line="-1576"/>
+        <location line="-1607"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Zvukový kanál je posílán přes kontrolní kanál.</translation>
     </message>
@@ -6712,7 +6799,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Pošle textovou zprávu všem uživatelům v kanálu.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1310"/>
+        <location filename="MainWindow.cpp" line="-1334"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble je nyní připojen k serveru. Opravdu ho chcete Zavřit nebo Minimalizovat?</translation>
     </message>
@@ -6728,7 +6815,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Minimalizovat</translation>
     </message>
     <message>
-        <location line="-180"/>
+        <location line="-183"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Zeslabit Se</translation>
@@ -6770,7 +6857,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Šeptat/Křičet</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+16"/>
         <source>&amp;Window</source>
         <translation>&amp;Okno</translation>
     </message>
@@ -6780,7 +6867,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="-28"/>
+        <location line="-31"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
         <translation>Zapnout Minimálni Zobrazení</translation>
@@ -6813,14 +6900,14 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Snížit Hlasitost (-10%)</translation>
     </message>
     <message>
-        <location line="+66"/>
-        <location line="+2182"/>
+        <location line="+69"/>
+        <location line="+2237"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Nepřipojen&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1898"/>
+        <location line="-1947"/>
         <source>Clear</source>
         <translation>Vyčistit</translation>
     </message>
@@ -6851,7 +6938,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation type="obsolete">O&amp;dpojit</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="-153"/>
+        <location filename="Messages.cpp" line="-179"/>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
@@ -7318,7 +7405,7 @@ Zakáže klientu stahovat obrázky vnořené do zpráv chatu pomocí tagu img.</
     </message>
     <message>
         <location filename="OverlayEditorScene.cpp" line="+121"/>
-        <location filename="OverlayUser.cpp" line="+150"/>
+        <location filename="OverlayUser.cpp" line="+151"/>
         <source>Silent</source>
         <translation>Mlčící</translation>
     </message>
@@ -7347,17 +7434,17 @@ Zakáže klientu stahovat obrázky vnořené do zpráv chatu pomocí tagu img.</
         <translation>Kanál</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+100"/>
+        <location filename="Overlay.cpp" line="+101"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Nelze vytvořit komunikaci s překryvem v %2: %1. Nebude dostupný žádný překryv.</translation>
     </message>
     <message>
-        <location line="+255"/>
+        <location line="+252"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation>V režimu ladění přeskakuji aktualizaci překryvu.</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+61"/>
         <source>Downloaded new or updated overlay support file to %1.</source>
         <translation>Nový nebo aktualizovaný soubor podpory překryvu stáhnut do%1.</translation>
     </message>
@@ -7376,7 +7463,7 @@ To může být způsobeno například těmito důvody:
 <context>
     <name>OverlayClient</name>
     <message>
-        <location filename="OverlayUserGroup.cpp" line="+94"/>
+        <location filename="OverlayUserGroup.cpp" line="+95"/>
         <source>Filter</source>
         <translation>Filtr</translation>
     </message>
@@ -7965,7 +8052,7 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
 <context>
     <name>OverlayEditorScene</name>
     <message>
-        <location filename="OverlayEditorScene.cpp" line="+396"/>
+        <location filename="OverlayEditorScene.cpp" line="+399"/>
         <source>Layout preset</source>
         <translation>Předvolba rozvržení</translation>
     </message>
@@ -8089,7 +8176,7 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay_win.cpp" line="+68"/>
+        <location filename="Overlay_win.cpp" line="+53"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
@@ -8250,12 +8337,12 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+330"/>
+        <location filename="Plugins.cpp" line="+327"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>V režimu ladění přeskakuji aktualizaci zásuvných modulů.</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+150"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
         <translation>Aktualizován nebo stáhnut nový zásuvný modul do %1.</translation>
@@ -8266,7 +8353,7 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
         <translation>Nelze instalovat nový zásuvný modul do %1.</translation>
     </message>
     <message>
-        <location line="-265"/>
+        <location line="-257"/>
         <source>%1 lost link.</source>
         <translation>%1 ztraceno propojení.</translation>
     </message>
@@ -8322,7 +8409,7 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+556"/>
+        <location filename="PulseAudio.cpp" line="+565"/>
         <source>Default Input</source>
         <translation>Výchozí Vstup</translation>
     </message>
@@ -8873,7 +8960,7 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+53"/>
         <source>%1 online (%2 idle)</source>
         <translation>%1 online (%2 nečinný)</translation>
     </message>
@@ -9055,7 +9142,7 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
         <translation type="obsolete">Mumble nedokázalo získat informace o aktuálních verzích ze serveru SourceForge.</translation>
     </message>
     <message>
-        <location filename="VersionCheck.cpp" line="+130"/>
+        <location filename="VersionCheck.cpp" line="+125"/>
         <source>Upgrade Mumble</source>
         <translation>Aktualizovat Mumble</translation>
     </message>
@@ -9065,7 +9152,7 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
         <translation>Byla zjištěna a automaticky stáhnuta nová verze Mumble. Je doporučeno buď aktualizovat na tuto verzi, nebo přeinstalovat na poslední stabilní verzi. Chcete teď spustit instalátor?</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+15"/>
         <source>Failed to launch snapshot installer.</source>
         <translation>Nelze spustit instalátor vývojové verze.</translation>
     </message>
@@ -9075,18 +9162,18 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
         <translation>Zjištěno poškození stáhnuté nové verze. Byla automaticky odstraněna.</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+18"/>
         <source>Downloading new snapshot from %1 to %2</source>
         <translation>Stahuji novou vývojovou verzi z %1 do %2</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+14"/>
         <source>Failed to write new version to disk.</source>
         <oldsource>Failed to write new version to disc.</oldsource>
         <translation>Nelze zapsat novou verzi na disk.</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+10"/>
         <source>Mumble failed to retrieve version information from the central server.</source>
         <translation>Mumble nemohl z centrálního serveru získat informace o verzi.</translation>
     </message>
@@ -9405,6 +9492,19 @@ Prosím kontaktujte Vašeho administrátora serveru pro další informace.</tran
     <message>
         <source>Press Shortcut</source>
         <translation type="obsolete">Vyberte klávesovou zkratku</translation>
+    </message>
+</context>
+<context>
+    <name>qwPTTButtonWidget</name>
+    <message>
+        <location filename="PTTButtonWidget.ui"/>
+        <source>Mumble PTT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Push to talk</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

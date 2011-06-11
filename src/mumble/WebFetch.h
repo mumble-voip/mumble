@@ -47,7 +47,7 @@ class WebFetch : public QObject {
 		QObject *qoObject;
 		const char *cpSlot;
 		QNetworkReply *qnr;
-	
+
 		WebFetch(QUrl url, QObject *obj, const char *slot);
 	signals:
 		void fetched(QByteArray data, QUrl url, QMap<QString, QString> headers);

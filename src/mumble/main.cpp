@@ -206,7 +206,7 @@ int main(int argc, char **argv) {
 			param.insert(QLatin1String("href"), url);
 #endif
 			MumbleVersion::get(&major, &minor, &patch, version);
-			
+
 			bool sent = false;
 #ifdef USE_DBUS
 			QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));

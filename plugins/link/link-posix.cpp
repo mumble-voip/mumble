@@ -183,12 +183,12 @@ static void load_plugin() {
 
 	if (bCreated) {
 		if (ftruncate(shmfd, sizeof(struct LinkedMem)) != 0) {
-                        fprintf(stderr, "Mumble Link plugin: failed to resize shared memory\n");
-                        close(shmfd);
-                        shmfd = -1;
-                        return;
-                }
-        }
+			fprintf(stderr, "Mumble Link plugin: failed to resize shared memory\n");
+			close(shmfd);
+			shmfd = -1;
+			return;
+		}
+	}
 
 	lm = static_cast<struct LinkedMem*>(
 	         mmap(NULL, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd,0));

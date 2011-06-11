@@ -180,13 +180,13 @@ static void infoToInfo(const Murmur::UserInfoMap &im, QMap<int, QString> &info) 
 static void textmessageToTextmessage(const ::TextMessage &tm, Murmur::TextMessage &tmdst) {
 	tmdst.text = u8(tm.qsText);
 
-	foreach (unsigned int i, tm.qlSessions)
+	foreach(unsigned int i, tm.qlSessions)
 		tmdst.sessions.push_back(i);
-	
-	foreach (unsigned int i, tm.qlChannels)
+
+	foreach(unsigned int i, tm.qlChannels)
 		tmdst.channels.push_back(i);
-	
-	foreach (unsigned int i, tm.qlTrees)
+
+	foreach(unsigned int i, tm.qlTrees)
 		tmdst.trees.push_back(i);
 }
 
