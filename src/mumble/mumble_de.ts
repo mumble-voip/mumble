@@ -460,7 +460,7 @@ Enthält die Liste von Mitgliedern, welche vom aktuellen Kanal geerbt wurden. De
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der Kanal muss einen Namen haben</translation>
     </message>
     <message>
         <location line="-131"/>
@@ -1801,42 +1801,42 @@ Spielt den aktuellen &lt;i&gt;An&lt;/i&gt;-Audio-Hinweis gefolgt vom aktuellen &
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zeigt ein dauerhaft im Vordergrund liegendes Fenster mit einem Push-To-Talk Button</translation>
     </message>
     <message>
         <location/>
         <source>Display push to talk window</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zeige Push-To-Talk Fenster</translation>
     </message>
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished">Verschiedenes</translation>
+        <translation>Verschiedenes</translation>
     </message>
     <message>
         <location/>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tonhinweise bei Beginn oder Ende einer Übertragung</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Dies aktiviert Tonhinweise bei der Übertragung.&lt;/b&gt;&lt;br /&gt;Man hört ein leises Piepen beim Beginn und Ende der Sprachübertragung.</translation>
     </message>
     <message>
         <location/>
         <source>Audio cue</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tonhinweise</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when starting to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wird abgespielt, wenn die Sprachübertragung beginnt</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when stopping to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wird abgespielt, wenn die Sprachübertragung endet</translation>
     </message>
 </context>
 <context>
@@ -7167,27 +7167,27 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
     <message>
         <location line="+197"/>
         <source>The server requests minimum client version %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der Server empfiehlt mindestens die Client-Version %1</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The server requests positional audio be enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der Server empfiehlt aktiviertes Positionsabhängiges Audio.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests positional audio be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der Server empfiehlt deaktiviertes Positionsabhängiges Audio.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The server requests Push-to-Talk be enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der Server empfiehlt aktiviertes Push-To-Talk.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests Push-to-Talk be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der Server empfiehlt deaktiviertes Push-To-Talk.</translation>
     </message>
     <message>
         <source>server</source>
@@ -7473,7 +7473,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <location line="+19"/>
         <source>Link Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kanal verknüpfen</translation>
     </message>
     <message>
         <location line="+390"/>
@@ -7514,19 +7514,21 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
     <message>
         <location line="+24"/>
         <source>Username in use</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Benutzername in Verwendung</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Wrong certificate or password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Falsches Zertifikat oder Passwort</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Falsches Zertifikat oder Passwort für einen registrierten Benutzer. Wenn Sie sicher sind,
+dass diese Benutzerregistrierung mit einem Passwort geschützt ist, versuchen Sie es erneut.
+Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutzernamen.</translation>
     </message>
     <message>
         <location line="+219"/>
@@ -11034,12 +11036,12 @@ Please contact your server administrator for further information.</source>
     <message>
         <location filename="PTTButtonWidget.ui"/>
         <source>Mumble PTT</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mumble PTT</translation>
     </message>
     <message>
         <location/>
         <source>Push to talk</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Push-To-Talk</translation>
     </message>
 </context>
 </TS>
