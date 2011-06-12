@@ -212,9 +212,22 @@ class AudioOutput : public QThread {
 		Q_OBJECT
 		Q_DISABLE_COPY(AudioOutput)
 	private:
+		// Loudspeakers info
+		bool bHeadphones;
 		float *fSpeakers;
-		float *fSpeakerVolume;
 		bool *bSpeakerPositional;
+		bool *bSpeakerDirectional;
+		int iChannelsPositional;
+		int *iSpeakerMap;
+		// Attributes of the listener 
+		float fPosition[3];
+		float fRight[3];
+		float fTop[3];
+		float fFront[3];
+		// Attributes related to the audio source
+		float fDirection[3];
+		float fAttenuation;
+		float fBloom;
 	protected:
 		enum { SampleShort, SampleFloat } eSampleFormat;
 		volatile bool bRunning;
@@ -226,7 +239,10 @@ class AudioOutput : public QThread {
 		QMultiHash<const ClientUser *, AudioOutputUser *> qmOutputs;
 
 		virtual void removeBuffer(AudioOutputUser *);
+		void setSpeakerPositions(const unsigned int *, bool);
 		void initializeMixer(const unsigned int *chanmasks, bool forceheadphone = false);
+		bool positionListener(float *, float *, float *);
+		bool locateSource(float *);
 		bool mix(void *output, unsigned int nsamp);
 	public:
 		void wipe();
@@ -240,7 +256,7 @@ class AudioOutput : public QThread {
 		void run() = 0;
 		virtual bool isAlive() const;
 		const float *getSpeakerPos(unsigned int &nspeakers);
-		static float calcGain(float dotproduct, float distance);
+		float calcGain(unsigned int s);
 		unsigned int getMixerFreq() const;
 };
 
