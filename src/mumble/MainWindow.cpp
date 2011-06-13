@@ -391,6 +391,7 @@ void MainWindow::setupGui()  {
 }
 
 MainWindow::~MainWindow() {
+	delete qwPTTButtonWidget;
 	delete qdwLog->titleBarWidget();
 	delete pmModel;
 	delete qtvUsers;
@@ -907,11 +908,11 @@ void MainWindow::setupView(bool toggle_minimize) {
 	activateWindow();
 
 	// If activated show the PTT window
-	if (g.s.bShowPTTButtonWindow) {
+	if (g.s.bShowPTTButtonWindow && g.s.atTransmit == Settings::PushToTalk) {
 		if (qwPTTButtonWidget) {
 			qwPTTButtonWidget->show();
 		} else {
-			qwPTTButtonWidget = new PTTButtonWidget(this);
+			qwPTTButtonWidget = new PTTButtonWidget();
 			qwPTTButtonWidget->show();
 			connect(qwPTTButtonWidget, SIGNAL(triggered(bool,QVariant)), SLOT(on_PushToTalk_triggered(bool,QVariant)));
 		}
