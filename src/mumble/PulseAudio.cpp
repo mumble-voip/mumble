@@ -39,8 +39,8 @@
 #include <sys/ioctl.h>
 
 
-const char *mumble_sink_input = "Mumble Speakers";
-const char *mumble_echo = "Mumble Speakers (Echo)";
+static const char *mumble_sink_input = "Mumble Speakers";
+static const char *mumble_echo = "Mumble Speakers (Echo)";
 
 static PulseAudioSystem *pasys = NULL;
 
@@ -560,21 +560,13 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 	// do we have some mixed output?
 	if (pao->mix(buffer, samples)) {
 		// attenuate if instructed to or it's in settings
-		if (g.bAttenuateOthers || g.s.bAttenuateOthers) {
-			pas->bAttenuating = true;
-		} else {
-			pas->bAttenuating = false;
-		}
+		pas->bAttenuating = (g.bAttenuateOthers || g.s.bAttenuateOthers);
 
 	} else {
 		memset(buffer, 0, bytes);
 
 		// attenuate if intructed to (self-activated)
-		if (g.bAttenuateOthers) {
-			pas->bAttenuating = true;
-		} else {
-			pas->bAttenuating = false;
-		}
+		pas->bAttenuating = g.bAttenuateOthers;
 	}
 
 	// if the attenuation state has changed
@@ -599,8 +591,8 @@ void PulseAudioSystem::volume_sink_input_callback(pa_context *c, const pa_sink_i
 
 	} else {
 		// end of list, re-iterate and set new volumes
-		QHash<uint32_t, pa_cvolume>::const_iterator it = pas->qhVolumes.constBegin();
-		while (it != pas->qhVolumes.constEnd()) {
+		QHash<uint32_t, pa_cvolume>::const_iterator it;
+		for (it = pas->qhVolumes.constBegin(); it != pas->qhVolumes.constEnd(); it++) {
 			// calculate the new volume
 			pa_cvolume adjusted;
 			pa_volume_t adj = PA_VOLUME_NORM * g.s.fOtherVolume;
@@ -608,8 +600,6 @@ void PulseAudioSystem::volume_sink_input_callback(pa_context *c, const pa_sink_i
 
 			// and set it on the sink input
 			pa_context_set_sink_input_volume(c, it.key(), &adjusted, NULL, NULL);
-
-			it++;
 		}
 	}
 }
@@ -640,12 +630,12 @@ void PulseAudioSystem::setVolumes() {
 	// clear attenuation state and restore normal volumes
 	} else {
 		// iterate the hash and restore each volume
-		QHash<uint32_t, pa_cvolume>::const_iterator it = this->qhVolumes.constBegin();
-		while (it != this->qhVolumes.constEnd()) {
+		QHash<uint32_t, pa_cvolume>::const_iterator it;
+		for (it = this->qhVolumes.constBegin(); it != this->qhVolumes.constEnd(); it++) {
 			pa_context_set_sink_input_volume(pacContext, it.key(), &it.value(), NULL, NULL);
-			it++;
 		}
 
+		// clear our cache
 		qhVolumes.clear();
 	}
 }
