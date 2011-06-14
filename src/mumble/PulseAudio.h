@@ -61,6 +61,9 @@ class PulseAudioSystem : public QObject {
 		QHash<QString, pa_sample_spec> qhSpecMap;
 		QHash<QString, pa_channel_map> qhChanMap;
 
+		bool bAttenuating;
+		QHash<uint32_t, pa_cvolume> qhVolumes;
+
 		static void defer_event_callback(pa_mainloop_api *a, pa_defer_event *e, void *userdata);
 		static void context_state_callback(pa_context *c, void *userdata);
 		static void subscribe_callback(pa_context *c, pa_subscription_event_type_t t, uint32_t idx, void *userdata);
@@ -70,10 +73,13 @@ class PulseAudioSystem : public QObject {
 		static void stream_callback(pa_stream *s, void *userdata);
 		static void read_callback(pa_stream *s, size_t bytes, void *userdata);
 		static void write_callback(pa_stream *s, size_t bytes, void *userdata);
+		static void volume_sink_input_callback(pa_context *c, const pa_sink_input_info *i, int eol, void *userdata);
 		void contextCallback(pa_context *c);
 		void eventCallback(pa_mainloop_api *a, pa_defer_event *e);
 
 		void query();
+
+		void setVolumes();
 
 	public:
 		QHash<QString, QString> qhInput;

@@ -38,6 +38,10 @@
 #include <errno.h>
 #include <sys/ioctl.h>
 
+
+const char *mumble_sink_input = "Mumble Speakers";
+const char *mumble_echo = "Mumble Speakers (Echo)";
+
 static PulseAudioSystem *pasys = NULL;
 
 #define NBLOCKS 8
@@ -58,6 +62,7 @@ class PulseAudioOutputRegistrar : public AudioOutputRegistrar {
 		virtual AudioOutput *create();
 		virtual const QList<audioDevice> getDeviceChoices();
 		virtual void setDeviceChoice(const QVariant &, Settings &);
+		bool canMuteOthers() const;
 };
 
 class PulseAudioInit : public DeferInit {
@@ -94,6 +99,7 @@ PulseAudioSystem::PulseAudioSystem() {
 	bSourceDone=bSinkDone=bServerDone = false;
 	iDelayCache = 0;
 	bPositionalCache = false;
+	bAttenuating = false;
 	bPulseIsGood = false;
 
 	pam = pa_threaded_mainloop_new();
@@ -181,7 +187,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 						if ((pss.channels == 0) || (! g.s.doPositionalAudio()))
 							pss.channels = 1;
 
-						pasOutput = pa_stream_new(pacContext, "Mumble Speakers", &pss, (pss.channels == 1) ? NULL : &pcm);
+						pasOutput = pa_stream_new(pacContext, mumble_sink_input, &pss, (pss.channels == 1) ? NULL : &pcm);
 						pa_stream_set_state_callback(pasOutput, stream_callback, this);
 						pa_stream_set_write_callback(pasOutput, write_callback, this);
 					}
@@ -306,7 +312,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 						if ((pss.channels == 0) || (! g.s.bEchoMulti))
 							pss.channels = 1;
 
-						pasSpeaker = pa_stream_new(pacContext, "Mumble Speakers (Echo)", &pss, (pss.channels == 1) ? NULL : &pcm);
+						pasSpeaker = pa_stream_new(pacContext, mumble_echo, &pss, (pss.channels == 1) ? NULL : &pcm);
 						pa_stream_set_state_callback(pasSpeaker, stream_callback, this);
 						pa_stream_set_read_callback(pasSpeaker, read_callback, this);
 					}
@@ -549,10 +555,63 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 
 	const unsigned int iSampleSize = pao->iSampleSize;
 	const unsigned int samples = bytes / iSampleSize;
+	bool oldAttenuation = pas->bAttenuating;
 
-	if (! pao->mix(buffer, samples))
+	// do we have some mixed output?
+	if (pao->mix(buffer, samples)) {
+		// attenuate if instructed to or it's in settings
+		if (g.bAttenuateOthers || g.s.bAttenuateOthers) {
+			pas->bAttenuating = true;
+		} else {
+			pas->bAttenuating = false;
+		}
+
+	} else {
 		memset(buffer, 0, bytes);
+
+		// attenuate if intructed to (self-activated)
+		if (g.bAttenuateOthers) {
+			pas->bAttenuating = true;
+		} else {
+			pas->bAttenuating = false;
+		}
+	}
+
+	// if the attenuation state has changed
+	if (oldAttenuation != pas->bAttenuating) {
+		pas->setVolumes();
+	}
+
 	pa_stream_write(s, buffer, iSampleSize * samples, NULL, 0, PA_SEEK_RELATIVE);
+}
+
+void PulseAudioSystem::volume_sink_input_callback(pa_context *c, const pa_sink_input_info *i, int eol, void *userdata) {
+	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
+
+	if (eol == 0) {
+		// store the original volume (skip mumble, we don't want to attenuate ourselves)
+		if (strcmp(i->name, mumble_sink_input) != 0) {
+			pas->qhVolumes[i->index] = i->volume;
+		}
+
+	} else if (eol < 0) {
+		qWarning("Sink input introspection error.");
+
+	} else {
+		// end of list, re-iterate and set new volumes
+		QHash<uint32_t, pa_cvolume>::const_iterator it = pas->qhVolumes.constBegin();
+		while (it != pas->qhVolumes.constEnd()) {
+			// calculate the new volume
+			pa_cvolume adjusted;
+			pa_volume_t adj = PA_VOLUME_NORM * g.s.fOtherVolume;
+			pa_sw_cvolume_multiply_scalar(&adjusted, &it.value(), adj);
+
+			// and set it on the sink input
+			pa_context_set_sink_input_volume(c, it.key(), &adjusted, NULL, NULL);
+
+			it++;
+		}
+	}
 }
 
 void PulseAudioSystem::query() {
@@ -568,6 +627,27 @@ void PulseAudioSystem::query() {
 	pa_operation_unref(pa_context_get_sink_info_list(pacContext, sink_callback, this));
 	pa_operation_unref(pa_context_get_source_info_list(pacContext, source_callback, this));
 	wakeup();
+}
+
+void PulseAudioSystem::setVolumes() {
+	// set attenuation state and volumes
+	if (bAttenuating) {
+		// ensure the volume map is empty, otherwise it may be dangerous to change
+		if (qhVolumes.empty()) {
+			// set the new per-application volumes and store the old ones
+			pa_context_get_sink_input_info_list(pacContext, volume_sink_input_callback, this);
+		}
+	// clear attenuation state and restore normal volumes
+	} else {
+		// iterate the hash and restore each volume
+		QHash<uint32_t, pa_cvolume>::const_iterator it = this->qhVolumes.constBegin();
+		while (it != this->qhVolumes.constEnd()) {
+			pa_context_set_sink_input_volume(pacContext, it.key(), &it.value(), NULL, NULL);
+			it++;
+		}
+
+		qhVolumes.clear();
+	}
 }
 
 void PulseAudioSystem::contextCallback(pa_context *c) {
@@ -653,6 +733,10 @@ const QList<audioDevice> PulseAudioOutputRegistrar::getDeviceChoices() {
 
 void PulseAudioOutputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) {
 	s.qsPulseAudioOutput = choice.toString();
+}
+
+bool PulseAudioOutputRegistrar::canMuteOthers() const {
+	return true;
 }
 
 PulseAudioInput::PulseAudioInput() {
