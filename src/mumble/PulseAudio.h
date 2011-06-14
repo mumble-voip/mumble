@@ -34,6 +34,15 @@
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include <pulse/pulseaudio.h>
+#include <pulse/ext-stream-restore.h>
+
+struct PulseAttenuation {
+	uint32_t index;
+	QString name;
+	QString stream_restore_id;
+	pa_cvolume normal_volume;
+	pa_cvolume attenuated_volume;
+};
 
 class PulseAudioInput;
 class PulseAudioOutput;
@@ -49,7 +58,7 @@ class PulseAudioSystem : public QObject {
 		pa_threaded_mainloop *pam;
 		pa_defer_event *pade;
 
-		bool bSourceDone, bSinkDone, bServerDone;
+		bool bSourceDone, bSinkDone, bServerDone, bRunning;
 
 		QString qsDefaultInput, qsDefaultOutput;
 
@@ -61,6 +70,13 @@ class PulseAudioSystem : public QObject {
 		QHash<QString, pa_sample_spec> qhSpecMap;
 		QHash<QString, pa_channel_map> qhChanMap;
 
+		bool bAttenuating;
+		int iRemainingOperations;
+		QHash<uint32_t, PulseAttenuation> qhVolumes;
+		QList<uint32_t> qlMatchedSinks;
+		QHash<QString, PulseAttenuation> qhUnmatchedSinks;
+		QHash<QString, PulseAttenuation> qhMissingSinks;
+
 		static void defer_event_callback(pa_mainloop_api *a, pa_defer_event *e, void *userdata);
 		static void context_state_callback(pa_context *c, void *userdata);
 		static void subscribe_callback(pa_context *c, pa_subscription_event_type_t t, uint32_t idx, void *userdata);
@@ -70,10 +86,17 @@ class PulseAudioSystem : public QObject {
 		static void stream_callback(pa_stream *s, void *userdata);
 		static void read_callback(pa_stream *s, size_t bytes, void *userdata);
 		static void write_callback(pa_stream *s, size_t bytes, void *userdata);
+		static void volume_sink_input_list_callback(pa_context *c, const pa_sink_input_info *i, int eol, void *userdata);
+		static void restore_sink_input_list_callback(pa_context *c, const pa_sink_input_info *i, int eol, void *userdata);
+		static void stream_restore_read_callback(pa_context *c, const pa_ext_stream_restore_info *i, int eol, void *userdata);
+		static void restore_volume_success_callback(pa_context *c, int success, void *userdata);
 		void contextCallback(pa_context *c);
 		void eventCallback(pa_mainloop_api *a, pa_defer_event *e);
 
 		void query();
+
+		void setVolumes();
+		PulseAttenuation* getAttenuation(QString stream_restore_id);
 
 	public:
 		QHash<QString, QString> qhInput;
