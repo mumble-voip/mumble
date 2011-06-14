@@ -832,7 +832,7 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 		msg.msg_iov = iov;
 		msg.msg_iovlen = 1;
 		msg.msg_control = controldata;
-		msg.msg_controllen = sizeof(controldata);
+		msg.msg_controllen = CMSG_SPACE((u->saiUdpAddress.ss_family == AF_INET6) ? sizeof(struct in6_pktinfo) : sizeof(struct in_pktinfo));
 
 		struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
 		if (u->saiTcpLocalAddress.ss_family == AF_INET6) {
