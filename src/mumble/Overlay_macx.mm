@@ -40,10 +40,10 @@ extern "C" {
 #include <xar/xar.h>
 }
 
-static const NSString *MumbleOverlayLoaderBundle = @"/Library/ScriptingAdditions/MumbleOverlay.osax";
-static const NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.mumble.OverlayScriptingAddition";
+static NSString *MumbleOverlayLoaderBundle = @"/Library/ScriptingAdditions/MumbleOverlay.osax";
+static NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.mumble.OverlayScriptingAddition";
 
-@interface OverlayInjectorMac : NSObject {
+@interface OverlayInjectorMac : NSObject <SBApplicationDelegate> {
 	BOOL active;
 }
 

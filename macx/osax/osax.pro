@@ -4,6 +4,9 @@
 include(../../compiler.pri)
 
 CONFIG += x86_64 x86 ppc debug_and_release
+CONFIG(lion) {
+	CONFIG -= ppc
+}
 
 TEMPLATE = lib
 CONFIG += plugin plugin_bundle
