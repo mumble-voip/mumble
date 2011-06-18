@@ -577,29 +577,100 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 	pa_stream_write(s, buffer, iSampleSize * samples, NULL, 0, PA_SEEK_RELATIVE);
 }
 
-void PulseAudioSystem::volume_sink_input_callback(pa_context *c, const pa_sink_input_info *i, int eol, void *userdata) {
+void PulseAudioSystem::volume_sink_input_list_callback(pa_context *c, const pa_sink_input_info *i, int eol, void *userdata) {
 	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
 
 	if (eol == 0) {
-		// store the original volume (skip mumble, we don't want to attenuate ourselves)
+		// ensure we're not attenuating ourselves!
 		if (strcmp(i->name, mumble_sink_input) != 0) {
-			pas->qhVolumes[i->index] = i->volume;
+			// create a new entry
+			PulseAttenuation patt;
+			patt.index = i->index;
+			patt.name = QLatin1String(i->name);
+			patt.stream_restore_id = QLatin1String(pa_proplist_gets(i->proplist, "module-stream-restore.id"));
+			patt.normal_volume = i->volume;
+
+			// calculate the attenuated volume
+			pa_volume_t adj = PA_VOLUME_NORM * g.s.fOtherVolume;
+			pa_sw_cvolume_multiply_scalar(&patt.attenuated_volume, &i->volume, adj);
+
+			// set it on the sink input
+			pa_context_set_sink_input_volume(c, i->index, &patt.attenuated_volume, NULL, NULL);
+
+			// store it
+			pas->qhVolumes[i->index] = patt;
+		}
+
+	} else if (eol < 0) {
+		qWarning("Sink input introspection error.");
+	}
+}
+
+void PulseAudioSystem::restore_sink_input_list_callback(pa_context *c, const pa_sink_input_info *i, int eol, void *userdata) {
+	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
+
+	if (eol == 0) {
+		// if we were tracking this specific sink previously
+		if (pas->qhVolumes.contains(i->index)) {
+			// and if it has the attenuated volume we applied to it
+			if (pa_cvolume_equal(&i->volume, &pas->qhVolumes[i->index].attenuated_volume) != 0) {
+				// mark it as matched
+				pas->qlMatchedSinks.append(i->index);
+
+				// reset the volume to normal
+				pa_context_set_sink_input_volume(c, i->index, &pas->qhVolumes[i->index].normal_volume, NULL, NULL);
+			}
+
+		// otherwise, save for matching at the end of iteration
+		} else {
+			QString restore_id = QLatin1String(pa_proplist_gets(i->proplist, "module-stream-restore.id"));
+			PulseAttenuation patt;
+			patt.index = i->index;
+			patt.normal_volume = i->volume;
+			pas->qhUnmatchedSinks[restore_id] = patt;
 		}
 
 	} else if (eol < 0) {
 		qWarning("Sink input introspection error.");
 
 	} else {
-		// end of list, re-iterate and set new volumes
-		QHash<uint32_t, pa_cvolume>::const_iterator it;
-		for (it = pas->qhVolumes.constBegin(); it != pas->qhVolumes.constEnd(); it++) {
-			// calculate the new volume
-			pa_cvolume adjusted;
-			pa_volume_t adj = PA_VOLUME_NORM * g.s.fOtherVolume;
-			pa_sw_cvolume_multiply_scalar(&adjusted, &it.value(), adj);
+		// build a list of missing streams by iterating our active list
+		QHash<uint32_t, PulseAttenuation>::const_iterator it;
+		for (it = pas->qhVolumes.constBegin(); it != pas->qhVolumes.constEnd(); ++it) {
+			// skip if previously matched
+			if (pas->qlMatchedSinks.contains(it.key())) {
+				continue;
+			}
 
-			// and set it on the sink input
-			pa_context_set_sink_input_volume(c, it.key(), &adjusted, NULL, NULL);
+			// check if the restore id matches. the only case where this would
+			// happen is if the application was reopened during attenuation.
+			if (pas->qhUnmatchedSinks.contains(it.value().stream_restore_id)) {
+				PulseAttenuation active_sink = pas->qhUnmatchedSinks[it.value().stream_restore_id];
+				// if the volume wasn't changed from our attenuation
+				if (pa_cvolume_equal(&active_sink.normal_volume, &it.value().attenuated_volume) != 0) {
+					// reset the volume to normal
+					pa_context_set_sink_input_volume(c, active_sink.index, &it.value().normal_volume, NULL, NULL);
+				}
+				continue;
+			}
+
+			// at this point, we don't know what happened to the sink. add
+			// it to a list to check the stream restore database for.
+			pas->qlMissingSinks.append(it.value());
+		}
+
+		// clean up
+		pas->qlMatchedSinks.clear();
+		pas->qhUnmatchedSinks.clear();
+
+		// if we had missing sinks, check the stream restore database
+		// to see if we can find and update them.
+		if (pas->qlMissingSinks.count() > 0) {
+			// TODO
+			// TODO: move this call to the end of iteration of restore db
+			         pas->qhVolumes.clear();
+		} else {
+			pas->qhVolumes.clear();
 		}
 	}
 }
@@ -625,19 +696,23 @@ void PulseAudioSystem::setVolumes() {
 		// ensure the volume map is empty, otherwise it may be dangerous to change
 		if (qhVolumes.empty()) {
 			// set the new per-application volumes and store the old ones
-			pa_context_get_sink_input_info_list(pacContext, volume_sink_input_callback, this);
+			pa_context_get_sink_input_info_list(pacContext, volume_sink_input_list_callback, this);
 		}
 	// clear attenuation state and restore normal volumes
 	} else {
-		// iterate the hash and restore each volume
-		QHash<uint32_t, pa_cvolume>::const_iterator it;
-		for (it = this->qhVolumes.constBegin(); it != this->qhVolumes.constEnd(); it++) {
-			pa_context_set_sink_input_volume(pacContext, it.key(), &it.value(), NULL, NULL);
-		}
-
-		// clear our cache
-		qhVolumes.clear();
+		pa_context_get_sink_input_info_list(pacContext, restore_sink_input_list_callback, this);
 	}
+}
+
+PulseAttenuation* PulseAudioSystem::getAttenuation(QString stream_restore_id) {
+	QHash<uint32_t, PulseAttenuation>::const_iterator it;
+	for (it = this->qhVolumes.constBegin(); it != this->qhVolumes.constEnd(); ++it)
+	{
+		if (it.value().stream_restore_id == stream_restore_id) {
+			return &this->qhVolumes[it.key()];
+		}
+	}
+	return NULL;
 }
 
 void PulseAudioSystem::contextCallback(pa_context *c) {

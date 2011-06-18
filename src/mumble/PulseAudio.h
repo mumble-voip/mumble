@@ -35,6 +35,14 @@
 #include "AudioOutput.h"
 #include <pulse/pulseaudio.h>
 
+struct PulseAttenuation {
+	uint32_t index;
+	QString name;
+	QString stream_restore_id;
+	pa_cvolume normal_volume;
+	pa_cvolume attenuated_volume;
+};
+
 class PulseAudioInput;
 class PulseAudioOutput;
 
@@ -62,7 +70,10 @@ class PulseAudioSystem : public QObject {
 		QHash<QString, pa_channel_map> qhChanMap;
 
 		bool bAttenuating;
-		QHash<uint32_t, pa_cvolume> qhVolumes;
+		QHash<uint32_t, PulseAttenuation> qhVolumes;
+		QList<uint32_t> qlMatchedSinks;
+		QHash<QString, PulseAttenuation> qhUnmatchedSinks;
+		QList<PulseAttenuation> qlMissingSinks;
 
 		static void defer_event_callback(pa_mainloop_api *a, pa_defer_event *e, void *userdata);
 		static void context_state_callback(pa_context *c, void *userdata);
@@ -73,13 +84,15 @@ class PulseAudioSystem : public QObject {
 		static void stream_callback(pa_stream *s, void *userdata);
 		static void read_callback(pa_stream *s, size_t bytes, void *userdata);
 		static void write_callback(pa_stream *s, size_t bytes, void *userdata);
-		static void volume_sink_input_callback(pa_context *c, const pa_sink_input_info *i, int eol, void *userdata);
+		static void volume_sink_input_list_callback(pa_context *c, const pa_sink_input_info *i, int eol, void *userdata);
+		static void restore_sink_input_list_callback(pa_context *c, const pa_sink_input_info *i, int eol, void *userdata);
 		void contextCallback(pa_context *c);
 		void eventCallback(pa_mainloop_api *a, pa_defer_event *e);
 
 		void query();
 
 		void setVolumes();
+		PulseAttenuation* getAttenuation(QString stream_restore_id);
 
 	public:
 		QHash<QString, QString> qhInput;
