@@ -34,6 +34,7 @@
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include <pulse/pulseaudio.h>
+#include <pulse/ext-stream-restore.h>
 
 struct PulseAttenuation {
 	uint32_t index;
@@ -73,7 +74,7 @@ class PulseAudioSystem : public QObject {
 		QHash<uint32_t, PulseAttenuation> qhVolumes;
 		QList<uint32_t> qlMatchedSinks;
 		QHash<QString, PulseAttenuation> qhUnmatchedSinks;
-		QList<PulseAttenuation> qlMissingSinks;
+		QHash<QString, PulseAttenuation> qhMissingSinks;
 
 		static void defer_event_callback(pa_mainloop_api *a, pa_defer_event *e, void *userdata);
 		static void context_state_callback(pa_context *c, void *userdata);
@@ -86,6 +87,7 @@ class PulseAudioSystem : public QObject {
 		static void write_callback(pa_stream *s, size_t bytes, void *userdata);
 		static void volume_sink_input_list_callback(pa_context *c, const pa_sink_input_info *i, int eol, void *userdata);
 		static void restore_sink_input_list_callback(pa_context *c, const pa_sink_input_info *i, int eol, void *userdata);
+		static void stream_restore_read_callback(pa_context *c, const pa_ext_stream_restore_info *i, int eol, void *userdata);
 		void contextCallback(pa_context *c);
 		void eventCallback(pa_mainloop_api *a, pa_defer_event *e);
 

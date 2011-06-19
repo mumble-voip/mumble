@@ -591,7 +591,7 @@ void PulseAudioSystem::volume_sink_input_list_callback(pa_context *c, const pa_s
 			patt.normal_volume = i->volume;
 
 			// calculate the attenuated volume
-			pa_volume_t adj = PA_VOLUME_NORM * g.s.fOtherVolume;
+			pa_volume_t adj = static_cast<pa_volume_t>(PA_VOLUME_NORM * g.s.fOtherVolume);
 			pa_sw_cvolume_multiply_scalar(&patt.attenuated_volume, &i->volume, adj);
 
 			// set it on the sink input
@@ -602,7 +602,7 @@ void PulseAudioSystem::volume_sink_input_list_callback(pa_context *c, const pa_s
 		}
 
 	} else if (eol < 0) {
-		qWarning("Sink input introspection error.");
+		qWarning("PulseAudio: Sink input introspection error.");
 	}
 }
 
@@ -631,7 +631,7 @@ void PulseAudioSystem::restore_sink_input_list_callback(pa_context *c, const pa_
 		}
 
 	} else if (eol < 0) {
-		qWarning("Sink input introspection error.");
+		qWarning("PulseAudio: Sink input introspection error.");
 
 	} else {
 		// build a list of missing streams by iterating our active list
@@ -656,21 +656,49 @@ void PulseAudioSystem::restore_sink_input_list_callback(pa_context *c, const pa_
 
 			// at this point, we don't know what happened to the sink. add
 			// it to a list to check the stream restore database for.
-			pas->qlMissingSinks.append(it.value());
+			pas->qhMissingSinks[it.value().stream_restore_id] = it.value();
 		}
 
 		// clean up
 		pas->qlMatchedSinks.clear();
 		pas->qhUnmatchedSinks.clear();
+		pas->qhVolumes.clear();
 
 		// if we had missing sinks, check the stream restore database
 		// to see if we can find and update them.
-		if (pas->qlMissingSinks.count() > 0) {
-			// TODO
-			// TODO: move this call to the end of iteration of restore db
-			         pas->qhVolumes.clear();
-		} else {
-			pas->qhVolumes.clear();
+		if (pas->qhMissingSinks.count() > 0) {
+			pa_ext_stream_restore_read(c, stream_restore_read_callback, pas);
+		}
+	}
+}
+
+void PulseAudioSystem::stream_restore_read_callback(pa_context *c, const pa_ext_stream_restore_info *i, int eol, void *userdata) {
+	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
+
+	if (eol == 0) {
+		QString name = QLatin1String(i->name);
+		// were we looking for this restoration?
+		if (pas->qhMissingSinks.contains(name)) {
+			// make sure it still has the volume we gave it
+			if (pa_cvolume_equal(&pas->qhMissingSinks[name].attenuated_volume, &i->volume) != 0) {
+				// update the stream restore record
+				pa_ext_stream_restore_info restore = *i;
+				restore.volume = pas->qhMissingSinks[name].normal_volume;
+				pa_ext_stream_restore_write(c, PA_UPDATE_REPLACE, &restore, 1, 1, NULL, NULL);
+			}
+
+			pas->qhMissingSinks.remove(name);
+		}
+
+	} else if (eol < 0) {
+		qWarning("PulseAudio: Couldn't read stream restore database.");
+		pas->qhMissingSinks.clear();
+
+	} else {
+		// verify missing list is empty
+		if (pas->qhMissingSinks.count() > 0) {
+			qWarning("PulseAudio: Failed to match %d stream(s).", pas->qhMissingSinks.count());
+			pas->qhMissingSinks.clear();
 		}
 	}
 }
