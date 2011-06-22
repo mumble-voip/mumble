@@ -595,7 +595,7 @@ void PulseAudioSystem::volume_sink_input_list_callback(pa_context *c, const pa_s
 			pa_sw_cvolume_multiply_scalar(&patt.attenuated_volume, &i->volume, adj);
 
 			// set it on the sink input
-			pa_context_set_sink_input_volume(c, i->index, &patt.attenuated_volume, NULL, NULL);
+			pa_operation_unref(pa_context_set_sink_input_volume(c, i->index, &patt.attenuated_volume, NULL, NULL));
 
 			// store it
 			pas->qhVolumes[i->index] = patt;
@@ -618,7 +618,7 @@ void PulseAudioSystem::restore_sink_input_list_callback(pa_context *c, const pa_
 				pas->qlMatchedSinks.append(i->index);
 
 				// reset the volume to normal
-				pa_context_set_sink_input_volume(c, i->index, &pas->qhVolumes[i->index].normal_volume, NULL, NULL);
+				pa_operation_unref(pa_context_set_sink_input_volume(c, i->index, &pas->qhVolumes[i->index].normal_volume, NULL, NULL));
 			}
 
 		// otherwise, save for matching at the end of iteration
@@ -649,7 +649,7 @@ void PulseAudioSystem::restore_sink_input_list_callback(pa_context *c, const pa_
 				// if the volume wasn't changed from our attenuation
 				if (pa_cvolume_equal(&active_sink.normal_volume, &it.value().attenuated_volume) != 0) {
 					// reset the volume to normal
-					pa_context_set_sink_input_volume(c, active_sink.index, &it.value().normal_volume, NULL, NULL);
+					pa_operation_unref(pa_context_set_sink_input_volume(c, active_sink.index, &it.value().normal_volume, NULL, NULL));
 				}
 				continue;
 			}
@@ -724,11 +724,11 @@ void PulseAudioSystem::setVolumes() {
 		// ensure the volume map is empty, otherwise it may be dangerous to change
 		if (qhVolumes.empty()) {
 			// set the new per-application volumes and store the old ones
-			pa_context_get_sink_input_info_list(pacContext, volume_sink_input_list_callback, this);
+			pa_operation_unref(pa_context_get_sink_input_info_list(pacContext, volume_sink_input_list_callback, this));
 		}
 	// clear attenuation state and restore normal volumes
 	} else {
-		pa_context_get_sink_input_info_list(pacContext, restore_sink_input_list_callback, this);
+		pa_operation_unref(pa_context_get_sink_input_info_list(pacContext, restore_sink_input_list_callback, this));
 	}
 }
 
