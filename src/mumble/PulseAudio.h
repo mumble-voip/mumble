@@ -58,7 +58,7 @@ class PulseAudioSystem : public QObject {
 		pa_threaded_mainloop *pam;
 		pa_defer_event *pade;
 
-		bool bSourceDone, bSinkDone, bServerDone;
+		bool bSourceDone, bSinkDone, bServerDone, bRunning;
 
 		QString qsDefaultInput, qsDefaultOutput;
 
@@ -71,6 +71,7 @@ class PulseAudioSystem : public QObject {
 		QHash<QString, pa_channel_map> qhChanMap;
 
 		bool bAttenuating;
+		int iRemainingOperations;
 		QHash<uint32_t, PulseAttenuation> qhVolumes;
 		QList<uint32_t> qlMatchedSinks;
 		QHash<QString, PulseAttenuation> qhUnmatchedSinks;
@@ -88,6 +89,7 @@ class PulseAudioSystem : public QObject {
 		static void volume_sink_input_list_callback(pa_context *c, const pa_sink_input_info *i, int eol, void *userdata);
 		static void restore_sink_input_list_callback(pa_context *c, const pa_sink_input_info *i, int eol, void *userdata);
 		static void stream_restore_read_callback(pa_context *c, const pa_ext_stream_restore_info *i, int eol, void *userdata);
+		static void restore_volume_success_callback(pa_context *c, int success, void *userdata);
 		void contextCallback(pa_context *c);
 		void eventCallback(pa_mainloop_api *a, pa_defer_event *e);
 

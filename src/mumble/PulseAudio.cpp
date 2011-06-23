@@ -100,6 +100,7 @@ PulseAudioSystem::PulseAudioSystem() {
 	iDelayCache = 0;
 	bPositionalCache = false;
 	bAttenuating = false;
+	iRemainingOperations = 0;
 	bPulseIsGood = false;
 
 	pam = pa_threaded_mainloop_new();
@@ -125,9 +126,22 @@ PulseAudioSystem::PulseAudioSystem() {
 	api->defer_enable(pade, false);
 
 	pa_threaded_mainloop_start(pam);
+
+	bRunning = true;
 }
 
 PulseAudioSystem::~PulseAudioSystem() {
+	bRunning = false;
+	if (bAttenuating) {
+		qmWait.lock();
+		bAttenuating = false;
+		setVolumes();
+		bool success = qwcWait.wait(&qmWait, 1000);
+		if (! success) {
+			qWarning("PulseAudio: Shutdown timeout when attempting to restore volumes.");
+		}
+		qmWait.unlock();
+	}
 	pa_threaded_mainloop_stop(pam);
 	pa_context_disconnect(pacContext);
 	pa_context_unref(pacContext);
@@ -618,7 +632,8 @@ void PulseAudioSystem::restore_sink_input_list_callback(pa_context *c, const pa_
 				pas->qlMatchedSinks.append(i->index);
 
 				// reset the volume to normal
-				pa_operation_unref(pa_context_set_sink_input_volume(c, i->index, &pas->qhVolumes[i->index].normal_volume, NULL, NULL));
+				pas->iRemainingOperations++;
+				pa_operation_unref(pa_context_set_sink_input_volume(c, i->index, &pas->qhVolumes[i->index].normal_volume, restore_volume_success_callback, pas));
 			}
 
 		// otherwise, save for matching at the end of iteration
@@ -649,7 +664,8 @@ void PulseAudioSystem::restore_sink_input_list_callback(pa_context *c, const pa_
 				// if the volume wasn't changed from our attenuation
 				if (pa_cvolume_equal(&active_sink.normal_volume, &it.value().attenuated_volume) != 0) {
 					// reset the volume to normal
-					pa_operation_unref(pa_context_set_sink_input_volume(c, active_sink.index, &it.value().normal_volume, NULL, NULL));
+					pas->iRemainingOperations++;
+					pa_operation_unref(pa_context_set_sink_input_volume(c, active_sink.index, &it.value().normal_volume, restore_volume_success_callback, pas));
 				}
 				continue;
 			}
@@ -667,8 +683,13 @@ void PulseAudioSystem::restore_sink_input_list_callback(pa_context *c, const pa_
 		// if we had missing sinks, check the stream restore database
 		// to see if we can find and update them.
 		if (pas->qhMissingSinks.count() > 0) {
-			pa_ext_stream_restore_read(c, stream_restore_read_callback, pas);
+			pas->iRemainingOperations++;
+			pa_operation_unref(pa_ext_stream_restore_read(c, stream_restore_read_callback, pas));
 		}
+
+		// trigger the volume completion callback;
+		// necessary so that shutdown actions are called
+		restore_volume_success_callback(c, 1, pas);
 	}
 }
 
@@ -677,6 +698,7 @@ void PulseAudioSystem::stream_restore_read_callback(pa_context *c, const pa_ext_
 
 	if (eol == 0) {
 		QString name = QLatin1String(i->name);
+
 		// were we looking for this restoration?
 		if (pas->qhMissingSinks.contains(name)) {
 			// make sure it still has the volume we gave it
@@ -684,7 +706,8 @@ void PulseAudioSystem::stream_restore_read_callback(pa_context *c, const pa_ext_
 				// update the stream restore record
 				pa_ext_stream_restore_info restore = *i;
 				restore.volume = pas->qhMissingSinks[name].normal_volume;
-				pa_ext_stream_restore_write(c, PA_UPDATE_REPLACE, &restore, 1, 1, NULL, NULL);
+				pas->iRemainingOperations++;
+				pa_operation_unref(pa_ext_stream_restore_write(c, PA_UPDATE_REPLACE, &restore, 1, 1, restore_volume_success_callback, pas));
 			}
 
 			pas->qhMissingSinks.remove(name);
@@ -700,6 +723,22 @@ void PulseAudioSystem::stream_restore_read_callback(pa_context *c, const pa_ext_
 			qWarning("PulseAudio: Failed to match %d stream(s).", pas->qhMissingSinks.count());
 			pas->qhMissingSinks.clear();
 		}
+
+		// trigger the volume completion callback;
+		// necessary so that shutdown actions are called
+		restore_volume_success_callback(c, 1, pas);
+	}
+}
+
+void PulseAudioSystem::restore_volume_success_callback(pa_context *c, int success, void *userdata) {
+	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
+
+	pas->iRemainingOperations--;
+
+	// if there are no more pending volume adjustments and we're shutting down,
+	// let the main thread know
+	if (! pas->bRunning && pas->iRemainingOperations == 0) {
+		pas->qwcWait.wakeAll();
 	}
 }
 
@@ -728,19 +767,9 @@ void PulseAudioSystem::setVolumes() {
 		}
 	// clear attenuation state and restore normal volumes
 	} else {
+		iRemainingOperations++;
 		pa_operation_unref(pa_context_get_sink_input_info_list(pacContext, restore_sink_input_list_callback, this));
 	}
-}
-
-PulseAttenuation* PulseAudioSystem::getAttenuation(QString stream_restore_id) {
-	QHash<uint32_t, PulseAttenuation>::const_iterator it;
-	for (it = this->qhVolumes.constBegin(); it != this->qhVolumes.constEnd(); ++it)
-	{
-		if (it.value().stream_restore_id == stream_restore_id) {
-			return &this->qhVolumes[it.key()];
-		}
-	}
-	return NULL;
 }
 
 void PulseAudioSystem::contextCallback(pa_context *c) {
