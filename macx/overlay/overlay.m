@@ -751,7 +751,7 @@ void MumbleOverlayEntryPoint() {
 	/* CGL */
 	if (AVAIL(CGLFlushDrawable)) {
 		ods("Attempting to hook CGL");
-		if (mach_override("_CGLFlushDrawable", NULL, CGLFlushDrawableOverride, (void **) &oCGLFlushDrawable) != 0) {
+		if (mach_override_ptr(dlsym(RTLD_DEFAULT, "CGLFlushDrawable"), CGLFlushDrawableOverride, (void **) &oCGLFlushDrawable) != 0) {
 			ods("CGLFlushDrawable override failed.");
 		} else
 			ods("Up running.");
@@ -760,10 +760,10 @@ void MumbleOverlayEntryPoint() {
 	}
 
 	if (AVAIL(CGDisplayHideCursor) && AVAIL(CGDisplayShowCursor)) {
-		if (mach_override("_CGDisplayHideCursor", NULL, CGDisplayHideCursorOverride, (void **) &oCGDisplayHideCursor) != 0) {
+		if (mach_override_ptr(dlsym(RTLD_DEFAULT, "CGDisplayHideCursor"), CGDisplayHideCursorOverride, (void **) &oCGDisplayHideCursor) != 0) {
 			ods("CGDisplayHideCursor override failed");
 		}
-		if (mach_override("_CGDisplayShowCursor", NULL, CGDisplayShowCursorOverride, (void **) &oCGDisplayShowCursor) != 0) {
+		if (mach_override_ptr(dlsym(RTLD_DEFAULT, "CGDisplayShowCursor"), CGDisplayShowCursorOverride, (void **) &oCGDisplayShowCursor) != 0) {
 			ods("CGDisplayShowCursor override failed");
 		}
 		ods("Hooked CGDisplayShowCursor and CGDisplayHideCursor");

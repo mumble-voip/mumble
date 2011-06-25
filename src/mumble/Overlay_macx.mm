@@ -43,7 +43,8 @@ extern "C" {
 static NSString *MumbleOverlayLoaderBundle = @"/Library/ScriptingAdditions/MumbleOverlay.osax";
 static NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.mumble.OverlayScriptingAddition";
 
-@interface OverlayInjectorMac : NSObject <SBApplicationDelegate> {
+// fixme(mkrautz): Conforms to SBApplicationDelegate
+@interface OverlayInjectorMac : NSObject {
 	BOOL active;
 }
 
