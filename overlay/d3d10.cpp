@@ -444,7 +444,7 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 	if (pDevice) {
 		D10State *ds = chains[pSwapChain];
 		if (ds && ds->pDevice != pDevice) {
-			ods("DXGI: SwapChain device changed");
+			ods("DXGI: SwapChain device changed, removing it");
 			devices.erase(ds->pDevice);
 			delete ds;
 			ds = NULL;
@@ -508,7 +508,6 @@ static ULONG __stdcall myRelease(ID3D10Device *pDevice) {
 	LONG res = oRelease(pDevice);
 	hhRelease.inject();
 
-	Mutex m;
 	D10State *ds = devices[pDevice];
 	if (ds)
 		if (res < (ds->lHighMark / 2)) {
