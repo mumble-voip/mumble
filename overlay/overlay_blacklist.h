@@ -42,6 +42,8 @@ static const char *overlayBlacklist[] = {
 	"explorer.exe",
 	"wmpnscfg.exe",
 	"firefox.exe",
+	"thunderbird.exe",
+	"instantbird.exe",
 	"wlmail.exe",   // Windows Live Suite (mshtml.dll)
 	"msnmsgr.exe",
 	"MovieMaker.exe",
