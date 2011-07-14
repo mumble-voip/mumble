@@ -764,10 +764,6 @@ AudioOutput::~AudioOutput() {
 	delete [] iSpeakerMap;
 }
 
-// Here's the theory.
-// We support sound "bloom"ing. That is, if sound comes directly from the left, if it is sufficiently
-// close, we'll hear it full intensity from the left side, and "bloom" intensity from the right side.
-
 void AudioOutput::wipe() {
 	foreach(AudioOutputUser *aop, qmOutputs)
 		removeBuffer(aop);
@@ -852,11 +848,20 @@ void AudioOutput::removeBuffer(AudioOutputUser *aop) {
 	}
 }
 
+/*! \brief A function that takes the chanmasks and positions the loudspeakers around the user.
+ *
+ * This function will position the loudspeakers around the user. It will also distinguish between
+ * loudspeakers that will not be used for the positional audio and loudspeakers that have no
+ * directional value like the LFE. Speakers that are not in the xz-plane are not yet used.
+ *
+ * \param chanmasks a constant unsigned int holding the channel masks
+ * \param forceheadphone a boolean that will force the use of headphones
+ */
 void AudioOutput::setSpeakerPositions(const unsigned int *chanmasks, bool forceheadphone) {
-	delete[] fSpeakers;
-	delete[] bSpeakerPositional;
-	delete[] bSpeakerDirectional;
-	delete iSpeakerMap;
+	delete [] fSpeakers;
+	delete [] bSpeakerPositional;
+	delete [] bSpeakerDirectional;
+	delete [] iSpeakerMap;
 
 	fSpeakers = new float[iChannels * 3];
 	bSpeakerPositional = new bool[iChannels];
@@ -872,6 +877,7 @@ void AudioOutput::setSpeakerPositions(const unsigned int *chanmasks, bool forceh
 		bHeadphones = false;
 	}
 
+	// This QMap will be used to sort the loudspeakers counter-clockwise
 	QMap<int, int> map;
 	for (unsigned int i=0;i<iChannels;i++) {
 		float *s = &fSpeakers[3*i];
@@ -950,10 +956,10 @@ void AudioOutput::setSpeakerPositions(const unsigned int *chanmasks, bool forceh
 				bSpeakerPositional[i] = false;
 		}
 	}
-	// The amount of positional speakers.
+	// The amount of positional speakers
 	iChannelsPositional = map.size();
 	iSpeakerMap = new int[iChannelsPositional + 2];
-	// Making a map to position the speakers clockwise.
+	// The keys are sorted in a QMap when going through the iterator
 	QMap<int, int>::const_iterator iter;
 	unsigned int m = 0;
 	for (iter = map.constBegin(); iter != map.constEnd(); iter++) {
@@ -961,9 +967,11 @@ void AudioOutput::setSpeakerPositions(const unsigned int *chanmasks, bool forceh
 		iSpeakerMap[m] = iter.value();
 		//qWarning("m = %d,key = %d, value = %d",m,iter.key(),iter.value());
 	}
+	// Closing the mapping, so it will be easier to use
 	iSpeakerMap[0] = iSpeakerMap[m];
 	iSpeakerMap[m+1] = iSpeakerMap[1];
 
+	// Normalizing the loudspeaker distance
 	for (unsigned int i=0;i<iChannels;i++) {
 		float d = sqrtf(fSpeakers[3*i+0]*fSpeakers[3*i+0] + fSpeakers[3*i+1]*fSpeakers[3*i+1] + fSpeakers[3*i+2]*fSpeakers[3*i+2]);
 		if (d > 0.0f) {
@@ -982,13 +990,23 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 	qWarning("AudioOutput: Initialized %d channel %d hz mixer", iChannels, iMixerFreq);
 }
 
+/*! \brief Function that will postion the listener in a 3-D world.
+ *
+ * The listener is positioned at its location and the local coordinate frame of his head is build.
+ *
+ * \param position this is a vector that gives the listeners location in the global frame
+ * \param front    the front vector of the head given in the global frame
+ * \param top      the top vector of the head given in the global frame
+ *
+ * \return boolean depending on success
+ */
 bool AudioOutput::positionListener(float *position, float *front, float *top) {
 
 	fPosition[0] = position[0];
 	fPosition[1] = position[1];
 	fPosition[2] = position[2];
 
-	// Front vector is dominant; if it's zero we presume all is zero.
+	// Front vector is dominant; if it's zero we presume all is zero
 
 	float len = sqrtf(front[0]*front[0]+front[1]*front[1]+front[2]*front[2]);
 
@@ -1010,7 +1028,7 @@ bool AudioOutput::positionListener(float *position, float *front, float *top) {
 		}
 
 		if (fabs(fFront[0] * fTop[0] + fFront[1] * fTop[1] + fFront[2] * fTop[2]) > 0.01f) {
-			// Not perpendicular. Assume Y up and rotate 90 degrees.
+			// Not perpendicular. Assume Y up and rotate 90 degrees
 			float azimuth = 0.0f;
 			if ((abs(front[0]) >= 0.0f) || (abs(front[2]) >= 0.0f))
 				azimuth = atan2f(front[2], front[0]);
@@ -1047,6 +1065,17 @@ bool AudioOutput::positionListener(float *position, float *front, float *top) {
 
 	return true;
 }
+
+/*! \brief sets the location of the audio source.
+ *
+ * This will that the location of the audio source and calculates the direction and distance with
+ * respect to the listener. It will also calculate the distance attenuation and the bloom
+ * amplification needed later on.
+ *
+ * \param position this is a vector that gives the location of the audio source in the global frame
+ *
+ * \return boolean that will be true when it is a viable source.
+ */
 bool AudioOutput::locateSource(float *position) {
 	float dir[3] = { position[0] - fPosition[0], position[1] - fPosition[1], position[2] - fPosition[2] };
 	float distance = sqrtf(dir[0] * dir[0] + dir[1] * dir[1] + dir[2] * dir[2]);
@@ -1054,10 +1083,11 @@ bool AudioOutput::locateSource(float *position) {
 		dir[0] /= distance;
 		dir[1] /= distance;
 		dir[2] /= distance;
-	} else { // Source is very close to the listener.
+	} else { // Source is very close to the listener
 		return false;
 	}
 
+	// rotate the direction vector into the local frame of the listener
 	fDirection[0] = dir[0] * fRight[0] + dir[1] * fRight[1] + dir[2] * fRight[2];
 	fDirection[1] = dir[0] * fTop[0]   + dir[1] * fTop[1]   + dir[2] * fTop[2];
 	fDirection[2] = dir[0] * fFront[0] + dir[1] * fFront[1] + dir[2] * fFront[2];
@@ -1076,7 +1106,9 @@ bool AudioOutput::locateSource(float *position) {
 		fAttenuation = powf(10.0f, log10f(mvol) * drel);
 	}
 
-	// bloom amplification
+	// Here's the theory.
+	// We support sound "bloom"ing. That is, if sound comes directly from the left, if it is sufficiently
+	// close, we'll hear it full intensity from the left side, and "bloom" intensity from the right side.
 	if (distance < g.s.fAudioMinDistance) {
 		fBloom = g.s.fAudioBloom * (1.0f - distance/g.s.fAudioMinDistance);
 	} else {
@@ -1086,7 +1118,15 @@ bool AudioOutput::locateSource(float *position) {
 	return true;
 }
 
-// No elevation dependency as one can not distinguish between elevation and distance.
+/*! \brief Calculates the gain of a given loudspeaker depending on the direction of the sound
+ *
+ * It calculates the gain of the given loudspeaker. The audio will only be distributed to the
+ * loudspeakers that will clamp the direction vector.
+ *
+ * \param s the number of the loudspeaker
+ * \return the gain of the loudspeaker
+ * \note Elevation is not taking into account as it is non distinguishable from distance.
+ */
 float AudioOutput::calcGain(unsigned int s) {
 	// If speakers are not positional remove them
 	if (!bSpeakerPositional[s]) {
@@ -1117,41 +1157,43 @@ float AudioOutput::calcGain(unsigned int s) {
 	}
 
 	// Find the loudspeakers right and left of the loudspeaker in question
+	float *sc = &fSpeakers[3*s];
 	float *sr;
 	float *sl;
-	for (unsigned int i=1;i<iChannelsPositional+1;i++) {
+	for (int i=1;i<iChannelsPositional+1;i++) {
 		if (iSpeakerMap[i] == s) {
 			sr = &fSpeakers[3*iSpeakerMap[i-1]];
 			sl = &fSpeakers[3*iSpeakerMap[i+1]];
 			break;
 		}
 	}
-	float *sc = &fSpeakers[3*s];
+	if (!sr && !sl) // loudspeaker were not found return zero
+		return 0.0f;
 
-	// Find if the source is located between sc-sr or sc-sl
-	float mean;
-	float g1;
-	float g2;
+	// Find out if the source is located between sc-sr or sc-sl
+	float dot12;
+	float dot1;
+	float dot2;
 	if ((sr[0] - xp) * (sc[2] - zp) <= (sr[2] - zp) * (sc[0] - xp)) { // point p is on the rightside of line sr to sc
-		mean = 1 - (sc[0] * sr[0] + sc[2] * sr[2]);
-		g1 = 1 - (sc[0] * xp + sc[2] * zp);
-		g2 = 1 - (sr[0] * xp + sr[2] * zp);
+		dot12 = sc[0] * sr[0] + sc[2] * sr[2];
+		dot1 = sc[0] * xp + sc[2] * zp;
+		dot2 = sr[0] * xp + sr[2] * zp;
 	} else if ((sc[0] - xp) * (sl[2] - zp) <= (sc[2] - zp) * (sl[0] - xp)) { // point p is on the rightside of line sc to sl
-		mean = 1 - (sc[0] * sl[0] + sc[2] * sl[2]);
-		g1 = 1 - (sc[0] * xp + sc[2] * zp);
-		g2 = 1 - (sl[0] * xp + sl[2] * zp);
+		dot12 = sc[0] * sl[0] + sc[2] * sl[2];
+		dot1 = sc[0] * xp + sc[2] * zp;
+		dot2 = sl[0] * xp + sl[2] * zp;
 	} else {
 		return qMin(1.0f, fBloom);
 	}
 
 	// Calculate the gain for the loudspeaker in question
-	if (g1 + g2 <= mean) { // normal case angle between loudspeakers is smaller then 180 degrees
-		float dotfactor = g2 / (g1 + g2);
+	if (dot1 + dot2 >= 1 + dot12) { // normal case angle between loudspeakers is smaller then 180 degrees
+		float dotfactor = acos(dot2) / (acos(dot1) + acos(dot2));
 		return qMin(1.0f, fAttenuation * dotfactor + fBloom);
-	} else if ( mean + g1 + g2 >= 4 ) { // source is between loudspeakers but on the opposite side of the listener
-		float dotfactor = (2 - g1) / (4 - (g1 + g2));
+	} else if (dot12 + dot1 + dot2 <= -1) { // source is between loudspeakers but on the opposite side of the listener
+		float dotfactor = acos(-dot1) / (acos(-dot1) + acos(-dot2));
 		return qMin(1.0f, fAttenuation * dotfactor + fBloom);
-	} else if ( g2 > g1 ) { // special case were all power goes to the loudspeaker in question
+	} else if ( dot1 > dot2 ) { // special case were all power goes to the loudspeaker in question
 		return qMin(1.0f, fAttenuation + fBloom);
 	} else { // when all else fails only bloom is needed
 		return qMin(1.0f, fBloom);
@@ -1190,8 +1232,6 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	}
 
 	if (! qlMix.isEmpty()) {
-		STACKVAR(float, speaker, iChannels*3);
-
 		STACKVAR(float, fOutput, iChannels * nsamp);
 		float *output = (eSampleFormat == SampleFloat) ? reinterpret_cast<float *>(outbuff) : fOutput;
 		bool validListener = false;
@@ -1264,9 +1304,6 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 					const float old = (aop->pfVolume[s] >= 0.0) ? aop->pfVolume[s] : str;
 					const float inc = (str - old) / static_cast<float>(nsamp);
 					aop->pfVolume[s] = str;
-					/*
-					qWarning("%d: Pos %f %f %f : Dot %f Len %f Str %f", s, speaker[s*3+0], speaker[s*3+1], speaker[s*3+2], dot, len, str);
-					*/
 					if ((old >= 0.00000001f) || (str >= 0.00000001f))
 						for (unsigned int i=0;i<nsamp;++i)
 							o[i*nchan] += pfBuffer[i] * (old + inc*static_cast<float>(i));
