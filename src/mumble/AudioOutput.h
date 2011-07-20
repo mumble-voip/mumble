@@ -217,8 +217,8 @@ class AudioOutput : public QThread {
 		float *fSpeakers;
 		bool *bSpeakerPositional;
 		bool *bSpeakerDirectional;
-		int iChannelsPositional;
-		int *iSpeakerMap;
+		unsigned int iChannelsPositional;
+		unsigned int *iSpeakerMap;
 		// Attributes of the listener 
 		float fPosition[3];
 		float fRight[3];

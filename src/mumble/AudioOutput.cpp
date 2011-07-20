@@ -356,7 +356,7 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 			read /= 2;
 			// If we need to resample after this write to extra buffer
 			pOut = srs ? fMix : pfBuffer + iBufferFilled;
-			for (unsigned int i = 0; i < read; i++)
+			for (unsigned int i=0;i<read;++i)
 				pOut[i] = (fOut[i*2] + fOut[i*2 + 1]) * 0.5f;
 
 		}
@@ -838,8 +838,8 @@ void AudioOutput::removeBuffer(const ClientUser *user) {
 
 void AudioOutput::removeBuffer(AudioOutputUser *aop) {
 	QWriteLocker locker(&qrwlOutputs);
-	QMultiHash<const ClientUser *, AudioOutputUser *>::iterator i;
-	for (i=qmOutputs.begin(); i != qmOutputs.end(); ++i) {
+	for (QMultiHash<const ClientUser *, AudioOutputUser *>::iterator i=qmOutputs.begin();
+			i!=qmOutputs.end();++i) {
 		if (i.value() == aop) {
 			qmOutputs.erase(i);
 			delete aop;
@@ -877,9 +877,10 @@ void AudioOutput::setSpeakerPositions(const unsigned int *chanmasks, bool forceh
 		bHeadphones = false;
 	}
 
-	// This QMap will be used to sort the loudspeakers counter-clockwise
-	QMap<int, int> map;
-	for (unsigned int i=0;i<iChannels;i++) {
+	// This QMap will be used to sort the loudspeakers counter-clockwise. The loudspeakers
+	// are numbered counter-clockwise starting with the side right loudspeaker.
+	QMap<int, unsigned int> map;
+	for (unsigned int i=0;i<iChannels;++i) {
 		float *s = &fSpeakers[3*i];
 		bSpeakerPositional[i] = true;
 		bSpeakerDirectional[i] = true;
@@ -958,21 +959,20 @@ void AudioOutput::setSpeakerPositions(const unsigned int *chanmasks, bool forceh
 	}
 	// The amount of positional speakers
 	iChannelsPositional = map.size();
-	iSpeakerMap = new int[iChannelsPositional + 2];
+	iSpeakerMap = new unsigned int[iChannelsPositional + 2];
 	// The keys are sorted in a QMap when going through the iterator
-	QMap<int, int>::const_iterator iter;
 	unsigned int m = 0;
-	for (iter = map.constBegin(); iter != map.constEnd(); iter++) {
-		m++;
-		iSpeakerMap[m] = iter.value();
-		//qWarning("m = %d,key = %d, value = %d",m,iter.key(),iter.value());
+	for (QMap<int, unsigned int>::const_iterator i=map.constBegin();i!=map.constEnd();++i) {
+		++m;
+		iSpeakerMap[m] = i.value();
+		//qWarning("m = %d,key = %d, value = %d",m,i.key(),i.value());
 	}
 	// Closing the mapping, so it will be easier to use
 	iSpeakerMap[0] = iSpeakerMap[m];
 	iSpeakerMap[m+1] = iSpeakerMap[1];
 
 	// Normalizing the loudspeaker distance
-	for (unsigned int i=0;i<iChannels;i++) {
+	for (unsigned int i=0;i<iChannels;++i) {
 		float d = sqrtf(fSpeakers[3*i+0]*fSpeakers[3*i+0] + fSpeakers[3*i+1]*fSpeakers[3*i+1] + fSpeakers[3*i+2]*fSpeakers[3*i+2]);
 		if (d > 0.0f) {
 			fSpeakers[3*i+0] /= d;
@@ -1030,9 +1030,9 @@ bool AudioOutput::positionListener(float *position, float *front, float *top) {
 		if (fabs(fFront[0] * fTop[0] + fFront[1] * fTop[1] + fFront[2] * fTop[2]) > 0.01f) {
 			// Not perpendicular. Assume Y up and rotate 90 degrees
 			float azimuth = 0.0f;
-			if ((abs(front[0]) >= 0.0f) || (abs(front[2]) >= 0.0f))
+			if ((fabs(front[0]) >= 0.0f) || (fabs(front[2]) >= 0.0f))
 				azimuth = atan2f(front[2], front[0]);
-			float inclination = acosf(front[1]) - M_PI / 2;
+			float inclination = acosf(front[1]) - float(M_PI) / 2.0f;
 
 			fTop[0] = sinf(inclination) * cosf(azimuth);
 			fTop[1] = cosf(inclination);
@@ -1153,21 +1153,21 @@ float AudioOutput::calcGain(unsigned int s) {
 		xp = fDirection[0] / len;
 		zp = fDirection[2] / len;
 	} else { // This happens when fDirection is pointing along the y-axis
-		return qMin(1.0f, fAttenuation / iChannelsPositional + fBloom);
+		return qMin(1.0f, fAttenuation / float(iChannelsPositional) + fBloom);
 	}
 
 	// Find the loudspeakers right and left of the loudspeaker in question
 	float *sc = &fSpeakers[3*s];
-	float *sr;
-	float *sl;
-	for (int i=1;i<iChannelsPositional+1;i++) {
+	float *sr = NULL;
+	float *sl = NULL;
+	for (unsigned int i=1;i<iChannelsPositional+1;++i) {
 		if (iSpeakerMap[i] == s) {
 			sr = &fSpeakers[3*iSpeakerMap[i-1]];
 			sl = &fSpeakers[3*iSpeakerMap[i+1]];
 			break;
 		}
 	}
-	if (!sr && !sl) // loudspeaker were not found return zero
+	if (!sr && !sl) // loudspeaker was not found return zero
 		return 0.0f;
 
 	// Find out if the source is located between sc-sr or sc-sl
@@ -1187,11 +1187,11 @@ float AudioOutput::calcGain(unsigned int s) {
 	}
 
 	// Calculate the gain for the loudspeaker in question
-	if (dot1 + dot2 >= 1 + dot12) { // normal case angle between loudspeakers is smaller then 180 degrees
-		float dotfactor = acos(dot2) / (acos(dot1) + acos(dot2));
+	if (dot1 + dot2 >= 1.0f + dot12) { // normal case angle between loudspeakers is smaller then 180 degrees
+		float dotfactor = acosf(dot2) / (acosf(dot1) + acosf(dot2));
 		return qMin(1.0f, fAttenuation * dotfactor + fBloom);
-	} else if (dot12 + dot1 + dot2 <= -1) { // source is between loudspeakers but on the opposite side of the listener
-		float dotfactor = acos(-dot1) / (acos(-dot1) + acos(-dot2));
+	} else if (dot12 + dot1 + dot2 <= -1.0f) { // source is between loudspeakers but on the opposite side of the listener
+		float dotfactor = acosf(-dot1) / (acosf(-dot1) + acosf(-dot2));
 		return qMin(1.0f, fAttenuation * dotfactor + fBloom);
 	} else if ( dot1 > dot2 ) { // special case were all power goes to the loudspeaker in question
 		return qMin(1.0f, fAttenuation + fBloom);
@@ -1207,7 +1207,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	if (g.s.fVolume < 0.01)
 		return false;
 
-	const float adjustFactor = std::pow(10, -18. / 20);
+	const float adjustFactor = float(std::pow(10, -18. / 20));
 	const float mul = g.s.fVolume;
 	const unsigned int nchan = iChannels;
 	ServerHandlerPtr sh = g.sh;
@@ -1217,8 +1217,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 
 	qrwlOutputs.lockForRead();
 	bool needAdjustment = false;
-	QMultiHash<const ClientUser *, AudioOutputUser *>::const_iterator i = qmOutputs.constBegin();
-	while (i != qmOutputs.constEnd()) {
+	for (QMultiHash<const ClientUser *, AudioOutputUser *>::const_iterator i=qmOutputs.constBegin();
+		       i!=qmOutputs.constEnd();++i) {
 		AudioOutputUser *aop = i.value();
 		if (! aop->needSamples(nsamp)) {
 			qlDel.append(aop);
@@ -1228,7 +1228,6 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			if (i.key() && i.key()->bPrioritySpeaker)
 				needAdjustment = true;
 		}
-		++i;
 	}
 
 	if (! qlMix.isEmpty()) {
@@ -1267,7 +1266,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 				AudioOutputSpeech *aos = qobject_cast<AudioOutputSpeech *>(aop);
 
 				if (aos) {
-					for (unsigned int i = 0; i < nsamp; ++i) {
+					for (unsigned int i=0;i<nsamp;++i) {
 						recbuff[i] += pfBuffer[i] * volumeAdjustment;
 					}
 
@@ -1324,10 +1323,10 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 
 		// Clip
 		if (eSampleFormat == SampleFloat)
-			for (unsigned int i=0;i<nsamp*iChannels;i++)
+			for (unsigned int i=0;i<nsamp*iChannels;++i)
 				output[i] = qBound(-1.0f, output[i], 1.0f);
 		else
-			for (unsigned int i=0;i<nsamp*iChannels;i++)
+			for (unsigned int i=0;i<nsamp*iChannels;++i)
 				reinterpret_cast<short *>(outbuff)[i] = static_cast<short>(32768.f * qBound(-1.0f, output[i], 1.0f));
 	}
 
