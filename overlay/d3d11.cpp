@@ -178,7 +178,7 @@ void D11State::setRect() {
 	top = -2.0f * (top / vp.Height) + 1.0f;
 	bottom = -2.0f * (bottom / vp.Height) + 1.0f;
 
-	ods("Vertex (%f %f) (%f %f)", left, top, right, bottom);
+	ods("D3D11-setRect: Vertex (%f %f) (%f %f)", left, top, right, bottom);
 
 	// Create vertex buffer
 	SimpleVertex vertices[] = {
@@ -189,8 +189,10 @@ void D11State::setRect() {
 	};
 
 
+	// map/unmap to temporarily deny GPU access to the resource pVertexBuffer
 	D3D11_MAPPED_SUBRESOURCE res;
 	hr = pDeviceContext->Map(pVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &res);
+	//TODO no size-checks? Is that correct and safe?
 	memcpy(res.pData, vertices, sizeof(vertices));
 	ods("Map: %lx %d", hr, sizeof(vertices));
 	pDeviceContext->Unmap(pVertexBuffer, 0);
@@ -260,8 +262,8 @@ void D11State::init() {
 	pBackBuffer->GetDesc(&backBufferSurfaceDesc);
 
 	ZeroMemory(&vp, sizeof(vp));
-	vp.Width = (FLOAT) backBufferSurfaceDesc.Width;
-	vp.Height = (FLOAT) backBufferSurfaceDesc.Height;
+	vp.Width = (float) backBufferSurfaceDesc.Width;
+	vp.Height = (float) backBufferSurfaceDesc.Height;
 	vp.MinDepth = 0;
 	vp.MaxDepth = 1;
 	vp.TopLeftX = 0;
@@ -361,6 +363,7 @@ D11State::~D11State() {
 }
 
 void D11State::draw() {
+	ods("D3D11-draw: DrawBegin");
 	clock_t t = clock();
 	float elapsed = static_cast<float>(t - timeT) / CLOCKS_PER_SEC;
 	++frameCount;
@@ -379,7 +382,7 @@ void D11State::draw() {
 
 	dwMyThread = GetCurrentThreadId();
 
-		checkMessage((unsigned int)vp.Width, (unsigned int)vp.Height);
+	checkMessage((unsigned int)vp.Width, (unsigned int)vp.Height);
 
 	if (a_ucTexture && pSRView && (uiLeft != uiRight)) {
 		HRESULT hr;
@@ -407,6 +410,14 @@ void D11State::draw() {
 		ctx->ExecuteCommandList(pCommandList, TRUE);
 		ctx->Release();
 		pCommandList->Release();
+		/*TODO rm
+		pDeviceContext->FinishCommandList(TRUE, &pCommandList);
+
+		pDeviceContext->ExecuteCommandList(pCommandList, TRUE);
+		pDeviceContext->Flush();
+		pDeviceContext->Release();
+		pCommandList->Release();
+		*/
 	}
 
 	dwMyThread = 0;
@@ -440,7 +451,6 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 
 		ds->draw();
 		pDevice->Release();
-		ods("DXGI11: DrawEnd");
 	}
 
 	PresentType oPresent = (PresentType) hhPresent.call;
