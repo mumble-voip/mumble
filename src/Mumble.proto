@@ -190,15 +190,20 @@ message CryptSetup {
 	optional bytes server_nonce = 3;
 }
 
-message ContextActionAdd {
+message ContextActionModify {
 	enum Context {
 		Server = 0x01;
 		Channel = 0x02;
 		User = 0x04;
 	}
+	enum Operation {
+		Add = 0;
+		Remove = 1;
+	}
 	required string action = 1;
-	required string text = 2;
+	optional string text = 2;
 	optional uint32 context = 3;
+	optional Operation operation = 4;
 }
 
 message ContextAction {

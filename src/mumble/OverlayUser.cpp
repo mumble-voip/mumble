@@ -32,6 +32,7 @@
 #include "OverlayText.h"
 #include "User.h"
 #include "Channel.h"
+#include "ClientUser.h"
 #include "Global.h"
 #include "Message.h"
 #include "Database.h"

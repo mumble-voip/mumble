@@ -39,9 +39,6 @@
 
 #define NBLOCKS 8
 
-#define MAX(a,b)        ( (a) > (b) ? (a) : (b) )
-#define MIN(a,b)        ( (a) < (b) ? (a) : (b) )
-
 class OSSEnumerator {
 	public:
 		QHash<QString,QString> qhInput;
@@ -358,7 +355,11 @@ void OSSOutput::run() {
 		} else {
 			while (! mix(mbuffer, iOutputBlock) && bRunning)
 				this->msleep(20);
-			write(fd, mbuffer, blocklen);
+			ssize_t l = write(fd, mbuffer, blocklen);
+			if (l != blocklen) {
+				qWarning("OSSOutput: Write %ld != %ld", l, blocklen);
+				break;
+			}
 		}
 	}
 	qWarning("OSSOutput: Releasing device");

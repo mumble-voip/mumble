@@ -59,6 +59,7 @@
 #include "ACL.h"
 #include "UserInformation.h"
 #include "VoiceRecorderDialog.h"
+#include "PTTButtonWidget.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -177,6 +178,8 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	tokenEdit = NULL;
 
 	voiceRecorderDialog = NULL;
+
+	qwPTTButtonWidget = NULL;
 
 #if QT_VERSION >= 0x040600
 	cuContextUser = QWeakPointer<ClientUser>();
@@ -388,6 +391,7 @@ void MainWindow::setupGui()  {
 }
 
 MainWindow::~MainWindow() {
+	delete qwPTTButtonWidget;
 	delete qdwLog->titleBarWidget();
 	delete pmModel;
 	delete qtvUsers;
@@ -437,6 +441,12 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		g.s.qbaMainWindowGeometry = saveGeometry();
 		g.s.qbaMainWindowState = saveState();
 		g.s.qbaHeaderState = qtvUsers->header()->saveState();
+	}
+
+	if (qwPTTButtonWidget) {
+		qwPTTButtonWidget->close();
+		qwPTTButtonWidget->deleteLater();
+		qwPTTButtonWidget = NULL;
 	}
 	g.bQuit = true;
 
@@ -896,6 +906,22 @@ void MainWindow::setupView(bool toggle_minimize) {
 
 	show();
 	activateWindow();
+
+	// If activated show the PTT window
+	if (g.s.bShowPTTButtonWindow && g.s.atTransmit == Settings::PushToTalk) {
+		if (qwPTTButtonWidget) {
+			qwPTTButtonWidget->show();
+		} else {
+			qwPTTButtonWidget = new PTTButtonWidget();
+			qwPTTButtonWidget->show();
+			connect(qwPTTButtonWidget, SIGNAL(triggered(bool,QVariant)), SLOT(on_PushToTalk_triggered(bool,QVariant)));
+		}
+	} else {
+		if (qwPTTButtonWidget) {
+			qwPTTButtonWidget->deleteLater();
+			qwPTTButtonWidget = NULL;
+		}
+	}
 }
 
 void MainWindow::on_qaServerConnect_triggered(bool autoconnect) {
@@ -1767,7 +1793,7 @@ void MainWindow::updateMenuPermissions() {
 			c = pmModel->getChannel(qtvUsers->currentIndex());
 	}
 
-	ChanACL::Permissions p = static_cast<ChanACL::Permissions>(c ? c->uiPermissions : ChanACL::None);
+	ChanACL::Permissions p = c ? static_cast<ChanACL::Permissions>(c->uiPermissions) : ChanACL::None;
 
 	if (c && ! p) {
 		g.sh->requestChannelPermissions(c->iId);
@@ -1780,7 +1806,7 @@ void MainWindow::updateMenuPermissions() {
 	}
 
 	Channel *cparent = c ? c->cParent : NULL;
-	ChanACL::Permissions pparent = static_cast<ChanACL::Permissions>(cparent ? cparent->uiPermissions : ChanACL::None);
+	ChanACL::Permissions pparent = cparent ? static_cast<ChanACL::Permissions>(cparent->uiPermissions) : ChanACL::None;
 
 	if (cparent && ! pparent) {
 		g.sh->requestChannelPermissions(cparent->iId);
@@ -1794,7 +1820,7 @@ void MainWindow::updateMenuPermissions() {
 
 	ClientUser *user = g.uiSession ? ClientUser::get(g.uiSession) : NULL;
 	Channel *homec = user ? user->cChannel : NULL;
-	ChanACL::Permissions homep = static_cast<ChanACL::Permissions>(homec ? homec->uiPermissions : ChanACL::None);
+	ChanACL::Permissions homep = homec ? static_cast<ChanACL::Permissions>(homec->uiPermissions) : ChanACL::None;
 
 	if (homec && ! homep) {
 		g.sh->requestChannelPermissions(homec->iId);
@@ -2207,7 +2233,7 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 				return;
 			}
 		}
-		
+
 		if (gsMetaLink->active()) {
 			if (! st.bUsers) {
 				Channel *c = ClientUser::get(g.uiSession)->cChannel;
@@ -2415,7 +2441,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 		QMessageBox::warning(this, tr("SSL Version mismatch"), tr("This server is using an older encryption standard, and is no longer supported by modern versions of Mumble."), QMessageBox::Ok);
 	} else {
 		bool ok = false;
-		bool matched = false;
+
 
 		if (! reason.isEmpty()) {
 			g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(reason));
@@ -2428,18 +2454,34 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 		wf = Qt::Sheet;
 #endif
 
+		bool matched = true;
 		switch (rtLast) {
 			case MumbleProto::Reject_RejectType_InvalidUsername:
+				uname = QInputDialog::getText(this, tr("Invalid username"),
+				                              tr("You connected with an invalid username, please try another one."),
+				                              QLineEdit::Normal, uname, &ok, wf);
+				break;
 			case MumbleProto::Reject_RejectType_UsernameInUse:
-				matched = true;
-				uname = QInputDialog::getText(this, tr("Invalid username"), (rtLast == MumbleProto::Reject_RejectType_InvalidUsername) ? tr("You connected with an invalid username, please try another one.") : tr("That username is already in use, please try another username."), QLineEdit::Normal, uname, &ok, wf);
+				uname = QInputDialog::getText(this, tr("Username in use"),
+				                              tr("That username is already in use, please try another username."),
+				                              QLineEdit::Normal, uname, &ok, wf);
 				break;
 			case MumbleProto::Reject_RejectType_WrongUserPW:
+				pw = QInputDialog::getText(this,
+				                           tr("Wrong certificate or password"),
+				                           tr("Wrong certificate or password for registered user. If you are\n"
+				                              "certain this user is protected by a password please retry.\n"
+				                              "Otherwise abort and check your certificate and username."),
+				                           QLineEdit::Password, pw, &ok, wf);
+				break;
 			case MumbleProto::Reject_RejectType_WrongServerPW:
-				matched = true;
-				pw = QInputDialog::getText(this, tr("Wrong password"), (rtLast == MumbleProto::Reject_RejectType_WrongUserPW) ? tr("Wrong password for registered users, please try again.") : tr("Wrong server password for unregistered user account, please try again."), QLineEdit::Password, pw, &ok, wf);
+				pw = QInputDialog::getText(this,
+				                           tr("Wrong password"),
+				                           tr("Wrong server password for unregistered user account, please try again."),
+				                           QLineEdit::Password, pw, &ok, wf);
 				break;
 			default:
+				matched = false;
 				break;
 		}
 		if (ok && matched) {

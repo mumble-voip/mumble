@@ -33,14 +33,14 @@
 
 #include "mumble_pch.hpp"
 #include "ConfigDialog.h"
-#include "ClientUser.h"
 #include "SharedMemory.h"
 #include "ui_Overlay.h"
 #include "ui_OverlayEditor.h"
 #include "../../overlay/overlay.h"
 #include "OverlayText.h"
+#include "Timer.h"
 
-class User;
+class ClientUser;
 class Overlay;
 
 struct OverlayAppInfo {

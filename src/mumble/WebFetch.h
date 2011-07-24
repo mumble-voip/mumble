@@ -31,6 +31,8 @@
 #ifndef _WEBFETCH_H
 #define _WEBFETCH_H
 
+#include "mumble_pch.hpp"
+
 /*!
  * \brief Utility class to fetch data from mumble servers.
  *
@@ -45,7 +47,7 @@ class WebFetch : public QObject {
 		QObject *qoObject;
 		const char *cpSlot;
 		QNetworkReply *qnr;
-	
+
 		WebFetch(QUrl url, QObject *obj, const char *slot);
 	signals:
 		void fetched(QByteArray data, QUrl url, QMap<QString, QString> headers);

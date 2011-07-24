@@ -35,20 +35,21 @@
 #include "AudioInput.h"
 #include "Cert.h"
 #include "../../overlay/overlay.h"
+#include "../../overlay/overlay_blacklist.h"
 
 bool Shortcut::isServerSpecific() const {
 	if (qvData.canConvert<ShortcutTarget>()) {
-		const ShortcutTarget &sc = qvariant_cast<ShortcutTarget>(qvData);
+		const ShortcutTarget &sc = qvariant_cast<ShortcutTarget> (qvData);
 		return sc.isServerSpecific();
 	}
 	return false;
 }
 
-bool Shortcut::operator <(const Shortcut &other) const {
+bool Shortcut::operator < (const Shortcut &other) const {
 	return (iIndex < other.iIndex);
 }
 
-bool Shortcut::operator ==(const Shortcut &other) const {
+bool Shortcut::operator == (const Shortcut &other) const {
 	return (iIndex == other.iIndex) && (qlButtons == other.qlButtons) && (qvData == other.qvData) && (bSuppress == other.bSuppress);
 }
 
@@ -62,7 +63,7 @@ bool ShortcutTarget::isServerSpecific() const {
 	return (! bUsers && (iChannel >= 0));
 }
 
-bool ShortcutTarget::operator ==(const ShortcutTarget &o) const {
+bool ShortcutTarget::operator == (const ShortcutTarget &o) const {
 	if ((bUsers != o.bUsers) || (bForceCenter != o.bForceCenter))
 		return false;
 	if (bUsers)
@@ -95,7 +96,7 @@ quint32 qHash(const QList<ShortcutTarget> &l) {
 	return h;
 }
 
-QDataStream &operator<<(QDataStream &qds, const ShortcutTarget &st) {
+QDataStream &operator<< (QDataStream &qds, const ShortcutTarget &st) {
 	qds << st.bUsers << st.bForceCenter;
 
 	if (st.bUsers)
@@ -104,7 +105,7 @@ QDataStream &operator<<(QDataStream &qds, const ShortcutTarget &st) {
 		return qds << st.iChannel << st.qsGroup << st.bLinks << st.bChildren;
 }
 
-QDataStream &operator>>(QDataStream &qds, ShortcutTarget &st) {
+QDataStream &operator>> (QDataStream &qds, ShortcutTarget &st) {
 	qds >> st.bUsers >> st.bForceCenter;
 	if (st.bUsers)
 		return qds >> st.qlUsers;
@@ -128,7 +129,7 @@ OverlaySettings::OverlaySettings() {
 
 	osShow = LinkedChannels;
 	bAlwaysSelf = true;
-	iActiveTime = 5;
+	uiActiveTime = 5;
 	osSort = Alphabetical;
 
 	qcUserName[Settings::Passive] = QColor(170, 170, 170);
@@ -243,9 +244,9 @@ void OverlaySettings::setPreset(const OverlayPresets preset) {
 }
 
 Settings::Settings() {
-	qRegisterMetaType<ShortcutTarget>("ShortcutTarget");
-	qRegisterMetaTypeStreamOperators<ShortcutTarget>("ShortcutTarget");
-	qRegisterMetaType<QVariant>("QVariant");
+	qRegisterMetaType<ShortcutTarget> ("ShortcutTarget");
+	qRegisterMetaTypeStreamOperators<ShortcutTarget> ("ShortcutTarget");
+	qRegisterMetaType<QVariant> ("QVariant");
 
 	atTransmit = VAD;
 	bTransmitPosition = false;
@@ -269,9 +270,9 @@ Settings::Settings() {
 	fVADmin = 0.80f;
 	fVADmax = 0.98f;
 
-	bPushClick = false;
-	qsPushClickOn = cqsDefaultPushClickOn;
-	qsPushClickOff = cqsDefaultPushClickOff;
+	bTxAudioCue = false;
+	qsTxAudioCueOn = cqsDefaultPushClickOn;
+	qsTxAudioCueOff = cqsDefaultPushClickOff;
 
 	bUserTop = false;
 
@@ -334,6 +335,9 @@ Settings::Settings() {
 	iLCDUserViewMinColWidth = 50;
 	iLCDUserViewSplitterWidth = 2;
 
+	// PTT Button window
+	bShowPTTButtonWindow = false;
+
 	// Network settings
 	bTCPCompat = false;
 	bQoS = true;
@@ -369,10 +373,10 @@ Settings::Settings() {
 
 	iMaxLogBlocks = 0;
 
-	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i)
+	for (int i=Log::firstMsgType; i<=Log::lastMsgType; ++i)
 		qmMessages.insert(i, Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS);
 
-	for (int i=Log::firstMsgType;i<=Log::lastMsgType;++i)
+	for (int i=Log::firstMsgType; i<=Log::lastMsgType; ++i)
 		qmMessageSounds.insert(i, QString());
 
 	qmMessageSounds[Log::CriticalError] = QLatin1String(":/Critical.ogg");
@@ -451,7 +455,7 @@ void OverlaySettings::load(QSettings* settings_ptr) {
 
 	LOADENUM(osShow, "show");
 	SAVELOAD(bAlwaysSelf, "alwaysself");
-	SAVELOAD(iActiveTime, "activetime");
+	SAVELOAD(uiActiveTime, "activetime");
 	LOADENUM(osSort, "sort");
 
 	SAVELOAD(fX, "x");
@@ -460,7 +464,7 @@ void OverlaySettings::load(QSettings* settings_ptr) {
 	SAVELOAD(uiColumns, "columns");
 
 	settings_ptr->beginReadArray(QLatin1String("states"));
-	for (int i=0;i<4;++i) {
+	for (int i=0; i<4; ++i) {
 		settings_ptr->setArrayIndex(i);
 		SAVELOAD(qcUserName[i], "color");
 		SAVELOAD(fUser[i], "opacity");
@@ -519,9 +523,9 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bDeaf, "audio/deaf");
 	LOADENUM(atTransmit, "audio/transmit");
 	SAVELOAD(uiDoublePush, "audio/doublepush");
-	SAVELOAD(bPushClick, "audio/pushclick");
-	SAVELOAD(qsPushClickOn, "audio/pushclickon");
-	SAVELOAD(qsPushClickOff, "audio/pushclickoff");
+	SAVELOAD(bTxAudioCue, "audio/pushclick");
+	SAVELOAD(qsTxAudioCueOn, "audio/pushclickon");
+	SAVELOAD(qsTxAudioCueOff, "audio/pushclickoff");
 	SAVELOAD(iQuality, "audio/quality");
 	SAVELOAD(iMinLoudness, "audio/loudness");
 	SAVELOAD(fVolume, "audio/volume");
@@ -636,6 +640,10 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
 
+	// PTT Button window
+	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");
+	SAVELOAD(qbaPTTButtonWindowGeometry, "ui/pttbuttonwindowgeometry");
+
 	// Recording
 	SAVELOAD(qsRecordingPath, "recording/path");
 	SAVELOAD(qsRecordingFile, "recording/file");
@@ -646,12 +654,12 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
 
-	QByteArray qba = qvariant_cast<QByteArray>(settings_ptr->value(QLatin1String("net/certificate")));
+	QByteArray qba = qvariant_cast<QByteArray> (settings_ptr->value(QLatin1String("net/certificate")));
 	if (! qba.isEmpty())
 		kpCertificate = CertWizard::importCert(qba);
 
 	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
-	for (int i=0;i<nshorts;i++) {
+	for (int i=0; i<nshorts; i++) {
 		settings_ptr->setArrayIndex(i);
 		Shortcut s;
 
@@ -708,11 +716,22 @@ void OverlaySettings::save() {
 void OverlaySettings::save(QSettings* settings_ptr) {
 	OverlaySettings def;
 
+	settings_ptr->setValue(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
+	settings_ptr->sync();
+
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+	if (settings_ptr->format() == QSettings::IniFormat)
+#endif
+	{
+		QFile f(settings_ptr->fileName());
+		f.setPermissions(f.permissions() & ~(QFile::ReadGroup | QFile::WriteGroup | QFile::ExeGroup | QFile::ReadOther | QFile::WriteOther | QFile::ExeOther));
+	}
+
 	SAVELOAD(bEnable, "enable");
 
 	SAVELOAD(osShow, "show");
 	SAVELOAD(bAlwaysSelf, "alwaysself");
-	SAVELOAD(iActiveTime, "activetime");
+	SAVELOAD(uiActiveTime, "activetime");
 	SAVELOAD(osSort, "sort");
 	SAVELOAD(fX, "x");
 	SAVELOAD(fY, "y");
@@ -720,7 +739,7 @@ void OverlaySettings::save(QSettings* settings_ptr) {
 	SAVELOAD(uiColumns, "columns");
 
 	settings_ptr->beginReadArray(QLatin1String("states"));
-	for (int i=0;i<4;++i) {
+	for (int i=0; i<4; ++i) {
 		settings_ptr->setArrayIndex(i);
 		SAVELOAD(qcUserName[i], "color");
 		SAVELOAD(fUser[i], "opacity");
@@ -778,9 +797,9 @@ void Settings::save() {
 	SAVELOAD(bDeaf, "audio/deaf");
 	SAVELOAD(atTransmit, "audio/transmit");
 	SAVELOAD(uiDoublePush, "audio/doublepush");
-	SAVELOAD(bPushClick, "audio/pushclick");
-	SAVELOAD(qsPushClickOn, "audio/pushclickon");
-	SAVELOAD(qsPushClickOff, "audio/pushclickoff");
+	SAVELOAD(bTxAudioCue, "audio/pushclick");
+	SAVELOAD(qsTxAudioCueOn, "audio/pushclickon");
+	SAVELOAD(qsTxAudioCueOff, "audio/pushclickoff");
 	SAVELOAD(iQuality, "audio/quality");
 	SAVELOAD(iMinLoudness, "audio/loudness");
 	SAVELOAD(fVolume, "audio/volume");
@@ -891,6 +910,10 @@ void Settings::save() {
 	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
+
+	// PTT Button window
+	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");
+	SAVELOAD(qbaPTTButtonWindowGeometry, "ui/pttbuttonwindowgeometry");
 
 	// Recording
 	SAVELOAD(qsRecordingPath, "recording/path");

@@ -28,35 +28,37 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _GROUP_H
-#define _GROUP_H
+#ifndef _OVERLAY_BLACKLIST_H
+#define _OVERLAY_BLACKLIST_H
 
-#include "murmur_pch.h"
-
-class Channel;
-class User;
-class ServerUser;
-
-class Group {
-	private:
-		Q_DISABLE_COPY(Group)
-	public:
-		Channel *c;
-		QString qsName;
-		bool bInherit;
-		bool bInheritable;
-		QSet<int> qsAdd;
-		QSet<int> qsRemove;
-		QSet<int> qsTemporary;
-		Group(Channel *assoc, const QString &name);
-
-#ifdef MURMUR
-		QSet<int> members();
-		static QSet<QString> groupNames(Channel *c);
-		static Group *getGroup(Channel *c, QString name);
-
-		static bool isMember(Channel *c, Channel *aclChan, QString name, ServerUser *);
-#endif
+static const char *overlayBlacklist[] = {
+	"iexplore.exe",
+	"ieuser.exe",
+	"vlc.exe",
+	"dbgview.exe",
+	"opera.exe",
+	"chrome.exe",
+	"acrord32.exe",
+	"explorer.exe",
+	"wmpnscfg.exe",
+	"firefox.exe",
+	"thunderbird.exe",
+	"instantbird.exe",
+	"wlmail.exe",   // Windows Live Suite (mshtml.dll)
+	"msnmsgr.exe",
+	"MovieMaker.exe",
+	"WLXPhotoGallery.exe",
+	"psi.exe", // Secunia PSI (uses mshtml.dll)
+	"Photoshop.exe",
+	"blender.exe",
+	"googleearth.exe",
+	"XBMC.exe", // http://xbmc.org/
+	"BOXEE.exe", // http://www.boxee.tv/
+	"hammer.exe", // VALVE Hammer Editor
+	"hlmv.exe", // Half-Life Model Viewer
+	"hlfaceposer.exe", // Face Poser (from Source SDK)
+	NULL
 };
 
-#endif
+#endif  // _OVERLAY_BLACKLIST_H
+

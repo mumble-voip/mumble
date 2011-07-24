@@ -194,6 +194,7 @@ int main(int argc, char **argv) {
 	QString inifile;
 	QString supw;
 	bool wipeSsl = false;
+	bool wipeLogs = false;
 	int sunum = 1;
 #ifndef Q_OS_WIN
 	bool readPw = false;
@@ -223,7 +224,7 @@ int main(int argc, char **argv) {
 				qFatal("-supw expects the password on the command line - maybe you meant -readsupw?");
 #else
 				qFatal("-supw expects the password on the command line");
-#endif			
+#endif
 			}
 #ifdef Q_OS_UNIX
 		} else if ((arg == "-readsupw")) {
@@ -240,6 +241,8 @@ int main(int argc, char **argv) {
 			inifile=argv[i];
 		} else if ((arg == "-wipessl")) {
 			wipeSsl = true;
+		} else if ((arg == "-wipelogs")) {
+			wipeLogs = true;
 		} else if ((arg == "-fg")) {
 			detach = false;
 		} else if ((arg == "-v")) {
@@ -258,6 +261,7 @@ int main(int argc, char **argv) {
 			       "  -v               Add verbose output.\n"
 			       "  -fg              Don't detach from console [Unix-like systems only].\n"
 			       "  -wipessl         Remove SSL certificates from database.\n"
+			       "  -wipelogs        Remove all log entries from database.\n"
 			       "  -version         Show version information.\n"
 			       "If no inifile is provided, murmur will search for one in \n"
 			       "default locations.", argv[0]);
@@ -325,7 +329,8 @@ int main(int argc, char **argv) {
 
 		printf("Password: ");
 		fflush(NULL);
-		fgets(password, 255, stdin);
+		if (fgets(password, 255, stdin) != password)
+			qFatal("No password provided");
 		p = strchr(password, '\r');
 		if (p)
 			*p = 0;
@@ -353,6 +358,11 @@ int main(int argc, char **argv) {
 		}
 	}
 
+	if (wipeLogs) {
+		qWarning("Removing all log entries from the database.");
+		ServerDB::wipeLogs();
+	}
+
 #ifdef Q_OS_UNIX
 	if (detach) {
 		if (fork() != 0) {
@@ -375,7 +385,8 @@ int main(int argc, char **argv) {
 			}
 		}
 
-		chdir("/");
+		if (chdir("/") != 0)
+			fprintf(stderr, "Failed to chdir to /");
 		int fd;
 
 		fd = open("/dev/null", O_RDONLY);

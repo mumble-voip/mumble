@@ -33,8 +33,8 @@
 
 #include "murmur_pch.h"
 #include "Timer.h"
-#include "Server.h"
-#include "DBus.h"
+
+class Server;
 
 struct MetaParams {
 	QDir qdBasePath;
@@ -146,6 +146,4 @@ class Meta : public QObject {
 
 extern Meta *meta;
 
-#else
-class Meta;
 #endif

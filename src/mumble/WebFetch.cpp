@@ -64,9 +64,9 @@ void WebFetch::finished() {
 
 		QMap<QString, QString> headers;
 
-		foreach(const QNetworkReply::RawHeaderPair &pair, qnr->rawHeaderPairs()) {
-			QString name = fromUtf8(pair.first);
-			QString value = fromUtf8(pair.second);
+		foreach(const QByteArray &headerName, qnr->rawHeaderList()) {
+			QString name = fromUtf8(headerName);
+			QString value = fromUtf8(qnr->rawHeader(headerName));
 			if (! name.isEmpty() && ! value.isEmpty()) {
 				headers.insert(name, value);
 				if (name == QLatin1String("Geo-Country-Code"))

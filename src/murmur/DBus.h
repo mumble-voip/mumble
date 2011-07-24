@@ -254,11 +254,5 @@ class MetaDBus : public QDBusAbstractAdaptor {
 		void stopped(int server_id);
 };
 
-
-// extern MurmurDBus *dbus;
-
-#else
-class MurmurDBus;
-class MetaDBus;
 #endif
 #endif

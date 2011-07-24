@@ -67,6 +67,4 @@ class SocketRPC : public QObject {
 		void newConnection();
 };
 
-#else
-class SocketRPC;
 #endif

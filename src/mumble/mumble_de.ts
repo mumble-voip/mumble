@@ -458,7 +458,12 @@ Enthält die Liste von Mitgliedern, welche vom aktuellen Kanal geerbt wurden. De
         <translation>Dies gibt das %1-Recht. Wenn ein Recht sowohl erlaubt als auch verweigert wird, so wird es verweigert.&lt;br /&gt;%2</translation>
     </message>
     <message>
-        <location line="-8"/>
+        <location line="+123"/>
+        <source>Channel must have a name</source>
+        <translation type="unfinished">Der Kanal muss einen Namen haben</translation>
+    </message>
+    <message>
+        <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
         <translation>Dies nimmt das %1-Recht. Wenn ein Recht sowohl erlaubt als auch verweigert wird, so wird es verweigert.&lt;br /&gt;%2</translation>
     </message>
@@ -1410,14 +1415,12 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
         <translation type="obsolete">Hörbarer Audio Hinweis, wenn Push-To-Talk gedrückt und losgelassen wird</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;This enables the audio cues for push to talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when push to talk is pressed and released.</source>
-        <translation>&lt;b&gt;Dies aktiviert die Push-To-Talk Audio-Hinweise.&lt;/b&gt;&lt;br /&gt;Wenn diese Option aktiviert ist, gibt es wird der eingestellte Ton abgespielt wenn Push-To-Talk gedrückt und losgelassen wird.</translation>
+        <translation type="obsolete">&lt;b&gt;Dies aktiviert die Push-To-Talk Audio-Hinweise.&lt;/b&gt;&lt;br /&gt;Wenn diese Option aktiviert ist, gibt es wird der eingestellte Ton abgespielt wenn Push-To-Talk gedrückt und losgelassen wird.</translation>
     </message>
     <message>
-        <location/>
         <source>PTT Audio cue</source>
-        <translation>PTT Audio-Hinweis</translation>
+        <translation type="obsolete">PTT Audio-Hinweis</translation>
     </message>
     <message>
         <location/>
@@ -1616,14 +1619,12 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
         <translation>&lt;b&gt;Doppeldruck-Zeit&lt;/b&gt;&lt;br /&gt;Wenn Sie die PTT-Taste zweimal innerhalb der Doppeldruck-Zeit drücken wird die Sprachübertragung dauerhaft aktiviert. Diese wird beendet wenn sie die Taste ein weiteres mal drücken.</translation>
     </message>
     <message>
-        <location/>
         <source>Gets played when the PTT button is pressed</source>
-        <translation>Wird abgespielt wenn die PTT-Taste gedrückt wird</translation>
+        <translation type="obsolete">Wird abgespielt wenn die PTT-Taste gedrückt wird</translation>
     </message>
     <message>
-        <location/>
         <source>Gets played when the PTT button is released</source>
-        <translation>Wird abgespielt wenn die PTT-Taste losgelassen wird</translation>
+        <translation type="obsolete">Wird abgespielt wenn die PTT-Taste losgelassen wird</translation>
     </message>
     <message>
         <location/>
@@ -1673,9 +1674,8 @@ Spielt den aktuellen &lt;i&gt;An&lt;/i&gt;-Audio-Hinweis gefolgt vom aktuellen &
         <translation type="obsolete">Vorschau</translation>
     </message>
     <message>
-        <location/>
         <source>Audible audio cue when push-to-talk is activated or deactivated</source>
-        <translation>Akustischer Hinweis, wenn Push-to-Talk aktiviert oder deaktiviert wird</translation>
+        <translation type="obsolete">Akustischer Hinweis, wenn Push-to-Talk aktiviert oder deaktiviert wird</translation>
     </message>
     <message>
         <location/>
@@ -1798,6 +1798,46 @@ Spielt den aktuellen &lt;i&gt;An&lt;/i&gt;-Audio-Hinweis gefolgt vom aktuellen &
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
         <translation>&lt;b&gt;Vorschau&lt;/b&gt;&lt;br /&gt;Spielt den aktuellen &lt;i&gt;An&lt;/i&gt; Sound gefolgt vom aktuellen &lt;i&gt;Aus&lt;/i&gt; Sound.</translation>
     </message>
+    <message>
+        <location/>
+        <source>Displays an always on top window with a push to talk button in it</source>
+        <translation type="unfinished">Zeigt ein dauerhaft im Vordergrund liegendes Fenster mit einem Push-To-Talk Button</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Display push to talk window</source>
+        <translation type="unfinished">Zeige Push-To-Talk Fenster</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Misc</source>
+        <translation>Verschiedenes</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Audible audio cue when starting or stopping to transmit</source>
+        <translation type="unfinished">Tonhinweise bei Beginn oder Ende einer Übertragung</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
+        <translation type="unfinished">&lt;b&gt;Dies aktiviert Tonhinweise bei der Übertragung.&lt;/b&gt;&lt;br /&gt;Man hört ein leises Piepen beim Beginn und Ende der Sprachübertragung.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Audio cue</source>
+        <translation type="unfinished">Tonhinweise</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Gets played when starting to transmit</source>
+        <translation type="unfinished">Wird abgespielt, wenn die Sprachübertragung beginnt</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Gets played when stopping to transmit</source>
+        <translation type="unfinished">Wird abgespielt, wenn die Sprachübertragung endet</translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1822,7 +1862,7 @@ Spielt den aktuellen &lt;i&gt;An&lt;/i&gt;-Audio-Hinweis gefolgt vom aktuellen &
         <translation>Audioeingabe</translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+101"/>
         <location line="+8"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
@@ -2487,7 +2527,7 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
         <translation type="obsolete">DoublePush Intervall</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="+405"/>
+        <location filename="AudioStats.cpp" line="+384"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000 ms</translation>
@@ -3968,7 +4008,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
 <context>
     <name>ChatbarTextEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+79"/>
+        <location filename="CustomElements.cpp" line="+104"/>
         <source>Paste and send</source>
         <translation>Einfügen und senden</translation>
     </message>
@@ -4229,7 +4269,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
         <translation type="obsolete">&amp;Passwort</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+774"/>
+        <location filename="ConnectDialog.cpp" line="+780"/>
         <source>&amp;Connect</source>
         <translation>&amp;Verbinden</translation>
     </message>
@@ -4395,7 +4435,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+692"/>
+        <location line="+672"/>
         <source>Failed to fetch server list</source>
         <translation>Serverliste konnte nicht geladen werden</translation>
     </message>
@@ -4620,7 +4660,7 @@ Label of the server. This is what the server will be named like in your serverli
 Dies ist die Bezeichnung des Servers, welche in der Serverliste erscheint und frei gewählt werden kann.</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-804"/>
+        <location filename="ConnectDialog.cpp" line="-784"/>
         <source>Add Server</source>
         <translation>Server hinzufügen</translation>
     </message>
@@ -4751,7 +4791,7 @@ Der Absturz-Bericht enthält eine Teilkopie von Mumbles Speicher zum Zeitpunkt d
         <translation type="obsolete">Öffnen des DirectSound Eingangsgerätes gescheitert. Standardeinstellungen werden benutzt.</translation>
     </message>
     <message>
-        <location filename="DirectSound.cpp" line="+554"/>
+        <location filename="DirectSound.cpp" line="+551"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
         <translation>Öffnen des DirectSound Eingangsgerätes fehlgeschlagen. Standardgerät wird benutzt.</translation>
     </message>
@@ -4964,7 +5004,7 @@ Der Absturz-Bericht enthält eine Teilkopie von Mumbles Speicher zum Zeitpunkt d
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Database.cpp" line="+84"/>
+        <location filename="Database.cpp" line="+86"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Mumble konnte keine Datenbank an einem
@@ -5240,7 +5280,7 @@ der möglichen Orte initialisieren.</translation>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+331"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+336"/>
         <source>Mouse %1</source>
         <translation>Maus %1</translation>
     </message>
@@ -5429,7 +5469,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">[%2] %1</translation>
     </message>
     <message>
-        <location filename="Log.cpp" line="+225"/>
+        <location filename="Log.cpp" line="+224"/>
         <source>Debug</source>
         <translation>Debug</translation>
     </message>
@@ -5576,14 +5616,14 @@ p, li { white-space: pre-wrap; }
         <translation>[[ Text zu groß um dargestellt zu werden ]]</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+47"/>
         <source>[Date changed to %1]
 </source>
         <translation>[Datum geändert nach %1]
 </translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+146"/>
         <source>link to %1</source>
         <translation>Link zu %1</translation>
     </message>
@@ -5611,7 +5651,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-531"/>
+        <location line="-539"/>
         <source>Toggle console for %1 events</source>
         <translation>Wechsle Einstellung für Konsole für %1 Ereignisse</translation>
     </message>
@@ -5787,32 +5827,32 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location/>
         <source>If enabled text messages you send will be read back to you with TTS</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn aktiviert, werden auch eigene Nachrichten mittels Text-zu-Sprache vorgelesen</translation>
     </message>
     <message>
         <location/>
         <source>Read back own messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigene Nachrichten vorlesen</translation>
     </message>
     <message>
         <location/>
         <source>Chat Log</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Chat-Log</translation>
     </message>
     <message>
         <location/>
         <source>Maximum chat length</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maximale Länge des Chat-Logs</translation>
     </message>
     <message>
         <location/>
         <source>Unlimited</source>
-        <translation type="unfinished"></translation>
+        <translation>Unbegrenzt</translation>
     </message>
     <message>
         <location/>
         <source> Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeilen</translation>
     </message>
 </context>
 <context>
@@ -6224,8 +6264,8 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+2070"/>
+        <location filename="MainWindow.cpp" line="+173"/>
+        <location line="+2114"/>
         <source>Root</source>
         <translation>Hauptkanal</translation>
     </message>
@@ -6789,9 +6829,9 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation>Verbindet sich mit der Mumble-Webseite um zu überprüfen ob eine neue Version verfügbar ist. Ist eine neue Version verfügbar wird mit einer passenden Download-URL darauf hingewiesen.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1971"/>
-        <location line="+12"/>
-        <location line="+2153"/>
+        <location filename="MainWindow.cpp" line="-2013"/>
+        <location line="+15"/>
+        <location line="+2208"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6813,7 +6853,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation type="obsolete">B&amp;enutzer</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2241"/>
+        <location filename="MainWindow.cpp" line="-2299"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanal</translation>
     </message>
@@ -6836,7 +6876,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation type="obsolete">Kicke Benutzer %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1160"/>
+        <location filename="MainWindow.cpp" line="+1187"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Grund eingeben</translation>
@@ -6902,7 +6942,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation type="obsolete">Mit Server verbunden.</translation>
     </message>
     <message>
-        <location line="+393"/>
+        <location line="+408"/>
         <source>Server connection failed: %1.</source>
         <translation>Serververbindung fehlgeschlagen: %1.</translation>
     </message>
@@ -6912,7 +6952,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation>Verbindung zum Server unterbrochen.</translation>
     </message>
     <message>
-        <location line="-1483"/>
+        <location line="-1500"/>
         <source>Reconnecting.</source>
         <translation>Neuverbindung.</translation>
     </message>
@@ -7125,11 +7165,36 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation>%2%1: %3</translation>
     </message>
     <message>
+        <location line="+197"/>
+        <source>The server requests minimum client version %1</source>
+        <translation type="unfinished">Der Server empfiehlt mindestens die Client-Version %1</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The server requests positional audio be enabled.</source>
+        <translation type="unfinished">Der Server empfiehlt aktiviertes Positionsabhängiges Audio.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The server requests positional audio be disabled.</source>
+        <translation type="unfinished">Der Server empfiehlt deaktiviertes Positionsabhängiges Audio.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The server requests Push-to-Talk be enabled.</source>
+        <translation type="unfinished">Der Server empfiehlt aktiviertes Push-To-Talk.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The server requests Push-to-Talk be disabled.</source>
+        <translation type="unfinished">Der Server empfiehlt deaktiviertes Push-To-Talk.</translation>
+    </message>
+    <message>
         <source>server</source>
         <translation type="obsolete">Server</translation>
     </message>
     <message>
-        <location line="-254"/>
+        <location line="-463"/>
         <source>You were muted by %1.</source>
         <translation>Stummstellung wurde aktiviert durch %1.</translation>
     </message>
@@ -7189,12 +7254,12 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation type="obsolete">Server</translation>
     </message>
     <message>
-        <location line="+338"/>
+        <location line="+364"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Es wurde kein für alle Benutzer passender CELT-Codec gefunden. Sie werden nicht zu allen Benutzern sprechen können.</translation>
     </message>
     <message>
-        <location line="-404"/>
+        <location line="-430"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Sie wurden taub gestellt durch %1.</translation>
@@ -7281,10 +7346,10 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
     <message>
         <location line="+62"/>
         <source>Skipping version check in debug mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Überspringe Versionsüberprüfung im Debug-Modus.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-693"/>
+        <location filename="MainWindow.cpp" line="-718"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Push-To-Talk</translation>
@@ -7405,7 +7470,13 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation>Dies wechselt den Modus des Ingame-Overlays.</translation>
     </message>
     <message>
-        <location line="+400"/>
+        <location line="+19"/>
+        <source>Link Channel</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished">Kanal verknüpfen</translation>
+    </message>
+    <message>
+        <location line="+390"/>
         <source>File is not a configuration file.</source>
         <translation>Die Datei ist keine Konfigurationsdatei.</translation>
     </message>
@@ -7416,12 +7487,12 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
     </message>
     <message>
         <location line="+43"/>
-        <location line="+176"/>
+        <location line="+192"/>
         <source>Connecting to server %1.</source>
         <translation>Zu Server %1 verbinden.</translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+144"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protokoll %1.%2.%3.&lt;/p&gt;</translation>
     </message>
@@ -7436,12 +7507,31 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1336"/>
+        <location line="+1351"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Server verwendet einen älteren Standard zur Verschlüsselung und wird von modernen Versionen von Mumble nicht mehr unterstützt.</translation>
     </message>
     <message>
-        <location line="+234"/>
+        <location line="+24"/>
+        <source>Username in use</source>
+        <translation type="unfinished">Benutzername in Verwendung</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Wrong certificate or password</source>
+        <translation type="unfinished">Falsches Zertifikat oder Passwort</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Wrong certificate or password for registered user. If you are
+certain this user is protected by a password please retry.
+Otherwise abort and check your certificate and username.</source>
+        <translation type="unfinished">Falsches Zertifikat oder Passwort für einen registrierten Benutzer. Wenn Sie sicher sind,
+dass diese Benutzerregistrierung mit einem Passwort geschützt ist, versuchen Sie es erneut.
+Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutzernamen.</translation>
+    </message>
+    <message>
+        <location line="+219"/>
         <source>Images (*.png *.jpg *.jpeg *.svg)</source>
         <translation>Bilder (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
@@ -7450,7 +7540,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation type="obsolete">&lt;h2&gt;Kontrollkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit %1 bit %2&lt;br /&gt;%3 ms Durchschnittslatenz (%4 Abweichung)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1550"/>
+        <location line="-1581"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Sprachkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit 128 bit OCB-AES128&lt;br /&gt;%1 ms Durchschnittslatenz (%4 Abweichung)&lt;/p&gt;</translation>
     </message>
@@ -7501,14 +7591,14 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation type="obsolete">Öffnen der Bilddatei fehlgeschlagen.</translation>
     </message>
     <message>
-        <location line="-740"/>
-        <location line="+327"/>
+        <location line="-742"/>
+        <location line="+329"/>
         <source>Register yourself as %1</source>
         <translation>Sich selbst als %1 registrieren</translation>
     </message>
     <message>
-        <location line="-327"/>
-        <location line="+327"/>
+        <location line="-329"/>
+        <location line="+329"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Sie sind dabei sich auf dem Server zu registrieren. Diese Aktion kann nicht rückgängig gemacht werden und Ihr Benutzername &apos;%1&apos; auf diesem Server kann von Ihnen selbst nicht mehr geändert werden.&lt;/p&gt;&lt;p&gt;Sind Sie sicher, dass Sie sich selbst registrieren möchten?&lt;/p&gt;</translation>
     </message>
@@ -7554,7 +7644,7 @@ Entfernen Sie die Auswahl um ihn zu verstecken.</translation>
         <translation>Sind Sie sicher, dass Sie %1 und alle Unterkanäle löschen möchten?</translation>
     </message>
     <message>
-        <location line="+592"/>
+        <location line="+607"/>
         <source>Connected.</source>
         <translation>Verbunden.</translation>
     </message>
@@ -7579,7 +7669,7 @@ Möchten Sie die Kompatibilitätsversion starten und zu ihm verbinden?</translat
 Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den meisten Installationen ist und möglicherweise nicht mit installiert wurde.</translation>
     </message>
     <message>
-        <location line="+126"/>
+        <location line="+142"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
         <translation>&lt;center&gt;Geben Sie hier Ihre Nachricht an den Kanal &apos;%1&apos; ein&lt;/center&gt;</translation>
@@ -7649,7 +7739,7 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
         <translation type="obsolete">Sende eine Text-Nachricht an einen anderen Benutzer.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1257"/>
+        <location filename="MainWindow.cpp" line="-1288"/>
         <source>Sending message to %1</source>
         <translation>Sende Nachricht an %1</translation>
     </message>
@@ -7664,32 +7754,31 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
         <translation type="obsolete">Ändere Beschreibung von Kanal %1</translation>
     </message>
     <message>
-        <location line="+922"/>
+        <location line="+936"/>
         <source>Invalid username</source>
         <translation>Ungültiger Benutzername</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>Sie verwenden einen ungültigen Benutzernamen. Bitte versuchen Sie einen anderen.</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+5"/>
         <source>That username is already in use, please try another username.</source>
         <translation>Dieser Benutzername ist bereits vergeben. Bitte benutzen Sie einen anderen.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+13"/>
         <source>Wrong password</source>
         <translation>Falsches Passwort</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Wrong password for registered users, please try again.</source>
-        <translation>Falsches Passwort für den registrierten Benutzer. Bitte versuchen Sie es noch einmal.</translation>
+        <translation type="obsolete">Falsches Passwort für den registrierten Benutzer. Bitte versuchen Sie es noch einmal.</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Falsches Serverpasswort für unregistrierte Benutzer. Bitte versuchen Sie es noch einmal.</translation>
     </message>
@@ -7713,7 +7802,7 @@ Beachten Sie, dass die Kompatibilitätsversion eine optionale Komponente bei den
         <translation>Schickt eine Textnachricht an einen anderen Benutzer.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2226"/>
+        <location filename="MainWindow.cpp" line="-2282"/>
         <source>&amp;User</source>
         <translation>&amp;Benutzer</translation>
     </message>
@@ -7815,7 +7904,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Dies leitet Sie durch den Hardware-Konfigurationsprozess.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+2163"/>
+        <location filename="MainWindow.cpp" line="+2205"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL-Überprüfung fehlgeschlagen: %1</translation>
     </message>
@@ -7874,7 +7963,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Dies zeigt erweitertete Informationen über die Verbindung zum Server an.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1279"/>
+        <location filename="MainWindow.cpp" line="-1294"/>
         <source>Mumble Server Information</source>
         <translation>Mumble - Server Informationen</translation>
     </message>
@@ -7884,17 +7973,17 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1282"/>
+        <location line="+1297"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Zertifikat zeigen</translation>
     </message>
     <message>
-        <location line="-1734"/>
+        <location line="-1767"/>
         <source>Opening URL %1</source>
         <translation>Öffne URL %1</translation>
     </message>
     <message>
-        <location line="-408"/>
+        <location line="-417"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Selbst stumm stellen</translation>
@@ -7941,24 +8030,24 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Flüstern/Rufen</translation>
     </message>
     <message>
-        <location line="+59"/>
-        <location line="+2182"/>
+        <location line="+62"/>
+        <location line="+2237"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Nicht verbunden&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1867"/>
+        <location line="-1916"/>
         <source>File does not exist</source>
         <translation>Datei existiert nicht</translation>
     </message>
     <message>
-        <location line="+312"/>
+        <location line="+328"/>
         <source>Change your comment</source>
         <translation>Ändere deinen Kommentar</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+110"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Steuerkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit %1 bit %2&lt;br /&gt;%3 ms Durchschnittslatenz (%4 Abweichung)&lt;/p&gt;&lt;p&gt;Gegenstelle %5 (Port %6)&lt;/p&gt;</translation>
     </message>
@@ -7967,7 +8056,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">Diese Datei ist keine Konfigurationsdatei.</translation>
     </message>
     <message>
-        <location line="-404"/>
+        <location line="-422"/>
         <source>Settings merged from file.</source>
         <translation>Einstellungen aus Datei eingelesen.</translation>
     </message>
@@ -8007,7 +8096,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">&lt;h2&gt;Kontrollkanal&lt;/h2&gt;&lt;p&gt;Verschlüsselt mit %1 Bit %2&lt;br /&gt;%3 ms Durchschnittslatenz (%4 Varianz)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+357"/>
+        <location line="+375"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Sprachkanal wird über den Kontrollkanal gesendet.</translation>
     </message>
@@ -8136,7 +8225,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">Mit Server %1 verbunden.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1310"/>
+        <location filename="MainWindow.cpp" line="-1334"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble ist gerade zu einem Server verbunden. Möchten Sie es schließen oder minimieren?</translation>
     </message>
@@ -8166,7 +8255,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation type="obsolete">Strg+W</translation>
     </message>
     <message>
-        <location line="-28"/>
+        <location line="-31"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
         <translation>Minimalansichts-Modus umschalten</translation>
@@ -8204,7 +8293,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Leiser (-10%)</translation>
     </message>
     <message>
-        <location line="+350"/>
+        <location line="+359"/>
         <source>Clear</source>
         <translation>Löschen</translation>
     </message>
@@ -8345,7 +8434,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiert einen Link zu diesem Kanal in die Zwischenablage.</translation>
     </message>
 </context>
 <context>
@@ -8700,7 +8789,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     </message>
     <message>
         <location filename="OverlayEditorScene.cpp" line="+121"/>
-        <location filename="OverlayUser.cpp" line="+150"/>
+        <location filename="OverlayUser.cpp" line="+151"/>
         <source>Silent</source>
         <translation>Still</translation>
     </message>
@@ -8729,17 +8818,17 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
         <translation>Kanal</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+100"/>
+        <location filename="Overlay.cpp" line="+101"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Kommunikation mit dem Overlay auf %2: %1 fehlgeschlagen. Das Overlay wird nicht verfügbar sein.</translation>
     </message>
     <message>
-        <location line="+255"/>
+        <location line="+252"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation>Überspringe Overlay-Aktualisierung im Debug Modus.</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+61"/>
         <source>Downloaded new or updated overlay support file to %1.</source>
         <translation>Neue oder aktualisierte Datei zur Overlayunterstützung heruntergeladen nach %1.</translation>
     </message>
@@ -8769,19 +8858,19 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
 <context>
     <name>OverlayClient</name>
     <message>
-        <location filename="OverlayUserGroup.cpp" line="+94"/>
+        <location filename="OverlayUserGroup.cpp" line="+95"/>
         <source>Filter</source>
         <translation>Filter</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Only talking</source>
-        <translation>Nur sprechen</translation>
+        <translation>Nur Sprechende</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Talking and recently active</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprechend und kürzlich aktiv</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -8801,7 +8890,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location line="+8"/>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zeitspanne bearbeiten, in der Benutzer als aktiv gelten (%1 Sekunden)...</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -8811,17 +8900,17 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location line="+8"/>
         <source>Sort</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortierung</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Alphabetically</source>
-        <translation type="unfinished"></translation>
+        <translation>Alphabetisch</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Last state change</source>
-        <translation type="unfinished"></translation>
+        <translation>Nach letzter Statusänderung</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -8836,12 +8925,12 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location line="+41"/>
         <source>Configure recently active time</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zeitspanne, in der Benutzer als aktiv gelten</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Amount of seconds users remain active after talking:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dauer in Sekunden innerhalb der ein Benutzer nach dem Sprechen noch als aktiv gilt:</translation>
     </message>
     <message>
         <source>FPS: %1</source>
@@ -9411,7 +9500,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>OverlayEditorScene</name>
     <message>
-        <location filename="OverlayEditorScene.cpp" line="+396"/>
+        <location filename="OverlayEditorScene.cpp" line="+399"/>
         <source>Layout preset</source>
         <translation>Layout Vorlage</translation>
     </message>
@@ -9535,7 +9624,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay_win.cpp" line="+68"/>
+        <location filename="Overlay_win.cpp" line="+53"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
@@ -9724,12 +9813,12 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+330"/>
+        <location filename="Plugins.cpp" line="+327"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>Überspringe Plugin-Aktualisierung im Debug-Modus.</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+150"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
         <translation>Neues oder aktualisiertes Plugin nach %1 heruntergeladen.</translation>
@@ -9744,7 +9833,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
         <translation type="obsolete">Plugin %1 hat Verbindung verloren.</translation>
     </message>
     <message>
-        <location line="-265"/>
+        <location line="-257"/>
         <source>%1 lost link.</source>
         <translation>%1 hat Verbindung verloren.</translation>
     </message>
@@ -9804,7 +9893,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+556"/>
+        <location filename="PulseAudio.cpp" line="+565"/>
         <source>Default Input</source>
         <translation>Standardeingabe</translation>
     </message>
@@ -10162,7 +10251,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     <message>
         <location/>
         <source>Send recursively to subchannels</source>
-        <translation>Sende rekursiv zu Unterkanälen</translation>
+        <translation>Sende rekursiv an Unterkanäle</translation>
     </message>
 </context>
 <context>
@@ -10393,7 +10482,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+53"/>
         <source>%1 online (%2 idle)</source>
         <translation>%1 online (%2 untätig)</translation>
     </message>
@@ -10575,7 +10664,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <translation type="obsolete">Mumble konnte keine Versionsinformationen vom SourceForge-Server ermitteln.</translation>
     </message>
     <message>
-        <location filename="VersionCheck.cpp" line="+130"/>
+        <location filename="VersionCheck.cpp" line="+125"/>
         <source>Upgrade Mumble</source>
         <translation>Mumble aktualisieren</translation>
     </message>
@@ -10585,7 +10674,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <translation>Eine neue Version von Mumble ist verfügbar und wurde automatisch heruntergeladen. Es wird empfohlen, dass Sie entweder diese neue Version oder die letzte stabile Version installieren. Möchten Sie die neue Version jetzt installieren?</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+15"/>
         <source>Failed to launch snapshot installer.</source>
         <translation>Start des Snapshot-Installers fehlgeschlagen.</translation>
     </message>
@@ -10595,18 +10684,18 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <translation>Der Download der neuen Mumble-Version war fehlerhaft und wurde gelöscht.</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+18"/>
         <source>Downloading new snapshot from %1 to %2</source>
         <translation>Neuer Snapshot wird heruntergeladen von %1 nach %2</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+14"/>
         <source>Failed to write new version to disk.</source>
         <oldsource>Failed to write new version to disc.</oldsource>
         <translation>Neue Version konnte nicht auf die Festplatte geschrieben werden.</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+10"/>
         <source>Mumble failed to retrieve version information from the central server.</source>
         <translation>Mumble konnte keine Versions-Informationen vom Zentralserver abfragen.</translation>
     </message>
@@ -10940,6 +11029,19 @@ Please contact your server administrator for further information.</source>
     <message>
         <source>Press Shortcut</source>
         <translation type="obsolete">Shortcut drücken</translation>
+    </message>
+</context>
+<context>
+    <name>qwPTTButtonWidget</name>
+    <message>
+        <location filename="PTTButtonWidget.ui"/>
+        <source>Mumble PTT</source>
+        <translation type="unfinished">Mumble PTT</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Push to talk</source>
+        <translation type="unfinished">Push-To-Talk</translation>
     </message>
 </context>
 </TS>

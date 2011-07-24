@@ -132,13 +132,13 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 
 	// Remember addresses for later
-	posrotptr = pModule + 0x6F76C0;
-	stateptr = pModule + 0x607C64;
-	hostptr = mod_engine + 0x3D3E94;
+	posrotptr = pModule + 0x779724;
+	stateptr = pModule + 0x6F3C54;
+	hostptr = mod_engine + 0x3DEBA4;
 
 	// Gamecheck
 	char sMagic[13];
-	if (!peekProc(mod_engine + 0x54E668, sMagic) || strncmp("DemomanTaunts", sMagic, sizeof(sMagic))!=0)
+	if (!peekProc(mod_engine + 0x5593F8, sMagic) || strncmp("DemomanTaunts", sMagic, sizeof(sMagic))!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
@@ -156,10 +156,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports TF2 build 4426. No identity support yet.");
+	return std::wstring(L"Supports TF2 build 4539. No identity support yet.");
 }
 
-static std::wstring description(L"Team Fortress 2 (Build 4426)");
+static std::wstring description(L"Team Fortress 2 (Build 4539)");
 static std::wstring shortname(L"Team Fortress 2");
 
 static int trylock1() {

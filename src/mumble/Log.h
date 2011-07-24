@@ -121,6 +121,4 @@ class LogDocument : public QTextDocument {
 		void finished();
 };
 
-#else
-class Log;
 #endif

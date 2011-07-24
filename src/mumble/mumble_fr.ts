@@ -452,7 +452,12 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
         <translation>Accorde le privilège %1. Si un privilège est à la fois accordé et refusé, il est refusé.&lt;br /&gt;%2</translation>
     </message>
     <message>
-        <location line="-8"/>
+        <location line="+123"/>
+        <source>Channel must have a name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
         <translation>Retirer le privilège %1. Si le privilège est à la fois accordé et refusé, il est refusé.&lt;br /&gt;%2</translation>
     </message>
@@ -1348,14 +1353,12 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <translation type="obsolete">TextLabel</translation>
     </message>
     <message>
-        <location/>
         <source>&lt;b&gt;This enables the audio cues for push to talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when push to talk is pressed and released.</source>
-        <translation>&lt;b&gt;Active le bip sonore pour le &apos;Appuyer-pour-parler&apos;&lt;/b&gt;&lt;br/&gt;Si vous activez cette option, vous entendrez un court bip sonore quand le bouton appuyez-pour-parler sera enfoncé ou relaché.</translation>
+        <translation type="obsolete">&lt;b&gt;Active le bip sonore pour le &apos;Appuyer-pour-parler&apos;&lt;/b&gt;&lt;br/&gt;Si vous activez cette option, vous entendrez un court bip sonore quand le bouton appuyez-pour-parler sera enfoncé ou relaché.</translation>
     </message>
     <message>
-        <location/>
         <source>PTT Audio cue</source>
-        <translation>Sons APP</translation>
+        <translation type="obsolete">Sons APP</translation>
     </message>
     <message>
         <location/>
@@ -1555,14 +1558,12 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <translation>&lt;b&gt;Temps entre deux pressions&lt;/b&gt;&lt;br/&gt;Si vous pressez la touche Appuyez-pour-parler deux fois durant l&apos;intervale de temps configuré, cela la verrouillera. Mumble continuera à transmettre tant que la touche ne sera pas enfoncée une nouvelle fois.</translation>
     </message>
     <message>
-        <location/>
         <source>Gets played when the PTT button is pressed</source>
-        <translation>Sera joué quand le boutton Appuyez-pour-parler sera pressé</translation>
+        <translation type="obsolete">Sera joué quand le boutton Appuyez-pour-parler sera pressé</translation>
     </message>
     <message>
-        <location/>
         <source>Gets played when the PTT button is released</source>
-        <translation>Sera joué quand le boutton Appuyez-pour-parler sera relaché</translation>
+        <translation type="obsolete">Sera joué quand le boutton Appuyez-pour-parler sera relaché</translation>
     </message>
     <message>
         <location/>
@@ -1616,9 +1617,8 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <translation type="obsolete">Prévisualisation</translation>
     </message>
     <message>
-        <location/>
         <source>Audible audio cue when push-to-talk is activated or deactivated</source>
-        <translation>Son entendu lorsque la touche appuyez-pour-parler est enfoncée ou reclachée</translation>
+        <translation type="obsolete">Son entendu lorsque la touche appuyez-pour-parler est enfoncée ou reclachée</translation>
     </message>
     <message>
         <location/>
@@ -1732,6 +1732,46 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
         <translation>&lt;b&gt;Prévisualisation&lt;/b&gt;&lt;br/&gt;Joue le son pour l&apos;action &lt;i&gt;Allumé&lt;/i&gt; suivi de celui pour &lt;i&gt;Éteint&lt;/i&gt;.</translation>
     </message>
+    <message>
+        <location/>
+        <source>Displays an always on top window with a push to talk button in it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Display push to talk window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Misc</source>
+        <translation type="unfinished">Divers</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Audible audio cue when starting or stopping to transmit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Audio cue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Gets played when starting to transmit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Gets played when stopping to transmit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1756,7 +1796,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <translation>Entrée audio</translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+101"/>
         <location line="+8"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
@@ -2369,7 +2409,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <translation>Montre le poids de la suppression de l&apos;écho, avec le temps en ordonnée et la fréquence en absisse.&lt;br /&gt;Idéalement, celui-ci devrait être noir, indiquant qu&apos;aucun écho n&apos;existe. Plus communément, vous aurez une ou plusieurs bandes bleutées représentant le temps de retard de l&apos;écho. Vous devriez être capable de visualiser les poids mis à jour en temps réel.&lt;br /&gt;Notez que tant que vous n&apos;avez aucun signal où enlever l&apos;écho, vous ne verrez pas beaucoup de données utiles ici. Ecoutez de la musique et les choses devraient se stabiliser.&lt;br /&gt;Vous pouvez choisir de voir la partie réelle ou imaginaire dans le domaine fréquentiel, ou alternativement le module et la phase des poids. Le plus utile de ces outils serait probablement le module, qui est l&apos;amplitude de l&apos;écho, qui montre la quantité de signal sortant supprimé à chaque instant. Les autres modes de visualisation sont principalement utiles pour les gens qui veulent régler les algorithmes d&apos;annulation de l&apos;écho.&lt;br /&gt;Remarque : si l&apos;image entière fluctue massivement en mode module, l&apos;algorithme de suppression de l&apos;écho n&apos;a pas réussi à trouver une corrélation entre les deux sources d&apos;entrée (haut-parleurs et microphone). Soit vous avez un retard très long sur l&apos;écho, soit une des sources d&apos;entrée est mal configurée.</translation>
     </message>
     <message>
-        <location filename="AudioStats.cpp" line="+405"/>
+        <location filename="AudioStats.cpp" line="+384"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000ms</translation>
@@ -3725,7 +3765,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
 <context>
     <name>ChatbarTextEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+79"/>
+        <location filename="CustomElements.cpp" line="+104"/>
         <source>Paste and send</source>
         <translation>Coller et envoyer</translation>
     </message>
@@ -3980,7 +4020,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
         <translation type="obsolete">Mot de &amp;passe</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+774"/>
+        <location filename="ConnectDialog.cpp" line="+780"/>
         <source>&amp;Connect</source>
         <translation>&amp;Connexion</translation>
     </message>
@@ -4131,7 +4171,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location line="+692"/>
+        <location line="+672"/>
         <source>Failed to fetch server list</source>
         <translation>Impossible de récupérer la liste des serveurs</translation>
     </message>
@@ -4355,7 +4395,7 @@ Nom d&apos;utilisateur envoyé au serveur. Notez que le serveur peut imposer des
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-804"/>
+        <location filename="ConnectDialog.cpp" line="-784"/>
         <source>Add Server</source>
         <translation>Ajouter le serveur</translation>
     </message>
@@ -4478,7 +4518,7 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
         <translation type="obsolete">Ouverture de l&apos;entrée son choisie impossible. Aucune capture son depuis le microphone sera faite.</translation>
     </message>
     <message>
-        <location filename="DirectSound.cpp" line="+554"/>
+        <location filename="DirectSound.cpp" line="+551"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
         <translation>Ouverture de l&apos;entrée son choisie impossible. Le périphérique par défaut sera utilisé.</translation>
     </message>
@@ -4671,7 +4711,7 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Database.cpp" line="+84"/>
+        <location filename="Database.cpp" line="+86"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Mumble n&apos;a pas réussi à initialiser la base de données
@@ -4943,7 +4983,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+331"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+336"/>
         <source>Mouse %1</source>
         <translation>Souris %1</translation>
     </message>
@@ -5074,7 +5114,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+225"/>
+        <location filename="Log.cpp" line="+224"/>
         <source>Debug</source>
         <translation>Debogage</translation>
     </message>
@@ -5228,13 +5268,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>[[ Texte trop long pour être affiché ]]</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+47"/>
         <source>[Date changed to %1]
 </source>
         <translation>[Date changée en %1]</translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+146"/>
         <source>link to %1</source>
         <translation>lien pour %1</translation>
     </message>
@@ -5262,7 +5302,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-531"/>
+        <location line="-539"/>
         <source>Toggle console for %1 events</source>
         <translation>Active/désactive la console pour les événements %1</translation>
     </message>
@@ -5849,8 +5889,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+171"/>
-        <location line="+2070"/>
+        <location filename="MainWindow.cpp" line="+173"/>
+        <location line="+2114"/>
         <source>Root</source>
         <translation>Racine</translation>
     </message>
@@ -6042,7 +6082,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Délier</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2048"/>
+        <location filename="MainWindow.cpp" line="-2090"/>
         <source>&amp;User</source>
         <translation>&amp;Utilisateur</translation>
     </message>
@@ -6448,8 +6488,8 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+77"/>
-        <location line="+12"/>
-        <location line="+2153"/>
+        <location line="+15"/>
+        <location line="+2208"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -6471,7 +6511,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&amp;Joueur</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2241"/>
+        <location filename="MainWindow.cpp" line="-2299"/>
         <source>&amp;Channel</source>
         <translation>&amp;Salon</translation>
     </message>
@@ -6583,7 +6623,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Expulsion du joueur %1</translation>
     </message>
     <message>
-        <location line="+1098"/>
+        <location line="+1125"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Entrez la raison</translation>
@@ -6650,7 +6690,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Connecté au serveur.</translation>
     </message>
     <message>
-        <location line="+393"/>
+        <location line="+408"/>
         <source>Server connection failed: %1.</source>
         <translation>La connexion au serveur à échoué : %1.</translation>
     </message>
@@ -6660,7 +6700,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Déconnecté du serveur.</translation>
     </message>
     <message>
-        <location line="-1483"/>
+        <location line="-1500"/>
         <source>Reconnecting.</source>
         <translation>Reconnexion.</translation>
     </message>
@@ -6873,11 +6913,36 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%2%1 : %3</translation>
     </message>
     <message>
+        <location line="+197"/>
+        <source>The server requests minimum client version %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The server requests positional audio be enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The server requests positional audio be disabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The server requests Push-to-Talk be enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The server requests Push-to-Talk be disabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>server</source>
         <translation type="obsolete">serveur</translation>
     </message>
     <message>
-        <location line="-254"/>
+        <location line="-463"/>
         <source>You were muted by %1.</source>
         <translation>%1 vous a rendu muet(te).</translation>
     </message>
@@ -6937,12 +7002,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">le serveur</translation>
     </message>
     <message>
-        <location line="+338"/>
+        <location line="+364"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Incapable de trouver des codecs CELT correspondant aux autres clients. Vous ne serez pas capable de parler aux autres utilisateurs.</translation>
     </message>
     <message>
-        <location line="-404"/>
+        <location line="-430"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>%1 vous a rendu sourd(e) et muet(te).</translation>
@@ -7027,7 +7092,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Envoyer un message textuel à un autre utilisateur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+476"/>
+        <location filename="MainWindow.cpp" line="+478"/>
         <source>Sending message to %1</source>
         <translation>Envoi du message à %1</translation>
     </message>
@@ -7070,32 +7135,31 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Erreur lors du lancement du client de compatibilité</translation>
     </message>
     <message>
-        <location line="+691"/>
+        <location line="+705"/>
         <source>Invalid username</source>
         <translation>Nom d&apos;utilisateur invalide</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>You connected with an invalid username, please try another one.</source>
         <translation>Vous vous êtes connectés avec un nom d&apos;utilisateur invalide, veuillez en essayer un autre.</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+5"/>
         <source>That username is already in use, please try another username.</source>
         <translation>Ce nom d&apos;utilisateur est déjà utilisé, veuillez essayer un autre nom d&apos;utilisateur.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+13"/>
         <source>Wrong password</source>
         <translation>Mauvais mot de passe</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Wrong password for registered users, please try again.</source>
-        <translation>Mauvais mot de passe pour l&apos;utilisateur enregistré, veuillez essayer à nouveau.</translation>
+        <translation type="obsolete">Mauvais mot de passe pour l&apos;utilisateur enregistré, veuillez essayer à nouveau.</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Mauvais mot de passe de serveur pour un utilisateur non enregistré, veuillez essayer à nouveau.</translation>
     </message>
@@ -7133,7 +7197,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Ceci vous guidera dans la configuration de votre matériel audio.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-63"/>
+        <location filename="MainWindow.cpp" line="-77"/>
         <source>SSL Verification failed: %1</source>
         <translation>Vérification SSL échoué: %1</translation>
     </message>
@@ -7163,7 +7227,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Ceci affiche des informations supplémentaires sur la connexion au serveur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1720"/>
+        <location filename="MainWindow.cpp" line="-1753"/>
         <source>Opening URL %1</source>
         <translation>Ouvrir l&apos;URL %1</translation>
     </message>
@@ -7204,7 +7268,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+14"/>
-        <location line="+176"/>
+        <location line="+192"/>
         <source>Connecting to server %1.</source>
         <translation>Connexion au serveur %1.</translation>
     </message>
@@ -7214,7 +7278,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Changer votre commentaire</translation>
     </message>
     <message>
-        <location line="+92"/>
+        <location line="+94"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocole %1.%2.%3.&lt;/p&gt;</translation>
     </message>
@@ -7229,12 +7293,29 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1336"/>
+        <location line="+1351"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+234"/>
+        <location line="+24"/>
+        <source>Username in use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Wrong certificate or password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Wrong certificate or password for registered user. If you are
+certain this user is protected by a password please retry.
+Otherwise abort and check your certificate and username.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+219"/>
         <source>Images (*.png *.jpg *.jpeg *.svg)</source>
         <translation>Images (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
@@ -7243,7 +7324,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">&lt;h2&gt;Canal de contrôle&lt;/h2&gt;&lt;p&gt;Chiffré en %2 %1 bits&lt;br/&gt;%3 ms de latence moyenne (déviation de %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1550"/>
+        <location line="-1581"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canal de voix&lt;/h2&gt;&lt;p&gt;Chiffré en OCB-AES128 128 bits&lt;br/&gt;%1 ms de latence moyenne (déviation de %4)&lt;/p&gt;</translation>
     </message>
@@ -7259,19 +7340,19 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1282"/>
+        <location line="+1297"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Voir le certificat</translation>
     </message>
     <message>
-        <location line="-1392"/>
-        <location line="+327"/>
+        <location line="-1409"/>
+        <location line="+329"/>
         <source>Register yourself as %1</source>
         <translation>S&apos;enregistrement en tant que %1</translation>
     </message>
     <message>
-        <location line="-327"/>
-        <location line="+327"/>
+        <location line="-329"/>
+        <location line="+329"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vous êtes sur le point de vous enregistrer sur ce serveur. Cette action ne peut pas être annulée, et votre identifiant ne pourra plus être modifié une fois cette étape effectuée. Vous serez pour toujours connu comme &apos;%1&apos; sur ce serveur&lt;/p&gt;&lt;p&gt;Êtes-vous sûr de vouloir vous enregistrer ?&lt;/p&gt;</translation>
     </message>
@@ -7310,7 +7391,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Message pour le salon %1</translation>
     </message>
     <message>
-        <location line="+510"/>
+        <location line="+525"/>
         <source>Connected.</source>
         <translation>Connecté.</translation>
     </message>
@@ -7337,7 +7418,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;p&gt;%1.&lt;br /&gt;Les erreurs de ce certificat sont les suivantes: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Voulez-vous quand même accepter ce certificat ?&lt;br /&gt;(Il sera également stocké et ne vous sera pas redemandé.)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+150"/>
+        <location line="+166"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
         <translation>&lt;center&gt;Saisir un message pour le salon &apos;%1&apos; ici&lt;/center&gt;</translation>
@@ -7374,18 +7455,24 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Format d&apos;image non reconnu.</translation>
     </message>
     <message>
-        <location line="-1576"/>
+        <location line="-1607"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>La voix est envoyée au dessus du canal de contrôle.</translation>
     </message>
     <message>
-        <location line="-819"/>
+        <location line="-846"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Ceci changera l&apos;état de l&apos;overlay.</translation>
     </message>
     <message>
-        <location line="+810"/>
+        <location line="+19"/>
+        <source>Link Channel</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+818"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canal de contrôle&lt;/h2&gt;&lt;p&gt;Chiffré en %2 %1 bits&lt;br/&gt;%3 ms de latence moyenne (déviation de %4)&lt;/p&gt;&lt;p&gt;Hôte distant %5 (port %6)&lt;/p&gt;</translation>
     </message>
@@ -7510,7 +7597,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Connecté au serveur %1.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1310"/>
+        <location filename="MainWindow.cpp" line="-1334"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble est actuellement connecté à un serveur. Voulez-vous le fermer ou le réduire dans la barre des tâches?</translation>
     </message>
@@ -7526,7 +7613,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Réduire</translation>
     </message>
     <message>
-        <location line="-180"/>
+        <location line="-183"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Se rendre muet(te)</translation>
@@ -7573,7 +7660,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Chuchoter/Crier</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+16"/>
         <source>&amp;Window</source>
         <translation>&amp;Fenêtre</translation>
     </message>
@@ -7587,7 +7674,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="obsolete">Ctrl+W</translation>
     </message>
     <message>
-        <location line="-28"/>
+        <location line="-31"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
         <translation>Active/désactive l&apos;interface minimale</translation>
@@ -7620,14 +7707,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Diminuer le volume (-10%)</translation>
     </message>
     <message>
-        <location line="+66"/>
-        <location line="+2182"/>
+        <location line="+69"/>
+        <location line="+2237"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Non connecté&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1898"/>
+        <location line="-1947"/>
         <source>Clear</source>
         <translation>Effacer</translation>
     </message>
@@ -8153,7 +8240,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     </message>
     <message>
         <location filename="OverlayEditorScene.cpp" line="+121"/>
-        <location filename="OverlayUser.cpp" line="+150"/>
+        <location filename="OverlayUser.cpp" line="+151"/>
         <source>Silent</source>
         <translation>Silenceux</translation>
     </message>
@@ -8182,17 +8269,17 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation>Salon</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+100"/>
+        <location filename="Overlay.cpp" line="+101"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Échec lors de la création de la communication avec l&apos;overlay à %2 : %1. L&apos;overlay ne sera pas disponible.</translation>
     </message>
     <message>
-        <location line="+255"/>
+        <location line="+252"/>
         <source>Skipping overlay update in debug mode.</source>
         <translation>Passe la mise à jour de l&apos;overlay en mode débogage.</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+61"/>
         <source>Downloaded new or updated overlay support file to %1.</source>
         <translation>Nouveau plugin téléchargé ou mis à jour vers %1.</translation>
     </message>
@@ -8229,7 +8316,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
 <context>
     <name>OverlayClient</name>
     <message>
-        <location filename="OverlayUserGroup.cpp" line="+94"/>
+        <location filename="OverlayUserGroup.cpp" line="+95"/>
         <source>Filter</source>
         <translation>Filtre</translation>
     </message>
@@ -8890,7 +8977,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>OverlayEditorScene</name>
     <message>
-        <location filename="OverlayEditorScene.cpp" line="+396"/>
+        <location filename="OverlayEditorScene.cpp" line="+399"/>
         <source>Layout preset</source>
         <translation>Disposition prédéfinie</translation>
     </message>
@@ -9016,7 +9103,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
         <translation type="obsolete">Mumble</translation>
     </message>
     <message>
-        <location filename="Overlay_win.cpp" line="+68"/>
+        <location filename="Overlay_win.cpp" line="+53"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
@@ -9192,12 +9279,12 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+330"/>
+        <location filename="Plugins.cpp" line="+327"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>Passe la mise à jour des plugins en mode débogage.</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+150"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
         <translation>Téléchargé le nouveau plugin ou mis à jour vers %1.</translation>
@@ -9212,7 +9299,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
         <translation type="obsolete">Le plugin %1 est désactivé.</translation>
     </message>
     <message>
-        <location line="-265"/>
+        <location line="-257"/>
         <source>%1 lost link.</source>
         <translation>%1 est désactivé.</translation>
     </message>
@@ -9300,7 +9387,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+556"/>
+        <location filename="PulseAudio.cpp" line="+565"/>
         <source>Default Input</source>
         <translation>Entrée par défaut</translation>
     </message>
@@ -9864,7 +9951,7 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+53"/>
         <source>%1 online (%2 idle)</source>
         <translation>%1 en ligne (%2 au repos)</translation>
     </message>
@@ -10046,7 +10133,7 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
         <translation type="obsolete">Mumble n&apos;a pas pu récupérer les informations de version depuis le serveur de SourceForge.</translation>
     </message>
     <message>
-        <location filename="VersionCheck.cpp" line="+130"/>
+        <location filename="VersionCheck.cpp" line="+125"/>
         <source>Upgrade Mumble</source>
         <translation>Mettre Mumble à jour</translation>
     </message>
@@ -10056,7 +10143,7 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
         <translation>Une nouvelle version de Mumble a été détectée et automatiquement téléchargée. Il est recommandé de mettre à niveau à cette version ou de revenir à la dernière version stable. Voulez-vous lancer l&apos;installateur maintenant ?</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+15"/>
         <source>Failed to launch snapshot installer.</source>
         <translation>Échec dans le lancement de l&apos;installateur du snapshot.</translation>
     </message>
@@ -10066,18 +10153,18 @@ Un jeton d&apos;accès est une chaîne de caractères, qui peut être utilisée 
         <translation>Détection d&apos;un téléchargement corrompu d&apos;une nouvelle version. Suppression automatique.</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+18"/>
         <source>Downloading new snapshot from %1 to %2</source>
         <translation>Téléchargement du nouveau snapshot de %1 à %2</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+14"/>
         <source>Failed to write new version to disk.</source>
         <oldsource>Failed to write new version to disc.</oldsource>
         <translation>Échec lors de l&apos;écriture de la nouvelle version sur le disque.</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+10"/>
         <source>Mumble failed to retrieve version information from the central server.</source>
         <translation>Mumble ne peut pas retrouver les informations de version depuis le serveur central.</translation>
     </message>
@@ -10400,6 +10487,19 @@ Contactez l&apos;administrateur de votre serveur pour de plus amples information
     <message>
         <source>Press Shortcut</source>
         <translation type="obsolete">Pressez les touches du raccourci</translation>
+    </message>
+</context>
+<context>
+    <name>qwPTTButtonWidget</name>
+    <message>
+        <location filename="PTTButtonWidget.ui"/>
+        <source>Mumble PTT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Push to talk</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

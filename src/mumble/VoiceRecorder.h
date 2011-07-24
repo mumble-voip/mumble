@@ -36,10 +36,10 @@
 #pragma once
 
 #include "mumble_pch.hpp"
-#include "Timer.h"
 
 class ClientUser;
 class RecordUser;
+class Timer;
 
 namespace VoiceRecorderFormat {
 

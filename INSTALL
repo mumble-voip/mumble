@@ -127,6 +127,9 @@ CONFIG+=no-bonjour
 CONFIG+=no-overlay (Mumble, Linux)
  Don't build the overlay library.
 
+CONFIG+=no-xinput2 (Mumble, Linux)
+ Don't build support for XI2.
+
 User Registrations
 ==================
 

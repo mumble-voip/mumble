@@ -57,7 +57,7 @@ static int setuppointers() {
 }
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top,
-std::string &, std::wstring &) {
+                 std::string &, std::wstring &) {
 	unsigned int playerid_check;
 	if (!peekProc(base_address + 0xF1CC68, playerid_check))
 		return false;
@@ -81,11 +81,11 @@ std::string &, std::wstring &) {
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
 	ok = peekProc(cvecptr + 0x30, &pos_corrector, 12) &&
-		peekProc(cvecptr + 0x20, &top_corrector, 12) &&
-		peekProc(cvecptr + 0x10, &front_corrector, 12) &&
-		peekProc(displayptr + 0x30, &campos_corrector, 12) &&
-		peekProc(displayptr + 0x10, &camtop_corrector, 12) &&
-		peekProc(displayptr + 0x20, &camfront_corrector, 12);
+	     peekProc(cvecptr + 0x20, &top_corrector, 12) &&
+	     peekProc(cvecptr + 0x10, &front_corrector, 12) &&
+	     peekProc(displayptr + 0x30, &campos_corrector, 12) &&
+	     peekProc(displayptr + 0x10, &camtop_corrector, 12) &&
+	     peekProc(displayptr + 0x20, &camfront_corrector, 12);
 
 	if (!ok)
 		return false;

@@ -377,14 +377,14 @@ void OverlayClient::scheduleDelete() {
 
 void OverlayClient::readyRead() {
 	while (1) {
-		int ready = qlsSocket->bytesAvailable();
+		unsigned int ready = qlsSocket->bytesAvailable();
 
 		if (omMsg.omh.iLength == -1) {
 			if (ready < sizeof(OverlayMsgHeader))
 				break;
 			else {
 				qlsSocket->read(omMsg.headerbuffer, sizeof(OverlayMsgHeader));
-				if ((omMsg.omh.uiMagic != OVERLAY_MAGIC_NUMBER) || (omMsg.omh.iLength < 0) || (omMsg.omh.iLength > sizeof(OverlayMsgShmem))) {
+				if ((omMsg.omh.uiMagic != OVERLAY_MAGIC_NUMBER) || (omMsg.omh.iLength < 0) || (omMsg.omh.iLength > static_cast<int>(sizeof(OverlayMsgShmem)))) {
 					disconnect();
 					return;
 				}
@@ -392,7 +392,7 @@ void OverlayClient::readyRead() {
 			}
 		}
 
-		if (ready >= omMsg.omh.iLength) {
+		if (ready >= static_cast<unsigned int>(omMsg.omh.iLength)) {
 			int length = qlsSocket->read(omMsg.msgbuffer, omMsg.omh.iLength);
 
 			if (length != omMsg.omh.iLength) {

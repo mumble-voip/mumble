@@ -91,6 +91,4 @@ class Connection : public QObject {
 
 Q_DECLARE_METATYPE(QAbstractSocket::SocketError)
 
-#else
-class Connection;
 #endif

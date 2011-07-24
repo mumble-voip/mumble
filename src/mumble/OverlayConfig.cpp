@@ -215,7 +215,7 @@ OverlayAppInfo OverlayConfig::applicationInfoForId(const QString &identifier) {
 		CFRelease(bundle);
 
 #elif defined(Q_OS_WIN)
-	HICON icon = ExtractIcon(qWinAppInst(), identifier.utf16(), 0);
+	HICON icon = ExtractIcon(qWinAppInst(), identifier.toStdWString().c_str(), 0);
 	if (icon) {
 		qiAppIcon = QIcon(QPixmap::fromWinHICON(icon));
 		DestroyIcon(icon);

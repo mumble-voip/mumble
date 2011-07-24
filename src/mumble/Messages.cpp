@@ -628,17 +628,43 @@ void MainWindow::msgCryptSetup(const MumbleProto::CryptSetup &msg) {
 void MainWindow::msgContextAction(const MumbleProto::ContextAction &) {
 }
 
-void MainWindow::msgContextActionAdd(const MumbleProto::ContextActionAdd &msg) {
+void MainWindow::msgContextActionModify(const MumbleProto::ContextActionModify &msg) {
+	if (msg.has_operation() && msg.operation() == MumbleProto::ContextActionModify_Operation_Remove) {
+		removeContextAction(msg);
+		return;
+	}
+
+	if (msg.has_operation() && msg.operation() != MumbleProto::ContextActionModify_Operation_Add)
+		return;
+
 	QAction *a = new QAction(u8(msg.text()), g.mw);
 	a->setData(u8(msg.action()));
 	connect(a, SIGNAL(triggered()), this, SLOT(context_triggered()));
 	unsigned int ctx = msg.context();
-	if (ctx & MumbleProto::ContextActionAdd_Context_Server)
+	if (ctx & MumbleProto::ContextActionModify_Context_Server)
 		qlServerActions.append(a);
-	if (ctx & MumbleProto::ContextActionAdd_Context_User)
+	if (ctx & MumbleProto::ContextActionModify_Context_User)
 		qlUserActions.append(a);
-	if (ctx & MumbleProto::ContextActionAdd_Context_Channel)
+	if (ctx & MumbleProto::ContextActionModify_Context_Channel)
 		qlChannelActions.append(a);
+}
+
+void MainWindow::removeContextAction(const MumbleProto::ContextActionModify &msg) {
+	QString action = u8(msg.action());
+
+	QSet<QAction *> qs;
+	qs += qlServerActions.toSet();
+	qs += qlChannelActions.toSet();
+	qs += qlUserActions.toSet();
+
+	foreach(QAction *a, qs) {
+		if (a->data() == action) {
+			qlServerActions.removeOne(a);
+			qlChannelActions.removeOne(a);
+			qlUserActions.removeOne(a);
+			delete a;
+		}
+	}
 }
 
 void MainWindow::msgVersion(const MumbleProto::Version &msg) {
@@ -674,7 +700,7 @@ void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
 			c->uiPermissions = 0;
 
 		// We always need the permissions of the current focus channel
-		if (current && current->iId != msg.channel_id()) {
+		if (current && current->iId != static_cast<int>(msg.channel_id())) {
 			g.sh->requestChannelPermissions(current->iId);
 
 			current->uiPermissions = ChanACL::All;

@@ -130,7 +130,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		reason = "Invalid username";
 		rtType = MumbleProto::Reject_RejectType_InvalidUsername;
 	} else if (id==-1) {
-		reason = "Wrong password for user";
+		reason = "Wrong certificate or password for existing user";
 		rtType = MumbleProto::Reject_RejectType_WrongUserPW;
 	} else if (id==-2 && ! qsPassword.isEmpty() && qsPassword != pw) {
 		reason = "Invalid server password";
@@ -1372,7 +1372,7 @@ void Server::msgCryptSetup(ServerUser *uSource, MumbleProto::CryptSetup &msg) {
 	}
 }
 
-void Server::msgContextActionAdd(ServerUser *, MumbleProto::ContextActionAdd &) {
+void Server::msgContextActionModify(ServerUser *, MumbleProto::ContextActionModify &) {
 }
 
 void Server::msgContextAction(ServerUser *uSource, MumbleProto::ContextAction &msg) {

@@ -59,6 +59,4 @@ namespace Network {
 	QNetworkReply *get(const QUrl &);
 }
 
-#else
-class NetworkConfig;
 #endif

@@ -33,14 +33,10 @@
 
 #include "mumble_pch.hpp"
 #include "Timer.h"
-#include "Database.h"
 #include "Net.h"
+#include "BonjourRecord.h"
 
-#ifdef USE_BONJOUR
-#include "BonjourClient.h"
-#else
-#include "bonjourrecord.h"
-#endif
+struct FavoriteServer;
 
 typedef QPair<QHostAddress, unsigned short> qpAddress;
 
@@ -280,6 +276,4 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 #endif
 };
 
-#else
-class ConnectDialog;
 #endif

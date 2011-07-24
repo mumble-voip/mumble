@@ -55,6 +55,4 @@ class TextToSpeech : public QObject {
 		TextToSpeechPrivate *d;
 };
 
-#else
-class TextToSpeech;
 #endif

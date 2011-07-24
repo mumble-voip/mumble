@@ -1598,6 +1598,13 @@ void Server::dblog(const QString &str) {
 	SQLEXEC();
 }
 
+void ServerDB::wipeLogs() {
+	TransactionHolder th;
+	QSqlQuery &query = *th.qsqQuery;
+
+	SQLDO("DELETE FROM %1slog");
+}
+
 QList<QPair<unsigned int, QString> > ServerDB::getLog(int server_id, unsigned int offs_min, unsigned int offs_max) {
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;

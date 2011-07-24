@@ -78,7 +78,7 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 
 	qcbDevice->view()->setTextElideMode(Qt::ElideRight);
 
-	on_qcbPushClick_clicked(g.s.bPushClick);
+	on_qcbPushClick_clicked(g.s.bTxAudioCue);
 	on_Tick_timeout();
 }
 
@@ -104,8 +104,8 @@ void AudioInputDialog::load(const Settings &r) {
 
 	loadCheckBox(qcbExclusive, r.bExclusiveInput);
 
-	qlePushClickPathOn->setText(r.qsPushClickOn);
-	qlePushClickPathOff->setText(r.qsPushClickOff);
+	qlePushClickPathOn->setText(r.qsTxAudioCueOn);
+	qlePushClickPathOff->setText(r.qsTxAudioCueOff);
 
 	loadComboBox(qcbTransmit, r.atTransmit);
 	loadSlider(qsTransmitHold, r.iVoiceHold);
@@ -119,7 +119,8 @@ void AudioInputDialog::load(const Settings &r) {
 	else
 		qrbSNR->setChecked(true);
 
-	loadCheckBox(qcbPushClick, r.bPushClick);
+	loadCheckBox(qcbPushWindow, r.bShowPTTButtonWindow);
+	loadCheckBox(qcbPushClick, r.bTxAudioCue);
 	loadSlider(qsQuality, r.iQuality);
 	if (r.iNoiseSuppress != 0)
 		loadSlider(qsNoise, - r.iNoiseSuppress);
@@ -150,9 +151,10 @@ void AudioInputDialog::save() const {
 	s.atTransmit = static_cast<Settings::AudioTransmit>(qcbTransmit->currentIndex());
 	s.iIdleTime = qsIdle->value();
 
-	s.bPushClick = qcbPushClick->isChecked();
-	s.qsPushClickOn = qlePushClickPathOn->text();
-	s.qsPushClickOff = qlePushClickPathOff->text();
+	s.bShowPTTButtonWindow = qcbPushWindow->isChecked();
+	s.bTxAudioCue = qcbPushClick->isChecked();
+	s.qsTxAudioCueOn = qlePushClickPathOn->text();
+	s.qsTxAudioCueOff = qlePushClickPathOff->text();
 
 	s.qsAudioInput = qcbSystem->currentText();
 	s.bEcho = qcbEcho->currentIndex() > 0;

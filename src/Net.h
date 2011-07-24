@@ -31,7 +31,7 @@
 #ifndef _NET_H
 #define _NET_H
 
-#ifndef DEFAULT_MUMBLE_PORT 
+#ifndef DEFAULT_MUMBLE_PORT
 #define DEFAULT_MUMBLE_PORT 64738
 #endif
 
@@ -65,6 +65,7 @@ struct HostAddress {
 	std::string toStdString() const;
 	QHostAddress toAddress() const;
 	QByteArray toByteArray() const;
+	void toSockaddr(struct sockaddr_storage *dst) const;
 };
 
 Q_DECLARE_TYPEINFO(HostAddress, Q_MOVABLE_TYPE);

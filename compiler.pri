@@ -5,7 +5,7 @@ win32 {
 	include(winpaths_default.pri)
 
 	INCLUDEPATH *= "$$BOOST_PATH/include/boost-1_46_1/"
-	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib" "$$LIBSNDFILE_PATH"
+	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib" "$$LIBSNDFILE_PATH/lib"
 	INCLUDEPATH *= "$$OPENSSL_PATH/include" "$$LIBSNDFILE_PATH/include"
 	CONFIG(intelcpp) {
 		DEFINES *= USE_INTEL_IPP
@@ -80,8 +80,12 @@ win32 {
 
 unix {
 	DEFINES *= RESTRICT=__restrict__
-	QMAKE_CFLAGS *= -Wfatal-errors -Wshadow -Wconversion -Wsign-compare -fvisibility=hidden
-	QMAKE_CXXFLAGS *= -Wfatal-errors -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare -fvisibility=hidden
+	QMAKE_CFLAGS *= -Wfatal-errors -fvisibility=hidden
+	QMAKE_CXXFLAGS *= -Wfatal-errors -fvisibility=hidden
+	!CONFIG(quiet-build-log) {
+		QMAKE_CFLAGS *= -Wshadow -Wconversion -Wsign-compare
+		QMAKE_CXXFLAGS *= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
+	}
 
 	CONFIG(opt-gcc) {
 		QMAKE_CC = /opt/gcc/bin/gcc
@@ -130,9 +134,20 @@ macx {
 	QMAKE_LINK = $${XCODE_PATH}/usr/bin/g++-4.2
 
 	!CONFIG(universal) {
-		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
-		QMAKE_CFLAGS += -mmacosx-version-min=10.5 -Xarch_x86_64 -mmmx -Xarch_x86_64 -msse -Xarch_x86_64 -msse2
-		QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -Xarch_x86_64 -mmmx -Xarch_x86_64 -msse -Xarch_x86_64 -msse2
+		CONFIG(lion) {
+			CONFIG += no-pch
+			QMAKE_MAC_SDK = $${XCODE_PATH}/SDKs/MacOSX10.7.sdk
+			QMAKE_CC = $${XCODE_PATH}/usr/bin/clang
+			QMAKE_CXX = $${XCODE_PATH}/usr/bin/clang++
+			QMAKE_LINK = $${XCODE_PATH}/usr/bin/clang++
+			QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.7
+			QMAKE_CFLAGS += -mmacosx-version-min=10.7 -Xarch_x86_64 -mmmx -Xarch_x86_64 -msse -Xarch_x86_64 -msse2
+			QMAKE_CXXFLAGS += -mmacosx-version-min=10.7 -Xarch_x86_64 -mmmx -Xarch_x86_64 -msse -Xarch_x86_64 -msse2
+		} else {
+			QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
+			QMAKE_CFLAGS += -mmacosx-version-min=10.5 -Xarch_x86_64 -mmmx -Xarch_x86_64 -msse -Xarch_x86_64 -msse2
+			QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -Xarch_x86_64 -mmmx -Xarch_x86_64 -msse -Xarch_x86_64 -msse2
+		}
 	} else {
 		CONFIG += x86 ppc no-cocoa
 		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.4

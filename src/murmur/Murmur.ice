@@ -436,7 +436,10 @@ module Murmur
 		/** Start server. */
 		void start() throws ServerBootedException, ServerFailureException, InvalidSecretException;
 
-		/** Stop server. */
+		/** Stop server.
+		 * Note: Server will be restarted on Murmur restart unless explicitly disabled
+		 *       with setConf("boot", false)
+		 */
 		void stop() throws ServerBootedException, InvalidSecretException;
 
 		/** Delete server and all it's configuration. */

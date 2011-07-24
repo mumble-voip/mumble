@@ -169,6 +169,4 @@ class UserModel : public QAbstractItemModel {
 		void updateOverlay() const;
 };
 
-#else
-class UserModel;
 #endif

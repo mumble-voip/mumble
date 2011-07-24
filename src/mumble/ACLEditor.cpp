@@ -242,11 +242,19 @@ void ACLEditor::accept() {
 		QDialog::reject();
 		return;
 	}
+
+	if (qleChannelName->text().isEmpty()) {
+		// Empty channel name
+		QMessageBox::warning(this, QLatin1String("Mumble"), tr("Channel must have a name"), QMessageBox::Ok);
+		qleChannelName->setFocus();
+		return;
+	}
+
 	// Update channel state
 	if (bAddChannelMode) {
 		g.sh->createChannel(iChannel, qleChannelName->text(), rteChannelDescription->text(), qsbChannelPosition->value(), qcbChannelTemporary->isChecked());
 	} else {
-		bool b = false;
+		bool needs_update = false;
 
 		updatePasswordACL();
 
@@ -254,19 +262,19 @@ void ACLEditor::accept() {
 		mpcs.set_channel_id(pChannel->iId);
 		if (pChannel->qsName != qleChannelName->text()) {
 			mpcs.set_name(u8(qleChannelName->text()));
-			b = true;
+			needs_update = true;
 		}
 		if (rteChannelDescription->isModified() && (pChannel->qsDesc != rteChannelDescription->text())) {
 			const QString &msg = rteChannelDescription->text();
 			mpcs.set_description(u8(msg));
-			b = true;
+			needs_update = true;
 			Database::setBlob(sha1(msg), msg.toUtf8());
 		}
 		if (pChannel->iPosition != qsbChannelPosition->value()) {
 			mpcs.set_position(qsbChannelPosition->value());
-			b = true;
+			needs_update = true;
 		}
-		if (b)
+		if (needs_update)
 			g.sh->sendMessage(mpcs);
 
 		// Update ACL

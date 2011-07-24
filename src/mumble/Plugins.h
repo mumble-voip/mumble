@@ -96,6 +96,4 @@ class Plugins : public QObject {
 		void fetched(QByteArray, QUrl);
 };
 
-#else
-class Log;
 #endif

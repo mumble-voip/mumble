@@ -35,7 +35,6 @@
 #include "Settings.h"
 #include "Timer.h"
 #include "Message.h"
-#include "smallft.h"
 
 class AudioInput;
 typedef boost::shared_ptr<AudioInput> AudioInputPtr;

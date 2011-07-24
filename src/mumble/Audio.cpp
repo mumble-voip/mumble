@@ -110,8 +110,11 @@ void CodecInit::destroy() {
 	g.qmCodecs.clear();
 }
 
-
+#ifdef Q_CC_GNU
+#define RESOLVE(var) { var = reinterpret_cast<__typeof__(var)>(qlCELT.resolve(#var)); bValid = bValid && (var != NULL); }
+#else
 #define RESOLVE(var) { * reinterpret_cast<void **>(&var) = static_cast<void *>(qlCELT.resolve(#var)); bValid = bValid && (var != NULL); }
+#endif
 
 #ifdef Q_OS_WIN
 extern "C" {

@@ -197,16 +197,13 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 		qlToLost->setText(QString::number(to.lost()));
 		qlToResync->setText(QString::number(to.resync()));
 
-		float allFromPackets = (from.good() + from.late() + from.lost());
-		float allToPackets = (to.good() + to.late() + to.lost());
-		if (allFromPackets != 0.0f) {
-			qlFromLate_percent->setText(QString::number(from.late() * 100.0f / allFromPackets, 'f', 2));
-			qlFromLost_percent->setText(QString::number(from.lost() * 100.0f / allFromPackets, 'f', 2));
-		}
-		if (allToPackets != 0.0f) {
-			qlToLate_percent->setText(QString::number(to.late() * 100.0f / allToPackets, 'f', 2));
-			qlToLost_percent->setText(QString::number(to.lost() * 100.0f / allToPackets, 'f', 2));
-		}
+		quint32 allFromPackets = from.good() + from.late() + from.lost();
+		qlFromLatePercent->setText(QString::number(allFromPackets > 0 ? from.late() * 100.0f / allFromPackets : 0.f, 'f', 2));
+		qlFromLostPercent->setText(QString::number(allFromPackets > 0 ? from.lost() * 100.0f / allFromPackets : 0.f, 'f', 2));
+
+		quint32 allToPackets = to.good() + to.late() + to.lost();
+		qlToLatePercent->setText(QString::number(allToPackets > 0 ? to.late() * 100.0f / allToPackets : 0.f, 'f', 2));
+		qlToLostPercent->setText(QString::number(allToPackets > 0 ? to.lost() * 100.0f / allToPackets : 0.f, 'f', 2));
 	} else {
 		qgbUDP->setVisible(false);
 	}

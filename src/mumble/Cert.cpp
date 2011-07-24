@@ -455,7 +455,7 @@ Settings::KeyPair CertWizard::importCert(QByteArray data, const QString &pw) {
 	int ret = 0;
 
 	mem = BIO_new_mem_buf(data.data(), data.size());
-	BIO_set_close(mem, BIO_NOCLOSE);
+	Q_UNUSED(BIO_set_close(mem, BIO_NOCLOSE));
 	pkcs = d2i_PKCS12_bio(mem, NULL);
 	if (pkcs) {
 		ret = PKCS12_parse(pkcs, NULL, &pkey, &x509, &certs);
@@ -580,7 +580,7 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 				long size;
 				mem = BIO_new(BIO_s_mem());
 				i2d_PKCS12_bio(mem, pkcs);
-				BIO_flush(mem);
+				Q_UNUSED(BIO_flush(mem));
 
 				size = BIO_get_mem_data(mem, &data);
 

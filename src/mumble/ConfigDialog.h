@@ -67,6 +67,4 @@ class ConfigDialog : public QDialog, public Ui::ConfigDialog {
 		void accept();
 };
 
-#else
-class ConfigDialog;
 #endif

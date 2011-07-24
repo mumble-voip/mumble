@@ -112,7 +112,7 @@
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="QTextBrowser" name="qteLog">
+   <widget class="LogTextBrowser" name="qteLog">
     <property name="contextMenuPolicy">
      <enum>Qt::CustomContextMenu</enum>
     </property>
@@ -826,6 +826,11 @@
   <customwidget>
    <class>ChatbarTextEdit</class>
    <extends>QTextEdit</extends>
+   <header>CustomElements.h</header>
+  </customwidget>
+  <customwidget>
+   <class>LogTextBrowser</class>
+   <extends>QTextBrowser</extends>
    <header>CustomElements.h</header>
   </customwidget>
  </customwidgets>

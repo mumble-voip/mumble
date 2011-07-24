@@ -59,7 +59,4 @@ class DXAudioInput : public AudioInput {
 		void run();
 };
 
-#else
-class DXAudioOutput;
-class DXAudioInput;
 #endif

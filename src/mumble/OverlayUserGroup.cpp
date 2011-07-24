@@ -32,6 +32,7 @@
 #include "OverlayText.h"
 #include "User.h"
 #include "Channel.h"
+#include "ClientUser.h"
 #include "Global.h"
 #include "Message.h"
 #include "Database.h"
@@ -123,7 +124,7 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 
 	qmShow->addSeparator();
 
-	QAction *qaConfigureRecentlyActiveTime = qmShow->addAction(OverlayClient::tr("Configure recently active time (%1 seconds)...").arg(os->iActiveTime));
+	QAction *qaConfigureRecentlyActiveTime = qmShow->addAction(OverlayClient::tr("Configure recently active time (%1 seconds)...").arg(os->uiActiveTime));
 	qaConfigureRecentlyActiveTime->setEnabled(os->osShow == OverlaySettings::Active);
 
 	QMenu *qmColumns = qm.addMenu(OverlayClient::tr("Columns"));
@@ -190,9 +191,9 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 		                   qm.parentWidget(),
 		                   OverlayClient::tr("Configure recently active time"),
 		                   OverlayClient::tr("Amount of seconds users remain active after talking:"),
-		                   os->iActiveTime, 1, 2147483647, 1, &ok);
+		                   os->uiActiveTime, 1, 2147483647, 1, &ok);
 		if (ok) {
-			os->iActiveTime = newValue;
+			os->uiActiveTime = newValue;
 		}
 		updateUsers();
 	} else if (act == qaSortAlphabetically) {

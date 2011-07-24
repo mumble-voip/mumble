@@ -577,12 +577,13 @@ void Plugins::fetched(QByteArray data, QUrl url) {
 				bool verified = true;
 #ifdef Q_OS_WIN
 				verified = false;
-				QString tempname, tempnative;
+				QString tempname;
+				std::wstring tempnative;
 				{
 					QTemporaryFile temp(QDir::tempPath() + QLatin1String("/plugin_XXXXXX.dll"));
 					if (temp.open()) {
 						tempname = temp.fileName();
-						tempnative = QDir::toNativeSeparators(tempname);
+						tempnative = QDir::toNativeSeparators(tempname).toStdWString();
 						temp.write(data);
 						temp.setAutoRemove(false);
 					}
@@ -591,7 +592,7 @@ void Plugins::fetched(QByteArray data, QUrl url) {
 					WINTRUST_FILE_INFO file;
 					ZeroMemory(&file, sizeof(file));
 					file.cbStruct = sizeof(file);
-					file.pcwszFilePath = tempnative.utf16();
+					file.pcwszFilePath = tempnative.c_str();
 
 					WINTRUST_DATA data;
 					ZeroMemory(&data, sizeof(data));

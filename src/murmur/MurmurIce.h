@@ -37,7 +37,11 @@
 #include <Ice/Ice.h>
 #include <IceUtil/IceUtil.h>
 #include "MurmurI.h"
-#include "Server.h"
+
+class Channel;
+class Server;
+class User;
+struct TextMessage;
 
 class MurmurIce : public QObject {
 		friend class MurmurLocker;

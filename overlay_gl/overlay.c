@@ -46,6 +46,7 @@
 #include <sys/time.h>
 #include <sys/socket.h>
 #include <sys/un.h>
+#include <sys/stat.h>
 #include <time.h>
 #include <semaphore.h>
 #include <fcntl.h>
@@ -200,7 +201,7 @@ static void releaseMem(Context *ctx) {
 		ctx->a_ucTexture = NULL;
 		ctx->uiMappedLength = 0;
 	}
-	if (ctx->texture != ~0) {
+	if (ctx->texture != ~0U) {
 		glDeleteTextures(1, &ctx->texture);
 		ctx->texture = ~0;
 	}
@@ -230,7 +231,7 @@ static bool sendMessage(Context *ctx, struct OverlayMsg *om) {
 }
 
 static void regenTexture(Context *ctx) {
-	if (ctx->texture != ~0)
+	if (ctx->texture != ~0U)
 		glDeleteTextures(1, & ctx->texture);
 	glGenTextures(1, &ctx->texture);
 
@@ -308,7 +309,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 				disconnect(ctx);
 				return;
 			} else if (length != ctx->omMsg.omh.iLength) {
-				ods("Short overlay message read type %x size %d/%d", ctx->omMsg.omh.uiType, length, ctx->omMsg.omh.iLength);
+				ods("Short message read %x %ld/%d", ctx->omMsg.omh.uiType, length, ctx->omMsg.omh.iLength);
 				disconnect(ctx);
 				return;
 			}
@@ -318,7 +319,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 			switch (ctx->omMsg.omh.uiType) {
 				// shared memory overlay message
 				case OVERLAY_MSGTYPE_SHMEM: {
-						struct OverlayMsgShmem *oms = & ctx->omMsg.oms;
+						struct OverlayMsgShmem *oms = (struct OverlayMsgShmem *) & ctx->omMsg.omi;
 						ods("SHMEM %s", oms->a_cName);
 						// as we're initializing new shared memory, release the current shared memory
 						releaseMem(ctx);
@@ -357,7 +358,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 				case OVERLAY_MSGTYPE_BLIT: {
 						struct OverlayMsgBlit *omb = & ctx->omMsg.omb;
 						ods("BLIT %d %d %d %d", omb->x, omb->y, omb->w, omb->h);
-						if ((ctx->a_ucTexture != NULL) && (ctx->texture != ~0)) {
+						if ((ctx->a_ucTexture != NULL) && (ctx->texture != ~0U)) {
 							glBindTexture(GL_TEXTURE_2D, ctx->texture);
 
 							if ((omb->x == 0) && (omb->y == 0) && (omb->w == ctx->uiWidth) && (omb->h == ctx->uiHeight)) {
@@ -369,10 +370,9 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 								unsigned int y = omb->y;
 								unsigned int w = omb->w;
 								unsigned int h = omb->h;
-								unsigned int bufSize = w*h*4;
-								unsigned char *ptr = (unsigned char *) malloc(bufSize);
-								int row;
-								memset(ptr, 0, bufSize);
+								unsigned char *ptr = (unsigned char *) malloc(w*h*4);
+								unsigned int r;
+								memset(ptr, 0, w * h * 4);
 
 								// copy overlay texture to temporary memory to adapt to full opengl ui size (overlay at correct place)
 								for (row = 0; row < h; ++row) {
@@ -404,7 +404,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 		}
 	}
 
-	if ((ctx->a_ucTexture == NULL) || (ctx->texture == ~0))
+	if ((ctx->a_ucTexture == NULL) || (ctx->texture == ~0U))
 		return;
 
 	// textzre ckecks, that our gltexture is still valid and sane

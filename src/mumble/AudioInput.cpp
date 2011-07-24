@@ -476,8 +476,8 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 	}
 }
 
-bool AudioInput::preferCELT(int bitrate, int frames) {
-	return ((bitrate >= 32000) || (frames == 1));
+bool AudioInput::preferCELT(int, int) {
+	return true;
 }
 
 void AudioInput::adjustBandwidth(int bitspersec, int &bitrate, int &frames) {
@@ -825,13 +825,14 @@ void AudioInput::encodeAudioFrame() {
 			p->setTalking(Settings::Shouting);
 	}
 
-	if (g.s.bPushClick && (g.s.atTransmit == Settings::PushToTalk)) {
+	if (g.s.bTxAudioCue && g.uiSession != 0) {
 		AudioOutputPtr ao = g.ao;
 		if (bIsSpeech && ! bPreviousVoice && ao)
-			ao->playSample(g.s.qsPushClickOn);
+			ao->playSample(g.s.qsTxAudioCueOn);
 		else if (ao && !bIsSpeech && bPreviousVoice && ao)
-			ao->playSample(g.s.qsPushClickOff);
+			ao->playSample(g.s.qsTxAudioCueOff);
 	}
+
 	if (! bIsSpeech && ! bPreviousVoice) {
 		iBitrate = 0;
 		if (g.s.iIdleTime && ! g.s.bDeaf && ((tIdle.elapsed() / 1000000ULL) > g.s.iIdleTime)) {

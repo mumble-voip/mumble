@@ -145,36 +145,6 @@ eatKnownInstructions(
 #pragma mark	-
 #pragma mark	(Interface)
 
-	mach_error_t
-mach_override(
-		char *originalFunctionSymbolName,
-		const char *originalFunctionLibraryNameHint,
-		const void *overrideFunctionAddress,
-		void **originalFunctionReentryIsland )
-{
-	assert( originalFunctionSymbolName );
-	assert( strlen( originalFunctionSymbolName ) );
-	assert( overrideFunctionAddress );
-	
-	//	Lookup the original function's code pointer.
-	long	*originalFunctionPtr;
-	if( originalFunctionLibraryNameHint )
-		_dyld_lookup_and_bind_with_hint(
-			originalFunctionSymbolName,
-			originalFunctionLibraryNameHint,
-			(void*) &originalFunctionPtr,
-			NULL );
-	else
-		_dyld_lookup_and_bind(
-			originalFunctionSymbolName,
-			(void*) &originalFunctionPtr,
-			NULL );
-	
-	//printf ("In mach_override\n");
-	return mach_override_ptr( originalFunctionPtr, overrideFunctionAddress,
-		originalFunctionReentryIsland );
-}
-
 #if defined(__x86_64__)
 mach_error_t makeIslandExecutable(void *address) {
 	mach_error_t err = err_none;
@@ -230,10 +200,10 @@ mach_override_ptr(
 	if( !err ) {
 		err = vm_protect( mach_task_self(),
 				(vm_address_t) originalFunctionPtr,
-				sizeof(long), false, (VM_PROT_ALL | VM_PROT_COPY) );
+				sizeof(uint64_t), false, (VM_PROT_ALL | VM_PROT_COPY) );
 		if( err )
 			err = vm_protect( mach_task_self(),
-					(vm_address_t) originalFunctionPtr, sizeof(long), false,
+					(vm_address_t) originalFunctionPtr, sizeof(uint64_t), false,
 					(VM_PROT_DEFAULT | VM_PROT_COPY) );
 	}
 	if (err) printf("err = %x %d\n", err, __LINE__);
@@ -563,8 +533,10 @@ static AsmInstructionMatch possibleInstructions[] = {
 	{ 0x2, {0xFF, 0xFF}, {0x89, 0xE5} },				                // mov %esp,%ebp
 	{ 0x1, {0xFF}, {0x53} },							// push %ebx
 	{ 0x3, {0xFF, 0xFF, 0x00}, {0x83, 0xEC, 0x00} },	                        // sub 0x??, %esp
+	{ 0x6, {0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00}, {0x81, 0xEC, 0x00, 0x00, 0x00, 0x00} },	// sub 0x??, %esp with 32bit immediate
 	{ 0x1, {0xFF}, {0x57} },							// push %edi
 	{ 0x1, {0xFF}, {0x56} },							// push %esi
+	{ 0x2, {0xFF, 0xFF}, {0x31, 0xC0} },						// xor %eax, %eax
 	{ 0x0 }
 };
 #elif defined(__x86_64__)
@@ -584,7 +556,7 @@ static Boolean codeMatchesInstruction(unsigned char *code, AsmInstructionMatch* 
 {
 	Boolean match = true;
 	
-	int i;
+	size_t i;
 	for (i=0; i<instruction->length; i++) {
 		unsigned char mask = instruction->mask[i];
 		unsigned char constraint = instruction->constraint[i];
@@ -617,7 +589,7 @@ eatKnownInstructions(
 		// See if instruction matches one  we know
 		AsmInstructionMatch* curInstr = possibleInstructions;
 		do { 
-			if (curInstructionKnown = codeMatchesInstruction(ptr, curInstr)) break;
+			if ((curInstructionKnown = codeMatchesInstruction(ptr, curInstr))) break;
 			curInstr++;
 		} while (curInstr->length > 0);
 		
@@ -665,10 +637,9 @@ eatKnownInstructions(
 #endif
 
 #if defined(__i386__)
-asm(		
+__asm(
 			".text;"
 			".align 2, 0x90;"
-			".globl _atomic_mov64;"
 			"_atomic_mov64:;"
 			"	pushl %ebp;"
 			"	movl %esp, %ebp;"

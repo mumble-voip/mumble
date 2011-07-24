@@ -86,7 +86,7 @@ struct OverlaySettings {
 
 	OverlayShow osShow;
 	bool bAlwaysSelf;
-	int iActiveTime; // Time in seconds for a user to stay active after talking
+	int uiActiveTime; // Time in seconds for a user to stay active after talking
 	OverlaySort osSort;
 
 	float fX;
@@ -162,11 +162,11 @@ struct Settings {
 
 	bool bExpert;
 
-	bool bPushClick;
+	bool bTxAudioCue;
 	static const QString cqsDefaultPushClickOn;
 	static const QString cqsDefaultPushClickOff;
-	QString qsPushClickOn;
-	QString qsPushClickOff;
+	QString qsTxAudioCueOn;
+	QString qsTxAudioCueOff;
 
 	bool bTransmitPosition;
 	bool bMute, bDeaf;
@@ -250,6 +250,10 @@ struct Settings {
 	bool bUpdateCheck;
 	bool bPluginOverlayCheck;
 
+	// PTT Button window
+	bool bShowPTTButtonWindow;
+	QByteArray qbaPTTButtonWindowGeometry;
+
 	// Network settings
 	enum ProxyType { NoProxy, HttpProxy, Socks5Proxy };
 	bool bTCPCompat;
@@ -295,6 +299,4 @@ struct Settings {
 	void save();
 };
 
-#else
-struct Settings;
 #endif

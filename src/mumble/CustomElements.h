@@ -33,6 +33,21 @@
 
 #include "mumble_pch.hpp"
 
+class LogTextBrowser : public QTextBrowser {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(LogTextBrowser)
+	protected:
+		virtual void resizeEvent(QResizeEvent *e);
+	public:
+		LogTextBrowser(QWidget *p = NULL);
+
+		int getLogScroll();
+		int getLogScrollMaximum();
+		void setLogScroll(int pos);
+		void scrollLogToBottom();
+};
+
 class ChatbarTextEdit : public QTextEdit {
 	private:
 		Q_OBJECT

@@ -5,8 +5,13 @@ CONFIG -= qt
 CONFIG *= dll shared debug_and_release warn_on
 CONFIG -= embed_manifest_dll
 TARGET = mumble_ol
+<<<<<<< HEAD
 SOURCES = lib.cpp d3d9.cpp d3d10.cpp d3d11.cpp ods.cpp opengl.cpp HardHook.cpp
 HEADERS = lib.h ods.h HardHook.h
+=======
+SOURCES = lib.cpp d3d9.cpp d3d10.cpp ods.cpp opengl.cpp HardHook.cpp
+HEADERS = lib.h ods.h HardHook.h overlay_blacklist.h
+>>>>>>> remotes/remote/master
 EFFECTS = overlay.fx
 DIST = overlay.h overlay.fx HardHook.h
 
