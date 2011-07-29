@@ -160,20 +160,28 @@ int main(int argc, char **argv) {
 				|| args.at(i) == QLatin1String("/?")
 #endif
 			) {
-				printf( "Usage: %s [options] [<url>]\n"
+				QLatin1String helpmessage( "Usage: mumble [options] [<url>]\n"
 					"\n"
-					"<url> specifies a URL to connect to after startup instead of showing the\n"
-					"connection window, and has the following form:\n"
-					"mumble://[<username>[:<password>]]@<host>[:<port>][/<channel>[/<subchannel>...]]\n"
+					"<url> specifies a URL to connect to after startup instead of showing\n"
+					"the connection window, and has the following form:\n"
+					"mumble://[<username>[:<password>]@]<host>[:<port>][/<channel>[/<subchannel>...]][?version=<x.y.z>]\n"
+					"\n"
+					"The version query parameter has to be set in order to invoke the\n"
+					"correct client version. It currently defaults to 1.1.0.\n"
 					"\n"
 					"Valid options are:\n"
 					"  -h, --help    Show this help text and exit.\n"
 					"  -m, --multiple\n"
 					"                Allow multiple instances of the client to be started.\n"
 					"  -n, --noidentity\n"
-					"                Suppress loading of identity files (i.e., certificates.)\n",
-					argv[0] );
-				exit(1);
+					"                Suppress loading of identity files (i.e., certificates.)\n"
+					);
+#if defined(Q_OS_WIN)
+				QMessageBox::information(NULL, QLatin1String("Invocation"), helpmessage);
+#else
+				printf( helpmessage.latin1() );
+#endif
+				return 1;
 			} else if (args.at(i) == QLatin1String("-m") || args.at(i) == QLatin1String("--multiple")) {
 				bAllowMultiple = true;
 			} else if (args.at(i) == QLatin1String("-n") || args.at(i) == QLatin1String("--noidentity")) {
