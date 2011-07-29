@@ -155,9 +155,28 @@ int main(int argc, char **argv) {
 	if (a.arguments().count() > 1) {
 		QStringList args = a.arguments();
 		for (int i = 1; i < args.count(); ++i) {
-			if (args.at(i) == QLatin1String("-m")) {
+			if (args.at(i) == QLatin1String("-h") || args.at(i) == QLatin1String("--help")
+#if defined(Q_OS_WIN)
+				|| args.at(i) == QLatin1String("/?")
+#endif
+			) {
+				printf( "Usage: %s [options] [<url>]\n"
+					"\n"
+					"<url> specifies a URL to connect to after startup instead of showing the\n"
+					"connection window, and has the following form:\n"
+					"mumble://[<username>[:<password>]]@<host>[:<port>][/<channel>[/<subchannel>...]]\n"
+					"\n"
+					"Valid options are:\n"
+					"  -h, --help    Show this help text and exit.\n"
+					"  -m, --multiple\n"
+					"                Allow multiple instances of the client to be started.\n"
+					"  -n, --noidentity\n"
+					"                Suppress loading of identity files (i.e., certificates.)\n",
+					argv[0] );
+				exit(1);
+			} else if (args.at(i) == QLatin1String("-m") || args.at(i) == QLatin1String("--multiple")) {
 				bAllowMultiple = true;
-			} else if (args.at(i) == QLatin1String("-n")) {
+			} else if (args.at(i) == QLatin1String("-n") || args.at(i) == QLatin1String("--noidentity")) {
 				g.s.bSuppressIdentity = true;
 			} else {
 				QUrl u = QUrl::fromEncoded(args.at(i).toUtf8());
