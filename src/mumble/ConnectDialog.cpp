@@ -486,7 +486,7 @@ QVariant ServerItem::data(int column, int role) const {
 					            arg(boost::accumulators::extended_p_square(* asQuantile)[2] / 1000., 0, 'f', 2)) +
 					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bandwidth"), ConnectDialog::tr("%1 kbit/s").arg(uiBandwidth / 1000)) +
 					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Users"), QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers)) +
-					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2.%3.%4</td></tr>").arg(ConnectDialog::tr("Version")).arg(uiVersion >> 16).arg((uiVersion >> 8) & 0xFF).arg(uiVersion & 0xFF);
+					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Version")).arg(MumbleVersion::toString(uiVersion));
 				}
 			}
 			qs += QLatin1String("</table>");

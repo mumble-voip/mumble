@@ -39,6 +39,7 @@
 #include "Server.h"
 #include "ServerUser.h"
 #include "DBus.h"
+#include "Version.h"
 
 #define MSG_SETUP(st) \
 	if (uSource->sState != st) { \
@@ -1398,7 +1399,8 @@ void Server::msgVersion(ServerUser *uSource, MumbleProto::Version &msg) {
 		if (msg.has_os_version())
 			uSource->qsOSVersion = u8(msg.os_version());
 	}
-	log(uSource, QString("Client version %1.%2.%3 (%4: %5)").arg(uSource->uiVersion >> 16).arg((uSource->uiVersion >> 8) & 0xff).arg(uSource->uiVersion & 0xFF).arg(uSource->qsOS).arg(uSource->qsRelease));
+
+	log(uSource, QString("Client version %1 (%2: %3)").arg(MumbleVersion::toString(uSource->uiVersion)).arg(uSource->qsOS).arg(uSource->qsRelease));
 }
 
 void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {

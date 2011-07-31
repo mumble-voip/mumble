@@ -151,12 +151,8 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 		showcon = true;
 
 		const MumbleProto::Version &mpv = msg.version();
-		unsigned int v = mpv.version();
-		unsigned int major = (v >> 16) & 0xFFFF;
-		unsigned int minor = (v >> 8) & 0xFF;
-		unsigned int patch = (v & 0xFF);
 
-		qlVersion->setText(tr("%1.%2.%3 (%4)").arg(major).arg(minor).arg(patch).arg(u8(mpv.release())));
+		qlVersion->setText(tr("%1 (%2)").arg(MumbleVersion::toString(mpv.version())).arg(u8(mpv.release())));
 		qlOS->setText(tr("%1 (%2)").arg(u8(mpv.os())).arg(u8(mpv.os_version())));
 	}
 	if (msg.celt_versions_size() > 0) {

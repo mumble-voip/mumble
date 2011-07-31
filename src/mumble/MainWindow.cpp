@@ -1079,10 +1079,7 @@ void MainWindow::on_qaServerInformation_triggered() {
 	CryptState &cs = c->csCrypt;
 	QSslCipher qsc = g.sh->qscCipher;
 
-	unsigned int version = g.sh->uiVersion;
-	QString qsVersion=tr("<h2>Version</h2><p>Protocol %1.%2.%3.</p>").arg(QString::number((version >> 16) & 0xFF),
-	                  QString::number((version >> 8) & 0xFF),
-	                  QString::number(version & 0xFF));
+	QString qsVersion=tr("<h2>Version</h2><p>Protocol %1.</p>").arg(MumbleVersion::toString(g.sh->uiVersion));
 
 	if (g.sh->qsRelease.isEmpty() || g.sh->qsOS.isEmpty() || g.sh->qsOSVersion.isEmpty()) {
 		qsVersion.append(tr("<p>No build information or OS version available.</p>"));
