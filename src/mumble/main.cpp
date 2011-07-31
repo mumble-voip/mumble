@@ -160,14 +160,14 @@ int main(int argc, char **argv) {
 				|| args.at(i) == QLatin1String("/?")
 #endif
 			) {
-				QLatin1String helpmessage( "Usage: mumble [options] [<url>]\n"
+				QString helpmessage = MainWindow::tr( "Usage: mumble [options] [<url>]\n"
 					"\n"
 					"<url> specifies a URL to connect to after startup instead of showing\n"
 					"the connection window, and has the following form:\n"
 					"mumble://[<username>[:<password>]@]<host>[:<port>][/<channel>[/<subchannel>...]][?version=<x.y.z>]\n"
 					"\n"
 					"The version query parameter has to be set in order to invoke the\n"
-					"correct client version. It currently defaults to 1.1.0.\n"
+					"correct client version. It currently defaults to 1.2.0.\n"
 					"\n"
 					"Valid options are:\n"
 					"  -h, --help    Show this help text and exit.\n"
@@ -177,9 +177,9 @@ int main(int argc, char **argv) {
 					"                Suppress loading of identity files (i.e., certificates.)\n"
 					);
 #if defined(Q_OS_WIN)
-				QMessageBox::information(NULL, QLatin1String("Invocation"), helpmessage);
+				QMessageBox::information(NULL, MainWindow::tr("Invocation"), helpmessage);
 #else
-				printf( helpmessage.latin1() );
+				printf( helpmessage.toLocal8Bit().data() );
 #endif
 				return 1;
 			} else if (args.at(i) == QLatin1String("-m") || args.at(i) == QLatin1String("--multiple")) {
