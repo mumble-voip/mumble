@@ -195,18 +195,10 @@ int main(int argc, char **argv) {
 
 	if (! bAllowMultiple) {
 		if (url.isValid()) {
-			int major, minor, patch;
-			major = 1;
-			minor = 1;
-			patch = 0;
-
-			QString version = url.queryItemValue(QLatin1String("version"));
 #ifndef USE_DBUS
 			QMap<QString, QVariant> param;
 			param.insert(QLatin1String("href"), url);
 #endif
-			MumbleVersion::get(&major, &minor, &patch, version);
-
 			bool sent = false;
 #ifdef USE_DBUS
 			QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
