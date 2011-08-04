@@ -361,7 +361,7 @@ The voice data is transmitted in variable length packets that consist of header 
 				\cline{2-4}
 \multicolumn{5}{c}{} \\
 				\cline{2-4}
-\textbf{Audio}	& byte &:& header & Bit 1: Terminator, Bit 2-8: Data length \\
+\textbf{Audio}	& byte &:& header & Bit 8: Terminator, Bit 1-7: Data length \\
 				\cline{2-4}
 Repeated		& byte[] &:& data & Encoded voice frames\\
 				\cline{2-4}
