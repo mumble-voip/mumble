@@ -69,7 +69,7 @@ win32 {
 		QMAKE_LFLAGS *= /OPT:REF /OPT:ICF
 	}
 
-	!CONFIG(no-vld) {
+	CONFIG(vld) {
 		CONFIG(debug, debug|release) {
 			DEFINES *= USE_VLD
 			INCLUDEPATH *= "$$VLD_PATH/include"
