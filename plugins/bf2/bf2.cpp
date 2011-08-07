@@ -124,6 +124,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	if (state == 0) {
 		ptr_chain_valid = false;
+		context.clear();
+		identity.clear();
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 	} else if (!ptr_chain_valid) {
 		if (!resolve_ptrs())
