@@ -69,6 +69,9 @@ class WASAPIOutput : public AudioOutput {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(WASAPIOutput)
+		
+		bool setVolumeForSessionControl(IAudioSessionControl *control, const DWORD mumblePID, QSet<QUuid> &seen);
+		bool setVolumeForSessionControl2(IAudioSessionControl2 *control2, const DWORD mumblePID, QSet<QUuid> &seen);
 	protected:
 		typedef QPair<float, float> VolumePair;
 		QMap<ISimpleAudioVolume *, VolumePair> qmVolumes;
