@@ -785,7 +785,8 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	connect(qpbAdd, SIGNAL(clicked()), qaFavoriteAddNew, SIGNAL(triggered()));
 	qdbbButtonBox->addButton(qpbAdd, QDialogButtonBox::ActionRole);
 
-	QPushButton *qpbEdit = new QPushButton(tr("&Edit..."), this);
+	qpbEdit = new QPushButton(tr("&Edit..."), this);
+	qpbEdit->setEnabled(false);
 	qpbEdit->setDefault(false);
 	qpbEdit->setAutoDefault(false);
 	connect(qpbEdit, SIGNAL(clicked()), qaFavoriteEdit, SIGNAL(triggered()));
@@ -1118,6 +1119,12 @@ void ConnectDialog::on_qtwServers_itemDoubleClicked(QTreeWidgetItem *item, int) 
 void ConnectDialog::on_qtwServers_currentItemChanged(QTreeWidgetItem *item, QTreeWidgetItem *) {
 	ServerItem *si = static_cast<ServerItem *>(item);
 
+	if (si->siParent == qtwServers->siFavorite) {
+		qpbEdit->setEnabled(true);
+	} else {
+		qpbEdit->setEnabled(false);
+	}
+	
 	bool bOk = (si && ! si->qlAddresses.isEmpty());
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(bOk);
 
