@@ -779,12 +779,18 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setText(tr("&Connect"));
 
-	QPushButton *qpb = new QPushButton(tr("&Add New..."), this);
-	qpb->setDefault(false);
-	qpb->setAutoDefault(false);
-	connect(qpb, SIGNAL(clicked()), qaFavoriteAddNew, SIGNAL(triggered()));
-	qdbbButtonBox->addButton(qpb, QDialogButtonBox::ActionRole);
+	QPushButton *qpbAdd = new QPushButton(tr("&Add New..."), this);
+	qpbAdd->setDefault(false);
+	qpbAdd->setAutoDefault(false);
+	connect(qpbAdd, SIGNAL(clicked()), qaFavoriteAddNew, SIGNAL(triggered()));
+	qdbbButtonBox->addButton(qpbAdd, QDialogButtonBox::ActionRole);
 
+	QPushButton *qpbEdit = new QPushButton(tr("&Edit..."), this);
+	qpbEdit->setDefault(false);
+	qpbEdit->setAutoDefault(false);
+	connect(qpbEdit, SIGNAL(clicked()), qaFavoriteEdit, SIGNAL(triggered()));
+	qdbbButtonBox->addButton(qpbEdit, QDialogButtonBox::ActionRole);
+	
 	qtwServers->sortItems(1, Qt::AscendingOrder);
 	qtwServers->header()->setResizeMode(0, QHeaderView::Stretch);
 	qtwServers->header()->setResizeMode(1, QHeaderView::ResizeToContents);
