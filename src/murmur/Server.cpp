@@ -1491,6 +1491,11 @@ bool Server::hasPermission(ServerUser *p, Channel *c, QFlags<ChanACL::Perm> perm
 	return ChanACL::hasPermission(p, c, perm, acCache);
 }
 
+QFlags<ChanACL::Perm> Server::effectivePermissions(ServerUser *p, Channel *c) {
+	QMutexLocker qml(&qmCache);
+	return ChanACL::effectivePermissions(p, c, acCache);
+}
+
 void Server::sendClientPermission(ServerUser *u, Channel *c, bool forceupdate) {
 	unsigned int perm;
 
