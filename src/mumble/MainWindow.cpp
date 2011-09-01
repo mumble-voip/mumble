@@ -2524,11 +2524,9 @@ void MainWindow::trayAboutToShow() {
 		qmTray->addAction(qaAudioDeaf);
 		qmTray->addAction(qaAudioMute);
 		qmTray->addSeparator();
-		qmTray->addAction(qaHelpAbout);
 		qmTray->addAction(qaMinimizeRestore);
 	} else {
 		qmTray->addAction(qaMinimizeRestore);
-		qmTray->addAction(qaHelpAbout);
 		qmTray->addSeparator();
 		qmTray->addAction(qaAudioMute);
 		qmTray->addAction(qaAudioDeaf);
