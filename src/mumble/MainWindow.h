@@ -152,6 +152,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		bool handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, bool focus = false);
 		Channel* getContextMenuChannel();
 		ClientUser* getContextMenuUser();
+		bool isInactive() const;
 
 	public slots:
 		void on_qmServer_aboutToShow();
@@ -211,6 +212,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaHelpAboutQt_triggered();
 		void on_qaHelpVersionCheck_triggered();
 		void on_qaQuit_triggered();
+		void on_qaMinimizeRestore_triggered();
 		void on_qteChat_tabPressed();
 		void on_qteChat_ctrlSpacePressed();
 		void on_qtvUsers_customContextMenuRequested(const QPoint &mpos);

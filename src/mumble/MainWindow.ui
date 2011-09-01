@@ -816,6 +816,11 @@
     <bool>false</bool>
    </property>
   </action>
+  <action name="qaMinimizeRestore">
+   <property name="text">
+    <string notr="true">Minimize/Restore Main Window</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
