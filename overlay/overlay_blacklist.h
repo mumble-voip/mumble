@@ -35,6 +35,7 @@ static const char *overlayBlacklist[] = {
 	"iexplore.exe",
 	"ieuser.exe",
 	"vlc.exe",
+	"crimecraft.exe",
 	"dbgview.exe",
 	"opera.exe",
 	"chrome.exe",
