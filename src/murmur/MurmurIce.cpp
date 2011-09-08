@@ -110,7 +110,7 @@ static void channelToChannel(const ::Channel *c, Murmur::Channel &mc) {
 	mc.parent = c->cParent ? c->cParent->iId : -1;
 	mc.description = u8(c->qsDesc);
 	mc.position = c->iPosition;
-	mc.lastUsed = QDateTime::currentDateTime().toTime_t() - c->getLastUsed().toTime_t();
+	mc.lastUsed = c->getLastUsed().secsTo(QDateTime::currentDateTime().toUTC());
 	mc.links.clear();
 	foreach(::Channel *chn, c->qsPermLinks)
 		mc.links.push_back(chn->iId);
