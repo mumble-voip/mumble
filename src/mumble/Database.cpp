@@ -128,6 +128,9 @@ Database::Database() {
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_name` ON `friends`(`name`)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_hash` ON `friends`(`hash`)"));
 
+	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `ignored` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
+	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `ignored_hash` ON `ignored`(`hash`)"));
+
 	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `muted` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
 	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `muted_hash` ON `muted`(`hash`)"));
 
@@ -191,6 +194,29 @@ void Database::setFavorites(const QList<FavoriteServer> &servers) {
 	}
 
 	QSqlDatabase::database().commit();
+}
+
+bool Database::isLocalIgnored(const QString &hash) {
+	QSqlQuery query;
+
+	query.prepare(QLatin1String("SELECT `hash` FROM `ignored` WHERE `hash` = ?"));
+	query.addBindValue(hash);
+	query.exec();
+	while (query.next()) {
+		return true;
+	}
+	return false;
+}
+
+void Database::setLocalIgnored(const QString &hash, bool ignored) {
+	QSqlQuery query;
+
+	if (ignored)
+		query.prepare(QLatin1String("INSERT INTO `ignored` (`hash`) VALUES (?)"));
+	else
+		query.prepare(QLatin1String("DELETE FROM `ignored` WHERE `hash` = ?"));
+	query.addBindValue(hash);
+	query.exec();
 }
 
 bool Database::isLocalMuted(const QString &hash) {
