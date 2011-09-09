@@ -32,6 +32,7 @@
 namespace po = boost::program_options;
 
 #include <iostream>
+#include <iomanip>
 #include <iterator>
 #include <Ice/Ice.h>
 #include <Murmur.h>
@@ -68,6 +69,53 @@ config_poke(string key, string val)
 	cout << key << "=" << value << endl;
 }
 
+void
+user_list(void)
+{
+	NameMap users;
+	ServerPrx server;
+	
+	server = meta->getServer(serverId, ctx);
+	users = server->getRegisteredUsers("", ctx);
+	
+	cerr << "ID #:   " << " " << "Username:" << endl;
+	cerr << "~~~~~~~~ ~~~~~~~~~" << endl;
+	
+	for (NameMap::iterator ii=users.begin(); ii != users.end(); ii++) {
+		cout << setw(8) << right << (*ii).first << " ";
+		cout << left << (*ii).second << endl;
+	}
+}
+
+void
+serv_list(void)
+{
+	int i, id;
+	string name, host, port;
+	vector<ServerPrx> servers = meta->getAllServers(ctx);
+	
+	cerr << left << "ID    " << setw(40) << "Server Name" << setw(5) << " On?"
+		<< "Host" << endl;
+	cerr << left << "~~~~~ " << setw(40) << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+		<< setw(5) << " ~~~" << "~~~~~~~~~~~~~~~~~~~" << endl;
+	
+	for (i=0; i < (int)servers.size(); i++)
+	{
+		id = servers[i]->id(ctx);
+		name = servers[i]->getConf("registername", ctx);
+		host = servers[i]->getConf("host", ctx);
+		port = servers[i]->getConf("port", ctx);
+		
+		cout << setw(5) << right << id << " " << setw(40) << left << name;
+		if (servers[i]->isRunning(ctx))
+			cout << " On  ";
+		else
+			cout << " Off ";
+		
+		cout << host << ":" << port << endl;
+	}
+}
+
 int
 main (int argc, char **argv)
 {
@@ -97,12 +145,14 @@ main (int argc, char **argv)
 	try {
 		po::options_description desc("Usage:");
 		desc.add_options()
-			("help", "produce help message")
-			("sid,s", po::value<int>(), "Set virtual server ID")
+			("help", "Produce this help message.")
+			("sid,s", po::value<int>(), "Set virtual server ID.")
 			("ice-proxy,i", po::value<string>(), "Set the proxy to use for ICE.")
 			("ice-secret,z", po::value<string>(), "Set the secret given to Murmur.")
 			("config,C", po::value<string>(), "Peek/Poke Configuration setting <arg>")
-			("value,V", po::value<string>(), "Data to be poked into Configuration setting (requires -C, use '-' for stdin)")
+			("value,V", po::value<string>(), "Data to be poked into Configuration setting (requires -C)")
+			("list-servers,L", "List all virtual servers on the Murmur.")
+			("list-users,l", "List all registered users on a virtual server.")
 		;
 		
 		po::variables_map vm;
@@ -134,6 +184,14 @@ main (int argc, char **argv)
 		if (vm.count("value")) {
 			action = ACT_CONFPOKE;
 			configValue = vm["value"].as<string>();
+		}
+		
+		if (vm.count("list-servers")) {
+			action = ACT_SERVLIST;
+		}
+		
+		if (vm.count("list-users")) {
+			action = ACT_USERLIST;
 		}
 	}
 	catch (exception &e) {
@@ -172,6 +230,12 @@ main (int argc, char **argv)
 			break;
 		case ACT_CONFPOKE:
 			config_poke(configKey, configValue);
+			break;
+		case ACT_SERVLIST:
+			serv_list();
+			break;
+		case ACT_USERLIST:
+			user_list();
 			break;
 		}
 	} catch (const Ice::Exception& ex) {
