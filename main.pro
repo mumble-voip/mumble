@@ -48,6 +48,12 @@ CONFIG *= ordered debug_and_release
   SUBDIRS *= src/murmur
 }
 
+!CONFIG(no-mutter) {
+  !CONFIG(no-ice) {
+    SUBDIRS *= src/mutter
+  }
+}
+
 DIST=LICENSE INSTALL README README.Linux CHANGES
 
 include(scripts/scripts.pro)
