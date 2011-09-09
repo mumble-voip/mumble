@@ -304,6 +304,19 @@ main (int argc, char **argv)
 		if (vm.count("value")) {
 			action = ACT_CONFPOKE;
 			configValue = vm["value"].as<string>();
+			
+			if (configValue == "-")
+			{
+				string line;
+				
+				configValue = "";
+				
+				while (cin)
+				{
+					getline(cin, line);
+					configValue = configValue + line + "\n";
+				}
+			}
 		}
 		
 		if (vm.count("list-servers")) {
