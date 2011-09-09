@@ -11,9 +11,10 @@ QT -= gui
 TARGET = mutter
 LANGUAGE	= C++
 FORMS =
-HEADERS = 
+HEADERS = mutter.h
 SOURCES = main.cpp
 PROTOBUF = 
+LIBS *= -lboost_program_options
 
 DIST = ../murmur/Murmur.ice
 
