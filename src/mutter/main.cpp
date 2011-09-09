@@ -71,8 +71,8 @@ config_poke(string key, string val)
 int
 main (int argc, char **argv)
 {
-	char *iceProxy;
-	char *iceSecret;
+	string iceProxy;
+	string iceSecret;
 	string configKey;
 	string configValue;
 	char *username;
@@ -85,8 +85,7 @@ main (int argc, char **argv)
 	/*
 	 * Start with some sensible defaults
 	 */
-	iceProxy = (char *)"Meta:tcp -h localhost -p 6502";
-	iceSecret = NULL;
+	iceProxy = "Meta:tcp -h localhost -p 6502";
 	serverId = 1;
 	
 	action = 0;
@@ -99,7 +98,9 @@ main (int argc, char **argv)
 		po::options_description desc("Usage:");
 		desc.add_options()
 			("help", "produce help message")
-			("sid", po::value<int>(), "Set virtual server ID")
+			("sid,s", po::value<int>(), "Set virtual server ID")
+			("ice-proxy,i", po::value<string>(), "Set the proxy to use for ICE.")
+			("ice-secret,z", po::value<string>(), "Set the secret given to Murmur.")
 			("config,C", po::value<string>(), "Peek/Poke Configuration setting <arg>")
 			("value,V", po::value<string>(), "Data to be poked into Configuration setting (requires -C, use '-' for stdin)")
 		;
@@ -115,6 +116,14 @@ main (int argc, char **argv)
 		
 		if (vm.count("sid")) {
 			serverId = vm["compression"].as<int>();
+		}
+		
+		if (vm.count("ice-secret")) {
+			iceSecret = vm["ice-secret"].as<string>();
+		}
+		
+		if (vm.count("ice-proxy")) {
+			iceProxy = vm["ice-proxy"].as<string>();
 		}
 		
 		if (vm.count("config")) {
@@ -145,7 +154,7 @@ main (int argc, char **argv)
 	} else try {
 		ic = Ice::initialize(argc, argv);
 		Ice::ObjectPrx base = ic->stringToProxy(iceProxy);
-		if (iceSecret)
+		if (iceSecret.length() > 0)
 			ctx["secret"] = (string)iceSecret;
 		
 		meta = MetaPrx::checkedCast(base);
