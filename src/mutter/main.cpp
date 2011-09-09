@@ -226,6 +226,31 @@ user_pass(string username)
 	}
 }
 
+void
+player_list(void)
+{
+	UserMap users;
+	ServerPrx server;
+	
+	server = meta->getServer(serverId, ctx);
+	users = server->getUsers(ctx);
+	
+	cout << "SID      Name    Ping" << endl;
+	for (UserMap::iterator ii=users.begin(); ii != users.end(); ii++)
+		cout << setw(8) << right << (*ii).first << " " << (*ii).second.name 
+			<< " " << (*ii).second.udpPing << endl;
+}
+
+void
+player_kick(int session, string reason)
+{
+	ServerPrx server;
+	
+	server = meta->getServer(serverId, ctx);
+	
+	server->kickUser(session, reason);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -237,6 +262,7 @@ main (int argc, char **argv)
 	
 	int action;
 	int ret;
+	int playerSession;
 	
 	Ice::CommunicatorPtr ic;
 	
@@ -273,6 +299,9 @@ main (int argc, char **argv)
 			("add-user,a", po::value<string>(), "Add user <arg> to registered users.")
 			("password,p", po::value<string>(), "Change <arg>'s password.")
 			("del-user,d", po::value<string>(), "Delete registered user <arg>.")
+			
+			("list-players", "List users currently connected to server.")
+			("kick-player,k", po::value<int>(), "Kick player with session # <arg> (get session with --list-players).")
 		;
 		
 		po::variables_map vm;
@@ -357,6 +386,15 @@ main (int argc, char **argv)
 			action = ACT_USERDEL;
 			username = vm["del-user"].as<string>();
 		}
+		
+		if (vm.count("list-players")) {
+			action = ACT_PLAYERLIST;
+		}
+
+		if (vm.count("kick-player")) {
+			playerSession = vm["kick-player"].as<int>();
+			action = ACT_PLAYERKICK;
+		}
 	}
 	catch (exception &e) {
 		cerr << "error: " << e.what() << endl;
@@ -421,6 +459,12 @@ main (int argc, char **argv)
 			break;
 		case ACT_USERPASS:
 			user_pass(username);
+			break;
+		case ACT_PLAYERLIST:
+			player_list();
+			break;
+		case ACT_PLAYERKICK:
+			player_kick(playerSession, "Kicked by console.");
 			break;
 		}
 	} catch (const Ice::Exception& ex) {

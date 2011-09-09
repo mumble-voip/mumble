@@ -40,4 +40,4 @@
 #define ACT_SERVNEW	10
 #define ACT_SERVDEL	11
 #define ACT_PLAYERLIST	12
-
+#define ACT_PLAYERKICK	13
