@@ -259,6 +259,7 @@ main (int argc, char **argv)
 	string configKey;
 	string configValue;
 	string username;
+	string reason;
 	
 	int action;
 	int ret;
@@ -302,6 +303,7 @@ main (int argc, char **argv)
 			
 			("list-players", "List users currently connected to server.")
 			("kick-player,k", po::value<int>(), "Kick player with session # <arg> (get session with --list-players).")
+			("reason", po::value<string>(&reason)->default_value("Via Console"), "Reason for kick/ban.")
 		;
 		
 		po::variables_map vm;
@@ -464,7 +466,7 @@ main (int argc, char **argv)
 			player_list();
 			break;
 		case ACT_PLAYERKICK:
-			player_kick(playerSession, "Kicked by console.");
+			player_kick(playerSession, reason);
 			break;
 		}
 	} catch (const Ice::Exception& ex) {
