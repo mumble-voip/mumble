@@ -192,6 +192,13 @@ void Channel::removeUser(User *p) {
 	        qdtLastUsed = QDateTime::currentDateTime().toUTC();
 }
 
+bool Channel::isInUse() const {
+        if (qlUsers.isEmpty())
+                return false;
+
+        return true;
+}
+
 QDateTime Channel::getLastUsed() const {
         if (qlUsers.isEmpty())
                 return qdtLastUsed;

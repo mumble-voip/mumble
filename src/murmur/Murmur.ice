@@ -102,7 +102,7 @@ module Murmur
 		bool temporary;
 		/** Position of the channel which is used in Client for sorting. */
 		int position;
-		/** Seconds since the channel was last used. Will return 0 if channel has users in it. */
+		/** Seconds since the channel was last used. Will be 0 if channel has users in it. */
 		int lastUsed;
 	};
 

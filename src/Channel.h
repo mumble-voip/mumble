@@ -91,6 +91,7 @@ class Channel : public QObject {
 		void unlink(Channel *c = NULL);
 		
 		QDateTime getLastUsed() const;
+		bool isInUse() const;
 
 		QSet<Channel *> allLinks();
 		QSet<Channel *> allChildren();
