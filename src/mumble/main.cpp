@@ -179,7 +179,7 @@ int main(int argc, char **argv) {
 #if defined(Q_OS_WIN)
 				QMessageBox::information(NULL, MainWindow::tr("Invocation"), helpmessage);
 #else
-				printf( helpmessage.toLocal8Bit().data() );
+				printf("%s", qPrintable(helpmessage));
 #endif
 				return 1;
 			} else if (args.at(i) == QLatin1String("-m") || args.at(i) == QLatin1String("--multiple")) {
