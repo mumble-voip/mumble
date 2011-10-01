@@ -29,8 +29,8 @@
 */
 
 #include "lib.h"
-#include "overlay11.hex"
-#include "Effects11/Inc/d3dx11effect.h"
+#include "overlay.hex"
+/*#include "Effects11/Inc/d3dx11effect.h"*/
 #include <d3d11.h>
 #include <d3dx10math.h>
 #include <d3dx11.h>
@@ -256,7 +256,8 @@ void D11State::init() {
 	ID3D11Texture2D* pBackBuffer = NULL;
 	hr = pSwapChain->GetBuffer(0, __uuidof(*pBackBuffer), (LPVOID*)&pBackBuffer);
 
-	hr = pDevice->CreateDeferredContext(0, &pDeviceContext);
+	//hr = pDevice->CreateDeferredContext(0, &pDeviceContext);
+	pDevice->GetImmediateContext(&pDeviceContext);
 
 	D3D11_TEXTURE2D_DESC backBufferSurfaceDesc;
 	pBackBuffer->GetDesc(&backBufferSurfaceDesc);
@@ -404,12 +405,12 @@ void D11State::draw() {
 			pDeviceContext->DrawIndexed(6, 0, 0);
 		}
 
-		pDeviceContext->FinishCommandList(TRUE, &pCommandList);
+		/*pDeviceContext->FinishCommandList(TRUE, &pCommandList);
 		ID3D11DeviceContext *ctx = NULL;
 		pDevice->GetImmediateContext(&ctx);
 		ctx->ExecuteCommandList(pCommandList, TRUE);
 		ctx->Release();
-		pCommandList->Release();
+		pCommandList->Release();*/
 		/*TODO rm
 		pDeviceContext->FinishCommandList(TRUE, &pCommandList);
 
