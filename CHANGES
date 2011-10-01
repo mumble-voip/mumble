@@ -1,3 +1,99 @@
+2011-10-01
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    f506511  Add %s for printf
+
+2011-09-28
+  Jamie Fraser <jamie.f@mumbledog.com>
+    9cc9539  Fix bug #3200725 @ SF - RichTextEditor disregarding
+	     g.uiImageLength.
+
+2011-09-05
+  Jamie Fraser <jamie.f@mumbledog.com>
+    41100fd  Add 'Crimecraft: Bleedout' to default blacklist.
+
+2011-08-28
+  Jamie Fraser <jamie.f@mumbledog.com>
+    6a46030  Make edit button greyed out if selected item is not a
+	     favorite.
+    b61f781  Added Edit button to Connect dialog.
+
+2011-08-27
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    ae54c0c  Add some comments to AudioInput::addMic/addEcho
+
+2011-08-21
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    aed5c1e  Split up and refactor WASAPIOutput::setVolumes function to get
+	     rid of excesive indentation.
+
+2011-08-14
+  Mikkel Krautz <mikkel@krautz.dk>
+    72185ae  Mark OverlayInjectorMac as conforming to SBApplicationDelegate
+	     on 10.6+ to fix Lion-only builds.
+    53cd8e4  Update Boost version for OS X.
+
+2011-08-07
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    86b8c00  Make bf2 plugin correctly clear its context and identity
+
+2011-08-05
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    b05dc71  Make vld an explicit, default off, option instead of implicit
+	     default
+    1a8d879  Make winpaths_default.pri arch independent
+
+2011-07-31
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    f0c2bfd  Replace some manual version conversions with appropriate
+	     MumbleVersion calls.
+    c99661d  Remove some dead code previously related to version checking
+
+  Michael Ziegler <diese-addy@funzt-halt.net>
+    b79b960  tr() the strings and change default version to 1.2.0.
+
+2011-07-29
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    d31b33d  Updated boost to 1.47
+
+  Michael Ziegler <diese-addy@funzt-halt.net>
+    f1c6e83  style/typo fixes, use QMessageBox on Windows, don't rely on
+	     argv[0] being set
+    4a26190  add long command line option names, add -h/--help options.
+
+2011-06-30
+  Kissaki <kissaki@gmx.de>
+    69baac1  add thunderbird and instantbird to overlay blacklist (new
+	     hw-accelerated versions)
+
+2011-06-25
+  Mikkel Krautz <mikkel@krautz.dk>
+    81dee1c  Update version number of OSAX overlay injector.
+    d9417cb  Fix the overlay on Mac OS X 10.6.8.
+
+2011-06-17
+  Mikkel Krautz <mikkel@krautz.dk>
+    e9cfd21  Add build configuration for compiling on Lion.
+
+2011-06-15
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    eeb1737  Fix UDP problems on IPv4 only hosts
+
+2011-06-13
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    2d838f2  Prevent PTT window from showing up in non-PTT modes as well as
+	     from minimizing when the MainWindow gets minimized.
+
+  Jacob Peddicord <jacob@peddicord.net>
+    0e4d963  Implement audio attenuation for PulseAudio.
+
+2011-06-12
+  Natenom <natenom@natenom.name>
+    a270c7f  Updated German translations
+
+2011-06-11
+  Tsbook <tsbook@users.sourceforge.net>
+    60ea789  Czech Tanslation Update (#3315071)
+
 2011-06-10
   morris <tkmorris@users.sourceforge.net>
     c581e0e  Updated Brazilian Portuguese translation (#3314540)
@@ -124,9 +220,6 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     74a4051  Fix mixed up buttons in AudioInput
     6b33a67  Improve documentation of Ice stop() command
-
-  Stefan Hacker <hacker.stefan@googlemail.com>
-    7e314b5  Merge pull request #33 from fwaggle/fix-url-without-version.
 
   Jamie Fraser <jamie.f@mumbledog.com>
     4586068  Don't check version numbers of URLs being sent over RPC.
