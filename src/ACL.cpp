@@ -57,19 +57,20 @@ ChanACL::ChanACL(Channel *chan) : QObject(chan) {
 #ifdef MURMUR
 
 bool ChanACL::hasPermission(ServerUser *p, Channel *chan, QFlags<Perm> perm, ACLCache &cache) {
+	Permissions granted = effectivePermissions(p, chan, cache);
+
+	return ((granted & perm) != None);
+}
+
+// Return effective permissions.
+QFlags<ChanACL::Perm> ChanACL::effectivePermissions(ServerUser *p, Channel *chan, ACLCache &cache) {
 	QStack<Channel *> chanstack;
 	Channel *ch;
 	ChanACL *acl;
 
 	// Superuser
 	if (p->iId == 0) {
-		switch (perm) {
-			case Speak:
-			case Whisper:
-				return false;
-			default:
-				return true;
-		}
+		return static_cast<Permissions>(All &~ (Speak|Whisper));
 	}
 
 	Permissions granted = 0;
@@ -79,10 +80,7 @@ bool ChanACL::hasPermission(ServerUser *p, Channel *chan, QFlags<Perm> perm, ACL
 		granted = h->value(chan);
 
 	if (granted & Cached) {
-		if ((perm != Speak) && (perm != Whisper))
-			return ((granted & (perm | Write)) != None);
-		else
-			return ((granted & perm) != None);
+		return granted;
 	}
 
 	ch = chan;
@@ -116,8 +114,18 @@ bool ChanACL::hasPermission(ServerUser *p, Channel *chan, QFlags<Perm> perm, ACL
 					write = true;
 				if (acl->pDeny & Write)
 					write = false;
+				if (ch->iId == 0 && chan == ch && acl->bApplyHere) {
+					if (acl->pAllow & Kick)
+						granted |= Kick;
+					if (acl->pAllow & Ban)
+						granted |= Ban;
+					if (acl->pAllow & Register)
+						granted |= Register;
+					if (acl->pAllow & SelfRegister)
+						granted |= SelfRegister;
+				}
 				if ((ch==chan && acl->bApplyHere) || (ch!=chan && acl->bApplySubs)) {
-					granted |= acl->pAllow;
+					granted |= (acl->pAllow & ~(Kick|Ban|Register|SelfRegister|Cached));
 					granted &= ~acl->pDeny;
 				}
 			}
@@ -128,15 +136,19 @@ bool ChanACL::hasPermission(ServerUser *p, Channel *chan, QFlags<Perm> perm, ACL
 		}
 	}
 
+	if (granted & Write) {
+		granted |= Traverse|Enter|MuteDeafen|Move|MakeChannel|LinkChannel|TextMessage|MakeTempChannel;
+		if (chan->iId == 0)
+			granted |= Kick|Ban|Register|SelfRegister;
+	}
+	
+
 	if (! cache.contains(p))
 		cache.insert(p, new QHash<Channel *, Permissions>);
 
 	cache.value(p)->insert(chan, granted | Cached);
 
-	if ((perm != Speak) && (perm != Whisper))
-		return ((granted & (perm | Write)) != None);
-	else
-		return ((granted & perm) != None);
+	return granted;
 }
 
 #else

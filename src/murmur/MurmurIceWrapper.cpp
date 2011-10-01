@@ -749,6 +749,36 @@ void ::Murmur::ServerI::hasPermission_async(const ::Murmur::AMD_Server_hasPermis
 	QCoreApplication::instance()->postEvent(mi, ie);
 }
 
+void ::Murmur::ServerI::effectivePermissions_async(const ::Murmur::AMD_Server_effectivePermissionsPtr &cb, ::Ice::Int p1, ::Ice::Int p2, const ::Ice::Current &current) {
+	// qWarning() << effectivePermissions << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
+#ifndef ACCESS_Server_effectivePermissions_ALL
+#ifdef ACCESS_Server_effectivePermissions_READ
+	if ( !meta->mp.qsIceSecretRead.isNull()) {
+		bool ok = ! meta->mp.qsIceSecretRead.isEmpty();
+#else
+	if (! meta->mp.qsIceSecretRead.isNull() ||! meta->mp.qsIceSecretWrite.isNull()) {
+		bool ok = ! meta->mp.qsIceSecretWrite.isEmpty();
+#endif
+		::Ice::Context::const_iterator i = current.ctx.find("secret");
+		ok = ok && (i != current.ctx.end());
+		if (ok) {
+			const QString &secret = u8((*i).second);
+#ifdef ACCESS_Server_effectivePermissions_READ
+			ok = ((secret == meta->mp.qsIceSecretRead) ||(secret == meta->mp.qsIceSecretWrite));
+#else
+			ok = (secret == meta->mp.qsIceSecretWrite);
+#endif
+		}
+		if (! ok) {
+			cb->ice_exception(InvalidSecretException());
+			return;
+		}
+	}
+#endif
+	ExecEvent *ie = new ExecEvent(boost::bind(&impl_Server_effectivePermissions, cb, QString::fromStdString(current.id.name).toInt(), p1, p2));
+	QCoreApplication::instance()->postEvent(mi, ie);
+}
+
 void ::Murmur::ServerI::addContextCallback_async(const ::Murmur::AMD_Server_addContextCallbackPtr &cb,  ::Ice::Int p1,  const ::std::string& p2,  const ::std::string& p3,  const ::Murmur::ServerContextCallbackPrx& p4,  ::Ice::Int p5, const ::Ice::Current &current) {
 	// qWarning() << "addContextCallback" << meta->mp.qsIceSecretRead.isNull() << meta->mp.qsIceSecretRead.isEmpty();
 #ifndef ACCESS_Server_addContextCallback_ALL
