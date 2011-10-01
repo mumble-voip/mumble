@@ -1019,6 +1019,14 @@ static void impl_Server_hasPermission(const ::Murmur::AMD_Server_hasPermissionPt
 	cb->ice_response(server->hasPermission(user, channel, static_cast<ChanACL::Perm>(perm)));
 }
 
+#define ACCESS_Server_effectivePermissions_READ
+static void impl_Server_effectivePermissions(const ::Murmur::AMD_Server_effectivePermissionsPtr cb, int server_id, ::Ice::Int session, ::Ice::Int channelid) {
+	NEED_SERVER;
+	NEED_PLAYER;
+	NEED_CHANNEL;
+	cb->ice_response(server->effectivePermissions(user, channel));
+}
+
 static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCallbackPtr cb, int server_id, ::Ice::Int session, const ::std::string& action, const ::std::string& text, const ::Murmur::ServerContextCallbackPrx& cbptr, int ctx) {
 	NEED_SERVER;
 	NEED_PLAYER;

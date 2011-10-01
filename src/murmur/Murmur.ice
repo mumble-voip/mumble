@@ -575,6 +575,13 @@ module Murmur
 		 * @return true if any of the permissions in perm were set for the user.
 		 */
 		bool hasPermission(int session, int channelid, int perm) throws ServerBootedException, InvalidSessionException, InvalidChannelException, InvalidSecretException;
+		
+		/** Return users effective permissions
+		 * @param session Connection ID of user. See {@link User.session}.
+		 * @param channelid ID of Channel. See {@link Channel.id}.
+		 * @return bitfield of allowed actions
+		 */
+		idempotent int effectivePermissions(int session, int channelid) throws ServerBootedException, InvalidSessionException, InvalidChannelException, InvalidSecretException;
 
 		/** Add a context callback. This is done per user, and will add a context menu action for the user.
 		 *
