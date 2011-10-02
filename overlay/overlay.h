@@ -31,6 +31,7 @@
 #ifndef MUMBLE_INTERNAL_OVERLAY_H_
 #define MUMBLE_INTERNAL_OVERLAY_H_
 
+// overlay message protocol version number
 #define OVERLAY_MAGIC_NUMBER 0x00000005
 
 struct OverlayMsgHeader {
