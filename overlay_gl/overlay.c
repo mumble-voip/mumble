@@ -370,7 +370,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 								unsigned int w = omb->w;
 								unsigned int h = omb->h;
 								unsigned char *ptr = (unsigned char *) malloc(w*h*4);
-								unsigned int r;
+								unsigned int row;
 								memset(ptr, 0, w * h * 4);
 
 								// copy overlay texture to temporary memory to adapt to full opengl ui size (overlay at correct place)
