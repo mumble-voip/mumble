@@ -73,6 +73,7 @@ Global::Global() {
 	bPosTest = false;
 	bInAudioWizard = false;
 	iAudioPathTime = 0;
+	iAudioBandwidth = -1;
 	iMaxBandwidth = -1;
 
 	iCodecAlpha = 0;

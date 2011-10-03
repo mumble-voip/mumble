@@ -197,8 +197,6 @@ void OverlayEditorScene::updateSelected() {
 		updateAvatar();
 	else if (qgpiSelected == qgpiName)
 		updateUserName();
-	else if (qgpiSelected == qgpiAvatar)
-		updateAvatar();
 	else if (qgpiSelected == qgpiMuted)
 		updateMuted();
 }
