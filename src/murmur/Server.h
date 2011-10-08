@@ -309,6 +309,7 @@ class Server : public QThread {
 		QMap<int, QString> getRegistration(int id);
 		int registerUser(const QMap<int, QString> &info);
 		bool unregisterUserDB(int id);
+		QList<UserInfo> getRegisteredUsersEx();
 		QMap<int, QString > getRegisteredUsers(const QString &filter = QString());
 		bool setInfo(int id, const QMap<int, QString> &info);
 		bool setTexture(int id, const QByteArray &texture);

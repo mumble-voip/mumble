@@ -709,6 +709,29 @@ bool Server::unregisterUserDB(int id) {
 	return true;
 }
 
+QList<UserInfo> Server::getRegisteredUsersEx() {
+	QList<UserInfo> m;
+
+	TransactionHolder th;
+
+	QSqlQuery &query = *th.qsqQuery;
+	SQLPREP("SELECT `user_id`, `name`, `lastchannel`, `last_active` FROM `%1users` WHERE `server_id` = ?");
+	query.addBindValue(iServerNum);
+	SQLEXEC();
+
+	while (query.next()) {
+		UserInfo userinfo;
+		userinfo.user_id = query.value(0).toInt();
+		userinfo.name = query.value(1).toString();
+		userinfo.last_channel = query.value(2).toInt();
+		userinfo.last_active = query.value(3).toString();
+
+		m << userinfo;
+	}
+
+	return m;
+}
+
 QMap<int, QString > Server::getRegisteredUsers(const QString &filter) {
 	QMap<int, QString > m;
 

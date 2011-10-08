@@ -86,6 +86,13 @@ struct Ban {
 	bool operator == (const Ban &) const;
 };
 
+struct UserInfo {
+	int user_id;
+	QString name;
+	int last_channel;
+	QString last_active;
+};
+
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
 #define SWAP64(x) (x)
 #else
