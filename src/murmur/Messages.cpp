@@ -1416,10 +1416,12 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 		QList<UserInfo> users = getRegisteredUsersEx();
 		for (int i = 1; i < users.count(); ++i) {
 			::MumbleProto::UserList_User *u = msg.add_users();
-			u->set_user_id(users.at(i).user_id);
-			u->set_name(u8(users.at(i).name));
-			u->set_last_channel(users.at(i).last_channel);
-			u->set_last_seen(u8(users.at(i).last_active));
+			UserInfo ui = users.at(i);
+			u->set_user_id(ui.user_id);
+			u->set_name(u8(ui.name));
+			if (bRememberChan)
+				u->set_last_channel(ui.last_channel);
+			u->set_last_active(u8(ui.last_active.toString()));
 		}
 		sendMessage(uSource, msg);
 	} else {

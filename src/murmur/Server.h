@@ -37,6 +37,7 @@
 #include "Timer.h"
 #include "Net.h"
 #include "ACL.h"
+#include "User.h"
 
 #ifdef USE_BONJOUR
 #include "BonjourServer.h"

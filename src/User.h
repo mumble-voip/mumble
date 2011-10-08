@@ -59,4 +59,14 @@ class User {
 		static bool lessThan(const User *, const User *);
 };
 
+/*
+ * UserInfo: Send registered user information to Registered Users Dialog.
+ */
+struct UserInfo {
+	int user_id;
+	QString name;
+	int last_channel;
+	QDateTime last_active;
+};
+
 #endif

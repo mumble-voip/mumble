@@ -1,6 +1,8 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
  <file alias="Information_icon.svg">../../icons/publicdomain/Information_icon.svg</file>
+ <file alias="edit-find-replace.svg">../../icons/tango/actions/edit-find-replace.svg</file>
+ <file alias="list-remove.svg">../../icons/tango/actions/list-remove.svg</file>
  <file alias="self_undeafened.svg">../../icons/self_undeafened.svg</file>
  <file alias="mumble.svg">../../icons/mumble.svg</file>
  <file alias="mumble.icns">../../icons/mumble.icns</file>

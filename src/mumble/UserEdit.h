@@ -34,12 +34,11 @@
 #include "mumble_pch.hpp"
 #include "ui_UserEdit.h"
 #include "Message.h"
-#include "Net.h"
+#include "User.h"
 
 class UserEditListItem : public QTreeWidgetItem {
 	public:
 		UserEditListItem(const int userid);
-		bool operator<(const QTreeWidgetItem & other) const;
 };
 
 class UserEdit : public QDialog, public Ui::UserEdit {
@@ -55,15 +54,10 @@ class UserEdit : public QDialog, public Ui::UserEdit {
 		void accept();
 		void on_qlSearch_textChanged(QString );
 	public slots:
-		void on_qpbRemove_clicked();
-		void on_qpbRename_clicked();
 		void on_qtwUserList_customContextMenuRequested(const QPoint&);
-		void renameTriggered();
-		void refreshUserList(int depth = 0, int inactive = 0);
-		void on_qtwUserList_itemSelectionChanged();
-		void on_qsbChanneldepth_valueChanged(int val);
-		void on_qsbInactive_valueChanged(int val);
-		void on_qcbInactive_currentIndexChanged(int index);
+		void on_qaUserRemove_triggered();
+		void on_qaUserRename_triggered();
+		void refreshUserList();
 };
 
 #endif
