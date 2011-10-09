@@ -121,7 +121,7 @@ void G15LCDEngineHelper::submitFrame(bool alert, unsigned char *buf, size_t len)
 
 /* -- */
 
-G15LCDDeviceHelper::G15LCDDeviceHelper(G15LCDEngineHelper *e) : LCDDevice() {
+G15LCDDeviceHelper::G15LCDDeviceHelper(G15LCDEngineHelper *e) : LCDDevice(), bEnabled(false) {
 	engine = e;
 }
 

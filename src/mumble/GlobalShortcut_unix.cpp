@@ -35,7 +35,8 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 }
 
 GlobalShortcutX::GlobalShortcutX() {
-	bRunning=false;
+	iXIopcode =  -1;
+	bRunning = false;
 
 	display = NULL;
 

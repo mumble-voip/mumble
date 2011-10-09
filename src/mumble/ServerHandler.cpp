@@ -85,6 +85,10 @@ ServerHandler::ServerHandler() {
 	cConnection.reset();
 	qusUdp = NULL;
 	bStrong = false;
+	usPort = 0;
+	bUdp = true;
+	tConnectionTimeoutTimer = NULL;
+	uiVersion = 0;
 
 	// For some strange reason, on Win32, we have to call supportsSsl before the cipher list is ready.
 	qWarning("OpenSSL Support: %d (%s)", QSslSocket::supportsSsl(), SSLeay_version(SSLEAY_VERSION));
