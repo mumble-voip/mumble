@@ -414,7 +414,8 @@ static HRESULT __stdcall myReset(IDirect3DDevice9 * idd, D3DPRESENT_PARAMETERS *
 	HRESULT hr=oReset(idd, param);
 	hhReset.inject();
 
-	ds->createCleanState();
+	if (ds)
+		ds->createCleanState();
 	return hr;
 }
 

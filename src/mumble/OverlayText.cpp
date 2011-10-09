@@ -32,19 +32,27 @@
 #include "Global.h"
 
 BasepointPixmap::BasepointPixmap() :
-		qpBasePoint(0, 0) { }
+		qpBasePoint(0, 0),
+		iAscent(-1),
+		iDescent(-1) { }
 
 BasepointPixmap::BasepointPixmap(const QPixmap& pm) :
 		QPixmap(pm),
-		qpBasePoint(0, pm.height()) { }
+		qpBasePoint(0, pm.height()),
+		iAscent(-1),
+		iDescent(-1) { }
 
 BasepointPixmap::BasepointPixmap(int w, int h) :
 		QPixmap(w, h),
-		qpBasePoint(0, h) { }
+		qpBasePoint(0, h),
+		iAscent(-1),
+		iDescent(-1) { }
 
 BasepointPixmap::BasepointPixmap(int w, int h, const QPoint& bp) :
 		QPixmap(w, h),
-		qpBasePoint(bp) { }
+		qpBasePoint(bp),
+		iAscent(-1),
+		iDescent(-1) { }
 
 OverlayTextLine::OverlayTextLine(const QString& s, const QFont& f) :
 		fEdgeFactor(0.05f),
@@ -53,7 +61,9 @@ OverlayTextLine::OverlayTextLine(const QString& s, const QFont& f) :
 		iCurWidth(-1),
 		iCurHeight(-1),
 		fBaseliningThreshold(0.5f),
-		bElided(false) {
+		bElided(false),
+		fXCorrection(0.0),
+		fYCorrection(0.0) {
 	QFontMetrics fm(f);
 	fAscent = static_cast<float>(fm.ascent());
 	fDescent = static_cast<float>(fm.descent());

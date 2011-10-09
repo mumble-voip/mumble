@@ -738,7 +738,7 @@ ACLInfo::ACLInfo(const ChanACL *acl) {
 	deny = acl->pDeny;
 }
 
-GroupInfo::GroupInfo(const Group *g) {
+GroupInfo::GroupInfo(const Group *g) : inherited(false) {
 	name = g->qsName;
 	inherit = g->bInherit;
 	inheritable = g->bInheritable;

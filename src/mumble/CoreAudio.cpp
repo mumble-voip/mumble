@@ -55,6 +55,7 @@ class CoreAudioInit : public DeferInit {
 		CoreAudioInputRegistrar *cairReg;
 		CoreAudioOutputRegistrar *caorReg;
 	public:
+		CoreAudioInit() : cairReg(NULL), caorReg(NULL) {}
 		void initialize();
 		void destroy();
 };

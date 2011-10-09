@@ -65,6 +65,7 @@ class DirectSoundInit : public DeferInit {
 		DXAudioInputRegistrar *airReg;
 		DXAudioOutputRegistrar *aorReg;
 	public:
+		DirectSoundInit() : airReg(NULL), aorReg(NULL) {}
 		void initialize();
 		void destroy();
 };

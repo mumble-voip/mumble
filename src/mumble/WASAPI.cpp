@@ -72,6 +72,7 @@ class WASAPIInit : public DeferInit {
 		WASAPIInputRegistrar *wirReg;
 		WASAPIOutputRegistrar *worReg;
 	public:
+		WASAPIInit() : wirReg(NULL), worReg(NULL) { }
 		void initialize();
 		void destroy();
 };

@@ -36,7 +36,7 @@ QMutex *LimitTest::qm;
 QWaitCondition *LimitTest::qw;
 QWaitCondition *LimitTest::qstartw;
 
-LimitTest::LimitTest() : QThread() {
+LimitTest::LimitTest() : QThread(), tid(-1) {
 }
 
 void LimitTest::run() {
