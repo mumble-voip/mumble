@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2009-2010 Ilmar 'Ingaras' Kruis (seaeagle1@users.sourceforge.net)
+ Copyright (c) 2009-2011 Ilmar 'Ingaras' Kruis (seaeagle1@users.sourceforge.net)
 
    All rights reserved.
 
@@ -61,16 +61,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		nPtr = pointer to character name (unique on a server)
 	*/
 
-	ok = peekProc((BYTE *) 0x00F2D45C, o, 12) &&
-	     peekProc((BYTE *) 0x00F2D454, l, 2) &&
-	     peekProc((BYTE *) 0x00F2D450, &r, 1) &&
-	     peekProc((BYTE *) 0x00F2D458, &i, 1) &&
-	     peekProc((BYTE *)(pModule + 0x00C0F150), &hPtr, 4);
+	ok = peekProc((BYTE *) 0x012026DC, o, 12) &&
+	     peekProc((BYTE *) 0x012026D4, l, 2) &&
+	     peekProc((BYTE *) 0x012026D0, &r, 1) &&
+	     peekProc((BYTE *) 0x012026D8, &i, 1) &&
+	     peekProc((BYTE *)(pModule + 0x00EEB600), &hPtr, 4);
 
 	if (! ok)
 		return false;
 
-	ok = peekProc((BYTE *)(hPtr  + 0x000007E0), &h, 4);
+	ok = peekProc((BYTE *)(hPtr  + 0x00000060), &h, 4);
 
 	if (! ok)
 		return false;
@@ -138,10 +138,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Lord of the Rings Online (Codemasters Edition, Vol III Update 1, v3.2.5.8031). Context support based on region and instance. No Identity support.");
+	return std::wstring(L"Supports Lord of the Rings Online (Rise of Isengard, Vol III Book 4, v3.4.3.8026). Context support based on region and instance. No Identity support.");
 }
 
-static std::wstring description(L"Lord of the Rings Online (EU), Vol III Update 1");
+static std::wstring description(L"Lord of the Rings Online - Rise of Isengard - Vol III Book 4");
 static std::wstring shortname(L"Lord of the Rings Online");
 
 static int trylock1() {
