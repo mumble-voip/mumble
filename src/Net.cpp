@@ -130,7 +130,7 @@ QByteArray HostAddress::toByteArray() const {
 
 void HostAddress::toSockaddr(sockaddr_storage *dst) const {
 	memset(dst, 0, sizeof(*dst));
-	if(isV6()) {
+	if (isV6()) {
 		struct sockaddr_in6 *in6 = reinterpret_cast<struct sockaddr_in6 *>(dst);
 		dst->ss_family = AF_INET6;
 		memcpy(in6->sin6_addr.s6_addr, qip6.c, 16);

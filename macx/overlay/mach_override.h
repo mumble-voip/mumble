@@ -8,14 +8,14 @@
 /***************************************************************************//**
 	@mainpage	mach_override
 	@author		Jonathan 'Wolf' Rentzsch: <http://rentzsch.com>
-
+	
 	This package, coded in C to the Mach API, allows you to override ("patch")
 	program- and system-supplied functions at runtime. You can fully replace
 	functions with your implementations, or merely head- or tail-patch the
 	original implementations.
-
+	
 	Use it by #include'ing mach_override.h from your .c, .m or .mm file(s).
-
+	
 	@todo	Discontinue use of Carbon's MakeDataExecutable() and
 			CompareAndSwap() calls and start using the Mach equivalents, if they
 			exist. If they don't, write them and roll them in. That way, this
@@ -49,79 +49,43 @@
 #include <mach/error.h>
 
 #ifdef	__cplusplus
-extern	"C"	{
+	extern	"C"	{
 #endif
 
-	/**
-		Returned if the function to be overrided begins with a 'mfctr' instruction.
-	*/
+/**
+	Returned if the function to be overrided begins with a 'mfctr' instruction.
+*/
 #define	err_cannot_override	(err_local|1)
 
-	/***************************************************************************//**
-		Dynamically overrides the function implementation referenced by
-		originalFunctionSymbolName with the implentation pointed to by
-		overrideFunctionAddress. Optionally returns a pointer to a "reentry island"
-		which, if jumped to, will resume the original implementation.
+/************************************************************************************//**
+	Dynamically overrides the function implementation referenced by
+	originalFunctionAddress with the implentation pointed to by overrideFunctionAddress.
+	Optionally returns a pointer to a "reentry island" which, if jumped to, will resume
+	the original implementation.
+	
+	@param	originalFunctionAddress			->	Required address of the function to
+												override (with overrideFunctionAddress).
+	@param	overrideFunctionAddress			->	Required address to the overriding
+												function.
+	@param	originalFunctionReentryIsland	<-	Optional pointer to pointer to the
+												reentry island. Can be NULL.
+	@result									<-	err_cannot_override if the original
+												function's implementation begins with
+												the 'mfctr' instruction.
 
-		@param	originalFunctionSymbolName		->	Required symbol name of the
-													function to override (with
-													overrideFunctionAddress).
-													Remember, C function name
-													symbols are prepended with an
-													underscore.
-		@param	originalFunctionLibraryNameHint	->	Optional name of the library
-													which contains
-													originalFunctionSymbolName. Can
-													be NULL, but this may result in
-													the wrong function being
-													overridden and/or a crash.
-		@param	overrideFunctionAddress			->	Required address to the
-													overriding function.
-		@param	originalFunctionReentryIsland	<-	Optional pointer to pointer to
-													the reentry island. Can be NULL.
-		@result									<-	err_cannot_override if the
-													original function's
-													implementation begins with the
-													'mfctr' instruction.
+	************************************************************************************/
 
-		***************************************************************************/
+    mach_error_t
+mach_override_ptr(
+	void *originalFunctionAddress,
+    const void *overrideFunctionAddress,
+    void **originalFunctionReentryIsland );
 
-	mach_error_t
-	mach_override(
-	    char *originalFunctionSymbolName,
-	    const char *originalFunctionLibraryNameHint,
-	    const void *overrideFunctionAddress,
-	    void **originalFunctionReentryIsland);
+/************************************************************************************//**
+	
 
-	/************************************************************************************//**
-		Dynamically overrides the function implementation referenced by
-		originalFunctionAddress with the implentation pointed to by overrideFunctionAddress.
-		Optionally returns a pointer to a "reentry island" which, if jumped to, will resume
-		the original implementation.
-
-		@param	originalFunctionAddress			->	Required address of the function to
-													override (with overrideFunctionAddress).
-		@param	overrideFunctionAddress			->	Required address to the overriding
-													function.
-		@param	originalFunctionReentryIsland	<-	Optional pointer to pointer to the
-													reentry island. Can be NULL.
-		@result									<-	err_cannot_override if the original
-													function's implementation begins with
-													the 'mfctr' instruction.
-
-		************************************************************************************/
-
-	mach_error_t
-	mach_override_ptr(
-	    void *originalFunctionAddress,
-	    const void *overrideFunctionAddress,
-	    void **originalFunctionReentryIsland);
-
-	/************************************************************************************//**
-
-
-		************************************************************************************/
-
+	************************************************************************************/
+ 
 #ifdef	__cplusplus
 
 #define MACH_OVERRIDE( ORIGINAL_FUNCTION_RETURN_TYPE, ORIGINAL_FUNCTION_NAME, ORIGINAL_FUNCTION_ARGS, ERR )			\
@@ -148,10 +112,10 @@ extern	"C"	{
 																													\
 		err = mach_override_class__##ORIGINAL_FUNCTION_NAME::override((void*)ORIGINAL_FUNCTION_NAME);				\
 	}
-
+ 
 #endif
 
 #ifdef	__cplusplus
-}
+	}
 #endif
 #endif	//	_mach_override_

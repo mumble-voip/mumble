@@ -391,6 +391,7 @@ void MainWindow::setupGui()  {
 }
 
 MainWindow::~MainWindow() {
+	delete qwPTTButtonWidget;
 	delete qdwLog->titleBarWidget();
 	delete pmModel;
 	delete qtvUsers;
@@ -907,11 +908,11 @@ void MainWindow::setupView(bool toggle_minimize) {
 	activateWindow();
 
 	// If activated show the PTT window
-	if (g.s.bShowPTTButtonWindow) {
+	if (g.s.bShowPTTButtonWindow && g.s.atTransmit == Settings::PushToTalk) {
 		if (qwPTTButtonWidget) {
 			qwPTTButtonWidget->show();
 		} else {
-			qwPTTButtonWidget = new PTTButtonWidget(this);
+			qwPTTButtonWidget = new PTTButtonWidget();
 			qwPTTButtonWidget->show();
 			connect(qwPTTButtonWidget, SIGNAL(triggered(bool,QVariant)), SLOT(on_PushToTalk_triggered(bool,QVariant)));
 		}
@@ -1078,10 +1079,7 @@ void MainWindow::on_qaServerInformation_triggered() {
 	CryptState &cs = c->csCrypt;
 	QSslCipher qsc = g.sh->qscCipher;
 
-	unsigned int version = g.sh->uiVersion;
-	QString qsVersion=tr("<h2>Version</h2><p>Protocol %1.%2.%3.</p>").arg(QString::number((version >> 16) & 0xFF),
-	                  QString::number((version >> 8) & 0xFF),
-	                  QString::number(version & 0xFF));
+	QString qsVersion=tr("<h2>Version</h2><p>Protocol %1.</p>").arg(MumbleVersion::toString(g.sh->uiVersion));
 
 	if (g.sh->qsRelease.isEmpty() || g.sh->qsOS.isEmpty() || g.sh->qsOSVersion.isEmpty()) {
 		qsVersion.append(tr("<p>No build information or OS version available.</p>"));
@@ -2232,7 +2230,7 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 				return;
 			}
 		}
-		
+
 		if (gsMetaLink->active()) {
 			if (! st.bUsers) {
 				Channel *c = ClientUser::get(g.uiSession)->cChannel;
@@ -2457,27 +2455,27 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 		switch (rtLast) {
 			case MumbleProto::Reject_RejectType_InvalidUsername:
 				uname = QInputDialog::getText(this, tr("Invalid username"),
-											  tr("You connected with an invalid username, please try another one."),
-											  QLineEdit::Normal, uname, &ok, wf);
+				                              tr("You connected with an invalid username, please try another one."),
+				                              QLineEdit::Normal, uname, &ok, wf);
 				break;
 			case MumbleProto::Reject_RejectType_UsernameInUse:
 				uname = QInputDialog::getText(this, tr("Username in use"),
-											  tr("That username is already in use, please try another username."),
-											  QLineEdit::Normal, uname, &ok, wf);
+				                              tr("That username is already in use, please try another username."),
+				                              QLineEdit::Normal, uname, &ok, wf);
 				break;
 			case MumbleProto::Reject_RejectType_WrongUserPW:
 				pw = QInputDialog::getText(this,
-										   tr("Wrong certificate or password"),
-										   tr("Wrong certificate or password for registered user. If you are\n"
-											  "certain this user is protected by a password please retry.\n"
-											  "Otherwise abort and check your certificate and username."),
-										   QLineEdit::Password, pw, &ok, wf);
+				                           tr("Wrong certificate or password"),
+				                           tr("Wrong certificate or password for registered user. If you are\n"
+				                              "certain this user is protected by a password please retry.\n"
+				                              "Otherwise abort and check your certificate and username."),
+				                           QLineEdit::Password, pw, &ok, wf);
 				break;
 			case MumbleProto::Reject_RejectType_WrongServerPW:
 				pw = QInputDialog::getText(this,
-										   tr("Wrong password"),
-										   tr("Wrong server password for unregistered user account, please try again."),
-										   QLineEdit::Password, pw, &ok, wf);
+				                           tr("Wrong password"),
+				                           tr("Wrong server password for unregistered user account, please try again."),
+				                           QLineEdit::Password, pw, &ok, wf);
 				break;
 			default:
 				matched = false;

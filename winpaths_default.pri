@@ -7,13 +7,13 @@
 # to the repository.
 #
 
-ICE_PATH = /Program Files (x86)/ZeroC/Ice-3.4.1
+ICE_PATH = %PROGPATH%/ZeroC/Ice-3.4.1
 PROTOBUF_PATH = /dev/protobuf-2.4.1
 OPENSSL_PATH = /dev/OpenSSL
-LIBSNDFILE_PATH = /Program Files (x86)/Mega-Nerd/libsndfile
+LIBSNDFILE_PATH = %PROGPATH%/Mega-Nerd/libsndfile
 BOOST_PATH = /dev/Boost
-VLD_PATH = /Program Files (x86)/Visual Leak Detector
-BONJOUR_PATH = /Program Files/Bonjour SDK
+VLD_PATH = %PROGPATH%/Visual Leak Detector
+BONJOUR_PATH = %PROGRAMFILES%/Bonjour SDK
 ASIO_PATH = /dev/asio
 G15SDK_PATH = /dev/G15SDK/LCDSDK
 

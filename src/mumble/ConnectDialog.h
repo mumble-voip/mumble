@@ -199,6 +199,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 
 		QMenu *qmPopup, *qmFilters;
 		QActionGroup *qagFilters;
+		QPushButton *qpbEdit;
 
 		bool bPublicInit;
 		bool bAutoConnect;

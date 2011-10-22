@@ -4,7 +4,7 @@ win32 {
 	# Import dependency paths for windows
 	include(winpaths_default.pri)
 
-	INCLUDEPATH *= "$$BOOST_PATH/include/boost-1_46_1/"
+	INCLUDEPATH *= "$$BOOST_PATH/include/boost-1_47/"
 	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib" "$$LIBSNDFILE_PATH/lib"
 	INCLUDEPATH *= "$$OPENSSL_PATH/include" "$$LIBSNDFILE_PATH/include"
 	CONFIG(intelcpp) {
@@ -69,7 +69,7 @@ win32 {
 		QMAKE_LFLAGS *= /OPT:REF /OPT:ICF
 	}
 
-	!CONFIG(no-vld) {
+	CONFIG(vld) {
 		CONFIG(debug, debug|release) {
 			DEFINES *= USE_VLD
 			INCLUDEPATH *= "$$VLD_PATH/include"
@@ -122,7 +122,7 @@ unix:!macx {
 }
 
 macx {
-	INCLUDEPATH *= $$(MUMBLE_PREFIX)/include/boost_1_45_0/
+	INCLUDEPATH *= $$(MUMBLE_PREFIX)/include/boost_1_47_0/
 	INCLUDEPATH *= $$(MUMBLE_PREFIX)/include
 	QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/lib
 
@@ -134,9 +134,20 @@ macx {
 	QMAKE_LINK = $${XCODE_PATH}/usr/bin/g++-4.2
 
 	!CONFIG(universal) {
-		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
-		QMAKE_CFLAGS += -mmacosx-version-min=10.5 -Xarch_x86_64 -mmmx -Xarch_x86_64 -msse -Xarch_x86_64 -msse2
-		QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -Xarch_x86_64 -mmmx -Xarch_x86_64 -msse -Xarch_x86_64 -msse2
+		CONFIG(lion) {
+			CONFIG += no-pch
+			QMAKE_MAC_SDK = $${XCODE_PATH}/SDKs/MacOSX10.7.sdk
+			QMAKE_CC = $${XCODE_PATH}/usr/bin/clang
+			QMAKE_CXX = $${XCODE_PATH}/usr/bin/clang++
+			QMAKE_LINK = $${XCODE_PATH}/usr/bin/clang++
+			QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.7
+			QMAKE_CFLAGS += -mmacosx-version-min=10.7 -Xarch_x86_64 -mmmx -Xarch_x86_64 -msse -Xarch_x86_64 -msse2
+			QMAKE_CXXFLAGS += -mmacosx-version-min=10.7 -Xarch_x86_64 -mmmx -Xarch_x86_64 -msse -Xarch_x86_64 -msse2
+		} else {
+			QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
+			QMAKE_CFLAGS += -mmacosx-version-min=10.5 -Xarch_x86_64 -mmmx -Xarch_x86_64 -msse -Xarch_x86_64 -msse2
+			QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -Xarch_x86_64 -mmmx -Xarch_x86_64 -msse -Xarch_x86_64 -msse2
+		}
 	} else {
 		CONFIG += x86 ppc no-cocoa
 		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.4

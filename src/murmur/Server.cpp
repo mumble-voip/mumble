@@ -673,7 +673,7 @@ void Server::run() {
 				iov[0].iov_base = encrypt;
 				iov[0].iov_len = UDP_PACKET_SIZE;
 
-	u_char controldata[CMSG_SPACE(MAX(sizeof(struct in6_pktinfo),sizeof(struct in_pktinfo)))];
+				u_char controldata[CMSG_SPACE(MAX(sizeof(struct in6_pktinfo),sizeof(struct in_pktinfo)))];
 
 				memset(&msg, 0, sizeof(msg));
 				msg.msg_name = reinterpret_cast<struct sockaddr *>(&from);
@@ -832,7 +832,7 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 		msg.msg_iov = iov;
 		msg.msg_iovlen = 1;
 		msg.msg_control = controldata;
-		msg.msg_controllen = sizeof(controldata);
+		msg.msg_controllen = CMSG_SPACE((u->saiUdpAddress.ss_family == AF_INET6) ? sizeof(struct in6_pktinfo) : sizeof(struct in_pktinfo));
 
 		struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
 		if (u->saiTcpLocalAddress.ss_family == AF_INET6) {
@@ -1489,6 +1489,11 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 bool Server::hasPermission(ServerUser *p, Channel *c, QFlags<ChanACL::Perm> perm) {
 	QMutexLocker qml(&qmCache);
 	return ChanACL::hasPermission(p, c, perm, acCache);
+}
+
+QFlags<ChanACL::Perm> Server::effectivePermissions(ServerUser *p, Channel *c) {
+	QMutexLocker qml(&qmCache);
+	return ChanACL::effectivePermissions(p, c, acCache);
 }
 
 void Server::sendClientPermission(ServerUser *u, Channel *c, bool forceupdate) {

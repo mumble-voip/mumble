@@ -196,7 +196,7 @@ int main(int argc, char **argv) {
 	bool wipeSsl = false;
 	bool wipeLogs = false;
 	int sunum = 1;
-#ifndef Q_OS_WIN
+#ifdef Q_OS_UNIX
 	bool readPw = false;
 #endif
 
@@ -224,7 +224,7 @@ int main(int argc, char **argv) {
 				qFatal("-supw expects the password on the command line - maybe you meant -readsupw?");
 #else
 				qFatal("-supw expects the password on the command line");
-#endif			
+#endif
 			}
 #ifdef Q_OS_UNIX
 		} else if ((arg == "-readsupw")) {

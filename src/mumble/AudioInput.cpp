@@ -368,13 +368,16 @@ void AudioInput::initializeMixer() {
 
 void AudioInput::addMic(const void *data, unsigned int nsamp) {
 	while (nsamp > 0) {
-		unsigned int left = qMin(nsamp, iMicLength - iMicFilled);
+		// Make sure we don't overrun the frame buffer
+		const unsigned int left = qMin(nsamp, iMicLength - iMicFilled);
 
+		// Append mix into pfMicInput frame buffer (converts 16bit pcm->float if necessary)
 		imfMic(pfMicInput + iMicFilled, data, left, iMicChannels);
 
 		iMicFilled += left;
 		nsamp -= left;
 
+		// If new samples are left offset data pointer to point at the first one for next iteration
 		if (nsamp > 0) {
 			if (eMicFormat == SampleFloat)
 				data = reinterpret_cast<const float *>(data) + left * iMicChannels;
@@ -383,18 +386,24 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 		}
 
 		if (iMicFilled == iMicLength) {
+			// Frame complete
 			iMicFilled = 0;
 
+			// If needed resample frame
 			float *ptr = srsMic ? pfOutput : pfMicInput;
+
 			if (srsMic) {
 				spx_uint32_t inlen = iMicLength;
 				spx_uint32_t outlen = iFrameSize;
 				speex_resampler_process_float(srsMic, 0, pfMicInput, &inlen, pfOutput, &outlen);
 			}
+
+			// Convert float to 16bit PCM
 			const float mul = 32768.f;
-			for (int j=0;j<iFrameSize;++j)
+			for (int j = 0; j < iFrameSize; ++j)
 				psMic[j] = static_cast<short>(ptr[j] * mul);
 
+			// If we have echo chancellation enabled...
 			if (iEchoChannels > 0) {
 				short *echo = NULL;
 
@@ -405,6 +414,7 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 						iJitterSeq = 0;
 						iMinBuffered = 1000;
 					} else {
+						// Compensate for drift between the microphone and the echo source
 						iMinBuffered = qMin(iMinBuffered, qlEchoFrames.count());
 
 						if ((iJitterSeq > 100) && (iMinBuffered > 1)) {
@@ -417,10 +427,13 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 				}
 
 				if (echo) {
+					// We have echo data for the current frame, remember that
 					delete [] psSpeaker;
 					psSpeaker = echo;
 				}
 			}
+
+			// Encode and send frame
 			encodeAudioFrame();
 		}
 	}
@@ -428,23 +441,30 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 
 void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 	while (nsamp > 0) {
-		unsigned int left = qMin(nsamp, iEchoLength - iEchoFilled);
+		// Make sure we don't overrun the echo frame buffer
+		const unsigned int left = qMin(nsamp, iEchoLength - iEchoFilled);
 
 		if (bEchoMulti) {
 			const unsigned int samples = left * iEchoChannels;
-			if (eEchoFormat == SampleFloat)
+
+			if (eEchoFormat == SampleFloat) {
 				for (unsigned int i=0;i<samples;++i)
 					pfEchoInput[i] = reinterpret_cast<const float *>(data)[i];
-			else
+			}
+			else {
+				// 16bit PCM -> float
 				for (unsigned int i=0;i<samples;++i)
 					pfEchoInput[i] = static_cast<float>(reinterpret_cast<const short *>(data)[i]) * (1.0f / 32768.f);
+			}
 		} else {
+			// Mix echo channels (converts 16bit PCM -> float if needed)
 			imfEcho(pfEchoInput + iEchoFilled, data, left, iEchoChannels);
 		}
 
 		iEchoFilled += left;
 		nsamp -= left;
 
+		// If new samples are left offset data pointer to point at the first one for next iteration
 		if (nsamp > 0) {
 			if (eEchoFormat == SampleFloat)
 				data = reinterpret_cast<const float *>(data) + left * iEchoChannels;
@@ -453,9 +473,13 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 		}
 
 		if (iEchoFilled == iEchoLength) {
+			//Frame complete
+
 			iEchoFilled = 0;
 
+			// Resample if necessary
 			float *ptr = srsEcho ? pfOutput : pfEchoInput;
+
 			if (srsEcho) {
 				spx_uint32_t inlen = iEchoLength;
 				spx_uint32_t outlen = iFrameSize;
@@ -464,13 +488,15 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 
 			short *outbuff = new short[iEchoFrameSize];
 
+			// float -> 16bit PCM
 			const float mul = 32768.f;
 			for (unsigned int j=0;j<iEchoFrameSize;++j)
 				outbuff[j] = static_cast<short>(ptr[j] * mul);
 
-			iJitterSeq = qMin(iJitterSeq+1,10000U);
-
+			// Push frame into the echo chancellers jitter buffer
 			QMutexLocker l(&qmEcho);
+
+			iJitterSeq = qMin(iJitterSeq + 1,10000U);
 			qlEchoFrames.append(outbuff);
 		}
 	}

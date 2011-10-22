@@ -40,19 +40,23 @@ extern "C" {
 #include <xar/xar.h>
 }
 
-static const NSString *MumbleOverlayLoaderBundle = @"/Library/ScriptingAdditions/MumbleOverlay.osax";
-static const NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.mumble.OverlayScriptingAddition";
+static NSString *MumbleOverlayLoaderBundle = @"/Library/ScriptingAdditions/MumbleOverlay.osax";
+static NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.mumble.OverlayScriptingAddition";
 
 @interface OverlayInjectorMac : NSObject {
 	BOOL active;
 }
-
 - (id) init;
 - (void) dealloc;
 - (void) appLaunched:(NSNotification *)notification;
 - (void) setActive:(BOOL)flag;
 - (void) eventDidFail:(const AppleEvent *)event withError:(NSError *)error;
 @end
+
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
+@interface OverlayInjectorMac () <SBApplicationDelegate>
+@end
+#endif
 
 @implementation OverlayInjectorMac
 

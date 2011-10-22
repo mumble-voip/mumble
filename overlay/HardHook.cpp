@@ -34,7 +34,7 @@
 void *HardHook::pCode = NULL;
 unsigned int HardHook::uiCode = 0;
 
-HardHook::HardHook() {
+HardHook::HardHook() : bTrampoline(false), call(0) {
 	int i;
 	baseptr = NULL;
 	for (i=0;i<6;i++)

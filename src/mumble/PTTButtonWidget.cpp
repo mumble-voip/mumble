@@ -2,7 +2,7 @@
 #include "Global.h"
 
 PTTButtonWidget::PTTButtonWidget(QWidget *parent) :
-	QWidget(parent) {
+		QWidget(parent) {
 	setupUi(this);
 
 	setWindowFlags(Qt::Tool | Qt::WindowStaysOnTopHint);

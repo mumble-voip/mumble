@@ -37,9 +37,9 @@
 
 #define OSX_TOOLBAR_ICON_SIZE 32  /* Currently, Mac OS X NSToolbars use 32x32 items when in 'normal' mode. */
 
-static const NSString *ConfigDialogDelegate_QString_to_NSString(const QString& string) {
-	return reinterpret_cast<const NSString *>(CFStringCreateWithCharacters(kCFAllocatorDefault,
-	                                reinterpret_cast<const UniChar *>(string.unicode()), string.length()));
+static NSString *ConfigDialogDelegate_QString_to_NSString(const QString& string) {
+	return const_cast<NSString *>(reinterpret_cast<const NSString *>(CFStringCreateWithCharacters(kCFAllocatorDefault,
+	                                reinterpret_cast<const UniChar *>(string.unicode()), string.length())));
 }
 
 static NSImage *ConfigDialogDelegate_QIcon_to_NSImage(const QIcon &icon) {

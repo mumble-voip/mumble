@@ -68,6 +68,7 @@ class ASIOInit : public DeferInit {
 		ASIOAudioInputRegistrar *airASIO;
 		ConfigRegistrar *crASIO;
 	public:
+		ASIOInit() : airASIO(NULL), crASIO(NULL) {}
 		void initialize();
 		void destroy();
 };
@@ -403,8 +404,6 @@ ASIOInput::ASIOInput() {
 	abiInfo = NULL;
 	aciInfo = NULL;
 
-	int i, idx;
-
 	// Sanity check things first.
 
 	iNumMic=g.s.qlASIOmic.count();
@@ -465,7 +464,8 @@ ASIOInput::ASIOInput() {
 
 			abiInfo = new ASIOBufferInfo[iNumMic + iNumSpeaker];
 			aciInfo = new ASIOChannelInfo[iNumMic + iNumSpeaker];
-			idx = 0;
+
+			int i, idx = 0;
 			for (i=0;i<iNumMic;i++) {
 				abiInfo[idx].isInput = true;
 				abiInfo[idx].channelNum = g.s.qlASIOmic[i].toInt();

@@ -486,7 +486,7 @@ QVariant ServerItem::data(int column, int role) const {
 					            arg(boost::accumulators::extended_p_square(* asQuantile)[2] / 1000., 0, 'f', 2)) +
 					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bandwidth"), ConnectDialog::tr("%1 kbit/s").arg(uiBandwidth / 1000)) +
 					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Users"), QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers)) +
-					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2.%3.%4</td></tr>").arg(ConnectDialog::tr("Version")).arg(uiVersion >> 16).arg((uiVersion >> 8) & 0xFF).arg(uiVersion & 0xFF);
+					    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Version")).arg(MumbleVersion::toString(uiVersion));
 				}
 			}
 			qs += QLatin1String("</table>");
@@ -779,12 +779,19 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setText(tr("&Connect"));
 
-	QPushButton *qpb = new QPushButton(tr("&Add New..."), this);
-	qpb->setDefault(false);
-	qpb->setAutoDefault(false);
-	connect(qpb, SIGNAL(clicked()), qaFavoriteAddNew, SIGNAL(triggered()));
-	qdbbButtonBox->addButton(qpb, QDialogButtonBox::ActionRole);
+	QPushButton *qpbAdd = new QPushButton(tr("&Add New..."), this);
+	qpbAdd->setDefault(false);
+	qpbAdd->setAutoDefault(false);
+	connect(qpbAdd, SIGNAL(clicked()), qaFavoriteAddNew, SIGNAL(triggered()));
+	qdbbButtonBox->addButton(qpbAdd, QDialogButtonBox::ActionRole);
 
+	qpbEdit = new QPushButton(tr("&Edit..."), this);
+	qpbEdit->setEnabled(false);
+	qpbEdit->setDefault(false);
+	qpbEdit->setAutoDefault(false);
+	connect(qpbEdit, SIGNAL(clicked()), qaFavoriteEdit, SIGNAL(triggered()));
+	qdbbButtonBox->addButton(qpbEdit, QDialogButtonBox::ActionRole);
+	
 	qtwServers->sortItems(1, Qt::AscendingOrder);
 	qtwServers->header()->setResizeMode(0, QHeaderView::Stretch);
 	qtwServers->header()->setResizeMode(1, QHeaderView::ResizeToContents);
@@ -1112,6 +1119,12 @@ void ConnectDialog::on_qtwServers_itemDoubleClicked(QTreeWidgetItem *item, int) 
 void ConnectDialog::on_qtwServers_currentItemChanged(QTreeWidgetItem *item, QTreeWidgetItem *) {
 	ServerItem *si = static_cast<ServerItem *>(item);
 
+	if (si->siParent == qtwServers->siFavorite) {
+		qpbEdit->setEnabled(true);
+	} else {
+		qpbEdit->setEnabled(false);
+	}
+	
 	bool bOk = (si && ! si->qlAddresses.isEmpty());
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(bOk);
 

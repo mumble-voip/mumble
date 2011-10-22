@@ -1,7 +1,390 @@
-2011-03-12
+2011-10-01
   Thorvald Natvig <slicer@users.sourceforge.net>
+    f506511  Add %s for printf
+
+2011-09-28
+  Jamie Fraser <jamie.f@mumbledog.com>
+    9cc9539  Fix bug #3200725 @ SF - RichTextEditor disregarding
+	     g.uiImageLength.
+
+2011-09-05
+  Jamie Fraser <jamie.f@mumbledog.com>
+    41100fd  Add 'Crimecraft: Bleedout' to default blacklist.
+
+2011-08-28
+  Jamie Fraser <jamie.f@mumbledog.com>
+    6a46030  Make edit button greyed out if selected item is not a
+	     favorite.
+    b61f781  Added Edit button to Connect dialog.
+
+2011-08-27
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    ae54c0c  Add some comments to AudioInput::addMic/addEcho
+
+2011-08-21
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    aed5c1e  Split up and refactor WASAPIOutput::setVolumes function to get
+	     rid of excesive indentation.
+
+2011-08-14
+  Mikkel Krautz <mikkel@krautz.dk>
+    72185ae  Mark OverlayInjectorMac as conforming to SBApplicationDelegate
+	     on 10.6+ to fix Lion-only builds.
+    53cd8e4  Update Boost version for OS X.
+
+2011-08-07
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    86b8c00  Make bf2 plugin correctly clear its context and identity
+
+2011-08-05
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    b05dc71  Make vld an explicit, default off, option instead of implicit
+	     default
+    1a8d879  Make winpaths_default.pri arch independent
+
+2011-07-31
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    f0c2bfd  Replace some manual version conversions with appropriate
+	     MumbleVersion calls.
+    c99661d  Remove some dead code previously related to version checking
+
+  Michael Ziegler <diese-addy@funzt-halt.net>
+    b79b960  tr() the strings and change default version to 1.2.0.
+
+2011-07-29
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    d31b33d  Updated boost to 1.47
+
+  Michael Ziegler <diese-addy@funzt-halt.net>
+    f1c6e83  style/typo fixes, use QMessageBox on Windows, don't rely on
+	     argv[0] being set
+    4a26190  add long command line option names, add -h/--help options.
+
+2011-06-30
+  Kissaki <kissaki@gmx.de>
+    69baac1  add thunderbird and instantbird to overlay blacklist (new
+	     hw-accelerated versions)
+
+2011-06-25
+  Mikkel Krautz <mikkel@krautz.dk>
+    81dee1c  Update version number of OSAX overlay injector.
+    d9417cb  Fix the overlay on Mac OS X 10.6.8.
+
+2011-06-17
+  Mikkel Krautz <mikkel@krautz.dk>
+    e9cfd21  Add build configuration for compiling on Lion.
+
+2011-06-15
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    eeb1737  Fix UDP problems on IPv4 only hosts
+
+2011-06-13
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    2d838f2  Prevent PTT window from showing up in non-PTT modes as well as
+	     from minimizing when the MainWindow gets minimized.
+
+  Jacob Peddicord <jacob@peddicord.net>
+    0e4d963  Implement audio attenuation for PulseAudio.
+
+2011-06-12
+  Natenom <natenom@natenom.name>
+    a270c7f  Updated German translations
+
+2011-06-11
+  Tsbook <tsbook@users.sourceforge.net>
+    60ea789  Czech Tanslation Update (#3315071)
+
+2011-06-10
+  morris <tkmorris@users.sourceforge.net>
+    c581e0e  Updated Brazilian Portuguese translation (#3314540)
+
+2011-06-09
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    c873e08  Prevent user from accepting the channel add/edit dialog when
+	     channel names are empty. Implements patch #3289052 in a leaner
+	     way
+
+  Necromancer <necro3@users.sourceforge.net>
+    821d7ce  Updated Hebrew translation (#3308818)
+
+  Svenne33 <svenne33@users.sourceforge.net>
+    fc03b89  Updated Swedish Translation (#3296034)
+
+2011-05-31
+  Natenom <natenom@natenom.name>
+    bc32f8d  Updated German translations
+
+2011-05-28
+  Mikkel Krautz <mikkel@krautz.dk>
+    d4f271b  Don't link against ScriptingBridge in universal builds.
+
+2011-05-27
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    5632c35  Explicitly remove file permissions for settings and DB
+
+2011-05-21
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    67ed381  Add PTT button window for tablet users
+
+2011-05-20
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    a25d3a5  Fix log window resize behavior
+
+2011-05-19
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    f9ab14c  Add sendversion parameter to ini
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    0afd37a  Include entire plugin structure
+
+2011-05-16
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    a24e50e  Fix Windows build. Reverted move of overlay blacklist as it is
+	     needed in both the overlay itself and the client (broken by
+	     2dad2795bd0d60320811) Fixed error introduced in
+	     VersionCheck::fetched (broken by f57f81248f0a15e7f77e) Readded
+	     missing Server.h header in Tray.h (broken by
+	     7529297760ac4d2d1f0a) Fixed broken build files (broken by
+	     f7cc6e7adee66b57c33a)
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    6a52586  Move overlay blacklist to its own file
+    fbeed39  Fix iObfuscate for IPv6
+    4fd379b  Fix more Windows build errors
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    c3ffe0b  Horrible hack to allow parallel resource builds
+
+2011-05-15
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    7529297  Fix uppercase vs lowercase vs PCH include problems
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    dbf8879  Resort to predeps
+    03136ba  quiet-build-log for binserver
+    45bd813  Fix murmur warnings
+    1ada87d  Fix warnings in overlay_gl
+    f7cc6e7  Now with 'make -j' support
+    2dad279  Move overlayBlacklist and care about error on ftruncate
+    c675089  Use __typeof__ CELT resolve for g++
+    f57f812  Fix some compiler warnings
+    b99c639  Get rid of unused macros
+    d0f075e  Add quiet-build-log config option
+    5459d4d  Make -j for binserver
+    4c28e60  Clean up proto/Ice headers on make clean
+
+2011-05-14
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    d09176e  Include more boost::shared_ptr headers to fix the build
+    b87ee95  Fix use after delete in DX10 overlay code
+    f7d7b99  Merge ContextActionRemove and ContextActionAdd and rename it
+	     to ContextActionModify
+
+2011-05-13
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    ba66c4d  Do not change the order of protobuf message types.
+    c98e3ea  Fix: Stale custom context menu entries (#3301658)
+    052d51d  Fix: Ducking events attenuate Mumble (Win7)  (#3294588)
+	     Opt-out of ducking events. This prevents Mumble from being
+	     influenced by stream attenuations triggered by other
+	     communications applications. Only applies to Windows 7 with
+	     WASAPI since other platforms do not have this feature.
+    df4b0b3  Work around scrolling behavior of QTextBrowser in Log(Fixes
+	     #3298338).
+
+2011-05-12
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    b8986c9  Ok, actually commit the script change so it doesn't get wiped
+	     out
+
+2011-05-11
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    6d6afca  Fix changing iMaxUsers
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    07bf146  Use TCP destination as UDP source
+
+2011-05-10
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    bcb42f1  Ermine based server dist
+
+2011-05-08
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    d96648e  Answer ping from same UDP address sent to (Linux only for now)
+
+2011-05-04
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    1550415  Use installation default paths and stop being difficult
+
+2011-04-30
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    74a4051  Fix mixed up buttons in AudioInput
+    6b33a67  Improve documentation of Ice stop() command
+
+  Jamie Fraser <jamie.f@mumbledog.com>
+    4586068  Don't check version numbers of URLs being sent over RPC.
+
+2011-04-29
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    900f1e5  Opus support for the server
+
+2011-04-25
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    ee72dea  Modify PTT queue to work for all kinds of transmission
+	     (#2857488)
+
+2011-04-24
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    4420c07  CONFIG+=no-xinput2
+
+2011-04-21
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    23e3999  Restore Qt <4.6 compatibility in WebFetch
+
+2011-04-18
+  Mark-Willem Jansen <rawnar@users.sourceforge.net>
+    a3245f0  Plugins: TF2 updated to build 4539
+
+2011-04-17
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    4d50beb  Improve error message when connecting with an invalid
+	     password/certificate to a registered account
+
+2011-04-11
+  Jamie Fraser <jamie.f@mumbledog.com>
+    fa7a412  Added option -wipelogs to clear logs in DB.
+
+  Ludwig Nussel <ludwig.nussel@suse.de>
+    10baf16  fix bonjour support using avahi compat lib
+    3322f1b  remove CAP_NET_ADMIN
+
+2011-04-08
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    05d91c1  Regenerate Ice wrapper file
+
+2011-04-02
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    f738bb2  Fix chatbar sending empty messages (#3267833)
+    a972df6  Convert context field to json
+
+  Jamie Fraser <jamie.f@mumbledog.com>
+    bd690db  Fixed up Otto's patch (#2911421), mostly style stuff. Changed
+	     int -> uint and iterators to foreach()
+    6f156fa  Correctly disable 'Disconnect' option when you abort a
+	     reconnection.
+
+  Otto Allmendinger <oallmendinger@users.sourceforge.net>
+    1d832d5  Text Message Callback with Ice
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    f7d8711  Deal with non-rc versions for tarballs
+
+2011-03-29
+  Mark-Willem Jansen <rawnar@users.sourceforge.net>
+    4a98c74  Plugins: updated Team Fortress 2 to 4426
+
+  Tuck Therebelos <snares@users.sourceforge.net>
+    6297937  Update/Fix L4D plugins
+
+2011-03-27
+  Mikkel Krautz <mikkel@krautz.dk>
+    ac0cf66  Overlay_macx: Use newer version of libxar with proper
+	     codesigning support.
+    d5161aa  Overlay_macx: Remove more unused code from the previous
+	     cleanup.
+    23d1baa  osxdist: Add extra codesigning step for flat pkg files and the
+	     ability to select the keychain for your codesigning identity.
+
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    d9324c2  Add a missing pch include in WebFetch.h
+
+2011-03-26
+  Jamie Fraser <jamie.f@mumbledog.com>
+    9c4a194  Added a more helpful error condition to -supw being used
+	     without a password
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    d12bb8a  Bump OS X overlay installer version and set minimum required
+	     version to 1.2.3 since we haven't broken compatibility yet.
+    9923549  Overlay_macx: Undo intermediate CA workaround for versions of
+	     Mac OS X prior to Snow Leopard.
+    2061dc1  Fix QString-from-ASCII errors on OS X.
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    9facb12  Fix serverside suggestconf error for versions
+
+2011-03-25
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    94967ab  Suggest Config
+
+2011-03-24
+  Ludwig Nussel <ludwig.nussel@suse.de>
+    101bcaf  if service name is empty don't pass an empty string
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    35cc9cf  ;
+
+2011-03-21
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    4aec112  Add \brief
+    c06dfbc  Create common utility class for fetching from mumble.info
+
+2011-03-20
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    23f6820  Restore forward declaration in VoiceRecorder.h
+    c35d093  Fix coding style in PulseAudio code
+
+2011-03-19
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    0e1a351  Merge branches 'fwaggle-fix-default-port-on-paste' and
+	     'master'
+    6de7303  Make text log only scroll automatically when user hasn't
+	     manually used the scrollbar to scroll to something in the
+	     middle (#3220440)
+    6f079db  Fix compilation on Windows.
+    7bdd779  Update boost to 1.46.1
+
+  Jamie Fraser <jamie.f@sabrienix.com>
+    b752ea0  Added a macro "DEFAULT_MUMBLE_PORT" in src/Net.h so that its a
+	     one-line change should the default port ever change.
+
+  Ludwig Nussel <ludwig.nussel@suse.de>
+    e57c008  fix compile error
+
+2011-03-18
+  Jamie Fraser <jamie.f@sabrienix.com>
+    fb9df24  Fixed pasting of port-less URLs into connect dialog
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    f3437a6  Update copyright year ranges of dev team.
+
+2011-03-17
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    0e66a64  Make log rotation more robust
+
+2011-03-14
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    aed9d26  Update binserver git-describe
+
+2011-03-13
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    64f17cf  Fix a few warnings
+
+  Tsbook <tsbook@users.sourceforge.net>
+    a3c1eac  Updated Czech Translation (#3208772)
+
+2011-03-12
+  Mike <mike@flomp.net>
+    20ebcdc  Positional audio plugin for Grand Theft Auto IV
+
+  Thorvald Natvig <slicer@users.sourceforge.net>
+    fb6e0ac  And move qobject defs to a header so they will be parsed
     ee6bccf  Fix speexbuild pro and mysql installer path
     973790f  Update win32 build paths
+
+2011-03-10
+  Mark-Willem Jansen <rawnar@users.sourceforge.net>
+    2f3f6b1  Plugins: Initial setup for the breach plugin
 
 2011-03-09
   Stefan Hacker <dd0t@users.sourceforge.net>
@@ -12,6 +395,11 @@
     db2538f  Overlay: add sorting options, including ability to sort on
 	     last state change
     6d62ae7  Overlay: add support for displaying active users
+
+  Ludwig Nussel <ludwig.nussel@suse.de>
+    7d2d3ef  open log file early so log dir can be root owned
+    82c4186  fix user switching
+    c858071  fix build error with capability.h
 
   Thorvald Natvig <slicer@users.sourceforge.net>
     9682d7d  Allow some leeway in the timer atomicity test
@@ -26,6 +414,12 @@
     8c952c3  Remove duplicate overlay debug output code.
 
 2011-03-04
+  ronoc <conor@forwind.net>
+    e6831d8  Set the correct pulse audio properties, for the icon, app name
+	     and the media role on the pulse connection. This will help
+	     other apps identify mumble at runtime and be able to determine
+	     mumble's purpose.
+
   Stefan Hacker <dd0t@users.sourceforge.net>
     b986e84  Fix possible access violation in Overlay
 
@@ -67,6 +461,7 @@
     ad3926a  Kill the nagging accessibility dialog from GlobalShortcutMac.
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
+    e53de87  Fix coding style in the UserInformation dialog
     fcc8c2b  Split AudioInput::encodeAudioFrame
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -76,6 +471,9 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     ddd9c97  Add no-elevation build-flag to prevent the need of signing
 	     win32 release builds during testing
+
+  Matthias Salzeder <mail@MatthiasSalzeder.de>
+    4232dc1  added meta shortcut to toggle channel link state
 
 2011-02-21
   Stefan Hacker <dd0t@users.sourceforge.net>
@@ -185,6 +583,9 @@
     6755b81  Added gg, xmpp, skype and mailto to allowedSchemes
 
 2011-01-23
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    07ddfc7  Add NOMINMAX define
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     e0ba383  Work around timestamp update for mysql
     53e5c75  Fix ID of new server if all servers deleted
@@ -208,6 +609,11 @@
     a7f91b7  Updated italian translation
 
 2011-01-20
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
+    c8bd81a  Use make_shared in the VoiceRecorder
+    373cdeb  Disable sending Speex encoded audio
+    342ed0e  Use the qBound macro to clip samples
+
   Thorvald Natvig <slicer@users.sourceforge.net>
     1cafc8b  Add overly verbose proxy widget adding.
     e1b24d2  Clean up a few compiler warnings.
@@ -473,6 +879,10 @@
 
 2010-11-17
   Benjamin Jemlich <pcgod@users.sourceforge.net>
+    6150084  Add and remove some forward declares from header files
+    fa7ea52  Fixes for /Zc:wchar_t
+    4315214  Fix some -Wshadow warnings
+    d775d5c  Remove OpenGL dependency in the audio statistics dialog
     426c411  Simplify iIsSpeech logic
     c644952  Fix a crash in the overlay if a_ucTexture is NULL
 

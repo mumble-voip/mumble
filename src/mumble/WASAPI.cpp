@@ -72,6 +72,7 @@ class WASAPIInit : public DeferInit {
 		WASAPIInputRegistrar *wirReg;
 		WASAPIOutputRegistrar *worReg;
 	public:
+		WASAPIInit() : wirReg(NULL), worReg(NULL) { }
 		void initialize();
 		void destroy();
 };
@@ -650,41 +651,7 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 				for (int i=0;i<max;++i) {
 					IAudioSessionControl *pControl = NULL;
 					if (SUCCEEDED(hr = pEnumerator->GetSession(i, &pControl))) {
-						IAudioSessionControl2 *pControl2 = NULL;
-						if (SUCCEEDED(hr = pControl->QueryInterface(bIsWin7 ? __uuidof(IAudioSessionControl2) : __uuidof(IVistaAudioSessionControl2), (void **) &pControl2)))  {
-							DWORD pid;
-							if (SUCCEEDED(hr = pControl2->GetProcessId(&pid)) && (pid != dwMumble)) {
-								AudioSessionState ass;
-								if (SUCCEEDED(hr = pControl2->GetState(&ass)) && (ass != AudioSessionStateExpired)) {
-									GUID group;
-									if (SUCCEEDED(hr = pControl2->GetGroupingParam(&group))) {
-										QUuid quuid(group);
-										if (! seen.contains(quuid)) {
-											seen.insert(quuid);
-											ISimpleAudioVolume *pVolume = NULL;
-											if (SUCCEEDED(hr = pControl2->QueryInterface(__uuidof(ISimpleAudioVolume), (void **) &pVolume))) {
-												BOOL bMute = TRUE;
-												bool keep = false;
-												if (SUCCEEDED(hr = pVolume->GetMute(&bMute)) && ! bMute) {
-													float fVolume = 1.0f;
-													if (SUCCEEDED(hr = pVolume->GetMasterVolume(&fVolume)) && ! qFuzzyCompare(fVolume,0.0f)) {
-														float fSetVolume = fVolume * g.s.fOtherVolume;
-														if (SUCCEEDED(hr = pVolume->SetMasterVolume(fSetVolume, NULL))) {
-															hr = pVolume->GetMasterVolume(&fSetVolume);
-															qmVolumes.insert(pVolume, VolumePair(fVolume,fSetVolume));
-															keep = true;
-														}
-													}
-												}
-												if (! keep)
-													pVolume->Release();
-											}
-										}
-									}
-								}
-							}
-							pControl2->Release();
-						}
+						setVolumeForSessionControl(pControl, dwMumble, seen);
 						pControl->Release();
 					}
 				}
@@ -695,6 +662,68 @@ void WASAPIOutput::setVolumes(IMMDevice *pDevice, bool talking) {
 			pMysticQuery->Release();
 		pAudioSessionManager->Release();
 	}
+}
+
+bool WASAPIOutput::setVolumeForSessionControl2(IAudioSessionControl2 *control2, const DWORD mumblePID, QSet<QUuid> &seen) {
+	HRESULT hr;
+	DWORD pid;
+	
+	// Don't set the volume for our own control
+	if (FAILED(hr = control2->GetProcessId(&pid)) || (pid == mumblePID))
+		return true;
+	
+	// Don't work on expired audio sessions
+	AudioSessionState ass;
+	if (FAILED(hr = control2->GetState(&ass)) || (ass == AudioSessionStateExpired))
+		return false;
+	
+	// Don't act twice on the same session
+	GUID group;
+	if (FAILED(hr = control2->GetGroupingParam(&group)))
+		return false;
+	
+	QUuid quuid(group);
+	if (seen.contains(quuid))
+		return true;
+	
+	seen.insert(quuid);
+	
+	// Adjust volume
+	ISimpleAudioVolume *pVolume = NULL;
+	if (FAILED(hr = control2->QueryInterface(__uuidof(ISimpleAudioVolume), (void **) &pVolume)))
+		return false;
+	
+	BOOL bMute = TRUE;
+	bool keep = false;
+	if (SUCCEEDED(hr = pVolume->GetMute(&bMute)) && ! bMute) {
+		float fVolume = 1.0f;
+		if (SUCCEEDED(hr = pVolume->GetMasterVolume(&fVolume)) && ! qFuzzyCompare(fVolume,0.0f)) {
+			float fSetVolume = fVolume * g.s.fOtherVolume;
+			if (SUCCEEDED(hr = pVolume->SetMasterVolume(fSetVolume, NULL))) {
+				hr = pVolume->GetMasterVolume(&fSetVolume);
+				qmVolumes.insert(pVolume, VolumePair(fVolume,fSetVolume));
+				keep = true;
+			}
+		}
+	}
+	
+	if (! keep)
+		pVolume->Release();
+	
+	return true;
+}
+
+bool WASAPIOutput::setVolumeForSessionControl(IAudioSessionControl *control, const DWORD mumblePID, QSet<QUuid> &seen) {
+	HRESULT hr;
+	IAudioSessionControl2 *pControl2 = NULL;
+
+	if (!SUCCEEDED(hr = control->QueryInterface(bIsWin7 ? __uuidof(IAudioSessionControl2) : __uuidof(IVistaAudioSessionControl2), (void **) &pControl2)))
+		return false;
+	
+	bool result = setVolumeForSessionControl2(pControl2, mumblePID, seen);
+	
+	pControl2->Release();
+	return result;
 }
 
 void WASAPIOutput::run() {

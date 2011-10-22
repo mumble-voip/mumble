@@ -180,13 +180,13 @@ static void infoToInfo(const Murmur::UserInfoMap &im, QMap<int, QString> &info) 
 static void textmessageToTextmessage(const ::TextMessage &tm, Murmur::TextMessage &tmdst) {
 	tmdst.text = u8(tm.qsText);
 
-	foreach (unsigned int i, tm.qlSessions)
+	foreach(unsigned int i, tm.qlSessions)
 		tmdst.sessions.push_back(i);
-	
-	foreach (unsigned int i, tm.qlChannels)
+
+	foreach(unsigned int i, tm.qlChannels)
 		tmdst.channels.push_back(i);
-	
-	foreach (unsigned int i, tm.qlTrees)
+
+	foreach(unsigned int i, tm.qlTrees)
 		tmdst.trees.push_back(i);
 }
 
@@ -1017,6 +1017,14 @@ static void impl_Server_hasPermission(const ::Murmur::AMD_Server_hasPermissionPt
 	NEED_PLAYER;
 	NEED_CHANNEL;
 	cb->ice_response(server->hasPermission(user, channel, static_cast<ChanACL::Perm>(perm)));
+}
+
+#define ACCESS_Server_effectivePermissions_READ
+static void impl_Server_effectivePermissions(const ::Murmur::AMD_Server_effectivePermissionsPtr cb, int server_id, ::Ice::Int session, ::Ice::Int channelid) {
+	NEED_SERVER;
+	NEED_PLAYER;
+	NEED_CHANNEL;
+	cb->ice_response(server->effectivePermissions(user, channel));
 }
 
 static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCallbackPtr cb, int server_id, ::Ice::Int session, const ::std::string& action, const ::std::string& text, const ::Murmur::ServerContextCallbackPrx& cbptr, int ctx) {
