@@ -226,13 +226,16 @@ void Server::sendTextMessage(Channel *cChannel, ServerUser *pUser, bool tree, co
 	}
 }
 
-void Server::setTempGroups(int userid, Channel *cChannel, const QStringList &groups) {
+void Server::setTempGroups(int userid, int sessionId, Channel *cChannel, const QStringList &groups) {
 	if (! cChannel)
 		cChannel = qhChannels.value(0);
 
 	Group *g;
-	foreach(g, cChannel->qhGroups)
+	foreach(g, cChannel->qhGroups) {
 		g->qsTemporary.remove(userid);
+		if (sessionId != 0)
+			g->qsTemporary.remove(- sessionId);
+	}
 
 	QString gname;
 	foreach(gname, groups) {
@@ -241,6 +244,8 @@ void Server::setTempGroups(int userid, Channel *cChannel, const QStringList &gro
 			g = new Group(cChannel, gname);
 		}
 		g->qsTemporary.insert(userid);
+		if (sessionId != 0)
+			g->qsTemporary.insert(- sessionId);
 	}
 
 	User *p = qhUsers.value(userid);

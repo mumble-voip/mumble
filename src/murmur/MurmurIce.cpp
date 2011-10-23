@@ -543,7 +543,7 @@ void MurmurIce::nameToIdSlot(int &id, const QString &name) {
 	}
 }
 
-void MurmurIce::authenticateSlot(int &res, QString &uname, const QList<QSslCertificate> &certlist, const QString &certhash, bool certstrong, const QString &pw) {
+void MurmurIce::authenticateSlot(int &res, QString &uname, int sessionId, const QList<QSslCertificate> &certlist, const QString &certhash, bool certstrong, const QString &pw) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
 	ServerAuthenticatorPrx prx = mi->qmServerAuthenticator.value(server->iServerNum);
@@ -575,7 +575,7 @@ void MurmurIce::authenticateSlot(int &res, QString &uname, const QList<QSslCerti
 			qsl << u8(str);
 		}
 		if (! qsl.isEmpty())
-			server->setTempGroups(res, NULL, qsl);
+			server->setTempGroups(res, sessionId, NULL, qsl);
 	}
 }
 
