@@ -70,17 +70,17 @@ class D11State: protected Pipe {
 
 		ID3D11Device *pDevice;
 		ID3D11DeviceContext *pDeviceContext;
+		bool bDeferredContext;
 		IDXGISwapChain *pSwapChain;
 
-                ID3D11RenderTargetView *pRTV;
-                ID3DX11Effect *pEffect;
-                ID3DX11EffectTechnique *pTechnique;
-                ID3DX11EffectShaderResourceVariable * pDiffuseTexture;
-                ID3D11InputLayout *pVertexLayout;
-                ID3D11Buffer *pVertexBuffer;
-                ID3D11Buffer *pIndexBuffer;
-                ID3D11BlendState *pBlendState;
-                ID3D11CommandList *pCommandList;
+		ID3D11RenderTargetView *pRTV;
+		ID3DX11Effect *pEffect;
+		ID3DX11EffectTechnique *pTechnique;
+		ID3DX11EffectShaderResourceVariable * pDiffuseTexture;
+		ID3D11InputLayout *pVertexLayout;
+		ID3D11Buffer *pVertexBuffer;
+		ID3D11Buffer *pIndexBuffer;
+		ID3D11BlendState *pBlendState;
 
 		ID3D11Texture2D *pTexture;
 		ID3D11ShaderResourceView *pSRView;
@@ -121,7 +121,6 @@ D11State::D11State(IDXGISwapChain *pSwapChain, ID3D11Device *pDevice) {
 	pTexture = NULL;
 	pSRView = NULL;
 	pDeviceContext = NULL;
-	pCommandList = NULL;
 
 	timeT = clock();
 	frameCount = 0;
@@ -258,17 +257,25 @@ void D11State::init() {
 
 	hr = pDevice->CreateDeferredContext(0, &pDeviceContext);
 
+	if (! SUCCEEDED(hr) || !pDeviceContext) {
+		ods("D3D11: Failed to create DeferredContext (0x%x). Getting ImmediateContext", hr);
+		pDevice->GetImmediateContext(&pDeviceContext);
+		bDeferredContext=false;
+	} else {
+		bDeferredContext=true;
+	}
+
 	D3D11_TEXTURE2D_DESC backBufferSurfaceDesc;
 	pBackBuffer->GetDesc(&backBufferSurfaceDesc);
 
-        ZeroMemory(&vp, sizeof(vp));
-        vp.Width = (FLOAT) backBufferSurfaceDesc.Width;
-        vp.Height = (FLOAT) backBufferSurfaceDesc.Height;
-        vp.MinDepth = 0;
-        vp.MaxDepth = 1;
-        vp.TopLeftX = 0;
-        vp.TopLeftY = 0;
-        pDeviceContext->RSSetViewports(1, &vp);
+	ZeroMemory(&vp, sizeof(vp));
+	vp.Width = (float) backBufferSurfaceDesc.Width;
+	vp.Height = (float) backBufferSurfaceDesc.Height;
+	vp.MinDepth = 0;
+	vp.MaxDepth = 1;
+	vp.TopLeftX = 0;
+	vp.TopLeftY = 0;
+	pDeviceContext->RSSetViewports(1, &vp);
 
 	hr = pDevice->CreateRenderTargetView(pBackBuffer, NULL, &pRTV);
 
@@ -289,7 +296,7 @@ void D11State::init() {
 	float bf[4];
 	pDeviceContext->OMSetBlendState(pBlendState, bf, 0xffffffff);
 
-		hr = D3DX11CreateEffectFromMemory((void *) g_main, sizeof(g_main), 0, pDevice, &pEffect);
+	hr = D3DX11CreateEffectFromMemory((void *) g_main11, sizeof(g_main11), 0, pDevice, &pEffect);
 
 	pTechnique = pEffect->GetTechniqueByName("Render");
 	pDiffuseTexture = pEffect->GetVariableByName("txDiffuse")->AsShaderResource();
@@ -356,8 +363,6 @@ D11State::~D11State() {
 		pTexture->Release();
 	if (pSRView)
 		pSRView->Release();
-	if (pCommandList)
-		pCommandList->Release();
 	if (pDeviceContext)
 		pDeviceContext->Release();
 }
@@ -404,12 +409,16 @@ void D11State::draw() {
 			pDeviceContext->DrawIndexed(6, 0, 0);
 		}
 
-		pDeviceContext->FinishCommandList(TRUE, &pCommandList);
-		ID3D11DeviceContext *ctx = NULL;
-		pDevice->GetImmediateContext(&ctx);
-		ctx->ExecuteCommandList(pCommandList, TRUE);
-		ctx->Release();
-		pCommandList->Release();
+		if (bDeferredContext) {
+			ID3D11CommandList *pCommandList;
+			pDeviceContext->FinishCommandList(TRUE, &pCommandList);
+			ID3D11DeviceContext *ctx = NULL;
+			pDevice->GetImmediateContext(&ctx);
+			ctx->ExecuteCommandList(pCommandList, TRUE);
+			ctx->Release();
+			pCommandList->Release();
+		}
+
 		/*TODO rm
 		pDeviceContext->FinishCommandList(TRUE, &pCommandList);
 
@@ -430,7 +439,7 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 
 	ID3D11Device *pDevice = NULL;
 
-	ods("DXGI11: DrawBegin");
+	ods("DXGI11: myPresent");
 
 	hr = pSwapChain->GetDevice(__uuidof(ID3D11Device), (void **) &pDevice);
 	if (pDevice) {

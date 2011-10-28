@@ -47,5 +47,10 @@ fxc.output = ${QMAKE_FILE_BASE}.hex
 fxc.commands = fxc /Tfx_4_0 /O3 /Fh${QMAKE_FILE_OUT} ${QMAKE_FILE_NAME}
 fxc.input = EFFECTS
 fxc.CONFIG *= no_link target_predeps
-QMAKE_EXTRA_COMPILERS *= fxc
+
+fxc11.output = ${QMAKE_FILE_BASE}11.hex
+fxc11.commands = fxc /Tfx_5_0 /Emain11 /Fh${QMAKE_FILE_OUT} ${QMAKE_FILE_NAME}
+fxc11.input = EFFECTS
+fxc11.CONFIG *= no_link target_predeps
+QMAKE_EXTRA_COMPILERS *= fxc fxc11
 
