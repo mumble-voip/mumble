@@ -69,6 +69,7 @@ class D11State: protected Pipe {
 
 		ID3D11Device *pDevice;
 		ID3D11DeviceContext *pDeviceContext;
+		bool bDeferredContext;
 		IDXGISwapChain *pSwapChain;
 
 		ID3D11RenderTargetView *pRTV;
@@ -76,7 +77,6 @@ class D11State: protected Pipe {
 		ID3D11Buffer *pVertexBuffer;
 		ID3D11Buffer *pIndexBuffer;
 		ID3D11BlendState *pBlendState;
-		ID3D11CommandList *pCommandList;
 
 		ID3D11Texture2D *pTexture;
 		ID3D11ShaderResourceView *pSRView;
@@ -114,7 +114,6 @@ D11State::D11State(IDXGISwapChain *pSwapChain, ID3D11Device *pDevice) {
 	pTexture = NULL;
 	pSRView = NULL;
 	pDeviceContext = NULL;
-	pCommandList = NULL;
 
 	timeT = clock();
 	frameCount = 0;
@@ -252,6 +251,14 @@ void D11State::init() {
 	if (FAILED(hr))
 		ods("D3D11: pDevice->CreateDeferredContext failure!");
 
+	if (! SUCCEEDED(hr) || !pDeviceContext) {
+		ods("D3D11: Failed to create DeferredContext (0x%x). Getting ImmediateContext", hr);
+		pDevice->GetImmediateContext(&pDeviceContext);
+		bDeferredContext = false;
+	} else {
+		bDeferredContext = true;
+	}
+
 	D3D11_TEXTURE2D_DESC backBufferSurfaceDesc;
 	pBackBuffer->GetDesc(&backBufferSurfaceDesc);
 
@@ -338,8 +345,6 @@ D11State::~D11State() {
 		pTexture->Release();
 	if (pSRView)
 		pSRView->Release();
-	if (pCommandList)
-		pCommandList->Release();
 	if (pDeviceContext)
 		pDeviceContext->Release();
 }
@@ -371,12 +376,17 @@ void D11State::draw() {
 		UINT offset = 0;
 		pDeviceContext->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
 
-		pDeviceContext->FinishCommandList(TRUE, &pCommandList);
-		ID3D11DeviceContext *ctx = NULL;
-		pDevice->GetImmediateContext(&ctx);
-		ctx->ExecuteCommandList(pCommandList, TRUE);
-		ctx->Release();
-		pCommandList->Release();
+		if (bDeferredContext) {
+			ID3D11CommandList *pCommandList;
+			pDeviceContext->FinishCommandList(TRUE, &pCommandList);
+			ID3D11DeviceContext *ctx = NULL;
+			pDevice->GetImmediateContext(&ctx);
+			ctx->ExecuteCommandList(pCommandList, TRUE);
+			ctx->Release();
+			pCommandList->Release();
+		} else {
+			pDeviceContext->Flush();
+		}
 	}
 
 	dwMyThread = 0;
