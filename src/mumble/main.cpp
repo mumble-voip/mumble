@@ -428,7 +428,9 @@ int main(int argc, char **argv) {
 	if (g.s.bUpdateCheck)
 #endif
 		new VersionCheck(true, g.mw);
+#ifdef SNAPSHOT_BUILD
 	new VersionCheck(false, g.mw, true);
+#endif
 #else
 	g.mw->msgBox(MainWindow::tr("Skipping version check in debug mode."));
 #endif
