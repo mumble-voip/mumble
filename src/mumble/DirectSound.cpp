@@ -65,6 +65,7 @@ class DirectSoundInit : public DeferInit {
 		DXAudioInputRegistrar *airReg;
 		DXAudioOutputRegistrar *aorReg;
 	public:
+		DirectSoundInit() : airReg(NULL), aorReg(NULL) {}
 		void initialize();
 		void destroy();
 };
@@ -304,7 +305,7 @@ void DXAudioOutput::run() {
 	}
 
 	if (! g.s.doPositionalAudio())
-		dwMask = KSAUDIO_SPEAKER_MONO;
+		dwMask = KSAUDIO_SPEAKER_STEREO;
 
 	for (int i=0;i<32;i++) {
 		if (dwMask & (1 << i)) {
@@ -323,7 +324,7 @@ void DXAudioOutput::run() {
 
 	ZeroMemory(&wfx, sizeof(wfx));
 	wfx.Format.wFormatTag = WAVE_FORMAT_PCM;
-	wfx.Format.nChannels = qMax(ns, 1);
+	wfx.Format.nChannels = qMax(ns, 2);
 	wfx.Format.nSamplesPerSec = SAMPLE_RATE;
 	wfx.Format.nBlockAlign = sizeof(short) * wfx.Format.nChannels;
 	wfx.Format.nAvgBytesPerSec = wfx.Format.nSamplesPerSec * wfx.Format.nBlockAlign;
@@ -342,7 +343,7 @@ void DXAudioOutput::run() {
 
 	ZeroMemory(&wfx, sizeof(wfx));
 	wfx.Format.wFormatTag = WAVE_FORMAT_EXTENSIBLE;
-	wfx.Format.nChannels = ns;
+	wfx.Format.nChannels = qMax(ns, 2);
 	wfx.Format.nSamplesPerSec = SAMPLE_RATE;
 	wfx.Format.nBlockAlign = sizeof(short) * wfx.Format.nChannels;
 	wfx.Format.nAvgBytesPerSec = wfx.Format.nSamplesPerSec * wfx.Format.nBlockAlign;

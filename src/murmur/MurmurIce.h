@@ -68,7 +68,7 @@ class MurmurIce : public QObject {
 		void started(Server *);
 		void stopped(Server *);
 
-		void authenticateSlot(int &res, QString &uname, const QList<QSslCertificate> &certlist, const QString &certhash, bool certstrong, const QString &pw);
+		void authenticateSlot(int &res, QString &uname, int sessionId, const QList<QSslCertificate> &certlist, const QString &certhash, bool certstrong, const QString &pw);
 		void registerUserSlot(int &res, const QMap<int, QString> &);
 		void unregisterUserSlot(int &res, int id);
 		void getRegisteredUsersSlot(const QString &filter, QMap<int, QString> &res);

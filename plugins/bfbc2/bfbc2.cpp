@@ -49,7 +49,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// Find out whether this is the steam version
 	char sMagic[6];
-	if (!peekProc((BYTE *) 0x01568044, sMagic, 6)) {
+	if (!peekProc((BYTE *) 0x015715b4, sMagic, 6)) {
 		generic_unlock();
 		return false;
 	}
@@ -57,13 +57,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	is_steam = (strncmp("Score:", sMagic, 6) == 0);
 
 	if (is_steam) {
-		ok = peekProc((BYTE *) 0x01568910, avatar_pos, 12) &&
-		     peekProc((BYTE *) 0x01568900, avatar_front, 12) &&
-		     peekProc((BYTE *) 0x015688F0, avatar_top, 12);
+		ok = peekProc((BYTE *) 0x01571E90, avatar_pos, 12) &&
+		     peekProc((BYTE *) 0x01571E80, avatar_front, 12) &&
+		     peekProc((BYTE *) 0x01571E70, avatar_top, 12);
 	} else {
-		ok = peekProc((BYTE *) 0x0156F0E0, avatar_pos, 12) &&
-		     peekProc((BYTE *) 0x0156F0D0, avatar_front, 12) &&
-		     peekProc((BYTE *) 0x0156F0C0, avatar_top, 12);
+		ok = peekProc((BYTE *) 0x01579600, avatar_pos, 12) &&
+		     peekProc((BYTE *) 0x015795F0, avatar_front, 12) &&
+		     peekProc((BYTE *) 0x015795E0, avatar_top, 12);
 	}
 
 	if (! ok)
@@ -112,10 +112,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Battlefield Bad Company 2 build 602574. No identity or context support; Steam version support is unknown.");
+	return std::wstring(L"Supports Battlefield Bad Company 2 build 795745. No identity or context support.");
 }
 
-static std::wstring description(L"Battlefield Bad Company 2 build 602574");
+static std::wstring description(L"Battlefield Bad Company 2 build 795745");
 static std::wstring shortname(L"Battlefield Bad Company 2");
 
 static int trylock1() {

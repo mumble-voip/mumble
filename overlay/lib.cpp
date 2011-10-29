@@ -540,7 +540,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 						if (usewhitelist) {
 							// check if process is whitelisted
 							bool onwhitelist = false;
-							while (buffer[pos] != 0 && pos < buffsize) {
+							while (pos < buffsize && buffer[pos] != 0) {
 								if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
 									fods("Lib: Overlay enabled for whitelisted '%s'", buffer + pos);
 									onwhitelist = true;
@@ -555,8 +555,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 								break;
 							}
 						} else {
-							// check if process is blacklisted
-							while (buffer[pos] != 0 && pos < buffsize) {
+							while (pos < buffsize && buffer[pos] != 0) {
 								if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
 									fods("Lib: Overlay blacklist entry found for '%s'", buffer + pos);
 									bBlackListed = TRUE;

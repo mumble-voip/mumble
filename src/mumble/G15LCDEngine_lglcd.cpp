@@ -99,7 +99,7 @@ QList<LCDDevice *> G15LCDEngineLGLCD::devices() const {
 
 /* -- */
 
-G15LCDDeviceLGLCD::G15LCDDeviceLGLCD(G15LCDEngineLGLCD *e) : LCDDevice() {
+G15LCDDeviceLGLCD::G15LCDDeviceLGLCD(G15LCDEngineLGLCD *e) : LCDDevice(), bEnabled(false) {
 	engine = e;
 }
 

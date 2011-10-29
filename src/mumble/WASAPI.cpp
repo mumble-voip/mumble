@@ -72,6 +72,7 @@ class WASAPIInit : public DeferInit {
 		WASAPIInputRegistrar *wirReg;
 		WASAPIOutputRegistrar *worReg;
 	public:
+		WASAPIInit() : wirReg(NULL), worReg(NULL) { }
 		void initialize();
 		void destroy();
 };
@@ -847,14 +848,19 @@ void WASAPIOutput::run() {
 			goto cleanup;
 		}
 
+		pwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(pwfx);
+
+		if (!g.s.bPositionalAudio) {
+			pwfx->nChannels = 2;
+			pwfxe->dwChannelMask = KSAUDIO_SPEAKER_STEREO;
+		}
+
 		pwfx->cbSize = 0;
 		pwfx->wFormatTag = WAVE_FORMAT_PCM;
 		pwfx->nSamplesPerSec = 48000;
 		pwfx->wBitsPerSample = 16;
 		pwfx->nBlockAlign = pwfx->nChannels * pwfx->wBitsPerSample / 8;
 		pwfx->nAvgBytesPerSec = pwfx->nBlockAlign * pwfx->nSamplesPerSec;
-
-		pwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(pwfx);
 
 		hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_EXCLUSIVE, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, want, want, pwfx, NULL);
 		if (SUCCEEDED(hr)) {
@@ -883,6 +889,13 @@ void WASAPIOutput::run() {
 		if (FAILED(hr) || (pwfx->wBitsPerSample != (sizeof(float) * 8)) || (pwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT)) {
 			qWarning("WASAPIOutput: Subformat is not IEEE Float: hr=0x%08lx", hr);
 			goto cleanup;
+		}
+
+		if (!g.s.bPositionalAudio) {
+			pwfxe->Format.nChannels = 2;
+			pwfxe->Format.nBlockAlign = pwfx->nChannels * pwfx->wBitsPerSample / 8;
+			pwfxe->Format.nAvgBytesPerSec = pwfx->nBlockAlign * pwfx->nSamplesPerSec;
+			pwfxe->dwChannelMask = KSAUDIO_SPEAKER_STEREO;
 		}
 
 		hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, bufferDuration, 0, pwfx, NULL);

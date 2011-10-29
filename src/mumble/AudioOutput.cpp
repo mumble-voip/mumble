@@ -849,9 +849,9 @@ void AudioOutput::removeBuffer(AudioOutputUser *aop) {
 }
 
 void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadphone) {
-	delete fSpeakers;
-	delete bSpeakerPositional;
-	delete fSpeakerVolume;
+	delete[] fSpeakers;
+	delete[] bSpeakerPositional;
+	delete[] fSpeakerVolume;
 
 	fSpeakers = new float[iChannels * 3];
 	bSpeakerPositional = new bool[iChannels];

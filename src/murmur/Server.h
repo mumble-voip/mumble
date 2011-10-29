@@ -263,14 +263,14 @@ class Server : public QThread {
 		void disconnectAuthenticator(QObject *p);
 		void connectListener(QObject *p);
 		void disconnectListener(QObject *p);
-		void setTempGroups(const int userid, Channel *cChannel, const QStringList &groups);
+		void setTempGroups(int userid, int sessionId, Channel *cChannel, const QStringList &groups);
 		void clearTempGroups(User *user, Channel *cChannel = NULL, bool recurse = true);
 	signals:
 		void registerUserSig(int &, const QMap<int, QString> &);
 		void unregisterUserSig(int &, int);
 		void getRegisteredUsersSig(const QString &, QMap<int, QString > &);
 		void getRegistrationSig(int &, int, QMap<int, QString> &);
-		void authenticateSig(int &, QString &, const QList<QSslCertificate> &, const QString &, bool, const QString &);
+		void authenticateSig(int &, QString &, int, const QList<QSslCertificate> &, const QString &, bool, const QString &);
 		void setInfoSig(int &, int, const QMap<int, QString> &);
 		void setTextureSig(int &, int, const QByteArray &);
 		void idToNameSig(QString &, int);
@@ -293,7 +293,7 @@ class Server : public QThread {
 
 		// Database / DBus functions. Implementation in ServerDB.cpp
 		void initialize();
-		int authenticate(QString &name, const QString &pw, const QStringList &emails = QStringList(), const QString &certhash = QString(), bool bStrongCert = false, const QList<QSslCertificate> & = QList<QSslCertificate>());
+		int authenticate(QString &name, const QString &pw, int sessionId = 0, const QStringList &emails = QStringList(), const QString &certhash = QString(), bool bStrongCert = false, const QList<QSslCertificate> & = QList<QSslCertificate>());
 		Channel *addChannel(Channel *c, const QString &name, bool temporary = false, int position = 0);
 		void removeChannelDB(const Channel *c);
 		void readChannels(Channel *p = NULL);

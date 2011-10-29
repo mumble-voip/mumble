@@ -297,6 +297,8 @@ void OSSOutput::run() {
 	ival = AFMT_S16_NE;
 	if ((ioctl(fd, SNDCTL_DSP_SETFMT, &ival) == -1) || (ival != AFMT_S16_NE)) {
 		qWarning("OSSOutput: Failed to set sound format");
+		if ((ival != AFMT_S16_NE))
+			close(fd);
 		return;
 	}
 
