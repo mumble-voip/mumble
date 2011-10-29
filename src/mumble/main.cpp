@@ -426,10 +426,9 @@ int main(int argc, char **argv) {
 #ifdef QT_NO_DEBUG
 #ifndef SNAPSHOT_BUILD
 	if (g.s.bUpdateCheck)
-		new VersionCheck(true, g.mw);
-#else
-	new VersionCheck(false, g.mw, true);
 #endif
+		new VersionCheck(true, g.mw);
+	new VersionCheck(false, g.mw, true);
 #else
 	g.mw->msgBox(MainWindow::tr("Skipping version check in debug mode."));
 #endif
