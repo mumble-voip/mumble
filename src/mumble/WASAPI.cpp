@@ -740,7 +740,6 @@ void WASAPIOutput::run() {
 	UINT32 bufferFrameCount;
 	REFERENCE_TIME def, min, latency, want;
 	UINT32 numFramesAvailable;
-	UINT32 wantLength;
 	HANDLE hEvent;
 	BYTE *pData;
 	DWORD dwTaskIndex = 0;
@@ -764,10 +763,11 @@ void WASAPIOutput::run() {
 	hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
 
 	if (! pEnumerator || FAILED(hr)) {
-		qWarning("WASAPIOutput: Failed to instatiate enumerator: hr=0x%08lx", hr);
+		qWarning("WASAPIOutput: Failed to instantiate enumerator: hr=0x%08lx", hr);
 		return;
 	}
 
+	// Try to find a device pointer for the name in |g.s.qsWASAPIOutput|.
 	if (! g.s.qsWASAPIOutput.isEmpty()) {
 		STACKVAR(wchar_t, devname, g.s.qsWASAPIOutput.length() + 1);
 		int len = g.s.qsWASAPIOutput.toWCharArray(devname);
@@ -778,6 +778,10 @@ void WASAPIOutput::run() {
 		}
 	}
 
+	// Use the default device if |pDevice| is still NULL.
+	// We retrieve the actual device name for the currently selected default device and
+	// open the device by it's real name to work around triggering the automatic
+	// ducking behavior.
 	if (! pDevice) {
 		hr = pEnumerator->GetDefaultAudioEndpoint(eRender, eCommunications, &pDevice);
 		if (FAILED(hr)) {
@@ -920,8 +924,6 @@ void WASAPIOutput::run() {
 		goto cleanup;
 	}
 
-	wantLength = lroundf(ceilf((iFrameSize * pwfx->nSamplesPerSec) / (SAMPLE_RATE * 1.0f)));
-
 	pAudioClient->SetEventHandle(hEvent);
 	if (FAILED(hr)) {
 		qWarning("WASAPIOutput: Failed to set event: hr=0x%08lx", hr);
@@ -947,71 +949,57 @@ void WASAPIOutput::run() {
 	initializeMixer(chanmasks);
 
 	bool mixed = false;
-	if (! exclusive) {
-		while (bRunning && ! FAILED(hr)) {
+	numFramesAvailable = 0;
+
+	while (bRunning && ! FAILED(hr)) {
+		if (!exclusive) {
+			// Attenuate stream volumes.
+			if (lastspoke != (g.bAttenuateOthers || mixed)) {
+				lastspoke = g.bAttenuateOthers || mixed;
+				setVolumes(pDevice, lastspoke);
+			}
+
 			hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
 			if (FAILED(hr))
 				goto cleanup;
+		}
 
-			UINT32 packetLength = bufferFrameCount - numFramesAvailable;
+		UINT32 packetLength = bufferFrameCount - numFramesAvailable;
+
+		while (packetLength > 0) {
+			hr = pRenderClient->GetBuffer(packetLength, &pData);
+			if (FAILED(hr))
+				goto cleanup;
+
+			mixed = mix(reinterpret_cast<float *>(pData), packetLength);
+			if (mixed)
+				hr = pRenderClient->ReleaseBuffer(packetLength, 0);
+			else
+				hr = pRenderClient->ReleaseBuffer(packetLength, AUDCLNT_BUFFERFLAGS_SILENT);
+			if (FAILED(hr))
+				goto cleanup;
+
+			// Exclusive mode rendering ends here.
+			if (exclusive)
+				break;
+
+			if (!g.s.bAttenuateOthers && !g.bAttenuateOthers) {
+				mixed = false;
+			}
 
 			if (lastspoke != (g.bAttenuateOthers || mixed)) {
 				lastspoke = g.bAttenuateOthers || mixed;
 				setVolumes(pDevice, lastspoke);
 			}
 
-			while (packetLength > 0) {
-				hr = pRenderClient->GetBuffer(packetLength, &pData);
-				if (FAILED(hr))
-					goto cleanup;
-
-				mixed = mix(reinterpret_cast<float *>(pData), packetLength);
-				if (mixed)
-					hr = pRenderClient->ReleaseBuffer(packetLength, 0);
-				else
-					hr = pRenderClient->ReleaseBuffer(packetLength, AUDCLNT_BUFFERFLAGS_SILENT);
-				if (FAILED(hr))
-					goto cleanup;
-
-				if (!g.s.bAttenuateOthers && !g.bAttenuateOthers) {
-					mixed = false;
-				}
-
-				if (lastspoke != (g.bAttenuateOthers || mixed)) {
-					lastspoke = g.bAttenuateOthers || mixed;
-					setVolumes(pDevice, lastspoke);
-				}
-
-				hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
-				if (FAILED(hr))
-					goto cleanup;
-
-				packetLength = bufferFrameCount - numFramesAvailable;
-			}
-			if (! FAILED(hr))
-				WaitForSingleObject(hEvent, 2000);
-		}
-	} else {
-		wantLength = bufferFrameCount;
-
-		while (bRunning && ! FAILED(hr)) {
-			hr = pRenderClient->GetBuffer(wantLength, &pData);
+			hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
 			if (FAILED(hr))
 				goto cleanup;
 
-			mixed = mix(pData, wantLength);
-
-			if (mixed)
-				hr = pRenderClient->ReleaseBuffer(wantLength, 0);
-			else
-				hr = pRenderClient->ReleaseBuffer(wantLength, AUDCLNT_BUFFERFLAGS_SILENT);
-
-			if (FAILED(hr))
-				goto cleanup;
-
-			if (! FAILED(hr))
-				WaitForSingleObject(hEvent, 100);
+			packetLength = bufferFrameCount - numFramesAvailable;
 		}
+		if (! FAILED(hr))
+			WaitForSingleObject(hEvent, exclusive ? 100 : 2000);
 	}
 
 cleanup:
