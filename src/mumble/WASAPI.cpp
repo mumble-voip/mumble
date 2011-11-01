@@ -916,6 +916,22 @@ void WASAPIOutput::run() {
 			pwfxe->Format.nBlockAlign = pwfx->nChannels * pwfx->wBitsPerSample / 8;
 			pwfxe->Format.nAvgBytesPerSec = pwfx->nBlockAlign * pwfx->nSamplesPerSec;
 			pwfxe->dwChannelMask = KSAUDIO_SPEAKER_STEREO;
+
+			WAVEFORMATEX *closestFormat = NULL;
+			hr = pAudioClient->IsFormatSupported(AUDCLNT_SHAREMODE_SHARED, pwfx, &closestFormat);
+			if (hr == S_FALSE) {
+				qWarning("WASAPIOutput: Driver says no to 2 channel output. Closest format: %d channels @ %d kHz", pwfx->nChannels, pwfx->nSamplesPerSec);
+				CoTaskMemFree(pwfx);
+
+				pwfx = NULL;
+				pAudioClient->GetMixFormat(&pwfx);
+				pwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(pwfx);
+			} else if (FAILED(hr)) {
+				qWarning("WASAPIOutput: IsFormatSupported failed: hr=0x%08lx", hr);
+			}
+
+			if (closestFormat)
+				CoTaskMemFree(closestFormat);
 		}
 
 		hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, bufferDuration, 0, pwfx, NULL);
