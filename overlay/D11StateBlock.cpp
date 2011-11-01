@@ -21,33 +21,26 @@ ULONG __stdcall D11StateBlock::Release()
 void D11StateBlock::Capture()
 {
 	this->pDeviceContext->RSGetState(&this->pRasterizerState);
-
-	/* we only use one ViewPort in overlay */
-	this->NumViewports = 1;
+	this->NumViewports = D3D11_VIEWPORT_AND_SCISSORRECT_OBJECT_COUNT_PER_PIPELINE;
 	this->pDeviceContext->RSGetViewports(&this->NumViewports, this->pViewports);
-
-	/* we only use one RenderTargetView in overlay */
-	this->pDeviceContext->OMGetRenderTargets(1, this->pRenderTargetViews, &this->pDepthStencilView);
-
+	this->pDeviceContext->OMGetRenderTargets(D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT, this->pRenderTargetViews, &this->pDepthStencilView);
 	this->pDeviceContext->OMGetBlendState(&this->pBlendState, this->BlendFactor, &this->SampleMask);
 	this->pDeviceContext->IAGetInputLayout(&this->pInputLayout);
 	this->pDeviceContext->IAGetIndexBuffer(&this->pIndexBuffer, &this->Format, &this->Offset);
 	this->pDeviceContext->IAGetPrimitiveTopology(&this->Topology);
-
-	/* we only use one VertexBuffer in overlay */
-	this->pDeviceContext->IAGetVertexBuffers(0, 1, this->pVertexBuffers, Strides, Offsets);
+	this->pDeviceContext->IAGetVertexBuffers(0, D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT, this->pVertexBuffers, Strides, Offsets);
 }
 
 void D11StateBlock::Apply()
 {
 	this->pDeviceContext->RSSetState(this->pRasterizerState);
 	this->pDeviceContext->RSSetViewports(this->NumViewports, this->pViewports);
-	this->pDeviceContext->OMSetRenderTargets(1, this->pRenderTargetViews, this->pDepthStencilView);
+	this->pDeviceContext->OMSetRenderTargets(D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT, this->pRenderTargetViews, this->pDepthStencilView);
 	this->pDeviceContext->OMSetBlendState(this->pBlendState, this->BlendFactor, this->SampleMask);
 	this->pDeviceContext->IASetInputLayout(this->pInputLayout);
 	this->pDeviceContext->IASetIndexBuffer(this->pIndexBuffer, this->Format, this->Offset);
 	this->pDeviceContext->IASetPrimitiveTopology(this->Topology);
-	this->pDeviceContext->IASetVertexBuffers(0, 1, this->pVertexBuffers, this->Strides, this->Offsets);
+	this->pDeviceContext->IASetVertexBuffers(0, D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT, this->pVertexBuffers, this->Strides, this->Offsets);
 	this->ReleaseObjects();
 }
 
@@ -58,20 +51,23 @@ void D11StateBlock::ReleaseObjects()
 		this->pRasterizerState = NULL;
 	}
 
-	if (this->pRenderTargetViews[0]) {
-		this->pRenderTargetViews[0]->Release();
-		this->pRenderTargetViews[0] = NULL;
-	}
+	for (int i=0; i<this->NumViewports; i++)
+		if (this->pRenderTargetViews[i]) {
+			this->pRenderTargetViews[i]->Release();
+			this->pRenderTargetViews[i] = NULL;
+		}
+
 
 	if (this->pDepthStencilView) {
 		this->pDepthStencilView->Release();
 		this->pDepthStencilView = NULL;
 	}
 
-	if (this->pVertexBuffers[0]) {
-		this->pVertexBuffers[0]->Release();
-		this->pVertexBuffers[0]=NULL;
-	}
+	for (int i=0; i<D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT; i++)
+		if (this->pVertexBuffers[i]) {
+			this->pVertexBuffers[i]->Release();
+			this->pVertexBuffers[i]=NULL;
+		}
 }
 
 void D11StateBlock::ReleaseAllDeviceObjects()

@@ -359,7 +359,7 @@ void D11State::init() {
 	if (!bDeferredContext) {
 		pMyStateBlock->Capture();
 		// NTL: Broken for some reason :(
-		//pOrigStateBlock->Apply();
+		pOrigStateBlock->Apply();
 	}
 	pBackBuffer->Release();
 
