@@ -238,9 +238,62 @@ WASAPIInput::~WASAPIInput() {
 	wait();
 }
 
-void WASAPIInput::run() {
+static IMMDevice *openNamedOrDefaultDevice(const QString& name, EDataFlow dataFlow, ERole role) {
 	HRESULT hr;
 	IMMDeviceEnumerator *pEnumerator = NULL;
+	IMMDevice *pDevice = NULL;
+
+	hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
+	if (!pEnumerator || FAILED(hr)) {
+		qWarning("WASAPI: Failed to instantiate enumerator: hr=0x%08lx", hr);
+		return NULL;
+	}
+
+	// Try to find a device pointer for |name|.
+	if (!name.isEmpty()) {
+		STACKVAR(wchar_t, devname, name.length() + 1);
+		int len = name.toWCharArray(devname);
+		devname[len] = 0;
+		hr = pEnumerator->GetDevice(devname, &pDevice);
+		if (FAILED(hr)) {
+			qWarning("WASAPI: Failed to open selected device %s %ls (df=%d, e=%d, hr=0x%08lx), falling back to default", qPrintable(name), devname, dataFlow, role, hr);
+		}
+	}
+
+	// Use the default device if |pDevice| is still NULL.
+	// We retrieve the actual device name for the currently selected default device and
+	// open the device by it's real name to work around triggering the automatic
+	// ducking behavior.
+	if (!pDevice) {
+		hr = pEnumerator->GetDefaultAudioEndpoint(dataFlow, role, &pDevice);
+		if (FAILED(hr)) {
+			qWarning("WASAPI: Failed to open device: df=%d, e=%d, hr=0x%08lx", dataFlow, role, hr);
+			goto cleanup;
+		}
+		wchar_t *devname = NULL;
+		hr = pDevice->GetId(&devname);
+		if (FAILED(hr)) {
+			qWarning("WASAPI: Failed to query device: df=%d, e=%d, hr=0x%08lx", dataFlow, role, hr);
+			goto cleanup;
+		}
+		pDevice->Release();
+		hr = pEnumerator->GetDevice(devname, &pDevice);
+		if (FAILED(hr)) {
+			qWarning("WASAPI: Failed to reopen default device: df=%d, e=%d, hr=0x%08lx", dataFlow, role, hr);
+			goto cleanup;
+		}
+		CoTaskMemFree(devname);
+	}
+
+cleanup:
+	if (pEnumerator)
+		pEnumerator->Release();
+
+	return pDevice;
+}
+
+void WASAPIInput::run() {
+	HRESULT hr;
 	IMMDevice *pMicDevice = NULL;
 	IAudioClient *pMicAudioClient = NULL;
 	IAudioCaptureClient *pMicCaptureClient = NULL;
@@ -277,78 +330,17 @@ void WASAPIInput::run() {
 		qWarning("WASAPIInput: Failed to set Pro Audio thread priority");
 	}
 
-	hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
+	// Open mic device.
+	pMicDevice = openNamedOrDefaultDevice(g.s.qsWASAPIInput, eCapture, eCommunications);
+	if (!pMicDevice)
+		goto cleanup;
 
-	if (! pEnumerator || FAILED(hr)) {
-		qWarning("WASAPIInput: Failed to instatiate enumerator: hr=0x%08lx", hr);
-		return;
-	}
-
-	if (! g.s.qsWASAPIInput.isEmpty()) {
-		STACKVAR(wchar_t, devname, g.s.qsWASAPIInput.length() + 1);
-		int len = g.s.qsWASAPIInput.toWCharArray(devname);
-		devname[len] = 0;
-		hr = pEnumerator->GetDevice(devname, &pMicDevice);
-		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Failed to open selected input device %s %ls (hr=0x%08lx), falling back to default", qPrintable(g.s.qsWASAPIInput), devname, hr);
-		}
-	}
-
-	if (! pMicDevice) {
-		hr = pEnumerator->GetDefaultAudioEndpoint(eCapture, eCommunications, &pMicDevice);
-		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Failed to open input device: hr=0x%08lx", hr);
-			goto cleanup;
-		}
-		wchar_t *devname = NULL;
-		hr = pMicDevice->GetId(&devname);
-		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Failed to query input device: hr=0x%08lx", hr);
-			goto cleanup;
-		}
-		pMicDevice->Release();
-		hr = pEnumerator->GetDevice(devname, &pMicDevice);
-		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Failed to reopen default input device: hr=0x%08lx", hr);
-			goto cleanup;
-		}
-		CoTaskMemFree(devname);
-	}
-
+	// Open echo capture device.
 	if (doecho) {
-		if (! g.s.qsWASAPIOutput.isEmpty()) {
-			STACKVAR(wchar_t, devname, g.s.qsWASAPIOutput.length());
-			g.s.qsWASAPIOutput.toWCharArray(devname);
-			hr = pEnumerator->GetDevice(devname, &pEchoDevice);
-			if (FAILED(hr)) {
-				qWarning("WASAPIInput: Failed to open selected echo device (hr=0x%08lx), falling back to default", hr);
-			}
-		}
-
-		if (! pEchoDevice) {
-			hr = pEnumerator->GetDefaultAudioEndpoint(eRender, eCommunications, &pEchoDevice);
-			if (FAILED(hr)) {
-				qWarning("WASAPIInput: Failed to open echo device: hr=0x%08lx", hr);
-				goto cleanup;
-			}
-			wchar_t *devname = NULL;
-			hr = pEchoDevice->GetId(&devname);
-			if (FAILED(hr)) {
-				qWarning("WASAPIInput: Failed to query echo device: hr=0x%08lx", hr);
-				goto cleanup;
-			}
-			pEchoDevice->Release();
-			hr = pEnumerator->GetDevice(devname, &pEchoDevice);
-			if (FAILED(hr)) {
-				qWarning("WASAPIInput: Failed to reopen default echo device: hr=0x%08lx", hr);
-				goto cleanup;
-			}
-			CoTaskMemFree(devname);
-		}
+		pEchoDevice = openNamedOrDefaultDevice(g.s.qsWASAPIOutput, eRender, eCommunications);
+		if (!pEchoDevice)
+			doecho = false;
 	}
-
-	pEnumerator->Release();
-	pEnumerator = NULL;
 
 	hr = pMicDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void **) &pMicAudioClient);
 	if (FAILED(hr)) {
@@ -596,9 +588,6 @@ cleanup:
 	if (pEchoDevice)
 		pEchoDevice->Release();
 
-	if (pEnumerator)
-		pEnumerator->Release();
-
 	if (hMmThread != NULL)
 		AvRevertMmThreadCharacteristics(hMmThread);
 
@@ -783,7 +772,6 @@ cleanup:
 
 void WASAPIOutput::run() {
 	HRESULT hr;
-	IMMDeviceEnumerator *pEnumerator = NULL;
 	IMMDevice *pDevice = NULL;
 	IAudioClient *pAudioClient = NULL;
 	IAudioRenderClient *pRenderClient = NULL;
@@ -812,51 +800,10 @@ void WASAPIOutput::run() {
 		qWarning("WASAPIOutput: Failed to set Pro Audio thread priority");
 	}
 
-	hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
-
-	if (! pEnumerator || FAILED(hr)) {
-		qWarning("WASAPIOutput: Failed to instantiate enumerator: hr=0x%08lx", hr);
-		return;
-	}
-
-	// Try to find a device pointer for the name in |g.s.qsWASAPIOutput|.
-	if (! g.s.qsWASAPIOutput.isEmpty()) {
-		STACKVAR(wchar_t, devname, g.s.qsWASAPIOutput.length() + 1);
-		int len = g.s.qsWASAPIOutput.toWCharArray(devname);
-		devname[len] = 0;
-		hr = pEnumerator->GetDevice(devname, &pDevice);
-		if (FAILED(hr)) {
-			qWarning("WASAPIOutput: Failed to open selected input device (hr=0x%08lx), falling back to default", hr);
-		}
-	}
-
-	// Use the default device if |pDevice| is still NULL.
-	// We retrieve the actual device name for the currently selected default device and
-	// open the device by it's real name to work around triggering the automatic
-	// ducking behavior.
-	if (! pDevice) {
-		hr = pEnumerator->GetDefaultAudioEndpoint(eRender, eCommunications, &pDevice);
-		if (FAILED(hr)) {
-			qWarning("WASAPIOutput: Failed to open output device: hr=0x%08lx", hr);
-			goto cleanup;
-		}
-		wchar_t *devname = NULL;
-		hr = pDevice->GetId(&devname);
-		if (FAILED(hr)) {
-			qWarning("WASAPIOutput: Failed to query output device: hr=0x%08lx", hr);
-			goto cleanup;
-		}
-		pDevice->Release();
-		hr = pEnumerator->GetDevice(devname, &pDevice);
-		if (FAILED(hr)) {
-			qWarning("WASAPIOutput: Failed to reopen default output device: hr=0x%08lx", hr);
-			goto cleanup;
-		}
-		CoTaskMemFree(devname);
-	}
-
-	pEnumerator->Release();
-	pEnumerator = NULL;
+	// Open the output device.
+	pDevice = openNamedOrDefaultDevice(g.s.qsWASAPIOutput, eRender, eCommunications);
+	if (!pDevice)
+		goto cleanup;
 
 	// Opt-out of the Windows 7 ducking behavior
 	SetDuckingOptOut(pDevice);
@@ -1066,9 +1013,6 @@ cleanup:
 		pRenderClient->Release();
 	if (pDevice)
 		pDevice->Release();
-
-	if (pEnumerator)
-		pEnumerator->Release();
 
 	if (hMmThread != NULL)
 		AvRevertMmThreadCharacteristics(hMmThread);
