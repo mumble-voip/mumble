@@ -426,8 +426,9 @@ int main(int argc, char **argv) {
 #ifdef QT_NO_DEBUG
 #ifndef SNAPSHOT_BUILD
 	if (g.s.bUpdateCheck)
+#endif
 		new VersionCheck(true, g.mw);
-#else
+#ifdef SNAPSHOT_BUILD
 	new VersionCheck(false, g.mw, true);
 #endif
 #else
