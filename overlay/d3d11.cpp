@@ -29,10 +29,10 @@
 */
 
 #include "lib.h"
+#include "D11StateBlock.h"
 #include "overlay11.hex"
 #include "Effects11/Inc/d3dx11effect.h"
 #include <d3d11.h>
-#include <d3dx10math.h>
 #include <d3dx11.h>
 #include <time.h>
 
@@ -73,6 +73,8 @@ class D11State: protected Pipe {
 		bool bDeferredContext;
 		IDXGISwapChain *pSwapChain;
 
+		D11StateBlock *pOrigStateBlock;
+		D11StateBlock *pMyStateBlock;
 		ID3D11RenderTargetView *pRTV;
 		ID3DX11Effect *pEffect;
 		ID3DX11EffectTechnique *pTechnique;
@@ -110,6 +112,8 @@ D11State::D11State(IDXGISwapChain *pSwapChain, ID3D11Device *pDevice) {
 
 	ZeroMemory(&vp, sizeof(vp));
 
+	pOrigStateBlock = NULL;
+	pMyStateBlock = NULL;
 	pRTV = NULL;
 	pEffect = NULL;
 	pTechnique = NULL;
@@ -252,6 +256,7 @@ void D11State::init() {
 
 	dwMyThread = GetCurrentThreadId();
 
+
 	ID3D11Texture2D* pBackBuffer = NULL;
 	hr = pSwapChain->GetBuffer(0, __uuidof(*pBackBuffer), (LPVOID*)&pBackBuffer);
 
@@ -260,6 +265,10 @@ void D11State::init() {
 	if (! SUCCEEDED(hr) || !pDeviceContext) {
 		ods("D3D11: Failed to create DeferredContext (0x%x). Getting ImmediateContext", hr);
 		pDevice->GetImmediateContext(&pDeviceContext);
+		D11CreateStateBlock(pDeviceContext, &pOrigStateBlock);
+		D11CreateStateBlock(pDeviceContext, &pMyStateBlock);
+
+		pOrigStateBlock->Capture();
 		bDeferredContext=false;
 	} else {
 		bDeferredContext=true;
@@ -347,6 +356,11 @@ void D11State::init() {
 	// Set primitive topology
 	pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
+	if (!bDeferredContext) {
+		pMyStateBlock->Capture();
+		// NTL: Broken for some reason :(
+		//pOrigStateBlock->Apply();
+	}
 	pBackBuffer->Release();
 
 	dwMyThread = 0;
@@ -363,6 +377,17 @@ D11State::~D11State() {
 		pTexture->Release();
 	if (pSRView)
 		pSRView->Release();
+
+	if (pMyStateBlock) {
+		pMyStateBlock->ReleaseAllDeviceObjects();
+		pMyStateBlock->ReleaseObjects();
+	}
+
+	if (pOrigStateBlock) {
+		pOrigStateBlock->ReleaseAllDeviceObjects();
+		pOrigStateBlock->ReleaseObjects();
+	}
+
 	if (pDeviceContext)
 		pDeviceContext->Release();
 }
@@ -390,6 +415,10 @@ void D11State::draw() {
 	checkMessage((unsigned int)vp.Width, (unsigned int)vp.Height);
 
 	if (a_ucTexture && pSRView && (uiLeft != uiRight)) {
+		if (!bDeferredContext) {
+			pOrigStateBlock->Capture();
+			pMyStateBlock->Apply();
+		}
 		HRESULT hr;
 
 		D3DX11_TECHNIQUE_DESC techDesc;
@@ -417,16 +446,11 @@ void D11State::draw() {
 			ctx->ExecuteCommandList(pCommandList, TRUE);
 			ctx->Release();
 			pCommandList->Release();
+		} else {
+			pDeviceContext->Flush();
+			pMyStateBlock->Capture();
+			pOrigStateBlock->Apply();
 		}
-
-		/*TODO rm
-		pDeviceContext->FinishCommandList(TRUE, &pCommandList);
-
-		pDeviceContext->ExecuteCommandList(pCommandList, TRUE);
-		pDeviceContext->Flush();
-		pDeviceContext->Release();
-		pCommandList->Release();
-		*/
 	}
 
 	dwMyThread = 0;
