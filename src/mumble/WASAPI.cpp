@@ -514,15 +514,19 @@ void WASAPIInput::run() {
 			hr = pMicCaptureClient->GetNextPacketSize(&micPacketLength);
 			if (! FAILED(hr) && iEchoChannels)
 				hr = pEchoCaptureClient->GetNextPacketSize(&echoPacketLength);
-			if (FAILED(hr))
+			if (FAILED(hr)) {
+				qWarning("WASAPIInput: GetNextPacketSize failed: hr=0x%08lx", hr);
 				goto cleanup;
+			}
 
 			while ((micPacketLength > 0) || (echoPacketLength > 0)) {
 				if (echoPacketLength > 0) {
 					hr = pEchoCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition, &qpcPosition);
 					numFramesLeft = numFramesAvailable;
-					if (FAILED(hr))
+					if (FAILED(hr)) {
+						qWarning("WASAPIInput: GetBuffer failed: hr=0x%08lx", hr);
 						goto cleanup;
+					}
 
 					UINT32 nFrames = numFramesAvailable * echopwfx->nChannels;
 					if (nFrames > allocLength) {
@@ -532,14 +536,18 @@ void WASAPIInput::run() {
 					}
 					memcpy(tbuff, pData, nFrames * sizeof(float));
 					hr = pEchoCaptureClient->ReleaseBuffer(numFramesAvailable);
-					if (FAILED(hr))
+					if (FAILED(hr)) {
+						qWarning("WASAPIInput: ReleaseBuffer failed: hr=0x%08lx", hr);
 						goto cleanup;
+					}
 					addEcho(tbuff, numFramesAvailable);
 				} else if (micPacketLength > 0) {
 					hr = pMicCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition, &qpcPosition);
 					numFramesLeft = numFramesAvailable;
-					if (FAILED(hr))
+					if (FAILED(hr)) {
+						qWarning("WASAPIInput: GetBuffer failed: hr=0x%08lx", hr);
 						goto cleanup;
+					}
 
 					UINT32 nFrames = numFramesAvailable * micpwfx->nChannels;
 					if (nFrames > allocLength) {
@@ -549,8 +557,10 @@ void WASAPIInput::run() {
 					}
 					memcpy(tbuff, pData, nFrames * sizeof(float));
 					hr = pMicCaptureClient->ReleaseBuffer(numFramesAvailable);
-					if (FAILED(hr))
+					if (FAILED(hr)) {
+						qWarning("WASAPIInput: ReleaseBuffer failed: hr=0x%08lx", hr);
 						goto cleanup;
+					}
 					addMic(tbuff, numFramesAvailable);
 				}
 				hr = pMicCaptureClient->GetNextPacketSize(&micPacketLength);
@@ -992,24 +1002,30 @@ void WASAPIOutput::run() {
 			}
 
 			hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
-			if (FAILED(hr))
+			if (FAILED(hr)) {
+				qWarning("WASAPIOutput: GetCurrentPadding failed: hr=0x%08lx", hr);
 				goto cleanup;
+			}
 		}
 
 		UINT32 packetLength = bufferFrameCount - numFramesAvailable;
 
 		while (packetLength > 0) {
 			hr = pRenderClient->GetBuffer(packetLength, &pData);
-			if (FAILED(hr))
+			if (FAILED(hr)) {
+				qWarning("WASAPIOutput: GetBuffer failed: hr=0x%08lx", hr);
 				goto cleanup;
+			}
 
 			mixed = mix(reinterpret_cast<float *>(pData), packetLength);
 			if (mixed)
 				hr = pRenderClient->ReleaseBuffer(packetLength, 0);
 			else
 				hr = pRenderClient->ReleaseBuffer(packetLength, AUDCLNT_BUFFERFLAGS_SILENT);
-			if (FAILED(hr))
+			if (FAILED(hr)) {
+				qWarning("WASAPIOutput: ReleaseBuffer failed: hr=0x%08lx", hr);
 				goto cleanup;
+			}
 
 			// Exclusive mode rendering ends here.
 			if (exclusive)
@@ -1025,8 +1041,10 @@ void WASAPIOutput::run() {
 			}
 
 			hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
-			if (FAILED(hr))
+			if (FAILED(hr)) {
+				qWarning("WASAPIOutput: GetCurrentPadding failed: hr=0x%08lx", hr);
 				goto cleanup;
+			}
 
 			packetLength = bufferFrameCount - numFramesAvailable;
 		}
