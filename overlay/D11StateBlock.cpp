@@ -80,7 +80,7 @@ void D11StateBlock::ReleaseObjects()
 		this->pRasterizerState = NULL;
 	}
 
-	for (int i=0; i<this->NumViewports; i++)
+	for (int i=0; i<D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT; i++)
 		if (this->pRenderTargetViews[i]) {
 			this->pRenderTargetViews[i]->Release();
 			this->pRenderTargetViews[i] = NULL;
