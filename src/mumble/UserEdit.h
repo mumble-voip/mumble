@@ -34,11 +34,11 @@
 #include "mumble_pch.hpp"
 #include "ui_UserEdit.h"
 #include "Message.h"
+#include "User.h"
 
-class UserEditListItem : public QListWidgetItem {
+class UserEditListItem : public QTreeWidgetItem {
 	public:
-		UserEditListItem(const QString &username, const int userid);
-		bool operator<(const QListWidgetItem & other) const;
+		UserEditListItem(const int userid);
 };
 
 class UserEdit : public QDialog, public Ui::UserEdit {
@@ -46,16 +46,18 @@ class UserEdit : public QDialog, public Ui::UserEdit {
 		Q_OBJECT
 		Q_DISABLE_COPY(UserEdit)
 	protected:
-		QMap<int, QString> qmUsers;
+		QMap<int, UserInfo> qmUsers;
 		QMap<int, QString> qmChanged;
 	public:
 		UserEdit(const MumbleProto::UserList &mpul, QWidget *p = NULL);
 	public slots:
 		void accept();
+		void on_qlSearch_textChanged(QString );
 	public slots:
-		void on_qpbRemove_clicked();
-		void on_qlwUserList_customContextMenuRequested(const QPoint&);
-		void renameTriggered();
+		void on_qtwUserList_customContextMenuRequested(const QPoint&);
+		void on_qaUserRemove_triggered();
+		void on_qaUserRename_triggered();
+		void refreshUserList();
 };
 
 #endif

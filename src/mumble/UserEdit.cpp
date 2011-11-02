@@ -29,34 +29,96 @@
 */
 
 #include "UserEdit.h"
+#include "Channel.h"
 #include "ServerHandler.h"
 #include "Global.h"
 #include "User.h"
 
 UserEdit::UserEdit(const MumbleProto::UserList &msg, QWidget *p) : QDialog(p) {
+	bool gotLastActive = false;
+	bool gotLastChannel = false;
+
 	setupUi(this);
 
-	qlwUserList->setContextMenuPolicy(Qt::CustomContextMenu);
+	qtwUserList->setFocus();
+	qtwUserList->setContextMenuPolicy(Qt::CustomContextMenu);
+
+	//qtwUserList->header()->setResizeMode(0, QHeaderView::ResizeToContents); // user name
+	//qtwUserList->header()->setResizeMode(1, QHeaderView::ResizeToContents); // last seen
+	//qtwUserList->header()->setResizeMode(2, QHeaderView::Stretch); // on channel
+	qtwUserList->sortByColumn(0, Qt::AscendingOrder); // sort by user name
+	qmUsers.clear();
 
 	for (int i=0;i<msg.users_size(); ++i) {
-		const MumbleProto::UserList_User &u = msg.users(i);
-		int id = u.user_id();
-		const QString &name = u8(u.name());
+	const MumbleProto::UserList_User &u = msg.users(i);
+		UserInfo uie;
+		uie.user_id = u.user_id();
+		uie.name = u8(u.name());
+		if (u.has_last_channel())
+			gotLastChannel = true;
+		uie.last_channel = u.last_channel();
+		if (u.has_last_active()) {
+			gotLastActive = true;
+			uie.last_active = QDateTime::fromString(u8(u.last_active()));
+		}
+		qmUsers.insert(uie.user_id, uie);
+	}
+	
+	// If we don't have UserInfo from server (Murmur < 1.2.4), hide widgets.
+	if (!gotLastActive) {
+		qtwUserList->setColumnHidden(1, true);
+		qtwUserList->setColumnHidden(2, true);
+	} else if (!gotLastChannel) {
+		qtwUserList->setColumnHidden(2, true);
+	}
+	refreshUserList();
+}
 
-		UserEditListItem *ueli = new UserEditListItem(name, id);
+void UserEdit::refreshUserList() {
+	qtwUserList->clear();
+	QMapIterator<int, UserInfo> i(qmUsers);
 
-		qlwUserList->addItem(ueli);
-		qmUsers.insert(id, name);
+	while (i.hasNext()) {
+		i.next();
+		UserEditListItem *ueli = new UserEditListItem(i.key());
+		ueli->setText(0, i.value().name);
+
+		QString last_active;
+		if (i.value().last_active.isValid()) {
+			last_active = i.value().last_active.toString(QLatin1String("yyyy-MM-dd hh:mm:ss"));
+		} else
+			last_active.clear();
+
+		if (!last_active.isEmpty()) {
+			ueli->setText(1, last_active);
+
+			Channel *c = Channel::get(i.value().last_channel);
+			QString tree;
+			if (c) {
+				QStringList channel_tree;
+				while (c->cParent != NULL) {
+					channel_tree.prepend(c->qsName);
+					c = c->cParent;
+				}
+			tree = QLatin1String("/ ") + channel_tree.join(QLatin1String(" / "));
+			} else
+				tree = QLatin1String("-");
+			ueli->setText(2, tree);
+		} else {
+			ueli->setText(1, QLatin1String("-"));
+			ueli->setText(2, QLatin1String("-"));
+		}
+		qtwUserList->addTopLevelItem(ueli);
 	}
 }
 
 void UserEdit::accept() {
-	QList<QListWidgetItem *> ql = qlwUserList->findItems(QString(), Qt::MatchStartsWith);
-	foreach(QListWidgetItem * qlwi, ql) {
-		const QString &name = qlwi->text();
-		int id = qlwi->data(Qt::UserRole).toInt();
-		if (qmUsers.value(id) != name) {
-			qmChanged.insert(id, name);
+	QList<QTreeWidgetItem *> ql = qtwUserList->findItems(QString(), Qt::MatchStartsWith);
+	foreach(QTreeWidgetItem * qlwi, ql) {
+		const QString &name = qlwi->text(0);
+		int id = qlwi->data(0, Qt::UserRole).toInt();
+				if (qmUsers.value(id).name != name) {
+						qmChanged.insert(id, name);
 		}
 	}
 
@@ -75,47 +137,55 @@ void UserEdit::accept() {
 	QDialog::accept();
 }
 
-void UserEdit::on_qpbRemove_clicked() {
-	int idx = qlwUserList->currentRow();
-	if (idx >= 0) {
-		QListWidgetItem *qlwi = qlwUserList->takeItem(idx);
-		int id = qlwi->data(Qt::UserRole).toInt();
+void UserEdit::on_qtwUserList_customContextMenuRequested(const QPoint &point) {
+	QMenu *menu = new QMenu(this);
+
+	QAction *action;
+
+	if (!(qtwUserList->selectedItems().count() > 1))
+	{
+		action = menu->addAction(tr("Rename"));
+		connect(action, SIGNAL(triggered()), this, SLOT(on_qaUserRename_triggered()));
+		menu->addSeparator();
+	}
+
+	action = menu->addAction(tr("Remove"));
+	connect(action, SIGNAL(triggered()), this, SLOT(on_qaUserRemove_triggered()));
+
+	menu->exec(qtwUserList->mapToGlobal(point));
+	delete menu;
+}
+
+void UserEdit::on_qaUserRemove_triggered() {
+	while (qtwUserList->selectedItems().count() > 0) {
+		QTreeWidgetItem *qlwi = qtwUserList->selectedItems().takeAt(0);
+		int id = qlwi->data(0, Qt::UserRole).toInt();
 		qmChanged.insert(id, QString());
 		delete qlwi;
 	}
 }
 
-void UserEdit::on_qlwUserList_customContextMenuRequested(const QPoint &point) {
-	QMenu *menu = new QMenu(this);
-
-	QAction *action = menu->addAction(tr("Rename"));
-	connect(action, SIGNAL(triggered()), this, SLOT(renameTriggered()));
-
-	menu->addSeparator();
-
-	action = menu->addAction(tr("Remove"));
-	connect(action, SIGNAL(triggered()), this, SLOT(on_qpbRemove_clicked()));
-
-	menu->exec(qlwUserList->mapToGlobal(point));
-	delete menu;
-}
-
-void UserEdit::renameTriggered() {
-	QListWidgetItem *item = qlwUserList->currentItem();
+void UserEdit::on_qaUserRename_triggered() {
+	QTreeWidgetItem *item = qtwUserList->currentItem();
 	if (item) {
-		qlwUserList->editItem(item);
+		qtwUserList->editItem(item, 0);
 	}
 }
 
-UserEditListItem::UserEditListItem(const QString &username, const int userid) : QListWidgetItem(username) {
+UserEditListItem::UserEditListItem(const int userid) : QTreeWidgetItem() {
 	setFlags(flags() | Qt::ItemIsEditable);
-	setData(Qt::UserRole, userid);
+	setData(0, Qt::UserRole, userid);
 }
 
-bool UserEditListItem::operator<(const QListWidgetItem &other) const {
-	// Avoid duplicating the User sorting code for a little more complexity
-	User first, second;
-	first.qsName = text();
-	second.qsName = other.text();
-	return User::lessThan(&first, &second);
+void UserEdit::on_qlSearch_textChanged(QString) {
+	qtwUserList->clearSelection();
+	for (int i=0; i < qtwUserList->topLevelItemCount(); ++i)
+	{
+	const QString name = qtwUserList->topLevelItem(i)->text(0);
+	const QString last_channel = qtwUserList->topLevelItem(i)->text(2);
+	if (!name.contains(qlSearch->text(), Qt::CaseInsensitive) && !last_channel.contains(qlSearch->text(), Qt::CaseInsensitive))
+		qtwUserList->setItemHidden(qtwUserList->topLevelItem(i), true);
+	else
+		qtwUserList->setItemHidden(qtwUserList->topLevelItem(i), false);
+	}
 }

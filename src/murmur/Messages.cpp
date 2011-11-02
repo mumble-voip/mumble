@@ -1413,14 +1413,15 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 
 	if (msg.users_size() == 0) {
 		// Query mode.
-		QMap<int, QString> users = getRegisteredUsers();
-		QMap<int, QString>::const_iterator i;
-		for (i = users.constBegin(); i != users.constEnd(); ++i) {
-			if (i.key() > 0) {
-				::MumbleProto::UserList_User *u = msg.add_users();
-				u->set_user_id(i.key());
-				u->set_name(u8(i.value()));
-			}
+		QList<UserInfo> users = getRegisteredUsersEx();
+		for (int i = 1; i < users.count(); ++i) {
+			::MumbleProto::UserList_User *u = msg.add_users();
+			UserInfo ui = users.at(i);
+			u->set_user_id(ui.user_id);
+			u->set_name(u8(ui.name));
+			if (bRememberChan)
+				u->set_last_channel(ui.last_channel);
+			u->set_last_active(u8(ui.last_active.toString()));
 		}
 		sendMessage(uSource, msg);
 	} else {
