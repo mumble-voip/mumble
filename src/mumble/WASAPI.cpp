@@ -877,7 +877,7 @@ void WASAPIOutput::run() {
 			WAVEFORMATEX *closestFormat = NULL;
 			hr = pAudioClient->IsFormatSupported(AUDCLNT_SHAREMODE_SHARED, pwfx, &closestFormat);
 			if (hr == S_FALSE) {
-				qWarning("WASAPIOutput: Driver says no to 2 channel output. Closest format: %d channels @ %d kHz", pwfx->nChannels, pwfx->nSamplesPerSec);
+				qWarning("WASAPIOutput: Driver says no to 2 channel output. Closest format: %d channels @ %d kHz", closestFormat->nChannels, closestFormat->nSamplesPerSec);
 				CoTaskMemFree(pwfx);
 
 				pwfx = NULL;
