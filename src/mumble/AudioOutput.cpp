@@ -1072,9 +1072,9 @@ bool AudioOutput::positionListener(float *position, float *front, float *top) {
  * respect to the listener. It will also calculate the distance attenuation and the bloom
  * amplification needed later on.
  *
- * \param position this is a vector that gives the location of the audio source in the global frame
+ * \param position a vector that gives the location of the audio source in the global frame
  *
- * \return boolean that will be true when it is a viable source.
+ * \return boolean will be true when it is a viable source.
  */
 bool AudioOutput::locateSource(float *position) {
 	float dir[3] = { position[0] - fPosition[0], position[1] - fPosition[1], position[2] - fPosition[2] };
@@ -1249,7 +1249,6 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		foreach(AudioOutputUser *aop, qlMix) {
 			const float * RESTRICT pfBuffer = aop->pfBuffer;
 			float volumeAdjustment = 1;
-			bool validSource = false;
 
 			// We have at least one priority speaker
 			if (needAdjustment) {
@@ -1288,31 +1287,34 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 				}
 			}
 
-			if (validListener && (fabs(aop->fPos[0]) > 0.0f || fabs(aop->fPos[1]) > 0.0f || fabs(aop->fPos[2]) > 0.0f))
-				validSource = locateSource(aop->fPos);
-
-			if (validSource) {
-				if (! aop->pfVolume) {
-					aop->pfVolume = new float[nchan];
-					for (unsigned int s=0;s<nchan;++s)
-						aop->pfVolume[s] = -1.0;
-				}
-				for (unsigned int s=0;s<nchan;++s) {
-					const float str = mul * calcGain(s) * volumeAdjustment;
-					float * RESTRICT o = output + s;
-					const float old = (aop->pfVolume[s] >= 0.0) ? aop->pfVolume[s] : str;
-					const float inc = (str - old) / static_cast<float>(nsamp);
-					aop->pfVolume[s] = str;
-					if ((old >= 0.00000001f) || (str >= 0.00000001f))
+			if (validListener && (fabs(aop->fPos[0]) > 0.0f || fabs(aop->fPos[1]) > 0.0f || fabs(aop->fPos[2]) > 0.0f)) {
+				if (locateSource(aop->fPos)) {
+					// aop->fPos is a valid source
+					// if pfVolume is uninitialized, allocate for number of channels and initialize values with -1
+					if (! aop->pfVolume) {
+						aop->pfVolume = new float[nchan];
+						for (unsigned int s=0;s<nchan;++s)
+							aop->pfVolume[s] = -1.0;
+					}
+					for (unsigned int s=0;s<nchan;++s) {
+						const float str = mul * calcGain(s) * volumeAdjustment;
+						float * RESTRICT o = output + s;
+						// if pfVolume is unset, use str as old, otherwise the pfVolume value
+						const float old = (aop->pfVolume[s] >= 0.0) ? aop->pfVolume[s] : str;
+						const float inc = (str - old) / static_cast<float>(nsamp);
+						aop->pfVolume[s] = str;
+						if ((old >= 0.00000001f) || (str >= 0.00000001f))
+							for (unsigned int i=0;i<nsamp;++i)
+								o[i*nchan] += pfBuffer[i] * (old + inc*static_cast<float>(i));
+					}
+				} else {
+					// aop->fPos is no valid source
+					for (unsigned int s=0;s<nchan;++s) {
+						const float str = mul * volumeAdjustment;
+						float * RESTRICT o = output + s;
 						for (unsigned int i=0;i<nsamp;++i)
-							o[i*nchan] += pfBuffer[i] * (old + inc*static_cast<float>(i));
-				}
-			} else {
-				for (unsigned int s=0;s<nchan;++s) {
-					const float str = mul * volumeAdjustment;
-					float * RESTRICT o = output + s;
-					for (unsigned int i=0;i<nsamp;++i)
-						o[i*nchan] += pfBuffer[i] * str;
+							o[i*nchan] += pfBuffer[i] * str;
+					}
 				}
 			}
 		}
