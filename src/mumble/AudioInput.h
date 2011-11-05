@@ -37,6 +37,7 @@
 #include "Message.h"
 
 class AudioInput;
+struct OpusEncoder;
 typedef boost::shared_ptr<AudioInput> AudioInputPtr;
 
 class AudioInputRegistrar {
@@ -83,6 +84,9 @@ class AudioInput : public QThread {
 		inMixerFunc imfMic, imfEcho;
 		inMixerFunc chooseMixer(const unsigned int nchan, SampleFormat sf);
 		void resetAudioProcessor();
+
+		OpusEncoder *opusState;
+		int encodeOpusFrame(short *source, unsigned char *buffer);
 		int encodeSpeexFrame(short *pSource, unsigned char *buffer);
 		int encodeCELTFrame(short *pSource, unsigned char *buffer);
 	protected:

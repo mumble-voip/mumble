@@ -36,10 +36,10 @@
 #include "mumble_pch.hpp"
 #include "Timer.h"
 #include "Message.h"
-#include "PacketDataStream.h"
 
 class Connection;
 class Message;
+class PacketDataStream;
 class VoiceRecorder;
 
 class ServerHandlerMessageEvent : public QEvent {

@@ -65,6 +65,7 @@
 
 class AudioOutput;
 class ClientUser;
+struct OpusDecoder;
 
 typedef boost::shared_ptr<AudioOutput> AudioOutputPtr;
 
@@ -133,6 +134,8 @@ class AudioOutputSpeech : public AudioOutputUser {
 
 		CELTCodec *cCodec;
 		CELTDecoder *cdDecoder;
+
+		OpusDecoder *opusState;
 
 		SpeexBits sbBits;
 		void *dsSpeex;

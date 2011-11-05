@@ -42,6 +42,7 @@
 #include "DBus.h"
 #include "Meta.h"
 #include "PacketDataStream.h"
+#include "OpusUtilities.h"
 #include "ServerUser.h"
 
 #ifdef USE_BONJOUR
@@ -909,9 +910,8 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 			pdi.skip(counter & 0x7f);
 		} while ((counter & 0x80) && pdi.isValid());
 	} else {
-		unsigned int voicelen;
-		pds >> voicelen;
-		pds.skip(voicelen);
+		int size = OpusUtilities::ParseToc(&pdi);
+		pdi.skip(size);
 	}
 
 	poslen = pdi.left();

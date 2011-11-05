@@ -189,6 +189,7 @@ void ServerHandler::udpReady() {
 			case MessageHandler::UDPVoiceCELTAlpha:
 			case MessageHandler::UDPVoiceCELTBeta:
 			case MessageHandler::UDPVoiceSpeex:
+			case MessageHandler::UDPVoiceOpus:
 				handleVoicePacket(msgFlags, pds, msgType);
 				break;
 			default:
