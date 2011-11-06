@@ -1,8 +1,6 @@
 /* Copyright (C) 2010-2011, Snares <snares@users.sourceforge.net>
    Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
-
-   BF3 mumble support taken from BFBC2 plugin
-   Ryan Austin <ryan@gameforcecenters.com>
+   Copyright (C) 2011, Ryan Austin <ryan@gameforcecenters.com>
 
    All rights reserved.
 
@@ -33,8 +31,6 @@
 */
 
 #include "../mumble_plugin_win32.h"
-
-bool is_steam = false;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
 	for (int i=0;i<3;i++)
