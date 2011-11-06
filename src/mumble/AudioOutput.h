@@ -59,6 +59,8 @@
 #define SPEAKER_TOP_BACK_RIGHT          0x20000
 #endif
 
+#include <boost/optional.hpp>
+
 #include "Audio.h"
 #include "Settings.h"
 #include "Message.h"
@@ -207,6 +209,13 @@ class AudioOutputSample : public AudioOutputUser {
 		~AudioOutputSample();
 };
 
+// Attributes related to the audio source
+struct AudioSourceData {
+	float fDirection[3];
+	float fAttenuation;
+	float fBloom;
+};
+
 class AudioOutput : public QThread {
 	private:
 		Q_OBJECT
@@ -224,10 +233,6 @@ class AudioOutput : public QThread {
 		float fRight[3];
 		float fTop[3];
 		float fFront[3];
-		// Attributes related to the audio source
-		float fDirection[3];
-		float fAttenuation;
-		float fBloom;
 	protected:
 		enum { SampleShort, SampleFloat } eSampleFormat;
 		volatile bool bRunning;
@@ -242,7 +247,7 @@ class AudioOutput : public QThread {
 		void setSpeakerPositions(const unsigned int *, bool);
 		void initializeMixer(const unsigned int *chanmasks, bool forceheadphone = false);
 		bool positionListener(float *, float *, float *);
-		bool locateSource(float *);
+		boost::optional<AudioSourceData> locateSource(const float * const position);
 		bool mix(void *output, unsigned int nsamp);
 	public:
 		void wipe();
@@ -256,7 +261,7 @@ class AudioOutput : public QThread {
 		void run() = 0;
 		virtual bool isAlive() const;
 		const float *getSpeakerPos(unsigned int &nspeakers);
-		float calcGain(unsigned int s);
+		float calcGain(const unsigned int & chanIndex, const AudioSourceData & sourceData);
 		unsigned int getMixerFreq() const;
 };
 
