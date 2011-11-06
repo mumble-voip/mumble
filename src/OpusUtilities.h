@@ -28,7 +28,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef OPUS_UTILITIES_Hi
+#ifndef OPUS_UTILITIES_H
 #define OPUS_UTILITIES_H
 
 #include "murmur_pch.h"
@@ -58,6 +58,8 @@ class OpusUtilities {
 	}
 
 	static int ParseToc(PacketDataStream *pds) {
+		// The last 2 bits contain the number of frames in the packet as described
+		// in the Opus RFC.
 		switch (pds->next() & 0x3) {
 		case 0:
 			return ParseSize(pds);
