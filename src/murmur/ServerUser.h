@@ -103,6 +103,7 @@ class ServerUser : public Connection, public User {
 		bool bUdp;
 
 		QList<int> qlCodecs;
+		bool bOpus;
 
 		QStringList qslAccessTokens;
 
