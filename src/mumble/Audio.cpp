@@ -316,7 +316,7 @@ LoopUser::LoopUser() {
 	uiSession = 0;
 	iId = 0;
 	bMute = bDeaf = bSuppress = false;
-	bLocalMute = bSelfDeaf = false;
+	bLocalIgnore = bLocalMute = bSelfDeaf = false;
 	tsState = Settings::Passive;
 	cChannel = NULL;
 	qtTicker.start();
