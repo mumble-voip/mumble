@@ -167,6 +167,11 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 		}
 		qlCELT->setText(qsl.join(tr(", ")));
 	}
+	if (msg.has_opus()) {
+		qlOpus->setText(msg.opus() ? tr("Supported") : tr("Not Supported"));
+	} else {
+		qlOpus->setText(tr("Not Reported"));
+	}
 	if (showcon)
 		qgbConnection->setVisible(true);
 

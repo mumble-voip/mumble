@@ -2283,6 +2283,7 @@ void MainWindow::serverConnected() {
 	g.pPermissions = ChanACL::None;
 	g.iCodecAlpha = 0x8000000b;
 	g.bPreferAlpha = true;
+	g.bOpus = true;
 	g.iCodecBeta = 0;
 
 	g.l->clearIgnore();

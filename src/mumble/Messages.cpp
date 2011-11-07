@@ -728,6 +728,8 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 	int alpha = msg.has_alpha() ? msg.alpha() : -1;
 	int beta = msg.has_beta() ? msg.beta() : -1;
 	bool pref = msg.prefer_alpha();
+	
+	g.bOpus = msg.opus();
 
 	// Workaround for broken 1.2.2 servers
 	if (g.sh && g.sh->uiVersion == 0x010202 && alpha != -1 && alpha == beta) {
@@ -748,6 +750,7 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 			pref = ! pref;
 	}
 	g.bPreferAlpha = pref;
+	
 
 	int willuse = pref ? g.iCodecAlpha : g.iCodecBeta;
 

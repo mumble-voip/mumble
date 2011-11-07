@@ -90,6 +90,7 @@ public:
 	QMap<int, CELTCodec *> qmCodecs;
 	int iCodecAlpha, iCodecBeta;
 	bool bPreferAlpha;
+	bool bOpus;
 	bool bAttenuateOthers;
 	bool bAllowHTML;
 	unsigned int uiMessageLength;

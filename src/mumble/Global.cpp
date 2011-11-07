@@ -79,6 +79,7 @@ Global::Global() {
 	iCodecAlpha = 0;
 	iCodecBeta = 0;
 	bPreferAlpha = true;
+	bOpus = true;
 
 	bAttenuateOthers = false;
 
