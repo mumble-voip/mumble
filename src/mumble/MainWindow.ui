@@ -316,6 +316,20 @@
     <string>Deafen or undeafen user on server. Deafening a user will also mute them.</string>
    </property>
   </action>
+  <action name="qaUserLocalIgnore">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Ignore Messages</string>
+   </property>
+   <property name="toolTip">
+    <string>Locally ignore user's text chat messages.</string>
+   </property>
+   <property name="whatsThis">
+    <string>Silently drops all text messages from the user.</string>
+   </property>
+  </action>
   <action name="qaUserLocalMute">
    <property name="checkable">
     <bool>true</bool>
