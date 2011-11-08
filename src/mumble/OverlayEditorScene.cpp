@@ -42,10 +42,6 @@
 #include "MainWindow.h"
 #include "GlobalShortcut.h"
 
-#if QT_VERSION < 0x040600
-#define toReal toDouble
-#endif
-
 OverlayEditorScene::OverlayEditorScene(const OverlaySettings &srcos, QObject *p) : QGraphicsScene(p), os(srcos) {
 	tsColor = Settings::Talking;
 	uiZoom = 2;
@@ -787,9 +783,7 @@ void OverlayEditorScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 			addItem(qgpw);
 
 			qgpw->setZValue(3.0f);
-#if QT_VERSION >= 0x040600
 			qgpw->setPanelModality(QGraphicsItem::PanelModal);
-#endif
 			qgpw->setPos(- qgpw->boundingRect().width() / 2.0f, - qgpw->boundingRect().height() / 2.0f);
 			qgpw->show();
 

@@ -161,12 +161,6 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		QVariant data(int column, int role) const;
 
 		void hideCheck();
-
-#if QT_VERSION < 0x040500
-		void emitDataChanged();
-	private:
-		bool m_emitDataChanged;
-#endif
 };
 
 class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {

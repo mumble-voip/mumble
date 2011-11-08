@@ -236,9 +236,7 @@ outer:
 
 					qgs.addItem(qgpw);
 					qgpw->show();
-#if QT_VERSION >= 0x040600
 					qgpw->setActive(true);
-#endif
 					goto outer;
 				}
 			}

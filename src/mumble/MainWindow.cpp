@@ -184,13 +184,8 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	qwPTTButtonWidget = NULL;
 
-#if QT_VERSION >= 0x040600
 	cuContextUser = QWeakPointer<ClientUser>();
 	cContextChannel = QWeakPointer<Channel>();
-#else
-	cuContextUser = QPointer<ClientUser>();
-	cContextChannel = QPointer<Channel>();
-#endif
 
 	qtReconnect = new QTimer(this);
 	qtReconnect->setInterval(10000);
@@ -546,11 +541,7 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, b
 				qmUser->exec(pos_, NULL);
 			}
 		}
-#if QT_VERSION >= 0x040600
 		cuContextUser.clear();
-#else
-		cuContextUser = NULL;
-#endif
 	} else if (url.scheme() == QString::fromLatin1("channelid")) {
 		bool ok;
 		QByteArray qbaServerDigest = QByteArray::fromBase64(url.path().remove(0, 1).toLatin1());
@@ -566,11 +557,7 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, b
 				qmChannel->exec(pos_, NULL);
 			}
 		}
-#if QT_VERSION >= 0x040600
 		cContextChannel.clear();
-#else
-		cContextChannel = NULL;
-#endif
 	} else {
 		return false;
 	}
@@ -587,29 +574,13 @@ void MainWindow::on_qtvUsers_customContextMenuRequested(const QPoint &mpos) {
 
 	qpContextPosition = mpos;
 	if (p) {
-#if QT_VERSION >= 0x040600
 		cuContextUser.clear();
-#else
-		cuContextUser = NULL;
-#endif
 		qmUser->exec(qtvUsers->mapToGlobal(mpos), qaUserMute);
-#if QT_VERSION >= 0x040600
 		cuContextUser.clear();
-#else
-		cuContextUser = NULL;
-#endif
 	} else {
-#if QT_VERSION >= 0x040600
 		cContextChannel.clear();
-#else
-		cContextChannel = NULL;
-#endif
 		qmChannel->exec(qtvUsers->mapToGlobal(mpos), NULL);
-#if QT_VERSION >= 0x040600
 		cContextChannel.clear();
-#else
-		cContextChannel = NULL;
-#endif
 	}
 	qpContextPosition = QPoint();
 }
@@ -623,12 +594,8 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 			return;
 	}
 
-#if QT_VERSION >= 0x040400
 	QPoint contentPosition = QPoint(QApplication::isRightToLeft() ? (qteLog->horizontalScrollBar()->maximum() - qteLog->horizontalScrollBar()->value()) : qteLog->horizontalScrollBar()->value(), qteLog->verticalScrollBar()->value());
 	QMenu *menu = qteLog->createStandardContextMenu(mpos + contentPosition);
-#else
-	QMenu *menu = qteLog->createStandardContextMenu();
-#endif
 	menu->addSeparator();
 	menu->addAction(tr("Clear"), qteLog, SLOT(clear(void)));
 	menu->exec(qteLog->mapToGlobal(mpos));
@@ -667,9 +634,7 @@ void MainWindow::openUrl(const QUrl &url) {
 		f.close();
 
 		QSettings *qs = new QSettings(f.fileName(), QSettings::IniFormat);
-#if QT_VERSION >= 0x040500
 		qs->setIniCodec("UTF-8");
-#endif
 		if (qs->status() != QSettings::NoError) {
 			g.l->log(Log::Warning, tr("File is not a configuration file."));
 		} else {
@@ -1461,11 +1426,7 @@ void MainWindow::openTextMessageDialog(ClientUser *p) {
 void MainWindow::on_qaUserCommentView_triggered() {
 	ClientUser *p = getContextMenuUser();
 	// This has to be done here because UserModel could've set it.
-#if QT_VERSION >= 0x040600
 	cuContextUser.clear();
-#else
-	cuContextUser = NULL;
-#endif
 
 	if (!p)
 		return;
