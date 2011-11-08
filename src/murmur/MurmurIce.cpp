@@ -28,19 +28,22 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "murmur_pch.h"
+
+#include "MurmurIce.h"
 
 #include <Ice/Ice.h>
 #include <Ice/SliceChecksums.h>
 #include <IceUtil/IceUtil.h>
+
+#include "Channel.h"
+#include "Group.h"
 #include "Meta.h"
+#include "MurmurI.h"
 #include "Server.h"
 #include "ServerUser.h"
 #include "ServerDB.h"
 #include "User.h"
-#include "Channel.h"
-#include "Group.h"
-#include "MurmurIce.h"
-#include "MurmurI.h"
 
 using namespace std;
 using namespace Murmur;

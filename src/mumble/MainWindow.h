@@ -29,10 +29,19 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _MAINWINDOW_H
-#define _MAINWINDOW_H
+#ifndef MAINWINDOW_H_
+#define MAINWINDOW_H_
 
-#include "mumble_pch.hpp"
+#include <QtGui/QMainWindow>
+#include <QtGui/QSystemTrayIcon>
+#include <QtNetwork/QAbstractSocket>
+
+#include "CustomElements.h"
+#include "Message.h"
+#include "Mumble.pb.h"
+#include "Usage.h"
+
+#include "ui_MainWindow.h"
 
 #define MB_QEVENT (QEvent::User + 939)
 #define OU_QEVENT (QEvent::User + 940)
@@ -51,11 +60,6 @@ class VoiceRecorderDialog;
 class PTTButtonWidget;
 
 struct ShortcutTarget;
-
-#include "Message.h"
-#include "Usage.h"
-#include "ui_MainWindow.h"
-#include "CustomElements.h"
 
 class MessageBoxEvent : public QEvent {
 	public:

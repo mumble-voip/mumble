@@ -29,13 +29,16 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "Log.h"
-#include "TextToSpeech.h"
-#include "MainWindow.h"
+
 #include "Channel.h"
-#include "ServerHandler.h"
-#include "NetworkConfig.h"
 #include "Global.h"
+#include "MainWindow.h"
+#include "NetworkConfig.h"
+#include "ServerHandler.h"
+#include "TextToSpeech.h"
 
 
 #ifdef Q_OS_MAC

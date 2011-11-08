@@ -29,18 +29,21 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "UserModel.h"
-#include "MainWindow.h"
-#include "Message.h"
-#include "ServerHandler.h"
+
 #include "Channel.h"
-#include "User.h"
+#include "Database.h"
 #include "Global.h"
-#include "Overlay.h"
 #include "LCD.h"
 #include "Log.h"
-#include "Database.h"
+#include "MainWindow.h"
+#include "Message.h"
+#include "Overlay.h"
+#include "ServerHandler.h"
 #include "Usage.h"
+#include "User.h"
 
 QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;
 QHash <ClientUser *, ModelItem *> ModelItem::c_qhUsers;

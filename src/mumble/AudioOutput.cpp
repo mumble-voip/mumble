@@ -29,7 +29,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "AudioOutput.h"
+
 #include "AudioInput.h"
 #include "User.h"
 #include "Global.h"

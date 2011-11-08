@@ -28,10 +28,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _TEXTTOSPEECH_H
-#define _TEXTTOSPEECH_H
+#ifndef TEXTTOSPEECH_H_
+#define TEXTTOSPEECH_H_
 
-#include "mumble_pch.hpp"
+#include <QtCore/QObject>
 
 class TextToSpeechPrivate;
 

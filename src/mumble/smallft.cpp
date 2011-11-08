@@ -39,6 +39,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ********************************************************************/
 
 #include "mumble_pch.hpp"
+
 #include "smallft.h"
 
 static void drfti1(int n, float *wa, int *ifac) {

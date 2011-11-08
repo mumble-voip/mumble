@@ -29,12 +29,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _VOICERECORDERDIALOG_H
-#define _VOICERECORDERDIALOG_H
+#ifndef VOICERECORDERDIALOG_H_
+#define VOICERECORDERDIALOG_H_
 
 #pragma once
-
-#include "mumble_pch.hpp"
 
 #include "ui_VoiceRecorderDialog.h"
 
@@ -62,4 +60,4 @@ class VoiceRecorderDialog : public QDialog, private Ui::VoiceRecorderDialog {
 		void reset(bool resettimer=true);
 };
 
-#endif // _VOICERECORDERDIALOG_H
+#endif // VOICERECORDERDIALOG_H_

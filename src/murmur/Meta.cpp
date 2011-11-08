@@ -28,11 +28,14 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "murmur_pch.h"
+
+#include "Meta.h"
+
+#include "DBus.h"
+#include "Net.h"
 #include "ServerDB.h"
 #include "Server.h"
-#include "Meta.h"
-#include "Net.h"
-#include "DBus.h"
 #include "OSInfo.h"
 #include "Version.h"
 

@@ -28,8 +28,16 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _AUDIOINPUT_H
-#define _AUDIOINPUT_H
+#ifndef AUDIOINPUT_H_
+#define AUDIOINPUT_H_
+
+#include <boost/shared_ptr.hpp>
+#include <speex/speex.h>
+#include <speex/speex_echo.h>
+#include <speex/speex_preprocess.h>
+#include <speex/speex_resampler.h>
+#include <QtCore/QObject>
+#include <QtCore/QThread>
 
 #include "Audio.h"
 #include "Settings.h"

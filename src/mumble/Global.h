@@ -29,13 +29,16 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _GLOBAL_H
-#define _GLOBAL_H
+#ifndef GLOBAL_H_
+#define GLOBAL_H_
 
+#include <boost/shared_ptr.hpp>
+#include <QtCore/QDir>
+
+#include "ACL.h"
 #include "Settings.h"
 #include "Timer.h"
 #include "Version.h"
-#include "ACL.h"
 
 // Global helper class to spread variables around across threads.
 
@@ -52,6 +55,8 @@ class LCD;
 class BonjourClient;
 class OverlayClient;
 class CELTCodec;
+
+class QNetworkAccessManager;
 
 struct Global {
 private:

@@ -31,18 +31,19 @@
 
 #include "murmur_pch.h"
 
+#include "Server.h"
+
+#include "ACL.h"
+#include "Connection.h"
+#include "DBus.h"
+#include "Group.h"
 #include "User.h"
 #include "Channel.h"
-#include "ACL.h"
-#include "Group.h"
 #include "Message.h"
-#include "ServerDB.h"
-#include "Connection.h"
-#include "Server.h"
-#include "DBus.h"
 #include "Meta.h"
-#include "PacketDataStream.h"
 #include "OpusUtilities.h"
+#include "PacketDataStream.h"
+#include "ServerDB.h"
 #include "ServerUser.h"
 
 #ifdef USE_BONJOUR

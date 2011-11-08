@@ -28,13 +28,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CONNECTDIALOG_H
-#define _CONNECTDIALOG_H
+#ifndef CONNECTDIALOG_H_
+#define CONNECTDIALOG_H_
 
-#include "mumble_pch.hpp"
-#include "Timer.h"
-#include "Net.h"
 #include "BonjourRecord.h"
+#include "Net.h"
+#include "Timer.h"
 
 struct FavoriteServer;
 

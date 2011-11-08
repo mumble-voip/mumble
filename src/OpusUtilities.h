@@ -28,10 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef OPUS_UTILITIES_H
-#define OPUS_UTILITIES_H
-
-#include "murmur_pch.h"
+#ifndef OPUS_UTILITIES_H_
+#define OPUS_UTILITIES_H_
 
 #include "PacketDataStream.h"
 
@@ -94,5 +92,5 @@ class OpusUtilities {
 	}
 };
 
-#endif  // OPUS_UTILITIES_H
+#endif  // OPUS_UTILITIES_H_
 

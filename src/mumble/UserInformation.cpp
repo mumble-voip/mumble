@@ -28,12 +28,15 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "UserInformation.h"
+
+#include "Audio.h"
+#include "Global.h"
 #include "Net.h"
 #include "ServerHandler.h"
 #include "ViewCert.h"
-#include "Audio.h"
-#include "Global.h"
 
 static QString decode_utf8_qssl_string(const QString &input) {
 	QString i = input;

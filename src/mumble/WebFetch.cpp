@@ -28,9 +28,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "WebFetch.h"
-#include "NetworkConfig.h"
+
 #include "Global.h"
+#include "NetworkConfig.h"
 
 WebFetch::WebFetch(QUrl url, QObject *obj, const char *slot) : QObject(), qoObject(obj), cpSlot(slot) {
 	url.setScheme(QLatin1String("http"));

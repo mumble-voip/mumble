@@ -1,7 +1,6 @@
-#ifndef PTTBUTTONWIDGET_H
-#define PTTBUTTONWIDGET_H
+#ifndef PTTBUTTONWIDGET_H_
+#define PTTBUTTONWIDGET_H_
 
-#include "mumble_pch.hpp"
 #include "ui_PTTButtonWidget.h"
 
 class PTTButtonWidget : public QWidget, public Ui::qwPTTButtonWidget {
@@ -18,4 +17,4 @@ class PTTButtonWidget : public QWidget, public Ui::qwPTTButtonWidget {
 		void triggered(bool checked, QVariant);
 };
 
-#endif // PTTBUTTONWIDGET_H
+#endif  // PTTBUTTONWIDGET_H_

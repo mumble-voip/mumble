@@ -28,13 +28,16 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _BANEDITOR_H
-#define _BANEDITOR_H
+#ifndef BANEDITOR_H_
+#define BANEDITOR_H_
 
-#include "mumble_pch.hpp"
-#include "ui_BanEditor.h"
-#include "Message.h"
 #include "Net.h"
+
+#include "ui_BanEditor.h"
+
+namespace MumbleProto {
+class BanList;
+}
 
 class BanEditor : public QDialog, public Ui::BanEditor {
 	private:

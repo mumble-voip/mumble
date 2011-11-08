@@ -28,10 +28,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _TRAY_H
-#define _TRAY_H
+#ifndef TRAY_H_
+#define TRAY_H_
 
-#include "murmur_pch.h"
+#include <QtCore/QObject>
 
 class LogEmitter;
 

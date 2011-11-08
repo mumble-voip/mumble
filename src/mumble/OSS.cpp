@@ -28,14 +28,18 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "OSS.h"
-#include "User.h"
-#include "Global.h"
-#include "MainWindow.h"
+
 #include <sys/soundcard.h>
 #include <fcntl.h>
 #include <errno.h>
 #include <sys/ioctl.h>
+
+#include "User.h"
+#include "Global.h"
+#include "MainWindow.h"
 
 #define NBLOCKS 8
 

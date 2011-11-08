@@ -28,18 +28,21 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "ConnectDialog.h"
-#include "Global.h"
-#include "ServerHandler.h"
-#include "Channel.h"
-#include "Database.h"
-#include "WebFetch.h"
 
 #ifdef USE_BONJOUR
 #include "BonjourClient.h"
 #include "BonjourServiceBrowser.h"
 #include "BonjourServiceResolver.h"
 #endif
+
+#include "Channel.h"
+#include "Database.h"
+#include "Global.h"
+#include "ServerHandler.h"
+#include "WebFetch.h"
 
 QMap<QString, QIcon> ServerItem::qmIcons;
 QList<PublicInfo> ConnectDialog::qlPublicServers;

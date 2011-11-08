@@ -28,10 +28,17 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _SOCKETRPC_H
-#define _SOCKETRPC_H
+#ifndef SOCKETRPC_H_
+#define SOCKETRPC_H_
 
-#include "mumble_pch.hpp"
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QVariant>
+#include <QtCore/QXmlStreamReader>
+#include <QtNetwork/QLocalSocket>
+
+class QBuffer;
+class QLocalServer;
 
 class SocketRPCClient : public QObject {
 	private:

@@ -28,8 +28,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CLIENTUSER_H
-#define _CLIENTUSER_H
+#ifndef CLIENTUSER_H_
+#define CLIENTUSER_H_
+
+#include <QtCore/QReadWriteLock>
 
 #include "User.h"
 #include "Timer.h"

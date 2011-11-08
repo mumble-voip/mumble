@@ -28,20 +28,23 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "ServerHandler.h"
-#include "MainWindow.h"
+
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "Cert.h"
-#include "Message.h"
-#include "User.h"
 #include "Connection.h"
-#include "Global.h"
 #include "Database.h"
-#include "PacketDataStream.h"
+#include "Global.h"
+#include "MainWindow.h"
+#include "Message.h"
 #include "NetworkConfig.h"
 #include "OSInfo.h"
+#include "PacketDataStream.h"
 #include "SSL.h"
+#include "User.h"
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsigned int mtype, bool flush) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
 	qbaMsg = msg;

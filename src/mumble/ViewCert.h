@@ -28,10 +28,15 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _VIEWCERT_H
-#define _VIEWCERT_H
+#ifndef VIEWCERT_H_
+#define VIEWCERT_H_
 
-#include "mumble_pch.hpp"
+#include <QtCore/QObject>
+#include <QtCore/QList>
+#include <QtGui/QDialog>
+#include <QtNetwork/QSslCertificate>
+
+class QListWidget;
 
 class ViewCert : public QDialog {
 	private:

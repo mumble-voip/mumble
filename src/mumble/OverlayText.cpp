@@ -28,7 +28,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "OverlayText.h"
+
 #include "Global.h"
 
 BasepointPixmap::BasepointPixmap() :

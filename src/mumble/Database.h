@@ -28,10 +28,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _DATABASE_H
-#define _DATABASE_H
+#ifndef DATABASE_H_
+#define DATABASE_H_
 
-#include "mumble_pch.hpp"
 #include "Settings.h"
 
 struct FavoriteServer {

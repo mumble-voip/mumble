@@ -28,11 +28,15 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "TextToSpeech.h"
-#include "Global.h"
+
 #ifdef USE_SPEECHD
 #include <libspeechd.h>
 #endif
+
+#include "Global.h"
 
 class TextToSpeechPrivate {
 #ifdef USE_SPEECHD

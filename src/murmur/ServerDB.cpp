@@ -28,16 +28,19 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "murmur_pch.h"
+
 #include "ServerDB.h"
-#include "User.h"
-#include "Channel.h"
-#include "Group.h"
+
 #include "ACL.h"
-#include "Server.h"
-#include "ServerUser.h"
-#include "Meta.h"
+#include "Channel.h"
 #include "Connection.h"
 #include "DBus.h"
+#include "Group.h"
+#include "Meta.h"
+#include "Server.h"
+#include "ServerUser.h"
+#include "User.h"
 
 #define SQLDO(x) ServerDB::exec(query, QLatin1String(x), true)
 #define SQLMAY(x) ServerDB::exec(query, QLatin1String(x), false, false)

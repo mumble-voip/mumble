@@ -29,10 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _VERSION_H
-#define _VERSION_H
-
-#include "murmur_pch.h"
+#ifndef VERSION_H_
+#define VERSION_H_
 
 #define MUMXTEXT(X) #X
 #define MUMTEXT(X) MUMXTEXT(X)

@@ -29,8 +29,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _NETWORKCONFIG_H
-#define _NETWORKCONFIG_H
+#ifndef NETWORKCONFIG_H_
+#define NETWORKCONFIG_H_
+
+class QNetworkReply;
+class QNetworkRequest;
+class QUrl;
 
 #include "ConfigDialog.h"
 #include "ui_NetworkConfig.h"

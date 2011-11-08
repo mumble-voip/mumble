@@ -29,8 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _MUMBLE_PAAUDIO_H
-#define _MUMBLE_PAAUDIO_H
+#ifndef MUMBLE_PAAUDIO_H_
+#define MUMBLE_PAAUDIO_H_
 
 #include "AudioInput.h"
 #include "AudioOutput.h"
