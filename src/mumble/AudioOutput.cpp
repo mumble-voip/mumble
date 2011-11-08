@@ -1259,6 +1259,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		foreach(AudioOutputUser *aop, qlMix) {
 			const float * RESTRICT pfBuffer = aop->pfBuffer;
 			float prioSpeakerVolAdjFactor = 1.0; // holds volume adjustment in case of priority speaker
+			boost::optional<AudioSourceData> srcData = NULL;
 
 			// If we have at least one priority speaker
 			if (needAdjustment) {
@@ -1297,37 +1298,37 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 				}
 			}
 
-			if (validListener && (fabs(aop->fPos[0]) > 0.0f || fabs(aop->fPos[1]) > 0.0f || fabs(aop->fPos[2]) > 0.0f)) {
-				boost::optional<AudioSourceData> srcData = locateSource(aop->fPos);
-				if (srcData) {
-					// aop->fPos is a viable source for pos audio
-					// if pfVolume is uninitialized, allocate for number of channels and initialize values with -1
-					if (! aop->pfVolume) {
-						aop->pfVolume = new float[nchan];
-						for (unsigned int s=0;s<nchan;++s)
-							aop->pfVolume[s] = -1.0;
-					}
-					for (unsigned int chanIndex=0; chanIndex < nchan; ++chanIndex) {
-						const float volumeAdjFactor = defaultVolume * calcGain(chanIndex, *srcData) * prioSpeakerVolAdjFactor;
-						float * RESTRICT o = output + chanIndex;
-						// if pfVolume is unset, use volumeAdjFactor as old, otherwise the pfVolume value
-						const float old = (aop->pfVolume[chanIndex] >= 0.0) ? aop->pfVolume[chanIndex] : volumeAdjFactor;
-						const float inc = (volumeAdjFactor - old) / static_cast<float>(nsamp);
-						aop->pfVolume[chanIndex] = volumeAdjFactor;
-						// pass data to output buffer
-						if ((old >= 0.00000001f) || (volumeAdjFactor >= 0.00000001f))
-							for (unsigned int i=0;i<nsamp;++i)
-								o[i*nchan] += pfBuffer[i] * (old + inc * static_cast<float>(i));
-					}
-				} else {
-					// aop->fPos is no viable source for pos audio
-					// For each channel adjust buffered data (from output user) with volume factor and set in output buffer
-					for (unsigned int s=0;s<nchan;++s) {
-						const float volumeAdjFactor = defaultVolume * prioSpeakerVolAdjFactor;
-						float * RESTRICT o = output + s;
+			if (validListener && (fabs(aop->fPos[0]) > 0.0f || fabs(aop->fPos[1]) > 0.0f || fabs(aop->fPos[2]) > 0.0f))
+				srcData = locateSource(aop->fPos);
+
+			if (srcData) {
+				// aop->fPos is a viable source for pos audio
+				// if pfVolume is uninitialized, allocate for number of channels and initialize values with -1
+				if (! aop->pfVolume) {
+					aop->pfVolume = new float[nchan];
+					for (unsigned int s=0;s<nchan;++s)
+						aop->pfVolume[s] = -1.0;
+				}
+				for (unsigned int chanIndex=0; chanIndex < nchan; ++chanIndex) {
+					const float volumeAdjFactor = defaultVolume * calcGain(chanIndex, *srcData) * prioSpeakerVolAdjFactor;
+					float * RESTRICT o = output + chanIndex;
+					// if pfVolume is unset, use volumeAdjFactor as old, otherwise the pfVolume value
+					const float old = (aop->pfVolume[chanIndex] >= 0.0) ? aop->pfVolume[chanIndex] : volumeAdjFactor;
+					const float inc = (volumeAdjFactor - old) / static_cast<float>(nsamp);
+					aop->pfVolume[chanIndex] = volumeAdjFactor;
+					// pass data to output buffer
+					if ((old >= 0.00000001f) || (volumeAdjFactor >= 0.00000001f))
 						for (unsigned int i=0;i<nsamp;++i)
-							o[i*nchan] += pfBuffer[i] * volumeAdjFactor;
-					}
+							o[i*nchan] += pfBuffer[i] * (old + inc * static_cast<float>(i));
+				}
+			} else {
+				// Just plain old 1D audio
+				// For each channel adjust buffered data (from output user) with volume factor and set in output buffer
+				for (unsigned int s=0;s<nchan;++s) {
+					const float volumeAdjFactor = defaultVolume * prioSpeakerVolAdjFactor;
+					float * RESTRICT o = output + s;
+					for (unsigned int i=0;i<nsamp;++i)
+						o[i*nchan] += pfBuffer[i] * volumeAdjFactor;
 				}
 			}
 		}
