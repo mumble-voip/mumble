@@ -184,9 +184,13 @@ src/repacketizer.c
 SOURCES *= \
 src/mumble_opus.c
 
-debug:CONFIG += console
-debug:DESTDIR = ../debug
+CONFIG(debug, debug|release) {
+	CONFIG += console
+	DESTDIR = ../debug
+}
 
-release:DESTDIR	= ../release
+CONFIG(release, debug|release) {
+	DESTDIR = ../release
+}
 
 include(../symbols.pri)

@@ -4,32 +4,11 @@
 /* Define if building universal (internal helper macro) */
 /* #undef AC_APPLE_UNIVERSAL_BUILD */
 
-/* This is a build of CELT */
-#define CELT_BUILD /**/
-
-/* Version extra */
-#define CELT_EXTRA_VERSION ""
-
-/* Version major */
-#define CELT_MAJOR_VERSION 0
-
-/* Version micro */
-#define CELT_MICRO_VERSION 0
-
-/* Version minor */
-#define CELT_MINOR_VERSION 8
-
-/* Complete version string */
-#define CELT_VERSION "0.9.0"
-
-/* Compile as fixed-point */
-/* #undef DOUBLE_PRECISION */
+/* Custom modes */
+/* #undef CUSTOM_MODES */
 
 /* Assertions */
 /* #undef ENABLE_ASSERTIONS */
-
-/* Postfilter */
-/* #undef ENABLE_POSTFILTER */
 
 /* Debug fixed-point implementation */
 /* #undef FIXED_DEBUG */
@@ -43,6 +22,9 @@
 /* Float approximations */
 /* #undef FLOAT_APPROX */
 
+/* Fuzzing */
+/* #undef FUZZING */
+
 /* Define to 1 if you have the <alloca.h> header file. */
 #define HAVE_ALLOCA_H 1
 
@@ -52,22 +34,16 @@
 /* Define to 1 if you have the <getopt.h> header file. */
 #define HAVE_GETOPT_H 1
 
-/* Define to 1 if you have the `getopt_long' function. */
-#define HAVE_GETOPT_LONG 1
-
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
 
 /* Define to 1 if you have the `m' library (-lm). */
 #define HAVE_LIBM 1
 
-/* Define to 1 if you have the `winmm' library (-lwinmm). */
-/* #undef HAVE_LIBWINMM */
-
-/* Define if you have C99's lrint function. */
+/* Define to 1 if you have the `lrint' function. */
 #define HAVE_LRINT 1
 
-/* Define if you have C99's lrintf function. */
+/* Define to 1 if you have the `lrintf' function. */
 #define HAVE_LRINTF 1
 
 /* Define to 1 if you have the <memory.h> header file. */
@@ -85,12 +61,6 @@
 /* Define to 1 if you have the <string.h> header file. */
 #define HAVE_STRING_H 1
 
-/* Define to 1 if you have the <sys/audioio.h> header file. */
-/* #undef HAVE_SYS_AUDIOIO_H */
-
-/* Define to 1 if you have the <sys/soundcard.h> header file. */
-#define HAVE_SYS_SOUNDCARD_H 1
-
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #define HAVE_SYS_STAT_H 1
 
@@ -100,12 +70,33 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #define HAVE_UNISTD_H 1
 
+/* Define to 1 if you have the `__malloc_hook' function. */
+#define HAVE___MALLOC_HOOK 1
+
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */
 #define LT_OBJDIR ".libs/"
 
-/* Compile as fixed-point */
-/* #undef MIXED_PRECISION */
+/* Define to 1 if your C compiler doesn't accept -c and -o together. */
+/* #undef NO_MINUS_C_MINUS_O */
+
+/* We're part of Opus */
+#define OPUS_BUILD /**/
+
+/* Version extra */
+#define OPUS_EXTRA_VERSION ""
+
+/* Version major */
+#define OPUS_MAJOR_VERSION 0
+
+/* Version micro */
+#define OPUS_MICRO_VERSION 8
+
+/* Version minor */
+#define OPUS_MINOR_VERSION 9
+
+/* Complete version string */
+#define OPUS_VERSION "0.9.8"
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT ""
@@ -118,6 +109,9 @@
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME ""
+
+/* Define to the home page for this package. */
+#define PACKAGE_URL ""
 
 /* Define to the version of this package. */
 #define PACKAGE_VERSION ""
@@ -133,9 +127,6 @@
 
 /* The size of `short', as computed by sizeof. */
 #define SIZEOF_SHORT 2
-
-/* Static modes */
-/* #undef STATIC_MODES */
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
@@ -171,11 +162,12 @@
    nothing if this is not supported.  Do not define if restrict is
    supported directly.  */
 #define restrict __restrict
-/* Work around a bug in Sun C++: it does not support _Restrict, even
-   though the corresponding Sun C compiler does, which causes
-   "#define restrict _Restrict" in the previous line.  Perhaps some future
-   version of Sun C++ will work with _Restrict; if so, it'll probably
-   define __RESTRICT, just as Sun C does.  */
+/* Work around a bug in Sun C++: it does not support _Restrict or
+   __restrict__, even though the corresponding Sun C compiler ends up with
+   "#define restrict _Restrict" or "#define restrict __restrict__" in the
+   previous line.  Perhaps some future version of Sun C++ will work with
+   restrict; if so, hopefully it defines __RESTRICT like Sun C does.  */
 #if defined __SUNPRO_CC && !defined __RESTRICT
 # define _Restrict
+# define __restrict__
 #endif

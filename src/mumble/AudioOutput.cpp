@@ -572,6 +572,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 					iMissCount = 0;
 					ucFlags = static_cast<unsigned char>(pds.next());
 
+					bHasTerminator = false;
 					if (umtType == MessageHandler::UDPVoiceOpus) {
 						PacketDataStream pdi(jbp.data, jbp.len);
 						pdi.next();
@@ -579,8 +580,6 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 						int size = OpusUtilities::ParseToc(&pdi);
 						qlFrames << pds.dataBlock(pdi.size() - 1 + size);
 					} else {
-						bHasTerminator = false;
-
 						unsigned int header = 0;
 						do {
 							header = static_cast<unsigned int>(pds.next());

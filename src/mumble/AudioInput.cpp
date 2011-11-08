@@ -114,7 +114,6 @@ AudioInput::AudioInput() {
 #ifdef USE_OPUS
 		opusState = opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_VOIP, NULL);
 		opus_encoder_ctl(opusState, OPUS_SET_VBR(1));
-		opus_encoder_ctl(opusState, OPUS_SET_BANDWIDTH(OPUS_BANDWIDTH_FULLBAND));
 #endif
 
 		qWarning("AudioInput: %d bits/s, %d hz, %d sample CELT", iAudioQuality, iSampleRate, iFrameSize);
@@ -690,6 +689,7 @@ int AudioInput::encodeOpusFrame(short *source, unsigned char *buffer) {
 	opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
 
 	len = opus_encode(opusState, source, iFrameSize, buffer + 2, 509);
+	Q_ASSERT((buffer[2] & 0x3) == 0);
 
 	// Copy Opus TOC.
 	buffer[0] = buffer[2];
