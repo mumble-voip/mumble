@@ -571,11 +571,11 @@ void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 	ACTOR_INIT;
 	QString target;
-	
+
 	// Silently drop the message if this user is set to "ignore"
-	if (pSrc->bLocalIgnore)
+	if (pSrc && pSrc->bLocalIgnore)
 		return;
-	
+
 	const QString &plainName = pSrc ? pSrc->qsName : tr("Server", "message from");
 	const QString &name = pSrc ? Log::formatClientUser(pSrc, Log::Source) : tr("Server", "message from");
 
