@@ -1,4 +1,7 @@
+#include "mumble_pch.hpp"
+
 #include "PTTButtonWidget.h"
+
 #include "Global.h"
 
 PTTButtonWidget::PTTButtonWidget(QWidget *parent) :

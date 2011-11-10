@@ -7,3 +7,6 @@
 [submodule "celt-0.11.0-src"]
 	path = celt-0.11.0-src
 	url = git://git.xiph.org/celt.git/
+[submodule "opus-src"]
+	path = opus-src
+	url = git://git.xiph.org/opus.git

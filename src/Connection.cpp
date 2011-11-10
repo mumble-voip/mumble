@@ -28,9 +28,6 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "Message.h"
-#include "Connection.h"
-
 /*!
   \fn void Connection::socketRead()
   This function waits until a complete package is received and then emits it as a message.
@@ -44,12 +41,19 @@
   \see void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *u)
 */
 
+#include "murmur_pch.h"
+
 #ifdef Q_OS_UNIX
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <netinet/tcp.h>
 #endif
+
+#include "Connection.h"
+#include "Message.h"
+#include "Mumble.pb.h"
+
 
 #ifdef Q_OS_WIN
 HANDLE Connection::hQoS = NULL;

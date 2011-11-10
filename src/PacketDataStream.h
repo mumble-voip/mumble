@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _PACKETDATASTREAM_H
-#define _PACKETDATASTREAM_H
+#ifndef PACKETDATASTREAM_H_
+#define PACKETDATASTREAM_H_
 
 /*
  * GCC doesn't yet do inter-object-file inlining, so unfortunately, this all has to be defined here.
@@ -448,6 +448,4 @@ class PacketDataStream {
 
 };
 
-#else
-class PacketDataStream;
 #endif

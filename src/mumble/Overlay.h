@@ -28,20 +28,25 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _OVERLAY_H
-#define _OVERLAY_H
+#ifndef OVERLAY_H_
+#define OVERLAY_H_
 
-#include "mumble_pch.hpp"
+#include <QtCore/QUrl>
+#include <QtGui/QGraphicsItem>
+#include <QtNetwork/QLocalSocket>
+
 #include "ConfigDialog.h"
+#include "OverlayText.h"
 #include "SharedMemory.h"
+#include "Timer.h"
+#include "../../overlay/overlay.h"
+
 #include "ui_Overlay.h"
 #include "ui_OverlayEditor.h"
-#include "../../overlay/overlay.h"
-#include "OverlayText.h"
-#include "Timer.h"
 
 class ClientUser;
 class Overlay;
+class QLocalServer;
 
 struct OverlayAppInfo {
 	QString qsDisplayName;

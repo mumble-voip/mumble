@@ -28,6 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "Global.h"
 
 Global *Global::g_global_struct;
@@ -79,6 +81,7 @@ Global::Global() {
 	iCodecAlpha = 0;
 	iCodecBeta = 0;
 	bPreferAlpha = true;
+	bOpus = true;
 
 	bAttenuateOthers = false;
 
@@ -142,9 +145,7 @@ Global::Global() {
 	if (! qdBasePath.exists(QLatin1String("Overlay")))
 		qdBasePath.mkpath(QLatin1String("Overlay"));
 
-#if QT_VERSION >= 0x040500
 	qs->setIniCodec("UTF-8");
-#endif
 }
 
 Global::~Global() {

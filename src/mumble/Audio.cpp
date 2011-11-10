@@ -28,9 +28,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <math.h>
+#include "mumble_pch.hpp"
 
 #include "Audio.h"
+
 #include "AudioInput.h"
 #include "AudioOutput.h"
 #include "Global.h"
@@ -316,7 +317,7 @@ LoopUser::LoopUser() {
 	uiSession = 0;
 	iId = 0;
 	bMute = bDeaf = bSuppress = false;
-	bLocalMute = bSelfDeaf = false;
+	bLocalIgnore = bLocalMute = bSelfDeaf = false;
 	tsState = Settings::Passive;
 	cChannel = NULL;
 	qtTicker.start();
@@ -436,9 +437,7 @@ void Audio::stopOutput() {
 	g.ao.reset();
 
 	while (ao.get() && ! ao.unique()) {
-#if QT_VERSION >= 0x040500
 		QThread::yieldCurrentThread();
-#endif
 	}
 
 	ao.reset();
@@ -456,9 +455,7 @@ void Audio::stopInput() {
 	g.ai.reset();
 
 	while (ai.get() && ! ai.unique()) {
-#if QT_VERSION >= 0x040500
 		QThread::yieldCurrentThread();
-#endif
 	}
 
 	ai.reset();
@@ -477,9 +474,7 @@ void Audio::stop() {
 	g.ai.reset();
 
 	while ((ai.get() && ! ai.unique()) || (ao.get() && ! ao.unique())) {
-#if QT_VERSION >= 0x040500
 		QThread::yieldCurrentThread();
-#endif
 	}
 
 	ai.reset();

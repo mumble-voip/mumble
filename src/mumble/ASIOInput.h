@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _ASIOINPUT_H
-#define _ASIOINPUT_H
+#ifndef ASIOINPUT_H_
+#define ASIOINPUT_H_
 
 #include <windows.h>
 #include <asiodrvr.h>

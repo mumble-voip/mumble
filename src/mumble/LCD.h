@@ -29,11 +29,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _LCD_H
-#define _LCD_H
+#ifndef LCD_H_
+#define LCD_H_
 
 #include "ConfigDialog.h"
 #include "Timer.h"
+
 #include "ui_LCD.h"
 
 class User;

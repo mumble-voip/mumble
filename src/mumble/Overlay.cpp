@@ -28,18 +28,21 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "Overlay.h"
-#include "OverlayText.h"
-#include "User.h"
+
 #include "Channel.h"
 #include "ClientUser.h"
-#include "Global.h"
-#include "Message.h"
 #include "Database.h"
-#include "WebFetch.h"
-#include "ServerHandler.h"
-#include "MainWindow.h"
+#include "Global.h"
 #include "GlobalShortcut.h"
+#include "MainWindow.h"
+#include "Message.h"
+#include "OverlayText.h"
+#include "ServerHandler.h"
+#include "User.h"
+#include "WebFetch.h"
 
 OverlayAppInfo::OverlayAppInfo(QString name, QIcon icon) {
 	qsDisplayName = name;

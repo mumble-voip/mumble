@@ -28,8 +28,16 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _AUDIOINPUT_H
-#define _AUDIOINPUT_H
+#ifndef AUDIOINPUT_H_
+#define AUDIOINPUT_H_
+
+#include <boost/shared_ptr.hpp>
+#include <speex/speex.h>
+#include <speex/speex_echo.h>
+#include <speex/speex_preprocess.h>
+#include <speex/speex_resampler.h>
+#include <QtCore/QObject>
+#include <QtCore/QThread>
 
 #include "Audio.h"
 #include "Settings.h"
@@ -37,6 +45,7 @@
 #include "Message.h"
 
 class AudioInput;
+struct OpusEncoder;
 typedef boost::shared_ptr<AudioInput> AudioInputPtr;
 
 class AudioInputRegistrar {
@@ -83,6 +92,9 @@ class AudioInput : public QThread {
 		inMixerFunc imfMic, imfEcho;
 		inMixerFunc chooseMixer(const unsigned int nchan, SampleFormat sf);
 		void resetAudioProcessor();
+
+		OpusEncoder *opusState;
+		int encodeOpusFrame(short *source, unsigned char *buffer);
 		int encodeSpeexFrame(short *pSource, unsigned char *buffer);
 		int encodeCELTFrame(short *pSource, unsigned char *buffer);
 	protected:

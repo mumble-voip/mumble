@@ -31,17 +31,19 @@
 
 #include "murmur_pch.h"
 
+#include "Server.h"
+
+#include "ACL.h"
+#include "Connection.h"
+#include "DBus.h"
+#include "Group.h"
 #include "User.h"
 #include "Channel.h"
-#include "ACL.h"
-#include "Group.h"
 #include "Message.h"
-#include "ServerDB.h"
-#include "Connection.h"
-#include "Server.h"
-#include "DBus.h"
 #include "Meta.h"
+#include "OpusUtilities.h"
 #include "PacketDataStream.h"
+#include "ServerDB.h"
 #include "ServerUser.h"
 
 #ifdef USE_BONJOUR
@@ -96,6 +98,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 
 	iCodecAlpha = iCodecBeta = 0;
 	bPreferAlpha = false;
+	bOpus = true;
 
 	qnamNetwork = NULL;
 
@@ -909,9 +912,8 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 			pdi.skip(counter & 0x7f);
 		} while ((counter & 0x80) && pdi.isValid());
 	} else {
-		unsigned int voicelen;
-		pds >> voicelen;
-		pds.skip(voicelen);
+		int size = OpusUtilities::ParseToc(&pdi);
+		pdi.skip(size);
 	}
 
 	poslen = pdi.left();
@@ -1628,19 +1630,24 @@ void Server::recheckCodecVersions() {
 	QMap<int, int> qmCodecUsercount;
 	QMap<int, int>::const_iterator i;
 	int users = 0;
+	int opus = 0;
 
 	// Count how many users use which codec
 	foreach(ServerUser *u, qhUsers) {
-		if (u->qlCodecs.isEmpty())
+		if (u->qlCodecs.isEmpty() && ! u->bOpus)
 			continue;
 
 		++users;
+		if (u->bOpus)
+			++opus;
 		foreach(int version, u->qlCodecs)
 			++ qmCodecUsercount[version];
 	}
 
 	if (! users)
 		return;
+		
+	bool allHasOpus = (opus == users);
 
 	// Find the best possible codec most users support
 	int version = 0;
@@ -1655,31 +1662,36 @@ void Server::recheckCodecVersions() {
 	} while (i != qmCodecUsercount.constBegin());
 
 	int current_version = bPreferAlpha ? iCodecAlpha : iCodecBeta;
-	if (current_version == version)
-		return;
-
-	MumbleProto::CodecVersion mpcv;
 
 	// If we don't already use the compat bitstream version set
 	// it as alpha and announce it. If another codec now got the
 	// majority set it as the opposite of the currently valid bPreferAlpha
 	// and announce it.
-	if (version == static_cast<qint32>(0x8000000b))
-		bPreferAlpha = true;
-	else
-		bPreferAlpha = ! bPreferAlpha;
 
-	if (bPreferAlpha)
-		iCodecAlpha = version;
-	else
-		iCodecBeta = version;
+	if (current_version != version) {
+		if (version == static_cast<qint32>(0x8000000b))
+			bPreferAlpha = true;
+		else
+			bPreferAlpha = ! bPreferAlpha;
 
+		if (bPreferAlpha)
+			iCodecAlpha = version;
+		else
+			iCodecBeta = version;
+	} else if (bOpus == allHasOpus) {
+		return;
+	}
+	
+	bOpus = allHasOpus;
+	
+	MumbleProto::CodecVersion mpcv;
 	mpcv.set_alpha(iCodecAlpha);
 	mpcv.set_beta(iCodecBeta);
 	mpcv.set_prefer_alpha(bPreferAlpha);
+	mpcv.set_opus(allHasOpus);
 	sendAll(mpcv);
 
-	log(QString::fromLatin1("CELT codec switch %1 %2 (prefer %3)").arg(iCodecAlpha,0,16).arg(iCodecBeta,0,16).arg(bPreferAlpha ? iCodecAlpha : iCodecBeta,0,16));
+	log(QString::fromLatin1("CELT codec switch %1 %2 (prefer %3) (Opus %4)").arg(iCodecAlpha,0,16).arg(iCodecBeta,0,16).arg(bPreferAlpha ? iCodecAlpha : iCodecBeta,0,16).arg(bOpus));
 }
 
 void Server::hashAssign(QString &dest, QByteArray &hash, const QString &src) {

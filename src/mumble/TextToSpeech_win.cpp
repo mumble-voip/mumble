@@ -28,10 +28,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <servprov.h>
-#include <sapi.h>
+#include "mumble_pch.hpp"
 
 #include "TextToSpeech.h"
+
+#include <servprov.h>
+#include <sapi.h>
 
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)

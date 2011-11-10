@@ -28,6 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "ConfigWidget.h"
 
 QMap<int, ConfigWidgetNew> *ConfigRegistrar::c_qmNew;

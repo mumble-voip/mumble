@@ -30,12 +30,22 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _VOICERECORDER_H
-#define _VOICERECORDER_H
+#ifndef VOICERECORDER_H_
+#define VOICERECORDER_H_
 
 #pragma once
 
-#include "mumble_pch.hpp"
+#include <boost/make_shared.hpp>
+#include <boost/scoped_array.hpp>
+#include <boost/scoped_ptr.hpp>
+#include <boost/shared_array.hpp>
+#include <sndfile.h>
+#include <QtCore/QDateTime>
+#include <QtCore/QHash>
+#include <QtCore/QMutex>
+#include <QtCore/QObject>
+#include <QtCore/QThread>
+#include <QtCore/QWaitCondition>
 
 class ClientUser;
 class RecordUser;

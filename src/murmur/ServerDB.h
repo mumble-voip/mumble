@@ -28,15 +28,18 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _DATABASE_H
-#define _DATABASE_H
+#ifndef DATABASE_H_
+#define DATABASE_H_
 
-#include "murmur_pch.h"
+#include <QtCore/QVariant>
+
 #include "Timer.h"
 
 class Channel;
 class User;
 class Connection;
+class QSqlDatabase;
+class QSqlQuery;
 
 class ServerDB {
 	public:

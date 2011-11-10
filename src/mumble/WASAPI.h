@@ -28,11 +28,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _WASAPI_H
-#define _WASAPI_H
+#ifndef WASAPI_H_
+#define WASAPI_H_
 
-#include "AudioInput.h"
-#include "AudioOutput.h"
 #include <mmreg.h>
 #include <strsafe.h>
 #include <mmdeviceapi.h>
@@ -43,6 +41,9 @@
 #include <propidl.h>
 #include <initguid.h>
 #include <Audiopolicy.h>
+
+#include "AudioInput.h"
+#include "AudioOutput.h"
 
 class WASAPISystem : public QObject {
 	private:

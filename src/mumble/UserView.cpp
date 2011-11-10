@@ -28,14 +28,17 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "UserModel.h"
+#include "mumble_pch.hpp"
+
 #include "UserView.h"
-#include "MainWindow.h"
-#include "ClientUser.h"
+
 #include "Channel.h"
-#include "ServerHandler.h"
+#include "ClientUser.h"
 #include "Log.h"
 #include "Global.h"
+#include "MainWindow.h"
+#include "ServerHandler.h"
+#include "UserModel.h"
 
 /*!
   \fn bool UserView::event(QEvent *evt)

@@ -27,10 +27,11 @@
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#ifndef _BONJOURCLIENT_H
-#define _BONJOURCLIENT_H
 
-#include "mumble_pch.hpp"
+#ifndef BONJOURCLIENT_H_
+#define BONJOURCLIENT_H_
+
+#include <QtCore/QObject>
 
 class BonjourServiceBrowser;
 class BonjourServiceResolver;

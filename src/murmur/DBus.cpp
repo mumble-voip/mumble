@@ -28,12 +28,15 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "murmur_pch.h"
+
+#include "DBus.h"
+
+#include "Connection.h"
+#include "Message.h"
 #include "Server.h"
 #include "ServerUser.h"
 #include "ServerDB.h"
-#include "Connection.h"
-#include "Message.h"
-#include "DBus.h"
 
 QDBusArgument &operator<<(QDBusArgument &a, const PlayerInfo &s) {
 	a.beginStructure();

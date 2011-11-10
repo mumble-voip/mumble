@@ -27,10 +27,11 @@
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#ifndef _BONJOURSERVER_H
-#define _BONJOURSERVER_H
 
-#include "murmur_pch.h"
+#ifndef BONJOURSERVER_H_
+#define BONJOURSERVER_H_
+
+#include <QtCore/QObject>
 
 class BonjourServiceRegister;
 

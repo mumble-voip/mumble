@@ -28,7 +28,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "murmur_pch.h"
+
 #include "BonjourServer.h"
+
 #include "BonjourServiceRegister.h"
 
 BonjourServer::BonjourServer() {

@@ -28,11 +28,16 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "ALSAAudio.h"
-#include "User.h"
-#include "Global.h"
-#include "MainWindow.h"
+#include "mumble_pch.hpp"
+
+#include <alsa/asoundlib.h>
 #include <sys/poll.h>
+
+#include "ALSAAudio.h"
+
+#include "MainWindow.h"
+#include "Global.h"
+#include "User.h"
 
 #define NBLOCKS 8
 

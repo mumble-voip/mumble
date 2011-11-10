@@ -28,18 +28,34 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _SERVERHANDLER_H
-#define _SERVERHANDLER_H
+#ifndef SERVERHANDLER_H_
+#define SERVERHANDLER_H_
+
+#include <boost/accumulators/accumulators.hpp>
+#include <boost/accumulators/statistics/stats.hpp>
+#include <boost/accumulators/statistics/mean.hpp>
+#include <boost/accumulators/statistics/variance.hpp>
+#include <boost/shared_ptr.hpp>
+
+#include <QtCore/QEvent>
+#include <QtCore/QMutex>
+#include <QtCore/QObject>
+#include <QtCore/QThread>
+#include <QtCore/QTimer>
+#include <QtNetwork/QHostAddress>
+#include <QtNetwork/QSslCipher>
+#include <QtNetwork/QSslError>
 
 #define SERVERSEND_EVENT 3501
 
-#include "mumble_pch.hpp"
 #include "Timer.h"
 #include "Message.h"
-#include "PacketDataStream.h"
+#include "Mumble.pb.h"
 
 class Connection;
 class Message;
+class PacketDataStream;
+class QUdpSocket;
 class VoiceRecorder;
 
 class ServerHandlerMessageEvent : public QEvent {

@@ -28,7 +28,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "murmur_pch.h"
+
 #include "Group.h"
+
 #include "Channel.h"
 #include "User.h"
 #ifdef MURMUR

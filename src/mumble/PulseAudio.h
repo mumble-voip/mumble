@@ -28,13 +28,15 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _PULSEAUDIO_H
-#define _PULSEAUDIO_H
+#ifndef PULSEAUDIO_H_
+#define PULSEAUDIO_H_
+
+#include <pulse/pulseaudio.h>
+#include <pulse/ext-stream-restore.h>
+#include <QtCore/QWaitCondition>
 
 #include "AudioInput.h"
 #include "AudioOutput.h"
-#include <pulse/pulseaudio.h>
-#include <pulse/ext-stream-restore.h>
 
 struct PulseAttenuation {
 	uint32_t index;

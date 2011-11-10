@@ -28,13 +28,21 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _META_H
-#define _META_H
+#ifndef META_H_
+#define META_H_
 
-#include "murmur_pch.h"
+#include <QtCore/QDir>
+#include <QtCore/QList>
+#include <QtCore/QUrl>
+#include <QtCore/QVariant>
+#include <QtNetwork/QHostAddress>
+#include <QtNetwork/QSslCertificate>
+#include <QtNetwork/QSslKey>
+
 #include "Timer.h"
 
 class Server;
+class QSettings;
 
 struct MetaParams {
 	QDir qdBasePath;

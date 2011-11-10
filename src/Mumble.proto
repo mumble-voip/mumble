@@ -18,6 +18,7 @@ message Authenticate {
 	optional string password = 2;
 	repeated string tokens = 3;
 	repeated int32 celt_versions = 4;
+	optional bool opus = 5 [default = false];
 }
 
 message Ping {
@@ -242,6 +243,7 @@ message CodecVersion {
 	required int32 alpha = 1;
 	required int32 beta = 2;
 	required bool prefer_alpha = 3 [default = true];
+	optional bool opus = 4 [default = false];
 }
 
 message UserStats {
@@ -272,6 +274,7 @@ message UserStats {
 	optional uint32 onlinesecs = 16;
 	optional uint32 idlesecs = 17;
 	optional bool strong_certificate = 18 [default = false];
+	optional bool opus = 19 [default = false];
 }
 
 message SuggestConfig {

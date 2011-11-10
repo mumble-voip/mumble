@@ -28,12 +28,15 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "Global.h"
-#include "MainWindow.h"
+#include "mumble_pch.hpp"
+
 #include "DBus.h"
-#include "ServerHandler.h"
+
 #include "Channel.h"
 #include "ClientUser.h"
+#include "Global.h"
+#include "MainWindow.h"
+#include "ServerHandler.h"
 
 
 MumbleDBus::MumbleDBus(QObject *mw) : QDBusAbstractAdaptor(mw) {

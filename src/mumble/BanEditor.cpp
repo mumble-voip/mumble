@@ -28,10 +28,14 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "BanEditor.h"
-#include "ServerHandler.h"
+
 #include "Channel.h"
 #include "Global.h"
+#include "Net.h"
+#include "ServerHandler.h"
 
 BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p) {
 	setupUi(this);

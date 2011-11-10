@@ -28,10 +28,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _GROUP_H
-#define _GROUP_H
+#ifndef GROUP_H_
+#define GROUP_H_
 
-#include "murmur_pch.h"
+#include <QtCore/QSet>
 
 class Channel;
 class User;

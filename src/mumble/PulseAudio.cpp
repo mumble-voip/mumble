@@ -28,15 +28,19 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "PulseAudio.h"
-#include "User.h"
-#include "Global.h"
-#include "MainWindow.h"
-#include "Timer.h"
+
 #include <sys/soundcard.h>
 #include <fcntl.h>
 #include <errno.h>
 #include <sys/ioctl.h>
+
+#include "Global.h"
+#include "MainWindow.h"
+#include "Timer.h"
+#include "User.h"
 
 
 static const char *mumble_sink_input = "Mumble Speakers";

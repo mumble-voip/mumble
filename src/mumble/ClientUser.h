@@ -28,8 +28,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CLIENTUSER_H
-#define _CLIENTUSER_H
+#ifndef CLIENTUSER_H_
+#define CLIENTUSER_H_
+
+#include <QtCore/QReadWriteLock>
 
 #include "User.h"
 #include "Timer.h"
@@ -48,6 +50,7 @@ class ClientUser : public QObject, public User {
 
 		Settings::TalkState tsState;
 		Timer tLastTalkStateChange;
+		bool bLocalIgnore;
 		bool bLocalMute;
 
 		float fPowerMin, fPowerMax;
@@ -97,6 +100,7 @@ class ClientUser : public QObject, public User {
 		void setMute(bool mute);
 		void setDeaf(bool deaf);
 		void setSuppress(bool suppress);
+		void setLocalIgnore(bool ignore);
 		void setLocalMute(bool mute);
 		void setSelfMute(bool mute);
 		void setSelfDeaf(bool deaf);

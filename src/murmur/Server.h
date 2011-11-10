@@ -29,14 +29,29 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _SERVER_H
-#define _SERVER_H
+#ifndef SERVER_H_
+#define SERVER_H_
 
-#include "murmur_pch.h"
-#include "Message.h"
-#include "Timer.h"
-#include "Net.h"
+#include <boost/function.hpp>
+#include <QtCore/QEvent>
+#include <QtCore/QMutex>
+#include <QtCore/QTimer>
+#include <QtCore/QQueue>
+#include <QtCore/QReadWriteLock>
+#include <QtCore/QStringList>
+#include <QtCore/QSocketNotifier>
+#include <QtCore/QThread>
+#include <QtCore/QUrl>
+#include <QtNetwork/QSslCertificate>
+#include <QtNetwork/QSslKey>
+#include <QtNetwork/QSslSocket>
+#include <QtNetwork/QTcpServer>
+
 #include "ACL.h"
+#include "Message.h"
+#include "Mumble.pb.h"
+#include "Net.h"
+#include "Timer.h"
 
 #ifdef USE_BONJOUR
 #include "BonjourServer.h"
@@ -46,6 +61,7 @@ class Channel;
 class PacketDataStream;
 class ServerUser;
 class User;
+class QNetworkAccessManager;
 
 struct TextMessage {
 	QList<unsigned int> qlSessions;
@@ -149,6 +165,7 @@ class Server : public QThread {
 		int iCodecAlpha;
 		int iCodecBeta;
 		bool bPreferAlpha;
+		bool bOpus;
 		void recheckCodecVersions();
 
 #ifdef USE_BONJOUR

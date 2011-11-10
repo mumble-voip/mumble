@@ -28,10 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _MUMBLE_SSL_H
-#define _MUMBLE_SSL_H
-
-#include "murmur_pch.h"
+#ifndef MUMBLE_SSL_H_
+#define MUMBLE_SSL_H_
 
 class MumbleSSL {
 	public:

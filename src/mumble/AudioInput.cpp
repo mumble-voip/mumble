@@ -28,7 +28,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "AudioInput.h"
+
 #include "AudioOutput.h"
 #include "ServerHandler.h"
 #include "MainWindow.h"
@@ -37,7 +40,12 @@
 #include "Message.h"
 #include "Global.h"
 #include "NetworkConfig.h"
+#include "OpusUtilities.h"
 #include "VoiceRecorder.h"
+
+#ifdef USE_OPUS
+#include "opus.h"
+#endif
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioInputRegistrar() might be called before they are initialized, as the constructor
@@ -105,6 +113,12 @@ AudioInput::AudioInput() {
 		iFrameSize = SAMPLE_RATE / 100;
 
 		esSpeex = NULL;
+
+#ifdef USE_OPUS
+		opusState = opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_VOIP, NULL);
+		opus_encoder_ctl(opusState, OPUS_SET_VBR(1));
+#endif
+
 		qWarning("AudioInput: %d bits/s, %d hz, %d sample CELT", iAudioQuality, iSampleRate, iFrameSize);
 	} else {
 		iAudioFrames /= 2;
@@ -177,6 +191,11 @@ AudioInput::AudioInput() {
 AudioInput::~AudioInput() {
 	bRunning = false;
 	wait();
+
+#ifdef USE_OPUS
+	if (opusState)
+		opus_encoder_destroy(opusState);
+#endif
 
 	if (ceEncoder) {
 		cCodec->celt_encoder_destroy(ceEncoder);
@@ -666,6 +685,28 @@ void AudioInput::resetAudioProcessor() {
 	bResetProcessor = false;
 }
 
+// FIXME: we should be able to encode |iAudioFrames| * |iFrameSize| per Opus call.
+int AudioInput::encodeOpusFrame(short *source, unsigned char *buffer) {
+	int len = 0;
+#ifdef USE_OPUS
+	opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
+
+	len = opus_encode(opusState, source, iFrameSize, buffer + 2, 509);
+	Q_ASSERT((buffer[2] & 0x3) == 0);
+
+	// Copy Opus TOC.
+	buffer[0] = buffer[2];
+	int move = OpusUtilities::EncodeSize(len, buffer + 1);
+	if (move == 1)
+		memmove(buffer + 2, buffer + 3, len - 1);
+
+	len += 1 + move;
+	iBitrate = len * 100 * 8;
+
+#endif
+	return len;
+}
+
 int AudioInput::encodeCELTFrame(short *psSource, unsigned char *buffer) {
 	CELTCodec *switchto = NULL;
 
@@ -882,10 +923,19 @@ void AudioInput::encodeAudioFrame() {
 	unsigned char buffer[512];
 	int len;
 
-	if (umtType != MessageHandler::UDPVoiceSpeex) {
+#ifdef USE_OPUS
+	// Force Opus mode.
+	umtType = MessageHandler::UDPVoiceOpus;
+#endif
+	if (umtType == MessageHandler::UDPVoiceCELTAlpha || umtType == MessageHandler::UDPVoiceCELTBeta) {
 		len = encodeCELTFrame(psSource, buffer);
 		if (len == 0)
 			return;
+	} else if (umtType == MessageHandler::UDPVoiceOpus) {
+		len = encodeOpusFrame(psSource, buffer);
+		if (len == 0) {
+			return;
+		}
 	} else {
 		len = encodeSpeexFrame(psSource, buffer);
 	}
@@ -900,6 +950,11 @@ void AudioInput::encodeAudioFrame() {
 
 void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 	qlFrames << frame;
+	if (umtType == MessageHandler::UDPVoiceOpus) {
+		// FIXME: Don't change |iAudioFrames|. There should be one frame Opus frame per packet only.
+		iAudioFrames = 1;
+		terminator = false;
+	}
 	if (! terminator && qlFrames.count() < iAudioFrames)
 		return;
 
@@ -923,10 +978,12 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 
 	for (int i=0;i<qlFrames.count(); ++i) {
 		const QByteArray &qba = qlFrames.at(i);
-		unsigned char head = static_cast<unsigned char>(qba.size());
-		if (i < qlFrames.count() - 1)
-			head |= 0x80;
-		pds.append(head);
+		if (umtType != MessageHandler::UDPVoiceOpus) {
+			unsigned char head = static_cast<unsigned char>(qba.size());
+			if (i < qlFrames.count() - 1)
+				head |= 0x80;
+			pds.append(head);
+		}
 		pds.append(qba.constData(), qba.size());
 	}
 

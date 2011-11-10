@@ -29,8 +29,18 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _AUDIOOUTPUT_H
-#define _AUDIOOUTPUT_H
+#ifndef AUDIOOUTPUT_H_
+#define AUDIOOUTPUT_H_
+
+#include <boost/shared_ptr.hpp>
+#include <sndfile.h>
+#include <speex/speex.h>
+#include <speex/speex_jitter.h>
+#include <speex/speex_preprocess.h>
+#include <speex/speex_resampler.h>
+#include <QtCore/QFile>
+#include <QtCore/QObject>
+#include <QtCore/QThread>
 
 // AudioOutput depends on User being valid. This means it's important
 // to removeBuffer from here BEFORE MainWindow gets any UserLeft
@@ -65,6 +75,7 @@
 
 class AudioOutput;
 class ClientUser;
+struct OpusDecoder;
 
 typedef boost::shared_ptr<AudioOutput> AudioOutputPtr;
 
@@ -133,6 +144,8 @@ class AudioOutputSpeech : public AudioOutputUser {
 
 		CELTCodec *cCodec;
 		CELTDecoder *cdDecoder;
+
+		OpusDecoder *opusState;
 
 		SpeexBits sbBits;
 		void *dsSpeex;

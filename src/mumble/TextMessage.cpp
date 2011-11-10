@@ -29,6 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "TextMessage.h"
 
 TextMessage::TextMessage(QWidget *p, QString title, bool bChannel) : QDialog(p) {

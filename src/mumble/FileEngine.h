@@ -28,10 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _FILEENGINE_H
-#define _FILEENGINE_H
-
-#include "mumble_pch.hpp"
+#ifndef FILEENGINE_H_
+#define FILEENGINE_H_
 
 class MumbleFileEngineHandler : public QAbstractFileEngineHandler {
 	private:

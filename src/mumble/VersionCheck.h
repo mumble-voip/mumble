@@ -28,10 +28,12 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _VERSIONCHECK_H
-#define _VERSIONCHECK_H
+#ifndef VERSIONCHECK_H_
+#define VERSIONCHECK_H_
 
-#include "mumble_pch.hpp"
+#include <QtCore/QObject>
+#include <QtCore/QByteArray>
+#include <QtCore/QUrl>
 
 class VersionCheck : public QObject {
 	private:

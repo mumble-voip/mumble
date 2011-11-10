@@ -28,10 +28,11 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _ACL_H
-#define _ACL_H
+#ifndef ACL_H_
+#define ACL_H_
 
-#include "murmur_pch.h"
+#include <QtCore/QHash>
+#include <QtCore/QObject>
 
 class Channel;
 class User;

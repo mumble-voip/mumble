@@ -77,6 +77,12 @@ CONFIG(no-vorbis-recording) {
   DEFINES *= NO_VORBIS_RECORDING
 }
 
+CONFIG(opus) {
+	INCLUDEPATH *= ../../opus-src/celt ../../opus-src/include ../../opus-src/src ../../opus-build/src
+	DEFINES *= USE_OPUS
+	LIBS *= -lopus
+}
+
 win32 {
   RC_FILE	= mumble.rc
   HEADERS	*= GlobalShortcut_win.h TaskList.h

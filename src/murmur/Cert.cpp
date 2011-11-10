@@ -28,8 +28,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "Server.h"
+#include "murmur_pch.h"
+
 #include "Meta.h"
+#include "Server.h"
 
 #define SSL_STRING(x) QString::fromLatin1(x).toUtf8().data()
 
