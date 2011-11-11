@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2011, Nye Liu <nyet@nyet.org>
 
    All rights reserved.
 
@@ -28,71 +28,56 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _INTERNAL_OVERLAY_H
-#define _INTERNAL_OVERLAY_H
+#ifndef _D11STATEBLOCK_H
+#define _D11STATEBLOCK_H
 
-// overlay version number
-#define OVERLAY_MAGIC_NUMBER 0x00000005
+#include <d3d11.h>
+#include <d3dx10math.h>
+#include <d3dx11.h>
 
-// definition of overlay message types and structs follow
-struct OverlayMsgHeader {
-	unsigned int uiMagic;
-	int iLength;
-	unsigned int uiType;
+class D11StateBlock: protected IUnknown {
+	private:
+		ID3D11DeviceContext *pDeviceContext;
+		ULONG refcnt;
+
+		ID3D11RasterizerState *pRasterizerState;
+		UINT NumViewports;
+		D3D11_VIEWPORT pViewports[D3D11_VIEWPORT_AND_SCISSORRECT_OBJECT_COUNT_PER_PIPELINE];
+
+		ID3D11RenderTargetView *pRenderTargetViews[D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT];
+		ID3D11DepthStencilView *pDepthStencilView;
+
+		ID3D11BlendState *pBlendState;
+		float BlendFactor[4];
+		UINT32 SampleMask;
+
+		ID3D11InputLayout *pInputLayout;
+
+		ID3D11Buffer *pIndexBuffer;
+		DXGI_FORMAT Format;
+		UINT Offset;
+
+		D3D11_PRIMITIVE_TOPOLOGY Topology;
+
+		ID3D11Buffer *pVertexBuffers[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
+		UINT Strides[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
+		UINT Offsets[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
+
+	public:
+		STDMETHOD(QueryInterface)(REFIID, LPVOID *);
+		STDMETHOD_(ULONG, AddRef)();
+		STDMETHOD_(ULONG, Release)();
+
+		void Capture();
+		void Apply();
+		void ReleaseObjects();
+		void ReleaseAllDeviceObjects();
+		void GetDeviceContext(ID3D11DeviceContext **);
+
+		D11StateBlock(ID3D11DeviceContext *);
+		~D11StateBlock();
 };
 
-#define OVERLAY_MSGTYPE_INIT 0
-struct OverlayMsgInit {
-	unsigned int uiWidth;
-	unsigned int uiHeight;
-};
+void D11CreateStateBlock(ID3D11DeviceContext *, D11StateBlock **);
 
-#define OVERLAY_MSGTYPE_SHMEM 1
-struct OverlayMsgShmem {
-	char a_cName[2048];
-};
-
-#define OVERLAY_MSGTYPE_BLIT 2
-struct OverlayMsgBlit {
-	unsigned int x, y, w, h;
-};
-
-#define OVERLAY_MSGTYPE_ACTIVE 3
-struct OverlayMsgActive {
-	unsigned int x, y, w, h;
-};
-
-#define OVERLAY_MSGTYPE_PID 4
-struct OverlayMsgPid {
-	unsigned int pid;
-};
-
-#define OVERLAY_MSGTYPE_FPS 5
-struct OverlayMsgFps {
-	float fps;
-};
-#define OVERLAY_FPS_INTERVAL 0.25f
-
-#define OVERLAY_MSGTYPE_INTERACTIVE 6
-struct OverlayMsgInteractive {
-	bool state;
-};
-
-struct OverlayMsg {
-	union {
-		char headerbuffer[1];
-		struct OverlayMsgHeader omh;
-	};
-	union {
-		char msgbuffer[1];
-		struct OverlayMsgShmem oms;
-		struct OverlayMsgInit omi;
-		struct OverlayMsgBlit omb;
-		struct OverlayMsgActive oma;
-		struct OverlayMsgPid omp;
-		struct OverlayMsgFps omf;
-		struct OverlayMsgInteractive omin;
-	};
-};
-
-#endif
+#endif /* !_D11STATEBLOCK_H */

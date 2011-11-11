@@ -34,8 +34,6 @@
 
 #include <QtCore/QStringList>
 
-#include <sys/socket.h>
-
 #include "Connection.h"
 #include "Net.h"
 #include "Timer.h"

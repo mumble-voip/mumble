@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -29,12 +29,12 @@
 */
 
 #include "lib.h"
-#include "overlay.hex"
-#include <d3d10.h>
-#include <d3dx10.h>
+#include "D11StateBlock.h"
+#include "overlay11.hex"
+#include "Effects11/Inc/d3dx11effect.h"
+#include <d3d11.h>
+#include <d3dx11.h>
 #include <time.h>
-
-DXGIData *dxgi = NULL;
 
 static bool bHooked = false;
 static bool bChaining = false;
@@ -43,17 +43,12 @@ static HardHook hhResize;
 static HardHook hhAddRef;
 static HardHook hhRelease;
 
-typedef HRESULT(__stdcall *CreateDXGIFactoryType)(REFIID, void **);
-typedef HRESULT(__stdcall *D3D10CreateDeviceAndSwapChainType)(IDXGIAdapter *, D3D10_DRIVER_TYPE, HMODULE, UINT, UINT, DXGI_SWAP_CHAIN_DESC *, IDXGISwapChain **, ID3D10Device **);
-
-typedef HRESULT(__stdcall *D3D10CreateStateBlockType)(ID3D10Device *, D3D10_STATE_BLOCK_MASK *, ID3D10StateBlock **);
-typedef HRESULT(__stdcall *D3D10StateBlockMaskEnableAllType)(D3D10_STATE_BLOCK_MASK *);
-typedef HRESULT(__stdcall *D3D10CreateEffectFromMemoryType)(void *, SIZE_T, UINT, ID3D10Device *, ID3D10EffectPool *, ID3D10Effect **);
-
+typedef HRESULT(__stdcall *CreateDXGIFactory1Type)(REFIID, void **);
+typedef HRESULT(__stdcall *D3D11CreateDeviceAndSwapChainType)(IDXGIAdapter *, D3D_DRIVER_TYPE, HMODULE Software, UINT Flags, const D3D_FEATURE_LEVEL *, UINT, UINT, const DXGI_SWAP_CHAIN_DESC *, IDXGISwapChain **, ID3D11Device **, D3D_FEATURE_LEVEL *, ID3D11DeviceContext **);
 typedef HRESULT(__stdcall *PresentType)(IDXGISwapChain *, UINT, UINT);
 typedef HRESULT(__stdcall *ResizeBuffersType)(IDXGISwapChain *, UINT, UINT, UINT, DXGI_FORMAT, UINT);
-typedef ULONG(__stdcall *AddRefType)(ID3D10Device *);
-typedef ULONG(__stdcall *ReleaseType)(ID3D10Device *);
+typedef ULONG(__stdcall *AddRefType)(ID3D11Device *);
+typedef ULONG(__stdcall *ReleaseType)(ID3D11Device *);
 
 #define HMODREF(mod, func) func##Type p##func = (func##Type) GetProcAddress(mod, #func)
 
@@ -62,9 +57,8 @@ struct SimpleVertex {
 	D3DXVECTOR2 Tex;
 };
 
-class D10State: protected Pipe {
+class D11State: protected Pipe {
 	public:
-
 		LONG lHighMark;
 
 		LONG initRefCount;
@@ -72,30 +66,32 @@ class D10State: protected Pipe {
 		LONG myRefCount;
 		DWORD dwMyThread;
 
-		D3D10_VIEWPORT vp;
+		D3D11_VIEWPORT vp;
 
-		ID3D10Device *pDevice;
+		ID3D11Device *pDevice;
+		ID3D11DeviceContext *pDeviceContext;
+		bool bDeferredContext;
 		IDXGISwapChain *pSwapChain;
 
-		ID3D10StateBlock *pOrigStateBlock;
-		ID3D10StateBlock *pMyStateBlock;
-		ID3D10RenderTargetView *pRTV;
-		ID3D10Effect *pEffect;
-		ID3D10EffectTechnique *pTechnique;
-		ID3D10EffectShaderResourceVariable * pDiffuseTexture;
-		ID3D10InputLayout *pVertexLayout;
-		ID3D10Buffer *pVertexBuffer;
-		ID3D10Buffer *pIndexBuffer;
-		ID3D10BlendState *pBlendState;
+		D11StateBlock *pOrigStateBlock;
+		D11StateBlock *pMyStateBlock;
+		ID3D11RenderTargetView *pRTV;
+		ID3DX11Effect *pEffect;
+		ID3DX11EffectTechnique *pTechnique;
+		ID3DX11EffectShaderResourceVariable * pDiffuseTexture;
+		ID3D11InputLayout *pVertexLayout;
+		ID3D11Buffer *pVertexBuffer;
+		ID3D11Buffer *pIndexBuffer;
+		ID3D11BlendState *pBlendState;
 
-		ID3D10Texture2D *pTexture;
-		ID3D10ShaderResourceView *pSRView;
+		ID3D11Texture2D *pTexture;
+		ID3D11ShaderResourceView *pSRView;
 
 		clock_t timeT;
 		unsigned int frameCount;
 
-		D10State(IDXGISwapChain *, ID3D10Device *);
-		~D10State();
+		D11State(IDXGISwapChain *, ID3D11Device *);
+		~D11State();
 		void init();
 		void draw();
 
@@ -104,10 +100,10 @@ class D10State: protected Pipe {
 		void newTexture(unsigned int w, unsigned int h);
 };
 
-map<IDXGISwapChain *, D10State *> chains;
-map<ID3D10Device *, D10State *> devices;
+map<IDXGISwapChain *, D11State *> chains;
+map<ID3D11Device *, D11State *> devices;
 
-D10State::D10State(IDXGISwapChain *pSwapChain, ID3D10Device *pDevice) {
+D11State::D11State(IDXGISwapChain *pSwapChain, ID3D11Device *pDevice) {
 	this->pSwapChain = pSwapChain;
 	this->pDevice = pDevice;
 
@@ -128,6 +124,7 @@ D10State::D10State(IDXGISwapChain *pSwapChain, ID3D10Device *pDevice) {
 	pBlendState = NULL;
 	pTexture = NULL;
 	pSRView = NULL;
+	pDeviceContext = NULL;
 
 	timeT = clock();
 	frameCount = 0;
@@ -136,18 +133,18 @@ D10State::D10State(IDXGISwapChain *pSwapChain, ID3D10Device *pDevice) {
 	initRefCount = pDevice->Release();
 }
 
-void D10State::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h) {
+void D11State::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h) {
 	HRESULT hr;
 
-	ods("D3D10: Blit %d %d %d %d", x, y, w, h);
+	ods("D3D11: Blit %d %d %d %d", x, y, w, h);
 
 	if (! pTexture || ! pSRView)
 		return;
 
-	D3D10_MAPPED_TEXTURE2D mappedTex;
-	hr = pTexture->Map(D3D10CalcSubresource(0, 0, 1), D3D10_MAP_WRITE_DISCARD, 0, &mappedTex);
+	D3D11_MAPPED_SUBRESOURCE mappedTex;
+	hr = pDeviceContext->Map(pTexture, D3D11CalcSubresource(0, 0, 1), D3D11_MAP_WRITE_DISCARD, 0, &mappedTex);
 	if (FAILED(hr)) {
-		ods("D3D10: Failed map");
+		ods("D3D11: Failed map");
 	}
 
 	UCHAR* pTexels = (UCHAR*)mappedTex.pData;
@@ -158,13 +155,13 @@ void D10State::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int
 		memcpy(dptr, sptr, uiWidth * 4);
 	}
 
-	pTexture->Unmap(D3D10CalcSubresource(0, 0, 1));
+	pDeviceContext->Unmap(pTexture, D3D11CalcSubresource(0, 0, 1));
 }
 
-void D10State::setRect() {
+void D11State::setRect() {
 	HRESULT hr;
 
-	ods("D3D10: SetRect");
+	ods("D3D11: SetRect");
 
 	float w = static_cast<float>(uiWidth);
 	float h = static_cast<float>(uiHeight);
@@ -184,7 +181,7 @@ void D10State::setRect() {
 	top = -2.0f * (top / vp.Height) + 1.0f;
 	bottom = -2.0f * (bottom / vp.Height) + 1.0f;
 
-	ods("Vertex (%f %f) (%f %f)", left, top, right, bottom);
+	ods("D3D11-setRect: Vertex (%f %f) (%f %f)", left, top, right, bottom);
 
 	// Create vertex buffer
 	SimpleVertex vertices[] = {
@@ -194,18 +191,20 @@ void D10State::setRect() {
 		{ D3DXVECTOR3(left, bottom, 0.5f), D3DXVECTOR2(texl, texb) },
 	};
 
-	void *pData = NULL;
 
-	hr = pVertexBuffer->Map(D3D10_MAP_WRITE_DISCARD, 0, &pData);
-	memcpy(pData, vertices, sizeof(vertices));
+	// map/unmap to temporarily deny GPU access to the resource pVertexBuffer
+	D3D11_MAPPED_SUBRESOURCE res;
+	hr = pDeviceContext->Map(pVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &res);
+	//TODO no size-checks? Is that correct and safe?
+	memcpy(res.pData, vertices, sizeof(vertices));
 	ods("Map: %lx %d", hr, sizeof(vertices));
-	pVertexBuffer->Unmap();
+	pDeviceContext->Unmap(pVertexBuffer, 0);
 }
 
-void D10State::newTexture(unsigned int w, unsigned int h) {
+void D11State::newTexture(unsigned int w, unsigned int h) {
 	HRESULT hr;
 
-	ods("D3D10: newTex %d %d", w, h);
+	ods("D3D11: newTex %d %d", w, h);
 
 	if (pTexture) {
 		pTexture->Release();
@@ -216,7 +215,7 @@ void D10State::newTexture(unsigned int w, unsigned int h) {
 		pSRView = NULL;
 	}
 
-	D3D10_TEXTURE2D_DESC desc;
+	D3D11_TEXTURE2D_DESC desc;
 	ZeroMemory(&desc, sizeof(desc));
 
 	desc.Width = w;
@@ -224,21 +223,21 @@ void D10State::newTexture(unsigned int w, unsigned int h) {
 	desc.MipLevels = desc.ArraySize = 1;
 	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	desc.SampleDesc.Count = 1;
-	desc.Usage = D3D10_USAGE_DYNAMIC;
-	desc.BindFlags = D3D10_BIND_SHADER_RESOURCE;
-	desc.CPUAccessFlags = D3D10_CPU_ACCESS_WRITE;
+	desc.Usage = D3D11_USAGE_DYNAMIC;
+	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	hr = pDevice->CreateTexture2D(&desc, NULL, &pTexture);
 
 	if (! SUCCEEDED(hr)) {
 		pTexture = NULL;
-		ods("D3D10: Failed to create texture.");
+		ods("D3D11: Failed to create texture.");
 		return;
 	}
 
-	D3D10_SHADER_RESOURCE_VIEW_DESC srvDesc;
+	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
 	ZeroMemory(&srvDesc, sizeof(srvDesc));
 	srvDesc.Format = desc.Format;
-	srvDesc.ViewDimension = D3D10_SRV_DIMENSION_TEXTURE2D;
+	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 	srvDesc.Texture2D.MostDetailedMip = 0;
 	srvDesc.Texture2D.MipLevels = desc.MipLevels;
 
@@ -247,65 +246,66 @@ void D10State::newTexture(unsigned int w, unsigned int h) {
 		pSRView = NULL;
 		pTexture->Release();
 		pTexture = NULL;
-		ods("D3D10: Failed to create resource view.");
+		ods("D3D11: Failed to create resource view.");
 		return;
 	}
 }
 
-void D10State::init() {
-	static HMODREF(GetModuleHandleW(L"D3D10.DLL"), D3D10CreateEffectFromMemory);
-	static HMODREF(GetModuleHandleW(L"D3D10.DLL"), D3D10CreateStateBlock);
-	static HMODREF(GetModuleHandleW(L"D3D10.DLL"), D3D10StateBlockMaskEnableAll);
-
+void D11State::init() {
 	HRESULT hr;
 
 	dwMyThread = GetCurrentThreadId();
 
-	D3D10_STATE_BLOCK_MASK StateBlockMask;
-	ZeroMemory(&StateBlockMask, sizeof(StateBlockMask));
-	pD3D10StateBlockMaskEnableAll(&StateBlockMask);
-	pD3D10CreateStateBlock(pDevice, &StateBlockMask, &pOrigStateBlock);
-	pD3D10CreateStateBlock(pDevice, &StateBlockMask, &pMyStateBlock);
 
-	pOrigStateBlock->Capture();
-
-	ID3D10Texture2D* pBackBuffer = NULL;
+	ID3D11Texture2D* pBackBuffer = NULL;
 	hr = pSwapChain->GetBuffer(0, __uuidof(*pBackBuffer), (LPVOID*)&pBackBuffer);
 
-	pDevice->ClearState();
+	hr = pDevice->CreateDeferredContext(0, &pDeviceContext);
 
-	D3D10_TEXTURE2D_DESC backBufferSurfaceDesc;
+	if (! SUCCEEDED(hr) || !pDeviceContext) {
+		ods("D3D11: Failed to create DeferredContext (0x%x). Getting ImmediateContext", hr);
+		pDevice->GetImmediateContext(&pDeviceContext);
+		D11CreateStateBlock(pDeviceContext, &pOrigStateBlock);
+		D11CreateStateBlock(pDeviceContext, &pMyStateBlock);
+
+		pOrigStateBlock->Capture();
+		bDeferredContext=false;
+	} else {
+		bDeferredContext=true;
+	}
+
+	D3D11_TEXTURE2D_DESC backBufferSurfaceDesc;
 	pBackBuffer->GetDesc(&backBufferSurfaceDesc);
 
 	ZeroMemory(&vp, sizeof(vp));
-	vp.Width = backBufferSurfaceDesc.Width;
-	vp.Height = backBufferSurfaceDesc.Height;
+	vp.Width = (float) backBufferSurfaceDesc.Width;
+	vp.Height = (float) backBufferSurfaceDesc.Height;
 	vp.MinDepth = 0;
 	vp.MaxDepth = 1;
 	vp.TopLeftX = 0;
 	vp.TopLeftY = 0;
-	pDevice->RSSetViewports(1, &vp);
+	pDeviceContext->RSSetViewports(1, &vp);
 
 	hr = pDevice->CreateRenderTargetView(pBackBuffer, NULL, &pRTV);
 
-	pDevice->OMSetRenderTargets(1, &pRTV, NULL);
+	pDeviceContext->OMSetRenderTargets(1, &pRTV, NULL);
 
-	D3D10_BLEND_DESC blend;
+	D3D11_BLEND_DESC blend;
 	ZeroMemory(&blend, sizeof(blend));
-	blend.BlendEnable[0] = TRUE;
-	blend.SrcBlend = D3D10_BLEND_ONE;
-	blend.DestBlend = D3D10_BLEND_INV_SRC_ALPHA;
-	blend.BlendOp = D3D10_BLEND_OP_ADD;
-	blend.SrcBlendAlpha = D3D10_BLEND_ONE;
-	blend.DestBlendAlpha = D3D10_BLEND_INV_SRC_ALPHA;
-	blend.BlendOpAlpha = D3D10_BLEND_OP_ADD;
-	blend.RenderTargetWriteMask[0] = D3D10_COLOR_WRITE_ENABLE_ALL;
+	blend.RenderTarget[0].BlendEnable = TRUE;
+	blend.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+	blend.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	blend.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blend.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blend.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_INV_SRC_ALPHA;
+	blend.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blend.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
 	pDevice->CreateBlendState(&blend, &pBlendState);
 	float bf[4];
-	pDevice->OMSetBlendState(pBlendState, bf, 0xffffffff);
+	pDeviceContext->OMSetBlendState(pBlendState, bf, 0xffffffff);
 
-	pD3D10CreateEffectFromMemory((void *) g_main, sizeof(g_main), 0, pDevice, NULL, &pEffect);
+	hr = D3DX11CreateEffectFromMemory((void *) g_main11, sizeof(g_main11), 0, pDevice, &pEffect);
 
 	pTechnique = pEffect->GetTechniqueByName("Render");
 	pDiffuseTexture = pEffect->GetVariableByName("txDiffuse")->AsShaderResource();
@@ -314,24 +314,24 @@ void D10State::init() {
 	pSRView = NULL;
 
 	// Define the input layout
-	D3D10_INPUT_ELEMENT_DESC layout[] = {
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D10_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D10_INPUT_PER_VERTEX_DATA, 0 },
+	D3D11_INPUT_ELEMENT_DESC layout[] = {
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	UINT numElements = sizeof(layout) / sizeof(layout[0]);
 
 	// Create the input layout
-	D3D10_PASS_DESC PassDesc;
+	D3DX11_PASS_DESC PassDesc;
 	pTechnique->GetPassByIndex(0)->GetDesc(&PassDesc);
 	hr = pDevice->CreateInputLayout(layout, numElements, PassDesc.pIAInputSignature, PassDesc.IAInputSignatureSize, &pVertexLayout);
-	pDevice->IASetInputLayout(pVertexLayout);
+	pDeviceContext->IASetInputLayout(pVertexLayout);
 
-	D3D10_BUFFER_DESC bd;
+	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
-	bd.Usage = D3D10_USAGE_DYNAMIC;
+	bd.Usage = D3D11_USAGE_DYNAMIC;
 	bd.ByteWidth = sizeof(SimpleVertex) * 4;
-	bd.BindFlags = D3D10_BIND_VERTEX_BUFFER;
-	bd.CPUAccessFlags = D3D10_CPU_ACCESS_WRITE;
+	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	bd.MiscFlags = 0;
 	hr = pDevice->CreateBuffer(&bd, NULL, &pVertexBuffer);
 
@@ -340,31 +340,32 @@ void D10State::init() {
 		1,2,3,
 	};
 
-	bd.Usage = D3D10_USAGE_DEFAULT;
+	bd.Usage = D3D11_USAGE_DEFAULT;
 	bd.ByteWidth = sizeof(DWORD) * 6;
-	bd.BindFlags = D3D10_BIND_INDEX_BUFFER;
+	bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	bd.CPUAccessFlags = 0;
 	bd.MiscFlags = 0;
-	D3D10_SUBRESOURCE_DATA InitData;
+	D3D11_SUBRESOURCE_DATA InitData;
 	ZeroMemory(&InitData, sizeof(InitData));
 	InitData.pSysMem = indices;
 	hr = pDevice->CreateBuffer(&bd, &InitData, &pIndexBuffer);
 
 	// Set index buffer
-	pDevice->IASetIndexBuffer(pIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+	pDeviceContext->IASetIndexBuffer(pIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 	// Set primitive topology
-	pDevice->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	pMyStateBlock->Capture();
-	pOrigStateBlock->Apply();
-
+	if (!bDeferredContext) {
+		pMyStateBlock->Capture();
+		pOrigStateBlock->Apply();
+	}
 	pBackBuffer->Release();
 
 	dwMyThread = 0;
 }
 
-D10State::~D10State() {
+D11State::~D11State() {
 	pBlendState->Release();
 	pVertexBuffer->Release();
 	pIndexBuffer->Release();
@@ -376,14 +377,22 @@ D10State::~D10State() {
 	if (pSRView)
 		pSRView->Release();
 
-	pMyStateBlock->ReleaseAllDeviceObjects();
-	pMyStateBlock->Release();
+	if (pMyStateBlock) {
+		pMyStateBlock->ReleaseAllDeviceObjects();
+		pMyStateBlock->ReleaseObjects();
+	}
 
-	pOrigStateBlock->ReleaseAllDeviceObjects();
-	pOrigStateBlock->Release();
+	if (pOrigStateBlock) {
+		pOrigStateBlock->ReleaseAllDeviceObjects();
+		pOrigStateBlock->ReleaseObjects();
+	}
+
+	if (pDeviceContext)
+		pDeviceContext->Release();
 }
 
-void D10State::draw() {
+void D11State::draw() {
+	ods("D3D11-draw: DrawBegin");
 	clock_t t = clock();
 	float elapsed = static_cast<float>(t - timeT) / CLOCKS_PER_SEC;
 	++frameCount;
@@ -405,27 +414,42 @@ void D10State::draw() {
 	checkMessage((unsigned int)vp.Width, (unsigned int)vp.Height);
 
 	if (a_ucTexture && pSRView && (uiLeft != uiRight)) {
+		if (!bDeferredContext) {
+			pOrigStateBlock->Capture();
+			pMyStateBlock->Apply();
+		}
 		HRESULT hr;
-		pOrigStateBlock->Capture();
-		pMyStateBlock->Apply();
 
-		D3D10_TECHNIQUE_DESC techDesc;
+		D3DX11_TECHNIQUE_DESC techDesc;
 		pTechnique->GetDesc(&techDesc);
 
 		// Set vertex buffer
 		UINT stride = sizeof(SimpleVertex);
 		UINT offset = 0;
-		pDevice->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
+		pDeviceContext->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
 
 		hr = pDiffuseTexture->SetResource(pSRView);
 		if (! SUCCEEDED(hr))
-			ods("D3D10: Failed to set resource");
+			ods("D3D11: Failed to set resource");
 
 		for (UINT p = 0; p < techDesc.Passes; ++p) {
-			pTechnique->GetPassByIndex(p)->Apply(0);
-			pDevice->DrawIndexed(6, 0, 0);
+			pTechnique->GetPassByIndex(p)->Apply(0, pDeviceContext);
+			pDeviceContext->DrawIndexed(6, 0, 0);
 		}
-		pOrigStateBlock->Apply();
+
+		if (bDeferredContext) {
+			ID3D11CommandList *pCommandList;
+			pDeviceContext->FinishCommandList(TRUE, &pCommandList);
+			ID3D11DeviceContext *ctx = NULL;
+			pDevice->GetImmediateContext(&ctx);
+			ctx->ExecuteCommandList(pCommandList, TRUE);
+			ctx->Release();
+			pCommandList->Release();
+		} else {
+			pDeviceContext->Flush();
+			pMyStateBlock->Capture();
+			pOrigStateBlock->Apply();
+		}
 	}
 
 	dwMyThread = 0;
@@ -436,22 +460,22 @@ void D10State::draw() {
 static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval, UINT Flags) {
 	HRESULT hr;
 
-	ID3D10Device *pDevice = NULL;
+	ID3D11Device *pDevice = NULL;
 
-	ods("DXGI: DrawBegin");
+	ods("DXGI11: myPresent");
 
-	hr = pSwapChain->GetDevice(__uuidof(ID3D10Device), (void **) &pDevice);
+	hr = pSwapChain->GetDevice(__uuidof(ID3D11Device), (void **) &pDevice);
 	if (pDevice) {
-		D10State *ds = chains[pSwapChain];
+		D11State *ds = chains[pSwapChain];
 		if (ds && ds->pDevice != pDevice) {
-			ods("DXGI: SwapChain device changed, removing it");
+			ods("DXGI11: SwapChain device changed");
 			devices.erase(ds->pDevice);
 			delete ds;
 			ds = NULL;
 		}
 		if (! ds) {
-			ods("DXGI: New state");
-			ds = new D10State(pSwapChain, pDevice);
+			ods("DXGI11: New state");
+			ds = new D11State(pSwapChain, pDevice);
 			chains[pSwapChain] = ds;
 			devices[pDevice] = ds;
 			ds->init();
@@ -459,7 +483,6 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 
 		ds->draw();
 		pDevice->Release();
-		ods("DXGI: DrawEnd");
 	}
 
 	PresentType oPresent = (PresentType) hhPresent.call;
@@ -472,7 +495,7 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 static HRESULT __stdcall myResize(IDXGISwapChain *pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags) {
 	HRESULT hr;
 
-	D10State *ds = chains[pSwapChain];
+	D11State *ds = chains[pSwapChain];
 	if (ds) {
 		devices.erase(ds->pDevice);
 		chains.erase(pSwapChain);
@@ -486,7 +509,7 @@ static HRESULT __stdcall myResize(IDXGISwapChain *pSwapChain, UINT BufferCount, 
 	return hr;
 }
 
-static ULONG __stdcall myAddRef(ID3D10Device *pDevice) {
+static ULONG __stdcall myAddRef(ID3D11Device *pDevice) {
 	AddRefType oAddRef = (AddRefType) hhAddRef.call;
 
 	hhAddRef.restore();
@@ -494,28 +517,29 @@ static ULONG __stdcall myAddRef(ID3D10Device *pDevice) {
 	hhAddRef.inject();
 
 	Mutex m;
-	D10State *ds = devices[pDevice];
+	D11State *ds = devices[pDevice];
 	if (ds)
 		ds->lHighMark = res;
 
 	return res;
 }
 
-static ULONG __stdcall myRelease(ID3D10Device *pDevice) {
+static ULONG __stdcall myRelease(ID3D11Device *pDevice) {
 	ReleaseType oRelease = (ReleaseType) hhRelease.call;
 
 	hhRelease.restore();
 	LONG res = oRelease(pDevice);
 	hhRelease.inject();
 
-	D10State *ds = devices[pDevice];
+	Mutex m;
+	D11State *ds = devices[pDevice];
 	if (ds)
 		if (res < (ds->lHighMark / 2)) {
-			ods("D3D10: Deleting resources %d < .5 %d", res, ds->lHighMark);
+			ods("D3D11: Deleting resources %d < .5 %d", res, ds->lHighMark);
 			devices.erase(ds->pDevice);
 			chains.erase(ds->pSwapChain);
 			delete ds;
-			ods("D3D10: Deleted");
+			ods("D3D11: Deleted");
 			ds = NULL;
 		}
 
@@ -523,7 +547,7 @@ static ULONG __stdcall myRelease(ID3D10Device *pDevice) {
 }
 
 static void HookAddRelease(voidFunc vfAdd, voidFunc vfRelease) {
-	ods("D3D10: Injecting device add/remove");
+	ods("D3D11: Injecting device add/remove");
 	hhAddRef.setup(vfAdd, reinterpret_cast<voidFunc>(myAddRef));
 	hhRelease.setup(vfRelease, reinterpret_cast<voidFunc>(myRelease));
 }
@@ -533,14 +557,14 @@ static void HookPresentRaw(voidFunc vfPresent) {
 }
 
 static void HookResizeRaw(voidFunc vfResize) {
-	ods("DXGI: Injecting ResizeBuffers Raw");
+	ods("DXGI11: Injecting ResizeBuffers Raw");
 	hhResize.setup(vfResize, reinterpret_cast<voidFunc>(myResize));
 }
 
-void checkDXGIHook(bool preonly) {
+void checkDXGI11Hook(bool preonly) {
 	if (bChaining) {
 		return;
-		ods("DXGI: Causing a chain");
+		ods("DXGI11: Causing a chain");
 	}
 
 	if (! dxgi->iOffsetPresent || ! dxgi->iOffsetResize)
@@ -549,17 +573,17 @@ void checkDXGIHook(bool preonly) {
 	bChaining = true;
 
 	HMODULE hDXGI = GetModuleHandleW(L"DXGI.DLL");
-	HMODULE hD3D10 = GetModuleHandleW(L"D3D10CORE.DLL");
+	HMODULE hD3D11 = GetModuleHandleW(L"D3D11.DLL");
 
-	if (hDXGI && hD3D10) {
+	if (hDXGI && hD3D11) {
 		if (! bHooked) {
 			wchar_t procname[2048];
 			GetModuleFileNameW(NULL, procname, 2048);
-			fods("DXGI: Hookcheck '%ls'", procname);
+			fods("DXGI11: Hookcheck '%ls'", procname);
 			bHooked = true;
 
 			// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&checkDXGIHook), &hSelf);
+			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&checkDXGI11Hook), &hSelf);
 
 			// Can we use the prepatch data?
 			GetModuleFileNameW(hDXGI, procname, 2048);
@@ -568,13 +592,13 @@ void checkDXGIHook(bool preonly) {
 				HookPresentRaw((voidFunc)(raw + dxgi->iOffsetPresent));
 				HookResizeRaw((voidFunc)(raw + dxgi->iOffsetResize));
 
-				GetModuleFileNameW(hD3D10, procname, 2048);
-				if (_wcsicmp(dxgi->wcD3D10FileName, procname) == 0) {
-					unsigned char *raw = (unsigned char *) hD3D10;
+				GetModuleFileNameW(hD3D11, procname, 2048);
+				if (_wcsicmp(dxgi->wcD3D11FileName, procname) == 0) {
+					unsigned char *raw = (unsigned char *) hD3D11;
 					HookAddRelease((voidFunc)(raw + dxgi->iOffsetAddRef), (voidFunc)(raw + dxgi->iOffsetRelease));
 				}
 			} else if (! preonly) {
-				fods("DXGI Interface changed, can't rawpatch");
+				fods("DXGI11: DXGI Interface changed, can't rawpatch");
 			} else {
 				bHooked = false;
 			}
@@ -584,19 +608,14 @@ void checkDXGIHook(bool preonly) {
 	bChaining = false;
 }
 
-extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
-	// This function is called by the Mumble client in Mumble's scope
-	// mainly to extract the offsets of various functions in the IDXGISwapChain
-	// and IDXGIObject interfaces that need to be hooked in target
-	// applications. The data is stored in the dxgi shared memory structure.
-
+extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 	if (! dxgi)
 		return;
 
-	ods("Preparing static data for DXGI Injection");
+	ods("DXGI11: Preparing static data for Injection");
 
 	dxgi->wcDXGIFileName[0] = 0;
-	dxgi->wcD3D10FileName[0] = 0;
+	dxgi->wcD3D11FileName[0] = 0;
 	dxgi->iOffsetPresent = 0;
 	dxgi->iOffsetResize = 0;
 	dxgi->iOffsetAddRef = 0;
@@ -606,29 +625,30 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 	memset(&ovi, 0, sizeof(ovi));
 	ovi.dwOSVersionInfoSize = sizeof(ovi);
 	GetVersionExW(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
-	if ((ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 6001))) { // Make sure this is vista or greater as quite a number of <=WinXP users have fake DX10 libs installed
-		HMODULE hD3D10 = LoadLibrary("D3D10.DLL");
+	if (ovi.dwMajorVersion >= 7 || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 7600))) {
+		HMODULE hD3D11 = LoadLibrary("D3D11.DLL");
 		HMODULE hDXGI = LoadLibrary("DXGI.DLL");
 
-		if (hDXGI != NULL && hD3D10 != NULL) {
-			CreateDXGIFactoryType pCreateDXGIFactory = reinterpret_cast<CreateDXGIFactoryType>(GetProcAddress(hDXGI, "CreateDXGIFactory"));
-			ods("Got %p", pCreateDXGIFactory);
-			if (pCreateDXGIFactory) {
+		if (hDXGI != NULL && hD3D11 != NULL) {
+			CreateDXGIFactory1Type pCreateDXGIFactory1 = reinterpret_cast<CreateDXGIFactory1Type>(GetProcAddress(hDXGI, "CreateDXGIFactory1"));
+			ods("DXGI11: Got %p", pCreateDXGIFactory1);
+			if (pCreateDXGIFactory1) {
 				HRESULT hr;
-				IDXGIFactory * pFactory;
-				hr = pCreateDXGIFactory(__uuidof(IDXGIFactory), (void**)(&pFactory));
+				IDXGIFactory1 * pFactory;
+				hr = pCreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)(&pFactory));
 				if (pFactory) {
-					HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI Window", WS_OVERLAPPEDWINDOW,
-					                          CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
-					                          NULL, NULL, 0);
+					HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI1 Window", WS_OVERLAPPEDWINDOW,
+								  CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
+								  NULL, NULL, 0);
 
-					IDXGIAdapter *pAdapter = NULL;
-					pFactory->EnumAdapters(0, &pAdapter);
+					IDXGIAdapter1 *pAdapter = NULL;
+					pFactory->EnumAdapters1(0, &pAdapter);
 
-					D3D10CreateDeviceAndSwapChainType pD3D10CreateDeviceAndSwapChain = reinterpret_cast<D3D10CreateDeviceAndSwapChainType>(GetProcAddress(hD3D10, "D3D10CreateDeviceAndSwapChain"));
+					D3D11CreateDeviceAndSwapChainType pD3D11CreateDeviceAndSwapChain = reinterpret_cast<D3D11CreateDeviceAndSwapChainType>(GetProcAddress(hD3D11, "D3D11CreateDeviceAndSwapChain"));
 
 					IDXGISwapChain *pSwapChain = NULL;
-					ID3D10Device *pDevice = NULL;
+					ID3D11Device *pDevice = NULL;
+					ID3D11DeviceContext *pDeviceContext = NULL;
 
 					DXGI_SWAP_CHAIN_DESC desc;
 					ZeroMemory(&desc, sizeof(desc));
@@ -638,7 +658,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 					desc.BufferDesc.Width = rcWnd.right - rcWnd.left;
 					desc.BufferDesc.Height = rcWnd.bottom - rcWnd.top;
 
-					ods("W %d H %d", desc.BufferDesc.Width, desc.BufferDesc.Height);
+					ods("DXGI11: W %d H %d", desc.BufferDesc.Width, desc.BufferDesc.Height);
 
 					desc.BufferDesc.RefreshRate.Numerator = 60;
 					desc.BufferDesc.RefreshRate.Denominator = 1;
@@ -659,27 +679,26 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 
 					desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
-					hr = pD3D10CreateDeviceAndSwapChain(pAdapter, D3D10_DRIVER_TYPE_HARDWARE, NULL, 0, D3D10_SDK_VERSION, &desc, &pSwapChain, &pDevice);
+					D3D_FEATURE_LEVEL featureLevel;
+					hr = pD3D11CreateDeviceAndSwapChain(pAdapter, D3D_DRIVER_TYPE_UNKNOWN, NULL, 0, NULL, 0, D3D11_SDK_VERSION, &desc, &pSwapChain, &pDevice, &featureLevel, &pDeviceContext);
 
-					if (pDevice && pSwapChain) {
+					if (pDevice && pDeviceContext && pSwapChain) {
 						HMODULE hRef;
-						// For VC++ the vtable is located at the base addr. of the object and each function entry is a single pointer. Since p.e. the base classes
-						// of IDXGISwapChain have a total of 8 functions the 8+Xth entry points to the Xth added function in the derived interface.
 						void ***vtbl = (void ***) pSwapChain;
 						void *pPresent = (*vtbl)[8];
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pPresent, &hRef)) {
-							ods("DXGI: Failed to get module for Present");
+							ods("DXGI11: Failed to get module for Present");
 						} else {
 							GetModuleFileNameW(hRef, dxgi->wcDXGIFileName, 2048);
 							unsigned char *b = (unsigned char *) pPresent;
 							unsigned char *a = (unsigned char *) hRef;
 							dxgi->iOffsetPresent = b-a;
-							ods("DXGI: Successfully found Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
+							ods("DXGI11: Successfully found Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
 						}
 
 						void *pResize = (*vtbl)[13];
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pResize, &hRef)) {
-							ods("DXGI: Failed to get module for ResizeBuffers");
+							ods("DXGI11: Failed to get module for ResizeBuffers");
 						} else {
 							wchar_t buff[2048];
 							GetModuleFileNameW(hRef, buff, 2048);
@@ -687,7 +706,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 								unsigned char *b = (unsigned char *) pResize;
 								unsigned char *a = (unsigned char *) hRef;
 								dxgi->iOffsetResize = b-a;
-								ods("DXGI: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetResize);
+								ods("DXGI11: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetResize);
 							}
 						}
 
@@ -695,32 +714,36 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 
 						void *pAddRef = (*vtbl)[1];
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pAddRef, &hRef)) {
-							ods("D3D10: Failed to get module for AddRef");
+							ods("D3D11: Failed to get module for AddRef");
 						} else {
-							GetModuleFileNameW(hRef, dxgi->wcD3D10FileName, 2048);
+							GetModuleFileNameW(hRef, dxgi->wcD3D11FileName, 2048);
 							unsigned char *b = (unsigned char *) pAddRef;
 							unsigned char *a = (unsigned char *) hRef;
 							dxgi->iOffsetAddRef = b-a;
-							ods("D3D10: Successfully found AddRef offset: %ls: %d", dxgi->wcD3D10FileName, dxgi->iOffsetAddRef);
+							ods("D3D11: Successfully found AddRef offset: %ls: %d", dxgi->wcD3D11FileName, dxgi->iOffsetAddRef);
 						}
 
 						void *pRelease = (*vtbl)[2];
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pRelease, &hRef)) {
-							ods("D3D10: Failed to get module for Release");
+							ods("D3D11: Failed to get module for Release");
 						} else {
 							wchar_t buff[2048];
 							GetModuleFileNameW(hRef, buff, 2048);
-							if (wcscmp(buff, dxgi->wcD3D10FileName) == 0) {
+							if (wcscmp(buff, dxgi->wcD3D11FileName) == 0) {
 								unsigned char *b = (unsigned char *) pRelease;
 								unsigned char *a = (unsigned char *) hRef;
 								dxgi->iOffsetRelease = b-a;
-								ods("D3D10: Successfully found Release offset: %ls: %d", dxgi->wcD3D10FileName, dxgi->iOffsetRelease);
+								ods("D3D11: Successfully found Release offset: %ls: %d", dxgi->wcD3D11FileName, dxgi->iOffsetRelease);
 							}
 						}
+					} else {
+						ods("D3D11CreateDeviceAndSwapChain failed");
 					}
 
 					if (pDevice)
 						pDevice->Release();
+					if (pDeviceContext)
+						pDeviceContext->Release();
 					if (pSwapChain)
 						pSwapChain->Release();
 					DestroyWindow(hwnd);
@@ -730,6 +753,6 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 			}
 		}
 	} else {
-		ods("No DXGI pre-Vista");
+		ods("No DXGI1 pre-Win7");
 	}
 }
