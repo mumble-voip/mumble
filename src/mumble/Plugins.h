@@ -35,6 +35,9 @@
 #include <QtCore/QMutex>
 #include <QtCore/QReadWriteLock>
 #include <QtCore/QUrl>
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
 
 #include "ConfigDialog.h"
 

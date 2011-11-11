@@ -47,6 +47,7 @@
 #include "ServerUser.h"
 
 #ifdef USE_BONJOUR
+#include "BonjourServer.h"
 #include "BonjourServiceRegister.h"
 #endif
 

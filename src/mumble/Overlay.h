@@ -46,6 +46,7 @@
 
 class ClientUser;
 class Overlay;
+class QLibrary;
 class QLocalServer;
 
 struct OverlayAppInfo {

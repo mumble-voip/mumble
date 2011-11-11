@@ -31,8 +31,8 @@
 #ifndef SHAREDMEMORY_H_
 #define SHAREDMEMORY_H_
 
-#include <QString>
-#include <QObject>
+#include <QtCore/QString>
+#include <QtCore/QObject>
 
 struct SharedMemory2Private;
 class SharedMemory2 : QObject {

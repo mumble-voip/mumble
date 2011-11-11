@@ -34,7 +34,11 @@
 
 #include <QtCore/QStringList>
 
+#ifdef Q_OS_UNIX
 #include <sys/socket.h>
+#else
+#include <winsock2.h>
+#endif
 
 #include "Connection.h"
 #include "Net.h"

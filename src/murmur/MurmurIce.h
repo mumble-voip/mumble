@@ -32,6 +32,13 @@
 #ifndef MURMURICE_H_
 #define MURMURICE_H_
 
+#include <QtCore/QList>
+#include <QtCore/QMap>
+#include <QtCore/QMutex>
+#include <QtCore/QObject>
+#include <QtCore/QWaitCondition>
+#include <QtNetwork/QSslCertificate>
+
 #include "MurmurI.h"
 
 class Channel;
