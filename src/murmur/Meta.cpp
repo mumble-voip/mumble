@@ -35,7 +35,6 @@
 #include "Connection.h"
 #include "DBus.h"
 #include "Net.h"
-#include "Connection.h"
 #include "ServerDB.h"
 #include "Server.h"
 #include "OSInfo.h"
