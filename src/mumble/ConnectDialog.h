@@ -31,11 +31,24 @@
 #ifndef CONNECTDIALOG_H_
 #define CONNECTDIALOG_H_
 
+#include <boost/accumulators/accumulators.hpp>
+#include <boost/accumulators/statistics/stats.hpp>
+
+#include <QtCore/QString>
+#include <QtCore/QUrl>
+#include <QtGui/QTreeWidget>
+#include <QtNetwork/QHostInfo>
+
+#ifdef USE_BONJOUR
+#include <dns_sd.h>
+#endif
+
 #include "BonjourRecord.h"
 #include "Net.h"
 #include "Timer.h"
 
 struct FavoriteServer;
+class QUdpSocket;
 
 typedef QPair<QHostAddress, unsigned short> qpAddress;
 

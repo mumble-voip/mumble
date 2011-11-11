@@ -31,6 +31,11 @@
 #ifndef ASIOINPUT_H_
 #define ASIOINPUT_H_
 
+#include <QtCore/QList>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QWaitCondition>
+
 #include <windows.h>
 #include <asiodrvr.h>
 #include "AudioInput.h"

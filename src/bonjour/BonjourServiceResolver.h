@@ -31,9 +31,14 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef BONJOURSERVICERESOLVER_H
 #define BONJOURSERVICERESOLVER_H
 
+#include <QtCore/QMap>
+#include <QtCore/QObject>
+
 #include <dns_sd.h>
 
 #include "BonjourRecord.h"
+
+class QSocketNotifier;
 
 class BonjourServiceResolver : public QObject {
 		Q_OBJECT

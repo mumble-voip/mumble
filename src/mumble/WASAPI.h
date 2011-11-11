@@ -31,6 +31,10 @@
 #ifndef WASAPI_H_
 #define WASAPI_H_
 
+#include <QtCore/QObject>
+#include <QtCore/QUuid>
+
+#include <windows.h>
 #include <mmreg.h>
 #include <strsafe.h>
 #include <mmdeviceapi.h>

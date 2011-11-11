@@ -27,17 +27,16 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef BONJOURSERVICEREGISTER_H
-#define BONJOURSERVICEREGISTER_H
+#ifndef BONJOUR_SERVICE_REGISTER_H
+#define BONJOUR_SERVICE_REGISTER_H
 
 // Bonjour flags
 #include <dns_sd.h>
+#include <QtCore/QObject>
 
 #include "BonjourRecord.h"
 
-typedef uint32_t DNSServiceFlags;
-typedef int32_t DNSServiceErrorType;
-typedef struct _DNSServiceRef_t *DNSServiceRef;
+class QSocketNotifier;
 
 class BonjourServiceRegister : public QObject {
 		Q_OBJECT
@@ -67,4 +66,4 @@ class BonjourServiceRegister : public QObject {
 		BonjourRecord finalRecord;
 };
 
-#endif // BONJOURSERVICEREGISTER_H
+#endif // BONJOUR_SERVICE_REGISTER_H

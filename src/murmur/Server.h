@@ -46,6 +46,9 @@
 #include <QtNetwork/QSslKey>
 #include <QtNetwork/QSslSocket>
 #include <QtNetwork/QTcpServer>
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
 
 #include "ACL.h"
 #include "Message.h"
@@ -53,10 +56,7 @@
 #include "Net.h"
 #include "Timer.h"
 
-#ifdef USE_BONJOUR
-#include "BonjourServer.h"
-#endif
-
+class BonjourServer;
 class Channel;
 class PacketDataStream;
 class ServerUser;

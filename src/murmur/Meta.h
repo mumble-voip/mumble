@@ -38,6 +38,9 @@
 #include <QtNetwork/QHostAddress>
 #include <QtNetwork/QSslCertificate>
 #include <QtNetwork/QSslKey>
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
 
 #include "Timer.h"
 
