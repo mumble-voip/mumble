@@ -72,7 +72,6 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	PrepProc prepP9 = (PrepProc) qlOverlay->resolve("PrepareD3D9");
 	PrepDXGIProc prepP10 = (PrepDXGIProc) qlOverlay->resolve("PrepareDXGI");
 	PrepDXGI11Proc prepP11 = (PrepDXGI11Proc) qlOverlay->resolve("PrepareDXGI11");
-	PrepDXGI11Proc pdxgi11 = (PrepDXGI11Proc) qlOverlay->resolve("PrepareDXGI11");
 
 	if (prepP9)
 		prepP9();
@@ -82,9 +81,6 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 
 	if (prepP11)
 		prepP11();
-
-	if (pdxgi11)
-		pdxgi11();
 }
 
 OverlayPrivateWin::~OverlayPrivateWin() {

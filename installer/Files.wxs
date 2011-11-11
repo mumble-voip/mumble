@@ -23,6 +23,9 @@
       <Component Id="mumble_ol.dll">
         <File Source="$(var.SourceDir)\release\mumble_ol.dll" KeyPath="yes" />
       </Component>
+      <Component Id="effects11.dll">
+        <File Source="$(var.SourceDir)\release\effects11.dll" KeyPath="yes" />
+      </Component>
       <Component Id="celt0.0.7.0.dll">
         <File Source="$(var.SourceDir)\release\celt0.0.7.0.dll" KeyPath="yes" />
       </Component>
