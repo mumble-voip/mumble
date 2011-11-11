@@ -31,9 +31,12 @@
 #ifndef TRAY_H_
 #define TRAY_H_
 
+#include <QtCore/QStringList>
 #include <QtCore/QObject>
+#include <QtGui/QSystemTrayIcon>
 
 class LogEmitter;
+class QAction;
 
 class Tray : public QObject {
 	private:

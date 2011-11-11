@@ -46,6 +46,10 @@
 #include <QtNetwork/QSslCipher>
 #include <QtNetwork/QSslError>
 
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
+
 #define SERVERSEND_EVENT 3501
 
 #include "Timer.h"

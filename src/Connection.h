@@ -31,6 +31,7 @@
 #ifndef CONNECTION_H_
 #define CONNECTION_H_
 
+#include <QtCore/QtGlobal>
 #if QT_VERSION >= 0x040700
 #include <QtCore/QElapsedTimer>
 #else
@@ -39,6 +40,9 @@
 #include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtNetwork/QSslSocket>
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
 
 #include "CryptState.h"
 

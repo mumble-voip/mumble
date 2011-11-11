@@ -37,7 +37,7 @@
 #include <windows.h>
 #endif
 
-#include <QDebug>
+#include <QtCore/QDebug>
 
 struct SharedMemory2Private {
 	HANDLE hMemory;
