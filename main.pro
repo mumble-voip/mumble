@@ -27,7 +27,9 @@ CONFIG *= ordered debug_and_release
 
   win32 {
     SUBDIRS *= overlay
-    SUBDIRS *= effects11
+    exists(effects11/effects11.cpp) {
+      SUBDIRS *= effects11
+    }
   }
 
   unix:!macx:!CONFIG(no-overlay) {
