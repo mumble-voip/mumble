@@ -31,8 +31,10 @@
 #ifndef _INTERNAL_OVERLAY_H
 #define _INTERNAL_OVERLAY_H
 
+// overlay version number
 #define OVERLAY_MAGIC_NUMBER 0x00000005
 
+// definition of overlay message types and structs follow
 struct OverlayMsgHeader {
 	unsigned int uiMagic;
 	int iLength;

@@ -164,7 +164,7 @@ void D10State::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int
 void D10State::setRect() {
 	HRESULT hr;
 
-	ods("D3D10: Setrect");
+	ods("D3D10: SetRect");
 
 	float w = static_cast<float>(uiWidth);
 	float h = static_cast<float>(uiHeight);
@@ -402,7 +402,7 @@ void D10State::draw() {
 
 	dwMyThread = GetCurrentThreadId();
 
-	checkMessage(vp.Width, vp.Height);
+	checkMessage((unsigned int)vp.Width, (unsigned int)vp.Height);
 
 	if (a_ucTexture && pSRView && (uiLeft != uiRight)) {
 		HRESULT hr;
@@ -435,7 +435,6 @@ void D10State::draw() {
 
 static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval, UINT Flags) {
 	HRESULT hr;
-//	ods("DXGI: Device Present");
 
 	ID3D10Device *pDevice = NULL;
 
@@ -445,7 +444,7 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 	if (pDevice) {
 		D10State *ds = chains[pSwapChain];
 		if (ds && ds->pDevice != pDevice) {
-			ods("DXGI: SwapChain device changed");
+			ods("DXGI: SwapChain device changed, removing it");
 			devices.erase(ds->pDevice);
 			delete ds;
 			ds = NULL;
@@ -509,7 +508,6 @@ static ULONG __stdcall myRelease(ID3D10Device *pDevice) {
 	LONG res = oRelease(pDevice);
 	hhRelease.inject();
 
-	Mutex m;
 	D10State *ds = devices[pDevice];
 	if (ds)
 		if (res < (ds->lHighMark / 2)) {
