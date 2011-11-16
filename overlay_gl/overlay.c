@@ -442,9 +442,9 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 
 
 	GLfloat vertex[] = {left, bottom,
-                      left, top,
-                      right, top,
-                      right, bottom};
+	                  left, top,
+	                  right, top,
+	                  right, bottom};
 	GLfloat tex[] = {xm, ymx, xm, ym, xmx, ym, xmx, ymx};
 	glVertexPointer(2, GL_FLOAT, 0, vertex);
 	glTexCoordPointer(2, GL_FLOAT, 0, tex);

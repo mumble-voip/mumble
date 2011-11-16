@@ -12,3 +12,4 @@ vc100.pdb
 *~
 *.pb.h
 *.pb.cc
+overlay/overlay.hex
