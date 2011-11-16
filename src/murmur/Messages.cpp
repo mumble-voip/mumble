@@ -29,6 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "murmur_pch.h"
+
 #include "User.h"
 #include "Channel.h"
 #include "ACL.h"
@@ -205,12 +207,14 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	} else {
 		uSource->qlCodecs.append(static_cast<qint32>(0x8000000b));
 	}
+	uSource->bOpus = msg.opus();
 	recheckCodecVersions();
 
 	MumbleProto::CodecVersion mpcv;
 	mpcv.set_alpha(iCodecAlpha);
 	mpcv.set_beta(iCodecBeta);
 	mpcv.set_prefer_alpha(bPreferAlpha);
+	mpcv.set_opus(bOpus);
 	sendMessage(uSource, mpcv);
 
 	// Transmit channel tree
@@ -1580,6 +1584,7 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 
 		foreach(int v, pDstServerUser->qlCodecs)
 			msg.add_celt_versions(v);
+		msg.set_opus(pDstServerUser->bOpus);
 
 		msg.set_address(pDstServerUser->haAddress.toStdString());
 	}

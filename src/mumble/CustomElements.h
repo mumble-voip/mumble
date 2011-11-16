@@ -28,10 +28,14 @@
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#ifndef CUSTOMELEMENTS_H
-#define CUSTOMELEMENTS_H
 
-#include "mumble_pch.hpp"
+#ifndef CUSTOMELEMENTS_H_
+#define CUSTOMELEMENTS_H_
+
+#include <QtCore/QObject>
+#include <QtGui/QLabel>
+#include <QtGui/QTextBrowser>
+#include <QtGui/QTextEdit>
 
 class LogTextBrowser : public QTextBrowser {
 	private:
@@ -104,4 +108,4 @@ class DockTitleBar : public QLabel {
 		bool eventFilter(QObject *, QEvent *);
 };
 
-#endif // CUSTOMELEMENTS_H
+#endif // CUSTOMELEMENTS_H_

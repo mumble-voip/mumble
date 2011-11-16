@@ -37,7 +37,10 @@
  * OCB with something else or get yourself a license.
  */
 
+#include "murmur_pch.h"
+
 #include "CryptState.h"
+
 #include "Net.h"
 
 CryptState::CryptState() {

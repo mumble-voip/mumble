@@ -29,37 +29,40 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "MainWindow.h"
-#include "AudioWizard.h"
-#include "Cert.h"
-#include "AudioInput.h"
-#include "ConnectDialog.h"
-#include "User.h"
-#include "Channel.h"
-#include "ACLEditor.h"
-#include "BanEditor.h"
-#include "UserEdit.h"
-#include "Tokens.h"
-#include "Connection.h"
-#include "ServerHandler.h"
+
 #include "About.h"
-#include "GlobalShortcut.h"
-#include "VersionCheck.h"
-#include "UserModel.h"
+#include "ACL.h"
+#include "ACLEditor.h"
+#include "AudioInput.h"
 #include "AudioStats.h"
-#include "Plugins.h"
+#include "AudioWizard.h"
+#include "BanEditor.h"
+#include "Cert.h"
+#include "Channel.h"
+#include "Connection.h"
+#include "ConnectDialog.h"
+#include "Database.h"
+#include "Global.h"
+#include "GlobalShortcut.h"
 #include "Log.h"
 #include "Net.h"
-#include "Overlay.h"
-#include "Global.h"
-#include "Database.h"
-#include "ViewCert.h"
-#include "TextMessage.h"
 #include "NetworkConfig.h"
-#include "ACL.h"
-#include "UserInformation.h"
-#include "VoiceRecorderDialog.h"
+#include "Overlay.h"
+#include "Plugins.h"
 #include "PTTButtonWidget.h"
+#include "ServerHandler.h"
+#include "TextMessage.h"
+#include "Tokens.h"
+#include "User.h"
+#include "UserEdit.h"
+#include "UserInformation.h"
+#include "UserModel.h"
+#include "VersionCheck.h"
+#include "ViewCert.h"
+#include "VoiceRecorderDialog.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -181,13 +184,8 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	qwPTTButtonWidget = NULL;
 
-#if QT_VERSION >= 0x040600
 	cuContextUser = QWeakPointer<ClientUser>();
 	cContextChannel = QWeakPointer<Channel>();
-#else
-	cuContextUser = QPointer<ClientUser>();
-	cContextChannel = QPointer<Channel>();
-#endif
 
 	qtReconnect = new QTimer(this);
 	qtReconnect->setInterval(10000);
@@ -543,11 +541,7 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, b
 				qmUser->exec(pos_, NULL);
 			}
 		}
-#if QT_VERSION >= 0x040600
 		cuContextUser.clear();
-#else
-		cuContextUser = NULL;
-#endif
 	} else if (url.scheme() == QString::fromLatin1("channelid")) {
 		bool ok;
 		QByteArray qbaServerDigest = QByteArray::fromBase64(url.path().remove(0, 1).toLatin1());
@@ -563,11 +557,7 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, b
 				qmChannel->exec(pos_, NULL);
 			}
 		}
-#if QT_VERSION >= 0x040600
 		cContextChannel.clear();
-#else
-		cContextChannel = NULL;
-#endif
 	} else {
 		return false;
 	}
@@ -584,29 +574,13 @@ void MainWindow::on_qtvUsers_customContextMenuRequested(const QPoint &mpos) {
 
 	qpContextPosition = mpos;
 	if (p) {
-#if QT_VERSION >= 0x040600
 		cuContextUser.clear();
-#else
-		cuContextUser = NULL;
-#endif
 		qmUser->exec(qtvUsers->mapToGlobal(mpos), qaUserMute);
-#if QT_VERSION >= 0x040600
 		cuContextUser.clear();
-#else
-		cuContextUser = NULL;
-#endif
 	} else {
-#if QT_VERSION >= 0x040600
 		cContextChannel.clear();
-#else
-		cContextChannel = NULL;
-#endif
 		qmChannel->exec(qtvUsers->mapToGlobal(mpos), NULL);
-#if QT_VERSION >= 0x040600
 		cContextChannel.clear();
-#else
-		cContextChannel = NULL;
-#endif
 	}
 	qpContextPosition = QPoint();
 }
@@ -620,12 +594,8 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 			return;
 	}
 
-#if QT_VERSION >= 0x040400
 	QPoint contentPosition = QPoint(QApplication::isRightToLeft() ? (qteLog->horizontalScrollBar()->maximum() - qteLog->horizontalScrollBar()->value()) : qteLog->horizontalScrollBar()->value(), qteLog->verticalScrollBar()->value());
 	QMenu *menu = qteLog->createStandardContextMenu(mpos + contentPosition);
-#else
-	QMenu *menu = qteLog->createStandardContextMenu();
-#endif
 	menu->addSeparator();
 	menu->addAction(tr("Clear"), qteLog, SLOT(clear(void)));
 	menu->exec(qteLog->mapToGlobal(mpos));
@@ -664,9 +634,7 @@ void MainWindow::openUrl(const QUrl &url) {
 		f.close();
 
 		QSettings *qs = new QSettings(f.fileName(), QSettings::IniFormat);
-#if QT_VERSION >= 0x040500
 		qs->setIniCodec("UTF-8");
-#endif
 		if (qs->status() != QSettings::NoError) {
 			g.l->log(Log::Warning, tr("File is not a configuration file."));
 		} else {
@@ -1192,6 +1160,7 @@ void MainWindow::qmUser_aboutToShow() {
 	if (g.sh && g.sh->uiVersion >= 0x010203)
 		qmUser->addAction(qaUserPrioritySpeaker);
 	qmUser->addAction(qaUserLocalMute);
+	qmUser->addAction(qaUserLocalIgnore);
 
 	if (self)
 		qmUser->addAction(qaSelfComment);
@@ -1247,6 +1216,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserBan->setEnabled(false);
 		qaUserTextMessage->setEnabled(false);
 		qaUserLocalMute->setEnabled(false);
+		qaUserLocalIgnore->setEnabled(false);
 		qaUserCommentReset->setEnabled(false);
 		qaUserCommentView->setEnabled(false);
 	} else {
@@ -1254,6 +1224,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserBan->setEnabled(! self);
 		qaUserTextMessage->setEnabled(true);
 		qaUserLocalMute->setEnabled(! self);
+		qaUserLocalIgnore->setEnabled(! self);
 		qaUserCommentReset->setEnabled(! p->qbaCommentHash.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
 		qaUserCommentView->setEnabled(! p->qbaCommentHash.isEmpty());
 
@@ -1261,6 +1232,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserDeaf->setChecked(p->bDeaf);
 		qaUserPrioritySpeaker->setChecked(p->bPrioritySpeaker);
 		qaUserLocalMute->setChecked(p->bLocalMute);
+		qaUserLocalIgnore->setChecked(p->bLocalIgnore);
 	}
 	updateMenuPermissions();
 }
@@ -1293,6 +1265,18 @@ void MainWindow::on_qaUserLocalMute_triggered() {
 	p->setLocalMute(muted);
 	if (! p->qsHash.isEmpty())
 		Database::setLocalMuted(p->qsHash, muted);
+}
+
+void MainWindow::on_qaUserLocalIgnore_triggered() {
+	ClientUser *p = getContextMenuUser();
+	if (!p)
+		return;
+
+	bool ignored = qaUserLocalIgnore->isChecked();
+
+	p->setLocalIgnore(ignored);
+	if (! p->qsHash.isEmpty())
+		Database::setLocalIgnored(p->qsHash, ignored);
 }
 
 void MainWindow::on_qaUserDeaf_triggered() {
@@ -1442,11 +1426,7 @@ void MainWindow::openTextMessageDialog(ClientUser *p) {
 void MainWindow::on_qaUserCommentView_triggered() {
 	ClientUser *p = getContextMenuUser();
 	// This has to be done here because UserModel could've set it.
-#if QT_VERSION >= 0x040600
 	cuContextUser.clear();
-#else
-	cuContextUser = NULL;
-#endif
 
 	if (!p)
 		return;
@@ -1765,7 +1745,6 @@ void MainWindow::on_qaChannelCopyURL_triggered() {
 		return;
 
 	g.sh->getConnectionInfo(host, port, uname, pw);
-
 	// walk back up the channel list to build the URL.
 	while (c->cParent != NULL) {
 		channel.prepend(c->qsName);
@@ -2268,6 +2247,7 @@ void MainWindow::serverConnected() {
 	g.pPermissions = ChanACL::None;
 	g.iCodecAlpha = 0x8000000b;
 	g.bPreferAlpha = true;
+	g.bOpus = true;
 	g.iCodecBeta = 0;
 
 	g.l->clearIgnore();

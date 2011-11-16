@@ -29,8 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _COREAUDIO_H
-#define _COREAUDIO_H
+#ifndef COREAUDIO_H_
+#define COREAUDIO_H_
 
 #include "AudioInput.h"
 #include "AudioOutput.h"

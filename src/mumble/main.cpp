@@ -28,6 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "Overlay.h"
 #include "MainWindow.h"
 #include "ServerHandler.h"
@@ -86,7 +88,6 @@ void QAppMumble::commitData(QSessionManager &) {
 }
 
 bool QAppMumble::event(QEvent *e) {
-#if QT_VERSION >= 0x040600
 	if (e->type() == QEvent::FileOpen) {
 		QFileOpenEvent *foe = static_cast<QFileOpenEvent *>(e);
 		if (! g.mw) {
@@ -96,7 +97,6 @@ bool QAppMumble::event(QEvent *e) {
 		}
 		return true;
 	}
-#endif
 	return QApplication::event(e);
 }
 

@@ -29,20 +29,23 @@
 */
 
 #ifdef USE_DBUS
-#ifndef _DBUS_H
-#define _DBUS_H
+#ifndef DBUS_H_
+#define DBUS_H_
 
-#include "murmur_pch.h"
+#include <QtDBus/QDBusAbstractAdaptor>
+#include <QtDBus/QDBusConnection>
 
-#include "User.h"
+#include "ACL.h"
 #include "Channel.h"
 #include "Group.h"
-#include "ACL.h"
+#include "Meta.h"
 #include "Server.h"
 #include "ServerDB.h"
-#include "Meta.h"
+#include "User.h"
 
 struct Ban;
+class QDBusObjectPath;
+class QDBusMessage;
 
 struct PlayerInfo {
 	unsigned int session;

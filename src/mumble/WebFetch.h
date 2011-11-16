@@ -28,10 +28,15 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _WEBFETCH_H
-#define _WEBFETCH_H
+#ifndef WEBFETCH_H_
+#define WEBFETCH_H_
 
-#include "mumble_pch.hpp"
+#include <QtCore/QByteArray>
+#include <QtCore/QMap>
+#include <QtCore/QObject>
+#include <QtCore/QUrl>
+
+class QNetworkReply;
 
 /*!
  * \brief Utility class to fetch data from mumble servers.

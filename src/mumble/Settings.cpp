@@ -29,11 +29,14 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "Settings.h"
-#include "Log.h"
-#include "Global.h"
+
 #include "AudioInput.h"
 #include "Cert.h"
+#include "Log.h"
+#include "Global.h"
 #include "../../overlay/overlay.h"
 #include "../../overlay/overlay_blacklist.h"
 

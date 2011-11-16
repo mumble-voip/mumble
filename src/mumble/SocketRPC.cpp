@@ -28,12 +28,15 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "SocketRPC.h"
+
+#include "Channel.h"
+#include "ClientUser.h"
 #include "Global.h"
 #include "MainWindow.h"
 #include "ServerHandler.h"
-#include "Channel.h"
-#include "ClientUser.h"
 
 SocketRPCClient::SocketRPCClient(QLocalSocket *s, QObject *p) : QObject(p), qlsSocket(s), qbBuffer(NULL) {
 	qlsSocket->setParent(this);

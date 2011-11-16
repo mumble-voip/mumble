@@ -28,9 +28,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "UserEdit.h"
-#include "ServerHandler.h"
+
 #include "Global.h"
+#include "ServerHandler.h"
 #include "User.h"
 
 UserEdit::UserEdit(const MumbleProto::UserList &msg, QWidget *p) : QDialog(p) {

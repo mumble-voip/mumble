@@ -38,8 +38,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  ********************************************************************/
 
-#ifndef _MUMBLE_SMFT_H_
-#define _MUMBLE_SMFT_H_
+#ifndef MUMBLE_SMFT_H_
+#define MUMBLE_SMFT_H_
 
 typedef struct {
 	int n;

@@ -34,6 +34,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "BonjourRecord.h"
 
+class QSocketNotifier;
+
 class BonjourServiceBrowser : public QObject {
 		Q_OBJECT
 	public:

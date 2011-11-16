@@ -28,11 +28,14 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "WASAPI.h"
-#include "User.h"
+
 #include "Global.h"
 #include "MainWindow.h"
 #include "Timer.h"
+#include "User.h"
 
 // Now that Win7 is published, which includes public versions of these
 // interfaces, we simply inherit from those but use the "old" IIDs.

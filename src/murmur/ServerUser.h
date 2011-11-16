@@ -29,14 +29,21 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _SERVERUSER_H
-#define _SERVERUSER_H
+#ifndef SERVERUSER_H_
+#define SERVERUSER_H_
 
-#include "murmur_pch.h"
-#include "User.h"
+#include <QtCore/QStringList>
+
+#ifdef Q_OS_UNIX
+#include <sys/socket.h>
+#else
+#include <winsock2.h>
+#endif
+
 #include "Connection.h"
 #include "Net.h"
 #include "Timer.h"
+#include "User.h"
 
 // Unfortunately, this needs to be "large enough" to hold
 // enough frames to account for both short-term and
@@ -103,6 +110,7 @@ class ServerUser : public Connection, public User {
 		bool bUdp;
 
 		QList<int> qlCodecs;
+		bool bOpus;
 
 		QStringList qslAccessTokens;
 

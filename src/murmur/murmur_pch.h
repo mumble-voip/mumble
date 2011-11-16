@@ -2,7 +2,7 @@
 #ifndef _MURMUR_PCH_H
 #define _MURMUR_PCH_H
 
-#define _WINSOCKAPI_
+#define WIN32_LEAN_AND_MEAN
 
 #define _USE_MATH_DEFINES
 #if defined(__INTEL_COMPILER)

@@ -28,12 +28,14 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "Server.h"
-#include "ServerUser.h"
+#include "murmur_pch.h"
+
 #include "Channel.h"
 #include "Group.h"
 #include "Meta.h"
+#include "Server.h"
 #include "ServerDB.h"
+#include "ServerUser.h"
 #include "Version.h"
 
 /*!

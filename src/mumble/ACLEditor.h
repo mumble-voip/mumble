@@ -29,14 +29,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _ACLEDITOR_H
-#define _ACLEDITOR_H
+#ifndef ACLEDITOR_H_
+#define ACLEDITOR_H_
 
-#include "mumble_pch.hpp"
-#include "Message.h"
 #include "ACL.h"
 #include "Group.h"
-#include "ClientUser.h"
+#include "Mumble.pb.h"
 
 #include "ui_ACLEditor.h"
 

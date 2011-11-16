@@ -15,5 +15,6 @@
     <file alias="places/network-workgroup.svg" >../../icons/tango/places/network-workgroup.svg</file>
     <file alias="mimetypes/image-x-generic.svg" >../../icons/tango/mimetypes/image-x-generic.svg</file>
     <file alias="mimetypes/text-html.svg" >../../icons/tango/mimetypes/text-html.svg</file>
+	<file alias="status/text-missing.svg" >../../icons/tango/status/text-missing.svg</file>
   </qresource>
 </RCC>

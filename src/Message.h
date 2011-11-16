@@ -28,11 +28,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _MESSAGE_H
-#define _MESSAGE_H
+#ifndef MESSAGE_H_
+#define MESSAGE_H_
 
-#include "Connection.h"
-#include "Mumble.pb.h"
+#include <string>
+#include <QtCore/QCryptographicHash>
+#include <QtCore/QString>
 
 /**
   Protobuf packet type enumeration for message handler generation.

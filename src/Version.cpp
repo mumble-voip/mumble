@@ -29,6 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "murmur_pch.h"
+
 #include "Version.h"
 
 unsigned int MumbleVersion::getRaw(const QString &version) {

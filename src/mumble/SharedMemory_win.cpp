@@ -28,13 +28,16 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
+#include "SharedMemory.h"
+
 #ifndef _WIN32_WINNT
 #define  _WIN32_WINNT 0x0501
 #include <windows.h>
 #endif
 
-#include <QDebug>
-#include "SharedMemory.h"
+#include <QtCore/QDebug>
 
 struct SharedMemory2Private {
 	HANDLE hMemory;

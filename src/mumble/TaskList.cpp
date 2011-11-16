@@ -29,11 +29,13 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
+#include "TaskList.h"
+
 #include <shobjidl.h>
 #include <propkey.h>
 #include <propvarutil.h>
-
-#include "TaskList.h"
 
 extern bool bIsWin7;
 

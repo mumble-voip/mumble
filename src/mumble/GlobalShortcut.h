@@ -29,12 +29,16 @@
 */
 
 
-#ifndef _GLOBALSHORTCUT_H
-#define _GLOBALSHORTCUT_H
+#ifndef GLOBALSHORTCUT_H_
+#define GLOBALSHORTCUT_H_
 
-#include "mumble_pch.hpp"
+#include <QtCore/QThread>
+#include <QtGui/QToolButton>
+#include <QtGui/QStyledItemDelegate>
+
 #include "ConfigDialog.h"
 #include "Timer.h"
+
 #include "ui_GlobalShortcut.h"
 #include "ui_GlobalShortcutTarget.h"
 

@@ -28,10 +28,13 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "Tokens.h"
+
+#include "Database.h"
 #include "Global.h"
 #include "ServerHandler.h"
-#include "Database.h"
 
 Tokens::Tokens(QWidget *p) : QDialog(p) {
 	setupUi(this);

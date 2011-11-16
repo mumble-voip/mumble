@@ -29,7 +29,9 @@
 */
 
 #include "murmur_pch.h"
+
 #include "UnixMurmur.h"
+
 #include "Meta.h"
 
 QMutex *LimitTest::qm;

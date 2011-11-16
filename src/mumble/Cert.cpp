@@ -28,8 +28,11 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "Global.h"
+#include "mumble_pch.hpp"
+
 #include "Cert.h"
+
+#include "Global.h"
 
 #if OPENSSL_VERSION_NUMBER < 0x0090800fL
 /* In OpenSSL version 0.9.8, some functions dealing with output buffers

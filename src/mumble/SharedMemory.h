@@ -28,11 +28,11 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _SHAREDMEMORY_H
-#define _SHAREDMEMORY_H
+#ifndef SHAREDMEMORY_H_
+#define SHAREDMEMORY_H_
 
-#include <QString>
-#include <QObject>
+#include <QtCore/QString>
+#include <QtCore/QObject>
 
 struct SharedMemory2Private;
 class SharedMemory2 : QObject {

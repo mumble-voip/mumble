@@ -28,12 +28,29 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CONNECTION_H
-#define _CONNECTION_H
+#ifndef CONNECTION_H_
+#define CONNECTION_H_
 
-#include "murmur_pch.h"
+#include <QtCore/QtGlobal>
+#if QT_VERSION >= 0x040700
+#include <QtCore/QElapsedTimer>
+#else
+#include <QtCore/QTime>
+#endif
+#include <QtCore/QList>
+#include <QtCore/QObject>
+#include <QtNetwork/QSslSocket>
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
+
 #include "CryptState.h"
-#include "Mumble.pb.h"
+
+namespace google {
+namespace protobuf {
+class Message;
+}
+}
 
 class Connection : public QObject {
 	private:

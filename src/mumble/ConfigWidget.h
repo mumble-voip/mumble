@@ -29,13 +29,17 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CONFIGWIDGET_H
-#define _CONFIGWIDGET_H
+#ifndef CONFIGWIDGET_H_
+#define CONFIGWIDGET_H_
 
-#include "mumble_pch.hpp"
+#include <QtCore/QObject>
+#include <QtGui/QWidget>
 
 struct Settings;
 class ConfigDialog;
+class QSlider;
+class QAbstractButton;
+class QComboBox;
 
 class ConfigWidget : public QWidget {
 	private:

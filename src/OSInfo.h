@@ -28,10 +28,11 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _OSINFO_H
-#define _OSINFO_H
+#ifndef OSINFO_H_
+#define OSINFO_H_
 
-#include "murmur_pch.h"
+class QDomDocument;
+class QDomElement;
 
 class OSInfo {
 	public:

@@ -29,9 +29,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
+#include "LookConfig.h"
+
 #include "AudioInput.h"
 #include "AudioOutput.h"
-#include "LookConfig.h"
 #include "Global.h"
 #include "MainWindow.h"
 

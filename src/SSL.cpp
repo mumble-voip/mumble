@@ -28,7 +28,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "murmur_pch.h"
+
 #include "SSL.h"
+
 #include "Version.h"
 
 /* CAs we recommend to end users, so support these */

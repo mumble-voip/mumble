@@ -29,7 +29,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "AudioOutput.h"
+
 #include "AudioInput.h"
 #include "User.h"
 #include "Global.h"
@@ -37,7 +40,12 @@
 #include "Plugins.h"
 #include "PacketDataStream.h"
 #include "ServerHandler.h"
+#include "OpusUtilities.h"
 #include "VoiceRecorder.h"
+
+#ifdef USE_OPUS
+#include "mumble_opus.h"
+#endif
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioOutputRegistrar() might be called before they are initialized, as the constructor
@@ -388,6 +396,10 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 		iFrameSize = srate / 100;
 
 		dsSpeex = NULL;
+#ifdef USE_OPUS
+		// FIXME: use a stereo decoder if PA is disabled (requires a larger buffer than what we're currently using)
+		opusState = opus_decoder_create(SAMPLE_RATE, 1, NULL);
+#endif
 	} else {
 		speex_bits_init(&sbBits);
 
@@ -426,6 +438,10 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 }
 
 AudioOutputSpeech::~AudioOutputSpeech() {
+#ifdef USE_OPUS
+	if (opusState)
+		opus_decoder_destroy(opusState);
+#endif
 	if (cdDecoder) {
 		cCodec->celt_decoder_destroy(cdDecoder);
 	} else if (dsSpeex) {
@@ -450,15 +466,25 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 
 	PacketDataStream pds(qbaPacket);
 
+	// skip flags
 	pds.next();
 
 	int frames = 0;
-	unsigned int header = 0;
-	do {
-		header = static_cast<unsigned char>(pds.next());
-		frames++;
-		pds.skip(header & 0x7f);
-	} while ((header & 0x80) && pds.isValid());
+	if (umtType == MessageHandler::UDPVoiceOpus) {
+		// FIXME
+		frames = 1;
+
+		int size = OpusUtilities::ParseToc(&pds);
+		pds.skip(size);
+	} else {
+		unsigned int header = 0;
+
+		do {
+			header = static_cast<unsigned char>(pds.next());
+			frames++;
+			pds.skip(header & 0x7f);
+		} while ((header & 0x80) && pds.isValid());
+	}
 
 	if (pds.isValid()) {
 		JitterBufferPacket jbp;
@@ -548,16 +574,24 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 
 					iMissCount = 0;
 					ucFlags = static_cast<unsigned char>(pds.next());
-					bHasTerminator = false;
 
-					unsigned int header = 0;
-					do {
-						header = static_cast<unsigned int>(pds.next());
-						if (header)
-							qlFrames << pds.dataBlock(header & 0x7f);
-						else
-							bHasTerminator = true;
-					} while ((header & 0x80) && pds.isValid());
+					bHasTerminator = false;
+					if (umtType == MessageHandler::UDPVoiceOpus) {
+						PacketDataStream pdi(jbp.data, jbp.len);
+						pdi.next();
+
+						int size = OpusUtilities::ParseToc(&pdi);
+						qlFrames << pds.dataBlock(pdi.size() - 1 + size);
+					} else {
+						unsigned int header = 0;
+						do {
+							header = static_cast<unsigned int>(pds.next());
+							if (header)
+								qlFrames << pds.dataBlock(header & 0x7f);
+							else
+								bHasTerminator = true;
+						} while ((header & 0x80) && pds.isValid());
+					}
 
 					if (pds.left()) {
 						pds >> fPos[0];
@@ -586,7 +620,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 			if (! qlFrames.isEmpty()) {
 				QByteArray qba = qlFrames.takeFirst();
 
-				if (umtType != MessageHandler::UDPVoiceSpeex) {
+				if (umtType == MessageHandler::UDPVoiceCELTAlpha || umtType == MessageHandler::UDPVoiceCELTBeta) {
 					int wantversion = (umtType == MessageHandler::UDPVoiceCELTAlpha) ? g.iCodecAlpha : g.iCodecBeta;
 					if ((p == &LoopUser::lpLoopy) && (! g.qmCodecs.isEmpty())) {
 						QMap<int, CELTCodec *>::const_iterator i = g.qmCodecs.constEnd();
@@ -607,6 +641,10 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 						cCodec->decode_float(cdDecoder, qba.isEmpty() ? NULL : reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut);
 					else
 						memset(pOut, 0, sizeof(float) * iFrameSize);
+				} else if (umtType == MessageHandler::UDPVoiceOpus) {
+#ifdef USE_OPUS
+					mumble_opus_decode_float(opusState, qba.isEmpty() ? NULL : reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut, iFrameSize, 0, NULL);
+#endif
 				} else {
 					if (qba.isEmpty()) {
 						speex_decode(dsSpeex, NULL, pOut);
@@ -784,9 +822,7 @@ AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
 		return NULL;
 
 	while ((iMixerFreq == 0) && isAlive()) {
-#if QT_VERSION >= 0x040500
 		QThread::yieldCurrentThread();
-#endif
 	}
 
 	if (! iMixerFreq)
@@ -814,9 +850,7 @@ void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket
 			removeBuffer(aop);
 
 		while ((iMixerFreq == 0) && isAlive()) {
-#if QT_VERSION >= 0x040500
 			QThread::yieldCurrentThread();
-#endif
 		}
 
 		if (! iMixerFreq)

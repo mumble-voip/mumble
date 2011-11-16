@@ -28,14 +28,17 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QDebug>
+#include "mumble_pch.hpp"
+
+#include "SharedMemory.h"
+
 #include <sys/types.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
 
-#include "SharedMemory.h"
+#include <QDebug>
 
 struct SharedMemory2Private {
 	int iShmemFD;

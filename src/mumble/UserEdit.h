@@ -28,12 +28,16 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _USEREDIT_H
-#define _USEREDIT_H
+#ifndef USEREDIT_H_
+#define USEREDIT_H_
 
-#include "mumble_pch.hpp"
-#include "ui_UserEdit.h"
 #include "Message.h"
+
+#include "ui_UserEdit.h"
+
+namespace MumbleProto {
+class UserList;
+}
 
 class UserEditListItem : public QListWidgetItem {
 	public:

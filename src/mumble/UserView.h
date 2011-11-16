@@ -28,10 +28,11 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _USERVIEW_H
-#define _USERVIEW_H
+#ifndef USERVIEW_H_
+#define USERVIEW_H_
 
-#include "mumble_pch.hpp"
+#include <QtGui/QStyledItemDelegate>
+#include <QtGui/QTreeView>
 
 #include "Timer.h"
 

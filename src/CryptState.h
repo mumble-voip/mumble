@@ -28,10 +28,11 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CRYPTSTATE_H
-#define _CRYPTSTATE_H
+#ifndef CRYPTSTATE_H_
+#define CRYPTSTATE_H_
 
-#include "murmur_pch.h"
+#include <openssl/aes.h>
+
 #include "Timer.h"
 
 class CryptState {

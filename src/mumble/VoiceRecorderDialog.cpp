@@ -29,11 +29,14 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "VoiceRecorderDialog.h"
+
 #include "AudioOutput.h"
 #include "Global.h"
-#include "VoiceRecorder.h"
 #include "ServerHandler.h"
+#include "VoiceRecorder.h"
 
 VoiceRecorderDialog::VoiceRecorderDialog(QWidget *p = NULL) : QDialog(p), qtTimer(new QTimer(this)) {
 	qtTimer->setObjectName(QLatin1String("qtTimer"));

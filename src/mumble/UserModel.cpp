@@ -29,18 +29,21 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "UserModel.h"
-#include "MainWindow.h"
-#include "Message.h"
-#include "ServerHandler.h"
+
 #include "Channel.h"
-#include "User.h"
+#include "Database.h"
 #include "Global.h"
-#include "Overlay.h"
 #include "LCD.h"
 #include "Log.h"
-#include "Database.h"
+#include "MainWindow.h"
+#include "Message.h"
+#include "Overlay.h"
+#include "ServerHandler.h"
 #include "Usage.h"
+#include "User.h"
 
 QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;
 QHash <ClientUser *, ModelItem *> ModelItem::c_qhUsers;
@@ -220,6 +223,7 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiMutedSelf=QIcon(QLatin1String("skin:muted_self.svg"));
 	qiMutedServer=QIcon(QLatin1String("skin:muted_server.svg"));
 	qiMutedLocal=QIcon(QLatin1String("skin:muted_local.svg"));
+	qiIgnoredLocal=QIcon(QLatin1String("skin:status/text-missing.svg"));
 	qiMutedSuppressed=QIcon(QLatin1String("skin:muted_suppressed.svg"));
 	qiDeafenedSelf=QIcon(QLatin1String("skin:deafened_self.svg"));
 	qiDeafenedServer=QIcon(QLatin1String("skin:deafened_server.svg"));
@@ -408,6 +412,8 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					l << qiMutedSelf;
 				if (p->bLocalMute)
 					l << qiMutedLocal;
+				if (p->bLocalIgnore)
+					l << qiIgnoredLocal;
 				if (p->bDeaf)
 					l << qiDeafenedServer;
 				if (p->bSelfDeaf)
@@ -611,13 +617,15 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 						                           "<tr><td><img src=\"skin:deafened_server.svg\" width=64 /></td><td valign=\"middle\">%9</td></tr>"
 						                           "<tr><td><img src=\"skin:comment.svg\" width=64 /></td><td valign=\"middle\">%10</td></tr>"
 						                           "<tr><td><img src=\"skin:comment_seen.svg\" width=64 /></td><td valign=\"middle\">%11</td></tr>"
+						                           "<tr><td><img src=\"skin:status/text-missing.svg\" width=64 /></td><td valign=\"middle\">%12</td></tr>"
 						                           "</table>").arg(tr("This shows the flags the user has on the server, if any:"),
 						                                           tr("On your friend list"),
 						                                           tr("Authenticated user"),
 						                                           tr("Muted (manually muted by self)"),
 						                                           tr("Muted (manually muted by admin)"),
 						                                           tr("Muted (not allowed to speak in current channel)"),
-						                                           tr("Muted (muted by you, only on your machine)")
+						                                           tr("Muted (muted by you, only on your machine)"),
+																   tr("Ignoring Text Messages")
 						                                          ).arg(
 						           tr("Deafened (by self)"),
 						           tr("Deafened (by admin)"),

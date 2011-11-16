@@ -28,10 +28,11 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _ABOUT_H
-#define _ABOUT_H
+#ifndef ABOUT_H_
+#define ABOUT_H_
 
-#include "mumble_pch.hpp"
+#include <QtCore/QObject>
+#include <QtGui/QDialog>
 
 class AboutDialog : public QDialog {
 	private:
