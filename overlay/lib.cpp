@@ -669,6 +669,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					if (!bBlackListed) {
 						checkD3D9Hook();
 						checkDXGIHook();
+						checkDXGI11Hook();
 						checkOpenGLHook();
 						ods("Injected to thread of %s", procname);
 					}
