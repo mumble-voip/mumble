@@ -476,8 +476,12 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 		const QByteArray &qba = pds.dataBlock(size);
 		const unsigned char *packet = reinterpret_cast<const unsigned char*>(qba.constData());
 
+#ifdef USE_OPUS
 		int frames = opus_packet_get_nb_frames(packet, size);
 		samples = frames * opus_packet_get_samples_per_frame(packet, SAMPLE_RATE);
+#else
+		return;
+#endif
 
 		// We can't handle frames which are not a multiple of 10ms.
 		Q_ASSERT(samples % iFrameSize == 0);
@@ -640,7 +644,6 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 							cdDecoder = cCodec->decoderCreate();
 						}
 					}
-//					qWarning() << umtType << wantversion << g.iCodecAlpha << g.iCodecBeta << cCodec << cdDecoder;
 					if (cdDecoder)
 						cCodec->decode_float(cdDecoder, qba.isEmpty() ? NULL : reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut);
 					else
