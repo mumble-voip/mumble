@@ -992,78 +992,79 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 
 /*! \brief Function that will postion the listener in a 3-D world.
  *
- * The listener is positioned at its location and the local coordinate frame of his head is build.
+ * The listener is positioned at its location and the local coordinate frame of his head is built.
  *
- * \param position this is a vector that gives the listeners location in the global frame
- * \param front    the front vector of the head given in the global frame
- * \param top      the top vector of the head given in the global frame
+ * \param position vector of the listeners location in the global frame
+ * \param front    front vector of the head given in the global frame
+ * \param top      top vector of the head given in the global frame
  *
- * \return boolean depending on success
+ * \return boost::optional<AudioListenerData>; uninitialized on failure, values on success
  */
-bool AudioOutput::positionListener(float *position, float *front, float *top) {
+boost::optional<AudioListenerData> AudioOutput::positionListener(float *position, float *front, float *top) {
 
-	fPosition[0] = position[0];
-	fPosition[1] = position[1];
-	fPosition[2] = position[2];
+	boost::optional<AudioListenerData> resultListenerData = AudioListenerData();
+	(*resultListenerData).fPosition[0] = position[0];
+	(*resultListenerData).fPosition[1] = position[1];
+	(*resultListenerData).fPosition[2] = position[2];
 
 	// Front vector is dominant; if it's zero we presume all is zero
 
 	float len = sqrtf(front[0]*front[0]+front[1]*front[1]+front[2]*front[2]);
 
 	if (len > 0.0f) {
-		fFront[0] = front[0] / len;
-		fFront[1] = front[1] / len;
-		fFront[2] = front[2] / len;
+		(*resultListenerData).fFront[0] = front[0] / len;
+		(*resultListenerData).fFront[1] = front[1] / len;
+		(*resultListenerData).fFront[2] = front[2] / len;
 
 		len = sqrtf(top[0]*top[0]+top[1]*top[1]+top[2]*top[2]);
 
 		if (len > 0.0f) {
-			fTop[0] = top[0] / len;
-			fTop[1] = top[1] / len;
-			fTop[2] = top[2] / len;
+			(*resultListenerData).fTop[0] = top[0] / len;
+			(*resultListenerData).fTop[1] = top[1] / len;
+			(*resultListenerData).fTop[2] = top[2] / len;
 		} else {
-			fTop[0] = 0.0f;
-			fTop[1] = 1.0f;
-			fTop[2] = 0.0f;
+			(*resultListenerData).fTop[0] = 0.0f;
+			(*resultListenerData).fTop[1] = 1.0f;
+			(*resultListenerData).fTop[2] = 0.0f;
 		}
 
-		if (fabs(fFront[0] * fTop[0] + fFront[1] * fTop[1] + fFront[2] * fTop[2]) > 0.01f) {
+		if (fabs((*resultListenerData).fFront[0] * (*resultListenerData).fTop[0] + (*resultListenerData).fFront[1] * (*resultListenerData).fTop[1] + (*resultListenerData).fFront[2] * (*resultListenerData).fTop[2]) > 0.01f) {
 			// Not perpendicular. Assume Y up and rotate 90 degrees
 			float azimuth = 0.0f;
 			if ((fabs(front[0]) >= 0.0f) || (fabs(front[2]) >= 0.0f))
 				azimuth = atan2f(front[2], front[0]);
 			float inclination = acosf(front[1]) - float(M_PI) / 2.0f;
 
-			fTop[0] = sinf(inclination) * cosf(azimuth);
-			fTop[1] = cosf(inclination);
-			fTop[2] = sinf(inclination) * sinf(azimuth);
+			(*resultListenerData).fTop[0] = sinf(inclination) * cosf(azimuth);
+			(*resultListenerData).fTop[1] = cosf(inclination);
+			(*resultListenerData).fTop[2] = sinf(inclination) * sinf(azimuth);
 		}
 		// Calculate right vector as front X top
-		fRight[0] = fTop[1] * fFront[2] - fTop[2] * fFront[1];
-		fRight[1] = fTop[2] * fFront[0] - fTop[0] * fFront[2];
-		fRight[2] = fTop[0] * fFront[1] - fTop[1] * fFront[0];
+		(*resultListenerData).fRight[0] = (*resultListenerData).fTop[1] * (*resultListenerData).fFront[2] - (*resultListenerData).fTop[2] * (*resultListenerData).fFront[1];
+		(*resultListenerData).fRight[1] = (*resultListenerData).fTop[2] * (*resultListenerData).fFront[0] - (*resultListenerData).fTop[0] * (*resultListenerData).fFront[2];
+		(*resultListenerData).fRight[2] = (*resultListenerData).fTop[0] * (*resultListenerData).fFront[1] - (*resultListenerData).fTop[1] * (*resultListenerData).fFront[0];
 
 	} else {
-		fRight[0] = 1.0f;
-		fRight[1] = 0.0f;
-		fRight[2] = 0.0f;
+		(*resultListenerData).fRight[0] = 1.0f;
+		(*resultListenerData).fRight[1] = 0.0f;
+		(*resultListenerData).fRight[2] = 0.0f;
 
-		fTop[0] = 0.0f;
-		fTop[1] = 1.0f;
-		fTop[2] = 0.0f;
+		(*resultListenerData).fTop[0] = 0.0f;
+		(*resultListenerData).fTop[1] = 1.0f;
+		(*resultListenerData).fTop[2] = 0.0f;
 
-		fFront[0] = 0.0f;
-		fFront[1] = 0.0f;
-		fFront[2] = 1.0f;
+		(*resultListenerData).fFront[0] = 0.0f;
+		(*resultListenerData).fFront[1] = 0.0f;
+		(*resultListenerData).fFront[2] = 1.0f;
 	}
 
 	/*
-	qWarning("Front: %f %f %f", fFront[0], fFront[1], fFront[2]);
-	qWarning("Top: %f %f %f", fTop[0], fTop[1], fTop[2]);
-	qWarning("Right: %f %f %f", fRight[0], fRight[1], fRight[2]);
+	qWarning("Front: %f %f %f", (*resultListenerData).fFront[0], (*resultListenerData).fFront[1], (*resultListenerData).fFront[2]);
+	qWarning("Top: %f %f %f", (*resultListenerData).fTop[0], (*resultListenerData).fTop[1], (*resultListenerData).fTop[2]);
+	qWarning("Right: %f %f %f", (*resultListenerData).fRight[0], (*resultListenerData).fRight[1], (*resultListenerData).fRight[2]);
 	*/
 
-	return true;
+	return resultListenerData;
 }
 
 /*! \brief sets the location of the audio source.
@@ -1074,11 +1075,11 @@ bool AudioOutput::positionListener(float *position, float *front, float *top) {
  *
  * \param position a vector that gives the location of the audio source in the global frame
  *
- * \return boolean will be true when it is a viable source, false if not.
+ * \return boost::optional<AudioSourceData>; uninitialized if no viable source,  data if viable
  */
-boost::optional<AudioSourceData> AudioOutput::locateSource(const float * const position) {
+boost::optional<AudioSourceData> AudioOutput::locateSource(const float * const position, const AudioListenerData & listenerData) {
 	// calculate position relative to own position
-	float relSrcPosition[3] = { position[0] - fPosition[0], position[1] - fPosition[1], position[2] - fPosition[2] };
+	float relSrcPosition[3] = { position[0] - listenerData.fPosition[0], position[1] - listenerData.fPosition[1], position[2] - listenerData.fPosition[2] };
 	const float distance = sqrtf(relSrcPosition[0] * relSrcPosition[0] + relSrcPosition[1] * relSrcPosition[1] + relSrcPosition[2] * relSrcPosition[2]);
 	if (distance > 0.01f) {
 		relSrcPosition[0] /= distance;
@@ -1094,9 +1095,9 @@ boost::optional<AudioSourceData> AudioOutput::locateSource(const float * const p
 	retData = AudioSourceData();
 
 	// rotate the direction vector into the local frame of the listener
-	retData->fDirection[0] = relSrcPosition[0] * fRight[0] + relSrcPosition[1] * fRight[1] + relSrcPosition[2] * fRight[2];
-	retData->fDirection[1] = relSrcPosition[0] * fTop[0]   + relSrcPosition[1] * fTop[1]   + relSrcPosition[2] * fTop[2];
-	retData->fDirection[2] = relSrcPosition[0] * fFront[0] + relSrcPosition[1] * fFront[1] + relSrcPosition[2] * fFront[2];
+	retData->fDirection[0] = relSrcPosition[0] * listenerData.fRight[0] + relSrcPosition[1] * listenerData.fRight[1] + relSrcPosition[2] * listenerData.fRight[2];
+	retData->fDirection[1] = relSrcPosition[0] * listenerData.fTop[0]   + relSrcPosition[1] * listenerData.fTop[1]   + relSrcPosition[2] * listenerData.fTop[2];
+	retData->fDirection[2] = relSrcPosition[0] * listenerData.fFront[0] + relSrcPosition[1] * listenerData.fFront[1] + relSrcPosition[2] * listenerData.fFront[2];
 
 	// distance attenuation
 	if (g.s.fAudioMaxDistVolume > 0.99f || distance < g.s.fAudioMinDistance) {
@@ -1243,7 +1244,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	if (! qlMix.isEmpty()) {
 		STACKVAR(float, fOutput, iChannels * nsamp);
 		float *output = (eSampleFormat == SampleFloat) ? reinterpret_cast<float *>(outbuff) : fOutput;
-		bool validListener = false;
+		boost::optional<AudioListenerData> listenerData;
 
 		memset(output, 0, sizeof(float) * nsamp * iChannels);
 
@@ -1254,7 +1255,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		}
 
 		if (g.s.bPositionalAudio && (iChannels > 1) && g.p->fetch() && (g.bPosTest || fabs(g.p->fCameraPosition[0]) > 0.0f || fabs(g.p->fCameraPosition[1]) > 0.0f || fabs(g.p->fCameraPosition[2]) > 0.0f))
-			validListener = positionListener(g.p->fCameraPosition, g.p->fCameraFront, g.p->fCameraTop);
+			listenerData = positionListener(g.p->fCameraPosition, g.p->fCameraFront, g.p->fCameraTop);
 
 		foreach(AudioOutputUser *aop, qlMix) {
 			const float * RESTRICT pfBuffer = aop->pfBuffer;
@@ -1298,8 +1299,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 				}
 			}
 
-			if (validListener && (fabs(aop->fPos[0]) > 0.0f || fabs(aop->fPos[1]) > 0.0f || fabs(aop->fPos[2]) > 0.0f))
-				srcData = locateSource(aop->fPos);
+			if (listenerData && (fabs(aop->fPos[0]) > 0.0f || fabs(aop->fPos[1]) > 0.0f || fabs(aop->fPos[2]) > 0.0f))
+				srcData = locateSource(aop->fPos, *listenerData);
 
 			if (srcData) {
 				// aop->fPos is a viable source for pos audio
