@@ -36,11 +36,11 @@
 #include "ServerHandler.h"
 #include "MainWindow.h"
 #include "User.h"
+#include "PacketDataStream.h"
 #include "Plugins.h"
 #include "Message.h"
 #include "Global.h"
 #include "NetworkConfig.h"
-#include "OpusUtilities.h"
 #include "VoiceRecorder.h"
 
 #ifdef USE_OPUS
@@ -691,18 +691,9 @@ int AudioInput::encodeOpusFrame(short *source, unsigned char *buffer) {
 #ifdef USE_OPUS
 	opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
 
-	len = opus_encode(opusState, source, iFrameSize, buffer + 2, 509);
-	Q_ASSERT((buffer[2] & 0x3) == 0);
+	len = opus_encode(opusState, source, iFrameSize, buffer, 512);
 
-	// Copy Opus TOC.
-	buffer[0] = buffer[2];
-	int move = OpusUtilities::EncodeSize(len, buffer + 1);
-	if (move == 1)
-		memmove(buffer + 2, buffer + 3, len - 1);
-
-	len += 1 + move;
 	iBitrate = len * 100 * 8;
-
 #endif
 	return len;
 }
@@ -952,6 +943,7 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 	qlFrames << frame;
 	if (umtType == MessageHandler::UDPVoiceOpus) {
 		// FIXME: Don't change |iAudioFrames|. There should be one frame Opus frame per packet only.
+		// We also need |iAudioFrames| for the correct sequence number on Opus packets with more than 10ms.
 		iAudioFrames = 1;
 		terminator = false;
 	}
@@ -971,20 +963,25 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 	data[0] = static_cast<unsigned char>(flags);
 
 	PacketDataStream pds(data + 1, 1023);
+	// Sequence number
 	pds << iFrameCounter - qlFrames.count();
 
 	if (terminator)
 		qlFrames << QByteArray();
 
-	for (int i=0;i<qlFrames.count(); ++i) {
-		const QByteArray &qba = qlFrames.at(i);
-		if (umtType != MessageHandler::UDPVoiceOpus) {
+	if (umtType == MessageHandler::UDPVoiceOpus) {
+		const QByteArray &qba = qlFrames.at(0);
+		pds << qba.size();
+		pds.append(qba.constData(), qba.size());
+	} else {
+		for (int i=0;i<qlFrames.count(); ++i) {
+			const QByteArray &qba = qlFrames.at(i);
 			unsigned char head = static_cast<unsigned char>(qba.size());
 			if (i < qlFrames.count() - 1)
 				head |= 0x80;
 			pds.append(head);
+			pds.append(qba.constData(), qba.size());
 		}
-		pds.append(qba.constData(), qba.size());
 	}
 
 	if (g.s.bTransmitPosition && g.p && ! g.bCenterPosition && g.p->fetch()) {

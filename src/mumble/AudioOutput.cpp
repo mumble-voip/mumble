@@ -40,11 +40,10 @@
 #include "Plugins.h"
 #include "PacketDataStream.h"
 #include "ServerHandler.h"
-#include "OpusUtilities.h"
 #include "VoiceRecorder.h"
 
 #ifdef USE_OPUS
-#include "mumble_opus.h"
+#include "opus.h"
 #endif
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
@@ -469,19 +468,25 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 	// skip flags
 	pds.next();
 
-	int frames = 0;
+	int samples = 0;
 	if (umtType == MessageHandler::UDPVoiceOpus) {
-		// FIXME
-		frames = 1;
+		int size;
+		pds >> size;
 
-		int size = OpusUtilities::ParseToc(&pds);
-		pds.skip(size);
+		const QByteArray &qba = pds.dataBlock(size);
+		const unsigned char *packet = reinterpret_cast<const unsigned char*>(qba.constData());
+
+		int frames = opus_packet_get_nb_frames(packet, size);
+		samples = frames * opus_packet_get_samples_per_frame(packet, SAMPLE_RATE);
+
+		// We can't handle frames which are not a multiple of 10ms.
+		Q_ASSERT(samples % iFrameSize == 0);
 	} else {
 		unsigned int header = 0;
 
 		do {
 			header = static_cast<unsigned char>(pds.next());
-			frames++;
+			samples += iFrameSize;
 			pds.skip(header & 0x7f);
 		} while ((header & 0x80) && pds.isValid());
 	}
@@ -490,7 +495,7 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 		JitterBufferPacket jbp;
 		jbp.data = const_cast<char *>(qbaPacket.constData());
 		jbp.len = qbaPacket.size();
-		jbp.span = iFrameSize * frames;
+		jbp.span = samples;
 		jbp.timestamp = iFrameSize * iSeq;
 
 #ifdef REPORT_JITTER
@@ -577,11 +582,9 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 
 					bHasTerminator = false;
 					if (umtType == MessageHandler::UDPVoiceOpus) {
-						PacketDataStream pdi(jbp.data, jbp.len);
-						pdi.next();
-
-						int size = OpusUtilities::ParseToc(&pdi);
-						qlFrames << pds.dataBlock(pdi.size() - 1 + size);
+						int size;
+						pds >> size;
+						qlFrames << pds.dataBlock(size);
 					} else {
 						unsigned int header = 0;
 						do {
@@ -637,13 +640,15 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 							cdDecoder = cCodec->decoderCreate();
 						}
 					}
+//					qWarning() << umtType << wantversion << g.iCodecAlpha << g.iCodecBeta << cCodec << cdDecoder;
 					if (cdDecoder)
 						cCodec->decode_float(cdDecoder, qba.isEmpty() ? NULL : reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut);
 					else
 						memset(pOut, 0, sizeof(float) * iFrameSize);
 				} else if (umtType == MessageHandler::UDPVoiceOpus) {
 #ifdef USE_OPUS
-					mumble_opus_decode_float(opusState, qba.isEmpty() ? NULL : reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut, iFrameSize, 0, NULL);
+					// FIXME: we should use a 120ms output buffer instead of |iFrameSize|.
+					opus_decode_float(opusState, qba.isEmpty() ? NULL : reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut, iFrameSize, 0);
 #endif
 				} else {
 					if (qba.isEmpty()) {

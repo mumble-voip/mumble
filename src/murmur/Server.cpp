@@ -41,7 +41,6 @@
 #include "Channel.h"
 #include "Message.h"
 #include "Meta.h"
-#include "OpusUtilities.h"
 #include "PacketDataStream.h"
 #include "ServerDB.h"
 #include "ServerUser.h"
@@ -913,7 +912,8 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 			pdi.skip(counter & 0x7f);
 		} while ((counter & 0x80) && pdi.isValid());
 	} else {
-		int size = OpusUtilities::ParseToc(&pdi);
+		int size;
+		pdi >> size;
 		pdi.skip(size);
 	}
 
