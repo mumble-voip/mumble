@@ -321,7 +321,6 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 	iBufferFilled -= iLastConsume;
 	iLastConsume = snum;
 
-
 	// Check if we can satisfy request with current buffer
 	if (iBufferFilled >= snum)
 		return true;
@@ -384,15 +383,14 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	int err;
 	p = user;
 	umtType = type;
-
-	unsigned int srate = 0;
+	iMixerFreq = freq;
 
 	cCodec = NULL;
 	cdDecoder = NULL;
 
 	if (umtType != MessageHandler::UDPVoiceSpeex) {
-		srate = SAMPLE_RATE;
-		iFrameSize = srate / 100;
+		iSampleRate = SAMPLE_RATE;
+		iFrameSize = iSampleRate / 100;
 
 		dsSpeex = NULL;
 #ifdef USE_OPUS
@@ -406,15 +404,15 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 		int iArg=1;
 		speex_decoder_ctl(dsSpeex, SPEEX_SET_ENH, &iArg);
 		speex_decoder_ctl(dsSpeex, SPEEX_GET_FRAME_SIZE, &iFrameSize);
-		speex_decoder_ctl(dsSpeex, SPEEX_GET_SAMPLING_RATE, &srate);
+		speex_decoder_ctl(dsSpeex, SPEEX_GET_SAMPLING_RATE, &iSampleRate);
 	}
 
-	if (freq != srate)
-		srs = speex_resampler_init(1, srate, freq, 3, &err);
+	if (iMixerFreq != iSampleRate)
+		srs = speex_resampler_init(1, iSampleRate, iMixerFreq, 3, &err);
 	else
 		srs = NULL;
 
-	iOutputSize = static_cast<unsigned int>(ceilf(static_cast<float>(iFrameSize * freq) / static_cast<float>(srate)));
+	iOutputSize = static_cast<unsigned int>(ceilf(static_cast<float>(iFrameSize * iMixerFreq) / static_cast<float>(iSampleRate)));
 
 	iBufferOffset = iBufferFilled = iLastConsume = 0;
 	bLastAlive = true;
@@ -542,7 +540,10 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 	bool nextalive = bLastAlive;
 
 	while (iBufferFilled < snum) {
-		resizeBuffer(iBufferFilled + iOutputSize);
+		int decodedSamples = iFrameSize;
+		// FIXME: We might need something better here than 12 * |iFrameSize| (* 2 to support stereo decoding) and
+		// things will explode if we're resampling because |iFrameSize| + 4096 is not enough for 60ms.
+		resizeBuffer(iBufferFilled + 12 * iFrameSize);
 
 		pOut = (srs) ? fOut : (pfBuffer + iBufferFilled);
 
@@ -650,8 +651,9 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 						memset(pOut, 0, sizeof(float) * iFrameSize);
 				} else if (umtType == MessageHandler::UDPVoiceOpus) {
 #ifdef USE_OPUS
-					// FIXME: we should use a 120ms output buffer instead of |iFrameSize|.
-					opus_decode_float(opusState, qba.isEmpty() ? NULL : reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut, iFrameSize, 0);
+					// FIXME: It's 12 * |iFrameSize| again.
+					decodedSamples = opus_decode_float(opusState, qba.isEmpty() ? NULL : reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut, 12 * iFrameSize, 0);
+					iOutputSize = static_cast<unsigned int>(ceilf(static_cast<float>(decodedSamples * iMixerFreq) / static_cast<float>(iSampleRate)));
 #endif
 				} else {
 					if (qba.isEmpty()) {
@@ -670,9 +672,9 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 					float &fPowerMin = p->fPowerMin;
 
 					float pow = 0.0f;
-					for (unsigned int i=0;i<iFrameSize;++i)
+					for (unsigned int i = 0; i < decodedSamples; ++i)
 						pow += pOut[i] * pOut[i];
-					pow = sqrtf(pow / static_cast<float>(iFrameSize));
+					pow = sqrtf(pow / static_cast<float>(decodedSamples));
 
 					if (pow >= fPowerMax) {
 						fPowerMax = pow;
@@ -693,11 +695,15 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 				if (qlFrames.isEmpty() && bHasTerminator)
 					nextalive = false;
 			} else {
-				if (umtType != MessageHandler::UDPVoiceSpeex) {
+				if (umtType == MessageHandler::UDPVoiceCELTAlpha || umtType == MessageHandler::UDPVoiceCELTBeta) {
 					if (cdDecoder)
 						cCodec->decode_float(cdDecoder, NULL, 0, pOut);
 					else
 						memset(pOut, 0, sizeof(float) * iFrameSize);
+				} else if (umtType == MessageHandler::UDPVoiceOpus) {
+#ifdef USE_OPUS
+					opus_decode_float(opusState, NULL, 0, pOut, iFrameSize, 0);
+#endif
 				} else {
 					speex_decode(dsSpeex, NULL, pOut);
 					for (unsigned int i=0;i<iFrameSize;++i)
@@ -716,7 +722,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 			jitter_buffer_tick(jbJitter);
 		}
 nextframe:
-		spx_uint32_t inlen = iFrameSize;
+		spx_uint32_t inlen = decodedSamples;
 		spx_uint32_t outlen = iOutputSize;
 		if (srs && bLastAlive)
 			speex_resampler_process_float(srs, 0, fOut, &inlen, pfBuffer + iBufferFilled, &outlen);

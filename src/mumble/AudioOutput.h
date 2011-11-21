@@ -130,6 +130,8 @@ class AudioOutputSpeech : public AudioOutputUser {
 		unsigned int iOutputSize;
 		unsigned int iLastConsume;
 		unsigned int iFrameSize;
+		unsigned int iSampleRate;
+		unsigned int iMixerFreq;
 		bool bLastAlive;
 		bool bHasTerminator;
 
