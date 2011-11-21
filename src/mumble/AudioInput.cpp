@@ -95,7 +95,7 @@ bool AudioInputRegistrar::canExclusive() const {
 	return false;
 }
 
-AudioInput::AudioInput() {
+AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)) {
 	adjustBandwidth(g.iMaxBandwidth, iAudioQuality, iAudioFrames);
 
 	g.iAudioBandwidth = getNetworkBandwidth(iAudioQuality, iAudioFrames);
@@ -686,12 +686,12 @@ void AudioInput::resetAudioProcessor() {
 }
 
 // FIXME: we should be able to encode |iAudioFrames| * |iFrameSize| per Opus call.
-int AudioInput::encodeOpusFrame(short *source, unsigned char *buffer) {
+int AudioInput::encodeOpusFrame(short *source, int size, unsigned char *buffer) {
 	int len = 0;
 #ifdef USE_OPUS
 	opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
 
-	len = opus_encode(opusState, source, iFrameSize, buffer, 512);
+	len = opus_encode(opusState, source, size, buffer, 512);
 
 	iBitrate = len * 100 * 8;
 #endif
@@ -914,24 +914,32 @@ void AudioInput::encodeAudioFrame() {
 	unsigned char buffer[512];
 	int len;
 
+	bool encoded = true;
 #ifdef USE_OPUS
 	// Force Opus mode.
 	umtType = MessageHandler::UDPVoiceOpus;
+	encoded = false;
 #endif
 	if (umtType == MessageHandler::UDPVoiceCELTAlpha || umtType == MessageHandler::UDPVoiceCELTBeta) {
 		len = encodeCELTFrame(psSource, buffer);
 		if (len == 0)
 			return;
 	} else if (umtType == MessageHandler::UDPVoiceOpus) {
-		len = encodeOpusFrame(psSource, buffer);
-		if (len == 0) {
-			return;
+		opusBuffer.insert(opusBuffer.end(), psSource, psSource + iFrameSize);
+		if (!bIsSpeech || opusBuffer.size() >= iFrameSize * iAudioFrames) {
+			len = encodeOpusFrame(opusBuffer.data(), opusBuffer.size(), buffer);
+			opusBuffer.clear();
+			if (len <= 0) {
+				return;
+			}
+			encoded = true;
 		}
 	} else {
 		len = encodeSpeexFrame(psSource, buffer);
 	}
 
-	flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len), ! bIsSpeech);
+	if (encoded)
+		flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len), ! bIsSpeech);
 
 	if (! bIsSpeech)
 		iBitrate = 0;
@@ -941,13 +949,12 @@ void AudioInput::encodeAudioFrame() {
 
 void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 	qlFrames << frame;
+
 	if (umtType == MessageHandler::UDPVoiceOpus) {
-		// FIXME: Don't change |iAudioFrames|. There should be one frame Opus frame per packet only.
-		// We also need |iAudioFrames| for the correct sequence number on Opus packets with more than 10ms.
-		iAudioFrames = 1;
 		terminator = false;
 	}
-	if (! terminator && qlFrames.count() < iAudioFrames)
+
+	if (! terminator && umtType != MessageHandler::UDPVoiceOpus && qlFrames.count() < iAudioFrames)
 		return;
 
 	int flags = g.iTarget;
@@ -964,20 +971,20 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 
 	PacketDataStream pds(data + 1, 1023);
 	// Sequence number
-	pds << iFrameCounter - qlFrames.count();
+	pds << iFrameCounter - iAudioFrames;
 
 	if (terminator)
 		qlFrames << QByteArray();
 
 	if (umtType == MessageHandler::UDPVoiceOpus) {
-		const QByteArray &qba = qlFrames.at(0);
+		const QByteArray &qba = qlFrames.takeFirst();
 		pds << qba.size();
 		pds.append(qba.constData(), qba.size());
 	} else {
-		for (int i=0;i<qlFrames.count(); ++i) {
-			const QByteArray &qba = qlFrames.at(i);
+		for (int i = 0; i < iAudioFrames; ++i) {
+			const QByteArray &qba = qlFrames.takeFirst();
 			unsigned char head = static_cast<unsigned char>(qba.size());
-			if (i < qlFrames.count() - 1)
+			if (i < iAudioFrames - 1)
 				head |= 0x80;
 			pds.append(head);
 			pds.append(qba.constData(), qba.size());
@@ -1002,7 +1009,7 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 	else if (sh)
 		sh->sendMessage(data, pds.size() + 1);
 
-	qlFrames.clear();
+	Q_ASSERT(qlFrames.isEmpty());
 }
 
 bool AudioInput::isAlive() const {
