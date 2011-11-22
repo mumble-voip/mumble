@@ -362,7 +362,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	if (g.s.fVolume < 0.01f)
 		return false;
 
-	const float adjustFactor = std::pow<float>(10, -18.f / 20);
+	const float adjustFactor = std::pow(10, -18.f / 20);
 	const float mul = g.s.fVolume;
 	const unsigned int nchan = iChannels;
 	ServerHandlerPtr sh = g.sh;
