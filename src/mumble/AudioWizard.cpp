@@ -33,6 +33,7 @@
 #include "AudioWizard.h"
 
 #include "AudioInput.h"
+#include "AudioOutputSample.h"
 #include "Global.h"
 #include "Log.h"
 #include "MainWindow.h"
