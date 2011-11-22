@@ -70,12 +70,14 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 		speex_decoder_ctl(dsSpeex, SPEEX_GET_SAMPLING_RATE, &iSampleRate);
 	}
 
-	if (iMixerFreq != iSampleRate)
-		srs = speex_resampler_init(1, iSampleRate, iMixerFreq, 3, &err);
-	else
-		srs = NULL;
-
 	iOutputSize = static_cast<unsigned int>(ceilf(static_cast<float>(iFrameSize * iMixerFreq) / static_cast<float>(iSampleRate)));
+
+	srs = NULL;
+	fResamplerBuffer = NULL;
+	if (iMixerFreq != iSampleRate) {
+		srs = speex_resampler_init(1, iSampleRate, iMixerFreq, 3, &err);
+		fResamplerBuffer = new float[iOutputSize];
+	}
 
 	iBufferOffset = iBufferFilled = iLastConsume = 0;
 	bLastAlive = true;
@@ -116,6 +118,7 @@ AudioOutputSpeech::~AudioOutputSpeech() {
 
 	delete [] fFadeIn;
 	delete [] fFadeOut;
+	delete [] fResamplerBuffer;
 }
 
 void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned int iSeq) {
@@ -203,8 +206,6 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 		return bLastAlive;
 
 	float *pOut;
-	STACKVAR(float, fOut, iFrameSize + 4096);
-
 	bool nextalive = bLastAlive;
 
 	while (iBufferFilled < snum) {
@@ -213,7 +214,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 		// things will explode if we're resampling because |iFrameSize| + 4096 is not enough for 60ms.
 		resizeBuffer(iBufferFilled + 12 * iFrameSize);
 
-		pOut = (srs) ? fOut : (pfBuffer + iBufferFilled);
+		pOut = (srs) ? fResamplerBuffer : (pfBuffer + iBufferFilled);
 
 		if (! bLastAlive) {
 			memset(pOut, 0, iFrameSize * sizeof(float));
@@ -399,7 +400,7 @@ nextframe:
 		spx_uint32_t inlen = decodedSamples;
 		spx_uint32_t outlen = iOutputSize;
 		if (srs && bLastAlive)
-			speex_resampler_process_float(srs, 0, fOut, &inlen, pfBuffer + iBufferFilled, &outlen);
+			speex_resampler_process_float(srs, 0, fResamplerBuffer, &inlen, pfBuffer + iBufferFilled, &outlen);
 		iBufferFilled += outlen;
 	}
 

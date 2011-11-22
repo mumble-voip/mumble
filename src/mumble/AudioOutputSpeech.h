@@ -56,6 +56,7 @@ class AudioOutputSpeech : public AudioOutputUser {
 
 		float *fFadeIn;
 		float *fFadeOut;
+		float *fResamplerBuffer;
 
 		SpeexResamplerState *srs;
 
