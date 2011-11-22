@@ -33,6 +33,7 @@
 
 #include "UserModel.h"
 
+#include "ClientUser.h"
 #include "Channel.h"
 #include "Database.h"
 #include "Global.h"

@@ -34,6 +34,8 @@
 #include "AudioOutput.h"
 
 #include "AudioInput.h"
+#include "AudioOutputSample.h"
+#include "AudioOutputSpeech.h"
 #include "User.h"
 #include "Global.h"
 #include "Message.h"
@@ -41,10 +43,6 @@
 #include "PacketDataStream.h"
 #include "ServerHandler.h"
 #include "VoiceRecorder.h"
-
-#ifdef USE_OPUS
-#include "opus.h"
-#endif
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioOutputRegistrar() might be called before they are initialized, as the constructor
@@ -101,660 +99,6 @@ bool AudioOutputRegistrar::usesOutputDelay() const {
 bool AudioOutputRegistrar::canExclusive() const {
 	return false;
 }
-
-AudioOutputUser::AudioOutputUser(const QString name) : qsName(name) {
-	iBufferSize = 0;
-	pfBuffer = NULL;
-	pfVolume = NULL;
-	fPos[0]=fPos[1]=fPos[2]=0.0;
-}
-
-AudioOutputUser::~AudioOutputUser() {
-	delete [] pfBuffer;
-	delete [] pfVolume;
-}
-
-void AudioOutputUser::resizeBuffer(unsigned int newsize) {
-	if (newsize > iBufferSize) {
-		float *n = new float[newsize];
-		if (pfBuffer) {
-			memcpy(n, pfBuffer, sizeof(float) * iBufferSize);
-			delete [] pfBuffer;
-		}
-		pfBuffer = n;
-		iBufferSize = newsize;
-	}
-}
-
-SoundFile::SoundFile(const QString &fname) {
-	siInfo.frames = 0 ;
-	siInfo.channels = 1 ;
-	siInfo.samplerate = SAMPLE_RATE ;
-	siInfo.samplerate = 0 ;
-	siInfo.sections = 0 ;
-	siInfo.seekable = 0 ;
-
-	sfFile = NULL;
-
-	qfFile.setFileName(fname);
-
-	if (qfFile.open(QIODevice::ReadOnly)) {
-		static SF_VIRTUAL_IO svi = {&SoundFile::vio_get_filelen, &SoundFile::vio_seek, &SoundFile::vio_read, &SoundFile::vio_write, &SoundFile::vio_tell};
-
-		sfFile = sf_open_virtual(&svi, SFM_READ, &siInfo, this) ;
-	}
-}
-
-SoundFile::~SoundFile() {
-	if (sfFile)
-		sf_close(sfFile);
-}
-
-bool SoundFile::isOpen() const {
-	return (sfFile != NULL) && qfFile.isOpen();
-}
-
-int SoundFile::channels() const {
-	return siInfo.channels;
-}
-
-int SoundFile::samplerate() const {
-	return siInfo.samplerate;
-}
-
-int SoundFile::error() const {
-	return sf_error(sfFile);
-}
-
-QString SoundFile::strError() const {
-	return QLatin1String(sf_strerror(sfFile));
-}
-
-sf_count_t SoundFile::seek(sf_count_t frames, int whence) {
-	return sf_seek(sfFile, frames, whence);
-}
-
-sf_count_t SoundFile::read(float *ptr, sf_count_t items) {
-	return sf_read_float(sfFile, ptr, items);
-}
-
-sf_count_t SoundFile::vio_get_filelen(void *user_data) {
-	SoundFile *sf = reinterpret_cast<SoundFile *>(user_data);
-
-	if (! sf->qfFile.isOpen())
-		return -1;
-
-	return (sf->qfFile.size());
-}
-
-sf_count_t SoundFile::vio_seek(sf_count_t offset, int whence, void *user_data) {
-	SoundFile *sf = reinterpret_cast<SoundFile *>(user_data);
-
-	if (! sf->qfFile.isOpen())
-		return -1;
-
-	if (whence == SEEK_SET) {
-		sf->qfFile.seek(offset);
-	} else if (whence == SEEK_END) {
-		sf->qfFile.seek(sf->qfFile.size() - offset);
-	} else {
-		sf->qfFile.seek(sf->qfFile.pos() + offset);
-	}
-	return sf->qfFile.pos();
-}
-
-sf_count_t SoundFile::vio_read(void *ptr, sf_count_t count, void *user_data) {
-	SoundFile *sf = reinterpret_cast<SoundFile *>(user_data);
-
-	if (! sf->qfFile.isOpen())
-		return -1;
-
-	return sf->qfFile.read(reinterpret_cast<char *>(ptr), count);
-}
-
-sf_count_t SoundFile::vio_write(const void *ptr, sf_count_t count, void *user_data) {
-	SoundFile *sf = reinterpret_cast<SoundFile *>(user_data);
-
-	if (! sf->qfFile.isOpen())
-		return -1;
-
-	return sf->qfFile.write(reinterpret_cast<const char *>(ptr), count);
-}
-
-sf_count_t SoundFile::vio_tell(void *user_data) {
-	SoundFile *sf = reinterpret_cast<SoundFile *>(user_data);
-
-	if (! sf->qfFile.isOpen())
-		return -1;
-
-	return sf->qfFile.pos();
-}
-
-AudioOutputSample::AudioOutputSample(const QString &name, SoundFile *psndfile, bool loop, unsigned int freq) : AudioOutputUser(name) {
-	int err;
-
-	sfHandle = psndfile;
-	iOutSampleRate = freq;
-
-	// Check if the file is good
-	if (sfHandle->channels() <= 0 || sfHandle->channels() > 2) {
-		sfHandle = NULL;
-		return;
-	}
-
-	/* qWarning() << "Channels: " << sfHandle->channels();
-	qWarning() << "Samplerate: " << sfHandle->samplerate();
-	qWarning() << "Target Sr.: " << freq;
-	qWarning() << "Format: " << sfHandle->format() << endl; */
-
-	// If the frequencies don't match initialize the resampler
-	if (sfHandle->samplerate() != static_cast<int>(freq)) {
-		srs = speex_resampler_init(1, sfHandle->samplerate(), iOutSampleRate, 3, &err);
-		if (err != RESAMPLER_ERR_SUCCESS) {
-			qWarning() << "Initialize " << sfHandle->samplerate() << " to " << iOutSampleRate << " resampler failed!";
-			srs = NULL;
-			sfHandle = NULL;
-			return;
-		}
-	} else {
-		srs = NULL;
-	}
-
-	iLastConsume = iBufferFilled = 0;
-	bLoop = loop;
-	bEof = false;
-}
-
-AudioOutputSample::~AudioOutputSample() {
-	if (srs)
-		speex_resampler_destroy(srs);
-
-	delete sfHandle;
-	sfHandle = NULL;
-}
-
-SoundFile* AudioOutputSample::loadSndfile(const QString &filename) {
-	SoundFile *sf;
-
-	// Create the filehandle and do a quick check if everything is ok
-	sf = new SoundFile(filename);
-
-	if (! sf->isOpen()) {
-		qWarning() << "File " << filename << " failed to open";
-		delete sf;
-		return NULL;
-	}
-
-	if (sf->error() != SF_ERR_NO_ERROR) {
-		qWarning() << "File " << filename << " couldn't be loaded: " << sf->strError();
-		delete sf;
-		return NULL;
-	}
-
-	if (sf->channels() <= 0 || sf->channels() > 2) {
-		qWarning() << "File " << filename << " contains " << sf->channels() << " Channels, only 1 or 2 are supported.";
-		delete sf;
-		return NULL;
-	}
-	return sf;
-}
-
-QString AudioOutputSample::browseForSndfile() {
-	SoundFile *sf = NULL;
-	QString file = QFileDialog::getOpenFileName(NULL, tr("Choose sound file"), QString(), QLatin1String("*.wav *.ogg *.ogv *.oga *.flac"));
-	if (! file.isEmpty()) {
-		if ((sf = AudioOutputSample::loadSndfile(file)) == NULL) {
-			QMessageBox::critical(NULL,
-			                      tr("Invalid sound file"),
-			                      tr("The file '%1' cannot be used by Mumble. Please select a file with a compatible format and encoding.").arg(file));
-			return QString();
-		}
-		delete sf;
-	}
-	return file;
-}
-
-bool AudioOutputSample::needSamples(unsigned int snum) {
-	// Forward the buffer
-	for (unsigned int i=iLastConsume;i<iBufferFilled;++i)
-		pfBuffer[i-iLastConsume]=pfBuffer[i];
-	iBufferFilled -= iLastConsume;
-	iLastConsume = snum;
-
-	// Check if we can satisfy request with current buffer
-	if (iBufferFilled >= snum)
-		return true;
-
-	// Calculate the required buffersize to hold the results
-	unsigned int iInputFrames = static_cast<unsigned int>(ceilf(static_cast<float>(snum * sfHandle->samplerate()) / static_cast<float>(iOutSampleRate)));
-	unsigned int iInputSamples = iInputFrames * sfHandle->channels();
-
-	float *pOut;
-	bool mix = sfHandle->channels() > 1;
-	STACKVAR(float, fOut, iInputSamples);
-	STACKVAR(float, fMix, iInputFrames);
-
-	bool eof = false;
-	sf_count_t read;
-	do {
-		resizeBuffer(iBufferFilled + snum);
-
-		// If we need to resample or mix write to the buffer on stack
-		pOut = (srs || mix) ? fOut : pfBuffer + iBufferFilled;
-
-		// Try to read all samples needed to satifsy this request
-		if ((read = sfHandle->read(pOut, iInputSamples)) < iInputSamples) {
-			if (sfHandle->error() != SF_ERR_NO_ERROR || !bLoop) {
-				// We reached the eof or encountered an error, stuff with zeroes
-				memset(pOut, 0, sizeof(float) * (iInputSamples - read));
-				read = iInputSamples;
-				eof = true;
-			} else {
-				sfHandle->seek(SEEK_SET, 0);
-			}
-		}
-
-		if (mix) { // Mix the channels (only two channels)
-			read /= 2;
-			// If we need to resample after this write to extra buffer
-			pOut = srs ? fMix : pfBuffer + iBufferFilled;
-			for (unsigned int i = 0; i < read; i++)
-				pOut[i] = (fOut[i*2] + fOut[i*2 + 1]) * 0.5f;
-
-		}
-
-		spx_uint32_t inlen = static_cast<unsigned int>(read);
-		spx_uint32_t outlen = snum;
-		if (srs) // If necessary resample
-			speex_resampler_process_float(srs, 0, pOut, &inlen, pfBuffer + iBufferFilled, &outlen);
-
-		iBufferFilled += outlen;
-	} while (iBufferFilled < snum);
-
-	if (eof && !bEof) {
-		emit playbackFinished();
-		bEof = true;
-	}
-
-	return !eof;
-}
-
-AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, MessageHandler::UDPMessageType type) : AudioOutputUser(user->qsName) {
-	int err;
-	p = user;
-	umtType = type;
-	iMixerFreq = freq;
-
-	cCodec = NULL;
-	cdDecoder = NULL;
-
-	if (umtType != MessageHandler::UDPVoiceSpeex) {
-		iSampleRate = SAMPLE_RATE;
-		iFrameSize = iSampleRate / 100;
-
-		dsSpeex = NULL;
-#ifdef USE_OPUS
-		// FIXME: use a stereo decoder if PA is disabled (requires a larger buffer than what we're currently using)
-		opusState = opus_decoder_create(SAMPLE_RATE, 1, NULL);
-#endif
-	} else {
-		speex_bits_init(&sbBits);
-
-		dsSpeex = speex_decoder_init(speex_lib_get_mode(SPEEX_MODEID_UWB));
-		int iArg=1;
-		speex_decoder_ctl(dsSpeex, SPEEX_SET_ENH, &iArg);
-		speex_decoder_ctl(dsSpeex, SPEEX_GET_FRAME_SIZE, &iFrameSize);
-		speex_decoder_ctl(dsSpeex, SPEEX_GET_SAMPLING_RATE, &iSampleRate);
-	}
-
-	if (iMixerFreq != iSampleRate)
-		srs = speex_resampler_init(1, iSampleRate, iMixerFreq, 3, &err);
-	else
-		srs = NULL;
-
-	iOutputSize = static_cast<unsigned int>(ceilf(static_cast<float>(iFrameSize * iMixerFreq) / static_cast<float>(iSampleRate)));
-
-	iBufferOffset = iBufferFilled = iLastConsume = 0;
-	bLastAlive = true;
-
-	iMissCount = 0;
-	iMissedFrames = 0;
-
-	ucFlags = 0xFF;
-
-	jbJitter = jitter_buffer_init(iFrameSize);
-	int margin = g.s.iJitterBufferSize * iFrameSize;
-	jitter_buffer_ctl(jbJitter, JITTER_BUFFER_SET_MARGIN, &margin);
-
-	fFadeIn = new float[iFrameSize];
-	fFadeOut = new float[iFrameSize];
-
-	float mul = static_cast<float>(M_PI / (2.0 * static_cast<double>(iFrameSize)));
-	for (unsigned int i=0;i<iFrameSize;++i)
-		fFadeIn[i] = fFadeOut[iFrameSize-i-1] = sinf(static_cast<float>(i) * mul);
-}
-
-AudioOutputSpeech::~AudioOutputSpeech() {
-#ifdef USE_OPUS
-	if (opusState)
-		opus_decoder_destroy(opusState);
-#endif
-	if (cdDecoder) {
-		cCodec->celt_decoder_destroy(cdDecoder);
-	} else if (dsSpeex) {
-		speex_bits_destroy(&sbBits);
-		speex_decoder_destroy(dsSpeex);
-	}
-
-	if (srs)
-		speex_resampler_destroy(srs);
-
-	jitter_buffer_destroy(jbJitter);
-
-	delete [] fFadeIn;
-	delete [] fFadeOut;
-}
-
-void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned int iSeq) {
-	QMutexLocker lock(&qmJitter);
-
-	if (qbaPacket.size() < 2)
-		return;
-
-	PacketDataStream pds(qbaPacket);
-
-	// skip flags
-	pds.next();
-
-	int samples = 0;
-	if (umtType == MessageHandler::UDPVoiceOpus) {
-		int size;
-		pds >> size;
-
-		const QByteArray &qba = pds.dataBlock(size);
-		const unsigned char *packet = reinterpret_cast<const unsigned char*>(qba.constData());
-
-#ifdef USE_OPUS
-		int frames = opus_packet_get_nb_frames(packet, size);
-		samples = frames * opus_packet_get_samples_per_frame(packet, SAMPLE_RATE);
-#else
-		return;
-#endif
-
-		// We can't handle frames which are not a multiple of 10ms.
-		Q_ASSERT(samples % iFrameSize == 0);
-	} else {
-		unsigned int header = 0;
-
-		do {
-			header = static_cast<unsigned char>(pds.next());
-			samples += iFrameSize;
-			pds.skip(header & 0x7f);
-		} while ((header & 0x80) && pds.isValid());
-	}
-
-	if (pds.isValid()) {
-		JitterBufferPacket jbp;
-		jbp.data = const_cast<char *>(qbaPacket.constData());
-		jbp.len = qbaPacket.size();
-		jbp.span = samples;
-		jbp.timestamp = iFrameSize * iSeq;
-
-#ifdef REPORT_JITTER
-		if (g.s.bUsage && (umtType != MessageHandler::UDPVoiceSpeex) && p && ! p->qsHash.isEmpty() && (p->qlTiming.count() < 3000)) {
-			QMutexLocker qml(& p->qmTiming);
-
-			ClientUser::JitterRecord jr;
-			jr.iSequence = iSeq;
-			jr.iFrames = frames;
-			jr.uiElapsed = p->tTiming.restart();
-
-			if (! p->qlTiming.isEmpty()) {
-				jr.iFrames -= p->iFrames;
-				jr.iSequence -= p->iSequence + p->iFrames;
-			}
-			p->iFrames = frames;
-			p->iSequence = iSeq;
-
-			p->qlTiming.append(jr);
-		}
-#endif
-
-		jitter_buffer_put(jbJitter, &jbp);
-	}
-}
-
-bool AudioOutputSpeech::needSamples(unsigned int snum) {
-	for (unsigned int i=iLastConsume;i<iBufferFilled;++i)
-		pfBuffer[i-iLastConsume]=pfBuffer[i];
-	iBufferFilled -= iLastConsume;
-
-	iLastConsume = snum;
-
-	if (iBufferFilled >= snum)
-		return bLastAlive;
-
-	float *pOut;
-	STACKVAR(float, fOut, iFrameSize + 4096);
-
-	bool nextalive = bLastAlive;
-
-	while (iBufferFilled < snum) {
-		int decodedSamples = iFrameSize;
-		// FIXME: We might need something better here than 12 * |iFrameSize| (* 2 to support stereo decoding) and
-		// things will explode if we're resampling because |iFrameSize| + 4096 is not enough for 60ms.
-		resizeBuffer(iBufferFilled + 12 * iFrameSize);
-
-		pOut = (srs) ? fOut : (pfBuffer + iBufferFilled);
-
-		if (! bLastAlive) {
-			memset(pOut, 0, iFrameSize * sizeof(float));
-		} else {
-			if (p == &LoopUser::lpLoopy) {
-				LoopUser::lpLoopy.fetchFrames();
-			}
-
-			int avail = 0;
-			int ts = jitter_buffer_get_pointer_timestamp(jbJitter);
-			jitter_buffer_ctl(jbJitter, JITTER_BUFFER_GET_AVAILABLE_COUNT, &avail);
-
-			if (p && (ts == 0)) {
-				int want = iroundf(p->fAverageAvailable);
-				if (avail < want) {
-					++iMissCount;
-					if (iMissCount < 20) {
-						memset(pOut, 0, iFrameSize * sizeof(float));
-						goto nextframe;
-					}
-				}
-			}
-
-			if (qlFrames.isEmpty()) {
-				QMutexLocker lock(&qmJitter);
-
-				char data[4096];
-				JitterBufferPacket jbp;
-				jbp.data = data;
-				jbp.len = 4096;
-
-				spx_int32_t startofs = 0;
-
-				if (jitter_buffer_get(jbJitter, &jbp, iFrameSize, &startofs) == JITTER_BUFFER_OK) {
-					PacketDataStream pds(jbp.data, jbp.len);
-
-					iMissCount = 0;
-					ucFlags = static_cast<unsigned char>(pds.next());
-
-					bHasTerminator = false;
-					if (umtType == MessageHandler::UDPVoiceOpus) {
-						int size;
-						pds >> size;
-						qlFrames << pds.dataBlock(size);
-					} else {
-						unsigned int header = 0;
-						do {
-							header = static_cast<unsigned int>(pds.next());
-							if (header)
-								qlFrames << pds.dataBlock(header & 0x7f);
-							else
-								bHasTerminator = true;
-						} while ((header & 0x80) && pds.isValid());
-					}
-
-					if (pds.left()) {
-						pds >> fPos[0];
-						pds >> fPos[1];
-						pds >> fPos[2];
-					} else {
-						fPos[0] = fPos[1] = fPos[2] = 0.0f;
-					}
-
-					if (p) {
-						float a = static_cast<float>(avail);
-						if (avail >= p->fAverageAvailable)
-							p->fAverageAvailable = a;
-						else
-							p->fAverageAvailable *= 0.99f;
-					}
-				} else {
-					jitter_buffer_update_delay(jbJitter, &jbp, NULL);
-
-					iMissCount++;
-					if (iMissCount > 10)
-						nextalive = false;
-				}
-			}
-
-			if (! qlFrames.isEmpty()) {
-				QByteArray qba = qlFrames.takeFirst();
-
-				if (umtType == MessageHandler::UDPVoiceCELTAlpha || umtType == MessageHandler::UDPVoiceCELTBeta) {
-					int wantversion = (umtType == MessageHandler::UDPVoiceCELTAlpha) ? g.iCodecAlpha : g.iCodecBeta;
-					if ((p == &LoopUser::lpLoopy) && (! g.qmCodecs.isEmpty())) {
-						QMap<int, CELTCodec *>::const_iterator i = g.qmCodecs.constEnd();
-						--i;
-						wantversion = i.key();
-					}
-					if (cCodec && (cCodec->bitstreamVersion() != wantversion)) {
-						cCodec->celt_decoder_destroy(cdDecoder);
-						cdDecoder = NULL;
-					}
-					if (! cCodec) {
-						cCodec = g.qmCodecs.value(wantversion);
-						if (cCodec) {
-							cdDecoder = cCodec->decoderCreate();
-						}
-					}
-					if (cdDecoder)
-						cCodec->decode_float(cdDecoder, qba.isEmpty() ? NULL : reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut);
-					else
-						memset(pOut, 0, sizeof(float) * iFrameSize);
-				} else if (umtType == MessageHandler::UDPVoiceOpus) {
-#ifdef USE_OPUS
-					// FIXME: It's 12 * |iFrameSize| again.
-					decodedSamples = opus_decode_float(opusState, qba.isEmpty() ? NULL : reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut, 12 * iFrameSize, 0);
-					iOutputSize = static_cast<unsigned int>(ceilf(static_cast<float>(decodedSamples * iMixerFreq) / static_cast<float>(iSampleRate)));
-#endif
-				} else {
-					if (qba.isEmpty()) {
-						speex_decode(dsSpeex, NULL, pOut);
-					} else {
-						speex_bits_read_from(&sbBits, qba.data(), qba.size());
-						speex_decode(dsSpeex, &sbBits, pOut);
-					}
-					for (unsigned int i=0;i<iFrameSize;++i)
-						pOut[i] *= (1.0f / 32767.f);
-				}
-
-				bool update = true;
-				if (p) {
-					float &fPowerMax = p->fPowerMax;
-					float &fPowerMin = p->fPowerMin;
-
-					float pow = 0.0f;
-					for (unsigned int i = 0; i < decodedSamples; ++i)
-						pow += pOut[i] * pOut[i];
-					pow = sqrtf(pow / static_cast<float>(decodedSamples));
-
-					if (pow >= fPowerMax) {
-						fPowerMax = pow;
-					} else {
-						if (pow <= fPowerMin) {
-							fPowerMin = pow;
-						} else {
-							fPowerMax = 0.99f * fPowerMax;
-							fPowerMin += 0.0001f * pow;
-						}
-					}
-
-					update = (pow < (fPowerMin + 0.01f * (fPowerMax - fPowerMin)));
-				}
-				if (qlFrames.isEmpty() && update)
-					jitter_buffer_update_delay(jbJitter, NULL, NULL);
-
-				if (qlFrames.isEmpty() && bHasTerminator)
-					nextalive = false;
-			} else {
-				if (umtType == MessageHandler::UDPVoiceCELTAlpha || umtType == MessageHandler::UDPVoiceCELTBeta) {
-					if (cdDecoder)
-						cCodec->decode_float(cdDecoder, NULL, 0, pOut);
-					else
-						memset(pOut, 0, sizeof(float) * iFrameSize);
-				} else if (umtType == MessageHandler::UDPVoiceOpus) {
-#ifdef USE_OPUS
-					opus_decode_float(opusState, NULL, 0, pOut, iFrameSize, 0);
-#endif
-				} else {
-					speex_decode(dsSpeex, NULL, pOut);
-					for (unsigned int i=0;i<iFrameSize;++i)
-						pOut[i] *= (1.0f / 32767.f);
-				}
-			}
-
-			if (! nextalive) {
-				for (unsigned int i=0;i<iFrameSize;++i)
-					pOut[i] *= fFadeOut[i];
-			} else if (ts == 0) {
-				for (unsigned int i=0;i<iFrameSize;++i)
-					pOut[i] *= fFadeIn[i];
-			}
-
-			jitter_buffer_tick(jbJitter);
-		}
-nextframe:
-		spx_uint32_t inlen = decodedSamples;
-		spx_uint32_t outlen = iOutputSize;
-		if (srs && bLastAlive)
-			speex_resampler_process_float(srs, 0, fOut, &inlen, pfBuffer + iBufferFilled, &outlen);
-		iBufferFilled += outlen;
-	}
-
-	if (p) {
-		Settings::TalkState ts;
-		if (! nextalive)
-			ucFlags = 0xFF;
-		switch (ucFlags) {
-			case 0:
-				ts = Settings::Talking;
-				break;
-			case 1:
-				ts = Settings::Shouting;
-				break;
-			case 0xFF:
-				ts = Settings::Passive;
-				break;
-			default:
-				ts = Settings::Whispering;
-				break;
-		}
-		p->setTalking(ts);
-	}
-
-	bool tmp = bLastAlive;
-	bLastAlive = nextalive;
-	return tmp;
-}
-
 
 AudioOutput::AudioOutput() {
 	iFrameSize = SAMPLE_RATE / 100;
@@ -829,28 +173,6 @@ const float *AudioOutput::getSpeakerPos(unsigned int &speakers) {
 	return NULL;
 }
 
-AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
-	SoundFile *handle;
-	handle = AudioOutputSample::loadSndfile(filename);
-	if (handle == NULL)
-		return NULL;
-
-	while ((iMixerFreq == 0) && isAlive()) {
-		QThread::yieldCurrentThread();
-	}
-
-	if (! iMixerFreq)
-		return NULL;
-
-	qrwlOutputs.lockForWrite();
-	AudioOutputSample *aos = new AudioOutputSample(filename, handle, loop, iMixerFreq);
-	qmOutputs.insert(NULL, aos);
-	qrwlOutputs.unlock();
-
-	return aos;
-
-}
-
 void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket, unsigned int iSeq, MessageHandler::UDPMessageType type) {
 	if (iChannels == 0)
 		return;
@@ -894,6 +216,26 @@ void AudioOutput::removeBuffer(AudioOutputUser *aop) {
 			break;
 		}
 	}
+}
+
+AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
+	SoundFile *handle = AudioOutputSample::loadSndfile(filename);
+	if (handle == NULL)
+		return NULL;
+
+	while ((iMixerFreq == 0) && isAlive()) {
+		QThread::yieldCurrentThread();
+	}
+
+	if (! iMixerFreq)
+		return NULL;
+
+	QWriteLocker locker(&qrwlOutputs);
+	AudioOutputSample *aos = new AudioOutputSample(filename, handle, loop, iMixerFreq);
+	qmOutputs.insert(NULL, aos);
+
+	return aos;
+
 }
 
 void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadphone) {
@@ -1017,10 +359,10 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	QList<AudioOutputUser *> qlMix;
 	QList<AudioOutputUser *> qlDel;
 
-	if (g.s.fVolume < 0.01)
+	if (g.s.fVolume < 0.01f)
 		return false;
 
-	const float adjustFactor = std::pow(10, -18. / 20);
+	const float adjustFactor = std::pow<float>(10, -18.f / 20);
 	const float mul = g.s.fVolume;
 	const unsigned int nchan = iChannels;
 	ServerHandlerPtr sh = g.sh;
@@ -1030,18 +372,18 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 
 	qrwlOutputs.lockForRead();
 	bool needAdjustment = false;
-	QMultiHash<const ClientUser *, AudioOutputUser *>::const_iterator i = qmOutputs.constBegin();
-	while (i != qmOutputs.constEnd()) {
-		AudioOutputUser *aop = i.value();
+	QMultiHash<const ClientUser *, AudioOutputUser *>::const_iterator it = qmOutputs.constBegin();
+	while (it != qmOutputs.constEnd()) {
+		AudioOutputUser *aop = it.value();
 		if (! aop->needSamples(nsamp)) {
 			qlDel.append(aop);
 		} else {
 			qlMix.append(aop);
 			// Set a flag if there is a priority speaker
-			if (i.key() && i.key()->bPrioritySpeaker)
+			if (it.key() && it.key()->bPrioritySpeaker)
 				needAdjustment = true;
 		}
-		++i;
+		++it;
 	}
 
 	if (! qlMix.isEmpty()) {
@@ -1089,13 +431,13 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 					top[2] = 0.0f;
 				}
 
-				if (fabs(front[0] * top[0] + front[1] * top[1] + front[2] * top[2]) > 0.01f) {
+				if (std::abs<float>(front[0] * top[0] + front[1] * top[1] + front[2] * top[2]) > 0.01f) {
 					// Not perpendicular. Assume Y up and rotate 90 degrees.
 
 					float azimuth = 0.0f;
 					if ((front[0] != 0.0f) || (front[2] != 0.0f))
 						azimuth = atan2f(front[2], front[0]);
-					float inclination = acosf(front[1]) - M_PI / 2;
+					float inclination = acosf(front[1]) - static_cast<float>(M_PI) / 2.0f;
 
 					top[0] = sinf(inclination)*cosf(azimuth);
 					top[1] = cosf(inclination);
@@ -1190,7 +532,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 					const float dot = bSpeakerPositional[s] ? dir[0] * speaker[s*3+0] + dir[1] * speaker[s*3+1] + dir[2] * speaker[s*3+2] : 1.0f;
 					const float str = svol[s] * calcGain(dot, len) * volumeAdjustment;
 					float * RESTRICT o = output + s;
-					const float old = (aop->pfVolume[s] >= 0.0) ? aop->pfVolume[s] : str;
+					const float old = (aop->pfVolume[s] >= 0.0f) ? aop->pfVolume[s] : str;
 					const float inc = (str - old) / static_cast<float>(nsamp);
 					aop->pfVolume[s] = str;
 					/*

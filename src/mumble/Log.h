@@ -36,7 +36,6 @@
 #include <QtGui/QTextDocument>
 
 #include "ConfigDialog.h"
-#include "AudioOutput.h"
 #include "ui_Log.h"
 
 class TextToSpeech;

@@ -947,12 +947,22 @@ void AudioInput::encodeAudioFrame() {
 	bPreviousVoice = bIsSpeech;
 }
 
+static void sendAudioFrame(const char *data, PacketDataStream &pds) {
+	ServerHandlerPtr sh = g.sh;
+	if (sh) {
+		VoiceRecorderPtr recorder(sh->recorder);
+		if (recorder)
+			recorder->getRecordUser().addFrame(QByteArray(data, pds.size() + 1));
+	}
+
+	if (g.s.lmLoopMode == Settings::Local)
+		LoopUser::lpLoopy.addFrame(QByteArray(data, pds.size() + 1));
+	else if (sh)
+		sh->sendMessage(data, pds.size() + 1);
+}
+
 void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 	qlFrames << frame;
-
-	if (umtType == MessageHandler::UDPVoiceOpus) {
-		terminator = false;
-	}
 
 	if (! terminator && umtType != MessageHandler::UDPVoiceOpus && qlFrames.count() < iAudioFrames)
 		return;
@@ -973,7 +983,7 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 	// Sequence number
 	pds << iFrameCounter - iAudioFrames;
 
-	if (terminator)
+	if (umtType != MessageHandler::UDPVoiceOpus && terminator)
 		qlFrames << QByteArray();
 
 	if (umtType == MessageHandler::UDPVoiceOpus) {
@@ -997,17 +1007,18 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 		pds << g.p->fPosition[2];
 	}
 
-	ServerHandlerPtr sh = g.sh;
-	if (sh) {
-		VoiceRecorderPtr recorder(sh->recorder);
-		if (recorder)
-			recorder->getRecordUser().addFrame(QByteArray(data, pds.size() + 1));
-	}
+	sendAudioFrame(data, pds);
 
-	if (g.s.lmLoopMode == Settings::Local)
-		LoopUser::lpLoopy.addFrame(QByteArray(data, pds.size() + 1));
-	else if (sh)
-		sh->sendMessage(data, pds.size() + 1);
+	if (umtType == MessageHandler::UDPVoiceOpus && terminator) {
+		pds.rewind();
+
+		// Sequence number
+		pds << iFrameCounter;
+		// size = 0
+		pds << 0;
+
+		sendAudioFrame(data, pds);
+	}
 
 	Q_ASSERT(qlFrames.isEmpty());
 }
