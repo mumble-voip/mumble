@@ -44,6 +44,7 @@ class AudioOutputSpeech : public AudioOutputUser {
 		Q_OBJECT
 		Q_DISABLE_COPY(AudioOutputSpeech)
 	protected:
+		unsigned int iAudioBufferSize;
 		unsigned int iBufferOffset;
 		unsigned int iBufferFilled;
 		unsigned int iOutputSize;
@@ -53,6 +54,7 @@ class AudioOutputSpeech : public AudioOutputUser {
 		unsigned int iMixerFreq;
 		bool bLastAlive;
 		bool bHasTerminator;
+		bool bStereo;
 
 		float *fFadeIn;
 		float *fFadeOut;

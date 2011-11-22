@@ -50,17 +50,21 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 
 	cCodec = NULL;
 	cdDecoder = NULL;
+	dsSpeex = NULL;
+	opusState = NULL;
 
-	if (umtType != MessageHandler::UDPVoiceSpeex) {
-		iSampleRate = SAMPLE_RATE;
-		iFrameSize = iSampleRate / 100;
+	bStereo = false;
 
-		dsSpeex = NULL;
+	iSampleRate = SAMPLE_RATE;
+	iFrameSize = iSampleRate / 100;
+	iAudioBufferSize = iFrameSize;
+
+	if (umtType == MessageHandler::UDPVoiceOpus) {
 #ifdef USE_OPUS
-		// FIXME: use a stereo decoder if PA is disabled (requires a larger buffer than what we're currently using)
-		opusState = opus_decoder_create(SAMPLE_RATE, 1, NULL);
+		iAudioBufferSize *= 12;
+		opusState = opus_decoder_create(iSampleRate, bStereo ? 2 : 1, NULL);
 #endif
-	} else {
+	} else if (umtType == MessageHandler::UDPVoiceSpeex) {
 		speex_bits_init(&sbBits);
 
 		dsSpeex = speex_decoder_init(speex_lib_get_mode(SPEEX_MODEID_UWB));
@@ -68,14 +72,19 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 		speex_decoder_ctl(dsSpeex, SPEEX_SET_ENH, &iArg);
 		speex_decoder_ctl(dsSpeex, SPEEX_GET_FRAME_SIZE, &iFrameSize);
 		speex_decoder_ctl(dsSpeex, SPEEX_GET_SAMPLING_RATE, &iSampleRate);
+		iAudioBufferSize = iFrameSize;
 	}
 
-	iOutputSize = static_cast<unsigned int>(ceilf(static_cast<float>(iFrameSize * iMixerFreq) / static_cast<float>(iSampleRate)));
+	iOutputSize = static_cast<unsigned int>(ceilf(static_cast<float>(iAudioBufferSize * iMixerFreq) / static_cast<float>(iSampleRate)));
+	if (bStereo) {
+		iAudioBufferSize *= 2;
+		iOutputSize *= 2;
+	}
 
 	srs = NULL;
 	fResamplerBuffer = NULL;
 	if (iMixerFreq != iSampleRate) {
-		srs = speex_resampler_init(1, iSampleRate, iMixerFreq, 3, &err);
+		srs = speex_resampler_init(bStereo ? 2 : 1, iSampleRate, iMixerFreq, 3, &err);
 		fResamplerBuffer = new float[iOutputSize];
 	}
 
@@ -210,9 +219,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 
 	while (iBufferFilled < snum) {
 		int decodedSamples = iFrameSize;
-		// FIXME: We might need something better here than 12 * |iFrameSize| (* 2 to support stereo decoding) and
-		// things will explode if we're resampling because |iFrameSize| + 4096 is not enough for 60ms.
-		resizeBuffer(iBufferFilled + 12 * iFrameSize);
+		resizeBuffer(iBufferFilled + iAudioBufferSize);
 
 		pOut = (srs) ? fResamplerBuffer : (pfBuffer + iBufferFilled);
 
@@ -324,8 +331,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 						memset(pOut, 0, sizeof(float) * iFrameSize);
 				} else if (umtType == MessageHandler::UDPVoiceOpus) {
 #ifdef USE_OPUS
-					// FIXME: It's 12 * |iFrameSize| again.
-					decodedSamples = opus_decode_float(opusState, qba.isEmpty() ? NULL : reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut, 12 * iFrameSize, 0);
+					decodedSamples = opus_decode_float(opusState, qba.isEmpty() ? NULL : reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut, iAudioBufferSize, 0);
 					iOutputSize = static_cast<unsigned int>(ceilf(static_cast<float>(decodedSamples * iMixerFreq) / static_cast<float>(iSampleRate)));
 #endif
 				} else {
