@@ -28,10 +28,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _DBUS_H
-#define _DBUS_H
+#ifndef DBUS_H_
+#define DBUS_H_
 
-#include "mumble_pch.hpp"
+#include <QtDBus/QDBusAbstractAdaptor>
+
+class QDBusMessage;
 
 class MumbleDBus : public QDBusAbstractAdaptor {
 	private:
@@ -52,6 +54,4 @@ class MumbleDBus : public QDBusAbstractAdaptor {
 		bool isSelfDeaf();
 };
 
-#else
-class MumbleDBus;
 #endif

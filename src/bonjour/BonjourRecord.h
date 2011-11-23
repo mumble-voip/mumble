@@ -26,10 +26,11 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef BONJOURRECORD_H
-#define BONJOURRECORD_H
+#ifndef BONJOUR_RECORD_H
+#define BONJOUR_RECORD_H
 
-#include "murmur_pch.h"
+#include <QtCore/QMetaType>
+#include <QtCore/QString>
 
 class BonjourRecord {
 	public:
@@ -53,4 +54,4 @@ class BonjourRecord {
 
 Q_DECLARE_METATYPE(BonjourRecord)
 
-#endif // BONJOURRECORD_H
+#endif // BONJOUR_RECORD_H

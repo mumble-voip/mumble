@@ -28,14 +28,17 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "Plugins.h"
+
+#include "Global.h"
 #include "Log.h"
+#include "MainWindow.h"
 #include "Message.h"
 #include "ServerHandler.h"
-#include "MainWindow.h"
-#include "WebFetch.h"
 #include "../../plugins/mumble_plugin.h"
-#include "Global.h"
+#include "WebFetch.h"
 
 static ConfigWidget *PluginConfigDialogNew(Settings &st) {
 	return new PluginConfig(st);

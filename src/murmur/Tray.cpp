@@ -28,9 +28,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "murmur_pch.h"
+
 #include "Tray.h"
-#include "Server.h"
+
 #include "Meta.h"
+#include "Server.h"
 #include "Version.h"
 
 Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {

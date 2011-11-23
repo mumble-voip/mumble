@@ -28,10 +28,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _AUDIOSTATS_H
-#define _AUDIOSTATS_H
+#ifndef AUDIOSTATS_H_
+#define AUDIOSTATS_H_
 
-#include "mumble_pch.hpp"
+#include <QtCore/QList>
+#include <QtCore/QTimer>
+#include <QtGui/QWidget>
 
 class AudioBar : public QWidget {
 	private:

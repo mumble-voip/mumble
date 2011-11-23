@@ -27,13 +27,17 @@
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
+#include "mumble_pch.hpp"
+
 #include "GlobalShortcut.h"
-#include "MainWindow.h"
-#include "Global.h"
-#include "Database.h"
+
+#include "AudioInput.h"
 #include "ClientUser.h"
 #include "Channel.h"
-#include "AudioInput.h"
+#include "Database.h"
+#include "Global.h"
+#include "MainWindow.h"
 
 /*!
   \class ShortcutKeyWidget

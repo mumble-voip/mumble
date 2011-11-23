@@ -28,10 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CRASHREPORTER_H
-#define CRASHREPORTER_H
-
-#include "mumble_pch.hpp"
+#ifndef CRASHREPORTER_H_
+#define CRASHREPORTER_H_
 
 class CrashReporter : QDialog {
 		Q_OBJECT

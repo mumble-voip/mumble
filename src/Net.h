@@ -28,14 +28,16 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _NET_H
-#define _NET_H
+#ifndef NET_H_
+#define NET_H_
+
+#include <QtCore/QDateTime>
+#include <QtCore/QString>
+#include <QtNetwork/Q_IPV6ADDR>
 
 #ifndef DEFAULT_MUMBLE_PORT
 #define DEFAULT_MUMBLE_PORT 64738
 #endif
-
-#include "murmur_pch.h"
 
 struct HostAddress {
 	union {

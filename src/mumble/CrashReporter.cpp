@@ -28,10 +28,13 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "CrashReporter.h"
+
 #include "Global.h"
-#include "OSInfo.h"
 #include "NetworkConfig.h"
+#include "OSInfo.h"
 
 CrashReporter::CrashReporter(QWidget *p) : QDialog(p) {
 	setWindowTitle(tr("Mumble Crash Report"));

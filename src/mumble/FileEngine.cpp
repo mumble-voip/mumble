@@ -28,9 +28,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "FileEngine.h"
-#include "Global.h"
+
 #include "ClientUser.h"
+#include "Global.h"
 
 MumbleFileEngineHandler::MumbleFileEngineHandler() : QAbstractFileEngineHandler() {
 }

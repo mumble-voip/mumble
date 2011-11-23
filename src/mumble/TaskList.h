@@ -29,12 +29,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef TASK_LIST_H
-#define TASK_LIST_H
+#ifndef TASK_LIST_H_
+#define TASK_LIST_H_
 
 class TaskList {
 	public:
 		static void addToRecentList(QString name, QString user, QString host, int port);
 };
 
-#endif // TASK_LIST_H
+#endif  // TASK_LIST_H_

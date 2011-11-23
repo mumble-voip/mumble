@@ -29,8 +29,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _AUDIOOUTPUT_H
-#define _AUDIOOUTPUT_H
+#ifndef AUDIOOUTPUT_H_
+#define AUDIOOUTPUT_H_
+
+#include <boost/shared_ptr.hpp>
+#include <QtCore/QObject>
+#include <QtCore/QThread>
 
 // AudioOutput depends on User being valid. This means it's important
 // to removeBuffer from here BEFORE MainWindow gets any UserLeft
@@ -60,11 +64,12 @@
 #endif
 
 #include "Audio.h"
-#include "Settings.h"
 #include "Message.h"
 
 class AudioOutput;
 class ClientUser;
+class AudioOutputUser;
+class AudioOutputSample;
 
 typedef boost::shared_ptr<AudioOutput> AudioOutputPtr;
 
@@ -87,121 +92,6 @@ class AudioOutputRegistrar {
 		virtual bool canMuteOthers() const;
 		virtual bool usesOutputDelay() const;
 		virtual bool canExclusive() const;
-};
-
-class AudioOutputUser : public QObject {
-		friend class AudioOutput;
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(AudioOutputUser)
-	protected:
-		unsigned int iBufferSize;
-		void resizeBuffer(unsigned int newsize);
-	public:
-		AudioOutputUser(const QString name);
-		~AudioOutputUser();
-		const QString qsName;
-		float *pfBuffer;
-		float *pfVolume;
-		float fPos[3];
-		virtual bool needSamples(unsigned int snum) = 0;
-};
-
-class AudioOutputSpeech : public AudioOutputUser {
-		friend class AudioOutput;
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(AudioOutputSpeech)
-	protected:
-		MessageHandler::UDPMessageType umtType;
-		unsigned int iBufferOffset;
-		unsigned int iBufferFilled;
-		unsigned int iOutputSize;
-		unsigned int iLastConsume;
-		unsigned int iFrameSize;
-		bool bLastAlive;
-		bool bHasTerminator;
-
-		float *fFadeIn;
-		float *fFadeOut;
-
-		SpeexResamplerState *srs;
-
-		QMutex qmJitter;
-		JitterBuffer *jbJitter;
-		int iMissCount;
-
-		CELTCodec *cCodec;
-		CELTDecoder *cdDecoder;
-
-		SpeexBits sbBits;
-		void *dsSpeex;
-
-		QList<QByteArray> qlFrames;
-
-		unsigned char ucFlags;
-	public:
-		int iMissedFrames;
-		ClientUser *p;
-
-		virtual bool needSamples(unsigned int snum);
-
-		void addFrameToBuffer(const QByteArray &, unsigned int iBaseSeq);
-		AudioOutputSpeech(ClientUser *, unsigned int freq, MessageHandler::UDPMessageType type);
-		~AudioOutputSpeech();
-};
-
-class SoundFile : public QObject {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(SoundFile)
-	protected:
-		SNDFILE *sfFile;
-		SF_INFO siInfo;
-		QFile qfFile;
-		static sf_count_t vio_get_filelen(void *user_data);
-		static sf_count_t vio_seek(sf_count_t offset, int whence, void *user_data);
-		static sf_count_t vio_read(void *ptr, sf_count_t count, void *user_data);
-		static sf_count_t vio_write(const void *ptr, sf_count_t count, void *user_data);
-		static sf_count_t vio_tell(void *user_data);
-	public:
-		SoundFile(const QString &fname);
-		virtual ~SoundFile();
-
-		int channels() const;
-		int samplerate() const;
-		int error() const ;
-		QString strError() const;
-		bool isOpen() const;
-
-		sf_count_t seek(sf_count_t frames, int whence);
-		sf_count_t read(float *ptr, sf_count_t items);
-};
-
-class AudioOutputSample : public AudioOutputUser {
-		friend class AudioOutput;
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(AudioOutputSample)
-	protected:
-		unsigned int iLastConsume;
-		unsigned int iBufferFilled;
-		unsigned int iOutSampleRate;
-		SpeexResamplerState *srs;
-
-		SoundFile *sfHandle;
-
-		bool bLastAlive;
-		bool bLoop;
-		bool bEof;
-	signals:
-		void playbackFinished();
-	public:
-		static SoundFile* loadSndfile(const QString &filename);
-		static QString browseForSndfile();
-		virtual bool needSamples(unsigned int snum);
-		AudioOutputSample(const QString &name, SoundFile *psndfile, bool repeat, unsigned int freq);
-		~AudioOutputSample();
 };
 
 class AudioOutput : public QThread {

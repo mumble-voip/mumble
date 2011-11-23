@@ -28,10 +28,19 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _PLUGINS_H
-#define _PLUGINS_H
+#ifndef PLUGINS_H_
+#define PLUGINS_H_
+
+#include <QtCore/QObject>
+#include <QtCore/QMutex>
+#include <QtCore/QReadWriteLock>
+#include <QtCore/QUrl>
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
 
 #include "ConfigDialog.h"
+
 #include "ui_Plugins.h"
 
 struct PluginInfo;

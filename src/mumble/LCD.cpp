@@ -29,7 +29,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "LCD.h"
+
 #include "ClientUser.h"
 #include "Channel.h"
 #include "Global.h"

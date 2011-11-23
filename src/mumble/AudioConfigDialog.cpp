@@ -29,9 +29,13 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
+#include "AudioConfigDialog.h"
+
 #include "AudioInput.h"
 #include "AudioOutput.h"
-#include "AudioConfigDialog.h"
+#include "AudioOutputSample.h"
 #include "Global.h"
 #include "NetworkConfig.h"
 

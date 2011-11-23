@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _DIRECTSOUND_H
-#define _DIRECTSOUND_H
+#ifndef DIRECTSOUND_H_
+#define DIRECTSOUND_H_
 
 #include "AudioInput.h"
 #include "AudioOutput.h"

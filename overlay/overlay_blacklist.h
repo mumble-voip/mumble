@@ -58,6 +58,7 @@ static const char *overlayBlacklist[] = {
 	"hammer.exe", // VALVE Hammer Editor
 	"hlmv.exe", // Half-Life Model Viewer
 	"hlfaceposer.exe", // Face Poser (from Source SDK)
+	"LoLLauncher.exe", // League of Legends Launcher/Patcher
 	NULL
 };
 

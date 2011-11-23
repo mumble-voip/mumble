@@ -29,13 +29,15 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _POSITIONALSOUND_H
-#define _POSITIONALSOUND_H
+#ifndef POSITIONALSOUND_H_
+#define POSITIONALSOUND_H_
 
 #include "ConfigDialog.h"
 #include "Global.h"
-#include "Settings.h"
+
 #include "ui_PositionalSound.h"
+
+class Settings;
 
 class PlotWidget : public QWidget {
 	private:

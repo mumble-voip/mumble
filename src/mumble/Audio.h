@@ -28,11 +28,23 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _AUDIO_H
-#define _AUDIO_H
+#ifndef AUDIO_H_
+#define AUDIO_H_
 
-#include "mumble_pch.hpp"
+#include <celt.h>
+#include <QtCore/QByteArray>
+#include <QtCore/QLibrary>
+#include <QtCore/QMultiMap>
+#include <QtCore/QMutex>
+#include <QtCore/QString>
+#include <QtCore/QTime>
+#include <QtCore/QVariant>
+
 #include "ClientUser.h"
+
+#ifndef Q_OS_WIN
+#define __cdecl
+#endif
 
 #define SAMPLE_RATE 48000
 

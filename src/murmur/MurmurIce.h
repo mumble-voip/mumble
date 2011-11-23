@@ -29,13 +29,16 @@
 */
 
 #ifdef USE_ICE
-#ifndef _MURMURICE_H
-#define _MURMURICE_H
+#ifndef MURMURICE_H_
+#define MURMURICE_H_
 
-#include "murmur_pch.h"
+#include <QtCore/QList>
+#include <QtCore/QMap>
+#include <QtCore/QMutex>
+#include <QtCore/QObject>
+#include <QtCore/QWaitCondition>
+#include <QtNetwork/QSslCertificate>
 
-#include <Ice/Ice.h>
-#include <IceUtil/IceUtil.h>
 #include "MurmurI.h"
 
 class Channel;

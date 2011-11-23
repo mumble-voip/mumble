@@ -28,10 +28,14 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _PLAYERMODEL_H
-#define _PLAYERMODEL_H
+#ifndef USERMODEL_H_
+#define USERMODEL_H_
 
-#include "mumble_pch.hpp"
+#include <QtCore/QAbstractItemModel>
+#include <QtCore/QHash>
+#include <QtCore/QObject>
+#include <QtCore/QSet>
+#include <QtGui/QIcon>
 
 class User;
 class ClientUser;
@@ -84,7 +88,7 @@ class UserModel : public QAbstractItemModel {
 		Q_DISABLE_COPY(UserModel)
 	protected:
 		QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
-		QIcon qiMutedSelf, qiMutedServer, qiMutedLocal, qiMutedSuppressed;
+		QIcon qiMutedSelf, qiMutedServer, qiMutedLocal, qiIgnoredLocal, qiMutedSuppressed;
 		QIcon qiPrioritySpeaker;
 		QIcon qiRecording;
 		QIcon qiDeafenedSelf, qiDeafenedServer;

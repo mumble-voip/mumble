@@ -29,14 +29,18 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "ACLEditor.h"
+
 #include "ACL.h"
-#include "ServerHandler.h"
 #include "Channel.h"
-#include "User.h"
+#include "ClientUser.h"
+#include "Database.h"
 #include "Global.h"
 #include "Log.h"
-#include "Database.h"
+#include "ServerHandler.h"
+#include "User.h"
 
 ACLGroup::ACLGroup(const QString &name) : Group(NULL, name) {
 	bInherited = false;

@@ -28,10 +28,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _TIMER_H
-#define _TIMER_H
+#ifndef TIMER_H_
+#define TIMER_H_
 
-#include "murmur_pch.h"
+#include <QtCore/QtGlobal>
 
 // All timer resolutions are in microseconds.
 
