@@ -85,7 +85,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	fResamplerBuffer = NULL;
 	if (iMixerFreq != iSampleRate) {
 		srs = speex_resampler_init(bStereo ? 2 : 1, iSampleRate, iMixerFreq, 3, &err);
-		fResamplerBuffer = new float[iOutputSize];
+		fResamplerBuffer = new float[iAudioBufferSize];
 	}
 
 	iBufferOffset = iBufferFilled = iLastConsume = 0;
@@ -219,7 +219,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 
 	while (iBufferFilled < snum) {
 		int decodedSamples = iFrameSize;
-		resizeBuffer(iBufferFilled + iAudioBufferSize);
+		resizeBuffer(iBufferFilled + iOutputSize);
 
 		pOut = (srs) ? fResamplerBuffer : (pfBuffer + iBufferFilled);
 
@@ -333,6 +333,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 #ifdef USE_OPUS
 					decodedSamples = opus_decode_float(opusState, qba.isEmpty() ? NULL : reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut, iAudioBufferSize, 0);
 					iOutputSize = static_cast<unsigned int>(ceilf(static_cast<float>(decodedSamples * iMixerFreq) / static_cast<float>(iSampleRate)));
+					resizeBuffer(iBufferFilled + iOutputSize);
 #endif
 				} else {
 					if (qba.isEmpty()) {
