@@ -1260,7 +1260,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		foreach(AudioOutputUser *aop, qlMix) {
 			const float * RESTRICT pfBuffer = aop->pfBuffer;
 			float prioSpeakerVolAdjFactor = 1.0; // holds volume adjustment in case of priority speaker
-			boost::optional<AudioSourceData> srcData = NULL;
+			boost::optional<AudioSourceData> srcData;
 
 			// If we have at least one priority speaker
 			if (needAdjustment) {
