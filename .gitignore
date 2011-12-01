@@ -5,6 +5,7 @@ debug/
 release/
 asio/
 local/
+obj/
 indent.sh
 *.bat
 vc90.pdb
@@ -12,3 +13,5 @@ vc100.pdb
 *~
 *.pb.h
 *.pb.cc
+*.msi
+*.suo
