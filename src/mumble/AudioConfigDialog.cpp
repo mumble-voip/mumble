@@ -35,6 +35,7 @@
 
 #include "AudioInput.h"
 #include "AudioOutput.h"
+#include "AudioOutputSample.h"
 #include "Global.h"
 #include "NetworkConfig.h"
 

@@ -94,7 +94,7 @@ class AudioInput : public QThread {
 		void resetAudioProcessor();
 
 		OpusEncoder *opusState;
-		int encodeOpusFrame(short *source, unsigned char *buffer);
+		int encodeOpusFrame(short *source, int size, unsigned char *buffer);
 		int encodeSpeexFrame(short *pSource, unsigned char *buffer);
 		int encodeCELTFrame(short *pSource, unsigned char *buffer);
 	protected:
@@ -131,6 +131,8 @@ class AudioInput : public QThread {
 		float *pfMicInput;
 		float *pfEchoInput;
 		float *pfOutput;
+
+		std::vector<short> opusBuffer;
 
 		void encodeAudioFrame();
 		void addMic(const void *data, unsigned int nsamp);
@@ -171,6 +173,4 @@ class AudioInput : public QThread {
 		bool isTransmitting() const;
 };
 
-#else
-class AudioInput;
 #endif

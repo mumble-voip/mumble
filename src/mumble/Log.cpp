@@ -33,6 +33,8 @@
 
 #include "Log.h"
 
+#include "AudioOutput.h"
+#include "AudioOutputSample.h"
 #include "Channel.h"
 #include "Global.h"
 #include "MainWindow.h"
