@@ -193,7 +193,7 @@ void Pipe::disconnect() {
 
 bool Pipe::sendMessage(const OverlayMsg &om) {
 	DWORD dwBytesToWrite = sizeof(OverlayMsgHeader) + om.omh.iLength;
-	DWORD dwBytesWritten = 0;
+	DWORD dwBytesWritten = dwBytesToWrite;
 
 	if (WriteFile(hSocket, om.headerbuffer, sizeof(OverlayMsgHeader) + om.omh.iLength, &dwBytesWritten, NULL))
 		if (dwBytesToWrite == dwBytesWritten)
@@ -204,8 +204,8 @@ bool Pipe::sendMessage(const OverlayMsg &om) {
 	return false;
 }
 
-void Pipe::checkMessage(unsigned int width, unsigned int height) {
-	if (!width || ! height)
+void Pipe::checkMessage(unsigned int w, unsigned int h) {
+	if (!w || ! h)
 		return;
 
 	if (hSocket == INVALID_HANDLE_VALUE) {
@@ -232,13 +232,11 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 		ods("Pipe: Process ID sent");
 	}
 
-	// if the passed width and height do not match the current overlays uiWidth and uiHeight, re-initialize
-	if ((uiWidth != width) || (uiHeight != height)) {
-		// release the old data
+	if ((uiWidth != w) || (uiHeight != h)) {
 		release();
 
-		uiWidth = width;
-		uiHeight = height;
+		uiWidth = w;
+		uiHeight = h;
 
 		// instantiate and send an initialization-OverlayMessage
 		OverlayMsg om;
@@ -251,7 +249,7 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 		if (!sendMessage(om))
 			return;
 
-		ods("Pipe: SentInitMsg with w h %d %d", uiWidth, uiHeight);
+		ods("Pipe: SentInit %d %d", w, h);
 	}
 
 	std::vector<RECT> blits;

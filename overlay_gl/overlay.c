@@ -371,15 +371,13 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 								unsigned int y = omb->y;
 								unsigned int w = omb->w;
 								unsigned int h = omb->h;
-								unsigned int bufSize = w*h*4;
-								unsigned char *ptr = (unsigned char *) malloc(bufSize);
-								int row;
+								unsigned char *ptr = (unsigned char *) malloc(w*h*4);
+								unsigned int r;
 								memset(ptr, 0, w * h * 4);
 
-								// copy overlay texture to temporary memory to adapt to full opengl ui size (overlay at correct place)
-								for (row = 0; row < h; ++row) {
-									const unsigned char *sptr = ctx->a_ucTexture + 4 * ((y+row) * ctx->uiWidth + x);
-									unsigned char *dptr = ptr + 4 * w * row;
+								for (r = 0; r < h; ++r) {
+									const unsigned char *sptr = ctx->a_ucTexture + 4 * ((y+r) * ctx->uiWidth + x);
+									unsigned char *dptr = ptr + 4 * w * r;
 									memcpy(dptr, sptr, w * 4);
 								}
 
@@ -435,10 +433,10 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 	float right  = (float)(ctx->uiRight);
 	float bottom = (float)(ctx->uiBottom);
 
-	float xm  = left   / w;
-	float ym  = top    / h;
-	float xmx = right  / w;
-	float ymx = bottom / h;
+	float xm = (left) / w;
+	float ym = (top) / h;
+	float xmx = (right) / w;
+	float ymx = (bottom) / h;
 
 
 	GLfloat vertex[] = {left, bottom,

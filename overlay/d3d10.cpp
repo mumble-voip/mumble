@@ -402,7 +402,7 @@ void D10State::draw() {
 
 	dwMyThread = GetCurrentThreadId();
 
-	checkMessage((unsigned int)vp.Width, (unsigned int)vp.Height);
+	checkMessage(vp.Width, vp.Height);
 
 	if (a_ucTexture && pSRView && (uiLeft != uiRight)) {
 		HRESULT hr;
@@ -508,6 +508,7 @@ static ULONG __stdcall myRelease(ID3D10Device *pDevice) {
 	LONG res = oRelease(pDevice);
 	hhRelease.inject();
 
+	Mutex m;
 	D10State *ds = devices[pDevice];
 	if (ds)
 		if (res < (ds->lHighMark / 2)) {
