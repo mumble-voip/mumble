@@ -20,8 +20,17 @@ EFFECTS11DIR = $$(DXSDK_DIR)Samples/C++/Effects11/
 EFFECTS11PATH = . Inc Binary
 EFFECTS11SOURCES = EffectAPI.cpp EffectLoad.cpp EffectNonRuntime.cpp EffectReflection.cpp EffectRuntime.cpp d3dx11dbg.cpp d3dxGlobal.cpp
 
-SOURCES *= $$join(EFFECTS11SOURCES," $$EFFECTS11DIR","$$EFFECTS11DIR")
-INCLUDEPATH *= $$join(EFFECTS11PATH," $$EFFECTS11DIR","$$EFFECTS11DIR")
+SOURCES *= "$$EFFECTS11DIR/EffectAPI.cpp"
+SOURCES *= "$$EFFECTS11DIR/EffectLoad.cpp"
+SOURCES *= "$$EFFECTS11DIR/EffectNonRuntime.cpp"
+SOURCES *= "$$EFFECTS11DIR/EffectReflection.cpp"
+SOURCES *= "$$EFFECTS11DIR/EffectRuntime.cpp"
+SOURCES *= "$$EFFECTS11DIR/d3dx11dbg.cpp"
+SOURCES *= "$$EFFECTS11DIR/d3dx11dbg.cpp"
+SOURCES *= "$$EFFECTS11DIR/d3dxGlobal.cpp"
+INCLUDEPATH *= "$$EFFECTS11DIR/."
+INCLUDEPATH *= "$$EFFECTS11DIR/Inc"
+INCLUDEPATH *= "$$EFFECTS11DIR/Binary"
 
 CONFIG(release, debug|release) {
   DESTDIR       = ../release
