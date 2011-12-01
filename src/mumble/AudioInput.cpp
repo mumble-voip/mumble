@@ -979,22 +979,27 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 	char data[1024];
 	data[0] = static_cast<unsigned char>(flags);
 
+	// FIXME: This will be wrong for Opus packets which are sent early because the user stopped talking.
+	int frames = umtType == MessageHandler::UDPVoiceOpus ? iAudioFrames : qMin(iAudioFrames, qlFrames.count());
+
 	PacketDataStream pds(data + 1, 1023);
 	// Sequence number
-	pds << iFrameCounter - iAudioFrames;
-
-	if (umtType != MessageHandler::UDPVoiceOpus && terminator)
-		qlFrames << QByteArray();
+	pds << iFrameCounter - frames;
 
 	if (umtType == MessageHandler::UDPVoiceOpus) {
 		const QByteArray &qba = qlFrames.takeFirst();
 		pds << qba.size();
 		pds.append(qba.constData(), qba.size());
 	} else {
-		for (int i = 0; i < iAudioFrames; ++i) {
+		if (terminator) {
+			qlFrames << QByteArray();
+			++frames;
+		}
+
+		for (int i = 0; i < frames; ++i) {
 			const QByteArray &qba = qlFrames.takeFirst();
 			unsigned char head = static_cast<unsigned char>(qba.size());
-			if (i < iAudioFrames - 1)
+			if (i < frames - 1)
 				head |= 0x80;
 			pds.append(head);
 			pds.append(qba.constData(), qba.size());
