@@ -184,7 +184,7 @@ void D10State::setRect() {
 	top = -2.0f * (top / vp.Height) + 1.0f;
 	bottom = -2.0f * (bottom / vp.Height) + 1.0f;
 
-	ods("Vertex (%f %f) (%f %f)", left, top, right, bottom);
+	ods("D3D10: Vertex (%f %f) (%f %f)", left, top, right, bottom);
 
 	// Create vertex buffer
 	SimpleVertex vertices[] = {
@@ -198,7 +198,7 @@ void D10State::setRect() {
 
 	hr = pVertexBuffer->Map(D3D10_MAP_WRITE_DISCARD, 0, &pData);
 	memcpy(pData, vertices, sizeof(vertices));
-	ods("Map: %lx %d", hr, sizeof(vertices));
+	ods("D3D10: Map: %lx %d", hr, sizeof(vertices));
 	pVertexBuffer->Unmap();
 }
 
@@ -490,58 +490,64 @@ static ULONG __stdcall myAddRef(ID3D10Device *pDevice) {
 	AddRefType oAddRef = (AddRefType) hhAddRef.call;
 
 	hhAddRef.restore();
-	LONG res = oAddRef(pDevice);
+	LONG resRefCount = oAddRef(pDevice);
 	hhAddRef.inject();
 
 	Mutex m;
 	D10State *ds = devices[pDevice];
 	if (ds)
-		ds->lHighMark = res;
+		ds->lHighMark = resRefCount;
 
-	return res;
+	ods("myAddRef called, setting highmark to %d\n", resRefCount);
+
+	return resRefCount;
 }
 
 static ULONG __stdcall myRelease(ID3D10Device *pDevice) {
 	ReleaseType oRelease = (ReleaseType) hhRelease.call;
 
 	hhRelease.restore();
-	LONG res = oRelease(pDevice);
+	LONG resRefCount = oRelease(pDevice);
 	hhRelease.inject();
+	ods("D3D10: Released a reference; new refcount %d", resRefCount);
 
 	Mutex m;
 	D10State *ds = devices[pDevice];
-	if (ds)
-		if (res < (ds->lHighMark / 2)) {
-			ods("D3D10: Deleting resources %d < .5 %d", res, ds->lHighMark);
+	if (ds) {
+		ods("D3D10: Release on saved refcount %d", resRefCount, ds->lHighMark);
+		if (resRefCount < (ds->lHighMark / 2)) {
+			ods("D3D10: Deleting resources %d < .5 %d", resRefCount, ds->lHighMark);
 			devices.erase(ds->pDevice);
 			chains.erase(ds->pSwapChain);
 			delete ds;
 			ods("D3D10: Deleted");
 			ds = NULL;
 		}
+	}
 
-	return res;
+	return resRefCount;
 }
 
 static void HookAddRelease(voidFunc vfAdd, voidFunc vfRelease) {
-	ods("D3D10: Injecting device add/remove");
+	ods("DXGI10: Injecting device add/remove");
 	hhAddRef.setup(vfAdd, reinterpret_cast<voidFunc>(myAddRef));
 	hhRelease.setup(vfRelease, reinterpret_cast<voidFunc>(myRelease));
 }
 
 static void HookPresentRaw(voidFunc vfPresent) {
+	ods("DXGI10: Injecting Present Raw");
 	hhPresent.setup(vfPresent, reinterpret_cast<voidFunc>(myPresent));
 }
 
 static void HookResizeRaw(voidFunc vfResize) {
-	ods("DXGI: Injecting ResizeBuffers Raw");
+	ods("DXGI10: Injecting ResizeBuffers Raw");
 	hhResize.setup(vfResize, reinterpret_cast<voidFunc>(myResize));
 }
 
 void checkDXGIHook(bool preonly) {
 	if (bChaining) {
 		return;
-		ods("DXGI: Causing a chain");
+		ods("DXGI10: Causing a chain");
 	}
 
 	if (! dxgi->iOffsetPresent || ! dxgi->iOffsetResize)
@@ -639,7 +645,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 					desc.BufferDesc.Width = rcWnd.right - rcWnd.left;
 					desc.BufferDesc.Height = rcWnd.bottom - rcWnd.top;
 
-					ods("W %d H %d", desc.BufferDesc.Width, desc.BufferDesc.Height);
+					ods("DXGI: W %d H %d", desc.BufferDesc.Width, desc.BufferDesc.Height);
 
 					desc.BufferDesc.RefreshRate.Numerator = 60;
 					desc.BufferDesc.RefreshRate.Denominator = 1;
@@ -731,6 +737,6 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 			}
 		}
 	} else {
-		ods("No DXGI pre-Vista");
+		ods("DXGI: No DXGI pre-Vista");
 	}
 }

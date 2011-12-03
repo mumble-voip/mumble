@@ -614,6 +614,9 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					if (bBlackListed)
 						return TRUE;
 				}
+
+
+				// Not blacklisted, proc will be attached
 				ods("Lib: ProcAttach: %s", procname);
 
 				hHookMutex = CreateMutex(NULL, false, "MumbleHookMutex");
@@ -622,7 +625,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					return TRUE;
 				}
 
-				DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData);
+				const DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData);
 
 				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, "MumbleOverlayPrivate");
 				if (hMapObject == NULL) {
@@ -630,7 +633,8 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					return TRUE;
 				}
 
-				bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
+				// If the mapobject did not exist yet and was newly created, we need to initialize the shared data (MapViewOfFile)
+				const bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
 
 				sd = (SharedData *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize);
 
@@ -648,11 +652,10 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 
 
 				if (! bMumble) {
+					ods("Lib: Injecting MyLoadLibraryA/W");
 					hhLoad.setup(reinterpret_cast<voidFunc>(LoadLibraryA), reinterpret_cast<voidFunc>(MyLoadLibrary));
 					hhLoadW.setup(reinterpret_cast<voidFunc>(LoadLibraryW), reinterpret_cast<voidFunc>(MyLoadLibraryW));
 
-					// Hm. Don't check D3D9 as apparantly it's creation causes problems in some applications.
-					// - TODO: comment one, do the other? Rm comment above if not correct.
 					checkD3D9Hook(true);
 					checkDXGIHook(true);
 					checkDXGI11Hook(true);

@@ -31,8 +31,8 @@
 #include "HardHook.h"
 #include "ods.h"
 
-void *HardHook::pCode = NULL;
-unsigned int HardHook::uiCode = 0;
+void * HardHook::pCodePage = NULL;
+unsigned int HardHook::uiCodePageUnusedOffset = 0;
 
 HardHook::HardHook() : bTrampoline(false), call(0) {
 	int i;
@@ -50,7 +50,7 @@ HardHook::HardHook(voidFunc func, voidFunc replacement) {
 }
 
 static unsigned int modrmbytes(unsigned char a, unsigned char b) {
-	unsigned char lower = (a & 0x0f);
+	const unsigned char lower = (a & 0x0f);
 	if (a >= 0xc0) {
 		return 0;
 	} else if (a >= 0x80) {
@@ -76,51 +76,57 @@ static unsigned int modrmbytes(unsigned char a, unsigned char b) {
 	}
 }
 
-void *HardHook::cloneCode(void **porig) {
+void* HardHook::cloneCode(void **pOrig) {
 	DWORD oldProtect, restoreProtect;
-	if (! pCode || uiCode > 4000) {
-		uiCode = 0;
-		pCode = VirtualAlloc(NULL, 4096, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+	if (! pCodePage || uiCodePageUnusedOffset > 4000) {
+		fods("HardHook: Initializing pCode executable codepage");
+		uiCodePageUnusedOffset = 0;
+		pCodePage = VirtualAlloc(NULL, 4096, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
 	}
 
-	unsigned char *o = (unsigned char *) *porig;
-	unsigned char *n = (unsigned char *) pCode;
-	n += uiCode;
-	unsigned int idx = 0;
+	unsigned char *orig = (unsigned char *) *pOrig;
+	unsigned char *executableCodePage = (unsigned char *) pCodePage;
+	executableCodePage += uiCodePageUnusedOffset;
 
-	if (!VirtualProtect(o, 16, PAGE_EXECUTE_READ, &oldProtect)) {
+	if (!VirtualProtect(orig, 16, PAGE_EXECUTE_READ, &oldProtect)) {
 		fods("HardHook: Failed vprotect (1)");
 		return NULL;
 	}
 
-	while (*o == 0xe9) { // JMP
-		unsigned char *tmp = o;
-		int *iptr = reinterpret_cast<int *>(o+1);
+	// Follow jumps until we reach a no-jump operation
+	while (*orig == 0xe9) { // JMP
+		/*const*/ unsigned char * originalJumpPointer = orig;
+		int *iptr = reinterpret_cast<int *>(orig+1);
 		// Follow jmp relative to next command. It doesn't make a difference
 		// if we actually perform all the jumps or directly jump after the
 		// chain.
-		o += *iptr + 5;
+		orig += *iptr + 5;
 
-		fods("HardHook: Chaining from %p to %p", *porig, o);
-		*porig = o;
+		fods("HardHook: Chaining from %p to %p", *pOrig, orig);
+		*pOrig = orig;
 
 		// Assume jump took us out of our read enabled zone, get rights for the new one
-		VirtualProtect(tmp, 16, oldProtect, &restoreProtect);
-		if (!VirtualProtect(o, 16, PAGE_EXECUTE_READ, &oldProtect)) {
+		VirtualProtect(originalJumpPointer, 16, oldProtect, &restoreProtect);
+		if (!VirtualProtect(orig, 16, PAGE_EXECUTE_READ, &oldProtect)) {
 			fods("HardHook: Failed vprotect (2)");
 			return NULL;
 		}
 	}
 
+	unsigned int idx = 0;
 	do {
-		unsigned char opcode = o[idx];
-		unsigned char a = o[idx+1];
-		unsigned char b = o[idx+2];
+		unsigned char opcode = orig[idx];
+		unsigned char a = orig[idx+1];
+		unsigned char b = orig[idx+2];
+		unsigned char c = orig[idx+3];
 		unsigned int extra = 0;
 
-		n[idx] = opcode;
+		// Clone the opcode value from the original source to the codepage
+		executableCodePage[idx] = opcode;
 		idx++;
 
+		// Check if we need to increment idx further (multi-byte operations (params etc))
+		// For x86 opcodes, see for example http://ref.x86asm.net/coder.html
 		switch (opcode) {
 			case 0x50: // PUSH
 			case 0x51:
@@ -139,42 +145,64 @@ void *HardHook::cloneCode(void **porig) {
 			case 0x5e:
 			case 0x5f:
 				break;
+			//0x00 extra = modrmbytes(a,b);
+			//TODO is 0x00 always 2 bytes???
+			case 0x00: // OR - r/m8 r8 - http://ref.x86asm.net/coder32.html#x00
+				extra = 1;
+				break;
+			case 0x0b: // OR - r32 r/m32 - http://ref.x86asm.net/coder32.html#x0B
+				extra = 1;
+				break;
 			case 0x68: // PUSH immediate
 				extra = 4;
 				break;
-			case 0x81: // CMP immediate
-				extra = modrmbytes(a,b) + 5;
+			case 0x6a: // PUSH immediate
+				extra = 1;
 				break;
-			case 0x83:	// CMP
-				extra = modrmbytes(a,b) + 2;
+			case 0x6f: // OUTS - no idea … - http://ref.x86asm.net/coder32.html#x6F
+				extra = 4;
+				break;
+			case 0x81: // CMP - opcode field + r/m + immediate
+				extra = 1 + modrmbytes(a,b) + 4;
+				break;
+			case 0x83:	// CMP - opcode field + r/m + imm8
+				extra = 1 + modrmbytes(a,b) + 1;
 				break;
 			case 0x8b:	// MOV
-				extra = modrmbytes(a,b) + 1;
+				extra = 1 + modrmbytes(a,b);
+				break;
+			case 0xff:	// INC || DEC || CALL || JMP || PUSH - http://ref.x86asm.net/coder.html#xFF
+				extra = 1 + modrmbytes(a,b);
 				break;
 			default:
-				fods("HardHook: Unknown opcode at %d: %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x", idx-1, o[0], o[1], o[2], o[3], o[4], o[5], o[6], o[7], o[8], o[9], o[10], o[11]);
-				VirtualProtect(o, 16, oldProtect, &restoreProtect);
+				fods("HardHook: Unknown opcode %02x at %d: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x", opcode, idx-1, orig[0], orig[1], orig[2], orig[3], orig[4], orig[5], orig[6], orig[7], orig[8], orig[9], orig[10], orig[11]);
+				VirtualProtect(orig, 16, oldProtect, &restoreProtect);
 				return NULL;
 				break;
 		}
+		// Copy any potential extra bytes (params etc)
 		for (unsigned int i=0;i<extra;++i)
-			n[idx+i] = o[idx+i];
+			executableCodePage[idx+i] = orig[idx+i];
 		idx += extra;
+		//TODO replace ^ with idx += 1 + extra; instead of separate places of incrementation
+		//     alternatively, increment idx also while copying params
 
-	} while (idx < 6);
-	VirtualProtect(o, 16, oldProtect, &restoreProtect);
+	} while (idx < 6); //TODO < why only clone 6 bytes?? [doc]
+	VirtualProtect(orig, 16, oldProtect, &restoreProtect);
 
-	n[idx++] = 0xe9; // Add a relative jmp back to the original code
-	int offs = o - n - 5;
+	// Add a relative jmp back to the original code
+	executableCodePage[idx] = 0xe9; //JMP
+	const int offset = orig - executableCodePage - 5;
+	++idx; // idx now indices to where the jump target address goes to
 
-	int *iptr = reinterpret_cast<int *>(&n[idx]);
-	*iptr = offs;
+	int *iptr = reinterpret_cast<int *>(&executableCodePage[idx]);
+	*iptr = offset; // set the relative jump target address
 	idx += 4;
 
-	uiCode += idx;
-	FlushInstructionCache(GetCurrentProcess(), n, idx);
+	uiCodePageUnusedOffset += idx;
+	FlushInstructionCache(GetCurrentProcess(), executableCodePage, idx);
 
-	return n;
+	return executableCodePage;
 }
 
 void HardHook::setup(voidFunc func, voidFunc replacement) {
@@ -244,15 +272,14 @@ void HardHook::inject(bool force) {
 }
 
 void HardHook::restore(bool force) {
-	DWORD oldProtect, restoreProtect;
-	int i;
-
 	if (! baseptr)
 		return;
 	if (! force && bTrampoline)
 		return;
 
+	DWORD oldProtect, restoreProtect;
 	if (VirtualProtect(baseptr, 6, PAGE_EXECUTE_READWRITE, &oldProtect)) {
+		int i;
 		for (i=0;i<6;i++)
 			baseptr[i] = orig[i];
 		VirtualProtect(baseptr, 6, oldProtect, &restoreProtect);

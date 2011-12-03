@@ -38,6 +38,9 @@
 #include <d3dx11.h>
 #include <time.h>
 
+/*already defined in d3d10.cpp
+DXGIData *dxgi = NULL;*/
+
 static bool bHooked = false;
 static bool bChaining = false;
 static HardHook hhPresent;
@@ -62,11 +65,8 @@ struct SimpleVertex {
 
 class D11State: protected Pipe {
 	public:
-		LONG lHighMark;
+		LONG lReferenceCount;
 
-		LONG initRefCount;
-		LONG refCount;
-		LONG myRefCount;
 		DWORD dwMyThread;
 
 		D3D11_VIEWPORT vp;
@@ -110,7 +110,7 @@ D11State::D11State(IDXGISwapChain *pSwapChain, ID3D11Device *pDevice) {
 	this->pSwapChain = pSwapChain;
 	this->pDevice = pDevice;
 
-	lHighMark = initRefCount  = refCount = myRefCount = 0;
+	lReferenceCount = 0;
 	dwMyThread = 0;
 
 	ZeroMemory(&vp, sizeof(vp));
@@ -131,9 +131,6 @@ D11State::D11State(IDXGISwapChain *pSwapChain, ID3D11Device *pDevice) {
 
 	timeT = clock();
 	frameCount = 0;
-
-	pDevice->AddRef();
-	initRefCount = pDevice->Release();
 }
 
 void D11State::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h) {
@@ -403,6 +400,7 @@ void D11State::init() {
 }
 
 D11State::~D11State() {
+	ods("~D11State()");
 	pBlendState->Release();
 	pVertexBuffer->Release();
 	pIndexBuffer->Release();
@@ -550,46 +548,52 @@ static ULONG __stdcall myAddRef(ID3D11Device *pDevice) {
 	AddRefType oAddRef = (AddRefType) hhAddRef.call;
 
 	hhAddRef.restore();
-	LONG res = oAddRef(pDevice);
+	LONG resRefCount = oAddRef(pDevice);
 	hhAddRef.inject();
 
 	Mutex m;
 	D11State *ds = devices[pDevice];
 	if (ds)
-		ds->lHighMark = res;
+		ds->lReferenceCount = resRefCount;
 
-	return res;
+	ods("myAddRef called, new refcount to %d", resRefCount);
+
+	return resRefCount;
 }
 
 static ULONG __stdcall myRelease(ID3D11Device *pDevice) {
 	ReleaseType oRelease = (ReleaseType) hhRelease.call;
 
 	hhRelease.restore();
-	LONG res = oRelease(pDevice);
+	const LONG resRefCount = oRelease(pDevice);
 	hhRelease.inject();
+	ods("D3D11: Released a reference; new refcount %d", resRefCount);
 
 	Mutex m;
 	D11State *ds = devices[pDevice];
-	if (ds)
-		if (res < (ds->lHighMark / 2)) {
-			ods("D3D11: Deleting resources %d < .5 %d", res, ds->lHighMark);
+	if (ds) {
+		ods("D3D11: Release on saved refcount %d", resRefCount, ds->lReferenceCount);
+		if (resRefCount < (ds->lReferenceCount / 2)) {
+			ods("D3D11: Deleting resources %d < .5 %d", resRefCount, ds->lReferenceCount);
 			devices.erase(ds->pDevice);
 			chains.erase(ds->pSwapChain);
 			delete ds;
 			ods("D3D11: Deleted");
 			ds = NULL;
 		}
+	}
 
-	return res;
+	return resRefCount;
 }
 
-static void HookAddRelease(voidFunc vfAdd, voidFunc vfRelease) {
-	ods("D3D11: Injecting device add/remove");
+static void HookAddAndReleaseFunctions(voidFunc vfAdd, voidFunc vfRelease) {
+	ods("DXGI11: Injecting device add/remove");
 	hhAddRef.setup(vfAdd, reinterpret_cast<voidFunc>(myAddRef));
 	hhRelease.setup(vfRelease, reinterpret_cast<voidFunc>(myRelease));
 }
 
 static void HookPresentRaw(voidFunc vfPresent) {
+	ods("DXGI11: Injecting Present Raw");
 	hhPresent.setup(vfPresent, reinterpret_cast<voidFunc>(myPresent));
 }
 
@@ -632,7 +636,7 @@ void checkDXGI11Hook(bool preonly) {
 				GetModuleFileNameW(hD3D11, procname, 2048);
 				if (_wcsicmp(dxgi->wcD3D11FileName, procname) == 0) {
 					unsigned char *raw = (unsigned char *) hD3D11;
-					HookAddRelease((voidFunc)(raw + dxgi->iOffsetAddRef), (voidFunc)(raw + dxgi->iOffsetRelease));
+					HookAddAndReleaseFunctions((voidFunc)(raw + dxgi->iOffsetAddRef), (voidFunc)(raw + dxgi->iOffsetRelease));
 				}
 			} else if (! preonly) {
 				fods("DXGI11: DXGI Interface changed, can't rawpatch");

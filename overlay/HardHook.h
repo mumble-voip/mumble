@@ -58,9 +58,9 @@ struct HardHook {
 	voidFunc call;
 
 	// Pointer to executable code page that holds all trampoline codes
-	static void *pCode;
+	static void * pCodePage;
 	// Offset to next unused addr in pCode
-	static unsigned int uiCode;
+	static unsigned int uiCodePageUnusedOffset;
 
 	HardHook();
 	HardHook(voidFunc func, voidFunc replacement);
