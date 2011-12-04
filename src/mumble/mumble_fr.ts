@@ -6745,7 +6745,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>%1 unmuted and undeafened by %2.</source>
-        <translation>%2 a rendu la porole et l&apos;ouïe à %1.</translation>
+        <translation>%2 a rendu la parole et l&apos;ouïe à %1.</translation>
     </message>
     <message>
         <location line="+18"/>
