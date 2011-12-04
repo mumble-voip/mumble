@@ -2491,6 +2491,12 @@ void MainWindow::trayAboutToShow() {
 	if (p.y() < (qr.height() / 2))
 		top = true;
 
+	if (isInactive()) {
+		qaMinimizeRestore->setText(tr("Activate"));
+	} else {
+		qaMinimizeRestore->setText(tr("Minimize"));
+	}
+
 	qmTray->clear();
 	if (top) {
 		qmTray->addAction(qaQuit);
@@ -2498,9 +2504,9 @@ void MainWindow::trayAboutToShow() {
 		qmTray->addAction(qaAudioDeaf);
 		qmTray->addAction(qaAudioMute);
 		qmTray->addSeparator();
-		qmTray->addAction(qaHelpAbout);
+		qmTray->addAction(qaMinimizeRestore);
 	} else {
-		qmTray->addAction(qaHelpAbout);
+		qmTray->addAction(qaMinimizeRestore);
 		qmTray->addSeparator();
 		qmTray->addAction(qaAudioMute);
 		qmTray->addAction(qaAudioDeaf);
@@ -2526,23 +2532,31 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 	}
 
 	if (reason == QSystemTrayIcon::Trigger) {
+		qaMinimizeRestore->trigger();
+	}
+}
+
+bool MainWindow::isInactive() const {
 #ifdef Q_OS_WIN
-		if (!isVisible() || isMinimized() || tInactive.elapsed() > 300000UL) {
+	return !isVisible() || isMinimized() || tInactive.elapsed() > 300000UL;
 #else
-		if (!isVisible() || isMinimized() || !isActiveWindow()) {
+	return !isVisible() || isMinimized() || !isActiveWindow();
 #endif
-			if (isMaximized())
-				showMaximized();
-			else
-				showNormal();
-			activateWindow();
-			raise();
-		} else {
-			if (g.s.bHideInTray)
-				hide();
-			else
-				showMinimized();
-		}
+}
+
+void MainWindow::on_qaMinimizeRestore_triggered() {
+	if (isInactive()) {
+		if (isMaximized())
+			showMaximized();
+		else
+			showNormal();
+		activateWindow();
+		raise();
+	} else {
+		if (g.s.bHideInTray)
+			hide();
+		else
+			showMinimized();
 	}
 }
 
