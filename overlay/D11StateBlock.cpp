@@ -37,39 +37,39 @@ HRESULT __stdcall D11StateBlock::QueryInterface(REFIID, LPVOID *)
 
 ULONG __stdcall D11StateBlock::AddRef()
 {
-	this->refcnt++;
+	this->uiRefcount++;
 	return 0;
 }
 
 ULONG __stdcall D11StateBlock::Release()
 {
-	this->refcnt--;
+	this->uiRefcount--;
 	return 0;
 }
 
 void D11StateBlock::Capture()
 {
 	this->pDeviceContext->RSGetState(&this->pRasterizerState);
-	this->NumViewports = D3D11_VIEWPORT_AND_SCISSORRECT_OBJECT_COUNT_PER_PIPELINE;
-	this->pDeviceContext->RSGetViewports(&this->NumViewports, this->pViewports);
+	this->uiNumViewports = D3D11_VIEWPORT_AND_SCISSORRECT_OBJECT_COUNT_PER_PIPELINE;
+	this->pDeviceContext->RSGetViewports(&this->uiNumViewports, this->pViewports);
 	this->pDeviceContext->OMGetRenderTargets(D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT, this->pRenderTargetViews, &this->pDepthStencilView);
-	this->pDeviceContext->OMGetBlendState(&this->pBlendState, this->BlendFactor, &this->SampleMask);
+	this->pDeviceContext->OMGetBlendState(&this->pBlendState, this->fBlendFactor, &this->uiSampleMask);
 	this->pDeviceContext->IAGetInputLayout(&this->pInputLayout);
-	this->pDeviceContext->IAGetIndexBuffer(&this->pIndexBuffer, &this->Format, &this->Offset);
+	this->pDeviceContext->IAGetIndexBuffer(&this->pIndexBuffer, &this->Format, &this->uiOffset);
 	this->pDeviceContext->IAGetPrimitiveTopology(&this->Topology);
-	this->pDeviceContext->IAGetVertexBuffers(0, D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT, this->pVertexBuffers, Strides, Offsets);
+	this->pDeviceContext->IAGetVertexBuffers(0, D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT, this->pVertexBuffers, uiStrides, uiOffsets);
 }
 
 void D11StateBlock::Apply()
 {
 	this->pDeviceContext->RSSetState(this->pRasterizerState);
-	this->pDeviceContext->RSSetViewports(this->NumViewports, this->pViewports);
+	this->pDeviceContext->RSSetViewports(this->uiNumViewports, this->pViewports);
 	this->pDeviceContext->OMSetRenderTargets(D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT, this->pRenderTargetViews, this->pDepthStencilView);
-	this->pDeviceContext->OMSetBlendState(this->pBlendState, this->BlendFactor, this->SampleMask);
+	this->pDeviceContext->OMSetBlendState(this->pBlendState, this->fBlendFactor, this->uiSampleMask);
 	this->pDeviceContext->IASetInputLayout(this->pInputLayout);
-	this->pDeviceContext->IASetIndexBuffer(this->pIndexBuffer, this->Format, this->Offset);
+	this->pDeviceContext->IASetIndexBuffer(this->pIndexBuffer, this->Format, this->uiOffset);
 	this->pDeviceContext->IASetPrimitiveTopology(this->Topology);
-	this->pDeviceContext->IASetVertexBuffers(0, D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT, this->pVertexBuffers, this->Strides, this->Offsets);
+	this->pDeviceContext->IASetVertexBuffers(0, D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT, this->pVertexBuffers, this->uiStrides, this->uiOffsets);
 	this->ReleaseObjects();
 }
 
@@ -111,13 +111,13 @@ void D11StateBlock::GetDeviceContext(ID3D11DeviceContext **ppDC)
 
 D11StateBlock::D11StateBlock(ID3D11DeviceContext *pDC) {
 	pDeviceContext = pDC;
-	NumViewports = D3D11_VIEWPORT_AND_SCISSORRECT_OBJECT_COUNT_PER_PIPELINE;
+	uiNumViewports = D3D11_VIEWPORT_AND_SCISSORRECT_OBJECT_COUNT_PER_PIPELINE;
 	ZeroMemory(pViewports, sizeof(pViewports));
 	ZeroMemory(pRenderTargetViews, sizeof (pRenderTargetViews));
-	ZeroMemory(BlendFactor, sizeof (BlendFactor));
+	ZeroMemory(fBlendFactor, sizeof (fBlendFactor));
 	ZeroMemory(pVertexBuffers, sizeof (pVertexBuffers));
-	ZeroMemory(Strides, sizeof (Strides));
-	ZeroMemory(Offsets, sizeof (Offsets));
+	ZeroMemory(uiStrides, sizeof (uiStrides));
+	ZeroMemory(uiOffsets, sizeof (uiOffsets));
 }
 
 D11StateBlock::~D11StateBlock() {

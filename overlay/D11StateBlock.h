@@ -31,37 +31,39 @@
 #ifndef D11STATEBLOCK_H_
 #define D11STATEBLOCK_H_
 
+// File contains the D11StateBlock class and a function D11CreateStateBlock.
+
 #include <d3d11.h>
 #include <d3dx10math.h>
 #include <d3dx11.h>
 
-class D11StateBlock: protected IUnknown {
+class D11StateBlock : protected IUnknown {
 	private:
 		ID3D11DeviceContext *pDeviceContext;
-		ULONG refcnt;
+		ULONG uiRefcount;
 
 		ID3D11RasterizerState *pRasterizerState;
-		UINT NumViewports;
+		UINT uiNumViewports;
 		D3D11_VIEWPORT pViewports[D3D11_VIEWPORT_AND_SCISSORRECT_OBJECT_COUNT_PER_PIPELINE];
 
 		ID3D11RenderTargetView *pRenderTargetViews[D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT];
 		ID3D11DepthStencilView *pDepthStencilView;
 
 		ID3D11BlendState *pBlendState;
-		float BlendFactor[4];
-		UINT32 SampleMask;
+		float fBlendFactor[4];
+		UINT32 uiSampleMask;
 
 		ID3D11InputLayout *pInputLayout;
 
 		ID3D11Buffer *pIndexBuffer;
 		DXGI_FORMAT Format;
-		UINT Offset;
+		UINT uiOffset;
 
 		D3D11_PRIMITIVE_TOPOLOGY Topology;
 
 		ID3D11Buffer *pVertexBuffers[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
-		UINT Strides[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
-		UINT Offsets[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
+		UINT uiStrides[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
+		UINT uiOffsets[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
 
 	public:
 		STDMETHOD(QueryInterface)(REFIID, LPVOID *);
