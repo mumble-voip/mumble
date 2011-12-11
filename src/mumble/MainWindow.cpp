@@ -2006,11 +2006,6 @@ void MainWindow::on_qaHelpAbout_triggered() {
 	adAbout.exec();
 }
 
-void MainWindow::on_qaHelpAboutSpeex_triggered() {
-	AboutSpeexDialog adAbout(this);
-	adAbout.exec();
-}
-
 void MainWindow::on_qaHelpAboutQt_triggered() {
 	QMessageBox::aboutQt(this, tr("About Qt"));
 }
