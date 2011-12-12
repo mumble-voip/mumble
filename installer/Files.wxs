@@ -67,18 +67,10 @@
         <File Source="$(var.SourceDir)\CHANGES" Name="Changes.txt" KeyPath="yes" />
       </Component>
       <Component Id="speex.txt">
-        <File Source="$(var.SourceDir)\installer\speex.txt" KeyPath="yes">
-          <Shortcut Id="SpeexLicenceShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_SPEEX_LNK)">
-            <ShortcutProperty Key="System.AppUserModel.ExcludeFromShowInNewInstall" Value="1" />
-          </Shortcut>
-        </File>
+        <File Source="$(var.SourceDir)\installer\speex.txt" KeyPath="yes" />
       </Component>
       <Component Id="qt.txt">
-        <File Source="$(var.SourceDir)\installer\qt.txt" KeyPath="yes">
-          <Shortcut Id="QtLicenceShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_QT_LNK)">
-            <ShortcutProperty Key="System.AppUserModel.ExcludeFromShowInNewInstall" Value="1" />
-          </Shortcut>
-        </File>
+        <File Source="$(var.SourceDir)\installer\qt.txt" KeyPath="yes" />
       </Component>
 
       <Component Id="dbghelp.dll">
