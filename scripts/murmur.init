@@ -79,6 +79,19 @@ case "$1" in
 		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
 	esac
 	;;
+  status)
+	if start-stop-daemon --test --stop --quiet \
+		--pidfile $PIDFILE \
+		--user $USER \
+		--exec $DAEMON
+	then
+		[ "$VERBOSE" != no ] && echo "$DESC is running."
+		exit 0
+	else
+		[ "$VERBOSE" != no ] && echo "$DESC is not running"
+		exit 3
+	fi
+	;;
   force-reload)
 	start-stop-daemon --stop --test --quiet \
 		--pidfile $PIDFILE \
