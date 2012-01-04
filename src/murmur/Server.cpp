@@ -1091,6 +1091,7 @@ void Server::newClient() {
 
 		sock->setPrivateKey(qskKey);
 		sock->setLocalCertificate(qscCert);
+		sock->addCaCertificate(qscCert);
 		sock->addCaCertificates(qlCA);
 
 		if (qqIds.isEmpty()) {
