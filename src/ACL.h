@@ -85,8 +85,8 @@ class ChanACL : public QObject {
 
 		ChanACL(Channel *c);
 #ifdef MURMUR
-		static bool hasPermission(ServerUser *p, Channel *c, QFlags<Perm> perm, ACLCache &cache);
-		static QFlags<Perm> effectivePermissions(ServerUser *p, Channel *c, ACLCache &cache);
+		static bool hasPermission(ServerUser *p, Channel *c, QFlags<Perm> perm, ACLCache *cache);
+		static QFlags<Perm> effectivePermissions(ServerUser *p, Channel *c, ACLCache *cache);
 #else
 		static QString whatsThis(Perm p);
 #endif

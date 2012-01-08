@@ -58,18 +58,14 @@ ChanACL::ChanACL(Channel *chan) : QObject(chan) {
 
 #ifdef MURMUR
 
-bool ChanACL::hasPermission(ServerUser *p, Channel *chan, QFlags<Perm> perm, ACLCache &cache) {
+bool ChanACL::hasPermission(ServerUser *p, Channel *chan, QFlags<Perm> perm, ACLCache *cache) {
 	Permissions granted = effectivePermissions(p, chan, cache);
 
 	return ((granted & perm) != None);
 }
 
 // Return effective permissions.
-QFlags<ChanACL::Perm> ChanACL::effectivePermissions(ServerUser *p, Channel *chan, ACLCache &cache) {
-	QStack<Channel *> chanstack;
-	Channel *ch;
-	ChanACL *acl;
-
+QFlags<ChanACL::Perm> ChanACL::effectivePermissions(ServerUser *p, Channel *chan, ACLCache *cache) {
 	// Superuser
 	if (p->iId == 0) {
 		return static_cast<Permissions>(All &~ (Speak|Whisper));
@@ -77,15 +73,19 @@ QFlags<ChanACL::Perm> ChanACL::effectivePermissions(ServerUser *p, Channel *chan
 
 	Permissions granted = 0;
 
-	QHash<Channel *, Permissions> *h = cache.value(p);
-	if (h)
-		granted = h->value(chan);
+	if (cache) {
+		QHash<Channel *, Permissions> *h = cache->value(p);
+		if (h)
+			granted = h->value(chan);
+	}
 
 	if (granted & Cached) {
 		return granted;
 	}
 
-	ch = chan;
+	QStack<Channel *> chanstack;
+	Channel *ch = chan;
+
 	while (ch) {
 		chanstack.push(ch);
 		ch = ch->cParent;
@@ -98,6 +98,7 @@ QFlags<ChanACL::Perm> ChanACL::effectivePermissions(ServerUser *p, Channel *chan
 
 	bool traverse = true;
 	bool write = false;
+	ChanACL *acl;
 
 	while (! chanstack.isEmpty()) {
 		ch = chanstack.pop();
@@ -143,12 +144,13 @@ QFlags<ChanACL::Perm> ChanACL::effectivePermissions(ServerUser *p, Channel *chan
 		if (chan->iId == 0)
 			granted |= Kick|Ban|Register|SelfRegister;
 	}
-	
 
-	if (! cache.contains(p))
-		cache.insert(p, new QHash<Channel *, Permissions>);
+	if (cache) {
+		if (! cache->contains(p))
+			cache->insert(p, new QHash<Channel *, Permissions>);
 
-	cache.value(p)->insert(chan, granted | Cached);
+		cache->value(p)->insert(chan, granted | Cached);
+	}
 
 	return granted;
 }
