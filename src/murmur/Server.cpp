@@ -1463,13 +1463,11 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 
 	Channel *old = p->cChannel;
 
-	clearACLCache(p);
-
 	{
 		QWriteLocker wl(&qrwlUsers);
 		c->addUser(p);
 
-		bool mayspeak = hasPermission(static_cast<ServerUser *>(p), c, ChanACL::Speak);
+		bool mayspeak = ChanACL::hasPermission(static_cast<ServerUser *>(p), c, ChanACL::Speak, NULL);
 		bool sup = p->bSuppress;
 
 		if (mayspeak == sup) {
@@ -1479,6 +1477,7 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 		}
 	}
 
+	clearACLCache(p);
 	setLastChannel(p);
 
 	if (old && old->bTemporary && old->qlUsers.isEmpty()) {
