@@ -1037,7 +1037,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	}
 }
 
-void Server::log(ServerUser *u, const QString &str) {
+void Server::log(ServerUser *u, const QString &str) const {
 	QString msg = QString("<%1:%2(%3)> %4").arg(QString::number(u->uiSession),
 	              u->qsName,
 	              QString::number(u->iId),
@@ -1045,7 +1045,7 @@ void Server::log(ServerUser *u, const QString &str) {
 	log(msg);
 }
 
-void Server::log(const QString &msg) {
+void Server::log(const QString &msg) const {
 	dblog(msg);
 	qWarning("%d => %s", iServerNum, msg.toUtf8().constData());
 }
