@@ -66,6 +66,7 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		HHOOK hhMouse, hhKeyboard;
 		unsigned int uiHardwareDevices;
 		Timer tDoubleClick;
+		bool bHook;
 		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
 		static BOOL CALLBACK EnumDevicesCB(LPCDIDEVICEINSTANCE, LPVOID);
 		static BOOL CALLBACK EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
