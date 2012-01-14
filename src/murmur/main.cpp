@@ -282,6 +282,9 @@ int main(int argc, char **argv) {
 		}
 	}
 
+#ifdef Q_OS_UNIX
+	inifile = unixhandler.trySystemIniFiles(inifile);
+#endif
 
 	Meta::mp.read(inifile);
 

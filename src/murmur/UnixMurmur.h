@@ -69,6 +69,7 @@ class UnixMurmur : public QObject {
 		void setuid();
 		void initialcap();
 		void finalcap();
+		const QString trySystemIniFiles(const QString& fname);
 
 		UnixMurmur();
 		~UnixMurmur();
