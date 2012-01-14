@@ -101,11 +101,11 @@ win32 {
     CONFIG	*= wasapi
   }
 
-  !CONFIG(no-elevation) {
-    CONFIG(release, debug|release) {
-      QMAKE_LFLAGS *= /MANIFESTUAC:\"level=\'asInvoker\' uiAccess=\'true\'\"
-    }
-  }
+#  !CONFIG(no-elevation) {
+#    CONFIG(release, debug|release) {
+#      QMAKE_LFLAGS *= /MANIFESTUAC:\"level=\'asInvoker\' uiAccess=\'true\'\"
+#    }
+#  }
 }
 
 unix {
