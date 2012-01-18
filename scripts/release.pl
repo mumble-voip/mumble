@@ -50,7 +50,13 @@ while (my $pro = shift @pro) {
   my $basedir=$pro;
   $basedir =~ s/[^\/]+\Z//g;
   my @vpath = ($basedir);
-  while(<F>) {
+
+  my $file = join("", <F>);
+  $file =~ s/\\\n/\n/g;
+  print $file;
+
+  foreach my $line (split(/\n/, $file)) {
+    $_ = $line;
     chomp();
     if (/^include\((.+)\)/) {
       my $f = $basedir . $1;
@@ -134,6 +140,13 @@ foreach my $cver ('0.7.0', '0.11.0') {
   push @fulldirs, "celt-$cver-src";
   push @fulldirs, "celt-$cver-src/libcelt";
 }
+push @fulldirs, "opus-src";
+push @fulldirs, "opus-src/celt";
+push @fulldirs, "opus-src/silk";
+push @fulldirs, "opus-src/silk/float";
+push @fulldirs, "opus-src/silk/fixed";
+push @fulldirs, "opus-src/src";
+push @fulldirs, "opus-src/include";
 
 foreach my $dir (@fulldirs) {
   opendir(D, $dir) or croak "Could not open $dir";

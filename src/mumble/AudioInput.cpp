@@ -927,7 +927,7 @@ void AudioInput::encodeAudioFrame() {
 	} else if (umtType == MessageHandler::UDPVoiceOpus) {
 		opusBuffer.insert(opusBuffer.end(), psSource, psSource + iFrameSize);
 		if (!bIsSpeech || opusBuffer.size() >= iFrameSize * iAudioFrames) {
-			len = encodeOpusFrame(opusBuffer.data(), opusBuffer.size(), buffer);
+			len = encodeOpusFrame(&opusBuffer[0], opusBuffer.size(), buffer);
 			opusBuffer.clear();
 			if (len <= 0) {
 				return;

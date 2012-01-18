@@ -55,18 +55,34 @@ class MurmurIce : public QObject {
 		QWaitCondition qwcEvent;
 		void customEvent(QEvent *evt);
 		void badMetaProxy(const ::Murmur::MetaCallbackPrx &prx);
-		void badServerProxy(const ::Murmur::ServerCallbackPrx &prx, int id);
-		void badAuthenticator(Server *);
-	public:
-		Ice::CommunicatorPtr communicator;
-		Ice::ObjectAdapterPtr adapter;
-		QList< ::Murmur::MetaCallbackPrx> qmMetaCallbacks;
+		void badServerProxy(const ::Murmur::ServerCallbackPrx &prx, const ::Server* server);
+		void badAuthenticator(::Server *);
+		QList< ::Murmur::MetaCallbackPrx> qlMetaCallbacks;
 		QMap<int, QList< ::Murmur::ServerCallbackPrx> > qmServerCallbacks;
 		QMap<int, QMap<int, QMap<QString, ::Murmur::ServerContextCallbackPrx> > > qmServerContextCallbacks;
 		QMap<int, ::Murmur::ServerAuthenticatorPrx> qmServerAuthenticator;
 		QMap<int, ::Murmur::ServerUpdatingAuthenticatorPrx> qmServerUpdatingAuthenticator;
+	public:
+		Ice::CommunicatorPtr communicator;
+		Ice::ObjectAdapterPtr adapter;
 		MurmurIce();
 		~MurmurIce();
+
+		void addMetaCallback(const ::Murmur::MetaCallbackPrx& prx);
+		void removeMetaCallback(const ::Murmur::MetaCallbackPrx& prx);
+		void addServerCallback(const ::Server* server, const ::Murmur::ServerCallbackPrx& prx);
+		void removeServerCallback(const ::Server* server, const ::Murmur::ServerCallbackPrx& prx);
+		void removeServerCallbacks(const ::Server* server);
+		void addServerContextCallback(const ::Server* server, int session_id, const QString& action, const ::Murmur::ServerContextCallbackPrx& prx);
+		const QMap< int, QMap<QString, ::Murmur::ServerContextCallbackPrx> > getServerContextCallbacks(const ::Server* server) const;
+		void removeServerContextCallback(const ::Server* server, int session_id, const QString& action);
+		void setServerAuthenticator(const ::Server* server, const ::Murmur::ServerAuthenticatorPrx& prx);
+		const ::Murmur::ServerAuthenticatorPrx getServerAuthenticator(const ::Server* server) const;
+		void removeServerAuthenticator(const ::Server* server);
+		void setServerUpdatingAuthenticator(const ::Server* server, const ::Murmur::ServerUpdatingAuthenticatorPrx& prx);
+		const ::Murmur::ServerUpdatingAuthenticatorPrx getServerUpdatingAuthenticator(const ::Server* server) const;
+		void removeServerUpdatingAuthenticator(const ::Server* server);
+
 	public slots:
 		void started(Server *);
 		void stopped(Server *);

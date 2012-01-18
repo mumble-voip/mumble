@@ -266,20 +266,91 @@ void MurmurIce::customEvent(QEvent *evt) {
 }
 
 void MurmurIce::badMetaProxy(const ::Murmur::MetaCallbackPrx &prx) {
-	qCritical("Registered Ice MetaCallback %s failed", qPrintable(QString::fromStdString(communicator->proxyToString(prx))));
-	qmMetaCallbacks.removeAll(prx);
+	qCritical("Ice MetaCallback %s failed", qPrintable(QString::fromStdString(communicator->proxyToString(prx))));
+	removeMetaCallback(prx);
 }
 
-void MurmurIce::badServerProxy(const ::Murmur::ServerCallbackPrx &prx, int id) {
-	qCritical("Registered Ice ServerCallback %s on server %d failed", qPrintable(QString::fromStdString(communicator->proxyToString(prx))), id);
-	qmServerCallbacks[id].removeAll(prx);
+void MurmurIce::badServerProxy(const ::Murmur::ServerCallbackPrx &prx, const ::Server* server) {
+	server->log(QString("Ice ServerCallback %1 failed").arg(QString::fromStdString(communicator->proxyToString(prx))));
+	removeServerCallback(server, prx);
 }
 
 void MurmurIce::badAuthenticator(::Server *server) {
 	server->disconnectAuthenticator(this);
 	const ::Murmur::ServerAuthenticatorPrx &prx = qmServerAuthenticator.value(server->iServerNum);
-	qCritical("Registered Ice Authenticator %s on server %d failed", qPrintable(QString::fromStdString(communicator->proxyToString(prx))), server->iServerNum);
+	server->log(QString("Ice Authenticator %1 failed").arg(QString::fromStdString(communicator->proxyToString(prx))));
+	removeServerAuthenticator(server);
+	removeServerUpdatingAuthenticator(server);
+}
+
+void MurmurIce::addMetaCallback(const ::Murmur::MetaCallbackPrx& prx) {
+	qWarning("Added Ice MetaCallback %s", qPrintable(QString::fromStdString(communicator->proxyToString(prx))));
+	if (!qlMetaCallbacks.contains(prx))
+		qlMetaCallbacks.append(prx);
+}
+
+void MurmurIce::removeMetaCallback(const ::Murmur::MetaCallbackPrx& prx) {
+	qlMetaCallbacks.removeAll(prx);
+}
+
+void MurmurIce::addServerCallback(const ::Server* server, const ::Murmur::ServerCallbackPrx& prx) {
+	server->log(QString("Added Ice ServerCallback %1").arg(QString::fromStdString(communicator->proxyToString(prx))));
+	QList< ::Murmur::ServerCallbackPrx >& cbList = qmServerCallbacks[server->iServerNum];
+
+	if (!cbList.contains(prx))
+		cbList.append(prx);
+}
+
+void MurmurIce::removeServerCallback(const ::Server* server, const ::Murmur::ServerCallbackPrx& prx) {
+	server->log(QString("Removed Ice ServerCallback %1").arg(QString::fromStdString(communicator->proxyToString(prx))));
+	qmServerCallbacks[server->iServerNum].removeAll(prx);
+}
+
+void MurmurIce::removeServerCallbacks(const ::Server* server) {
+	server->log(QString("Removed all Ice ServerCallbacks"));
+	qmServerCallbacks.remove(server->iServerNum);
+}
+
+void MurmurIce::addServerContextCallback(const ::Server* server, int session_id, const QString& action, const ::Murmur::ServerContextCallbackPrx& prx) {
+	server->log(QString("Added Ice ServerContextCallback %1 for session %2, action %3").arg(QString::fromStdString(communicator->proxyToString(prx))).arg(session_id).arg(action));
+	qmServerContextCallbacks[server->iServerNum][session_id].insert(action, prx);
+}
+
+const QMap< int, QMap<QString, ::Murmur::ServerContextCallbackPrx> > MurmurIce::getServerContextCallbacks(const ::Server* server) const {
+	return qmServerContextCallbacks[server->iServerNum];
+}
+
+void MurmurIce::removeServerContextCallback(const ::Server* server, int session_id, const QString& action) {
+	server->log(QString("Removed Ice ServerContextCallback for session %1, action %2").arg(session_id).arg(action));
+	qmServerContextCallbacks[server->iServerNum][session_id].remove(action);
+}
+
+void MurmurIce::setServerAuthenticator(const ::Server* server, const ::Murmur::ServerAuthenticatorPrx& prx) {
+	server->log(QString("Set Ice Authenticator to %1").arg(QString::fromStdString(communicator->proxyToString(prx))));
+	qmServerAuthenticator[server->iServerNum] = prx;
+}
+
+const ::Murmur::ServerAuthenticatorPrx MurmurIce::getServerAuthenticator(const ::Server* server) const {
+	return qmServerAuthenticator[server->iServerNum];
+}
+
+void MurmurIce::removeServerAuthenticator(const ::Server* server) {
+	server->log(QString("Removed Ice Authenticator %1").arg(QString::fromStdString(communicator->proxyToString(getServerAuthenticator(server)))));
 	qmServerAuthenticator.remove(server->iServerNum);
+}
+
+void MurmurIce::setServerUpdatingAuthenticator(const ::Server* server, const ::Murmur::ServerUpdatingAuthenticatorPrx& prx) {
+	server->log(QString("Set Ice UpdatingAuthenticator to %1").arg(QString::fromStdString(communicator->proxyToString(prx))));
+	qmServerUpdatingAuthenticator[server->iServerNum] = prx;
+}
+
+const ::Murmur::ServerUpdatingAuthenticatorPrx MurmurIce::getServerUpdatingAuthenticator(const ::Server* server) const {
+	return qmServerUpdatingAuthenticator[server->iServerNum];
+}
+
+void MurmurIce::removeServerUpdatingAuthenticator(const ::Server* server) {
+	if (qmServerUpdatingAuthenticator.contains(server->iServerNum))
+		server->log(QString("Removed Ice UpdatingAuthenticator %1").arg(QString::fromStdString(communicator->proxyToString(getServerUpdatingAuthenticator(server)))));
 	qmServerUpdatingAuthenticator.remove(server->iServerNum);
 }
 
@@ -295,12 +366,12 @@ void MurmurIce::started(::Server *s) {
 	s->connectListener(mi);
 	connect(s, SIGNAL(contextAction(const User *, const QString &, unsigned int, int)), this, SLOT(contextAction(const User *, const QString &, unsigned int, int)));
 
-	const QList< ::Murmur::MetaCallbackPrx> &qmList = qmMetaCallbacks;
+	const QList< ::Murmur::MetaCallbackPrx> &qlList = qlMetaCallbacks;
 
-	if (qmList.isEmpty())
+	if (qlList.isEmpty())
 		return;
 
-	foreach(const ::Murmur::MetaCallbackPrx &prx, qmList) {
+	foreach(const ::Murmur::MetaCallbackPrx &prx, qlList) {
 		try {
 			prx->started(idToProxy(s->iServerNum, adapter));
 		} catch (...) {
@@ -310,11 +381,11 @@ void MurmurIce::started(::Server *s) {
 }
 
 void MurmurIce::stopped(::Server *s) {
-	qmServerCallbacks.remove(s->iServerNum);
-	qmServerAuthenticator.remove(s->iServerNum);
-	qmServerUpdatingAuthenticator.remove(s->iServerNum);
+	removeServerCallbacks(s);
+	removeServerAuthenticator(s);
+	removeServerUpdatingAuthenticator(s);
 
-	const QList< ::Murmur::MetaCallbackPrx> &qmList = qmMetaCallbacks;
+	const QList< ::Murmur::MetaCallbackPrx> &qmList = qlMetaCallbacks;
 
 	if (qmList.isEmpty())
 		return;
@@ -343,7 +414,7 @@ void MurmurIce::userConnected(const ::User *p) {
 		try {
 			prx->userConnected(mp);
 		} catch (...) {
-			badServerProxy(prx, s->iServerNum);
+			badServerProxy(prx, s);
 		}
 	}
 }
@@ -351,7 +422,7 @@ void MurmurIce::userConnected(const ::User *p) {
 void MurmurIce::userDisconnected(const ::User *p) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 
-	mi->qmServerContextCallbacks[s->iServerNum].remove(p->uiSession);
+	qmServerContextCallbacks[s->iServerNum].remove(p->uiSession);
 
 	const QList< ::Murmur::ServerCallbackPrx> &qmList = qmServerCallbacks[s->iServerNum];
 
@@ -365,7 +436,7 @@ void MurmurIce::userDisconnected(const ::User *p) {
 		try {
 			prx->userDisconnected(mp);
 		} catch (...) {
-			badServerProxy(prx, s->iServerNum);
+			badServerProxy(prx, s);
 		}
 	}
 }
@@ -385,7 +456,7 @@ void MurmurIce::userStateChanged(const ::User *p) {
 		try {
 			prx->userStateChanged(mp);
 		} catch (...) {
-			badServerProxy(prx, s->iServerNum);
+			badServerProxy(prx, s);
 		}
 	}
 }
@@ -408,7 +479,7 @@ void MurmurIce::userTextMessage(const ::User *p, const ::TextMessage &message) {
 		try {
 			prx->userTextMessage(mp, textMessage);
 		} catch (...) {
-			badServerProxy(prx, s->iServerNum);
+			badServerProxy(prx, s);
 		}
 	}
 }
@@ -428,7 +499,7 @@ void MurmurIce::channelCreated(const ::Channel *c) {
 		try {
 			prx->channelCreated(mc);
 		} catch (...) {
-			badServerProxy(prx, s->iServerNum);
+			badServerProxy(prx, s);
 		}
 	}
 }
@@ -448,7 +519,7 @@ void MurmurIce::channelRemoved(const ::Channel *c) {
 		try {
 			prx->channelRemoved(mc);
 		} catch (...) {
-			badServerProxy(prx, s->iServerNum);
+			badServerProxy(prx, s);
 		}
 	}
 }
@@ -468,7 +539,7 @@ void MurmurIce::channelStateChanged(const ::Channel *c) {
 		try {
 			prx->channelStateChanged(mc);
 		} catch (...) {
-			badServerProxy(prx, s->iServerNum);
+			badServerProxy(prx, s);
 		}
 	}
 }
@@ -476,7 +547,7 @@ void MurmurIce::channelStateChanged(const ::Channel *c) {
 void MurmurIce::contextAction(const ::User *pSrc, const QString &action, unsigned int session, int iChannel) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 
-	QMap<int, QMap<int, QMap<QString, ::Murmur::ServerContextCallbackPrx> > > &qmAll = mi->qmServerContextCallbacks;
+	QMap<int, QMap<int, QMap<QString, ::Murmur::ServerContextCallbackPrx> > > &qmAll = qmServerContextCallbacks;
 	if (! qmAll.contains(s->iServerNum))
 		return;
 
@@ -496,8 +567,8 @@ void MurmurIce::contextAction(const ::User *pSrc, const QString &action, unsigne
 	try {
 		prx->contextAction(u8(action), mp, session, iChannel);
 	} catch (...) {
-		qCritical("Registered Ice ServerContextCallback %s on server %d, session %d, action %s failed", qPrintable(QString::fromStdString(communicator->proxyToString(prx))), s->iServerNum, pSrc->uiSession, qPrintable(action));
-		qmUser.remove(action);
+		s->log(QString("Ice ServerContextCallback %1 for session %2, action %3 failed").arg(QString::fromStdString(communicator->proxyToString(prx))).arg(pSrc->uiSession).arg(action));
+		removeServerContextCallback(s, pSrc->uiSession, action);
 
 		// Remove clientside entry
 		MumbleProto::ContextActionModify mpcam;
@@ -512,7 +583,7 @@ void MurmurIce::contextAction(const ::User *pSrc, const QString &action, unsigne
 void MurmurIce::idToNameSlot(QString &name, int id) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
-	ServerAuthenticatorPrx prx = mi->qmServerAuthenticator.value(server->iServerNum);
+	const ServerAuthenticatorPrx prx = getServerAuthenticator(server);
 	try {
 		name = u8(prx->idToName(id));
 	} catch (...) {
@@ -522,7 +593,7 @@ void MurmurIce::idToNameSlot(QString &name, int id) {
 void MurmurIce::idToTextureSlot(QByteArray &qba, int id) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
-	ServerAuthenticatorPrx prx = mi->qmServerAuthenticator.value(server->iServerNum);
+	const ServerAuthenticatorPrx prx = getServerAuthenticator(server);
 	try {
 		const ::Murmur::Texture &tex = prx->idToTexture(id);
 
@@ -538,7 +609,7 @@ void MurmurIce::idToTextureSlot(QByteArray &qba, int id) {
 void MurmurIce::nameToIdSlot(int &id, const QString &name) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
-	ServerAuthenticatorPrx prx = mi->qmServerAuthenticator.value(server->iServerNum);
+	const ServerAuthenticatorPrx prx = getServerAuthenticator(server);
 	try {
 		id = prx->nameToId(u8(name));
 	} catch (...) {
@@ -549,7 +620,7 @@ void MurmurIce::nameToIdSlot(int &id, const QString &name) {
 void MurmurIce::authenticateSlot(int &res, QString &uname, int sessionId, const QList<QSslCertificate> &certlist, const QString &certhash, bool certstrong, const QString &pw) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
-	ServerAuthenticatorPrx prx = mi->qmServerAuthenticator.value(server->iServerNum);
+	const ServerAuthenticatorPrx prx = getServerAuthenticator(server);
 	::std::string newname;
 	::Murmur::GroupNameList groups;
 	::Murmur::CertificateList certs;
@@ -585,7 +656,7 @@ void MurmurIce::authenticateSlot(int &res, QString &uname, int sessionId, const 
 void MurmurIce::registerUserSlot(int &res, const QMap<int, QString> &info) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
-	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
+	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
 	if (! prx)
 		return;
 
@@ -602,7 +673,7 @@ void MurmurIce::registerUserSlot(int &res, const QMap<int, QString> &info) {
 void MurmurIce::unregisterUserSlot(int &res, int id) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
-	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
+	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
 	if (! prx)
 		return;
 	try {
@@ -615,7 +686,7 @@ void MurmurIce::unregisterUserSlot(int &res, int id) {
 void MurmurIce::getRegistrationSlot(int &res, int id, QMap<int, QString> &info) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
-	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
+	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
 	if (! prx)
 		return;
 
@@ -634,7 +705,7 @@ void MurmurIce::getRegistrationSlot(int &res, int id, QMap<int, QString> &info) 
 void  MurmurIce::getRegisteredUsersSlot(const QString &filter, QMap<int, QString> &m) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
-	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
+	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
 	if (! prx)
 		return;
 
@@ -654,7 +725,7 @@ void  MurmurIce::getRegisteredUsersSlot(const QString &filter, QMap<int, QString
 void MurmurIce::setInfoSlot(int &res, int id, const QMap<int, QString> &info) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
-	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
+	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
 	if (! prx)
 		return;
 
@@ -671,7 +742,7 @@ void MurmurIce::setInfoSlot(int &res, int id, const QMap<int, QString> &info) {
 void MurmurIce::setTextureSlot(int &res, int id, const QByteArray &texture) {
 	::Server *server = qobject_cast< ::Server *> (sender());
 
-	ServerUpdatingAuthenticatorPrx prx = mi->qmServerUpdatingAuthenticator.value(server->iServerNum);
+	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
 	if (! prx)
 		return;
 
@@ -768,12 +839,10 @@ static void impl_Server_delete(const ::Murmur::AMD_Server_deletePtr cb, int serv
 
 static void impl_Server_addCallback(const Murmur::AMD_Server_addCallbackPtr cb, int server_id, const Murmur::ServerCallbackPrx& cbptr) {
 	NEED_SERVER;
-	QList< ::Murmur::ServerCallbackPrx> &qmList = mi->qmServerCallbacks[server_id];
 
 	try {
 		const Murmur::ServerCallbackPrx &oneway = Murmur::ServerCallbackPrx::checkedCast(cbptr->ice_oneway()->ice_connectionCached(false));
-		if (! qmList.contains(oneway))
-			qmList.append(oneway);
+		mi->addServerCallback(server, oneway);
 		cb->ice_response();
 	} catch (...) {
 		cb->ice_exception(InvalidCallbackException());
@@ -782,11 +851,10 @@ static void impl_Server_addCallback(const Murmur::AMD_Server_addCallbackPtr cb, 
 
 static void impl_Server_removeCallback(const Murmur::AMD_Server_removeCallbackPtr cb, int server_id, const Murmur::ServerCallbackPrx& cbptr) {
 	NEED_SERVER;
-	QList< ::Murmur::ServerCallbackPrx> &qmList = mi->qmServerCallbacks[server_id];
 
 	try {
 		const Murmur::ServerCallbackPrx &oneway = Murmur::ServerCallbackPrx::uncheckedCast(cbptr->ice_oneway()->ice_connectionCached(false));
-		qmList.removeAll(oneway);
+		mi->removeServerCallback(server, oneway);
 		cb->ice_response();
 	} catch (...) {
 		cb->ice_exception(InvalidCallbackException());
@@ -796,7 +864,7 @@ static void impl_Server_removeCallback(const Murmur::AMD_Server_removeCallbackPt
 static void impl_Server_setAuthenticator(const ::Murmur::AMD_Server_setAuthenticatorPtr& cb, int server_id, const ::Murmur::ServerAuthenticatorPrx &aptr) {
 	NEED_SERVER;
 
-	if (mi->qmServerAuthenticator[server_id])
+	if (mi->getServerAuthenticator(server))
 		server->disconnectAuthenticator(mi);
 
 	::Murmur::ServerAuthenticatorPrx prx;
@@ -805,9 +873,9 @@ static void impl_Server_setAuthenticator(const ::Murmur::AMD_Server_setAuthentic
 		prx = ::Murmur::ServerAuthenticatorPrx::checkedCast(aptr->ice_connectionCached(false)->ice_timeout(5000));
 		const ::Murmur::ServerUpdatingAuthenticatorPrx uprx = ::Murmur::ServerUpdatingAuthenticatorPrx::checkedCast(prx);
 
-		mi->qmServerAuthenticator[server_id] = prx;
+		mi->setServerAuthenticator(server, prx);
 		if (uprx)
-			mi->qmServerUpdatingAuthenticator[server_id] = uprx;
+			mi->setServerUpdatingAuthenticator(server, uprx);
 	} catch (...) {
 		cb->ice_exception(InvalidCallbackException());
 		return;
@@ -817,8 +885,6 @@ static void impl_Server_setAuthenticator(const ::Murmur::AMD_Server_setAuthentic
 		server->connectAuthenticator(mi);
 
 	cb->ice_response();
-
-	server->log(QString("Registered Ice Authenticator %1").arg(QString::fromStdString(mi->communicator->proxyToString(aptr))));
 }
 
 #define ACCESS_Server_id_READ
@@ -1034,7 +1100,7 @@ static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCa
 	NEED_SERVER;
 	NEED_PLAYER;
 
-	QMap<QString, ::Murmur::ServerContextCallbackPrx> & qmPrx = mi->qmServerContextCallbacks[server_id][session];
+	const QMap<QString, ::Murmur::ServerContextCallbackPrx>& qmPrx = mi->getServerContextCallbacks(server)[session];
 
 	if (!(ctx & (MumbleProto::ContextActionModify_Context_Server | MumbleProto::ContextActionModify_Context_Channel | MumbleProto::ContextActionModify_Context_User))) {
 		cb->ice_exception(InvalidCallbackException());
@@ -1051,7 +1117,7 @@ static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCa
 			mpcam.set_operation(MumbleProto::ContextActionModify_Operation_Remove);
 			server->sendMessage(user, mpcam);
 		}
-		qmPrx.insert(u8(action), oneway);
+		mi->addServerContextCallback(server, session, u8(action), oneway);
 		cb->ice_response();
 	} catch (...) {
 		cb->ice_exception(InvalidCallbackException());
@@ -1069,16 +1135,16 @@ static void impl_Server_addContextCallback(const Murmur::AMD_Server_addContextCa
 static void impl_Server_removeContextCallback(const Murmur::AMD_Server_removeContextCallbackPtr cb, int server_id, const Murmur::ServerContextCallbackPrx& cbptr) {
 	NEED_SERVER;
 
-	QMap<int, QMap<QString, ::Murmur::ServerContextCallbackPrx> > & qmPrx = mi->qmServerContextCallbacks[server_id];
+	const QMap< int, QMap<QString, ::Murmur::ServerContextCallbackPrx> >& qmPrx = mi->getServerContextCallbacks(server);
 
 	try {
 		const Murmur::ServerContextCallbackPrx &oneway = Murmur::ServerContextCallbackPrx::uncheckedCast(cbptr->ice_oneway()->ice_connectionCached(false)->ice_timeout(5000));
 
 		foreach(int session, qmPrx.keys()) {
 			ServerUser *user = server->qhUsers.value(session);
-			QMap<QString, ::Murmur::ServerContextCallbackPrx> &qm = qmPrx[session];
+			const QMap<QString, ::Murmur::ServerContextCallbackPrx> &qm = qmPrx[session];
 			foreach(const QString &act, qm.keys(oneway)) {
-				qm.remove(act);
+				mi->removeServerContextCallback(server, session, act);
 
 				// Ask clients to remove the clientside callbacks
 				if (user) {
@@ -1575,8 +1641,7 @@ static void impl_Meta_getVersion(const ::Murmur::AMD_Meta_getVersionPtr cb, cons
 static void impl_Meta_addCallback(const Murmur::AMD_Meta_addCallbackPtr cb, const Ice::ObjectAdapterPtr, const Murmur::MetaCallbackPrx& cbptr) {
 	try {
 		const Murmur::MetaCallbackPrx &oneway = Murmur::MetaCallbackPrx::checkedCast(cbptr->ice_oneway()->ice_connectionCached(false)->ice_timeout(5000));
-		if (! mi->qmMetaCallbacks.contains(oneway))
-			mi->qmMetaCallbacks.append(oneway);
+		mi->addMetaCallback(oneway);
 		cb->ice_response();
 	} catch (...) {
 		cb->ice_exception(InvalidCallbackException());
@@ -1586,7 +1651,7 @@ static void impl_Meta_addCallback(const Murmur::AMD_Meta_addCallbackPtr cb, cons
 static void impl_Meta_removeCallback(const Murmur::AMD_Meta_removeCallbackPtr cb, const Ice::ObjectAdapterPtr, const Murmur::MetaCallbackPrx& cbptr) {
 	try {
 		const Murmur::MetaCallbackPrx &oneway = Murmur::MetaCallbackPrx::uncheckedCast(cbptr->ice_oneway()->ice_connectionCached(false)->ice_timeout(5000));
-		mi->qmMetaCallbacks.removeAll(oneway);
+		mi->removeMetaCallback(oneway);
 		cb->ice_response();
 	} catch (...) {
 		cb->ice_exception(InvalidCallbackException());

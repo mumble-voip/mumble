@@ -942,7 +942,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 			QMutexLocker qml(&qmCache);
 
 			foreach(Channel *l, chans) {
-				if (ChanACL::hasPermission(u, l, ChanACL::Speak, acCache)) {
+				if (ChanACL::hasPermission(u, l, ChanACL::Speak, &acCache)) {
 					foreach(p, l->qlUsers) {
 						ServerUser *pDst = static_cast<ServerUser *>(p);
 						SENDTO;
@@ -971,7 +971,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 						bool group = ! wtc.qsGroup.isEmpty();
 						if (!link && !dochildren && ! group) {
 							// Common case
-							if (ChanACL::hasPermission(u, wc, ChanACL::Whisper, acCache)) {
+							if (ChanACL::hasPermission(u, wc, ChanACL::Whisper, &acCache)) {
 								foreach(p, wc->qlUsers) {
 									channel.insert(static_cast<ServerUser *>(p));
 								}
@@ -987,7 +987,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 							const QString &redirect = u->qmWhisperRedirect.value(wtc.qsGroup);
 							const QString &qsg = redirect.isEmpty() ? wtc.qsGroup : redirect;
 							foreach(Channel *tc, channels) {
-								if (ChanACL::hasPermission(u, tc, ChanACL::Whisper, acCache)) {
+								if (ChanACL::hasPermission(u, tc, ChanACL::Whisper, &acCache)) {
 									foreach(p, tc->qlUsers) {
 										ServerUser *su = static_cast<ServerUser *>(p);
 										if (! group || Group::isMember(tc, tc, qsg, su)) {
@@ -1003,7 +1003,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 
 			foreach(unsigned int id, wt.qlSessions) {
 				ServerUser *pDst = qhUsers.value(id);
-				if (pDst && ! channel.contains(pDst))
+				if (pDst && ChanACL::hasPermission(u, pDst->cChannel, ChanACL::Whisper, &acCache) && ! channel.contains(pDst))
 					direct.insert(pDst);
 			}
 
@@ -1037,7 +1037,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	}
 }
 
-void Server::log(ServerUser *u, const QString &str) {
+void Server::log(ServerUser *u, const QString &str) const {
 	QString msg = QString("<%1:%2(%3)> %4").arg(QString::number(u->uiSession),
 	              u->qsName,
 	              QString::number(u->iId),
@@ -1045,7 +1045,7 @@ void Server::log(ServerUser *u, const QString &str) {
 	log(msg);
 }
 
-void Server::log(const QString &msg) {
+void Server::log(const QString &msg) const {
 	dblog(msg);
 	qWarning("%d => %s", iServerNum, msg.toUtf8().constData());
 }
@@ -1466,20 +1466,19 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 	{
 		QWriteLocker wl(&qrwlUsers);
 		c->addUser(p);
+
+		bool mayspeak = ChanACL::hasPermission(static_cast<ServerUser *>(p), c, ChanACL::Speak, NULL);
+		bool sup = p->bSuppress;
+
+		if (mayspeak == sup) {
+			// Ok, he can speak and was suppressed, or vice versa
+			p->bSuppress = ! mayspeak;
+			mpus.set_suppress(p->bSuppress);
+		}
 	}
 
 	clearACLCache(p);
-
 	setLastChannel(p);
-
-	bool mayspeak = hasPermission(static_cast<ServerUser *>(p), c, ChanACL::Speak);
-	bool sup = p->bSuppress;
-
-	if (mayspeak == sup) {
-		// Ok, he can speak and was suppressed, or vice versa
-		p->bSuppress = ! mayspeak;
-		mpus.set_suppress(p->bSuppress);
-	}
 
 	if (old && old->bTemporary && old->qlUsers.isEmpty()) {
 		QCoreApplication::instance()->postEvent(this, new ExecEvent(boost::bind(&Server::removeChannel, this, old->iId)));
@@ -1492,12 +1491,12 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 
 bool Server::hasPermission(ServerUser *p, Channel *c, QFlags<ChanACL::Perm> perm) {
 	QMutexLocker qml(&qmCache);
-	return ChanACL::hasPermission(p, c, perm, acCache);
+	return ChanACL::hasPermission(p, c, perm, &acCache);
 }
 
 QFlags<ChanACL::Perm> Server::effectivePermissions(ServerUser *p, Channel *c) {
 	QMutexLocker qml(&qmCache);
-	return ChanACL::effectivePermissions(p, c, acCache);
+	return ChanACL::effectivePermissions(p, c, &acCache);
 }
 
 void Server::sendClientPermission(ServerUser *u, Channel *c, bool forceupdate) {
@@ -1508,7 +1507,7 @@ void Server::sendClientPermission(ServerUser *u, Channel *c, bool forceupdate) {
 
 	{
 		QMutexLocker qml(&qmCache);
-		ChanACL::hasPermission(u, c, ChanACL::Enter, acCache);
+		ChanACL::hasPermission(u, c, ChanACL::Enter, &acCache);
 		perm = acCache.value(u)->value(c);
 	}
 
@@ -1542,7 +1541,7 @@ void Server::flushClientPermissionCache(ServerUser *u, MumbleProto::PermissionQu
 		if (! c) {
 			match = false;
 		} else {
-			ChanACL::hasPermission(u, c, ChanACL::Enter, acCache);
+			ChanACL::hasPermission(u, c, ChanACL::Enter, &acCache);
 			unsigned int perm = acCache.value(u)->value(c);
 			if (perm != i.value())
 				match = false;
@@ -1560,7 +1559,7 @@ void Server::flushClientPermissionCache(ServerUser *u, MumbleProto::PermissionQu
 		u->iLastPermissionCheck = c->iId;
 	}
 
-	ChanACL::hasPermission(u, c, ChanACL::Enter, acCache);
+	ChanACL::hasPermission(u, c, ChanACL::Enter, &acCache);
 	unsigned int perm = acCache.value(u)->value(c);
 	u->qmPermissionSent.insert(c->iId, perm);
 

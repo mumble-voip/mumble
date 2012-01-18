@@ -113,7 +113,7 @@ ServerDB::ServerDB() {
 		}
 		if (found) {
 			QFileInfo fi(db->databaseName());
-			qWarning("ServerDB: Openend SQLite database %s", qPrintable(fi.absoluteFilePath()));
+			qWarning("ServerDB: Opened SQLite database %s", qPrintable(fi.absoluteFilePath()));
 			if (! fi.isWritable())
 				qFatal("ServerDB: Database is not writeable");
 		}
@@ -1573,7 +1573,7 @@ void Server::setConf(const QString &key, const QVariant &value) {
 	ServerDB::setConf(iServerNum, key, value);
 }
 
-void Server::dblog(const QString &str) {
+void Server::dblog(const QString &str) const {
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
 
