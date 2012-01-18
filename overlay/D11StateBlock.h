@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2011, Nye Liu <nyet@nyet.org>
 
    All rights reserved.
 
@@ -28,49 +28,56 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _HARDHOOK_H
-#define _HARDHOOK_H
+#ifndef D11STATEBLOCK_H_
+#define D11STATEBLOCK_H_
 
-#define _UNICODE
-#ifndef _WIN32_WINNT
-#define  _WIN32_WINNT 0x0501
-#endif
-#include <stdio.h>
-#include <stdarg.h>
-#include <ctype.h>
-#include <windows.h>
-#include <math.h>
-#include <map>
-#include <vector>
-#include <string>
+#include <d3d11.h>
+#include <d3dx10math.h>
+#include <d3dx11.h>
 
-typedef void *(*voidFunc)();
+class D11StateBlock: protected IUnknown {
+	private:
+		ID3D11DeviceContext *pDeviceContext;
+		ULONG refcnt;
 
-struct HardHook {
-	// Pointer to the place in the original code where replacements happen
-	unsigned char *baseptr;
-	unsigned char orig[6];
-	unsigned char replace[6];
-	// Remembers whether there is a trampoline in place in the target code or
-	// whether restore -> call orig. -> replace has to be used for every intercepted call
-	bool bTrampoline;
-	// Points to the (rest of the) original function when used from the injected function
-	voidFunc call;
+		ID3D11RasterizerState *pRasterizerState;
+		UINT NumViewports;
+		D3D11_VIEWPORT pViewports[D3D11_VIEWPORT_AND_SCISSORRECT_OBJECT_COUNT_PER_PIPELINE];
 
-	// Pointer to executable code page that holds all trampoline codes
-	static void * pCodePage;
-	// Offset to next unused addr in pCode
-	static unsigned int uiCodePageUnusedOffset;
+		ID3D11RenderTargetView *pRenderTargetViews[D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT];
+		ID3D11DepthStencilView *pDepthStencilView;
 
-	HardHook();
-	HardHook(voidFunc func, voidFunc replacement);
-	void *cloneCode(void **orig);
-	void setup(voidFunc func, voidFunc replacement);
-	void setupInterface(IUnknown *intf, LONG funcoffset, voidFunc replacement);
-	void inject(bool force = false);
-	void restore(bool force = false);
-	void print();
-	void check();
+		ID3D11BlendState *pBlendState;
+		float BlendFactor[4];
+		UINT32 SampleMask;
+
+		ID3D11InputLayout *pInputLayout;
+
+		ID3D11Buffer *pIndexBuffer;
+		DXGI_FORMAT Format;
+		UINT Offset;
+
+		D3D11_PRIMITIVE_TOPOLOGY Topology;
+
+		ID3D11Buffer *pVertexBuffers[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
+		UINT Strides[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
+		UINT Offsets[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
+
+	public:
+		STDMETHOD(QueryInterface)(REFIID, LPVOID *);
+		STDMETHOD_(ULONG, AddRef)();
+		STDMETHOD_(ULONG, Release)();
+
+		void Capture();
+		void Apply();
+		void ReleaseObjects();
+		void ReleaseAllDeviceObjects();
+		void GetDeviceContext(ID3D11DeviceContext **);
+
+		D11StateBlock(ID3D11DeviceContext *);
+		~D11StateBlock();
 };
 
-#endif
+void D11CreateStateBlock(ID3D11DeviceContext *, D11StateBlock **);
+
+#endif /* !D11STATEBLOCK_H_ */
