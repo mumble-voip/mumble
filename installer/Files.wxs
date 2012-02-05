@@ -32,6 +32,9 @@
       <Component Id="speex.dll">
         <File Source="$(var.SourceDir)\release\speex.dll" KeyPath="yes" />
       </Component>
+      <Component Id="mumble-g15-helper.exe">
+        <File Source="$(var.SourceDir)\release\mumble-g15-helper.exe" KeyPath="yes" />
+      </Component>
 
       <Component Id="murmur.exe">
         <File Id="murmur.exe" Source="$(var.SourceDir)\release\murmur.exe" KeyPath="yes">
