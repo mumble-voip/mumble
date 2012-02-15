@@ -151,6 +151,7 @@
         <?endif ?>
         <ComponentRef Id="mumble.exe" />
         <ComponentRef Id="mumble_ol.dll" />
+        <ComponentRef Id="mumble-g15-helper.exe" />
       </Feature>
 
     </Feature>

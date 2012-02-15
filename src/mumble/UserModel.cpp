@@ -625,13 +625,13 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 						                                           tr("Muted (manually muted by self)"),
 						                                           tr("Muted (manually muted by admin)"),
 						                                           tr("Muted (not allowed to speak in current channel)"),
-						                                           tr("Muted (muted by you, only on your machine)"),
-																   tr("Ignoring Text Messages")
+						                                           tr("Muted (muted by you, only on your machine)")
 						                                          ).arg(
 						           tr("Deafened (by self)"),
 						           tr("Deafened (by admin)"),
 						           tr("User has a new comment set (click to show)"),
-						           tr("User has a comment set, which you've already seen. (click to show)")
+						           tr("User has a comment set, which you've already seen. (click to show)"),
+						           tr("Ignoring Text Messages")
 						       );
 					else
 						return QString::fromLatin1("%1"
