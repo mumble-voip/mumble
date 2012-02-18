@@ -27,9 +27,6 @@ win32 {
   DEFINES += WIN32 _WIN32
   INCLUDEPATH += ../$$BUILDDIR/win32
 
-  # fixes broken audio in release builds
-  QMAKE_CFLAGS_RELEASE -= /fp:fast
-
   CONFIG(sse2) {
     TARGET_VERSION_EXT = .$${VERSION}.sse2
   } else {
