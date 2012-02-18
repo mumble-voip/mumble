@@ -527,6 +527,9 @@ if __name__ == '__main__':
 	d.copy('LICENSE', '/Licenses/Mumble.txt')
 	d.copy('installer/lgpl.txt', '/Licenses/Qt.txt')
 	d.copy('installer/speex.txt', '/Licenses/Speex.txt')
+	d.copy('celt-0.7.0-src/COPYING', '/Licenses/CELT.txt')
+	d.copy('3rdPartyLicenses/libsndfile_license.txt', '/Licenses/libsndfile.txt')
+	d.copy('3rdPartyLicenses/openssl_license.txt', '/Licenses/OpenSSL.txt')
 	if not options.no_server:
 		d.copy('installer/portaudio.txt', '/Licenses/PortAudio.txt')
 		d.copy('installer/gpl.txt', '/Licenses/ZeroC-Ice.txt')
