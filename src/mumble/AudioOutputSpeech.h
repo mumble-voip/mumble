@@ -32,10 +32,10 @@
 #ifndef AUDIOOUTPUTSPEECH_H_
 #define AUDIOOUTPUTSPEECH_H_
 
+#include <stdint.h>
 #include <speex/speex.h>
 #include <speex/speex_resampler.h>
 #include <speex/speex_jitter.h>
-#define HAVE_STDINT_H
 #include <celt.h>
 
 #include <QtCore/QMutex>

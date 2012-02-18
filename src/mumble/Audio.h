@@ -31,7 +31,7 @@
 #ifndef AUDIO_H_
 #define AUDIO_H_
 
-#define HAVE_STDINT_H
+#include <stdint.h>
 #include <celt.h>
 
 #include <QtCore/QByteArray>
