@@ -38,6 +38,7 @@
 #include <speex/speex_resampler.h>
 #include <QtCore/QObject>
 #include <QtCore/QThread>
+#include <vector>
 
 #include "Audio.h"
 #include "Settings.h"

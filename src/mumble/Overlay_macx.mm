@@ -29,8 +29,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
 #import <ScriptingBridge/ScriptingBridge.h>
 #include <Security/Security.h>
+#include <Carbon/Carbon.h>
 #import <SecurityInterface/SFCertificatePanel.h>
 #include "Overlay.h"
 #include "Global.h"
@@ -137,6 +139,9 @@ static NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.mumble.
 
 // SBApplication delegate method
 - (void)eventDidFail:(const AppleEvent *)event withError:(NSError *)error {
+	Q_UNUSED(event);
+	Q_UNUSED(error);
+
 	// Do nothing. This method is only here to avoid an exception.
 }
 
@@ -186,7 +191,7 @@ void OverlayClient::updateMouse() {
 
 	switch (csShape) {
 		case Qt::IBeamCursor:        cursor = [NSCursor IBeamCursor]; break;
-		case Qt::CrossCursor:        cursor = [NSCursor crossCursor]; break;
+		case Qt::CrossCursor:        cursor = [NSCursor crosshairCursor]; break;
 		case Qt::ClosedHandCursor:   cursor = [NSCursor closedHandCursor]; break;
 		case Qt::OpenHandCursor:     cursor = [NSCursor openHandCursor]; break;
 		case Qt::PointingHandCursor: cursor = [NSCursor pointingHandCursor]; break;
@@ -202,7 +207,7 @@ void OverlayClient::updateMouse() {
 		NSImage *img = [cursor image];
 		CGImageRef cgimg = NULL;
 		NSArray *reps = [img representations];
-		for (int i = 0; i < [reps count]; i++) {
+		for (NSUInteger i = 0; i < [reps count]; i++) {
 			NSImageRep *rep = [reps objectAtIndex:i];
 			if ([rep class] == [NSBitmapImageRep class]) {
 				cgimg = [(NSBitmapImageRep *)rep CGImage];

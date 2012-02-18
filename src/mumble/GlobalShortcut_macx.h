@@ -30,6 +30,10 @@
 */
 
 #include <stdlib.h>
+#include <QtCore/QObject>
+
+#include <ApplicationServices/ApplicationServices.h>
+
 #include "GlobalShortcut.h"
 #include "Global.h"
 

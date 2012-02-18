@@ -32,6 +32,8 @@
 #ifndef AUDIOOUTPUTUSER_H_
 #define AUDIOOUTPUTUSER_H_
 
+#include <QtCore/QObject>
+
 class AudioOutputUser : public QObject {
 	private:
 		Q_OBJECT

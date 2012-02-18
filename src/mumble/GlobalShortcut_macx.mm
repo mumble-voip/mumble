@@ -33,6 +33,7 @@
 #include "Overlay.h"
 
 #import <AppKit/AppKit.h>
+#import <Carbon/Carbon.h>
 
 #define MOD_OFFSET   0x10000
 #define MOUSE_OFFSET 0x20000
@@ -49,6 +50,8 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 	bool forward = false;
 	bool down = false;
 	int64_t repeat = 0;
+
+	Q_UNUSED(proxy);
 
 	switch (type) {
 		case kCGEventLeftMouseDown:
@@ -316,6 +319,8 @@ bool GlobalShortcutMac::handleModButton(const CGEventFlags newmask) {
 	MOD_CHANGED(kCGEventFlagMaskHelp, 5);
 	MOD_CHANGED(kCGEventFlagMaskSecondaryFn, 6);
 	MOD_CHANGED(kCGEventFlagMaskNumericPad, 7);
+
+	return false;
 }
 
 QString GlobalShortcutMac::translateMouseButton(const unsigned int keycode) const {
