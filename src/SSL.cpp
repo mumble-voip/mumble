@@ -142,4 +142,9 @@ void MumbleSSL::addSystemCA() {
 	}
 	QSslSocket::setDefaultCaCertificates(ql);
 #endif // NO_SYSTEM_CA_OVERRIDE
+
+#if QT_VERSION >= 0x040800
+	// Don't perform on-demand loading of root certificates
+	QSslSocket::addDefaultCaCertificates(QSslSocket::systemCaCertificates());
+#endif
 }
