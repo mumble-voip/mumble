@@ -283,7 +283,7 @@ static bool isInstallerNewer(const char *path, NSUInteger curVer) {
 
 	file = xar_file_first(pkg, iter);
 	while (file != NULL) {
-		if (!strcmp(xar_get_path(file), "mumbleoverlay.pkg/PackageInfo"))
+		if (!strcmp(xar_get_path(file), "upgrade.xml"))
 			break;
 		file = xar_file_next(iter);
 	}
@@ -297,9 +297,8 @@ static bool isInstallerNewer(const char *path, NSUInteger curVer) {
 		while (! reader.atEnd()) {
 			QXmlStreamReader::TokenType tok = reader.readNext();
 			if (tok == QXmlStreamReader::StartElement) {
-				if (reader.name() == QLatin1String("pkg-info")) {
+				if (reader.name() == QLatin1String("upgrade")) {
 					qsOverlayVer = reader.attributes().value(QLatin1String("version")).toString();
-				} else if (reader.name() == QLatin1String("mumble")) {
 					qsMinVer = reader.attributes().value(QLatin1String("minclient")).toString();
 				}
 			}
