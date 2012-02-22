@@ -664,7 +664,8 @@ bool OverlayConfig::uninstallFiles() {
 	if (bundleOk) {
 		err = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &auth);
 		if (err == errAuthorizationSuccess) {
-			const char *remove[] = { "/bin/rm", "-rf", [MumbleOverlayLoaderBundle UTF8String], NULL };
+			QByteArray tmp = QString::fromLatin1("/tmp/%1_Uninstalled_MumbleOverlay.osax").arg(QDateTime::currentMSecsSinceEpoch()).toLocal8Bit();
+			const char *remove[] = { "/bin/mv", [MumbleOverlayLoaderBundle UTF8String], tmp.constData(), NULL };
 			ret = authExec(auth, remove);
 		}
 		AuthorizationFree(auth, kAuthorizationFlagDefaults);
