@@ -39,5 +39,7 @@
 	</dict>
 	<key>MumbleOverlayVersion</key>
 	<integer>17</integer>
+	<key>MumbleOverlayMinMumbleVersion</key>
+	<string>1.2.4</string>
 </dict>
 </plist>

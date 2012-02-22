@@ -1,0 +1,51 @@
+#!/bin/bash
+#
+# Copyright (C) 2012, Mikkel Krautz <mikkel@krautz.dk>
+#
+#   All rights reserved.
+#
+#   Redistribution and use in source and binary forms, with or without
+#   modification, are permitted provided that the following conditions
+#   are met:
+#
+#   - Redistributions of source code must retain the above copyright notice,
+#     this list of conditions and the following disclaimer.
+#   - Redistributions in binary form must reproduce the above copyright notice,
+#     this list of conditions and the following disclaimer in the documentation
+#     and/or other materials provided with the distribution.
+#   - Neither the name of the Mumble Developers nor the names of its
+#     contributors may be used to endorse or promote products derived from this
+#     software without specific prior written permission.
+#
+#   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+#   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+#   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+#   A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR
+#   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+#   EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#   PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+#   PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+#   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+#   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+#   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+cp release/libmumbleoverlay.dylib release/MumbleOverlay.osax/Contents/MacOS/
+
+productbuild \
+	--component release/MumbleOverlay.osax /Library/ScriptingAdditions \
+	release/synth.pkg
+
+root=$(mktemp -d -t mumble-overlay-installer)
+xar -f release/synth.pkg -x -C ${root}
+mkdir -p ${root}/Resources
+cp icons/mumble.osx.installer.png ${root}/Resources/bg.png
+defaults read $(pwd)/macx/osax/osax MumbleOverlayVersion > ${root}/VERSION
+defaults read $(pwd)/macx/osax/osax MumbleOverlayMinMumbleVersion > ${root}/MUMBLEVER
+
+sed -i '' -e 's,<installer-gui-script minSpecVersion="1">,<installer-gui-script minSpecVersion="1"><title>Mumble Overlay</title><background mime-type="image/png" file="bg.png" />,' ${root}/Distribution
+
+pushd ${root}
+xar -f MumbleOverlay.pkg --no-compress "^.*$" -c ./*
+popd
+
+cp ${root}/MumbleOverlay.pkg release/MumbleOverlay.pkg

@@ -46,12 +46,10 @@ def create_overlay_package():
 	if options.codesign:
 		codesign(bundle)
 		codesign(overlaylib)
-	os.system('/Applications/PackageMaker.app/Contents/MacOS/PackageMaker --doc macx/overlay-installer/MumbleOverlayInstaller.pmdoc --info macx/overlay-installer/PackageInfo --out release/MumbleOverlayUnsigned.pkg')
+	os.system('./macx/scripts/build-overlay-installer')
 	if options.codesign:
+		os.rename('release/MumbleOverlay.pkg', 'release/MumbleOverlayUnsigned.pkg')
 		prodsign('release/MumbleOverlayUnsigned.pkg', 'release/MumbleOverlay.pkg')
-	else:
-		shutil.copytree('release/MumbleOverlayUnsigned.pkg', 'release/MumbleOverlay.pkg', symlinks=True)
-
 
 class AppBundle(object):
 
