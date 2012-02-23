@@ -179,6 +179,7 @@ class GlobalShortcutConfig : public ConfigWidget, public Ui::GlobalShortcut {
 		void reload();
 		bool expert(bool);
 		void commit();
+		void on_qcbEnableGlobalShortcuts_stateChanged(int);
 		void on_qpbAdd_clicked(bool);
 		void on_qpbRemove_clicked(bool);
 		void on_qtwShortcuts_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
@@ -223,6 +224,10 @@ class GlobalShortcutEngine : public QThread {
 		static QString buttonText(const QList<QVariant> &);
 		virtual QString buttonName(const QVariant &) = 0;
 		virtual bool canSuppress();
+
+		virtual void setEnabled(bool b);
+		virtual bool enabled();
+		virtual bool canDisable();
 
 		virtual void prepareInput();
 	signals:

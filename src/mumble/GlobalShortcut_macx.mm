@@ -117,8 +117,8 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			 */
 			CGEventTapEnable(gs->port, true);
 			break;
+
 		case kCGEventTapDisabledByUserInput:
-			qWarning("GlobalShortcutMac: EventTap disabled by user input.");
 			break;
 
 		default:
@@ -415,6 +415,18 @@ QString GlobalShortcutMac::buttonName(const QVariant &v) {
 	return QString::fromLatin1("Keycode %1").arg(key);
 }
 
+void GlobalShortcutMac::setEnabled(bool b) {
+	CGEventTapEnable(port, b);
+}
+
+bool GlobalShortcutMac::enabled() {
+	return CGEventTapIsEnabled(port);
+}
+
 bool GlobalShortcutMac::canSuppress() {
+	return true;
+}
+
+bool GlobalShortcutMac::canDisable() {
 	return true;
 }

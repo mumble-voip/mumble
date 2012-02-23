@@ -49,6 +49,10 @@ class GlobalShortcutMac : public GlobalShortcutEngine {
 		bool handleModButton(CGEventFlags newmask);
 		virtual bool canSuppress();
 
+    virtual void setEnabled(bool);
+    virtual bool enabled();
+    virtual bool canDisable();
+
 	public slots:
 		void forwardEvent(void *evt);
 
