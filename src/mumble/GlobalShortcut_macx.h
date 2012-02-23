@@ -45,6 +45,7 @@ class GlobalShortcutMac : public GlobalShortcutEngine {
 		GlobalShortcutMac();
 		~GlobalShortcutMac();
 		QString buttonName(const QVariant &);
+		void dumpEventTaps();
 		void needRemap();
 		bool handleModButton(CGEventFlags newmask);
 		virtual bool canSuppress();
