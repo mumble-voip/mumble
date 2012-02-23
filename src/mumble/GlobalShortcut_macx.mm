@@ -157,7 +157,7 @@ GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
 	                     CGEventMaskBit(kCGEventOtherMouseDragged) |
 	                     CGEventMaskBit(kCGEventScrollWheel);
 	port = CGEventTapCreate(kCGSessionEventTap,
-	                        kCGHeadInsertEventTap,
+	                        kCGTailAppendEventTap,
 	                        0, evmask, GlobalShortcutMac::callback,
 	                        this);
 
