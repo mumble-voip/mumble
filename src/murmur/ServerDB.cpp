@@ -115,7 +115,7 @@ ServerDB::ServerDB() {
 			QFileInfo fi(db->databaseName());
 			qWarning("ServerDB: Opened SQLite database %s", qPrintable(fi.absoluteFilePath()));
 			if (! fi.isWritable())
-				qFatal("ServerDB: Database is not writeable");
+				qFatal("ServerDB: Database is not writable");
 		}
 	} else {
 		db->setDatabaseName(Meta::mp.qsDatabase);
