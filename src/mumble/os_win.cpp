@@ -243,3 +243,37 @@ void os_init() {
 		SetCurrentProcessExplicitAppUserModelID(L"net.sourceforge.mumble.Mumble");
 }
 
+DWORD WinVerifySslCert(const QByteArray& cert) {
+	DWORD errorStatus = -1;
+
+	PCCERT_CONTEXT certContext = CertCreateCertificateContext(X509_ASN_ENCODING, reinterpret_cast<const BYTE*>(cert.constData()), cert.size());
+	if (!certContext) {
+		return errorStatus;
+	}
+
+	// FIXME: checking for server usage might be useful.
+	CERT_ENHKEY_USAGE keyUsage;
+	keyUsage.cUsageIdentifier = 0;
+	keyUsage.rgpszUsageIdentifier = NULL;
+
+	CERT_USAGE_MATCH certUsage;
+	certUsage.dwType = USAGE_MATCH_TYPE_AND;
+	certUsage.Usage  = keyUsage;
+
+	CERT_CHAIN_PARA chainParameter;
+	chainParameter.cbSize = sizeof(CERT_CHAIN_PARA);
+	chainParameter.RequestedUsage = certUsage;
+
+	PCCERT_CHAIN_CONTEXT chainContext = NULL;
+	CertGetCertificateChain(NULL, certContext, NULL, NULL, &chainParameter, 0, NULL, &chainContext);
+
+	if (chainContext) {
+		errorStatus = chainContext->TrustStatus.dwErrorStatus;
+		CertFreeCertificateChain(chainContext);
+	}
+
+	CertFreeCertificateContext(certContext);
+
+	return errorStatus;
+}
+

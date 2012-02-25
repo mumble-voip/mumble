@@ -327,9 +327,31 @@ void ServerHandler::run() {
 	delete qtsSock;
 }
 
+#ifdef Q_OS_WIN
+extern DWORD WinVerifySslCert(const QByteArray& cert);
+#endif
+
 void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
-	bStrong = false;
 	qscCert = cConnection->peerCertificateChain();
+
+#ifdef Q_OS_WIN
+	bool bRevalidate = false;
+	foreach (const QSslError& e, errors) {
+		if (e.error() == QSslError::UnableToGetLocalIssuerCertificate)
+			bRevalidate = true;
+	}
+
+	if (bRevalidate) {
+		QByteArray der = qscCert.first().toDer();
+		DWORD errorStatus = WinVerifySslCert(der);
+		if (errorStatus == CERT_TRUST_NO_ERROR) {
+			cConnection->proceedAnyway();
+			return;
+		}
+	}
+#endif
+
+	bStrong = false;
 	if ((qscCert.size() > 0)  && (QString::fromLatin1(qscCert.at(0).digest(QCryptographicHash::Sha1).toHex()) == Database::getDigest(qsHostName, usPort)))
 		cConnection->proceedAnyway();
 	else
