@@ -63,7 +63,11 @@ void WebFetch::finished() {
 	QUrl url = qnr->request().url();
 
 	if (qnr->error() == QNetworkReply::NoError) {
-		const QByteArray &a=qnr->readAll();
+		QByteArray &a = qnr->readAll();
+
+		// empty response is not an error
+		if (a.isNull())
+			a.append("");
 
 		QMap<QString, QString> headers;
 
