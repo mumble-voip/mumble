@@ -1134,24 +1134,16 @@ void Server::removeLink(Channel *c, Channel *l) {
 
 	QSqlQuery &query = *th.qsqQuery;
 
-	if (l) {
-		SQLPREP("DELETE FROM `%1channel_links` WHERE `server_id` = ? AND `channel_id` = ? AND `link_id` = ?");
-		query.addBindValue(iServerNum);
-		query.addBindValue(c->iId);
-		query.addBindValue(l->iId);
-		SQLEXEC();
+	SQLPREP("DELETE FROM `%1channel_links` WHERE `server_id` = ? AND `channel_id` = ? AND `link_id` = ?");
+	query.addBindValue(iServerNum);
+	query.addBindValue(c->iId);
+	query.addBindValue(l->iId);
+	SQLEXEC();
 
-		query.addBindValue(iServerNum);
-		query.addBindValue(l->iId);
-		query.addBindValue(c->iId);
-		SQLEXEC();
-	} else {
-		SQLPREP("DELETE FROM `%1channel_links` WHERE `server_id` = ? AND (`channel_id` = ? OR `link_id` = ?)");
-		query.addBindValue(iServerNum);
-		query.addBindValue(c->iId);
-		query.addBindValue(c->iId);
-		SQLEXEC();
-	}
+	query.addBindValue(iServerNum);
+	query.addBindValue(l->iId);
+	query.addBindValue(c->iId);
+	SQLEXEC();
 }
 
 Channel *Server::addChannel(Channel *p, const QString &name, bool temporary, int position) {
@@ -1185,6 +1177,7 @@ Channel *Server::addChannel(Channel *p, const QString &name, bool temporary, int
 	query.addBindValue(id);
 	query.addBindValue(ServerDB::Channel_Position);
 	query.addBindValue(QVariant(position).toString());
+	SQLEXEC();
 
 	Channel *c = new Channel(id, name, p);
 	c->bTemporary = temporary;

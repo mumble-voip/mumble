@@ -887,7 +887,7 @@ void AudioInput::encodeAudioFrame() {
 		AudioOutputPtr ao = g.ao;
 		if (bIsSpeech && ! bPreviousVoice && ao)
 			ao->playSample(g.s.qsTxAudioCueOn);
-		else if (ao && !bIsSpeech && bPreviousVoice && ao)
+		else if (ao && !bIsSpeech && bPreviousVoice)
 			ao->playSample(g.s.qsTxAudioCueOff);
 	}
 

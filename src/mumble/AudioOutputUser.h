@@ -42,7 +42,7 @@ class AudioOutputUser : public QObject {
 		unsigned int iBufferSize;
 		void resizeBuffer(unsigned int newsize);
 	public:
-		AudioOutputUser(const QString name);
+		AudioOutputUser(const QString& name);
 		~AudioOutputUser();
 		const QString qsName;
 		float *pfBuffer;

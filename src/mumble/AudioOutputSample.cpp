@@ -38,7 +38,6 @@
 SoundFile::SoundFile(const QString &fname) {
 	siInfo.frames = 0;
 	siInfo.channels = 1;
-	siInfo.samplerate = SAMPLE_RATE;
 	siInfo.samplerate = 0;
 	siInfo.sections = 0;
 	siInfo.seekable = 0;
