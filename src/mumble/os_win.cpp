@@ -251,18 +251,18 @@ DWORD WinVerifySslCert(const QByteArray& cert) {
 		return errorStatus;
 	}
 
-	// FIXME: checking for server usage might be useful.
-	CERT_ENHKEY_USAGE keyUsage;
-	keyUsage.cUsageIdentifier = 0;
-	keyUsage.rgpszUsageIdentifier = NULL;
-
-	CERT_USAGE_MATCH certUsage;
-	certUsage.dwType = USAGE_MATCH_TYPE_AND;
-	certUsage.Usage  = keyUsage;
+	LPSTR usage[] = {
+		szOID_PKIX_KP_SERVER_AUTH,
+		szOID_SERVER_GATED_CRYPTO,
+		szOID_SGC_NETSCAPE
+	};
 
 	CERT_CHAIN_PARA chainParameter;
+	memset(&chainParameter, 0, sizeof(CERT_CHAIN_PARA));
 	chainParameter.cbSize = sizeof(CERT_CHAIN_PARA);
-	chainParameter.RequestedUsage = certUsage;
+	chainParameter.RequestedUsage.dwType = USAGE_MATCH_TYPE_OR;
+	chainParameter.RequestedUsage.Usage.cUsageIdentifier = ARRAYSIZE(usage);
+	chainParameter.RequestedUsage.Usage.rgpszUsageIdentifier = usage;
 
 	PCCERT_CHAIN_CONTEXT chainContext = NULL;
 	CertGetCertificateChain(NULL, certContext, NULL, NULL, &chainParameter, 0, NULL, &chainContext);
