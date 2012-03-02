@@ -31,7 +31,9 @@
 #ifndef AUDIO_H_
 #define AUDIO_H_
 
+#include <stdint.h>
 #include <celt.h>
+
 #include <QtCore/QByteArray>
 #include <QtCore/QLibrary>
 #include <QtCore/QMultiMap>

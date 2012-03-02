@@ -216,7 +216,7 @@ const QHash<QString, QString> WASAPISystem::getDevices(EDataFlow dataflow) {
 	return devices;
 }
 
-const QList<audioDevice> WASAPISystem::mapToDevice(const QHash<QString, QString> devs, const QString &match) {
+const QList<audioDevice> WASAPISystem::mapToDevice(const QHash<QString, QString>& devs, const QString& match) {
 	QList<audioDevice> qlReturn;
 
 	QStringList qlDevices = devs.keys();

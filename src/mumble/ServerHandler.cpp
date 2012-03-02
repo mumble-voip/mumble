@@ -327,13 +327,49 @@ void ServerHandler::run() {
 	delete qtsSock;
 }
 
+#ifdef Q_OS_WIN
+extern DWORD WinVerifySslCert(const QByteArray& cert);
+#endif
+
 void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
-	bStrong = false;
 	qscCert = cConnection->peerCertificateChain();
+	QList<QSslError> newErrors = errors;
+
+#ifdef Q_OS_WIN
+	bool bRevalidate = false;
+	QList<QSslError> errorsToRemove;
+	foreach (const QSslError& e, errors) {
+		switch (e.error()) {
+		case QSslError::UnableToGetLocalIssuerCertificate:
+		case QSslError::SelfSignedCertificateInChain:
+			bRevalidate = true;
+			errorsToRemove << e;
+			break;
+		default:
+			break;
+		}
+	}
+
+	if (bRevalidate) {
+		QByteArray der = qscCert.first().toDer();
+		DWORD errorStatus = WinVerifySslCert(der);
+		if (errorStatus == CERT_TRUST_NO_ERROR) {
+			foreach (const QSslError& e, errorsToRemove) {
+				newErrors.removeOne(e);
+			}
+		}
+		if (newErrors.isEmpty()) {
+			cConnection->proceedAnyway();
+			return;
+		}
+	}
+#endif
+
+	bStrong = false;
 	if ((qscCert.size() > 0)  && (QString::fromLatin1(qscCert.at(0).digest(QCryptographicHash::Sha1).toHex()) == Database::getDigest(qsHostName, usPort)))
 		cConnection->proceedAnyway();
 	else
-		qlErrors = errors;
+		qlErrors = newErrors;
 }
 
 void ServerHandler::sendPing() {
