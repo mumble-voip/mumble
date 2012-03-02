@@ -1162,6 +1162,9 @@ void Server::encrypted() {
 
 void Server::sslError(const QList<QSslError> &errors) {
 	ServerUser *u = qobject_cast<ServerUser *>(sender());
+	if (!u)
+		return;
+
 	bool ok = true;
 	foreach(QSslError e, errors) {
 		switch (e.error()) {
@@ -1182,8 +1185,6 @@ void Server::sslError(const QList<QSslError> &errors) {
 				ok = false;
 		}
 	}
-	if (! u)
-		return;
 
 	if (ok)
 		u->proceedAnyway();

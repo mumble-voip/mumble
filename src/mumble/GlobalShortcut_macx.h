@@ -30,6 +30,10 @@
 */
 
 #include <stdlib.h>
+#include <QtCore/QObject>
+
+#include <ApplicationServices/ApplicationServices.h>
+
 #include "GlobalShortcut.h"
 #include "Global.h"
 
@@ -41,9 +45,14 @@ class GlobalShortcutMac : public GlobalShortcutEngine {
 		GlobalShortcutMac();
 		~GlobalShortcutMac();
 		QString buttonName(const QVariant &);
+		void dumpEventTaps();
 		void needRemap();
 		bool handleModButton(CGEventFlags newmask);
 		virtual bool canSuppress();
+
+    virtual void setEnabled(bool);
+    virtual bool enabled();
+    virtual bool canDisable();
 
 	public slots:
 		void forwardEvent(void *evt);

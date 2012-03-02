@@ -113,7 +113,7 @@ ServerView::~ServerView() {
 	delete siPublic;
 }
 
-QMimeData *ServerView::mimeData(const QList<QTreeWidgetItem *> mimeitems) const {
+QMimeData *ServerView::mimeData(const QList<QTreeWidgetItem *>& mimeitems) const {
 	if (mimeitems.isEmpty())
 		return NULL;
 
@@ -1111,7 +1111,7 @@ void ConnectDialog::on_qtwServers_currentItemChanged(QTreeWidgetItem *item, QTre
 		qpbEdit->setEnabled(false);
 	}
 	
-	bool bOk = (si && ! si->qlAddresses.isEmpty());
+	bool bOk = !si->qlAddresses.isEmpty();
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(bOk);
 
 	bLastFound = true;

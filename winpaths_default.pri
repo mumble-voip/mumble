@@ -15,7 +15,7 @@ BOOST_PATH = /dev/Boost
 VLD_PATH = %PROGPATH%/Visual Leak Detector
 BONJOUR_PATH = %PROGRAMFILES%/Bonjour SDK
 ASIO_PATH = /dev/asio
-G15SDK_PATH = /dev/G15SDK
+G15SDK_PATH = /dev/G15SDK/LCDSDK
 
 # Include custom file if it exists
 exists(winpaths_custom.pri) {

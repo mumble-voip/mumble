@@ -57,7 +57,7 @@ class WASAPISystem : public QObject {
 		static const QHash<QString, QString> getDevices(EDataFlow dataflow);
 		static const QHash<QString, QString> getInputDevices();
 		static const QHash<QString, QString> getOutputDevices();
-		static const QList<audioDevice> mapToDevice(const QHash<QString, QString>, const QString &);
+		static const QList<audioDevice> mapToDevice(const QHash<QString, QString>&, const QString&);
 };
 
 class WASAPIInput : public AudioInput {

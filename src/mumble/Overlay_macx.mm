@@ -29,8 +29,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
 #import <ScriptingBridge/ScriptingBridge.h>
 #include <Security/Security.h>
+#include <Carbon/Carbon.h>
 #import <SecurityInterface/SFCertificatePanel.h>
 #include "Overlay.h"
 #include "Global.h"
@@ -137,6 +139,9 @@ static NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.mumble.
 
 // SBApplication delegate method
 - (void)eventDidFail:(const AppleEvent *)event withError:(NSError *)error {
+	Q_UNUSED(event);
+	Q_UNUSED(error);
+
 	// Do nothing. This method is only here to avoid an exception.
 }
 
@@ -186,7 +191,7 @@ void OverlayClient::updateMouse() {
 
 	switch (csShape) {
 		case Qt::IBeamCursor:        cursor = [NSCursor IBeamCursor]; break;
-		case Qt::CrossCursor:        cursor = [NSCursor crossCursor]; break;
+		case Qt::CrossCursor:        cursor = [NSCursor crosshairCursor]; break;
 		case Qt::ClosedHandCursor:   cursor = [NSCursor closedHandCursor]; break;
 		case Qt::OpenHandCursor:     cursor = [NSCursor openHandCursor]; break;
 		case Qt::PointingHandCursor: cursor = [NSCursor pointingHandCursor]; break;
@@ -202,7 +207,7 @@ void OverlayClient::updateMouse() {
 		NSImage *img = [cursor image];
 		CGImageRef cgimg = NULL;
 		NSArray *reps = [img representations];
-		for (int i = 0; i < [reps count]; i++) {
+		for (NSUInteger i = 0; i < [reps count]; i++) {
 			NSImageRep *rep = [reps objectAtIndex:i];
 			if ([rep class] == [NSBitmapImageRep class]) {
 				cgimg = [(NSBitmapImageRep *)rep CGImage];
@@ -278,7 +283,7 @@ static bool isInstallerNewer(const char *path, NSUInteger curVer) {
 
 	file = xar_file_first(pkg, iter);
 	while (file != NULL) {
-		if (!strcmp(xar_get_path(file), "mumbleoverlay.pkg/PackageInfo"))
+		if (!strcmp(xar_get_path(file), "upgrade.xml"))
 			break;
 		file = xar_file_next(iter);
 	}
@@ -292,9 +297,8 @@ static bool isInstallerNewer(const char *path, NSUInteger curVer) {
 		while (! reader.atEnd()) {
 			QXmlStreamReader::TokenType tok = reader.readNext();
 			if (tok == QXmlStreamReader::StartElement) {
-				if (reader.name() == QLatin1String("pkg-info")) {
+				if (reader.name() == QLatin1String("upgrade")) {
 					qsOverlayVer = reader.attributes().value(QLatin1String("version")).toString();
-				} else if (reader.name() == QLatin1String("mumble")) {
 					qsMinVer = reader.attributes().value(QLatin1String("minclient")).toString();
 				}
 			}
@@ -659,7 +663,8 @@ bool OverlayConfig::uninstallFiles() {
 	if (bundleOk) {
 		err = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &auth);
 		if (err == errAuthorizationSuccess) {
-			const char *remove[] = { "/bin/rm", "-rf", [MumbleOverlayLoaderBundle UTF8String], NULL };
+			QByteArray tmp = QString::fromLatin1("/tmp/%1_Uninstalled_MumbleOverlay.osax").arg(QDateTime::currentMSecsSinceEpoch()).toLocal8Bit();
+			const char *remove[] = { "/bin/mv", [MumbleOverlayLoaderBundle UTF8String], tmp.constData(), NULL };
 			ret = authExec(auth, remove);
 		}
 		AuthorizationFree(auth, kAuthorizationFlagDefaults);

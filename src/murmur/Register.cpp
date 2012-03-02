@@ -39,7 +39,7 @@ void Server::initRegister() {
 	connect(&qtTick, SIGNAL(timeout()), this, SLOT(update()));
 
 	if (! qsRegName.isEmpty()) {
-		if ((! qsRegName.isEmpty()) && (! qsRegPassword.isEmpty()) && qurlRegWeb.isValid() && qsPassword.isEmpty() && bAllowPing)
+		if (!qsRegName.isEmpty() && !qsRegPassword.isEmpty() && qurlRegWeb.isValid() && qsPassword.isEmpty() && bAllowPing)
 			qtTick.start((60 + (qrand() % 120))* 1000);
 		else
 			log("Registration needs nonempty 'registername', 'registerpassword' and 'registerurl', must have an empty 'password' and allowed pings.");
@@ -49,7 +49,7 @@ void Server::initRegister() {
 }
 
 void Server::update() {
-	if (!((! qsRegName.isEmpty()) && (! qsRegName.isEmpty()) && (! qsRegPassword.isEmpty()) && qurlRegWeb.isValid() && qsPassword.isEmpty() && bAllowPing))
+	if (qsRegName.isEmpty() || qsRegPassword.isEmpty() || !qurlRegWeb.isValid() || !qsPassword.isEmpty() || !bAllowPing)
 		return;
 
 	// When QNAM distinguishes connections by client cert, move this to Meta

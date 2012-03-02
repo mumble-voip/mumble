@@ -33,7 +33,7 @@
 
 #include "AudioOutputUser.h"
 
-AudioOutputUser::AudioOutputUser(const QString name) : qsName(name) {
+AudioOutputUser::AudioOutputUser(const QString& name) : qsName(name) {
 	iBufferSize = 0;
 	pfBuffer = NULL;
 	pfVolume = NULL;
