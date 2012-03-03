@@ -29,6 +29,15 @@ def codesign(path):
 			return retval
 	return 0
 
+def prodsign(inf, outf):
+	'''Call the prodsign executable.'''
+
+	p = Popen(('productsign', '--keychain', options.codesign_keychain, '--sign', options.codesign_installer, inf, outf))
+	retval = p.wait()
+	if retval != 0:
+		return retval
+	return 0
+
 def create_overlay_package():
 	print '* Creating overlay installer'
 
@@ -37,9 +46,10 @@ def create_overlay_package():
 	if options.codesign:
 		codesign(bundle)
 		codesign(overlaylib)
-	os.system('/Developer/Applications/Utilities/PackageMaker.app/Contents/MacOS/PackageMaker --doc macx/overlay-installer/MumbleOverlayInstaller.pmdoc --info macx/overlay-installer/PackageInfo --out release/MumbleOverlay.pkg')
+	os.system('./macx/scripts/build-overlay-installer')
 	if options.codesign:
-		os.system('xar-sign release/MumbleOverlay.pkg')
+		os.rename('release/MumbleOverlay.pkg', 'release/MumbleOverlayUnsigned.pkg')
+		prodsign('release/MumbleOverlayUnsigned.pkg', 'release/MumbleOverlay.pkg')
 
 class AppBundle(object):
 
@@ -107,9 +117,10 @@ class AppBundle(object):
 
 		self.handle_binary_libs()
 
-		murmurd = os.path.join(os.path.abspath(self.bundle), 'Contents', 'MacOS', 'murmurd')
-		if os.path.exists(murmurd):
-			self.handle_binary_libs(murmurd)
+		if not options.no_server:
+			murmurd = os.path.join(os.path.abspath(self.bundle), 'Contents', 'MacOS', 'murmurd')
+			if os.path.exists(murmurd):
+				self.handle_binary_libs(murmurd)
 
 		g15 = os.path.join(os.path.abspath(self.bundle), 'Contents', 'MacOS', 'mumble-g15-helper')
 		if os.path.exists(g15):
@@ -419,7 +430,9 @@ if __name__ == '__main__':
 	parser.add_option('', '--only-appbundle', dest='only_appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
 	parser.add_option('', '--only-overlay', dest='only_overlay', help='Only create the overlay installer.', action='store_true', default=False)
 	parser.add_option('', '--codesign', dest='codesign', help='Identity to use for code signing. (If not set, no code signing will occur)')
-	parser.add_option('', '--codesign-keychain', dest='codesign_keychain', help='The keychain to use when invoking the codesign utility.')
+	parser.add_option('', '--codesign-installer', dest='codesign_installer', help='Identity to use for code signing installer packages. (Implies --codesign)')
+	parser.add_option('', '--codesign-keychain', dest='codesign_keychain', help='The keychain to use when invoking the codesign utility. (Defaults to login.keychain', default='login.keychain')
+	parser.add_option('', '--no-server', dest='no_server', help='Exclude Murmur-related files from disk image.', action='store_true', default=False)
 
 	options, args = parser.parse_args()
 
@@ -462,7 +475,8 @@ if __name__ == '__main__':
 
 	# Do the finishing touches to our Application bundle before release
 	a = AppBundle('release/Mumble.app', ver)
-	a.copy_murmur()
+	if not options.no_server:
+		a.copy_murmur()
 	a.copy_g15helper()
 	a.copy_codecs()
 	a.copy_plugins()
@@ -472,7 +486,7 @@ if __name__ == '__main__':
 	a.update_plist()
 	if not options.universal:
 		a.add_compat_warning()
-		a.set_min_macosx_version('10.5.0')
+		a.set_min_macosx_version('10.6.0')
 	else:
 		a.set_min_macosx_version('10.4.8')
 	a.done()
@@ -480,16 +494,17 @@ if __name__ == '__main__':
 	# Sign our binaries, etc.
 	if options.codesign:
 		print ' * Signing binaries with identity `%s\'' % options.codesign
-		binaries = (
+		binaries = [
 			# 1.2.x
 			'release/Mumble.app',
-			'release/Mumble.app/Contents/MacOS/murmurd',
 			'release/Mumble.app/Contents/MacOS/mumble-g15-helper',
 			'release/Mumble.app/Contents/Plugins/liblink.dylib',
 			'release/Mumble.app/Contents/Plugins/libmanual.dylib',
 			'release/Mumble.app/Contents/Codecs/libcelt0.0.7.0.dylib',
 			'release/Mumble.app/Contents/Codecs/libcelt0.0.11.0.dylib',
-		)
+		]
+		if not options.no_server:
+			binaries.append('release/Mumble.app/Contents/MacOS/murmurd')
 
 		codesign(binaries)
 		print ''
@@ -510,25 +525,29 @@ if __name__ == '__main__':
 	d.copy('LICENSE', '/Licenses/Mumble.txt')
 	d.copy('installer/lgpl.txt', '/Licenses/Qt.txt')
 	d.copy('installer/speex.txt', '/Licenses/Speex.txt')
-	d.copy('installer/portaudio.txt', '/Licenses/PortAudio.txt')
-	d.copy('installer/gpl.txt', '/Licenses/ZeroC-Ice.txt')
-	d.mkdir('Murmur Extras')
-	d.copy('scripts/murmur.ini.osx', '/Murmur Extras/murmur.ini')
-	d.copy('scripts/murmur.conf', '/Murmur Extras/')
-	d.copy('scripts/dbusauth.pl', '/Murmur Extras/')
-	d.copy('scripts/murmur.pl', '/Murmur Extras/')
-	d.copy('scripts/weblist.pl', '/Murmur Extras/')
-	d.copy('scripts/weblist.php', '/Murmur Extras/')
-	d.copy('scripts/icedemo.php', '/Murmur Extras/')
-	d.copy('scripts/ListUsers.cs', '/Murmur Extras/')
-	d.copy('scripts/mumble-auth.py', '/Murmur Extras/')
-	d.copy('scripts/rubytest.rb', '/Murmur Extras')
-	d.copy('scripts/simpleregister.php', '/Murmur Extras/')
-	d.copy('scripts/testcallback.py', '/Murmur Extras/')
-	d.copy('scripts/testauth.py', '/Murmur Extras/')
-	d.copy('scripts/addban.php', '/Murmur Extras/')
-	d.copy('scripts/php.ini', '/Murmur Extras/')
-	d.copy('src/murmur/Murmur.ice', '/Murmur Extras/')
-	d.copy('scripts/phpBB3auth.ini', '/Murmur Extras/')
-	d.copy('scripts/phpBB3auth.py', '/Murmur Extras/')
+	d.copy('celt-0.7.0-src/COPYING', '/Licenses/CELT.txt')
+	d.copy('3rdPartyLicenses/libsndfile_license.txt', '/Licenses/libsndfile.txt')
+	d.copy('3rdPartyLicenses/openssl_license.txt', '/Licenses/OpenSSL.txt')
+	if not options.no_server:
+		d.copy('installer/portaudio.txt', '/Licenses/PortAudio.txt')
+		d.copy('installer/gpl.txt', '/Licenses/ZeroC-Ice.txt')
+		d.mkdir('Murmur Extras')
+		d.copy('scripts/murmur.ini.osx', '/Murmur Extras/murmur.ini')
+		d.copy('scripts/murmur.conf', '/Murmur Extras/')
+		d.copy('scripts/dbusauth.pl', '/Murmur Extras/')
+		d.copy('scripts/murmur.pl', '/Murmur Extras/')
+		d.copy('scripts/weblist.pl', '/Murmur Extras/')
+		d.copy('scripts/weblist.php', '/Murmur Extras/')
+		d.copy('scripts/icedemo.php', '/Murmur Extras/')
+		d.copy('scripts/ListUsers.cs', '/Murmur Extras/')
+		d.copy('scripts/mumble-auth.py', '/Murmur Extras/')
+		d.copy('scripts/rubytest.rb', '/Murmur Extras')
+		d.copy('scripts/simpleregister.php', '/Murmur Extras/')
+		d.copy('scripts/testcallback.py', '/Murmur Extras/')
+		d.copy('scripts/testauth.py', '/Murmur Extras/')
+		d.copy('scripts/addban.php', '/Murmur Extras/')
+		d.copy('scripts/php.ini', '/Murmur Extras/')
+		d.copy('src/murmur/Murmur.ice', '/Murmur Extras/')
+		d.copy('scripts/phpBB3auth.ini', '/Murmur Extras/')
+		d.copy('scripts/phpBB3auth.py', '/Murmur Extras/')
 	d.create()

@@ -36,11 +36,11 @@
 #include "ServerHandler.h"
 #include "MainWindow.h"
 #include "User.h"
+#include "PacketDataStream.h"
 #include "Plugins.h"
 #include "Message.h"
 #include "Global.h"
 #include "NetworkConfig.h"
-#include "OpusUtilities.h"
 #include "VoiceRecorder.h"
 
 #ifdef USE_OPUS
@@ -95,7 +95,7 @@ bool AudioInputRegistrar::canExclusive() const {
 	return false;
 }
 
-AudioInput::AudioInput() {
+AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)) {
 	adjustBandwidth(g.iMaxBandwidth, iAudioQuality, iAudioFrames);
 
 	g.iAudioBandwidth = getNetworkBandwidth(iAudioQuality, iAudioFrames);
@@ -686,23 +686,14 @@ void AudioInput::resetAudioProcessor() {
 }
 
 // FIXME: we should be able to encode |iAudioFrames| * |iFrameSize| per Opus call.
-int AudioInput::encodeOpusFrame(short *source, unsigned char *buffer) {
+int AudioInput::encodeOpusFrame(short *source, int size, unsigned char *buffer) {
 	int len = 0;
 #ifdef USE_OPUS
 	opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
 
-	len = opus_encode(opusState, source, iFrameSize, buffer + 2, 509);
-	Q_ASSERT((buffer[2] & 0x3) == 0);
+	len = opus_encode(opusState, source, size, buffer, 512);
 
-	// Copy Opus TOC.
-	buffer[0] = buffer[2];
-	int move = OpusUtilities::EncodeSize(len, buffer + 1);
-	if (move == 1)
-		memmove(buffer + 2, buffer + 3, len - 1);
-
-	len += 1 + move;
 	iBitrate = len * 100 * 8;
-
 #endif
 	return len;
 }
@@ -896,7 +887,7 @@ void AudioInput::encodeAudioFrame() {
 		AudioOutputPtr ao = g.ao;
 		if (bIsSpeech && ! bPreviousVoice && ao)
 			ao->playSample(g.s.qsTxAudioCueOn);
-		else if (ao && !bIsSpeech && bPreviousVoice && ao)
+		else if (ao && !bIsSpeech && bPreviousVoice)
 			ao->playSample(g.s.qsTxAudioCueOff);
 	}
 
@@ -923,24 +914,32 @@ void AudioInput::encodeAudioFrame() {
 	unsigned char buffer[512];
 	int len;
 
+	bool encoded = true;
 #ifdef USE_OPUS
 	// Force Opus mode.
 	umtType = MessageHandler::UDPVoiceOpus;
+	encoded = false;
 #endif
 	if (umtType == MessageHandler::UDPVoiceCELTAlpha || umtType == MessageHandler::UDPVoiceCELTBeta) {
 		len = encodeCELTFrame(psSource, buffer);
 		if (len == 0)
 			return;
 	} else if (umtType == MessageHandler::UDPVoiceOpus) {
-		len = encodeOpusFrame(psSource, buffer);
-		if (len == 0) {
-			return;
+		opusBuffer.insert(opusBuffer.end(), psSource, psSource + iFrameSize);
+		if (!bIsSpeech || opusBuffer.size() >= iFrameSize * iAudioFrames) {
+			len = encodeOpusFrame(&opusBuffer[0], opusBuffer.size(), buffer);
+			opusBuffer.clear();
+			if (len <= 0) {
+				return;
+			}
+			encoded = true;
 		}
 	} else {
 		len = encodeSpeexFrame(psSource, buffer);
 	}
 
-	flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len), ! bIsSpeech);
+	if (encoded)
+		flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len), ! bIsSpeech);
 
 	if (! bIsSpeech)
 		iBitrate = 0;
@@ -948,14 +947,24 @@ void AudioInput::encodeAudioFrame() {
 	bPreviousVoice = bIsSpeech;
 }
 
+static void sendAudioFrame(const char *data, PacketDataStream &pds) {
+	ServerHandlerPtr sh = g.sh;
+	if (sh) {
+		VoiceRecorderPtr recorder(sh->recorder);
+		if (recorder)
+			recorder->getRecordUser().addFrame(QByteArray(data, pds.size() + 1));
+	}
+
+	if (g.s.lmLoopMode == Settings::Local)
+		LoopUser::lpLoopy.addFrame(QByteArray(data, pds.size() + 1));
+	else if (sh)
+		sh->sendMessage(data, pds.size() + 1);
+}
+
 void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 	qlFrames << frame;
-	if (umtType == MessageHandler::UDPVoiceOpus) {
-		// FIXME: Don't change |iAudioFrames|. There should be one frame Opus frame per packet only.
-		iAudioFrames = 1;
-		terminator = false;
-	}
-	if (! terminator && qlFrames.count() < iAudioFrames)
+
+	if (! terminator && umtType != MessageHandler::UDPVoiceOpus && qlFrames.count() < iAudioFrames)
 		return;
 
 	int flags = g.iTarget;
@@ -970,21 +979,31 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 	char data[1024];
 	data[0] = static_cast<unsigned char>(flags);
 
+	// FIXME: This will be wrong for Opus packets which are sent early because the user stopped talking.
+	int frames = umtType == MessageHandler::UDPVoiceOpus ? iAudioFrames : qMin(iAudioFrames, qlFrames.count());
+
 	PacketDataStream pds(data + 1, 1023);
-	pds << iFrameCounter - qlFrames.count();
+	// Sequence number
+	pds << iFrameCounter - frames;
 
-	if (terminator)
-		qlFrames << QByteArray();
+	if (umtType == MessageHandler::UDPVoiceOpus) {
+		const QByteArray &qba = qlFrames.takeFirst();
+		pds << qba.size();
+		pds.append(qba.constData(), qba.size());
+	} else {
+		if (terminator) {
+			qlFrames << QByteArray();
+			++frames;
+		}
 
-	for (int i=0;i<qlFrames.count(); ++i) {
-		const QByteArray &qba = qlFrames.at(i);
-		if (umtType != MessageHandler::UDPVoiceOpus) {
+		for (int i = 0; i < frames; ++i) {
+			const QByteArray &qba = qlFrames.takeFirst();
 			unsigned char head = static_cast<unsigned char>(qba.size());
-			if (i < qlFrames.count() - 1)
+			if (i < frames - 1)
 				head |= 0x80;
 			pds.append(head);
+			pds.append(qba.constData(), qba.size());
 		}
-		pds.append(qba.constData(), qba.size());
 	}
 
 	if (g.s.bTransmitPosition && g.p && ! g.bCenterPosition && g.p->fetch()) {
@@ -993,19 +1012,20 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 		pds << g.p->fPosition[2];
 	}
 
-	ServerHandlerPtr sh = g.sh;
-	if (sh) {
-		VoiceRecorderPtr recorder(sh->recorder);
-		if (recorder)
-			recorder->getRecordUser().addFrame(QByteArray(data, pds.size() + 1));
+	sendAudioFrame(data, pds);
+
+	if (umtType == MessageHandler::UDPVoiceOpus && terminator) {
+		pds.rewind();
+
+		// Sequence number
+		pds << iFrameCounter;
+		// size = 0
+		pds << 0;
+
+		sendAudioFrame(data, pds);
 	}
 
-	if (g.s.lmLoopMode == Settings::Local)
-		LoopUser::lpLoopy.addFrame(QByteArray(data, pds.size() + 1));
-	else if (sh)
-		sh->sendMessage(data, pds.size() + 1);
-
-	qlFrames.clear();
+	Q_ASSERT(qlFrames.isEmpty());
 }
 
 bool AudioInput::isAlive() const {

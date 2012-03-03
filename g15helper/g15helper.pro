@@ -13,8 +13,8 @@ win32 {
   SOURCES = g15helper.c
   RC_FILE = g15helper.rc
   LIBS *= -llgLcd -ladvapi32 -lshell32 -luser32
-  LIBPATH *= "$$G15SDK_PATH/SDK/Lib/x86"
-  INCLUDEPATH *= "$$G15SDK_PATH/SDK/Src"
+  QMAKE_LIBDIR *= "$$G15SDK_PATH/Lib/x86"
+  INCLUDEPATH *= "$$G15SDK_PATH/Src"
   DEFINES *= WIN32
 }
 
@@ -23,7 +23,7 @@ macx {
   CONFIG += x86
   SOURCES = g15helper_macx.c
   LIBS *= -llgLcd
-  LIBPATH *= $$(MUMBLE_PREFIX)/../lglcd/SDK/lib/
+  QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/../lglcd/SDK/lib/
   INCLUDEPATH *= $$(MUMBLE_PREFIX)/../lglcd/SDK/Src/
   QMAKE_LFLAGS += -framework CoreFoundation -sectcreate __TEXT __info_plist g15helper.plist
   DEFINES *= APPLE

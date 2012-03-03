@@ -264,8 +264,8 @@ class Server : public QThread {
 
 		QString addressToString(const QHostAddress &, unsigned short port);
 
-		void log(const QString &);
-		void log(ServerUser *u, const QString &);
+		void log(const QString &) const;
+		void log(ServerUser *u, const QString &) const;
 
 		void removeChannel(int id);
 		void removeChannel(Channel *c, Channel *dest = NULL);
@@ -336,7 +336,7 @@ class Server : public QThread {
 		void saveBans();
 		QVariant getConf(const QString &key, QVariant def);
 		void setConf(const QString &key, const QVariant &value);
-		void dblog(const QString &str);
+		void dblog(const QString &str) const;
 
 		// From msgHandler. Implementation in Messages.cpp
 #define MUMBLE_MH_MSG(x) void msg##x(ServerUser *, MumbleProto:: x &);

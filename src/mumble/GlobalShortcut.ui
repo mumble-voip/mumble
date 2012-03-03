@@ -16,105 +16,111 @@
      <property name="title">
       <string>Shortcuts</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="0">
-       <widget class="QPushButton" name="qpbAdd">
-        <property name="toolTip">
-         <string>Add new shortcut</string>
-        </property>
-        <property name="whatsThis">
-         <string>This will add a new global shortcut</string>
-        </property>
-        <property name="text">
-         <string>&amp;Add</string>
-        </property>
-       </widget>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QCheckBox" name="qcbEnableGlobalShortcuts">
+          <property name="text">
+           <string>Enable Global Shortcuts</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTreeWidget" name="qtwShortcuts">
+          <property name="toolTip">
+           <string>List of configured shortcuts</string>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::AllEditTriggers</set>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="rootIsDecorated">
+           <bool>false</bool>
+          </property>
+          <property name="uniformRowHeights">
+           <bool>true</bool>
+          </property>
+          <attribute name="headerDefaultSectionSize">
+           <number>100</number>
+          </attribute>
+          <attribute name="headerMinimumSectionSize">
+           <number>50</number>
+          </attribute>
+          <attribute name="headerStretchLastSection">
+           <bool>false</bool>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Function</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Data</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Shortcut</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Suppress</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
       </item>
-      <item row="1" column="1">
-       <widget class="QPushButton" name="qpbRemove">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="toolTip">
-         <string>Remove selected shortcut</string>
-        </property>
-        <property name="whatsThis">
-         <string>This will permanently remove a selected shortcut.</string>
-        </property>
-        <property name="text">
-         <string>&amp;Remove</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>59</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="0" colspan="3">
-       <widget class="QTreeWidget" name="qtwShortcuts">
-        <property name="toolTip">
-         <string>List of configured shortcuts</string>
-        </property>
-        <property name="editTriggers">
-         <set>QAbstractItemView::AllEditTriggers</set>
-        </property>
-        <property name="alternatingRowColors">
-         <bool>true</bool>
-        </property>
-        <property name="rootIsDecorated">
-         <bool>false</bool>
-        </property>
-        <property name="uniformRowHeights">
-         <bool>true</bool>
-        </property>
-        <attribute name="headerDefaultSectionSize">
-         <number>100</number>
-        </attribute>
-        <attribute name="headerMinimumSectionSize">
-         <number>50</number>
-        </attribute>
-        <attribute name="headerStretchLastSection">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="headerDefaultSectionSize">
-         <number>100</number>
-        </attribute>
-        <attribute name="headerMinimumSectionSize">
-         <number>50</number>
-        </attribute>
-        <attribute name="headerStretchLastSection">
-         <bool>false</bool>
-        </attribute>
-        <column>
-         <property name="text">
-          <string>Function</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Data</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Shortcut</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Suppress</string>
-         </property>
-        </column>
-       </widget>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QPushButton" name="qpbAdd">
+          <property name="toolTip">
+           <string>Add new shortcut</string>
+          </property>
+          <property name="whatsThis">
+           <string>This will add a new global shortcut</string>
+          </property>
+          <property name="text">
+           <string>&amp;Add</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="qpbRemove">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="toolTip">
+           <string>Remove selected shortcut</string>
+          </property>
+          <property name="whatsThis">
+           <string>This will permanently remove a selected shortcut.</string>
+          </property>
+          <property name="text">
+           <string>&amp;Remove</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>59</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>

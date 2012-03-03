@@ -216,7 +216,7 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 #ifdef Q_OS_WIN
 	// According to MS KB Q131065, we need this to OpenProcess()
 
-	hToken = FALSE;
+	hToken = NULL;
 
 	if (!OpenThreadToken(GetCurrentThread(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, FALSE, &hToken)) {
 		if (GetLastError() == ERROR_NO_TOKEN) {

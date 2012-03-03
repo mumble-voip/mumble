@@ -1,4 +1,5 @@
-/* Copyright (C) 2011, Benjamin Jemlich <pcgod@users.sourceforge.net>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -28,69 +29,30 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef OPUS_UTILITIES_H_
-#define OPUS_UTILITIES_H_
+#include "mumble_pch.hpp"
 
-#include "PacketDataStream.h"
+#include "AudioOutputUser.h"
 
-class OpusUtilities {
-  public:
-	static int EncodeSize(int size, unsigned char *data) {
-		if (size < 252) {
-			data[0] = size;
-			return 1;
-		} else {
-			data[0] = 252 + (size & 0x3);
-			data[1] = (size - static_cast<int>(data[0])) >> 2;
-			return 2;
+AudioOutputUser::AudioOutputUser(const QString& name) : qsName(name) {
+	iBufferSize = 0;
+	pfBuffer = NULL;
+	pfVolume = NULL;
+	fPos[0]=fPos[1]=fPos[2]=0.0;
+}
+
+AudioOutputUser::~AudioOutputUser() {
+	delete [] pfBuffer;
+	delete [] pfVolume;
+}
+
+void AudioOutputUser::resizeBuffer(unsigned int newsize) {
+	if (newsize > iBufferSize) {
+		float *n = new float[newsize];
+		if (pfBuffer) {
+			memcpy(n, pfBuffer, sizeof(float) * iBufferSize);
+			delete [] pfBuffer;
 		}
+		pfBuffer = n;
+		iBufferSize = newsize;
 	}
-
-	static int ParseSize(PacketDataStream *pds) {
-		if (pds->left() < 2)
-			return -1;
-		int tmp = pds->next();
-		if (tmp < 252)
-			return tmp;
-		return 4 * pds->next() + tmp;
-	}
-
-	static int ParseToc(PacketDataStream *pds) {
-		// The last 2 bits contain the number of frames in the packet as described
-		// in the Opus RFC.
-		switch (pds->next() & 0x3) {
-		case 0:
-			return ParseSize(pds);
-		case 1:
-			return 2 * ParseSize(pds);
-		case 2:
-			return ParseSize(pds) + ParseSize(pds);
-		case 3:
-			int tmp = pds->next();
-			int count = tmp & 0x3F;
-			int length = 0;
-			if (tmp & 0x40) {
-				int x;
-				do {
-					if (!pds->left())
-						return -1;
-					x = pds->next();
-					length += x == 255 ? 254 : x;
-				} while (x == 255);
-			}
-			if (tmp & 0x80) {
-				length += count * ParseSize(pds);
-			} else {
-				for (int i = count; i; --i) {
-					length += ParseSize(pds);
-				}
-			}
-			return length;
-		}
-		// Silence the compiler warning...
-		return -1;
-	}
-};
-
-#endif  // OPUS_UTILITIES_H_
-
+}

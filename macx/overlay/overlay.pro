@@ -2,9 +2,9 @@
 
 include(../../compiler.pri)
 
-CONFIG += x86_64 x86 ppc debug_and_release plugin
-CONFIG(lion) {
-	CONFIG -= ppc
+CONFIG += x86_64 x86 debug_and_release plugin
+CONFIG(universal) {
+	CONFIG += ppc
 }
 
 TEMPLATE = lib

@@ -502,7 +502,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					bool usewhitelist;
 					HKEY key = NULL;
 
-					bool success = true;
+					bool success;
 					char *buffer = new char[buffsize];
 
 					// check if we're using a whitelist or a blacklist

@@ -42,12 +42,4 @@ class AboutDialog : public QDialog {
 		AboutDialog(QWidget *parent);
 };
 
-class AboutSpeexDialog : public QDialog {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(AboutSpeexDialog)
-	public:
-		AboutSpeexDialog(QWidget *parent);
-};
-
 #endif

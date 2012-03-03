@@ -6,9 +6,9 @@ include(../common.pri)
 
 TEMPLATE = app
 CONFIG -= qt app_bundle x86_64
-CONFIG += debug_and_release ppc x86
-CONFIG(lion) {
-	CONFIG -= ppc
+CONFIG += debug_and_release x86
+CONFIG(universal) {
+	CONFIG += ppc
 }
 
 TARGET = Mumble.compat

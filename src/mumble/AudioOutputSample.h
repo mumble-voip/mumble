@@ -1,4 +1,5 @@
 /* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -28,72 +29,66 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef ACL_H_
-#define ACL_H_
+#ifndef AUDIOOUTPUTSAMPLE_H_
+#define AUDIOOUTPUTSAMPLE_H_
 
-#include <QtCore/QHash>
+#include <sndfile.h>
+#include <speex/speex_resampler.h>
 #include <QtCore/QObject>
+#include <QtCore/QFile>
 
-class Channel;
-class User;
-class ServerUser;
+#include "AudioOutputUser.h"
 
-class ChanACL : public QObject {
+class SoundFile : public QObject {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(ChanACL)
+		Q_DISABLE_COPY(SoundFile)
+	protected:
+		SNDFILE *sfFile;
+		SF_INFO siInfo;
+		QFile qfFile;
+		static sf_count_t vio_get_filelen(void *user_data);
+		static sf_count_t vio_seek(sf_count_t offset, int whence, void *user_data);
+		static sf_count_t vio_read(void *ptr, sf_count_t count, void *user_data);
+		static sf_count_t vio_write(const void *ptr, sf_count_t count, void *user_data);
+		static sf_count_t vio_tell(void *user_data);
 	public:
-		enum Perm {
-			None = 0x0,
-			Write = 0x1,
-			Traverse = 0x2,
-			Enter = 0x4,
-			Speak = 0x8,
-			MuteDeafen = 0x10,
-			Move = 0x20,
-			MakeChannel = 0x40,
-			LinkChannel = 0x80,
-			Whisper = 0x100,
-			TextMessage = 0x200,
-			MakeTempChannel = 0x400,
+		SoundFile(const QString &fname);
+		virtual ~SoundFile();
 
-			// Root channel only
-			Kick = 0x10000,
-			Ban = 0x20000,
-			Register = 0x40000,
-			SelfRegister = 0x80000,
+		int channels() const;
+		int samplerate() const;
+		int error() const ;
+		QString strError() const;
+		bool isOpen() const;
 
-			Cached = 0x8000000,
-			All = 0xf07ff
-		};
-
-		Q_DECLARE_FLAGS(Permissions, Perm)
-
-		typedef QHash<Channel *, Permissions> ChanCache;
-		typedef QHash<User *, ChanCache * > ACLCache;
-
-		Channel *c;
-		bool bApplyHere;
-		bool bApplySubs;
-
-		bool bInherited;
-
-		int iUserId;
-		QString qsGroup;
-		Permissions pAllow;
-		Permissions pDeny;
-
-		ChanACL(Channel *c);
-#ifdef MURMUR
-		static bool hasPermission(ServerUser *p, Channel *c, QFlags<Perm> perm, ACLCache *cache);
-		static QFlags<Perm> effectivePermissions(ServerUser *p, Channel *c, ACLCache *cache);
-#else
-		static QString whatsThis(Perm p);
-#endif
-		static QString permName(QFlags<Perm> p);
-		static QString permName(Perm p);
+		sf_count_t seek(sf_count_t frames, int whence);
+		sf_count_t read(float *ptr, sf_count_t items);
 };
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(ChanACL::Permissions)
+class AudioOutputSample : public AudioOutputUser {
+	private:
+		Q_OBJECT
+		Q_DISABLE_COPY(AudioOutputSample)
+	protected:
+		unsigned int iLastConsume;
+		unsigned int iBufferFilled;
+		unsigned int iOutSampleRate;
+		SpeexResamplerState *srs;
 
-#endif
+		SoundFile *sfHandle;
+
+		bool bLastAlive;
+		bool bLoop;
+		bool bEof;
+	signals:
+		void playbackFinished();
+	public:
+		static SoundFile* loadSndfile(const QString &filename);
+		static QString browseForSndfile();
+		virtual bool needSamples(unsigned int snum);
+		AudioOutputSample(const QString &name, SoundFile *psndfile, bool repeat, unsigned int freq);
+		~AudioOutputSample();
+};
+
+#endif  // AUDIOOUTPUTSAMPLE_H_

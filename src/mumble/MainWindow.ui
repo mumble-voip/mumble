@@ -64,7 +64,6 @@
     <addaction name="qaHelpWhatsThis"/>
     <addaction name="separator"/>
     <addaction name="qaHelpAbout"/>
-    <addaction name="qaHelpAboutSpeex"/>
     <addaction name="qaHelpAboutQt"/>
     <addaction name="separator"/>
     <addaction name="qaHelpVersionCheck"/>

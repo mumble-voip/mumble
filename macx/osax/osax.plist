@@ -38,6 +38,8 @@
 		</dict>
 	</dict>
 	<key>MumbleOverlayVersion</key>
-	<integer>16</integer>
+	<integer>17</integer>
+	<key>MumbleOverlayMinMumbleVersion</key>
+	<string>1.2.4</string>
 </dict>
 </plist>

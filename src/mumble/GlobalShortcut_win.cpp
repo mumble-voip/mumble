@@ -92,6 +92,9 @@ GlobalShortcutWin::GlobalShortcutWin() {
 	pDI = NULL;
 	uiHardwareDevices = 0;
 
+	// Hidden setting to disable hooking
+	bHook = g.qs->value(QLatin1String("winhooks"), true).toBool();
+
 	GetKeyboardState(ucKeyState);
 
 	moveToThread(this);
@@ -120,12 +123,11 @@ void GlobalShortcutWin::run() {
 	while (! g.mw)
 		this->yieldCurrentThread();
 
-	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (wchar_t *) &HookKeyboard, &hSelf);
-
-	hhKeyboard = SetWindowsHookEx(WH_KEYBOARD_LL, HookKeyboard, hSelf, 0);
-	hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
-#ifdef QT_NO_DEBUG
-#endif
+	if (bHook) {
+		GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (wchar_t *) &HookKeyboard, &hSelf);
+		hhKeyboard = SetWindowsHookEx(WH_KEYBOARD_LL, HookKeyboard, hSelf, 0);
+		hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
+	}
 
 	timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(timeTicked()));
@@ -135,8 +137,10 @@ void GlobalShortcutWin::run() {
 
 	exec();
 
-	UnhookWindowsHookEx(hhKeyboard);
-	UnhookWindowsHookEx(hhMouse);
+	if (bHook) {
+		UnhookWindowsHookEx(hhKeyboard);
+		UnhookWindowsHookEx(hhMouse);
+	}
 
 	foreach(InputDevice *id, qhInputDevices) {
 		if (id->pDID) {
@@ -560,7 +564,7 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 }
 
 bool GlobalShortcutWin::canSuppress() {
-	return true;
+	return bHook;
 }
 
 void GlobalShortcutWin::prepareInput() {

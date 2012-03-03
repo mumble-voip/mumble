@@ -27,9 +27,6 @@ win32 {
   DEFINES += WIN32 _WIN32
   INCLUDEPATH += ../$$BUILDDIR/win32
 
-  # fixes broken audio in release builds
-  QMAKE_CFLAGS_RELEASE -= /fp:fast
-
   CONFIG(sse2) {
     TARGET_VERSION_EXT = .$${VERSION}.sse2
   } else {
@@ -46,8 +43,7 @@ INCLUDEPATH *= \
 ../$$SOURCEDIR/celt \
 ../$$SOURCEDIR/include \
 ../$$SOURCEDIR/silk \
-../$$SOURCEDIR/silk/float \
-../$$SOURCEDIR/src
+../$$SOURCEDIR/silk/float
 
 SOURCES *= \
 celt/bands.c \
@@ -180,9 +176,6 @@ src/opus.c \
 src/opus_decoder.c \
 src/opus_encoder.c \
 src/repacketizer.c
-
-SOURCES *= \
-src/mumble_opus.c
 
 CONFIG(debug, debug|release) {
 	CONFIG += console
