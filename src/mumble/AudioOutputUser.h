@@ -1,4 +1,5 @@
-/* Copyright (C) 2009-2011, Mikkel Krautz <mikkel@krautz.dk>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -28,36 +29,26 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CRASHREPORTER_H_
-#define CRASHREPORTER_H_
+#ifndef AUDIOOUTPUTUSER_H_
+#define AUDIOOUTPUTUSER_H_
 
 #include <QtCore/QObject>
-#include <QtCore/QEventLoop>
-#include <QtNetwork/QNetworkReply>
-#include <QtGui/QDialog>
-#include <QtGui/QProgressDialog>
-#include <QtGui/QLineEdit>
-#include <QtGui/QTextEdit>
 
-class CrashReporter : QDialog {
+class AudioOutputUser : public QObject {
+	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(CrashReporter)
-
-	public:
-		CrashReporter(QWidget *p = 0);
-		~CrashReporter();
-		void run();
+		Q_DISABLE_COPY(AudioOutputUser)
 	protected:
-		QEventLoop *qelLoop;
-		QProgressDialog *qpdProgress;
-		QNetworkReply *qnrReply;
-		QLineEdit *qleEmail;
-		QTextEdit *qteDescription;
-	public slots:
-		void uploadFinished();
-		void uploadProgress(qint64, qint64);
+		unsigned int iBufferSize;
+		void resizeBuffer(unsigned int newsize);
+	public:
+		AudioOutputUser(const QString& name);
+		~AudioOutputUser();
+		const QString qsName;
+		float *pfBuffer;
+		float *pfVolume;
+		float fPos[3];
+		virtual bool needSamples(unsigned int snum) = 0;
 };
 
-#else
-class CrashReporter;
-#endif
+#endif  // AUDIOOUTPUTUSER_H_

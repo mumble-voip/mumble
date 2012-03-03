@@ -117,12 +117,6 @@ typedef WId HWND;
 #include <dns_sd.h>
 #endif
 
-#ifdef Q_OS_WIN
-#ifdef USE_G15
-#include <lglcd.h>
-#endif
-#endif
-
 #ifdef __OBJC__
  #define nil 0
 #endif

@@ -1,4 +1,5 @@
-/* Copyright (C) 2009-2011, Mikkel Krautz <mikkel@krautz.dk>
+/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -28,36 +29,72 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CRASHREPORTER_H_
-#define CRASHREPORTER_H_
+#ifndef AUDIOOUTPUTSPEECH_H_
+#define AUDIOOUTPUTSPEECH_H_
 
-#include <QtCore/QObject>
-#include <QtCore/QEventLoop>
-#include <QtNetwork/QNetworkReply>
-#include <QtGui/QDialog>
-#include <QtGui/QProgressDialog>
-#include <QtGui/QLineEdit>
-#include <QtGui/QTextEdit>
+#include <stdint.h>
+#include <speex/speex.h>
+#include <speex/speex_resampler.h>
+#include <speex/speex_jitter.h>
+#include <celt.h>
 
-class CrashReporter : QDialog {
+#include <QtCore/QMutex>
+
+#include "AudioOutputUser.h"
+#include "Message.h"
+
+class CELTCodec;
+class ClientUser;
+struct OpusDecoder;
+
+class AudioOutputSpeech : public AudioOutputUser {
+	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(CrashReporter)
-
-	public:
-		CrashReporter(QWidget *p = 0);
-		~CrashReporter();
-		void run();
+		Q_DISABLE_COPY(AudioOutputSpeech)
 	protected:
-		QEventLoop *qelLoop;
-		QProgressDialog *qpdProgress;
-		QNetworkReply *qnrReply;
-		QLineEdit *qleEmail;
-		QTextEdit *qteDescription;
-	public slots:
-		void uploadFinished();
-		void uploadProgress(qint64, qint64);
+		unsigned int iAudioBufferSize;
+		unsigned int iBufferOffset;
+		unsigned int iBufferFilled;
+		unsigned int iOutputSize;
+		unsigned int iLastConsume;
+		unsigned int iFrameSize;
+		unsigned int iSampleRate;
+		unsigned int iMixerFreq;
+		bool bLastAlive;
+		bool bHasTerminator;
+		bool bStereo;
+
+		float *fFadeIn;
+		float *fFadeOut;
+		float *fResamplerBuffer;
+
+		SpeexResamplerState *srs;
+
+		QMutex qmJitter;
+		JitterBuffer *jbJitter;
+		int iMissCount;
+
+		CELTCodec *cCodec;
+		CELTDecoder *cdDecoder;
+
+		OpusDecoder *opusState;
+
+		SpeexBits sbBits;
+		void *dsSpeex;
+
+		QList<QByteArray> qlFrames;
+
+		unsigned char ucFlags;
+	public:
+		MessageHandler::UDPMessageType umtType;
+		int iMissedFrames;
+		ClientUser *p;
+
+		virtual bool needSamples(unsigned int snum);
+
+		void addFrameToBuffer(const QByteArray &, unsigned int iBaseSeq);
+		AudioOutputSpeech(ClientUser *, unsigned int freq, MessageHandler::UDPMessageType type);
+		~AudioOutputSpeech();
 };
 
-#else
-class CrashReporter;
-#endif
+#endif  // AUDIOOUTPUTSPEECH_H_

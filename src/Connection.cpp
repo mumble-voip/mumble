@@ -214,6 +214,11 @@ void Connection::forceFlush() {
 }
 
 void Connection::disconnectSocket(bool force) {
+	if (qtsSocket->state() == QAbstractSocket::UnconnectedState) {
+		emit connectionClosed(QAbstractSocket::UnknownSocketError, QString());
+		return;
+	}
+
 	if (force)
 		qtsSocket->abort();
 	else
