@@ -988,7 +988,10 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 
 	if (umtType == MessageHandler::UDPVoiceOpus) {
 		const QByteArray &qba = qlFrames.takeFirst();
-		pds << qba.size();
+		int size = qba.size();
+		if (terminator)
+			size |= 1 << 15;
+		pds << size;
 		pds.append(qba.constData(), qba.size());
 	} else {
 		if (terminator) {
@@ -1013,17 +1016,6 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 	}
 
 	sendAudioFrame(data, pds);
-
-	if (umtType == MessageHandler::UDPVoiceOpus && terminator) {
-		pds.rewind();
-
-		// Sequence number
-		pds << iFrameCounter;
-		// size = 0
-		pds << 0;
-
-		sendAudioFrame(data, pds);
-	}
 
 	Q_ASSERT(qlFrames.isEmpty());
 }

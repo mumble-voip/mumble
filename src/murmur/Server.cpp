@@ -914,7 +914,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	} else {
 		int size;
 		pdi >> size;
-		pdi.skip(size);
+		pdi.skip(size & 0x7fff);
 	}
 
 	poslen = pdi.left();
