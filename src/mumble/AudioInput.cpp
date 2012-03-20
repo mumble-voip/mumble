@@ -996,7 +996,7 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator) {
 		const QByteArray &qba = qlFrames.takeFirst();
 		int size = qba.size();
 		if (terminator)
-			size |= 1 << 15;
+			size |= 1 << 13;
 		pds << size;
 		pds.append(qba.constData(), qba.size());
 	} else {

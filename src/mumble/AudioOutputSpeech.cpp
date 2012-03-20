@@ -145,7 +145,7 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 	if (umtType == MessageHandler::UDPVoiceOpus) {
 		int size;
 		pds >> size;
-		size &= 0x7fff;
+		size &= 0x1fff;
 
 		const QByteArray &qba = pds.dataBlock(size);
 		const unsigned char *packet = reinterpret_cast<const unsigned char*>(qba.constData());
@@ -262,8 +262,8 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 						int size;
 						pds >> size;
 
-						bHasTerminator = size & 0x8000;
-						qlFrames << pds.dataBlock(size & 0x7fff);
+						bHasTerminator = size & 0x2000;
+						qlFrames << pds.dataBlock(size & 0x1fff);
 					} else {
 						unsigned int header = 0;
 						do {
