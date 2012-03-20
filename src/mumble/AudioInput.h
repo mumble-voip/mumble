@@ -145,6 +145,7 @@ class AudioInput : public QThread {
 		int iFrameCounter;
 		int iSilentFrames;
 		int iHoldFrames;
+		int iBufferedFrames;
 
 		QList<QByteArray> qlFrames;
 		void flushCheck(const QByteArray &, bool terminator);
