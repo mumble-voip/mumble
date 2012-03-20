@@ -690,6 +690,9 @@ void AudioInput::resetAudioProcessor() {
 int AudioInput::encodeOpusFrame(short *source, int size, unsigned char *buffer) {
 	int len = 0;
 #ifdef USE_OPUS
+	if (!bPreviousVoice)
+		opus_encoder_ctl(opusState, OPUS_RESET_STATE, NULL);
+
 	opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
 
 	len = opus_encode(opusState, source, size, buffer, 512);
