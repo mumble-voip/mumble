@@ -58,6 +58,7 @@ MetaParams::MetaParams() {
 	bAllowHTML = true;
 	iDefaultChan = 0;
 	bRememberChan = true;
+        bMaskAddr = false;
 	qsWelcomeText = QString("Welcome to this server");
 	qsDatabase = QString();
 	iDBPort = 0;
@@ -233,6 +234,7 @@ void MetaParams::read(QString fname) {
 	iMaxBandwidth = qsSettings->value("bandwidth", iMaxBandwidth).toInt();
 	iDefaultChan = qsSettings->value("defaultchannel", iDefaultChan).toInt();
 	bRememberChan = qsSettings->value("rememberchannel", bRememberChan).toBool();
+        bMaskAddr = qsSettings->value("maskaddresses", bMaskAddr).toBool();
 	iMaxUsers = qsSettings->value("users", iMaxUsers).toInt();
 	iMaxUsersPerChannel = qsSettings->value("usersperchannel", iMaxUsersPerChannel).toInt();
 	qsWelcomeText = qsSettings->value("welcometext", qsWelcomeText).toString();
@@ -424,7 +426,8 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("bandwidth"),QString::number(iMaxBandwidth));
 	qmConfig.insert(QLatin1String("users"),QString::number(iMaxUsers));
 	qmConfig.insert(QLatin1String("defaultchannel"),QString::number(iDefaultChan));
-	qmConfig.insert(QLatin1String("rememberchannel"),bRememberChan ? QLatin1String("true") : QLatin1String("false"));
+        qmConfig.insert(QLatin1String("rememberchannel"),bRememberChan ? QLatin1String("true") : QLatin1String("false"));
+        qmConfig.insert(QLatin1String("maskaddresses"),bMaskAddr ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("welcometext"),qsWelcomeText);
 	qmConfig.insert(QLatin1String("registername"),qsRegName);
 	qmConfig.insert(QLatin1String("registerpassword"),qsRegPassword);
