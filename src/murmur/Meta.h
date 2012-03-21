@@ -58,6 +58,7 @@ struct MetaParams {
 	int iMaxUsersPerChannel;
 	int iDefaultChan;
 	bool bRememberChan;
+        bool bMaskAddr;
 	int iMaxTextMessageLength;
 	int iMaxImageMessageLength;
 	bool bAllowHTML;

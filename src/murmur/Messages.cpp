@@ -1586,14 +1586,24 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 			msg.add_celt_versions(v);
 		msg.set_opus(pDstServerUser->bOpus);
 
-		msg.set_address(pDstServerUser->haAddress.toStdString());
+                if (meta->mp.bMaskAddr) {
+                    msg.set_address("::"); //set the address to localhost
+                } else {
+                    msg.set_address(pDstServerUser->haAddress.toStdString());
+                }
+
 	}
 
-	if (local)
-		msg.set_bandwidth(bwr.bandwidth());
+        if (local) {
+            msg.set_bandwidth(bwr.bandwidth());
+            msg.set_idlesecs(bwr.idleSeconds());
+        }
+
+        // if (local)
+        // 	msg.set_bandwidth(bwr.bandwidth());
 	msg.set_onlinesecs(bwr.onlineSeconds());
-	if (local)
-		msg.set_idlesecs(bwr.idleSeconds());
+        // if (local)
+       //      msg.set_idlesecs(bwr.idleSeconds());
 
 	sendMessage(uSource, msg);
 }
