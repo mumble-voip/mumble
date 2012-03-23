@@ -525,7 +525,7 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, b
 		bool ok = false;
 		QString x(url.host());
 		if (x.length() == 40) {
-			ClientUser *cu = ClientUser::getByHash(x);
+			ClientUser *cu = pmModel->getUser(x);
 			if (cu) {
 				cuContextUser = cu;
 				ok = true;
