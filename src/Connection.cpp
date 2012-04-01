@@ -51,7 +51,7 @@
 #endif
 
 #include "Connection.h"
-#include "Message.h"
+#include "MessageTypes.h"
 #include "Mumble.pb.h"
 
 

@@ -35,6 +35,7 @@
 #include "Global.h"
 #include "ServerHandler.h"
 #include "User.h"
+#include "ConversionHelpers.h"
 
 UserEdit::UserEdit(const MumbleProto::UserList &msg, QWidget *p) : QDialog(p) {
 	setupUi(this);

@@ -35,6 +35,7 @@
 #include "Database.h"
 #include "Global.h"
 #include "ServerHandler.h"
+#include "ConversionHelpers.h"
 
 Tokens::Tokens(QWidget *p) : QDialog(p) {
 	setupUi(this);

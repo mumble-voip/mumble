@@ -53,7 +53,7 @@
 #define SERVERSEND_EVENT 3501
 
 #include "Timer.h"
-#include "Message.h"
+#include "MessageHandler.h"
 #include "Mumble.pb.h"
 
 class Connection;
@@ -76,6 +76,9 @@ class ServerHandler : public QThread {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(ServerHandler)
+
+		MessageHandler mhMessageHandler;
+
 	protected:
 		QString qsHostName;
 		QString qsUserName;
@@ -93,7 +96,7 @@ class ServerHandler : public QThread {
 		QUdpSocket *qusUdp;
 		QMutex qmUdp;
 
-		void handleVoicePacket(unsigned int msgFlags, PacketDataStream &pds, MessageHandler::UDPMessageType type);
+		void handleVoicePacket(unsigned int msgFlags, PacketDataStream &pds, MessageTypes::UDPMessageType type);
 	public:
 		Timer tTimestamp;
 		QTimer *tConnectionTimeoutTimer;
@@ -121,7 +124,7 @@ class ServerHandler : public QThread {
 		void sendProtoMessage(const ::google::protobuf::Message &msg, unsigned int msgType);
 		void sendMessage(const char *data, int len, bool force = false);
 
-#define MUMBLE_MH_MSG(x) void sendMessage(const MumbleProto:: x &msg) { sendProtoMessage(msg, MessageHandler:: x); }
+#define MUMBLE_MH_MSG(x) void sendMessage(const MumbleProto:: x &msg) { sendProtoMessage(msg, MessageTypes:: x); }
 		MUMBLE_MH_ALL
 #undef MUMBLE_MH_MSG
 

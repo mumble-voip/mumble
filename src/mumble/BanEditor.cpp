@@ -36,6 +36,7 @@
 #include "Global.h"
 #include "Net.h"
 #include "ServerHandler.h"
+#include "ConversionHelpers.h"
 
 BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p) {
 	setupUi(this);

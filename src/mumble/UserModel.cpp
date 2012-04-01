@@ -40,11 +40,12 @@
 #include "LCD.h"
 #include "Log.h"
 #include "MainWindow.h"
-#include "Message.h"
+#include "MessageHandler.h"
 #include "Overlay.h"
 #include "ServerHandler.h"
 #include "Usage.h"
 #include "User.h"
+#include "ConversionHelpers.h"
 
 QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;
 QHash <ClientUser *, ModelItem *> ModelItem::c_qhUsers;

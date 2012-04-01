@@ -41,6 +41,7 @@
 #include "Log.h"
 #include "ServerHandler.h"
 #include "User.h"
+#include "ConversionHelpers.h"
 
 ACLGroup::ACLGroup(const QString &name) : Group(NULL, name) {
 	bInherited = false;

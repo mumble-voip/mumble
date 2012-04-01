@@ -33,7 +33,7 @@
 #include "Database.h"
 
 #include "Global.h"
-#include "Message.h"
+#include "MessageHandler.h"
 #include "Net.h"
 #include "Version.h"
 

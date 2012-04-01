@@ -35,7 +35,7 @@
 #include "User.h"
 #include "Channel.h"
 #include "Global.h"
-#include "Message.h"
+#include "MessageHandler.h"
 #include "Database.h"
 #include "NetworkConfig.h"
 #include "ServerHandler.h"

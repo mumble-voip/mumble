@@ -38,7 +38,7 @@
 #include "AudioOutputSpeech.h"
 #include "User.h"
 #include "Global.h"
-#include "Message.h"
+#include "MessageHandler.h"
 #include "Plugins.h"
 #include "PacketDataStream.h"
 #include "ServerHandler.h"
@@ -173,7 +173,7 @@ const float *AudioOutput::getSpeakerPos(unsigned int &speakers) {
 	return NULL;
 }
 
-void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket, unsigned int iSeq, MessageHandler::UDPMessageType type) {
+void AudioOutput::addFrameToBuffer(ClientUser *user, const QByteArray &qbaPacket, unsigned int iSeq, MessageTypes::UDPMessageType type) {
 	if (iChannels == 0)
 		return;
 	qrwlOutputs.lockForRead();

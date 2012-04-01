@@ -65,6 +65,7 @@
 #include "ViewCert.h"
 #include "VoiceRecorderDialog.h"
 #include "../SignalCurry.h"
+#include "ConversionHelpers.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -2621,36 +2622,7 @@ void MainWindow::customEvent(QEvent *evt) {
 		OpenURLEvent *oue=static_cast<OpenURLEvent *>(evt);
 		openUrl(oue->url);
 		return;
-	} else if (evt->type() != SERVERSEND_EVENT) {
-		return;
 	}
-
-	ServerHandlerMessageEvent *shme=static_cast<ServerHandlerMessageEvent *>(evt);
-
-#ifdef QT_NO_DEBUG
-#define MUMBLE_MH_MSG(x) case MessageHandler:: x : { \
-		MumbleProto:: x msg; \
-		if (msg.ParseFromArray(shme->qbaMsg.constData(), shme->qbaMsg.size())) \
-			msg##x(msg); \
-		break; \
-	}
-#else
-#define MUMBLE_MH_MSG(x) case MessageHandler:: x : { \
-		MumbleProto:: x msg; \
-		if (msg.ParseFromArray(shme->qbaMsg.constData(), shme->qbaMsg.size())) { \
-			printf("%s:\n", #x); \
-			msg.PrintDebugString(); \
-			msg##x(msg); \
-		} \
-		break; \
-	}
-#endif
-	switch (shme->uiType) {
-			MUMBLE_MH_ALL
-	}
-
-
-#undef MUMBLE_MH_MSG
 }
 
 

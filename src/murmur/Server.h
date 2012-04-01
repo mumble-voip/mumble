@@ -51,7 +51,7 @@
 #endif
 
 #include "ACL.h"
-#include "Message.h"
+#include "MessageTypes.h"
 #include "Mumble.pb.h"
 #include "Net.h"
 #include "Timer.h"
@@ -250,9 +250,9 @@ class Server : public QThread {
 		// sendAll sends a protobuf message to all users on the server whose version is either bigger than v or
 		// lower than ~v. If v == 0 the message is sent to everyone.
 #define MUMBLE_MH_MSG(x) \
-		void sendAll(const MumbleProto:: x &msg, unsigned int v = 0) { sendProtoAll(msg, MessageHandler:: x, v); } \
-		void sendExcept(ServerUser *u, const MumbleProto:: x &msg, unsigned int v = 0) { sendProtoExcept(u, msg, MessageHandler:: x, v); } \
-		void sendMessage(ServerUser *u, const MumbleProto:: x &msg) { sendProtoMessage(u, msg, MessageHandler:: x); }
+		void sendAll(const MumbleProto:: x &msg, unsigned int v = 0) { sendProtoAll(msg, MessageTypes:: x, v); } \
+		void sendExcept(ServerUser *u, const MumbleProto:: x &msg, unsigned int v = 0) { sendProtoExcept(u, msg, MessageTypes:: x, v); } \
+		void sendMessage(ServerUser *u, const MumbleProto:: x &msg) { sendProtoMessage(u, msg, MessageTypes:: x); }
 
 		MUMBLE_MH_ALL
 #undef MUMBLE_MH_MSG

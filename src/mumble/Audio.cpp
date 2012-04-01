@@ -130,7 +130,7 @@ void LoopUser::addFrame(const QByteArray &packet) {
 	if (qtLastFetch.elapsed() > 100) {
 		AudioOutputPtr ao = g.ao;
 		if (ao) {
-			MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((packet.at(0) >> 5) & 0x7);
+			MessageTypes::UDPMessageType msgType = static_cast<MessageTypes::UDPMessageType>((packet.at(0) >> 5) & 0x7);
 			ao->addFrameToBuffer(this, QByteArray(), 0, msgType);
 		}
 	}
@@ -166,7 +166,7 @@ void LoopUser::fetchFrames() {
 		qba.append(static_cast<char>(msgFlags));
 		qba.append(pds.dataBlock(pds.left()));
 
-		MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((msgFlags >> 5) & 0x7);
+		MessageTypes::UDPMessageType msgType = static_cast<MessageTypes::UDPMessageType>((msgFlags >> 5) & 0x7);
 
 		ao->addFrameToBuffer(this, qba, iSeq, msgType);
 		i = qmPackets.erase(i);
@@ -202,7 +202,7 @@ void RecordUser::addFrame(const QByteArray &packet) {
 	qba.append(static_cast<char>(msgFlags));
 	qba.append(pds.dataBlock(pds.left()));
 
-	MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((msgFlags >> 5) & 0x7);
+	MessageTypes::UDPMessageType msgType = static_cast<MessageTypes::UDPMessageType>((msgFlags >> 5) & 0x7);
 
 	ao->addFrameToBuffer(this, qba, iSeq, msgType);
 }

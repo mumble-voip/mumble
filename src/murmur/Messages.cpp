@@ -35,12 +35,12 @@
 #include "Channel.h"
 #include "ACL.h"
 #include "Group.h"
-#include "Message.h"
 #include "ServerDB.h"
 #include "Connection.h"
 #include "Server.h"
 #include "ServerUser.h"
 #include "Version.h"
+#include "ConversionHelpers.h"
 
 #define MSG_SETUP(st) \
 	if (uSource->sState != st) { \

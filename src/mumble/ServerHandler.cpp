@@ -39,12 +39,13 @@
 #include "Database.h"
 #include "Global.h"
 #include "MainWindow.h"
-#include "Message.h"
+#include "MessageHandler.h"
 #include "NetworkConfig.h"
 #include "OSInfo.h"
 #include "PacketDataStream.h"
 #include "SSL.h"
 #include "User.h"
+#include "ConversionHelpers.h"
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsigned int mtype, bool flush) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
 	qbaMsg = msg;
@@ -84,7 +85,10 @@ static HANDLE loadQoS() {
 }
 #endif
 
-ServerHandler::ServerHandler() {
+ServerHandler::ServerHandler()
+	: QThread()
+	, mhMessageHandler() {
+
 	cConnection.reset();
 	qusUdp = NULL;
 	bStrong = false;
@@ -179,20 +183,20 @@ void ServerHandler::udpReady() {
 
 		PacketDataStream pds(buffer + 1, buflen-5);
 
-		MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((buffer[0] >> 5) & 0x7);
+		MessageTypes::UDPMessageType msgType = static_cast<MessageTypes::UDPMessageType>((buffer[0] >> 5) & 0x7);
 		unsigned int msgFlags = buffer[0] & 0x1f;
 
 		switch (msgType) {
-			case MessageHandler::UDPPing: {
+			case MessageTypes::UDPPing: {
 					quint64 t;
 					pds >> t;
 					accUDP(static_cast<double>(tTimestamp.elapsed() - t) / 1000.0);
 				}
 				break;
-			case MessageHandler::UDPVoiceCELTAlpha:
-			case MessageHandler::UDPVoiceCELTBeta:
-			case MessageHandler::UDPVoiceSpeex:
-			case MessageHandler::UDPVoiceOpus:
+			case MessageTypes::UDPVoiceCELTAlpha:
+			case MessageTypes::UDPVoiceCELTBeta:
+			case MessageTypes::UDPVoiceSpeex:
+			case MessageTypes::UDPVoiceOpus:
 				handleVoicePacket(msgFlags, pds, msgType);
 				break;
 			default:
@@ -201,7 +205,7 @@ void ServerHandler::udpReady() {
 	}
 }
 
-void ServerHandler::handleVoicePacket(unsigned int msgFlags, PacketDataStream &pds, MessageHandler::UDPMessageType type) {
+void ServerHandler::handleVoicePacket(unsigned int msgFlags, PacketDataStream &pds, MessageTypes::UDPMessageType type) {
 	unsigned int uiSession;
 	pds >> uiSession;
 	ClientUser *p = ClientUser::get(uiSession);
@@ -232,11 +236,11 @@ void ServerHandler::sendMessage(const char *data, int len, bool force) {
 
 		qba.resize(len + 6);
 		unsigned char *uc = reinterpret_cast<unsigned char *>(qba.data());
-		* reinterpret_cast<quint16 *>(& uc[0]) = qToBigEndian(static_cast<quint16>(MessageHandler::UDPTunnel));
+		* reinterpret_cast<quint16 *>(& uc[0]) = qToBigEndian(static_cast<quint16>(MessageTypes::UDPTunnel));
 		* reinterpret_cast<quint32 *>(& uc[2]) = qToBigEndian(static_cast<quint32>(len));
 		memcpy(uc + 6, data, len);
 
-		QApplication::postEvent(this, new ServerHandlerMessageEvent(qba, MessageHandler::UDPTunnel, true));
+		QApplication::postEvent(this, new ServerHandlerMessageEvent(qba, MessageTypes::UDPTunnel, true));
 	} else {
 		cConnection->csCrypt.encrypt(reinterpret_cast<const unsigned char *>(data), crypto, len);
 		qusUdp->writeDatagram(reinterpret_cast<const char *>(crypto), len + 4, qhaRemote, usPort);
@@ -381,7 +385,7 @@ void ServerHandler::sendPing() {
 	if (qusUdp) {
 		unsigned char buffer[256];
 		PacketDataStream pds(buffer + 1, 255);
-		buffer[0] = MessageHandler::UDPPing << 5;
+		buffer[0] = MessageTypes::UDPPing << 5;
 		pds << t;
 		sendMessage(reinterpret_cast<const char *>(buffer), pds.size() + 1, true);
 	}
@@ -412,25 +416,25 @@ void ServerHandler::sendPing() {
 
 void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 	const char *ptr = qbaMsg.constData();
-	if (msgType == MessageHandler::UDPTunnel) {
+	if (msgType == MessageTypes::UDPTunnel) {
 		if (qbaMsg.length() < 1)
 			return;
 
-		MessageHandler::UDPMessageType umsgType = static_cast<MessageHandler::UDPMessageType>((ptr[0] >> 5) & 0x7);
+		MessageTypes::UDPMessageType umsgType = static_cast<MessageTypes::UDPMessageType>((ptr[0] >> 5) & 0x7);
 		unsigned int msgFlags = ptr[0] & 0x1f;
 		PacketDataStream pds(qbaMsg.constData() + 1, qbaMsg.size());
 
 		switch (umsgType) {
-			case MessageHandler::UDPVoiceCELTAlpha:
-			case MessageHandler::UDPVoiceCELTBeta:
-			case MessageHandler::UDPVoiceSpeex:
-			case MessageHandler::UDPVoiceOpus:
+			case MessageTypes::UDPVoiceCELTAlpha:
+			case MessageTypes::UDPVoiceCELTBeta:
+			case MessageTypes::UDPVoiceSpeex:
+			case MessageTypes::UDPVoiceOpus:
 				handleVoicePacket(msgFlags, pds, umsgType);
 				break;
 			default:
 				break;
 		}
-	} else if (msgType == MessageHandler::Ping) {
+	} else if (msgType == MessageTypes::Ping) {
 		MumbleProto::Ping msg;
 		if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) {
 			CryptState &cs = cConnection->csCrypt;
@@ -463,7 +467,7 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 		}
 	} else {
 		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qbaMsg, msgType, false);
-		QApplication::postEvent(g.mw, shme);
+		QApplication::postEvent(&mhMessageHandler, shme);
 	}
 }
 

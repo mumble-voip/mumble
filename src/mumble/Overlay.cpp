@@ -38,11 +38,12 @@
 #include "Global.h"
 #include "GlobalShortcut.h"
 #include "MainWindow.h"
-#include "Message.h"
+#include "MessageHandler.h"
 #include "OverlayText.h"
 #include "ServerHandler.h"
 #include "User.h"
 #include "WebFetch.h"
+#include "ConversionHelpers.h"
 
 OverlayAppInfo::OverlayAppInfo(QString name, QIcon icon) {
 	qsDisplayName = name;

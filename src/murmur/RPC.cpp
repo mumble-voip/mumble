@@ -37,6 +37,7 @@
 #include "ServerDB.h"
 #include "ServerUser.h"
 #include "Version.h"
+#include "ConversionHelpers.h"
 
 /*!
   \fn void Server::setTempGroups(int userid, Channel *cChannel, const QStringList &groups)

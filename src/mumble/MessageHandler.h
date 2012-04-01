@@ -1,5 +1,4 @@
 /* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -29,72 +28,44 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef AUDIOOUTPUTSPEECH_H_
-#define AUDIOOUTPUTSPEECH_H_
+#ifndef MESSAGES_HANDLER_H_
+#define MESSAGES_HANDLER_H_
 
-#include <stdint.h>
-#include <speex/speex.h>
-#include <speex/speex_resampler.h>
-#include <speex/speex_jitter.h>
-#include <celt.h>
+#include <string>
+#include <QtCore/QCryptographicHash>
+#include <QtCore/QString>
+#include <QtCore/QObject>
+#include "Mumble.pb.h"
+#include "MainWindow.h"
+#include "MessageTypes.h"
 
-#include <QtCore/QMutex>
-
-#include "AudioOutputUser.h"
-#include "MessageHandler.h"
-
-class CELTCodec;
-class ClientUser;
-struct OpusDecoder;
-
-class AudioOutputSpeech : public AudioOutputUser {
+/**
+ * Handles message dispatching to callback functions defined
+ * in this message handler.
+ *
+ * @warning While this class definition is shared between client
+ *			and server the implementation isn't. Make sure to not
+ *			confuse the corresponding implementations in the
+ *			mumble/ or murmur/ folders.
+ */
+class MessageHandler : public QObject {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(AudioOutputSpeech)
-	protected:
-		unsigned int iAudioBufferSize;
-		unsigned int iBufferOffset;
-		unsigned int iBufferFilled;
-		unsigned int iOutputSize;
-		unsigned int iLastConsume;
-		unsigned int iFrameSize;
-		unsigned int iSampleRate;
-		unsigned int iMixerFreq;
-		bool bLastAlive;
-		bool bHasTerminator;
-		bool bStereo;
+		Q_DISABLE_COPY(MessageHandler)
 
-		float *fFadeIn;
-		float *fFadeOut;
-		float *fResamplerBuffer;
-
-		SpeexResamplerState *srs;
-
-		QMutex qmJitter;
-		JitterBuffer *jbJitter;
-		int iMissCount;
-
-		CELTCodec *cCodec;
-		CELTDecoder *cdDecoder;
-
-		OpusDecoder *opusState;
-
-		SpeexBits sbBits;
-		void *dsSpeex;
-
-		QList<QByteArray> qlFrames;
-
-		unsigned char ucFlags;
 	public:
-		MessageTypes::UDPMessageType umtType;
-		int iMissedFrames;
-		ClientUser *p;
+		MessageHandler(QObject *parent = 0);
 
-		virtual bool needSamples(unsigned int snum);
+	private:
+		/**
+		 * Dispatches incoming ServerHandlerMessageEvent's to the
+		 * corresponding handler function defined in this class.
+		 */
+		void customEvent(QEvent *);
 
-		void addFrameToBuffer(const QByteArray &, unsigned int iBaseSeq);
-		AudioOutputSpeech(ClientUser *, unsigned int freq, MessageTypes::UDPMessageType type);
-		~AudioOutputSpeech();
+#define MUMBLE_MH_MSG(x) void msg##x(const MumbleProto:: x &);
+		MUMBLE_MH_ALL
+#undef MUMBLE_MH_MSG
 };
 
-#endif  // AUDIOOUTPUTSPEECH_H_
+#endif

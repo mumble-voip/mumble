@@ -33,7 +33,7 @@
 
 #include <QtNetwork/QSslCertificate>
 
-#include "Message.h"
+#include "MessageHandler.h"
 
 #include "ui_UserInformation.h"
 

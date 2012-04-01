@@ -41,6 +41,7 @@
 #include "Server.h"
 #include "ServerUser.h"
 #include "User.h"
+#include "ConversionHelpers.h"
 
 #define SQLDO(x) ServerDB::exec(query, QLatin1String(x), true)
 #define SQLMAY(x) ServerDB::exec(query, QLatin1String(x), false, false)

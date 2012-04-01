@@ -38,6 +38,7 @@
 #include "Net.h"
 #include "ServerHandler.h"
 #include "ViewCert.h"
+#include "ConversionHelpers.h"
 
 static QString decode_utf8_qssl_string(const QString &input) {
 	QString i = input;

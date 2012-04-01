@@ -64,7 +64,7 @@
 #endif
 
 #include "Audio.h"
-#include "Message.h"
+#include "MessageHandler.h"
 
 class AudioOutput;
 class ClientUser;
@@ -121,7 +121,7 @@ class AudioOutput : public QThread {
 		AudioOutput();
 		~AudioOutput();
 
-		void addFrameToBuffer(ClientUser *, const QByteArray &, unsigned int iSeq, MessageHandler::UDPMessageType type);
+		void addFrameToBuffer(ClientUser *, const QByteArray &, unsigned int iSeq, MessageTypes::UDPMessageType type);
 		void removeBuffer(const ClientUser *);
 		AudioOutputSample *playSample(const QString &filename, bool loop = false);
 		void run() = 0;

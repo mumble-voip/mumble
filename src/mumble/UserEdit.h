@@ -31,7 +31,7 @@
 #ifndef USEREDIT_H_
 #define USEREDIT_H_
 
-#include "Message.h"
+#include "MessageHandler.h"
 
 #include "ui_UserEdit.h"
 

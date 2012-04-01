@@ -36,7 +36,7 @@
 #include "ClientUser.h"
 #include "Channel.h"
 #include "Global.h"
-#include "Message.h"
+#include "MessageHandler.h"
 #include "ServerHandler.h"
 
 QList<LCDEngineNew> *LCDEngineRegistrar::qlInitializers;

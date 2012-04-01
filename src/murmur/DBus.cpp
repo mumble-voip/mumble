@@ -33,7 +33,7 @@
 #include "DBus.h"
 
 #include "Connection.h"
-#include "Message.h"
+#include "MessageHandler.h"
 #include "Server.h"
 #include "ServerUser.h"
 #include "ServerDB.h"

@@ -35,10 +35,11 @@
 #include "Global.h"
 #include "Log.h"
 #include "MainWindow.h"
-#include "Message.h"
+#include "MessageHandler.h"
 #include "ServerHandler.h"
 #include "../../plugins/mumble_plugin.h"
 #include "WebFetch.h"
+#include "ConversionHelpers.h"
 
 static ConfigWidget *PluginConfigDialogNew(Settings &st) {
 	return new PluginConfig(st);

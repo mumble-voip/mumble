@@ -44,6 +44,7 @@
 #include "ServerUser.h"
 #include "ServerDB.h"
 #include "User.h"
+#include "ConversionHelpers.h"
 
 using namespace std;
 using namespace Murmur;
