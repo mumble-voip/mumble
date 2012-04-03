@@ -165,6 +165,10 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	// current open document (i.e. you can copy the open document anywhere
 	// simply by dragging this icon).
 	qApp->setWindowIcon(qiIcon);
+	
+	// Set the icon on the MainWindow directly. This fixes the icon not
+	// being set on the MainWindow in certain environments (Ex: GTK+).
+	setWindowIcon(qiIcon);
 #endif
 
 #ifdef Q_OS_WIN
