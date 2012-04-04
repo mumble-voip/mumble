@@ -37,6 +37,8 @@
 #include "Mumble.pb.h"
 #include "MessageTypes.h"
 
+class ServerHandler;
+
 /**
  * Handles message dispatching to callback functions defined
  * in this message handler.
@@ -51,8 +53,10 @@ class MessageHandler : public QObject {
 		Q_OBJECT
 		Q_DISABLE_COPY(MessageHandler)
 
+		ServerHandler *pshServerHandler;
+
 	public:
-		MessageHandler(QObject *parent = 0);
+		MessageHandler(ServerHandler *serverHandler, QObject *parent = 0);
 
 	private:
 		/**

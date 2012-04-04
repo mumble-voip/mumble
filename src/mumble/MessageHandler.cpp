@@ -35,8 +35,31 @@
 #include "MessageHandler.h"
 #include "ServerHandler.h"
 #include "Global.h"
+#include "ClientUser.h"
+#include "Log.h"
+#include "ConversionHelpers.h"
+#include "Connection.h"
 
-MessageHandler::MessageHandler(QObject *parent) : QObject(parent) {}
+#define ACTOR_INIT \
+	ClientUser *pSrc=NULL; \
+	if (msg.has_actor()) \
+		pSrc = ClientUser::get(msg.actor()); \
+	Q_UNUSED(pSrc);
+
+#define VICTIM_INIT \
+	ClientUser *pDst=ClientUser::get(msg.session()); \
+	 if (! pDst) { \
+		qWarning("MainWindow: Message for nonexistant victim %d.", msg.session()); \
+		return; \
+	}
+
+#define SELF_INIT \
+	ClientUser *pSelf = ClientUser::get(g.uiSession);
+
+
+MessageHandler::MessageHandler(ServerHandler *serverHandler, QObject *parent)
+	: QObject(parent)
+	, pshServerHandler(serverHandler) {}
 
 void MessageHandler::customEvent(QEvent *evt) {
 	if (evt->type() != SERVERSEND_EVENT) {
@@ -117,7 +140,24 @@ void MessageHandler::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 }
 
 void MessageHandler::msgTextMessage(const MumbleProto::TextMessage &msg) {
-	g.mw->msgTextMessage(msg);
+	ACTOR_INIT;
+	QString target;
+
+	// Silently drop the message if this user is set to "ignore"
+	if (pSrc && pSrc->bLocalIgnore)
+		return;
+
+	const QString &plainName = pSrc ? pSrc->qsName : tr("Server", "message from");
+	const QString &name = pSrc ? Log::formatClientUser(pSrc, Log::Source) : tr("Server", "message from");
+
+	if (msg.tree_id_size() > 0) {
+		target += tr("(Tree) ");
+	} else if (msg.channel_id_size() > 0) {
+		target += tr("(Channel) ");
+	}
+
+	g.l->log(Log::TextMessage, tr("%2%1: %3").arg(name).arg(target).arg(u8(msg.message())),
+			 tr("Message from %1").arg(plainName));
 }
 
 void MessageHandler::msgACL(const MumbleProto::ACL &msg) {
@@ -133,7 +173,27 @@ void MessageHandler::msgPing(const MumbleProto::Ping &) {
 }
 
 void MessageHandler::msgCryptSetup(const MumbleProto::CryptSetup &msg) {
-	g.mw->msgCryptSetup(msg);
+	ConnectionPtr c = pshServerHandler->cConnection;
+	if (! c)
+		return;
+
+	if (msg.has_key() && msg.has_client_nonce() && msg.has_server_nonce()) {
+		const std::string &key = msg.key();
+		const std::string &client_nonce = msg.client_nonce();
+		const std::string &server_nonce = msg.server_nonce();
+		if (key.size() == AES_BLOCK_SIZE && client_nonce.size() == AES_BLOCK_SIZE && server_nonce.size() == AES_BLOCK_SIZE)
+			c->csCrypt.setKey(reinterpret_cast<const unsigned char *>(key.data()), reinterpret_cast<const unsigned char *>(client_nonce.data()), reinterpret_cast<const unsigned char *>(server_nonce.data()));
+	} else if (msg.has_server_nonce()) {
+		const std::string &server_nonce = msg.server_nonce();
+		if (server_nonce.size() == AES_BLOCK_SIZE) {
+			c->csCrypt.uiResync++;
+			memcpy(c->csCrypt.decrypt_iv, server_nonce.data(), AES_BLOCK_SIZE);
+		}
+	} else {
+		MumbleProto::CryptSetup mpcs;
+		mpcs.set_client_nonce(std::string(reinterpret_cast<const char *>(c->csCrypt.encrypt_iv), AES_BLOCK_SIZE));
+		g.sh->sendMessage(mpcs);
+	}
 }
 
 void MessageHandler::msgContextAction(const MumbleProto::ContextAction &) {
@@ -173,5 +233,19 @@ void MessageHandler::msgRequestBlob(const MumbleProto::RequestBlob &) {
 }
 
 void MessageHandler::msgSuggestConfig(const MumbleProto::SuggestConfig &msg) {
-	g.mw->msgSuggestConfig(msg);
+	if (msg.has_version() && (msg.version() > MumbleVersion::getRaw())) {
+		g.l->log(Log::Warning, tr("The server requests minimum client version %1").arg(MumbleVersion::toString(msg.version())));
+	}
+	if (msg.has_positional() && (msg.positional() != g.s.doPositionalAudio())) {
+		if (msg.positional())
+			g.l->log(Log::Warning, tr("The server requests positional audio be enabled."));
+		else
+			g.l->log(Log::Warning, tr("The server requests positional audio be disabled."));
+	}
+	if (msg.has_push_to_talk() && (msg.push_to_talk() != (g.s.atTransmit == Settings::PushToTalk))) {
+		if (msg.push_to_talk())
+			g.l->log(Log::Warning, tr("The server requests Push-to-Talk be enabled."));
+		else
+			g.l->log(Log::Warning, tr("The server requests Push-to-Talk be disabled."));
+	}
 }

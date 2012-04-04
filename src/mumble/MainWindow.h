@@ -260,18 +260,14 @@ class MainWindow : public QMainWindow, public Ui::MainWindow {
 		void msgUserRemove(const MumbleProto::UserRemove &msg);
 		void msgChannelState(const MumbleProto::ChannelState &msg);
 		void msgChannelRemove(const MumbleProto::ChannelRemove &msg);
-		void msgTextMessage(const MumbleProto::TextMessage &msg);
 		void msgACL(const MumbleProto::ACL &msg);
 		void msgQueryUsers(const MumbleProto::QueryUsers &msg);
-		void msgCryptSetup(const MumbleProto::CryptSetup &msg);
 		void msgContextActionModify(const MumbleProto::ContextActionModify &msg);
 		void msgVersion(const MumbleProto::Version &msg);
 		void msgUserList(const MumbleProto::UserList &msg);
 		void msgPermissionQuery(const MumbleProto::PermissionQuery &msg);
 		void msgCodecVersion(const MumbleProto::CodecVersion &msg);
 		void msgUserStats(const MumbleProto::UserStats &msg);
-		void msgSuggestConfig(const MumbleProto::SuggestConfig &msg);
-
 		void removeContextAction(const MumbleProto::ContextActionModify &msg);
 };
 

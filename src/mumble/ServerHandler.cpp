@@ -87,7 +87,7 @@ static HANDLE loadQoS() {
 
 ServerHandler::ServerHandler()
 	: QThread()
-	, mhMessageHandler() {
+	, mhMessageHandler(this) {
 
 	cConnection.reset();
 	qusUdp = NULL;
