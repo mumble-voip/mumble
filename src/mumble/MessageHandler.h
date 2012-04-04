@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -28,15 +28,13 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef MESSAGES_HANDLER_H_
-#define MESSAGES_HANDLER_H_
+#ifndef MESSAGE_HANDLER_H_
+#define MESSAGE_HANDLER_H_
 
-#include <string>
-#include <QtCore/QCryptographicHash>
-#include <QtCore/QString>
 #include <QtCore/QObject>
+#include <QtCore/QEvent>
+
 #include "Mumble.pb.h"
-#include "MainWindow.h"
 #include "MessageTypes.h"
 
 /**
@@ -68,4 +66,4 @@ class MessageHandler : public QObject {
 #undef MUMBLE_MH_MSG
 };
 
-#endif
+#endif // MESSAGE_HANDLER_H_

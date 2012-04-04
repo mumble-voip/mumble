@@ -31,6 +31,7 @@
 
 #include "mumble_pch.hpp"
 
+#include "MainWindow.h"
 #include "MessageHandler.h"
 #include "ServerHandler.h"
 #include "Global.h"

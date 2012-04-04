@@ -6,7 +6,7 @@ CONFIG		+= qt thread debug_and_release warn_on
 DEFINES		*= MUMBLE_VERSION_STRING=$$VERSION
 INCLUDEPATH	+= $$PWD .
 VPATH		+= $$PWD
-HEADERS		*= ACL.h Channel.h CryptState.h Connection.h Group.h User.h Net.h OSInfo.h Timer.h SSL.h Version.h
+HEADERS		*= ACL.h Channel.h ConversionHelpers.h CryptState.h Connection.h Group.h User.h MessageTypes.h Net.h OSInfo.h Timer.h SSL.h Version.h
 SOURCES 	*= ACL.cpp Group.cpp Channel.cpp Connection.cpp User.cpp Timer.cpp CryptState.cpp OSInfo.cpp Net.cpp SSL.cpp Version.cpp
 PROTOBUF	*= ../Mumble.proto
 
