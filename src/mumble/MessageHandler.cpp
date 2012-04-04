@@ -69,7 +69,7 @@ void MessageHandler::customEvent(QEvent *evt) {
 	ServerHandlerMessageEvent *shme=static_cast<ServerHandlerMessageEvent *>(evt);
 
 #ifdef QT_NO_DEBUG
-#define MUMBLE_MH_MSG(x) case MessageHandler:: x : { \
+#define MUMBLE_MH_MSG(x) case MessageTypes:: x : { \
 		MumbleProto:: x msg; \
 		if (msg.ParseFromArray(shme->qbaMsg.constData(), shme->qbaMsg.size())) \
 			msg##x(msg); \
