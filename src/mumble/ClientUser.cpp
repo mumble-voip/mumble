@@ -310,10 +310,3 @@ void Channel::addClientUser(ClientUser *p) {
 	addUser(p);
 	p->setParent(this);
 }
-
-QDataStream &operator<<(QDataStream &qds, const ClientUser::JitterRecord &jr) {
-	qds << static_cast<qint8>(qBound(-128, jr.iSequence, 127));
-	qds << static_cast<qint8>(qBound(-128, jr.iFrames, 127));
-	qds << static_cast<quint32>(qMin(4294967295ULL, jr.uiElapsed));
-	return qds;
-}

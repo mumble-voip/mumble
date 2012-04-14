@@ -47,7 +47,6 @@ class Usage : public QObject {
 		void addJitter(ClientUser *cu);
 	public slots:
 		void registerUsage();
-		void reportJitter();
 };
 
 #endif
