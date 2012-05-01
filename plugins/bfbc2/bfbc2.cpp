@@ -1,5 +1,5 @@
-/* Copyright (C) 2010-2011, Snares <snares@users.sourceforge.net>
-   Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2010-2012, Snares <snares@users.sourceforge.net>
+   Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
