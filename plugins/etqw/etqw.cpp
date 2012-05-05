@@ -1,6 +1,6 @@
-/* Copyright (C) 2009-2011, Snares <snares@users.sourceforge.net>
-   Copyright (C) 2009-2011, Stefan Hacker <dD0t@users.sourceforge.net>
-   Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
+   Copyright (C) 2009-2012, Stefan Hacker <dD0t@users.sourceforge.net>
+   Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 

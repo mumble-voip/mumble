@@ -33,6 +33,7 @@
 #include "Overlay.h"
 
 #import <AppKit/AppKit.h>
+#import <Carbon/Carbon.h>
 
 #define MOD_OFFSET   0x10000
 #define MOUSE_OFFSET 0x20000
@@ -49,6 +50,8 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 	bool forward = false;
 	bool down = false;
 	int64_t repeat = 0;
+
+	Q_UNUSED(proxy);
 
 	switch (type) {
 		case kCGEventLeftMouseDown:
@@ -97,10 +100,18 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			forward = true;
 			break;
 
-		case kCGEventFlagsChanged:
-			suppress = gs->handleModButton(CGEventGetFlags(event));
+		case kCGEventFlagsChanged: {
+			CGEventFlags f = CGEventGetFlags(event);
+
+			// Dump active event taps on Ctrl+Alt+Cmd.
+			CGEventFlags ctrlAltCmd = kCGEventFlagMaskControl|kCGEventFlagMaskAlternate|kCGEventFlagMaskCommand;
+			if ((f & ctrlAltCmd) == ctrlAltCmd)
+				gs->dumpEventTaps();
+
+			suppress = gs->handleModButton(f);
 			forward = !suppress;
 			break;
+		}
 
 		case kCGEventTapDisabledByTimeout:
 			qWarning("GlobalShortcutMac: EventTap disabled by timeout. Re-enabling.");
@@ -114,8 +125,8 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			 */
 			CGEventTapEnable(gs->port, true);
 			break;
+
 		case kCGEventTapDisabledByUserInput:
-			qWarning("GlobalShortcutMac: EventTap disabled by user input.");
 			break;
 
 		default:
@@ -154,8 +165,10 @@ GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
 	                     CGEventMaskBit(kCGEventOtherMouseDragged) |
 	                     CGEventMaskBit(kCGEventScrollWheel);
 	port = CGEventTapCreate(kCGSessionEventTap,
-	                        kCGHeadInsertEventTap,
-	                        0, evmask, GlobalShortcutMac::callback,
+	                        kCGTailAppendEventTap,
+	                        kCGEventTapOptionDefault, // active filter (not only a listener)
+	                        evmask,
+	                        GlobalShortcutMac::callback,
 	                        this);
 
 	if (! port) {
@@ -197,6 +210,43 @@ GlobalShortcutMac::~GlobalShortcutMac() {
 	CFRunLoopStop(loop);
 	loop = NULL;
 	wait();
+}
+
+void GlobalShortcutMac::dumpEventTaps() {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	CGTableCount ntaps = 0;
+	CGEventTapInformation table[64];
+	if (CGGetEventTapList(20, table, &ntaps) == kCGErrorSuccess) {
+		qWarning("--- Installed Event Taps ---");
+		for (CGTableCount i = 0; i < ntaps; i++) {
+			CGEventTapInformation *info = &table[i];
+
+			ProcessSerialNumber psn;
+			NSString *processName;
+			OSStatus err = GetProcessForPID(info->tappingProcess, &psn);
+			if (err == noErr) {
+				CFStringRef str = NULL;
+				CopyProcessName(&psn, &str);
+				processName = (NSString *) str;
+				[processName autorelease];
+			}
+
+			qWarning("{");
+			qWarning("  eventTapID: %u", info->eventTapID);
+			qWarning("  tapPoint: 0x%x", info->tapPoint);
+			qWarning("  options = 0x%x", info->options);
+			qWarning("  eventsOfInterest = 0x%llx", info->eventsOfInterest);
+			qWarning("  tappingProcess = %i (%s)", info->tappingProcess, [processName UTF8String]);
+			qWarning("  processBeingTapped = %i", info->processBeingTapped);
+			qWarning("  enabled = %s", info->enabled ? "true":"false");
+			qWarning("  minUsecLatency = %.2f", info->minUsecLatency);
+			qWarning("  avgUsecLatency = %.2f", info->avgUsecLatency);
+			qWarning("  maxUsecLatency = %.2f", info->maxUsecLatency);
+			qWarning("}");
+		}
+		qWarning("--- End of Event Taps ---");
+	}
+	[pool release];
 }
 
 void GlobalShortcutMac::forwardEvent(void *evt) {
@@ -316,6 +366,8 @@ bool GlobalShortcutMac::handleModButton(const CGEventFlags newmask) {
 	MOD_CHANGED(kCGEventFlagMaskHelp, 5);
 	MOD_CHANGED(kCGEventFlagMaskSecondaryFn, 6);
 	MOD_CHANGED(kCGEventFlagMaskNumericPad, 7);
+
+	return false;
 }
 
 QString GlobalShortcutMac::translateMouseButton(const unsigned int keycode) const {
@@ -410,6 +462,18 @@ QString GlobalShortcutMac::buttonName(const QVariant &v) {
 	return QString::fromLatin1("Keycode %1").arg(key);
 }
 
+void GlobalShortcutMac::setEnabled(bool b) {
+	CGEventTapEnable(port, b);
+}
+
+bool GlobalShortcutMac::enabled() {
+	return CGEventTapIsEnabled(port);
+}
+
 bool GlobalShortcutMac::canSuppress() {
+	return true;
+}
+
+bool GlobalShortcutMac::canDisable() {
 	return true;
 }

@@ -105,14 +105,16 @@ Global::Global() {
 	qsl << QCoreApplication::instance()->applicationDirPath();
 	qsl << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 #if defined(Q_OS_WIN)
-	QSettings settings(QSettings::UserScope, QLatin1String("Microsoft"), QLatin1String("Windows"));
-	settings.beginGroup(QLatin1String("CurrentVersion/Explorer/Shell Folders"));
-	QString appdata = QDir::fromNativeSeparators(settings.value(QLatin1String("AppData")).toString());
-	if (! appdata.isEmpty()) {
-		appdata.append(QLatin1String("/Mumble"));
-		qsl << appdata;
+	QString appdata;
+	wchar_t appData[MAX_PATH];
+	if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, SHGFP_TYPE_CURRENT, appData))) {
+		appdata = QDir::fromNativeSeparators(QString::fromWCharArray(appData));
+
+		if (!appdata.isEmpty()) {
+			appdata.append(QLatin1String("/Mumble"));
+			qsl << appdata;
+		}
 	}
-	settings.endGroup();
 #endif
 
 	foreach(const QString &dir, qsl) {

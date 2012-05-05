@@ -1,5 +1,5 @@
 /* Copyright (C) 2011, Mark-Willem Jansen <rawnar@users.sourceforge.net>
-   Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 

@@ -1,5 +1,5 @@
-/* Copyright (C) 2009-2011, Snares <snares@users.sourceforge.net>
-   Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
+   Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -43,6 +43,8 @@ BYTE *hostptr;
 	host string: 		engine.dll+0x3D3E94  (ip:port zero-terminated string; localhost:27015 if create a server ingame)
 	ID string:			engine.dll+0x54E668 = "DemomanTaunts" (13 characters, text)
 	note that memory addresses in this comment are for example only; the real ones are defined below
+
+	note: the spec_pos console command is rather useful
 */
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -132,13 +134,13 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 
 	// Remember addresses for later
-	posrotptr = pModule + 0x779724;
-	stateptr = pModule + 0x6F3C54;
-	hostptr = mod_engine + 0x3DEBA4;
+	posrotptr = pModule + 0x8D8694;
+	stateptr = pModule + 0x849284;
+	hostptr = mod_engine + 0x3EA20C;
 
 	// Gamecheck
 	char sMagic[13];
-	if (!peekProc(mod_engine + 0x5593F8, sMagic) || strncmp("DemomanTaunts", sMagic, sizeof(sMagic))!=0)
+	if (!peekProc(mod_engine + 0x564C78, sMagic) || strncmp("DemomanTaunts", sMagic, sizeof(sMagic))!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
@@ -156,10 +158,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports TF2 build 4539. No identity support yet.");
+	return std::wstring(L"Supports TF2 build 4785. No identity support yet.");
 }
 
-static std::wstring description(L"Team Fortress 2 (Build 4539)");
+static std::wstring description(L"Team Fortress 2 (Build 4785)");
 static std::wstring shortname(L"Team Fortress 2");
 
 static int trylock1() {

@@ -1,5 +1,5 @@
 /* Copyright (C) 2009-2010, deKarl <dekarl@users.sourceforge.net>
-   Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -44,11 +44,15 @@ uint64_t g_playerGUID;
 /*
  * To update visit http://www.ownedcore.com/forums/world-of-warcraft/world-of-warcraft-bots-programs/wow-memory-editing
  * and look for a thread called [WoW][TheVersion] Info Dump Thread.
+ *
+ * Where possible, I have included in the comments the different names some posters
+ * call each value, to ease in upgrading. "[_]" means the value name may or may not
+ * have an underscore in it depending on who's posting the offset.
  */
-static uint32_t ptr_ClientConnection=0x00980558;
-static size_t off_ObjectManager=0x463C;
-static uint32_t ptr_WorldFrame=0x00A99220;
-static size_t off_CameraOffset=0x7F50;
+static uint32_t ptr_ClientConnection=0x009BE678; // ClientConnection or CurMgrPointer
+static size_t off_ObjectManager=0x463C; // objectManager or CurMgrOffset
+static uint32_t ptr_WorldFrame=0x00AD7870; // Camera[_]Pointer
+static size_t off_CameraOffset=0x80D0; // Camera[_]Offset
 
 uint32_t getInt32(uint32_t ptr) {
 	uint32_t result;
@@ -167,12 +171,12 @@ uint32_t getPlayerBase() {
 	gClientConnection=getInt32((uint32_t)pModule + ptr_ClientConnection);
 	sCurMgr=getInt32(gClientConnection + off_ObjectManager);
 	if (sCurMgr != 0) {
-		playerGUID=getInt64(sCurMgr+0xB8);
+		playerGUID=getInt64(sCurMgr+0xC8); // localGUID
 		if (playerGUID != 0) {
 			g_playerGUID = playerGUID;
-			curObj=getInt32(sCurMgr+0xB4);
+			curObj=getInt32(sCurMgr+0xC0); // firstObject
 			while (curObj != 0) {
-				nextObj=getInt32(curObj + 0x3C);
+				nextObj=getInt32(curObj + 0x3C); // nextObject
 				GUID=getInt64(curObj + 0x30);
 				if (playerGUID == GUID) {
 					playerBase = curObj;
@@ -189,7 +193,7 @@ uint32_t getPlayerBase() {
 	return playerBase;
 }
 
-static const unsigned long nameStorePtr        = 0x00959EE0 + 0x8;  // Player name database
+static const unsigned long nameStorePtr        = 0x009BE6B8 + 0x8;  // Player name database
 static const unsigned long nameMaskOffset      = 0x024;  // Offset for the mask used with GUID to select a linked list
 static const unsigned long nameBaseOffset      = 0x01c;  // Offset for the start of the name linked list
 static const unsigned long nameStringOffset    = 0x020;  // Offset to the C string in a name structure
@@ -410,10 +414,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports World of Warcraft 4.2.2 (14545), with identity support.");
+	return std::wstring(L"Supports World of Warcraft 4.2.2 (15050), with identity support.");
 }
 
-static std::wstring description(L"World of Warcraft 4.2.2 (14545)");
+static std::wstring description(L"World of Warcraft 4.2.2 (15050)");
 
 static std::wstring shortname(L"World of Warcraft");
 

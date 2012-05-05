@@ -20,6 +20,9 @@
       <Component Id="bf2142.dll">
         <File Source="$(var.SourceDir)\release\plugins\bf2142.dll" KeyPath="yes" />
       </Component>
+      <Component Id="bf3.dll">
+        <File Source="$(var.SourceDir)\release\plugins\bf3.dll" KeyPath="yes" />
+      </Component>
       <Component Id="bfbc2.dll">
         <File Source="$(var.SourceDir)\release\plugins\bfbc2.dll" KeyPath="yes" />
       </Component>
@@ -31,6 +34,9 @@
       </Component>
       <Component Id="borderlands.dll">
         <File Source="$(var.SourceDir)\release\plugins\borderlands.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="breach.dll">
+        <File Source="$(var.SourceDir)\release\plugins\breach.dll" KeyPath="yes" />
       </Component>
       <Component Id="cod2.dll">
         <File Source="$(var.SourceDir)\release\plugins\cod2.dll" KeyPath="yes" />
@@ -112,10 +118,12 @@
       <ComponentRef Id="bf1942.dll" />
       <ComponentRef Id="bf2.dll" />
       <ComponentRef Id="bf2142.dll" />
+      <ComponentRef Id="bf3.dll" />
       <ComponentRef Id="bfbc2.dll" />
       <ComponentRef Id="bfheroes.dll" />
       <ComponentRef Id="bf3.dll" />
       <ComponentRef Id="borderlands.dll" />
+      <ComponentRef Id="breach.dll" />
       <ComponentRef Id="cod2.dll" />
       <ComponentRef Id="cod4.dll" />
       <ComponentRef Id="cod5.dll" />

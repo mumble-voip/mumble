@@ -165,6 +165,10 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	// current open document (i.e. you can copy the open document anywhere
 	// simply by dragging this icon).
 	qApp->setWindowIcon(qiIcon);
+	
+	// Set the icon on the MainWindow directly. This fixes the icon not
+	// being set on the MainWindow in certain environments (Ex: GTK+).
+	setWindowIcon(qiIcon);
 #endif
 
 #ifdef Q_OS_WIN
@@ -521,7 +525,7 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, b
 		bool ok = false;
 		QString x(url.host());
 		if (x.length() == 40) {
-			ClientUser *cu = ClientUser::getByHash(x);
+			ClientUser *cu = pmModel->getUser(x);
 			if (cu) {
 				cuContextUser = cu;
 				ok = true;
@@ -2003,11 +2007,6 @@ void MainWindow::on_qaHelpWhatsThis_triggered() {
 
 void MainWindow::on_qaHelpAbout_triggered() {
 	AboutDialog adAbout(this);
-	adAbout.exec();
-}
-
-void MainWindow::on_qaHelpAboutSpeex_triggered() {
-	AboutSpeexDialog adAbout(this);
 	adAbout.exec();
 }
 

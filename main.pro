@@ -27,6 +27,8 @@ CONFIG *= ordered debug_and_release
 
   win32 {
     SUBDIRS *= overlay
+    !CONFIG(no-g15) {
+      SUBDIRS *= g15helper
     exists(effects11/effects11.cpp) {
       SUBDIRS *= effects11
     }

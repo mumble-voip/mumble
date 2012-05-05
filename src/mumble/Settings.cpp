@@ -376,6 +376,8 @@ Settings::Settings() {
 
 	iMaxLogBlocks = 0;
 
+	bShortcutEnable = true;
+
 	for (int i=Log::firstMsgType; i<=Log::lastMsgType; ++i)
 		qmMessages.insert(i, Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS);
 
@@ -629,7 +631,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(qsLastServer, "ui/server");
 	LOADENUM(ssFilter, "ui/serverfilter");
 #ifndef NO_UPDATE_CHECK
-	SAVELOAD(bPluginOverlayCheck, "ui/updatecheck");
+	SAVELOAD(bUpdateCheck, "ui/updatecheck");
 	SAVELOAD(bPluginOverlayCheck, "ui/plugincheck");
 #endif
 	SAVELOAD(bHideInTray, "ui/hidetray");
@@ -660,6 +662,8 @@ void Settings::load(QSettings* settings_ptr) {
 	QByteArray qba = qvariant_cast<QByteArray> (settings_ptr->value(QLatin1String("net/certificate")));
 	if (! qba.isEmpty())
 		kpCertificate = CertWizard::importCert(qba);
+
+	SAVELOAD(bShortcutEnable, "shortcut/enable");
 
 	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
 	for (int i=0; i<nshorts; i++) {
@@ -930,6 +934,8 @@ void Settings::save() {
 
 	QByteArray qba = CertWizard::exportCert(kpCertificate);
 	settings_ptr->setValue(QLatin1String("net/certificate"), qba);
+
+	SAVELOAD(bShortcutEnable, "shortcut/enable");
 
 	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;

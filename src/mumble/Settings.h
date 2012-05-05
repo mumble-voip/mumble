@@ -222,6 +222,7 @@ struct Settings {
 	int iLCDUserViewSplitterWidth;
 	QMap<QString, bool> qmLCDDevices;
 
+	bool bShortcutEnable;
 	QList<Shortcut> qlShortcuts;
 
 	enum MessageLog { LogNone = 0x00, LogConsole = 0x01, LogTTS = 0x02, LogBalloon = 0x04, LogSoundfile = 0x08};

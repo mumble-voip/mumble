@@ -320,3 +320,29 @@ void UnixMurmur::finalcap() {
 	cap_free(c);
 #endif
 }
+
+const QString UnixMurmur::trySystemIniFiles(const QString& fname) {
+	QString file = fname;
+	if (!file.isEmpty())
+		return file;
+#if defined(Q_OS_LINUX)
+	if (!bRoot)
+		return file;
+
+	QStringList inipaths;
+
+	inipaths << QLatin1String("/usr/local/etc/mumble-server.ini");
+	inipaths << QLatin1String("/usr/local/etc/murmur.ini");
+	inipaths << QLatin1String("/etc/mumble-server.ini");
+	inipaths << QLatin1String("/etc/murmur.ini");
+
+	foreach(const QString &f, inipaths) {
+		QFileInfo fi(f);
+		if (fi.exists() && fi.isReadable()) {
+			file = fi.absoluteFilePath();
+			break;
+		}
+	}
+#endif
+	return file;
+}

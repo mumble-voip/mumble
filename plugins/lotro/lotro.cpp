@@ -61,16 +61,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		nPtr = pointer to character name (unique on a server)
 	*/
 
-	ok = peekProc((BYTE *) 0x012026DC, o, 12) &&
-	     peekProc((BYTE *) 0x012026D4, l, 2) &&
-	     peekProc((BYTE *) 0x012026D0, &r, 1) &&
-	     peekProc((BYTE *) 0x012026D8, &i, 1) &&
-	     peekProc((BYTE *)(pModule + 0x00EEB600), &hPtr, 4);
+	ok = peekProc((BYTE *) 0x01272D34, o, 12) &&
+	     peekProc((BYTE *) 0x01272D2C, l, 2) &&
+	     peekProc((BYTE *) 0x01272D28, &r, 1) &&
+	     peekProc((BYTE *) 0x01272D20, &i, 1) &&
+	     peekProc((BYTE *)(pModule + 0x00A138A4), &hPtr, 4);
 
 	if (! ok)
 		return false;
 
-	ok = peekProc((BYTE *)(hPtr  + 0x00000060), &h, 4);
+	ok = peekProc((BYTE *)(hPtr  + 0x0000046F), &h, 4);
 
 	if (! ok)
 		return false;
@@ -138,10 +138,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Lord of the Rings Online (Rise of Isengard, Vol III Book 4, v3.4.3.8026). Context support based on region and instance. No Identity support.");
+	return std::wstring(L"Supports Lord of the Rings Online (Rise of Isengard, Update 6, v3.6.0.8025). Context support based on region and instance. No Identity support.");
 }
 
-static std::wstring description(L"Lord of the Rings Online - Rise of Isengard - Vol III Book 4");
+static std::wstring description(L"Lord of the Rings Online - Rise of Isengard - Update 6");
 static std::wstring shortname(L"Lord of the Rings Online");
 
 static int trylock1() {

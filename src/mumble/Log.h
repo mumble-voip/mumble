@@ -32,6 +32,7 @@
 #ifndef LOG_H_
 #define LOG_H_
 
+#include <QtCore/QDate>
 #include <QtGui/QTextCursor>
 #include <QtGui/QTextDocument>
 

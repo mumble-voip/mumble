@@ -1,4 +1,4 @@
-/* Copyright (C) 2009-2011, Stefan Hacker <dD0t@users.sourceforge.net>
+/* Copyright (C) 2009-2012, Stefan Hacker <dD0t@users.sourceforge.net>
 
    All rights reserved.
 

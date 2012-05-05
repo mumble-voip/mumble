@@ -372,7 +372,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		mpss.set_permissions(ChanACL::All);
 	} else {
 		QMutexLocker qml(&qmCache);
-		ChanACL::hasPermission(uSource, root, ChanACL::Enter, acCache);
+		ChanACL::hasPermission(uSource, root, ChanACL::Enter, &acCache);
 		mpss.set_permissions(acCache.value(uSource)->value(root));
 	}
 
@@ -1081,7 +1081,7 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		if (! c)
 			return;
 
-		if (! ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, acCache)) {
+		if (! ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, &acCache)) {
 			PERM_DENIED(uSource, c, ChanACL::TextMessage);
 			return;
 		}
@@ -1099,7 +1099,7 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		if (! c)
 			return;
 
-		if (! ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, acCache)) {
+		if (! ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, &acCache)) {
 			PERM_DENIED(uSource, c, ChanACL::TextMessage);
 			return;
 		}
@@ -1111,7 +1111,7 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 
 	while (! q.isEmpty()) {
 		Channel *c = q.dequeue();
-		if (ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, acCache)) {
+		if (ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, &acCache)) {
 			foreach(Channel *sub, c->qlChannels)
 				q.enqueue(sub);
 			foreach(User *p, c->qlUsers)
@@ -1123,7 +1123,7 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		unsigned int session = msg.session(i);
 		ServerUser *u = qhUsers.value(session);
 		if (u) {
-			if (! ChanACL::hasPermission(uSource, u->cChannel, ChanACL::TextMessage, acCache)) {
+			if (! ChanACL::hasPermission(uSource, u->cChannel, ChanACL::TextMessage, &acCache)) {
 				PERM_DENIED(uSource, u->cChannel, ChanACL::TextMessage);
 				return;
 			}

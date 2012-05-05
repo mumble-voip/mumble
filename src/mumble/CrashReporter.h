@@ -31,6 +31,14 @@
 #ifndef CRASHREPORTER_H_
 #define CRASHREPORTER_H_
 
+#include <QtCore/QObject>
+#include <QtCore/QEventLoop>
+#include <QtNetwork/QNetworkReply>
+#include <QtGui/QDialog>
+#include <QtGui/QProgressDialog>
+#include <QtGui/QLineEdit>
+#include <QtGui/QTextEdit>
+
 class CrashReporter : QDialog {
 		Q_OBJECT
 		Q_DISABLE_COPY(CrashReporter)

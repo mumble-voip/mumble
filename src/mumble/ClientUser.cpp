@@ -60,18 +60,6 @@ ClientUser *ClientUser::get(unsigned int uiSession) {
 	return p;
 }
 
-ClientUser *ClientUser::getByHash(const QString &hash) {
-	QReadLocker lock(&c_qrwlUsers);
-
-	ClientUser *cu;
-	foreach(cu, c_qmUsers) {
-		if (cu->qsHash == hash)
-			return cu;
-	}
-
-	return NULL;
-}
-
 QList<ClientUser *> ClientUser::getTalking() {
 	QReadLocker lock(&c_qrwlTalking);
 	return c_qlTalking;
