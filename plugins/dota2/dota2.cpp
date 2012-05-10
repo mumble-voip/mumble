@@ -1,5 +1,5 @@
-/* Copyright (C) 2012, dark_skeleton <dark.skeleton@gmail.com> 
-   Many pieces of code by Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com> 
+   Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
  
@@ -27,18 +27,15 @@
    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-   Oh god developing a plugin is freakin' hard work and lots of testing and debugging. Just when you think you got
-   the right address/pointer, you realize how wrong you are :D
 */ 
 
 #include "../mumble_plugin_win32.h"  
 
-BYTE *posptr;
-BYTE *rotptr;
-BYTE *camptr;
-BYTE *afrontptr;
-BYTE *gameptr;
+static BYTE *posptr;
+static BYTE *rotptr;
+static BYTE *camptr;
+static BYTE *afrontptr;
+static BYTE *gameptr;
 
 static bool calcout(float *pos, float *rot, float *cam, float *opos, float *front, float *top, float *ocam) {
 	float h = rot[0];
@@ -72,7 +69,7 @@ static bool calcout(float *pos, float *rot, float *cam, float *opos, float *fron
 	return true;
 }
 
-inline bool refreshPointers(void)
+static bool refreshPointers(void)
 {
 	rotptr = posptr = camptr = afrontptr = gameptr = NULL;
 	// camera position vector @ client.dll+1587888 -> +0x8a4
@@ -91,8 +88,8 @@ inline bool refreshPointers(void)
 	rotptr = tmpptr + 0x8b0;
 
 	// Avatar front vector pointer
-	gameptr = pModule + 0x15916c4;			// NOTE: This pointer is availible ONLY when ingame. We are using this fact 
-	tmpptr = peekProc<BYTE *>(gameptr);		// to unlink plugin when not ingame.
+	gameptr = pModule + 0x15916c4;			// NOTE: This pointer is availible ONLY when ingame. We are using this fact to unlink plugin when not ingame.
+	tmpptr = peekProc<BYTE *>(gameptr);	
 	if (!tmpptr) return false;				// Player not in game (most likely in menus), unlink plugin
 	afrontptr = tmpptr + 0x430;
 	
@@ -126,12 +123,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			avatar_top[2] = 0;
 			avatar_front[0] = afront[0];
 			avatar_front[1] = afront[2];
-			avatar_front[2] = -afront[1]; // For some reason when character moves up, Z-axis position increases, but 
-										  // front vector shows -1 for Z-axis, therefore this small fix
+			avatar_front[2] = -afront[1]; // For some reason when character moves up, Z-axis position increases, but front vector shows -1 for Z-axis, therefore this small fix
 
 				// Example only -- only set these when you have sane values, and make sure they're pretty constant (every change causes a sever message).
-				context = std::string(" serverip:port:team");
-				identity = std::wstring(L"STEAM ID");
+				//context = std::string(" serverip:port:team");
+				//identity = std::wstring(L"STEAM ID");
 			return res;
 		}
 	}
@@ -146,9 +142,6 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 
 	float pos[3], rot[3], opos[3], top[3], front[3], cam[3], ocam[3], afront[3];
-	
-	std::wstring sidentity;
-	std::string scontext;
 
 	if (!refreshPointers()) { generic_unlock(); return false; }// unlink plugin if this fails
 
