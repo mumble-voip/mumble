@@ -32,22 +32,13 @@
 #include "../mumble_plugin_win32.h"  
 
 static BYTE *posptr;
-static BYTE *rotptr;
+static BYTE *frontptr;
+static BYTE *topptr;
 static BYTE *camptr;
 static BYTE *afrontptr;
 static BYTE *gameptr;
 
-static bool calcout(float *pos, float *rot, float *cam, float *opos, float *front, float *top, float *ocam) {
-	float h = rot[0];
-	float v = rot[1];
-
-	if ((v < -180.0f) || (v > 180.0f) || (h < -180.0f) || (h > 180.0f))
-		return false;
-
-	h *= static_cast<float>(M_PI / 180.0f);
-	v *= static_cast<float>(M_PI / 180.0f);
-
-	// Seems Dota 2 is in inches like all Source-based games...
+static bool calcout(float *pos, float *cam, float *opos, float *ocam) {
 	opos[0] = pos[0] / 39.37f;
 	opos[1] = pos[2] / 39.37f;
 	opos[2] = pos[1] / 39.37f;
@@ -55,39 +46,33 @@ static bool calcout(float *pos, float *rot, float *cam, float *opos, float *fron
 	ocam[0] = cam[0] / 39.37f;
 	ocam[1] = cam[2] / 39.37f;
 	ocam[2] = cam[1] / 39.37f;
-
-	front[0] = cos(v) * cos(h);
-	front[1] = -sin(h);
-	front[2] = sin(v) * cos(h);
-
-	h -= static_cast<float>(M_PI / 2.0f);
-
-	top[0] = cos(v) * cos(h);
-	top[1] = -sin(h);
-	top[2] = sin(v) * cos(h);
-
 	return true;
 }
 
 static bool refreshPointers(void)
 {
-	rotptr = posptr = camptr = afrontptr = gameptr = NULL;
-	// camera position vector @ client.dll+1587888 -> +0x8a4
-	// camera angle vector    @ client.dll+1587888 -> +0x8b0
-	// avatar position vector @ client.dll+15b139c -> +0x3b8
-	// avatar front vector    @ client.dll+15916c4 -> +0x430
+	frontptr = topptr = posptr = camptr = afrontptr = gameptr = NULL;
+	// camera position vector @ client.dll+1614068
+	// camera front vector	  @ client.dll+161407c
+	// camera top vector	  @ client.dll+1614098
+	// camera angle vector    @ client.dll+1614074 (not used since we already have front and top vectors, but it's there)
+	// avatar position vector @ client.dll+???
+	// avatar front vector    @ client.dll+???
 
-	BYTE *tmpptr; // temporary pointer to avoid creating many pointers
+	//BYTE *tmpptr; // temporary pointer to avoid creating multiple pointers
 	
-	tmpptr = peekProc<BYTE *>(pModule + 0x1587888);
+	//tmpptr = peekProc<BYTE *>(pModule + 0x1587888);
 	
-	// Camera position pointer
-	camptr = tmpptr + 0x8a4;
+	// Camera position vector
+	camptr = pModule + 0x1614068;
 	
-	// Camera angle pointer
-	rotptr = tmpptr + 0x8b0;
+	// Camera front vector
+	frontptr = pModule + 0x161407c;
 
-	// Avatar front vector pointer
+	// Camera top vector
+	topptr = pModule + 0x1614098;
+	
+/*	// Avatar front vector pointer
 	gameptr = pModule + 0x15916c4;			// NOTE: This pointer is availible ONLY when ingame. We are using this fact to unlink plugin when not ingame.
 	tmpptr = peekProc<BYTE *>(gameptr);	
 	if (!tmpptr) return false;				// Player not in game (most likely in menus), unlink plugin
@@ -97,7 +82,7 @@ static bool refreshPointers(void)
 	tmpptr = peekProc<BYTE *>(pModule + 0x15b139c);
 	if (!tmpptr) return false;				//Player not in game (or something broke lol)
 	posptr = tmpptr + 0x3b8;
-
+*/
 	return true;
 }
 
@@ -105,18 +90,19 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
-	float ipos[3], rot[3], cam[3], afront[3];
+	float ipos[3], cam[3], afront[3];
 	bool ok;
 
 	if (!peekProc<BYTE *>(gameptr)) return false; // Player not in game, unlink
 
-	ok = peekProc(rotptr, rot, 12) &&
+	ok = peekProc(frontptr, camera_front, 12) &&
+		peekProc(topptr, camera_top, 12) &&
 		 peekProc(camptr, cam, 12) &&
 		 peekProc(posptr, ipos, 12) &&
 		 peekProc(afrontptr, afront, 12);
 
 	if (ok) {
-		int res = calcout(ipos, rot, cam, avatar_pos, camera_front, camera_top, camera_pos);
+		int res = calcout(ipos, cam, avatar_pos, camera_pos);
 		if (res) {
 			avatar_top[0] = 0;
 			avatar_top[1] = 1; // it's Dota, your character is always looking straight ahead ;)
@@ -141,17 +127,18 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"dota.exe",L"client.dll"))
 		return false;
 
-	float pos[3], rot[3], opos[3], top[3], front[3], cam[3], ocam[3], afront[3];
+	float pos[3], opos[3], top[3], front[3], cam[3], ocam[3], afront[3];
 
 	if (!refreshPointers()) { generic_unlock(); return false; }// unlink plugin if this fails
 
-	bool ok = peekProc(rotptr,rot,12) &&
+	bool ok = peekProc(frontptr,front,12) &&
+		peekProc(topptr,top,12) &&
 			  peekProc(posptr,pos,12) &&
 			  peekProc(camptr,cam,12) &&
 			  peekProc(afrontptr,afront,12);
 
 	if (ok) {
-		return calcout(pos,rot,cam,opos,front,top,ocam); // make sure values are OK
+		return calcout(pos,cam,opos,ocam); // make sure values are OK
 	} else {
 		generic_unlock();
 		return false;
@@ -159,10 +146,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Dota 2 build 4926. No identity/context support yet (feel free to contribute). Might work with newer builds. Supports independent camera and avatar positions, front and top vectors, with state detection (if ingame or not).");
+	return std::wstring(L"Supports Dota 2 (source engine build 4933, dota version 40, client version 154). No identity/context support yet (feel free to contribute). Might work with newer builds. Supports independent camera and avatar positions, front and top vectors, with state detection (if ingame or not).");
 }
 
-static std::wstring description(L"Dota 2 (build 4926)");
+static std::wstring description(L"Dota 2 (source engine build 4933, dota version 40, client version 154)");
 static std::wstring shortname(L"Dota 2");
 
 static int trylock1() {
