@@ -83,6 +83,9 @@
       <Component Id="link.dll">
         <File Source="$(var.SourceDir)\release\plugins\link.dll" KeyPath="yes" />
       </Component>
+      <Component Id="lol.dll">
+        <File Source="$(var.SourceDir)\release\plugins\lol.dll" KeyPath="yes" />
+      </Component>
       <Component Id="lotro.dll">
         <File Source="$(var.SourceDir)\release\plugins\lotro.dll" KeyPath="yes" />
       </Component>
