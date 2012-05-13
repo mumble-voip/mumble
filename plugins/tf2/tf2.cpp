@@ -1,4 +1,5 @@
-/* Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
+/* Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com>
+   Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
    Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
@@ -31,20 +32,22 @@
 
 #include "../mumble_plugin_win32.h"
 
-BYTE *posrotptr;
-BYTE *stateptr;
-BYTE *hostptr;
+static BYTE *posrotptr;
+static BYTE *stateptr;
+static BYTE *hostptr;
 
 /*
 	note that these are just examples of memory values, and may not be updated or correct
-	position tuple:		client.dll+0x6F76C0  (x,y,z, float)
-	orientation tuple:	client.dll+0x6F76CC  (v,h float)
-	spawn state:        client.dll+0x607C64  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (depending on the team side and gamemode), byte)
-	host string: 		engine.dll+0x3D3E94  (ip:port zero-terminated string; localhost:27015 if create a server ingame)
-	ID string:			engine.dll+0x54E668 = "DemomanTaunts" (13 characters, text)
+	position tuple:		client.dll+0x...  (x,y,z, float)
+	orientation tuple:	client.dll+0x...  (v,h float)
+	spawn state:        client.dll+0x...  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (or 4,5,8 etc. depending on the team side and gamemode), byte)
+	host string: 		client.dll+0x...  (ip:port or loopback:0 when created own server or blank when not ingame)
+	ID string:			client.dll+0x... = "Demoman" (13 characters, text - somerhing that lets us know it's TF2 and not for example HL2)
 	note that memory addresses in this comment are for example only; the real ones are defined below
 
 	note: the spec_pos console command is rather useful
+	note: so is the cl_showpos command
+	NOTE: from my experience, using engine.dll module is a rather bad idea since it's very dynamic. And since we can get everything we need from client.dll, it is no longer required :)
 */
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
@@ -75,14 +78,14 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 	return true;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &/*identity*/) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	bool ok;
 	float posrot[5];
 	char state;
-	char chHostStr[40];
+	char chHostStr[21]; // We just need 21 [xxx.xxx.xxx.xxx:yyyyy]
 
 	ok = peekProc(posrotptr, posrot) &&
 	     peekProc(stateptr, state) &&
@@ -91,24 +94,28 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (!ok)
 		return false;
 
-	chHostStr[39] = 0;
+	std::string sHost(chHostStr);
 
-	std::string sHost;
-	sHost.assign(chHostStr);
-	if (!sHost.empty()) {
-		if (sHost.find(':') == std::string::npos)
-			sHost.append(":27015");
-
-		std::ostringstream new_context;
-		new_context << "{ \"ipport\": \"" << sHost << "\"}";
-		context = new_context.str();
+	// Possible values of chHostStr:
+	//	xxx.yyy.zzz.aaa:ccccc (or shorter, e.g. x.y.z.a:cc - but it doesn't really change anything)
+	//	loopback:0 (when a local server is started)
+	if (!sHost.empty())
+	{
+		if (sHost.find("loopback") == std::string::npos)
+		{
+			std::ostringstream newcontext;
+			newcontext << "{\"ipport\": \"" << sHost << "\"}";
+			context = newcontext.str();
+		}
 	}
 
 	//TODO: Implement identity
 
 	// Check to see if you are in a server and spawned
-	if (state == 0 || state == 1 || state == 3)
+	if (state == 0 || state == 1 || state == 3) {
+		if (state == 0) context = std::string(""); // clear context if not connected to server
 		return true; // Deactivate plugin
+	}
 
 	ok = calcout(posrot, posrot+3, avatar_pos, avatar_front, avatar_top);
 	if (ok) {
@@ -124,23 +131,19 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	posrotptr = NULL;
+	posrotptr = stateptr = hostptr = NULL;
 
 	if (! initialize(pids, L"hl2.exe", L"client.dll"))
 		return false;
 
-	BYTE *mod_engine=getModuleAddr(L"engine.dll");
-	if (!mod_engine)
-		return false;
-
 	// Remember addresses for later
-	posrotptr = pModule + 0x8D8694;
-	stateptr = pModule + 0x849284;
-	hostptr = mod_engine + 0x3EA20C;
+	posrotptr = pModule + 0x8F9334;
+	stateptr = pModule + 0x869034;
+	hostptr = pModule + 0x918044;
 
-	// Gamecheck
-	char sMagic[13];
-	if (!peekProc(mod_engine + 0x564C78, sMagic) || strncmp("DemomanTaunts", sMagic, sizeof(sMagic))!=0)
+	// Gamecheck - check if we're looking at the right game
+	char sMagic[7];
+	if (!peekProc(pModule + 0x882CE2, sMagic) || strncmp("Demoman", sMagic, sizeof(sMagic))!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
@@ -158,10 +161,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports TF2 build 4785. No identity support yet.");
+	return std::wstring(L"Supports TF2 build 4934 with context. No identity support yet.");
 }
 
-static std::wstring description(L"Team Fortress 2 (Build 4785)");
+static std::wstring description(L"Team Fortress 2 (Build 4934)");
 static std::wstring shortname(L"Team Fortress 2");
 
 static int trylock1() {
