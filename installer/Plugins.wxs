@@ -59,6 +59,9 @@
       <Component Id="dods.dll">
         <File Source="$(var.SourceDir)\release\plugins\dods.dll" />
       </Component>
+	  <Component Id="dota2.dll">
+        <File Source="$(var.SourceDir)\release\plugins\dota2.dll" KeyPath="yes" />
+      </Component>
       <Component Id="dys.dll">
         <File Source="$(var.SourceDir)\release\plugins\dys.dll" KeyPath="yes" />
       </Component>
