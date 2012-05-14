@@ -82,9 +82,11 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	float pos[3];
 	float rot[3];
 	float opos[3], top[3], front[3];
-
+	char state, _context[21];
 	bool ok = peekProc(posptr, pos, 12) &&
-	          peekProc(rotptr, rot, 12);
+	          peekProc(rotptr, rot, 12) &&
+			  peekProc(stateptr, &state, 1) &&
+			  peekProc(contextptr, _context);
 
 	if (ok)
 		return calcout(pos, rot, opos, top, front);
@@ -106,7 +108,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// stateptr returns byte values: 0 when map is not loaded; 8 when loaded
 	ok = peekProc(posptr, ipos, 12) &&
 	     peekProc(rotptr, rot, 12) &&
-		 peekProc(stateptr, &state, 1);
+		 peekProc(stateptr, &state, 1) &&
+		 peekProc(contextptr, _context);
 
 	if (state == 0) {
 		context = std::string(""); // clear context
@@ -125,12 +128,18 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 				//context = std::string("server/map/blah");
 				//identity = std::wstring(L"STEAM_1:2:3456789");
 			}
-			if (peekProc(contextptr, _context, sizeof(_context)))
-				// This string can be either "xxx.xxx.xxx.xxx:yyyyy" (or shorter), "loopback:0" or "" (empty) when in menus. Hence 21 size for char.
-				context = std::string(_context);
-				// Don't mind if the call fails, just go without context then
-			else 
-				context = std::string("");
+			std::string sHost(_context);
+			// This string can be either "xxx.xxx.xxx.xxx:yyyyy" (or shorter), "loopback:0" or "" (empty) when in menus. Hence 21 size for char.
+			if (!sHost.empty())
+			{
+				if (sHost.find("loopback") == std::string::npos)
+				{
+					std::ostringstream newcontext;
+					newcontext << "{\"ipport\": \"" << sHost << "\"}";
+					context = newcontext.str();
+				}
+						
+			}
 			return res;
 		}
 	}
