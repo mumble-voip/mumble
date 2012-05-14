@@ -38,14 +38,15 @@ static BYTE *hostptr;
 
 /*
 	note that these are just examples of memory values, and may not be updated or correct
-	position tuple:		client.dll+0x6F76C0  (x,y,z, float)
-	orientation tuple:	client.dll+0x6F76CC  (v,h float)
-	spawn state:        client.dll+0x607C64  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (or 4,5,8 etc. depending on the team side and gamemode), byte)
-	host string: 		engine.dll+0x3D3E94  (ip:port zero-terminated string; localhost:27015 if create a server ingame)
-	ID string:			engine.dll+0x54E668 = "DemomanTaunts" (13 characters, text)
+	position tuple:		client.dll+0x...  (x,y,z, float)
+	orientation tuple:	client.dll+0x...  (v,h float)
+	spawn state:        client.dll+0x...  (0 when at main menu, 1 when spectator, 3 when at team selection menu, and 6 or 9 when on a team (or 4,5,8 etc. depending on the team side and gamemode), byte)
+	host string: 		client.dll+0x...  (ip:port or loopback:0 when created own server or blank when not ingame)
+	ID string:			client.dll+0x... = "Demoman" (13 characters, text - somerhing that lets us know it's TF2 and not for example HL2)
 	note that memory addresses in this comment are for example only; the real ones are defined below
 
 	note: the spec_pos console command is rather useful
+	note: so is the cl_showpos command
 	NOTE: from my experience, using engine.dll module is a rather bad idea since it's very dynamic. And since we can get everything we need from client.dll, it is no longer required :)
 */
 
@@ -94,18 +95,25 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return false;
 
 	std::string sHost(chHostStr);
+
 	// Possible values of chHostStr:
 	//	xxx.yyy.zzz.aaa:ccccc (or shorter, e.g. x.y.z.a:cc - but it doesn't really change anything)
 	//	loopback:0 (when a local server is started)
-
-	// If context is for Mumble to know, when to (and not to) transmit positional audio data, we don't need all those string.finds that were here. They just eat up CPU cycles
-	context = sHost;
+	if (!sHost.empty())
+	{
+		if (sHost.find("loopback") == std::string::npos)
+		{
+			std::ostringstream newcontext;
+			newcontext << "{\"ipport\": \"" << sHost << "\"}";
+			context = newcontext.str();
+		}
+	}
 
 	//TODO: Implement identity
 
 	// Check to see if you are in a server and spawned
 	if (state == 0 || state == 1 || state == 3) {
-		context = std::string(""); // clear context
+		if (state == 0) context = std::string(""); // clear context if not connected to server
 		return true; // Deactivate plugin
 	}
 
