@@ -12,3 +12,15 @@ vc100.pdb
 *~
 *.pb.h
 *.pb.cc
+*.pro.user
+installer/Mumble.exe
+overlay/*.hex
+plugins/manual/ui_manual.h
+scripts/Murmur.ice
+scripts/murmur.ini.*
+src/mumble/ui_*.h
+src/mumble/mumble_*.qm
+src/mumble/qt_*.qm
+src/murmur/Murmur.h
+src/murmur/Murmur.cpp
+winpaths_custom.pri
