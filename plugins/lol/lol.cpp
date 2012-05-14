@@ -37,6 +37,9 @@ static BYTE *camfrontptr;
 static BYTE *camtopptr;
 static BYTE *afrontptr;
 
+static BYTE *hostipptr;
+static BYTE *hostportptr;
+
 static BYTE *gameptr;
 
 static bool calcout(float *pos, float *cam, float *opos, float *ocam) {
@@ -57,6 +60,8 @@ static bool refreshPointers(void)
 	// camera top vector	  @ 0xb5631c
 	// avatar position vector @ 0x2eafae8
 	// avatar front vector    @ 0xe00f88 -> +0x2a54
+	// host ip (text)		  @ 0xaf4f028
+	// host port (4 bytes)	  @ 0xaf4f044
 
 	posptr = camptr = camfrontptr = camtopptr = afrontptr = NULL;
 	
@@ -79,14 +84,23 @@ static bool refreshPointers(void)
 	// Avatar position vector
 	posptr = (BYTE *) 0x2eafae8;			// NOTE: This consists of all zeros right after game is loaded until your avatar moves, but we don't have to worry about it since (0,0,0) is close to our spawning position
 
+	// Host IP:PORT. It is kept in 3 places in memory, but 1 of them looks the coolest, so let's use it, ha!
+	// IP is kept as text @ hostipptr
+	// PORT is kept as a 4-byte decimal value @ hostportptr
+
+	hostipptr = (BYTE *) 0xaf4f028;
+	hostportptr = (BYTE *) 0xaf4f044;
+
 	return true;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &/*context*/, std::wstring &/*identity*/) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &/*identity*/) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	float ipos[3], cam[3];
+	int hostport;
+	char hostip[15];
 	bool ok;
 
 	if (!peekProc<BYTE *>(gameptr)) return false; // Player not in game (or something broke), unlink
@@ -95,7 +109,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		 peekProc(camtopptr, camera_top, 12) &&
 		 peekProc(camptr, cam, 12) &&
 		 peekProc(posptr, ipos, 12) &&
-		 peekProc(afrontptr, avatar_front, 12);
+		 peekProc(afrontptr, avatar_front, 12) &&
+		 peekProc(hostipptr, hostip) &&
+		 peekProc(hostportptr,&hostport,4);
 
 	if (ok) {
 		int res = calcout(ipos, cam, avatar_pos, camera_pos);
@@ -104,6 +120,13 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			avatar_top[1] = 1; // Your character is always looking straight ahead ;)
 			avatar_top[2] = 0;
 
+			std::string sHost(hostip);
+			if (!sHost.empty())
+			{
+				std::ostringstream _context;
+				_context << "{\"ipport\": \"" << sHost << ":" << hostport << "\"}";
+				context = _context.str();
+			}
 				// Example only -- only set these when you have sane values, and make sure they're pretty constant (every change causes a sever message).
 				//context = std::string(" serverip:port:team");
 				//identity = std::wstring(L"STEAM ID");
@@ -123,6 +146,8 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	float cam[3], ocam[3];
 	float afront[3];
 	float camfront[3], camtop[3];
+	char hostip[15];
+	int hostport;
 
 	if (!refreshPointers()) { generic_unlock(); return false; }// unlink plugin if this fails
 
@@ -130,7 +155,9 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 			  peekProc(camtopptr,camtop,12) &&
 			  peekProc(posptr,pos,12) &&
 			  peekProc(camptr,cam,12) &&
-			  peekProc(afrontptr,afront,12);
+			  peekProc(afrontptr,afront,12) &&
+			  peekProc(hostipptr, hostip) &&
+			  peekProc(hostportptr,&hostport,4);
 
 	if (ok) {
 		return calcout(pos,cam,opos,ocam); // make sure values are OK
@@ -141,7 +168,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports League of Legends v1.0.0.139. No identity/context support yet (feel free to contribute).");
+	return std::wstring(L"Supports League of Legends v1.0.0.139 with context. No identity support yet (feel free to contribute).");
 }
 
 static std::wstring description(L"League of Legends (v1.0.0.139)");
