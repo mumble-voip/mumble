@@ -57,7 +57,7 @@
         <File Source="$(var.SourceDir)\release\plugins\css.dll" KeyPath="yes" />
       </Component>
       <Component Id="dods.dll">
-        <File Source="$(var.SourceDir)\release\plugins\dods.dll" />
+        <File Source="$(var.SourceDir)\release\plugins\dods.dll" KeyPath="yes" />
       </Component>
       <Component Id="dys.dll">
         <File Source="$(var.SourceDir)\release\plugins\dys.dll" KeyPath="yes" />
@@ -67,6 +67,9 @@
       </Component>
       <Component Id="gmod.dll">
         <File Source="$(var.SourceDir)\release\plugins\gmod.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="gtaiv.dll">
+        <File Source="$(var.SourceDir)\release\plugins\gtaiv.dll" KeyPath="yes" />
       </Component>
       <Component Id="hl2dm.dll">
         <File Source="$(var.SourceDir)\release\plugins\hl2dm.dll" KeyPath="yes" />
@@ -134,11 +137,13 @@
       <ComponentRef Id="dys.dll" />
       <ComponentRef Id="etqw.dll" />
       <ComponentRef Id="gmod.dll" />
+      <ComponentRef Id="gtaiv.dll" />
       <ComponentRef Id="hl2dm.dll" />
       <ComponentRef Id="insurgency.dll" />
       <ComponentRef Id="l4d.dll" />
       <ComponentRef Id="l4d2.dll" />
       <ComponentRef Id="link.dll" />
+      <ComponentRef Id="lol.dll" />
       <ComponentRef Id="lotro.dll" />
       <ComponentRef Id="manual.dll" />
       <ComponentRef Id="sto.dll" />
