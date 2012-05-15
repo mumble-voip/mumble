@@ -146,6 +146,8 @@ Password to be sent to the server on connect. This password is needed when conne
   <tabstop>qleServer</tabstop>
   <tabstop>qlePort</tabstop>
   <tabstop>qleUsername</tabstop>
+  <tabstop>qlePassword</tabstop>
+  <tabstop>qcbShowPassword</tabstop>
   <tabstop>qdbbButtonBox</tabstop>
  </tabstops>
  <resources/>
