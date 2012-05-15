@@ -1446,6 +1446,8 @@ void MainWindow::on_qaUserCommentView_triggered() {
 		}
 	}
 
+	pmModel->seenComment(pmModel->index(p));
+
 	::TextMessage *texm = new ::TextMessage(this, tr("View comment on user %1").arg(p->qsName));
 
 	texm->rteMessage->setText(p->qsComment, true);
