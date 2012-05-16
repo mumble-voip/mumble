@@ -112,7 +112,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		 peekProc(contextptr, _context);
 
 	if (state == 0) {
-		context = std::string(""); // clear context
+		context.clear(); // clear context
 	 	return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 	}
 
