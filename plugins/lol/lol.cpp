@@ -112,28 +112,31 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		 peekProc(hostipptr, hostip) &&
 		 peekProc(hostportptr,&hostport,4);
 
-	if (ok) {
-		int res = calcout(ipos, cam, avatar_pos, camera_pos);
-		if (res) {
-			avatar_top[0] = 0;
-			avatar_top[1] = 1; // Your character is always looking straight ahead ;)
-			avatar_top[2] = 0;
-
-			std::string sHost(hostip);
-			if (!sHost.empty())
-			{
-				std::ostringstream _context;
-				_context << "{\"ipport\": \"" << sHost << ":" << hostport << "\"}";
-				context = _context.str();
-			}
-				// Example only -- only set these when you have sane values, and make sure they're pretty constant (every change causes a sever message).
-				//context = std::string(" serverip:port:team");
-				//identity = std::wstring(L"STEAM ID");
-			return res;
-		}
+	if (!ok) 
+		return false;
+	
+	//context
+	hostip[sizeof(hostip)-1]=0; // make sure string is null-terminated
+	std::string sHost(hostip);
+	if (sHost.empty())
+	{
+		context.clear();
+		return true;
 	}
 
-	return false;
+	std::ostringstream _context;
+	_context << "{\"ipport\": \"" << sHost << ":" << hostport << "\"}";
+	context = _context.str();
+
+	// TODO: Identity support
+
+	int res = calcout(ipos, cam, avatar_pos, camera_pos);
+	if (!res)
+		return false;
+	
+	avatar_top[1] = 1; // This isn't FPS, you can't tilt your head :)
+	
+	return true;
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
@@ -141,25 +144,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"League of Legends.exe"))
 		return false;
 
-	float pos[3], opos[3];
-	float cam[3], ocam[3];
-	float afront[3];
-	float camfront[3], camtop[3];
-	char hostip[16];
-	int hostport;
+	float cam[3], camfront[3], camtop[3], pos[3], afront[3], atop[3];
+	std::string context;
+	std::wstring identity;
 
 	if (!refreshPointers()) { generic_unlock(); return false; }// unlink plugin if this fails
 
-	bool ok = peekProc(camfrontptr,camfront,12) &&
-			  peekProc(camtopptr,camtop,12) &&
-			  peekProc(posptr,pos,12) &&
-			  peekProc(camptr,cam,12) &&
-			  peekProc(afrontptr,afront,12) &&
-			  peekProc(hostipptr, hostip) &&
-			  peekProc(hostportptr,&hostport,4);
-
-	if (ok) {
-		return calcout(pos,cam,opos,ocam); // make sure values are OK
+	if (fetch(pos,afront,atop,cam,camfront,camtop,context,identity)) {
+		return true;
 	} else {
 		generic_unlock();
 		return false;
