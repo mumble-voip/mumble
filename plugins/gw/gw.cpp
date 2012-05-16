@@ -113,27 +113,30 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		 peekProc(areaptr,&areaid,4) &&
 		 peekProc(characternameptr,charactername);
 
-	if (ok) {
-		if (state == 0 || state == 1 || areaid == 0) // Player not ingame
-		{
-			context.clear();
-			identity.clear();
-			return true;
-		}
-		int res = calcout(pos, front, cam, camfront, avatar_pos, avatar_front, camera_pos, camera_front);
-		if (res) {
-			{
-				std::ostringstream _context;
-				_context << "{\"areaid\": " << areaid << ","
-						 << "\"magic\": " << int(state) << "}";
-				context = _context.str();
-				identity = std::wstring(charactername);
-			}
-			return res;
-		}
+	if (!ok)
+		return false;
+
+	if (state == 0 || state == 1 || areaid == 0) // Player not in world
+	{
+		context.clear();
+		identity.clear();
+		return true;
 	}
 
-	return false;
+	int res = calcout(pos, front, cam, camfront, avatar_pos, avatar_front, camera_pos, camera_front);
+	if (!res)
+		return false;
+
+	camera_top[1] = avatar_top[1] = 1; // This isn't FPS, you can't tilt your head :)
+	std::ostringstream _context;
+	_context << "{\"areaid\": " << areaid << ","
+				<< "\"magic\": " << int(state) << "}";
+	context = _context.str();
+
+	charactername[sizeof(charactername)-1]=0; // make sure string is null-terminated
+	identity = std::wstring(charactername);
+
+	return true;
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
@@ -143,22 +146,12 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	if (!refreshPointers()) { generic_unlock(); return false; }// unlink plugin if this fails
 
-	float cam[3],pos[3],front[3],camfront[3];
-	float ocam[3],opos[3],ofront[3],ocamfront[3];
-	char state;
-	int areaid;
-	wchar_t charactername [20];
+	float cam[3],pos[3],front[3],camfront[3],top[3],camtop[3];
+	std::string context;
+	std::wstring identity;
 
-	bool ok = peekProc(camptr,cam) &&
-		 peekProc(posptr,pos) &&
-		 peekProc(camfrontptr,camfront) &&
-		 peekProc(frontptr,front) &&
-		 peekProc(magicptr,&state,1) &&
-		 peekProc(areaptr,&areaid,4) &&
-		 peekProc(characternameptr,charactername);
-
-	if (ok) {
-		return calcout(pos, front, cam, camfront, opos, ofront, ocam, ocamfront);
+	if (fetch(pos,front,top,cam,camfront,camtop,context,identity)) {
+		return true;
 	} else {
 		generic_unlock();
 		return false;
