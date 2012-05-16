@@ -1,5 +1,4 @@
 /* Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com> 
-   Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
  
@@ -100,7 +99,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	float ipos[3], cam[3];
 	int hostport;
-	char hostip[15];
+	char hostip[16];
 	bool ok;
 
 	if (!peekProc<BYTE *>(gameptr)) return false; // Player not in game (or something broke), unlink
@@ -146,7 +145,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	float cam[3], ocam[3];
 	float afront[3];
 	float camfront[3], camtop[3];
-	char hostip[15];
+	char hostip[16];
 	int hostport;
 
 	if (!refreshPointers()) { generic_unlock(); return false; }// unlink plugin if this fails
@@ -168,7 +167,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports League of Legends v1.0.0.139 with context. No identity support yet (feel free to contribute).");
+	return std::wstring(L"Supports League of Legends v1.0.0.139 with context. No identity support yet.");
 }
 
 static std::wstring description(L"League of Legends (v1.0.0.139)");

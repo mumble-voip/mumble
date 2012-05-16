@@ -85,7 +85,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 	float posrot[5];
 	char state;
-	char chHostStr[21]; // We just need 21 [xxx.xxx.xxx.xxx:yyyyy]
+	char chHostStr[22]; // We just need 22 [xxx.xxx.xxx.xxx:yyyyy] + null-termination
 
 	ok = peekProc(posrotptr, posrot) &&
 	     peekProc(stateptr, state) &&
@@ -107,13 +107,18 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			newcontext << "{\"ipport\": \"" << sHost << "\"}";
 			context = newcontext.str();
 		}
+		else
+		{
+			context.clear(); // we don't want to send positional data when playing locally, since it wouldn't work anyway (context wouldn't be the same for server and clients)
+			return true;
+		}
 	}
 
 	//TODO: Implement identity
 
 	// Check to see if you are in a server and spawned
 	if (state == 0 || state == 1 || state == 3) {
-		if (state == 0) context = std::string(""); // clear context if not connected to server
+		if (state == 0) context.clear(); // clear context if not connected to server
 		return true; // Deactivate plugin
 	}
 
@@ -161,7 +166,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports TF2 build 4934 with context. No identity support yet.");
+	return std::wstring(L"Supports TF2 build 4934 with context support. No identity support yet.");
 }
 
 static std::wstring description(L"Team Fortress 2 (Build 4934)");
