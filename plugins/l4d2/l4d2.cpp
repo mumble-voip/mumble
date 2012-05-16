@@ -138,7 +138,17 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 					newcontext << "{\"ipport\": \"" << sHost << "\"}";
 					context = newcontext.str();
 				}
+				else
+				{
+					context.clear();
+					return true;
+				}
 						
+			}
+			else
+			{
+				context.clear();
+				return true;
 			}
 			return res;
 		}

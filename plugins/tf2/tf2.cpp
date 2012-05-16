@@ -113,6 +113,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			return true;
 		}
 	}
+	else
+	{
+		context.clear();
+		return true;
+	}
 
 	//TODO: Implement identity
 
