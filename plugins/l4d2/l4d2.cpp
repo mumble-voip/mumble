@@ -110,7 +110,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// TODO: Identity support
 
-	int res = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
+	bool res = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
 	if (!res) 
 		return false;
 	
