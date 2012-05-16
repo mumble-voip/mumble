@@ -42,10 +42,12 @@ static BYTE *hostportptr;
 
 static BYTE *gameptr;
 
-static bool calcout(float *pos, float *cam, float *opos, float *ocam) {
+static char prev_hostip[16];
+static int prev_hostport;
 
+static bool calcout(float *pos, float *cam, float *opos, float *ocam) {
 	// Seems League of Legends is in centimeters? ;o Well it's not inches for sure :)
-	for (int i=0;i<3;i++) {
+	for (int i = 0; i < 3; i++) {
 		opos[i] = pos[i] / 100.00f;
 		ocam[i] = cam[i] / 100.00f;
 	}
@@ -53,8 +55,7 @@ static bool calcout(float *pos, float *cam, float *opos, float *ocam) {
 	return true;
 }
 
-static bool refreshPointers(void)
-{
+static bool refreshPointers(void) {
 	// camera position vector @ 0xb56308
 	// camera front vector    @ 0xb562ec
 	// camera top vector	  @ 0xb5631c
@@ -66,44 +67,49 @@ static bool refreshPointers(void)
 	posptr = camptr = camfrontptr = camtopptr = afrontptr = NULL;
 	
 	// Camera position
-	camptr = (BYTE *) 0xb56308;
+	camptr = (BYTE *)0xb56308;
 
 	// Camera front
-	camfrontptr = (BYTE *) 0xb562ec;
+	camfrontptr = (BYTE *)0xb562ec;
 
 	// Camera top
-	camtopptr = (BYTE *) 0xb5631c;
+	camtopptr = (BYTE *)0xb5631c;
 
 	// Avatar front vector pointer
 	BYTE *tmpptr = NULL;
-	gameptr = (BYTE *) 0xe00f88;			// NOTE: This pointer is availible ONLY when ingame. We are using this fact to unlink plugin when not ingame.
+	gameptr = (BYTE *)0xe00f88;			// NOTE: This pointer is availible ONLY when ingame. We are using this fact to unlink plugin when not ingame.
 	tmpptr = peekProc<BYTE *>(gameptr);	
-	if (!tmpptr) return false;				// Player not in game (game is still loading), unlink plugin
+
+	if (!tmpptr)
+		return false;				// Player not in game (game is still loading), unlink plugin
+
 	afrontptr = tmpptr + 0x2a54;
 	
 	// Avatar position vector
-	posptr = (BYTE *) 0x2eafae8;			// NOTE: This consists of all zeros right after game is loaded until your avatar moves, but we don't have to worry about it since (0,0,0) is close to our spawning position
+	posptr = (BYTE *)0x2eafae8;			// NOTE: This consists of all zeros right after game is loaded until your avatar moves, but we don't have to worry about it since (0,0,0) is close to our spawning position
 
 	// Host IP:PORT. It is kept in 3 places in memory, but 1 of them looks the coolest, so let's use it, ha!
 	// IP is kept as text @ hostipptr
 	// PORT is kept as a 4-byte decimal value @ hostportptr
 
-	hostipptr = (BYTE *) 0xaf4f028;
-	hostportptr = (BYTE *) 0xaf4f044;
+	hostipptr = (BYTE *)0xaf4f028;
+	hostportptr = (BYTE *)0xaf4f044;
 
 	return true;
 }
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &/*identity*/) {
-	for (int i=0;i<3;i++)
+	for (int i = 0; i < 3; i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	float ipos[3], cam[3];
 	int hostport;
-	char hostip[15];
+	char hostip[16];
 	bool ok;
 
-	if (!peekProc<BYTE *>(gameptr)) return false; // Player not in game (or something broke), unlink
+	// Player not in game (or something broke), unlink
+	if (!peekProc<BYTE *>(gameptr))
+		return false;
 
 	ok = peekProc(camfrontptr, camera_front, 12) &&
 		 peekProc(camtopptr, camera_top, 12) &&
@@ -111,34 +117,34 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		 peekProc(posptr, ipos, 12) &&
 		 peekProc(afrontptr, avatar_front, 12) &&
 		 peekProc(hostipptr, hostip) &&
-		 peekProc(hostportptr,&hostport,4);
+		 peekProc(hostportptr, &hostport, 4);
 
 	if (ok) {
 		int res = calcout(ipos, cam, avatar_pos, camera_pos);
 		if (res) {
-			avatar_top[0] = 0;
-			avatar_top[1] = 1; // Your character is always looking straight ahead ;)
-			avatar_top[2] = 0;
+			avatar_top[0] = 0.0f;
+			avatar_top[1] = 1.0f; // Your character is always looking straight ahead ;)
+			avatar_top[2] = 0.0f;
 
-			std::string sHost(hostip);
-			if (!sHost.empty())
-			{
-				std::ostringstream _context;
-				_context << "{\"ipport\": \"" << sHost << ":" << hostport << "\"}";
-				context = _context.str();
+			if (strcmp(hostip, prev_hostip) != 0 || hostport != prev_hostport) {
+				context.clear();
+				memcpy(prev_hostip, hostip, 16);
+				prev_hostport = hostport;
+
+				if (strcmp(hostip, "") != 0) {
+					char buffer[50];
+					sprintf_s(buffer, 50, "{\"ipport\": \"%s:%d\"}", hostip, hostport);
+					context.assign(buffer);
+				}
 			}
-				// Example only -- only set these when you have sane values, and make sure they're pretty constant (every change causes a sever message).
-				//context = std::string(" serverip:port:team");
-				//identity = std::wstring(L"STEAM ID");
-			return res;
 		}
+		return res;
 	}
 
 	return false;
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-
 	if (! initialize(pids, L"League of Legends.exe"))
 		return false;
 
@@ -146,29 +152,37 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	float cam[3], ocam[3];
 	float afront[3];
 	float camfront[3], camtop[3];
-	char hostip[15];
+	char hostip[16];
 	int hostport;
 
-	if (!refreshPointers()) { generic_unlock(); return false; }// unlink plugin if this fails
-
-	bool ok = peekProc(camfrontptr,camfront,12) &&
-			  peekProc(camtopptr,camtop,12) &&
-			  peekProc(posptr,pos,12) &&
-			  peekProc(camptr,cam,12) &&
-			  peekProc(afrontptr,afront,12) &&
-			  peekProc(hostipptr, hostip) &&
-			  peekProc(hostportptr,&hostport,4);
-
-	if (ok) {
-		return calcout(pos,cam,opos,ocam); // make sure values are OK
-	} else {
+	// unlink plugin if this fails
+	if (!refreshPointers()) {
 		generic_unlock();
 		return false;
 	}
+
+	bool ok = peekProc(camfrontptr, camfront, 12) &&
+			  peekProc(camtopptr, camtop, 12) &&
+			  peekProc(posptr, pos, 12) &&
+			  peekProc(camptr, cam, 12) &&
+			  peekProc(afrontptr, afront, 12) &&
+			  peekProc(hostipptr, hostip) &&
+			  peekProc(hostportptr, &hostport, 4);
+
+	ok = ok && calcout(pos,cam,opos,ocam); // make sure values are OK
+
+	if (ok) {
+		*prev_hostip = '\0';
+		prev_hostport = 0;
+		return true;
+	}
+
+	generic_unlock();
+	return false;
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports League of Legends v1.0.0.139 with context. No identity support yet (feel free to contribute).");
+	return std::wstring(L"Supports League of Legends v1.0.0.139 with context. No identity support yet.");
 }
 
 static std::wstring description(L"League of Legends (v1.0.0.139)");
