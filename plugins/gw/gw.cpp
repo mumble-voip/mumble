@@ -123,7 +123,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return true;
 	}
 
-	int res = calcout(pos, front, cam, camfront, avatar_pos, avatar_front, camera_pos, camera_front);
+	bool res = calcout(pos, front, cam, camfront, avatar_pos, avatar_front, camera_pos, camera_front);
 	if (!res)
 		return false;
 
