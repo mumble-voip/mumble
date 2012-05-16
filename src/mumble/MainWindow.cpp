@@ -2510,6 +2510,13 @@ void MainWindow::trayAboutToShow() {
 	}
 }
 
+void MainWindow::on_Icon_messageClicked() {
+	if (isMinimized())
+		setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
+	show();
+	raise();
+	activateWindow();
+}
 
 void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 	// FIXME: Workaround for activated sending both doubleclick and trigger
