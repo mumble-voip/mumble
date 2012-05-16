@@ -8,6 +8,11 @@ local/
 indent.sh
 *.bat
 *.pdb
+*.sln
+*.sdf
+*.suo
+*.vcxproj
+*.vcxproj.*
 *~
 *.pb.h
 *.pb.cc
