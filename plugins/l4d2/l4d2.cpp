@@ -32,7 +32,7 @@
 
 BYTE *posptr;
 BYTE *rotptr;
-// BYTE *stateptr;
+BYTE *stateptr;
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
@@ -67,14 +67,14 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	posptr = rotptr = NULL;
+	posptr = rotptr = stateptr= NULL;
 
 	if (! initialize(pids, L"left4dead2.exe", L"client.dll"))
 		return false;
 
-	posptr = pModule + 0x6F9250;
+	posptr = pModule + 0x641A4C;
 	rotptr = pModule + 0x641A08;
-	// stateptr = pModule + 0x690A3C;
+	stateptr = pModule + 0x6A1AF4;
 
 	float pos[3];
 	float rot[3];
@@ -97,15 +97,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	float ipos[3], rot[3];
 	bool ok;
-	// char state;
+	char state;
 
 	// stateptr returns byte values: 0 when map is not loaded; 8 when loaded
 	ok = peekProc(posptr, ipos, 12) &&
-	     peekProc(rotptr, rot, 12);
-	// peekProc(stateptr, &state, 1);
+	     peekProc(rotptr, rot, 12) &&
+		 peekProc(stateptr, &state, 1);
 
-	// if (state == 0)
-	// 	return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+	if (state == 0)
+	 	return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 
 	if (ok) {
 		int res = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
@@ -127,10 +127,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports L4D2 build 4490. No identity or context support yet.");
+	return std::wstring(L"Supports L4D2 build 4777. No identity or context support yet.");
 }
 
-static std::wstring description(L"Left 4 Dead 2 (Build 4490)");
+static std::wstring description(L"Left 4 Dead 2 (Build 4777)");
 static std::wstring shortname(L"Left 4 Dead 2");
 
 static int trylock1() {
