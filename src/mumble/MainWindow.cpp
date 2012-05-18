@@ -2260,7 +2260,11 @@ void MainWindow::serverConnected() {
 	g.pPermissions = ChanACL::None;
 	g.iCodecAlpha = 0x8000000b;
 	g.bPreferAlpha = true;
+#ifdef USE_OPUS
 	g.bOpus = true;
+#else
+	g.bOpus = false;
+#endif
 	g.iCodecBeta = 0;
 
 	g.l->clearIgnore();
