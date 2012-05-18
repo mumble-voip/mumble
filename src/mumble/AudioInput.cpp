@@ -419,9 +419,9 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 			}
 
 			// Convert float to 16bit PCM
-			const float mul = 32768.f;
+			const float mul = 32767.f;
 			for (int j = 0; j < iFrameSize; ++j)
-				psMic[j] = static_cast<short>(ptr[j] * mul);
+				psMic[j] = static_cast<short>(qBound(-1.0f, ptr[j], 1.0f) * mul);
 
 			// If we have echo chancellation enabled...
 			if (iEchoChannels > 0) {
