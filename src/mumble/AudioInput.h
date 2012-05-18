@@ -95,6 +95,7 @@ class AudioInput : public QThread {
 		void resetAudioProcessor();
 
 		OpusEncoder *opusState;
+		bool selectCodec();
 		int encodeOpusFrame(short *source, int size, unsigned char *buffer);
 		int encodeSpeexFrame(short *pSource, unsigned char *buffer);
 		int encodeCELTFrame(short *pSource, unsigned char *buffer);
