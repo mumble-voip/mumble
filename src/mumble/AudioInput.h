@@ -119,9 +119,6 @@ class AudioInput : public QThread {
 		CELTCodec *cCodec;
 		CELTEncoder *ceEncoder;
 
-		SpeexBits sbBits;
-		void *esSpeex;
-
 		int iAudioQuality;
 		int iAudioFrames;
 
@@ -152,7 +149,6 @@ class AudioInput : public QThread {
 
 		void initializeMixer();
 
-		static bool preferCELT(int bitrate, int frames);
 		static void adjustBandwidth(int bitspersec, int &bitrate, int &frames);
 	signals:
 		void doDeaf();
