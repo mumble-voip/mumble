@@ -1042,6 +1042,18 @@ void MainWindow::on_qaServerUserList_triggered() {
 	}
 }
 
+static const QString currentCodec() {
+	if (g.bOpus)
+		return QLatin1String("Opus");
+
+	int v = g.bPreferAlpha ? g.iCodecAlpha : g.iCodecBeta;
+	CELTCodec* cc = g.qmCodecs.value(v);
+	if (cc)
+		return QString::fromLatin1("CELT %1").arg(cc->version());
+	else
+		return QString::fromLatin1("CELT %1").arg(QString::number(v, 16));
+}
+
 void MainWindow::on_qaServerInformation_triggered() {
 	ConnectionPtr c = g.sh->cConnection;
 
@@ -1087,7 +1099,7 @@ void MainWindow::on_qaServerInformation_triggered() {
 		          .arg(cs.uiRemoteGood).arg(cs.uiRemoteLate).arg(cs.uiRemoteLost).arg(cs.uiRemoteResync)
 		          .arg(cs.uiGood).arg(cs.uiLate).arg(cs.uiLost).arg(cs.uiResync);
 	}
-	qsAudio=tr("<h2>Audio bandwidth</h2><p>Maximum %1 kbit/s<br />Current %2 kbit/s</p>").arg(g.iMaxBandwidth / 1000.0,0,'f',1).arg(g.iAudioBandwidth / 1000.0,0,'f',1);
+	qsAudio=tr("<h2>Audio bandwidth</h2><p>Maximum %1 kbit/s<br />Current %2 kbit/s<br />Codec: %3</p>").arg(g.iMaxBandwidth / 1000.0,0,'f',1).arg(g.iAudioBandwidth / 1000.0,0,'f',1).arg(currentCodec());
 
 	QMessageBox qmb(QMessageBox::Information, tr("Mumble Server Information"), qsVersion + qsControl + qsVoice + qsCrypt + qsAudio, QMessageBox::Ok, this);
 	qmb.setDefaultButton(QMessageBox::Ok);
