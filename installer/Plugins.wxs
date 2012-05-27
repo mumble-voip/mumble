@@ -20,6 +20,9 @@
       <Component Id="bf2142.dll">
         <File Source="$(var.SourceDir)\release\plugins\bf2142.dll" KeyPath="yes" />
       </Component>
+      <Component Id="bf3.dll">
+        <File Source="$(var.SourceDir)\release\plugins\bf3.dll" KeyPath="yes" />
+      </Component>
       <Component Id="bfbc2.dll">
         <File Source="$(var.SourceDir)\release\plugins\bfbc2.dll" KeyPath="yes" />
       </Component>
@@ -28,6 +31,9 @@
       </Component>
       <Component Id="borderlands.dll">
         <File Source="$(var.SourceDir)\release\plugins\borderlands.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="breach.dll">
+        <File Source="$(var.SourceDir)\release\plugins\breach.dll" KeyPath="yes" />
       </Component>
       <Component Id="cod2.dll">
         <File Source="$(var.SourceDir)\release\plugins\cod2.dll" KeyPath="yes" />
@@ -51,7 +57,7 @@
         <File Source="$(var.SourceDir)\release\plugins\css.dll" KeyPath="yes" />
       </Component>
       <Component Id="dods.dll">
-        <File Source="$(var.SourceDir)\release\plugins\dods.dll" />
+        <File Source="$(var.SourceDir)\release\plugins\dods.dll" KeyPath="yes" />
       </Component>
       <Component Id="dys.dll">
         <File Source="$(var.SourceDir)\release\plugins\dys.dll" KeyPath="yes" />
@@ -61,6 +67,12 @@
       </Component>
       <Component Id="gmod.dll">
         <File Source="$(var.SourceDir)\release\plugins\gmod.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="gtaiv.dll">
+        <File Source="$(var.SourceDir)\release\plugins\gtaiv.dll" KeyPath="yes" />
+      </Component>
+	  <Component Id="gw.dll">
+        <File Source="$(var.SourceDir)\release\plugins\gw.dll" KeyPath="yes" />
       </Component>
       <Component Id="hl2dm.dll">
         <File Source="$(var.SourceDir)\release\plugins\hl2dm.dll" KeyPath="yes" />
@@ -76,6 +88,9 @@
       </Component>
       <Component Id="link.dll">
         <File Source="$(var.SourceDir)\release\plugins\link.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="lol.dll">
+        <File Source="$(var.SourceDir)\release\plugins\lol.dll" KeyPath="yes" />
       </Component>
       <Component Id="lotro.dll">
         <File Source="$(var.SourceDir)\release\plugins\lotro.dll" KeyPath="yes" />
@@ -109,9 +124,11 @@
       <ComponentRef Id="bf1942.dll" />
       <ComponentRef Id="bf2.dll" />
       <ComponentRef Id="bf2142.dll" />
+      <ComponentRef Id="bf3.dll" />
       <ComponentRef Id="bfbc2.dll" />
       <ComponentRef Id="bfheroes.dll" />
       <ComponentRef Id="borderlands.dll" />
+      <ComponentRef Id="breach.dll" />
       <ComponentRef Id="cod2.dll" />
       <ComponentRef Id="cod4.dll" />
       <ComponentRef Id="cod5.dll" />
@@ -123,11 +140,14 @@
       <ComponentRef Id="dys.dll" />
       <ComponentRef Id="etqw.dll" />
       <ComponentRef Id="gmod.dll" />
+      <ComponentRef Id="gtaiv.dll" />
+	  <ComponentRef Id="gw.dll" />
       <ComponentRef Id="hl2dm.dll" />
       <ComponentRef Id="insurgency.dll" />
       <ComponentRef Id="l4d.dll" />
       <ComponentRef Id="l4d2.dll" />
       <ComponentRef Id="link.dll" />
+      <ComponentRef Id="lol.dll" />
       <ComponentRef Id="lotro.dll" />
       <ComponentRef Id="manual.dll" />
       <ComponentRef Id="sto.dll" />

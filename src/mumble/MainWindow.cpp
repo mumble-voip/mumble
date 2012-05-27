@@ -165,6 +165,10 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	// current open document (i.e. you can copy the open document anywhere
 	// simply by dragging this icon).
 	qApp->setWindowIcon(qiIcon);
+	
+	// Set the icon on the MainWindow directly. This fixes the icon not
+	// being set on the MainWindow in certain environments (Ex: GTK+).
+	setWindowIcon(qiIcon);
 #endif
 
 #ifdef Q_OS_WIN
@@ -521,7 +525,7 @@ bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, b
 		bool ok = false;
 		QString x(url.host());
 		if (x.length() == 40) {
-			ClientUser *cu = ClientUser::getByHash(x);
+			ClientUser *cu = pmModel->getUser(x);
 			if (cu) {
 				cuContextUser = cu;
 				ok = true;
@@ -1038,6 +1042,18 @@ void MainWindow::on_qaServerUserList_triggered() {
 	}
 }
 
+static const QString currentCodec() {
+	if (g.bOpus)
+		return QLatin1String("Opus");
+
+	int v = g.bPreferAlpha ? g.iCodecAlpha : g.iCodecBeta;
+	CELTCodec* cc = g.qmCodecs.value(v);
+	if (cc)
+		return QString::fromLatin1("CELT %1").arg(cc->version());
+	else
+		return QString::fromLatin1("CELT %1").arg(QString::number(v, 16));
+}
+
 void MainWindow::on_qaServerInformation_triggered() {
 	ConnectionPtr c = g.sh->cConnection;
 
@@ -1083,7 +1099,7 @@ void MainWindow::on_qaServerInformation_triggered() {
 		          .arg(cs.uiRemoteGood).arg(cs.uiRemoteLate).arg(cs.uiRemoteLost).arg(cs.uiRemoteResync)
 		          .arg(cs.uiGood).arg(cs.uiLate).arg(cs.uiLost).arg(cs.uiResync);
 	}
-	qsAudio=tr("<h2>Audio bandwidth</h2><p>Maximum %1 kbit/s<br />Current %2 kbit/s</p>").arg(g.iMaxBandwidth / 1000.0,0,'f',1).arg(g.iAudioBandwidth / 1000.0,0,'f',1);
+	qsAudio=tr("<h2>Audio bandwidth</h2><p>Maximum %1 kbit/s<br />Current %2 kbit/s<br />Codec: %3</p>").arg(g.iMaxBandwidth / 1000.0,0,'f',1).arg(g.iAudioBandwidth / 1000.0,0,'f',1).arg(currentCodec());
 
 	QMessageBox qmb(QMessageBox::Information, tr("Mumble Server Information"), qsVersion + qsControl + qsVoice + qsCrypt + qsAudio, QMessageBox::Ok, this);
 	qmb.setDefaultButton(QMessageBox::Ok);
@@ -1441,6 +1457,8 @@ void MainWindow::on_qaUserCommentView_triggered() {
 			return;
 		}
 	}
+
+	pmModel->seenComment(pmModel->index(p));
 
 	::TextMessage *texm = new ::TextMessage(this, tr("View comment on user %1").arg(p->qsName));
 
@@ -2242,7 +2260,11 @@ void MainWindow::serverConnected() {
 	g.pPermissions = ChanACL::None;
 	g.iCodecAlpha = 0x8000000b;
 	g.bPreferAlpha = true;
+#ifdef USE_OPUS
 	g.bOpus = true;
+#else
+	g.bOpus = false;
+#endif
 	g.iCodecBeta = 0;
 
 	g.l->clearIgnore();
@@ -2504,6 +2526,13 @@ void MainWindow::trayAboutToShow() {
 	}
 }
 
+void MainWindow::on_Icon_messageClicked() {
+	if (isMinimized())
+		setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
+	show();
+	raise();
+	activateWindow();
+}
 
 void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 	// FIXME: Workaround for activated sending both doubleclick and trigger

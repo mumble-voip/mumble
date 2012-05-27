@@ -40,7 +40,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char state;
 	bool ok;
 
-	ok = peekProc((BYTE *) 0x0237218C, &state, 1); // State value
+	ok = peekProc((BYTE *) 0x0238CC2C, &state, 1); // State value
 	if (! ok)
 		return false;
 	
@@ -65,9 +65,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if ( state != 2 )
 		return true;	// This results in all vectors being zero which tells Mumble to ignore them.
 	
-	ok = peekProc((BYTE *) 0x02372120, avatar_pos, 12) &&
-		peekProc((BYTE *)  0x02372150, avatar_front, 12) &&
-		peekProc((BYTE *)  0x02372140, avatar_top, 12);
+	ok = peekProc((BYTE *) 0x0238CBC0, avatar_pos, 12) &&
+		peekProc((BYTE *)  0x0238CBF0, avatar_front, 12) &&
+		peekProc((BYTE *)  0x0238CBE0, avatar_top, 12);
 
 	if (! ok)
 		return false;
@@ -112,7 +112,7 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports Battlefield 3. No identity or context support.");
 }
 
-static std::wstring description(L"Battlefield 3 v889134");
+static std::wstring description(L"Battlefield 3 v936211");
 static std::wstring shortname(L"Battlefield 3");
 
 static int trylock1() {

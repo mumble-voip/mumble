@@ -562,7 +562,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 				output[i] = qBound(-1.0f, output[i], 1.0f);
 		else
 			for (unsigned int i=0;i<nsamp*iChannels;i++)
-				reinterpret_cast<short *>(outbuff)[i] = static_cast<short>(32768.f * qBound(-1.0f, output[i], 1.0f));
+				reinterpret_cast<short *>(outbuff)[i] = static_cast<short>(qBound(-32768.f, (output[i] * 32768.f), 32767.f));
 	}
 
 	qrwlOutputs.unlock();
