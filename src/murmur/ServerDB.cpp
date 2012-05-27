@@ -1169,15 +1169,21 @@ Channel *Server::addChannel(Channel *p, const QString &name, bool temporary, int
 		query.addBindValue(id);
 		query.addBindValue(name);
 		SQLEXEC();
-	}
 
-	// Add channel sorting information
-	SQLPREP("INSERT INTO `%1channel_info` ( `server_id`, `channel_id`, `key`, `value`) VALUES(?,?,?,?)");
-	query.addBindValue(iServerNum);
-	query.addBindValue(id);
-	query.addBindValue(ServerDB::Channel_Position);
-	query.addBindValue(QVariant(position).toString());
-	SQLEXEC();
+		// Delete old channel_info rows
+		SQLPREP("DELETE FROM `%1channel_info` WHERE `server_id` = ? AND `channel_id` = ?");
+		query.addBindValue(iServerNum);
+		query.addBindValue(id);
+		SQLEXEC();
+
+		// Add channel sorting information
+		SQLPREP("INSERT INTO `%1channel_info` ( `server_id`, `channel_id`, `key`, `value`) VALUES(?,?,?,?)");
+		query.addBindValue(iServerNum);
+		query.addBindValue(id);
+		query.addBindValue(ServerDB::Channel_Position);
+		query.addBindValue(QVariant(position).toString());
+		SQLEXEC();
+	}
 
 	Channel *c = new Channel(id, name, p);
 	c->bTemporary = temporary;

@@ -1,4 +1,5 @@
-/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com>
 
    All rights reserved.
 
@@ -30,9 +31,10 @@
 
 #include "../mumble_plugin_win32.h"
 
-BYTE *posptr;
-BYTE *rotptr;
-// BYTE *stateptr;
+static BYTE *posptr;
+static BYTE *rotptr;
+static BYTE *stateptr;
+static BYTE *contextptr;
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
@@ -67,21 +69,24 @@ static bool calcout(float *pos, float *rot, float *opos, float *front, float *to
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	posptr = rotptr = NULL;
+	posptr = rotptr = stateptr = contextptr = NULL;
 
 	if (! initialize(pids, L"left4dead2.exe", L"client.dll"))
 		return false;
 
-	posptr = pModule + 0x6F9250;
+	posptr = pModule + 0x641A4C;
 	rotptr = pModule + 0x641A08;
-	// stateptr = pModule + 0x690A3C;
-
+	stateptr = pModule + 0x6A1AF4;
+	contextptr = pModule + 0x6f487c;
+	
 	float pos[3];
 	float rot[3];
 	float opos[3], top[3], front[3];
-
+	char state, _context[21];
 	bool ok = peekProc(posptr, pos, 12) &&
-	          peekProc(rotptr, rot, 12);
+	          peekProc(rotptr, rot, 12) &&
+			  peekProc(stateptr, &state, 1) &&
+			  peekProc(contextptr, _context);
 
 	if (ok)
 		return calcout(pos, rot, opos, top, front);
@@ -91,21 +96,25 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	return false;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &/*identity*/) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	float ipos[3], rot[3];
 	bool ok;
-	// char state;
+	char state;
+	char _context[21];
 
 	// stateptr returns byte values: 0 when map is not loaded; 8 when loaded
 	ok = peekProc(posptr, ipos, 12) &&
-	     peekProc(rotptr, rot, 12);
-	// peekProc(stateptr, &state, 1);
+	     peekProc(rotptr, rot, 12) &&
+		 peekProc(stateptr, &state, 1) &&
+		 peekProc(contextptr, _context);
 
-	// if (state == 0)
-	// 	return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+	if (state == 0) {
+		context = std::string(""); // clear context
+	 	return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+	}
 
 	if (ok) {
 		int res = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
@@ -116,8 +125,20 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 				camera_top[i] = avatar_top[i];
 
 				// Example only -- only set these when you have sane values, and make sure they're pretty constant (every change causes a sever message).
-				context = std::string("server/map/blah");
-				identity = std::wstring(L"STEAM_1:2:3456789");
+				//context = std::string("server/map/blah");
+				//identity = std::wstring(L"STEAM_1:2:3456789");
+			}
+			std::string sHost(_context);
+			// This string can be either "xxx.xxx.xxx.xxx:yyyyy" (or shorter), "loopback:0" or "" (empty) when in menus. Hence 21 size for char.
+			if (!sHost.empty())
+			{
+				if (sHost.find("loopback") == std::string::npos)
+				{
+					std::ostringstream newcontext;
+					newcontext << "{\"ipport\": \"" << sHost << "\"}";
+					context = newcontext.str();
+				}
+						
 			}
 			return res;
 		}
@@ -127,10 +148,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports L4D2 build 4490. No identity or context support yet.");
+	return std::wstring(L"Supports L4D2 build 4777 with context support. No identity support yet.");
 }
 
-static std::wstring description(L"Left 4 Dead 2 (Build 4490)");
+static std::wstring description(L"Left 4 Dead 2 (Build 4777)");
 static std::wstring shortname(L"Left 4 Dead 2");
 
 static int trylock1() {
