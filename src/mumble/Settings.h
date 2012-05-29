@@ -183,6 +183,8 @@ struct Settings {
 	bool bUserTop;
 	bool bWhisperFriends;
 	bool bTTSMessageReadBack;
+	bool bBacklog;
+	int iBacklogMaxLen;
 	int iTTSVolume, iTTSThreshold;
 	int iQuality, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	int iNoiseSuppress;

@@ -56,6 +56,7 @@
 #include "CrashReporter.h"
 #include "FileEngine.h"
 #include "SocketRPC.h"
+#include "signal.h"
 
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
@@ -121,6 +122,11 @@ bool QAppMumble::winEventFilter(MSG *msg, long *result) {
 	return QApplication::winEventFilter(msg, result);
 }
 #endif
+
+void signalHandler(int param) {
+	if (param == SIGTERM || param == SIGINT)
+		qApp->quit();
+}
 
 int main(int argc, char **argv) {
 	int res = 0;
@@ -450,6 +456,8 @@ int main(int argc, char **argv) {
 	} else {
 		g.mw->on_qaServerConnect_triggered(true);
 	}
+	
+	signal(SIGTERM,signalHandler);
 
 	if (! g.bQuit)
 		res=a.exec();

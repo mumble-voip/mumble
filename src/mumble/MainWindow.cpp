@@ -63,6 +63,7 @@
 #include "VersionCheck.h"
 #include "ViewCert.h"
 #include "VoiceRecorderDialog.h"
+#include <signal.h>
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -206,6 +207,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	connect(qmUser, SIGNAL(aboutToShow()), this, SLOT(qmUser_aboutToShow()));
 	connect(qmChannel, SIGNAL(aboutToShow()), this, SLOT(qmChannel_aboutToShow()));
 	connect(qteChat, SIGNAL(entered(QString)), this, SLOT(sendChatbarMessage(QString)));
+	connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(aboutToQuit()) );
 
 	// Fix context of all actions.
 	QList<QAction *> qla = findChildren<QAction *>();
@@ -433,6 +435,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	}
 	sh.reset();
 #endif
+	g.l->writeBacklogToFile();
 	g.uiSession = 0;
 	g.pPermissions = ChanACL::None;
 
@@ -470,6 +473,10 @@ void MainWindow::hideEvent(QHideEvent *e) {
 			QMetaObject::invokeMethod(this, "hide", Qt::QueuedConnection);
 	QMainWindow::hideEvent(e);
 #endif
+}
+
+void MainWindow::aboutToQuit() {
+	g.l->writeBacklogToFile();
 }
 
 void MainWindow::updateTrayIcon() {
@@ -2329,6 +2336,8 @@ static QString getPathToChannel(Channel *c) {
 void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString reason) {
 	if (g.uiSession)
 		qsDesiredChannel = getPathToChannel(ClientUser::get(g.uiSession)->cChannel);
+
+	g.l->writeBacklogToFile();
 
 	g.uiSession = 0;
 	g.pPermissions = ChanACL::None;

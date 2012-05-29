@@ -116,6 +116,8 @@ void LogConfig::load(const Settings &r) {
 		i->setText(ColStaticSoundPath, r.qmMessageSounds.value(mt));
 	}
 	qsbMaxBlocks->setValue(r.iMaxLogBlocks);
+	qsbMaxBacklog->setValue(r.iBacklogMaxLen);
+	qcbBacklog->setChecked(r.bBacklog);
 
 	loadSlider(qsVolume, r.iTTSVolume);
 	qsbThreshold->setValue(r.iTTSThreshold);
@@ -141,6 +143,8 @@ void LogConfig::save() const {
 		s.qmMessageSounds[mt] = i->text(ColStaticSoundPath);
 	}
 	s.iMaxLogBlocks = qsbMaxBlocks->value();
+	s.iBacklogMaxLen = qsbMaxBacklog->value();
+	s.bBacklog = qcbBacklog->isChecked();
 
 	s.iTTSVolume=qsVolume->value();
 	s.iTTSThreshold=qsbThreshold->value();
@@ -439,6 +443,65 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 	}
 }
 
+void Log::readBacklog() {
+	QString dir = g.qdBasePath.absolutePath() + QLatin1String("/backlog");
+	QString backlogPath = dir + QLatin1String("/") + g.s.qsLastServer + QLatin1String(".backlog");
+	
+	if (!QDir(dir).exists())
+		return;
+
+	QFile backlog(backlogPath);
+	// Read old messages and print them to the log.
+	// Add them to the current backlogQueue too.
+	QString tmpLog;
+	if (!backlogQueue.isEmpty())
+		backlogQueue.clear();
+	if (backlog.open(QIODevice::ReadOnly))
+	{
+		QTextStream fileStream(&backlog);
+
+		g.l->log(Log::BacklogText, tr("[Backlog since previous sessions]"));
+		QString line = fileStream.readLine();
+		while (!line.isNull())
+		{
+			g.l->addToBacklogQueue(NULL, line);
+			g.l->log(Log::BacklogText, line);
+
+			line = fileStream.readLine();
+		}
+		g.l->log(Log::BacklogText, tr("[End backlog]"));
+
+		backlog.close();
+	}
+
+}
+
+void Log::writeBacklogToFile() {
+	QString dir = g.qdBasePath.absolutePath() + QLatin1String("/backlog");
+	QString backlogPath = dir + QLatin1String("/") + g.s.qsLastServer + QLatin1String(".backlog");
+	
+	if (!QDir(dir).exists())
+		QDir().mkdir(dir);
+
+	if (backlogQueue.isEmpty())
+		return;
+
+	QFile backlog(backlogPath);
+	// Write the message to the backlog
+	QString tmpLog;
+	if (backlog.open(QIODevice::WriteOnly | QIODevice::Text))
+	{
+		QTextStream fileStream(&backlog);
+		QString line;
+		while (!backlogQueue.isEmpty())
+		{
+			line = backlogQueue.dequeue();
+			fileStream << line + QLatin1String("\n");
+		}
+		backlog.close();
+	}
+}
+
 void Log::log(MsgType mt, const QString &console, const QString &terse, bool ownMessage) {
 	QDateTime dt = QDateTime::currentDateTime();
 
@@ -450,6 +513,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 	}
 
 	QString plain = QTextDocumentFragment::fromHtml(console).toPlainText();
+	QString time = QString::fromLatin1("[%1] ").arg(dt.time().toString(Qt::DefaultLocaleShortDate));
 
 	quint32 flags = g.s.qmMessages.value(mt);
 
@@ -479,7 +543,8 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		} else if (! g.mw->qteLog->document()->isEmpty()) {
 			tc.insertBlock();
 		}
-		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(dt.time().toString(Qt::DefaultLocaleShortDate)), Log::Time));
+		if (mt != BacklogText)
+			tc.insertHtml(Log::msgColor(time, Log::Time));
 		validHtml(console, true, &tc);
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);
@@ -488,6 +553,11 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			tlog->scrollLogToBottom();
 		else
 			tlog->setLogScroll(oldscrollvalue);
+
+		// Save text messages in the backlog
+		if (g.s.bBacklog && mt == TextMessage) {
+			g.l->addToBacklogQueue(&time, console);
+		}
 	}
 
 	if (!g.s.bTTSMessageReadBack && ownMessage)
@@ -633,6 +703,18 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		tts->say(plain);
 	else if ((! terse.isEmpty()) && (terse.length() <= g.s.iTTSThreshold))
 		tts->say(terse);
+}
+
+void Log::addToBacklogQueue(QString *time, const QString &console) {
+	if (!backlogQueue.isEmpty() && backlogQueue.size() == g.s.iBacklogMaxLen)
+		backlogQueue.dequeue();
+
+	if (time != NULL) {
+		QString message = *time + console;
+		backlogQueue.enqueue(QLatin1String("<span style='color:gray;'>") + message + QLatin1String("</span>"));
+	} else {
+		backlogQueue.enqueue(console);
+	}
 }
 
 ValidDocument::ValidDocument(bool allowhttp, QObject *p) : QTextDocument(p) {

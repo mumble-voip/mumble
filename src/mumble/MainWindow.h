@@ -153,6 +153,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		ClientUser* getContextMenuUser();
 
 	public slots:
+		void aboutToQuit();
 		void on_qmServer_aboutToShow();
 		void on_qaServerConnect_triggered(bool autoconnect = false);
 		void on_qaServerDisconnect_triggered();
