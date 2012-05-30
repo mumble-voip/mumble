@@ -445,7 +445,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 
 void Log::readBacklog() {
 	QString dir = g.qdBasePath.absolutePath() + QLatin1String("/backlog");
-	QString backlogPath = dir + QLatin1String("/") + g.s.qsLastServer + QLatin1String(".backlog");
+	QString backlogPath = dir + QLatin1String("/chat.backlog");
 	
 	if (!QDir(dir).exists())
 		return;
@@ -456,20 +456,18 @@ void Log::readBacklog() {
 	QString tmpLog;
 	if (!backlogQueue.isEmpty())
 		backlogQueue.clear();
-	if (backlog.open(QIODevice::ReadOnly))
-	{
+	if (backlog.open(QIODevice::ReadOnly)) {
 		QTextStream fileStream(&backlog);
 
-		g.l->log(Log::BacklogText, tr("[Backlog since previous sessions]"));
+		g.l->log(Log::BacklogText, tr("[Backlog for previous sessions]"));
 		QString line = fileStream.readLine();
-		while (!line.isNull())
-		{
-			g.l->addToBacklogQueue(NULL, line);
+		while (!line.isNull()) {
+			g.l->addToBacklogQueue(QString::null, line);
 			g.l->log(Log::BacklogText, line);
 
 			line = fileStream.readLine();
 		}
-		g.l->log(Log::BacklogText, tr("[End backlog]"));
+		g.l->log(Log::BacklogText, tr("[End of backlog]"));
 
 		backlog.close();
 	}
@@ -478,7 +476,7 @@ void Log::readBacklog() {
 
 void Log::writeBacklogToFile() {
 	QString dir = g.qdBasePath.absolutePath() + QLatin1String("/backlog");
-	QString backlogPath = dir + QLatin1String("/") + g.s.qsLastServer + QLatin1String(".backlog");
+	QString backlogPath = dir + QLatin1String("/chat.backlog");
 	
 	if (!QDir(dir).exists())
 		QDir().mkdir(dir);
@@ -489,12 +487,10 @@ void Log::writeBacklogToFile() {
 	QFile backlog(backlogPath);
 	// Write the message to the backlog
 	QString tmpLog;
-	if (backlog.open(QIODevice::WriteOnly | QIODevice::Text))
-	{
+	if (backlog.open(QIODevice::WriteOnly | QIODevice::Text)) {
 		QTextStream fileStream(&backlog);
 		QString line;
-		while (!backlogQueue.isEmpty())
-		{
+		while (!backlogQueue.isEmpty()) {
 			line = backlogQueue.dequeue();
 			fileStream << line + QLatin1String("\n");
 		}
@@ -556,7 +552,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 		// Save text messages in the backlog
 		if (g.s.bBacklog && mt == TextMessage) {
-			g.l->addToBacklogQueue(&time, console);
+			g.l->addToBacklogQueue(time, console);
 		}
 	}
 
@@ -705,12 +701,12 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		tts->say(terse);
 }
 
-void Log::addToBacklogQueue(QString *time, const QString &console) {
+void Log::addToBacklogQueue(QString time, const QString &console) {
 	if (!backlogQueue.isEmpty() && backlogQueue.size() == g.s.iBacklogMaxLen)
 		backlogQueue.dequeue();
 
-	if (time != NULL) {
-		QString message = *time + console;
+	if (time != QString::null) {
+		QString message = time + console;
 		backlogQueue.enqueue(QLatin1String("<span style='color:gray;'>") + message + QLatin1String("</span>"));
 	} else {
 		backlogQueue.enqueue(console);

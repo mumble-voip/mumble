@@ -376,6 +376,7 @@ Settings::Settings() {
 
 	iMaxLogBlocks = 0;
 	iBacklogMaxLen = 0;
+	bBacklog = false;
 
 	bShortcutEnable = true;
 

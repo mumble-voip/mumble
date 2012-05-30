@@ -187,7 +187,7 @@
       <item row="1" column="0">
        <widget class="QCheckBox" name="qcbBacklog">
         <property name="text">
-         <string>Keep a backlog over chat messages.</string>
+         <string>Keep chat history</string>
         </property>
        </widget>
       </item>
@@ -252,7 +252,7 @@
          <string notr="true"/>
         </property>
         <property name="suffix">
-         <string> Lines</string>
+         <string> Messages</string>
         </property>
         <property name="maximum">
          <number>1000000</number>

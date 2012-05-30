@@ -63,7 +63,6 @@
 #include "VersionCheck.h"
 #include "ViewCert.h"
 #include "VoiceRecorderDialog.h"
-#include <signal.h>
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -127,6 +126,8 @@ OpenURLEvent::OpenURLEvent(QUrl u) : QEvent(static_cast<QEvent::Type>(OU_QEVENT)
 }
 
 const QString MainWindow::defaultStyleSheet = QLatin1String(".log-channel{text-decoration:none;}.log-user{text-decoration:none;}p{margin:0;}");
+
+int MainWindow::aiSigTermFd[2];
 
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	qiIconMuteSelf.addFile(QLatin1String("skin:muted_self.svg"));
@@ -207,12 +208,17 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	connect(qmUser, SIGNAL(aboutToShow()), this, SLOT(qmUser_aboutToShow()));
 	connect(qmChannel, SIGNAL(aboutToShow()), this, SLOT(qmChannel_aboutToShow()));
 	connect(qteChat, SIGNAL(entered(QString)), this, SLOT(sendChatbarMessage(QString)));
-	connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(aboutToQuit()) );
 
 	// Fix context of all actions.
 	QList<QAction *> qla = findChildren<QAction *>();
 	foreach(QAction *a, qla)
 		a->setShortcutContext(Qt::ApplicationShortcut);
+	
+	// Setup term handling
+	if (::socketpair(AF_UNIX, SOCK_STREAM, 0, aiSigTermFd))
+		qFatal("Couldn't create TERM socketpair");
+	qnSigTerm = new QSocketNotifier(aiSigTermFd[1], QSocketNotifier::Read, this);
+	connect(qnSigTerm, SIGNAL(activated(int)), this, SLOT(onSigTerm()));
 
 	on_qmServer_aboutToShow();
 	on_qmSelf_aboutToShow();
@@ -473,10 +479,6 @@ void MainWindow::hideEvent(QHideEvent *e) {
 			QMetaObject::invokeMethod(this, "hide", Qt::QueuedConnection);
 	QMainWindow::hideEvent(e);
 #endif
-}
-
-void MainWindow::aboutToQuit() {
-	g.l->writeBacklogToFile();
 }
 
 void MainWindow::updateTrayIcon() {
@@ -997,6 +999,18 @@ void MainWindow::on_qaSelfRegister_triggered() {
 		g.sh->registerUser(p->uiSession);
 }
 
+void MainWindow::onSigTerm() {
+	qnSigTerm->setEnabled(false);
+	char c;
+	::read(aiSigTermFd[1], &c, sizeof(c));
+
+	// Here we are alowed to do QT-related stuff.
+	g.l->writeBacklogToFile();
+	qApp->quit();
+	
+	qnSigTerm->setEnabled(true);
+}
+
 void MainWindow::on_qmServer_aboutToShow() {
 	qmServer->clear();
 	qmServer->addAction(qaServerConnect);
@@ -1444,6 +1458,12 @@ void MainWindow::openTextMessageDialog(ClientUser *p) {
 		}
 	}
 	delete texm;
+}
+
+void MainWindow::sigTermHandler(int) {
+	// Write a byte to the socket pair, so our QSocketNotifier emits activated().
+	char c = 1;
+	::write(aiSigTermFd[0], &c, sizeof(c));
 }
 
 void MainWindow::on_qaUserCommentView_triggered() {
@@ -2336,8 +2356,6 @@ static QString getPathToChannel(Channel *c) {
 void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString reason) {
 	if (g.uiSession)
 		qsDesiredChannel = getPathToChannel(ClientUser::get(g.uiSession)->cChannel);
-
-	g.l->writeBacklogToFile();
 
 	g.uiSession = 0;
 	g.pPermissions = ChanACL::None;

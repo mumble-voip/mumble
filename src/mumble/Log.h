@@ -100,7 +100,7 @@ class Log : public QObject {
 		void log(MsgType t, const QString &console, const QString &terse=QString(), bool ownMessage = false);
 	private:
 		QQueue<QString> backlogQueue;
-		void addToBacklogQueue(QString *time, const QString &console);
+		void addToBacklogQueue(QString time, const QString &console);
 };
 
 class ValidDocument : public QTextDocument {
