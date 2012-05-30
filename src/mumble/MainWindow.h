@@ -118,16 +118,20 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 
 		void openTextMessageDialog(ClientUser *p);
 
+#ifdef Q_OS_UNIX
 		static void sigTermHandler(int par);
+#endif
 
 #ifdef Q_OS_WIN
 		Timer tInactive;
 		bool winEvent(MSG *, long *);
 		unsigned int uiNewHardware;
 #endif
+#ifdef Q_OS_UNIX
 	private:
 		static int aiSigTermFd[2];
 		QSocketNotifier *qnSigTerm;
+#endif
 	protected:
 		Usage uUsage;
 		QTimer *qtReconnect;
@@ -158,7 +162,10 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		ClientUser* getContextMenuUser();
 
 	public slots:
+#ifdef Q_OS_UNIX
 		void onSigTerm();
+#endif
+		void aboutToQuit();
 		void on_qmServer_aboutToShow();
 		void on_qaServerConnect_triggered(bool autoconnect = false);
 		void on_qaServerDisconnect_triggered();

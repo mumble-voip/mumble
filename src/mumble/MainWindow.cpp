@@ -127,7 +127,9 @@ OpenURLEvent::OpenURLEvent(QUrl u) : QEvent(static_cast<QEvent::Type>(OU_QEVENT)
 
 const QString MainWindow::defaultStyleSheet = QLatin1String(".log-channel{text-decoration:none;}.log-user{text-decoration:none;}p{margin:0;}");
 
+#ifdef Q_OS_UNIX
 int MainWindow::aiSigTermFd[2];
+#endif
 
 MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	qiIconMuteSelf.addFile(QLatin1String("skin:muted_self.svg"));
@@ -208,17 +210,20 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	connect(qmUser, SIGNAL(aboutToShow()), this, SLOT(qmUser_aboutToShow()));
 	connect(qmChannel, SIGNAL(aboutToShow()), this, SLOT(qmChannel_aboutToShow()));
 	connect(qteChat, SIGNAL(entered(QString)), this, SLOT(sendChatbarMessage(QString)));
+	connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(aboutToQuit()));
 
 	// Fix context of all actions.
 	QList<QAction *> qla = findChildren<QAction *>();
 	foreach(QAction *a, qla)
 		a->setShortcutContext(Qt::ApplicationShortcut);
 	
+#ifdef Q_OS_UNIX
 	// Setup term handling
 	if (::socketpair(AF_UNIX, SOCK_STREAM, 0, aiSigTermFd))
 		qFatal("Couldn't create TERM socketpair");
 	qnSigTerm = new QSocketNotifier(aiSigTermFd[1], QSocketNotifier::Read, this);
 	connect(qnSigTerm, SIGNAL(activated(int)), this, SLOT(onSigTerm()));
+#endif
 
 	on_qmServer_aboutToShow();
 	on_qmSelf_aboutToShow();
@@ -479,6 +484,10 @@ void MainWindow::hideEvent(QHideEvent *e) {
 			QMetaObject::invokeMethod(this, "hide", Qt::QueuedConnection);
 	QMainWindow::hideEvent(e);
 #endif
+}
+
+void MainWindow::aboutToQuit() {
+	g.l->writeBacklogToFile();
 }
 
 void MainWindow::updateTrayIcon() {
@@ -999,6 +1008,7 @@ void MainWindow::on_qaSelfRegister_triggered() {
 		g.sh->registerUser(p->uiSession);
 }
 
+#ifdef Q_OS_UNIX
 void MainWindow::onSigTerm() {
 	qnSigTerm->setEnabled(false);
 	char c;
@@ -1010,6 +1020,7 @@ void MainWindow::onSigTerm() {
 	
 	qnSigTerm->setEnabled(true);
 }
+#endif
 
 void MainWindow::on_qmServer_aboutToShow() {
 	qmServer->clear();
@@ -1460,11 +1471,13 @@ void MainWindow::openTextMessageDialog(ClientUser *p) {
 	delete texm;
 }
 
+#ifdef Q_OS_UNIX
 void MainWindow::sigTermHandler(int) {
 	// Write a byte to the socket pair, so our QSocketNotifier emits activated().
 	char c = 1;
 	::write(aiSigTermFd[0], &c, sizeof(c));
 }
+#endif
 
 void MainWindow::on_qaUserCommentView_triggered() {
 	ClientUser *p = getContextMenuUser();
