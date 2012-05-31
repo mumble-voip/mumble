@@ -1504,9 +1504,9 @@ void MainWindow::sendChatbarMessage(QString qsText) {
 	qsText = Qt::escape(qsText);
 	qsText = TextMessage::autoFormat(qsText);
 
-	if (p == NULL || p->uiSession == g.uiSession) {
+	if (!g.s.bChatBarUseSelection || p == NULL || p->uiSession == g.uiSession) {
 		// Channel message
-		if (c == NULL) // If no channel selected fallback to current one
+		if (!g.s.bChatBarUseSelection || c == NULL) // If no channel selected fallback to current one
 			c = ClientUser::get(g.uiSession)->cChannel;
 
 		g.sh->sendChannelTextMessage(c->iId, qsText, false);
@@ -2569,14 +2569,18 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 }
 
 void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &) {
+	updateChatBar();
+}
+
+void MainWindow::updateChatBar() {
 	User *p = pmModel->getUser(qtvUsers->currentIndex());
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
 	if (g.uiSession == 0) {
 		qteChat->setDefaultText(tr("<center>Not connected</center>"), true);
-	} else if (p == NULL || p->uiSession == g.uiSession) {
+	} else if (!g.s.bChatBarUseSelection || p == NULL || p->uiSession == g.uiSession) {
 		// Channel tree target
-		if (c == NULL) // If no channel selected fallback to current one
+		if (!g.s.bChatBarUseSelection || c == NULL) // If no channel selected fallback to current one
 			c = ClientUser::get(g.uiSession)->cChannel;
 
 		qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(c->qsName));

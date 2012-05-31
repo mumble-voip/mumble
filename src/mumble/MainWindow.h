@@ -116,6 +116,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QPair<QByteArray, QImage> openImageFile();
 		static const QString defaultStyleSheet;
 
+		void updateChatBar();
 		void openTextMessageDialog(ClientUser *p);
 
 #ifdef Q_OS_WIN

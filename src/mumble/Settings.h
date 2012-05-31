@@ -248,6 +248,7 @@ struct Settings {
 	bool bStateInTray;
 	bool bUsage;
 	bool bShowUserCount;
+	bool bChatBarUseSelection;
 	QByteArray qbaConnectDialogHeader, qbaConnectDialogGeometry;
 	bool bShowContextMenuInMenuBar;
 
