@@ -77,10 +77,15 @@ CONFIG(no-vorbis-recording) {
   DEFINES *= NO_VORBIS_RECORDING
 }
 
-CONFIG(opus) {
-	INCLUDEPATH *= ../../opus-src/celt ../../opus-src/include ../../opus-src/src ../../opus-build/src
-	DEFINES *= USE_OPUS
-	LIBS *= -lopus
+unix:system(pkg-config --exists opus) {
+  PKGCONFIG *= opus
+  DEFINES *= USE_OPUS
+} else {
+  CONFIG(opus) {
+    INCLUDEPATH *= ../../opus-src/celt ../../opus-src/include ../../opus-src/src ../../opus-build/src
+    DEFINES *= USE_OPUS
+    LIBS *= -lopus
+  }
 }
 
 win32 {
