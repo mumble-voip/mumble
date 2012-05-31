@@ -26,9 +26,9 @@
    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/ 
+*/
 
-#include "../mumble_plugin_win32.h"  
+#include "../mumble_plugin_win32.h"
 
 static BYTE *posptr;
 static BYTE *camptr;
@@ -40,7 +40,6 @@ static BYTE *areaptr;
 static BYTE *characternameptr;
 
 static bool calcout(float *pos, float *front, float *cam, float *camfront, float *opos, float *ofront, float *ocam, float *ocamfront) {
-
 	// Seems Guild Wars is in... inches, yeah :) ---> same as in GW2, proof here: http://www.guildwars2guru.com/topic/21519-reddit-ama-all-questions-answers (question #31)
 	// coordinate Y is swapped with Z
 	// Y is negative (looks like somewhere underground is 0.00 and land is for example -120. When we climb up a hill, it goes down (e.g. -130), and when we walk downhill, it goes up (e.g. -100)
@@ -48,7 +47,7 @@ static bool calcout(float *pos, float *front, float *cam, float *camfront, float
 	opos[0] = pos[0] / 39.37f;	
 	opos[1] = -pos[2] / 39.37f;
 	opos[2] = pos[1] / 39.37f;
-		
+
 	ocam[0] = cam[0] / 39.37f;
 	ocam[1] = -cam[2] / 39.37f;
 	ocam[2] = cam[1] / 39.37f;
@@ -69,7 +68,7 @@ static bool refreshPointers(void)
 	// We can find all vectors (camera position, camera front, avatar position, avatar front) in just one place, yay!
 
 	camfrontptr = camptr = posptr = frontptr = magicptr = characternameptr = areaptr = NULL;
-	
+
 	camptr = (BYTE *) 0xd551b8;
 	posptr = (BYTE *) 0xd551c4; // camptr + 0xC
 	camfrontptr = (BYTE *) 0xd551d0; // posptr + 0xC
@@ -96,11 +95,11 @@ static bool refreshPointers(void)
 }
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
-	for (int i=0;i<3;i++)
+	for (int i = 0; i < 3; i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	bool ok;
-	float cam[3],pos[3],front[3],camfront[3];
+	float cam[3], pos[3], front[3], camfront[3];
 	char state;
 	int areaid;
 	wchar_t charactername [20];
@@ -116,8 +115,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (!ok)
 		return false;
 
-	if (state == 0 || state == 1 || areaid == 0) // Player not in world
-	{
+	if (state == 0 || state == 1 || areaid == 0) { // Player not in world
 		context.clear();
 		identity.clear();
 		return true;
@@ -130,7 +128,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	camera_top[1] = avatar_top[1] = 1; // This isn't FPS, you can't tilt your head :)
 	std::ostringstream _context;
 	_context << "{\"areaid\": " << areaid << ","
-				<< "\"magic\": " << int(state) << "}";
+			 << "\"magic\": " << int(state) << "}";
 	context = _context.str();
 
 	charactername[sizeof(charactername)-1]=0; // make sure string is null-terminated
@@ -140,13 +138,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-
 	if (! initialize(pids, L"Gw.exe"))
 		return false;
 
-	if (!refreshPointers()) { generic_unlock(); return false; }// unlink plugin if this fails
+	// unlink plugin if this fails
+	if (!refreshPointers()) {
+		generic_unlock();
+		return false;
+	}
 
-	float cam[3],pos[3],front[3],camfront[3],top[3],camtop[3];
+	float cam[3], pos[3], front[3], camfront[3], top[3], camtop[3];
 	std::string context;
 	std::wstring identity;
 
