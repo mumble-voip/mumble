@@ -425,7 +425,8 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		mb.setEscapeButton(qpbMinimize);
 		mb.exec();
 		if (mb.clickedButton() != qpbClose) {
-			e->accept();
+			showMinimized();
+			e->ignore();
 			return;
 		}
 	}
