@@ -171,7 +171,7 @@ static int trylock1() {
 }
 
 static MumblePlugin gwplug = {
-	MUMBLE_PLUGIN_MAGIC,
+	MUMBLE_PLUGIN_MAGIC ^ MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
 	NULL,
