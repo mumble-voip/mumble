@@ -116,8 +116,10 @@ void LogConfig::load(const Settings &r) {
 		i->setText(ColStaticSoundPath, r.qmMessageSounds.value(mt));
 	}
 	qsbMaxBlocks->setValue(r.iMaxLogBlocks);
-	qsbMaxBacklog->setValue(r.iBacklogMaxLen);
+	qsbBacklogKeepLimit->setValue(r.iBacklogKeepLimit);
+	qsbBacklogReadLimit->setValue(r.iBacklogReadLimit);
 	qcbBacklog->setChecked(r.bBacklog);
+	qleBacklogDir->setText(r.qsBacklogDir);
 
 	loadSlider(qsVolume, r.iTTSVolume);
 	qsbThreshold->setValue(r.iTTSThreshold);
@@ -143,8 +145,10 @@ void LogConfig::save() const {
 		s.qmMessageSounds[mt] = i->text(ColStaticSoundPath);
 	}
 	s.iMaxLogBlocks = qsbMaxBlocks->value();
-	s.iBacklogMaxLen = qsbMaxBacklog->value();
+	s.iBacklogKeepLimit = qsbBacklogKeepLimit->value();
+	s.iBacklogReadLimit = qsbBacklogReadLimit->value();
 	s.bBacklog = qcbBacklog->isChecked();
+	s.qsBacklogDir = qleBacklogDir->text();
 
 	s.iTTSVolume=qsVolume->value();
 	s.iTTSThreshold=qsbThreshold->value();
@@ -203,11 +207,20 @@ void LogConfig::browseForAudioFile() {
 	}
 }
 
+void LogConfig::on_qpbBacklogDirSelect_clicked() {
+	QString result = QFileDialog::getExistingDirectory(this, tr("Select Directory"), g.qdBasePath.absolutePath()+QLatin1String("/backlog"), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	if (result != QString::null) {
+		s.qsBacklogDir = result;
+		qleBacklogDir->setText(result);
+	}
+}
+
 Log::Log(QObject *p) : QObject(p) {
 	tts=new TextToSpeech(this);
 	tts->setVolume(g.s.iTTSVolume);
 	uiLastId = 0;
 	qdDate = QDate::currentDate();
+	backlogFile = QLatin1String("mumble-chatlog-") + qdDate.toString(QLatin1String("yyMMdd")) + QLatin1String(".log");
 
 #ifdef Q_OS_MAC
 	QStringList qslAllEvents;
@@ -444,57 +457,99 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 }
 
 void Log::readBacklog() {
-	QString dir = g.qdBasePath.absolutePath() + QLatin1String("/backlog");
-	QString backlogPath = dir + QLatin1String("/chat.backlog");
+	if (g.s.qsBacklogDir.isEmpty())
+		g.s.qsBacklogDir = g.qdBasePath.absolutePath() + QLatin1String("/backlog");
+
+	QDir dir(g.s.qsBacklogDir);
 	
-	if (!QDir(dir).exists())
+	if (!dir.exists())
 		return;
 
-	QFile backlog(backlogPath);
+	if (g.s.iBacklogReadLimit == 0)
+		return;
+
+	QStringList filters;
+	filters << QLatin1String("mumble-chatlog-*.log");
+	dir.setNameFilters(filters);
+	dir.setSorting(QDir::Name);
+
 	// Read old messages and print them to the log.
-	// Add them to the current backlogQueue too.
-	QString tmpLog;
-	if (!backlogQueue.isEmpty())
-		backlogQueue.clear();
-	if (backlog.open(QIODevice::ReadOnly)) {
-		QTextStream fileStream(&backlog);
+	g.l->log(Log::BacklogText, tr("[Backlog for previous sessions]"));
+	QFileInfoList list = dir.entryInfoList();
+	for (int i = 0; i < list.size(); i++) {
+		// Strip the filname of all text but the date.
+		QFileInfo fInfo = list.at(i);
+		QString fNameDate = fInfo.fileName();
+		fNameDate.remove(0, 15);
+		fNameDate.remove(6, 9);
+		// Get our read back limit
+		QDate date = qdDate;
+		date = date.addDays(-(g.s.iBacklogReadLimit));
+		QString dateStr = date.toString(QLatin1String("yyMMdd"));
+		
+		bool conversion1;
+		bool conversion2;
+		int fNameDateInt = fNameDate.toInt(&conversion1, 10);
+		int dateStrInt = dateStr.toInt(&conversion2, 10);
 
-		g.l->log(Log::BacklogText, tr("[Backlog for previous sessions]"));
-		QString line = fileStream.readLine();
-		while (!line.isNull()) {
-			g.l->addToBacklogQueue(QString::null, line);
-			g.l->log(Log::BacklogText, line);
+		if (conversion1 && conversion2 && fNameDateInt >= dateStrInt || g.s.iBacklogReadLimit == -1) {
+			std::cout << fNameDateInt << std::endl;
+			std::cout << dateStrInt << std::endl;
+			QFile backlog(dir.absoluteFilePath(fInfo.fileName()));
 
-			line = fileStream.readLine();
+			if (backlog.open(QIODevice::ReadOnly)) {
+				QTextStream fileStream(&backlog);
+
+				QString line = fileStream.readLine();
+				while (!line.isNull()) {
+					g.l->log(Log::BacklogText, line);
+					line = fileStream.readLine();
+				}
+				backlog.close();
+			}
 		}
-		g.l->log(Log::BacklogText, tr("[End of backlog]"));
-
-		backlog.close();
 	}
-
+	g.l->log(Log::BacklogText, tr("[End of backlog]"));
 }
 
-void Log::writeBacklogToFile() {
-	QString dir = g.qdBasePath.absolutePath() + QLatin1String("/backlog");
-	QString backlogPath = dir + QLatin1String("/chat.backlog");
+void Log::rollBacklogs() {
+	if (g.s.qsBacklogDir.isEmpty())
+		g.s.qsBacklogDir = g.qdBasePath.absolutePath() + QLatin1String("/backlog");
+		
+	QDir dir(g.s.qsBacklogDir);
 	
-	if (!QDir(dir).exists())
-		QDir().mkdir(dir);
-
-	if (backlogQueue.isEmpty())
+	if (!dir.exists())
 		return;
 
-	QFile backlog(backlogPath);
-	// Write the message to the backlog
-	QString tmpLog;
-	if (backlog.open(QIODevice::WriteOnly | QIODevice::Text)) {
-		QTextStream fileStream(&backlog);
-		QString line;
-		while (!backlogQueue.isEmpty()) {
-			line = backlogQueue.dequeue();
-			fileStream << line + QLatin1String("\n");
+	if (g.s.iBacklogKeepLimit == 0)
+		return;
+
+	QStringList filters;
+	filters << QLatin1String("mumble-chatlog-??????.log");
+	dir.setNameFilters(filters);
+	dir.setSorting(QDir::Name);
+
+	QFileInfoList list = dir.entryInfoList();
+	for (int i = 0; i < list.size(); i++) {
+		// Strip the filname of all text but the date.
+		QFileInfo fInfo = list.at(i);
+		QString fNameDate = fInfo.fileName();
+		fNameDate = fNameDate.remove(QLatin1String("mumble-chatlog-"));
+		fNameDate = fNameDate.remove(QLatin1String("\.log"));
+		// Get our keep limit
+		QDate date = qdDate;
+		date = date.addDays(-(g.s.iBacklogKeepLimit));
+		QString dateStr = date.toString(QLatin1String("yyMMdd"));
+
+		bool conversion1;
+		bool conversion2;
+		int fNameDateInt = fNameDate.toInt(&conversion1, 10);
+		int dateStrInt = dateStr.toInt(&conversion2, 10);
+
+		if (conversion1 && conversion2 && fNameDateInt < dateStrInt) {
+			QFile backlog(dir.absoluteFilePath(fInfo.fileName()));
+			backlog.remove();
 		}
-		backlog.close();
 	}
 }
 
@@ -528,6 +583,8 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			tc.insertBlock();
 			tc.insertHtml(tr("[Date changed to %1]\n").arg(qdDate.toString(Qt::DefaultLocaleShortDate)));
 			tc.movePosition(QTextCursor::End);
+			backlogFile = QLatin1String("mumble-chatlog-") + qdDate.toString(QLatin1String("yyMMdd")) + QLatin1String(".log");
+			rollBacklogs();
 		}
 
 		if (plain.contains(QRegExp(QLatin1String("[\\r\\n]")))) {
@@ -552,7 +609,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 		// Save text messages in the backlog
 		if (g.s.bBacklog && mt == TextMessage) {
-			g.l->addToBacklogQueue(time, console);
+			g.l->writeBacklog(time, console);
 		}
 	}
 
@@ -701,15 +758,24 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		tts->say(terse);
 }
 
-void Log::addToBacklogQueue(QString time, const QString &console) {
-	if (!backlogQueue.isEmpty() && backlogQueue.size() == g.s.iBacklogMaxLen)
-		backlogQueue.dequeue();
+void Log::writeBacklog(QString time, const QString &console) {
+	if (g.s.qsBacklogDir.isEmpty())
+		g.s.qsBacklogDir = g.qdBasePath.absolutePath() + QLatin1String("/backlog");
 
-	if (time != QString::null) {
-		QString message = time + console;
-		backlogQueue.enqueue(QLatin1String("<span style='color:gray;'>") + message + QLatin1String("</span>"));
-	} else {
-		backlogQueue.enqueue(console);
+	QString dir = g.s.qsBacklogDir;
+	QString backlogPath = dir + QLatin1String("/") + backlogFile;
+	
+	if (!QDir(dir).exists())
+		if (!QDir().mkdir(dir))
+			return;
+
+	QFile backlog(backlogPath);
+	// Write the message to the backlog
+	QString tmpLog;
+	if (backlog.open(QIODevice::WriteOnly | QIODevice::Append)) {
+		QTextStream fileStream(&backlog);
+		fileStream << QLatin1String("<span style='color:gray;'>") + time + console + QLatin1String("</span>\n");
+		backlog.close();
 	}
 }
 

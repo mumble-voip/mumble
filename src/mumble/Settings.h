@@ -183,8 +183,6 @@ struct Settings {
 	bool bUserTop;
 	bool bWhisperFriends;
 	bool bTTSMessageReadBack;
-	bool bBacklog;
-	int iBacklogMaxLen;
 	int iTTSVolume, iTTSThreshold;
 	int iQuality, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	int iNoiseSuppress;
@@ -198,6 +196,11 @@ struct Settings {
 	bool bAttenuateOthersOnTalk;
 	bool bAttenuateOthers;
 	int iOutputDelay;
+
+	bool bBacklog;
+	int iBacklogKeepLimit;
+	int iBacklogReadLimit;
+	QString qsBacklogDir;
 
 	QString qsALSAInput, qsALSAOutput;
 	QString qsPulseAudioInput, qsPulseAudioOutput;

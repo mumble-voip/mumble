@@ -375,8 +375,10 @@ Settings::Settings() {
 	dMaxPacketDelay = 0.0f;
 
 	iMaxLogBlocks = 0;
-	iBacklogMaxLen = 0;
 	bBacklog = false;
+	iBacklogKeepLimit = 0;
+	iBacklogReadLimit = 7;
+	qsBacklogDir = QString();
 
 	bShortcutEnable = true;
 
@@ -648,7 +650,9 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
 	SAVELOAD(bBacklog, "ui/Backlog");
-	SAVELOAD(iBacklogMaxLen, "ui/BacklogMaxLength");
+	SAVELOAD(iBacklogKeepLimit, "ui/BacklogKeepLimit");
+	SAVELOAD(iBacklogReadLimit, "ui/BacklogReadLimit");
+	SAVELOAD(qsBacklogDir, "ui/BacklogDir");
 
 	// PTT Button window
 	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");
@@ -923,7 +927,9 @@ void Settings::save() {
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
 	SAVELOAD(bBacklog, "ui/Backlog");
-	SAVELOAD(iBacklogMaxLen, "ui/BacklogMaxLength");
+	SAVELOAD(iBacklogKeepLimit, "ui/BacklogKeepLimit");
+	SAVELOAD(iBacklogReadLimit, "ui/BacklogReadLimit");
+	SAVELOAD(qsBacklogDir, "ui/BacklogDir");
 
 	// PTT Button window
 	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");

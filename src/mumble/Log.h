@@ -60,6 +60,7 @@ class LogConfig : public ConfigWidget, public Ui::LogConfig {
 		void on_qtwMessages_itemClicked(QTreeWidgetItem*, int);
 		void on_qtwMessages_itemDoubleClicked(QTreeWidgetItem*, int);
 		void browseForAudioFile();
+		void on_qpbBacklogDirSelect_clicked();
 };
 
 class ClientUser;
@@ -95,12 +96,12 @@ class Log : public QObject {
 		static QString formatClientUser(ClientUser *cu, LogColorType t);
 		static QString formatChannel(::Channel *c);
 		void readBacklog();
-		void writeBacklogToFile();
+		void rollBacklogs();
 	public slots:
 		void log(MsgType t, const QString &console, const QString &terse=QString(), bool ownMessage = false);
 	private:
-		QQueue<QString> backlogQueue;
-		void addToBacklogQueue(QString time, const QString &console);
+		void writeBacklog(QString time, const QString &console);
+		QString backlogFile;
 };
 
 class ValidDocument : public QTextDocument {

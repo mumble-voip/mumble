@@ -56,9 +56,6 @@
 #include "CrashReporter.h"
 #include "FileEngine.h"
 #include "SocketRPC.h"
-#ifdef Q_OS_UNIX
-#include <signal.h>
-#endif
 
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
@@ -122,19 +119,6 @@ bool QAppMumble::winEventFilter(MSG *msg, long *result) {
 		}
 	}
 	return QApplication::winEventFilter(msg, result);
-}
-#endif
-
-#ifdef Q_OS_UNIX
-static int unixSigHandlers() {
-	struct sigaction term;
-	term.sa_handler = MainWindow::sigTermHandler;
-	sigemptyset(&term.sa_mask);
-	term.sa_flags |= SA_RESTART;
-
-	if (sigaction(SIGTERM, &term, 0) > 0)
-		return 2;
-	return 0;
 }
 #endif
 
@@ -376,11 +360,6 @@ int main(int argc, char **argv) {
 	// Main Window
 	g.mw=new MainWindow(NULL);
 	g.mw->show();
-
-#ifdef Q_OS_UNIX
-	// Setup unix signal handlers
-	unixSigHandlers();
-#endif
 
 #ifdef USE_DBUS
 	new MumbleDBus(g.mw);
