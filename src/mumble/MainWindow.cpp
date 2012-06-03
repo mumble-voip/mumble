@@ -63,6 +63,7 @@
 #include "VersionCheck.h"
 #include "ViewCert.h"
 #include "VoiceRecorderDialog.h"
+#include "../SignalCurry.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -2060,7 +2061,13 @@ void MainWindow::on_PushToTalk_triggered(bool down, QVariant) {
 	if (down) {
 		g.uiDoublePush = g.tDoublePush.restart();
 		g.iPushToTalk++;
-	} else if (g.iPushToTalk) {
+	} else if (g.iPushToTalk > 0) {
+		QTimer::singleShot(g.s.uiPTTHold, this, SLOT(pttReleased()));
+	}
+}
+
+void MainWindow::pttReleased() {
+	if (g.iPushToTalk > 0) {
 		g.iPushToTalk--;
 	}
 }
@@ -2241,12 +2248,23 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 		updateTarget();
 
 		g.iPushToTalk++;
-	} else if (g.iPushToTalk) {
-		g.iPushToTalk--;
-
-		qsCurrentTargets.remove(st);
-		updateTarget();
+	} else if (g.iPushToTalk > 0) {
+		SignalCurry *fwd = new SignalCurry(scdata, true, this);
+		connect(fwd, SIGNAL(called(QVariant)), SLOT(whisperReleased(QVariant)));
+		QTimer::singleShot(g.s.uiPTTHold, fwd, SLOT(call()));
 	}
+}
+
+void MainWindow::whisperReleased(QVariant scdata) {
+	if (g.iPushToTalk <= 0)
+		return;
+
+	ShortcutTarget st = scdata.value<ShortcutTarget>();
+
+	g.iPushToTalk--;
+
+	qsCurrentTargets.remove(st);
+	updateTarget();
 }
 
 void MainWindow::viewCertificate(bool) {
@@ -2736,3 +2754,4 @@ void MainWindow::destroyUserInformation() {
 		}
 	}
 }
+
