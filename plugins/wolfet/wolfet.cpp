@@ -115,14 +115,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		camera_top[i] = avatar_top[i];
 	}
 
-	// Context - concatenated server-ip mapname and team value
+	// Context - concatenated server-ip, mapname and team value
 	char hostip[32];
 	char mapname[40];
 	ok = peekProc((BYTE *) 0x009FFD30, hostip, sizeof(hostip)) &&
 		peekProc((BYTE *) 0x010B4908, mapname, sizeof(hostip));
 	hostip[sizeof(hostip)-1] = '\0';
 	mapname[sizeof(mapname)-1] = '\0';
-	context = std::string(hostip) + mapname + (char)(team + 0x30);
+	// Context in JSON format, {} with fields ipport (server hostname), map, and team (: int)
+	context = "{\"ipport\":\"" + std::string(hostip) + "\",\"map\":\"" + mapname + "\",\"team\":" + (char)(team + 0x30) + "}";
 
 	return true;
 }
