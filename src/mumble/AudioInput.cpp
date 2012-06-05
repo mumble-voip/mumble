@@ -670,7 +670,6 @@ bool AudioInput::selectCodec() {
 	return true;
 }
 
-// FIXME: we should be able to encode |iAudioFrames| * |iFrameSize| per Opus call.
 int AudioInput::encodeOpusFrame(short *source, int size, unsigned char *buffer) {
 	int len = 0;
 #ifdef USE_OPUS

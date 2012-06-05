@@ -200,6 +200,7 @@ int main(int argc, char **argv) {
 	bool readPw = false;
 #endif
 
+	qsrand(QDateTime::currentDateTime().toTime_t());
 	qInstallMsgHandler(murmurMessageOutput);
 
 #ifdef Q_OS_WIN

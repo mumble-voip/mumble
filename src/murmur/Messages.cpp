@@ -40,7 +40,6 @@
 #include "Connection.h"
 #include "Server.h"
 #include "ServerUser.h"
-#include "DBus.h"
 #include "Version.h"
 
 #define MSG_SETUP(st) \

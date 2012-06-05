@@ -244,6 +244,67 @@
      </layout>
     </widget>
    </item>
+   <item row="2" column="1">
+    <widget class="QGroupBox" name="qgbTray">
+     <property name="title">
+      <string>Tray Icon</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QCheckBox" name="qcbHideTray">
+        <property name="toolTip">
+         <string>Hide the main Mumble window in the tray when it is minimized.</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</string>
+        </property>
+        <property name="text">
+         <string>Hide in tray when minimized</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="qcbStateInTray">
+        <property name="toolTip">
+         <string>Displays talking status in system tray</string>
+        </property>
+        <property name="whatsThis">
+         <string/>
+        </property>
+        <property name="text">
+         <string>Show talking status in tray icon</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="4" column="1">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
    <item row="1" column="1">
     <widget class="QGroupBox" name="qgbApplication">
      <property name="title">
@@ -313,47 +374,12 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="1">
-    <widget class="QGroupBox" name="qgbTray">
-     <property name="title">
-      <string>Tray Icon</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QCheckBox" name="qcbHideTray">
-        <property name="toolTip">
-         <string>Hide the main Mumble window in the tray when it is minimized.</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</string>
-        </property>
-        <property name="text">
-         <string>Hide in tray when minimized</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="qcbStateInTray">
-        <property name="toolTip">
-         <string>Displays talking status in system tray</string>
-        </property>
-        <property name="whatsThis">
-         <string/>
-        </property>
-        <property name="text">
-         <string>Show talking status in tray icon</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
    <item row="3" column="1">
     <widget class="QGroupBox" name="qgbChannel">
      <property name="title">
       <string>Channel Tree</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,1">
+     <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0">
       <item row="0" column="0">
        <widget class="QLabel" name="qliChannelDrag">
         <property name="text">
@@ -411,34 +437,15 @@
         </property>
        </widget>
       </item>
+      <item row="4" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbChatBarUseSelection">
+        <property name="text">
+         <string>Use selected item as the chat bar target</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
-   </item>
-   <item row="5" column="1">
-    <spacer name="verticalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="4" column="1">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>
