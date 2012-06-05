@@ -52,7 +52,7 @@
   If recursion is activated all temporary memberships in related channels will also be cleared.
 */
 
-void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, bool suppressed, bool prioritySpeaker, const QString &comment) {
+void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, bool suppressed, bool prioritySpeaker, const QString& name, const QString &comment) {
 	bool changed = false;
 
 	if (deaf)
@@ -87,11 +87,16 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 			setInfo(pUser->iId, info);
 		}
 	}
+	if (name != pUser->qsName) {
+		changed = true;
+		mpus.set_name(u8(name));
+	}
 
 	pUser->bDeaf = deaf;
 	pUser->bMute = mute;
 	pUser->bSuppress = suppressed;
 	pUser->bPrioritySpeaker = prioritySpeaker;
+	pUser->qsName = name;
 	hashAssign(pUser->qsComment, pUser->qbaCommentHash, comment);
 
 	if (cChannel != pUser->cChannel) {

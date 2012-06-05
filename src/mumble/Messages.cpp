@@ -433,6 +433,10 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 
 			pmModel->moveUser(pDst, c);
 
+			if (pDst == pSelf) {
+				g.mw->updateChatBar();
+			}
+
 			if (log && (pDst != pSelf) && (pDst->cChannel == pSelf->cChannel)) {
 				if (pDst == pSrc)
 					g.l->log(Log::ChannelJoin, tr("%1 entered channel.").arg(Log::formatClientUser(pDst, Log::Target)));

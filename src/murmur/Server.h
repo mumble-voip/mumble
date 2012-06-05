@@ -304,7 +304,7 @@ class Server : public QThread {
 
 		void contextAction(const User *, const QString &, unsigned int, int);
 	public:
-		void setUserState(User *p, Channel *parent, bool mute, bool deaf, bool suppressed, bool prioritySpeaker, const QString &comment = QString());
+		void setUserState(User *p, Channel *parent, bool mute, bool deaf, bool suppressed, bool prioritySpeaker, const QString& name = QString(), const QString &comment = QString());
 		bool setChannelState(Channel *c, Channel *parent, const QString &qsName, const QSet<Channel *> &links, const QString &desc = QString(), const int position = 0);
 		void sendTextMessage(Channel *cChannel, ServerUser *pUser, bool tree, const QString &text);
 

@@ -1,5 +1,6 @@
 /* Copyright (C) 2009-2012, Stefan Hacker <dD0t@users.sourceforge.net>
    Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2012, Jan Klass <kissaki@kcode.de>
 
    All rights reserved.
 
@@ -29,70 +30,80 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/*
+    This plugin scans the following address locations:
+
+        Address         Type      Description
+        ===================================
+        0x013E8CF4      float     X-Coordinate
+        0x013E8CF8      float     Y-Coordinate
+        0x013E8CFC      float     Z-Coordinate
+        // The XYZ coordinates repeat at 0x013F79C8, 0x013F79CC, 0x013F79D0
+        // and seem to always hold the same values. It is not the camera vs
+        // character, as with third person they still hold the same values.
+        0x013F9E20      float     Horizontal view in degree
+        0x013F9E1C      float     Vertical view in degree
+        0x013E8DFC      byte      Team; 0: not in-game (in menu etc), 1: allies, 2: axis, 3: spectator
+        0x009FFD30      char[40]  last connected to host IP
+        0x010B4908      char[32]  map shortname only
+
+        As reference, as help for future manual mem scanning:
+        0x010B48C8      char[32]  map fullpath (relative to gamedir)
+        0x03A54C9C      char[16]  last download host IP (wwwdownload)
+        There seem to be a ton of memory addresses valid for the team value.
+
+        For position coordinates:
+        X-Value is increasing when heading east
+                   decreasing when heading west
+        Y-Value is increasing when heading north
+                   decreasing when heading south
+        Z-Value is increasing when going up
+                   decreasing when going down
+        1 unit = 1 meter (not confirmed)
+
+        For the view angle values:
+        Vertical view 0 when centered
+                    -90 when looking up
+                    +90 when looking down
+        Increasing when looking down.
+
+        Horizontal is 90 when facing north
+                       0 when facing east
+                     -90 when facing south
+                     +/-180 when facing west
+        Increasing when turning left.
+*/
+
 #include "../mumble_plugin_win32.h"
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
 	float viewHor, viewVer;
-	char state;
+	char team;
 
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	bool ok;
-
-	/*
-		This plugin uses the following Variables:
-
-			Address			Type	Description
-			===================================
-			0x013F79CC		float	Y-Coordinate
-			0x013E8CF4		float	X-Coordinate
-			0x013E8CF8		float	Z-Coordinate
-			0x013F9E20		float	Horizontal view
-			0x013F9E1C		float	Vertical view
-			0x013E8D18		byte	Magic value (32 ingame / 0 spectating)
-	*/
-	ok = peekProc((BYTE *) 0x013E8D18, &state, 1);
-	if (! ok)
+	ok = peekProc((BYTE *) 0x013E8DFC, &team, 1);
+	if (!ok)
 		return false;
 
-	if (state != 32)
-		return true; // If this magic value is !=32 we are spectating, so switch off PA
+	// We dont use pos-audio in menus
+	if (team == 0 || team == 3)
+		return true;
 
-	ok = peekProc((BYTE *) 0x013F79CC, avatar_pos+1, 4) &&	//Y
-	     peekProc((BYTE *) 0x013E8CF4, avatar_pos, 4) &&	//X
-	     peekProc((BYTE *) 0x013E8CF8, avatar_pos+2, 4) && //Z
-	     peekProc((BYTE *) 0x013F9E20, &viewHor, 4) && //Hor
-	     peekProc((BYTE *) 0x013F9E1C, &viewVer, 4); //Ver
+	ok = peekProc((BYTE *) 0x013E8CF4, avatar_pos, 4) &&   // X
+		peekProc((BYTE *) 0x013E8CF8, avatar_pos+1, 4) &&  // Y
+		peekProc((BYTE *) 0x013E8CFC, avatar_pos+2, 4) &&  // Z
+		peekProc((BYTE *) 0x013F9E20, &viewHor, 4) &&      // Hor-Angle
+		peekProc((BYTE *) 0x013F9E1C, &viewVer, 4);        // Ver-Angle
 
-	if (! ok)
+	if (!ok)
 		return false;
 
 	avatar_top[2] = -1; // Head movement is in front vector
 
-	/*
-	   Z-Value is increasing when heading north
-				  decreasing when heading south
-	   X-Value is increasing when heading east
-				  decreasing when heading west
-	   Y-Value is increasing when going up
-				  decreasing when going down
-	   1 unit = 1 meter (not confirmed)
-	*/
-
 	// Calculate view unit vector
-	/*
-	   Vertical view 0 when centered
-				   -90 when looking up
-				   +90 when looking down
-	   Increasing when looking down.
-
-	   Horizontal is 90 when facing north
-					  0 when facing east
-					-90 when facing south
-					+/-180 when facing west
-	   Increasing when turning left.
-	*/
 	viewVer *= static_cast<float>(M_PI / 180.0f);
 	viewHor *= static_cast<float>(M_PI / 180.0f);
 
@@ -105,6 +116,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		camera_front[i] = avatar_front[i];
 		camera_top[i] = avatar_top[i];
 	}
+
+	// Context - concatenated server-ip mapname and team value
+	char hostip[32];
+	char mapname[40];
+	ok = peekProc((BYTE *) 0x009FFD30, hostip, sizeof(hostip)) &&
+		peekProc((BYTE *) 0x010B4908, mapname, sizeof(hostip));
+	hostip[sizeof(hostip)] = '\0';
+	mapname[sizeof(mapname)] = '\0';
+	context = std::string(hostip) + mapname + (char)(team + 0x30);
 
 	return true;
 }

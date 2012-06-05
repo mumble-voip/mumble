@@ -63,6 +63,7 @@
 #include "VersionCheck.h"
 #include "ViewCert.h"
 #include "VoiceRecorderDialog.h"
+#include "../SignalCurry.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -313,8 +314,6 @@ void MainWindow::setupGui()  {
 	qtvUsers->setRowHidden(0, QModelIndex(), true);
 	qtvUsers->ensurePolished();
 
-	qaServerConnect->setShortcuts(QKeySequence::Open);
-	qaServerDisconnect->setShortcuts(QKeySequence::Close);
 	qaAudioMute->setChecked(g.s.bMute);
 	qaAudioDeaf->setChecked(g.s.bDeaf);
 	qaAudioTTS->setChecked(g.s.bTTS);
@@ -427,7 +426,8 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		mb.setEscapeButton(qpbMinimize);
 		mb.exec();
 		if (mb.clickedButton() != qpbClose) {
-			e->accept();
+			showMinimized();
+			e->ignore();
 			return;
 		}
 	}
@@ -1506,9 +1506,9 @@ void MainWindow::sendChatbarMessage(QString qsText) {
 	qsText = Qt::escape(qsText);
 	qsText = TextMessage::autoFormat(qsText);
 
-	if (p == NULL || p->uiSession == g.uiSession) {
+	if (!g.s.bChatBarUseSelection || p == NULL || p->uiSession == g.uiSession) {
 		// Channel message
-		if (c == NULL) // If no channel selected fallback to current one
+		if (!g.s.bChatBarUseSelection || c == NULL) // If no channel selected fallback to current one
 			c = ClientUser::get(g.uiSession)->cChannel;
 
 		g.sh->sendChannelTextMessage(c->iId, qsText, false);
@@ -2061,7 +2061,13 @@ void MainWindow::on_PushToTalk_triggered(bool down, QVariant) {
 	if (down) {
 		g.uiDoublePush = g.tDoublePush.restart();
 		g.iPushToTalk++;
-	} else if (g.iPushToTalk) {
+	} else if (g.iPushToTalk > 0) {
+		QTimer::singleShot(g.s.uiPTTHold, this, SLOT(pttReleased()));
+	}
+}
+
+void MainWindow::pttReleased() {
+	if (g.iPushToTalk > 0) {
 		g.iPushToTalk--;
 	}
 }
@@ -2242,12 +2248,23 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 		updateTarget();
 
 		g.iPushToTalk++;
-	} else if (g.iPushToTalk) {
-		g.iPushToTalk--;
-
-		qsCurrentTargets.remove(st);
-		updateTarget();
+	} else if (g.iPushToTalk > 0) {
+		SignalCurry *fwd = new SignalCurry(scdata, true, this);
+		connect(fwd, SIGNAL(called(QVariant)), SLOT(whisperReleased(QVariant)));
+		QTimer::singleShot(g.s.uiPTTHold, fwd, SLOT(call()));
 	}
+}
+
+void MainWindow::whisperReleased(QVariant scdata) {
+	if (g.iPushToTalk <= 0)
+		return;
+
+	ShortcutTarget st = scdata.value<ShortcutTarget>();
+
+	g.iPushToTalk--;
+
+	qsCurrentTargets.remove(st);
+	updateTarget();
 }
 
 void MainWindow::viewCertificate(bool) {
@@ -2571,14 +2588,18 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 }
 
 void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &) {
+	updateChatBar();
+}
+
+void MainWindow::updateChatBar() {
 	User *p = pmModel->getUser(qtvUsers->currentIndex());
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
 	if (g.uiSession == 0) {
 		qteChat->setDefaultText(tr("<center>Not connected</center>"), true);
-	} else if (p == NULL || p->uiSession == g.uiSession) {
+	} else if (!g.s.bChatBarUseSelection || p == NULL || p->uiSession == g.uiSession) {
 		// Channel tree target
-		if (c == NULL) // If no channel selected fallback to current one
+		if (!g.s.bChatBarUseSelection || c == NULL) // If no channel selected fallback to current one
 			c = ClientUser::get(g.uiSession)->cChannel;
 
 		qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(c->qsName));
@@ -2733,3 +2754,4 @@ void MainWindow::destroyUserInformation() {
 		}
 	}
 }
+

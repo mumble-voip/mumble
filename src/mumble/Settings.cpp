@@ -282,6 +282,7 @@ Settings::Settings() {
 	bWhisperFriends = false;
 
 	uiDoublePush = 0;
+	uiPTTHold = 0;
 	bExpert = false;
 
 #ifdef NO_UPDATE_CHECK
@@ -309,6 +310,7 @@ Settings::Settings() {
 	bStateInTray = true;
 	bUsage = true;
 	bShowUserCount = false;
+	bChatBarUseSelection = false;
 	wlWindowLayout = LayoutClassic;
 	bShowContextMenuInMenuBar = false;
 
@@ -528,6 +530,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bDeaf, "audio/deaf");
 	LOADENUM(atTransmit, "audio/transmit");
 	SAVELOAD(uiDoublePush, "audio/doublepush");
+	SAVELOAD(uiPTTHold, "audio/ptthold");
 	SAVELOAD(bTxAudioCue, "audio/pushclick");
 	SAVELOAD(qsTxAudioCueOn, "audio/pushclickon");
 	SAVELOAD(qsTxAudioCueOff, "audio/pushclickoff");
@@ -638,6 +641,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bStateInTray, "ui/stateintray");
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
+	SAVELOAD(bChatBarUseSelection, "ui/chatbaruseselection");
 	SAVELOAD(qsImagePath, "ui/imagepath");
 	SAVELOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
 	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
@@ -804,6 +808,7 @@ void Settings::save() {
 	SAVELOAD(bDeaf, "audio/deaf");
 	SAVELOAD(atTransmit, "audio/transmit");
 	SAVELOAD(uiDoublePush, "audio/doublepush");
+	SAVELOAD(uiPTTHold, "audio/ptthold");
 	SAVELOAD(bTxAudioCue, "audio/pushclick");
 	SAVELOAD(qsTxAudioCueOn, "audio/pushclickon");
 	SAVELOAD(qsTxAudioCueOff, "audio/pushclickoff");
@@ -911,6 +916,7 @@ void Settings::save() {
 	SAVELOAD(bStateInTray, "ui/stateintray");
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
+	SAVELOAD(bChatBarUseSelection, "ui/chatbaruseselection");
 	SAVELOAD(qsImagePath, "ui/imagepath");
 	SAVELOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
 	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");

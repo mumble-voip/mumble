@@ -168,6 +168,7 @@ struct Settings {
 
 	AudioTransmit atTransmit;
 	quint64 uiDoublePush;
+	quint64 uiPTTHold;
 
 	bool bExpert;
 
@@ -248,6 +249,7 @@ struct Settings {
 	bool bStateInTray;
 	bool bUsage;
 	bool bShowUserCount;
+	bool bChatBarUseSelection;
 	QByteArray qbaConnectDialogHeader, qbaConnectDialogGeometry;
 	bool bShowContextMenuInMenuBar;
 

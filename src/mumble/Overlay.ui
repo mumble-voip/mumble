@@ -386,10 +386,6 @@
             </layout>
            </item>
           </layout>
-          <zorder></zorder>
-          <zorder>qswBlackWhiteList</zorder>
-          <zorder>horizontalSpacer</zorder>
-          <zorder></zorder>
          </widget>
         </widget>
        </item>
