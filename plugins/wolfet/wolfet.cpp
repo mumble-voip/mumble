@@ -92,9 +92,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (team == 0 || team == 3)
 		return true;
 
-	ok = peekProc((BYTE *) 0x013E8CF4, avatar_pos, 4) &&   // X
-		peekProc((BYTE *) 0x013E8CF8, avatar_pos+1, 4) &&  // Y
-		peekProc((BYTE *) 0x013E8CFC, avatar_pos+2, 4) &&  // Z
+	ok = peekProc((BYTE *) 0x013E8CF4, avatar_pos, 12) &&   // X, Y, Z
 		peekProc((BYTE *) 0x013F9E20, &viewHor, 4) &&      // Hor-Angle
 		peekProc((BYTE *) 0x013F9E1C, &viewVer, 4);        // Ver-Angle
 
@@ -122,8 +120,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char mapname[40];
 	ok = peekProc((BYTE *) 0x009FFD30, hostip, sizeof(hostip)) &&
 		peekProc((BYTE *) 0x010B4908, mapname, sizeof(hostip));
-	hostip[sizeof(hostip)] = '\0';
-	mapname[sizeof(mapname)] = '\0';
+	hostip[sizeof(hostip)-1] = '\0';
+	mapname[sizeof(mapname)-1] = '\0';
 	context = std::string(hostip) + mapname + (char)(team + 0x30);
 
 	return true;
