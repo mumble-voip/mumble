@@ -33,6 +33,7 @@
 #include "UserInformation.h"
 
 #include "Audio.h"
+#include "CELTCodec.h"
 #include "Global.h"
 #include "Net.h"
 #include "ServerHandler.h"
