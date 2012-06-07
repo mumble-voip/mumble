@@ -58,6 +58,7 @@ MetaParams::MetaParams() {
 	iDefaultChan = 0;
 	bRememberChan = true;
 	qsWelcomeText = QString("Welcome to this server");
+	qsWarnMissingCELT = QLatin1String("<strong>Warning:</strong> Your client does not appear to support the common voice codec required to talk to most version 1.2 clients. Please make sure your client was built with CELT support.");
 	qsDatabase = QString();
 	iDBPort = 0;
 	qsDBusService = "net.sourceforge.mumble.murmur";
@@ -235,6 +236,7 @@ void MetaParams::read(QString fname) {
 	iMaxUsers = qsSettings->value("users", iMaxUsers).toInt();
 	iMaxUsersPerChannel = qsSettings->value("usersperchannel", iMaxUsersPerChannel).toInt();
 	qsWelcomeText = qsSettings->value("welcometext", qsWelcomeText).toString();
+	qsWarnMissingCELT = qsSettings->value("warnmissingcelt", qsWarnMissingCELT).toString();
 	bCertRequired = qsSettings->value("certrequired", bCertRequired).toBool();
 
 	qsDatabase = qsSettings->value("database", qsDatabase).toString();
