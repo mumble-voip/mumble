@@ -397,10 +397,11 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	// Warn about a missing base CELT codec if a client advertises OPUS support
 	// but no CELT. This can be disabled in a version that does not guarantee
 	// 1.2.x compatibility.
-	bool warn_missing_codec = uSource->bOpus && fake_celt_support;
+	bool warn_missing_codec = uSource->bOpus && fake_celt_support && (uSource->uiVersion < 0x010300);
 
 	if(!qsWarnMissingCELT.trimmed().isEmpty() && warn_missing_codec) {
-		sendTextMessage(0, uSource, false, qsWarnMissingCELT);
+		log(uSource, "No baseline CELT codec");
+		sendTextMessage(NULL, uSource, false, qsWarnMissingCELT);
 	}
 
 	log(uSource, "Authenticated");
