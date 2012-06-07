@@ -330,6 +330,7 @@ void Server::readParams() {
 	qvSuggestVersion = Meta::mp.qvSuggestVersion;
 	qvSuggestPositional = Meta::mp.qvSuggestPositional;
 	qvSuggestPushToTalk = Meta::mp.qvSuggestPushToTalk;
+	qsWarnMissingCELT = Meta::mp.qsWarnMissingCELT;
 
 	QString qsHost = getConf("host", QString()).toString();
 	if (! qsHost.isEmpty()) {
@@ -394,6 +395,8 @@ void Server::readParams() {
 
 	qrUserName=QRegExp(getConf("username", qrUserName.pattern()).toString());
 	qrChannelName=QRegExp(getConf("channelname", qrChannelName.pattern()).toString());
+
+	qsWarnMissingCELT = getConf("warnmissingcelt", qsWarnMissingCELT).toString();
 }
 
 void Server::setLiveConf(const QString &key, const QString &value) {

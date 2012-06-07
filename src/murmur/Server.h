@@ -167,6 +167,7 @@ class Server : public QThread {
 		bool bPreferAlpha;
 		bool bOpus;
 		void recheckCodecVersions();
+		QString qsWarnMissingCELT;
 
 #ifdef USE_BONJOUR
 		void initBonjour();

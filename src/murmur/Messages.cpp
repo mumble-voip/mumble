@@ -200,11 +200,13 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	mpcrypt.set_client_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.decrypt_iv), AES_BLOCK_SIZE));
 	sendMessage(uSource, mpcrypt);
 
+	bool fake_celt_support = false;
 	if (msg.celt_versions_size() > 0) {
 		for (int i=0;i < msg.celt_versions_size(); ++i)
 			uSource->qlCodecs.append(msg.celt_versions(i));
 	} else {
 		uSource->qlCodecs.append(static_cast<qint32>(0x8000000b));
+		fake_celt_support = true;
 	}
 	uSource->bOpus = msg.opus();
 	recheckCodecVersions();
@@ -391,6 +393,15 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	if (! qvSuggestPushToTalk.isNull())
 		mpsug.set_push_to_talk(qvSuggestPushToTalk.toBool());
 	sendMessage(uSource, mpsug);
+
+	// Warn about a missing base CELT codec if a client advertises OPUS support
+	// but no CELT. This can be disabled in a version that does not guarantee
+	// 1.2.x compatibility.
+	bool warn_missing_codec = uSource->bOpus && fake_celt_support;
+
+	if(!qsWarnMissingCELT.trimmed().isEmpty() && warn_missing_codec) {
+		sendTextMessage(0, uSource, false, qsWarnMissingCELT);
+	}
 
 	log(uSource, "Authenticated");
 
