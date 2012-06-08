@@ -772,6 +772,8 @@ void Server::run() {
 					case MessageHandler::UDPVoiceSpeex:
 					case MessageHandler::UDPVoiceCELTAlpha:
 					case MessageHandler::UDPVoiceCELTBeta:
+						if (bOpus)
+							break;
 					case MessageHandler::UDPVoiceOpus: {
 							u->bUdp = true;
 							processMsg(u, buffer, len);
@@ -1274,6 +1276,8 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 			case MessageHandler::UDPVoiceCELTAlpha:
 			case MessageHandler::UDPVoiceCELTBeta:
 			case MessageHandler::UDPVoiceSpeex:
+				if (bOpus)
+					break;
 			case MessageHandler::UDPVoiceOpus:
 				processMsg(u, buffer, l);
 				break;
