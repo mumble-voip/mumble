@@ -348,7 +348,7 @@ Fügt eine neue Gruppe hinzu.</translation>
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation type="unfinished">Der Kanal benötigt einen Namen</translation>
+        <translation>Der Kanal benötigt einen Namen</translation>
     </message>
     <message>
         <location line="-131"/>
@@ -674,7 +674,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation type="unfinished">Lizenzen verwendeter &amp;Software</translation>
+        <translation>Lizenzen verwendeter Dritt-&amp;Software</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1057,12 +1057,12 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation type="unfinished">Zeigt ein dauerhaft im Vordergrund liegendes Fenster mit einem Push-To-Talk Button</translation>
+        <translation>Zeigt ein dauerhaft im Vordergrund liegendes Fenster mit einem Push-To-Talk Button</translation>
     </message>
     <message>
         <location/>
         <source>Display push to talk window</source>
-        <translation type="unfinished">Zeige Push-To-Talk Fenster</translation>
+        <translation>Zeige Push-To-Talk Fenster</translation>
     </message>
     <message>
         <location/>
@@ -1072,27 +1072,27 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <message>
         <location/>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation type="unfinished">Tonhinweise bei Beginn oder Ende einer Übertragung</translation>
+        <translation>Tonhinweise bei Beginn und Ende einer Übertragung</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished">&lt;b&gt;Dies aktiviert Tonhinweise bei der Übertragung.&lt;/b&gt;&lt;br /&gt;Man hört ein leises Piepen beim Beginn und Ende der Sprachübertragung.</translation>
+        <translation>&lt;b&gt;Dies aktiviert Tonhinweise bei der Übertragung.&lt;/b&gt;&lt;br /&gt;Man hört ein leises Piepen beim Beginn und Ende der Sprachübertragung.</translation>
     </message>
     <message>
         <location/>
         <source>Audio cue</source>
-        <translation type="unfinished">Tonhinweise</translation>
+        <translation>Tonhinweise</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when starting to transmit</source>
-        <translation type="unfinished">Wird abgespielt, wenn die Sprachübertragung beginnt</translation>
+        <translation>Wird abgespielt, wenn die Sprachübertragung beginnt</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when stopping to transmit</source>
-        <translation type="unfinished">Wird abgespielt, wenn die Sprachübertragung endet</translation>
+        <translation>Wird abgespielt, wenn die Sprachübertragung endet</translation>
     </message>
 </context>
 <context>
@@ -2889,7 +2889,7 @@ Man benötigt Verbindungsrechte in beiden Kanälen um eine Verbindung aufzubauen
     <message>
         <location line="+2"/>
         <source>Local Ignore (Text messages)</source>
-        <translation type="unfinished">Textnachrichten ignorieren</translation>
+        <translation>Textnachrichten ignorieren (lokal)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4066,17 +4066,17 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location/>
         <source>Read back own messages</source>
-        <translation type="unfinished">Eigene Textnachrichten vorlesen</translation>
+        <translation>Eigene Textnachrichten vorlesen</translation>
     </message>
     <message>
         <location/>
         <source>Chat Log</source>
-        <translation type="unfinished">Nachrichtenverlauf</translation>
+        <translation>Nachrichtenverlauf</translation>
     </message>
     <message>
         <location/>
         <source>Maximum chat length</source>
-        <translation type="unfinished">Maximale Länge des Nachrichtenverlaufs</translation>
+        <translation>Maximale Länge des Nachrichtenverlaufs</translation>
     </message>
     <message>
         <location/>
@@ -5111,27 +5111,27 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location line="+200"/>
         <source>The server requests minimum client version %1</source>
-        <translation type="unfinished">Der Server empfiehlt mindestens die Client-Version %1</translation>
+        <translation>Der Server empfiehlt mindestens die Client-Version %1</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The server requests positional audio be enabled.</source>
-        <translation type="unfinished">Der Server empfiehlt aktiviertes Positionsabhängiges Audio.</translation>
+        <translation>Der Server empfiehlt das Aktivieren des Positionsabhängiges Audio.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests positional audio be disabled.</source>
-        <translation type="unfinished">Der Server empfiehlt deaktiviertes Positionsabhängiges Audio.</translation>
+        <translation>Der Server empfiehlt das Deaktivieren des Positionsabhängiges Audio.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The server requests Push-to-Talk be enabled.</source>
-        <translation type="unfinished">Der Server empfiehlt aktiviertes Push-To-Talk.</translation>
+        <translation>Der Server empfiehlt das Aktivieren von Push-To-Talk.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests Push-to-Talk be disabled.</source>
-        <translation type="unfinished">Der Server empfiehlt deaktiviertes Push-To-Talk.</translation>
+        <translation>Der Server empfiehlt das Deaktivieren von Push-To-Talk.</translation>
     </message>
     <message>
         <location line="-471"/>
@@ -5263,7 +5263,22 @@ Valid options are:
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Verwendung: mumble [Optionen] [&lt;url&gt;]
+
+&lt;url&gt; gibt eine URL an, zu welcher verbunden werden soll statt
+das Verbindungs-Fenster anzuzeigen. Die URL hat folgende Form:
+mumble://[&lt;Benutzername&gt;[:&lt;Passwort&gt;]@]&lt;Host&gt;[:&lt;Port&gt;][/&lt;Kanal&gt;[/&lt;Unterkanal&gt;...]][?version=&lt;x.y.z&gt;]
+
+Der Versionsparameter muss gesetzt werden, damit die korrekte Client-
+Version aufgerufen werden kann. Aktuell ist der Standardwert 1.2.0.
+
+Gültige Optionen sind:
+  -h, --help    Zeige diesen Help Text und beende dann.
+  -m, --multiple
+                Erlaubt das Starten mehrerer Instanzen des Clients.
+  -n, --noidentity
+                Das Laden von Identitätsinformationen (z.B. Zertifikate) unterdrücken.
+</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -5381,19 +5396,19 @@ Valid options are:
     <message>
         <location line="+24"/>
         <source>Username in use</source>
-        <translation type="unfinished">Benutzername bereits in Verwendung</translation>
+        <translation>Benutzername bereits in Verwendung</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Wrong certificate or password</source>
-        <translation type="unfinished">Falsches Zertifikat oder Passwort</translation>
+        <translation>Falsches Zertifikat oder Passwort</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation type="unfinished">Falsches Zertifikat oder Passwort für einen registrierten Benutzer. Wenn Sie sicher sind,
+        <translation>Falsches Zertifikat oder Passwort für diesen registrierten Benutzer. Wenn Sie sicher sind,
 dass diese Benutzerregistrierung mit einem Passwort geschützt ist, versuchen Sie es erneut.
 Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutzernamen.</translation>
     </message>
@@ -5452,7 +5467,7 @@ Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutz
     <message>
         <location line="-275"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protokoll %1.&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protokoll %1.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+277"/>
@@ -6094,17 +6109,17 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location/>
         <source>Ignore Messages</source>
-        <translation type="unfinished">Textnachrichten ignorieren</translation>
+        <translation>Textnachrichten ignorieren</translation>
     </message>
     <message>
         <location/>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation type="unfinished">Textnachrichten des Benutzers werden nicht angezeigt.</translation>
+        <translation>Textnachrichten des Benutzers werden lokal nicht angezeigt.</translation>
     </message>
     <message>
         <location/>
         <source>Silently drops all text messages from the user.</source>
-        <translation type="unfinished">Verwirft alle Textnachrichten von diesem Benutzer.</translation>
+        <translation>Verwirft alle Textnachrichten von diesem Benutzer.</translation>
     </message>
 </context>
 <context>
@@ -6451,7 +6466,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location line="+8"/>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation type="unfinished">Zeitspanne bearbeiten, in der Benutzer als aktiv gelten (%1 Sekunden)...</translation>
+        <translation>Zeitspanne bearbeiten, in der Benutzer als aktiv gelten (%1 Sekunden)...</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6486,7 +6501,7 @@ Verhindert das Herunterladen von Nachrichten die mittels img-Tag in Nachrichten 
     <message>
         <location line="+41"/>
         <source>Configure recently active time</source>
-        <translation type="unfinished">Zeitspanne bearbeiten, in der Benutzer als aktiv gelten</translation>
+        <translation>Zeitspanne bearbeiten, in der Benutzer als aktiv gelten</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7771,7 +7786,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <location line="+6"/>
         <source>Ignoring Text Messages</source>
-        <translation type="unfinished">Textnachrichten ignorieren</translation>
+        <translation>Textnachrichten ignorieren</translation>
     </message>
     <message>
         <location line="-4"/>
@@ -8163,12 +8178,12 @@ Please contact your server administrator for further information.</source>
     <message>
         <location filename="PTTButtonWidget.ui"/>
         <source>Mumble PTT</source>
-        <translation type="unfinished">Mumble PTT</translation>
+        <translation>Mumble PTT</translation>
     </message>
     <message>
         <location/>
         <source>Push to talk</source>
-        <translation type="unfinished">Push-To-Talk</translation>
+        <translation>Push-To-Talk</translation>
     </message>
 </context>
 </TS>
