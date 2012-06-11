@@ -1077,7 +1077,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <message>
         <location/>
         <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation>&lt;b&gt;Dies aktiviert Tonhinweise bei der Übertragung.&lt;/b&gt;&lt;br /&gt;Man hört ein leises Piepen beim Beginn und Ende der Sprachübertragung.</translation>
+        <translation>&lt;b&gt;Dies aktiviert Tonhinweise bei der Übertragung.&lt;/b&gt;&lt;br /&gt;Man hört ein kurzes Piepen beim Beginn und Ende der Sprachübertragung.</translation>
     </message>
     <message>
         <location/>
@@ -5116,12 +5116,12 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location line="+4"/>
         <source>The server requests positional audio be enabled.</source>
-        <translation>Der Server empfiehlt das Aktivieren des Positionsabhängiges Audio.</translation>
+        <translation>Der Server empfiehlt das Aktivieren des Positionsabhängigen Audios.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests positional audio be disabled.</source>
-        <translation>Der Server empfiehlt das Deaktivieren des Positionsabhängiges Audio.</translation>
+        <translation>Der Server empfiehlt das Deaktivieren des Positionsabhängigen Audios.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5408,8 +5408,7 @@ Gültige Optionen sind:
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation>Falsches Zertifikat oder Passwort für diesen registrierten Benutzer. Wenn Sie sicher sind,
-dass diese Benutzerregistrierung mit einem Passwort geschützt ist, versuchen Sie es erneut.
+        <translation>Falsches Zertifikat oder Passwort für registrierten Benutzer. Wenn Sie sicher sind, dass dieser Benutzer mit einem Passwort geschützt ist, versuchen Sie es bitte erneut.
 Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutzernamen.</translation>
     </message>
     <message>
