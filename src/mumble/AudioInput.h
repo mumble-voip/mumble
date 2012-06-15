@@ -46,6 +46,8 @@
 #include "Message.h"
 
 class AudioInput;
+class CELTCodec;
+struct CELTEncoder;
 struct OpusEncoder;
 typedef boost::shared_ptr<AudioInput> AudioInputPtr;
 

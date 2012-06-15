@@ -200,11 +200,13 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	mpcrypt.set_client_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.decrypt_iv), AES_BLOCK_SIZE));
 	sendMessage(uSource, mpcrypt);
 
+	bool fake_celt_support = false;
 	if (msg.celt_versions_size() > 0) {
 		for (int i=0;i < msg.celt_versions_size(); ++i)
 			uSource->qlCodecs.append(msg.celt_versions(i));
 	} else {
 		uSource->qlCodecs.append(static_cast<qint32>(0x8000000b));
+		fake_celt_support = true;
 	}
 	uSource->bOpus = msg.opus();
 	recheckCodecVersions();
@@ -215,6 +217,12 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	mpcv.set_prefer_alpha(bPreferAlpha);
 	mpcv.set_opus(bOpus);
 	sendMessage(uSource, mpcv);
+
+	if (!bOpus && uSource->bOpus && fake_celt_support) {
+		sendTextMessage(NULL, uSource, false, QLatin1String("<strong>WARNING:</strong> Your client doesn't support the CELT codec, you won't be able to talk to or hear most clients. Please make sure your client was built with CELT support."));
+	} else if (bOpus && !uSource->bOpus) {
+		sendTextMessage(NULL, uSource, false, QLatin1String("<strong>WARNING:</strong> Your client doesn't support the Opus codec, you won't be able to talk or hear anyone. Please upgrade to a client with Opus support."));
+	}
 
 	// Transmit channel tree
 	QQueue<Channel *> q;
@@ -390,7 +398,9 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		mpsug.set_positional(qvSuggestPositional.toBool());
 	if (! qvSuggestPushToTalk.isNull())
 		mpsug.set_push_to_talk(qvSuggestPushToTalk.toBool());
-	sendMessage(uSource, mpsug);
+	if (mpsug.ByteSize() > 0) {
+		sendMessage(uSource, mpsug);
+	}
 
 	log(uSource, "Authenticated");
 

@@ -758,7 +758,6 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 			pref = ! pref;
 	}
 	g.bPreferAlpha = pref;
-	
 
 	int willuse = pref ? g.iCodecAlpha : g.iCodecBeta;
 
