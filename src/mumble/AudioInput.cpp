@@ -33,6 +33,7 @@
 #include "AudioInput.h"
 
 #include "AudioOutput.h"
+#include "CELTCodec.h"
 #include "ServerHandler.h"
 #include "MainWindow.h"
 #include "User.h"

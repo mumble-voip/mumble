@@ -34,6 +34,7 @@
 #include "AudioOutputSpeech.h"
 
 #include "Audio.h"
+#include "CELTCodec.h"
 #include "ClientUser.h"
 #include "Global.h"
 #include "PacketDataStream.h"
