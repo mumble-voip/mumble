@@ -85,20 +85,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
         char state;
 	bool ok;
-        // Create containers to stuff our raw data into, so we can convert it to Mumble's coordinate system
+    // Create containers to stuff our raw data into, so we can convert it to Mumble's coordinate system
 	float pos_corrector[3];
 	float front_corrector[3];
 	float top_corrector[3];
 
-	/*
-		value is <     >
-	*/
-
-	/*std::stringstream  sstream;
-	sstream <<  "\ngalaxy.dll@0x" << std::hex << (int)getModuleAddr(L"Galaxy.DLL");
-	context = sstream.str();*/
-
-	peekProc((BYTE *) getModuleAddr(L"Galaxy.DLL")+0x72A24, &state, 2); // Magical state value
+	peekProc((BYTE *) pModule+0x290557, &state, 2); // Magical state value
 	if (!ok)
 		return false;
 
@@ -138,6 +130,27 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		camera_top[i] = avatar_top[i];
 	}
 
+	// Read server name
+	BYTE *cbase = peekProc<BYTE *> ((BYTE *) pModule + 0x00290550);
+	BYTE *cptr0 = peekProc<BYTE *> ((BYTE *) cbase + 0x30);
+	BYTE *cptr1 = peekProc<BYTE *> ((BYTE *) cptr0 + 0x73C);
+	BYTE *cptr2 = peekProc<BYTE *> ((BYTE *) cptr1 + 0x244);
+
+	const int C_LENGHT = 30;
+
+	char servername [C_LENGHT*2+1];
+	ok = peekProc((BYTE *) cptr2, servername);
+	servername[C_LENGHT*2] = '\0';
+
+	std::stringstream _contextss;
+	for (int i = 0; i < 2*C_LENGHT+1; i = i+2) {
+		if (!servername[i] == '\0')
+			_contextss << servername[i];
+		else break;
+	}
+
+	context = _contextss.str();
+
 	return true;
 }
 
@@ -166,7 +179,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Unreal Tournament (v436). No context or identity support yet.");
+	return std::wstring(L"Supports Unreal Tournament (v436). No identity support yet.");
 }
 
 static std::wstring description(L"Unreal Tournament (v436)");
