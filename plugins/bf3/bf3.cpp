@@ -45,10 +45,11 @@ BYTE* const ipport_ptr = (BYTE*)0x02396F40;
 // Identity ptrs
 BYTE *team_state_ptr;
 BYTE *squad_state_ptr;
+BYTE *sql_state_ptr;
 
 inline bool resolve_ptrs()
 {
-    team_state_ptr = squad_state_ptr = NULL;
+    team_state_ptr = squad_state_ptr = sql_state_ptr = NULL;
 
     /*
     Magic:
@@ -60,7 +61,8 @@ inline bool resolve_ptrs()
 
     Identity:
         Squad state: BF3.exe+0x01F24F58 + 0x1C + 0xBC + 0x36C + 0x8 + 0x104     BYTE		0 is not in squad; 1 is in Alpha squad, 2 Bravo, ... , 9 India
-        Team state: todo                                                        BYTE		0 is blufor (US team, for example), 1 is opfor (Insurgents)
+        SL state:    BF3.exe+0x01F24F58 + 0x1c + 0xBC + 0x36C + 0x8 + 0x108     BYTE        0 is not lead; 1 is lead
+        Team state:  BF3.exe+0x01F24F58 + 0x1C + 0xBC + 0x31C                   BYTE		1 is blufor (US team, for example), 2 is opfor (RU), 0 is probably upcoming spec mode
     */
 
     BYTE *base_bf3 = peekProc<BYTE *>(pmodule_bf3 + 0x01F24F58);
@@ -72,6 +74,8 @@ inline bool resolve_ptrs()
     BYTE *ptr4 = peekProc<BYTE *>(ptr3 + 0x8);
 
     squad_state_ptr = ptr4 + 0x104;
+    sql_state_ptr = ptr4 + 0x108;
+    team_state_ptr = ptr2 + 0x31C;
 
     return true;
 }
@@ -83,12 +87,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
     char ccontext[128];
 	char state;
     BYTE squadnum;
+    BYTE squadleader;
+    BYTE teamstate;
 	bool ok;
 
     ok = peekProc(state_ptr, &state, 1); // State value
 	if (! ok)
 		return false;
-	
+
     if(!resolve_ptrs())
         return false;
 
@@ -99,6 +105,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		peekProc((BYTE *)  0x023C7A60, avatar_front, 12) &&
         peekProc((BYTE *)  0x023C7A50, avatar_top, 12) &&
         peekProc(squad_state_ptr,&squadnum,1) &&
+        peekProc(sql_state_ptr, &squadleader,1) &&
+        peekProc(team_state_ptr,&teamstate,1) &&
         peekProc(ipport_ptr,ccontext,128);
 
 	if (! ok)
@@ -117,7 +125,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
         wostringstream oidentity;
         oidentity << "{"
         << "\"squad\":" << static_cast<unsigned int>(squadnum) << ","
-        << "}";
+        << "\"squad_leader\":" << (squadleader ? "true" : "false") << ",";
+        if(teamstate == 0)
+            oidentity << "\"team\": \"SPEC\",";
+        else if(teamstate == 1)
+            oidentity << "\"team\": \"US\",";
+        else if(teamstate == 2)
+            oidentity << "\"team\": \"RU\",";
+        oidentity << "}";
 
         identity = oidentity.str();
     }
