@@ -31,46 +31,96 @@
 */
 
 #include "../mumble_plugin_win32.h"
+using namespace std;
+BYTE *pmodule_bf3;
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
+// Magic ptrs
+BYTE* const state_ptr = (BYTE *) 0x023C7A9C;
+
+// Vector ptrs
+
+// Context ptrs
+BYTE* const ipport_ptr = (BYTE*)0x02396F40;
+
+// Identity ptrs
+BYTE *team_state_ptr;
+BYTE *squad_state_ptr;
+
+inline bool resolve_ptrs()
+{
+    team_state_ptr = squad_state_ptr = NULL;
+
+    /*
+    Magic:
+        state : 0x023C7A9C                                                      BYTE		2 when playing
+                                                                                            3 while in menu/dead
+
+    Context:
+        IP:Port of server: 0x02396F40                                           char[128]	ip:port of the server
+
+    Identity:
+        Squad state: BF3.exe+0x01F24F58 + 0x1C + 0xBC + 0x36C + 0x8 + 0x104     BYTE		0 is not in squad; 1 is in Alpha squad, 2 Bravo, ... , 9 India
+        Team state: todo                                                        BYTE		0 is blufor (US team, for example), 1 is opfor (Insurgents)
+    */
+
+    BYTE *base_bf3 = peekProc<BYTE *>(pmodule_bf3 + 0x01F24F58);
+    if(!base_bf3) return false;
+
+    BYTE *ptr1 = peekProc<BYTE *>(base_bf3 + 0x1C);
+    BYTE *ptr2 = peekProc<BYTE *>(ptr1 + 0xBC);
+    BYTE *ptr3 = peekProc<BYTE *>(ptr2 + 0x36C);
+    BYTE *ptr4 = peekProc<BYTE *>(ptr3 + 0x8);
+
+    squad_state_ptr = ptr4 + 0x104;
+
+    return true;
+}
+
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
-	//char ccontext[128];
+    char ccontext[128];
 	char state;
+    BYTE squadnum;
 	bool ok;
 
-	ok = peekProc((BYTE *) 0x023C7A9C, &state, 1); // State value
+    ok = peekProc(state_ptr, &state, 1); // State value
 	if (! ok)
 		return false;
 	
-	/*
-	    Get context string; in this plugin this will be an
-	    ip:port (char 256 bytes) string
+    if(!resolve_ptrs())
+        return false;
 
-	ccontext[127] = 0;
-	context = std::string(ccontext);
-	if ( state == 3 ) 
-		context = std::string("menu");
-	if ( state == 2 ) 
-		context = std::string("ingame");
-	if ( state == 1 ) 
-		context = std::string("loading");
-	*/
-
-	// Current assesment of state values are:
-	// 3 = in main menu
-	// 2 = in game
-	// 1 = loading
 	if ( state != 2 )
 		return true;	// This results in all vectors being zero which tells Mumble to ignore them.
-	
+
 	ok = peekProc((BYTE *) 0x023C7A30, avatar_pos, 12) &&
 		peekProc((BYTE *)  0x023C7A60, avatar_front, 12) &&
-		peekProc((BYTE *)  0x023C7A50, avatar_top, 12);
+        peekProc((BYTE *)  0x023C7A50, avatar_top, 12) &&
+        peekProc(squad_state_ptr,&squadnum,1) &&
+        peekProc(ipport_ptr,ccontext,128);
 
 	if (! ok)
 		return false;
+
+    ccontext[127] = 0;
+    if (ccontext[0] != '0') {
+        ostringstream ocontext;
+        ocontext << "{ \"ipport\": \"" << ccontext << "\"}";
+
+        context = ocontext.str();
+
+        /*
+            Get identity string.
+        */
+        wostringstream oidentity;
+        oidentity << "{"
+        << "\"squad\":" << static_cast<unsigned int>(squadnum) << ","
+        << "}";
+
+        identity = oidentity.str();
+    }
 
 	// Flip our front vector
 	for (int i=0;i<3;i++) {
@@ -88,6 +138,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		camera_top[i] = avatar_top[i];
 	}
 
+
 	return ok;
 }
 
@@ -95,6 +146,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	if (! initialize(pids, L"bf3.exe"))
 		return false;
+
+    pmodule_bf3 = getModuleAddr(L"bf3.exe");
+    if(!pmodule_bf3)
+        return false;
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;
@@ -109,10 +164,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Battlefield 3. No identity or context support.");
+    return std::wstring(L"Supports Battlefield 3. New Context and rudimentary identity support.");
 }
 
-static std::wstring description(L"Battlefield 3 v944019");
+static std::wstring description(L"Battlefield 3 v944019ci");
 static std::wstring shortname(L"Battlefield 3");
 
 static int trylock1() {
