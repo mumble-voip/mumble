@@ -1,12 +1,11 @@
-/* <your copyright here>
-   Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com> 
+/* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
    Copyright (C) 2012, Moritz Schneeweiss
 
    All rights reserved.
- 
+
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions
-   are met: 
+   are met:
 
    - Redistributions of source code must retain the above copyright notice,
      this list of conditions and the following disclaimer.
@@ -28,13 +27,22 @@
    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/ 
+*/
 
 #include "../mumble_plugin_win32.h"
 
 BYTE* posptr;
 BYTE* frtptr;
 BYTE* topptr;
+
+static void wcsToMultibyteStdString(wchar_t *wcs, std::string &str) {
+	const int size = WideCharToMultiByte(CP_UTF8, 0, wcs, -1, NULL, 0, NULL, NULL);
+	if (size == 0) return;
+
+	str.resize(size);
+
+	WideCharToMultiByte(CP_UTF8, 0, wcs, -1, &str[0], size, NULL, NULL);
+}
 
 static bool cross(float *a, float *b, float *c) {
 	if (a == 0 || b == 0 || c == 0)
@@ -79,33 +87,36 @@ static bool correctFront(float *front, float *top) {
 	return true;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &/*identity*/) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
 
-        char state;
+	char state;
 	bool ok;
-    // Create containers to stuff our raw data into, so we can convert it to Mumble's coordinate system
+
+	ok = peekProc((BYTE *) pModule+0x290557, state); // Magical state value
+	if (! ok)
+		return false;
+
+	if (state != 8) {
+		context.clear();
+		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+	}
+
+	// Create containers to stuff our raw data into, so we can convert it to Mumble's coordinate system
 	float pos_corrector[3];
 	float front_corrector[3];
 	float top_corrector[3];
 
-	peekProc((BYTE *) pModule+0x290557, &state, 2); // Magical state value
-	if (!ok)
-		return false;
-
-	if (state == 0)
-		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
-
-    // Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc((BYTE *) posptr, &pos_corrector, 12) &&
-	     peekProc((BYTE *) frtptr, &front_corrector, 12) &&
-	     peekProc((BYTE *) topptr, &top_corrector, 12);
+	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
+	ok = peekProc((BYTE *) posptr, pos_corrector) &&
+	     peekProc((BYTE *) frtptr, front_corrector) &&
+	     peekProc((BYTE *) topptr, top_corrector);
 
 	if (! ok)
 		return false;
 	
-    // Convert to left-handed coordinate system
+	// Convert to left-handed coordinate system
 
 	avatar_pos[0] = -pos_corrector[0];
 	avatar_pos[1] = pos_corrector[2];
@@ -136,20 +147,24 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	BYTE *cptr1 = peekProc<BYTE *> ((BYTE *) cptr0 + 0x73C);
 	BYTE *cptr2 = peekProc<BYTE *> ((BYTE *) cptr1 + 0x244);
 
-	const int C_LENGHT = 30;
 
-	char servername [C_LENGHT*2+1];
-	ok = peekProc((BYTE *) cptr2, servername);
-	servername[C_LENGHT*2] = '\0';
+	wchar_t wservername[60];
 
-	std::stringstream _contextss;
-	for (int i = 0; i < 2*C_LENGHT+1; i = i+2) {
-		if (!servername[i] == '\0')
-			_contextss << servername[i];
-		else break;
-	}
+	ok = peekProc((BYTE *) cptr2, wservername);
+	if (! ok)
+		return false;
 
-	context = _contextss.str();
+	wservername[sizeof(wservername) - 1] = '\0';
+
+	std::string servername;
+	wcsToMultibyteStdString(wservername, servername);
+
+	std::ostringstream contextss;
+	contextss << "{"
+	<< "\"servername\":\"" << servername << "\""
+	<< "}";
+
+	context = contextss.str();
 
 	return true;
 }
