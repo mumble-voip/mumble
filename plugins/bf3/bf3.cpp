@@ -60,6 +60,13 @@ static int squad_state_offset = 0x104;
 static int squad_lead_state_offset = 0x108;
 static int team_state_offset = 0x31C;
 
+enum state_values {
+    STATE_UNKN = 0,
+    STATE_LOADING = 1,
+    STATE_IN_GAME = 2,
+    STATE_IN_MENU = 3
+};
+
 inline bool resolve_ptrs()
 {
     team_state_ptr = squad_state_ptr = squad_lead_state_ptr = NULL;
@@ -111,7 +118,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (! ok)
 		return false;
 
-    if(state != 2 && state != 3) {
+    if(state != STATE_IN_GAME && state != STATE_IN_MENU) {
         ptr_chain_valid = false;
         context.clear();
         identity.clear();
