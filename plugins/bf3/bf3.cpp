@@ -31,25 +31,38 @@
 */
 
 #include "../mumble_plugin_win32.h"
-using namespace std;
+bool ptr_chain_valid = false;
 BYTE *pmodule_bf3;
 
 // Magic ptrs
 BYTE* const state_ptr = (BYTE *) 0x023C7A9C;
 
 // Vector ptrs
+BYTE* const avatar_post_ptr = (BYTE *) 0x023C7A30;
+BYTE* const avatar_front_ptr = (BYTE *) 0x023C7A60;
+BYTE* const avatar_top_ptr = (BYTE *) 0x023C7A50;
 
 // Context ptrs
-BYTE* const ipport_ptr = (BYTE*)0x02396F40;
+BYTE* const ipport_ptr = (BYTE *) 0x02396F40;
 
 // Identity ptrs
 BYTE *team_state_ptr;
 BYTE *squad_state_ptr;
-BYTE *sql_state_ptr;
+BYTE *squad_lead_state_ptr;
+
+// Offsets
+static int base_offset = 0x01F24F58;
+static int identity_offset1 = 0x1C;
+static int identity_offset2 = 0xBC;
+static int identity_offset3 = 0x36C;
+static int identity_offset4 = 0x8;
+static int squad_state_offset = 0x104;
+static int squad_lead_state_offset = 0x108;
+static int team_state_offset = 0x31C;
 
 inline bool resolve_ptrs()
 {
-    team_state_ptr = squad_state_ptr = sql_state_ptr = NULL;
+    team_state_ptr = squad_state_ptr = squad_lead_state_ptr = NULL;
 
     /*
     Magic:
@@ -61,21 +74,24 @@ inline bool resolve_ptrs()
 
     Identity:
         Squad state: BF3.exe+0x01F24F58 + 0x1C + 0xBC + 0x36C + 0x8 + 0x104     BYTE		0 is not in squad; 1 is in Alpha squad, 2 Bravo, ... , 9 India
-        SL state:    BF3.exe+0x01F24F58 + 0x1c + 0xBC + 0x36C + 0x8 + 0x108     BYTE        0 is not lead; 1 is lead
+        SLead state: BF3.exe+0x01F24F58 + 0x1c + 0xBC + 0x36C + 0x8 + 0x108     BYTE        0 is not lead; 1 is lead
         Team state:  BF3.exe+0x01F24F58 + 0x1C + 0xBC + 0x31C                   BYTE		1 is blufor (US team, for example), 2 is opfor (RU), 0 is probably upcoming spec mode
     */
 
-    BYTE *base_bf3 = peekProc<BYTE *>(pmodule_bf3 + 0x01F24F58);
-    if(!base_bf3) return false;
+    BYTE *base_bf3 = peekProc<BYTE *>(pmodule_bf3 + base_offset);
+    if(!base_bf3)
+        return false;
 
-    BYTE *ptr1 = peekProc<BYTE *>(base_bf3 + 0x1C);
-    BYTE *ptr2 = peekProc<BYTE *>(ptr1 + 0xBC);
-    BYTE *ptr3 = peekProc<BYTE *>(ptr2 + 0x36C);
-    BYTE *ptr4 = peekProc<BYTE *>(ptr3 + 0x8);
+    BYTE *offset_ptr1 = peekProc<BYTE *>(base_bf3 + identity_offset1);
+    BYTE *offset_ptr2 = peekProc<BYTE *>(offset_ptr1 + identity_offset2);
+    BYTE *offset_ptr3 = peekProc<BYTE *>(offset_ptr2 + identity_offset3);
+    BYTE *offset_ptr4 = peekProc<BYTE *>(offset_ptr3 + identity_offset4);
 
-    squad_state_ptr = ptr4 + 0x104;
-    sql_state_ptr = ptr4 + 0x108;
-    team_state_ptr = ptr2 + 0x31C;
+    squad_state_ptr = offset_ptr4 + squad_state_offset;
+    squad_lead_state_ptr = offset_ptr4 + squad_lead_state_offset;
+    team_state_ptr = offset_ptr2 + team_state_offset;
+    if(!squad_state_ptr || !squad_lead_state_ptr || !team_state_ptr)
+        return false;
 
     return true;
 }
@@ -86,27 +102,32 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
     char ccontext[128];
 	char state;
-    BYTE squadnum;
-    BYTE squadleader;
-    BYTE teamstate;
+    BYTE squad_state;
+    BYTE is_squadleader;
+    BYTE team_state;
 	bool ok;
 
     ok = peekProc(state_ptr, &state, 1); // State value
 	if (! ok)
 		return false;
 
-    if(!resolve_ptrs())
-        return false;
+    if(state != 2 && state != 3) {
+        ptr_chain_valid = false;
+        context.clear();
+        identity.clear();
+        return true;
+    } else if(!ptr_chain_valid) {
+        if(!resolve_ptrs())
+            return false;
+        ptr_chain_valid = true;
+    }
 
-	if ( state != 2 )
-		return true;	// This results in all vectors being zero which tells Mumble to ignore them.
-
-	ok = peekProc((BYTE *) 0x023C7A30, avatar_pos, 12) &&
-		peekProc((BYTE *)  0x023C7A60, avatar_front, 12) &&
-        peekProc((BYTE *)  0x023C7A50, avatar_top, 12) &&
-        peekProc(squad_state_ptr,&squadnum,1) &&
-        peekProc(sql_state_ptr, &squadleader,1) &&
-        peekProc(team_state_ptr,&teamstate,1) &&
+    ok = peekProc(avatar_post_ptr, avatar_pos, 12) &&
+        peekProc(avatar_front_ptr, avatar_front, 12) &&
+        peekProc(avatar_top_ptr, avatar_top, 12) &&
+        peekProc(squad_state_ptr,&squad_state,1) &&
+        peekProc(squad_lead_state_ptr, &is_squadleader,1) &&
+        peekProc(team_state_ptr,&team_state,1) &&
         peekProc(ipport_ptr,ccontext,128);
 
 	if (! ok)
@@ -114,7 +135,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
     ccontext[127] = 0;
     if (ccontext[0] != '0') {
-        ostringstream ocontext;
+        std::ostringstream ocontext;
         ocontext << "{ \"ipport\": \"" << ccontext << "\"}";
 
         context = ocontext.str();
@@ -122,15 +143,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
         /*
             Get identity string.
         */
-        wostringstream oidentity;
+        std::wostringstream oidentity;
         oidentity << "{"
-        << "\"squad\":" << static_cast<unsigned int>(squadnum) << ","
-        << "\"squad_leader\":" << (squadleader ? "true" : "false") << ",";
-        if(teamstate == 0)
+        << "\"squad\":" << static_cast<unsigned int>(squad_state) << ","
+        << "\"squad_leader\":" << (is_squadleader ? "true" : "false") << ",";
+        if(team_state == 0)
             oidentity << "\"team\": \"SPEC\",";
-        else if(teamstate == 1)
+        else if(team_state == 1)
             oidentity << "\"team\": \"US\",";
-        else if(teamstate == 2)
+        else if(team_state == 2)
             oidentity << "\"team\": \"RU\",";
         oidentity << "}";
 
@@ -152,7 +173,6 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		camera_front[i] = avatar_front[i];
 		camera_top[i] = avatar_top[i];
 	}
-
 
 	return ok;
 }
@@ -179,10 +199,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-    return std::wstring(L"Supports Battlefield 3. New Context and rudimentary identity support.");
+    return std::wstring(L"Supports Battlefield 3 with context and identity support.");
 }
 
-static std::wstring description(L"Battlefield 3 v944019ci");
+static std::wstring description(L"Battlefield 3 v944019CI");
 static std::wstring shortname(L"Battlefield 3");
 
 static int trylock1() {
