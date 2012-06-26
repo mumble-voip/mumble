@@ -38,7 +38,7 @@ BYTE *pmodule_bf3;
 BYTE* const state_ptr = (BYTE *) 0x023C7A9C;
 
 // Vector ptrs
-BYTE* const avatar_post_ptr = (BYTE *) 0x023C7A30;
+BYTE* const avatar_pos_ptr = (BYTE *) 0x023C7A30;
 BYTE* const avatar_front_ptr = (BYTE *) 0x023C7A60;
 BYTE* const avatar_top_ptr = (BYTE *) 0x023C7A50;
 
@@ -129,7 +129,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
         ptr_chain_valid = true;
     }
 
-    ok = peekProc(avatar_post_ptr, avatar_pos, 12) &&
+    ok = peekProc(avatar_pos_ptr, avatar_pos, 12) &&
         peekProc(avatar_front_ptr, avatar_front, 12) &&
         peekProc(avatar_top_ptr, avatar_top, 12) &&
         peekProc(squad_state_ptr,&squad_state,1) &&
@@ -209,7 +209,7 @@ static const std::wstring longdesc() {
     return std::wstring(L"Supports Battlefield 3 with context and identity support.");
 }
 
-static std::wstring description(L"Battlefield 3 v944019CI");
+static std::wstring description(L"Battlefield 3 v944019");
 static std::wstring shortname(L"Battlefield 3");
 
 static int trylock1() {
