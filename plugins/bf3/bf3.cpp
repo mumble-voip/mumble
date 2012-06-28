@@ -143,7 +143,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
     ccontext[127] = 0;
     if (ccontext[0] != '0') {
         std::ostringstream ocontext;
-        ocontext << "{ \"ipport\": \"" << ccontext << "\"}";
+        ocontext << "{ \"ipport\": \"" << ccontext << "\" }";
 
         context = ocontext.str();
 
@@ -159,9 +159,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
         else if(team_state == 1)
             oidentity << "\"team\": \"US\",";
         else if(team_state == 2)
-            oidentity << "\"team\": \"RU\",";
+            oidentity << "\"team\": \"RU\"";
         oidentity << "}";
-
         identity = oidentity.str();
     }
 
