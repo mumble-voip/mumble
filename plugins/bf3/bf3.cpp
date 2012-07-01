@@ -1,6 +1,7 @@
 /* Copyright (C) 2010-2011, Snares <snares@users.sourceforge.net>
    Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
    Copyright (C) 2011, Ryan Austin <ryan@gameforcecenters.com>
+   Copyright (C) 2012, Bojan Hartmann <bogie@bawki.de>
 
    All rights reserved.
 
@@ -155,9 +156,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
         << "\"squad\":" << static_cast<unsigned int>(squad_state) << ","
         << "\"squad_leader\":" << (is_squadleader ? "true" : "false") << ",";
         if(team_state == 0)
-            oidentity << "\"team\": \"SPEC\",";
+            oidentity << "\"team\": \"SPEC\"";
         else if(team_state == 1)
-            oidentity << "\"team\": \"US\",";
+            oidentity << "\"team\": \"US\"";
         else if(team_state == 2)
             oidentity << "\"team\": \"RU\"";
         oidentity << "}";
