@@ -186,4 +186,13 @@ CONFIG(release, debug|release) {
 	DESTDIR = ../release
 }
 
+macx {
+	libname.target = libname
+	libname.commands = cd ${DESTDIR} && install_name_tool -id `pwd`/${TARGET} ${TARGET}
+	libname.depends = ${DESTDIR}${TARGET}
+	libname.CONFIG = recursive
+	QMAKE_EXTRA_TARGETS *= libname
+	ALL_DEPS += libname
+}
+
 include(../symbols.pri)
