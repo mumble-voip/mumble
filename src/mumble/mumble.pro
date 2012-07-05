@@ -81,6 +81,10 @@ unix:system(pkg-config --exists opus) {
   PKGCONFIG *= opus
   DEFINES *= USE_OPUS
 } else {
+  !CONFIG(no-opus) {
+    CONFIG *= opus
+  }
+
   CONFIG(opus) {
     INCLUDEPATH *= ../../opus-src/celt ../../opus-src/include ../../opus-src/src ../../opus-build/src
     DEFINES *= USE_OPUS
