@@ -198,6 +198,11 @@ struct Settings {
 	bool bAttenuateOthers;
 	int iOutputDelay;
 
+	bool bBacklog;
+	int iBacklogKeepLimit;
+	int iBacklogReadLimit;
+	QString qsBacklogDir;
+
 	QString qsALSAInput, qsALSAOutput;
 	QString qsPulseAudioInput, qsPulseAudioOutput;
 	QString qsOSSInput, qsOSSOutput;

@@ -60,6 +60,7 @@ class LogConfig : public ConfigWidget, public Ui::LogConfig {
 		void on_qtwMessages_itemClicked(QTreeWidgetItem*, int);
 		void on_qtwMessages_itemDoubleClicked(QTreeWidgetItem*, int);
 		void browseForAudioFile();
+		void on_qpbBacklogDirSelect_clicked();
 };
 
 class ClientUser;
@@ -71,7 +72,7 @@ class Log : public QObject {
 		Q_OBJECT
 		Q_DISABLE_COPY(Log)
 	public:
-		enum MsgType { DebugInfo, CriticalError, Warning, Information, ServerConnected, ServerDisconnected, UserJoin, UserLeave, Recording, YouKicked, UserKicked, SelfMute, OtherSelfMute, YouMuted, YouMutedOther, OtherMutedOther, ChannelJoin, ChannelLeave, PermissionDenied, TextMessage };
+		enum MsgType { DebugInfo, CriticalError, Warning, Information, ServerConnected, ServerDisconnected, UserJoin, UserLeave, Recording, YouKicked, UserKicked, SelfMute, OtherSelfMute, YouMuted, YouMutedOther, OtherMutedOther, ChannelJoin, ChannelLeave, PermissionDenied, TextMessage, BacklogText };
 		enum LogColorType { Time, Server, Privilege, Source, Target };
 		static const MsgType firstMsgType = DebugInfo;
 		static const MsgType lastMsgType = TextMessage;
@@ -94,8 +95,13 @@ class Log : public QObject {
 		static QString msgColor(const QString &text, LogColorType t);
 		static QString formatClientUser(ClientUser *cu, LogColorType t);
 		static QString formatChannel(::Channel *c);
+		void readBacklog();
+		void rollBacklogs();
 	public slots:
 		void log(MsgType t, const QString &console, const QString &terse=QString(), bool ownMessage = false);
+	private:
+		void writeBacklog(QString time, const QString &console);
+		QString backlogFile;
 };
 
 class ValidDocument : public QTextDocument {

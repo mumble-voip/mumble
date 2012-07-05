@@ -377,6 +377,10 @@ Settings::Settings() {
 	dMaxPacketDelay = 0.0f;
 
 	iMaxLogBlocks = 0;
+	bBacklog = false;
+	iBacklogKeepLimit = 0;
+	iBacklogReadLimit = 7;
+	qsBacklogDir = QString();
 
 	bShortcutEnable = true;
 
@@ -407,6 +411,7 @@ Settings::Settings() {
 	qmMessages[Log::UserKicked] = Settings::LogConsole;
 	qmMessages[Log::OtherSelfMute] = Settings::LogConsole;
 	qmMessages[Log::OtherMutedOther] = Settings::LogConsole;
+	qmMessages[Log::BacklogText] = Settings::LogConsole;
 }
 
 bool Settings::doEcho() const {
@@ -648,6 +653,10 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
+	SAVELOAD(bBacklog, "ui/Backlog");
+	SAVELOAD(iBacklogKeepLimit, "ui/BacklogKeepLimit");
+	SAVELOAD(iBacklogReadLimit, "ui/BacklogReadLimit");
+	SAVELOAD(qsBacklogDir, "ui/BacklogDir");
 
 	// PTT Button window
 	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");
@@ -923,6 +932,10 @@ void Settings::save() {
 	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
+	SAVELOAD(bBacklog, "ui/Backlog");
+	SAVELOAD(iBacklogKeepLimit, "ui/BacklogKeepLimit");
+	SAVELOAD(iBacklogReadLimit, "ui/BacklogReadLimit");
+	SAVELOAD(qsBacklogDir, "ui/BacklogDir");
 
 	// PTT Button window
 	SAVELOAD(bShowPTTButtonWindow, "ui/showpttbuttonwindow");

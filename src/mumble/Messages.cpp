@@ -96,6 +96,10 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	g.pPermissions = static_cast<ChanACL::Permissions>(msg.permissions());
 	g.l->clearIgnore();
 	g.l->log(Log::Information, tr("Welcome message: %1").arg(u8(msg.welcome_text())));
+	// Delete old log files by user specified age.
+	g.l->rollBacklogs(); 
+	// Load the backlog to the log window
+	g.l->readBacklog();
 	pmModel->ensureSelfVisible();
 	pmModel->recheckLinks();
 
