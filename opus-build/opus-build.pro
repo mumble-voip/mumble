@@ -28,7 +28,7 @@ win32 {
   INCLUDEPATH += ../$$BUILDDIR/win32
 
   CONFIG(sse2) {
-    TARGET_VERSION_EXT = .$${VERSION}.sse2
+    TARGET_VERSION_EXT = .sse2
   } else {
     QMAKE_CFLAGS_RELEASE -= -arch:SSE
     QMAKE_CFLAGS_DEBUG -= -arch:SSE
