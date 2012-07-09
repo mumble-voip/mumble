@@ -77,7 +77,7 @@ CONFIG(no-vorbis-recording) {
   DEFINES *= NO_VORBIS_RECORDING
 }
 
-unix:system(pkg-config --exists opus) {
+unix:!CONFIG(bundled-opus):system(pkg-config --exists opus) {
   PKGCONFIG *= opus
   DEFINES *= USE_OPUS
 } else {

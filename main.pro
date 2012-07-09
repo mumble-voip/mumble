@@ -19,7 +19,7 @@ CONFIG *= ordered debug_and_release
     CONFIG *= opus
   }
 
-  CONFIG(opus) {
+  CONFIG(opus):!CONFIG(no-bundled-opus) {
 	SUBDIRS *= opus-build
   }
 
