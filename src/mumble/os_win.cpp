@@ -126,8 +126,9 @@ static void enableCrashOnCrashes() {
 		if (pGetPolicy(&dwFlags)) {
 			if (!pSetPolicy(dwFlags & ~PROCESS_CALLBACK_FILTER_ENABLED))
 				qWarning("enableCrashOnCrashes: Failed to set policy");
+		} else {
+			qWarning("enableCrashOnCrashes: Failed to get policy");
 		}
-		else qWarning("enableCrashOnCrashes: Failed to get policy");
 	}
 }
 

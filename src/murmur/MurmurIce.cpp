@@ -284,46 +284,47 @@ void MurmurIce::badAuthenticator(::Server *server) {
 }
 
 void MurmurIce::addMetaCallback(const ::Murmur::MetaCallbackPrx& prx) {
-    if (!qlMetaCallbacks.contains(prx)) {
+	if (!qlMetaCallbacks.contains(prx)) {
+		qWarning("Added Ice MetaCallback %s", qPrintable(QString::fromStdString(communicator->proxyToString(prx))));
 		qlMetaCallbacks.append(prx);
-        qWarning("Added Ice MetaCallback %s", qPrintable(QString::fromStdString(communicator->proxyToString(prx))));
-    }
+	}
 }
 
 void MurmurIce::removeMetaCallback(const ::Murmur::MetaCallbackPrx& prx) {
-    if(qlMetaCallbacks.removeAll(prx)) {
-        qWarning("Removed Ice MetaCallback %s", qPrintable(QString::fromStdString(communicator->proxyToString(prx))));
-    }
+	if (qlMetaCallbacks.removeAll(prx)) {
+		qWarning("Removed Ice MetaCallback %s", qPrintable(QString::fromStdString(communicator->proxyToString(prx))));
+	}
 }
 
 void MurmurIce::addServerCallback(const ::Server* server, const ::Murmur::ServerCallbackPrx& prx) {
 	QList< ::Murmur::ServerCallbackPrx >& cbList = qmServerCallbacks[server->iServerNum];
 
-    if (!cbList.contains(prx)) {
+	if (!cbList.contains(prx)) {
+		server->log(QString("Added Ice ServerCallback %1").arg(QString::fromStdString(communicator->proxyToString(prx))));
 		cbList.append(prx);
-        server->log(QString("Added Ice ServerCallback %1").arg(QString::fromStdString(communicator->proxyToString(prx))));
-    }
+	}
 }
 
 void MurmurIce::removeServerCallback(const ::Server* server, const ::Murmur::ServerCallbackPrx& prx) {
-    if (qmServerCallbacks[server->iServerNum].removeAll(prx)) {
-        server->log(QString("Removed Ice ServerCallback %1").arg(QString::fromStdString(communicator->proxyToString(prx))));
-    }
+	if (qmServerCallbacks[server->iServerNum].removeAll(prx)) {
+		server->log(QString("Removed Ice ServerCallback %1").arg(QString::fromStdString(communicator->proxyToString(prx))));
+	}
 }
 
 void MurmurIce::removeServerCallbacks(const ::Server* server) {
-    qmServerCallbacks.remove(server->iServerNum);
-    server->log(QString("Removed all Ice ServerCallbacks"));
+	if (qmServerCallbacks.contains(server->iServerNum)) {
+		server->log(QString("Removed all Ice ServerCallbacks"));
+		qmServerCallbacks.remove(server->iServerNum);
+	}
 }
 
 void MurmurIce::addServerContextCallback(const ::Server* server, int session_id, const QString& action, const ::Murmur::ServerContextCallbackPrx& prx) {
-    QMap<QString, ::Murmur::ServerContextCallbackPrx>& callbacks = qmServerContextCallbacks[server->iServerNum][session_id];
+	QMap<QString, ::Murmur::ServerContextCallbackPrx>& callbacks = qmServerContextCallbacks[server->iServerNum][session_id];
 
-    if (!callbacks.contains(action) || callbacks[action] != prx) {
-        callbacks.insert(action, prx);
-        server->log(QString("Added Ice ServerContextCallback %1 for session %2, action %3").arg(QString::fromStdString(communicator->proxyToString(prx))).arg(session_id).arg(action));
-    }
-
+	if (!callbacks.contains(action) || callbacks[action] != prx) {
+		server->log(QString("Added Ice ServerContextCallback %1 for session %2, action %3").arg(QString::fromStdString(communicator->proxyToString(prx))).arg(session_id).arg(action));
+		callbacks.insert(action, prx);
+	}
 }
 
 const QMap< int, QMap<QString, ::Murmur::ServerContextCallbackPrx> > MurmurIce::getServerContextCallbacks(const ::Server* server) const {
@@ -331,16 +332,16 @@ const QMap< int, QMap<QString, ::Murmur::ServerContextCallbackPrx> > MurmurIce::
 }
 
 void MurmurIce::removeServerContextCallback(const ::Server* server, int session_id, const QString& action) {
-    if (qmServerContextCallbacks[server->iServerNum][session_id].remove(action)) {
-        server->log(QString("Removed Ice ServerContextCallback for session %1, action %2").arg(session_id).arg(action));
-    }
+	if (qmServerContextCallbacks[server->iServerNum][session_id].remove(action)) {
+		server->log(QString("Removed Ice ServerContextCallback for session %1, action %2").arg(session_id).arg(action));
+	}
 }
 
 void MurmurIce::setServerAuthenticator(const ::Server* server, const ::Murmur::ServerAuthenticatorPrx& prx) {
-    if (prx != qmServerAuthenticator[server->iServerNum]) {
-        server->log(QString("Set Ice Authenticator to %1").arg(QString::fromStdString(communicator->proxyToString(prx))));
-        qmServerAuthenticator[server->iServerNum] = prx;
-    }
+	if (prx != qmServerAuthenticator[server->iServerNum]) {
+		server->log(QString("Set Ice Authenticator to %1").arg(QString::fromStdString(communicator->proxyToString(prx))));
+		qmServerAuthenticator[server->iServerNum] = prx;
+	}
 }
 
 const ::Murmur::ServerAuthenticatorPrx MurmurIce::getServerAuthenticator(const ::Server* server) const {
@@ -348,16 +349,16 @@ const ::Murmur::ServerAuthenticatorPrx MurmurIce::getServerAuthenticator(const :
 }
 
 void MurmurIce::removeServerAuthenticator(const ::Server* server) {
-    if (qmServerAuthenticator.remove(server->iServerNum)) {
-        server->log(QString("Removed Ice Authenticator %1").arg(QString::fromStdString(communicator->proxyToString(getServerAuthenticator(server)))));
-    }
+	if (qmServerAuthenticator.remove(server->iServerNum)) {
+		server->log(QString("Removed Ice Authenticator %1").arg(QString::fromStdString(communicator->proxyToString(getServerAuthenticator(server)))));
+	}
 }
 
 void MurmurIce::setServerUpdatingAuthenticator(const ::Server* server, const ::Murmur::ServerUpdatingAuthenticatorPrx& prx) {
-    if (prx != qmServerUpdatingAuthenticator[server->iServerNum]) {
-        server->log(QString("Set Ice UpdatingAuthenticator to %1").arg(QString::fromStdString(communicator->proxyToString(prx))));
-        qmServerUpdatingAuthenticator[server->iServerNum] = prx;
-    }
+	if (prx != qmServerUpdatingAuthenticator[server->iServerNum]) {
+		server->log(QString("Set Ice UpdatingAuthenticator to %1").arg(QString::fromStdString(communicator->proxyToString(prx))));
+		qmServerUpdatingAuthenticator[server->iServerNum] = prx;
+	}
 }
 
 const ::Murmur::ServerUpdatingAuthenticatorPrx MurmurIce::getServerUpdatingAuthenticator(const ::Server* server) const {
@@ -365,10 +366,10 @@ const ::Murmur::ServerUpdatingAuthenticatorPrx MurmurIce::getServerUpdatingAuthe
 }
 
 void MurmurIce::removeServerUpdatingAuthenticator(const ::Server* server) {
-    if (qmServerUpdatingAuthenticator.contains(server->iServerNum)) {
-        server->log(QString("Removed Ice UpdatingAuthenticator %1").arg(QString::fromStdString(communicator->proxyToString(getServerUpdatingAuthenticator(server)))));
-        qmServerUpdatingAuthenticator.remove(server->iServerNum);
-    }
+	if (qmServerUpdatingAuthenticator.contains(server->iServerNum)) {
+		server->log(QString("Removed Ice UpdatingAuthenticator %1").arg(QString::fromStdString(communicator->proxyToString(getServerUpdatingAuthenticator(server)))));
+		qmServerUpdatingAuthenticator.remove(server->iServerNum);
+	}
 }
 
 static ServerPrx idToProxy(int id, const Ice::ObjectAdapterPtr &adapter) {
