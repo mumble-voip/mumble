@@ -77,10 +77,14 @@ CONFIG(no-vorbis-recording) {
   DEFINES *= NO_VORBIS_RECORDING
 }
 
-unix:system(pkg-config --exists opus) {
+unix:!CONFIG(bundled-opus):system(pkg-config --exists opus) {
   PKGCONFIG *= opus
   DEFINES *= USE_OPUS
 } else {
+  !CONFIG(no-opus) {
+    CONFIG *= opus
+  }
+
   CONFIG(opus) {
     INCLUDEPATH *= ../../opus-src/celt ../../opus-src/include ../../opus-src/src ../../opus-build/src
     DEFINES *= USE_OPUS
