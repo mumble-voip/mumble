@@ -37,7 +37,7 @@ OSErr MumbleOverlayEventHandler(const AppleEvent *ae, AppleEvent *reply, long re
 	/* Is the overlay already loaded into the process? */
 	if (dlsym(RTLD_DEFAULT, "MumbleOverlayEntryPoint")) {
 		fprintf(stderr, "MumbleOverlayLoader: Overlay already loaded.\n");
-		return;
+		return noErr;
 	}
 
 	/*
