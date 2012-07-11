@@ -85,7 +85,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 	float posrot[5];
 	char state;
-	char chHostStr[21]; // We just need 21 [xxx.xxx.xxx.xxx:yyyyy]
+	char chHostStr[22]; // We just need 22 [xxx.xxx.xxx.xxx:yyyyy] + null-termination
 
 	ok = peekProc(posrotptr, posrot) &&
 	     peekProc(stateptr, state) &&
@@ -94,40 +94,46 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (!ok)
 		return false;
 
+	//context
+	chHostStr[sizeof(chHostStr)-1]=0; // make sure string is null-terminated
 	std::string sHost(chHostStr);
 
 	// Possible values of chHostStr:
 	//	xxx.yyy.zzz.aaa:ccccc (or shorter, e.g. x.y.z.a:cc - but it doesn't really change anything)
 	//	loopback:0 (when a local server is started)
-	if (!sHost.empty())
+	if (sHost.empty() || sHost.find("loopback") != std::string::npos)
 	{
-		if (sHost.find("loopback") == std::string::npos)
-		{
-			std::ostringstream newcontext;
-			newcontext << "{\"ipport\": \"" << sHost << "\"}";
-			context = newcontext.str();
-		}
+		// we don't want to send positional data when playing locally, since it wouldn't work anyway (context wouldn't be the same for server and clients)
+		// we also don't want to have previous context left (and PA) in case the string is empty
+		context.clear();
+		return true;
 	}
+
+	std::ostringstream newcontext;
+	newcontext << "{\"ipport\": \"" << sHost << "\"}";
+	context = newcontext.str();
 
 	//TODO: Implement identity
 
 	// Check to see if you are in a server and spawned
-	if (state == 0 || state == 1 || state == 3) {
-		if (state == 0) context = std::string(""); // clear context if not connected to server
+	if (state == 1 || state == 3)
+		return true;
+	else if (state == 0) 
+	{
+		context.clear(); // clear context if not connected to server (this is independent from hostipptr, because hostipptr might cache/remember last server)
 		return true; // Deactivate plugin
 	}
 
 	ok = calcout(posrot, posrot+3, avatar_pos, avatar_front, avatar_top);
-	if (ok) {
-		for (int i=0;i<3;++i) {
-			camera_pos[i] = avatar_pos[i];
-			camera_front[i] = avatar_front[i];
-			camera_top[i] = avatar_top[i];
-		}
-		return true;
-	}
+	if (!ok)
+		return false;
 
-	return false;
+	for (int i=0;i<3;++i) {
+		camera_pos[i] = avatar_pos[i];
+		camera_front[i] = avatar_front[i];
+		camera_top[i] = avatar_top[i];
+	}
+	return true;
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
@@ -161,7 +167,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports TF2 build 4934 with context. No identity support yet.");
+	return std::wstring(L"Supports TF2 build 4934 with context support. No identity support yet.");
 }
 
 static std::wstring description(L"Team Fortress 2 (Build 4934)");

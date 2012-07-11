@@ -1,5 +1,4 @@
 /* Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com> 
-   Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
  
@@ -51,7 +50,6 @@ static bool calcout(float *pos, float *cam, float *opos, float *ocam) {
 		opos[i] = pos[i] / 100.00f;
 		ocam[i] = cam[i] / 100.00f;
 	}
-
 	return true;
 }
 
@@ -119,41 +117,39 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		 peekProc(hostipptr, hostip) &&
 		 peekProc(hostportptr, &hostport, 4);
 
-	if (ok) {
-		int res = calcout(ipos, cam, avatar_pos, camera_pos);
-		if (res) {
-			avatar_top[0] = 0.0f;
-			avatar_top[1] = 1.0f; // Your character is always looking straight ahead ;)
-			avatar_top[2] = 0.0f;
+	if (!ok) 
+		return false;
+	
+	if (strcmp(hostip, prev_hostip) != 0 || hostport != prev_hostport) {
+		context.clear();
+		memcpy(prev_hostip, hostip, 16);
+		prev_hostport = hostport;
 
-			if (strcmp(hostip, prev_hostip) != 0 || hostport != prev_hostport) {
-				context.clear();
-				memcpy(prev_hostip, hostip, 16);
-				prev_hostport = hostport;
-
-				if (strcmp(hostip, "") != 0) {
-					char buffer[50];
-					sprintf_s(buffer, 50, "{\"ipport\": \"%s:%d\"}", hostip, hostport);
-					context.assign(buffer);
-				}
-			}
+		if (strcmp(hostip, "") != 0) {
+			char buffer[50];
+			sprintf_s(buffer, 50, "{\"ipport\": \"%s:%d\"}", hostip, hostport);
+			context.assign(buffer);
 		}
-		return res;
 	}
 
-	return false;
+	// TODO: Identity support
+
+	bool res = calcout(ipos, cam, avatar_pos, camera_pos);
+	if (!res)
+		return false;
+	
+	avatar_top[1] = 1.0f; // This isn't FPS, you can't tilt your head :)
+	
+	return true;
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
 	if (! initialize(pids, L"League of Legends.exe"))
 		return false;
 
-	float pos[3], opos[3];
-	float cam[3], ocam[3];
-	float afront[3];
-	float camfront[3], camtop[3];
-	char hostip[16];
-	int hostport;
+	float cam[3], camfront[3], camtop[3], pos[3], afront[3], atop[3];
+	std::string context;
+	std::wstring identity;
 
 	// unlink plugin if this fails
 	if (!refreshPointers()) {
@@ -161,24 +157,17 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 	}
 
-	bool ok = peekProc(camfrontptr, camfront, 12) &&
-			  peekProc(camtopptr, camtop, 12) &&
-			  peekProc(posptr, pos, 12) &&
-			  peekProc(camptr, cam, 12) &&
-			  peekProc(afrontptr, afront, 12) &&
-			  peekProc(hostipptr, hostip) &&
-			  peekProc(hostportptr, &hostport, 4);
-
-	ok = ok && calcout(pos,cam,opos,ocam); // make sure values are OK
-
-	if (ok) {
+	if (fetch(pos,afront,atop,cam,camfront,camtop,context,identity)) {
 		*prev_hostip = '\0';
 		prev_hostport = 0;
 		return true;
+	} else {
+		generic_unlock();
+		return false;
 	}
 
-	generic_unlock();
-	return false;
+
+
 }
 
 static const std::wstring longdesc() {
