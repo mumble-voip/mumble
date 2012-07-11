@@ -130,7 +130,7 @@ macx {
 		CONFIG += no-pch
 		QMAKE_MAC_SDK = $$system(xcode-select --print-path)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/
 		QMAKE_CC = $$system(xcrun -find clang)
-		QMAKE_CXX = $$system(xcrun -find clang)
+		QMAKE_CXX = $$system(xcrun -find clang++)
 		QMAKE_LINK = $$system(xcrun -find clang++)
 		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.6
 		QMAKE_CFLAGS += -mmacosx-version-min=10.6
