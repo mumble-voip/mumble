@@ -629,7 +629,7 @@
       <item row="1" column="0">
        <widget class="QLabel" name="qliAmp">
         <property name="text">
-         <string>Amplification</string>
+         <string>Max. Amplification</string>
         </property>
         <property name="buddy">
          <cstring>qsAmp</cstring>
