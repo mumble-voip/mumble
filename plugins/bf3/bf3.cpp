@@ -32,34 +32,34 @@
 */
 
 #include "../mumble_plugin_win32.h"
-bool ptr_chain_valid = false;
-BYTE *pmodule_bf3;
+static bool ptr_chain_valid = false;
+static BYTE *pmodule_bf3;
 
 // Magic ptrs
-BYTE* const state_ptr = (BYTE *) 0x023C7A9C;
+static BYTE* const state_ptr = (BYTE *) 0x023C7A9C;
 
 // Vector ptrs
-BYTE* const avatar_pos_ptr = (BYTE *) 0x023C7A30;
-BYTE* const avatar_front_ptr = (BYTE *) 0x023C7A60;
-BYTE* const avatar_top_ptr = (BYTE *) 0x023C7A50;
+static BYTE* const avatar_pos_ptr = (BYTE *) 0x023C7A30;
+static BYTE* const avatar_front_ptr = (BYTE *) 0x023C7A60;
+static BYTE* const avatar_top_ptr = (BYTE *) 0x023C7A50;
 
 // Context ptrs
-BYTE* const ipport_ptr = (BYTE *) 0x02396F40;
+static BYTE* const ipport_ptr = (BYTE *) 0x02396F40;
 
 // Identity ptrs
-BYTE *team_state_ptr;
-BYTE *squad_state_ptr;
-BYTE *squad_lead_state_ptr;
+static BYTE *team_state_ptr;
+static BYTE *squad_state_ptr;
+static BYTE *squad_lead_state_ptr;
 
 // Offsets
-static int base_offset = 0x01F24F58;
-static int identity_offset1 = 0x1C;
-static int identity_offset2 = 0xBC;
-static int identity_offset3 = 0x36C;
-static int identity_offset4 = 0x8;
-static int squad_state_offset = 0x104;
-static int squad_lead_state_offset = 0x108;
-static int team_state_offset = 0x31C;
+static const int base_offset = 0x01F24F58;
+static const int identity_offset1 = 0x1C;
+static const int identity_offset2 = 0xBC;
+static const int identity_offset3 = 0x36C;
+static const int identity_offset4 = 0x8;
+static const int squad_state_offset = 0x104;
+static const int squad_lead_state_offset = 0x108;
+static const int team_state_offset = 0x31C;
 
 enum state_values {
     STATE_UNKN = 0,
@@ -90,15 +90,17 @@ inline bool resolve_ptrs() {
         return false;
 
     BYTE *offset_ptr1 = peekProc<BYTE *>(base_bf3 + identity_offset1);
+    if (!offset_ptr1) return false;
     BYTE *offset_ptr2 = peekProc<BYTE *>(offset_ptr1 + identity_offset2);
+    if (!offset_ptr2) return false;
     BYTE *offset_ptr3 = peekProc<BYTE *>(offset_ptr2 + identity_offset3);
+    if (!offset_ptr3) return false;
     BYTE *offset_ptr4 = peekProc<BYTE *>(offset_ptr3 + identity_offset4);
+    if (!offset_ptr4) return false;
 
     squad_state_ptr = offset_ptr4 + squad_state_offset;
     squad_lead_state_ptr = offset_ptr4 + squad_lead_state_offset;
     team_state_ptr = offset_ptr2 + team_state_offset;
-    if (!squad_state_ptr || !squad_lead_state_ptr || !team_state_ptr)
-        return false;
 
     return true;
 }
@@ -140,7 +142,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
     if (! ok)
         return false;
 
-    ccontext[127] = 0;
+    ccontext[sizeof(ccontext) - 1] = 0;
     if (ccontext[0] != '0') {
         std::ostringstream ocontext;
         ocontext << "{ \"ipport\": \"" << ccontext << "\" }";
