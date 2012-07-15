@@ -1,4 +1,5 @@
-/* Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com> 
+/* Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com>
+   Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
  
@@ -71,7 +72,7 @@ static bool refreshPointers(void) {
 	Avatar top vector address: 		+0x2ac0
 
 	D9 9E E8 01 00 00 D9 40 70 D9 9E EC 01 00 00 D9 40 74 D9 9E F0 01 00 00				:02F2DE68 
-	Avatar position vector address:		+0x1e8
+	Avatar position vector address:		+0x1e8 (pointer offset)
 
 	IP: Look for a non-unicode string that will contain server's IP. 28 bytes further from IP, there should be server's port
 																						:0AF395B8 
@@ -145,53 +146,48 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		 peekProc(hostportptr, &hostport, 4) &&
 		 peekProc(summonerptr, summoner);
 
-	if (ok) {
-		int res = calcout(ipos, cam, avatar_pos, camera_pos);
-		if (res) {
-			if (strcmp(hostip, prev_hostip) != 0 || hostport != prev_hostport) {
-				context.clear();
-				memcpy(prev_hostip, hostip, 16);
-				prev_hostport = hostport;
+	if (!ok) 
+		return false;
 
-				if (strcmp(hostip, "") != 0) {
-					char buffer[50];
-					sprintf_s(buffer, 50, "{\"ipport\": \"%s:%d\"}", hostip, hostport);
-					context.assign(buffer);
-				}
-			}
-			if (strcmp(summoner, prev_summoner) != 0) {
-				identity.clear();
-				memcpy(prev_summoner,summoner,17);
-				
-				if (strcmp(summoner, "") != 0) {
-					wchar_t tmp[sizeof(summoner)];
-					mbstowcs_s(NULL,tmp,summoner,sizeof(summoner));
-					wchar_t buffer[50];
-					swprintf_s(buffer, 50, L"{\"summoner\": \"%s\"}", tmp);
-					identity.assign(buffer);
-				}
+	// Ensure strings are zero terminated
+	summoner[sizeof(summoner) - 1] = '\0';
+	hostip[sizeof(hostip) - 1] = '\0';
+
+	calcout(ipos, cam, avatar_pos, camera_pos); //calculate proper position values
+	
+		if (strcmp(hostip, prev_hostip) != 0 || hostport != prev_hostport) {
+			context.clear();
+
+			strcpy_s(prev_hostip, sizeof(prev_hostip), hostip);
+			prev_hostport = hostport;
+
+			if (strcmp(hostip, "") != 0) {
+				char buffer[50];
+				sprintf_s(buffer, sizeof(buffer), "{\"ipport\": \"%s:%d\"}", hostip, hostport);
+				context.assign(buffer);
 			}
 		}
-		return res;
-	}
+		if (strcmp(summoner, prev_summoner) != 0) {
+			identity.clear();
 
-	return false;
+			strcpy_s(prev_summoner, sizeof(prev_summoner), summoner);
+				
+			if (strcmp(summoner, "") != 0) {
+				wchar_t tmp[sizeof(summoner)];
+				mbstowcs_s(NULL, tmp, summoner, sizeof(summoner));
+				wchar_t buffer[50];
+				swprintf_s(buffer, 50, L"{\"summoner\": \"%s\"}", tmp);
+				identity.assign(buffer);
+			}
+		}
+	return true;
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
 	if (! initialize(pids, L"League of Legends.exe"))
 		return false;
 
-	float pos[3], opos[3];
-	float cam[3], ocam[3];
-
-	// unlink plugin if this fails
-	if (!refreshPointers()) {
-		generic_unlock();
-		return false;
-	}
-
-	if (calcout(pos,cam,opos,ocam)) { // make sure values are OK
+	if (refreshPointers()) { // unlink plugin if this fails
 		*prev_hostip = '\0';
 		prev_hostport = 0;
 		*prev_summoner = '\0';
