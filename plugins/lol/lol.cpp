@@ -40,13 +40,13 @@ static BYTE *atopptr;
 
 static BYTE *hostipptr;
 static BYTE *hostportptr;
-static BYTE *summonerptr;
+//static BYTE *summonerptr;
 
 static BYTE *gameptr;
 
 static char prev_hostip[16]; // These should never change while the game is running, but just in case...
 static int prev_hostport;
-static char prev_summoner[17];
+//static char prev_summoner[17];
 
 static bool calcout(float *pos, float *cam, float *opos, float *ocam) {
 	// Seems League of Legends is in centimeters? ;o Well it's not inches for sure :)
@@ -77,8 +77,7 @@ static bool refreshPointers(void) {
 	IP: Look for a non-unicode string that will contain server's IP. 28 bytes further from IP, there should be server's port
 																						:0AF395B8 
 	PORT:					+0x1C (offset, not pointer!)
-	IDENTITY: Just look for your nickname saved in non-unicode that is static. Length is  16
-																						:0AF3957C 
+	IDENTITY: Still to be found
 	*/
 
 	posptr = camptr = camfrontptr = camtopptr = afrontptr = atopptr = NULL;
@@ -117,19 +116,19 @@ static bool refreshPointers(void) {
 	hostipptr = (BYTE *)0xAF395B8;
 	hostportptr = hostipptr + 0x1C;
 
-	summonerptr = (BYTE *)0xAF3957C;
+	//summonerptr = (BYTE *)0xAF3957C;
 
 	return true;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &/*identity*/) {
 	for (int i = 0; i < 3; i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	float ipos[3], cam[3];
 	int hostport;
 	char hostip[16];
-	char summoner[17];
+	//char summoner[17];
 	bool ok;
 
 	// Player not in game (or something broke), unlink
@@ -143,14 +142,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		 peekProc(afrontptr, avatar_front, 12) &&
 		 peekProc(atopptr, avatar_top, 12) &&
 		 peekProc(hostipptr, hostip) &&
-		 peekProc(hostportptr, &hostport, 4) &&
-		 peekProc(summonerptr, summoner);
+		 peekProc(hostportptr, &hostport, 4) /*&&
+		 peekProc(summonerptr, summoner)*/;
 
 	if (!ok) 
 		return false;
 
 	// Ensure strings are zero terminated
-	summoner[sizeof(summoner) - 1] = '\0';
+	//summoner[sizeof(summoner) - 1] = '\0';
 	hostip[sizeof(hostip) - 1] = '\0';
 
 	calcout(ipos, cam, avatar_pos, camera_pos); //calculate proper position values
@@ -167,7 +166,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 				context.assign(buffer);
 			}
 		}
-		if (strcmp(summoner, prev_summoner) != 0) {
+		/*if (strcmp(summoner, prev_summoner) != 0) {
 			identity.clear();
 
 			strcpy_s(prev_summoner, sizeof(prev_summoner), summoner);
@@ -179,7 +178,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 				swprintf_s(buffer, 50, L"{\"summoner\": \"%s\"}", tmp);
 				identity.assign(buffer);
 			}
-		}
+		}*/
 	return true;
 }
 
@@ -190,7 +189,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (refreshPointers()) { // unlink plugin if this fails
 		*prev_hostip = '\0';
 		prev_hostport = 0;
-		*prev_summoner = '\0';
+		//*prev_summoner = '\0';
 		return true;
 	}
 
@@ -199,7 +198,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports League of Legends v1.0.0.142 with context and identity support.");
+	return std::wstring(L"Supports League of Legends v1.0.0.142 with context. No identity support yet.");
 }
 
 static std::wstring description(L"League of Legends (v1.0.0.142)");
