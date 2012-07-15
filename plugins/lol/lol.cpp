@@ -1,4 +1,5 @@
-/* Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com> 
+/* Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com>
+   Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
  
@@ -146,26 +147,32 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		 peekProc(summonerptr, summoner);
 
 	if (ok) {
+		// Ensure strings are zero terminated
+		summoner[sizeof(summoner) - 1] = '\0';
+		hostip[sizeof(hostip) - 1] = '\0';
+
 		int res = calcout(ipos, cam, avatar_pos, camera_pos);
 		if (res) {
 			if (strcmp(hostip, prev_hostip) != 0 || hostport != prev_hostport) {
 				context.clear();
-				memcpy(prev_hostip, hostip, 16);
+
+				strcpy_s(prev_hostip, sizeof(prev_hostip), hostip);
 				prev_hostport = hostport;
 
 				if (strcmp(hostip, "") != 0) {
 					char buffer[50];
-					sprintf_s(buffer, 50, "{\"ipport\": \"%s:%d\"}", hostip, hostport);
+					sprintf_s(buffer, sizeof(buffer), "{\"ipport\": \"%s:%d\"}", hostip, hostport);
 					context.assign(buffer);
 				}
 			}
 			if (strcmp(summoner, prev_summoner) != 0) {
 				identity.clear();
-				memcpy(prev_summoner,summoner,17);
+
+				strcpy_s(prev_summoner, sizeof(prev_summoner), summoner);
 				
 				if (strcmp(summoner, "") != 0) {
 					wchar_t tmp[sizeof(summoner)];
-					mbstowcs_s(NULL,tmp,summoner,sizeof(summoner));
+					mbstowcs_s(NULL, tmp, summoner, sizeof(summoner));
 					wchar_t buffer[50];
 					swprintf_s(buffer, 50, L"{\"summoner\": \"%s\"}", tmp);
 					identity.assign(buffer);
@@ -191,7 +198,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 	}
 
-	if (calcout(pos,cam,opos,ocam)) { // make sure values are OK
+	if (calcout(pos, cam, opos, ocam)) { // make sure values are OK
 		*prev_hostip = '\0';
 		prev_hostport = 0;
 		*prev_summoner = '\0';
