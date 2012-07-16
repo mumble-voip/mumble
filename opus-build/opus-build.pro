@@ -2,7 +2,10 @@ include(../compiler.pri)
 
 BUILDDIR=$$basename(PWD)
 SOURCEDIR=$$replace(BUILDDIR,-build,-src)
-VERSION=0
+
+!win32 {
+	VERSION=0
+}
 
 !exists(../$$SOURCEDIR/COPYING) {
 	message("The $$SOURCEDIR/ directory was not found. You need to do one of the following:")
