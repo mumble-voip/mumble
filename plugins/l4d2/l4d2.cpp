@@ -128,6 +128,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 				//context = std::string("server/map/blah");
 				//identity = std::wstring(L"STEAM_1:2:3456789");
 			}
+
+			_context[sizeof(_context) - 1] = '\0';
 			std::string sHost(_context);
 			// This string can be either "xxx.xxx.xxx.xxx:yyyyy" (or shorter), "loopback:0" or "" (empty) when in menus. Hence 21 size for char.
 			if (!sHost.empty())

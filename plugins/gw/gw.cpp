@@ -110,7 +110,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		 peekProc(frontptr,front) &&
 		 peekProc(magicptr,&state,1) &&
 		 peekProc(areaptr,&areaid,4) &&
-		 peekProc(characternameptr,charactername);
+		 peekProc(characternameptr, charactername);
 
 	if (!ok)
 		return false;
@@ -131,7 +131,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			 << "\"magic\": " << int(state) << "}";
 	context = _context.str();
 
-	charactername[sizeof(charactername)-1]=0; // make sure string is null-terminated
+	charactername[sizeof(charactername) / sizeof(charactername[0])-1] = 0; // make sure string is null-terminated
 	identity = std::wstring(charactername);
 
 	return true;
