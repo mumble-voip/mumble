@@ -58,7 +58,7 @@ class ServerDB {
 		static void deleteServer(int server_id);
 		static bool serverExists(int num);
 		static QMap<QString, QString> getAllConf(int server_id);
-		static QVariant getConf(int server_id, const QString &key, QVariant def = QVariant());
+        static QVariant getConf(int server_id, const QString &k, QVariant def = QVariant());
 		static void setConf(int server_id, const QString &key, const QVariant &value = QVariant());
 		static QList<LogRecord> getLog(int server_id, unsigned int offs_min, unsigned int offs_max);
 		static int getLogLen(int server_id);
