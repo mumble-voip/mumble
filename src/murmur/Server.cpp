@@ -897,7 +897,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	char buffer[UDP_PACKET_SIZE];
 	PacketDataStream pdi(data + 1, len - 1);
 	PacketDataStream pds(buffer+1, UDP_PACKET_SIZE-1);
-	MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((buffer[0] >> 5) & 0x7);
+	MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((data[0] >> 5) & 0x7);
 	unsigned int type = data[0] & 0xe0;
 	unsigned int target = data[0] & 0x1f;
 	unsigned int poslen;
