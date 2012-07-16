@@ -33,7 +33,6 @@
 #include "Meta.h"
 
 #include "Connection.h"
-#include "DBus.h"
 #include "Net.h"
 #include "ServerDB.h"
 #include "Server.h"
@@ -80,6 +79,8 @@ MetaParams::MetaParams() {
 #ifdef Q_OS_UNIX
 	uiUid = uiGid = 0;
 #endif
+
+	iOpusThreshold = 100;
 
 	qrUserName = QRegExp(QLatin1String("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
 	qrChannelName = QRegExp(QLatin1String("[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
@@ -283,6 +284,8 @@ void MetaParams::read(QString fname) {
 	if (qvSuggestPushToTalk.toString().trimmed().isEmpty())
 		qvSuggestPushToTalk = QVariant();
 
+	iOpusThreshold = qsSettings->value("opusthreshold", iOpusThreshold).toInt();
+
 #ifdef Q_OS_UNIX
 	qsName = qsSettings->value("uname").toString();
 	if (geteuid() == 0) {
@@ -441,6 +444,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("suggestversion"), qvSuggestVersion.isNull() ? QString() : qvSuggestVersion.toString());
 	qmConfig.insert(QLatin1String("suggestpositional"), qvSuggestPositional.isNull() ? QString() : qvSuggestPositional.toString());
 	qmConfig.insert(QLatin1String("suggestpushtotalk"), qvSuggestPushToTalk.isNull() ? QString() : qvSuggestPushToTalk.toString());
+	qmConfig.insert(QLatin1String("opusthreshold"), QString::number(iOpusThreshold));
 }
 
 Meta::Meta() {

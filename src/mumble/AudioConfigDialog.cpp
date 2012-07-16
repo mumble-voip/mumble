@@ -117,6 +117,7 @@ void AudioInputDialog::load(const Settings &r) {
 	loadSlider(qsTransmitMax, iroundf(r.fVADmax * 32767.0f + 0.5f));
 	loadSlider(qsFrames, (r.iFramesPerPacket == 1) ? 1 : (r.iFramesPerPacket/2 + 1));
 	loadSlider(qsDoublePush, iroundf(static_cast<float>(r.uiDoublePush) / 1000.f + 0.5f));
+	loadSlider(qsPTTHold, r.uiPTTHold);
 
 	if (r.vsVAD == Settings::Amplitude)
 		qrbAmplitude->setChecked(true);
@@ -152,6 +153,7 @@ void AudioInputDialog::save() const {
 	s.iFramesPerPacket = qsFrames->value();
 	s.iFramesPerPacket = (s.iFramesPerPacket == 1) ? 1 : ((s.iFramesPerPacket-1) * 2);
 	s.uiDoublePush = qsDoublePush->value() * 1000;
+	s.uiPTTHold = qsPTTHold->value();
 	s.atTransmit = static_cast<Settings::AudioTransmit>(qcbTransmit->currentIndex());
 	s.iIdleTime = qsIdle->value();
 
@@ -197,6 +199,13 @@ void AudioInputDialog::on_qsDoublePush_valueChanged(int v) {
 		qlDoublePush->setText(tr("Off"));
 	else
 		qlDoublePush->setText(tr("%1 ms").arg(v));
+}
+
+void AudioInputDialog::on_qsPTTHold_valueChanged(int v) {
+	if (v == 0)
+		qlPTTHold->setText(tr("Off"));
+	else
+		qlPTTHold->setText(tr("%1 ms").arg(v));
 }
 
 void AudioInputDialog::on_qsTransmitHold_valueChanged(int v) {
@@ -272,7 +281,7 @@ void AudioInputDialog::updateBitrate() {
 
 	qlBitrate->setPalette(pal);
 
-	QString v = tr("%1 kbit/s (Audio %2 %5, Position %4, Overhead %3)").arg(total / 1000.0, 0, 'f', 1).arg(audiorate / 1000.0, 0, 'f', 1).arg(overhead / 1000.0, 0, 'f', 1).arg(posrate / 1000.0, 0, 'f', 1).arg(::AudioInput::preferCELT(q,p) ? tr("CELT") : tr("Speex"));
+	QString v = tr("%1 kbit/s (Audio %2 %5, Position %4, Overhead %3)").arg(total / 1000.0, 0, 'f', 1).arg(audiorate / 1000.0, 0, 'f', 1).arg(overhead / 1000.0, 0, 'f', 1).arg(posrate / 1000.0, 0, 'f', 1).arg(QLatin1String("CELT"));
 	qlBitrate->setText(v);
 
 	if (p == 1) {

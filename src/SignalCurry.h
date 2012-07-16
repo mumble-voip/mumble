@@ -1,4 +1,4 @@
-/* Copyright (C) 2010-2011, Mikkel Krautz <mikkel@krautz.dk>
+/* Copyright (C) 2012, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -28,23 +28,43 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#import <Cocoa/Cocoa.h>
-#include <dlfcn.h>
+#ifndef SIGNAL_CURRY_H_
+#define SIGNAL_CURRY_H_
 
-__attribute__ ((visibility("default")))
-OSErr MumbleOverlayEventHandler(const AppleEvent *ae, AppleEvent *reply, long refcon) {
+#include <QObject>
+#include <QVariant>
 
-	/* Is the overlay already loaded into the process? */
-	if (dlsym(RTLD_DEFAULT, "MumbleOverlayEntryPoint")) {
-		fprintf(stderr, "MumbleOverlayLoader: Overlay already loaded.\n");
-		return noErr;
+/**
+ * \brief Small class for binding a QVariant parameter to a parameterless signal.
+ * Static usage:
+ *    SignalCurry::curry(sender, SIGNAL(emitted()), receiver, SLOT(called(QVariant)), curryParameter);
+ */
+class SignalCurry : public QObject {
+	Q_OBJECT
+	Q_DISABLE_COPY(SignalCurry)
+private:
+	bool bDeleteAfterFirstUse;
+	QVariant qvData;
+public:
+	SignalCurry(QVariant data, bool deleteAfterFirstUse = false, QObject *parent = 0) :
+		QObject(parent),
+		bDeleteAfterFirstUse(deleteAfterFirstUse),
+		qvData(data) {}
+
+	static void curry(QObject *sender, const char *signal, QObject *receiver, const char *slot, QVariant data) {
+		SignalCurry *c = new SignalCurry(data);
+		connect(receiver, slot, c, SIGNAL(called(QVariant)));
+		connect(sender, signal, c, SLOT(call));
 	}
 
-	/*
-	 * Load the overlay lib - hard coded because we're the only consumer, and because we
-	 * can only live in /Library/ScriptingAdditions/
-	 */
-	dlopen("/Library/ScriptingAdditions/MumbleOverlay.osax/Contents/MacOS/libmumbleoverlay.dylib", RTLD_LAZY);
+signals:
+	void called(QVariant data);
+public slots:
+	void call() {
+		emit called(qvData);
+		if (bDeleteAfterFirstUse) deleteLater();
+	}
+};
 
-	return noErr;
-}
+
+#endif

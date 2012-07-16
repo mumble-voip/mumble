@@ -81,7 +81,11 @@ Global::Global() {
 	iCodecAlpha = 0;
 	iCodecBeta = 0;
 	bPreferAlpha = true;
+#ifdef USE_OPUS
 	bOpus = true;
+#else
+	bOpus = false;
+#endif
 
 	bAttenuateOthers = false;
 

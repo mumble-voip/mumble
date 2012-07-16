@@ -34,6 +34,7 @@
 #include "AudioOutputSpeech.h"
 
 #include "Audio.h"
+#include "CELTCodec.h"
 #include "ClientUser.h"
 #include "Global.h"
 #include "PacketDataStream.h"
@@ -326,8 +327,6 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 				} else if (umtType == MessageHandler::UDPVoiceOpus) {
 #ifdef USE_OPUS
 					decodedSamples = opus_decode_float(opusState, qba.isEmpty() ? NULL : reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut, iAudioBufferSize, 0);
-					iOutputSize = static_cast<unsigned int>(ceilf(static_cast<float>(decodedSamples * iMixerFreq) / static_cast<float>(iSampleRate)));
-					resizeBuffer(iBufferFilled + iOutputSize);
 #endif
 				} else {
 					if (qba.isEmpty()) {
@@ -376,7 +375,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 						memset(pOut, 0, sizeof(float) * iFrameSize);
 				} else if (umtType == MessageHandler::UDPVoiceOpus) {
 #ifdef USE_OPUS
-					opus_decode_float(opusState, NULL, 0, pOut, iFrameSize, 0);
+					decodedSamples = opus_decode_float(opusState, NULL, 0, pOut, iFrameSize, 0);
 #endif
 				} else {
 					speex_decode(dsSpeex, NULL, pOut);
@@ -399,7 +398,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 		}
 nextframe:
 		spx_uint32_t inlen = decodedSamples;
-		spx_uint32_t outlen = iOutputSize;
+		spx_uint32_t outlen = static_cast<unsigned int>(ceilf(static_cast<float>(decodedSamples * iMixerFreq) / static_cast<float>(iSampleRate)));
 		if (srs && bLastAlive)
 			speex_resampler_process_float(srs, 0, fResamplerBuffer, &inlen, pfBuffer + iBufferFilled, &outlen);
 		iBufferFilled += outlen;

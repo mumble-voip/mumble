@@ -105,7 +105,7 @@ void ChatbarTextEdit::inFocus(bool focus) {
 void ChatbarTextEdit::contextMenuEvent(QContextMenuEvent *qcme) {
 	QMenu *menu = createStandardContextMenu();
 
-	QAction *action = new QAction(tr("Paste and send") + QLatin1Char('\t'), menu);
+	QAction *action = new QAction(tr("Paste and &Send") + QLatin1Char('\t'), menu);
 	action->setEnabled(!QApplication::clipboard()->text().isEmpty());
 	connect(action, SIGNAL(triggered()), this, SLOT(pasteAndSend_triggered()));
 	if (menu->actions().count() > 6)

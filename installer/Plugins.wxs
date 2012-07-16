@@ -71,7 +71,7 @@
       <Component Id="gtaiv.dll">
         <File Source="$(var.SourceDir)\release\plugins\gtaiv.dll" KeyPath="yes" />
       </Component>
-	  <Component Id="gw.dll">
+      <Component Id="gw.dll">
         <File Source="$(var.SourceDir)\release\plugins\gw.dll" KeyPath="yes" />
       </Component>
       <Component Id="hl2dm.dll">
@@ -103,6 +103,9 @@
       </Component>
       <Component Id="tf2.dll">
         <File Source="$(var.SourceDir)\release\plugins\tf2.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="ut99.dll">
+        <File Source="$(var.SourceDir)\release\plugins\ut99.dll" KeyPath="yes" />
       </Component>
       <Component Id="ut2004.dll">
         <File Source="$(var.SourceDir)\release\plugins\ut2004.dll" KeyPath="yes" />
@@ -141,7 +144,7 @@
       <ComponentRef Id="etqw.dll" />
       <ComponentRef Id="gmod.dll" />
       <ComponentRef Id="gtaiv.dll" />
-	  <ComponentRef Id="gw.dll" />
+      <ComponentRef Id="gw.dll" />
       <ComponentRef Id="hl2dm.dll" />
       <ComponentRef Id="insurgency.dll" />
       <ComponentRef Id="l4d.dll" />
@@ -152,6 +155,7 @@
       <ComponentRef Id="manual.dll" />
       <ComponentRef Id="sto.dll" />
       <ComponentRef Id="tf2.dll" />
+      <ComponentRef Id="ut99.dll" />
       <ComponentRef Id="ut2004.dll" />
       <ComponentRef Id="ut3.dll" />
       <ComponentRef Id="wolfet.dll" />

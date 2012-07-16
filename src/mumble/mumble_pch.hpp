@@ -53,9 +53,7 @@
 #include <sndfile.h>
 #undef __int64_t
 #include <celt.h>
-#include <celt_header.h>
 #include <speex/speex.h>
-#include <speex/speex_header.h>
 #include <speex/speex_jitter.h>
 #include <speex/speex_preprocess.h>
 #include <speex/speex_echo.h>

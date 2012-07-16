@@ -2,6 +2,7 @@ include(../compiler.pri)
 
 BUILDDIR=$$basename(PWD)
 SOURCEDIR=$$replace(BUILDDIR,-build,-src)
+VERSION=0
 
 !exists(../$$SOURCEDIR/COPYING) {
 	message("The $$SOURCEDIR/ directory was not found. You need to do one of the following:")
@@ -28,7 +29,7 @@ win32 {
   INCLUDEPATH += ../$$BUILDDIR/win32
 
   CONFIG(sse2) {
-    TARGET_VERSION_EXT = .$${VERSION}.sse2
+    TARGET_VERSION_EXT = .sse2
   } else {
     QMAKE_CFLAGS_RELEASE -= -arch:SSE
     QMAKE_CFLAGS_DEBUG -= -arch:SSE
@@ -184,6 +185,15 @@ CONFIG(debug, debug|release) {
 
 CONFIG(release, debug|release) {
 	DESTDIR = ../release
+}
+
+macx {
+	libname.target = libname
+	libname.commands = cd ${DESTDIR} && install_name_tool -id `pwd`/${TARGET} ${TARGET}
+	libname.depends = ${DESTDIR}${TARGET}
+	libname.CONFIG = recursive
+	QMAKE_EXTRA_TARGETS *= libname
+	ALL_DEPS += libname
 }
 
 include(../symbols.pri)

@@ -35,7 +35,6 @@
 
 #include "ACL.h"
 #include "Connection.h"
-#include "DBus.h"
 #include "Group.h"
 #include "User.h"
 #include "Channel.h"
@@ -331,6 +330,7 @@ void Server::readParams() {
 	qvSuggestVersion = Meta::mp.qvSuggestVersion;
 	qvSuggestPositional = Meta::mp.qvSuggestPositional;
 	qvSuggestPushToTalk = Meta::mp.qvSuggestPushToTalk;
+	iOpusThreshold = Meta::mp.iOpusThreshold;
 
 	QString qsHost = getConf("host", QString()).toString();
 	if (! qsHost.isEmpty()) {
@@ -392,6 +392,8 @@ void Server::readParams() {
 	qvSuggestPushToTalk = getConf("suggestpushtotalk", qvSuggestPushToTalk);
 	if (qvSuggestPushToTalk.toString().trimmed().isEmpty())
 		qvSuggestPushToTalk = QVariant();
+
+	iOpusThreshold = getConf("opusthreshold", iOpusThreshold).toInt();
 
 	qrUserName=QRegExp(getConf("username", qrUserName.pattern()).toString());
 	qrChannelName=QRegExp(getConf("channelname", qrChannelName.pattern()).toString());
@@ -503,6 +505,8 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		qvSuggestPositional = ! v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestPositional;
 	else if (key == "suggestpushtotalk")
 		qvSuggestPushToTalk = ! v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestPushToTalk;
+	else if (key == "opusthreshold")
+		iOpusThreshold = i ? i : Meta::mp.iOpusThreshold;
 }
 
 #ifdef USE_BONJOUR
@@ -768,6 +772,8 @@ void Server::run() {
 					case MessageHandler::UDPVoiceSpeex:
 					case MessageHandler::UDPVoiceCELTAlpha:
 					case MessageHandler::UDPVoiceCELTBeta:
+						if (bOpus)
+							break;
 					case MessageHandler::UDPVoiceOpus: {
 							u->bUdp = true;
 							processMsg(u, buffer, len);
@@ -1270,6 +1276,8 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 			case MessageHandler::UDPVoiceCELTAlpha:
 			case MessageHandler::UDPVoiceCELTBeta:
 			case MessageHandler::UDPVoiceSpeex:
+				if (bOpus)
+					break;
 			case MessageHandler::UDPVoiceOpus:
 				processMsg(u, buffer, l);
 				break;
@@ -1648,8 +1656,9 @@ void Server::recheckCodecVersions() {
 
 	if (! users)
 		return;
-		
-	bool allHasOpus = (opus == users);
+
+	// Enable Opus if the number of users with Opus is higher than the threshold
+	bool enableOpus = ((opus * 100 / users) >= iOpusThreshold);
 
 	// Find the best possible codec most users support
 	int version = 0;
@@ -1680,17 +1689,17 @@ void Server::recheckCodecVersions() {
 			iCodecAlpha = version;
 		else
 			iCodecBeta = version;
-	} else if (bOpus == allHasOpus) {
+	} else if (bOpus == enableOpus) {
 		return;
 	}
-	
-	bOpus = allHasOpus;
-	
+
+	bOpus = enableOpus;
+
 	MumbleProto::CodecVersion mpcv;
 	mpcv.set_alpha(iCodecAlpha);
 	mpcv.set_beta(iCodecBeta);
 	mpcv.set_prefer_alpha(bPreferAlpha);
-	mpcv.set_opus(allHasOpus);
+	mpcv.set_opus(bOpus);
 	sendAll(mpcv);
 
 	log(QString::fromLatin1("CELT codec switch %1 %2 (prefer %3) (Opus %4)").arg(iCodecAlpha,0,16).arg(iCodecBeta,0,16).arg(bPreferAlpha ? iCodecAlpha : iCodecBeta,0,16).arg(bOpus));

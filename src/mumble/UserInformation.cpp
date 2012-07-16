@@ -33,6 +33,7 @@
 #include "UserInformation.h"
 
 #include "Audio.h"
+#include "CELTCodec.h"
 #include "Global.h"
 #include "Net.h"
 #include "ServerHandler.h"
@@ -53,6 +54,8 @@ UserInformation::UserInformation(const MumbleProto::UserStats &msg, QWidget *p) 
 	qtTimer->start(6000);
 
 	qgbConnection->setVisible(false);
+
+	qlOpus->setText(tr("Not Reported"));
 
 	update(msg);
 	resize(sizeHint());
@@ -172,8 +175,6 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 	}
 	if (msg.has_opus()) {
 		qlOpus->setText(msg.opus() ? tr("Supported") : tr("Not Supported"));
-	} else {
-		qlOpus->setText(tr("Not Reported"));
 	}
 	if (showcon)
 		qgbConnection->setVisible(true);

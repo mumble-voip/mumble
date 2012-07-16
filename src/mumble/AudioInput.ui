@@ -197,6 +197,42 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="3">
+           <widget class="QLabel" name="qlDoublePush">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string notr="true">TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QCheckBox" name="qcbPushWindow">
+            <property name="toolTip">
+             <string>Displays an always on top window with a push to talk button in it</string>
+            </property>
+            <property name="text">
+             <string>Display push to talk window</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
           <item row="0" column="1" colspan="2">
            <widget class="QSlider" name="qsDoublePush">
             <property name="toolTip">
@@ -219,39 +255,33 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="3">
-           <widget class="QLabel" name="qlDoublePush">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+          <item row="1" column="0">
+           <widget class="QLabel" name="qliPTTHold">
             <property name="text">
-             <string notr="true">TextLabel</string>
+             <string>Hold Time</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
+          <item row="1" column="3">
+           <widget class="QLabel" name="qlPTTHold">
+            <property name="text">
+             <string>TextLabel</string>
             </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
+           </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QCheckBox" name="qcbPushWindow">
+           <widget class="QSlider" name="qsPTTHold">
             <property name="toolTip">
-             <string>Displays an always on top window with a push to talk button in it</string>
+             <string>Time the microphone stays open after the PTT key is released</string>
             </property>
-            <property name="text">
-             <string>Display push to talk window</string>
+            <property name="maximum">
+             <number>5000</number>
+            </property>
+            <property name="singleStep">
+             <number>10</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -599,7 +629,7 @@
       <item row="1" column="0">
        <widget class="QLabel" name="qliAmp">
         <property name="text">
-         <string>Amplification</string>
+         <string>Max. Amplification</string>
         </property>
         <property name="buddy">
          <cstring>qsAmp</cstring>
@@ -649,7 +679,7 @@
      <property name="title">
       <string>Misc</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout">
+     <layout class="QGridLayout" name="_2">
       <item row="1" column="0">
        <widget class="QCheckBox" name="qcbPushClick">
         <property name="toolTip">

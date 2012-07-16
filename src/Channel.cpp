@@ -133,13 +133,12 @@ QSet<Channel *> Channel::allLinks() {
 	if (qhLinks.isEmpty())
 		return seen;
 
-	Channel *l, *lnk;
 	QStack<Channel *> stack;
 	stack.push(this);
 
 	while (! stack.isEmpty()) {
-		lnk = stack.pop();
-		foreach(l, lnk->qhLinks.keys()) {
+		Channel *lnk = stack.pop();
+		foreach(Channel *l, lnk->qhLinks.keys()) {
 			if (! seen.contains(l)) {
 				seen.insert(l);
 				stack.push(l);

@@ -571,6 +571,16 @@ void Server::initialize() {
 		query.addBindValue(iServerNum);
 		query.addBindValue(QLatin1String("SuperUser"));
 		SQLEXEC();
+
+		int length = qrand() % 8 + 8;
+		QString pw;
+		pw.reserve(length);
+
+		while (length--)
+			pw.append(QChar(qrand() % 94 + 33));
+
+		ServerDB::setSUPW(iServerNum, pw);
+		log(QString("Password for 'SuperUser' set to '%2'").arg(pw));
 	}
 
 	SQLPREP("SELECT COUNT(*) FROM `%1acl` WHERE `server_id`=?");

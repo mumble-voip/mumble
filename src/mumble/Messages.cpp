@@ -433,6 +433,10 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 
 			pmModel->moveUser(pDst, c);
 
+			if (pDst == pSelf) {
+				g.mw->updateChatBar();
+			}
+
 			if (log && (pDst != pSelf) && (pDst->cChannel == pSelf->cChannel)) {
 				if (pDst == pSrc)
 					g.l->log(Log::ChannelJoin, tr("%1 entered channel.").arg(Log::formatClientUser(pDst, Log::Target)));
@@ -730,8 +734,10 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 	int alpha = msg.has_alpha() ? msg.alpha() : -1;
 	int beta = msg.has_beta() ? msg.beta() : -1;
 	bool pref = msg.prefer_alpha();
-	
+
+#ifdef USE_OPUS
 	g.bOpus = msg.opus();
+#endif
 
 	// Workaround for broken 1.2.2 servers
 	if (g.sh && g.sh->uiVersion == 0x010202 && alpha != -1 && alpha == beta) {
@@ -752,7 +758,6 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 			pref = ! pref;
 	}
 	g.bPreferAlpha = pref;
-	
 
 	int willuse = pref ? g.iCodecAlpha : g.iCodecBeta;
 

@@ -60,6 +60,7 @@ struct MetaParams {
 	bool bRememberChan;
 	int iMaxTextMessageLength;
 	int iMaxImageMessageLength;
+	int iOpusThreshold;
 	bool bAllowHTML;
 	QString qsPassword;
 	QString qsWelcomeText;
