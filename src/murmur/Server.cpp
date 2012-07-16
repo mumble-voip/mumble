@@ -897,7 +897,6 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	char buffer[UDP_PACKET_SIZE];
 	PacketDataStream pdi(data + 1, len - 1);
 	PacketDataStream pds(buffer+1, UDP_PACKET_SIZE-1);
-	MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((buffer[0] >> 5) & 0x7);
 	unsigned int type = data[0] & 0xe0;
 	unsigned int target = data[0] & 0x1f;
 	unsigned int poslen;
@@ -905,14 +904,17 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	// IP + UDP + Crypt + Data
 	int packetsize = 20 + 8 + 4 + len;
 
+	// Check the voice data rate limit.
 	if (! bw->addFrame(packetsize, iMaxBandwidth/8)) {
 		// Suppress packet.
 		return;
 	}
 
+	// Read the sequence number.
 	pdi >> counter;
 
-	if (msgType != MessageHandler::UDPVoiceOpus) {
+	// Skip to the end of the voice data.
+	if ((type >> 5) != MessageHandler::UDPVoiceOpus) {
 		do {
 			counter = pdi.next8();
 			pdi.skip(counter & 0x7f);
@@ -923,9 +925,12 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 		pdi.skip(size & 0x1fff);
 	}
 
+	// Save location of the positional audio data.
 	poslen = pdi.left();
 
+	// Append session id to the new output stream.
 	pds << u->uiSession;
+	// Copy all voice and positional audio data to the output stream.
 	pds.append(data + 1, len - 1);
 
 	len = pds.size() + 1;
