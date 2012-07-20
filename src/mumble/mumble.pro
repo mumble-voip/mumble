@@ -155,7 +155,13 @@ unix {
 
     !CONFIG(no-cocoa) {
         # Link against libxar so we can inspect Mac OS X installer packages.
-        LIBS += -lxar -framework ScriptingBridge
+        CONFIG(static) {
+          LIBS += -lxml2 -lbz2 -lxar
+        } else {
+          LIBS += -lxar
+        }
+        LIBS += -framework ScriptingBridge
+
         # Native feeling config dialog.
         SOURCES += ConfigDialog_macx.mm ConfigDialogDelegate.mm Overlay_macx.mm
         HEADERS += ConfigDialog_macx.h
@@ -309,6 +315,20 @@ CONFIG(no-update) {
 
 !CONFIG(no-embed-tango-icons) {
 	RESOURCES *= mumble_tango.qrc
+}
+
+CONFIG(static) {
+  DEFINES *= USE_STATIC
+
+  # Keep in sync with main.cpp QT_IMPORT_PLUGIN list.
+  QTPLUGIN += qtaccessiblewidgets qico qsvg qsvgicon
+  macx {
+    QTPLUGIN += qicnsicon
+  }
+
+  # Icon engines are special; they don't get their lib directory
+  # included automatically by mkspecs/features/qt.prf
+  LIBS *= -L$$[QT_INSTALL_PLUGINS]/iconengines
 }
 
 lrel.output = ${QMAKE_FILE_BASE}.qm

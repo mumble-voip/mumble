@@ -190,7 +190,7 @@ CONFIG(release, debug|release) {
 	DESTDIR = ../release
 }
 
-macx {
+macx:!CONFIG(static) {
 	libname.target = libname
 	libname.commands = cd ${DESTDIR} && install_name_tool -id `pwd`/${TARGET} ${TARGET}
 	libname.depends = ${DESTDIR}${TARGET}
