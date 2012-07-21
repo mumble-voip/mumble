@@ -53,158 +53,6 @@ def create_overlay_package():
 
 class AppBundle(object):
 
-	def is_system_lib(self, lib):
-		'''
-			Is the library a system library, meaning that we should not include it in our bundle?
-		'''
-		if lib.startswith('/System/Library/'):
-			return True
-		if lib.startswith('/usr/lib/'):
-			return True
-
-		return False
-
-	def is_dylib(self, lib):
-		'''
-			Is the library a dylib?
-		'''
-		return lib.endswith('.dylib')
-
-	def get_framework_base(self, fw):
-		'''
-			Extracts the base .framework bundle path from a library in an abitrary place in a framework.
-		'''
-		paths = fw.split('/')
-		for i, str in enumerate(paths):
-			if str.endswith('.framework'):
-				return '/'.join(paths[:i+1])
-		return None
-
-	def is_framework(self, lib):
-		'''
-			Is the library a framework?
-		'''
-		return bool(self.get_framework_base(lib))
-
-	def get_binary_libs(self, path):
-		'''
-			Get a list of libraries that we depend on.
-		'''
-		m = re.compile('^\t(.*)\ \(.*$')
-		libs = Popen(['otool', '-L', path], stdout=PIPE).communicate()[0]
-		libs = string.split(libs, '\n')
-		ret = []
-		bn = os.path.basename(path)
-		for line in libs:
-			g = m.match(line)
-			if g is not None:
-				lib = g.groups()[0]
-				if lib != bn:
-					ret.append(lib)
-		return ret
-
-	def handle_libs(self):
-		'''
-			Copy non-system libraries that we depend on into our bundle, and fix linker
-			paths so they are relative to our bundle.
-		'''
-		print ' * Taking care of libraries'
-
-		# Does our fwpath exist?
-		fwpath = os.path.join(os.path.abspath(self.bundle), 'Contents', 'Frameworks')
-		if not os.path.exists(fwpath):
-			os.mkdir(fwpath)
-
-		self.handle_binary_libs()
-
-		if not options.no_server:
-			murmurd = os.path.join(os.path.abspath(self.bundle), 'Contents', 'MacOS', 'murmurd')
-			if os.path.exists(murmurd):
-				self.handle_binary_libs(murmurd)
-
-		g15 = os.path.join(os.path.abspath(self.bundle), 'Contents', 'MacOS', 'mumble-g15-helper')
-		if os.path.exists(g15):
-			self.handle_binary_libs(g15)
-
-		manual = os.path.join(os.path.abspath(self.bundle), 'Contents', 'Plugins', 'libmanual.dylib')
-		if os.path.exists(manual):
-			self.handle_binary_libs(manual)
-
-	def handle_binary_libs(self, macho=None):
-		'''
-			Fix up dylib depends for a specific binary.
-		'''
-		# Does our fwpath exist already? If not, create it.
-		if not self.framework_path:
-			self.framework_path = self.bundle + '/Contents/Frameworks'
-			if not os.path.exists(self.framework_path):
-				os.mkdir(self.framework_path)
-			else:
-				shutil.rmtree(self.framework_path)
-				os.mkdir(self.framework_path)
-
-		# If we weren't explicitly told which binary to operate on, pick the
-		# bundle's default executable from its property list.
-		if macho is None:
-			macho = os.path.abspath(self.binary)
-		else:
-			macho = os.path.abspath(macho)
-
-		libs = self.get_binary_libs(macho)
-
-		for lib in libs:
-
-			# Skip system libraries
-			if self.is_system_lib(lib):
-				continue
-
-			# Frameworks are 'special'.
-			if self.is_framework(lib):
-				fw_path = self.get_framework_base(lib)
-				basename = os.path.basename(fw_path)
-				name = basename.split('.framework')[0]
-				rel = basename + '/' + name
-
-				abs = self.framework_path + '/' + rel
-
-				if not basename in self.handled_libs:
-					dst = self.framework_path + '/' + basename
-					shutil.copytree(fw_path, dst, symlinks=True)
-					if name.startswith('Qt'):
-						os.remove(dst + '/Headers')
-						os.remove(dst + '/' + name + '.prl')
-						os.remove(dst + '/' + name + '_debug')
-						os.remove(dst + '/' + name + '_debug.prl')
-						shutil.rmtree(dst + '/Versions/4/Headers')
-						os.remove(dst + '/Versions/4/' + name + '_debug')
-						os.chmod(abs, 0755)
-						os.system('install_name_tool -id @executable_path/../Frameworks/%s %s' % (rel, abs))
-						self.handled_libs[basename] = True
-						self.handle_binary_libs(abs)
-				os.chmod(macho, 0755)
-				os.system('install_name_tool -change %s @executable_path/../Frameworks/%s %s' % (lib, rel, macho))
-
-			# Regular dylibs
-			else:
-				basename = os.path.basename(lib)
-				rel = basename
-
-				if not basename in self.handled_libs:
-					# Hack to work with non-rpath Ice (for 10.4 compat)
-					if lib.startswith('libIce'):
-						iceprefix = os.environ.get('ICE_PREFIX', None)
-						if not iceprefix:
-							raise Exception('No ICE_PREFIX set')
-						lib = iceprefix + '/lib/' + basename
-					shutil.copy(lib, self.framework_path  + '/' + basename)
-					abs = self.framework_path + '/' + rel
-					os.chmod(abs, 0755)
-					os.system('install_name_tool -id @executable_path/../Frameworks/%s %s' % (rel, abs))
-					self.handled_libs[basename] = True
-					self.handle_binary_libs(abs)
-				os.chmod(macho, 0755)
-				os.system('install_name_tool -change %s @executable_path/../Frameworks/%s %s' % (lib, rel, macho))
-
 	def copy_murmur(self):
 		'''
 			Copy the murmurd binary into our Mumble app bundle
@@ -269,42 +117,6 @@ class AppBundle(object):
 		if os.path.exists(dst):
 			shutil.rmtree(dst)
 		shutil.copytree('release/plugins/', dst, symlinks=True)
-
-	def copy_qt_plugins(self):
-		'''
-			Copy over any needed Qt plugins.
-		'''
-
-		print ' * Copying Qt and preparing plugins'
-
-		src = os.popen('qmake -query QT_INSTALL_PREFIX').read().strip() + '/plugins'
-		dst = os.path.join(self.bundle, 'Contents', 'QtPlugins')
-		shutil.copytree(src, dst, symlinks=False)
-
-		top = dst
-		files = {}
-
-		def cb(arg, dirname, fnames):
-			if dirname == top:
-				return
-			files[os.path.basename(dirname)] = fnames
-
-		os.path.walk(top, cb, None)
-
-		exclude = ( 'phonon_backend', 'designer', 'script' )
-
-		for dir, files in files.items():
-			absdir = dst + '/' + dir
-			if dir in exclude:
-				shutil.rmtree(absdir)
-				continue
-			for file in files:
-				abs = absdir + '/' + file
-				if file.endswith('_debug.dylib'):
-					os.remove(abs)
-				else:
-					os.system('install_name_tool -id %s %s' % (file, abs))
-					self.handle_binary_libs(abs)
 
 	def update_plist(self):
 		'''
@@ -480,9 +292,7 @@ if __name__ == '__main__':
 	a.copy_g15helper()
 	a.copy_codecs()
 	a.copy_plugins()
-	a.copy_qt_plugins()
-	a.handle_libs()
-	a.copy_resources(['icons/mumble.icns', 'scripts/qt.conf'])
+	a.copy_resources(['icons/mumble.icns'])
 	a.update_plist()
 	if not options.universal:
 		a.add_compat_warning()
@@ -515,39 +325,6 @@ if __name__ == '__main__':
 	# Create diskimage
 	d = DiskImage(fn, title)
 	d.copy('macx/scripts/DS_Store', '/.DS_Store')
-	d.mkdir('.background')
-	d.copy('icons/mumble.osx.installer.png', '/.background/background.png')
 	d.symlink('/Applications', '/Applications')
 	d.copy('release/Mumble.app')
-	d.copy('README', '/ReadMe.txt')
-	d.copy('CHANGES', '/Changes.txt')
-	d.mkdir('Licenses')
-	d.copy('LICENSE', '/Licenses/Mumble.txt')
-	d.copy('installer/lgpl.txt', '/Licenses/Qt.txt')
-	d.copy('installer/speex.txt', '/Licenses/Speex.txt')
-	d.copy('celt-0.7.0-src/COPYING', '/Licenses/CELT.txt')
-	d.copy('3rdPartyLicenses/libsndfile_license.txt', '/Licenses/libsndfile.txt')
-	d.copy('3rdPartyLicenses/openssl_license.txt', '/Licenses/OpenSSL.txt')
-	if not options.no_server:
-		d.copy('installer/portaudio.txt', '/Licenses/PortAudio.txt')
-		d.copy('installer/gpl.txt', '/Licenses/ZeroC-Ice.txt')
-		d.mkdir('Murmur Extras')
-		d.copy('scripts/murmur.ini.osx', '/Murmur Extras/murmur.ini')
-		d.copy('scripts/murmur.conf', '/Murmur Extras/')
-		d.copy('scripts/dbusauth.pl', '/Murmur Extras/')
-		d.copy('scripts/murmur.pl', '/Murmur Extras/')
-		d.copy('scripts/weblist.pl', '/Murmur Extras/')
-		d.copy('scripts/weblist.php', '/Murmur Extras/')
-		d.copy('scripts/icedemo.php', '/Murmur Extras/')
-		d.copy('scripts/ListUsers.cs', '/Murmur Extras/')
-		d.copy('scripts/mumble-auth.py', '/Murmur Extras/')
-		d.copy('scripts/rubytest.rb', '/Murmur Extras')
-		d.copy('scripts/simpleregister.php', '/Murmur Extras/')
-		d.copy('scripts/testcallback.py', '/Murmur Extras/')
-		d.copy('scripts/testauth.py', '/Murmur Extras/')
-		d.copy('scripts/addban.php', '/Murmur Extras/')
-		d.copy('scripts/php.ini', '/Murmur Extras/')
-		d.copy('src/murmur/Murmur.ice', '/Murmur Extras/')
-		d.copy('scripts/phpBB3auth.ini', '/Murmur Extras/')
-		d.copy('scripts/phpBB3auth.py', '/Murmur Extras/')
 	d.create()
