@@ -17,14 +17,47 @@ def gitrev():
 	'''Get git revision of the current Mumble build.'''
 	return os.popen('git describe').read()[:-1]
 
+def certificate_subject_OU(identity):
+	'''Extract the subject OU from the certificate matching the identity parameter in the specified keychain.'''
+
+	findCert = Popen(('/usr/bin/security', 'find-certificate', '-c', identity, '-p', options.keychain), stdout=PIPE)
+	pem, _ = findCert.communicate()
+
+	openssl = Popen(('/usr/bin/openssl', 'x509', '-subject', '-noout'), stdout=PIPE, stdin=PIPE)
+	subject, _ = openssl.communicate(pem)
+
+	attr = '/OU='
+	begin = subject.index(attr) + len(attr)
+	tmp = subject[begin:]
+	end = tmp.index('/')
+
+	return tmp[:end]
+
+def lookup_file_identifier(path):
+	try:
+		d = plistlib.readPlist(os.path.join(path, 'Contents', 'Info.plist'))
+		return d['CFBundleIdentifier']
+	except:
+		return os.path.basename(path)
+
 def codesign(path):
-	'''Call the codesign executable.'''
+	'''Call the codesign executable on the signable object at path.'''
+
+	certname = 'Developer ID Application: %s' % options.developer_id
+	OU = certificate_subject_OU(certname)
 
 	if hasattr(path, 'isalpha'):
 		path = (path,)
 	for p in path:
-		certname = 'Developer ID Application: %s' % options.developer_id
-		p = Popen(('codesign', '--keychain', options.keychain, '-vvvv', '-s', certname, p))
+		identifier = lookup_file_identifier(p)
+		reqs = None
+		with open('macx/scripts/codesign-requirements.tmpl', 'r') as f:
+			tmplReqs = f.read()
+			reqs = string.Template(tmplReqs).substitute({
+				'identifier': identifier,
+				'subject_OU': OU,
+			})
+		p = Popen(('codesign', '--keychain', options.keychain, '-vvvv', '-i', identifier, '-r='+reqs, '-s', certname, p))
 		retval = p.wait()
 		if retval != 0:
 			return retval
@@ -308,12 +341,14 @@ if __name__ == '__main__':
 		binaries = [
 			# 1.2.x
 			'release/Mumble.app',
-			'release/Mumble.app/Contents/MacOS/mumble-g15-helper',
 			'release/Mumble.app/Contents/Plugins/liblink.dylib',
 			'release/Mumble.app/Contents/Plugins/libmanual.dylib',
 			'release/Mumble.app/Contents/Codecs/libcelt0.0.7.0.dylib',
 			'release/Mumble.app/Contents/Codecs/libcelt0.0.11.0.dylib',
 		]
+		g15path = 'release/Mumble.app/Contents/MacOS/mumble-g15-helper'
+		if os.path.exists(g15path):
+			binaries.append(g15path)
 		if not options.no_server:
 			binaries.append('release/Mumble.app/Contents/MacOS/murmurd')
 
