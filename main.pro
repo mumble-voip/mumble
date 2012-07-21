@@ -3,10 +3,10 @@ CONFIG *= ordered debug_and_release
 
 !CONFIG(no-client) {
   unix:!CONFIG(bundled-speex):system(pkg-config --atleast-version=1.2 speexdsp) {
-	CONFIG *= no-bundled-speex
+    CONFIG *= no-bundled-speex
   }
   unix:!CONFIG(bundled-celt):system(pkg-config --atleast-version=0.7.0 celt) {
-	CONFIG *= no-bundled-celt
+    CONFIG *= no-bundled-celt
   }
   !CONFIG(no-bundled-speex) {
     SUBDIRS *= speexbuild
@@ -16,7 +16,7 @@ CONFIG *= ordered debug_and_release
   }
 
   CONFIG(opus) {
-	SUBDIRS *= opus-build
+    SUBDIRS *= opus-build
   }
 
   SUBDIRS *= src/mumble
@@ -29,6 +29,7 @@ CONFIG *= ordered debug_and_release
     SUBDIRS *= overlay
     !CONFIG(no-g15) {
       SUBDIRS *= g15helper
+    }
     exists(effects11/effects11.cpp) {
       SUBDIRS *= effects11
     }
