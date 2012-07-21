@@ -23,7 +23,8 @@ def codesign(path):
 	if hasattr(path, 'isalpha'):
 		path = (path,)
 	for p in path:
-		p = Popen(('codesign', '--keychain', options.codesign_keychain, '--signature-size', '6400', '-vvvv', '-s', options.codesign, p))
+		certname = 'Developer ID Application: %s' % options.developer_id
+		p = Popen(('codesign', '--keychain', options.keychain, '--signature-size', '6400', '-vvvv', '-s', certname, p))
 		retval = p.wait()
 		if retval != 0:
 			return retval
@@ -32,7 +33,8 @@ def codesign(path):
 def prodsign(inf, outf):
 	'''Call the prodsign executable.'''
 
-	p = Popen(('productsign', '--keychain', options.codesign_keychain, '--sign', options.codesign_installer, inf, outf))
+	certname = 'Developer ID Installer: %s' % options.developer_id
+	p = Popen(('productsign', '--keychain', options.keychain, '--sign', certname, inf, outf))
 	retval = p.wait()
 	if retval != 0:
 		return retval
@@ -43,11 +45,11 @@ def create_overlay_package():
 
 	bundle = os.path.join('release', 'MumbleOverlay.osax')
 	overlaylib = os.path.join('release', 'libmumbleoverlay.dylib')
-	if options.codesign:
+	if options.developer_id:
 		codesign(bundle)
 		codesign(overlaylib)
 	os.system('./macx/scripts/build-overlay-installer')
-	if options.codesign:
+	if options.developer_id:
 		os.rename('release/MumbleOverlay.pkg', 'release/MumbleOverlayUnsigned.pkg')
 		prodsign('release/MumbleOverlayUnsigned.pkg', 'release/MumbleOverlay.pkg')
 
@@ -241,9 +243,8 @@ if __name__ == '__main__':
 	parser.add_option('', '--universal', dest='universal', help='Build an universal snapshot.', action='store_true', default=False)
 	parser.add_option('', '--only-appbundle', dest='only_appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
 	parser.add_option('', '--only-overlay', dest='only_overlay', help='Only create the overlay installer.', action='store_true', default=False)
-	parser.add_option('', '--codesign', dest='codesign', help='Identity to use for code signing. (If not set, no code signing will occur)')
-	parser.add_option('', '--codesign-installer', dest='codesign_installer', help='Identity to use for code signing installer packages. (Implies --codesign)')
-	parser.add_option('', '--codesign-keychain', dest='codesign_keychain', help='The keychain to use when invoking the codesign utility. (Defaults to login.keychain', default='login.keychain')
+	parser.add_option('', '--developer-id', dest='developer_id', help='Identity (Developer ID) to use for code signing. (If not set, no code signing will occur)')
+	parser.add_option('', '--keychain', dest='keychain', help='The keychain to use when invoking code signing utilities. (Defaults to login.keychain', default='login.keychain')
 	parser.add_option('', '--no-server', dest='no_server', help='Exclude Murmur-related files from disk image.', action='store_true', default=False)
 
 	options, args = parser.parse_args()
@@ -302,8 +303,8 @@ if __name__ == '__main__':
 	a.done()
 
 	# Sign our binaries, etc.
-	if options.codesign:
-		print ' * Signing binaries with identity `%s\'' % options.codesign
+	if options.developer_id:
+		print ' * Signing binaries with Developer ID `%s\'' % options.developer_id
 		binaries = [
 			# 1.2.x
 			'release/Mumble.app',
