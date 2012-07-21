@@ -24,7 +24,7 @@ def codesign(path):
 		path = (path,)
 	for p in path:
 		certname = 'Developer ID Application: %s' % options.developer_id
-		p = Popen(('codesign', '--keychain', options.keychain, '--signature-size', '6400', '-vvvv', '-s', certname, p))
+		p = Popen(('codesign', '--keychain', options.keychain, '-vvvv', '-s', certname, p))
 		retval = p.wait()
 		if retval != 0:
 			return retval
