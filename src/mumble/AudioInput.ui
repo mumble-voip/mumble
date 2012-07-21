@@ -265,7 +265,7 @@
           <item row="1" column="3">
            <widget class="QLabel" name="qlPTTHold">
             <property name="text">
-             <string>TextLabel</string>
+             <string notr="true">TextLabel</string>
             </property>
            </widget>
           </item>

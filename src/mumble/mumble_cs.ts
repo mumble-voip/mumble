@@ -871,11 +871,6 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
     </message>
     <message>
         <location/>
-        <source>Amplification</source>
-        <translation>Zesílení</translation>
-    </message>
-    <message>
-        <location/>
         <source>Maximum amplification of input sound</source>
         <translation>Maximální zesílení vstupního zvuku</translation>
     </message>
@@ -1096,17 +1091,17 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
     </message>
     <message>
         <location/>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+528"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui"/>
+        <source>Max. Amplification</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2328,7 +2323,7 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
         <translation>Uživatel Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+424"/>
+        <location filename="main.cpp" line="+435"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Vypršení Certifikátu:&lt;/b&gt; Váš certifikát brzy vyprší. Musíte ho obnovit, nebo se už nebudete moci připojit k serverům, na kterých jste registrování.</translation>
     </message>

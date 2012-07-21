@@ -863,11 +863,6 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     </message>
     <message>
         <location/>
-        <source>Amplification</source>
-        <translation>Amplificación</translation>
-    </message>
-    <message>
-        <location/>
         <source>Maximum amplification of input sound</source>
         <translation>Amplificación máxima del sonido de entrada</translation>
     </message>
@@ -1093,17 +1088,17 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     </message>
     <message>
         <location/>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+528"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui"/>
+        <source>Max. Amplification</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2322,7 +2317,7 @@ Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volu
         <translation>Usuario Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+424"/>
+        <location filename="main.cpp" line="+435"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Vencimiento del certificado:&lt;/b&gt; Su certificado está a punto de caducar. Debe renovarlo, o de lo contrario no podrá conectarse a los servidores en los que se haya registrado.</translation>
     </message>

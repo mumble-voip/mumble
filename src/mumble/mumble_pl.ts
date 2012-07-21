@@ -887,11 +887,6 @@ e-mail: &lt;a href=&quot;mailto:zuczeq@gmail.com?subject=Tłumaczenie Mumble&quo
     </message>
     <message>
         <location/>
-        <source>Amplification</source>
-        <translation>Wzmocnienie dźwięku</translation>
-    </message>
-    <message>
-        <location/>
         <source>Maximum amplification of input sound</source>
         <translation>Maksymalne wzmocnienie dźwięku wejściowego</translation>
     </message>
@@ -1112,17 +1107,17 @@ e-mail: &lt;a href=&quot;mailto:zuczeq@gmail.com?subject=Tłumaczenie Mumble&quo
     </message>
     <message>
         <location/>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+528"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui"/>
+        <source>Max. Amplification</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2305,7 +2300,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Użytkownik Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+424"/>
+        <location filename="main.cpp" line="+435"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Wygaśnięcie certyfikatu:&lt;/b&gt;Twój certyfikat niedługo straci ważność. Musisz go odnowić, jeżeli tego nie zrobisz nie będziesz w stanie połączyć się z serwerami, na których jesteś zarejestrowany.</translation>
     </message>
