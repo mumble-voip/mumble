@@ -12,6 +12,10 @@ TEMPLATE = lib
 CONFIG += plugin plugin_bundle
 CONFIG -= gui qt
 
+CONFIG(static) {
+	CONFIG -= static
+}
+
 TARGET = MumbleOverlay
 QMAKE_INFO_PLIST = osax.plist
 

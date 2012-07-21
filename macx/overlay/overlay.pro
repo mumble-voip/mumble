@@ -10,6 +10,10 @@ CONFIG(universal) {
 TEMPLATE = lib
 CONFIG -= gui qt
 
+CONFIG(static) {
+	CONFIG -= static
+}
+
 TARGET = mumbleoverlay
 
 QMAKE_LFLAGS_PLUGIN += -undefined dynamic_lookup -dynamic

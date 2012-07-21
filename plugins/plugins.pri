@@ -5,6 +5,10 @@ CONFIG		+= plugin debug_and_release warn_on
 CONFIG		-= qt
 DIST		*= mumble_plugin.h
 
+CONFIG(static) {
+	CONFIG -= static
+}
+
 CONFIG(debug, debug|release) {
   CONFIG += console
   DESTDIR       = ../../debug/plugins
