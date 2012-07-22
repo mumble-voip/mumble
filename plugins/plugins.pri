@@ -7,6 +7,7 @@ DIST		*= mumble_plugin.h
 
 CONFIG(static) {
 	CONFIG -= static
+	CONFIG += qt_dynamic_lookup
 }
 
 CONFIG(debug, debug|release) {
