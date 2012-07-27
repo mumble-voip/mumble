@@ -61,7 +61,7 @@ static void about(HWND h) {
 }
 
 static HANDLE hMapObject = NULL;
-static LinkedMem *lm = NULL;
+extern "C" { __declspec(dllexport) LinkedMem *lm = NULL; }
 static DWORD last_count = 0;
 static DWORD last_tick = 0;
 

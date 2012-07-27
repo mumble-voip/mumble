@@ -74,7 +74,7 @@ static int32_t GetTickCount() {
 }
 
 static struct LinkedMem * const lm_invalid = reinterpret_cast<struct LinkedMem *>(-1);
-static struct LinkedMem *lm = lm_invalid;
+extern "C" { __declspec(dllexport) struct LinkedMem *lm = lm_invalid; }
 static int shmfd = -1;
 
 static uint32_t last_tick = 0;
