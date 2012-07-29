@@ -61,7 +61,7 @@ static void about(HWND h) {
 }
 
 static HANDLE hMapObject = NULL;
-static LinkedMem *lm = NULL;
+extern "C" { __declspec(dllexport) LinkedMem *lm = NULL; }
 static DWORD last_count = 0;
 static DWORD last_tick = 0;
 
@@ -185,7 +185,7 @@ BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	return true;
 }
 
-static std::wstring description(L"Link v1.2.0");
+static std::wstring description(L"Link v1.2.1");
 
 static MumblePlugin linkplug = {
 	MUMBLE_PLUGIN_MAGIC,

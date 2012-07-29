@@ -74,7 +74,7 @@ static int32_t GetTickCount() {
 }
 
 static struct LinkedMem * const lm_invalid = reinterpret_cast<struct LinkedMem *>(-1);
-static struct LinkedMem *lm = lm_invalid;
+extern "C" { __declspec(dllexport) struct LinkedMem *lm = lm_invalid; }
 static int shmfd = -1;
 
 static uint32_t last_tick = 0;
@@ -208,7 +208,7 @@ static void unload_plugin() {
 	shm_unlink(memname);
 }
 
-static std::wstring description(L"Link v1.2.0");
+static std::wstring description(L"Link v1.2.1");
 
 static MumblePlugin linkplug = {
 	MUMBLE_PLUGIN_MAGIC,
