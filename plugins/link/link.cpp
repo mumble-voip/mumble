@@ -185,7 +185,7 @@ BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	return true;
 }
 
-static std::wstring description(L"Link v1.2.0");
+static std::wstring description(L"Link v1.2.1");
 
 static MumblePlugin linkplug = {
 	MUMBLE_PLUGIN_MAGIC,

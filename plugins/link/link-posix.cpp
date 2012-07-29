@@ -208,7 +208,7 @@ static void unload_plugin() {
 	shm_unlink(memname);
 }
 
-static std::wstring description(L"Link v1.2.0");
+static std::wstring description(L"Link v1.2.1");
 
 static MumblePlugin linkplug = {
 	MUMBLE_PLUGIN_MAGIC,
