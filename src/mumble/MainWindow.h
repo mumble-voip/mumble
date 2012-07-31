@@ -254,7 +254,6 @@ class MainWindow : public QMainWindow, public Ui::MainWindow {
 		void msgBanList(const MumbleProto::BanList &msg);
 		void msgReject(const MumbleProto::Reject &msg);
 		void msgServerSync(const MumbleProto::ServerSync &msg);
-		void msgServerConfig(const MumbleProto::ServerConfig &msg);
 		void msgPermissionDenied(const MumbleProto::PermissionDenied &msg);
 		void msgUserState(const MumbleProto::UserState &msg);
 		void msgUserRemove(const MumbleProto::UserRemove &msg);

@@ -39,6 +39,7 @@
 #include "Log.h"
 #include "ConversionHelpers.h"
 #include "Connection.h"
+#include "AudioInput.h"
 
 #define ACTOR_INIT \
 	ClientUser *pSrc=NULL; \
@@ -112,7 +113,16 @@ void MessageHandler::msgServerSync(const MumbleProto::ServerSync &msg) {
 
 
 void MessageHandler::msgServerConfig(const MumbleProto::ServerConfig &msg) {
-	g.mw->msgServerConfig(msg);
+	if (msg.has_welcome_text())
+		g.l->log(Log::Information, tr("Welcome message: %1").arg(u8(msg.welcome_text())));
+	if (msg.has_max_bandwidth())
+		AudioInput::setMaxBandwidth(msg.max_bandwidth());
+	if (msg.has_allow_html())
+		g.bAllowHTML = msg.allow_html();
+	if (msg.has_message_length())
+		g.uiMessageLength = msg.message_length();
+	if (msg.has_image_message_length())
+		g.uiImageLength = msg.image_message_length();
 }
 
 void MessageHandler::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
