@@ -532,17 +532,6 @@ void MainWindow::removeContextAction(const MumbleProto::ContextActionModify &msg
 	}
 }
 
-void MainWindow::msgVersion(const MumbleProto::Version &msg) {
-	if (msg.has_version())
-		g.sh->uiVersion = msg.version();
-	if (msg.has_release())
-		g.sh->qsRelease = u8(msg.release());
-	if (msg.has_os()) {
-		g.sh->qsOS = u8(msg.os());
-		if (msg.has_os_version())
-			g.sh->qsOSVersion = u8(msg.os_version());
-	}
-}
 
 void MainWindow::msgUserList(const MumbleProto::UserList &msg) {
 	if (userEdit) {

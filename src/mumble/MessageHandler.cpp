@@ -294,7 +294,15 @@ void MessageHandler::msgContextActionModify(const MumbleProto::ContextActionModi
 }
 
 void MessageHandler::msgVersion(const MumbleProto::Version &msg) {
-	g.mw->msgVersion(msg);
+	if (msg.has_version())
+		g.sh->uiVersion = msg.version();
+	if (msg.has_release())
+		g.sh->qsRelease = u8(msg.release());
+	if (msg.has_os()) {
+		g.sh->qsOS = u8(msg.os());
+		if (msg.has_os_version())
+			g.sh->qsOSVersion = u8(msg.os_version());
+	}
 }
 
 void MessageHandler::msgUserList(const MumbleProto::UserList &msg) {

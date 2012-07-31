@@ -261,7 +261,6 @@ class MainWindow : public QMainWindow, public Ui::MainWindow {
 		void msgACL(const MumbleProto::ACL &msg);
 		void msgQueryUsers(const MumbleProto::QueryUsers &msg);
 		void msgContextActionModify(const MumbleProto::ContextActionModify &msg);
-		void msgVersion(const MumbleProto::Version &msg);
 		void msgUserList(const MumbleProto::UserList &msg);
 		void msgPermissionQuery(const MumbleProto::PermissionQuery &msg);
 		void msgUserStats(const MumbleProto::UserStats &msg);
