@@ -674,48 +674,6 @@ void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
 	}
 }
 
-void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
-	int alpha = msg.has_alpha() ? msg.alpha() : -1;
-	int beta = msg.has_beta() ? msg.beta() : -1;
-	bool pref = msg.prefer_alpha();
-
-#ifdef USE_OPUS
-	g.bOpus = msg.opus();
-#endif
-
-	// Workaround for broken 1.2.2 servers
-	if (g.sh && g.sh->uiVersion == 0x010202 && alpha != -1 && alpha == beta) {
-		if (pref)
-			beta = g.iCodecBeta;
-		else
-			alpha = g.iCodecAlpha;
-	}
-
-	if ((alpha != -1) && (alpha != g.iCodecAlpha)) {
-		g.iCodecAlpha = alpha;
-		if (pref && ! g.qmCodecs.contains(alpha))
-			pref = ! pref;
-	}
-	if ((beta != -1) && (beta != g.iCodecBeta)) {
-		g.iCodecBeta = beta;
-		if (! pref && ! g.qmCodecs.contains(beta))
-			pref = ! pref;
-	}
-	g.bPreferAlpha = pref;
-
-	int willuse = pref ? g.iCodecAlpha : g.iCodecBeta;
-
-	static bool warned = false;
-
-	if (! g.qmCodecs.contains(willuse)) {
-		if (! warned) {
-			g.l->log(Log::CriticalError, tr("Unable to find matching CELT codecs with other clients. You will not be able to talk to all users."));
-			warned = true;
-		}
-	} else {
-		warned = false;
-	}
-}
 
 void MainWindow::msgUserStats(const MumbleProto::UserStats &msg) {
 	UserInformation *ui = qmUserInformations.value(msg.session());
