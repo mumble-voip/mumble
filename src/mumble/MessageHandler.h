@@ -42,11 +42,6 @@ class ServerHandler;
 /**
  * Handles message dispatching to callback functions defined
  * in this message handler.
- *
- * @warning While this class definition is shared between client
- *			and server the implementation isn't. Make sure to not
- *			confuse the corresponding implementations in the
- *			mumble/ or murmur/ folders.
  */
 class MessageHandler : public QObject {
 	private:
