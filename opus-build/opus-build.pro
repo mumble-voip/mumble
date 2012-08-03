@@ -4,7 +4,7 @@ BUILDDIR=$$basename(PWD)
 SOURCEDIR=$$replace(BUILDDIR,-build,-src)
 
 !win32 {
-	VERSION=0
+	VERSION=0 #$$ Fool packaging script
 }
 
 !exists(../$$SOURCEDIR/COPYING) {
