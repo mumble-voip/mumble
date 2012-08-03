@@ -680,8 +680,8 @@ int AudioInput::encodeOpusFrame(short *source, int size, unsigned char *buffer) 
 	opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
 
 	len = opus_encode(opusState, source, size, buffer, 512);
-
-	iBitrate = len * 100 * 8;
+	const int tenMsFrameCount = (size / iFrameSize);
+	iBitrate = (len * 100 * 8) / tenMsFrameCount;
 #endif
 	return len;
 }
@@ -850,10 +850,22 @@ void AudioInput::encodeAudioFrame() {
 		encoded = false;
 		opusBuffer.insert(opusBuffer.end(), psSource, psSource + iFrameSize);
 		++iBufferedFrames;
+
 		if (!bIsSpeech || iBufferedFrames >= iAudioFrames) {
+
+			if (iBufferedFrames < iAudioFrames)
+			{
+				// Stuff frame to framesize if speech ends and we don't have enough audio
+				const size_t missingFrames = iAudioFrames - iBufferedFrames;
+				opusBuffer.insert(opusBuffer.end(), iFrameSize * missingFrames, 0);
+				iBufferedFrames += missingFrames;
+			}
+
 			len = encodeOpusFrame(&opusBuffer[0], iBufferedFrames * iFrameSize, buffer);
 			opusBuffer.clear();
 			if (len <= 0) {
+				iBitrate = 0;
+				qWarning() << "encodeOpusFrame failed" << iBufferedFrames << iFrameSize << len;
 				return;
 			}
 			encoded = true;
