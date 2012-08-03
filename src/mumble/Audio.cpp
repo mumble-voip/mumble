@@ -52,6 +52,11 @@ CodecInit ciInit;
 void CodecInit::initialize() {
 	CELTCodec *codec = NULL;
 
+	if (g.s.bDisableCELT) {
+		// Kill switch for CELT activated. Do not initialize it.
+		return;
+	}
+
 	codec = new CELTCodec070(QLatin1String("0.7.0"));
 	if (codec->isValid()) {
 		codec->report();

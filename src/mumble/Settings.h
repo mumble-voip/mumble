@@ -294,6 +294,9 @@ struct Settings {
 	RecordingMode rmRecordingMode;
 	int iRecordingFormat;
 
+	// Codec kill-switch
+	bool bDisableCELT;
+
 	// Config updates
 	unsigned int uiUpdateCounter;
 

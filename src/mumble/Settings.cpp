@@ -365,6 +365,9 @@ Settings::Settings() {
 	rmRecordingMode = RecordingMixdown;
 	iRecordingFormat = 0;
 
+	// Codec kill-switch
+	bDisableCELT = false;
+
 	// Config updates
 	uiUpdateCounter = 0;
 
@@ -659,6 +662,9 @@ void Settings::load(QSettings* settings_ptr) {
 	LOADENUM(rmRecordingMode, "recording/mode");
 	SAVELOAD(iRecordingFormat, "recording/format");
 
+	// Codec kill-switch
+	SAVELOAD(bDisableCELT, "audio/disablecelt");
+
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
@@ -933,6 +939,9 @@ void Settings::save() {
 	SAVELOAD(qsRecordingFile, "recording/file");
 	SAVELOAD(rmRecordingMode, "recording/mode");
 	SAVELOAD(iRecordingFormat, "recording/format");
+
+	// Codec kill-switch
+	SAVELOAD(bDisableCELT, "audio/disablecelt");
 
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
