@@ -114,7 +114,7 @@ AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)
 	opus_encoder_ctl(opusState, OPUS_SET_VBR(0)); // CBR
 #endif
 
-	qWarning("AudioInput: %d bits/s, %d hz, %d sample CELT", iAudioQuality, iSampleRate, iFrameSize);
+	qWarning("AudioInput: %d bits/s, %d hz, %d sample", iAudioQuality, iSampleRate, iFrameSize);
 	iEchoFreq = iMicFreq = iSampleRate;
 
 	iFrameCounter = 0;
@@ -601,7 +601,7 @@ bool AudioInput::selectCodec() {
 
 	// Currently talking, use previous Opus status.
 	if (bPreviousVoice) {
-		useOpus = umtType == MessageHandler::UDPVoiceOpus;
+		useOpus = (umtType == MessageHandler::UDPVoiceOpus);
 	} else {
 #ifdef USE_OPUS
 		if (g.bOpus || (g.s.lmLoopMode == Settings::Local)) {

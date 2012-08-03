@@ -281,14 +281,15 @@ void AudioInputDialog::updateBitrate() {
 
 	qlBitrate->setPalette(pal);
 
-	QString v = tr("%1 kbit/s (Audio %2 %5, Position %4, Overhead %3)").arg(total / 1000.0, 0, 'f', 1).arg(audiorate / 1000.0, 0, 'f', 1).arg(overhead / 1000.0, 0, 'f', 1).arg(posrate / 1000.0, 0, 'f', 1).arg(QLatin1String("CELT"));
+	QString v = tr("%1 kbit/s (Audio %5, Position %4, Overhead %3)")
+	        .arg(total / 1000.0, 0, 'f', 1)
+	        .arg(audiorate / 1000.0, 0, 'f', 1)
+	        .arg(overhead / 1000.0, 0, 'f', 1)
+	        .arg(posrate / 1000.0, 0, 'f', 1);
+
 	qlBitrate->setText(v);
 
-	if (p == 1) {
-		qsQuality->setMinimum(24000);
-	} else {
-		qsQuality->setMinimum(8000);
-	}
+	qsQuality->setMinimum(8000);
 }
 
 void AudioInputDialog::on_qcbPushClick_clicked(bool b) {

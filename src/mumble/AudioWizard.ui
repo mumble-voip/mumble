@@ -619,7 +619,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
        <item row="0" column="1">
         <widget class="QLabel" name="qlQualityLow">
          <property name="text">
-          <string>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (Speex 16kbit/s, 60ms per packet)</string>
+          <string>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -645,7 +645,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
        <item row="1" column="1">
         <widget class="QLabel" name="qlQualityBalanced">
          <property name="text">
-          <string>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (CELT 40kbit/s, 20ms per packet)</string>
+          <string>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -668,7 +668,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
        <item row="2" column="1">
         <widget class="QLabel" name="qlQualityUltra">
          <property name="text">
-          <string>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (CELT 72kbit/s, 10ms per packet)</string>
+          <string>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
