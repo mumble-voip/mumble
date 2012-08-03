@@ -852,9 +852,7 @@ void AudioInput::encodeAudioFrame() {
 		++iBufferedFrames;
 
 		if (!bIsSpeech || iBufferedFrames >= iAudioFrames) {
-
-			if (iBufferedFrames < iAudioFrames)
-			{
+			if (iBufferedFrames < iAudioFrames) {
 				// Stuff frame to framesize if speech ends and we don't have enough audio
 				const size_t missingFrames = iAudioFrames - iBufferedFrames;
 				opusBuffer.insert(opusBuffer.end(), iFrameSize * missingFrames, 0);

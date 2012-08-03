@@ -423,6 +423,7 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 			case MessageHandler::UDPVoiceCELTAlpha:
 			case MessageHandler::UDPVoiceCELTBeta:
 			case MessageHandler::UDPVoiceSpeex:
+			case MessageHandler::UDPVoiceOpus:
 				handleVoicePacket(msgFlags, pds, umsgType);
 				break;
 			default:
