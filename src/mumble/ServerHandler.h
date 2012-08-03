@@ -157,6 +157,7 @@ class ServerHandler : public QThread {
 		void serverConnectionClosed(QAbstractSocket::SocketError, const QString &);
 		void setSslErrors(const QList<QSslError> &);
 		void udpReady();
+	public slots:
 		void sendPing();
 };
 
