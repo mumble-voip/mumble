@@ -71,6 +71,53 @@ static const char *licenseCELT =
 	"SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.";
 
 
+static const char *licenseOpus = 
+	"Copyright 2001-2011 Xiph.Org, Skype Limited, Octasic,\n"
+	"                    Jean-Marc Valin, Timothy B. Terriberry,\n"
+	"                    CSIRO, Gregory Maxwell, Mark Borgerding,\n"
+	"                    Erik de Castro Lopo\n"
+	"\n"
+	"Redistribution and use in source and binary forms, with or without\n"
+	"modification, are permitted provided that the following conditions\n"
+	"are met:\n"
+	"\n"
+	"- Redistributions of source code must retain the above copyright\n"
+	"notice, this list of conditions and the following disclaimer.\n"
+	"\n"
+	"- Redistributions in binary form must reproduce the above copyright\n"
+	"notice, this list of conditions and the following disclaimer in the\n"
+	"documentation and/or other materials provided with the distribution.\n"
+	"\n"
+	"- Neither the name of Internet Society, IETF or IETF Trust, nor the \n"
+	"names of specific contributors, may be used to endorse or promote\n"
+	"products derived from this software without specific prior written\n"
+	"permission.\n"
+	"\n"
+	"THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n"
+	"``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n"
+	"LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n"
+	"A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER\n"
+	"OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,\n"
+	"EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,\n"
+	"PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR\n"
+	"PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF\n"
+	"LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING\n"
+	"NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS\n"
+	"SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n"
+	"\n"
+	"Opus is subject to the royalty-free patent licenses which are\n"
+	"specified at:\n"
+	"\n"
+	"Xiph.Org Foundation:\n"
+	"https://datatracker.ietf.org/ipr/1524/\n"
+	"\n"
+	"Skype Limited:\n"
+	"https://datatracker.ietf.org/ipr/1602/\n"
+	"\n"
+	"Broadcom Corporation:\n"
+	"https://datatracker.ietf.org/ipr/1526/";
+
+
 static const char *licenseSPEEX = 
 	"Copyright 2002-2008 	Xiph.org Foundation\n"
 	"Copyright 2002-2008 	Jean-Marc Valin\n"
@@ -181,8 +228,9 @@ static const char *licenseLibsndfile =
 	"Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.";
 
 
-static const char *licenses3rdParty[5] = {
+static const char *licenses3rdParty[6] = {
 	licenseCELT, 
+	licenseOpus, 
 	licenseSPEEX, 
 	licenseOpenSSL, 
 	licenseLibsndfile, 
@@ -190,8 +238,9 @@ static const char *licenses3rdParty[5] = {
 };
 
 
-static const char *licenses3rdPartyNames[5] = {
+static const char *licenses3rdPartyNames[6] = {
 	"Speex",
+	"Opus",
 	"CELT",
 	"OpenSSL",
 	"libsndfile",
@@ -199,8 +248,9 @@ static const char *licenses3rdPartyNames[5] = {
 };
 
 
-static const char *licenses3rdPartyURLs[5] = {
+static const char *licenses3rdPartyURLs[6] = {
 	"http://www.speex.org/",
+	"http://www.opus-codec.org/",
 	"http://www.celt-codec.org/",
 	"http://www.openssl.org/",
 	"http://www.mega-nerd.com/libsndfile/",

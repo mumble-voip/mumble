@@ -33,6 +33,7 @@ print F licenseFileToVar("licenseMumble", "../LICENSE");
 # List of 3rd party licenses  [<variableName>, <pathToLicenseFile>, <DisplayName>, <URL>]
 my @thirdPartyLicenses = (
     ["licenseCELT", "../celt-0.11.0-src/COPYING", "Speex", "http://www.speex.org/"],
+    ["licenseOpus", "../opus-src/COPYING", "Opus", "http://www.opus-codec.org/"],
     ["licenseSPEEX", "../speex/COPYING", "CELT", "http://www.celt-codec.org/"],
     ["licenseOpenSSL", "../3rdPartyLicenses/openssl_license.txt", "OpenSSL", "http://www.openssl.org/"],
     ["licenseLibsndfile", "../3rdPartyLicenses/libsndfile_license.txt", "libsndfile", "http://www.mega-nerd.com/libsndfile/"]);
