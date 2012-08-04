@@ -156,6 +156,7 @@ AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)
 	bRunning = true;
 
 	connect(this, SIGNAL(doDeaf()), g.mw->qaAudioDeaf, SLOT(trigger()), Qt::QueuedConnection);
+	connect(this, SIGNAL(doMute()), g.mw->qaAudioMute, SLOT(trigger()), Qt::QueuedConnection);
 }
 
 AudioInput::~AudioInput() {
@@ -820,10 +821,18 @@ void AudioInput::encodeAudioFrame() {
 
 	if (! bIsSpeech && ! bPreviousVoice) {
 		iBitrate = 0;
-		if (g.s.iIdleTime && ! g.s.bDeaf && ((tIdle.elapsed() / 1000000ULL) > g.s.iIdleTime)) {
-			emit doDeaf();
-			tIdle.restart();
+
+		if (g.s.iaeIdleAction != Settings::Nothing && ((tIdle.elapsed() / 1000000ULL) > g.s.iIdleTime)) {
+
+			if (g.s.iaeIdleAction == Settings::Deafen && !g.s.bDeaf) {
+				tIdle.restart();
+				emit doDeaf();
+			} else if (g.s.iaeIdleAction == Settings::Mute && !g.s.bMute) {
+				tIdle.restart();
+				emit doMute();
+			}
 		}
+
 		spx_int32_t increment = 0;
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_INCREMENT, &increment);
 		return;

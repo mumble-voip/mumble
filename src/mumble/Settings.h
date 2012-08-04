@@ -164,6 +164,7 @@ struct Settings {
 	enum ChannelDrag { Ask, DoNothing, Move };
 	enum ServerShow { ShowPopulated, ShowReachable, ShowAll };
 	enum TalkState { Passive, Talking, Whispering, Shouting };
+	enum IdleAction { Nothing, Deafen, Mute };
 	typedef QPair<QList<QSslCertificate>, QSslKey> KeyPair;
 
 	AudioTransmit atTransmit;
@@ -187,7 +188,11 @@ struct Settings {
 	int iTTSVolume, iTTSThreshold;
 	int iQuality, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	int iNoiseSuppress;
+
+	// Idle auto actions
 	unsigned int iIdleTime;
+	IdleAction iaeIdleAction;
+
 	VADSource vsVAD;
 	float fVADmin, fVADmax;
 	int iFramesPerPacket;

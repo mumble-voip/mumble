@@ -268,7 +268,11 @@ Settings::Settings() {
 	iJitterBufferSize = 1;
 	iFramesPerPacket = 2;
 	iNoiseSuppress = -30;
-	iIdleTime = 0;
+
+	// Idle auto actions
+	iIdleTime = 5 * 60;
+	iaeIdleAction = Nothing;
+
 	vsVAD = Amplitude;
 	fVADmin = 0.80f;
 	fVADmax = 0.98f;
@@ -549,7 +553,11 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
 	SAVELOAD(iOutputDelay, "audio/outputdelay");
+
+	// Idle auto actions
 	SAVELOAD(iIdleTime, "audio/idletime");
+	LOADENUM(iaeIdleAction, "audio/idleaction");
+
 	SAVELOAD(fAudioMinDistance, "audio/mindistance");
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
 	SAVELOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");
@@ -830,7 +838,11 @@ void Settings::save() {
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
 	SAVELOAD(iOutputDelay, "audio/outputdelay");
+
+	// Idle auto actions
 	SAVELOAD(iIdleTime, "audio/idletime");
+	SAVELOAD(iaeIdleAction, "audio/idleaction");
+
 	SAVELOAD(fAudioMinDistance, "audio/mindistance");
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
 	SAVELOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");

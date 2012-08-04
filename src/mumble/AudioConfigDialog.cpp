@@ -84,6 +84,7 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 
 	on_qcbPushClick_clicked(g.s.bTxAudioCue);
 	on_Tick_timeout();
+	on_qcbIdleAction_currentIndexChanged(g.s.iaeIdleAction);
 }
 
 QString AudioInputDialog::title() const {
@@ -133,7 +134,10 @@ void AudioInputDialog::load(const Settings &r) {
 		loadSlider(qsNoise, 14);
 
 	loadSlider(qsAmp, 20000 - r.iMinLoudness);
-	loadSlider(qsIdle, r.iIdleTime);
+
+	// Idle auto actions
+	qsbIdle->setValue(r.iIdleTime / 60);
+	loadComboBox(qcbIdleAction, r.iaeIdleAction);
 
 	int echo = 0;
 	if (r.bEcho)
@@ -155,7 +159,10 @@ void AudioInputDialog::save() const {
 	s.uiDoublePush = qsDoublePush->value() * 1000;
 	s.uiPTTHold = qsPTTHold->value();
 	s.atTransmit = static_cast<Settings::AudioTransmit>(qcbTransmit->currentIndex());
-	s.iIdleTime = qsIdle->value();
+
+	// Idle auto actions
+	s.iIdleTime = qsbIdle->value() * 60;
+	s.iaeIdleAction = static_cast<Settings::IdleAction>(qcbIdleAction->currentIndex());
 
 	s.bShowPTTButtonWindow = qcbPushWindow->isChecked();
 	s.bTxAudioCue = qcbPushClick->isChecked();
@@ -184,8 +191,10 @@ bool AudioInputDialog::expert(bool b) {
 	qlFrames->setVisible(b);
 	qswTransmit->setVisible(b);
 	qliIdle->setVisible(b);
-	qsIdle->setVisible(b);
+	qsbIdle->setVisible(b);
+	qcbIdleAction->setVisible(b);
 	qlIdle->setVisible(b);
+	qlIdle2->setVisible(b);
 	return true;
 }
 
@@ -235,13 +244,6 @@ void AudioInputDialog::on_qsAmp_valueChanged(int v) {
 	v = 18000 - v + 2000;
 	float d = 20000.0f/static_cast<float>(v);
 	qlAmp->setText(QString::fromLatin1("%1").arg(d, 0, 'f', 2));
-}
-
-void AudioInputDialog::on_qsIdle_valueChanged(int v) {
-	if (v > 0)
-		qlIdle->setText(tr("%1 min").arg(v / 60));
-	else
-		qlIdle->setText(tr("Off"));
 }
 
 void AudioInputDialog::updateBitrate() {
@@ -392,6 +394,17 @@ void AudioInputDialog::on_Tick_timeout() {
 		abSpeech->iValue = iroundf(ai->fSpeechProb * 32767.0f + 0.5f);
 	}
 	abSpeech->update();
+}
+
+
+void AudioInputDialog::on_qcbIdleAction_currentIndexChanged(int v) {
+	const Settings::IdleAction action = static_cast<Settings::IdleAction>(v);
+
+	const bool enabled = (action != Settings::Nothing);
+
+	qlIdle->setEnabled(enabled);
+	qlIdle2->setEnabled(enabled);
+	qsbIdle->setEnabled(enabled);
 }
 
 AudioOutputDialog::AudioOutputDialog(Settings &st) : ConfigWidget(st) {

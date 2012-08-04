@@ -397,6 +397,16 @@ int main(int argc, char **argv) {
 	if (g.s.uiUpdateCounter == 0) {
 		// Previous version was an pre 1.2.3 release or this is the first run
 		runaudiowizard = true;
+
+	} else if (g.s.uiUpdateCounter == 1) {
+		// Previous versions used old idle action style, convert it
+
+		if (g.s.iIdleTime == 5 * 60) { // New default
+			g.s.iaeIdleAction = Settings::Nothing;
+		} else {
+			g.s.iIdleTime = 60 * qRound(g.s.iIdleTime / 60.); // Round to minutes
+			g.s.iaeIdleAction = Settings::Deafen; // Old behavior
+		}
 	}
 
 	if (runaudiowizard) {
@@ -405,7 +415,7 @@ int main(int argc, char **argv) {
 		delete aw;
 	}
 
-	g.s.uiUpdateCounter = 1;
+	g.s.uiUpdateCounter = 2;
 
 	if (! CertWizard::validateCert(g.s.kpCertificate)) {
 		QDir qd(QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation));
