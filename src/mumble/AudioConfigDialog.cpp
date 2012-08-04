@@ -283,7 +283,7 @@ void AudioInputDialog::updateBitrate() {
 
 	qlBitrate->setPalette(pal);
 
-	QString v = tr("%1 kbit/s (Audio %5, Position %4, Overhead %3)")
+	QString v = tr("%1 kbit/s (Audio %2, Position %4, Overhead %3)")
 	        .arg(total / 1000.0, 0, 'f', 1)
 	        .arg(audiorate / 1000.0, 0, 'f', 1)
 	        .arg(overhead / 1000.0, 0, 'f', 1)

@@ -817,7 +817,7 @@
            </size>
           </property>
           <property name="text">
-           <string>Minutes do</string>
+           <string>minutes do</string>
           </property>
          </widget>
         </item>
@@ -827,17 +827,17 @@
        <widget class="QComboBox" name="qcbIdleAction">
         <item>
          <property name="text">
-          <string>Nothing</string>
+          <string>nothing</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Deafen</string>
+          <string>deafen</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Mute</string>
+          <string>mute</string>
          </property>
         </item>
        </widget>
