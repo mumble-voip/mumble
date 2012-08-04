@@ -277,7 +277,7 @@ Settings::Settings() {
 	qsTxAudioCueOn = cqsDefaultPushClickOn;
 	qsTxAudioCueOff = cqsDefaultPushClickOff;
 
-	bUserTop = false;
+	bUserTop = true;
 
 	bWhisperFriends = false;
 
