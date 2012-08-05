@@ -321,7 +321,29 @@ static const char *licenseFLAC =
 	"SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.";
 
 
-static const char *licenses3rdParty[9] = {
+static const char *licenseMachOverride = 
+	"Copyright (c) 2003-2009 Jonathan 'Wolf' Rentzsch <http://rentzsch.com>\n"
+	"\n"
+	"Permission is hereby granted, free of charge, to any person obtaining\n"
+	"a copy of this software and associated documentation files (the \"Software\"),\n"
+	"to deal in the Software without restriction, including without limitation\n"
+	"the rights to use, copy, modify, merge, publish, distribute, sublicense,\n"
+	"and/or sell copies of the Software, and to permit persons to whom the\n"
+	"Software is furnished to do so, subject to the following conditions:\n"
+	"\n"
+	"The above copyright notice and this permission notice shall be\n"
+	"included in all copies or substantial portions of the Software.\n"
+	"\n"
+	"THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS\n"
+	"OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n"
+	"FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL\n"
+	"THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n"
+	"LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n"
+	"OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n"
+	"THE SOFTWARE.";
+
+
+static const char *licenses3rdParty[10] = {
 	licenseCELT, 
 	licenseOpus, 
 	licenseSPEEX, 
@@ -330,11 +352,12 @@ static const char *licenses3rdParty[9] = {
 	licenseOgg, 
 	licenseVorbis, 
 	licenseFLAC, 
+	licenseMachOverride, 
 	0
 };
 
 
-static const char *licenses3rdPartyNames[9] = {
+static const char *licenses3rdPartyNames[10] = {
 	"Speex",
 	"Opus",
 	"CELT",
@@ -343,11 +366,12 @@ static const char *licenses3rdPartyNames[9] = {
 	"libogg",
 	"libvorbis",
 	"libFLAC",
+	"mach_override",
 	0
 };
 
 
-static const char *licenses3rdPartyURLs[9] = {
+static const char *licenses3rdPartyURLs[10] = {
 	"http://www.speex.org/",
 	"http://www.opus-codec.org/",
 	"http://www.celt-codec.org/",
@@ -356,6 +380,7 @@ static const char *licenses3rdPartyURLs[9] = {
 	"http://www.xiph.org/",
 	"http://www.xiph.org/",
 	"http://flac.sourceforge.net/",
+	"https://github.com/rentzsch/mach_star",
 	0
 };
 
