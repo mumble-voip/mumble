@@ -151,7 +151,8 @@ unix {
     LIBS += -framework Security -framework SecurityInterface -framework ApplicationServices
 
     HEADERS *= GlobalShortcut_macx.h ConfigDialogDelegate.h
-    SOURCES *= TextToSpeech_macx.cpp SharedMemory_unix.cpp GlobalShortcut_macx.mm os_macx.mm
+    SOURCES *= TextToSpeech_macx.cpp SharedMemory_unix.cpp
+    OBJECTIVE_SOURCES *= GlobalShortcut_macx.mm os_macx.mm
 
     !CONFIG(no-cocoa) {
         # Link against libxar so we can inspect Mac OS X installer packages.
@@ -163,7 +164,7 @@ unix {
         LIBS += -framework ScriptingBridge
 
         # Native feeling config dialog.
-        SOURCES += ConfigDialog_macx.mm ConfigDialogDelegate.mm Overlay_macx.mm
+        OBJECTIVE_SOURCES += ConfigDialog_macx.mm ConfigDialogDelegate.mm Overlay_macx.mm
         HEADERS += ConfigDialog_macx.h
     } else {
         SOURCES += Overlay_unix.cpp
