@@ -400,8 +400,6 @@ class Overlay : public QObject {
 		void setActive(bool act);
 		void toggleShow();
 		void forceSettings();
-		void checkUpdates();
-		void fetched(QByteArray, QUrl);
 };
 
 #ifdef Q_OS_WIN

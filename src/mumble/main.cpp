@@ -455,9 +455,8 @@ int main(int argc, char **argv) {
 #else
 	g.mw->msgBox(MainWindow::tr("Skipping version check in debug mode."));
 #endif
-	if (g.s.bPluginOverlayCheck) {
+	if (g.s.bPluginCheck) {
 		g.p->checkUpdates();
-		g.o->checkUpdates();
 	}
 
 	if (url.isValid()) {

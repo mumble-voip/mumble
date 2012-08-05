@@ -291,10 +291,10 @@ Settings::Settings() {
 
 #ifdef NO_UPDATE_CHECK
 	bUpdateCheck = false;
-	bPluginOverlayCheck = false;
+	bPluginCheck = false;
 #else
 	bUpdateCheck = true;
-	bPluginOverlayCheck = true;
+	bPluginCheck = true;
 #endif
 
 	qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
@@ -646,7 +646,7 @@ void Settings::load(QSettings* settings_ptr) {
 	LOADENUM(ssFilter, "ui/serverfilter");
 #ifndef NO_UPDATE_CHECK
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
-	SAVELOAD(bPluginOverlayCheck, "ui/plugincheck");
+	SAVELOAD(bPluginCheck, "ui/plugincheck");
 #endif
 	SAVELOAD(bHideInTray, "ui/hidetray");
 	SAVELOAD(bStateInTray, "ui/stateintray");
@@ -929,7 +929,7 @@ void Settings::save() {
 	SAVELOAD(qsLastServer, "ui/server");
 	SAVELOAD(ssFilter, "ui/serverfilter");
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
-	SAVELOAD(bPluginOverlayCheck, "ui/plugincheck");
+	SAVELOAD(bPluginCheck, "ui/plugincheck");
 	SAVELOAD(bHideInTray, "ui/hidetray");
 	SAVELOAD(bStateInTray, "ui/stateintray");
 	SAVELOAD(bUsage, "ui/usage");
