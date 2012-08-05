@@ -222,18 +222,12 @@ void OverlayClient::updateMouse() {
 	qgpiCursor->setPos(iMouseX - iOffsetX, iMouseY - iOffsetY);
 }
 
-QByteArray preferedInstallerPath() {
-	QString userinstall = g.qdBasePath.absolutePath() + QLatin1String("/Overlay/MumbleOverlay.pkg");
-	if (QFile::exists(userinstall)) {
-		return userinstall.toUtf8();
-	}
-
+QString installerPath() {
 	NSString *installerPath = [[NSBundle mainBundle] pathForResource:@"MumbleOverlay" ofType:@"pkg"];
 	if (installerPath) {
-		return QByteArray([installerPath UTF8String]);
+		return QString::fromUtf8([installerPath UTF8String]);
 	}
-
-	return QByteArray();
+	return QString();
 }
 
 bool OverlayConfig::isInstalled() {
@@ -254,7 +248,7 @@ bool OverlayConfig::isInstalled() {
 // Check whether this installer installs something 'newer' than what we already have.
 // Also checks whether the new installer is compatiable with the current version of
 // Mumble.
-static bool isInstallerNewer(const char *path, NSUInteger curVer) {
+static bool isInstallerNewer(QString path, NSUInteger curVer) {
 	xar_t pkg = NULL;
 	xar_iter_t iter = NULL;
 	xar_file_t file = NULL;
@@ -263,7 +257,7 @@ static bool isInstallerNewer(const char *path, NSUInteger curVer) {
 	bool ret = false;
 	QString qsMinVer, qsOverlayVer;
 
-	pkg = xar_open(path, READ);
+	pkg = xar_open(path.toUtf8().constData(), READ);
 	if (pkg == NULL) {
 		qWarning("isInstallerNewer: Unable to open pkg.");
 		goto out;
@@ -334,11 +328,11 @@ bool OverlayConfig::needsUpgrade() {
 	if (infoPlist) {
 		NSUInteger curVersion = [[infoPlist objectForKey:@"MumbleOverlayVersion"] unsignedIntegerValue];
 
-		QByteArray prefer = preferedInstallerPath();
-		if (prefer.isNull())
+		QString path = installerPath();
+		if (path.isEmpty())
 			return false;
 
-		return isInstallerNewer(prefer.constData(), curVersion);
+		return isInstallerNewer(path, curVersion);
 	}
 
 	return false;
@@ -366,8 +360,8 @@ bool OverlayConfig::installFiles() {
 	bool ret = false;
 	OSStatus err;
 
-	QByteArray prefer = preferedInstallerPath();
-	if (prefer.isNull()) {
+	QString path = installerPath();
+	if (path.isEmpty()) {
 		qWarning("OverlayConfig: No installers found in search paths.");
 		return false;
 	}
@@ -375,7 +369,7 @@ bool OverlayConfig::installFiles() {
 	QProcess installer(this);
 	QStringList args;
 	args << QString::fromLatin1("-W");
-	args << QString::fromUtf8(prefer.constData());
+	args << path;
 	installer.start(QLatin1String("/usr/bin/open"), args, QIODevice::ReadOnly);
 
 	while (!installer.waitForFinished(1000)) {
