@@ -773,28 +773,15 @@
         </property>
        </widget>
       </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QLabel" name="qliIdle">
+        <property name="text">
+         <string>Idle action</string>
+        </property>
+       </widget>
+      </item>
       <item row="3" column="4">
        <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="qlIdle2">
-          <property name="text">
-           <string>after</string>
-          </property>
-         </widget>
-        </item>
         <item>
          <widget class="QSpinBox" name="qsbIdle">
           <property name="minimum">
@@ -821,31 +808,44 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QComboBox" name="qcbIdleAction">
+          <item>
+           <property name="text">
+            <string>nothing</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>deafen</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>mute</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
        </layout>
       </item>
-      <item row="3" column="5">
-       <widget class="QComboBox" name="qcbIdleAction">
-        <item>
-         <property name="text">
-          <string>nothing</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>deafen</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>mute</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="3" column="0" colspan="2">
-       <widget class="QLabel" name="qliIdle">
+      <item row="3" column="3">
+       <widget class="QLabel" name="qlIdle2">
         <property name="text">
-         <string>Idle action</string>
+         <string>after</string>
         </property>
        </widget>
       </item>
