@@ -168,6 +168,8 @@ class GlobalShortcutConfig : public ConfigWidget, public Ui::GlobalShortcut {
 		QList<Shortcut> qlShortcuts;
 		QTreeWidgetItem *itemForShortcut(const Shortcut &) const;
 		bool bExpert;
+		bool showWarning() const;
+		bool eventFilter(QObject *, QEvent *);
 	public:
 		GlobalShortcutConfig(Settings &st);
 		virtual QString title() const;
@@ -184,6 +186,8 @@ class GlobalShortcutConfig : public ConfigWidget, public Ui::GlobalShortcut {
 		void on_qpbRemove_clicked(bool);
 		void on_qtwShortcuts_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
 		void on_qtwShortcuts_itemChanged(QTreeWidgetItem *, int);
+		void on_qpbOpenAccessibilityPrefs_clicked();
+		void on_qpbSkipWarning_clicked();
 };
 
 struct ShortcutKey {

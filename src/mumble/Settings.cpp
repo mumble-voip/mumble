@@ -386,6 +386,7 @@ Settings::Settings() {
 	iMaxLogBlocks = 0;
 
 	bShortcutEnable = true;
+	bSuppressMacEventTapWarning = false;
 
 	for (int i=Log::firstMsgType; i<=Log::lastMsgType; ++i)
 		qmMessages.insert(i, Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS);
@@ -682,6 +683,7 @@ void Settings::load(QSettings* settings_ptr) {
 		kpCertificate = CertWizard::importCert(qba);
 
 	SAVELOAD(bShortcutEnable, "shortcut/enable");
+	SAVELOAD(bSuppressMacEventTapWarning, "shortcut/mac/suppresswarning");
 
 	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
 	for (int i=0; i<nshorts; i++) {
@@ -963,6 +965,7 @@ void Settings::save() {
 	settings_ptr->setValue(QLatin1String("net/certificate"), qba);
 
 	SAVELOAD(bShortcutEnable, "shortcut/enable");
+	SAVELOAD(bSuppressMacEventTapWarning, "shortcut/mac/suppresswarning");
 
 	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;
