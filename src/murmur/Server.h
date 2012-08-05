@@ -167,7 +167,7 @@ class Server : public QThread {
 		int iCodecBeta;
 		bool bPreferAlpha;
 		bool bOpus;
-		void recheckCodecVersions();
+		void recheckCodecVersions(ServerUser *connectingUser = 0);
 
 #ifdef USE_BONJOUR
 		void initBonjour();
