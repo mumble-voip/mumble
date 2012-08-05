@@ -112,6 +112,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void recheckTTS();
 		void msgBox(QString msg);
 		void setOnTop(bool top);
+		void setShowDockTitleBars(bool doShow);
 		void updateTrayIcon();
 		QPair<QByteArray, QImage> openImageFile();
 		static const QString defaultStyleSheet;
