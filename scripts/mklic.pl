@@ -36,7 +36,10 @@ my @thirdPartyLicenses = (
     ["licenseOpus", "../opus-src/COPYING", "Opus", "http://www.opus-codec.org/"],
     ["licenseSPEEX", "../speex/COPYING", "CELT", "http://www.celt-codec.org/"],
     ["licenseOpenSSL", "../3rdPartyLicenses/openssl_license.txt", "OpenSSL", "http://www.openssl.org/"],
-    ["licenseLibsndfile", "../3rdPartyLicenses/libsndfile_license.txt", "libsndfile", "http://www.mega-nerd.com/libsndfile/"]);
+    ["licenseLibsndfile", "../3rdPartyLicenses/libsndfile_license.txt", "libsndfile", "http://www.mega-nerd.com/libsndfile/"],
+    ["licenseOgg", "../3rdPartyLicenses/libogg_license.txt", "libogg", "http://www.xiph.org/"],
+    ["licenseVorbis", "../3rdPartyLicenses/libvorbis_license.txt", "libvorbis", "http://www.xiph.org/"],
+    ["licenseFLAC", "../3rdPartyLicenses/libflac_license.txt", "libFLAC", "http://flac.sourceforge.net/"]);
                        
 # Print 3rd party licenses
 foreach (@thirdPartyLicenses) {
