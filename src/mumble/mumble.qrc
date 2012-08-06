@@ -51,19 +51,21 @@
  <file alias="UserLeftChannel.ogg">../../samples/UserLeftChannel.ogg</file>
  <file alias="UserMutedYouOrByYou.ogg">../../samples/UserMutedYouOrByYou.ogg</file>
  <file alias="RecordingStateChanged.ogg">../../samples/RecordingStateChanged.ogg</file>
+ <file>mumble_cs.qm</file>
+ <file>mumble_da.qm</file>
+ <file>mumble_de.qm</file>
  <file>mumble_en.qm</file>
  <file>mumble_es.qm</file>
  <file>mumble_fr.qm</file>
- <file>mumble_de.qm</file>
+ <file>mumble_he.qm</file>
  <file>mumble_it.qm</file>
  <file>mumble_ja.qm</file>
  <file>mumble_pl.qm</file>
  <file>mumble_pt_BR.qm</file>
- <file>mumble_da.qm</file>
- <file>mumble_he.qm</file>
  <file>mumble_ru.qm</file>
  <file>mumble_sv.qm</file>
- <file>mumble_zh_CN.qm</file>
  <file>mumble_tr.qm</file>
+ <file>mumble_zh_CN.qm</file>
+ <file>mumble_zh_TW.qm</file>
 </qresource>
 </RCC>
