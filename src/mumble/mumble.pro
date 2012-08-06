@@ -95,7 +95,7 @@ unix:!CONFIG(bundled-opus):system(pkg-config --exists opus) {
 win32 {
   RC_FILE	= mumble.rc
   HEADERS	*= GlobalShortcut_win.h TaskList.h
-  SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp SharedMemory_win.cpp os_win.cpp TaskList.cpp ../../overlay/HardHook.cpp ../../overlay/ods.cpp
+  SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp SharedMemory_win.cpp Log_win.cpp os_win.cpp TaskList.cpp ../../overlay/HardHook.cpp ../../overlay/ods.cpp
   LIBS		*= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -l"$$(DXSDK_DIR)Lib/x86/dinput8" -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -llibsndfile-1 -lshell32 -lshlwapi -luser32 -lgdi32
   LIBS		*= -ldelayimp -delayload:speex.dll -delayload:shell32.dll
 
@@ -152,7 +152,7 @@ unix {
 
     HEADERS *= GlobalShortcut_macx.h ConfigDialogDelegate.h
     SOURCES *= TextToSpeech_macx.cpp SharedMemory_unix.cpp
-    OBJECTIVE_SOURCES *= GlobalShortcut_macx.mm os_macx.mm
+    OBJECTIVE_SOURCES *= GlobalShortcut_macx.mm os_macx.mm Log_macx.mm
 
     !CONFIG(no-cocoa) {
         # Link against libxar so we can inspect Mac OS X installer packages.
@@ -176,7 +176,7 @@ unix {
     HEADERS += CoreAudio.h
   } else {
     HEADERS *= GlobalShortcut_unix.h
-    SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp SharedMemory_unix.cpp
+    SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp SharedMemory_unix.cpp Log_unix.cpp
     PKGCONFIG *= x11
     LIBS *= -lrt -lXi
 
