@@ -465,7 +465,8 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		return;
 
 	// Message notification with balloon tooltips
-	postNotification(mt, console, plain);
+	if ((flags & Settings::LogBalloon) && !(g.mw->isActiveWindow() && g.mw->qdwLog->isVisible()))
+		postNotification(mt, console, plain);
 
 	// Don't make any noise if we are self deafened
 	if (g.s.bDeaf)
