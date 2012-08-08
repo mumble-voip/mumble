@@ -269,12 +269,10 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 	protected slots:
 		void on_qpbInstall_clicked();
 		void on_qpbUninstall_clicked();
-		void on_qpbShowCerts_clicked();
 		void on_qpbAdd_clicked();
 		void on_qpbRemove_clicked();
 		void on_qrbBlacklist_toggled(bool);
 		void on_qcbEnable_stateChanged(int);
-		void on_qswOverlayPage_currentChanged(int idx);
 		void on_qcbShowFps_stateChanged(int);
 		void on_qpbFpsFont_clicked();
 		void on_qpbFpsColor_clicked();
@@ -400,8 +398,6 @@ class Overlay : public QObject {
 		void setActive(bool act);
 		void toggleShow();
 		void forceSettings();
-		void checkUpdates();
-		void fetched(QByteArray, QUrl);
 };
 
 #ifdef Q_OS_WIN

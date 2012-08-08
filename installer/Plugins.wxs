@@ -107,6 +107,9 @@
       <Component Id="tf2.dll">
         <File Source="$(var.SourceDir)\release\plugins\tf2.dll" KeyPath="yes" />
       </Component>
+      <Component Id="ut99.dll">
+        <File Source="$(var.SourceDir)\release\plugins\ut99.dll" KeyPath="yes" />
+      </Component>
       <Component Id="ut2004.dll">
         <File Source="$(var.SourceDir)\release\plugins\ut2004.dll" KeyPath="yes" />
       </Component>
@@ -156,6 +159,7 @@
       <ComponentRef Id="manual.dll" />
       <ComponentRef Id="sto.dll" />
       <ComponentRef Id="tf2.dll" />
+      <ComponentRef Id="ut99.dll" />
       <ComponentRef Id="ut2004.dll" />
       <ComponentRef Id="ut3.dll" />
       <ComponentRef Id="wolfet.dll" />

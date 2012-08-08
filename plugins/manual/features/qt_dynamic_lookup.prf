@@ -1,0 +1,4 @@
+macx {
+	LIBS += -undefined dynamic_lookup
+	LIBS -= -lQtCore -lQtGui
+}

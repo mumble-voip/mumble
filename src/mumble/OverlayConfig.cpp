@@ -142,7 +142,6 @@ OverlayConfig::OverlayConfig(Settings &st) :
 	} else {
 		qswOverlayPage->setCurrentWidget(qwOverlayConfig);
 	}
-	on_qswOverlayPage_currentChanged(qswOverlayPage->currentIndex());
 
 	// grab a desktop screenshot as background
 	QRect dsg = QApplication::desktop()->screenGeometry();
@@ -167,7 +166,6 @@ OverlayConfig::OverlayConfig(Settings &st) :
 	// actions they perform are the same. The distinction is only there to inform
 	// users as to what's actually going on.
 	connect(qpbUpgrade, SIGNAL(clicked()), this, SLOT(on_qpbInstall_clicked()));
-	connect(qpbUpgradeShowCerts, SIGNAL(clicked()), this, SLOT(on_qpbShowCerts_clicked()));
 }
 
 OverlayAppInfo OverlayConfig::applicationInfoForId(const QString &identifier) {
@@ -415,41 +413,6 @@ void OverlayConfig::on_qcbEnable_stateChanged(int state) {
 	qgpFps->setEnabled(state == Qt::Checked);
 }
 
-void OverlayConfig::on_qswOverlayPage_currentChanged(int) {
-	QLatin1String qsStyleSheetInvalid("QLabel { color: red; }");
-	QLatin1String qsStyleSheetValid("QLabel { color: green; }");
-	QString qsValidInstaller = tr("Mumble has deemed the installer valid.");
-	QString qsInvalidInstaller = tr("Mumble was unable to verify the authenticity of the installer.");
-
-	if (qswOverlayPage->currentWidget() == qwOverlayInstall) {
-		qpbShowCerts->setVisible(supportsCertificates());
-		qlInstallValidityText->setVisible(supportsCertificates());
-		if (! installerIsValid()) {
-			qlInstallValidityText->setStyleSheet(qsStyleSheetInvalid);
-			qlInstallValidityText->setText(QString::fromLatin1("<p>%1</p>").arg(qsInvalidInstaller));
-			qpbInstall->setEnabled(false);
-		} else {
-			qlInstallValidityText->setStyleSheet(qsStyleSheetValid);
-			qlInstallValidityText->setText(QString::fromLatin1("<p>%1</p>").arg(qsValidInstaller));
-			qpbInstall->setEnabled(true);
-		}
-	} else if (qswOverlayPage->currentWidget() == qwOverlayUpgrade) {
-		qpbUpgradeShowCerts->setVisible(supportsCertificates());
-		qlUpgradeValidityText->setVisible(supportsCertificates());
-		if (! installerIsValid()) {
-			qlUpgradeValidityText->setStyleSheet(qsStyleSheetInvalid);
-			qlUpgradeValidityText->setText(QString::fromLatin1("<p>%1</p>").arg(qsInvalidInstaller));
-			qpbUpgrade->setEnabled(false);
-		} else {
-			qlUpgradeValidityText->setStyleSheet(qsStyleSheetValid);
-			qlUpgradeValidityText->setText(QString::fromLatin1("<p>%1</p>").arg(qsValidInstaller));
-			qpbUpgrade->setEnabled(true);
-		}
-	} else if (qswOverlayPage->currentWidget() == qwOverlayConfig) {
-		qpbUninstall->setVisible(supportsInstallableOverlay());
-	}
-}
-
 void OverlayConfig::on_qpbInstall_clicked() {
 	qpbInstall->setEnabled(false);
 
@@ -469,10 +432,6 @@ void OverlayConfig::on_qpbUninstall_clicked() {
 	}
 
 	qpbUninstall->setEnabled(true);
-}
-
-void OverlayConfig::on_qpbShowCerts_clicked() {
-	showCertificates();
 }
 
 void OverlayConfig::on_qcbShowFps_stateChanged(int state) {

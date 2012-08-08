@@ -141,6 +141,7 @@
         <ComponentGroupRef Id="Plugins"/>
         <ComponentRef Id="celt0.0.7.0.dll" />
         <ComponentRef Id="celt0.0.11.0.dll" />
+        <ComponentRef Id="opus.dll" />
         <?ifdef SSE ?>
         <ComponentRef Id="celt0.0.7.0.sse.dll" />
         <ComponentRef Id="celt0.0.11.0.sse.dll" />
@@ -148,6 +149,7 @@
         <?ifdef SSE2 ?>
         <ComponentRef Id="celt0.0.7.0.sse2.dll" />
         <ComponentRef Id="celt0.0.11.0.sse2.dll" />
+        <ComponentRef Id="opus.sse2.dll" />
         <?endif ?>
         <ComponentRef Id="mumble.exe" />
         <ComponentRef Id="mumble_ol.dll" />

@@ -911,11 +911,6 @@ Güncek kanal tarafından alınmış üyelerin listesini içerir. Üst kanallard
     </message>
     <message>
         <location/>
-        <source>Amplification</source>
-        <translation>Yükseltme</translation>
-    </message>
-    <message>
-        <location/>
         <source>Maximum amplification of input sound</source>
         <translation>Girdi sesinin azami yükseltilmesi</translation>
     </message>
@@ -980,12 +975,7 @@ Güncek kanal tarafından alınmış üyelerin listesini içerir. Üst kanallard
         <translation>Ses gönderimi için kullanılacak azami bant genişliği</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+566"/>
-        <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)</source>
-        <translation>Sunucunun azami bant genişliği sadece %1 kbit/s&apos;dir. Ses kalitesi otomatik olarak %2 kbit/s (%3ms) değerine ayarlanmıştır</translation>
-    </message>
-    <message>
-        <location filename="AudioInput.ui"/>
+        <location/>
         <source>Use Amplitude based speech detection</source>
         <translation>Amplitüde dayalı konuşma tespiti kullan</translation>
     </message>
@@ -1089,6 +1079,26 @@ Güncek kanal tarafından alınmış üyelerin listesini içerir. Üst kanallard
         <source>Gets played when stopping to transmit</source>
         <translation>Aktarım sona erdiğinde çalınır</translation>
     </message>
+    <message>
+        <location/>
+        <source>Hold Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Time the microphone stays open after the PTT key is released</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.cpp" line="+528"/>
+        <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui"/>
+        <source>Max. Amplification</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1113,13 +1123,15 @@ Güncek kanal tarafından alınmış üyelerin listesini içerir. Üst kanallard
         <translation>Ses Girdisi</translation>
     </message>
     <message>
-        <location line="+101"/>
+        <location line="+103"/>
         <location line="+8"/>
+        <location line="+7"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
     <message>
-        <location line="-2"/>
+        <location line="-9"/>
+        <location line="+7"/>
         <location line="+20"/>
         <location line="+18"/>
         <source>Off</source>
@@ -1144,16 +1156,6 @@ Güncek kanal tarafından alınmış üyelerin listesini içerir. Üst kanallard
         <location line="+55"/>
         <source>%1 kbit/s (Audio %2 %5, Position %4, Overhead %3)</source>
         <translation>%1 kbit/s (Ses %2 %5, Konum %4, Yük %3)</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>CELT</source>
-        <translation>CELT</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Speex</source>
-        <translation>Speex</translation>
     </message>
     <message>
         <location line="-42"/>
@@ -2295,7 +2297,7 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
         <translation>Mumble Kullanıcısı</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+424"/>
+        <location filename="main.cpp" line="+435"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Sertifika Ömrü:&lt;/b&gt; Sertifikanızın süresi dolmak üzere ve yenilemeniz lâzım, aksi takdirde oturumunuz bulunan sunuculara bağlanamayacaksınız.</translation>
     </message>
@@ -2777,8 +2779,9 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <name>ChatbarTextEdit</name>
     <message>
         <location filename="CustomElements.cpp" line="+108"/>
-        <source>Paste and send</source>
-        <translation>Yapıştır ve yolla</translation>
+        <source>Paste and &amp;Send</source>
+        <oldsource>Paste and send</oldsource>
+        <translation type="unfinished">Yapıştır ve yolla</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -4042,7 +4045,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>Kullanıcı arayüzü</translation>
     </message>
     <message>
-        <location line="+130"/>
+        <location line="+132"/>
         <source>Choose skin file</source>
         <translation>Tema dosyası seçiniz</translation>
     </message>
@@ -4291,17 +4294,22 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <source>&amp;Browse...</source>
         <translation>&amp;Tara...</translation>
     </message>
+    <message>
+        <location/>
+        <source>Use selected item as the chat bar target</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+180"/>
-        <location line="+2086"/>
+        <location filename="MainWindow.cpp" line="+182"/>
+        <location line="+2118"/>
         <source>Root</source>
         <translation>Kök</translation>
     </message>
     <message>
-        <location line="-2034"/>
+        <location line="-2066"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Bas-ve-Konuş</translation>
@@ -4380,28 +4388,28 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+15"/>
-        <location line="+2185"/>
+        <location line="+2217"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2181"/>
+        <location line="-2213"/>
         <source>&amp;Window</source>
         <translation>&amp;Pencere</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+128"/>
+        <location line="+126"/>
         <source>Minimize</source>
         <translation>Küçült</translation>
     </message>
     <message>
-        <location line="-128"/>
+        <location line="-126"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+127"/>
+        <location line="+125"/>
         <source>Close</source>
         <translation>Kapat</translation>
     </message>
@@ -4411,7 +4419,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>Mumble hâlihazırda bir sunucuya bağlıdır. Kapatmak mı istiyorsunuz, küçültmek mi?</translation>
     </message>
     <message>
-        <location line="-182"/>
+        <location line="-180"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Kendini Sustur</translation>
@@ -4452,13 +4460,13 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>Fısılda/Bağır</translation>
     </message>
     <message>
-        <location line="+62"/>
-        <location line="+2214"/>
+        <location line="+60"/>
+        <location line="+2259"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <translation>&lt;center&gt;Çevrimdışı&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1951"/>
+        <location line="-1995"/>
         <source>Clear</source>
         <translation>Temizle</translation>
     </message>
@@ -4514,7 +4522,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>Tekrar bağlanılıyor.</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+148"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Yapım verileri ya da İS bilgisi bulunamadı.&lt;/p&gt;</translation>
     </message>
@@ -4529,19 +4537,14 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>&lt;h2&gt;Ses kanalı&lt;/h2&gt;&lt;p&gt;128 bit OCB-AES128 ile şifrelenmiştir&lt;br /&gt;%1 ms vasati gecikme (%4 sapma)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+11"/>
-        <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Ses bant genişliği&lt;/h2&gt;&lt;p&gt;Azami %1 kbit/s&lt;br /&gt;Güncel %2 kbit/s&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location line="-103"/>
-        <location line="+342"/>
+        <location line="-104"/>
+        <location line="+354"/>
         <source>Register yourself as %1</source>
         <translation>Kendinizi %1 olarak kaydedin</translation>
     </message>
     <message>
-        <location line="-342"/>
-        <location line="+342"/>
+        <location line="-354"/>
+        <location line="+354"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Kendinizi bu sunucuda kaydetmek üzeresiniz. Bu faaliyet geriye alınamaz, ve tamamlandığında kullanıcı isminiz değiştirilemez. Bu sunucuda daima &apos;%1&apos; olarak tanınırsınız.&lt;/p&gt;&lt;p&gt;Kendinizi kaydetmek istediğinizden emin misiniz?&lt;/p&gt;</translation>
     </message>
@@ -4577,7 +4580,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>%1 adlı kanala mesaj</translation>
     </message>
     <message>
-        <location line="+520"/>
+        <location line="+541"/>
         <source>Connected.</source>
         <translation>Bağlandı.</translation>
     </message>
@@ -4587,7 +4590,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>SSL Sürüm uyumsuzluğu</translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+153"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <translation>&lt;center&gt;&apos;%1&apos; adlı kanala mesajı burada giriniz&lt;/center&gt;</translation>
     </message>
@@ -4623,12 +4626,12 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>Görsel biçimi tanınamadı.</translation>
     </message>
     <message>
-        <location line="-1616"/>
+        <location line="-1648"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Ses kanalı kontrol kanalından gönderilmekte.</translation>
     </message>
     <message>
-        <location line="-878"/>
+        <location line="-889"/>
         <source>&amp;User</source>
         <translation>K&amp;ullanıcı</translation>
     </message>
@@ -4650,12 +4653,12 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>Kanal Bağla</translation>
     </message>
     <message>
-        <location line="+679"/>
+        <location line="+678"/>
         <source>Change your comment</source>
         <translation>Yorumu değiştir</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+105"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
         <translation type="unfinished">&lt;h2&gt;Sürüm&lt;/h2&gt;&lt;p&gt;Protokol %1.%2.%3.&lt;/p&gt; {2&gt;?} {2&gt;?} {1.?}</translation>
     </message>
@@ -4700,18 +4703,23 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>Tekrar Senkr</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+4"/>
+        <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Mumble Server Information</source>
         <translation>Mumble Sunucu Verileri</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1306"/>
+        <location line="+1327"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Sertifika Görüntüle</translation>
     </message>
     <message>
-        <location line="-1031"/>
+        <location line="-1052"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Sebep gir</translation>
@@ -4796,7 +4804,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>Qt Hakkında</translation>
     </message>
     <message>
-        <location line="+365"/>
+        <location line="+386"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL denetlemesi başarısız oldu: %1</translation>
     </message>
@@ -5506,12 +5514,12 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
         <translation>%1, %3 tarafından %2 kanalına taşındı.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+14"/>
         <source>%1 moved in from %2 by %3.</source>
         <translation>%1, %2 kanalından %3 tarafından getirildi.</translation>
     </message>
     <message>
-        <location line="-157"/>
+        <location line="-161"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 artık susturuldu ve sağır edildi.</translation>
     </message>
@@ -5652,7 +5660,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
         <translation>Askıya alınmanız  %1 tarafından kaldırıldı.</translation>
     </message>
     <message>
-        <location line="+94"/>
+        <location line="+98"/>
         <source>%1 is recording</source>
         <translation>%1 kayıt yapıyor</translation>
     </message>
@@ -5684,7 +5692,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
         <translation>%2%1: %3</translation>
     </message>
     <message>
-        <location line="+200"/>
+        <location line="+201"/>
         <source>The server requests minimum client version %1</source>
         <translation>Sunucu asgari %1 istemci sürümünü talep ediyor</translation>
     </message>
@@ -5709,7 +5717,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
         <translation>Sunucu Bas-ve-Konuşun devre dışı bırakılmasını talep ediyor.</translation>
     </message>
     <message>
-        <location line="-469"/>
+        <location line="-474"/>
         <source>You were unmuted by %1.</source>
         <translation>Susturulmanız %1 tarafından kaldırıldı.</translation>
     </message>
@@ -5744,17 +5752,17 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
         <translation>%1 adlı kullanıcının susturulması %2 tarafından kaldırıldı.</translation>
     </message>
     <message>
-        <location line="+372"/>
+        <location line="+377"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Diğer istemcilerle uyumlu CELT kodekleri bulunamadı. Diğer kullanıcılar ile konuşamayacaksınız.</translation>
     </message>
     <message>
-        <location line="-438"/>
+        <location line="-443"/>
         <source>You were muted and deafened by %1.</source>
         <translation>%1 tarafından susturuldunuz ve sağır edildiniz.</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+161"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Sunucudan %1 tarafından kovuldunuz: %2.</translation>
     </message>
@@ -5774,17 +5782,17 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
         <translation>%3 adlı kullanıcı %1 tarafından sunucudan kovuldu ve yasaklandı: %2.</translation>
     </message>
     <message>
-        <location line="-60"/>
+        <location line="-64"/>
         <source>You were moved to %1 by %2.</source>
         <translation>%2 tarafından %1 kanalına taşındınız.</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+17"/>
         <source>%1 entered channel.</source>
         <translation>%1 kanala katıldı.</translation>
     </message>
     <message>
-        <location line="-348"/>
+        <location line="-352"/>
         <source>Server connection rejected: %1.</source>
         <translation>Sunucu bağlantısı reddedildi: %1.</translation>
     </message>
@@ -5794,7 +5802,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
         <translation>Reddedildi: %1.</translation>
     </message>
     <message>
-        <location line="+360"/>
+        <location line="+364"/>
         <source>Message from %1</source>
         <translation>%1 tarafından mesaj</translation>
     </message>
@@ -6986,7 +6994,7 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+757"/>
+        <location filename="PulseAudio.cpp" line="+756"/>
         <source>Default Input</source>
         <translation>Varsayılan Girdi</translation>
     </message>
@@ -7490,7 +7498,7 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
         <translation>Bağlantı süresi</translation>
     </message>
     <message>
-        <location filename="UserInformation.cpp" line="+96"/>
+        <location filename="UserInformation.cpp" line="+99"/>
         <source>%1w</source>
         <translation>%1h</translation>
     </message>
@@ -7537,12 +7545,12 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-119"/>
         <source>Not Reported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+160"/>
         <source>%1 online (%2 idle)</source>
         <translation>%1 çevrimiçi (%2 aylak)</translation>
     </message>

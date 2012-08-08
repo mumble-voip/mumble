@@ -34,6 +34,9 @@
 void *HardHook::pCode = NULL;
 unsigned int HardHook::uiCode = 0;
 
+/**
+ * @brief Constructs a new hook without actually injecting.
+ */
 HardHook::HardHook() : bTrampoline(false), call(0) {
 	int i;
 	baseptr = NULL;
@@ -41,6 +44,12 @@ HardHook::HardHook() : bTrampoline(false), call(0) {
 		orig[i]=replace[i]=0;
 }
 
+/**
+ * @brief Constructs a new hook by injecting given replacement function into func.
+ * @see HardHook::setup
+ * @param func Funktion to inject replacement into.
+ * @param replacement Function to inject into func.
+ */
 HardHook::HardHook(voidFunc func, voidFunc replacement) {
 	int i;
 	baseptr = NULL;
@@ -49,6 +58,9 @@ HardHook::HardHook(voidFunc func, voidFunc replacement) {
 	setup(func, replacement);
 }
 
+/**
+ * @return Number of extra bytes.
+ */
 static unsigned int modrmbytes(unsigned char a, unsigned char b) {
 	unsigned char lower = (a & 0x0f);
 	if (a >= 0xc0) {
@@ -76,7 +88,34 @@ static unsigned int modrmbytes(unsigned char a, unsigned char b) {
 	}
 }
 
+/**
+ * @brief Tries to construct a trampoline from original code.
+ *
+ * A trampoline is called by an injected mumble function to return
+ * control flow to the original code.
+ *
+ * For this to work we have to save all commands overlapping the first 6 bytes
+ * of code in the original function. This is needed so the first redirection,
+ * to our mumble code, can be inserted in their place.
+ *
+ * As commands must not be destroyed they have to be disassembled to get their length.
+ * All encountered commands will be part of the trampoline and stored in pCode (shared
+ * for all trampolines).
+ *
+ * If code is encountered that can not be moved into the trampoline (conditionals etc.)
+ * construction fails and and NULL is returned. If enough commands can be saved the
+ * trampoline is finalized by appending a jump back to the original code. The return value
+ * in this case will be the address of the newly constructed trampoline.
+ *
+ * pCode + offset to trampoline:
+ *     [SAVED CODE FROM ORIGINAL > 6 bytes][JUMP BACK TO ORIGINAL CODE]
+ *
+ * @param porig Original code
+ * @return Pointer to trampoline on success. NULL if trampoline construction failed.
+ */
 void *HardHook::cloneCode(void **porig) {
+
+
 	DWORD oldProtect, restoreProtect;
 	if (! pCode || uiCode > 4000) {
 		uiCode = 0;
@@ -97,8 +136,8 @@ void *HardHook::cloneCode(void **porig) {
 		unsigned char *tmp = o;
 		int *iptr = reinterpret_cast<int *>(o+1);
 		// Follow jmp relative to next command. It doesn't make a difference
-		// if we actually perform all the jumps or directly jump after the
-		// chain.
+		// if we actually perform all the jumps or directly jump to the end of
+		// the chain. Hence these jumps need not be part of the trampoline.
 		o += *iptr + 5;
 
 		fods("HardHook: Chaining from %p to %p", *porig, o);
@@ -194,6 +233,16 @@ void *HardHook::cloneCode(void **porig) {
 	return n;
 }
 
+/**
+ * @brief Makes sure the given replacement function is run once func is called.
+ *
+ * Tries to construct a trampoline for the given function (@see HardHook::cloneCode)
+ * and then injects replacement function calling code into the first 6 bytes of the
+ * original function (@see HardHook::inject).
+ *
+ * @param func Pointer to function to redirect.
+ * @param replacement Pointer to code to redirect to.
+ */
 void HardHook::setup(voidFunc func, voidFunc replacement) {
 	int i;
 	DWORD oldProtect, restoreProtect;
@@ -211,18 +260,19 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 	if (call) {
 		bTrampoline = true;
 	} else {
+		// Could not create a trampoline. Use alternative method instead.
 		bTrampoline = false;
 		call = func;
 	}
 
 	if (VirtualProtect(fptr, 16, PAGE_EXECUTE_READ, &oldProtect)) {
 		unsigned char **iptr = reinterpret_cast<unsigned char **>(&replace[1]);
-		*iptr = nptr;
-		replace[0] = 0x68; // PUSH (immediate) nptr
-		replace[5] = 0xc3; // RETN
+		replace[0] = 0x68; // PUSH immediate        1 Byte
+		*iptr = nptr;      // (imm. value = nptr)   4 Byte
+		replace[5] = 0xc3; // RETN                  1 Byte
 
-		for (i=0;i<6;i++)
-			orig[i]=fptr[i];
+		for (i=0;i<6;i++) // Save original 6 bytes at start of original function
+			orig[i] = fptr[i];
 
 		baseptr = fptr;
 		inject(true);
@@ -240,6 +290,16 @@ void HardHook::setupInterface(IUnknown *unkn, LONG funcoffset, voidFunc replacem
 	setup(reinterpret_cast<voidFunc>(ptr[funcoffset]), replacement);
 }
 
+/**
+ * @brief Injects redirection code into the target function.
+ *
+ * Replaces the first 6 Bytes of the function indicated by baseptr
+ * with the replacement code previously generated (usually a jump
+ * to mumble code). If a trampoline is available this injection is not needed
+ * as control flow was already permanently redirected by HardHook::setup .
+ *
+ * @param force If true injection will be performed even when trampoline is available.
+ */
 void HardHook::inject(bool force) {
 	DWORD oldProtect, restoreProtect;
 	int i;
@@ -260,6 +320,16 @@ void HardHook::inject(bool force) {
 			fods("HH: Injection failure at byte %d", i);
 }
 
+/**
+ * @brief Restores the original code in a target function.
+ *
+ * Restores the first 6 Bytes of the function indicated by baseptr
+ * from previously stored original code in orig. If a trampoline is available this
+ * restoration is not needed as trampoline will correctly restore control
+ * flow.
+ *
+ * @param force If true injection will be performed even when trampoline is available.
+ */
 void HardHook::restore(bool force) {
 	DWORD oldProtect, restoreProtect;
 	int i;
@@ -273,7 +343,7 @@ void HardHook::restore(bool force) {
 		for (i=0;i<6;i++)
 			baseptr[i] = orig[i];
 		VirtualProtect(baseptr, 6, oldProtect, &restoreProtect);
-		FlushInstructionCache(GetCurrentProcess(),baseptr, 6);
+		FlushInstructionCache(GetCurrentProcess(), baseptr, 6);
 	}
 }
 
@@ -284,6 +354,12 @@ void HardHook::print() {
 	     baseptr[0], baseptr[1], baseptr[2], baseptr[3], baseptr[4]);
 }
 
+/**
+ * @brief Checks whether injected code is in good shape and injects if not yet injected.
+ *
+ * If injected code is not found injection is attempted unless 3rd party overwrote
+ * original code at injection location.
+ */
 void HardHook::check() {
 	if (memcmp(baseptr, replace, 6) != 0) {
 		if (memcmp(baseptr, orig, 6) == 0) {

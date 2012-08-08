@@ -330,6 +330,9 @@ QSize DockTitleBar::minimumSizeHint() const {
 bool DockTitleBar::eventFilter(QObject *, QEvent *evt) {
 	QDockWidget *qdw = qobject_cast<QDockWidget*>(parentWidget());
 
+	if (! this->isEnabled())
+		return false;
+
 	switch (evt->type()) {
 		case QEvent::Leave:
 		case QEvent::Enter:

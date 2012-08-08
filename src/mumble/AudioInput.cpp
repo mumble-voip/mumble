@@ -111,10 +111,10 @@ AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)
 
 #ifdef USE_OPUS
 	opusState = opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_VOIP, NULL);
-	opus_encoder_ctl(opusState, OPUS_SET_VBR(1));
+	opus_encoder_ctl(opusState, OPUS_SET_VBR(0)); // CBR
 #endif
 
-	qWarning("AudioInput: %d bits/s, %d hz, %d sample CELT", iAudioQuality, iSampleRate, iFrameSize);
+	qWarning("AudioInput: %d bits/s, %d hz, %d sample", iAudioQuality, iSampleRate, iFrameSize);
 	iEchoFreq = iMicFreq = iSampleRate;
 
 	iFrameCounter = 0;
@@ -156,6 +156,7 @@ AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)
 	bRunning = true;
 
 	connect(this, SIGNAL(doDeaf()), g.mw->qaAudioDeaf, SLOT(trigger()), Qt::QueuedConnection);
+	connect(this, SIGNAL(doMute()), g.mw->qaAudioMute, SLOT(trigger()), Qt::QueuedConnection);
 }
 
 AudioInput::~AudioInput() {
@@ -601,7 +602,7 @@ bool AudioInput::selectCodec() {
 
 	// Currently talking, use previous Opus status.
 	if (bPreviousVoice) {
-		useOpus = umtType == MessageHandler::UDPVoiceOpus;
+		useOpus = (umtType == MessageHandler::UDPVoiceOpus);
 	} else {
 #ifdef USE_OPUS
 		if (g.bOpus || (g.s.lmLoopMode == Settings::Local)) {
@@ -680,8 +681,8 @@ int AudioInput::encodeOpusFrame(short *source, int size, unsigned char *buffer) 
 	opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
 
 	len = opus_encode(opusState, source, size, buffer, 512);
-
-	iBitrate = len * 100 * 8;
+	const int tenMsFrameCount = (size / iFrameSize);
+	iBitrate = (len * 100 * 8) / tenMsFrameCount;
 #endif
 	return len;
 }
@@ -820,10 +821,18 @@ void AudioInput::encodeAudioFrame() {
 
 	if (! bIsSpeech && ! bPreviousVoice) {
 		iBitrate = 0;
-		if (g.s.iIdleTime && ! g.s.bDeaf && ((tIdle.elapsed() / 1000000ULL) > g.s.iIdleTime)) {
-			emit doDeaf();
-			tIdle.restart();
+
+		if (g.s.iaeIdleAction != Settings::Nothing && ((tIdle.elapsed() / 1000000ULL) > g.s.iIdleTime)) {
+
+			if (g.s.iaeIdleAction == Settings::Deafen && !g.s.bDeaf) {
+				tIdle.restart();
+				emit doDeaf();
+			} else if (g.s.iaeIdleAction == Settings::Mute && !g.s.bMute) {
+				tIdle.restart();
+				emit doMute();
+			}
 		}
+
 		spx_int32_t increment = 0;
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_INCREMENT, &increment);
 		return;
@@ -850,10 +859,20 @@ void AudioInput::encodeAudioFrame() {
 		encoded = false;
 		opusBuffer.insert(opusBuffer.end(), psSource, psSource + iFrameSize);
 		++iBufferedFrames;
+
 		if (!bIsSpeech || iBufferedFrames >= iAudioFrames) {
+			if (iBufferedFrames < iAudioFrames) {
+				// Stuff frame to framesize if speech ends and we don't have enough audio
+				const size_t missingFrames = iAudioFrames - iBufferedFrames;
+				opusBuffer.insert(opusBuffer.end(), iFrameSize * missingFrames, 0);
+				iBufferedFrames += missingFrames;
+			}
+
 			len = encodeOpusFrame(&opusBuffer[0], iBufferedFrames * iFrameSize, buffer);
 			opusBuffer.clear();
 			if (len <= 0) {
+				iBitrate = 0;
+				qWarning() << "encodeOpusFrame failed" << iBufferedFrames << iFrameSize << len;
 				return;
 			}
 			encoded = true;

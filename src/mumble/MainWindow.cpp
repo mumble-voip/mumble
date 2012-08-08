@@ -341,6 +341,8 @@ void MainWindow::setupGui()  {
 	qteChat->setDefaultText(tr("<center>Not connected</center>"), true);
 	qteChat->setEnabled(false);
 
+	setShowDockTitleBars(g.s.wlWindowLayout == Settings::LayoutCustom);
+
 #ifdef QT_MAC_USE_COCOA
 	// Workaround for QTBUG-3116 -- using a unified toolbar on Mac OS X
 	// and using restoreGeometry before the window has updated its frameStrut
@@ -390,6 +392,13 @@ void MainWindow::setupGui()  {
 	qApp->processEvents();
 #endif
 #endif
+}
+
+// Sets whether or not to show the title bars on the MainWindow's
+// dock widgets.
+void MainWindow::setShowDockTitleBars(bool doShow) {
+	dtbLogDockTitle->setEnabled(doShow);
+	dtbChatDockTitle->setEnabled(doShow);
 }
 
 MainWindow::~MainWindow() {
