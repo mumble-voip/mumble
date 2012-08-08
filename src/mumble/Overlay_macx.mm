@@ -31,9 +31,7 @@
 
 #include "mumble_pch.hpp"
 #import <ScriptingBridge/ScriptingBridge.h>
-#include <Security/Security.h>
 #include <Carbon/Carbon.h>
-#import <SecurityInterface/SFCertificatePanel.h>
 #include "Overlay.h"
 #include "Global.h"
 #include "MainWindow.h"
@@ -180,10 +178,6 @@ bool OverlayConfig::supportsInstallableOverlay() {
 	return true;
 }
 
-bool OverlayConfig::supportsCertificates() {
-	return true;
-}
-
 void OverlayClient::updateMouse() {
 	QCursor c = qgv.viewport()->cursor();
 	NSCursor *cursor = nil;
@@ -228,18 +222,12 @@ void OverlayClient::updateMouse() {
 	qgpiCursor->setPos(iMouseX - iOffsetX, iMouseY - iOffsetY);
 }
 
-QByteArray preferedInstallerPath() {
-	QString userinstall = g.qdBasePath.absolutePath() + QLatin1String("/Overlay/MumbleOverlay.pkg");
-	if (QFile::exists(userinstall)) {
-		return userinstall.toUtf8();
-	}
-
+QString installerPath() {
 	NSString *installerPath = [[NSBundle mainBundle] pathForResource:@"MumbleOverlay" ofType:@"pkg"];
 	if (installerPath) {
-		return QByteArray([installerPath UTF8String]);
+		return QString::fromUtf8([installerPath UTF8String]);
 	}
-
-	return QByteArray();
+	return QString();
 }
 
 bool OverlayConfig::isInstalled() {
@@ -260,7 +248,7 @@ bool OverlayConfig::isInstalled() {
 // Check whether this installer installs something 'newer' than what we already have.
 // Also checks whether the new installer is compatiable with the current version of
 // Mumble.
-static bool isInstallerNewer(const char *path, NSUInteger curVer) {
+static bool isInstallerNewer(QString path, NSUInteger curVer) {
 	xar_t pkg = NULL;
 	xar_iter_t iter = NULL;
 	xar_file_t file = NULL;
@@ -269,7 +257,7 @@ static bool isInstallerNewer(const char *path, NSUInteger curVer) {
 	bool ret = false;
 	QString qsMinVer, qsOverlayVer;
 
-	pkg = xar_open(path, READ);
+	pkg = xar_open(path.toUtf8().constData(), READ);
 	if (pkg == NULL) {
 		qWarning("isInstallerNewer: Unable to open pkg.");
 		goto out;
@@ -340,11 +328,11 @@ bool OverlayConfig::needsUpgrade() {
 	if (infoPlist) {
 		NSUInteger curVersion = [[infoPlist objectForKey:@"MumbleOverlayVersion"] unsignedIntegerValue];
 
-		QByteArray prefer = preferedInstallerPath();
-		if (prefer.isNull())
+		QString path = installerPath();
+		if (path.isEmpty())
 			return false;
 
-		return isInstallerNewer(prefer.constData(), curVersion);
+		return isInstallerNewer(path, curVersion);
 	}
 
 	return false;
@@ -368,284 +356,26 @@ static bool authExec(AuthorizationRef ref, const char **argv) {
 	return false;
 }
 
-// Get the certificates form our installer XAR as a NSArray of SecCertificateRef's.
-static bool getInstallerCerts(const char *path, NSArray **array) {
-	bool ret = false;
-	OSStatus err = noErr;
-	xar_t pkg = NULL;
-	xar_signature_t sig = NULL;
-	int32_t ncerts = 0;
-	const uint8_t *data = NULL;
-	uint32_t len = 0;
-	SecCertificateRef tmp = NULL;
-	int cur = 0;
-
-	if (array == NULL) {
-		qWarning("getInstallerCerts: Argument error.");
-		goto err;
-	}
-
-	pkg = xar_open(path, READ);
-	if (pkg == NULL) {
-		qWarning("getInstallerCerts: Unable to open pkg.");
-		goto err;
-	}
-
-	// We're only interested in the first signature.
-	sig = xar_signature_first(pkg);
-	if (sig == NULL) {
-		qWarning("getInstallerCerts: Unable to get first signature of XAR archive.");
-		goto err;
-	}
-
-	ncerts = xar_signature_get_x509certificate_count(sig);
-	*array = [[NSMutableArray alloc] init];
-	for (int32_t i = 0; i < ncerts; i++) {
-		if (xar_signature_get_x509certificate_data(sig, i, &data, &len) == -1) {
-			qWarning("getInstallerCerts: Unable to extract certificate data.");
-			goto err;
-		}
-		const CSSM_DATA crt = { (CSSM_SIZE) len, (uint8_t *) data };
-		err = SecCertificateCreateFromData(&crt, CSSM_CERT_X_509v3, CSSM_CERT_ENCODING_DER, &tmp);
-		[*array addObject:(id)tmp];
-	}
-
-	ret = true;
-err:
-	return ret;
-}
-
-// Validate the signature of a XAR archive (the archive format
-// Apple uses for their installlers)
-static bool validateInstallerSignature(const char *path) {
-	xar_t pkg = NULL;
-	xar_signature_t sig = NULL;
-	const char *type = NULL;
-	int32_t ncerts = 0;
-	X509 **certs = NULL;
-	const uint8_t *data = NULL;
-	uint32_t len = 0;
-	uint8_t *plaindata = NULL, *signdata = NULL;
-	uint32_t plainlen = 0, signlen = 0;
-	bool ret = false;
-	int success = 0;
-	RSA *rsa = NULL;
-	EVP_PKEY *pkey = NULL;
-
-	// Open installer package.
-	pkg = xar_open(path, READ);
-	if (pkg == NULL) {
-		qWarning("validateInstallerSignature: Unable to open installer for verification.");
-		goto err;
-	}
-
-	// The first signature of the file is the one we're interested in.
-	sig = xar_signature_first(pkg);
-	if (sig == NULL) {
-		qWarning("validateInstallerSignature: Unable to get first signature.");
-		goto err;
-	}
-
-	// Get the signature type
-	type = xar_signature_type(sig);
-	if (strcmp(type, "RSA")) {
-		qWarning("validateInstallerSignature: Signature not RSA.");
-		goto err;
-	}
-
-	// Extract the certificate chain
-	ncerts = xar_signature_get_x509certificate_count(sig);
-	if (!(ncerts > 0)) {
-		qWarning("validateInstallerSignature: No certificates found in XAR.");
-		goto err;
-	}
-
-	certs = (X509 **)alloca(sizeof(X509 *) * ncerts);
-	for (int32_t i = 0; i < ncerts; i++) {
-		// Get the certificate data...
-		if (xar_signature_get_x509certificate_data(sig, i, &data, &len) == -1) {
-			qWarning("validateInstallerSignature:  Could not extract DER encoded certificate from XARchive.");
-			goto err;
-		}
-		X509 *cert = d2i_X509(NULL, &data, (int)len);
-		if (cert == NULL) {
-			qWarning("validateInstallerSignature: Could not parse DER data.");
-			goto err;
-		}
-		certs[i] = cert;
-	}
-
-	// Extract the TOC signed data
-	if (xar_signature_copy_signed_data(sig, &plaindata, &plainlen, &signdata, &signlen, NULL) != 0) {
-		qWarning("validateInstallerSignature: Could not get signed data from XARchive.");
-		goto err;
-	}
-
-	if (plainlen != 20) { /* SHA1 */
-		qWarning("validateInstallerSignature: Digest of installer is not SHA1, cannot verify.");
-		goto err;
-	}
-
-	pkey = X509_get_pubkey(certs[0]);
-	if (! pkey) {
-		qWarning("validateInstallerSignature: Unable to get pubkey from X509 struct.");
-		goto err;
-	}
-
-	if (pkey->type != EVP_PKEY_RSA) {
-		qWarning("validateInstallerSignature: Public key is not RSA.");
-		goto err;
-	}
-
-	rsa = pkey->pkey.rsa;
-	if (! rsa) {
-		qWarning("validateInstallerSignature: Could not get RSA data from pkey.");
-		goto err;
-	}
-
-	// Verify the signed archive...
-	success = RSA_verify(NID_sha1, plaindata, plainlen, (unsigned char *)signdata, signlen, rsa);
-	ret = (success == 1);
-
-err:
-	for (int32_t i = 0; i < ncerts; i++) {
-		if (certs[i] != NULL)
-			X509_free(certs[i]);
-	}
-	free(plaindata);
-	free(signdata);
-	if (pkg)
-		xar_close(pkg);
-	return ret;
-}
-
-// First, validate the signature of the installer XAR archive. Then, check
-// that the certificate chain is trusted by the system.
-bool validateInstaller(const char *path) {
-	bool ret = false;
-	OSStatus err = noErr;
-	NSArray *certs = nil;
-	NSArray *anchors = nil;
-	SecPolicySearchRef search = NULL;
-	SecPolicyRef policy = NULL;
-	SecTrustRef trust = NULL;
-	SecTrustResultType result;
-	CSSM_OID oid = CSSMOID_APPLE_X509_BASIC;
-
-	// First, check that the archive signature is OK.
-	if (! validateInstallerSignature(path)) {
-		goto err;
-	}
-
-	// Get the certificate (and any intermediate certs) from the XAR archive.
-	if (! getInstallerCerts(path, &certs)) {
-		goto err;
-	}
-
-	// Create policy
-	err = SecPolicySearchCreate(CSSM_CERT_X_509v3, &oid, NULL, &search);
-	if (err != noErr) {
-		qWarning("validateInstaller: Unable to create SecPolicySearch object.");
-		goto err;
-	}
-	err = SecPolicySearchCopyNext(search, &policy);
-	if (err != noErr) {
-		qWarning("validateInstaller: Unable to fetch SecPolicyRef from search object.");
-		goto err;
-	}
-
-	// Create trust
-	err = SecTrustCreateWithCertificates((CFArrayRef)certs, policy, &trust);
-	if (err != noErr) {
-		qWarning("validateInstaller: Unable to create trust with certs...");
-		goto err;
-	}
-
-	// Do we trust this certificate?
-	err = SecTrustEvaluate(trust, &result);
-	if (err != noErr) {
-		qWarning("validateInstaller: Unable to evaulate trust..");
-		goto err;
-	}
-
-	// Good documentation on the values of SecTrustResultType:
-	// http://lists.apple.com/archives/apple-cdsa/2006/Apr/msg00013.html
-	switch (result) {
-		case kSecTrustResultProceed:     // User trusts this certificate (as well as the system)
-		case kSecTrustResultConfirm:     // Check with the user before proceeding (which we're already doing by giving them a choice).
-		case kSecTrustResultUnspecified: // No user trust setting for this cert.
-			ret = true;
-			break;
-
-		default:
-			ret = false;
-			break;
-	}
-
-err:
-	[certs release];
-	if (search)
-		CFRelease(search);
-	if (policy)
-		CFRelease(policy);
-	if (trust)
-		CFRelease(trust);
-	return ret;
-}
-
-bool OverlayConfig::installerIsValid() {
-	QByteArray prefer = preferedInstallerPath();
-	if (prefer.isNull())
-		return false;
-	return validateInstaller(prefer.constData());
-}
-
-void OverlayConfig::showCertificates() {
-	QByteArray prefer = preferedInstallerPath();
-	if (prefer.isNull())
-		return;
-
-	NSArray *certs;
-	if (! getInstallerCerts(prefer.constData(), &certs)) {
-		qWarning("OverlayConfig: could not fetch certificates");
-		return;
-	}
-
-	SFCertificatePanel *certPanel = [SFCertificatePanel sharedCertificatePanel];
-	[certPanel beginSheetForWindow:qt_mac_window_for(this) modalDelegate:nil didEndSelector:nil
-	           contextInfo:nil certificates:certs showGroup:YES];
-	[certs autorelease];
-}
-
 bool OverlayConfig::installFiles() {
-	AuthorizationRef auth;
 	bool ret = false;
 	OSStatus err;
 
-	QByteArray prefer = preferedInstallerPath();
-	if (prefer.isNull()) {
+	QString path = installerPath();
+	if (path.isEmpty()) {
 		qWarning("OverlayConfig: No installers found in search paths.");
 		return false;
 	}
 
-	if (! installerIsValid())
-		return false;
+	QProcess installer(this);
+	QStringList args;
+	args << QString::fromLatin1("-W");
+	args << path;
+	installer.start(QLatin1String("/usr/bin/open"), args, QIODevice::ReadOnly);
 
-	// Request an AuthorizationRef. This is a mechanism in Mac OS X that allows a parent program
-	// to spawn child processes with euid = 0.
-	//
-	// When attempting to launch the child process, a dialog will pop up requesting the user to
-	// authorize the launch by logging in with as a user with admin privileges.
-	err = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &auth);
-	if (err == errAuthorizationSuccess) {
-		// Do the install...
-		const char *installer[] = { "/usr/sbin/installer", "-pkg", prefer.constData(), "-target", "LocalSystem", NULL };
-		ret = authExec(auth, installer);
-	} else if (err != errAuthorizationCanceled) {
-		qWarning("OverlayConfig: Failed to acquire AuthorizationRef. (err=%i)", err);
+	while (!installer.waitForFinished(1000)) {
+		qApp->processEvents();
 	}
 
-	AuthorizationFree(auth, kAuthorizationFlagDefaults);
 	return ret;
 }
 

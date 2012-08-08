@@ -908,11 +908,6 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <location/>
-        <source>Amplification</source>
-        <translation type="unfinished">הגברה</translation>
-    </message>
-    <message>
-        <location/>
         <source>Maximum amplification of input sound</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הגברה מקסימלית של הצליל שנכנס&lt;/p&gt;</translation>
     </message>
@@ -977,12 +972,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+566"/>
-        <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioInput.ui"/>
+        <location/>
         <source>Use Amplitude based speech detection</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1086,6 +1076,26 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <source>Gets played when stopping to transmit</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Hold Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Time the microphone stays open after the PTT key is released</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.cpp" line="+528"/>
+        <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui"/>
+        <source>Max. Amplification</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1110,13 +1120,15 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished">צליל קלט</translation>
     </message>
     <message>
-        <location line="+101"/>
+        <location line="+103"/>
         <location line="+8"/>
+        <location line="+7"/>
         <source>%1 ms</source>
         <translation type="unfinished">%1 מ&quot;ש</translation>
     </message>
     <message>
-        <location line="-2"/>
+        <location line="-9"/>
+        <location line="+7"/>
         <location line="+20"/>
         <location line="+18"/>
         <source>Off</source>
@@ -1141,16 +1153,6 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+55"/>
         <source>%1 kbit/s (Audio %2 %5, Position %4, Overhead %3)</source>
         <oldsource>%1kbit/s (Audio %2 %5, Position %4, Overhead %3)</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>CELT</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Speex</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2302,7 +2304,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+424"/>
+        <location filename="main.cpp" line="+435"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2771,7 +2773,8 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <name>ChatbarTextEdit</name>
     <message>
         <location filename="CustomElements.cpp" line="+108"/>
-        <source>Paste and send</source>
+        <source>Paste and &amp;Send</source>
+        <oldsource>Paste and send</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4031,7 +4034,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">ממשק משתמש</translation>
     </message>
     <message>
-        <location line="+130"/>
+        <location line="+132"/>
         <source>Choose skin file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4281,17 +4284,22 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>&amp;Browse...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Use selected item as the chat bar target</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+180"/>
-        <location line="+2086"/>
+        <location filename="MainWindow.cpp" line="+182"/>
+        <location line="+2118"/>
         <source>Root</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2034"/>
+        <location line="-2066"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished">לחץ-כדי-לדבר</translation>
@@ -4370,28 +4378,28 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+15"/>
-        <location line="+2185"/>
+        <location line="+2217"/>
         <source>Mumble -- %1</source>
         <translation type="unfinished">ממבל -- %1</translation>
     </message>
     <message>
-        <location line="-2181"/>
+        <location line="-2213"/>
         <source>&amp;Window</source>
         <translation type="unfinished">&amp;חלון</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+128"/>
+        <location line="+126"/>
         <source>Minimize</source>
         <translation type="unfinished">מזער</translation>
     </message>
     <message>
-        <location line="-128"/>
+        <location line="-126"/>
         <source>Ctrl+M</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+127"/>
+        <location line="+125"/>
         <source>Close</source>
         <translation type="unfinished">סגור</translation>
     </message>
@@ -4401,7 +4409,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ממבל מחובר כרגע לשרת, האם אתה רוצה לסגור או למזער אותו?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-182"/>
+        <location line="-180"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished">השתק את עצמך</translation>
@@ -4437,7 +4445,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+355"/>
+        <location line="+354"/>
         <source>Clear</source>
         <translation type="unfinished">נקה</translation>
     </message>
@@ -4493,7 +4501,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">מתחבר מחדש.</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+148"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4508,19 +4516,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+11"/>
-        <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-103"/>
-        <location line="+342"/>
+        <location line="-104"/>
+        <location line="+354"/>
         <source>Register yourself as %1</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;רשום את עצמך בשם %1&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-342"/>
-        <location line="+342"/>
+        <location line="-354"/>
+        <location line="+354"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אתה עומד לרשום את עצמך לשרת. אי אפשר לבטל פעולה זו, ואי אפשר לשנות את שם המשתמש ברגע שזה בוצע. אתה תמיד תיוודע בשם &apos;%1&apos; בשרת הזה. &lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;אתה בטוח שאתה רוצה להרשם?&lt;/p&gt;</translation>
     </message>
@@ -4561,7 +4564,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+522"/>
+        <location line="+543"/>
         <source>Connected.</source>
         <translation type="unfinished">מחובר.</translation>
     </message>
@@ -4571,7 +4574,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;גירסאת SSL לא תואמת&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+250"/>
+        <location line="+261"/>
         <source>Choose image file</source>
         <translation type="unfinished">בחר קובץ תמונה</translation>
     </message>
@@ -4592,12 +4595,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;פורמט התמונה לא מזוהה.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1616"/>
+        <location line="-1648"/>
         <source>Voice channel is sent over control channel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-878"/>
+        <location line="-889"/>
         <source>&amp;User</source>
         <translation type="unfinished">&amp;משתמש</translation>
     </message>
@@ -4624,18 +4627,18 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+59"/>
-        <location line="+2214"/>
+        <location line="+57"/>
+        <location line="+2259"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <translation type="unfinished">&lt;center&gt;&lt;p dir=&quot;RTL&quot;&gt;לא מחובר&lt;/p&gt;&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1594"/>
+        <location line="-1638"/>
         <source>Change your comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+105"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
         <translation type="unfinished">&lt;h2&gt;גירסא&lt;/h2&gt;&lt;p&gt;פרוטוקול %1.%2.%3.&lt;/p&gt; {2&gt;?} {2&gt;?} {1.?}</translation>
     </message>
@@ -4680,18 +4683,23 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+4"/>
+        <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Mumble Server Information</source>
         <translation type="unfinished">מידע על שרת הממבל</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1306"/>
+        <location line="+1327"/>
         <source>&amp;View Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1031"/>
+        <location line="-1052"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation type="unfinished">הכנס סיבה</translation>
@@ -4736,7 +4744,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+681"/>
+        <location line="+702"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4758,7 +4766,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+122"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <translation type="unfinished">&lt;center&gt;&lt;p dir=&quot;RTL&quot;&gt;רשום הודעה לחדר %1 כאן&lt;/p&gt;&lt;/center&gt;</translation>
     </message>
@@ -4773,7 +4781,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-782"/>
+        <location line="-814"/>
         <source>Unmuted and undeafened.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4808,7 +4816,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+365"/>
+        <location line="+386"/>
         <source>SSL Verification failed: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5495,12 +5503,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 הועבר ל %2 על ידי %3.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+14"/>
         <source>%1 moved in from %2 by %3.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 הועבר לחדר מ %2 על ידי %3.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-157"/>
+        <location line="-161"/>
         <source>%1 is now muted and deafened.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5642,7 +5650,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+94"/>
+        <location line="+98"/>
         <source>%1 is recording</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5674,7 +5682,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+200"/>
+        <location line="+201"/>
         <source>The server requests minimum client version %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5699,7 +5707,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-469"/>
+        <location line="-474"/>
         <source>You were unmuted by %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5734,18 +5742,18 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+372"/>
+        <location line="+377"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-438"/>
+        <location line="-443"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הושתקת והוחרשת על ידי %1.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+161"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נבעטת מהשרת על ידי %1: %2.&lt;/p&gt;</translation>
     </message>
@@ -5765,17 +5773,17 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%3 נבעט והוחרם מהשרת על ידי %1: %2.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-60"/>
+        <location line="-64"/>
         <source>You were moved to %1 by %2.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הועברתה ל %1 על ידי %2.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+17"/>
         <source>%1 entered channel.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 נכנס לחדר.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-348"/>
+        <location line="-352"/>
         <source>Server connection rejected: %1.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;התקשרות לשרת נדחתה: %1.&lt;/p&gt;</translation>
     </message>
@@ -5785,7 +5793,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נדחה: %1.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+360"/>
+        <location line="+364"/>
         <source>Message from %1</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הודעה מ %1&lt;/p&gt;</translation>
     </message>
@@ -6972,7 +6980,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+757"/>
+        <location filename="PulseAudio.cpp" line="+756"/>
         <source>Default Input</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7468,7 +7476,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זמן חיבור&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="UserInformation.cpp" line="+96"/>
+        <location filename="UserInformation.cpp" line="+99"/>
         <source>%1w</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7506,12 +7514,6 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1"/>
-        <location line="+1"/>
-        <source>%1 (%2)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location line="+15"/>
         <source>Supported</source>
         <translation type="unfinished"></translation>
@@ -7522,12 +7524,12 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-119"/>
         <source>Not Reported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+160"/>
         <source>%1 online (%2 idle)</source>
         <translation type="unfinished"></translation>
     </message>

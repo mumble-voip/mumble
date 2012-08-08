@@ -28,6 +28,10 @@ TARGET = celt0
 DEFINES += HAVE_CONFIG_H
 TARGET_VERSION_EXT = .$$VERSION
 
+CONFIG(static) {
+	CONFIG -= static
+}
+
 QMAKE_CFLAGS -= -fPIE -pie
 
 win32 {

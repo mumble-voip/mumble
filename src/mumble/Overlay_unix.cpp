@@ -58,14 +58,3 @@ bool OverlayConfig::installFiles() {
 bool OverlayConfig::uninstallFiles() {
 	return false;
 }
-
-bool OverlayConfig::supportsCertificates() {
-	return false;
-}
-
-bool OverlayConfig::installerIsValid() {
-	return false;
-}
-
-void OverlayConfig::showCertificates() {
-}

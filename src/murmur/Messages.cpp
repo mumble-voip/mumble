@@ -209,7 +209,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		fake_celt_support = true;
 	}
 	uSource->bOpus = msg.opus();
-	recheckCodecVersions();
+	recheckCodecVersions(uSource);
 
 	MumbleProto::CodecVersion mpcv;
 	mpcv.set_alpha(iCodecAlpha);
@@ -220,8 +220,6 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 	if (!bOpus && uSource->bOpus && fake_celt_support) {
 		sendTextMessage(NULL, uSource, false, QLatin1String("<strong>WARNING:</strong> Your client doesn't support the CELT codec, you won't be able to talk to or hear most clients. Please make sure your client was built with CELT support."));
-	} else if (bOpus && !uSource->bOpus) {
-		sendTextMessage(NULL, uSource, false, QLatin1String("<strong>WARNING:</strong> Your client doesn't support the Opus codec, you won't be able to talk or hear anyone. Please upgrade to a client with Opus support."));
 	}
 
 	// Transmit channel tree

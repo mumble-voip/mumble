@@ -10,12 +10,17 @@ CONFIG(universal) {
 TEMPLATE = lib
 CONFIG -= gui qt
 
+CONFIG(static) {
+	CONFIG -= static
+}
+
 TARGET = mumbleoverlay
 
 QMAKE_LFLAGS_PLUGIN += -undefined dynamic_lookup -dynamic
 QMAKE_LFLAGS = -framework CoreFoundation
 
-SOURCES = mach_override.c overlay.m
+SOURCES = mach_override.c
+OBJECTIVE_SOURCES = overlay.m
 HEADERS = mach_override.h
 DIST = overlay.plist
 

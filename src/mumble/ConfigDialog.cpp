@@ -132,6 +132,7 @@ void ConfigDialog::on_pageButtonBox_clicked(QAbstractButton *b) {
 	switch (pageButtonBox->standardButton(b)) {
 		case QDialogButtonBox::RestoreDefaults: {
 				Settings def;
+				def.bExpert = g.s.bExpert;
 				conf->load(def);
 				break;
 			}

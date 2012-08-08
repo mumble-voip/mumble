@@ -84,7 +84,7 @@ void NetworkConfig::load(const Settings &r) {
 	loadCheckBox(qcbImageDownload, r.iMaxImageSize <= 0);
 
 	loadCheckBox(qcbAutoUpdate, r.bUpdateCheck);
-	loadCheckBox(qcbPluginUpdate, r.bPluginOverlayCheck);
+	loadCheckBox(qcbPluginUpdate, r.bPluginCheck);
 	loadCheckBox(qcbUsage, r.bUsage);
 
 #if defined(SNAPSHOT_BUILD) && defined(QT_NO_DEBUG)
@@ -113,7 +113,7 @@ void NetworkConfig::save() const {
 	}
 
 	s.bUpdateCheck=qcbAutoUpdate->isChecked();
-	s.bPluginOverlayCheck=qcbPluginUpdate->isChecked();
+	s.bPluginCheck=qcbPluginUpdate->isChecked();
 	s.bUsage=qcbUsage->isChecked();
 }
 

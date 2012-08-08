@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>719</width>
-    <height>881</height>
+    <width>649</width>
+    <height>526</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,12 +20,12 @@
    <item>
     <widget class="QStackedWidget" name="qswOverlayPage">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="qwOverlayConfig">
-      <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,0,0">
+      <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,0">
        <item>
-        <widget class="QWidget" name="" native="true">
+        <widget class="QWidget" name="widget" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
            <horstretch>0</horstretch>
@@ -40,7 +40,7 @@
            <enum>QLayout::SetDefaultConstraint</enum>
           </property>
           <property name="margin">
-		   <number>0</number>
+           <number>0</number>
           </property>
           <item>
            <widget class="QGroupBox" name="qgbOptions">
@@ -400,9 +400,15 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_11">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_5">
-            <item>
+           <layout class="QFormLayout" name="formLayout">
+            <item row="0" column="0">
              <widget class="QLabel" name="qlInstallIcon">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -411,28 +417,26 @@
               </property>
              </widget>
             </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_6">
-              <item>
-               <widget class="QLabel" name="qlInstallText">
-                <property name="text">
-                 <string>Mumble has detected that you do not have the Mumble Overlay installed.
+            <item row="0" column="1">
+             <widget class="QLabel" name="qlInstallText">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="qlInstallValidityText">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-             </layout>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -455,13 +459,6 @@ Click the button below to install the overlay.</string>
              <widget class="QPushButton" name="qpbInstall">
               <property name="text">
                <string>Install Mumble Overlay</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="qpbShowCerts">
-              <property name="text">
-               <string>View Certificates</string>
               </property>
              </widget>
             </item>
@@ -507,8 +504,11 @@ Click the button below to install the overlay.</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_12">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3">
-            <item>
+           <layout class="QFormLayout" name="formLayout_4">
+            <property name="fieldGrowthPolicy">
+             <enum>QFormLayout::ExpandingFieldsGrow</enum>
+            </property>
+            <item row="0" column="0">
              <widget class="QLabel" name="qlUpgradeIcon">
               <property name="text">
                <string/>
@@ -518,28 +518,17 @@ Click the button below to install the overlay.</string>
               </property>
              </widget>
             </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_8">
-              <item>
-               <widget class="QLabel" name="qlUpgradeText">
-                <property name="text">
-                 <string>Mumble has detected an old version of the overlay support files installed on your computer.
+            <item row="0" column="1">
+             <widget class="QLabel" name="qlUpgradeText">
+              <property name="text">
+               <string>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="qlUpgradeValidityText">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-             </layout>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -562,13 +551,6 @@ To upgrade these files to their latest versions, click the button below.</string
              <widget class="QPushButton" name="qpbUpgrade">
               <property name="text">
                <string>Upgrade Mumble Overlay</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="qpbUpgradeShowCerts">
-              <property name="text">
-               <string>View Certificates</string>
               </property>
              </widget>
             </item>
