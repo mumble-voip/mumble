@@ -39,7 +39,10 @@ win32 {
   }
 }
 
-unix:INCLUDEPATH += ../$$BUILDDIR
+unix {
+  QMAKE_CFLAGS += -x c++
+  INCLUDEPATH += ../$$BUILDDIR
+}
 
 DIST = config.h
 
