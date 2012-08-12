@@ -10,9 +10,6 @@
           <Shortcut Id="MumbleShortcut" Directory="ApplicationProgramsFolder" Name="Mumble" WorkingDirectory="INSTALLDIR">
             <ShortcutProperty Key="System.AppUserModel.ID" Value="net.sourceforge.mumble.Mumble" />
           </Shortcut>
-          <Shortcut Id="MumbleDesktopShortcut" Directory="DesktopFolder" Name="Mumble" WorkingDirectory="INSTALLDIR">
-            <ShortcutProperty Key="System.AppUserModel.ID" Value="net.sourceforge.mumble.Mumble" />
-          </Shortcut>
         </File>
 
         <RegistryValue Root="HKCR" Key="mumble" Value="URL:Mumble" Type="string" />
