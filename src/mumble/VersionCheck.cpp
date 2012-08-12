@@ -150,18 +150,23 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 							qf.remove();
 						}
 
-						// Delete snapshots older than 30 days
+						// Delete all but the N most recent snapshots
+						size_t numberOfSnapshotsToKeep = 1;
+
 						QDir snapdir(g.qdBasePath.absolutePath() + QLatin1String("/Snapshots/"),
 						             QString(),
 						             QDir::Name,
 						             QDir::Files);
 
-						foreach(const QFileInfo fileInfo, snapdir.entryInfoList()) {
-							if (fileInfo.created().daysTo(QDateTime::currentDateTime()) > 30) {
-								qWarning() << "Purging old snapshot" << fileInfo.fileName();
-								QFile file(fileInfo.absoluteFilePath());
-								file.remove();
+						foreach(const QFileInfo fileInfo, snapdir.entryInfoList(QStringList(), QDir::NoFilter, QDir::Time)) {
+							if (numberOfSnapshotsToKeep) {
+								--numberOfSnapshotsToKeep;
+								continue;
 							}
+
+							qWarning() << "Purging old snapshot" << fileInfo.fileName();
+							QFile file(fileInfo.absoluteFilePath());
+							file.remove();
 						}
 					} else {
 						g.mw->msgBox(tr("Downloading new snapshot from %1 to %2").arg(fetch.toString(), filename));
