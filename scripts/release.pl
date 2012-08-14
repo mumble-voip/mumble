@@ -69,7 +69,7 @@ while (my $pro = shift @pro) {
       switch ($var) {
         case "version" {
           if ($value !~ /\$\$/) {
-              croak "Versions don't match" if (defined($ver) && ($ver ne $value));
+              croak "Versions don't match: $ver vs $value" if (defined($ver) && ($ver ne $value));
               $ver=$value;
           }
         }

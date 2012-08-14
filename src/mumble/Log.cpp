@@ -42,16 +42,6 @@
 #include "ServerHandler.h"
 #include "TextToSpeech.h"
 
-
-#ifdef Q_OS_MAC
-extern bool qt_mac_execute_apple_script(const QString &script, AEDesc *ret);
-
-static bool growl_available(void) {
-	OSStatus err = LSFindApplicationForInfo('GRRR', CFSTR("com.Growl.GrowlHelperApp"), CFSTR("GrowlHelperApp.app"), NULL, NULL);
-	return err != kLSApplicationNotFoundErr;
-}
-#endif
-
 static ConfigWidget *LogConfigDialogNew(Settings &st) {
 	return new LogConfig(st);
 }
@@ -204,25 +194,6 @@ Log::Log(QObject *p) : QObject(p) {
 	tts->setVolume(g.s.iTTSVolume);
 	uiLastId = 0;
 	qdDate = QDate::currentDate();
-
-#ifdef Q_OS_MAC
-	QStringList qslAllEvents;
-	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
-		Log::MsgType t = static_cast<Log::MsgType>(i);
-		qslAllEvents << QString::fromLatin1("\"%1\"").arg(g.l->msgName(t));
-	}
-	QString qsScript = QString::fromLatin1(
-	                       "tell application \"GrowlHelperApp\"\n"
-	                       "	set the allNotificationsList to {%1}\n"
-	                       "	set the enabledNotificationsList to {%1}\n"
-	                       "	register as application \"Mumble\""
-	                       "		all notifications allNotificationsList"
-	                       "		default notifications enabledNotificationsList"
-	                       "		icon of application \"Mumble\"\n"
-	                       "end tell\n").arg(qslAllEvents.join(QLatin1String(",")));
-	if (growl_available())
-		qt_mac_execute_apple_script(qsScript, NULL);
-#endif
 }
 
 const char *Log::msgNames[] = {
@@ -494,88 +465,8 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		return;
 
 	// Message notification with balloon tooltips
-	if ((flags & Settings::LogBalloon) && !(g.mw->isActiveWindow() && g.mw->qdwLog->isVisible()))  {
-		QString qsIcon;
-		switch (mt) {
-			case DebugInfo:
-			case CriticalError:
-				qsIcon=QLatin1String("gtk-dialog-error");
-				break;
-			case Warning:
-				qsIcon=QLatin1String("gtk-dialog-warning");
-				break;
-			case TextMessage:
-				qsIcon=QLatin1String("gtk-edit");
-				break;
-			default:
-				qsIcon=QLatin1String("gtk-dialog-info");
-				break;
-		}
-
-#ifdef USE_DBUS
-		QDBusMessage response;
-		QVariantMap hints;
-		hints.insert(QLatin1String("desktop-entry"), QLatin1String("mumble"));
-
-
-		{
-			QDBusInterface kde(QLatin1String("org.kde.VisualNotifications"), QLatin1String("/VisualNotifications"), QLatin1String("org.kde.VisualNotifications"));
-			if (kde.isValid()) {
-				QList<QVariant> args;
-				args.append(QLatin1String("mumble"));
-				args.append(uiLastId);
-				args.append(QString());
-				args.append(QLatin1String("mumble"));
-				args.append(msgName(mt));
-				args.append(console);
-				args.append(QStringList());
-				args.append(hints);
-				args.append(5000);
-
-				response = kde.callWithArgumentList(QDBus::AutoDetect, QLatin1String("Notify"), args);
-			}
-		}
-
-		if (response.type()!=QDBusMessage::ReplyMessage || response.arguments().at(0).toUInt()==0) {
-			QDBusInterface gnome(QLatin1String("org.freedesktop.Notifications"), QLatin1String("/org/freedesktop/Notifications"), QLatin1String("org.freedesktop.Notifications"));
-			if (gnome.isValid())
-				response = gnome.call(QLatin1String("Notify"), QLatin1String("Mumble"), uiLastId, qsIcon, msgName(mt), console, QStringList(), hints, -1);
-		}
-
-		if (response.type()==QDBusMessage::ReplyMessage && response.arguments().count() == 1) {
-			uiLastId = response.arguments().at(0).toUInt();
-		} else {
-#else
-		if (true) {
-#endif
-			if (g.mw->qstiIcon->isSystemTrayAvailable() && g.mw->qstiIcon->supportsMessages()) {
-				QSystemTrayIcon::MessageIcon msgIcon;
-
-				switch (mt) {
-					case DebugInfo:
-					case CriticalError:
-						msgIcon=QSystemTrayIcon::Critical;
-						break;
-					case Warning:
-						msgIcon=QSystemTrayIcon::Warning;
-						break;
-					default:
-						msgIcon=QSystemTrayIcon::Information;
-						break;
-				}
-
-				g.mw->qstiIcon->showMessage(msgName(mt), plain, msgIcon);
-			}
-		}
-#ifdef Q_OS_MAC
-		QString qsScript = QString::fromLatin1(
-		                       "tell application \"GrowlHelperApp\"\n"
-		                       "	notify with name \"%1\" title \"%1\" description \"%2\" application name \"Mumble\"\n"
-		                       "end tell\n").arg(msgName(mt)).arg(plain);
-		if (growl_available())
-			qt_mac_execute_apple_script(qsScript, NULL);
-#endif
-	}
+	if ((flags & Settings::LogBalloon) && !(g.mw->isActiveWindow() && g.mw->qdwLog->isVisible()))
+		postNotification(mt, console, plain);
 
 	// Don't make any noise if we are self deafened
 	if (g.s.bDeaf)
@@ -633,6 +524,26 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		tts->say(plain);
 	else if ((! terse.isEmpty()) && (terse.length() <= g.s.iTTSThreshold))
 		tts->say(terse);
+}
+
+// Post a notification using the MainWindow's QSystemTrayIcon.
+void Log::postQtNotification(MsgType mt, const QString &plain) {
+	if (g.mw->qstiIcon->isSystemTrayAvailable() && g.mw->qstiIcon->supportsMessages()) {
+		QSystemTrayIcon::MessageIcon msgIcon;
+		switch (mt) {
+			case DebugInfo:
+			case CriticalError:
+				msgIcon = QSystemTrayIcon::Critical;
+				break;
+			case Warning:
+				msgIcon = QSystemTrayIcon::Warning;
+				break;
+			default:
+				msgIcon = QSystemTrayIcon::Information;
+				break;
+		}
+		g.mw->qstiIcon->showMessage(msgName(mt), plain, msgIcon);
+	}
 }
 
 ValidDocument::ValidDocument(bool allowhttp, QObject *p) : QTextDocument(p) {

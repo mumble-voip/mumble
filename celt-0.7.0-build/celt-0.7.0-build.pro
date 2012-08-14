@@ -28,6 +28,15 @@ TARGET = celt0
 DEFINES += HAVE_CONFIG_H
 TARGET_VERSION_EXT = .$$VERSION
 
+CONFIG(sbcelt) {
+	TARGET = celt
+	CONFIG += static
+} else {
+	CONFIG(static) {
+		CONFIG -= static
+	}
+}
+
 QMAKE_CFLAGS -= -fPIE -pie
 
 win32 {

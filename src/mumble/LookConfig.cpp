@@ -195,6 +195,7 @@ void LookConfig::accept() const {
 			g.mw->qteLog->document()->setDefaultStyleSheet(sheet);
 		}
 	}
+	g.mw->setShowDockTitleBars(g.s.wlWindowLayout == Settings::LayoutCustom);
 }
 
 bool LookConfig::expert(bool b) {

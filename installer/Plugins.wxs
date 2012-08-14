@@ -80,6 +80,9 @@
       <Component Id="insurgency.dll">
         <File Source="$(var.SourceDir)\release\plugins\insurgency.dll" KeyPath="yes" />
       </Component>
+      <Component Id="jc2.dll">
+        <File Source="$(var.SourceDir)\release\plugins\jc2.dll" KeyPath="yes" />
+      </Component>
       <Component Id="l4d.dll">
         <File Source="$(var.SourceDir)\release\plugins\l4d.dll" KeyPath="yes" />
       </Component>
@@ -147,6 +150,7 @@
       <ComponentRef Id="gw.dll" />
       <ComponentRef Id="hl2dm.dll" />
       <ComponentRef Id="insurgency.dll" />
+      <ComponentRef Id="jc2.dll" />
       <ComponentRef Id="l4d.dll" />
       <ComponentRef Id="l4d2.dll" />
       <ComponentRef Id="link.dll" />

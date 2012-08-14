@@ -33,9 +33,14 @@ print F licenseFileToVar("licenseMumble", "../LICENSE");
 # List of 3rd party licenses  [<variableName>, <pathToLicenseFile>, <DisplayName>, <URL>]
 my @thirdPartyLicenses = (
     ["licenseCELT", "../celt-0.11.0-src/COPYING", "Speex", "http://www.speex.org/"],
+    ["licenseOpus", "../opus-src/COPYING", "Opus", "http://www.opus-codec.org/"],
     ["licenseSPEEX", "../speex/COPYING", "CELT", "http://www.celt-codec.org/"],
     ["licenseOpenSSL", "../3rdPartyLicenses/openssl_license.txt", "OpenSSL", "http://www.openssl.org/"],
-    ["licenseLibsndfile", "../3rdPartyLicenses/libsndfile_license.txt", "libsndfile", "http://www.mega-nerd.com/libsndfile/"]);
+    ["licenseLibsndfile", "../3rdPartyLicenses/libsndfile_license.txt", "libsndfile", "http://www.mega-nerd.com/libsndfile/"],
+    ["licenseOgg", "../3rdPartyLicenses/libogg_license.txt", "libogg", "http://www.xiph.org/"],
+    ["licenseVorbis", "../3rdPartyLicenses/libvorbis_license.txt", "libvorbis", "http://www.xiph.org/"],
+    ["licenseFLAC", "../3rdPartyLicenses/libflac_license.txt", "libFLAC", "http://flac.sourceforge.net/"],
+    ["licenseMachOverride", "../3rdPartyLicenses/mach_override_license.txt", "mach_override", "https://github.com/rentzsch/mach_star"]);
                        
 # Print 3rd party licenses
 foreach (@thirdPartyLicenses) {

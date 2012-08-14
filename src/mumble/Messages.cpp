@@ -92,6 +92,8 @@ void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 }
 
 void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
+	g.sh->sendPing(); // Send initial ping to establish UDP connection
+
 	g.uiSession = msg.session();
 	g.pPermissions = static_cast<ChanACL::Permissions>(msg.permissions());
 	g.l->clearIgnore();

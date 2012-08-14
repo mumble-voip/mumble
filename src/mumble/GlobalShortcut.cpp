@@ -599,9 +599,12 @@ QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) 
 
 GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
+	installEventFilter(this);
 
 	bool canSuppress = GlobalShortcutEngine::engine->canSuppress();
 	bool canDisable = GlobalShortcutEngine::engine->canDisable();
+
+	qwWarningContainer->setVisible(false);
 
 	qtwShortcuts->setColumnCount(canSuppress ? 4 : 3);
 	qtwShortcuts->setItemDelegate(new ShortcutDelegate(qtwShortcuts));
@@ -612,6 +615,40 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	if (canSuppress)
 		qtwShortcuts->header()->setResizeMode(3, QHeaderView::ResizeToContents);
 	qcbEnableGlobalShortcuts->setVisible(canDisable);
+}
+
+bool GlobalShortcutConfig::eventFilter(QObject *object, QEvent *event) {
+#ifdef Q_OS_MAC
+	if (event->type() == QEvent::WindowActivate) {
+		if (! g.s.bSuppressMacEventTapWarning) {
+			qwWarningContainer->setVisible(showWarning());
+		}
+	}
+#endif
+	return false;
+}
+
+bool GlobalShortcutConfig::showWarning() const {
+#ifdef Q_OS_MAC
+	if (! QFile::exists(QLatin1String("/private/var/db/.AccessibilityAPIEnabled"))) {
+		return true;
+	}
+#endif
+	return false;
+}
+
+void GlobalShortcutConfig::on_qpbOpenAccessibilityPrefs_clicked() {
+	QStringList args;
+	args << QLatin1String("/Applications/System Preferences.app");
+	args << QLatin1String("/System/Library/PreferencePanes/UniversalAccessPref.prefPane");
+	(void) QProcess::startDetached(QLatin1String("/usr/bin/open"), args);
+}
+
+void GlobalShortcutConfig::on_qpbSkipWarning_clicked() {
+	// Store to both global and local settings.  The 'Skip' is live, as in
+	// we don't expect the user to click Apply for their choice to work.
+	g.s.bSuppressMacEventTapWarning = s.bSuppressMacEventTapWarning = true;
+	qwWarningContainer->setVisible(false);
 }
 
 void GlobalShortcutConfig::commit() {
@@ -680,6 +717,17 @@ QIcon GlobalShortcutConfig::icon() const {
 void GlobalShortcutConfig::load(const Settings &r) {
 	qlShortcuts = r.qlShortcuts;
 	bExpert = r.bExpert;
+
+	// The 'Skip' button is supposed to be live, meaning users do not need to click Apply for
+	// their choice of skipping to apply.
+	//
+	// To make this work well, we set the setting on load. This is to make 'Reset' and 'Restore Defaults'
+	// work as expected.
+	g.s.bSuppressMacEventTapWarning = s.bSuppressMacEventTapWarning = r.bSuppressMacEventTapWarning;
+	if (! g.s.bSuppressMacEventTapWarning) {
+		qwWarningContainer->setVisible(showWarning());
+	}
+
 	qcbEnableGlobalShortcuts->setCheckState(r.bShortcutEnable ? Qt::Checked : Qt::Unchecked);
 	on_qcbEnableGlobalShortcuts_stateChanged(qcbEnableGlobalShortcuts->checkState());
 	reload();
@@ -734,6 +782,13 @@ void GlobalShortcutConfig::reload() {
 		if (gs && gs->bExpert && ! bExpert)
 			item->setHidden(true);
 	}
+#ifdef Q_OS_MAC
+	if (bExpert && ! g.s.bSuppressMacEventTapWarning) {
+		qwWarningContainer->setVisible(showWarning());
+	} else {
+		qwWarningContainer->setVisible(false);
+	}
+#endif
 }
 
 void GlobalShortcutConfig::accept() const {

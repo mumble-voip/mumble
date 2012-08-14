@@ -111,4 +111,15 @@ class CELTCodec011 : public CELTCodec {
 		virtual int decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm);
 };
 
+class CELTCodecSBCELT : public CELTCodec {
+	protected:
+		const CELTMode *cmSBCELTMode;
+	public:
+		CELTCodecSBCELT();
+		virtual CELTEncoder *encoderCreate();
+		virtual CELTDecoder *decoderCreate();
+		virtual int encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed, int nbCompressedBytes);
+		virtual int decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm);
+};
+
 #endif  // CELTCODEC_H_

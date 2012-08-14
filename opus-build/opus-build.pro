@@ -2,7 +2,10 @@ include(../compiler.pri)
 
 BUILDDIR=$$basename(PWD)
 SOURCEDIR=$$replace(BUILDDIR,-build,-src)
-VERSION=0
+
+!win32 {
+	VERSION=0 #$$ Fool packaging script
+}
 
 !exists(../$$SOURCEDIR/COPYING) {
 	message("The $$SOURCEDIR/ directory was not found. You need to do one of the following:")
@@ -36,7 +39,10 @@ win32 {
   }
 }
 
-unix:INCLUDEPATH += ../$$BUILDDIR
+unix {
+  QMAKE_CFLAGS += -x c++
+  INCLUDEPATH += ../$$BUILDDIR
+}
 
 DIST = config.h
 
@@ -187,7 +193,7 @@ CONFIG(release, debug|release) {
 	DESTDIR = ../release
 }
 
-macx {
+macx:!CONFIG(static) {
 	libname.target = libname
 	libname.commands = cd ${DESTDIR} && install_name_tool -id `pwd`/${TARGET} ${TARGET}
 	libname.depends = ${DESTDIR}${TARGET}
