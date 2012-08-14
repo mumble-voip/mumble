@@ -1,4 +1,5 @@
 /* Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com> 
+   Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
  
@@ -35,163 +36,192 @@ static BYTE *camptr;
 static BYTE *frontptr;
 static BYTE *camfrontptr;
 
-static BYTE *magicptr;
+static BYTE *locationptr;
+static BYTE *hostipptr;
 static BYTE *areaptr;
-static BYTE *characternameptr;
+
+static char prev_location;
+static int  prev_areaid;
 
 static bool calcout(float *pos, float *front, float *cam, float *camfront, float *opos, float *ofront, float *ocam, float *ocamfront) {
-	// Seems Guild Wars is in... inches, yeah :) ---> same as in GW2, proof here: http://www.guildwars2guru.com/topic/21519-reddit-ama-all-questions-answers (question #31)
-	// coordinate Y is swapped with Z
-	// Y is negative (looks like somewhere underground is 0.00 and land is for example -120. When we climb up a hill, it goes down (e.g. -130), and when we walk downhill, it goes up (e.g. -100)
 
-	opos[0] = pos[0] / 39.37f;	
-	opos[1] = -pos[2] / 39.37f;
-	opos[2] = pos[1] / 39.37f;
+    // Seems Guild Wars is in... inches, yeah :) ---> same as in GW2, proof here: http://www.guildwars2guru.com/topic/21519-reddit-ama-all-questions-answers (question #31)
+    // coordinate Y is swapped with Z
+    // Y is negative (looks like somewhere underground is 0.00 and land is for example -120. When we climb up a hill, it decreases (e.g. -130), and when we descent, it goes higher (e.g. -100)
 
-	ocam[0] = cam[0] / 39.37f;
-	ocam[1] = -cam[2] / 39.37f;
-	ocam[2] = cam[1] / 39.37f;
+    opos[0] = pos[0] / 39.37f;
+    opos[1] = -pos[2] / 39.37f;
+    opos[2] = pos[1] / 39.37f;
+        
+    ocam[0] = cam[0] / 39.37f;
+    ocam[1] = -cam[2] / 39.37f;
+    ocam[2] = cam[1] / 39.37f;
 
-	ofront[0] = front[0];
-	ofront[1] = -front[2];
-	ofront[2] = front[1];
+    ofront[0] = front[0];
+    ofront[1] = -front[2];
+    ofront[2] = front[1];
 
-	ocamfront[0] = camfront[0];
-	ocamfront[1] = -camfront[2];
-	ocamfront[2] = camfront[1];
+    ocamfront[0] = camfront[0];
+    ocamfront[1] = -camfront[2];
+    ocamfront[2] = camfront[1];
 
-	return true;
+    return true;
 }
 
 static bool refreshPointers(void)
 {
-	// We can find all vectors (camera position, camera front, avatar position, avatar front) in just one place, yay!
+    /* Arrays of bytes to find addresses accessed by respective functions so we don't have to blindly search for addresses after every update
+    Remember to disable scanning only the writable memory in CE! We're searching for functions here, not values!
+    
+    Camera and avatar position function:    89 10 8B 57 04 89 50 04 8B 57 08 89 50 08 DF E0 F6 C4 01
+        1) Camera position
+        2) Camera position (?)
+        3) Avatar position
+    Camera front vector function:               46 BF 00 89 15 (disassemble, then go up a few times in disassembly)
+    Unit front vector function:                 89 1E 8B 5F 04 89 5E 04 8B 7F 08 89 7E 08 8B 7D 10 8D 71 28 
+        To find the right front vector pointer, you'll need to make a pointer scan for the address that gets updated only when >you< move, using different characters in different locations. It should leave you with only two possible pointers after just 2 scans.
+    Location function:                          8D 14 DB 8D 34 90 8D 4E 14 (target instruction is the one above the one you find)
+    Area function:                              A3 58 11 A3 00 E8 B8 02 00 00 BA 37 00 00 00 8B CE
 
-	camfrontptr = camptr = posptr = frontptr = magicptr = characternameptr = areaptr = NULL;
+    Valid addresses from build b35976
 
-	camptr = (BYTE *) 0xd551b8;
-	posptr = (BYTE *) 0xd551c4; // camptr + 0xC
-	camfrontptr = (BYTE *) 0xd551d0; // posptr + 0xC
-	frontptr = (BYTE *) 0xd551dc; // camfrontptr + 0xC
+    Camera position vector address:             0xa30274
+    Avatar position vector address:             0xa302a4
+    Camera front vector address:                0xbf46b0
+    Avatar front vector address:                0xd55600 -> +0x8 --> +0x0 -> +0x1c
+    Location:                                   0xa3f9f8
+    Area:                                       0xa31158
 
-	/* Magic Pointer: 0xa3fad8
-		25/26/27 when ingame (differs for cities and explorable areas/missions). I don't know how it works exactly, because sometimes it's 26 for cities and 25 for explorables, while another time it's 27 for cities and 26 for explorables. Key fact: it is different for cities and explorable areas/missions :)
-		0 when logged in / in character select / in loading screen
-		1 when not logged in (in login screen)
-	*/
-	magicptr = (BYTE *) 0xa3fad8;
+    No need to care about top vector since the game doesn't use it anyway
+    Context is defined based on location + area combo. This is not enough to be unique in most cases (it doesn't let us distinguish between districts and servers), but it's better than nothing
+    */
 
-	/* Area Pointer: 0xd54e54
-		This is a 4-byte decimal stating which area we are in. Note however, that some missions have the same area assigned as cities, therefore we need our Magic Pointer to distinguish where exactly we are to specify context properly.
-	*/
-	areaptr = (BYTE *) 0xd54e54;
+    camfrontptr = camptr = posptr = frontptr = locationptr = areaptr = NULL;
+    
+    camptr = (BYTE *) 0xa30274;
+    posptr = (BYTE *) 0xa302a4;
+    camfrontptr = (BYTE *) 0xbf46b0;
+    
+    frontptr = peekProc<BYTE *>((BYTE *) 0xd55600);
+    if (!frontptr)
+        return false;
+    frontptr = peekProc<BYTE *>(frontptr + 0x8);
+    if (!frontptr)
+        return false;
+    frontptr = peekProc<BYTE *>(frontptr);
+    if (!frontptr)
+        return false;
+    frontptr = frontptr + 0x1c;
 
-	/* Character Name Pointer: 0xa2a440
-		This is a 19-characters long unicode string which contains a player's character name. This is unique for every character, but can change while ingame (players can switch characters)
-	*/
-	characternameptr = (BYTE *) 0xa2a440;
+    /* Magic Pointer:
+        25 or 26: Explorable Area / Mission
+        26 or 27: Town
+        0 when logged in / in character select / in loading screen
+        1 when not logged in (in login screen)
+    */
+    locationptr = (BYTE *) 0xa3f9f8;
 
-	return true;
+    /* Area Pointer: 
+        This is a 4-byte decimal stating which area we are in. Note however, that some missions have the same area assigned as cities, therefore we need our Location Pointer to distinguish where we are exactly to specify context properly.
+    */
+    areaptr = (BYTE *) 0xa31158;
+
+    return true;
 }
 
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
-	for (int i = 0; i < 3; i++)
-		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &/*identity*/) {
+    for (int i=0; i<3; i++)
+        avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
-	bool ok;
-	float cam[3], pos[3], front[3], camfront[3];
-	char state;
-	int areaid;
-	wchar_t charactername [20];
+    bool ok;
+    float cam[3], pos[3], front[3], camfront[3];
+    char location;
+    int areaid;
 
-	ok = peekProc(camptr,cam) &&
-		 peekProc(posptr,pos) &&
-		 peekProc(camfrontptr,camfront) &&
-		 peekProc(frontptr,front) &&
-		 peekProc(magicptr,&state,1) &&
-		 peekProc(areaptr,&areaid,4) &&
-		 peekProc(characternameptr, charactername);
+    if (!refreshPointers())
+    {
+        context.clear();
+        return true; // don't report positional data but stay linked to avoid unnecessary unlinking on loading screens
+    }
 
-	if (!ok)
-		return false;
+    ok = peekProc(camptr, cam) &&
+         peekProc(posptr, pos) &&
+         peekProc(camfrontptr, camfront) &&
+         peekProc(frontptr, front) &&
+         peekProc(locationptr, &location, 1) &&
+         peekProc(areaptr, &areaid, 4);
 
-	if (state == 0 || state == 1 || areaid == 0) { // Player not in world
-		context.clear();
-		identity.clear();
-		return true;
-	}
+    if (!ok || !calcout(pos, front, cam, camfront, avatar_pos, avatar_front, camera_pos, camera_front))
+        return false; // we can't read some or all of required data, unlink
 
-	bool res = calcout(pos, front, cam, camfront, avatar_pos, avatar_front, camera_pos, camera_front);
-	if (!res)
-		return false;
+    if (areaid != prev_areaid || location != prev_location) {
+        context.clear();
 
-	camera_top[1] = avatar_top[1] = 1; // This isn't FPS, you can't tilt your head :)
-	std::ostringstream _context;
-	_context << "{\"areaid\": " << areaid << ","
-			 << "\"magic\": " << int(state) << "}";
-	context = _context.str();
+        prev_areaid = areaid;
+        prev_location = location;
 
-	charactername[sizeof(charactername) / sizeof(charactername[0])-1] = 0; // make sure string is null-terminated
-	identity = std::wstring(charactername);
-
-	return true;
+        char buffer[50];
+        sprintf_s(buffer, sizeof(buffer), "{\"instance\": \"%d:%d\"}", areaid, static_cast<int>(location));
+        context.assign(buffer);
+    }
+    return true;
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	if (! initialize(pids, L"Gw.exe"))
-		return false;
 
-	// unlink plugin if this fails
-	if (!refreshPointers()) {
-		generic_unlock();
-		return false;
-	}
+    if (! initialize(pids, L"Gw.exe"))
+        return false;
 
-	float cam[3], pos[3], front[3], camfront[3], top[3], camtop[3];
-	std::string context;
-	std::wstring identity;
+    float cam[3],pos[3],front[3],camfront[3],top[3],camtop[3];
+    std::string context;
+    std::wstring identity;
 
-	if (fetch(pos,front,top,cam,camfront,camtop,context,identity)) {
-		return true;
-	} else {
-		generic_unlock();
-		return false;
-	}
+    prev_areaid = 0;
+    prev_location = 0;
+
+    if (fetch(pos,front,top,cam,camfront,camtop,context,identity)) {
+        prev_areaid = 0;
+        prev_location = 0; // we need to do this again since fetch() above overwrites this (which results in empty context until next change)
+        return true;
+    } else {
+        generic_unlock();
+        return false;
+    }
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Guild Wars build 35,787 with context and identity support.");
+    return std::wstring(L"Supports Guild Wars build 35,976 with partial context support.");
 }
 
-static std::wstring description(L"Guild Wars b35787");
+static std::wstring description(L"Guild Wars b35976");
 static std::wstring shortname(L"Guild Wars");
 
 static int trylock1() {
-	return trylock(std::multimap<std::wstring, unsigned long long int>());
+    return trylock(std::multimap<std::wstring, unsigned long long int>());
 }
 
 static MumblePlugin gwplug = {
-	MUMBLE_PLUGIN_MAGIC ^ MUMBLE_PLUGIN_MAGIC,
-	description,
-	shortname,
-	NULL,
-	NULL,
-	trylock1,
-	generic_unlock,
-	longdesc,
-	fetch
+    MUMBLE_PLUGIN_MAGIC,
+    description,
+    shortname,
+    NULL,
+    NULL,
+    trylock1,
+    generic_unlock,
+    longdesc,
+    fetch
 };
 
 static MumblePlugin2 gwplug2 = {
-	MUMBLE_PLUGIN_MAGIC_2,
-	MUMBLE_PLUGIN_VERSION,
-	trylock
+    MUMBLE_PLUGIN_MAGIC_2,
+    MUMBLE_PLUGIN_VERSION,
+    trylock
 };
 
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
-	return &gwplug;
+    return &gwplug;
 }
 
 extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
-	return &gwplug2;
+    return &gwplug2;
 }
