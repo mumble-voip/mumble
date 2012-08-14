@@ -1095,32 +1095,32 @@ inizio alla trasmissione</translation>
     <message>
         <location/>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation>Inattività</translation>
     </message>
     <message>
         <location/>
         <source>minutes do</source>
-        <translation type="unfinished"></translation>
+        <translation>minuti</translation>
     </message>
     <message>
         <location/>
         <source>nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>nulla</translation>
     </message>
     <message>
         <location/>
         <source>deafen</source>
-        <translation type="unfinished"></translation>
+        <translation>escluditi</translation>
     </message>
     <message>
         <location/>
         <source>mute</source>
-        <translation type="unfinished"></translation>
+        <translation>mutati</translation>
     </message>
     <message>
         <location/>
         <source>after</source>
-        <translation type="unfinished"></translation>
+        <translation>dopo</translation>
     </message>
 </context>
 <context>
@@ -1177,7 +1177,7 @@ inizio alla trasmissione</translation>
     <message>
         <location line="+48"/>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished">%1kbit/s (Audio %2 %5, Posizione %4, Sovrapposizione %3) {1 ?} {2,?} {4,?} {3)?}</translation>
+        <translation>%1 kbit/s (Audio %2, Posizione %4, Sovrapposizione %3)</translation>
     </message>
 </context>
 <context>
@@ -2160,17 +2160,17 @@ Parla ad alta voce, come quando sei infastidito o eccitato. Poi diminuisci il vo
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>In questa configurazione Mumble utilizzerà un &lt;b&gt;basso quantitativo di banda&lt;/b&gt;. Questo porterà ad un inevitabile aumento di latenza e peggior qualità. Seleziona questo solo se la tua connessione non può sostenere le altre impostazioni. (16kbit/s, 60ms per pacchetto)</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Questa è la configurazione &lt;b&gt;raccomandata predefinita&lt;/b&gt;. Offre un buon compromesso tra qualità, latenza e utilizzo di banda. (40kbit/s, 20ms per pacchetto)</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Questa configurazione è raccomandata solo in casi in cui la banda non è un problema, come in una LAN. Offre la minor latenza supportata da Mumble ed un&apos;&lt;b&gt;alta qualità&lt;/b&gt;. (72kbit/s, 10ms per pacchetto)</translation>
     </message>
 </context>
 <context>
@@ -3459,22 +3459,22 @@ delle possibili posizioni.</translation>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble può attualmente utilizzare solo pulsanti del mouse e tasti modificatori della tastiera (Alt, Ctrl, Cmd, etc.) per le scorciatoie globali.&lt;/p&gt;&lt;p&gt;Se vuoi più flessibilità, puoi abilitare &lt;span style=&quot; font-style:italic;&quot;&gt;Accesso per dispositivi di assistenza&lt;/span&gt; nelle impostazioni di Accessibilità del sistema. Comunque, nota che questo può potenzialmente permettere a software maligni di leggere quello che stai scrivendo con la tastiera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Open Accessibility Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Apri Preferenze Accessibilità</translation>
     </message>
     <message>
         <location/>
         <source>Skip</source>
-        <translation type="unfinished"></translation>
+        <translation>Salta</translation>
     </message>
     <message>
         <location/>
         <source>Enable Global Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilita Scorciatoie Globali</translation>
     </message>
 </context>
 <context>
@@ -3944,7 +3944,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location/>
         <source>Length threshold</source>
-        <translation>Lettura massima</translation>
+        <translation>Leggi massimo</translation>
     </message>
     <message>
         <location/>
@@ -4513,8 +4513,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location line="+21"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translatorcomment>Questa versione di Mumble non può utilizzare gli URL di Mumble versione %1.%2.%3</translatorcomment>
-        <translation></translation>
+        <translation>Questa versione di Mumble non può utilizzare gli URL di Mumble versione %1.%2.%3</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -5608,7 +5607,7 @@ certificato e il nome utente.</translation>
     <message>
         <location line="+4"/>
         <source>Channel nesting limit reached.</source>
-        <translation type="unfinished"></translation>
+        <translation>Limite annidamento canali raggiunto.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -6625,17 +6624,17 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
     <message>
         <location/>
         <source>To list exceptions, use a</source>
-        <translation type="unfinished"></translation>
+        <translation>Per elencare le eccezioni utilizza</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay in all applicable programs except</source>
-        <translation type="unfinished"></translation>
+        <translation>Visualizza la sovrapposizione in tutti i programmi applicabili eccetto</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay only in</source>
-        <translation type="unfinished"></translation>
+        <translation>Visualizza la sovrapposizione solo in</translation>
     </message>
 </context>
 <context>
@@ -7615,7 +7614,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Ping deviation</source>
-        <translation type="unfinished"></translation>
+        <translation>Deviazione ping</translation>
     </message>
 </context>
 <context>
