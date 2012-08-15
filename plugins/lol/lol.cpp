@@ -31,38 +31,17 @@
 
 #include "../mumble_plugin_win32.h"  
 
-/*
-	Arrays of bytes to find addresses accessed by respective functions so we don't have to blindly search for addresses after every update
-	Remember to disable scanning writable memory only in CE! We're searching for functions here, not values!
-	Current addresses as of version 1.0.0.144
-
-	Camera position vector address: F3 0F 11 03 F3 0F 10 44 24 14 D9 5C 24 28			:00B728E0
-	Camera front vector address: campos+0x14 (offset, not pointer!)
-
-	D9 5F 40 D9 46 04 D9 5F 44 D9 46 08 D9 5F 48 59 C3 CC (non-static! NEEDS POINTER)	:00E21BC8
-	Avatar front vector address: 		+0x2ac4 [offset can change]
-
-	D9 9E E0 01 00 00 D9 40 70															:02F5C358
-	Avatar position vector address:		+0x1e0 (pointer offset) [offset can change]
-
-	IP is kept as text @ hostipptr
-	PORT is kept as a 4-byte decimal value @ hostportptr
-	Look for a non-unicode string that will contain server's IP. 28 bytes further from IP, there should be server's port
-																						:0AF67A78
-	PORT:					+0x1C (offset, not pointer!)
-*/
-
 static BYTE *posptr;
+static BYTE *camptr;
+static BYTE *camfrontptr;
+static BYTE *camtopptr;
 static BYTE *afrontptr;
-static BYTE *tmpptr;
+static BYTE *atopptr;
 
-static BYTE *posptr_ = (BYTE *)0x2F5C358;
-static BYTE *camptr = (BYTE *)0xB728E0;
-static BYTE *camfrontptr = camptr + 0x14;
-static BYTE *gameptr = (BYTE *)0xE21BC8;
+static BYTE *hostipptr;
+static BYTE *hostportptr;
 
-static BYTE *hostipptr = (BYTE *)0xAF67A78;
-static BYTE *hostportptr = hostipptr + 0x1C;
+static BYTE *gameptr;
 
 static char prev_hostip[16]; // These should never change while the game is running, but just in case...
 static int prev_hostport;
@@ -78,21 +57,62 @@ static bool calcout(float *pos, float *cam, float *opos, float *ocam) {
 }
 
 static bool refreshPointers(void) {
-	posptr = afrontptr = tmpptr = NULL;
-	
-	// Avatar front vector pointer
-	tmpptr = peekProc<BYTE *>(gameptr);
-	if (!tmpptr)
-		return false; // Something went wrong, unlink
+	/* Arrays of bytes to find addresses accessed by respective functions so we don't have to blindly search for addresses after every update
+	Remember to disable scanning writable memory only in CE! We're searching for functions here, not values!
+	Current addresses as of version 1.0.0.142
 
-	afrontptr = tmpptr + 0x2ac4;
+	Camera position vector address: F3 0F 11 03 F3 0F 10 44 24 14 D9 5C 24 28			:00B4B858
+	Camera front vector address: campos+0x14 (offset, not pointer!)
+	Camera top vector address: campos+0x20 (offset, not pointer!)
+
+	D9 5F 40 D9 46 04 D9 5F 44 D9 46 08 D9 5F 48 59 C3 CC (non-static! NEEDS POINTER)	:00DFA4E8 
+	Avatar front vector address: 		+0x2ab4
+	Avatar top vector address: 		+0x2ac0
+
+	D9 9E E8 01 00 00 D9 40 70 D9 9E EC 01 00 00 D9 40 74 D9 9E F0 01 00 00				:02F2DE68 
+	Avatar position vector address:		+0x1e8 (pointer offset)
+
+	IP: Look for a non-unicode string that will contain server's IP. 28 bytes further from IP, there should be server's port
+																						:0AF395B8 
+	PORT:					+0x1C (offset, not pointer!)
+	IDENTITY: Still to be found
+	*/
+
+	posptr = camptr = camfrontptr = camtopptr = afrontptr = atopptr = NULL;
+	
+	// Camera position
+	camptr = (BYTE *)0xB4B858;
+
+	// Camera front
+	camfrontptr = camptr + 0x14;
+
+	// Camera top
+	camtopptr = camptr + 0x20;
+
+	// Avatar front vector pointer
+	BYTE *tmpptr = NULL;
+	gameptr = (BYTE *)0xDFA4E8;
+	tmpptr = peekProc<BYTE *>(gameptr);	
+
+	if (!tmpptr)
+		return false;				// Something went wrong, unlink
+
+	afrontptr = tmpptr + 0x2ab4;
+	atopptr = tmpptr + 0x2ac0;
 	
 	// Avatar position vector
-	tmpptr = peekProc<BYTE *>(posptr_);
+	tmpptr = peekProc<BYTE *>((BYTE *)0x2F2DE68);
 	if (!tmpptr)
-		return false; // Something went wrong, unlink
+		return false;				// Something went wrong, unlink
 
-	posptr = tmpptr + 0x1e0;
+	posptr = tmpptr + 0x1e8;
+
+	// Host IP:PORT. It is kept in 3 places in memory, but 1 of them looks the coolest, so let's use it, ha!
+	// IP is kept as text @ hostipptr
+	// PORT is kept as a 4-byte decimal value @ hostportptr
+
+	hostipptr = (BYTE *)0xAF395B8;
+	hostportptr = hostipptr + 0x1C;
 
 	return true;
 }
@@ -111,11 +131,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return false;
 
 	ok = peekProc(camfrontptr, camera_front, 12) &&
+		 peekProc(camtopptr, camera_top, 12) &&
 		 peekProc(camptr, cam, 12) &&
 		 peekProc(posptr, ipos, 12) &&
 		 peekProc(afrontptr, avatar_front, 12) &&
+		 peekProc(atopptr, avatar_top, 12) &&
 		 peekProc(hostipptr, hostip) &&
-		 peekProc(hostportptr, &hostport, 4);
+		 peekProc(hostportptr, &hostport, 4) /*&&
+		 peekProc(summonerptr, summoner)*/;
 
 	if (!ok) 
 		return false;
@@ -137,6 +160,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			context.assign(buffer);
 		}
 	}
+
 	return true;
 }
 
@@ -156,8 +180,6 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		if (fetch(avatar_pos, avatar_front, avatar_top,
 				camera_pos, camera_front, camera_top,
 				context, identity)) {
-			*prev_hostip = '\0'; // we need to do this again since fetch() above overwrites this (which results in empty context until next change)
-			prev_hostport = 0;
 			return true;
 		}
 	}
@@ -167,10 +189,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports League of Legends v1.0.0.144 with context. No identity support.");
+	return std::wstring(L"Supports League of Legends v1.0.0.142 with context. No identity support yet.");
 }
 
-static std::wstring description(L"League of Legends (v1.0.0.144)");
+static std::wstring description(L"League of Legends (v1.0.0.142)");
 static std::wstring shortname(L"League of Legends");
 
 static int trylock1() {
