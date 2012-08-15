@@ -301,7 +301,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 				} else {
 					g.l->log(Log::Recording, tr("Recording stopped"));
 				}
-			} else if (pDst->cChannel == pSelf->cChannel) {
+			} else if (pDst->cChannel->allLinks().contains(pSelf->cChannel)) {
 				if (pDst->bRecording) {
 					g.l->log(Log::Recording, tr("%1 started recording.").arg(Log::formatClientUser(pDst, Log::Source)));
 				} else {
