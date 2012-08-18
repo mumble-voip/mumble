@@ -133,8 +133,8 @@ macx {
 		QMAKE_CXX = $$system(xcrun -find clang++)
 		QMAKE_LINK = $$system(xcrun -find clang++)
 		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.6
-		QMAKE_CFLAGS += -mmacosx-version-min=10.6
-		QMAKE_CXXFLAGS += -mmacosx-version-min=10.6
+		QMAKE_CFLAGS += -isystem $$(MUMBLE_PREFIX)/include -isystem $$[QT_INSTALL_HEADERS] -isystem $$(MUMBLE_PREFIX)/include/boost_1_50_0 -mmacosx-version-min=10.6
+		QMAKE_CXXFLAGS += -isystem $$(MUMBLE_PREFIX)/include -isystem $$[QT_INSTALL_HEADERS] -isystem $$(MUMBLE_PREFIX)/include/boost_1_50_0 -mmacosx-version-min=10.6
 	} else {
 		XCODE_PATH=$$system(xcode-select -print-path)
 		CONFIG += x86 ppc no-cocoa
