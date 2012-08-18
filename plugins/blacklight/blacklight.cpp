@@ -31,11 +31,27 @@
 
 #include "../mumble_plugin_win32.h"
 
-//TODO: Find Avatar position, front, top vectors, protect against version change (find a random pointer to check), distinguish spectator and normal mode
+/* 
+	Arrays of bytes to find addresses accessed by respective functions so we don't have to blindly search for addresses after every update
+	Remember to disable scanning only the writable memory in CE! We're searching for functions here, not values!
+	This is not the final version and it doesn't distinguish camera and avatar positions. No identity support yet.
+	
+	Camera front vector function:		89 16 8B 54 24 20 89 46 04 8B 44 24 24
+	Host IP:PORT changes to 'bot' when not ingame
 
-static BYTE *camptr;
-static BYTE *camfrontptr;
-static BYTE *camtopptr;
+	Valid addresses from v0.9.8.0
+
+	Camera front vector address:				0x141bc20
+	Camera top vector address:						+0xC (offset, not pointer)
+	Camera position vector address:					+0x18 (offset, not pointer)
+	Host IP:PORT address:						pbcl.dll + 0xB8C57
+
+	TODO: Find Avatar position, front, top vectors, protect against version change (find a random pointer to check), distinguish spectator and normal mode
+*/
+
+static BYTE *camfrontptr = (BYTE *)0x141bc20;
+static BYTE *camtopptr = camfrontptr + 0xC;
+static BYTE *camptr = camfrontptr + 0x18;
 static BYTE *hostipportptr;
 
 static char prev_hostipport[22];
@@ -54,32 +70,7 @@ static bool calcout(float *cam, float *camfront, float *camtop, float *ocam, flo
 }
 
 static bool refreshPointers(void) {
-	/* 
-		Arrays of bytes to find addresses accessed by respective functions so we don't have to blindly search for addresses after every update
-		Remember to disable scanning only the writable memory in CE! We're searching for functions here, not values!
-		This is not the final version and it doesn't distinguish camera and avatar positions. No identity support yet.
-	
-		Camera front vector function:		89 16 8B 54 24 20 89 46 04 8B 44 24 24
-		Host IP:PORT changes to 'bot' when not ingame
-
-		Valid addresses from v0.9.8.0
-
-		Camera front vector address:				0x141bc20
-		Camera top vector address:						+0xC (offset, not pointer)
-		Camera position vector address:					+0xC (offset, not pointer)
-		Host IP:PORT address:						pbcl.dll + 0xB8C57
-	*/
-
-	camptr = camfrontptr = camtopptr = hostipportptr = NULL;
-
-	// Camera front
-	camfrontptr = (BYTE *)0x141bc20;
-
-	// Camera top
-	camtopptr = camfrontptr + 0xC;
-
-	// Camera position
-	camptr = camfrontptr + 0x18;
+	hostipportptr = NULL;
 
 	hostipportptr = pModule + 0xB8C57;
 
@@ -101,16 +92,6 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	if (!ok) 
 		return false;
-	if (state) // report positional data only when on a server!
-	{
-		calcout(cam, camfront, camtop, camera_pos, camera_front, camera_top); //calculate proper position values
-		for (int i=0;i<3;i++)
-		{
-			avatar_front[i] = camera_front[i];
-			avatar_pos[i] = camera_pos[i];
-			avatar_top[i] = camera_top[i];
-		}
-	}
 	
 	hostipport[sizeof(hostipport) - 1] = '\0';
 	if (strcmp(hostipport, prev_hostipport) != 0) {
@@ -125,6 +106,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			context.assign(buffer);
 			state = 1;
 		}
+	}
+
+	if (!state) // report positional data only when on a server!
+		return true;
+
+	calcout(cam, camfront, camtop, camera_pos, camera_front, camera_top); //calculate proper position values
+	for (int i=0;i<3;i++) {
+		avatar_front[i] = camera_front[i];
+		avatar_pos[i] = camera_pos[i];
+		avatar_top[i] = camera_top[i]; // copy values since we don't know avatar's vectors
 	}
 
 	return true;
@@ -143,7 +134,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		std::wstring identity;
 
 		if (fetch(avatar_pos, avatar_front, avatar_top, camera_pos, camera_front, camera_top, context, identity)) {
-			*prev_hostipport = '\0';
+			*prev_hostipport = '\0'; // we need to do this again since fetch() above overwrites this (which results in empty context until next change)
 			return true;
 		}
 	}
@@ -153,7 +144,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Blacklight: Retribution v0.9.8.0. No identity or avatar position support yet.");
+	return std::wstring(L"Supports Blacklight: Retribution v0.9.8.0. No identity or avatar vectors support yet.");
 }
 
 static std::wstring description(L"Blacklight: Retribution (v0.9.8.0)");
