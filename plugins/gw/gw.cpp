@@ -137,16 +137,19 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	ok = peekProc(camptr, cam) &&
 		 peekProc(posptr, pos) &&
 		 peekProc(camfrontptr, camfront) &&
-		 peekProc(frontptr, front) &&
 		 peekProc(locationptr, &location, 1) &&
 		 peekProc(areaptr, &areaid, 4);
 
-	if (!ok)
-		return false; // we can't read some or all of required data, unlink
+	if (!ok) // First we check, if the game is even running or if we should unlink because it's not / it's broken
+		return false;
 	
-	if (!ok_p) {
+	if (!ok_p) { // Next we check, if we're inside the game or in menus/in a loading screen
 		context.clear();
 		return true; // don't report positional data but stay linked to avoid unnecessary unlinking on loading screens
+	}
+	else { // If we're inside the game, try to peekProc the last value we need or unlink (again, in case something went wrong)
+		if (!peekProc(frontptr, front))
+			return false;
 	}
 
 	calcout(pos, front, cam, camfront, avatar_pos, avatar_front, camera_pos, camera_front);
