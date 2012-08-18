@@ -45,13 +45,13 @@
 	Location function:							8D 14 DB 8D 34 90 8D 4E 14 (target instruction is the one above the one you find)
 	Area function:								A3 58 11 A3 00 E8 B8 02 00 00 BA 37 00 00 00 8B CE
 
-	Valid addresses from build b35976
+	Valid addresses from build b36001
 
 	Camera position vector address:				0xa30274
 	Avatar position vector address:				0xa302a4
-	Camera front vector address:				0xbf46b0
-	Avatar front vector address:				0xd55600 -> +0x8 --> +0x0 -> +0x1c
-	Location:									0xa3f9f8
+	Camera front vector address:				0xbf46b8
+	Avatar front vector address:				0xd55610 -> +0x8 --> +0x0 -> +0x1c
+	Location:									0xa3fa08
 	Area:										0xa31158
 
 	No need to care about top vector since the game doesn't use it anyway
@@ -70,11 +70,11 @@
 
 static BYTE *camptr = (BYTE *) 0xa30274;
 static BYTE *posptr = (BYTE *) 0xa302a4;
-static BYTE *camfrontptr = (BYTE *) 0xbf46b0;
-static BYTE *frontptr_ = (BYTE *) 0xd55600;
+static BYTE *camfrontptr = (BYTE *) 0xbf46b8;
+static BYTE *frontptr_ = (BYTE *) 0xd55610;
 static BYTE *frontptr;
 
-static BYTE *locationptr = (BYTE *) 0xa3f9f8;
+static BYTE *locationptr = (BYTE *) 0xa3fa08;
 static BYTE *areaptr = (BYTE *) 0xa31158;
 
 static char prev_location;
@@ -127,16 +127,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	for (int i=0; i<3; i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
-	bool ok;
+	bool ok, ok_p;
 	float cam[3], pos[3], front[3], camfront[3];
 	char location;
 	int areaid;
 
-	if (!refreshPointers()) // yes, we need to do this pretty often since the pointer gets wiped and changed evey time you leave a world instance (that means on loading screens etc)
-	{
-		context.clear();
-		return true; // don't report positional data but stay linked to avoid unnecessary unlinking on loading screens
-	}
+	ok_p = refreshPointers(); // yes, we need to do this pretty often since the pointer gets wiped and changed evey time you leave a world instance (that means on loading screens etc)
 
 	ok = peekProc(camptr, cam) &&
 		 peekProc(posptr, pos) &&
@@ -145,8 +141,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		 peekProc(locationptr, &location, 1) &&
 		 peekProc(areaptr, &areaid, 4);
 
-	if (!ok || !calcout(pos, front, cam, camfront, avatar_pos, avatar_front, camera_pos, camera_front))
+	if (!ok)
 		return false; // we can't read some or all of required data, unlink
+	
+	if (!ok_p) {
+		context.clear();
+		return true; // don't report positional data but stay linked to avoid unnecessary unlinking on loading screens
+	}
+
+	calcout(pos, front, cam, camfront, avatar_pos, avatar_front, camera_pos, camera_front);
 
 	if (areaid != prev_areaid || location != prev_location) {
 		context.clear();
@@ -166,14 +169,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"Gw.exe"))
 		return false;
 
-	float cam[3],pos[3],front[3],camfront[3],top[3],camtop[3];
+	float cam[3], pos[3], front[3],camfront[3], top[3], camtop[3];
 	std::string context;
 	std::wstring identity;
 
 	prev_areaid = 0;
 	prev_location = 0;
 
-	if (fetch(pos,front,top,cam,camfront,camtop,context,identity)) {
+	if (fetch(pos, front, top, cam, camfront, camtop, context, identity)) {
 		prev_areaid = 0;
 		prev_location = 0; // we need to do this again since fetch() above overwrites this (which results in empty context until next change)
 		return true;
@@ -184,10 +187,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Guild Wars build 35,976 with partial context support.");
+	return std::wstring(L"Supports Guild Wars build 36,001 with partial context support.");
 }
 
-static std::wstring description(L"Guild Wars b35976");
+static std::wstring description(L"Guild Wars b36001");
 static std::wstring shortname(L"Guild Wars");
 
 static int trylock1() {
