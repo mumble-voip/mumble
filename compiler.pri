@@ -122,8 +122,7 @@ unix:!macx {
 }
 
 macx {
-	INCLUDEPATH *= $$(MUMBLE_PREFIX)/include/boost_1_50_0/
-	INCLUDEPATH *= $$(MUMBLE_PREFIX)/include
+	SYSTEM_INCLUDES = $$(MUMBLE_PREFIX)/include $$(MUMBLE_PREFIX)/include/boost_1_50_0/ $$[QT_INSTALL_HEADERS]
 	QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/lib
 
 	!CONFIG(universal) {
@@ -133,8 +132,10 @@ macx {
 		QMAKE_CXX = $$system(xcrun -find clang++)
 		QMAKE_LINK = $$system(xcrun -find clang++)
 		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.6
-		QMAKE_CFLAGS += -isystem $$(MUMBLE_PREFIX)/include -isystem $$[QT_INSTALL_HEADERS] -isystem $$(MUMBLE_PREFIX)/include/boost_1_50_0 -mmacosx-version-min=10.6
-		QMAKE_CXXFLAGS += -isystem $$(MUMBLE_PREFIX)/include -isystem $$[QT_INSTALL_HEADERS] -isystem $$(MUMBLE_PREFIX)/include/boost_1_50_0 -mmacosx-version-min=10.6
+		QMAKE_CFLAGS += ${SYSTEM_INCLUDES} -mmacosx-version-min=10.6
+		QMAKE_CXXFLAGS += ${SYSTEM_INCLUDES} -mmacosx-version-min=10.6
+		QMAKE_OBJCFLAGS += ${SYSTEM_INCLUDES} -mmacosx-version-min=10.6
+		QMAKE_OBJCXXFLAGS += ${SYSTEM_INCLUDES} -mmacosx-version-min=10.6
 	} else {
 		XCODE_PATH=$$system(xcode-select -print-path)
 		CONFIG += x86 ppc no-cocoa
@@ -143,8 +144,10 @@ macx {
 		QMAKE_CXX = $${XCODE_PATH}/usr/bin/g++-4.2
 		QMAKE_LINK = $${XCODE_PATH}/usr/bin/g++-4.2
 		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.4
-		QMAKE_CFLAGS += -mmacosx-version-min=10.4 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
-		QMAKE_CXXFLAGS += -mmacosx-version-min=10.4 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
+		QMAKE_CFLAGS += ${SYSTEM_INCLUDES} -mmacosx-version-min=10.4 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
+		QMAKE_CXXFLAGS += ${SYSTEM_INCLUDES} -mmacosx-version-min=10.4 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
+		QMAKE_OBJCFLAGS += ${SYSTEM_INCLUDES} -mmacosx-version-min=10.4 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
+		QMAKE_OBJCXXFLAGS += ${SYSTEM_INCLUDES} -mmacosx-version-min=10.4 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
 	}
 
 	QMAKE_LFLAGS += -Wl,-dead_strip -framework Cocoa -framework Carbon
