@@ -127,12 +127,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	for (int i=0; i<3; i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
-	bool ok, ok_p;
+	bool ok;
 	float cam[3], pos[3], front[3], camfront[3];
 	char location;
 	int areaid;
-
-	ok_p = refreshPointers(); // yes, we need to do this pretty often since the pointer gets wiped and changed evey time you leave a world instance (that means on loading screens etc)
 
 	ok = peekProc(camptr, cam) &&
 		 peekProc(posptr, pos) &&
@@ -143,7 +141,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (!ok) // First we check, if the game is even running or if we should unlink because it's not / it's broken
 		return false;
 	
-	if (!ok_p) { // Next we check, if we're inside the game or in menus/in a loading screen
+	ok = refreshPointers(); // yes, we need to do this pretty often since the pointer gets wiped and changed evey time you leave a world instance (that means on loading screens etc)
+	if (!ok) { // Next we check, if we're inside the game or in menus/in a loading screen
 		context.clear();
 		return true; // don't report positional data but stay linked to avoid unnecessary unlinking on loading screens
 	}
