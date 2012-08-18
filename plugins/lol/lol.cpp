@@ -34,21 +34,21 @@
 /*
 	Arrays of bytes to find addresses accessed by respective functions so we don't have to blindly search for addresses after every update
 	Remember to disable scanning writable memory only in CE! We're searching for functions here, not values!
-	Current addresses as of version 1.0.0.144
+	Current addresses as of version 1.0.0.145
 
-	Camera position vector address: F3 0F 11 03 F3 0F 10 44 24 14 D9 5C 24 28			:00B728E0
+	Camera position vector address: F3 0F 11 03 F3 0F 10 44 24 14 D9 5C 24 28			:00B738E8
 	Camera front vector address: campos+0x14 (offset, not pointer!)
 
-	D9 5F 40 D9 46 04 D9 5F 44 D9 46 08 D9 5F 48 59 C3 CC (non-static! NEEDS POINTER)	:00E21BC8
-	Avatar front vector address: 		+0x2ac4 [offset can change]
+	D9 5F 40 D9 46 04 D9 5F 44 D9 46 08 D9 5F 48 59 C3 CC (non-static! NEEDS POINTER)	:00E22E90
+	Avatar front vector address: 		+0x2acc [offset can change]
 
-	D9 9E E0 01 00 00 D9 40 70															:02F5C358
+	D9 9E E0 01 00 00 D9 40 70															:02F5E5F8
 	Avatar position vector address:		+0x1e0 (pointer offset) [offset can change]
 
 	IP is kept as text @ hostipptr
 	PORT is kept as a 4-byte decimal value @ hostportptr
 	Look for a non-unicode string that will contain server's IP. 28 bytes further from IP, there should be server's port
-																						:0AF67A78
+																						:0AF69D18
 	PORT:					+0x1C (offset, not pointer!)
 */
 
@@ -56,12 +56,12 @@ static BYTE *posptr;
 static BYTE *afrontptr;
 static BYTE *tmpptr;
 
-static BYTE *posptr_ = (BYTE *)0x2F5C358;
-static BYTE *camptr = (BYTE *)0xB728E0;
+static BYTE *posptr_ = (BYTE *)0x2F5E5F8;
+static BYTE *camptr = (BYTE *)0xB738E8;
 static BYTE *camfrontptr = camptr + 0x14;
-static BYTE *gameptr = (BYTE *)0xE21BC8;
+static BYTE *gameptr = (BYTE *)0xE22E90;
 
-static BYTE *hostipptr = (BYTE *)0xAF67A78;
+static BYTE *hostipptr = (BYTE *)0xAF69D18;
 static BYTE *hostportptr = hostipptr + 0x1C;
 
 static char prev_hostip[16]; // These should never change while the game is running, but just in case...
@@ -85,7 +85,7 @@ static bool refreshPointers(void) {
 	if (!tmpptr)
 		return false; // Something went wrong, unlink
 
-	afrontptr = tmpptr + 0x2ac4;
+	afrontptr = tmpptr + 0x2acc;
 	
 	// Avatar position vector
 	tmpptr = peekProc<BYTE *>(posptr_);
@@ -153,9 +153,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		std::string context;
 		std::wstring identity;
 
-		if (fetch(avatar_pos, avatar_front, avatar_top,
-				camera_pos, camera_front, camera_top,
-				context, identity)) {
+		if (fetch(avatar_pos, avatar_front, avatar_top, camera_pos, camera_front, camera_top, context, identity)) {
 			*prev_hostip = '\0'; // we need to do this again since fetch() above overwrites this (which results in empty context until next change)
 			prev_hostport = 0;
 			return true;
@@ -167,10 +165,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports League of Legends v1.0.0.144 with context. No identity support.");
+	return std::wstring(L"Supports League of Legends v1.0.0.145 with context. No identity support.");
 }
 
-static std::wstring description(L"League of Legends (v1.0.0.144)");
+static std::wstring description(L"League of Legends (v1.0.0.145)");
 static std::wstring shortname(L"League of Legends");
 
 static int trylock1() {
