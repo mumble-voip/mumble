@@ -7890,8 +7890,8 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
     </message>
     <message>
         <location line="+1"/>
-        <source>Digest (MD5): %1</source>
-        <translation>Klassificering (MD5): %1</translation>
+        <source>Digest (SHA-1): %1</source>
+        <translation>Klassificering (SHA-1): %1</translation>
     </message>
     <message>
         <location line="+4"/>

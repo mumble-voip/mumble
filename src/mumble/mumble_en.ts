@@ -7815,7 +7815,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location line="+1"/>
-        <source>Digest (MD5): %1</source>
+        <source>Digest (SHA-1): %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

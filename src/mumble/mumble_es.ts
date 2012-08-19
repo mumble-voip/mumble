@@ -7884,8 +7884,8 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     </message>
     <message>
         <location line="+1"/>
-        <source>Digest (MD5): %1</source>
-        <translation>Huella digital (MD5): %1</translation>
+        <source>Digest (SHA-1): %1</source>
+        <translation>Huella digital (SHA-1): %1</translation>
     </message>
     <message>
         <location line="+4"/>
