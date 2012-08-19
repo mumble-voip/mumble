@@ -7853,8 +7853,8 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     </message>
     <message>
         <location line="+1"/>
-        <source>Digest (MD5): %1</source>
-        <translation>MD5 hash değeri: %1</translation>
+        <source>Digest (SHA-1): %1</source>
+        <translation>SHA-1 hash değeri: %1</translation>
     </message>
     <message>
         <location line="+4"/>

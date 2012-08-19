@@ -183,5 +183,5 @@ void Server::initializeCert() {
 }
 
 const QString Server::getDigest() const {
-	return QString::fromLatin1(qscCert.digest().toHex());
+	return QString::fromLatin1(qscCert.digest(QCryptographicHash::Sha1).toHex());
 }

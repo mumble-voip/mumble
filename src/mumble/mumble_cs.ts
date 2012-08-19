@@ -7909,8 +7909,8 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
     </message>
     <message>
         <location line="+1"/>
-        <source>Digest (MD5): %1</source>
-        <translation>Digest (MD5): %1</translation>
+        <source>Digest (SHA-1): %1</source>
+        <translation>Digest (SHA-1): %1</translation>
     </message>
     <message>
         <location line="+4"/>

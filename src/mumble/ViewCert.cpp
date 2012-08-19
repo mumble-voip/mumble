@@ -70,7 +70,7 @@ ViewCert::ViewCert(QList<QSslCertificate> cl, QWidget *p) : QDialog(p) {
 	QMetaObject::connectSlotsByName(this);
 	connect(qdbb, SIGNAL(accepted()), this, SLOT(accept()));
 
-	resize(500,300);
+	resize(510,300);
 }
 
 void ViewCert::on_Chain_currentRowChanged(int idx) {
@@ -93,7 +93,7 @@ void ViewCert::on_Chain_currentRowChanged(int idx) {
 	l << tr("Valid to: %1").arg(c.expiryDate().toString());
 	l << tr("Serial: %1").arg(QString::fromLatin1(c.serialNumber().toHex()));
 	l << tr("Public Key: %1 bits %2").arg(c.publicKey().length()).arg((c.publicKey().algorithm() == QSsl::Rsa) ? tr("RSA") : tr("DSA"));
-	l << tr("Digest (MD5): %1").arg(QString::fromLatin1(c.digest().toHex()));
+	l << tr("Digest (SHA-1): %1").arg(QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex()));
 	for (i=alts.constBegin(); i != alts.constEnd(); ++i) {
 		switch (i.key()) {
 			case QSsl::EmailEntry: {
