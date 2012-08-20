@@ -53,6 +53,9 @@
 #include <sndfile.h>
 #undef __int64_t
 #include <celt.h>
+#ifdef USE_SBCELT
+#include <sbcelt.h>
+#endif
 #include <speex/speex.h>
 #include <speex/speex_jitter.h>
 #include <speex/speex_preprocess.h>

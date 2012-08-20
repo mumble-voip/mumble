@@ -126,36 +126,29 @@
       <?endif ?>
     </ComponentGroup>
 
-    <ComponentGroup Id="ClientCommon">
+    <Feature Id="Mumble" Title="!(loc.MUMBLE_SEC_MUMBLE)" Description="!(loc.DESC_SectionMumble)" Level="1" AllowAdvertise="no" ConfigurableDirectory="INSTALLDIR">
       <?ifdef SndFileDir ?>
       <ComponentRef Id="libsndfile1.dll" />
       <?endif ?>
       <ComponentRef Id="speex.dll" />
       <ComponentRef Id="speex.txt" />
-    </ComponentGroup>
 
-    <Feature Id="Mumble" Title="$(var.ProductName)" Description="!(loc.DESC_SectionMumble)" Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
-      <Feature Id="MumbleClient" Title="!(loc.MUMBLE_SEC_MUMBLE)" Description="!(loc.DESC_SectionMumble)" Level="1" AllowAdvertise="no">
-        <ComponentGroupRef Id="ClientCommon" />
-
-        <ComponentGroupRef Id="Plugins"/>
-        <ComponentRef Id="celt0.0.7.0.dll" />
-        <ComponentRef Id="celt0.0.11.0.dll" />
-        <ComponentRef Id="opus.dll" />
-        <?ifdef SSE ?>
-        <ComponentRef Id="celt0.0.7.0.sse.dll" />
-        <ComponentRef Id="celt0.0.11.0.sse.dll" />
-        <?endif ?>
-        <?ifdef SSE2 ?>
-        <ComponentRef Id="celt0.0.7.0.sse2.dll" />
-        <ComponentRef Id="celt0.0.11.0.sse2.dll" />
-        <ComponentRef Id="opus.sse2.dll" />
-        <?endif ?>
-        <ComponentRef Id="mumble.exe" />
-        <ComponentRef Id="mumble_ol.dll" />
-        <ComponentRef Id="mumble_g15_helper.exe" />
-      </Feature>
-
+      <ComponentGroupRef Id="Plugins"/>
+      <ComponentRef Id="celt0.0.7.0.dll" />
+      <ComponentRef Id="celt0.0.11.0.dll" />
+      <ComponentRef Id="opus.dll" />
+      <?ifdef SSE ?>
+      <ComponentRef Id="celt0.0.7.0.sse.dll" />
+      <ComponentRef Id="celt0.0.11.0.sse.dll" />
+      <?endif ?>
+      <?ifdef SSE2 ?>
+      <ComponentRef Id="celt0.0.7.0.sse2.dll" />
+      <ComponentRef Id="celt0.0.11.0.sse2.dll" />
+      <ComponentRef Id="opus.sse2.dll" />
+      <?endif ?>
+      <ComponentRef Id="mumble.exe" />
+      <ComponentRef Id="mumble_ol.dll" />
+      <ComponentRef Id="mumble_g15_helper.exe" />
     </Feature>
 
     <Feature Id="Murmur" Title="!(loc.MUMBLE_SEC_MURMUR)" Description="!(loc.DESC_SectionMurmur)" Level="1000" ConfigurableDirectory="INSTALLDIR">

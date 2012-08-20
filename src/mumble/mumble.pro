@@ -45,16 +45,22 @@ CONFIG(no-bundled-speex) {
   LIBS 		*= -lspeex
 }
 
-unix:!CONFIG(bundled-celt):system(pkg-config --atleast-version=0.7.0 celt) {
-  CONFIG	*= no-bundled-celt
-}
-
-CONFIG(no-bundled-celt) {
-  INCLUDEPATH	*= /usr/include/celt
-}
-
-!CONFIG(no-bundled-celt) {
-  INCLUDEPATH	*= ../../celt-0.7.0-src/libcelt
+CONFIG(sbcelt) {
+  SOURCES -= CELTCodec.cpp
+  SOURCES += CELTCodec_sbcelt.cpp
+  INCLUDEPATH *= ../../celt-0.7.0-src/libcelt ../../sbcelt-src
+  LIBS *= -lcelt -lsbcelt
+  DEFINES *= SBCELT_PREFIX_API SBCELT_COMPAT_API USE_SBCELT
+} else {
+  unix:!CONFIG(bundled-celt):system(pkg-config --atleast-version=0.7.0 celt) {
+    CONFIG	*= no-bundled-celt
+  }
+  CONFIG(no-bundled-celt) {
+    INCLUDEPATH	*= /usr/include/celt
+  }
+  !CONFIG(no-bundled-celt) {
+    INCLUDEPATH	*= ../../celt-0.7.0-src/libcelt
+  }
 }
 
 !win32 {

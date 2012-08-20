@@ -297,6 +297,13 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
+              <widget class="QLabel" name="qlExcListType">
+               <property name="text">
+                <string>To list exceptions, use a</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QRadioButton" name="qrbBlacklist">
                <property name="text">
                 <string>Blacklist</string>
@@ -335,6 +342,13 @@
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_2">
                <item>
+                <widget class="QLabel" name="qlBlackDesc">
+                 <property name="text">
+                  <string>Show the overlay in all applicable programs except</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
                 <widget class="QListWidget" name="qlwBlacklist"/>
                </item>
               </layout>
@@ -347,6 +361,13 @@
                </sizepolicy>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_3">
+               <item>
+                <widget class="QLabel" name="qlWhiteDesc">
+                 <property name="text">
+                  <string>Show the overlay only in</string>
+                 </property>
+                </widget>
+               </item>
                <item>
                 <widget class="QListWidget" name="qlwWhitelist"/>
                </item>

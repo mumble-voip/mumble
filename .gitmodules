@@ -10,3 +10,6 @@
 [submodule "opus-src"]
 	path = opus-src
 	url = git://git.xiph.org/opus.git
+[submodule "sbcelt-src"]
+	path = sbcelt-src
+	url = git://github.com/mumble-voip/sbcelt.git
