@@ -101,17 +101,15 @@ class AppBundle(object):
 		dst = os.path.join(self.bundle, 'Contents', 'MacOS', 'murmur.ini')
 		shutil.copy('scripts/murmur.ini.osx', dst)
 
-	def copy_g15helper(self):
+	def copy_helper(self, fn):
 		'''
-			Copy the Mumble G15 helper daemon into our Mumble app bundle.
+			Copy a helper binary into the Mumble app bundle.
 		'''
-		if os.path.exists(os.path.join(self.bundle, '..', 'mumble-g15-helper')):
-			print ' * Copying G15 helper'
-			src = os.path.join(self.bundle, '..', 'mumble-g15-helper')
-			dst = os.path.join(self.bundle, 'Contents', 'MacOS', 'mumble-g15-helper')
+		if os.path.exists(os.path.join(self.bundle, '..', fn)):
+			print ' * Copying helper binary: %s' % fn
+			src = os.path.join(self.bundle, '..', fn)
+			dst = os.path.join(self.bundle, 'Contents', 'MacOS', fn)
 			shutil.copy(src, dst)
-		else:
-			print ' * No G15 helper found, skipping...'
 
 	def copy_resources(self, rsrcs):
 		'''
@@ -135,13 +133,15 @@ class AppBundle(object):
 
 	def copy_codecs(self):
 		'''
-			Copy over dynamic CELT libraries.
+			Try to copy the dynamic CELT libraries into the App Bundle.
 		'''
-		print ' * Copying CELT libraries.'
+		print ' * Attempting to copy CELT libraries into App Bundle'
 		dst = os.path.join(self.bundle, 'Contents', 'Codecs')
 		os.makedirs(dst)
-		shutil.copy('release/libcelt0.0.7.0.dylib', dst)
-		shutil.copy('release/libcelt0.0.11.0.dylib', dst)
+		codecs = ('release/libcelt0.0.7.0.dylib', 'release/libcelt0.0.11.0.dylib')
+		for codec in codecs:
+			if os.path.exists(codec):
+				shutil.copy(codec, dst)
 
 	def copy_plugins(self):
 		'''
@@ -323,7 +323,8 @@ if __name__ == '__main__':
 	a = AppBundle('release/Mumble.app', ver)
 	if not options.no_server:
 		a.copy_murmur()
-	a.copy_g15helper()
+	a.copy_helper('mumble-g15-helper')
+	a.copy_helper('sbcelt-helper')
 	a.copy_codecs()
 	a.copy_plugins()
 	a.copy_resources(['icons/mumble.icns'])
@@ -338,21 +339,18 @@ if __name__ == '__main__':
 	# Sign our binaries, etc.
 	if options.developer_id:
 		print ' * Signing binaries with Developer ID `%s\'' % options.developer_id
-		binaries = [
-			# 1.2.x
+		binaries = (
 			'release/Mumble.app',
 			'release/Mumble.app/Contents/Plugins/liblink.dylib',
 			'release/Mumble.app/Contents/Plugins/libmanual.dylib',
 			'release/Mumble.app/Contents/Codecs/libcelt0.0.7.0.dylib',
 			'release/Mumble.app/Contents/Codecs/libcelt0.0.11.0.dylib',
-		]
-		g15path = 'release/Mumble.app/Contents/MacOS/mumble-g15-helper'
-		if os.path.exists(g15path):
-			binaries.append(g15path)
-		if not options.no_server:
-			binaries.append('release/Mumble.app/Contents/MacOS/murmurd')
-
-		codesign(binaries)
+			'release/Mumble.app/Contents/MacOS/mumble-g15-helper',
+			'release/Mumble.app/Contents/MacOS/sbcelt-helper',
+			'release/Mumble.app/Contents/MacOS/murmurd',
+		)
+		availableBinaries = [bin for bin in binaries if os.path.exists(bin)]
+		codesign(availableBinaries)
 		print ''
 
 	if options.only_appbundle:

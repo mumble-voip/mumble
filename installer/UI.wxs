@@ -57,7 +57,7 @@
         <Control Id="Description" Type="Text" X="135" Y="70" Width="220" Height="40" Transparent="yes" NoPrefix="yes" Text="!(loc.ExitDialogDescription)" />
         <Control Id="Title" Type="Text" X="135" Y="20" Width="220" Height="60" Transparent="yes" NoPrefix="yes" Text="!(loc.ExitDialogTitle)" />
         <Control Id="LaunchCheckBox" Type="CheckBox" X="10" Y="243" Width="170" Height="17" Property="LAUNCHAPPONEXIT" Hidden="yes" CheckBoxValue="1" Text="!(loc.MUMBLE_START)">
-          <Condition Action="show">NOT Installed AND &amp;MumbleClient = 3</Condition>
+          <Condition Action="show">NOT Installed AND &amp;Mumble = 3</Condition>
         </Control>
       </Dialog>
 

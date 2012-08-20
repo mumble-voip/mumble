@@ -153,6 +153,15 @@ int main(int argc, char **argv) {
 	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
 	a.setQuitOnLastWindowClosed(false);
 
+	#ifdef USE_SBCELT
+	{
+		// For now, force Mumble to use sbcelt-helper from the same directory as the 'mumble' executable.
+		QDir d(a.applicationDirPath());
+		QString helper = d.absoluteFilePath(QString::fromLatin1("sbcelt-helper"));
+		setenv("SBCELT_HELPER_BINARY", helper.toUtf8().constData(), 1);
+	}
+#endif
+
 	Global::g_global_struct = new Global();
 
 	qsrand(QDateTime::currentDateTime().toTime_t());

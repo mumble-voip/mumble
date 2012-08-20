@@ -681,7 +681,7 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Licenze di 3e parti</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -744,7 +744,7 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
     <message>
         <location/>
         <source>DoublePush Time</source>
-        <translation>Tempo di doppia pressione</translation>
+        <translation>Doppia pressione</translation>
     </message>
     <message>
         <location/>
@@ -1090,22 +1090,22 @@ inizio alla trasmissione</translation>
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Attesa</translation>
     </message>
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempo che deve passare tra il rilascio del pulsante PTT e la disattivazione del microfono</translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+528"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation type="unfinished"></translation>
+        <translation>La banda massima del server è %1 kbit/s. Qualità audio impostata su %2 kbit/s (%3 ms)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Amplificazione Massima</translation>
     </message>
 </context>
 <context>
@@ -2808,7 +2808,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation type="unfinished">Incolla e invia</translation>
+        <translation>&amp;Incolla ed invia</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -2851,7 +2851,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Local Ignore (Text messages)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignora localmente (Messaggi di testo)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4301,7 +4301,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location/>
         <source>Optimize for high contrast</source>
-        <translation>Ottimizza per contrasto elevato</translation>
+        <translation>Utilizza interfaccia a contrasto elevato</translation>
     </message>
     <message>
         <location/>
@@ -4331,7 +4331,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location/>
         <source>Use selected item as the chat bar target</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona manualmente il destinatario per i messaggi inviati dalla barra di chat</translation>
     </message>
 </context>
 <context>
@@ -4640,7 +4640,7 @@ certificato e il nome utente.</translation>
     <message>
         <location line="-275"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h2&gt;Versione&lt;/h2&gt;&lt;p&gt;Protocollo %1.%2.%3.&lt;/p&gt; {2&gt;?} {2&gt;?} {1.?}</translation>
+        <translation>&lt;h2&gt;Versione&lt;/h2&gt;&lt;p&gt;Protocollo %1.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+277"/>
@@ -4779,7 +4779,7 @@ certificato e il nome utente.</translation>
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;Banda Audio&lt;/h2&gt;&lt;p&gt;Massima %1 kbit/s&lt;br /&gt;Attuale %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5872,12 +5872,27 @@ Valid options are:
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Utilizzo: mumble [opzioni] [&lt;url&gt;]
+
+&lt;url&gt;Specifica un URL a cui connettersi dopo l&apos;avvio, invece
+di visualizzare la finestra di connessione, e deve avere questa forma:
+mumble://[&lt;nomeutente&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;porta&gt;][/&lt;canale&gt;[/&lt;sottocanale&gt;...]][?version=&lt;x.y.z&gt;]
+
+I parametri di versione devone essere messi nel giusto ordine.
+Il valore di default è 1.2.0.
+
+Opzioni valide:
+  -h, --help    Visualizza questo messaggio di aiuto ed esce.
+  -m, --multiple
+                Permette di avviare più di un&apos;instanza del programma contemporaneamente.
+  -n, --noidentity
+                Impedisce il caricamente di file di identificazione (es. certificati)
+</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Invocation</source>
-        <translation type="unfinished"></translation>
+        <translation>Invocazione</translation>
     </message>
     <message>
         <location line="+192"/>
@@ -6045,17 +6060,17 @@ Valid options are:
     <message>
         <location/>
         <source>Ignore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignora Messaggi</translation>
     </message>
     <message>
         <location/>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignora locamente i messaggi di testo dell&apos;utente.</translation>
     </message>
     <message>
         <location/>
         <source>Silently drops all text messages from the user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Elimina silenziosamente tutti i messaggi di testo provenienti dall&apos;utente.</translation>
     </message>
 </context>
 <context>
@@ -7075,7 +7090,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
     <message>
         <location filename="RichTextEditor.ui"/>
         <source>Display</source>
-        <translation>Visualizza</translation>
+        <translation>Visualizzato</translation>
     </message>
     <message>
         <location/>
@@ -7584,22 +7599,22 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+1"/>
         <source>%1 (%2)</source>
         <oldsource>%1.%2.%3 (%4)</oldsource>
-        <translation type="unfinished">%1.%2.%3 (%4)</translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Supportato</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Not Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Non supportato</translation>
     </message>
     <message>
         <location line="-119"/>
         <source>Not Reported</source>
-        <translation type="unfinished"></translation>
+        <translation>Non riportato</translation>
     </message>
     <message>
         <location line="+160"/>
@@ -7735,7 +7750,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Ignoring Text Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignora messaggi di testo</translation>
     </message>
     <message>
         <location line="+7"/>
