@@ -349,7 +349,7 @@ Add a new group.</source>
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Название канала не должно быть пустым</translation>
     </message>
     <message>
         <location line="-131"/>
@@ -667,7 +667,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">3я &amp;сторона лицензии</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1042,12 +1042,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Всегда отображать на переднем плане окно кнопки передачи речи</translation>
     </message>
     <message>
         <location/>
         <source>Display push to talk window</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отображать окно кнопки передачи речи</translation>
     </message>
     <message>
         <location/>
@@ -1057,47 +1057,47 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Звуковой сигнал при использовании кнопки передачи речи</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Включить звуковое сопровождение кнопки передачи речи.&lt;/b&gt;&lt;br /&gt;Эта опция включит проигрывание короткого звука, когда Вы нажимаете и отпускаете кнопку для передачи речи.</translation>
     </message>
     <message>
         <location/>
         <source>Audio cue</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Звук PTT</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when starting to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Звучит перед началом передачи речи</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when stopping to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Звучит после окончания передачи речи</translation>
     </message>
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Время задержки</translation>
     </message>
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Время, которое микрофон остается включенным после того, как кнопка передачи речи будет отпущена</translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+528"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Максимальная пропускная способность сервера %1 кбит/с. Качество передачи речи установлено на %2 кбит/с (%3 мс)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Макс. Усиление</translation>
     </message>
 </context>
 <context>
@@ -2754,7 +2754,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation type="unfinished">Вставить и отправить</translation>
+        <translation type="unfinished">Вставить и &amp;Отправить</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -2797,7 +2797,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Local Ignore (Text messages)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Местное игонрирование (Текстовые сообщения)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3940,32 +3940,32 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>If enabled text messages you send will be read back to you with TTS</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Если отмечено, то текстовые сообщения будут озвучены функцией Тест-в-Речь</translation>
     </message>
     <message>
         <location/>
         <source>Read back own messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Озвучивать сообщения</translation>
     </message>
     <message>
         <location/>
         <source>Chat Log</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Окно чата</translation>
     </message>
     <message>
         <location/>
         <source>Maximum chat length</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Максимальный размер чата</translation>
     </message>
     <message>
         <location/>
         <source>Unlimited</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Неограничено</translation>
     </message>
     <message>
         <location/>
         <source> Lines</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> линий</translation>
     </message>
 </context>
 <context>
@@ -4265,7 +4265,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Use selected item as the chat bar target</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Использовать выделенный элемент как цель для сообщений чата</translation>
     </message>
 </context>
 <context>
@@ -5024,27 +5024,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+201"/>
         <source>The server requests minimum client version %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сервер запрашивает, чтобы минимальная версия клиента была %1</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The server requests positional audio be enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сервер запрашивает, чтобы Позиционирование звука было включено.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests positional audio be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сервер запрашивает, чтобы Позиционирование звука было выключено.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The server requests Push-to-Talk be enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сервер запрашивает, чтобы Активация по кнопке была включена.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests Push-to-Talk be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сервер запрашивает, чтобы Активация по кнопке была выключена.</translation>
     </message>
     <message>
         <location line="-476"/>
@@ -5176,12 +5176,25 @@ Valid options are:
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Использование: mumble [опции] [&lt;url&gt;]
+&lt;url&gt; означает адрес для подключения после запускаприложения  вместо вызова
+диалога подключенияи имеет следующий вид:
+mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;порт&gt;][/&lt;канал&gt;[/&lt;подканал&gt;...]][?version=&lt;x.y.z&gt;]
+
+Параметр &lt;x.y.z&gt; означает версию клиента для вызова
+нужной версии клиента. По-умолчанию это значение установлено в 1.2.0.
+
+Допустимые параметры:
+  -h, --help   Показать данную справку и выйти.
+  -m, --multiple
+                Разрешить запуск нескольких клиентов.
+  -n, --noidentity
+                Запретить загрузку файлов идентификации (например, сертификата.)</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Invocation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вызов</translation>
     </message>
     <message>
         <location line="+192"/>
@@ -5191,7 +5204,7 @@ Valid options are:
     <message>
         <location line="+63"/>
         <source>Skipping version check in debug mode.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пропускать проверку версии в режиме отладки.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -5256,7 +5269,7 @@ Valid options are:
     <message>
         <location line="+5"/>
         <source>That username is already in use, please try another username.</source>
-        <translation>Этот имя уже используется. Попробуйте другое.</translation>
+        <translation type="unfinished">Это имя уже используется. Попробуйте другой.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -5543,24 +5556,26 @@ Valid options are:
     <message>
         <location line="+24"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Данный сервер использует старые стандарты шифрования и больше не поддерживается новыми версиями Mumble.</translation>
     </message>
     <message>
         <location line="+24"/>
         <source>Username in use</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Данное имя пользователя уже используется</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Wrong certificate or password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Неверный сертификат или пароль</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Неверный сертификат или пароль для зарегистрированного пользователя.
+Если Вы уверены, что данный пользователь защищен паролем, повторите 
+попытку. В противном случае, проверьте свой сертификат или смените имя пользователя.</translation>
     </message>
     <message>
         <location line="+122"/>
@@ -5614,12 +5629,12 @@ Otherwise abort and check your certificate and username.</source>
         <location line="+83"/>
         <source>Link Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Связать канал</translation>
     </message>
     <message>
         <location line="+783"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h2&gt;Версия&lt;/h2&gt;&lt;p&gt;Протокол %1.%2.%3.&lt;/p&gt; {2&gt;?} {2&gt;?} {1.?}</translation>
+        <translation type="unfinished">&lt;h2&gt;Версия&lt;/h2&gt;&lt;p&gt;Протокол %1.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -5664,7 +5679,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;h2&gt;Качество звука&lt;/h2&gt;&lt;p&gt;Максимально %1 кбит/с&lt;br /&gt;Текущее %2 кбит/с&lt;br /&gt;Кодек: %3&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+639"/>
@@ -5963,22 +5978,22 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Копирует ссылку на данный канал в буфер обмена.</translation>
     </message>
     <message>
         <location/>
         <source>Ignore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Игнорировать сообщения</translation>
     </message>
     <message>
         <location/>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Игнорировать локально сообщения пользователя.</translation>
     </message>
     <message>
         <location/>
         <source>Silently drops all text messages from the user.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не показывать все текстовые сообщения от пользователя.</translation>
     </message>
 </context>
 <context>
@@ -6299,7 +6314,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+5"/>
         <source>Talking and recently active</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Разговор и постактив</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6319,7 +6334,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+8"/>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Настройка постактивного времени (%1 секунд)...</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6329,17 +6344,17 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+8"/>
         <source>Sort</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сортировка</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Alphabetically</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">По алфавиту</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Last state change</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Последнее изменение состояния</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6354,12 +6369,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+41"/>
         <source>Configure recently active time</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Настройка постактивного времени</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Amount of seconds users remain active after talking:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Количество секунд, которое пользователи остаются активными после разговора:</translation>
     </message>
 </context>
 <context>
@@ -7251,7 +7266,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+7"/>
         <source>Invalid</source>
-        <translation>Не верный</translation>
+        <translation>Неверный</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -7506,22 +7521,22 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+1"/>
         <source>%1 (%2)</source>
         <oldsource>%1.%2.%3 (%4)</oldsource>
-        <translation type="unfinished">%1.%2.%3 (%4)</translation>
+        <translation type="unfinished">%1 (%2)</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Supported</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Поддерживается</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Not Supported</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не поддерживается</translation>
     </message>
     <message>
         <location line="-119"/>
         <source>Not Reported</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Неизвестно</translation>
     </message>
     <message>
         <location line="+160"/>
@@ -7657,7 +7672,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Ignoring Text Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Игнорировать текстовые сообщения</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -8029,12 +8044,12 @@ Please contact your server administrator for further information.</source>
     <message>
         <location filename="PTTButtonWidget.ui"/>
         <source>Mumble PTT</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Окно кнопки передачи речи</translation>
     </message>
     <message>
         <location/>
         <source>Push to talk</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Кнопка передачи речи</translation>
     </message>
 </context>
 </TS>
