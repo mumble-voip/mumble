@@ -986,21 +986,6 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <location/>
-        <source>Idle AutoDeafen</source>
-        <translation>Автоглушение</translation>
-    </message>
-    <message>
-        <location/>
-        <source>How long to remain idle before auto-deafen.</source>
-        <translation>Время бездействия перед автоглушением.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted and deafened.</source>
-        <translation>Устанавливает таймер бездействия перед автоглушением. Если за это время серверу от Вас не было послано никаких данных, вы будете заглушены.</translation>
-    </message>
-    <message>
-        <location/>
         <source>Exclusive mode</source>
         <translation>Эксклюзивный режим</translation>
     </message>
@@ -1090,7 +1075,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished">Время, которое микрофон остается включенным после того, как кнопка передачи речи будет отпущена</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+528"/>
+        <location filename="AudioInput.cpp" line="+529"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation type="unfinished">Максимальная пропускная способность сервера %1 кбит/с. Качество передачи речи установлено на %2 кбит/с (%3 мс)</translation>
     </message>
@@ -1098,6 +1083,36 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
         <translation type="unfinished">Макс. Усиление</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Idle action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>minutes do</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>nothing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>deafen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>mute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>after</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1118,12 +1133,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>Активация по кнопке</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+14"/>
         <source>Audio Input</source>
         <translation>Исходящий звук</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+111"/>
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
@@ -1133,12 +1148,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="-9"/>
         <location line="+7"/>
         <location line="+20"/>
-        <location line="+18"/>
         <source>Off</source>
         <translation>Выкл</translation>
     </message>
     <message>
-        <location line="-30"/>
+        <location line="-12"/>
         <source>%1 s</source>
         <translation>%1 с</translation>
     </message>
@@ -1153,15 +1167,9 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>-%1 дБ</translation>
     </message>
     <message>
-        <location line="+55"/>
-        <source>%1 kbit/s (Audio %2 %5, Position %4, Overhead %3)</source>
-        <oldsource>%1kbit/s (Audio %2 %5, Position %4, Overhead %3)</oldsource>
-        <translation>%1 кбит/с (Аудио %2 %5, Позиция %4, Загрузка %3)</translation>
-    </message>
-    <message>
-        <location line="-42"/>
-        <source>%1 min</source>
-        <translation>%1 мин</translation>
+        <location line="+48"/>
+        <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
+        <translation type="unfinished">%1 кбит/с (Аудио %2 %5, Позиция %4, Загрузка %3) {1 ?} {2,?} {4,?} {3)?}</translation>
     </message>
 </context>
 <context>
@@ -1454,7 +1462,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>AudioOutputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="+165"/>
+        <location filename="AudioConfigDialog.cpp" line="+135"/>
         <source>None</source>
         <translation>Нет</translation>
     </message>
@@ -2044,23 +2052,8 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <location/>
-        <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (Speex 16kbit/s, 60ms per packet)</source>
-        <translation>В этой конфигурации Mumble будет использовать &lt;b&gt;низкую пропускную способность канала&lt;/b&gt;. Это неизбежно приведет к высоким задержкам и низкому качеству звука. Рекомендуем Вам использовать эту настройку только если Ваше соединение не позволяет пользоваться другими настройками. (Кодек Speex 16 кбис/с, 60 мс на пакет)</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (CELT 40kbit/s, 20ms per packet)</source>
-        <translation>Эта конфигурация &lt;b&gt;рекомендуется по-умолчанию&lt;/b&gt;. Она обеспечивает хороший баланс между качеством, задержками и использованием пропускной способности канала. (Кодек CELT 40 кбит/с, 20 мс на пакет)</translation>
-    </message>
-    <message>
-        <location/>
         <source>High</source>
         <translation>Высокие</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (CELT 72kbit/s, 10ms per packet)</source>
-        <translation>Использование этой конфигурации рекомендуется только для использования в условиях высокой пропускной способности канала, как в локальной сети. Данная настройка обеспечивает самую низкую задержку и &lt;b&gt;высокое качество&lt;/b&gt;, которое поддерживает Mumble. (Кодек CELT 72 кбит/с, 10 мс на пакет)</translation>
     </message>
     <message>
         <location/>
@@ -2122,6 +2115,21 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
         <translation>Затем Вы должны откорректировать бегунок ниже. С начала произнесения речи индикатор НЕ должен выходить в пустую зону (Ваша речь). Когда Вы продолжаете говорить, индикатор должен остаться в полосатой зоне (могла бы быть Ваша речь) и когда Вы молчите, индикатор должен оставаться в сетчатой зоне (не речь).</translation>
+    </message>
+    <message>
+        <location/>
+        <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2283,7 +2291,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Пользователь Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+435"/>
+        <location filename="main.cpp" line="+454"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Сертификат просрочен:&lt;/b&gt; Срок действия Вашего сертификата скоро истечет. Вам необходимо обновить его, иначе Вы не сможете подключиться к серверам, на которых зарегистрированы.</translation>
     </message>
@@ -2824,66 +2832,11 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location/>
-        <location filename="ConfigDialogDelegate.mm" line="+142"/>
         <source>Advanced</source>
         <translation>Экспертные настройки</translation>
     </message>
     <message>
         <location filename="ConfigDialog.cpp" line="+55"/>
-        <source>Accept changes</source>
-        <translation>Применить изменения</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
-        <translation>Применить текущие настройки и вернуться в приложение.&lt;br /&gt;Настройки будут сохранены на диск при выходе из приложения.</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Reject changes</source>
-        <translation>Отменить изменения</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
-        <translation>Отменить все изменения и вернуться в приложение.&lt;br /&gt;Настройки будут сброшены до предыдущих значений.</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Apply changes</source>
-        <translation>Применить изменения</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will immediately apply all changes.</source>
-        <translation>Немедленно применяет все изменения.</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Undo changes for current page</source>
-        <translation>Отменить изменения на текущей странице</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
-        <translation>Отменить любые изменения, совершенные на этой странице.</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Restore defaults for current page</source>
-        <translation>Восстановить стандартные настройки на этой странице</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation>Вернуть настройки по-умолчанию для данной страницы. Другие страницы не будут изменены.&lt;br /&gt;Чтобы вернуть все настройки по-умолчанию, Вы должны нажать эту кнопку на каждой странице.</translation>
-    </message>
-</context>
-<context>
-    <name>ConfigDialogMac</name>
-    <message>
-        <location filename="ConfigDialog_macx.mm" line="+70"/>
         <source>Accept changes</source>
         <translation>Применить изменения</translation>
     </message>
@@ -3444,16 +3397,31 @@ of the possible locations.</source>
         <source>&amp;Remove</source>
         <translation>&amp;Удалить</translation>
     </message>
+    <message>
+        <location/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Open Accessibility Preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Skip</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+673"/>
+        <location filename="GlobalShortcut.cpp" line="+710"/>
         <source>Shortcuts</source>
         <translation>Горячие клавиши</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+52"/>
         <source>Shortcut button combination.</source>
         <translation>Сочетание клавиш.</translation>
     </message>
@@ -3651,7 +3619,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+229"/>
+        <location filename="Log.cpp" line="+200"/>
         <source>Debug</source>
         <translation>Отладка</translation>
     </message>
@@ -3767,7 +3735,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>[Дата сменилась на %1]</translation>
     </message>
     <message>
-        <location line="+146"/>
+        <location line="+66"/>
         <source>link to %1</source>
         <translation>ссылка на %1</translation>
     </message>
@@ -3795,7 +3763,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-539"/>
+        <location line="-440"/>
         <source>Toggle console for %1 events</source>
         <translation>Включение/выключение лога для событий &quot;%1&quot;</translation>
     </message>
@@ -4073,7 +4041,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Внешний вид</translation>
     </message>
     <message>
-        <location line="+132"/>
+        <location line="+133"/>
         <source>Choose skin file</source>
         <translation>Выберите файл скина</translation>
     </message>
@@ -4083,7 +4051,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;b&gt;Устанавливает скин для Mumble.&lt;/b&gt;&lt;br /&gt;Скин - это файл стиля, накладываемый поверх основного стиля. Если иконки стиля находятся в одной папке с ним, то они заменят иконки по умолчанию.</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="-142"/>
+        <location filename="LookConfig.cpp" line="-143"/>
         <source>None</source>
         <translation>Нет</translation>
     </message>
@@ -4272,7 +4240,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2118"/>
+        <location line="+2127"/>
         <source>Root</source>
         <translation>Корень</translation>
     </message>
@@ -4672,9 +4640,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Соединиться с веб-страницей Mumble, чтобы проверить доступность новой версии и уведомить Вас о ссылке для ее закачки.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2022"/>
+        <location filename="MainWindow.cpp" line="-2031"/>
         <location line="+15"/>
-        <location line="+2217"/>
+        <location line="+2226"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -4684,7 +4652,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Показывает все недавние действия: соединения с серверами, сообщения об ошибках и информационные сообщения.&lt;br /&gt;Чтобы настроить, какие точно сообщения отображать тут, используйте команду &lt;b&gt;Настройки&lt;/b&gt; из меню.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2308"/>
+        <location filename="MainWindow.cpp" line="-2317"/>
         <source>&amp;Channel</source>
         <translation>&amp;Канал</translation>
     </message>
@@ -4753,7 +4721,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Включение/Выключение замещения в игре.</translation>
     </message>
     <message>
-        <location line="+1120"/>
+        <location line="+1129"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Введите причину</translation>
@@ -4819,7 +4787,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Повтор связи.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+327"/>
+        <location filename="Messages.cpp" line="+329"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>%1 снял с Вас глушение и онемение.</translation>
     </message>
@@ -5149,17 +5117,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>%1 вошел на канал.</translation>
     </message>
     <message>
-        <location line="-352"/>
+        <location line="-354"/>
         <source>Server connection rejected: %1.</source>
         <translation>Попытка подключения отклонена: %1.</translation>
     </message>
     <message>
-        <location line="+141"/>
+        <location line="+143"/>
         <source>Denied: %1.</source>
         <translation>Ошибка: %1.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-261"/>
+        <location filename="main.cpp" line="-271"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -5202,7 +5170,7 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
         <translation>Добро пожаловать в Mumble. Перевод и русскоязычная поддержка: B0nuse &lt;a href=&quot;http://Mumble.ru/&quot;&gt;http://mumble.ru&lt;/a&gt; .</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+73"/>
         <source>Skipping version check in debug mode.</source>
         <translation type="unfinished">Пропускать проверку версии в режиме отладки.</translation>
     </message>
@@ -5496,13 +5464,13 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
         <translation>Зарегистрироваться как %1</translation>
     </message>
     <message>
-        <location line="-1077"/>
+        <location line="-1086"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Переключает состояние Замещения в игре.</translation>
     </message>
     <message>
-        <location line="+723"/>
+        <location line="+732"/>
         <location line="+354"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Вы собираетесь зарегистрироваться на этом сервере. Невозможно будет отметить данное действие и изменить Ваше имя для данного сертификата. Вы всегда будете известны как &lt;b&gt;&apos;%1&apos;&lt;/b&gt; на этом сервере.&lt;/p&gt;&lt;p&gt;Вы действительно желаете зарегистрироваться?&lt;/p&gt;</translation>
@@ -5621,7 +5589,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Голосовой канал отправлен через канал управления.</translation>
     </message>
     <message>
-        <location line="-889"/>
+        <location line="-898"/>
         <source>&amp;User</source>
         <translation>&amp;Пользователь</translation>
     </message>
@@ -5632,7 +5600,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished">Связать канал</translation>
     </message>
     <message>
-        <location line="+783"/>
+        <location line="+792"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
         <translation type="unfinished">&lt;h2&gt;Версия&lt;/h2&gt;&lt;p&gt;Протокол %1.&lt;/p&gt;</translation>
     </message>
@@ -5717,13 +5685,13 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Закрыть</translation>
     </message>
     <message>
-        <location line="-125"/>
-        <location line="+126"/>
+        <location line="-134"/>
+        <location line="+135"/>
         <source>Minimize</source>
         <translation>Свернуть в трей</translation>
     </message>
     <message>
-        <location line="-182"/>
+        <location line="-191"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Сделать себя немым</translation>
@@ -5809,7 +5777,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location line="+67"/>
-        <location line="+2259"/>
+        <location line="+2268"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Нет соединения с сервером&lt;/center&gt;</translation>
@@ -6288,16 +6256,6 @@ Prevents the client from downloading images embedded into chat messages with the
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Не возможно соединиться с замещением на %2: %1. Замещение не будет доступно.</translation>
     </message>
-    <message>
-        <location line="+252"/>
-        <source>Skipping overlay update in debug mode.</source>
-        <translation>Пропускать обновление замещения в режиме отладки.</translation>
-    </message>
-    <message>
-        <location line="+61"/>
-        <source>Downloaded new or updated overlay support file to %1.</source>
-        <translation>Загружен новый или обновленный файл поддержки замещения в %1.</translation>
-    </message>
 </context>
 <context>
     <name>OverlayClient</name>
@@ -6412,7 +6370,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Для других настроек правый клик на пользователе.</translation>
     </message>
     <message>
-        <location line="+224"/>
+        <location line="+222"/>
         <source>Overlay</source>
         <translation>Замещение</translation>
     </message>
@@ -6425,17 +6383,6 @@ Prevents the client from downloading images embedded into chat messages with the
         <location line="+2"/>
         <source>Choose application</source>
         <translation>Выберите приложение</translation>
-    </message>
-    <message>
-        <location line="+38"/>
-        <source>Mumble has deemed the installer valid.</source>
-        <translation>Mumble счел установку подлинной.</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Mumble was unable to verify the authenticity of the installer.</source>
-        <oldsource>Mumble was unable to validate authenticity of the installer.</oldsource>
-        <translation>Mumble был не в состоянии проверить подлинность установки.</translation>
     </message>
     <message>
         <location line="+87"/>
@@ -6539,11 +6486,6 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <location/>
-        <source>View Certificates</source>
-        <translation>Поcмотреть сертификаты</translation>
-    </message>
-    <message>
-        <location/>
         <source>Load an overlay preset from file</source>
         <translation>Загрузить предустановки Замещения из файла</translation>
     </message>
@@ -6591,6 +6533,21 @@ To upgrade these files to their latest versions, click the button below.</source
         <location/>
         <source>Add...</source>
         <translation>Добавить...</translation>
+    </message>
+    <message>
+        <location/>
+        <source>To list exceptions, use a</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Show the overlay in all applicable programs except</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Show the overlay only in</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7096,7 +7053,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+445"/>
+        <location filename="ServerHandler.cpp" line="+447"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>UDP пакеты не могут быть посланы или получены от сервера. Включен TCP режим.</translation>
     </message>
@@ -7172,7 +7129,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-501"/>
+        <location filename="GlobalShortcut.cpp" line="-549"/>
         <source>Unassigned</source>
         <translation>Не назначено</translation>
     </message>
@@ -7734,7 +7691,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>Обнаружены повреждения при загрузке новой версии. Она была автоматически удалена.</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+23"/>
         <source>Downloading new snapshot from %1 to %2</source>
         <translation>Загружается новая тестовая сборка из %1 в %2</translation>
     </message>
