@@ -1087,37 +1087,37 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation type="unfinished">Max. Verstärkung</translation>
+        <translation>Max. Verstärkung</translation>
     </message>
     <message>
         <location/>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aktion bei Untätigkeit</translation>
     </message>
     <message>
         <location/>
         <source>minutes do</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Minuten führe aus</translation>
     </message>
     <message>
         <location/>
         <source>nothing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">nichts</translation>
     </message>
     <message>
         <location/>
         <source>deafen</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">taub stellen</translation>
     </message>
     <message>
         <location/>
         <source>mute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">stumm stellen</translation>
     </message>
     <message>
         <location/>
         <source>after</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">nach</translation>
     </message>
 </context>
 <context>
@@ -1174,7 +1174,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <message>
         <location line="+48"/>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished">%1 kbit/s (Audio %2 %5, Position %4, Overhead %3) {1 ?} {2,?} {4,?} {3)?}</translation>
+        <translation type="unfinished">%1 kbit/s (Audio %2, Position %4, Overhead %3)</translation>
     </message>
 </context>
 <context>
@@ -2172,17 +2172,17 @@ Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass 
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mit dieser Einstellung verwendet Mumble eine &lt;b&gt;geringe Bandbreite&lt;/b&gt;. Dies ergibt eine hohe Latenz und geringe Qualität. Verwenden sie diese Einstellung nur wenn ihre Verbindung mit anderen Einstellungen nicht klarkommt. (16kbit/s, 60ms pro Paket)</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies ist die &lt;b&gt;empfohlene&lt;/b&gt; Einstellung. Sie liefert eine gute Balance zwischen Qualität, Latenz und Bandbreite. (40kbit/s, 20ms pro Paket)</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Einstellung wird nur empfohlen wenn genügend Bandbreite vorhanden ist, z.B. in einem LAN. Sie bietet die geringste Latenz die von Mumble unterstützt wird und &lt;b&gt;hohe Qualität&lt;/b&gt;. (72kbit/s, 10ms pro Paket)</translation>
     </message>
 </context>
 <context>
@@ -5440,7 +5440,7 @@ Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutz
     <message>
         <location line="+36"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h2&gt;Audio Bandbreite&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Aktuell %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Audio Bandbreite&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Aktuell %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+241"/>
@@ -6680,12 +6680,12 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     <message>
         <location/>
         <source>Show the overlay in all applicable programs except</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zeige das Overlay in allen geeigneten Programmen, außer</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay only in</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zeige das Overlay nur in</translation>
     </message>
 </context>
 <context>
@@ -7632,7 +7632,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <location line="-119"/>
         <source>Not Reported</source>
-        <translation type="unfinished">Nicht gemeldet</translation>
+        <translation>Nicht gemeldet</translation>
     </message>
     <message>
         <location line="+160"/>
