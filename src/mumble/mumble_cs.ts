@@ -36,17 +36,17 @@
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>Přid&amp;at</translation>
+        <translation>&amp;Přidat</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>Odst&amp;ranit</translation>
+        <translation>&amp;Odstranit</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Up</source>
-        <translation>Nahor&amp;u</translation>
+        <translation>&amp;Nahoru</translation>
     </message>
     <message>
         <location/>
@@ -111,7 +111,7 @@
     <message>
         <location/>
         <source>&amp;Groups</source>
-        <translation>S&amp;kupiny</translation>
+        <translation>&amp;Skupiny</translation>
     </message>
     <message>
         <location/>
@@ -662,7 +662,7 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
     <message>
         <location filename="About.cpp" line="+80"/>
         <source>&amp;About Mumble</source>
-        <translation>O progr&amp;amu Mumble</translation>
+        <translation>&amp;O Mumble</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -672,7 +672,7 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Licence 3. stran</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -742,7 +742,7 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
     <message>
         <location/>
         <source>&amp;Transmit</source>
-        <translation>Vysíla&amp;t</translation>
+        <translation>&amp;Vysílat</translation>
     </message>
     <message>
         <location/>
@@ -773,6 +773,16 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
         <translation>&lt;b&gt;Toto nastaví zjištění hlasu, aby používalo Amplitudu.&lt;/b&gt;&lt;br /&gt; V tomto režimu, je čistá síla vstupního signálu použita pro zjištění hlasu.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Hold Time</source>
+        <translation>Doba podržení</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Time the microphone stays open after the PTT key is released</source>
+        <translation>Doba, kdy mikrofon stále přijímá po uvolnění klávesy pro mluvení</translation>
     </message>
     <message>
         <location/>
@@ -871,6 +881,36 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
     </message>
     <message>
         <location/>
+        <source>Idle action</source>
+        <translation>Akce při nečinnosti</translation>
+    </message>
+    <message>
+        <location/>
+        <source>minutes do</source>
+        <translation>minutách provést</translation>
+    </message>
+    <message>
+        <location/>
+        <source>nothing</source>
+        <translation>nic</translation>
+    </message>
+    <message>
+        <location/>
+        <source>deafen</source>
+        <translation>ohlušit</translation>
+    </message>
+    <message>
+        <location/>
+        <source>mute</source>
+        <translation>ztlumit</translation>
+    </message>
+    <message>
+        <location/>
+        <source>after</source>
+        <translation>po</translation>
+    </message>
+    <message>
+        <location/>
         <source>Maximum amplification of input sound</source>
         <translation>Maximální zesílení vstupního zvuku</translation>
     </message>
@@ -923,6 +963,11 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
         <translation>&lt;b&gt;Čas pro opětovné stisknutí&lt;/b&gt;&lt;br /&gt; Pokud dvakrát zmáčknete klávesu pro mluvení během nastaveného intervalu, bude uzamčena. Mumble bude stále přenášet, dokud klávesu nestisknete ještě jednou pro znovu odemčení.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Max. Amplification</source>
+        <translation>Max. zesílení</translation>
     </message>
     <message>
         <location/>
@@ -1070,54 +1115,9 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <translation>&lt;b&gt;Náhled&lt;/b&gt;&lt;br/&gt;Přehraje aktuální zvuk &lt;i&gt;zapnutí&lt;/i&gt; následován aktuálním zvukem &lt;i&gt;vypnutí&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location/>
-        <source>Hold Time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="AudioInput.cpp" line="+529"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioInput.ui"/>
-        <source>Max. Amplification</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Idle action</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>minutes do</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>nothing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>deafen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>mute</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>after</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximální propustnost sítě na serveru je %1 kbit/s. Kvalita zvuku byla automaticky upravena na %2 kbit/s (%3 ms) </translation>
     </message>
 </context>
 <context>
@@ -1174,7 +1174,7 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
     <message>
         <location line="+48"/>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished">%1 kbit/s (Zvuk %2 %5, Pozice %4, Čas na zpracování %3) {1 ?} {2,?} {4,?} {3)?}</translation>
+        <translation>%1 kbit/s (Zvuk %2, Pozice %4, Čas na zpracování %3)</translation>
     </message>
 </context>
 <context>
@@ -2086,8 +2086,26 @@ Mumble je pod neustálým vývojem, a tým vývojářů se chce zaměřit na fun
     </message>
     <message>
         <location/>
+        <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
+        <oldsource>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (Speex 16kbit/s, 60ms per packet)</oldsource>
+        <translation>V tomto nastavení Mumble použije &lt;b&gt;malé množství šířky pásma&lt;/b&gt;. Toto nevyhnutelně vyústí ve vysoké zpoždění a špatnou kvalitu. Toto si zvolte pouze, pokud Vaše připojení ostatní nastavení nezvládne. (16kbit/s, 60ms na paket)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
+        <oldsource>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (CELT 40kbit/s, 20ms per packet)</oldsource>
+        <translation>Toto je &lt;b&gt;výchozí doporučené&lt;/b&gt; nastavení. Poskytuje dobrou rovnováhu mezi kvalitou, zpožděním a využití šířky pásma. (40kbit/s, 20ms na paket)</translation>
+    </message>
+    <message>
+        <location/>
         <source>High</source>
         <translation>Vysoké</translation>
+    </message>
+    <message>
+        <location/>
+        <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
+        <oldsource>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (CELT 72kbit/s, 10ms per packet)</oldsource>
+        <translation>Toto nastavení je doporučené pouze v systému, kde šířka pásma není problém, jako například LAN. Poskytuje nejnižší zpoždění, které Mumble podporuje a &lt;b&gt;vysokou kvalitu&lt;/b&gt;. (72kbit/s, 10ms na paket)</translation>
     </message>
     <message>
         <location/>
@@ -2155,21 +2173,6 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
         <translation>Nyní je potřeba nastavit následující dvě hodnoty. Prvních několik Vašich slabik by mělo skončit v prázdné oblasti (určitě řeč). Pokud mluvíte, měli byste zůstávat v pruhované (pravděpodobně řeč)a když nemluvíte, vše by mělo být v křížkované oblasti (určitě není řeč).</translation>
-    </message>
-    <message>
-        <location/>
-        <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2815,7 +2818,7 @@ Je &lt;b&gt;výrazně&lt;/b&gt; doporučeno, abyste si &lt;a href=&quot;http://m
         <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation type="unfinished">Vložit a odeslat</translation>
+        <translation>&amp;Vložit a odeslat</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -2858,12 +2861,12 @@ Je &lt;b&gt;výrazně&lt;/b&gt; doporučeno, abyste si &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Local Ignore (Text messages)</source>
-        <translation type="unfinished"></translation>
+        <translation>Místní ignorování (Textové zprávy)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Local Mute</source>
-        <translation>Místní Ztlumení</translation>
+        <translation>Místní ztlumení</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3111,7 +3114,7 @@ Je &lt;b&gt;výrazně&lt;/b&gt; doporučeno, abyste si &lt;a href=&quot;http://m
         <location/>
         <location filename="ConnectDialog.cpp" line="-6"/>
         <source>&amp;Add New...</source>
-        <translation>Přid&amp;at Nový...</translation>
+        <translation>&amp;Přidat Nový...</translation>
     </message>
     <message>
         <location/>
@@ -3397,8 +3400,28 @@ v žádném z možných míst.</translation>
     <name>GlobalShortcut</name>
     <message>
         <location filename="GlobalShortcut.ui"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble může v současnosti používat pro globální zkratky pouze tlačítka myši a modifikátory na klávesnici (Alt, Ctrl, Cmd, atd.).&lt;/p&gt;&lt;p&gt;Pokud chcete větší přizpůsobivost, můžete povolit &lt;span style=&quot; font-style:italic;&quot;&gt;přístup pro pomocná zařízení&lt;/span&gt; v nastavení přístupnosti v systému. Tato změna ale může případně umožnit škodlivým programům číst to, co je psáno na vaší klávesnici.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Open Accessibility Preferences</source>
+        <translation>Otevřít nastavení přístupnosti</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Skip</source>
+        <translation>Přeskočit</translation>
+    </message>
+    <message>
+        <location/>
         <source>Shortcuts</source>
         <translation>Zkratky</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Enable Global Shortcuts</source>
+        <translation>Povolit globální zkratky</translation>
     </message>
     <message>
         <location/>
@@ -3438,7 +3461,7 @@ v žádném z možných míst.</translation>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>Přid&amp;at</translation>
+        <translation>Při&amp;dat</translation>
     </message>
     <message>
         <location/>
@@ -3453,27 +3476,7 @@ v žádném z možných míst.</translation>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>Odst&amp;ranit</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Enable Global Shortcuts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Open Accessibility Preferences</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Skip</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Odstranit</translation>
     </message>
 </context>
 <context>
@@ -4042,6 +4045,11 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     </message>
     <message>
         <location/>
+        <source>Use selected item as the chat bar target</source>
+        <translation>Použít zvolenou položku jako cíl chatové lišty</translation>
+    </message>
+    <message>
+        <location/>
         <source>Layout</source>
         <translation>Rozvržení</translation>
     </message>
@@ -4301,11 +4309,6 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <source>&amp;Browse...</source>
         <translation>&amp;Procházet...</translation>
     </message>
-    <message>
-        <location/>
-        <source>Use selected item as the chat bar target</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -4327,12 +4330,27 @@ Valid options are:
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Použití: mumble [možnosti] [&lt;url&gt;]
+
+&lt;url&gt; určuje URL na kterou se po spuštění připojit místo zobrazení
+okna pro připojení a má následující tvar:
+mumble://[&lt;uživatelskéjméno&gt;[:&lt;heslo&gt;]@]&lt;hostitel&gt;[:&lt;port&gt;][/&lt;místnost&gt;[/&lt;podmístnost&gt;...]][?verze=&lt;x.y.z&gt;]
+
+Parametr dotazu verze musí být nastaven, aby byla vyvolána
+správná verze klienta. V současnosti je výchozí hodnota je 1.2.0.
+
+Platné možnosti jsou:
+  -h, --help    Zobrazí tuto nápovědu a ukončí se.
+  -m, --multiple
+                Umožní spustit více instancí tohoto programu.
+  -n, --noidentity
+                Potlačí načtení identifikačních souborů (tj. certifikátů.)
+</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Invocation</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyvolání</translation>
     </message>
     <message>
         <location line="+192"/>
@@ -4408,12 +4426,12 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Kick</source>
-        <translation>Vy&amp;kopnout</translation>
+        <translation>&amp;Vykopnout</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Ban</source>
-        <translation>Z&amp;akázat</translation>
+        <translation>&amp;Zakázat</translation>
     </message>
     <message>
         <location/>
@@ -4423,12 +4441,12 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Deafen</source>
-        <translation>O&amp;hlušit</translation>
+        <translation>&amp;Ohlušit</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Local Mute</source>
-        <translation>Místní Zt&amp;lumení</translation>
+        <translation>&amp;Místní Ztlumení</translation>
     </message>
     <message>
         <location/>
@@ -4443,7 +4461,7 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>Přid&amp;at</translation>
+        <translation>&amp;Přidat</translation>
     </message>
     <message>
         <location/>
@@ -4458,7 +4476,7 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>Odst&amp;ranit</translation>
+        <translation>&amp;Odstranit</translation>
     </message>
     <message>
         <location/>
@@ -4669,7 +4687,7 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Settings</source>
-        <translation>Na&amp;stavení</translation>
+        <translation>&amp;Nastavení</translation>
     </message>
     <message>
         <location/>
@@ -4753,6 +4771,21 @@ Valid options are:
     </message>
     <message>
         <location/>
+        <source>Ignore Messages</source>
+        <translation>Ignorovat zprávy</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Locally ignore user&apos;s text chat messages.</source>
+        <translation>Místně ignorovat textové chatové zprávy uživatele.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Silently drops all text messages from the user.</source>
+        <translation>Tiše zahodí všechny textové zprávy od uživatele.</translation>
+    </message>
+    <message>
+        <location/>
         <source>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</source>
         <translation>Toto spustí průvodce pro vytvoření, importování a exportování certifikátu pro ověření pomocí serverů.</translation>
     </message>
@@ -4784,7 +4817,7 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Remove Friend</source>
-        <translation>Odst&amp;ranit Přítele</translation>
+        <translation>O&amp;dstranit Přítele</translation>
     </message>
     <message>
         <location/>
@@ -4829,7 +4862,7 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Access Tokens</source>
-        <translation>Zn&amp;aky Přístupu</translation>
+        <translation>&amp;Znaky Přístupu</translation>
     </message>
     <message>
         <location/>
@@ -5457,7 +5490,13 @@ Valid options are:
         <translation>Změnit Váš komentář</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+105"/>
+        <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
+        <oldsource>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt;</oldsource>
+        <translation>&lt;h2&gt;Verze&lt;/h2&gt;&lt;p&gt;Protokol %1.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Nejsou dostupné žádné informace o sestavení nebo verzi OS.&lt;/p&gt;</translation>
     </message>
@@ -5563,19 +5602,14 @@ Valid options are:
         <translation>Propojit Kanál</translation>
     </message>
     <message>
-        <location line="+792"/>
-        <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h2&gt;Verze&lt;/h2&gt;&lt;p&gt;Protokol %1.%2.%3.&lt;/p&gt; {2&gt;?} {2&gt;?} {1.?}</translation>
-    </message>
-    <message>
-        <location line="+14"/>
+        <location line="+806"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Kontrolní kanál&lt;/h2&gt;&lt;p&gt;Šifrován pomocí %1 bit %2&lt;br /&gt;průměrné zpoždění %3 ms (odchylka %4)&lt;/p&gt;&lt;p&gt;Vzdálený hostitel %5 (port %6)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;Šířka pásma zvuku&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Současná %2 kbit/s&lt;br /&gt;Kodek: %3&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+377"/>
@@ -5857,7 +5891,7 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <location filename="MainWindow.ui"/>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation>O&amp;dpojit</translation>
+        <translation>&amp;Odpojit</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="-183"/>
@@ -5949,7 +5983,7 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
     <message>
         <location/>
         <source>&amp;Unlink Plugins</source>
-        <translation>Odpojit Zás&amp;uvné Moduly</translation>
+        <translation>Odpojit Zásuvné &amp;Moduly</translation>
     </message>
     <message>
         <location/>
@@ -5974,7 +6008,7 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
     <message>
         <location/>
         <source>&amp;Remove Avatar</source>
-        <translation>Odst&amp;ranit Avatara</translation>
+        <translation>&amp;Odstranit Avatara</translation>
     </message>
     <message>
         <location/>
@@ -6010,21 +6044,6 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
         <translation>Zkopíruje odkaz na tento kanál do schránky.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Ignore Messages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Silently drops all text messages from the user.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6595,23 +6614,23 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
     </message>
     <message>
         <location/>
-        <source>Add...</source>
-        <translation>Přidat...</translation>
-    </message>
-    <message>
-        <location/>
         <source>To list exceptions, use a</source>
-        <translation type="unfinished"></translation>
+        <translation>Pro výpis výjimek použijte</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay in all applicable programs except</source>
-        <translation type="unfinished"></translation>
+        <translation>Překryv zobrazit ve všech platných programech kromě</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay only in</source>
-        <translation type="unfinished"></translation>
+        <translation>Překryv zobrazit pouze v</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Add...</source>
+        <translation>Přidat...</translation>
     </message>
 </context>
 <context>
@@ -6890,7 +6909,7 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
     <message>
         <location/>
         <source>&amp;Reload plugins</source>
-        <translation>Znovu nahrát &amp;zásuvné moduly</translation>
+        <translation>&amp;Znovu nahrát moduly</translation>
     </message>
     <message>
         <location/>
@@ -7547,23 +7566,22 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
         <location line="-13"/>
         <location line="+1"/>
         <source>%1 (%2)</source>
-        <oldsource>%1.%2.%3 (%4)</oldsource>
-        <translation type="unfinished">%1.%2.%3 (%4)</translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Podporováno</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Not Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepodporováno</translation>
     </message>
     <message>
         <location line="-119"/>
         <source>Not Reported</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenahlášeno</translation>
     </message>
     <message>
         <location line="+160"/>
@@ -7699,7 +7717,7 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
     <message>
         <location line="+1"/>
         <source>Ignoring Text Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorování textových zpráv</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -7867,7 +7885,8 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
     <message>
         <location line="+1"/>
         <source>Digest (SHA-1): %1</source>
-        <translation>Digest (SHA-1): %1</translation>
+        <oldsource>Digest (MD5): %1</oldsource>
+        <translation>Digest ((SHA-1): %1</translation>
     </message>
     <message>
         <location line="+4"/>
