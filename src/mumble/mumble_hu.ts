@@ -6998,7 +6998,7 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
     </message>
     <message>
         <location filename="ViewCert.cpp" line="89"/>
-        <source>Digest (MD5): %1</source>
+        <source>Digest (SHA-1): %1</source>
         <translation>kivonat (MD%): %1</translation>
     </message>
     <message>
