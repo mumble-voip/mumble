@@ -39,9 +39,9 @@ static BYTE *pmodule_bf3;
 static BYTE* const state_ptr = (BYTE *) 0x0234A36C;
 
 // Vector ptrs
-static BYTE* const avatar_pos_ptr = (BYTE *) 0x0234A340;
-static BYTE* const avatar_front_ptr = (BYTE *) 0x234A320;
-static BYTE* const avatar_top_ptr = (BYTE *) 0x234A330;
+static BYTE* const avatar_pos_ptr = (BYTE *) 0x0234A300;
+static BYTE* const avatar_front_ptr = (BYTE *) 0x234A330;
+static BYTE* const avatar_top_ptr = (BYTE *) 0x234A320;
 
 // Context ptrs
 static BYTE* const ipport_ptr = (BYTE *) 0x023344D0;
