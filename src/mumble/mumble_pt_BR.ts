@@ -1066,52 +1066,52 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempo Mantido</translation>
     </message>
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempo que o microfone fica aberto após a tecla PPF ser solta</translation>
     </message>
     <message>
         <location/>
         <source>Max. Amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Amplificação Máx.</translation>
     </message>
     <message>
         <location/>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation>Ação ociosa</translation>
     </message>
     <message>
         <location/>
         <source>minutes do</source>
-        <translation type="unfinished"></translation>
+        <translation>minutos fazer</translation>
     </message>
     <message>
         <location/>
         <source>nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>nada</translation>
     </message>
     <message>
         <location/>
         <source>deafen</source>
-        <translation type="unfinished"></translation>
+        <translation>ensurdecer</translation>
     </message>
     <message>
         <location/>
         <source>mute</source>
-        <translation type="unfinished"></translation>
+        <translation>emudecer</translation>
     </message>
     <message>
         <location/>
         <source>after</source>
-        <translation type="unfinished"></translation>
+        <translation>após</translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+529"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation type="unfinished"></translation>
+        <translation>A largura máxima de banda do servidor é apenas %1 kbit/s. Qualidade de áudio ajustada para %2 kbit/s (%3 ms)</translation>
     </message>
 </context>
 <context>
@@ -1168,7 +1168,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location line="+48"/>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished">%1 kbit/s (Áudio %2 %5, Posição %4, Sobrecarga %3) {1 ?} {2,?} {4,?} {3)?}</translation>
+        <translation>%1 kbit/s (Áudio %2, Posição %4, Sobrecarga %3)</translation>
     </message>
 </context>
 <context>
@@ -2135,17 +2135,17 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nesta configuração o Mumble usará &lt;b&gt;baixa quantia de banda&lt;/b&gt;. Isso inevitavelmente resultará em alta latência é qualidade ruim. Escolha esta opção somente se sua conexão não suporta outra configuração. (16kbit/s, 60ms por pacote)</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta é a configuração &lt;b&gt;padrão recomendada&lt;/b&gt;. Ela fornece um bom equilibrio entre qualidade, latência e uso de banda. (40 bit/s, 20ms por pacote)</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta configuração é recomendado apenas em situações em que a banda não é problema, como uma LAN. Ela fornece a menor latência suportada pelo Mumble e &lt;b&gt;alta qualidade&lt;/b&gt;. (72kbit/s, 10ms por pacote)</translation>
     </message>
 </context>
 <context>
@@ -2789,7 +2789,7 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
         <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation type="unfinished">Colar e enviar</translation>
+        <translation>Colar e &amp;Enviar</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -3426,17 +3426,17 @@ dos locais possíveis.</translation>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Atualmente o Mumble só pode usar botões do mouse e as teclas modificadoras do teclado (Alt, Ctrl, Cmd, etc.) para atalhos globais.&lt;/p&gt;&lt;p&gt;Se você quer mais flexibilidade você pode ativar &lt;span style=&quot; font-style:italic;&quot;&gt;Acesso para dispositivos de assistência&lt;/span&gt; nas preferências de Acessibilidade do sistema. Por favor note no entanto, que essa mudança também permite potencialmente programas maliciosos de ver o que é digitado em seu teclado.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Open Accessibility Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir Preferências de Acessibilidade</translation>
     </message>
     <message>
         <location/>
         <source>Skip</source>
-        <translation type="unfinished"></translation>
+        <translation>Pular</translation>
     </message>
 </context>
 <context>
@@ -4261,7 +4261,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>Use selected item as the chat bar target</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar item selecionado como o alvo da barra de conversa</translation>
     </message>
 </context>
 <context>
@@ -4669,7 +4669,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;Larguda de banda do Audio&lt;/h2&gt;&lt;p&gt;Máxima %1 kbit/s&lt;br /&gt;Atual %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6563,17 +6563,17 @@ Para atualizar estes arquivos para suas últimes versões, clique no botão abai
     <message>
         <location/>
         <source>To list exceptions, use a</source>
-        <translation type="unfinished"></translation>
+        <translation>Para listar exceções, use um</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay in all applicable programs except</source>
-        <translation type="unfinished"></translation>
+        <translation>Exibir a sobreimpressão em todos os programas exceto</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay only in</source>
-        <translation type="unfinished"></translation>
+        <translation>Exibir a sobreimpressão apenas em</translation>
     </message>
 </context>
 <context>
@@ -7826,7 +7826,7 @@ Uma credencial de acesso é uma cadeia de caractéres de texto, que podem ser us
         <location line="+1"/>
         <source>Digest (SHA-1): %1</source>
         <oldsource>Digest (MD5): %1</oldsource>
-        <translation type="unfinished">Resumo (MD5): %1</translation>
+        <translation>Resumo (SHA-1): %1</translation>
     </message>
     <message>
         <location line="+4"/>
