@@ -1892,7 +1892,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation>jÁudio posicional</translation>
+        <translation>Áudio posicional</translation>
     </message>
     <message>
         <location/>
