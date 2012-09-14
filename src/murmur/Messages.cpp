@@ -504,7 +504,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			return;
 		}
 		if (iMaxUsersPerChannel && (c->qlUsers.count() >= iMaxUsersPerChannel)) {
-			PERM_DENIED_FALLBACK(ChannelFull, 0x010201, QLatin1String("Channel is full."));
+			PERM_DENIED_FALLBACK(ChannelFull, 0x010201, QLatin1String("Channel is full"));
 			return;
 		}
 	}
@@ -837,6 +837,16 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 					return;
 				}
 			}
+		}
+	}
+
+	if(p) {
+		// Having a parent channel given means we either want to create
+		// a channel in or move a channel into this parent.
+
+		if (!canNest(p, c)) {
+			PERM_DENIED_FALLBACK(NestingLimit, 0x010204, QLatin1String("Channel nesting limit reached"));
+			return;
 		}
 	}
 

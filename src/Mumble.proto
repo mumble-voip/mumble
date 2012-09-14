@@ -145,6 +145,7 @@ message PermissionDenied {
 		MissingCertificate = 7;
 		UserName = 8;
 		ChannelFull = 9;
+		NestingLimit = 10;
 	}
 	optional uint32 permission = 1;
 	optional uint32 channel_id = 2;

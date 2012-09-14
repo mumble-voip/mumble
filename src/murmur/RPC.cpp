@@ -139,6 +139,10 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 			p = p->cParent;
 		}
 
+		if (!canNest(cParent, cChannel)) {
+			return false;
+		}
+
 		cChannel->cParent->removeChannel(cChannel);
 		cParent->addChannel(cChannel);
 

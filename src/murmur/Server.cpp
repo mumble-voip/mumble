@@ -331,6 +331,7 @@ void Server::readParams() {
 	qvSuggestPositional = Meta::mp.qvSuggestPositional;
 	qvSuggestPushToTalk = Meta::mp.qvSuggestPushToTalk;
 	iOpusThreshold = Meta::mp.iOpusThreshold;
+	iChannelNestingLimit = Meta::mp.iChannelNestingLimit;
 
 	QString qsHost = getConf("host", QString()).toString();
 	if (! qsHost.isEmpty()) {
@@ -394,6 +395,8 @@ void Server::readParams() {
 		qvSuggestPushToTalk = QVariant();
 
 	iOpusThreshold = getConf("opusthreshold", iOpusThreshold).toInt();
+
+	iChannelNestingLimit = getConf("channelnestinglimit", iChannelNestingLimit).toInt();
 
 	qrUserName=QRegExp(getConf("username", qrUserName.pattern()).toString());
 	qrChannelName=QRegExp(getConf("channelname", qrChannelName.pattern()).toString());
@@ -507,6 +510,8 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		qvSuggestPushToTalk = ! v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestPushToTalk;
 	else if (key == "opusthreshold")
 		iOpusThreshold = i ? i : Meta::mp.iOpusThreshold;
+	else if (key =="channelnestinglimit")
+		iChannelNestingLimit = i ? i : Meta::mp.iChannelNestingLimit;
 }
 
 #ifdef USE_BONJOUR
@@ -1819,4 +1824,11 @@ bool Server::isTextAllowed(QString &text, bool &changed) {
 
 		return (length <= iMaxTextMessageLength);
 	}
+}
+
+bool Server::canNest(Channel *newParent, Channel *channel) const {
+	const int parentLevel = newParent ? newParent->getLevel() : -1;
+	const int channelDepth = channel ? channel->getDepth() : 0;
+
+	return (parentLevel + channelDepth) < iChannelNestingLimit;
 }

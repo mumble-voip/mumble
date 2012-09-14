@@ -228,6 +228,10 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 				g.l->log(Log::PermissionDenied, tr("Channel is full."));
 			}
 			break;
+		case MumbleProto::PermissionDenied_DenyType_NestingLimit: {
+				g.l->log(Log::PermissionDenied, tr("Channel nesting limit reached."));
+			}
+			break;
 		default: {
 				if (msg.has_reason())
 					g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(u8(msg.reason())));
