@@ -14,6 +14,20 @@ TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_fr.ts mumble_pl.ts 
 PRECOMPILED_HEADER = mumble_pch.hpp
 INCLUDEPATH *= ../bonjour
 
+CONFIG(static) {
+  # Ensure that static Mumble.app on Mac OS X
+  # includes and exports its Qt symbols to plugins.
+  #
+  # Some plugins (libmanual) already make use of Qt
+  # functionality, and it's not inconceivable that some
+  # Mumble features will be split into plugins in the
+  # future.
+  macx {
+    QMAKE_LFLAGS -= -Wl,-dead_strip
+    QMAKE_LFLAGS += -Wl,-all_load
+  }
+}
+
 isEmpty(QMAKE_LRELEASE) {
   QMAKE_QMAKE_BASE = $$basename(QMAKE_QMAKE)
   QMAKE_LRELEASE = $$dirname(QMAKE_QMAKE)/$$replace(QMAKE_QMAKE_BASE,qmake,lrelease)
