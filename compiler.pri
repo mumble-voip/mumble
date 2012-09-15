@@ -122,7 +122,7 @@ unix:!macx {
 }
 
 macx {
-	SYSTEM_INCLUDES = $$(MUMBLE_PREFIX)/include $$(MUMBLE_PREFIX)/include/boost_1_50_0 $$[QT_INSTALL_HEADERS]
+	SYSTEM_INCLUDES = $$(MUMBLE_PREFIX)/include $$(MUMBLE_PREFIX)/include/boost_1_51_0 $$[QT_INSTALL_HEADERS]
 	QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/lib
 
 	for(inc, $$list($$SYSTEM_INCLUDES)) {
