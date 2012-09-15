@@ -270,9 +270,7 @@ class DiskImage(FolderObject):
 
 if __name__ == '__main__':
 	parser = OptionParser()
-	parser.add_option('', '--release', dest='release', help='Build a release. This determines the version number of the release.')
-	parser.add_option('', '--snapshot', dest='snapshot', help='Build a snapshot release. This determines the \'snapshot version\'.')
-	parser.add_option('', '--git', dest='git', help='Build a snapshot release. Use the git revision number as the \'snapshot version\'.', action='store_true', default=False)
+	parser.add_option('', '--version', dest='version', help='This overrides the version number of the build.')
 	parser.add_option('', '--universal', dest='universal', help='Build an universal snapshot.', action='store_true', default=False)
 	parser.add_option('', '--only-appbundle', dest='only_appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
 	parser.add_option('', '--only-overlay', dest='only_overlay', help='Only create the overlay installer.', action='store_true', default=False)
@@ -282,30 +280,16 @@ if __name__ == '__main__':
 
 	options, args = parser.parse_args()
 
-	# Release
-	if options.release:
-		ver = options.release
-		if options.universal:
-			fn = 'release/Mumble-Universal-%s.dmg' % ver
-			title = 'Mumble %s (Universal) ' %ver
-		else:
-			fn = 'release/Mumble-%s.dmg' % ver
-			title = 'Mumble %s ' % ver
-	# Snapshot
-	elif options.snapshot or options.git:
-		if not options.git:
-			ver = options.snapshot
-		else:
-			ver = gitrev()	
-		if options.universal:
-			fn = 'release/Mumble-Universal-Snapshot-%s.dmg' % ver
-			title = 'Mumble Snapshot %s (Universal)' % ver
-		else:
-			fn = 'release/Mumble-Snapshot-%s.dmg' % ver
-			title = 'Mumble Snapshot %s' % ver
+	if options.version is not None:
+		ver = options.version
 	else:
-		print 'Neither snapshot or release selected. Bailing.'
-		sys.exit(1)
+		ver = gitrev()
+	if options.universal:
+		fn = 'release/Mumble-Universal-%s.dmg' % ver
+		title = 'Mumble %s (Universal)' % ver
+	else:
+		fn = 'release/Mumble-%s.dmg' % ver
+		title = 'Mumble %s' % ver
 
 	if not os.path.exists('release'):
 		print 'This script needs to be run from the root of the Mumble source tree.'
