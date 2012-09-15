@@ -1174,7 +1174,7 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <message>
         <location line="+48"/>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished">%1 kbit/s (Audio %2, Position %4, Overhead %3)</translation>
+        <translation>%1 kbit/s (Audio %2, Position %4, Overhead %3)</translation>
     </message>
 </context>
 <context>
@@ -3524,6 +3524,11 @@ der möglichen Orte initialisieren.</translation>
         <source>Skip</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Enable Global Shortcuts</source>
+        <translation type="unfinished">Aktiviere Globale Tastenkürzel</translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
@@ -5669,7 +5674,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location/>
         <source>&amp;Edit</source>
-        <translation>B&amp;earbeiten</translation>
+        <translation type="unfinished">&amp;Bearbeiten</translation>
     </message>
     <message>
         <location/>
@@ -5975,7 +5980,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <location filename="MainWindow.ui"/>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation>&amp;Verknüpfung entfernen</translation>
+        <translation type="unfinished">Verknü&amp;pfung entfernen</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="-10"/>
@@ -6093,6 +6098,11 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <location/>
         <source>Silently drops all text messages from the user.</source>
         <translation>Verwirft alle Textnachrichten von diesem Benutzer.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Copy URL</source>
+        <translation type="unfinished">&amp;URL kopieren</translation>
     </message>
 </context>
 <context>
@@ -6514,7 +6524,7 @@ Bitte beachten Sie: Wenn Sie Mumble nach dem Applikationsstart starten oder das 
         <translation>Für mehr Optionen klicken Sie mit der rechten Maustaste auf einen Benutzer.</translation>
     </message>
     <message>
-        <location line="+222"/>
+        <location line="+223"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
@@ -7660,6 +7670,11 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <source>Bandwidth</source>
         <comment>Label</comment>
         <translation>Bandbreite</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Ping deviation</source>
+        <translation type="unfinished">Ping Abweichung</translation>
     </message>
 </context>
 <context>
