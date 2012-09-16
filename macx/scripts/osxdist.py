@@ -88,19 +88,6 @@ def create_overlay_package():
 
 class AppBundle(object):
 
-	def copy_murmur(self):
-		'''
-			Copy the murmurd binary into our Mumble app bundle
-		'''
-		print ' * Copying murmurd binary'
-		src = os.path.join(self.bundle, '..', 'murmurd')
-		dst = os.path.join(self.bundle, 'Contents', 'MacOS', 'murmurd')
-		shutil.copy(src, dst)
-
-		print ' * Copying murmurd configuration'
-		dst = os.path.join(self.bundle, 'Contents', 'MacOS', 'murmur.ini')
-		shutil.copy('scripts/murmur.ini.osx', dst)
-
 	def copy_helper(self, fn):
 		'''
 			Copy a helper binary into the Mumble app bundle.
@@ -267,19 +254,7 @@ class DiskImage(FolderObject):
 		shutil.rmtree(self.tmp)
 		print ' * Done!'
 
-
-if __name__ == '__main__':
-	parser = OptionParser()
-	parser.add_option('', '--version', dest='version', help='This overrides the version number of the build.')
-	parser.add_option('', '--universal', dest='universal', help='Build an universal snapshot.', action='store_true', default=False)
-	parser.add_option('', '--only-appbundle', dest='only_appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
-	parser.add_option('', '--only-overlay', dest='only_overlay', help='Only create the overlay installer.', action='store_true', default=False)
-	parser.add_option('', '--developer-id', dest='developer_id', help='Identity (Developer ID) to use for code signing. (If not set, no code signing will occur)')
-	parser.add_option('', '--keychain', dest='keychain', help='The keychain to use when invoking code signing utilities. (Defaults to login.keychain', default='login.keychain')
-	parser.add_option('', '--no-server', dest='no_server', help='Exclude Murmur-related files from disk image.', action='store_true', default=False)
-
-	options, args = parser.parse_args()
-
+def package_client():
 	if options.version is not None:
 		ver = options.version
 	else:
@@ -300,13 +275,8 @@ if __name__ == '__main__':
 	if options.only_overlay:
 		sys.exit(0)
 
-	# Fix .ini files
-	os.system('cd scripts && sh mkini.sh')
-
 	# Do the finishing touches to our Application bundle before release
 	a = AppBundle('release/Mumble.app', ver)
-	if not options.no_server:
-		a.copy_murmur()
 	a.copy_helper('mumble-g15-helper')
 	a.copy_helper('sbcelt-helper')
 	a.copy_codecs()
@@ -331,7 +301,6 @@ if __name__ == '__main__':
 			'release/Mumble.app/Contents/Codecs/libcelt0.0.11.0.dylib',
 			'release/Mumble.app/Contents/MacOS/mumble-g15-helper',
 			'release/Mumble.app/Contents/MacOS/sbcelt-helper',
-			'release/Mumble.app/Contents/MacOS/murmurd',
 		)
 		availableBinaries = [bin for bin in binaries if os.path.exists(bin)]
 		codesign(availableBinaries)
@@ -346,3 +315,55 @@ if __name__ == '__main__':
 	d.symlink('/Applications', '/Applications')
 	d.copy('release/Mumble.app')
 	d.create()
+
+def package_server():
+	if options.version is not None:
+		ver = options.version
+	else:
+		ver = gitrev()
+
+	name = 'Murmur-%s' % ver
+	fn = name + '.xip'
+
+	# Fix .ini files
+	os.system('cd scripts && sh mkini.sh')
+
+	destdir = os.path.join('release', name)
+	shutil.rmtree(destdir)
+	os.mkdir(destdir)
+
+	shutil.copy('installer/gpl.txt', os.path.join(destdir, 'LICENSE'))
+	shutil.copy('README', os.path.join(destdir, 'README'))
+	shutil.copy('CHANGES', os.path.join(destdir, 'CHANGES'))
+	shutil.copy('scripts/murmur.pl', os.path.join(destdir, 'murmur.pl'))
+	shutil.copy('scripts/weblist.pl', os.path.join(destdir, 'weblist.pl'))
+	shutil.copy('scripts/icedemo.php', os.path.join(destdir, 'icedemo.php'))
+	shutil.copy('scripts/weblist.php', os.path.join(destdir, 'weblist.php'))
+	shutil.copy('scripts/murmur.ini.osx', os.path.join(destdir, 'murmur.ini'))
+	shutil.copy('src/murmur/Murmur.ice', os.path.join(destdir, 'Murmur.ice'))
+
+	shutil.copy('release/murmurd', os.path.join(destdir, 'murmurd'))
+	codesign(os.path.join(destdir, 'murmurd'))
+
+	certname = 'Developer ID Installer: %s' % options.developer_id
+	p = Popen(('xip', '--keychain', options.keychain, '-s', certname, '--timestamp', destdir, os.path.join('release', fn)))
+	retval = p.wait()
+	if retval != 0:
+		print 'Failed to build Murmur package'
+
+if __name__ == '__main__':
+	parser = OptionParser()
+	parser.add_option('', '--version', dest='version', help='This overrides the version number of the build.')
+	parser.add_option('', '--universal', dest='universal', help='Build an universal snapshot.', action='store_true', default=False)
+	parser.add_option('', '--only-appbundle', dest='only_appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
+	parser.add_option('', '--only-overlay', dest='only_overlay', help='Only create the overlay installer.', action='store_true', default=False)
+	parser.add_option('', '--developer-id', dest='developer_id', help='Identity (Developer ID) to use for code signing. (If not set, no code signing will occur)')
+	parser.add_option('', '--keychain', dest='keychain', help='The keychain to use when invoking code signing utilities. (Defaults to login.keychain', default='login.keychain')
+	parser.add_option('', '--server', dest='server', help='Build a Murmur package.', action='store_true', default=False)
+
+	options, args = parser.parse_args()
+
+	if not options.server:
+		package_client()
+	else:
+		package_server()
