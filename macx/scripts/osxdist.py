@@ -329,7 +329,8 @@ def package_server():
 	os.system('cd scripts && sh mkini.sh')
 
 	destdir = os.path.join('release', name)
-	shutil.rmtree(destdir)
+	if os.path.exists(destdir):
+		shutil.rmtree(destdir)
 	os.mkdir(destdir)
 
 	shutil.copy('installer/gpl.txt', os.path.join(destdir, 'LICENSE'))
