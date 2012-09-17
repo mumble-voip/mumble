@@ -81,6 +81,7 @@ DevState::DevState() {
 	dev = NULL;
 	pSB = NULL;
 	dwMyThread = 0;
+	initRefCount = 0;
 	refCount = 0;
 	myRefCount = 0;
 	texTexture = NULL;
