@@ -541,8 +541,8 @@ static void HookResizeRaw(voidFunc vfResize) {
 
 void checkDXGIHook(bool preonly) {
 	if (bChaining) {
-		return;
 		ods("DXGI: Causing a chain");
+		return;
 	}
 
 	if (! dxgi->iOffsetPresent || ! dxgi->iOffsetResize)

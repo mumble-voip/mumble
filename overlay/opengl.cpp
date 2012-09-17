@@ -369,8 +369,8 @@ static BOOL __stdcall mywglSwapLayerBuffers(HDC hdc, UINT fuPlanes) {
 
 void checkOpenGLHook() {
 	if (bChaining) {
-		return;
 		ods("Causing a chain");
+		return;
 	}
 
 	bChaining = true;
