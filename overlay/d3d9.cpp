@@ -619,8 +619,8 @@ static void HookCreateRawEx(voidFunc vfCreate) {
 
 void checkD3D9Hook(bool preonly) {
 	if (bChaining) {
-		return;
 		ods("D3D9: Causing a chain");
+		return;
 	}
 
 	bChaining = true;
