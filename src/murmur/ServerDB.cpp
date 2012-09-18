@@ -42,12 +42,9 @@
 #include "ServerUser.h"
 #include "User.h"
 
-#define SQLDO(x) ServerDB::exec(query, QLatin1String(x), true)
-#define SQLMAY(x) ServerDB::exec(query, QLatin1String(x), false, false)
+#define SQLDO(x) ServerDB::exec(query, QLatin1String(x))
 #define SQLPREP(x) ServerDB::prepare(query, QLatin1String(x))
 #define SQLEXEC() ServerDB::exec(query)
-#define SQLEXECBATCH() ServerDB::execBatch(query)
-#define SOFTEXEC() ServerDB::exec(query, QString(), false)
 
 class TransactionHolder {
 	public:
@@ -152,7 +149,7 @@ ServerDB::ServerDB() {
 			qWarning("Renaming old tables...");
 			SQLDO("ALTER TABLE `%1servers` RENAME TO `%1servers%2`");
 			if (version < 2)
-				SQLMAY("ALTER TABLE `%1log` RENAME TO `%1slog`");
+				SQLDO("ALTER TABLE `%1log` RENAME TO `%1slog`");
 			SQLDO("ALTER TABLE `%1slog` RENAME TO `%1slog%2`");
 			SQLDO("ALTER TABLE `%1config` RENAME TO `%1config%2`");
 			SQLDO("ALTER TABLE `%1channels` RENAME TO `%1channels%2`");
@@ -466,11 +463,7 @@ ServerDB::~ServerDB() {
 	db = NULL;
 }
 
-bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal, bool warn) {
-	if (! db->isValid()) {
-		qWarning("SQL [%s] rejected: Database is gone", qPrintable(str));
-		return false;
-	}
+bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal) {
 	QString q;
 	if (str.contains(QLatin1String("%1"))) {
 		if (str.contains(QLatin1String("%2")))
@@ -483,58 +476,121 @@ bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal, bool wa
 
 	if (query.prepare(q)) {
 		return true;
-	} else {
-		db->close();
-		if (! db->open()) {
-			qFatal("Lost connection to SQL Database: Reconnect: %s", qPrintable(db->lastError().text()));
-		}
-		query = QSqlQuery();
-		if (query.prepare(q)) {
-			qWarning("SQL Connection lost, reconnection OK");
-			return true;
-		}
+	}
 
+	// reconnect and retry
+	if (!ServerDB::connectionFailure()) {
 		if (fatal) {
-			*db = QSqlDatabase();
 			qFatal("SQL Prepare Error [%s]: %s", qPrintable(q), qPrintable(query.lastError().text()));
-		} else if (warn) {
-			qDebug("SQL Prepare Error [%s]: %s", qPrintable(q), qPrintable(query.lastError().text()));
 		}
+		qWarning("SQL Prepare Error [%s]: %s", qPrintable(q), qPrintable(query.lastError().text()));
 		return false;
 	}
+
+	// Not a connection failure warn about it
+	qWarning("SQL Prepare Error [%s]: %s - retrying...", qPrintable(q), qPrintable(query.lastError().text()));
+
+	if (!ServerDB::reconnect()) {
+		if (fatal) {
+			qFatal("Failed to reconnect after SQL Prepare Error");
+		}
+		qWarning("Failed to reconnect after SQL Prepare Error");
+		return false;
+	}
+
+	query = QSqlQuery();
+	return ServerDB::prepare(query, str, fatal);
 }
 
-bool ServerDB::exec(QSqlQuery &query, const QString &str, bool fatal, bool warn) {
+bool ServerDB::exec(QSqlQuery &query, const QString &str, bool fatal) {
 	if (! str.isEmpty())
-		prepare(query, str, fatal, warn);
+		prepare(query, str, fatal);
 	if (query.exec()) {
 		return true;
-	} else {
+	}
 
+	// query string not passed in so we can't retry
+	if (str.isEmpty() || !ServerDB::connectionFailure()) {
 		if (fatal) {
-			*db = QSqlDatabase();
 			qFatal("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
-		} else if (warn) {
-			qDebug("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
 		}
+		qWarning("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
 		return false;
 	}
+
+	// Not a connection failure warn about it
+	qWarning("SQL Error [%s]: %s - retrying...", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
+
+	// reconnect and retry
+	if (!ServerDB::reconnect()) {
+		if (fatal) {
+			qFatal("Failed to reconnect after SQL Error");
+		}
+		qWarning("Failed to reconnect after SQL Error");
+		return false;
+	}
+	query = QSqlQuery();
+	return ServerDB::exec(query, str, fatal);
 }
 
 bool ServerDB::execBatch(QSqlQuery &query, const QString &str, bool fatal) {
 	if (! str.isEmpty())
 		prepare(query, str, fatal);
-	if (query.execBatch()) {
-		return true;
-	} else {
-
+	if (!query.execBatch()) {
 		if (fatal) {
-			*db = QSqlDatabase();
-			qFatal("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
-		} else
-			qDebug("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
+			qWarning("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
+		}
+		qWarning("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
 		return false;
 	}
+
+	return true;
+}
+
+bool ServerDB::connectionFailure() {
+	if (db->lastError().type() == QSqlError::NoError) {
+		return false;
+	}
+
+	// QT doesn't provide a driver independent way to detecting connection failures
+	// so we have to do things the hard way
+	if (Meta::mp.qsDBDriver != "QMYSQL") {
+		// Not implemented
+		return false;
+	}
+
+	// MySQL code
+	if (db->lastError().number() < 2000) {
+		// Server error assume connection is still up
+		return false;
+	}
+
+	// MySQL client error ( errno >= 2000 ) assume disconnect issue
+	qWarning("Database is gone? [%s] (%d)", qPrintable(db->lastError().text()), db->lastError().number());
+	return true;
+}
+
+bool ServerDB::reconnect(int retries) {
+	int retryInterval = 1;
+	if (0 == retries) {
+		// No retries requested
+		return false;
+	}
+
+	db->close(); // Ensure the db is closed cleanly
+	while (0 < retries) {
+		if (db->open()) {
+			return true;
+		}
+		retries--;
+		qWarning("Connection failed: %s, retry in %d secs - %d retries remaining...", qPrintable(db->lastError().text()), retryInterval, retries);
+		sleep(retryInterval);
+	}
+
+	qWarning("Reconnect failed: %s, no retries remaining", qPrintable(db->lastError().text()));
+	db->close(); // Ensure the db is closed cleanly
+
+	return false;
 }
 
 void Server::initialize() {
@@ -972,7 +1028,7 @@ bool Server::setInfo(int id, const QMap<int, QString> &setinfo) {
 		query.addBindValue(userids);
 		query.addBindValue(keys);
 		query.addBindValue(values);
-		SQLEXECBATCH();
+		ServerDB::execBatch(query, QString(), true);
 	}
 
 	return true;
