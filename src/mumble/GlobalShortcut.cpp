@@ -135,6 +135,8 @@ static ConfigWidget *GlobalShortcutConfigDialogNew(Settings &st) {
 
 static ConfigRegistrar registrar(1200, GlobalShortcutConfigDialogNew);
 
+static const QString UPARROW = QString::fromUtf8("\xE2\x86\x91 ");
+
 ShortcutKeyWidget::ShortcutKeyWidget(QWidget *p) : QLineEdit(p) {
 	setReadOnly(true);
 	clearFocus();
@@ -379,7 +381,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 	}
 
 	for (int i = 0; i < 8; ++i) {
-		QTreeWidgetItem *psub = new QTreeWidgetItem(pitem, QStringList(tr("Parent - Subchannel #%1").arg(i+1)));
+		QTreeWidgetItem *psub = new QTreeWidgetItem(pitem, QStringList(UPARROW + tr("Subchannel #%1").arg(i+1)));
 		psub->setData(0, Qt::UserRole, SHORTCUT_TARGET_PARENT_SUBCHANNEL - i);
 		qmTree.insert(SHORTCUT_TARGET_PARENT_SUBCHANNEL - i, psub);
 	}
@@ -515,7 +517,7 @@ QString ShortcutTargetWidget::targetString(const ShortcutTarget &st) {
 					return tr("Current");
 				default:
 					if(st.iChannel <= SHORTCUT_TARGET_PARENT_SUBCHANNEL)
-						return tr("Parent - Subchannel #%1").arg(SHORTCUT_TARGET_PARENT_SUBCHANNEL + 1 - st.iChannel);
+						return (UPARROW + tr("Subchannel #%1").arg(SHORTCUT_TARGET_PARENT_SUBCHANNEL + 1 - st.iChannel));
 					else
 						return tr("Subchannel #%1").arg(SHORTCUT_TARGET_CURRENT - st.iChannel);
 			}
