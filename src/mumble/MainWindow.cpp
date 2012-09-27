@@ -2110,21 +2110,20 @@ Channel *MainWindow::mapChannel(int idx) const {
 
 	if (idx < 0) {
 		switch (idx) {
-			case -1:
+			case SHORTCUT_TARGET_ROOT:
 				c = Channel::get(0);
 				break;
-			case -2:
-			case -3:
+			case SHORTCUT_TARGET_PARENT:
+			case SHORTCUT_TARGET_CURRENT:
 				c = ClientUser::get(g.uiSession)->cChannel;
-				if (idx == -2)
+				if (idx == SHORTCUT_TARGET_PARENT)
 					c = c->cParent;
 				break;
 			default:
-                if(idx < -11)
-                    c = pmModel->getSubChannel(ClientUser::get(g.uiSession)->cChannel->cParent, -12 - idx);
-                else
-                    c = pmModel->getSubChannel(ClientUser::get(g.uiSession)->cChannel, -4 - idx);
-                break;
+				if(idx <= SHORTCUT_TARGET_PARENT_SUBCHANNEL)
+					c = pmModel->getSubChannel(ClientUser::get(g.uiSession)->cChannel->cParent, SHORTCUT_TARGET - idx);
+				else
+					c = pmModel->getSubChannel(ClientUser::get(g.uiSession)->cChannel, SHORTCUT_TARGET_SUBCHANNEL - idx);
 				break;
 		}
 	} else {
