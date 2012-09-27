@@ -2121,7 +2121,7 @@ Channel *MainWindow::mapChannel(int idx) const {
 				break;
 			default:
 				if(idx <= SHORTCUT_TARGET_PARENT_SUBCHANNEL)
-					c = pmModel->getSubChannel(ClientUser::get(g.uiSession)->cChannel->cParent, SHORTCUT_TARGET - idx);
+                    c = pmModel->getSubChannel(ClientUser::get(g.uiSession)->cChannel->cParent, SHORTCUT_TARGET_PARENT_SUBCHANNEL - idx);
 				else
 					c = pmModel->getSubChannel(ClientUser::get(g.uiSession)->cChannel, SHORTCUT_TARGET_SUBCHANNEL - idx);
 				break;
