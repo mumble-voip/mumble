@@ -359,29 +359,29 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 	QMap<int, QTreeWidgetItem *> qmTree;
 
 	QTreeWidgetItem *root = new QTreeWidgetItem(qtwChannels, QStringList(tr("Root")));
-	root->setData(0, Qt::UserRole, -1);
+	root->setData(0, Qt::UserRole, SHORTCUT_TARGET_ROOT);
 	root->setExpanded(true);
 	qmTree.insert(-1, root);
 
 	QTreeWidgetItem *pitem = new QTreeWidgetItem(root, QStringList(tr("Parent")));
-	pitem->setData(0, Qt::UserRole, -2);
+	pitem->setData(0, Qt::UserRole, SHORTCUT_TARGET_PARENT);
 	pitem->setExpanded(true);
 	qmTree.insert(-2, pitem);
 
 	QTreeWidgetItem *current = new QTreeWidgetItem(pitem, QStringList(tr("Current")));
-	current->setData(0, Qt::UserRole, -3);
+	current->setData(0, Qt::UserRole, SHORTCUT_TARGET_CURRENT);
 	qmTree.insert(-3, current);
 
-	for (int i=0;i<8;++i) {
+	for (int i = 0; i < 8; ++i) {
 		QTreeWidgetItem *sub = new QTreeWidgetItem(current, QStringList(tr("Subchannel #%1").arg(i+1)));
-		sub->setData(0, Qt::UserRole, -4 - i);
-		qmTree.insert(-4-i, sub);
+		sub->setData(0, Qt::UserRole, SHORTCUT_TARGET_SUBCHANNEL - i);
+		qmTree.insert(SHORTCUT_TARGET_SUBCHANNEL - i, sub);
 	}
 
-	for (int i=0;i<8;++i) {
+	for (int i = 0; i < 8; ++i) {
 		QTreeWidgetItem *psub = new QTreeWidgetItem(pitem, QStringList(tr("Parent - Subchannel #%1").arg(i+1)));
-		psub->setData(0, Qt::UserRole, -12 - i);
-		qmTree.insert(-12-i, psub);
+		psub->setData(0, Qt::UserRole, SHORTCUT_TARGET_PARENT_SUBCHANNEL - i);
+		qmTree.insert(SHORTCUT_TARGET_PARENT_SUBCHANNEL - i, psub);
 	}
 
 	// And if we are connected add the channels on the current server
