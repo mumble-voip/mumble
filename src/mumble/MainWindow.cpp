@@ -2120,7 +2120,11 @@ Channel *MainWindow::mapChannel(int idx) const {
 					c = c->cParent;
 				break;
 			default:
-				c = pmModel->getSubChannel(ClientUser::get(g.uiSession)->cChannel, -4 - idx);
+                if(idx < -11)
+                    c = pmModel->getSubChannel(ClientUser::get(g.uiSession)->cChannel->cParent, -12 - idx);
+                else
+                    c = pmModel->getSubChannel(ClientUser::get(g.uiSession)->cChannel, -4 - idx);
+                break;
 				break;
 		}
 	} else {

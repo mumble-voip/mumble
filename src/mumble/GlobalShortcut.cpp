@@ -378,6 +378,12 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 		qmTree.insert(-4-i, sub);
 	}
 
+    for (int i=0;i<8;++i) {
+        QTreeWidgetItem *psub = new QTreeWidgetItem(pitem, QStringList(tr("Parent - Subchannel #%1").arg(i+1)));
+        psub->setData(0, Qt::UserRole, -12 - i);
+        qmTree.insert(-12-i, psub);
+    }
+
 	// And if we are connected add the channels on the current server
 	if (g.uiSession) {
 		Channel *c = Channel::get(0);
@@ -508,7 +514,10 @@ QString ShortcutTargetWidget::targetString(const ShortcutTarget &st) {
 				case -3:
 					return tr("Current");
 				default:
-					return tr("Subchannel #%1").arg(-3 - st.iChannel);
+                    if(st.iChannel < -11)
+                        return tr("Parent - Subchannel #%1").arg(-11 - st.iChannel);
+                    else
+                        return tr("Subchannel #%1").arg(-3 - st.iChannel);
 			}
 		} else {
 			Channel *c = Channel::get(st.iChannel);
