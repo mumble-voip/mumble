@@ -3,7 +3,7 @@
   <?include "Settings.wxi" ?>
 
   <Product Id="*" Name="$(var.ProductName) $(var.ProductVersion)" Language="!(loc.LANG)" Version="$(var.ProductVersion)" Manufacturer="$(var.ProductManufacturer)" UpgradeCode="B0EEFCC7-8A9c-4471-AB10-CBD35BE3161D">
-    <Package Id="*" InstallerVersion="300" Compressed="yes" Languages="0,1033,4,1029,1030,1031,1034,1036,1040,1041,1043,1044,1045,1049,1053,31748" />
+    <Package Id="*" InstallerVersion="300" Compressed="yes" Languages="0,1028,1029,1030,1031,1033,1034,1036,1040,1041,1043,1044,1045,1046,1049,1053,2052" />
 
     <Property Id='NSISINSTALL'>
       <RegistrySearch Id='NSISSearch' Win64='no' Root='HKLM' Key='SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Mumble' Type='directory' Name='InstallLocation' />
