@@ -9,6 +9,7 @@
 # Default-Start:        2 3 4 5
 # Default-Stop:         0 1 6
 # Short-Description:    Mumble VoIP Server
+# Description:          Init script for the Mumble VoIP Server murmurd.
 ### END INIT INFO
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
