@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="tr-tr" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="LANG">1055</String>
+
+  <!-- Translation by some anonymous coward -->
+  <String Id="MUMBLE_CREATE_SHORTCUT">Masaüstünde kısayol oluştur</String>
+  <String Id="MUMBLE_DONATE">Mumble projesine bağışta bulun</String>
+  <String Id="MUMBLE_TERMINATE_DBUS">Mumble tarafından kullanılan DBus servisi (daemon) hâlihazırda çalışmaktadır. Güncellenebilmesi için servis durdurulsun mu?</String>
+  <String Id="MUMBLE_NO_SSE">Mumble sadece Intel Pentium III, AMD Athlon XP ve daha yeni mikroişlemcilerde bulunan SSE komut kümesine ihtiyaç duyar. SSE mikroişlemcinizde tespit edilememiştir ve Mumble muhtemelen çalışamayacaktır. Buna rağmen Mumble'ı kurmak istiyor musunuz?</String>
+  <String Id="MUMBLE_NO_XP">Mumble sadece Windows XP SP2 ve daha yeni sürümlerde çalışır. Daha eski ve uyumsuz bir işletim sistemi tespit edilmiştir ve Mumble muhtemelen çalışmayacaktır. Buna rağmen Mumble'ı kurmak istiyor musunuz?</String>
+  <String Id="MUMBLE_START">Mumble'ı Başlat</String>
+
+  <!-- For the start menu -->
+  <String Id="MUMBLE_README_LNK">Mumble Readme</String>
+  <String Id="MUMBLE_LICENSE_LNK">Mumble Lisansı</String>
+  <String Id="MUMBLE_QT_LNK">Qt Lisansı</String>
+  <String Id="MUMBLE_SPEEX_LNK">Speex Lisansı</String>
+  <String Id="MUMBLE_UNINSTALL_LNK">Mumble'ı Kaldır</String>
+  <String Id="MUMBLE_COMPAT_LNK">Mumble (Geriye Uyumlu)</String>
+
+  <!-- Install types -->
+  <String Id="INSTALL_FULL">Tam kurulum</String>
+  <String Id="INSTALL_CLIENT">Sadece istemci</String>
+  <String Id="INSTALL_SERVER">Sadece sunucu</String>
+
+  <!-- Install sections -->
+  <String Id="MUMBLE_SEC_MUMBLE">Mumble (istemci)</String>
+  <String Id="MUMBLE_SEC_MUMBLE11X">Mumble (geriye uyumlu istemci)</String>
+  <String Id="MUMBLE_SEC_MURMUR">Murmur (sunucu)</String>
+  <String Id="MUMBLE_SEC_BONJOUR">Windows için Bonjour</String>
+  <String Id="DESC_SectionMumble">Bir sunucuya bağlanmak için ihtiyaç duyacağınız Mumble istemcisi.</String>
+  <String Id="DESC_SectionMumble11X">Eski sunuculara bağlanmak için Mumble istemcisi.</String>
+  <String Id="DESC_SectionMurmur">Mumble için sunucu. Kendi sunucunuzu işletmeniz için gereken her şeyi içerir.</String>
+  <String Id="DESC_SectionBonjour">Bonjour yerel ağınızda Murmur sunucularının duyurulmalarına ve keşiflerine imkân sağlar. Bu seçenek Bonjour kurucusunu indirir ve çalıştırır.</String>
+
+  <!-- Uninstall sections -->
+  <String Id="MUMBLE_UNSEC_BASE">Mumble ve Murmur</String>
+  <String Id="MUMBLE_UNSEC_ALL">Tercihler ve Veritabanları</String>
+  <String Id="DESC_SectionUninstBase">Mumble ve Murmur programlarını Kaldır</String>
+  <String Id="DESC_SectionUninstAll">Mumble ve Murmur'ın tüm izlerini sil, ki bu tercihleri ve veritabanlarını da kapsar.</String>
+
+  <!-- Already installed -->
+  <String Id="MUMBLE_ALREADY_INSTALLED">Mumble zaten kuruludur. Kurulumdan önce mevcut sürümü kaldırmanız tavsiye edilir. Gerçekleştirmek istediğiniz işlemi seçiniz ve devam etmek için İleri düğmesine tıklayınız.</String>
+  <String Id="MUMBLE_ALREADY_INSTALLED_HEAD">Zaten Kurulu</String>
+  <String Id="MUMBLE_ALREADY_INSTALLED_SUBTEXT">Mumble'ı nasıl kurmak istediğinizi seçiniz.</String>
+  <String Id="MUMBLE_UNINSTALL">Kurulumdan evvel kaldır</String>
+  <String Id="MUMBLE_NO_UNINSTALL">Kaldırma</String>
+</WixLocalization>
