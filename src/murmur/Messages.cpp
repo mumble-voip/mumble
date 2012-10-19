@@ -1543,8 +1543,6 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 	const CryptState &cs = pDstServerUser->csCrypt;
 	const BandwidthRecord &bwr = pDstServerUser->bwr;
 	const QList<QSslCertificate> &certs = pDstServerUser->peerCertificateChain();
-	MumbleProto::UserStats_Stats *mpusss;
-	MumbleProto::Version *mpv;
 
 	bool extend = (uSource == pDstServerUser) || hasPermission(uSource, qhChannels.value(0), ChanACL::Register);
 
@@ -1571,6 +1569,8 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 	}
 
 	if (local) {
+		MumbleProto::UserStats_Stats *mpusss;
+
 		mpusss = msg.mutable_from_client();
 		mpusss->set_good(cs.uiGood);
 		mpusss->set_late(cs.uiLate);
@@ -1592,6 +1592,8 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 	msg.set_tcp_ping_var(pDstServerUser->dTCPPingVar);
 
 	if (details) {
+		MumbleProto::Version *mpv;
+
 		mpv = msg.mutable_version();
 		if (pDstServerUser->uiVersion)
 			mpv->set_version(pDstServerUser->uiVersion);

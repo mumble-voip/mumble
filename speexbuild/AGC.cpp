@@ -19,14 +19,12 @@
 
 template<class T>
 static inline double veccomp(const QVector<T> &a, const QVector<T> &b, const char *n) {
-	long double rms = 0.0;
 	long double gdiff = 0.0;
 	if (a.size() != b.size()) {
 		qFatal("%s: %d <=> %d", n, a.size(), b.size());
 	}
 	for (int i=0;i<a.size();++i) {
 		double diff = fabs(a[i] - b[i]);
-		rms += diff * diff;
 		if (diff > gdiff)
 			gdiff = diff;
 #ifdef EXACT
@@ -46,7 +44,6 @@ static inline double veccomp(const QVector<T> &a, const QVector<T> &b, const cha
 		}
 	}
 	return gdiff;
-	return sqrt(rms / a.size());
 }
 
 int main(int argc, char **argv) {

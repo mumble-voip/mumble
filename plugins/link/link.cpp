@@ -162,7 +162,7 @@ BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 				if (hMapObject == NULL)
 					return false;
 			}
-			lm = (LinkedMem *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, 0);
+			lm = static_cast<LinkedMem *>(MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, 0));
 			if (lm == NULL) {
 				CloseHandle(hMapObject);
 				hMapObject = NULL;
