@@ -94,7 +94,7 @@ struct ACLInfo {
 	int playerid;
 	QString group;
 	unsigned int allow, deny;
-	ACLInfo() : applyHere(false), applySubs(false), inherited(false) { };
+	ACLInfo() : applyHere(false), applySubs(false), inherited(false), playerid(-1), allow(0), deny(0) { };
 	ACLInfo(const ChanACL *acl);
 };
 Q_DECLARE_METATYPE(ACLInfo);

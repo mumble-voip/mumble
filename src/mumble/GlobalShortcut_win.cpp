@@ -108,10 +108,9 @@ GlobalShortcutWin::~GlobalShortcutWin() {
 
 void GlobalShortcutWin::run() {
 	HMODULE hSelf;
-	HRESULT hr;
 	QTimer *timer;
 
-	if (FAILED(hr = DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, reinterpret_cast<void **>(&pDI), NULL))) {
+	if (FAILED(DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, reinterpret_cast<void **>(&pDI), NULL))) {
 		qFatal("GlobalShortcutWin: Failed to create d8input");
 		return;
 	}

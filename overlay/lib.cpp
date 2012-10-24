@@ -617,7 +617,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 
 				bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
 
-				sd = (SharedData *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize);
+				sd = static_cast<SharedData *>(MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize));
 
 				if (sd == NULL) {
 					ods("MapViewOfFile Failed");
@@ -628,8 +628,8 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					memset(sd, 0, dwSharedSize);
 
 				unsigned char *raw = (unsigned char *) sd;
-				d3dd = (Direct3D9Data *)(raw + sizeof(SharedData));
-				dxgi = (DXGIData *)(raw + sizeof(SharedData) + sizeof(Direct3D9Data));
+				d3dd = reinterpret_cast<Direct3D9Data *>(raw + sizeof(SharedData));
+				dxgi = reinterpret_cast<DXGIData *>(raw + sizeof(SharedData) + sizeof(Direct3D9Data));
 
 
 				if (! bMumble) {

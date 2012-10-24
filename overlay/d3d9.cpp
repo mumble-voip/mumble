@@ -675,12 +675,12 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 
 	ods("Preparing static data for D3D9 Injection");
 
-	char buffb[2048];
-
 	HMODULE hD3D = LoadLibrary("D3D9.DLL");
-	HMODULE hRef;
 
 	if (hD3D != NULL) {
+		HMODULE hRef;
+		char buffb[2048];
+
 		GetModuleFileName(hD3D, d3dd->cFileName, 2048);
 		pDirect3DCreate9 d3dc9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
 		if (! d3dc9) {
