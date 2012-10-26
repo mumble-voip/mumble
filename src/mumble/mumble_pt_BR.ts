@@ -2655,7 +2655,7 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
     <message>
         <location line="+2"/>
         <source>Make temporary</source>
-        <translation>Fazer temporário</translation>
+        <translation>Criar temporário</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2996,7 +2996,7 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
     <message>
         <location line="+293"/>
         <source>&amp;Connect</source>
-        <translation>&amp;Connectar</translation>
+        <translation>&amp;Conectar</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -3178,7 +3178,7 @@ Nome de usuário para enviar ao servidor. Lembre-se que o servidor pode impor re
     <message>
         <location/>
         <source>Label</source>
-        <translation>Etiqueta</translation>
+        <translation>Nome</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
@@ -3211,8 +3211,8 @@ Senha para enviar ao servidor durante a conexão. Esta senha é necessária ao c
         <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation>&lt;b&gt;Etiqueta&lt;/b&gt;&lt;br/&gt;
-Etiqueta do servidor. Será como o servidor será nomeado na lista de servidor e pode ser escolhida livremente.</translation>
+        <translation>&lt;b&gt;Nome&lt;/b&gt;&lt;br/&gt;
+Nome usado no favorito. Será como o servidor será nomeado na lista de servidor e pode ser escolhido livremente.</translation>
     </message>
 </context>
 <context>
@@ -4669,7 +4669,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Larguda de banda do Audio&lt;/h2&gt;&lt;p&gt;Máxima %1 kbit/s&lt;br /&gt;Atual %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Largura de banda do Audio&lt;/h2&gt;&lt;p&gt;Máxima %1 kbit/s&lt;br /&gt;Atual %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5151,12 +5151,12 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location/>
         <source>Mute yourself</source>
-        <translation>Emudecer a si</translation>
+        <translation>Emudecer-se</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>Emudecer ou desemudecer a si. Quando mudo, você não enviará nenhum dado ao servidor. Desemudecer enquanto surdo também vai lhe desensurdecer.</translation>
+        <translation>Emudecer ou desemudecer-se. Quando mudo, você não enviará nenhum dado ao servidor. Desemudecer enquanto surdo também vai lhe desensurdecer.</translation>
     </message>
     <message>
         <location/>
