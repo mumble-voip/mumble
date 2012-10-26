@@ -73,8 +73,7 @@
     <Icon Id="murmur.ico" SourceFile="$(var.SourceDir)\icons\murmur.ico"/>
 
     <DirectoryRef Id="ApplicationProgramsFolder">
-      <Component Id="UninstallShortcut" Guid="AFCE8451-06BF-4BD0-A25A-3F9832B39A0F">
-        <Shortcut Id="UninstallMumble" Name="!(loc.MUMBLE_UNINSTALL_LNK)" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" Directory="ApplicationProgramsFolder" />
+      <Component Id="ApplicationProgramsFolderRemovalComponent" Guid="0AE1745D-FF86-4D61-BAF3-44248D21D263">
         <RegistryValue Key="Software\Mumble\Uninstall" Root="HKCU" Value="1" Type="integer" KeyPath="yes" />
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
       </Component>
@@ -168,7 +167,7 @@
 
     <Feature Id="Libraries" Title="Required Libraries" Display="hidden" AllowAdvertise="no" Absent="disallow" Level="1">
       <ComponentGroupRef Id="LibrariesCommon" />
-      <ComponentRef Id="UninstallShortcut" />
+      <ComponentRef Id="ApplicationProgramsFolderRemovalComponent" />
       <ComponentRef Id="NSISUninstall" />
     </Feature>
 

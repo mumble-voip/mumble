@@ -53,18 +53,10 @@
       </Component>
 
       <Component Id="licence.txt">
-        <File Source="$(var.SourceDir)\installer\gpl.txt" Name="licence.txt" KeyPath="yes">
-          <Shortcut Id="LicenceShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_LICENSE_LNK)">
-            <ShortcutProperty Key="System.AppUserModel.ExcludeFromShowInNewInstall" Value="1" />
-          </Shortcut>
-        </File>
+        <File Source="$(var.SourceDir)\installer\gpl.txt" Name="licence.txt" KeyPath="yes" />
       </Component>
       <Component Id="Readme.txt">
-        <File Source="$(var.SourceDir)\README" Name="Readme.txt" KeyPath="yes">
-          <Shortcut Id="ReadmeShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_README_LNK)">
-            <ShortcutProperty Key="System.AppUserModel.ExcludeFromShowInNewInstall" Value="1" />
-          </Shortcut>
-        </File>
+        <File Source="$(var.SourceDir)\README" Name="Readme.txt" KeyPath="yes" />
       </Component>
       <Component Id="Changes.txt">
         <File Source="$(var.SourceDir)\CHANGES" Name="Changes.txt" KeyPath="yes" />
