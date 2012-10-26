@@ -5557,7 +5557,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location line="+4"/>
         <source>Channel nesting limit reached.</source>
-        <translation type="unfinished"></translation>
+        <translation>Limite de canais aninhados atingido.</translation>
     </message>
     <message>
         <location line="+7"/>
