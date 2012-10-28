@@ -4,42 +4,81 @@
   <?define ProductManufacturer = "Thorvald Natvig" ?>
   <?define ProductVersion = "1.2.4" ?>
 
-  <?define SourceDir = "\dev\mumble" ?>
-  <?if $(env.COMPUTERNAME) = "MUMBLEBUILD" ?>
-    <?define SSE2 = true ?>
+  <!-- Defaults for values that aren't given by environment variables -->
+  <?ifndef env.MumbleSourceDir ?>
+    <?define SourceDir = "\dev\mumble" ?>
+  <?else ?>
+    <?define SourceDir = $(env.MumbleSourceDir) ?>
+  <?endif ?>
+  
+  <?ifndef env.MumbleQtDir ?>
     <?define QtDir = "\dev\QtMumble" ?>
-    <?define SndFileDir = "\Program Files (x86)\Mega-Nerd\libsndfile\bin" ?>
-    <?define MySQLDir = "\dev\MySQL" ?>
-  <?else?>
-    <?if $(env.COMPUTERNAME) = "DRYDOCK4" ?>
-      <?define SSE2 = true ?>
-      <?define QtDir = "\dev\QtMumble" ?>
-      <?define SndFileDir = "\dev\libsndfile" ?>
+  <?else ?>
+    <?define QtDir = $(env.MumbleQtDir) ?>
+  <?endif ?>
+  
+  <?ifndef env.MumbleDebugToolsDir ?>
+    <?define DebugToolsDir = "C:\Program Files (x86)\Debugging Tools for Windows (x86)" ?>
+  <?else ?>
+    <?define DebugToolsDir = $(env.MumbleDebugToolsDir) ?>
+  <?endif ?>
+  
+  <?ifndef env.MumbleSndFileDir ?>
+    <?ifndef env.MumbleNoSndFile ?>
+      <?define SndFileDir = "\Program Files (x86)\Mega-Nerd\libsndfile\bin" ?>
+    <?endif ?>
+  <?else ?>
+    <?define SndFileDir = $(env.MumbleSndFileDir) ?>
+  <?endif ?>
+  
+  <?ifndef env.MumbleMySQLDir ?>
+    <?ifndef env.MumbleNoMySQL ?>
       <?define MySQLDir = "\dev\MySQL" ?>
-    <?else?>
-      <?define QtDir = "\dev\qt" ?>
     <?endif ?>
+  <?else ?>
+    <?define MySQLDir = $(env.MumbleMySQLDir) ?>
+  <?endif ?>
+  
+  <?ifndef env.MumbleIceDir ?>
+    <?ifndef env.MumbleNoIce ?>
+      <?define IceDir = "\Program Files (x86)\ZeroC\Ice-3.4.2\bin\vc100" ?>
+    <?endif ?>
+  <?else ?>
+    <?define IceDir = $(env.MumbleIceDir) ?>
+  <?endif ?>
+  
+  <?ifndef env.MumbleOpenSslDir ?>
+    <?define OpenSslDir = "\dev\openssl" ?>
+  <?else ?>
+    <?define OpenSslDir = $(MumbleOpenSslDir) ?>
   <?endif ?>
 
-  <?define OpenSslDir = "\dev\openssl" ?>
-  <?define DebugToolsDir = "\Program Files (x86)\Debugging Tools for Windows (x86)" ?>
-  <?define MergeModuleDir = "C:\Program Files (x86)\Common Files\Merge Modules" ?>
-  <?define ZlibDir = "\dev\zlib" ?>
-
-  <!--
-  <?define RedistDirVC10 = "$(var.DevEnvDir)\..\..\VC\redist\x86\Microsoft.VC100.CRT" ?>
-  <?define IntelCppDir = "\Program Files (x86)\Intel\Compiler\11.1\054\Bin\ia32" ?>
-  <?define DBusDir = "\dev\dbus" ?>
-  -->
-
-  <?if $(env.COMPUTERNAME) = "MUMBLEBUILD" ?>
-    <?define IceDir = "\Program Files (x86)\ZeroC\Ice-3.4.2\bin\vc100" ?>
-  <?else?>
-    <?ifdef MergeModuleDir ?>
-      <?define IceDir = "\dev\Ice\bin\vc100" ?>
-    <?else ?>
-      <?define IceDir = "\dev\Ice\bin" ?>
-    <?endif ?>
+  <?ifndef env.MumbleZlibDir ?>
+    <?define ZlibDir = "\dev\zlib" ?>
+  <?else ?>
+    <?define ZlibDir = $(env.MumbleZlibDir) ?>
   <?endif ?>
+  
+  <?ifndef env.MumbleMergeModuleDir ?>
+    <?ifndef env.MumbleNoMergeModule ?>
+      <?define MergeModuleDir = "C:\Program Files (x86)\Common Files\Merge Modules" ?>
+    <?endif ?>
+  <?else ?>
+    <?define MergeModuleDir = $(env.MumbleMergeModuleDir) ?>
+  <?endif ?>
+
+  <!-- Environment flags to disable features. Value doesn't matter -->
+  <?ifdef env.MumbleSSE ?>
+    <?define SSE = true ?>
+  <?endif ?>
+  
+  <?ifndef env.MumbleNoSSE2 ?>
+    <?define SSE2 = true ?>
+  <?endif ?>
+  
+  <?ifndef env.MumbleNoG15 ?>
+    <?define G15 = true ?> 
+  <?endif ?>
+
 
 </Include>
