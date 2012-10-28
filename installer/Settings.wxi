@@ -7,13 +7,13 @@
   <?define SourceDir = "\dev\mumble" ?>
   <?if $(env.COMPUTERNAME) = "MUMBLEBUILD" ?>
     <?define SSE2 = true ?>
-    <?define QtDir = "\dev\qt4.7" ?>
+    <?define QtDir = "\dev\QtMumble" ?>
     <?define SndFileDir = "\Program Files (x86)\Mega-Nerd\libsndfile\bin" ?>
     <?define MySQLDir = "\dev\MySQL" ?>
   <?else?>
     <?if $(env.COMPUTERNAME) = "DRYDOCK4" ?>
       <?define SSE2 = true ?>
-      <?define QtDir = "\dev\qt4.7" ?>
+      <?define QtDir = "\dev\QtMumble" ?>
       <?define SndFileDir = "\dev\libsndfile" ?>
       <?define MySQLDir = "\dev\MySQL" ?>
     <?else?>
@@ -33,7 +33,7 @@
   -->
 
   <?if $(env.COMPUTERNAME) = "MUMBLEBUILD" ?>
-    <?define IceDir = "\Program Files (x86)\ZeroC\Ice-3.4.1\bin\vc100" ?>
+    <?define IceDir = "\Program Files (x86)\ZeroC\Ice-3.4.2\bin\vc100" ?>
   <?else?>
     <?ifdef MergeModuleDir ?>
       <?define IceDir = "\dev\Ice\bin\vc100" ?>
