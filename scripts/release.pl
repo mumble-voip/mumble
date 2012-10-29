@@ -74,10 +74,16 @@ while (my $pro = shift @pro) {
           }
         }
         case "vpath" {
+          my $vdir = $basedir;
           if ($value eq '../$$SOURCEDIR/libcelt') {
-            my $vdir = $basedir;
             $vdir =~ s/-build/-src/;
             push @vpath, $vdir.'libcelt/';
+          } elsif ($value eq '../$$SOURCEDIR/lib') { # sbcelt lib
+            $vdir =~ s/-lib-build/-src/;
+            push @vpath, $vdir.'lib/';
+          } elsif ($value eq '../$$SOURCEDIR/helper') { # sbcelt helper
+            $vdir =~ s/-helper-build/-src/;
+            push @vpath, $vdir.'helper/';
           } else {
             push @vpath,map { "$basedir$_/"} map { s/\$\$PWD/./; $_;} split(/\s/, $value);
           }
