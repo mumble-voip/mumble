@@ -30,7 +30,7 @@ sub adddir($$) {
 
 my %files;
 my $ver;
-my %filevars = ( 'sources' => 1, 'headers' => 1, 'rc_file' => 1, 'dist' => 1, 'forms' => 1, 'resources' => 1, 'precompiled_header' => 1, 'translations' => 1);
+my %filevars = ( 'sources' => 1, 'objective_sources' => 1, 'headers' => 1, 'rc_file' => 1, 'dist' => 1, 'forms' => 1, 'resources' => 1, 'precompiled_header' => 1, 'translations' => 1);
 
 system("rm mumble-*");
 chdir("scripts");
