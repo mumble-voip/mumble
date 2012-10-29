@@ -146,6 +146,9 @@ foreach my $cver ('0.7.0', '0.11.0') {
   push @fulldirs, "celt-$cver-src";
   push @fulldirs, "celt-$cver-src/libcelt";
 }
+push @fulldirs, "sbcelt-src";
+push @fulldirs, "sbcelt-src/helper";
+push @fulldirs, "sbcelt-src/lib";
 push @fulldirs, "opus-src";
 push @fulldirs, "opus-src/celt";
 push @fulldirs, "opus-src/silk";
