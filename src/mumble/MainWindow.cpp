@@ -292,6 +292,7 @@ void MainWindow::createActions() {
 void MainWindow::setupGui()  {
 	setWindowTitle(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
 	setCentralWidget(qtvUsers);
+	setAcceptDrops(true);
 
 #ifdef Q_OS_MAC
 	QMenu *qmWindow = new QMenu(tr("&Window"), this);
