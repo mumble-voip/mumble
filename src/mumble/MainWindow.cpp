@@ -2281,6 +2281,14 @@ void MainWindow::whisperReleased(QVariant scdata) {
 	updateTarget();
 }
 
+void MainWindow::onResetAudio()
+{
+	qWarning("MainWindow: Start audio reset");
+	Audio::stop();
+	Audio::start();
+	qWarning("MainWindow: Audio reset complete");
+}
+
 void MainWindow::viewCertificate(bool) {
 	ViewCert vc(g.sh->qscCert, this);
 	vc.exec();

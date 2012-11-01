@@ -290,8 +290,8 @@ directsound {
 
 wasapi {
 	DEFINES *= USE_WASAPI
-	HEADERS	*= WASAPI.h
-	SOURCES	*= WASAPI.cpp
+	HEADERS	*= WASAPI.h WASAPINotificationClient.h
+	SOURCES	*= WASAPI.cpp WASAPINotificationClient.cpp
 	LIBS	*= -lAVRT -delayload:AVRT.DLL
 }
 

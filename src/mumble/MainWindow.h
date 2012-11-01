@@ -245,6 +245,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void sendChatbarMessage(QString msg);
 		void pttReleased();
 		void whisperReleased(QVariant scdata);
+		void onResetAudio();
 	public:
 		MainWindow(QWidget *parent);
 		~MainWindow();
