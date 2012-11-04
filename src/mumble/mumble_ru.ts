@@ -349,7 +349,7 @@ Add a new group.</source>
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation type="unfinished">Название канала не должно быть пустым</translation>
+        <translation>Название канала не должно быть пустым</translation>
     </message>
     <message>
         <location line="-131"/>
@@ -1087,32 +1087,32 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Простой</translation>
     </message>
     <message>
         <location/>
         <source>minutes do</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">минут сделать</translation>
     </message>
     <message>
         <location/>
         <source>nothing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ничего</translation>
     </message>
     <message>
         <location/>
         <source>deafen</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">заглушить</translation>
     </message>
     <message>
         <location/>
         <source>mute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">сделать немым</translation>
     </message>
     <message>
         <location/>
         <source>after</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">после</translation>
     </message>
 </context>
 <context>
@@ -1169,7 +1169,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+48"/>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished">%1 кбит/с (Аудио %2 %5, Позиция %4, Загрузка %3) {1 ?} {2,?} {4,?} {3)?}</translation>
+        <translation>%1 кбит/с (Аудио %2, Позиция %4, Загрузка %3)</translation>
     </message>
 </context>
 <context>
@@ -2119,17 +2119,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">В этой конфигурации Mumble будет использовать &lt;b&gt;низкую пропускную способность канала&lt;/b&gt;. Это неизбежно приведет к высоким задержкам и низкому качеству звука. Выбирайте ее только если Ваше соединение не позволяет пользоваться другими настройками. (16 кбис/с, 60 мс на пакет)</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Эта конфигурация &lt;b&gt;рекомендуется по-умолчанию&lt;/b&gt;. Она обеспечивает хороший баланс между качеством, задержками и использованием пропускной способности канала. (40 кбит/с, 20 мс на пакет)</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Эта конфигурация рекомендуется только для использования в условиях высокой пропускной способности канала, как в локальной сети. Данная конфигурация обеспечивает самую низкую задержку и &lt;b&gt;высокое качество&lt;/b&gt;, которое поддерживает Mumble. (72 кбит/с, 10 мс на пакет)</translation>
     </message>
 </context>
 <context>
@@ -3400,17 +3400,17 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble может использовать только кнопки мыши и клавиши-модификаторы (Alt, Ctrl, Cmd, и т.д.) для Глобальных клавиш.&lt;/p&gt;&lt;p&gt;Если Вы хотите больше гибкости, Вы можете включить &lt;span style=&quot;font-style:italic;&quot;&gt;Доступ для вспомогательных устройств&lt;/span&gt; в системных настройках доступа. Тем не менее, обращаем Ваше внимание, что это изменение потенциально позволит вредоносным программам читать то, что напечатано на Вашей клавиатуре.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Open Accessibility Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Открыть настройки доступа</translation>
     </message>
     <message>
         <location/>
         <source>Skip</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пропустить</translation>
     </message>
     <message>
         <location/>
@@ -4557,7 +4557,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Adds a user as your friend.</source>
-        <translation>Добавляет пользователя в список друзей.</translation>
+        <translation>Добавить пользователя в список друзей.</translation>
     </message>
     <message>
         <location/>
@@ -4920,7 +4920,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+4"/>
         <source>Channel nesting limit reached.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Достингут предел вложенности каналов.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5247,7 +5247,7 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
     <message>
         <location line="+5"/>
         <source>That username is already in use, please try another username.</source>
-        <translation type="unfinished">Это имя уже используется. Попробуйте другой.</translation>
+        <translation>Это имя уже используется. Попробуйте другое.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -5840,6 +5840,11 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location/>
+        <source>&amp;Copy URL</source>
+        <translation>&amp;Копировать URL</translation>
+    </message>
+    <message>
+        <location/>
         <source>&amp;Unlink All</source>
         <translation>Разорвать &amp;все связи</translation>
     </message>
@@ -5972,11 +5977,6 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>Silently drops all text messages from the user.</source>
         <translation type="unfinished">Не показывать все текстовые сообщения от пользователя.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Copy URL</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6552,17 +6552,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>To list exceptions, use a</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">К списку исключений, используйте</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay in all applicable programs except</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показывать замещение во всех соответствующих программах, кроме</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay only in</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показывать замещение только в</translation>
     </message>
 </context>
 <context>
